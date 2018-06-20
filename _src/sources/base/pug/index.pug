@@ -1,0 +1,23 @@
+extends layout/layout
+block content
+    .block-push-notifications(push-notifications)
+        .template(hidden)
+            a(href="#").close.mdi.mdi-close
+            .icon
+            span.text #{text}
+        mixin notification(type, icon, text, seconds)
+            .notification.shown(class=("notification-" + type) expire=seconds)
+                a(href="#").close.mdi.mdi-close
+                .icon.mdi(class='mdi-' + icon)
+                span.text #{text}
+
+        .inner
+    .navbar.navbar-default
+        .container-fluid
+            .navbar-header
+                .navbar-brand Forus.io
+    .container: .row
+        .col-6.col-offset-3.col-xs-12.col-xs-offset-0
+            message-form
+        .col-12
+            message-list

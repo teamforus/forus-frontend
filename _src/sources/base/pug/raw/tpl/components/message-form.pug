@@ -1,0 +1,15 @@
+.panel.panel-default
+    .panel-heading Hello world!
+    .panel-body
+        div(feedback-form)
+            form(f-form)
+                .form-group
+                    label.form-label Name
+                    input(ng-model="$ctrl.form.values.name" name="full_name" type="text").form-control
+                    p.text-danger(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
+                .form-group
+                    label.form-label Message
+                    textarea(ng-model="$ctrl.form.values.message" name="message" rows="6").form-control
+                    p.text-danger(ng-repeat="error in $ctrl.form.errors.message" ng-bind="error")
+                .form-group.text-center
+                    button(ng-click="$ctrl.submit()" type=submit submit-btn).btn.btn-primary Submit
