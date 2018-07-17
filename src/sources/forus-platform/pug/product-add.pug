@@ -1,0 +1,50 @@
+extends layout/layout
+block content
+    .card(class=(state=='closed'?'card-outline':'')).form
+        .card-header: .card-title Add product
+        .card-section.card-section-primary
+            .row 
+                .col.col-xs-12
+                    .form-group.form-group-inline
+                        label.form-label &nbsp;
+                        .form-offset
+                            .block.block-photo-selector
+                                .photo-img: img(src="./assets/img/organization-no-logo.svg", alt="")
+                                .photo-label Logo
+                                button.button.button-primary
+                                    em.mdi.mdi-attachment
+                                    | Verander afbeelding
+        .card-section.card-section-primary
+            .row 
+                .col.col-sm-8.col-xs-12
+                    .form-group.form-group-inline
+                        label.form-label Product name
+                        input(type="text" placeholder="Product name").form-control
+                    .form-group.form-group-inline
+                        label.form-label Old price
+                        input(type="text" placeholder="Old price").form-control
+                    .form-group.form-group-inline
+                        label.form-label New price
+                        input(type="text" placeholder="New price").form-control
+                    .form-group.form-group-inline
+                        label.form-label Amount available
+                        input(type="text" placeholder="Amount available").form-control
+        .card-section.card-section-primary
+            .row 
+                .col.col-sm-8.col-xs-12
+                    .form-group.form-group-inline
+                        label.form-label KvK-nummer
+                        input(type="text" placeholder="KvK-nummer").form-control
+                    .form-group.form-group-inline
+                        label.form-label &nbsp;
+                        .form-offset
+                            .tag.tag-primary.tag-square 
+                                | Zwemmen
+                                a(href="#").mdi.mdi-close
+                            .tag.tag-primary.tag-square 
+                                | Fiets
+                                a(href="#").mdi.mdi-close
+        .card-section.card-section-primary
+            .text-center
+                button.button.button-default Annuleren
+                button.button.button-primary Bevestig

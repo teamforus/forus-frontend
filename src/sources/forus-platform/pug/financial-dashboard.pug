@@ -1,0 +1,108 @@
+extends layout/layout
+block content
+    .card-heading Providers (5)
+
+    mixin card(title)
+        .card
+            .card-section
+                .card-section-actions
+                        
+                .card-block.card-block-provider
+                    .provider-img: img(src="./assets/img/zuidhorn-logo.jpg", alt="")
+                    a(href="./fund.html").provider-title #{title}
+                    br
+                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                        .card-block-listing-label Email
+                        span.text-primary-light ulgersmaweg@rminds.nl
+                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                        .card-block-listing-label Business Address
+                        | Groningen, Ulgersmaweg 35
+                .card-block.card-block-listing
+                    .card-block-listing-label Categories
+                    | Bikes, Computers
+
+            mixin keyvalue_item_horizontal(key, value)
+                .keyvalue-item
+                    .keyvalue-key=key
+                    .keyvalue-value=value
+  
+            mixin keyvalue_item_horizontal_col4(key, value)
+                .col.col-sm-4
+                    .keyvalue-item
+                        .keyvalue-key=key
+                        .keyvalue-value=value
+
+            .card-section.card-section-primary
+                .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
+                    +keyvalue_item_horizontal("KVK", "45667773")
+                    +keyvalue_item_horizontal("BTW", "NL3213214556B01")
+                    +keyvalue_item_horizontal("IBAN", "NL10INGB3455664430")
+            .card-section.card-section-primary.text-center
+                a(href="#").button.button-default
+                    em.mdi.mdi-poll 
+                    | View statistics
+
+                a(href="#").button.button-primary
+                    em.mdi.mdi-coins 
+                    | Transactions
+            .card-section
+                .arrow-box.border: .arrow
+                .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
+                    .card-title Statistics
+                    br
+                    .row
+                        +keyvalue_item_horizontal_col4("Totaal inkomsten", "€ 523.34   /   % 99.83")
+            .card-section
+                .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
+                    .row
+                        +keyvalue_item_horizontal_col4("Inkomsten vorige maand", "€ 0.00   /   % 0.00")
+            .card-section
+                .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
+                    .row
+                        +keyvalue_item_horizontal_col4("Inkomsten vorige week", "€ 0.00   /   % 0.00")
+            .card-header
+                .arrow-box.border.bg-dim: .arrow
+                .card-title Transactions (8)
+            .card-section
+                .card-block.card-block-table
+                    .table-wrapper
+                        table.table
+                            tr
+                                th AMOUNT
+                                th DESCRIPTION
+                                th CUSTOMER
+                                th DATE
+                                th 
+                            mixin row()
+                                tr
+                                    td: a(href="./transaction.html").text-primary-light €19000.00
+                                    td: a(href="./transaction.html") 
+                                        | Auction Payment -  
+                                        br
+                                        | ch_1BpcoqBQO0R3BKRwYEyl1jd9
+                                    td: a(href="#").text-primary-light Harris s Vernick
+                                    td 2018/01/29 14:37:08
+                                    td: .hover-actions
+                                        em.mdi.mdi-dots-horizontal
+                                        .hover-actions-menu
+                                            .hover-actions-label ACTION
+                                            .hover-actions-item Refund charge
+                                            .hover-actions-item Copy charge ID to clipboard
+                                            .hover-actions-sep
+                                            .hover-actions-label CONNECTIONS
+                                            .hover-actions-item View payment details
+                            +row()
+                            +row()
+                            +row()
+                            +row()
+                            +row()
+                            +row()
+                            +row()
+                            +row()
+                            +row()
+                            +row()
+
+
+    +card("Hewlett-Packard")
+    +card("Kindpakket 2017")
+    +card("Kindpakket 2016")

@@ -1,0 +1,48 @@
+extends layout/layout
+block content
+    .card(class=(state=='closed'?'card-outline':'')).form
+        .card-header: .card-title Create fund
+        .card-section.card-section-primary
+            .row 
+                .col.col-sm-8.col-xs-12
+                    .form-group.form-group-inline
+                        label.form-label Organization
+                        input(type="text" placeholder="Organization").form-control
+                        .form-error Lorem ipsum
+                    .form-group.form-group-inline
+                        label.form-label Fund name
+                        input(type="text" placeholder="Fund name").form-control
+                    .form-group.form-group-inline
+                        label.form-label Starting date
+                        input(type="text" placeholder="Starting date" value="01.06.2018").form-control
+                    .form-group.form-group-inline
+                        label.form-label Ending date
+                        input(type="text" placeholder="Ending date" value="01.06.2018").form-control
+        .card-section.card-section-primary
+            .row 
+                .col.col-sm-8.col-xs-12
+                    .form-group.form-group-inline
+                        label.form-label Total funded amount
+                        input(type="text" placeholder="Total funded amount").form-control
+                    .form-group.form-group-inline
+                        label.form-label Number of requesters
+                        input(type="text" placeholder="Number of requesters").form-control
+        .card-section.card-section-primary
+            .row 
+                .col.col-sm-8.col-xs-12
+                    .form-group.form-group-inline
+                        label.form-label Name
+                        input(type="text" placeholder="Name").form-control
+                    .form-group.form-group-inline
+                        label.form-label Function
+                        input(type="text" placeholder="Function").form-control
+                    .form-group.form-group-inline
+                        label.form-label Phone number
+                        input(type="text" placeholder="Phone number").form-control
+                    .form-group.form-group-inline
+                        label.form-label Email
+                        input(type="text" placeholder="Email").form-control
+        .card-section.card-section-primary
+            .text-center
+                button.button.button-default Cancel
+                button.button.button-primary Apply

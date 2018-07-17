@@ -1,0 +1,39 @@
+extends layout/layout
+block content
+    .card(class=(state=='closed'?'card-outline':'')).form
+        .card-header: .card-title Add new validator 
+        .card-section.card-section-primary
+            .row 
+                .col.col-xs-12
+                    .form-group.form-group-inline
+                        label.form-label Type of validator 
+                        select.form-control
+                            option Personal
+                            option Organization
+        .card-section.card-section-primary
+            .row 
+                .col.col-xs-12
+                    .form-group.form-group-inline
+                        label.form-label Group
+                        select.form-control
+                            option Existing
+                            option Add new
+                    .form-group.form-group-inline
+                        label.form-label Assign to a group
+                        select.form-control
+                            option One 
+                            option Two 
+                            option Three 
+                    .form-group.form-group-inline
+                        label.form-label Add new group title
+                        input(type="text" placeholder="Add new group title").form-control
+        .card-section.card-section-primary
+            .row 
+                .col.col-xs-12
+                    .form-group.form-group-inline
+                        label.form-label Identity address
+                        input(type="text" placeholder="Identity address").form-control
+        .card-section.card-section-primary
+            .text-center
+                button.button.button-default Cancel
+                button.button.button-primary Apply
