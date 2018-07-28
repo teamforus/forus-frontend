@@ -5,7 +5,7 @@ module.exports = {
         // choose, which platform should be served
         // you can serve few platforms at the same time, 
         // but make sure each of them use unique port number
-        platform: ["html"],
+        platform: ["forus-platform"],
         // browsersync reloads browser when watched files are modified,
         // here you can choose which platform besides "served" will make 
         // browsersync to reload. 
@@ -15,12 +15,12 @@ module.exports = {
     platforms: {
         // choose which platforms will be enabled, otherwise completely ignored
         enabled: [
-            "html"
+            "forus-platform"
         ]
     },
     platforms_data: {
-        html: {
-            api_url: "http://forus-io.dev.net/api/v1"
+        "forus-platform": {
+            api_url: ""
         }
     }
 };
