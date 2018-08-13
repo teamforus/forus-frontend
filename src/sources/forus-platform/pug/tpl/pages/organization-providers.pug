@@ -1,0 +1,61 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .card-heading Providers ({{ $ctrl.providerFunds.length }}) 
+        .card(ng-repeat="providerFund in $ctrl.providerFunds")
+            .card-section
+                .card-section-actions
+                    div(ng-show="providerFund.state == 'approved'")
+                        .tag.tag-success Approved
+                    div(ng-show="providerFund.state == 'declined'")
+                        .tag.tag-default Declined
+                    div(ng-show="providerFund.state == 'pending'")
+                        .tag.tag-warning Pending
+
+                .card-block.card-block-provider
+                    .provider-img: img(src="./assets/img/organization-logo.jpg", alt="")
+                    a(
+                        ui-sref="organizations-edit({'organization_id' : providerFund.organization.id})" 
+                        ng-bind="providerFund.organization.name").provider-title
+                    br
+                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                        .card-block-listing-label Email
+                        span.text-primary-light(ng-bind="providerFund.organization.email")
+                .card-block.card-block-listing
+                    .card-block-listing-label Categories
+                    | {{ providerFund.organization.fundCategories.join(', ') }}
+                    small(ng-show="$ctrl.fundCategories.length == 0").text-muted.small No categories
+                br
+                .card-block.card-block-listing
+                    .card-block-listing-label Target fund
+                    span(
+                        ui-sref="funds-show({fund_id: providerFund.fund_id, organization_id: providerFund.fund.organization_id})"
+                        ng-bind="providerFund.fund.name").text-primary-light
+
+            mixin keyvalue_item_horizontal(key, value)
+                .keyvalue-item
+                    .keyvalue-key=key
+                    .keyvalue-value(ng-bind=value)
+
+            .card-section.card-section-primary
+                .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
+                    +keyvalue_item_horizontal("KVK", "providerFund.organization.kvk")
+                    +keyvalue_item_horizontal("BTW", "providerFund.organization.btw")
+                    +keyvalue_item_horizontal("IBAN", "providerFund.organization.iban")
+                    .pull-right
+                        button(
+                            ng-show="(providerFund.state == 'pending') || (providerFund.state == 'approved')"
+                            ng-click="$ctrl.declineProvider(providerFund)"
+                            ).button.button-default
+                            em.mdi.mdi-close 
+                            | Decline
+                        button(
+                            ng-show="(providerFund.state == 'pending') || (providerFund.state == 'declined')"
+                            ng-click="$ctrl.approveProvider(providerFund)"
+                            ).button.button-primary
+                            em.mdi.mdi-check 
+                            | Approve
+        
+        empty-block( 
+            ng-if="$ctrl.providerFunds.length == 0"
+            text="'You have no provider requests yet.'")

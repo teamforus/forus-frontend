@@ -1,0 +1,34 @@
+.card(ng-class="{'card-outline' : fund.state == 'closed'}")
+    .card-section
+        .card-section-actions
+            div(ng-show="providerFund.state == 'pending'")
+                .tag.tag-warning Pending
+
+            div(ng-show="providerFund.state == 'approved'")
+                .tag.tag-success Approved
+
+            div(ng-show="providerFund.state == 'declined'")
+                .tag.tag-danger Declined
+
+            div(ng-show="providerFund.state == 'abandoned'")
+                .tag.tag-default Abandoned
+
+            // div(ng-show="fund.state == 'paused'")
+                span(ng-if="level=='fundShow'" ng-click="changeState('closed')").card-section-action
+                    em.mdi.mdi-close
+                    | Close 
+                span(ng-if="level=='fundShow'" ng-click="changeState('active')").card-section-action
+                    em.mdi.mdi-play
+                    | Resume 
+
+                .tag.tag-warning Paused
+
+        .card-block.card-block-fund
+            .fund-img: img(src="./assets/img/zuidhorn-logo.jpg", alt="")
+            a(ui-sref="funds-show({organization_id: fund.organization_id, fund_id: fund.id})" ng-bind="fund.name").fund-title
+            br
+            div(ng-bind="fund.organization.name").fund-organization
+        .card-block.card-block-listing
+            .card-block-listing-label Categories
+            | {{ fundCategories.join(', ') }}
+            small(ng-show="fundCategories.length == 0").text-muted.small No categories

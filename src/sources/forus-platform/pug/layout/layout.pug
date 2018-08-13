@@ -1,13 +1,15 @@
 doctype
 html(lang="en")
     include includes/head
-    body
-        include includes/dev-pages
+    body(ng-controller="BaseController")
         include includes/header
+
+        ui-view
 
         .app.app-container
             include includes/sidebar
             section.app.app-content
                 block content
+
         include includes/footer
         include includes/scripts

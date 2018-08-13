@@ -1,3 +1,5 @@
+require("./angular-1/angular-app");
+
 setTimeout(() => {
     $('.nano').nanoScroller({
         iOSNativeScrolling: true 

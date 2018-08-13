@@ -1,0 +1,49 @@
+.card
+    .card-section
+        .card-section-actions
+            .card-section-action-price
+                | € {{ product.price }},-
+                .old-price € {{ product.old_price }},-
+
+            if (state == 'active')
+                .tag.tag-success Active
+            if (state == 'paused')
+                .tag.tag-warning Paused
+            if (state == 'closed')
+                .tag.tag-default Closed
+
+                
+        .card-block.card-block-product
+            .product-img: img(src="./assets/img/product-photo.jpg", alt="")
+            a(
+                ui-sref="products-show(product)" 
+                ng-bind="product.name").product-title
+            span(ng-bind="product.product_category.name").product-subtitle
+
+    mixin keyvalue_item_horizontal(key, value)
+        .keyvalue-item
+            .keyvalue-key=key
+            .keyvalue-value=value
+
+    .card-section(ng-show="level == 'show'")
+        .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
+            .row
+                .col.col-sm-4
+                    +keyvalue_item_horizontal("Verkoop statistieken", "€ 10.000,-")
+
+    .card-section.card-section-warning(ng-show="level == 'show'")
+        .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
+            .row
+                .col.col-sm-12
+                    +keyvalue_item_horizontal("Gezien", "x 15")
+                    +keyvalue_item_horizontal("Bewaard", "x 2")
+
+    .card-section.card-section-primary
+        .text-right
+            a(ng-click="deleteProduct(product)").button.button-primary
+                em.mdi.mdi-delete  
+                | Verwijderen
+
+            a(ui-sref="products-edit(product)").button.button-default
+                em.mdi.mdi-pen  
+                | Bewerk

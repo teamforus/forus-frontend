@@ -1,11 +1,12 @@
 header.app.app-header
     .wrapper
-        a(href="./index.html").header-logo: img(src="./assets/img/forus-logo.svg").header-logo-img
+        a(ui-sref="home").header-logo: img(src="./assets/img/forus-logo.svg").header-logo-img
 
-        .header-auth
+        .header-auth(ng-if="$root.auth_user")
             .auth-user
-                .auth-user-name info@rminds.nl
-                .auth-user-role Sponsor
+                .auth-user-name {{ $root.auth_user.primary_email }}
+                .auth-user-role(
+                    ng-bind="{provider: 'Provider', sponsor: 'Sponsor', validator: 'Validator'}[appConfigs.panel_type]")
                 img(src="./assets/img/organization-logo.jpg").auth-user-img
                 .auth-user-menu
                     a(href="#").auth-user-menu-item
@@ -15,10 +16,11 @@ header.app.app-header
                         em.mdi.mdi-settings
                         | Settings
                     .auth-user-menu-sep
-                    a(href="#").auth-user-menu-item
+                    a(ng-click="$root.signOut()").auth-user-menu-item
                         em.mdi.mdi-logout
                         | Sign out
-        .notifications
+
+        .notifications(ng-if="$root.auth_user")
             .notifications-icon.mdi.mdi-bell
             .notifications-menu: .notifications-menu-inner
                 .arrow-box: .arrow

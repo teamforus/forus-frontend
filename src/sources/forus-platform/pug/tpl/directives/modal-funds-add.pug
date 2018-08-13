@@ -1,0 +1,18 @@
+.modal
+    .modal-backdrop(ng-click="closeModal()")
+    .modal-window
+        .modal-header  
+            | Add budget
+            a(ng-click="closeModal()").mdi.mdi-close.close
+        .modal-body.form
+            .modal-section
+                .modal-funds-added
+                    p
+                        | Please transfer the amount to: 
+                        span.text-primary NL83 BUNQ 3456 3344 32
+                        br
+                        | and mention code 
+                        span.text-primary(ng-bind="modalCode") 
+                        |  in the description
+        .modal-footer.text-center
+            button.button.button-primary(ng-click="closeModal()") Close

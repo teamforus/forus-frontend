@@ -14,6 +14,10 @@ body {
     background: #f1f4f7;
 }
 
+[ui-sref] {
+    cursor: pointer;
+}
+
 .wrapper {
     margin: auto;
     width: 1366px;
@@ -174,6 +178,22 @@ body {
         color: $tc;
         padding: 0;
         color: #134478;
+    }
+
+    datepicker,
+    .datepicker {
+        border: none;
+        outline: none;
+        position: relative;
+
+        .form-control {
+            position: absolute;
+            left: -1px;
+            top: -1px;
+            right: -1px;
+            bottom: -1px;
+            width: calc(100% + 2px) !important;
+        }
     }
 
     .form-control:not([type="radio"]):not([type="checkbox"]) {
@@ -631,6 +651,7 @@ body {
     padding: 0 15px;
     display: inline-block;
     margin-right: 10px;
+    margin-bottom: 10px;
     cursor: default;
 
     .mdi {
@@ -641,12 +662,20 @@ body {
         color: inherit;
     }
 
+    .tag-link {
+        cursor: pointer;
+    }
+
     &.tag-primary {
         background: #134478;
     }
 
     &.tag-success {
         background: #2cc6ab;
+    }
+
+    &.tag-danger {
+        background: #e63b3b;
     }
 
     &.tag-warning {
@@ -849,6 +878,7 @@ body {
 
                     .auth-user-menu-item {
                         display: block;
+                        cursor: pointer;
                         padding: 5px 15px;
                         font: 500 13px/30px $bf;
                         color: #282b39;
@@ -1019,6 +1049,12 @@ body {
     }
 }
 
+.qrcode img {
+    margin: auto;
+    padding: 10px;
+    background: #fff;
+}
+
 .card {
     background: #ffffff;
     border-radius: 5px;
@@ -1078,6 +1114,7 @@ body {
 
         .card-section-actions {
             position: absolute;
+            margin-bottom: -10px;
             right: 25px;
             top: 25px;
 
@@ -1087,6 +1124,7 @@ body {
                 color: #646f79;
                 margin-right: 10px;
                 vertical-align: top;
+                cursor: pointer;
 
                 .mdi {
                     font-size: 1.6em;
@@ -1518,6 +1556,10 @@ body {
             }
         }
 
+        .csv-upload-actions {
+            padding-top: 15px;
+        }
+
         .csv-upload-progress {
             .csv-upload-icon {
                 .mdi {
@@ -1542,11 +1584,11 @@ body {
                 .csv-progress-bar-stick {
                     @include fill_parent();
                     right: auto;
-                    width: 50%;
                     top: -1px;
                     bottom: -1px;
                     background: #009ef4;
                     border-radius: 5px;
+                    transition: 1s;
                 }
             }
 
@@ -1585,6 +1627,7 @@ body {
             text-align: center;
             padding: 0 12px;
             float: left;
+            cursor: pointer;
 
             .organization-item-inner {
                 padding: 30px;
@@ -1700,7 +1743,7 @@ body {
     .modal-backdrop {
         @include fill_parent();
         z-index: 1;
-        background: rgba(#192734, .5);
+        background: rgba(#192734, .75);
         display: block;
         cursor: pointer;
     }

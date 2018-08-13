@@ -1,0 +1,24 @@
+.app.app-container
+    menu
+    section.app.app-content
+        div(fund-card-sponsor fund="$ctrl.fund" level="$ctrl.fundLevel")
+
+        .card
+            .card-header: .card-title Criteria's (3)
+            .card-section
+                .card-block.card-block-keyvalue
+                    mixin keyvalue_item(key, value, links = [])
+                        .keyvalue-item
+                            .keyvalue-key=key
+                            .keyvalue-value
+                                | #{value}
+                                each link, key in links 
+                                    a(href=link.href).keyvalue-link
+                                        em.mdi(class=('mdi-' + link.mdi))
+                                        | #{link.text}
+                    
+                    +keyvalue_item("Location", "Zuidhorn Municipality")
+                    +keyvalue_item("Kids #", "1")
+                    +keyvalue_item("Kid age", "> 18 jaar oud")
+                    +keyvalue_item("Inkomsten", "> € 1118.46")
+                    

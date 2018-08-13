@@ -1,0 +1,83 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .card
+            .card-section
+                .card-section-actions
+                    a(ui-sref="organizations-edit({'organization_id' : $ctrl.organization.id})").button.button-default
+                        em.mdi.mdi-pen  
+                        | Bewerk
+                    a(ui-sref="offices-create({'organization_id' : $ctrl.organization.id})").button.button-primary
+                        em.mdi.mdi-plus-circle  
+                        | Voeg een nieuwe vestiging toe
+                        
+                .card-block.card-block-provider
+                    .provider-img: img(src="./assets/img/organization-logo.jpg", alt="")
+                    a(
+                        ui-sref="organizations-edit({'organization_id' : $ctrl.organization.id})" 
+                        ng-bind="$ctrl.organization.name").provider-title
+                    br
+                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                        .card-block-listing-label Email
+                        span.text-primary-light(ng-bind="$ctrl.organization.email")
+                    // .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                        .card-block-listing-label Business Address
+                        | Groningen, Ulgersmaweg 35
+                .card-block.card-block-listing
+                    .card-block-listing-label Categories
+                    | {{ $ctrl.fundCategories.join(', ') }}
+                    small(ng-show="$ctrl.fundCategories.length == 0").text-muted.small No categories
+
+            mixin keyvalue_item_horizontal(key, value)
+                .keyvalue-item
+                    .keyvalue-key=key
+                    .keyvalue-value(ng-bind=value)
+
+            .card-section.card-section-primary
+                .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
+                    +keyvalue_item_horizontal("KVK", "$ctrl.organization.kvk")
+                    +keyvalue_item_horizontal("BTW", "$ctrl.organization.btw")
+                    +keyvalue_item_horizontal("IBAN", "$ctrl.organization.iban")
+
+        .card-heading Offices ({{ $ctrl.offices.length }}) 
+        .card(ng-repeat="office in $ctrl.offices")
+            .card-section
+                .card-section-actions
+                        
+                .card-block.card-block-provider
+                    .provider-img: img(src="./assets/img/organization-no-logo.svg", alt="")
+                    a(ui-sref="offices-edit({organization_id: office.organization_id, office_id: office.id})" ng-bind="office.address").provider-title
+                    br
+                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                        .card-block-listing-label Email
+                        span.text-primary-light(ng-show="office.email" ng-bind="office.email")
+                        span(ng-show="!office.email").text-muted Geen data
+                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                        .card-block-listing-label Telefoonnummer
+                        span.text-primary-light(ng-show="office.phone" ng-bind="office.phone")
+                        span(ng-show="!office.phone").text-muted Geen data
+
+            .card-section.card-section-primary
+                .row
+                    .col.col-xs-12
+                        small Openingstijden:
+                    .col.col-sm-9
+                        div(
+                            ng-repeat="(weekDayKey, weekDay) in $ctrl.weekDays"
+                            ng-show="office.schedule[weekDayKey].start_time || office.schedule[weekDayKey].end_time"
+                            ).card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant.card-block-listing-no-pad
+                            .card-block-listing-label(ng-bind="weekDay")
+                            | {{ office.schedule[weekDayKey].start_time || 'Geen data' }} 
+                            | - 
+                            | {{ office.schedule[weekDayKey].end_time || 'Geen data' }}
+                    .col.col-sm-3
+                        a(
+                            href="https://www.google.com/maps/place/{{ $ctrl.organization.lon }},{{ $ctrl.organization.lat }}" 
+                            target="_blank").button.button-primary
+                            em.mdi.mdi-map-marker  
+                            | Bekijk op de kaart
+        
+        empty-block(
+            ng-if="$ctrl.offices.length == 0" 
+            text="'Sorry, you have no offices yet.'" 
+            button="{text: 'Add offices', href: $ctrl.emptyBlockLink}")
