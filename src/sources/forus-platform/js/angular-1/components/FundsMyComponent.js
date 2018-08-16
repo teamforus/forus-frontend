@@ -1,4 +1,4 @@
-let FundsComponent = function(
+let FundsMyComponent = function(
     $state,
     $stateParams
 ) {
@@ -17,7 +17,7 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
-        FundsComponent
+        FundsMyComponent
     ],
-    templateUrl: 'assets/tpl/pages/funds.html'
+    templateUrl: 'assets/tpl/pages/funds-my.html'
 };

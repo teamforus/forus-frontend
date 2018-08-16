@@ -7,20 +7,20 @@ header.app.app-header
                 .auth-user-name {{ $root.auth_user.primary_email }}
                 .auth-user-role(
                     ng-bind="{provider: 'Provider', sponsor: 'Sponsor', validator: 'Validator'}[appConfigs.panel_type]")
-                img(src="./assets/img/organization-logo.jpg").auth-user-img
+                img(ng-src="{{ './assets/img/organization-no-logo.svg'}} ").auth-user-img
                 .auth-user-menu
-                    a(href="#").auth-user-menu-item
+                    // a(href="#").auth-user-menu-item
                         em.mdi.mdi-account
                         | My profile
-                    a(href="#").auth-user-menu-item
+                    a(ui-sref="organizations-edit({organization_id: $root.activeOrganization})" ng-if="$root.activeOrganization").auth-user-menu-item
                         em.mdi.mdi-settings
-                        | Settings
-                    .auth-user-menu-sep
+                        | Organization
+                    .auth-user-menu-sep(ng-if="$root.activeOrganization")
                     a(ng-click="$root.signOut()").auth-user-menu-item
                         em.mdi.mdi-logout
                         | Sign out
 
-        .notifications(ng-if="$root.auth_user")
+        // .notifications(ng-if="$root.auth_user")
             .notifications-icon.mdi.mdi-bell
             .notifications-menu: .notifications-menu-inner
                 .arrow-box: .arrow

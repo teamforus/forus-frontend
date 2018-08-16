@@ -10,6 +10,7 @@ app.component('homeComponent', require('./components/HomeComponent'));
 app.component('organizationsComponent', require('./components/OrganizationsComponent'));
 app.component('organizationsEditComponent', require('./components/OrganizationsEditComponent'));
 app.component('fundsComponent', require('./components/FundsComponent'));
+app.component('fundsMyComponent', require('./components/FundsMyComponent'));
 app.component('providerFundsAvailableComponent', require('./components/ProviderFundsAvailableComponent'));
 app.component('providerFundsComponent', require('./components/ProviderFundsComponent'));
 app.component('fundsEditComponent', require('./components/FundsEditComponent'));
@@ -48,6 +49,7 @@ app.service('OrganizationValidatorService', require('./services/OrganizationVali
 app.service('PrevalidationService', require('./services/PrevalidationService'));
 app.service('ProgressFakerService', require('./services/ProgressFakerService'));
 app.service('ValidatorRequestService', require('./services/ValidatorRequestService'));
+app.service('MediaService', require('./services/MediaService'));
 
 // Directives
 switch (env_data.panel_type) {
@@ -73,6 +75,7 @@ app.directive('modalFundsAdd', require('./directives/ModalFundsAddDirective'));
 app.directive('csvUpload', require('./directives/CsvUploadDirective'));
 app.directive('progressBar', require('./directives/ProgressBarDirective'));
 app.directive('prevalidatedTable', require('./directives/PrevalidatedTableDirective'));
+app.directive('photoSelector', require('./directives/PhotoSelectorDirective'));
 
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));

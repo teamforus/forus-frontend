@@ -21,6 +21,11 @@
                                     | &nbsp;
                                     a(ng-click="$ctrl.deleteValidator($event, validator)" href="#").text-danger Delete
 
+            .card-section.text-center
+                a(ui-sref="validators-create({organization_id: $root.activeOrganization})").button.button-default
+                    em.mdi.mdi-plus-circle  
+                    | Add validator
+                                
         .card-heading(
             ng-if="$ctrl.validators.length == 0"
             ng-bind="'Validators (' + $ctrl.validators.length + ')'")

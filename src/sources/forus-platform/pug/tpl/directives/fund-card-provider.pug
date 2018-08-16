@@ -13,18 +13,8 @@
             div(ng-show="providerFund.state == 'abandoned'")
                 .tag.tag-default Abandoned
 
-            // div(ng-show="fund.state == 'paused'")
-                span(ng-if="level=='fundShow'" ng-click="changeState('closed')").card-section-action
-                    em.mdi.mdi-close
-                    | Close 
-                span(ng-if="level=='fundShow'" ng-click="changeState('active')").card-section-action
-                    em.mdi.mdi-play
-                    | Resume 
-
-                .tag.tag-warning Paused
-
         .card-block.card-block-fund
-            .fund-img: img(src="./assets/img/zuidhorn-logo.jpg", alt="")
+            .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/organization-no-logo.svg' }}", alt="")
             a(ui-sref="funds-show({organization_id: fund.organization_id, fund_id: fund.id})" ng-bind="fund.name").fund-title
             br
             div(ng-bind="fund.organization.name").fund-organization

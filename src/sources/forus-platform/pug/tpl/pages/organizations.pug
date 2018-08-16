@@ -7,7 +7,7 @@
 
     div(ng-click="$ctrl.chooseOrganization(organization)" ng-repeat="organization in $ctrl.organizations").organization-item
         .organization-item-inner
-            .organization-logo: img(src="./assets/img/zuidhorn-logo.jpg")
+            .organization-logo: img(ng-src="{{ organization.logo.sizes.thumbnail || './assets/img/organization-no-logo.svg' }}")
         .organization-name(ng-bind="organization.name")
 
     div(ui-sref="organizations-create").organization-item

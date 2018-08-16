@@ -2,9 +2,12 @@ let ProductsEditComponent = function(
     $state, 
     $stateParams, 
     ProductService, 
-    FormBuilderService
+    FormBuilderService,
+    MediaService
 ) {
     let $ctrl = this;
+
+    $ctrl.media;
 
     $ctrl.$onInit = function() {
         let values = $ctrl.product ? ProductService.apiResourceToForm(
@@ -46,6 +49,19 @@ let ProductsEditComponent = function(
                 form.unlock();
             });
         });
+
+        if ($ctrl.product && $ctrl.product.photo) {
+            MediaService.read($ctrl.product.photo.uid).then((res) => {
+                $ctrl.media = res.data.data;
+            });
+        }
+    };
+
+    $ctrl.selectPhoto = (e) => {
+        MediaService.store('product_photo', e.target.files[0]).then(function(res) {
+            $ctrl.media = res.data.data;
+            $ctrl.form.values.media_uid = $ctrl.media.uid;
+        });
     };
 };
 
@@ -59,6 +75,7 @@ module.exports = {
         '$stateParams', 
         'ProductService', 
         'FormBuilderService', 
+        'MediaService', 
         ProductsEditComponent
     ],
     templateUrl: 'assets/tpl/pages/products-edit.html'

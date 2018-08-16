@@ -12,9 +12,8 @@
             if (state == 'closed')
                 .tag.tag-default Closed
 
-                
         .card-block.card-block-product
-            .product-img: img(src="./assets/img/product-photo.jpg", alt="")
+            .product-img: img(ng-src="{{ product.photo.sizes.large }}")
             a(
                 ui-sref="products-show(product)" 
                 ng-bind="product.name").product-title

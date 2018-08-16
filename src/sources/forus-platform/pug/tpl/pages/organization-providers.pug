@@ -13,10 +13,8 @@
                         .tag.tag-warning Pending
 
                 .card-block.card-block-provider
-                    .provider-img: img(src="./assets/img/organization-logo.jpg", alt="")
-                    a(
-                        ui-sref="organizations-edit({'organization_id' : providerFund.organization.id})" 
-                        ng-bind="providerFund.organization.name").provider-title
+                    .provider-img: img(ng-src="{{ providerFund.organization.logo.sizes.thumbnail || './assets/img/organization-no-logo.svg' }}")
+                    span(ng-bind="providerFund.organization.name").provider-title
                     br
                     .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
                         .card-block-listing-label Email

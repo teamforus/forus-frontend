@@ -8,4 +8,5 @@
             fund-card-sponsor fund="fund" level="$ctrl.fundLevel" organization="$ctrl.organization")
         empty-block(
             ng-if="$ctrl.funds.length == 0" 
-            text="'Sorry, no funds available.'" )
+            text="'Sorry, you have no funds yet.'" 
+            button="{text: 'Add fund', href: $ctrl.emptyBlockLink}")

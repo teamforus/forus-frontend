@@ -40,14 +40,18 @@ let FundCardDirective = function(
         });
     };
 
+    $scope.editable = false;
+
     $scope.userCanEdit = function() {
         if (!$rootScope.auth_user.organizationsIds) {
             return false;
         }
-        
-        return $rootScope.auth_user.organizationsIds.indexOf(
+
+        $scope.editable = $rootScope.auth_user.organizationsIds.indexOf(
             $scope.fund.organization_id
         ) != -1;
+
+        return $scope.editable;
     }
 };
 

@@ -2,9 +2,12 @@ let FundsEditComponent = function(
     $state,
     $stateParams,
     FundService,
-    FormBuilderService
+    FormBuilderService,
+    MediaService
 ) {
     let $ctrl = this;
+    
+    $ctrl.media;
 
     $ctrl.$onInit = function() {
         let values = $ctrl.fund ? FundService.apiResourceToForm(
@@ -41,6 +44,19 @@ let FundsEditComponent = function(
                 form.unlock();
             });
         });
+
+        if ($ctrl.fund && $ctrl.fund.logo) {
+            MediaService.read($ctrl.fund.logo.uid).then((res) => {
+                $ctrl.media = res.data.data;
+            });
+        }
+    };
+    
+    $ctrl.selectPhoto = (e) => {
+        MediaService.store('fund_logo', e.target.files[0]).then(function(res) {
+            $ctrl.media = res.data.data;
+            $ctrl.form.values.media_uid = $ctrl.media.uid;
+        });
     };
 };
 
@@ -55,6 +71,7 @@ module.exports = {
         '$stateParams', 
         'FundService', 
         'FormBuilderService', 
+        'MediaService', 
         FundsEditComponent
     ],
     templateUrl: 'assets/tpl/pages/funds-edit.html'

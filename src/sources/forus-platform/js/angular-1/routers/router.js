@@ -54,7 +54,7 @@ module.exports = function($stateProvider) {
     $stateProvider.state({
         name: "organization-funds",
         url: "/organizations/{organization_id}/funds",
-        component: "fundsComponent",
+        component: "fundsMyComponent",
         resolve: {
             funds: function($transition$, FundService) {
                 return repackResponse(
