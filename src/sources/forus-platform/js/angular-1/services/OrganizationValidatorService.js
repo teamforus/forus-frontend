@@ -35,6 +35,7 @@ let OrganizationValidatorService = function(ApiRequest) {
         this.apiResourceToForm = function(apiResource) {
             return {
                 'identity_address': apiResource.identity_address,
+                'email': apiResource.email,
             };
         };
     });

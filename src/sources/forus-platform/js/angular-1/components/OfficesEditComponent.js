@@ -2,9 +2,12 @@ let OfficesEditComponent = function(
     $state,
     $stateParams,
     OfficeService,
+    MediaService,
     FormBuilderService
 ) {
     let $ctrl = this;
+
+    $ctrl.media;
 
     $ctrl.$onInit = function() {
         let values = OfficeService.apiResourceToForm(
@@ -38,6 +41,19 @@ let OfficesEditComponent = function(
                 form.unlock();
             });
         });
+
+        if ($ctrl.office && $ctrl.office.photo) {
+            MediaService.read($ctrl.office.photo.uid).then((res) => {
+                $ctrl.media = res.data.data;
+            });
+        }
+    };
+
+    $ctrl.selectPhoto = (e) => {
+        MediaService.store('office_photo', e.target.files[0]).then(function(res) {
+            $ctrl.media = res.data.data;
+            $ctrl.form.values.media_uid = $ctrl.media.uid;
+        });
     };
 };
 
@@ -49,6 +65,7 @@ module.exports = {
         '$state', 
         '$stateParams', 
         'OfficeService', 
+        'MediaService', 
         'FormBuilderService', 
         OfficesEditComponent
     ],

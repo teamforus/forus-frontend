@@ -1388,13 +1388,13 @@ body {
             border-bottom: 1px solid transparent;
             margin-bottom: 10px;
             cursor: default;
+        }
 
-            &a:hover {
-                cursor: pointer;
-                color: #9ca6af;
-                border-bottom-color: #9ca6af;
-                text-decoration: none;
-            }
+        a.provider-title:hover {
+            cursor: pointer;
+            color: #9ca6af;
+            border-bottom-color: #9ca6af;
+            text-decoration: none;
         }
 
         &:last-child {
