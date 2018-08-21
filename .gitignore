@@ -1,7 +1,7 @@
 # Generated in development files #
-/dev/qdt-env.json
-/dev/qdt-env.js
-/html
+/src/qdt-env.json
+/src/qdt-env.js
+/dist
 /phonegap/www
 /php/public/assets/*
 

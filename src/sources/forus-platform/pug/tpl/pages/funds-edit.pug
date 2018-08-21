@@ -1,0 +1,52 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .card: form(ng-submit="$ctrl.form.submit()").form
+            .card-header: .card-title Add fund
+            .card-section.card-section-primary
+                .row 
+                    .col.col-xs-12
+                        .form-group.form-group-inline
+                            label.form-label &nbsp;
+                            .form-offset
+                                photo-selector(
+                                    thumbnail="$ctrl.media.sizes.thumbnail"
+                                    select-photo="$ctrl.selectPhoto(e)")
+            .card-section.card-section-primary
+                .row 
+                    .col.col-sm-8.col-xs-12
+                        .form-group.form-group-inline
+                            label.form-label Name
+                            input(ng-model="$ctrl.form.values.name" type="text" placeholder="Name").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
+                        .form-group.form-group-inline
+                            label.form-label Status
+                            select(
+                                ng-options="state.value as state.name for state in $ctrl.fundStates" 
+                                ng-model="$ctrl.form.values.state"
+                                placeholder="Status").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.state" ng-bind="error")
+            .card-section.card-section-primary
+                .row 
+                    .col.col-sm-8.col-xs-12
+                        .form-group.form-group-inline
+                            label.form-label Start date
+                            datepicker(date-format="yyyy-MM-dd").form-control
+                                input(ng-model="$ctrl.form.values.start_date" type="text" placeholder="Start date").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.start_date" ng-bind="error")
+                        .form-group.form-group-inline
+                            label.form-label End date
+                            datepicker(date-format="yyyy-MM-dd").form-control
+                                input(ng-model="$ctrl.form.values.end_date" type="text" placeholder="End date").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.end_date" ng-bind="error")
+
+            .card-section.card-section-primary
+                .row 
+                    .col.col-sm-8.col-xs-12
+                        multi-select(
+                            ng-model="$ctrl.form.values.product_categories" 
+                            options="$ctrl.productCategories")
+            .card-section.card-section-primary
+                .text-center
+                    button.button.button-default Annuleren
+                    button(type="submit").button.button-primary Bevestig

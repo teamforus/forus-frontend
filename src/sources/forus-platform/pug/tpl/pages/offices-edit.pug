@@ -1,0 +1,42 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .card: form(ng-submit="$ctrl.form.submit()").form
+            .card-header: .card-title Bewerk vestiging
+            .card-section.card-section-primary
+                .row 
+                    .col.col-xs-12
+                        .form-group.form-group-inline
+                            label.form-label &nbsp;
+                            .form-offset
+                                photo-selector(
+                                    thumbnail="$ctrl.media.sizes.thumbnail"
+                                    select-photo="$ctrl.selectPhoto(e)")
+            .card-section.card-section-primary
+                .row 
+                    .col.col-sm-8.col-xs-12
+                        .form-group.form-group-inline
+                            label.form-label Address
+                            input(ng-model="$ctrl.form.values.address" type="text" placeholder="Address").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.address" ng-bind="error")
+                        .form-group.form-group-inline
+                            label.form-label Phone
+                            input(ng-model="$ctrl.form.values.phone" type="text" placeholder="Phone").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.phone" ng-bind="error")
+                        .form-group.form-group-inline
+                            label.form-label E-mail
+                            input(ng-model="$ctrl.form.values.email" type="text" placeholder="E-mail").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
+            .card-section.card-section-primary
+                .row 
+                    .col.col-xs-12
+                        .form-group.form-group-inline
+                            label.form-label &nbsp;
+                            .form-offset
+                                .card-title Openingstijden
+                                schedule-control(ng-model="$ctrl.form.values.schedule")
+
+            .card-section.card-section-primary
+                .text-center
+                    button.button.button-default Annuleren
+                    button(type="submit").button.button-primary Bevestig

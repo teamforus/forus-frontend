@@ -1,0 +1,22 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .card: form(ng-submit="$ctrl.form.submit()").form
+            .card-header: .card-title {{ $ctrl.validator ? 'Edit validator' : 'Add validator' }}
+            .card-section.card-section-primary
+                .row 
+                    .col.col-sm-8.col-xs-12
+                        // .form-group.form-group-inline
+                            label.form-label Identity address
+                            input(ng-model="$ctrl.form.values.identity_address" type="text" placeholder="Identity address").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.identity_address" ng-bind="error")
+
+                        .form-group.form-group-inline
+                            label.form-label E-mail
+                            input(ng-model="$ctrl.form.values.email" type="text" placeholder="Identity email").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
+
+            .card-section.card-section-primary
+                .text-center
+                    button.button.button-default Annuleren
+                    button(type="submit").button.button-primary Bevestig

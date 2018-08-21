@@ -1,0 +1,144 @@
+.card(ng-class="{'card-outline' : fund.state == 'closed'}")
+    .card-section
+        .card-section-actions            
+            button(
+                ng-show="level == 'fundsAvailable' && fund.state != 'closed'"
+                ng-click="providerApplyFund(fund)").button.button-primary 
+                em.mdi.mdi-plus-circle 
+                | Aanmelden
+
+            div(ng-show="level != 'fundsAvailable' && fund.state == 'active'")
+                span(ng-if="level=='fundShow'" ng-click="changeState('closed')").card-section-action
+                    em.mdi.mdi-close
+                    | Close 
+                span(ng-if="level=='fundShow'" ng-click="changeState('paused')").card-section-action
+                    em.mdi.mdi-pause
+                    | Pause 
+
+                .tag.tag-success Active
+
+            div(ng-show="level != 'fundsAvailable' && fund.state == 'paused'")
+                span(ng-if="level=='fundShow'" ng-click="changeState('closed')").card-section-action
+                    em.mdi.mdi-close
+                    | Close 
+                span(ng-if="level=='fundShow'" ng-click="changeState('active')").card-section-action
+                    em.mdi.mdi-play
+                    | Resume 
+
+                .tag.tag-warning Paused
+            span(ng-if="fund.state == 'closed'")
+                span(ng-if="level=='fundShow'" ng-click="changeState('paused')").card-section-action
+                    em.mdi.mdi-pause
+                    | Pause 
+                span(ng-if="level=='fundShow'" ng-click="changeState('active')").card-section-action
+                    em.mdi.mdi-play
+                    | Resume 
+
+                .tag.tag-default Closed
+        .card-block.card-block-fund
+            .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/organization-no-logo.svg' }}", alt="")
+            a(ui-sref="funds-show({organization_id: fund.organization_id, fund_id: fund.id})" ng-bind="fund.name").fund-title
+            br
+            div(ng-bind="fund.organization.name").fund-organization
+        .card-block.card-block-listing
+            .card-block-listing-label Categories
+            | {{ fundCategories.join(', ') }}
+            small(ng-show="fundCategories.length == 0").text-muted.small No categories
+
+    mixin keyvalue_item_horizontal(key, value)
+        .keyvalue-item
+            .keyvalue-key #{key}
+            .keyvalue-value(ng-bind=value)
+
+    mixin keyvalue_item_horizontal_col4(key, value)
+        .col.col-sm-4
+            .keyvalue-item
+                .keyvalue-key=key
+                .keyvalue-value=value
+
+    .card-section.card-section-warning(ng-if="level == 'fundShow'")
+        .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
+            .row
+                .col.col-sm-12
+                    +keyvalue_item_horizontal("Providers", "15")
+                    +keyvalue_item_horizontal("Validators", "2")
+
+    .card-section.card-section-primary(ng-show="level != 'fundsAvailable'")
+        .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
+            .row
+                .col.col-sm-8
+                    +keyvalue_item_horizontal("Total Budget", "'€ ' + fund.budget.total + ',-'")
+                    +keyvalue_item_horizontal("Validated", "'€ ' + fund.budget.validated + ',-'")
+                    +keyvalue_item_horizontal("Used", "'€ ' + fund.budget.used + ',-'")
+            
+                .col.col-sm-4.text-right
+                    button(
+                        ng-if="userCanEdit()"
+                        ui-sref="funds-edit({organization_id: fund.organization_id, fund_id: fund.id})"
+                        ).button.button-default
+                        em.mdi.mdi-settings  
+                        | Settings
+
+                    button(ng-if="fund.state != 'closed'" ng-click="openModal()").button.button-primary
+                        em.mdi.mdi-plus-circle  
+                        | Add Money
+    
+    div(ng-show="level == 'financialDashboard'")
+        .card-section
+            .arrow-box.border: .arrow
+            .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
+                .card-title Statistics
+                br
+                .row
+                    +keyvalue_item_horizontal_col4("Totaal inkomsten", "€ 523.34   /   % 99.83")
+        .card-section
+            .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
+                .row
+                    +keyvalue_item_horizontal_col4("Inkomsten vorige maand", "€ 0.00   /   % 0.00")
+        .card-section
+            .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
+                .row
+                    +keyvalue_item_horizontal_col4("Inkomsten vorige week", "€ 0.00   /   % 0.00")
+        .card-header
+            .arrow-box.border.bg-dim: .arrow
+            .card-title Transactions (8)
+        .card-section
+            .card-block.card-block-table
+                .table-wrapper
+                    table.table
+                        tr
+                            th AMOUNT
+                            th DESCRIPTION
+                            th CUSTOMER
+                            th DATE
+                            th 
+                        mixin row()
+                            tr
+                                td: a(href="./transaction.html").text-primary-light €19000.00
+                                td: a(href="./transaction.html") 
+                                    | Auction Payment -  
+                                    br
+                                    | ch_1BpcoqBQO0R3BKRwYEyl1jd9
+                                td: a(href="#").text-primary-light Harris s Vernick
+                                td 2018/01/29 14:37:08
+                                td: .hover-actions
+                                    em.mdi.mdi-dots-horizontal
+                                    .hover-actions-menu
+                                        .hover-actions-label ACTION
+                                        .hover-actions-item Refund charge
+                                        .hover-actions-item Copy charge ID to clipboard
+                                        .hover-actions-sep
+                                        .hover-actions-label CONNECTIONS
+                                        .hover-actions-item View payment details
+                        +row()
+                        +row()
+                        +row()
+                        +row()
+                        +row()
+                        +row()
+                        +row()
+                        +row()
+                        +row()
+                        +row()
+
+    modal-funds-add(ng-show="showModal" modal-code="modalCode" close-modal="closeModal")

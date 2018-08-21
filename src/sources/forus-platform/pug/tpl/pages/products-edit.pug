@@ -1,0 +1,55 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .card: form(ng-submit="$ctrl.form.submit()").form
+            .card-header: .card-title Add product
+            .card-section.card-section-primary
+                .row 
+                    .col.col-xs-12
+                        .form-group.form-group-inline
+                            label.form-label &nbsp;
+                            .form-offset
+                                photo-selector(
+                                    thumbnail="$ctrl.media.sizes.thumbnail"
+                                    select-photo="$ctrl.selectPhoto(e)")
+            .card-section.card-section-primary
+                .row 
+                    .col.col-sm-8.col-xs-12
+                        .form-group.form-group-inline
+                            label.form-label Name
+                            input(ng-model="$ctrl.form.values.name" type="text" placeholder="Name").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
+                        .form-group.form-group-inline
+                            label.form-label Description
+                            textarea(ng-model="$ctrl.form.values.description" placeholder="Description").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
+            .card-section.card-section-primary
+                .row 
+                    .col.col-sm-8.col-xs-12
+                        .form-group.form-group-inline
+                            label.form-label Price
+                            input(ng-model="$ctrl.form.values.price" type="number" placeholder="Price").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.price" ng-bind="error")
+                        .form-group.form-group-inline
+                            label.form-label Old price
+                            input(ng-model="$ctrl.form.values.old_price" type="number" placeholder="Old price").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.old_price" ng-bind="error")
+                        .form-group.form-group-inline
+                            label.form-label Total amount
+                            input(ng-model="$ctrl.form.values.total_amount" type="number" placeholder="Total amount").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.total_amount" ng-bind="error")
+            .card-section.card-section-primary
+                .row 
+                    .col.col-sm-8.col-xs-12
+                        .form-group.form-group-inline
+                            label.form-label Product category
+                            select(
+                                ng-options="productCategory.id as productCategory.name for productCategory in $ctrl.productCategories" 
+                                ng-model="$ctrl.form.values.product_category_id"
+                                placeholder="Status").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.product_category_id" ng-bind="error")
+
+            .card-section.card-section-primary
+                .text-center
+                    button.button.button-default Annuleren
+                    button(type="submit").button.button-primary Bevestig

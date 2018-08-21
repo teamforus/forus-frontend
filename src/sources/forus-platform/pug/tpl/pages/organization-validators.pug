@@ -1,0 +1,35 @@
+.app.app-container
+    menu
+    section.app.app-content
+        
+        .card(
+            ng-if="$ctrl.validators.length > 0")
+            .card-header: .card-title(
+                ng-bind="'Validators (' + $ctrl.validators.length + ')'")
+            .card-section
+                .card-block.card-block-table
+                    .table-wrapper
+                        table.table
+                            tr
+                                th Address
+                                th.text-right Actions
+
+                            tr(ng-repeat="validator in $ctrl.validators")
+                                td: span(ng-bind="validator.identity_address").text-primary-light
+                                td.text-right
+                                    a(ui-sref="validators-edit(validator)").text-primary-light Edit 
+                                    | &nbsp;
+                                    a(ng-click="$ctrl.deleteValidator($event, validator)" href="#").text-danger Delete
+
+            .card-section.text-center
+                a(ui-sref="validators-create({organization_id: $root.activeOrganization})").button.button-default
+                    em.mdi.mdi-plus-circle  
+                    | Add validator
+                                
+        .card-heading(
+            ng-if="$ctrl.validators.length == 0"
+            ng-bind="'Validators (' + $ctrl.validators.length + ')'")
+        empty-block( 
+            ng-if="$ctrl.validators.length == 0"
+            text="'You have no validators yet.'" 
+            button="{text: 'Add validators', href: $ctrl.emptyBlockLink}")

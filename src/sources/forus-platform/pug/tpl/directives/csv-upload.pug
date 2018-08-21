@@ -1,0 +1,24 @@
+.block.block-csv
+    .csv-inner
+        .csv-upload-btn(
+            ng-show="csvParser.progress <= 1" 
+            ng-click="csvParser.selectFile()")
+            .csv-upload-icon: .mdi.mdi-upload
+            .csv-upload-text
+                | Upload .csv file
+                br
+                span Load the .txt or .csv file
+
+        .csv-upload-progress(
+            ng-show="csvParser.progress >= 2" 
+            ng-class="{done: csvParser.progress == 3}")
+            .csv-upload-icon: .mdi(
+                ng-class="{'mdi-loading': csvParser.progress == 2, 'mdi-check': csvParser.progress == 3}")
+            progress-bar(progress="progressBar" status="progressStatus")
+
+        .csv-upload-actions
+            .text-center(ng-show="csvParser.progress == 1")
+                button(ng-click="csvParser.uploadToServer()").button.button-primary Upload
+
+            .text-center(ng-show="csvParser.progress == 3")
+                button(ng-click="reset()").button.button-primary Done

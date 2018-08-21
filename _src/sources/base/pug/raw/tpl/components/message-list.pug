@@ -1,8 +1,0 @@
-.col-2.col-offset-3.col-xs-4.col-xs-offset-0(
-    ng-repeat="(messageKey, messageValues) in $ctrl.messages"
-    )
-    h5: string {{ {'db': 'DB', 'ipfs': 'IPFS', 'blockChain': 'Blockchain'}[messageKey] }}
-    h6(ng-if="messageValues == null").text-center.text-muted No connection
-    h6(ng-if="messageValues != null && messageValues.length == 0").text-center.text-muted No messages
-    div(ng-if="messageValues != null")
-        message-item(ng-repeat="messageValue in messageValues" message="messageValue.message" name="messageValue.name")

@@ -1,0 +1,54 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .card: form(ng-submit="$ctrl.form.submit()").form
+            .card-header: .card-title Add organization
+            .card-section.card-section-primary
+                .row 
+                    .col.col-xs-12
+                        .form-group.form-group-inline
+                            label.form-label &nbsp;
+                            .form-offset
+                                photo-selector(
+                                    thumbnail="$ctrl.media.sizes.thumbnail"
+                                    select-photo="$ctrl.selectPhoto(e)")
+            .card-section.card-section-primary
+                .row 
+                    .col.col-sm-8.col-xs-12
+                        .form-group.form-group-inline
+                            label.form-label Bedrijfsnaam
+                            input(ng-model="$ctrl.form.values.name" type="text" placeholder="Bedrijfsnaam").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
+                        .form-group.form-group-inline
+                            label.form-label IBAN
+                            input(ng-model="$ctrl.form.values.iban" type="text" placeholder="IBAN").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.iban" ng-bind="error")
+                        .form-group.form-group-inline
+                            label.form-label E-mail
+                            input(ng-model="$ctrl.form.values.email" type="text" placeholder="E-mail").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
+                        .form-group.form-group-inline
+                            label.form-label Telefoonnummer
+                            input(ng-model="$ctrl.form.values.phone" type="text" placeholder="Telefoonnummer").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.phone" ng-bind="error")
+            .card-section.card-section-primary
+                .row 
+                    .col.col-sm-8.col-xs-12
+                        multi-select(
+                            ng-model="$ctrl.form.values.product_categories" 
+                            options="$ctrl.productCategories")
+            .card-section.card-section-primary
+                .row 
+                    .col.col-sm-8.col-xs-12
+                        .form-group.form-group-inline
+                            label.form-label KvK-nummer
+                            input(ng-model="$ctrl.form.values.kvk" type="text" placeholder="KvK-nummer").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.kvk" ng-bind="error")
+                        .form-group.form-group-inline
+                            label.form-label BTW-nummer
+                            input(ng-model="$ctrl.form.values.btw" type="text" placeholder="BTW").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.btw" ng-bind="error")
+            .card-section.card-section-primary
+                .text-center
+                    button.button.button-default Annuleren
+                    button(type="submit").button.button-primary Bevestig
