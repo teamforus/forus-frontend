@@ -10,29 +10,29 @@
             div(ng-show="level != 'fundsAvailable' && fund.state == 'active'")
                 span(ng-if="level=='fundShow'" ng-click="changeState('closed')").card-section-action
                     em.mdi.mdi-close
-                    | Close 
+                    | Sluit
                 span(ng-if="level=='fundShow'" ng-click="changeState('paused')").card-section-action
                     em.mdi.mdi-pause
-                    | Pause 
+                    | Pauzeer
 
                 .tag.tag-success Active
 
             div(ng-show="level != 'fundsAvailable' && fund.state == 'paused'")
                 span(ng-if="level=='fundShow'" ng-click="changeState('closed')").card-section-action
                     em.mdi.mdi-close
-                    | Close 
+                    | Sluit
                 span(ng-if="level=='fundShow'" ng-click="changeState('active')").card-section-action
                     em.mdi.mdi-play
-                    | Resume 
+                    | Herstart
 
                 .tag.tag-warning Paused
             span(ng-if="fund.state == 'closed'")
                 span(ng-if="level=='fundShow'" ng-click="changeState('paused')").card-section-action
                     em.mdi.mdi-pause
-                    | Pause 
+                    | Pauzeer 
                 span(ng-if="level=='fundShow'" ng-click="changeState('active')").card-section-action
                     em.mdi.mdi-play
-                    | Resume 
+                    | herstart 
 
                 .tag.tag-default Closed
         .card-block.card-block-fund
@@ -67,9 +67,9 @@
         .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
             .row
                 .col.col-sm-8
-                    +keyvalue_item_horizontal("Total Budget", "'€ ' + fund.budget.total + ',-'")
-                    +keyvalue_item_horizontal("Validated", "'€ ' + fund.budget.validated + ',-'")
-                    +keyvalue_item_horizontal("Used", "'€ ' + fund.budget.used + ',-'")
+                    +keyvalue_item_horizontal("Totaal Budget", "'€ ' + fund.budget.total + ',-'")
+                    +keyvalue_item_horizontal("Gevalideerd", "'€ ' + fund.budget.validated + ',-'")
+                    +keyvalue_item_horizontal("Gebruikt", "'€ ' + fund.budget.used + ',-'")
             
                 .col.col-sm-4.text-right
                     button(
@@ -77,11 +77,11 @@
                         ui-sref="funds-edit({organization_id: fund.organization_id, fund_id: fund.id})"
                         ).button.button-default
                         em.mdi.mdi-settings  
-                        | Settings
+                        | Instellingen
 
                     button(ng-if="fund.state != 'closed'" ng-click="openModal()").button.button-primary
                         em.mdi.mdi-plus-circle  
-                        | Add Money
+                        | Budget toevoegen
     
     div(ng-show="level == 'financialDashboard'")
         .card-section
@@ -90,7 +90,7 @@
                 .card-title Statistics
                 br
                 .row
-                    +keyvalue_item_horizontal_col4("Totaal inkomsten", "€ 523.34   /   % 99.83")
+                    +keyvalue_item_horizontal_col4("Totale inkomsten", "€ 523.34   /   % 99.83")
         .card-section
             .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
                 .row
