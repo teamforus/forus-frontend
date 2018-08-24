@@ -31,15 +31,15 @@ module.exports = {
             api_url: ""
         },
         "forus-platform.sponsor": {
-            api_url: "https://api.forus.link/api/v1",
+            api_url: "https://test.platform.forus.io/api/v1",
             panel_type: 'sponsor'
         },
         "forus-platform.provider": {
-            api_url: "https://api.forus.link/api/v1",
+            api_url: "https://test.platform.forus.io/api/v1",
             panel_type: 'provider'
         },
         "forus-platform.validator": {
-            api_url: "https://api.forus.link/api/v1",
+            api_url: "https://test.platform.forus.io/api/v1",
             panel_type: 'validator'
         }
     }
