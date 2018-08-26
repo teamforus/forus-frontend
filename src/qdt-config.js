@@ -240,6 +240,36 @@ module.exports = {
                     }]
                 }
             }
+        },
+        "forus-webshop.markup": {
+            "source": "forus-webshop",
+            "paths": {
+                "root": "../dist/forus-webshop.markup",
+                "assets_root": "../dist/forus-webshop.markup/assets",
+                "clean_paths": [
+                    "../dist/forus-webshop.markup"
+                ]
+            },
+            "server": {
+                "path": "/",
+                "port": 5000
+            },
+            // tasks configs
+            "tasks": {
+                // tasks details, ex: source, destination, minify and etc. 
+                "settings": {
+                    "js": [{
+                        "src": [
+                            "app.markup.js",
+                        ],
+                        "dest": "/",
+                        "name": "app.js",
+                        "minify": true,
+                        "sourcemap": true,
+                        "browserify": true
+                    }]
+                }
+            }
         }
     }
 };

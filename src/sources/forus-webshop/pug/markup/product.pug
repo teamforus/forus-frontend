@@ -1,0 +1,30 @@
+extends ../layout/layout
+block content
+    header.section.section-header.section-header-funds: .wrapper
+        .heade-splash
+        include ../layout/includes/navbar
+    
+    section.section.section-product: .wrapper
+        .block.block-product
+            .product-card
+                .product-photo: img(src="./assets/img/product-no-photo-lg.jpg", alt="")
+                .product-details
+                    .product-name
+                        | Giant X-Ray 2 
+                        span.label.label-success Active
+                    .product-categories Bikes, Computers
+                    
+                    .product-funds
+                        .product-fund-label FUNDS
+                        .product-fund-list Kindpakket 2017, Kindpakket 2018
+
+                    .product-price
+                        .product-price-new € 24,95
+                        .product-price-old € 59,95
+                    
+                    a(href="#").button.button-primary SUBMIT
+            
+            include ../layout/blocks/map_card
+
+    include ../layout/sections/products-related 
+    include ../layout/sections/contact-form 
