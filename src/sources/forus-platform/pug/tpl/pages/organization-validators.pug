@@ -12,14 +12,14 @@
                         table.table
                             tr
                                 th Adres
-                                th.text-right Actions
+                                th.text-right Acties
 
                             tr(ng-repeat="validator in $ctrl.validators")
                                 td: span(ng-bind="validator.identity_address").text-primary-light
                                 td.text-right
-                                    a(ui-sref="validators-edit(validator)").text-primary-light Edit 
+                                    a(ui-sref="validators-edit(validator)").text-primary-light Aanpassen
                                     | &nbsp;
-                                    a(ng-click="$ctrl.deleteValidator($event, validator)" href="#").text-danger Delete
+                                    a(ng-click="$ctrl.deleteValidator($event, validator)" href="#").text-danger Verwijderen
 
             .card-section.text-center
                 a(ui-sref="validators-create({organization_id: $root.activeOrganization})").button.button-default
@@ -32,4 +32,4 @@
         empty-block( 
             ng-if="$ctrl.validators.length == 0"
             text="'Er zijn momenteel geen validatoren.'" 
-            button="{text: 'Add validators', href: $ctrl.emptyBlockLink}")
+            button="{text: 'Validator toevoegen', href: $ctrl.emptyBlockLink}")
