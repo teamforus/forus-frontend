@@ -2,10 +2,10 @@
     menu
     section.app.app-content
         .card-heading
-            | Producten
+            | Aanbiedingen
             a(ui-sref="products-create({organization_id: $ctrl.organization.id})").link
                 em.mdi.mdi-plus-circle 
-                | Voeg product toe
+                | Voeg een aanbieding toe
 
         product-card(
             ng-if="$ctrl.products.length > 0" 
@@ -14,5 +14,5 @@
             level="list")
         empty-block(
             ng-if="$ctrl.products.length == 0" 
-            text="'Sorry, you have no products yet.'" 
+            text="'Er zijn momenteel geen aanbiedingen.'" 
             button="{text: 'Add product', href: $ctrl.emptyBlockLink}")

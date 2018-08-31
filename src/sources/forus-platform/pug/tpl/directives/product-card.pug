@@ -6,11 +6,11 @@
                 .old-price € {{ product.old_price }},-
 
             if (state == 'active')
-                .tag.tag-success Active
+                .tag.tag-success Actief
             if (state == 'paused')
-                .tag.tag-warning Paused
+                .tag.tag-warning Gepauzeerd
             if (state == 'closed')
-                .tag.tag-default Closed
+                .tag.tag-default Gesloten
 
         .card-block.card-block-product
             .product-img: img(ng-src="{{ product.photo.sizes.large }}")
@@ -45,4 +45,4 @@
 
             a(ui-sref="products-edit(product)").button.button-default
                 em.mdi.mdi-pen  
-                | Bewerk
+                | Bewerken

@@ -1,7 +1,7 @@
 .app.app-container
     menu
     section.app.app-content
-        .card-heading Funds ({{ $ctrl.activeFunds.length }}) 
+        .card-heading Fondsen ({{ $ctrl.activeFunds.length }}) 
         div(
             ng-if="$ctrl.activeFunds.length > 0" 
             ng-repeat="fund in $ctrl.activeFunds" 
@@ -10,5 +10,5 @@
             organization="$ctrl.organization")
         empty-block(
             ng-if="$ctrl.activeFunds.length == 0" 
-            text="'Sorry, you have no active funds.'"
-            button="{text: 'Check available funds', 'href': $ctrl.emptyBlockLink}")
+            text="'Er zijn momenteel geen actieve fondsen'"
+            button="{text: 'Bekijk actieve fondsen', 'href': $ctrl.emptyBlockLink}")

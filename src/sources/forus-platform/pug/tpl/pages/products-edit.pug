@@ -2,7 +2,7 @@
     menu
     section.app.app-content
         .card: form(ng-submit="$ctrl.form.submit()").form
-            .card-header: .card-title Add product
+            .card-header: .card-title Product toevoegen
             .card-section.card-section-primary
                 .row 
                     .col.col-xs-12
@@ -27,22 +27,22 @@
                 .row 
                     .col.col-sm-8.col-xs-12
                         .form-group.form-group-inline
-                            label.form-label Price
+                            label.form-label Prijs
                             input(ng-model="$ctrl.form.values.price" type="number" placeholder="Price").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.price" ng-bind="error")
                         .form-group.form-group-inline
-                            label.form-label Old price
+                            label.form-label Oude prijs
                             input(ng-model="$ctrl.form.values.old_price" type="number" placeholder="Old price").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.old_price" ng-bind="error")
                         .form-group.form-group-inline
-                            label.form-label Total amount
+                            label.form-label Totaal bedrag
                             input(ng-model="$ctrl.form.values.total_amount" type="number" placeholder="Total amount").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.total_amount" ng-bind="error")
             .card-section.card-section-primary
                 .row 
                     .col.col-sm-8.col-xs-12
                         .form-group.form-group-inline
-                            label.form-label Product category
+                            label.form-label Product categorie
                             select(
                                 ng-options="productCategory.id as productCategory.name for productCategory in $ctrl.productCategories" 
                                 ng-model="$ctrl.form.values.product_category_id"

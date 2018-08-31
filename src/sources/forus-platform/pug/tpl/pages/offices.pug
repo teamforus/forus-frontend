@@ -51,7 +51,7 @@
                     a(ui-sref="offices-edit({organization_id: office.organization_id, office_id: office.id})" ng-bind="office.address").provider-title
                     br
                     .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                        .card-block-listing-label Email
+                        .card-block-listing-label E-mail
                         span.text-primary-light(ng-show="office.email" ng-bind="office.email")
                         span(ng-show="!office.email").text-muted Geen data
                     .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
@@ -82,5 +82,5 @@
         
         empty-block(
             ng-if="$ctrl.offices.length == 0" 
-            text="'Sorry, you have no offices yet.'" 
+            text="'U heeft momenteel geen vestigingen.'" 
             button="{text: 'Add offices', href: $ctrl.emptyBlockLink}")

@@ -11,7 +11,7 @@
                     .table-wrapper
                         table.table
                             tr
-                                th Address
+                                th Adres
                                 th.text-right Actions
 
                             tr(ng-repeat="validator in $ctrl.validators")
@@ -24,12 +24,12 @@
             .card-section.text-center
                 a(ui-sref="validators-create({organization_id: $root.activeOrganization})").button.button-default
                     em.mdi.mdi-plus-circle  
-                    | Add validator
+                    | Validator toevoegen
                                 
         .card-heading(
             ng-if="$ctrl.validators.length == 0"
             ng-bind="'Validators (' + $ctrl.validators.length + ')'")
         empty-block( 
             ng-if="$ctrl.validators.length == 0"
-            text="'You have no validators yet.'" 
+            text="'Er zijn momenteel geen validatoren.'" 
             button="{text: 'Add validators', href: $ctrl.emptyBlockLink}")

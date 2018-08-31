@@ -2,7 +2,7 @@
     menu
     section.app.app-content
         .card: form(ng-submit="$ctrl.form.submit()").form
-            .card-header: .card-title Add fund
+            .card-header: .card-title Fonds toevoegen
             .card-section.card-section-primary
                 .row 
                     .col.col-xs-12
@@ -16,8 +16,8 @@
                 .row 
                     .col.col-sm-8.col-xs-12
                         .form-group.form-group-inline
-                            label.form-label Name
-                            input(ng-model="$ctrl.form.values.name" type="text" placeholder="Name").form-control
+                            label.form-label Naam
+                            input(ng-model="$ctrl.form.values.name" type="text" placeholder="Naam").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
                         .form-group.form-group-inline
                             label.form-label Status
@@ -30,14 +30,14 @@
                 .row 
                     .col.col-sm-8.col-xs-12
                         .form-group.form-group-inline
-                            label.form-label Start date
+                            label.form-label Startdatum
                             datepicker(date-format="yyyy-MM-dd").form-control
-                                input(ng-model="$ctrl.form.values.start_date" type="text" placeholder="Start date").form-control
+                                input(ng-model="$ctrl.form.values.start_date" type="text" placeholder="dd.mm.jjjj").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.start_date" ng-bind="error")
                         .form-group.form-group-inline
-                            label.form-label End date
+                            label.form-label Einddatum
                             datepicker(date-format="yyyy-MM-dd").form-control
-                                input(ng-model="$ctrl.form.values.end_date" type="text" placeholder="End date").form-control
+                                input(ng-model="$ctrl.form.values.end_date" type="text" placeholder="dd.mm.jjjj").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.end_date" ng-bind="error")
 
             .card-section.card-section-primary
@@ -49,4 +49,4 @@
             .card-section.card-section-primary
                 .text-center
                     button.button.button-default Annuleren
-                    button(type="submit").button.button-primary Bevestig
+                    button(type="submit").button.button-primary Bevestigen
