@@ -4,7 +4,7 @@ header.section.section-header: .wrapper
     top-navbar
 
 section.section.section-profile: .wrapper
-    .section-title My Records ({{ $ctrl.records.length }})
+    .section-title Mijn eigenschappen ({{ $ctrl.records.length }})
     
     .block.block-profile
         .profile-aside
@@ -21,14 +21,14 @@ section.section.section-profile: .wrapper
                             .validator-name(ng-bind="validator.organization.name")
                             .validator-state
                                 
-                                div(ng-if="validator.isPending").label.label-default Pending
+                                div(ng-if="validator.isPending").label.label-default Wachten
                                 div(ng-if="!validator.isPending" ng-click="$ctrl.requestValidation(validator)").validator-send
-                                    | SEND
+                                    | VERZENDEN
                                     em.mdi.mdi-arrow-right
 
             empty-block(
-                title="No validators"
-                description="You have no available validators"
+                title="Geen validators"
+                description="Er zijn momenteel geen validators"
                 ng-if="$ctrl.validators.length == 0")
 
 contact-form 

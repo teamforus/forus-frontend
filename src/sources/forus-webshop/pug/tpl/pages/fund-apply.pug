@@ -4,7 +4,7 @@ header.section.section-header: .wrapper
     top-navbar
 
 section.section.section-apply_fund: .wrapper
-    .section-title Apply for fund
+    .section-title Mee doen
     
     .block.block-apply_fund
         .apply_fund-aside
@@ -23,12 +23,11 @@ section.section.section-apply_fund: .wrapper
                             .fund-criteria-item-value=value
                     +cirteria_item("Locatie", "Zuidhorn Gemeente")
                     +cirteria_item("Kinderen", "1")
-                    +cirteria_item("Leeftijd kind", "< 18 jaar oud")
-                    +cirteria_item("Inkomensgren", "< € 1118.46")
+                    +cirteria_item("Leeftijd", "< 18 jaar oud")
+                    +cirteria_item("Inkomensgrens", "< € 1118.46")
 
             .apply_fund-menu
-                button(ng-if="$ctrl.countInvalid == 0" ng-click="$ctrl.applyFund()").button.button-primary.button-wide SUBMIT
-
+                button(ng-if="$ctrl.countInvalid == 0" ng-click="$ctrl.applyFund()").button.button-primary.button-wide DOE MEE!
         .apply_fund-content
             .block.block-fund_criteria
                 fund-criterion(

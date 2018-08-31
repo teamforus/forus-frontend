@@ -15,9 +15,9 @@ section.section.section-funds: .wrapper
                     span(ng-show="fund.voucherWasTaken").label.label-success Actief
                 .fund-organization(ng-bind="fund.organization.name") 
                 .fund-categories
-                    .fund-categories-label CATEGORIES
+                    .fund-categories-label CATEGORIEËN
                     .fund-categories-list(ng-bind="fund.categories")
-                a(ng-if="$root.auth_user && !fund.voucherWasTaken" ui-sref="fund-apply(fund)").button.button-primary APPLY
+                a(ng-if="$root.auth_user && !fund.voucherWasTaken" ui-sref="fund-apply(fund)").button.button-primary Doe mee
 
             .fund-criterias
                 .fund-criterias-label Criteria’s (4)
