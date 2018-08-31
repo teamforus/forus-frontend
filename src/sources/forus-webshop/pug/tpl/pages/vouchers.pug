@@ -4,7 +4,7 @@ header.section.section-header: .wrapper
     top-navbar
 
 section.section.section-profile: .wrapper
-    .section-title My Vouchers ({{ $ctrl.vouchers.length }})
+    .section-title Mijn vouchers ({{ $ctrl.vouchers.length }})
     
     .block.block-profile
         profile-card
@@ -19,19 +19,19 @@ section.section.section-profile: .wrapper
                         .voucher-value(ng-bind="'€'+(voucher.amount | to_fixed:2)")
                     .voucher-overview
                         .voucher-overview-item
-                            .voucher-overview-label Transactions
+                            .voucher-overview-label Transacties
                             .voucher-overview-value(ng-bind="voucher.transactions.length")
                         .voucher-overview-item
-                            .voucher-overview-label Last transaction
+                            .voucher-overview-label Laatste transactie
                             .voucher-overview-value(ng-if="voucher.transactions.length > 0")
                                 | -{{ voucher.transactions[0].amount | to_fixed:2 }}
-                                small (Money transfer)
+                                small (Af)
                             .voucher-overview-value(ng-if="voucher.transactions.length == 0")
-                                span.text-muted None
+                                span.text-muted Geen
 
             empty-block(
-                title="No vouchers"
-                description="You have no vouchers"
+                title="Geen vouchers"
+                description="Momenteel heeft u geen vouchers"
                 ng-if="$ctrl.vouchers.length == 0")
 
 contact-form 
