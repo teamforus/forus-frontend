@@ -14,11 +14,11 @@ header.app.app-header
                         | My profile
                     a(ui-sref="organizations-edit({organization_id: $root.activeOrganization})" ng-if="$root.activeOrganization").auth-user-menu-item
                         em.mdi.mdi-settings
-                        | Organization
+                        | Organisatie
                     .auth-user-menu-sep(ng-if="$root.activeOrganization")
                     a(ng-click="$root.signOut()").auth-user-menu-item
                         em.mdi.mdi-logout
-                        | Sign out
+                        | Uitloggen
 
         // .notifications(ng-if="$root.auth_user")
             .notifications-icon.mdi.mdi-bell

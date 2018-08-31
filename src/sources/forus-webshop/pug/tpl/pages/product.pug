@@ -11,15 +11,15 @@ section.section.section-product: .wrapper
                 // pre {{ $ctrl.product | pretty_json }}
                 .product-name
                     | {{ $ctrl.product.name }}
-                    span.label.label-success Active
+                    span.label.label-success Actief
                 .product-categories(ng-bind="$ctrl.product.product_category.name")
                 
                 .product-funds
-                    .product-fund-label FUNDS
+                    .product-fund-label Fonds
                     .product-fund-list(ng-bind="$ctrl.product.funds || 'None'")
 
                 .product-price
-                    .product-price-new € {{ $ctrl.product.price | to_fixed:2 }}
+                    .product-price-new € {{ $ctrl.product.price | to_fixed:2 }} 
                     .product-price-old € {{ $ctrl.product.old_price | to_fixed:2 }}
                 
                 // a(href="#").button.button-primary SUBMIT
