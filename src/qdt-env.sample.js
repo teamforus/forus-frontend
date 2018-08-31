@@ -13,6 +13,7 @@ module.exports = {
             "forus-platform.provider",
             "forus-platform.validator",
             "forus-webshop.markup",
+            "forus-webshop.panel",
         ],
         // browsersync reloads browser when watched files are modified,
         // here you can choose which platform besides "served" will make 
@@ -28,6 +29,7 @@ module.exports = {
             "forus-platform.provider",
             "forus-platform.validator",
             "forus-webshop.markup",
+            "forus-webshop.panel",
         ]
     },
     platforms_data: {
@@ -47,6 +49,9 @@ module.exports = {
             panel_type: 'validator'
         },
         "forus-webshop.markup": {
+            api_url: api_url,
+        },
+        "forus-webshop.panel": {
             api_url: api_url,
         },
     }

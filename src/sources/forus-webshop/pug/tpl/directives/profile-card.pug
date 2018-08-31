@@ -1,0 +1,23 @@
+.profile-aside
+    .profile-card
+        .profile-qr_code#profile_qr
+        .profile-details
+            .profile-heading Hier is je persoonlijke QR-Code
+            .profile-description Laat iemanduw persoonlijke QR-code scannen om u valuta, bezit of vouchers te sturen
+        .profile-address
+            .profile-address-label YOUR IDENTITY ADDRESS:
+            .profile-address-value#identity_address(ng-bind="$root.auth_user.address")
+        .profile-actions
+            div(ng-click="copyAddress()").profile-action 
+                em.mdi.mdi-content-copy 
+                | Copy address
+            a(href="#").profile-action 
+                em.mdi.mdi-share-variant 
+                | Share
+    .profile-menu
+        a(ui-sref="vouchers" ui-sref-active="active").profile-menu-item 
+            | VOUCHERS
+            em.mdi.mdi-arrow-right
+        a(ui-sref="records" ui-sref-active="active").profile-menu-item 
+            | RECORDS
+            em.mdi.mdi-arrow-right

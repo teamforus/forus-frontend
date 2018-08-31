@@ -1,0 +1,39 @@
+.header-splash: .splash.splash-d
+
+header.section.section-header: .wrapper
+    top-navbar
+
+section.section.section-profile: .wrapper
+    .section-title My Records ({{ $ctrl.records.length }})
+    
+    .block.block-profile
+        .profile-aside
+            profile-card
+
+        .profile-content
+            .block.block-records
+                .record-item(ng-repeat="record in $ctrl.records")
+                    .record-details
+                        .record-type {{ $ctrl.recordsByTypesKey[record.key].name }}
+                        .record-value {{ record.value }}
+                    .record-validations
+                        a(
+                            ng-if="record.validations.length > 0" 
+                            ui-sref="record-validations(record)").record-validation-count
+                            strong {{ record.validations.length }}
+                            | validaties
+                        a(
+                            ui-sref="record-validate(record)").record-validation-request
+                            em.mdi.mdi-check
+                            | Validate
+            
+                .text-right: a(ui-sref="record-create").button.button-primary 
+                    em.mdi.mdi-plus
+                    | CREATE RECORD
+
+            empty-block(
+                title="No records"
+                description="You have no records"
+                ng-if="$ctrl.records.length == 0")
+
+contact-form 

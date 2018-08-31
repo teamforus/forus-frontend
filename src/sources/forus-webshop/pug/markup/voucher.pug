@@ -1,7 +1,8 @@
 extends ../layout/layout
 block content
+    .header-splash: .splash.splash-c
+
     header.section.section-header.section-header-voucher: .wrapper
-        .heade-splash
         include ../layout/includes/navbar
         
         .header-body
@@ -13,7 +14,7 @@ block content
                     .voucher-title Kindpakket
                     .voucher-subtitle Valid 2 days
                     .voucher-value € 456,66
-                    .voucher-qr-code: img(src="./assets/img/qr-code.svg")
+                    .voucher-qr-code: .voucher-qr-code_inner: img(src="./assets/img/qr-code.svg")
     
     section.section.section-voucher-details: .wrapper
         include ../layout/blocks/transactions

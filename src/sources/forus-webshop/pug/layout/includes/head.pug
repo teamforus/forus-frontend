@@ -1,26 +1,28 @@
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?env_data.html5Mode.basePath:'');
+
 head
     meta(charset="UTF-8")
-    title 
-        | Quick Dev Template - 
-        | #{"(gulp, browser-sync, scss, jade, bootstrap 3, jquery, mdi, angular, underscore, underscore.string)"}
+    title Forus platform
 
     //- disable resize on mobiles
-    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
 
-    //- fonts (roboto)
-    link(href='https://fonts.googleapis.com/css?family=Roboto:400,900italic,900,700,700italic,500italic,500,400italic,300,100italic,100,300italic&subset=latin,cyrillic,latin-ext', rel='stylesheet', type='text/css')
+    //- fonts
+    link(href="https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,500,700" rel="stylesheet")
 
     //- material design icons (by google)
     if (qdt_c.platform.libs.mdi)
-        link(rel="stylesheet", href="assets/dist/mdi/css/materialdesignicons.min.css")
+        link(rel="stylesheet" href=src_prefix + "assets/dist/mdi/css/materialdesignicons.min.css")
 
     //- bootstrap 3
     if (qdt_c.platform.libs.bootstrap_3)
-        link(rel="stylesheet", href="assets/dist/bootstrap/css/bootstrap.min.css")
+        link(rel="stylesheet" href=src_prefix + "assets/dist/bootstrap/css/bootstrap.min.css")
 
     //- angular csp (cloack)
     if (qdt_c.platform.libs.angular)
-        link(rel="stylesheet", href="assets/dist/angular/angular-csp.css")
+        link(rel="stylesheet" href=src_prefix + "assets/dist/angular/angular-csp.css")
+
+    link(rel="stylesheet" href=src_prefix + "assets/dist/angular-datepicker/angular-datepicker.min.css")
 
     //- custom style
-    link(rel="stylesheet", href="assets/css/style.min.css")
+    link(rel="stylesheet" href=src_prefix + "assets/css/style.min.css")

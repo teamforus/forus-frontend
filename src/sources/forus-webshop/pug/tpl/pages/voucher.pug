@@ -1,0 +1,37 @@
+.header-splash: .splash.splash-d
+
+header.section.section-header: .wrapper
+    top-navbar
+    
+    .header-body
+        .header-content
+            .header-title Voucher details
+            a(href="#").button.button-primary EMAIL TO ME
+        .header-content
+            .block.block-voucher
+                .voucher-title(ng-bind="$ctrl.voucher.fund.name")
+                .voucher-subtitle(ng-bind="$ctrl.voucher.fund.organization.name")
+                .voucher-value € {{ $ctrl.voucher.amount | to_fixed:2 }}
+                .voucher-qr-code: .voucher-qr-code_inner#voucher_qr
+
+section.section.section-voucher-details: .wrapper
+    .block.block-transactions
+        .transactions-header: .transactions-title Transactions
+        .transactions-body: .transactions-list
+            .transactions-item(ng-repeat="transaction in $ctrl.voucher.transactions" class="transactions-item-out")
+                .transactions-item-icon: em.mdi.mdi-arrow-up
+                .transactions-item-details
+                    .transactions-item-counterpart {{ transaction.organization.name }}
+                    .transactions-item-date {{ transaction.date_time }}
+                .transactions-item-amount 
+                    .transactions-item-value - €{{ transaction.amount | to_fixed:2 }}
+                    .transactions-item-type Money transfer
+
+    .block.block-map_card
+        .map_card-header
+            .map_card-title You can find us here
+            .map_card-subtitle Lorem ipsum dolor sit amet, consectetur 
+
+        .map_card-iframe: google-map(offices="$ctrl.voucher.offices")
+
+contact-form 

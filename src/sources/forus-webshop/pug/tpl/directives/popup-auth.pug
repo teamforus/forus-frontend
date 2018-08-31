@@ -1,0 +1,148 @@
+.popup.popup-auth(ng-show="popup.show")
+    .popup-backdrop(ng-click="popup.close()")
+
+    // Choose Sign In type
+    .popup-content(ng-show="popup.screen == 'choose'")
+        .popup-close.mdi.mdi-close(ng-click="popup.close()")
+
+        .popup-title Inloggen bij Lorem ipsum dolor sit amet
+        .popup-subtitle Scan de QR-code met de Forus
+
+        .block.block-auth-type
+            .auth_type-item: .auth_type-item-inner(ng-click="popup.screen = 'sign_in-qr'")
+                .auth_type-icon: img(src="./assets/img/icon-login-type/icon_login-type_qr.png")
+                .auth_type-name Login via de QR-Code
+            .auth_type-item: .auth_type-item-inner(ng-click="popup.screen = 'sign_in-email'")
+                .auth_type-icon: img(src="./assets/img/icon-login-type/icon_login-type_email.png")
+                .auth_type-name Inloggen via E-mail
+
+        .popup-footer
+            .footer-text U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.
+            .popup-footer-links
+                a(href="#").popup-footer-link 
+                    span »
+                    | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
+                a(href="#").popup-footer-link
+                    span »
+                    | EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA
+                a(href="#").popup-footer-link
+                    span »
+                    | LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.
+
+    // Sign In by qr-code
+    .popup-content(ng-show="popup.screen == 'sign_in-qr'")
+        .popup-close.mdi.mdi-close(ng-click="popup.close()")
+
+        .popup-title Aanmelden
+        .popup-subtitle Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent
+
+        .block.block-auth-qr-code
+            // .qr_code: img(src="./assets/img/qr-code.svg")
+            .qr_code#auth_qrcode
+
+        .popup-footer
+            .footer-text U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.
+            .popup-footer-links
+                a(href="#").popup-footer-link 
+                    span »
+                    | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
+                a(href="#").popup-footer-link
+                    span »
+                    | EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA
+                a(href="#").popup-footer-link
+                    span »
+                    | LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.
+
+    // Sign In by email
+    .popup-content(ng-show="popup.screen == 'sign_in-email'")
+        .popup-close.mdi.mdi-close(ng-click="popup.close()")
+
+        .popup-title Aanmelden
+        .popup-subtitle Please enter your e-mail address in order to receive your login details.
+
+        .form
+            .form-group
+                .form-label Enter your email
+                input(type="email" placeholder="E-mail").form-control.form-control
+            .form-group
+                .form-label Herhaal e-mail
+                input(type="email" placeholder="Herhaal e-mail").form-control
+            .form-group
+            .form-group: button.button.button-primary.button-wide SUBMIT
+
+        .popup-footer
+            .footer-text U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.
+            .popup-footer-links
+                a(href="#").popup-footer-link 
+                    span »
+                    | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
+                a(href="#").popup-footer-link
+                    span »
+                    | EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA
+                a(href="#").popup-footer-link
+                    span »
+                    | LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.
+    
+    // Sign Up by code
+    .popup-content(ng-show="popup.screen == 'sign_up-code'")
+        .popup-close.mdi.mdi-close(ng-click="popup.close()")
+
+        .popup-title Aanmelden
+        .popup-subtitle Please enter your e-mail address in order to receive your login details.
+
+        form.form(ng-submit="signUpForm.submit()")
+            .form-group
+                .form-label Enter your email
+                input(ng-model="signUpForm.values.records.primary_email" type="email" placeholder="E-mail").form-control.form-control
+                .form-error(ng-repeat="error in signUpForm.errors['records.primary_email']" ng-bind="error")
+            // .form-group
+                .form-label Pin code
+                input(ng-model="signUpForm.values.pin_code" type="text" placeholder="Pin Code").form-control
+                .form-error(ng-repeat="error in signUpForm.errors.pin_code" ng-bind="error")
+            .form-group
+                .form-label Activation code
+                input(ng-model="signUpForm.values.code" type="text" placeholder="Activation code").form-control
+                .form-error(ng-repeat="error in signUpForm.errors.code" ng-bind="error")
+            .form-group
+            .form-group: button(type="submit").button.button-primary.button-wide SUBMIT
+
+        .popup-footer
+            .footer-text U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.
+            .popup-footer-links
+                a(href="#").popup-footer-link 
+                    span »
+                    | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
+                a(href="#").popup-footer-link
+                    span »
+                    | EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA
+                a(href="#").popup-footer-link
+                    span »
+                    | LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.
+
+    // Activate code
+    .popup-content(ng-show="popup.screen == 'activate-code'")
+        .popup-close.mdi.mdi-close(ng-click="popup.close()")
+
+        .popup-title Aanmelden
+        .popup-subtitle Please enter your e-mail address in order to receive your login details.
+
+        form.form(ng-submit="activateCodeForm.submit()")
+            .form-group
+                .form-label Activation code
+                input(ng-model="activateCodeForm.values.code" type="text" placeholder="Activation code").form-control
+                .form-error(ng-if="activateCodeForm.errors.code") Not found or already activated.
+            .form-group
+            .form-group: button(type="submit").button.button-primary.button-wide SUBMIT
+
+        .popup-footer
+            .footer-text U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.
+            .popup-footer-links
+                a(href="#").popup-footer-link 
+                    span »
+                    | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
+                a(href="#").popup-footer-link
+                    span »
+                    | EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA
+                a(href="#").popup-footer-link
+                    span »
+                    | LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.

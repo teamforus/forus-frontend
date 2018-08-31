@@ -6,6 +6,9 @@ let ProviderFundsComponent = function(
 
     $ctrl.$onInit = function() {
         $ctrl.emptyBlockLink = $state.href('provider-funds-available', $stateParams);
+        $ctrl.activeFunds = $ctrl.funds.filter(function(fund) {
+            return fund.state == 'approved';
+        });
     };
 };
 

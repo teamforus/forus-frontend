@@ -1,0 +1,37 @@
+.header-splash: .splash
+
+header.section.section-header.section-header-landing: .wrapper
+    .heade-sprite
+    top-navbar
+
+    .header-content
+        .header-title Zuidhorn. Kindpakket
+        .header-description Welkom op de website van het kindpakket Zuidhorn. Het kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Zuidhorn.
+        a(href="#").button.button-primary LEES MEER OVER HOE HET SYSTEEM WERKT
+
+block-products(products="$ctrl.products" product-categories="$ctrl.productCategories")
+
+section.section.section-map: .wrapper
+    .block.block-map
+        .block-content
+            .block-title Lorem ipsum dolor sit amet
+            .block-description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+            button(ng-click="$root.popups.offices.open()").button.button-primary VIEW MAP
+
+section.section.section-blogs: .wrapper
+    .section-title Our Blog
+    
+    .block.block-blogs
+        mixin blog_item(nth)
+            .blog-item: a(href="#").blog-item-inner
+                .blog-image: img(src="./assets/img/blog-image-" + nth + ".jpg")
+                .blog-name The only thing worse than being blind is having sight but no vision.
+                .blog-read-more 
+                    | Read more 
+                    em.mdi.mdi-arrow-right
+        +blog_item(1)
+        +blog_item(2)
+        +blog_item(3)
+        .block.block-show-more: a(href="#").button.button-primary SHOW MORE
+
+contact-form 

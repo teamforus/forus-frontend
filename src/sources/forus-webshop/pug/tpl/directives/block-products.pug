@@ -1,0 +1,36 @@
+section.section.section-products#products: .wrapper
+    .section-title Aanbieding
+    .section-filters
+        .row.form
+            .col.col-md-4: .form-group
+                select(
+                    ng-options="category.id as category.name for category in productCategories" 
+                    ng-model="query.product_category_id").form-control.form-control-fancy
+
+            .col.col-md-8: .form-group
+                input(
+                    type="text" 
+                    ng-model="query.search"
+                    placeholder="Search for Product").form-control.form-control-fancy
+
+    .block.block-products(ng-if="shownProducts.length > 0")
+        .product-item(ng-repeat="product in shownProducts")
+            a(ui-sref="products-show(product)").product-item-inner
+                .product-image: img(ng-src="{{ product.photo.sizes.small || './assets/img/product-no-photo.jpg' }}")
+                .product-name(ng-bind="product.name")
+                .product-discount
+                    | {{ (product.price / product.old_price) * 100 | to_fixed:0 }}% 
+                    br
+                    | KORTING!
+                .product-price
+                    small VAN € {{ product.price | to_fixed:2 }}
+                    br
+                    | VOOR € {{ product.old_price | to_fixed:2 }}
+
+    empty-block(
+        title="Nothing found" 
+        description="Lorem ipsum dolor sit amet, consectetur." 
+        link="false" 
+        ng-if="shownProducts.length == 0")
+
+    .block.block-show-more: a(href="#").button.button-primary SHOW MORE

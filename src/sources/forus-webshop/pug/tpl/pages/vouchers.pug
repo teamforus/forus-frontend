@@ -1,0 +1,37 @@
+.header-splash: .splash.splash-d
+
+header.section.section-header: .wrapper
+    top-navbar
+
+section.section.section-profile: .wrapper
+    .section-title My Vouchers ({{ $ctrl.vouchers.length }})
+    
+    .block.block-profile
+        profile-card
+
+        .profile-content
+            .block.block-vouchers(ng-if="$ctrl.vouchers.length > 0")
+                a(ng-repeat="voucher in $ctrl.vouchers" ui-sref="voucher(voucher)").voucher-item
+                    .voucher-image: img(ng-src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/fund-no-image.jpg' }}")
+                    .voucher-details
+                        .voucher-name(ng-bind="voucher.fund.name")
+                        .voucher-organization(ng-bind="voucher.fund.organization.name")
+                        .voucher-value(ng-bind="'€'+(voucher.amount | to_fixed:2)")
+                    .voucher-overview
+                        .voucher-overview-item
+                            .voucher-overview-label Transactions
+                            .voucher-overview-value(ng-bind="voucher.transactions.length")
+                        .voucher-overview-item
+                            .voucher-overview-label Last transaction
+                            .voucher-overview-value(ng-if="voucher.transactions.length > 0")
+                                | -{{ voucher.transactions[0].amount | to_fixed:2 }}
+                                small (Money transfer)
+                            .voucher-overview-value(ng-if="voucher.transactions.length == 0")
+                                span.text-muted None
+
+            empty-block(
+                title="No vouchers"
+                description="You have no vouchers"
+                ng-if="$ctrl.vouchers.length == 0")
+
+contact-form 

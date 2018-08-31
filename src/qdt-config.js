@@ -270,6 +270,41 @@ module.exports = {
                     }]
                 }
             }
-        }
+        },
+        "forus-webshop.panel": {
+            "source": "forus-webshop",
+            "paths": {
+                "root": "../dist/forus-webshop.panel",
+                "assets_root": "../dist/forus-webshop.panel/assets",
+                "clean_paths": [
+                    "../dist/forus-webshop.panel"
+                ]
+            },
+            "server": {
+                "path": "/",
+                "port": 5500
+            },
+            // tasks configs
+            "tasks": {
+                // disable tasks
+                "disabled": {
+                    "pug": false,
+                    "js": false,
+                    "assets": false
+                },
+                // tasks details, ex: source, destination, minify and etc. 
+                "settings": {
+                    "pug": [{
+                        "path": "/webshop-panel",
+                        "src": ["webshop-panel/index.pug"],
+                        "watch": ["layout/**/*.pug"],
+                    }, {
+                        "path": "/tpl",
+                        "src": ["tpl/**/*.pug"],
+                        "dest": "/assets/tpl"
+                    }]
+                }
+            }
+        },
     }
 };

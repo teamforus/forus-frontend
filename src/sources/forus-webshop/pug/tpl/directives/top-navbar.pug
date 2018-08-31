@@ -1,0 +1,46 @@
+.block.block-navbar
+    a(ui-sref="home").navbar-logo
+        img(src="./assets/img/forus-logo-normal.svg")
+        img(src="./assets/img/forus-logo-hover.svg").hover
+    nav.navbar-list
+        a(ui-sref="funds" ui-sref-active="active").navbar-item FUNDS
+        a(ui-sref="products" ui-sref-active="active").navbar-item PRODUCTS
+        .navbar-item ME APP
+    .block.block-auth
+        .auth-in(ng-if="$root.auth_user")
+            .auth-user
+                .auth-user-email(ng-bind="$root.auth_user.primary_email")
+                .auth-user-type Identity
+                .auth-user-avatar
+                    img(src="./assets/img/identity-avatar.svg")
+                    nav.auth-user-menu
+                        .triangle
+                        .inner
+                            // a(href="#").auth-user-menu-item
+                                img(src="./assets/img/icon-menu/icon-menu-my-profile.svg")
+                                | Mijn profile
+                            a(ui-sref="vouchers").auth-user-menu-item
+                                img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg")
+                                | Mijn vouchers
+                            a(ui-sref="records").auth-user-menu-item
+                                img(src="./assets/img/icon-menu/icon-menu-my-records.svg")
+                                | Mijn records
+                            .auth-user-menu-separator
+                            div(ng-click="$root.signOut()").auth-user-menu-item
+                                img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
+                                | Log out
+
+        .auth-out(ng-if="!$root.auth_user")
+            .button.button-default(ng-click="$root.popups.auth.open('sign_up-code')")
+                em.mdi.mdi-ticket-confirmation
+                // img(src="./assets/img/icon-btn/icon-btn-ticket.svg")
+                | Activatiecode
+            .button.button-default(ng-click="$root.popups.auth.open('choose')")
+                em.mdi.mdi-account
+                // img(src="./assets/img/icon-btn/icon-btn-user.svg")
+                | Login
+    .block.block-auth.block-auth-border(ng-if="$root.auth_user")
+        .auth-code
+            .button.button-default(ng-click="$root.popups.auth.open('activate-code')")
+                em.mdi.mdi-ticket-confirmation
+                | Activatiecode

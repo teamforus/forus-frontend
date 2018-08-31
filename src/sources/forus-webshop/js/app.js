@@ -1,10 +1,12 @@
+require("./angular-1/angular-app");
+
 setTimeout(() => {
     $('.nano').nanoScroller({
-        iOSNativeScrolling: true
+        iOSNativeScrolling: true 
     });
-
+    
     $('.nano.nano-scrolldown').nanoScroller({
         iOSNativeScrolling: true,
-        scroll: 'bottom'
+        scroll: 'bottom' 
     });
 }, 500);

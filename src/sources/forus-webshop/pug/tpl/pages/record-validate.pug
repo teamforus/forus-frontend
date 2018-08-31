@@ -1,0 +1,34 @@
+.header-splash: .splash.splash-d
+
+header.section.section-header: .wrapper
+    top-navbar
+
+section.section.section-profile: .wrapper
+    .section-title My Records ({{ $ctrl.records.length }})
+    
+    .block.block-profile
+        .profile-aside
+            profile-card
+
+        .profile-content
+            .block.block-validators
+                .block-card
+                    .block-header Validators
+                    .block-body
+                        .validator-item(ng-repeat="validator in $ctrl.validators")
+                            .validator-image: img(
+                                ng-src="{{ validator.organization.logo.sizes.thumbnail || './assets/img/fund-no-image.jpg' }}")
+                            .validator-name(ng-bind="validator.organization.name")
+                            .validator-state
+                                
+                                div(ng-if="validator.isPending").label.label-default Pending
+                                div(ng-if="!validator.isPending" ng-click="$ctrl.requestValidation(validator)").validator-send
+                                    | SEND
+                                    em.mdi.mdi-arrow-right
+
+            empty-block(
+                title="No validators"
+                description="You have no available validators"
+                ng-if="$ctrl.validators.length == 0")
+
+contact-form 

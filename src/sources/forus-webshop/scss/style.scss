@@ -155,6 +155,34 @@ body {
         margin-right: 0;
     }
 }
+.map-canvas {
+    @include fill_parent();
+}
+
+.map-card {
+    padding-left: 130px;
+    padding-top: 5px;
+    position: relative;
+    min-height: 100px;
+
+    .map-card-img {
+        left: 0;
+        top: 5px;
+        position: absolute;
+        display: block;
+        width: 110px;
+    }
+
+    .map-card-title {
+        color: #282b39;
+        font: 700 14px/28px $bf;
+    }
+    
+    .map-card-description {
+        color: #131418;
+        font: 400 11px $bf;
+    }
+}
 
 .form {
     .form-error {
@@ -507,6 +535,34 @@ body {
     }
 }
 
+
+.header-splash {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    z-index: 0;
+
+    .splash {
+        background-image: url("../img/splash-top-b.png");
+        background-position: 100% 0%;
+        background-size: auto 100%;
+        background-repeat: no-repeat;
+        height: 800px;
+        width: 100%;
+
+        &.splash-c {
+            background-image: url("../img/splash-top-c.png");
+            height: 920px;
+        }
+
+        &.splash-d {
+            background-image: url("../img/splash-top-d.png");
+            height: 1130px;
+        }
+    }
+}
+
 .section {        
     .section-title {
         font: 700 40px/60px $bf;
@@ -514,19 +570,9 @@ body {
     }
 
     &.section-header {
-        padding-top: 40px;
+        padding: 40px 0 40px;
         position: relative;
-        z-index: 0;
         @include cf();
-
-        .heade-splash {
-            background: url("../img/splash-top-b.png") no-repeat;
-            background-position: 100% 0%;
-            background-size: auto 100%;
-            @include fill_parent();
-            bottom: -120px;
-            z-index: 1;
-        }
 
         .heade-sprite {
             background: url("../img/sprite-meapp.png") no-repeat;
@@ -539,7 +585,7 @@ body {
 
         .block-navbar {
             position: relative;
-            z-index: 3;
+            z-index: 4;
         }
 
         .header-content {
@@ -560,17 +606,12 @@ body {
             }
         }
 
+        &.section-header-landing {
+            padding-bottom: 0;   
+        }
+
         &.section-header-landing-2 {
             background-image: none;
-
-            .heade-splash {
-                background: url("../img/splash-top.png") no-repeat;
-                background-position: 100% 0%;
-                background-size: auto 100%;
-                @include fill_parent();
-                bottom: 140px;
-                z-index: 1;
-            }
 
             .header-content {
                 padding-bottom: 100px;
@@ -585,31 +626,7 @@ body {
             }
         }
 
-        &.section-header-funds {
-            padding-bottom: 50px;
-
-            .heade-splash {
-                background: url("../img/splash-top-c.png") no-repeat;
-                background-position: 100% 0%;
-                background-size: auto 100%;
-                @include fill_parent();
-                bottom: -700px;
-                z-index: 1;
-            }
-        }
-
         &.section-header-voucher {
-            padding-bottom: 50px;
-
-            .heade-splash {
-                background: url("../img/splash-top-c.png") no-repeat;
-                background-position: 100% 0%;
-                background-size: auto 100%;
-                @include fill_parent();
-                bottom: -450px;
-                z-index: 1;
-            }
-
             .header-content {
                 padding-top: 100px;
                 padding-bottom: 0;
@@ -619,40 +636,10 @@ body {
                 margin-top: 25px;
             }
         }
-
-        &.section-header-profile {
-            padding-bottom: 50px;
-
-            .heade-splash {
-                background: url("../img/splash-top-c.png") no-repeat;
-                background-position: 100% 0%;
-                background-size: auto 100%;
-                @include fill_parent();
-                bottom: -700px;
-                z-index: 1;
-            }
-        }
-
-        &.section-header-apply_fund {
-            padding-bottom: 50px;
-
-            .heade-splash {
-                background: url("../img/splash-top-d.png") no-repeat;
-                background-position: 100% 0%;
-                background-size: auto 100%;
-                @include fill_parent();
-                bottom: -900px;
-                z-index: 1;
-            }
-        }
     }
 
     &.section-products {
-        position: relative;
-        z-index: 1;
-        
         .section-title {
-            text-align: center;
             margin: 0 0 20px;
         }
 
@@ -812,29 +799,37 @@ body {
             border-left: 1px solid #e6ecf0;
             padding: 25px 30px;
             @include cf();
+
+            .button {
+                padding: 7px 15px;
+                float: left;
+                margin-right: 20px;
+                font: 700 14px/24px $bf;
+
+                &:last-of-type {
+                    margin-right: 0px;
+                }
+            }
+
+            .auth-code {
+                float: right;
+            }
             
             .auth-out {
                 float: right;
-
-                .button {
-                    padding: 7px 15px;
-                    float: left;
-                    margin-right: 20px;
-                    font: 700 14px/24px $bf;
-
-                    &:last-of-type {
-                        margin-right: 0px;
-                    }
-                }
             }
 
             .auth-in {
                 float: right;
 
                 .auth-user {
+                    padding: 20px 0;
                     padding-right: 50px;
                     position: relative;
-                    height: 40px;;
+                    height: 80px;
+                    margin: -20px 0;
+                    cursor: default;
+                    @include cf();
 
                     .auth-user-email {
                         font: 700 13px $bf;
@@ -857,7 +852,7 @@ body {
                         border: 1px solid #d2e6ff;
                         position: absolute;
                         right: 0;
-                        top: 0;
+                        top: 20px;
 
                         &>img {
                             display: block;
@@ -875,6 +870,7 @@ body {
                         border: 1px solid #f3f4f5;
                         border-radius: 5px;
                         padding: 5px 0;
+                        display: none;
 
                         .triangle {
                             position: absolute;
@@ -887,6 +883,7 @@ body {
                             padding: 5px 15px;
                             font: 700 13px/26px $bf;
                             transition: .4s;
+                            cursor: pointer;
 
                             img {
                                 display: block;
@@ -908,7 +905,17 @@ body {
                             margin: 0 0 5px
                         }
                     }
+
+                    &:hover {
+                        .auth-user-menu {
+                            display: block;
+                        }
+                    }
                 }
+            }
+
+            &.block-auth-border {
+                border-left: none;
             }
         }
     }
@@ -916,6 +923,7 @@ body {
     &.block-products {
         margin: 0 -45px 30px;
         display: block;
+        min-height: 500px;
 
         .product-item {
             margin: 0 0 50px;
@@ -1063,6 +1071,14 @@ body {
             height: 550px;
 
             iframe {
+                border-bottom-left-radius: inherit;
+                border-bottom-right-radius: inherit;
+                @include fill_parent();
+                width: 100%;
+                height: 100%;
+            }
+
+            .map {
                 border-bottom-left-radius: inherit;
                 border-bottom-right-radius: inherit;
                 @include fill_parent();
@@ -1548,6 +1564,7 @@ body {
                     .shop_map-category-name {
                         color: #fff;
                         font: 700 14px $bf;
+                        @include ellipsis();
                     }
 
                     .shop_map-category-arrow {
@@ -1600,6 +1617,9 @@ body {
             .shop-item {
                 padding: 20px;
                 border-bottom: 1px solid #d2e6ff;
+                border-right: 4px solid transparent;
+                cursor: pointer;
+                transition: .4s;
 
                 &:last-child {
                     border-bottom: 0;
@@ -1607,8 +1627,8 @@ body {
 
                 .shop-details {
                     padding-left: 75px;
+                    padding-bottom: 20px;
                     position: relative;
-                    height: 90px;
 
                     .shop-image {
                         position: absolute;
@@ -1623,6 +1643,7 @@ body {
 
                         img {
                             display: block;
+                            width: 100%;
                         }
                     }
 
@@ -1660,7 +1681,32 @@ body {
                             font: inherit;
                             font-weight: 700;
                         }
+
+                        span {
+                            &:after {
+                                content: ', ';
+                            }
+
+                            &:last-child,
+                            &:last-of-type {
+                                &:after {
+                                    content: none;
+                                }
+                            }
+                        }
                     }
+                }
+
+                &:hover {
+                    background: #f6f9fc;
+                }
+
+                &.active {
+                    position: relative;
+                    z-index: 1;
+                    background: #fff;
+                    box-shadow: 0 0 50px rgba(0,0,0,.2);
+                    border-right-color: #2987fd;
                 }
             }
         }
@@ -1702,12 +1748,17 @@ body {
             border-top-right-radius: 15px;
             border-bottom-right-radius: 15px;
 
-            img {
+            .voucher-qr-code_inner {
                 display: block;
                 position: absolute;
                 left: 25px;
                 top: 25px;
                 bottom: 25px;
+
+                img {
+                    display: block;
+                    height: 100%;
+                }
             }
         }
     }
@@ -1996,7 +2047,7 @@ body {
             @include cf();
 
             .product-photo {
-                width: 500px;
+                width: 400px;
                 max-width: 50%;
                 float: left;
                 border-top-left-radius: inherit;
@@ -2189,7 +2240,7 @@ body {
                         display: block;
                         margin: 0 auto;
                         max-width: 100%;
-                        width: 120px;
+                        width: 160px;
                     }
                 }
 
@@ -2241,6 +2292,7 @@ body {
                         margin-right: 30px;
                         margin-bottom: 20px;
                         transition: color .4s;
+                        cursor: pointer;
 
                         .mdi {
                             color: inherit;
@@ -2936,6 +2988,7 @@ body {
             .button {
                 padding-top: 7px;
                 padding-bottom: 7px;
+                text-align: center;
             }
         }
 
@@ -3090,6 +3143,7 @@ body {
                 position: relative;
                 display: block;
                 transition: .4s;
+                cursor: pointer;
 
                 .record_type-name {
                     font: 700 18px/30px $bf;

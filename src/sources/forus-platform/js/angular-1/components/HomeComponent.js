@@ -23,14 +23,18 @@ let HomeComponent = function(
     $ctrl.showModal = false;
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
-        IdentityService.checkAccessToken(access_token).then(() => {
-            CredentialsService.set(access_token);
-            $rootScope.loadAuthUser();
-            $state.go($redirectAuthorizedState);
-        }, function() {
-            $timeout(function() {
-                $ctrl.checkAccessTokenStatus(type, access_token);
-            }, 2500);
+        IdentityService.checkAccessToken(access_token).then((res) => {
+            if (res.data.message == 'active') {
+                CredentialsService.set(access_token);
+                $rootScope.loadAuthUser();
+                $state.go($redirectAuthorizedState);
+            } else if (res.data.message == 'pending') {
+                $timeout(function() {
+                    $ctrl.checkAccessTokenStatus(type, access_token);
+                }, 2500);
+            } else {
+                document.location.reload();
+            }
         });
     };
 
@@ -41,7 +45,7 @@ let HomeComponent = function(
             new QRCode(qrCodeEl, {
                 text: JSON.stringify({
                     type: 'auth_token',
-                    'value': $ctrl.authToken
+                    value: $ctrl.authToken
                 })
             });
 
