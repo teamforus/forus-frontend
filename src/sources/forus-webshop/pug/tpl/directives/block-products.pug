@@ -11,7 +11,7 @@ section.section.section-products#products: .wrapper
                 input(
                     type="text" 
                     ng-model="query.search"
-                    placeholder="Search for Product").form-control.form-control-fancy
+                    placeholder="Zoek naar een aanbieding").form-control.form-control-fancy
 
     .block.block-products(ng-if="shownProducts.length > 0")
         .product-item(ng-repeat="product in shownProducts")
@@ -23,14 +23,14 @@ section.section.section-products#products: .wrapper
                     br
                     | KORTING!
                 .product-price
-                    small VAN € {{ product.price | to_fixed:2 }}
+                    small VAN € {{ product.old_price | to_fixed:2 }}
                     br
-                    | VOOR € {{ product.old_price | to_fixed:2 }}
+                    | VOOR € {{ product.price | to_fixed:2 }}
 
     empty-block(
-        title="Nothing found" 
-        description="Lorem ipsum dolor sit amet, consectetur." 
+        title="Er zijn geen aanbiedingen" 
+        description="Op dit moment zijn er geen aanbiedingen beschikbaar." 
         link="false" 
         ng-if="shownProducts.length == 0")
 
-    .block.block-show-more: a(href="#").button.button-primary SHOW MORE
+    .block.block-show-more: a(href="#").button.button-primary BEKIJK MEER

@@ -1,12 +1,12 @@
 .app.app-container
     menu
     section.app.app-content
-        .card-heading People validation list ({{ $ctrl.validatorRequestsByBsn.length }})
+        .card-heading Openstaande aanvragen ({{ $ctrl.validatorRequestsByBsn.length }})
 
         .card(ng-repeat="validatorRequest in $ctrl.validatorRequestsByBsn")
             .card-section
                 .card-section-actions(ng-show="validatorRequest.nth.pending > 0")
-                    .tag.tag-warning Pending
+                    .tag.tag-warning Wachten
                 .card-title BSN: {{ validatorRequest.bsn }}
 
             mixin keyvalue_item_horizontal(key, value)
@@ -17,32 +17,32 @@
             .card-section.card-section-primary
                 .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
                     .row
-                        +keyvalue_item_horizontal("Validated records", "{{ validatorRequest.nth.approved }}")
-                        +keyvalue_item_horizontal("Declined records", "{{ validatorRequest.nth.declined }}")
-                        +keyvalue_item_horizontal("Pending validations", "{{ validatorRequest.nth.pending }}")
+                        +keyvalue_item_horizontal("Gevalideerden", "{{ validatorRequest.nth.approved }}")
+                        +keyvalue_item_horizontal("Niet gevalideerden", "{{ validatorRequest.nth.declined }}")
+                        +keyvalue_item_horizontal("Openstaande validaties", "{{ validatorRequest.nth.pending }}")
             .card-section.card-section-primary.text-center
                 button(ng-click="$ctrl.shownUsers[validatorRequest.bsn] = !$ctrl.shownUsers[validatorRequest.bsn]").button.button-primary
                     em.mdi.mdi-format-list-bulleted 
-                    | See records
+                    | Bekijk eigenschappen
             .card-header(ng-show="$ctrl.shownUsers[validatorRequest.bsn]")
                 .arrow-box.border.bg-dim: .arrow
                 .card-title 
                     .row 
-                        .col.col-sm-6 Records
+                        .col.col-sm-6 Eigenschappen
                         .col.col-sm-6.text-right
                             button(ng-click="$ctrl.validateAll(validatorRequest)").button.button-primary
                                 em.mdi.mdi-check-circle
-                                | Validate all
+                                | Alles valideren
                             button(ng-click="$ctrl.declineAll(validatorRequest)").button.button-default
                                 em.mdi.mdi-close
-                                | Decline all
+                                | Alles weigeren
             .card-section(ng-show="$ctrl.shownUsers[validatorRequest.bsn]")
                 .card-block.card-block-table
                     .table-wrapper
                         table.table
                             tr
                                 th Type
-                                th Value
+                                th Waarde
                                 th Datum
                                 th.text-right Status
                             tr(ng-repeat="request in validatorRequest.requests")
@@ -55,7 +55,7 @@
                                         ng-bind="{pending: 'Pending', declined: 'Declined', approved: 'Approved'}[request.state]")
             .card-section(ng-show="$ctrl.shownUsers[validatorRequest.bsn]")
                 .table-pagination
-                    .table-pagination-counter {{ validatorRequest.requests.length }} results
+                    .table-pagination-counter {{ validatorRequest.requests.length }} resultaten
                     // .table-pagination-navigation
                         button(disabled).button.button-default Prev
                         button.button.button-default 1

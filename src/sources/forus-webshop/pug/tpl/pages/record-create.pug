@@ -4,7 +4,7 @@ header.section.section-header: .wrapper
     top-navbar
 
 section.section.section-profile: .wrapper
-    .section-title Create record
+    .section-title Eigenschappen aanmaken
     
     .block.block-profile
         .profile-aside
@@ -13,8 +13,8 @@ section.section.section-profile: .wrapper
         .profile-content
             .block.block-record_create
                 .choose-category(ng-if="$ctrl.step == 1")
-                    .block-title Choose type
-                    .block-description Select the category under which the new record type should be added.
+                    .block-title Kies type
+                    .block-description Kies het type eigenschap dat u wil aanmaken.
 
                     .record_types-list
                         div(
@@ -27,21 +27,21 @@ section.section.section-profile: .wrapper
 
                     .text-left
                         button(
-                            ui-sref="records").button.button-dark CANCEL
+                            ui-sref="records").button.button-dark ANNULEER
                         button(
                             ng-if="$ctrl.form.values.type"
                             ng-click="$ctrl.gotToStep(2)"
-                            ).button.button-primary NEXT
+                            ).button.button-primary Volgende
 
                 form(ng-submit="$ctrl.form.submit()" ng-if="$ctrl.step == 2").choose-category
-                    .block-title Choose Category
-                    .block-description Select the category under which the new record type should be added.
+                    .block-title Kies categorie
+                    .block-description Selecteer de categorie waaraan u de eigenschap wil toevoegen.
 
                     .record_types-form.form
                         .row
                             .col.col-md-12
                                 .form-group
-                                    .form-label RECORD TYPE
+                                    .form-label EIGENSCHAP TYPE
                                     .form-control-checked: em.mdi.mdi-check-circle
                                     input(type="text" ng-model="$ctrl.recordsByTypesKey[$ctrl.form.values.type].name" disabled).form-control
                         .form-group
@@ -52,8 +52,8 @@ section.section.section-profile: .wrapper
                     .text-left
                         button(
                             type="button" 
-                            ng-click="$ctrl.gotToStep(1)").button.button-dark BACK
+                            ng-click="$ctrl.gotToStep(1)").button.button-dark TERUG
                         button(
-                            type="submit").button.button-primary SUBMIT
+                            type="submit").button.button-primary BEVESTIG
 
 contact-form 

@@ -10,29 +10,29 @@
             div(ng-show="level != 'fundsAvailable' && fund.state == 'active'")
                 span(ng-if="level=='fundShow'" ng-click="changeState('closed')").card-section-action
                     em.mdi.mdi-close
-                    | Close 
+                    | Sluit 
                 span(ng-if="level=='fundShow'" ng-click="changeState('paused')").card-section-action
                     em.mdi.mdi-pause
-                    | Pause 
+                    | Pauze
 
                 .tag.tag-success Active
 
             div(ng-show="level != 'fundsAvailable' && fund.state == 'paused'")
                 span(ng-if="level=='fundShow'" ng-click="changeState('closed')").card-section-action
                     em.mdi.mdi-close
-                    | Close 
+                    | Sluit
                 span(ng-if="level=='fundShow'" ng-click="changeState('active')").card-section-action
                     em.mdi.mdi-play
-                    | Resume 
+                    | Herstart 
 
                 .tag.tag-warning Paused
             span(ng-if="fund.state == 'closed'")
                 span(ng-if="level=='fundShow'" ng-click="changeState('paused')").card-section-action
                     em.mdi.mdi-pause
-                    | Pause 
+                    | Pauze 
                 span(ng-if="level=='fundShow'" ng-click="changeState('active')").card-section-action
                     em.mdi.mdi-play
-                    | Resume 
+                    | Herstart
 
                 .tag.tag-default Closed
         .card-block.card-block-fund
@@ -60,16 +60,16 @@
         .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
             .row
                 .col.col-sm-12
-                    +keyvalue_item_horizontal("Providers", "15")
-                    +keyvalue_item_horizontal("Validators", "2")
+                    +keyvalue_item_horizontal("Leveranciers", "15")
+                    +keyvalue_item_horizontal("Validatoren", "2")
 
     .card-section.card-section-primary(ng-show="level != 'fundsAvailable'")
         .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
             .row
                 .col.col-sm-8
-                    +keyvalue_item_horizontal("Total Budget", "'€ ' + fund.budget.total + ',-'")
-                    +keyvalue_item_horizontal("Validated", "'€ ' + fund.budget.validated + ',-'")
-                    +keyvalue_item_horizontal("Used", "'€ ' + fund.budget.used + ',-'")
+                    +keyvalue_item_horizontal("Totaal budget", "'€ ' + fund.budget.total + ',-'")
+                    +keyvalue_item_horizontal("Gevalideerd", "'€ ' + fund.budget.validated + ',-'")
+                    +keyvalue_item_horizontal("Gebruikt", "'€ ' + fund.budget.used + ',-'")
             
                 .col.col-sm-4.text-right
                     button(
@@ -77,20 +77,20 @@
                         ui-sref="funds-edit({organization_id: fund.organization_id, fund_id: fund.id})"
                         ).button.button-default
                         em.mdi.mdi-settings  
-                        | Settings
+                        | Instellingen
 
                     button(ng-if="fund.state != 'closed'" ng-click="openModal()").button.button-primary
                         em.mdi.mdi-plus-circle  
-                        | Add Money
+                        | Budget toevoegen
     
     div(ng-show="level == 'financialDashboard'")
         .card-section
             .arrow-box.border: .arrow
             .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
-                .card-title Statistics
+                .card-title Statistieken
                 br
                 .row
-                    +keyvalue_item_horizontal_col4("Totaal inkomsten", "€ 523.34   /   % 99.83")
+                    +keyvalue_item_horizontal_col4("Totale inkomsten", "€ 523.34   /   % 99.83")
         .card-section
             .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
                 .row
@@ -107,16 +107,16 @@
                 .table-wrapper
                     table.table
                         tr
-                            th AMOUNT
-                            th DESCRIPTION
-                            th CUSTOMER
-                            th DATE
+                            th BEDRAG
+                            th BESCHRIJVING
+                            th KLANT
+                            th DATUM
                             th 
                         mixin row()
                             tr
                                 td: a(href="./transaction.html").text-primary-light €19000.00
                                 td: a(href="./transaction.html") 
-                                    | Auction Payment -  
+                                    | BETALING -  
                                     br
                                     | ch_1BpcoqBQO0R3BKRwYEyl1jd9
                                 td: a(href="#").text-primary-light Harris s Vernick
@@ -129,7 +129,7 @@
                                         .hover-actions-item Copy charge ID to clipboard
                                         .hover-actions-sep
                                         .hover-actions-label CONNECTIONS
-                                        .hover-actions-item View payment details
+                                        .hover-actions-item BEKIJK DETAILS
                         +row()
                         +row()
                         +row()

@@ -5,8 +5,8 @@ header.section.section-header.section-header-landing: .wrapper
     top-navbar
 
     .header-content
-        .header-title Zuidhorn. Kindpakket
-        .header-description Welkom op de website van het kindpakket Zuidhorn. Het kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Zuidhorn.
+        .header-title Generieke webshop voor gemeentelijke regelingen
+        .header-description Op deze webshop kunt u zich aanmelden voor een fonds, waarna u met een voucher langs winkels, sportverenigingen en/of culturele instellingen kunt gaan.
         a(href="#").button.button-primary LEES MEER OVER HOE HET SYSTEEM WERKT
 
 block-products(products="$ctrl.products" product-categories="$ctrl.productCategories")
@@ -14,24 +14,24 @@ block-products(products="$ctrl.products" product-categories="$ctrl.productCatego
 section.section.section-map: .wrapper
     .block.block-map
         .block-content
-            .block-title Lorem ipsum dolor sit amet
-            .block-description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-            button(ng-click="$root.popups.offices.open()").button.button-primary VIEW MAP
+            .block-title Overzicht van leveranciers
+            .block-description Binnen het forus platform werken sponsoren en leveranciers samen om de beste dienst te leveren voor het publieke domein. 
+            button(ng-click="$root.popups.offices.open()").button.button-primary ZIE KAART
 
 section.section.section-blogs: .wrapper
-    .section-title Our Blog
+    .section-title Onze blog
     
     .block.block-blogs
         mixin blog_item(nth)
             .blog-item: a(href="#").blog-item-inner
                 .blog-image: img(src="./assets/img/blog-image-" + nth + ".jpg")
-                .blog-name The only thing worse than being blind is having sight but no vision.
+                .blog-name Blog: Nieuw fonds Kindpakket 2019 Zuidhorn
                 .blog-read-more 
-                    | Read more 
+                    | Lees meer
                     em.mdi.mdi-arrow-right
         +blog_item(1)
         +blog_item(2)
         +blog_item(3)
-        .block.block-show-more: a(href="#").button.button-primary SHOW MORE
+        .block.block-show-more: a(href="#").button.button-primary BEKIJK MEER
 
 contact-form 

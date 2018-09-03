@@ -3,14 +3,14 @@
         img(src="./assets/img/forus-logo-normal.svg")
         img(src="./assets/img/forus-logo-hover.svg").hover
     nav.navbar-list
-        a(ui-sref="funds" ui-sref-active="active").navbar-item FUNDS
-        a(ui-sref="products" ui-sref-active="active").navbar-item PRODUCTS
+        a(ui-sref="funds" ui-sref-active="active").navbar-item FONDSEN
+        a(ui-sref="products" ui-sref-active="active").navbar-item PRODUCTEN
         .navbar-item ME APP
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
             .auth-user
                 .auth-user-email(ng-bind="$root.auth_user.primary_email")
-                .auth-user-type Identity
+                .auth-user-type Identiteit
                 .auth-user-avatar
                     img(src="./assets/img/identity-avatar.svg")
                     nav.auth-user-menu
@@ -24,11 +24,11 @@
                                 | Mijn vouchers
                             a(ui-sref="records").auth-user-menu-item
                                 img(src="./assets/img/icon-menu/icon-menu-my-records.svg")
-                                | Mijn records
+                                | Mijn eigenschappen
                             .auth-user-menu-separator
                             div(ng-click="$root.signOut()").auth-user-menu-item
                                 img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
-                                | Log out
+                                | Uitloggen
 
         .auth-out(ng-if="!$root.auth_user")
             .button.button-default(ng-click="$root.popups.auth.open('sign_up-code')")

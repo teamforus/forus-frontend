@@ -6,7 +6,7 @@ header.section.section-header: .wrapper
     .header-body
         .header-content
             .header-title Voucher details
-            a(href="#").button.button-primary EMAIL TO ME
+            a(href="#").button.button-primary EMAIL NAAR MIJ
         .header-content
             .block.block-voucher
                 .voucher-title(ng-bind="$ctrl.voucher.fund.name")
@@ -16,7 +16,7 @@ header.section.section-header: .wrapper
 
 section.section.section-voucher-details: .wrapper
     .block.block-transactions
-        .transactions-header: .transactions-title Transactions
+        .transactions-header: .transactions-title Transacties
         .transactions-body: .transactions-list
             .transactions-item(ng-repeat="transaction in $ctrl.voucher.transactions" class="transactions-item-out")
                 .transactions-item-icon: em.mdi.mdi-arrow-up
@@ -25,12 +25,12 @@ section.section.section-voucher-details: .wrapper
                     .transactions-item-date {{ transaction.date_time }}
                 .transactions-item-amount 
                     .transactions-item-value - €{{ transaction.amount | to_fixed:2 }}
-                    .transactions-item-type Money transfer
+                    .transactions-item-type Af
 
     .block.block-map_card
         .map_card-header
-            .map_card-title You can find us here
-            .map_card-subtitle Lorem ipsum dolor sit amet, consectetur 
+            .map_card-title Locatie van winkel
+            .map_card-subtitle U kunt uw voucher besteden in de winkel op deze locatie.
 
         .map_card-iframe: google-map(offices="$ctrl.voucher.offices")
 

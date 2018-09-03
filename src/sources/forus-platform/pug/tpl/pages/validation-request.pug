@@ -8,12 +8,12 @@
                         ng-if="$ctrl.validatorRequest.state == 'pending'"
                         ng-click="$ctrl.approve($ctrl.validatorRequest)")
                         .mdi.mdi-check
-                        | Approve
+                        | Accepteren
                     .card-section-action(
                         ng-if="$ctrl.validatorRequest.state == 'pending'"
                         ng-click="$ctrl.decline($ctrl.validatorRequest)")
                         .mdi.mdi-close
-                        | Decline
+                        | Weigeren
                     .tag(
                         ng-class="{pending: 'tag-warning', declined: 'tag-danger', approved: 'tag-success'}[$ctrl.validatorRequest.state]"
                         ng-bind="{pending: 'Pending', declined: 'Declined', approved: 'Approved'}[$ctrl.validatorRequest.state]")

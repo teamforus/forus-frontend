@@ -1,31 +1,31 @@
 .app.app-container
     menu
     section.app.app-content
-        .card-heading Providers ({{ $ctrl.providerFunds.length }}) 
+        .card-heading Leveranciers ({{ $ctrl.providerFunds.length }}) 
         .card(ng-repeat="providerFund in $ctrl.providerFunds")
             .card-section
                 .card-section-actions
                     div(ng-show="providerFund.state == 'approved'")
-                        .tag.tag-success Approved
+                        .tag.tag-success Geaccepteerd
                     div(ng-show="providerFund.state == 'declined'")
-                        .tag.tag-default Declined
+                        .tag.tag-default Geweigerd
                     div(ng-show="providerFund.state == 'pending'")
-                        .tag.tag-warning Pending
+                        .tag.tag-warning Wachten
 
                 .card-block.card-block-provider
                     .provider-img: img(ng-src="{{ providerFund.organization.logo.sizes.thumbnail || './assets/img/organization-no-logo.svg' }}")
                     span(ng-bind="providerFund.organization.name").provider-title
                     br
                     .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                        .card-block-listing-label Email
+                        .card-block-listing-label E-mail
                         span.text-primary-light(ng-bind="providerFund.organization.email")
                 .card-block.card-block-listing
-                    .card-block-listing-label Categories
+                    .card-block-listing-label Categorieën
                     | {{ providerFund.organization.fundCategories.join(', ') }}
                     small(ng-show="$ctrl.fundCategories.length == 0").text-muted.small No categories
                 br
                 .card-block.card-block-listing
-                    .card-block-listing-label Target fund
+                    .card-block-listing-label Aanmelding voor fonds:
                     span(
                         ui-sref="funds-show({fund_id: providerFund.fund_id, organization_id: providerFund.fund.organization_id})"
                         ng-bind="providerFund.fund.name").text-primary-light
@@ -46,13 +46,13 @@
                             ng-click="$ctrl.declineProvider(providerFund)"
                             ).button.button-default
                             em.mdi.mdi-close 
-                            | Decline
+                            | Weigeren
                         button(
                             ng-show="(providerFund.state == 'pending') || (providerFund.state == 'declined')"
                             ng-click="$ctrl.approveProvider(providerFund)"
                             ).button.button-primary
                             em.mdi.mdi-check 
-                            | Approve
+                            | Accepteren
         
         empty-block( 
             ng-if="$ctrl.providerFunds.length == 0"

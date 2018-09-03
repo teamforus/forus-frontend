@@ -4,7 +4,7 @@ header.section.section-header: .wrapper
     top-navbar
 
 section.section.section-profile: .wrapper
-    .section-title My Records ({{ $ctrl.records.length }})
+    .section-title Mijn eigenschappen ({{ $ctrl.records.length }})
     
     .block.block-profile
         .profile-aside
@@ -25,15 +25,15 @@ section.section.section-profile: .wrapper
                         a(
                             ui-sref="record-validate(record)").record-validation-request
                             em.mdi.mdi-check
-                            | Validate
+                            | Valideer
             
                 .text-right: a(ui-sref="record-create").button.button-primary 
                     em.mdi.mdi-plus
-                    | CREATE RECORD
+                    | Eigenschap aanmaken
 
             empty-block(
-                title="No records"
-                description="You have no records"
+                title="Geen eigenschappen"
+                description="U hebt geen eigenschappen"
                 ng-if="$ctrl.records.length == 0")
 
 contact-form 

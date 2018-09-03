@@ -8,7 +8,7 @@ let BlockProductsDirective = function($scope) {
         return category.id == null;
     }).length == 0) {
         $scope.productCategories.unshift({
-            name: 'Select category...',
+            name: 'Selecteer categorie...',
             id: null
         });
     }

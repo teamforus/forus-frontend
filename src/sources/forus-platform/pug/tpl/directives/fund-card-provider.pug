@@ -2,16 +2,16 @@
     .card-section
         .card-section-actions
             div(ng-show="providerFund.state == 'pending'")
-                .tag.tag-warning Pending
+                .tag.tag-warning Wachten
 
             div(ng-show="providerFund.state == 'approved'")
-                .tag.tag-success Approved
+                .tag.tag-success Geaccepteerd
 
             div(ng-show="providerFund.state == 'declined'")
-                .tag.tag-danger Declined
+                .tag.tag-danger Geweigerd
 
             div(ng-show="providerFund.state == 'abandoned'")
-                .tag.tag-default Abandoned
+                .tag.tag-default Gestopt
 
         .card-block.card-block-fund
             .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/organization-no-logo.svg' }}", alt="")
@@ -19,6 +19,6 @@
             br
             div(ng-bind="fund.organization.name").fund-organization
         .card-block.card-block-listing
-            .card-block-listing-label Categories
+            .card-block-listing-label Categorieën
             | {{ fundCategories.join(', ') }}
-            small(ng-show="fundCategories.length == 0").text-muted.small No categories
+            small(ng-show="fundCategories.length == 0").text-muted.small Geen categorieën
