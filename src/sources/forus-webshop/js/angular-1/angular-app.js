@@ -73,7 +73,7 @@ angular.bootstrap(document.querySelector('body'), ['forusApp', '720kb.datepicker
 
 if (!env_data.html5ModeEnabled) {
     if (!document.location.hash) {
-        document.location.hash = '#!/';
+        document.location.hash = '';
     }
 }
 
