@@ -11,7 +11,7 @@ RUN rm  /usr/src/forus-frontend/ -R
 
 COPY run.sh ./
 
-EXPOSE 4000
+EXPOSE 8080
 
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install mc nano -y
@@ -25,4 +25,4 @@ RUN ./run.sh
 
 RUN ls
 
-RUN http-server ./ -p 4000
+CMD [ "http-server" ]
