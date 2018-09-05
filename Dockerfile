@@ -21,6 +21,8 @@ RUN npm i gulp@latest -g
 RUN npm install http-server@latest -g
 RUN cd /usr/src/app/src && npm install && gulp init && gulp compile && cd ..
 
-CMD ["./run.sh"]
+RUN ./run.sh
 
-RUN http-server /usr/src/app/ -p 4000
+RUN ls
+
+RUN http-server ./ -p 4000
