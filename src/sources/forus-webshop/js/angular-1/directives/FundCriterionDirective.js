@@ -3,7 +3,7 @@ let FundCriterionDirective = function($scope) {
         return validator.identity_address;
     });
 
-    $scope.records = $scope.records.map(function(record) {
+    $scope.records = ($scope.records || []).map(function(record) {
         let validated = record.validations.filter(function(validation) {
             return (validation.state == 'approved') && $scope.validators.indexOf(
                 validation.identity_address
