@@ -3,10 +3,10 @@ FROM node:carbon
 WORKDIR /usr/src/app
 
 # Bundle app source
-ADD https://github.com/teamforus/forus-frontend/archive/v0.0.1.tar.gz /usr/src/forus-frontend/
-RUN tar -zxvf /usr/src/forus-frontend/v0.0.1.tar.gz -C /usr/src/forus-frontend
+ADD https://github.com/teamforus/forus-frontend/archive/v0.0.2.tar.gz /usr/src/forus-frontend/
+RUN tar -zxvf /usr/src/forus-frontend/v0.0.2.tar.gz -C /usr/src/forus-frontend
 
-RUN mv  /usr/src/forus-frontend/forus-frontend-0.0.1/src /usr/src/app/src
+RUN mv  /usr/src/forus-frontend/forus-frontend-0.0.2/src /usr/src/app/src
 RUN rm  /usr/src/forus-frontend/ -R
 
 COPY run.sh ./
