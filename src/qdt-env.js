@@ -1,4 +1,4 @@
-let api_url = "https://test.platform.forus.io/api/v1";
+let api_url = "https://demo.api.forus.link/api/v1";
 
 module.exports = {
     // browsersync configs
