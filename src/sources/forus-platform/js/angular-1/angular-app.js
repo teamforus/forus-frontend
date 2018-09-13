@@ -27,6 +27,7 @@ app.component('organizationValidatorsEditComponent', require('./components/Organ
 app.component('csvValidationComonent', require('./components/CsvValidationComonent'));
 app.component('validationRequestsComonent', require('./components/ValidationRequestsComonent'));
 app.component('validationRequestComonent', require('./components/ValidationRequestComonent'));
+app.component('signUpComponent', require('./components/SignUpComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));

@@ -9,8 +9,9 @@ module.exports = function(
         // let organizationId = transition.params().organization_id;
 
         if ([
-            'home', 'organiztions', 'funds', 'funds-show', 'organizations-create', 
-            'csv-validation', 'validation-requests', 'validation-request'
+            'home', 'organiztions', 'funds', 'funds-show', 
+            'organizations-create', 'csv-validation', 'validation-requests', 
+            'validation-request', 'sign-up'
         ].indexOf(transition.to().name) == -1) {
             if (!OrganizationService.active()) {
                 // $state.go('organizations');
