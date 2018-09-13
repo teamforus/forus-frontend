@@ -2,7 +2,7 @@
     menu
     section.app.app-content
         .card: form(ng-submit="$ctrl.form.submit()").form
-            .card-header: .card-title Add organization
+            .card-header: .card-title Organisatie aanmaken
             .card-section.card-section-primary
                 .row 
                     .col.col-xs-12
@@ -20,12 +20,12 @@
                             input(ng-model="$ctrl.form.values.name" type="text" placeholder="Bedrijfsnaam").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
                         .form-group.form-group-inline
-                            label.form-label IBAN
-                            input(ng-model="$ctrl.form.values.iban" type="text" placeholder="IBAN").form-control
+                            label.form-label IBAN-nummer
+                            input(ng-model="$ctrl.form.values.iban" type="text" placeholder="IBAN-nummer").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.iban" ng-bind="error")
                         .form-group.form-group-inline
-                            label.form-label E-mail
-                            input(ng-model="$ctrl.form.values.email" type="text" placeholder="E-mail").form-control
+                            label.form-label E-mailadres
+                            input(ng-model="$ctrl.form.values.email" type="text" placeholder="E-mailadres").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
                         .form-group.form-group-inline
                             label.form-label Telefoonnummer
@@ -46,9 +46,9 @@
                             .form-error(ng-repeat="error in $ctrl.form.errors.kvk" ng-bind="error")
                         .form-group.form-group-inline
                             label.form-label BTW-nummer
-                            input(ng-model="$ctrl.form.values.btw" type="text" placeholder="BTW").form-control
+                            input(ng-model="$ctrl.form.values.btw" type="text" placeholder="BTW-nummer").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.btw" ng-bind="error")
             .card-section.card-section-primary
                 .text-center
                     button.button.button-default Annuleren
-                    button(type="submit").button.button-primary Bevestig
+                    button(type="submit").button.button-primary Aanmaken
