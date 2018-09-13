@@ -1,0 +1,37 @@
+.app.app-container
+    menu
+    section.app.app-content
+        
+        .card(
+            ng-if="$ctrl.providerIdentities.length > 0")
+            .card-header: .card-title(
+                ng-bind="'Identities (' + $ctrl.providerIdentities.length + ')'")
+            .card-section
+                .card-block.card-block-table
+                    .table-wrapper
+                        table.table
+                            tr
+                                th Adres
+                                th E-mail
+                                th.text-right Acties
+
+                            tr(ng-repeat="providerIdentity in $ctrl.providerIdentities")
+                                td: span(ng-bind="providerIdentity.identity_address").text-primary-light
+                                td: span(ng-bind="providerIdentity.email")
+                                td.text-right
+                                    a(ui-sref="provider-identity-edit(providerIdentity)").text-primary-light Aanpassen
+                                    | &nbsp;
+                                    a(ng-click="$ctrl.deleteProviderIdentity($event, providerIdentity)" href="#").text-danger Verwijderen
+
+            .card-section.text-center
+                a(ui-sref="provider-identity-create({organization_id: $root.activeOrganization})").button.button-default
+                    em.mdi.mdi-plus-circle  
+                    | Validator toevoegen
+                                
+        .card-heading(
+            ng-if="$ctrl.providerIdentities.length == 0"
+            ng-bind="'Identities (' + $ctrl.providerIdentities.length + ')'")
+        empty-block( 
+            ng-if="$ctrl.providerIdentities.length == 0"
+            text="'You haven't added any identities yet..'" 
+            button="{text: 'Add identity', href: $ctrl.emptyBlockLink}")
