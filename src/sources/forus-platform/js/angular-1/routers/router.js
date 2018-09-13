@@ -338,6 +338,17 @@ module.exports = function($stateProvider) {
     });
 
     $stateProvider.state({
+        name: "sign-up",
+        url: "/sign-up",
+        component: "signUpComponent",
+        resolve: {
+            productCategories: function(ProductCategoryService) {
+                return repackResponse(ProductCategoryService.list());
+            }
+        }
+    });
+
+    $stateProvider.state({
         name: "provider-funds-available",
         url: "/organizations/{organization_id}/provider/funds/available",
         component: "providerFundsAvailableComponent",
