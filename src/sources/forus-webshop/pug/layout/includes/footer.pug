@@ -1,7 +1,7 @@
 section.section.section-footer
     .wrapper
         .block.block-footer: .row
-            .col.col-md-3
+            .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
                 img(src="./assets/img/forus-logo-bw.svg").footer-logo
                 .block.block-app_download
                     .download-button
@@ -13,7 +13,7 @@ section.section.section-footer
                         .download-value App Store
                         .download-icon: img(src="./assets/img/icon-app/icon-app-ios.svg")
                         
-            .col.col-md-4
+            .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-6'")
                 .footer-label Openingstijden
                 .footer-schedule
                     .schedule-label Maandag: 		
@@ -42,7 +42,7 @@ section.section.section-footer
                     .footer-nav-item: a(href="/provider/") PROVIDER
                     .footer-nav-item: a(href="/validator/") VALIDATOR
             
-            .col.col-md-3
+            .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
                 .footer-label Ontvang onze nieuwsbrief
                 .form
                     .form-group.footer-subscribe

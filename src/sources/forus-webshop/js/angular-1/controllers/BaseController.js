@@ -7,6 +7,8 @@ let BaseController = function(
     CredentialsService,
     RecordService,
     OrganizationService,
+    ConfigService,
+    $translate,
     appConfigs
 ) {
     $rootScope.popups = {
@@ -74,10 +76,24 @@ let BaseController = function(
     };
 
     $rootScope.appConfigs = appConfigs;
+    
+    $rootScope.i18nLangs = $translate.getAvailableLanguageKeys();
+    $rootScope.i18nActive = $translate.use();
+    
+    $rootScope.setLang = (lang) => {
+        $translate.use(lang);
+        $rootScope.i18nActive = $translate.use();
+    };
 
     if (AuthService.hasCredentials()) {
         $rootScope.loadAuthUser();
+    } else if (localStorage.getItem('pending_email_token')) {
+        $rootScope.popups.auth.open('sign_in-email-pending');
     }
+
+    ConfigService.get('webshop').then((res) => {
+        $rootScope.appConfigs.features = res.data;
+    });
 };
 
 module.exports = [
@@ -89,6 +105,8 @@ module.exports = [
     'CredentialsService',
     'RecordService',
     'OrganizationService',
+    'ConfigService',
+    '$translate',
     'appConfigs',
     BaseController
 ];

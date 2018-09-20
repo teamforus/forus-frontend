@@ -5,9 +5,9 @@ header.section.section-header.section-header-landing: .wrapper
     top-navbar
 
     .header-content
-        .header-title Generieke webshop voor gemeentelijke regelingen
-        .header-description Op deze webshop kunt u zich aanmelden voor een fonds, waarna u met een voucher langs winkels, sportverenigingen en/of culturele instellingen kunt gaan.
-        a(href="#").button.button-primary LEES MEER OVER HOE HET SYSTEEM WERKT
+        .header-title {{ "home.header.title" | translate }}
+        .header-description(ng-bind="'home.header.subtitle' | translate")
+        a(href="#" translate="home.header.button").button.button-primary 
 
 block-products(products="$ctrl.products" product-categories="$ctrl.productCategories")
 
@@ -18,7 +18,7 @@ section.section.section-map: .wrapper
             .block-description Binnen het forus platform werken sponsoren en leveranciers samen om de beste dienst te leveren voor het publieke domein. 
             button(ng-click="$root.popups.offices.open()").button.button-primary ZIE KAART
 
-section.section.section-blogs: .wrapper
+section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
     .section-title Onze blog
     
     .block.block-blogs
@@ -32,6 +32,6 @@ section.section.section-blogs: .wrapper
         +blog_item(1)
         +blog_item(2)
         +blog_item(3)
-        .block.block-show-more: a(href="#").button.button-primary BEKIJK MEER
+    .block.block-show-more: a(href="#").button.button-primary BEKIJK MEER
 
 contact-form 

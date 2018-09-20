@@ -3,7 +3,10 @@
         img(src="./assets/img/forus-logo-normal.svg")
         img(src="./assets/img/forus-logo-hover.svg").hover
     nav.navbar-list
-        a(ui-sref="funds" ui-sref-active="active").navbar-item FONDSEN
+        a(
+            ui-sref="funds" 
+            ui-sref-active="active"
+            ng-if="$root.appConfigs.features.funds.list").navbar-item FONDSEN
         a(ui-sref="products" ui-sref-active="active").navbar-item PRODUCTEN
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
@@ -21,9 +24,27 @@
                             a(ui-sref="vouchers").auth-user-menu-item
                                 img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg")
                                 | Mijn vouchers
-                            a(ui-sref="records").auth-user-menu-item
+                            a(
+                                ui-sref="records"
+                                ng-if="$root.appConfigs.features.records.list").auth-user-menu-item
                                 img(src="./assets/img/icon-menu/icon-menu-my-records.svg")
                                 | Mijn eigenschappen
+                            .auth-user-menu-item(ng-click="$root.popups.auth.open('authorize-pin_code')").hide-sm
+                                em.mdi.mdi-cellphone
+                                | Authorize device
+                            .auth-user-menu-separator.show-sm
+                            a.auth-user-menu-item.show-sm(
+                                ui-sref="funds" ui-sref-active="active"
+                                ng-if="$root.appConfigs.features.funds.list")
+                                em.mdi.mdi-star-outline
+                                | Fondsen
+                            a.auth-user-menu-item.show-sm(ui-sref="products" ui-sref-active="active")
+                                em.mdi.mdi-store
+                                | Producten
+                            .auth-user-menu-separator.show-sm
+                            .auth-user-menu-item.show-sm(ng-click="$root.popups.auth.open('activate-code')")
+                                em.mdi.mdi-ticket
+                                | Activatiecode
                             .auth-user-menu-separator
                             div(ng-click="$root.signOut()").auth-user-menu-item
                                 img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
@@ -38,7 +59,18 @@
                 em.mdi.mdi-account
                 // img(src="./assets/img/icon-btn/icon-btn-user.svg")
                 | Login
-    .block.block-auth.block-auth-border(ng-if="$root.auth_user")
+    // .block.block-auth.sm-pull-left
+        .lang-selector
+            .lang-label 
+                em.mdi.mdi-chevron-down
+                | Language
+            .lang-active(ng-bind="'languages.' + $root.i18nActive | translate")
+            .lang-list
+                .lang-list-item(
+                    ng-repeat="lang in $root.i18nLangs" 
+                    ng-bind="'languages.' + lang | translate"
+                    ng-click="$root.setLang(lang)")
+    .block.block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
         .auth-code
             .button.button-default(ng-click="$root.popups.auth.open('activate-code')")
                 em.mdi.mdi-ticket-confirmation

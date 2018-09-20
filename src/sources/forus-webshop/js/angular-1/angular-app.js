@@ -1,4 +1,4 @@
-let app = angular.module('forusApp', ['ui.router']);
+let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies']);
 
 app.constant('appConfigs', env_data);
 
@@ -43,6 +43,7 @@ app.service('MediaService', require('./services/MediaService'));
 app.service('VoucherService', require('./services/VoucherService'));
 app.service('ValidatorService', require('./services/ValidatorService'));
 app.service('GoogleMapService', require('./services/GoogleMapService'));
+app.service('ConfigService', require('./services/ConfigService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
@@ -54,6 +55,7 @@ app.directive('fundCriterion', require('./directives/FundCriterionDirective'));
 app.directive('profileCard', require('./directives/ProfileCardDirective'));
 app.directive('blockProducts', require('./directives/BlockProductsDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
+app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
 
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
@@ -65,6 +67,7 @@ app.filter('to_fixed', require('./filters/ToFixedFilter'));
 // Config
 app.config(require('./routers/router'));
 app.config(require('./config/api-service'));
+app.config(require('./config/i18n'));
 
 app.run(require('./routers/router-transitions'));
 

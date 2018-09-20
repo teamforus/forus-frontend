@@ -1,13 +1,12 @@
 let FundsComponent = function(
     $state,
-    $rootScope,
-    $timeout,
-    CredentialsService,
-    IdentityService,
-    AuthService,
     appConfigs
 ) {
     let $ctrl = this;
+
+    if (!appConfigs.features || !appConfigs.features.funds.list) {
+        return $state.go('home');
+    }
 
     $ctrl.$onInit = function() {
         $ctrl.funds = $ctrl.funds.map(function(fund) {
@@ -31,11 +30,6 @@ module.exports = {
     },
     controller: [
         '$state',
-        '$rootScope',
-        '$timeout',
-        'CredentialsService',
-        'IdentityService',
-        'AuthService',
         'appConfigs',
         FundsComponent
     ],

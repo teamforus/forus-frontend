@@ -20,10 +20,10 @@ module.exports = [
                 return ApiRequest.post('/identity/proxy/code');
             };
 
-            this.makeAuthEmailToken = (source, email) => {
+            this.makeAuthEmailToken = (source, primary_email) => {
                 return ApiRequest.post('/identity/proxy/email', {
                     source: source,
-                    email: email
+                    primary_email: primary_email
                 });
             };
 

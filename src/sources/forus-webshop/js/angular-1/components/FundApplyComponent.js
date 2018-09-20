@@ -1,15 +1,13 @@
 let FundsComponent = function(
     $state,
-    $rootScope,
-    $timeout,
-    RecordService,
-    CredentialsService,
-    IdentityService,
-    AuthService,
     FundService,
     appConfigs
 ) {
     let $ctrl = this;
+
+    if (!appConfigs.features || !appConfigs.features.funds.list) {
+        return $state.go('home');
+    }
 
     $ctrl.recordsByKey = {};
     $ctrl.recordsByTypesKey = {};
@@ -57,12 +55,6 @@ module.exports = {
     },
     controller: [
         '$state',
-        '$rootScope',
-        '$timeout',
-        'RecordService',
-        'CredentialsService',
-        'IdentityService',
-        'AuthService',
         'FundService',
         'appConfigs',
         FundsComponent

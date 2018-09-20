@@ -1,5 +1,6 @@
 .popup.popup-auth(ng-show="popup.show")
-    .popup-backdrop(ng-click="popup.close()")
+    .popup-backdrop(ng-click="popup.close()" ng-if="popup.screen != 'sign_in-email-pending'")
+    .popup-backdrop(ng-clikc="$ctrl.stopEmailPending()" ng-if="popup.screen == 'sign_in-email-pending'")
 
     // Choose Sign In type
     .popup-content(ng-show="popup.screen == 'choose'")
@@ -60,15 +61,13 @@
         .popup-title Aanmelden
         .popup-subtitle Please enter your e-mail address in order to receive your login details.
 
-        .form
+        form.form(ng-submit="signInEmailForm.submit()")
             .form-group
                 .form-label Enter your email
-                input(type="email" placeholder="E-mail").form-control.form-control
+                input(ng-model="signInEmailForm.values.primary_email" type="email" placeholder="E-mail").form-control
+                .form-error(ng-repeat="error in signInEmailForm.errors.primary_email" ng-bind="error")
             .form-group
-                .form-label Herhaal e-mail
-                input(type="email" placeholder="Herhaal e-mail").form-control
-            .form-group
-            .form-group: button.button.button-primary.button-wide SUBMIT
+            .form-group: button(type="submit").button.button-primary.button-wide SUBMIT
 
         .popup-footer
             .footer-text U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.
@@ -83,6 +82,18 @@
                     span »
                     | LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.
     
+    .popup-content(ng-show="popup.screen == 'sign_in-email-pending'")
+        .popup-title Aanmelden
+
+        .form-group
+            .popup-subtitle.text-primary
+                br
+                br
+                | We sent your authorization link to your email.
+                br
+                br
+        .form-group.text-center: button(ng-clikc="$ctrl.stopEmailPending()").button.button-primary CANCEL
+
     // Sign Up by code
     .popup-content(ng-show="popup.screen == 'sign_up-code'")
         .popup-close.mdi.mdi-close(ng-click="popup.close()")
@@ -146,3 +157,24 @@
                 a(href="#").popup-footer-link
                     span »
                     | LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.
+
+    .popup-content(ng-show="popup.screen == 'authorize-pin_code'")
+        .popup-close.mdi.mdi-close(ng-click="popup.close()")
+
+        .popup-title Aanmelden
+        .popup-subtitle Please enter your e-mail address in order to receive your login details.
+
+        form.form(ng-submit="authorizePincodeForm.submit()")
+            .form-group
+                div(ng-if="authorizePincodeForm" pincode-control ng-model="authorizePincodeForm.values.auth_code")
+                .text-center.form-error(ng-repeat="error in authorizePincodeForm.errors.auth_code track by $index" ng-bind="error")
+                br
+            .form-group: button(type="submit").button.button-primary.button-wide SUBMIT
+
+    .popup-content(ng-show="popup.screen == 'authorize-pin_code-done'")
+        .popup-close.mdi.mdi-close(ng-click="popup.close()")
+
+        .popup-title Aanmelden
+        .popup-subtitle Ok, done.
+
+        .text-center: button(ng-click="popup.close()").button.button-primary DONE.

@@ -9,6 +9,10 @@ let RecordsComponent = function(
 ) {
     let $ctrl = this;
 
+    if (!appConfigs.features || !appConfigs.features.records.list) {
+        return $state.go('home');
+    }
+
     $ctrl.recordsByTypesKey = {};
 
     $ctrl.$onInit = function() {

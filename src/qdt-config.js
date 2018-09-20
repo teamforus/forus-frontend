@@ -50,6 +50,21 @@ module.exports = {
             }, {
                 "from": "../../node_modules/file-saver/FileSaver.min.js",
                 "to": "assets/dist/file-saver"
+            }, {
+                "from": "../../node_modules/angular-translate/dist/angular-translate.min.js",
+                "to": "assets/dist/angular-translate"
+            }, {
+                "from": "../../node_modules/angular-sanitize/angular-sanitize.min.js",
+                "to": "assets/dist/angular-sanitize"
+            }, {
+                "from": "../../node_modules/angular-cookies/angular-cookies.min.js",
+                "to": "assets/dist/angular-cookies"
+            }, {
+                "from": "../../node_modules/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js",
+                "to": "assets/dist/angular-translate-storage-cookie"
+            }, {
+                "from": "../../node_modules/angular-translate-storage-local/angular-translate-storage-local.min.js",
+                "to": "assets/dist/angular-translate-storage-local"
             }],
             // browsersync configurations (ex: ip, port and path)
             "server": false,

@@ -18,6 +18,9 @@
         a(ui-sref="vouchers" ui-sref-active="active").profile-menu-item 
             | VOUCHERS
             em.mdi.mdi-arrow-right
-        a(ui-sref="records" ui-sref-active="active").profile-menu-item 
+        a(
+            ui-sref="records" 
+            ui-sref-active="active"
+            ng-if="$root.appConfigs.features.records.list").profile-menu-item 
             | EIGENSCHAPPEN
             em.mdi.mdi-arrow-right

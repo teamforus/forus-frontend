@@ -1,4 +1,7 @@
-let FundService = function(ApiRequest) {
+let FundService = function(
+    $q,
+    ApiRequest
+) {
     let uriPrefix = '/platform/organizations/';
 
     return new (function() {
@@ -34,7 +37,21 @@ let FundService = function(ApiRequest) {
                 '/platform/funds/' + id + '/apply'
             );
         };
-        
+
+        this.applyToFirstAvailable = () => {
+            return $q((resolve, reject) => {
+                this.list().then((res) => {
+                    if (res.data.data.length < 1) {
+                        reject();
+                    } else {
+                        this.apply(res.data.data[0].id).then(function(res) {
+                            resolve(res);
+                        }, reject);
+                    }
+                }, reject);
+            });
+        };
+
         this.readById = function(id) {
             return ApiRequest.get(
                 '/platform/funds/' + id
@@ -86,12 +103,12 @@ let FundService = function(ApiRequest) {
 
         this.changeState = function(apiResource, state) {
             let formValues = this.apiResourceToForm(apiResource);
-            
+
             formValues.state = state;
-            
+
             return this.update(
-                apiResource.organization_id, 
-                apiResource.id, 
+                apiResource.organization_id,
+                apiResource.id,
                 formValues
             );
         };
@@ -99,6 +116,7 @@ let FundService = function(ApiRequest) {
 };
 
 module.exports = [
+    '$q',
     'ApiRequest',
     FundService
 ];
