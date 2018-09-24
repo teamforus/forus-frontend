@@ -14,9 +14,9 @@ block-products(products="$ctrl.products" product-categories="$ctrl.productCatego
 section.section.section-map: .wrapper
     .block.block-map
         .block-content
-            .block-title Overzicht van leveranciers
-            .block-description Binnen het forus platform werken sponsoren en leveranciers samen om de beste dienst te leveren voor het publieke domein. 
-            button(ng-click="$root.popups.offices.open()").button.button-primary ZIE KAART
+            .block-title {{ "home.map.title" | translate }}
+            .block-description(ng-bind="'home.map.subtitle' | translate")
+            button(ng-click="$root.popups.offices.open()" translate="home.map.button").button.button-primary
 
 section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
     .section-title Onze blog

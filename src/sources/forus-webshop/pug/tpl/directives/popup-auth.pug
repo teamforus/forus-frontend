@@ -7,7 +7,7 @@
         .popup-close.mdi.mdi-close(ng-click="popup.close()")
 
         .popup-title Inloggen bij Lorem ipsum dolor sit amet
-        .popup-subtitle Scan de QR-code met de Forus
+        .popup-subtitle {{ "popupauth.header.subtitle" | translate }}
 
         .block.block-auth-type
             .auth_type-item: .auth_type-item-inner(ng-click="popup.screen = 'sign_in-qr'")

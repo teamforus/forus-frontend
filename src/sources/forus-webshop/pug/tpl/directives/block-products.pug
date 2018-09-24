@@ -1,5 +1,5 @@
 section.section.section-products#products: .wrapper
-    .section-title Aanbieding
+    .section-title {{ "products.header.title" | translate }}
     .section-filters
         .row.form
             .col.col-md-4: .form-group
@@ -11,7 +11,7 @@ section.section.section-products#products: .wrapper
                 input(
                     type="text" 
                     ng-model="query.search"
-                    placeholder="Zoek naar een aanbieding").form-control.form-control-fancy
+                    placeholder="{{ 'products.header.search' | translate }}").form-control.form-control-fancy
 
     .block.block-products(ng-if="shownProducts.length > 0")
         .product-item(ng-repeat="product in shownProducts")
@@ -28,9 +28,9 @@ section.section.section-products#products: .wrapper
                     | VOOR € {{ product.price | to_fixed:2 }}
 
     empty-block(
-        title="Er zijn geen aanbiedingen" 
-        description="Op dit moment zijn er geen aanbiedingen beschikbaar." 
+        title= "{{ 'empty.header.title' | translate }}"
+        description="{{ 'empty.header.subtitle' | translate }}"
         link="false" 
         ng-if="shownProducts.length == 0")
 
-    .block.block-show-more: a(href="#").button.button-primary BEKIJK MEER
+    .block.block-show-more: a(href="#").button.button-primary {{ "empty.header.link" | translate }}
