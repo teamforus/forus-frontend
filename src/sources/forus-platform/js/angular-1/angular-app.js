@@ -28,6 +28,8 @@ app.component('csvValidationComonent', require('./components/CsvValidationComone
 app.component('validationRequestsComonent', require('./components/ValidationRequestsComonent'));
 app.component('validationRequestComonent', require('./components/ValidationRequestComonent'));
 app.component('signUpComponent', require('./components/SignUpComponent'));
+app.component('providerIdentitiesComponent', require('./components/ProviderIdentitiesComponent'));
+app.component('providerIdentityEditComponent', require('./components/ProviderIdentityEditComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -51,6 +53,7 @@ app.service('PrevalidationService', require('./services/PrevalidationService'));
 app.service('ProgressFakerService', require('./services/ProgressFakerService'));
 app.service('ValidatorRequestService', require('./services/ValidatorRequestService'));
 app.service('MediaService', require('./services/MediaService'));
+app.service('ProviderIdentityService', require('./services/ProviderIdentityService'));
 
 // Directives
 switch (env_data.panel_type) {

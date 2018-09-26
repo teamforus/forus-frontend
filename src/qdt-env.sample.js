@@ -14,6 +14,8 @@ module.exports = {
             "forus-platform.validator",
             "forus-webshop.markup",
             "forus-webshop.panel",
+            "forus-webshop-zuidhorn.markup",
+            "forus-webshop-zuidhorn.panel",
         ],
         // browsersync reloads browser when watched files are modified,
         // here you can choose which platform besides "served" will make 
@@ -30,6 +32,8 @@ module.exports = {
             "forus-platform.validator",
             "forus-webshop.markup",
             "forus-webshop.panel",
+            "forus-webshop-zuidhorn.markup",
+            "forus-webshop-zuidhorn.panel",
         ]
     },
     platforms_data: {
@@ -52,6 +56,12 @@ module.exports = {
             api_url: api_url,
         },
         "forus-webshop.panel": {
+            api_url: api_url,
+        },
+        "forus-webshop-zuidhorn.markup": {
+            api_url: api_url,
+        },
+        "forus-webshop-zuidhorn.panel": {
             api_url: api_url,
         },
     }

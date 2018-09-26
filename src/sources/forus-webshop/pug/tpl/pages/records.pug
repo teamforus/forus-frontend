@@ -16,7 +16,7 @@ section.section.section-profile: .wrapper
                     .record-details
                         .record-type {{ $ctrl.recordsByTypesKey[record.key].name }}
                         .record-value {{ record.value }}
-                    .record-validations
+                    .record-validations(ng-if="$root.appConfigs.features.records.validate")
                         a(
                             ng-if="record.validations.length > 0" 
                             ui-sref="record-validations(record)").record-validation-count
@@ -27,7 +27,7 @@ section.section.section-profile: .wrapper
                             em.mdi.mdi-check
                             | Valideer
             
-                .text-right: a(ui-sref="record-create").button.button-primary 
+                .text-right(ng-if="$root.appConfigs.features.records.create"): a(ui-sref="record-create").button.button-primary 
                     em.mdi.mdi-plus
                     | Eigenschap aanmaken
 

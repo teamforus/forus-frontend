@@ -1,0 +1,33 @@
+.header-splash: .splash.splash-product
+
+header.section.section-header: .wrapper
+    top-navbar
+
+section.section.section-product: .wrapper
+    .block.block-product
+        .product-card
+            .product-photo: img(ng-src="{{ $ctrl.product.photo.sizes.small }}", alt="")
+            .product-details
+                // pre {{ $ctrl.product | pretty_json }}
+                .product-name
+                    | {{ $ctrl.product.name }}
+                    span.label.label-primary.label-square Actief
+                .product-categories(ng-bind="$ctrl.product.product_category.name")
+                
+                .product-funds
+                    .product-fund-label Fonds
+                    .product-fund-list(ng-bind="$ctrl.product.funds || 'None'")
+
+                .product-price
+                    .product-price-new € {{ $ctrl.product.price | to_fixed:2 }} 
+                    .product-price-old € {{ $ctrl.product.old_price | to_fixed:2 }}
+                
+                // a(href="#").button.button-primary SUBMIT
+        
+        .block.block-map_card
+            .map_card-header
+                .map_card-title You can find us here
+                .map_card-subtitle Lorem ipsum dolor sit amet, consectetur 
+
+            .map_card-iframe: google-map(offices="$ctrl.product.offices")
+contact-form 
