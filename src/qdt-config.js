@@ -321,5 +321,70 @@ module.exports = {
                 }
             }
         },
+        "forus-webshop-zuidhorn.markup": {
+            "source": "forus-webshop-zuidhorn",
+            "paths": {
+                "root": "../dist/forus-webshop-zuidhorn.markup",
+                "assets_root": "../dist/forus-webshop-zuidhorn.markup/assets",
+                "clean_paths": [
+                    "../dist/forus-webshop-zuidhorn.markup"
+                ]
+            },
+            "server": {
+                "path": "/",
+                "port": 6500
+            },
+            // tasks configs
+            "tasks": {
+                // tasks details, ex: source, destination, minify and etc. 
+                "settings": {
+                    "js": [{
+                        "src": [
+                            "app.markup.js",
+                        ],
+                        "dest": "/",
+                        "name": "app.js",
+                        "minify": true,
+                        "sourcemap": true,
+                        "browserify": true
+                    }]
+                }
+            }
+        },
+        "forus-webshop-zuidhorn.panel": {
+            "source": "forus-webshop-zuidhorn",
+            "paths": {
+                "root": "../dist/forus-webshop-zuidhorn.panel",
+                "assets_root": "../dist/forus-webshop-zuidhorn.panel/assets",
+                "clean_paths": [
+                    "../dist/forus-webshop-zuidhorn.panel"
+                ]
+            },
+            "server": {
+                "path": "/",
+                "port": 7000
+            },
+            // tasks configs
+            "tasks": {
+                // disable tasks
+                "disabled": {
+                    "pug": false,
+                    "js": false,
+                    "assets": false
+                },
+                // tasks details, ex: source, destination, minify and etc. 
+                "settings": {
+                    "pug": [{
+                        "path": "/webshop-panel",
+                        "src": ["webshop-panel/index.pug"],
+                        "watch": ["layout/**/*.pug"],
+                    }, {
+                        "path": "/tpl",
+                        "src": ["tpl/**/*.pug"],
+                        "dest": "/assets/tpl"
+                    }]
+                }
+            }
+        },
     }
 };
