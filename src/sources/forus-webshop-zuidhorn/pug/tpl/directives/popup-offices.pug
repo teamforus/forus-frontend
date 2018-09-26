@@ -1,0 +1,48 @@
+.popup.popup-shops_map(ng-show="popup.show")
+    .popup-backdrop(ng-click="popup.close()")
+
+    // Choose Sign In type
+    .popup-content
+        .popup-close.mdi.mdi-close(ng-click="popup.close()")
+
+        .block.block-shops_map
+            .shop_map-header
+                .shop_map-title We found for you 5 shops.
+                .shop_map-subtitle Please select one to see the details
+                .shop_map-categories
+                    .shop_map-category-item(
+                        ng-repeat="category in productCategories"
+                        ng-class="{active: category.id == selectedCategoryId}")
+                        .shop_map-category-item-inner(
+                            ng-click="selectCategory(category)")
+                            .shop_map-category-radio
+                            .shop_map-category-icon: img(
+                                ng-src="{{ 'assets/img/icon-product_categories/icon-product_categories-' + category.key + '.png' }}")
+                            .shop_map-category-name {{ category.name }}
+                            .shop_map-category-arrow
+            .shop_map-sidebar: .nano: .nano-content
+                .shops
+                    .shop-item(
+                        ng-repeat="office in shownOffices" 
+                        ng-class="{active: office.id == selectedOffice}" 
+                        ng-click="selectOffice(office)")
+                        .shop-details
+                            .shop-image: img(ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/no-image.jpg' }}")
+                            .shop-name {{ office.organization.name }}
+                            .row
+                                .col.col-md-12
+                                    .shop-details-label EMAIL
+                                    .shop-details-value {{ office.email || office.organization.email || 'Geen data' }}
+                                .col.col-md-12
+                                    .shop-details-label ADDRESS
+                                    .shop-details-value {{ office.address || 'Geen data' }}
+                        .shop-schedule
+                            .shop-schedule-label OPENINGSTIJDEN
+                            .shop-schedule-value 
+                                span(ng-repeat="schedule in office.schedule" ng-show="schedule.start_time || schedule.end_time")
+                                    strong {{ weekDays[schedule.week_day] }}: 
+                                    | {{ schedule.start_time || 'Geen data' }} - {{ schedule.end_time || 'Geen data' }}
+                                
+                                span(ng-if="office.schedule.length == 0")
+                                    | Geen data
+            .shop_map-content: google-map(offices="shownOffices" selected-office="selectedOffice")

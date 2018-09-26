@@ -406,6 +406,43 @@ module.exports = function($stateProvider) {
         }
     });
 
+    $stateProvider.state({
+        name: 'provider-identities',
+        url: "/organizations/{organization_id}/provider/identities",
+        component: 'providerIdentitiesComponent',
+        resolve: {
+            providerIdentities: function($transition$, ProviderIdentityService) {
+                return repackResponse(
+                    ProviderIdentityService.list(
+                        $transition$.params().organization_id
+                    )
+                );
+            }
+        }
+    });
+
+    $stateProvider.state({
+        name: "provider-identity-create",
+        url: "/organizations/{organization_id}/provider/identity/create",
+        component: "providerIdentityEditComponent"
+    });
+
+    $stateProvider.state({
+        name: "provider-identity-edit",
+        url: "/organizations/{organization_id}/provider/identity/{id}/edit",
+        component: "providerIdentityEditComponent",
+        resolve: {
+            providerIdentity: function($transition$, ProviderIdentityService) {
+                return repackResponse(
+                    ProviderIdentityService.read(
+                        $transition$.params().organization_id,
+                        $transition$.params().id
+                    )
+                );
+            }
+        }
+    });
+
     // Validators
     $stateProvider.state({
         name: 'csv-validation',

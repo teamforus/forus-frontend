@@ -2,6 +2,7 @@
 /dist
 /phonegap/www
 /php/public/assets/*
+/src/qdt-env.js
 
 # Compiled source #
 ###################
