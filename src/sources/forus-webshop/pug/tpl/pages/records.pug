@@ -4,7 +4,7 @@ header.section.section-header: .wrapper
     top-navbar
 
 section.section.section-profile: .wrapper
-    .section-title Mijn eigenschappen ({{ $ctrl.records.length }})
+    .section-title {{ "page_records.header.title" | translate }} ({{ $ctrl.records.length }})
     
     .block.block-profile
         .profile-aside
@@ -21,15 +21,15 @@ section.section.section-profile: .wrapper
                             ng-if="record.validations.length > 0" 
                             ui-sref="record-validations(record)").record-validation-count
                             strong {{ record.validations.length }}
-                            | validaties
+                            | {{ "page_records.header.count" | translate }}
                         a(
                             ui-sref="record-validate(record)").record-validation-request
                             em.mdi.mdi-check
-                            | Valideer
+                            | {{ "page_records.header.validate" | translate }}
             
                 .text-right(ng-if="$root.appConfigs.features.records.create"): a(ui-sref="record-create").button.button-primary 
                     em.mdi.mdi-plus
-                    | Eigenschap aanmaken
+                    | {{ "page_records.header.create" | translate }}
 
             empty-block(
                 title="Geen eigenschappen"

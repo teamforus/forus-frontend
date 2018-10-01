@@ -21,11 +21,11 @@ section.section.section-products#products: .wrapper
                 .product-discount
                     | {{ (product.price / product.old_price) * 100 | to_fixed:0 }}% 
                     br
-                    | KORTING!
+                    | {{ "price.discount" | translate }}
                 .product-price
-                    small VAN € {{ product.old_price | to_fixed:2 }}
+                    small {{ "price.from" | translate }} € {{ product.old_price | to_fixed:2 }}
                     br
-                    | VOOR € {{ product.price | to_fixed:2 }}
+                    | {{ "price.to" }} € {{ product.price | to_fixed:2 }}
 
     empty-block(
         title= "{{ 'empty.header.title' | translate }}"

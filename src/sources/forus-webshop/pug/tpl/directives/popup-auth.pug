@@ -6,21 +6,21 @@
     .popup-content(ng-show="popup.screen == 'choose'")
         .popup-close.mdi.mdi-close(ng-click="popup.close()")
 
-        .popup-title Inloggen bij Lorem ipsum dolor sit amet
+        .popup-title {{ "popupauth.header.title" | translate }}
         .popup-subtitle {{ "popupauth.header.subtitle" | translate }}
 
         .block.block-auth-type
             .auth_type-item: .auth_type-item-inner(ng-click="popup.screen = 'sign_in-qr'")
                 .auth_type-icon: img(src="./assets/img/icon-login-type/icon_login-type_qr.png")
-                .auth_type-name Login via de QR-Code
+                .auth_type-name {{ "authtype.header.messageQR" | translate }}
             .auth_type-item: .auth_type-item-inner(ng-click="popup.screen = 'sign_in-email'")
                 .auth_type-icon: img(src="./assets/img/icon-login-type/icon_login-type_email.png")
-                .auth_type-name Inloggen via E-mail
+                .auth_type-name {{ "authtype.header.messageEm" | translate }}
 
         .popup-footer
-            .footer-text U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.
+            .footer-text {{ "popupfooter.header.title" | translate }}
             .popup-footer-links
-                a(href="#").popup-footer-link 
+        //        a(href="#").popup-footer-link 
                     span »
                     | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
                 a(href="#").popup-footer-link
@@ -34,16 +34,15 @@
     .popup-content(ng-show="popup.screen == 'sign_in-qr'")
         .popup-close.mdi.mdi-close(ng-click="popup.close()")
 
-        .popup-title Aanmelden
-        .popup-subtitle Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent
-
+        .popup-title {{ "popuptitle.header.title" | translate }}
+        .popup-subtitle {{ "popuptitle.header.subtitle" | translate }}
         .block.block-auth-qr-code
             // .qr_code: img(src="./assets/img/qr-code.svg")
             .qr_code#auth_qrcode
 
         .popup-footer
-            .footer-text U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.
-            .popup-footer-links
+            .footer-text {{ "popupfooter.header.title" | translate }}
+        //    .popup-footer-links
                 a(href="#").popup-footer-link 
                     span »
                     | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
@@ -58,21 +57,21 @@
     .popup-content(ng-show="popup.screen == 'sign_in-email'")
         .popup-close.mdi.mdi-close(ng-click="popup.close()")
 
-        .popup-title Aanmelden
-        .popup-subtitle Please enter your e-mail address in order to receive your login details.
+        .popup-title {{ "popuptitle.header.title" | translate }}
+        .popup-subtitle {{ "popuptitle.header.subtitleEM" | translate }}
 
         form.form(ng-submit="signInEmailForm.submit()")
             .form-group
-                .form-label Enter your email
-                input(ng-model="signInEmailForm.values.primary_email" type="email" placeholder="E-mail").form-control
+                .form-label {{ "form.label.message" | translate }}
+                input(ng-model="signInEmailForm.values.primary_email" type="email" placeholder="{{ 'placeholder.mail' | translate }}").form-control
                 .form-error(ng-repeat="error in signInEmailForm.errors.primary_email" ng-bind="error")
             .form-group
-            .form-group: button(type="submit").button.button-primary.button-wide SUBMIT
+            .form-group: button(type="submit").button.button-primary.button-wide {{ "loginbycode.header.button" | translate }}
 
         .popup-footer
-            .footer-text U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.
+            .footer-text {{ "popupfooter.header.title" | translate }}
             .popup-footer-links
-                a(href="#").popup-footer-link 
+        //        a(href="#").popup-footer-link 
                     span »
                     | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
                 a(href="#").popup-footer-link
@@ -83,43 +82,44 @@
                     | LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.
     
     .popup-content(ng-show="popup.screen == 'sign_in-email-pending'")
-        .popup-title Aanmelden
+        .popup-title {{ "popup.header.title" | translate }}
 
         .form-group
             .popup-subtitle.text-primary
                 br
                 br
-                | We sent your authorization link to your email.
+                | {{ "popup.header.subtitle" | translate }}
                 br
                 br
-        .form-group.text-center: button(ng-clikc="$ctrl.stopEmailPending()").button.button-primary CANCEL
+        .form-group.text-center: button(ng-clikc="$ctrl.stopEmailPending()").button.button-primary {{ "popup.header.cancel" | translate }}
 
     // Sign Up by code
     .popup-content(ng-show="popup.screen == 'sign_up-code'")
         .popup-close.mdi.mdi-close(ng-click="popup.close()")
 
-        .popup-title Aanmelden
-        .popup-subtitle Please enter your e-mail address in order to receive your login details.
+        .popup-title {{ "popup.header.title" | translate }}
+        .popup-subtitle {{ "popup.header.mail" | translate }}
 
         form.form(ng-submit="signUpForm.submit()")
             .form-group
-                .form-label Enter your email
-                input(ng-model="signUpForm.values.records.primary_email" type="email" placeholder="E-mail").form-control.form-control
+                .form-label {{ "popup.header.mailadress" | translate }}
+                input(ng-model="signUpForm.values.records.primary_email" type="email" placeholder="{{ 'placeholder.mail' | translate }}").form-control.form-control
                 .form-error(ng-repeat="error in signUpForm.errors['records.primary_email']" ng-bind="error")
             // .form-group
                 .form-label Pin code
                 input(ng-model="signUpForm.values.pin_code" type="text" placeholder="Pin Code").form-control
                 .form-error(ng-repeat="error in signUpForm.errors.pin_code" ng-bind="error")
             .form-group
-                .form-label Activation code
-                input(ng-model="signUpForm.values.code" type="text" placeholder="Activation code").form-control
+                .form-label {{ "loginbycode.header.title" | translate }}
+                input(ng-model="signUpForm.values.code" type="text" placeholder="{{ 'placeholder.code' | translate }}").form-control
                 .form-error(ng-repeat="error in signUpForm.errors.code" ng-bind="error")
             .form-group
-            .form-group: button(type="submit").button.button-primary.button-wide SUBMIT
+            .form-group: button(type="submit").button.button-primary.button-wide {{ "loginbycode.header.button" | translate }}
 
         .popup-footer
-            .footer-text U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.
-            .popup-footer-links
+            .footer-text {{ "loginbycode.header.timestamp" | translate }}
+            //s
+            //.popup-footer-links
                 a(href="#").popup-footer-link 
                     span »
                     | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
@@ -134,20 +134,20 @@
     .popup-content(ng-show="popup.screen == 'activate-code'")
         .popup-close.mdi.mdi-close(ng-click="popup.close()")
 
-        .popup-title Aanmelden
-        .popup-subtitle Please enter your e-mail address in order to receive your login details.
+        .popup-title {{ "loginbycode.header.title" | translate }}
+        .popup-subtitle {{ "loginbycode.header.subtitle" | translate }}
 
         form.form(ng-submit="activateCodeForm.submit()")
             .form-group
-                .form-label Activation code
-                input(ng-model="activateCodeForm.values.code" type="text" placeholder="Activation code").form-control
-                .form-error(ng-if="activateCodeForm.errors.code") Not found or already activated.
+                .form-label {{ "loginbycode.header.code" | translate }}
+                input(ng-model="activateCodeForm.values.code" type="text" placeholder="{{ 'placeholder.code' | translate }}").form-control
+                .form-error(ng-if="activateCodeForm.errors.code") {{ "loginbycode.header.error" | translate }}
             .form-group
-            .form-group: button(type="submit").button.button-primary.button-wide SUBMIT
+            .form-group: button(type="submit").button.button-primary.button-wide {{ "loginbycode.header.button" | translate }}
 
         .popup-footer
-            .footer-text U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.
-            .popup-footer-links
+            .footer-text {{ "loginbycode.header.timestamp" | translate }}
+            //.popup-footer-links
                 a(href="#").popup-footer-link 
                     span »
                     | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
@@ -161,20 +161,20 @@
     .popup-content(ng-show="popup.screen == 'authorize-pin_code'")
         .popup-close.mdi.mdi-close(ng-click="popup.close()")
 
-        .popup-title Aanmelden
-        .popup-subtitle Please enter your e-mail address in order to receive your login details.
+        .popup-title {{ "loginbypin.header.title" | translate }}
+        .popup-subtitle {{ "loginbypin.header.subtitle" | translate }}
 
         form.form(ng-submit="authorizePincodeForm.submit()")
             .form-group
                 div(ng-if="authorizePincodeForm" pincode-control ng-model="authorizePincodeForm.values.auth_code")
                 .text-center.form-error(ng-repeat="error in authorizePincodeForm.errors.auth_code track by $index" ng-bind="error")
                 br
-            .form-group: button(type="submit").button.button-primary.button-wide SUBMIT
+            .form-group: button(type="submit").button.button-primary.button-wide {{ "loginbycode.header.button" | translate }}
 
     .popup-content(ng-show="popup.screen == 'authorize-pin_code-done'")
         .popup-close.mdi.mdi-close(ng-click="popup.close()")
 
-        .popup-title Aanmelden
-        .popup-subtitle Ok, done.
+        .popup-title {{ "popuptitle.header.title" | translate }}
+        .popup-subtitle {{ "popupauth.header.confirmation" | translate }}
 
-        .text-center: button(ng-click="popup.close()").button.button-primary DONE.
+        .text-center: button(ng-click="popup.close()").button.button-primary {{ "popupauth.header.confirmation" | translate }}
