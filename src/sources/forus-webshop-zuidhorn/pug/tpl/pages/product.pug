@@ -11,18 +11,18 @@ section.section.section-product: .wrapper
                 // pre {{ $ctrl.product | pretty_json }}
                 .product-name
                     | {{ $ctrl.product.name }}
-                    span.label.label-primary.label-square Actief
+                    span.label.label-success Actief
                 .product-categories(ng-bind="$ctrl.product.product_category.name")
                 
                 .product-funds
                     .product-fund-label Fonds
-                    .product-fund-list(ng-bind="$ctrl.product.funds || 'None'")
+                    .product-fund-list(ng-repeat="fund in $ctrl.product.funds" ng-bind="fund.name")
 
                 .product-price
                     .product-price-new € {{ $ctrl.product.price | to_fixed:2 }} 
                     .product-price-old € {{ $ctrl.product.old_price | to_fixed:2 }}
                 
-                // a(href="#").button.button-primary SUBMIT
+                .button.button-primary(ng-show="$ctrl.isApplicable" ui-sref="products-apply($ctrl.product)") KOOP
         
         .block.block-map_card
             .map_card-header

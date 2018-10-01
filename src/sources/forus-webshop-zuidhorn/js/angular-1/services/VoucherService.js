@@ -21,6 +21,13 @@ module.exports = [
             this.makeTransaction = function(address, values) {
                 return ApiRequest.post(apiPrefix + '/' + address + '/transactions', values);
             }
+
+            this.makeProductVoucher = function(voucherAddress, productId) {
+                return ApiRequest.post(apiPrefix, {
+                    voucher_address: voucherAddress,
+                    product_id: productId
+                });
+            };
         });
     }
 ];

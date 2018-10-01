@@ -9,12 +9,22 @@ header.section.section-header: .wrapper
             a(href="#").button.button-primary EMAIL NAAR MIJ
         .header-content
             .block.block-voucher
-                .voucher-title(ng-bind="$ctrl.voucher.fund.name")
-                .voucher-subtitle(ng-bind="$ctrl.voucher.fund.organization.name")
+                .voucher-title(ng-bind="$ctrl.voucher.product ? $ctrl.voucher.product.name: $ctrl.voucher.fund.name")
+                .voucher-subtitle(ng-bind="$ctrl.voucher.product ? $ctrl.voucher.product.organization.name : $ctrl.voucher.fund.organization.name")
                 .voucher-value € {{ $ctrl.voucher.amount | to_fixed:2 }}
                 .voucher-qr-code: .voucher-qr-code_inner#voucher_qr
 
 section.section.section-voucher-details: .wrapper
+    .block.block-voucher-product(ng-if="$ctrl.voucher.product")
+        a(ui-sref="products-show($ctrl.voucher.product)").product-card
+            .product-photo(style="background-image: url({{ $ctrl.voucher.product.photo.sizes.small }})")
+            .product-details
+                .product-name {{ $ctrl.voucher.product.name }}
+
+                .product-price
+                    .product-price-new € {{ $ctrl.voucher.product.price | to_fixed:2 }} 
+                    .product-price-old € {{ $ctrl.voucher.product.old_price | to_fixed:2 }}
+
     .block.block-transactions
         .transactions-header: .transactions-title Transacties
         .transactions-body: .transactions-list

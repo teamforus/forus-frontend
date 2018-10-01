@@ -1,0 +1,40 @@
+.header-splash: .splash.splash-product
+
+header.section.section-header: .wrapper
+    top-navbar
+
+section.section.section-product: .wrapper
+    .block.block-voucher-product
+        .product-card
+            .product-photo(style="background-image: url({{ $ctrl.product.photo.sizes.small }})")
+            .product-details
+                .product-name {{ $ctrl.product.name }}
+
+                .product-price
+                    .product-price-new € {{ $ctrl.product.price | to_fixed:2 }} 
+                    .product-price-old € {{ $ctrl.product.old_price | to_fixed:2 }}
+        
+    .block.block-vouchers(ng-if="$ctrl.applicableVouchers.length > 0")
+        .block-title Select voucher
+        
+        .voucher-item(ng-repeat="voucher in $ctrl.applicableVouchers")
+            .voucher-image: img(ng-src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/fund-no-image.jpg' }}")
+            .voucher-details
+                .voucher-name(ng-bind="voucher.fund.name")
+                .voucher-organization(ng-bind="voucher.fund.organization.name")
+                .voucher-value(ng-bind="'€'+(voucher.amount | to_fixed:2)")
+            .voucher-overview:  button.button.button-primary(ng-click="$ctrl.applyForProduct(voucher)") USE
+            .voucher-overview
+                .voucher-overview-item
+                    .voucher-overview-label Transacties
+                    .voucher-overview-value(ng-bind="voucher.transactions.length")
+                .voucher-overview-item
+                    .voucher-overview-label Laatste transactie
+                    .voucher-overview-value(ng-if="voucher.transactions.length > 0")
+                        | -{{ voucher.transactions[0].amount | to_fixed:2 }}
+                        small (Af)
+                    .voucher-overview-value(ng-if="voucher.transactions.length == 0")
+                        span.text-muted Geen
+    
+
+contact-form 

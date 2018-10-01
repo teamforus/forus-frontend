@@ -16,13 +16,13 @@ section.section.section-product: .wrapper
                 
                 .product-funds
                     .product-fund-label Fonds
-                    .product-fund-list(ng-bind="$ctrl.product.funds || 'None'")
+                    .product-fund-list(ng-repeat="fund in $ctrl.product.funds" ng-bind="fund.name")
 
                 .product-price
                     .product-price-new € {{ $ctrl.product.price | to_fixed:2 }} 
                     .product-price-old € {{ $ctrl.product.old_price | to_fixed:2 }}
                 
-                // a(href="#").button.button-primary SUBMIT
+                .button.button-primary(ng-show="$ctrl.isApplicable" ui-sref="products-apply($ctrl.product)") KOOP
         
         .block.block-map_card
             .map_card-header

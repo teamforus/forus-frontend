@@ -69,7 +69,35 @@ module.exports = function($stateProvider) {
             id: null
         },
         resolve: {
+            vouchers: function ($transition$, AuthService,  VoucherService) {
+                return AuthService.hasCredentials() ? repackResponse(
+                    VoucherService.list()
+                ) : new Promise(resolve => resolve([]));
+            },
             product: function($transition$, ProductService) {
+                return repackResponse(
+                    ProductService.read(
+                        $transition$.params().id
+                    )
+                );
+            },
+        }
+    });
+
+    $stateProvider.state({
+        name: "products-apply",
+        url: "/products/{id}/apply",
+        component: "productApplyComponent",
+        data: {
+            id: null
+        },
+        resolve: {
+            vouchers: function ($transition$, AuthService, VoucherService) {
+                return AuthService.hasCredentials() ? repackResponse(
+                    VoucherService.list()
+                ) : new Promise(resolve => resolve([]));
+            },
+            product: function ($transition$, ProductService) {
                 return repackResponse(
                     ProductService.read(
                         $transition$.params().id
