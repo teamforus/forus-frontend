@@ -22,17 +22,17 @@ module.exports = {
     home: {
         header: {
             title: "Generieke webshop voor gemeentelijke regelingen",
-            subtitle: "Op deze webshop kunt u zich aanmelden voor een fonds, waarna u met een voucher langs winkels, sportverenigingen en/of culturele instellingen kunt gaan.",
+            subtitle: "Op deze webshop kun je je aanmelden voor een fonds, vervolgens kun je met een voucher langs winkels, sportverenigingen en/of culturele instellingen gaan.",
             button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
         },
         map: {
             title: "Overzicht van alle leveranciers",
-            subtitle: "Binnen het forus platform werken sponsoren en leveranciers samen om de beste dienst te leveren voor het publieke domein.",
+            subtitle: "Binnen het Forus platform werken sponsoren en leveranciers samen om de beste diensten en producten te leveren voor het publieke domein.",
             button: 'BEKIJK DE KAART',
         },
         blog: {
             title: "Onze blog",
-            name: "Blog: Nieuwe fonde Kindpakket 2019 Zuidhorn",
+            name: "Blog: Nieuw fonds Kindpakket 2019 Zuidhorn",
             more: "Lees meer",
             button: "BEKIJK MEER",
         }
@@ -56,8 +56,8 @@ module.exports = {
             title: "Eigenschappen aanmaken",
             buttons: {
                     choose: {
-                        description: "Selecteer de categorie waaraan u de eigenschap wil toevoegen.",
-                        c_description: "Kies het type eigenschap dat u wil aanmaken.",
+                        description: "Selecteer de categorie waaraan je de eigenschap wil toevoegen.",
+                        c_description: "Kies het type eigenschap dat je wil aanmaken.",
                         category: "Kies categorie",
                         type: "Kies type",
                     },
@@ -85,7 +85,7 @@ module.exports = {
             transactions: "Transacties",
             subtract: "Af",
             location: "Locatie van winkel",
-            voucher: "U kunt uw voucher besteden in de winkel op deze locatie.",
+            voucher: "Je kunt jouw voucher besteden in de winkels op deze locaties.",
         }
     },
     page_vouchers: {
@@ -122,8 +122,8 @@ module.exports = {
     },
     popupauth: {
         header: {
-            title: "Inloggen op Platform Forus",
-            subtitle: "Scan de QR-code met de Me-App",
+            title: "Inloggen op platform Forus",
+            subtitle: "Scan de QR-code met de Me App",
             confirmation: "Het is gelukt!",
 
         }
@@ -136,38 +136,38 @@ module.exports = {
     },
     popupfooter: {
         header: {
-            title: "U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.",
+            title: "Je kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt je sessie.",
             subtitle: "",
         }
     },
     popuptitle: {
         header: {
             title: "Aanmelden",
-            subtitle: "Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent", 
-            subtitleEM: "Vul uw e-mail adres in om verder in te kunnen loggen",
+            subtitle: "Scan deze QR-Code met een ander apparaat waar je al op aangemeld bent", 
+            subtitleEM: "Vul je e-mail adres in om verder in te loggen",
         }
     },
     form: {
         label: {
-            message: "Vul uw e-mail adres in",
+            message: "Vul je e-mail adres in",
         }
     },
     popup: {
         header: {
             title: "Aanmelden",
-            subtitle: "Er is een link naar uw e-mail adres gestuurd",
-            mail: "Vul uw e-mail adres in om een link te ontvangen waarmee u kunt inloggen",
-            mailadress: "Uw e-mail adres",
+            subtitle: "Er is een link naar je e-mail adres gestuurd",
+            mail: "Vul je e-mail adres in om een link te ontvangen waarmee je kunt inloggen",
+            mailadress: "Jouw e-mail adres",
             cancel: "Annuleer",
         }
     },
     loginbycode: {
         header: {
             title: "Aanmelden",
-            subtitle: "Vul uw activatiecode in om aan te kunnen melden voor het kindpakket",
+            subtitle: "Vul je activatiecode in om aan te kunnen melden voor het kindpakket",
             button: "VERZEND",
             code: "Acvtivatiecode",
-            timestamp: "U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.",
+            timestamp: "U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt je sessie.",
             error: "Deze code is reeds gebruikt of ongeldig",
         }
     },
@@ -178,7 +178,7 @@ module.exports = {
     loginbypin: {
         header: {
             title:"Aanmelden",
-            subtitle:"Vul uw toegangscode in om verder te gaan",
+            subtitle:"Vul je toegangscode in om verder te gaan",
             confirmation: "Het is gelukt!",
         }
     },
@@ -232,7 +232,7 @@ module.exports = {
     profilecard: {
         header: {
             heading: "Uw persoonlijke QR-code",
-            description: "Laat uw persoonlijke QR-code scannen door een validator",
+            description: "Laat je persoonlijke QR-code scannen door een validator",
             adress: "Adres :",
             copy: "kopieer",
             share: "Deel",
