@@ -4,7 +4,7 @@ header.section.section-header: .wrapper
     top-navbar
 
 section.section.section-apply_fund: .wrapper
-    .section-title Mee doen
+    .section-title {{ "fundapply.header.title" | translate }}
     
     .block.block-apply_fund
         .apply_fund-aside
@@ -16,7 +16,7 @@ section.section.section-apply_fund: .wrapper
                         // span(ng-show="$ctrl.fund.state == 'active'").label.label-success Actief
                     .fund-organization {{ $ctrl.fund.organization.name }} 
                 .fund-criterias
-                    .fund-criterias-label Criteria’s (4)
+                    .fund-criterias-label {{ "fundapply.header.criteria" | translate }}
                     mixin cirteria_item(label, value)
                         .fund-criteria-item
                             .fund-criteria-item-label=label

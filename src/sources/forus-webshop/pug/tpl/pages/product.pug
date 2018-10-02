@@ -11,11 +11,12 @@ section.section.section-product: .wrapper
                 // pre {{ $ctrl.product | pretty_json }}
                 .product-name
                     | {{ $ctrl.product.name }}
-                    span.label.label-success Actief
+                    span.label.label-success {{ "product.header.status" |translate }}
                 .product-categories(ng-bind="$ctrl.product.product_category.name")
                 
                 .product-funds
-                    .product-fund-label Fonds
+
+                    .product-fund-label {{ "product.header.fund" |translate }}
                     .product-fund-list(ng-repeat="fund in $ctrl.product.funds" ng-bind="fund.name")
 
                 .product-price
@@ -26,7 +27,7 @@ section.section.section-product: .wrapper
         
         .block.block-map_card
             .map_card-header
-                .map_card-title You can find us here
+                .map_card-title {{ "product.header.findus" | translate }}
                 .map_card-subtitle Lorem ipsum dolor sit amet, consectetur 
 
             .map_card-iframe: google-map(offices="$ctrl.product.offices")

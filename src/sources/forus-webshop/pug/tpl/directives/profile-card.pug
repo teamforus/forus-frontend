@@ -2,25 +2,25 @@
     .profile-card
         .profile-qr_code#profile_qr
         .profile-details
-            .profile-heading Jouw persoonlijke QR-code
-            .profile-description Laat uw persoonlijke QR-code scannen door een validator.
+            .profile-heading {{ "profilecard.header.heading" | translate }}
+            .profile-description {{ "profilecard.header.description" | translate }}
         .profile-address
-            .profile-address-label Adres:
+            .profile-address-label {{ "profilecard.header.adress" | translate }}
             .profile-address-value#identity_address(ng-bind="$root.auth_user.address")
         .profile-actions
             div(ng-click="copyAddress()").profile-action 
                 em.mdi.mdi-content-copy 
-                | Kopieer
+                | {{ "profilecard.header.copy" | translate }}
             a(href="#").profile-action 
                 em.mdi.mdi-share-variant 
-                | Deel
+                | {{ "profilecard.header.share" | translate }}
     .profile-menu
         a(ui-sref="vouchers" ui-sref-active="active").profile-menu-item 
-            | VOUCHERS
+            | {{ "profilecard.header.item" | translate }}
             em.mdi.mdi-arrow-right
         a(
             ui-sref="records" 
             ui-sref-active="active"
             ng-if="$root.appConfigs.features.records.list").profile-menu-item 
-            | EIGENSCHAPPEN
+            | {{ "profilecard.header.records" | translate }}
             em.mdi.mdi-arrow-right

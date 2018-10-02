@@ -14,24 +14,24 @@ block-products(products="$ctrl.products" product-categories="$ctrl.productCatego
 section.section.section-map: .wrapper
     .block.block-map
         .block-content
-            .block-title Overzicht van leveranciers
-            .block-description Binnen het forus platform werken sponsoren en leveranciers samen om de beste dienst te leveren voor het publieke domein. 
-            button(ng-click="$root.popups.offices.open()").button.button-primary ZIE KAART
+            .block-title {{ "home.map.title" | translate }}
+            .block-description(ng-bind="'home.map.subtitle' | translate")
+            button(ng-click="$root.popups.offices.open()" translate="home.map.button").button.button-primary
 
 section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
-    .section-title Onze blog
+    .section-title {{ "home.blog.title" | translate }}
     
     .block.block-blogs
         mixin blog_item(nth)
             .blog-item: a(href="#").blog-item-inner
                 .blog-image: img(src="./assets/img/blog-image-" + nth + ".jpg")
-                .blog-name Blog: Nieuw fonds Kindpakket 2019 Zuidhorn
+                .blog-name {{ "home.blog.name" | translate }}
                 .blog-read-more 
-                    | Lees meer
+                    | {{ "home.blog.more" | translate }}
                     em.mdi.mdi-arrow-right
         +blog_item(1)
         +blog_item(2)
         +blog_item(3)
-    .block.block-show-more: a(href="#").button.button-primary BEKIJK MEER
+    .block.block-show-more: a(href="#").button.button-primary {{ "home.blog.button" | transalte }}
 
 contact-form 

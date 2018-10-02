@@ -6,13 +6,13 @@
         a(
             ui-sref="funds" 
             ui-sref-active="active"
-            ng-if="$root.appConfigs.features.funds.list").navbar-item FONDSEN
-        a(ui-sref="products" ui-sref-active="active").navbar-item PRODUCTEN
+            ng-if="$root.appConfigs.features.funds.list").navbar-item {{ "topnavbar.items.funds" | translate }}
+        a(ui-sref="products" ui-sref-active="active").navbar-item {{ "topnavbar.items.products" | translate }}
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
             .auth-user
                 .auth-user-email(ng-bind="$root.auth_user.primary_email")
-                .auth-user-type Identiteit
+                .auth-user-type {{ "topnavbar.items.identity" | translate }}
                 .auth-user-avatar
                     img(src="./assets/img/identity-avatar.svg")
                     nav.auth-user-menu
@@ -23,7 +23,7 @@
                                 | Mijn profile
                             a(ui-sref="vouchers").auth-user-menu-item
                                 img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg")
-                                | Mijn vouchers
+                                | {{ "topnavbar.items.buttons.voucher" | translate }}
                             a(
                                 ui-sref="records"
                                 ng-if="$root.appConfigs.features.records.list").auth-user-menu-item
@@ -31,34 +31,34 @@
                                 | Mijn eigenschappen
                             .auth-user-menu-item(ng-click="$root.popups.auth.open('authorize-pin_code')").hide-sm
                                 em.mdi.mdi-cellphone
-                                | Authorize device
+                                | {{ "topnavbar.items.buttons.authorize" | translate }}
                             .auth-user-menu-separator.show-sm
                             a.auth-user-menu-item.show-sm(
                                 ui-sref="funds" ui-sref-active="active"
                                 ng-if="$root.appConfigs.features.funds.list")
                                 em.mdi.mdi-star-outline
-                                | Fondsen
+                                | {{ "topnavbar.items.buttons.logout" | translate }}
                             a.auth-user-menu-item.show-sm(ui-sref="products" ui-sref-active="active")
                                 em.mdi.mdi-store
-                                | Producten
+                                | {{ "topnavbar.items.buttons.products" | translate }}
                             .auth-user-menu-separator.show-sm
                             .auth-user-menu-item.show-sm(ng-click="$root.popups.auth.open('activate-code')")
                                 em.mdi.mdi-ticket
-                                | Activatiecode
+                                | {{ "topnavbar.items.buttons.activate" | translate }}
                             .auth-user-menu-separator
                             div(ng-click="$root.signOut()").auth-user-menu-item
                                 img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
-                                | Uitloggen
+                                | {{ "topnavbar.items.buttons.logout" | translate }}
 
         .auth-out(ng-if="!$root.auth_user")
             .button.button-default(ng-click="$root.popups.auth.open('sign_up-code')")
                 em.mdi.mdi-ticket-confirmation
                 // img(src="./assets/img/icon-btn/icon-btn-ticket.svg")
-                | Activatiecode
+                | {{ "topnavbar.items.buttons.activate" | translate }}
             .button.button-default(ng-click="$root.popups.auth.open('choose')")
                 em.mdi.mdi-account
                 // img(src="./assets/img/icon-btn/icon-btn-user.svg")
-                | Login
+                | {{ "topnavbar.items.buttons.login" | translate }}
     // .block.block-auth.sm-pull-left
         .lang-selector
             .lang-label 
@@ -74,4 +74,4 @@
         .auth-code
             .button.button-default(ng-click="$root.popups.auth.open('activate-code')")
                 em.mdi.mdi-ticket-confirmation
-                | Activatiecode
+                | {{ "topnavbar.items.buttons.activate" | translate }}

@@ -5,8 +5,8 @@ header.section.section-header: .wrapper
     
     .header-body
         .header-content
-            .header-title Voucher details
-            a(href="#").button.button-primary EMAIL NAAR MIJ
+            .header-title {{ "page_voucher.header.title" | translate }}
+            a(href="#").button.button-primary {{ "page_voucher.header.sendtome" | translate }}
         .header-content
             .block.block-voucher
                 .voucher-title(ng-bind="$ctrl.voucher.product ? $ctrl.voucher.product.name: $ctrl.voucher.fund.name")
@@ -26,7 +26,7 @@ section.section.section-voucher-details: .wrapper
                     .product-price-old € {{ $ctrl.voucher.product.old_price | to_fixed:2 }}
 
     .block.block-transactions
-        .transactions-header: .transactions-title Transacties
+        .transactions-header: .transactions-title {{ "page_voucher.header.transactions" | translate }}
         .transactions-body: .transactions-list
             .transactions-item(ng-repeat="transaction in $ctrl.voucher.transactions" class="transactions-item-out")
                 .transactions-item-icon: em.mdi.mdi-arrow-up
@@ -35,12 +35,12 @@ section.section.section-voucher-details: .wrapper
                     .transactions-item-date {{ transaction.date_time }}
                 .transactions-item-amount 
                     .transactions-item-value - €{{ transaction.amount | to_fixed:2 }}
-                    .transactions-item-type Af
+                    .transactions-item-type {{ "page_voucher.header.subtract" | translate }}
 
     .block.block-map_card
         .map_card-header
-            .map_card-title Locatie van winkel
-            .map_card-subtitle U kunt uw voucher besteden in de winkel op deze locatie.
+            .map_card-title {{ "page_voucher.header.location" | translate }}
+            .map_card-subtitle {{ "page_voucher.header.voucher" | translate }}
 
         .map_card-iframe: google-map(offices="$ctrl.voucher.offices")
 
