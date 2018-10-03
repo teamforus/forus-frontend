@@ -4,7 +4,7 @@ header.section.section-header: .wrapper
     top-navbar
 
 section.section.section-funds: .wrapper
-    .section-title Our funds
+    .section-title {{ "funds.header.title" | translate }}
     
     .block.block-funds
         .fund-item(ng-repeat="fund in $ctrl.funds")
@@ -12,29 +12,29 @@ section.section.section-funds: .wrapper
                 img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/fund-no-image.jpg' }}")
             .fund-details
                 .fund-name {{ fund.name }} 
-                    span(ng-show="fund.voucherWasTaken").label.label-primary.label-square Actief
+                    span(ng-show="fund.voucherWasTaken").label.label-primary.label-square {{ "funds.status.active" | translate }}
                 .fund-organization(ng-bind="fund.organization.name") 
                 .fund-categories
-                    .fund-categories-label CATEGORIEËN
+                    .fund-categories-label {{ "funds.labels.categorie" | translate }}
                     .fund-categories-list(ng-bind="fund.categories")
-                a(ng-if="$root.auth_user && !fund.voucherWasTaken" ui-sref="fund-apply(fund)").button.button-primary Doe mee
+                a(ng-if="$root.auth_user && !fund.voucherWasTaken" ui-sref="fund-apply(fund)").button.button-primary {{ "funds.buttons.join" | translate }}
 
             .fund-criterias
-                .fund-criterias-label Criteria’s (4)
+                .fund-criterias-label {{ "funds.labels.criteria" | translate }}
                 .fund-criteria-item
-                    .fund-criteria-item-label Locatie
-                    .fund-criteria-item-value Zuidhorn Gemeente
+                    .fund-criteria-item-label {{ "funds.labels.location" | translate }}
+                    .fund-criteria-item-value {{ "funds.labels.office" | translate }}
                 .fund-criteria-item
-                    .fund-criteria-item-label Kinderen
-                    .fund-criteria-item-value 1
+                    .fund-criteria-item-label {{ "funds.labels.children" | translate }}
+                    .fund-criteria-item-value {{ "funds.labels.count" | translate }}
                 .fund-criteria-item
-                    .fund-criteria-item-label Leeftijd kind
-                    .fund-criteria-item-value < 18 jaar oud
+                    .fund-criteria-item-label {{ "funds.labels.agelimit" | translate }}
+                    .fund-criteria-item-value {{ "funds.labels.age" | translate }}
                 .fund-criteria-item
-                    .fund-criteria-item-label Inkomensgrens
-                    .fund-criteria-item-value < € 1118.46
+                    .fund-criteria-item-label {{ "funds.labels.income" | translate }}
+                    .fund-criteria-item-value {{ "funds.labels.amount" | translate }}
         
-        // .block.block-show-more: a(href="#").button.button-primary SHOW MORE
+        // .block.block-show-more: a(href="#").button.button-primary {{ "funds.buttons.more" | translate }}
 
 
 contact-form 
