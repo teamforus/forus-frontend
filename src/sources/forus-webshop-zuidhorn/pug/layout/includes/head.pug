@@ -1,4 +1,4 @@
-- var src_prefix = '';
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?env_data.html5Mode.basePath:'');
 
 head
     meta(charset="UTF-8")
@@ -12,19 +12,17 @@ head
 
     //- material design icons (by google)
     if (qdt_c.platform.libs.mdi)
-        link(rel="stylesheet" href="assets/dist/mdi/css/materialdesignicons.min.css")
+        link(rel="stylesheet" href=src_prefix + "assets/dist/mdi/css/materialdesignicons.min.css")
 
     //- bootstrap 3
     if (qdt_c.platform.libs.bootstrap_3)
-        link(rel="stylesheet" href="assets/dist/bootstrap/css/bootstrap.min.css")
+        link(rel="stylesheet" href=src_prefix + "assets/dist/bootstrap/css/bootstrap.min.css")
 
     //- angular csp (cloack)
     if (qdt_c.platform.libs.angular)
-        link(rel="stylesheet" href= "assets/dist/angular/angular-csp.css")
+        link(rel="stylesheet" href=src_prefix + "assets/dist/angular/angular-csp.css")
 
-    link(rel="stylesheet" href="assets/dist/angular-datepicker/angular-datepicker.min.css")
+    link(rel="stylesheet" href=src_prefix + "assets/dist/angular-datepicker/angular-datepicker.min.css")
 
     //- custom style
-    link(rel="stylesheet" href="assets/css/style.min.css")
-    
-    base(href=env_data.basePath)
+    link(rel="stylesheet" href=src_prefix + "assets/css/style.min.css")
