@@ -44,9 +44,9 @@ module.exports = {
     // HOME = home.pug
     home: {
         header: {
-            title: "Generieke webshop voor gemeentelijke regelingen",
-            subtitle: "Op deze webshop kun je je aanmelden voor een fonds, vervolgens kun je met een voucher langs winkels, sportverenigingen en/of culturele instellingen gaan.",
-            button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
+            title: "<b>Zuidhorn.</b> Kindpakket",
+            subtitle: "Welkom op de website van het kindpakket Zuidhorn. Het kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Zuidhorn.",
+            button: "Lees meer over hoe het systeem werkt.",
         },
         blog: {
             title: "Onze blog",
