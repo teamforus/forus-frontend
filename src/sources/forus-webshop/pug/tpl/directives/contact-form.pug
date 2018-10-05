@@ -7,13 +7,13 @@ section(ng-if="$root.appConfigs.features.contactForm").section.section-contact_f
                 .contact-details
                     .contact-label {{ "contact.header.subtitle" | translate }}
                     .contact-address 
-                        | {{ "contact.header.adress" | translate }}
+                        | {{ "contact.labels.adress" | translate }}
                         br
-                        | {{ "contact.header.phone" | translate }}
-                    .contact-email {{ "contact.header.mail" | translate }}
+                        | {{ "contact.labels.phone" | translate }}
+                    .contact-email {{ "contact.labels.mail" | translate }}
                     br
 
-                    .contact-label {{ "contact.header.follow" | translate }}
+                    .contact-label {{ "contact.labels.follow" | translate }}
                     .contact-socials
                         a(href="#").contact-social: .mdi.mdi-facebook
                         a(href="#").contact-social: .mdi.mdi-twitter
@@ -22,21 +22,21 @@ section(ng-if="$root.appConfigs.features.contactForm").section.section-contact_f
 
             .col.col-md-7
                 .form-group
-                    .form-label.form-label-required {{ "contact.header.name" | translate }}
+                    .form-label.form-label-required {{ "contact.labels.name" | translate }}
                     input(type="text" placeholder="").form-control
                 .form-group
-                    .form-label.form-label-required {{ "contact.header.usermail" | translate }}
+                    .form-label.form-label-required {{ "contact.labels.usermail" | translate }}
                     input(type="text" placeholder="").form-control
                 .row
                     .col.col-md-6: .form-group
-                        .form-label.form-label-required {{ "contact.header.userphone" | translate }}
+                        .form-label.form-label-required {{ "contact.labels.userphone" | translate }}
                         input(type="text" placeholder="").form-control
                     .col.col-md-6: .form-group
-                        .form-label.form-label-required {{ "contact.header.organisation" | translate }}
+                        .form-label.form-label-required {{ "contact.labels.organisation" | translate }}
                         input(type="text" placeholder="").form-control
                 .form-group
-                    .form-label.form-label-required {{ "contact.header.message" | translate }}
+                    .form-label.form-label-required {{ "contact.labels.message" | translate }}
                     textarea(placeholder="").form-control
                 .form-group
                 .form-group
-                    button.button.button-primary {{ "contact.header.button" | translate }}
+                    button.button.button-primary {{ "contact.labels.buttons" | translate }}
