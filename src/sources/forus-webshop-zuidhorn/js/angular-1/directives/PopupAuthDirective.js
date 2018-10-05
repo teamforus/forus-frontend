@@ -146,9 +146,11 @@ let PopupAuthDirective = function(
 
     let $ctrl = this;
     let qrCodeEl;
+    let qrCode;
 
     this.$onInit = function() {
         qrCodeEl = document.getElementById('auth_qrcode');
+        qrCode = new QRCode(qrCodeEl);
     }
 
     if (AuthService.hasCredentials()) {
@@ -186,12 +188,12 @@ let PopupAuthDirective = function(
         IdentityService.makeAuthToken().then((res) => {
             $ctrl.authToken = res.data.auth_token;
 
-            new QRCode(qrCodeEl, {
-                text: JSON.stringify({
+                qrCode.makeCode(
+                    JSON.stringify({
                     type: 'auth_token',
                     'value': $ctrl.authToken
                 })
-            });
+            );
 
             qrCodeEl.removeAttribute('title');
 
