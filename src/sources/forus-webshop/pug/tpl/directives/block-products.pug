@@ -1,5 +1,5 @@
 section.section.section-products#products: .wrapper
-    .section-title {{ "products.header.title" | translate }}
+    .section-title {{ "block_products.header.title" | translate }}
     .section-filters
         .row.form
             .col.col-md-4: .form-group
@@ -11,7 +11,7 @@ section.section.section-products#products: .wrapper
                 input(
                     type="text" 
                     ng-model="query.search"
-                    placeholder="{{ 'products.header.search' | translate }}").form-control.form-control-fancy
+                    placeholder="{{ 'block_products.input.placeholder' | translate }}").form-control.form-control-fancy
 
     .block.block-products(ng-if="shownProducts.length > 0")
         .product-item(ng-repeat="product in shownProducts")
@@ -21,16 +21,16 @@ section.section.section-products#products: .wrapper
                 .product-discount
                     | {{ (product.price / product.old_price) * 100 | to_fixed:0 }}% 
                     br
-                    | {{ "price.discount" | translate }}
+                    | {{ "block_products.labels.discount" | translate }}
                 .product-price
-                    small {{ "price.from" | translate }} € {{ product.old_price | to_fixed:2 }}
+                    small {{ "block_product.labels.old" | translate }} € {{ product.old_price | to_fixed:2 }}
                     br
-                    | {{ "price.to" }} € {{ product.price | to_fixed:2 }}
+                    | {{ "block_products.labels.new" | translate }} € {{ product.price | to_fixed:2 }}
 
     empty-block(
-        title= "{{ 'empty.header.title' | translate }}"
-        description="{{ 'empty.header.subtitle' | translate }}"
+        title= "{{ 'block_products.labels.title' | translate }}"
+        description="{{ 'block_products.labels.subtitle' | translate }}"
         link="false" 
         ng-if="shownProducts.length == 0")
 
-    .block.block-show-more: a(href="#").button.button-primary {{ "empty.header.link" | translate }}
+    .block.block-show-more: a(href="#").button.button-primary {{ "block_products.buttons.more" | translate }}

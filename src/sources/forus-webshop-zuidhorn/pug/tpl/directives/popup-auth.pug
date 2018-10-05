@@ -59,7 +59,7 @@
         .popup-close.mdi.mdi-close(ng-click="popup.close()")
 
         .popup-title {{ "popup_auth.labels.join" | translate }}
-        .popup-subtitle {{ "popup_auth.labels.mail" | translate }}
+        .popup-subtitle {{ "popup_auth.labels.link" | translate }}
 
         form.form(ng-submit="signInEmailForm.submit()")
             .form-group
@@ -99,7 +99,7 @@
         .popup-close.mdi.mdi-close(ng-click="popup.close()")
 
         .popup-title {{ "popup_auth.labels.join" | translate }}
-        .popup-subtitle {{ "popup_auth.labels.link" | translate }}
+        .popup-subtitle {{ "popup_auth.labels.mail" | translate }}
 
         form.form(ng-submit="signUpForm.submit()")
             .form-group
@@ -112,7 +112,7 @@
                 .form-error(ng-repeat="error in signUpForm.errors.pin_code" ng-bind="error")
             .form-group
                 .form-label {{ "popup_auth.input.code" | translate }}
-                input(ng-model="signUpForm.values.code" type="text" placeholder="Activation code").form-control
+                input(ng-model="signUpForm.values.code" type="text" placeholder="{{ 'popup_auth.input.code' | translate}}").form-control
                 .form-error(ng-repeat="error in signUpForm.errors.code" ng-bind="error")
             .form-group
             .form-group: button(type="submit").button.button-primary.button-wide {{ "popup_auth.buttons.submit" | translate }}
@@ -135,7 +135,7 @@
         .popup-close.mdi.mdi-close(ng-click="popup.close()")
 
         .popup-title {{ "popup_auth.labels.join" | translate }}
-        .popup-subtitle {{ "popup_auth.labels.link" | translate }}
+        .popup-subtitle {{ "popup_auth.labels.code" | translate }}
 
         form.form(ng-submit="activateCodeForm.submit()")
             .form-group
@@ -162,7 +162,7 @@
         .popup-close.mdi.mdi-close(ng-click="popup.close()")
 
         .popup-title {{ "popup_auth.labels.join" | translate }}
-        .popup-subtitle {{ "popup_auth.labels.link" | translate }}
+        .popup-subtitle {{ "popup_auth.labels.mobilecode" | translate }}
 
         form.form(ng-submit="authorizePincodeForm.submit()")
             .form-group
