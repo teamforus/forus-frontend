@@ -44,7 +44,7 @@ module.exports = {
     // HOME = home.pug
     home: {
         header: {
-            title: "<b>Zuidhorn.</b> Kindpakket",
+            title: "Zuidhorn. Kindpakket",
             subtitle: "Welkom op de website van het kindpakket Zuidhorn. Het kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Zuidhorn.",
             button: "Lees meer over hoe het systeem werkt.",
         },
