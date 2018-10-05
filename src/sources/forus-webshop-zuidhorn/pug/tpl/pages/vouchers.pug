@@ -1,10 +1,10 @@
-.header-splash: .splash
+.header-splash: .splash.splash-d
 
 header.section.section-header: .wrapper
     top-navbar
 
 section.section.section-profile: .wrapper
-    .section-title Mijn vouchers ({{ $ctrl.vouchers.length }})
+    .section-title {{ "vouchers.header.title" | translate }} ({{ $ctrl.vouchers.length }})
     
     .block.block-profile
         profile-card
@@ -12,22 +12,30 @@ section.section.section-profile: .wrapper
         .profile-content
             .block.block-vouchers(ng-if="$ctrl.vouchers.length > 0")
                 a(ng-repeat="voucher in $ctrl.vouchers" ui-sref="voucher(voucher)").voucher-item
-                    .voucher-image: img(ng-src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/fund-no-image.jpg' }}")
+                    .voucher-image(style="background-image: url('{{ voucher.product.photo.sizes.thumbnail }}')") 
+                        img(ng-hide="voucher.product" ng-src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/fund-no-image.jpg' }}")
                     .voucher-details
-                        .voucher-name(ng-bind="voucher.fund.name")
-                        .voucher-organization(ng-bind="voucher.fund.organization.name")
+                        .voucher-name(ng-bind="voucher.product ? voucher.product.name : voucher.fund.name")
+                        .voucher-organization(ng-bind="voucher.product ? voucher.product.organization.name : voucher.fund.organization.name")
                         .voucher-value(ng-bind="'€'+(voucher.amount | to_fixed:2)")
-                    .voucher-overview
+                    .voucher-overview(ng-if="!voucher.product")
                         .voucher-overview-item
-                            .voucher-overview-label Transacties
+                            .voucher-overview-label {{ "vouchers.labels.transactions" | translate }}
                             .voucher-overview-value(ng-bind="voucher.transactions.length")
                         .voucher-overview-item
-                            .voucher-overview-label Laatste transactie
+                            .voucher-overview-label {{ "vouchers.labels.last" | translate }}
                             .voucher-overview-value(ng-if="voucher.transactions.length > 0")
                                 | -{{ voucher.transactions[0].amount | to_fixed:2 }}
-                                small (Af)
+                                small {{ "vouchers.labels.subtract" | translate }}
                             .voucher-overview-value(ng-if="voucher.transactions.length == 0")
-                                span.text-muted Geen
+                                span.text-muted {{ "vouchers.labels.none" | translate }}
+                    .voucher-overview(ng-if="voucher.product")
+                        .voucher-overview-item
+                            .voucher-overview-label {{ "vouchers.labels.used" | translate }}
+                            .voucher-overview-value(ng-bind="voucher.transactions.length == 0 ? 'No' : 'Yes'")
+                        .voucher-overview-item
+                            .voucher-overview-label {{ "vouchers.labels.generated" | translate }}
+                            .voucher-overview-value(ng-bind="voucher.created_at.split(' ')[0]")
 
             empty-block(
                 title="Geen vouchers"

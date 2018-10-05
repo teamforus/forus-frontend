@@ -12,6 +12,7 @@ app.component('vouchersComponent', require('./components/VouchersComponent'));
 app.component('recordsComponent', require('./components/RecordsComponent'));
 app.component('productsComponent', require('./components/ProductsComponent'));
 app.component('productComponent', require('./components/ProductComponent'));
+app.component('productApplyComponent', require('./components/ProductApplyComponent'));
 app.component('voucherComponent', require('./components/VoucherComponent'));
 app.component('fundApplyComponent', require('./components/FundApplyComponent'));
 app.component('recordValidateComponent', require('./components/RecordValidateComponent'));
