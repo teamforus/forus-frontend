@@ -4,7 +4,7 @@ header.section.section-header: .wrapper
     top-navbar
 
 section.section.section-profile: .wrapper
-    .section-title {{ "records_validations.header.title" | transalte }} ({{ $ctrl.records.length }})
+    .section-title {{ "records_validations.header.title" | translate }} ({{ $ctrl.records.length }})
     
     .block.block-profile
         .profile-aside
@@ -19,7 +19,7 @@ section.section.section-profile: .wrapper
                         strong {{ $ctrl.record.validations.length }}
                         | {{ "records_validations.header.count" | translate }}
                     a(ui-sref="record-validate($ctrl.record)").button.button-outline.button-primary-outline.button-wide 
-                        | {{ "records_validations.header.send" | translatwe }}
+                        | {{ "records_validations.header.send" | translate }}
 
                 .validation-card
                     .validation-header {{ "recrods_validate.header.validations" | translate }}
