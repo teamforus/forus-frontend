@@ -15,7 +15,7 @@ section.section.section-product: .wrapper
                     .product-price-old € {{ $ctrl.product.old_price | to_fixed:2 }}
         
     .block.block-vouchers(ng-if="$ctrl.applicableVouchers.length > 0")
-        .block-title Select voucher
+        .block-title {{ "product_apply.header.title" | translate }}
         
         .voucher-item(ng-repeat="voucher in $ctrl.applicableVouchers")
             .voucher-image: img(ng-src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/fund-no-image.jpg' }}")
@@ -23,18 +23,18 @@ section.section.section-product: .wrapper
                 .voucher-name(ng-bind="voucher.fund.name")
                 .voucher-organization(ng-bind="voucher.fund.organization.name")
                 .voucher-value(ng-bind="'€'+(voucher.amount | to_fixed:2)")
-            .voucher-overview:  button.button.button-primary(ng-click="$ctrl.applyForProduct(voucher)") USE
+            .voucher-overview:  button.button.button-primary(ng-click="$ctrl.applyForProduct(voucher)") {{ "product_apply.buttons.use" | translate }}
             .voucher-overview
                 .voucher-overview-item
-                    .voucher-overview-label Transacties
+                    .voucher-overview-label {{ "product_apply.labels.transactions" | translate }}
                     .voucher-overview-value(ng-bind="voucher.transactions.length")
                 .voucher-overview-item
-                    .voucher-overview-label Laatste transactie
+                    .voucher-overview-label {{ "product_apply.labels.last" | translate }}
                     .voucher-overview-value(ng-if="voucher.transactions.length > 0")
                         | -{{ voucher.transactions[0].amount | to_fixed:2 }}
-                        small (Af)
+                        small {{ "product_apply.labels.subtract | translate }}
                     .voucher-overview-value(ng-if="voucher.transactions.length == 0")
-                        span.text-muted Geen
+                        span.text-muted {{ "product_apply.labels.none" | translate }}
     
 
 contact-form 

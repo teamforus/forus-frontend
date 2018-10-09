@@ -4,7 +4,7 @@ header.section.section-header: .wrapper
     top-navbar
 
 section.section.section-profile: .wrapper
-    .section-title Mijn eigenschappen ({{ $ctrl.records.length }})
+    .section-title {{ "records_validate.header.title" | translate }} ({{ $ctrl.records.length }})
     
     .block.block-profile
         .profile-aside
@@ -13,7 +13,7 @@ section.section.section-profile: .wrapper
         .profile-content
             .block.block-validators
                 .block-card
-                    .block-header Validators
+                    .block-header {{ "records_validate.header.validators" | translate }}
                     .block-body
                         .validator-item(ng-repeat="validator in $ctrl.validators")
                             .validator-image: img(
@@ -21,9 +21,9 @@ section.section.section-profile: .wrapper
                             .validator-name(ng-bind="validator.organization.name")
                             .validator-state
                                 
-                                div(ng-if="validator.isPending").label.label-default Wachten
+                                div(ng-if="validator.isPending").label.label-default {{ "records_validate.header.hold" | translatew }}
                                 div(ng-if="!validator.isPending" ng-click="$ctrl.requestValidation(validator)").validator-send
-                                    | VERZENDEN
+                                    | {{ "records_validate.header.send" | translate }}
                                     em.mdi.mdi-arrow-right
 
             empty-block(

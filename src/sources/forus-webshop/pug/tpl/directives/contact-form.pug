@@ -1,19 +1,19 @@
 section(ng-if="$root.appConfigs.features.contactForm").section.section-contact_form: .wrapper 
     .block.block-contact_form
-        .contact-title Contact
+        .contact-title {{ "contact.header.title" | translate }}
         .contact-form: .form.row
             .col.col-md-5
                 .contact-logo: img(src="./assets/img/forus-logo-normal.svg")
                 .contact-details
-                    .contact-label CONTACTGEGEVENS
+                    .contact-label {{ "contact.header.subtitle" | translate }}
                     .contact-address 
-                        | Hooiweg 9, 9801 AJ Zuidhorn
+                        | {{ "contact.labels.adress" | translate }}
                         br
-                        | (0594) 508888
-                    .contact-email support@forus.io
+                        | {{ "contact.labels.phone" | translate }}
+                    .contact-email {{ "contact.labels.mail" | translate }}
                     br
 
-                    .contact-label Volg ons:
+                    .contact-label {{ "contact.labels.follow" | translate }}
                     .contact-socials
                         a(href="#").contact-social: .mdi.mdi-facebook
                         a(href="#").contact-social: .mdi.mdi-twitter
@@ -22,21 +22,21 @@ section(ng-if="$root.appConfigs.features.contactForm").section.section-contact_f
 
             .col.col-md-7
                 .form-group
-                    .form-label.form-label-required Naam
+                    .form-label.form-label-required {{ "contact.labels.name" | translate }}
                     input(type="text" placeholder="").form-control
                 .form-group
-                    .form-label.form-label-required E-mail
+                    .form-label.form-label-required {{ "contact.labels.usermail" | translate }}
                     input(type="text" placeholder="").form-control
                 .row
                     .col.col-md-6: .form-group
-                        .form-label.form-label-required Telefoon
+                        .form-label.form-label-required {{ "contact.labels.userphone" | translate }}
                         input(type="text" placeholder="").form-control
                     .col.col-md-6: .form-group
-                        .form-label.form-label-required Organisatie
+                        .form-label.form-label-required {{ "contact.labels.organisation" | translate }}
                         input(type="text" placeholder="").form-control
                 .form-group
-                    .form-label.form-label-required Bericht
+                    .form-label.form-label-required {{ "contact.labels.message" | translate }}
                     textarea(placeholder="").form-control
                 .form-group
                 .form-group
-                    button.button.button-primary VERZENDEN
+                    button.button.button-primary {{ "contact.labels.buttons" | translate }}

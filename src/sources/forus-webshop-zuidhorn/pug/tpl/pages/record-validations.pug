@@ -4,7 +4,7 @@ header.section.section-header: .wrapper
     top-navbar
 
 section.section.section-profile: .wrapper
-    .section-title My Records ({{ $ctrl.records.length }})
+    .section-title {{ "records_validations.header.title" | translate }} ({{ $ctrl.records.length }})
     
     .block.block-profile
         .profile-aside
@@ -17,12 +17,12 @@ section.section.section-profile: .wrapper
                     .record-value(ng-bind="$ctrl.record.value")
                     .record-validation-count
                         strong {{ $ctrl.record.validations.length }}
-                        | validaties
+                        | {{ "records_validations.labels.count" | translate }}
                     a(ui-sref="record-validate($ctrl.record)").button.button-outline.button-primary-outline.button-wide 
-                        | Send to validation
+                        | {{ "records_validations.buttons.send" | translate }}
 
                 .validation-card
-                    .validation-header Validations
+                    .validation-header {{ "records_validations.labels.validations" | translate }}
                     .validation-body
                         .validation-item(ng-repeat="validation in $ctrl.record.validations")
                             .validation-image: img(src="./assets/img/fund-no-image.jpg", alt="")
@@ -30,8 +30,8 @@ section.section.section-profile: .wrapper
                             .validation-date(ng-bind="validation.updated_at")
 
             empty-block(
-                title="No validations"
-                description="You have no validations"
+                title="Geen validaties"
+                description="Er zijn geen validaties"
                 ng-if="$ctrl.record.validations.length == 0")
 
 contact-form 
