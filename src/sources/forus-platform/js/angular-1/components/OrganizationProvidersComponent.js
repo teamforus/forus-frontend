@@ -6,7 +6,7 @@ let OrganizationProvidersComponent = function(
     let $ctrl = this;
 
     $ctrl.$onInit = function() {
-        $ctrl.providerFunds.map(function(providerFund) {
+        $ctrl.fundProviders.map(function(providerFund) {
             providerFund.organization.fundCategories = 
             providerFund.organization.product_categories.map(function(category) {
                 return category.name;
@@ -39,7 +39,7 @@ let OrganizationProvidersComponent = function(
 
 module.exports = {
     bindings: {
-        providerFunds: '<'
+        fundProviders: '<'
     },
     controller: [
         '$state',
