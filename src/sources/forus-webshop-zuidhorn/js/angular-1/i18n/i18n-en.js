@@ -44,9 +44,9 @@ module.exports = {
     // HOME = home.pug
     home: {
         header: {
-            title: "Generieke webshop voor gemeentelijke regelingen",
-            subtitle: "Op deze webshop kun je je aanmelden voor een fonds, vervolgens kun je met een voucher langs winkels, sportverenigingen en/of culturele instellingen gaan.",
-            button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
+            title:"Zuidhorn. Kindpakket",
+            subtitle: "Welkom op de website van het kindpakket Zuidhorn. Het kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Zuidhorn.",
+            button: 'Lees meer over hoe het systeem werkt.',
         },
         blog: {
             title: "Onze blog",
@@ -270,7 +270,7 @@ module.exports = {
     popup_auth: {
         header: {
             title: "Inloggen op platform Forus",
-            subtitle: "Scan de QR-code met de Me App",
+            subtitle: "Scan de QR-code met de Me App of log in met je e-mail adres",
         },
         notifications: {
             confirmation: "Het is gelukt!",
@@ -287,12 +287,15 @@ module.exports = {
             timelimit: "Je kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt je sessie.",
             join: "Aanmelden",
             scancode: "Scan deze QR-Code met een ander apparaat waar je al op aangemeld bent",
-            mail: "Vul je e-mail adres in om verder te gaan met inloggen",
+            mobilecode: "Vul je toegangscode van de Me App in",
+            mail: "Vul je e-mail adres en activatiecode in om verder te gaan met aanmelden",
             link: "Vul je e-mail adres in om een link te ontvangen waarmee je kunt inloggen",
+            code: "Vul de activatiecode in die je per brief hebt ontvangen",
         },
         input: {
             mail: "Vul je e-mail adres in",
-            code: "Activatie code",
+            code: "Activatiecode",
+            mailing: "E-mail",
         }
     },
 
@@ -345,4 +348,5 @@ module.exports = {
             funds: "Fondsen",
         },
     },
-}
+};
+

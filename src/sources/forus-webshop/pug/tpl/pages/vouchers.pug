@@ -4,7 +4,7 @@ header.section.section-header: .wrapper
     top-navbar
 
 section.section.section-profile: .wrapper
-    .section-title  {{ "page_vouchers.header.title" | translate }} ({{ $ctrl.vouchers.length }})
+    .section-title  {{ "vouchers.header.title" | translate }} ({{ $ctrl.vouchers.length }})
     
     .block.block-profile
         profile-card
@@ -20,16 +20,16 @@ section.section.section-profile: .wrapper
                         .voucher-value(ng-bind="'€'+(voucher.amount | to_fixed:2)")
                     .voucher-overview(ng-if="!voucher.product")
                         .voucher-overview-item
-                            .voucher-overview-label {{ "page_vouchers.header.transactions" | tranlate }}
+                            .voucher-overview-label {{ "vouchers.header.transactions" | tranlate }}
                             .voucher-overview-value(ng-bind="voucher.transactions.length")
                         .voucher-overview-item
-                            .voucher-overview-label {{ "page_vouchers.header.last" | tranlate }}
+                            .voucher-overview-label {{ "vouchers.header.last" | tranlate }}
                             .voucher-overview-value(ng-if="voucher.transactions.length > 0")
                                 | -{{ voucher.transactions[0].amount | to_fixed:2 }}
-                                small {{ "page_vouchers.header.subtract" | tranlate }}
+                                small {{ "vouchers.header.subtract" | tranlate }}
                             .voucher-overview-value(ng-if="voucher.transactions.length == 0")
 
-                                span.text-muted {{ "page_vouchers.header.none" | tranlate }}
+                                span.text-muted {{ "vouchers.header.none" | tranlate }}
                     .voucher-overview(ng-if="voucher.product")
                         .voucher-overview-item
                             .voucher-overview-label USED
