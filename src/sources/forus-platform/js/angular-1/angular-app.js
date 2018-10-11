@@ -1,4 +1,4 @@
-let app = angular.module('forusApp', ['ui.router']);
+let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies']);
 
 app.constant('appConfigs', env_data);
 
@@ -91,6 +91,7 @@ app.filter('to_fixed', require('./filters/ToFixedFilter'));
 // Config
 app.config(require('./routers/router'));
 app.config(require('./config/api-service'));
+app.config(require('./config/i18n'));
 
 app.run(require('./routers/router-transitions'));
 
