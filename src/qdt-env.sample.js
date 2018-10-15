@@ -57,12 +57,14 @@ module.exports = {
         },
         "forus-webshop.panel": {
             api_url: api_url,
+            client_key: 'shop-general'
         },
         "forus-webshop-zuidhorn.markup": {
             api_url: api_url,
         },
         "forus-webshop-zuidhorn.panel": {
             api_url: api_url,
+            client_key: 'shop-zuidhorn'
         },
     }
 };

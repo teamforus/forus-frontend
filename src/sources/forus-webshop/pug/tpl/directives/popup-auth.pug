@@ -1,6 +1,5 @@
 .popup.popup-auth(ng-show="popup.show")
-    .popup-backdrop(ng-click="popup.close()" ng-if="popup.screen != 'sign_in-email-pending'")
-    .popup-backdrop(ng-clikc="$ctrl.stopEmailPending()" ng-if="popup.screen == 'sign_in-email-pending'")
+    .popup-backdrop(ng-click="popup.close()")
 
     // Choose Sign In type
     .popup-content(ng-show="popup.screen == 'choose'")
@@ -19,8 +18,8 @@
 
         .popup-footer
             .footer-text {{ "popup_auth.labels.timelimit" | translate }}
-            .popup-footer-links
-        //        a(href="#").popup-footer-link 
+            // .popup-footer-links
+                a(href="#").popup-footer-link 
                     span »
                     | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
                 a(href="#").popup-footer-link
@@ -36,13 +35,14 @@
 
         .popup-title {{ "popup_auth.labels.join" | translate }}
         .popup-subtitle {{ "popup_auth.labels.scancode" | translate }}
+
         .block.block-auth-qr-code
             // .qr_code: img(src="./assets/img/qr-code.svg")
             .qr_code#auth_qrcode
 
         .popup-footer
             .footer-text {{ "popup_auth.labels.timelimit" | translate }}
-        //    .popup-footer-links
+            // .popup-footer-links
                 a(href="#").popup-footer-link 
                     span »
                     | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
@@ -70,8 +70,8 @@
 
         .popup-footer
             .footer-text {{ "popup_auth.labels.timelimit" | translate }}
-            .popup-footer-links
-        //        a(href="#").popup-footer-link 
+            // .popup-footer-links
+                a(href="#").popup-footer-link 
                     span »
                     | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
                 a(href="#").popup-footer-link
@@ -81,7 +81,8 @@
                     span »
                     | LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.
     
-    .popup-content(ng-show="popup.screen == 'sign_in-email-pending'")
+    // Sign In email sent
+    .popup-content(ng-show="popup.screen == 'sign_in-email-sent'")
         .popup-title {{ "popup_auth.labels.join" | translate }}
 
         .form-group
@@ -91,7 +92,7 @@
                 | {{ "popup_auth.notification.link" | translate }}
                 br
                 br
-        .form-group.text-center: button(ng-clikc="$ctrl.stopEmailPending()").button.button-primary {{ "popup_auth.buttons.cancel" | translate }}
+        .form-group.text-center: button(ng-click="popup.close()").button.button-primary {{ "popup_auth.buttons.confirm" | translate }}
 
     // Sign Up by code
     .popup-content(ng-show="popup.screen == 'sign_up-code'")
@@ -118,8 +119,7 @@
 
         .popup-footer
             .footer-text {{ "popup_auth.labels.timelimit" | translate }}
-            //s
-            //.popup-footer-links
+            // .popup-footer-links
                 a(href="#").popup-footer-link 
                     span »
                     | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
@@ -147,7 +147,7 @@
 
         .popup-footer
             .footer-text {{ "popup_auth.labels.timelimit" | translate }}
-            //.popup-footer-links
+            // .popup-footer-links
                 a(href="#").popup-footer-link 
                     span »
                     | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT

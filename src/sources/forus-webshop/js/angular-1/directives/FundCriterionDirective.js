@@ -20,6 +20,10 @@ let FundCriterionDirective = function($scope) {
             validValue = record.value > $scope.criterion.value;
         } else if ($scope.criterion.operator == '<') {
             validValue = record.value < $scope.criterion.value;
+        } else if ($scope.criterion.operator == '>=') {
+            validValue = record.value >= $scope.criterion.value;
+        } else if ($scope.criterion.operator == '<=') {
+            validValue = record.value <= $scope.criterion.value;
         }
 
         if (!validValue) {

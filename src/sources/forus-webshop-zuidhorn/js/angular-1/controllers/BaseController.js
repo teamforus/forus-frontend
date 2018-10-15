@@ -67,7 +67,7 @@ let BaseController = function(
         $rootScope.loadAuthUser();
     });
 
-    $rootScope.activeOrganization = OrganizationService.active();  
+    $rootScope.activeOrganization = OrganizationService.active();
 
     $rootScope.signOut = () => {
         AuthService.signOut();
@@ -76,10 +76,10 @@ let BaseController = function(
     };
 
     $rootScope.appConfigs = appConfigs;
-    
+
     $rootScope.i18nLangs = $translate.getAvailableLanguageKeys();
     $rootScope.i18nActive = $translate.use();
-    
+
     $rootScope.setLang = (lang) => {
         $translate.use(lang);
         $rootScope.i18nActive = $translate.use();
@@ -87,8 +87,6 @@ let BaseController = function(
 
     if (AuthService.hasCredentials()) {
         $rootScope.loadAuthUser();
-    } else if (localStorage.getItem('pending_email_token')) {
-        $rootScope.popups.auth.open('sign_in-email-pending');
     }
 
     ConfigService.get('webshop').then((res) => {

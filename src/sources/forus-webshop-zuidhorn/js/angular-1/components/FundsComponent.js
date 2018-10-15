@@ -14,9 +14,9 @@ let FundsComponent = function(
                 return category.name;
             }).join(', ');
 
-            fund.voucherWasTaken = $ctrl.vouchers.filter(voucher => {
+            fund.voucherCanBeUsed = $ctrl.vouchers.filter(voucher => {
                 return voucher.fund_id == fund.id;
-            }).length > 0;
+            }).length == 0;
 
             return fund;
         });
