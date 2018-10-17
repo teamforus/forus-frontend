@@ -73,7 +73,7 @@ module.exports = function($stateProvider) {
         url: "/organizations/{organization_id}/providers",
         component: "organizationProvidersComponent",
         resolve: {
-            providerFunds: function($transition$, OrganizationService) {
+            fundProviders: function($transition$, OrganizationService) {
                 return repackResponse(
                     OrganizationService.listProviders(
                         $transition$.params().organization_id
@@ -124,9 +124,23 @@ module.exports = function($stateProvider) {
 
     $stateProvider.state({
         name: "financial-dashboard",
-        url: "/organizations/{organization_id}/financial-dashboard",
-        component: "fundsComponent",
+        url: "/organizations/{organization_id}/financial-dashboard/funds/{fund_id}",
+        component: "financialDashboardComponent",
+        params: {
+            fund_id: { 
+                squash: true, 
+                value: null 
+            },
+        },
         resolve: {
+            fund: function ($transition$, FundService) {
+                return $transition$.params().fund_id != null ? repackResponse(
+                    FundService.read(
+                        $transition$.params().organization_id,
+                        $transition$.params().fund_id
+                    )
+                ) : new Promise((res) => res(null));
+            },
             funds: function($transition$, FundService) {
                 return repackResponse(
                     FundService.list(
@@ -134,7 +148,63 @@ module.exports = function($stateProvider) {
                     )
                 );
             },
-            fundLevel: () => "financialDashboard"
+            fundProviders: function ($transition$, FundService) {
+                if ($transition$.params().fund_id == null) {
+                    return new Promise((res) => res(null));
+                }
+
+                return repackResponse(
+                    FundService.listProviders(
+                        $transition$.params().organization_id,
+                        $transition$.params().fund_id,
+                        'approved'
+                    )
+                );
+            },
+            fundLevel: function () {
+                return 'financialDashboard';
+            }
+        }
+    });
+
+    $stateProvider.state({
+        name: "financial-dashboard-transaction",
+        url: "/organizations/{organization_id}/financial-dashboard/funds/{fund_id}/providers/{fund_provider_id}/transactions/{id}",
+        component: "financialDashboardTransactionComponent",
+        params: {
+            fund_id: { 
+                squash: true, 
+                value: null 
+            },
+        },
+        resolve: {
+            fund: function ($transition$, FundService) {
+                return $transition$.params().fund_id != null ? repackResponse(
+                    FundService.read(
+                        $transition$.params().organization_id,
+                        $transition$.params().fund_id
+                    )
+                ) : new Promise((res) => res(null));
+            },
+            fundProvider: function ($transition$, FundService) {
+                return repackResponse(
+                    FundService.readProvider(
+                        $transition$.params().organization_id,
+                        $transition$.params().fund_id,
+                        $transition$.params().fund_provider_id
+                    )
+                );
+            },
+            voucherTransction: function ($transition$, FundService) {
+                return repackResponse(
+                    FundService.readProvidersTransaction(
+                        $transition$.params().organization_id,
+                        $transition$.params().fund_id,
+                        $transition$.params().fund_provider_id,
+                        $transition$.params().id
+                    )
+                );
+            }
         }
     });
 

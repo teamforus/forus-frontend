@@ -9,10 +9,10 @@
                 .modal-funds-added
                     p
                         | Maak het bedrag over naar: 
-                        span.text-primary NL83 BUNQ 3456 3344 32
+                        span.text-primary(ng-bind="modalIban") 
                         br
-                        | voeg code
+                        | voeg code 
                         span.text-primary(ng-bind="modalCode") 
-                        | toe aan beschrijving.
+                        |  toe aan beschrijving.
         .modal-footer.text-center
             button.button.button-primary(ng-click="closeModal()") Sluiten

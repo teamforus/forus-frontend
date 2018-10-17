@@ -65,6 +65,15 @@ module.exports = {
             }, {
                 "from": "../../node_modules/angular-translate-storage-local/angular-translate-storage-local.min.js",
                 "to": "assets/dist/angular-translate-storage-local"
+            }, {
+                "from": "../../node_modules/moment/min/moment-with-locales.min.js",
+                "to": "assets/dist/moment"
+            }, {
+                "from": "../../node_modules/chart.js/dist/Chart.min.js",
+                "to": "assets/dist/chart"
+            }, {
+                "from": "../../node_modules/progressbar.js/dist/progressbar.min.js",
+                "to": "assets/dist/progressbar"
             }],
             // browsersync configurations (ex: ip, port and path)
             "server": false,

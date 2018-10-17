@@ -69,7 +69,7 @@ module.exports = function($stateProvider) {
             id: null
         },
         resolve: {
-            vouchers: function ($transition$, AuthService,  VoucherService) {
+            vouchers: function($transition$, AuthService, VoucherService) {
                 return AuthService.hasCredentials() ? repackResponse(
                     VoucherService.list()
                 ) : new Promise(resolve => resolve([]));
@@ -92,12 +92,12 @@ module.exports = function($stateProvider) {
             id: null
         },
         resolve: {
-            vouchers: function ($transition$, AuthService, VoucherService) {
+            vouchers: function($transition$, AuthService, VoucherService) {
                 return AuthService.hasCredentials() ? repackResponse(
                     VoucherService.list()
                 ) : new Promise(resolve => resolve([]));
             },
-            product: function ($transition$, ProductService) {
+            product: function($transition$, ProductService) {
                 return repackResponse(
                     ProductService.read(
                         $transition$.params().id
@@ -266,6 +266,39 @@ module.exports = function($stateProvider) {
                     VoucherService.list()
                 );
             },
+        }
+    });
+
+    $stateProvider.state({
+        name: "restore-email",
+        url: "/identity-restore?token",
+        controller: [
+            '$rootScope',
+            '$state',
+            'IdentityService',
+            'CredentialsService',
+            'appConfigs',
+            function(
+                $rootScope,
+                $state,
+                IdentityService,
+                CredentialsService,
+                appConfigs
+            ) {
+                IdentityService.authorizeAuthEmailToken(
+                    appConfigs.client_key,
+                    $state.params.token
+                ).then(function(res) {
+                    CredentialsService.set(res.data.access_token);
+                    $rootScope.loadAuthUser();
+                    $state.go('home');
+                }, () => {
+                    alert("Token expired or unknown.");
+                    $state.go('home');
+                });
+            }],
+        data: {
+            token: null
         }
     });
 };
