@@ -91,7 +91,7 @@ let OfficeService = function(ApiRequest) {
 
         this.scheduleDayTimes = () => {
             let times = {
-                'null': 'Select'
+                'null': 'Tijd'
             };
 
             for (var i = 0; i < 24; i++) {

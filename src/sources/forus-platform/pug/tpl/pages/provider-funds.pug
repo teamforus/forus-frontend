@@ -1,7 +1,7 @@
 .app.app-container
     menu
     section.app.app-content
-        .card-heading Fondsen ({{ $ctrl.activeFunds.length }}) 
+        .card-heading {{ "provider_funds.title" | translate }} ({{ $ctrl.activeFunds.length }}) 
         div(
             ng-if="$ctrl.activeFunds.length > 0" 
             ng-repeat="fund in $ctrl.activeFunds" 

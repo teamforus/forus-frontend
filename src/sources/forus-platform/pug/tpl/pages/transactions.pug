@@ -1,15 +1,16 @@
 .app.app-container
     menu
     section.app.app-content
+
         .card(ng-if="$ctrl.transactions.length > 0" class=(state=='closed'?'card-outline':'')).form
-            .card-header: .card-title Transactions ({{ $ctrl.transactions.length }})
+            .card-header: .card-title {{ "transactions.header.title" | translate }} ({{ $ctrl.transactions.length }})
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
                         table.table
                             tr
-                                th BEDRAG 
-                                th DATUM
+                                th {{ "transactions.labels.price" | translate }}
+                                th {{ "transactions.labels.date" | translate }}
                                 th FUND
                                 th PROVIDER
                                 th STATUS
@@ -23,13 +24,13 @@
                                 td(ng-bind="{pending: 'Pending', success : 'Voltooid'}[transaction.state]")
             // .card-section
                 .table-pagination
-                    .table-pagination-counter 8 resultaten
+                    .table-pagination-counter {{ "transactions.labels.results" | translate }}
                     .table-pagination-navigation
-                        button(disabled).button.button-default Vorige
-                        button.button.button-default 1
-                        button.button.button-default 2
-                        button.button.button-primary 3
-                        button(disabled).button.button-default Volgende
+                        button(disabled).button.button-default {{ "transactions.buttons.previous" | translate }}
+                        button.button.button-default {{ "transactions.paginator.one" | translate }}
+                        button.button.button-default {{ "transactions.paginator.two" | translate }}
+                        button.button.button-primary {{ "transactions.paginator.three" | translate }}
+                        button(disabled).button.button-default {{ "transactions.buttons.next" | translate }}
         empty-block(
             ng-if="$ctrl.transactions.length == 0" 
-            text="'No transactions.'")
+            text="'Geen transacties.'")

@@ -4,7 +4,7 @@
             button(
                 ng-click="providerApplyFund(fund)").button.button-primary 
                 em.mdi.mdi-plus-circle 
-                | Aanmelden
+                | {{ "fund_card_available_provider.buttons.join" | translate }}
 
         .card-block.card-block-fund
             .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/organization-no-logo.svg' }}", alt="")
@@ -12,6 +12,6 @@
             br
             div(ng-bind="fund.organization.name").fund-organization
         .card-block.card-block-listing
-            .card-block-listing-label Categorieën
+            .card-block-listing-label {{ "fund_card_available_provider.labels.categories" | translate }}
             | {{ fundCategories.join(', ') }}
-            small(ng-show="fundCategories.length == 0").text-muted.small Geen categorieën
+            small(ng-show="fundCategories.length == 0").text-muted.small {{ "fund_card_available_provider.labels.nocategories" | translate }}

@@ -2,14 +2,14 @@ div
     .card(
         ng-if="prevalidations.length > 0").form
         .card-header: .row
-            .col.col-sm-8.col-xs-12: .card-title Vooringestelde eigenschappen
+            .col.col-sm-8.col-xs-12: .card-title {{ "prevalidated_table.header.title" | translate }}
             .col.col-sm-4.col-xs-12: .form: input(ng-model="filter.query" type="text" placeholder="Search").form-control
         .card-section: .card-block.card-block-table: .table-wrapper
             table.table
                 tr
-                    th Code
+                    th {{ "prevalidated_table.labels.code" | translate }}
                     th(ng-repeat="record in rows[0].records" ng-bind="typesByKey[record.key]")
-                    th.text-right Geactiveerd
+                    th.text-right {{ "prevalidated_table.status.active" | translate }}
                 tr(ng-repeat="row in rows")
                     td(ng-bind="row.uid")
                     td(ng-repeat="record in row.records" ng-bind="record.value")
@@ -21,7 +21,7 @@ div
             .table-pagination-counter(ng-bind="rows.length + ' results'")
             button(ng-click="exportList()").button.button-primary.pull-right
                 em.mdi.mdi-download  
-                | Exporteren
+                | {{ "prevalidated_table.buttons.export" | translate }}
             // .table-pagination-navigation
                 button(disabled).button.button-default Prev
                 button.button.button-default 1
@@ -41,4 +41,4 @@ div
                     | Delete
     empty-block(
         ng-if="prevalidations.length == 0" 
-        text="'U heeft momenteel geen voor ingestelde eigenschappen'")
+        text="'Je hebt momenteel geen voor ingestelde eigenschappen'")

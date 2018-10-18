@@ -5,22 +5,22 @@
             .card-section
                 p
                     strong €{{ $ctrl.voucherTransction.amount | to_fixed:2 }}
-                    strong.text-primary.pull-right Payment
+                    strong.text-primary.pull-right {{ "financial_dashboard_transaction.labels.payment" | translate }}
 
             .card
-                .card-header: .card-title Payment details
+                .card-header: .card-title {{ "financial_dashboard_transaction.labels.details" | translate }}
                 .card-section
                     .card-block.card-block-keyvalue
                         .keyvalue-item
-                            .keyvalue-key ID
+                            .keyvalue-key {{ "financial_dashboard_transaction.labels.id" | translate }}
                             .keyvalue-value {{ $ctrl.voucherTransction.payment_id }}
                         .keyvalue-item
-                            .keyvalue-key Statement beneficiary
+                            .keyvalue-key {{ "financial_dashboard_transaction.labels.statement" | translate }}
                             .keyvalue-value {{ $ctrl.voucherTransction.organization.name }}
                         .keyvalue-item
-                            .keyvalue-key BUNQ Fee
-                            .keyvalue-value € 0.10
+                            .keyvalue-key {{ "financial_dashboard_transaction.labels.bunq" | translate }}
+                            .keyvalue-value {{ "financial_dashboard_transaction.labels.fee" | translate }}
                         .keyvalue-item
-                            .keyvalue-key Date
+                            .keyvalue-key {{ "financial_dashboard_transaction.labels.date" | translate }}
                             .keyvalue-value {{ $ctrl.voucherTransction.date_time }}
                         

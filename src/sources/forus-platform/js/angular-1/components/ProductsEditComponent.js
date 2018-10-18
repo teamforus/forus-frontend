@@ -19,7 +19,7 @@ let ProductsEditComponent = function(
 
         $ctrl.productCategories.unshift({
             id: null,
-            name: 'Select category'
+            name: 'Selecteer categorie'
         });
 
         $ctrl.form = FormBuilderService.build(values, (form) => {
