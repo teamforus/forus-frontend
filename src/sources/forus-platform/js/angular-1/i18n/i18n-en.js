@@ -296,7 +296,7 @@ module.exports = {
     // TRANSACTIONS = transaction.pug
     transactions: {
         header: {
-            title: "Transacties (8)",
+            title: "Transacties",
         },
         labels: {
             price: "BEDRAG",
