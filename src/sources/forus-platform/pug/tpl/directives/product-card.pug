@@ -6,11 +6,11 @@
                 .old-price € {{ product.old_price }},-
 
             if (state == 'active')
-                .tag.tag-success Actief
+                .tag.tag-success {{ "product_card.status.active" | translate }}
             if (state == 'paused')
-                .tag.tag-warning Gepauzeerd
+                .tag.tag-warning {{ "product_card.status.paused" | translate }}
             if (state == 'closed')
-                .tag.tag-default Gesloten
+                .tag.tag-default {{ "product_card.status.closed" | translate }}
 
         .card-block.card-block-product
             .product-img: img(ng-src="{{ product.photo.sizes.large }}")
@@ -41,8 +41,8 @@
         .text-right
             a(ng-click="deleteProduct(product)").button.button-primary
                 em.mdi.mdi-delete  
-                | Verwijderen
+                | {{ "product_card.buttons.delete" | translate }}
 
             a(ui-sref="products-edit(product)").button.button-default
                 em.mdi.mdi-pen  
-                | Bewerken
+                | {{ "product_card.buttons.edit" | translate }}

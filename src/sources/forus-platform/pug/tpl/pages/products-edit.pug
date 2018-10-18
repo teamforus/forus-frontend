@@ -2,7 +2,7 @@
     menu
     section.app.app-content
         .card: form(ng-submit="$ctrl.form.submit()").form
-            .card-header: .card-title Product toevoegen
+            .card-header: .card-title {{ "product_edit.header.title" | translate }}
             .card-section.card-section-primary
                 .row 
                     .col.col-xs-12
@@ -16,33 +16,33 @@
                 .row 
                     .col.col-sm-8.col-xs-12
                         .form-group.form-group-inline
-                            label.form-label Name
-                            input(ng-model="$ctrl.form.values.name" type="text" placeholder="Name").form-control
+                            label.form-label {{ "product_edit.labels.name" | translate }}
+                            input(ng-model="$ctrl.form.values.name" type="text" placeholder="Naam").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
                         .form-group.form-group-inline
-                            label.form-label Description
-                            textarea(ng-model="$ctrl.form.values.description" placeholder="Description").form-control
+                            label.form-label {{ "product_edit.labels.description" | translate }}
+                            textarea(ng-model="$ctrl.form.values.description" placeholder="Omschrijving").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
             .card-section.card-section-primary
                 .row 
                     .col.col-sm-8.col-xs-12
                         .form-group.form-group-inline
-                            label.form-label Prijs
-                            input(ng-model="$ctrl.form.values.price" type="number" placeholder="Price").form-control
+                            label.form-label {{ "product_edit.labels.new" | translate }}
+                            input(ng-model="$ctrl.form.values.price" type="number" placeholder="Prijs").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.price" ng-bind="error")
                         .form-group.form-group-inline
-                            label.form-label Oude prijs
-                            input(ng-model="$ctrl.form.values.old_price" type="number" placeholder="Old price").form-control
+                            label.form-label {{ "product_edit.labels.old" | translate }}
+                            input(ng-model="$ctrl.form.values.old_price" type="number" placeholder="Oude prijs").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.old_price" ng-bind="error")
                         .form-group.form-group-inline
-                            label.form-label Totaal bedrag
-                            input(ng-model="$ctrl.form.values.total_amount" type="number" placeholder="Total amount").form-control
+                            label.form-label {{ "product_edit.labels.total" | translate }}
+                            input(ng-model="$ctrl.form.values.total_amount" type="number" placeholder="Aantal producten").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.total_amount" ng-bind="error")
             .card-section.card-section-primary
                 .row 
                     .col.col-sm-8.col-xs-12
                         .form-group.form-group-inline
-                            label.form-label Product categorie
+                            label.form-label {{ "product_edit.labels.category" | translate }}
                             select(
                                 ng-options="productCategory.id as productCategory.name for productCategory in $ctrl.productCategories" 
                                 ng-model="$ctrl.form.values.product_category_id"
@@ -51,5 +51,5 @@
 
             .card-section.card-section-primary
                 .text-center
-                    button.button.button-default Annuleren
-                    button(type="submit").button.button-primary Bevestig
+                    button.button.button-default {{ "product_edit.buttons.cancel" | translate }}
+                    button(type="submit").button.button-primary {{ "product_edit.buttons.confirm" | translate }}

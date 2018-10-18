@@ -2,15 +2,15 @@
     menu
     section.app.app-content
         .card(class=(state=='closed'?'card-outline':'')).form
-            .card-header: .card-title Transactions (8)
+            .card-header: .card-title {{ "transactions.header.title" | translate }}
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
                         table.table
                             tr
-                                th BEDRAG
-                                th BESCHRIJVING
-                                th KLANT
+                                th {{ "transactions.labels.price" | translate }}
+                                th {{ "transactions.labels.description" | translate }}
+                                th {{ "transactions.labels.customer" | translate }}
                                 th DATUM
                                 th 
                             mixin row()
@@ -25,12 +25,12 @@
                                     td: .hover-actions
                                         em.mdi.mdi-dots-horizontal
                                         .hover-actions-menu
-                                            .hover-actions-label ACTION
-                                            .hover-actions-item Terugbetalen
-                                            .hover-actions-item Kopieer ID
+                                            .hover-actions-label {{ "transactions.labels.action" | translate }}
+                                            .hover-actions-item {{ "transactions.labels.refund" | translate }}
+                                            .hover-actions-item {{ "transactions.labels.chargeid" | translate }}
                                             .hover-actions-sep
-                                            .hover-actions-label CONNECTIONS
-                                            .hover-actions-item Bekijk details
+                                            .hover-actions-label {{ "transactions.labels.connections" | translate }}
+                                            .hover-actions-item {{ "transactions.labels.details" | translate }}
                             +row()
                             +row()
                             +row()
@@ -43,10 +43,10 @@
                             +row()
             .card-section
                 .table-pagination
-                    .table-pagination-counter 8 resultaten
+                    .table-pagination-counter {{ "transactions.labels.results" | translate }}
                     .table-pagination-navigation
-                        button(disabled).button.button-default Vorige
-                        button.button.button-default 1
-                        button.button.button-default 2
-                        button.button.button-primary 3
-                        button(disabled).button.button-default Volgende
+                        button(disabled).button.button-default {{ "transactions.buttons.previous" | translate }}
+                        button.button.button-default {{ "transactions.paginator.one" | translate }}
+                        button.button.button-default {{ "transactions.paginator.two" | translate }}
+                        button.button.button-primary {{ "transactions.paginator.three" | translate }}
+                        button(disabled).button.button-default {{ "transactions.buttons.next" | translate }}

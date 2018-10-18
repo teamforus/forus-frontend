@@ -5,9 +5,9 @@
             ng-click="csvParser.selectFile()")
             .csv-upload-icon: .mdi.mdi-upload
             .csv-upload-text
-                | Upload .csv bestand
+                | {{ "csv_upload.labels.upload" | translate  }}
                 br
-                span Sleep hier het *.CSV of *.TXT bestand
+                span {{ "csv_upload.labels.swipe" | translate  }}
 
         .csv-upload-progress(
             ng-show="csvParser.progress >= 2" 
@@ -18,7 +18,7 @@
 
         .csv-upload-actions
             .text-center(ng-show="csvParser.progress == 1")
-                button(ng-click="csvParser.uploadToServer()").button.button-primary Upload
+                button(ng-click="csvParser.uploadToServer()").button.button-primary {{ "csv_upload.buttons.upload" | translate  }}
 
             .text-center(ng-show="csvParser.progress == 3")
-                button(ng-click="reset()").button.button-primary Klaar
+                button(ng-click="reset()").button.button-primary {{ "csv_upload.labels.done" | translate  }}

@@ -5,45 +5,45 @@
                 ng-show="level == 'fundsAvailable' && fund.state != 'closed'"
                 ng-click="providerApplyFund(fund)").button.button-primary 
                 em.mdi.mdi-plus-circle 
-                | Aanmelden
+                | {{ "fund_card_sponsor.buttons.join" | translate }}
 
             div(ng-show="level != 'fundsAvailable' && fund.state == 'active'")
                 span(ng-if="level=='fundShow'" ng-click="changeState('closed')").card-section-action
                     em.mdi.mdi-close
-                    | Sluit 
+                    | {{ "fund_card_sponsor.buttons.close" | translate }}
                 span(ng-if="level=='fundShow'" ng-click="changeState('paused')").card-section-action
                     em.mdi.mdi-pause
-                    | Pauze
+                    | {{ "fund_card_sponsor.buttons.pause" | translate }}
 
-                .tag.tag-success Active
+                .tag.tag-success {{ "fund_card_sponsor.status.active" | translate }}
 
             div(ng-show="level != 'fundsAvailable' && fund.state == 'paused'")
                 span(ng-if="level=='fundShow'" ng-click="changeState('closed')").card-section-action
                     em.mdi.mdi-close
-                    | Sluit
+                    | {{ "fund_card_sponsor.buttons.close" | translate }}
                 span(ng-if="level=='fundShow'" ng-click="changeState('active')").card-section-action
                     em.mdi.mdi-play
-                    | Herstart 
+                    | {{ "fund_card_sponsor.buttons.restart" | translate }}
 
-                .tag.tag-warning Paused
+                .tag.tag-warning {{ "fund_card_sponsor.status.paused" | translate }}
             span(ng-if="fund.state == 'closed'")
                 span(ng-if="level=='fundShow'" ng-click="changeState('paused')").card-section-action
                     em.mdi.mdi-pause
-                    | Pauze 
+                    | {{ "fund_card_sponsor.buttons.pause" | translate }} 
                 span(ng-if="level=='fundShow'" ng-click="changeState('active')").card-section-action
                     em.mdi.mdi-play
-                    | Herstart
+                    | {{ "fund_card_sponsor.buttons.restart" | translate }}
 
-                .tag.tag-default Closed
+                .tag.tag-default {{ "fund_card_sponsor.status.closed" | translate }}
         .card-block.card-block-fund
             .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/organization-no-logo.svg' }}", alt="")
             a(ui-sref="funds-show({organization_id: fund.organization_id, fund_id: fund.id})" ng-bind="fund.name").fund-title
             br
             div(ng-bind="fund.organization.name").fund-organization
         .card-block.card-block-listing
-            .card-block-listing-label Categories
+            .card-block-listing-label {{ "fund_card_sponsor.labels.categories" | translate }}
             | {{ fundCategories.join(', ') }}
-            small(ng-show="fundCategories.length == 0").text-muted.small No categories
+            small(ng-show="fundCategories.length == 0").text-muted.small {{ "fund_card_sponsor.labels.nocategories" | translate }}
 
     mixin keyvalue_item_horizontal(key, value)
         .keyvalue-item
@@ -77,17 +77,17 @@
                         ui-sref="funds-edit({organization_id: fund.organization_id, fund_id: fund.id})"
                         ).button.button-default
                         em.mdi.mdi-settings  
-                        | Instellingen
+                        | {{ "fund_card_sponsor.labels.setting" | translate }}
 
                     button(ng-if="fund.state != 'closed'" ng-click="openModal()").button.button-primary
                         em.mdi.mdi-plus-circle  
-                        | Budget toevoegen
+                        | {{ "fund_card_sponsor.buttons.add" | translate }}
     
     div(ng-show="level == 'financialDashboard'")
         .card-section
             .arrow-box.border: .arrow
             .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
-                .card-title Statistieken
+                .card-title {{ "fund_card_sponsor.labels.statistics" | translate }}
                 br
                 .row
                     +keyvalue_item_horizontal_col4("Totale inkomsten", "€ 523.34   /   % 99.83")
@@ -101,22 +101,22 @@
                     +keyvalue_item_horizontal_col4("Inkomsten vorige week", "€ 0.00   /   % 0.00")
         .card-header
             .arrow-box.border.bg-dim: .arrow
-            .card-title Transactions (8)
+            .card-title {{ "fund_card_sponsor.labels.results" | translate }}
         .card-section
             .card-block.card-block-table
                 .table-wrapper
                     table.table
                         tr
-                            th BEDRAG
-                            th BESCHRIJVING
-                            th KLANT
-                            th DATUM
+                            th {{ "fund_card_sponsor.labels.price" | translate }}
+                            th {{ "fund_card_sponsor.labels.description" | translate }}
+                            th {{ "fund_card_sponsor.labels.customer" | translate }}
+                            th {{ "fund_card_sponsor.labels.date" | translate }}
                             th 
                         mixin row()
                             tr
                                 td: a(href="./transaction.html").text-primary-light €19000.00
                                 td: a(href="./transaction.html") 
-                                    | BETALING -  
+                                    | {{ "fund_card_sponsor.labels.payment" | translate }}  
                                     br
                                     | ch_1BpcoqBQO0R3BKRwYEyl1jd9
                                 td: a(href="#").text-primary-light Harris s Vernick
@@ -124,12 +124,12 @@
                                 td: .hover-actions
                                     em.mdi.mdi-dots-horizontal
                                     .hover-actions-menu
-                                        .hover-actions-label ACTION
-                                        .hover-actions-item Refund charge
-                                        .hover-actions-item Copy charge ID to clipboard
+                                        .hover-actions-label {{ "fund_card_sponsor.labels.action" | translate }}
+                                        .hover-actions-item {{ "fund_card_sponsor.labels.refund" | translate }}
+                                        .hover-actions-item {{ "fund_card_sponsor.labels.chargeid" | translate }}
                                         .hover-actions-sep
-                                        .hover-actions-label CONNECTIONS
-                                        .hover-actions-item BEKIJK DETAILS
+                                        .hover-actions-label {{ "fund_card_sponsor.labels.connections" | translate }}
+                                        .hover-actions-item {{ "fund_card_sponsor.labels.details" | translate }}
                         +row()
                         +row()
                         +row()
