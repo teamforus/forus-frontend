@@ -310,6 +310,9 @@ module.exports = {
             details: "Bekijk transactiedetails",
             results: "8 resultaten",
             payment: "Betaling -",
+            fund: "FONDS",
+            status: "STATUS",
+            provider: "LEVERANCIER",
         },
         buttons: {
             previous: "Vorige",

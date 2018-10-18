@@ -11,9 +11,9 @@
                             tr
                                 th {{ "transactions.labels.price" | translate }}
                                 th {{ "transactions.labels.date" | translate }}
-                                th FUND
-                                th PROVIDER
-                                th STATUS
+                                th {{ "transactions.labels.fund" | translate }}
+                                th {{ "transactions.labels.provider" | translate }}
+                                th {{ "transactions.labels.status" | translate }}
                             tr(
                                 ng-repeat="transaction in $ctrl.transactions" 
                                 ui-sref="financial-dashboard-transaction({organization_id: transaction.organization.id, fund_id: transaction.fund.id, fund_provider_id: transaction.organization.id, id: transaction.address})").pointer
