@@ -4,16 +4,16 @@
         product-card(product="$ctrl.product" level="show")
         
         .card
-            .card-header: .card-title Transactions
+            .card-header: .card-title {{ "product_show.header.title" | translate }}
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
                         table.table
                             tr
-                                th BEDRAG
-                                th BESCHRIJVING
-                                th KLANT
-                                th DATUM
+                                th {{ "product_show.labels.price" | translate }}
+                                th {{ "product_show.labels.description" | translate }}
+                                th {{ "product_show.labels.customer" | translate }}
+                                th {{ "product_show.labels.date" | translate }}
                                 th 
                             mixin row()
                                 tr
@@ -27,12 +27,12 @@
                                     td: .hover-actions
                                         em.mdi.mdi-dots-horizontal
                                         .hover-actions-menu
-                                            .hover-actions-label ACTION
-                                            .hover-actions-item Refund charge
-                                            .hover-actions-item Copy charge ID to clipboard
+                                            .hover-actions-label {{ "product_show.labels.action" | translate }}
+                                            .hover-actions-item {{ "product_show.labels.refund" | translate }}
+                                            .hover-actions-item {{ "product_show.labels.chargeid" | translate }}
                                             .hover-actions-sep
-                                            .hover-actions-label CONNECTIONS
-                                            .hover-actions-item View payment details
+                                            .hover-actions-label {{ "product_show.labels.connections" | translate }}
+                                            .hover-actions-item {{ "product_show.labels.details" | translate }}
                             +row()
                             +row()
                             +row()
@@ -45,10 +45,10 @@
                             +row()
             .card-section
                 .table-pagination
-                    .table-pagination-counter 8 resultaten
+                    .table-pagination-counter {{ "product_show.labels.results" | translate }}
                     .table-pagination-navigation
-                        button(disabled).button.button-default Vorige
-                        button.button.button-default 1
-                        button.button.button-default 2
-                        button.button.button-primary 3
-                        button(disabled).button.button-default Volgende
+                        button(disabled).button.button-default {{ "product_show.buttons.previous" | translate }}
+                        button.button.button-default {{ "product_show.paginator.one" | translate }}
+                        button.button.button-default {{ "product_show.paginator.two" | translate }}
+                        button.button.button-primary {{ "product_show.paginator.three" | translate }}
+                        button(disabled).button.button-default {{ "product_show.buttons.next" | translate }}

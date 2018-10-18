@@ -4,7 +4,7 @@
         div(fund-card-sponsor fund="$ctrl.fund" level="$ctrl.fundLevel")
 
         .card
-            .card-header: .card-title Criteria's (3)
+            .card-header: .card-title {{ "funds_show.criterion" | translate }}
             .card-section
                 .card-block.card-block-keyvalue
                     mixin keyvalue_item(key, value, links = [])

@@ -1,12 +1,12 @@
 .wrapper
     .text-center
-        button(ng-click="$ctrl.requestAuthToken()").button.button-primary Log in
+        button(ng-click="$ctrl.requestAuthToken()").button.button-primary {{ "home.buttons.login" | translate }}
     div(ng-show="$ctrl.showModal").modal
         .modal-backdrop(ng-click="$ctrl.closeModal()")
         .modal-window
-            .modal-header Log in
+            .modal-header {{ "home.buttons.login" | translate }}
             .modal-body.form
                 .modal-section
                     .qrcode: #qrcode
             .modal-footer.text-center
-                button(ng-click="$ctrl.closeModal()").button.button-primary Annuleren
+                button(ng-click="$ctrl.closeModal()").button.button-primary {{ "home.buttons.cancel" | translate }}

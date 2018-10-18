@@ -1,9 +1,9 @@
 .wrapper: .block.block-choose-organization
-    .organization-heading {{ 'organizations.title' | translate }}
+    .organization-heading {{ "organizations.header.title" | translate }}
     a(ui-sref="funds" ng-show="$root.appConfigs.panel_type == 'sponsor'").organization-item
         .organization-item-inner
             .organization-logo: img(src="./assets/img/organization-no-logo.svg")
-        .organization-name Zonder organisatie
+        .organization-name {{ "organizations.labels.without" | translate }}
 
     div(ng-click="$ctrl.chooseOrganization(organization)" ng-repeat="organization in $ctrl.organizations").organization-item
         .organization-item-inner
@@ -13,4 +13,4 @@
     div(ui-sref="organizations-create").organization-item
         .organization-item-inner
             .organization-logo.organization-logo-mdi: .mdi.mdi-plus
-        .organization-name Organisatie toevoegen
+        .organization-name {{ "organizations.buttons.add" | translate }}

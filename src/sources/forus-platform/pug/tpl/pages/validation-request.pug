@@ -8,12 +8,12 @@
                         ng-if="$ctrl.validatorRequest.state == 'pending'"
                         ng-click="$ctrl.approve($ctrl.validatorRequest)")
                         .mdi.mdi-check
-                        | Accepteren
+                        | {{ "validation_request.buttons.accept" | translate }}
                     .card-section-action(
                         ng-if="$ctrl.validatorRequest.state == 'pending'"
                         ng-click="$ctrl.decline($ctrl.validatorRequest)")
                         .mdi.mdi-close
-                        | Weigeren
+                        | {{ "validation_request.buttons.refuse" | translate }}
                     .tag(
                         ng-class="{pending: 'tag-warning', declined: 'tag-danger', approved: 'tag-success'}[$ctrl.validatorRequest.state]"
                         ng-bind="{pending: 'Pending', declined: 'Declined', approved: 'Approved'}[$ctrl.validatorRequest.state]")
@@ -21,5 +21,5 @@
 
             .card-section.card-section-primary: .card-block.card-block-keyvalue.card-block-keyvalue-horizontal: .row
                 .keyvalue-item.col.col-sm-3
-                    .keyvalue-key BSN
+                    .keyvalue-key {{ "validation_request.buttons.bsn" | translate }}
                     .keyvalue-value(ng-bind="$ctrl.validatorRequest.bsn")
