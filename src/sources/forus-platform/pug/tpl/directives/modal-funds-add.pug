@@ -9,7 +9,7 @@
                 .modal-funds-added
                     p
                         | {{ "modal_funds_add.labels.payment" | translate }}
-                        span.text-primary NL83 BUNQ 3456 3344 32
+                        span.text-primary(ng-bind="modalIban")
                         br
                         | {{ "modal_funds_add.labels.addcode" | translate }}
                         span.text-primary(ng-bind="modalCode") 

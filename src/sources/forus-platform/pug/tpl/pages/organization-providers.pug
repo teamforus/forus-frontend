@@ -2,7 +2,7 @@
     menu
     section.app.app-content
         .card-heading {{ "organization_providers.header.title" | translate }} ({{ $ctrl.providerFunds.length }}) 
-        .card(ng-repeat="providerFund in $ctrl.providerFunds")
+        .card(ng-repeat="providerFund in $ctrl.fundProviders")
             .card-section
                 .card-section-actions
                     div(ng-show="providerFund.state == 'approved'")
@@ -55,5 +55,5 @@
                             | {{ "organization_providers.buttons.accept" | translate }}
         
         empty-block( 
-            ng-if="$ctrl.providerFunds.length == 0"
+            ng-if="$ctrl.fundProviders.length == 0"
             text="'You have no provider requests yet.'")

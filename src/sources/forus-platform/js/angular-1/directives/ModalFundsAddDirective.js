@@ -4,6 +4,7 @@ module.exports = () => {
     return {
         scope: {
             modalCode: '=',
+            modalIban: '=',
             closeModal: '='
         },
         restrict: "EA",

@@ -30,6 +30,8 @@ app.component('validationRequestComonent', require('./components/ValidationReque
 app.component('signUpComponent', require('./components/SignUpComponent'));
 app.component('providerIdentitiesComponent', require('./components/ProviderIdentitiesComponent'));
 app.component('providerIdentityEditComponent', require('./components/ProviderIdentityEditComponent'));
+app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
+app.component('financialDashboardTransactionComponent', require('./components/FinancialDashboardTransactionComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -70,6 +72,7 @@ switch (env_data.panel_type) {
 
 app.directive('fundCardSponsor', require('./directives/FundCardSponsorDirective'));
 app.directive('fundCardProvider', require('./directives/FundCardProviderDirective'));
+app.directive('fundCardProviderFinances', require('./directives/FundCardProviderFinancesDirective'));
 app.directive('fundCardAvailableProvider', require('./directives/FundCardAvailableProviderDirective'));
 app.directive('productCard', require('./directives/ProductCardDirective'));
 app.directive('multiSelect', require('./directives/MultiSelectDirective'));
@@ -80,6 +83,8 @@ app.directive('csvUpload', require('./directives/CsvUploadDirective'));
 app.directive('progressBar', require('./directives/ProgressBarDirective'));
 app.directive('prevalidatedTable', require('./directives/PrevalidatedTableDirective'));
 app.directive('photoSelector', require('./directives/PhotoSelectorDirective'));
+app.directive('radialChart', require('./directives/RadialChartDirective'));
+app.directive('linearChart', require('./directives/LinearChartDirective'));
 
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));

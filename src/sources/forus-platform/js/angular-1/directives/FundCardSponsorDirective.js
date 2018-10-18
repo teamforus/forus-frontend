@@ -1,8 +1,8 @@
 let FundCardDirective = function(
-    $scope, 
-    $state, 
-    $rootScope, 
-    FundService, 
+    $scope,
+    $state,
+    $rootScope,
+    FundService,
     ProviderFundService
 ) {
     let getRndInteger = function(min, max) {
@@ -11,13 +11,33 @@ let FundCardDirective = function(
 
     $scope.showModal = false;
     $scope.modalCode = "";
+    $scope.modalIban = "";
+
+    $scope.modalOpening = false;
 
     $scope.openModal = function() {
-        $scope.modalCode = getRndInteger(1000, 9999);
-        $scope.showModal = true;
+        if ($scope.modalOpening) {
+            return;
+        }
+
+        $scope.modalOpening = true;
+
+        FundService.makeTopUp(
+            $scope.fund.organization_id,
+            $scope.fund.id
+        ).then((res) => {
+            $scope.modalCode = res.data.data.code;
+            $scope.modalIban = res.data.data.iban;
+            $scope.showModal = true;
+            $scope.modalOpening = false;
+        }, () => {
+            $scope.modalOpening = false;
+        });
     };
 
     $scope.closeModal = function() {
+        $scope.modalCode = '';
+        $scope.modalIban = '';
         $scope.showModal = false;
     };
 
@@ -33,7 +53,7 @@ let FundCardDirective = function(
 
     $scope.providerApplyFund = function(fund) {
         ProviderFundService.applyForFund(
-            $scope.organization.id, 
+            $scope.organization.id,
             $scope.fund.id
         ).then(function(res) {
             $state.reload();
@@ -72,6 +92,6 @@ module.exports = () => {
             'ProviderFundService',
             FundCardDirective
         ],
-        templateUrl: 'assets/tpl/directives/fund-card-sponsor.html' 
+        templateUrl: 'assets/tpl/directives/fund-card-sponsor.html'
     };
 };

@@ -1,0 +1,80 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .card-heading You are looking now at the financial dashboard for:
+        .block.block-choose-organization(ng-if="$ctrl.funds.length > 0")
+            div(
+                ng-repeat="fund in $ctrl.fund ? [$ctrl.fund] : $ctrl.funds" 
+                ui-sref="financial-dashboard({fund_id: fund.id})").organization-item
+                .organization-item-inner
+                    .organization-logo: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/organization-no-logo.svg' }}")
+                .organization-name(ng-bind="fund.name")
+                .organization-categories Bikes, Computers
+
+            div(
+                ng-if="$ctrl.fund"
+                ui-sref="financial-dashboard({fund_id: null})").organization-item
+                .organization-item-inner
+                    .organization-logo.organization-logo-mdi: .mdi.mdi-plus
+                .organization-name Choose different fond
+            br
+    
+        div(ng-if="$ctrl.fundProviders.length > 0")
+            .block.block-charts
+                .row: .col.col-sm-12: .card
+                    .card-section
+                        .chart-header
+                            .chart-header-range
+                                .chart-header-item(ng-click="$ctrl.chartData.changeType('quarter')" ng-class="$ctrl.chartData.request.type=='quarter'?'active':''") Qwartaal
+                                .chart-header-item(ng-click="$ctrl.chartData.changeType('month')" ng-class="$ctrl.chartData.request.type=='month'?'active':''") Maand
+                                .chart-header-item(ng-click="$ctrl.chartData.changeType('week')" ng-class="$ctrl.chartData.request.type=='week'?'active':''") Week
+                                .chart-header-item(ng-click="$ctrl.chartData.changeType('all')" ng-class="$ctrl.chartData.request.type=='all'?'active':''") All
+                            .chart-header-title {{ $ctrl.chartData.stringTitle }}
+                            .chart-header-actions
+                                div(ng-if="$ctrl.chartData.request.type!='all'")
+                                    .button.button-default(ng-click="$ctrl.chartData.decrease()") Vorige
+                                    .button.button-default(ng-click="$ctrl.chartData.increase()") Volgende
+                        .chart-body
+                            linear-chart(data="$ctrl.chartData.response.dates")
+
+                .chart-row
+                    .card: .card-section
+                        .chart-control
+                            .chart-label Total amount left
+                            .chart-value
+                                .chart-value_value €{{ $ctrl.fund.budget.total | to_fixed:2 }}
+                                .chart-value_label Total spent to date
+                                .chart-value_value_b €{{ $ctrl.fund.budget.used | to_fixed:2 }}
+
+                    .card: .card-section
+                        .chart-control
+                            .chart-label Total used fund result
+                            radial-chart(total="$ctrl.fund.budget.total" value="$ctrl.fund.budget.used")
+
+                    .card: .card-section
+                        .chart-control
+                            .chart-label {{ $ctrl.chartData.stringTitle }} usage
+                            .chart-value
+                                .chart-value_value €{{ ($ctrl.chartData.response.usage || 0) | to_fixed:2 }}
+                                .chart-value_label Betaald in {{ $ctrl.chartData.response.providers }} winkels
+
+                    .card: .card-section
+                        .chart-control
+                            .chart-label Number of activations
+                            .chart-value
+                                .chart-value_value {{ $ctrl.chartData.response.activations }}
+                                .chart-value_label 
+                                    | New citizens 
+                                    br
+                                    | {{ $ctrl.chartData.stringTitle }}
+
+            .card-heading Leveranciers ({{ $ctrl.fundProviders.length }}) 
+            fund-card-provider-finances(ng-repeat="fundProvider in $ctrl.fundProviders" fund-provider="fundProvider")
+    section.app.app-content(ng-if="$ctrl.funds.length == 0")
+        empty-block(
+            ng-if="$ctrl.fund == null && $ctrl.funds.length == 0" 
+            text="'Sorry, no funds available.'" 
+            button="{href: $ctrl.emptyBlockLink, text: 'Add fund'}")
+        empty-block(
+            ng-if="$ctrl.fund == null && $ctrl.funds.length > 0" 
+            text="'Please choose the fund.'")
