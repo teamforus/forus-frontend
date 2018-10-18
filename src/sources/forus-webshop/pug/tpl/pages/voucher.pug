@@ -26,16 +26,25 @@ section.section.section-voucher-details: .wrapper
                     .product-price-old € {{ $ctrl.voucher.product.old_price | to_fixed:2 }}
 
     .block.block-transactions
-        .transactions-header: .transactions-title {{ "voucher.labels.transactions" | translate }}
+        .transactions-header: .transactions-title {{ "voucher.transactions" | translate }}
         .transactions-body: .transactions-list
-            .transactions-item(ng-repeat="transaction in $ctrl.voucher.transactions" class="transactions-item-out")
-                .transactions-item-icon: em.mdi.mdi-arrow-up
-                .transactions-item-details
-                    .transactions-item-counterpart {{ transaction.organization.name }}
-                    .transactions-item-date {{ transaction.date_time }}
-                .transactions-item-amount 
-                    .transactions-item-value - €{{ transaction.amount | to_fixed:2 }}
-                    .transactions-item-type {{ "voucher.labels.subtract" | translate }}
+            .transactions-item(ng-repeat="transaction in $ctrl.transactions" class="transactions-item-out")
+                div(ng-if="transaction.type == 'transaction'")
+                    .transactions-item-icon: em.mdi.mdi-arrow-up
+                    .transactions-item-details
+                        .transactions-item-counterpart {{ transaction.organization.name }}
+                        .transactions-item-date {{ transaction.date_time }}
+                    .transactions-item-amount 
+                        .transactions-item-value - €{{ transaction.amount | to_fixed:2 }}
+                        .transactions-item-type {{ "voucher.labels.subtract" | translate }}
+                div(ng-if="transaction.type == 'product_voucher'")
+                    .transactions-item-icon: em.mdi.mdi-arrow-up
+                    .transactions-item-details
+                        .transactions-item-counterpart {{ "Product voucher: " | translate }} {{ transaction.product.name }}
+                        .transactions-item-date {{ transaction.date_time }}
+                    .transactions-item-amount 
+                        .transactions-item-value - €{{ transaction.product.price | to_fixed:2 }}
+                        .transactions-item-type {{ "voucher.labels.subtract" | translate }}
 
     .block.block-map_card
         .map_card-header

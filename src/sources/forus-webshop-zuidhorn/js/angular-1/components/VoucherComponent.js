@@ -9,6 +9,8 @@ let VoucherComponent = function(
 ) {
     let $ctrl = this;
 
+    $ctrl.transactions = [];
+
     $ctrl.$onInit = function() {
         let qrCodeEl = document.getElementById('voucher_qr');
 
@@ -18,6 +20,18 @@ let VoucherComponent = function(
                 value: $ctrl.voucher.address
             })
         });
+
+        let addType = (type, transaction) => {
+            transaction.type = type;
+
+            return transaction;
+        };
+
+        $ctrl.transactions = $ctrl.voucher.transactions.slice().map(
+            transaction => addType('transaction', transaction)
+        ).concat($ctrl.voucher.product_vouchers.map(
+            product_voucher => addType('product_voucher', product_voucher)
+        )).sort((a, b) => a.timestamp - b.timestamp);
 
         qrCodeEl.removeAttribute('title');
     };

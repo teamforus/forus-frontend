@@ -28,11 +28,11 @@
                     .col.col-sm-8.col-xs-12
                         .form-group.form-group-inline
                             label.form-label {{ "product_edit.labels.new" | translate }}
-                            input(ng-model="$ctrl.form.values.price" type="number" placeholder="Prijs").form-control
+                            input(ng-model="$ctrl.form.values.price" type="number" placeholder="Prijs" step="0.01").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.price" ng-bind="error")
                         .form-group.form-group-inline
                             label.form-label {{ "product_edit.labels.old" | translate }}
-                            input(ng-model="$ctrl.form.values.old_price" type="number" placeholder="Oude prijs").form-control
+                            input(ng-model="$ctrl.form.values.old_price" type="number" placeholder="Oude prijs" step="0.01").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.old_price" ng-bind="error")
                         .form-group.form-group-inline
                             label.form-label {{ "product_edit.labels.total" | translate }}

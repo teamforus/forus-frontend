@@ -1,47 +1,28 @@
 .app.app-container
     menu
     section.app.app-content
-        .card(class=(state=='closed'?'card-outline':'')).form
-            .card-header: .card-title {{ "transactions.header.title" | translate }}
+
+        .card(ng-if="$ctrl.transactions.length > 0" class=(state=='closed'?'card-outline':'')).form
+            .card-header: .card-title {{ "transactions.header.title" | translate }} ({{ $ctrl.transactions.length }})
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
                         table.table
                             tr
                                 th {{ "transactions.labels.price" | translate }}
-                                th {{ "transactions.labels.description" | translate }}
-                                th {{ "transactions.labels.customer" | translate }}
-                                th DATUM
-                                th 
-                            mixin row()
-                                tr
-                                    td: a(href="./transaction.html").text-primary-light €19000.00
-                                    td: a(href="./transaction.html") 
-                                        | Betaling -  
-                                        br
-                                        | ch_1BpcoqBQO0R3BKRwYEyl1jd9
-                                    td: a(href="#").text-primary-light Harris s Vernick
-                                    td 2018/01/29 14:37:08
-                                    td: .hover-actions
-                                        em.mdi.mdi-dots-horizontal
-                                        .hover-actions-menu
-                                            .hover-actions-label {{ "transactions.labels.action" | translate }}
-                                            .hover-actions-item {{ "transactions.labels.refund" | translate }}
-                                            .hover-actions-item {{ "transactions.labels.chargeid" | translate }}
-                                            .hover-actions-sep
-                                            .hover-actions-label {{ "transactions.labels.connections" | translate }}
-                                            .hover-actions-item {{ "transactions.labels.details" | translate }}
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-            .card-section
+                                th {{ "transactions.labels.date" | translate }}
+                                th FUND
+                                th PROVIDER
+                                th STATUS
+                            tr(
+                                ng-repeat="transaction in $ctrl.transactions" 
+                                ui-sref="financial-dashboard-transaction({organization_id: transaction.organization.id, fund_id: transaction.fund.id, fund_provider_id: transaction.organization.id, id: transaction.address})").pointer
+                                td: a.text-primary-light €{{ transaction.amount | to_fixed:2 }}
+                                td(ng-bind="transaction.date_time")
+                                td(ng-bind="transaction.fund.name")
+                                td(ng-bind="transaction.organization.name")
+                                td(ng-bind="{pending: 'Pending', success : 'Voltooid'}[transaction.state]")
+            // .card-section
                 .table-pagination
                     .table-pagination-counter {{ "transactions.labels.results" | translate }}
                     .table-pagination-navigation
@@ -50,3 +31,6 @@
                         button.button.button-default {{ "transactions.paginator.two" | translate }}
                         button.button.button-primary {{ "transactions.paginator.three" | translate }}
                         button(disabled).button.button-default {{ "transactions.buttons.next" | translate }}
+        empty-block(
+            ng-if="$ctrl.transactions.length == 0" 
+            text="'Geen transacties.'")
