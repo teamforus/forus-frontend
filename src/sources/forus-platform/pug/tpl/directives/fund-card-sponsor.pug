@@ -66,12 +66,10 @@
     .card-section.card-section-primary(ng-show="level != 'fundsAvailable'")
         .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
             .row
-                .col.col-sm-8
+                .col.col-sm-6.col.xs-12
                     +keyvalue_item_horizontal("Totaal budget", "'€ ' + fund.budget.total + ',-'")
-                    +keyvalue_item_horizontal("Gevalideerd", "'€ ' + fund.budget.validated + ',-'")
                     +keyvalue_item_horizontal("Gebruikt", "'€ ' + fund.budget.used + ',-'")
-            
-                .col.col-sm-4.text-right
+                .col.col-sm-6.col.xs-12.text-right
                     button(
                         ng-if="userCanEdit()"
                         ui-sref="funds-edit({organization_id: fund.organization_id, fund_id: fund.id})"
@@ -141,4 +139,4 @@
                         +row()
                         +row()
 
-    modal-funds-add(ng-show="showModal" modal-code="modalCode" close-modal="closeModal")
+    modal-funds-add(ng-show="showModal" modal-code="modalCode" modal-iban="modalIban" close-modal="closeModal")

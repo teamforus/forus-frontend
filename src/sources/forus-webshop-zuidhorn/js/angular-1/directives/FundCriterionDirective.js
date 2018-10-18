@@ -20,6 +20,10 @@ let FundCriterionDirective = function($scope) {
             validValue = record.value > $scope.criterion.value;
         } else if ($scope.criterion.operator == '<') {
             validValue = record.value < $scope.criterion.value;
+        } else if ($scope.criterion.operator == '>=') {
+            validValue = record.value >= $scope.criterion.value;
+        } else if ($scope.criterion.operator == '<=') {
+            validValue = record.value <= $scope.criterion.value;
         }
 
         if (!validValue) {
@@ -57,6 +61,6 @@ module.exports = () => {
             '$scope',
             FundCriterionDirective
         ],
-        templateUrl: 'assets/tpl/directives/fund-criterion.html' 
+        templateUrl: 'assets/tpl/directives/fund-criterion.html'
     };
 };

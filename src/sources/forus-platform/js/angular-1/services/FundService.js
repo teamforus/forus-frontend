@@ -29,6 +29,46 @@ let FundService = function(ApiRequest) {
             );
         }
 
+        this.readFinances = function (organization_id, id, data) {
+            return ApiRequest.get(
+                uriPrefix + organization_id + '/funds/' + id + '/finances', 
+                data || {}
+            );
+        }
+
+        this.listProviders = function (organization_id, fund_id, state) {
+            return ApiRequest.get(
+                uriPrefix + organization_id + '/funds/' + fund_id + '/providers', {
+                    state: state
+                }
+            );
+        };
+
+        this.readProvider = function (organization_id, fund_id, provider_id) {
+            return ApiRequest.get(
+                uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + provider_id
+            );
+        };
+
+        this.readProvidersTransactions = function (organization_id, fund_id, provider_id) {
+            return ApiRequest.get(
+                uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + provider_id + '/transactions'
+            );
+        };
+
+        this.readProvidersTransaction = function (organization_id, fund_id, provider_id, transaction_id) {
+            return ApiRequest.get(
+                uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + provider_id + '/transactions/' + transaction_id
+            );
+        };
+
+        this.readProvidersFinances = function (organization_id, fund_id, provider_id, data) {
+            return ApiRequest.get(
+                uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + provider_id + '/finances',
+                data
+            );
+        };
+
         this.approveProvider = function(organization_id, fund_id, id) {
             return ApiRequest.patch(
                 uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + id, {
@@ -57,6 +97,11 @@ let FundService = function(ApiRequest) {
                 value: 'closed',
             }];
         }
+
+        this.makeTopUp = function (organization_id, fund_id) {
+            return ApiRequest.post(
+                uriPrefix + organization_id + '/funds/' + fund_id + '/top-up');
+        };
 
         this.apiResourceToForm = function(apiResource) {
             return {

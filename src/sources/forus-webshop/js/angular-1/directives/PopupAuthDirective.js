@@ -2,7 +2,6 @@ let PopupAuthDirective = function(
     $state,
     $scope,
     $timeout,
-    $interval,
     $rootScope,
     AuthService,
     IdentityService,
@@ -13,8 +12,6 @@ let PopupAuthDirective = function(
     FundService,
     appConfigs
 ) {
-    let abortInterval;
-
     $scope.$watch('popup.screen', function(newValue) {
         if (newValue == 'sign_in-qr') {
             $ctrl.requestAuthQrToken();
@@ -92,7 +89,7 @@ let PopupAuthDirective = function(
 
         if (newValue == 'sign_in-email') {
             $scope.signInEmailForm = FormBuilderService.build({
-                source: "shop.test_shop",
+                source: appConfigs.client_key,
                 primary_email: "",
             }, function(form) {
                 form.lock();
@@ -102,7 +99,7 @@ let PopupAuthDirective = function(
                     form.values.primary_email
                 ).then((res) => {
                     localStorage.setItem('pending_email_token', res.data.access_token);
-                    $scope.popup.open('sign_in-email-pending');
+                    $scope.popup.open('sign_in-email-sent');
                 }, (res) => {
                     form.unlock();
                     form.errors = res.data.errors;
@@ -110,14 +107,8 @@ let PopupAuthDirective = function(
             });
         }
 
-        if (newValue == 'sign_in-email-pending') {
-            let access_token = localStorage.getItem('pending_email_token');
-
-            if (access_token) {
-                $ctrl.checkAccessTokenStatus('email', access_token);
-            } else {
-                $ctrl.stopEmailPending();
-            }
+        if (newValue == 'sign_in-email-sent') {
+            // no actions required
         }
 
         if (newValue == 'authorize-pin_code') {
@@ -166,13 +157,8 @@ let PopupAuthDirective = function(
     };
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
-        if (abortInterval) {
-            return abortInterval = false;
-        }
-
         IdentityService.checkAccessToken(access_token).then((res) => {
             if (res.data.message == 'active') {
-                $ctrl.stopEmailPending();
                 $ctrl.applyAccessToken(access_token);
             } else if (res.data.message == 'pending') {
                 $timeout(function() {
@@ -207,12 +193,6 @@ let PopupAuthDirective = function(
         $ctrl.showModal = false;
         qrCodeEl.innerHTML = '';
     };
-
-    $ctrl.stopEmailPending = function() {
-        abortInterval = true;
-        localStorage.removeItem('pending_email_token');
-        $scope.popup.close();
-    };
 };
 
 module.exports = () => {
@@ -226,7 +206,6 @@ module.exports = () => {
             '$state',
             '$scope',
             '$timeout',
-            '$interval',
             '$rootScope',
             'AuthService',
             'IdentityService',
