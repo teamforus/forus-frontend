@@ -44,10 +44,18 @@
         .card(ng-repeat="office in $ctrl.offices")
             .card-section
                 .card-section-actions
+                    a(ui-sref="offices-edit({organization_id: office.organization_id, office_id: office.id})").button.button-default
+                        em.mdi.mdi-pen  
+                        | Bewerk
+                    a(
+                        ng-if="office.lat && office.lon"
+                        href="https://www.google.com/maps/place/{{ office.lat }},{{ office.lon }}" 
+                        target="_blank").button.button-primary
+                        em.mdi.mdi-map-marker  
+                        | Bekijk op de kaart
                         
                 .card-block.card-block-provider
-                    .provider-img: img(
-                        ng-src="{{ office.photo.sizes.thumbnail || './assets/img/organization-no-logo.svg' }}")
+                    .provider-img: img(ng-src="{{ office.photo.sizes.thumbnail || './assets/img/organization-no-logo.svg' }}")
                     a(ui-sref="offices-edit({organization_id: office.organization_id, office_id: office.id})" ng-bind="office.address").provider-title
                     br
                     .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
@@ -63,7 +71,7 @@
                 .row
                     .col.col-xs-12
                         small Openingstijden:
-                    .col.col-sm-9
+                    .col.col-xs-12
                         div(
                             ng-repeat="(weekDayKey, weekDay) in $ctrl.weekDays"
                             ng-show="office.schedule[weekDayKey].start_time || office.schedule[weekDayKey].end_time"
@@ -72,13 +80,6 @@
                             | {{ office.schedule[weekDayKey].start_time || 'Geen data' }} 
                             | - 
                             | {{ office.schedule[weekDayKey].end_time || 'Geen data' }}
-                    .col.col-sm-3
-                        a(
-                            ng-if="office.lat && office.lon"
-                            href="https://www.google.com/maps/place/{{ office.lat }},{{ office.lon }}" 
-                            target="_blank").button.button-primary
-                            em.mdi.mdi-map-marker  
-                            | Bekijk op de kaart
         
         empty-block(
             ng-if="$ctrl.offices.length == 0" 

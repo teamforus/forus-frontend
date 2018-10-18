@@ -1,47 +1,27 @@
 .app.app-container
     menu
     section.app.app-content
-        .card(class=(state=='closed'?'card-outline':'')).form
-            .card-header: .card-title Transactions (8)
+        .card(ng-if="$ctrl.transactions.length > 0" class=(state=='closed'?'card-outline':'')).form
+            .card-header: .card-title Transactions ({{ $ctrl.transactions.length }})
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
                         table.table
                             tr
-                                th BEDRAG
-                                th BESCHRIJVING
-                                th KLANT
+                                th BEDRAG 
                                 th DATUM
-                                th 
-                            mixin row()
-                                tr
-                                    td: a(href="./transaction.html").text-primary-light €19000.00
-                                    td: a(href="./transaction.html") 
-                                        | Betaling -  
-                                        br
-                                        | ch_1BpcoqBQO0R3BKRwYEyl1jd9
-                                    td: a(href="#").text-primary-light Harris s Vernick
-                                    td 2018/01/29 14:37:08
-                                    td: .hover-actions
-                                        em.mdi.mdi-dots-horizontal
-                                        .hover-actions-menu
-                                            .hover-actions-label ACTION
-                                            .hover-actions-item Terugbetalen
-                                            .hover-actions-item Kopieer ID
-                                            .hover-actions-sep
-                                            .hover-actions-label CONNECTIONS
-                                            .hover-actions-item Bekijk details
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-            .card-section
+                                th FUND
+                                th PROVIDER
+                                th STATUS
+                            tr(
+                                ng-repeat="transaction in $ctrl.transactions" 
+                                ui-sref="financial-dashboard-transaction({organization_id: transaction.organization.id, fund_id: transaction.fund.id, fund_provider_id: transaction.organization.id, id: transaction.address})").pointer
+                                td: a.text-primary-light €{{ transaction.amount | to_fixed:2 }}
+                                td(ng-bind="transaction.date_time")
+                                td(ng-bind="transaction.fund.name")
+                                td(ng-bind="transaction.organization.name")
+                                td(ng-bind="{pending: 'Pending', success : 'Voltooid'}[transaction.state]")
+            // .card-section
                 .table-pagination
                     .table-pagination-counter 8 resultaten
                     .table-pagination-navigation
@@ -50,3 +30,6 @@
                         button.button.button-default 2
                         button.button.button-primary 3
                         button(disabled).button.button-default Volgende
+        empty-block(
+            ng-if="$ctrl.transactions.length == 0" 
+            text="'No transactions.'")

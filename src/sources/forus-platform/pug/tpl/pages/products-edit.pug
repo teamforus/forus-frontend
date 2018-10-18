@@ -28,11 +28,11 @@
                     .col.col-sm-8.col-xs-12
                         .form-group.form-group-inline
                             label.form-label Prijs
-                            input(ng-model="$ctrl.form.values.price" type="number" placeholder="Price").form-control
+                            input(ng-model="$ctrl.form.values.price" type="number" placeholder="Price" step="0.01").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.price" ng-bind="error")
                         .form-group.form-group-inline
                             label.form-label Oude prijs
-                            input(ng-model="$ctrl.form.values.old_price" type="number" placeholder="Old price").form-control
+                            input(ng-model="$ctrl.form.values.old_price" type="number" placeholder="Old price" step="0.01").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.old_price" ng-bind="error")
                         .form-group.form-group-inline
                             label.form-label Totaal bedrag

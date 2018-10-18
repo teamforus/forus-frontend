@@ -4,7 +4,7 @@
         .card
             .card-section
                 p
-                    strong €306.00
+                    strong €{{ $ctrl.voucherTransction.amount | to_fixed:2 }}
                     strong.text-primary.pull-right Payment
 
             .card

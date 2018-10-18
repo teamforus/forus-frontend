@@ -332,8 +332,17 @@ module.exports = function($stateProvider) {
      */
     $stateProvider.state({
         name: "transactions",
-        url: "/transactions",
-        component: "transactionsComponent"
+        url: "/organizations/{organization_id}/transactions",
+        component: "transactionsComponent",
+        resolve: {
+            transactions: function($transition$, TransactionService) {
+                return repackResponse(
+                    TransactionService.list(
+                        $transition$.params().organization_id
+                    )
+                );
+            },
+        }
     });
 
     /**
