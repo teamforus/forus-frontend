@@ -289,7 +289,7 @@ module.exports = {
             join: "Aanmelden",
             scancode: "Scan deze QR-Code met een ander apparaat waar je al op aangemeld bent",
             mobilecode: "Vul je toegangscode van de Me App in",
-            mail: "Vul je e-mail adres en activatiecode in om verder te gaan met aanmelden",
+            mail: "Dit scherm is alleen bedoeld voor inwoners die een brief van de gemeente hebben ontvangen met daarin een activatiecode en deze nog niet hebben gebruikt.",
             link: "Vul je e-mail adres in om een link te ontvangen waarmee je kunt inloggen",
             code: "Vul de activatiecode in die je per brief hebt ontvangen",
         },
