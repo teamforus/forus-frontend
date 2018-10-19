@@ -282,6 +282,7 @@ module.exports = {
             mail: "Log in via e-mail",
             submit: "VERSTUREN",
             cancel: "ANNULEREN",
+            confirm: "VOLGENDE",
         },
         labels: {
             timelimit: "Je kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt je sessie.",
