@@ -344,7 +344,7 @@ module.exports = {
             login:"Login",
             voucher:"Mijn vouchers",
             records: "Mijn eigenschappen",
-            authorize:"Authoriseer apparaat",
+            authorize:"Autoriseer apparaat",
             logout:"Uitloggen",
             products:"Producten",
             funds: "Fondsen",
