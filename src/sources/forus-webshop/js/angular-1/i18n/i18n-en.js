@@ -275,7 +275,7 @@ module.exports = {
         notifications: {
             confirmation: "Het is gelukt!",
             link: "Er is een link naar je e-mail adres gestuurd",
-            invalid: "Ongeldige activatiecode of reeds gebruikt",
+            invalid: "De activatiecode is ongeldig of al gebruikt",
         },
         buttons: {
             qrcode: "Log in via QR-Code",
