@@ -44,5 +44,5 @@
                                     | {{ schedule.start_time || 'Geen data' }} - {{ schedule.end_time || 'Geen data' }}
                                 
                                 span(ng-if="office.schedule.length == 0")
-                                    | {{ "popup_offices.labels.none" | translate }
+                                    | {{ "popup_offices.labels.none" | translate }}
             .shop_map-content: google-map(offices="shownOffices" selected-office="selectedOffice")
