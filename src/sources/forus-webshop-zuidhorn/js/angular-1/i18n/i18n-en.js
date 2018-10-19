@@ -45,7 +45,7 @@ module.exports = {
     home: {
         header: {
             title:"Zuidhorn. Kindpakket",
-            subtitle: "Welkom op de website van het kindpakket Zuidhorn. Het kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Zuidhorn.",
+            subtitle: "Welkom op de website van het Kindpakket Zuidhorn. Het Kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Zuidhorn.",
             button: 'Lees meer over hoe het systeem werkt.',
         },
         blog: {
