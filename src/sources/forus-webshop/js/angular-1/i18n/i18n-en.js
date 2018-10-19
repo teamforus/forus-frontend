@@ -318,7 +318,7 @@ module.exports = {
     profile_card: {
         header: {
             title: "Jouw persoonlijke QR-code",
-            subtitle: "Laat uw persoonlijke QR-code scannen door een validator.",
+            subtitle: "Laat jouw persoonlijke QR-code scannen door een validator.",
         },
         labels: {
             address: "Adres:",
