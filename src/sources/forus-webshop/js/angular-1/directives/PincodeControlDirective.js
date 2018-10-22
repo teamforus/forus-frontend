@@ -25,6 +25,16 @@ let PincodeControlDirective = function(
                     $scope.ngModel += (key - 48).toString();
                 }
             }
+
+            if ((key >= 96 && key <= 105)) {
+                if (!$scope.ngModel) {
+                    $scope.ngModel = '';
+                }
+
+                if ($scope.ngModel.length < 6) {
+                    $scope.ngModel += (key - 96).toString();
+                }
+            }
         }, 0);
     });
 };

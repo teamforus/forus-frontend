@@ -1,8 +1,8 @@
 .app.app-container
     menu
     section.app.app-content
-        .card-heading {{ "organization_providers.header.title" | translate }} ({{ $ctrl.providerFunds.length }}) 
-        .card(ng-repeat="providerFund in $ctrl.fundProviders")
+        .card-heading {{ "organization_providers.header.title" | translate }} ({{ $ctrl.fundProviders.length }}) 
+        .card(ng-repeat="providerFund in $ctrl.fundProviders | orderBy:'order':'desc'")
             .card-section
                 .card-section-actions
                     div(ng-show="providerFund.state == 'approved'")

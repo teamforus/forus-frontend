@@ -16,9 +16,9 @@
                                 th {{ "transactions.labels.status" | translate }}
                             tr(
                                 ng-repeat="transaction in $ctrl.transactions" 
-                                ui-sref="financial-dashboard-transaction({organization_id: transaction.organization.id, fund_id: transaction.fund.id, fund_provider_id: transaction.organization.id, id: transaction.address})").pointer
+                                ui-sref="transaction(transaction)").pointer
                                 td: a.text-primary-light €{{ transaction.amount | to_fixed:2 }}
-                                td(ng-bind="transaction.date_time")
+                                td(ng-bind="transaction.created_at_locale")
                                 td(ng-bind="transaction.fund.name")
                                 td(ng-bind="transaction.organization.name")
                                 td(ng-bind="{pending: 'Pending', success : 'Voltooid'}[transaction.state]")

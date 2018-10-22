@@ -167,47 +167,6 @@ module.exports = function($stateProvider) {
         }
     });
 
-    $stateProvider.state({
-        name: "financial-dashboard-transaction",
-        url: "/organizations/{organization_id}/financial-dashboard/funds/{fund_id}/providers/{fund_provider_id}/transactions/{id}",
-        component: "financialDashboardTransactionComponent",
-        params: {
-            fund_id: { 
-                squash: true, 
-                value: null 
-            },
-        },
-        resolve: {
-            fund: function ($transition$, FundService) {
-                return $transition$.params().fund_id != null ? repackResponse(
-                    FundService.read(
-                        $transition$.params().organization_id,
-                        $transition$.params().fund_id
-                    )
-                ) : new Promise((res) => res(null));
-            },
-            fundProvider: function ($transition$, FundService) {
-                return repackResponse(
-                    FundService.readProvider(
-                        $transition$.params().organization_id,
-                        $transition$.params().fund_id,
-                        $transition$.params().fund_provider_id
-                    )
-                );
-            },
-            voucherTransction: function ($transition$, FundService) {
-                return repackResponse(
-                    FundService.readProvidersTransaction(
-                        $transition$.params().organization_id,
-                        $transition$.params().fund_id,
-                        $transition$.params().fund_provider_id,
-                        $transition$.params().id
-                    )
-                );
-            }
-        }
-    });
-
     /**
      * Offices
      */
@@ -335,9 +294,10 @@ module.exports = function($stateProvider) {
         url: "/organizations/{organization_id}/transactions",
         component: "transactionsComponent",
         resolve: {
-            transactions: function($transition$, TransactionService) {
+            transactions: function($transition$, TransactionService, appConfigs) {
                 return repackResponse(
                     TransactionService.list(
+                        appConfigs.panel_type,
                         $transition$.params().organization_id
                     )
                 );
@@ -345,9 +305,29 @@ module.exports = function($stateProvider) {
         }
     });
 
-    /**
-     * Transactions
-     */
+    $stateProvider.state({
+        name: "transaction",
+        url: "/organizations/{organization_id}/transactions/{address}",
+        component: "transactionComponent",
+        params: {
+            fund_id: {
+                squash: true,
+                value: null
+            },
+        },
+        resolve: {
+            transaction: function($transition$, TransactionService, appConfigs) {
+                return repackResponse(
+                    TransactionService.show(
+                        appConfigs.panel_type,
+                        $transition$.params().organization_id,
+                        $transition$.params().address,
+                    )
+                );
+            }
+        }
+    });
+
     $stateProvider.state({
         name: "products",
         url: "/organizations/{organization_id}/products",
@@ -428,39 +408,6 @@ module.exports = function($stateProvider) {
     });
 
     $stateProvider.state({
-        name: "provider-funds-available",
-        url: "/organizations/{organization_id}/provider/funds/available",
-        component: "providerFundsAvailableComponent",
-        resolve: {
-            organization: function($transition$, OrganizationService) {
-                return repackResponse(
-                    OrganizationService.read(
-                        $transition$.params().organization_id
-                    )
-                );
-            },
-            funds: function($transition$, ProviderFundService) {
-                return repackResponse(
-                    ProviderFundService.listAvailableFunds(
-                        $transition$.params().organization_id
-                    )
-                );
-            },
-            pendingFunds: function($transition$, ProviderFundService) {
-                return repackResponse(
-                    ProviderFundService.listFunds(
-                        $transition$.params().organization_id,
-                        'pending'
-                    )
-                );
-            },
-            fundLevel: function() {
-                return 'fundsAvailable';
-            }
-        }
-    });
-
-    $stateProvider.state({
         name: "provider-funds",
         url: "/organizations/{organization_id}/provider/funds",
         component: "providerFundsComponent",
@@ -472,15 +419,22 @@ module.exports = function($stateProvider) {
                     )
                 );
             },
+            fundsAvailable: function($transition$, ProviderFundService) {
+                return repackResponse(
+                    ProviderFundService.listAvailableFunds(
+                        $transition$.params().organization_id
+                    )
+                );
+            },
             funds: function($transition$, ProviderFundService) {
                 return repackResponse(
-                    ProviderFundService.listFunds(
+                ProviderFundService.listFunds(
                         $transition$.params().organization_id
                     )
                 );
             },
             fundLevel: function() {
-                return 'providerFunds';
+                return 'fundsAvailable';
             }
         }
     });

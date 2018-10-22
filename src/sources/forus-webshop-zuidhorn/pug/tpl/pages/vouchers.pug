@@ -25,9 +25,9 @@ section.section.section-profile: .wrapper
                         .voucher-overview-item
                             .voucher-overview-label {{ "vouchers.labels.last" | translate }}
                             .voucher-overview-value(ng-if="(voucher.transactions.length + voucher.product_vouchers.length) > 0")
-                                | -{{ voucher.transactions[0].amount | to_fixed:2 }}
+                                | -{{ voucher.transactions.length > 0 ? voucher.transactions[0].amount : voucher.product_vouchers[0].amount | to_fixed:2 }}
                                 small {{ "vouchers.labels.subtract" | translate }}
-                            .voucher-overview-value(ng-if="voucher.transactions.length == 0")
+                            .voucher-overview-value(ng-if="(voucher.transactions.length + voucher.product_vouchers.length) == 0")
                                 span.text-muted {{ "vouchers.labels.none" | translate }}
 
                     .voucher-overview(ng-if="voucher.product")

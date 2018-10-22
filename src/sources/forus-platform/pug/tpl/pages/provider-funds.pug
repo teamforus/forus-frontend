@@ -1,14 +1,19 @@
 .app.app-container
     menu
     section.app.app-content
-        .card-heading {{ "provider_funds.title" | translate }} ({{ $ctrl.activeFunds.length }}) 
+        .card-heading {{ "provider_funds_available.title" | translate }} ({{ $ctrl.funds.length + $ctrl.pendingFunds.length }}) 
         div(
-            ng-if="$ctrl.activeFunds.length > 0" 
-            ng-repeat="fund in $ctrl.activeFunds" 
-            fund-card-provider 
+            ng-if="$ctrl.fundsAvailable.length > 0" 
+            ng-repeat="fund in $ctrl.fundsAvailable" 
+            fund-card-available-provider 
+            fund="fund" 
+            organization="$ctrl.organization")
+        div(
+            ng-if="$ctrl.funds.length > 0" 
+            ng-repeat="fund in $ctrl.funds" 
+            fund-card-provider  
             provider-fund="fund" 
             organization="$ctrl.organization")
         empty-block(
-            ng-if="$ctrl.activeFunds.length == 0" 
-            text="'Er zijn momenteel geen actieve fondsen'"
-            button="{text: 'Bekijk actieve fondsen', 'href': $ctrl.emptyBlockLink}")
+            ng-if="$ctrl.funds.length + $ctrl.pendingFunds.length == 0" 
+            text="'Er zijn momenteel geen actieve fondsen.'")
