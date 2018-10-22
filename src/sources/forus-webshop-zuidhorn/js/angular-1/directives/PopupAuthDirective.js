@@ -1,4 +1,5 @@
 let PopupAuthDirective = function(
+    $element,
     $state,
     $scope,
     $timeout,
@@ -142,7 +143,18 @@ let PopupAuthDirective = function(
     this.$onInit = function() {
         qrCodeEl = document.getElementById('auth_qrcode');
         qrCode = new QRCode(qrCodeEl);
+
+        $(document).bind('keydown', (e) => {
+            $timeout(function() {
+                var key = e.charCode || e.keyCode || 0;
+
+                if (key == 27) {
+                    $scope.popup.close();
+                }
+            }, 0);
+        });
     }
+
 
     if (AuthService.hasCredentials()) {
         $scope.popup.close();
@@ -203,6 +215,7 @@ module.exports = () => {
         restrict: "EA",
         replace: true,
         controller: [
+            '$element',
             '$state',
             '$scope',
             '$timeout',

@@ -11,7 +11,6 @@ app.component('organizationsComponent', require('./components/OrganizationsCompo
 app.component('organizationsEditComponent', require('./components/OrganizationsEditComponent'));
 app.component('fundsComponent', require('./components/FundsComponent'));
 app.component('fundsMyComponent', require('./components/FundsMyComponent'));
-app.component('providerFundsAvailableComponent', require('./components/ProviderFundsAvailableComponent'));
 app.component('providerFundsComponent', require('./components/ProviderFundsComponent'));
 app.component('fundsEditComponent', require('./components/FundsEditComponent'));
 app.component('fundsShowComponent', require('./components/FundsShowComponent'));
@@ -31,7 +30,7 @@ app.component('signUpComponent', require('./components/SignUpComponent'));
 app.component('providerIdentitiesComponent', require('./components/ProviderIdentitiesComponent'));
 app.component('providerIdentityEditComponent', require('./components/ProviderIdentityEditComponent'));
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
-app.component('financialDashboardTransactionComponent', require('./components/FinancialDashboardTransactionComponent'));
+app.component('transactionComponent', require('./components/TransactionComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));

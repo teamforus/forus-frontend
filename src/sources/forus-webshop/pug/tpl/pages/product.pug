@@ -11,12 +11,11 @@ section.section.section-product: .wrapper
                 // pre {{ $ctrl.product | pretty_json }}
                 .product-name
                     | {{ $ctrl.product.name }}
-                    span.label.label-success {{ "product.status.active" |translate }}
+                    span.label.label-success {{ "product.status.active" | translate }}
                 .product-categories(ng-bind="$ctrl.product.product_category.name")
                 
                 .product-funds
-
-                    .product-fund-label {{ "product.labels.fund" |translate }}
+                    .product-fund-label {{ "product.labels.fund" | translate }}
                     .product-fund-list(ng-repeat="fund in $ctrl.product.funds" ng-bind="fund.name")
 
                 .product-price

@@ -2,7 +2,7 @@
     menu
     section.app.app-content
         .card: form(ng-submit="$ctrl.form.submit()").form
-            .card-header: .card-title Organisatie aanmaken
+            .card-header: .card-title {{ "organization_edit.header.title" | translate }}
             .card-section.card-section-primary
                 .row 
                     .col.col-xs-12
@@ -16,19 +16,19 @@
                 .row 
                     .col.col-sm-8.col-xs-12
                         .form-group.form-group-inline
-                            label.form-label Bedrijfsnaam
+                            label.form-label {{ "organization_edit.labels.name" | translate }}
                             input(ng-model="$ctrl.form.values.name" type="text" placeholder="Bedrijfsnaam").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
                         .form-group.form-group-inline
-                            label.form-label IBAN-nummer
+                            label.form-label {{ "organization_edit.labels.bank" | translate }}
                             input(ng-model="$ctrl.form.values.iban" type="text" placeholder="IBAN-nummer").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.iban" ng-bind="error")
                         .form-group.form-group-inline
-                            label.form-label E-mailadres
+                            label.form-label {{ "organization_edit.labels.mail" | translate }}
                             input(ng-model="$ctrl.form.values.email" type="text" placeholder="E-mailadres").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
                         .form-group.form-group-inline
-                            label.form-label Telefoonnummer
+                            label.form-label {{ "organization_edit.labels.phone" | translate }}
                             input(ng-model="$ctrl.form.values.phone" type="text" placeholder="Telefoonnummer").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.phone" ng-bind="error")
             .card-section.card-section-primary
@@ -41,14 +41,14 @@
                 .row 
                     .col.col-sm-8.col-xs-12
                         .form-group.form-group-inline
-                            label.form-label KvK-nummer
+                            label.form-label {{ "organization_edit.labels.kvk" | translate }}
                             input(ng-model="$ctrl.form.values.kvk" type="text" placeholder="KvK-nummer").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.kvk" ng-bind="error")
                         .form-group.form-group-inline
-                            label.form-label BTW-nummer
+                            label.form-label {{ "organization_edit.labels.tax" | translate }}
                             input(ng-model="$ctrl.form.values.btw" type="text" placeholder="BTW-nummer").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.btw" ng-bind="error")
             .card-section.card-section-primary
                 .text-center
-                    button.button.button-default Annuleren
-                    button(type="submit").button.button-primary Aanmaken
+                    button.button.button-default {{ "organization_edit.buttons.cancel" | translate }}
+                    button(type="submit").button.button-primary {{ "organization_edit.buttons.create" | translate }}

@@ -1,33 +1,19 @@
 let TransactionService = function(
     ApiRequest
 ) {
-    return new (function() {
-        this.list = function(organization_id, fund_id) {
-            let uri = "/platform";
-
-            if (organization_id) {
-                uri += '/organizations/' + organization_id;
-
-                if (fund_id) {
-                    uri += '/funds/' + fund_id;
-                }
-            }
-
-            return ApiRequest.get(uri + '/transactions');
+    return new(function() {
+        this.list = function(type, organization_id) {
+            return ApiRequest.get(
+                '/platform/organizations/' + organization_id + '/' +
+                type + '/transactions'
+            );
         };
 
-        this.show = function(organization_id, fund_id, id) {
-            let uri = "/platform";
-
-            if (organization_id) {
-                uri += '/organizations/' + organization_id;
-
-                if (fund_id) {
-                    uri += '/funds/' + fund_id;
-                }
-            }
-
-            return ApiRequest.get(uri + '/transactions/' + id);
+        this.show = function(type, organization_id, address) {
+            return ApiRequest.get(
+                '/platform/organizations/' + organization_id + '/' +
+                type + '/transactions/' + address
+            );
         };
     });
 };

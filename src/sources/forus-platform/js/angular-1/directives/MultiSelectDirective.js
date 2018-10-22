@@ -8,7 +8,7 @@ let MultiSelectDirective = function($scope) {
         $scope.optionsById = {};
         $scope.selectorOptions = [{
             id: 0,
-            name: "Select category"
+            name: "Selecteer categorie"
         }];
         $scope.selectedOption = 0;
 

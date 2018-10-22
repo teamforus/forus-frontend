@@ -275,20 +275,21 @@ module.exports = {
         notifications: {
             confirmation: "Het is gelukt!",
             link: "Er is een link naar je e-mail adres gestuurd",
-            invalid: "Ongeldige activatiecode of reeds gebruikt",
+            invalid: "De activatiecode is ongeldig of al gebruikt",
         },
         buttons: {
             qrcode: "Log in via QR-Code",
             mail: "Log in via e-mail",
             submit: "VERSTUREN",
             cancel: "ANNULEREN",
+            confirm: "VOLGENDE",
         },
         labels: {
             timelimit: "Je kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt je sessie.",
             join: "Aanmelden",
             scancode: "Scan deze QR-Code met een ander apparaat waar je al op aangemeld bent",
             mobilecode: "Vul je toegangscode van de Me App in",
-            mail: "Vul je e-mail adres en activatiecode in om verder te gaan met aanmelden",
+            mail: "Dit scherm is alleen bedoeld voor inwoners die een brief van de gemeente hebben ontvangen met daarin een activatiecode en deze nog niet hebben gebruikt.",
             link: "Vul je e-mail adres in om een link te ontvangen waarmee je kunt inloggen",
             code: "Vul de activatiecode in die je per brief hebt ontvangen",
         },
@@ -317,7 +318,7 @@ module.exports = {
     profile_card: {
         header: {
             title: "Jouw persoonlijke QR-code",
-            subtitle: "Laat uw persoonlijke QR-code scannen door een validator.",
+            subtitle: "Laat jouw persoonlijke QR-code scannen door een validator.",
         },
         labels: {
             address: "Adres:",
@@ -342,7 +343,7 @@ module.exports = {
             login:"Login",
             voucher:"Mijn vouchers",
             records: "Mijn eigenschappen",
-            authorize:"Authoriseer apparaat",
+            authorize:"Autoriseer apparaat",
             logout:"Uitloggen",
             products:"Producten",
             funds: "Fondsen",

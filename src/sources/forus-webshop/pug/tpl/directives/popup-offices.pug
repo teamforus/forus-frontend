@@ -8,7 +8,7 @@
         .block.block-shops_map
             .shop_map-header
                 .shop_map-title {{ "popup_offices.header.title" | translate }}
-                .shop_map-subtitle {{ "popup_offices.subtitle" | translate }}
+                .shop_map-subtitle {{ "popup_offices.header.subtitle" | translate }}
                 .shop_map-categories
                     .shop_map-category-item(x
                         ng-repeat="category in productCategories"
@@ -34,15 +34,15 @@
                                     .shop-details-label {{ "popup_offices.labels.mail" | translate }}
                                     .shop-details-value {{ office.email || office.organization.email || 'Geen data' }}
                                 .col.col-md-6
-                                    .shop-details-label {{ "popup_offcies.labels.address" | translate }}
+                                    .shop-details-label {{ "popup_offices.labels.address" | translate }}
                                     .shop-details-value {{ office.address || 'Geen data' }}
                         .shop-schedule
-                            .shop-schedule-label {{ "popup_offcies.labels.hours" | translate }}
+                            .shop-schedule-label {{ "popup_offices.labels.hours" | translate }}
                             .shop-schedule-value 
                                 span(ng-repeat="schedule in office.schedule" ng-show="schedule.start_time || schedule.end_time")
                                     strong {{ weekDays[schedule.week_day] }}: 
                                     | {{ schedule.start_time || 'Geen data' }} - {{ schedule.end_time || 'Geen data' }}
                                 
                                 span(ng-if="office.schedule.length == 0")
-                                    | {{ "popup_offcies.labels.none" | translate }
+                                    | {{ "popup_offices.labels.none" | translate }}
             .shop_map-content: google-map(offices="shownOffices" selected-office="selectedOffice")

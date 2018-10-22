@@ -3,9 +3,13 @@ let TransactionsComponent = function(
     TransactionService
 ) {
     let $ctrl = this;
+
 };
 
 module.exports = {
+    bindings: {
+        transactions: '<'
+    },
     controller: [
         '$state', 
         'TransactionService', 
