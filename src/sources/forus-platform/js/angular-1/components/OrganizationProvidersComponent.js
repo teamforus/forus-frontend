@@ -11,6 +11,11 @@ let OrganizationProvidersComponent = function(
             providerFund.organization.product_categories.map(function(category) {
                 return category.name;
             });
+            providerFund.order = {
+                'pending': 1,
+                'approved': 0,
+                'declined': -1,
+            } [providerFund.state];
         });
     };
 
@@ -20,7 +25,6 @@ let OrganizationProvidersComponent = function(
             providerFund.fund.id,
             providerFund.id
         ).then((res) => {
-            console.log('approveProvider', res);
             $state.reload();
         });
     }
@@ -31,7 +35,6 @@ let OrganizationProvidersComponent = function(
             providerFund.fund.id,
             providerFund.id
         ).then((res) => {
-            console.log('declineProvider', res);
             $state.reload();
         });
     }

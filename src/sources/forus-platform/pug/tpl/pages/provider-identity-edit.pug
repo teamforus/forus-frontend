@@ -12,11 +12,11 @@
                             .form-error(ng-repeat="error in $ctrl.form.errors.identity_address" ng-bind="error")
 
                         .form-group.form-group-inline
-                            label.form-label E-mail
+                            label.form-label {{ "provider_identity_edit.labels.mail" | translate }}
                             input(ng-model="$ctrl.form.values.email" type="text" placeholder="").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
 
             .card-section.card-section-primary
                 .text-center
-                    button.button.button-default Annuleren
-                    button(type="submit").button.button-primary Bevestigen
+                    button.button.button-default {{ "provider_identity_edit.buttons.cancel" | translate }}
+                    button(type="submit").button.button-primary {{ "provider_identity_edit.buttons.confirm" | translate }}

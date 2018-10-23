@@ -1,25 +1,31 @@
 let ProviderFundsComponent = function(
     $state,
+    $filter,
     $stateParams
 ) {
     let $ctrl = this;
 
     $ctrl.$onInit = function() {
-        $ctrl.emptyBlockLink = $state.href('provider-funds-available', $stateParams);
-        $ctrl.activeFunds = $ctrl.funds.filter(function(fund) {
-            return fund.state == 'approved';
-        });
+        let sort = {
+            'pending': 0,
+            'approved': 1,
+            'declined': 2,
+        };
+
+        $ctrl.funds = $ctrl.funds.sort((a, b) => sort[a.state] - sort[b.state]);
     };
 };
 
 module.exports = {
     bindings: {
         funds: '<',
+        fundsAvailable: '<',
         fundLevel: '<',
         organization: '<',
     },
     controller: [
         '$state',
+        '$filter',
         '$stateParams',
         ProviderFundsComponent
     ],

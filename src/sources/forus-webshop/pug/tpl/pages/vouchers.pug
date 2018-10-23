@@ -20,16 +20,16 @@ section.section.section-profile: .wrapper
                         .voucher-value(ng-bind="'€'+(voucher.amount | to_fixed:2)")
                     .voucher-overview(ng-if="!voucher.product")
                         .voucher-overview-item
-                            .voucher-overview-label {{ "vouchers.header.transactions" | tranlate }}
-                            .voucher-overview-value(ng-bind="voucher.transactions.length")
+                            .voucher-overview-label {{ "vouchers.labels.transactions" | translate }}
+                            .voucher-overview-value(ng-bind="(voucher.transactions.length + voucher.product_vouchers.length)")
                         .voucher-overview-item
-                            .voucher-overview-label {{ "vouchers.header.last" | tranlate }}
-                            .voucher-overview-value(ng-if="voucher.transactions.length > 0")
-                                | -{{ voucher.transactions[0].amount | to_fixed:2 }}
-                                small {{ "vouchers.header.subtract" | tranlate }}
-                            .voucher-overview-value(ng-if="voucher.transactions.length == 0")
+                            .voucher-overview-label {{ "vouchers.labels.last" | translate }}
+                            .voucher-overview-value(ng-if="(voucher.transactions.length + voucher.product_vouchers.length) > 0")
+                                | -{{ voucher.transactions.length > 0 ? voucher.transactions[0].amount : voucher.product_vouchers[0].amount | to_fixed:2 }}
+                                small {{ "vouchers.labels.subtract" | translate }}
+                            .voucher-overview-value(ng-if="(voucher.transactions.length + voucher.product_vouchers.length) == 0")
+                                span.text-muted {{ "vouchers.labels.none" | translate }}
 
-                                span.text-muted {{ "vouchers.header.none" | tranlate }}
                     .voucher-overview(ng-if="voucher.product")
                         .voucher-overview-item
                             .voucher-overview-label USED

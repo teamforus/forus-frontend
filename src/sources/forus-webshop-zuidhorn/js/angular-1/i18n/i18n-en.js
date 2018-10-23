@@ -7,11 +7,11 @@ module.exports = {
     // APPLY FOR FUNDS = fund-apply.pug
     fund_apply: {
         header: {
-            title: "Mee doen",
-            criteria: "Voowaarden (4)",
+            title: "Aanmelden",
+            criteria: "Voowaarden",
         },
         buttons: {
-            join: "DOE MEE",
+            join: "AANMELDEN",
         }
     },    
 
@@ -33,7 +33,7 @@ module.exports = {
             amount: "< € 1118.46",
         },
         buttons: {
-            join: "Doe mee",
+            join: "Aanmelden",
             more: "BEKIJK MEER",
         },
         status: {
@@ -45,7 +45,7 @@ module.exports = {
     home: {
         header: {
             title:"Zuidhorn. Kindpakket",
-            subtitle: "Welkom op de website van het kindpakket Zuidhorn. Het kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Zuidhorn.",
+            subtitle: "Welkom op de website van het Kindpakket Zuidhorn. Het Kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Zuidhorn.",
             button: 'Lees meer over hoe het systeem werkt.',
         },
         blog: {
@@ -270,30 +270,32 @@ module.exports = {
     popup_auth: {
         header: {
             title: "Inloggen op platform Forus",
-            subtitle: "Scan de QR-code met de Me App of log in met je e-mail adres",
+            subtitle: "Scan de QR-code met de Me App of log in met je e-mailadres",
         },
         notifications: {
             confirmation: "Het is gelukt!",
-            link: "Er is een link naar je e-mail adres gestuurd",
-            invalid: "Ongeldige activatiecode of reeds gebruikt",
+            link: "Er is een link naar je e-mailadres gestuurd",
+            invalid: "De activatiecode is ongeldig of al gebruikt",
         },
         buttons: {
             qrcode: "Log in via QR-Code",
             mail: "Log in via e-mail",
             submit: "VERSTUREN",
             cancel: "ANNULEREN",
+            confirm: "VOLGENDE",
         },
         labels: {
             timelimit: "Je kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt je sessie.",
+            warning: "Sluit dit venster en klik op 'Login' als je de activatiecode al eens hebt gebruikt.",
             join: "Aanmelden",
             scancode: "Scan deze QR-Code met een ander apparaat waar je al op aangemeld bent",
             mobilecode: "Vul je toegangscode van de Me App in",
-            mail: "Vul je e-mail adres en activatiecode in om verder te gaan met aanmelden",
-            link: "Vul je e-mail adres in om een link te ontvangen waarmee je kunt inloggen",
+            mail: "Dit scherm is alleen bedoeld voor inwoners die een brief van de gemeente hebben ontvangen met daarin een activatiecode en deze nog niet hebben gebruikt.",
+            link: "Vul je e-mailadres in om een link te ontvangen waarmee je kunt inloggen",
             code: "Vul de activatiecode in die je per brief hebt ontvangen",
         },
         input: {
-            mail: "Vul je e-mail adres in",
+            mail: "Vul je e-mailadres in",
             code: "Activatiecode",
             mailing: "E-mail",
         }
@@ -317,7 +319,7 @@ module.exports = {
     profile_card: {
         header: {
             title: "Jouw persoonlijke QR-code",
-            subtitle: "Laat uw persoonlijke QR-code scannen door een validator.",
+            subtitle: "Laat jouw persoonlijke QR-code scannen door een validator.",
         },
         labels: {
             address: "Adres:",
@@ -342,7 +344,7 @@ module.exports = {
             login:"Login",
             voucher:"Mijn vouchers",
             records: "Mijn eigenschappen",
-            authorize:"Authoriseer apparaat",
+            authorize:"Autoriseer apparaat",
             logout:"Uitloggen",
             products:"Producten",
             funds: "Fondsen",

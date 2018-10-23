@@ -1,12 +1,12 @@
 .app.app-container
     menu
     section.app.app-content
-        .card-heading Fondsen ({{ $ctrl.funds.length }}) 
+        .card-heading {{ "funds_my.title" | translate }} ({{ $ctrl.funds.length }}) 
         div(
             ng-if="$ctrl.funds.length > 0" 
             ng-repeat="fund in $ctrl.funds" 
             fund-card-sponsor fund="fund" level="$ctrl.fundLevel" organization="$ctrl.organization")
         empty-block(
             ng-if="$ctrl.funds.length == 0" 
-            text="'U heeft momenteel geen fondsen.'" 
+            text="'Je hebt momenteel geen fondsen.'" 
             button="{text: 'Add fund', href: $ctrl.emptyBlockLink}")
