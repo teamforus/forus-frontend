@@ -14,7 +14,6 @@ let ProductsEditComponent = function(
             $ctrl.product
         ) : {
             "product_category_id": null,
-            "sold_amount": 0
         };
 
         $ctrl.productCategories.unshift({

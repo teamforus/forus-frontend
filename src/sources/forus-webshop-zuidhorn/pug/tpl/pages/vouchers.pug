@@ -36,7 +36,10 @@ section.section.section-profile: .wrapper
                             .voucher-overview-value(ng-bind="voucher.transactions.length == 0 ? 'No' : 'Yes'")
                         .voucher-overview-item
                             .voucher-overview-label GENERATED
-                            .voucher-overview-value(ng-bind="voucher.created_at.split(' ')[0]")
+                            .voucher-overview-value(ng-bind="voucher.created_at_locale")
+                        .voucher-overview-item
+                            .voucher-overview-label EXPIRE
+                            .voucher-overview-value(ng-bind="voucher.expire_at_locale")
 
             empty-block(
                 title="Geen vouchers"
