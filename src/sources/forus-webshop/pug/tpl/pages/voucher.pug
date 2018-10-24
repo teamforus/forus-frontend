@@ -26,7 +26,7 @@ section.section.section-voucher-details: .wrapper
                     .product-price-old € {{ $ctrl.voucher.product.old_price | to_fixed:2 }}
 
     .block.block-transactions
-        .transactions-header: .transactions-title {{ "voucher.transactions" | translate }}
+        .transactions-header: .transactions-title {{ "voucher.labels.transactions" | translate }}
         .transactions-body: .transactions-list
             .transactions-item(ng-repeat="transaction in $ctrl.transactions" class="transactions-item-out")
                 div(ng-if="transaction.type == 'transaction'")
