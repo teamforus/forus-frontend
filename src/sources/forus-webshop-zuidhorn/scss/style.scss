@@ -27,8 +27,8 @@ a[ui-sref] {
 }
 
 body {
-    background-color: #f3f8fe;
-    background: linear-gradient(to bottom, #f3f8fe 0%,#ffffff 100%);
+    background-color: #f7f9fc;
+    background: linear-gradient(to bottom, #f7f9fc 0%,#ffffff 100%);
 
     &.modal-shown {
         overflow: hidden;
@@ -752,6 +752,241 @@ body {
         margin-bottom: 30px;
     }
 
+    &.section-steps {
+        position: relative;
+
+        .section-splash {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 1080px;
+            max-height: 100%;
+            background: url('../img/splash-steps.png') no-repeat;
+            background-position: 0 50%;
+            background-size: auto 100%;
+            top: 50%;
+            transform: translate(0, -50%);
+        }
+
+        .section-sprite {
+            position: absolute;
+            right: 100px;
+            width: 100%;
+            height: 480px;
+            max-height: 100%;
+            background: url('../img/sprite-steps.png') no-repeat;
+            background-position: 100% 50%;
+            top: 50%;
+            transform: translate(0, -50%);
+            background-size: auto 100%;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #00122a;
+            font: 700 40px/60px $bf;
+            margin: 0 0 70px;
+        }
+
+        .steps {
+            width: 1000px;
+            max-width: 100%;
+            padding: 0 100px;
+            margin: 0 auto;
+            min-height: 1100px;
+            background: url('../img/steps-shape.png') no-repeat;
+            background-size: 303px 930px;
+            background-position: 65px 50%;
+
+            .step-item {
+                margin-left: 200px;
+                position: relative;
+                margin-bottom: 125px;
+                width: 390px;
+                max-width: 100%;
+                cursor: default;
+
+                h4 {
+                    font: 700 18px $bf;
+                    color: #00122a;
+                    margin: 0 0 10px;
+                }
+
+                p {
+                    font: 400 16px/22px $bf;
+                    color: #646f79;
+                }
+
+                .step-item-content {
+                    position: relative;
+                    padding-top: 20px;
+                    
+                    &:before {
+                        position: absolute;
+                        content: '';
+                        width: 220px;
+                        height: 220px;
+                        display: block;
+                        background: url('../img/icon-steps/step-1.png') no-repeat;
+                        right: 100%;
+                        transform: translate(0, -40px);
+                        margin-right: -15px;
+                    }
+                }
+
+                &:nth-child(2) {
+                    margin-bottom: 120px;
+                    margin-left: 280px;
+
+                    .step-item-content:before {
+                        background-image: url('../img/icon-steps/step-2.png');
+                    }
+                }
+
+                &:nth-child(3) {
+                    margin-bottom: 110px;
+                    margin-left: 320px;
+
+                    .step-item-content:before {
+                        background-image: url('../img/icon-steps/step-3.png');
+                    }
+                }
+
+                &:nth-child(4) {
+                    margin-bottom: 120px;
+                    margin-left: 240px;
+
+                    .step-item-content:before {
+                        background-image: url('../img/icon-steps/step-4.png');
+                    }
+                }
+
+                &:nth-child(5) {
+                    margin-bottom: 110px;
+                    margin-left: 160px;
+
+                    .step-item-content:before {
+                        background-image: url('../img/icon-steps/step-5.png');
+                    }
+                }
+            }
+        }
+    }
+
+    &.section-faq {
+        position: relative;
+        margin: 0 0 40px;
+
+        .section-title {
+            color: #00122a;
+            font: 700 40px/60px $bf;
+            margin: 0 0 40px;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .section-splash {
+            position: absolute;
+            right: 0;
+            width: 100%;
+            height: 959px;
+            background: url('../img/splash-faq.png') no-repeat;
+            background-position: 100% 50%;
+            background-size: auto 100%;
+            top: 50%;
+            transform: translate(0, -50%);
+            z-index: -1;
+        }
+
+        .faq {
+            width: 820px;
+            max-width: 100%;
+            margin: 0 auto;
+
+            .faq-item {
+                background: #fff;
+                border: 1px solid #d2e6ff;
+                border-radius: 4px;
+                margin-bottom: 10px;
+                position: relative;
+                box-shadow: 5px 5px 25px rgba(#000000, 0.1);
+                transition: .4s;
+
+                .faq-item-header {
+                    padding: 15px 30px;
+                    padding-right: 45px;
+                    font: 500 18px $bf;
+                    color: #00122a;
+                    position: relative;
+                    transition: .4s;
+                    cursor: pointer;
+
+                    .faq-item-chevron-up,
+                    .faq-item-chevron-down {
+                        position: absolute;
+                        right: 15px;
+                        top: 50%;
+                        transform: translate(0, -50%);
+                        color: #9ca6af;
+                        font-size: 28px;
+                        transition: .4s;
+                        display: none;
+                    }
+
+                    .faq-item-chevron-down {
+                        display: block;
+                    }
+
+                    &:hover {
+                        .faq-item-chevron-up,
+                        .faq-item-chevron-down {
+                            color: #017f96;
+                        }
+                    }
+                }
+                
+                .faq-item-content {
+                    padding-right: 200px;
+                    font: 400 16px $bf;
+                    padding: 0 30px 20px;
+                    color: #646f79; 
+                    display: none;
+                    cursor: default;
+                }
+
+                &.active {
+                    .faq-item-header {
+                        .faq-item-chevron-up,
+                        .faq-item-chevron-down {
+                            display: none;
+                        }
+
+                        .faq-item-chevron-up {
+                            display: block;
+                        }
+                    }
+
+                    .faq-item-content {
+                        display: block;
+                    }
+                }
+
+                &:hover:not(.active) {
+                    box-shadow: 5px 15px 45px rgba(#000000, 0.15);
+                    
+                    .faq-item-header {
+                        color: #017f96;
+
+                        .faq-item-chevron-up,
+                        .faq-item-chevron-down {
+                            color: #017f96;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     &.section-flow {
         margin-bottom: 100px;
         
@@ -829,6 +1064,18 @@ body {
         z-index: 1;
     }
 
+    @media screen and (max-width: 1700px) {
+        &.section-steps {
+            .section-splash {
+                height: 800px;
+            }
+
+            .section-sprite {
+                height: 300px;
+            }
+        }
+    }
+
     @media screen and (max-width: 1500px) {
         .section-title {
             margin: 0 0 20px;
@@ -863,12 +1110,89 @@ body {
                 }
             }
         }
+
+        &.section-steps {
+            .section-splash {
+                height: 600px;
+            }
+
+            .section-sprite {
+                height: 200px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        &.section-steps {
+            .section-splash {
+                display: none;
+            }
+
+            .section-sprite {
+                display: none;
+            }
+        }
     }
 
     @media screen and (max-width: 1000px) {
         .section-title {
             font: 700 20px/30px $bf;
             margin: 0 0 20px;
+        }
+        &.section-steps {
+            margin-bottom: 60px;
+
+            .section-title {
+                font: 700 24px/36px $bf;
+                margin: 0 0 20px;
+            }
+
+            .steps {
+                padding: 0;
+                background: none;
+                min-height: auto;
+                
+                .step-item {
+                    margin-left: 0 !important;
+                    margin-bottom: 20px !important;
+                    padding-left: 80px;
+
+                    .step-item-content {
+                        &:before {
+                            width: 100px;
+                            height: 100px;
+                            background-size: 100%;
+                            transform: none;
+                            margin-right: 0px;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.section-faq {
+            margin-bottom: 60px;
+
+            .section-title {
+                font: 700 24px/36px $bf;
+                margin: 0 0 30px;
+            }
+
+            .section-splash {
+                height: 600px;
+            }
+
+            .faq {
+                .faq-item {
+                    .faq-item-header {
+                        font: 500 14px $bf;
+                    }
+
+                    .faq-item-content {
+                        font: 400 14px $bf;
+                    }
+                }
+            }
         }
 
         &.section-header {
