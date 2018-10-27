@@ -549,4 +549,22 @@ module.exports = {
     // SCHEDULE CONTROL = schedule-controle.puh
         // No translations needed
 
+    // MENU = langing/navbar.pug
+    topnavbar: {
+        items: {
+            funds:"FONDSEN",
+            products:"PRODUCTEN",
+            identity:"Identiteit",
+        },
+        buttons: {
+            activate:"Activatiecode",
+            login:"Login",
+            voucher:"Mijn vouchers",
+            records: "Mijn eigenschappen",
+            authorize:"Autoriseer apparaat",
+            logout:"Uitloggen",
+            products:"Producten",
+            funds: "Fondsen",
+        },
+    },
 };
