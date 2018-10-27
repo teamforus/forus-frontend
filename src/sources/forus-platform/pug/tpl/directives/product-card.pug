@@ -3,7 +3,7 @@
         .card-section-actions
             .card-section-action-price
                 | € {{ product.price }},-
-                .old-price € {{ product.old_price }},-
+                .old-price(ng-if="product.old_price") € {{ product.old_price }},-
 
             if (state == 'active')
                 .tag.tag-success {{ "product_card.status.active" | translate }}

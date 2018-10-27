@@ -1536,11 +1536,12 @@ body {
             .product-name {
                 color: #00122a;
                 font: 700 18px/26px $bf;
-                margin: 0 0 20px;
+                margin: 0 0 15px;
                 transition: .4s;
             }
 
             .product-discount {
+                display: none;
                 text-align: left;
                 float: left;
                 width: 50%;
@@ -1549,9 +1550,6 @@ body {
             }
 
             .product-price {
-                text-align: right;
-                float: right;
-                width: 50%;
                 font: 700 18px/24px $bf;
                 color: #151b26;
 
@@ -1559,6 +1557,7 @@ body {
                     font: inherit;
                     font-size: 15px;
                     color: #646f79;
+                    display: none;
                 }
             }
 
@@ -1578,6 +1577,23 @@ body {
                         &:after {
                             opacity: .5;;
                         }
+                    }
+                }
+            }
+
+            &.discounted {
+                .product-discount {
+                    display: block;
+                    width: 50%;
+                }
+
+                .product-price {
+                    width: 50%;
+                    text-align: right;
+                    float: right;
+                    
+                    small {
+                        display: block;
                     }
                 }
             }

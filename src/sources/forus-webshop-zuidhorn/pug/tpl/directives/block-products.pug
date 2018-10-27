@@ -14,22 +14,21 @@ section.section.section-products#products: .wrapper
                     placeholder="{{ 'block_products.input.placeholder' | translate }}").form-control.form-control-fancy
 
     .block.block-products(ng-if="shownProducts.length > 0")
-        .product-item(ng-repeat="product in shownProducts")
+        .product-item(ng-repeat="product in shownProducts" ng-class="{discounted:product.old_price}")
             a(ui-sref="products-show(product)").product-item-inner
                 .product-image: img(ng-src="{{ product.photo.sizes.small || './assets/img/product-no-photo.jpg' }}")
                 .product-name(ng-bind="product.name")
                 .product-discount
-                    | {{ (product.price / product.old_price) * 100 | to_fixed:0 }}% 
+                    | {{ 100 - (product.price / product.old_price) * 100 | to_fixed:0 }}% 
                     br
                     | {{ "block_products.labels.discount" | translate }}
                 .product-price
                     small {{ "block_products.labels.old" | translate }} € {{ product.old_price | to_fixed:2 }}
-                    br
                     | {{ "block_products.labels.new" | translate }} € {{ product.price | to_fixed:2 }}
 
     empty-block(
-        title="{{ 'block_products.labels.title' | translate }}" 
-        description="{{ 'block_products.labels.subtitle' | translate }}"  
+        title= "{{ 'block_products.labels.title' | translate }}"
+        description="{{ 'block_products.labels.subtitle' | translate }}"
         link="false" 
         ng-if="shownProducts.length == 0")
 
