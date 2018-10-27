@@ -9,7 +9,7 @@ header.app.app-header
                     ng-bind="{provider: 'Provider', sponsor: 'Sponsor', validator: 'Validator'}[appConfigs.panel_type]")
                 img(ng-src="{{ './assets/img/organization-no-logo.svg'}} ").auth-user-img
                 .auth-user-menu
-                    // a(href="#").auth-user-menu-item
+                    //- a(href="#").auth-user-menu-item
                         em.mdi.mdi-account
                         | My profile
                     a(ui-sref="organizations-edit({organization_id: $root.activeOrganization})" ng-if="$root.activeOrganization").auth-user-menu-item
@@ -20,7 +20,7 @@ header.app.app-header
                         em.mdi.mdi-logout
                         | Uitloggen
 
-        // .notifications(ng-if="$root.auth_user")
+        //- .notifications(ng-if="$root.auth_user")
             .notifications-icon.mdi.mdi-bell
             .notifications-menu: .notifications-menu-inner
                 .arrow-box: .arrow

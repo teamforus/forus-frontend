@@ -11,7 +11,7 @@ module.exports = function(
         if ([
             'home', 'organiztions', 'funds', 'funds-show', 
             'organizations-create', 'csv-validation', 'validation-requests', 
-            'validation-request', 'sign-up'
+            'validation-request', 'sign-up', 'restore-email'
         ].indexOf(transition.to().name) == -1) {
             if (!OrganizationService.active()) {
                 // $state.go('organizations');

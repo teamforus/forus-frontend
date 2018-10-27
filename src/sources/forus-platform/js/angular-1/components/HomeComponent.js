@@ -16,10 +16,6 @@ let HomeComponent = function(
         $redirectAuthorizedState = 'csv-validation';
     }
 
-    if (AuthService.hasCredentials()) {
-        return $state.go($redirectAuthorizedState);
-    }
-
     $ctrl.showModal = false;
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
@@ -74,5 +70,7 @@ module.exports = {
         'appConfigs', 
         HomeComponent
     ],
-    templateUrl: 'assets/tpl/pages/home.html'
+    templateUrl: (appConfigs) => {
+        return 'assets/tpl/pages/landing/home-' + appConfigs.panel_type + '.html';
+    }
 };

@@ -1,0 +1,13 @@
+doctype
+html(lang="en")
+    include ../layout/includes/head
+
+    body(ng-controller="BaseController" ng-cloak)
+        div(ng-class="$root.$state.current.name == 'home'?'landing-root':''")
+            div(ng-if="$root.$state.current.name != 'home'"): include ../layout/includes/header
+            
+            ui-view
+
+            div(ng-if="$root.$state.current.name != 'home'"): include ../layout/includes/footer
+            div(ng-if="$root.$state.current.name == 'home'"): include ../layout/includes/footer-landing
+            include ../layout/includes/scripts

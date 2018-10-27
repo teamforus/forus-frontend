@@ -9,6 +9,23 @@ let BaseController = function(
     OrganizationService,
     appConfigs
 ) {
+    $rootScope.$state = $state;
+
+    $rootScope.popups = {
+        auth: {
+            show: false,
+            screen: false,
+            close: function() {
+                this.show = false;
+                this.screen = false;
+            },
+            open: function(screen) {
+                this.show = true;
+                this.screen = screen;
+            }
+        }
+    };
+
     $rootScope.loadAuthUser = function() {
         AuthService.identity().then((res) => {
             let auth_user = res.data;
@@ -50,6 +67,7 @@ let BaseController = function(
     };
 
     $rootScope.appConfigs = appConfigs;
+    $scope.appConfigs = appConfigs;
 
     if (AuthService.hasCredentials()) {
         $rootScope.loadAuthUser();

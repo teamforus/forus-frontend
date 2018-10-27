@@ -1,0 +1,28 @@
+.block.block-navbar
+    a(href="./index.html").navbar-logo
+        img(src="./assets/img/landing/forus-logo-normal.svg")
+        img(src="./assets/img/landing/forus-logo-hover.svg").hover
+    nav.navbar-list
+        a(
+            href="{{ $root.appConfigs.frontends.sponsor }}"
+            ng-class="$root.appConfigs.panel_type=='sponsor'?'active':''").navbar-item SPONSOR
+        a(
+            href="{{ $root.appConfigs.frontends.provider }}"
+            ng-class="$root.appConfigs.panel_type=='provider'?'active':''").navbar-item PROVIDER
+        a(
+            href="{{ $root.appConfigs.frontends.validator }}"
+            ng-class="$root.appConfigs.panel_type=='validator'?'active':''").navbar-item VALIDATOR
+        a(href="{{ $root.appConfigs.frontends.me_app }}").navbar-item ME APP
+        a(href="{{ $root.appConfigs.frontends.webshop }}").navbar-item WEBSHOP
+    .block.block-auth
+        .auth-in(ng-if="$root.auth_user")
+            .button.button-default(ui-sref="organizations")
+                em.mdi.mdi-account
+                //- img(src="./assets/img/icon-btn/icon-btn-user.svg")
+                | {{ "topnavbar.buttons.panel" | translate }}
+        
+        .auth-out(ng-if="!$root.auth_user")
+            .button.button-default(ng-click="$root.popups.auth.open('choose')")
+                em.mdi.mdi-account
+                //- img(src="./assets/img/icon-btn/icon-btn-user.svg")
+                | {{ "topnavbar.buttons.login" | translate }}

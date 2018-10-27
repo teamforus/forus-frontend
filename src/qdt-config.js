@@ -91,7 +91,7 @@ module.exports = {
                         "src": [
                             "app.js"
                         ],
-                        watch: [
+                        "watch": [
                             "angular-1/**/**.js",                          
                         ],
                         "dest": "/",
@@ -111,7 +111,10 @@ module.exports = {
                     }],
                     "scss": [{
                         "src": "style.scss",
-                        "watch": "includes/**/*.scss",
+                        "watch": [
+                            "includes/**/*.scss",
+                            "layouts/**/*.scss",
+                        ],
                         "path": "/",
                         "name": "style.min.css",
                         "minify": true
@@ -184,8 +187,8 @@ module.exports = {
                 // tasks details, ex: source, destination, minify and etc. 
                 "settings": {
                     "pug": [{
-                        "path": "/sponsor-dashboard",
-                        "src": ["sponsor-dashboard/index.pug"],
+                        "path": "/angular-index",
+                        "src": ["angular-index/index.pug"],
                         "watch": ["layout/**/*.pug"],
                     }, {
                         "path": "/tpl",
@@ -219,8 +222,8 @@ module.exports = {
                 // tasks details, ex: source, destination, minify and etc. 
                 "settings": {
                     "pug": [{
-                        "path": "/sponsor-dashboard",
-                        "src": ["sponsor-dashboard/index.pug"],
+                        "path": "/angular-index",
+                        "src": ["angular-index/index.pug"],
                         "watch": ["layout/**/*.pug"],
                     }, {
                         "path": "/tpl",
@@ -254,13 +257,61 @@ module.exports = {
                 // tasks details, ex: source, destination, minify and etc. 
                 "settings": {
                     "pug": [{
-                        "path": "/sponsor-dashboard",
-                        "src": ["sponsor-dashboard/index.pug"],
+                        "path": "/angular-index",
+                        "src": ["angular-index/index.pug"],
                         "watch": ["layout/**/*.pug"],
                     }, {
                         "path": "/tpl",
                         "src": ["tpl/**/*.pug"],
                         "dest": "/assets/tpl"
+                    }]
+                }
+            }
+        },
+        "forus-landing-meapp": {
+            "source": "forus-platform",
+            "paths": {
+                "root": "../dist/forus-landing-meapp",
+                "assets_root": "../dist/forus-landing-meapp/assets",
+                "clean_paths": [
+                    "../dist/forus-landing-meapp"
+                ]
+            },
+            "server": {
+                "path": "/",
+                "port": 3600
+            },
+            // tasks configs
+            "tasks": {
+                // disable tasks
+                "disabled": {
+                    "pug": false,
+                    "js": false,
+                    "assets": false
+                },
+                // tasks details, ex: source, destination, minify and etc. 
+                "settings": {
+                    "js": [{
+                        "src": [
+                            "app.landing-meapp.js",
+                        ],
+                        "watch": [
+                            "angular-1/**/**.js",
+                        ],
+                        "dest": "/",
+                        "name": "app.js",
+                        "minify": true,
+                        "sourcemap": true,
+                        "browserify": true
+                    }],
+                    "pug": [{
+                        "path": "/landing-meapp",
+                        "src": ["landing-meapp/index.pug"],
+                        "watch": ["layout/**/*.pug"],
+                    }, {
+                        "path": "/tpl/directives",
+                        "src": ["tpl/directives/**/*.pug"],
+                        "dest": "/assets/tpl/directives"
                     }]
                 }
             }
