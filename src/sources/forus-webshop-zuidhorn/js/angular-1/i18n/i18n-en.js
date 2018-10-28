@@ -60,8 +60,8 @@ module.exports = {
             search: "Zoek naar een aanbieding",
         },
         map: {
-            title: "Overzicht van alle leveranciers",
-            subtitle: "Binnen het Forus platform werken sponsoren en leveranciers samen om de beste diensten en producten te leveren voor het publieke domein.",
+            title: "Overzicht van alle aanbieders",
+            subtitle: "Binnen het platform Forus werkt de gemeente Zuidhorn en verschillende aanbieders samen om het besta aanbod te leveren",
             button: 'BEKIJK DE KAART',
         }
     },
@@ -176,7 +176,7 @@ module.exports = {
         labels: {
             transactions: "Transacties",
             subtract: "Af",
-            office: "Locatie van de leverancier",
+            office: "Locatie van de aanbieder",
             voucher: "Je kunt je voucher besteden in de winkels op deze locaties",
         }
     },
@@ -304,7 +304,7 @@ module.exports = {
     // POPUP OFFICES = popup-offices.pug
     popup_offices: {
         header: {
-            title: "We hebben vijf leveranciers gevonden",
+            title: "We hebben vijf aanbieders gevonden",
             subtitle: "Selecteer een om meer informatie te zien",
         },
         labels: {
@@ -336,7 +336,7 @@ module.exports = {
     topnavbar: {
         items: {
             funds:"FONDSEN",
-            products:"PRODUCTEN",
+            products:"AANBIEDINGEN",
             identity:"Identiteit",
         },
         buttons: {
@@ -346,7 +346,7 @@ module.exports = {
             records: "Mijn eigenschappen",
             authorize:"Autoriseer apparaat",
             logout:"Uitloggen",
-            products:"Producten",
+            products:"Aanbiedingen",
             funds: "Fondsen",
         },
     },
