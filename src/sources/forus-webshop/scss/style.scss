@@ -1500,6 +1500,8 @@ body {
         margin: 0 -45px 30px;
         display: block;
         min-height: 500px;
+        display: flex;
+        flex-wrap: wrap;
 
         .product-item {
             margin: 0 0 50px;

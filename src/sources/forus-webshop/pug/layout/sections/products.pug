@@ -10,10 +10,10 @@ section.section.section-products#products: .wrapper
                 input(type="text" placeholder="Search for Product").form-control.form-control-fancy
     
     .block.block-products
-        mixin product_item()
-            .product-item: a(href="#").product-item-inner
+        mixin product_item(name, discounted)
+            .product-item(class=discounted?'discounted':''): a(href="#").product-item-inner
                 .product-image: img(src="./assets/img/product-no-photo.jpg")
-                .product-name Gecertificeerde MeditorPlus
+                .product-name=name
                 .product-discount
                     | 58% 
                     br
@@ -22,11 +22,11 @@ section.section.section-products#products: .wrapper
                     small VAN € 59,95
                     br
                     | VOOR € 24,95
-        +product_item()
-        +product_item()
-        +product_item()
-        +product_item()
-        +product_item()
-        +product_item()
+        +product_item("Gecertificeerde Meditor Plus", true)
+        +product_item("Gecertificeerde Meditor Plus Lorem Ipsum", true)
+        +product_item("Gecertificeerde Meditor Plus Lorem ", false)
+        +product_item("Gecertificeerde Meditor Plus", true)
+        +product_item("Gecertificeerde Meditor Plus Lorem ", false)
+        +product_item("Gecertificeerde Meditor Plus Lorem Ipsum", true)
 
         .block.block-show-more: .wrapper: a(href="#").button.button-primary SHOW MORE
