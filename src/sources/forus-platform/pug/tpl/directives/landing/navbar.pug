@@ -1,5 +1,5 @@
 .block.block-navbar
-    a(href="./index.html").navbar-logo
+    a(href="{{ $root.appConfigs.frontends.webshop }}").navbar-logo
         img(src="./assets/img/landing/forus-logo-normal.svg")
         img(src="./assets/img/landing/forus-logo-hover.svg").hover
     nav.navbar-list
@@ -19,7 +19,7 @@
             .button.button-default(ui-sref="organizations")
                 em.mdi.mdi-account
                 //- img(src="./assets/img/icon-btn/icon-btn-user.svg")
-                | {{ "topnavbar.buttons.panel" | translate }}
+                | {{ $root.auth_user.primary_email }}
         
         .auth-out(ng-if="!$root.auth_user")
             .button.button-default(ng-click="$root.popups.auth.open('choose')")
