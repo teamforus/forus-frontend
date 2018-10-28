@@ -63,6 +63,19 @@ module.exports = {
             title: "Overzicht van alle aanbieders",
             subtitle: "Binnen het platform Forus werkt de gemeente Zuidhorn en verschillende aanbieders samen om het besta aanbod te leveren",
             button: 'BEKIJK DE KAART',
+        },
+        guide: {
+            title: "Hoe het systeem werkt",
+            stepone: "Stap #1",
+            one: "Je hebt een brief  ontvangen van de gemeente. In de brief staat een activatiecode. Gebruik deze bij stap 2.",
+            steptwo: "Stap #2",
+            two: "Met de activatiecode kun je je aanmelden en het Kindpakket activeren. Druk op ‘Activatiecode’ bovenaan de pagina en vul de gevraagde gegevens in.",
+            stepthree: "Stap #3",
+            three: "Na je aanmelding wordt het Kindpakket gelijk geactiveerd. De voucher met bijbehorende QR-Code kan je terugvinden door bovenaan je profiel gegevens op ‘Mijn vouchers’ te klikken.",
+            stepfour: "Stap #4",
+            four: "De QR-Code kan je uitprinten, naar jezelf toe mailen of altijd op je telefoon hebben door in te loggen op de Me app. De Me app kun je dowloaden via de Google Playstore en de App Store.",
+            stepfive: "Stap #5",
+            five: "Ga naar de webshop om te zien waar de voucher te besteden is of om een aanbieding te kopen. Laat de bijbehorende QR-Code zien om je aanbieding geleverd te krijgen",
         }
     },
 
