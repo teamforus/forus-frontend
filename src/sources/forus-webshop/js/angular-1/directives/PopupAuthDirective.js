@@ -142,7 +142,9 @@ let PopupAuthDirective = function(
 
     this.$onInit = function() {
         qrCodeEl = document.getElementById('auth_qrcode');
-        qrCode = new QRCode(qrCodeEl);
+        qrCode = new QRCode(qrCodeEl, {
+            correctLevel: QRCode.CorrectLevel.L
+        });
 
         $(document).bind('keydown', (e) => {
             $timeout(function() {

@@ -8,7 +8,7 @@ module.exports = {
                 "bootstrap_3": false,
                 "angular": true,
                 "angular_2": false,
-                "underscore": false,
+                "underscore": true,
                 "underscore.string": false,
                 "mdi": true
             },

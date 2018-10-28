@@ -8,7 +8,8 @@ let ProfileCardDirective = function(
         text: JSON.stringify({
             type: 'identity',
             value: $rootScope.auth_user.address
-        })
+        }),
+        correctLevel: QRCode.CorrectLevel.L
     });
 
     qrCodeEl.removeAttribute('title');

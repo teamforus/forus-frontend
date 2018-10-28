@@ -18,7 +18,8 @@ let VoucherComponent = function(
             text: JSON.stringify({
                 type: 'voucher',
                 value: $ctrl.voucher.address
-            })
+            }),
+            correctLevel: QRCode.CorrectLevel.L
         });
 
         let addType = (type, transaction) => {
