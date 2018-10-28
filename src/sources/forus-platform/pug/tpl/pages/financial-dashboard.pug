@@ -9,7 +9,7 @@
                 .organization-item-inner
                     .organization-logo: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/organization-no-logo.svg' }}")
                 .organization-name(ng-bind="fund.name")
-                .organization-categories {{ "financial_dashboard.labels.product" | translate }}
+                .organization-categories(ng-bind="fund.fundCategories")
 
             div(
                 ng-if="$ctrl.fund"
