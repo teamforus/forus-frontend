@@ -61,7 +61,7 @@ module.exports = {
         },
         map: {
             title: "Overzicht van alle aanbieders",
-            subtitle: "Binnen het platform Forus werkt de gemeente Zuidhorn en verschillende aanbieders samen om het besta aanbod te leveren",
+            subtitle: "Binnen het platform Forus werkt de gemeente Zuidhorn en verschillende aanbieders samen om het beste aanbod te leveren",
             button: 'BEKIJK DE KAART',
         },
         guide: {
@@ -226,6 +226,11 @@ module.exports = {
             subtract: "Af",
             office: "Locatie van de aanbieder",
             voucher: "Je kunt je voucher besteden in de winkels op deze locaties",
+        },
+        status: {
+            used: "Gebruikt",
+            generated: "AANGEMAAKT",
+            enddate: "VERLOOPDATUM",
         }
     },
 
@@ -248,7 +253,7 @@ module.exports = {
     // PRODUCT BLOCKS = block-products.pug
     block_products: {
         header: {
-            title: "Aanbieding",
+            title: "Aanbiedingen",
         },
         input : {
             placeholder: "Zoek naar een aanbieding",
@@ -317,18 +322,18 @@ module.exports = {
     // AUTHENTICATION POPUP = popup-auth.pug
     popup_auth: {
         header: {
-            title: "Inloggen op platform Forus",
-            subtitle: "Scan de QR-code met de Me App of log in met je e-mailadres",
+            title: "Inloggen",
+            subtitle: "Scan de QR-Code met de Me App of log in met je e-mailadres.",
         },
         notifications: {
             confirmation: "Het is gelukt!",
-            link: "Er is een link naar je e-mailadres gestuurd",
-            invalid: "De activatiecode is ongeldig of al gebruikt",
+            link: "Er is een link naar je e-mailadres gestuurd. Klik op de link om verder te gaan.",
+            invalid: "De activatiecode is ongeldig of al gebruikt.",
         },
         buttons: {
             qrcode: "Log in via QR-Code",
             mail: "Log in via e-mail",
-            submit: "VERSTUREN",
+            submit: "VOLGENDE",
             cancel: "ANNULEREN",
             confirm: "VOLGENDE",
         },
@@ -336,11 +341,11 @@ module.exports = {
             timelimit: "Je kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt je sessie.",
             warning: "Sluit dit venster en klik op 'Login' als je de activatiecode al eens hebt gebruikt.",
             join: "Aanmelden",
-            scancode: "Scan deze QR-Code met een ander apparaat waar je al op aangemeld bent",
-            mobilecode: "Vul je toegangscode van de Me App in",
-            mail: "Dit scherm is alleen bedoeld voor inwoners die een brief van de gemeente hebben ontvangen met daarin een activatiecode en deze nog niet hebben gebruikt.",
-            link: "Vul je e-mailadres in om een link te ontvangen waarmee je kunt inloggen",
-            code: "Vul de activatiecode in die je per brief hebt ontvangen",
+            scancode: "Scan deze QR-Code met een ander apparaat waar je al op aangemeld bent.",
+            mobilecode: "Vul je toegangscode van de Me App in.",
+            mail: "Heb je een brief van de gemeente ontvangen met een activatiecode en deze nog niet gebruikt? Ga dan verder. Heb je deze al wel gebruikt? Sluit dan dit venster en klik op 'login'.",
+            link: "Vul je e-mailadres in om een link te ontvangen waarmee je kunt inloggen.",
+            code: "Vul de activatiecode in die je per brief hebt ontvangen.",
         },
         input: {
             mail: "Vul je e-mailadres in",
