@@ -512,17 +512,81 @@
             float: left;
             position: relative;
             z-index: 3;
-            padding-bottom: 100px;
+            padding-bottom: 30px;
             padding-right: 120px;
+            min-height: 450px;
 
             .header-title {
                 font: 700 40px/50px $bf;
-                margin: 0 0 20px;
+                margin: 0 0 25px;
             }
 
             .header-description {
                 font: 400 22px/36px $bf;
                 margin: 0 0 50px;
+            }
+
+            .header-download-apps {
+                margin-right: -60px;
+                padding-top: 50px;
+
+                .app-item {
+                    width: 100%;
+                    display: block;
+                    margin-bottom: 20px;
+                    padding: 50px 50px 50px 200px;
+                    font: 700 18px/30px $bf;
+                    position: relative;
+                    color: #282b39;
+                    overflow: hidden;
+                    border-radius: 5px;
+                    background: #fff;
+                    text-align: left;
+                    transition: .4s;
+                    transform: translate(0, 0);
+                    box-shadow: 5px 15px 30px rgba($color: #000000, $alpha: .05);
+
+                    .mdi {
+                        top: 50%;
+                        right: 40px;
+                        position: absolute;
+                        transform: translate(0, -50%);
+                        font-size: 18px;
+                        color: #5374d9;
+                    }
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        display: block;
+                        width: 225px;
+                        height: 200px;
+                        left: -60px;
+                        top: 50%;
+                        border-radius: 200px;
+                        background-color: #f9fbf0;
+                        background-image: url('../img/landing/icon-app-android.png');
+                        background-repeat: no-repeat;
+                        background-position: 70% 50%;
+                        transform: translate(0, -50%);
+                    }
+
+                    &.app-item-ios {
+                        &:before {
+                            background-color: #f2fafd;
+                            background-image: url('../img/landing/icon-app-ios.png');
+                        }
+                    }
+
+                    &:hover {
+                        transform: translate(0, -5px);
+                        box-shadow: 5px 20px 40px rgba($color: #000000, $alpha: .15);
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
             }
         }
 
@@ -532,7 +596,7 @@
             height: 100%;
             top: 0;
             right: 0;
-            background-position: 100% 150px;
+            background-position: 100% 100px;
             background-repeat: no-repeat;
             background-size: 100%;
         }
@@ -629,6 +693,9 @@
 
         .scheme {
             position: relative;
+            max-width: 100%;
+            width: 1400px;
+            margin: 0 auto;
 
             .scheme-img {
                 display: block;
@@ -641,35 +708,69 @@
             }
 
             .scheme-point {
-                position: absolute;
-                left: 12.15%;
-                top: 11.55%;
-                width: 30%;
+                .scheme-point-text {
+                    position: absolute;
+                    left: 12.15%;
+                    top: 11.55%;
+                    width: 30%;
 
-                h4 {
-                    color: #00122a;
-                    font: 500 28px/38px $bf;
-                    margin: 0 0 10px;
+                    h4 {
+                        color: #00122a;
+                        font: 500 28px/38px $bf;
+                        margin: 0 0 10px;
+                    }
+
+                    p {
+                        color: #646f79;
+                        font: 400 15px/24px $bf;
+                        margin: 0 0 10px;
+                    }
                 }
 
-                p {
-                    color: #646f79;
-                    font: 400 15px/24px $bf;
-                    margin: 0 0 10px;
+                .scheme-point-image {
+                    display: block;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    width: 55.5%;
+                    padding: 40px;
+                    border-radius: 1000px;
+                    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,.4) 100%);
                 }
 
                 &:nth-child(2) {
-                    top: 35.6%;
-                    left: 57.4%;
+                    .scheme-point-text {
+                        top: 35.6%;
+                        left: 57.4%;
+                    }
+
+                    .scheme-point-image {
+                        left: 0;
+                        top: 24%;
+                    }
                 }
 
                 &:nth-child(3) {
-                    top: 59.1%;
+                    .scheme-point-text {
+                        top: 59.1%;
+                    }
+
+                    .scheme-point-image {
+                        top: 47.4%;
+                    }
                 }
 
                 &:nth-child(4) {
-                    top: 82.6%;
-                    left: 57.4%;
+                    .scheme-point-text {
+                        top: 82.6%;
+                        left: 57.4%;
+                    }
+
+                    .scheme-point-image {
+                        left: 0;
+                        top: auto;
+                        bottom: 0.1%;
+                    }
                 }
             }
         }
@@ -786,7 +887,7 @@
 
                 .header-description {
                     font: 400 13px/20px $bf;
-                    margin: 0 0 20px;
+                    margin: 0 0 30px;
                 }
 
                 .button {
@@ -794,6 +895,30 @@
                     font-size: 11px;
                     padding: 12px 10px;
                     width: 100%;
+                }
+
+                .header-download-apps {
+                    padding: 0;
+                    margin: 0 0 0;
+
+                    .app-item {
+                        padding: 25px 20px 25px 90px;
+                        font: 700 12px/20px $bf;
+                        @include ellipsis();
+
+                        &:before {
+                            width: 70px;
+                            height: 100%;
+                            border-radius: 0;
+                            left: 0;
+                            background-size: 50px;
+                            background-position: 50%;
+                        }
+
+                        .mdi {
+                            display: none;
+                        }
+                    }
                 }
             }
 
@@ -818,6 +943,7 @@
 
         &.section-flow {
             margin: 0 0 30px;
+            display: none;
             
             .section-title {
                 padding: 0;
@@ -836,6 +962,8 @@
             }
 
             &.responsive {
+                display: block;
+                
                 .scheme {
                     .scheme-img {
                         display: none;
@@ -846,10 +974,23 @@
                     }
 
                     .scheme-point {
-                        position: initial;
                         width: 100%;
                         text-align: center;
                         margin: 0 0 30px;
+
+                        .scheme-point-text {
+                            position: initial;
+                            width: 100%;
+                        }
+
+                        .scheme-point-image {
+                            position: initial;
+                            width: 100%;
+                            padding: 0;
+                            border-radius: 0;
+                            margin-bottom: -30px;
+                            margin-top: -30px;
+                        }
 
                         h4 {
                             font: 600 16px/28px $bf;
@@ -1939,7 +2080,7 @@
                 padding: 0;
 
                 .card-item-inner {
-                    height: 160px;
+                    height: 240px;
 
                     .card-icon {
                         width: 320px;

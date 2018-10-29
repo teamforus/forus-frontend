@@ -72,6 +72,10 @@ module.exports = {
         HomeComponent
     ],
     templateUrl: (appConfigs) => {
+        if (appConfigs.panel_type == 'validator') {
+            return 'assets/tpl/pages/home.html';
+        }
+
         return 'assets/tpl/pages/landing/home-' + appConfigs.panel_type + '.html';
     }
 };

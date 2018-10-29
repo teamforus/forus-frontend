@@ -12,7 +12,7 @@
         a(
             href="{{ $root.appConfigs.frontends.validator }}"
             ng-class="$root.appConfigs.panel_type=='validator'?'active':''").navbar-item VALIDATOR
-        a(href="{{ $root.appConfigs.frontends.me_app }}").navbar-item ME APP
+        a(href="{{ $root.appConfigs.frontends.me_app }}").navbar-item ME
         a(href="{{ $root.appConfigs.frontends.webshop }}").navbar-item WEBSHOP
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")

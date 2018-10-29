@@ -74,6 +74,7 @@ let PopupAuthDirective = function(
         CredentialsService.set(access_token);
         $rootScope.loadAuthUser();
         $scope.popup.close();
+        $state.go('organizations');
     };
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {

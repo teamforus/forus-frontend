@@ -72,6 +72,16 @@ let BaseController = function(
     if (AuthService.hasCredentials()) {
         $rootScope.loadAuthUser();
     }
+
+    $scope.$watch(function() {
+        return $state.$current.name
+    }, function(newVal, oldVal) {
+        if ($state.current.name == 'home' && appConfigs.panel_type != 'validator') {
+            $rootScope.viewLayout = 'landing';
+        } else {
+            $rootScope.viewLayout = 'panel';
+        }
+    }) 
 };
 
 module.exports = [
