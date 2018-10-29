@@ -25,10 +25,11 @@ module.exports = {
             "forus-webshop.panel",
             // "forus-webshop-zuidhorn.markup",
             "forus-webshop-zuidhorn.panel",
+            "forus-webshop-nijmegen.panel"
         ],
         // browsersync reloads browser when watched files are modified,
-        // here you can choose which platform besides "served" will make 
-        // browsersync to reload. 
+        // here you can choose which platform besides "served" will make
+        // browsersync to reload.
         // Sometimes "served" platform rely on foreign platform
         watch_platforms: "all"
     },
@@ -44,6 +45,7 @@ module.exports = {
             "forus-webshop.panel",
             // "forus-webshop-zuidhorn.markup",
             "forus-webshop-zuidhorn.panel",
+            "forus-webshop-nijmegen.panel"
         ]
     },
     platforms_data: {
@@ -88,5 +90,10 @@ module.exports = {
             frontends: frontends,
             client_key: 'shop-zuidhorn'
         },
+        "forus-webshop-nijmegen.panel": {
+            api_url: api_url,
+            frontends: frontends,
+            client_key: 'shop-zuidhorn'
+        }
     }
 };

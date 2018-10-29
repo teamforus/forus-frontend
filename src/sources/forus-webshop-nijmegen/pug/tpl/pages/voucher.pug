@@ -1,0 +1,56 @@
+.header-splash: .splash.splash-d
+
+header.section.section-header: .wrapper
+    top-navbar
+    
+    .header-body
+        .header-content
+            .header-title {{ "voucher.header.title" | translate }}
+            a(href="#").button.button-primary {{ "voucher.buttons.send" | translate }}
+        .header-content
+            .block.block-voucher
+                .voucher-title(ng-bind="$ctrl.voucher.product ? $ctrl.voucher.product.name: $ctrl.voucher.fund.name")
+                .voucher-subtitle(ng-bind="$ctrl.voucher.product ? $ctrl.voucher.product.organization.name : $ctrl.voucher.fund.organization.name")
+                .voucher-value € {{ $ctrl.voucher.amount | to_fixed:2 }}
+                .voucher-qr-code: .voucher-qr-code_inner#voucher_qr
+
+section.section.section-voucher-details: .wrapper
+    .block.block-voucher-product(ng-if="$ctrl.voucher.product")
+        a(ui-sref="products-show($ctrl.voucher.product)").product-card
+            .product-photo(style="background-image: url({{ $ctrl.voucher.product.photo.sizes.small }})")
+            .product-details
+                .product-name {{ $ctrl.voucher.product.name }}
+
+                .product-price
+                    .product-price-new € {{ $ctrl.voucher.product.price | to_fixed:2 }} 
+                    .product-price-old € {{ $ctrl.voucher.product.old_price | to_fixed:2 }}
+
+    .block.block-transactions
+        .transactions-header: .transactions-title {{ "voucher.labels.transactions" | translate }}
+        .transactions-body: .transactions-list
+            .transactions-item(ng-repeat="transaction in $ctrl.transactions" class="transactions-item-out")
+                div(ng-if="transaction.type == 'transaction'")
+                    .transactions-item-icon: em.mdi.mdi-arrow-up
+                    .transactions-item-details
+                        .transactions-item-counterpart {{ transaction.organization.name }}
+                        .transactions-item-date {{ transaction.created_at_locale }}
+                    .transactions-item-amount 
+                        .transactions-item-value - €{{ transaction.amount | to_fixed:2 }}
+                        .transactions-item-type {{ "voucher.labels.subtract" | translate }}
+                div(ng-if="transaction.type == 'product_voucher'")
+                    .transactions-item-icon: em.mdi.mdi-arrow-up
+                    .transactions-item-details
+                        .transactions-item-counterpart {{ "Product voucher: " | translate }} {{ transaction.product.name }}
+                        .transactions-item-date {{ transaction.created_at_locale }}
+                    .transactions-item-amount 
+                        .transactions-item-value - €{{ transaction.amount | to_fixed:2 }}
+                        .transactions-item-type {{ "voucher.labels.subtract" | translate }}
+
+    .block.block-map_card
+        .map_card-header
+            .map_card-title {{ "voucher.labels.office" | translate }}
+            .map_card-subtitle {{ "voucher.labels.voucher" | translate }}
+
+        .map_card-iframe: google-map(offices="$ctrl.voucher.offices")
+
+contact-form 
