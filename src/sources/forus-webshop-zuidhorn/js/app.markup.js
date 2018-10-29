@@ -10,7 +10,6 @@ setTimeout(() => {
 }, 500);
 
 $.prototype.collapse = function(cfg) {
-    console.log('collapse');
     if (this.lenth == 0) {
         return;
     }
