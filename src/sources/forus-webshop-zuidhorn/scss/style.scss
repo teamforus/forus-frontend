@@ -770,7 +770,7 @@ body {
 
         .section-sprite {
             position: absolute;
-            right: 100px;
+            right: 75px;
             width: 100%;
             height: 480px;
             max-height: 100%;
@@ -802,7 +802,7 @@ body {
                 margin-left: 200px;
                 position: relative;
                 margin-bottom: 125px;
-                width: 390px;
+                width: 410px;
                 max-width: 100%;
                 cursor: default;
 
@@ -1532,7 +1532,7 @@ body {
     &.block-products {
         margin: 0 -45px 30px;
         display: block;
-        min-height: 500px;
+        min-height: 400px;
         display: flex;
         flex-wrap: wrap;
 
