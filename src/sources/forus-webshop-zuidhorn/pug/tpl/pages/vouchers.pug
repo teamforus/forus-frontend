@@ -32,13 +32,13 @@ section.section.section-profile: .wrapper
 
                     .voucher-overview(ng-if="voucher.product")
                         .voucher-overview-item
-                            .voucher-overview-label Gebruikt
+                            .voucher-overview-label {{ "voucher.status.used" | translate }}
                             .voucher-overview-value(ng-bind="voucher.transactions.length == 0 ? 'Nee' : 'Ja'")
                         .voucher-overview-item
-                            .voucher-overview-label GEGENEREERD
+                            .voucher-overview-label {{ "voucher.status.generated" | translate }}
                             .voucher-overview-value(ng-bind="voucher.created_at_locale")
                         .voucher-overview-item
-                            .voucher-overview-label VERLOOPDATUM
+                            .voucher-overview-label {{ "voucher.status.enddate" | translate }}
                             .voucher-overview-value(ng-bind="voucher.expire_at_locale")
 
             empty-block(
