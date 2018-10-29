@@ -385,7 +385,7 @@ module.exports = {
         items: {
             funds:"FONDSEN",
             products:"AANBIEDINGEN",
-            identity:"Identiteit",
+            identity:"Profiel",
         },
         buttons: {
             activate:"Activatiecode",
