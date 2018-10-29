@@ -7,7 +7,7 @@ section.section.section-profile: .wrapper
     .section-title  {{ "vouchers.header.title" | translate }} ({{ $ctrl.vouchers.length }})
     
     .block.block-profile
-        profile-card
+        //profile-card
 
         .profile-content
             .block.block-vouchers(ng-if="$ctrl.vouchers.length > 0")
@@ -32,11 +32,14 @@ section.section.section-profile: .wrapper
 
                     .voucher-overview(ng-if="voucher.product")
                         .voucher-overview-item
-                            .voucher-overview-label USED
-                            .voucher-overview-value(ng-bind="voucher.transactions.length == 0 ? 'No' : 'Yes'")
+                            .voucher-overview-label {{ "voucher.status.used" | translate }}
+                            .voucher-overview-value(ng-bind="voucher.transactions.length == 0 ? 'Nee' : 'Ja'")
                         .voucher-overview-item
-                            .voucher-overview-label GENERATED
-                            .voucher-overview-value(ng-bind="voucher.created_at.split(' ')[0]")
+                            .voucher-overview-label {{ "voucher.status.generated" | translate }}
+                            .voucher-overview-value(ng-bind="voucher.created_at_locale")
+                        .voucher-overview-item
+                            .voucher-overview-label {{ "voucher.status.enddate" | translate }}
+                            .voucher-overview-value(ng-bind="voucher.expire_at_locale")
 
             empty-block(
                 title="Geen vouchers"

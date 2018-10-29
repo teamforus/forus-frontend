@@ -1,0 +1,13 @@
+doctype
+html(lang="en")
+    include ../layout/includes/head
+
+    body(ng-controller="BaseController" ng-cloak)
+        div(ng-class="$root.viewLayout == 'landing' ? 'landing-root' : ''")
+            div(ng-if="$root.viewLayout != 'landing'"): include ../layout/includes/header
+            
+            ui-view
+
+            div(ng-if="$root.viewLayout != 'landing'"): include ../layout/includes/footer
+            div(ng-if="$root.viewLayout == 'landing'"): include ../layout/includes/footer-landing
+            include ../layout/includes/scripts

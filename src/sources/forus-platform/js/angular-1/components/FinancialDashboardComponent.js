@@ -126,6 +126,16 @@ let FinancialDashboardComponent = function(
                 return fundProvider;
             });
         }
+
+        if (Array.isArray($ctrl.funds)) {
+            $ctrl.funds.forEach(fund => {
+                fund.fundCategories = _.pluck(fund.product_categories, 'name').join(', ');
+            });
+        }
+
+        if ($ctrl.fund) {
+            $ctrl.fund.fundCategories = _.pluck($ctrl.fund.product_categories, 'name').join(', ');
+        }
     };
 };
 

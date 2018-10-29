@@ -17,12 +17,12 @@
                             tr(
                                 ng-repeat="transaction in $ctrl.transactions" 
                                 ui-sref="transaction(transaction)").pointer
-                                td: a.text-primary-light €{{ transaction.amount | to_fixed:2 }}
+                                td: a.text-primary-light €{{ transaction.amount }}
                                 td(ng-bind="transaction.created_at_locale")
                                 td(ng-bind="transaction.fund.name")
                                 td(ng-bind="transaction.organization.name")
-                                td(ng-bind="{pending: 'Pending', success : 'Voltooid'}[transaction.state]")
-            // .card-section
+                                td(ng-bind="$ctrl.states[transaction.state]")
+            //- .card-section
                 .table-pagination
                     .table-pagination-counter {{ "transactions.labels.results" | translate }}
                     .table-pagination-navigation
@@ -31,6 +31,13 @@
                         button.button.button-default {{ "transactions.paginator.two" | translate }}
                         button.button.button-primary {{ "transactions.paginator.three" | translate }}
                         button(disabled).button.button-default {{ "transactions.buttons.next" | translate }}
+
+                    
+            .card-section: .table-pagination
+                .table-pagination-counter(ng-bind="$ctrl.transactions.length + ' results'")
+                button(ng-click="$ctrl.exportList()").button.button-primary.pull-right
+                    em.mdi.mdi-download  
+                    | {{ "transactions.buttons.export" | translate }}
         empty-block(
             ng-if="$ctrl.transactions.length == 0" 
             text="'Geen transacties.'")

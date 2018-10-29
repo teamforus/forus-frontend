@@ -39,7 +39,7 @@ let ProductService = function(ApiRequest) {
                 'price': apiResource.price,
                 'old_price': apiResource.old_price,
                 'total_amount': apiResource.total_amount,
-                'sold_amount': apiResource.sold_amount,
+                'expire_at': apiResource.expire_at,
                 'product_category_id': apiResource.product_category_id,
             };
         };

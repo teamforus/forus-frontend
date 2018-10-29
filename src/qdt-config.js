@@ -8,7 +8,7 @@ module.exports = {
                 "bootstrap_3": false,
                 "angular": true,
                 "angular_2": false,
-                "underscore": false,
+                "underscore": true,
                 "underscore.string": false,
                 "mdi": true
             },
@@ -91,8 +91,8 @@ module.exports = {
                         "src": [
                             "app.js"
                         ],
-                        watch: [
-                            "angular-1/**/**.js",                          
+                        "watch": [
+                            "angular-1/**/**.js",
                         ],
                         "dest": "/",
                         "name": "app.js",
@@ -111,7 +111,10 @@ module.exports = {
                     }],
                     "scss": [{
                         "src": "style.scss",
-                        "watch": "includes/**/*.scss",
+                        "watch": [
+                            "includes/**/*.scss",
+                            "layouts/**/*.scss",
+                        ],
                         "path": "/",
                         "name": "style.min.css",
                         "minify": true
@@ -145,7 +148,7 @@ module.exports = {
                     "js": false,
                     "assets": false
                 },
-                // tasks details, ex: source, destination, minify and etc. 
+                // tasks details, ex: source, destination, minify and etc.
                 "settings": {
                     "js": [{
                         "src": [
@@ -181,11 +184,11 @@ module.exports = {
                     "js": false,
                     "assets": false
                 },
-                // tasks details, ex: source, destination, minify and etc. 
+                // tasks details, ex: source, destination, minify and etc.
                 "settings": {
                     "pug": [{
-                        "path": "/sponsor-dashboard",
-                        "src": ["sponsor-dashboard/index.pug"],
+                        "path": "/angular-index",
+                        "src": ["angular-index/index.pug"],
                         "watch": ["layout/**/*.pug"],
                     }, {
                         "path": "/tpl",
@@ -216,11 +219,11 @@ module.exports = {
                     "js": false,
                     "assets": false
                 },
-                // tasks details, ex: source, destination, minify and etc. 
+                // tasks details, ex: source, destination, minify and etc.
                 "settings": {
                     "pug": [{
-                        "path": "/sponsor-dashboard",
-                        "src": ["sponsor-dashboard/index.pug"],
+                        "path": "/angular-index",
+                        "src": ["angular-index/index.pug"],
                         "watch": ["layout/**/*.pug"],
                     }, {
                         "path": "/tpl",
@@ -251,16 +254,64 @@ module.exports = {
                     "js": false,
                     "assets": false
                 },
-                // tasks details, ex: source, destination, minify and etc. 
+                // tasks details, ex: source, destination, minify and etc.
                 "settings": {
                     "pug": [{
-                        "path": "/sponsor-dashboard",
-                        "src": ["sponsor-dashboard/index.pug"],
+                        "path": "/angular-index",
+                        "src": ["angular-index/index.pug"],
                         "watch": ["layout/**/*.pug"],
                     }, {
                         "path": "/tpl",
                         "src": ["tpl/**/*.pug"],
                         "dest": "/assets/tpl"
+                    }]
+                }
+            }
+        },
+        "forus-landing-meapp": {
+            "source": "forus-platform",
+            "paths": {
+                "root": "../dist/forus-landing-meapp",
+                "assets_root": "../dist/forus-landing-meapp/assets",
+                "clean_paths": [
+                    "../dist/forus-landing-meapp"
+                ]
+            },
+            "server": {
+                "path": "/",
+                "port": 3600
+            },
+            // tasks configs
+            "tasks": {
+                // disable tasks
+                "disabled": {
+                    "pug": false,
+                    "js": false,
+                    "assets": false
+                },
+                // tasks details, ex: source, destination, minify and etc.
+                "settings": {
+                    "js": [{
+                        "src": [
+                            "app.landing-meapp.js",
+                        ],
+                        "watch": [
+                            "angular-1/**/**.js",
+                        ],
+                        "dest": "/",
+                        "name": "app.js",
+                        "minify": true,
+                        "sourcemap": true,
+                        "browserify": true
+                    }],
+                    "pug": [{
+                        "path": "/landing-meapp",
+                        "src": ["landing-meapp/index.pug"],
+                        "watch": ["layout/**/*.pug"],
+                    }, {
+                        "path": "/tpl/directives",
+                        "src": ["tpl/directives/**/*.pug"],
+                        "dest": "/assets/tpl/directives"
                     }]
                 }
             }
@@ -280,7 +331,7 @@ module.exports = {
             },
             // tasks configs
             "tasks": {
-                // tasks details, ex: source, destination, minify and etc. 
+                // tasks details, ex: source, destination, minify and etc.
                 "settings": {
                     "js": [{
                         "src": [
@@ -316,7 +367,7 @@ module.exports = {
                     "js": false,
                     "assets": false
                 },
-                // tasks details, ex: source, destination, minify and etc. 
+                // tasks details, ex: source, destination, minify and etc.
                 "settings": {
                     "pug": [{
                         "path": "/webshop-panel",
@@ -345,7 +396,7 @@ module.exports = {
             },
             // tasks configs
             "tasks": {
-                // tasks details, ex: source, destination, minify and etc. 
+                // tasks details, ex: source, destination, minify and etc.
                 "settings": {
                     "js": [{
                         "src": [
@@ -381,7 +432,7 @@ module.exports = {
                     "js": false,
                     "assets": false
                 },
-                // tasks details, ex: source, destination, minify and etc. 
+                // tasks details, ex: source, destination, minify and etc.
                 "settings": {
                     "pug": [{
                         "path": "/webshop-panel",
@@ -395,5 +446,70 @@ module.exports = {
                 }
             }
         },
+        "forus-webshop-nijmegen.markup": {
+            "source": "forus-webshop-nijmegen",
+            "paths": {
+                "root": "../dist/forus-webshop-nijmegen.markup",
+                "assets_root": "../dist/forus-webshop-nijmegen.markup/assets",
+                "clean_paths": [
+                    "../dist/forus-webshop-nijmegen.markup"
+                ]
+            },
+            "server": {
+                "path": "/",
+                "port": 8000
+            },
+            // tasks configs
+            "tasks": {
+                // tasks details, ex: source, destination, minify and etc.
+                "settings": {
+                    "js": [{
+                        "src": [
+                            "app.markup.js",
+                        ],
+                        "dest": "/",
+                        "name": "app.js",
+                        "minify": true,
+                        "sourcemap": true,
+                        "browserify": true
+                    }]
+                }
+            }
+        },
+        "forus-webshop-nijmegen.panel": {
+            "source": "forus-webshop-nijmegen",
+            "paths": {
+                "root": "../dist/forus-webshop-nijmegen.panel",
+                "assets_root": "../dist/forus-webshop-nijmegen.panel/assets",
+                "clean_paths": [
+                    "../dist/forus-webshop-nijmegen.panel"
+                ]
+            },
+            "server": {
+                "path": "/",
+                "port": 8500
+            },
+            // tasks configs
+            "tasks": {
+                // disable tasks
+                "disabled": {
+                    "pug": false,
+                    "js": false,
+                    "assets": false
+                },
+                // tasks details, ex: source, destination, minify and etc.
+                "settings": {
+                    "pug": [{
+                        "path": "/webshop-panel",
+                        "src": ["webshop-panel/index.pug"],
+                        "watch": ["layout/**/*.pug"],
+                    }, {
+                        "path": "/tpl",
+                        "src": ["tpl/**/*.pug"],
+                        "dest": "/assets/tpl"
+                    }]
+                }
+            }
+        }
     }
 };

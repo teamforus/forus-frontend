@@ -42,7 +42,8 @@ let HomeComponent = function(
                 text: JSON.stringify({
                     type: 'auth_token',
                     'value': $ctrl.authToken
-                })
+                }),
+                correctLevel: QRCode.CorrectLevel.L
             });
 
             qrCodeEl.removeAttribute('title');
@@ -57,6 +58,8 @@ let HomeComponent = function(
         $ctrl.showModal = false;
         qrCodeEl.innerHTML = '';
     };
+
+    $('[collapse]').collapse();
 };
 
 module.exports = {

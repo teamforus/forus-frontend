@@ -16,10 +16,6 @@ let HomeComponent = function(
         $redirectAuthorizedState = 'csv-validation';
     }
 
-    if (AuthService.hasCredentials()) {
-        return $state.go($redirectAuthorizedState);
-    }
-
     $ctrl.showModal = false;
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
@@ -46,7 +42,8 @@ let HomeComponent = function(
                 text: JSON.stringify({
                     type: 'auth_token',
                     value: $ctrl.authToken
-                })
+                }),
+                correctLevel: QRCode.CorrectLevel.L,
             });
 
             qrCodeEl.removeAttribute('title');
@@ -74,5 +71,11 @@ module.exports = {
         'appConfigs', 
         HomeComponent
     ],
-    templateUrl: 'assets/tpl/pages/home.html'
+    templateUrl: (appConfigs) => {
+        if (appConfigs.panel_type == 'validator') {
+            return 'assets/tpl/pages/home.html';
+        }
+
+        return 'assets/tpl/pages/landing/home-' + appConfigs.panel_type + '.html';
+    }
 };

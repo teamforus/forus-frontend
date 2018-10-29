@@ -1,0 +1,24 @@
+extends ../layout/layout
+block content
+    .header-splash: .splash.splash-c
+
+    header.section.section-header.section-header-voucher: .wrapper
+        include ../layout/includes/navbar
+        
+        .header-body
+            .header-content
+                .header-title Voucher details
+                a(href="#").button.button-primary EMAIL TO ME
+            .header-content
+                .block.block-voucher
+                    .voucher-title Kindpakket
+                    .voucher-subtitle Valid 2 days
+                    .voucher-value € 456,66
+                    .voucher-qr-code: .voucher-qr-code_inner: img(src="./assets/img/qr-code.svg")
+    
+    section.section.section-voucher-details: .wrapper
+        include ../layout/blocks/transactions
+        include ../layout/blocks/map_card
+
+    include ../layout/sections/products-related 
+    include ../layout/sections/contact-form 

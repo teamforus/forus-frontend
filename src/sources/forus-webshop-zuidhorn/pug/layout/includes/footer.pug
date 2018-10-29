@@ -3,7 +3,16 @@ section.section.section-footer
         .block.block-footer: .row
             .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
                 img(src="./assets/img/logo-bw.png").footer-logo
-                .block.block-app_download
+                .footer-schedule
+                    .schedule-label E-mailadres:		
+                    .schedule-value kindpakket@zuidhorn.nl
+                .footer-schedule
+                    .schedule-label Telefoonnummer:		
+                    .schedule-value (0594) 508888
+                .footer-schedule
+                    .schedule-label Adres:		
+                    .schedule-value Hooiweg 9, 9801 AJ Zuidhorn
+                //.block.block-app_download
                     .download-button
                         .download-label Beschikbaar in de
                         .download-value Play Store
@@ -13,8 +22,8 @@ section.section.section-footer
                         .download-value App Store
                         .download-icon: img(src="./assets/img/icon-app/icon-app-ios.svg")
                         
-            .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-6'")
-                .footer-label Openingstijden
+            .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-5'")
+                .footer-label Openingstijden Gemeente
                 .footer-schedule
                     .schedule-label Maandag: 		
                     .schedule-value 8.30-12.30, 13.30-16.30, 18.00-19.30
@@ -35,12 +44,11 @@ section.section.section-footer
                     .schedule-label Vrijdag: 		
                     .schedule-value 8.30-12.30
             
-            .col.col-md-2
+            .col.col-md-3
                 .footer-label Navigatie
                 nav.footer-nav
-                    .footer-nav-item: a(href="/sponsor/") SPONSOR
-                    .footer-nav-item: a(href="/provider/") PROVIDER
-                    .footer-nav-item: a(href="/validator/") VALIDATOR
+                    .footer-nav-item: a(href="/provider/") Bent u een winkelier in Zuidhorn en wilt u meer informatie?
+                    .footer-nav-item: a(href="/sponsor/") Bent u een medewerker van een Gemeente en wilt u meer informatie?
             
             .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
                 .footer-label Ontvang onze nieuwsbrief

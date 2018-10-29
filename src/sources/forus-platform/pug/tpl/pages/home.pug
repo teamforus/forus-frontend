@@ -1,6 +1,11 @@
 .wrapper
     .text-center
-        button(ng-click="$ctrl.requestAuthToken()").button.button-primary {{ "home.buttons.login" | translate }}
+        button(
+            ng-if="!$root.auth_user" 
+            ng-click="$ctrl.requestAuthToken()").button.button-primary {{ "home.buttons.login" | translate }}
+        button(
+            ng-if="$root.auth_user" 
+            ui-sref="csv-validation").button.button-primary {{ "home.buttons.panel" | translate }}
     div(ng-show="$ctrl.showModal").modal
         .modal-backdrop(ng-click="$ctrl.closeModal()")
         .modal-window
