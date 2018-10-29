@@ -58,7 +58,7 @@ section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
     
 section.section.section-faq: .wrapper
     .section-splash
-    .section-title Veel gestelde vragen
+    .section-title {{ "home.faq.title" | translate }}
     .faq(collapse)
         mixin faq_item(title, content, active)
             .faq-item(class=active?'active':'' collapse-item)
@@ -69,35 +69,67 @@ section.section.section-faq: .wrapper
                 .faq-item-content(collapse-content)=content
 
         +faq_item(
-            "Ik weet niet hoe ik moet inloggen; hoe de activatiecode werkt.",
-            "In de brief staat uw activatiecode. Die code vult u in op de website onder de knop activatie-code. Daana u ontvangt u een e-mail met uw QR-code")
+            "{{ 'home.faq.faq_one' | translate }}",
+            "{{ 'home.faq.one' | translate }}")
 
         +faq_item(
-            "Ik ben mijn QR-code kwijt. Wat moet ik doen?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
+            "{{ 'home.faq.faq_two' | translate }}",
+            "{{ 'home.faq.two' | translate }}")
 
         +faq_item(
-            "Hoe kan ik zien hoe hoog mijn budget nog is?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
+            "{{ 'home.faq.faq_three' | translate }}",
+            "{{ 'home.faq.three' | translate }}")
 
         +faq_item(
-            "Kan ik iets wat ik gekocht heb ruilen/retour brengen?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
+            "{{ 'home.faq.faq_four' | translate }}",
+            "{{ 'home.faq.four' | translate }}")
 
         +faq_item(
-            "Moet ik mijn budget in 1x besteden?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
+            "{{ 'home.faq.faq_five' | translate }}",
+            "{{ 'home.faq.five' | translate }}")
 
         +faq_item(
-            "Kan ik iets kopen bij een andere winkelier die niet op de website staat?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
+            "{{ 'home.faq.faq_six' | translate }}",
+            "{{ 'home.faq.six' | translate }}")
 
         +faq_item(
-            "Ik heb nog een kind gekregen. Kom ik in aanmerking voor een hoger budget?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
+            "{{ 'home.faq.faq_seven' | translate }}",
+            "{{ 'home.faq.seven' | translate }}")
 
         +faq_item(
-            "Hoe kom ik in aanmerking voor het kindpakket?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
+            "{{ 'home.faq.faq_eight' | translate }}",
+            "{{ 'home.faq.eight' | translate }}")
+            
+        +faq_item(
+            "{{ 'home.faq.faq_nine' | translate }}",
+            "{{ 'home.faq.nine' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_ten' | translate }}",
+            "{{ 'home.faq.ten' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_eleven' | translate }}",
+            "{{ 'home.faq.eleven' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_twelve' | translate }}",
+            "{{ 'home.faq.twelve' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_thirteen' | translate }}",
+            "{{ 'home.faq.thirteen' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_fourteen' | translate }}",
+            "{{ 'home.faq.fourteen' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_fifteen' | translate }}",
+            "{{ 'home.faq.fifteen' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_sixteen' | translate }}",
+            "{{ 'home.faq.sixteen' | translate }}")    
 
 contact-form 
