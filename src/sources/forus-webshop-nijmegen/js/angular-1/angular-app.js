@@ -58,6 +58,7 @@ app.directive('blockProducts', require('./directives/BlockProductsDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
 app.directive('scrollTo', require('./directives/ScrollToDirective'));
+app.directive('collapse', require('./directives/CollapseDirective'));
 
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
