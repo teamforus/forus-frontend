@@ -310,9 +310,11 @@ module.exports = {
             code: "Vul de activatiecode in die je per brief hebt ontvangen",
         },
         input: {
-            mail: "Vul je e-mail adres in",
+            mail: "Vul je e-mailadres in",
+            coding: "Vul de activatiecode in",
             code: "Activatiecode",
             mailing: "E-mail",
+            confirmation: "Bevestig je e-mailadres",
         }
     },
 

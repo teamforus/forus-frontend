@@ -110,11 +110,11 @@
                     placeholder="{{ 'popup_auth.input.mail' | translate }}").form-control.form-control
                 .form-error(ng-repeat="error in signUpForm.errors['records.primary_email']" ng-bind="error")
             .form-group
-                .form-label {{ "popup_auth.input.mail_confirmation" | translate }}
+                .form-label {{ "popup_auth.input.mail.confirmation" | translate }}
                 input(
                     type="email" 
                     ng-model="signUpForm.values.records.primary_email_confirmation" 
-                    placeholder="{{ 'popup_auth.input.mail_confirmation' | translate }}").form-control.form-control
+                    placeholder="{{ 'popup_auth.input.mail.confirmation' | translate }}").form-control.form-control
                 .form-error(ng-repeat="error in signUpForm.errors['records.primary_email_confirmation']" ng-bind="error")
             //- .form-group
                 .form-label Pin code
