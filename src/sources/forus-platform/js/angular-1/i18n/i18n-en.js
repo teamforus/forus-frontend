@@ -255,7 +255,7 @@ module.exports = {
             chargeid: "Kopieer het transactienummer",
             connections: "CONNECTIE",
             details: "Bekijk transactiedetails",
-            results: "8 resultaten",
+            results: "x resultaten",
         },
         buttons: {
             previous: "Vorige",
@@ -342,7 +342,7 @@ module.exports = {
             chargeid: "Kopieer het transactienummer",
             connections: "CONNECTIE",
             details: "Bekijk transactiedetails",
-            results: "8 resultaten",
+            results: "x resultaten",
             payment: "Betaling -",
             fund: "FONDS",
             status: "STATUS",
@@ -507,7 +507,7 @@ module.exports = {
             chargeid: "Kopieer het transactienummer",
             connections: "CONNECTIE",
             details: "Bekijk transactiedetails",
-            results: "8 resultaten",
+            results: "x resultaten",
             payment: "Betaling -",
 
         },
@@ -553,7 +553,7 @@ module.exports = {
     // PRE VALIDATED TABLE = prevalidated_table.pug
     prevalidated_table: {
         header: {
-            title: "Vooringestelde eigenschappen",
+            title: "Gegenereerde activatiecodes",
         },
         labels: {
             code: "Code",

@@ -3,7 +3,7 @@ div
         ng-if="prevalidations.length > 0").form
         .card-header: .row
             .col.col-sm-8.col-xs-12: .card-title {{ "prevalidated_table.header.title" | translate }}
-            .col.col-sm-4.col-xs-12: .form: input(ng-model="filter.query" type="text" placeholder="Search").form-control
+            .col.col-sm-4.col-xs-12: .form: input(ng-model="filter.query" type="text" placeholder="Zoeken").form-control
         .card-section: .card-block.card-block-table: .table-wrapper
             table.table
                 tr
@@ -18,7 +18,7 @@ div
                         ng-bind="row.state == 'pending' ? 'No' : 'Yes'")
 
         .card-section: .table-pagination
-            .table-pagination-counter(ng-bind="rows.length + ' results'")
+            .table-pagination-counter(ng-bind="rows.length + ' resultaten'")
             button(ng-click="exportList()").button.button-primary.pull-right
                 em.mdi.mdi-download  
                 | {{ "prevalidated_table.buttons.export" | translate }}
