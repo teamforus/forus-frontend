@@ -5,7 +5,7 @@
         .card(
             ng-if="$ctrl.providerIdentities.length > 0")
             .card-header: .card-title(
-                ng-bind="'Identities (' + $ctrl.providerIdentities.length + ')'")
+                ng-bind="'Medewerkers (' + $ctrl.providerIdentities.length + ')'")
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
@@ -30,8 +30,8 @@
                                 
         .card-heading(
             ng-if="$ctrl.providerIdentities.length == 0"
-            ng-bind="'Identities (' + $ctrl.providerIdentities.length + ')'")
+            ng-bind="'Medewerkers (' + $ctrl.providerIdentities.length + ')'")
         empty-block( 
             ng-if="$ctrl.providerIdentities.length == 0"
-            text="'Je hebt nog geen indentiteiten toegevoegd'" 
-            button="{text: 'Identiteit toevoegen', href: $ctrl.emptyBlockLink}")
+            text="'Je hebt nog geen medewerkers toegevoegt.'" 
+            button="{text: 'Medewerker toevoegen', href: $ctrl.emptyBlockLink}")
