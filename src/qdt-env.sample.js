@@ -99,7 +99,7 @@ module.exports = {
         "forus-webshop-nijmegen.panel": {
             api_url: api_url,
             frontends: frontends,
-            client_key: 'shop-zuidhorn'
+            client_key: 'shop-nijmegen'
         }
     }
 };
