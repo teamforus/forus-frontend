@@ -25,6 +25,7 @@ module.exports = {
             "forus-webshop.panel",
             // "forus-webshop-zuidhorn.markup",
             "forus-webshop-zuidhorn.panel",
+            // "forus-webshop-nijmegen.markup",
             "forus-webshop-nijmegen.panel"
         ],
         // browsersync reloads browser when watched files are modified,
@@ -45,6 +46,7 @@ module.exports = {
             "forus-webshop.panel",
             // "forus-webshop-zuidhorn.markup",
             "forus-webshop-zuidhorn.panel",
+            // "forus-webshop-nijmegen.markup",
             "forus-webshop-nijmegen.panel"
         ]
     },
@@ -61,16 +63,19 @@ module.exports = {
             api_url: api_url,
             frontends: frontends,
             panel_type: 'sponsor',
+            chat_id: false,
         },
         "forus-platform.provider": {
             api_url: api_url,
             frontends: frontends,
             panel_type: 'provider',
+            chat_id: false,
         },
         "forus-platform.validator": {
             api_url: api_url,
             frontends: frontends,
             panel_type: 'validator',
+            chat_id: false,
         },
         /* "forus-webshop.markup": {
             api_url: api_url,
@@ -90,10 +95,14 @@ module.exports = {
             frontends: frontends,
             client_key: 'shop-zuidhorn'
         },
+        /* "forus-webshop-nijmegen.markup": {
+            api_url: api_url,
+            frontends: frontends,
+        }, */
         "forus-webshop-nijmegen.panel": {
             api_url: api_url,
             frontends: frontends,
-            client_key: 'shop-zuidhorn'
+            client_key: 'shop-nijmegen'
         }
     }
 };

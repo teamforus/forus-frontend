@@ -7,6 +7,7 @@ let BaseController = function(
     CredentialsService,
     RecordService,
     OrganizationService,
+    ConfigService,
     appConfigs
 ) {
     $rootScope.$state = $state;
@@ -82,6 +83,10 @@ let BaseController = function(
             $rootScope.viewLayout = 'panel';
         }
     }) 
+
+    ConfigService.get('dashboard').then((res) => {
+        $rootScope.appConfigs.features = res.data;
+    });
 };
 
 module.exports = [
@@ -93,6 +98,7 @@ module.exports = [
     'CredentialsService',
     'RecordService',
     'OrganizationService',
+    'ConfigService',
     'appConfigs',
     BaseController
 ];

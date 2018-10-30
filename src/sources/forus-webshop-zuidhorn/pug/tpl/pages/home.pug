@@ -6,7 +6,7 @@ header.section.section-header.section-header-landing: .wrapper
     .header-content
         .header-title {{ "home.header.title" | translate }}
         .header-description(ng-bind="'home.header.subtitle' | translate")
-        a(href="#" translate="home.header.button").button.button-primary 
+        a(scroll-to="#steps" translate="home.header.button").button.button-primary 
 
 block-products(products="$ctrl.products" product-categories="$ctrl.productCategories")
 
@@ -17,7 +17,7 @@ section.section.section-map: .wrapper
             .block-description {{ "home.map.subtitle" | translate }} 
             button(ng-click="$root.popups.offices.open()").button.button-primary {{ "home.map.button" |translate }}
     
-section.section.section-steps: .wrapper
+section.section.section-steps#steps: .wrapper
     .section-splash
     .section-sprite
     .section-title {{ "home.guide.title" | translate }}

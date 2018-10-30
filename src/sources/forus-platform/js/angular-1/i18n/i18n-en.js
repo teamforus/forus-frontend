@@ -1,5 +1,38 @@
 module.exports = {
-
+    page_title: 'Forus platform',
+    page_state_titles: {
+        home: 'Forus platform home',
+        organizations: 'Organisaties',
+        "organizations-create": 'Organisatie aanmaken',
+        "organizations-edit": 'Organisatie bewerken',
+        "organization-funds": "Mijn fondsen",
+        "organization-providers": 'Aanbieders',
+        validators: 'Validators',
+        "validators-edit": 'Validators bewerken',
+        "financial-dashboard": 'Financieel dashboard',
+        offices: 'Vestingen',
+        "offices-create": 'Vestiging toevoegen',
+        "offices-edit": 'Vestiging bewerken',
+        funds: 'Fondsen',
+        "funds-create": 'Fonds aanmaken',
+        "funds-show": 'Beschikbare fondsen',
+        "funds-edit": 'Fonds bewerken',
+        transactions: 'Overzicht transacties',
+        transaction: 'Transactie details',
+        products: 'Aabiedingen',
+        "products-create": 'Aanbieding toevoegen',
+        "products-edit": 'Aanbieding bewerken',
+        "products-show": 'Mijn producten',
+        "sign-up": 'Aanmelden',
+        "provider-funds": 'Deelgenomen fondsen',
+        "provider-identities": 'Medewerkers',
+        "provider-identity-create": 'Medewerker toevoegen',
+        "provider-identity-edit": 'Medewerkers bewerken',
+        "csv-validation": 'CSV Uploader',
+        "validation-requests": 'Validatie verzoeken',
+        "validation-request": 'Validatie verzoek',
+        "restore-email": 'Inloggen via e-mail',
+    },
 // PAGES
     // CSV-VALIDATION = csv-validation.pug
 
@@ -260,7 +293,7 @@ module.exports = {
         buttons: {
             adjust: "Aanpassen",
             delete: "Verwijderen",
-            add: "Validator toevoegen",
+            add: "Medewerker toevoegen",
         }
     },
 
