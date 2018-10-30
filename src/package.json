@@ -37,6 +37,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.0.0",
     "@uirouter/angularjs": "^1.0.19",
     "angular": "^1.4.8",
     "angular-cookie": "^4.1.0",

@@ -74,6 +74,9 @@ module.exports = {
             }, {
                 "from": "../../node_modules/progressbar.js/dist/progressbar.min.js",
                 "to": "assets/dist/progressbar"
+            }, {
+                "from": "../../node_modules/@babel/polyfill/dist/polyfill.min.js",
+                "to": "assets/dist/babel-polyfill"
             }],
             // browsersync configurations (ex: ip, port and path)
             "server": false,

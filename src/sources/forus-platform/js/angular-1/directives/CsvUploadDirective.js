@@ -27,9 +27,14 @@ let CsvUploadDirective = function(
     let bind = function() {
         csvParser.selectFile = function(e) {
             e && (e.preventDefault() & e.stopPropagation());
+            
+            if (input && input.remove) {
+                input.remove();
+            }
 
             input = document.createElement('input');
             input.setAttribute("type", "file");
+            input.style.display = 'none';
 
             input.addEventListener('change', function(e) {
                 var target_file = this.files[0];
@@ -61,6 +66,8 @@ let CsvUploadDirective = function(
                     csvParser.progress = 1;
                 }, console.log);
             });
+
+            $element[0].appendChild(input);
 
             input.click();
         };
