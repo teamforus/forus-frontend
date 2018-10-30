@@ -178,6 +178,7 @@ module.exports = {
     organization_validators: {
         labels: {
             address: "Adres",
+            email: "E-Mailadres",
             actions: "Acties",
         },
         buttons: {

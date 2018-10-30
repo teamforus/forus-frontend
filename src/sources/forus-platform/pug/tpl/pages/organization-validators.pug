@@ -5,13 +5,13 @@
         .card(
             ng-if="$ctrl.validators.length > 0")
             .card-header: .card-title(
-                ng-bind="'Validators (' + $ctrl.validators.length + ')'")
+                ng-bind="'Medewerkers (' + $ctrl.validators.length + ')'")
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
                         table.table
                             tr
-                                th {{ "organization_validators.labels.address" | translate }}
+                                th {{ "organization_validators.labels.email" | translate }}
                                 th.text-right {{ "organization_validators.labels.actions" | translate }}
 
                             tr(ng-repeat="validator in $ctrl.validators")
@@ -28,8 +28,8 @@
                                 
         .card-heading(
             ng-if="$ctrl.validators.length == 0"
-            ng-bind="'Validators (' + $ctrl.validators.length + ')'")
+            ng-bind="'Medewerkers (' + $ctrl.validators.length + ')'")
         empty-block( 
             ng-if="$ctrl.validators.length == 0"
-            text="'Er zijn momenteel geen validatoren.'" 
-            button="{text: 'Validator toevoegen', href: $ctrl.emptyBlockLink}")
+            text="'U hebt nog geen medewerkers toegevoegt.'" 
+            button="{text: 'Medewerker toevoegen', href: $ctrl.emptyBlockLink}")
