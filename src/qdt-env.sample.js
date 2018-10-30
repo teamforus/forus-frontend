@@ -25,6 +25,7 @@ module.exports = {
             "forus-webshop.panel",
             // "forus-webshop-zuidhorn.markup",
             "forus-webshop-zuidhorn.panel",
+            // "forus-webshop-nijmegen.markup",
             "forus-webshop-nijmegen.panel"
         ],
         // browsersync reloads browser when watched files are modified,
@@ -45,6 +46,7 @@ module.exports = {
             "forus-webshop.panel",
             // "forus-webshop-zuidhorn.markup",
             "forus-webshop-zuidhorn.panel",
+            // "forus-webshop-nijmegen.markup",
             "forus-webshop-nijmegen.panel"
         ]
     },
@@ -90,6 +92,10 @@ module.exports = {
             frontends: frontends,
             client_key: 'shop-zuidhorn'
         },
+        /* "forus-webshop-nijmegen.markup": {
+            api_url: api_url,
+            frontends: frontends,
+        }, */
         "forus-webshop-nijmegen.panel": {
             api_url: api_url,
             frontends: frontends,

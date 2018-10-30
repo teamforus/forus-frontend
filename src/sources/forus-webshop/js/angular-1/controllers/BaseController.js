@@ -9,6 +9,7 @@ let BaseController = function(
     OrganizationService,
     ConfigService,
     $translate,
+    $filter,
     appConfigs
 ) {
     $rootScope.popups = {
@@ -92,6 +93,8 @@ let BaseController = function(
     ConfigService.get('webshop').then((res) => {
         $rootScope.appConfigs.features = res.data;
     });
+
+    $rootScope.pageTitle = $filter('translate')('page_title');
 };
 
 module.exports = [
@@ -105,6 +108,7 @@ module.exports = [
     'OrganizationService',
     'ConfigService',
     '$translate',
+    '$filter',
     'appConfigs',
     BaseController
 ];

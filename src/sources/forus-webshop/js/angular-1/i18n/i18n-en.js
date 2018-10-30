@@ -1,9 +1,13 @@
 module.exports = {
+    page_title: 'Forus platform',
+    page_state_titles: {
+        home: 'Forus platform home'
+    },
     languages: {
         en: 'English',
         nl: 'Dutch',
     },
-// PAGES
+    // PAGES
     // APPLY FOR FUNDS = fund-apply.pug
     fund_apply: {
         header: {

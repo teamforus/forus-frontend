@@ -1,8 +1,8 @@
 doctype
-html(lang="en")
+html(ng-controller="BaseController" ng-cloak)
     include ../layout/includes/head
 
-    body(ng-controller="BaseController" ng-cloak)
+    body
         div(ng-class="$root.viewLayout == 'landing' ? 'landing-root' : ''")
             div(ng-if="$root.viewLayout != 'landing'"): include ../layout/includes/header
             
