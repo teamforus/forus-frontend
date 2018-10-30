@@ -8,14 +8,14 @@ div
             table.table
                 tr
                     th {{ "prevalidated_table.labels.code" | translate }}
-                    th(ng-repeat="record in rows[0].records" ng-bind="typesByKey[record.key]")
+                    th(ng-repeat="record in rows[0].records" ng-if="typesByKey[record.key]!='Recht op Kindpakket'" ng-bind="typesByKey[record.key]")
                     th.text-right {{ "prevalidated_table.status.active" | translate }}
                 tr(ng-repeat="row in rows")
                     td(ng-bind="row.uid")
-                    td(ng-repeat="record in row.records" ng-bind="record.value")
+                    td(ng-repeat="record in row.records" ng-if="record.value!='Ja'" ng-bind="record.value")
                     td.text-right: .tag.tag-sm(
                         ng-class="[row.state == 'pending' ? 'tag-default' : 'tag-success']"
-                        ng-bind="row.state == 'pending' ? 'No' : 'Yes'")
+                        ng-bind="row.state == 'pending' ? 'Nee' : 'Ja'")
 
         .card-section: .table-pagination
             .table-pagination-counter(ng-bind="rows.length + ' resultaten'")
