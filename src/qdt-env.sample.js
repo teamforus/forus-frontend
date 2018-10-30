@@ -63,16 +63,19 @@ module.exports = {
             api_url: api_url,
             frontends: frontends,
             panel_type: 'sponsor',
+            chat_id: false,
         },
         "forus-platform.provider": {
             api_url: api_url,
             frontends: frontends,
             panel_type: 'provider',
+            chat_id: false,
         },
         "forus-platform.validator": {
             api_url: api_url,
             frontends: frontends,
             panel_type: 'validator',
+            chat_id: false,
         },
         /* "forus-webshop.markup": {
             api_url: api_url,

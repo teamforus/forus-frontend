@@ -10,4 +10,5 @@ html(ng-controller="BaseController" ng-cloak)
 
             div(ng-if="$root.viewLayout != 'landing'"): include ../layout/includes/footer
             div(ng-if="$root.viewLayout == 'landing'"): include ../layout/includes/footer-landing
+            div(forus-chat chat-id="appConfigs.chat_id" ng-if="appConfigs.chat_id")
             include ../layout/includes/scripts
