@@ -7,8 +7,8 @@ module.exports = {
         "organizations-edit": 'Organisatie bewerken',
         "organization-funds": "Mijn fondsen",
         "organization-providers": 'Aanbieders',
-        validators: 'Validators',
-        "validators-edit": 'Validators bewerken',
+        validators: 'Medewerkers',
+        "validators-edit": 'Medewerker bewerken',
         "financial-dashboard": 'Financieel dashboard',
         offices: 'Vestingen',
         "offices-create": 'Vestiging toevoegen',
@@ -19,7 +19,7 @@ module.exports = {
         "funds-edit": 'Fonds bewerken',
         transactions: 'Overzicht transacties',
         transaction: 'Transactie details',
-        products: 'Aabiedingen',
+        products: 'Aanbiedingen',
         "products-create": 'Aanbieding toevoegen',
         "products-edit": 'Aanbieding bewerken',
         "products-show": 'Mijn producten',
@@ -55,11 +55,11 @@ module.exports = {
             shops: "winkels",
             activation: "Aantal geactiveerd",
             citizen: "Nieuwe inwoners",
-            provider: "Leveranciers",
+            provider: "Aanbieders",
 
         },
         buttons: {
-            choose: "Kies een ander fonds",
+            choose: "Kies een andere regeling",
             previous: "Vorige",
             next: "Volgende",
         }
@@ -155,7 +155,7 @@ module.exports = {
     // ORGANIZATION PROVIDERS = organization-providers.pug
     organization_providers: {
         header: {
-            title: "Leveranciers"
+            title: "Aanbieders"
         },
         status: {
             accepted: "Geaccepteerd",
@@ -183,7 +183,7 @@ module.exports = {
         buttons: {
             adjust: "Aanpassen",
             delete: "Verwijderen",
-            add: "Validator toevoegen",
+            add: "Medewerker toevoegen",
         },
     },
 
@@ -345,7 +345,7 @@ module.exports = {
             payment: "Betaling -",
             fund: "FONDS",
             status: "STATUS",
-            provider: "LEVERANCIER",
+            provider: "AANBIEDER",
         },
         buttons: {
             previous: "Vorige",
