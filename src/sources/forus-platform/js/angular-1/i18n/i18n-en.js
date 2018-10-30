@@ -84,7 +84,7 @@ module.exports = {
         },
         labels: {
             name: "Naam",
-            status: "status",
+            status: "Status",
             start: "Startdatum",
             end: "Einddatum",
         },
