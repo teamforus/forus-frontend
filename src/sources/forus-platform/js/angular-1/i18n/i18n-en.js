@@ -350,6 +350,7 @@ module.exports = {
         buttons: {
             previous: "Vorige",
             next: "Volgende",
+            export: 'Exporteren',
         },
         paginator: {
             one: "1",
