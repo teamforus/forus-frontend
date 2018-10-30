@@ -365,8 +365,10 @@ module.exports = {
         },
         input: {
             mail: "Vul je e-mailadres in",
+            coding: "Vul de activatiecode in",
             code: "Activatiecode",
             mailing: "E-mail",
+            confirmation: "Bevestig je e-mailadres",
         }
     },
 
