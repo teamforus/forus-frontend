@@ -293,7 +293,7 @@ module.exports = {
         buttons: {
             adjust: "Aanpassen",
             delete: "Verwijderen",
-            add: "Validator toevoegen",
+            add: "Medewerker toevoegen",
         }
     },
 
