@@ -11,12 +11,12 @@
                     .table-wrapper
                         table.table
                             tr
-                                th {{ "provider_identities.labels.address" | translate }}
+                                //th {{ "provider_identities.labels.address" | translate }}
                                 th {{ "provider_identities.labels.mail" | translate }}
                                 th.text-right {{ "provider_identities.labels.actions" | translate }}
 
                             tr(ng-repeat="providerIdentity in $ctrl.providerIdentities")
-                                td: span(ng-bind="providerIdentity.identity_address").text-primary-light
+                                //td: span(ng-bind="providerIdentity.identity_address").text-primary-light
                                 td: span(ng-bind="providerIdentity.email")
                                 td.text-right
                                     a(ui-sref="provider-identity-edit(providerIdentity)").text-primary-light {{ "provider_identities.buttons.adjust" | translate }}

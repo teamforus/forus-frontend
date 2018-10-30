@@ -15,7 +15,7 @@
                                 th.text-right {{ "organization_validators.labels.actions" | translate }}
 
                             tr(ng-repeat="validator in $ctrl.validators")
-                                td: span(ng-bind="validator.mail").text-primary-light
+                                td: span(ng-bind="validator.email").text-primary-light
                                 td.text-right
                                     a(ui-sref="validators-edit(validator)").text-primary-light {{ "organization_validators.buttons.adjust" | translate }}
                                     | &nbsp;
