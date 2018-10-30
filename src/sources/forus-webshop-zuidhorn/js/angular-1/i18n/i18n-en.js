@@ -1,4 +1,20 @@
 module.exports = {
+    page_title: 'Forus platform',
+    page_state_titles: {
+        home: 'Zuidhorn - Forus',
+        funds: 'Fondsen',
+        products: 'Aanbiedingen',
+        "products-show": 'Aanbieding',
+        "products-apply": "Aanbieding kopen",
+        vouchers: 'Mijn vouchers',
+        voucher: 'Mijn voucher',
+        records: 'Eigenschappen', 
+        "record-validate": 'Valideer eigenschap',
+        "record-validations": 'Validaties',
+        "record-create": 'Eigenschap toevoegen',
+        "funds-apply": 'Meld je aan voor een fonds',
+        "restore-email": 'Inloggen via e-mail',
+    },
     languages: {
         en: 'English',
         nl: 'Dutch',
