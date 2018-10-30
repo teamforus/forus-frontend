@@ -4,6 +4,10 @@ let ValidationRequestsComonent = function(
     ValidatorRequestService,
     appConfigs
 ) {
+    if (!appConfigs.features.validationRequests) {
+        return $state.go('csv-validation');
+    }
+
     let $ctrl = this;
 
     let statePriority = {

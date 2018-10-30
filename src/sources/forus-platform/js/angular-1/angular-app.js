@@ -55,6 +55,7 @@ app.service('ProgressFakerService', require('./services/ProgressFakerService'));
 app.service('ValidatorRequestService', require('./services/ValidatorRequestService'));
 app.service('MediaService', require('./services/MediaService'));
 app.service('ProviderIdentityService', require('./services/ProviderIdentityService'));
+app.service('ConfigService', require('./services/ConfigService'));
 
 // Directives
 switch (env_data.panel_type) {
