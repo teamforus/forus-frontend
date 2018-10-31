@@ -1,21 +1,25 @@
+img {
+    border: none;
+}
+
 .pull-right {
-    float: right;
+    float: right !important;
 }
 
 .pull-left {
-    float: left;
+    float: left !important;
 }
 
 .text-right {
-    text-align: right;
+    text-align: right !important;
 }
 
 .text-center {
-    text-align: center;
+    text-align: center !important;
 }
 
 .text-left {
-    text-align: left;
+    text-align: left !important;
 }
 
 .text-strike {
@@ -51,7 +55,11 @@
 }
 
 .cf {
-    @include cf();
+    img {
+    border: none;
+}
+@include cf();
+
 }
 
 @-moz-keyframes spin {

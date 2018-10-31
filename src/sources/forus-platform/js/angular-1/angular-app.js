@@ -55,6 +55,7 @@ app.service('ProgressFakerService', require('./services/ProgressFakerService'));
 app.service('ValidatorRequestService', require('./services/ValidatorRequestService'));
 app.service('MediaService', require('./services/MediaService'));
 app.service('ProviderIdentityService', require('./services/ProviderIdentityService'));
+app.service('ConfigService', require('./services/ConfigService'));
 
 // Directives
 switch (env_data.panel_type) {
@@ -84,6 +85,11 @@ app.directive('prevalidatedTable', require('./directives/PrevalidatedTableDirect
 app.directive('photoSelector', require('./directives/PhotoSelectorDirective'));
 app.directive('radialChart', require('./directives/RadialChartDirective'));
 app.directive('linearChart', require('./directives/LinearChartDirective'));
+app.directive('popupAuth', require('./directives/PopupAuthDirective'));
+app.directive('collapse', require('./directives/CollpaseDirective'));
+app.directive('landingNavbar', require('./directives/landing/NavbarDirective'));
+app.directive('landingContactForm', require('./directives/landing/ContactFormDirective'));
+app.directive('forusChat', require('./directives/ForusChatDirective'));
 
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
@@ -100,7 +106,7 @@ app.config(require('./config/i18n'));
 app.run(require('./routers/router-transitions'));
 
 // Bootstrap the app
-angular.bootstrap(document.querySelector('body'), ['forusApp', '720kb.datepicker']);
+angular.bootstrap(document.querySelector('html'), ['forusApp', '720kb.datepicker']);
 
 
 if (!env_data.html5ModeEnabled) {

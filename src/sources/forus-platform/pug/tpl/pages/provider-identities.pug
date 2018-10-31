@@ -5,18 +5,18 @@
         .card(
             ng-if="$ctrl.providerIdentities.length > 0")
             .card-header: .card-title(
-                ng-bind="'Identities (' + $ctrl.providerIdentities.length + ')'")
+                ng-bind="'Medewerkers (' + $ctrl.providerIdentities.length + ')'")
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
                         table.table
                             tr
-                                th {{ "provider_identities.labels.address" | translate }}
+                                //th {{ "provider_identities.labels.address" | translate }}
                                 th {{ "provider_identities.labels.mail" | translate }}
                                 th.text-right {{ "provider_identities.labels.actions" | translate }}
 
                             tr(ng-repeat="providerIdentity in $ctrl.providerIdentities")
-                                td: span(ng-bind="providerIdentity.identity_address").text-primary-light
+                                //td: span(ng-bind="providerIdentity.identity_address").text-primary-light
                                 td: span(ng-bind="providerIdentity.email")
                                 td.text-right
                                     a(ui-sref="provider-identity-edit(providerIdentity)").text-primary-light {{ "provider_identities.buttons.adjust" | translate }}
@@ -30,8 +30,8 @@
                                 
         .card-heading(
             ng-if="$ctrl.providerIdentities.length == 0"
-            ng-bind="'Identities (' + $ctrl.providerIdentities.length + ')'")
+            ng-bind="'Medewerkers (' + $ctrl.providerIdentities.length + ')'")
         empty-block( 
             ng-if="$ctrl.providerIdentities.length == 0"
-            text="'Je hebt nog geen indentiteiten toegevoegd'" 
-            button="{text: 'Identiteit toevoegen', href: $ctrl.emptyBlockLink}")
+            text="'Je hebt nog geen medewerkers toegevoegt.'" 
+            button="{text: 'Medewerker toevoegen', href: $ctrl.emptyBlockLink}")

@@ -1,7 +1,7 @@
 .popup.popup-auth(ng-show="popup.show")
     .popup-backdrop(ng-click="popup.close()")
 
-    // Choose Sign In type
+    //- Choose Sign In type
     .popup-content(ng-show="popup.screen == 'choose'")
         .popup-close.mdi.mdi-close(ng-click="popup.close()")
 
@@ -17,8 +17,8 @@
                 .auth_type-name {{ "popup_auth.buttons.mail" | translate }}
 
         .popup-footer
-            .footer-text {{ "popup_auth.labels.timelimit" | translate }}
-            // .popup-footer-links
+        //    .footer-text {{ "popup_auth.labels.timelimit" | translate }}
+            //- .popup-footer-links
                 a(href="#").popup-footer-link 
                     span »
                     | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
@@ -29,7 +29,7 @@
                     span »
                     | LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.
 
-    // Sign In by qr-code
+    //- Sign In by qr-code
     .popup-content(ng-show="popup.screen == 'sign_in-qr'")
         .popup-close.mdi.mdi-close(ng-click="popup.close()")
 
@@ -37,12 +37,12 @@
         .popup-subtitle {{ "popup_auth.labels.scancode" | translate }}
 
         .block.block-auth-qr-code
-            // .qr_code: img(src="./assets/img/qr-code.svg")
+            //- .qr_code: img(src="./assets/img/qr-code.svg")
             .qr_code#auth_qrcode
 
         .popup-footer
-            .footer-text {{ "popup_auth.labels.timelimit" | translate }}
-            // .popup-footer-links
+        //    .footer-text {{ "popup_auth.labels.timelimit" | translate }}
+            //- .popup-footer-links
                 a(href="#").popup-footer-link 
                     span »
                     | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
@@ -53,7 +53,7 @@
                     span »
                     | LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.
 
-    // Sign In by email
+    //- Sign In by email
     .popup-content(ng-show="popup.screen == 'sign_in-email'")
         .popup-close.mdi.mdi-close(ng-click="popup.close()")
 
@@ -69,8 +69,8 @@
             .form-group: button(type="submit").button.button-primary.button-wide {{ "popup_auth.buttons.submit" | translate }}
 
         .popup-footer
-            .footer-text {{ "popup_auth.labels.timelimit" | translate }}
-            // .popup-footer-links
+        //    .footer-text {{ "popup_auth.labels.timelimit" | translate }}
+            //- .popup-footer-links
                 a(href="#").popup-footer-link 
                     span »
                     | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
@@ -81,7 +81,7 @@
                     span »
                     | LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.
     
-    // Sign In email sent
+    //- Sign In email sent
     .popup-content(ng-show="popup.screen == 'sign_in-email-sent'")
         .popup-title {{ "popup_auth.labels.join" | translate }}
 
@@ -92,9 +92,9 @@
                 | {{ "popup_auth.notifications.link" | translate }}
                 br
                 br
-        .form-group.text-center: button(ng-click="popup.close()").button.button-primary {{ "popup_auth.buttons.confirm" | translate }}
+        .form-group.text-center: button(ng-click="popup.close()").button.button-primary {{ "popup_auth.buttons.submit" | translate }}
 
-    // Sign Up by code
+    //- Sign Up by code
     .popup-content(ng-show="popup.screen == 'sign_up-code'")
         .popup-close.mdi.mdi-close(ng-click="popup.close()")
 
@@ -104,22 +104,32 @@
         form.form(ng-submit="signUpForm.submit()")
             .form-group
                 .form-label {{ "popup_auth.input.mail" | translate }}
-                input(ng-model="signUpForm.values.records.primary_email" type="email" placeholder="E-mail").form-control.form-control
+                input(
+                    type="email" 
+                    ng-model="signUpForm.values.records.primary_email" 
+                    placeholder="{{ 'popup_auth.input.mailing' | translate }}").form-control.form-control
                 .form-error(ng-repeat="error in signUpForm.errors['records.primary_email']" ng-bind="error")
-            // .form-group
+            .form-group
+                .form-label {{ "popup_auth.input.confirmation" | translate }}
+                input(
+                    type="email" 
+                    ng-model="signUpForm.values.records.primary_email_confirmation" 
+                    placeholder="{{ 'popup_auth.input.mailing' | translate }}").form-control.form-control
+                .form-error(ng-repeat="error in signUpForm.errors['records.primary_email_confirmation']" ng-bind="error")
+            //- .form-group
                 .form-label Pin code
                 input(ng-model="signUpForm.values.pin_code" type="text" placeholder="Pin Code").form-control
                 .form-error(ng-repeat="error in signUpForm.errors.pin_code" ng-bind="error")
             .form-group
-                .form-label {{ "popup_auth.input.code" | translate }}
-                input(ng-model="signUpForm.values.code" type="text" placeholder="{{ 'popup_auth.input.code' | translate}}").form-control
+                .form-label {{ "popup_auth.input.coding" | translate }}
+                input(ng-model="signUpForm.values.code" type="text" placeholder="{{ 'popup_auth.input.code' | translate }}").form-control
                 .form-error(ng-repeat="error in signUpForm.errors.code" ng-bind="error")
             .form-group
             .form-group: button(type="submit").button.button-primary.button-wide {{ "popup_auth.buttons.submit" | translate }}
 
         .popup-footer
-            .footer-text {{ "popup_auth.labels.warning" | translate }}
-            // .popup-footer-links
+        //    .footer-text {{ "popup_auth.labels.warning" | translate }}
+            //- .popup-footer-links
                 a(href="#").popup-footer-link 
                     span »
                     | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
@@ -130,7 +140,7 @@
                     span »
                     | LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.
 
-    // Activate code
+    //- Activate code
     .popup-content(ng-show="popup.screen == 'activate-code'")
         .popup-close.mdi.mdi-close(ng-click="popup.close()")
 
@@ -140,14 +150,14 @@
         form.form(ng-submit="activateCodeForm.submit()")
             .form-group
                 .form-label {{ "popup_auth.input.code" | translate }}
-                input(ng-model="activateCodeForm.values.code" type="text" placeholder="Activation code").form-control
+                input(ng-model="activateCodeForm.values.code" type="text" placeholder="{{ 'popup_auth.input.code' | translate }}").form-control
                 .form-error(ng-if="activateCodeForm.errors.code") {{ "popup_auth.notifications.invalid" | translate }}
             .form-group
             .form-group: button(type="submit").button.button-primary.button-wide {{ "popup_auth.buttons.submit" | translate }}
 
         .popup-footer
-            .footer-text {{ "popup_auth.labels.timelimit" | translate }}
-            // .popup-footer-links
+        //    .footer-text {{ "popup_auth.labels.timelimit" | translate }}
+            //- .popup-footer-links
                 a(href="#").popup-footer-link 
                     span »
                     | LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT
@@ -177,4 +187,4 @@
         .popup-title {{ "popup_auth.labels.join" | translate }}
         .popup-subtitle {{ "popup_auth.notifications.confirmation" | translate }}
 
-        .text-center: button(ng-click="popup.close()").button.button-primary {{ "popup_auth.notifications.confirmation" | translate }}
+        .text-center: button(ng-click="popup.close()").button.button-primary {{ "popup_auth.buttons.sumbit" | translate }}

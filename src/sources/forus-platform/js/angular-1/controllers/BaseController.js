@@ -7,8 +7,26 @@ let BaseController = function(
     CredentialsService,
     RecordService,
     OrganizationService,
+    ConfigService,
     appConfigs
 ) {
+    $rootScope.$state = $state;
+
+    $rootScope.popups = {
+        auth: {
+            show: false,
+            screen: false,
+            close: function() {
+                this.show = false;
+                this.screen = false;
+            },
+            open: function(screen) {
+                this.show = true;
+                this.screen = screen;
+            }
+        }
+    };
+
     $rootScope.loadAuthUser = function() {
         AuthService.identity().then((res) => {
             let auth_user = res.data;
@@ -50,10 +68,25 @@ let BaseController = function(
     };
 
     $rootScope.appConfigs = appConfigs;
+    $scope.appConfigs = appConfigs;
 
     if (AuthService.hasCredentials()) {
         $rootScope.loadAuthUser();
     }
+
+    $scope.$watch(function() {
+        return $state.$current.name
+    }, function(newVal, oldVal) {
+        if ($state.current.name == 'home' && appConfigs.panel_type != 'validator') {
+            $rootScope.viewLayout = 'landing';
+        } else {
+            $rootScope.viewLayout = 'panel';
+        }
+    }) 
+
+    ConfigService.get('dashboard').then((res) => {
+        $rootScope.appConfigs.features = res.data;
+    });
 };
 
 module.exports = [
@@ -65,6 +98,7 @@ module.exports = [
     'CredentialsService',
     'RecordService',
     'OrganizationService',
+    'ConfigService',
     'appConfigs',
     BaseController
 ];

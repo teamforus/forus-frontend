@@ -12,7 +12,7 @@ let PincodeControlDirective = function(
         $timeout(function() {
             var key = e.charCode || e.keyCode || 0;
 
-            if (key == 8) {
+            if (key == 8 || key == 46) {
                 $scope.ngModel = $scope.ngModel.slice(0, $scope.ngModel.length - 1);
             }
 

@@ -523,4 +523,38 @@ module.exports = function($stateProvider) {
             }
         }
     });
+
+    $stateProvider.state({
+        name: "restore-email",
+        url: "/identity-restore?token",
+        controller: [
+            '$rootScope',
+            '$state',
+            'IdentityService',
+            'CredentialsService',
+            'appConfigs',
+            function(
+                $rootScope,
+                $state,
+                IdentityService,
+                CredentialsService,
+                appConfigs
+            ) {
+                console.log('restore');
+                IdentityService.authorizeAuthEmailToken(
+                    'panel-' + appConfigs.panel_type,
+                    $state.params.token
+                ).then(function(res) {
+                    CredentialsService.set(res.data.access_token);
+                    $rootScope.loadAuthUser();
+                    $state.go('home');
+                }, () => {
+                    alert("Token expired or unknown.");
+                    $state.go('home');
+                });
+            }],
+        data: {
+            token: null
+        }
+    });
 };

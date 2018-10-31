@@ -1,5 +1,38 @@
 module.exports = {
-
+    page_title: 'Forus platform',
+    page_state_titles: {
+        home: 'Forus platform home',
+        organizations: 'Organisaties',
+        "organizations-create": 'Organisatie aanmaken',
+        "organizations-edit": 'Organisatie bewerken',
+        "organization-funds": "Mijn fondsen",
+        "organization-providers": 'Aanbieders',
+        validators: 'Medewerkers',
+        "validators-edit": 'Medewerker bewerken',
+        "financial-dashboard": 'Financieel dashboard',
+        offices: 'Vestingen',
+        "offices-create": 'Vestiging toevoegen',
+        "offices-edit": 'Vestiging bewerken',
+        funds: 'Fondsen',
+        "funds-create": 'Fonds aanmaken',
+        "funds-show": 'Beschikbare fondsen',
+        "funds-edit": 'Fonds bewerken',
+        transactions: 'Overzicht transacties',
+        transaction: 'Transactie details',
+        products: 'Aanbiedingen',
+        "products-create": 'Aanbieding toevoegen',
+        "products-edit": 'Aanbieding bewerken',
+        "products-show": 'Mijn producten',
+        "sign-up": 'Aanmelden',
+        "provider-funds": 'Deelgenomen fondsen',
+        "provider-identities": 'Medewerkers',
+        "provider-identity-create": 'Medewerker toevoegen',
+        "provider-identity-edit": 'Medewerkers bewerken',
+        "csv-validation": 'CSV Uploader',
+        "validation-requests": 'Validatie verzoeken',
+        "validation-request": 'Validatie verzoek',
+        "restore-email": 'Inloggen via e-mail',
+    },
 // PAGES
     // CSV-VALIDATION = csv-validation.pug
 
@@ -22,11 +55,11 @@ module.exports = {
             shops: "winkels",
             activation: "Aantal geactiveerd",
             citizen: "Nieuwe inwoners",
-            provider: "Leveranciers",
+            provider: "Aanbieders",
 
         },
         buttons: {
-            choose: "Kies een ander fonds",
+            choose: "Kies een andere regeling",
             previous: "Vorige",
             next: "Volgende",
         }
@@ -51,7 +84,7 @@ module.exports = {
         },
         labels: {
             name: "Naam",
-            status: "status",
+            status: "Status",
             start: "Startdatum",
             end: "Einddatum",
         },
@@ -122,7 +155,7 @@ module.exports = {
     // ORGANIZATION PROVIDERS = organization-providers.pug
     organization_providers: {
         header: {
-            title: "Leveranciers"
+            title: "Aanbieders"
         },
         status: {
             accepted: "Geaccepteerd",
@@ -145,12 +178,13 @@ module.exports = {
     organization_validators: {
         labels: {
             address: "Adres",
+            email: "E-Mailadres",
             actions: "Acties",
         },
         buttons: {
             adjust: "Aanpassen",
             delete: "Verwijderen",
-            add: "Validator toevoegen",
+            add: "Medewerker toevoegen",
         },
     },
 
@@ -221,7 +255,7 @@ module.exports = {
             chargeid: "Kopieer het transactienummer",
             connections: "CONNECTIE",
             details: "Bekijk transactiedetails",
-            results: "8 resultaten",
+            results: "x resultaten",
         },
         buttons: {
             previous: "Vorige",
@@ -260,7 +294,7 @@ module.exports = {
         buttons: {
             adjust: "Aanpassen",
             delete: "Verwijderen",
-            add: "Validator toevoegen",
+            add: "Medewerker toevoegen",
         }
     },
 
@@ -308,15 +342,16 @@ module.exports = {
             chargeid: "Kopieer het transactienummer",
             connections: "CONNECTIE",
             details: "Bekijk transactiedetails",
-            results: "8 resultaten",
+            results: "x resultaten",
             payment: "Betaling -",
             fund: "FONDS",
             status: "STATUS",
-            provider: "LEVERANCIER",
+            provider: "AANBIEDER",
         },
         buttons: {
             previous: "Vorige",
             next: "Volgende",
+            export: 'Exporteren',
         },
         paginator: {
             one: "1",
@@ -472,7 +507,7 @@ module.exports = {
             chargeid: "Kopieer het transactienummer",
             connections: "CONNECTIE",
             details: "Bekijk transactiedetails",
-            results: "8 resultaten",
+            results: "x resultaten",
             payment: "Betaling -",
 
         },
@@ -518,7 +553,7 @@ module.exports = {
     // PRE VALIDATED TABLE = prevalidated_table.pug
     prevalidated_table: {
         header: {
-            title: "Vooringestelde eigenschappen",
+            title: "Gegenereerde activatiecodes",
         },
         labels: {
             code: "Code",
@@ -548,5 +583,57 @@ module.exports = {
         // No translations needed
     // SCHEDULE CONTROL = schedule-controle.puh
         // No translations needed
+
+    // MENU = langing/navbar.pug
+    topnavbar: {
+        items: {
+            funds:"FONDSEN",
+            products:"PRODUCTEN",
+            identity:"Identiteit",
+        },
+        buttons: {
+            activate:"Activatiecode",
+            login:"Login",
+            voucher:"Mijn vouchers",
+            records: "Mijn eigenschappen",
+            authorize:"Autoriseer apparaat",
+            logout:"Uitloggen",
+            products:"Producten",
+            funds: "Fondsen",
+        },
+    },
+    // AUTHENTICATION POPUP = popup-auth.pug
+    popup_auth: {
+        header: {
+            title: "Inloggen op platform Forus",
+            subtitle: "Scan de QR-code met de Me App of log in met je e-mail adres",
+        },
+        notifications: {
+            confirmation: "Het is gelukt!",
+            link: "Er is een link naar je e-mail adres gestuurd",
+            invalid: "De activatiecode is ongeldig of al gebruikt",
+        },
+        buttons: {
+            qrcode: "Log in via QR-Code",
+            mail: "Log in via e-mail",
+            submit: "VERSTUREN",
+            cancel: "ANNULEREN",
+            confirm: "VOLGENDE",
+        },
+        labels: {
+            timelimit: "Je kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt je sessie.",
+            join: "Aanmelden",
+            scancode: "Scan deze QR-Code met een ander apparaat waar je al op aangemeld bent",
+            mobilecode: "Vul je toegangscode van de Me App in",
+            mail: "Dit scherm is alleen bedoeld voor inwoners die een brief van de gemeente hebben ontvangen met daarin een activatiecode en deze nog niet hebben gebruikt.",
+            link: "Vul je e-mail adres in om een link te ontvangen waarmee je kunt inloggen",
+            code: "Vul de activatiecode in die je per brief hebt ontvangen",
+        },
+        input: {
+            mail: "Vul je e-mail adres in",
+            code: "Activatiecode",
+            mailing: "E-mail",
+        }
+    },
 
 };

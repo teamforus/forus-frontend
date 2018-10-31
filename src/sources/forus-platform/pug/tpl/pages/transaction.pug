@@ -6,11 +6,11 @@
                 p
                     strong €{{ $ctrl.transaction.amount | to_fixed:2 }}
                     strong.text-primary.pull-right {{ "financial_dashboard_transaction.labels.payment" | translate }}
-                // button.button.button-primary
+                //- button.button.button-primary
                     em.mdi.mdi-plus-circle 
                     | Add note
 
-            // .card-section.card-section-primary
+            //- .card-section.card-section-primary
                 .card-block.card-block-notes
                     .note-form.form
                         img(src="./assets/img/note-icons/note-icon-quote.jpg").note-item-icon
@@ -29,7 +29,7 @@
                         img(ng-src="/assets/img/note-icons/note-icon-{{ note.icon }}.jpg").note-item-icon
                         .note-item-text(ng-bind="note.message")
                         .note-item-sign(ng-bind="note.created_at_locale")
-                        // .hover-actions
+                        //- .hover-actions
                             em.mdi.mdi-dots-horizontal
                             .hover-actions-menu
                                 .hover-actions-label ACTION

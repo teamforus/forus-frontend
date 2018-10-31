@@ -1,0 +1,84 @@
+extends ../layout/layout-landing
+block content
+    .header-splash: .splash
+    
+    header.section.section-header: .wrapper
+        .block.block-navbar
+            a(href="{{ $root.appConfigs.frontends.webshop }}").navbar-logo
+                img(src="./assets/img/landing/forus-logo-normal.svg")
+                img(src="./assets/img/landing/forus-logo-hover.svg").hover
+            nav.navbar-list
+                a(href="{{ $root.appConfigs.frontends.sponsor }}").navbar-item GEMEENTE
+                a(href="{{ $root.appConfigs.frontends.provider }}").navbar-item AANBIEDER
+                //a(href="{{ $root.appConfigs.frontends.validator }}").navbar-item VALIDATOR
+                a(href="{{ $root.appConfigs.frontends.me_app }}").navbar-item.active ME
+                a(href="{{ $root.appConfigs.frontends.webshop }}").navbar-item WEBSHOP
+            .block.block-auth
+                .auth-in(ng-if="$root.auth_user")
+                    .button.button-default
+                        em.mdi.mdi-account
+                        //- img(src="./assets/img/icon-btn/icon-btn-user.svg")
+                        | {{ $root.auth_user.primary_email }}
+                .auth-out(ng-if="!$root.auth_user")
+                    .button.button-default(ng-click="$root.popups.auth.open('choose')")
+                        em.mdi.mdi-account
+                        //- img(src="./assets/img/icon-btn/icon-btn-user.svg")
+                        | Aanmelden
+                
+        .header-body.header-body-sprite-fill
+            .header-sprite(
+                style="background-image: url('./assets/img/landing/header-sprite-meapp.png')")
+            .header-content
+                .header-title Een profiel voor het Forus Platform
+                .header-description 
+                    | Een profiel om in te loggen, waarmee je voucher kan beheren en veilig kan betalen.
+                .header-download-apps
+                    a(href="#").app-item.app-item-android
+                        | Download Me voor Android
+                        em.mdi.mdi-arrow-right
+                    a(href="#").app-item.app-item-ios
+                        | Download Me voor iOS
+                        em.mdi.mdi-arrow-right
+
+    section.section.section-flow.responsive: .wrapper
+        .section-title Functies
+        .scheme
+            img(src="./assets/img/landing/forus-flow-meapp.png").scheme-img
+            .scheme-points-preset
+                .scheme-point
+                    img(src="./assets/img/landing/meapp-flow/screen-1.png").scheme-point-image
+                    .scheme-point-text
+                        h4 Maak een profiel
+                        p Je hebt de mogelijkheid om een profiel aan te maken en deze daarna te beveiligen met een pincode.
+                .scheme-point
+                    img(src="./assets/img/landing/meapp-flow/screen-2.png").scheme-point-image
+                    .scheme-point-text
+                        h4 Vouchers
+                        p Als u aan gestelde criteria voldoet van een gemeente. Kunt u een voucher aanvragen. Deze voucher kunt u beheren in Me. Met Me kan je veilig betalingen verrichten.
+                .scheme-point
+                    img(src="./assets/img/landing/meapp-flow/screen-3.png").scheme-point-image
+                    .scheme-point-text
+                        h4 Aanmelden
+                        p Meld je aan op de webshop met Me. Dit doe je doordat de webshop een QR-code presenteert waarna deze gescant kan worden met Me.
+                .scheme-point 
+                    img(src="./assets/img/landing/meapp-flow/screen-4.png").scheme-point-image
+                    .scheme-point-text
+                        h4 Profiel
+                        p De app bewaart een profiel van de gebruiker, dit profiel maakt het mogelijk dat de gegevens hergebruikt kunnen worden voor het mee doen aan andere regelingen.
+        //.block.block-show-more: a(href="#").button.button-primary PROFIEL AANMAKEN
+    
+    //section.section.section-blogs: .wrapper
+        .block.block-blogs
+            mixin blog_item(nth)
+                .blog-item: a(href="#").blog-item-inner
+                    .blog-image: img(src="./assets/img/landing/blog-image-" + nth + ".jpg")
+                    .blog-name The only thing worse than being blind is having sight but no vision.
+                    .blog-read-more 
+                        | Read more 
+                        em.mdi.mdi-arrow-right
+            +blog_item(1)
+            +blog_item(2)
+            +blog_item(3)
+            .block.block-show-more: .wrapper: a(href="#").button.button-primary SHOW MORE
+
+    //landing-contact-form 

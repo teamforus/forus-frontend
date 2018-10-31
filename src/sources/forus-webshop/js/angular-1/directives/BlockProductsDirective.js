@@ -16,7 +16,7 @@ let BlockProductsDirective = function($scope) {
     $scope.updateProducts = query => {
         $scope.shownProducts = $scope.products.filter(product => {
             if (query.product_category_id !== null) {
-                if (product.id != query.product_category_id) {
+                if (product.product_category_id != query.product_category_id) {
                     return false;
                 }
             }

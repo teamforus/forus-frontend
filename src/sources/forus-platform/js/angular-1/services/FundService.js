@@ -87,13 +87,13 @@ let FundService = function(ApiRequest) {
 
         this.states = function() {
             return [{
-                name: "Active",
+                name: "Actief",
                 value: 'active',
             }, {
-                name: "Paused",
+                name: "Gepauzeerd",
                 value: 'paused',
             }, {
-                name: "Closed",
+                name: "Gesloten",
                 value: 'closed',
             }];
         }

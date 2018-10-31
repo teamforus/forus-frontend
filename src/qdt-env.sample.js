@@ -1,4 +1,12 @@
-let api_url = "https://test.platform.forus.io/api/v1";
+let api_url = "https://dev.api.forus.link/api/v1";
+
+let frontends = {
+    'me_app': '#',
+    'sponsor': '#',
+    'provider': '#',
+    'validator': '#',
+    'webshop': '#',
+};
 
 module.exports = {
     // browsersync configs
@@ -12,14 +20,17 @@ module.exports = {
             "forus-platform.sponsor",
             "forus-platform.provider",
             "forus-platform.validator",
-            "forus-webshop.markup",
+            "forus-landing-meapp",
+            // "forus-webshop.markup",
             "forus-webshop.panel",
-            "forus-webshop-zuidhorn.markup",
+            // "forus-webshop-zuidhorn.markup",
             "forus-webshop-zuidhorn.panel",
+            // "forus-webshop-nijmegen.markup",
+            "forus-webshop-nijmegen.panel"
         ],
         // browsersync reloads browser when watched files are modified,
-        // here you can choose which platform besides "served" will make 
-        // browsersync to reload. 
+        // here you can choose which platform besides "served" will make
+        // browsersync to reload.
         // Sometimes "served" platform rely on foreign platform
         watch_platforms: "all"
     },
@@ -30,41 +41,68 @@ module.exports = {
             "forus-platform.sponsor",
             "forus-platform.provider",
             "forus-platform.validator",
+            "forus-landing-meapp",
             // "forus-webshop.markup",
             "forus-webshop.panel",
             // "forus-webshop-zuidhorn.markup",
             "forus-webshop-zuidhorn.panel",
+            // "forus-webshop-nijmegen.markup",
+            "forus-webshop-nijmegen.panel"
         ]
     },
     platforms_data: {
+        "forus-landing-meapp": {
+            api_url: api_url,
+            frontends: frontends,
+        },
         "forus-platform-markup": {
             api_url: api_url,
+            frontends: frontends,
         },
         "forus-platform.sponsor": {
             api_url: api_url,
-            panel_type: 'sponsor'
+            frontends: frontends,
+            panel_type: 'sponsor',
+            chat_id: false,
         },
         "forus-platform.provider": {
             api_url: api_url,
-            panel_type: 'provider'
+            frontends: frontends,
+            panel_type: 'provider',
+            chat_id: false,
         },
         "forus-platform.validator": {
             api_url: api_url,
-            panel_type: 'validator'
+            frontends: frontends,
+            panel_type: 'validator',
+            chat_id: false,
         },
-        "forus-webshop.markup": {
+        /* "forus-webshop.markup": {
             api_url: api_url,
-        },
+            frontends: frontends,
+        }, */
         "forus-webshop.panel": {
             api_url: api_url,
+            frontends: frontends,
             client_key: 'shop-general'
         },
-        "forus-webshop-zuidhorn.markup": {
+        /* "forus-webshop-zuidhorn.markup": {
             api_url: api_url,
-        },
+            frontends: frontends,
+        }, */
         "forus-webshop-zuidhorn.panel": {
             api_url: api_url,
+            frontends: frontends,
             client_key: 'shop-zuidhorn'
         },
+        /* "forus-webshop-nijmegen.markup": {
+            api_url: api_url,
+            frontends: frontends,
+        }, */
+        "forus-webshop-nijmegen.panel": {
+            api_url: api_url,
+            frontends: frontends,
+            client_key: 'shop-nijmegen'
+        }
     }
 };

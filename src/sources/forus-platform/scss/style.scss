@@ -14,6 +14,13 @@ body {
     background: #f1f4f7;
 }
 
+.landing-root {
+    background-color: #f7f9fc;
+    background: linear-gradient(to bottom, #f7f9fc 0%,#ffffff 100%);
+    
+    @import 'layouts/landing';
+}
+
 [ui-sref] {
     cursor: pointer;
 }
@@ -1633,6 +1640,8 @@ body {
             color: #282b39;
             padding: 0 12px;
             margin: 0 0 15px;
+            display: flex;
+            flex-wrap: wrap;
         }
 
         .organization-item {
@@ -1640,6 +1649,7 @@ body {
             text-align: center;
             padding: 0 12px;
             float: left;
+            margin-bottom: 15px;
             cursor: pointer;
 
             .organization-item-inner {
@@ -1705,6 +1715,7 @@ body {
                 font: 500 14px $bf;
                 color: #282b39;
                 cursor: default;
+                @include ellipsis();
             }
         }
     }

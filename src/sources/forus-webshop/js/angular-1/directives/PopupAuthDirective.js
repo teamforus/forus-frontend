@@ -1,5 +1,6 @@
 let PopupAuthDirective = function(
     $element,
+    $filter,
     $state,
     $scope,
     $timeout,
@@ -57,6 +58,16 @@ let PopupAuthDirective = function(
                 code: "",
                 pin_code: "1111",
             }, function(form) {
+                if (form.values.records && (form.values.records.primary_email !=
+                        form.values.records.primary_email_confirmation)) {
+                        form.errors = {
+                            'records.primary_email_confirmation': [
+                                $filter('translate')('validation.email_confirmation')
+                            ]
+                        };
+                        return;
+                }
+
                 form.lock();
 
                 IdentityService.make(form.values).then((res) => {
@@ -142,7 +153,9 @@ let PopupAuthDirective = function(
 
     this.$onInit = function() {
         qrCodeEl = document.getElementById('auth_qrcode');
-        qrCode = new QRCode(qrCodeEl);
+        qrCode = new QRCode(qrCodeEl, {
+            correctLevel: QRCode.CorrectLevel.L
+        });
 
         $(document).bind('keydown', (e) => {
             $timeout(function() {
@@ -216,6 +229,7 @@ module.exports = () => {
         replace: true,
         controller: [
             '$element',
+            '$filter',
             '$state',
             '$scope',
             '$timeout',

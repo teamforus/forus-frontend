@@ -6,7 +6,7 @@ header.section.section-header.section-header-landing: .wrapper
     .header-content
         .header-title {{ "home.header.title" | translate }}
         .header-description(ng-bind="'home.header.subtitle' | translate")
-        a(href="#" translate="home.header.button").button.button-primary 
+        a(scroll-to="#steps" translate="home.header.button").button.button-primary 
 
 block-products(products="$ctrl.products" product-categories="$ctrl.productCategories")
 
@@ -16,6 +16,29 @@ section.section.section-map: .wrapper
             .block-title {{ "home.map.title" | translate }}
             .block-description {{ "home.map.subtitle" | translate }} 
             button(ng-click="$root.popups.offices.open()").button.button-primary {{ "home.map.button" |translate }}
+    
+section.section.section-steps#steps: .wrapper
+    .section-splash
+    .section-sprite
+    .section-title {{ "home.guide.title" | translate }}
+    .steps
+        .step-item: .step-item-content
+            h4 {{ "home.guide.stepone" | translate }}
+            p {{ "home.guide.one" | translate }}
+        .step-item: .step-item-content
+            h4 {{ "home.guide.steptwo" | translate }}
+            p {{ "home.guide.two" | translate }}
+        .step-item: .step-item-content
+            h4 {{ "home.guide.stepthree" | translate }}
+            p {{ "home.guide.three" | translate }}
+        .step-item: .step-item-content
+            h4 {{ "home.guide.stepfour" | translate }}
+            p {{ "home.guide.four" | translate }}
+        .step-item: .step-item-content
+            h4 {{ "home.guide.stepfive" | translate }}
+            p {{ "home.guide.five" | translate }}
+
+        .step-item
 
 section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
     .section-title {{ "home.blog.title" | translate }}
@@ -32,5 +55,81 @@ section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
         +blog_item(2)
         +blog_item(3)
     .block.block-show-more: a(href="#").button.button-primary {{ "home.blog.button" | translate }}
+    
+section.section.section-faq: .wrapper
+    .section-splash
+    .section-title {{ "home.faq.title" | translate }}
+    .faq(collapse)
+        mixin faq_item(title, content, active)
+            .faq-item(class=active?'active':'' collapse-item)
+                .faq-item-header(collapse-header)
+                    | #{title}
+                    .faq-item-chevron-down.mdi.mdi-chevron-down
+                    .faq-item-chevron-up.mdi.mdi-chevron-up
+                .faq-item-content(collapse-content)=content
+
+        +faq_item(
+            "{{ 'home.faq.faq_one' | translate }}",
+            "{{ 'home.faq.one' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_two' | translate }}",
+            "{{ 'home.faq.two' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_three' | translate }}",
+            "{{ 'home.faq.three' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_four' | translate }}",
+            "{{ 'home.faq.four' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_five' | translate }}",
+            "{{ 'home.faq.five' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_six' | translate }}",
+            "{{ 'home.faq.six' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_seven' | translate }}",
+            "{{ 'home.faq.seven' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_eight' | translate }}",
+            "{{ 'home.faq.eight' | translate }}")
+            
+        +faq_item(
+            "{{ 'home.faq.faq_nine' | translate }}",
+            "{{ 'home.faq.nine' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_ten' | translate }}",
+            "{{ 'home.faq.ten' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_eleven' | translate }}",
+            "{{ 'home.faq.eleven' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_twelve' | translate }}",
+            "{{ 'home.faq.twelve' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_thirteen' | translate }}",
+            "{{ 'home.faq.thirteen' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_fourteen' | translate }}",
+            "{{ 'home.faq.fourteen' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_fifteen' | translate }}",
+            "{{ 'home.faq.fifteen' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.faq_sixteen' | translate }}",
+            "{{ 'home.faq.sixteen' | translate }}")    
 
 contact-form 

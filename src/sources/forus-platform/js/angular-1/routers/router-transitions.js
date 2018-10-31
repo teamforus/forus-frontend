@@ -1,28 +1,37 @@
-module.exports = function(
-    $rootScope, 
-    $transitions, 
-    OrganizationService, 
-    $state, 
-    $trace
-) {
-    $transitions.onStart({}, (transition) => {
-        // let organizationId = transition.params().organization_id;
+module.exports = [
+    '$transitions',
+    '$filter',
+    '$rootScope',
+    'OrganizationService',
+    function(
+        $transitions,
+        $filter,
+        $rootScope,
+        OrganizationService
+    ) {
+        $transitions.onSuccess({}, function(transition) {
+            let pageTitleKey = 'page_state_titles.' + transition.to().name;
+            let pageTitleText = $filter('translate')(pageTitleKey);
 
-        if ([
-            'home', 'organiztions', 'funds', 'funds-show', 
-            'organizations-create', 'csv-validation', 'validation-requests', 
-            'validation-request', 'sign-up'
-        ].indexOf(transition.to().name) == -1) {
-            if (!OrganizationService.active()) {
-                // $state.go('organizations');
-                transition.router.stateService.transitionTo('organizations');
+            if (pageTitleKey == pageTitleText) {
+                pageTitleText = $filter('translate')('page_title');
             }
-        }
 
-        /* if (!!organizationId && (organizationId != )) {
-            OrganizationService.use(organizationId);
-        } */
+            $rootScope.pageTitle = pageTitleText;
 
-        return true;
-    });
-};
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+
+            if ([
+                    'home', 'organiztions', 'funds', 'funds-show',
+                    'organizations-create', 'csv-validation', 'validation-requests',
+                    'validation-request', 'sign-up', 'restore-email'
+                ].indexOf(transition.to().name) == -1) {
+                if (!OrganizationService.active()) {
+                    transition.router.stateService.transitionTo('organizations');
+                }
+            }
+
+            return true;
+        });
+    }
+];

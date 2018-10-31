@@ -1,0 +1,14 @@
+doctype
+html(ng-controller="BaseController" ng-cloak)
+    include ../layout/includes/head
+
+    body
+        div(ng-class="$root.viewLayout == 'landing' ? 'landing-root' : ''")
+            div(ng-if="$root.viewLayout != 'landing'"): include ../layout/includes/header
+            
+            ui-view
+
+            div(ng-if="$root.viewLayout != 'landing'"): include ../layout/includes/footer
+            div(ng-if="$root.viewLayout == 'landing'"): include ../layout/includes/footer-landing
+            div(forus-chat chat-id="appConfigs.chat_id" ng-if="appConfigs.chat_id")
+            include ../layout/includes/scripts
