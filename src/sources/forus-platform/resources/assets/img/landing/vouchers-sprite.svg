@@ -29,6 +29,8 @@
 <?xpacket end="w"?></metadata>
 <defs>
     <style>
+      @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+
       .cls-1, .cls-2, .cls-8, .cls-9 {
         fill: #fff;
       }
@@ -55,7 +57,7 @@
       }
 
       .cls-5, .cls-6, .cls-7 {
-        font-family: "Google Sans";
+        font-family: "Montserrat", sans-serif;
       }
 
       .cls-6 {

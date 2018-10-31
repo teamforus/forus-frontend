@@ -4,6 +4,8 @@
 script.
     var env_data = !{JSON.stringify(qdt_c.platform.env_data)};
 
+script(src=src_prefix + "assets/dist/babel-polyfill/polyfill.min.js")
+
 //- jquery
 if (qdt_c.platform.libs.jquery)
     script(src=src_prefix + "assets/dist/jquery/jquery.min.js")

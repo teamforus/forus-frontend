@@ -58,8 +58,6 @@ let HomeComponent = function(
         $ctrl.showModal = false;
         qrCodeEl.innerHTML = '';
     };
-
-    $('[collapse]').collapse();
 };
 
 module.exports = {

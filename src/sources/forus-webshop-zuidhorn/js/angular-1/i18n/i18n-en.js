@@ -1,4 +1,20 @@
 module.exports = {
+    page_title: 'Forus platform',
+    page_state_titles: {
+        home: 'Zuidhorn - Forus',
+        funds: 'Fondsen',
+        products: 'Aanbiedingen',
+        "products-show": 'Aanbieding',
+        "products-apply": "Aanbieding kopen",
+        vouchers: 'Mijn vouchers',
+        voucher: 'Mijn voucher',
+        records: 'Eigenschappen', 
+        "record-validate": 'Valideer eigenschap',
+        "record-validations": 'Validaties',
+        "record-create": 'Eigenschap toevoegen',
+        "funds-apply": 'Meld je aan voor een fonds',
+        "restore-email": 'Inloggen via e-mail',
+    },
     languages: {
         en: 'English',
         nl: 'Dutch',
@@ -71,9 +87,9 @@ module.exports = {
             steptwo: "Stap #2",
             two: "Met de activatiecode kun je je aanmelden en het Kindpakket activeren. Druk op ‘Activatiecode’ bovenaan de pagina en vul de gevraagde gegevens in.",
             stepthree: "Stap #3",
-            three: "Na je aanmelding wordt het Kindpakket gelijk geactiveerd. De voucher met bijbehorende QR-Code kan je terugvinden door bovenaan je profiel gegevens op ‘Mijn vouchers’ te klikken.",
+            three: "Na je aanmelding wordt het Kindpakket gelijk geactiveerd. De voucher met bijbehorende QR-Code kan je terugvinden door bovenaan op ‘Mijn vouchers’ te klikken.",
             stepfour: "Stap #4",
-            four: "De QR-Code kan je uitprinten, naar jezelf toe mailen of altijd op je telefoon hebben door in te loggen op de Me app. De Me app kun je dowloaden via de Google Playstore en de App Store.",
+            four: "De QR-Code kan je uitprinten, naar jezelf toe mailen of altijd op je telefoon hebben door in te loggen op de Me app. De Me app kun je downloaden via de Google Playstore en de App Store.",
             stepfive: "Stap #5",
             five: "Ga naar de webshop om te zien waar de voucher te besteden is of om een aanbieding te kopen. Laat de bijbehorende QR-Code zien om je aanbieding in ontvangst te nemen.",
         },
@@ -349,8 +365,10 @@ module.exports = {
         },
         input: {
             mail: "Vul je e-mailadres in",
+            coding: "Vul de activatiecode in",
             code: "Activatiecode",
             mailing: "E-mail",
+            confirmation: "Bevestig je e-mailadres",
         }
     },
 
