@@ -34,6 +34,22 @@ module.exports = {
         "restore-email": 'Inloggen via e-mail',
     },
 // PAGES
+    // MEAPP LANDINGSPAGE = index.pug
+    meapp_index: {
+        navbar: {
+            municipality: "GEMEENTE",
+            provider: "AANBIEDER",
+            me: "ME",
+            shop: "WEBSHOP",
+        },
+        header: {
+            title: "Een profiel voor het Forus Platform",
+            description: "Een profiel om in te loggen, waarme je vouchers kan beheren en veilig kan betalen",
+        },
+        buttons: {
+            join: "Aanmelden",
+        }
+    }, 
     // PROVIDER HOME = home-provider.pug
     home_provider: {
         header: {
@@ -71,7 +87,7 @@ module.exports = {
         }
     },
     // VALIDATOR HOME = home-validator.pug
-        // DON'T TRANSLATE , THE VALIDATOR WILL NOT HAVE AN LANDINGSPAGE YET
+        // DON'T TRANSLATE , THE VALIDATOR WILL NOT HAVE A LANDINGSPAGE
 
     // CSV-VALIDATION = csv-validation.pug
 
