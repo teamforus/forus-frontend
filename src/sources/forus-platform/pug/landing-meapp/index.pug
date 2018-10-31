@@ -8,9 +8,9 @@ block content
                 img(src="./assets/img/landing/forus-logo-normal.svg")
                 img(src="./assets/img/landing/forus-logo-hover.svg").hover
             nav.navbar-list
-                a(href="{{ $root.appConfigs.frontends.sponsor }}").navbar-item SPONSOR
-                a(href="{{ $root.appConfigs.frontends.provider }}").navbar-item PROVIDER
-                a(href="{{ $root.appConfigs.frontends.validator }}").navbar-item VALIDATOR
+                a(href="{{ $root.appConfigs.frontends.sponsor }}").navbar-item GEMEENTE
+                a(href="{{ $root.appConfigs.frontends.provider }}").navbar-item AANBIEDER
+                //a(href="{{ $root.appConfigs.frontends.validator }}").navbar-item VALIDATOR
                 a(href="{{ $root.appConfigs.frontends.me_app }}").navbar-item.active ME
                 a(href="{{ $root.appConfigs.frontends.webshop }}").navbar-item WEBSHOP
         
@@ -37,7 +37,7 @@ block content
                 .scheme-point
                     img(src="./assets/img/landing/meapp-flow/screen-1.png").scheme-point-image
                     .scheme-point-text
-                        h4 Maak een identiteit
+                        h4 Maak een profiel
                         p Je hebt de mogelijkheid om een profiel aan te maken en deze daarna te beveiligen met een pincode.
                 .scheme-point
                     img(src="./assets/img/landing/meapp-flow/screen-2.png").scheme-point-image
@@ -54,9 +54,9 @@ block content
                     .scheme-point-text
                         h4 Profiel
                         p De app bewaart een profiel van de gebruiker, dit profiel maakt het mogelijk dat de gegevens hergebruikt kunnen worden voor het mee doen aan andere regelingen.
-        .block.block-show-more: a(href="#").button.button-primary PROFIEL AANMAKEN
+        //.block.block-show-more: a(href="#").button.button-primary PROFIEL AANMAKEN
     
-    section.section.section-blogs: .wrapper
+    //section.section.section-blogs: .wrapper
         .block.block-blogs
             mixin blog_item(nth)
                 .blog-item: a(href="#").blog-item-inner
@@ -70,4 +70,4 @@ block content
             +blog_item(3)
             .block.block-show-more: .wrapper: a(href="#").button.button-primary SHOW MORE
 
-    landing-contact-form 
+    //landing-contact-form 
