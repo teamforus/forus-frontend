@@ -5,27 +5,27 @@ header.section.section-header: .wrapper
     
     .header-body
         .header-content
-            .header-title Meld je aan als winkelier of dienstverlener
-            .header-description Bereik meer klanten, maak meer winst en draag bij aan een maatschappelijk doel.
+            .header-title {{ "home_provider.header.title" | translate }}
+            .header-description {{ "home_provider.header.subtitle" | translate }}
         .header-sprite(
             style="background-image: url('./assets/img/landing/vouchers-sprite.svg')")
         .block.block-cards
             .card-item: .card-item-inner
                 .card-icon: img(src="./assets/img/landing/icon-cards/icon-card-money.png")
                 .card-content
-                    .card-title Stichting Forus zoekt partners
-                    .card-description Een gemeente wil zijn budget op een bepaalde manier in de samenleving laten landen. Je kunt hen helpen bij dit doel.
+                    .card-title {{ "home_provider.labels.partner" | translate }}
+                    .card-description {{ "home_provider.labels.description" | translate }}
             .card-item: .card-item-inner
                 .card-icon: img(src="./assets/img/landing/icon-cards/icon-card-wallet.png")
                 .card-content
-                    .card-title Doe mee aan een regeling 
-                    .card-description Een gemeente zet een bepaalt budget uit. Verdien geld door deel te nemen en inwoners te helpen met jouw aanbiedingen.
+                    .card-title {{ "home_provider.labels.join" | translate }}
+                    .card-description {{ "home_provider.labels.subdescription" | translate }}
 
 section.section.section-flow: .wrapper
-    .section-title Word onderdeel van een innovatieve beweging
-    .section-description Doe mee aan ons platform door onderstaande stappen te volgen, maak een organisatie aan, verkoop jouw producten of diensten en trek nieuwe klanten aan.
+    .section-title {{ "home_provider.guide.title" | translate }}
+    .section-description {{ "home_provider.guide.description" | translate }}
     img(src="./assets/img/landing/forus-flow-provider.png").section-scheme
-    .block.block-show-more: a(href="../provider/#!/sign-up").button.button-primary Start je reis!
+    .block.block-show-more: a(href="../provider/#!/sign-up").button.button-primary {{ "home_provider.guide.button" | translate }}
 
 
 //section.section.section-faq: .wrapper
