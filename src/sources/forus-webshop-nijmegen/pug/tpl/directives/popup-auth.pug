@@ -104,14 +104,24 @@
         form.form(ng-submit="signUpForm.submit()")
             .form-group
                 .form-label {{ "popup_auth.input.mail" | translate }}
-                input(ng-model="signUpForm.values.records.primary_email" type="email" placeholder="E-mail").form-control.form-control
+                input(
+                    type="email" 
+                    ng-model="signUpForm.values.records.primary_email" 
+                    placeholder="{{ 'popup_auth.input.mailing' | translate }}").form-control.form-control
                 .form-error(ng-repeat="error in signUpForm.errors['records.primary_email']" ng-bind="error")
+            .form-group
+                .form-label {{ "popup_auth.input.confirmation" | translate }}
+                input(
+                    type="email" 
+                    ng-model="signUpForm.values.records.primary_email_confirmation" 
+                    placeholder="{{ 'popup_auth.input.mailing' | translate }}").form-control.form-control
+                .form-error(ng-repeat="error in signUpForm.errors['records.primary_email_confirmation']" ng-bind="error")
             //- .form-group
                 .form-label Pin code
                 input(ng-model="signUpForm.values.pin_code" type="text" placeholder="Pin Code").form-control
                 .form-error(ng-repeat="error in signUpForm.errors.pin_code" ng-bind="error")
             .form-group
-                .form-label {{ "popup_auth.input.code" | translate }}
+                .form-label {{ "popup_auth.input.coding" | translate }}
                 input(ng-model="signUpForm.values.code" type="text" placeholder="{{ 'popup_auth.input.code' | translate}}").form-control
                 .form-error(ng-repeat="error in signUpForm.errors.code" ng-bind="error")
             .form-group

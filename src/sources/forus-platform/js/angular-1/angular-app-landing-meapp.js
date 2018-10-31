@@ -22,6 +22,8 @@ app.controller('BaseController', [
 // Directives
 app.directive('landingNavbar', require('./directives/landing/NavbarDirective'));
 app.directive('landingContactForm', require('./directives/landing/ContactFormDirective'));
+app.directive('collapse', require('./directives/CollpaseDirective'));
+app.directive('forusChat', require('./directives/ForusChatDirective'));
 
 // Providers
 

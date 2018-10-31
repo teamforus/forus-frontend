@@ -22,7 +22,12 @@ section.section.section-product: .wrapper
                     .product-price-new € {{ $ctrl.product.price | to_fixed:2 }} 
                     .product-price-old € {{ $ctrl.product.old_price | to_fixed:2 }}
                 
-                .button.button-primary(ng-show="$ctrl.isApplicable" ui-sref="products-apply($ctrl.product)") KOOP
+                .button.button-primary(
+                    ng-show="$ctrl.isApplicable" 
+                    ui-sref="products-apply($ctrl.product)") KOOP
+                .button.button-primary(
+                    ng-if="!$root.auth_user" 
+                    ng-click="$root.popups.auth.open('choose')") LOG IN
         
         .block.block-map_card
             .map_card-header

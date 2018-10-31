@@ -57,6 +57,8 @@ app.directive('profileCard', require('./directives/ProfileCardDirective'));
 app.directive('blockProducts', require('./directives/BlockProductsDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
+app.directive('scrollTo', require('./directives/ScrollToDirective'));
+app.directive('collapse', require('./directives/CollapseDirective'));
 
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
@@ -73,7 +75,7 @@ app.config(require('./config/i18n'));
 app.run(require('./routers/router-transitions'));
 
 // Bootstrap the app
-angular.bootstrap(document.querySelector('body'), ['forusApp', '720kb.datepicker']);
+angular.bootstrap(document.querySelector('html'), ['forusApp', '720kb.datepicker']);
 
 if (!env_data.html5ModeEnabled) {
     if (!document.location.hash) {
