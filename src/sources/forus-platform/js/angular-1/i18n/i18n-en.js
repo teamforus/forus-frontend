@@ -34,6 +34,45 @@ module.exports = {
         "restore-email": 'Inloggen via e-mail',
     },
 // PAGES
+    // PROVIDER HOME = home-provider.pug
+    home_provider: {
+        header: {
+            title: "Meld je aan als winkelier of dienstverlener",
+            subtitle: "Bereik meer klanten, maak winst en draag bij aan een maatschappelijk doel.",
+        },
+        labels: {
+            partners: "Stichting Forus zoekt partners",
+            description: "Een gemeente wil zijn budget op een bepaalde manier in de samenleving laten landen. Je kunt hen helpen bij dit doel.",
+            join: "Doe mee aan een regeling",
+            subdescription: "Een gemeente zet een bepaalt budget uit. Verdien geld door deel te nemen en inwoners te helpen met jouw aanbiedingen.",
+        },
+        guide: {
+            title: "Word onderdeel van een innovatieve beweging",
+            description: "Doe mee aan ons platform door onderstaande stappen te volgen, maak een organisatie aan, verkoop jouw producten of diensten en trek nieuwe klanten aan.",
+            button: "Start je reis!",
+        }
+    },
+    // SPONSOR HOME = home-sponsor.pug
+    home_sponsor: {
+        header: {
+            title: "Meld je aan als gemeente en maak een regeling aan.Meld je aan als gemeente en maak een regeling aan.",
+            description: "Een platform om gemeentelijke regelingen doelmatig, rechtmatig en efficient uit te geven aan inwoners.",
+        },
+        subject: {
+            title: "Een innovatieve regeling",
+            description: "Een programeerbare bankrekening resulteert in dat het budget bij iedere transactie gelijk over wordt gemaakt aan de aanbieder.",
+            paragraph: "Bepaal zelf de bestedingsruimte",
+            paragraphtwo: "Stel de hoogte van de uitgifte in en bepaal bij welke aanbieders het budget uitgegeven mag worden",
+        },
+        guide: {
+            title: "Word onderdeel van een innovatieve beweging",
+            join: "Doe mee aan ons platform door onderstaande stappen te volgen.",
+            button: "Start je reis ",
+        }
+    },
+    // VALIDATOR HOME = home-validator.pug
+        // DON'T TRANSLATE , THE VALIDATOR WILL NOT HAVE AN LANDINGSPAGE YET
+
     // CSV-VALIDATION = csv-validation.pug
 
     // FINANCIAL DASHBOARD = financial-dashboard-transaction.pug
@@ -178,7 +217,7 @@ module.exports = {
     organization_validators: {
         labels: {
             address: "Adres",
-            email: "E-Mailadres",
+            email: "E-mailadres",
             actions: "Acties",
         },
         buttons: {
@@ -314,7 +353,7 @@ module.exports = {
     // SIGN UP FORM FOR PROVIDERS = sign-up.pug
     sign_up: {
         header: {
-            title: "Identiteit aanmaken",
+            title: "Profiel aanmaken",
         },
         labels: {
             mail: "E-mailadres",
@@ -589,7 +628,7 @@ module.exports = {
         items: {
             funds:"FONDSEN",
             products:"PRODUCTEN",
-            identity:"Identiteit",
+            identity:"Profiel",
         },
         buttons: {
             activate:"Activatiecode",

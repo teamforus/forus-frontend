@@ -5,9 +5,9 @@ header.section.section-header: .wrapper
     
     .header-body
         .header-content
-            .header-title Meld je aan als gemeente en maak een regeling aan.
+            .header-title {{ "home_sponsor.header.title" | translate }}
             .header-description 
-                | Een platform om gemeentelijke regelingen doelmatig, rechtmatig en efficient uit te geven aan inwoners.
+                | {{ "home_sponsor.header.description" | translate }}
                 br
                 br
         .header-sprite(
@@ -16,19 +16,19 @@ header.section.section-header: .wrapper
             .card-item: .card-item-inner
                 .card-icon: img(src="./assets/img/landing/icon-cards/icon-card-money.png")
                 .card-content
-                    .card-title Een innovatieve regeling
-                    .card-description Een programeerbare bankrekening resulteert in dat het budget bij iedere transactie gelijk over wordt gemaakt aan de aanbieder. 
+                    .card-title {{ "home_sponsor.header.title" | translate }}
+                    .card-description {{ "home_sponsor.header.description" | translate }}
             .card-item: .card-item-inner
                 .card-icon: img(src="./assets/img/landing/icon-cards/icon-card-wallet.png")
                 .card-content
-                    .card-title Bepaal zelf de bestedingsruimte
-                    .card-description Stel de hoogte van de uitgifte in en bepaal bij welke aanbieders het budget uitgegeven mag worden.
+                    .card-title {{ "home_sponsor.subject.paragraph" | translate }}
+                    .card-description {{ "home_sponsor.subject.paragraphtwo" | translate }}
 
 section.section.section-flow: .wrapper
-    .section-title Word onderdeel van een innovatieve beweging
-    .section-description Doe mee aan ons platform door onderstaande stappen te volgen.
+    .section-title {{ "home_sponsor.guide.title" | translate }}
+    .section-description {{ "home_sponsor.guide.join" | translate }}
     img(src="./assets/img/landing/forus-flow-sponsor.png").section-scheme
-    .block.block-show-more: a(href="../sponsor/#!/sign-up").button.button-primary Start je reis!
+    .block.block-show-more: a(href="../sponsor/#!/sign-up").button.button-primary {{ "home_sponsor.guide.button" | translate }}
 
 //section.section.section-faq: .wrapper
     .section-splash

@@ -46,13 +46,13 @@
                 .card-section-actions
                     a(ui-sref="offices-edit({organization_id: office.organization_id, office_id: office.id})").button.button-default
                         em.mdi.mdi-pen  
-                        | Bewerk
+                        | {{ "offices.buttons.adjust" | translate }}
                     a(
                         ng-if="office.lat && office.lon"
                         href="https://www.google.com/maps/place/{{ office.lat }},{{ office.lon }}" 
                         target="_blank").button.button-primary
                         em.mdi.mdi-map-marker  
-                        | Bekijk op de kaart
+                        | {{ "offices.buttons.map" | translate }}
                         
                 .card-block.card-block-provider
                     .provider-img: img(ng-src="{{ office.photo.sizes.thumbnail || './assets/img/organization-no-logo.svg' }}")
