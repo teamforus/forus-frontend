@@ -13,7 +13,18 @@ block content
                 //a(href="{{ $root.appConfigs.frontends.validator }}").navbar-item VALIDATOR
                 a(href="{{ $root.appConfigs.frontends.me_app }}").navbar-item.active ME
                 a(href="{{ $root.appConfigs.frontends.webshop }}").navbar-item WEBSHOP
-        
+            .block.block-auth
+                .auth-in(ng-if="$root.auth_user")
+                    .button.button-default
+                        em.mdi.mdi-account
+                        //- img(src="./assets/img/icon-btn/icon-btn-user.svg")
+                        | {{ $root.auth_user.primary_email }}
+                .auth-out(ng-if="!$root.auth_user")
+                    .button.button-default(ng-click="$root.popups.auth.open('choose')")
+                        em.mdi.mdi-account
+                        //- img(src="./assets/img/icon-btn/icon-btn-user.svg")
+                        | Aanmelden
+                
         .header-body.header-body-sprite-fill
             .header-sprite(
                 style="background-image: url('./assets/img/landing/header-sprite-meapp.png')")
