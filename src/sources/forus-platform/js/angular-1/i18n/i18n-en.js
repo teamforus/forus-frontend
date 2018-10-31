@@ -22,7 +22,7 @@ module.exports = {
         products: 'Aanbiedingen',
         "products-create": 'Aanbieding toevoegen',
         "products-edit": 'Aanbieding bewerken',
-        "products-show": 'Mijn producten',
+        "products-show": 'Mijn aanbiedingen',
         "sign-up": 'Aanmelden',
         "provider-funds": 'Deelgenomen fondsen',
         "provider-identities": 'Medewerkers',
@@ -71,7 +71,7 @@ module.exports = {
     // SPONSOR HOME = home-sponsor.pug
     home_sponsor: {
         header: {
-            title: "Meld je aan als gemeente en maak een regeling aan.Meld je aan als gemeente en maak een regeling aan.",
+            title: "Meld je aan als gemeente en maak een regeling aan.",
             description: "Een platform om gemeentelijke regelingen doelmatig, rechtmatig en efficient uit te geven aan inwoners.",
         },
         subject: {
@@ -278,15 +278,16 @@ module.exports = {
     // EDIT PRODUCTS = product-edit.pug
     product_edit: {
         header: {
-            title: "Product toevoegen",
+            title: "Aanbieding toevoegen",
         },
         labels: {
-            name: "Product naam",
+            name: "Aanbieding naam",
             description: "Omschrijving",
             new: "Aanbiedingsprijs",
             old: "Oude prijs",
-            total: "Aantal producten",
-            category: "Product categorie",
+            total: "Aantal aanbiedingen",
+            category: "Categorie",
+            expire_at: "Vervaldatum van aanbod",
         },
         buttons: {
             cancel: "Annuleren",
@@ -592,7 +593,7 @@ module.exports = {
 
     // SELECT MULTIPLE CATEGORIES = multi-select.pug
     multi_select: {
-        title: "Product categorieën",
+        title: "Aanbieding categorieën",
     },
 
     // SELECT PHOTO = photo-selector.pug
@@ -643,7 +644,7 @@ module.exports = {
     topnavbar: {
         items: {
             funds:"FONDSEN",
-            products:"PRODUCTEN",
+            products:"AANBIEDINGEN",
             identity:"Profiel",
         },
         buttons: {
@@ -653,7 +654,7 @@ module.exports = {
             records: "Mijn eigenschappen",
             authorize:"Autoriseer apparaat",
             logout:"Uitloggen",
-            products:"Producten",
+            products:"Aanbiedingen",
             funds: "Fondsen",
         },
     },
