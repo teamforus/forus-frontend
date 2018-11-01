@@ -3023,6 +3023,11 @@ body {
             z-index: 1;
             width: 100%;
             margin-left: -340px;
+
+            &:first-child {
+                margin-left: 0;
+                padding-left: 0;
+            }
         }
     }
 
@@ -3199,7 +3204,6 @@ body {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                justify-content: center;
 
                 .voucher-overview-item {
                     margin-bottom: 10px;
