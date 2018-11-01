@@ -15,32 +15,28 @@ section.section.section-footer
                         
             .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-6'")
                 .footer-label Openingstijden
-                .footer-schedule
                     .schedule-label Maandag: 		
-                    .schedule-value 8.30-12.30, 13.30-16.30, 18.00-19.30
+                    .schedule-value 9.00-17.00
                     
                 .footer-schedule
                     .schedule-label Dinsdag:		
-                    .schedule-value 8.30-12.30
+                    .schedule-value 9.00-17.00
 
                 .footer-schedule
                     .schedule-label Woensdag: 		
-                    .schedule-value 8.30-12.30, 13.30-17.30
+                    .schedule-value 9.00-17.00
                 
                 .footer-schedule
                     .schedule-label Donderdag:	 	
-                    .schedule-value 8.30-12.30
+                    .schedule-value 9.00-20.00
                 
                 .footer-schedule
                     .schedule-label Vrijdag: 		
-                    .schedule-value 8.30-12.30
-            
-            .col.col-md-2
+                    .schedule-value 9.00-20.00
                 .footer-label Navigatie
                 nav.footer-nav
-                    .footer-nav-item: a(href="/sponsor/") SPONSOR
-                    .footer-nav-item: a(href="/provider/") PROVIDER
-                    .footer-nav-item: a(href="/validator/") VALIDATOR
+                    .footer-nav-item: a(href="/sponsor/") Bent u een medewerker van de gemeente Nijmegen en wilt u meer informatie?
+                    .footer-nav-item: a(href="/provider/") Bent u een aanbieder uit de gemeente Nijmegen en wilt u meer informatie?
             
             .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
                 .footer-label Ontvang onze nieuwsbrief
@@ -50,7 +46,7 @@ section.section.section-footer
                         button.button.button-primary: .mdi.mdi-arrow-right
             
     .block.block-copyrights: .wrapper
-        .copyrights © 2018 Forus.io
+        .copyrights 
         .links
             a(href="#") Algemene Voorwaarden
             .link-separator
