@@ -7,7 +7,7 @@ section.section.section-profile: .wrapper
     .section-title  {{ "vouchers.header.title" | translate }} ({{ $ctrl.vouchers.length }})
     
     .block.block-profile
-        profile-card
+        //profile-card
 
         .profile-content
             .block.block-vouchers(ng-if="$ctrl.vouchers.length > 0")
@@ -29,18 +29,18 @@ section.section.section-profile: .wrapper
                                 small {{ "vouchers.labels.subtract" | translate }}
                             .voucher-overview-value(ng-if="(voucher.transactions.length + voucher.product_vouchers.length) == 0")
                                 span.text-muted {{ "vouchers.labels.none" | translate }}
-                        .voucher-overview-item
+                        //.voucher-overview-item
                             .voucher-overview-label EXPIRE
                             .voucher-overview-value No
 
                     .voucher-overview(ng-if="voucher.product")
                         .voucher-overview-item
-                            .voucher-overview-label USED
+                            .voucher-overview-label GEBRUIKT
                             .voucher-overview-value(ng-bind="voucher.transactions.length == 0 ? 'No' : 'Yes'")
                         .voucher-overview-item
-                            .voucher-overview-label GENERATED
+                            .voucher-overview-label DATUM VAN AANMAKEN
                             .voucher-overview-value(ng-bind="voucher.created_at_locale")
-                        .voucher-overview-item
+                        //.voucher-overview-item
                             .voucher-overview-label EXPIRE
                             .voucher-overview-value(ng-bind="voucher.expire_at_locale")
 
