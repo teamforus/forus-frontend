@@ -20,9 +20,9 @@
                             // a(href="#").auth-user-menu-item
                                 img(src="./assets/img/icon-menu/icon-menu-my-profile.svg")
                                 | Mijn profile
-                            a(ui-sref="vouchers").auth-user-menu-item
+                            a(ui-sref="vouchers").auth-user-menu-item(ng-click="$root.popups.auth.open('activate-code')")
                                 img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg")
-                                | {{ "topnavbar.buttons.voucher" | translate }}
+                                | {{ "topnavbar.buttons.activate" | translate }}
                             a(
                                 ui-sref="records"
                                 ng-if="$root.appConfigs.features.records.list").auth-user-menu-item
@@ -71,6 +71,6 @@
                     ng-click="$root.setLang(lang)")
     .block.block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
         .auth-code
-            .button.button-default(ng-click="$root.popups.auth.open('activate-code')")
+            a(ui-sref="vouchers").button.button-default
                 em.mdi.mdi-ticket-confirmation
-                | {{ "topnavbar.buttons.activate" | translate }}
+                | {{ "topnavbar.buttons.voucher" | translate }}

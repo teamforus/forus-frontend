@@ -7,8 +7,8 @@ module.exports = {
         "organizations-edit": 'Organisatie bewerken',
         "organization-funds": "Mijn fondsen",
         "organization-providers": 'Aanbieders',
-        validators: 'Validators',
-        "validators-edit": 'Validators bewerken',
+        validators: 'Medewerkers',
+        "validators-edit": 'Medewerker bewerken',
         "financial-dashboard": 'Financieel dashboard',
         offices: 'Vestingen',
         "offices-create": 'Vestiging toevoegen',
@@ -19,10 +19,10 @@ module.exports = {
         "funds-edit": 'Fonds bewerken',
         transactions: 'Overzicht transacties',
         transaction: 'Transactie details',
-        products: 'Aabiedingen',
+        products: 'Aanbiedingen',
         "products-create": 'Aanbieding toevoegen',
         "products-edit": 'Aanbieding bewerken',
-        "products-show": 'Mijn producten',
+        "products-show": 'Mijn aanbiedingen',
         "sign-up": 'Aanmelden',
         "provider-funds": 'Deelgenomen fondsen',
         "provider-identities": 'Medewerkers',
@@ -34,6 +34,61 @@ module.exports = {
         "restore-email": 'Inloggen via e-mail',
     },
 // PAGES
+    // MEAPP LANDINGSPAGE = index.pug
+    meapp_index: {
+        navbar: {
+            municipality: "GEMEENTE",
+            provider: "AANBIEDER",
+            me: "ME",
+            shop: "WEBSHOP",
+        },
+        header: {
+            title: "Een profiel voor het Forus Platform",
+            description: "Een profiel om in te loggen, waarme je vouchers kan beheren en veilig kan betalen",
+        },
+        buttons: {
+            join: "Aanmelden",
+        }
+    }, 
+    // PROVIDER HOME = home-provider.pug
+    home_provider: {
+        header: {
+            title: "Meld je aan als winkelier of dienstverlener",
+            subtitle: "Bereik meer klanten, maak winst en draag bij aan een maatschappelijk doel.",
+        },
+        labels: {
+            partners: "Stichting Forus zoekt partners",
+            description: "Een gemeente wil zijn budget op een bepaalde manier in de samenleving laten landen. Je kunt hen helpen bij dit doel.",
+            join: "Doe mee aan een regeling",
+            subdescription: "Een gemeente zet een bepaalt budget uit. Verdien geld door deel te nemen en inwoners te helpen met jouw aanbiedingen.",
+        },
+        guide: {
+            title: "Word onderdeel van een innovatieve beweging",
+            description: "Doe mee aan ons platform door onderstaande stappen te volgen, maak een organisatie aan, verkoop jouw producten of diensten en trek nieuwe klanten aan.",
+            button: "Start je reis!",
+        }
+    },
+    // SPONSOR HOME = home-sponsor.pug
+    home_sponsor: {
+        header: {
+            title: "Meld je aan als gemeente en maak een regeling aan.",
+            description: "Een platform om gemeentelijke regelingen doelmatig, rechtmatig en efficient uit te geven aan inwoners.",
+        },
+        subject: {
+            title: "Een innovatieve regeling",
+            description: "Een programeerbare bankrekening resulteert in dat het budget bij iedere transactie gelijk over wordt gemaakt aan de aanbieder.",
+            paragraph: "Bepaal zelf de bestedingsruimte",
+            paragraphtwo: "Stel de hoogte van de uitgifte in en bepaal bij welke aanbieders het budget uitgegeven mag worden",
+        },
+        guide: {
+            title: "Word onderdeel van een innovatieve beweging",
+            join: "Doe mee aan ons platform door onderstaande stappen te volgen.",
+            button: "Start je reis ",
+        }
+    },
+    // VALIDATOR HOME = home-validator.pug
+        // DON'T TRANSLATE , THE VALIDATOR WILL NOT HAVE A LANDINGSPAGE
+
     // CSV-VALIDATION = csv-validation.pug
 
     // FINANCIAL DASHBOARD = financial-dashboard-transaction.pug
@@ -55,11 +110,11 @@ module.exports = {
             shops: "winkels",
             activation: "Aantal geactiveerd",
             citizen: "Nieuwe inwoners",
-            provider: "Leveranciers",
+            provider: "Aanbieders",
 
         },
         buttons: {
-            choose: "Kies een ander fonds",
+            choose: "Kies een andere regeling",
             previous: "Vorige",
             next: "Volgende",
         }
@@ -84,7 +139,7 @@ module.exports = {
         },
         labels: {
             name: "Naam",
-            status: "status",
+            status: "Status",
             start: "Startdatum",
             end: "Einddatum",
         },
@@ -155,7 +210,7 @@ module.exports = {
     // ORGANIZATION PROVIDERS = organization-providers.pug
     organization_providers: {
         header: {
-            title: "Leveranciers"
+            title: "Aanbieders"
         },
         status: {
             accepted: "Geaccepteerd",
@@ -178,12 +233,13 @@ module.exports = {
     organization_validators: {
         labels: {
             address: "Adres",
+            email: "E-mailadres",
             actions: "Acties",
         },
         buttons: {
             adjust: "Aanpassen",
             delete: "Verwijderen",
-            add: "Validator toevoegen",
+            add: "Medewerker toevoegen",
         },
     },
 
@@ -222,15 +278,16 @@ module.exports = {
     // EDIT PRODUCTS = product-edit.pug
     product_edit: {
         header: {
-            title: "Product toevoegen",
+            title: "Aanbieding toevoegen",
         },
         labels: {
-            name: "Product naam",
+            name: "Aanbieding naam",
             description: "Omschrijving",
             new: "Aanbiedingsprijs",
             old: "Oude prijs",
-            total: "Aantal producten",
-            category: "Product categorie",
+            total: "Aantal aanbiedingen",
+            category: "Categorie",
+            expire_at: "Vervaldatum van aanbod",
         },
         buttons: {
             cancel: "Annuleren",
@@ -254,7 +311,7 @@ module.exports = {
             chargeid: "Kopieer het transactienummer",
             connections: "CONNECTIE",
             details: "Bekijk transactiedetails",
-            results: "8 resultaten",
+            results: "x resultaten",
         },
         buttons: {
             previous: "Vorige",
@@ -313,7 +370,7 @@ module.exports = {
     // SIGN UP FORM FOR PROVIDERS = sign-up.pug
     sign_up: {
         header: {
-            title: "Identiteit aanmaken",
+            title: "Profiel aanmaken",
         },
         labels: {
             mail: "E-mailadres",
@@ -341,15 +398,16 @@ module.exports = {
             chargeid: "Kopieer het transactienummer",
             connections: "CONNECTIE",
             details: "Bekijk transactiedetails",
-            results: "8 resultaten",
+            results: "x resultaten",
             payment: "Betaling -",
             fund: "FONDS",
             status: "STATUS",
-            provider: "LEVERANCIER",
+            provider: "AANBIEDER",
         },
         buttons: {
             previous: "Vorige",
             next: "Volgende",
+            export: 'Exporteren',
         },
         paginator: {
             one: "1",
@@ -505,7 +563,7 @@ module.exports = {
             chargeid: "Kopieer het transactienummer",
             connections: "CONNECTIE",
             details: "Bekijk transactiedetails",
-            results: "8 resultaten",
+            results: "x resultaten",
             payment: "Betaling -",
 
         },
@@ -535,7 +593,7 @@ module.exports = {
 
     // SELECT MULTIPLE CATEGORIES = multi-select.pug
     multi_select: {
-        title: "Product categorieën",
+        title: "Aanbieding categorieën",
     },
 
     // SELECT PHOTO = photo-selector.pug
@@ -551,7 +609,7 @@ module.exports = {
     // PRE VALIDATED TABLE = prevalidated_table.pug
     prevalidated_table: {
         header: {
-            title: "Vooringestelde eigenschappen",
+            title: "Gegenereerde activatiecodes",
         },
         labels: {
             code: "Code",
@@ -586,8 +644,8 @@ module.exports = {
     topnavbar: {
         items: {
             funds:"FONDSEN",
-            products:"PRODUCTEN",
-            identity:"Identiteit",
+            products:"AANBIEDINGEN",
+            identity:"Profiel",
         },
         buttons: {
             activate:"Activatiecode",
@@ -596,7 +654,7 @@ module.exports = {
             records: "Mijn eigenschappen",
             authorize:"Autoriseer apparaat",
             logout:"Uitloggen",
-            products:"Producten",
+            products:"Aanbiedingen",
             funds: "Fondsen",
         },
     },
