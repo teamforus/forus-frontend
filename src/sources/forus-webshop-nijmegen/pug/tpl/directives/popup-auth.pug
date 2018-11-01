@@ -122,7 +122,7 @@
                 .form-error(ng-repeat="error in signUpForm.errors.pin_code" ng-bind="error")
             .form-group
                 .form-label {{ "popup_auth.input.coding" | translate }}
-                input(ng-model="signUpForm.values.code" type="text" placeholder="{{ 'popup_auth.input.code' | translate}}").form-control
+                input(ng-model="signUpForm.values.code" type="text" placeholder="{{ 'popup_auth.input.code' | translate }}").form-control
                 .form-error(ng-repeat="error in signUpForm.errors.code" ng-bind="error")
             .form-group
             .form-group: button(type="submit").button.button-primary.button-wide {{ "popup_auth.buttons.submit" | translate }}
