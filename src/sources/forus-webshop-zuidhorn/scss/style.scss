@@ -3068,7 +3068,7 @@ body {
                 margin-left: 0;
                 padding-left: 0;
             }
-
+        }
         &.no-aside {
             .profile-aside {
                 display: none;
@@ -5038,6 +5038,7 @@ body {
             }
         }
     }
+    
 }
 
 .popups {
@@ -5303,5 +5304,4 @@ body {
             font: 400 15px/24px $bf;
         }
     }
-}
 }
