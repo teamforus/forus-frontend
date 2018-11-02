@@ -28,7 +28,7 @@ a[ui-sref] {
 
 body {
     background-color: #f7f9fc;
-    background: linear-gradient(to bottom, #f7f9fc 0%,#ffffff 100%);
+    background: linear-gradient(to bottom, #f7f9fc 0%, #ffffff 100%);
 
     &.modal-shown {
         overflow: hidden;
@@ -196,7 +196,7 @@ body {
         color: #282b39;
         font: 700 14px/28px $bf;
     }
-    
+
     .map-card-description {
         color: #131418;
         font: 400 11px $bf;
@@ -267,7 +267,8 @@ body {
             height: 60px;
             background-color: #fff;
 
-            &:hover, &:focus  {
+            &:hover,
+            &:focus {
                 box-shadow: 0 10px 30px rgba(#000, .15);
             }
         }
@@ -301,7 +302,7 @@ body {
         }
     }
 
-    .form-control ~ .form-control {
+    .form-control~.form-control {
         margin-top: 10px;
     }
 
@@ -342,11 +343,11 @@ body {
             display: none;
         }
     }
-    
+
     .form-group {
         margin-bottom: 10px;
         @include cf();
-        
+
         &.form-group-inline {
             margin-bottom: 10px;
             // display: flex;
@@ -378,7 +379,8 @@ body {
                 float: left;
             }
 
-            &:last-child, &:last-of-type {
+            &:last-child,
+            &:last-of-type {
                 margin-bottom: 0;
             }
         }
@@ -544,7 +546,8 @@ body {
             }
         }
 
-        &[checked], &.checked {
+        &[checked],
+        &.checked {
             .dot {
                 &:before {
                     opacity: 1;
@@ -581,7 +584,7 @@ body {
     }
 }
 
-.section {        
+.section {
     .section-title {
         font: 700 40px/60px $bf;
         margin: 0 0 40px;
@@ -634,7 +637,7 @@ body {
             cursor: pointer;
             position: relative;
             margin: -20px 0;
-            
+
             .lang-label {
                 padding: 4px 0 0;
                 font: 400 10px/16px $bf;
@@ -698,7 +701,7 @@ body {
         }
 
         &.section-header-landing {
-            padding-bottom: 0;   
+            padding-bottom: 0;
         }
 
         &.section-header-landing-2 {
@@ -820,7 +823,7 @@ body {
                 .step-item-content {
                     position: relative;
                     padding-top: 20px;
-                    
+
                     &:before {
                         position: absolute;
                         content: '';
@@ -938,24 +941,26 @@ body {
                     }
 
                     &:hover {
+
                         .faq-item-chevron-up,
                         .faq-item-chevron-down {
                             color: #017f96;
                         }
                     }
                 }
-                
+
                 .faq-item-content {
                     padding-right: 200px;
                     font: 400 16px $bf;
                     padding: 0 30px 20px;
-                    color: #646f79; 
+                    color: #646f79;
                     display: none;
                     cursor: default;
                 }
 
                 &.active {
                     .faq-item-header {
+
                         .faq-item-chevron-up,
                         .faq-item-chevron-down {
                             display: none;
@@ -973,7 +978,7 @@ body {
 
                 &:hover:not(.active) {
                     box-shadow: 5px 15px 45px rgba(#000000, 0.15);
-                    
+
                     .faq-item-header {
                         color: #017f96;
 
@@ -989,7 +994,7 @@ body {
 
     &.section-flow {
         margin-bottom: 100px;
-        
+
         .section-title {
             text-align: center;
             margin-bottom: 5px;
@@ -1018,7 +1023,8 @@ body {
         margin-bottom: 30px;
         position: relative;
 
-        &:before, &:after {
+        &:before,
+        &:after {
             content: '';
             display: block;
             position: absolute;
@@ -1055,10 +1061,6 @@ body {
         z-index: 1;
     }
 
-    &.section-profile {
-
-    }
-
     &.section-apply_fund {
         position: relative;
         z-index: 1;
@@ -1093,7 +1095,7 @@ body {
                         font: 700 30px/46px $bf;
                         margin: 0 0 20px;
                     }
-                    
+
                     .header-description {
                         font: 400 18px/30px $bf;
                         margin: 0 0 20px;
@@ -1103,7 +1105,7 @@ body {
                         padding: 75px 0;
                         padding-right: 150px;
                     }
-                    
+
                     &:nth-child(2) {
                         padding: 90px 0;
                     }
@@ -1139,6 +1141,7 @@ body {
             font: 700 20px/30px $bf;
             margin: 0 0 20px;
         }
+
         &.section-steps {
             margin-bottom: 60px;
 
@@ -1151,7 +1154,7 @@ body {
                 padding: 0;
                 background: none;
                 min-height: auto;
-                
+
                 .step-item {
                     margin-left: 0 !important;
                     margin-bottom: 20px !important;
@@ -1219,7 +1222,8 @@ body {
                     transform: none;
 
                     &:before {
-                        left: 15px;;
+                        left: 15px;
+                        ;
                     }
                 }
             }
@@ -1306,7 +1310,7 @@ body {
 
         &.section-flow {
             margin: 0 0 30px;
-            
+
             .section-title {
                 padding: 0;
                 font: 700 18px/32px $bf;
@@ -1374,7 +1378,7 @@ body {
                     background: transparent;
                     transition: .4s;
                 }
-                
+
                 &:hover {
                     color: $bc;
 
@@ -1382,7 +1386,7 @@ body {
                         background: #3396a7;
                     }
                 }
-                
+
                 &.active {
                     color: $bc;
 
@@ -1413,7 +1417,7 @@ body {
             .auth-code {
                 float: right;
             }
-            
+
             .auth-out {
                 float: right;
             }
@@ -1443,7 +1447,7 @@ body {
                         float: right;
                         clear: both;
                     }
-                    
+
                     .auth-user-avatar {
                         width: 40px;
                         height: 40px;
@@ -1553,6 +1557,7 @@ body {
                 transform: translate(0, 0);
                 transition: .4s;
                 box-shadow: 0 0 0 rgba(#000, .05);
+                border: 1px solid #ececec;
 
                 img {
                     display: block;
@@ -1793,14 +1798,15 @@ body {
                 &:hover {
                     box-shadow: 0 25px 40px rgba(#000, 0.15);
                     transform: translate(0, -5px);
-                    
+
                     .blog-name {
                         color: $bc;
                     }
 
                     .blog-image {
                         &:after {
-                            opacity: .5;;
+                            opacity: .5;
+                            ;
                         }
                     }
                 }
@@ -2060,7 +2066,7 @@ body {
             font: inherit;
             color: #282b39;
         }
-        
+
         .links {
             display: inline-block;
 
@@ -2151,7 +2157,7 @@ body {
 
                     .shop_map-category-item-inner {
                         background: #0f859b;
-                        background: linear-gradient(to bottom, #028096 0%,#2f94a6 100%);
+                        background: linear-gradient(to bottom, #028096 0%, #2f94a6 100%);
                         height: 120px;
                         display: block;
                         border-radius: 8px;
@@ -2178,7 +2184,7 @@ body {
 
                         &:hover {
                             transform: translate(0, -10px);
-                            background: linear-gradient(to bottom, #2f94a6 0%,#028096 100%);
+                            background: linear-gradient(to bottom, #2f94a6 0%, #028096 100%);
 
                             .shop_map-category-arrow {
                                 border-color: #028096 transparent transparent transparent;
@@ -2296,13 +2302,13 @@ body {
                         font: 700 12px $bf;
                         color: #282b39;
                         @include ellipsis();
-                    }            
+                    }
                 }
 
                 .shop-schedule {
                     border-top: 1px solid #d2e6ff;
                     padding-top: 20px;
-                    
+
                     .shop-schedule-label {
                         color: #646f79;
                         font: 400 10px/20px $bf;
@@ -2340,7 +2346,7 @@ body {
                     position: relative;
                     z-index: 1;
                     background: #fff;
-                    box-shadow: 0 0 50px rgba(0,0,0,.2);
+                    box-shadow: 0 0 50px rgba(0, 0, 0, .2);
                     border-right-color: $bc;
                 }
             }
@@ -2350,49 +2356,50 @@ body {
     &.block-voucher {
         background: #fff;
         border-radius: 15px;
-        padding: 30px;
-        padding-right: 40%;
         position: relative;
         box-shadow: 0 0 40px rgba(#000, 0.2);
+        @include cf();
+        display: flex;
+        flex-direction: row;
 
-        .voucher-title {
-            color: #151b26;
-            font: 700 30px/40px $bf;
-            margin-bottom: 5px;
-        }
+        .voucher-details {
+            width: 60%;
+            padding: 30px;
+            float: left;
 
-        .voucher-subtitle {
-            color: #3396a7;
-            font: 400 20px/30px $bf;
-            margin-bottom: 20px;
-        }
+            .voucher-title {
+                color: #151b26;
+                font: 700 26px/40px $bf;
+                margin-bottom: 5px;
+            }
 
-        .voucher-value {
-            color: #151b26;
-            font: 700 30px/40px $bf;
-            margin-bottom: -5px;
+            .voucher-subtitle {
+                color: #646f79;
+                font: 400 20px/30px $bf;
+                margin-bottom: 20px;
+            }
+
+            .voucher-value {
+                color: #151b26;
+                font: 700 30px/40px $bf;
+                margin-bottom: -5px;
+            }
         }
 
         .voucher-qr-code {
-            position: absolute;
             width: 40%;
-            top: 0;
-            right: 0;
-            height: 100%;
             background: #f2f2f3;
             border-top-right-radius: 15px;
             border-bottom-right-radius: 15px;
+            padding: 25px;
+            flex: right;
 
             .voucher-qr-code_inner {
                 display: block;
-                position: absolute;
-                left: 25px;
-                top: 25px;
-                bottom: 25px;
 
                 img {
                     display: block;
-                    height: 100%;
+                    width: 100%;
                 }
             }
         }
@@ -2476,7 +2483,7 @@ body {
 
                 &:hover {
                     transform: translate(0, -10px);
-                    
+
                     .card-title {
                         .mdi {
                             margin-left: 10px;
@@ -2522,7 +2529,7 @@ body {
                     margin: 0 auto;
                 }
             }
-            
+
             .auth_type-name {
                 font: 700 18px $bf;
                 color: #282b39;
@@ -2536,7 +2543,7 @@ body {
                 &:hover {
                     .auth_type-icon {
                         transform: translate(0, -10px);
-                    box-shadow: 0 10px 60px rgba(#000, .15);
+                        box-shadow: 0 10px 60px rgba(#000, .15);
                     }
 
                     .auth_type-name {
@@ -2609,7 +2616,7 @@ body {
                         margin-top: -5px;
                     }
                 }
-                
+
                 .fund-organization {
                     font: 600 14px $bf;
                     color: $bc;
@@ -2665,7 +2672,7 @@ body {
                     }
                 }
             }
-            
+
             &:hover {
                 box-shadow: 0 10px 40px rgba(#000, .15);
             }
@@ -2750,7 +2757,7 @@ body {
                         text-decoration: line-through;
                     }
                 }
-                
+
                 .button {
                     padding-left: 100px;
                     padding-right: 100px;
@@ -2823,7 +2830,7 @@ body {
             }
         }
     }
-    
+
     &.block-transactions {
         border-radius: 8px;
         box-shadow: 0 10px 35px rgba(#000, .05);
@@ -2853,7 +2860,7 @@ body {
                 border-bottom: 1px solid #d4d9dd;
                 padding: 20px;
                 @include cf();
-                
+
                 .transactions-item-icon {
                     float: left;
                     background: #ededed;
@@ -2903,6 +2910,7 @@ body {
                 }
 
                 &.transactions-item-out {
+
                     .transactions-item-amount .transactions-item-value,
                     .transactions-item-icon {
                         color: #335ffc;
@@ -2967,7 +2975,7 @@ body {
                     padding: 20px;
                     border-top: 1px solid #e9ecee;
                     border-bottom: 1px solid #e9ecee;
-                    
+
                     .profile-address-label {
                         font: 400 10px $bf;
                         color: #646f79;
@@ -3041,7 +3049,7 @@ body {
                         background-color: #4c74fe;
                         color: #fff;
                         box-shadow: 0 5px 20px rgba(#000, .20);
-                        
+
                         .mdi {
                             right: 10px;
                             color: #fff;
@@ -3054,7 +3062,7 @@ body {
                 }
             }
         }
-        
+
         .profile-content {
             padding-right: 300px;
             width: 375px;
@@ -3069,15 +3077,21 @@ body {
                 padding-left: 0;
             }
 
-        &.no-aside {
-            .profile-aside {
-                display: none;
+            &.no-aside {
+                .profile-aside {
+                    display: none;
+                }
+
+                .profile-content {
+                    padding: 0;
+                    padding-left: 0;
+                    margin: 0;
+                }
             }
 
-            .profile-content {
-                padding: 0;
+            &:first-child {
+                margin-left: 0;
                 padding-left: 0;
-                margin: 0;
             }
         }
     }
@@ -3122,7 +3136,7 @@ body {
                             margin-bottom: -3px;
                         }
                     }
-                    
+
                     .fund-organization {
                         font: 600 13px $bf;
                         color: #009ef4;
@@ -3176,7 +3190,7 @@ body {
                 }
             }
         }
-        
+
         .apply_fund-content {
             padding-left: 370px;
             width: 375px;
@@ -3214,23 +3228,18 @@ body {
                 background-position: 50%;
                 width: 150px;
                 min-height: inherit;
-
-                img {
-                    border-radius: inherit;
-                    display: block;
-                    width: 150px;
-                    padding: 20px;
-                }
             }
 
             .voucher-details {
                 float: left;
                 padding: 20px 30px;
+                width: calc(100% - 380px);
 
                 .voucher-name {
-                    font: 700 26px/36px $bf;
+                    font: 700 24px/36px $bf;
                     color: #00122a;
                     margin-bottom: 5px;
+                    @include ellipsis();
                 }
 
                 .voucher-organization {
@@ -3293,6 +3302,12 @@ body {
 
             &:hover {
                 box-shadow: 0 10px 30px rgba(#000, .15);
+            }
+
+            &.voucher-item-use {
+                .voucher-details {
+                    width: calc(100% - 610px);
+                }
             }
         }
 
@@ -3401,7 +3416,7 @@ body {
                             font: 600 13px $bf;
                             color: orange;
                             transition: .4s;
-                            
+
                             .mdi {
                                 background: none;
                                 color: orange;
@@ -3422,7 +3437,7 @@ body {
                             font: 600 13px $bf;
                             color: $bc;
                             transition: .4s;
-                            
+
                             .mdi {
                                 background: $bc;
                             }
@@ -3456,7 +3471,7 @@ body {
                             display: block;
                             text-align: center;
                             line-height: 18px;
-                            font-weight: 700;   
+                            font-weight: 700;
                             transition: .4s;
                         }
                     }
@@ -3515,7 +3530,7 @@ body {
 
             &:hover {
                 box-shadow: 0 5px 25px rgba(#000000, 0.25);
-                
+
                 .category-title {
                     color: $bc;
                 }
@@ -3545,7 +3560,7 @@ body {
                     font: 400 13px $bf;
                     color: $bc;
                 }
-                
+
                 .record-value {
                     font: 700 16px $bf;
                     color: #282b39;
@@ -3568,7 +3583,7 @@ body {
 
                     strong {
                         display: block;
-                        font-weight: 700;    
+                        font-weight: 700;
                     }
                 }
 
@@ -3662,7 +3677,8 @@ body {
                 padding: 13px 0;
 
                 .validator-send {
-                    font: 600 13px/24px $bf;;
+                    font: 600 13px/24px $bf;
+                    ;
                     color: $bc;
                     display: block;
                     cursor: pointer;
@@ -3725,7 +3741,7 @@ body {
 
                 strong {
                     display: block;
-                    font-weight: 700;    
+                    font-weight: 700;
                 }
             }
 
@@ -3967,7 +3983,7 @@ body {
         width: calc(60px * 6 + 10px * 5);
         position: relative;
         @include cf();
-        
+
         .pincode-number {
             display: block;
             height: 75px;
@@ -4094,7 +4110,7 @@ body {
         }
     }
 
-    @media screen and (max-width: 1000px){
+    @media screen and (max-width: 1000px) {
         &.block-navbar {
             border-radius: 0;
             box-shadow: 0 2px 10px rgba($color: #000000, $alpha: 0.1);
@@ -4122,7 +4138,7 @@ body {
                         .auth-user-email {
                             font: 700 12px/22px $bf;
                         }
-                        
+
                         .auth-user-type {
                             font: 500 12px/14px $bf;
                         }
@@ -4215,7 +4231,7 @@ body {
                 width: 100%;
                 margin: 0 0 30px;
                 padding: 0 25px;
-                
+
                 .blog-item-inner {
                     border-radius: 8px;
                     box-shadow: 0 5px 15px rgba($color: #000000, $alpha: .1);
@@ -4385,7 +4401,8 @@ body {
                     position: initial;
                     background: #fff;
                     width: 100%;
-                    background: none;;
+                    background: none;
+                    ;
 
                     img {
                         margin: 0 auto;
@@ -4475,7 +4492,7 @@ body {
                             font: 400 9px $bf;
                             margin: 0 0 0;
                         }
-                        
+
                         .fund-categories-list {
                             font: 600 14px $bf;
                         }
@@ -4501,7 +4518,7 @@ body {
 
         &.block-apply_fund {
             margin: 0 0 30px;
-            
+
             .apply_fund-aside {
                 width: 100%;
                 margin-bottom: 30px;
@@ -4598,7 +4615,7 @@ body {
                     }
 
                     &>.button {
-                        width: 100%;    
+                        width: 100%;
                     }
                 }
             }
@@ -4669,6 +4686,7 @@ body {
         }
 
         &.block-profile {
+
             .profile-aside,
             .profile-content {
                 width: 100%;
@@ -4686,14 +4704,11 @@ body {
                     width: 100%;
                     border-bottom: 1px solid #eee;
                     border-radius: 0;
-
-                    img {
-                        margin: 0 auto;
-                    }
+                    height: calc(100vw / 1.5);
                 }
 
                 .voucher-details {
-                    width: 100%;
+                    width: 100% !important;
                     border-bottom: 1px solid #eee;
                     padding: 20px;
                     text-align: center;
@@ -4716,6 +4731,14 @@ body {
                     border: 0;
                     position: relative;
                     padding: 20px;
+                    float: none;
+                    min-height: auto !important;
+
+                    .button {
+                        position: initial;
+                        float: none;
+                        transform: none;
+                    }
 
                     .voucher-overview-item {
                         margin: 0 0 20px;
@@ -4758,7 +4781,7 @@ body {
                     margin: 0 -20px -20px;
                     padding: 10px 20px;
                     width: calc(100% + 40px);
-                    
+
                     .record-validation-count {
                         width: calc(50% + 20px);
                         margin: 0;
@@ -4800,7 +4823,7 @@ body {
 
             .block-body {
                 padding: 0 20px;
-                
+
                 .validator-item {
                     margin: 0 -20px 0;
                     padding: 20px;
@@ -4842,7 +4865,7 @@ body {
 
                 .validation-name {
                     font: 700 16px/30px $bf;
-                    @include ellipsis();   
+                    @include ellipsis();
                 }
 
                 .validation-date {
@@ -4949,7 +4972,7 @@ body {
 
                         &.active {
                             transform: none;
-                            
+
                             .shop_map-category-item-inner {
                                 transform: none;
                             }
@@ -5087,10 +5110,6 @@ body {
                 margin-bottom: 20px;
             }
 
-            .popup-footer-links {
-
-            }
-
             .popup-footer-link {
                 display: block;
                 color: $bc;
@@ -5135,9 +5154,6 @@ body {
                 padding: 30px 200px;
                 margin: 30px -200px -30px;
             }
-        }
-
-        &.popup-shops_map {
         }
     }
 
@@ -5278,7 +5294,7 @@ body {
     .header-splash {
         display: none;
 
-        .splash  {
+        .splash {
             height: 300px;
             background-size: 75% auto;
         }
@@ -5291,7 +5307,7 @@ body {
 
     .button {
         &.button-primary {
-            box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
         }
     }
 

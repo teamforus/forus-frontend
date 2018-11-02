@@ -57,7 +57,7 @@ let GoogleMapDirective = function($scope, $element, $timeout, GoogleMapService) 
 
                     infowindow.setContent(
                         '<div class="map-card">\
-                                <img class="map-card-img" src="' + (office.photo ? office.photo.sizes.thumbnail : 'assets/img/no-image.jpg') + '" alt=""/>\
+                                <img class="map-card-img" src="' + (office.photo ? office.photo.sizes.thumbnail : 'assets/img/placeholders/office-thumbnail.png') + '" alt=""/>\
                                 <div class="map-card-title">' + (office.organization.name || 'Geen data') + '</div>\
                                 <div class="map-card-description">' + description.join('<br />') + '</div>\
                                 </div>');

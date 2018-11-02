@@ -1595,6 +1595,7 @@ body {
                 position: relative;
                 height: 200px;
                 overflow: hidden;
+                border: 1px solid #ececec;
 
                 img {
                     position: absolute;
@@ -2406,50 +2407,51 @@ body {
 
     &.block-voucher {
         background: #fff;
-        border-radius: 2px;
-        padding: 30px;
-        padding-right: 40%;
+        border-radius: 15px;
         position: relative;
         box-shadow: 0 0 40px rgba(#000, 0.2);
+        @include cf();
+        display: flex;
+        flex-direction: row;
 
-        .voucher-title {
-            color: #151b26;
-            font: 700 30px/40px $bf;
-            margin-bottom: 5px;
-        }
+        .voucher-details {
+            width: 60%;
+            padding: 30px;
+            float: left;
 
-        .voucher-subtitle {
-            color: #646f79;
-            font: 400 20px/30px $bf;
-            margin-bottom: 20px;
-        }
+            .voucher-title {
+                color: #151b26;
+                font: 700 26px/40px $bf;
+                margin-bottom: 5px;
+            }
 
-        .voucher-value {
-            color: #151b26;
-            font: 700 30px/40px $bf;
-            margin-bottom: -5px;
+            .voucher-subtitle {
+                color: #646f79;
+                font: 400 20px/30px $bf;
+                margin-bottom: 20px;
+            }
+
+            .voucher-value {
+                color: #151b26;
+                font: 700 30px/40px $bf;
+                margin-bottom: -5px;
+            }
         }
 
         .voucher-qr-code {
-            position: absolute;
             width: 40%;
-            top: 0;
-            right: 0;
-            height: 100%;
             background: #f2f2f3;
-            border-top-right-radius: 2px;
-            border-bottom-right-radius: 2px;
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px;
+            padding: 25px;
+            flex: right;
 
             .voucher-qr-code_inner {
                 display: block;
-                position: absolute;
-                left: 25px;
-                top: 25px;
-                bottom: 25px;
 
                 img {
                     display: block;
-                    height: 100%;
+                    width: 100%;
                 }
             }
         }
@@ -3267,23 +3269,18 @@ body {
                 background-position: 50%;
                 width: 150px;
                 min-height: inherit;
-
-                img {
-                    border-radius: inherit;
-                    display: block;
-                    width: 150px;
-                    padding: 20px;
-                }
             }
 
             .voucher-details {
                 float: left;
                 padding: 20px 30px;
+                width: calc(100% - 380px);
 
                 .voucher-name {
-                    font: 700 26px/36px $bf;
+                    font: 700 24px/36px $bf;
                     color: #00122a;
                     margin-bottom: 5px;
+                    @include ellipsis();
                 }
 
                 .voucher-organization {
@@ -3346,6 +3343,12 @@ body {
 
             &:hover {
                 box-shadow: 0 10px 30px rgba(#000, .15);
+            }
+
+            &.voucher-item-use {
+                .voucher-details {
+                    width: calc(100% - 610px);
+                }
             }
         }
 
@@ -4788,14 +4791,11 @@ body {
                     width: 100%;
                     border-bottom: 1px solid #eee;
                     border-radius: 0;
-
-                    img {
-                        margin: 0 auto;
-                    }
+                    height: calc(100vw / 1.5);
                 }
 
                 .voucher-details {
-                    width: 100%;
+                    width: 100% !important;
                     border-bottom: 1px solid #eee;
                     padding: 20px;
                     text-align: center;
@@ -4818,6 +4818,14 @@ body {
                     border: 0;
                     position: relative;
                     padding: 20px;
+                    float: none;
+                    min-height: auto !important;
+
+                    .button {
+                        position: initial;
+                        float: none;
+                        transform: none;
+                    }
 
                     .voucher-overview-item {
                         margin: 0 0 20px;
