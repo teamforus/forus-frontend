@@ -1,6 +1,7 @@
 .block.block-navbar
     a(ui-sref="home").navbar-logo
         img(src="./assets/img/logo.png")
+
     nav.navbar-list
         a(
             ui-sref="funds" 
@@ -17,10 +18,7 @@
                     nav.auth-user-menu
                         .triangle
                         .inner
-                            // a(href="#").auth-user-menu-item
-                                img(src="./assets/img/icon-menu/icon-menu-my-profile.svg")
-                                | Mijn profile
-                            a(ui-sref="vouchers").auth-user-menu-item(ng-click="$root.popups.auth.open('activate-code')")
+                            a(ui-sref="vouchers" ng-click="$root.popups.auth.open('activate-code')").auth-user-menu-item
                                 img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg")
                                 | {{ "topnavbar.buttons.activate" | translate }}
                             a(

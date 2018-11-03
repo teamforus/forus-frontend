@@ -9,7 +9,7 @@ section.section.section-funds: .wrapper
     .block.block-funds
         .fund-item(ng-repeat="fund in $ctrl.funds")
             .fund-image
-                img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/fund-no-image.jpg' }}")
+                img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
             .fund-details
                 .fund-name {{ fund.name }} 
                     span(ng-show="funds.status == 'active'").label.label-primary.label-square {{ "funds.status.active" | translate }}

@@ -27,7 +27,7 @@
                         ng-class="{active: office.id == selectedOffice}" 
                         ng-click="selectOffice(office)")
                         .shop-details
-                            .shop-image: img(ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/no-image.jpg' }}")
+                            .shop-image: img(ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}")
                             .shop-name {{ office.organization.name }}
                             .row
                                 .col.col-md-6

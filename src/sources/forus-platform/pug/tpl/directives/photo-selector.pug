@@ -1,5 +1,5 @@
 .block.block-photo-selector
-    .photo-img: img(ng-src="{{ thumbnail || './assets/img/organization-no-logo.svg' }}", alt="")
+    .photo-img: img(ng-src="{{ thumbnail || './assets/img/placeholders/image-thumbnail.png' }}", alt="")
     .photo-label {{ "photo_selector.labels.image" | translate }}
     a(href="#" ng-click="selectFile($event)").button.button-primary
         em.mdi.mdi-attachment

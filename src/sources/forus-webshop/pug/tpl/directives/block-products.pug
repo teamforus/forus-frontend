@@ -16,7 +16,7 @@ section.section.section-products#products: .wrapper
     .block.block-products(ng-if="shownProducts.length > 0")
         .product-item(ng-repeat="product in shownProducts" ng-class="{discounted:product.old_price}")
             a(ui-sref="products-show(product)").product-item-inner
-                .product-image: img(ng-src="{{ product.photo.sizes.small || './assets/img/product-no-photo.jpg' }}")
+                .product-image: img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
                 .product-name(ng-bind="product.name")
                 .product-discount
                     | {{ 100 - (product.price / product.old_price) * 100 | to_fixed:0 }}% 

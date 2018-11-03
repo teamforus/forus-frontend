@@ -18,9 +18,6 @@
                     nav.auth-user-menu
                         .triangle
                         .inner
-                            //- a(href="#").auth-user-menu-item
-                                img(src="./assets/img/icon-menu/icon-menu-my-profile.svg")
-                                | Mijn profile
                             a(ng-click="$root.popups.auth.open('activate-code')").auth-user-menu-item
                                 img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg")
                                 | {{ "topnavbar.buttons.activate" | translate }} 
