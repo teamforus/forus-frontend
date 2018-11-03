@@ -631,7 +631,7 @@ module.exports = {
         },
         buttons: {
             delete: "Verwijderen",
-            edit: "Berwerken",
+            edit: "Bewerken",
         }
     },
 
