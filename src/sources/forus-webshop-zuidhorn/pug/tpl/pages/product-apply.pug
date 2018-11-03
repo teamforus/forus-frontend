@@ -4,21 +4,14 @@ header.section.section-header: .wrapper
     top-navbar
 
 section.section.section-product: .wrapper
-    .block.block-voucher-product
-        .product-card
-            .product-photo(style="background-image: url({{ $ctrl.product.photo.sizes.small }})")
-            .product-details
-                .product-name {{ $ctrl.product.name }}
-
-                .product-price
-                    .product-price-new € {{ $ctrl.product.price | to_fixed:2 }} 
-                    .product-price-old € {{ $ctrl.product.old_price | to_fixed:2 }}
+    product-card(product="$ctrl.product")
         
     .block.block-vouchers(ng-if="$ctrl.applicableVouchers.length > 0")
         .block-title {{ "product_apply.header.title" | translate }}
         
-        .voucher-item(ng-repeat="voucher in $ctrl.applicableVouchers")
-            .voucher-image: img(ng-src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/fund-no-image.jpg' }}")
+        .voucher-item.voucher-item-use(
+            ng-repeat="voucher in $ctrl.applicableVouchers")
+            .voucher-image: img(ng-src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
             .voucher-details
                 .voucher-name(ng-bind="voucher.fund.name")
                 .voucher-organization(ng-bind="voucher.fund.organization.name")
@@ -32,7 +25,7 @@ section.section.section-product: .wrapper
                     .voucher-overview-label {{ "product_apply.labels.last" | translate }}
                     .voucher-overview-value(ng-if="voucher.transactions.length > 0")
                         | -{{ voucher.transactions[0].amount | to_fixed:2 }}
-                        small {{ "product_apply.labels.subtract | translate }}
+                        small {{ "product_apply.labels.subtract" | translate }}
                     .voucher-overview-value(ng-if="voucher.transactions.length == 0")
                         span.text-muted {{ "product_apply.labels.none" | translate }}
     

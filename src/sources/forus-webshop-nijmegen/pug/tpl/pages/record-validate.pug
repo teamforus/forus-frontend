@@ -17,7 +17,7 @@ section.section.section-profile: .wrapper
                     .block-body
                         .validator-item(ng-repeat="validator in $ctrl.validators")
                             .validator-image: img(
-                                ng-src="{{ validator.organization.logo.sizes.thumbnail || './assets/img/fund-no-image.jpg' }}")
+                                ng-src="{{ validator.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
                             .validator-name(ng-bind="validator.organization.name")
                             .validator-state
                                 

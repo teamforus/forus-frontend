@@ -7,7 +7,7 @@ header.app.app-header
                 .auth-user-name {{ $root.auth_user.primary_email }}
                 .auth-user-role(
                     ng-bind="{provider: 'Aanbieder', sponsor: 'Gemeente', validator: 'Gemeente'}[appConfigs.panel_type]")
-                img(ng-src="{{ './assets/img/organization-no-logo.svg'}} ").auth-user-img
+                img(ng-src="{{ './assets/img/placeholders/organization-thumbnail.png'}} ").auth-user-img
                 .auth-user-menu
                     //- a(href="#").auth-user-menu-item
                         em.mdi.mdi-account

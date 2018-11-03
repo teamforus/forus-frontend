@@ -36,7 +36,7 @@
 
                 .tag.tag-default {{ "fund_card_sponsor.status.closed" | translate }}
         .card-block.card-block-fund
-            .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/organization-no-logo.svg' }}", alt="")
+            .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}", alt="")
             a(ui-sref="funds-show({organization_id: fund.organization_id, fund_id: fund.id})" ng-bind="fund.name").fund-title
             br
             div(ng-bind="fund.organization.name").fund-organization

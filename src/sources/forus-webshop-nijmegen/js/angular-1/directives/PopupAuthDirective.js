@@ -70,7 +70,13 @@ let PopupAuthDirective = function(
 
                 form.lock();
 
-                IdentityService.make(form.values).then((res) => {
+                IdentityService.make({
+                    code: form.values.code,
+                    pin_code: form.values.pin_code,
+                    records: {
+                        primary_email: form.values.records ? form.values.records.primary_email : ''
+                    },
+                }).then((res) => {
                     $ctrl.applyAccessToken(res.data.access_token);
 
                     PrevalidationService.redeem(
