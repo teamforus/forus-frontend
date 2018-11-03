@@ -1,15 +1,7 @@
 let VoucherComponent = function(
-    $state,
-    $rootScope,
-    $timeout,
-    CredentialsService,
-    IdentityService,
-    AuthService,
-    appConfigs
+    VoucherService
 ) {
     let $ctrl = this;
-
-    $ctrl.transactions = [];
 
     $ctrl.$onInit = function() {
         let qrCodeEl = document.getElementById('voucher_qr');
@@ -22,19 +14,9 @@ let VoucherComponent = function(
             correctLevel: QRCode.CorrectLevel.L
         });
 
-        let addType = (type, transaction) => {
-            transaction.type = type;
+        qrCodeEl.removeAttribute('title');;
 
-            return transaction;
-        };
-
-        $ctrl.transactions = $ctrl.voucher.transactions.slice().map(
-            transaction => addType('transaction', transaction)
-        ).concat($ctrl.voucher.product_vouchers.map(
-            product_voucher => addType('product_voucher', product_voucher)
-        )).sort((a, b) => a.timestamp - b.timestamp);
-
-        qrCodeEl.removeAttribute('title');
+        $ctrl.voucherCard = VoucherService.composeCardData($ctrl.voucher);
     };
 };
 
@@ -43,13 +25,7 @@ module.exports = {
         voucher: '<'
     },
     controller: [
-        '$state',
-        '$rootScope',
-        '$timeout',
-        'CredentialsService',
-        'IdentityService',
-        'AuthService',
-        'appConfigs',
+        'VoucherService',
         VoucherComponent
     ],
     templateUrl: 'assets/tpl/pages/voucher.html'

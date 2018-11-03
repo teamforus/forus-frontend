@@ -1,21 +1,15 @@
-let ProductApplyComponent = function (
+let ProductApplyComponent = function(
     $state,
-    $rootScope,
-    $timeout,
-    CredentialsService,
-    IdentityService,
-    VoucherService,
-    AuthService,
-    appConfigs
+    VoucherService
 ) {
     let $ctrl = this;
 
     $ctrl.isApplicable = false;
 
-    $ctrl.$onInit = function () {
+    $ctrl.$onInit = function() {
         let fundIds = $ctrl.product.funds.map(fund => fund.id);
 
-        $ctrl.applicableVouchers = $ctrl.vouchers.filter(function (voucher) {
+        $ctrl.applicableVouchers = $ctrl.vouchers.filter(function(voucher) {
             return (fundIds.indexOf(voucher.fund_id) != -1) && (
                 $ctrl.product.price <= voucher.amount
             ) && !voucher.parent;
@@ -24,7 +18,9 @@ let ProductApplyComponent = function (
         $ctrl.isApplicable = $ctrl.applicableVouchers.length > 0;
 
         if (!$ctrl.isApplicable) {
-            return $state.go('products-show', {id: $ctrl.product.id});
+            return $state.go('products-show', {
+                id: $ctrl.product.id
+            });
         }
     };
 
@@ -45,13 +41,7 @@ module.exports = {
     },
     controller: [
         '$state',
-        '$rootScope',
-        '$timeout',
-        'CredentialsService',
-        'IdentityService',
         'VoucherService',
-        'AuthService',
-        'appConfigs',
         ProductApplyComponent
     ],
     templateUrl: 'assets/tpl/pages/product-apply.html'

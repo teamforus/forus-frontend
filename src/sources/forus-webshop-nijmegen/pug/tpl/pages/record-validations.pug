@@ -25,7 +25,7 @@ section.section.section-profile: .wrapper
                     .validation-header {{ "recrods_validate.header.validations" | translate }}
                     .validation-body
                         .validation-item(ng-repeat="validation in $ctrl.record.validations")
-                            .validation-image: img(src="./assets/img/fund-no-image.jpg", alt="")
+                            .validation-image: img(src="./assets/img/placeholders/fund-thumbnail.png", alt="")
                             .validation-name(ng-bind="validation.identity_address")
                             .validation-date(ng-bind="validation.updated_at")
 
