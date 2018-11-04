@@ -92,7 +92,7 @@
                             th {{ "fund_card_provider_finances.labels.status" | translate }}
                         tr(
                             ng-repeat="transaction in transactions" 
-                            ui-sref="transaction(transaction)").pointer
+                            ng-click="showTransaction(transaction)").pointer
                             td: a.text-primary-light €{{ transaction.amount | to_fixed:2 }}
                             td(ng-bind="transaction.created_at_locale")
                             td(ng-bind="{pending: 'Pending', success : 'Voltooid'}[transaction.state]")

@@ -160,9 +160,6 @@ module.exports = function($stateProvider) {
                         'approved'
                     )
                 );
-            },
-            fundLevel: function () {
-                return 'financialDashboard';
             }
         }
     });
