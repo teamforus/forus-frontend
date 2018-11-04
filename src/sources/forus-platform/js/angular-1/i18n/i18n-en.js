@@ -44,10 +44,27 @@ module.exports = {
         },
         header: {
             title: "Een profiel voor het Forus Platform",
-            description: "Een profiel om in te loggen, waarme je vouchers kan beheren en veilig kan betalen",
+            description: "Een profiel om in te loggen, waarmee je vouchers kan beheren en veilig kan betalen",
         },
         buttons: {
             join: "Aanmelden",
+        },
+        download: {
+            ios: "Download Me voor iOS",
+            android: "Download Me voor Android",
+        },
+        functions: {
+            header: {
+                title: "Functies",
+            },
+            profile: "Maan een profiel aan",
+            pin: "Je hebt de mogelijkheid om een profiel aan te maken en deze daarna te beveiligen met een pincode.",
+            vouchers: "Vouchers",
+            criterion: "Als je aan gestelde criteria voldoet van een gemeente. Kan je een voucher aanvragen. Deze voucher kan je beheren in Me. Met Me kan je veilig betalingen verrichten.",
+            apply: "Aanmelden",
+            webshop: "Meld je aan op de webshop met Me. Dit doe je doordat de webshop een QR-code presenteert waarna deze gescant kan worden met Me.",
+            profileb: "Profiel",
+            app: "De app bewaart een profiel van de gebruiker, dit profiel maakt het mogelijk dat de gegevens hergebruikt kunnen worden voor het mee doen aan andere regelingen.",
         }
     }, 
     // PROVIDER HOME = home-provider.pug
