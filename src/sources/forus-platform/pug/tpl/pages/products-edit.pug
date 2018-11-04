@@ -42,7 +42,7 @@
                 .row 
                     .col.col-sm-8.col-xs-12
                         .form-group.form-group-inline
-                            label.form-label {{ "products_edit.labels.expire_at" | translate }}
+                            label.form-label {{ "products_edit.expire_at" | translate }}
                             datepicker(date-format="yyyy-MM-dd").form-control
                                 input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="dd.mm.jjjj").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.expire_at" ng-bind="error")
