@@ -304,7 +304,7 @@ module.exports = {
             old: "Oude prijs",
             total: "Aantal aanbiedingen",
             category: "Categorie",
-            expire_at: "Vervaldatum van aanbod",
+            expire: "Vervaldatum van aanbod",
         },
         buttons: {
             cancel: "Annuleren",
