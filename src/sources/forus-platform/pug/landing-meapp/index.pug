@@ -8,11 +8,11 @@ block content
                 img(src="./assets/img/landing/forus-logo-normal.svg")
                 img(src="./assets/img/landing/forus-logo-hover.svg").hover
             nav.navbar-list
-                a(href="{{ $root.appConfigs.frontends.sponsor }}").navbar-item GEMEENTE
-                a(href="{{ $root.appConfigs.frontends.provider }}").navbar-item AANBIEDER
+                a(href="{{ $root.appConfigs.frontends.sponsor }}").navbar-item {{ "meapp_index.navbar.municipality" | translate }}
+                a(href="{{ $root.appConfigs.frontends.provider }}").navbar-item {{ "meapp_index.navbar.provider" | translate }}
                 //a(href="{{ $root.appConfigs.frontends.validator }}").navbar-item VALIDATOR
-                a(href="{{ $root.appConfigs.frontends.me_app }}").navbar-item.active ME
-                a(href="{{ $root.appConfigs.frontends.webshop }}").navbar-item WEBSHOP
+                a(href="{{ $root.appConfigs.frontends.me_app }}").navbar-item.active {{ "meapp_index.navbar.me" | translate }}
+                a(href="{{ $root.appConfigs.frontends.webshop }}").navbar-item {{ "meapp_index.navbar.shop" | translate }}
             .block.block-auth
                 .auth-in(ng-if="$root.auth_user")
                     .button.button-default
@@ -23,48 +23,48 @@ block content
                     .button.button-default(ng-click="$root.popups.auth.open('choose')")
                         em.mdi.mdi-account
                         //- img(src="./assets/img/icon-btn/icon-btn-user.svg")
-                        | Aanmelden
+                        | {{ "meapp_index.buttons.join" | translate }}
                 
         .header-body.header-body-sprite-fill
             .header-sprite(
                 style="background-image: url('./assets/img/landing/header-sprite-meapp.png')")
             .header-content
-                .header-title Een profiel voor het Forus Platform
+                .header-title {{ "meapp_index.header.title" | translate }}
                 .header-description 
-                    | Een profiel om in te loggen, waarmee je voucher kan beheren en veilig kan betalen.
+                    | {{ "meapp_index.header.description" | translate }}
                 .header-download-apps
-                    a(href="#").app-item.app-item-android
-                        | Download Me voor Android
+                    a(href="https://play.google.com/store/apps/details?id=io.forus.me").app-item.app-item-android
+                        | {{ "meapp_index.download.android" | translate }}
                         em.mdi.mdi-arrow-right
-                    a(href="#").app-item.app-item-ios
-                        | Download Me voor iOS
+                    a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").app-item.app-item-ios
+                        | {{ "meapp_index.download.ios" | translate }}
                         em.mdi.mdi-arrow-right
 
     section.section.section-flow.responsive: .wrapper
-        .section-title Functies
+        .section-title {{ "meapp_index.functions.header.title" | translate }}
         .scheme
             img(src="./assets/img/landing/forus-flow-meapp.png").scheme-img
             .scheme-points-preset
                 .scheme-point
                     img(src="./assets/img/landing/meapp-flow/screen-1.png").scheme-point-image
                     .scheme-point-text
-                        h4 Maak een profiel
-                        p Je hebt de mogelijkheid om een profiel aan te maken en deze daarna te beveiligen met een pincode.
+                        h4 {{ "meapp_index.functions.profile" | translate }}
+                        p {{ "meapp_index.functions.pin" | translate }}
                 .scheme-point
                     img(src="./assets/img/landing/meapp-flow/screen-2.png").scheme-point-image
                     .scheme-point-text
-                        h4 Vouchers
-                        p Als u aan gestelde criteria voldoet van een gemeente. Kunt u een voucher aanvragen. Deze voucher kunt u beheren in Me. Met Me kan je veilig betalingen verrichten.
+                        h4 {{ "meapp_index.functions.vouchers" | translate }}
+                        p {{ "meapp_index.functions.criterion" | translate }}
                 .scheme-point
                     img(src="./assets/img/landing/meapp-flow/screen-3.png").scheme-point-image
                     .scheme-point-text
-                        h4 Aanmelden
-                        p Meld je aan op de webshop met Me. Dit doe je doordat de webshop een QR-code presenteert waarna deze gescant kan worden met Me.
+                        h4 {{ "meapp_index.functions.apply" | translate }}
+                        p {{ "meapp_index.functions.webshop" | translate }}
                 .scheme-point 
                     img(src="./assets/img/landing/meapp-flow/screen-4.png").scheme-point-image
                     .scheme-point-text
-                        h4 Profiel
-                        p De app bewaart een profiel van de gebruiker, dit profiel maakt het mogelijk dat de gegevens hergebruikt kunnen worden voor het mee doen aan andere regelingen.
+                        h4 {{ "meapp_index.functions.profileb" | translate }}
+                        p {{ "meapp_index.functions.app" | translate }}
         //.block.block-show-more: a(href="#").button.button-primary PROFIEL AANMAKEN
     
     //section.section.section-blogs: .wrapper
