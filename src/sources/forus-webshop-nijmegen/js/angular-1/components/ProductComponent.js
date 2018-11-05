@@ -1,20 +1,19 @@
-let ProductComponent = function (
+let ProductComponent = function(
     $state,
-    $rootScope,
-    $timeout,
-    CredentialsService,
-    IdentityService,
-    AuthService,
     appConfigs
 ) {
     let $ctrl = this;
 
+    if (!appConfigs.features.products.show) {
+        return $state.go('home');
+    }
+
     $ctrl.isApplicable = false;
 
-    $ctrl.$onInit = function () {
+    $ctrl.$onInit = function() {
         let fundIds = $ctrl.product.funds.map(fund => fund.id);
 
-        $ctrl.isApplicable = $ctrl.vouchers.filter(function (voucher) {
+        $ctrl.isApplicable = $ctrl.vouchers.filter(function(voucher) {
             return (fundIds.indexOf(voucher.fund_id) != -1) && (
                 $ctrl.product.price <= voucher.amount
             ) && !voucher.parent;
@@ -29,11 +28,6 @@ module.exports = {
     },
     controller: [
         '$state',
-        '$rootScope',
-        '$timeout',
-        'CredentialsService',
-        'IdentityService',
-        'AuthService',
         'appConfigs',
         ProductComponent
     ],

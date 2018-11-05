@@ -129,6 +129,10 @@ let PopupAuthDirective = function(
             // no actions required
         }
 
+        if (newValue == 'voucher-email-sent') {
+            // no actions required
+        }
+
         if (newValue == 'authorize-pin_code') {
             $scope.authorizePincodeForm = FormBuilderService.build({
                 auth_code: "",

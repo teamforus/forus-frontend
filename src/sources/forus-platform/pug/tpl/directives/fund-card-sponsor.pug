@@ -60,16 +60,16 @@
         .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
             .row
                 .col.col-sm-12
-                    +keyvalue_item_horizontal("Leveranciers", "15")
-                    +keyvalue_item_horizontal("Validatoren", "2")
+                    +keyvalue_item_horizontal("Leveranciers", "{{ fund.providers_count }}")
+                    +keyvalue_item_horizontal("Validatoren", "{{ fund.validators_count }}")
 
-    .card-section.card-section-primary(ng-show="level != 'fundsAvailable'")
+    .card-section.card-section-primary(ng-show="level != 'fundsAvailable' && fund.budget")
         .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
             .row
-                .col.col-sm-6.col.xs-12
+                .col.col-sm-6.col.xs-12(ng-if="fund.budget")
                     +keyvalue_item_horizontal("Totaal budget", "'€ ' + fund.budget.total + ',-'")
                     +keyvalue_item_horizontal("Gebruikt", "'€ ' + fund.budget.used + ',-'")
-                .col.col-sm-6.col.xs-12.text-right
+                .col.xs-12.text-right(ng-class="!fund.budget ? 'col-sm-12' : 'col-sm-6'")
                     button(
                         ng-if="userCanEdit()"
                         ui-sref="funds-edit({organization_id: fund.organization_id, fund_id: fund.id})"
@@ -80,63 +80,5 @@
                     button(ng-if="fund.state != 'closed'" ng-click="openModal()").button.button-primary
                         em.mdi.mdi-plus-circle  
                         | {{ "fund_card_sponsor.buttons.add" | translate }}
-    
-    div(ng-show="level == 'financialDashboard'")
-        .card-section
-            .arrow-box.border: .arrow
-            .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
-                .card-title {{ "fund_card_sponsor.labels.statistics" | translate }}
-                br
-                .row
-                    +keyvalue_item_horizontal_col4("Totale inkomsten", "€ 523.34   /   % 99.83")
-        .card-section
-            .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
-                .row
-                    +keyvalue_item_horizontal_col4("Inkomsten vorige maand", "€ 0.00   /   % 0.00")
-        .card-section
-            .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
-                .row
-                    +keyvalue_item_horizontal_col4("Inkomsten vorige week", "€ 0.00   /   % 0.00")
-        .card-header
-            .arrow-box.border.bg-dim: .arrow
-            .card-title {{ "fund_card_sponsor.labels.results" | translate }}
-        .card-section
-            .card-block.card-block-table
-                .table-wrapper
-                    table.table
-                        tr
-                            th {{ "fund_card_sponsor.labels.price" | translate }}
-                            th {{ "fund_card_sponsor.labels.description" | translate }}
-                            th {{ "fund_card_sponsor.labels.customer" | translate }}
-                            th {{ "fund_card_sponsor.labels.date" | translate }}
-                            th 
-                        mixin row()
-                            tr
-                                td: a(href="./transaction.html").text-primary-light €19000.00
-                                td: a(href="./transaction.html") 
-                                    | {{ "fund_card_sponsor.labels.payment" | translate }}  
-                                    br
-                                    | ch_1BpcoqBQO0R3BKRwYEyl1jd9
-                                td: a(href="#").text-primary-light Harris s Vernick
-                                td 2018/01/29 14:37:08
-                                td: .hover-actions
-                                    em.mdi.mdi-dots-horizontal
-                                    .hover-actions-menu
-                                        .hover-actions-label {{ "fund_card_sponsor.labels.action" | translate }}
-                                        .hover-actions-item {{ "fund_card_sponsor.labels.refund" | translate }}
-                                        .hover-actions-item {{ "fund_card_sponsor.labels.chargeid" | translate }}
-                                        .hover-actions-sep
-                                        .hover-actions-label {{ "fund_card_sponsor.labels.connections" | translate }}
-                                        .hover-actions-item {{ "fund_card_sponsor.labels.details" | translate }}
-                        +row()
-                        +row()
-                        +row()
-                        +row()
-                        +row()
-                        +row()
-                        +row()
-                        +row()
-                        +row()
-                        +row()
 
     modal-funds-add(ng-show="showModal" modal-code="modalCode" modal-iban="modalIban" close-modal="closeModal")

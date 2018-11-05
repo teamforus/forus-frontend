@@ -10,10 +10,11 @@ let CsvUploadDirective = function(
     let $ctrl = this;
     let csvParser = {};
     let input = false;
+    let dataChunkSize = 100;
 
     let setProgress = function(progress) {
         $scope.progressBar = progress;
-        
+
         if (progress < 100) {
             $scope.progressStatus = "Uploading...";
         } else {
@@ -27,7 +28,7 @@ let CsvUploadDirective = function(
     let bind = function() {
         csvParser.selectFile = function(e) {
             e && (e.preventDefault() & e.stopPropagation());
-            
+
             if (input && input.remove) {
                 input.remove();
             }
@@ -49,7 +50,7 @@ let CsvUploadDirective = function(
                     var bsnPos = header.indexOf('bsn');
 
                     if (bsnPos === -1) {
-                        return alert("Bsn ecord is required.");
+                        return alert("Bsn record is required.");
                     }
 
                     csvParser.data = body.map(function(val, key) {
@@ -59,11 +60,16 @@ let CsvUploadDirective = function(
                             row[hVal] = val[hKey];
                         });
 
+                        if ($scope.fundKey) {
+                            row[$scope.fundKey + '_eligible'] = 'Ja';
+                        }
+
                         return row;
                     });
 
                     csvParser.csvFile = target_file;
                     csvParser.progress = 1;
+                    csvParser.isValid = csvParser.validateFile();
                 }, console.log);
             });
 
@@ -72,31 +78,65 @@ let CsvUploadDirective = function(
             input.click();
         };
 
+        csvParser.validateFile = function() {
+            let invalidRows = csvParser.data.filter(row => {
+                let keys = Object.keys(row);
+
+                return keys.filter((key) => $scope.recordTypeKeys.indexOf(key) == -1).length > 0;
+            });
+
+            return invalidRows.length === 0;
+        };
+
+        let chunk = function(arr, len) {
+            var chunks = [],
+                i = 0,
+                n = arr.length;
+
+            while (i < n) {
+                chunks.push(arr.slice(i, i += len));
+            }
+
+            return chunks;
+        }
+
         csvParser.uploadToServer = function(e) {
             e && (e.preventDefault() & e.stopPropagation());
-            
+
+            if (!csvParser.isValid) {
+                return false;
+            }
+
             csvParser.progress = 2;
 
-            var submitData = JSON.parse(JSON.stringify(csvParser.data));
+            var submitData = chunk(JSON.parse(JSON.stringify(
+                csvParser.data
+            )), dataChunkSize);
 
-            PrevalidationService.submitData(
-                submitData
-            ).then(function(response) {
-                ProgressFakerService.make(1000).on('progress', function(progress) {
-                    $timeout(function() {
-                        setProgress(progress);
-                        csvParser.progressBar = progress;
-                    }, 0);
-                }).on('end', function(progress) {
-                    $timeout(function() {
-                        setProgress(100);
-                        csvParser.progressBar = 100;
-                        csvParser.progress = 3;
+            var chunksCount = submitData.length;
+            var currentChunkNth = 0;
+            
+            setProgress(0);
 
-                        $rootScope.$broadcast('csv:uploaded', true);
-                    }, 0);
+            let uploadChunk = function(data) {
+                PrevalidationService.submitData(data).then(function() {
+                    currentChunkNth++;
+                    setProgress((currentChunkNth / chunksCount) * 100);
+
+                    if (currentChunkNth == chunksCount) {
+                        $timeout(function() {
+                            csvParser.progressBar = 100;
+                            csvParser.progress = 3;
+
+                            $rootScope.$broadcast('csv:uploaded', true);
+                        }, 0);
+                    } else {
+                        uploadChunk(submitData[currentChunkNth]);
+                    }
                 });
-            });
+            };
+
+            uploadChunk(submitData[currentChunkNth]);
         }
     };
 
@@ -107,6 +147,7 @@ let CsvUploadDirective = function(
 
         bind();
 
+        $scope.recordTypeKeys = $scope.recordTypes.map(recordType => recordType.key);
         $scope.csvParser = csvParser;
     };
 
@@ -121,7 +162,9 @@ module.exports = () => {
     return {
         scope: {
             text: '=',
+            fundKey: '=',
             button: '=',
+            recordTypes: '='
         },
         restrict: "EA",
         replace: true,
@@ -135,6 +178,6 @@ module.exports = () => {
             'ProgressFakerService',
             CsvUploadDirective
         ],
-        templateUrl: 'assets/tpl/directives/csv-upload.html' 
+        templateUrl: 'assets/tpl/directives/csv-upload.html'
     };
 };

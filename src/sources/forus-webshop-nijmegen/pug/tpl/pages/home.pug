@@ -9,7 +9,7 @@ header.section.section-header.section-header-landing: .wrapper
         .header-description Welkom op de website van de Meedoen-regeling. In Nijmegen krijgt iedereen de kans om mee te doen.
         a(scroll-to="#steps" translate="home.header.button").button.button-primary 
 
-block-products(products="$ctrl.products" product-categories="$ctrl.productCategories")
+block-products(ng-if="$root.appConfigs.features.products.list" products="$ctrl.products" product-categories="$ctrl.productCategories")
 
 section.section.section-map: .wrapper
     .block.block-map

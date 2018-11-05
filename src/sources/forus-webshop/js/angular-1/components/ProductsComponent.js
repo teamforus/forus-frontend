@@ -1,13 +1,12 @@
 let ProductsComponent = function(
     $state,
-    $rootScope,
-    $timeout,
-    CredentialsService,
-    IdentityService,
-    AuthService,
     appConfigs
 ) {
     let $ctrl = this;
+
+    if (!appConfigs.features.products.list) {
+        return $state.go('home');
+    }
 
     $ctrl.$onInit = function() {
         
@@ -21,11 +20,6 @@ module.exports = {
     },
     controller: [
         '$state',
-        '$rootScope',
-        '$timeout',
-        'CredentialsService',
-        'IdentityService',
-        'AuthService',
         'appConfigs',
         ProductsComponent
     ],

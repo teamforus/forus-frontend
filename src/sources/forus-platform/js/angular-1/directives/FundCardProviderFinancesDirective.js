@@ -1,8 +1,7 @@
 let FundCardProviderFinancesDirective = function(
     $scope, 
     $state, 
-    FundService, 
-    ProviderFundService
+    FundService
 ) {
     $scope.one = 1;
     $scope.chartData = {
@@ -114,6 +113,13 @@ let FundCardProviderFinancesDirective = function(
         return val.name;
     });
 
+    $scope.showTransaction = (transaction) => {
+        $state.go('transaction', {
+            address: transaction.address,
+            organization_id: transaction.fund.organization_id
+        });
+    };
+
     $scope.toggleDetails = function(type) {
         if (type == 'transactions') {
             FundService.readProvidersTransactions(
@@ -144,7 +150,6 @@ module.exports = () => {
             '$scope',
             '$state',
             'FundService',
-            'ProviderFundService',
             FundCardProviderFinancesDirective
         ],
         templateUrl: 'assets/tpl/directives/fund-card-provider-finances.html' 

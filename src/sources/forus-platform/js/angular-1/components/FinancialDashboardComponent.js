@@ -143,7 +143,6 @@ module.exports = {
     bindings: {
         fund: '<',
         funds: '<',
-        fundLevel: '<',
         fundProviders: '<'
     },
     controller: [

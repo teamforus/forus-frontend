@@ -18,6 +18,6 @@ aside.app.app-sidebar
         +nav_item("Vestigingen", "offices", 'offices', '{organization_id: $root.activeOrganization}', '$root.activeOrganization')
         +nav_item("Transacties", "transactions", 'transactions', '{organization_id: $root.activeOrganization}', '$root.activeOrganization')
         +nav_item("Deelgenomen fondsen", "funds", 'provider-funds', '{organization_id: $root.activeOrganization}', '$root.activeOrganization')
-        +nav_item("Producten", "products", 'products', '{organization_id: $root.activeOrganization}', '$root.activeOrganization')
+        +nav_item("Producten", "products", 'products', '{organization_id: $root.activeOrganization}', '$root.activeOrganization && $root.appConfigs.features.organizations.products.list')
         +nav_item("Medewerkers", "list", 'provider-identities', '{organization_id: $root.activeOrganization}', '$root.activeOrganization')
         | &nbsp;

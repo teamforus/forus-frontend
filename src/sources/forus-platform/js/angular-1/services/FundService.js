@@ -29,6 +29,10 @@ let FundService = function(ApiRequest) {
             );
         }
 
+        this.readPublic = function(fund_id) {
+            return ApiRequest.get('/platform/funds/' + fund_id);
+        };
+
         this.readFinances = function (organization_id, id, data) {
             return ApiRequest.get(
                 uriPrefix + organization_id + '/funds/' + id + '/finances', 
