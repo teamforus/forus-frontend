@@ -63,7 +63,7 @@
                     +keyvalue_item_horizontal("Leveranciers", "{{ fund.providers_count }}")
                     +keyvalue_item_horizontal("Validatoren", "{{ fund.validators_count }}")
 
-    .card-section.card-section-primary(ng-show="level != 'fundsAvailable'")
+    .card-section.card-section-primary(ng-show="level != 'fundsAvailable' && fund.budget")
         .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
             .row
                 .col.col-sm-6.col.xs-12(ng-if="fund.budget")
