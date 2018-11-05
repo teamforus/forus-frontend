@@ -308,7 +308,7 @@ module.exports = {
     },
     // PRODUCT BLOCK IF IT'S EMPTY = empty-block.pug
     empty_block: {
-        guide: "Ontdek hoe...",
+        guide: "Gebruik de activatiecode",
     },
     
     // CRITERIA FOR FUNDS = fund-criterion.pug
@@ -345,6 +345,7 @@ module.exports = {
             confirmation: "Het is gelukt!",
             link: "Er is een link naar je e-mailadres gestuurd. Klik op de link om verder te gaan.",
             invalid: "De activatiecode is ongeldig of al gebruikt.",
+            voucher_email: "Je voucher is verstuurd naar je mail.",
         },
         buttons: {
             qrcode: "Log in via QR-Code",
@@ -362,6 +363,7 @@ module.exports = {
             mail: "Heb je een brief van de gemeente ontvangen met een activatiecode en deze nog niet gebruikt? Ga dan verder. Heb je deze al wel gebruikt? Sluit dan dit venster en klik op 'login'.",
             link: "Vul je e-mailadres in om een link te ontvangen waarmee je kunt inloggen.",
             code: "Vul de activatiecode in die je per brief hebt ontvangen.",
+            voucher_email: "Het is gelukt!",
         },
         input: {
             mail: "Vul je e-mailadres in",
