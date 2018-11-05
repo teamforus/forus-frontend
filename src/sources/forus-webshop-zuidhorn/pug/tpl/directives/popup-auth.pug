@@ -102,10 +102,10 @@
             .popup-subtitle.text-primary
                 br
                 br
-                | {{ "popup_auth.notificationsabels.voucher_email" | translate }}
+                | {{ "popup_auth.notifications.voucher_email" | translate }}
                 br
                 br
-        .form-group.text-center: button(ng-click="popup.close()").button.button-primary {{ "popup_auth.buttons.close" | translate }}
+        .form-group.text-center: button(ng-click="popup.close()").button.button-primary {{ "popup_auth.buttons.confirm" | translate }}
 
     //- Sign Up by code
     .popup-content(ng-show="popup.screen == 'sign_up-code'")

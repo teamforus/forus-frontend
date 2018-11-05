@@ -90,7 +90,14 @@ module.exports = {
         // DON'T TRANSLATE , THE VALIDATOR WILL NOT HAVE A LANDINGSPAGE
 
     // CSV-VALIDATION = csv-validation.pug
-
+    csv_validation: {
+        header: {
+            title: "CSV uploader", 
+        },
+        buttons: {
+            choose: "Kies een ander fonds",
+        }
+    },
     // FINANCIAL DASHBOARD = financial-dashboard-transaction.pug
     financial_dashboard: {
         header: {
@@ -668,6 +675,7 @@ module.exports = {
             confirmation: "Het is gelukt!",
             link: "Er is een link naar je e-mail adres gestuurd",
             invalid: "De activatiecode is ongeldig of al gebruikt",
+            voucher_email: "Het is gelukt, de e-mail is verstuurd",
         },
         buttons: {
             qrcode: "Log in via QR-Code",
@@ -684,12 +692,14 @@ module.exports = {
             mail: "Dit scherm is alleen bedoeld voor inwoners die een brief van de gemeente hebben ontvangen met daarin een activatiecode en deze nog niet hebben gebruikt.",
             link: "Vul je e-mail adres in om een link te ontvangen waarmee je kunt inloggen",
             code: "Vul de activatiecode in die je per brief hebt ontvangen",
+            voucher_email: "Verstuur de voucher per e-mail",
+
         },
         input: {
             mail: "Vul je e-mail adres in",
             code: "Activatiecode",
             mailing: "E-mail",
-        }
+        },
     },
 
 };
