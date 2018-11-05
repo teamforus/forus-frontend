@@ -17,7 +17,14 @@
             progress-bar(progress="progressBar" status="progressStatus")
 
         .csv-upload-actions
-            .text-center(ng-show="csvParser.progress == 1")
+            .csv-file(ng-if="csvParser.csvFile && csvParser.progress < 2")
+                .block.block-file(ng-class="csvParser.isValid?'':'has-error'")
+                    .file-error.mdi.mdi-close-circle
+                    .file-name(ng-bind="csvParser.csvFile.name")
+                    .file-size(ng-bind="csvParser.csvFile.size | file_size")
+                    .file-remove.mdi.mdi-close(ng-click="reset()")
+
+            .text-center(ng-show="csvParser.progress == 1 && csvParser.isValid")
                 button(ng-click="csvParser.uploadToServer()").button.button-primary {{ "csv_upload.buttons.upload" | translate  }}
 
             .text-center(ng-show="csvParser.progress == 3")

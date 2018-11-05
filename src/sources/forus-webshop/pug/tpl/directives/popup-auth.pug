@@ -93,6 +93,19 @@
                 br
                 br
         .form-group.text-center: button(ng-click="popup.close()").button.button-primary {{ "popup_auth.buttons.submit" | translate }}
+ 
+    //- Voucher email sent
+    .popup-content(ng-show="popup.screen == 'voucher-email-sent'")
+        .popup-title {{ "popup_auth.labels.voucher_email" | translate }}
+
+        .form-group
+            .popup-subtitle.text-primary
+                br
+                br
+                | {{ "popup_auth.notificationsabels.voucher_email" | translate }}
+                br
+                br
+        .form-group.text-center: button(ng-click="popup.close()").button.button-primary {{ "popup_auth.buttons.close" | translate }}
 
     //- Sign Up by code
     .popup-content(ng-show="popup.screen == 'sign_up-code'")

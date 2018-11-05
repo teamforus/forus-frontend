@@ -6,9 +6,9 @@ header.section.section-header: .wrapper
 section.section.section-product: .wrapper
     .block.block-product
         .product-card
-            .product-photo: img(ng-src="{{ $ctrl.product.photo.sizes.small }}", alt="")
             .product-details
-                // pre {{ $ctrl.product | pretty_json }}
+                .product-photo(style="background-image: url('{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}')")
+                    img(ng-src="{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}")
                 .product-name
                     | {{ $ctrl.product.name }}
                     span.label.label-success {{ "product.status.active" | translate }}
@@ -21,6 +21,10 @@ section.section.section-product: .wrapper
                 .product-price
                     .product-price-new € {{ $ctrl.product.price | to_fixed:2 }} 
                     .product-price-old € {{ $ctrl.product.old_price | to_fixed:2 }}
+
+                .product-expire(ng-if="$ctrl.product.expire_at")
+                    .expire-label EXPIRATION DATE
+                    .expire-value(ng-bind="$ctrl.product.expire_at_locale")
                 
                 .button.button-primary(
                     ng-show="$ctrl.isApplicable" 
@@ -28,6 +32,23 @@ section.section.section-product: .wrapper
                 .button.button-primary(
                     ng-if="!$root.auth_user" 
                     ng-click="$root.popups.auth.open('choose')") LOG IN
+
+        .block.block-info-card
+            .block-header PROVIDER INFORMATION
+            .info-office(ng-repeat="office in $ctrl.product.offices")
+                .info-office-photo(style="background-image: url('{{ office.photo.sizes.thumbnail || './assets/img/placeholders/office-thumbnail.png' }}')") 
+                    img(ng-src="{{ office.photo.sizes.thumbnail || './assets/img/placeholders/office-thumbnail.png' }}", alt="")
+                .info-office-details
+                    .info-office-title(ng-bind="$ctrl.product.organization.name")
+                    .info-office-description
+                        div(ng-if="office.address" ng-bind="office.address")
+                        div(ng-bind="office.phone || ' '")
+
+
+        .block.block-info-card
+            .block-header PROVIDER INFORMATION
+            .block-content
+                p(ng-bind="$ctrl.product.description")
         
         .block.block-map_card
             .map_card-header

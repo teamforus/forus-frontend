@@ -160,9 +160,6 @@ module.exports = function($stateProvider) {
                         'approved'
                     )
                 );
-            },
-            fundLevel: function () {
-                return 'financialDashboard';
             }
         }
     });
@@ -479,9 +476,25 @@ module.exports = function($stateProvider) {
     // Validators
     $stateProvider.state({
         name: 'csv-validation',
-        url: '/csv-validation',
+        url: '/csv-validation/funds/{fund_id}',
         component: 'csvValidationComonent',
+        params: {
+            fund_id: {
+                squash: true,
+                value: null
+            },
+        },
         resolve: {
+            fund: function($transition$, FundService) {
+                return $transition$.params().fund_id != null ? repackResponse(
+                    FundService.readPublic($transition$.params().fund_id)
+                ) : new Promise((res) => res(null));
+            },
+            funds: function(FundService) {
+                return repackResponse(
+                    FundService.list()
+                );
+            },
             prevalidations: function(PrevalidationService) {
                 return repackResponse(
                     PrevalidationService.list()

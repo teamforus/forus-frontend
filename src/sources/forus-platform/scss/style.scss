@@ -1524,7 +1524,7 @@ body {
         border-radius: 4px;
 
         .csv-inner {
-            width: 380px;
+            width: 540px;
             padding: 160px 30px 60px;
             margin: 0 auto;
             text-align: center;
@@ -1552,6 +1552,7 @@ body {
         .csv-upload-btn {
             display: inline-block;
             cursor: pointer;
+            margin-bottom: 20px;
             
             .csv-upload-text {
                 font: 500 16px $bf;
@@ -1574,6 +1575,11 @@ body {
                     color: #009ef4;
                 }
             }
+        }
+
+        .csv-file {
+            width: 100%;
+            margin-bottom: 30px;
         }
 
         .csv-upload-actions {
@@ -1879,6 +1885,58 @@ body {
             .chart-header-actions {
                 flex: 1 0px;
                 text-align: right;
+            }
+        }
+    }
+
+    &.block-file {
+        width: 100%;
+        border: 1px dashed #d4d9dd;
+        padding: 15px 55px 15px;
+        background: url('../img/icon-file.png') no-repeat;
+        background-position: 25px 20px;
+        position: relative;
+        border-radius: 4px;
+        text-align: left;
+        cursor: default;
+
+        .file-error {
+            display: none;
+            position: absolute;
+            left: 17px;
+            top: 12px;
+            font-size: 26px;
+            color: #e63b3b;
+        }
+
+        .file-remove {
+            position: absolute;
+            right: 7.5px;
+            top: 7.5px;
+            font-size: 22px;
+            color: #757f88;
+            cursor: pointer;
+
+            &:hover {
+                color: #cf274d;
+            }
+        }
+
+        .file-name {
+            font: 600 12px/20px $bf;
+            color: #134478;
+        }
+
+        .file-size {
+            font: 400 12px/20px $bf;
+        }
+
+        &.has-error {
+            border-color: #e63b3b;
+            background: none;
+
+            .file-error {
+                display: block;
             }
         }
     }

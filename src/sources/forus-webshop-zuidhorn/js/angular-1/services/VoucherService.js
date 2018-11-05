@@ -11,7 +11,7 @@ module.exports = [
             return transaction;
         };
 
-        return new (function() {
+        return new(function() {
             this.list = function() {
                 return ApiRequest.get(apiPrefix);
             };
@@ -22,6 +22,10 @@ module.exports = [
 
             this.getAsProvider = function(address) {
                 return ApiRequest.get(apiPrefix + '/' + address + '/provider');
+            }
+
+            this.sendToEmail = function(address) {
+                return ApiRequest.post(apiPrefix + '/' + address + '/send-email');
             }
 
             this.makeTransaction = function(address, values) {
@@ -52,17 +56,18 @@ module.exports = [
                     thumbnail = voucher.fund.organization.logo.sizes.thumbnail;
                 }
 
-
                 return {
-                    title: voucher.product ? voucher.product.name : voucher.fund.name,
-                    subtitle: voucher.product ? voucher.product.organization.name : voucher.fund.organization.name,
+                    title: voucher.fund.name,
+                    subtitle: voucher.fund.organization.name,
                     amount: voucher.amount,
                     type: voucher.type,
                     transactions: this.composeTransactions(voucher),
                     created_at_locale: voucher.created_at_locale,
                     expire_at_locale: voucher.expire_at_locale,
+                    expire_at: voucher.expire_at,
                     thumbnail: thumbnail,
                     product: voucher.product || null,
+                    fund: voucher.fund,
                     offices: voucher.offices || []
                 };
             }

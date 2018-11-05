@@ -97,6 +97,7 @@ app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
 // Filters
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
+app.filter('file_size', require('./filters/FileSizeFilter'));
 
 // Config
 app.config(require('./routers/router'));

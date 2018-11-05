@@ -6,8 +6,13 @@
         a(
             ui-sref="funds" 
             ui-sref-active="active"
-            ng-if="$root.appConfigs.features.funds.list").navbar-item {{ "topnavbar.items.funds" | translate }}
-        a(ui-sref="products" ui-sref-active="active").navbar-item {{ "topnavbar.items.products" | translate }}
+            ng-if="$root.appConfigs.features.funds.list"
+            ng-bind="'topnavbar.items.funds' | translate").navbar-item
+        a(
+            ui-sref="products" 
+            ui-sref-active="active"
+            ng-if="$root.appConfigs.features.products.list"
+            ng-bind="'topnavbar.items.products' | translate").navbar-item
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
             .auth-user
@@ -31,11 +36,15 @@
                                 | {{ "topnavbar.buttons.authorize" | translate }}
                             .auth-user-menu-separator.show-sm
                             a.auth-user-menu-item.show-sm(
-                                ui-sref="funds" ui-sref-active="active"
+                                ui-sref="funds" 
+                                ui-sref-active="active"
                                 ng-if="$root.appConfigs.features.funds.list")
                                 em.mdi.mdi-star-outline
-                                | {{ "topnavbar.buttons.funds" | translate }}
-                            a.auth-user-menu-item.show-sm(ui-sref="products" ui-sref-active="active")
+                                | {{ "topnavbar.buttons.logout" | translate }}
+                            a.auth-user-menu-item.show-sm(
+                                ui-sref="products" 
+                                ui-sref-active="active"
+                                ng-if="$root.appConfigs.features.products.list")
                                 em.mdi.mdi-store
                                 | {{ "topnavbar.buttons.products" | translate }}
                             .auth-user-menu-separator.show-sm

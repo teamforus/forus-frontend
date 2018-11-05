@@ -16,7 +16,7 @@
                                 th {{ "transactions.labels.status" | translate }}
                             tr(
                                 ng-repeat="transaction in $ctrl.transactions" 
-                                ui-sref="transaction(transaction)").pointer
+                                ng-click="$ctrl.showTransaction(transaction)").pointer
                                 td: a.text-primary-light €{{ transaction.amount }}
                                 td(ng-bind="transaction.created_at_locale")
                                 td(ng-bind="transaction.fund.name")
