@@ -255,7 +255,7 @@ module.exports = {
     },
     // PRODUCT BLOCK IF IT'S EMPTY = empty-block.pug
     empty_block: {
-        guide: "Ontdek hoe...",
+        guide: "Gebruik de activatiecode",
     },
     
     // CRITERIA FOR FUNDS = fund-criterion.pug
