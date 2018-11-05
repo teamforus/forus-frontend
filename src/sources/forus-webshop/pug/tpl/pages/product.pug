@@ -23,7 +23,7 @@ section.section.section-product: .wrapper
                     .product-price-old € {{ $ctrl.product.old_price | to_fixed:2 }}
 
                 .product-expire(ng-if="$ctrl.product.expire_at")
-                    .expire-label EXPIRATION DATE
+                    .expire-label {{ "voucher.labels.expire" | translate }}
                     .expire-value(ng-bind="$ctrl.product.expire_at_locale")
                 
                 .button.button-primary(
@@ -34,7 +34,7 @@ section.section.section-product: .wrapper
                     ng-click="$root.popups.auth.open('choose')") LOG IN
 
         .block.block-info-card
-            .block-header PROVIDER INFORMATION
+            .block-header {{ "voucher.labels.shopdetail" | translate }}
             .info-office(ng-repeat="office in $ctrl.product.offices")
                 .info-office-photo(style="background-image: url('{{ office.photo.sizes.thumbnail || './assets/img/placeholders/office-thumbnail.png' }}')") 
                     img(ng-src="{{ office.photo.sizes.thumbnail || './assets/img/placeholders/office-thumbnail.png' }}", alt="")
@@ -46,7 +46,7 @@ section.section.section-product: .wrapper
 
 
         .block.block-info-card
-            .block-header PROVIDER INFORMATION
+            .block-header {{ "voucher.labels.productdetail" | translate }}
             .block-content
                 p(ng-bind="$ctrl.product.description")
         

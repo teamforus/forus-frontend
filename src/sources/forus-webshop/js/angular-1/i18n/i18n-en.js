@@ -187,15 +187,21 @@ module.exports = {
             title: "Voucher details",
         },
         buttons: {
-            send:"E-MAIL NAAR MIJ"
+            send: "E-MAIL NAAR MIJ",
+            details: "Bekijk details",
         },
         labels: {
             transactions: "Transacties",
             subtract: "Af",
+            fund: "Fonds",
+            expire: "VERVALDATUM",
             office: "Locatie van de leverancier",
             voucher: "Je kunt je voucher besteden in de winkels op deze locaties",
+            shopdetail: "Informatie over de aanbieder",
+            productdetail: "INFORMATIE OVER DE AANBIEDING",
         }
     },
+
 
     // VOUCHERs = vouchers.pug
     vouchers: {

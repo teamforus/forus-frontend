@@ -18,7 +18,7 @@ header.section.section-header.section-header-voucher: .wrapper
                         .product-categories(ng-bind="$ctrl.voucherCard.product.product_category.name")
                         
                         .product-funds
-                            .product-fund-label FUND
+                            .product-fund-label {{ "voucher.labels.fund" | translate }}
                             .product-fund-list(ng-bind="$ctrl.voucherCard.fund.name")
 
                         .product-price
@@ -26,21 +26,21 @@ header.section.section-header.section-header-voucher: .wrapper
                             //- .product-price-old € 59,95
 
                         .product-expire(ng-if="$ctrl.voucherCard.expire_at")
-                            .expire-label EXPIRATION DATE
+                            .expire-label {{ "voucher.labels.expire" | translate }}
                             .expire-value(ng-bind="$ctrl.voucherCard.expire_at_locale")
                             
                         a(ui-sref="products-show($ctrl.voucherCard.product)").product-details-link
-                            | View details
+                            | {{ "voucher.buttons.details" | translate }}
                             .mdi.mdi-arrow-right
                     .product-footer
-                        .product-provider-label PROVIDER INFORMATION
+                        .product-provider-label {{ "voucher.labels.shopdetail" | translate }}
                         div(ng-repeat="office in $ctrl.voucherCard.offices").product-provider
                             .product-provider-value(ng-bind="$ctrl.voucherCard.fund.organization.name")
                             .product-provider-details
                                 div(ng-if="office.address")
-                                    | Address: {{ office.address }}
+                                    | Adres: {{ office.address }}
                                 div(ng-if="office.phone")
-                                    | Telephone: {{ office.phone }}
+                                    | Telefoon: {{ office.phone }}
         .header-content
             .block.block-voucher
                 .voucher-details
