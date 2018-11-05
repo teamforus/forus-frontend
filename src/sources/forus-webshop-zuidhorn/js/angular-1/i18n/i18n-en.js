@@ -363,7 +363,7 @@ module.exports = {
             mail: "Heb je een brief van de gemeente ontvangen met een activatiecode en deze nog niet gebruikt? Ga dan verder. Heb je deze al wel gebruikt? Sluit dan dit venster en klik op 'login'.",
             link: "Vul je e-mailadres in om een link te ontvangen waarmee je kunt inloggen.",
             code: "Vul de activatiecode in die je per brief hebt ontvangen.",
-            voucher_email: "Het is gelukt!",
+            voucher_email: "Binnen enkele seconden zul je een e-mail ontvangen. Open je e-mailapplicatie op dit apparaat.",
         },
         input: {
             mail: "Vul je e-mailadres in",
