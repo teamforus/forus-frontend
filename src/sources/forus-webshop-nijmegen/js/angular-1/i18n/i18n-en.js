@@ -187,13 +187,18 @@ module.exports = {
             title: "Voucher details",
         },
         buttons: {
-            send:"E-MAIL NAAR MIJ"
+            send: "E-MAIL NAAR MIJ",
+            details: "Bekijk details",
         },
         labels: {
             transactions: "Transacties",
             subtract: "Af",
+            fund: "Fonds",
+            expire: "VERVALDATUM",
             office: "Locatie van de leverancier",
             voucher: "Je kunt je voucher besteden in de winkels op deze locaties",
+            shopdetail: "Informatie over de aanbieder",
+            productdetail: "INFORMATIE OVER DE AANBIEDING",
         }
     },
 
@@ -255,7 +260,7 @@ module.exports = {
     },
     // PRODUCT BLOCK IF IT'S EMPTY = empty-block.pug
     empty_block: {
-        guide: "Ontdek hoe...",
+        guide: "Gebruik de activatiecode",
     },
     
     // CRITERIA FOR FUNDS = fund-criterion.pug
