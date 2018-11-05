@@ -1,5 +1,5 @@
 let TransactionsComponent = function(
-    $state, 
+    $state,
     $translate,
     TransactionService,
     OrganizationService,
@@ -40,6 +40,13 @@ let TransactionsComponent = function(
 
         saveAs(blob, file_name + '-transactions-' + now + '.csv');
     };
+
+    $ctrl.showTransaction = (transaction) => {
+        $state.go('transaction', appConfigs.panel_type == 'sponsor' ? {
+            address: transaction.address,
+            organization_id: transaction.fund.organization_id
+        } : transaction);
+    };
 };
 
 module.exports = {
@@ -47,9 +54,9 @@ module.exports = {
         transactions: '<'
     },
     controller: [
-        '$state', 
+        '$state',
         '$translate',
-        'TransactionService', 
+        'TransactionService',
         'OrganizationService',
         'appConfigs',
         TransactionsComponent

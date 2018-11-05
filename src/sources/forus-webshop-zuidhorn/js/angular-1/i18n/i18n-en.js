@@ -8,7 +8,7 @@ module.exports = {
         "products-apply": "Aanbieding kopen",
         vouchers: 'Mijn vouchers',
         voucher: 'Mijn voucher',
-        records: 'Eigenschappen', 
+        records: 'Eigenschappen',
         "record-validate": 'Valideer eigenschap',
         "record-validations": 'Validaties',
         "record-create": 'Eigenschap toevoegen',
@@ -19,7 +19,7 @@ module.exports = {
         en: 'English',
         nl: 'Dutch',
     },
-// PAGES
+    // PAGES
     // APPLY FOR FUNDS = fund-apply.pug
     fund_apply: {
         header: {
@@ -29,7 +29,7 @@ module.exports = {
         buttons: {
             join: "AANMELDEN",
         }
-    },    
+    },
 
     // FUNDS = funds.pug
     funds: {
@@ -60,7 +60,7 @@ module.exports = {
     // HOME = home.pug
     home: {
         header: {
-            title:"Zuidhorn. Kindpakket",
+            title: "Zuidhorn. Kindpakket",
             subtitle: "Welkom op de website van het Kindpakket Zuidhorn. Het Kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Zuidhorn.",
             button: 'Lees meer over hoe het systeem werkt.',
         },
@@ -151,7 +151,7 @@ module.exports = {
     product: {
         labels: {
             fund: "Fonds",
-            find: "Je kan ons hier vinden",      
+            find: "Je kan ons hier vinden",
         },
         status: {
             active: "Actief",
@@ -168,26 +168,26 @@ module.exports = {
     records_create: {
         header: {
             title: "Eigenschappen aanmaken",
-         },        
+        },
         buttons: {
             choose: {
                 description: "Selecteer de categorie waaraan je de eigenschap wil toevoegen.",
                 c_description: "Kies het type eigenschap dat je wil aanmaken.",
                 category: "Kies categorie",
                 type: "Kies type",
-                    },
+            },
             cancel: "ANNULEER",
             next: "VOLGENDE",
             type: "EIGENSCHAP TYPE",
             text: "TEKST",
             back: "TERUG",
             confirm: "BEVESTIG",
-            }
+        }
     },
 
     // VALIDATE A RECORD = record-validate.pug
     records_validate: {
-        header: { 
+        header: {
             title: "Mijn eigenschappen",
         },
         labels: {
@@ -203,7 +203,7 @@ module.exports = {
 
     // VALIDATIONS OF THE RECORDS = record-validations.pug
     records_validations: {
-        header: { 
+        header: {
             title: "Mijn eigenschappen",
         },
         labels: {
@@ -217,7 +217,7 @@ module.exports = {
 
     // RECORDS = records.pug
     records: {
-        header: { 
+        header: {
             title: "Mijn eigenschappen",
         },
         labels: {
@@ -235,20 +235,21 @@ module.exports = {
             title: "Voucher details",
         },
         buttons: {
-            send:"E-MAIL NAAR MIJ"
+            send: "E-MAIL NAAR MIJ",
+            details: "Bekijk details",
         },
         labels: {
             transactions: "Transacties",
             subtract: "Af",
-            office: "Locatie van de aanbieder",
+            fund: "Fonds",
+            expire: "VERVALDATUM",
+            office: "Locatie van de leverancier",
             voucher: "Je kunt je voucher besteden in de winkels op deze locaties",
-        },
-        status: {
-            used: "Gebruikt",
-            generated: "AANGEMAAKT",
-            enddate: "VERLOOPDATUM",
+            shopdetail: "Informatie over de aanbieder",
+            productdetail: "INFORMATIE OVER DE AANBIEDING",
         }
     },
+
 
     // VOUCHERs = vouchers.pug
     vouchers: {
@@ -265,13 +266,13 @@ module.exports = {
         }
     },
 
-// DIRECTIVES
+    // DIRECTIVES
     // PRODUCT BLOCKS = block-products.pug
     block_products: {
         header: {
             title: "Aanbiedingen",
         },
-        input : {
+        input: {
             placeholder: "Zoek naar een aanbieding",
         },
         labels: {
@@ -292,8 +293,8 @@ module.exports = {
             subtitle: "CONTACTGEGEVENS",
         },
         labels: {
-            address:"Hooiweg 9, 9801 AJ Zuidhorn",
-            phone:"(0594) 508888",
+            address: "Hooiweg 9, 9801 AJ Zuidhorn",
+            phone: "(0594) 508888",
             mail: "kindpakket@zuidhorn.nl",
             follow: "Volg ons",
             name: "Naam",
@@ -308,9 +309,9 @@ module.exports = {
     },
     // PRODUCT BLOCK IF IT'S EMPTY = empty-block.pug
     empty_block: {
-        guide: "Ontdek hoe...",
+        guide: "Gebruik de activatiecode",
     },
-    
+
     // CRITERIA FOR FUNDS = fund-criterion.pug
     fund_criterion: {
         labels: {
@@ -345,6 +346,7 @@ module.exports = {
             confirmation: "Het is gelukt!",
             link: "Er is een link naar je e-mailadres gestuurd. Klik op de link om verder te gaan.",
             invalid: "De activatiecode is ongeldig of al gebruikt.",
+            voucher_email: "Je voucher is verstuurd naar je mail.",
         },
         buttons: {
             qrcode: "Log in via QR-Code",
@@ -362,6 +364,7 @@ module.exports = {
             mail: "Heb je een brief van de gemeente ontvangen met een activatiecode en deze nog niet gebruikt? Ga dan verder. Heb je deze al wel gebruikt? Sluit dan dit venster en klik op 'login'.",
             link: "Vul je e-mailadres in om een link te ontvangen waarmee je kunt inloggen.",
             code: "Vul de activatiecode in die je per brief hebt ontvangen.",
+            voucher_email: "Het is gelukt!",
         },
         input: {
             mail: "Vul je e-mailadres in",
@@ -385,7 +388,7 @@ module.exports = {
             none: "Geen data",
         },
     },
-    
+
     // PROFILE CARD = profile-card.pug
     profile_card: {
         header: {
@@ -406,18 +409,18 @@ module.exports = {
     // MENU = top-navbar.pug
     topnavbar: {
         items: {
-            funds:"FONDSEN",
-            products:"AANBIEDINGEN",
-            identity:"Profiel",
+            funds: "FONDSEN",
+            products: "AANBIEDINGEN",
+            identity: "Profiel",
         },
         buttons: {
-            activate:"Activatiecode",
-            login:"Login",
-            voucher:"Mijn vouchers",
+            activate: "Activatiecode",
+            login: "Login",
+            voucher: "Mijn vouchers",
             records: "Mijn eigenschappen",
-            authorize:"Autoriseer apparaat",
-            logout:"Uitloggen",
-            products:"Aanbiedingen",
+            authorize: "Autoriseer apparaat",
+            logout: "Uitloggen",
+            products: "Aanbiedingen",
             funds: "Fondsen",
         },
     },

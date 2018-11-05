@@ -1,4 +1,5 @@
 let VoucherComponent = function(
+    $rootScope,
     VoucherService
 ) {
     let $ctrl = this;
@@ -17,6 +18,12 @@ let VoucherComponent = function(
         qrCodeEl.removeAttribute('title');;
 
         $ctrl.voucherCard = VoucherService.composeCardData($ctrl.voucher);
+
+        $ctrl.sendVoucherEmail = function(voucher) {
+            VoucherService.sendToEmail(voucher.address).then(res => {
+                $rootScope.popups.auth.open('voucher-email-sent')
+            });
+        };
     };
 };
 
@@ -25,6 +32,7 @@ module.exports = {
         voucher: '<'
     },
     controller: [
+        '$rootScope',
         'VoucherService',
         VoucherComponent
     ],

@@ -44,10 +44,27 @@ module.exports = {
         },
         header: {
             title: "Een profiel voor het Forus Platform",
-            description: "Een profiel om in te loggen, waarme je vouchers kan beheren en veilig kan betalen",
+            description: "Een profiel om in te loggen, waarmee je vouchers kan beheren en veilig kan betalen",
         },
         buttons: {
             join: "Aanmelden",
+        },
+        download: {
+            ios: "Download Me voor iOS",
+            android: "Download Me voor Android",
+        },
+        functions: {
+            header: {
+                title: "Functies",
+            },
+            profile: "Maan een profiel aan",
+            pin: "Je hebt de mogelijkheid om een profiel aan te maken en deze daarna te beveiligen met een pincode.",
+            vouchers: "Vouchers",
+            criterion: "Als je aan gestelde criteria voldoet van een gemeente. Kan je een voucher aanvragen. Deze voucher kan je beheren in Me. Met Me kan je veilig betalingen verrichten.",
+            apply: "Aanmelden",
+            webshop: "Meld je aan op de webshop met Me. Dit doe je doordat de webshop een QR-code presenteert waarna deze gescant kan worden met Me.",
+            profileb: "Profiel",
+            app: "De app bewaart een profiel van de gebruiker, dit profiel maakt het mogelijk dat de gegevens hergebruikt kunnen worden voor het mee doen aan andere regelingen.",
         }
     }, 
     // PROVIDER HOME = home-provider.pug
@@ -90,7 +107,14 @@ module.exports = {
         // DON'T TRANSLATE , THE VALIDATOR WILL NOT HAVE A LANDINGSPAGE
 
     // CSV-VALIDATION = csv-validation.pug
-
+    csv_validation: {
+        header: {
+            title: "CSV uploader", 
+        },
+        buttons: {
+            choose: "Kies een ander fonds",
+        }
+    },
     // FINANCIAL DASHBOARD = financial-dashboard-transaction.pug
     financial_dashboard: {
         header: {
@@ -106,8 +130,8 @@ module.exports = {
             spend: "Totaal uitgegeven bedrag",
             used: "Totaal uitgegeven bedrag in %",
             usage: "uitgegeven",
-            payed: "Uitgegeven in",
-            shops: "winkels",
+            payed: "Uitgegeven bij",
+            shops: "Aanbieders",
             activation: "Aantal geactiveerd",
             citizen: "Nieuwe inwoners",
             provider: "Aanbieders",
@@ -287,7 +311,7 @@ module.exports = {
             old: "Oude prijs",
             total: "Aantal aanbiedingen",
             category: "Categorie",
-            expire_at: "Vervaldatum van aanbod",
+            expire: "Vervaldatum van aanbod",
         },
         buttons: {
             cancel: "Annuleren",
@@ -506,7 +530,7 @@ module.exports = {
             week: "Week",
             all: "Alles", 
             usage: "omzet",
-            average: "Gemiddeld uitgegeven bedrag",
+            average: "Totaal uitgegeven bedrag",
             transaction: "transacties",
             price: "BEDRAG",
             date: "DATUM",
@@ -631,7 +655,7 @@ module.exports = {
         },
         buttons: {
             delete: "Verwijderen",
-            edit: "Berwerken",
+            edit: "Bewerken",
         }
     },
 
@@ -668,6 +692,7 @@ module.exports = {
             confirmation: "Het is gelukt!",
             link: "Er is een link naar je e-mail adres gestuurd",
             invalid: "De activatiecode is ongeldig of al gebruikt",
+            voucher_email: "Het is gelukt, de e-mail is verstuurd",
         },
         buttons: {
             qrcode: "Log in via QR-Code",
@@ -684,12 +709,14 @@ module.exports = {
             mail: "Dit scherm is alleen bedoeld voor inwoners die een brief van de gemeente hebben ontvangen met daarin een activatiecode en deze nog niet hebben gebruikt.",
             link: "Vul je e-mail adres in om een link te ontvangen waarmee je kunt inloggen",
             code: "Vul de activatiecode in die je per brief hebt ontvangen",
+            voucher_email: "Verstuur de voucher per e-mail",
+
         },
         input: {
             mail: "Vul je e-mail adres in",
             code: "Activatiecode",
             mailing: "E-mail",
-        }
+        },
     },
 
 };

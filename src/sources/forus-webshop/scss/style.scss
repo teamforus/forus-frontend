@@ -696,6 +696,14 @@ body {
             .header-content {
                 padding-top: 100px;
                 padding-bottom: 0;
+
+                &:first-child {
+                    padding-right: 15px;
+                }
+
+                &:last-child {
+                    padding-left: 15px;
+                }
             }
 
             .header-title {
@@ -2645,25 +2653,38 @@ body {
             box-shadow: 0 10px 25px rgba(#000, .2);
             cursor: default;
             @include cf();
+            position: relative;
+            overflow: hidden;
 
             .product-photo {
-                width: 450px;
-                max-width: 50%;
+                position: absolute;
+                width: 40%;
+                height: 100%;
+                left: 0;
+                top: 0;
                 float: left;
                 border-top-left-radius: inherit;
                 border-bottom-left-radius: inherit;
+                background-size: cover;
+                background-position: 50%;
+                background-repeat: no-repeat;
 
                 img {
                     width: 100%;
                     display: block;
                     border-top-left-radius: inherit;
                     border-bottom-left-radius: inherit;
+                    display: none;
                 }
             }
 
             .product-details {
-                float: left;
                 padding: 30px;
+                width: 100%;
+                position: relative;
+                padding-left: calc(40% + 30px);
+                border-bottom: 1px solid #d2e6ff;
+                background: #fff;
 
                 .product-name {
                     color: #00122a;
@@ -2679,14 +2700,14 @@ body {
                 .product-categories {
                     color: #282b39;
                     font: 600 16px $bf;
-                    margin-bottom: 15px;
+                    margin-bottom: 20px;
                 }
 
                 .product-funds {
-                    margin-bottom: 15px;
+                    margin-bottom: 20px;
 
                     .product-fund-label {
-                        font: 400 10px $bf;
+                        font: 500 10px $bf;
                         color: #646f79;
                         margin-bottom: 5px;
                     }
@@ -2695,10 +2716,14 @@ body {
                         font: 700 16px $bf;
                         color: #282b39;
                     }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
                 }
 
                 .product-price {
-                    margin-bottom: 30px;
+                    margin-bottom: 20px;
 
                     .product-price-new {
                         font: 700 24px $bf;
@@ -2711,11 +2736,234 @@ body {
                         color: #646f79;
                         text-decoration: line-through;
                     }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                .product-expire {
+                    margin-bottom: 20px;
+
+                    .expire-label {
+                        font: 500 13px $bf;
+                        color: #646f79;
+                    }
+
+                    .expire-value {
+                        font: 700 24px $bf;
+                        color: #282b39;
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                .product-details-link {
+                    font: 600 13px/20px $bf;
+                    color: #083f49;
+                    vertical-align: bottom;
+                    width: 100%;
+                    cursor: pointer;
+                    display: block;
+
+                    .mdi {
+                        color: #3396a7;
+                        display: inline-block;
+                        font-size: 1.5em;
+                        line-height: 20px;
+                        vertical-align: bottom;
+                        position: relative;
+                        transform: translate(0px);
+                        transition: .4s;
+                    }
+
+                    &:hover {
+                        .mdi {
+                            transform: translate(5px);
+                        }
+                    }
                 }
                 
                 .button {
                     padding-left: 100px;
                     padding-right: 100px;
+                }
+            }
+
+            .product-footer {
+                width: 100%;
+                background: #fcfcfc;
+                padding: 20px 25px;
+
+                .product-provider {
+                    margin-bottom: 20px;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                .product-provider-label {
+                    color: #646779;
+                    font: 400 10px/18px $bf;
+                }
+
+                .product-provider-value {
+                    font: 700 16px $bf;
+                    color: #131418;
+                    margin-bottom: 5px;
+                }
+
+                .product-provider-details {
+                    font: 400 13px/20px $bf;
+                    color: #131418;
+                }
+            }
+        }
+
+        &.block-product-sm {
+            .product-card {
+                .product-details {
+                    .product-name {
+                        font-size: 16px;
+                    }
+
+                    .product-categories {
+                        font-size: 13px;
+                        margin-bottom: 15px;
+                    }
+                }
+
+                .product-funds {
+                    margin-bottom: 10px;
+
+                    .product-fund-label {
+                        font-size: 10px;
+                        margin: 0;
+                    }
+
+                    .product-fund-list {
+                        font-size: 15px;
+                    }
+                }
+
+                .product-price {
+                    width: 100%;
+                    margin-bottom: 10px;
+                    @include cf();
+
+                    .product-price-new {
+                        float: left;
+                        margin: 0;
+                    }
+
+                    .product-price-old {
+                        float: left;
+                        margin-top: 8px;
+                        margin-left: 5px;
+                    }
+                }
+
+                .product-expire {
+                    .expire-label {
+                        font-size: 10px;
+                    }
+
+                    .expire-value {
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+    }
+
+    &.block-info-card {
+        border: 1px solid #d2e6ff;
+        background: #fff;
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(#000, .2);
+        margin-bottom: 30px;
+        
+        .block-header {
+            font: 700 16px/30px $bf;
+            padding: 20px 25px;
+            border-bottom: 1px solid #d2e6ff;
+        }
+
+        .block-content {
+            padding: 20px 25px;
+            color: #00122a;
+
+            p {
+                font: 400 14px/24px $bf;
+                color: inherit;
+                margin: 0 0 25px;
+            }
+
+            h4 {
+                font: 700 16px $bf;
+                color: inherit;
+                margin: 0 0 25px;
+            }
+
+            .lvl {
+                display: flex;
+                flex-wrap: wrap;
+                margin-bottom: 15px;
+                
+                .lvr {
+                    width: 100%;
+                    display: flex;
+                    flex-wrap: nowrap;
+                    margin-bottom: 15px;
+
+                    .lvl-label {
+                        font: 500 14px/24px $bf;
+                        color: #017f96;
+                        width: 220px;
+                    }
+
+                    .lvl-value {
+                        font: 400 14px/24px $bf;
+                        color: #282b39;
+                        width: calc(100% - 220px);
+                    }
+                }
+            }
+        }
+
+        .info-office {
+            display: flex;
+
+            .info-office-photo {
+                width: 130px;
+                background-size: cover;
+                background-position: 50%;
+                background-repeat: no-repeat;
+
+                img {
+                    display: block;
+                    width: 100%;
+                    display: none;
+                }
+            }
+
+            .info-office-details {
+                padding: 15px 25px 20px;
+
+                .info-office-title {
+                    font: 700 16px/24px $bf;
+                    margin-bottom: 10px;
+                    color: #282b39;
+                }
+
+                .info-office-description {
+                    font: 400 13px/20px $bf;
+                    margin-bottom: 0px;
+                    color: #282b39;
                 }
             }
         }
