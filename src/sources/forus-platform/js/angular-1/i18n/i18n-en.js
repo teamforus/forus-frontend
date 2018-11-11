@@ -395,7 +395,7 @@ module.exports = {
     sign_up: {
         header: {
             title_step_1: "Installeer Me",
-            subtitle_step_1: "Met Me kan je klanten makkelijk en veilig laten betalen.- Met Me kun je inloggen op de gebruikersomgeving om je organisatie te beheren. ",
+            subtitle_step_1: "Met Me kan je klanten makkelijk en veilig laten betalen daarnaast kun je inloggen op de gebruikersomgeving om je organisatie te beheren. ",
             title_step_2: "Profiel aanmaken",
             subtitle_step_2: "- Maak een profiel aan om gebruik te maken van Me.",
             title_step_3: "Profiel aanmaken",
@@ -429,12 +429,12 @@ module.exports = {
             step_5: 'Stap 5'
         },
         download: {
-            ios: 'Download Me voor IOS',
+            ios: 'Download Me voor iOS',
             android: 'Download Me voor Android',
-            already_have_app: 'I have already installed Me App'
+            already_have_app: 'Het is gelukt om Me te downloaden.'
         },
         qr_code: {
-            description: 'Scan deze QR-Code om te testen (rol spel. Klant komt bij u, testbetaling)'
+            description: 'Scan deze QR-Code om te testen.'
         },
         app_instruction: {
             step_1: 'Open Me',
