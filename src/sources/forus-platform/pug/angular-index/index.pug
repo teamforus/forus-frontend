@@ -2,7 +2,7 @@ doctype
 html(ng-controller="BaseController" ng-cloak)
     include ../layout/includes/head
 
-    body
+    body(ng-class="$root.viewLayout == 'signup' ? 'signup-layout' : ''")
         div(ng-class="$root.viewLayout == 'landing' ? 'landing-root' : ''")
             div(ng-if="$root.viewLayout != 'landing'"): include ../layout/includes/header
             

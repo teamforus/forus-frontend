@@ -394,16 +394,56 @@ module.exports = {
     // SIGN UP FORM FOR PROVIDERS = sign-up.pug
     sign_up: {
         header: {
-            title: "Profiel aanmaken",
+            title_step_1: "Installeer Me",
+            subtitle_step_1: "Met Me kan je klanten makkelijk en veilig laten betalen.- Met Me kun je inloggen op de gebruikersomgeving om je organisatie te beheren. ",
+            title_step_2: "Profiel aanmaken",
+            subtitle_step_2: "- Maak een profiel aan om gebruik te maken van Me.",
+            title_step_3: "Profiel aanmaken",
+            subtitle_step_3: "- Wordt onderdeel van het platform door je organisatie aan te maken",
+            title_step_4: "Koppel het profiel van je organisatie aan Me",
+            subtitle_step_4: "Laat invoerveld zien voor autorisatiecode",
+            top_title_step_4: "Gebruik Me",
+            top_subtitle_step_4: "- Rond de installatie af door gebruik te maken van Me",
+            title_step_5: "Het is gelukt! Het profiel van de organisatie is gekoppeld aan ",
+            subtitle_step_5: "",
+            top_title_step_5: "Gebruik Me",
+            top_subtitle_step_5: "- Rond de installatie af door gebruik te maken van Me",
         },
         labels: {
             mail: "E-mailadres",
+            mail_confirmation: 'E-mailadres',
             name: "Voornaam",
             lastname: "Achternaam",
+            bank_confirmation: 'IBAN-nummer'
         },
         buttons: {
+            go_step_2: "Ga verder naar stap 2",
             cancel: "Annuleren",
             next: "Volgende",
+        },
+        step: {
+            step_1: 'Stap 1',
+            step_2: 'Stap 2',
+            step_3: 'Stap 3',
+            step_4: 'Stap 4',
+            step_5: 'Stap 5'
+        },
+        download: {
+            ios: 'Download Me voor IOS',
+            android: 'Download Me voor Android',
+            already_have_app: 'I have already installed Me App'
+        },
+        qr_code: {
+            description: 'Scan deze QR-Code om te testen (rol spel. Klant komt bij u, testbetaling)'
+        },
+        app_instruction: {
+            step_1: 'Open Me',
+            step_2: 'ik heb al een profiel',
+            step_3: 'Inloggen met Autorisatie code',
+        },
+        app_header: {
+            title: 'Vul de code in op het invoerveld',
+            subtitle: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt'
         }
     },
 
@@ -449,6 +489,11 @@ module.exports = {
         labels: {
             bsn: "BSN",
         }
+    },
+
+    validation: {
+        email_confirmation: 'Email verkeerde bevestiging',
+        iban_confirmation: 'IBAN verkeerde bevestiging'
     },
 
     // OVERVIEW VALIDATIONS REQUESTS = validation-requests.pug

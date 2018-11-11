@@ -90,6 +90,7 @@ app.directive('collapse', require('./directives/CollpaseDirective'));
 app.directive('landingNavbar', require('./directives/landing/NavbarDirective'));
 app.directive('landingContactForm', require('./directives/landing/ContactFormDirective'));
 app.directive('forusChat', require('./directives/ForusChatDirective'));
+app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
 
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));

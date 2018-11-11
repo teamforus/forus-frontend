@@ -1,22 +1,217 @@
-.app.app-container: .row: .col.col-sm-8.col-sm-offset-2
-    .card: form(ng-submit="$ctrl.form.submit()").form
-        .card-header: .card-title {{ "sign_up.header.title" | translate }}
-        .card-section.card-section-primary
-            .row 
-                .col.col-sm-10.col-xs-12
-                    .form-group.form-group-inline
-                        label.form-label {{ "sign_up.labels.mail" | translate }}
-                        input(ng-model="$ctrl.form.values.records.primary_email" type="text" placeholder="E-mail").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors['records.primary_email']" ng-bind="error")
-                    .form-group.form-group-inline
-                        label.form-label {{ "sign_up.labels.name" | translate }}
-                        input(ng-model="$ctrl.form.values.records.given_name" type="text" placeholder="Voornaam").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors['records.given_name']" ng-bind="error")
-                    .form-group.form-group-inline
-                        label.form-label {{ "sign_up.labels.lastname" | translate }}
-                        input(ng-model="$ctrl.form.values.records.family_name" type="text" placeholder="Achternaam").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors['records.family_name']" ng-bind="error")
-        .card-section.card-section-primary
-            .text-center
-                button(type="button" ui-sref="home").button.button-default {{ "sign_up.buttons.cancel" | translate }}
+.app.app-container: .row: .col.col-sm-10.col-sm-offset-1
+    .steps.clearfix
+        .step-item
+            .step-icon(ng-class="$ctrl.step > 1 ? 'finished' : ''")
+                img(ng-if="$ctrl.step >= 2" src="./assets/img/sign-up/check.svg")
+                img(ng-if="$ctrl.step == 1" src="./assets/img/sign-up/process.svg")
+            .step-title {{ "sign_up.step.step_1" | translate }}
+
+        .step-item
+            .step-icon(ng-class="$ctrl.step > 2 ? 'finished' : ''")
+                img(ng-if="$ctrl.step >= 3" src="./assets/img/sign-up/check.svg")
+                img(ng-if="$ctrl.step == 2" src="./assets/img/sign-up/process.svg")
+                img(ng-if="$ctrl.step == 1" src="./assets/img/sign-up/question.svg")
+            .step-title {{ "sign_up.step.step_2" | translate }}
+
+        .step-item
+            .step-icon(ng-class="$ctrl.step > 3 ? 'finished' : ''")
+                img(ng-if="$ctrl.step >= 4" src="./assets/img/sign-up/check.svg")
+                img(ng-if="$ctrl.step == 3" src="./assets/img/sign-up/process.svg")
+                img(ng-if="$ctrl.step <= 2" src="./assets/img/sign-up/question.svg")
+            .step-title {{ "sign_up.step.step_3" | translate }}
+
+        .step-item
+            .step-icon(ng-class="$ctrl.step > 4 ? 'finished' : ''")
+                img(ng-if="$ctrl.step >= 5" src="./assets/img/sign-up/check.svg")
+                img(ng-if="$ctrl.step == 4" src="./assets/img/sign-up/process.svg")
+                img(ng-if="$ctrl.step <= 3" src="./assets/img/sign-up/question.svg")
+            .step-title {{ "sign_up.step.step_4" | translate }}
+
+        .step-item
+            .step-icon(ng-class="$ctrl.step > 5 ? 'finished' : ''")
+                img(ng-if="$ctrl.step >= 6" src="./assets/img/sign-up/check.svg")
+                img(ng-if="$ctrl.step == 5" src="./assets/img/sign-up/process.svg")
+                img(ng-if="$ctrl.step <= 4" src="./assets/img/sign-up/question.svg")
+            .step-title {{ "sign_up.step.step_5" | translate }}
+
+
+    .step-el(ng-if="$ctrl.step == 1")
+        .card(class="step-number-{{ $ctrl.step }}")
+            .card-header
+                .card-title {{ "sign_up.header.title_step_1" | translate }}
+                    .card-sub-title {{ "sign_up.header.subtitle_step_1" | translate }}
+            .card-section.card-section-primary.p-t-45
+                .row
+                    .col.col-sm-10.col-xs-12
+                        .row
+                            .col.col-sm-6.col-xs-12
+                                a(href="/"): .me-app-item
+                                    .app-icon: img(src="./assets/img/sign-up/app-store.png")
+                                    .title {{ "sign_up.download.ios" | translate }}
+                                        img(src="./assets/img/sign-up/right-arrow.svg")
+
+                            .col.col-sm-6.col-xs-12
+                                a(href="/"): .me-app-item
+                                    .app-icon.android-app: img(src="./assets/img/sign-up/playstore.png")
+                                    .title {{ "sign_up.download.android" | translate }}
+                                        img(src="./assets/img/sign-up/right-arrow.svg")
+
+                        .row
+                            .col.col-xs-12
+                                .block-dashed
+                                    .checkbox
+                                        input(type="checkbox" id="have_app" ng-model="$ctrl.has_app" ng-change="$ctrl.changeHasApp()")
+                                        label.checkbox-label(for="have_app")
+                                            .checkbox-box
+                                                .mdi.mdi-check
+                                            | {{ "sign_up.download.already_have_app" | translate }}
+
+
+        .step-footer(ng-if="$ctrl.has_app")
+            button(type="button" ng-click="$ctrl.next()").button.button-primary {{ "sign_up.buttons.go_step_2" | translate }}
+
+
+    .step-el(ng-if="$ctrl.step == 2")
+        form(ng-submit="$ctrl.next()").form
+            .card(class="step-number-{{ $ctrl.step }}")
+                .card-header
+                    .card-title {{ "sign_up.header.title_step_2" | translate }}
+                        .card-sub-title {{ "sign_up.header.subtitle_step_2" | translate }}
+                .card-section.card-section-primary
+                    .row
+                        .col.col-sm-5.col-xs-12
+                            .form-group
+                                label.form-label {{ "sign_up.labels.mail" | translate }}
+                                input(ng-model="$ctrl.signUpForm.values.records.primary_email" type="text" placeholder="E-mail").form-control
+                                .form-error(ng-repeat="error in $ctrl.signUpForm.errors['records.primary_email']" ng-bind="error")
+                            .form-group
+                                label.form-label {{ "sign_up.labels.mail_confirmation" | translate }}
+                                input(ng-model="$ctrl.signUpForm.values.records.primary_email_confirmation" type="text" placeholder="E-mail").form-control
+                                .form-error(ng-repeat="error in $ctrl.signUpForm.errors['records.primary_email_confirmation']" ng-bind="error")
+                            .form-group
+                                label.form-label {{ "sign_up.labels.name" | translate }}
+                                input(ng-model="$ctrl.signUpForm.values.records.given_name" type="text" placeholder="Voornaam").form-control
+                                .form-error(ng-repeat="error in $ctrl.signUpForm.errors['records.given_name']" ng-bind="error")
+                            .form-group
+                                label.form-label {{ "sign_up.labels.lastname" | translate }}
+                                input(ng-model="$ctrl.signUpForm.values.records.family_name" type="text" placeholder="Achternaam").form-control
+                                .form-error(ng-repeat="error in $ctrl.signUpForm.errors['records.family_name']" ng-bind="error")
+            .step-footer
+                button(type="button" ng-click="$ctrl.back()").button.button-default {{ "sign_up.buttons.cancel" | translate }}
                 button(type="submit").button.button-primary {{ "sign_up.buttons.next" | translate }}
+
+
+    .step-el(ng-if="$ctrl.step == 3")
+        form(ng-submit="$ctrl.next()").form
+            .card(class="step-number-{{ $ctrl.step }}")
+                .card-header
+                    .card-title {{ "sign_up.header.title_step_3" | translate }}
+                        .card-sub-title {{ "sign_up.header.subtitle_step_3" | translate }}
+                .card-section.card-section-primary.p-t-b-0
+                    .row
+                        .col.col-sm-6.col-xs-12.right-border
+                            .row
+                                .col.col-sm-10.col-xs-12.p-t-25.p-b-10
+                                    .form-group
+                                        label.form-label {{ "organization_edit.labels.name" | translate }}
+                                        input(ng-model="$ctrl.organizationForm.values.name" type="text" placeholder="Bedrijfsnaam").form-control
+                                        .form-error(ng-repeat="error in $ctrl.organizationForm.errors.name" ng-bind="error")
+                                    .form-group
+                                        label.form-label {{ "organization_edit.labels.bank" | translate }}
+                                        input(ng-model="$ctrl.organizationForm.values.iban" type="text" placeholder="IBAN-nummer").form-control
+                                        .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban" ng-bind="error")
+                                    .form-group
+                                        label.form-label {{ "sign_up.labels.bank_confirmation" | translate }}
+                                        input(ng-model="$ctrl.organizationForm.values.iban_confirmation" type="text" placeholder="IBAN-nummer").form-control
+                                        .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban_confirmation" ng-bind="error")
+                                    .form-group
+                                        label.form-label {{ "organization_edit.labels.mail" | translate }}
+                                        input(ng-model="$ctrl.organizationForm.values.email" type="text" placeholder="E-mailadres").form-control
+                                        .form-error(ng-repeat="error in $ctrl.organizationForm.errors.email" ng-bind="error")
+                                    .form-group
+                                        label.form-label {{ "organization_edit.labels.phone" | translate }}
+                                        input(ng-model="$ctrl.organizationForm.values.phone" type="text" placeholder="Telefoonnummer").form-control
+                                        .form-error(ng-repeat="error in $ctrl.organizationForm.errors.phone" ng-bind="error")
+
+                                    .divider
+
+                                    multi-select(
+                                    ng-model="$ctrl.organizationForm.values.product_categories"
+                                    options="$ctrl.productCategories")
+
+                                    .divider
+
+                                    .form-group
+                                        label.form-label {{ "organization_edit.labels.kvk" | translate }}
+                                        input(ng-model="$ctrl.organizationForm.values.kvk" type="text" placeholder="KvK-nummer").form-control
+                                        .form-error(ng-repeat="error in $ctrl.organizationForm.errors.kvk" ng-bind="error")
+                                    .form-group
+                                        label.form-label {{ "organization_edit.labels.tax" | translate }}
+                                        input(ng-model="$ctrl.organizationForm.values.btw" type="text" placeholder="BTW-nummer").form-control
+                                        .form-error(ng-repeat="error in $ctrl.organizationForm.errors.btw" ng-bind="error")
+
+                        .col.col-sm-6.col-xs-12
+                            .form-group
+                                label.form-label &nbsp;
+                                .form-offset
+                                    photo-selector(
+                                    thumbnail="$ctrl.media.sizes.thumbnail"
+                                    select-photo="$ctrl.selectPhoto(e)")
+
+            .step-footer
+                button(type="button" ng-click="$ctrl.back()" ng-if="!$ctrl.signedIn").button.button-default {{ "sign_up.buttons.cancel" | translate }}
+                button(type="submit").button.button-primary {{ "sign_up.buttons.next" | translate }}
+
+    .step-el(ng-if="$ctrl.step == 4")
+        .step-title {{ "sign_up.header.top_title_step_4" | translate }}
+            .step-sub-title {{ "sign_up.header.top_subtitle_step_4" | translate }}
+
+        .card(class="step-number-{{ $ctrl.step }}")
+            .card-header
+                .card-title {{ "sign_up.header.title_step_4" | translate }}
+                    .card-sub-title {{ "sign_up.header.subtitle_step_4" | translate }}
+            .card-section.card-section-primary.colored
+                .row
+                    .col.col-sm-10.col-sm-offset-1.app-instruction
+                        .row
+                            .col.col-sm-4
+                                img(src="./assets/img/sign-up/screen1.png")
+                                .title {{ "sign_up.app_instruction.step_1" | translate }}
+                                img.line-item(src="./assets/img/sign-up/line1.png")
+                            .col.col-sm-4
+                                img(src="./assets/img/sign-up/screen2.png")
+                                .title {{ "sign_up.app_instruction.step_2" | translate }}
+                                img.line-item(src="./assets/img/sign-up/line2.png")
+                            .col.col-sm-4
+                                img(src="./assets/img/sign-up/screen3.png")
+                                .title {{ "sign_up.app_instruction.step_3" | translate }}
+
+            .divider-img
+                img(src="./assets/img/sign-up/Base7.png")
+
+            .card-section.card-section-primary.colored.pin-code-section
+                .row
+                    .text-center
+                        .title {{ "sign_up.app_header.title" | translate }}
+                        .sub-title {{ "sign_up.app_header.subtitle" | translate }}
+                    .form-group
+                        div(pincode-control ng-model="authorizePincodeForm.values.auth_code")
+                        .text-center.form-error(ng-repeat="error in authorizePincodeForm.errors.auth_code track by $index" ng-bind="error")
+                .text-center
+                    button(type="button" ng-click="$ctrl.next()").button.button-primary {{ "sign_up.buttons.next" | translate }}
+
+
+    .step-el(ng-show="$ctrl.step == 5")
+        .step-title {{ "sign_up.header.top_title_step_5" | translate }}
+            .step-sub-title {{ "sign_up.header.top_subtitle_step_5" | translate }}
+
+        .card.no-arrow(class="step-number-{{ $ctrl.step }}")
+            .card-header
+                .card-title {{ "sign_up.header.title_step_5" | translate }}
+                    .card-sub-title {{ "sign_up.header.subtitle_step_5" | translate }}
+            .card-section.card-section-primary.colored
+                .row
+                    .block.block-auth-qr-code
+                        .qr_code#platform_auth_qrcode
+                        .qr_code-desc {{ "sign_up.qr_code.description" | translate }}
+
