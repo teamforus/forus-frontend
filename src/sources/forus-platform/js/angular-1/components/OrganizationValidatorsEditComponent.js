@@ -39,6 +39,10 @@ let OrganizationValidatorsEditComponent = function(
             });
         });
     };
+
+    $ctrl.cancel = function () {
+        $state.go('validators', {'organization_id' : $stateParams.organization_id});
+    };
 };
 
 module.exports = {

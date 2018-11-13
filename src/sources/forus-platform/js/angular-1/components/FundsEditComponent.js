@@ -58,6 +58,10 @@ let FundsEditComponent = function(
             $ctrl.form.values.media_uid = $ctrl.media.uid;
         });
     };
+
+    $ctrl.cancel = function () {
+        $state.go('organization-funds', {'organization_id' : $stateParams.organization_id});
+    };
 };
 
 module.exports = {
