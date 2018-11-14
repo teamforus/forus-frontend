@@ -50,5 +50,5 @@
                             .form-error(ng-repeat="error in $ctrl.form.errors.btw" ng-bind="error")
             .card-section.card-section-primary
                 .text-center
-                    button.button.button-default {{ "organization_edit.buttons.cancel" | translate }}
+                    button(type="button" ng-click="$ctrl.cancel()").button.button-default {{ "organization_edit.buttons.cancel" | translate }}
                     button(type="submit").button.button-primary {{ "organization_edit.buttons.create" | translate }}

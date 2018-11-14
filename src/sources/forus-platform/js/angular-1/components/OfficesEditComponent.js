@@ -55,6 +55,10 @@ let OfficesEditComponent = function(
             $ctrl.form.values.media_uid = $ctrl.media.uid;
         });
     };
+
+    $ctrl.cancel = function () {
+        $state.go('offices', {'organization_id' : $stateParams.organization_id});
+    };
 };
 
 module.exports = {

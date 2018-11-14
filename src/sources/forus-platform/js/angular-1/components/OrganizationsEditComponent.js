@@ -53,6 +53,13 @@ let OrganizationsEditComponent = function(
             $ctrl.form.values.media_uid = $ctrl.media.uid;
         });
     };
+
+    $ctrl.cancel = function () {
+        if($ctrl.organization)
+            $state.go('offices', {'organization_id' : $ctrl.organization.id});
+        else
+            $state.go('organizations');
+    };
 };
 
 module.exports = {

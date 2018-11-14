@@ -18,5 +18,5 @@
 
             .card-section.card-section-primary
                 .text-center
-                    button.button.button-default {{ "validators_edit.buttons.cancel" | translate }}
+                    button(type="button" ng-click="$ctrl.cancel()").button.button-default {{ "validators_edit.buttons.cancel" | translate }}
                     button(type="submit").button.button-primary {{ "validators_edit.buttons.confirm" | translate }}

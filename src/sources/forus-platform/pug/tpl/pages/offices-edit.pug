@@ -38,5 +38,5 @@
 
             .card-section.card-section-primary
                 .text-center
-                    button.button.button-default {{ "offices_edit.buttons.cancel" | translate }}
+                    button(type="button" ng-click="$ctrl.cancel()").button.button-default {{ "offices_edit.buttons.cancel" | translate }}
                     button(type="submit").button.button-primary {{ "offices_edit.buttons.confirm" | translate }}

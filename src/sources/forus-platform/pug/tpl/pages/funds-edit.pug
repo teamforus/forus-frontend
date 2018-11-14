@@ -48,5 +48,5 @@
                             options="$ctrl.productCategories")
             .card-section.card-section-primary
                 .text-center
-                    button.button.button-default {{ "funds_edit.buttons.cancel" | translate }}
+                    button(type="button" ng-click="$ctrl.cancel()").button.button-default {{ "funds_edit.buttons.cancel" | translate }}
                     button(type="submit").button.button-primary {{ "funds_edit.buttons.confirm" | translate }}

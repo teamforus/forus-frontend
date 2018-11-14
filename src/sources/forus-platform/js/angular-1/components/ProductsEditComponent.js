@@ -62,6 +62,10 @@ let ProductsEditComponent = function(
             $ctrl.form.values.media_uid = $ctrl.media.uid;
         });
     };
+
+    $ctrl.cancel = function () {
+        $state.go('products', {'organization_id' : $stateParams.organization_id});
+    };
 };
 
 module.exports = {
