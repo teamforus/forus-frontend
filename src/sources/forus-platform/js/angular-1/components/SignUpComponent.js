@@ -11,7 +11,8 @@ let SignUpComponent = function(
     IdentityService,
     CredentialsService,
     FormBuilderService,
-    MediaService
+    MediaService,
+    ProviderFundService
 ) {
     let $ctrl = this;
 
@@ -26,6 +27,8 @@ let SignUpComponent = function(
     $ctrl.organizationStep = false;
     $ctrl.signedIn = false;
     $ctrl.showLoginBlock = false;
+    $ctrl.organization = null;
+    $ctrl.fundsAvailable = [];
 
     let qrCodeEl;
     let qrCode;
@@ -167,6 +170,14 @@ let SignUpComponent = function(
             $ctrl.step++;
             progressStorage.clear();
 
+            $ctrl.organization = res.data.data;
+
+            ProviderFundService.listAvailableFunds(
+                $ctrl.organization.id
+            ).then((res) => {
+                $ctrl.fundsAvailable = res.data.data ? res.data.data : res.data;
+            });
+
         }, (res) => {
             $ctrl.organizationForm.errors = res.data.errors;
             $ctrl.organizationForm.unlock();
@@ -262,7 +273,30 @@ let SignUpComponent = function(
                     };
                 }
             });
+        } else if ($ctrl.step == 6) {
+
+            if($ctrl.organization && $ctrl.fundsAvailable.length) {
+                $ctrl.step++;
+            }
+
+        } else if ($ctrl.step == 7) {
+            $state.go('organizations');
         }
+    };
+
+    $ctrl.getFundCategories = function (fund) {
+        return fund.product_categories.map((val) => {
+            return val.name;
+        });
+    };
+
+    $ctrl.providerApplyFund = function(fund) {
+        ProviderFundService.applyForFund(
+            $ctrl.organization.id,
+            fund.id
+        ).then(function(res) {
+            fund.applied = true;
+        });
     };
 
     $ctrl.back = function() {
@@ -304,7 +338,8 @@ let SignUpComponent = function(
     $ctrl.applyAccessToken = function(access_token) {
         CredentialsService.set(access_token);
         $rootScope.$broadcast('auth:update');
-        $state.go('organizations');
+
+        $ctrl.step++;
     };
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
@@ -381,6 +416,7 @@ module.exports = {
         'CredentialsService',
         'FormBuilderService',
         'MediaService',
+        'ProviderFundService',
         SignUpComponent
     ],
     templateUrl: 'assets/tpl/pages/sign-up.html'

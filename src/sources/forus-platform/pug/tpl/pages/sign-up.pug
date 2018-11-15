@@ -34,6 +34,20 @@
                 img(ng-if="$ctrl.step <= 4" src="./assets/img/sign-up/question.svg")
             .step-title {{ "sign_up.step.step_5" | translate }}
 
+        .step-item
+            .step-icon(ng-class="$ctrl.step > 6 ? 'finished' : ''")
+                img(ng-if="$ctrl.step >= 7" src="./assets/img/sign-up/check.svg")
+                img(ng-if="$ctrl.step == 6" src="./assets/img/sign-up/process.svg")
+                img(ng-if="$ctrl.step <= 5" src="./assets/img/sign-up/question.svg")
+            .step-title {{ "sign_up.step.step_6" | translate }}
+
+        .step-item
+            .step-icon(ng-class="$ctrl.step > 7 ? 'finished' : ''")
+                img(ng-if="$ctrl.step >= 8" src="./assets/img/sign-up/check.svg")
+                img(ng-if="$ctrl.step == 7" src="./assets/img/sign-up/process.svg")
+                img(ng-if="$ctrl.step <= 6" src="./assets/img/sign-up/question.svg")
+            .step-title {{ "sign_up.step.step_7" | translate }}
+
 
     .step-el(ng-if="$ctrl.step == 1")
         .card(class="step-number-{{ $ctrl.step }}")
@@ -185,7 +199,7 @@
         .step-title {{ "sign_up.header.top_title_step_4" | translate }}
             .step-sub-title {{ "sign_up.header.top_subtitle_step_4" | translate }}
 
-        .card(class="step-number-{{ $ctrl.step }}")
+        .card.no-arrow(class="step-number-{{ $ctrl.step }}")
             .card-header
                 .card-title {{ "sign_up.header.title_step_4" | translate }}
                     .card-sub-title {{ "sign_up.header.subtitle_step_4" | translate }}
@@ -230,3 +244,50 @@
                         .qr_code#platform_auth_qrcode
                         .qr_code-desc {{ "sign_up.qr_code.description" | translate }}
 
+
+    .step-el(ng-if="$ctrl.step == 6")
+        .card(class="step-number-{{ $ctrl.step }}")
+            .card-header.border-bottom
+                .card-title {{ "sign_up.header.title_step_6" | translate }}
+                    .card-sub-title {{ "sign_up.header.subtitle_step_6" | translate }}
+            .card-section.card-section-primary.colored
+                .row
+        .step-footer
+            button(type="button" ng-click="$ctrl.next()").button.button-primary {{ "sign_up.buttons.next" | translate }}
+
+
+    .step-el(ng-if="$ctrl.step == 7")
+        .card(class="step-number-{{ $ctrl.step }}")
+            .card-header.border-bottom
+                .card-title {{ "sign_up.header.title_step_7" | translate }}
+                    .card-sub-title {{ "sign_up.header.subtitle_step_7" | translate }}
+            .card-section.card-section-primary.colored
+                div(
+                    ng-if="$ctrl.fundsAvailable.length > 0"
+                    ng-repeat="fund in $ctrl.fundsAvailable"
+                    )
+                    .card-section.card-section-fund
+                        .card-section-actions
+                            button(
+                            ng-click="$ctrl.providerApplyFund(fund)" ng-show="!fund.applied").button.button-primary
+                                | {{ "fund_card_available_provider.buttons.join" | translate }}
+                            div(ng-show="fund.applied")
+                                .tag.tag-warning {{ "fund_card_provider_finances.status.hold" | translate }}
+
+                        .card-block.card-block-fund
+                            .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}", alt="")
+                            .fund-title(ng-bind="fund.name")
+                            br
+                            div(ng-bind="fund.organization.name").fund-organization
+                        .card-block.card-block-listing
+                            .card-block-listing-label {{ "fund_card_available_provider.labels.categories" | translate }}
+                            | {{ $ctrl.getFundCategories(fund).join(', ') }}
+                            small(ng-show="$ctrl.getFundCategories(fund).length == 0").text-muted.small {{ "fund_card_available_provider.labels.nocategories" | translate }}
+
+
+                empty-block(
+                    ng-if="$ctrl.funds.length == 0"
+                    text="'Er zijn momenteel geen actieve fondsen.'")
+
+        .step-footer
+            button(type="button" ng-click="$ctrl.next()").button.button-primary {{ "sign_up.buttons.next" | translate }}

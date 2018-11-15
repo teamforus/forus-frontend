@@ -2069,6 +2069,10 @@ body {
         display: none!important;
     }
 
+    .header-logo{
+        display: none!important;
+    }
+
     .card {
 
         border: 1px solid #d2e6ff;
@@ -2108,25 +2112,35 @@ body {
 
             &.step-number-2 {
                 &:after, &:before {
-                    left: 200px;
+                    left: 180px;
                 }
             }
 
             &.step-number-3 {
                 &:after, &:before {
-                    left: 372px;
+                    left: 332px;
                 }
             }
 
             &.step-number-4 {
                 &:after, &:before {
-                    left: 544px;
+                    left: 484px;
                 }
             }
 
             &.step-number-5 {
                 &:after, &:before {
-                    left: 716px;
+                    left: 636px;
+                }
+            }
+            &.step-number-6 {
+                &:after, &:before {
+                    left: 788px;
+                }
+            }
+            &.step-number-7 {
+                &:after, &:before {
+                    left: 940px;
                 }
             }
         }
@@ -2142,11 +2156,19 @@ body {
                     background-color: #f7f9fc;
                 }
             }
+
+            &.card-section-fund {
+                background: #fff;
+                border-radius: 5px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                margin-bottom: 15px;
+            }
         }
 
         .card-header{
             border-bottom: 0;
             padding-bottom: 0;
+
 
             .card-title{
                 border-bottom: 1px solid #d2e6ff;
@@ -2156,6 +2178,14 @@ body {
                     font-size: 14px;
                     color: #646f79;
                     font-weight: 500;
+                }
+            }
+
+            &.border-bottom{
+                border-bottom: 1px solid #d2e6ff;
+
+                .card-title{
+                    border-bottom: none;
                 }
             }
         }
@@ -2297,7 +2327,7 @@ body {
         margin-bottom: 30px;
 
         .step-item{
-            width: 170px;
+            width: 150px;
             float: left;
             position: relative;
 

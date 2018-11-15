@@ -408,6 +408,10 @@ module.exports = {
             subtitle_step_5: "",
             top_title_step_5: "Gebruik Me",
             top_subtitle_step_5: "- Rond de installatie af door gebruik te maken van Me",
+            title_step_6: "Step 6",
+            subtitle_step_6: "",
+            title_step_7: "Step 7 title",
+            subtitle_step_7: "Step 7 subtitle",
         },
         labels: {
             mail: "E-mailadres",
@@ -428,7 +432,9 @@ module.exports = {
             step_2: 'Stap 2',
             step_3: 'Stap 3',
             step_4: 'Stap 4',
-            step_5: 'Stap 5'
+            step_5: 'Stap 5',
+            step_6: 'Stap 6',
+            step_7: 'Stap 7'
         },
         download: {
             ios: 'Download Me voor iOS',
