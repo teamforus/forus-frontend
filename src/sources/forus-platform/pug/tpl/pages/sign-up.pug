@@ -101,7 +101,7 @@
                 button(type="submit").button.button-primary {{ "sign_up.buttons.next" | translate }}
 
 
-    .step-el(ng-if="$ctrl.step == 3")
+    .step-el(ng-show="$ctrl.step == 3")
         form(ng-submit="$ctrl.next()").form
             .card(class="step-number-{{ $ctrl.step }}")
                 .card-header
@@ -150,7 +150,7 @@
                                         input(ng-model="$ctrl.organizationForm.values.btw" type="text" placeholder="BTW-nummer").form-control
                                         .form-error(ng-repeat="error in $ctrl.organizationForm.errors.btw" ng-bind="error")
 
-                        .col.col-sm-6.col-xs-12
+                        #organization-logo-block.col.col-sm-6.col-xs-12
                             .form-group
                                 label.form-label &nbsp;
                                 .form-offset
@@ -172,19 +172,15 @@
                     .card-sub-title {{ "sign_up.header.subtitle_step_4" | translate }}
             .card-section.card-section-primary.colored
                 .row
-                    .col.col-sm-10.col-sm-offset-1.app-instruction
+                    .col.col-sm-8.col-sm-offset-2.app-instruction
                         .row
-                            .col.col-sm-4
+                            .col.col-sm-6
                                 img(src="./assets/img/sign-up/screen1.png")
                                 .title {{ "sign_up.app_instruction.step_1" | translate }}
                                 img.line-item(src="./assets/img/sign-up/line1.png")
-                            .col.col-sm-4
+                            .col.col-sm-6
                                 img(src="./assets/img/sign-up/screen2.png")
                                 .title {{ "sign_up.app_instruction.step_2" | translate }}
-                                img.line-item(src="./assets/img/sign-up/line2.png")
-                            .col.col-sm-4
-                                img(src="./assets/img/sign-up/screen3.png")
-                                .title {{ "sign_up.app_instruction.step_3" | translate }}
 
             .divider-img
                 img(src="./assets/img/sign-up/Base7.png")

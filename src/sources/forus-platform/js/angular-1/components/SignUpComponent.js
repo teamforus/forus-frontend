@@ -29,6 +29,7 @@ let SignUpComponent = function(
     let qrCodeEl;
     let qrCode;
     let has_app = false;
+    let image = null;
 
     let progressStorage = new(function() {
         let interval;
@@ -159,6 +160,18 @@ let SignUpComponent = function(
         has_app = !has_app;
     };
 
+    let submitOrganizationForm = function () {
+        $ctrl.organizationForm.submit().then((res) => {
+            $rootScope.$broadcast('auth:update');
+            $ctrl.step++;
+            progressStorage.clear();
+
+        }, (res) => {
+            $ctrl.organizationForm.errors = res.data.errors;
+            $ctrl.organizationForm.unlock();
+        });
+    };
+
     $ctrl.next = function() {
         if ($ctrl.organizationStep && !$ctrl.signedIn && $ctrl.step > 1) {
             $ctrl.signUpForm.submit().then((res) => {
@@ -184,30 +197,38 @@ let SignUpComponent = function(
         } else if ($ctrl.step == 3) {
 
             if ($ctrl.signedIn) {
-                $ctrl.organizationForm.submit().then((res) => {
-                    $rootScope.$broadcast('auth:update');
-                    $ctrl.step++;
-                    progressStorage.clear();
 
-                }, (res) => {
-                    $ctrl.organizationForm.errors = res.data.errors;
-                    $ctrl.organizationForm.unlock();
-                });
+                if(image) {
+                    MediaService.store('organization_logo', image).then(function (res) {
+                        $ctrl.media = res.data.data;
+                        $ctrl.organizationForm.values.media_uid = $ctrl.media.uid;
+
+                        image = null;
+
+                        submitOrganizationForm();
+                    });
+                } else {
+                    submitOrganizationForm();
+                }
 
             } else {
                 $ctrl.signUpForm.submit().then((res) => {
                     CredentialsService.set(res.data.access_token);
                     $ctrl.signedIn = true;
 
-                    $ctrl.organizationForm.submit().then((res) => {
-                        $rootScope.$broadcast('auth:update');
-                        $ctrl.step++;
-                        progressStorage.clear();
+                    if(image) {
+                        MediaService.store('organization_logo', image).then(function (res) {
+                            $ctrl.media = res.data.data;
+                            $ctrl.organizationForm.values.media_uid = $ctrl.media.uid;
 
-                    }, (res) => {
-                        $ctrl.organizationForm.errors = res.data.errors;
-                        $ctrl.organizationForm.unlock();
-                    });
+                            image = null;
+
+                            submitOrganizationForm();
+                        });
+                    } else {
+                        submitOrganizationForm();
+                    }
+
                 }, (res) => {
                     $ctrl.signUpForm.unlock();
                     $ctrl.signUpForm.errors = res.data.errors;
@@ -291,10 +312,16 @@ let SignUpComponent = function(
     };
 
     $ctrl.selectPhoto = (e) => {
-        MediaService.store('organization_logo', e.target.files[0]).then(function(res) {
-            $ctrl.media = res.data.data;
-            $ctrl.organizationForm.values.media_uid = $ctrl.media.uid;
-        });
+        image = e.target.files[0];
+
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#organization-logo-block .photo-img').css({'background-image': 'url('+ e.target.result +')'});
+            $('#organization-logo-block img').hide();
+        };
+
+        reader.readAsDataURL(image);
     };
 
     $scope.authorizePincodeForm = FormBuilderService.build({

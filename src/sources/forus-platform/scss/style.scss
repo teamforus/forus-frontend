@@ -1756,6 +1756,8 @@ body {
             height: 75px;
             margin-right: 15px;
             overflow: hidden;
+            background-position: 50%;
+            background-size: cover;
 
             img {
                 display: block;
@@ -2188,7 +2190,7 @@ body {
 
                     &.line-item{
                         position: absolute;
-                        top: 150px;
+                        top: 200px;
                         left: calc(100% - 82px);
                         width: 163px;
                         z-index: 2;
@@ -2556,6 +2558,12 @@ body {
             width: 100%;
         }
     }
+}
+
+.form-error {
+    font: 400 13px/24px $bf;
+    color: $bc;
+    margin: 0;
 }
 
 @media (max-width: 768px){
