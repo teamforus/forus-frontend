@@ -5,6 +5,7 @@ let SignUpComponent = function(
     $rootScope,
     $stateParams,
     $timeout,
+    $interval,
     $filter,
     OrganizationService,
     IdentityService,
@@ -29,10 +30,75 @@ let SignUpComponent = function(
     let qrCode;
     let has_app = false;
 
-    $ctrl.$onInit = function() {
+    let progressStorage = new(function() {
+        let interval;
 
-        if($rootScope.auth_user)
+        this.init = () => {
+            let step = this.getStep();
+            if (step != null) {
+                $ctrl.step = step;
+            }
+
+            if (localStorage.getItem('sign_up_form.signUpForm') != null) {
+                $ctrl.signUpForm.values = JSON.parse(
+                    localStorage.getItem('sign_up_form.signUpForm')
+                );
+            }
+
+            if (localStorage.getItem('sign_up_form.organizationForm') != null) {
+                $ctrl.organizationForm.values = JSON.parse(
+                    localStorage.getItem('sign_up_form.organizationForm')
+                );
+            }
+
+            interval = $interval(() => {
+                if ($ctrl.step == 2) {
+                    if ($ctrl.signUpForm.values) {
+                        localStorage.setItem('sign_up_form.signUpForm', JSON.stringify(
+                            $ctrl.signUpForm.values
+                        ));
+                    }
+                } else if ($ctrl.step == 3) {
+                    if ($ctrl.organizationForm.values) {
+                        localStorage.setItem('sign_up_form.organizationForm', JSON.stringify(
+                            $ctrl.organizationForm.values
+                        ));
+
+                        if (!$ctrl.organizationForm.values.product_categories) {
+                            $ctrl.organizationForm.values.product_categories = [];
+                        }
+                    }
+                }
+            }, 500);
+        };
+
+        this.destroy = () => {
+            $interval.cancel(interval);
+        };
+
+        this.setStep = (step) => {
+            localStorage.setItem('sign_up_form.step', step);
+        };
+
+        this.getStep = () => {
+            let step = parseInt(localStorage.getItem('sign_up_form.step'));
+
+            return isNaN(step) ? null : step;
+        };
+
+        this.clear = () => {
+            $interval.cancel(interval);
+            
+            localStorage.removeItem('sign_up_form.step');
+            localStorage.removeItem('sign_up_form.signUpForm');
+            localStorage.removeItem('sign_up_form.organizationForm');
+        };
+    })();
+
+    $ctrl.$onInit = function() {
+        if ($rootScope.auth_user) {
             $state.go('organizations');
+        }
 
         $ctrl.signUpForm = FormBuilderService.build({
             pin_code: "1111",
@@ -52,8 +118,9 @@ let SignUpComponent = function(
 
             let formValues = form.values;
 
-            if (formValues.records)
+            if (formValues.records) {
                 delete formValues.records.primary_email_confirmation;
+            }
 
             form.lock();
 
@@ -82,18 +149,17 @@ let SignUpComponent = function(
                 form.values
             );
         });
+
+        progressStorage.init();
+
+        $scope.$on('$destroy', progressStorage.destroy);
     };
 
-    $ctrl.back = function () {
-        $ctrl.step--;
-    };
-
-    $ctrl.changeHasApp = function () {
+    $ctrl.changeHasApp = function() {
         has_app = !has_app;
     };
 
     $ctrl.next = function() {
-
         if ($ctrl.organizationStep && !$ctrl.signedIn && $ctrl.step > 1) {
             $ctrl.signUpForm.submit().then((res) => {
                 CredentialsService.set(res.data.access_token);
@@ -109,23 +175,26 @@ let SignUpComponent = function(
 
         if ($ctrl.step == 1) {
             $ctrl.step++;
+            progressStorage.setStep($ctrl.step);
 
-        }else if ($ctrl.step == 2) {
+        } else if ($ctrl.step == 2) {
             $ctrl.step++;
+            progressStorage.setStep($ctrl.step);
 
-        }else if ($ctrl.step == 3) {
+        } else if ($ctrl.step == 3) {
 
-            if($ctrl.signedIn){
+            if ($ctrl.signedIn) {
                 $ctrl.organizationForm.submit().then((res) => {
                     $rootScope.$broadcast('auth:update');
                     $ctrl.step++;
+                    progressStorage.clear();
 
                 }, (res) => {
                     $ctrl.organizationForm.errors = res.data.errors;
                     $ctrl.organizationForm.unlock();
                 });
 
-            }else {
+            } else {
                 $ctrl.signUpForm.submit().then((res) => {
                     CredentialsService.set(res.data.access_token);
                     $ctrl.signedIn = true;
@@ -133,6 +202,7 @@ let SignUpComponent = function(
                     $ctrl.organizationForm.submit().then((res) => {
                         $rootScope.$broadcast('auth:update');
                         $ctrl.step++;
+                        progressStorage.clear();
 
                     }, (res) => {
                         $ctrl.organizationForm.errors = res.data.errors;
@@ -143,9 +213,10 @@ let SignUpComponent = function(
                     $ctrl.signUpForm.errors = res.data.errors;
                     $ctrl.step = 2;
                     $ctrl.organizationStep = true;
+                    progressStorage.setStep($ctrl.step);
                 });
             }
-        }else if($ctrl.step == 4){
+        } else if ($ctrl.step == 4) {
 
             $scope.authorizePincodeForm.submit().then((res) => {
                 CredentialsService.set(null);
@@ -169,6 +240,16 @@ let SignUpComponent = function(
                     };
                 }
             });
+        }
+    };
+
+    $ctrl.back = function() {
+        $ctrl.step--;
+
+        if ($ctrl.step <= 3) {
+            progressStorage.setStep($ctrl.step);
+        } else {
+            progressStorage.clear();
         }
     };
 
@@ -239,6 +320,7 @@ module.exports = {
         '$rootScope',
         '$stateParams',
         '$timeout',
+        '$interval',
         '$filter',
         'OrganizationService',
         'IdentityService',
