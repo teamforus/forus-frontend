@@ -420,6 +420,8 @@ module.exports = {
             go_step_2: "Ga verder naar stap 2",
             cancel: "Annuleren",
             next: "Volgende",
+            reload_qr: 'Reload QR code',
+            login: 'Login'
         },
         step: {
             step_1: 'Stap 1',
@@ -444,6 +446,11 @@ module.exports = {
         app_header: {
             title: 'Vul de code in op het invoerveld',
             subtitle: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt'
+        },
+        login: {
+            title: 'Lorem ipsum dolor sit amet',
+            description: 'Eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam, quis nostrud.',
+            qr_description: 'Eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam, quis nostrud.'
         }
     },
 

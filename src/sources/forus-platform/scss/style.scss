@@ -2204,6 +2204,46 @@ body {
                 }
             }
         }
+
+        .auth-login-section{
+            padding-top: 0!important;
+            padding-bottom: 0!important;
+
+            & > .row{
+                & > .col{
+
+                    &:first-child {
+                        padding: 25px 25px 10px 10px;
+                    }
+
+                    &:last-child {
+                        padding: 25px 10px 10px 25px;
+                    }
+
+                    .block-auth-qr-code{
+                        .qr_code{
+                            width: 100%;
+                            height: auto;
+                        }
+                    }
+
+                    .login-block{
+                        .title{
+                            font: 600 16px/24px $bf;
+                            color: #282b39;
+                            padding-bottom: 20px;
+                        }
+
+                        .login-block-description{
+                            font: 500 14px/20px $bf;
+                            color: #646f79;
+                            padding: 20px 0;
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     .step-title{
@@ -2226,6 +2266,7 @@ body {
         position: relative;
         transition: all 0.3s;
         top: 0;
+        min-width: 220px;
 
         &.button-primary{
             background: #305dfb;

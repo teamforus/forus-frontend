@@ -77,9 +77,9 @@
                 .card-header
                     .card-title {{ "sign_up.header.title_step_2" | translate }}
                         .card-sub-title {{ "sign_up.header.subtitle_step_2" | translate }}
-                .card-section.card-section-primary
+                .card-section.card-section-primary.auth-login-section
                     .row
-                        .col.col-sm-5.col-xs-12
+                        .col.col-sm-5.col-xs-12.right-border
                             .form-group
                                 label.form-label {{ "sign_up.labels.mail" | translate }}
                                 input(ng-model="$ctrl.signUpForm.values.records.primary_email" type="text" placeholder="E-mail").form-control
@@ -96,6 +96,25 @@
                                 label.form-label {{ "sign_up.labels.lastname" | translate }}
                                 input(ng-model="$ctrl.signUpForm.values.records.family_name" type="text" placeholder="Achternaam").form-control
                                 .form-error(ng-repeat="error in $ctrl.signUpForm.errors['records.family_name']" ng-bind="error")
+
+                        .col.col-sm-7.col-xs-12
+                            .login-block(ng-if="!$ctrl.showLoginBlock")
+                                .title.p-t-b-0 {{ "sign_up.login.title" | translate }}
+                                .login-block-description {{ "sign_up.login.description" | translate }}
+                                .btn-block
+                                    button(type="button" ng-click="$ctrl.showLoginQrCode()").button.button-primary {{ "sign_up.buttons.login" | translate }}
+
+                            .login-block(ng-show="$ctrl.showLoginBlock")
+                                .title {{ "sign_up.login.title" | translate }}
+                                .row
+                                    .col.col-sm-5.col-xs-12
+                                        .block.block-auth-qr-code
+                                            .qr_code#login_auth_qrcode
+                                    .col.col-sm-7.col-xs-12
+                                        .login-block-description {{ "sign_up.login.qr_description" | translate }}
+                                        .btn-block
+                                            button(type="button" ng-click="$ctrl.showLoginQrCode()").button.button-primary {{ "sign_up.buttons.reload_qr" | translate }}
+
             .step-footer
                 button(type="button" ng-click="$ctrl.back()").button.button-default {{ "sign_up.buttons.cancel" | translate }}
                 button(type="submit").button.button-primary {{ "sign_up.buttons.next" | translate }}

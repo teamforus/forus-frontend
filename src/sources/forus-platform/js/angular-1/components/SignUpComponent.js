@@ -25,6 +25,7 @@ let SignUpComponent = function(
     $ctrl.step = 1;
     $ctrl.organizationStep = false;
     $ctrl.signedIn = false;
+    $ctrl.showLoginBlock = false;
 
     let qrCodeEl;
     let qrCode;
@@ -272,7 +273,33 @@ let SignUpComponent = function(
         } else {
             progressStorage.clear();
         }
+
+        loginQrBlock.hide();
     };
+
+    $ctrl.showLoginQrCode = function() {
+
+        qrCodeEl = document.getElementById('login_auth_qrcode');
+        qrCodeEl.innerHTML = "";
+
+        qrCode = new QRCode(qrCodeEl, {
+            correctLevel: QRCode.CorrectLevel.L
+        });
+
+        $ctrl.requestAuthQrToken();
+
+        loginQrBlock.show();
+    };
+
+    let loginQrBlock = new(function () {
+        this.show = () => {
+            $ctrl.showLoginBlock = true;
+        };
+
+        this.hide = () => {
+            $ctrl.showLoginBlock = false;
+        };
+    });
 
     $ctrl.applyAccessToken = function(access_token) {
         CredentialsService.set(access_token);
