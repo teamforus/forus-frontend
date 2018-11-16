@@ -2661,6 +2661,34 @@ body {
             width: 100%;
         }
     }
+
+    .open-pc-section{
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100%;
+        background: #fff;
+        z-index: 9999;
+        text-align: center;
+        padding: 90px 20px 0 20px;
+        color: #282b39;
+
+        .img-block {
+            img{
+                width: 140px;
+            }
+        }
+
+        .title{
+            font: 600 28px/40px $bf;
+            margin: 80px 0 35px;
+        }
+
+        .open-pc-description{
+            font: 500 16px/24px $bf;
+        }
+    }
 }
 
 .form-error {
