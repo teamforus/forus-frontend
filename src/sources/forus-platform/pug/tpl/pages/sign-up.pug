@@ -94,6 +94,7 @@
                         .col.col-sm-5.col-xs-12.right-border
                             .form-group
                                 label.form-label {{ "sign_up.labels.mail" | translate }}
+                                    tooltip(text="'lorem_ipsum'")
                                 input(ng-model="$ctrl.signUpForm.values.records.primary_email" type="text" placeholder="E-mail").form-control
                                 .form-error(ng-repeat="error in $ctrl.signUpForm.errors['records.primary_email']" ng-bind="error")
                             .form-group
@@ -144,6 +145,7 @@
                                 .col.col-sm-10.col-xs-12.p-t-25.p-b-10
                                     .form-group
                                         label.form-label {{ "organization_edit.labels.name" | translate }}
+                                            tooltip(text="'lorem_ipsum'")
                                         input(ng-model="$ctrl.organizationForm.values.name" type="text" placeholder="Bedrijfsnaam").form-control
                                         .form-error(ng-repeat="error in $ctrl.organizationForm.errors.name" ng-bind="error")
                                     .form-group

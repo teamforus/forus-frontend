@@ -783,5 +783,7 @@ module.exports = {
     product_category_type: {
         products: "PRODUCTEN",
         services: "DIENSTEN OF ACTIVITEITEN",
-    }
+    },
+
+    lorem_ipsum: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam pulvinar dictum leo, sed congue purus scelerisque ut.'
 };
