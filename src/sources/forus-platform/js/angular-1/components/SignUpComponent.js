@@ -8,6 +8,7 @@ let SignUpComponent = function(
     $interval,
     $filter,
     OrganizationService,
+    OfficeService,
     IdentityService,
     CredentialsService,
     FormBuilderService,
@@ -20,8 +21,8 @@ let SignUpComponent = function(
      step 1 - app links
      step 2 - email and name form
      step 3 - organization form
-     step 4 - pin code
-     step 5 - qr code
+     step 5 - pin code
+     step 6 - qr code
      */
     $ctrl.step = 1;
     $ctrl.organizationStep = false;
@@ -29,6 +30,7 @@ let SignUpComponent = function(
     $ctrl.showLoginBlock = false;
     $ctrl.organization = null;
     $ctrl.fundsAvailable = [];
+    $ctrl.offices = [];
 
     let qrCodeEl;
     let qrCode;
@@ -41,7 +43,7 @@ let SignUpComponent = function(
         this.init = () => {
             let step = this.getStep();
             if (step != null) {
-                $ctrl.step = step;
+                $ctrl.setStep(step);
             }
 
             if (localStorage.getItem('sign_up_form.signUpForm') != null) {
@@ -167,15 +169,20 @@ let SignUpComponent = function(
     let submitOrganizationForm = function () {
         $ctrl.organizationForm.submit().then((res) => {
             $rootScope.$broadcast('auth:update');
-            $ctrl.step++;
-            progressStorage.clear();
+            $ctrl.setStep($ctrl.step + 1);
 
             $ctrl.organization = res.data.data;
+
+            OfficeService.list(
+                $ctrl.organization.id
+            ).then((res) => {
+                $ctrl.offices = res.data.data;
+            });
 
             ProviderFundService.listAvailableFunds(
                 $ctrl.organization.id
             ).then((res) => {
-                $ctrl.fundsAvailable = res.data.data ? res.data.data : res.data;
+                $ctrl.fundsAvailable = res.data.data;
             });
 
         }, (res) => {
@@ -184,11 +191,29 @@ let SignUpComponent = function(
         });
     };
 
+    $ctrl.setStep = (step) => {
+        $ctrl.step = step;
+
+        if (step <= 3) {
+            progressStorage.setStep($ctrl.step);
+        } else {
+            progressStorage.clear();
+        }
+    };
+
+    $ctrl.addOffice = () => {
+        if (!Array.isArray($ctrl.offices)) {
+            $ctrl.offices = [];
+        }
+
+        $ctrl.offices.push(false);
+    };
+
     $ctrl.next = function() {
         if ($ctrl.organizationStep && !$ctrl.signedIn && $ctrl.step > 1) {
             $ctrl.signUpForm.submit().then((res) => {
                 CredentialsService.set(res.data.access_token);
-                $ctrl.step++;
+                $ctrl.setStep($ctrl.step + 1);
                 $ctrl.signedIn = true;
             }, (res) => {
                 $ctrl.signUpForm.unlock();
@@ -199,17 +224,11 @@ let SignUpComponent = function(
         }
 
         if ($ctrl.step == 1) {
-            $ctrl.step++;
-            progressStorage.setStep($ctrl.step);
-
+            $ctrl.setStep($ctrl.step + 1);
         } else if ($ctrl.step == 2) {
-            $ctrl.step++;
-            progressStorage.setStep($ctrl.step);
-
+            $ctrl.setStep($ctrl.step + 1);
         } else if ($ctrl.step == 3) {
-
             if ($ctrl.signedIn) {
-
                 if(image) {
                     MediaService.store('organization_logo', image).then(function (res) {
                         $ctrl.media = res.data.data;
@@ -244,12 +263,13 @@ let SignUpComponent = function(
                 }, (res) => {
                     $ctrl.signUpForm.unlock();
                     $ctrl.signUpForm.errors = res.data.errors;
-                    $ctrl.step = 2;
                     $ctrl.organizationStep = true;
-                    progressStorage.setStep($ctrl.step);
+                    $ctrl.setStep(2);
                 });
             }
         } else if ($ctrl.step == 4) {
+            $ctrl.setStep(5);
+        } else if ($ctrl.step == 5) {
 
             $scope.authorizePincodeForm.submit().then((res) => {
                 CredentialsService.set(null);
@@ -260,8 +280,7 @@ let SignUpComponent = function(
                 });
 
                 $ctrl.requestAuthQrToken();
-
-                $ctrl.step++;
+                $ctrl.setStep($ctrl.step + 1);
 
             }, (res) => {
                 $scope.authorizePincodeForm.unlock();
@@ -276,7 +295,7 @@ let SignUpComponent = function(
         } else if ($ctrl.step == 6) {
 
             if($ctrl.organization && $ctrl.fundsAvailable.length) {
-                $ctrl.step++;
+                $ctrl.setStep($ctrl.step + 1);
             }
 
         } else if ($ctrl.step == 7) {
@@ -300,13 +319,7 @@ let SignUpComponent = function(
     };
 
     $ctrl.back = function() {
-        $ctrl.step--;
-
-        if ($ctrl.step <= 3) {
-            progressStorage.setStep($ctrl.step);
-        } else {
-            progressStorage.clear();
-        }
+        $ctrl.setStep($ctrl.step - 1);
 
         loginQrBlock.hide();
     };
@@ -338,8 +351,7 @@ let SignUpComponent = function(
     $ctrl.applyAccessToken = function(access_token) {
         CredentialsService.set(access_token);
         $rootScope.$broadcast('auth:update');
-
-        $ctrl.step++;
+        $ctrl.setStep($ctrl.step + 1);
     };
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
@@ -395,7 +407,6 @@ let SignUpComponent = function(
             form.values.auth_code
         );
     });
-
 };
 
 module.exports = {
@@ -412,6 +423,7 @@ module.exports = {
         '$interval',
         '$filter',
         'OrganizationService',
+        'OfficeService',
         'IdentityService',
         'CredentialsService',
         'FormBuilderService',

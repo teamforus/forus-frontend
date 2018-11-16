@@ -776,5 +776,8 @@ module.exports = {
             mailing: "E-mail",
         },
     },
-
+    product_category_type: {
+        products: "PRODUCTEN",
+        services: "DIENSTEN OF ACTIVITEITEN",
+    }
 };

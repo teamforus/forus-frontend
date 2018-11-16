@@ -1,4 +1,4 @@
-.app.app-container: .row: .col.col-sm-10.col-sm-offset-1
+.app.app-container: .block.block-sign-up-flow
     .steps.clearfix
         .step-item
             .step-icon(ng-class="$ctrl.step > 1 ? 'finished' : ''")
@@ -48,13 +48,12 @@
                 img(ng-if="$ctrl.step <= 6" src="./assets/img/sign-up/question.svg")
             .step-title {{ "sign_up.step.step_7" | translate }}
 
-
     .step-el(ng-if="$ctrl.step == 1")
         .card(class="step-number-{{ $ctrl.step }}")
             .card-header
                 .card-title {{ "sign_up.header.title_step_1" | translate }}
                     .card-sub-title {{ "sign_up.header.subtitle_step_1" | translate }}
-            .card-section.card-section-primary.p-t-45
+            .card-section.p-t-45
                 .row
                     .col.col-sm-10.col-xs-12
                         .row
@@ -73,7 +72,7 @@
                         .row
                             .col.col-xs-12
                                 .block-dashed
-                                    .checkbox
+                                    .checkbox-confirm
                                         input(type="checkbox" id="have_app" ng-model="$ctrl.has_app" ng-change="$ctrl.changeHasApp()")
                                         label.checkbox-label(for="have_app")
                                             .checkbox-box
@@ -84,14 +83,13 @@
         .step-footer(ng-if="$ctrl.has_app")
             button(type="button" ng-click="$ctrl.next()").button.button-primary {{ "sign_up.buttons.go_step_2" | translate }}
 
-
     .step-el(ng-if="$ctrl.step == 2")
         form(ng-submit="$ctrl.next()").form
             .card(class="step-number-{{ $ctrl.step }}")
                 .card-header
                     .card-title {{ "sign_up.header.title_step_2" | translate }}
                         .card-sub-title {{ "sign_up.header.subtitle_step_2" | translate }}
-                .card-section.card-section-primary.auth-login-section
+                .card-section.auth-login-section
                     .row
                         .col.col-sm-5.col-xs-12.right-border
                             .form-group
@@ -133,14 +131,13 @@
                 button(type="button" ng-click="$ctrl.back()").button.button-default {{ "sign_up.buttons.cancel" | translate }}
                 button(type="submit").button.button-primary {{ "sign_up.buttons.next" | translate }}
 
-
     .step-el(ng-show="$ctrl.step == 3")
         form(ng-submit="$ctrl.next()").form
             .card(class="step-number-{{ $ctrl.step }}")
                 .card-header
                     .card-title {{ "sign_up.header.title_step_3" | translate }}
                         .card-sub-title {{ "sign_up.header.subtitle_step_3" | translate }}
-                .card-section.card-section-primary.p-t-b-0
+                .card-section.p-t-b-0
                     .row
                         .col.col-sm-6.col-xs-12.right-border
                             .row
@@ -168,9 +165,9 @@
 
                                     .divider
 
-                                    multi-select(
-                                    ng-model="$ctrl.organizationForm.values.product_categories"
-                                    options="$ctrl.productCategories")
+                                    product-categories-control(
+                                        ng-model="$ctrl.organizationForm.values.product_categories"
+                                        options="$ctrl.productCategories")
 
                                     .divider
 
@@ -195,14 +192,30 @@
                 button(type="button" ng-click="$ctrl.back()" ng-if="!$ctrl.signedIn").button.button-default {{ "sign_up.buttons.cancel" | translate }}
                 button(type="submit").button.button-primary {{ "sign_up.buttons.next" | translate }}
 
-    .step-el(ng-if="$ctrl.step == 4")
-        .step-title {{ "sign_up.header.top_title_step_4" | translate }}
-            .step-sub-title {{ "sign_up.header.top_subtitle_step_4" | translate }}
+    .step-el(ng-show="$ctrl.step == 4")
+        .card(class="step-number-{{ $ctrl.step }}")
+            .card-header
+                .card-title
+                    | {{ 'sign_up.header.title_step_4' | translate }}
+                    .card-sub-title(ng-bind="'sign_up.header.subtitle_step_4' | translate")
+            .card-section.card-section-primary
+                office-edit-inline(ng-repeat="office in $ctrl.offices" office="office" organization-id="$ctrl.organization.id")
+                .text-right
+                    br
+                    button(ng-click="$ctrl.addOffice()").button.button-primary Voeg een nieuwe vestiging toe
+
+        .step-footer
+            button(type="button" ng-click="$ctrl.back()" ng-if="!$ctrl.signedIn").button.button-default {{ "sign_up.buttons.cancel" | translate }}
+            button(ng-click="$ctrl.next()").button.button-primary {{ "sign_up.buttons.next" | translate }}
+
+    .step-el(ng-if="$ctrl.step == 5")
+        .step-title {{ "sign_up.header.top_title_step_5" | translate }}
+            .step-sub-title {{ "sign_up.header.top_subtitle_step_5" | translate }}
 
         .card.no-arrow(class="step-number-{{ $ctrl.step }}")
             .card-header
-                .card-title {{ "sign_up.header.title_step_4" | translate }}
-                    .card-sub-title {{ "sign_up.header.subtitle_step_4" | translate }}
+                .card-title {{ "sign_up.header.title_step_5" | translate }}
+                    .card-sub-title {{ "sign_up.header.subtitle_step_5" | translate }}
             .card-section.card-section-primary.colored
                 .row
                     .col.col-sm-8.col-sm-offset-2.app-instruction
@@ -229,39 +242,26 @@
                 .text-center
                     button(type="button" ng-click="$ctrl.next()").button.button-primary {{ "sign_up.buttons.next" | translate }}
 
-
-    .step-el(ng-show="$ctrl.step == 5")
-        .step-title {{ "sign_up.header.top_title_step_5" | translate }}
-            .step-sub-title {{ "sign_up.header.top_subtitle_step_5" | translate }}
+    .step-el(ng-show="$ctrl.step == 6")
+        .step-title {{ "sign_up.header.top_title_step_6" | translate }}
+            .step-sub-title {{ "sign_up.header.top_subtitle_step_6" | translate }}
 
         .card.no-arrow(class="step-number-{{ $ctrl.step }}")
             .card-header
-                .card-title {{ "sign_up.header.title_step_5" | translate }}
-                    .card-sub-title {{ "sign_up.header.subtitle_step_5" | translate }}
-            .card-section.card-section-primary.colored
+                .card-title {{ "sign_up.header.title_step_6" | translate }}
+                    .card-sub-title {{ "sign_up.header.subtitle_step_6" | translate }}
+            .card-section.card-section-primary
                 .row
                     .block.block-auth-qr-code
                         .qr_code#platform_auth_qrcode
                         .qr_code-desc {{ "sign_up.qr_code.description" | translate }}
-
-
-    .step-el(ng-if="$ctrl.step == 6")
-        .card(class="step-number-{{ $ctrl.step }}")
-            .card-header.border-bottom
-                .card-title {{ "sign_up.header.title_step_6" | translate }}
-                    .card-sub-title {{ "sign_up.header.subtitle_step_6" | translate }}
-            .card-section.card-section-primary.colored
-                .row
-        .step-footer
-            button(type="button" ng-click="$ctrl.next()").button.button-primary {{ "sign_up.buttons.next" | translate }}
-
 
     .step-el(ng-if="$ctrl.step == 7")
         .card(class="step-number-{{ $ctrl.step }}")
             .card-header.border-bottom
                 .card-title {{ "sign_up.header.title_step_7" | translate }}
                     .card-sub-title {{ "sign_up.header.subtitle_step_7" | translate }}
-            .card-section.card-section-primary.colored
+            .card-section.card-section-primary
                 div(
                     ng-if="$ctrl.fundsAvailable.length > 0"
                     ng-repeat="fund in $ctrl.fundsAvailable"
