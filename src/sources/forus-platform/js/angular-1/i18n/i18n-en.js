@@ -457,6 +457,10 @@ module.exports = {
             title: 'Lorem ipsum dolor sit amet',
             description: 'Eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam, quis nostrud.',
             qr_description: 'Eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam, quis nostrud.'
+        },
+        open_pc: {
+            title: 'Deze pagina is niet mobiel te benaderen.',
+            description: 'Aanmelden voor een fonds is alleen mogelijk via onze website op een vaste computer.'
         }
     },
 
