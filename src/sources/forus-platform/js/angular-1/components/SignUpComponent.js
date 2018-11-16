@@ -294,28 +294,11 @@ let SignUpComponent = function(
             });
         } else if ($ctrl.step == 6) {
 
-            if($ctrl.organization && $ctrl.fundsAvailable.length) {
-                $ctrl.setStep($ctrl.step + 1);
-            }
+            $ctrl.setStep($ctrl.step + 1);
 
         } else if ($ctrl.step == 7) {
             $state.go('organizations');
         }
-    };
-
-    $ctrl.getFundCategories = function (fund) {
-        return fund.product_categories.map((val) => {
-            return val.name;
-        });
-    };
-
-    $ctrl.providerApplyFund = function(fund) {
-        ProviderFundService.applyForFund(
-            $ctrl.organization.id,
-            fund.id
-        ).then(function(res) {
-            fund.applied = true;
-        });
     };
 
     $ctrl.back = function() {

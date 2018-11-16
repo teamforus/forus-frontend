@@ -74,6 +74,7 @@ app.directive('fundCardSponsor', require('./directives/FundCardSponsorDirective'
 app.directive('fundCardProvider', require('./directives/FundCardProviderDirective'));
 app.directive('fundCardProviderFinances', require('./directives/FundCardProviderFinancesDirective'));
 app.directive('fundCardAvailableProvider', require('./directives/FundCardAvailableProviderDirective'));
+app.directive('fundCardProviderCanJoin', require('./directives/FundCardProviderCanJoinDirective'));
 app.directive('productCard', require('./directives/ProductCardDirective'));
 app.directive('multiSelect', require('./directives/MultiSelectDirective'));
 app.directive('scheduleControl', require('./directives/ScheduleControlDirective.js'));
