@@ -166,6 +166,33 @@ let SignUpComponent = function(
         has_app = !has_app;
     };
 
+    $ctrl.skipToStep = (step) => {
+        if (step == 7) {
+            if ($ctrl.organization) {
+                loadOrganizationOffices($ctrl.organization);
+                loadAvailableFunds($ctrl.organization);
+            }
+        }
+
+        $ctrl.setStep(step);
+    };
+
+    let loadOrganizationOffices = (organization) => {
+        OfficeService.list(
+            organization.id
+        ).then((res) => {
+            $ctrl.offices = res.data.data;
+        });
+    };
+
+    let loadAvailableFunds = (organization) => {
+        ProviderFundService.listAvailableFunds(
+            organization.id
+        ).then((res) => {
+            $ctrl.fundsAvailable = res.data.data;
+        });
+    };
+
     let submitOrganizationForm = function () {
         $ctrl.organizationForm.submit().then((res) => {
             $rootScope.$broadcast('auth:update');
@@ -173,17 +200,8 @@ let SignUpComponent = function(
 
             $ctrl.organization = res.data.data;
 
-            OfficeService.list(
-                $ctrl.organization.id
-            ).then((res) => {
-                $ctrl.offices = res.data.data;
-            });
-
-            ProviderFundService.listAvailableFunds(
-                $ctrl.organization.id
-            ).then((res) => {
-                $ctrl.fundsAvailable = res.data.data;
-            });
+            loadOrganizationOffices($ctrl.organization);
+            loadAvailableFunds($ctrl.organization);
 
         }, (res) => {
             $ctrl.organizationForm.errors = res.data.errors;

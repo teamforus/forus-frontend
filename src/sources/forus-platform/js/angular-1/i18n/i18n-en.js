@@ -400,18 +400,18 @@ module.exports = {
             subtitle_step_2: "- Maak een profiel aan om gebruik te maken van Me.",
             title_step_3: "Profiel aanmaken",
             subtitle_step_3: "- Wordt onderdeel van het platform door je organisatie aan te maken",
-            title_step_4: "Koppel het profiel van je organisatie aan Me",
-            subtitle_step_4: "Laat invoerveld zien voor autorisatiecode",
-            top_title_step_4: "Gebruik Me",
-            top_subtitle_step_4: "- Rond de installatie af door gebruik te maken van Me",
-            title_step_5: "Het is gelukt! Het profiel van de organisatie is gekoppeld aan ",
-            subtitle_step_5: "",
+            title_step_4: "Step 4 title",
+            subtitle_step_4: "Step 4 subtitle",
+            title_step_5: "Koppel het profiel van je organisatie aan Me",
+            subtitle_step_5: "Laat invoerveld zien voor autorisatiecode",
             top_title_step_5: "Gebruik Me",
             top_subtitle_step_5: "- Rond de installatie af door gebruik te maken van Me",
-            title_step_6: "Gebruik Me",
-            subtitle_step_6: "- Rond de installatie af door gebruik te maken van Me",
-            title_step_7: "Step 7 title",
-            subtitle_step_7: "Step 7 subtitle",
+            title_step_6: "Het is gelukt! Het profiel van de organisatie is gekoppeld aan ",
+            subtitle_step_6: "",
+            top_title_step_6: "Gebruik Me",
+            top_subtitle_step_6: "- Rond de installatie af door gebruik te maken van Me",
+            title_step_7: "Gebruik Me",
+            subtitle_step_7: "- Rond de installatie af door gebruik te maken van Me",
         },
         labels: {
             mail: "E-mailadres",
@@ -439,7 +439,9 @@ module.exports = {
         download: {
             ios: 'Download Me voor iOS',
             android: 'Download Me voor Android',
-            already_have_app: 'Het is gelukt om Me te downloaden.'
+            already_have_app: 'Het is gelukt om Me te downloaden.',
+            url_text: "DOWNLOAD ME APP OP",
+            url_address: "FORUS.IO/DL"
         },
         qr_code: {
             description: 'Scan deze QR-Code om te testen.'

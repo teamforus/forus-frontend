@@ -9,6 +9,9 @@ let OfficeEditInlineDirective = function(
         media: false
     };
 
+    let init = false;
+    let timeout;
+
     $ctrl.office = $scope.office;
 
     $ctrl.selectPhoto = (e) => {
@@ -17,6 +20,21 @@ let OfficeEditInlineDirective = function(
             $ctrl.form.values.media_uid = $ctrl.media.uid;
         });
     };
+
+    $scope.$watch('$ctrl.form.values', function(_new, _old) {
+        if (!init) {
+            return init = true;
+        }
+
+        if (timeout) {
+            $timeout.cancel(timeout);
+        }
+
+        timeout = $timeout(() => {
+            $ctrl.form.submit();
+            timeout = false;
+        }, 1000);
+    }, true);
 
     $ctrl.$onInit = function() {
         let values = OfficeService.apiResourceToForm(
@@ -43,6 +61,7 @@ let OfficeEditInlineDirective = function(
 
             promise.then((res) => {
                 $ctrl.saved = true;
+                form.unlock();
 
                 $timeout(() => {
                     $ctrl.saved = false;

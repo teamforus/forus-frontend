@@ -1,37 +1,24 @@
-.block.block-office-edit-card: form(ng-submit="$ctrl.form.submit()").form
-    .row
-        .col.col-sm-4.col-xs-12.right-border
-            .row
-                .col.col-sm-11.col-xs-12.p-t-25.p-b-10
-                    .form-group.form-group-inline
-                        label.form-label {{ "offices_edit.labels.address" | translate }}
-                        input(ng-model="$ctrl.form.values.address" type="text" placeholder="{{ 'offices_edit.labels.address' | translate }}").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.address" ng-bind="error")
-                    .form-group.form-group-inline
-                        label.form-label {{ "offices_edit.labels.phone" | translate }}
-                        input(ng-model="$ctrl.form.values.phone" type="text" placeholder="{{ 'offices_edit.labels.phone' | translate }}").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.phone" ng-bind="error")
-                    .form-group.form-group-inline
-                        label.form-label {{ "offices_edit.labels.mail" | translate }}
-                        input(ng-model="$ctrl.form.values.email" type="text" placeholder="{{ 'offices_edit.labels.mail' | translate }}").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
-
-        #organization-logo-block.col.col-sm-8.col-xs-12
-            .row
-                .col.col-sm-12.col-xs-12
-                    .form-group
-                        label.form-label &nbsp;
-                        .form-offset
-                            photo-selector(
-                                thumbnail="$ctrl.media.sizes.thumbnail"
-                                select-photo="$ctrl.selectPhoto(e)")
-                    .divider
-                    .form-group
-                        .form-label Address
-                        .form-offset
-                            schedule-control(ng-model="$ctrl.form.values.schedule")
-    .divider
-    .row: .col.col-xs-12.text-right
-        button(type="submit").button.button-primary 
-            em.mdi.mdi-check(ng-if="$ctrl.saved")
-            | {{ "offices_edit.buttons.confirm" | translate }}
+form(ng-submit="$ctrl.form.submit()").block.block-office-edit-card
+    .card-section: .form.card-section-inner.flex
+        .card-col.card-col-2
+            .form-group.form-group-inline
+                label(translate="offices_edit.labels.address").form-label
+                input(ng-model="$ctrl.form.values.address" type="text" placeholder="{{ 'offices_edit.labels.address' | translate }}").form-control
+                .form-error(ng-repeat="error in $ctrl.form.errors.address" ng-bind="error")
+            .form-group.form-group-inline
+                label(translate="offices_edit.labels.phone").form-label
+                input(ng-model="$ctrl.form.values.phone" type="text" placeholder="{{ 'offices_edit.labels.phone' | translate }}").form-control
+                .form-error(ng-repeat="error in $ctrl.form.errors.phone" ng-bind="error")
+    
+        .card-col.card-col-4: .card-section-inner
+            .card-section: .row
+                .col.col-sm-7.col-xs-12: photo-selector(
+                    thumbnail="$ctrl.media.sizes.thumbnail"
+                    select-photo="$ctrl.selectPhoto(e)")
+                .col.col-sm-5.col-xs-12: .info-block.info-block-primary
+                    | De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px. 
+                    br
+                    | Toegestaande formaten: .JPG, .PNG
+            .card-section
+                .card-title Openingstijden
+                schedule-control(ng-model="$ctrl.form.values.schedule")

@@ -71,7 +71,6 @@ let OfficeService = function(ApiRequest) {
 
             return {
                 'address': apiResource.address,
-                'email': apiResource.email,
                 'phone': apiResource.phone,
                 'schedule': schedule,
             };

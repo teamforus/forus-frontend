@@ -59,10 +59,6 @@
                     a(ui-sref="offices-edit({organization_id: office.organization_id, office_id: office.id})" ng-bind="office.address").provider-title
                     br
                     .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                        .card-block-listing-label {{ "offices.labels.mail" | translate }}
-                        span.text-primary-light(ng-show="office.email" ng-bind="office.email")
-                        span(ng-show="!office.email").text-muted {{ "offices.labels.none" | translate }}
-                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
                         .card-block-listing-label {{ "offices.labels.phone" | translate }}
                         span.text-primary-light(ng-show="office.phone" ng-bind="office.phone")
                         span(ng-show="!office.phone").text-muted {{ "offices.labels.none" | translate }}
