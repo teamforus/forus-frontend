@@ -74,6 +74,7 @@ app.directive('fundCardSponsor', require('./directives/FundCardSponsorDirective'
 app.directive('fundCardProvider', require('./directives/FundCardProviderDirective'));
 app.directive('fundCardProviderFinances', require('./directives/FundCardProviderFinancesDirective'));
 app.directive('fundCardAvailableProvider', require('./directives/FundCardAvailableProviderDirective'));
+app.directive('fundCardProviderCanJoin', require('./directives/FundCardProviderCanJoinDirective'));
 app.directive('productCard', require('./directives/ProductCardDirective'));
 app.directive('multiSelect', require('./directives/MultiSelectDirective'));
 app.directive('scheduleControl', require('./directives/ScheduleControlDirective.js'));
@@ -90,6 +91,10 @@ app.directive('collapse', require('./directives/CollpaseDirective'));
 app.directive('landingNavbar', require('./directives/landing/NavbarDirective'));
 app.directive('landingContactForm', require('./directives/landing/ContactFormDirective'));
 app.directive('forusChat', require('./directives/ForusChatDirective'));
+app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
+app.directive('productCategoriesControl', require('./directives/ProductCategoriesControlDirective'));
+app.directive('officeEditInline', require('./directives/OfficeEditInlineDirective'));
+app.directive('tooltip', require('./directives/TooltipDirective'));
 
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));

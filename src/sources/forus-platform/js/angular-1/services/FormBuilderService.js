@@ -13,7 +13,7 @@ module.exports = [function() {
                 },
                 submit: function() {
                     if (!this.locked) {
-                        submit(this);
+                        return submit(this);
                     }
                 },
                 resetValues: function() {
