@@ -182,7 +182,7 @@
         .step-item(ng-show="$ctrl.step == 5")
             +step_header(5)
 
-            .card
+            .card(ng-if="$ctrl.step == 5")
                 +card_header(5)
 
                 .card-section.card-section-primary
