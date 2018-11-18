@@ -208,6 +208,7 @@ module.exports = {
             hours: "Openingstijden",
         },
         buttons: {
+            add_office: "Voeg een nieuwe vestiging toe",
             cancel: "Annuleren",
             confirm: "Bevestigen",
         }   
@@ -275,14 +276,14 @@ module.exports = {
         labels: {
             name: "Bedrijfsnaam",
             bank: "IBAN-nummer",
-            mail: "E-mailadres",
+            mail: "E-mailadres van organisatie",
             phone: "Telefoonnummer",
             kvk: "KvK-nummer",
             tax: "BTW-nummer",
         },
         buttons: {
             cancel: "Annuleren",
-            create: "Aanmaken",
+            create: "Ga verder naar stap 4",
         }
     },
 
@@ -395,36 +396,36 @@ module.exports = {
     sign_up: {
         header: {
             title_step_1: "Installeer Me",
-            subtitle_step_1: "Met Me kan je klanten makkelijk en veilig laten betalen daarnaast kun je inloggen op de gebruikersomgeving om je organisatie te beheren. ",
+            subtitle_step_1: "Om betalingen te verrichten heb je een app nodig. Een transactie doe je door een QR-code te scannen en een bedrag in te vullen.",
             title_step_2: "Profiel aanmaken",
-            subtitle_step_2: "- Maak een profiel aan om gebruik te maken van Me.",
-            title_step_3: "Profiel aanmaken",
-            subtitle_step_3: "- Wordt onderdeel van het platform door je organisatie aan te maken",
-            title_step_4: "Step 4 title",
-            subtitle_step_4: "Step 4 subtitle",
+            subtitle_step_2: "Een persoonlijk profiel is nodig om betalingen te verichten namens een organisatie. Later is het mogelijk om meerdere medewerkers toe te voegen.",
+            title_step_3: "Organisatie aanmaken",
+            subtitle_step_3: "Om deel te nemen aan het platform is het nodig om een organisatie aan te maken.",
+            title_step_4: "Voeg nieuwe vestigingen toe",
+            subtitle_step_4: "Een organisatie kan uit meerdere vestigingen bestaan. Voeg in dit venster vestigingen toe.",
             title_step_5: "Koppel het profiel van je organisatie aan Me",
-            subtitle_step_5: "Laat invoerveld zien voor autorisatiecode",
+            subtitle_step_5: "Het koppelen van je profiel aan de mobiele applicatie gebeurt door het invullen van een autorisatiecode.",
             top_title_step_5: "Gebruik Me",
-            top_subtitle_step_5: "- Rond de installatie af door gebruik te maken van Me",
-            title_step_6: "Het is gelukt! Het profiel van de organisatie is gekoppeld aan ",
+            top_subtitle_step_5: "Rond de installatie af door gebruik te maken van Me",
+            title_step_6: "Het is gelukt! Het profiel van de organisatie is gekoppeld aan Me.",
             subtitle_step_6: "",
             top_title_step_6: "Gebruik Me",
-            top_subtitle_step_6: "- Rond de installatie af door gebruik te maken van Me",
+            top_subtitle_step_6: "Rond de installatie af door gebruik te maken van Me",
             title_step_7: "Gebruik Me",
-            subtitle_step_7: "- Rond de installatie af door gebruik te maken van Me",
+            subtitle_step_7: "Rond de installatie af door gebruik te maken van Me",
         },
         labels: {
-            mail: "E-mailadres",
-            mail_confirmation: 'E-mailadres',
+            mail: "Persoonlijk E-mailadres",
+            mail_confirmation: 'Herhaal persoonlijk E-mailadres',
             name: "Voornaam",
             lastname: "Achternaam",
             bank_confirmation: 'IBAN-nummer'
         },
         buttons: {
             go_step_2: "Ga verder naar stap 2",
-            cancel: "Annuleren",
+            cancel: "Vorige",
             next: "Volgende",
-            reload_qr: 'Reload QR code',
+            reload_qr: 'Herlaad de code.',
             login: 'Login'
         },
         step: {
@@ -439,9 +440,9 @@ module.exports = {
         download: {
             ios: 'Download Me voor iOS',
             android: 'Download Me voor Android',
-            already_have_app: 'Het is gelukt om Me te downloaden.',
-            url_text: "DOWNLOAD ME APP OP",
-            url_address: "FORUS.IO/DL"
+            already_have_app: 'DE APP IS NU AAN HET DOWNLOADEN. / DE APP IS GEINSTALLEERD.',
+            url_text: "Download de Me app op uw mobiele telefoon via de link:",
+            url_address: "www.forus.link/DL"
         },
         qr_code: {
             description: 'Scan deze QR-Code om te testen.'
@@ -453,12 +454,12 @@ module.exports = {
         },
         app_header: {
             title: 'Vul de code in op het invoerveld',
-            subtitle: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt'
+            subtitle: 'De code is te vinden in de mobiele applicatie, volg de bovenstaande stappen op om de code te kunnen  aflezen.'
         },
         login: {
-            title: 'Lorem ipsum dolor sit amet',
-            description: 'Eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam, quis nostrud.',
-            qr_description: 'Eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam, quis nostrud.'
+            title: 'Heb je al een profiel?',
+            description: 'Waneer je bijvoorbeeld via de mobiele applicatie al een profiel hebt aangemaakt, biedt de onderstaande knop de mogelijkheid om direct in te loggen op dit profiel.',
+            qr_description: 'Scan deze QR-code met de me app als je al een profiel hebt aangemaakt.'
         },
         open_pc: {
             title: 'Deze pagina is niet mobiel te benaderen.',
@@ -690,7 +691,7 @@ module.exports = {
             image: "Afbeelding",
         },
         buttons: {
-            change: "Verander afbeelding",
+            change: "Upload",
         }
     },
 
