@@ -275,14 +275,14 @@ module.exports = {
         labels: {
             name: "Bedrijfsnaam",
             bank: "IBAN-nummer",
-            mail: "E-mailadres",
+            mail: "E-mailadres van organisatie",
             phone: "Telefoonnummer",
             kvk: "KvK-nummer",
             tax: "BTW-nummer",
         },
         buttons: {
             cancel: "Annuleren",
-            create: "Aanmaken",
+            create: "Ga verder naar stap 4",
         }
     },
 
@@ -398,8 +398,8 @@ module.exports = {
             subtitle_step_1: "Om betalingen te verrichten heb je een app nodig. Een transactie doe je door een QR-code te scannen en een bedrag in te vullen.",
             title_step_2: "Profiel aanmaken",
             subtitle_step_2: "Een persoonlijk profiel is nodig om betalingen te verichten namens een organisatie. Later is het mogelijk om meerdere medewerkers toe te voegen.",
-            title_step_3: "Profiel aanmaken",
-            subtitle_step_3: "- Wordt onderdeel van het platform door je organisatie aan te maken",
+            title_step_3: "Organisatie aanmaken",
+            subtitle_step_3: "Om deel te nemen aan het platform is het nodig om een organisatie aan te maken.",
             title_step_4: "Step 4 title",
             subtitle_step_4: "Step 4 subtitle",
             title_step_5: "Koppel het profiel van je organisatie aan Me",
