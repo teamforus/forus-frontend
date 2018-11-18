@@ -208,7 +208,7 @@ module.exports = {
             hours: "Openingstijden",
         },
         buttons: {
-            add_office: "Voeg een nieuwe vestiging toe.",
+            add_office: "Voeg een nieuwe vestiging toe",
             cancel: "Annuleren",
             confirm: "Bevestigen",
         }   
@@ -404,15 +404,15 @@ module.exports = {
             title_step_4: "Voeg nieuwe vestigingen toe",
             subtitle_step_4: "Een organisatie kan uit meerdere vestigingen bestaan. Voeg in dit venster vestigingen toe.",
             title_step_5: "Koppel het profiel van je organisatie aan Me",
-            subtitle_step_5: "Laat invoerveld zien voor autorisatiecode",
+            subtitle_step_5: "Het koppelen van je profiel aan de mobiele applicatie gebeurt door het invullen van een autorisatiecode.",
             top_title_step_5: "Gebruik Me",
-            top_subtitle_step_5: "- Rond de installatie af door gebruik te maken van Me",
-            title_step_6: "Het is gelukt! Het profiel van de organisatie is gekoppeld aan ",
+            top_subtitle_step_5: "Rond de installatie af door gebruik te maken van Me",
+            title_step_6: "Het is gelukt! Het profiel van de organisatie is gekoppeld aan Me.",
             subtitle_step_6: "",
             top_title_step_6: "Gebruik Me",
-            top_subtitle_step_6: "- Rond de installatie af door gebruik te maken van Me",
+            top_subtitle_step_6: "Rond de installatie af door gebruik te maken van Me",
             title_step_7: "Gebruik Me",
-            subtitle_step_7: "- Rond de installatie af door gebruik te maken van Me",
+            subtitle_step_7: "Rond de installatie af door gebruik te maken van Me",
         },
         labels: {
             mail: "Persoonlijk E-mailadres",
@@ -423,7 +423,7 @@ module.exports = {
         },
         buttons: {
             go_step_2: "Ga verder naar stap 2",
-            cancel: "Annuleren",
+            cancel: "Vorige",
             next: "Volgende",
             reload_qr: 'Herlaad de code.',
             login: 'Login'
@@ -454,7 +454,7 @@ module.exports = {
         },
         app_header: {
             title: 'Vul de code in op het invoerveld',
-            subtitle: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt'
+            subtitle: 'De code is te vinden in de mobiele applicatie, volg de bovenstaande stappen op om de code te kunnen  aflezen.'
         },
         login: {
             title: 'Heb je al een profiel?',
