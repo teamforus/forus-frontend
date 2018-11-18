@@ -172,7 +172,7 @@
                     ng-repeat="office in $ctrl.offices" office="office" organization-id="$ctrl.organization.id")
                 
                 .card-section.card-section-primary.text-right: button(
-                    ng-click="$ctrl.addOffice()" translate="offices_edit.add_office").button.button-primary
+                    ng-click="$ctrl.addOffice()" translate="offices_edit.buttons.add_office").button.button-primary
 
             .step-footer
                 a(translate="sign_up.buttons.cancel" ng-click="$ctrl.back()" ng-if="!$ctrl.signedIn").button.button-default

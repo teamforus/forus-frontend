@@ -208,6 +208,7 @@ module.exports = {
             hours: "Openingstijden",
         },
         buttons: {
+            add_office: "Voeg een nieuwe vestiging toe.",
             cancel: "Annuleren",
             confirm: "Bevestigen",
         }   
@@ -400,8 +401,8 @@ module.exports = {
             subtitle_step_2: "Een persoonlijk profiel is nodig om betalingen te verichten namens een organisatie. Later is het mogelijk om meerdere medewerkers toe te voegen.",
             title_step_3: "Organisatie aanmaken",
             subtitle_step_3: "Om deel te nemen aan het platform is het nodig om een organisatie aan te maken.",
-            title_step_4: "Step 4 title",
-            subtitle_step_4: "Step 4 subtitle",
+            title_step_4: "Voeg nieuwe vestigingen toe",
+            subtitle_step_4: "Een organisatie kan uit meerdere vestigingen bestaan. Voeg in dit venster vestigingen toe.",
             title_step_5: "Koppel het profiel van je organisatie aan Me",
             subtitle_step_5: "Laat invoerveld zien voor autorisatiecode",
             top_title_step_5: "Gebruik Me",
@@ -690,7 +691,7 @@ module.exports = {
             image: "Afbeelding",
         },
         buttons: {
-            change: "Verander afbeelding",
+            change: "Upload",
         }
     },
 
