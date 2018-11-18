@@ -397,7 +397,7 @@ module.exports = {
             title_step_1: "Installeer Me",
             subtitle_step_1: "Om betalingen te verrichten heb je een app nodig. Een transactie doe je door een QR-code te scannen en een bedrag in te vullen.",
             title_step_2: "Profiel aanmaken",
-            subtitle_step_2: "- Maak een profiel aan om gebruik te maken van Me.",
+            subtitle_step_2: "Een persoonlijk profiel is nodig om betalingen te verichten namens een organisatie. Later is het mogelijk om meerdere medewerkers toe te voegen.",
             title_step_3: "Profiel aanmaken",
             subtitle_step_3: "- Wordt onderdeel van het platform door je organisatie aan te maken",
             title_step_4: "Step 4 title",
@@ -414,8 +414,8 @@ module.exports = {
             subtitle_step_7: "- Rond de installatie af door gebruik te maken van Me",
         },
         labels: {
-            mail: "E-mailadres",
-            mail_confirmation: 'E-mailadres',
+            mail: "Persoonlijk E-mailadres",
+            mail_confirmation: 'Herhaal persoonlijk E-mailadres',
             name: "Voornaam",
             lastname: "Achternaam",
             bank_confirmation: 'IBAN-nummer'
@@ -456,8 +456,8 @@ module.exports = {
             subtitle: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt'
         },
         login: {
-            title: 'Lorem ipsum dolor sit amet',
-            description: 'Eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam, quis nostrud.',
+            title: 'Heb je al een profiel?',
+            description: 'Waneer je bijvoorbeeld via de mobiele applicatie al een profiel hebt aangemaakt, biedt de onderstaande knop de mogelijkheid om direct in te loggen op dit profiel.',
             qr_description: 'Eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam, quis nostrud.'
         },
         open_pc: {
