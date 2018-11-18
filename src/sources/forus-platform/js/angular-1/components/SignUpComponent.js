@@ -363,6 +363,7 @@ let SignUpComponent = function(
         CredentialsService.set(access_token);
         $rootScope.$broadcast('auth:update');
         $ctrl.setStep($ctrl.step + 1);
+        $ctrl.signedIn = true;
     };
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
