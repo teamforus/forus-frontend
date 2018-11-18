@@ -395,7 +395,7 @@ module.exports = {
     sign_up: {
         header: {
             title_step_1: "Installeer Me",
-            subtitle_step_1: "Met Me kan je klanten makkelijk en veilig laten betalen daarnaast kun je inloggen op de gebruikersomgeving om je organisatie te beheren. ",
+            subtitle_step_1: "Om betalingen te verrichten heb je een app nodig. Een transactie doe je door een QR-code te scannen en een bedrag in te vullen.",
             title_step_2: "Profiel aanmaken",
             subtitle_step_2: "- Maak een profiel aan om gebruik te maken van Me.",
             title_step_3: "Profiel aanmaken",
@@ -439,9 +439,9 @@ module.exports = {
         download: {
             ios: 'Download Me voor iOS',
             android: 'Download Me voor Android',
-            already_have_app: 'Het is gelukt om Me te downloaden.',
-            url_text: "DOWNLOAD ME APP OP",
-            url_address: "FORUS.IO/DL"
+            already_have_app: 'DE APP IS NU AAN HET DOWNLOADEN. / DE APP IS GEINSTALLEERD.',
+            url_text: "Download de Me app op uw mobiele telefoon via de link:",
+            url_address: "www.forus.link/DL"
         },
         qr_code: {
             description: 'Scan deze QR-Code om te testen.'
