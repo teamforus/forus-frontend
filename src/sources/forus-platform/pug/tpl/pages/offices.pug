@@ -31,14 +31,16 @@
 
             mixin keyvalue_item_horizontal(key, value)
                 .keyvalue-item
-                    .keyvalue-key=key
-                    .keyvalue-value(ng-bind=value)
+                    .keyvalue-key(ng-bind=key)
+                    .keyvalue-value(
+                        ng-class="{'text-muted':!" + value + "}"
+                        ng-bind=(value + " ? " + value + " : " + "'Geen data'"))
 
             .card-section.card-section-primary
                 .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
-                    +keyvalue_item_horizontal("KVK", "$ctrl.organization.kvk")
-                    +keyvalue_item_horizontal("BTW", "$ctrl.organization.btw")
-                    +keyvalue_item_horizontal("IBAN", "$ctrl.organization.iban")
+                    +keyvalue_item_horizontal("'KVK'", "$ctrl.organization.kvk")
+                    +keyvalue_item_horizontal("'BTW'", "$ctrl.organization.btw")
+                    +keyvalue_item_horizontal("'IBAN'", "$ctrl.organization.iban")
 
         .card-heading {{ "offices.labels.offices" | translate }} ({{ $ctrl.offices.length }}) 
         .card(ng-repeat="office in $ctrl.offices")

@@ -4,7 +4,6 @@ let HomeComponent = function(
     $timeout, 
     CredentialsService, 
     IdentityService,
-    AuthService,
     appConfigs
 ) {
     let $ctrl = this;
@@ -66,8 +65,7 @@ module.exports = {
         '$rootScope', 
         '$timeout', 
         'CredentialsService', 
-        'IdentityService', 
-        'AuthService', 
+        'IdentityService',
         'appConfigs', 
         HomeComponent
     ],

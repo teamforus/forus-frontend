@@ -1,7 +1,5 @@
 let TransactionsComponent = function(
     $state,
-    $translate,
-    TransactionService,
     OrganizationService,
     appConfigs
 ) {
@@ -55,8 +53,6 @@ module.exports = {
     },
     controller: [
         '$state',
-        '$translate',
-        'TransactionService',
         'OrganizationService',
         'appConfigs',
         TransactionsComponent

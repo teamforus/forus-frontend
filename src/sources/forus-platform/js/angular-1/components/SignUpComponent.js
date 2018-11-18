@@ -3,7 +3,6 @@ let SignUpComponent = function(
     $state,
     $scope,
     $rootScope,
-    $stateParams,
     $timeout,
     $interval,
     $filter,
@@ -37,11 +36,22 @@ let SignUpComponent = function(
     let has_app = false;
     let image = null;
 
+    $ctrl.beforeInit = () => {
+        if ($rootScope.auth_user) {
+            $state.go('organizations');
+        }
+    };
+
+    $ctrl.afterInit = () => {
+        
+    };
+
     let progressStorage = new(function() {
         let interval;
 
         this.init = () => {
             let step = this.getStep();
+
             if (step != null) {
                 $ctrl.setStep(step);
             }
@@ -103,9 +113,7 @@ let SignUpComponent = function(
     })();
 
     $ctrl.$onInit = function() {
-        if ($rootScope.auth_user) {
-            $state.go('organizations');
-        }
+        $ctrl.beforeInit();
 
         $ctrl.signUpForm = FormBuilderService.build({
             pin_code: "1111",
@@ -160,6 +168,8 @@ let SignUpComponent = function(
         progressStorage.init();
 
         $scope.$on('$destroy', progressStorage.destroy);
+
+        $ctrl.afterInit();
     };
 
     $ctrl.changeHasApp = function() {
@@ -224,7 +234,7 @@ let SignUpComponent = function(
             $ctrl.offices = [];
         }
 
-        $ctrl.offices.push(false);
+        $ctrl.offices.push({});
     };
 
     $ctrl.next = function() {
@@ -419,7 +429,6 @@ module.exports = {
         '$state',
         '$scope',
         '$rootScope',
-        '$stateParams',
         '$timeout',
         '$interval',
         '$filter',

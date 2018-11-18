@@ -14,7 +14,7 @@
                                     select-photo="$ctrl.selectPhoto(e)")
             .card-section.card-section-primary
                 .row 
-                    .col.col-sm-8.col-xs-12
+                    .col.col-lg-8.col-md-12
                         .form-group.form-group-inline
                             label.form-label {{ "organization_edit.labels.name" | translate }}
                             input(ng-model="$ctrl.form.values.name" type="text" placeholder="Bedrijfsnaam").form-control
@@ -33,13 +33,13 @@
                             .form-error(ng-repeat="error in $ctrl.form.errors.phone" ng-bind="error")
             .card-section.card-section-primary
                 .row 
-                    .col.col-sm-8.col-xs-12
+                    .col.col-lg-8.col-md-12
                         product-categories-control(
                             ng-model="$ctrl.form.values.product_categories" 
                             options="$ctrl.productCategories")
             .card-section.card-section-primary
                 .row 
-                    .col.col-sm-8.col-xs-12
+                    .col.col-lg-8.col-md-12
                         .form-group.form-group-inline
                             label.form-label {{ "organization_edit.labels.kvk" | translate }}
                             input(ng-model="$ctrl.form.values.kvk" type="text" placeholder="KvK-nummer").form-control
