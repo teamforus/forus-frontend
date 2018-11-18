@@ -424,7 +424,7 @@ module.exports = {
             go_step_2: "Ga verder naar stap 2",
             cancel: "Annuleren",
             next: "Volgende",
-            reload_qr: 'Reload QR code',
+            reload_qr: 'Herlaad de code.',
             login: 'Login'
         },
         step: {
@@ -458,7 +458,7 @@ module.exports = {
         login: {
             title: 'Heb je al een profiel?',
             description: 'Waneer je bijvoorbeeld via de mobiele applicatie al een profiel hebt aangemaakt, biedt de onderstaande knop de mogelijkheid om direct in te loggen op dit profiel.',
-            qr_description: 'Eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam, quis nostrud.'
+            qr_description: 'Scan deze QR-code met de me app als je al een profiel hebt aangemaakt.'
         },
         open_pc: {
             title: 'Deze pagina is niet mobiel te benaderen.',
