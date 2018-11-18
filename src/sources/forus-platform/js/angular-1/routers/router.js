@@ -27,9 +27,9 @@ module.exports = function($stateProvider) {
         url: "/organizations/create",
         component: "organizationsEditComponent",
         resolve: {
-            productCategories: function(ProductCategoryService) {
+            productCategories: ['ProductCategoryService', function(ProductCategoryService) {
                 return repackResponse(ProductCategoryService.list());
-            }
+            }]
         }
     });
 
@@ -38,16 +38,28 @@ module.exports = function($stateProvider) {
         url: "/organizations/{organization_id}/edit",
         component: "organizationsEditComponent",
         resolve: {
-            organization: function($transition$, OrganizationService) {
-                return repackResponse(
-                    OrganizationService.read(
-                        $transition$.params().organization_id
-                    )
-                );
-            },
-            productCategories: function(ProductCategoryService) {
-                return repackResponse(ProductCategoryService.list());
-            }
+            organization: [
+                '$transition$',
+                'OrganizationService',
+                function(
+                    $transition$,
+                    OrganizationService
+                ) {
+                    return repackResponse(
+                        OrganizationService.read(
+                            $transition$.params().organization_id
+                        )
+                    );
+                }
+            ],
+            productCategories: [
+                'ProductCategoryService',
+                function(
+                    ProductCategoryService
+                ) {
+                    return repackResponse(ProductCategoryService.list());
+                }
+            ]
         }
     });
 
@@ -127,13 +139,13 @@ module.exports = function($stateProvider) {
         url: "/organizations/{organization_id}/financial-dashboard/funds/{fund_id}",
         component: "financialDashboardComponent",
         params: {
-            fund_id: { 
-                squash: true, 
-                value: null 
+            fund_id: {
+                squash: true,
+                value: null
             },
         },
         resolve: {
-            fund: function ($transition$, FundService) {
+            fund: function($transition$, FundService) {
                 return $transition$.params().fund_id != null ? repackResponse(
                     FundService.read(
                         $transition$.params().organization_id,
@@ -148,7 +160,7 @@ module.exports = function($stateProvider) {
                     )
                 );
             },
-            fundProviders: function ($transition$, FundService) {
+            fundProviders: function($transition$, FundService) {
                 if ($transition$.params().fund_id == null) {
                     return new Promise((res) => res(null));
                 }
@@ -425,7 +437,7 @@ module.exports = function($stateProvider) {
             },
             funds: function($transition$, ProviderFundService) {
                 return repackResponse(
-                ProviderFundService.listFunds(
+                    ProviderFundService.listFunds(
                         $transition$.params().organization_id
                     )
                 );
@@ -565,7 +577,8 @@ module.exports = function($stateProvider) {
                     alert("Token expired or unknown.");
                     $state.go('home');
                 });
-            }],
+            }
+        ],
         data: {
             token: null
         }

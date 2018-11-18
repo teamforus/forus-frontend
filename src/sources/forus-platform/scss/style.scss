@@ -1064,6 +1064,38 @@ translate,
         float: left;
         padding: 10px 0;
     }
+
+    @media screen and (max-width: 1300px) {
+        &.app-sidebar {
+            width: 240px;
+            padding-right: 40px;
+        }
+
+        &.app-content {
+            width: calc(100% - 240px);
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        &.app-header {
+            padding: 25px 0;
+
+            .header-logo {
+                display: none;
+            }
+        }
+
+        &.app-sidebar {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 0;
+        }
+        
+        &.app-content {
+            padding: 0;
+            width: 100%;
+        }
+    }
 }
 
 .card-heading {
@@ -1332,6 +1364,8 @@ translate,
     }
 
     &.card-block-keyvalue {
+        @include cf();
+
         .keyvalue-item {
             @include cf();
             padding-bottom: 10px;
@@ -2590,6 +2624,45 @@ translate,
             }
         }
     }
+
+    @media screen and (max-width: 1000px) {
+        &.block-photo-selector {
+            text-align: center;
+
+            .photo-img {
+                width: 100px;
+                height: 100px;
+                margin: 0 auto 10px;
+                float: none;
+            }
+
+            .photo-label {
+                text-align: center;
+                margin: 0 0 10px;
+            }
+        }
+
+        &.block-choose-organization {
+            .organization-item {
+                width: 50%;
+            }
+        }
+
+        &.block-charts {
+            .chart-row {
+                flex-wrap: wrap;
+
+                .card {
+                    width: 100%;
+                    margin: 0 0 20px;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .modal {
@@ -2922,23 +2995,6 @@ translate,
     margin: 0;
 }
 
-.p-t-b-0 {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-.p-t-25 {
-    padding-top: 25px !important;
-}
-
-.p-t-45 {
-    padding-top: 45px !important;
-}
-
-.p-b-10 {
-    padding-bottom: 10px !important;
-}
-
 .tooltip-block {
     position: relative;
     display: inline-block;
@@ -3005,6 +3061,27 @@ translate,
 
         .tooltip {
             display: block;
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .wrapper {
+        padding: 0 25px;
+    }
+
+    .form {
+        .form-group {
+            &.form-group-inline {
+                .form-label {
+                    width: auto;
+                }
+
+                .form-offset,
+                .form-control {
+                    width: 100%;
+                }
+            }
         }
     }
 }

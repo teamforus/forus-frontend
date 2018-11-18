@@ -1,7 +1,6 @@
 let ProductsComponent = function(
     $state, 
-    $stateParams, 
-    ProductService
+    $stateParams
 ) {
     let $ctrl = this;
 
@@ -18,8 +17,7 @@ module.exports = {
     },
     controller: [
         '$state', 
-        '$stateParams', 
-        'ProductService', 
+        '$stateParams',  
         ProductsComponent
     ],
     templateUrl: 'assets/tpl/pages/products.html'

@@ -805,6 +805,12 @@
             margin-bottom: 10px;
         }
 
+        .section-scheme {
+            display: block;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
         .scheme {
             position: relative;
             max-width: 100%;
@@ -964,8 +970,9 @@
             padding: 0;
             margin: 0 0 30px;
 
-            .wrapper {
-                padding: 0;
+            .block-navbar {
+                margin-left: -25px;
+                margin-right: -25px;
             }
 
             .heade-sprite {
@@ -993,6 +1000,7 @@
                 width: 100%;
                 padding: 25px 25px;
                 text-align: center;
+                min-height: auto;
 
                 .header-title {
                     font: 700 20px/28px $bf;
@@ -1000,8 +1008,9 @@
                 }
 
                 .header-description {
-                    font: 400 13px/20px $bf;
-                    margin: 0 0 30px;
+                    font: 400 14px/24px $bf;
+                    margin: 0;
+                    color: #353b46;
                 }
 
                 .button {
@@ -1082,18 +1091,18 @@
 
         &.section-flow {
             margin: 0 0 30px;
-            display: none;
             
             .section-title {
                 padding: 0;
-                font: 700 18px/32px $bf;
-                margin-bottom: 20px;
+                font: 700 20px/28px $bf;
+                margin-bottom: 15px;
             }
 
             .section-description {
                 padding: 0;
-                font: 400 15px/26px $bf;
+                font: 400 14px/22px $bf;
                 margin: 0 0 30px;
+                color: #353b46;
             }
 
             .scheme {
@@ -1741,16 +1750,16 @@
     &.block-cards {
         position: relative;
         z-index: 3;
-        width: calc(100% + 30px);
-        margin: 0 -16px 70px;
+        margin: 0 0 70px;
         @include cf();
         float: left;
+        display: flex;
+        width: 100%;
 
         .card-item {
             width: 50%;
-            padding: 0 15px;
             margin-bottom: 20px;
-            float: left;
+            display: flex;
 
             .card-item-inner {
                 border-radius: 6px;
@@ -1758,11 +1767,11 @@
                 box-shadow: 0 10px 50px rgba(#000, .2);
                 background-color: #ffffff;
                 position: relative;
-                height: 200px;
                 transform: translate(0, 0);
                 transition: transform .4s;
                 cursor: default;
-                display: block;
+                min-height: 200px;
+                display: flex;
 
                 .card-icon {
                     position: absolute;
@@ -1770,9 +1779,10 @@
                     height: 340px;
                     background: #f9fbf0;
                     border-radius: 340px;
-                    left: 0px;
+                    right: 100%;
                     top: 50%;
-                    transform: translate(-50%, -50%);
+                    margin-right: -170px;
+                    transform: translate(0, -50%);
 
                     img {
                         display: block;
@@ -1786,11 +1796,12 @@
                 }
 
                 .card-content {
-                    position: absolute;
-                    left: 200px;
-                    right: 100px;
-                    top: 50%;
-                    transform: translate(0, -50%);
+                    height: 100%;
+                    flex-grow: 1;
+                    padding: 30px 25px 30px 200px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
                 }
 
                 .card-title {
@@ -1813,20 +1824,15 @@
                     font: 600 14px/25px $bf;
                     color: #646f79;
                 }
-
-                /* &:hover {
-                    transform: translate(0, -10px);
-                    
-                    .card-title {
-                        .mdi {
-                            margin-left: 10px;
-                            color: #4697fd;
-                        }
-                    }
-                } */
             }
 
-            &:nth-child(even) {
+            &:nth-child(1) {
+                padding-right: 15px;
+            }
+
+            &:nth-child(2) {
+                padding-left: 15px;
+
                 .card-item-inner {
                     .card-icon {
                         background: #f2fafd;
@@ -1971,15 +1977,23 @@
             }
         }
 
-        &.block-cards {
-            margin: 0 -16px 0;
-        }
-
         &.block-blogs {
             margin: 0 -15px 30px;
 
             .blog-item {
                 padding: 0 15px;
+            }
+        }
+
+        &.block-cards {
+            .card-item {
+                &:nth-child(1) {
+                    padding-right: 10px;
+                }
+
+                &:nth-child(2) {
+                    padding-left: 10px;
+                }
             }
         }
 
@@ -2210,44 +2224,45 @@
         }
 
         &.block-cards {
-            padding: 0 25px;
-            width: 100%;
+            flex-direction: column;
             margin: 0 0 30px;
 
             .card-item {
                 width: 100%;
-                padding: 0;
 
                 .card-item-inner {
-                    height: 240px;
-
                     .card-icon {
-                        width: 320px;
-                        height: 320px;
-                        margin-left: -40px;
+                        margin-right: -100px;
 
                         img {
-                            width: 70px;
-                            height: 70px;
+                            right: 20px;
+                            width: 60px;
+                            height: auto;
                         }
+                    }
+
+                    .card-title {
+                        font: 700 16px/24px $bf;
+                        margin: 0 0 10px;
+                    }
+
+                    .card-description {
+                        font: 400 14px/22px $bf;
+                        margin: 0 0 10px;
                     }
 
                     .card-content {
-                        left: 145px;
-                        right: 30px;
-
-                        .card-title {
-                            font: 700 14px/22px $bf;
-                        }
-
-                        .card-description {
-                            font: 600 12px/20px $bf;
-                        }
+                        padding-left: 120px;
                     }
                 }
 
-                &:last-child {
-                    margin: 0 0 0;
+                &:nth-child(1) {
+                    padding-right: 0;
+                }
+
+                &:nth-child(2) {
+                    padding-left: 0;
+                    margin-bottom: 0;
                 }
             }
         }
