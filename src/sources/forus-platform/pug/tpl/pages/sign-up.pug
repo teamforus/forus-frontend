@@ -8,14 +8,10 @@
                     img(ng-if="$ctrl.step == " + step src="./assets/img/sign-up/process.svg")
                     img(ng-if="$ctrl.step < " + step src="./assets/img/sign-up/question.svg")
                 .step-item-title(ng-bind="'sign_up.step.step_" + step + "' | translate")
-
-        +step_item(1)
-        +step_item(2)
-        +step_item(3)
-        +step_item(4)
-        +step_item(5)
-        +step_item(6)
-        +step_item(7)
+        
+        - let totalSteps = 7;
+        - for (let i = 1; i <= totalSteps; i++)
+            +step_item(i)
 
     .sign-up-content
         // Step header
@@ -38,7 +34,7 @@
                 .card-section
                     .card-block.card-block-download-app
                         .download-links
-                            a(href="/").download-link
+                            a(href="https://testflight.apple.com/join/gWw1lXyB").download-link
                                 .download-link-icon(style="background-image: url('./assets/img/sign-up/app-store.png');")
                                 .download-link-title
                                     translate(translate="sign_up.download.ios")
@@ -72,7 +68,7 @@
                         .form-group
                             label.form-label
                                 translate(translate="sign_up.labels.mail")
-                                tooltip(text="'lorem_ipsum'")
+                                tooltip(text="'Een persoonlijk e-mailadres is nodig om gebruik te kunnen maken van Me.'")
                             input(ng-model="$ctrl.signUpForm.values.records.primary_email" type="text" placeholder="E-mail").form-control
                             .form-error(ng-repeat="error in $ctrl.signUpForm.errors['records.primary_email']" ng-bind="error")
                         .form-group
@@ -118,16 +114,18 @@
                             .form-group
                                 label.form-label
                                     translate(translate="organization_edit.labels.name")
-                                    tooltip(text="'lorem_ipsum'")
                                 input(ng-model="$ctrl.organizationForm.values.name" type="text" placeholder="Bedrijfsnaam").form-control
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.name" ng-bind="error")
                             .form-group
-                                label(translate="organization_edit.labels.bank").form-label
+                                label.form-label
+                                    translate(translate="organization_edit.labels.bank")
+                                    tooltip(text="'Vul hier het rekeningnummer in waar u de betalingen op wilt ontvangen'")
+                                    .form-label
                                 input(ng-model="$ctrl.organizationForm.values.iban" type="text" placeholder="IBAN-nummer").form-control
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban" ng-bind="error")
                             .form-group
                                 label(translate="sign_up.labels.bank_confirmation").form-label
-                                input(ng-model="$ctrl.organizationForm.values.iban_confirmation" type="text" placeholder="IBAN-nummer").form-control
+                                input(ng-model="$ctrl.organizationForm.values.iban_confirmation" type="text" placeholder="Herhaal IBAN-nummer").form-control
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban_confirmation" ng-bind="error")
                             .form-group
                                 label(translate="organization_edit.labels.mail").form-label
@@ -169,10 +167,10 @@
                 +card_header(4)
                 
                 .card-section.card-section-primary: office-edit-inline(
-                    ng-repeat="office in $ctrl.offices" office="office" organization-id="$ctrl.organization.id")
-                
+                    ng-repeat="office in $ctrl.offices track by $index" office="office" organization-id="$ctrl.organization.id")
+
                 .card-section.card-section-primary.text-right: button(
-                    ng-click="$ctrl.addOffice()" translate="offices_edit.add_office").button.button-primary
+                    ng-click="$ctrl.addOffice()" translate="offices_edit.buttons.add_office").button.button-primary
 
             .step-footer
                 a(translate="sign_up.buttons.cancel" ng-click="$ctrl.back()" ng-if="!$ctrl.signedIn").button.button-default

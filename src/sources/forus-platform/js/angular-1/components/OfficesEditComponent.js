@@ -6,18 +6,28 @@ let OfficesEditComponent = function(
     FormBuilderService
 ) {
     let $ctrl = this;
+    let mediaFile = false;
 
     $ctrl.media;
 
     $ctrl.$onInit = function() {
         let values = OfficeService.apiResourceToForm(
-            $ctrl.office || {}
+            $ctrl.office || false
         );
 
-        $ctrl.form = FormBuilderService.build(values, (form) => {
+        $ctrl.form = FormBuilderService.build(values, async (form) => {
+            form.lock();
+
             let promise;
 
-            form.lock();
+            if (mediaFile) {
+                let res = await MediaService.store('office_photo', mediaFile);
+
+                $ctrl.media = res.data.data;
+                $ctrl.form.values.media_uid = $ctrl.media.uid;
+
+                mediaFile = false;
+            }
 
             if ($ctrl.office) {
                 promise = OfficeService.update(
@@ -50,10 +60,7 @@ let OfficesEditComponent = function(
     };
 
     $ctrl.selectPhoto = (e) => {
-        MediaService.store('office_photo', e.target.files[0]).then(function(res) {
-            $ctrl.media = res.data.data;
-            $ctrl.form.values.media_uid = $ctrl.media.uid;
-        });
+        mediaFile = e.target.files[0];
     };
 
     $ctrl.cancel = function () {

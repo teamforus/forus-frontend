@@ -1,7 +1,8 @@
 let PhotoSelectorDirective = function(
-    $q,
+    $timeout,
     $scope,
-    $element
+    $element,
+    ImageConvertorService
 ) {
     let input = false;
 
@@ -18,6 +19,12 @@ let PhotoSelectorDirective = function(
         input.style.display = 'none';
 
         input.addEventListener('change', function(e) {
+            ImageConvertorService.instance(e.target.files[0]).then((converter) => {
+                $timeout(() => {
+                    $scope.thumbnail = converter.resize(100, 100);
+                }, 0);
+            });
+
             $scope.selectPhoto({
                 e: e
             });
@@ -38,11 +45,12 @@ module.exports = () => {
         restrict: "EA",
         replace: true,
         controller: [
-            '$q',
+            '$timeout',
             '$scope',
             '$element',
+            'ImageConvertorService',
             PhotoSelectorDirective
         ],
-        templateUrl: 'assets/tpl/directives/photo-selector.html' 
+        templateUrl: 'assets/tpl/directives/photo-selector.html'
     };
 };

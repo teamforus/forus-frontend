@@ -13,7 +13,7 @@
                 
                 .card-block.card-block-provider
                     .provider-img: img(
-                        ng-src="{{ $ctrl.organization.photo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
+                        ng-src="{{ $ctrl.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
                     a(
                         ui-sref="organizations-edit({'organization_id' : $ctrl.organization.id})" 
                         ng-bind="$ctrl.organization.name").provider-title
