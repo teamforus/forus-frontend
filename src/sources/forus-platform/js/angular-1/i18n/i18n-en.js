@@ -240,7 +240,7 @@ module.exports = {
         status: {
             accepted: "Geaccepteerd",
             rejected: "Geweigerd",
-            hold: "Gepauzeerd",
+            hold: "Wacht op goedkeuring",
         },
         labels: {
             mail: "E-mail",

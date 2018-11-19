@@ -385,7 +385,7 @@ module.exports = {
             mail: "E-MAIL",
             address: "ADRES",
             hours: "OPENINGSTIJDEN",
-            none: "Geen data",
+            none: "Openingstijden onbekend, raadpleeg de aanbieder.",
         },
     },
 
