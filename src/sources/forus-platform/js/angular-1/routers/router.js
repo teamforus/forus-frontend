@@ -1,12 +1,25 @@
-module.exports = function($stateProvider) {
-    let repackResponse = (promise) => {
-        return new Promise((resolve, reject) => {
-            promise.then((res) => {
-                resolve(res.data.data ? res.data.data : res.data);
-            }, reject);
-        });
-    }
+let repackResponse = (promise) => {
+    return new Promise((resolve, reject) => {
+        promise.then((res) => {
+            resolve(res.data.data ? res.data.data : res.data);
+        }, reject);
+    });
+}
 
+let providerRoutes = ($stateProvider) => {
+    $stateProvider.state({
+        name: "sign-up",
+        url: "/sign-up",
+        component: "signUpComponent",
+        resolve: {
+            productCategories: function(ProductCategoryService) {
+                return repackResponse(ProductCategoryService.list());
+            }
+        }
+    });
+};
+
+module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appConfigs) {
     $stateProvider.state({
         name: "home",
         url: "/",
@@ -406,17 +419,6 @@ module.exports = function($stateProvider) {
     });
 
     $stateProvider.state({
-        name: "sign-up",
-        url: "/sign-up",
-        component: "signUpComponent",
-        resolve: {
-            productCategories: function(ProductCategoryService) {
-                return repackResponse(ProductCategoryService.list());
-            }
-        }
-    });
-
-    $stateProvider.state({
         name: "provider-funds",
         url: "/organizations/{organization_id}/provider/funds",
         component: "providerFundsComponent",
@@ -565,7 +567,6 @@ module.exports = function($stateProvider) {
                 CredentialsService,
                 appConfigs
             ) {
-                console.log('restore');
                 IdentityService.authorizeAuthEmailToken(
                     'panel-' + appConfigs.panel_type,
                     $state.params.token
@@ -583,4 +584,8 @@ module.exports = function($stateProvider) {
             token: null
         }
     });
-};
+
+    if (appConfigs.panel_type == 'provider') {
+        providerRoutes($stateProvider);
+    }
+}];
