@@ -2,9 +2,7 @@ let BaseController = function(
     $rootScope,
     $scope,
     $state,
-    IdentityService,
     AuthService,
-    CredentialsService,
     RecordService,
     OrganizationService,
     ConfigService,
@@ -79,6 +77,8 @@ let BaseController = function(
     }, function(newVal, oldVal) {
         if ($state.current.name == 'home' && appConfigs.panel_type != 'validator') {
             $rootScope.viewLayout = 'landing';
+        }else if($state.current.name == 'sign-up'){
+            $rootScope.viewLayout = 'signup';
         } else {
             $rootScope.viewLayout = 'panel';
         }
@@ -93,9 +93,7 @@ module.exports = [
     '$rootScope',
     '$scope',
     '$state',
-    'IdentityService',
     'AuthService',
-    'CredentialsService',
     'RecordService',
     'OrganizationService',
     'ConfigService',

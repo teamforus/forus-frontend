@@ -78,6 +78,28 @@ img {
     animation-timing-function: linear;
 }
 
+.flex-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+
+    .flex-item {
+        padding: 0 10px;
+
+        &.flex-item-grow {
+            flex-grow: 1;
+        }
+
+        &.flex-item-2 {
+            width: 50%;
+        }
+    }
+}
+
+.flex {
+    display: flex;
+}
+
 .row {
     margin-left: -10px;
     margin-right: -10px;

@@ -1,12 +1,12 @@
-module.exports = function($stateProvider) {
-    let repackResponse = (promise) => {
-        return new Promise((resolve, reject) => {
-            promise.then((res) => {
-                resolve(res.data.data ? res.data.data : res.data);
-            }, reject);
-        });
-    }
+let repackResponse = (promise) => {
+    return new Promise((resolve, reject) => {
+        promise.then((res) => {
+            resolve(res.data.data ? res.data.data : res.data);
+        }, reject);
+    });
+}
 
+module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appConfigs) {
     $stateProvider.state({
         name: "home",
         url: "/",
@@ -27,9 +27,9 @@ module.exports = function($stateProvider) {
         url: "/organizations/create",
         component: "organizationsEditComponent",
         resolve: {
-            productCategories: function(ProductCategoryService) {
+            productCategories: ['ProductCategoryService', function(ProductCategoryService) {
                 return repackResponse(ProductCategoryService.list());
-            }
+            }]
         }
     });
 
@@ -38,16 +38,28 @@ module.exports = function($stateProvider) {
         url: "/organizations/{organization_id}/edit",
         component: "organizationsEditComponent",
         resolve: {
-            organization: function($transition$, OrganizationService) {
-                return repackResponse(
-                    OrganizationService.read(
-                        $transition$.params().organization_id
-                    )
-                );
-            },
-            productCategories: function(ProductCategoryService) {
-                return repackResponse(ProductCategoryService.list());
-            }
+            organization: [
+                '$transition$',
+                'OrganizationService',
+                function(
+                    $transition$,
+                    OrganizationService
+                ) {
+                    return repackResponse(
+                        OrganizationService.read(
+                            $transition$.params().organization_id
+                        )
+                    );
+                }
+            ],
+            productCategories: [
+                'ProductCategoryService',
+                function(
+                    ProductCategoryService
+                ) {
+                    return repackResponse(ProductCategoryService.list());
+                }
+            ]
         }
     });
 
@@ -127,13 +139,13 @@ module.exports = function($stateProvider) {
         url: "/organizations/{organization_id}/financial-dashboard/funds/{fund_id}",
         component: "financialDashboardComponent",
         params: {
-            fund_id: { 
-                squash: true, 
-                value: null 
+            fund_id: {
+                squash: true,
+                value: null
             },
         },
         resolve: {
-            fund: function ($transition$, FundService) {
+            fund: function($transition$, FundService) {
                 return $transition$.params().fund_id != null ? repackResponse(
                     FundService.read(
                         $transition$.params().organization_id,
@@ -148,7 +160,7 @@ module.exports = function($stateProvider) {
                     )
                 );
             },
-            fundProviders: function ($transition$, FundService) {
+            fundProviders: function($transition$, FundService) {
                 if ($transition$.params().fund_id == null) {
                     return new Promise((res) => res(null));
                 }
@@ -394,17 +406,6 @@ module.exports = function($stateProvider) {
     });
 
     $stateProvider.state({
-        name: "sign-up",
-        url: "/sign-up",
-        component: "signUpComponent",
-        resolve: {
-            productCategories: function(ProductCategoryService) {
-                return repackResponse(ProductCategoryService.list());
-            }
-        }
-    });
-
-    $stateProvider.state({
         name: "provider-funds",
         url: "/organizations/{organization_id}/provider/funds",
         component: "providerFundsComponent",
@@ -425,7 +426,7 @@ module.exports = function($stateProvider) {
             },
             funds: function($transition$, ProviderFundService) {
                 return repackResponse(
-                ProviderFundService.listFunds(
+                    ProviderFundService.listFunds(
                         $transition$.params().organization_id
                     )
                 );
@@ -553,7 +554,6 @@ module.exports = function($stateProvider) {
                 CredentialsService,
                 appConfigs
             ) {
-                console.log('restore');
                 IdentityService.authorizeAuthEmailToken(
                     'panel-' + appConfigs.panel_type,
                     $state.params.token
@@ -565,9 +565,23 @@ module.exports = function($stateProvider) {
                     alert("Token expired or unknown.");
                     $state.go('home');
                 });
-            }],
+            }
+        ],
         data: {
             token: null
         }
     });
-};
+
+    if (appConfigs.panel_type == 'provider' || appConfigs.panel_type == 'sponsor') {
+        $stateProvider.state({
+            name: "sign-up",
+            url: "/sign-up",
+            component: "signUpComponent",
+            resolve: {
+                productCategories: function(ProductCategoryService) {
+                    return repackResponse(ProductCategoryService.list());
+                }
+            }
+        });
+    }
+}];

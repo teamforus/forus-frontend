@@ -1,14 +1,7 @@
-let FundsShowComponent = function(
-    $state,
-    $stateParams,
-    FundService,
-    FormBuilderService
-) {
+let FundsShowComponent = function() {
     let $ctrl = this;
 
-    $ctrl.$onInit = function() {
-        
-    };
+    $ctrl.$onInit = function() {};
 };
 
 module.exports = {
@@ -17,10 +10,6 @@ module.exports = {
         fundLevel: '<'
     },
     controller: [
-        '$state', 
-        '$stateParams', 
-        'FundService', 
-        'FormBuilderService', 
         FundsShowComponent
     ],
     templateUrl: 'assets/tpl/pages/funds-show.html'

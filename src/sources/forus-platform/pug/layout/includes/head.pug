@@ -27,3 +27,17 @@ head
 
     //- custom style
     link(rel="stylesheet" href=src_prefix + "assets/css/style.min.css")
+
+    <!--[if lte IE 9]>
+        style.
+            html[ng-cloak] {
+                display: block!important;
+            }
+            ui-view, .ie-hide{
+                display: none!important;
+            }
+
+            .oldie{
+                display: block!important;
+            }
+    <![endif]-->

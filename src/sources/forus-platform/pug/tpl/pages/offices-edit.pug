@@ -14,7 +14,7 @@
                                     select-photo="$ctrl.selectPhoto(e)")
             .card-section.card-section-primary
                 .row 
-                    .col.col-sm-8.col-xs-12
+                    .col.col-lg-9.col-md-12
                         .form-group.form-group-inline
                             label.form-label {{ "offices_edit.labels.address" | translate }}
                             input(ng-model="$ctrl.form.values.address" type="text" placeholder="{{ 'offices_edit.labels.address' | translate }}").form-control
@@ -23,10 +23,6 @@
                             label.form-label {{ "offices_edit.labels.phone" | translate }}
                             input(ng-model="$ctrl.form.values.phone" type="text" placeholder="{{ 'offices_edit.labels.phone' | translate }}").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.phone" ng-bind="error")
-                        .form-group.form-group-inline
-                            label.form-label {{ "offices_edit.labels.mail" | translate }}
-                            input(ng-model="$ctrl.form.values.email" type="text" placeholder="{{ 'offices_edit.labels.mail' | translate }}").form-control
-                            .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
             .card-section.card-section-primary
                 .row 
                     .col.col-xs-12

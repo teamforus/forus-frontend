@@ -1,6 +1,5 @@
 let ValidationRequestComonent = function(
     $state,
-    $rootScope,
     ValidatorRequestService,
     appConfigs
 ) {
@@ -31,7 +30,6 @@ module.exports = {
     },
     controller: [
         '$state',
-        '$rootScope',
         'ValidatorRequestService',
         'appConfigs',
         ValidationRequestComonent
