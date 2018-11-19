@@ -38,8 +38,6 @@
             .card-section.card-section-primary
                 .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
                     +keyvalue_item_horizontal("KVK", "providerFund.organization.kvk")
-                    +keyvalue_item_horizontal("BTW", "providerFund.organization.btw")
-                    +keyvalue_item_horizontal("IBAN", "providerFund.organization.iban")
                     .pull-right
                         button(
                             ng-show="(providerFund.state == 'pending') || (providerFund.state == 'approved')"

@@ -15,7 +15,7 @@ let VoucherComponent = function(
             correctLevel: QRCode.CorrectLevel.L
         });
 
-        qrCodeEl.removeAttribute('title');;
+        qrCodeEl.removeAttribute('title');
 
         $ctrl.voucherCard = VoucherService.composeCardData($ctrl.voucher);
 

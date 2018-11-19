@@ -23,13 +23,13 @@ let MediaService = function(ApiRequest) {
             return ApiRequest.get(
                 uriPrefix + '/' + id
             );
-        }
+        };
 
         this.delete = function(id) {
             return ApiRequest.delete(
                 uriPrefix + '/' + id
             );
-        }
+        };
     });
 };
 

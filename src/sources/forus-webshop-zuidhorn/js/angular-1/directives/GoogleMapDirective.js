@@ -10,9 +10,20 @@ let GoogleMapDirective = function($scope, $element, $timeout, GoogleMapService) 
         var map, marker, infowindow;
         var image = $elementCanvas.attr("data-marker");
         var zoomLevel = 12;
-        var styledMap = new google.maps.StyledMapType($scope.style, {
+        /*var styledMap = new google.maps.StyledMapType($scope.style, {
             name: "Styled Map"
-        });
+        });*/
+        let styles = [
+            {
+                featureType: 'poi.business',
+                stylers: [{visibility: 'off'}]
+            },
+            {
+                featureType: 'transit',
+                elementType: 'labels.icon',
+                stylers: [{visibility: 'off'}]
+            }
+        ];
 
         var mapOptions = {
             zoom: zoomLevel,
@@ -20,6 +31,7 @@ let GoogleMapDirective = function($scope, $element, $timeout, GoogleMapService) 
             center: new google.maps.LatLng(53.251723, 6.4950947),
             scrollwheel: true,
             fullscreenControl: false,
+            styles: styles,
             mapTypeControlOptions: {
                 mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
             }
@@ -27,7 +39,7 @@ let GoogleMapDirective = function($scope, $element, $timeout, GoogleMapService) 
 
         map = new google.maps.Map(document.getElementById(obj), mapOptions);
 
-        map.mapTypes.set('map_style', styledMap);
+        //map.mapTypes.set('map_style', styledMap);
         // map.setMapTypeId('map_style');
 
         infowindow = new google.maps.InfoWindow();

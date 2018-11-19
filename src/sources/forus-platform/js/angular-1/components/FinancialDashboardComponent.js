@@ -113,7 +113,7 @@ let FinancialDashboardComponent = function(
     };
 
     $ctrl.$onInit = function () {
-        $ctrl.emptyBlockLink = $state.href('funds-create', '$stateParams');
+        $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
 
         $ctrl.chartData.update();
 

@@ -5,7 +5,7 @@
             .card-header: .card-title {{ $ctrl.validator ? 'Medewerker bewerken' : 'Medewerker toevoegen' }}
             .card-section.card-section-primary
                 .row 
-                    .col.col-sm-8.col-xs-12
+                    .col.col-lg-9.col-md-12
                         // .form-group.form-group-inline
                             label.form-label Identity address
                             input(ng-model="$ctrl.form.values.identity_address" type="text" placeholder="Identity address").form-control
@@ -18,5 +18,5 @@
 
             .card-section.card-section-primary
                 .text-center
-                    button.button.button-default {{ "validators_edit.buttons.cancel" | translate }}
+                    button(type="button" ng-click="$ctrl.cancel()").button.button-default {{ "validators_edit.buttons.cancel" | translate }}
                     button(type="submit").button.button-primary {{ "validators_edit.buttons.confirm" | translate }}

@@ -1,5 +1,4 @@
 let OrganizationsComponent = function(
-    $scope, 
     $state, 
     appConfigs,
     OrganizationService
@@ -27,7 +26,6 @@ let OrganizationsComponent = function(
 
 module.exports = {
     controller: [
-        '$scope', 
         '$state', 
         'appConfigs', 
         'OrganizationService',

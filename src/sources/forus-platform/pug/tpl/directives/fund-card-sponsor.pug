@@ -62,23 +62,36 @@
                 .col.col-sm-12
                     +keyvalue_item_horizontal("Leveranciers", "{{ fund.providers_count }}")
                     +keyvalue_item_horizontal("Validatoren", "{{ fund.validators_count }}")
+    
+    mixin edit_buttons()
+        button(
+            ng-if="userCanEdit()"
+            ui-sref="funds-edit({organization_id: fund.organization_id, fund_id: fund.id})"
+            ).button.button-default
+            em.mdi.mdi-settings  
+            | {{ "fund_card_sponsor.labels.setting" | translate }}
 
-    .card-section.card-section-primary(ng-show="level != 'fundsAvailable' && fund.budget")
+        button(ng-if="fund.state != 'closed'" ng-click="openModal()").button.button-primary
+            em.mdi.mdi-plus-circle  
+            | {{ "fund_card_sponsor.buttons.add" | translate }}
+
+    mixin stats()
         .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
-            .row
-                .col.col-sm-6.col.xs-12(ng-if="fund.budget")
-                    +keyvalue_item_horizontal("Totaal budget", "'€ ' + fund.budget.total + ',-'")
-                    +keyvalue_item_horizontal("Gebruikt", "'€ ' + fund.budget.used + ',-'")
-                .col.xs-12.text-right(ng-class="!fund.budget ? 'col-sm-12' : 'col-sm-6'")
-                    button(
-                        ng-if="userCanEdit()"
-                        ui-sref="funds-edit({organization_id: fund.organization_id, fund_id: fund.id})"
-                        ).button.button-default
-                        em.mdi.mdi-settings  
-                        | {{ "fund_card_sponsor.labels.setting" | translate }}
+            +keyvalue_item_horizontal("Totaal budget", "'€ ' + fund.budget.total + ',-'")
+            +keyvalue_item_horizontal("Gebruikt", "'€ ' + fund.budget.used + ',-'")
 
-                    button(ng-if="fund.state != 'closed'" ng-click="openModal()").button.button-primary
-                        em.mdi.mdi-plus-circle  
-                        | {{ "fund_card_sponsor.buttons.add" | translate }}
+
+    .card-section.card-section-primary(ng-show="level != 'fundsAvailable' && fund.budget").hidden-md
+        .row
+            .col.col-lg-6.md-12(ng-if="fund.budget")
+                +stats()
+
+            .text-right.col(ng-class="!fund.budget ? 'col-lg-12' : 'col-lg-6'")
+                +edit_buttons()
+
+    .card-section.card-section-primary(ng-show="level != 'fundsAvailable' && fund.budget").visible-md
+        +stats()
+    .card-section.card-section-primary(ng-show="level != 'fundsAvailable' && fund.budget").visible-md
+        +edit_buttons()
 
     modal-funds-add(ng-show="showModal" modal-code="modalCode" modal-iban="modalIban" close-modal="closeModal")

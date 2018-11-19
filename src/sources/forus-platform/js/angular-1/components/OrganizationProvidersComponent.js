@@ -1,6 +1,5 @@
 let OrganizationProvidersComponent = function(
     $state,
-    $stateParams,
     FundService
 ) {
     let $ctrl = this;
@@ -46,7 +45,6 @@ module.exports = {
     },
     controller: [
         '$state',
-        '$stateParams',
         'FundService',
         OrganizationProvidersComponent
     ],
