@@ -14,7 +14,7 @@
                                     select-photo="$ctrl.selectPhoto(e)")
             .card-section.card-section-primary
                 .row 
-                    .col.col-lg-8.col-md-12
+                    .col.col-lg-9.col-md-12
                         .form-group.form-group-inline
                             label.form-label {{ "product_edit.labels.name" | translate }}
                             input(ng-model="$ctrl.form.values.name" type="text" placeholder="Naam").form-control
@@ -25,7 +25,7 @@
                             .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
             .card-section.card-section-primary
                 .row 
-                    .col.col-lg-8.col-md-12
+                    .col.col-lg-9.col-md-12
                         .form-group.form-group-inline
                             label.form-label {{ "product_edit.labels.new" | translate }}
                             input(ng-model="$ctrl.form.values.price" type="number" placeholder="Prijs" step="0.01").form-control
@@ -40,7 +40,7 @@
                             .form-error(ng-repeat="error in $ctrl.form.errors.total_amount" ng-bind="error")
             .card-section.card-section-primary
                 .row 
-                    .col.col-lg-8.col-md-12
+                    .col.col-lg-9.col-md-12
                         .form-group.form-group-inline
                             label.form-label {{ "product_edit.labels.expire" | translate }}
                             datepicker(date-format="yyyy-MM-dd" datepicker-mobile="").form-control
@@ -48,7 +48,7 @@
                             .form-error(ng-repeat="error in $ctrl.form.errors.expire_at" ng-bind="error")
             .card-section.card-section-primary
                 .row 
-                    .col.col-lg-8.col-md-12
+                    .col.col-lg-9.col-md-12
                         .form-group.form-group-inline
                             label.form-label {{ "product_edit.labels.category" | translate }}
                             select(

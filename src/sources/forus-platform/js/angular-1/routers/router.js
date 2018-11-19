@@ -6,19 +6,6 @@ let repackResponse = (promise) => {
     });
 }
 
-let providerRoutes = ($stateProvider) => {
-    $stateProvider.state({
-        name: "sign-up",
-        url: "/sign-up",
-        component: "signUpComponent",
-        resolve: {
-            productCategories: function(ProductCategoryService) {
-                return repackResponse(ProductCategoryService.list());
-            }
-        }
-    });
-};
-
 module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appConfigs) {
     $stateProvider.state({
         name: "home",
@@ -585,7 +572,16 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         }
     });
 
-    if (appConfigs.panel_type == 'provider') {
-        providerRoutes($stateProvider);
+    if (appConfigs.panel_type == 'provider' || appConfigs.panel_type == 'sponsor') {
+        $stateProvider.state({
+            name: "sign-up",
+            url: "/sign-up",
+            component: "signUpComponent",
+            resolve: {
+                productCategories: function(ProductCategoryService) {
+                    return repackResponse(ProductCategoryService.list());
+                }
+            }
+        });
     }
 }];

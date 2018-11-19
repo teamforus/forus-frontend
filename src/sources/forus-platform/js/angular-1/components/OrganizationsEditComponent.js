@@ -20,6 +20,11 @@ let OrganizationsEditComponent = function(
             form.lock();
 
             let promise;
+            let values = JSON.parse(JSON.stringify(form.values));
+
+            if (typeof(values.iban) === 'string') {
+                values.iban = values.iban.replace(/\s/g, '');
+            }
 
             if (mediaFile) {
                 let res = await MediaService.store('organization_logo', mediaFile);
@@ -33,12 +38,10 @@ let OrganizationsEditComponent = function(
             if ($ctrl.organization) {
                 promise = OrganizationService.update(
                     $stateParams.organization_id,
-                    form.values
-                )
+                    values
+                );
             } else {
-                promise = OrganizationService.store(
-                    form.values
-                )
+                promise = OrganizationService.store(values);
             }
 
             promise.then((res) => {

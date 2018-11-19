@@ -430,10 +430,10 @@ translate,
 
             &::before {
                 content: '';
-                @include fill_parent();
+                @include fill_parent(-2px);
                 border: inherit;
                 border-radius: inherit;
-                border-width: 3px;
+                border-width: 5px;
                 opacity: 0;
                 transition: 0.4s;
             }

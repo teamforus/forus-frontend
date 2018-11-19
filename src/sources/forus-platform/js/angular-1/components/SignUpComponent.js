@@ -164,9 +164,13 @@ let SignUpComponent = function(
 
             form.lock();
 
-            return OrganizationService.store(
-                form.values
-            );
+            let values = JSON.parse(JSON.stringify(form.values));
+
+            if (typeof(values.iban) === 'string') {
+                values.iban = values.iban.replace(/\s/g, '');
+            }
+
+            return OrganizationService.store(values);
         });
 
         progressStorage.init();
@@ -214,6 +218,10 @@ let SignUpComponent = function(
             progressStorage.setStep($ctrl.step);
         } else {
             progressStorage.clear();
+        }
+
+        if (step == 7 && appConfigs.panel_type == 'sponsor') {
+            $scope.go('organziations');
         }
     };
 
