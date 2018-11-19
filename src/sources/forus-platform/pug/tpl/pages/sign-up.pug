@@ -8,14 +8,10 @@
                     img(ng-if="$ctrl.step == " + step src="./assets/img/sign-up/process.svg")
                     img(ng-if="$ctrl.step < " + step src="./assets/img/sign-up/question.svg")
                 .step-item-title(ng-bind="'sign_up.step.step_" + step + "' | translate")
-
-        +step_item(1)
-        +step_item(2)
-        +step_item(3)
-        +step_item(4)
-        +step_item(5)
-        +step_item(6)
-        +step_item(7)
+        
+        - let totalSteps = 7;
+        - for (let i = 1; i <= totalSteps; i++)
+            +step_item(i)
 
     .sign-up-content
         // Step header
@@ -169,8 +165,8 @@
                 +card_header(4)
                 
                 .card-section.card-section-primary: office-edit-inline(
-                    ng-repeat="office in $ctrl.offices" office="office" organization-id="$ctrl.organization.id")
-                
+                    ng-repeat="office in $ctrl.offices track by $index" office="office" organization-id="$ctrl.organization.id")
+
                 .card-section.card-section-primary.text-right: button(
                     ng-click="$ctrl.addOffice()" translate="offices_edit.buttons.add_office").button.button-primary
 

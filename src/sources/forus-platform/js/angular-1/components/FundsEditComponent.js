@@ -6,6 +6,7 @@ let FundsEditComponent = function(
     MediaService
 ) {
     let $ctrl = this;
+    let mediaFile = false;
     
     $ctrl.media;
 
@@ -17,10 +18,17 @@ let FundsEditComponent = function(
             "state": $ctrl.fundStates[0].value
         };
 
-        $ctrl.form = FormBuilderService.build(values, (form) => {
+        $ctrl.form = FormBuilderService.build(values, async (form) => {
+            form.lock();
+
             let promise;
 
-            form.lock();
+            if (mediaFile) {
+                let res = await MediaService.store('fund_logo', mediaFile);
+
+                $ctrl.media = res.data.data;
+                $ctrl.form.values.media_uid = $ctrl.media.uid;
+            }
 
             if ($ctrl.fund) {
                 promise = FundService.update(
@@ -51,12 +59,9 @@ let FundsEditComponent = function(
             });
         }
     };
-    
+
     $ctrl.selectPhoto = (e) => {
-        MediaService.store('fund_logo', e.target.files[0]).then(function(res) {
-            $ctrl.media = res.data.data;
-            $ctrl.form.values.media_uid = $ctrl.media.uid;
-        });
+        mediaFile = e.target.files[0];
     };
 };
 

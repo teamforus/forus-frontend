@@ -6,6 +6,7 @@ let ProductsEditComponent = function(
     MediaService
 ) {
     let $ctrl = this;
+    let mediaFile = false;
 
     $ctrl.media;
 
@@ -21,10 +22,19 @@ let ProductsEditComponent = function(
             name: 'Selecteer categorie'
         });
 
-        $ctrl.form = FormBuilderService.build(values, (form) => {
+        $ctrl.form = FormBuilderService.build(values, async (form) => {
+            form.lock();
+
             let promise;
 
-            form.lock();
+            if (mediaFile) {
+                let res = await MediaService.store('product_photo', mediaFile);
+
+                $ctrl.media = res.data.data;
+                $ctrl.form.values.media_uid = $ctrl.media.uid;
+
+                mediaFile = false;
+            }
 
             if ($ctrl.product) {
                 promise = ProductService.update(
@@ -57,10 +67,7 @@ let ProductsEditComponent = function(
     };
 
     $ctrl.selectPhoto = (e) => {
-        MediaService.store('product_photo', e.target.files[0]).then(function(res) {
-            $ctrl.media = res.data.data;
-            $ctrl.form.values.media_uid = $ctrl.media.uid;
-        });
+        mediaFile = e.target.files[0];
     };
 };
 

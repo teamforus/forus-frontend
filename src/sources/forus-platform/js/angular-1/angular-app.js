@@ -56,6 +56,7 @@ app.service('ValidatorRequestService', require('./services/ValidatorRequestServi
 app.service('MediaService', require('./services/MediaService'));
 app.service('ProviderIdentityService', require('./services/ProviderIdentityService'));
 app.service('ConfigService', require('./services/ConfigService'));
+app.service('ImageConvertorService', require('./services/ImageConvertorService'));
 
 // Directives
 switch (env_data.panel_type) {

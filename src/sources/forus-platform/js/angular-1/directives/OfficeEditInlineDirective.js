@@ -8,22 +8,25 @@ let OfficeEditInlineDirective = function(
     let $ctrl = {
         media: false
     };
-
+    
     let init = false;
     let timeout;
+    let mediaFile = false;
 
     $ctrl.office = $scope.office;
 
     $ctrl.selectPhoto = (e) => {
-        MediaService.store('office_photo', e.target.files[0]).then(function(res) {
-            $ctrl.media = res.data.data;
-            $ctrl.form.values.media_uid = $ctrl.media.uid;
-        });
+        mediaFile = e.target.files[0];
+        $ctrl.form.submit();
     };
 
     $scope.$watch('$ctrl.form.values', function(_new, _old) {
         if (!init) {
             return init = true;
+        }
+
+        if (_new.media_uid != _old.media_uid) {
+            return;
         }
 
         if (timeout) {
@@ -41,10 +44,19 @@ let OfficeEditInlineDirective = function(
             $scope.office || {}
         );
 
-        $ctrl.form = FormBuilderService.build(values, (form) => {
+        $ctrl.form = FormBuilderService.build(values, async (form) => {
+            form.lock();
+
             let promise;
 
-            form.lock();
+            if (mediaFile) {
+                let res = await MediaService.store('office_photo', mediaFile);
+
+                $ctrl.media = res.data.data;
+                $ctrl.form.values.media_uid = $ctrl.media.uid;
+
+                mediaFile = false;
+            }
 
             if ($ctrl.office) {
                 promise = OfficeService.update(
@@ -62,6 +74,10 @@ let OfficeEditInlineDirective = function(
             promise.then((res) => {
                 $ctrl.saved = true;
                 form.unlock();
+                
+                if (!$ctrl.office) {
+                    $ctrl.office = $scope.office = res.data.data
+                }
 
                 $timeout(() => {
                     $ctrl.saved = false;

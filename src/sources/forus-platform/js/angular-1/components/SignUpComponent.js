@@ -34,11 +34,12 @@ let SignUpComponent = function(
     let qrCodeEl;
     let qrCode;
     let has_app = false;
-    let image = null;
+    let orgMediaFile = false;
 
     $ctrl.beforeInit = () => {
         if ($rootScope.auth_user) {
             $state.go('organizations');
+            progressStorage.clear();
         }
     };
 
@@ -53,6 +54,10 @@ let SignUpComponent = function(
             let step = this.getStep();
 
             if (step != null) {
+                if (step == 3 && !$ctrl.signedIn) {
+                    step = 2;
+                }
+
                 $ctrl.setStep(step);
             }
 
@@ -105,7 +110,7 @@ let SignUpComponent = function(
 
         this.clear = () => {
             $interval.cancel(interval);
-            
+
             localStorage.removeItem('sign_up_form.step');
             localStorage.removeItem('sign_up_form.signUpForm');
             localStorage.removeItem('sign_up_form.organizationForm');
@@ -118,7 +123,6 @@ let SignUpComponent = function(
         $ctrl.signUpForm = FormBuilderService.build({
             pin_code: "1111",
         }, function(form) {
-
             if (form.values.records && form.values.records.primary_email != form.values.records.primary_email_confirmation) {
                 return $q((resolve, reject) => {
                     reject({
@@ -203,22 +207,6 @@ let SignUpComponent = function(
         });
     };
 
-    let submitOrganizationForm = function () {
-        $ctrl.organizationForm.submit().then((res) => {
-            $rootScope.$broadcast('auth:update');
-            $ctrl.setStep($ctrl.step + 1);
-
-            $ctrl.organization = res.data.data;
-
-            loadOrganizationOffices($ctrl.organization);
-            loadAvailableFunds($ctrl.organization);
-
-        }, (res) => {
-            $ctrl.organizationForm.errors = res.data.errors;
-            $ctrl.organizationForm.unlock();
-        });
-    };
-
     $ctrl.setStep = (step) => {
         $ctrl.step = step;
 
@@ -229,15 +217,22 @@ let SignUpComponent = function(
         }
     };
 
+    $ctrl.setOrganization = (organization) => {
+        $ctrl.organization = organization;
+
+        loadOrganizationOffices(organization);
+        loadAvailableFunds(organization);
+    };
+
     $ctrl.addOffice = () => {
         if (!Array.isArray($ctrl.offices)) {
             $ctrl.offices = [];
         }
 
-        $ctrl.offices.push({});
+        $ctrl.offices.push(false);
     };
 
-    $ctrl.next = function() {
+    $ctrl.next = async function() {
         if ($ctrl.organizationStep && !$ctrl.signedIn && $ctrl.step > 1) {
             $ctrl.signUpForm.submit().then((res) => {
                 CredentialsService.set(res.data.access_token);
@@ -252,49 +247,46 @@ let SignUpComponent = function(
         }
 
         if ($ctrl.step == 1) {
-            $ctrl.setStep($ctrl.step + 1);
+            $ctrl.setStep(2);
         } else if ($ctrl.step == 2) {
-            $ctrl.setStep($ctrl.step + 1);
+            $ctrl.setStep(3);
         } else if ($ctrl.step == 3) {
-            if ($ctrl.signedIn) {
-                if(image) {
-                    MediaService.store('organization_logo', image).then(function (res) {
-                        $ctrl.media = res.data.data;
-                        $ctrl.organizationForm.values.media_uid = $ctrl.media.uid;
+            let authRes;
 
-                        image = null;
-
-                        submitOrganizationForm();
-                    });
-                } else {
-                    submitOrganizationForm();
-                }
-
-            } else {
-                $ctrl.signUpForm.submit().then((res) => {
-                    CredentialsService.set(res.data.access_token);
-                    $ctrl.signedIn = true;
-
-                    if(image) {
-                        MediaService.store('organization_logo', image).then(function (res) {
-                            $ctrl.media = res.data.data;
-                            $ctrl.organizationForm.values.media_uid = $ctrl.media.uid;
-
-                            image = null;
-
-                            submitOrganizationForm();
-                        });
-                    } else {
-                        submitOrganizationForm();
-                    }
-
-                }, (res) => {
+            if (!$ctrl.signedIn) {
+                authRes = await $ctrl.signUpForm.submit().catch((res) => {
                     $ctrl.signUpForm.unlock();
                     $ctrl.signUpForm.errors = res.data.errors;
                     $ctrl.organizationStep = true;
                     $ctrl.setStep(2);
                 });
+
+                if (typeof(authRes) !== 'undefined') {
+                    CredentialsService.set(authRes.data.access_token);
+                    $ctrl.signedIn = true;
+                } else {
+                    return;
+                }
             }
+
+            if (orgMediaFile) {
+                $ctrl.organizationForm.values.media_uid = (
+                    await MediaService.store('organization_logo', orgMediaFile)
+                ).data.data.uid;
+
+                orgMediaFile = false;
+            }
+
+            $ctrl.organizationForm.submit().then((res) => {
+                $rootScope.$broadcast('auth:update');
+
+                $ctrl.setOrganization(res.data.data);
+                $ctrl.setStep(4);
+            }, (res) => {
+                $ctrl.organizationForm.errors = res.data.errors;
+                $ctrl.organizationForm.unlock();
+            });
+
         } else if ($ctrl.step == 4) {
             $ctrl.setStep(5);
         } else if ($ctrl.step == 5) {
@@ -349,7 +341,7 @@ let SignUpComponent = function(
         loginQrBlock.show();
     };
 
-    let loginQrBlock = new(function () {
+    let loginQrBlock = new(function() {
         this.show = () => {
             $ctrl.showLoginBlock = true;
         };
@@ -398,16 +390,7 @@ let SignUpComponent = function(
     };
 
     $ctrl.selectPhoto = (e) => {
-        image = e.target.files[0];
-
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            $('#organization-logo-block .photo-img').css({'background-image': 'url('+ e.target.result +')'});
-            $('#organization-logo-block img').hide();
-        };
-
-        reader.readAsDataURL(image);
+        orgMediaFile = e.target.files[0];
     };
 
     $scope.authorizePincodeForm = FormBuilderService.build({
