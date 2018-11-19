@@ -3,6 +3,7 @@
     section.app.app-content
         .card: form(ng-submit="$ctrl.form.submit()").form
             .card-header: .card-title {{ $ctrl.validator ? 'Medewerker aanpassen' : 'Medewerker toevoegen' }}
+                tooltip(text="'Waneer u een medewerker toevoegt kan deze alleen de QR-codes scannen voor betalingen. De medewerker kan niet inloggen op het dashboard'")
             .card-section.card-section-primary
                 .row 
                     .col.col-lg-9.col-md-12
