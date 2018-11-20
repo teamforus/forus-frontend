@@ -19,6 +19,10 @@ let ModalsRootDirective = function($scope, ModalService, ModalRoute) {
                 routeModals[modal.key].component
             );
             modal.close = function() {
+                if (typeof(modal.events.onClose) === 'function') {
+                    modal.events.onClose(modal);
+                }
+
                 ModalService.close(modal);
             };
         });

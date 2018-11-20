@@ -34,6 +34,7 @@ app.component('transactionComponent', require('./components/TransactionComponent
 
 // Modal Components
 app.component('modalPhotoUploaderComponent', require('./components/Modals/ModalPhotoUploaderComponent'));
+app.component('modalFundTopUpComponent', require('./components/Modals/ModalFundTopUpComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -84,7 +85,6 @@ app.directive('productCard', require('./directives/ProductCardDirective'));
 app.directive('multiSelect', require('./directives/MultiSelectDirective'));
 app.directive('scheduleControl', require('./directives/ScheduleControlDirective.js'));
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
-app.directive('modalFundsAdd', require('./directives/ModalFundsAddDirective'));
 app.directive('csvUpload', require('./directives/CsvUploadDirective'));
 app.directive('progressBar', require('./directives/ProgressBarDirective'));
 app.directive('prevalidatedTable', require('./directives/PrevalidatedTableDirective'));

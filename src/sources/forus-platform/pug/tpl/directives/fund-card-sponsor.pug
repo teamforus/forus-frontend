@@ -71,7 +71,7 @@
             em.mdi.mdi-settings  
             | {{ "fund_card_sponsor.labels.setting" | translate }}
 
-        button(ng-if="fund.state != 'closed'" ng-click="openModal()").button.button-primary
+        button(ng-if="fund.state != 'closed'" ng-click="topUpModal()").button.button-primary
             em.mdi.mdi-plus-circle  
             | {{ "fund_card_sponsor.buttons.add" | translate }}
 
@@ -93,5 +93,3 @@
         +stats()
     .card-section.card-section-primary(ng-show="level != 'fundsAvailable' && fund.budget").visible-md
         +edit_buttons()
-
-    modal-funds-add(ng-show="showModal" modal-code="modalCode" modal-iban="modalIban" close-modal="closeModal")

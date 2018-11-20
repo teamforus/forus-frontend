@@ -1,8 +1,7 @@
 module.exports = [
     '$compile',
-    '$timeout',
-    ($compile, $timeout) => {
-        let ModalDirective = function(scope, element, attributes) {
+    ($compile) => {
+        let ModalDirective = function(scope, element) {
             let template = `
                 <${scope.modal.componentType}
                     close = "modal.close"
