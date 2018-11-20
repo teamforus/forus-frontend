@@ -195,9 +195,9 @@ module.exports = {
             subtract: "Af",
             fund: "Fonds",
             expire: "VERVALDATUM",
-            office: "Locatie van de leverancier",
-            voucher: "Je kunt je voucher besteden in de winkels op deze locaties",
-            shopdetail: "Informatie over de aanbieder",
+            office: "Locatie van de aanbieder",
+            voucher: "Je kunt je voucher besteden bij de aanbieders op deze locaties",
+            shopdetail: "INFORMATIE OVER DE AANBIEDER",
             productdetail: "INFORMATIE OVER DE AANBIEDING",
         }
     },
@@ -215,6 +215,7 @@ module.exports = {
             none: "Geen",
             used: "GEBRUIKT",
             generated: "AANGEMAAKT",
+            expire: "VERVALDATUM"
         }
     },
 
