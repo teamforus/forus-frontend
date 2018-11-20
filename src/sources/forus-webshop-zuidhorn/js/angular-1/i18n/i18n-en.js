@@ -62,7 +62,7 @@ module.exports = {
         header: {
             title: "Zuidhorn. Kindpakket",
             subtitle: "Welkom op de website van het Kindpakket Zuidhorn. Het Kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Zuidhorn.",
-            button: 'Lees meer over hoe het systeem werkt.',
+            button: 'WAT MOET IK DOEN?',
         },
         blog: {
             title: "Onze blog",
@@ -81,7 +81,7 @@ module.exports = {
             button: 'BEKIJK DE KAART',
         },
         guide: {
-            title: "Hoe het systeem werkt",
+            title: "Hoe het werkt",
             stepone: "Stap #1",
             one: "Je hebt een brief  ontvangen van de gemeente. In de brief staat een activatiecode. Gebruik deze bij stap 2.",
             steptwo: "Stap #2",
