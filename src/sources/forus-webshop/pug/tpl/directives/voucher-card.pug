@@ -18,11 +18,11 @@ a(ui-sref="voucher(voucher)").voucher-item
 
     .voucher-overview(ng-if="voucherCard.type == 'product'")
         .voucher-overview-item
-            .voucher-overview-label USED
-            .voucher-overview-value(ng-bind="voucherCard.transactions.length == 0 ? 'No' : 'Yes'")
+            .voucher-overview-label {{ "vouchers.labels.used" | translate }}
+            .voucher-overview-value(ng-bind="voucherCard.transactions.length == 0 ? 'Nee' : 'Ja'")
         .voucher-overview-item
-            .voucher-overview-label GENERATED
+            .voucher-overview-label {{ "vouchers.labels.generated" | translate }}
             .voucher-overview-value(ng-bind="voucherCard.created_at_locale")
         .voucher-overview-item
-            .voucher-overview-label EXPIRE
+            .voucher-overview-label {{ "vouchers.labels.expire" | translate }}
             .voucher-overview-value(ng-bind="voucherCard.expire_at_locale")

@@ -109,7 +109,7 @@ module.exports = {
     // CSV-VALIDATION = csv-validation.pug
     csv_validation: {
         header: {
-            title: "CSV uploader",
+            title: "Aanvragers toevoegen",
         },
         buttons: {
             choose: "Kies een ander fonds",
@@ -240,7 +240,7 @@ module.exports = {
         status: {
             accepted: "Geaccepteerd",
             rejected: "Geweigerd",
-            hold: "Gepauzeerd",
+            hold: "Wacht op goedkeuring",
         },
         labels: {
             mail: "E-mail",

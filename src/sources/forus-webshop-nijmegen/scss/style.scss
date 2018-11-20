@@ -596,12 +596,14 @@ body {
         @include cf();
 
         .heade-sprite {
-            background: url("../img/sprite-meapp.png") no-repeat;
+            background: url("../img/splash-top-ba.png") no-repeat;
             background-position: 100% 0%;
             background-size: auto 100%;
             @include fill_parent();
             bottom: -50px;
             z-index: 2;
+            height: 625px;
+            width: 100%;
         }
 
         .header-body {

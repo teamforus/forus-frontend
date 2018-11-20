@@ -47,7 +47,7 @@ section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
         mixin blog_item(nth)
             .blog-item: a(href="#").blog-item-inner
                 .blog-image: img(src="./assets/img/blog-image-" + nth + ".jpg")
-                .blog-name Blog: {{ "home.blog.name" | translate }}
+                .blog-name {{ "home.blog.name" | translate }}
                 .blog-read-more 
                     | {{ "home.blog.more" | translate }}
                     em.mdi.mdi-arrow-right
