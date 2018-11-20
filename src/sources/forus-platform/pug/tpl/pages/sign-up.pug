@@ -149,7 +149,10 @@
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.btw" ng-bind="error")
                 
                     .card-col.card-col-3
-                        photo-selector(thumbnail="$ctrl.media.sizes.thumbnail" select-photo="$ctrl.selectPhoto(e)")
+                        photo-selector(
+                            type="organization_logo"
+                            thumbnail="$ctrl.media.sizes.thumbnail" 
+                            select-photo="$ctrl.selectPhoto(file)")
                         .info-block.info-block-primary
                             | De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px. 
                             br

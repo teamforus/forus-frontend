@@ -1,3 +1,24 @@
+let dataURItoBlob = (dataURI) => {
+    // convert base64 to raw binary data held in a string
+    // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+    var byteString = atob(dataURI.split(',')[1]);
+
+    // separate out the mime component
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+    // write the bytes of the string to an ArrayBuffer
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([ab], {
+        type: mimeString
+    });
+};
+
 function ImageConvertor(file) {
     let converter = {};
     let imageObj = new Image();
@@ -11,6 +32,14 @@ function ImageConvertor(file) {
             window.URL || window.webkitURL || window.mozURL || window.msURL
         ).createObjectURL(file);
     }
+
+    converter.originalRatio = () => {
+        return imageObj.width / imageObj.height;
+    };
+
+    converter.base64ToBlob = (base64) => {
+        return converter.dataURItoBlob(base64);
+    };
 
     converter.resize = (x, y) => {
         canvas.width = x;
@@ -35,8 +64,7 @@ function ImageConvertor(file) {
             var sourceHeight = imageObj.width;
 
             var sourceX = 0;
-            var sourceY =
-                0;
+            var sourceY = 0;
         }
 
         var destWidth = x;
@@ -53,31 +81,19 @@ function ImageConvertor(file) {
         return dataURItoBlob(converter.resize(x, y));
     };
 
-    converter.dataURItoBlob = (dataURI) => {
-        // convert base64 to raw binary data held in a string
-        // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
-        var byteString = atob(dataURI.split(',')[1]);
+    converter.dataURItoBlob = dataURItoBlob;
 
-        // separate out the mime component
-        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
-        // write the bytes of the string to an ArrayBuffer
-        var ab = new ArrayBuffer(byteString.length);
-        var ia = new Uint8Array(ab);
-
-        for (var i = 0; i < byteString.length; i++) {
-            ia[i] = byteString.charCodeAt(i);
-        }
-
-        return new Blob([ab], {
-            type: mimeString
-        });
+    converter.getImage = () => {
+        return imageObj;
     };
 
     return new Promise(done => {
         imageObj.onload = () => {
             converter.isReady = true;
-            done(converter);
+            
+            setTimeout(() => {
+                done(converter);
+            }, 100);
         };
 
         imageObj.src = converter.createObjectURL(file);
@@ -86,6 +102,7 @@ function ImageConvertor(file) {
 
 module.exports = ['$q', function($q) {
     return new(function() {
+        this.dataURItoBlob = dataURItoBlob;
         this.instance = (image) => {
             return $q(done => {
                 ImageConvertor(image).then(done);

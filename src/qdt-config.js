@@ -77,6 +77,12 @@ module.exports = {
             }, {
                 "from": "../../node_modules/@babel/polyfill/dist/polyfill.min.js",
                 "to": "assets/dist/babel-polyfill"
+            }, {
+                "from": "../../node_modules/ui-cropper/compile/minified/ui-cropper.css",
+                "to": "assets/dist/ui-cropper"
+            }, {
+                "from": "../../node_modules/ui-cropper/compile/minified/ui-cropper.js",
+                "to": "assets/dist/ui-cropper"
             }],
             // browsersync configurations (ex: ip, port and path)
             "server": false,

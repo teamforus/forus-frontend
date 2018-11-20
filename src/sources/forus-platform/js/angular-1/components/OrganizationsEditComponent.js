@@ -30,7 +30,7 @@ let OrganizationsEditComponent = function(
                 let res = await MediaService.store('organization_logo', mediaFile);
 
                 $ctrl.media = res.data.data;
-                $ctrl.form.values.media_uid = $ctrl.media.uid;
+                values.media_uid = $ctrl.media.uid;
 
                 mediaFile = false;
             }
@@ -59,9 +59,9 @@ let OrganizationsEditComponent = function(
             });
         }
     };
-
-    $ctrl.selectPhoto = (e) => {
-        mediaFile = e.target.files[0];
+    
+    $ctrl.selectPhoto = (file) => {
+        mediaFile = file;
     };
 };
 

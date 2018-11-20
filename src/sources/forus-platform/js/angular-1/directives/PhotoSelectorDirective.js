@@ -2,7 +2,8 @@ let PhotoSelectorDirective = function(
     $timeout,
     $scope,
     $element,
-    ImageConvertorService
+    ImageConvertorService,
+    ModalService
 ) {
     let input = false;
 
@@ -19,14 +20,22 @@ let PhotoSelectorDirective = function(
         input.style.display = 'none';
 
         input.addEventListener('change', function(e) {
-            ImageConvertorService.instance(e.target.files[0]).then((converter) => {
-                $timeout(() => {
-                    $scope.thumbnail = converter.resize(100, 100);
-                }, 0);
-            });
+            ModalService.open('photoUploader', {
+                type: $scope.type,
+                getFile: () => {
+                    return e.target.files[0];
+                },
+                submit: (file) => {
+                    ImageConvertorService.instance(file).then((converter) => {
+                        $timeout(() => {
+                            $scope.thumbnail = converter.resize(100, 100);
+                        }, 0);
+                    });
 
-            $scope.selectPhoto({
-                e: e
+                    $scope.selectPhoto({
+                        file: file
+                    });
+                }
             });
         });
 
@@ -41,6 +50,7 @@ module.exports = () => {
         scope: {
             'selectPhoto': '&',
             'thumbnail': '=',
+            'type': '@',
         },
         restrict: "EA",
         replace: true,
@@ -49,6 +59,7 @@ module.exports = () => {
             '$scope',
             '$element',
             'ImageConvertorService',
+            'ModalService',
             PhotoSelectorDirective
         ],
         templateUrl: 'assets/tpl/directives/photo-selector.html'
