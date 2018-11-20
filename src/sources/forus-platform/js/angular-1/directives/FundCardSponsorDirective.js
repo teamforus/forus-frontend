@@ -3,43 +3,10 @@ let FundCardDirective = function(
     $state,
     $rootScope,
     FundService,
+    ModalService,
     ProviderFundService
 ) {
-    let getRndInteger = function(min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
-    };
-
-    $scope.showModal = false;
-    $scope.modalCode = "";
-    $scope.modalIban = "";
-
-    $scope.modalOpening = false;
-
-    $scope.openModal = function() {
-        if ($scope.modalOpening) {
-            return;
-        }
-
-        $scope.modalOpening = true;
-
-        FundService.makeTopUp(
-            $scope.fund.organization_id,
-            $scope.fund.id
-        ).then((res) => {
-            $scope.modalCode = res.data.data.code;
-            $scope.modalIban = res.data.data.iban;
-            $scope.showModal = true;
-            $scope.modalOpening = false;
-        }, () => {
-            $scope.modalOpening = false;
-        });
-    };
-
-    $scope.closeModal = function() {
-        $scope.modalCode = '';
-        $scope.modalIban = '';
-        $scope.showModal = false;
-    };
+    let topUpInProgress = false;
 
     $scope.fundCategories = $scope.fund.product_categories.map((val) => {
         return val.name;
@@ -59,6 +26,18 @@ let FundCardDirective = function(
             $state.reload();
         });
     };
+
+    $scope.topUpModal = () => {
+        if (topUpInProgress) return;
+
+        topUpInProgress = true;
+
+        ModalService.open('fundTopUp', {
+            fund: $scope.fund
+        }, {
+            onClose: () => topUpInProgress = false
+        });
+    }
 
     $scope.editable = false;
 
@@ -89,6 +68,7 @@ module.exports = () => {
             '$state',
             '$rootScope',
             'FundService',
+            'ModalService',
             'ProviderFundService',
             FundCardDirective
         ],

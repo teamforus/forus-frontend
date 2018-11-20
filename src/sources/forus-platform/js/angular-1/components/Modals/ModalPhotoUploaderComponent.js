@@ -1,4 +1,4 @@
-let ModalTestComponent = function(
+let ModalPhotoUploaderComponent = function(
     $element,
     MediaService,
     ImageConvertorService
@@ -64,7 +64,7 @@ let ModalTestComponent = function(
         $ctrl.close();
     };
 
-    this.$onDestroy = function() {};
+    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {
@@ -76,7 +76,7 @@ module.exports = {
         '$element',
         'MediaService',
         'ImageConvertorService',
-        ModalTestComponent
+        ModalPhotoUploaderComponent
     ],
     templateUrl: () => {
         return 'assets/tpl/modals/modal-photo-upload.html';
