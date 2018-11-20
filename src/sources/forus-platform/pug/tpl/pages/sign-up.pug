@@ -68,7 +68,7 @@
                         .form-group
                             label.form-label
                                 translate(translate="sign_up.labels.mail")
-                                tooltip(text="'lorem_ipsum'")
+                                tooltip(text="'Een persoonlijk e-mailadres is nodig om gebruik te kunnen maken van Me.'")
                             input(ng-model="$ctrl.signUpForm.values.records.primary_email" type="text" placeholder="E-mail").form-control
                             .form-error(ng-repeat="error in $ctrl.signUpForm.errors['records.primary_email']" ng-bind="error")
                         .form-group
@@ -114,16 +114,18 @@
                             .form-group
                                 label.form-label
                                     translate(translate="organization_edit.labels.name")
-                                    tooltip(text="'lorem_ipsum'")
                                 input(ng-model="$ctrl.organizationForm.values.name" type="text" placeholder="Bedrijfsnaam").form-control
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.name" ng-bind="error")
                             .form-group
-                                label(translate="organization_edit.labels.bank").form-label
+                                label.form-label
+                                    translate(translate="organization_edit.labels.bank")
+                                    tooltip(text="'Vul hier het rekeningnummer in waar u de betalingen op wilt ontvangen'")
+                                    .form-label
                                 input(ng-model="$ctrl.organizationForm.values.iban" type="text" placeholder="IBAN-nummer").form-control
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban" ng-bind="error")
                             .form-group
                                 label(translate="sign_up.labels.bank_confirmation").form-label
-                                input(ng-model="$ctrl.organizationForm.values.iban_confirmation" type="text" placeholder="IBAN-nummer").form-control
+                                input(ng-model="$ctrl.organizationForm.values.iban_confirmation" type="text" placeholder="Herhaal IBAN-nummer").form-control
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban_confirmation" ng-bind="error")
                             .form-group
                                 label(translate="organization_edit.labels.mail").form-label

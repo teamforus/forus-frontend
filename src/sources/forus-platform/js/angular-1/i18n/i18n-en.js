@@ -33,7 +33,7 @@ module.exports = {
         "validation-request": 'Validatie verzoek',
         "restore-email": 'Inloggen via e-mail',
     },
-// PAGES
+    // PAGES
     // MEAPP LANDINGSPAGE = index.pug
     meapp_index: {
         navbar: {
@@ -66,7 +66,7 @@ module.exports = {
             profileb: "Profiel",
             app: "De app bewaart een profiel van de gebruiker, dit profiel maakt het mogelijk dat de gegevens hergebruikt kunnen worden voor het mee doen aan andere regelingen.",
         }
-    }, 
+    },
     // PROVIDER HOME = home-provider.pug
     home_provider: {
         header: {
@@ -104,12 +104,12 @@ module.exports = {
         }
     },
     // VALIDATOR HOME = home-validator.pug
-        // DON'T TRANSLATE , THE VALIDATOR WILL NOT HAVE A LANDINGSPAGE
+    // DON'T TRANSLATE , THE VALIDATOR WILL NOT HAVE A LANDINGSPAGE
 
     // CSV-VALIDATION = csv-validation.pug
     csv_validation: {
         header: {
-            title: "CSV uploader", 
+            title: "CSV uploader",
         },
         buttons: {
             choose: "Kies een ander fonds",
@@ -211,7 +211,7 @@ module.exports = {
             add_office: "Voeg een nieuwe vestiging toe",
             cancel: "Annuleren",
             confirm: "Bevestigen",
-        }   
+        }
     },
 
     // OFFICES = offices.pug
@@ -279,11 +279,11 @@ module.exports = {
             mail: "E-mailadres van organisatie",
             phone: "Telefoonnummer",
             kvk: "KvK-nummer",
-            tax: "BTW-nummer",
+            tax: "BTW-nummer (Optioneel)",
         },
         buttons: {
             cancel: "Annuleren",
-            create: "Ga verder naar stap 4",
+            create: "Bevestig",
         }
     },
 
@@ -321,7 +321,7 @@ module.exports = {
     },
 
     // SHOW PRODUCTS = product-show.pug 
-        //TRANSLATION NOT FINISHED -> PAGE NOT DONE
+    //TRANSLATION NOT FINISHED -> PAGE NOT DONE
     products_show: {
         header: {
             title: "Transacties",
@@ -396,9 +396,9 @@ module.exports = {
     sign_up: {
         header: {
             title_step_1: "Installeer Me",
-            subtitle_step_1: "Om betalingen te verrichten heb je een app nodig. Een transactie doe je door een QR-code te scannen en een bedrag in te vullen.",
+            subtitle_step_1: "Om betalingen te ontvangen heb je een app nodig. Een transactie doe je door een QR-code te scannen en een bedrag in te vullen.",
             title_step_2: "Profiel aanmaken",
-            subtitle_step_2: "Een persoonlijk profiel is nodig om betalingen te verichten namens een organisatie. Later is het mogelijk om meerdere medewerkers toe te voegen.",
+            subtitle_step_2: "Een persoonlijk profiel is nodig om betalingen te ontvangen namens een organisatie. Later is het mogelijk om meerdere medewerkers toe te voegen.",
             title_step_3: "Organisatie aanmaken",
             subtitle_step_3: "Om deel te nemen aan het platform is het nodig om een organisatie aan te maken.",
             title_step_4: "Voeg nieuwe vestigingen toe",
@@ -419,14 +419,16 @@ module.exports = {
             mail_confirmation: 'Herhaal persoonlijk E-mailadres',
             name: "Voornaam",
             lastname: "Achternaam",
-            bank_confirmation: 'IBAN-nummer'
+            bank_confirmation: "Herhaal IBAN-nummer",
+            bank: "IBAN-nummber",
         },
         buttons: {
             go_step_2: "Ga verder naar stap 2",
             cancel: "Vorige",
             next: "Volgende",
             reload_qr: 'Herlaad de code.',
-            login: 'Login'
+            login: 'Login',
+            skip: "Overslaan"
         },
         step: {
             step_1: 'Stap 1',
@@ -458,7 +460,7 @@ module.exports = {
         },
         login: {
             title: 'Heb je al een profiel?',
-            description: 'Waneer je bijvoorbeeld via de mobiele applicatie al een profiel hebt aangemaakt, biedt de onderstaande knop de mogelijkheid om direct in te loggen op dit profiel.',
+            description: 'Waneer je al een profiel hebt aangemaakt, biedt de onderstaande knop de mogelijkheid om direct in te loggen op dit profiel.',
             qr_description: 'Scan deze QR-code met de me app als je al een profiel hebt aangemaakt.'
         },
         open_pc: {
@@ -550,7 +552,7 @@ module.exports = {
         }
     },
 
-// DIRECTIVES
+    // DIRECTIVES
 
     // CSV UPLOADER
     csv_upload: {
@@ -565,7 +567,7 @@ module.exports = {
     },
 
     // EMPTY BLOCK = empty-block.pug
-        // No translations needed
+    // No translations needed
 
     // FUNDS FOR PROVIDERS = fund-card-available.pug
     fund_card_available_provider: {
@@ -593,7 +595,7 @@ module.exports = {
             quarter: "Kwartaal",
             month: "Maand",
             week: "Week",
-            all: "Alles", 
+            all: "Alles",
             usage: "omzet",
             average: "Totaal uitgegeven bedrag",
             transaction: "transacties",
@@ -618,7 +620,7 @@ module.exports = {
             reject: "Geweigerd",
             stopped: "Gestopt",
         },
-        labels : {
+        labels: {
             categories: "Categorieën",
             nocategories: "Geen Categorieën",
         }
@@ -659,11 +661,11 @@ module.exports = {
     },
 
     // PROVIDER MENU = menu-provider.pug
-        // No translations needed
+    // No translations needed
     // PROVIDER MENU = menu-sponsor.pug
-        // No translations needed
+    // No translations needed
     // VALIDATOR MENU = menu-validator.pug
-        // No translations needed
+    // No translations needed
     // ADDING FUNDS MODAL - modal-funds-add.pug
     modal_funds_add: {
         header: {
@@ -725,25 +727,25 @@ module.exports = {
     },
 
     // PROGRESS BAR = progress-bar.pug
-        // No translations needed
+    // No translations needed
     // SCHEDULE CONTROL = schedule-controle.puh
-        // No translations needed
+    // No translations needed
 
     // MENU = langing/navbar.pug
     topnavbar: {
         items: {
-            funds:"FONDSEN",
-            products:"AANBIEDINGEN",
-            identity:"Profiel",
+            funds: "FONDSEN",
+            products: "AANBIEDINGEN",
+            identity: "Profiel",
         },
         buttons: {
-            activate:"Activatiecode",
-            login:"Login",
-            voucher:"Mijn vouchers",
+            activate: "Activatiecode",
+            login: "Login",
+            voucher: "Mijn vouchers",
             records: "Mijn eigenschappen",
-            authorize:"Autoriseer apparaat",
-            logout:"Uitloggen",
-            products:"Aanbiedingen",
+            authorize: "Autoriseer apparaat",
+            logout: "Uitloggen",
+            products: "Aanbiedingen",
             funds: "Fondsen",
         },
     },
