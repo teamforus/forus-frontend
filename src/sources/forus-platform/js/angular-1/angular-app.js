@@ -1,4 +1,4 @@
-let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies']);
+let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper']);
 
 app.constant('appConfigs', env_data);
 
@@ -32,6 +32,9 @@ app.component('providerIdentityEditComponent', require('./components/ProviderIde
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
 app.component('transactionComponent', require('./components/TransactionComponent'));
 
+// Modal Components
+app.component('modalPhotoUploaderComponent', require('./components/Modals/ModalPhotoUploaderComponent'));
+
 // Services
 app.service('AuthService', require('./services/AuthService'));
 app.service('OrganizationService', require('./services/OrganizationService'));
@@ -57,6 +60,7 @@ app.service('MediaService', require('./services/MediaService'));
 app.service('ProviderIdentityService', require('./services/ProviderIdentityService'));
 app.service('ConfigService', require('./services/ConfigService'));
 app.service('ImageConvertorService', require('./services/ImageConvertorService'));
+app.service('ModalService', require('./services/ModalService'));
 
 // Directives
 switch (env_data.panel_type) {
@@ -96,9 +100,12 @@ app.directive('pincodeControl', require('./directives/PincodeControlDirective'))
 app.directive('productCategoriesControl', require('./directives/ProductCategoriesControlDirective'));
 app.directive('officeEditInline', require('./directives/OfficeEditInlineDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
+app.directive('modalsRoot', require('./directives/ModalsRootDirective'));
+app.directive('modalItem', require('./directives/ModalItemDirective'));
 
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
+app.provider('ModalRoute', require('./providers/ModalRouteProvider'));
 
 // Filters
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
@@ -106,6 +113,7 @@ app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('file_size', require('./filters/FileSizeFilter'));
 
 // Config
+app.config(require('./routers/modals'));
 app.config(require('./routers/router'));
 app.config(require('./config/api-service'));
 app.config(require('./config/i18n'));

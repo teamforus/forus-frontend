@@ -12,7 +12,8 @@ let SignUpComponent = function(
     CredentialsService,
     FormBuilderService,
     MediaService,
-    ProviderFundService
+    ProviderFundService,
+    appConfigs
 ) {
     let $ctrl = this;
 
@@ -397,8 +398,8 @@ let SignUpComponent = function(
         }, console.log);
     };
 
-    $ctrl.selectPhoto = (e) => {
-        orgMediaFile = e.target.files[0];
+    $ctrl.selectPhoto = (file) => {
+        orgMediaFile = file;
     };
 
     $scope.authorizePincodeForm = FormBuilderService.build({
@@ -431,6 +432,8 @@ module.exports = {
         'FormBuilderService',
         'MediaService',
         'ProviderFundService',
+        'appConfigs',
+        'ModalService',
         SignUpComponent
     ],
     templateUrl: 'assets/tpl/pages/sign-up.html'

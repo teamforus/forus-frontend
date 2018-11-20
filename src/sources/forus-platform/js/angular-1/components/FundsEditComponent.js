@@ -60,8 +60,8 @@ let FundsEditComponent = function(
         }
     };
 
-    $ctrl.selectPhoto = (e) => {
-        mediaFile = e.target.files[0];
+    $ctrl.selectPhoto = (file) => {
+        mediaFile = file;
     };
 
     $ctrl.cancel = function () {

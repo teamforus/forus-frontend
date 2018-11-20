@@ -99,6 +99,11 @@ translate,
         }
     }
 
+    &.button-wide,
+    &.button-wide {
+        width: 100%;
+    }
+
     &:not(:last-of-type),
     &:not(:last-child) {
         margin-right: 10px;
@@ -2668,7 +2673,7 @@ translate,
 .modal {
     @include fill_parent();
     position: fixed;
-    z-index: 1;
+    z-index: 5;
 
     .modal-backdrop {
         @include fill_parent();
@@ -2685,9 +2690,32 @@ translate,
         top: 50%;
         transform: translate(-50%, -50%);
         background: #f6f9fc;
-        width: 620px;
+        min-width: 620px;
         max-width: 100%;
-        border-radius: 3px;
+        border-radius: 6px;
+        display: inline-block;
+        font-size: 0;
+        overflow: hidden;
+
+        &>* {
+            font-size: 14px;
+        }
+    
+        .modal-close {
+            position: absolute;
+            font-size: 24px;
+            right: 20px;
+            top: 20px;
+            display: block;
+            cursor: pointer;
+            color: #222;
+            transition: color .4s;
+            z-index: 1;
+
+            &:hover {
+                color: #656565;
+            }
+        }
 
         .modal-header {
             background: #fff;
@@ -2696,23 +2724,11 @@ translate,
             border-bottom: 1px solid #d4d9dd;
             position: relative;
             border-radius: 3px 3px 0 0;
-
-            .close {
-                position: absolute;
-                font-size: 24px;
-                right: 20px;
-                top: 50%;
-                transform: translate(0, -50%);
-                display: block;
-                cursor: pointer;
-
-                &:hover {
-                    color: #d91d46;
-                }
-            }
         }
 
         .modal-body {
+            min-height: 65px;
+
             .modal-section {
                 padding: 25px;
                 border-bottom: 1px solid #d4d9dd;
@@ -2769,6 +2785,123 @@ translate,
                     .funds-amount-sum {
                         font: 600 22px $bf;
                         color: #009ef4;
+                    }
+                }
+            }
+
+            .modal-photo-upload {
+                width: 1200px;
+                display: flex;
+                border-radius: inherit;
+                
+                .button {
+                    padding-left: 25px;
+                    padding-right: 25px;
+                    @include ellipsis();
+                }
+
+                .photo-upload-crop {
+                    width: 60%;
+                    padding: 50px;
+                    background: #f7f9fc;
+                    border-right: 1px solid #d2e6ff;
+
+                    .crop-control {
+                        position: relative;
+                        width: 60%;
+                        float: left;
+                        border-radius: 8px;
+                        overflow: hidden;
+
+                        .crop-control-ratio {
+                            width: 100%;
+                            height: auto;
+                            display: block;
+                            opacity: 0;
+                        }
+
+                        ui-cropper {
+                            @include fill_parent();
+                        }
+                    }
+
+                    .crop-control-preview {
+                        width: 40%;
+                        padding-left: 20px;
+                        display: flex;
+                        flex-direction: column;
+                        float: left;
+
+                        img {
+                            display: block;
+                            width: 100%;
+                            border-radius: 8px;
+                        }
+
+                        .crop-control-orignal {
+                            margin-bottom: 20px;
+                            border: 1px solid #dadada;
+                            box-shadow: 2px 5px 20px rgba(0, 0, 0, .075);
+                        }
+
+                        .crop-control-thumbnails {
+                            width: 100%;
+                            display: flex;
+                        }
+
+                        .crop-control-thumbnail {
+                            width: 50%;
+                            margin-right: 10px;
+                            border: 1px solid #dadada;
+                            box-shadow: 2px 5px 20px rgba(0, 0, 0, .075);
+
+                            &:last-child {
+                                margin-right: 0;
+                                margin-left: 10px;
+                                border-radius: 1000px;
+                                overflow: hidden;
+                            }
+                        }
+                    }
+                }
+                
+                .photo-upload-details {
+                    width: 40%;
+                    background: #fff;
+
+                    .photo-upload-header {
+                        padding: 50px 50px 25px;
+                        border-bottom: 1px solid #d2e6ff;
+                        
+                        .photo-upload-title {
+                            font: 700 22px/32px $bf;
+                            color: #151b26;
+                            margin: 0 0 10px;
+                        }
+
+                        .photo-upload-subtitle {
+                            font: 400 16px/22px $bf;
+                            color: #646f79;
+                        }
+                    }
+
+                    .photo-upload-body {
+                        padding: 25px 50px;
+                        border-bottom: 1px solid #d2e6ff;
+
+                        .photo-upload-heading {
+                            font: 700 18px/26px $bf;
+                            color: #282b39;
+                            margin: 0 0 15px;
+                        }
+
+                        .button {
+                            margin-bottom: 20px;
+                        }
+                    }
+
+                    .photo-upload-footer {
+                        padding: 25px 50px;
                     }
                 }
             }

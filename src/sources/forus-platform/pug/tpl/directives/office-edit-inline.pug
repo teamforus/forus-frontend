@@ -13,8 +13,9 @@ form(ng-submit="$ctrl.form.submit()").block.block-office-edit-card
         .card-col.card-col-4: .card-section-inner
             .card-section: .row
                 .col.col-sm-7.col-xs-12: photo-selector(
+                    type="office_photo"
                     thumbnail="$ctrl.media.sizes.thumbnail"
-                    select-photo="$ctrl.selectPhoto(e)")
+                    select-photo="$ctrl.selectPhoto(file)")
                 .col.col-sm-5.col-xs-12: .info-block.info-block-primary
                     | De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px. 
                     br
