@@ -398,7 +398,7 @@ module.exports = {
             title_step_1: "Installeer Me",
             subtitle_step_1: "Om betalingen te ontvangen heb je een app nodig. Een transactie doe je door een QR-code te scannen en een bedrag in te vullen.",
             title_step_2: "Profiel aanmaken",
-            subtitle_step_2: "Een persoonlijk profiel is nodig om betalingen te ontvangen namens een organisatie. Later is het mogelijk om meerdere medewerkers toe te voegen.",
+            subtitle_step_2: "Een persoonlijk profiel is nodig om betalingen te ontvangen. Later is het mogelijk om meerdere medewerkers toe te voegen.",
             title_step_3: "Organisatie aanmaken",
             subtitle_step_3: "Om deel te nemen aan het platform is het nodig om een organisatie aan te maken.",
             title_step_4: "Voeg nieuwe vestigingen toe",
