@@ -63,6 +63,8 @@ module.exports = {
             api_url: api_url,
             frontends: frontends,
             panel_type: 'sponsor',
+            // client_key can be 'general', 'nijmegen'
+            client_key: 'nijmegen',
             chat_id: false,
         },
         "forus-platform.provider": {
@@ -70,6 +72,10 @@ module.exports = {
             frontends: frontends,
             panel_type: 'provider',
             chat_id: false,
+            // client_key can be 'general', 'nijmegen'
+            client_key: 'nijmegen',
+            // max product count that can be added
+            max_product_count: 2
         },
         "forus-platform.validator": {
             api_url: api_url,

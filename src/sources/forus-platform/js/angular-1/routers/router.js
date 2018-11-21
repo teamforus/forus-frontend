@@ -366,6 +366,13 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         resolve: {
             productCategories: function(ProductCategoryService) {
                 return repackResponse(ProductCategoryService.list());
+            },
+            products: function($transition$, ProductService) {
+                return repackResponse(
+                    ProductService.list(
+                        $transition$.params().organization_id
+                    )
+                );
             }
         }
     });

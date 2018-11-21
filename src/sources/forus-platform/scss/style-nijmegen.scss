@@ -16,10 +16,9 @@ body {
 }
 
 .landing-root {
-    background-color: #f7f9fc;
-    background: linear-gradient(to bottom, #f7f9fc 0%, #ffffff 100%);
+    background-color: #fff;
 
-    @import 'layouts/landing';
+    @import 'layouts/landing-nijmegen';
 }
 
 [ui-sref] {
@@ -2700,7 +2699,7 @@ translate,
         &>* {
             font-size: 14px;
         }
-    
+
         .modal-close {
             position: absolute;
             font-size: 24px;
@@ -2793,7 +2792,7 @@ translate,
                 width: 1200px;
                 display: flex;
                 border-radius: inherit;
-                
+
                 .button {
                     padding-left: 25px;
                     padding-right: 25px;
@@ -2864,7 +2863,7 @@ translate,
                         }
                     }
                 }
-                
+
                 .photo-upload-details {
                     width: 40%;
                     background: #fff;
@@ -2872,7 +2871,7 @@ translate,
                     .photo-upload-header {
                         padding: 50px 50px 25px;
                         border-bottom: 1px solid #d2e6ff;
-                        
+
                         .photo-upload-title {
                             font: 700 22px/32px $bf;
                             color: #151b26;
@@ -2914,6 +2913,7 @@ translate,
                 margin: 20px 0;
                 box-shadow: 0 7px 15px rgba(#000, 0.10);
             }
+
         }
 
         .modal-footer {

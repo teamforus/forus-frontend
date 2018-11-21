@@ -203,7 +203,28 @@ module.exports = {
                         "path": "/tpl",
                         "src": ["tpl/**/*.pug"],
                         "dest": "/assets/tpl"
-                    }]
+                    }],
+                    "scss": [
+                        {
+                            "src": "style.scss",
+                            "watch": [
+                                "includes/**/*.scss",
+                                "layouts/**/*.scss",
+                            ],
+                            "path": "/",
+                            "name": "style.min.css",
+                            "minify": true
+                        },
+                        {
+                            "src": "style-nijmegen.scss",
+                            "watch": [
+                                "includes/**/*.scss",
+                                "layouts/**/*.scss",
+                            ],
+                            "path": "/",
+                            "name": "style-nijmegen.min.css",
+                            "minify": true
+                        }]
                 }
             }
         },
@@ -238,7 +259,28 @@ module.exports = {
                         "path": "/tpl",
                         "src": ["tpl/**/*.pug"],
                         "dest": "/assets/tpl"
-                    }]
+                    }],
+                    "scss": [
+                        {
+                        "src": "style.scss",
+                        "watch": [
+                            "includes/**/*.scss",
+                            "layouts/**/*.scss",
+                        ],
+                        "path": "/",
+                        "name": "style.min.css",
+                        "minify": true
+                        },
+                        {
+                            "src": "style-nijmegen.scss",
+                            "watch": [
+                                "includes/**/*.scss",
+                                "layouts/**/*.scss",
+                            ],
+                            "path": "/",
+                            "name": "style-nijmegen.min.css",
+                            "minify": true
+                        }]
                 }
             }
         },
@@ -273,7 +315,28 @@ module.exports = {
                         "path": "/tpl",
                         "src": ["tpl/**/*.pug"],
                         "dest": "/assets/tpl"
-                    }]
+                    }],
+                    "scss": [
+                        {
+                            "src": "style.scss",
+                            "watch": [
+                                "includes/**/*.scss",
+                                "layouts/**/*.scss",
+                            ],
+                            "path": "/",
+                            "name": "style.min.css",
+                            "minify": true
+                        },
+                        {
+                            "src": "style-nijmegen.scss",
+                            "watch": [
+                                "includes/**/*.scss",
+                                "layouts/**/*.scss",
+                            ],
+                            "path": "/",
+                            "name": "style-nijmegen.min.css",
+                            "minify": true
+                        }]
                 }
             }
         },
@@ -321,7 +384,28 @@ module.exports = {
                         "path": "/tpl/directives",
                         "src": ["tpl/directives/**/*.pug"],
                         "dest": "/assets/tpl/directives"
-                    }]
+                    }],
+                    "scss": [
+                        {
+                            "src": "style.scss",
+                            "watch": [
+                                "includes/**/*.scss",
+                                "layouts/**/*.scss",
+                            ],
+                            "path": "/",
+                            "name": "style.min.css",
+                            "minify": true
+                        },
+                        {
+                            "src": "style-nijmegen.scss",
+                            "watch": [
+                                "includes/**/*.scss",
+                                "layouts/**/*.scss",
+                            ],
+                            "path": "/",
+                            "name": "style-nijmegen.min.css",
+                            "minify": true
+                        }]
                 }
             }
         },

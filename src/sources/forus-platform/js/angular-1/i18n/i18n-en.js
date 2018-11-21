@@ -317,6 +317,14 @@ module.exports = {
         buttons: {
             cancel: "Annuleren",
             confirm: "Bevestig",
+            close: "Sluit"
+        },
+        errors: {
+            already_added: 'You already added 2 active products, and can not add more'
+        },
+        confirm_create: {
+            title: 'Een aanbieding toevoegen.',
+            description: 'Let op! Je staat op het punt een aanbieding op de webshop toe te voegen. Daarna kan je de aanbieding niet meer verwijderen. De aanbieding wordt verwijderd vanaf het moment dat het is uitverkocht of de vervaldatum is bereikt.'
         }
     },
 
@@ -790,5 +798,13 @@ module.exports = {
         services: "DIENSTEN OF ACTIVITEITEN",
     },
 
-    lorem_ipsum: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam pulvinar dictum leo, sed congue purus scelerisque ut.'
+    lorem_ipsum: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam pulvinar dictum leo, sed congue purus scelerisque ut.',
+
+    modal: {
+        buttons: {
+            cancel: "Annuleren",
+            confirm: "Bevestig",
+            close: "Sluit"
+        }
+    }
 };
