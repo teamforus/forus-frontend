@@ -73,7 +73,9 @@ module.exports = {
         if (appConfigs.panel_type == 'validator') {
             return 'assets/tpl/pages/home.html';
         }
-
+        if (appConfigs.panel_type == 'provider'){
+            return 'assets/tpl/pages/landing/home-' + appConfigs.panel_type + '-'+ appConfigs.client_key +'.html';
+        }
         return 'assets/tpl/pages/landing/home-' + appConfigs.panel_type + '.html';
     }
 };
