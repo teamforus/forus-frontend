@@ -6,4 +6,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('fundTopUp', {
         component: 'modalFundTopUpComponent'
     });
+
+    ModalRouteProvider.modal('modalNotification', {
+        component: 'modalNotificationComponent'
+    });
 }];

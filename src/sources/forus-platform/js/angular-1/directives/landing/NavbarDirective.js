@@ -1,6 +1,4 @@
-let LandingNavbarDirective = function($scope) {
-
-};
+let LandingNavbarDirective = function($scope) {};
 
 module.exports = () => {
     return {

@@ -15,12 +15,12 @@
             .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
                 .card-block-listing-label {{ "fund_card_provider_finances.labels.mail" | translate }}
                 span.text-primary-light(ng-bind="fundProvider.organization.email")
-        .card-block.card-block-listing
+        //.card-block.card-block-listing
             .card-block-listing-label {{ "fund_card_provider_finances.labels.categories" | translate }}
             | {{ fundProvider.organization.fundCategories.join(', ') }}
             small(ng-show="$ctrl.fundCategories.length == 0").text-muted.small {{ "fund_card_provider_finances.labels.nocategories" | translate }}
-        br
-        .card-block.card-block-listing
+        //br
+        //.card-block.card-block-listing
             .card-block-listing-label {{ "fund_card_provider_finances.labels.join" | translate }}
             span(
                 ui-sref="funds-show({fund_id: fundProvider.fund_id, organization_id: fundProvider.fund.organization_id})"

@@ -3,10 +3,10 @@ block content
     .header-splash: .splash
     
     header.section.section-header: .wrapper
-        .block.block-navbar
+        .block.block-navbar(menu_scroll_toggle)
             a(href="{{ $root.appConfigs.frontends.webshop }}").navbar-logo
-                img(src="./assets/img/landing/forus-logo-normal.svg")
-                img(src="./assets/img/landing/forus-logo-hover.svg").hover
+                img(ng-src="./assets/img/landing/{{ $root.appConfigs.client_key == 'nijmegen' ? 'nijmegen' : 'forus' }}-logo-normal.svg")
+                img(ng-src="./assets/img/landing/{{ $root.appConfigs.client_key == 'nijmegen' ? 'nijmegen' : 'forus' }}-logo-hover.svg").hover
             nav.navbar-list
                 a(href="{{ $root.appConfigs.frontends.sponsor }}").navbar-item {{ "meapp_index.navbar.municipality" | translate }}
                 a(href="{{ $root.appConfigs.frontends.provider }}").navbar-item {{ "meapp_index.navbar.provider" | translate }}
