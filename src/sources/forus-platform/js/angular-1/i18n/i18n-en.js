@@ -366,11 +366,16 @@ module.exports = {
     products: {
         offers: "Aanbiedingen",
         add: "Voeg een aanbieding toe",
+        cannot_delete: 'Let op! Nadat u een aanbieding heeft toegevoegd kunt u deze niet verwijderen tot dat het totale aanbod dat u hier invult verkocht is. Ga daarom na hoe vaak u dit aanbod kunt verkopen voordat u de aanbieding toevoegt. Daarnaast vult u een verloopdatum in, dit bepaald de laatste datum dat de aanvrager uw aanbod kan ophalen.'
     },
 
     // FUNDS AVAILABLE FOR PROVIDERS = provider-funds-available.pug
     provider_funds_available: {
         title: "Fondsen",
+        applied_for_fund: {
+            title: "Je aanvraag is ontvangen.",
+            description: "De gemeente zal je verzoek behandelen, dit kan maximaal twee werkdagen duren. Zodra de gemeente je aanvraag heeft behandeld wordt er een e-mail toegestuurd. Daarnaast kan je de status ook volgen op het dashboard."
+        }
     },
 
     // PROVIDER FUNDS = provider-funds.pug
@@ -469,7 +474,7 @@ module.exports = {
         },
         app_header: {
             title: 'Vul de code in op het invoerveld',
-            subtitle: 'De code is te vinden in de mobiele applicatie, volg de bovenstaande stappen op om de code te kunnen  aflezen.'
+            subtitle: 'De code is te vinden in de mobiele applicatie, volg de bovenstaande stappen om de code te kunnen aflezen.'
         },
         login: {
             title: 'Heeft u al een profiel?',
@@ -482,6 +487,13 @@ module.exports = {
         }
     },
 
+    // Modal-photo-upload.pug
+    image: {
+        header: {
+            title: "Verplaats en wijzig grootte",
+            subtitle: "",
+        }
+    },
     // TRANSACTIONS = transaction.pug
     transactions: {
         header: {

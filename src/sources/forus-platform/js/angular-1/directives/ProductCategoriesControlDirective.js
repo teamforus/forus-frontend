@@ -20,9 +20,17 @@ let ProductCategoriesControlDirective = function($scope) {
         // $scope.ngModel = values ? values : [];
     }
 
-    $scope.types = {
-        '0': "product_category_type.products",
-        '1': "product_category_type.services",
+    $scope.hideProduct = $scope.hideProduct ? $scope.hideProduct : false;
+
+    if($scope.hideProduct) {
+        $scope.types = {
+            '1': "product_category_type.services"
+        }
+    }else{
+        $scope.types = {
+            '0': "product_category_type.products",
+            '1': "product_category_type.services",
+        }
     }
 
     $scope.ngModel = $scope.ngModel.filter(id => !isNaN(parseInt(id)));
@@ -52,14 +60,19 @@ let ProductCategoriesControlDirective = function($scope) {
         }
     } */
 
-    $scope.filterOptions('0');
+    if($scope.hideProduct) {
+        $scope.filterOptions('1');
+    }else{
+        $scope.filterOptions('0');
+    }
 };
 
 module.exports = () => {
     return {
         scope: {
             ngModel: '=',
-            options: '='
+            options: '=',
+            hideProduct: '<'
         },
         restrict: "EA",
         replace: true,

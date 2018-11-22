@@ -1,19 +1,32 @@
 let FundCardAvailableProviderDirective = function(
     $scope, 
-    $state, 
+    $state,
+    $filter,
     FundService, 
-    ProviderFundService
+    ProviderFundService,
+    ModalService
 ) {
     $scope.fundCategories = $scope.fund.product_categories.map((val) => {
         return val.name;
     });
 
     $scope.providerApplyFund = function(fund) {
+
         ProviderFundService.applyForFund(
             $scope.organization.id, 
             $scope.fund.id
         ).then(function(res) {
-            $state.reload();
+
+            ModalService.open('modalNotification', {
+                type: 'danger',
+                title: $filter('translate')('provider_funds_available.applied_for_fund.title'),
+                description: $filter('translate')('provider_funds_available.applied_for_fund.description'),
+                icon: 'fund_applied',
+                cancel: () => {
+                    return $state.reload();
+                }
+            });
+
         });
     };
 };
@@ -29,8 +42,10 @@ module.exports = () => {
         controller: [
             '$scope',
             '$state',
+            '$filter',
             'FundService',
             'ProviderFundService',
+            'ModalService',
             FundCardAvailableProviderDirective
         ],
         templateUrl: 'assets/tpl/directives/fund-card-available-provider.html' 
