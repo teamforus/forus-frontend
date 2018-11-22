@@ -32,7 +32,7 @@ aside.app.app-sidebar
             '{organization_id: $root.activeOrganization.id}', 
             '($root.activeOrganization | hasPerm:["manage_products"]) && $root.appConfigs.features.organizations.products.list')
         +nav_item(
-            "Medewerkers", "list", 'provider-identities', 
+            "Employees", "list", 'employees', 
             '{organization_id: $root.activeOrganization.id}',
-            '$root.activeOrganization | hasPerm:["scan_vouchers"]')
+            '$root.activeOrganization | hasPerm:["manage_employees"]')
         | &nbsp;
