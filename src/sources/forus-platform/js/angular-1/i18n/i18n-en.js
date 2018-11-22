@@ -372,7 +372,7 @@ module.exports = {
     products: {
         offers: "Aanbiedingen",
         add: "Voeg een aanbieding toe",
-        cannot_delete: 'Let op! Nadat u een aanbieding heeft toegevoegd kunt u deze niet verwijderen tot dat het totale aanbod dat u hier invult verkocht is. Ga daarom na hoe vaak u dit aanbod kunt verkopen voordat u de aanbieding toevoegt. Daarnaast vult u een verloopdatum in, dit bepaald de laatste datum dat de aanvrager uw aanbod kan ophalen.'
+        cannot_delete: 'Op deze pagina kunt u aanbiedingen aanmaken. Deze worden vervolgens namens u aangeboden in de webshop.<br><br>U vult in welk aantal en tot wanneer u de aanbieding kunt leveren.<br><br>Gebruikers kunnen in de webshop aanspraak maken op uw aanbiedingen. Wanneer een gebruiker een aanbieding ¨koopt¨ wordt deze omgezet naar een product-voucher (QR-Code). Deze code kan door u worden gescanned met de Me app.<br><br><b>Let op!</b> Wanneer een aanbieding geplaatst is kunt u deze niet meer verwijderen. Bedenk dus goed hoeveel aanbiedingen en daarmee product-vouchers u wilt uitgeven. Wanneer een aanbieding is aangemaakt bent u verplicht deze te leveren.'
     },
 
     // FUNDS AVAILABLE FOR PROVIDERS = provider-funds-available.pug
