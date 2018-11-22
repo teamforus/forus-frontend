@@ -416,16 +416,16 @@ module.exports = {
             subtitle_step_3: "Om deel te nemen aan het platform is het nodig om een organisatie aan te maken.",
             title_step_4: "Voeg nieuwe vestigingen toe",
             subtitle_step_4: "Een organisatie kan uit meerdere vestigingen bestaan. Voeg in dit venster vestigingen toe.",
-            title_step_5: "Stel de app Me in op uw telefoon",
-            subtitle_step_5: "U heeft zojuist een profiel aangemaakt daarom kunt u klikken op: ‘Ik heb al een profiel’. Het instellen van uw profiel op de mobiele applicatie gebeurt door het invullen van een autorisatiecode.",
+            title_step_5: "Stel de app <i>Me</i> in op uw telefoon",
+            subtitle_step_5: "U heeft zojuist een profiel aangemaakt, daarom kunt u klikken op: ‘Ik heb een profiel’. Het instellen van uw profiel op de mobiele applicatie gebeurt door het invullen van een autorisatie code.",
             top_title_step_5: "Gebruik Me",
-            top_subtitle_step_5: "Rond de installatie af door gebruik te maken van Me",
-            title_step_6: "Het is gelukt! Het profiel van de organisatie is gekoppeld aan Me.",
+            top_subtitle_step_5: "Rond de installatie af door gebruik te maken van <i>Me</i>",
+            title_step_6: "Het is gelukt! Het profiel van de organisatie is gekoppeld aan <i>Me</i>.",
             subtitle_step_6: "",
             top_title_step_6: "Gebruik Me",
-            top_subtitle_step_6: "Rond de installatie af door gebruik te maken van Me",
+            top_subtitle_step_6: "Rond de installatie af door gebruik te maken van <i>Me</i>",
             title_step_7: "Gebruik Me",
-            subtitle_step_7: "Rond de installatie af door gebruik te maken van Me",
+            subtitle_step_7: "Rond de installatie af door gebruik te maken van <i>Me</i>",
         },
         labels: {
             mail: "Persoonlijk E-mailadres",
@@ -456,25 +456,25 @@ module.exports = {
             ios: 'Download Me voor iOS',
             android: 'Download Me voor Android',
             already_have_app: 'DE APP IS NU AAN HET DOWNLOADEN. / DE APP IS GEINSTALLEERD.',
-            url_text: "Download de Me app op uw mobiele telefoon via de link:",
-            url_address: "www.forus.link/DL"
+            url_text: "Download de app <i>Me</i> op uw mobiele telefoon via de link:",
+            url_address: "www.forus.link/io"
         },
         qr_code: {
             description: 'Scan deze QR-Code om te testen.'
         },
         app_instruction: {
-            step_1: 'Open Me',
-            step_2: 'ik heb al een profiel',
+            step_1: 'Open <i>Me</i>',
+            step_2: 'Ik heb al een profiel',
             step_3: 'Inloggen met Autorisatie code',
         },
         app_header: {
             title: 'Vul de code in op het invoerveld',
-            subtitle: 'De code is te vinden in de mobiele applicatie, volg de bovenstaande stappen op om de code te kunnen  aflezen.'
+            subtitle: 'De code is te vinden in de mobiele applicatie, volg de bovenstaande stappen op om de code te kunnen aflezen.'
         },
         login: {
             title: 'Heeft u al een profiel?',
             description: 'Waneer u al een profiel heeft aangemaakt, biedt de onderstaande knop de mogelijkheid om direct in te loggen op dit profiel.',
-            qr_description: 'Scan deze QR-code met de me app als u al een profiel heeft aangemaakt.'
+            qr_description: 'Scan deze QR-code met de app <i>Me</i> als u al een profiel heeft aangemaakt.'
         },
         open_pc: {
             title: 'Deze pagina is niet mobiel te benaderen.',
