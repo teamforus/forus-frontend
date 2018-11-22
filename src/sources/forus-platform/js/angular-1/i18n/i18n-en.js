@@ -372,6 +372,10 @@ module.exports = {
     // FUNDS AVAILABLE FOR PROVIDERS = provider-funds-available.pug
     provider_funds_available: {
         title: "Fondsen",
+        applied_for_fund: {
+            title: "Je aanvraag is ontvangen.",
+            description: "De gemeente zal je verzoek behandelen, dit kan maximaal twee werkdagen duren. Zodra de gemeente je aanvraag heeft behandeld wordt er een e-mail toegestuurd. Daarnaast kan je de status ook volgen op het dashboard."
+        }
     },
 
     // PROVIDER FUNDS = provider-funds.pug
