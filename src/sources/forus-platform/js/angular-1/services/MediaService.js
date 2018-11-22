@@ -1,7 +1,10 @@
-let MediaService = function(ApiRequest) {
+let MediaService = function(
+    ApiRequest,
+    appConfigs
+) {
     let uriPrefix = '/medias';
 
-    return new (function() {
+    return new(function() {
         this.list = function() {
             return ApiRequest.get(
                 uriPrefix
@@ -30,10 +33,15 @@ let MediaService = function(ApiRequest) {
                 uriPrefix + '/' + id
             );
         };
+
+        this.configByType = (type) => {
+            return appConfigs.features.media[type];
+        };
     });
 };
 
 module.exports = [
     'ApiRequest',
+    'appConfigs',
     MediaService
 ];

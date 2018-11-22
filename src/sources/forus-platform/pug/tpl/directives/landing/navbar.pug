@@ -1,7 +1,7 @@
-.block.block-navbar
-    //a(href="{{ $root.appConfigs.frontends.webshop }}").navbar-logo
-        img(src="./assets/img/landing/forus-logo-normal.svg")
-        img(src="./assets/img/landing/forus-logo-hover.svg").hover
+.block.block-navbar(menu_scroll_toggle)
+    a(href="{{ $root.appConfigs.frontends.webshop }}").navbar-logo
+        img(src="./assets/img/landing/{{ $root.appConfigs.client_key == 'nijmegen' ? 'nijmegen' : 'forus' }}-logo-normal.svg")
+        img(src="./assets/img/landing/{{ $root.appConfigs.client_key == 'nijmegen' ? 'nijmegen' : 'forus' }}-logo-hover.svg").hover
     nav.navbar-list
         //a(
             href="{{ $root.appConfigs.frontends.sponsor }}"

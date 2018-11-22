@@ -19,7 +19,10 @@ let PopupAuthDirective = function(
 
         if (newValue == 'sign_in-email') {
             $scope.signInEmailForm = FormBuilderService.build({
-                source: 'panel-' + appConfigs.panel_type,
+                source: 'panel-' + appConfigs.panel_type  +
+                (
+                    appConfigs.client_key ? (appConfigs.client_key == 'general' ? '' : '-' + (appConfigs.client_key)) : ''
+                ),
                 primary_email: "",
             }, function(form) {
                 form.lock();

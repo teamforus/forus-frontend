@@ -596,12 +596,14 @@ body {
         @include cf();
 
         .heade-sprite {
-            background: url("../img/sprite-meapp.png") no-repeat;
+            background: url("../img/splash-top-ba.png") no-repeat;
             background-position: 100% 0%;
             background-size: auto 100%;
             @include fill_parent();
             bottom: -50px;
             z-index: 2;
+            height: 625px;
+            width: 100%;
         }
 
         .header-body {
@@ -759,6 +761,7 @@ body {
 
     &.section-steps {
         position: relative;
+        margin-top: 25px;
 
         .section-splash {
             position: absolute;
@@ -898,7 +901,7 @@ body {
             background: url('../img/splash-faq.png') no-repeat;
             background-position: 100% 50%;
             background-size: auto 100%;
-            top: 50%;
+            top: 300px;
             transform: translate(0, -50%);
             z-index: -1;
         }
@@ -1434,7 +1437,7 @@ body {
             z-index: 1;
 
             float: right;
-            padding: 0 30px;
+            padding: 0;
             @include cf();
 
             .button {

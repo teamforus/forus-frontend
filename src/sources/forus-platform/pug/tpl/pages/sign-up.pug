@@ -139,7 +139,8 @@
                         .card-section: .pseudo-wrapper
                             product-categories-control(
                                 ng-model="$ctrl.organizationForm.values.product_categories"
-                                options="$ctrl.productCategories")
+                                options="$ctrl.productCategories"
+                                hide-product="true")
 
                             .form-group
                                 label(translate="organization_edit.labels.kvk").form-label
@@ -151,7 +152,10 @@
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.btw" ng-bind="error")
                 
                     .card-col.card-col-3
-                        photo-selector(thumbnail="$ctrl.media.sizes.thumbnail" select-photo="$ctrl.selectPhoto(e)")
+                        photo-selector(
+                            type="organization_logo"
+                            thumbnail="$ctrl.media.sizes.thumbnail" 
+                            select-photo="$ctrl.selectPhoto(file)")
                         .info-block.info-block-primary
                             | De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px. 
                             br
@@ -233,7 +237,7 @@
                         fund="fund"
                         organization="$ctrl.organization")
 
-                    empty-block(ng-if="$ctrl.funds.length == 0" text="'Er zijn momenteel geen actieve fondsen.'")
+                    block-empty(ng-if="$ctrl.funds.length == 0" text="'Er zijn momenteel geen actieve fondsen.'")
 
             .step-footer: a(ng-click="$ctrl.next()" translate="sign_up.buttons.next").button.button-primary
 

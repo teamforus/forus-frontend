@@ -33,7 +33,7 @@ let FundsEditComponent = function(
             if ($ctrl.fund) {
                 promise = FundService.update(
                     $stateParams.organization_id,
-                    $stateParams.fund_id,
+                    $stateParams.id,
                     form.values
                 )
             } else {
@@ -60,8 +60,8 @@ let FundsEditComponent = function(
         }
     };
 
-    $ctrl.selectPhoto = (e) => {
-        mediaFile = e.target.files[0];
+    $ctrl.selectPhoto = (file) => {
+        mediaFile = file;
     };
 
     $ctrl.cancel = function () {
@@ -72,6 +72,7 @@ let FundsEditComponent = function(
 module.exports = {
     bindings: {
         fund: '<',
+        organization: '<',
         fundStates: '<',
         productCategories: '<'
     },

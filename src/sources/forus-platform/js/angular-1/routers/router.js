@@ -13,6 +13,24 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         component: "homeComponent"
     });
 
+    $stateProvider.state({
+        name: "no-permission",
+        url: "/no-permission/{message}",
+        component: "noPermissionComponent",
+        resolve: {
+            message: ['$filter', '$transition$', function($filter, $transition$) {
+                return {
+                    title: $filter('translate')(
+                        'permissions.' + $transition$.params().message + '.title'
+                    ),
+                    description: $filter('translate')(
+                        'permissions.' + $transition$.params().message + '.description'
+                    )
+                };
+            }]
+        }
+    });
+
     /**
      * Organizations
      */
@@ -35,7 +53,7 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
 
     $stateProvider.state({
         name: "organizations-edit",
-        url: "/organizations/{organization_id}/edit",
+        url: "/organizations/{id}/edit",
         component: "organizationsEditComponent",
         resolve: {
             organization: [
@@ -47,9 +65,30 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
                 ) {
                     return repackResponse(
                         OrganizationService.read(
-                            $transition$.params().organization_id
+                            $transition$.params().id
                         )
                     );
+                }
+            ],
+            permissions: [
+                'organization',
+                '$state',
+                'PermissionsService', (
+                    organization,
+                    $state,
+                    PermissionsService
+                ) => {
+                    if (!PermissionsService.hasPermission(organization, 'manage_organization')) {
+                        setTimeout(() => {
+                            $state.go('no-permission', {
+                                message: 'organization-edit'
+                            });
+                        }, 0);
+
+                        return false;
+                    }
+
+                    return true;
                 }
             ],
             productCategories: [
@@ -107,6 +146,40 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
                     OrganizationValidatorService.list(
                         $transition$.params().organization_id
                     )
+                );
+            }
+        }
+    });
+
+    // Organization employees
+    $stateProvider.state({
+        name: "employees",
+        url: "/organizations/{organization_id}/employees",
+        component: "organizationEmployeesComponent",
+        resolve: {
+            organization: [
+                '$transition$',
+                'OrganizationService', (
+                    $transition$,
+                    OrganizationService
+                ) => {
+                    return repackResponse(
+                        OrganizationService.read(
+                            $transition$.params().organization_id
+                        )
+                    );
+                }
+            ],
+            employees: function($transition$, OrganizationEmployeesService) {
+                return repackResponse(
+                    OrganizationEmployeesService.list(
+                        $transition$.params().organization_id
+                    )
+                );
+            },
+            roles: function(RoleService) {
+                return repackResponse(
+                    RoleService.list()
                 );
             }
         }
@@ -184,20 +257,40 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organization/{organization_id}/offices",
         component: "officesComponent",
         resolve: {
-            organization: function($transition$, OrganizationService) {
-                return repackResponse(
-                    OrganizationService.read(
-                        $transition$.params().organization_id
-                    )
-                );
-            },
-            offices: function($transition$, OfficeService) {
-                return repackResponse(
-                    OfficeService.list(
-                        $transition$.params().organization_id
-                    )
-                );
-            }
+            organization: [
+                '$transition$',
+                'OrganizationService', (
+                    $transition$,
+                    OrganizationService
+                ) => {
+                    return repackResponse(
+                        OrganizationService.read(
+                            $transition$.params().organization_id
+                        )
+                    );
+                }
+            ],
+            offices: [
+                'organization',
+                '$transition$',
+                'OfficeService',
+                'PermissionsService', (
+                    organization,
+                    $transition$,
+                    OfficeService,
+                    PermissionsService
+                ) => {
+                    if (PermissionsService.hasPermission(organization, 'manage_offices')) {
+                        return repackResponse(
+                            OfficeService.list(
+                                $transition$.params().organization_id
+                            )
+                        );
+                    }
+
+                    return false;
+                }
+            ]
         }
     });
 
@@ -209,14 +302,14 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
 
     $stateProvider.state({
         name: "offices-edit",
-        url: "/organization/{organization_id}/offices/{office_id}/edit",
+        url: "/organization/{organization_id}/offices/{id}/edit",
         component: "officesEditComponent",
         resolve: {
             office: function($transition$, OfficeService) {
                 return repackResponse(
                     OfficeService.read(
                         $transition$.params().organization_id,
-                        $transition$.params().office_id
+                        $transition$.params().id
                     )
                 );
             }
@@ -247,6 +340,13 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organizations/{organization_id}/funds/create",
         component: "fundsEditComponent",
         resolve: {
+            organization: function($transition$, OrganizationService) {
+                return repackResponse(
+                    OrganizationService.read(
+                        $transition$.params().organization_id
+                    )
+                );
+            },
             fundStates: function(FundService) {
                 return FundService.states();
             },
@@ -258,14 +358,14 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
 
     $stateProvider.state({
         name: "funds-show",
-        url: "/organizations/{organization_id}/funds/{fund_id}",
+        url: "/organizations/{organization_id}/funds/{id}",
         component: "fundsShowComponent",
         resolve: {
             fund: function($transition$, FundService) {
                 return repackResponse(
                     FundService.read(
                         $transition$.params().organization_id,
-                        $transition$.params().fund_id
+                        $transition$.params().id
                     )
                 );
             },
@@ -275,17 +375,49 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
 
     $stateProvider.state({
         name: "funds-edit",
-        url: "/organizations/{organization_id}/funds/{fund_id}/edit",
+        url: "/organizations/{organization_id}/funds/{id}/edit",
         component: "fundsEditComponent",
         resolve: {
-            fund: function($transition$, FundService) {
+            organization: function($transition$, OrganizationService) {
                 return repackResponse(
-                    FundService.read(
-                        $transition$.params().organization_id,
-                        $transition$.params().fund_id
+                    OrganizationService.read(
+                        $transition$.params().organization_id
                     )
                 );
             },
+            fund: [
+                '$timeout',
+                '$state',
+                'organization',
+                '$transition$',
+                'FundService',
+                'PermissionsService',
+                function(
+                    $timeout,
+                    $state,
+                    organization,
+                    $transition$,
+                    FundService,
+                    PermissionsService
+                ) {
+                    if (!PermissionsService.hasPermission(organization, 'manage_funds')) {
+                        $timeout(() => {
+                            $state.go('no-permission', {
+                                message: 'fund-edit'
+                            });
+                        }, 100);
+
+                        return false;
+                    }
+
+                    return repackResponse(
+                        FundService.read(
+                            $transition$.params().organization_id,
+                            $transition$.params().id
+                        )
+                    );
+                }
+            ],
             fundStates: function(FundService) {
                 return FundService.states();
             },
@@ -366,6 +498,13 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         resolve: {
             productCategories: function(ProductCategoryService) {
                 return repackResponse(ProductCategoryService.list());
+            },
+            products: function($transition$, ProductService) {
+                return repackResponse(
+                    ProductService.list(
+                        $transition$.params().organization_id
+                    )
+                );
             }
         }
     });

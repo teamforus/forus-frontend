@@ -41,7 +41,9 @@ module.exports = [
             }
 
             this.active = function() {
-                return localStorage.getItem('active_organization') || null;
+                let id = parseInt(localStorage.getItem('active_organization') || null);
+
+                return isNaN(id) ? false : id;
             }
 
             this.apiResourceToForm = function(apiResource) {

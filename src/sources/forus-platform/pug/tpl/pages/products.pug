@@ -1,9 +1,10 @@
 .app.app-container
     menu
     section.app.app-content
+        information-block(text="'products.cannot_delete'" type="'danger'")
         .card-heading
             | {{ "products.offers" | translate }}
-            a(ui-sref="products-create({organization_id: $ctrl.organization.id})").link
+            a(ng-click="$ctrl.addProduct()").link
                 em.mdi.mdi-plus-circle 
                 | {{ "products.add" | translate }}
 
@@ -12,7 +13,7 @@
             ng-repeat="product in $ctrl.products" 
             product="product" 
             level="list")
-        empty-block(
+        block-empty(
             ng-if="$ctrl.products.length == 0" 
             text="'Er zijn momenteel geen aanbiedingen.'" 
             button="{text: 'Aanbieding toevoegen', href: $ctrl.emptyBlockLink}")
