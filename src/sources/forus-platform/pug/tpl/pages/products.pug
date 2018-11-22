@@ -12,7 +12,7 @@
             ng-repeat="product in $ctrl.products" 
             product="product" 
             level="list")
-        empty-block(
+        block-empty(
             ng-if="$ctrl.products.length == 0" 
             text="'Er zijn momenteel geen aanbiedingen.'" 
             button="{text: 'Aanbieding toevoegen', href: $ctrl.emptyBlockLink}")

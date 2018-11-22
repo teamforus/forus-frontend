@@ -22,14 +22,14 @@
                                     a(ng-click="$ctrl.deleteValidator($event, validator)" href="#").text-danger {{ "organization_validators.buttons.delete" | translate }}
 
             .card-section.text-center
-                a(ui-sref="validators-create({organization_id: $root.activeOrganization})").button.button-default
+                a(ui-sref="validators-create({organization_id: $root.activeOrganization.id})").button.button-default
                     em.mdi.mdi-plus-circle  
                     | {{ "organization_validators.buttons.add" | translate }}
                                 
         .card-heading(
             ng-if="$ctrl.validators.length == 0"
             ng-bind="'Medewerkers (' + $ctrl.validators.length + ')'")
-        empty-block( 
+        block-empty( 
             ng-if="$ctrl.validators.length == 0"
             text="'Je hebt nog geen medewerkers toegevoegd.'" 
             button="{text: 'Medewerker toevoegen', href: $ctrl.emptyBlockLink}")

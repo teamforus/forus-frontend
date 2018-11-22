@@ -23,7 +23,7 @@
         .card-block.card-block-listing
             .card-block-listing-label {{ "fund_card_provider_finances.labels.join" | translate }}
             span(
-                ui-sref="funds-show({fund_id: fundProvider.fund_id, organization_id: fundProvider.fund.organization_id})"
+                ui-sref="funds-show(fundProvider.fund)"
                 ng-bind="fundProvider.fund.name").text-primary-light
                 
     .card-section.card-section-primary.text-center

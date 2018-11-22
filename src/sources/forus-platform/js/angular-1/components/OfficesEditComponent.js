@@ -12,7 +12,7 @@ let OfficesEditComponent = function(
 
     $ctrl.$onInit = function() {
         let values = OfficeService.apiResourceToForm(
-            $ctrl.office || false
+            $ctrl.office || {}
         );
 
         $ctrl.form = FormBuilderService.build(values, async (form) => {
@@ -32,7 +32,7 @@ let OfficesEditComponent = function(
             if ($ctrl.office) {
                 promise = OfficeService.update(
                     $stateParams.organization_id,
-                    $stateParams.office_id,
+                    $stateParams.id,
                     form.values
                 )
             } else {
@@ -58,13 +58,15 @@ let OfficesEditComponent = function(
             });
         }
     };
-    
+
     $ctrl.selectPhoto = (file) => {
         mediaFile = file;
     };
 
-    $ctrl.cancel = function () {
-        $state.go('offices', {'organization_id' : $stateParams.organization_id});
+    $ctrl.cancel = function() {
+        $state.go('offices', {
+            'organization_id': $stateParams.organization_id
+        });
     };
 };
 
@@ -73,11 +75,11 @@ module.exports = {
         office: '<'
     },
     controller: [
-        '$state', 
-        '$stateParams', 
-        'OfficeService', 
-        'MediaService', 
-        'FormBuilderService', 
+        '$state',
+        '$stateParams',
+        'OfficeService',
+        'MediaService',
+        'FormBuilderService',
         OfficesEditComponent
     ],
     templateUrl: 'assets/tpl/pages/offices-edit.html'

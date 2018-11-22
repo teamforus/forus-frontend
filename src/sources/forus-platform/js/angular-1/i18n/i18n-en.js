@@ -1,4 +1,10 @@
 module.exports = {
+    permissions: {
+        'fund-edit': {
+            title: 'Permission denied.',
+            description: 'You have no permissions to edit this fund.'
+        }
+    },
     page_title: 'Forus platform',
     page_state_titles: {
         home: 'Forus platform home',
