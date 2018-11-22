@@ -3,7 +3,7 @@
     section.app.app-content
         .card-heading
             | {{ "products.offers" | translate }}
-            a(ui-sref="products-create({organization_id: $ctrl.organization.id})").link
+            a(ng-click="$ctrl.addProduct()").link
                 em.mdi.mdi-plus-circle 
                 | {{ "products.add" | translate }}
 

@@ -40,6 +40,7 @@ app.component('modalPhotoUploaderComponent', require('./components/Modals/ModalP
 app.component('modalFundTopUpComponent', require('./components/Modals/ModalFundTopUpComponent'));
 app.component('modalEmployeeEditComponent', require('./components/Modals/ModalEmployeeEditComponent'));
 
+
 // Services
 app.service('AuthService', require('./services/AuthService'));
 app.service('OrganizationService', require('./services/OrganizationService'));
@@ -108,6 +109,7 @@ app.directive('officeEditInline', require('./directives/OfficeEditInlineDirectiv
 app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('modalsRoot', require('./directives/ModalsRootDirective'));
 app.directive('modalItem', require('./directives/ModalItemDirective'));
+app.directive('menuScrollToggle', require('./directives/landing/MenuScrollToggleDirective'));
 
 app.directive('blockEmpty', require('./directives/blocks/BlockEmptyDirective'));
 app.directive('blockNoPermission', require('./directives/blocks/BlockNoPermissionDirective'));

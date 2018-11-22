@@ -77,7 +77,9 @@ module.exports = {
     home_provider: {
         header: {
             title: "Meld je aan als winkelier of dienstverlener",
+            title_nijmegen: "Meld je aan dienstverlener",
             subtitle: "Bereik meer klanten, maak winst en draag bij aan een maatschappelijk doel.",
+            subtitle_nijmegen: "De gemeente geeft inwoners met een laag inkomen maximaal € 150,- voor culturele, sportieve en educatieve activiteiten. Dit heet de Meedoen-regeling.",
         },
         labels: {
             partners: "Stichting Forus zoekt partners",
@@ -87,8 +89,11 @@ module.exports = {
         },
         guide: {
             title: "Word onderdeel van een innovatieve beweging",
+            title_nijmegen: "Als uw organisatie een passend aanbod heeft, kunt u zich opgeven.",
             description: "Doe mee aan ons platform door onderstaande stappen te volgen, maak een organisatie aan, verkoop jouw producten of diensten en trek nieuwe klanten aan.",
+            description_nijmegen: "Uw organisatie is in het bezit van een smartphone, deze heeft u nodig om een mobiele applicatie te installeren die QR-codes kan scannen. Heeft u deze smartphone bij de hand? Regel het dan direct!",
             button: "Start je reis!",
+            button_nijmegen: "DIRECT REGELEN",
         }
     },
     // SPONSOR HOME = home-sponsor.pug
@@ -323,6 +328,14 @@ module.exports = {
         buttons: {
             cancel: "Annuleren",
             confirm: "Bevestig",
+            close: "Sluit"
+        },
+        errors: {
+            already_added: 'You already added 2 active products, and can not add more'
+        },
+        confirm_create: {
+            title: 'Een aanbieding toevoegen.',
+            description: 'Let op! Je staat op het punt een aanbieding op de webshop toe te voegen. Daarna kan je de aanbieding niet meer verwijderen. De aanbieding wordt verwijderd vanaf het moment dat het is uitverkocht of de vervaldatum is bereikt.'
         }
     },
 
@@ -402,15 +415,15 @@ module.exports = {
     sign_up: {
         header: {
             title_step_1: "Installeer Me",
-            subtitle_step_1: "Om betalingen te ontvangen heb je een app nodig. Een transactie doe je door een QR-code te scannen en een bedrag in te vullen.",
+            subtitle_step_1: "Om betalingen te ontvangen heeft u een app nodig. Een transactie doet u door een QR-code te scannen en een bedrag in te vullen.",
             title_step_2: "Profiel aanmaken",
-            subtitle_step_2: "Een persoonlijk profiel is nodig om betalingen te ontvangen namens een organisatie. Later is het mogelijk om meerdere medewerkers toe te voegen.",
+            subtitle_step_2: "Een persoonlijk profiel is nodig om betalingen te ontvangen. Later is het mogelijk om meerdere medewerkers toe te voegen.",
             title_step_3: "Organisatie aanmaken",
             subtitle_step_3: "Om deel te nemen aan het platform is het nodig om een organisatie aan te maken.",
             title_step_4: "Voeg nieuwe vestigingen toe",
             subtitle_step_4: "Een organisatie kan uit meerdere vestigingen bestaan. Voeg in dit venster vestigingen toe.",
-            title_step_5: "Koppel het profiel van je organisatie aan Me",
-            subtitle_step_5: "Het koppelen van je profiel aan de mobiele applicatie gebeurt door het invullen van een autorisatiecode.",
+            title_step_5: "Stel de app Me in op uw telefoon",
+            subtitle_step_5: "U heeft zojuist een profiel aangemaakt daarom kunt u klikken op: ‘Ik heb al een profiel’. Het instellen van uw profiel op de mobiele applicatie gebeurt door het invullen van een autorisatiecode.",
             top_title_step_5: "Gebruik Me",
             top_subtitle_step_5: "Rond de installatie af door gebruik te maken van Me",
             title_step_6: "Het is gelukt! Het profiel van de organisatie is gekoppeld aan Me.",
@@ -465,9 +478,9 @@ module.exports = {
             subtitle: 'De code is te vinden in de mobiele applicatie, volg de bovenstaande stappen op om de code te kunnen  aflezen.'
         },
         login: {
-            title: 'Heb je al een profiel?',
-            description: 'Waneer je al een profiel hebt aangemaakt, biedt de onderstaande knop de mogelijkheid om direct in te loggen op dit profiel.',
-            qr_description: 'Scan deze QR-code met de me app als je al een profiel hebt aangemaakt.'
+            title: 'Heeft u al een profiel?',
+            description: 'Waneer u al een profiel heeft aangemaakt, biedt de onderstaande knop de mogelijkheid om direct in te loggen op dit profiel.',
+            qr_description: 'Scan deze QR-code met de me app als u al een profiel heeft aangemaakt.'
         },
         open_pc: {
             title: 'Deze pagina is niet mobiel te benaderen.',
@@ -809,5 +822,13 @@ module.exports = {
         services: "DIENSTEN OF ACTIVITEITEN",
     },
 
-    lorem_ipsum: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam pulvinar dictum leo, sed congue purus scelerisque ut.'
+    lorem_ipsum: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam pulvinar dictum leo, sed congue purus scelerisque ut.',
+
+    modal: {
+        buttons: {
+            cancel: "Annuleren",
+            confirm: "Bevestig",
+            close: "Sluit"
+        }
+    }
 };
