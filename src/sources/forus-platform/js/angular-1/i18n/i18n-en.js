@@ -366,6 +366,7 @@ module.exports = {
     products: {
         offers: "Aanbiedingen",
         add: "Voeg een aanbieding toe",
+        cannot_delete: 'Let op! Nadat u een aanbieding heeft toegevoegd kunt u deze niet verwijderen tot dat het totale aanbod dat u hier invult verkocht is. Ga daarom na hoe vaak u dit aanbod kunt verkopen voordat u de aanbieding toevoegt. Daarnaast vult u een verloopdatum in, dit bepaald de laatste datum dat de aanvrager uw aanbod kan ophalen.'
     },
 
     // FUNDS AVAILABLE FOR PROVIDERS = provider-funds-available.pug
