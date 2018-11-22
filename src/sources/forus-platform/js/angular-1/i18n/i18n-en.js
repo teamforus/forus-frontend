@@ -71,7 +71,7 @@ module.exports = {
     home_provider: {
         header: {
             title: "Meld je aan als winkelier of dienstverlener",
-            title_nijmegen: "Meld je aan dienstverlener",
+            title_nijmegen: "Meld je aan als dienstverlener",
             subtitle: "Bereik meer klanten, maak winst en draag bij aan een maatschappelijk doel.",
             subtitle_nijmegen: "De gemeente geeft inwoners met een laag inkomen maximaal € 150,- voor culturele, sportieve en educatieve activiteiten. Dit heet de Meedoen-regeling.",
         },
