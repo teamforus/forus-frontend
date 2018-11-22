@@ -33,7 +33,7 @@ let FundsEditComponent = function(
             if ($ctrl.fund) {
                 promise = FundService.update(
                     $stateParams.organization_id,
-                    $stateParams.fund_id,
+                    $stateParams.id,
                     form.values
                 )
             } else {
@@ -72,6 +72,7 @@ let FundsEditComponent = function(
 module.exports = {
     bindings: {
         fund: '<',
+        organization: '<',
         fundStates: '<',
         productCategories: '<'
     },

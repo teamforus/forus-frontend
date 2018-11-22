@@ -91,10 +91,10 @@
             .card-heading {{ "financial_dashboard.labels.provider" | translate }} ({{ $ctrl.fundProviders.length }}) 
             fund-card-provider-finances(ng-repeat="fundProvider in $ctrl.fundProviders" fund-provider="fundProvider")
     section.app.app-content(ng-if="$ctrl.funds.length == 0")
-        empty-block(
+        block-empty(
             ng-if="$ctrl.fund == null && $ctrl.funds.length == 0" 
             text="'Helaas, geen fondsen beschikbaar'" 
             button="{href: $ctrl.emptyBlockLink, text: 'Fonds toevoegen'}")
-        empty-block(
+        block-empty(
             ng-if="$ctrl.fund == null && $ctrl.funds.length > 0" 
             text="'Selecteer een fonds'")

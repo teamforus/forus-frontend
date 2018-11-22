@@ -1,7 +1,6 @@
 let FundCardDirective = function(
     $scope,
     $state,
-    $rootScope,
     FundService,
     ModalService,
     ProviderFundService
@@ -39,19 +38,7 @@ let FundCardDirective = function(
         });
     }
 
-    $scope.editable = false;
-
-    $scope.userCanEdit = function() {
-        if (!$rootScope.auth_user.organizationsIds) {
-            return false;
-        }
-
-        $scope.editable = $rootScope.auth_user.organizationsIds.indexOf(
-            $scope.fund.organization_id
-        ) != -1;
-
-        return $scope.editable;
-    }
+    $scope.fundOrg = $scope.fund.organization;
 };
 
 module.exports = () => {

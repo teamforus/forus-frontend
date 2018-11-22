@@ -237,7 +237,7 @@
                         fund="fund"
                         organization="$ctrl.organization")
 
-                    empty-block(ng-if="$ctrl.funds.length == 0" text="'Er zijn momenteel geen actieve fondsen.'")
+                    block-empty(ng-if="$ctrl.funds.length == 0" text="'Er zijn momenteel geen actieve fondsen.'")
 
             .step-footer: a(ng-click="$ctrl.next()" translate="sign_up.buttons.next").button.button-primary
 

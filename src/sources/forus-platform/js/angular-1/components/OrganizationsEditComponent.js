@@ -10,10 +10,15 @@ let OrganizationsEditComponent = function(
     let mediaFile = false;
 
     $ctrl.$onInit = function() {
-        let values = $ctrl.organization ? OrganizationService.apiResourceToForm(
-            $ctrl.organization
-        ) : {
-            "product_categories": []
+        let values;
+
+        if (!$ctrl.organization) {
+            OrganizationService.clearActive();
+            values = {
+                "product_categories": []
+            };
+        } else {
+            values = OrganizationService.apiResourceToForm($ctrl.organization)
         };
 
         $ctrl.form = FormBuilderService.build(values, async (form) => {
@@ -37,7 +42,7 @@ let OrganizationsEditComponent = function(
 
             if ($ctrl.organization) {
                 promise = OrganizationService.update(
-                    $stateParams.organization_id,
+                    $stateParams.id,
                     values
                 );
             } else {
@@ -59,14 +64,16 @@ let OrganizationsEditComponent = function(
             });
         }
     };
-    
+
     $ctrl.selectPhoto = (file) => {
         mediaFile = file;
     };
 
-    $ctrl.cancel = function () {
-        if($ctrl.organization)
-            $state.go('offices', {'organization_id' : $ctrl.organization.id});
+    $ctrl.cancel = function() {
+        if ($ctrl.organization)
+            $state.go('offices', {
+                'organization_id': $ctrl.organization.id
+            });
         else
             $state.go('organizations');
     };

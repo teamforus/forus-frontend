@@ -1,4 +1,4 @@
-let EmptyBlockDirective = function($scope) {
+let BlockEmptyDirective = function($scope) {
 
 };
 
@@ -12,8 +12,8 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
-            EmptyBlockDirective
+            BlockEmptyDirective
         ],
-        templateUrl: 'assets/tpl/directives/empty-block.html' 
+        templateUrl: 'assets/tpl/directives/blocks/block-empty.html'
     };
 };
