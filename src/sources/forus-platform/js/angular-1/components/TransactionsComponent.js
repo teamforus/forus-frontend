@@ -6,7 +6,7 @@ let TransactionsComponent = function(
     let $ctrl = this;
 
     var now = moment().format('YYYY-MM-DD HH:mm');
-    var org = OrganizationService.active();
+    var org = OrganizationService.active().id;
 
     $ctrl.states = {
         pending: 'Pending',

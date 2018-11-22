@@ -1,4 +1,10 @@
 module.exports = {
+    permissions: {
+        'fund-edit': {
+            title: 'Geen rechten',
+            description: 'U heeft geen rechten om deze actie uit te voeren.'
+        }
+    },
     page_title: 'Forus platform',
     page_state_titles: {
         home: 'Forus platform home',
@@ -487,13 +493,19 @@ module.exports = {
         }
     },
 
-    // Modal-photo-upload.pug
-    image: {
-        header: {
-            title: "Verplaats en wijzig grootte",
-            subtitle: "",
-        }
+    // Organization-employees.pug
+    organization_employees: {
+        labels: {
+            email: "E-mailadres",
+            actions: "Actie",
+        },
+        buttons: {
+            adjust: "Aanpassen",
+            delete: "Verwijderen",
+            add: "Toevoegen",
+        },
     },
+
     // TRANSACTIONS = transaction.pug
     transactions: {
         header: {

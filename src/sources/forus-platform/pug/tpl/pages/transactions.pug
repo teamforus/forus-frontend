@@ -38,6 +38,6 @@
                 button(ng-click="$ctrl.exportList()").button.button-primary.pull-right
                     em.mdi.mdi-download  
                     | {{ "transactions.buttons.export" | translate }}
-        empty-block(
+        block-empty(
             ng-if="$ctrl.transactions.length == 0" 
             text="'Geen transacties.'")

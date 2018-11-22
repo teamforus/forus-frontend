@@ -11,10 +11,14 @@ html, body {
     padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6, p, span, b, i, li, td{
+h1, h2, h3, h4, h5, h6, p, b, i, li, td{
     font-family: $bf;
     font-weight: 400;
     color: inherit;
+}
+
+span {
+    font: inherit;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -54,6 +58,7 @@ a {
     text-decoration: none;
     font: 400 14px/26px $bf;
     color: #222; 
+    cursor: pointer;
 }
 
 b, strong {

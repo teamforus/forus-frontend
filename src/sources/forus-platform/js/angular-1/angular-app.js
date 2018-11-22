@@ -22,6 +22,7 @@ app.component('productsEditComponent', require('./components/ProductsEditCompone
 app.component('productsShowComponent', require('./components/ProductsShowComponent'));
 app.component('organizationProvidersComponent', require('./components/OrganizationProvidersComponent'));
 app.component('organizationValidatorsComponent', require('./components/OrganizationValidatorsComponent'));
+app.component('organizationEmployeesComponent', require('./components/OrganizationEmployeesComponent'));
 app.component('organizationValidatorsEditComponent', require('./components/OrganizationValidatorsEditComponent'));
 app.component('csvValidationComonent', require('./components/CsvValidationComonent'));
 app.component('validationRequestsComonent', require('./components/ValidationRequestsComonent'));
@@ -32,10 +33,13 @@ app.component('providerIdentityEditComponent', require('./components/ProviderIde
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
 app.component('transactionComponent', require('./components/TransactionComponent'));
 
+app.component('noPermissionComponent', require('./components/NoPermissionComonent'));
+
 // Modal Components
 app.component('modalPhotoUploaderComponent', require('./components/Modals/ModalPhotoUploaderComponent'));
 app.component('modalFundTopUpComponent', require('./components/Modals/ModalFundTopUpComponent'));
-app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
+app.component('modalEmployeeEditComponent', require('./components/Modals/ModalEmployeeEditComponent'));
+
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -55,6 +59,7 @@ app.service('OfficeService', require('./services/OfficeService'));
 app.service('ProductService', require('./services/ProductService'));
 app.service('ProviderFundService', require('./services/ProviderFundService'));
 app.service('OrganizationValidatorService', require('./services/OrganizationValidatorService'));
+app.service('OrganizationEmployeesService', require('./services/OrganizationEmployeesService'));
 app.service('PrevalidationService', require('./services/PrevalidationService'));
 app.service('ProgressFakerService', require('./services/ProgressFakerService'));
 app.service('ValidatorRequestService', require('./services/ValidatorRequestService'));
@@ -63,6 +68,8 @@ app.service('ProviderIdentityService', require('./services/ProviderIdentityServi
 app.service('ConfigService', require('./services/ConfigService'));
 app.service('ImageConvertorService', require('./services/ImageConvertorService'));
 app.service('ModalService', require('./services/ModalService'));
+app.service('PermissionsService', require('./services/PermissionsService'));
+app.service('RoleService', require('./services/RoleService'));
 
 // Directives
 switch (env_data.panel_type) {
@@ -85,7 +92,6 @@ app.directive('fundCardProviderCanJoin', require('./directives/FundCardProviderC
 app.directive('productCard', require('./directives/ProductCardDirective'));
 app.directive('multiSelect', require('./directives/MultiSelectDirective'));
 app.directive('scheduleControl', require('./directives/ScheduleControlDirective.js'));
-app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
 app.directive('csvUpload', require('./directives/CsvUploadDirective'));
 app.directive('progressBar', require('./directives/ProgressBarDirective'));
 app.directive('prevalidatedTable', require('./directives/PrevalidatedTableDirective'));
@@ -106,6 +112,9 @@ app.directive('modalItem', require('./directives/ModalItemDirective'));
 app.directive('informationBlock', require('./directives/InformationBlockDirective'));
 app.directive('menuScrollToggle', require('./directives/landing/MenuScrollToggleDirective'));
 
+app.directive('blockEmpty', require('./directives/blocks/BlockEmptyDirective'));
+app.directive('blockNoPermission', require('./directives/blocks/BlockNoPermissionDirective'));
+
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
 app.provider('ModalRoute', require('./providers/ModalRouteProvider'));
@@ -114,6 +123,7 @@ app.provider('ModalRoute', require('./providers/ModalRouteProvider'));
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('file_size', require('./filters/FileSizeFilter'));
+app.filter('hasPerm', require('./filters/HasPerm'));
 
 // Config
 app.config(require('./routers/modals'));

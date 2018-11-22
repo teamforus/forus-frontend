@@ -1479,6 +1479,7 @@ translate,
         }
 
         .fund-title {
+            cursor: default;
             display: inline-block;
             font: 500 16px/20px $bf;
             color: #151b26;
@@ -1486,6 +1487,10 @@ translate,
             clear: both;
             position: relative;
             border-bottom: 1px solid transparent;
+        }
+
+        a.fund-title {
+            cursor: pointer;
 
             &:hover {
                 color: #9ca6af;

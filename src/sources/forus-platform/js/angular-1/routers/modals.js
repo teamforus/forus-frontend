@@ -7,7 +7,7 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalFundTopUpComponent'
     });
 
-    ModalRouteProvider.modal('modalNotification', {
-        component: 'modalNotificationComponent'
+    ModalRouteProvider.modal('employeeEdit', {
+        component: 'modalEmployeeEditComponent'
     });
 }];
