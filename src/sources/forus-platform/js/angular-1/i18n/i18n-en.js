@@ -71,7 +71,9 @@ module.exports = {
     home_provider: {
         header: {
             title: "Meld je aan als winkelier of dienstverlener",
+            title_nijmegen: "Meld je aan dienstverlener",
             subtitle: "Bereik meer klanten, maak winst en draag bij aan een maatschappelijk doel.",
+            subtitle_nijmegen: "De gemeente geeft inwoners met een laag inkomen maximaal € 150,- voor culturele, sportieve en educatieve activiteiten. Dit heet de Meedoen-regeling.",
         },
         labels: {
             partners: "Stichting Forus zoekt partners",
@@ -81,8 +83,11 @@ module.exports = {
         },
         guide: {
             title: "Word onderdeel van een innovatieve beweging",
+            title_nijmegen: "Als uw organisatie een passend aanbod heeft, kunt u zich opgeven.",
             description: "Doe mee aan ons platform door onderstaande stappen te volgen, maak een organisatie aan, verkoop jouw producten of diensten en trek nieuwe klanten aan.",
+            description_nijmegen: "Uw organisatie is in het bezit van een smartphone, deze heeft u nodig om een mobiele applicatie te installeren die QR-codes kan scannen. Heeft u deze smartphone bij de hand? Regel het dan direct!",
             button: "Start je reis!",
+            button_nijmegen: "DIRECT REGELEN",
         }
     },
     // SPONSOR HOME = home-sponsor.pug
