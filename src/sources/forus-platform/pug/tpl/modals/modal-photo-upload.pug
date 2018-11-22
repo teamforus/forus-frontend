@@ -24,13 +24,13 @@
                             .crop-control-thumbnail(ng-if="$ctrl.thumbnailUri"): img(ng-src="{{ $ctrl.thumbnailUri }}")
                 .photo-upload-details
                     .photo-upload-header
-                        .photo-upload-title Crop your image
-                        .photo-upload-subtitle Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores, provident.
+                        .photo-upload-title Verplaats en wijzig grootte
+                        .photo-upload-subtitle U kunt de afbeelding naar uw voorkeur instellen, links ziet u de originele afbeelding en rechts een voorbeeld van hoe het op de webshop eruit komt te zien.
                     .photo-upload-body
-                        .photo-upload-heading Select other image
+                        .photo-upload-heading Verander afbeelding
                         button(ng-click="$ctrl.changePhoto()").button.button-primary.button-wide 
                             em.mdi.mdi-attachment
-                            translate(translate="UPLOAD IMAGE")
+                            translate(translate="UPLOAD AFBEELDING")
                         .info-block.info-block-primary
                             translate(translate="De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px.") 
                             br

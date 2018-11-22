@@ -90,7 +90,8 @@ module.exports = {
         "forus-webshop.panel": {
             api_url: api_url,
             frontends: frontends,
-            client_key: 'shop-general'
+            client_key: 'shop-general',
+            show_map: true
         },
         /* "forus-webshop-zuidhorn.markup": {
             api_url: api_url,
@@ -99,7 +100,8 @@ module.exports = {
         "forus-webshop-zuidhorn.panel": {
             api_url: api_url,
             frontends: frontends,
-            client_key: 'shop-zuidhorn'
+            client_key: 'shop-zuidhorn',
+            show_map: false
         },
         /* "forus-webshop-nijmegen.markup": {
             api_url: api_url,
@@ -108,7 +110,8 @@ module.exports = {
         "forus-webshop-nijmegen.panel": {
             api_url: api_url,
             frontends: frontends,
-            client_key: 'shop-nijmegen'
+            client_key: 'shop-nijmegen',
+            show_map: true
         }
     }
 };
