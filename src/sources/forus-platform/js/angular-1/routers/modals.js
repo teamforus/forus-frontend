@@ -10,4 +10,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('employeeEdit', {
         component: 'modalEmployeeEditComponent'
     });
+
+    ModalRouteProvider.modal('modalNotification', {
+        component: 'modalNotificationComponent'
+    });
 }];
