@@ -475,6 +475,19 @@ module.exports = {
         }
     },
 
+    // Organization-employees.pug
+    organization_employees: {
+        labels: {
+            email: "E-mailadres",
+            actions: "Actie",
+        },
+        buttons: {
+            adjust: "Aanpassen",
+            delete: "Verwijderen",
+            add: "Toevoegen",
+        },
+    },
+
     // TRANSACTIONS = transaction.pug
     transactions: {
         header: {
