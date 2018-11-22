@@ -109,6 +109,7 @@ app.directive('officeEditInline', require('./directives/OfficeEditInlineDirectiv
 app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('modalsRoot', require('./directives/ModalsRootDirective'));
 app.directive('modalItem', require('./directives/ModalItemDirective'));
+app.directive('informationBlock', require('./directives/InformationBlockDirective'));
 app.directive('menuScrollToggle', require('./directives/landing/MenuScrollToggleDirective'));
 
 app.directive('blockEmpty', require('./directives/blocks/BlockEmptyDirective'));
