@@ -474,7 +474,7 @@ module.exports = {
         },
         app_header: {
             title: 'Vul de code in op het invoerveld',
-            subtitle: 'De code is te vinden in de mobiele applicatie, volg de bovenstaande stappen op om de code te kunnen  aflezen.'
+            subtitle: 'De code is te vinden in de mobiele applicatie, volg de bovenstaande stappen om de code te kunnen aflezen.'
         },
         login: {
             title: 'Heeft u al een profiel?',
@@ -487,6 +487,13 @@ module.exports = {
         }
     },
 
+    // Modal-photo-upload.pug
+    image: {
+        header: {
+            title: "Verplaats en wijzig grootte",
+            subtitle: "",
+        }
+    },
     // TRANSACTIONS = transaction.pug
     transactions: {
         header: {
