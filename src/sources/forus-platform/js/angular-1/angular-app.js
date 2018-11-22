@@ -39,7 +39,7 @@ app.component('noPermissionComponent', require('./components/NoPermissionComonen
 app.component('modalPhotoUploaderComponent', require('./components/Modals/ModalPhotoUploaderComponent'));
 app.component('modalFundTopUpComponent', require('./components/Modals/ModalFundTopUpComponent'));
 app.component('modalEmployeeEditComponent', require('./components/Modals/ModalEmployeeEditComponent'));
-
+app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
