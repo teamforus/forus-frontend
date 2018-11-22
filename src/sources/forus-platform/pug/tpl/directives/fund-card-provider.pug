@@ -2,23 +2,24 @@
     .card-section
         .card-section-actions
             div(ng-show="providerFund.state == 'pending'")
-                .tag.tag-warning {{ "fund_card_provider.status.hold" | translate }}
+                .tag.tag-warning(translate="fund_card_provider.status.hold")
 
             div(ng-show="providerFund.state == 'approved'")
-                .tag.tag-success {{ "fund_card_provider.status.accepted" | translate }}
+                .tag.tag-success(translate="fund_card_provider.status.accepted")
 
             div(ng-show="providerFund.state == 'declined'")
-                .tag.tag-danger {{ "fund_card_provider.status.reject" | translate }}
+                .tag.tag-danger(translate="fund_card_provider.status.reject")
 
             div(ng-show="providerFund.state == 'abandoned'")
-                .tag.tag-default {{ "fund_card_provider.status.stopped" | translate }}
+                .tag.tag-default(translate="fund_card_provider.status.stopped")
 
         .card-block.card-block-fund
             .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}", alt="")
-            a(ui-sref="funds-show({organization_id: fund.organization_id, fund_id: fund.id})" ng-bind="fund.name").fund-title
+            .fund-title(ng-if="fund.organization | hasPerm:['manage_funds']" ng-bind="fund.name" ui-sref="funds-show(fund)")
+            .fund-title(ng-if="!(fund.organization | hasPerm:['manage_funds'])" ng-bind="fund.name")
             br
             div(ng-bind="fund.organization.name").fund-organization
         .card-block.card-block-listing
-            .card-block-listing-label {{ "fund_card_provider.labels.categories" | translate }}
-            | {{ fundCategories.join(', ') }}
-            small(ng-show="fundCategories.length == 0").text-muted.small {{ "fund_card_provider.labels.nocategories" | translate }}
+            .card-block-listing-label(ng-bind="fund_card_provider.labels.categories")
+            span(ng-bind="fundCategories.join(', ')")
+            small(ng-show="fundCategories.length == 0" ng-bind="fund_card_provider.labels.nocategories").text-muted.small

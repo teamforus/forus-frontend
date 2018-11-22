@@ -39,6 +39,10 @@ let ProviderIdentityEditComponent = function(
             });
         });
     };
+
+    $ctrl.cancel = function () {
+        $state.go('provider-identities', {'organization_id' : $stateParams.organization_id});
+    };
 };
 
 module.exports = {

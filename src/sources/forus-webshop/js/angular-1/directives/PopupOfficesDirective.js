@@ -6,6 +6,9 @@ let PopupOfficesDirective = function(
 ) {
     $scope.selectedOffice = false;
     $scope.productCategories || [];
+
+    $scope.selectedCategories = [];
+
     $scope.$watch('popup.show', function(show) {
         if (show) {
             if (!$scope.productCategories) {
@@ -29,19 +32,23 @@ let PopupOfficesDirective = function(
     $scope.weekDays = OfficeService.scheduleWeekDays();
 
     $scope.selectCategory = (category) => {
-        if ($scope.selectedCategoryId != category.id) {
-            $scope.selectedCategoryId = category.id;
-        } else {
-            $scope.selectedCategoryId = false;
+
+        if($scope.selectedCategories.indexOf(category.id) !== -1) {
+            $scope.shownOffices = $scope.offices;
+            $scope.selectedCategories.splice($scope.selectedCategories.indexOf(category.id), 1);
+        }else{
+            $scope.selectedCategories.push(category.id);
         }
 
-        if ($scope.selectedCategoryId) {
+        if($scope.selectedCategories.length) {
             $scope.shownOffices = $scope.offices.filter(office => {
-                return office.organization.product_categories.filter(function(category) {
-                    return category.id == $scope.selectedCategoryId;
+                return office.organization.product_categories.filter(function (category) {
+                    return $scope.selectedCategories.filter(function (selectedCategory) {
+                        return category.id == selectedCategory;
+                    }).length > 0;
                 }).length > 0
             });
-        } else {
+        }else{
             $scope.shownOffices = $scope.offices;
         }
 

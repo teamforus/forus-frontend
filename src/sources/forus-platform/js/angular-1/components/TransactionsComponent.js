@@ -1,14 +1,12 @@
 let TransactionsComponent = function(
     $state,
-    $translate,
-    TransactionService,
     OrganizationService,
     appConfigs
 ) {
     let $ctrl = this;
 
     var now = moment().format('YYYY-MM-DD HH:mm');
-    var org = OrganizationService.active();
+    var org = OrganizationService.active().id;
 
     $ctrl.states = {
         pending: 'Pending',
@@ -55,8 +53,6 @@ module.exports = {
     },
     controller: [
         '$state',
-        '$translate',
-        'TransactionService',
         'OrganizationService',
         'appConfigs',
         TransactionsComponent

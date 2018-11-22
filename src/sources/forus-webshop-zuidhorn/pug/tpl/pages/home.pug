@@ -10,7 +10,7 @@ header.section.section-header.section-header-landing: .wrapper
 
 block-products(ng-if="$root.appConfigs.features.products.list" products="$ctrl.products" product-categories="$ctrl.productCategories")
 
-section.section.section-map: .wrapper
+section.section.section-map(ng-if="$root.appConfigs.show_map"): .wrapper
     .block.block-map
         .block-content
             .block-title {{ "home.map.title" | translate }}
@@ -47,7 +47,7 @@ section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
         mixin blog_item(nth)
             .blog-item: a(href="#").blog-item-inner
                 .blog-image: img(src="./assets/img/blog-image-" + nth + ".jpg")
-                .blog-name Blog: {{ "home.blog.name" | translate }}
+                .blog-name {{ "home.blog.name" | translate }}
                 .blog-read-more 
                     | {{ "home.blog.more" | translate }}
                     em.mdi.mdi-arrow-right

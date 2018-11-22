@@ -1,16 +1,34 @@
-module.exports = function($stateProvider) {
-    let repackResponse = (promise) => {
-        return new Promise((resolve, reject) => {
-            promise.then((res) => {
-                resolve(res.data.data ? res.data.data : res.data);
-            }, reject);
-        });
-    }
+let repackResponse = (promise) => {
+    return new Promise((resolve, reject) => {
+        promise.then((res) => {
+            resolve(res.data.data ? res.data.data : res.data);
+        }, reject);
+    });
+}
 
+module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appConfigs) {
     $stateProvider.state({
         name: "home",
         url: "/",
         component: "homeComponent"
+    });
+
+    $stateProvider.state({
+        name: "no-permission",
+        url: "/no-permission/{message}",
+        component: "noPermissionComponent",
+        resolve: {
+            message: ['$filter', '$transition$', function($filter, $transition$) {
+                return {
+                    title: $filter('translate')(
+                        'permissions.' + $transition$.params().message + '.title'
+                    ),
+                    description: $filter('translate')(
+                        'permissions.' + $transition$.params().message + '.description'
+                    )
+                };
+            }]
+        }
     });
 
     /**
@@ -27,27 +45,60 @@ module.exports = function($stateProvider) {
         url: "/organizations/create",
         component: "organizationsEditComponent",
         resolve: {
-            productCategories: function(ProductCategoryService) {
+            productCategories: ['ProductCategoryService', function(ProductCategoryService) {
                 return repackResponse(ProductCategoryService.list());
-            }
+            }]
         }
     });
 
     $stateProvider.state({
         name: "organizations-edit",
-        url: "/organizations/{organization_id}/edit",
+        url: "/organizations/{id}/edit",
         component: "organizationsEditComponent",
         resolve: {
-            organization: function($transition$, OrganizationService) {
-                return repackResponse(
-                    OrganizationService.read(
-                        $transition$.params().organization_id
-                    )
-                );
-            },
-            productCategories: function(ProductCategoryService) {
-                return repackResponse(ProductCategoryService.list());
-            }
+            organization: [
+                '$transition$',
+                'OrganizationService',
+                function(
+                    $transition$,
+                    OrganizationService
+                ) {
+                    return repackResponse(
+                        OrganizationService.read(
+                            $transition$.params().id
+                        )
+                    );
+                }
+            ],
+            permissions: [
+                'organization',
+                '$state',
+                'PermissionsService', (
+                    organization,
+                    $state,
+                    PermissionsService
+                ) => {
+                    if (!PermissionsService.hasPermission(organization, 'manage_organization')) {
+                        setTimeout(() => {
+                            $state.go('no-permission', {
+                                message: 'organization-edit'
+                            });
+                        }, 0);
+
+                        return false;
+                    }
+
+                    return true;
+                }
+            ],
+            productCategories: [
+                'ProductCategoryService',
+                function(
+                    ProductCategoryService
+                ) {
+                    return repackResponse(ProductCategoryService.list());
+                }
+            ]
         }
     });
 
@@ -100,6 +151,40 @@ module.exports = function($stateProvider) {
         }
     });
 
+    // Organization employees
+    $stateProvider.state({
+        name: "employees",
+        url: "/organizations/{organization_id}/employees",
+        component: "organizationEmployeesComponent",
+        resolve: {
+            organization: [
+                '$transition$',
+                'OrganizationService', (
+                    $transition$,
+                    OrganizationService
+                ) => {
+                    return repackResponse(
+                        OrganizationService.read(
+                            $transition$.params().organization_id
+                        )
+                    );
+                }
+            ],
+            employees: function($transition$, OrganizationEmployeesService) {
+                return repackResponse(
+                    OrganizationEmployeesService.list(
+                        $transition$.params().organization_id
+                    )
+                );
+            },
+            roles: function(RoleService) {
+                return repackResponse(
+                    RoleService.list()
+                );
+            }
+        }
+    });
+
     $stateProvider.state({
         name: "validators-create",
         url: "/organizations/{organization_id}/validators/create",
@@ -127,13 +212,13 @@ module.exports = function($stateProvider) {
         url: "/organizations/{organization_id}/financial-dashboard/funds/{fund_id}",
         component: "financialDashboardComponent",
         params: {
-            fund_id: { 
-                squash: true, 
-                value: null 
+            fund_id: {
+                squash: true,
+                value: null
             },
         },
         resolve: {
-            fund: function ($transition$, FundService) {
+            fund: function($transition$, FundService) {
                 return $transition$.params().fund_id != null ? repackResponse(
                     FundService.read(
                         $transition$.params().organization_id,
@@ -148,7 +233,7 @@ module.exports = function($stateProvider) {
                     )
                 );
             },
-            fundProviders: function ($transition$, FundService) {
+            fundProviders: function($transition$, FundService) {
                 if ($transition$.params().fund_id == null) {
                     return new Promise((res) => res(null));
                 }
@@ -172,20 +257,40 @@ module.exports = function($stateProvider) {
         url: "/organization/{organization_id}/offices",
         component: "officesComponent",
         resolve: {
-            organization: function($transition$, OrganizationService) {
-                return repackResponse(
-                    OrganizationService.read(
-                        $transition$.params().organization_id
-                    )
-                );
-            },
-            offices: function($transition$, OfficeService) {
-                return repackResponse(
-                    OfficeService.list(
-                        $transition$.params().organization_id
-                    )
-                );
-            }
+            organization: [
+                '$transition$',
+                'OrganizationService', (
+                    $transition$,
+                    OrganizationService
+                ) => {
+                    return repackResponse(
+                        OrganizationService.read(
+                            $transition$.params().organization_id
+                        )
+                    );
+                }
+            ],
+            offices: [
+                'organization',
+                '$transition$',
+                'OfficeService',
+                'PermissionsService', (
+                    organization,
+                    $transition$,
+                    OfficeService,
+                    PermissionsService
+                ) => {
+                    if (PermissionsService.hasPermission(organization, 'manage_offices')) {
+                        return repackResponse(
+                            OfficeService.list(
+                                $transition$.params().organization_id
+                            )
+                        );
+                    }
+
+                    return false;
+                }
+            ]
         }
     });
 
@@ -197,14 +302,14 @@ module.exports = function($stateProvider) {
 
     $stateProvider.state({
         name: "offices-edit",
-        url: "/organization/{organization_id}/offices/{office_id}/edit",
+        url: "/organization/{organization_id}/offices/{id}/edit",
         component: "officesEditComponent",
         resolve: {
             office: function($transition$, OfficeService) {
                 return repackResponse(
                     OfficeService.read(
                         $transition$.params().organization_id,
-                        $transition$.params().office_id
+                        $transition$.params().id
                     )
                 );
             }
@@ -235,6 +340,13 @@ module.exports = function($stateProvider) {
         url: "/organizations/{organization_id}/funds/create",
         component: "fundsEditComponent",
         resolve: {
+            organization: function($transition$, OrganizationService) {
+                return repackResponse(
+                    OrganizationService.read(
+                        $transition$.params().organization_id
+                    )
+                );
+            },
             fundStates: function(FundService) {
                 return FundService.states();
             },
@@ -246,14 +358,14 @@ module.exports = function($stateProvider) {
 
     $stateProvider.state({
         name: "funds-show",
-        url: "/organizations/{organization_id}/funds/{fund_id}",
+        url: "/organizations/{organization_id}/funds/{id}",
         component: "fundsShowComponent",
         resolve: {
             fund: function($transition$, FundService) {
                 return repackResponse(
                     FundService.read(
                         $transition$.params().organization_id,
-                        $transition$.params().fund_id
+                        $transition$.params().id
                     )
                 );
             },
@@ -263,17 +375,49 @@ module.exports = function($stateProvider) {
 
     $stateProvider.state({
         name: "funds-edit",
-        url: "/organizations/{organization_id}/funds/{fund_id}/edit",
+        url: "/organizations/{organization_id}/funds/{id}/edit",
         component: "fundsEditComponent",
         resolve: {
-            fund: function($transition$, FundService) {
+            organization: function($transition$, OrganizationService) {
                 return repackResponse(
-                    FundService.read(
-                        $transition$.params().organization_id,
-                        $transition$.params().fund_id
+                    OrganizationService.read(
+                        $transition$.params().organization_id
                     )
                 );
             },
+            fund: [
+                '$timeout',
+                '$state',
+                'organization',
+                '$transition$',
+                'FundService',
+                'PermissionsService',
+                function(
+                    $timeout,
+                    $state,
+                    organization,
+                    $transition$,
+                    FundService,
+                    PermissionsService
+                ) {
+                    if (!PermissionsService.hasPermission(organization, 'manage_funds')) {
+                        $timeout(() => {
+                            $state.go('no-permission', {
+                                message: 'fund-edit'
+                            });
+                        }, 100);
+
+                        return false;
+                    }
+
+                    return repackResponse(
+                        FundService.read(
+                            $transition$.params().organization_id,
+                            $transition$.params().id
+                        )
+                    );
+                }
+            ],
             fundStates: function(FundService) {
                 return FundService.states();
             },
@@ -354,6 +498,13 @@ module.exports = function($stateProvider) {
         resolve: {
             productCategories: function(ProductCategoryService) {
                 return repackResponse(ProductCategoryService.list());
+            },
+            products: function($transition$, ProductService) {
+                return repackResponse(
+                    ProductService.list(
+                        $transition$.params().organization_id
+                    )
+                );
             }
         }
     });
@@ -394,17 +545,6 @@ module.exports = function($stateProvider) {
     });
 
     $stateProvider.state({
-        name: "sign-up",
-        url: "/sign-up",
-        component: "signUpComponent",
-        resolve: {
-            productCategories: function(ProductCategoryService) {
-                return repackResponse(ProductCategoryService.list());
-            }
-        }
-    });
-
-    $stateProvider.state({
         name: "provider-funds",
         url: "/organizations/{organization_id}/provider/funds",
         component: "providerFundsComponent",
@@ -425,7 +565,7 @@ module.exports = function($stateProvider) {
             },
             funds: function($transition$, ProviderFundService) {
                 return repackResponse(
-                ProviderFundService.listFunds(
+                    ProviderFundService.listFunds(
                         $transition$.params().organization_id
                     )
                 );
@@ -553,7 +693,6 @@ module.exports = function($stateProvider) {
                 CredentialsService,
                 appConfigs
             ) {
-                console.log('restore');
                 IdentityService.authorizeAuthEmailToken(
                     'panel-' + appConfigs.panel_type,
                     $state.params.token
@@ -565,9 +704,23 @@ module.exports = function($stateProvider) {
                     alert("Token expired or unknown.");
                     $state.go('home');
                 });
-            }],
+            }
+        ],
         data: {
             token: null
         }
     });
-};
+
+    if (appConfigs.panel_type == 'provider' || appConfigs.panel_type == 'sponsor') {
+        $stateProvider.state({
+            name: "sign-up",
+            url: "/sign-up",
+            component: "signUpComponent",
+            resolve: {
+                productCategories: function(ProductCategoryService) {
+                    return repackResponse(ProductCategoryService.list());
+                }
+            }
+        });
+    }
+}];

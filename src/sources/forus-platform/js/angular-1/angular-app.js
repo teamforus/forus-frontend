@@ -1,4 +1,4 @@
-let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies']);
+let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper']);
 
 app.constant('appConfigs', env_data);
 
@@ -22,6 +22,7 @@ app.component('productsEditComponent', require('./components/ProductsEditCompone
 app.component('productsShowComponent', require('./components/ProductsShowComponent'));
 app.component('organizationProvidersComponent', require('./components/OrganizationProvidersComponent'));
 app.component('organizationValidatorsComponent', require('./components/OrganizationValidatorsComponent'));
+app.component('organizationEmployeesComponent', require('./components/OrganizationEmployeesComponent'));
 app.component('organizationValidatorsEditComponent', require('./components/OrganizationValidatorsEditComponent'));
 app.component('csvValidationComonent', require('./components/CsvValidationComonent'));
 app.component('validationRequestsComonent', require('./components/ValidationRequestsComonent'));
@@ -31,6 +32,14 @@ app.component('providerIdentitiesComponent', require('./components/ProviderIdent
 app.component('providerIdentityEditComponent', require('./components/ProviderIdentityEditComponent'));
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
 app.component('transactionComponent', require('./components/TransactionComponent'));
+
+app.component('noPermissionComponent', require('./components/NoPermissionComonent'));
+
+// Modal Components
+app.component('modalPhotoUploaderComponent', require('./components/Modals/ModalPhotoUploaderComponent'));
+app.component('modalFundTopUpComponent', require('./components/Modals/ModalFundTopUpComponent'));
+app.component('modalEmployeeEditComponent', require('./components/Modals/ModalEmployeeEditComponent'));
+app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -50,12 +59,17 @@ app.service('OfficeService', require('./services/OfficeService'));
 app.service('ProductService', require('./services/ProductService'));
 app.service('ProviderFundService', require('./services/ProviderFundService'));
 app.service('OrganizationValidatorService', require('./services/OrganizationValidatorService'));
+app.service('OrganizationEmployeesService', require('./services/OrganizationEmployeesService'));
 app.service('PrevalidationService', require('./services/PrevalidationService'));
 app.service('ProgressFakerService', require('./services/ProgressFakerService'));
 app.service('ValidatorRequestService', require('./services/ValidatorRequestService'));
 app.service('MediaService', require('./services/MediaService'));
 app.service('ProviderIdentityService', require('./services/ProviderIdentityService'));
 app.service('ConfigService', require('./services/ConfigService'));
+app.service('ImageConvertorService', require('./services/ImageConvertorService'));
+app.service('ModalService', require('./services/ModalService'));
+app.service('PermissionsService', require('./services/PermissionsService'));
+app.service('RoleService', require('./services/RoleService'));
 
 // Directives
 switch (env_data.panel_type) {
@@ -74,11 +88,10 @@ app.directive('fundCardSponsor', require('./directives/FundCardSponsorDirective'
 app.directive('fundCardProvider', require('./directives/FundCardProviderDirective'));
 app.directive('fundCardProviderFinances', require('./directives/FundCardProviderFinancesDirective'));
 app.directive('fundCardAvailableProvider', require('./directives/FundCardAvailableProviderDirective'));
+app.directive('fundCardProviderCanJoin', require('./directives/FundCardProviderCanJoinDirective'));
 app.directive('productCard', require('./directives/ProductCardDirective'));
 app.directive('multiSelect', require('./directives/MultiSelectDirective'));
 app.directive('scheduleControl', require('./directives/ScheduleControlDirective.js'));
-app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
-app.directive('modalFundsAdd', require('./directives/ModalFundsAddDirective'));
 app.directive('csvUpload', require('./directives/CsvUploadDirective'));
 app.directive('progressBar', require('./directives/ProgressBarDirective'));
 app.directive('prevalidatedTable', require('./directives/PrevalidatedTableDirective'));
@@ -90,16 +103,30 @@ app.directive('collapse', require('./directives/CollpaseDirective'));
 app.directive('landingNavbar', require('./directives/landing/NavbarDirective'));
 app.directive('landingContactForm', require('./directives/landing/ContactFormDirective'));
 app.directive('forusChat', require('./directives/ForusChatDirective'));
+app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
+app.directive('productCategoriesControl', require('./directives/ProductCategoriesControlDirective'));
+app.directive('officeEditInline', require('./directives/OfficeEditInlineDirective'));
+app.directive('tooltip', require('./directives/TooltipDirective'));
+app.directive('modalsRoot', require('./directives/ModalsRootDirective'));
+app.directive('modalItem', require('./directives/ModalItemDirective'));
+app.directive('informationBlock', require('./directives/InformationBlockDirective'));
+app.directive('menuScrollToggle', require('./directives/landing/MenuScrollToggleDirective'));
+
+app.directive('blockEmpty', require('./directives/blocks/BlockEmptyDirective'));
+app.directive('blockNoPermission', require('./directives/blocks/BlockNoPermissionDirective'));
 
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
+app.provider('ModalRoute', require('./providers/ModalRouteProvider'));
 
 // Filters
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('file_size', require('./filters/FileSizeFilter'));
+app.filter('hasPerm', require('./filters/HasPerm'));
 
 // Config
+app.config(require('./routers/modals'));
 app.config(require('./routers/router'));
 app.config(require('./config/api-service'));
 app.config(require('./config/i18n'));

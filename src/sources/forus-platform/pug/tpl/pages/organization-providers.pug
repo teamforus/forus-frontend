@@ -26,9 +26,7 @@
                 br
                 .card-block.card-block-listing
                     .card-block-listing-label {{ "organization_providers.labels.join" | translate }}
-                    span(
-                        ui-sref="funds-show({fund_id: providerFund.fund_id, organization_id: providerFund.fund.organization_id})"
-                        ng-bind="providerFund.fund.name").text-primary-light
+                    span(ui-sref="funds-show(providerFund.fund)" ng-bind="providerFund.fund.name").text-primary-light
 
             mixin keyvalue_item_horizontal(key, value)
                 .keyvalue-item
@@ -38,8 +36,6 @@
             .card-section.card-section-primary
                 .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
                     +keyvalue_item_horizontal("KVK", "providerFund.organization.kvk")
-                    +keyvalue_item_horizontal("BTW", "providerFund.organization.btw")
-                    +keyvalue_item_horizontal("IBAN", "providerFund.organization.iban")
                     .pull-right
                         button(
                             ng-show="(providerFund.state == 'pending') || (providerFund.state == 'approved')"
@@ -54,6 +50,6 @@
                             em.mdi.mdi-check 
                             | {{ "organization_providers.buttons.accept" | translate }}
         
-        empty-block( 
+        block-empty( 
             ng-if="$ctrl.fundProviders.length == 0"
             text="'You have no provider requests yet.'")

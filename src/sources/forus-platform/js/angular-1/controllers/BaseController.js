@@ -2,9 +2,7 @@ let BaseController = function(
     $rootScope,
     $scope,
     $state,
-    IdentityService,
     AuthService,
-    CredentialsService,
     RecordService,
     OrganizationService,
     ConfigService,
@@ -51,15 +49,36 @@ let BaseController = function(
         });
     };
 
-    $rootScope.$on('organization-changed', (event) => {
-        $rootScope.activeOrganization = OrganizationService.active();
+    let loadActiveOrganization = () => {
+        let organizationId = OrganizationService.active();
+
+        if (organizationId === false) {
+            OrganizationService.clearActive();
+        } else {
+            OrganizationService.read(organizationId).then((res) => {
+                $rootScope.activeOrganization = res.data.data;
+            }, () => {
+                OrganizationService.clearActive();
+            });
+        }
+    };
+
+    $rootScope.$on('organization-changed', (e, id) => {
+        if (!isNaN(parseInt(id))) {
+            loadActiveOrganization();
+        } else {
+            $rootScope.activeOrganization = {};
+            $state.go('organziations');
+        }
     });
 
-    $rootScope.$on('auth:update', (event) => {
+    $rootScope.$on('auth:update', () => {
         $rootScope.loadAuthUser();
     });
 
-    $rootScope.activeOrganization = OrganizationService.active();  
+    loadActiveOrganization();
+
+    $rootScope.activeOrganization = OrganizationService.active();
 
     $rootScope.signOut = () => {
         AuthService.signOut();
@@ -79,10 +98,12 @@ let BaseController = function(
     }, function(newVal, oldVal) {
         if ($state.current.name == 'home' && appConfigs.panel_type != 'validator') {
             $rootScope.viewLayout = 'landing';
+        } else if ($state.current.name == 'sign-up') {
+            $rootScope.viewLayout = 'signup';
         } else {
             $rootScope.viewLayout = 'panel';
         }
-    }) 
+    })
 
     ConfigService.get('dashboard').then((res) => {
         $rootScope.appConfigs.features = res.data;
@@ -93,9 +114,7 @@ module.exports = [
     '$rootScope',
     '$scope',
     '$state',
-    'IdentityService',
     'AuthService',
-    'CredentialsService',
     'RecordService',
     'OrganizationService',
     'ConfigService',

@@ -33,11 +33,6 @@ let MultiSelectDirective = function($scope) {
     });
 
     $scope.removeItem = function(id) {
-        console.log(
-            $scope.ngModel,
-            $scope.ngModel.indexOf(id),
-            id
-        );
         $scope.ngModel.splice($scope.ngModel.indexOf(id), 1);
         buildOptions();
     };

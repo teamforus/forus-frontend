@@ -1,8 +1,4 @@
-let ProviderFundsComponent = function(
-    $state,
-    $filter,
-    $stateParams
-) {
+let ProviderFundsComponent = function() {
     let $ctrl = this;
 
     $ctrl.$onInit = function() {
@@ -24,9 +20,6 @@ module.exports = {
         organization: '<',
     },
     controller: [
-        '$state',
-        '$filter',
-        '$stateParams',
         ProviderFundsComponent
     ],
     templateUrl: 'assets/tpl/pages/provider-funds.html'

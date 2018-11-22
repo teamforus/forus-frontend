@@ -1,15 +1,36 @@
 let ProductsEditComponent = function(
     $state, 
-    $stateParams, 
-    ProductService, 
+    $stateParams,
+    $filter,
+    $rootScope,
+    ProductService,
     FormBuilderService,
-    MediaService
+    MediaService,
+    ModalService
 ) {
     let $ctrl = this;
+    let mediaFile = false;
+    let alreadyConfirmed = false;
 
     $ctrl.media;
 
     $ctrl.$onInit = function() {
+
+        let maxProductCount = $rootScope.appConfigs.max_product_count ? $rootScope.appConfigs.max_product_count : null;
+
+        if(maxProductCount && !$ctrl.product && $ctrl.products.length >= maxProductCount){
+            ModalService.open('modalNotification', {
+                type: 'danger',
+                title: $filter('translate')('product_edit.errors.already_added'),
+                icon: 'product_error_create_more',
+                cancel: () => {
+                    return $state.go('products', {
+                        organization_id: $stateParams.organization_id
+                    });
+                }
+            });
+        }
+
         let values = $ctrl.product ? ProductService.apiResourceToForm(
             $ctrl.product
         ) : {
@@ -21,10 +42,38 @@ let ProductsEditComponent = function(
             name: 'Selecteer categorie'
         });
 
-        $ctrl.form = FormBuilderService.build(values, (form) => {
+        $ctrl.saveProduct = function () {
+
+            if(!$ctrl.product && !alreadyConfirmed) {
+                ModalService.open('modalNotification', {
+                    type: 'confirm',
+                    title: $filter('translate')('product_edit.confirm_create.title'),
+                    description: $filter('translate')('product_edit.confirm_create.description'),
+                    icon: 'product_create',
+                    confirm: () => {
+                        alreadyConfirmed = true;
+                        $ctrl.form.submit();
+                    }
+                });
+            }else{
+                $ctrl.form.submit();
+            }
+
+        };
+
+        $ctrl.form = FormBuilderService.build(values, async (form) => {
+            form.lock();
+
             let promise;
 
-            form.lock();
+            if (mediaFile) {
+                let res = await MediaService.store('product_photo', mediaFile);
+
+                $ctrl.media = res.data.data;
+                $ctrl.form.values.media_uid = $ctrl.media.uid;
+
+                mediaFile = false;
+            }
 
             if ($ctrl.product) {
                 promise = ProductService.update(
@@ -56,11 +105,12 @@ let ProductsEditComponent = function(
         }
     };
 
-    $ctrl.selectPhoto = (e) => {
-        MediaService.store('product_photo', e.target.files[0]).then(function(res) {
-            $ctrl.media = res.data.data;
-            $ctrl.form.values.media_uid = $ctrl.media.uid;
-        });
+    $ctrl.selectPhoto = (file) => {
+        mediaFile = file;
+    };
+
+    $ctrl.cancel = function () {
+        $state.go('products', {'organization_id' : $stateParams.organization_id});
     };
 };
 
@@ -68,13 +118,17 @@ module.exports = {
     bindings: {
         product: '<',
         productCategories: '<',
+        products: '<'
     },
     controller: [
         '$state', 
-        '$stateParams', 
-        'ProductService', 
+        '$stateParams',
+        '$filter',
+        '$rootScope',
+        'ProductService',
         'FormBuilderService', 
-        'MediaService', 
+        'MediaService',
+        'ModalService',
         ProductsEditComponent
     ],
     templateUrl: 'assets/tpl/pages/products-edit.html'

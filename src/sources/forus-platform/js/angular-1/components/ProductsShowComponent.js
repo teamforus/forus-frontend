@@ -1,9 +1,4 @@
-let ProductsShowComponent = function(
-    $state, 
-    $stateParams, 
-    ProductService, 
-    FormBuilderService
-) {
+let ProductsShowComponent = function() {
     let $ctrl = this;
 
     $ctrl.$onInit = function() {
@@ -16,10 +11,6 @@ module.exports = {
         product: '<'
     },
     controller: [
-        '$state', 
-        '$stateParams', 
-        'ProductService', 
-        'FormBuilderService', 
         ProductsShowComponent
     ],
     templateUrl: 'assets/tpl/pages/products-show.html'

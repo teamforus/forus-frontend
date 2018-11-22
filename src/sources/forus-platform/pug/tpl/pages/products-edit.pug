@@ -1,7 +1,8 @@
 .app.app-container
     menu
     section.app.app-content
-        .card: form(ng-submit="$ctrl.form.submit()").form
+        information-block(text="'products.cannot_delete'" type="'danger'")
+        .card: form.form
             .card-header: .card-title {{ "product_edit.header.title" | translate }}
             .card-section.card-section-primary
                 .row 
@@ -10,11 +11,12 @@
                             label.form-label &nbsp;
                             .form-offset
                                 photo-selector(
+                                    type="product_photo"
                                     thumbnail="$ctrl.media.sizes.thumbnail"
-                                    select-photo="$ctrl.selectPhoto(e)")
+                                    select-photo="$ctrl.selectPhoto(file)")
             .card-section.card-section-primary
                 .row 
-                    .col.col-sm-8.col-xs-12
+                    .col.col-lg-9.col-md-12
                         .form-group.form-group-inline
                             label.form-label {{ "product_edit.labels.name" | translate }}
                             input(ng-model="$ctrl.form.values.name" type="text" placeholder="Naam").form-control
@@ -25,7 +27,7 @@
                             .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
             .card-section.card-section-primary
                 .row 
-                    .col.col-sm-8.col-xs-12
+                    .col.col-lg-9.col-md-12
                         .form-group.form-group-inline
                             label.form-label {{ "product_edit.labels.new" | translate }}
                             input(ng-model="$ctrl.form.values.price" type="number" placeholder="Prijs" step="0.01").form-control
@@ -40,15 +42,16 @@
                             .form-error(ng-repeat="error in $ctrl.form.errors.total_amount" ng-bind="error")
             .card-section.card-section-primary
                 .row 
-                    .col.col-sm-8.col-xs-12
+                    .col.col-lg-9.col-md-12
                         .form-group.form-group-inline
                             label.form-label {{ "product_edit.labels.expire" | translate }}
-                            datepicker(date-format="yyyy-MM-dd").form-control
+                            datepicker(date-format="yyyy-MM-dd" datepicker-mobile="").form-control
+
                                 input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="dd.mm.jjjj").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.expire_at" ng-bind="error")
             .card-section.card-section-primary
                 .row 
-                    .col.col-sm-8.col-xs-12
+                    .col.col-lg-9.col-md-12
                         .form-group.form-group-inline
                             label.form-label {{ "product_edit.labels.category" | translate }}
                             select(
@@ -59,5 +62,5 @@
 
             .card-section.card-section-primary
                 .text-center
-                    button.button.button-default {{ "product_edit.buttons.cancel" | translate }}
-                    button(type="submit").button.button-primary {{ "product_edit.buttons.confirm" | translate }}
+                    button(type="button" ng-click="$ctrl.cancel()").button.button-default {{ "product_edit.buttons.cancel" | translate }}
+                    button(type="button" ng-click="$ctrl.saveProduct()").button.button-primary {{ "product_edit.buttons.confirm" | translate }}

@@ -10,11 +10,12 @@
                             label.form-label &nbsp;
                             .form-offset
                                 photo-selector(
+                                    type="organization_logo"
                                     thumbnail="$ctrl.media.sizes.thumbnail"
-                                    select-photo="$ctrl.selectPhoto(e)")
+                                    select-photo="$ctrl.selectPhoto(file)")
             .card-section.card-section-primary
                 .row 
-                    .col.col-sm-8.col-xs-12
+                    .col.col-lg-9.col-md-12
                         .form-group.form-group-inline
                             label.form-label {{ "organization_edit.labels.name" | translate }}
                             input(ng-model="$ctrl.form.values.name" type="text" placeholder="Bedrijfsnaam").form-control
@@ -33,13 +34,13 @@
                             .form-error(ng-repeat="error in $ctrl.form.errors.phone" ng-bind="error")
             .card-section.card-section-primary
                 .row 
-                    .col.col-sm-8.col-xs-12
-                        multi-select(
+                    .col.col-lg-9.col-md-12
+                        product-categories-control(
                             ng-model="$ctrl.form.values.product_categories" 
                             options="$ctrl.productCategories")
             .card-section.card-section-primary
                 .row 
-                    .col.col-sm-8.col-xs-12
+                    .col.col-lg-9.col-md-12
                         .form-group.form-group-inline
                             label.form-label {{ "organization_edit.labels.kvk" | translate }}
                             input(ng-model="$ctrl.form.values.kvk" type="text" placeholder="KvK-nummer").form-control
@@ -50,5 +51,5 @@
                             .form-error(ng-repeat="error in $ctrl.form.errors.btw" ng-bind="error")
             .card-section.card-section-primary
                 .text-center
-                    button.button.button-default {{ "organization_edit.buttons.cancel" | translate }}
+                    button(type="button" ng-click="$ctrl.cancel()").button.button-default {{ "organization_edit.buttons.cancel" | translate }}
                     button(type="submit").button.button-primary {{ "organization_edit.buttons.create" | translate }}

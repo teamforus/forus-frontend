@@ -1,4 +1,5 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?env_data.html5Mode.basePath:'');
+- var client_key = (qdt_c.platform.env_data.client_key);
 
 head
     meta(charset="UTF-8")
@@ -24,6 +25,24 @@ head
 
 
     link(rel="stylesheet" href=src_prefix + "assets/dist/angular-datepicker/angular-datepicker.min.css")
+    link(rel="stylesheet" href=src_prefix + "assets/dist/ui-cropper/ui-cropper.css")
 
     //- custom style
-    link(rel="stylesheet" href=src_prefix + "assets/css/style.min.css")
+    if(client_key == 'nijmegen')
+        link(rel="stylesheet" href=src_prefix + "assets/css/style-nijmegen.min.css")
+    else
+        link(rel="stylesheet" href=src_prefix + "assets/css/style.min.css")
+
+    <!--[if lte IE 9]>
+        style.
+            html[ng-cloak] {
+                display: block!important;
+            }
+            ui-view, .ie-hide{
+                display: none!important;
+            }
+
+            .oldie{
+                display: block!important;
+            }
+    <![endif]-->

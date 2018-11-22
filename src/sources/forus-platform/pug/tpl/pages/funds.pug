@@ -6,6 +6,6 @@
             ng-if="$ctrl.funds.length > 0" 
             ng-repeat="fund in $ctrl.funds" 
             fund-card-sponsor fund="fund" level="$ctrl.fundLevel" organization="$ctrl.organization")
-        empty-block(
+        block-empty(
             ng-if="$ctrl.funds.length == 0" 
             text="'Sorry, no funds available.'" )

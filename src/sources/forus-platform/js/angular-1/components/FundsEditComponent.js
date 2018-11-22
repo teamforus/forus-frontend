@@ -6,6 +6,7 @@ let FundsEditComponent = function(
     MediaService
 ) {
     let $ctrl = this;
+    let mediaFile = false;
     
     $ctrl.media;
 
@@ -17,15 +18,22 @@ let FundsEditComponent = function(
             "state": $ctrl.fundStates[0].value
         };
 
-        $ctrl.form = FormBuilderService.build(values, (form) => {
+        $ctrl.form = FormBuilderService.build(values, async (form) => {
+            form.lock();
+
             let promise;
 
-            form.lock();
+            if (mediaFile) {
+                let res = await MediaService.store('fund_logo', mediaFile);
+
+                $ctrl.media = res.data.data;
+                $ctrl.form.values.media_uid = $ctrl.media.uid;
+            }
 
             if ($ctrl.fund) {
                 promise = FundService.update(
                     $stateParams.organization_id,
-                    $stateParams.fund_id,
+                    $stateParams.id,
                     form.values
                 )
             } else {
@@ -51,18 +59,20 @@ let FundsEditComponent = function(
             });
         }
     };
-    
-    $ctrl.selectPhoto = (e) => {
-        MediaService.store('fund_logo', e.target.files[0]).then(function(res) {
-            $ctrl.media = res.data.data;
-            $ctrl.form.values.media_uid = $ctrl.media.uid;
-        });
+
+    $ctrl.selectPhoto = (file) => {
+        mediaFile = file;
+    };
+
+    $ctrl.cancel = function () {
+        $state.go('organization-funds', {'organization_id' : $stateParams.organization_id});
     };
 };
 
 module.exports = {
     bindings: {
         fund: '<',
+        organization: '<',
         fundStates: '<',
         productCategories: '<'
     },

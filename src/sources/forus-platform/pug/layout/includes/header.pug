@@ -1,6 +1,6 @@
 header.app.app-header
     .wrapper
-        a(ui-sref="home").header-logo: img(src="./assets/img/forus-logo.svg").header-logo-img
+        //a(ui-sref="home").header-logo: img(src="./assets/img/forus-logo.svg").header-logo-img
 
         .header-auth(ng-if="$root.auth_user")
             .auth-user
@@ -12,10 +12,10 @@ header.app.app-header
                     //- a(href="#").auth-user-menu-item
                         em.mdi.mdi-account
                         | My profile
-                    a(ui-sref="organizations-edit({organization_id: $root.activeOrganization})" ng-if="$root.activeOrganization").auth-user-menu-item
+                    a(ui-sref="organizations-edit($root.activeOrganization)" ng-if="$root.activeOrganization | hasPerm:'manage_organization'").auth-user-menu-item
                         em.mdi.mdi-settings
                         | Organisatie
-                    .auth-user-menu-sep(ng-if="$root.activeOrganization")
+                    .auth-user-menu-sep(ng-if="$root.activeOrganization.id")
                     a(ng-click="$root.signOut()").auth-user-menu-item
                         em.mdi.mdi-logout
                         | Uitloggen

@@ -37,7 +37,7 @@ let ProductService = function(ApiRequest) {
                 'name': apiResource.name,
                 'description': apiResource.description,
                 'price': parseFloat(apiResource.price),
-                'old_price': parseFloat(apiResource.price),
+                'old_price': parseFloat(apiResource.old_price),
                 'total_amount': apiResource.total_amount,
                 'expire_at': apiResource.expire_at,
                 'product_category_id': apiResource.product_category_id,

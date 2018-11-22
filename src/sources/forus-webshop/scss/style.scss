@@ -731,6 +731,7 @@ body {
 
     &.section-steps {
         position: relative;
+        margin-top: 25px;
 
         .section-splash {
             position: absolute;
@@ -870,7 +871,7 @@ body {
             background: url('../img/splash-faq.png') no-repeat;
             background-position: 100% 50%;
             background-size: auto 100%;
-            top: 50%;
+            top: 300px;
             transform: translate(0, -50%);
             z-index: -1;
         }

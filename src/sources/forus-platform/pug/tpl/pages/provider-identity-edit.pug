@@ -3,9 +3,10 @@
     section.app.app-content
         .card: form(ng-submit="$ctrl.form.submit()").form
             .card-header: .card-title {{ $ctrl.validator ? 'Medewerker aanpassen' : 'Medewerker toevoegen' }}
+                tooltip(text="'Waneer u een medewerker toevoegt kan deze alleen de QR-codes scannen voor betalingen. De medewerker kan niet inloggen op het dashboard'")
             .card-section.card-section-primary
                 .row 
-                    .col.col-sm-8.col-xs-12
+                    .col.col-lg-9.col-md-12
                         // .form-group.form-group-inline
                             label.form-label Identity address
                             input(ng-model="$ctrl.form.values.identity_address" type="text" placeholder="Identity address").form-control
@@ -18,5 +19,5 @@
 
             .card-section.card-section-primary
                 .text-center
-                    button.button.button-default {{ "provider_identity_edit.buttons.cancel" | translate }}
+                    button(type="button" ng-click="$ctrl.cancel()").button.button-default {{ "provider_identity_edit.buttons.cancel" | translate }}
                     button(type="submit").button.button-primary {{ "provider_identity_edit.buttons.confirm" | translate }}

@@ -1,4 +1,10 @@
 module.exports = {
+    permissions: {
+        'fund-edit': {
+            title: 'Geen rechten',
+            description: 'U heeft geen rechten om deze actie uit te voeren.'
+        }
+    },
     page_title: 'Forus platform',
     page_state_titles: {
         home: 'Forus platform home',
@@ -33,7 +39,7 @@ module.exports = {
         "validation-request": 'Validatie verzoek',
         "restore-email": 'Inloggen via e-mail',
     },
-// PAGES
+    // PAGES
     // MEAPP LANDINGSPAGE = index.pug
     meapp_index: {
         navbar: {
@@ -57,7 +63,7 @@ module.exports = {
             header: {
                 title: "Functies",
             },
-            profile: "Maan een profiel aan",
+            profile: "Maak een profiel aan",
             pin: "Je hebt de mogelijkheid om een profiel aan te maken en deze daarna te beveiligen met een pincode.",
             vouchers: "Vouchers",
             criterion: "Als je aan gestelde criteria voldoet van een gemeente. Kan je een voucher aanvragen. Deze voucher kan je beheren in Me. Met Me kan je veilig betalingen verrichten.",
@@ -66,12 +72,14 @@ module.exports = {
             profileb: "Profiel",
             app: "De app bewaart een profiel van de gebruiker, dit profiel maakt het mogelijk dat de gegevens hergebruikt kunnen worden voor het mee doen aan andere regelingen.",
         }
-    }, 
+    },
     // PROVIDER HOME = home-provider.pug
     home_provider: {
         header: {
             title: "Meld je aan als winkelier of dienstverlener",
+            title_nijmegen: "Meld je aan als dienstverlener",
             subtitle: "Bereik meer klanten, maak winst en draag bij aan een maatschappelijk doel.",
+            subtitle_nijmegen: "De gemeente geeft inwoners met een laag inkomen maximaal € 150,- voor culturele, sportieve en educatieve activiteiten. Dit heet de Meedoen-regeling.",
         },
         labels: {
             partners: "Stichting Forus zoekt partners",
@@ -81,8 +89,11 @@ module.exports = {
         },
         guide: {
             title: "Word onderdeel van een innovatieve beweging",
+            title_nijmegen: "Als uw organisatie een passend aanbod heeft, kunt u zich opgeven.",
             description: "Doe mee aan ons platform door onderstaande stappen te volgen, maak een organisatie aan, verkoop jouw producten of diensten en trek nieuwe klanten aan.",
+            description_nijmegen: "Uw organisatie is in het bezit van een smartphone, deze heeft u nodig om een mobiele applicatie te installeren die QR-codes kan scannen. Heeft u deze smartphone bij de hand? Regel het dan direct!",
             button: "Start je reis!",
+            button_nijmegen: "DIRECT REGELEN",
         }
     },
     // SPONSOR HOME = home-sponsor.pug
@@ -104,12 +115,12 @@ module.exports = {
         }
     },
     // VALIDATOR HOME = home-validator.pug
-        // DON'T TRANSLATE , THE VALIDATOR WILL NOT HAVE A LANDINGSPAGE
+    // DON'T TRANSLATE , THE VALIDATOR WILL NOT HAVE A LANDINGSPAGE
 
     // CSV-VALIDATION = csv-validation.pug
     csv_validation: {
         header: {
-            title: "CSV uploader", 
+            title: "Aanvragers toevoegen",
         },
         buttons: {
             choose: "Kies een ander fonds",
@@ -208,9 +219,10 @@ module.exports = {
             hours: "Openingstijden",
         },
         buttons: {
+            add_office: "Voeg een nieuwe vestiging toe",
             cancel: "Annuleren",
             confirm: "Bevestigen",
-        }   
+        }
     },
 
     // OFFICES = offices.pug
@@ -239,7 +251,7 @@ module.exports = {
         status: {
             accepted: "Geaccepteerd",
             rejected: "Geweigerd",
-            hold: "Gepauzeerd",
+            hold: "Wacht op goedkeuring",
         },
         labels: {
             mail: "E-mail",
@@ -275,14 +287,14 @@ module.exports = {
         labels: {
             name: "Bedrijfsnaam",
             bank: "IBAN-nummer",
-            mail: "E-mailadres",
+            mail: "E-mailadres van organisatie",
             phone: "Telefoonnummer",
             kvk: "KvK-nummer",
-            tax: "BTW-nummer",
+            tax: "BTW-nummer (Optioneel)",
         },
         buttons: {
             cancel: "Annuleren",
-            create: "Aanmaken",
+            create: "Bevestig",
         }
     },
 
@@ -316,11 +328,19 @@ module.exports = {
         buttons: {
             cancel: "Annuleren",
             confirm: "Bevestig",
+            close: "Sluit"
+        },
+        errors: {
+            already_added: 'You already added 2 active products, and can not add more'
+        },
+        confirm_create: {
+            title: 'Een aanbieding toevoegen.',
+            description: 'Let op! Je staat op het punt een aanbieding op de webshop toe te voegen. Daarna kan je de aanbieding niet meer verwijderen. De aanbieding wordt verwijderd vanaf het moment dat het is uitverkocht of de vervaldatum is bereikt.'
         }
     },
 
     // SHOW PRODUCTS = product-show.pug 
-        //TRANSLATION NOT FINISHED -> PAGE NOT DONE
+    //TRANSLATION NOT FINISHED -> PAGE NOT DONE
     products_show: {
         header: {
             title: "Transacties",
@@ -352,11 +372,16 @@ module.exports = {
     products: {
         offers: "Aanbiedingen",
         add: "Voeg een aanbieding toe",
+        cannot_delete: 'Let op! Wanneer een aanbieding geplaatst is kunt u deze niet meer verwijderen. Bedenk dus goed hoeveel aanbiedingen en daarmee aanbiedingvouchers u wilt uitgeven. Wanneer een aanbieding is aangemaakt bent u verplicht deze te leveren.'
     },
 
     // FUNDS AVAILABLE FOR PROVIDERS = provider-funds-available.pug
     provider_funds_available: {
         title: "Fondsen",
+        applied_for_fund: {
+            title: "Je aanvraag is ontvangen.",
+            description: "De gemeente zal je verzoek behandelen, dit kan maximaal twee werkdagen duren. Zodra de gemeente je aanvraag heeft behandeld wordt er een e-mail toegestuurd. Daarnaast kan je de status ook volgen op het dashboard."
+        }
     },
 
     // PROVIDER FUNDS = provider-funds.pug
@@ -394,17 +419,91 @@ module.exports = {
     // SIGN UP FORM FOR PROVIDERS = sign-up.pug
     sign_up: {
         header: {
-            title: "Profiel aanmaken",
+            title_step_1: "Installeer Me",
+            subtitle_step_1: "Om betalingen te ontvangen heeft u een app nodig. Een transactie doet u door een QR-code te scannen en een bedrag in te vullen.",
+            title_step_2: "Profiel aanmaken",
+            subtitle_step_2: "Een persoonlijk profiel is nodig om betalingen te ontvangen. Later is het mogelijk om meerdere medewerkers toe te voegen.",
+            title_step_3: "Organisatie aanmaken",
+            subtitle_step_3: "Om deel te nemen aan het platform is het nodig om een organisatie aan te maken.",
+            title_step_4: "Voeg nieuwe vestigingen toe",
+            subtitle_step_4: "Een organisatie kan uit meerdere vestigingen bestaan. Voeg in dit venster vestigingen toe.",
+            title_step_5: "Stel de app <i>Me</i> in op uw telefoon",
+            subtitle_step_5: "U heeft zojuist een profiel aangemaakt, daarom kunt u klikken op: ‘Ik heb een profiel’. Het instellen van uw profiel op de mobiele applicatie gebeurt door het invullen van een autorisatie code.",
+            top_title_step_5: "Gebruik Me",
+            top_subtitle_step_5: "Rond de installatie af door gebruik te maken van <i>Me</i>",
+            title_step_6: "Het is gelukt! Het profiel van de organisatie is gekoppeld aan <i>Me</i>.",
+            subtitle_step_6: "",
+            top_title_step_6: "Gebruik Me",
+            top_subtitle_step_6: "Rond de installatie af door gebruik te maken van <i>Me</i>",
+            title_step_7: "Gebruik Me",
+            subtitle_step_7: "Rond de installatie af door gebruik te maken van <i>Me</i>",
         },
         labels: {
-            mail: "E-mailadres",
+            mail: "Persoonlijk E-mailadres",
+            mail_confirmation: 'Herhaal persoonlijk E-mailadres',
             name: "Voornaam",
             lastname: "Achternaam",
+            bank_confirmation: "Herhaal IBAN-nummer",
+            bank: "IBAN-nummber",
         },
         buttons: {
-            cancel: "Annuleren",
+            go_step_2: "Ga verder naar stap 2",
+            cancel: "Vorige",
             next: "Volgende",
+            reload_qr: 'Herlaad de code.',
+            login: 'Login',
+            skip: "Overslaan"
+        },
+        step: {
+            step_1: 'Stap 1',
+            step_2: 'Stap 2',
+            step_3: 'Stap 3',
+            step_4: 'Stap 4',
+            step_5: 'Stap 5',
+            step_6: 'Stap 6',
+            step_7: 'Stap 7'
+        },
+        download: {
+            ios: 'Download Me voor iOS',
+            android: 'Download Me voor Android',
+            already_have_app: 'DE APP IS NU AAN HET DOWNLOADEN. / DE APP IS GEINSTALLEERD.',
+            url_text: "Download de app <i>Me</i> op uw mobiele telefoon via de link:",
+            url_address: "www.forus.io/DL"
+        },
+        qr_code: {
+            description: 'Scan deze QR-Code om te testen.'
+        },
+        app_instruction: {
+            step_1: 'Open <i>Me</i>',
+            step_2: 'Ik heb al een profiel',
+            step_3: 'Inloggen met Autorisatie code',
+        },
+        app_header: {
+            title: 'Vul de code in op het invoerveld',
+            subtitle: 'De code is te vinden in de mobiele applicatie, volg de bovenstaande stappen op om de code te kunnen aflezen.'
+        },
+        login: {
+            title: 'Heeft u al een profiel?',
+            description: 'Waneer u al een profiel heeft aangemaakt, biedt de onderstaande knop de mogelijkheid om direct in te loggen op dit profiel.',
+            qr_description: 'Scan deze QR-code met de app <i>Me</i> als u al een profiel heeft aangemaakt.'
+        },
+        open_pc: {
+            title: 'Deze pagina is niet mobiel te benaderen.',
+            description: 'Aanmelden voor een fonds is alleen mogelijk via onze website op een vaste computer.'
         }
+    },
+
+    // Organization-employees.pug
+    organization_employees: {
+        labels: {
+            email: "E-mailadres",
+            actions: "Actie",
+        },
+        buttons: {
+            adjust: "Aanpassen",
+            delete: "Verwijderen",
+            add: "Toevoegen",
+        },
     },
 
     // TRANSACTIONS = transaction.pug
@@ -451,6 +550,11 @@ module.exports = {
         }
     },
 
+    validation: {
+        email_confirmation: 'Email verkeerde bevestiging',
+        iban_confirmation: 'IBAN verkeerde bevestiging'
+    },
+
     // OVERVIEW VALIDATIONS REQUESTS = validation-requests.pug
     validation_requests: {
         labels: {
@@ -485,7 +589,7 @@ module.exports = {
         }
     },
 
-// DIRECTIVES
+    // DIRECTIVES
 
     // CSV UPLOADER
     csv_upload: {
@@ -500,7 +604,7 @@ module.exports = {
     },
 
     // EMPTY BLOCK = empty-block.pug
-        // No translations needed
+    // No translations needed
 
     // FUNDS FOR PROVIDERS = fund-card-available.pug
     fund_card_available_provider: {
@@ -528,7 +632,7 @@ module.exports = {
             quarter: "Kwartaal",
             month: "Maand",
             week: "Week",
-            all: "Alles", 
+            all: "Alles",
             usage: "omzet",
             average: "Totaal uitgegeven bedrag",
             transaction: "transacties",
@@ -553,7 +657,7 @@ module.exports = {
             reject: "Geweigerd",
             stopped: "Gestopt",
         },
-        labels : {
+        labels: {
             categories: "Categorieën",
             nocategories: "Geen Categorieën",
         }
@@ -594,11 +698,11 @@ module.exports = {
     },
 
     // PROVIDER MENU = menu-provider.pug
-        // No translations needed
+    // No translations needed
     // PROVIDER MENU = menu-sponsor.pug
-        // No translations needed
+    // No translations needed
     // VALIDATOR MENU = menu-validator.pug
-        // No translations needed
+    // No translations needed
     // ADDING FUNDS MODAL - modal-funds-add.pug
     modal_funds_add: {
         header: {
@@ -626,7 +730,7 @@ module.exports = {
             image: "Afbeelding",
         },
         buttons: {
-            change: "Verander afbeelding",
+            change: "Upload",
         }
     },
 
@@ -660,25 +764,25 @@ module.exports = {
     },
 
     // PROGRESS BAR = progress-bar.pug
-        // No translations needed
+    // No translations needed
     // SCHEDULE CONTROL = schedule-controle.puh
-        // No translations needed
+    // No translations needed
 
     // MENU = langing/navbar.pug
     topnavbar: {
         items: {
-            funds:"FONDSEN",
-            products:"AANBIEDINGEN",
-            identity:"Profiel",
+            funds: "FONDSEN",
+            products: "AANBIEDINGEN",
+            identity: "Profiel",
         },
         buttons: {
-            activate:"Activatiecode",
-            login:"Login",
-            voucher:"Mijn vouchers",
+            activate: "Activatiecode",
+            login: "Login",
+            voucher: "Mijn vouchers",
             records: "Mijn eigenschappen",
-            authorize:"Autoriseer apparaat",
-            logout:"Uitloggen",
-            products:"Aanbiedingen",
+            authorize: "Autoriseer apparaat",
+            logout: "Uitloggen",
+            products: "Aanbiedingen",
             funds: "Fondsen",
         },
     },
@@ -718,5 +822,18 @@ module.exports = {
             mailing: "E-mail",
         },
     },
+    product_category_type: {
+        products: "PRODUCTEN",
+        services: "DIENSTEN OF ACTIVITEITEN",
+    },
 
+    lorem_ipsum: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam pulvinar dictum leo, sed congue purus scelerisque ut.',
+
+    modal: {
+        buttons: {
+            cancel: "Annuleren",
+            confirm: "Bevestig",
+            close: "Sluit"
+        }
+    }
 };

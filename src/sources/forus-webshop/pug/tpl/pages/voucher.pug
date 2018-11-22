@@ -35,7 +35,7 @@ header.section.section-header.section-header-voucher: .wrapper
                     .product-footer
                         .product-provider-label {{ "voucher.labels.shopdetail" | translate }}
                         div(ng-repeat="office in $ctrl.voucherCard.offices").product-provider
-                            .product-provider-value(ng-bind="$ctrl.voucherCard.fund.organization.name")
+                            .product-provider-value(ng-bind="office.organization.name")
                             .product-provider-details
                                 div(ng-if="office.address")
                                     | Adres: {{ office.address }}
