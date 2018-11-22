@@ -468,7 +468,7 @@ module.exports = {
             android: 'Download Me voor Android',
             already_have_app: 'DE APP IS NU AAN HET DOWNLOADEN. / DE APP IS GEINSTALLEERD.',
             url_text: "Download de app <i>Me</i> op uw mobiele telefoon via de link:",
-            url_address: "www.forus.link/io"
+            url_address: "www.forus.io/DL"
         },
         qr_code: {
             description: 'Scan deze QR-Code om te testen.'
