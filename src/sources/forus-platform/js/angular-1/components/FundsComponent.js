@@ -4,9 +4,7 @@ let FundsComponent = function(
 ) {
     let $ctrl = this;
 
-    $ctrl.$onInit = function() {
-        $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
-    };
+    $ctrl.$onInit = function() {};
 };
 
 module.exports = {
