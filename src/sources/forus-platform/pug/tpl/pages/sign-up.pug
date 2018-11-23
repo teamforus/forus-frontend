@@ -34,13 +34,13 @@
                 .card-section
                     .card-block.card-block-download-app
                         .download-links
-                            a(href="https://testflight.apple.com/join/gWw1lXyB").download-link
+                            a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").download-link
                                 .download-link-icon(style="background-image: url('./assets/img/sign-up/app-store.png');")
                                 .download-link-title
                                     translate(translate="sign_up.download.ios")
                                     .download-link-arrow.mdi.mdi-arrow-right
 
-                            a(href="/").download-link.download-link-android
+                            a(href="https://play.google.com/store/apps/details?id=io.forus.me").download-link.download-link-android
                                 .download-link-icon(style="background-image: url('./assets/img/sign-up/playstore.png');")
                                 .download-link-title
                                     translate(translate="sign_up.download.android")
@@ -139,8 +139,7 @@
                         .card-section: .pseudo-wrapper
                             product-categories-control(
                                 ng-model="$ctrl.organizationForm.values.product_categories"
-                                options="$ctrl.productCategories"
-                                hide-product="true")
+                                options="$ctrl.productCategories")
 
                             .form-group
                                 label(translate="organization_edit.labels.kvk").form-label

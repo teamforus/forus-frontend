@@ -255,6 +255,7 @@ module.exports = {
         },
         labels: {
             mail: "E-mail",
+            phone: "Telefoonnummer",
             categories: "Categorieën",
             nocategories: "Geen categorieën",
             join: "Aanmelding voor fonds",
@@ -331,7 +332,7 @@ module.exports = {
             close: "Sluit"
         },
         errors: {
-            already_added: 'You already added 2 active products, and can not add more'
+            already_added: 'U heeft al twee aanbiedingen toegevoegd en kunt niet meer toevoegen'
         },
         confirm_create: {
             title: 'Een aanbieding toevoegen.',
@@ -497,6 +498,7 @@ module.exports = {
     organization_employees: {
         labels: {
             email: "E-mailadres",
+            roles: "Rolen",
             actions: "Actie",
         },
         buttons: {

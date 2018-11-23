@@ -1,31 +1,36 @@
 .app.app-container
     menu
     section.app.app-content
-        .card-heading {{ "organization_providers.header.title" | translate }} ({{ $ctrl.fundProviders.length }}) 
+        .card-heading 
+            span(translate="organization_providers.header.title")
+            span(ng-bind="$ctrl.fundProviders.length").span-count 
         .card(ng-repeat="providerFund in $ctrl.fundProviders | orderBy:'order':'desc'")
             .card-section
                 .card-section-actions
                     div(ng-show="providerFund.state == 'approved'")
-                        .tag.tag-success {{ "organization_providers.status.accepted" | translate }}
+                        .tag.tag-success(translate="organization_providers.status.accepted")
                     div(ng-show="providerFund.state == 'declined'")
-                        .tag.tag-default {{ "organization_providers.status.rejected" | translate }}
+                        .tag.tag-default(translate="organization_providers.status.rejected")
                     div(ng-show="providerFund.state == 'pending'")
-                        .tag.tag-warning {{ "organization_providers.status.hold" | translate }}
+                        .tag.tag-warning(translate="organization_providers.status.hold")
 
                 .card-block.card-block-provider
                     .provider-img: img(ng-src="{{ providerFund.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
                     span(ng-bind="providerFund.organization.name").provider-title
                     br
                     .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                        .card-block-listing-label {{ "organization_providers.labels.mail" | translate }}
+                        .card-block-listing-label(translate="organization_providers.labels.mail")
                         span.text-primary-light(ng-bind="providerFund.organization.email")
+                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                        .card-block-listing-label(translate="organization_providers.labels.phone")
+                        span.text-primary-light(ng-bind="providerFund.organization.phone")
                 .card-block.card-block-listing
-                    .card-block-listing-label {{ "organization_providers.labels.categories" | translate }}
-                    | {{ providerFund.organization.fundCategories.join(', ') }}
+                    .card-block-listing-label(translate="organization_providers.labels.categories")
+                    span(ng-bind="providerFund.organization.fundCategories.join(', ')")
                     small(ng-show="$ctrl.fundCategories.length == 0").text-muted.small No categories
                 br
                 .card-block.card-block-listing
-                    .card-block-listing-label {{ "organization_providers.labels.join" | translate }}
+                    .card-block-listing-label(translate="organization_providers.labels.join")
                     span(ui-sref="funds-show(providerFund.fund)" ng-bind="providerFund.fund.name").text-primary-light
 
             mixin keyvalue_item_horizontal(key, value)
@@ -39,16 +44,14 @@
                     .pull-right
                         button(
                             ng-show="(providerFund.state == 'pending') || (providerFund.state == 'approved')"
-                            ng-click="$ctrl.declineProvider(providerFund)"
-                            ).button.button-default
+                            ng-click="$ctrl.declineProvider(providerFund)").button.button-default
                             em.mdi.mdi-close 
-                            | {{ "organization_providers.buttons.reject" | translate }}
+                            span(translate="organization_providers.buttons.reject")
                         button(
                             ng-show="(providerFund.state == 'pending') || (providerFund.state == 'declined')"
-                            ng-click="$ctrl.approveProvider(providerFund)"
-                            ).button.button-primary
+                            ng-click="$ctrl.approveProvider(providerFund)").button.button-primary
                             em.mdi.mdi-check 
-                            | {{ "organization_providers.buttons.accept" | translate }}
+                            span(translate="organization_providers.buttons.accept")
         
         block-empty( 
             ng-if="$ctrl.fundProviders.length == 0"
