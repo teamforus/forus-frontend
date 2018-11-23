@@ -53,7 +53,6 @@ module.exports = () => {
         controller: [
             '$scope',
             '$state',
-            '$rootScope',
             'FundService',
             'ModalService',
             'ProviderFundService',
