@@ -250,6 +250,7 @@ module.exports = {
         },
         labels: {
             mail: "E-mail",
+            phone: "Telefoonnummer",
             categories: "Categorieën",
             nocategories: "Geen categorieën",
             join: "Aanmelding voor fonds",
