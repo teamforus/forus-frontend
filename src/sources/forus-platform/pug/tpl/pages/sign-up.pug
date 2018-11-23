@@ -139,7 +139,8 @@
                         .card-section: .pseudo-wrapper
                             product-categories-control(
                                 ng-model="$ctrl.organizationForm.values.product_categories"
-                                options="$ctrl.productCategories")
+                                options="$ctrl.productCategories"
+                                hide-product="true")
 
                             .form-group
                                 label(translate="organization_edit.labels.kvk").form-label
