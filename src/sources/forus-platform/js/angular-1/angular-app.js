@@ -73,15 +73,21 @@ app.service('RoleService', require('./services/RoleService'));
 
 // Directives
 switch (env_data.panel_type) {
-    case 'sponsor': {
-        app.directive('menu', require('./directives/MenuSponsorDirective'));
-    }; break;
-    case 'provider': {
-        app.directive('menu', require('./directives/MenuProviderDirective'));
-    }; break;
-    case 'validator': {
-        app.directive('menu', require('./directives/MenuValidatorDirective'));
-    }; break;
+    case 'sponsor':
+        {
+            app.directive('menu', require('./directives/MenuSponsorDirective'));
+        };
+        break;
+    case 'provider':
+        {
+            app.directive('menu', require('./directives/MenuProviderDirective'));
+        };
+        break;
+    case 'validator':
+        {
+            app.directive('menu', require('./directives/MenuValidatorDirective'));
+        };
+        break;
 }
 
 app.directive('fundCardSponsor', require('./directives/FundCardSponsorDirective'));
@@ -136,9 +142,12 @@ app.run(require('./routers/router-transitions'));
 // Bootstrap the app
 angular.bootstrap(document.querySelector('html'), ['forusApp', '720kb.datepicker']);
 
-
 if (!env_data.html5ModeEnabled) {
-    if (!document.location.hash) {
+    let hash = document.location.hash;
+    
+    if (hash.length > 3 && hash[hash.length - 1] == '/') {
+        document.location.hash = hash.slice(0, hash.length - 1);
+    } else {
         document.location.hash = '#!/';
     }
 }

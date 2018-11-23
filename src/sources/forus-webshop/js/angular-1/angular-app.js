@@ -80,7 +80,11 @@ app.run(require('./routers/router-transitions'));
 angular.bootstrap(document.querySelector('html'), ['forusApp', '720kb.datepicker']);
 
 if (!env_data.html5ModeEnabled) {
-    if (!document.location.hash) {
+    let hash = document.location.hash;
+
+    if (hash.length > 3 && hash[hash.length - 1] == '/') {
+        document.location.hash = hash.slice(0, hash.length - 1);
+    } else {
         document.location.hash = '#!/';
     }
 }
