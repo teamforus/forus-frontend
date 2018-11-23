@@ -5,7 +5,13 @@ let OrganizationEmployeesComponent = function(
 ) {
     let $ctrl = this;
 
-    $ctrl.$onInit = function() {};
+    $ctrl.$onInit = function() {
+        $ctrl.employees.forEach(employee => {
+            employee.rolesList = employee.roles.map(role => role.name).sort(
+                (a, b) => a == b ? 0 : (a < b ? -1 : 1)
+            ).join(', ');
+        });
+    };
 
     $ctrl.createEmployee = () => {
         $ctrl.editEmployee(false);
