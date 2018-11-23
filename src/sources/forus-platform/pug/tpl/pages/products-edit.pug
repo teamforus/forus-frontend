@@ -1,7 +1,8 @@
 .app.app-container
     menu
     section.app.app-content
-        .card: form(ng-submit="$ctrl.form.submit()").form
+        information-block(text="'products.cannot_delete'" type="'danger'")
+        .card: form.form
             .card-header: .card-title {{ "product_edit.header.title" | translate }}
             .card-section.card-section-primary
                 .row 
@@ -61,4 +62,4 @@
             .card-section.card-section-primary
                 .text-center
                     button(type="button" ng-click="$ctrl.cancel()").button.button-default {{ "product_edit.buttons.cancel" | translate }}
-                    button(type="submit").button.button-primary {{ "product_edit.buttons.confirm" | translate }}
+                    button(type="button" ng-click="$ctrl.saveProduct()").button.button-primary {{ "product_edit.buttons.confirm" | translate }}

@@ -5,7 +5,7 @@
         .card(
             ng-if="$ctrl.validators.length > 0")
             .card-header: .card-title(
-                ng-bind="'Medewerkers (' + $ctrl.validators.length + ')'")
+                ng-bind="'Validators (' + $ctrl.validators.length + ')'")
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
@@ -24,12 +24,12 @@
             .card-section.text-center
                 a(ui-sref="validators-create({organization_id: $root.activeOrganization.id})").button.button-default
                     em.mdi.mdi-plus-circle  
-                    | {{ "organization_validators.buttons.add" | translate }}
+                    | Toevoegen
                                 
         .card-heading(
             ng-if="$ctrl.validators.length == 0"
-            ng-bind="'Medewerkers (' + $ctrl.validators.length + ')'")
+            ng-bind="'Validators (' + $ctrl.validators.length + ')'")
         block-empty( 
             ng-if="$ctrl.validators.length == 0"
-            text="'Je hebt nog geen medewerkers toegevoegd.'" 
-            button="{text: 'Medewerker toevoegen', href: $ctrl.emptyBlockLink}")
+            text="'Je hebt nog geen validators toegevoegd.'" 
+            button="{text: 'Validator toevoegen', href: $ctrl.emptyBlockLink}")
