@@ -3,17 +3,17 @@
         img(src="./assets/img/landing/{{ $root.appConfigs.client_key == 'nijmegen' ? 'nijmegen' : 'forus' }}-logo-normal.svg")
         img(src="./assets/img/landing/{{ $root.appConfigs.client_key == 'nijmegen' ? 'nijmegen' : 'forus' }}-logo-hover.svg").hover
     nav.navbar-list
-        //a(
+        a(
             href="{{ $root.appConfigs.frontends.sponsor }}"
             ng-class="$root.appConfigs.panel_type=='sponsor'?'active':''").navbar-item GEMEENTE
-        //a(
+        a(
             href="{{ $root.appConfigs.frontends.provider }}"
             ng-class="$root.appConfigs.panel_type=='provider'?'active':''").navbar-item AANBIEDER
-        //a(
+        a(
             href="{{ $root.appConfigs.frontends.validator }}"
             ng-class="$root.appConfigs.panel_type=='validator'?'active':''").navbar-item VALIDATOR
-        //a(href="{{ $root.appConfigs.frontends.me_app }}").navbar-item ME
-        //a(href="{{ $root.appConfigs.frontends.webshop }}").navbar-item WEBSHOP
+        a(href="{{ $root.appConfigs.frontends.me_app }}").navbar-item ME
+        a(href="{{ $root.appConfigs.frontends.webshop }}").navbar-item WEBSHOP
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
             .button.button-default(ui-sref="organizations")
