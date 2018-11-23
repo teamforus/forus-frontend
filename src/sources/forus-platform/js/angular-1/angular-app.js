@@ -28,8 +28,6 @@ app.component('csvValidationComonent', require('./components/CsvValidationComone
 app.component('validationRequestsComonent', require('./components/ValidationRequestsComonent'));
 app.component('validationRequestComonent', require('./components/ValidationRequestComonent'));
 app.component('signUpComponent', require('./components/SignUpComponent'));
-app.component('providerIdentitiesComponent', require('./components/ProviderIdentitiesComponent'));
-app.component('providerIdentityEditComponent', require('./components/ProviderIdentityEditComponent'));
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
 app.component('transactionComponent', require('./components/TransactionComponent'));
 

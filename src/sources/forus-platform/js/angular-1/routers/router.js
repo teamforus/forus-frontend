@@ -6,6 +6,74 @@ let repackResponse = (promise) => {
     });
 }
 
+/**
+ * Permission middleware
+ * 
+ * @param {string} messageKey Error message key
+ * @param {string|string[]} permissions List all required permissions
+ * @param {bool} permissionsAll Require all permissions from the list
+ * @param {string} dependencyKey Other resolver dependency
+ * @param {function|bool} dependencyResolver Custom organization resolver from dependency
+ */
+let permissionMiddleware = (
+    messageKey,
+    permissions,
+    permissionsAll = true,
+    dependencyKey = 'organization',
+    dependencyResolver = false
+) => {
+    return [
+        dependencyKey,
+        '$state',
+        'PermissionsService', (
+            dependency,
+            $state,
+            PermissionsService
+        ) => {
+            let organization;
+
+            if (dependencyResolver && typeof(dependencyResolver) == 'function') {
+                organization = dependencyResolver(dependency);
+            } else {
+                if (dependencyKey == 'organization') {
+                    organization = dependency;
+                } else if (dependencyKey == 'fund') {
+                    organization = dependency.organization;
+                }
+            }
+
+            if (!PermissionsService.hasPermission(organization, permissions, permissionsAll)) {
+                setTimeout(() => {
+                    $state.go('no-permission', {
+                        message: messageKey
+                    });
+                }, 0);
+
+                return false;
+            }
+
+            return true;
+        }
+    ];
+};
+
+let organziationResolver = (uriKey = 'organization_id') => {
+    return [
+        '$transition$',
+        'OrganizationService',
+        function(
+            $transition$,
+            OrganizationService
+        ) {
+            return repackResponse(
+                OrganizationService.read(
+                    $transition$.params()[uriKey]
+                )
+            );
+        }
+    ];
+};
+
 module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appConfigs) {
     $stateProvider.state({
         name: "home",
@@ -56,42 +124,10 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organizations/{id}/edit",
         component: "organizationsEditComponent",
         resolve: {
-            organization: [
-                '$transition$',
-                'OrganizationService',
-                function(
-                    $transition$,
-                    OrganizationService
-                ) {
-                    return repackResponse(
-                        OrganizationService.read(
-                            $transition$.params().id
-                        )
-                    );
-                }
-            ],
-            permissions: [
-                'organization',
-                '$state',
-                'PermissionsService', (
-                    organization,
-                    $state,
-                    PermissionsService
-                ) => {
-                    if (!PermissionsService.hasPermission(organization, 'manage_organization')) {
-                        setTimeout(() => {
-                            $state.go('no-permission', {
-                                message: 'organization-edit'
-                            });
-                        }, 0);
-
-                        return false;
-                    }
-
-                    return true;
-                }
-            ],
+            organization: organziationResolver('id'),
+            permission: permissionMiddleware('organization-edit', 'manage_organization'),
             productCategories: [
+                'permission',
                 'ProductCategoryService',
                 function(
                     ProductCategoryService
@@ -107,14 +143,16 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organizations/{organization_id}/funds",
         component: "fundsMyComponent",
         resolve: {
-            funds: function($transition$, FundService) {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('organization-funds', 'manage_funds'),
+            funds: function(permission, $transition$, FundService) {
                 return repackResponse(
                     FundService.list(
                         $transition$.params().organization_id
                     )
                 );
             },
-            fundLevel: () => "organizationFunds"
+            fundLevel: (permission) => "organizationFunds"
         }
     });
 
@@ -124,14 +162,16 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organizations/{organization_id}/providers",
         component: "organizationProvidersComponent",
         resolve: {
-            fundProviders: function($transition$, OrganizationService) {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('organization-providers', 'manage_providers'),
+            fundProviders: function(permision, $transition$, OrganizationService) {
                 return repackResponse(
                     OrganizationService.listProviders(
                         $transition$.params().organization_id
                     )
                 );
             },
-            fundLevel: () => "organizationFunds"
+            fundLevel: (permision) => "organizationFunds"
         }
     });
 
@@ -141,7 +181,9 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organizations/{organization_id}/validators",
         component: "organizationValidatorsComponent",
         resolve: {
-            validators: function($transition$, OrganizationValidatorService) {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('organization-validators', 'manage_validators'),
+            validators: function(permission, $transition$, OrganizationValidatorService) {
                 return repackResponse(
                     OrganizationValidatorService.list(
                         $transition$.params().organization_id
@@ -157,27 +199,16 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organizations/{organization_id}/employees",
         component: "organizationEmployeesComponent",
         resolve: {
-            organization: [
-                '$transition$',
-                'OrganizationService', (
-                    $transition$,
-                    OrganizationService
-                ) => {
-                    return repackResponse(
-                        OrganizationService.read(
-                            $transition$.params().organization_id
-                        )
-                    );
-                }
-            ],
-            employees: function($transition$, OrganizationEmployeesService) {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('employees-list', 'manage_employees'),
+            employees: function(permission, $transition$, OrganizationEmployeesService) {
                 return repackResponse(
                     OrganizationEmployeesService.list(
                         $transition$.params().organization_id
                     )
                 );
             },
-            roles: function(RoleService) {
+            roles: function(permission, RoleService) {
                 return repackResponse(
                     RoleService.list()
                 );
@@ -188,7 +219,11 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
     $stateProvider.state({
         name: "validators-create",
         url: "/organizations/{organization_id}/validators/create",
-        component: "organizationValidatorsEditComponent"
+        component: "organizationValidatorsEditComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('validators-create', 'manage_validators'),
+        }
     });
 
     $stateProvider.state({
@@ -196,7 +231,9 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organizations/{organization_id}/validators/{id}/edit",
         component: "organizationValidatorsEditComponent",
         resolve: {
-            validator: function($transition$, OrganizationValidatorService) {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('validators-edit', 'manage_validators'),
+            validator: function(permission, $transition$, OrganizationValidatorService) {
                 return repackResponse(
                     OrganizationValidatorService.read(
                         $transition$.params().organization_id,
@@ -218,7 +255,9 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
             },
         },
         resolve: {
-            fund: function($transition$, FundService) {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('financial-dashboard', 'view_finances'),
+            fund: function(permission, $transition$, FundService) {
                 return $transition$.params().fund_id != null ? repackResponse(
                     FundService.read(
                         $transition$.params().organization_id,
@@ -226,14 +265,14 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
                     )
                 ) : new Promise((res) => res(null));
             },
-            funds: function($transition$, FundService) {
+            funds: function(permission, $transition$, FundService) {
                 return repackResponse(
                     FundService.list(
                         $transition$.params().organization_id
                     )
                 );
             },
-            fundProviders: function($transition$, FundService) {
+            fundProviders: function(permission, $transition$, FundService) {
                 if ($transition$.params().fund_id == null) {
                     return new Promise((res) => res(null));
                 }
@@ -257,38 +296,26 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organization/{organization_id}/offices",
         component: "officesComponent",
         resolve: {
-            organization: [
-                '$transition$',
-                'OrganizationService', (
-                    $transition$,
-                    OrganizationService
-                ) => {
-                    return repackResponse(
-                        OrganizationService.read(
-                            $transition$.params().organization_id
-                        )
-                    );
-                }
-            ],
+            organization: organziationResolver(),
             offices: [
                 'organization',
                 '$transition$',
-                'OfficeService',
-                'PermissionsService', (
+                'PermissionsService',
+                'OfficeService', (
                     organization,
                     $transition$,
-                    OfficeService,
-                    PermissionsService
+                    PermissionsService,
+                    OfficeService
                 ) => {
-                    if (PermissionsService.hasPermission(organization, 'manage_offices')) {
-                        return repackResponse(
-                            OfficeService.list(
-                                $transition$.params().organization_id
-                            )
-                        );
+                    if (!PermissionsService.hasPermission(organization, 'manage_offices')) {
+                        return false;
                     }
 
-                    return false;
+                    return repackResponse(
+                        OfficeService.list(
+                            $transition$.params().organization_id
+                        )
+                    );
                 }
             ]
         }
@@ -297,7 +324,11 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
     $stateProvider.state({
         name: "offices-create",
         url: "/organization/{organization_id}/offices/create",
-        component: "officesEditComponent"
+        component: "officesEditComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('offices-create', 'manage_offices'),
+        }
     });
 
     $stateProvider.state({
@@ -305,7 +336,9 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organization/{organization_id}/offices/{id}/edit",
         component: "officesEditComponent",
         resolve: {
-            office: function($transition$, OfficeService) {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('offices-edit', 'manage_offices'),
+            office: function(permission, $transition$, OfficeService) {
                 return repackResponse(
                     OfficeService.read(
                         $transition$.params().organization_id,
@@ -340,17 +373,12 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organizations/{organization_id}/funds/create",
         component: "fundsEditComponent",
         resolve: {
-            organization: function($transition$, OrganizationService) {
-                return repackResponse(
-                    OrganizationService.read(
-                        $transition$.params().organization_id
-                    )
-                );
-            },
-            fundStates: function(FundService) {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('funds-create', 'manage_funds'),
+            fundStates: function(permission, FundService) {
                 return FundService.states();
             },
-            productCategories: function(ProductCategoryService) {
+            productCategories: function(permission, ProductCategoryService) {
                 return repackResponse(ProductCategoryService.list());
             }
         }
@@ -361,7 +389,9 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organizations/{organization_id}/funds/{id}",
         component: "fundsShowComponent",
         resolve: {
-            fund: function($transition$, FundService) {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('funds-show', 'manage_funds'),
+            fund: function(permission, $transition$, FundService) {
                 return repackResponse(
                     FundService.read(
                         $transition$.params().organization_id,
@@ -369,7 +399,7 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
                     )
                 );
             },
-            fundLevel: () => "fundShow"
+            fundLevel: (permission) => "fundShow"
         }
     });
 
@@ -378,38 +408,15 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organizations/{organization_id}/funds/{id}/edit",
         component: "fundsEditComponent",
         resolve: {
-            organization: function($transition$, OrganizationService) {
-                return repackResponse(
-                    OrganizationService.read(
-                        $transition$.params().organization_id
-                    )
-                );
-            },
+            organization: organziationResolver(),
+            permission: permissionMiddleware('funds-edit', 'manage_funds'),
             fund: [
-                '$timeout',
-                '$state',
-                'organization',
                 '$transition$',
                 'FundService',
-                'PermissionsService',
                 function(
-                    $timeout,
-                    $state,
-                    organization,
                     $transition$,
-                    FundService,
-                    PermissionsService
+                    FundService
                 ) {
-                    if (!PermissionsService.hasPermission(organization, 'manage_funds')) {
-                        $timeout(() => {
-                            $state.go('no-permission', {
-                                message: 'fund-edit'
-                            });
-                        }, 100);
-
-                        return false;
-                    }
-
                     return repackResponse(
                         FundService.read(
                             $transition$.params().organization_id,
@@ -435,6 +442,8 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organizations/{organization_id}/transactions",
         component: "transactionsComponent",
         resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('transactions-list', 'view_finances'),
             transactions: function($transition$, TransactionService, appConfigs) {
                 return repackResponse(
                     TransactionService.list(
@@ -457,6 +466,8 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
             },
         },
         resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('transactions-show', 'view_finances'),
             transaction: function($transition$, TransactionService, appConfigs) {
                 return repackResponse(
                     TransactionService.show(
@@ -474,13 +485,8 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organizations/{organization_id}/products",
         component: "productsComponent",
         resolve: {
-            organization: function($transition$, OrganizationService) {
-                return repackResponse(
-                    OrganizationService.read(
-                        $transition$.params().organization_id
-                    )
-                );
-            },
+            organization: organziationResolver(),
+            permission: permissionMiddleware('products-list', 'manage_products'),
             products: function($transition$, ProductService) {
                 return repackResponse(
                     ProductService.list(
@@ -496,6 +502,8 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organizations/{organization_id}/products/create",
         component: "productsEditComponent",
         resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('products-create', 'manage_products'),
             productCategories: function(ProductCategoryService) {
                 return repackResponse(ProductCategoryService.list());
             },
@@ -514,6 +522,8 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organizations/{organization_id}/products/{id}/edit",
         component: "productsEditComponent",
         resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('products-edit', 'manage_products'),
             product: function($transition$, ProductService) {
                 return repackResponse(
                     ProductService.read(
@@ -533,6 +543,8 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organizations/{organization_id}/products/{id}",
         component: "productsShowComponent",
         resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('products-show', 'manage_products'),
             product: function($transition$, ProductService) {
                 return repackResponse(
                     ProductService.read(
@@ -549,13 +561,8 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         url: "/organizations/{organization_id}/provider/funds",
         component: "providerFundsComponent",
         resolve: {
-            organization: function($transition$, OrganizationService) {
-                return repackResponse(
-                    OrganizationService.read(
-                        $transition$.params().organization_id
-                    )
-                );
-            },
+            organization: organziationResolver(),
+            permission: permissionMiddleware('provider-funds-list', 'manage_provider_funds'),
             fundsAvailable: function($transition$, ProviderFundService) {
                 return repackResponse(
                     ProviderFundService.listAvailableFunds(
@@ -572,43 +579,6 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
             },
             fundLevel: function() {
                 return 'fundsAvailable';
-            }
-        }
-    });
-
-    $stateProvider.state({
-        name: 'provider-identities',
-        url: "/organizations/{organization_id}/provider/identities",
-        component: 'providerIdentitiesComponent',
-        resolve: {
-            providerIdentities: function($transition$, ProviderIdentityService) {
-                return repackResponse(
-                    ProviderIdentityService.list(
-                        $transition$.params().organization_id
-                    )
-                );
-            }
-        }
-    });
-
-    $stateProvider.state({
-        name: "provider-identity-create",
-        url: "/organizations/{organization_id}/provider/identity/create",
-        component: "providerIdentityEditComponent"
-    });
-
-    $stateProvider.state({
-        name: "provider-identity-edit",
-        url: "/organizations/{organization_id}/provider/identity/{id}/edit",
-        component: "providerIdentityEditComponent",
-        resolve: {
-            providerIdentity: function($transition$, ProviderIdentityService) {
-                return repackResponse(
-                    ProviderIdentityService.read(
-                        $transition$.params().organization_id,
-                        $transition$.params().id
-                    )
-                );
             }
         }
     });
