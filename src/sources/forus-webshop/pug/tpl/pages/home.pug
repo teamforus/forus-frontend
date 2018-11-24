@@ -11,7 +11,7 @@ header.section.section-header.section-header-landing: .wrapper
 
 block-products(ng-if="$root.appConfigs.features.products.list" products="$ctrl.products" product-categories="$ctrl.productCategories")
 
-section.section.section-map(ng-if="$root.appConfigs.show_map"): .wrapper
+section.section.section-map: .wrapper
     .block.block-map
         .block-content
             .block-title {{ "home.map.title" | translate }}

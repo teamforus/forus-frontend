@@ -1,11 +1,54 @@
 let api_url = "https://dev.api.forus.link/api/v1";
 
-let frontends = {
-    'me_app': '#',
-    'sponsor': '#',
-    'provider': '#',
-    'validator': '#',
-    'webshop': '#',
+let dashboardConfig = (client_type, client_key, chat_id = false) => {
+    return {
+        api_url: api_url,
+        panel_type: client_type,
+        chat_id: chat_id,
+        client_key: client_key
+    }
+};
+
+let webshopConfig = (client_key) => {
+    return {
+        api_url: api_url,
+        client_key: client_key
+    };
+};
+
+let markdownConfig = () => {
+    return {
+        api_url: api_url,
+    };
+};
+
+let platforms_data = {
+    // markups
+    // "forus-landing-meapp": markdownConfig(),
+    // "forus-platform-markup": markdownConfig(),
+
+    /* Sponsor dashboards */
+    "forus-platform.sponsor": dashboardConfig('sponsor', 'general'),
+    "forus-platform.sponsor.zuidhorn": dashboardConfig('sponsor', 'zuidhorn'),
+    "forus-platform.sponsor.nijmegen": dashboardConfig('sponsor', 'nijmegen'),
+
+    /* Provider dashboards */
+    "forus-platform.provider": dashboardConfig('provider', 'general'),
+    "forus-platform.provider.zuidhorn": dashboardConfig('provider', 'zuidhorn'),
+    "forus-platform.provider.nijmegen": dashboardConfig('provider', 'nijmegen'),
+
+    /* Validator dashboards */
+    "forus-platform.validator": dashboardConfig('validator', 'general'),
+
+    /* webshop markups */
+    // "forus-webshop.markup": markdownConfig(),
+    // "forus-webshop-zuidhorn.markup": markdownConfig(),
+    // "forus-webshop-nijmegen.markup": markdownConfig(),
+
+    /* Webshops */
+    "forus-webshop.panel": webshopConfig('general'),
+    "forus-webshop-zuidhorn.panel": webshopConfig('zuidhorn'),
+    "forus-webshop-nijmegen.panel": webshopConfig('nijmegen')
 };
 
 module.exports = {
@@ -15,19 +58,7 @@ module.exports = {
         // choose, which platform should be served
         // you can serve few platforms at the same time, 
         // but make sure each of them use unique port number
-        platform: [
-            "forus-platform.markup",
-            "forus-platform.sponsor",
-            "forus-platform.provider",
-            "forus-platform.validator",
-            "forus-landing-meapp",
-            // "forus-webshop.markup",
-            "forus-webshop.panel",
-            // "forus-webshop-zuidhorn.markup",
-            "forus-webshop-zuidhorn.panel",
-            // "forus-webshop-nijmegen.markup",
-            "forus-webshop-nijmegen.panel"
-        ],
+        platform: Object.keys(platforms_data),
         // browsersync reloads browser when watched files are modified,
         // here you can choose which platform besides "served" will make
         // browsersync to reload.
@@ -36,82 +67,7 @@ module.exports = {
     },
     platforms: {
         // choose which platforms will be enabled, otherwise completely ignored
-        enabled: [
-            // "forus-platform.markup",
-            "forus-platform.sponsor",
-            "forus-platform.provider",
-            "forus-platform.validator",
-            "forus-landing-meapp",
-            // "forus-webshop.markup",
-            "forus-webshop.panel",
-            // "forus-webshop-zuidhorn.markup",
-            "forus-webshop-zuidhorn.panel",
-            // "forus-webshop-nijmegen.markup",
-            "forus-webshop-nijmegen.panel"
-        ]
+        enabled: Object.keys(platforms_data)
     },
-    platforms_data: {
-        "forus-landing-meapp": {
-            api_url: api_url,
-            frontends: frontends,
-        },
-        "forus-platform-markup": {
-            api_url: api_url,
-            frontends: frontends,
-        },
-        "forus-platform.sponsor": {
-            api_url: api_url,
-            frontends: frontends,
-            panel_type: 'sponsor',
-            // client_key can be 'general', 'nijmegen'
-            client_key: 'nijmegen',
-            chat_id: false,
-        },
-        "forus-platform.provider": {
-            api_url: api_url,
-            frontends: frontends,
-            panel_type: 'provider',
-            chat_id: false,
-            // client_key can be 'general', 'nijmegen'
-            client_key: 'nijmegen',
-            // max product count that can be added
-            max_product_count: 2
-        },
-        "forus-platform.validator": {
-            api_url: api_url,
-            frontends: frontends,
-            panel_type: 'validator',
-            chat_id: false,
-        },
-        /* "forus-webshop.markup": {
-            api_url: api_url,
-            frontends: frontends,
-        }, */
-        "forus-webshop.panel": {
-            api_url: api_url,
-            frontends: frontends,
-            client_key: 'shop-general',
-            show_map: true
-        },
-        /* "forus-webshop-zuidhorn.markup": {
-            api_url: api_url,
-            frontends: frontends,
-        }, */
-        "forus-webshop-zuidhorn.panel": {
-            api_url: api_url,
-            frontends: frontends,
-            client_key: 'shop-zuidhorn',
-            show_map: false
-        },
-        /* "forus-webshop-nijmegen.markup": {
-            api_url: api_url,
-            frontends: frontends,
-        }, */
-        "forus-webshop-nijmegen.panel": {
-            api_url: api_url,
-            frontends: frontends,
-            client_key: 'shop-nijmegen',
-            show_map: true
-        }
-    }
+    platforms_data: platforms_data
 };
