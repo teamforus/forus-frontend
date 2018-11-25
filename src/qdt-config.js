@@ -1,3 +1,5 @@
+require('events').EventEmitter.defaultMaxListeners = 20;
+
 let dashboardConfig = (port, distPath, source) => {
     return {
         "source": source,
