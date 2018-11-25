@@ -130,6 +130,7 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
                 'permission',
                 'ProductCategoryService',
                 function(
+                    permission,
                     ProductCategoryService
                 ) {
                     return repackResponse(ProductCategoryService.list());
@@ -164,14 +165,14 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('organization-providers', 'manage_providers'),
-            fundProviders: function(permision, $transition$, OrganizationService) {
+            fundProviders: function(permission, $transition$, OrganizationService) {
                 return repackResponse(
                     OrganizationService.listProviders(
                         $transition$.params().organization_id
                     )
                 );
             },
-            fundLevel: (permision) => "organizationFunds"
+            fundLevel: (permission) => "organizationFunds"
         }
     });
 
