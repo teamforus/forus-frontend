@@ -13,11 +13,13 @@ module.exports = function() {
             '$q',
             '$http',
             '$state',
+            'appConfigs',
             'CredentialsService',
             function(
                 $q,
                 $http,
                 $state,
+                appConfigs,
                 CredentialsService
             ) {
                 var resolveUrl = function(input) {
@@ -34,11 +36,17 @@ module.exports = function() {
                 }
 
                 var makeHeaders = function() {
-                    return {
+                    let headers = {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + CredentialsService.get(),
                     };
+
+                    if (appConfigs) {
+                        headers['Client-Key'] = appConfigs.client_key;
+                    }
+
+                    return headers;
                 };
 
                 var get = function(endpoint, data, headers, auth_redirect) {

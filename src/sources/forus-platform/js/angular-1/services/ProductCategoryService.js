@@ -5,6 +5,12 @@ let ProductCategoryService = function(
         this.list = function() {
             return ApiRequest.get('/platform/product-categories');
         };
+
+        this.listAll = function() {
+            return ApiRequest.get('/platform/product-categories', {
+                all: true
+            });
+        };
     });
 };
 
