@@ -24,8 +24,11 @@ let markdownConfig = () => {
 
 let platforms_data = {
     // markups
-    // "forus-landing-meapp": markdownConfig(),
     // "forus-platform-markup": markdownConfig(),
+
+    "forus-landing-meapp.general": markdownConfig('general'),
+    "forus-landing-meapp.zuidhorn": markdownConfig('zuidhorn'),
+    "forus-landing-meapp.nijmegen": markdownConfig('nijmegen'),
 
     /* Sponsor dashboards */
     "forus-platform.sponsor.general": dashboardConfig('sponsor', 'general'),

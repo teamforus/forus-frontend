@@ -393,7 +393,9 @@ module.exports = {
         "forus-platform.validator": dashboardConfig(4500, 'forus-platform.validator', 'forus-platform'),
 
         // meapp landing
-        "forus-landing-meapp": landingConfig(3600, 'forus-landing-meapp', 'forus-platform'),
+        "forus-landing-meapp.general": landingConfig(3600, 'forus-landing-meapp.general', 'forus-platform', 'general'),
+        "forus-landing-meapp.zuidhorn": landingConfig(3610, 'forus-landing-meapp.zuidhorn', 'forus-platform', 'zuidhorn'),
+        "forus-landing-meapp.nijmegen": landingConfig(3620, 'forus-landing-meapp.nijmegen', 'forus-platform', 'nijmegen'),
 
         // webshop markups
         "forus-webshop-general.markup": webshopMarkupConfig(5000, 'forus-webshop-general.markup', 'forus-webshop'),
