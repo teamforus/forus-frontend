@@ -16,9 +16,10 @@ let webshopConfig = (client_key) => {
     };
 };
 
-let markdownConfig = () => {
+let markdownConfig = (client_key) => {
     return {
         api_url: api_url,
+        client_key: client_key,
     };
 };
 
