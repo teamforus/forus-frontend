@@ -28,12 +28,12 @@ let platforms_data = {
     // "forus-platform-markup": markdownConfig(),
 
     /* Sponsor dashboards */
-    "forus-platform.sponsor": dashboardConfig('sponsor', 'general'),
+    "forus-platform.sponsor.general": dashboardConfig('sponsor', 'general'),
     "forus-platform.sponsor.zuidhorn": dashboardConfig('sponsor', 'zuidhorn'),
     "forus-platform.sponsor.nijmegen": dashboardConfig('sponsor', 'nijmegen'),
 
     /* Provider dashboards */
-    "forus-platform.provider": dashboardConfig('provider', 'general'),
+    "forus-platform.provider.general": dashboardConfig('provider', 'general'),
     "forus-platform.provider.zuidhorn": dashboardConfig('provider', 'zuidhorn'),
     "forus-platform.provider.nijmegen": dashboardConfig('provider', 'nijmegen'),
 
@@ -41,12 +41,12 @@ let platforms_data = {
     "forus-platform.validator": dashboardConfig('validator', 'general'),
 
     /* webshop markups */
-    // "forus-webshop.markup": markdownConfig(),
+    // "forus-webshop-general.markup": markdownConfig(),
     // "forus-webshop-zuidhorn.markup": markdownConfig(),
     // "forus-webshop-nijmegen.markup": markdownConfig(),
 
     /* Webshops */
-    "forus-webshop.panel": webshopConfig('general'),
+    "forus-webshop-general.panel": webshopConfig('general'),
     "forus-webshop-zuidhorn.panel": webshopConfig('zuidhorn'),
     "forus-webshop-nijmegen.panel": webshopConfig('nijmegen')
 };

@@ -380,12 +380,12 @@ module.exports = {
         "forus-platform.markup": dashboardMarkupConfig(3000, 'forus-platform.markup', 'forus-platform'),
 
         // sponsor dashboard
-        "forus-platform.sponsor": dashboardConfig(3500, 'forus-platform.sponsor', 'forus-platform'),
+        "forus-platform.sponsor.general": dashboardConfig(3500, 'forus-platform.sponsor.general', 'forus-platform'),
         "forus-platform.sponsor.zuidhorn": dashboardConfig(3510, 'forus-platform.sponsor.zuidhorn', 'forus-platform'),
         "forus-platform.sponsor.nijmegen": dashboardConfig(3520, 'forus-platform.sponsor.nijmegen', 'forus-platform'),
 
         // provider dashboard
-        "forus-platform.provider": dashboardConfig(4000, 'forus-platform.provider'),
+        "forus-platform.provider.general": dashboardConfig(4000, 'forus-platform.provider.general'),
         "forus-platform.provider.zuidhorn": dashboardConfig(4010, 'forus-platform.provider.zuidhorn', 'forus-platform'),
         "forus-platform.provider.nijmegen": dashboardConfig(4020, 'forus-platform.provider.nijmegen', 'forus-platform'),
 
@@ -396,12 +396,12 @@ module.exports = {
         "forus-landing-meapp": landingConfig(3600, 'forus-landing-meapp', 'forus-platform'),
 
         // webshop markups
-        "forus-webshop.markup": webshopMarkupConfig(5000, 'forus-webshop.markup', 'forus-webshop'),
+        "forus-webshop-general.markup": webshopMarkupConfig(5000, 'forus-webshop-general.markup', 'forus-webshop'),
         "forus-webshop-zuidhorn.markup": webshopMarkupConfig(5010, 'forus-webshop-zuidhorn.markup', 'forus-webshop-zuidhorn'),
         "forus-webshop-nijmegen.markup": webshopMarkupConfig(5020, 'forus-webshop-nijmegen.markup', 'forus-webshop-nijmegen'),
 
         // webshops
-        "forus-webshop.panel": webshopConfig(5500, 'forus-webshop.panel', 'forus-webshop'),
+        "forus-webshop-general.panel": webshopConfig(5500, 'forus-webshop-general.panel', 'forus-webshop'),
         "forus-webshop-zuidhorn.panel": webshopConfig(5510, 'forus-webshop-zuidhorn.panel', 'forus-webshop-zuidhorn'),
         "forus-webshop-nijmegen.panel": webshopConfig(5520, 'forus-webshop-nijmegen.panel', 'forus-webshop-nijmegen'),
     }
