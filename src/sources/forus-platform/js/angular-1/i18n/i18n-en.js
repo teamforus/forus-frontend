@@ -493,7 +493,7 @@ module.exports = {
     organization_employees: {
         labels: {
             email: "E-mailadres",
-            roles: "Rolen",
+            roles: "Rollen",
             actions: "Actie",
         },
         buttons: {
