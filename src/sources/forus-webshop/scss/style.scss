@@ -1973,18 +1973,18 @@ body {
 
     &.block-app_download {
         .download-button {
-            display: block;
+            /*display: block;
             background: #fff;
             box-shadow: 0 0 30px rgba(#000, .15);
             border-radius: 5px;
             padding: 10px;
             padding-right: 65px;
             position: relative;
-            height: 60px;
+            height: 60px;*/
             width: 240px;
             max-width: 100%;
             margin-bottom: 10px;
-            text-align: center;
+            /*text-align: center;*/
 
             .download-label {
                 font: 400 12px $bf;
@@ -1997,19 +1997,20 @@ body {
             }
 
             .download-icon {
-                position: absolute;
+                /*position: absolute;
                 right: 0;
                 top: 0;
                 width: 65px;
                 height: 100%;
-                background-color: #f4f4f4;
+                background-color: #f4f4f4;*/
 
                 img {
-                    display: block;
+                    /*display: block;
                     position: absolute;
                     top: 50%;
                     left: 50%;
-                    transform: translate(-50%, -50%);
+                    transform: translate(-50%, -50%);*/
+                    width: 100%;
                 }
             }
         }
@@ -2114,7 +2115,38 @@ body {
 
             .shop_map-categories {
                 margin: 0 -8px;
+                position: relative;
                 @include cf();
+
+                .shop_map-prev,
+                .shop_map-next {
+                    display: none;
+                    position: absolute;
+                    left: 0px;
+                    top: 50%;
+                    transform: translate(0, -50%);
+                    z-index: 1;
+                    cursor: pointer;
+
+                    .mdi {
+                        display: block;
+                        font-size: 50px;
+                        color: #ccc;
+                        transform: translate(-10px);
+                        transition: .4s;
+                    }
+
+                    &:hover {
+                        .mdi {
+                            color: #868686;
+                        }
+                    }
+                }
+
+                .shop_map-next {
+                    right: -20px;
+                    left: auto;
+                }
 
                 .shop_map-category-item {
                     width: (100% / 7);
@@ -2193,6 +2225,15 @@ body {
                         .shop_map-category-arrow {
                             opacity: 1;
                         }
+                    }
+                }
+
+                &.has-pagination {
+                    padding: 0 30px;
+                    
+                    .shop_map-prev,
+                    .shop_map-next {
+                        display: block;
                     }
                 }
             }

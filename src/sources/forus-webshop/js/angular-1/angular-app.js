@@ -84,7 +84,7 @@ if (!env_data.html5ModeEnabled) {
 
     if (hash.length > 3 && hash[hash.length - 1] == '/') {
         document.location.hash = hash.slice(0, hash.length - 1);
-    } else {
+    } else if (hash.length < 3) {
         document.location.hash = '#!/';
     }
 }

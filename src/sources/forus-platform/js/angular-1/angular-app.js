@@ -9,7 +9,6 @@ app.controller('BaseController', require('./controllers/BaseController'));
 app.component('homeComponent', require('./components/HomeComponent'));
 app.component('organizationsComponent', require('./components/OrganizationsComponent'));
 app.component('organizationsEditComponent', require('./components/OrganizationsEditComponent'));
-app.component('fundsComponent', require('./components/FundsComponent'));
 app.component('fundsMyComponent', require('./components/FundsMyComponent'));
 app.component('providerFundsComponent', require('./components/ProviderFundsComponent'));
 app.component('fundsEditComponent', require('./components/FundsEditComponent'));
@@ -28,8 +27,6 @@ app.component('csvValidationComonent', require('./components/CsvValidationComone
 app.component('validationRequestsComonent', require('./components/ValidationRequestsComonent'));
 app.component('validationRequestComonent', require('./components/ValidationRequestComonent'));
 app.component('signUpComponent', require('./components/SignUpComponent'));
-app.component('providerIdentitiesComponent', require('./components/ProviderIdentitiesComponent'));
-app.component('providerIdentityEditComponent', require('./components/ProviderIdentityEditComponent'));
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
 app.component('transactionComponent', require('./components/TransactionComponent'));
 
@@ -144,10 +141,10 @@ angular.bootstrap(document.querySelector('html'), ['forusApp', '720kb.datepicker
 
 if (!env_data.html5ModeEnabled) {
     let hash = document.location.hash;
-    
+
     if (hash.length > 3 && hash[hash.length - 1] == '/') {
         document.location.hash = hash.slice(0, hash.length - 1);
-    } else {
+    } else if (hash.length < 3) {
         document.location.hash = '#!/';
     }
 }
