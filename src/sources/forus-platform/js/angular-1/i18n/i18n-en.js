@@ -331,7 +331,7 @@ module.exports = {
         },
         confirm_create: {
             title: 'Een aanbieding toevoegen.',
-            description: 'Let op! Je staat op het punt een aanbieding op de webshop toe te voegen. Daarna kan je de aanbieding niet meer verwijderen. De aanbieding wordt verwijderd vanaf het moment dat het is uitverkocht of de vervaldatum is bereikt.'
+            description: 'Let op! Je staat op het punt een aanbieding op de webshop toe te voegen. Daarna kan je de aanbieding niet meer verwijderen. De aanbieding kan verwijderd worden vanaf het moment dat het is uitverkocht of de vervaldatum is bereikt.'
         }
     },
 
@@ -376,7 +376,7 @@ module.exports = {
         title: "Fondsen",
         applied_for_fund: {
             title: "Je aanvraag is ontvangen.",
-            description: "De gemeente zal je verzoek behandelen, dit kan maximaal twee werkdagen duren. Zodra de gemeente je aanvraag heeft behandeld wordt er een e-mail toegestuurd. Daarnaast kan je de status ook volgen op het dashboard."
+            description: "De gemeente zal je verzoek behandelen, dit kan twee weken duren. Zodra de gemeente je aanvraag heeft behandeld wordt er een e-mail toegestuurd. Daarnaast kan je de status ook volgen op het dashboard."
         }
     },
 
