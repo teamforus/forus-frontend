@@ -30,7 +30,9 @@ let OrganizationsComponent = function(
         OrganizationService.use(organization.id);
 
         if (appConfigs.panel_type == 'sponsor') {
-            $state.go('funds');
+            $state.go('organization-funds', {
+                organization_id: organization.id
+            });
         } else {
             $state.go('offices', {
                 organization_id: organization.id

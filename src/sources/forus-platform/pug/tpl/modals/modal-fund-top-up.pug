@@ -6,7 +6,7 @@
         .modal-body.form
             .modal-section
                 .modal-funds-added
-                    p(ng-if="!$ctrl.isReady" translate="Please wait").text-center.text-muted
+                    p(ng-if="!$ctrl.isReady" translate="Even geduld a.u.b.").text-center.text-muted
                     p(ng-if="$ctrl.isReady")
                         translate(translate="modal_funds_add.labels.payment") 
                         span.text-primary(ng-bind="$ctrl.topUpIban")
@@ -15,4 +15,4 @@
                         span.text-primary(ng-bind="$ctrl.topUpCode") 
                         translate(translate="modal_funds_add.labels.description")
         .modal-footer.text-center
-            button.button.button-primary(ng-click="closeModal()" translate="modal_funds_add.buttons.close")
+            button.button.button-primary(ng-click="$ctrl.close()" translate="modal_funds_add.buttons.close")

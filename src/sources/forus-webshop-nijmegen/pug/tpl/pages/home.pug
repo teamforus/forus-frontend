@@ -11,7 +11,7 @@ header.section.section-header.section-header-landing: .wrapper
 
 block-products(ng-if="$root.appConfigs.features.products.list" products="$ctrl.products" product-categories="$ctrl.productCategories")
 
-section.section.section-map(ng-if="$root.appConfigs.show_map"): .wrapper
+section.section.section-map: .wrapper
     .block.block-map
         .block-content
             .block-title {{ "home.map.title" | translate }}
@@ -20,7 +20,7 @@ section.section.section-map(ng-if="$root.appConfigs.show_map"): .wrapper
     
 section.section.section-steps#steps: .wrapper
     //.section-splash
-    .section-sprite
+    //.section-sprite
     .section-title {{ "home.guide.title" | translate }}
     .steps
         .step-item: .step-item-content
@@ -121,15 +121,15 @@ section.section.section-faq: .wrapper
             "{{ 'home.faq.faq_thirteen' | translate }}",
             "{{ 'home.faq.thirteen' | translate }}")
 
-        +faq_item(
+        //+faq_item(
             "{{ 'home.faq.faq_fourteen' | translate }}",
             "{{ 'home.faq.fourteen' | translate }}")
 
-        +faq_item(
+        //+faq_item(
             "{{ 'home.faq.faq_fifteen' | translate }}",
             "{{ 'home.faq.fifteen' | translate }}")
 
-        +faq_item(
+        //+faq_item(
             "{{ 'home.faq.faq_sixteen' | translate }}",
             "{{ 'home.faq.sixteen' | translate }}")    
 

@@ -1,3 +1,242 @@
+require('events').EventEmitter.defaultMaxListeners = 20;
+
+let dashboardConfig = (port, distPath, source) => {
+    return {
+        "source": source,
+        "paths": {
+            "root": `../dist/${distPath}`,
+            "assets_root": `../dist/${distPath}/assets`,
+            "clean_paths": [
+                `../dist/${distPath}`
+            ]
+        },
+        "server": {
+            "path": "/",
+            "port": port
+        },
+        // tasks configs
+        "tasks": {
+            // disable tasks
+            "disabled": {
+                "pug": false,
+                "js": false,
+                "assets": false
+            },
+            // tasks details, ex: source, destination, minify and etc.
+            "settings": {
+                "pug": [{
+                    "path": "/angular-index",
+                    "src": ["angular-index/index.pug"],
+                    "watch": ["layout/**/*.pug"],
+                }, {
+                    "path": "/tpl",
+                    "src": ["tpl/**/*.pug"],
+                    "dest": "/assets/tpl"
+                }],
+                "scss": [{
+                    "src": "style.scss",
+                    "watch": [
+                        "includes/**/*.scss",
+                        "layouts/**/*.scss",
+                    ],
+                    "path": "/",
+                    "name": "style.min.css",
+                    "minify": true
+                }, {
+                    "src": "style-nijmegen.scss",
+                    "watch": [
+                        "includes/**/*.scss",
+                        "layouts/**/*.scss",
+                    ],
+                    "path": "/",
+                    "name": "style-nijmegen.min.css",
+                    "minify": true
+                }]
+            }
+        }
+    };
+}
+
+let dashboardMarkupConfig = (port, distPath, source) => {
+    return {
+        "source": source,
+        "paths": {
+            "root": `../dist/${distPath}`,
+            "assets_root": `../dist/${distPath}/assets`,
+            "clean_paths": [
+                `../dist/${distPath}`
+            ]
+        },
+        "server": {
+            "path": "/",
+            "port": port
+        },
+        // tasks configs
+        "tasks": {
+            // disable tasks
+            "disabled": {
+                "pug": false,
+                "js": false,
+                "assets": false
+            },
+            // tasks details, ex: source, destination, minify and etc.
+            "settings": {
+                "js": [{
+                    "src": [
+                        "app.markup.js",
+                    ],
+                    "dest": "/",
+                    "name": "app.js",
+                    "minify": true,
+                    "sourcemap": true,
+                    "browserify": true
+                }]
+            }
+        }
+    };
+};
+
+let landingConfig = (port, distPath, source) => {
+    return {
+        "source": source,
+        "paths": {
+            "root": `../dist/${distPath}`,
+            "assets_root": `../dist/${distPath}/assets`,
+            "clean_paths": [
+                `../dist/${distPath}`
+            ]
+        },
+        "server": {
+            "path": "/",
+            "port": port
+        },
+        // tasks configs
+        "tasks": {
+            // disable tasks
+            "disabled": {
+                "pug": false,
+                "js": false,
+                "assets": false
+            },
+            // tasks details, ex: source, destination, minify and etc.
+            "settings": {
+                "js": [{
+                    "src": [
+                        "app.landing-meapp.js",
+                    ],
+                    "watch": [
+                        "angular-1/**/**.js",
+                    ],
+                    "dest": "/",
+                    "name": "app.js",
+                    "minify": true,
+                    "sourcemap": true,
+                    "browserify": true
+                }],
+                "pug": [{
+                    "path": "/landing-meapp",
+                    "src": ["landing-meapp/index.pug"],
+                    "watch": ["layout/**/*.pug"],
+                }, {
+                    "path": "/tpl/directives",
+                    "src": ["tpl/directives/**/*.pug"],
+                    "dest": "/assets/tpl/directives"
+                }],
+                "scss": [{
+                    "src": "style.scss",
+                    "watch": [
+                        "includes/**/*.scss",
+                        "layouts/**/*.scss",
+                    ],
+                    "path": "/",
+                    "name": "style.min.css",
+                    "minify": true
+                }, {
+                    "src": "style-nijmegen.scss",
+                    "watch": [
+                        "includes/**/*.scss",
+                        "layouts/**/*.scss",
+                    ],
+                    "path": "/",
+                    "name": "style-nijmegen.min.css",
+                    "minify": true
+                }]
+            }
+        }
+    };
+};
+
+let webshopConfig = (port, distPath, source) => {
+    return {
+        "source": source,
+        "paths": {
+            "root": `../dist/${distPath}`,
+            "assets_root": `../dist/${distPath}/assets`,
+            "clean_paths": [
+                `../dist/${distPath}`
+            ]
+        },
+        "server": {
+            "path": "/",
+            "port": port
+        },
+        // tasks configs
+        "tasks": {
+            // disable tasks
+            "disabled": {
+                "pug": false,
+                "js": false,
+                "assets": false
+            },
+            // tasks details, ex: source, destination, minify and etc.
+            "settings": {
+                "pug": [{
+                    "path": "/webshop-panel",
+                    "src": ["webshop-panel/index.pug"],
+                    "watch": ["layout/**/*.pug"],
+                }, {
+                    "path": "/tpl",
+                    "src": ["tpl/**/*.pug"],
+                    "dest": "/assets/tpl"
+                }]
+            }
+        }
+    };
+}
+
+let webshopMarkupConfig = (port, distPath, source) => {
+    return {
+        "source": source,
+        "paths": {
+            "root": `../dist/${distPath}`,
+            "assets_root": `../dist/${distPath}/assets`,
+            "clean_paths": [
+                `../dist/${distPath}`
+            ]
+        },
+        "server": {
+            "path": "/",
+            "port": port
+        },
+        // tasks configs
+        "tasks": {
+            // tasks details, ex: source, destination, minify and etc.
+            "settings": {
+                "js": [{
+                    "src": [
+                        "app.markup.js",
+                    ],
+                    "dest": "/",
+                    "name": "app.js",
+                    "minify": true,
+                    "sourcemap": true,
+                    "browserify": true
+                }]
+            }
+        }
+    };
+}
+
 module.exports = {
     platforms: {
         "*": {
@@ -136,473 +375,36 @@ module.exports = {
                 }
             }
         },
-        "forus-platform.markup": {
-            "source": "forus-platform",
-            "paths": {
-                "root": "../dist/forus-platform.markup",
-                "assets_root": "../dist/forus-platform.markup/assets",
-                "clean_paths": [
-                    "../dist/forus-platform.markup"
-                ]
-            },
-            "server": {
-                "path": "/",
-                "port": 3000
-            },
-            // tasks configs
-            "tasks": {
-                // disable tasks
-                "disabled": {
-                    "pug": false,
-                    "js": false,
-                    "assets": false
-                },
-                // tasks details, ex: source, destination, minify and etc.
-                "settings": {
-                    "js": [{
-                        "src": [
-                            "app.markup.js",
-                        ],
-                        "dest": "/",
-                        "name": "app.js",
-                        "minify": true,
-                        "sourcemap": true,
-                        "browserify": true
-                    }]
-                }
-            }
-        },
-        "forus-platform.sponsor": {
-            "source": "forus-platform",
-            "paths": {
-                "root": "../dist/forus-platform.sponsor",
-                "assets_root": "../dist/forus-platform.sponsor/assets",
-                "clean_paths": [
-                    "../dist/forus-platform.sponsor"
-                ]
-            },
-            "server": {
-                "path": "/",
-                "port": 3500
-            },
-            // tasks configs
-            "tasks": {
-                // disable tasks
-                "disabled": {
-                    "pug": false,
-                    "js": false,
-                    "assets": false
-                },
-                // tasks details, ex: source, destination, minify and etc.
-                "settings": {
-                    "pug": [{
-                        "path": "/angular-index",
-                        "src": ["angular-index/index.pug"],
-                        "watch": ["layout/**/*.pug"],
-                    }, {
-                        "path": "/tpl",
-                        "src": ["tpl/**/*.pug"],
-                        "dest": "/assets/tpl"
-                    }],
-                    "scss": [
-                        {
-                            "src": "style.scss",
-                            "watch": [
-                                "includes/**/*.scss",
-                                "layouts/**/*.scss",
-                            ],
-                            "path": "/",
-                            "name": "style.min.css",
-                            "minify": true
-                        },
-                        {
-                            "src": "style-nijmegen.scss",
-                            "watch": [
-                                "includes/**/*.scss",
-                                "layouts/**/*.scss",
-                            ],
-                            "path": "/",
-                            "name": "style-nijmegen.min.css",
-                            "minify": true
-                        }]
-                }
-            }
-        },
-        "forus-platform.provider": {
-            "source": "forus-platform",
-            "paths": {
-                "root": "../dist/forus-platform.provider",
-                "assets_root": "../dist/forus-platform.provider/assets",
-                "clean_paths": [
-                    "../dist/forus-platform.provider"
-                ]
-            },
-            "server": {
-                "path": "/",
-                "port": 4000
-            },
-            // tasks configs
-            "tasks": {
-                // disable tasks
-                "disabled": {
-                    "pug": false,
-                    "js": false,
-                    "assets": false
-                },
-                // tasks details, ex: source, destination, minify and etc.
-                "settings": {
-                    "pug": [{
-                        "path": "/angular-index",
-                        "src": ["angular-index/index.pug"],
-                        "watch": ["layout/**/*.pug"],
-                    }, {
-                        "path": "/tpl",
-                        "src": ["tpl/**/*.pug"],
-                        "dest": "/assets/tpl"
-                    }],
-                    "scss": [
-                        {
-                        "src": "style.scss",
-                        "watch": [
-                            "includes/**/*.scss",
-                            "layouts/**/*.scss",
-                        ],
-                        "path": "/",
-                        "name": "style.min.css",
-                        "minify": true
-                        },
-                        {
-                            "src": "style-nijmegen.scss",
-                            "watch": [
-                                "includes/**/*.scss",
-                                "layouts/**/*.scss",
-                            ],
-                            "path": "/",
-                            "name": "style-nijmegen.min.css",
-                            "minify": true
-                        }]
-                }
-            }
-        },
-        "forus-platform.validator": {
-            "source": "forus-platform",
-            "paths": {
-                "root": "../dist/forus-platform.validator",
-                "assets_root": "../dist/forus-platform.validator/assets",
-                "clean_paths": [
-                    "../dist/forus-platform.validator"
-                ]
-            },
-            "server": {
-                "path": "/",
-                "port": 4500
-            },
-            // tasks configs
-            "tasks": {
-                // disable tasks
-                "disabled": {
-                    "pug": false,
-                    "js": false,
-                    "assets": false
-                },
-                // tasks details, ex: source, destination, minify and etc.
-                "settings": {
-                    "pug": [{
-                        "path": "/angular-index",
-                        "src": ["angular-index/index.pug"],
-                        "watch": ["layout/**/*.pug"],
-                    }, {
-                        "path": "/tpl",
-                        "src": ["tpl/**/*.pug"],
-                        "dest": "/assets/tpl"
-                    }],
-                    "scss": [
-                        {
-                            "src": "style.scss",
-                            "watch": [
-                                "includes/**/*.scss",
-                                "layouts/**/*.scss",
-                            ],
-                            "path": "/",
-                            "name": "style.min.css",
-                            "minify": true
-                        },
-                        {
-                            "src": "style-nijmegen.scss",
-                            "watch": [
-                                "includes/**/*.scss",
-                                "layouts/**/*.scss",
-                            ],
-                            "path": "/",
-                            "name": "style-nijmegen.min.css",
-                            "minify": true
-                        }]
-                }
-            }
-        },
-        "forus-landing-meapp": {
-            "source": "forus-platform",
-            "paths": {
-                "root": "../dist/forus-landing-meapp",
-                "assets_root": "../dist/forus-landing-meapp/assets",
-                "clean_paths": [
-                    "../dist/forus-landing-meapp"
-                ]
-            },
-            "server": {
-                "path": "/",
-                "port": 3600
-            },
-            // tasks configs
-            "tasks": {
-                // disable tasks
-                "disabled": {
-                    "pug": false,
-                    "js": false,
-                    "assets": false
-                },
-                // tasks details, ex: source, destination, minify and etc.
-                "settings": {
-                    "js": [{
-                        "src": [
-                            "app.landing-meapp.js",
-                        ],
-                        "watch": [
-                            "angular-1/**/**.js",
-                        ],
-                        "dest": "/",
-                        "name": "app.js",
-                        "minify": true,
-                        "sourcemap": true,
-                        "browserify": true
-                    }],
-                    "pug": [{
-                        "path": "/landing-meapp",
-                        "src": ["landing-meapp/index.pug"],
-                        "watch": ["layout/**/*.pug"],
-                    }, {
-                        "path": "/tpl/directives",
-                        "src": ["tpl/directives/**/*.pug"],
-                        "dest": "/assets/tpl/directives"
-                    }],
-                    "scss": [
-                        {
-                            "src": "style.scss",
-                            "watch": [
-                                "includes/**/*.scss",
-                                "layouts/**/*.scss",
-                            ],
-                            "path": "/",
-                            "name": "style.min.css",
-                            "minify": true
-                        },
-                        {
-                            "src": "style-nijmegen.scss",
-                            "watch": [
-                                "includes/**/*.scss",
-                                "layouts/**/*.scss",
-                            ],
-                            "path": "/",
-                            "name": "style-nijmegen.min.css",
-                            "minify": true
-                        }]
-                }
-            }
-        },
-        "forus-webshop.markup": {
-            "source": "forus-webshop",
-            "paths": {
-                "root": "../dist/forus-webshop.markup",
-                "assets_root": "../dist/forus-webshop.markup/assets",
-                "clean_paths": [
-                    "../dist/forus-webshop.markup"
-                ]
-            },
-            "server": {
-                "path": "/",
-                "port": 5000
-            },
-            // tasks configs
-            "tasks": {
-                // tasks details, ex: source, destination, minify and etc.
-                "settings": {
-                    "js": [{
-                        "src": [
-                            "app.markup.js",
-                        ],
-                        "dest": "/",
-                        "name": "app.js",
-                        "minify": true,
-                        "sourcemap": true,
-                        "browserify": true
-                    }]
-                }
-            }
-        },
-        "forus-webshop.panel": {
-            "source": "forus-webshop",
-            "paths": {
-                "root": "../dist/forus-webshop.panel",
-                "assets_root": "../dist/forus-webshop.panel/assets",
-                "clean_paths": [
-                    "../dist/forus-webshop.panel"
-                ]
-            },
-            "server": {
-                "path": "/",
-                "port": 5500
-            },
-            // tasks configs
-            "tasks": {
-                // disable tasks
-                "disabled": {
-                    "pug": false,
-                    "js": false,
-                    "assets": false
-                },
-                // tasks details, ex: source, destination, minify and etc.
-                "settings": {
-                    "pug": [{
-                        "path": "/webshop-panel",
-                        "src": ["webshop-panel/index.pug"],
-                        "watch": ["layout/**/*.pug"],
-                    }, {
-                        "path": "/tpl",
-                        "src": ["tpl/**/*.pug"],
-                        "dest": "/assets/tpl"
-                    }]
-                }
-            }
-        },
-        "forus-webshop-zuidhorn.markup": {
-            "source": "forus-webshop-zuidhorn",
-            "paths": {
-                "root": "../dist/forus-webshop-zuidhorn.markup",
-                "assets_root": "../dist/forus-webshop-zuidhorn.markup/assets",
-                "clean_paths": [
-                    "../dist/forus-webshop-zuidhorn.markup"
-                ]
-            },
-            "server": {
-                "path": "/",
-                "port": 6500
-            },
-            // tasks configs
-            "tasks": {
-                // tasks details, ex: source, destination, minify and etc.
-                "settings": {
-                    "js": [{
-                        "src": [
-                            "app.markup.js",
-                        ],
-                        "dest": "/",
-                        "name": "app.js",
-                        "minify": true,
-                        "sourcemap": true,
-                        "browserify": true
-                    }]
-                }
-            }
-        },
-        "forus-webshop-zuidhorn.panel": {
-            "source": "forus-webshop-zuidhorn",
-            "paths": {
-                "root": "../dist/forus-webshop-zuidhorn.panel",
-                "assets_root": "../dist/forus-webshop-zuidhorn.panel/assets",
-                "clean_paths": [
-                    "../dist/forus-webshop-zuidhorn.panel"
-                ]
-            },
-            "server": {
-                "path": "/",
-                "port": 7000
-            },
-            // tasks configs
-            "tasks": {
-                // disable tasks
-                "disabled": {
-                    "pug": false,
-                    "js": false,
-                    "assets": false
-                },
-                // tasks details, ex: source, destination, minify and etc.
-                "settings": {
-                    "pug": [{
-                        "path": "/webshop-panel",
-                        "src": ["webshop-panel/index.pug"],
-                        "watch": ["layout/**/*.pug"],
-                    }, {
-                        "path": "/tpl",
-                        "src": ["tpl/**/*.pug"],
-                        "dest": "/assets/tpl"
-                    }]
-                }
-            }
-        },
-        "forus-webshop-nijmegen.markup": {
-            "source": "forus-webshop-nijmegen",
-            "paths": {
-                "root": "../dist/forus-webshop-nijmegen.markup",
-                "assets_root": "../dist/forus-webshop-nijmegen.markup/assets",
-                "clean_paths": [
-                    "../dist/forus-webshop-nijmegen.markup"
-                ]
-            },
-            "server": {
-                "path": "/",
-                "port": 8000
-            },
-            // tasks configs
-            "tasks": {
-                // tasks details, ex: source, destination, minify and etc.
-                "settings": {
-                    "js": [{
-                        "src": [
-                            "app.markup.js",
-                        ],
-                        "dest": "/",
-                        "name": "app.js",
-                        "minify": true,
-                        "sourcemap": true,
-                        "browserify": true
-                    }]
-                }
-            }
-        },
-        "forus-webshop-nijmegen.panel": {
-            "source": "forus-webshop-nijmegen",
-            "paths": {
-                "root": "../dist/forus-webshop-nijmegen.panel",
-                "assets_root": "../dist/forus-webshop-nijmegen.panel/assets",
-                "clean_paths": [
-                    "../dist/forus-webshop-nijmegen.panel"
-                ]
-            },
-            "server": {
-                "path": "/",
-                "port": 8500
-            },
-            // tasks configs
-            "tasks": {
-                // disable tasks
-                "disabled": {
-                    "pug": false,
-                    "js": false,
-                    "assets": false
-                },
-                // tasks details, ex: source, destination, minify and etc.
-                "settings": {
-                    "pug": [{
-                        "path": "/webshop-panel",
-                        "src": ["webshop-panel/index.pug"],
-                        "watch": ["layout/**/*.pug"],
-                    }, {
-                        "path": "/tpl",
-                        "src": ["tpl/**/*.pug"],
-                        "dest": "/assets/tpl"
-                    }]
-                }
-            }
-        }
+
+        // dashboard markup
+        "forus-platform.markup": dashboardMarkupConfig(3000, 'forus-platform.markup', 'forus-platform'),
+
+        // sponsor dashboard
+        "forus-platform.sponsor.general": dashboardConfig(3500, 'forus-platform.sponsor.general', 'forus-platform'),
+        "forus-platform.sponsor.zuidhorn": dashboardConfig(3510, 'forus-platform.sponsor.zuidhorn', 'forus-platform'),
+        "forus-platform.sponsor.nijmegen": dashboardConfig(3520, 'forus-platform.sponsor.nijmegen', 'forus-platform'),
+
+        // provider dashboard
+        "forus-platform.provider.general": dashboardConfig(4000, 'forus-platform.provider.general'),
+        "forus-platform.provider.zuidhorn": dashboardConfig(4010, 'forus-platform.provider.zuidhorn', 'forus-platform'),
+        "forus-platform.provider.nijmegen": dashboardConfig(4020, 'forus-platform.provider.nijmegen', 'forus-platform'),
+
+        // validator dashboard
+        "forus-platform.validator": dashboardConfig(4500, 'forus-platform.validator', 'forus-platform'),
+
+        // meapp landing
+        "forus-landing-meapp.general": landingConfig(3600, 'forus-landing-meapp.general', 'forus-platform', 'general'),
+        "forus-landing-meapp.zuidhorn": landingConfig(3610, 'forus-landing-meapp.zuidhorn', 'forus-platform', 'zuidhorn'),
+        "forus-landing-meapp.nijmegen": landingConfig(3620, 'forus-landing-meapp.nijmegen', 'forus-platform', 'nijmegen'),
+
+        // webshop markups
+        "forus-webshop-general.markup": webshopMarkupConfig(5000, 'forus-webshop-general.markup', 'forus-webshop'),
+        "forus-webshop-zuidhorn.markup": webshopMarkupConfig(5010, 'forus-webshop-zuidhorn.markup', 'forus-webshop-zuidhorn'),
+        "forus-webshop-nijmegen.markup": webshopMarkupConfig(5020, 'forus-webshop-nijmegen.markup', 'forus-webshop-nijmegen'),
+
+        // webshops
+        "forus-webshop-general.panel": webshopConfig(5500, 'forus-webshop-general.panel', 'forus-webshop'),
+        "forus-webshop-zuidhorn.panel": webshopConfig(5510, 'forus-webshop-zuidhorn.panel', 'forus-webshop-zuidhorn'),
+        "forus-webshop-nijmegen.panel": webshopConfig(5520, 'forus-webshop-nijmegen.panel', 'forus-webshop-nijmegen'),
     }
 };

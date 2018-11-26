@@ -129,10 +129,16 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
             productCategories: [
                 'permission',
                 'ProductCategoryService',
+                'appConfigs',
                 function(
                     permission,
-                    ProductCategoryService
+                    ProductCategoryService,
+                    appConfigs
                 ) {
+                    if (appConfigs.client_key == 'general') {
+                        return repackResponse(ProductCategoryService.listAll());
+                    }
+
                     return repackResponse(ProductCategoryService.list());
                 }
             ]
@@ -354,22 +360,6 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
      * Funds
      */
     $stateProvider.state({
-        name: "funds",
-        url: "/funds",
-        component: "fundsComponent",
-        resolve: {
-            funds: function($transition$, FundService) {
-                return repackResponse(
-                    FundService.list(
-                        $transition$.params().organization_id
-                    )
-                );
-            },
-            fundLevel: () => "funds"
-        }
-    });
-
-    $stateProvider.state({
         name: "funds-create",
         url: "/organizations/{organization_id}/funds/create",
         component: "fundsEditComponent",
@@ -430,7 +420,7 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
                 return FundService.states();
             },
             productCategories: function(ProductCategoryService) {
-                return repackResponse(ProductCategoryService.list());
+                return repackResponse(ProductCategoryService.listAll());
             }
         }
     });
@@ -665,7 +655,7 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
                 appConfigs
             ) {
                 IdentityService.authorizeAuthEmailToken(
-                    'panel-' + appConfigs.panel_type,
+                    appConfigs.client_key + '_' + appConfigs.panel_type,
                     $state.params.token
                 ).then(function(res) {
                     CredentialsService.set(res.data.access_token);
