@@ -286,7 +286,7 @@ module.exports = function($stateProvider) {
                 appConfigs
             ) {
                 IdentityService.authorizeAuthEmailToken(
-                    appConfigs.client_key,
+                    appConfigs.client_key + '_webshop',
                     $state.params.token
                 ).then(function(res) {
                     CredentialsService.set(res.data.access_token);

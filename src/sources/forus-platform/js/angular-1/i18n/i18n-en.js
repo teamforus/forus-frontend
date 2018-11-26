@@ -1,10 +1,5 @@
 module.exports = {
-    permissions: {
-        'fund-edit': {
-            title: 'Geen rechten',
-            description: 'U heeft geen rechten om deze actie uit te voeren.'
-        }
-    },
+    permissions: require("./en/permissions"),
     page_title: 'Forus platform',
     page_state_titles: {
         home: 'Forus platform home',

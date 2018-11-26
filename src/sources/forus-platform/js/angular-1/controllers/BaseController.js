@@ -107,6 +107,7 @@ let BaseController = function(
 
     ConfigService.get('dashboard').then((res) => {
         $rootScope.appConfigs.features = res.data;
+        $rootScope.appConfigs.frontends = res.data.fronts;
     });
 };
 

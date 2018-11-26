@@ -255,7 +255,7 @@ var js_compiler = function (platform, src, _settings) {
             }
 
             stream.push(_browserify.transform('babelify', {
-                presets: ['es2015'],
+                presets: ['es2015', 'es2017'],
                 extensions: ['.js']
             }).bundle());
 
