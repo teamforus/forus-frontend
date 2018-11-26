@@ -88,9 +88,9 @@ let FinancialDashboardComponent = function(
             } else if (this.request.type == 'month') {
                 stringTitle = moment.months(this.request.nth - 1) + ' ' + this.request.year;
             } else if (this.request.type == 'quarter') {
-                stringTitle = 'Qwartaal: Q' + this.request.nth + ' ' + this.request.year;
+                stringTitle = 'Kwartaal: Q' + this.request.nth + ' ' + this.request.year;
             } else if (this.request.type == 'all') {
-                stringTitle = 'Total';
+                stringTitle = 'Totaal';
             }
 
             this.stringTitle = stringTitle;
