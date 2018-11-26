@@ -8,12 +8,12 @@ block content
                 img(ng-src="./assets/img/landing/{{ $root.appConfigs.client_key == 'nijmegen' ? 'nijmegen' : 'forus' }}-logo-normal.svg")
                 img(ng-src="./assets/img/landing/{{ $root.appConfigs.client_key == 'nijmegen' ? 'nijmegen' : 'forus' }}-logo-hover.svg").hover
             nav.navbar-list
-                a(href="{{ $root.appConfigs.frontends.sponsor }}").navbar-item {{ "meapp_index.navbar.municipality" | translate }}
-                a(href="{{ $root.appConfigs.frontends.provider }}").navbar-item {{ "meapp_index.navbar.provider" | translate }}
-                //a(href="{{ $root.appConfigs.frontends.validator }}").navbar-item VALIDATOR
-                a(href="{{ $root.appConfigs.frontends.me_app }}").navbar-item.active {{ "meapp_index.navbar.me" | translate }}
-                a(href="{{ $root.appConfigs.frontends.webshop }}").navbar-item {{ "meapp_index.navbar.shop" | translate }}
-            .block.block-auth
+                a(href="{{ $root.appConfigs.frontends.url_sponsor }}").navbar-item {{ "meapp_index.navbar.municipality" | translate }}
+                a(href="{{ $root.appConfigs.frontends.url_provider }}").navbar-item {{ "meapp_index.navbar.provider" | translate }}
+                //a(href="{{ $root.appConfigs.frontends.url_validator }}").navbar-item VALIDATOR
+                a(href="{{ $root.appConfigs.frontends.url_app }}").navbar-item.active {{ "meapp_index.navbar.me" | translate }}
+                a(href="{{ $root.appConfigs.frontends.url_webshop }}").navbar-item {{ "meapp_index.navbar.shop" | translate }}
+            //- .block.block-auth
                 .auth-in(ng-if="$root.auth_user")
                     .button.button-default
                         em.mdi.mdi-account

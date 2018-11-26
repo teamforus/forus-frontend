@@ -9,7 +9,6 @@ app.controller('BaseController', require('./controllers/BaseController'));
 app.component('homeComponent', require('./components/HomeComponent'));
 app.component('organizationsComponent', require('./components/OrganizationsComponent'));
 app.component('organizationsEditComponent', require('./components/OrganizationsEditComponent'));
-app.component('fundsComponent', require('./components/FundsComponent'));
 app.component('fundsMyComponent', require('./components/FundsMyComponent'));
 app.component('providerFundsComponent', require('./components/ProviderFundsComponent'));
 app.component('fundsEditComponent', require('./components/FundsEditComponent'));
