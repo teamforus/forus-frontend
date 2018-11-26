@@ -28,8 +28,6 @@ app.component('csvValidationComonent', require('./components/CsvValidationComone
 app.component('validationRequestsComonent', require('./components/ValidationRequestsComonent'));
 app.component('validationRequestComonent', require('./components/ValidationRequestComonent'));
 app.component('signUpComponent', require('./components/SignUpComponent'));
-app.component('providerIdentitiesComponent', require('./components/ProviderIdentitiesComponent'));
-app.component('providerIdentityEditComponent', require('./components/ProviderIdentityEditComponent'));
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
 app.component('transactionComponent', require('./components/TransactionComponent'));
 
@@ -144,10 +142,10 @@ angular.bootstrap(document.querySelector('html'), ['forusApp', '720kb.datepicker
 
 if (!env_data.html5ModeEnabled) {
     let hash = document.location.hash;
-    
+
     if (hash.length > 3 && hash[hash.length - 1] == '/') {
         document.location.hash = hash.slice(0, hash.length - 1);
-    } else {
+    } else if (hash.length < 3) {
         document.location.hash = '#!/';
     }
 }

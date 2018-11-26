@@ -1695,18 +1695,18 @@
 
     &.block-app_download {
         .download-button {
-            display: block;
+            /*display: block;
             background: #fff;
             box-shadow: 0 0 30px rgba(#000, .15);
             border-radius: 5px;
             padding: 10px;
             padding-right: 65px;
             position: relative;
-            height: 60px;
+            height: 60px;*/
             width: 240px;
             max-width: 100%;
             margin-bottom: 10px;
-            text-align: center;
+            /*text-align: center;*/
 
             .download-label {
                 font: 400 12px $bf;
@@ -1719,19 +1719,20 @@
             }
 
             .download-icon {
-                position: absolute;
+                /*position: absolute;
                 right: 0;
                 top: 0;
                 width: 65px;
                 height: 100%;
-                background-color: #f4f4f4;
+                background-color: #f4f4f4;*/
 
                 img {
-                    display: block;
+                    /*display: block;
                     position: absolute;
                     top: 50%;
                     left: 50%;
-                    transform: translate(-50%, -50%);
+                    transform: translate(-50%, -50%);*/
+                    width: 100%;
                 }
             }
         }
