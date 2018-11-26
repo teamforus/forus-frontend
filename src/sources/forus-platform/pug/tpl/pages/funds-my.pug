@@ -13,7 +13,7 @@
             block-empty(
                 ng-if="($root.activeOrganization | hasPerm:'manage_funds')"
                 text="'Je hebt momenteel geen fondsen.'" 
-                button="{text: 'Add fund', href: $ctrl.emptyBlockLink}")
+                button="{text: 'Fonds toevoegen', href: $ctrl.emptyBlockLink}")
             block-empty(
                 ng-if="!($root.activeOrganization | hasPerm:'manage_funds')"
                 text="'Je hebt momenteel geen fondsen.'" )
