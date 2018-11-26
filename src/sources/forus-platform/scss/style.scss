@@ -2842,12 +2842,12 @@ translate,
                             display: block;
                             width: 100%;
                             border-radius: 8px;
+                            border: 1px solid #dadada;
+                            box-shadow: 2px 5px 20px rgba(0, 0, 0, .075);
                         }
 
                         .crop-control-orignal {
                             margin-bottom: 20px;
-                            border: 1px solid #dadada;
-                            box-shadow: 2px 5px 20px rgba(0, 0, 0, .075);
                         }
 
                         .crop-control-thumbnails {
@@ -2858,14 +2858,14 @@ translate,
                         .crop-control-thumbnail {
                             width: 50%;
                             margin-right: 10px;
-                            border: 1px solid #dadada;
-                            box-shadow: 2px 5px 20px rgba(0, 0, 0, .075);
 
                             &:last-child {
                                 margin-right: 0;
                                 margin-left: 10px;
-                                border-radius: 1000px;
-                                overflow: hidden;
+
+                                img {
+                                    border-radius: 1000px;
+                                }
                             }
                         }
                     }
