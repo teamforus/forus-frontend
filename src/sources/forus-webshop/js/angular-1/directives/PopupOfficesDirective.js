@@ -22,12 +22,28 @@ let PopupOfficesDirective = function(
                 OfficeService.list().then(res => {
                     $scope.offices = res.data.data;
                     $scope.shownOffices = $scope.offices;
+                    $scope.providersCount = getCountOfProviders($scope.offices);
                 });
             } else {
                 $scope.shownOffices = $scope.offices;
+                $scope.providersCount = getCountOfProviders($scope.offices);
             }
         }
     });
+
+    let getCountOfProviders = function(offices) {
+        let count = 0,
+            groupedOffices = [];
+
+        offices.forEach(function (value, i) {
+            if(!groupedOffices[value['organization_id']]){
+                groupedOffices[value['organization_id']] = 1;
+                count++;
+            }
+        });
+
+        return count;
+    };
 
     $scope.weekDays = OfficeService.scheduleWeekDays();
 
@@ -75,6 +91,6 @@ module.exports = () => {
             'ProductCategoryService',
             PopupOfficesDirective
         ],
-        templateUrl: 'assets/tpl/directives/popup-offices.html' 
+        templateUrl: 'assets/tpl/directives/popup-offices.html'
     };
 };
