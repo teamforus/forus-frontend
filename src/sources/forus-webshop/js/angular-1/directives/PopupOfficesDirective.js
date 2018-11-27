@@ -32,17 +32,7 @@ let PopupOfficesDirective = function(
     });
 
     let getCountOfProviders = function(offices) {
-        let count = 0,
-            groupedOffices = [];
-
-        offices.forEach(function (value, i) {
-            if(!groupedOffices[value['organization_id']]){
-                groupedOffices[value['organization_id']] = 1;
-                count++;
-            }
-        });
-
-        return count;
+        return _.uniq(_.pluck(offices, 'organization_id')).length
     };
 
     $scope.weekDays = OfficeService.scheduleWeekDays();
@@ -57,15 +47,22 @@ let PopupOfficesDirective = function(
         }
 
         if($scope.selectedCategories.length) {
-            $scope.shownOffices = $scope.offices.filter(office => {
+
+            let offices = $scope.offices.filter(office => {
                 return office.organization.product_categories.filter(function (category) {
                     return $scope.selectedCategories.filter(function (selectedCategory) {
                         return category.id == selectedCategory;
                     }).length > 0;
                 }).length > 0
             });
+
+            $scope.shownOffices = offices;
+
+            $scope.providersCount = getCountOfProviders(offices);
+
         }else{
             $scope.shownOffices = $scope.offices;
+            $scope.providersCount = getCountOfProviders($scope.offices);
         }
 
         $scope.selectOffice(false);
