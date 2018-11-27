@@ -385,7 +385,7 @@ module.exports = {
         "forus-platform.sponsor.nijmegen": dashboardConfig(3520, 'forus-platform.sponsor.nijmegen', 'forus-platform'),
 
         // provider dashboard
-        "forus-platform.provider.general": dashboardConfig(4000, 'forus-platform.provider.general'),
+        "forus-platform.provider.general": dashboardConfig(4000, 'forus-platform.provider.general', 'forus-platform'),
         "forus-platform.provider.zuidhorn": dashboardConfig(4010, 'forus-platform.provider.zuidhorn', 'forus-platform'),
         "forus-platform.provider.nijmegen": dashboardConfig(4020, 'forus-platform.provider.nijmegen', 'forus-platform'),
 

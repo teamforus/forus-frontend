@@ -13,6 +13,7 @@ let SignUpComponent = function(
     FormBuilderService,
     MediaService,
     ProviderFundService,
+    SmsService,
     appConfigs
 ) {
     let $ctrl = this;
@@ -31,11 +32,13 @@ let SignUpComponent = function(
     $ctrl.organization = null;
     $ctrl.fundsAvailable = [];
     $ctrl.offices = [];
+    $ctrl.sentSms = false;
 
     let qrCodeEl;
     let qrCode;
     let has_app = false;
     let orgMediaFile = false;
+    let waitingSms = false;
 
     $ctrl.beforeInit = () => {
         if ($rootScope.auth_user) {
@@ -174,6 +177,24 @@ let SignUpComponent = function(
             return OrganizationService.store(values);
         });
 
+        $scope.phoneForm = FormBuilderService.build({
+            phone: "06"
+        }, function(form) {
+            form.lock();
+
+            let phone = "+31" + form.values.phone.substr(1);
+            let values = {
+                phone: phone,
+                title: $filter('translate')('sign_up.sms.body')
+            };
+
+            waitingSms = true;
+
+            return SmsService.send(
+                values
+            );
+        });
+
         progressStorage.init();
 
         $scope.$on('$destroy', progressStorage.destroy);
@@ -256,7 +277,22 @@ let SignUpComponent = function(
         }
 
         if ($ctrl.step == 1) {
-            $ctrl.setStep(2);
+
+            if(!waitingSms) {
+                $scope.phoneForm.submit().then((res) => {
+                    $ctrl.sentSms = true;
+                }, (res) => {
+                    $scope.phoneForm.unlock();
+                    $scope.phoneForm.errors = res.data.errors;
+
+                    if (res.status == 429) {
+                        $scope.phoneForm.errors = {
+                            phone: [$filter('translate')('sign_up.sms.error.try_later')]
+                        };
+                    }
+                });
+            }
+
         } else if ($ctrl.step == 2) {
             $ctrl.setStep(3);
         } else if ($ctrl.step == 3) {
@@ -432,6 +468,7 @@ module.exports = {
         'FormBuilderService',
         'MediaService',
         'ProviderFundService',
+        'SmsService',
         'appConfigs',
         'ModalService',
         SignUpComponent
