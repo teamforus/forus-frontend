@@ -1,11 +1,12 @@
 let api_url = "https://dev.api.forus.link/api/v1";
 
-let dashboardConfig = (client_type, client_key, chat_id = false) => {
+let dashboardConfig = (client_type, client_key, chat_id = false, max_product_count = false) => {
     return {
         api_url: api_url,
         panel_type: client_type,
         chat_id: chat_id,
-        client_key: client_key
+        client_key: client_key,
+        max_product_count: max_product_count
     }
 };
 
@@ -37,9 +38,9 @@ let platforms_data = {
     "forus-platform.sponsor.nijmegen": dashboardConfig('sponsor', 'nijmegen'),
 
     /* Provider dashboards */
-    "forus-platform.provider.general": dashboardConfig('provider', 'general'),
-    "forus-platform.provider.zuidhorn": dashboardConfig('provider', 'zuidhorn'),
-    "forus-platform.provider.nijmegen": dashboardConfig('provider', 'nijmegen'),
+    "forus-platform.provider.general": dashboardConfig('provider', 'general', false, 2),
+    "forus-platform.provider.zuidhorn": dashboardConfig('provider', 'zuidhorn', false, 2),
+    "forus-platform.provider.nijmegen": dashboardConfig('provider', 'nijmegen', false, 2),
 
     /* Validator dashboards */
     "forus-platform.validator": dashboardConfig('validator', 'general'),

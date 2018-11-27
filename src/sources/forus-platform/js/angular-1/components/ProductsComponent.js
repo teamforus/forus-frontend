@@ -7,15 +7,16 @@ let ProductsComponent = function(
 ) {
     let $ctrl = this;
 
+    $ctrl.maxProductCount = $rootScope.appConfigs.max_product_count ? $rootScope.appConfigs.max_product_count : null;
+
     $ctrl.$onInit = function() {
         $ctrl.emptyBlockLink = $state.href('products-create', $stateParams);
         $ctrl.cardLevel = "list";
     };
 
     $ctrl.addProduct = function () {
-        let maxProductCount = $rootScope.appConfigs.max_product_count ? $rootScope.appConfigs.max_product_count : null;
 
-        if(maxProductCount && $ctrl.products.length >= maxProductCount){
+        if($ctrl.maxProductCount && $ctrl.products.length >= $ctrl.maxProductCount){
             ModalService.open('modalNotification', {
                 type: 'danger',
                 title: $filter('translate')('product_edit.errors.already_added'),
