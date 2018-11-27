@@ -67,6 +67,7 @@ app.service('ImageConvertorService', require('./services/ImageConvertorService')
 app.service('ModalService', require('./services/ModalService'));
 app.service('PermissionsService', require('./services/PermissionsService'));
 app.service('RoleService', require('./services/RoleService'));
+app.service('SmsService', require('./services/SmsService'));
 
 // Directives
 switch (env_data.panel_type) {
@@ -114,6 +115,7 @@ app.directive('modalsRoot', require('./directives/ModalsRootDirective'));
 app.directive('modalItem', require('./directives/ModalItemDirective'));
 app.directive('informationBlock', require('./directives/InformationBlockDirective'));
 app.directive('menuScrollToggle', require('./directives/landing/MenuScrollToggleDirective'));
+app.directive('phoneControl', require('./directives/PhoneControlDirective'));
 
 app.directive('blockEmpty', require('./directives/blocks/BlockEmptyDirective'));
 app.directive('blockNoPermission', require('./directives/blocks/BlockNoPermissionDirective'));

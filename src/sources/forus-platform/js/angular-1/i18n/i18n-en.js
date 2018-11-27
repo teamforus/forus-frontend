@@ -486,6 +486,19 @@ module.exports = {
         open_pc: {
             title: 'Deze pagina is niet mobiel te benaderen.',
             description: 'Aanmelden voor een fonds is alleen mogelijk via onze website op een vaste computer.'
+        },
+        sms:{
+            body: 'Download Me makkelijk via de link: https://www.forus.io/DL',
+            title: 'Download <i>Me</i> op uw mobiele telefoon',
+            description: 'Vul uw telefoonnummer in het onderstaande invoerveld om een sms te ontvangen met de download link.',
+            subdescription: 'Krijgt u geen sms dan kunt u <i>Me</i> downloaden via de link <b>www.forus.io/DL</b> op uw mobiele telefoon',
+            sent: 'SMS verstuurd',
+            button: {
+                send: 'Versturen'
+            },
+            error: {
+                try_later: 'Try later'
+            }
         }
     },
 
