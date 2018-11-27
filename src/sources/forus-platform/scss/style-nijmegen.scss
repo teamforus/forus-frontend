@@ -1868,6 +1868,11 @@ translate,
         position: relative;
         @include cf();
 
+        &.block-phone-number{
+            width: calc(60px * 10 + 10px * 9);
+            margin: 25px auto;
+        }
+
         .pincode-number {
             display: block;
             height: 75px;
@@ -2952,15 +2957,33 @@ translate,
 
         .card-header {
             border-bottom: 1px solid #d2e6ff;
+        }
 
-            .card-title {
-                font: 700 22px/36px $bf;
-                color: #282b39;
+        .card-title {
+            font: 700 22px/36px $bf;
+            color: #282b39;
+
+            i, b{
+                font-weight: 700;
+                font-size: 22px;
             }
+        }
 
-            .card-subtitle {
-                font: 400 16px/24px $bf;
-                color: #646f79;
+        .card-subtitle {
+            font: 400 16px/24px $bf;
+            color: #646f79;
+
+            i, b{
+                font-size: 16px;
+            }
+        }
+
+        .card-subdescription {
+            font: 400 13px/20px $bf;
+            color: #646f79;
+
+            i, b{
+                font-size: 13px;
             }
         }
 

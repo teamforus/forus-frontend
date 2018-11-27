@@ -2965,13 +2965,22 @@ translate,
         }
 
         .card-title {
-            font: 700 22px/36px $bf;
-            color: #282b39;
+          font: 700 22px/36px $bf;
+          color: #282b39;
+
+          i, b{
+              font-weight: 700;
+              font-size: 22px;
+          }
         }
 
         .card-subtitle {
-            font: 400 16px/24px $bf;
-            color: #646f79;
+          font: 400 16px/24px $bf;
+          color: #646f79;
+
+          i, b{
+              font-size: 16px;
+          }
         }
 
         .card-subdescription {
@@ -2979,7 +2988,7 @@ translate,
             color: #646f79;
 
             i, b{
-                font: 400 13px/20px $bf;
+                font-size: 13px;
             }
         }
 
