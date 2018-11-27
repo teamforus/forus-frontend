@@ -7,6 +7,8 @@
             a(ng-click="$ctrl.addProduct()").link
                 em.mdi.mdi-plus-circle 
                 | {{ "products.add" | translate }}
+                |
+                span(ng-if="$ctrl.maxProductCount > 0") ({{ $ctrl.products.length }}/{{ $ctrl.maxProductCount }})
 
         product-card(
             ng-if="$ctrl.products.length > 0" 
