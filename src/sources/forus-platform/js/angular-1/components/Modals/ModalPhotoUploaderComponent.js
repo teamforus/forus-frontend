@@ -10,6 +10,10 @@ let ModalPhotoUploaderComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.mediaConfig = MediaService.configByType($ctrl.modal.scope.type);
+        $ctrl.mediaConfig.large_size = {
+            w: $ctrl.mediaConfig.size.large[0],
+            h: $ctrl.mediaConfig.size.large[1]
+        };
         $ctrl.cropFile($ctrl.modal.scope.getFile());
     };
 
