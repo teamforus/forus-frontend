@@ -103,8 +103,8 @@ let FinancialDashboardComponent = function(
             }
 
             FundService.readFinances(
-                $ctrl.fund.id,
                 $ctrl.fund.organization_id,
+                $ctrl.fund.id,
                 $ctrl.chartData.request
             ).then(function (res) {
                 $ctrl.chartData.response = res.data;
