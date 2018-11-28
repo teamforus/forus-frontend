@@ -2962,6 +2962,14 @@ translate,
 
         .card-header {
             border-bottom: 1px solid #d2e6ff;
+            position: relative;
+
+            .card-header-image{
+                position: absolute;
+                bottom: 0;
+                right: 20px;
+                width: 40px;
+            }
         }
 
         .card-title {
