@@ -38,6 +38,7 @@ module.exports = () => {
         scope: {
             products: "=",
             productCategories: "=",
+            hideFilter: "=?"
         },
         restrict: "EA",
         replace: true,

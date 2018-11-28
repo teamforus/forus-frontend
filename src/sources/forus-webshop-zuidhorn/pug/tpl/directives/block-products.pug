@@ -1,6 +1,6 @@
 section.section.section-products#products: .wrapper
     .section-title {{ "block_products.header.title" | translate }}
-    .section-filters
+    .section-filters(ng-if="!hideFilter")
         .row.form
             .col.col-md-4: .form-group
                 select(

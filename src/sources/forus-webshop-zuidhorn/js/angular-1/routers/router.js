@@ -14,7 +14,7 @@ module.exports = function($stateProvider) {
         resolve: {
             products: function($transition$, ProductService) {
                 return repackResponse(
-                    ProductService.list()
+                    ProductService.list({ forHome: true, total: 6})
                 );
             },
             productCategories: function($transition$, ProductCategoryService) {
