@@ -2705,7 +2705,6 @@ translate,
         z-index: 2;
         left: 50%;
         top: 50%;
-        transform: translate(-50%, -50%);
         background: #f6f9fc;
         min-width: 620px;
         max-width: 100%;
@@ -2810,6 +2809,7 @@ translate,
                 width: 1200px;
                 display: flex;
                 border-radius: inherit;
+                max-width: 100%;
                 
                 .button {
                     padding-left: 25px;
@@ -2859,10 +2859,12 @@ translate,
 
                         .crop-control-orignal {
                             margin-bottom: 20px;
+                            height: 100%;
                         }
 
                         .crop-control-thumbnails {
                             width: 100%;
+                            height: 100%;
                             display: flex;
                         }
 
