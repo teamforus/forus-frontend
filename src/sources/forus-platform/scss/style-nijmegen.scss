@@ -1320,6 +1320,12 @@ translate,
     &.card-outline {
         border: 1px solid #8ca3a6;
     }
+
+    .label-item{
+        font: 500 13px $bf;
+        color: #646f79;
+        margin-bottom: 5px;
+    }
 }
 
 .card-block {
