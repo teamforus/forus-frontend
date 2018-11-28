@@ -49,20 +49,26 @@ let ModalPhotoUploaderComponent = function(
             ImageConvertorService.instance(
                 ImageConvertorService.dataURItoBlob($ctrl.cropedPhoto)
             ).then((convertorPreview) => {
-                $ctrl.thumbnailUri = convertorPreview.resize(
-                    $ctrl.mediaConfig.size.thumbnail[0],
-                    $ctrl.mediaConfig.size.thumbnail[1]
+                $ctrl.thumbnailUri = ImageConvertorService.createObjectURL(
+                    convertorPreview.resizeToBlob(
+                        $ctrl.mediaConfig.size.thumbnail[0],
+                        $ctrl.mediaConfig.size.thumbnail[1]
+                    )
                 );
-            })
+            });
+
+            $ctrl.previewUri = ImageConvertorService.createObjectURL(
+                ImageConvertorService.dataURItoBlob($ctrl.cropedPhoto)
+            );
         }, 0);
     };
 
     $ctrl.apply = () => {
-        let file = new File([
-            ImageConvertorService.dataURItoBlob($ctrl.cropedPhoto)
-        ], $ctrl.targetFile.name, {
-            lastModified: $ctrl.targetFile.lastModified
-        });
+        let file = ImageConvertorService.dataURItoBlob($ctrl.cropedPhoto);
+
+        file.name = $ctrl.targetFile.name;
+        file.lastModified = $ctrl.targetFile.lastModified;
+        file.lastModifiedDate = $ctrl.targetFile.lastModifiedDate;
 
         $ctrl.modal.scope.submit(file);
         $ctrl.close();
