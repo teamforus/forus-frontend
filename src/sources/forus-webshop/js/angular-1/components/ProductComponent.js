@@ -1,4 +1,4 @@
-let ProductComponent = function (
+let ProductComponent = function(
     $state,
     appConfigs
 ) {
@@ -10,12 +10,12 @@ let ProductComponent = function (
 
     $ctrl.isApplicable = false;
 
-    $ctrl.$onInit = function () {
+    $ctrl.$onInit = function() {
         let fundIds = $ctrl.product.funds.map(fund => fund.id);
 
-        $ctrl.isApplicable = $ctrl.vouchers.filter(function (voucher) {
+        $ctrl.isApplicable = $ctrl.vouchers.filter(function(voucher) {
             return (fundIds.indexOf(voucher.fund_id) != -1) && (
-                $ctrl.product.price <= voucher.amount
+                parseFloat($ctrl.product.price) <= parseFloat(voucher.amount)
             ) && !voucher.parent;
         }).length > 0;
     };
