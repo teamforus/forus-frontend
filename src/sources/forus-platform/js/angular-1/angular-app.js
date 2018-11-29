@@ -67,6 +67,7 @@ app.service('ImageConvertorService', require('./services/ImageConvertorService')
 app.service('ModalService', require('./services/ModalService'));
 app.service('PermissionsService', require('./services/PermissionsService'));
 app.service('RoleService', require('./services/RoleService'));
+app.service('SmsService', require('./services/SmsService'));
 
 // Directives
 switch (env_data.panel_type) {
@@ -110,10 +111,14 @@ app.directive('pincodeControl', require('./directives/PincodeControlDirective'))
 app.directive('productCategoriesControl', require('./directives/ProductCategoriesControlDirective'));
 app.directive('officeEditInline', require('./directives/OfficeEditInlineDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
-app.directive('modalsRoot', require('./directives/ModalsRootDirective'));
-app.directive('modalItem', require('./directives/ModalItemDirective'));
 app.directive('informationBlock', require('./directives/InformationBlockDirective'));
 app.directive('menuScrollToggle', require('./directives/landing/MenuScrollToggleDirective'));
+app.directive('phoneControl', require('./directives/PhoneControlDirective'));
+
+app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
+app.directive('modalItem', require('./directives/modals/ModalItemDirective'));
+app.directive('modalWindowMiddle', require('./directives/modals/ModalWindowMiddleDirective'));
+app.directive('modalScrollBraker', require('./directives/modals/ModalScrollBrakerDirective'));
 
 app.directive('blockEmpty', require('./directives/blocks/BlockEmptyDirective'));
 app.directive('blockNoPermission', require('./directives/blocks/BlockNoPermissionDirective'));

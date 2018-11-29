@@ -9,6 +9,32 @@ let PopupOfficesDirective = function(
 
     $scope.selectedCategories = [];
 
+    $scope.per_page = 7;
+    $scope.cur_page = 1;
+
+    $scope.getCategories = (cur_page, per_page) => {
+        return $scope.productCategories ? $scope.productCategories.slice(
+            per_page * (cur_page - 1),
+            per_page * cur_page
+        ) : [];
+    };
+
+    $scope.isLast = () => {
+        return $scope.getCategories($scope.cur_page + 1, $scope.per_page).length == 0;
+    };
+
+    $scope.prevCategoriesPage = () => {
+        if ($scope.cur_page > 1) {
+            $scope.cur_page--;
+        }
+    };
+
+    $scope.nextCategoriesPage = () => {
+        if (!$scope.isLast()) {
+            $scope.cur_page++;
+        }
+    };
+
     $scope.$watch('popup.show', function(show) {
         if (show) {
             if (!$scope.productCategories) {
@@ -22,34 +48,46 @@ let PopupOfficesDirective = function(
                 OfficeService.list().then(res => {
                     $scope.offices = res.data.data;
                     $scope.shownOffices = $scope.offices;
+                    $scope.providersCount = getCountOfProviders($scope.offices);
                 });
             } else {
                 $scope.shownOffices = $scope.offices;
+                $scope.providersCount = getCountOfProviders($scope.offices);
             }
         }
     });
 
+    let getCountOfProviders = function(offices) {
+        return _.uniq(_.pluck(offices, 'organization_id')).length
+    };
+
     $scope.weekDays = OfficeService.scheduleWeekDays();
 
     $scope.selectCategory = (category) => {
-
-        if($scope.selectedCategories.indexOf(category.id) !== -1) {
+        if ($scope.selectedCategories.indexOf(category.id) !== -1) {
             $scope.shownOffices = $scope.offices;
             $scope.selectedCategories.splice($scope.selectedCategories.indexOf(category.id), 1);
-        }else{
+        } else {
             $scope.selectedCategories.push(category.id);
         }
 
-        if($scope.selectedCategories.length) {
-            $scope.shownOffices = $scope.offices.filter(office => {
-                return office.organization.product_categories.filter(function (category) {
-                    return $scope.selectedCategories.filter(function (selectedCategory) {
+        if ($scope.selectedCategories.length) {
+
+            let offices = $scope.offices.filter(office => {
+                return office.organization.product_categories.filter(function(category) {
+                    return $scope.selectedCategories.filter(function(selectedCategory) {
                         return category.id == selectedCategory;
                     }).length > 0;
                 }).length > 0
             });
-        }else{
+
+            $scope.shownOffices = offices;
+
+            $scope.providersCount = getCountOfProviders(offices);
+
+        } else {
             $scope.shownOffices = $scope.offices;
+            $scope.providersCount = getCountOfProviders($scope.offices);
         }
 
         $scope.selectOffice(false);

@@ -1,6 +1,6 @@
 .modal
     .modal-backdrop(ng-click="$ctrl.close()")
-    .modal-window
+    .modal-window(modal-window-middle)
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
         .modal-body: .signup-layout
             .modal-photo-upload
@@ -19,7 +19,7 @@
                             on-load-begin="$ctrl.onChange($ctrl.cropjectObj)"
                             on-load-done="$ctrl.onChange($ctrl.cropjectObj)")
                     .crop-control-preview
-                        .crop-control-orignal: img(ng-src="{{ $ctrl.cropedPhoto }}") 
+                        .crop-control-orignal: img(ng-src="{{ $ctrl.previewUri }}") 
                         .crop-control-thumbnails
                             .crop-control-thumbnail(ng-if="$ctrl.thumbnailUri"): img(ng-src="{{ $ctrl.thumbnailUri }}")
                             .crop-control-thumbnail(ng-if="$ctrl.thumbnailUri"): img(ng-src="{{ $ctrl.thumbnailUri }}")

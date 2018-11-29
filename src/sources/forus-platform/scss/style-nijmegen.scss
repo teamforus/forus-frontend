@@ -1320,6 +1320,12 @@ translate,
     &.card-outline {
         border: 1px solid #8ca3a6;
     }
+
+    .label-item{
+        font: 500 13px $bf;
+        color: #646f79;
+        margin-bottom: 5px;
+    }
 }
 
 .card-block {
@@ -1867,6 +1873,11 @@ translate,
         width: calc(60px * 6 + 10px * 5);
         position: relative;
         @include cf();
+
+        &.block-phone-number{
+            width: calc(60px * 10 + 10px * 9);
+            margin: 25px auto;
+        }
 
         .pincode-number {
             display: block;
@@ -2952,15 +2963,41 @@ translate,
 
         .card-header {
             border-bottom: 1px solid #d2e6ff;
+            position: relative;
 
-            .card-title {
-                font: 700 22px/36px $bf;
-                color: #282b39;
+            .card-header-image{
+                position: absolute;
+                bottom: 0;
+                right: 20px;
+                width: 40px;
             }
+        }
 
-            .card-subtitle {
-                font: 400 16px/24px $bf;
-                color: #646f79;
+        .card-title {
+            font: 700 22px/36px $bf;
+            color: #282b39;
+
+            i, b{
+                font-weight: 700;
+                font-size: 22px;
+            }
+        }
+
+        .card-subtitle {
+            font: 400 16px/24px $bf;
+            color: #646f79;
+
+            i, b{
+                font-size: 16px;
+            }
+        }
+
+        .card-subdescription {
+            font: 400 13px/20px $bf;
+            color: #646f79;
+
+            i, b{
+                font-size: 13px;
             }
         }
 
@@ -3214,6 +3251,21 @@ translate,
 
         .tooltip {
             display: block;
+        }
+    }
+}
+
+.form-group-inline {
+    &.tooltipped {
+
+        position: relative;
+
+        .tooltip-block {
+            position: absolute;
+            top: 18px;
+            right: -35px;
+            transform: translate(0, -50%);
+            z-index: 10;
         }
     }
 }

@@ -25,15 +25,35 @@
             .card-header
                 .card-title(translate="sign_up.header.title_step_" + step)
                 .card-subtitle(translate="sign_up.header.subtitle_step_" + step)
+                - if(step == 1)
+                    img.card-header-image(ng-src="./assets/img/sign-up/scan-qr.png")
                 
         // Step 1: Download the app
         .step-item(ng-show="$ctrl.step == 1")
             .card
                 +card_header(1)
 
-                .card-section
+                .card-section.card-section-primary(ng-if="!$ctrl.sentSms")
+                    .card-block
+                        .text-center
+                            .card-title(translate="sign_up.sms.title")
+                            .card-subtitle(translate="sign_up.sms.description")
+
+                        phone-control(ng-model="phoneForm.values.phone" cant-delete-length="2")
+                        .pincode-errors.text-center: .form-error(ng-repeat="error in phoneForm.errors.phone" ng-bind="error")
+                        .text-center
+                            .card-subdescription(translate="sign_up.sms.subdescription")
+
+                .card-section.card-section-primary.text-center(ng-if="!$ctrl.sentSms")
+                    button(ng-click="$ctrl.next()" translate="sign_up.sms.button.send").button.button-primary
+
+                .card-section.card-section-primary.text-center(ng-if="$ctrl.sentSms")
+                    .card-title(translate="sign_up.sms.sent")
+                    .card-subtitle(translate="sign_up.sms.sent_description")
+                    
+                .card-section.card-section-primary
                     .card-block.card-block-download-app
-                        .download-links
+                        //.download-links
                             a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").download-link
                                 .download-link-icon(style="background-image: url('./assets/img/sign-up/app-store.png');")
                                 .download-link-title
@@ -45,9 +65,7 @@
                                 .download-link-title
                                     translate(translate="sign_up.download.android")
                                     .download-link-arrow.mdi.mdi-arrow-right
-                        .text-center: .download-url
-                            translate(translate="sign_up.download.url_text")
-                            translate(translate="sign_up.download.url_address").download-url-address
+
 
                         label(for="have_app").download-confirmation: .form: .checkbox.checkbox-confirm
                             input(type="checkbox" id="have_app" ng-model="$ctrl.has_app" ng-change="$ctrl.changeHasApp()")
@@ -56,7 +74,7 @@
                                 div(translate="sign_up.download.already_have_app")
 
             .step-footer(ng-if="$ctrl.has_app")
-                a(translate="sign_up.buttons.go_step_2" ng-click="$ctrl.next()").button.button-primary
+                a(translate="sign_up.buttons.go_step_2" ng-click="$ctrl.skipToStep(2)").button.button-primary
 
         // Step 2: Personal info
         .step-item(ng-show="$ctrl.step == 2"): form(ng-submit="$ctrl.next()").form
@@ -203,7 +221,7 @@
                 .card-section.card-section-primary: .card-block.card-block-pincode
                     .pincode-title(translate="sign_up.app_header.title")
                     .pincode-subtitle(translate="sign_up.app_header.subtitle")
-                    
+
                     pincode-control(ng-model="authorizePincodeForm.values.auth_code")
 
                     .pincode-errors: .form-error(ng-repeat="error in authorizePincodeForm.errors.auth_code" ng-bind="error")

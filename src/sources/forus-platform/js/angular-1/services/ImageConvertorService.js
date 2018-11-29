@@ -19,6 +19,12 @@ let dataURItoBlob = (dataURI) => {
     });
 };
 
+let createObjectURL = (file) => {
+    return (
+        window.URL || window.webkitURL || window.mozURL || window.msURL
+    ).createObjectURL(file);
+};
+
 function ImageConvertor(file) {
     let converter = {};
     let imageObj = new Image();
@@ -27,11 +33,7 @@ function ImageConvertor(file) {
     
     converter.isReady = false;
 
-    converter.createObjectURL = (file) => {
-        return (
-            window.URL || window.webkitURL || window.mozURL || window.msURL
-        ).createObjectURL(file);
-    }
+    converter.createObjectURL = createObjectURL;
 
     converter.originalRatio = () => {
         return imageObj.width / imageObj.height;
@@ -86,6 +88,9 @@ function ImageConvertor(file) {
     converter.getImage = () => {
         return imageObj;
     };
+    converter.getBlob = () => {
+        return imageObj;
+    };
 
     return new Promise(done => {
         imageObj.onload = () => {
@@ -103,6 +108,7 @@ function ImageConvertor(file) {
 module.exports = ['$q', function($q) {
     return new(function() {
         this.dataURItoBlob = dataURItoBlob;
+        this.createObjectURL = createObjectURL;
         this.instance = (image) => {
             return $q(done => {
                 ImageConvertor(image).then(done);
