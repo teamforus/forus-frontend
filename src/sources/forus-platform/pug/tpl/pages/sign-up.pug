@@ -25,6 +25,8 @@
             .card-header
                 .card-title(translate="sign_up.header.title_step_" + step)
                 .card-subtitle(translate="sign_up.header.subtitle_step_" + step)
+                - if(step == 1)
+                    img.card-header-image(ng-src="./assets/img/sign-up/scan-qr.png")
                 
         // Step 1: Download the app
         .step-item(ng-show="$ctrl.step == 1")

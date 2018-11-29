@@ -8,10 +8,12 @@
         .block.block-shops_map
             .shop_map-header
                 .shop_map-title {{ "popup_offices.header.title_first_part" | translate }} {{ providersCount }} {{ "popup_offices.header.title_last_part" | translate }}
-                .shop_map-subtitle {{ "popup_offices.header.subtitle" | translate }}
-                .shop_map-categories
-                    .shop_map-category-item(x
-                        ng-repeat="category in productCategories"
+                .shop_map-subtitle(translate="popup_offices.header.subtitle")
+                .shop_map-categories(ng-class="productCategories.length > per_page ? 'has-pagination' : ''")
+                    .shop_map-prev(ng-click="prevCategoriesPage()" ng-class="cur_page == 1 ? 'disabled' : ''"): .mdi.mdi-chevron-left
+                    .shop_map-next(ng-click="nextCategoriesPage()" ng-class="isLast() ? 'disabled' : ''"): .mdi.mdi-chevron-right
+                    .shop_map-category-item(
+                        ng-repeat="category in getCategories(cur_page, per_page)"
                         ng-class="{active: selectedCategories.indexOf(category.id) !== -1}")
                         .shop_map-category-item-inner(
                             ng-click="selectCategory(category)")

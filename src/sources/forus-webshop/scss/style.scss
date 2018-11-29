@@ -2127,6 +2127,7 @@ body {
                     transform: translate(0, -50%);
                     z-index: 1;
                     cursor: pointer;
+                    transition: .4s;
 
                     .mdi {
                         display: block;
@@ -2136,10 +2137,15 @@ body {
                         transition: .4s;
                     }
 
-                    &:hover {
+                    &:hover:not(.disabled) {
                         .mdi {
                             color: #868686;
                         }
+                    }
+
+                    &.disabled {
+                        cursor: default;
+                        opacity: .25;
                     }
                 }
 

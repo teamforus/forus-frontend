@@ -1321,6 +1321,12 @@ translate,
     &.card-outline {
         border: 1px solid #8ca3a6;
     }
+
+    .label-item{
+        font: 500 13px $bf;
+        color: #646f79;
+        margin-bottom: 5px;
+    }
 }
 
 .card-block {
@@ -2699,7 +2705,6 @@ translate,
         z-index: 2;
         left: 50%;
         top: 50%;
-        transform: translate(-50%, -50%);
         background: #f6f9fc;
         min-width: 620px;
         max-width: 100%;
@@ -2804,6 +2809,7 @@ translate,
                 width: 1200px;
                 display: flex;
                 border-radius: inherit;
+                max-width: 100%;
                 
                 .button {
                     padding-left: 25px;
@@ -2853,10 +2859,12 @@ translate,
 
                         .crop-control-orignal {
                             margin-bottom: 20px;
+                            height: 100%;
                         }
 
                         .crop-control-thumbnails {
                             width: 100%;
+                            height: 100%;
                             display: flex;
                         }
 
@@ -2962,6 +2970,14 @@ translate,
 
         .card-header {
             border-bottom: 1px solid #d2e6ff;
+            position: relative;
+
+            .card-header-image{
+                position: absolute;
+                bottom: 0;
+                right: 20px;
+                width: 40px;
+            }
         }
 
         .card-title {
@@ -3176,6 +3192,7 @@ translate,
     margin: 0;
 }
 
+
 .tooltip-block {
     position: relative;
     display: inline-block;
@@ -3243,6 +3260,17 @@ translate,
         .tooltip {
             display: block;
         }
+    }
+}
+
+.form-group-inline{
+
+    .tooltip-block {
+        position: absolute;
+        top: 18px;
+        right: -27px;
+        transform: translate(0, -50%);
+        z-index: 10;
     }
 }
 

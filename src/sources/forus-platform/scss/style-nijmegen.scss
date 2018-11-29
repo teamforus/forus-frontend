@@ -1320,6 +1320,12 @@ translate,
     &.card-outline {
         border: 1px solid #8ca3a6;
     }
+
+    .label-item{
+        font: 500 13px $bf;
+        color: #646f79;
+        margin-bottom: 5px;
+    }
 }
 
 .card-block {
@@ -2957,6 +2963,14 @@ translate,
 
         .card-header {
             border-bottom: 1px solid #d2e6ff;
+            position: relative;
+
+            .card-header-image{
+                position: absolute;
+                bottom: 0;
+                right: 20px;
+                width: 40px;
+            }
         }
 
         .card-title {
@@ -3238,6 +3252,17 @@ translate,
         .tooltip {
             display: block;
         }
+    }
+}
+
+.form-group-inline{
+
+    .tooltip-block {
+        position: absolute;
+        top: 18px;
+        right: -27px;
+        transform: translate(0, -50%);
+        z-index: 10;
     }
 }
 
