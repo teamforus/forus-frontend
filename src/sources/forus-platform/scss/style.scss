@@ -3265,10 +3265,12 @@ translate,
 
 .form-group-inline{
 
+    position: relative;
+
     .tooltip-block {
         position: absolute;
         top: 18px;
-        right: -27px;
+        right: -35px;
         transform: translate(0, -50%);
         z-index: 10;
     }

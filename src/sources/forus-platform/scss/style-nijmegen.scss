@@ -3255,14 +3255,18 @@ translate,
     }
 }
 
-.form-group-inline{
+.form-group-inline {
+    &.tooltipped {
 
-    .tooltip-block {
-        position: absolute;
-        top: 18px;
-        right: -27px;
-        transform: translate(0, -50%);
-        z-index: 10;
+        position: relative;
+
+        .tooltip-block {
+            position: absolute;
+            top: 18px;
+            right: -35px;
+            transform: translate(0, -50%);
+            z-index: 10;
+        }
     }
 }
 

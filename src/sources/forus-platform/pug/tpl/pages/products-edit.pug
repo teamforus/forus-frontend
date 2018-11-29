@@ -36,7 +36,7 @@
                             label.form-label {{ "product_edit.labels.old" | translate }}
                             input(ng-model="$ctrl.form.values.old_price" type="number" placeholder="Oude prijs" step="0.01").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.old_price" ng-bind="error")
-                        .form-group.form-group-inline
+                        .form-group.form-group-inline.tooltipped
                             label.form-label {{ "product_edit.labels.total" | translate }}
                             input(ng-model="$ctrl.form.values.total_amount" type="number" placeholder="Aantal aanbiedingen").form-control
                             tooltip(text="'Let op! U kunt het aantal aanbiedingen niet verminderen, u kunt wel meer aanbiedingen toevoegen'")
@@ -44,7 +44,7 @@
             .card-section.card-section-primary
                 .row 
                     .col.col-lg-9.col-md-12
-                        .form-group.form-group-inline
+                        .form-group.form-group-inline.tooltipped
                             label.form-label {{ "product_edit.labels.expire" | translate }}
                             datepicker(date-format="yyyy-MM-dd" datepicker-mobile="").form-control
                                 input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="dd.mm.jjjj").form-control
