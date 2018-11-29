@@ -115,10 +115,10 @@ app.directive('informationBlock', require('./directives/InformationBlockDirectiv
 app.directive('menuScrollToggle', require('./directives/landing/MenuScrollToggleDirective'));
 app.directive('phoneControl', require('./directives/PhoneControlDirective'));
 
-app.directive('modalsRoot', require('./directives/Modal/ModalsRootDirective'));
-app.directive('modalItem', require('./directives/Modal/ModalItemDirective'));
-app.directive('modalWindowMiddle', require('./directives/Modal/ModalWindowMiddleDirective'));
-app.directive('modalScrollBraker', require('./directives/Modal/ModalScrollBrakerDirective'));
+app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
+app.directive('modalItem', require('./directives/modals/ModalItemDirective'));
+app.directive('modalWindowMiddle', require('./directives/modals/ModalWindowMiddleDirective'));
+app.directive('modalScrollBraker', require('./directives/modals/ModalScrollBrakerDirective'));
 
 app.directive('blockEmpty', require('./directives/blocks/BlockEmptyDirective'));
 app.directive('blockNoPermission', require('./directives/blocks/BlockNoPermissionDirective'));

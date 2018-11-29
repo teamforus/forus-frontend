@@ -4,7 +4,6 @@ module.exports = [
         let ModalDirective = function(scope, element) {
             let template = `
                 <${scope.modal.componentType}
-                    modal-window-middle
                     close = "modal.close"
                     modal = "modal"
                 ></${scope.modal.componentType}>
