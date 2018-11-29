@@ -23,7 +23,7 @@
                             .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
                         .form-group.form-group-inline
                             label.form-label {{ "product_edit.labels.description" | translate }}
-                            textarea(ng-model="$ctrl.form.values.description" placeholder="Omschrijving. bv. aantal lessen, abonnementsvorm, omschrijving cursus, voorwaarden, bijzonderheden, etc.").form-control
+                            textarea(ng-model="$ctrl.form.values.description" placeholder="Omschrijving: bv. aantal lessen, abonnementsvorm, omschrijving cursus, einddatum activiteit, voorwaarden, bijzonderheden, etc.").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
             .card-section.card-section-primary
                 .row 
