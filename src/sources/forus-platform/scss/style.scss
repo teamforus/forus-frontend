@@ -2691,6 +2691,8 @@ translate,
     @include fill_parent();
     position: fixed;
     z-index: 5;
+    display: flex;
+    align-items: center;
 
     .modal-backdrop {
         @include fill_parent();
@@ -2701,10 +2703,8 @@ translate,
     }
 
     .modal-window {
-        position: absolute;
+        position: relative;
         z-index: 2;
-        left: 50%;
-        top: 50%;
         background: #f6f9fc;
         min-width: 620px;
         max-width: 100%;
@@ -2712,6 +2712,8 @@ translate,
         display: inline-block;
         font-size: 0;
         overflow: hidden;
+        min-height: 350px;
+        margin: 0 auto;
 
         &>* {
             font-size: 14px;
