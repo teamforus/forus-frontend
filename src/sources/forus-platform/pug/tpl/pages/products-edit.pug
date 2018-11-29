@@ -21,9 +21,10 @@
                             label.form-label {{ "product_edit.labels.name" | translate }}
                             input(ng-model="$ctrl.form.values.name" type="text" placeholder="Naam").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
-                        .form-group.form-group-inline
+                        .form-group.form-group-inline.tooltipped
                             label.form-label {{ "product_edit.labels.description" | translate }}
-                            textarea(ng-model="$ctrl.form.values.description" placeholder="Omschrijving: bv. aantal lessen, abonnementsvorm, omschrijving cursus, einddatum activiteit, voorwaarden, bijzonderheden, etc.").form-control
+                            textarea(ng-model="$ctrl.form.values.description" placeholder="Omschrijving").form-control
+                            tooltip(text="'Bijvoorbeeld: aantal lessen, abonnementsvorm, omschrijving cursus, einddatum activiteit, voorwaarden, bijzonderheden, etc.'")
                             .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
             .card-section.card-section-primary
                 .row 
