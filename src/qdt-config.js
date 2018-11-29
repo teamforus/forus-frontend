@@ -322,9 +322,6 @@ module.exports = {
             }, {
                 "from": "../../node_modules/ui-cropper/compile/minified/ui-cropper.js",
                 "to": "assets/dist/ui-cropper"
-            }, {
-                "from": "./node_modules/css-element-queries/src/ResizeSensor.js",
-                "to": "assets/dist/resize-sensor/"
             }],
             // browsersync configurations (ex: ip, port and path)
             "server": false,

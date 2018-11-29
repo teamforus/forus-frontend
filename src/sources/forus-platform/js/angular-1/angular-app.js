@@ -117,7 +117,6 @@ app.directive('phoneControl', require('./directives/PhoneControlDirective'));
 
 app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
 app.directive('modalItem', require('./directives/modals/ModalItemDirective'));
-app.directive('modalWindowMiddle', require('./directives/modals/ModalWindowMiddleDirective'));
 app.directive('modalScrollBraker', require('./directives/modals/ModalScrollBrakerDirective'));
 
 app.directive('blockEmpty', require('./directives/blocks/BlockEmptyDirective'));
