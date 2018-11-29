@@ -32,7 +32,8 @@ body {
     background-color: #fff;
     display: flex;
     min-height: 100vh;
-
+    flex-direction: column;
+    
     &.modal-shown {
         overflow: hidden;
     }
@@ -2128,7 +2129,7 @@ body {
         font: 400 14px/30px $bf;
         flex: 1 0 auto;
         flex-shrink: 0;
-        
+
         .wrapper {
             @include cf();
             height: 30px;
