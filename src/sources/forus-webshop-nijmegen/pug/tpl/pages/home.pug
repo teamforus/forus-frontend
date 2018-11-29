@@ -20,7 +20,7 @@ section.section.section-map: .wrapper
     
 section.section.section-steps#steps: .wrapper
     //.section-splash
-    .section-sprite
+    //.section-sprite
     .section-title {{ "home.guide.title" | translate }}
     .steps
         .step-item: .step-item-content
@@ -58,7 +58,7 @@ section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
     .block.block-show-more: a(href="#").button.button-primary {{ "home.blog.button" | translate }}
     
 section.section.section-faq: .wrapper
-    .section-splash
+    //.section-splash
     .section-title {{ "home.faq.title" | translate }}
     .faq(collapse)
         mixin faq_item(title, content, active)
@@ -121,15 +121,15 @@ section.section.section-faq: .wrapper
             "{{ 'home.faq.faq_thirteen' | translate }}",
             "{{ 'home.faq.thirteen' | translate }}")
 
-        +faq_item(
+        //+faq_item(
             "{{ 'home.faq.faq_fourteen' | translate }}",
             "{{ 'home.faq.fourteen' | translate }}")
 
-        +faq_item(
+        //+faq_item(
             "{{ 'home.faq.faq_fifteen' | translate }}",
             "{{ 'home.faq.fifteen' | translate }}")
 
-        +faq_item(
+        //+faq_item(
             "{{ 'home.faq.faq_sixteen' | translate }}",
             "{{ 'home.faq.sixteen' | translate }}")    
 

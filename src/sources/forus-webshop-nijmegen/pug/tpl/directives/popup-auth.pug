@@ -17,7 +17,7 @@
                 .auth_type-name {{ "popup_auth.buttons.mail" | translate }}
 
         .popup-footer
-            .footer-text {{ "popup_auth.labels.timelimit" | translate }}
+        //    .footer-text {{ "popup_auth.labels.timelimit" | translate }}
             //- .popup-footer-links
                 a(href="#").popup-footer-link 
                     span »
@@ -41,7 +41,7 @@
             .qr_code#auth_qrcode
 
         .popup-footer
-            .footer-text {{ "popup_auth.labels.timelimit" | translate }}
+        //    .footer-text {{ "popup_auth.labels.timelimit" | translate }}
             //- .popup-footer-links
                 a(href="#").popup-footer-link 
                     span »
@@ -62,14 +62,14 @@
 
         form.form(ng-submit="signInEmailForm.submit()")
             .form-group
-                .form-label {{ "popup_auth.input.mail" | translate }}
+                .form-label.active {{ "popup_auth.input.mail" | translate }}
                 input(ng-model="signInEmailForm.values.primary_email" type="email" placeholder="E-mail").form-control
                 .form-error(ng-repeat="error in signInEmailForm.errors.primary_email" ng-bind="error")
             .form-group
             .form-group: button(type="submit").button.button-primary.button-wide {{ "popup_auth.buttons.submit" | translate }}
 
         .popup-footer
-            .footer-text {{ "popup_auth.labels.timelimit" | translate }}
+        //    .footer-text {{ "popup_auth.labels.timelimit" | translate }}
             //- .popup-footer-links
                 a(href="#").popup-footer-link 
                     span »
@@ -116,14 +116,14 @@
 
         form.form(ng-submit="signUpForm.submit()")
             .form-group
-                .form-label {{ "popup_auth.input.mail" | translate }}
+                .form-label.active {{ "popup_auth.input.mail" | translate }}
                 input(
                     type="email" 
                     ng-model="signUpForm.values.records.primary_email" 
                     placeholder="{{ 'popup_auth.input.mailing' | translate }}").form-control.form-control
                 .form-error(ng-repeat="error in signUpForm.errors['records.primary_email']" ng-bind="error")
             .form-group
-                .form-label {{ "popup_auth.input.confirmation" | translate }}
+                .form-label.active {{ "popup_auth.input.confirmation" | translate }}
                 input(
                     type="email" 
                     ng-model="signUpForm.values.records.primary_email_confirmation" 
@@ -134,7 +134,7 @@
                 input(ng-model="signUpForm.values.pin_code" type="text" placeholder="Pin Code").form-control
                 .form-error(ng-repeat="error in signUpForm.errors.pin_code" ng-bind="error")
             .form-group
-                .form-label {{ "popup_auth.input.coding" | translate }}
+                .form-label.active {{ "popup_auth.input.coding" | translate }}
                 input(ng-model="signUpForm.values.code" type="text" placeholder="{{ 'popup_auth.input.code' | translate}}").form-control
                 .form-error(ng-repeat="error in signUpForm.errors.code" ng-bind="error")
             .form-group
@@ -162,7 +162,7 @@
 
         form.form(ng-submit="activateCodeForm.submit()")
             .form-group
-                .form-label {{ "popup_auth.input.code" | translate }}
+                .form-label.active {{ "popup_auth.input.code" | translate }}
                 input(ng-model="activateCodeForm.values.code" type="text" placeholder="Activation code").form-control
                 .form-error(ng-if="activateCodeForm.errors.code") {{ "popup_auth.notifications.invalid" | translate }}
             .form-group
