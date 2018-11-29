@@ -1,7 +1,7 @@
 .app.app-container
     menu
     section.app.app-content
-        information-block(text="'products.cannot_delete'" type="'danger'")
+        //information-block(text="'products.cannot_delete'" type="'danger'")
         .card: form.form
             .card-header: .card-title {{ "product_edit.header.title" | translate }}
             .card-section.card-section-primary
@@ -23,7 +23,7 @@
                             .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
                         .form-group.form-group-inline
                             label.form-label {{ "product_edit.labels.description" | translate }}
-                            textarea(ng-model="$ctrl.form.values.description" placeholder="Omschrijving").form-control
+                            textarea(ng-model="$ctrl.form.values.description" placeholder="Omschrijving. bv. aantal lessen, abonnementsvorm, omschrijving cursus, voorwaarden, bijzonderheden, etc.").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
             .card-section.card-section-primary
                 .row 

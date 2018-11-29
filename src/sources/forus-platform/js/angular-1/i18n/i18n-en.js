@@ -331,7 +331,7 @@ module.exports = {
         },
         confirm_create: {
             title: 'Een aanbieding toevoegen.',
-            description: 'Let op! Je staat op het punt een aanbieding op de webshop toe te voegen. Daarna kan je de aanbieding niet meer verwijderen. De aanbieding wordt verwijderd vanaf het moment dat het is uitverkocht of de vervaldatum is bereikt.'
+            description: 'Let op! Je staat op het punt een aanbieding op de webshop toe te voegen. Daarna kan je de aanbieding niet meer verwijderen. De aanbieding kan alleen verwijderd worden vanaf het moment dat het is uitverkocht of de vervaldatum is bereikt.'
         }
     },
 
