@@ -1,6 +1,6 @@
 .modal
     .modal-backdrop(ng-click="$ctrl.close()")
-    .modal-window(modal-window-middle): form.form(ng-submit="$ctrl.form.submit()")
+    .modal-window: form.form(ng-submit="$ctrl.form.submit()")
         a(ng-click="$ctrl.close()").mdi.mdi-close.modal-close
         .modal-header(ng-if="$ctrl.employee" translate="Medewerker aanpassen")
         .modal-header(ng-if="!$ctrl.employee" translate="Medewerker toevoegen")
