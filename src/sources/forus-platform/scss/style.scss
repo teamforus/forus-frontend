@@ -3192,6 +3192,7 @@ translate,
     margin: 0;
 }
 
+
 .tooltip-block {
     position: relative;
     display: inline-block;
@@ -3259,6 +3260,17 @@ translate,
         .tooltip {
             display: block;
         }
+    }
+}
+
+.form-group-inline{
+
+    .tooltip-block {
+        position: absolute;
+        top: 18px;
+        right: -27px;
+        transform: translate(0, -50%);
+        z-index: 10;
     }
 }
 
