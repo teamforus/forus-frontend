@@ -15,7 +15,7 @@ let ProductComponent = function(
 
         $ctrl.isApplicable = $ctrl.vouchers.filter(function(voucher) {
             return (fundIds.indexOf(voucher.fund_id) != -1) && (
-                $ctrl.product.price <= voucher.amount
+                parseFloat($ctrl.product.price) <= parseFloat(voucher.amount)
             ) && !voucher.parent;
         }).length > 0;
     };
