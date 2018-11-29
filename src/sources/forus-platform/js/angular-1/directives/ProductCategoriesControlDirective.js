@@ -11,8 +11,6 @@ let ProductCategoriesControlDirective = function($scope) {
         return list.filter(option => option.service == type);
     };
 
-    console.log($scope.options);
-
     $scope.filterOptions = (type) => {
         if ($scope.selectedType == type) {
             return;
