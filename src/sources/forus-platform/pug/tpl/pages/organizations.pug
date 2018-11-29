@@ -1,4 +1,4 @@
-.wrapper: .block.block-choose-organization
+.wrapper(ng-show="$ctrl.showOrganizations"): .block.block-choose-organization
     .organization-heading {{ "organizations.header.title" | translate }}
     a(ui-sref="funds" ng-show="$root.appConfigs.panel_type == 'sponsor'").organization-item
         .organization-item-inner

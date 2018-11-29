@@ -331,7 +331,7 @@ module.exports = {
         },
         confirm_create: {
             title: 'Een aanbieding toevoegen.',
-            description: 'Let op! Je staat op het punt een aanbieding op de webshop toe te voegen. Daarna kan je de aanbieding niet meer verwijderen. De aanbieding kan verwijderd worden vanaf het moment dat het is uitverkocht of de vervaldatum is bereikt.'
+            description: 'Let op! U staat op het punt een aanbieding op de webshop toe te voegen. Daarna kunt u de aanbieding niet meer verwijderen. De aanbieding kan alleen verwijderd worden vanaf het moment dat het is uitverkocht of de vervaldatum is bereikt.'
         }
     },
 
@@ -486,6 +486,20 @@ module.exports = {
         open_pc: {
             title: 'Deze pagina is niet mobiel te benaderen.',
             description: 'Aanmelden voor een fonds is alleen mogelijk via onze website op een vaste computer.'
+        },
+        sms:{
+            body: 'Download Me makkelijk via de link: https://www.forus.io/DL',
+            title: 'Download <i>Me</i> op uw mobiele telefoon',
+            description: 'Vul uw telefoonnummer in het onderstaande invoerveld om een sms te ontvangen met de download link.',
+            subdescription: 'Krijgt u geen sms dan kunt u <i>Me</i> downloaden via de link <b>www.forus.io/DL</b> op uw mobiele telefoon.',
+            sent: 'Een sms-bericht is verstuurd.',
+            sent_description: 'Heeft u geen bericht ontvangen? Download <i>Me</i> via de link <b>www.forus.io/DL</b> op uw mobiele telefoon.',
+            button: {
+                send: 'Versturen'
+            },
+            error: {
+                try_later: 'Probeer later nog eens.'
+            }
         }
     },
 

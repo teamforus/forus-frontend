@@ -7,11 +7,13 @@
 
         .block.block-shops_map
             .shop_map-header
-                .shop_map-title {{ "popup_offices.header.title" | translate }} ({{ providersCount }})
-                .shop_map-subtitle {{ "popup_offices.header.subtitle" | translate }}
-                .shop_map-categories
+                .shop_map-title {{ "popup_offices.header.title_first_part" | translate }} {{ providersCount }} {{ "popup_offices.header.title_last_part" | translate }}
+                .shop_map-subtitle(translate="popup_offices.header.subtitle")
+                .shop_map-categories(ng-class="productCategories.length > per_page ? 'has-pagination' : ''")
+                    .shop_map-prev(ng-click="prevCategoriesPage()" ng-class="cur_page == 1 ? 'disabled' : ''"): .mdi.mdi-chevron-left
+                    .shop_map-next(ng-click="nextCategoriesPage()" ng-class="isLast() ? 'disabled' : ''"): .mdi.mdi-chevron-right
                     .shop_map-category-item(
-                        ng-repeat="category in productCategories"
+                        ng-repeat="category in getCategories(cur_page, per_page)"
                         ng-class="{active: selectedCategories.indexOf(category.id) !== -1}")
                         .shop_map-category-item-inner(
                             ng-click="selectCategory(category)")
@@ -30,10 +32,10 @@
                             .shop-image: img(ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}")
                             .shop-name {{ office.organization.name }}
                             .row
-                                .col.col-md-12
+                                .col.col-md-6
                                     .shop-details-label {{ "popup_offices.labels.mail" | translate }}
                                     .shop-details-value {{ office.email || office.organization.email || 'Geen data' }}
-                                .col.col-md-12
+                                .col.col-md-6
                                     .shop-details-label {{ "popup_offices.labels.address" | translate }}
                                     .shop-details-value {{ office.address || 'Geen data' }}
                         .shop-schedule

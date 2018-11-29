@@ -329,7 +329,8 @@ module.exports = {
     // POPUP OFFICES = popup-offices.pug
     popup_offices: {
         header: {
-            title: "We hebben vijf leveranciers gevonden",
+            title_first_part: "We hebben ",
+            title_last_part: " leveranciers gevonden",
             subtitle: "Selecteer een om meer informatie te zien",
         },
         labels: {

@@ -12,9 +12,9 @@ let MediaService = function(
         };
 
         this.store = function(type, file) {
-            var formData = new FormData();
+            let formData = new FormData();
 
-            formData.append('file', file);
+            formData.append('file', file, file['name']);
             formData.append('type', type);
 
             return ApiRequest.post(uriPrefix, formData, {

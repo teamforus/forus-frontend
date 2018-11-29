@@ -23,8 +23,8 @@ section.section.section-product: .wrapper
                     .product-price-old € {{ $ctrl.product.old_price | to_fixed:2 }}
 
                 .product-expire(ng-if="$ctrl.product.expire_at")
-                    .expire-label {{ "voucher.labels.expire" | translate }}
-                    .expire-value(ng-bind="$ctrl.product.expire_at_locale")
+                    .expire-label {{ "voucher.labels.requirements" | translate }}
+                    //.expire-value(ng-bind="$ctrl.product.expire_at_locale")
                 
                 .button.button-primary(
                     ng-show="$ctrl.isApplicable" 

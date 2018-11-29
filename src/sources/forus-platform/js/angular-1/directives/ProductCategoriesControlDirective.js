@@ -33,6 +33,12 @@ let ProductCategoriesControlDirective = function($scope) {
         }
     }
 
+    $scope.types = _.filter($scope.types, function(type, id) {
+        return $scope.options.filter(
+            option => option.service == id
+        ).length > 0;
+    });
+
     $scope.ngModel = $scope.ngModel.filter(id => !isNaN(parseInt(id)));
 
     $scope.isChecked = (id) => $scope.ngModel.indexOf(id) != -1;

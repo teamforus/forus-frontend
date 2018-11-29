@@ -12,7 +12,7 @@ module.exports = {
         "record-validate": 'Valideer eigenschap',
         "record-validations": 'Validaties',
         "record-create": 'Eigenschap toevoegen',
-        "funds-apply": 'Meld je aan voor een fonds',
+        "funds-apply": 'Meld u aan voor een fonds',
         "restore-email": 'Inloggen via e-mail',
     },
     languages: {
@@ -83,44 +83,44 @@ module.exports = {
         guide: {
             title: "Hoe het werkt",
             stepone: "Stap #1",
-            one: "Je hebt een brief  ontvangen van de gemeente. In de brief staat een activatiecode. Gebruik deze bij stap 2.",
+            one: "U heeft een brief  ontvangen van de gemeente. In de brief staat een activatiecode. Gebruik deze bij stap 2.",
             steptwo: "Stap #2",
-            two: "Met de activatiecode kun je je aanmelden en de Meedoen-regeling activeren. Druk op ‘Activatiecode’ bovenaan de pagina en vul de gevraagde gegevens in",
+            two: "Met de activatiecode kunt u zich aanmelden en de Meedoen-regeling activeren. Druk op ‘Activatiecode’ bovenaan de pagina en vul de gevraagde gegevens in",
             stepthree: "Stap #3",
-            three: "Na je aanmelding wordt de Meedoen-regeling gelijk geactiveerd. De voucher met bijbehorende QR-Code kan je terugvinden door bovenaan op ‘Mijn vouchers’ te klikken.",
+            three: "Na uw aanmelding wordt de Meedoen-regeling gelijk geactiveerd. De voucher met bijbehorende QR-Code kunt u terugvinden door bovenaan op ‘Mijn vouchers’ te klikken.",
             stepfour: "Stap #4",
-            four: "De QR-Code kan je uitprinten, naar jezelf toe mailen of altijd op je telefoon hebben door in te loggen op de app 'Me'. De app 'Me' kun je downloaden via de Google Playstore en de App Store.",
+            four: "De QR-Code kunt u uitprinten, naar uzelf toe mailen of altijd op uw telefoon hebben door in te loggen op de app 'Me'. De app 'Me' kunt u downloaden via de Google Playstore en de App Store.",
             stepfive: "Stap #5",
-            five: "Ga naar de webshop om te zien waar de voucher te besteden is of om een aanbieding te kopen. Laat de bijbehorende QR-Code zien om je aanbieding af te nemen.",
+            five: "Ga naar de webshop om te zien waar de voucher te besteden is of om een aanbieding te kopen. Laat de bijbehorende QR-Code zien om uw aanbieding af te nemen.",
         },
         faq: {
             title: "Veelgestelde vragen",
             faq_one: "Hoe kan ik de Meedoen-regeling activeren?",
-            one: "Klik rechts bovenaan op 'Activatiecode'. Vul je e-mailadres en de activatiecode in die je per brief hebt ontvangen. Klik vervolgens op 'Volgende'. Je profiel is aangemaakt en je Meedoen voucher is geactiveerd!",
+            one: "Klik rechts bovenaan op 'Activatiecode'. Vul uw e-mailadres en de activatiecode in die u per brief hebt ontvangen. Klik vervolgens op 'Volgende'. Uw profiel is aangemaakt en uw Meedoen voucher is geactiveerd!",
             faq_two: "Hoe kan ik inloggen op de webshop?",
-            two: "Dit kan op meerdere manieren, de makkelijkste is per e-mail. Klik rechts bovenaan op 'Inloggen'. Kies voor 'log in via e-mail'. Vul het e-mailadres in die je ook tijdens de activatie hebt gebruikt en klik op 'Volgende'. Open je e-mail en klik op de link die je hebt ontvangen om in te loggen.",
+            two: "Dit kan op meerdere manieren, de makkelijkste is per e-mail. Klik rechts bovenaan op 'Inloggen'. Kies voor 'log in via e-mail'. Vul het e-mailadres in die u ook tijdens de activatie hebt gebruikt en klik op 'Volgende'. Open uw e-mail en klik op de link die u heeft ontvangen om in te loggen.",
             faq_three: "Bij welke aanbieders kan ik de Meedoen-regeling besteden?",
-            three: "Je kan een overzicht van alle aanbieders terugvinden op de webshop. Ga naar 'Overzicht van alle aanbieders'",
+            three: "U kan een overzicht van alle aanbieders terugvinden op de webshop. Ga naar 'Overzicht van alle aanbieders'",
             faq_four: "Ik ben mijn voucher kwijt. Wat moet ik doen?",
-            four: "Je kan je voucher altijd terugvinden door in te loggen op de webshop, de voucher kun je uitprinten, naar je e-mail toesturen of zelfs altijd bij hand hebben door gebruik te maken van de app 'Me'",
+            four: "U kunt uw voucher altijd terugvinden door in te loggen op de webshop, de voucher kunt u uitprinten, naar uw e-mail toesturen of zelfs altijd bij hand hebben door gebruik te maken van de app 'Me'",
             faq_five: "Hoe kan ik zien hoeveel budget ik nog over heb?",
-            five: "Na elke betaling wordt er een e-mail toegestuurd met het huidige budget, daarnaast kan je het budget inzien door in te loggen op de webshop of door gebruik te maken van de app 'Me' .",
+            five: "Na elke betaling wordt er een e-mail toegestuurd met het huidige budget, daarnaast kunt u het budget inzien door in te loggen op de webshop of door gebruik te maken van de app 'Me' .",
             faq_six: "Kan ik iets wat ik heb gekocht ruilen/retour brengen?",
             six: "Retour brengen is helaas niet mogelijk. Ruilen misschien wel, vraag de aanbieder naar de mogelijkheden.",
             faq_seven: "Moet het budget in een keer besteed worden?",
-            seven: "Nee, je hoeft het budget niet in een keer te besteden.",
+            seven: "Nee, U hoeft het budget niet in een keer te besteden.",
             faq_eight: "Hoe lang is de voucher geldig?",
             eight: "De voucher is vanaf 1 januari een jaar geldig.",
             faq_nine: "Kan ik de voucher omruilen voor contant geld?",
-            nine: "Nee, de waarde van de voucher krijg je niet in contact geld uitbetaald.",
+            nine: "Nee, de waarde van de voucher krijg u niet in contact geld uitbetaald.",
             faq_ten: "Kan ik iets kopen bij een andere aanbieder die niet op de webshop staat?",
             ten: "Nee, het budget kan alleen uitgegeven worden bij aanbieders die op de webshop staan.",
             faq_eleven: "Hoe kom ik in aanmerking voor de Meedoen-regeling?",
-            eleven: "Als je denkt recht te hebben op de Meedoen-regeling, neem dan contact op met de gemeente. De gemeente bekijkt dan of je voldoet aan de voorwaarden.",
+            eleven: "Als u denkt recht te hebben op de Meedoen-regeling, neem dan contact op met de gemeente. De gemeente bekijkt dan of u voldoet aan de voorwaarden.",
             faq_twelve: "Kan ik de voucher aan iemand anders geven?",
-            twelve: "Nee, de voucher is strikt persoonlijk. Je mag de voucher niet aan iemand anders geven. Maakt iemand anders wel gebruik van jouw voucher dan wordt je eigen bedrag lager.",
+            twelve: "Nee, de voucher is strikt persoonlijk. U mag de voucher niet aan iemand anders geven. Maakt iemand anders wel gebruik van uw voucher dan wordt uw eigen bedrag lager.",
             faq_thirteen: "Ik zie aanbiedingen op de webshop staan, hoe kan ik een aanbieding kopen?",
-            thirteen: "Log in op de webshop en klik op 'Aanbiedingen'. Kies vervolgens de aanbieding die je wilt en klik op 'Koop'. Kies vervolgens de Meedoen voucher om de aanbieding mee te kopen. Het bedrag van de aanbieding wordt van je Meedoen voucher afgehaald en er wordt een nieuwe voucher aangemaakt. De nieuwe voucher kan alleen gebruikt worden voor de aanbieding die je hebt gekocht.",
+            thirteen: "Log in op de webshop en klik op 'Aanbiedingen'. Kies vervolgens de aanbieding die u wilt en klik op 'Koop'. Kies vervolgens de Meedoen voucher om de aanbieding mee te kopen. Het bedrag van de aanbieding wordt van uw Meedoen voucher afgehaald en er wordt een nieuwe voucher aangemaakt. De nieuwe voucher kan alleen gebruikt worden voor de aanbieding die u heeft gekocht.",
         }
     },
 
@@ -145,7 +145,7 @@ module.exports = {
     product: {
         labels: {
             fund: "Fonds",
-            find: "Je kan ons hier vinden",      
+            find: "U kunt ons hier vinden",      
         },
         status: {
             active: "Actief",
@@ -165,8 +165,8 @@ module.exports = {
          },        
         buttons: {
             choose: {
-                description: "Selecteer de categorie waaraan je de eigenschap wil toevoegen.",
-                c_description: "Kies het type eigenschap dat je wil aanmaken.",
+                description: "Selecteer de categorie waaraan u de eigenschap wil toevoegen.",
+                c_description: "Kies het type eigenschap dat u wilt aanmaken.",
                 category: "Kies categorie",
                 type: "Kies type",
                     },
@@ -236,9 +236,10 @@ module.exports = {
             transactions: "Transacties",
             subtract: "Af",
             fund: "Fonds",
-            expire: "VERVALDATUM",
+            expire: "Voor voorwaarden van deze aanbieding neem contact op met de aanbieder. ",
+            requirements: "Voor voorwaarden van deze aanbieding neem contact op met de aanbieder.",
             office: "Locatie van de aanbieder",
-            voucher: "Je kunt je voucher besteden bij de aanbieders op deze locaties",
+            voucher: "U kunt uw voucher besteden bij de aanbieders op deze locaties",
             shopdetail: "INFORMATIE OVER DE AANBIEDER",
             productdetail: "INFORMATIE OVER DE AANBIEDING",
         }
@@ -334,13 +335,13 @@ module.exports = {
     popup_auth: {
         header: {
             title: "Inloggen op platform Forus",
-            subtitle: "Scan de QR-code met de Me App of log in met je e-mail adres",
+            subtitle: "Scan de QR-code met de Me App of log in met uw e-mail adres",
         },
         notifications: {
             confirmation: "Het is gelukt!",
-            link: "Er is een link naar je e-mailadres gestuurd. Klik op de link om verder te gaan.",
+            link: "Er is een link naar uw e-mailadres gestuurd. Klik op de link om verder te gaan.",
             invalid: "De activatiecode is ongeldig of al gebruikt.",
-            voucher_email: "Je voucher is verstuurd naar je mail.",
+            voucher_email: "Uw voucher is verstuurd naar uw mail.",
         },
         buttons: {
             qrcode: "Log in via QR-Code",
@@ -350,29 +351,30 @@ module.exports = {
             confirm: "VOLGENDE",
         },
         labels: {
-            timelimit: "Je kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt je sessie.",
-            warning: "Sluit dit venster en klik op 'Login' als je de activatiecode al eens hebt gebruikt.",
+            timelimit: "U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.",
+            warning: "Sluit dit venster en klik op 'Login' als u de activatiecode al eens heeft gebruikt.",
             join: "Aanmelden",
-            scancode: "Scan deze QR-Code met een ander apparaat waar je al op aangemeld bent.",
-            mobilecode: "Vul je toegangscode van de Me App in.",
-            mail: "Heb je een brief van de gemeente ontvangen met een activatiecode en deze nog niet gebruikt? Ga dan verder. Heb je deze al wel gebruikt? Sluit dan dit venster en klik op 'login'.",
-            link: "Vul je e-mailadres in om een link te ontvangen waarmee je kunt inloggen.",
-            code: "Vul de activatiecode in die je per brief hebt ontvangen.",
+            scancode: "Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent.",
+            mobilecode: "Vul uw toegangscode van de Me App in.",
+            mail: "Heeft u een brief van de gemeente ontvangen met een activatiecode en deze nog niet gebruikt? Ga dan verder. Heeft u deze al wel gebruikt? Sluit dan dit venster en klik op 'login'.",
+            link: "Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen.",
+            code: "Vul de activatiecode in die u per brief hebt ontvangen.",
             voucher_email: "Het is gelukt!",
         },
         input: {
-            mail: "Vul je e-mailadres in",
+            mail: "Vul uw e-mailadres in",
             coding: "Vul de activatiecode in",
             code: "Activatiecode",
             mailing: "E-mail",
-            confirmation: "Bevestig je e-mailadres",
+            confirmation: "Bevestig uw e-mailadres",
         }
     },
 
     // POPUP OFFICES = popup-offices.pug
     popup_offices: {
         header: {
-            title: "We hebben vijf leveranciers gevonden",
+            title_first_part: "We hebben ",
+            title_last_part: " leveranciers gevonden",
             subtitle: "Selecteer een om meer informatie te zien",
         },
         labels: {
@@ -386,8 +388,8 @@ module.exports = {
     // PROFILE CARD = profile-card.pug
     profile_card: {
         header: {
-            title: "Jouw persoonlijke QR-code",
-            subtitle: "Laat jouw persoonlijke QR-code scannen door een validator.",
+            title: "Uw persoonlijke QR-code",
+            subtitle: "Laat uw persoonlijke QR-code scannen door een validator.",
         },
         labels: {
             address: "Adres:",
