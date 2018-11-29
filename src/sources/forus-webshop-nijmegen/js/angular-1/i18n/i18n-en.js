@@ -237,7 +237,7 @@ module.exports = {
             subtract: "Af",
             fund: "Fonds",
             expire: "Voor voorwaarden van deze aanbieding neem contact op met de aanbieder. ",
-            requirements: "Neem contact op met de aanbieder voor meer informatie of eventuele voorwaarden",
+            requirements: "Voor voorwaarden van deze aanbieding neem contact op met de aanbieder.",
             office: "Locatie van de aanbieder",
             voucher: "U kunt uw voucher besteden bij de aanbieders op deze locaties",
             shopdetail: "INFORMATIE OVER DE AANBIEDER",
