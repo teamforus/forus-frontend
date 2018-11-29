@@ -45,6 +45,7 @@ app.service('VoucherService', require('./services/VoucherService'));
 app.service('ValidatorService', require('./services/ValidatorService'));
 app.service('GoogleMapService', require('./services/GoogleMapService'));
 app.service('ConfigService', require('./services/ConfigService'));
+app.service('ModalService', require('./services/ModalService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
@@ -62,14 +63,23 @@ app.directive('collapse', require('./directives/CollapseDirective'));
 app.directive('voucherCard', require('./directives/VoucherCardDirective'));
 app.directive('productCard', require('./directives/ProductCardDirective'));
 
+app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
+app.directive('modalItem', require('./directives/modals/ModalItemDirective'));
+app.directive('modalScrollBraker', require('./directives/modals/ModalScrollBrakerDirective'));
+
+// Modal Components
+app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
+
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
+app.provider('ModalRoute', require('./providers/ModalRouteProvider'));
 
 // Filters
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
 
 // Config
+app.config(require('./routers/modals'));
 app.config(require('./routers/router'));
 app.config(require('./config/api-service'));
 app.config(require('./config/i18n'));
