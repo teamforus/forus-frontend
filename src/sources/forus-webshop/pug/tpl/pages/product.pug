@@ -28,7 +28,7 @@ section.section.section-product: .wrapper
                 
                 .button.button-primary(
                     ng-show="$ctrl.isApplicable" 
-                    ui-sref="products-apply($ctrl.product)") KOOP
+                    ng-click="$ctrl.applyProduct()") KOOP
                 .button.button-primary(
                     ng-if="!$root.auth_user" 
                     ng-click="$root.popups.auth.open('choose')") LOG IN
