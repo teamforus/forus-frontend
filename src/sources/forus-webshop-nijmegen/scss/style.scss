@@ -30,6 +30,8 @@ a[ui-sref] {
 
 body {
     background-color: #fff;
+    display: flex;
+    min-height: 100vh;
 
     &.modal-shown {
         overflow: hidden;
@@ -1057,6 +1059,9 @@ body {
         margin-top: 0;
         padding-top: 30px;
         color: #fff;
+        flex: 1;
+        flex-direction: column;
+        display: flex;
     }
 
     &.section-funds {
@@ -2121,7 +2126,9 @@ body {
         padding: 25px 0;
         text-align: center;
         font: 400 14px/30px $bf;
-
+        flex: 1 0 auto;
+        flex-shrink: 0;
+        
         .wrapper {
             @include cf();
             height: 30px;
