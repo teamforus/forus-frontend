@@ -74,6 +74,9 @@ function ImageConvertor(file) {
         var destX = 0;
         var destY = 0;
 
+        context.fillStyle = "#ffffff";
+        context.fillRect(0, 0, destWidth, destHeight);
+
         context.drawImage(imageObj, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
 
         return canvas.toDataURL('image/jpeg');
