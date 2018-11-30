@@ -4,9 +4,7 @@
         .form-offset
             .flex-row
                 div(ng-repeat="(type_key, type) in types").flex-item.flex-item-grow
-                    label(
-                        for="radio_product_type_{{ type_key }}"
-                        ng-click="filterOptions(type_key)").radio
+                    label(for="radio_product_type_{{ type_key }}" ng-click="filterOptions(type_key)").radio
                         input(
                             name="selectedType"
                             type="radio"
@@ -14,7 +12,7 @@
                             id="radio_product_type_{{ type_key }}")
                         .radio-label 
                             .radio-circle
-                            | {{ type | translate }}
+                            span(translate="{{type}}")
 
             .control-frame(ng-if="filteredOptions.length == 0") Empty 
 

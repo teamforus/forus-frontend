@@ -16,12 +16,12 @@ let ProductComponent = function (
 
     $ctrl.isApplicable = false;
 
-    $ctrl.$onInit = function () {
+    $ctrl.$onInit = function() {
         let fundIds = $ctrl.product.funds.map(fund => fund.id);
-
+      
         vouchers = $ctrl.vouchers.filter(function (voucher) {
             return (fundIds.indexOf(voucher.fund_id) != -1) && (
-                $ctrl.product.price <= voucher.amount
+                parseFloat($ctrl.product.price) <= parseFloat(voucher.amount)
             ) && !voucher.parent;
         });
 
@@ -29,7 +29,6 @@ let ProductComponent = function (
     };
 
     $ctrl.applyProduct = () => {
-
         if(vouchers.length == 1){
             let voucher = vouchers[0];
 
