@@ -10,19 +10,7 @@ module.exports = function($stateProvider) {
     $stateProvider.state({
         name: "home",
         url: "/",
-        component: "homeComponent",
-        resolve: {
-            products: function($transition$, ProductService) {
-                return repackResponse(
-                    ProductService.list()
-                );
-            },
-            productCategories: function($transition$, ProductCategoryService) {
-                return repackResponse(
-                    ProductCategoryService.list()
-                );
-            },
-        }
+        component: "homeComponent"
     });
 
     $stateProvider.state({

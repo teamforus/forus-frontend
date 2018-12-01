@@ -61,10 +61,7 @@ let HomeComponent = function(
 };
 
 module.exports = {
-    bindings: {
-        products: '<',
-        productCategories: '<'
-    },
+    bindings: {},
     controller: [
         '$state',
         '$rootScope',

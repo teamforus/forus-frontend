@@ -1543,14 +1543,12 @@ body {
     }
 
     &.block-products {
-        margin: 0 -45px 30px;
-        display: block;
-        min-height: 400px;
+        margin: 0 -45px 0;
         display: flex;
         flex-wrap: wrap;
 
         .product-item {
-            margin: 0 0 50px;
+            margin: 0 0 30px;
             padding: 0 45px;
             display: block;
             width: 33.333%;
@@ -1733,6 +1731,7 @@ body {
     &.block-show-more {
         text-align: center;
         padding: 20px 0 0;
+        margin: 0 0 30px;
 
         .button {
             padding-left: 100px;

@@ -243,7 +243,7 @@ let SignUpComponent = function(
         }
 
         if (step == 7 && appConfigs.panel_type == 'sponsor') {
-            $state.go('organziations');
+            $state.go('organizations');
         }
     };
 
