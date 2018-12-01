@@ -8,8 +8,8 @@ let PrevalidationService = function(ApiRequest) {
             });
         };
 
-        this.list = function(data) {
-            return ApiRequest.get(uriPrefix + '/prevalidations');
+        this.list = function(filters) {
+            return ApiRequest.get(uriPrefix + '/prevalidations', filters);
         }
 
         this.read = function(code) {

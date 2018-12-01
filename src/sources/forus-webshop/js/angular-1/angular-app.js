@@ -61,6 +61,10 @@ app.directive('scrollTo', require('./directives/ScrollToDirective'));
 app.directive('collapse', require('./directives/CollapseDirective'));
 app.directive('voucherCard', require('./directives/VoucherCardDirective'));
 app.directive('productCard', require('./directives/ProductCardDirective'));
+app.directive('appFooter', require('./directives/AppFooterDirective'));
+
+app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
+app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
 
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));

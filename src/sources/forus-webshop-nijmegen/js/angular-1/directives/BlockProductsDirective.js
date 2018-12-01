@@ -1,50 +1,59 @@
-let BlockProductsDirective = function($scope) {
-    $scope.query = {
+let BlockProductsDirective = async function(
+    $scope,
+    ProductService,
+    ProductCategoryService
+) {
+    $scope.filters = {
         product_category_id: null,
-        search: ""
+        q: ""
     };
 
-    if ($scope.productCategories.filter(category => {
-        return category.id == null;
-    }).length == 0) {
-        $scope.productCategories.unshift({
-            name: 'Selecteer categorie...',
-            id: null
+    $scope.onReset = async (query) => {
+        ProductService.list(query).then((res => {
+            $scope.products = res.data;
+        }));
+    };
+
+    $scope.onLoadMore = async (query) => {
+        ProductService.list(query).then((res => {
+            $scope.products.data = $scope.products.data.concat(res.data.data);
+            $scope.products.meta = res.data.meta;
+        }));
+    };
+
+    if ($scope.sample) {
+        ProductService.sample().then((res) => $scope.products = res.data);
+    } else {
+        ProductCategoryService.list().then(res => {
+            $scope.productCategories = res.data.data;
+            $scope.onReset($scope.filters);
+
+            if ($scope.productCategories.filter(category => {
+                    return category.id == null;
+                }).length == 0) {
+                $scope.productCategories.unshift({
+                    name: 'Selecteer categorie...',
+                    id: null
+                });
+            }
         });
     }
-
-    $scope.updateProducts = query => {
-        $scope.shownProducts = $scope.products.filter(product => {
-            if (query.product_category_id !== null) {
-                if (product.product_category_id != query.product_category_id) {
-                    return false;
-                }
-            }
-
-            if (product.name.indexOf(query.search) == -1) {
-                return false;
-            }
-
-            return true;
-        });
-    };
-
-    $scope.$watch('query', $scope.updateProducts, true);
-    $scope.updateProducts($scope.query);
 };
 
 module.exports = () => {
     return {
         scope: {
-            products: "=",
             productCategories: "=",
+            sample: '=',
         },
         restrict: "EA",
         replace: true,
         controller: [
             '$scope',
+            'ProductService',
+            'ProductCategoryService',
             BlockProductsDirective
         ],
-        templateUrl: 'assets/tpl/directives/block-products.html' 
+        templateUrl: 'assets/tpl/directives/block-products.html'
     };
 };
