@@ -27,8 +27,8 @@ section.section.section-product: .wrapper
                     //.expire-value(ng-bind="$ctrl.product.expire_at_locale")
                 
                 .button.button-primary(
-                    ng-show="$ctrl.isApplicable" 
-                    ui-sref="products-apply($ctrl.product)") KOOP
+                    ng-show="$ctrl.isApplicable"
+                    ng-click="$ctrl.applyProduct()") KOOP
                 .button.button-primary(
                     ng-if="!$root.auth_user" 
                     ng-click="$root.popups.auth.open('choose')") LOG IN

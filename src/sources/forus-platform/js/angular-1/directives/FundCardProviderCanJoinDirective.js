@@ -1,8 +1,10 @@
 let FundCardProviderCanJoinDirective = function(
     $scope, 
-    $state, 
+    $state,
+    $filter,
     FundService, 
-    ProviderFundService
+    ProviderFundService,
+    ModalService
 ) {
     $scope.fundCategories = $scope.fund.product_categories.map((val) => {
         return val.name;
@@ -13,7 +15,16 @@ let FundCardProviderCanJoinDirective = function(
             $scope.organization.id, 
             $scope.fund.id
         ).then(function(res) {
-            $scope.fund.applied = true;
+
+            ModalService.open('modalNotification', {
+                type: 'danger',
+                title: $filter('translate')('provider_funds_available.applied_for_fund.title'),
+                description: $filter('translate')('provider_funds_available.applied_for_fund.description'),
+                icon: 'fund_applied',
+                cancel: () => {
+                    $scope.fund.applied = true;
+                }
+            });
         });
     };
 };
@@ -29,8 +40,10 @@ module.exports = () => {
         controller: [
             '$scope',
             '$state',
+            '$filter',
             'FundService',
             'ProviderFundService',
+            'ModalService',
             FundCardProviderCanJoinDirective
         ],
         templateUrl: 'assets/tpl/directives/fund-card-provider-can-join.html'
