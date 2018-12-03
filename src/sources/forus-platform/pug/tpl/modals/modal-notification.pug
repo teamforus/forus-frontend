@@ -10,6 +10,6 @@
                     p.description(ng-if="$ctrl.description" ng-bind="$ctrl.description")
 
         .modal-footer.text-center
-            button.button.button-default(ng-if="$ctrl.showCloseBtn" ng-click="$ctrl.close()" translate="modal.buttons.close")
-            button.button.button-default(ng-if="$ctrl.showCancelBtn" ng-click="$ctrl.cancel()" translate="modal.buttons.cancel")
-            button.button.button-primary(ng-if="$ctrl.showConfirmBtn" ng-click="$ctrl.confirm()" translate="modal.buttons.confirm")
+            button.button.button-default(ng-if="$ctrl.showCloseBtn" ng-click="$ctrl.close()" ng-bind="$ctrl.closeBtnText")
+            button.button.button-default(ng-if="$ctrl.showCancelBtn" ng-click="$ctrl.cancel()" ng-bind="$ctrl.cancelBtnText")
+            button.button.button-primary(ng-if="$ctrl.showConfirmBtn" ng-click="$ctrl.confirm()" ng-bind="$ctrl.confirmBtnText")

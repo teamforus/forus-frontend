@@ -18,13 +18,13 @@ let FundCardAvailableProviderDirective = function(
         ).then(function(res) {
 
             ModalService.open('modalNotification', {
-                type: 'danger',
+                type: 'info',
                 title: $filter('translate')('provider_funds_available.applied_for_fund.title'),
                 description: $filter('translate')('provider_funds_available.applied_for_fund.description'),
                 icon: 'fund_applied',
-                cancel: () => {
-                    return $state.reload();
-                }
+                closeBtnText: $filter('translate')('modal.buttons.confirm')
+            }, {
+                onClose: () => $state.reload()
             });
 
         });

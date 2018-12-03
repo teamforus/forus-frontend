@@ -11,19 +11,20 @@ let FundCardProviderCanJoinDirective = function(
     });
 
     $scope.providerApplyFund = function(fund) {
+
         ProviderFundService.applyForFund(
             $scope.organization.id, 
             $scope.fund.id
         ).then(function(res) {
 
             ModalService.open('modalNotification', {
-                type: 'danger',
+                type: 'info',
                 title: $filter('translate')('provider_funds_available.applied_for_fund.title'),
                 description: $filter('translate')('provider_funds_available.applied_for_fund.description'),
                 icon: 'fund_applied',
-                cancel: () => {
-                    $scope.fund.applied = true;
-                }
+                closeBtnText: $filter('translate')('modal.buttons.confirm'),
+            }, {
+                onClose: () => $scope.fund.applied = true
             });
         });
     };
