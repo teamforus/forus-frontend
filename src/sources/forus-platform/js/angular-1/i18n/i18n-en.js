@@ -375,8 +375,8 @@ module.exports = {
     provider_funds_available: {
         title: "Fondsen",
         applied_for_fund: {
-            title: "Je aanvraag is ontvangen.",
-            description: "De gemeente zal je verzoek behandelen, dit kan maximaal twee werkdagen duren. Zodra de gemeente je aanvraag heeft behandeld wordt er een e-mail toegestuurd. Daarnaast kan je de status ook volgen op het dashboard."
+            title: "Uw aanvraag is ontvangen.",
+            description: "De gemeente zal uw verzoek behandelen, dit kan maximaal twee weken duren. Zodra de gemeente uw aanvraag heeft behandeld wordt er een e-mail toegestuurd. Daarnaast kunt u de status ook volgen op het dashboard."
         }
     },
 
