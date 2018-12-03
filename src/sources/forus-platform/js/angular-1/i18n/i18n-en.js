@@ -431,8 +431,8 @@ module.exports = {
             subtitle_step_6: "",
             top_title_step_6: "Gebruik Me",
             top_subtitle_step_6: "Rond de installatie af door gebruik te maken van <i>Me</i>",
-            title_step_7: "Gebruik Me",
-            subtitle_step_7: "Rond de installatie af door gebruik te maken van <i>Me</i>",
+            title_step_7: "Meld je aan voor een fonds",
+            subtitle_step_7: "U kunt zich nu aanmelden voor het fonds",
         },
         labels: {
             mail: "Persoonlijk E-mailadres",
