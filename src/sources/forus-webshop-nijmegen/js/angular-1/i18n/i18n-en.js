@@ -8,7 +8,7 @@ module.exports = {
         "products-apply": "Aanbieding kopen",
         vouchers: 'Mijn vouchers',
         voucher: 'Mijn voucher',
-        records: 'Eigenschappen', 
+        records: 'Eigenschappen',
         "record-validate": 'Valideer eigenschap',
         "record-validations": 'Validaties',
         "record-create": 'Eigenschap toevoegen',
@@ -29,7 +29,7 @@ module.exports = {
         buttons: {
             join: "DOE MEE",
         }
-    },    
+    },
 
     // FUNDS = funds.pug
     funds: {
@@ -138,6 +138,10 @@ module.exports = {
         },
         buttons: {
             use: "Gebruik",
+        },
+        popup: {
+            title: "Weet je zeker dat je deze aanbieding '<span class='popup-title-styled'>%s</span>' met een verloopdatum van <span class='popup-title-styled'>%s</span> wil kopen voor <span class='popup-title-styled'>%s</span>? Wanneer bevestigd kan deze transactie niet ongedaan worden gemaakt. Een terugbetaling is niet mogelijk!",
+            expiration_information: "De verloopdatum van het product is: <span class='popup-title-styled'>%s</span>. Zorg ervoor dat je tijd hebt om het product voor deze datum op te halen."
         }
     },
 
@@ -145,7 +149,7 @@ module.exports = {
     product: {
         labels: {
             fund: "Fonds",
-            find: "U kunt ons hier vinden",      
+            find: "U kunt ons hier vinden",
         },
         status: {
             active: "Actief",
@@ -162,7 +166,7 @@ module.exports = {
     records_create: {
         header: {
             title: "Eigenschappen aanmaken",
-         },        
+         },
         buttons: {
             choose: {
                 description: "Selecteer de categorie waaraan u de eigenschap wil toevoegen.",
@@ -181,7 +185,7 @@ module.exports = {
 
     // VALIDATE A RECORD = record-validate.pug
     records_validate: {
-        header: { 
+        header: {
             title: "Mijn eigenschappen",
         },
         labels: {
@@ -197,7 +201,7 @@ module.exports = {
 
     // VALIDATIONS OF THE RECORDS = record-validations.pug
     records_validations: {
-        header: { 
+        header: {
             title: "Mijn eigenschappen",
         },
         labels: {
@@ -211,7 +215,7 @@ module.exports = {
 
     // RECORDS = records.pug
     records: {
-        header: { 
+        header: {
             title: "Mijn eigenschappen",
         },
         labels: {
@@ -306,7 +310,7 @@ module.exports = {
     empty_block: {
         guide: "Gebruik de activatiecode",
     },
-    
+
     // CRITERIA FOR FUNDS = fund-criterion.pug
     fund_criterion: {
         labels: {
@@ -384,7 +388,7 @@ module.exports = {
             none: "Openingstijden onbekend, raadpleeg de aanbieder.",
         },
     },
-    
+
     // PROFILE CARD = profile-card.pug
     profile_card: {
         header: {
@@ -420,4 +424,13 @@ module.exports = {
             funds: "Fondsen",
         },
     },
+
+    // Modal
+    modal: {
+        buttons: {
+            cancel: "Annuleren",
+            confirm: "Bevestig",
+            close: "Sluit"
+        }
+    }
 };

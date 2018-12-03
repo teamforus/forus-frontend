@@ -96,6 +96,10 @@ module.exports = {
         },
         buttons: {
             use: "Gebruik",
+        },
+        popup: {
+            title: "Weet je zeker dat je deze aanbieding '<span class='popup-title-styled'>%s</span>' met een verloopdatum van <span class='popup-title-styled'>%s</span> wil kopen voor <span class='popup-title-styled'>%s</span>? Wanneer bevestigd kan deze transactie niet ongedaan worden gemaakt. Een terugbetaling is niet mogelijk!",
+            expiration_information: "De verloopdatum van het product is: <span class='popup-title-styled'>%s</span>. Zorg ervoor dat je tijd hebt om het product voor deze datum op te halen."
         }
     },
 
@@ -376,4 +380,13 @@ module.exports = {
             funds: "Fondsen",
         },
     },
+
+    // Modal
+    modal: {
+        buttons: {
+            cancel: "Annuleren",
+            confirm: "Bevestig",
+            close: "Sluit"
+        }
+    }
 };
