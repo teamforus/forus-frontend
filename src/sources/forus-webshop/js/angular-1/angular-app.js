@@ -50,8 +50,6 @@ app.service('ModalService', require('./services/ModalService'));
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
 app.directive('topNavbar', require('./directives/TopNavbarDirective'));
-app.directive('popupAuth', require('./directives/PopupAuthDirective'));
-app.directive('popupOffices', require('./directives/PopupOfficesDirective'));
 app.directive('contactForm', require('./directives/ContactFormDirective'));
 app.directive('fundCriterion', require('./directives/FundCriterionDirective'));
 app.directive('profileCard', require('./directives/ProfileCardDirective'));
@@ -73,6 +71,11 @@ app.directive('modalScrollBraker', require('./directives/modals/ModalScrollBrake
 
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
+app.component('modalOfficesComponent', require('./components/Modals/ModalOfficesComponent'));
+app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
+app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCodeComponent'));
+app.component('modalActivateCodeComponent', require('./components/Modals/ModalActivateCodeComponent'));
+app.component('modalAuthCodeComponent', require('./components/Modals/ModalAuthCodeComponent'));
 
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));

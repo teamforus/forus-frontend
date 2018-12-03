@@ -12,6 +12,6 @@
                     .subdescription(ng-bind-html="$ctrl.subdescription")
 
         .modal-footer.text-center.no-border
-            button.button.button-dark(ng-if="$ctrl.showCloseBtn" ng-click="$ctrl.close()" translate="modal.buttons.close")
-            button.button.button-dark(ng-if="$ctrl.showCancelBtn" ng-click="$ctrl.cancel()" translate="modal.buttons.cancel")
-            button.button.button-primary(ng-if="$ctrl.showConfirmBtn" ng-click="$ctrl.confirm()" translate="modal.buttons.confirm")
+            button.button.button-dark(ng-if="$ctrl.showCloseBtn" ng-click="$ctrl.close()" ng-bind="$ctrl.closeBtnText")
+            button.button.button-dark(ng-if="$ctrl.showCancelBtn" ng-click="$ctrl.cancel()" ng-bind="$ctrl.cancelBtnText")
+            button.button.button-primary(ng-if="$ctrl.showConfirmBtn" ng-click="$ctrl.confirm()" ng-bind="$ctrl.confirmBtnText")
