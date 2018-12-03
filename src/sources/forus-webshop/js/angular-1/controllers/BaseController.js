@@ -12,30 +12,6 @@ let BaseController = function(
     $filter,
     appConfigs
 ) {
-    $rootScope.popups = {
-        auth: {
-            show: false,
-            screen: false,
-            close: function() {
-                this.show = false;
-                this.screen = false;
-            },
-            open: function(screen) {
-                this.show = true;
-                this.screen = screen;
-            }
-        },
-        offices: {
-            show: false,
-            close: function() {
-                this.show = false;
-            },
-            open: function(screen) {
-                this.show = true;
-            }
-        }
-    };
-
     $rootScope.loadAuthUser = function() {
         AuthService.identity().then((res) => {
             let auth_user = res.data;

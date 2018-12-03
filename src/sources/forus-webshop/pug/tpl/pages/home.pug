@@ -20,7 +20,7 @@ section.section.section-map: .wrapper
         .block-content
             .block-title {{ "home.map.title" | translate }}
             .block-description(ng-bind="'home.map.subtitle' | translate")
-            button(ng-click="$root.popups.offices.open()" translate="home.map.button").button.button-primary
+            button(ng-click="$ctrl.showPopupOffices()" translate="home.map.button").button.button-primary
 
 section.section.section-steps#steps: .wrapper
     .section-splash
