@@ -5,9 +5,9 @@ header.section.section-header.section-header-landing: .wrapper
     top-navbar
 
     .header-content
-        .header-title {{ "home.header.title" | translate }}
-        .header-description(ng-bind="'home.header.subtitle' | translate")
-        a(scroll-to="#steps" translate="home.header.button").button.button-primary 
+        .header-title {{ "home.header.forus.title" | translate }}
+        .header-description(ng-bind="'home.header.forus.subtitle' | translate")
+        a(scroll-to="#steps" translate="home.header.forus.button").button.button-primary 
 
 block-products(
     ng-if="$root.appConfigs.features.products.list"
@@ -25,34 +25,34 @@ section.section.section-map: .wrapper
 section.section.section-steps#steps: .wrapper
     .section-splash
     .section-sprite
-    .section-title Hoe het systeem werkt
+    .section-title {{ "home.guide.forus.title" | translate }}
     .steps
         .step-item: .step-item-content
-            h4 Stap #1
-            p U heeft een een brief ontvangen van de Gemeente. In deze brief staat een activatiecode. Deze hebt u nodig voor stap 2.
+            h4 {{ "home.guide.forus.stepone" | translate }}
+            p {{ "home.guide.forus.one" | translate }}
         .step-item: .step-item-content
-            h4 Stap #2
-            p Op de website waar u zich nu bevindt klikt u, boven aan de pagina, op de groene knop en logt u in met de activatiecode.
+            h4 {{ "home.guide.forus.steptwo" | translate }}
+            p {{ "home.guide.forus.two" | translate }}
         .step-item: .step-item-content
-            h4 Stap #3
-            p U ontvangt een mail een QR-code (nodig voor stap 5) en een link naar overzichtspagina van het kindpakket.
+            h4 {{ "home.guide.forus.stepthree" | translate }}
+            p {{ "home.guide.forus.three" | translate }}
         .step-item: .step-item-content
-            h4 Stap #4
-            p Op de overzichtspagina staan de winkels waar u met de QR-Code terecht kunt. Print de QR-Code uit, of zorg dat deze als plaatje op uw telefoon staat. De Qr-Code kunt u steeds opnieuw gebruiken.
+            h4 {{ "home.guide.forus.stepfour" | translate }}
+            p {{ "home.guide.forus.four" | translate }}
         .step-item: .step-item-content
-            h4 Stap #3
-            p U ontvangt een mail een QR-code (nodig voor stap 5) en een link naar overzichtspagina van het kindpakket.
+            h4 {{ "home.guide.forus.stepfive" | translate }}
+            p {{ "home.guide.forus.five" | translate }}
 
         .step-item
 
 section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
-    .section-title {{ "home.blog.title" | translate }}
+    .section-title {{ "home.blog.forus.title" | translate }}
     
     .block.block-blogs
         mixin blog_item(nth)
             .blog-item: a(href="#").blog-item-inner
                 .blog-image: img(src="./assets/img/blog-image-" + nth + ".jpg")
-                .blog-name {{ "home.blog.name" | translate }}
+                .blog-name {{ "home.blog.forus.name" | translate }}
                 .blog-read-more 
                     | {{ "home.blog.more" | translate }}
                     em.mdi.mdi-arrow-right
@@ -63,7 +63,7 @@ section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
     
 section.section.section-faq: .wrapper
     .section-splash
-    .section-title Veel gestelde vragen
+    .section-title {{ "home.faq.forus.title" | translate }}
     .faq(collapse)
         mixin faq_item(title, content, active)
             .faq-item(class=active?'active':'' collapse-item)
@@ -74,35 +74,67 @@ section.section.section-faq: .wrapper
                 .faq-item-content(collapse-content)=content
 
         +faq_item(
-            "Ik weet niet hoe ik moet inloggen; hoe de activatiecode werkt.",
-            "In de brief staat uw activatiecode. Die code vult u in op de website onder de knop activatie-code. Daana u ontvangt u een e-mail met uw QR-code")
+            "{{ 'home.faq.forus.faq_one' | translate }}",
+            "{{ 'home.faq.forus.one' | translate }}")
 
         +faq_item(
-            "Ik ben mijn QR-code kwijt. Wat moet ik doen?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
+            "{{ 'home.faq.forus.faq_two' | translate }}",
+            "{{ 'home.faq.forus.two' | translate }}")
 
         +faq_item(
-            "Hoe kan ik zien hoe hoog mijn budget nog is?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
+            "{{ 'home.faq.forus.faq_three' | translate }}",
+            "{{ 'home.faq.forus.three' | translate }}")
 
         +faq_item(
-            "Kan ik iets wat ik gekocht heb ruilen/retour brengen?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
+            "{{ 'home.faq.forus.faq_four' | translate }}",
+            "{{ 'home.faq.forus.four' | translate }}")
 
         +faq_item(
-            "Moet ik mijn budget in 1x besteden?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
+            "{{ 'home.faq.forus.faq_five' | translate }}",
+            "{{ 'home.faq.forus.five' | translate }}")
 
         +faq_item(
-            "Kan ik iets kopen bij een andere winkelier die niet op de website staat?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
+            "{{ 'home.faq.forus.faq_six' | translate }}",
+            "{{ 'home.faq.forus.six' | translate }}")
 
         +faq_item(
-            "Ik heb nog een kind gekregen. Kom ik in aanmerking voor een hoger budget?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
+            "{{ 'home.faq.forus.faq_seven' | translate }}",
+            "{{ 'home.faq.forus.seven' | translate }}")
 
         +faq_item(
-            "Hoe kom ik in aanmerking voor het kindpakket?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
+            "{{ 'home.faq.forus.faq_eight' | translate }}",
+            "{{ 'home.faq.forus.eight' | translate }}")
+            
+        +faq_item(
+            "{{ 'home.faq.forus.faq_nine' | translate }}",
+            "{{ 'home.faq.forus.nine' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.forus.faq_ten' | translate }}",
+            "{{ 'home.faq.forus.ten' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.forus.faq_eleven' | translate }}",
+            "{{ 'home.faq.forus.eleven' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.forus.faq_twelve' | translate }}",
+            "{{ 'home.faq.forus.twelve' | translate }}")
+
+        +faq_item(
+            "{{ 'home.faq.forus.faq_thirteen' | translate }}",
+            "{{ 'home.faq.forus.thirteen' | translate }}")
+
+        //+faq_item(
+            "{{ 'home.faq.forus.faq_fourteen' | translate }}",
+            "{{ 'home.faq.forus.fourteen' | translate }}")
+
+        //+faq_item(
+            "{{ 'home.faq.forus.faq_fifteen' | translate }}",
+            "{{ 'home.faq.forus.fifteen' | translate }}")
+
+        //+faq_item(
+            "{{ 'home.faq.forus.faq_sixteen' | translate }}",
+            "{{ 'home.faq.forus.sixteen' | translate }}") 
 
 contact-form 
