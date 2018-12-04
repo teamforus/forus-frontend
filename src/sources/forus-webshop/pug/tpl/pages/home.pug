@@ -18,9 +18,9 @@ block-products(
 section.section.section-map: .wrapper
     .block.block-map
         .block-content
-            .block-title {{ "home.map.forus.title" | translate }}
-            .block-description(ng-bind="'home.map.forus.subtitle' | translate")
-            button(ng-click="$root.popups.offices.open()" translate="home.map.button").button.button-primary
+            .block-title {{ "home.map.title" | translate }}
+            .block-description(ng-bind="'home.map.subtitle' | translate")
+            button(ng-click="$ctrl.showPopupOffices()" translate="home.map.button").button.button-primary
 
 section.section.section-steps#steps: .wrapper
     .section-splash
