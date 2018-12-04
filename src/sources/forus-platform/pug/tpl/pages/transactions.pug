@@ -2,8 +2,8 @@
     menu
     section.app.app-content
 
-        .card(ng-if="$ctrl.transactions.length > 0" class=(state=='closed'?'card-outline':'')).form
-            .card-header: .card-title {{ "transactions.header.title" | translate }} ({{ $ctrl.transactions.length }})
+        .card(ng-if="$ctrl.transactions.data.length > 0" class=(state=='closed'?'card-outline':'')).form
+            .card-header: .card-title {{ "transactions.header.title" | translate }} ({{ $ctrl.transactions.data.length }})
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
@@ -15,7 +15,7 @@
                                 th {{ "transactions.labels.provider" | translate }}
                                 th {{ "transactions.labels.status" | translate }}
                             tr(
-                                ng-repeat="transaction in $ctrl.transactions" 
+                                ng-repeat="transaction in $ctrl.transactions.data"
                                 ng-click="$ctrl.showTransaction(transaction)").pointer
                                 td: a.text-primary-light €{{ transaction.amount }}
                                 td(ng-bind="transaction.created_at_locale")
@@ -34,10 +34,14 @@
 
                     
             .card-section: .table-pagination
-                .table-pagination-counter(ng-bind="$ctrl.transactions.length + ' results'")
+                //.table-pagination-counter(ng-bind="$ctrl.transactions.data.length + ' results'")
                 button(ng-click="$ctrl.exportList()").button.button-primary.pull-right
                     em.mdi.mdi-download  
                     | {{ "transactions.buttons.export" | translate }}
+
+            .card-section(ng-show="$ctrl.transactions.meta.last_page > 1")
+                paginator(meta="$ctrl.transactions.meta" filters="filter" count-buttons="5" on-page-change="onPageChange(query)")
+
         block-empty(
-            ng-if="$ctrl.transactions.length == 0" 
+            ng-if="$ctrl.transactions.data.length == 0"
             text="'Geen transacties.'")

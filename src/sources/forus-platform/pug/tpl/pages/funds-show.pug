@@ -3,8 +3,8 @@
     section.app.app-content
         div(fund-card-sponsor fund="$ctrl.fund" level="$ctrl.fundLevel")
 
-        .card
-            //.card-header: .card-title {{ "funds_show.criterion" | translate }}
+        //-.card
+            .card-header: .card-title {{ "funds_show.criterion" | translate }}
             .card-section
                 .card-block.card-block-keyvalue
                     mixin keyvalue_item(key, value, links = [])
@@ -17,8 +17,8 @@
                                         em.mdi(class=('mdi-' + link.mdi))
                                         | #{link.text}
                     
-                    //+keyvalue_item("Locatie", "Zuidhorn")
-                    //+keyvalue_item("Aantal kinderen", "1")
-                    //+keyvalue_item("Leeftijd", "> 18 jaar oud")
-                    //+keyvalue_item("Inkomensgrens", "< € 1118.46")
+                    +keyvalue_item("Locatie", "Zuidhorn")
+                    +keyvalue_item("Aantal kinderen", "1")
+                    +keyvalue_item("Leeftijd", "> 18 jaar oud")
+                    +keyvalue_item("Inkomensgrens", "< € 1118.46")
                     
