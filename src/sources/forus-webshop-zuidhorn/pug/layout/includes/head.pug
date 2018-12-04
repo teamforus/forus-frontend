@@ -1,4 +1,4 @@
-- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?env_data.html5Mode.basePath:'');
+- var src_prefix = '';
 
 head
     meta(charset="UTF-8")
@@ -26,3 +26,5 @@ head
 
     //- custom style
     link(rel="stylesheet" href=src_prefix + "assets/css/style.min.css")
+
+    base(href="/")
