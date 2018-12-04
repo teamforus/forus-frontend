@@ -11,7 +11,7 @@
                     input(type="text" ng-model="$ctrl.form.values.email").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
                 .form-group(ng-if="!$ctrl.employee")
-                    label.form-label RolLen
+                    label.form-label Rollen
                     .flex-row
                         .flex-item.flex-item-2(ng-repeat="role in $ctrl.modal.scope.roles")
                             label(ng-click="$ctrl.toggleOption(role.id)" for="product_{{ role.id }}").checkbox.checkbox-narrow

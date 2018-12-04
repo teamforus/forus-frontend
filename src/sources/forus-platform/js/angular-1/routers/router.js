@@ -6,6 +6,20 @@ let repackResponse = (promise) => {
     });
 }
 
+let repackPagination = (promise) => {
+    return new Promise((resolve, reject) => {
+        promise.then((res) => {
+            resolve(res.data);
+        }, reject);
+    });
+}
+
+let objectOnlyKeys = (obj, keys) => {
+    let out = {};
+    keys.forEach(key=>out[key] = obj[key]);
+    return out;
+};
+
 /**
  * Permission middleware
  * 
@@ -151,7 +165,9 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         component: "fundsMyComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('organization-funds', 'manage_funds'),
+            permission: permissionMiddleware('organization-funds', [
+                'manage_funds', 'view_finances'
+            ], false),
             funds: function(permission, $transition$, FundService) {
                 return repackResponse(
                     FundService.list(
@@ -381,7 +397,9 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         component: "fundsShowComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('funds-show', 'manage_funds'),
+            permission: permissionMiddleware('funds-show', [
+                'manage_funds', 'view_finances'
+            ], false),
             fund: function(permission, $transition$, FundService) {
                 return repackResponse(
                     FundService.read(
@@ -577,7 +595,7 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
     // Validators
     $stateProvider.state({
         name: 'csv-validation',
-        url: '/csv-validation/funds/{fund_id}',
+        url: '/csv-validation/funds/{fund_id}?page&q',
         component: 'csvValidationComonent',
         params: {
             fund_id: {
@@ -596,9 +614,11 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
                     FundService.list()
                 );
             },
-            prevalidations: function(PrevalidationService) {
-                return repackResponse(
-                    PrevalidationService.list()
+            prevalidations: function($transition$, PrevalidationService) {
+                return repackPagination(
+                    PrevalidationService.list(objectOnlyKeys($transition$.params(), [
+                        'page', 'q'
+                    ]))
                 );
             },
             recordTypes: function(RecordTypeService) {

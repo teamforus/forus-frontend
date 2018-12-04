@@ -1,6 +1,10 @@
+let _string = require("underscore.string");
+
 let ProductApplyComponent = function(
     $state,
-    VoucherService
+    $filter,
+    VoucherService,
+    ModalService
 ) {
     let $ctrl = this;
 
@@ -25,13 +29,36 @@ let ProductApplyComponent = function(
     };
 
     $ctrl.applyForProduct = (voucher) => {
-        VoucherService.makeProductVoucher(
-            voucher.address,
-            $ctrl.product.id
-        ).then(res => {
-            $state.go('voucher', res.data.data);
-        }, console.error);
+
+        let popupTitle = _string.sprintf(
+            $filter('translate')('product_apply.popup.title'),
+            $ctrl.product.name,
+            $ctrl.product.expire_at,
+            $ctrl.product.price
+        );
+
+        let popupSubDescription = _string.sprintf(
+            $filter('translate')('product_apply.popup.expiration_information'),
+            $ctrl.product.expire_at
+        );
+
+        return ModalService.open('modalNotification', {
+            type: 'confirm',
+            title: popupTitle,
+            subdescription: popupSubDescription,
+            icon: 'voucher_apply',
+            confirm: () => {
+
+                return VoucherService.makeProductVoucher(
+                    voucher.address,
+                    $ctrl.product.id
+                ).then(res => {
+                    $state.go('voucher', res.data.data);
+                }, console.error);
+            }
+        });
     };
+
 };
 
 module.exports = {
@@ -41,7 +68,9 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$filter',
         'VoucherService',
+        'ModalService',
         ProductApplyComponent
     ],
     templateUrl: 'assets/tpl/pages/product-apply.html'

@@ -127,19 +127,7 @@ let SignUpComponent = function(
         $ctrl.signUpForm = FormBuilderService.build({
             pin_code: "1111",
         }, function(form) {
-            if (form.values.records && form.values.records.primary_email != form.values.records.primary_email_confirmation) {
-                return $q((resolve, reject) => {
-                    reject({
-                        data: {
-                            errors: {
-                                'records.primary_email_confirmation': [$filter('translate')('validation.email_confirmation')]
-                            }
-                        }
-                    });
-                });
-            }
-
-            let formValues = form.values;
+            let formValues = angular.copy(form.values);
 
             if (formValues.records) {
                 delete formValues.records.primary_email_confirmation;
@@ -243,7 +231,7 @@ let SignUpComponent = function(
         }
 
         if (step == 7 && appConfigs.panel_type == 'sponsor') {
-            $state.go('organziations');
+            $state.go('organizations');
         }
     };
 
@@ -294,7 +282,26 @@ let SignUpComponent = function(
             }
 
         } else if ($ctrl.step == 2) {
-            $ctrl.setStep(3);
+
+            if ($ctrl.signUpForm.values.records && $ctrl.signUpForm.values.records.primary_email != $ctrl.signUpForm.values.records.primary_email_confirmation) {
+                $ctrl.signUpForm.errors = {};
+                $ctrl.signUpForm.errors['records.primary_email_confirmation'] = [$filter('translate')('validation.email_confirmation')];
+            } else {
+
+                IdentityService.make({
+                    records: {
+                        primary_email: $ctrl.signUpForm.values.records ? $ctrl.signUpForm.values.records.primary_email : ''
+                    }
+                }).then((res) => {}, (res) => {
+                    $ctrl.signUpForm.errors = {};
+                    if (res.data.errors['records.primary_email'] && res.data.errors['records.primary_email'].length) {
+                        $ctrl.signUpForm.errors['records.primary_email'] = res.data.errors['records.primary_email'];
+                    } else {
+                        $ctrl.setStep(3);
+                    }
+                });
+            }
+
         } else if ($ctrl.step == 3) {
             let authRes;
 
