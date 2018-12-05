@@ -188,7 +188,7 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
             organization: organziationResolver(),
             permission: permissionMiddleware('organization-providers', 'manage_providers'),
             fundProviders: function(permission, $transition$, OrganizationService) {
-                return repackResponse(
+                return repackPagination(
                     OrganizationService.listProviders(
                         $transition$.params().organization_id
                     )
@@ -300,7 +300,7 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
                     return new Promise((res) => res(null));
                 }
 
-                return repackResponse(
+                return repackPagination(
                     FundService.listProviders(
                         $transition$.params().organization_id,
                         $transition$.params().fund_id,
@@ -454,7 +454,7 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
             organization: organziationResolver(),
             permission: permissionMiddleware('transactions-list', 'view_finances'),
             transactions: function($transition$, TransactionService, appConfigs) {
-                return repackResponse(
+                return repackPagination(
                     TransactionService.list(
                         appConfigs.panel_type,
                         $transition$.params().organization_id

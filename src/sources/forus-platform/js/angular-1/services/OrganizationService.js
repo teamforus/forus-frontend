@@ -11,10 +11,14 @@ module.exports = [
             };
 
             this.listProviders = function(
-                organization_id
+                organization_id,
+                query
             ) {
+                query = query ? query : {};
+
                 return ApiRequest.get(
-                    '/platform/organizations/' + organization_id + '/providers'
+                    '/platform/organizations/' + organization_id + '/providers',
+                    query
                 );
             };
 

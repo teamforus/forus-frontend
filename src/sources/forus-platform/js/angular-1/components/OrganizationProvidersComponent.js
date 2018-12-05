@@ -1,11 +1,13 @@
 let OrganizationProvidersComponent = function(
     $state,
+    $scope,
+    OrganizationService,
     FundService
 ) {
     let $ctrl = this;
 
     $ctrl.$onInit = function() {
-        $ctrl.fundProviders.map(function(providerFund) {
+        $ctrl.fundProviders.data.map(function(providerFund) {
             providerFund.organization.fundCategories = 
             providerFund.organization.product_categories.map(function(category) {
                 return category.name;
@@ -26,7 +28,7 @@ let OrganizationProvidersComponent = function(
         ).then((res) => {
             $state.reload();
         });
-    }
+    };
 
     $ctrl.declineProvider = function(providerFund) {
         FundService.declineProvider(
@@ -36,15 +38,28 @@ let OrganizationProvidersComponent = function(
         ).then((res) => {
             $state.reload();
         });
-    }
+    };
+
+    $scope.onPageChange = async (query) => {
+        OrganizationService.listProviders(
+            $ctrl.organization.id,
+            query
+        ).then((res => {
+            $ctrl.fundProviders = res.data;
+        }));
+    };
+
 };
 
 module.exports = {
     bindings: {
-        fundProviders: '<'
+        fundProviders: '<',
+        organization: '<'
     },
     controller: [
         '$state',
+        '$scope',
+        'OrganizationService',
         'FundService',
         OrganizationProvidersComponent
     ],

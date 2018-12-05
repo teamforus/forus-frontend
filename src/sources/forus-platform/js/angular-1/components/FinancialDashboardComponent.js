@@ -1,5 +1,6 @@
 let FinancialDashboardComponent = function(
     $state,
+    $scope,
     $stateParams,
     FundService
 ) {
@@ -128,14 +129,29 @@ let FinancialDashboardComponent = function(
         }
 
         if (Array.isArray($ctrl.funds)) {
-            $ctrl.funds.forEach(fund => {
-                fund.fundCategories = _.pluck(fund.product_categories, 'name').join(', ');
+            $ctrl.funds.forEach((fund, index, funds) => {
+                if(fund.state == 'waiting'){
+                    funds.splice(index, 1);
+                }else {
+                    fund.fundCategories = _.pluck(fund.product_categories, 'name').join(', ');
+                }
             });
         }
 
         if ($ctrl.fund) {
             $ctrl.fund.fundCategories = _.pluck($ctrl.fund.product_categories, 'name').join(', ');
         }
+    };
+
+    $scope.onPageChange = async (query) => {
+        FundService.listProviders(
+            $ctrl.fund.organization_id,
+            $ctrl.fund.id,
+            'approved',
+            query
+        ).then((res => {
+            $ctrl.fundProviders = res.data;
+        }));
     };
 };
 
@@ -147,6 +163,7 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$scope',
         '$stateParams',
         'FundService',
         FinancialDashboardComponent
