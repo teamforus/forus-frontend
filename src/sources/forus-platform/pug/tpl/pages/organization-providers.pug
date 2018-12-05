@@ -24,21 +24,23 @@
                     .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
                         .card-block-listing-label(translate="organization_providers.labels.phone")
                         span.text-primary-light(ng-bind="providerFund.organization.phone")
-                .card-block.card-block-listing
-                    .card-block-listing-label(translate="organization_providers.labels.categories")
-                    span(ng-bind="providerFund.organization.fundCategories.join(', ')")
-                    small(ng-show="$ctrl.fundCategories.length == 0").text-muted.small No categories
-                br
-                .card-block.card-block-listing
-                    .card-block-listing-label(translate="organization_providers.labels.join")
-                    span(ui-sref="funds-show(providerFund.fund)" ng-bind="providerFund.fund.name").text-primary-light
+
+                div(ng-show="providerFund.state != 'approved'")
+                    .card-block.card-block-listing
+                        .card-block-listing-label(translate="organization_providers.labels.categories")
+                        span(ng-bind="providerFund.organization.fundCategories.join(', ')")
+                        small(ng-show="$ctrl.fundCategories.length == 0").text-muted.small No categories
+                    br
+                    .card-block.card-block-listing
+                        .card-block-listing-label(translate="organization_providers.labels.join")
+                        span(ui-sref="funds-show(providerFund.fund)" ng-bind="providerFund.fund.name").text-primary-light
 
             mixin keyvalue_item_horizontal(key, value)
                 .keyvalue-item
                     .keyvalue-key=key
                     .keyvalue-value(ng-bind=value)
 
-            .card-section.card-section-primary
+            .card-section.card-section-primary(ng-show="providerFund.state != 'approved'")
                 .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
                     +keyvalue_item_horizontal("KVK", "providerFund.organization.kvk")
                     .pull-right
