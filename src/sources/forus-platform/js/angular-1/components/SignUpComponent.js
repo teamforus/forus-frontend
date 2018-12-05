@@ -40,10 +40,38 @@ let SignUpComponent = function(
     let orgMediaFile = false;
     let waitingSms = false;
 
+    let invalidPermissions = {
+        sponsor: [
+            "manage_provider_funds", "manage_products", "manage_offices",
+            "scan_vouchers"
+        ],
+        provider: [
+            "manage_funds", "manage_providers", "manage_validators",
+            "validate_records", "scan_vouchers"
+        ]
+    } [appConfigs.panel_type];
+
     $ctrl.beforeInit = () => {
         if ($rootScope.auth_user) {
-            $state.go('organizations');
-            progressStorage.clear();
+
+            OrganizationService.list().then(res => {
+                $ctrl.organizations = res.data.data.filter(organization => {
+                    return organization.permissions.filter((permission => {
+                        return invalidPermissions.indexOf(permission) == -1;
+                    })).length > 0;
+                });
+
+                if ($ctrl.organizations.length == 1) {
+                    $ctrl.organization = $ctrl.organizations[0];
+                    loadOrganizationOffices($ctrl.organization);
+                    loadAvailableFunds($ctrl.organization);
+
+                    $ctrl.setStep(4);
+                }else{
+                    $state.go('organizations');
+                    progressStorage.clear();
+                }
+            });
         }
     };
 
