@@ -30,16 +30,21 @@ let ProductApplyComponent = function(
 
     $ctrl.applyForProduct = (voucher) => {
 
+        let fund_expire_at = moment(voucher.fund.end_date);
+        let product_expire_at = moment($ctrl.product.expire_at);
+
+        let expire_at = fund_expire_at.isAfter(product_expire_at) ? $ctrl.product.expire_at_locale : voucher.fund.end_date_locale;
+
         let popupTitle = _string.sprintf(
             $filter('translate')('product_apply.popup.title'),
             $ctrl.product.name,
-            $ctrl.product.expire_at,
+            expire_at,
             $ctrl.product.price
         );
 
         let popupSubDescription = _string.sprintf(
             $filter('translate')('product_apply.popup.expiration_information'),
-            $ctrl.product.expire_at
+            expire_at
         );
 
         return ModalService.open('modalNotification', {
