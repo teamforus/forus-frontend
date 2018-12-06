@@ -11,7 +11,7 @@ let TransactionsComponent = function(
     var org = OrganizationService.active().id;
 
     $ctrl.states = {
-        pending: 'Pending',
+        pending: 'In afwachting',
         success: 'Voltooid'
     };
 

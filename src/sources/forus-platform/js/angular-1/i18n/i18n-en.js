@@ -776,8 +776,29 @@ module.exports = {
 
     // PROGRESS BAR = progress-bar.pug
     // No translations needed
-    // SCHEDULE CONTROL = schedule-controle.puh
+    // SCHEDULE CONTROL = schedule-controle.pug
     // No translations needed
+
+    // PAGINATOR LOADER = paginator-loader.pug
+
+    paginator_loader: {
+        buttons: {
+            load: "Laad meer activatie codes",
+        },
+        labels: {
+            from: "Van",
+        }
+    },
+
+    paginator: {
+        buttons: {
+            first: "Eerste",
+            last: "Laatste",
+        },
+        labels: {
+            from: "Van",
+        }
+    },
 
     // MENU = langing/navbar.pug
     topnavbar: {
