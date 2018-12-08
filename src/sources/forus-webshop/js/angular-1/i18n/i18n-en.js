@@ -60,7 +60,7 @@ module.exports = {
     // HOME = home.pug
     home: {
         header: {
-            forus: {
+            general: {
                 title: "Generieke webshop voor gemeentelijke regelingen",
                 subtitle: "Op deze webshop kun je je aanmelden voor een fonds, vervolgens kun je met een voucher langs winkels, sportverenigingen en/of culturele instellingen gaan.",
                 button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
@@ -82,7 +82,7 @@ module.exports = {
             },
         },
         blog: {
-            forus: {
+            general: {
                 title: "Onze blog",
                 name: "Blog: Twee nieuwe implementaties van ons platform",
             },
@@ -107,7 +107,7 @@ module.exports = {
             search: "Zoek naar een aanbieding",
         },
         map: { 
-            forus: {
+            general: {
                 title: "Overzicht van alle aanbieders",
                 subtitle: "Binnen het Forus platform werken sponsoren en leveranciers samen om de beste diensten en producten te leveren voor het publieke domein.",
             },
@@ -126,7 +126,7 @@ module.exports = {
             button: "BEKIJK DE KAART",
         },
         faq: {
-            forus: {
+            general: {
                 title: "Veelgestelde vragen {{client_key}}",
                 faq_one: "Hoe kan ik {{fonds}} activeren?",
                 one: "Klik rechts bovenaan op 'Activatiecode'. Vul je e-mailadres en de activatiecode in die je per brief hebt ontvangen. Klik vervolgens op 'versturen'. Je profiel is aangemaakt en je {{voucher}}-voucher is geactiveerd!",
@@ -262,7 +262,7 @@ module.exports = {
             },
         },
         guide: {
-            forus: {
+            general: {
                 title: "Hoe het werkt",
                 stepone: "Stap #1",
                 one: "U heeft een brief  ontvangen van de gemeente. In de brief staat een activatiecode. Gebruik deze bij stap 2.",
@@ -486,7 +486,7 @@ module.exports = {
             subtitle: "CONTACTGEGEVENS",
         },
         labels: {
-            forus: {
+            general: {
                 address:"Hooiweg 9, 9801 AJ Zuidhorn",
                 phone:"(0594) 508888",
                 mail: "kindpakket@zuidhorn.nl",
@@ -525,7 +525,7 @@ module.exports = {
     // CRITERIA FOR FUNDS = fund-criterion.pug
     fund_criterion: {
         labels: { 
-            forus: {
+            general: {
                 location: "Groningen",
             },
             zuidhorn: {

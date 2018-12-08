@@ -6,9 +6,9 @@ header.section.section-header.section-header-landing
         .heade-sprite
 
         .header-content
-            .header-title {{ "home.header.forus.title" | translate }}
-            .header-description(ng-bind="'home.header.forus.subtitle' | translate")
-            a(scroll-to="#steps" translate="home.header.forus.button").button.button-primary 
+            .header-title {{ "home.header.[client_key].title" | translate }}
+            .header-description(ng-bind="'home.header.[client_key].subtitle' | translate")
+            a(scroll-to="#steps" translate="home.header.[client_key].button").button.button-primary 
 
 block-products(
     ng-if="$root.appConfigs.features.products.list"
@@ -19,31 +19,30 @@ block-products(
 section.section.section-map: .wrapper
     .block.block-map
         .block-content
-            .block-title {{ "home.map.title" | translate }}
-            .block-description(ng-bind="'home.map.subtitle' | translate")
-            button(ng-click="$ctrl.showPopupOffices()" translate="home.map.button").button.button-primary
+            .block-title {{ "home.map.[client_key].title" | translate }}
+            .block-description(ng-bind="'home.map.[client_key].subtitle' | translate")
+            button(ng-click="$ctrl.showPopupOffices()" translate="home.map.[client_key].button").button.button-primary
 
 section.section.section-steps#steps: .wrapper
-    if (qdt_c.platform.env_data.client_key != 'nijmegen')
-        .section-splash
-        .section-sprite
-    .section-title {{ "home.guide.forus.title" | translate }}
+    .section-splash
+    .section-sprite
+    .section-title {{ "home.guide.[client_key].title" | translate }}
     .steps
         .step-item: .step-item-content
-            h4 {{ "home.guide.forus.stepone" | translate }}
-            p {{ "home.guide.forus.one" | translate }}
+            h4 {{ "home.guide.[client_key].stepone" | translate }}
+            p {{ "home.guide.[client_key].one" | translate }}
         .step-item: .step-item-content
-            h4 {{ "home.guide.forus.steptwo" | translate }}
-            p {{ "home.guide.forus.two" | translate: "{fonds: 'de Meedoen-regeling', voucher: 'de Meedoen', start_date: '1 januari 2019'}" }}
+            h4 {{ "home.guide.[client_key].steptwo" | translate }}
+            p {{ "home.guide.[client_key].two" | translate: "{fonds: 'de Meedoen-regeling', voucher: 'de Meedoen', start_date: '1 januari 2019'}" }}
         .step-item: .step-item-content
-            h4 {{ "home.guide.forus.stepthree" | translate }}
-            p {{ "home.guide.forus.three" | translate }}
+            h4 {{ "home.guide.[client_key].stepthree" | translate }}
+            p {{ "home.guide.[client_key].three" | translate }}
         .step-item: .step-item-content
-            h4 {{ "home.guide.forus.stepfour" | translate }}
-            p {{ "home.guide.forus.four" | translate }}
+            h4 {{ "home.guide.[client_key].stepfour" | translate }}
+            p {{ "home.guide.[client_key].four" | translate }}
         .step-item: .step-item-content
-            h4 {{ "home.guide.forus.stepfive" | translate }}
-            p {{ "home.guide.forus.five" | translate }}
+            h4 {{ "home.guide.[client_key].stepfive" | translate }}
+            p {{ "home.guide.[client_key].five" | translate }}
 
         .step-item
 
@@ -64,9 +63,8 @@ section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
     .block.block-show-more: a(href="#").button.button-primary {{ "home.blog.button" | translate }}
    
 section.section.section-faq: .wrapper
-    if (qdt_c.platform.env_data.client_key == 'zuidhorn')
-       .section-splash
-    .section-title  {{ "home.faq.forus.title" | translate:'{client_key: "#{qdt_c.platform.env_data.client_key}"}' }}
+    .section-splash
+    .section-title  {{ "home.faq.[client_key].title" | translate }}
             .faq(collapse)
                 mixin faq_item(title, content, active)
                     .faq-item(class=active?'active':'' collapse-item)
@@ -75,54 +73,54 @@ section.section.section-faq: .wrapper
                             .faq-item-chevron-up.mdi.mdi-chevron-up
                         .faq-item-content(collapse-conten,translate=content,translate-values="{fonds: 'de Meedoen-regeling', voucher: 'de Meedoen', start_date: '1 januari 2019'}")    
                 +faq_item(
-                    'home.faq.forus.faq_one',
-                    'home.faq.forus.one')
+                    'home.faq.[client_key].faq_one',
+                    'home.faq.[client_key].one')
 
                 +faq_item(
-                    'home.faq.forus.faq_two',
-                    'home.faq.forus.two')
+                    'home.faq.[client_key].faq_two',
+                    'home.faq.[client_key].two')
 
                 +faq_item(
-                    'home.faq.forus.faq_three',
-                    'home.faq.forus.three')
+                    'home.faq.[client_key].faq_three',
+                    'home.faq.[client_key].three')
 
                 +faq_item(
-                    'home.faq.forus.faq_four',
-                    'home.faq.forus.four')
+                    'home.faq.[client_key].faq_four',
+                    'home.faq.[client_key].four')
 
                 +faq_item(
-                    'home.faq.forus.faq_five',
-                    'home.faq.forus.five')
+                    'home.faq.[client_key].faq_five',
+                    'home.faq.[client_key].five')
 
                 +faq_item(
-                    'home.faq.forus.faq_six',
-                    'home.faq.forus.six')
+                    'home.faq.[client_key].faq_six',
+                    'home.faq.[client_key].six')
 
                 +faq_item(
-                    'home.faq.forus.faq_seven',
-                    'home.faq.forus.seven')
+                    'home.faq.[client_key].faq_seven',
+                    'home.faq.[client_key].seven')
 
                 +faq_item(
-                    'home.faq.forus.faq_eight',
-                    'home.faq.forus.eight')
+                    'home.faq.[client_key].faq_eight',
+                    'home.faq.[client_key].eight')
                     
                 +faq_item(
-                    'home.faq.forus.faq_nine',
-                    'home.faq.forus.nine')
+                    'home.faq.[client_key].faq_nine',
+                    'home.faq.[client_key].nine')
 
                 +faq_item(
-                    'home.faq.forus.faq_ten',
-                    'home.faq.forus.ten')
+                    'home.faq.[client_key].faq_ten',
+                    'home.faq.[client_key].ten')
 
                 +faq_item(
-                    'home.faq.forus.faq_eleven',
-                    'home.faq.forus.eleven')
+                    'home.faq.[client_key].faq_eleven',
+                    'home.faq.[client_key].eleven')
 
                 +faq_item(
-                    'home.faq.forus.faq_twelve',
-                    'home.faq.forus.twelve')
+                    'home.faq.[client_key].faq_twelve',
+                    'home.faq.[client_key].twelve')
 
                 +faq_item(
-                    'home.faq.forus.faq_thirteen',
-                    'home.faq.forus.thirteen')
+                    'home.faq.[client_key].faq_thirteen',
+                    'home.faq.[client_key].thirteen')
 contact-form 
