@@ -1,10 +1,7 @@
 let BaseController = function(
     $rootScope,
-    $scope,
     $state,
-    IdentityService,
     AuthService,
-    CredentialsService,
     RecordService,
     OrganizationService,
     ConfigService,
@@ -75,11 +72,8 @@ let BaseController = function(
 
 module.exports = [
     '$rootScope',
-    '$scope',
     '$state',
-    'IdentityService',
     'AuthService',
-    'CredentialsService',
     'RecordService',
     'OrganizationService',
     'ConfigService',

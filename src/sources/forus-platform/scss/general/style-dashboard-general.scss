@@ -1,0 +1,9 @@
+@import "./vars";
+@import "../_common/dashboard";
+
+.landing-root {
+    background-color: #f7f9fc;
+    background: linear-gradient(to bottom, #f7f9fc 0%, #ffffff 100%);
+
+    @import './landing';
+}

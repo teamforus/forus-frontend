@@ -1,6 +1,7 @@
 let TopNavbarDirective = function(
     $scope,
-    ModalService
+    ModalService,
+    ConfigService
 ) {
     $scope.openAuthPopup = function () {
         ModalService.open('modalAuth', {});
@@ -17,6 +18,10 @@ let TopNavbarDirective = function(
     $scope.openAuthCodePopup = function () {
         ModalService.open('modalAuthCode', {});
     };
+
+    $scope.cfg = {
+        logoExtension: ConfigService.getFlag('logoExtension')
+    };
 };
 
 module.exports = () => {
@@ -30,6 +35,7 @@ module.exports = () => {
         controller: [
             '$scope',
             'ModalService',
+            'ConfigService',
             TopNavbarDirective
         ],
         templateUrl: 'assets/tpl/directives/top-navbar.html' 

@@ -3,7 +3,7 @@ section(ng-if="$root.appConfigs.features.contactForm").section.section-contact_f
         .contact-title {{ "contact.header.title" | translate }}
         .contact-form: .form.row
             .col.col-md-5
-                .contact-logo: img(src="./assets/img/forus-logo-normal.svg")
+                .contact-logo: img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
                 .contact-details
                     .contact-label {{ "contact.header.subtitle" | translate }}
                     .contact-address 
