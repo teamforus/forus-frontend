@@ -24,8 +24,9 @@ section.section.section-map: .wrapper
             button(ng-click="$ctrl.showPopupOffices()" translate="home.map.button").button.button-primary
 
 section.section.section-steps#steps: .wrapper
-    .section-splash
-    .section-sprite
+    if (qdt_c.platform.env_data.client_key != 'nijmegen')
+        .section-splash
+        .section-sprite
     .section-title {{ "home.guide.forus.title" | translate }}
     .steps
         .step-item: .step-item-content
@@ -33,7 +34,7 @@ section.section.section-steps#steps: .wrapper
             p {{ "home.guide.forus.one" | translate }}
         .step-item: .step-item-content
             h4 {{ "home.guide.forus.steptwo" | translate }}
-            p {{ "home.guide.forus.two" | translate }}
+            p {{ "home.guide.forus.two" | translate: "{fonds: 'de Meedoen-regeling', voucher: 'de Meedoen', start_date: '1 januari 2019'}" }}
         .step-item: .step-item-content
             h4 {{ "home.guide.forus.stepthree" | translate }}
             p {{ "home.guide.forus.three" | translate }}
@@ -61,81 +62,67 @@ section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
         +blog_item(2)
         +blog_item(3)
     .block.block-show-more: a(href="#").button.button-primary {{ "home.blog.button" | translate }}
-    
+   
 section.section.section-faq: .wrapper
-    .section-splash
-    .section-title {{ "home.faq.forus.title" | translate }}
-    .faq(collapse)
-        mixin faq_item(title, content, active)
-            .faq-item(class=active?'active':'' collapse-item)
-                .faq-item-header(collapse-header)
-                    | #{title}
-                    .faq-item-chevron-down.mdi.mdi-chevron-down
-                    .faq-item-chevron-up.mdi.mdi-chevron-up
-                .faq-item-content(collapse-content)=content
+    if (qdt_c.platform.env_data.client_key == 'zuidhorn')
+       .section-splash
+    .section-title  {{ "home.faq.forus.title" | translate:'{client_key: "#{qdt_c.platform.env_data.client_key}"}' }}
+            .faq(collapse)
+                mixin faq_item(title, content, active)
+                    .faq-item(class=active?'active':'' collapse-item)
+                        .faq-item-header(collapse-header,translate=title,translate-values="{fonds: 'de Meedoen-regeling', voucher: 'de Meedoen'}")
+                            .faq-item-chevron-down.mdi.mdi-chevron-down
+                            .faq-item-chevron-up.mdi.mdi-chevron-up
+                        .faq-item-content(collapse-conten,translate=content,translate-values="{fonds: 'de Meedoen-regeling', voucher: 'de Meedoen', start_date: '1 januari 2019'}")    
+                +faq_item(
+                    'home.faq.forus.faq_one',
+                    'home.faq.forus.one')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_one' | translate }}",
-            "{{ 'home.faq.forus.one' | translate }}")
+                +faq_item(
+                    'home.faq.forus.faq_two',
+                    'home.faq.forus.two')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_two' | translate }}",
-            "{{ 'home.faq.forus.two' | translate }}")
+                +faq_item(
+                    'home.faq.forus.faq_three',
+                    'home.faq.forus.three')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_three' | translate }}",
-            "{{ 'home.faq.forus.three' | translate }}")
+                +faq_item(
+                    'home.faq.forus.faq_four',
+                    'home.faq.forus.four')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_four' | translate }}",
-            "{{ 'home.faq.forus.four' | translate }}")
+                +faq_item(
+                    'home.faq.forus.faq_five',
+                    'home.faq.forus.five')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_five' | translate }}",
-            "{{ 'home.faq.forus.five' | translate }}")
+                +faq_item(
+                    'home.faq.forus.faq_six',
+                    'home.faq.forus.six')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_six' | translate }}",
-            "{{ 'home.faq.forus.six' | translate }}")
+                +faq_item(
+                    'home.faq.forus.faq_seven',
+                    'home.faq.forus.seven')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_seven' | translate }}",
-            "{{ 'home.faq.forus.seven' | translate }}")
+                +faq_item(
+                    'home.faq.forus.faq_eight',
+                    'home.faq.forus.eight')
+                    
+                +faq_item(
+                    'home.faq.forus.faq_nine',
+                    'home.faq.forus.nine')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_eight' | translate }}",
-            "{{ 'home.faq.forus.eight' | translate }}")
-            
-        +faq_item(
-            "{{ 'home.faq.forus.faq_nine' | translate }}",
-            "{{ 'home.faq.forus.nine' | translate }}")
+                +faq_item(
+                    'home.faq.forus.faq_ten',
+                    'home.faq.forus.ten')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_ten' | translate }}",
-            "{{ 'home.faq.forus.ten' | translate }}")
+                +faq_item(
+                    'home.faq.forus.faq_eleven',
+                    'home.faq.forus.eleven')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_eleven' | translate }}",
-            "{{ 'home.faq.forus.eleven' | translate }}")
+                +faq_item(
+                    'home.faq.forus.faq_twelve',
+                    'home.faq.forus.twelve')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_twelve' | translate }}",
-            "{{ 'home.faq.forus.twelve' | translate }}")
-
-        +faq_item(
-            "{{ 'home.faq.forus.faq_thirteen' | translate }}",
-            "{{ 'home.faq.forus.thirteen' | translate }}")
-
-        //+faq_item(
-            "{{ 'home.faq.forus.faq_fourteen' | translate }}",
-            "{{ 'home.faq.forus.fourteen' | translate }}")
-
-        //+faq_item(
-            "{{ 'home.faq.forus.faq_fifteen' | translate }}",
-            "{{ 'home.faq.forus.fifteen' | translate }}")
-
-        //+faq_item(
-            "{{ 'home.faq.forus.faq_sixteen' | translate }}",
-            "{{ 'home.faq.forus.sixteen' | translate }}") 
-
+                +faq_item(
+                    'home.faq.forus.faq_thirteen',
+                    'home.faq.forus.thirteen')
 contact-form 
