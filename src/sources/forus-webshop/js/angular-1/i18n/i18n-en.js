@@ -61,8 +61,8 @@ module.exports = {
     home: {
         header: {
             general: {
-                title: "Generieke webshop voor gemeentelijke regelingen",
-                subtitle: "Op deze webshop kun je je aanmelden voor een fonds, vervolgens kun je met een voucher langs winkels, sportverenigingen en/of culturele instellingen gaan.",
+                title: "Forus is een platform voor gemeentelijke regelingen",
+                subtitle: "Ons platform biedt een webshop waar een inwoner zich kan aanmelden voor een regeling, vervolgens kan hij met een voucher aan een aanbieder laten zien. De aanbieder kan dan een product of dienst leveren. <br /> <br /> Wil je meer weten?",
                 button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
             },
             nijmegen: {

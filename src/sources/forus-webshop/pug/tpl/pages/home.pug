@@ -8,20 +8,23 @@ header.section.section-header.section-header-landing
         .header-content
             .header-title(translate="home.header.{{ $root.client_key }}.title")
             .header-description(translate="home.header.{{ $root.client_key }}.subtitle")
-            a(scroll-to="#steps" translate="home.header.{{ $root.client_key }}.button").button.button-primary 
-
-block-products(
-    ng-if="$root.appConfigs.features.products.list"
-    sample="true" 
-    products="$ctrl.products" 
-    product-categories="$ctrl.productCategories")
-
-section.section.section-map: .wrapper
-    .block.block-map
-        .block-content
-            .block-title(translate="home.map.{{ $root.client_key }}.title")
-            .block-description(translate="home.map.{{ $root.client_key }}.subtitle")
-            button(ng-click="$ctrl.showPopupOffices()" translate="home.map.button").button.button-primary
+            if (qdt_c.platform.env_data.client_key != 'general')  
+                a(scroll-to="#steps" translate="home.header.{{ $root.client_key }}.button").button.button-primary
+            if (qdt_c.platform.env_data.client_key == 'general')  
+                a(href="https://about.forus.io/nl/contact/" translate="NEEM CONTACT MET ONS OP").button.button-primary  
+if (qdt_c.platform.env_data.client_key != 'general')  
+    block-products(
+        ng-if="$root.appConfigs.features.products.list"
+        sample="true" 
+        products="$ctrl.products" 
+        product-categories="$ctrl.productCategories")
+if (qdt_c.platform.env_data.client_key != 'general')  
+    section.section.section-map: .wrapper
+        .block.block-map
+            .block-content
+                .block-title(translate="home.map.{{ $root.client_key }}.title")
+                .block-description(translate="home.map.{{ $root.client_key }}.subtitle")
+                button(ng-click="$ctrl.showPopupOffices()" translate="home.map.button").button.button-primary
 
 if (qdt_c.platform.env_data.client_key != 'general')  
     section.section.section-steps#steps: .wrapper

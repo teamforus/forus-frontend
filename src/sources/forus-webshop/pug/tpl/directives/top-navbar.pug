@@ -3,16 +3,31 @@
         img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
         img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover
     nav.navbar-list
-        a(
-            ui-sref="funds" 
-            ui-sref-active="active"
-            ng-if="$root.appConfigs.features.funds.list"
-            ng-bind="'topnavbar.items.funds' | translate").navbar-item
-        a(
-            ui-sref="products" 
-            ui-sref-active="active"
-            ng-if="$root.appConfigs.features.products.list"
-            ng-bind="'topnavbar.items.products' | translate").navbar-item
+        if (qdt_c.platform.env_data.client_key != 'general')  
+            a(
+                ui-sref="funds" 
+                ui-sref-active="active"
+                ng-if="$root.appConfigs.features.funds.list"
+                ng-bind="'topnavbar.items.funds' | translate").navbar-item
+        if (qdt_c.platform.env_data.client_key != 'general')  
+            a(
+                ui-sref="products" 
+                ui-sref-active="active"
+                ng-if="$root.appConfigs.features.products.list"
+                ng-bind="'topnavbar.items.products' | translate").navbar-item
+        if (qdt_c.platform.env_data.client_key == 'general')
+            a(
+                href="https://zuidhorn.forus.io/sponsor" 
+                translate="GEMEENTE").navbar-item  
+            a(
+                href="https://zuidhorn.forus.io/sponsor" 
+                translate="AANBIEDER").navbar-item  
+            a(
+                href="https://zuidhorn.forus.io/me" 
+                translate="ME").navbar-item 
+            a(
+                href="https://about.forus.io" 
+                translate="OVER ONS").navbar-item
     .block.block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
         .auth-code
             a(ui-sref="vouchers").button.button-default
