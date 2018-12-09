@@ -85,7 +85,6 @@ app.provider('ModalRoute', require('./providers/ModalRouteProvider'));
 // Filters
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
-app.filter('translate', require('./filters/TranslateFilter'));
 
 // Config
 app.config(require('./routers/modals'));

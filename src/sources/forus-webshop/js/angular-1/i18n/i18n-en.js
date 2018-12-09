@@ -262,7 +262,7 @@ module.exports = {
             },
         },
         guide: {
-            forus: {
+            general: {
                 title: "Hoe het werkt",
                 stepone: "Stap #1",
                 one: "U heeft een brief  ontvangen van de gemeente. In de brief staat een activatiecode. Gebruik deze bij stap 2.",

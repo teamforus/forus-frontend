@@ -26,7 +26,7 @@ section.section.section-map: .wrapper
 section.section.section-steps#steps: .wrapper
     .section-splash
     .section-sprite
-    .section-title {{ "home.guide.forus.title" | translate }}
+    .section-title(translate="home.guide.{{ $root.client_key }}.title")
     .steps
         .step-item: .step-item-content
             h4 {{ "home.guide.forus.stepone" | translate }}
