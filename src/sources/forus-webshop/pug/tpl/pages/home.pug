@@ -6,9 +6,9 @@ header.section.section-header.section-header-landing
         .heade-sprite
 
         .header-content
-            .header-title {{ "home.header.forus.title" | translate }}
-            .header-description(ng-bind="'home.header.forus.subtitle' | translate")
-            a(scroll-to="#steps" translate="home.header.forus.button").button.button-primary 
+            .header-title {{ "home.header.[client_key].title" | translate }}
+            .header-description(ng-bind="'home.header.[client_key].subtitle' | translate")
+            a(scroll-to="#steps" translate="home.header.[client_key].button").button.button-primary 
 
 block-products(
     ng-if="$root.appConfigs.features.products.list"
@@ -19,9 +19,9 @@ block-products(
 section.section.section-map: .wrapper
     .block.block-map
         .block-content
-            .block-title {{ "home.map.title" | translate }}
-            .block-description(ng-bind="'home.map.subtitle' | translate")
-            button(ng-click="$ctrl.showPopupOffices()" translate="home.map.button").button.button-primary
+            .block-title {{ "home.map.[client_key].title" | translate }}
+            .block-description(ng-bind="'home.map.[client_key].subtitle' | translate")
+            button(ng-click="$ctrl.showPopupOffices()" translate="home.map.[client_key].button").button.button-primary
 
 section.section.section-steps#steps: .wrapper
     .section-splash
@@ -29,20 +29,20 @@ section.section.section-steps#steps: .wrapper
     .section-title(translate="home.guide.{{ $root.client_key }}.title")
     .steps
         .step-item: .step-item-content
-            h4 {{ "home.guide.forus.stepone" | translate }}
-            p {{ "home.guide.forus.one" | translate }}
+            h4 {{ "home.guide.[client_key].stepone" | translate }}
+            p {{ "home.guide.[client_key].one" | translate }}
         .step-item: .step-item-content
-            h4 {{ "home.guide.forus.steptwo" | translate }}
-            p {{ "home.guide.forus.two" | translate }}
+            h4 {{ "home.guide.[client_key].steptwo" | translate }}
+            p {{ "home.guide.[client_key].two" | translate: "{fonds: 'de Meedoen-regeling', voucher: 'de Meedoen', start_date: '1 januari 2019'}" }}
         .step-item: .step-item-content
-            h4 {{ "home.guide.forus.stepthree" | translate }}
-            p {{ "home.guide.forus.three" | translate }}
+            h4 {{ "home.guide.[client_key].stepthree" | translate }}
+            p {{ "home.guide.[client_key].three" | translate }}
         .step-item: .step-item-content
-            h4 {{ "home.guide.forus.stepfour" | translate }}
-            p {{ "home.guide.forus.four" | translate }}
+            h4 {{ "home.guide.[client_key].stepfour" | translate }}
+            p {{ "home.guide.[client_key].four" | translate }}
         .step-item: .step-item-content
-            h4 {{ "home.guide.forus.stepfive" | translate }}
-            p {{ "home.guide.forus.five" | translate }}
+            h4 {{ "home.guide.[client_key].stepfive" | translate }}
+            p {{ "home.guide.[client_key].five" | translate }}
 
         .step-item
 
@@ -61,81 +61,66 @@ section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
         +blog_item(2)
         +blog_item(3)
     .block.block-show-more: a(href="#").button.button-primary {{ "home.blog.button" | translate }}
-    
+   
 section.section.section-faq: .wrapper
     .section-splash
-    .section-title {{ "home.faq.forus.title" | translate }}
-    .faq(collapse)
-        mixin faq_item(title, content, active)
-            .faq-item(class=active?'active':'' collapse-item)
-                .faq-item-header(collapse-header)
-                    | #{title}
-                    .faq-item-chevron-down.mdi.mdi-chevron-down
-                    .faq-item-chevron-up.mdi.mdi-chevron-up
-                .faq-item-content(collapse-content)=content
+    .section-title  {{ "home.faq.[client_key].title" | translate }}
+            .faq(collapse)
+                mixin faq_item(title, content, active)
+                    .faq-item(class=active?'active':'' collapse-item)
+                        .faq-item-header(collapse-header,translate=title,translate-values="{fonds: 'de Meedoen-regeling', voucher: 'de Meedoen'}")
+                            .faq-item-chevron-down.mdi.mdi-chevron-down
+                            .faq-item-chevron-up.mdi.mdi-chevron-up
+                        .faq-item-content(collapse-conten,translate=content,translate-values="{fonds: 'de Meedoen-regeling', voucher: 'de Meedoen', start_date: '1 januari 2019'}")    
+                +faq_item(
+                    'home.faq.[client_key].faq_one',
+                    'home.faq.[client_key].one')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_one' | translate }}",
-            "{{ 'home.faq.forus.one' | translate }}")
+                +faq_item(
+                    'home.faq.[client_key].faq_two',
+                    'home.faq.[client_key].two')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_two' | translate }}",
-            "{{ 'home.faq.forus.two' | translate }}")
+                +faq_item(
+                    'home.faq.[client_key].faq_three',
+                    'home.faq.[client_key].three')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_three' | translate }}",
-            "{{ 'home.faq.forus.three' | translate }}")
+                +faq_item(
+                    'home.faq.[client_key].faq_four',
+                    'home.faq.[client_key].four')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_four' | translate }}",
-            "{{ 'home.faq.forus.four' | translate }}")
+                +faq_item(
+                    'home.faq.[client_key].faq_five',
+                    'home.faq.[client_key].five')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_five' | translate }}",
-            "{{ 'home.faq.forus.five' | translate }}")
+                +faq_item(
+                    'home.faq.[client_key].faq_six',
+                    'home.faq.[client_key].six')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_six' | translate }}",
-            "{{ 'home.faq.forus.six' | translate }}")
+                +faq_item(
+                    'home.faq.[client_key].faq_seven',
+                    'home.faq.[client_key].seven')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_seven' | translate }}",
-            "{{ 'home.faq.forus.seven' | translate }}")
+                +faq_item(
+                    'home.faq.[client_key].faq_eight',
+                    'home.faq.[client_key].eight')
+                    
+                +faq_item(
+                    'home.faq.[client_key].faq_nine',
+                    'home.faq.[client_key].nine')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_eight' | translate }}",
-            "{{ 'home.faq.forus.eight' | translate }}")
-            
-        +faq_item(
-            "{{ 'home.faq.forus.faq_nine' | translate }}",
-            "{{ 'home.faq.forus.nine' | translate }}")
+                +faq_item(
+                    'home.faq.[client_key].faq_ten',
+                    'home.faq.[client_key].ten')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_ten' | translate }}",
-            "{{ 'home.faq.forus.ten' | translate }}")
+                +faq_item(
+                    'home.faq.[client_key].faq_eleven',
+                    'home.faq.[client_key].eleven')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_eleven' | translate }}",
-            "{{ 'home.faq.forus.eleven' | translate }}")
+                +faq_item(
+                    'home.faq.[client_key].faq_twelve',
+                    'home.faq.[client_key].twelve')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_twelve' | translate }}",
-            "{{ 'home.faq.forus.twelve' | translate }}")
-
-        +faq_item(
-            "{{ 'home.faq.forus.faq_thirteen' | translate }}",
-            "{{ 'home.faq.forus.thirteen' | translate }}")
-
-        //+faq_item(
-            "{{ 'home.faq.forus.faq_fourteen' | translate }}",
-            "{{ 'home.faq.forus.fourteen' | translate }}")
-
-        //+faq_item(
-            "{{ 'home.faq.forus.faq_fifteen' | translate }}",
-            "{{ 'home.faq.forus.fifteen' | translate }}")
-
-        //+faq_item(
-            "{{ 'home.faq.forus.faq_sixteen' | translate }}",
-            "{{ 'home.faq.forus.sixteen' | translate }}") 
-
+                +faq_item(
+                    'home.faq.[client_key].faq_thirteen',
+                    'home.faq.[client_key].thirteen')
 contact-form 
