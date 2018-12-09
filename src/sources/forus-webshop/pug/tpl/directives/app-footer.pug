@@ -1,6 +1,6 @@
 //- General
 if (qdt_c.platform.env_data.client_key == 'general')
-    section.section.section-footer(ng-if="displayFooter")
+    section.section.section-footer
         .wrapper
             .block.block-footer: .row
                 .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
@@ -59,7 +59,7 @@ if (qdt_c.platform.env_data.client_key == 'general')
 
 //- Zuidhorn
 if (qdt_c.platform.env_data.client_key == 'zuidhorn')
-    section.section.section-footer(ng-if="displayFooter")
+    section.section.section-footer
         .wrapper
             .block.block-footer: .row
                 .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
@@ -130,7 +130,7 @@ if (qdt_c.platform.env_data.client_key == 'zuidhorn')
 
 //- Nijmegen
 if (qdt_c.platform.env_data.client_key == 'nijmegen')
-    section.section.section-footer(ng-if="displayFooter")
+    section.section.section-footer
         .wrapper
             .block.block-footer: .row
                 .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
