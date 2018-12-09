@@ -140,6 +140,7 @@ body {
 
     .splash {
         background-image: none;
+        display:none;
         background: none;
         background-position: 100% 0%;
         background-size: auto 100%;
@@ -150,10 +151,12 @@ body {
         &.splash-c {
             background-image: none;
             height: 920px;
+            display:none;
         }
 
         &.splash-d {
             background-image: none;
+            display:none;
             height: 1130px;
         }
     }
@@ -168,6 +171,7 @@ body {
         }
 
         .header-content {
+            padding: 180px 0;
             .button {
                 width: auto;
             }
