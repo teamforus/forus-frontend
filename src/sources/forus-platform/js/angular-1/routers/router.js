@@ -198,24 +198,6 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         }
     });
 
-    // Organization validators
-    $stateProvider.state({
-        name: "validators",
-        url: "/organizations/{organization_id}/validators",
-        component: "organizationValidatorsComponent",
-        resolve: {
-            organization: organziationResolver(),
-            permission: permissionMiddleware('organization-validators', 'manage_validators'),
-            validators: function(permission, $transition$, OrganizationValidatorService) {
-                return repackResponse(
-                    OrganizationValidatorService.list(
-                        $transition$.params().organization_id
-                    )
-                );
-            }
-        }
-    });
-
     // Organization employees
     $stateProvider.state({
         name: "employees",
@@ -234,34 +216,6 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
             roles: function(permission, RoleService) {
                 return repackResponse(
                     RoleService.list()
-                );
-            }
-        }
-    });
-
-    $stateProvider.state({
-        name: "validators-create",
-        url: "/organizations/{organization_id}/validators/create",
-        component: "organizationValidatorsEditComponent",
-        resolve: {
-            organization: organziationResolver(),
-            permission: permissionMiddleware('validators-create', 'manage_validators'),
-        }
-    });
-
-    $stateProvider.state({
-        name: "validators-edit",
-        url: "/organizations/{organization_id}/validators/{id}/edit",
-        component: "organizationValidatorsEditComponent",
-        resolve: {
-            organization: organziationResolver(),
-            permission: permissionMiddleware('validators-edit', 'manage_validators'),
-            validator: function(permission, $transition$, OrganizationValidatorService) {
-                return repackResponse(
-                    OrganizationValidatorService.read(
-                        $transition$.params().organization_id,
-                        $transition$.params().id
-                    )
                 );
             }
         }

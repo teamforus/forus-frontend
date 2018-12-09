@@ -1,4 +1,4 @@
-let OrganizationValidatorService = function(ApiRequest) {
+let ProviderIdentityService = function(ApiRequest) {
     let uriPrefix = '/platform/organizations/';
 
     return new(function() {
@@ -43,5 +43,5 @@ let OrganizationValidatorService = function(ApiRequest) {
 
 module.exports = [
     'ApiRequest',
-    OrganizationValidatorService
+    ProviderIdentityService
 ];
