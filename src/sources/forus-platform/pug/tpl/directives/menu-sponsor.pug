@@ -38,10 +38,6 @@ aside.app.app-sidebar
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization | hasPerm:["manage_employees"]')
         +nav_item(
-            "Validators", "list", 'validators', 
-            '{organization_id: $root.activeOrganization.id}',
-            '$root.activeOrganization | hasPerm:["manage_validators"]')
-        +nav_item(
             "Aanbieders", "people", 'organization-providers', 
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization | hasPerm:["manage_providers"]')

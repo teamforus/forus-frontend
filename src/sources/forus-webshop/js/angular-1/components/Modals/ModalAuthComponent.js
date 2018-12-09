@@ -14,6 +14,7 @@ let ModalAuthComponent = function(
 
     let qrCodeEl;
     let qrCode;
+    let timeout;
 
     $ctrl.showChoose = true;
     $ctrl.showQrCodeBlock = false;
@@ -58,7 +59,7 @@ let ModalAuthComponent = function(
             if (res.data.message == 'active') {
                 $ctrl.applyAccessToken(access_token);
             } else if (res.data.message == 'pending') {
-                $timeout(function() {
+                timeout = $timeout(function() {
                     $ctrl.checkAccessTokenStatus(type, access_token);
                 }, 2500);
             } else {
@@ -121,6 +122,7 @@ let ModalAuthComponent = function(
     };
 
     $ctrl.$onDestroy = function() {
+        $timeout.cancel(timeout);
         qrCodeEl.innerHTML = '';
     };
 };

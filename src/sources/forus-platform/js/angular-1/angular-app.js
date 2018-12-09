@@ -20,9 +20,7 @@ app.component('productsComponent', require('./components/ProductsComponent'));
 app.component('productsEditComponent', require('./components/ProductsEditComponent'));
 app.component('productsShowComponent', require('./components/ProductsShowComponent'));
 app.component('organizationProvidersComponent', require('./components/OrganizationProvidersComponent'));
-app.component('organizationValidatorsComponent', require('./components/OrganizationValidatorsComponent'));
 app.component('organizationEmployeesComponent', require('./components/OrganizationEmployeesComponent'));
-app.component('organizationValidatorsEditComponent', require('./components/OrganizationValidatorsEditComponent'));
 app.component('csvValidationComonent', require('./components/CsvValidationComonent'));
 app.component('validationRequestsComonent', require('./components/ValidationRequestsComonent'));
 app.component('validationRequestComonent', require('./components/ValidationRequestComonent'));
@@ -55,7 +53,6 @@ app.service('ProductCategoryService', require('./services/ProductCategoryService
 app.service('OfficeService', require('./services/OfficeService'));
 app.service('ProductService', require('./services/ProductService'));
 app.service('ProviderFundService', require('./services/ProviderFundService'));
-app.service('OrganizationValidatorService', require('./services/OrganizationValidatorService'));
 app.service('OrganizationEmployeesService', require('./services/OrganizationEmployeesService'));
 app.service('PrevalidationService', require('./services/PrevalidationService'));
 app.service('ProgressFakerService', require('./services/ProgressFakerService'));
