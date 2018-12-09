@@ -66,10 +66,18 @@ body {
         }
     }
 }
-
-.header-splash {
-    .splash {
-        height: 700px;
+.section {
+    &.section-header {
+        .heade-sprite {
+            background-image: url("../img/splash-top-ba.png");
+            height: 625px;
+            width: 100%;
+        }
+        .header-splash {
+            .splash {
+                height: 700px;
+            }
+        }
     }
 }
 

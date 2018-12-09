@@ -177,8 +177,20 @@ body {
             position: fixed;
         }
     }
-
+    &.section-steps {
+        .wrapper {
+            .section-sprite {
+                display:none;
+            }
+            .section-splash {
+                display: none;
+            }
+        }
+    }
     &.section-faq {
+        .section-splash {
+            display:none;
+        }
         .faq {
             .faq-item {
                 &:hover:not(.active) {
@@ -194,7 +206,6 @@ body {
             }
         }
     }
-
     &.section-footer {
         background-color: #3a3a3a;
         margin-top: 0;
