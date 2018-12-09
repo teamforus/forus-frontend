@@ -6,9 +6,9 @@ header.section.section-header.section-header-landing
         .heade-sprite
 
         .header-content
-            .header-title {{ "home.header.[client_key].title" | translate }}
-            .header-description(ng-bind="'home.header.[client_key].subtitle' | translate")
-            a(scroll-to="#steps" translate="home.header.[client_key].button").button.button-primary 
+            .header-title(translate="home.header.{{ $root.client_key }}.title")
+            .header-description(translate="home.header.{{ $root.client_key }}.subtitle")
+            a(scroll-to="#steps" translate="home.header.{{ $root.client_key }}.button").button.button-primary 
 
 block-products(
     ng-if="$root.appConfigs.features.products.list"
@@ -19,9 +19,9 @@ block-products(
 section.section.section-map: .wrapper
     .block.block-map
         .block-content
-            .block-title {{ "home.map.[client_key].title" | translate }}
-            .block-description(ng-bind="'home.map.[client_key].subtitle' | translate")
-            button(ng-click="$ctrl.showPopupOffices()" translate="home.map.[client_key].button").button.button-primary
+            .block-title(translate="home.map.{{ $root.client_key }}.title")
+            .block-description(translate="home.map.{{ $root.client_key }}.subtitle")
+            button(ng-click="$ctrl.showPopupOffices()" translate="home.map.button").button.button-primary
 
 section.section.section-steps#steps: .wrapper
     .section-splash
@@ -29,98 +29,98 @@ section.section.section-steps#steps: .wrapper
     .section-title(translate="home.guide.{{ $root.client_key }}.title")
     .steps
         .step-item: .step-item-content
-            h4 {{ "home.guide.[client_key].stepone" | translate }}
-            p {{ "home.guide.[client_key].one" | translate }}
+            h4(translate="home.guide.{{ $root.client_key }}.stepone")
+            p(translate="home.guide.{{ $root.client_key }}.one")
         .step-item: .step-item-content
-            h4 {{ "home.guide.[client_key].steptwo" | translate }}
-            p {{ "home.guide.[client_key].two" | translate: "{fonds: 'de Meedoen-regeling', voucher: 'de Meedoen', start_date: '1 januari 2019'}" }}
+            h4(translate="home.guide.{{ $root.client_key }}.steptwo")
+            p(translate="home.guide.{{ $root.client_key }}.two")
         .step-item: .step-item-content
-            h4 {{ "home.guide.[client_key].stepthree" | translate }}
-            p {{ "home.guide.[client_key].three" | translate }}
+            h4(translate="home.guide.{{ $root.client_key }}.stepthree")
+            p(translate="home.guide.{{ $root.client_key }}.three")
         .step-item: .step-item-content
-            h4 {{ "home.guide.[client_key].stepfour" | translate }}
-            p {{ "home.guide.[client_key].four" | translate }}
+            h4(translate="home.guide.{{ $root.client_key }}.stepfour")
+            p(translate="home.guide.{{ $root.client_key }}.four")
         .step-item: .step-item-content
-            h4 {{ "home.guide.[client_key].stepfive" | translate }}
-            p {{ "home.guide.[client_key].five" | translate }}
+            h4(translate="home.guide.{{ $root.client_key }}.stepfive")
+            p(translate="home.guide.{{ $root.client_key }}.five")
 
         .step-item
 
 section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
-    .section-title {{ "home.blog.forus.title" | translate }}
+    .section-title(translate="home.blog.forus.title")
     
     .block.block-blogs
         mixin blog_item(nth)
             .blog-item: a(href="#").blog-item-inner
                 .blog-image: img(src="./assets/img/blog-image-" + nth + ".jpg")
-                .blog-name {{ "home.blog.forus.name" | translate }}
-                .blog-read-more 
-                    | {{ "home.blog.more" | translate }}
+                .blog-name(translate="home.blog.forus.name")
+                .blog-read-more(translate="home.blog.more")
                     em.mdi.mdi-arrow-right
         +blog_item(1)
         +blog_item(2)
         +blog_item(3)
-    .block.block-show-more: a(href="#").button.button-primary {{ "home.blog.button" | translate }}
+    .block.block-show-more: a(href="#").button.button-primary(translate="home.blog.button")
    
 section.section.section-faq: .wrapper
     .section-splash
-    .section-title  {{ "home.faq.[client_key].title" | translate }}
+    .section-title {{ "home.faq.title" | translate }}
+
             .faq(collapse)
                 mixin faq_item(title, content, active)
                     .faq-item(class=active?'active':'' collapse-item)
-                        .faq-item-header(collapse-header,translate=title,translate-values="{fonds: 'de Meedoen-regeling', voucher: 'de Meedoen'}")
+                        .faq-item-header(collapse-header,translate=title)
                             .faq-item-chevron-down.mdi.mdi-chevron-down
                             .faq-item-chevron-up.mdi.mdi-chevron-up
-                        .faq-item-content(collapse-conten,translate=content,translate-values="{fonds: 'de Meedoen-regeling', voucher: 'de Meedoen', start_date: '1 januari 2019'}")    
+                        .faq-item-content(collapse-conten,translate=content)    
                 +faq_item(
-                    'home.faq.[client_key].faq_one',
-                    'home.faq.[client_key].one')
+                    'home.faq.{{ $root.client_key }}.faq_one',
+                    'home.faq.{{ $root.client_key }}.one')
 
                 +faq_item(
-                    'home.faq.[client_key].faq_two',
-                    'home.faq.[client_key].two')
+                    'home.faq.{{ $root.client_key }}.faq_two',
+                    'home.faq.{{ $root.client_key }}.two')
 
                 +faq_item(
-                    'home.faq.[client_key].faq_three',
-                    'home.faq.[client_key].three')
+                    'home.faq.{{ $root.client_key }}.faq_three',
+                    'home.faq.{{ $root.client_key }}.three')
 
                 +faq_item(
-                    'home.faq.[client_key].faq_four',
-                    'home.faq.[client_key].four')
+                    'home.faq.{{ $root.client_key }}.faq_four',
+                    'home.faq.{{ $root.client_key }}.four')
 
                 +faq_item(
-                    'home.faq.[client_key].faq_five',
-                    'home.faq.[client_key].five')
+                    'home.faq.{{ $root.client_key }}.faq_five',
+                    'home.faq.{{ $root.client_key }}.five')
 
                 +faq_item(
-                    'home.faq.[client_key].faq_six',
-                    'home.faq.[client_key].six')
+                    'home.faq.{{ $root.client_key }}.faq_six',
+                    'home.faq.{{ $root.client_key }}.six')
 
                 +faq_item(
-                    'home.faq.[client_key].faq_seven',
-                    'home.faq.[client_key].seven')
+                    'home.faq.{{ $root.client_key }}.faq_seven',
+                    'home.faq.{{ $root.client_key }}.seven')
 
                 +faq_item(
-                    'home.faq.[client_key].faq_eight',
-                    'home.faq.[client_key].eight')
+                    'home.faq.{{ $root.client_key }}.faq_eight',
+                    'home.faq.{{ $root.client_key }}.eight')
                     
                 +faq_item(
-                    'home.faq.[client_key].faq_nine',
-                    'home.faq.[client_key].nine')
+                    'home.faq.{{ $root.client_key }}.faq_nine',
+                    'home.faq.{{ $root.client_key }}.nine')
 
                 +faq_item(
-                    'home.faq.[client_key].faq_ten',
-                    'home.faq.[client_key].ten')
+                    'home.faq.{{ $root.client_key }}.faq_ten',
+                    'home.faq.{{ $root.client_key }}.ten')
 
                 +faq_item(
-                    'home.faq.[client_key].faq_eleven',
-                    'home.faq.[client_key].eleven')
+                    'home.faq.{{ $root.client_key }}.faq_eleven',
+                    'home.faq.{{ $root.client_key }}.eleven')
 
                 +faq_item(
-                    'home.faq.[client_key].faq_twelve',
-                    'home.faq.[client_key].twelve')
+                    'home.faq.{{ $root.client_key }}.faq_twelve',
+                    'home.faq.{{ $root.client_key }}.twelve')
 
                 +faq_item(
-                    'home.faq.[client_key].faq_thirteen',
-                    'home.faq.[client_key].thirteen')
+                    'home.faq.{{ $root.client_key }}.faq_thirteen',
+                    'home.faq.{{ $root.client_key }}.thirteen')
 contact-form 

@@ -162,7 +162,6 @@ module.exports = {
                 sixteen: "Je kan een aanbieding kopen via de webshop, er wordt dan een nieuwe voucher aangemaakt die alleen gebruikt kan worden voor het specifieke aanbod. Deze kun je meegeven aan je kind.",
             },
             zuidhorn: {
-                title: "Veelgestelde vragen",
                 faq_one: "Hoe kan ik het Kindpakket activeren?",
                 one: "Klik rechts bovenaan op 'Activatiecode'. Vul je e-mailadres en de activatiecode in die je per brief hebt ontvangen. Klik vervolgens op 'versturen'. Je profiel is aangemaakt en je Kindpakket voucher is geactiveerd!",
                 faq_two: "Hoe kan ik inloggen op de webshop?",
@@ -260,6 +259,7 @@ module.exports = {
                 faq_sixteen: "Ik wil mijn kind zelf de aanbieding op laten halen, maar wil hem niet het Kindpakket voucher meegeven. Wat kan ik doen?",
                 sixteen: "Je kan een aanbieding kopen via de webshop, er wordt dan een nieuwe voucher aangemaakt die alleen gebruikt kan worden voor het specifieke aanbod. Deze kun je meegeven aan je kind.",
             },
+            title: "Veelgestelde vragen"
         },
         guide: {
             general: {
