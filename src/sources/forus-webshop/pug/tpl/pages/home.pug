@@ -7,6 +7,11 @@ header.section.section-header.section-header-landing
 
         .header-content
             .header-title(translate="home.header.{{ $root.client_key }}.title")
+            
+            //- usage example: 
+            //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
+            //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
+            
             .header-description(translate="home.header.{{ $root.client_key }}.subtitle")
             if (qdt_c.platform.env_data.client_key != 'general')  
                 a(scroll-to="#steps" translate="home.header.{{ $root.client_key }}.button").button.button-primary

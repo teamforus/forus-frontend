@@ -91,10 +91,10 @@
             .lang-label 
                 em.mdi.mdi-chevron-down
                 | Language
-            .lang-active(ng-bind="'languages.' + $root.i18nActive | translate")
+            .lang-active(ng-bind="'languages.' + i18nActive | translate")
             .lang-list
                 .lang-list-item(
-                    ng-repeat="lang in $root.i18nLangs" 
+                    ng-repeat="lang in i18nLangs" 
                     ng-bind="'languages.' + lang | translate"
-                    ng-click="$root.setLang(lang)")
+                    ng-click="setLang(lang)")
     

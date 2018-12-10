@@ -1,4 +1,5 @@
 module.exports = {
+    test: "{{name}} {{foo}}",
     permissions: require("./en/permissions"),
     page_title: 'Forus platform',
     page_state_titles: {

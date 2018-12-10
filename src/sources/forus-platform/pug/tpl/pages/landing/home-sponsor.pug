@@ -6,6 +6,9 @@ header.section.section-header: .wrapper
     .header-body
         .header-content
             .header-title(translate="home_sponsor.header.title")
+            //- usage example: 
+            //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
+            //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
             .header-description(translate="home_sponsor.header.description")
         .header-sprite(style="background-image: url('./assets/img/landing/header-sprite-sponsor.png')")
         .block.block-cards

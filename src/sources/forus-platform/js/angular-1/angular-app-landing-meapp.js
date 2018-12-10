@@ -5,26 +5,7 @@ let app = angular.module('forusApp', [
 app.constant('appConfigs', env_data);
 
 // Controllers
-app.controller('BaseController', [
-    '$rootScope',
-    '$scope',
-    'appConfigs',
-    'ConfigService',
-    function(
-        $rootScope,
-        $scope,
-        appConfigs,
-        ConfigService
-    ) {
-        $rootScope.appConfigs = appConfigs;
-        $scope.appConfigs = appConfigs;
-
-        ConfigService.get('dashboard').then((res) => {
-            $rootScope.appConfigs.features = res.data;
-            $rootScope.appConfigs.frontends = res.data.fronts;
-        });
-    }
-]);
+app.controller('BaseController', require('./controllers/landing/BaseController'));
 
 // Services
 app.service('CredentialsService', require('./services/CredentialsService'));

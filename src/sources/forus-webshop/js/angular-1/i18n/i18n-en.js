@@ -1,4 +1,5 @@
 module.exports = {
+    test: "{{name}} {{foo}}",
     page_title: 'Forus platform',
     page_state_titles: {
         home: 'Forus platform',

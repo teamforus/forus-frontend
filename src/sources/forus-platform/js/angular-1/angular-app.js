@@ -112,6 +112,7 @@ app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('informationBlock', require('./directives/InformationBlockDirective'));
 app.directive('menuScrollToggle', require('./directives/landing/MenuScrollToggleDirective'));
 app.directive('phoneControl', require('./directives/PhoneControlDirective'));
+app.directive('i18n', require('./directives/I18nDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
@@ -126,12 +127,14 @@ app.directive('blockNoPermission', require('./directives/blocks/BlockNoPermissio
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
 app.provider('ModalRoute', require('./providers/ModalRouteProvider'));
+app.provider('I18nLib', require('./providers/I18nLibProvider'));
 
 // Filters
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('file_size', require('./filters/FileSizeFilter'));
 app.filter('hasPerm', require('./filters/HasPerm'));
+app.filter('i18n', require('./filters/I18nFilter'));
 
 // Config
 app.config(require('./routers/modals'));
