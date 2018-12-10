@@ -22,10 +22,6 @@ aside.app.app-sidebar
             '{organization_id: $root.activeOrganization.id}', 
             '$root.activeOrganization | hasPerm:["manage_funds","view_finances"]:false')
         +nav_item(
-            "Fonds toevoegen", "plus", 'funds-create', 
-            '{organization_id: $root.activeOrganization.id}', 
-            '$root.activeOrganization | hasPerm:["manage_funds"]')
-        +nav_item(
             "Transacties", "transactions", 'transactions', 
             '{organization_id: $root.activeOrganization.id}', 
             '$root.activeOrganization | hasPerm:["view_finances"]')

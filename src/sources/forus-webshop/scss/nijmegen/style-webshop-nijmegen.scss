@@ -246,6 +246,7 @@ body {
             width: 1140px;
             padding: 10px 15px;
             transition: all $navbar_transition;
+            box-shadow: none;
         }
 
         .navbar-logo {
@@ -342,7 +343,7 @@ body {
                     padding-left: 20px;
 
                     .auth-user-email {
-                        color: #fff;
+                        color: #e4b3be;
                         line-height: 25px;
                         display: block;
                     }
@@ -356,6 +357,11 @@ body {
                     .auth-user-avatar {
                         border: none;
                         border-radius: initial;
+
+                        & > img{
+                            border: 2px solid #c34367;
+                            border-radius: 50%;
+                        }
                     }
 
                     .auth-user-menu {
