@@ -1,140 +1,136 @@
 .header-splash: .splash
 
-header.section.section-header.section-header-landing: .wrapper
-    .heade-sprite
+header.section.section-header.section-header-landing
     top-navbar
+    .wrapper
+        .heade-sprite
 
-    .header-content
-        .header-title {{ "home.header.forus.title" | translate }}
-        .header-description(ng-bind="'home.header.forus.subtitle' | translate")
-        a(scroll-to="#steps" translate="home.header.forus.button").button.button-primary 
+        .header-content
+            .header-title(i18n="home.header.{{ $root.client_key }}.title")
+            
+            //- usage example: 
+            //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
+            //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
+            
+            .header-description(i18n="home.header.{{ $root.client_key }}.subtitle")
+            if (qdt_c.platform.env_data.client_key != 'general')  
+                a(scroll-to="#steps" i18n="home.header.{{ $root.client_key }}.button").button.button-primary
+            if (qdt_c.platform.env_data.client_key == 'general')  
+                a(href="https://about.forus.io/nl/contact/" i18n="NEEM CONTACT MET ONS OP").button.button-primary  
+if (qdt_c.platform.env_data.client_key != 'general')  
+    block-products(
+        ng-if="$root.appConfigs.features.products.list"
+        sample="true" 
+        products="$ctrl.products" 
+        product-categories="$ctrl.productCategories")
+if (qdt_c.platform.env_data.client_key != 'general')  
+    section.section.section-map: .wrapper
+        .block.block-map
+            .block-content
+                .block-title(i18n="home.map.{{ $root.client_key }}.title")
+                .block-description(i18n="home.map.{{ $root.client_key }}.subtitle")
+                button(ng-click="$ctrl.showPopupOffices()" i18n="home.map.button").button.button-primary
 
-block-products(
-    ng-if="$root.appConfigs.features.products.list"
-    sample="true" 
-    products="$ctrl.products" 
-    product-categories="$ctrl.productCategories")
+if (qdt_c.platform.env_data.client_key != 'general')  
+    section.section.section-steps#steps: .wrapper
+        .section-splash
+        .section-sprite
+        .section-title(i18n="home.guide.{{ $root.client_key }}.title")
+        .steps
+            .step-item: .step-item-content
+                h4(i18n="home.guide.{{ $root.client_key }}.stepone")
+                p(i18n="home.guide.{{ $root.client_key }}.one")
+            .step-item: .step-item-content
+                h4(i18n="home.guide.{{ $root.client_key }}.steptwo")
+                p(i18n="home.guide.{{ $root.client_key }}.two")
+            .step-item: .step-item-content
+                h4(i18n="home.guide.{{ $root.client_key }}.stepthree")
+                p(i18n="home.guide.{{ $root.client_key }}.three")
+            .step-item: .step-item-content
+                h4(i18n="home.guide.{{ $root.client_key }}.stepfour")
+                p(i18n="home.guide.{{ $root.client_key }}.four")
+            .step-item: .step-item-content
+                h4(i18n="home.guide.{{ $root.client_key }}.stepfive")
+                p(i18n="home.guide.{{ $root.client_key }}.five")
 
-section.section.section-map: .wrapper
-    .block.block-map
-        .block-content
-            .block-title {{ "home.map.title" | translate }}
-            .block-description(ng-bind="'home.map.subtitle' | translate")
-            button(ng-click="$ctrl.showPopupOffices()" translate="home.map.button").button.button-primary
-
-section.section.section-steps#steps: .wrapper
-    .section-splash
-    .section-sprite
-    .section-title {{ "home.guide.forus.title" | translate }}
-    .steps
-        .step-item: .step-item-content
-            h4 {{ "home.guide.forus.stepone" | translate }}
-            p {{ "home.guide.forus.one" | translate }}
-        .step-item: .step-item-content
-            h4 {{ "home.guide.forus.steptwo" | translate }}
-            p {{ "home.guide.forus.two" | translate }}
-        .step-item: .step-item-content
-            h4 {{ "home.guide.forus.stepthree" | translate }}
-            p {{ "home.guide.forus.three" | translate }}
-        .step-item: .step-item-content
-            h4 {{ "home.guide.forus.stepfour" | translate }}
-            p {{ "home.guide.forus.four" | translate }}
-        .step-item: .step-item-content
-            h4 {{ "home.guide.forus.stepfive" | translate }}
-            p {{ "home.guide.forus.five" | translate }}
-
-        .step-item
+            .step-item
 
 section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
-    .section-title {{ "home.blog.forus.title" | translate }}
+    .section-title(i18n="home.blog.forus.title")
     
     .block.block-blogs
         mixin blog_item(nth)
             .blog-item: a(href="#").blog-item-inner
                 .blog-image: img(src="./assets/img/blog-image-" + nth + ".jpg")
-                .blog-name {{ "home.blog.forus.name" | translate }}
-                .blog-read-more 
-                    | {{ "home.blog.more" | translate }}
+                .blog-name(i18n="home.blog.forus.name")
+                .blog-read-more(i18n="home.blog.more")
                     em.mdi.mdi-arrow-right
         +blog_item(1)
         +blog_item(2)
         +blog_item(3)
-    .block.block-show-more: a(href="#").button.button-primary {{ "home.blog.button" | translate }}
+    .block.block-show-more: a(href="#" i18n="home.blog.button").button.button-primary
+
+if (qdt_c.platform.env_data.client_key != 'general')   
+    section.section.section-faq: .wrapper
+        .section-splash
+        .section-title {{ "home.faq.title" | i18n }}
+
+                .faq(collapse)
+                    mixin faq_item(title, content, active)
+                        .faq-item(class=active?'active':'' collapse-item)
+                            .faq-item-header(collapse-header,i18n=title)
+                                .faq-item-chevron-down.mdi.mdi-chevron-down
+                                .faq-item-chevron-up.mdi.mdi-chevron-up
+                            .faq-item-content(collapse-conten,i18n=content)    
+                    +faq_item(
+                        'home.faq.faq_one',
+                        'home.faq.one')
+
+                    +faq_item(
+                        'home.faq.faq_two',
+                        'home.faq.two')
+
+                    +faq_item(
+                        'home.faq.faq_three',
+                        'home.faq.three')
+
+                    +faq_item(
+                        'home.faq.faq_four',
+                        'home.faq.four')
+
+                    +faq_item(
+                        'home.faq.faq_five',
+                        'home.faq.five')
+
+                    +faq_item(
+                        'home.faq.faq_six',
+                        'home.faq.six')
+
+                    +faq_item(
+                        'home.faq.faq_seven',
+                        'home.faq.seven')
+
+                    +faq_item(
+                        'home.faq.faq_eight',
+                        'home.faq.eight')
+                        
+                    +faq_item(
+                        'home.faq.faq_nine',
+                        'home.faq.nine')
+
+                    +faq_item(
+                        'home.faq.faq_ten',
+                        'home.faq.ten')
     
-section.section.section-faq: .wrapper
-    .section-splash
-    .section-title {{ "home.faq.forus.title" | translate }}
-    .faq(collapse)
-        mixin faq_item(title, content, active)
-            .faq-item(class=active?'active':'' collapse-item)
-                .faq-item-header(collapse-header)
-                    | #{title}
-                    .faq-item-chevron-down.mdi.mdi-chevron-down
-                    .faq-item-chevron-up.mdi.mdi-chevron-up
-                .faq-item-content(collapse-content)=content
+                    +faq_item(
+                        'home.faq.faq_eleven',
+                        'home.faq.eleven')
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_one' | translate }}",
-            "{{ 'home.faq.forus.one' | translate }}")
+                    +faq_item(
+                        'home.faq.faq_twelve',
+                        'home.faq.twelve') 
 
-        +faq_item(
-            "{{ 'home.faq.forus.faq_two' | translate }}",
-            "{{ 'home.faq.forus.two' | translate }}")
-
-        +faq_item(
-            "{{ 'home.faq.forus.faq_three' | translate }}",
-            "{{ 'home.faq.forus.three' | translate }}")
-
-        +faq_item(
-            "{{ 'home.faq.forus.faq_four' | translate }}",
-            "{{ 'home.faq.forus.four' | translate }}")
-
-        +faq_item(
-            "{{ 'home.faq.forus.faq_five' | translate }}",
-            "{{ 'home.faq.forus.five' | translate }}")
-
-        +faq_item(
-            "{{ 'home.faq.forus.faq_six' | translate }}",
-            "{{ 'home.faq.forus.six' | translate }}")
-
-        +faq_item(
-            "{{ 'home.faq.forus.faq_seven' | translate }}",
-            "{{ 'home.faq.forus.seven' | translate }}")
-
-        +faq_item(
-            "{{ 'home.faq.forus.faq_eight' | translate }}",
-            "{{ 'home.faq.forus.eight' | translate }}")
-            
-        +faq_item(
-            "{{ 'home.faq.forus.faq_nine' | translate }}",
-            "{{ 'home.faq.forus.nine' | translate }}")
-
-        +faq_item(
-            "{{ 'home.faq.forus.faq_ten' | translate }}",
-            "{{ 'home.faq.forus.ten' | translate }}")
-
-        +faq_item(
-            "{{ 'home.faq.forus.faq_eleven' | translate }}",
-            "{{ 'home.faq.forus.eleven' | translate }}")
-
-        +faq_item(
-            "{{ 'home.faq.forus.faq_twelve' | translate }}",
-            "{{ 'home.faq.forus.twelve' | translate }}")
-
-        +faq_item(
-            "{{ 'home.faq.forus.faq_thirteen' | translate }}",
-            "{{ 'home.faq.forus.thirteen' | translate }}")
-
-        //+faq_item(
-            "{{ 'home.faq.forus.faq_fourteen' | translate }}",
-            "{{ 'home.faq.forus.fourteen' | translate }}")
-
-        //+faq_item(
-            "{{ 'home.faq.forus.faq_fifteen' | translate }}",
-            "{{ 'home.faq.forus.fifteen' | translate }}")
-
-        //+faq_item(
-            "{{ 'home.faq.forus.faq_sixteen' | translate }}",
-            "{{ 'home.faq.forus.sixteen' | translate }}") 
-
+                    +faq_item(
+                        'home.faq.faq_thirteen',
+                        'home.faq.thirteen')
 contact-form 

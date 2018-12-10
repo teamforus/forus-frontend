@@ -1,14 +1,10 @@
 let BaseController = function(
     $rootScope,
-    $scope,
     $state,
-    IdentityService,
     AuthService,
-    CredentialsService,
     RecordService,
     OrganizationService,
     ConfigService,
-    $translate,
     $filter,
     appConfigs
 ) {
@@ -54,14 +50,6 @@ let BaseController = function(
 
     $rootScope.appConfigs = appConfigs;
 
-    $rootScope.i18nLangs = $translate.getAvailableLanguageKeys();
-    $rootScope.i18nActive = $translate.use();
-
-    $rootScope.setLang = (lang) => {
-        $translate.use(lang);
-        $rootScope.i18nActive = $translate.use();
-    };
-
     if (AuthService.hasCredentials()) {
         $rootScope.loadAuthUser();
     }
@@ -71,19 +59,16 @@ let BaseController = function(
     });
 
     $rootScope.pageTitle = $filter('translate')('page_title');
+    $rootScope.client_key = appConfigs.client_key;
 };
 
 module.exports = [
     '$rootScope',
-    '$scope',
     '$state',
-    'IdentityService',
     'AuthService',
-    'CredentialsService',
     'RecordService',
     'OrganizationService',
     'ConfigService',
-    '$translate',
     '$filter',
     'appConfigs',
     BaseController

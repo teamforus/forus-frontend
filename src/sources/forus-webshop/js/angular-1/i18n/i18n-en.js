@@ -1,4 +1,5 @@
 module.exports = {
+    test: "{{name}} {{foo}}",
     page_title: 'Forus platform',
     page_state_titles: {
         home: 'Forus platform',
@@ -60,9 +61,9 @@ module.exports = {
     // HOME = home.pug
     home: {
         header: {
-            forus: {
-                title: "Generieke webshop voor gemeentelijke regelingen",
-                subtitle: "Op deze webshop kun je je aanmelden voor een fonds, vervolgens kun je met een voucher langs winkels, sportverenigingen en/of culturele instellingen gaan.",
+            general: {
+                title: "Forus is een platform voor gemeentelijke regelingen",
+                subtitle: "Ons platform biedt een webshop waar een inwoner zich kan aanmelden voor een regeling, vervolgens kan hij met een voucher aan een aanbieder laten zien. De aanbieder kan dan een product of dienst leveren. <br /> <br /> Wil je meer weten?",
                 button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
             },
             nijmegen: {
@@ -82,7 +83,7 @@ module.exports = {
             },
         },
         blog: {
-            forus: {
+            general: {
                 title: "Onze blog",
                 name: "Blog: Twee nieuwe implementaties van ons platform",
             },
@@ -107,7 +108,7 @@ module.exports = {
             search: "Zoek naar een aanbieding",
         },
         map: { 
-            forus: {
+            general: {
                 title: "Overzicht van alle aanbieders",
                 subtitle: "Binnen het Forus platform werken sponsoren en leveranciers samen om de beste diensten en producten te leveren voor het publieke domein.",
             },
@@ -126,43 +127,41 @@ module.exports = {
             button: "BEKIJK DE KAART",
         },
         faq: {
-            forus: {
-                title: "Veelgestelde vragen",
-                faq_one: "Hoe kan ik het Kindpakket activeren?",
-                one: "Klik rechts bovenaan op 'Activatiecode'. Vul je e-mailadres en de activatiecode in die je per brief hebt ontvangen. Klik vervolgens op 'versturen'. Je profiel is aangemaakt en je Kindpakket voucher is geactiveerd!",
-                faq_two: "Hoe kan ik inloggen op de webshop?",
-                two: "Dit kan op meerdere manieren, de makkelijkste is per e-mail. Klik rechts bovenaan op 'Inloggen'. Kies voor 'log in via e-mail'. Vul het e-mailadres in die je ook tijdens de activatie hebt gebruikt en klik op 'Versturen'. Open je e-mail en klik op de link die je hebt ontvangen om in te loggen.",
-                faq_three: "Bij welke aanbieders kan ik het Kindpakket besteden?",
-                three: "Je kan een overzicht van alle aanbieders terugvinden op de webshop. Ga naar 'Overzicht van alle aanbieders'",
-                faq_four: "Ik ben mijn voucher kwijt. Wat moet ik doen?",
-                four: "Je kan je voucher altijd terugvinden door in te loggen op de webshop, de voucher kun je uitprinten, naar je e-mail toesturen of zelfs altijd bij hand hebben door gebruik te maken van de Me app.",
-                faq_five: "Hoe kan ik zien hoeveel budget ik nog over heb?",
-                five: "Na elke betaling wordt er een e-mail toegestuurd met het huidige budget, daarnaast kan je het budget inzien door in te loggen op de webshop of door gebruik te maken van de Me app.",
-                faq_six: "Kan ik iets wat ik heb gekocht ruilen/retour brengen?",
-                six: "Retour brengen is helaas niet mogelijk. Ruilen misschien wel, vraag de winkelier naar de mogelijkheden.",
-                faq_seven: "Moet het budget in een keer besteed worden?",
-                seven: "Nee, je hoeft het budget niet in een keer te besteden.",
-                faq_eight: "Ik heb meerdere kinderen. Moet ik aan ieder kind perse 300 euro besteden?",
-                eight: "Nee, je mag zelf bepalen hoeveel je per kind wilt besteden.",
-                faq_nine: "Hoe lang is de voucher geldig?",
-                nine: "De voucher is vanaf 1 november 2018 een jaar geldig.",
-                faq_ten: "Kan ik de voucher omruilen voor contant geld?",
-                ten: "Nee, de waarde van de voucher krijg je niet in contact geld uitbetaald.",
-                faq_eleven: "Kan ik iets kopen bij een andere aanbieder die niet op de webshop staat?",
-                eleven: "Nee, het budget kan alleen uitgegeven worden bij aanbieders die op de webshop staan.",
-                faq_twelve: "Ik heb nog een kind gekregen, kom ik in aanmerking voor een hoger budget?",
-                twelve: "Ja dat kan. Neem dan even contact op met de gemeente.",
-                faq_thirteen: "Hoe kom ik in aanmerking voor het Kindpakket?",
-                thirteen: "Als je denkt recht te hebben op het Kindpakket, neem dan contact op met de gemeente. De gemeente bekijkt dan of je voldoet aan de voorwaarden.",
-                faq_fourteen: "Kan ik de voucher aan iemand anders geven?",
-                fourteen: "Nee, de voucher is strikt persoonlijk. Je mag de voucher niet aan iemand anders geven. Maakt iemand anders wel gebruik van jouw voucher dan wordt je eigen bedrag lager.",
-                faq_fifteen: "Ik zie aanbiedingen op de webshop staan, hoe kan ik een aanbieding kopen?",
-                fifteen: "Log in op de webshop en klik op 'Aanbiedingen'. Kies vervolgens de aanbieding die je wilt en klik op 'Koop'. Kies vervolgens het Kindpakket voucher om de aanbieding mee te kopen. Het bedrag van de aanbieding wordt van je Kindpakket voucher afgehaald en er wordt een nieuwe voucher aangemaakt. De nieuwe voucher kan alleen gebruikt worden voor de aanbieding die je hebt gekocht.",
-                faq_sixteen: "Ik wil mijn kind zelf de aanbieding op laten halen, maar wil hem niet het Kindpakket voucher meegeven. Wat kan ik doen?",
-                sixteen: "Je kan een aanbieding kopen via de webshop, er wordt dan een nieuwe voucher aangemaakt die alleen gebruikt kan worden voor het specifieke aanbod. Deze kun je meegeven aan je kind.",
-            },
+            title: "Veelgestelde vragen {{client_key}}",
+            faq_one: "Hoe kan ik {{fund}} activeren?",
+            one: "Klik rechts bovenaan op 'Activatiecode'. Vul je e-mailadres en de activatiecode in die je per brief hebt ontvangen. Klik vervolgens op 'versturen'. Je profiel is aangemaakt en je {{voucher}}-voucher is geactiveerd!",
+            faq_two: "Hoe kan ik inloggen op de webshop?",
+            two: "Dit kan op meerdere manieren, de makkelijkste is per e-mail. Klik rechts bovenaan op 'Inloggen'. Kies voor 'log in via e-mail'. Vul het e-mailadres in die je ook tijdens de activatie hebt gebruikt en klik op 'Versturen'. Open je e-mail en klik op de link die je hebt ontvangen om in te loggen.",
+            faq_three: "Bij welke aanbieders kan ik {{fund}} besteden?",
+            three: "Je kan een overzicht van alle aanbieders terugvinden op de webshop. Ga naar 'Overzicht van alle aanbieders'",
+            faq_four: "Ik ben mijn voucher kwijt. Wat moet ik doen?",
+            four: "Je kan je voucher altijd terugvinden door in te loggen op de webshop, de voucher kun je uitprinten, naar je e-mail toesturen of zelfs altijd bij hand hebben door gebruik te maken van de Me app.",
+            faq_five: "Hoe kan ik zien hoeveel budget ik nog over heb?",
+            five: "Na elke betaling wordt er een e-mail toegestuurd met het huidige budget, daarnaast kan je het budget inzien door in te loggen op de webshop of door gebruik te maken van de Me app.",
+            faq_six: "Kan ik iets wat ik heb gekocht ruilen/retour brengen?",
+            six: "Retour brengen is helaas niet mogelijk. Ruilen misschien wel, vraag de winkelier naar de mogelijkheden.",
+            faq_seven: "Moet het budget in een keer besteed worden?",
+            seven: "Nee, je hoeft het budget niet in een keer te besteden.",
+            faq_eight: "Ik heb meerdere kinderen. Moet ik aan ieder kind perse {{ amount }} euro besteden?",
+            eight: "Nee, je mag zelf bepalen hoeveel je per kind wilt besteden.",
+            faq_nine: "Hoe lang is de voucher geldig?",
+            nine: "De voucher is vanaf {{start_date}} een jaar geldig.",
+            faq_ten: "Kan ik de voucher omruilen voor contant geld?",
+            ten: "Nee, de waarde van de voucher krijg je niet in contact geld uitbetaald.",
+            faq_eleven: "Kan ik iets kopen bij een andere aanbieder die niet op de webshop staat?",
+            eleven: "Nee, het budget kan alleen uitgegeven worden bij aanbieders die op de webshop staan.",
+            faq_twelve: "Ik heb nog een kind gekregen, kom ik in aanmerking voor een hoger budget?",
+            twelve: "Ja dat kan. Neem dan even contact op met de gemeente.",
+            faq_thirteen: "Hoe kom ik in aanmerking voor {{fund}}?",
+            thirteen: "Als je denkt recht te hebben op {{fund}} , neem dan contact op met de gemeente. De gemeente bekijkt dan of je voldoet aan de voorwaarden.",
+            faq_fourteen: "Kan ik de voucher aan iemand anders geven?",
+            fourteen: "Nee, de voucher is strikt persoonlijk. Je mag de voucher niet aan iemand anders geven. Maakt iemand anders wel gebruik van jouw voucher dan wordt je eigen bedrag lager.",
+            faq_fifteen: "Ik zie aanbiedingen op de webshop staan, hoe kan ik een aanbieding kopen?",
+            fifteen: "Log in op de webshop en klik op 'Aanbiedingen'. Kies vervolgens de aanbieding die je wilt en klik op 'Koop'. Kies vervolgens {{fund}}-voucher om de aanbieding mee te kopen. Het bedrag van de aanbieding wordt van je {{voucher}} afgehaald en er wordt een nieuwe voucher aangemaakt. De nieuwe voucher kan alleen gebruikt worden voor de aanbieding die je hebt gekocht.",
+            faq_sixteen: "Ik wil mijn kind zelf de aanbieding op laten halen, maar wil hem niet {{voucher}} meegeven. Wat kan ik doen?",
+            sixteen: "Je kan een aanbieding kopen via de webshop, er wordt dan een nieuwe voucher aangemaakt die alleen gebruikt kan worden voor het specifieke aanbod. Deze kun je meegeven aan je kind.",
+        
             zuidhorn: {
-                title: "Veelgestelde vragen",
                 faq_one: "Hoe kan ik het Kindpakket activeren?",
                 one: "Klik rechts bovenaan op 'Activatiecode'. Vul je e-mailadres en de activatiecode in die je per brief hebt ontvangen. Klik vervolgens op 'versturen'. Je profiel is aangemaakt en je Kindpakket voucher is geactiveerd!",
                 faq_two: "Hoe kan ik inloggen op de webshop?",
@@ -198,7 +197,7 @@ module.exports = {
             },
             nijmegen: {
                 title: "Veelgestelde vragen",
-                faq_one: "Hoe kan ik de Meedoen-regeling activeren?",
+                faq_one: "Hoe kan ik de {{fonds}} activeren?",
                 one: "Klik rechts bovenaan op 'Activatiecode'. Vul uw e-mailadres en de activatiecode in die u per brief hebt ontvangen. Klik vervolgens op 'Volgende'. Uw profiel is aangemaakt en uw Meedoen voucher is geactiveerd!",
                 faq_two: "Hoe kan ik inloggen op de webshop?",
                 two: "Dit kan op meerdere manieren, de makkelijkste is per e-mail. Klik rechts bovenaan op 'Inloggen'. Kies voor 'log in via e-mail'. Vul het e-mailadres in die u ook tijdens de activatie hebt gebruikt en klik op 'Volgende'. Open uw e-mail en klik op de link die u heeft ontvangen om in te loggen.",
@@ -260,14 +259,15 @@ module.exports = {
                 faq_sixteen: "Ik wil mijn kind zelf de aanbieding op laten halen, maar wil hem niet het Kindpakket voucher meegeven. Wat kan ik doen?",
                 sixteen: "Je kan een aanbieding kopen via de webshop, er wordt dan een nieuwe voucher aangemaakt die alleen gebruikt kan worden voor het specifieke aanbod. Deze kun je meegeven aan je kind.",
             },
+            title: "Veelgestelde vragen"
         },
         guide: {
-            forus: {
+            general: {
                 title: "Hoe het werkt",
                 stepone: "Stap #1",
                 one: "U heeft een brief  ontvangen van de gemeente. In de brief staat een activatiecode. Gebruik deze bij stap 2.",
                 steptwo: "Stap #2",
-                two: "Met de activatiecode kunt u zich aanmelden en de Meedoen-regeling activeren. Druk op ‘Activatiecode’ bovenaan de pagina en vul de gevraagde gegevens in",
+                two: "Met de activatiecode kunt u zich aanmelden en {{fonds}} activeren. Druk op ‘Activatiecode’ bovenaan de pagina en vul de gevraagde gegevens in",
                 stepthree: "Stap #3",
                 three: "Na uw aanmelding wordt de Meedoen-regeling gelijk geactiveerd. De voucher met bijbehorende QR-Code kunt u terugvinden door bovenaan op ‘Mijn vouchers’ te klikken.",
                 stepfour: "Stap #4",
@@ -333,8 +333,8 @@ module.exports = {
             use: "Gebruik",
         },
         popup: {
-            title: "Weet je zeker dat je deze aanbieding '<span class='popup-title-styled'>%s</span>' met een verloopdatum van <span class='popup-title-styled'>%s</span> wil kopen voor <span class='popup-title-styled'>%s</span>? Wanneer bevestigd kan deze transactie niet ongedaan worden gemaakt. Een terugbetaling is niet mogelijk!",
-            expiration_information: "De verloopdatum van het product is: <span class='popup-title-styled'>%s</span>. Zorg ervoor dat je tijd hebt om het product voor deze datum op te halen."
+            title: "Weet je zeker dat je deze aanbieding '<span class='popup-title-styled'>{{product_name}}</span>' met een verloopdatum van <span class='popup-title-styled'>{{expire_at}}</span> wil kopen voor <span class='popup-title-styled'>{{product_price}}</span>? Wanneer bevestigd kan deze transactie niet ongedaan worden gemaakt. Een terugbetaling is niet mogelijk!",
+            expiration_information: "De verloopdatum van het product is: <span class='popup-title-styled'>{{expire_at}}</span>. Zorg ervoor dat je tijd hebt om het product voor deze datum op te halen."
         }
     },
 
@@ -486,7 +486,7 @@ module.exports = {
             subtitle: "CONTACTGEGEVENS",
         },
         labels: {
-            forus: {
+            general: {
                 address:"Hooiweg 9, 9801 AJ Zuidhorn",
                 phone:"(0594) 508888",
                 mail: "kindpakket@zuidhorn.nl",
@@ -525,7 +525,7 @@ module.exports = {
     // CRITERIA FOR FUNDS = fund-criterion.pug
     fund_criterion: {
         labels: { 
-            forus: {
+            general: {
                 location: "Groningen",
             },
             zuidhorn: {

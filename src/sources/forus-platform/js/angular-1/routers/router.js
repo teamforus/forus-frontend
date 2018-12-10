@@ -188,31 +188,13 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
             organization: organziationResolver(),
             permission: permissionMiddleware('organization-providers', 'manage_providers'),
             fundProviders: function(permission, $transition$, OrganizationService) {
-                return repackResponse(
+                return repackPagination(
                     OrganizationService.listProviders(
                         $transition$.params().organization_id
                     )
                 );
             },
             fundLevel: (permission) => "organizationFunds"
-        }
-    });
-
-    // Organization validators
-    $stateProvider.state({
-        name: "validators",
-        url: "/organizations/{organization_id}/validators",
-        component: "organizationValidatorsComponent",
-        resolve: {
-            organization: organziationResolver(),
-            permission: permissionMiddleware('organization-validators', 'manage_validators'),
-            validators: function(permission, $transition$, OrganizationValidatorService) {
-                return repackResponse(
-                    OrganizationValidatorService.list(
-                        $transition$.params().organization_id
-                    )
-                );
-            }
         }
     });
 
@@ -234,34 +216,6 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
             roles: function(permission, RoleService) {
                 return repackResponse(
                     RoleService.list()
-                );
-            }
-        }
-    });
-
-    $stateProvider.state({
-        name: "validators-create",
-        url: "/organizations/{organization_id}/validators/create",
-        component: "organizationValidatorsEditComponent",
-        resolve: {
-            organization: organziationResolver(),
-            permission: permissionMiddleware('validators-create', 'manage_validators'),
-        }
-    });
-
-    $stateProvider.state({
-        name: "validators-edit",
-        url: "/organizations/{organization_id}/validators/{id}/edit",
-        component: "organizationValidatorsEditComponent",
-        resolve: {
-            organization: organziationResolver(),
-            permission: permissionMiddleware('validators-edit', 'manage_validators'),
-            validator: function(permission, $transition$, OrganizationValidatorService) {
-                return repackResponse(
-                    OrganizationValidatorService.read(
-                        $transition$.params().organization_id,
-                        $transition$.params().id
-                    )
                 );
             }
         }
@@ -300,7 +254,7 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
                     return new Promise((res) => res(null));
                 }
 
-                return repackResponse(
+                return repackPagination(
                     FundService.listProviders(
                         $transition$.params().organization_id,
                         $transition$.params().fund_id,
@@ -454,7 +408,7 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
             organization: organziationResolver(),
             permission: permissionMiddleware('transactions-list', 'view_finances'),
             transactions: function($transition$, TransactionService, appConfigs) {
-                return repackResponse(
+                return repackPagination(
                     TransactionService.list(
                         appConfigs.panel_type,
                         $transition$.params().organization_id

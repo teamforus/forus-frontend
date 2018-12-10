@@ -1,5 +1,3 @@
-let _string = require("underscore.string");
-
 let ProductApplyComponent = function(
     $state,
     $filter,
@@ -30,21 +28,24 @@ let ProductApplyComponent = function(
 
     $ctrl.applyForProduct = (voucher) => {
 
-        let popupTitle = _string.sprintf(
-            $filter('translate')('product_apply.popup.title'),
-            $ctrl.product.name,
-            $ctrl.product.expire_at,
-            $ctrl.product.price
-        );
+        let fund_expire_at = moment(voucher.fund.end_date);
+        let product_expire_at = moment($ctrl.product.expire_at);
 
-        let popupSubDescription = _string.sprintf(
-            $filter('translate')('product_apply.popup.expiration_information'),
-            $ctrl.product.expire_at
-        );
+        let expire_at = fund_expire_at.isAfter(product_expire_at) ? $ctrl.product.expire_at_locale : voucher.fund.end_date_locale;
+
+        let popupDescription = $filter('i18n')('product_apply.popup.title', {
+            product_name: $ctrl.product.name,
+            expire_at: expire_at,
+            product_price: $ctrl.product.price
+        });
+
+        let popupSubDescription = $filter('i18n')('product_apply.popup.expiration_information', {
+            expire_at: expire_at
+        });
 
         return ModalService.open('modalNotification', {
             type: 'confirm',
-            title: popupTitle,
+            description: popupDescription,
             subdescription: popupSubDescription,
             icon: 'voucher_apply',
             confirm: () => {

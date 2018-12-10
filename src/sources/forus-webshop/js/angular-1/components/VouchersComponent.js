@@ -1,16 +1,13 @@
 let VouchersComponent = function(
     $state,
-    $rootScope,
-    $timeout,
-    CredentialsService,
-    IdentityService,
-    AuthService,
-    appConfigs
+    ConfigService
 ) {
     let $ctrl = this;
 
     $ctrl.$onInit = function() {
-        
+        $ctrl.cfg = {
+            showAccountSidebar: ConfigService.getFlag('showAccountSidebar', true)
+        }
     };
 };
 
@@ -20,12 +17,7 @@ module.exports = {
     },
     controller: [
         '$state',
-        '$rootScope',
-        '$timeout',
-        'CredentialsService',
-        'IdentityService',
-        'AuthService',
-        'appConfigs',
+        'ConfigService',
         VouchersComponent
     ],
     templateUrl: 'assets/tpl/pages/vouchers.html'

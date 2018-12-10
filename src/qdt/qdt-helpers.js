@@ -1,150 +1,54 @@
 var fs = require('fs');
+var path = require('path');
 var colors = require('colors');
 var readline = require('readline');
+var glob = require('glob');
+var _string = require('underscore.string');
 
 // plugins: pug, sass, autoprefixer, minify-css, rename, concat and other
 var plugins = require('gulp-load-plugins')();
-
 var qdt_verbose = require('./qdt-verbose.js');
 
-// not very sure if this work cross-frame
-var isObjectLiteral = function (object) {
-    return object && object.constructor && object.constructor.name === 'Object';
-};
-
-var deepExtend = function (destination, source) {
-    for (var property in source) {
-        if (isObjectLiteral(destination[property]) && isObjectLiteral(source[property])) {
-            destination[property] = destination[property] || {};
-            arguments.callee(destination[property], source[property]);
-        } else {
-            destination[property] = source[property];
-        }
-    }
-    return destination;
-};
-
 // build list paths for specified platform
-var qdtBuidAssetPaths = function (platform) {
-    var _platform_libs = JSON.parse(JSON.stringify(platform.libs));
-    var _platform_assets = JSON.parse(JSON.stringify(platform.assets));
-    var _assets_to_move = [];
+var qdtBuidAssetPaths = function(platform) {
+    return JSON.parse(JSON.stringify(platform.assets)).map(asset => ({
+        from: path.resolve('./sources/' + platform.source + '/' + asset.from),
+        to: path.resolve(platform.paths.root, asset.to)
+    }));
+};
 
-    for (var i = _platform_assets.length - 1; i >= 0; i--) {
-        _platform_assets[i].from =
-            './sources/' + platform.source + '/' + _platform_assets[i].from;
+let fetchLibAsset = (libs, key) => {
+    return libs.reduce((outArr, lib) => {
+        return outArr.concat(lib[key] || []);
+    }, []).map(path => glob.sync(path)).reduce((outArr, paths) => {
+        return outArr.concat(paths);
+    }, []);
+};
 
-        _platform_assets[i].to =
-            platform.paths.root + '/' + _platform_assets[i].to;
+let concatFiles = (paths) => {
+    return paths.map(path => fs.readFileSync(path).toString()).join('');
+};
+
+let buildLibsBundle = (requiredLibs) => {
+    let paths = requiredLibs.map(lib => {
+        return __dirname + '/../libs/' + lib + '.js'
+    }).map(path => {
+        return fs.existsSync(path) ? require(path) : false;
+    }).filter(lib => lib);
+
+    let js = fetchLibAsset(paths, 'js');
+    let css = fetchLibAsset(paths, 'css');
+    let fonts = fetchLibAsset(paths, 'fonts');
+
+    return {
+        js: concatFiles(js),
+        css: concatFiles(css),
+        fonts: fonts
     }
-
-    // platform specific assets from config file
-    _assets_to_move = _assets_to_move.concat(_platform_assets);
-
-    // jquery
-    if (_platform_libs.jquery) {
-        _assets_to_move = _assets_to_move.concat([{
-            from: './node_modules/jquery/dist/jquery.min.js',
-            to: platform.paths.assets_root + '/' + 'dist/jquery/'
-        }]);
-    }
-
-    // mdi
-    if (_platform_libs.mdi) {
-        _assets_to_move = _assets_to_move.concat([{
-            from: './node_modules/mdi/css/materialdesignicons.min.css',
-            to: platform.paths.assets_root + '/' + 'dist/mdi/css/'
-        }, {
-            from: './node_modules/mdi/css/materialdesignicons.min.css.map',
-            to: platform.paths.assets_root + '/' + 'dist/mdi/css/'
-        }, {
-            from: './node_modules/mdi/fonts/*',
-            to: platform.paths.assets_root + '/' + 'dist/mdi/fonts/'
-        }]);
-    }
-
-    // underscore
-    if (_platform_libs.underscore) {
-        _assets_to_move = _assets_to_move.concat([{
-            from: './node_modules/underscore/underscore-min.js',
-            to: platform.paths.assets_root + '/' + 'dist/underscore/'
-        }]);
-    }
-
-    // underscore.string
-    if (_platform_libs['underscore.string']) {
-        _assets_to_move = _assets_to_move.concat([{
-            from: './node_modules/underscore.string/dist/underscore.string.min.js',
-            to: platform.paths.assets_root + '/' + 'dist/underscore.string/'
-        }]);
-    }
-
-    // angular
-    if (_platform_libs.angular) {
-        _assets_to_move = _assets_to_move.concat([{
-            from: './node_modules/angular/angular.min.js',
-            to: platform.paths.assets_root + '/' + 'dist/angular/'
-        }, {
-            from: './node_modules/angular/angular-csp.css',
-            to: platform.paths.assets_root + '/' + 'dist/angular/'
-        }]);
-    }
-
-    // bootstrap-3
-    if (_platform_libs.bootstrap_3) {
-        _assets_to_move = _assets_to_move.concat([{
-            from: './node_modules/bootstrap/dist/js/bootstrap.min.js',
-            to: platform.paths.assets_root + '/' + 'dist/bootstrap/js/'
-        }, {
-            from: './node_modules/bootstrap/dist/css/bootstrap.min.css',
-            to: platform.paths.assets_root + '/' + 'dist/bootstrap/css/'
-        }, {
-            from: './node_modules/bootstrap/dist/fonts/*',
-            to: platform.paths.assets_root + '/' + 'dist/bootstrap/fonts/'
-        }]);
-    }
-
-    // angular-2
-    if (_platform_libs.angular_2) {
-        // angular 2 dependences
-        _assets_to_move = _assets_to_move.concat([{
-            from: './node_modules/core-js/client/shim.min.js',
-            to: platform.paths.assets_root + '/' + 'dist/@angular2/core-js/client/'
-        }, {
-            from: './node_modules/zone.js/dist/zone.js',
-            to: platform.paths.assets_root + '/' + 'dist/@angular2/zone.js/dist/'
-        }, {
-            from: './node_modules/reflect-metadata/Reflect.js',
-            to: platform.paths.assets_root + '/' + 'dist/@angular2/reflect-metadata/'
-        }, {
-            from: './node_modules/rxjs/bundles/Rx.js',
-            to: platform.paths.assets_root + '/' + 'dist/@angular2/rxjs/bundles/'
-        }]);
-
-        // angular 2 core
-        _assets_to_move = _assets_to_move.concat([{
-            from: './node_modules/@angular/core/bundles/core.umd.js',
-            to: platform.paths.assets_root + '/' + 'dist/@angular2/@angular/core/bundles/'
-        }, {
-            from: './node_modules/@angular/common/bundles/common.umd.js',
-            to: platform.paths.assets_root + '/' + 'dist/@angular2/@angular/common/bundles/'
-        }, {
-            from: './node_modules/@angular/compiler/bundles/compiler.umd.js',
-            to: platform.paths.assets_root + '/' + 'dist/@angular2/@angular/compiler/bundles/'
-        }, {
-            from: './node_modules/@angular/platform-browser/bundles/platform-browser.umd.js',
-            to: platform.paths.assets_root + '/' + 'dist/@angular2/@angular/platform-browser/bundles/'
-        }, {
-            from: './node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
-            to: platform.paths.assets_root + '/' + 'dist/@angular2/@angular/platform-browser-dynamic/bundles/'
-        }]);
-    }
-
-    return _assets_to_move;
 };
 
 // show notification
-var doNotify = function (title, message) {
+var doNotify = function(title, message) {
     console.log("Error title: " + title + "\n");
     console.log("Error message: " + message + "\n");
     console.log('--- '.repeat(20) + "\n");
@@ -159,36 +63,30 @@ var doNotify = function (title, message) {
     }).write('');
 };
 
-var getParams = function () {
+var getParams = function() {
     // ignore node, gulp and task name from argv
-    var _argv = process.argv.slice(3);
-    var _params = {
-        length: 0
+    var argv = process.argv.filter(arg => arg.indexOf('--') === 0);
+    var params = {
+        _length: argv.length
     };
 
-    _argv = _argv.forEach(function (_val) {
-        // check paramether format
-        if (_val.indexOf('--') !== 0 || _val.indexOf('=') === -1)
-            return;
-
-        // separate parameter name and value
-        _val = _val.slice(2).split('=');
-        _params[_val[0]] = _val[1];
-        _params.length++;
+    argv.forEach(function(arg) {
+        arg = arg.slice(2, arg.length).split('=');
+        params[_string.camelize(arg[0])] = typeof(arg[1]) == 'undefined' ? true : arg[1];
+        params._length++;
     });
 
-    return _params;
+    return params;
 };
 
-var compileConfig = function (configs, env) {
+var compileConfig = function(configs) {
     for (var _key in configs.platforms) {
         configs.platforms[_key].name = _key;
     }
 
-    var sample_p = configs.platforms['*'];
-    var platforms = {};
+    var platforms = configs.platforms;
 
-    var asset_filter = function (val) {
+    var asset_filter = function(val) {
         if (map_story.indexOf(val.from + '|' + val.to) !== -1)
             return false;
 
@@ -196,7 +94,7 @@ var compileConfig = function (configs, env) {
         return val;
     };
 
-    var settings_map_js = function (item) {
+    var settings_map_js = function(item) {
         // source scss files are required
         if (typeof item.src == 'undefined')
             return console.log(colors.yellow(
@@ -223,7 +121,7 @@ var compileConfig = function (configs, env) {
         return item;
     };
 
-    var settings_map_scss = function (item) {
+    var settings_map_scss = function(item) {
         // source scss files are required
         if (typeof item.src == 'undefined')
             return console.log(colors.yellow(
@@ -258,7 +156,7 @@ var compileConfig = function (configs, env) {
         return item;
     };
 
-    var settings_map_pug = function (item) {
+    var settings_map_pug = function(item) {
         // required to keep raw hierarchy
         if (typeof item.path == 'undefined')
             item.path = '/';
@@ -288,7 +186,7 @@ var compileConfig = function (configs, env) {
         else if (typeof item.dest == 'string')
             item.dest = [item.dest];
         else if (typeof item.dest.length == 'undefined')
-            item.dest = [item.dest];
+            item.dest = [];
 
         return item;
     };
@@ -297,11 +195,9 @@ var compileConfig = function (configs, env) {
         if (typeof configs.platforms[k] != 'object')
             continue;
 
-        if (k == '*' || env.platforms.enabled.indexOf(k) == -1)
+        if (!configs.platforms[k].enabled) {
             continue;
-
-        if (typeof env.platforms_data != 'undefined')
-            configs.platforms[k].env_data = env.platforms_data[k] || false;
+        }
 
         if (configs.platforms[k].source == "sample") {
             console.log(colors.red('Error platform "' +
@@ -310,33 +206,22 @@ var compileConfig = function (configs, env) {
             continue;
         }
 
-        platforms[k] = deepExtend(
-            JSON.parse(JSON.stringify(sample_p)), configs.platforms[k]);
-
-        if (typeof platforms[k].assets != 'object')
-            platforms[k].assets = sample_p.assets.concat(platforms[k].assets);
-
         var map_story = [];
 
         platforms[k].assets = platforms[k].assets.filter(asset_filter);
 
-        if (typeof platforms[k].tasks.settings.scss.length == 'undefined')
-            platforms[k].tasks.settings.scss = [platforms[k].tasks.settings.scss];
+        if (typeof platforms[k].tasks.scss.length == 'undefined')
+            platforms[k].tasks.scss = [platforms[k].tasks.scss];
 
-        if (typeof platforms[k].tasks.settings.pug.length == 'undefined')
-            platforms[k].tasks.settings.pug = [platforms[k].tasks.settings.pug];
+        if (typeof platforms[k].tasks.pug.length == 'undefined')
+            platforms[k].tasks.pug = [platforms[k].tasks.pug];
 
-        if (typeof platforms[k].tasks.settings.js.length == 'undefined')
-            platforms[k].tasks.settings.js = [platforms[k].tasks.settings.js];
+        if (typeof platforms[k].tasks.js.length == 'undefined')
+            platforms[k].tasks.js = [platforms[k].tasks.js];
 
-        platforms[k].tasks.settings.scss =
-            platforms[k].tasks.settings.scss.map(settings_map_scss);
-
-        platforms[k].tasks.settings.pug =
-            platforms[k].tasks.settings.pug.map(settings_map_pug);
-
-        platforms[k].tasks.settings.js =
-            platforms[k].tasks.settings.js.map(settings_map_js);
+        platforms[k].tasks.scss =platforms[k].tasks.scss.map(settings_map_scss);
+        platforms[k].tasks.pug = platforms[k].tasks.pug.map(settings_map_pug);
+        platforms[k].tasks.js = platforms[k].tasks.js.map(settings_map_js);
     }
 
     configs.platforms = platforms;
@@ -344,7 +229,7 @@ var compileConfig = function (configs, env) {
     return configs;
 };
 
-var groupPlatforms = function (_platforms) {
+var groupPlatforms = function(_platforms) {
     var grouped_platforms = {};
 
     // group platforms
@@ -358,21 +243,8 @@ var groupPlatforms = function (_platforms) {
     return grouped_platforms;
 };
 
-isPlatformTaskEnabled = function (disabled, task) {
-    if (typeof disabled.tasks == 'undefined')
-        return true;
-
-    if (typeof disabled.tasks.disabled[task] == 'undefined')
-        return true;
-
-    if (typeof disabled.tasks.disabled[task] == 'boolean')
-        return !disabled.tasks.disabled[task];
-
-    return false;
-};
-
 var qdt_core = {
-    isReady: function (envFile, verbose) {
+    isReady: function(envFile, verbose) {
         if (!fs.existsSync(envFile)) {
             if (verbose) {
                 console.log(colors.red(
@@ -386,8 +258,8 @@ var qdt_core = {
 
         return true;
     },
-    ask: function (question) {
-        return new Promise(function (resolve) {
+    ask: function(question) {
+        return new Promise(function(resolve) {
             console.log(question);
 
             var rl = readline.createInterface({
@@ -398,7 +270,7 @@ var qdt_core = {
 
             rl.prompt();
 
-            rl.on('line', function (line) {
+            rl.on('line', function(line) {
                 line = line.trim().toUpperCase();
 
                 // stop prompt and input stream
@@ -416,11 +288,11 @@ var qdt_core = {
             });
         });
     },
-    isPlatformTaskEnabled: isPlatformTaskEnabled,
     qdtBuidAssetPaths: qdtBuidAssetPaths,
     groupPlatforms: groupPlatforms,
     compileConfig: compileConfig,
     getParams: getParams,
+    buildLibsBundle: buildLibsBundle,
     doNotify: doNotify,
 };
 

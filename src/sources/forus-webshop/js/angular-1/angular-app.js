@@ -1,6 +1,7 @@
 let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies']);
+let appConfigs = JSON.parse(JSON.stringify(env_data));
 
-app.constant('appConfigs', env_data);
+app.constant('appConfigs', appConfigs);
 
 // Controllers
 app.controller('BaseController', require('./controllers/BaseController'));
@@ -61,6 +62,7 @@ app.directive('collapse', require('./directives/CollapseDirective'));
 app.directive('voucherCard', require('./directives/VoucherCardDirective'));
 app.directive('productCard', require('./directives/ProductCardDirective'));
 app.directive('appFooter', require('./directives/AppFooterDirective'));
+app.directive('i18n', require('./directives/I18nDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
@@ -80,10 +82,12 @@ app.component('modalAuthCodeComponent', require('./components/Modals/ModalAuthCo
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
 app.provider('ModalRoute', require('./providers/ModalRouteProvider'));
+app.provider('I18nLib', require('./providers/I18nLibProvider'));
 
 // Filters
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
+app.filter('i18n', require('./filters/I18nFilter'));
 
 // Config
 app.config(require('./routers/modals'));
@@ -93,8 +97,13 @@ app.config(require('./config/i18n'));
 
 app.run(require('./routers/router-transitions'));
 
+app.run(['appConfigs', (appConfigs) => {
+    let appFlags = require('./config/flags.js');
+    appConfigs.flags = appFlags[env_data.client_key] || appFlags.general
+}]);
+
 // Bootstrap the app
-angular.bootstrap(document.querySelector('html'), ['forusApp', '720kb.datepicker']);
+angular.bootstrap(document.querySelector('html'), ['forusApp']);
 
 if (!env_data.html5ModeEnabled) {
     let hash = document.location.hash;

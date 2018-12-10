@@ -53,19 +53,26 @@ let CsvUploadDirective = function(
                         return alert("Bsn record is required.");
                     }
 
-                    csvParser.data = body.map(function(val, key) {
+                    csvParser.data = body.reduce(function(result, val, key) {
                         let row = {};
 
                         header.forEach((hVal, hKey) => {
-                            row[hVal] = val[hKey];
+                            if(val[hKey] && val[hKey] != '') {
+                                row[hVal] = val[hKey];
+                            }
                         });
+
+                        if(_.isEmpty(row)) {
+                            return result;
+                        }
 
                         if ($scope.fundKey) {
                             row[$scope.fundKey + '_eligible'] = 'Ja';
                         }
 
-                        return row;
-                    });
+                        result.push(row);
+                        return result;
+                    }, []);
 
                     csvParser.csvFile = target_file;
                     csvParser.progress = 1;

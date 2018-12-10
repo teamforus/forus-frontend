@@ -95,4 +95,4 @@
                             ng-click="showTransaction(transaction)").pointer
                             td: a.text-primary-light €{{ transaction.amount | to_fixed:2 }}
                             td(ng-bind="transaction.created_at_locale")
-                            td(ng-bind="{pending: 'Pending', success : 'Voltooid'}[transaction.state]")
+                            td(ng-bind="{pending: 'In afwachting', success : 'Voltooid'}[transaction.state]")

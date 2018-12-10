@@ -1,7 +1,9 @@
 let TransactionsComponent = function(
     $state,
+    $scope,
     OrganizationService,
-    appConfigs
+    appConfigs,
+    TransactionService
 ) {
     let $ctrl = this;
 
@@ -9,7 +11,7 @@ let TransactionsComponent = function(
     var org = OrganizationService.active().id;
 
     $ctrl.states = {
-        pending: 'Pending',
+        pending: 'In afwachting',
         success: 'Voltooid'
     };
 
@@ -17,7 +19,7 @@ let TransactionsComponent = function(
     $ctrl.exportList = function(e) {
         e && (e.preventDefault() & e.stopPropagation());
 
-        var data = $ctrl.transactions.map(function(row) {
+        var data = $ctrl.transactions.data.map(function(row) {
             return {
                 date: row.created_at,
                 amount: row.amount,
@@ -45,16 +47,29 @@ let TransactionsComponent = function(
             organization_id: transaction.fund.organization_id
         } : transaction);
     };
+
+    $scope.onPageChange = async (query) => {
+        TransactionService.list(
+            appConfigs.panel_type,
+            $ctrl.organization.id,
+            query
+        ).then((res => {
+            $ctrl.transactions = res.data;
+        }));
+    };
 };
 
 module.exports = {
     bindings: {
-        transactions: '<'
+        transactions: '<',
+        organization: '<'
     },
     controller: [
         '$state',
+        '$scope',
         'OrganizationService',
         'appConfigs',
+        'TransactionService',
         TransactionsComponent
     ],
     templateUrl: 'assets/tpl/pages/transactions.html'
