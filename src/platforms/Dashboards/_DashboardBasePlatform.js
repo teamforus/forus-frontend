@@ -10,6 +10,7 @@ platform = new Platform('forus-platform');
 platform.setLibs([
     // "bootstrap3",
     "babel_polyfill",
+    "jquery",
     "angular",
     "angular_cookies",
     "angular_datepicker",
@@ -20,7 +21,6 @@ platform.setLibs([
     "moment",
     "chart_js",
     "filesaver",
-    "jquery",
     "mdi",
     "nanoscroller",
     "papaparse",
