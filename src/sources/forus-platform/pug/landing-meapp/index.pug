@@ -31,7 +31,12 @@ block content
             .header-content
                 .header-title {{ "meapp_index.header.title" | translate }}
                 .header-description 
-                    | {{ "meapp_index.header.description" | translate }}
+                    | {{ "meapp_index.header.description" | translate }}                
+                
+                //- usage example: 
+                //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
+                //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
+                
                 .header-download-apps
                     a(href="https://play.google.com/store/apps/details?id=io.forus.me").app-item.app-item-android
                         | {{ "meapp_index.download.android" | translate }}
