@@ -9,13 +9,13 @@ platform = new Platform('forus-webshop');
 // add libs to bundle (see libs folder)
 platform.setLibs([
     "babel_polyfill",
+    "jquery",
     "angular",
     "angular_cookies",
     "angular_sanitize",
     "angular_translate",
     "angular_translate_storage_cookies",
     "angular_translate_storage_local",
-    "jquery",
     "mdi",
     "moment",
     "nanoscroller",
