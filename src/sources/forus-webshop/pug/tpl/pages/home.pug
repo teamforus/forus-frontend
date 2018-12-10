@@ -6,17 +6,17 @@ header.section.section-header.section-header-landing
         .heade-sprite
 
         .header-content
-            .header-title(translate="home.header.{{ $root.client_key }}.title")
+            .header-title(i18n="home.header.{{ $root.client_key }}.title")
             
             //- usage example: 
             //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
             //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
             
-            .header-description(translate="home.header.{{ $root.client_key }}.subtitle")
+            .header-description(i18n="home.header.{{ $root.client_key }}.subtitle")
             if (qdt_c.platform.env_data.client_key != 'general')  
-                a(scroll-to="#steps" translate="home.header.{{ $root.client_key }}.button").button.button-primary
+                a(scroll-to="#steps" i18n="home.header.{{ $root.client_key }}.button").button.button-primary
             if (qdt_c.platform.env_data.client_key == 'general')  
-                a(href="https://about.forus.io/nl/contact/" translate="NEEM CONTACT MET ONS OP").button.button-primary  
+                a(href="https://about.forus.io/nl/contact/" i18n="NEEM CONTACT MET ONS OP").button.button-primary  
 if (qdt_c.platform.env_data.client_key != 'general')  
     block-products(
         ng-if="$root.appConfigs.features.products.list"
@@ -27,110 +27,110 @@ if (qdt_c.platform.env_data.client_key != 'general')
     section.section.section-map: .wrapper
         .block.block-map
             .block-content
-                .block-title(translate="home.map.{{ $root.client_key }}.title")
-                .block-description(translate="home.map.{{ $root.client_key }}.subtitle")
-                button(ng-click="$ctrl.showPopupOffices()" translate="home.map.button").button.button-primary
+                .block-title(i18n="home.map.{{ $root.client_key }}.title")
+                .block-description(i18n="home.map.{{ $root.client_key }}.subtitle")
+                button(ng-click="$ctrl.showPopupOffices()" i18n="home.map.button").button.button-primary
 
 if (qdt_c.platform.env_data.client_key != 'general')  
     section.section.section-steps#steps: .wrapper
         .section-splash
         .section-sprite
-        .section-title(translate="home.guide.{{ $root.client_key }}.title")
+        .section-title(i18n="home.guide.{{ $root.client_key }}.title")
         .steps
             .step-item: .step-item-content
-                h4(translate="home.guide.{{ $root.client_key }}.stepone")
-                p(translate="home.guide.{{ $root.client_key }}.one")
+                h4(i18n="home.guide.{{ $root.client_key }}.stepone")
+                p(i18n="home.guide.{{ $root.client_key }}.one")
             .step-item: .step-item-content
-                h4(translate="home.guide.{{ $root.client_key }}.steptwo")
-                p(translate="home.guide.{{ $root.client_key }}.two")
+                h4(i18n="home.guide.{{ $root.client_key }}.steptwo")
+                p(i18n="home.guide.{{ $root.client_key }}.two")
             .step-item: .step-item-content
-                h4(translate="home.guide.{{ $root.client_key }}.stepthree")
-                p(translate="home.guide.{{ $root.client_key }}.three")
+                h4(i18n="home.guide.{{ $root.client_key }}.stepthree")
+                p(i18n="home.guide.{{ $root.client_key }}.three")
             .step-item: .step-item-content
-                h4(translate="home.guide.{{ $root.client_key }}.stepfour")
-                p(translate="home.guide.{{ $root.client_key }}.four")
+                h4(i18n="home.guide.{{ $root.client_key }}.stepfour")
+                p(i18n="home.guide.{{ $root.client_key }}.four")
             .step-item: .step-item-content
-                h4(translate="home.guide.{{ $root.client_key }}.stepfive")
-                p(translate="home.guide.{{ $root.client_key }}.five")
+                h4(i18n="home.guide.{{ $root.client_key }}.stepfive")
+                p(i18n="home.guide.{{ $root.client_key }}.five")
 
             .step-item
 
 section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
-    .section-title(translate="home.blog.forus.title")
+    .section-title(i18n="home.blog.forus.title")
     
     .block.block-blogs
         mixin blog_item(nth)
             .blog-item: a(href="#").blog-item-inner
                 .blog-image: img(src="./assets/img/blog-image-" + nth + ".jpg")
-                .blog-name(translate="home.blog.forus.name")
-                .blog-read-more(translate="home.blog.more")
+                .blog-name(i18n="home.blog.forus.name")
+                .blog-read-more(i18n="home.blog.more")
                     em.mdi.mdi-arrow-right
         +blog_item(1)
         +blog_item(2)
         +blog_item(3)
-    .block.block-show-more: a(href="#" translate="home.blog.button").button.button-primary
+    .block.block-show-more: a(href="#" i18n="home.blog.button").button.button-primary
 
 if (qdt_c.platform.env_data.client_key != 'general')   
     section.section.section-faq: .wrapper
         .section-splash
-        .section-title {{ "home.faq.title" | translate }}
+        .section-title {{ "home.faq.title" | i18n }}
 
                 .faq(collapse)
                     mixin faq_item(title, content, active)
                         .faq-item(class=active?'active':'' collapse-item)
-                            .faq-item-header(collapse-header,translate=title)
+                            .faq-item-header(collapse-header,i18n=title)
                                 .faq-item-chevron-down.mdi.mdi-chevron-down
                                 .faq-item-chevron-up.mdi.mdi-chevron-up
-                            .faq-item-content(collapse-conten,translate=content)    
+                            .faq-item-content(collapse-conten,i18n=content)    
                     +faq_item(
-                        'home.faq.{{ $root.client_key }}.faq_one',
-                        'home.faq.{{ $root.client_key }}.one')
+                        'home.faq.faq_one',
+                        'home.faq.one')
 
                     +faq_item(
-                        'home.faq.{{ $root.client_key }}.faq_two',
-                        'home.faq.{{ $root.client_key }}.two')
+                        'home.faq.faq_two',
+                        'home.faq.two')
 
                     +faq_item(
-                        'home.faq.{{ $root.client_key }}.faq_three',
-                        'home.faq.{{ $root.client_key }}.three')
+                        'home.faq.faq_three',
+                        'home.faq.three')
 
                     +faq_item(
-                        'home.faq.{{ $root.client_key }}.faq_four',
-                        'home.faq.{{ $root.client_key }}.four')
+                        'home.faq.faq_four',
+                        'home.faq.four')
 
                     +faq_item(
-                        'home.faq.{{ $root.client_key }}.faq_five',
-                        'home.faq.{{ $root.client_key }}.five')
+                        'home.faq.faq_five',
+                        'home.faq.five')
 
                     +faq_item(
-                        'home.faq.{{ $root.client_key }}.faq_six',
-                        'home.faq.{{ $root.client_key }}.six')
+                        'home.faq.faq_six',
+                        'home.faq.six')
 
                     +faq_item(
-                        'home.faq.{{ $root.client_key }}.faq_seven',
-                        'home.faq.{{ $root.client_key }}.seven')
+                        'home.faq.faq_seven',
+                        'home.faq.seven')
 
                     +faq_item(
-                        'home.faq.{{ $root.client_key }}.faq_eight',
-                        'home.faq.{{ $root.client_key }}.eight')
+                        'home.faq.faq_eight',
+                        'home.faq.eight')
                         
                     +faq_item(
-                        'home.faq.{{ $root.client_key }}.faq_nine',
-                        'home.faq.{{ $root.client_key }}.nine')
+                        'home.faq.faq_nine',
+                        'home.faq.nine')
 
                     +faq_item(
-                        'home.faq.{{ $root.client_key }}.faq_ten',
-                        'home.faq.{{ $root.client_key }}.ten')
+                        'home.faq.faq_ten',
+                        'home.faq.ten')
+    
+                    +faq_item(
+                        'home.faq.faq_eleven',
+                        'home.faq.eleven')
 
                     +faq_item(
-                        'home.faq.{{ $root.client_key }}.faq_eleven',
-                        'home.faq.{{ $root.client_key }}.eleven')
+                        'home.faq.faq_twelve',
+                        'home.faq.twelve') 
 
                     +faq_item(
-                        'home.faq.{{ $root.client_key }}.faq_twelve',
-                        'home.faq.{{ $root.client_key }}.twelve')
-
-                    +faq_item(
-                        'home.faq.{{ $root.client_key }}.faq_thirteen',
-                        'home.faq.{{ $root.client_key }}.thirteen')
+                        'home.faq.faq_thirteen',
+                        'home.faq.thirteen')
 contact-form 
