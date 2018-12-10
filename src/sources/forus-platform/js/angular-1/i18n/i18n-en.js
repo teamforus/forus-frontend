@@ -183,6 +183,7 @@ module.exports = {
     // PERSONAL FUNDS = funds-my.pug
     funds_my: {
         title: "Fondsen",
+        add: 'Fonds toevoegen'
     },
 
     // SHOW FUNDS = funds-show.pug
