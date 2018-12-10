@@ -20,9 +20,7 @@ app.component('productsComponent', require('./components/ProductsComponent'));
 app.component('productsEditComponent', require('./components/ProductsEditComponent'));
 app.component('productsShowComponent', require('./components/ProductsShowComponent'));
 app.component('organizationProvidersComponent', require('./components/OrganizationProvidersComponent'));
-app.component('organizationValidatorsComponent', require('./components/OrganizationValidatorsComponent'));
 app.component('organizationEmployeesComponent', require('./components/OrganizationEmployeesComponent'));
-app.component('organizationValidatorsEditComponent', require('./components/OrganizationValidatorsEditComponent'));
 app.component('csvValidationComonent', require('./components/CsvValidationComonent'));
 app.component('validationRequestsComonent', require('./components/ValidationRequestsComonent'));
 app.component('validationRequestComonent', require('./components/ValidationRequestComonent'));
@@ -55,7 +53,6 @@ app.service('ProductCategoryService', require('./services/ProductCategoryService
 app.service('OfficeService', require('./services/OfficeService'));
 app.service('ProductService', require('./services/ProductService'));
 app.service('ProviderFundService', require('./services/ProviderFundService'));
-app.service('OrganizationValidatorService', require('./services/OrganizationValidatorService'));
 app.service('OrganizationEmployeesService', require('./services/OrganizationEmployeesService'));
 app.service('PrevalidationService', require('./services/PrevalidationService'));
 app.service('ProgressFakerService', require('./services/ProgressFakerService'));
@@ -106,6 +103,7 @@ app.directive('popupAuth', require('./directives/PopupAuthDirective'));
 app.directive('collapse', require('./directives/CollpaseDirective'));
 app.directive('landingNavbar', require('./directives/landing/NavbarDirective'));
 app.directive('landingContactForm', require('./directives/landing/ContactFormDirective'));
+app.directive('landingAppFooter', require('./directives/landing/LandingAppFooterDirective'));
 app.directive('forusChat', require('./directives/ForusChatDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
 app.directive('productCategoriesControl', require('./directives/ProductCategoriesControlDirective'));
@@ -114,6 +112,10 @@ app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('informationBlock', require('./directives/InformationBlockDirective'));
 app.directive('menuScrollToggle', require('./directives/landing/MenuScrollToggleDirective'));
 app.directive('phoneControl', require('./directives/PhoneControlDirective'));
+app.directive('i18n', require('./directives/I18nDirective'));
+
+app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
+app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
 
 app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
 app.directive('modalItem', require('./directives/modals/ModalItemDirective'));
@@ -125,12 +127,14 @@ app.directive('blockNoPermission', require('./directives/blocks/BlockNoPermissio
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
 app.provider('ModalRoute', require('./providers/ModalRouteProvider'));
+app.provider('I18nLib', require('./providers/I18nLibProvider'));
 
 // Filters
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('file_size', require('./filters/FileSizeFilter'));
 app.filter('hasPerm', require('./filters/HasPerm'));
+app.filter('i18n', require('./filters/I18nFilter'));
 
 // Config
 app.config(require('./routers/modals'));

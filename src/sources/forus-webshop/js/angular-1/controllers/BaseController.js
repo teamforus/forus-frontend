@@ -1,41 +1,13 @@
 let BaseController = function(
     $rootScope,
-    $scope,
     $state,
-    IdentityService,
     AuthService,
-    CredentialsService,
     RecordService,
     OrganizationService,
     ConfigService,
-    $translate,
     $filter,
     appConfigs
 ) {
-    $rootScope.popups = {
-        auth: {
-            show: false,
-            screen: false,
-            close: function() {
-                this.show = false;
-                this.screen = false;
-            },
-            open: function(screen) {
-                this.show = true;
-                this.screen = screen;
-            }
-        },
-        offices: {
-            show: false,
-            close: function() {
-                this.show = false;
-            },
-            open: function(screen) {
-                this.show = true;
-            }
-        }
-    };
-
     $rootScope.loadAuthUser = function() {
         AuthService.identity().then((res) => {
             let auth_user = res.data;
@@ -78,14 +50,6 @@ let BaseController = function(
 
     $rootScope.appConfigs = appConfigs;
 
-    $rootScope.i18nLangs = $translate.getAvailableLanguageKeys();
-    $rootScope.i18nActive = $translate.use();
-
-    $rootScope.setLang = (lang) => {
-        $translate.use(lang);
-        $rootScope.i18nActive = $translate.use();
-    };
-
     if (AuthService.hasCredentials()) {
         $rootScope.loadAuthUser();
     }
@@ -95,19 +59,16 @@ let BaseController = function(
     });
 
     $rootScope.pageTitle = $filter('translate')('page_title');
+    $rootScope.client_key = appConfigs.client_key;
 };
 
 module.exports = [
     '$rootScope',
-    '$scope',
     '$state',
-    'IdentityService',
     'AuthService',
-    'CredentialsService',
     'RecordService',
     'OrganizationService',
     'ConfigService',
-    '$translate',
     '$filter',
     'appConfigs',
     BaseController

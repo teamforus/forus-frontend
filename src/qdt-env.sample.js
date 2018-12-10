@@ -1,78 +1,139 @@
 let api_url = "https://dev.api.forus.link/api/v1";
 
-let dashboardConfig = (client_type, client_key, chat_id = false, max_product_count = false) => {
-    return {
-        api_url: api_url,
-        panel_type: client_type,
-        chat_id: chat_id,
-        client_key: client_key,
-        max_product_count: max_product_count
-    }
-};
+module.exports = (core) => {
+    // Config dashboards
+    core.editPlatform('dashboard_general_sponsor', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'general',
+            panel_type: 'sponsor',
+            chat_id: false
+        });
 
-let webshopConfig = (client_key) => {
-    return {
-        api_url: api_url,
-        client_key: client_key
-    };
-};
+        return platform;
+    });
 
-let markdownConfig = (client_key) => {
-    return {
-        api_url: api_url,
-        client_key: client_key,
-    };
-};
+    core.editPlatform('dashboard_general_provider', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'general',
+            panel_type: 'provider',
+            chat_id: false
+        });
 
-let platforms_data = {
-    // markups
-    // "forus-platform-markup": markdownConfig(),
+        return platform;
+    });
 
-    "forus-landing-meapp.general": markdownConfig('general'),
-    "forus-landing-meapp.zuidhorn": markdownConfig('zuidhorn'),
-    "forus-landing-meapp.nijmegen": markdownConfig('nijmegen'),
+    core.editPlatform('dashboard_general_validator', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'general',
+            panel_type: 'validator',
+            chat_id: false
+        });
 
-    /* Sponsor dashboards */
-    "forus-platform.sponsor.general": dashboardConfig('sponsor', 'general'),
-    "forus-platform.sponsor.zuidhorn": dashboardConfig('sponsor', 'zuidhorn'),
-    "forus-platform.sponsor.nijmegen": dashboardConfig('sponsor', 'nijmegen'),
+        return platform;
+    });
 
-    /* Provider dashboards */
-    "forus-platform.provider.general": dashboardConfig('provider', 'general', false, 2),
-    "forus-platform.provider.zuidhorn": dashboardConfig('provider', 'zuidhorn', false, 2),
-    "forus-platform.provider.nijmegen": dashboardConfig('provider', 'nijmegen', false, 2),
+    core.editPlatform('dashboard_zuidhorn_sponsor', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'zuidhorn',
+            panel_type: 'sponsor',
+            chat_id: false
+        });
 
-    /* Validator dashboards */
-    "forus-platform.validator": dashboardConfig('validator', 'general'),
+        return platform;
+    });
 
-    /* webshop markups */
-    // "forus-webshop-general.markup": markdownConfig(),
-    // "forus-webshop-zuidhorn.markup": markdownConfig(),
-    // "forus-webshop-nijmegen.markup": markdownConfig(),
+    core.editPlatform('dashboard_zuidhorn_provider', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'zuidhorn',
+            panel_type: 'provider',
+            chat_id: false
+        });
 
-    /* Webshops */
-    "forus-webshop-general.panel": webshopConfig('general'),
-    "forus-webshop-zuidhorn.panel": webshopConfig('zuidhorn'),
-    "forus-webshop-nijmegen.panel": webshopConfig('nijmegen')
-};
+        return platform;
+    });
 
-module.exports = {
-    // browsersync configs
-    server: {
-        enabled: true,
-        // choose, which platform should be served
-        // you can serve few platforms at the same time, 
-        // but make sure each of them use unique port number
-        platform: Object.keys(platforms_data),
-        // browsersync reloads browser when watched files are modified,
-        // here you can choose which platform besides "served" will make
-        // browsersync to reload.
-        // Sometimes "served" platform rely on foreign platform
-        watch_platforms: "all"
-    },
-    platforms: {
-        // choose which platforms will be enabled, otherwise completely ignored
-        enabled: Object.keys(platforms_data)
-    },
-    platforms_data: platforms_data
+    core.editPlatform('dashboard_nijmegen_sponsor', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'nijmegen',
+            panel_type: 'sponsor',
+            chat_id: false
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('dashboard_nijmegen_provider', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'nijmegen',
+            panel_type: 'provider',
+            chat_id: false
+        });
+
+        return platform;
+    });
+
+    // Config webshops
+    core.editPlatform('webshop_general', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'general'
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_zuidhorn', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'zuidhorn'
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_nijmegen', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'nijmegen'
+        });
+
+        return platform;
+    });
+
+    // Config meapp landings
+    core.editPlatform('landing_meapp_general', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'general'
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('landing_meapp_zuidhorn', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'zuidhorn'
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('landing_meapp_nijmegen', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'nijmegen'
+        });
+
+        return platform;
+    });
+
+    return core;
 };

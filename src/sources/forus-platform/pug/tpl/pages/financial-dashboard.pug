@@ -19,7 +19,7 @@
                 .organization-name(ng-bind="'financial_dashboard.buttons.choose' | translate")
             br
     
-        div(ng-if="$ctrl.fundProviders.length > 0")
+        div(ng-if="$ctrl.fundProviders.data.length > 0")
             .block.block-charts
                 .row: .col.col-sm-12: .card
                     .card-section
@@ -88,8 +88,12 @@
                                     br
                                     | {{ $ctrl.chartData.stringTitle }}
 
-            .card-heading {{ "financial_dashboard.labels.provider" | translate }} ({{ $ctrl.fundProviders.length }}) 
-            fund-card-provider-finances(ng-repeat="fundProvider in $ctrl.fundProviders" fund-provider="fundProvider")
+            .card-heading {{ "financial_dashboard.labels.provider" | translate }} ({{ $ctrl.fundProviders.data.length }})
+            fund-card-provider-finances(ng-repeat="fundProvider in $ctrl.fundProviders.data" fund-provider="fundProvider")
+
+            .card: .card-section(ng-show="$ctrl.fundProviders.meta.last_page > 1")
+                paginator(meta="$ctrl.fundProviders.meta" filters="filter" count-buttons="5" on-page-change="onPageChange(query)")
+
     section.app.app-content(ng-if="$ctrl.funds.length == 0")
         block-empty(
             ng-if="$ctrl.fund == null && $ctrl.funds.length == 0 && ($root.activeOrganization | hasPerm:'manage_funds')" 

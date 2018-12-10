@@ -1,6 +1,8 @@
 let ProductApplyComponent = function(
     $state,
-    VoucherService
+    $filter,
+    VoucherService,
+    ModalService
 ) {
     let $ctrl = this;
 
@@ -25,13 +27,39 @@ let ProductApplyComponent = function(
     };
 
     $ctrl.applyForProduct = (voucher) => {
-        VoucherService.makeProductVoucher(
-            voucher.address,
-            $ctrl.product.id
-        ).then(res => {
-            $state.go('voucher', res.data.data);
-        }, console.error);
+
+        let fund_expire_at = moment(voucher.fund.end_date);
+        let product_expire_at = moment($ctrl.product.expire_at);
+
+        let expire_at = fund_expire_at.isAfter(product_expire_at) ? $ctrl.product.expire_at_locale : voucher.fund.end_date_locale;
+
+        let popupDescription = $filter('i18n')('product_apply.popup.title', {
+            product_name: $ctrl.product.name,
+            expire_at: expire_at,
+            product_price: $ctrl.product.price
+        });
+
+        let popupSubDescription = $filter('i18n')('product_apply.popup.expiration_information', {
+            expire_at: expire_at
+        });
+
+        return ModalService.open('modalNotification', {
+            type: 'confirm',
+            description: popupDescription,
+            subdescription: popupSubDescription,
+            icon: 'voucher_apply',
+            confirm: () => {
+
+                return VoucherService.makeProductVoucher(
+                    voucher.address,
+                    $ctrl.product.id
+                ).then(res => {
+                    $state.go('voucher', res.data.data);
+                }, console.error);
+            }
+        });
     };
+
 };
 
 module.exports = {
@@ -41,7 +69,9 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$filter',
         'VoucherService',
+        'ModalService',
         ProductApplyComponent
     ],
     templateUrl: 'assets/tpl/pages/product-apply.html'

@@ -40,11 +40,12 @@ let FundService = function(ApiRequest) {
             );
         }
 
-        this.listProviders = function (organization_id, fund_id, state) {
+        this.listProviders = function (organization_id, fund_id, state, query) {
+            query = query ? query : {};
+            query.state = state;
+
             return ApiRequest.get(
-                uriPrefix + organization_id + '/funds/' + fund_id + '/providers', {
-                    state: state
-                }
+                uriPrefix + organization_id + '/funds/' + fund_id + '/providers', query
             );
         };
 
@@ -91,6 +92,9 @@ let FundService = function(ApiRequest) {
 
         this.states = function() {
             return [{
+                name: "Waiting",
+                value: 'waiting',
+            },{
                 name: "Actief",
                 value: 'active',
             }, {

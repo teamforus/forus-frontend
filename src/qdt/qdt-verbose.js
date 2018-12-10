@@ -8,9 +8,6 @@ module.exports = {
     task_init_keep_env: 'You decided to save the existing configs!!',
     task_init_override_env: 'You decided to overwrite the existing configs!',
 
-    serv_plat_unknown: "Selected server platform not exists or is disabled.\n",
-    serv_path_unknown: "Please specify server path or switch the platform.\n",
-
     source_add_unk_name: "Please specify name!\n",
     source_add_exists_name: "Source with same name, already exists!\n",
 

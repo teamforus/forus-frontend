@@ -1,4 +1,10 @@
-let ContactFormDirective = function($scope) {
+let ContactFormDirective = function(
+    $scope,
+    ConfigService
+) {
+    $scope.cfg = {
+        logoExtension: ConfigService.getFlag('logoExtension')
+    };
 };
 
 module.exports = () => {
@@ -11,8 +17,9 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
+            'ConfigService',
             ContactFormDirective
         ],
-        templateUrl: 'assets/tpl/directives/contact-form.html' 
+        templateUrl: 'assets/tpl/directives/contact-form.html'
     };
 };

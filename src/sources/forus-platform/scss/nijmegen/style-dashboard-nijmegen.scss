@@ -1,0 +1,19 @@
+@import "./vars";
+@import "../_common/dashboard";
+
+.landing-root {
+    background: #fff;
+    @import './landing';
+}
+
+.button {
+    transition: 0.3s;
+}
+
+.form-group-inline {
+    &.tooltipped {
+        .tooltip-block {
+            z-index: 10;
+        }
+    }
+}

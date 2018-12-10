@@ -1,6 +1,7 @@
 let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies']);
+let appConfigs = JSON.parse(JSON.stringify(env_data));
 
-app.constant('appConfigs', env_data);
+app.constant('appConfigs', appConfigs);
 
 // Controllers
 app.controller('BaseController', require('./controllers/BaseController'));
@@ -45,12 +46,11 @@ app.service('VoucherService', require('./services/VoucherService'));
 app.service('ValidatorService', require('./services/ValidatorService'));
 app.service('GoogleMapService', require('./services/GoogleMapService'));
 app.service('ConfigService', require('./services/ConfigService'));
+app.service('ModalService', require('./services/ModalService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
 app.directive('topNavbar', require('./directives/TopNavbarDirective'));
-app.directive('popupAuth', require('./directives/PopupAuthDirective'));
-app.directive('popupOffices', require('./directives/PopupOfficesDirective'));
 app.directive('contactForm', require('./directives/ContactFormDirective'));
 app.directive('fundCriterion', require('./directives/FundCriterionDirective'));
 app.directive('profileCard', require('./directives/ProfileCardDirective'));
@@ -61,23 +61,49 @@ app.directive('scrollTo', require('./directives/ScrollToDirective'));
 app.directive('collapse', require('./directives/CollapseDirective'));
 app.directive('voucherCard', require('./directives/VoucherCardDirective'));
 app.directive('productCard', require('./directives/ProductCardDirective'));
+app.directive('appFooter', require('./directives/AppFooterDirective'));
+app.directive('i18n', require('./directives/I18nDirective'));
+
+app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
+app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
+
+app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
+app.directive('modalItem', require('./directives/modals/ModalItemDirective'));
+app.directive('modalScrollBraker', require('./directives/modals/ModalScrollBrakerDirective'));
+
+// Modal Components
+app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
+app.component('modalOfficesComponent', require('./components/Modals/ModalOfficesComponent'));
+app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
+app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCodeComponent'));
+app.component('modalActivateCodeComponent', require('./components/Modals/ModalActivateCodeComponent'));
+app.component('modalAuthCodeComponent', require('./components/Modals/ModalAuthCodeComponent'));
 
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
+app.provider('ModalRoute', require('./providers/ModalRouteProvider'));
+app.provider('I18nLib', require('./providers/I18nLibProvider'));
 
 // Filters
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
+app.filter('i18n', require('./filters/I18nFilter'));
 
 // Config
+app.config(require('./routers/modals'));
 app.config(require('./routers/router'));
 app.config(require('./config/api-service'));
 app.config(require('./config/i18n'));
 
 app.run(require('./routers/router-transitions'));
 
+app.run(['appConfigs', (appConfigs) => {
+    let appFlags = require('./config/flags.js');
+    appConfigs.flags = appFlags[env_data.client_key] || appFlags.general
+}]);
+
 // Bootstrap the app
-angular.bootstrap(document.querySelector('html'), ['forusApp', '720kb.datepicker']);
+angular.bootstrap(document.querySelector('html'), ['forusApp']);
 
 if (!env_data.html5ModeEnabled) {
     let hash = document.location.hash;

@@ -6,6 +6,20 @@ let repackResponse = (promise) => {
     });
 }
 
+let repackPagination = (promise) => {
+    return new Promise((resolve, reject) => {
+        promise.then((res) => {
+            resolve(res.data);
+        }, reject);
+    });
+}
+
+let objectOnlyKeys = (obj, keys) => {
+    let out = {};
+    keys.forEach(key=>out[key] = obj[key]);
+    return out;
+};
+
 /**
  * Permission middleware
  * 
@@ -151,7 +165,9 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         component: "fundsMyComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('organization-funds', 'manage_funds'),
+            permission: permissionMiddleware('organization-funds', [
+                'manage_funds', 'view_finances'
+            ], false),
             funds: function(permission, $transition$, FundService) {
                 return repackResponse(
                     FundService.list(
@@ -172,31 +188,13 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
             organization: organziationResolver(),
             permission: permissionMiddleware('organization-providers', 'manage_providers'),
             fundProviders: function(permission, $transition$, OrganizationService) {
-                return repackResponse(
+                return repackPagination(
                     OrganizationService.listProviders(
                         $transition$.params().organization_id
                     )
                 );
             },
             fundLevel: (permission) => "organizationFunds"
-        }
-    });
-
-    // Organization validators
-    $stateProvider.state({
-        name: "validators",
-        url: "/organizations/{organization_id}/validators",
-        component: "organizationValidatorsComponent",
-        resolve: {
-            organization: organziationResolver(),
-            permission: permissionMiddleware('organization-validators', 'manage_validators'),
-            validators: function(permission, $transition$, OrganizationValidatorService) {
-                return repackResponse(
-                    OrganizationValidatorService.list(
-                        $transition$.params().organization_id
-                    )
-                );
-            }
         }
     });
 
@@ -218,34 +216,6 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
             roles: function(permission, RoleService) {
                 return repackResponse(
                     RoleService.list()
-                );
-            }
-        }
-    });
-
-    $stateProvider.state({
-        name: "validators-create",
-        url: "/organizations/{organization_id}/validators/create",
-        component: "organizationValidatorsEditComponent",
-        resolve: {
-            organization: organziationResolver(),
-            permission: permissionMiddleware('validators-create', 'manage_validators'),
-        }
-    });
-
-    $stateProvider.state({
-        name: "validators-edit",
-        url: "/organizations/{organization_id}/validators/{id}/edit",
-        component: "organizationValidatorsEditComponent",
-        resolve: {
-            organization: organziationResolver(),
-            permission: permissionMiddleware('validators-edit', 'manage_validators'),
-            validator: function(permission, $transition$, OrganizationValidatorService) {
-                return repackResponse(
-                    OrganizationValidatorService.read(
-                        $transition$.params().organization_id,
-                        $transition$.params().id
-                    )
                 );
             }
         }
@@ -284,7 +254,7 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
                     return new Promise((res) => res(null));
                 }
 
-                return repackResponse(
+                return repackPagination(
                     FundService.listProviders(
                         $transition$.params().organization_id,
                         $transition$.params().fund_id,
@@ -381,7 +351,9 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
         component: "fundsShowComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('funds-show', 'manage_funds'),
+            permission: permissionMiddleware('funds-show', [
+                'manage_funds', 'view_finances'
+            ], false),
             fund: function(permission, $transition$, FundService) {
                 return repackResponse(
                     FundService.read(
@@ -436,7 +408,7 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
             organization: organziationResolver(),
             permission: permissionMiddleware('transactions-list', 'view_finances'),
             transactions: function($transition$, TransactionService, appConfigs) {
-                return repackResponse(
+                return repackPagination(
                     TransactionService.list(
                         appConfigs.panel_type,
                         $transition$.params().organization_id
@@ -577,7 +549,7 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
     // Validators
     $stateProvider.state({
         name: 'csv-validation',
-        url: '/csv-validation/funds/{fund_id}',
+        url: '/csv-validation/funds/{fund_id}?page&q',
         component: 'csvValidationComonent',
         params: {
             fund_id: {
@@ -596,9 +568,11 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
                     FundService.list()
                 );
             },
-            prevalidations: function(PrevalidationService) {
-                return repackResponse(
-                    PrevalidationService.list()
+            prevalidations: function($transition$, PrevalidationService) {
+                return repackPagination(
+                    PrevalidationService.list(objectOnlyKeys($transition$.params(), [
+                        'page', 'q'
+                    ]))
                 );
             },
             recordTypes: function(RecordTypeService) {

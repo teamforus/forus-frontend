@@ -40,10 +40,38 @@ let SignUpComponent = function(
     let orgMediaFile = false;
     let waitingSms = false;
 
+    let invalidPermissions = {
+        sponsor: [
+            "manage_provider_funds", "manage_products", "manage_offices",
+            "scan_vouchers"
+        ],
+        provider: [
+            "manage_funds", "manage_providers", "manage_validators",
+            "validate_records", "scan_vouchers"
+        ]
+    } [appConfigs.panel_type];
+
     $ctrl.beforeInit = () => {
         if ($rootScope.auth_user) {
-            $state.go('organizations');
-            progressStorage.clear();
+
+            OrganizationService.list().then(res => {
+                $ctrl.organizations = res.data.data.filter(organization => {
+                    return organization.permissions.filter((permission => {
+                        return invalidPermissions.indexOf(permission) == -1;
+                    })).length > 0;
+                });
+
+                if ($ctrl.organizations.length == 1) {
+                    $ctrl.organization = $ctrl.organizations[0];
+                    loadOrganizationOffices($ctrl.organization);
+                    loadAvailableFunds($ctrl.organization);
+
+                    $ctrl.setStep(4);
+                }else{
+                    $state.go('organizations');
+                    progressStorage.clear();
+                }
+            });
         }
     };
 
@@ -127,19 +155,7 @@ let SignUpComponent = function(
         $ctrl.signUpForm = FormBuilderService.build({
             pin_code: "1111",
         }, function(form) {
-            if (form.values.records && form.values.records.primary_email != form.values.records.primary_email_confirmation) {
-                return $q((resolve, reject) => {
-                    reject({
-                        data: {
-                            errors: {
-                                'records.primary_email_confirmation': [$filter('translate')('validation.email_confirmation')]
-                            }
-                        }
-                    });
-                });
-            }
-
-            let formValues = form.values;
+            let formValues = angular.copy(form.values);
 
             if (formValues.records) {
                 delete formValues.records.primary_email_confirmation;
@@ -243,7 +259,7 @@ let SignUpComponent = function(
         }
 
         if (step == 7 && appConfigs.panel_type == 'sponsor') {
-            $state.go('organziations');
+            $state.go('organizations');
         }
     };
 
@@ -294,7 +310,26 @@ let SignUpComponent = function(
             }
 
         } else if ($ctrl.step == 2) {
-            $ctrl.setStep(3);
+
+            if ($ctrl.signUpForm.values.records && $ctrl.signUpForm.values.records.primary_email != $ctrl.signUpForm.values.records.primary_email_confirmation) {
+                $ctrl.signUpForm.errors = {};
+                $ctrl.signUpForm.errors['records.primary_email_confirmation'] = [$filter('translate')('validation.email_confirmation')];
+            } else {
+
+                IdentityService.make({
+                    records: {
+                        primary_email: $ctrl.signUpForm.values.records ? $ctrl.signUpForm.values.records.primary_email : ''
+                    }
+                }).then((res) => {}, (res) => {
+                    $ctrl.signUpForm.errors = {};
+                    if (res.data.errors['records.primary_email'] && res.data.errors['records.primary_email'].length) {
+                        $ctrl.signUpForm.errors['records.primary_email'] = res.data.errors['records.primary_email'];
+                    } else {
+                        $ctrl.setStep(3);
+                    }
+                });
+            }
+
         } else if ($ctrl.step == 3) {
             let authRes;
 

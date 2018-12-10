@@ -1,4 +1,5 @@
 module.exports = {
+    test: "{{name}} {{foo}}",
     permissions: require("./en/permissions"),
     page_title: 'Forus platform',
     page_state_titles: {
@@ -182,6 +183,7 @@ module.exports = {
     // PERSONAL FUNDS = funds-my.pug
     funds_my: {
         title: "Fondsen",
+        add: 'Fonds toevoegen'
     },
 
     // SHOW FUNDS = funds-show.pug
@@ -375,8 +377,8 @@ module.exports = {
     provider_funds_available: {
         title: "Fondsen",
         applied_for_fund: {
-            title: "Je aanvraag is ontvangen.",
-            description: "De gemeente zal je verzoek behandelen, dit kan twee weken duren. Zodra de gemeente je aanvraag heeft behandeld wordt er een e-mail toegestuurd. Daarnaast kan je de status ook volgen op het dashboard."
+            title: "Uw aanvraag is ontvangen.",
+            description: "De gemeente zal uw verzoek behandelen, dit kan maximaal twee weken duren. Zodra de gemeente uw aanvraag heeft behandeld wordt er een e-mail toegestuurd. Daarnaast kunt u de status ook volgen op het dashboard."
         }
     },
 
@@ -431,8 +433,8 @@ module.exports = {
             subtitle_step_6: "",
             top_title_step_6: "Gebruik Me",
             top_subtitle_step_6: "Rond de installatie af door gebruik te maken van <i>Me</i>",
-            title_step_7: "Gebruik Me",
-            subtitle_step_7: "Rond de installatie af door gebruik te maken van <i>Me</i>",
+            title_step_7: "Meld u aan voor een fonds",
+            subtitle_step_7: "Uw aanvraag wordt binnen twee weken behandeld door de gemeente.",
         },
         labels: {
             mail: "Persoonlijk E-mailadres",
@@ -479,7 +481,7 @@ module.exports = {
             subtitle: 'De code is te vinden in de mobiele applicatie, volg de bovenstaande stappen op om de code te kunnen aflezen.'
         },
         login: {
-            title: 'Heeft u al een profiel?',
+            title: 'Heeft u al een profiel aan gemaakt in <i>Me</i>?',
             description: 'Waneer u al een profiel heeft aangemaakt, biedt de onderstaande knop de mogelijkheid om direct in te loggen op dit profiel.',
             qr_description: 'Scan deze QR-code met de app <i>Me</i> als u al een profiel heeft aangemaakt.'
         },
@@ -776,8 +778,29 @@ module.exports = {
 
     // PROGRESS BAR = progress-bar.pug
     // No translations needed
-    // SCHEDULE CONTROL = schedule-controle.puh
+    // SCHEDULE CONTROL = schedule-controle.pug
     // No translations needed
+
+    // PAGINATOR LOADER = paginator-loader.pug
+
+    paginator_loader: {
+        buttons: {
+            load: "Laad meer activatie codes",
+        },
+        labels: {
+            from: "Van",
+        }
+    },
+
+    paginator: {
+        buttons: {
+            first: "Eerste",
+            last: "Laatste",
+        },
+        labels: {
+            from: "Van",
+        }
+    },
 
     // MENU = langing/navbar.pug
     topnavbar: {
