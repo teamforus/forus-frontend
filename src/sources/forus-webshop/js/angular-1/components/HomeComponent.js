@@ -14,5 +14,8 @@ module.exports = {
         'ModalService',
         HomeComponent
     ],
-    templateUrl: 'assets/tpl/pages/home.html'
+
+    templateUrl: (appConfigs) => {
+            return 'assets/tpl/pages/home.html'
+    }
 };

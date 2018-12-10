@@ -1,10 +1,7 @@
 let BaseController = function(
     $rootScope,
-    $scope,
     $state,
-    IdentityService,
     AuthService,
-    CredentialsService,
     RecordService,
     OrganizationService,
     ConfigService,
@@ -71,15 +68,13 @@ let BaseController = function(
     });
 
     $rootScope.pageTitle = $filter('translate')('page_title');
+    $rootScope.client_key = appConfigs.client_key;
 };
 
 module.exports = [
     '$rootScope',
-    '$scope',
     '$state',
-    'IdentityService',
     'AuthService',
-    'CredentialsService',
     'RecordService',
     'OrganizationService',
     'ConfigService',

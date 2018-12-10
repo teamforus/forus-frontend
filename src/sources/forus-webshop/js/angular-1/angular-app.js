@@ -1,6 +1,7 @@
 let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies']);
+let appConfigs = JSON.parse(JSON.stringify(env_data));
 
-app.constant('appConfigs', env_data);
+app.constant('appConfigs', appConfigs);
 
 // Controllers
 app.controller('BaseController', require('./controllers/BaseController'));
@@ -93,8 +94,13 @@ app.config(require('./config/i18n'));
 
 app.run(require('./routers/router-transitions'));
 
+app.run(['appConfigs', (appConfigs) => {
+    let appFlags = require('./config/flags.js');
+    appConfigs.flags = appFlags[env_data.client_key] || appFlags.general
+}]);
+
 // Bootstrap the app
-angular.bootstrap(document.querySelector('html'), ['forusApp', '720kb.datepicker']);
+angular.bootstrap(document.querySelector('html'), ['forusApp']);
 
 if (!env_data.html5ModeEnabled) {
     let hash = document.location.hash;

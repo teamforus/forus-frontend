@@ -1,6 +1,4 @@
-let FooterDirective = function($scope, $timeout) {
-    $timeout(() => $scope.displayFooter = true, 1000);
-};
+let AppFooterDirective = function() {};
 
 module.exports = () => {
     return {
@@ -8,9 +6,7 @@ module.exports = () => {
         restrict: "EA",
         replace: true,
         controller: [
-            '$scope',
-            '$timeout',
-            FooterDirective
+            AppFooterDirective
         ],
         templateUrl: 'assets/tpl/directives/app-footer.html' 
     };

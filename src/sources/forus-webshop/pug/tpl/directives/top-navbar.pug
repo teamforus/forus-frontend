@@ -1,31 +1,52 @@
-.block.block-navbar
+.block.block-navbar: .navbar-inner
     a(ui-sref="home").navbar-logo
-        img(src="./assets/img/forus-logo-normal.svg")
-        img(src="./assets/img/forus-logo-hover.svg").hover
+        img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
+        img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover
     nav.navbar-list
-        a(
-            ui-sref="funds" 
-            ui-sref-active="active"
-            ng-if="$root.appConfigs.features.funds.list"
-            ng-bind="'topnavbar.items.funds' | translate").navbar-item
-        a(
-            ui-sref="products" 
-            ui-sref-active="active"
-            ng-if="$root.appConfigs.features.products.list"
-            ng-bind="'topnavbar.items.products' | translate").navbar-item
+        if (qdt_c.platform.env_data.client_key != 'general')  
+            a(
+                ui-sref="funds" 
+                ui-sref-active="active"
+                ng-if="$root.appConfigs.features.funds.list"
+                ng-bind="'topnavbar.items.funds' | translate").navbar-item
+        if (qdt_c.platform.env_data.client_key != 'general')  
+            a(
+                ui-sref="products" 
+                ui-sref-active="active"
+                ng-if="$root.appConfigs.features.products.list"
+                ng-bind="'topnavbar.items.products' | translate").navbar-item
+        if (qdt_c.platform.env_data.client_key == 'general')
+            a(
+                href="https://zuidhorn.forus.io/sponsor" 
+                translate="GEMEENTE").navbar-item  
+            a(
+                href="https://zuidhorn.forus.io/sponsor" 
+                translate="AANBIEDER").navbar-item  
+            a(
+                href="https://zuidhorn.forus.io/me" 
+                translate="ME").navbar-item 
+            a(
+                href="https://about.forus.io" 
+                translate="OVER ONS").navbar-item
+    .block.block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
+        .auth-code
+            a(ui-sref="vouchers").button.button-default
+                em.mdi.mdi-ticket-confirmation
+                span(translate="topnavbar.buttons.voucher")
+
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
             .auth-user
                 .auth-user-email(ng-bind="$root.auth_user.primary_email")
-                .auth-user-type {{ "topnavbar.items.identity" | translate }}
+                .auth-user-type(translate="topnavbar.items.identity")
                 .auth-user-avatar
                     img(src="./assets/img/identity-avatar.svg")
                     nav.auth-user-menu
                         .triangle
                         .inner
-                            a(ui-sref="vouchers").auth-user-menu-item
+                            a(ng-click="openActivateCodePopup()").auth-user-menu-item
                                 img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg")
-                                | {{ "topnavbar.buttons.voucher" | translate }}
+                                span(translate="topnavbar.buttons.activate")
                             a(
                                 ui-sref="records"
                                 ng-if="$root.appConfigs.features.records.list").auth-user-menu-item
@@ -33,38 +54,38 @@
                                 | Mijn eigenschappen
                             .auth-user-menu-item(ng-click="openPinCodePopup()").hide-sm
                                 em.mdi.mdi-cellphone
-                                | {{ "topnavbar.buttons.authorize" | translate }}
+                                span(translate="topnavbar.buttons.authorize")
+
                             .auth-user-menu-separator.show-sm
                             a.auth-user-menu-item.show-sm(
                                 ui-sref="funds" 
                                 ui-sref-active="active"
                                 ng-if="$root.appConfigs.features.funds.list")
                                 em.mdi.mdi-star-outline
-                                | {{ "topnavbar.buttons.logout" | translate }}
+                                span(translate="topnavbar.buttons.logout")
                             a.auth-user-menu-item.show-sm(
                                 ui-sref="products" 
                                 ui-sref-active="active"
                                 ng-if="$root.appConfigs.features.products.list")
                                 em.mdi.mdi-store
-                                | {{ "topnavbar.buttons.products" | translate }}
+                                span(translate="topnavbar.buttons.products")
                             .auth-user-menu-separator.show-sm
                             .auth-user-menu-item.show-sm(ng-click="openActivateCodePopup()")
                                 em.mdi.mdi-ticket
-                                | {{ "topnavbar.buttons.activate" | translate }}
+                                span(translate="topnavbar.buttons.activate")
                             .auth-user-menu-separator
                             div(ng-click="$root.signOut()").auth-user-menu-item
                                 img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
-                                | {{ "topnavbar.buttons.logout" | translate }}
+                                span(translate="topnavbar.buttons.logout")
 
         .auth-out(ng-if="!$root.auth_user")
             .button.button-default(ng-click="openAuthCodePopup()")
                 em.mdi.mdi-ticket-confirmation
-                //- img(src="./assets/img/icon-btn/icon-btn-ticket.svg")
-                | {{ "topnavbar.buttons.activate" | translate }}
+                span(translate="topnavbar.buttons.activate")
             .button.button-default(ng-click="openAuthPopup()")
                 em.mdi.mdi-account
-                //- img(src="./assets/img/icon-btn/icon-btn-user.svg")
-                | {{ "topnavbar.buttons.login" | translate }}
+                span(translate="topnavbar.buttons.login")
+
     //- .block.block-auth.sm-pull-left
         .lang-selector
             .lang-label 
@@ -76,8 +97,4 @@
                     ng-repeat="lang in $root.i18nLangs" 
                     ng-bind="'languages.' + lang | translate"
                     ng-click="$root.setLang(lang)")
-    .block.block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
-        .auth-code
-            .button.button-default(ng-click="openActivateCodePopup()")
-                em.mdi.mdi-ticket-confirmation
-                | {{ "topnavbar.buttons.activate" | translate }}
+    

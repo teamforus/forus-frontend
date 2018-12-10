@@ -10,3 +10,20 @@ setTimeout(() => {
         scroll: 'bottom' 
     });
 }, 500);
+
+if (env_data.client_key == 'nijmegen') {
+    function onPageLoaded() {
+
+        var OFFSET_TOP = 50;
+
+        $(window).unbind('scroll').bind('scroll', function() {
+            $(".block-navbar").length && ($(".block-navbar").offset().top > OFFSET_TOP ? $(".block-navbar").addClass("top-nav-collapse") : $(".block-navbar").removeClass("top-nav-collapse"))
+        });
+
+        $('.form-label').addClass('active');
+    }
+
+    $(document).ready(function() {
+        onPageLoaded();
+    });
+}
