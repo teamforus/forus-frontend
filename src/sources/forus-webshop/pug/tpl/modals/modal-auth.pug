@@ -15,7 +15,7 @@
                 .auth_type-icon: img(src="./assets/img/icon-login-type/icon_login-type_email.png")
                 .auth_type-name {{ "popup_auth.buttons.mail" | translate }}
 
-        .modal-footer
+        //-.modal-footer
             .footer-text {{ "popup_auth.labels.timelimit" | translate }}
 
     //- Sign In by qr-code
@@ -28,7 +28,7 @@
         .block.block-auth-qr-code
             .qr_code#auth_qrcode
 
-        .modal-footer
+        //-.modal-footer
             .footer-text {{ "popup_auth.labels.timelimit" | translate }}
 
     //- Sign In by email
@@ -46,5 +46,5 @@
             .form-group
             .form-group: button(type="submit").button.button-primary.button-wide {{ "popup_auth.buttons.submit" | translate }}
 
-        .modal-footer
+        //-.modal-footer
             .footer-text {{ "popup_auth.labels.timelimit" | translate }}
