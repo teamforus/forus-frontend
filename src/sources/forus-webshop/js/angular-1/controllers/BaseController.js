@@ -5,7 +5,6 @@ let BaseController = function(
     RecordService,
     OrganizationService,
     ConfigService,
-    $translate,
     $filter,
     appConfigs
 ) {
@@ -51,14 +50,6 @@ let BaseController = function(
 
     $rootScope.appConfigs = appConfigs;
 
-    $rootScope.i18nLangs = $translate.getAvailableLanguageKeys();
-    $rootScope.i18nActive = $translate.use();
-
-    $rootScope.setLang = (lang) => {
-        $translate.use(lang);
-        $rootScope.i18nActive = $translate.use();
-    };
-
     if (AuthService.hasCredentials()) {
         $rootScope.loadAuthUser();
     }
@@ -78,7 +69,6 @@ module.exports = [
     'RecordService',
     'OrganizationService',
     'ConfigService',
-    '$translate',
     '$filter',
     'appConfigs',
     BaseController
