@@ -694,11 +694,11 @@ let clearTask = (done) => {
     }).then(() => done());
 };
 
-// cleaner
-gulp.task('clean', clearTask);
-
-// cleaner alias
+// clear task
 gulp.task('clear', clearTask);
+
+// clear task alias
+gulp.task('clean', clearTask);
 
 // scss task
 gulp.task('scss', scssTask);
@@ -715,23 +715,26 @@ gulp.task('libs', libsTask);
 // pug task
 gulp.task('pug', pugTask);
 
-// serve processing
+// server task
 gulp.task('server', serverTask);
+
+// server task alias
+gulp.task('serve', serverTask);
 
 // initialize qdt on fresh install
 gulp.task('init', initTask);
 
-// warch processing
+// watch changes
 gulp.task('watch', gulp.parallel([
     serverTask, watchTask
 ]));
 
-// warch processing
+// build task
 gulp.task('build', gulp.series([
     scssTask, pugTask, jsTask, assetsTask, libsTask
 ]), done => done());
 
-// warch processing
+// build task alias
 gulp.task('compile', gulp.series([
     'build'
 ]), done => done());
