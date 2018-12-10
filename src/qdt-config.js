@@ -16,4 +16,9 @@ core.addPlatform(require('./platforms/Webshops/WebshopGeneralPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopZuidhornPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopNijmegenPlatform'));
 
+// Register meapp landings
+core.addPlatform(require('./platforms/Landings/LandingMeAppGeneralPlatform'));
+core.addPlatform(require('./platforms/Landings/LandingMeAppZuidhornPlatform'));
+core.addPlatform(require('./platforms/Landings/LandingMeAppNijmegenPlatform'));
+
 module.exports = core;

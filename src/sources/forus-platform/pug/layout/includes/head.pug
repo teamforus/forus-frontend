@@ -11,29 +11,6 @@ head
     //- fonts
     link(href="https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,500,700" rel="stylesheet")
 
-    //- 
-        //- material design icons (by google)
-        if (qdt_c.platform.libs.mdi)
-            link(rel="stylesheet" href=src_prefix + "assets/dist/mdi/css/materialdesignicons.min.css")
-
-        //- bootstrap 3
-        if (qdt_c.platform.libs.bootstrap_3)
-            link(rel="stylesheet" href=src_prefix + "assets/dist/bootstrap/css/bootstrap.min.css")
-
-        //- angular csp (cloack)
-        if (qdt_c.platform.libs.angular)
-            link(rel="stylesheet" href=src_prefix + "assets/dist/angular/angular-csp.css")
-
-
-        link(rel="stylesheet" href=src_prefix + "assets/dist/angular-datepicker/angular-datepicker.min.css")
-        link(rel="stylesheet" href=src_prefix + "assets/dist/ui-cropper/ui-cropper.css")
-
-    //- custom style
-        if(client_key == 'nijmegen')
-            link(rel="stylesheet" href=src_prefix + "assets/css/style-nijmegen.min.css")
-        else
-            link(rel="stylesheet" href=src_prefix + "assets/css/style.min.css")
-
     //- libs bundle
     link(rel="stylesheet", href=src_prefix + "assets/dist/bundle/css/bundle.min.css")
 

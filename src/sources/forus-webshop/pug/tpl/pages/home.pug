@@ -63,7 +63,7 @@ section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
         +blog_item(1)
         +blog_item(2)
         +blog_item(3)
-    .block.block-show-more: a(href="#").button.button-primary(translate="home.blog.button")
+    .block.block-show-more: a(href="#" translate="home.blog.button").button.button-primary
 
 if (qdt_c.platform.env_data.client_key != 'general')   
     section.section.section-faq: .wrapper

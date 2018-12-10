@@ -727,8 +727,13 @@ gulp.task('watch', gulp.parallel([
 ]));
 
 // warch processing
-gulp.task('compile', gulp.series([
+gulp.task('build', gulp.series([
     scssTask, pugTask, jsTask, assetsTask, libsTask
+]), done => done());
+
+// warch processing
+gulp.task('compile', gulp.series([
+    'build'
 ]), done => done());
 
 // default task
