@@ -9,6 +9,8 @@ let LinearChartDirective = function($scope, $element) {
         let labels = [];
         let values = [];
 
+        moment.locale('nl');
+
         data.forEach(value => {
             labels.push(moment(value.key, "YYYY-MM-DD").toDate());
             values.push({

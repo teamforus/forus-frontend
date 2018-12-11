@@ -53,7 +53,7 @@ header.section.section-header.section-header-voucher: .wrapper
         div(ng-click="$ctrl.sendVoucherEmail($ctrl.voucher)" ng-bind="'voucher.buttons.send' | translate").button.button-primary
 
 section.section.section-voucher-details: .wrapper
-    .block.block-transactions(ng-if="$ctrl.voucherCard.transactions.length > 0")
+    .block.block-transactions(ng-if="$ctrl.voucherCard.transactions.length > 0 && !$ctrl.voucherCard.product")
         .transactions-header: .transactions-title {{ "voucher.labels.transactions" | translate }}
         .transactions-body: .transactions-list
             .transactions-item(ng-repeat="transaction in $ctrl.voucherCard.transactions" class="transactions-item-out")
@@ -67,6 +67,12 @@ section.section.section-voucher-details: .wrapper
                 .transactions-item-amount 
                     .transactions-item-value - €{{ transaction.amount | to_fixed:2 }}
                     .transactions-item-type {{ "voucher.labels.subtract" | translate }}
+
+    block-products(
+    ng-if="$root.appConfigs.features.products.list"
+    sample="true"
+    products="$ctrl.products"
+    product-categories="$ctrl.productCategories")
 
     .block.block-map_card
         .map_card-header

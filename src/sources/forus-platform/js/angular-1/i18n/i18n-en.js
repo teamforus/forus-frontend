@@ -684,6 +684,7 @@ module.exports = {
             restart: "Herstart",
             pause: "Pauze",
             add: "Budget toevoegen",
+            delete: 'Verwijderen'
         },
         status: {
             active: "Actief",
@@ -708,6 +709,10 @@ module.exports = {
             payment: "Betaling -",
 
         },
+        confirm_delete:{
+            title: 'Weet u zeker dat u dit fonds wilt verwijderen?',
+            description: 'Het verwijderen van een fonds is definitief. U kunt dit niet ongedaan maken.'
+        }
     },
 
     // PROVIDER MENU = menu-provider.pug

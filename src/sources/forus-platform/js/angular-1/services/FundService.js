@@ -136,6 +136,12 @@ let FundService = function(ApiRequest) {
                 formValues
             );
         };
+
+        this.destroy = function(organization_id, fund_id) {
+            return ApiRequest.delete(
+                uriPrefix + organization_id + '/funds/' + fund_id
+            );
+        }
     });
 };
 
