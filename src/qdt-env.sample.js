@@ -1,4 +1,5 @@
 let api_url = "https://dev.api.forus.link/api/v1";
+let about_url = "https://about.forus.io/";
 
 module.exports = (core) => {
     // Config dashboards
@@ -83,7 +84,8 @@ module.exports = (core) => {
     core.editPlatform('webshop_general', (platform) => {
         platform.setEnvData({
             api_url: api_url,
-            client_key: 'general'
+            client_key: 'general',
+            about_url: about_url
         });
 
         return platform;
