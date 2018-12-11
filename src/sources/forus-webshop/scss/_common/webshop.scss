@@ -41,9 +41,17 @@ body {
     background-color: #f3f8fe;
     background: linear-gradient(to bottom, #f3f8fe 0%,#feffff 100%);
 
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+
     &.modal-shown {
         overflow: hidden;
     }
+}
+
+ui-view{
+    flex: 1;
 }
 
 .triangle {

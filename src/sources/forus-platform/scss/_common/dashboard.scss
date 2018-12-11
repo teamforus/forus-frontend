@@ -199,6 +199,8 @@ translate,
         font: 400 13px/24px $bf;
         color: $bec;
         margin: 0;
+
+        &:first-letter {text-transform:uppercase}
     }
 
     .form-label {
@@ -3208,6 +3210,8 @@ translate,
     font: 400 13px/24px $bf;
     color: $bec;
     margin: 0;
+
+    &:first-letter {text-transform:uppercase}
 }
 
 
