@@ -342,7 +342,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 return FundService.states();
             },
             productCategories: function(permission, ProductCategoryService) {
-                return repackResponse(ProductCategoryService.list());
+                return repackResponse(ProductCategoryService.listAll());
             }
         }
     });
