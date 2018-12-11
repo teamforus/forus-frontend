@@ -144,6 +144,11 @@ app.config(require('./config/i18n'));
 
 app.run(require('./routers/router-transitions'));
 
+app.run(['appConfigs', (appConfigs) => {
+    let appFlags = require('./config/flags.js');
+    appConfigs.flags = appFlags[env_data.client_key] || appFlags.general
+}]);
+
 // Bootstrap the app
 angular.bootstrap(document.querySelector('html'), ['forusApp', '720kb.datepicker']);
 

@@ -2,12 +2,12 @@ let ProductsComponent = function(
     $state, 
     $stateParams,
     $filter,
-    $rootScope,
+    appConfigs,
     ModalService
 ) {
     let $ctrl = this;
 
-    $ctrl.maxProductCount = $rootScope.appConfigs.max_product_count ? $rootScope.appConfigs.max_product_count : null;
+    $ctrl.maxProductCount = appConfigs.flags.maxProductCount ? appConfigs.flags.maxProductCount : null;
 
     $ctrl.$onInit = function() {
         $ctrl.emptyBlockLink = $state.href('products-create', $stateParams);
@@ -39,7 +39,7 @@ module.exports = {
         '$state', 
         '$stateParams',
         '$filter',
-        '$rootScope',
+        'appConfigs',
         'ModalService',
         ProductsComponent
     ],

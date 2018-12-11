@@ -91,6 +91,17 @@ translate,
         }
     }
 
+    &.button-danger {
+        background: #FF0000;
+        border-color: #FF0000;
+        color: #fff;
+
+        &:hover {
+            background: #bf0a0a;
+            border-color: #bf0a0a;
+        }
+    }
+
     &.button-wide,
     &.button-wide {
         width: 100%;

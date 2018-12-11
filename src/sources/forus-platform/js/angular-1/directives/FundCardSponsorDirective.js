@@ -1,6 +1,7 @@
 let FundCardDirective = function(
     $scope,
     $state,
+    $filter,
     FundService,
     ModalService,
     ProviderFundService
@@ -36,7 +37,25 @@ let FundCardDirective = function(
         }, {
             onClose: () => topUpInProgress = false
         });
-    }
+    };
+
+    $scope.deleteFund = function(fund) {
+
+        ModalService.open('modalNotification', {
+            type: 'confirm',
+            title: $filter('i18n')('fund_card_sponsor.confirm_delete.title'),
+            icon: 'product_error_create_more',
+            description: $filter('i18n')('fund_card_sponsor.confirm_delete.description'),
+            confirm: () => {
+                FundService.destroy(
+                    fund.organization_id,
+                    fund.id
+                ).then(function(res) {
+                    $state.reload();
+                });
+            }
+        });
+    };
 
     $scope.fundOrg = $scope.fund.organization;
 };
@@ -53,6 +72,7 @@ module.exports = () => {
         controller: [
             '$scope',
             '$state',
+            '$filter',
             'FundService',
             'ModalService',
             'ProviderFundService',
