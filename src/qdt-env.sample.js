@@ -92,7 +92,11 @@ module.exports = (core) => {
     core.editPlatform('webshop_zuidhorn', (platform) => {
         platform.setEnvData({
             api_url: api_url,
-            client_key: 'zuidhorn'
+            client_key: 'zuidhorn',
+            // html5ModeEnabled: true,
+            // html5Mode: {
+            //    basePath: '/'
+            // }
         });
 
         return platform;
