@@ -13,17 +13,17 @@ header.section.section-header.section-header-landing
             //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
             
             .header-description(i18n="home.header.{{ $root.client_key }}.subtitle")
-            if (qdt_c.platform.env_data.client_key != 'general')  
+            if (appConfigs.flags.homeButton  == true) != 'general')  
                 a(scroll-to="#steps" i18n="home.header.{{ $root.client_key }}.button").button.button-primary
-            if (qdt_c.platform.env_data.client_key == 'general')  
+            if (appConfigs.flags.homeButton  == false)
                 a(href="https://about.forus.io/nl/contact/" i18n="NEEM CONTACT MET ONS OP").button.button-primary  
-if (qdt_c.platform.env_data.client_key != 'general')  
+if (appConfigs.flags.homeProducts  != false)  
     block-products(
         ng-if="$root.appConfigs.features.products.list"
         sample="true" 
         products="$ctrl.products" 
         product-categories="$ctrl.productCategories")
-if (qdt_c.platform.env_data.client_key != 'general')  
+if (appConfigs.flags.homeMap  != false)  
     section.section.section-map: .wrapper
         .block.block-map
             .block-content
@@ -31,7 +31,7 @@ if (qdt_c.platform.env_data.client_key != 'general')
                 .block-description(i18n="home.map.{{ $root.client_key }}.subtitle")
                 button(ng-click="$ctrl.showPopupOffices()" i18n="home.map.button").button.button-primary
 
-if (qdt_c.platform.env_data.client_key != 'general')  
+if (appConfigs.flags.homeSteps  != false) 
     section.section.section-steps#steps: .wrapper
         .section-splash
         .section-sprite
@@ -70,7 +70,7 @@ section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
         +blog_item(3)
     .block.block-show-more: a(href="#" i18n="home.blog.button").button.button-primary
 
-if (qdt_c.platform.env_data.client_key != 'general')   
+if (appConfigs.flags.homeFaq  != false)  
     section.section.section-faq: .wrapper
         .section-splash
         .section-title {{ "home.faq.title" | i18n }}
