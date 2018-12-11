@@ -1,4 +1,6 @@
-module.exports = function($stateProvider) {
+module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
+    $stateProvider, $locationProvider, appConfigs
+) {
     let repackResponse = (promise) => {
         return new Promise((resolve, reject) => {
             promise.then((res) => {
@@ -284,9 +286,17 @@ module.exports = function($stateProvider) {
                     alert("Token expired or unknown.");
                     $state.go('home');
                 });
-            }],
+            }
+        ],
         data: {
             token: null
         }
     });
-};
+
+    if (appConfigs.html5ModeEnabled) {
+        $locationProvider.html5Mode({
+            enabled: true,
+            requireBase: true
+        }).hashPrefix('!');
+    }
+}];
