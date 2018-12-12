@@ -114,6 +114,25 @@ let FinancialDashboardComponent = function(
     };
 
     $ctrl.$onInit = function () {
+
+        if (Array.isArray($ctrl.funds)) {
+
+            $ctrl.funds = $ctrl.funds.filter(function(fund) {
+                return fund.state !== 'waiting';
+            });
+
+            if($ctrl.funds.length == 1 && !$ctrl.fund){
+                $state.go('financial-dashboard', {
+                    organization_id: $ctrl.funds[0].organization_id,
+                    fund_id: $ctrl.funds[0].id
+                });
+            }
+
+            $ctrl.funds.forEach((fund, index, funds) => {
+                fund.fundCategories = _.pluck(fund.product_categories, 'name').join(', ');
+            });
+        }
+
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
 
         $ctrl.chartData.update();
@@ -125,16 +144,6 @@ let FinancialDashboardComponent = function(
                 });
 
                 return fundProvider;
-            });
-        }
-
-        if (Array.isArray($ctrl.funds)) {
-            $ctrl.funds.forEach((fund, index, funds) => {
-                if(fund.state == 'waiting'){
-                    funds.splice(index, 1);
-                }else {
-                    fund.fundCategories = _.pluck(fund.product_categories, 'name').join(', ');
-                }
             });
         }
 
