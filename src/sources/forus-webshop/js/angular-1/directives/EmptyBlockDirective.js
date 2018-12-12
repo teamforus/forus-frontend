@@ -16,6 +16,7 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
+            'ModalService',
             EmptyBlockDirective
         ],
         templateUrl: 'assets/tpl/directives/empty-block.html' 

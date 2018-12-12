@@ -1,6 +1,6 @@
 .block.block-empty
     .block-title(ng-bind="title")
     .block-description(ng-bind="description")
-    a(ng-click="openActivateCodePopup()").block-link
+    a(ng-click="openActivateCodePopup()" ng-if="!hideLink").block-link
         ng-bind(ng-bind="text")
         em.mdi.mdi-arrow-right
