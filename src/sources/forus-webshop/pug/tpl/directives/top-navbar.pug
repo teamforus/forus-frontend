@@ -15,19 +15,19 @@
             ng-bind="'topnavbar.items.products' | translate").navbar-item
         a(
             ng-if="$root.appConfigs.flags.sponsorLandingMenu"
-            ng-href="{{ $root.fronts.url_sponsor }}" 
+            ng-href="{{ $root.appConfigs.frontends.url_sponsor }}" 
             translate="GEMEENTE").navbar-item  
         a(
             ng-if="$root.appConfigs.flags.providerLandingMenu"
-            href="{{ $root.appConfigs.fronts.url_provider }}"
+            href="{{ $root.appConfigs.frontends.url_provider }}"
             translate="AANBIEDER").navbar-item  
         a(
             ng-if="$root.appConfigs.flags.meLandingMenu"
-            ng-href="{{ $root.fronts.url_app }}" 
+            ng-href="{{ $root.appConfigs.frontends.url_app }}" 
             translate="ME").navbar-item 
         a(
             ng-if="$root.appConfigs.flags.aboutSiteMenu"
-            href="{{ $root.about_url }}" 
+            href="{{ $root.appConfigs.about_url }}" 
             translate="OVER ONS").navbar-item
     .block.block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
         .auth-code
