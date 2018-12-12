@@ -379,6 +379,10 @@ module.exports = {
         applied_for_fund: {
             title: "Uw aanvraag is ontvangen.",
             description: "De gemeente zal uw verzoek behandelen, dit kan maximaal twee weken duren. Zodra de gemeente uw aanvraag heeft behandeld wordt er een e-mail toegestuurd. Daarnaast kunt u de status ook volgen op het dashboard."
+        },
+        error_apply: {
+            title: 'U heeft nog geen vestigingen aangemaakt!',
+            description: 'U hebt tenminste één vestiging nodig om uw organisatie aan te melden voor {{fund_name}}'
         }
     },
 
