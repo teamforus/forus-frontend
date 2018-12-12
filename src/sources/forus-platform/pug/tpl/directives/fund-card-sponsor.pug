@@ -56,8 +56,6 @@
 
     .card-section.card-section-warning(ng-if="fundOrg | hasPerm:'view_finances'")
         .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
-            +keyvalue_item_horizontal("Leveranciers", "fund.providers_count")
-            +keyvalue_item_horizontal("Validatoren", "fund.validators_count")
             +keyvalue_item_horizontal("Uw medewerkers", "fund.sponsor_count")
             +keyvalue_item_horizontal("Aanbieders", "fund.provider_count")
             +keyvalue_item_horizontal("Aanvragers", "fund.requester_count")
