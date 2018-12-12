@@ -21,7 +21,7 @@ let TopNavbarDirective = function(
     };
 
     $scope.cfg = {
-        logoExtension: ConfigService.getFlag('logoExtension')
+        logoExtension: ConfigService.getFlag('logoExtension'),
     };
     
     $scope.i18nActive = $translate.use();
