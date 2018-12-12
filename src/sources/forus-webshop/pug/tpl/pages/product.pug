@@ -31,7 +31,7 @@ section.section.section-product: .wrapper
                     ng-click="$ctrl.applyProduct()") KOOP
                 .button.button-primary(
                     ng-if="!$root.auth_user" 
-                    ng-click="$root.popups.auth.open('choose')") LOG IN
+                    ng-click="openAuthPopup()") LOG IN
 
         .block.block-info-card
             .block-header {{ "voucher.labels.shopdetail" | translate }}
