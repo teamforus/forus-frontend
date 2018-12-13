@@ -97,7 +97,7 @@ section.section.section-voucher-details: .wrapper
                         | {{ "Product voucher: " | translate }} {{ transaction.product.name }}
                     .transactions-item-date {{ transaction.created_at_locale }}
                 .transactions-item-amount 
-                    .transactions-item-value - €{{ transaction.amount | to_fixed:2 }}
+                    .transactions-item-value - {{ transaction.amount | currency_format }}
                     .transactions-item-type {{ "voucher.labels.subtract" | translate }}
 
     block-products(

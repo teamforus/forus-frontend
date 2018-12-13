@@ -3,7 +3,7 @@ a(ui-sref="voucher(voucher)").voucher-item
     .voucher-details
         .voucher-name(ng-bind="voucherCard.title")
         .voucher-organization(ng-bind="voucherCard.subtitle")
-        .voucher-value(ng-bind="'€' + (voucherCard.amount | to_fixed:2)")
+        .voucher-value(ng-bind="voucherCard.amount | currency_format")
     .voucher-overview(ng-if="voucherCard.type == 'regular'")
         .voucher-overview-item
             .voucher-overview-label {{ "vouchers.labels.transactions" | translate }}
@@ -11,7 +11,7 @@ a(ui-sref="voucher(voucher)").voucher-item
         .voucher-overview-item
             .voucher-overview-label {{ "vouchers.labels.last" | translate }}
             .voucher-overview-value(ng-if="voucherCard.transactions.length > 0")
-                | -{{ voucherCard.transactions[voucherCard.transactions.length-1].amount | to_fixed:2 }}
+                | -{{ voucherCard.transactions[voucherCard.transactions.length-1].amount | currency_format }}
                 small {{ "vouchers.labels.subtract" | translate }}
             .voucher-overview-value(ng-if="voucherCard.transactions.length == 0")
                 span.text-muted {{ "vouchers.labels.none" | translate }}

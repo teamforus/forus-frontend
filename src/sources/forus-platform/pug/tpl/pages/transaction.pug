@@ -4,7 +4,7 @@
         .card
             .card-section
                 p
-                    strong €{{ $ctrl.transaction.amount | to_fixed:2 }}
+                    strong(ng-bind="$ctrl.transaction.amount | currency_format")
                     strong.text-primary.pull-right {{ "financial_dashboard_transaction.labels.payment" | translate }}
                 //- button.button.button-primary
                     em.mdi.mdi-plus-circle 

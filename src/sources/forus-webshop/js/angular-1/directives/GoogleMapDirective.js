@@ -1,4 +1,10 @@
-let GoogleMapDirective = function($scope, $element, $timeout, GoogleMapService) {
+let GoogleMapDirective = function(
+    $scope, 
+    $element, 
+    $timeout, 
+    GoogleMapService,
+    AuthService
+) {
     $scope.style = [];
     // locations = [];
     $scope.markers = [];
@@ -57,10 +63,13 @@ let GoogleMapDirective = function($scope, $element, $timeout, GoogleMapService) 
             google.maps.event.addListener(marker, 'click', (function(marker, office) {
                 var description = [
                     'Address: ' + (office.address || 'Geen data'),
-                    'Telephone: ' + (office.phone || office.organization.phone || 'Geen data'),
-                    'E-mail: ' + (office.email || office.organization.email || 'Geen data'),
                     'Categories: ' + (office.organization.categories || 'Geen data'),
                 ];
+
+                if (AuthService.hasCredentials()) {
+                    description.push('Telephone: ' + (office.phone || office.organization.phone || 'Geen data'));
+                    description.push('E-mail: ' + (office.email || office.organization.email || 'Geen data'));
+                }
 
                 return function() {
                     $timeout(function() {
@@ -111,6 +120,7 @@ module.exports = () => {
             '$element',
             '$timeout',
             'GoogleMapService',
+            'AuthService',
             GoogleMapDirective
         ]
     };

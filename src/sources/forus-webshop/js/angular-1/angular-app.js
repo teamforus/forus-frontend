@@ -85,6 +85,7 @@ app.provider('ModalRoute', require('./providers/ModalRouteProvider'));
 app.provider('I18nLib', require('./providers/I18nLibProvider'));
 
 // Filters
+app.filter('currency_format', require('./filters/CurrencyFormatFilter'));
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('i18n', require('./filters/I18nFilter'));

@@ -17,7 +17,7 @@
                             tr(
                                 ng-repeat="transaction in $ctrl.transactions.data"
                                 ng-click="$ctrl.showTransaction(transaction)").pointer
-                                td: a.text-primary-light €{{ transaction.amount }}
+                                td: a.text-primary-light(ng-bind="transaction.amount | currency_format")
                                 td(ng-bind="transaction.created_at_locale")
                                 td(ng-bind="transaction.fund.name")
                                 td(ng-bind="transaction.organization.name")
