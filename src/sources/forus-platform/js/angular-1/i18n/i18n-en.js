@@ -167,7 +167,7 @@ module.exports = {
     funds_edit: {
         header: {
             title_add: "Fonds toevoegen",
-            title_edit: "Organisatie aanpassen",
+            title_edit: "Fonds aanpassen",
         },
         labels: {
             name: "Naam",
