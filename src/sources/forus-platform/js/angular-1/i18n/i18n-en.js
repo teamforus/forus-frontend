@@ -208,7 +208,8 @@ module.exports = {
     // EDIT OFFICES = offices-edits.pug
     offices_edit: {
         header: {
-            title: "Bewerk vestiging",
+            title: "Vestiging toevoegen",
+            desc: "Vestiging aanpassen"
         },
         labels: {
             address: "Adres",
@@ -281,7 +282,7 @@ module.exports = {
     //EDIT ORGANIZATIONS = organization-edit.pug
     organization_edit: {
         header: {
-            title: "Organisatie aanmaken"
+            title: "Organisatie aanpassen"
         },
         labels: {
             name: "Bedrijfsnaam",
@@ -314,6 +315,7 @@ module.exports = {
     product_edit: {
         header: {
             title: "Aanbieding toevoegen",
+            desc: "Aanbieding aanpassen",
         },
         labels: {
             name: "Aanbieding naam",
