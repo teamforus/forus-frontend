@@ -319,13 +319,13 @@ module.exports = {
             title_edit: "Aanbieding aanpassen",
         },
         labels: {
-            name: "Aanbieding naam",
+            name: "Titel van aanbieding",
             description: "Omschrijving",
             new: "Aanbiedingsprijs",
             old: "Oude prijs",
-            total: "Aantal aanbiedingen",
-            reserved: "Gereserveerde aanbiedingen",
-            stock: "Aantal aanbiedingen",
+            total: "Aantal",
+            reserved: "Gereserveerd",
+            stock: "Nog te koop / Totaal",
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
         },
@@ -335,7 +335,7 @@ module.exports = {
             close: "Sluit"
         },
         errors: {
-            already_added: 'U heeft al twee aanbiedingen toegevoegd en kunt niet meer toevoegen'
+            already_added: 'U heeft al twee aanbiedingen toegevoegd. U kunt niet meer dan twee toevoegen.'
         },
         confirm_create: {
             title: 'Een aanbieding toevoegen.',

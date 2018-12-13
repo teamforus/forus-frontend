@@ -23,8 +23,8 @@ section.section.section-products#products: .wrapper
                     br
                     | {{ "block_products.labels.discount" | translate }}
                 .product-price
-                    small {{ "block_products.labels.old" | translate }} € {{ product.old_price | to_fixed:2 }}
-                    | {{ "block_products.labels.new" | translate }} € {{ product.price | to_fixed:2 }}
+                    small {{ "block_products.labels.old" | translate }} {{ product.old_price | currency_format }}
+                    | {{ "block_products.labels.new" | translate }} {{ product.price | currency_format }}
 
     empty-block(
         title= "{{ 'block_products.labels.title' | translate }}"
