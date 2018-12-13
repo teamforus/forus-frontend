@@ -2,8 +2,8 @@
     .card-section
         .card-section-actions
             .card-section-action-price
-                | € {{ product.price }},-
-                .old-price(ng-if="product.old_price") € {{ product.old_price }},-
+                span(ng-bind="product.price | currency_format")
+                .old-price(ng-if="product.old_price" ng-bind="product.old_price | currency_format")
 
             if (state == 'active')
                 .tag.tag-success {{ "product_card.status.active" | translate }}

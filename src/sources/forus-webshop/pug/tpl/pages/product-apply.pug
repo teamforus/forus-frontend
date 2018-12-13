@@ -15,7 +15,7 @@ section.section.section-product: .wrapper
             .voucher-details
                 .voucher-name(ng-bind="voucher.fund.name")
                 .voucher-organization(ng-bind="voucher.fund.organization.name")
-                .voucher-value(ng-bind="'€'+(voucher.amount | to_fixed:2)")
+                .voucher-value(ng-bind="voucher.amount | currency_format")
             .voucher-overview:  button.button.button-primary(ng-click="$ctrl.applyForProduct(voucher)") {{ "product_apply.buttons.use" | translate }}
             .voucher-overview
                 .voucher-overview-item
@@ -24,7 +24,7 @@ section.section.section-product: .wrapper
                 .voucher-overview-item
                     .voucher-overview-label {{ "product_apply.labels.last" | translate }}
                     .voucher-overview-value(ng-if="voucher.transactions.length > 0")
-                        | -{{ voucher.transactions[0].amount | to_fixed:2 }}
+                        | -{{ voucher.transactions[0].amount | currency_format }}
                         small {{ "product_apply.labels.subtract" | translate }}
                     .voucher-overview-value(ng-if="voucher.transactions.length == 0")
                         span.text-muted {{ "product_apply.labels.none" | translate }}

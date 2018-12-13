@@ -22,7 +22,7 @@ header.section.section-header.section-header-voucher: .wrapper
                             .product-fund-list(ng-bind="$ctrl.voucherCard.fund.name")
 
                         .product-price
-                            .product-price-new(ng-bind="'€ ' + ($ctrl.voucherCard.amount)") 
+                            .product-price-new(ng-bind="$ctrl.voucherCard.amount | currency_format") 
                             //- .product-price-old € 59,95
 
                         .product-expire(ng-if="$ctrl.voucherCard.expire_at")
@@ -46,7 +46,7 @@ header.section.section-header.section-header-voucher: .wrapper
                 .voucher-details
                     .voucher-title(ng-bind="$ctrl.voucherCard.title")
                     .voucher-subtitle(ng-bind="$ctrl.voucherCard.subtitle")
-                    .voucher-value € {{ $ctrl.voucherCard.amount | to_fixed:2 }}
+                    .voucher-value(ng-bind="$ctrl.voucherCard.amount | currency_format")
                 .voucher-qr-code: .voucher-qr-code_inner#voucher_qr
 
     .block.block-show-more(ng-if="$ctrl.voucherCard.product")
@@ -65,7 +65,7 @@ section.section.section-voucher-details: .wrapper
                         | {{ "Product voucher: " | translate }} {{ transaction.product.name }}
                     .transactions-item-date {{ transaction.created_at_locale }}
                 .transactions-item-amount 
-                    .transactions-item-value - €{{ transaction.amount | to_fixed:2 }}
+                    .transactions-item-value - {{ transaction.amount | currency_format }}
                     .transactions-item-type {{ "voucher.labels.subtract" | translate }}
 
     block-products(
