@@ -69,14 +69,14 @@
                     .chart-control
                         .chart-label {{ chartData.stringTitle }} {{ "fund_card_provider_finances.labels.usage" | translate }}
                         .chart-value
-                            .chart-value_value €{{ chartData.response.usage | to_fixed:2 }}
+                            .chart-value_value(ng-bind="chartData.response.usage | currency_format")
                             .chart-value_label in {{ chartData.response.transactions }} {{ "fund_card_provider_finances.labels.transaction" | translate }}
 
                 .col.col-sm-3
                     .chart-control
                         .chart-label {{ "fund_card_provider_finances.labels.average" | translate }}
                         .chart-value
-                            .chart-value_value €{{ chartData.response.avg_transaction | to_fixed:2 }}
+                            .chart-value_value(ng-bind="chartData.response.avg_transaction | currency_format")
 
     .card-group(ng-show="fundProvider.showTransactions")
         .card-header
@@ -93,7 +93,7 @@
                         tr(
                             ng-repeat="transaction in transactions.data"
                             ng-click="showTransaction(transaction)").pointer
-                            td: a.text-primary-light €{{ transaction.amount | to_fixed:2 }}
+                            td: a(ng-bind="transaction.amount | currency_format").text-primary-light
                             td(ng-bind="transaction.created_at_locale")
                             td(ng-bind="{pending: 'In afwachting', success : 'Voltooid'}[transaction.state]")
 
