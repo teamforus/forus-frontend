@@ -15,15 +15,15 @@
             ng-bind="'topnavbar.items.products' | translate").navbar-item
         a(
             ng-if="$root.appConfigs.flags.sponsorLandingMenu"
-            ng-href="{{ $root.appConfigs.frontends.url_sponsor }}" 
+            href="{{ $root.appConfigs.features.fronts.url_sponsor }}" 
             translate="GEMEENTE").navbar-item  
         a(
             ng-if="$root.appConfigs.flags.providerLandingMenu"
-            href="{{ $root.appConfigs.frontends.url_provider }}"
+            href="{{ $root.appConfigs.features.fronts.url_provider }}"
             translate="AANBIEDER").navbar-item  
         a(
             ng-if="$root.appConfigs.flags.meLandingMenu"
-            ng-href="{{ $root.appConfigs.frontends.url_app }}" 
+            href="{{ $root.appConfigs.features.fronts.url_app }}" 
             translate="ME").navbar-item 
         a(
             ng-if="$root.appConfigs.flags.aboutSiteMenu"
