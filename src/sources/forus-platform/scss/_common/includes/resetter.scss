@@ -21,6 +21,11 @@ span {
     font: inherit;
 }
 
+strong {
+    font: inherit;
+    font-weight: 700;
+}
+
 h1, h2, h3, h4, h5, h6 {
     margin: 0 0 15px;
 }
@@ -39,7 +44,7 @@ ul {
     }
 }
 
-p, b, strong {
+p, b {
     font: 400 16px/28px $bf;
     margin: 0 0 15px;
 
