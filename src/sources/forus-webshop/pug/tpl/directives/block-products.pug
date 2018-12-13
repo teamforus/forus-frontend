@@ -29,7 +29,7 @@ section.section.section-products#products: .wrapper
     empty-block(
         title= "{{ 'block_products.labels.title' | translate }}"
         description="{{ 'block_products.labels.subtitle' | translate }}"
-        link="false" 
+        hide-link="true" 
         ng-if="products.data.length == 0")
 
     paginator-loader(

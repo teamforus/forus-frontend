@@ -7,7 +7,7 @@
 
         .card-block.card-block-fund
             .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}", alt="")
-            .fund-title(ng-if="fund.organization | hasPerm:['manage_funds']" ng-bind="fund.name" ui-sref="funds-show(fund)")
+            .fund-title(ng-if="fund.organization | hasPerm:['manage_funds']" ng-bind="fund.name")
             .fund-title(ng-if="!(fund.organization | hasPerm:['manage_funds'])" ng-bind="fund.name")
             br
             div(ng-bind="fund.organization.name").fund-organization

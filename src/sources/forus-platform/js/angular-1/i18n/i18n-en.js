@@ -166,7 +166,8 @@ module.exports = {
     // EDIT FUNDS = funds-edit.pug
     funds_edit: {
         header: {
-            title: "Fonds toevoegen",
+            title_add: "Fonds toevoegen",
+            title_edit: "Fonds aanpassen",
         },
         labels: {
             name: "Naam",
@@ -207,7 +208,8 @@ module.exports = {
     // EDIT OFFICES = offices-edits.pug
     offices_edit: {
         header: {
-            title: "Bewerk vestiging",
+            title_add: "Vestiging toevoegen",
+            title_edit: "Vestiging aanpassen"
         },
         labels: {
             address: "Adres",
@@ -280,7 +282,8 @@ module.exports = {
     //EDIT ORGANIZATIONS = organization-edit.pug
     organization_edit: {
         header: {
-            title: "Organisatie aanmaken"
+            title_add: "Organisatie aanmaken",
+            title_edit: "Organisatie aanpassen",
         },
         labels: {
             name: "Bedrijfsnaam",
@@ -312,7 +315,8 @@ module.exports = {
     // EDIT PRODUCTS = product-edit.pug
     product_edit: {
         header: {
-            title: "Aanbieding toevoegen",
+            title_add: "Aanbieding toevoegen",
+            title_edit: "Aanbieding aanpassen",
         },
         labels: {
             name: "Aanbieding naam",
@@ -320,6 +324,8 @@ module.exports = {
             new: "Aanbiedingsprijs",
             old: "Oude prijs",
             total: "Aantal aanbiedingen",
+            reserved: "Gereserveerde aanbiedingen",
+            stock: "Aantal aanbiedingen",
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
         },
@@ -379,6 +385,10 @@ module.exports = {
         applied_for_fund: {
             title: "Uw aanvraag is ontvangen.",
             description: "De gemeente zal uw verzoek behandelen, dit kan maximaal twee weken duren. Zodra de gemeente uw aanvraag heeft behandeld wordt er een e-mail toegestuurd. Daarnaast kunt u de status ook volgen op het dashboard."
+        },
+        error_apply: {
+            title: 'U heeft nog geen vestigingen aangemaakt!',
+            description: 'U hebt tenminste één vestiging nodig om uw organisatie aan te melden voor {{fund_name}}'
         }
     },
 
@@ -730,10 +740,10 @@ module.exports = {
             close: "Sluiten",
         },
         labels: {
-            payment: "Maak het bedrag over naar:",
+            payment: "Maak het bedrag over naar: ",
             account: "NL83 BUNQ 3456 3344 32",
-            addcode: "voeg code ",
-            description: " toe aan de beschrijving",
+            addcode: "voeg code  ",
+            description: "  toe aan de beschrijving",
         }
     },
 

@@ -41,7 +41,7 @@
 
         .card-block.card-block-fund
             .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}", alt="")
-            a(ui-sref="funds-show(fund)" ng-bind="fund.name").fund-title
+            div(ng-bind="fund.name").fund-title
             br
             div(ng-bind="fundOrg.name").fund-organization
         .card-block.card-block-listing
@@ -54,10 +54,11 @@
             .keyvalue-key #{key}
             .keyvalue-value(ng-bind=value)
 
-    .card-section.card-section-warning(ng-if="level == 'fundShow' && (fundOrg | hasPerm:'view_finances')")
+    .card-section.card-section-warning(ng-if="fundOrg | hasPerm:'view_finances'")
         .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
-            +keyvalue_item_horizontal("Leveranciers", "fund.providers_count")
-            +keyvalue_item_horizontal("Validatoren", "fund.validators_count")
+            +keyvalue_item_horizontal("Uw medewerkers", "fund.sponsor_count")
+            +keyvalue_item_horizontal("Aanbieders", "fund.provider_count")
+            +keyvalue_item_horizontal("Aanvragers", "fund.requester_count")
 
     mixin edit_buttons()
 
