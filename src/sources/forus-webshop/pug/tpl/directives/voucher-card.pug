@@ -1,9 +1,11 @@
 a(ui-sref="voucher(voucher)").voucher-item
-    .voucher-image(style="background-image: url('{{ voucherCard.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}')")
+    .voucher-image(ng-if="!voucherCard.product" style="background-image: url('{{ voucherCard.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}')")
+    .voucher-image(ng-if="voucherCard.type == 'product'" style="background-image: url('{{ voucherCard.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}')")
     .voucher-details
-        .voucher-name(ng-bind="voucherCard.title")
-        .voucher-organization(ng-bind="voucherCard.subtitle")
-        .voucher-value(ng-bind="'€' + (voucherCard.amount | to_fixed:2)")
+        .voucher-name(ng-bind="voucherCard.product ? voucherCard.product.name : voucherCard.fund.name")
+        .voucher-organization(ng-if="!voucherCard.product" ng-bind="voucherCard.subtitle")
+        .voucher-organisation(ng-if="voucherCard.product" ng-bind="voucherCard.product.organization.name")
+        .voucher-value(ng-if="!voucherCard.product" ng-bind="'€' + (voucherCard.amount | to_fixed:2)")
     .voucher-overview(ng-if="voucherCard.type == 'regular'")
         .voucher-overview-item
             .voucher-overview-label {{ "vouchers.labels.transactions" | translate }}
