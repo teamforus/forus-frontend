@@ -1,12 +1,12 @@
 let VoucherComponent = function(
-    $rootScope,
+    $element,
     VoucherService,
     ModalService
 ) {
     let $ctrl = this;
 
     $ctrl.$onInit = function() {
-        let qrCodeEl = document.getElementById('voucher_qr');
+        let qrCodeEl = $element.find('#voucher_qr')[0];
 
         new QRCode(qrCodeEl, {
             text: JSON.stringify({
@@ -19,6 +19,19 @@ let VoucherComponent = function(
         qrCodeEl.removeAttribute('title');
 
         $ctrl.voucherCard = VoucherService.composeCardData($ctrl.voucher);
+
+        $ctrl.printQrCode = () => {
+            let html = angular.element('html');
+            let body = angular.element('body');
+            let printContents = $element.find('#voucher_qr').clone();
+            
+            printContents.addClass('printable-qr_code');
+            body.css('display', 'none');
+            html.append(printContents);
+            window.print();
+            body.css('display', '');
+            printContents.remove();
+        }
 
         $ctrl.sendVoucherEmail = function(voucher) {
             VoucherService.sendToEmail(voucher.address).then(res => {
@@ -39,7 +52,7 @@ module.exports = {
         voucher: '<'
     },
     controller: [
-        '$rootScope',
+        '$element',
         'VoucherService',
         'ModalService',
         VoucherComponent

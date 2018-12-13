@@ -71,9 +71,9 @@
                                 em.mdi.mdi-store
                                 span(translate="topnavbar.buttons.products")
                             .auth-user-menu-separator.show-sm
-                            .auth-user-menu-item.show-sm(ng-click="openActivateCodePopup()")
-                                em.mdi.mdi-ticket
-                                span(translate="topnavbar.buttons.activate")
+                            .auth-user-menu-item.show-sm(ui-sref="vouchers")
+                                em.mdi.mdi-ticket-confirmation
+                                span(translate="topnavbar.buttons.voucher")
                             .auth-user-menu-separator
                             div(ng-click="$root.signOut()").auth-user-menu-item
                                 img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
