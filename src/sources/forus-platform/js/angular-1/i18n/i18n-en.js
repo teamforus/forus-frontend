@@ -166,7 +166,8 @@ module.exports = {
     // EDIT FUNDS = funds-edit.pug
     funds_edit: {
         header: {
-            title: "Fonds toevoegen",
+            title_add: "Fonds toevoegen",
+            title_edit: "Fonds aanpassen",
         },
         labels: {
             name: "Naam",
@@ -207,7 +208,8 @@ module.exports = {
     // EDIT OFFICES = offices-edits.pug
     offices_edit: {
         header: {
-            title: "Bewerk vestiging",
+            title_add: "Vestiging toevoegen",
+            title_edit: "Vestiging aanpassen"
         },
         labels: {
             address: "Adres",
@@ -280,7 +282,8 @@ module.exports = {
     //EDIT ORGANIZATIONS = organization-edit.pug
     organization_edit: {
         header: {
-            title: "Organisatie aanmaken"
+            title_add: "Organisatie aanmaken",
+            title_edit: "Organisatie aanpassen",
         },
         labels: {
             name: "Bedrijfsnaam",
@@ -312,7 +315,8 @@ module.exports = {
     // EDIT PRODUCTS = product-edit.pug
     product_edit: {
         header: {
-            title: "Aanbieding toevoegen",
+            title_add: "Aanbieding toevoegen",
+            title_edit: "Aanbieding aanpassen",
         },
         labels: {
             name: "Aanbieding naam",
