@@ -1,4 +1,5 @@
 let ProductComponent = function (
+    $scope,
     $state,
     $filter,
     appConfigs,
@@ -11,6 +12,10 @@ let ProductComponent = function (
     if (!appConfigs.features.products.show) {
         return $state.go('home');
     }
+
+    $scope.openAuthPopup = function () {
+        ModalService.open('modalAuth', {});
+    };
 
     $ctrl.isApplicable = false;
 
@@ -68,11 +73,16 @@ let ProductComponent = function (
 };
 
 module.exports = {
+    scope: {
+        text: '=',
+        button: '=',
+    },
     bindings: {
         product: '<',
         vouchers: '<',
     },
     controller: [
+        '$scope',
         '$state',
         '$filter',
         'appConfigs',

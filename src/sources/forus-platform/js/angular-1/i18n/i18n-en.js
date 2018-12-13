@@ -734,10 +734,10 @@ module.exports = {
             close: "Sluiten",
         },
         labels: {
-            payment: "Maak het bedrag over naar:",
+            payment: "Maak het bedrag over naar: ",
             account: "NL83 BUNQ 3456 3344 32",
-            addcode: "voeg code ",
-            description: " toe aan de beschrijving",
+            addcode: "voeg code  ",
+            description: "  toe aan de beschrijving",
         }
     },
 
