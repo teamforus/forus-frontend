@@ -44,16 +44,11 @@ section.section.section-voucher-details: .wrapper
             .card-inner
                 .card-body.flex-row
                     // product voucher
-                    .card-photo(ng-if="$ctrl.voucherCard.product")
-                        img(ng-src="{{ $ctrl.voucherCard.product.photo.sizes.small || './assets/img/placeholders/product-large.png' }}")
+                    .card-photo: img(ng-src="{{ $ctrl.voucherCard.thumbnail }}")
                     
-                    // regular voucher
-                    .card-photo(ng-if="!$ctrl.voucherCard.product")
-                        img(ng-src="{{ $ctrl.voucherCard.fund.logo.sizes.large || './assets/img/placeholders/fund-large.png' }}")
-
                     .card-section
                         .label.label-success Ongebruikt
-                        .card-title(ng-bind="$ctrl.voucherCard.product ? $ctrl.voucherCard.product.name : $ctrl.voucherCard.fund.name")
+                        .card-title(ng-bind="$ctrl.voucherCard.title")
                         a(ng-if="$ctrl.voucherCard.product" ui-sref="products-show($ctrl.voucherCard.product)").card-read_more 
                             | Bekijk details
                             em.mdi.mdi-arrow-right
