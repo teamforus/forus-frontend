@@ -8,7 +8,14 @@ module.exports = {
         sponsorLandingMenu: true,
         providerLandingMenu: true,
         meLandingMenu: true,
-        aboutSiteMenu: true
+        aboutSiteMenu: true,
+
+        // home settings
+        homeProducts: false,
+        homeMap: false,
+        homeSteps: false,
+        homeFaq: false,
+        homeButton: false,
     },
     zuidhorn: {
         logoExtension: '.png',
@@ -18,7 +25,14 @@ module.exports = {
         sponsorLandingMenu: false,
         providerLandingMenu: false,
         meLandingMenu: false,
-        aboutSiteMenu: false
+        aboutSiteMenu: false,
+
+        // home
+        homeProducts: true,
+        homeMap: true,
+        homeSteps: true,
+        homeFaq: true,
+        homeButton: true,
     },
     nijmegen: {
         logoExtension: '.svg',
@@ -29,6 +43,13 @@ module.exports = {
         sponsorLandingMenu: false,
         providerLandingMenu: false,
         meLandingMenu: false,
-        aboutSiteMenu: false
+        aboutSiteMenu: false,
+
+        // home settings
+        homeProducts: true,
+        homeMap: true,
+        homeSteps: true,
+        homeFaq: true,
+        homeButton: true,
     },
 };

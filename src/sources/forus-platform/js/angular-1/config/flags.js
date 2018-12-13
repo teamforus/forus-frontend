@@ -1,26 +1,11 @@
 module.exports = {
     general: {
-        maxProductCount: 2,
-        homeProducts: false,
-        homeMap: false,
-        homeSteps: false,
-        homeFaq: false,
-        homeButton: false
+        maxProductCount: 2
     },
     zuidhorn: {
-        maxProductCount: 2,
-        homeProducts: true,
-        homeMap: true,
-        homeSteps: true,
-        homeFaq: true,
-        homeButton: true
+        maxProductCount: 2
     },
     nijmegen: {
-        maxProductCount: 2,
-        homeProducts: true,
-        homeMap: true,
-        homeSteps: true,
-        homeFaq: true,
-        homeButton: true
+        maxProductCount: 2
     },
 };

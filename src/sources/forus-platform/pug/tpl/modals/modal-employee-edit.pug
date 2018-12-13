@@ -2,8 +2,8 @@
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window: form.form(ng-submit="$ctrl.form.submit()")
         a(ng-click="$ctrl.close()").mdi.mdi-close.modal-close
-        .modal-header(ng-if="$ctrl.employee" translate="Medewerker aanpassen")
-        .modal-header(ng-if="!$ctrl.employee" translate="Medewerker toevoegen")
+        .modal-header(ng-if="$ctrl.modal.scope.employee" translate="Medewerker aanpassen")
+        .modal-header(ng-if="!$ctrl.modal.scope.employee" translate="Medewerker toevoegen")
         .modal-body.form
             .modal-section: .row: .col.col-lg-8.col-lg-offset-2.col-sm-12
                 .form-group(ng-if="!$ctrl.modal.scope.employee")

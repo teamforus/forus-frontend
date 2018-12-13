@@ -141,6 +141,9 @@ app.config(require('./routers/modals'));
 app.config(require('./routers/router'));
 app.config(require('./config/api-service'));
 app.config(require('./config/i18n'));
+app.config(['$compileProvider', function($compileProvider) {
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript):/);
+}])
 
 app.run(require('./routers/router-transitions'));
 

@@ -15,12 +15,12 @@
             .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
                 .card-block-listing-label {{ "fund_card_provider_finances.labels.mail" | translate }}
                 span.text-primary-light(ng-bind="fundProvider.organization.email")
-        //.card-block.card-block-listing
+        //-.card-block.card-block-listing
             .card-block-listing-label {{ "fund_card_provider_finances.labels.categories" | translate }}
             | {{ fundProvider.organization.fundCategories.join(', ') }}
             small(ng-show="$ctrl.fundCategories.length == 0").text-muted.small {{ "fund_card_provider_finances.labels.nocategories" | translate }}
-        //br
-        //.card-block.card-block-listing
+        //-br
+        //-.card-block.card-block-listing
             .card-block-listing-label {{ "fund_card_provider_finances.labels.join" | translate }}
             span(
                 ui-sref="funds-show(fundProvider.fund)"
@@ -81,7 +81,7 @@
     .card-group(ng-show="fundProvider.showTransactions")
         .card-header
             .arrow-box.border.bg-dim: .arrow
-            .card-title {{ "fund_card_provider_finances.buttons.transactions" | translate }} ({{ transactions.length }})
+            .card-title {{ "fund_card_provider_finances.buttons.transactions" | translate }} ({{ transactions.data.length }})
         .card-section
             .card-block.card-block-table
                 .table-wrapper
@@ -91,8 +91,11 @@
                             th {{ "fund_card_provider_finances.labels.date" | translate }}
                             th {{ "fund_card_provider_finances.labels.status" | translate }}
                         tr(
-                            ng-repeat="transaction in transactions" 
+                            ng-repeat="transaction in transactions.data"
                             ng-click="showTransaction(transaction)").pointer
                             td: a.text-primary-light €{{ transaction.amount | to_fixed:2 }}
                             td(ng-bind="transaction.created_at_locale")
                             td(ng-bind="{pending: 'In afwachting', success : 'Voltooid'}[transaction.state]")
+
+        .card-section(ng-if="transactions" ng-show="transactions.meta.last_page > 1")
+            paginator(meta="transactions.meta" filters="filter" count-buttons="5" on-page-change="onPageChange(query)")

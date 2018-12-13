@@ -218,6 +218,28 @@ body {
     }
 }
 
+.modal .modal-content {
+    .description{
+        padding: 10px 0;
+        font: 400 22px/34px $bf;
+        color: $ptc;
+    
+        .popup-title-styled{
+            color: #157c68;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+    }
+
+    .subdescription {
+        color: grey;
+
+        .popup-title-styled{
+            color: #157c68;
+        }
+    }
+}
+
 .block {
     $navbar_transition: .5s ease-in-out;
 

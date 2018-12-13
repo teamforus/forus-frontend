@@ -15,25 +15,25 @@
             ng-bind="'topnavbar.items.products' | translate").navbar-item
         a(
             ng-if="$root.appConfigs.flags.sponsorLandingMenu"
-            ng-href="{{ $root.appConfigs.frontends.url_sponsor }}" 
+            ng-href="{{ $root.fronts.url_sponsor }}" 
             translate="GEMEENTE").navbar-item  
         a(
             ng-if="$root.appConfigs.flags.providerLandingMenu"
-            href="{{ $root.appConfigs.frontends.url_provider }}" 
+            href="{{ $root.appConfigs.fronts.url_provider }}"
             translate="AANBIEDER").navbar-item  
         a(
             ng-if="$root.appConfigs.flags.meLandingMenu"
-            href="{{ $root.appConfigs.frontends.url_app }}" 
+            ng-href="{{ $root.fronts.url_app }}" 
             translate="ME").navbar-item 
         a(
             ng-if="$root.appConfigs.flags.aboutSiteMenu"
-            href="{{ $root.appConfigs.about_url }}" 
+            href="{{ $root.about_url }}" 
             translate="OVER ONS").navbar-item
     .block.block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
         .auth-code
             a(ui-sref="vouchers").button.button-default
                 em.mdi.mdi-ticket-confirmation
-                span(translate="topnavbar.buttons.voucher")
+                span(translate="topnavbar.buttons.voucher") 
 
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
@@ -81,7 +81,7 @@
 
         .auth-out(ng-if="!$root.auth_user")
             .button.button-default(ng-click="openAuthCodePopup()")
-                em.mdi.mdi-ticket-confirmation
+                em.mdi.mdi-ticket-confirmation 
                 span(translate="topnavbar.buttons.activate")
             .button.button-default(ng-click="openAuthPopup()")
                 em.mdi.mdi-account
