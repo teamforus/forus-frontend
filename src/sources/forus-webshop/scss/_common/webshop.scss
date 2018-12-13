@@ -200,6 +200,13 @@ ui-view{
     }
 }
 
+.product-details {
+    .button {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        }
+    }
+
 .map-canvas {
     @include fill_parent();
 }
@@ -1109,6 +1116,13 @@ ui-view{
                 height: 200px;
             }
         }
+        .block-voucher .card-inner {
+            min-height: 350px !important;
+        }
+        
+        .section.base-card .card-body {
+            min-height: 160px !important;
+        }
     }
 
     @media screen and (max-width: 1200px) {
@@ -1122,7 +1136,17 @@ ui-view{
             }
         }
     }
+    .block-voucher .card-inner {
+        min-height: 200px;
+    }
 
+    .card-footer {
+        min-height: 160px;
+    }
+
+    .base-card .card-body {
+        min-height: 200px;
+    }
     @media screen and (max-width: 1000px) {
         .section-title {
             font: 700 20px/30px $bf;
@@ -1288,6 +1312,9 @@ ui-view{
                 margin: 0;
             }
         }
+    }
+    .section .base-card .card-body {
+        min-height: 200px;
     }
 }
 
@@ -5864,6 +5891,49 @@ ui-view{
             }
         }
     }
+    .base-card {    
+        width: 100% !important;
+        margin-left: 0 !important;
+        }
+        
+    .block-voucher.card-label {
+        text-align: center;
+    }
+
+    .block-voucher {
+        margin: auto;
+        width: 80%;
+    }
+    
+    .card-inner {
+        text-align: center;
+    }
+    
+    .card-section {
+        max-width: 60%;
+        margin: 0 auto;
+    }
+    
+    .card-footer.card-action {
+        max-width: 40%;
+        margin: 0 auto;
+    }
+    
+    .base-card-voucher .card-footer .card-actions {
+        max-width: 40%;
+        margin:0 auto;
+    }
+    
+    .base-card-voucher .card-footer .card-actions .action-item {
+        margin-right: 0px;
+        margin-lefT: 0px;
+    }
+    
+    .card-actions .action-item {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+    }
+    
 }
 
 @media screen and (max-width: 767px) {
@@ -5881,6 +5951,44 @@ ui-view{
             }
         }
     }
+    .base-card {    
+        width: 100% !important;
+        margin-left: 0 !important;
+        }
+        
+    .block-voucher.card-label {
+        text-align: center;
+    }
+    
+    .card-inner {
+        text-align: center;
+    }
+    
+    .card-section {
+        max-width: 80%;
+        margin: 0 auto;
+    }
+    
+    .card-footer.card-action {
+        max-width: 40%;
+        margin: 0 auto;
+    }
+    
+    .base-card-voucher .card-footer .card-actions {
+        max-width: 40%;
+        margin:0 auto;
+    }
+    
+    .base-card-voucher .card-footer .card-actions .action-item {
+        margin-right: 0px;
+        margin-lefT: 0px;
+    }
+    
+    .card-actions .action-item {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+    }
+    
 }
 
 @media screen and (max-width: 1500px) {
