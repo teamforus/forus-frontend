@@ -1,4 +1,5 @@
 let VoucherComponent = function(
+    $filter,
     $element,
     VoucherService,
     ModalService
@@ -34,14 +35,21 @@ let VoucherComponent = function(
         }
 
         $ctrl.sendVoucherEmail = function(voucher) {
-            VoucherService.sendToEmail(voucher.address).then(res => {
-                ModalService.open('modalNotification', {
-                    type: 'action-result',
-                    class: 'modal-description-pad',
-                    title: $filter('translate')('popup_auth.labels.voucher_email'),
-                    description: $filter('translate')('popup_auth.notifications.voucher_email'),
-                    confirmBtnText: $filter('translate')('popup_auth.buttons.confirm')
-                });
+            return ModalService.open('modalNotification', {
+                type: 'confirm',
+                title: "E-Mail voucher naar uzelf",
+                description: "U kunt uw voucher naar uzelf mailen. Laat de voucher, in de vorm van een QR-code, aan de aanbieder zien vanuit uw vertrouwde e-mailbox.",
+                confirm: () => {
+                    VoucherService.sendToEmail(voucher.address).then(res => {
+                        ModalService.open('modalNotification', {
+                            type: 'action-result',
+                            class: 'modal-description-pad',
+                            title: $filter('translate')('popup_auth.labels.voucher_email'),
+                            description: $filter('translate')('popup_auth.notifications.voucher_email'),
+                            confirmBtnText: $filter('translate')('popup_auth.buttons.confirm')
+                        });
+                    });
+                }
             });
         };
     };
@@ -52,6 +60,7 @@ module.exports = {
         voucher: '<'
     },
     controller: [
+        '$filter',
         '$element',
         'VoucherService',
         'ModalService',

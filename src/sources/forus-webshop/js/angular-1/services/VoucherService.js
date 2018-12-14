@@ -48,17 +48,34 @@ module.exports = [
             }
 
             this.composeCardData = function(voucher) {
-                let thumbnail =  null;
+                let thumbnail, title, subtitle;
 
-                if (voucher.fund.logo) {
-                    thumbnail = voucher.fund.logo.sizes.thumbnail;
-                } else if(voucher.fund.organization.logo) {
-                    thumbnail = voucher.fund.organization.logo.sizes.thumbnail;
+                if (voucher.type == 'regular') {
+                    title = voucher.fund.name;
+                    subtitle = voucher.fund.organization.name;
+
+                    if (voucher.fund.logo) {
+                        thumbnail = voucher.fund.logo.sizes.thumbnail;
+                    } else if (voucher.fund.organization.logo) {
+                        thumbnail = voucher.fund.organization.logo.sizes.thumbnail;
+                    } else {
+                        thumbnail = "./assets/img/placeholders/product-thumbnail.png";
+                    }
+                } else if (voucher.type == 'product') {
+                    title = voucher.product.name;
+                    subtitle = null;
+
+                    if (voucher.product.photo) {
+                        thumbnail = voucher.product.photo.sizes.thumbnail;
+                    } else {
+                        thumbnail = "./assets/img/placeholders/product-thumbnail.png";
+                    }
                 }
 
+
                 return {
-                    title: voucher.fund.name,
-                    subtitle: voucher.fund.organization.name,
+                    title: title,
+                    subtitle: subtitle,
                     amount: voucher.amount,
                     type: voucher.type,
                     transactions: this.composeTransactions(voucher),
