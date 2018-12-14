@@ -1,28 +1,35 @@
-a(ui-sref="voucher(voucher)").voucher-item
-    .voucher-image(style="background-image: url('{{ voucherCard.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}')")
+.voucher-item(ui-sref="voucher(voucher)")
+    .voucher-image(style="background-image: url('{{ voucherCard.thumbnail }}')")
+    
     .voucher-details
         .voucher-name(ng-bind="voucherCard.title")
         .voucher-organization(ng-bind="voucherCard.subtitle")
-        .voucher-value(ng-bind="'€' + (voucherCard.amount | to_fixed:2)")
+        .voucher-value(ng-if="voucherCard.type == 'regular'" ng-bind="voucherCard.amount | currency_format")
+        .voucher-read_more(ng-if="voucherCard.type == 'product'" ui-sref="products-show(voucherCard.product)" prevent-propagation)
+            | Bekijk details
+            em.mdi.mdi-arrow-right
+    
+    // regular voucher
     .voucher-overview(ng-if="voucherCard.type == 'regular'")
         .voucher-overview-item
-            .voucher-overview-label {{ "vouchers.labels.transactions" | translate }}
+            .voucher-overview-label(i18n="vouchers.labels.transactions")
             .voucher-overview-value(ng-bind="voucherCard.transactions.length")
         .voucher-overview-item
-            .voucher-overview-label {{ "vouchers.labels.last" | translate }}
+            .voucher-overview-label(i18n="vouchers.labels.last")
             .voucher-overview-value(ng-if="voucherCard.transactions.length > 0")
-                | -{{ voucherCard.transactions[voucherCard.transactions.length-1].amount | to_fixed:2 }}
-                small {{ "vouchers.labels.subtract" | translate }}
+                span(ng-bind="'- ' + (voucherCard.transactions[voucherCard.transactions.length-1].amount | currency_format)")
+                small(i18n="vouchers.labels.subtract")
             .voucher-overview-value(ng-if="voucherCard.transactions.length == 0")
-                span.text-muted {{ "vouchers.labels.none" | translate }}
+                span.text-muted(i18n="vouchers.labels.none")
 
+    // product voucher
     .voucher-overview(ng-if="voucherCard.type == 'product'")
         .voucher-overview-item
-            .voucher-overview-label {{ "vouchers.labels.used" | translate }}
+            .voucher-overview-label(i18n="vouchers.labels.used")
             .voucher-overview-value(ng-bind="voucherCard.transactions.length == 0 ? 'Nee' : 'Ja'")
         .voucher-overview-item
-            .voucher-overview-label {{ "vouchers.labels.generated" | translate }}
+            .voucher-overview-label(i18n="vouchers.labels.generated")
             .voucher-overview-value(ng-bind="voucherCard.created_at_locale")
         .voucher-overview-item
-            .voucher-overview-label {{ "vouchers.labels.expire" | translate }}
+            .voucher-overview-label(i18n="vouchers.labels.expire")
             .voucher-overview-value(ng-bind="voucherCard.expire_at_locale")

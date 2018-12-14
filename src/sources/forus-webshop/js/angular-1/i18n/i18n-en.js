@@ -333,8 +333,8 @@ module.exports = {
             use: "Gebruik",
         },
         popup: {
-            title: "Weet je zeker dat je deze aanbieding '<span class='popup-title-styled'>{{product_name}}</span>' met een verloopdatum van <span class='popup-title-styled'>{{expire_at}}</span> wil kopen voor <span class='popup-title-styled'>{{product_price}}</span>? Wanneer bevestigd kan deze transactie niet ongedaan worden gemaakt. Een terugbetaling is niet mogelijk!",
-            expiration_information: "De verloopdatum van het product is: <span class='popup-title-styled'>{{expire_at}}</span>. Zorg ervoor dat je tijd hebt om het product voor deze datum op te halen."
+            title: "Weet u zeker dat u deze aanbieding '<span class='popup-title-styled'>{{product_name}}</span>' met een verloopdatum van <span class='popup-title-styled'>{{expire_at}}</span> wilt kopen voor <span class='popup-title-styled'>€{{product_price}}</span>? Wanneer u klikt op bevestig kan deze transactie niet meer ongedaan worden gemaakt. Een terugbetaling is niet mogelijk!",
+            expiration_information: "De verloopdatum van deze aanbieding is: <span class='popup-title-styled'>{{expire_at}}</span>. Zorg ervoor dat u het aanbod voor deze datum ophaalt."
         }
     },
 
@@ -439,6 +439,16 @@ module.exports = {
             voucher: "U kunt uw voucher besteden bij de aanbieders op deze locaties",
             shopdetail: "INFORMATIE OVER DE AANBIEDER",
             productdetail: "INFORMATIE OVER DE AANBIEDING",
+        },
+        voucher_card: {
+            header: {
+                title: "Hoe werkt het?",
+            },
+            labels: {
+                description: "Een voucher kunt u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u uw product of dienst te leveren",
+                desc: "Een aanbieding-voucher kunt u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u uw product of dienst te leveren",
+                contact: "Heeft u vragen over deze aanbieding? Neem dan contact met ons op",
+            },
         }
     },
 

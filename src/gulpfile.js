@@ -4,6 +4,7 @@ var fse = require('fs-extra');
 var del = require('del');
 var glob = require('glob');
 var path = require('path');
+var historyApiFallback = require('connect-history-api-fallback')
 
 // console colors
 var colors = require('colors');
@@ -480,7 +481,9 @@ let serverTask = () => {
         (acc, platforms) => acc.concat(platforms), []
     ).filter(platform => platform.server).forEach(function(platform) {
         var server = {
-            server: platform.paths.root + platform.server.path,
+            server: {
+                baseDir: platform.paths.root + platform.server.path
+            },
             notify: true,
             open: false,
             port: platform.server.port || 3000,
@@ -488,6 +491,12 @@ let serverTask = () => {
                 port: (platform.server.port || 3000) + 1,
             }
         };
+
+        if (platform.env_data.html5ModeEnabled) {
+            server.server.middleware = [
+                historyApiFallback()
+            ];
+        }
 
         browserSync[platform.name].init(server);
     });

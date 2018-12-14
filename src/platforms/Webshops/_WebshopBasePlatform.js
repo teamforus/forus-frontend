@@ -42,7 +42,7 @@ platform.addTask('js', {
 
 // add scss task
 platform.addTask('scss', {
-    src: "general/style.scss",
+    src: "general/style-webshop-general.scss",
     watch: [
         "_common/**/*.scss",
         "general/**/*.scss"

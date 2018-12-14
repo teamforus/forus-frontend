@@ -2,37 +2,38 @@
     a(ui-sref="home").navbar-logo
         img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
         img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover
-    nav.navbar-list
-        if (qdt_c.platform.env_data.client_key != 'general')  
-            a(
-                ui-sref="funds" 
-                ui-sref-active="active"
-                ng-if="$root.appConfigs.features.funds.list"
-                ng-bind="'topnavbar.items.funds' | translate").navbar-item
-        if (qdt_c.platform.env_data.client_key != 'general')  
-            a(
-                ui-sref="products" 
-                ui-sref-active="active"
-                ng-if="$root.appConfigs.features.products.list"
-                ng-bind="'topnavbar.items.products' | translate").navbar-item
-        if (qdt_c.platform.env_data.client_key == 'general')
-            a(
-                href="https://zuidhorn.forus.io/sponsor" 
-                translate="GEMEENTE").navbar-item  
-            a(
-                href="https://zuidhorn.forus.io/sponsor" 
-                translate="AANBIEDER").navbar-item  
-            a(
-                href="https://zuidhorn.forus.io/me" 
-                translate="ME").navbar-item 
-            a(
-                href="https://about.forus.io" 
-                translate="OVER ONS").navbar-item
+    nav.navbar-list 
+        a(
+            ui-sref="funds" 
+            ui-sref-active="active"
+            ng-if="$root.appConfigs.features.funds.list"
+            ng-bind="'topnavbar.items.funds' | translate").navbar-item 
+        a(
+            ui-sref="products" 
+            ui-sref-active="active"
+            ng-if="$root.appConfigs.flags.productsMenu"
+            ng-bind="'topnavbar.items.products' | translate").navbar-item
+        a(
+            ng-if="$root.appConfigs.flags.sponsorLandingMenu"
+            href="{{ $root.appConfigs.features.fronts.url_sponsor }}" 
+            translate="GEMEENTE").navbar-item  
+        a(
+            ng-if="$root.appConfigs.flags.providerLandingMenu"
+            href="{{ $root.appConfigs.features.fronts.url_provider }}"
+            translate="AANBIEDER").navbar-item  
+        a(
+            ng-if="$root.appConfigs.flags.meLandingMenu"
+            href="{{ $root.appConfigs.features.fronts.url_app }}" 
+            translate="ME").navbar-item 
+        a(
+            ng-if="$root.appConfigs.flags.aboutSiteMenu"
+            href="{{ $root.appConfigs.about_url }}" 
+            translate="OVER ONS").navbar-item
     .block.block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
         .auth-code
             a(ui-sref="vouchers").button.button-default
                 em.mdi.mdi-ticket-confirmation
-                span(translate="topnavbar.buttons.voucher")
+                span(translate="topnavbar.buttons.voucher") 
 
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
@@ -70,9 +71,9 @@
                                 em.mdi.mdi-store
                                 span(translate="topnavbar.buttons.products")
                             .auth-user-menu-separator.show-sm
-                            .auth-user-menu-item.show-sm(ng-click="openActivateCodePopup()")
-                                em.mdi.mdi-ticket
-                                span(translate="topnavbar.buttons.activate")
+                            .auth-user-menu-item.show-sm(ui-sref="vouchers")
+                                em.mdi.mdi-ticket-confirmation
+                                span(translate="topnavbar.buttons.voucher")
                             .auth-user-menu-separator
                             div(ng-click="$root.signOut()").auth-user-menu-item
                                 img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
@@ -80,7 +81,7 @@
 
         .auth-out(ng-if="!$root.auth_user")
             .button.button-default(ng-click="openAuthCodePopup()")
-                em.mdi.mdi-ticket-confirmation
+                em.mdi.mdi-ticket-confirmation 
                 span(translate="topnavbar.buttons.activate")
             .button.button-default(ng-click="openAuthPopup()")
                 em.mdi.mdi-account

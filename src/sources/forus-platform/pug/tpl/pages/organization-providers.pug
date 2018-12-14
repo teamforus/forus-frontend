@@ -29,7 +29,7 @@
                     .card-block.card-block-listing
                         .card-block-listing-label(translate="organization_providers.labels.categories")
                         span(ng-bind="providerFund.organization.fundCategories.join(', ')")
-                        small(ng-show="$ctrl.fundCategories.length == 0").text-muted.small No categories
+                        small(ng-show="$ctrl.fundCategories.length == 0").text-muted.small {{ "organization_providers.labels.nocategories" | translate }}
                     br
                     .card-block.card-block-listing
                         .card-block-listing-label(translate="organization_providers.labels.join")

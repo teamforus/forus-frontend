@@ -2,8 +2,8 @@
     .card-section
         .card-section-actions
             .card-section-action-price
-                | € {{ product.price }},-
-                .old-price(ng-if="product.old_price") € {{ product.old_price }},-
+                span(ng-bind="product.price | currency_format")
+                .old-price(ng-if="product.old_price" ng-bind="product.old_price | currency_format")
 
             if (state == 'active')
                 .tag.tag-success {{ "product_card.status.active" | translate }}
@@ -14,12 +14,18 @@
 
         .card-block.card-block-product
             .product-img: img(ng-src="{{ product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}")
-            a(
-                ui-sref="products-show(product)" 
-                ng-bind="product.name").product-title
-            span(ng-bind="product.product_category.name").product-subtitle
-            .label-item {{ "product_edit.labels.expire" | translate }}: {{ product.expire_at }}
-            .label-item {{ "product_edit.labels.total" | translate }}: {{ product.total_amount }}
+            .product-details
+                a(
+                    ui-sref="products-show(product)" 
+                    ng-bind="product.name").product-title
+                span(ng-bind="product.product_category.name").product-subtitle
+                .label-item {{ "product_edit.labels.expire" | translate }}: {{ product.expire_at }}
+                .label-item 
+                    | {{ "product_edit.labels.stock" | translate }}: 
+                    span(ng-bind="product.stock_amount")
+                    span.text-muted /
+                    span.text-muted(ng-bind="product.total_amount")
+                .label-item {{ "product_edit.labels.reserved" | translate }}: {{ product.reserved_amount }}
 
     .card-section.card-section-primary
         .text-right

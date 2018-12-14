@@ -130,6 +130,7 @@ app.provider('ModalRoute', require('./providers/ModalRouteProvider'));
 app.provider('I18nLib', require('./providers/I18nLibProvider'));
 
 // Filters
+app.filter('currency_format', require('./filters/CurrencyFormatFilter'));
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('file_size', require('./filters/FileSizeFilter'));
@@ -141,8 +142,16 @@ app.config(require('./routers/modals'));
 app.config(require('./routers/router'));
 app.config(require('./config/api-service'));
 app.config(require('./config/i18n'));
+app.config(['$compileProvider', function($compileProvider) {
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript):/);
+}])
 
 app.run(require('./routers/router-transitions'));
+
+app.run(['appConfigs', (appConfigs) => {
+    let appFlags = require('./config/flags.js');
+    appConfigs.flags = appFlags[env_data.client_key] || appFlags.general
+}]);
 
 // Bootstrap the app
 angular.bootstrap(document.querySelector('html'), ['forusApp', '720kb.datepicker']);

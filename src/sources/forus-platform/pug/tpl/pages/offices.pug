@@ -24,7 +24,7 @@
                 .card-block.card-block-listing
                     .card-block-listing-label(translate="offices.labels.categories")
                     span(ng-bind="$ctrl.fundCategories.join(', ')")
-                    small(ng-show="$ctrl.fundCategories.length == 0").text-muted.small No categories
+                    small(ng-show="$ctrl.fundCategories.length == 0").text-muted.small {{ "offices.labels.nocategories" | translate }}
 
             mixin keyvalue_item_horizontal(key, value)
                 .keyvalue-item

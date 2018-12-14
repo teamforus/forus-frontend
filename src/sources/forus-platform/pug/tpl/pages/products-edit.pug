@@ -3,7 +3,9 @@
     section.app.app-content
         //information-block(text="'products.cannot_delete'" type="'danger'")
         .card: form.form
-            .card-header: .card-title {{ "product_edit.header.title" | translate }}
+            .card-header
+                .card-title(ng-if="!$ctrl.product" i18n="product_edit.header.title_add")
+                .card-title(ng-if="$ctrl.product" i18n="product_edit.header.title_edit")
             .card-section.card-section-primary
                 .row 
                     .col.col-xs-12
