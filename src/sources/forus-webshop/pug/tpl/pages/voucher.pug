@@ -53,22 +53,23 @@ header.section.section-header.section-header-voucher: .wrapper
         div(ng-click="$ctrl.sendVoucherEmail($ctrl.voucher)" ng-bind="'voucher.buttons.send' | translate").button.button-primary
 
 section.section.section-voucher-details: .wrapper
+    .section-title Uw voucher
     .block.block-voucher(ng-class="$ctrl.voucherCard.product?'':'block-voucher-regular'")
         // regular voucher
         div(ng-if="!$ctrl.voucherCard.product").base-card.base-card-sponsor: .card-inner
             .card-body
                 .card-photo: img(ng-src="{{ $ctrl.voucherCard.fund.organization.logo.sizes.large || './assets/img/placeholders/organization-large.png' }}", alt="")
                 .card-section
-                    .card-title Hoe werkt het?
-                    .card-description Een aanbieding-voucher kun u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u uw product of dienst te leveren
+                    .card-title {{ "voucher.voucher_card.header.title" | translate }}
+                    .card-description {{ "voucher.voucher_card.labels.description" | translate }}
             .card-footer
-                .card-label Heeft vragen over deze aanbieding? Neem contact met ons.
+                .card-label {{ "voucher.voucher_card.labels.contact" | translate }}
                 .card-value(ng-bind="$ctrl.voucherCard.fund.organization.name")
                 .card-value.card-value-sm
-                    | E-mail: 
+                    | E-mailadres: 
                     strong(ng-bind="$ctrl.voucherCard.fund.organization.email")
                     br
-                    | Telephone: 
+                    | Telefoonnummer: 
                     strong(ng-bind="$ctrl.voucherCard.fund.organization.phone")
 
         // product voucher
@@ -76,16 +77,16 @@ section.section.section-voucher-details: .wrapper
             .card-body
                 .card-photo: img(ng-src="{{ $ctrl.voucherCard.product.organization.logo.sizes.large || './assets/img/placeholders/organization-large.png' }}", alt="")
                 .card-section
-                    .card-title Hoe werkt het?
-                    .card-description Een aanbieding-voucher kun u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u uw product of dienst te leveren
+                    .card-title {{ "voucher.voucher_card.header.title" | translate }}
+                    .card-description {{ "voucher.voucher_card.labels.desc" | translate }}
             .card-footer
-                .card-label Heeft vragen over deze aanbieding? Neem contact met ons.
+                .card-label {{ "voucher.voucher_card.labels.contact" | translate }}
                 .card-value(ng-bind="$ctrl.voucherCard.product.organization.name")
                 .card-value.card-value-sm
-                    | E-mail: 
+                    | E-mailadres: 
                     strong(ng-bind="$ctrl.voucherCard.product.organization.email")
                     br
-                    | Telephone: 
+                    | Telefoonnummer: 
                     strong(ng-bind="$ctrl.voucherCard.product.organization.phone")
         
         // voucher details
@@ -101,7 +102,7 @@ section.section.section-voucher-details: .wrapper
                         img(ng-src="{{ $ctrl.voucherCard.fund.logo.sizes.large || './assets/img/placeholders/fund-large.png' }}")
 
                     .card-section
-                        .label.label-success Ongebruikt
+                        //-.label.label-success Ongebruikt
                         .card-title(ng-bind="$ctrl.voucherCard.product ? $ctrl.voucherCard.product.name : $ctrl.voucherCard.fund.name")
                         a(ng-if="$ctrl.voucherCard.product" ui-sref="products-show($ctrl.voucherCard.product)").card-read_more 
                             | Bekijk details
@@ -118,21 +119,21 @@ section.section.section-voucher-details: .wrapper
                         .action-item(ng-if="$ctrl.voucherCard.product")
                             .action-item-icon
                                 em.mdi.mdi-share-variant
-                                .action-item-tooltip Lorem ipsum
-                            .action-item-name SHARE
+                                .action-item-tooltip Deel de voucher met de aanbieder
+                            .action-item-name DEEL
                         .action-item(ng-click="$ctrl.sendVoucherEmail($ctrl.voucher)")
                             .action-item-icon
                                 em.mdi.mdi-email-outline
-                                .action-item-tooltip Lorem ipsum
+                                .action-item-tooltip E-mail de voucher naar u zelf
                             .action-item-name EMAIL
                         .action-item(ng-click="$ctrl.printQrCode()")
                             .action-item-icon
                                 em.mdi.mdi-printer
-                                .action-item-tooltip Lorem ipsum
-                            .action-item-name PRINTING
+                                .action-item-tooltip Print de voucher uit
+                            .action-item-name PRINT
             .card-qr_code
                 #voucher_qr
-                .card-qr_code-desc Deze QR-code repesenteert uw aanbieding
+                .card-qr_code-desc Deze QR-code representeert uw aanbieding
 
     .block.block-transactions(ng-if="$ctrl.voucherCard.transactions.length > 0 && !$ctrl.voucherCard.product")
         .transactions-header: .transactions-title {{ "voucher.labels.transactions" | translate }}
