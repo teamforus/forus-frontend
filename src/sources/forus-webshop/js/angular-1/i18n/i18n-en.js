@@ -439,6 +439,16 @@ module.exports = {
             voucher: "U kunt uw voucher besteden bij de aanbieders op deze locaties",
             shopdetail: "INFORMATIE OVER DE AANBIEDER",
             productdetail: "INFORMATIE OVER DE AANBIEDING",
+        },
+        voucher_card: {
+            header: {
+                title: "Hoe werkt het?",
+            },
+            labels: {
+                description: "Een voucher kunt u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u uw product of dienst te leveren",
+                desc: "Een aanbieding-voucher kunt u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u uw product of dienst te leveren",
+                contact: "Heeft u vragen over deze aanbieding? Neem dan contact met ons op",
+            },
         }
     },
 
