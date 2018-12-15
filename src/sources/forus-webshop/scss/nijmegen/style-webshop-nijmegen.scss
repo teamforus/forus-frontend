@@ -173,6 +173,7 @@ body {
         .header-content {
             padding: 180px 0;
             .button {
+                margin: 0 auto;
                 width: auto;
             }
         }
@@ -605,7 +606,8 @@ body {
         .footer-nav {
             .footer-nav-item {
                 a {
-                    color: #fff;
+                    color: #efefef;
+                    font: 500 14px/24px "Source Sans Pro",sans-serif;
 
                     &:hover {
                         color: #fff;
@@ -1137,6 +1139,9 @@ body {
     }
 
     @media screen and (max-width: 767px) {
+        &.block-map{
+            background:none;
+        }
         &.block-navbar {
             .navbar-logo {
                 width: 40px;
@@ -1361,6 +1366,22 @@ body {
                             margin-bottom: 0;
                         }
                     }
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 746px) {
+    .section {
+        &.section-header {
+            .header-content {
+                padding: 100px 10px 0px 10px;
+                .button {
+                    margin: 0 auto;
+                    width: 100%;
+                    padding-left: 0px;
+                    padding-right: 0px;
+                    font: 600 17px/24px "Source Sans Pro",sans-serif;
                 }
             }
         }

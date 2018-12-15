@@ -6024,7 +6024,27 @@ ui-view{
         margin-left: 10px !important;
         margin-right: 10px !important;
     }
-    
+    &.block-app_download{
+        .download-icon {
+            width: 200px;
+        }
+    }
+    &.block-footer {
+        .footer-label {
+            font: 700 20px/26px "Source Sans Pro",sans-serif;
+        }
+        .footer-schedule {
+            .schedule-label {
+                color: #fff;
+                font: 400 14px/24px "Source Sans Pro",sans-serif;
+            }
+
+            .schedule-value {
+                color: #fff;
+                font: 300 14px/24px "Source Sans Pro",sans-serif;
+            }
+        }
+    }
 }
 
 @media screen and (max-width: 1500px) {
