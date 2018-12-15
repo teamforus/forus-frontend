@@ -445,9 +445,10 @@ module.exports = {
                 title: "Hoe werkt het?",
             },
             labels: {
-                description: "Een voucher kunt u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u uw product of dienst te leveren",
-                desc: "Een aanbieding-voucher kunt u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u uw product of dienst te leveren",
-                contact: "Heeft u vragen over deze aanbieding? Neem dan contact met ons op",
+                description: "Een '{{fund_name}}' voucher kunt u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u uw product of dienst te leveren.",
+                desc: "Een aanbieding-voucher kunt u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u uw product of dienst te leveren.",
+                contact_sponsor: "Heeft u vragen over '{{fund_name}}'? Neem dan contact met ons op.",
+                contact_provider: "Heeft u vragen over deze aanbieding? Neem dan contact met ons op.",
             },
         }
     },
