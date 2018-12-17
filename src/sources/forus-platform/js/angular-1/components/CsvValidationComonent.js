@@ -1,5 +1,5 @@
 let CsvValidationComonent = function(
-    $scope
+    PermissionsService
 ) {
     let $ctrl = this;
 
@@ -7,8 +7,11 @@ let CsvValidationComonent = function(
 
     $ctrl.$onInit = function() {
         if (Array.isArray($ctrl.funds)) {
-            $ctrl.funds.forEach(fund => {
+            $ctrl.funds = $ctrl.funds.map(fund => {
                 fund.fundCategories = _.pluck(fund.product_categories, 'name').join(', ');
+                return fund;
+            }).filter(fund => {
+                return PermissionsService.hasPermission(fund.organization, 'validate_records')
             });
         }
 
@@ -26,7 +29,7 @@ module.exports = {
         fund: '<',
     },
     controller: [
-        '$scope',
+        'PermissionsService',
         CsvValidationComonent
     ],
     templateUrl: 'assets/tpl/pages/csv-validation.html'

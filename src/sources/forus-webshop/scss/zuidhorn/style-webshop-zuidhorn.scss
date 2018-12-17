@@ -116,6 +116,18 @@ body {
 }
 
 .block {
+    &.block-breadcrumbs {
+        .breadcrumb-item {
+            color: #017f96;
+
+            &:not(.active) {
+                &:hover {
+                    color: darken($color: #017f96, $amount: 10);
+                }
+            }
+        }
+    }
+
     &.block-navbar {
         .navbar-logo {
             img {

@@ -20,7 +20,6 @@ platform.setLibs([
     "angular_translate_storage_local",
     "moment",
     "chart_js",
-    "filesaver",
     "mdi",
     "nanoscroller",
     "papaparse",
