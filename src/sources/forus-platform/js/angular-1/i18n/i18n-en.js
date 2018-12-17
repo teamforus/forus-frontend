@@ -166,7 +166,8 @@ module.exports = {
     // EDIT FUNDS = funds-edit.pug
     funds_edit: {
         header: {
-            title: "Fonds toevoegen",
+            title_add: "Fonds toevoegen",
+            title_edit: "Fonds aanpassen",
         },
         labels: {
             name: "Naam",
@@ -207,7 +208,8 @@ module.exports = {
     // EDIT OFFICES = offices-edits.pug
     offices_edit: {
         header: {
-            title: "Bewerk vestiging",
+            title_add: "Vestiging toevoegen",
+            title_edit: "Vestiging aanpassen"
         },
         labels: {
             address: "Adres",
@@ -280,7 +282,8 @@ module.exports = {
     //EDIT ORGANIZATIONS = organization-edit.pug
     organization_edit: {
         header: {
-            title: "Organisatie aanmaken"
+            title_add: "Organisatie aanmaken",
+            title_edit: "Organisatie aanpassen",
         },
         labels: {
             name: "Bedrijfsnaam",
@@ -312,14 +315,17 @@ module.exports = {
     // EDIT PRODUCTS = product-edit.pug
     product_edit: {
         header: {
-            title: "Aanbieding toevoegen",
+            title_add: "Aanbieding toevoegen",
+            title_edit: "Aanbieding aanpassen",
         },
         labels: {
-            name: "Aanbieding naam",
+            name: "Titel van aanbieding",
             description: "Omschrijving",
             new: "Aanbiedingsprijs",
             old: "Oude prijs",
-            total: "Aantal aanbiedingen",
+            total: "Aantal",
+            reserved: "Gereserveerd",
+            stock: "Nog te koop / Totaal",
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
         },
@@ -329,7 +335,7 @@ module.exports = {
             close: "Sluit"
         },
         errors: {
-            already_added: 'U heeft al twee aanbiedingen toegevoegd en kunt niet meer toevoegen'
+            already_added: 'U heeft al twee aanbiedingen toegevoegd. U kunt niet meer dan twee toevoegen.'
         },
         confirm_create: {
             title: 'Een aanbieding toevoegen.',
@@ -379,6 +385,10 @@ module.exports = {
         applied_for_fund: {
             title: "Uw aanvraag is ontvangen.",
             description: "De gemeente zal uw verzoek behandelen, dit kan maximaal twee weken duren. Zodra de gemeente uw aanvraag heeft behandeld wordt er een e-mail toegestuurd. Daarnaast kunt u de status ook volgen op het dashboard."
+        },
+        error_apply: {
+            title: 'U heeft nog geen vestigingen aangemaakt!',
+            description: 'U hebt tenminste één vestiging nodig om uw organisatie aan te melden voor {{fund_name}}'
         }
     },
 
@@ -684,6 +694,7 @@ module.exports = {
             restart: "Herstart",
             pause: "Pauze",
             add: "Budget toevoegen",
+            delete: 'Verwijderen'
         },
         status: {
             active: "Actief",
@@ -708,6 +719,10 @@ module.exports = {
             payment: "Betaling -",
 
         },
+        confirm_delete:{
+            title: 'Weet u zeker dat u dit fonds wilt verwijderen?',
+            description: 'Het verwijderen van een fonds is definitief. U kunt dit niet ongedaan maken.'
+        }
     },
 
     // PROVIDER MENU = menu-provider.pug
@@ -725,10 +740,10 @@ module.exports = {
             close: "Sluiten",
         },
         labels: {
-            payment: "Maak het bedrag over naar:",
+            payment: "Maak het bedrag over naar: ",
             account: "NL83 BUNQ 3456 3344 32",
-            addcode: "voeg code ",
-            description: " toe aan de beschrijving",
+            addcode: "voeg code  ",
+            description: "  toe aan de beschrijving",
         }
     },
 

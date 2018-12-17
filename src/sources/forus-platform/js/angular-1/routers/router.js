@@ -16,7 +16,7 @@ let repackPagination = (promise) => {
 
 let objectOnlyKeys = (obj, keys) => {
     let out = {};
-    keys.forEach(key=>out[key] = obj[key]);
+    keys.forEach(key => out[key] = obj[key]);
     return out;
 };
 
@@ -88,7 +88,9 @@ let organziationResolver = (uriKey = 'organization_id') => {
     ];
 };
 
-module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appConfigs) {
+module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
+    $stateProvider, $locationProvider, appConfigs
+) {
     $stateProvider.state({
         name: "home",
         url: "/",
@@ -340,12 +342,12 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
                 return FundService.states();
             },
             productCategories: function(permission, ProductCategoryService) {
-                return repackResponse(ProductCategoryService.list());
+                return repackResponse(ProductCategoryService.listAll());
             }
         }
     });
 
-    $stateProvider.state({
+    /*$stateProvider.state({
         name: "funds-show",
         url: "/organizations/{organization_id}/funds/{id}",
         component: "fundsShowComponent",
@@ -364,7 +366,7 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
             },
             fundLevel: (permission) => "fundShow"
         }
-    });
+    });*/
 
     $stateProvider.state({
         name: "funds-edit",
@@ -657,5 +659,12 @@ module.exports = ['$stateProvider', 'appConfigs', function($stateProvider, appCo
                 }
             }
         });
+    }
+
+    if (appConfigs.html5ModeEnabled) {
+        $locationProvider.html5Mode({
+            enabled: true,
+            requireBase: true
+        }).hashPrefix('!');
     }
 }];

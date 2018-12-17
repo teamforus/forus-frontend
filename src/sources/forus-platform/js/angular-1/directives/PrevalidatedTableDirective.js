@@ -1,3 +1,5 @@
+let FileSaver = require('file-saver');
+
 let PrevalidatedTableDirective = async function(
     $scope,
     PrevalidationService
@@ -58,7 +60,7 @@ let PrevalidatedTableDirective = async function(
                 type: file_type,
             });
 
-            saveAs(blob, file_name);
+            FileSaver.saveAs(blob, file_name);
         }));
     };
 

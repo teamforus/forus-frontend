@@ -140,8 +140,6 @@ body {
 
     .splash {
         background-image: none;
-        display:none;
-        background: none;
         background-position: 100% 0%;
         background-size: auto 100%;
         background-repeat: no-repeat;
@@ -155,15 +153,16 @@ body {
         }
 
         &.splash-d {
-            background-image: none;
-            display:none;
-            height: 1130px;
+            background-image: url("../img/splash-top-nijmegen.png");
+            height: 730px;
         }
     }
 }
 
 .section {
     &.section-header {
+        min-height: 120px;
+        
         .heade-sprite {
             background-image: url("../img/splash-top-ba.png");
             height: 625px;
@@ -173,6 +172,7 @@ body {
         .header-content {
             padding: 180px 0;
             .button {
+                margin: 0 auto;
                 width: auto;
             }
         }
@@ -218,8 +218,42 @@ body {
     }
 }
 
+.modal .modal-content {
+    .description{
+        padding: 10px 0;
+        font: 400 22px/34px $bf;
+        color: $ptc;
+    
+        .popup-title-styled{
+            color: #157c68;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+    }
+
+    .subdescription {
+        color: grey;
+
+        .popup-title-styled{
+            color: #157c68;
+        }
+    }
+}
+
 .block {
     $navbar_transition: .5s ease-in-out;
+
+    &.block-breadcrumbs {
+        .breadcrumb-item {
+            color: #17564a;
+
+            &:not(.active) {
+                &:hover {
+                    color: darken($color: #17564a, $amount: 10);
+                }
+            }
+        }
+    }
 
     &.block-navbar {
         background-color: #a80a2d;
@@ -408,6 +442,8 @@ body {
     }
 
     &.block-products {
+        padding: 0 30px;
+
         .product-item {
             padding: 0 15px;
 
@@ -498,7 +534,7 @@ body {
 
     &.block-show-more {
         text-align: center;
-        padding: 20px 0 0;
+        padding: 20px 0 20px 0;
         margin: 0;
 
         .button {
@@ -583,7 +619,8 @@ body {
         .footer-nav {
             .footer-nav-item {
                 a {
-                    color: #fff;
+                    color: #efefef;
+                    font: 500 14px/24px "Source Sans Pro",sans-serif;
 
                     &:hover {
                         color: #fff;
@@ -1112,9 +1149,16 @@ body {
                 }
             }
         }
+
+        &.block-products {
+            padding: 0 10px;
+        }
     }
 
     @media screen and (max-width: 767px) {
+        &.block-map{
+            background:none;
+        }
         &.block-navbar {
             .navbar-logo {
                 width: 40px;
@@ -1339,6 +1383,32 @@ body {
                             margin-bottom: 0;
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .section {
+        &.section-header {
+            min-height: 70px;
+        }
+    }
+}
+
+@media screen and (max-width: 746px) {
+    .section {
+        &.section-header {
+            .header-content {
+                padding: 100px 20px 0px 20px;
+
+                .button {
+                    margin: 0 auto;
+                    width: 100%;
+                    padding-left: 0px;
+                    padding-right: 0px;
+                    font: 600 17px/24px "Source Sans Pro",sans-serif;
                 }
             }
         }

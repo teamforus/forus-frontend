@@ -6,6 +6,28 @@ body {
     background: linear-gradient(to bottom, #f7f9fc 0%, #ffffff 100%);
 }
 
+.modal .modal-content {
+    .description{
+        padding: 10px 0;
+        font: 400 22px/34px $bf;
+        color: $ptc;
+    
+        .popup-title-styled{
+            color: #157c68;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+    }
+
+    .subdescription {
+        color: $ptc;
+
+        .popup-title-styled{
+            color: #157c68;
+        }
+    }
+}
+
 .label {
     &.label-success {
         background: $bc_2;
@@ -94,6 +116,18 @@ body {
 }
 
 .block {
+    &.block-breadcrumbs {
+        .breadcrumb-item {
+            color: #017f96;
+
+            &:not(.active) {
+                &:hover {
+                    color: darken($color: #017f96, $amount: 10);
+                }
+            }
+        }
+    }
+
     &.block-navbar {
         .navbar-logo {
             img {

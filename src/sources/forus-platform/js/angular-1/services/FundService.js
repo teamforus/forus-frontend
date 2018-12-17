@@ -55,9 +55,12 @@ let FundService = function(ApiRequest) {
             );
         };
 
-        this.readProvidersTransactions = function (organization_id, fund_id, provider_id) {
+        this.readProvidersTransactions = function (organization_id, fund_id, provider_id, query) {
+            query = query ? query : {};
+
             return ApiRequest.get(
-                uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + provider_id + '/transactions'
+                uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + provider_id + '/transactions',
+                query
             );
         };
 
@@ -136,6 +139,12 @@ let FundService = function(ApiRequest) {
                 formValues
             );
         };
+
+        this.destroy = function(organization_id, fund_id) {
+            return ApiRequest.delete(
+                uriPrefix + organization_id + '/funds/' + fund_id
+            );
+        }
     });
 };
 

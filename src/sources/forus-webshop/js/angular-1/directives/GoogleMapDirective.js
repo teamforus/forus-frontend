@@ -1,4 +1,11 @@
-let GoogleMapDirective = function($scope, $element, $timeout, GoogleMapService) {
+let GoogleMapDirective = function(
+    $scope,
+    $element,
+    $timeout,
+    GoogleMapService,
+    AuthService,
+    appConfigs
+) {
     $scope.style = [];
     // locations = [];
     $scope.markers = [];
@@ -10,25 +17,28 @@ let GoogleMapDirective = function($scope, $element, $timeout, GoogleMapService) 
         var map, marker, infowindow;
         var image = $elementCanvas.attr("data-marker");
         var zoomLevel = 12;
-        /*var styledMap = new google.maps.StyledMapType($scope.style, {
-            name: "Styled Map"
-        });*/
+        // var styledMap = new google.maps.StyledMapType($scope.style, {
+        //    name: "Styled Map"
+        // });
         let styles = [
             {
                 featureType: 'poi.business',
-                stylers: [{visibility: 'off'}]
+                stylers: [{ visibility: 'off' }]
             },
             {
                 featureType: 'transit',
                 elementType: 'labels.icon',
-                stylers: [{visibility: 'off'}]
+                stylers: [{ visibility: 'off' }]
             }
         ];
 
         var mapOptions = {
             zoom: zoomLevel,
             disableDefaultUI: false,
-            center: new google.maps.LatLng(53.251723, 6.4950947),
+            center: new google.maps.LatLng(
+                appConfigs.features.map.lat,
+                appConfigs.features.map.lon
+            ),
             scrollwheel: true,
             fullscreenControl: false,
             styles: styles,
@@ -39,7 +49,7 @@ let GoogleMapDirective = function($scope, $element, $timeout, GoogleMapService) 
 
         map = new google.maps.Map(document.getElementById(obj), mapOptions);
 
-        //map.mapTypes.set('map_style', styledMap);
+        // map.mapTypes.set('map_style', styledMap);
         // map.setMapTypeId('map_style');
 
         infowindow = new google.maps.InfoWindow();
@@ -57,10 +67,13 @@ let GoogleMapDirective = function($scope, $element, $timeout, GoogleMapService) 
             google.maps.event.addListener(marker, 'click', (function(marker, office) {
                 var description = [
                     'Address: ' + (office.address || 'Geen data'),
-                    'Telephone: ' + (office.phone || office.organization.phone || 'Geen data'),
-                    'E-mail: ' + (office.email || office.organization.email || 'Geen data'),
                     'Categories: ' + (office.organization.categories || 'Geen data'),
                 ];
+
+                if (AuthService.hasCredentials()) {
+                    description.push('Telephone: ' + (office.phone || office.organization.phone || 'Geen data'));
+                    description.push('E-mail: ' + (office.email || office.organization.email || 'Geen data'));
+                }
 
                 return function() {
                     $timeout(function() {
@@ -111,6 +124,8 @@ module.exports = () => {
             '$element',
             '$timeout',
             'GoogleMapService',
+            'AuthService',
+            'appConfigs',
             GoogleMapDirective
         ]
     };

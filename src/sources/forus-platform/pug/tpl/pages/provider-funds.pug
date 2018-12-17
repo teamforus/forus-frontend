@@ -3,7 +3,7 @@
     section.app.app-content
         .card-heading 
             span(translate="provider_funds_available.title")
-            span(ng-bind="' (' + $ctrl.funds.length + $ctrl.pendingFunds.length + ')'") 
+            span(ng-bind="' (' + ($ctrl.funds.length + $ctrl.fundsAvailable.length) + ')'")
         fund-card-available-provider(
             ng-if="$ctrl.fundsAvailable.length > 0" 
             ng-repeat="fund in $ctrl.fundsAvailable"  
@@ -15,5 +15,5 @@
             provider-fund="fund" 
             organization="$ctrl.organization")
         block-empty(
-            ng-if="$ctrl.funds.length + $ctrl.pendingFunds.length == 0" 
+            ng-if="$ctrl.funds.length + $ctrl.fundsAvailable.length == 0"
             text="'Er zijn momenteel geen actieve fondsen.'")

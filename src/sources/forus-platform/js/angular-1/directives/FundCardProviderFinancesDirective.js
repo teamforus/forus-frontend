@@ -129,13 +129,24 @@ let FundCardProviderFinancesDirective = function(
             ).then(function (res) {
                 $scope.fundProvider.showStatistics = false;
                 $scope.fundProvider.showTransactions = true;
-                $scope.transactions = res.data.data;
+                $scope.transactions = res.data;
             });
         } else {
             $scope.chartData.update();
             $scope.fundProvider.showStatistics = true;
             $scope.fundProvider.showTransactions = false;
         }
+    };
+
+    $scope.onPageChange = async (query) => {
+        FundService.readProvidersTransactions(
+            $scope.fundProvider.fund.organization_id,
+            $scope.fundProvider.fund.id,
+            $scope.fundProvider.id,
+            query
+        ).then(function (res) {
+            $scope.transactions = res.data;
+        });
     };
 };
 

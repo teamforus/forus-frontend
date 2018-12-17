@@ -17,7 +17,18 @@ let OrganizationProvidersComponent = function(
                 'approved': 0,
                 'declined': -1,
             } [providerFund.state];
+
+            providerFund.collapsed = providerFund.state == 'approved';
+            providerFund.collapsable = providerFund.state == 'approved';
+
+            return providerFund;
         });
+    };
+
+    $ctrl.toggleFundCollapse = function(providerFund) {
+        if (providerFund.collapsable) {
+            providerFund.collapsed = !providerFund.collapsed;
+        }
     };
 
     $ctrl.approveProvider = function(providerFund) {

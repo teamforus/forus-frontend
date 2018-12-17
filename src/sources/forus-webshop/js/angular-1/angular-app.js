@@ -63,6 +63,7 @@ app.directive('voucherCard', require('./directives/VoucherCardDirective'));
 app.directive('productCard', require('./directives/ProductCardDirective'));
 app.directive('appFooter', require('./directives/AppFooterDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
+app.directive('preventPropagation', require('./directives/PreventPropagation'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
@@ -85,6 +86,7 @@ app.provider('ModalRoute', require('./providers/ModalRouteProvider'));
 app.provider('I18nLib', require('./providers/I18nLibProvider'));
 
 // Filters
+app.filter('currency_format', require('./filters/CurrencyFormatFilter'));
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('i18n', require('./filters/I18nFilter'));

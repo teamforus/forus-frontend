@@ -5,7 +5,7 @@
 
         .block.block-shops_map
             .shop_map-header
-                .shop_map-title {{ "popup_offices.header.title_first_part" | translate }} {{ providersCount }} {{ "popup_offices.header.title_last_part" | translate }}
+                .shop_map-title {{ "popup_offices.header.title_first_part" | translate }} {{ $ctrl.providersCount }} {{ "popup_offices.header.title_last_part" | translate }}
                 .shop_map-subtitle(translate="popup_offices.header.subtitle")
                 .shop_map-categories(ng-class="$ctrl.productCategories.length > $ctrl.per_page ? 'has-pagination' : ''")
                     .shop_map-prev(ng-click="$ctrl.prevCategoriesPage()" ng-class="$ctrl.cur_page == 1 ? 'disabled' : ''"): .mdi.mdi-chevron-left

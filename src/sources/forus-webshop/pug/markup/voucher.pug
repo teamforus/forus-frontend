@@ -4,59 +4,65 @@ block content
 
     header.section.section-header.section-header-voucher: .wrapper
         include ../layout/includes/navbar
-        
-        .header-body
-            .header-content
-                .block.block-product.block-product-sm
-                    .product-card
-                        .product-details
-                            .product-photo(style="background-image: url('./assets/img/placeholders/product-large.png')")
-                                img(src="./assets/img/placeholders/product-large.png", alt="")
-                            .product-name
-                                | Giant X-Ray 2 
-                                span.label.label-success Active
-                            .product-categories Bikes, Computers
-                            
-                            .product-funds
-                                .product-fund-label FUNDS
-                                .product-fund-list Kindpakket 2017, Kindpakket 2018
-
-                            .product-price
-                                .product-price-new € 24,95
-                                .product-price-old € 59,95
-
-                            .product-expire
-                                .expire-label EXPIRATION DATE
-                                .expire-value 25.05.2019
-                            
-                            .product-details-link
-                                | View details
-                                .mdi.mdi-arrow-right
-                        .product-footer
-                            .product-provider-label PROVIDER INFORMATION
-                            .product-provider-value Lidl Groiningen
-                            .product-provider-details
-                                | Address: Zuidhorn 48, 9745 AE Groiningen
-                                br
-                                | Telephone: +31 20 709 5039
-                            br
-                            .product-provider-value Lidl Groiningen
-                            .product-provider-details
-                                | Address: Zuidhorn 48, 9745 AE Groiningen
-                                br
-                                | Telephone: +31 20 709 5039
-            .header-content
-                .block.block-voucher
-                    .voucher-details
-                        .voucher-title Kindpakket
-                        .voucher-subtitle Valid 2 days
-                        .voucher-value € 456,66
-                    .voucher-qr-code: .voucher-qr-code_inner: img(src="./assets/img/qr-code.svg")
-    
-        .block.block-show-more
-            a(href="#").button.button-primary EMAIL TO ME
 
     section.section.section-voucher-details: .wrapper
+        .block.block-breadcrumbs
+            a(href="#").breadcrumb-item Start
+            a(href="#").breadcrumb-item Mijn vouchers
+            a(href="#").breadcrumb-item.active voucher details
+        .section-title Uw voucher
+        .block.block-voucher
+            .base-card.base-card-sponsor: .card-inner
+                .card-body
+                    .card-photo: img(src="./assets/img/placeholders/product-large.png", alt="")
+                    .card-section
+                        .card-title Hoe werkt het?
+                        .card-description Een aanbieding-voucher kun u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u uw product of dienst te leveren
+                .card-footer
+                    .card-label Heeft vragen over deze aanbieding? Neem contact met ons.
+                    .card-value Lidl Groningen
+                    .card-value.card-value-sm
+                        | Address: 
+                        strong Zuiderweg 48, 9745 AE Groningen
+                        br
+                        | Telephone: 
+                        strong +31 20 709 5039
+            .base-card.base-card-voucher
+                .card-inner
+                    .card-body.flex-row
+                        .card-photo: img(src="./assets/img/placeholders/product-large.png", alt="")
+                        .card-section
+                            .label.label-success Ongebruikt
+                            .card-title Giant X-Ray - super bike 200 plus &amp; lorem ipsum dolor sit amet, consectet...
+                            a(href="#").card-read_more 
+                                | Bekijk details
+                                em.mdi.mdi-arrow-right
+                            .card-label Budget
+                            .card-value € 150.00
+                    .card-footer
+                        .card-section
+                            .card-label Verzilver deze voucher voor:
+                            .card-value 31 december 2019
+                        .card-actions
+                            .action-item
+                                .action-item-icon
+                                    em.mdi.mdi-share-variant
+                                    .action-item-tooltip Lorem ipsum
+                                .action-item-name SHARE
+                            .action-item
+                                .action-item-icon
+                                    em.mdi.mdi-email-outline
+                                    .action-item-tooltip Lorem ipsum
+                                .action-item-name EMAIL
+                            .action-item
+                                .action-item-icon
+                                    em.mdi.mdi-printer
+                                    .action-item-tooltip Lorem ipsum
+                                .action-item-name PRINTING
+                .card-qr_code
+                    img(src="./assets/img/qr-code.svg")
+                    .card-qr_code-desc Deze QR-code repesenteert uw aanbieding
+
         include ../layout/blocks/transactions
         include ../layout/blocks/map_card
 

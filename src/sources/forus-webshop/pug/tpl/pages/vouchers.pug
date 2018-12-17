@@ -4,6 +4,10 @@ header.section.section-header: .wrapper
     top-navbar
 
 section.section.section-profile: .wrapper
+    .block.block-breadcrumbs
+        a(ui-sref="home").breadcrumb-item Home
+        .breadcrumb-item.active Mijn vouchers
+
     .section-title
         span(translate="vouchers.header.title")  
         .span-count(ng-bind="$ctrl.vouchers.length")
@@ -18,6 +22,8 @@ section.section.section-profile: .wrapper
             empty-block(
                 title="Geen vouchers"
                 description="Momenteel heeft u geen vouchers"
+                text="Gebruik een activatiecode"
+                hide-link="false"
                 ng-if="$ctrl.vouchers.length == 0")
 
 contact-form 

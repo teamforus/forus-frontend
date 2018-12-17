@@ -91,6 +91,17 @@ translate,
         }
     }
 
+    &.button-danger {
+        background: #FF0000;
+        border-color: #FF0000;
+        color: #fff;
+
+        &:hover {
+            background: #bf0a0a;
+            border-color: #bf0a0a;
+        }
+    }
+
     &.button-wide,
     &.button-wide {
         width: 100%;
@@ -188,6 +199,8 @@ translate,
         font: 400 13px/24px $bf;
         color: $bec;
         margin: 0;
+
+        &:first-letter {text-transform:uppercase}
     }
 
     .form-label {
@@ -1332,6 +1345,15 @@ translate,
         color: #646f79;
         margin-bottom: 5px;
     }
+
+    &.card-collapsable {
+        cursor: pointer;
+        transition: background .4s;
+
+        &:hover {
+            background: lighten($color: #f3f4f5, $amount: 2);
+        }
+    }
 }
 
 .card-block {
@@ -1577,6 +1599,10 @@ translate,
                 margin: -25px 20px -25px -25px;
                 min-height: 150px;
             }
+        }
+
+        .product-details {
+            display: inline-block;
         }
 
         .product-title,
@@ -3197,6 +3223,8 @@ translate,
     font: 400 13px/24px $bf;
     color: $bec;
     margin: 0;
+
+    &:first-letter {text-transform:uppercase}
 }
 
 

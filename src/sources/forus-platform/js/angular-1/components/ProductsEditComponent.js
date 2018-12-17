@@ -2,7 +2,7 @@ let ProductsEditComponent = function(
     $state, 
     $stateParams,
     $filter,
-    $rootScope,
+    appConfigs,
     ProductService,
     FormBuilderService,
     MediaService,
@@ -16,9 +16,9 @@ let ProductsEditComponent = function(
 
     $ctrl.$onInit = function() {
 
-        let maxProductCount = $rootScope.appConfigs.max_product_count ? $rootScope.appConfigs.max_product_count : null;
+        $ctrl.maxProductCount = appConfigs.flags.maxProductCount ? appConfigs.flags.maxProductCount : null;
 
-        if(maxProductCount && !$ctrl.product && $ctrl.products.length >= maxProductCount){
+        if($ctrl.maxProductCount && !$ctrl.product && $ctrl.products.length >= $ctrl.maxProductCount){
             ModalService.open('modalNotification', {
                 type: 'danger',
                 title: $filter('translate')('product_edit.errors.already_added'),
@@ -124,7 +124,7 @@ module.exports = {
         '$state', 
         '$stateParams',
         '$filter',
-        '$rootScope',
+        'appConfigs',
         'ProductService',
         'FormBuilderService', 
         'MediaService',

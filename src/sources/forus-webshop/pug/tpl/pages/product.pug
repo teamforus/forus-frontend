@@ -4,6 +4,13 @@ header.section.section-header: .wrapper
     top-navbar
 
 section.section.section-product: .wrapper
+    .block.block-breadcrumbs
+        a(ui-sref="home").breadcrumb-item Home
+        a(ui-sref="products").breadcrumb-item Aanbiedingen
+        .breadcrumb-item.active(ng-bind="$ctrl.product.name")
+
+    .section-title(ng-bind="$ctrl.product.name")
+
     .block.block-product
         .product-card
             .product-details
@@ -19,8 +26,8 @@ section.section.section-product: .wrapper
                     .product-fund-list(ng-repeat="fund in $ctrl.product.funds" ng-bind="fund.name")
 
                 .product-price
-                    .product-price-new € {{ $ctrl.product.price | to_fixed:2 }} 
-                    .product-price-old € {{ $ctrl.product.old_price | to_fixed:2 }}
+                    .product-price-new(ng-bind="$ctrl.product.price | currency_format")
+                    .product-price-old(ng-bind="$ctrl.product.old_price | currency_format")
 
                 .product-expire(ng-if="$ctrl.product.expire_at")
                     .expire-label {{ "voucher.labels.expire" | translate }}
@@ -31,7 +38,7 @@ section.section.section-product: .wrapper
                     ng-click="$ctrl.applyProduct()") KOOP
                 .button.button-primary(
                     ng-if="!$root.auth_user" 
-                    ng-click="$root.popups.auth.open('choose')") LOG IN
+                    ng-click="openAuthPopup()") LOG IN
 
         .block.block-info-card
             .block-header {{ "voucher.labels.shopdetail" | translate }}
