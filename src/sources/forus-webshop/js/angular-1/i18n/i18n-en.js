@@ -445,11 +445,27 @@ module.exports = {
                 title: "Hoe werkt het?",
             },
             labels: {
-                description: "Een '{{fund_name}}' voucher kunt u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u uw product of dienst te leveren.",
+                description: "Uw '{{fund_name}}' budget kunt u bij een aanbieder laten zien. De aanbieder kan de QR-code scannen om u uw product of dienst te leveren.",
                 desc: "Een aanbieding-voucher kunt u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u uw product of dienst te leveren.",
                 contact_sponsor: "Heeft u vragen over '{{fund_name}}'? Neem dan contact met ons op.",
                 contact_provider: "Heeft u vragen over deze aanbieding? Neem dan contact met ons op.",
             },
+            footer: {
+                actions: {
+                    mail: "EMAIL",
+                    print: "PRINT",
+                    share: "DEEL",
+                },
+                tooltips: {
+                    mail: "E-mail de voucher naar uzelf",
+                    print: "Print de voucher uit",
+                    share: "Deel de voucher met de aanbieder",
+                }
+            },
+            qrcode: {
+                description: "Dit is uw '{{fund_name}}' budget in de vorm van een QR-code.",
+                productdescription: "Dit is uw aanbiedings voucher in de vorm van een QR-code."
+            }
         }
     },
 
