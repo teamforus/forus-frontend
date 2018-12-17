@@ -200,13 +200,6 @@ ui-view{
     }
 }
 
-.product-details {
-    .button {
-        padding-left: 0px !important;
-        padding-right: 0px !important;
-        }
-    }
-
 .map-canvas {
     @include fill_parent();
 }
@@ -1117,11 +1110,11 @@ ui-view{
             }
         }
         .block-voucher .card-inner {
-            min-height: 300px !important;
+            min-height: 300px;
         }
         
         .section.base-card .card-body {
-            min-height: 160px !important;
+            min-height: 160px;
         }
     }
 
@@ -1140,12 +1133,16 @@ ui-view{
         min-height: 200px;
     }
 
+    .card-value {
+        font-size: 20px;
+    }
+
     .card-footer {
-        min-height: 160px;
+        min-height: 130px;
     }
 
     .base-card .card-body {
-        min-height: 200px;
+        min-height: 140px;
     }
     @media screen and (max-width: 1000px) {
         .section-title {
@@ -2923,6 +2920,7 @@ ui-view{
             .card-inner {
                 flex-direction: column;
                 flex: 1;
+                display: flex;
             }
 
             .card-actions {
@@ -2931,7 +2929,7 @@ ui-view{
                 justify-content: flex-end;
 
                 .action-item {
-                    margin-right: 40px;
+                    margin-right: 25px;
                     text-align: center;
                     display: flex;
                     flex-direction: column;
@@ -3018,7 +3016,7 @@ ui-view{
 
             .card-label {
                 color: #646f79;
-                font: 400 14px/20px $bf;
+                font: 400 12px/18px $bf;
             }
 
             .card-value {
@@ -3031,7 +3029,7 @@ ui-view{
                     font-size: 14px;
 
                     strong {
-                        font-weight: 600;
+                        font-weight: 800;
                     }
                 }
 
@@ -3040,9 +3038,17 @@ ui-view{
                 }
             }
 
+            .card-value.euro {
+                font-size: 25px;
+            }
+
+            .card-label.euro {
+                font-size: 15px;
+            }
+
             .card-qr_code {
                 width: 200px;
-                padding: 30px 25px;
+                padding: 25px 20px;
                 background: #efefef;
                 text-align: center;
 
@@ -3058,7 +3064,7 @@ ui-view{
 
                 .card-qr_code-desc {
                     color: #272525;
-                    font: 400 13px $bf;
+                    font: 500 12px $bf;
                     margin: 0 -10px;
                 }
             }
@@ -3073,12 +3079,13 @@ ui-view{
                     padding: 20px 0 20px 20px;
 
                     img {
-                        width: 140px;
+                        width: 100px;
                         display: block;
                         border-radius: 5px;
                         // box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.06);
                     }
                 }
+                
 
                 .card-section {
                     padding: 20px;
@@ -4562,13 +4569,14 @@ ui-view{
                 }
 
                 .card-value {
-                    font: 700 14px $bf;
+                    font: 700 16px $bf;
 
                     &.card-value-sm {
                         font-weight: 400;
                         font-size: 12px;
                     }
                 }
+
 
                 .card-body {
                     .card-photo {
@@ -4588,14 +4596,14 @@ ui-view{
 
                 .card-actions {
                     .action-item {
-                        margin-right: 25px;
+                        margin-right: 15px;
                     }
                 }
 
                 &.base-card-voucher {
                     .card-body {
                         .card-title {
-                            font: 600 13px $bf;
+                            font: 700 16px $bf;
                         }
                     }
                 }
@@ -5950,12 +5958,6 @@ ui-view{
         margin-right: 0px;
         margin-lefT: 0px;
     }
-    
-    .card-actions .action-item {
-        margin-left: 10px !important;
-        margin-right: 10px !important;
-    }
-    
 }
 
 @media screen and (max-width: 767px) {
@@ -6010,7 +6012,27 @@ ui-view{
         margin-left: 10px !important;
         margin-right: 10px !important;
     }
-    
+    &.block-app_download{
+        .download-icon {
+            width: 200px;
+        }
+    }
+    &.block-footer {
+        .footer-label {
+            font: 700 20px/26px "Source Sans Pro",sans-serif;
+        }
+        .footer-schedule {
+            .schedule-label {
+                color: #fff;
+                font: 400 14px/24px "Source Sans Pro",sans-serif;
+            }
+
+            .schedule-value {
+                color: #fff;
+                font: 300 14px/24px "Source Sans Pro",sans-serif;
+            }
+        }
+    }
 }
 
 @media screen and (max-width: 1500px) {

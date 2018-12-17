@@ -1345,6 +1345,15 @@ translate,
         color: #646f79;
         margin-bottom: 5px;
     }
+
+    &.card-collapsable {
+        cursor: pointer;
+        transition: background .4s;
+
+        &:hover {
+            background: lighten($color: #f3f4f5, $amount: 2);
+        }
+    }
 }
 
 .card-block {

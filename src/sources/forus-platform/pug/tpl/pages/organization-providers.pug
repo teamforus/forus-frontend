@@ -4,7 +4,10 @@
         .card-heading 
             span(translate="organization_providers.header.title")
             span(ng-bind="$ctrl.fundProviders.data.length").span-count
-        .card(ng-repeat="providerFund in $ctrl.fundProviders.data | orderBy:'order':'desc'")
+        .card(
+            ng-repeat="providerFund in $ctrl.fundProviders.data | orderBy:'order':'desc'"
+            ng-class="[providerFund.collapsable ? 'card-collapsable' : '', providerFund.collapsed ? 'card-collapsed' : '']"
+            ng-click="$ctrl.toggleFundCollapse(providerFund)")
             .card-section
                 .card-section-actions
                     div(ng-show="providerFund.state == 'approved'")
@@ -25,7 +28,7 @@
                         .card-block-listing-label(translate="organization_providers.labels.phone")
                         span.text-primary-light(ng-bind="providerFund.organization.phone")
 
-                div(ng-show="providerFund.state != 'approved'")
+                div(ng-if="!providerFund.collapsed")
                     .card-block.card-block-listing
                         .card-block-listing-label(translate="organization_providers.labels.categories")
                         span(ng-bind="providerFund.organization.fundCategories.join(', ')")
@@ -40,16 +43,18 @@
                     .keyvalue-key=key
                     .keyvalue-value(ng-bind=value)
 
-            .card-section.card-section-primary(ng-show="providerFund.state != 'approved'")
+            .card-section.card-section-primary(ng-if="!providerFund.collapsed")
                 .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
                     +keyvalue_item_horizontal("KVK", "providerFund.organization.kvk")
                     .pull-right
                         button(
+                            prevent-propagation
                             ng-show="(providerFund.state == 'pending') || (providerFund.state == 'approved')"
                             ng-click="$ctrl.declineProvider(providerFund)").button.button-default
                             em.mdi.mdi-close 
                             span(translate="organization_providers.buttons.reject")
                         button(
+                            prevent-propagation
                             ng-show="(providerFund.state == 'pending') || (providerFund.state == 'declined')"
                             ng-click="$ctrl.approveProvider(providerFund)").button.button-primary
                             em.mdi.mdi-check 
