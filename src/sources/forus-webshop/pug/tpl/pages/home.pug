@@ -14,7 +14,7 @@ header.section.section-header.section-header-landing
             
             .header-description(translate="home.header.{{ $root.client_key }}.subtitle")
             a(ng-if="$root.appConfigs.flags.homeButton" scroll-to="#steps" i18n="home.header.{{ $root.client_key }}.button").button.button-primary
-            a(ng-if="!$root.appConfigs.flags.homeButton" href="https://about.forus.io/nl/contact/" i18n="NEEM CONTACT MET ONS OP").button.button-primary  
+            a(ng-if="!$root.appConfigs.flags.homeButton" href="https://about.forus.io/nl/contact/" i18n="NEEM CONTACT MET ONS OP").button.button-primary
 
 block-products(
     ng-if="$root.appConfigs.flags.homeProducts"
@@ -79,51 +79,51 @@ section.section.section-faq(ng-if="$root.appConfigs.flags.homeFaq"): .wrapper
                         .faq-item-content(collapse-conten,i18n=content)    
 
                 +faq_item(
-                    'home.faq.faq_one',
-                    'home.faq.one')
+                    'home.faq.{{ $root.client_key }}.faq_one',
+                    'home.faq.{{ $root.client_key }}.one')
 
                 +faq_item(
-                    'home.faq.faq_two',
-                    'home.faq.two')
+                    'home.faq.{{ $root.client_key }}.faq_two',
+                    'home.faq.{{ $root.client_key }}.two')
 
                 +faq_item(
-                    'home.faq.faq_three',
-                    'home.faq.three')
+                    'home.faq.{{ $root.client_key }}.faq_three',
+                    'home.faq.{{ $root.client_key }}.three')
 
                 +faq_item(
-                    'home.faq.faq_four',
-                    'home.faq.four')
+                    'home.faq.{{ $root.client_key }}.faq_four',
+                    'home.faq.{{ $root.client_key }}.four')
 
                 +faq_item(
-                    'home.faq.faq_five',
-                    'home.faq.five')
+                    'home.faq.{{ $root.client_key }}.faq_five',
+                    'home.faq.{{ $root.client_key }}.five')
 
                 +faq_item(
-                    'home.faq.faq_six',
-                    'home.faq.six')
+                    'home.faq.{{ $root.client_key }}.faq_six',
+                    'home.faq.{{ $root.client_key }}.six')
 
                 +faq_item(
-                    'home.faq.faq_seven',
-                    'home.faq.seven')
+                    'home.faq.{{ $root.client_key }}.faq_seven',
+                    'home.faq.{{ $root.client_key }}.seven')
 
                 +faq_item(
-                    'home.faq.faq_eight',
-                    'home.faq.eight')
+                    'home.faq.{{ $root.client_key }}.faq_eight',
+                    'home.faq.{{ $root.client_key }}.eight')
                     
                 +faq_item(
-                    'home.faq.faq_nine',
-                    'home.faq.nine')
+                    'home.faq.{{ $root.client_key }}.faq_nine',
+                    'home.faq.{{ $root.client_key }}.nine')
                 +faq_item(
-                    'home.faq.faq_ten',
-                    'home.faq.ten')
+                    'home.faq.{{ $root.client_key }}.faq_ten',
+                    'home.faq.{{ $root.client_key }}.ten')
 
                 +faq_item(
-                    'home.faq.faq_eleven',
-                    'home.faq.eleven')
+                    'home.faq.{{ $root.client_key }}.faq_eleven',
+                    'home.faq.{{ $root.client_key }}.eleven')
                 +faq_item(
-                    'home.faq.faq_twelve',
-                    'home.faq.twelve') 
+                    'home.faq.{{ $root.client_key }}.faq_twelve',
+                    'home.faq.{{ $root.client_key }}.twelve') 
                 +faq_item(
-                    'home.faq.faq_thirteen',
-                    'home.faq.thirteen')
+                    'home.faq.{{ $root.client_key }}.faq_thirteen',
+                    'home.faq.{{ $root.client_key }}.thirteen')
 contact-form 

@@ -68,7 +68,7 @@ module.exports = {
             },
             nijmegen: {
                 title: "Nijmegen. Meedoen-regeling.",
-                subtitle: "Welkom op de website van de Meedoen-regeling. In Nijmegen krijgt iedereen de kans om mee te doen.",
+                subtitle: "Welkom op de website van de Meedoen-regeling. Als u een toekenning heeft van de gemeente Nijmegen voor de Meedoen-regeling, dan kunt u hier uw budget en het aanbod zien. Vul eerst de activatiecode in die u per brief hebt ontvangen.",
                 button: 'WAT MOET IK DOEN?', 
             },
             zuidhorn: {
@@ -118,7 +118,7 @@ module.exports = {
             },
             nijmegen: {
                 title: "Overzicht van alle aanbieders",
-                subtitle: "Binnen het platform Forus werkt de gemeente Nijmegen en verschillende aanbieders samen om de besten diensten en activiteiten aan te bieden. Op deze manier krijgt iedereen een kans om mee te doen",
+                subtitle: "",
             },
             westerkwartier: {
                 title: "Overzicht van alle aanbieders",
@@ -197,24 +197,24 @@ module.exports = {
             },
             nijmegen: {
                 title: "Veelgestelde vragen",
-                faq_one: "Hoe kan ik de {{fonds}} activeren?",
-                one: "Klik rechts bovenaan op 'Activatiecode'. Vul uw e-mailadres en de activatiecode in die u per brief hebt ontvangen. Klik vervolgens op 'Volgende'. Uw profiel is aangemaakt en uw Meedoen voucher is geactiveerd!",
+                faq_one: "Hoe kan ik de Meedoen-regeling activeren?",
+                one: "Klik rechts bovenaan op 'Activatiecode'. Vul uw e-mailadres en de activatiecode in die u per brief hebt ontvangen. Klik vervolgens op 'versturen'. Uw profiel is aangemaakt en uw Meedoen voucher is geactiveerd!",
                 faq_two: "Hoe kan ik inloggen op de webshop?",
-                two: "Dit kan op meerdere manieren, de makkelijkste is per e-mail. Klik rechts bovenaan op 'Inloggen'. Kies voor 'log in via e-mail'. Vul het e-mailadres in die u ook tijdens de activatie hebt gebruikt en klik op 'Volgende'. Open uw e-mail en klik op de link die u heeft ontvangen om in te loggen.",
+                two: "Dit kan op meerdere manieren, het makkelijkste is per e-mail. Klik rechts bovenaan op 'Inloggen'. Kies voor 'log in via e-mail'. Vul het e-mailadres in die je ook tijdens de activatie hebt gebruikt en klik op 'Versturen'. Open je e-mail en klik op de link die je hebt ontvangen om in te loggen.",
                 faq_three: "Bij welke aanbieders kan ik de Meedoen-regeling besteden?",
                 three: "U kan een overzicht van alle aanbieders terugvinden op de webshop. Ga naar 'Overzicht van alle aanbieders'",
                 faq_four: "Ik ben mijn voucher kwijt. Wat moet ik doen?",
-                four: "U kunt uw voucher altijd terugvinden door in te loggen op de webshop, de voucher kunt u uitprinten, naar uw e-mail toesturen of zelfs altijd bij hand hebben door gebruik te maken van de app 'Me'",
+                four: "Je kan je voucher altijd terugvinden door in te loggen op de webshop. Vervolgens kun je de voucher uitprinten en naar je e-mail toesturen of altijd bij hand hebben door gebruik te maken van de Me-app.",
                 faq_five: "Hoe kan ik zien hoeveel budget ik nog over heb?",
-                five: "Na elke betaling wordt er een e-mail toegestuurd met het huidige budget, daarnaast kunt u het budget inzien door in te loggen op de webshop of door gebruik te maken van de app 'Me' .",
+                five: "Na elke betaling wordt er een e-mail toegestuurd met het huidige budget, daarnaast kan je het budget inzien door in te loggen op de webshop of door gebruik te maken van de Me-app.",
                 faq_six: "Kan ik iets wat ik heb gekocht ruilen/retour brengen?",
-                six: "Retour brengen is helaas niet mogelijk. Ruilen misschien wel, vraag de aanbieder naar de mogelijkheden.",
+                six: "Retour brengen is helaas niet mogelijk. Ruilen misschien wel, vraag de winkelier naar de mogelijkheden.",
                 faq_seven: "Moet het budget in een keer besteed worden?",
                 seven: "Nee, U hoeft het budget niet in een keer te besteden.",
                 faq_eight: "Hoe lang is de voucher geldig?",
                 eight: "De voucher is vanaf 1 januari een jaar geldig.",
                 faq_nine: "Kan ik de voucher omruilen voor contant geld?",
-                nine: "Nee, de waarde van de voucher krijg u niet in contact geld uitbetaald.",
+                nine: "Nee, de waarde van de voucher krijgt u niet in contact geld uitbetaald.",
                 faq_ten: "Kan ik iets kopen bij een andere aanbieder die niet op de webshop staat?",
                 ten: "Nee, het budget kan alleen uitgegeven worden bij aanbieders die op de webshop staan.",
                 faq_eleven: "Hoe kom ik in aanmerking voor de Meedoen-regeling?",
@@ -291,15 +291,15 @@ module.exports = {
             nijmegen: {
                 title: "Hoe het werkt",
                 stepone: "Stap #1",
-                one: "U heeft een brief  ontvangen van de gemeente. In de brief staat een activatiecode. Gebruik deze bij stap 2.",
+                one: "U hebt een brief ontvangen van de gemeente. In de brief staat een activatiecode.",
                 steptwo: "Stap #2",
-                two: "Met de activatiecode kunt u zich aanmelden en de Meedoen-regeling activeren. Druk op ‘Activatiecode’ bovenaan de pagina en vul de gevraagde gegevens in",
+                two: "Vul uw activatiecode in. Dat doet u in het vakje ‘activatiecode’ onder de welkomsttekst.",
                 stepthree: "Stap #3",
-                three: "Na uw aanmelding wordt de Meedoen-regeling gelijk geactiveerd. De voucher met bijbehorende QR-Code kunt u terugvinden door bovenaan op ‘Mijn vouchers’ te klikken.",
+                three: "Klik daarna op ‘Aanbiedingen’. Daar vindt u alle activiteiten en cursussen. Ook kunt u uw budget zien. De voucher met het budget vindt u terug door bovenaan op ‘Mijn vouchers’ te klikken.",
                 stepfour: "Stap #4",
-                four: "De QR-Code kunt u uitprinten, naar uzelf toe mailen of altijd op uw telefoon hebben door in te loggen op de app 'Me'. De app 'Me' kunt u downloaden via de Google Playstore en de App Store.",
+                four: "Bij ‘Mijn vouchers’ staat ook een persoonlijke QR-code. Daarmee betaalt u de organisatie waar u een activiteit wilt doen. De QR-code kunt u uitprinten, naar uzelf mailen of altijd op uw telefoon hebben door in te loggen op de Me app. De Me app kunt u downloaden via de Google Playstore en de App Store.",
                 stepfive: "Stap #5",
-                five: "Ga naar de webshop om te zien waar de voucher te besteden is of om een aanbieding te kopen. Laat de bijbehorende QR-Code zien om uw aanbieding af te nemen.",
+                five: "Ga naar 'Aanbiedingen' of het overzicht van alle aanbieders om te zien waar de voucher te besteden is of om een aanbieding te kopen. Ga naar de organisatie en laat de bijbehorende QR-code zien om uw aanbieding in ontvangst te nemen.",
             },
             westerkwartier: {
                 title: "Hoe het werkt",
@@ -333,9 +333,9 @@ module.exports = {
             use: "Gebruik",
         },
         popup: {
-            title: "Weet u zeker dat u deze aanbieding '<span class='popup-title-styled'>{{product_name}}</span>' met een verloopdatum van <span class='popup-title-styled'>{{expire_at}}</span> wilt kopen voor <span class='popup-title-styled'>€{{product_price}}</span>? Wanneer u klikt op bevestig kan deze transactie niet meer ongedaan worden gemaakt. Een terugbetaling is niet mogelijk!",
-            expiration_information: "De verloopdatum van deze aanbieding is: <span class='popup-title-styled'>{{expire_at}}</span>. Zorg ervoor dat u het aanbod voor deze datum ophaalt."
-        }
+            title: "Weet u zeker dat u deze aanbieding '<span class='popup-title-styled'>{{product_name}}</span>' met een verloopdatum van <span class='popup-title-styled'>{{expire_at}}</span> wilt kopen voor <span class='popup-title-styled'>€{{product_price}}</span>? Wanneer u klikt op bevestig, dan kunt u de aankoop niet meer ruilen voor iets anders. Een terugbetling is niet mogelijk!",
+            expiration_information: "De verloopdatum van deze aanbieding is: <span class='popup-title-styled'>{{expire_at}}</span>. Zorg ervoor dat u voor deze datum gebruik maakt van de aanbieding."
+        },
     },
 
     // PRODUCT = product.pug
@@ -445,8 +445,8 @@ module.exports = {
                 title: "Hoe werkt het?",
             },
             labels: {
-                description: "Uw '{{fund_name}}' budget kunt u bij een aanbieder laten zien. De aanbieder kan de QR-code scannen om u uw product of dienst te leveren.",
-                desc: "Een aanbieding-voucher kunt u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u uw product of dienst te leveren.",
+                description: "Uw {{fund_name}} voucher kunt u bij de aanbieder laten zien. De aanbieder scant de QR-code scannen om u het aanbod te leveren",
+                desc: "Een voucher kunt u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u het aanbod te leveren.",
                 contact_sponsor: "Heeft u vragen over '{{fund_name}}'? Neem dan contact met ons op.",
                 contact_provider: "Heeft u vragen over deze aanbieding? Neem dan contact met ons op.",
             },
@@ -463,9 +463,10 @@ module.exports = {
                 }
             },
             qrcode: {
-                description: "Dit is uw '{{fund_name}}' budget in de vorm van een QR-code.",
-                productdescription: "Dit is uw aanbiedings voucher in de vorm van een QR-code."
-            }
+                description: "Dit is uw {{fund_name}} voucher met een QR-code.",
+                productdescription: "Dit is uw aanbiedings voucher met een QR-code."
+            },
+            expire: "Gebruik deze voucher voor:",
         }
     },
 
@@ -587,8 +588,18 @@ module.exports = {
     // AUTHENTICATION POPUP = popup-auth.pug
     popup_auth: {
         header: {
-            title: "Inloggen op platform Forus",
-            subtitle: "Scan de QR-code met de Me App of log in met uw e-mail adres",
+            nijmegen: {
+                title: "Inloggen bij de Meedoen-regeling",
+                subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres",
+            },
+            zuidhorn: {
+                title: "Inloggen op bij het Kindpakket",
+                subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres",                
+            },
+            general: {
+                title: "Inloggen op Platform Forus",
+                subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres", 
+            }
         },
         notifications: {
             confirmation: "Het is gelukt!",
