@@ -65,21 +65,22 @@ section.section.section-voucher-details: .wrapper
                         //-.action-item(ng-if="$ctrl.voucherCard.product")
                             .action-item-icon
                                 em.mdi.mdi-share-variant
-                                .action-item-tooltip Deel de voucher met de aanbieder
-                            .action-item-name DEEL
+                                .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
+                            .action-item-name(i18n="voucher.voucher_card.footer.actions.share")
                         .action-item(ng-click="$ctrl.sendVoucherEmail($ctrl.voucher)")
                             .action-item-icon
                                 em.mdi.mdi-email-outline
-                                .action-item-tooltip E-mail de voucher naar uzelf
-                            .action-item-name EMAIL
+                                .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.mail")
+                            .action-item-name(i18n="voucher.voucher_card.footer.actions.mail")
                         .action-item(ng-click="$ctrl.printQrCode()")
                             .action-item-icon
                                 em.mdi.mdi-printer
-                                .action-item-tooltip Print de voucher uit
-                            .action-item-name PRINT
+                                .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.print")
+                            .action-item-name(i18n="voucher.voucher_card.footer.actions.print")
             .card-qr_code
                 #voucher_qr
-                .card-qr_code-desc Dit is uw '{{ $ctrl.voucherCard.title }}' voucher in de vorm van een QR-code.
+                .card-qr_code-desc(ng-if="$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.productdescription")
+                .card-qr_code-desc(ng-if="!$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
 
     .block.block-transactions(ng-if="$ctrl.voucherCard.transactions.length > 0 && !$ctrl.voucherCard.product")
         .transactions-header: .transactions-title {{ "voucher.labels.transactions" | translate }}
