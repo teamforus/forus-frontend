@@ -161,6 +161,8 @@ body {
 
 .section {
     &.section-header {
+        min-height: 120px;
+        
         .heade-sprite {
             background-image: url("../img/splash-top-ba.png");
             height: 625px;
@@ -240,6 +242,18 @@ body {
 
 .block {
     $navbar_transition: .5s ease-in-out;
+
+    &.block-breadcrumbs {
+        .breadcrumb-item {
+            color: #17564a;
+
+            &:not(.active) {
+                &:hover {
+                    color: darken($color: #17564a, $amount: 10);
+                }
+            }
+        }
+    }
 
     &.block-navbar {
         background-color: #a80a2d;
@@ -428,6 +442,8 @@ body {
     }
 
     &.block-products {
+        padding: 0 30px;
+
         .product-item {
             padding: 0 15px;
 
@@ -1133,6 +1149,10 @@ body {
                 }
             }
         }
+
+        &.block-products {
+            padding: 0 10px;
+        }
     }
 
     @media screen and (max-width: 767px) {
@@ -1368,11 +1388,21 @@ body {
         }
     }
 }
+
+@media screen and (max-width: 1000px) {
+    .section {
+        &.section-header {
+            min-height: 70px;
+        }
+    }
+}
+
 @media screen and (max-width: 746px) {
     .section {
         &.section-header {
             .header-content {
-                padding: 100px 10px 0px 10px;
+                padding: 100px 20px 0px 20px;
+
                 .button {
                     margin: 0 auto;
                     width: 100%;

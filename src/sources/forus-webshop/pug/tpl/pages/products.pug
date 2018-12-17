@@ -3,6 +3,10 @@
 header.section.section-header: .wrapper
     top-navbar
 
+.wrapper: .block.block-breadcrumbs
+    a(ui-sref="home").breadcrumb-item Home
+    .breadcrumb-item.active Aanbiedingen
+
 block-products(
     sample="false" 
     product-categories="$ctrl.productCategories")

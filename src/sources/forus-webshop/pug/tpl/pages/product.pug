@@ -4,6 +4,13 @@ header.section.section-header: .wrapper
     top-navbar
 
 section.section.section-product: .wrapper
+    .block.block-breadcrumbs
+        a(ui-sref="home").breadcrumb-item Home
+        a(ui-sref="products").breadcrumb-item Aanbiedingen
+        .breadcrumb-item.active(ng-bind="$ctrl.product.name")
+
+    .section-title(ng-bind="$ctrl.product.name")
+
     .block.block-product
         .product-card
             .product-details
