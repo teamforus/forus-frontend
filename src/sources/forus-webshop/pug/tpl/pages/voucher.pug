@@ -4,7 +4,13 @@ header.section.section-header.section-header-voucher: .wrapper
     top-navbar
 
 section.section.section-voucher-details: .wrapper
+    .block.block-breadcrumbs
+        a(ui-sref="home").breadcrumb-item Home
+        a(ui-sref="vouchers").breadcrumb-item Mijn vouchers
+        .breadcrumb-item.active Voucher details
+
     .section-title Uw voucher
+
     .block.block-voucher(ng-class="$ctrl.voucherCard.product?'':'block-voucher-regular'")
         // regular voucher
         div(ng-if="!$ctrl.voucherCard.product").base-card.base-card-sponsor: .card-inner

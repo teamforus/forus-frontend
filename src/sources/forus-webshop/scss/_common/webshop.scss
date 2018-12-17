@@ -1319,6 +1319,40 @@ ui-view{
 }
 
 .block {
+    &.block-breadcrumbs {
+        position: relative;
+        
+        .breadcrumb-item {
+            display: inline-block;
+            font: 600 16px $bf;
+            color: #305dfb;
+            transition: .4s;
+
+            &:after {
+                content: '/';
+                user-select: none;
+                padding: 0 10px;
+                color: #aaa;
+                font-weight: 400;
+            }
+
+            &:last-child {
+                &:after {
+                    content: none;
+                }
+            }
+
+            &:hover {
+                color: #0f1f8f;
+            }
+
+            &.active {
+                color: #bbb;
+                cursor: default;
+            }
+        }
+    }
+
     &.block-navbar {
         .navbar-inner {
             border-radius: 8px;
@@ -4679,6 +4713,12 @@ ui-view{
     }
 
     @media screen and (max-width: 1000px) {
+        &.block-breadcrumbs {
+            .breadcrumb-item {
+                font-size: 13px;
+            }
+        }
+
         &.block-voucher {
             flex-direction: column-reverse;
 
