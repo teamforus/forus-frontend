@@ -333,7 +333,7 @@ module.exports = {
             use: "Gebruik",
         },
         popup: {
-            title: "Weet u zeker dat u deze aanbieding '<span class='popup-title-styled'>{{product_name}}</span>' met een verloopdatum van <span class='popup-title-styled'>{{expire_at}}</span> wilt kopen voor <span class='popup-title-styled'>€{{product_price}}</span>? Wanneer u klikt op bevestig, dan kunt u de aankoop niet meer ruilen voor iets anders. Een terugbetling is niet mogelijk!",
+            title: "Weet u zeker dat u deze aanbieding '<span class='popup-title-styled'>{{product_name}}</span>' met een verloopdatum van <span class='popup-title-styled'>{{expire_at}}</span> wilt kopen voor <span class='popup-title-styled'>€{{product_price}}</span>? Wanneer u klikt op bevestig, dan kunt u de aankoop niet meer ruilen voor iets anders. Een terugbetaling is niet mogelijk!",
             expiration_information: "De verloopdatum van deze aanbieding is: <span class='popup-title-styled'>{{expire_at}}</span>. Zorg ervoor dat u voor deze datum gebruik maakt van de aanbieding."
         },
     },
