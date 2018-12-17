@@ -140,8 +140,6 @@ body {
 
     .splash {
         background-image: none;
-        display:none;
-        background: none;
         background-position: 100% 0%;
         background-size: auto 100%;
         background-repeat: no-repeat;
@@ -155,9 +153,8 @@ body {
         }
 
         &.splash-d {
-            background-image: none;
-            display:none;
-            height: 1130px;
+            background-image: url("../img/splash-top-nijmegen.png");
+            height: 730px;
         }
     }
 }
