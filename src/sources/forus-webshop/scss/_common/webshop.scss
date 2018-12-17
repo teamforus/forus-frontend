@@ -44,6 +44,7 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    height:100%;
 
     &.modal-shown {
         overflow: hidden;
@@ -66,8 +67,8 @@ body {
 }
 
 ui-view{
-    flex: 1;
-    min-height: 90vh;
+    flex: 1 0 auto;
+    min-height: 85vh;
 }
 
 .triangle {
@@ -1057,6 +1058,8 @@ ui-view{
 
     &.section-footer {
         padding: 40px 0 0;
+        flex-shrink: 0;
+        z-index: 1;
     }
 
     &.section-funds {
