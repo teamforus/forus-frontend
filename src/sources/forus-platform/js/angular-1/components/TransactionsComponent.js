@@ -1,3 +1,5 @@
+let FileSaver = require('file-saver');
+
 let TransactionsComponent = function(
     $state,
     $scope,
@@ -8,7 +10,7 @@ let TransactionsComponent = function(
     let $ctrl = this;
 
     var now = moment().format('YYYY-MM-DD HH:mm');
-    var org = OrganizationService.active().id;
+    var org = OrganizationService.active();
 
     $ctrl.states = {
         pending: 'In afwachting',
@@ -38,7 +40,7 @@ let TransactionsComponent = function(
             type: file_type,
         });
 
-        saveAs(blob, file_name + '-transactions-' + now + '.csv');
+        FileSaver.saveAs(blob, file_name + '-transactions-' + now + '.csv');
     };
 
     $ctrl.showTransaction = (transaction) => {
