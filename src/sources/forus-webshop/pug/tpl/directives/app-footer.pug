@@ -109,8 +109,8 @@ if (qdt_c.platform.env_data.client_key == 'zuidhorn')
                 .col.col-md-3
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="/provider/") Bent u een winkelier in Zuidhorn en wilt u meer informatie?
-                        .footer-nav-item: a(href="/sponsor/") Bent u een medewerker van een Gemeente en wilt u meer informatie?
+                        .footer-nav-item: a(href="/provider/" target="_self") Bent u een winkelier in Zuidhorn en wilt u meer informatie?
+                        .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van een Gemeente en wilt u meer informatie?
                 
                 .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
                     .footer-label Ontvang onze nieuwsbrief
@@ -137,9 +137,9 @@ if (qdt_c.platform.env_data.client_key == 'nijmegen')
                 .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
                     //img(src="./assets/img/forus-logo-bw.svg").footer-logo
                     .block.block-app_download: .footer-label Downloads
-                        .download-button: a(href="https://play.google.com/store/apps/details?id=io.forus.me")
+                        .download-button: a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
                             .download-icon: img(src="./assets/img/icon-app/play-store-badge.png")
-                        .download-button: a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676")
+                        .download-button: a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
                             .download-icon: img(src="./assets/img/icon-app/app-store-badge.svg")
                             
                 .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-4'")
@@ -166,8 +166,8 @@ if (qdt_c.platform.env_data.client_key == 'nijmegen')
                 .col.col-md-4
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="/sponsor/") Bent u een medewerker van de gemeente Nijmegen en wilt u meer informatie?
-                        .footer-nav-item: a(href="/provider/") Bent u een aanbieder uit de gemeente Nijmegen en wilt u meer informatie?
+                        .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van de gemeente Nijmegen en wilt u meer informatie?
+                        .footer-nav-item: a(href="/provider/" target="_self") Bent u een aanbieder uit de gemeente Nijmegen en wilt u meer informatie?
                 
                 .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
                     .footer-label Ontvang onze nieuwsbrief
