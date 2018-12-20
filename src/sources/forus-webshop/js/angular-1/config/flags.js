@@ -19,10 +19,10 @@ module.exports = {
     },
     forus: {
         logoExtension: '.svg',
-        showAccountSidebar: true,
+        showAccountSidebar: false,
 
         // menu settings
-        productsMenu: true,
+        productsMenu: false,
         sponsorLandingMenu: true,
         providerLandingMenu: true,
         meLandingMenu: true,
