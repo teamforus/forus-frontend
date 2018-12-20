@@ -66,6 +66,11 @@ module.exports = {
                 subtitle: "Ons platform biedt een webshop waar een inwoner zich kan aanmelden voor een regeling, vervolgens kan hij met een voucher aan een aanbieder laten zien. De aanbieder kan dan een product of dienst leveren. <br /> <br /> Wil je meer weten?",
                 button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
             },
+            forus: {
+                title: "Forus is een platform voor gemeentelijke regelingen",
+                subtitle: "Ons platform biedt een webshop waar een inwoner zich kan aanmelden voor een regeling, vervolgens kan hij met een voucher aan een aanbieder laten zien. De aanbieder kan dan een product of dienst leveren. <br /> <br /> Wil je meer weten?",
+                button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
+            },
             nijmegen: {
                 title: "Nijmegen. Meedoen-regeling.",
                 subtitle: "Welkom op de website van de Meedoen-regeling. Als u een toekenning heeft van de gemeente Nijmegen voor de Meedoen-regeling, dan kunt u hier uw budget en het aanbod zien. Vul eerst de activatiecode in die u per brief hebt ontvangen.",
@@ -109,6 +114,10 @@ module.exports = {
         },
         map: { 
             general: {
+                title: "Overzicht van alle aanbieders",
+                subtitle: "Binnen het Forus platform werken sponsoren en leveranciers samen om de beste diensten en producten te leveren voor het publieke domein.",
+            },
+            forus: {
                 title: "Overzicht van alle aanbieders",
                 subtitle: "Binnen het Forus platform werken sponsoren en leveranciers samen om de beste diensten en producten te leveren voor het publieke domein.",
             },
@@ -597,6 +606,10 @@ module.exports = {
                 subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres",                
             },
             general: {
+                title: "Inloggen op Platform Forus",
+                subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres", 
+            },
+            forus: {
                 title: "Inloggen op Platform Forus",
                 subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres", 
             }
