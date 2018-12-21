@@ -140,7 +140,7 @@
         form.form(ng-submit="activateCodeForm.submit()")
             .form-group
                 .form-label {{ "popup_auth.input.code" | translate }}
-                input(ng-model="activateCodeForm.values.code" type="text" placeholder="Activation code").form-control
+                input(ng-model="activateCodeForm.values.code" type="text" placeholder="{{ 'popup_auth.input.code' | translate }}").form-control
                 .form-error(ng-if="activateCodeForm.errors.code") {{ "popup_auth.notifications.invalid" | translate }}
             .form-group
             .form-group: button(type="submit").button.button-primary.button-wide {{ "popup_auth.buttons.submit" | translate }}
