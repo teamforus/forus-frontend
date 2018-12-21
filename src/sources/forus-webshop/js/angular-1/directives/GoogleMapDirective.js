@@ -66,13 +66,13 @@ let GoogleMapDirective = function(
 
             google.maps.event.addListener(marker, 'click', (function(marker, office) {
                 var description = [
-                    'Address: ' + (office.address || 'Geen data'),
-                    'Categories: ' + (office.organization.categories || 'Geen data'),
+                    'Adres: ' + (office.address || 'Geen data'),
+                    'Categorieën: ' + (office.organization.categories || 'Geen data'),
                 ];
 
                 if (AuthService.hasCredentials()) {
-                    description.push('Telephone: ' + (office.phone || office.organization.phone || 'Geen data'));
-                    description.push('E-mail: ' + (office.email || office.organization.email || 'Geen data'));
+                    description.push('Telefoonnummer: ' + (office.phone || office.organization.phone || 'Geen data'));
+                    description.push('E-mailadres: ' + (office.email || office.organization.email || 'Geen data'));
                 }
 
                 return function() {

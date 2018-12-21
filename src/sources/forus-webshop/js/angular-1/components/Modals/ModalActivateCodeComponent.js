@@ -28,7 +28,7 @@ let ModalAuthComponent = function(
                         FundService.applyToFirstAvailable().then(res => {
                             $state.go('voucher', res.data.data);
                         }, () => {
-                            alert('Sorry no funds to apply to.');
+                            alert('Helaas, er is geen fonds waarvoor u zich kan aanmelden.');
                         });
                     } else if (res.data.records.list) {
                         $state.go('records');
