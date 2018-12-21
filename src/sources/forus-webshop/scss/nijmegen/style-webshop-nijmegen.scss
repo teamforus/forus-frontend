@@ -13,6 +13,10 @@ $base_shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
 body {
     background: #fff;
 }
+.product-details .button {
+    padding-left: 0px!important;
+    padding-right: 0px!important;
+}
 
 .button {
     font: 600 17px/24px $bf;
