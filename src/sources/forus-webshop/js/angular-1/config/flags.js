@@ -17,6 +17,24 @@ module.exports = {
         homeFaq: false,
         homeButton: false,
     },
+    forus: {
+        logoExtension: '.svg',
+        showAccountSidebar: false,
+
+        // menu settings
+        productsMenu: false,
+        sponsorLandingMenu: true,
+        providerLandingMenu: true,
+        meLandingMenu: true,
+        aboutSiteMenu: true,
+
+        // home settings
+        homeProducts: false,
+        homeMap: false,
+        homeSteps: false,
+        homeFaq: false,
+        homeButton: false,
+    },
     zuidhorn: {
         logoExtension: '.png',
         showAccountSidebar: false,

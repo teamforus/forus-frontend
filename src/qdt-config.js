@@ -18,6 +18,7 @@ core.addPlatform(require('./platforms/Dashboards/DashboardNijmegenProviderPlatfo
 core.addPlatform(require('./platforms/Webshops/WebshopGeneralPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopZuidhornPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopNijmegenPlatform'));
+core.addPlatform(require('./platforms/Webshops/WebshopForusPlatform'));
 
 // Register meapp landings
 core.addPlatform(require('./platforms/Landings/LandingMeAppGeneralPlatform'));
