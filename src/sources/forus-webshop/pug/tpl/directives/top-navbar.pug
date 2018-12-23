@@ -16,19 +16,23 @@
         a(
             ng-if="$root.appConfigs.flags.sponsorLandingMenu"
             href="{{ $root.appConfigs.features.fronts.url_sponsor }}" 
-            translate="GEMEENTE").navbar-item  
+            translate="GEMEENTE"
+            target="_self").navbar-item  
         a(
             ng-if="$root.appConfigs.flags.providerLandingMenu"
             href="{{ $root.appConfigs.features.fronts.url_provider }}"
-            translate="AANBIEDER").navbar-item  
+            translate="AANBIEDER"
+            target="_self").navbar-item  
         a(
             ng-if="$root.appConfigs.flags.meLandingMenu"
             href="{{ $root.appConfigs.features.fronts.url_app }}" 
-            translate="ME").navbar-item 
+            translate="ME"
+            target="_self").navbar-item 
         a(
             ng-if="$root.appConfigs.flags.aboutSiteMenu"
             href="{{ $root.appConfigs.about_url }}" 
-            translate="OVER ONS").navbar-item
+            translate="OVER ONS"
+            target="_blank").navbar-item
     .block.block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
         .auth-code
             a(ui-sref="vouchers").button.button-default
