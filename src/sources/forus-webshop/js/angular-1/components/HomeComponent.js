@@ -1,4 +1,5 @@
 let HomeComponent = function(
+    $stateParams,
     ModalService
 ) {
     let $ctrl = this;
@@ -6,16 +7,18 @@ let HomeComponent = function(
     $ctrl.showPopupOffices = function() {
         ModalService.open('modalOffices', {});
     };
+
+    if ($stateParams.confirmed) {
+        ModalService.open('modalActivateCode', {});
+    }
 };
 
 module.exports = {
     bindings: {},
     controller: [
+        '$stateParams',
         'ModalService',
         HomeComponent
     ],
-
-    templateUrl: (appConfigs) => {
-            return 'assets/tpl/pages/home.html'
-    }
+    templateUrl: 'assets/tpl/pages/home.html'
 };

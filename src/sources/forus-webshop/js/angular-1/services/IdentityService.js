@@ -50,6 +50,10 @@ module.exports = [
             this.authorizeAuthEmailToken = (source, email_token) => {
                 return ApiRequest.get('/identity/proxy/authorize/email/' + source + '/' + email_token);
             };
+
+            this.exchangeConfirmationToken = (exchangeToken) => {
+                return ApiRequest.get('/identity/proxy/confirmation/exchange/' + exchangeToken);
+            };
         });
     }
 ];
