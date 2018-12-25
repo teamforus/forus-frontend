@@ -47,6 +47,7 @@ app.service('ValidatorService', require('./services/ValidatorService'));
 app.service('GoogleMapService', require('./services/GoogleMapService'));
 app.service('ConfigService', require('./services/ConfigService'));
 app.service('ModalService', require('./services/ModalService'));
+app.service('BrowserService', require('./services/BrowserService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
