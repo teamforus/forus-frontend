@@ -633,6 +633,7 @@ module.exports = {
             warning: "Sluit dit venster en klik op 'Login' als u de activatiecode al eens heeft gebruikt.",
             join: "Aanmelden",
             activate: "Stap 1: Webshop account aanmaken.",
+            activate_code: "Stap 3: Activeer uw budget.",
             scancode: "Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent.",
             mobilecode: "Vul uw toegangscode van de Me-app in.",
             mail: "Heeft u een brief van de gemeente ontvangen met een activatiecode en deze nog niet gebruikt? Ga dan verder. Heeft u deze al wel gebruikt? Sluit dan dit venster en klik op 'login'.",
