@@ -1,4 +1,5 @@
 let HomeComponent = function(
+    $scope,
     $stateParams,
     ModalService
 ) {
@@ -11,11 +12,21 @@ let HomeComponent = function(
     if ($stateParams.confirmed) {
         ModalService.open('modalActivateCode', {});
     }
+
+    $scope.openAuthCodePopup = function () {
+        ModalService.open('modalAuthCode', {});
+    };
+
 };
 
 module.exports = {
     bindings: {},
+    scope: {
+        text: '=',
+        button: '=',
+    },
     controller: [
+        '$scope',
         '$stateParams',
         'ModalService',
         HomeComponent
