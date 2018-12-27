@@ -629,7 +629,7 @@ module.exports = {
             confirm: "VOLGENDE",
         },
         labels: {
-            timelimit: "U wordt automatisch uitgelogd na 15 minuten in activititeit.",
+            timelimit: "U wordt automatisch uitgelogd na 15 minuten inactiviteit.",
             warning: "Sluit dit venster en klik op 'Login' als u de activatiecode al eens heeft gebruikt.",
             join: "Aanmelden",
             activate: "Stap 1: Webshop account aanmaken.",
