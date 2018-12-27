@@ -12,6 +12,10 @@ module.exports = [
                 return ApiRequest.post('/identity', values);
             };
 
+            this.deleteToken = () => {
+                return ApiRequest.delete('/identity/proxy');
+            };
+
             this.makeAuthToken = () => {
                 return ApiRequest.post('/identity/proxy/token');
             };
