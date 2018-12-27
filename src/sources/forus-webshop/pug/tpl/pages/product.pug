@@ -49,7 +49,7 @@ section.section.section-product: .wrapper
                     .info-office-title(ng-bind="$ctrl.product.organization.name")
                     .info-office-description
                         div(ng-if="office.address" ng-bind="office.address")
-                        div(ng-bind="office.phone || ' '")
+                        div(ng-if="$root.auth_user" ng-bind="office.phone || ' '")
 
 
         .block.block-info-card
