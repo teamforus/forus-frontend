@@ -44,8 +44,8 @@ let ModalAuthComponent = function(
                     $ctrl.close();
                     ModalService.open('modalNotification', {
                         type: 'info',
-                        title: 'Too many attempts.',
-                        description: 'Please, retry in 3 hours.'
+                        title: 'Te veel pogingen!',
+                        description: 'U heeft driemaal een verkeerde activatiecode ingevuld. Probeer het over drie uur opnieuw.'
                     });
                 }
 
