@@ -476,7 +476,7 @@ module.exports = {
                 productdescription: "Dit is uw aanbiedings voucher met een QR-code."
             },
             expire: "Gebruik deze voucher voor:",
-            expired: "Expired"
+            expired: "Verlopen"
         }
     },
 
