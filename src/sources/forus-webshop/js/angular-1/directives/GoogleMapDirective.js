@@ -54,7 +54,7 @@ let GoogleMapDirective = function(
 
         infowindow = new google.maps.InfoWindow();
 
-        offices.forEach(function(office) {
+        offices.forEach(function(office, index) {
             let marker = new google.maps.Marker({
                 position: new google.maps.LatLng(office.lat, office.lon),
                 map: map,
@@ -89,6 +89,10 @@ let GoogleMapDirective = function(
                     infowindow.open(map, marker);
                 }
             })(marker, office));
+
+            if (index == 0) {
+                google.maps.event.trigger(marker, 'click');
+            }
         });
     }
 
