@@ -41,8 +41,8 @@ let ModalAuthComponent = function(
                 ModalService.open('modalNotification', {
                     type: 'info',
                     icon: 'email_confirmation',
-                    title: 'Please check email.',
-                    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                    title: 'Bevestig dat u toegang heeft tot dit e-mailadres.',
+                    description: 'U heeft een e-mail ontvangen op het e-mailadres dat u zojuist hebt ingevuld. Ga naar uw inbox en open de e-mail met het onderwerp "E-mail activering" en klik in de e-mail op de blauwe knop.',
                 });
             }, (res) => {
                 form.unlock();
