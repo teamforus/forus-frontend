@@ -13,7 +13,8 @@ header.section.section-header.section-header-landing
             //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
             
             .header-description#desc(translate="home.header.{{ $root.client_key }}.subtitle")
-            a(ng-if="$root.appConfigs.flags.homeButton" ng-click="openAuthCodePopup()" i18n="home.header.{{ $root.client_key }}.button").button.button-primary
+            a(ng-if="$root.appConfigs.flags.homeButton && !$root.auth_user" ng-click="openAuthCodePopup()" i18n="home.header.{{ $root.client_key }}.button").button.button-primary
+            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user" ng-click="openActivateCodePopup()" i18n="home.header.{{ $root.client_key }}.button").button.button-primary
             br
             br
             i.a(ng-if="$root.appConfigs.flags.homeButton" scroll-to="#steps" i18n="Hoe werkt het?" style="text-decoration: underline;")
