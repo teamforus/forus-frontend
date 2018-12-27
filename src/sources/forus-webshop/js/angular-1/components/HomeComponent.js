@@ -17,6 +17,11 @@ let HomeComponent = function(
         ModalService.open('modalAuthCode', {});
     };
 
+    $scope.openActivateCodePopup = function () {
+        ModalService.open('modalActivateCode', {});
+    };
+
+
 };
 
 module.exports = {

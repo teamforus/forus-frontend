@@ -74,17 +74,17 @@ module.exports = {
             nijmegen: {
                 title: "Nijmegen. Meedoen-regeling.",
                 subtitle: "Welkom op de website van de Meedoen-regeling. Als u een toekenning heeft van de gemeente Nijmegen voor de Meedoen-regeling, dan kunt u hier uw budget en het aanbod zien. Vul eerst de activatiecode in die u per brief hebt ontvangen.",
-                button: 'START ACTIVEREN', 
+                button: 'START MET ACTIVEREN', 
             },
             zuidhorn: {
                 title: "Zuidhorn. Kindpakket",
                 subtitle: "Welkom op de website van het Kindpakket Zuidhorn. Het Kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Zuidhorn.",
-                button: 'WAT MOET IK DOEN?',
+                button: 'START MET ACTIVEREN',
             },
             westerkwartier: {
                 title: "Westerkwartier. Kindpakket",
                 subtitle: "Welkom op de website van het Kindpakket Westerkwartier. Het Kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Westerkwartier.",
-                button: 'WAT MOET IK DOEN?',
+                button: 'START MET ACTIVEREN',
             },
         },
         blog: {
