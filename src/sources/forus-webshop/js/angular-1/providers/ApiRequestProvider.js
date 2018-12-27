@@ -44,6 +44,7 @@ module.exports = function() {
 
                     if (appConfigs) {
                         headers['Client-Key'] = appConfigs.client_key;
+                        headers['Client-Type'] = appConfigs.client_type;
                     }
 
                     return headers;
