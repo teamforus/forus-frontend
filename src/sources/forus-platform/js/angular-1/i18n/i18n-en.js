@@ -772,7 +772,7 @@ module.exports = {
             search: "Zoeken",
             from: "Van",
             to: "Tot",
-            filter: "Selectie maken",
+            filter: "Filter",
         },
         status: {
             active: "Geactiveerd",
