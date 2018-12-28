@@ -6,24 +6,24 @@ div
             .col.col-sm-4.col-xs-12.text-right
                 button.button.button-primary(ng-click="$ctrl.showFilters = !$ctrl.showFilters")
                     em.mdi.mdi-filter
-                    | Filter
+                    | {{ prevalidated_table.labels.filter | translate }}
         .card-section(ng-if="$ctrl.showFilters"): .card-block
             .card-filters: .form: .row
                 .form-group.col.col-sm-6.col-xs-12
-                    label.form-label Search
+                    label.form-label(i18n="prevalidated_table.labels.search")
                     input(ng-model="filter.q" type="text" placeholder="Zoeken").form-control
                 .form-group.col.col-sm-6.col-xs-12
-                    label.form-label Geactiveerd
+                    label.form-label(i18n="prevalidated_table.status.active")
                     select(
                         ng-options="state.key as state.name for state in states" 
                         ng-model="filter.state"
                         placeholder="Status").form-control
                 .form-group.col.col-sm-6.col-xs-12
-                    label.form-label From
+                    label.form-label(i18n="prevalidated_table.labels.from")
                     datepicker(date-format="yyyy-MM-dd" datepicker-mobile="").form-control
                         input(ng-model="filter.from" type="text" placeholder="dd.mm.jjjj").form-control
                 .form-group.col.col-sm-6.col-xs-12
-                    label.form-label To
+                    label.form-label(i18n="prevalidated_table.labels.to")
                     datepicker(date-format="yyyy-MM-dd" datepicker-mobile="").form-control
                         input(ng-model="filter.to" type="text" placeholder="dd.mm.jjjj").form-control
                 .form-group.col.col-sm-12.col-xs-12
