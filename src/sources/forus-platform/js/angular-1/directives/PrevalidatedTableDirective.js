@@ -6,7 +6,7 @@ let PrevalidatedTableDirective = async function(
 ) {
     $scope.states = [{
         key: null,
-        name: 'All'
+        name: 'Alle'
     }, {
         key: 'used',
         name: 'Ja'
