@@ -47,11 +47,6 @@ let CsvUploadDirective = function(
                 }).then(function(results) {
                     var header = results.data[0];
                     var body = results.data.slice(1);
-                    var bsnPos = header.indexOf('bsn');
-
-                    if (bsnPos === -1) {
-                        return alert("Bsn record is required.");
-                    }
 
                     csvParser.data = body.reduce(function(result, val, key) {
                         let row = {};
@@ -66,8 +61,8 @@ let CsvUploadDirective = function(
                             return result;
                         }
 
-                        if ($scope.fundKey) {
-                            row[$scope.fundKey + '_eligible'] = 'Ja';
+                        if ($scope.fund) {
+                            row[$scope.fund.key + '_eligible'] = 'Ja';
                         }
 
                         result.push(row);
@@ -126,7 +121,7 @@ let CsvUploadDirective = function(
             setProgress(0);
 
             let uploadChunk = function(data) {
-                PrevalidationService.submitData(data).then(function() {
+                PrevalidationService.submitData(data, $scope.fund.id).then(function() {
                     currentChunkNth++;
                     setProgress((currentChunkNth / chunksCount) * 100);
 
@@ -140,6 +135,12 @@ let CsvUploadDirective = function(
                     } else {
                         uploadChunk(submitData[currentChunkNth]);
                     }
+                }, (res) => {
+                    if (res.status == 422 && res.data.errors.data) {
+                        return alert(res.data.errors.data[0]);
+                    }
+
+                    alert('Unknown error.');
                 });
             };
 
@@ -169,7 +170,7 @@ module.exports = () => {
     return {
         scope: {
             text: '=',
-            fundKey: '=',
+            fund: '=',
             button: '=',
             recordTypes: '='
         },
