@@ -769,12 +769,17 @@ module.exports = {
         },
         labels: {
             code: "Code",
+            search: "Zoeken",
+            from: "Van",
+            to: "Tot",
+            filter: "Selectie maken",
         },
         status: {
             active: "Geactiveerd",
         },
         buttons: {
-            export: "Exporteren",
+            export_selected: "Exporteer selectie",
+            export: "Exporteer alles",
         }
     },
 
