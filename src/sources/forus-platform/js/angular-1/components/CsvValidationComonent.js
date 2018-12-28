@@ -1,7 +1,10 @@
 let CsvValidationComonent = function(
-    PermissionsService
+    PermissionsService,
+    appConfigs
 ) {
     let $ctrl = this;
+
+    $ctrl.panel_type = appConfigs.panel_type;
 
     $ctrl.$onInit = function() {};
 
@@ -23,14 +26,14 @@ let CsvValidationComonent = function(
 
 module.exports = {
     bindings: {
-        prevalidations: '<',
         recordTypes: '<',
         funds: '<',
         fund: '<',
     },
     controller: [
         'PermissionsService',
-        CsvValidationComonent
+        'appConfigs',
+        CsvValidationComonent,
     ],
     templateUrl: 'assets/tpl/pages/csv-validation.html'
 };

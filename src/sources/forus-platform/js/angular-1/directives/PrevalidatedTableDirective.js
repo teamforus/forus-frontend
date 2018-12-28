@@ -4,14 +4,27 @@ let PrevalidatedTableDirective = async function(
     $scope,
     PrevalidationService
 ) {
+    $scope.states = [{
+        key: null,
+        name: 'Alle'
+    }, {
+        key: 'used',
+        name: 'Ja'
+    }, {
+        key: 'pending',
+        name: 'Nee'
+    }];
+
     $scope.filter = {
-        q: ''
+        q: '',
+        fund_id: $scope.fund ? $scope.fund.id : null,
+        state: $scope.states[0].key
     };
 
+
     $scope.$on('csv:uploaded', function() {
-        $scope.onPageChange({
-            page: 1
-        });
+        $scope.filter.page = 1;
+        $scope.onPageChange($scope.filter);
     })
 
     $scope.onPageChange = async (query) => {
@@ -33,13 +46,20 @@ let PrevalidatedTableDirective = async function(
         }));
     };
 
-    // Export to CSV file
-    $scope.exportList = function(e) {
-        e && (e.preventDefault() & e.stopPropagation());
+    $scope.init = async () => {
+        PrevalidationService.list($scope.filter).then((res => {
+            $scope.prevalidations = res.data;
+        }));
+    };
 
-        PrevalidationService.list({
-            per_page: 100000
-        }).then((res => {
+    // Export to CSV file
+    $scope.exportList = function(filters = {}) {
+        filters = JSON.parse(JSON.stringify(filters))
+
+        filters.per_page = 1000000;
+        filters.page = 1;
+
+        PrevalidationService.list(filters).then((res => {
             var data = res.data.data.map(function(row) {
                 let mapRow = {
                     "Code": row.uid
@@ -68,13 +88,15 @@ let PrevalidatedTableDirective = async function(
     $scope.recordTypes.forEach(element => {
         $scope.typesByKey[element.key] = element.name;
     });
+
+    $scope.init();
 };
 
 module.exports = () => {
     return {
         scope: {
-            prevalidations: '=',
             recordTypes: '=',
+            fund: '='
         },
         restrict: "EA",
         replace: true,
