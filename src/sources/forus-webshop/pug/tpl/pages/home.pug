@@ -12,10 +12,13 @@ header.section.section-header.section-header-landing
             //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
             //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
             
-            .header-description(translate="home.header.{{ $root.client_key }}.subtitle")
-            a(ng-if="$root.appConfigs.flags.homeButton" scroll-to="#steps" i18n="home.header.{{ $root.client_key }}.button").button.button-primary
+            .header-description#desc(translate="home.header.{{ $root.client_key }}.subtitle")
+            a(ng-if="$root.appConfigs.flags.homeButton && !$root.auth_user" ng-click="openAuthCodePopup()" i18n="home.header.{{ $root.client_key }}.button").button.button-primary
+            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user" ng-click="openActivateCodePopup()" i18n="home.header.{{ $root.client_key }}.button").button.button-primary
+            br
+            br
+            i.a(ng-if="$root.appConfigs.flags.homeButton" scroll-to="#steps" i18n="Hoe werkt het?" style="text-decoration: underline;")
             a(ng-if="!$root.appConfigs.flags.homeButton" href="https://about.forus.io/nl/contact/" i18n="NEEM CONTACT MET ONS OP").button.button-primary
-
 block-products(
     ng-if="$root.appConfigs.flags.homeProducts"
     sample="true" 
@@ -39,7 +42,7 @@ section.section.section-steps#steps(ng-if="$root.appConfigs.flags.homeSteps"): .
             p(i18n="home.guide.{{ $root.client_key }}.one")
         .step-item: .step-item-content
             h4(i18n="home.guide.{{ $root.client_key }}.steptwo")
-            p(i18n="home.guide.{{ $root.client_key }}.two")
+            p(translate="home.guide.{{ $root.client_key }}.two" scroll-to="#desc")
         .step-item: .step-item-content
             h4(i18n="home.guide.{{ $root.client_key }}.stepthree")
             p(i18n="home.guide.{{ $root.client_key }}.three")

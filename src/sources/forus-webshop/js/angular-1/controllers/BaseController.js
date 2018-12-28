@@ -1,16 +1,27 @@
 let BaseController = function(
     $rootScope,
     $state,
+    IdentityService,
     AuthService,
     RecordService,
     OrganizationService,
     ConfigService,
+    BrowserService,
     $filter,
     appConfigs
 ) {
     $rootScope.loadAuthUser = function() {
+        
         AuthService.identity().then((res) => {
             let auth_user = res.data;
+
+            // 15 minutes
+            BrowserService.detectInactivity(15 * 60 * 1000).then(() => {
+                if (AuthService.hasCredentials()) {
+                    IdentityService.deleteToken();
+                    $rootScope.signOut();
+                }
+            }, () => {});
 
             RecordService.list().then((res) => {
                 auth_user.records = res.data;
@@ -65,10 +76,12 @@ let BaseController = function(
 module.exports = [
     '$rootScope',
     '$state',
+    'IdentityService',
     'AuthService',
     'RecordService',
     'OrganizationService',
     'ConfigService',
+    'BrowserService',
     '$filter',
     'appConfigs',
     BaseController

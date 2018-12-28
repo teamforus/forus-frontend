@@ -54,7 +54,7 @@ section.section.section-voucher-details: .wrapper
                     .card-photo: img(ng-src="{{ $ctrl.voucherCard.thumbnail }}").voucher-img
                     
                     .card-section
-                        .label.label-success(ng-if="$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.transactions.length == 0 ? 'Ongebruikt' : 'Gebruikt'") 
+                        .label(ng-class="{true: 'label-success', false: 'label-warning'}[$ctrl.voucherCard.transactions.length == 0]" ng-if="$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.transactions.length == 0 ? 'Ongebruikt' : 'Gebruikt'")
                         .card-title(ng-bind="$ctrl.voucherCard.title")
                         a(ng-if="$ctrl.voucherCard.product" ui-sref="products-show($ctrl.voucherCard.product)").card-read_more 
                             | Bekijk details
@@ -67,6 +67,7 @@ section.section.section-voucher-details: .wrapper
                     .card-section
                         .card-label(i18n="voucher.voucher_card.expire")
                         .card-value(ng-bind="$ctrl.voucherCard.expire_at_locale")
+                        .label.label-default(ng-if="moment().isAfter(moment($ctrl.voucherCard.expire_at.date))" i18n="voucher.voucher_card.expired" )
                     .card-actions
                         //-.action-item(ng-if="$ctrl.voucherCard.product")
                             .action-item-icon

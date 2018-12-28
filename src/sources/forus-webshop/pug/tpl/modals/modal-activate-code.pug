@@ -3,16 +3,13 @@
     .modal-content
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
 
-        .modal-title {{ "popup_auth.labels.join" | translate }}
-        .modal-subtitle {{ "popup_auth.labels.code" | translate }}
+        .modal-title(i18n="popup_auth.labels.activate_code")
+        .modal-subtitle(i18n="popup_auth.labels.code")
 
         form.form(ng-submit="$ctrl.activateCodeForm.submit()")
             .form-group
-                .form-label {{ "popup_auth.input.code" | translate }}
-                input(ng-model="$ctrl.activateCodeForm.values.code" type="text" placeholder="{{ 'popup_auth.input.code' | translate }}").form-control
-                .form-error(ng-if="$ctrl.activateCodeForm.errors.code") {{ "popup_auth.notifications.invalid" | translate }}
+                .form-label(i18n="popup_auth.input.code")
+                input(dash-input-control block-size="4" max-length="8" ng-model="$ctrl.activateCodeForm.values.code" type="text" placeholder="{{ 'popup_auth.input.code' | translate }}").form-control
+                .form-error(ng-if="$ctrl.activateCodeForm.errors.code" i18n="popup_auth.notifications.invalid")
             .form-group
-            .form-group: button(type="submit").button.button-primary.button-wide {{ "popup_auth.buttons.submit" | translate }}
-
-        //-.modal-footer
-            .footer-text {{ "popup_auth.labels.timelimit" | translate }}
+            .form-group: button(type="submit").button.button-primary.button-wide(i18n="popup_auth.buttons.submit")

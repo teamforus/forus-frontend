@@ -12,7 +12,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: "home",
         url: "/",
-        component: "homeComponent"
+        component: "homeComponent",
+        params: {
+            confirmed: null
+        }
     });
 
     $stateProvider.state({
@@ -282,6 +285,39 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                     CredentialsService.set(res.data.access_token);
                     $rootScope.loadAuthUser();
                     $state.go('home');
+                }, () => {
+                    alert("Token expired or unknown.");
+                    $state.go('home');
+                });
+            }
+        ],
+        data: {
+            token: null
+        }
+    });
+
+    $stateProvider.state({
+        name: "confirmation-email",
+        url: "/confirmation/email/{token}",
+        controller: [
+            '$rootScope',
+            '$state',
+            'IdentityService',
+            'CredentialsService',
+            function(
+                $rootScope,
+                $state,
+                IdentityService,
+                CredentialsService
+            ) {
+                IdentityService.exchangeConfirmationToken(
+                    $state.params.token
+                ).then(function(res) {
+                    CredentialsService.set(res.data.access_token);
+                    $rootScope.loadAuthUser();
+                    $state.go('home', {
+                        confirmed: 1
+                    });
                 }, () => {
                     alert("Token expired or unknown.");
                     $state.go('home');
