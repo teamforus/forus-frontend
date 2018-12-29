@@ -12,4 +12,4 @@
                 input(dash-input-control block-size="4" max-length="8" ng-model="$ctrl.activateCodeForm.values.code" type="text" placeholder="{{ 'popup_auth.input.code' | translate }}").form-control
                 .form-error(ng-if="$ctrl.activateCodeForm.errors.code" i18n="popup_auth.notifications.invalid")
             .form-group
-            .form-group: button(type="submit").button.button-primary.button-wide(i18n="popup_auth.buttons.submit")
+            .form-group: button(type="submit" i18n="popup_auth.buttons.submit").button.button-primary.button-wide

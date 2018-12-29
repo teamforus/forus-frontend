@@ -1,10 +1,8 @@
 let ModalAuthComponent = function(
     $filter,
-    $rootScope,
     AuthService,
     IdentityService,
     FormBuilderService,
-    CredentialsService,
     ModalService
 ) {
 
@@ -59,11 +57,9 @@ module.exports = {
     },
     controller: [
         '$filter',
-        '$rootScope',
         'AuthService',
         'IdentityService',
         'FormBuilderService',
-        'CredentialsService',
         'ModalService',
         ModalAuthComponent
     ],
