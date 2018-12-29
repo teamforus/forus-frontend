@@ -8,7 +8,11 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'general',
             panel_type: 'sponsor',
-            chat_id: false
+            chat_id: false,
+            // html5ModeEnabled: true,
+            // html5Mode: {
+            //    basePath: '/'
+            // }
         });
 
         return platform;
@@ -85,6 +89,7 @@ module.exports = (core) => {
         platform.setEnvData({
             api_url: api_url,
             client_key: 'general',
+            client_type: 'webshop',
             about_url: about_url
         });
 
@@ -95,10 +100,7 @@ module.exports = (core) => {
         platform.setEnvData({
             api_url: api_url,
             client_key: 'zuidhorn',
-            // html5ModeEnabled: true,
-            // html5Mode: {
-            //    basePath: '/'
-            // }
+            client_type: 'webshop',
         });
 
         return platform;
@@ -107,7 +109,8 @@ module.exports = (core) => {
     core.editPlatform('webshop_nijmegen', (platform) => {
         platform.setEnvData({
             api_url: api_url,
-            client_key: 'nijmegen'
+            client_type: 'webshop',
+            client_key: 'nijmegen',
         });
 
         return platform;

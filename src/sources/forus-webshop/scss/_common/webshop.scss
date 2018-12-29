@@ -90,6 +90,11 @@ ui-view{
         color: #fff;
     }
 
+    &.label-warning {
+        background: #ffae42;
+        color: #fff;
+    }
+
     &.label-default {
         background: #8ca3a6;
         color: #fff;
@@ -612,6 +617,7 @@ ui-view{
     .section-title {
         font: 700 40px/60px $bf;
         margin: 0 0 40px;
+        position: relative;
     }
 
     &.section-header {
@@ -3763,6 +3769,12 @@ ui-view{
                 float: left;
                 padding: 20px 30px;
                 width: calc(100% - 380px);
+
+                .label {
+                    margin-bottom: 10px;
+                    border-radius: 5px;
+                    padding: 0 10px;
+                }
 
                 .voucher-name {
                     font: 700 24px/36px $bf;

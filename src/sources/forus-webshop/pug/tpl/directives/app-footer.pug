@@ -58,7 +58,7 @@ if (qdt_c.platform.env_data.client_key == 'general')
                 | 
                 a(href="#")
 
-if (qdt_c.platform.env_data.client_key == 'forus')
+else if (qdt_c.platform.env_data.client_key == 'forus')
     section.section.section-footer
         .wrapper
             .block.block-footer: .row
@@ -118,7 +118,7 @@ if (qdt_c.platform.env_data.client_key == 'forus')
                 a(href="#")
 
 //- Zuidhorn
-if (qdt_c.platform.env_data.client_key == 'zuidhorn')
+else if (qdt_c.platform.env_data.client_key == 'zuidhorn')
     section.section.section-footer
         .wrapper
             .block.block-footer: .row
@@ -169,7 +169,7 @@ if (qdt_c.platform.env_data.client_key == 'zuidhorn')
                     .footer-label Navigatie
                     nav.footer-nav
                         .footer-nav-item: a(href="/provider/" target="_self") Bent u een winkelier in Zuidhorn en wilt u meer informatie?
-                        .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van een Gemeente en wilt u meer informatie?
+                        .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van een gemeente en wilt u meer informatie?
                 
                 .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
                     .footer-label Ontvang onze nieuwsbrief
@@ -189,7 +189,7 @@ if (qdt_c.platform.env_data.client_key == 'zuidhorn')
                 a(href="#")
 
 //- Nijmegen
-if (qdt_c.platform.env_data.client_key == 'nijmegen')
+else if (qdt_c.platform.env_data.client_key == 'nijmegen')
     section.section.section-footer
         .wrapper
             .block.block-footer: .row
@@ -244,3 +244,6 @@ if (qdt_c.platform.env_data.client_key == 'nijmegen')
             .developed
                 | 
                 a(href="#")
+
+else
+    div

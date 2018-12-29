@@ -1,79 +1,52 @@
 let ModalAuthComponent = function(
     $filter,
-    $state,
-    $rootScope,
     AuthService,
     IdentityService,
     FormBuilderService,
-    PrevalidationService,
-    CredentialsService,
-    ConfigService,
-    FundService
+    ModalService
 ) {
 
     let $ctrl = this;
 
     $ctrl.$onInit = () => {
+        if (AuthService.hasCredentials()) {
+            return $ctrl.close();
+        }
 
         $ctrl.signUpForm = FormBuilderService.build({
-            code: "",
             pin_code: "1111",
         }, function(form) {
-            if (form.values.records && (form.values.records.primary_email !=
-                    form.values.records.primary_email_confirmation)) {
-                form.errors = {
+            let records = form.values.records;
+
+            if (records && (records.primary_email != records.primary_email_confirmation)) {
+                return form.errors = {
                     'records.primary_email_confirmation': [
                         $filter('translate')('validation.email_confirmation')
                     ]
                 };
-                return;
             }
 
             form.lock();
 
             IdentityService.make({
-                code: form.values.code,
                 pin_code: form.values.pin_code,
                 records: {
-                    primary_email: form.values.records ? form.values.records.primary_email : ''
+                    primary_email: records ? records.primary_email : ''
                 },
             }).then((res) => {
-                $ctrl.applyAccessToken(res.data.access_token);
+                $ctrl.close();
 
-                PrevalidationService.redeem(
-                    form.values.code
-                ).then(function() {
-                    $ctrl.close();
-
-                    ConfigService.get().then((res) => {
-                        if (!res.data.funds.list) {
-                            FundService.applyToFirstAvailable().then(res => {
-                                $state.go('voucher', res.data.data);
-                            }, () => {
-                                alert('Helaas, er is geen fonds waarvoor u zich kan aanmelden.');
-                            });
-                        } else if (res.data.records.list) {
-                            $state.go('records');
-                        } else {
-                            $state.go('home');
-                        }
-                    });
-                }, console.error);
+                ModalService.open('modalNotification', {
+                    type: 'info',
+                    icon: 'email_confirmation',
+                    title: 'Stap 2: Bevestig dat u toegang heeft tot dit e-mailadres.',
+                    description: 'U heeft een e-mail ontvangen op het e-mailadres dat u zojuist hebt ingevuld. Ga naar uw inbox en open de e-mail met het onderwerp "E-mail activering" en klik in de e-mail op de blauwe knop.',
+                });
             }, (res) => {
                 form.unlock();
                 form.errors = res.data.errors;
             });
         });
-    };
-
-    if (AuthService.hasCredentials()) {
-        $ctrl.close();
-    }
-
-    $ctrl.applyAccessToken = function(access_token) {
-        CredentialsService.set(access_token);
-        $rootScope.loadAuthUser();
-        $ctrl.close();
     };
 };
 
@@ -84,15 +57,10 @@ module.exports = {
     },
     controller: [
         '$filter',
-        '$state',
-        '$rootScope',
         'AuthService',
         'IdentityService',
         'FormBuilderService',
-        'PrevalidationService',
-        'CredentialsService',
-        'ConfigService',
-        'FundService',
+        'ModalService',
         ModalAuthComponent
     ],
     templateUrl: () => {

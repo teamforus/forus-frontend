@@ -74,17 +74,17 @@ module.exports = {
             nijmegen: {
                 title: "Nijmegen. Meedoen-regeling.",
                 subtitle: "Welkom op de website van de Meedoen-regeling. Als u een toekenning heeft van de gemeente Nijmegen voor de Meedoen-regeling, dan kunt u hier uw budget en het aanbod zien. Vul eerst de activatiecode in die u per brief hebt ontvangen.",
-                button: 'WAT MOET IK DOEN?', 
+                button: 'START MET ACTIVEREN', 
             },
             zuidhorn: {
                 title: "Zuidhorn. Kindpakket",
                 subtitle: "Welkom op de website van het Kindpakket Zuidhorn. Het Kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Zuidhorn.",
-                button: 'WAT MOET IK DOEN?',
+                button: 'START MET ACTIVEREN',
             },
             westerkwartier: {
                 title: "Westerkwartier. Kindpakket",
                 subtitle: "Welkom op de website van het Kindpakket Westerkwartier. Het Kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Westerkwartier.",
-                button: 'WAT MOET IK DOEN?',
+                button: 'START MET ACTIVEREN',
             },
         },
         blog: {
@@ -289,7 +289,7 @@ module.exports = {
                 stepone: "Stap #1",
                 one: "Je hebt een brief  ontvangen van de gemeente. In de brief staat een activatiecode. Gebruik deze bij stap 2.",
                 steptwo: "Stap #2",
-                two: "Met de activatiecode kun je je aanmelden en het Kindpakket activeren. Druk op ‘Activatiecode’ bovenaan de pagina en vul de gevraagde gegevens in.",
+                two: "Start met activeren door op <u>de knop ‘start activeren’</u> te klikken onder de welkomsttekst.",
                 stepthree: "Stap #3",
                 three: "Na je aanmelding wordt het Kindpakket gelijk geactiveerd. De voucher met bijbehorende QR-Code kan je terugvinden door bovenaan op ‘Mijn vouchers’ te klikken.",
                 stepfour: "Stap #4",
@@ -302,7 +302,7 @@ module.exports = {
                 stepone: "Stap #1",
                 one: "U hebt een brief ontvangen van de gemeente. In de brief staat een activatiecode.",
                 steptwo: "Stap #2",
-                two: "Vul uw activatiecode in. Dat doet u in het vakje ‘activatiecode’ onder de welkomsttekst.",
+                two: "Start met activeren door op <u>de knop ‘start activeren’</u> te klikken onder de welkomsttekst.",
                 stepthree: "Stap #3",
                 three: "Klik daarna op ‘Aanbiedingen’. Daar vindt u alle activiteiten en cursussen. Ook kunt u uw budget zien. De voucher met het budget vindt u terug door bovenaan op ‘Mijn vouchers’ te klikken.",
                 stepfour: "Stap #4",
@@ -476,6 +476,7 @@ module.exports = {
                 productdescription: "Dit is uw aanbiedings voucher met een QR-code."
             },
             expire: "Gebruik deze voucher voor:",
+            expired: "Verlopen"
         }
     },
 
@@ -628,11 +629,13 @@ module.exports = {
             confirm: "VOLGENDE",
         },
         labels: {
-            timelimit: "U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.",
+            timelimit: "U wordt automatisch uitgelogd na 15 minuten inactiviteit.",
             warning: "Sluit dit venster en klik op 'Login' als u de activatiecode al eens heeft gebruikt.",
             join: "Aanmelden",
+            activate: "Stap 1: Webshop account aanmaken.",
+            activate_code: "Stap 3: Activeer uw budget.",
             scancode: "Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent.",
-            mobilecode: "Vul uw toegangscode van de Me App in.",
+            mobilecode: "Vul uw toegangscode van de Me-app in.",
             mail: "Heeft u een brief van de gemeente ontvangen met een activatiecode en deze nog niet gebruikt? Ga dan verder. Heeft u deze al wel gebruikt? Sluit dan dit venster en klik op 'login'.",
             link: "Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen.",
             code: "Vul de activatiecode in die u per brief hebt ontvangen.",
