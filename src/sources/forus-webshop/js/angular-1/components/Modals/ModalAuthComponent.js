@@ -20,7 +20,7 @@ let ModalAuthComponent = function(
     $ctrl.showEmailBlock = false;
 
     if (AuthService.hasCredentials()) {
-        $ctrl.close();
+        IdentityService.identity().then(() => { }, $ctrl.close);
     }
 
     $ctrl.$onInit = () => {

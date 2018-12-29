@@ -10,7 +10,7 @@ let PaginatorDirective = function(
     let initialized;
 
     let onInit = () => {
-        $scope.filters = $stateParams;
+        $scope.filters = Object.assign({}, $scope.filters, $stateParams);
         $scope.pages = $scope.getPages();
     };
 
