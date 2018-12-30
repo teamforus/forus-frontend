@@ -45,7 +45,11 @@ module.exports = {
             shop: "WEBSHOP",
         },
         header: {
-            title: "Een profiel voor het Forus Platform",
+            title_general: "Een profiel voor het Forus Platform",
+            title_nijmegen: "Een profiel voor de Meedoen-regeling",
+            title_zuidhorn: "Een profiel voor het Kindpakket",
+            title_westerkwartier: "Een profiel voor het Kindpakket",
+            title_forus: "Een profiel voor het Kerstpakket",
             description: "Een profiel om in te loggen, waarmee je vouchers kan beheren en veilig kan betalen",
         },
         buttons: {
@@ -255,6 +259,7 @@ module.exports = {
         labels: {
             mail: "E-mail",
             phone: "Telefoonnummer",
+            website: "Website",
             categories: "Categorieën",
             nocategories: "Geen categorieën",
             join: "Aanmelding voor fonds",
@@ -292,6 +297,7 @@ module.exports = {
             phone: "Telefoonnummer",
             kvk: "KvK-nummer",
             tax: "BTW-nummer (Optioneel)",
+            website: "Website",
         },
         buttons: {
             cancel: "Annuleren",
@@ -325,7 +331,9 @@ module.exports = {
             old: "Oude prijs",
             total: "Aantal",
             reserved: "Gereserveerd",
+            sold: "Verkocht",
             stock: "Nog te koop / Totaal",
+            stock_amount: "Nog te koop",
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
         },
