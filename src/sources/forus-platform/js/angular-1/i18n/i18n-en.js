@@ -292,6 +292,7 @@ module.exports = {
             phone: "Telefoonnummer",
             kvk: "KvK-nummer",
             tax: "BTW-nummer (Optioneel)",
+            website: "Website",
         },
         buttons: {
             cancel: "Annuleren",
