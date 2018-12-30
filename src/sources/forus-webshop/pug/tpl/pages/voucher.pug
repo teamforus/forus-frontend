@@ -7,9 +7,13 @@ section.section.section-voucher-details: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
         a(ui-sref="vouchers").breadcrumb-item Mijn vouchers
-        .breadcrumb-item.active Voucher details
+        .breadcrumb-item.active(ng-if="!$ctrl.voucherCard.product") Uw {{ $ctrl.voucherCard.title }} voucher
+        .breadcrumb-item.active(ng-if="$ctrl.voucherCard.product") Uw aanbieding voucher
 
-    .section-title Uw voucher
+    br
+
+    .section-title(ng-if="!$ctrl.voucherCard.product") Uw {{ $ctrl.voucherCard.title }} voucher
+    .section-title(ng-if="$ctrl.voucherCard.product") Uw aanbieding voucher
 
     .block.block-voucher(ng-class="$ctrl.voucherCard.product?'':'block-voucher-regular'")
         // regular voucher
@@ -60,7 +64,7 @@ section.section.section-voucher-details: .wrapper
                             | Bekijk details
                             em.mdi.mdi-arrow-right
                         div(ng-if="!$ctrl.voucherCard.product")
-                            .card-label.euro Budget:
+                            .card-label.euro Tegoed:
                             .card-value.euro(ng-bind="'€ ' + ($ctrl.voucherCard.amount)") 
 
                 .card-footer
@@ -112,9 +116,16 @@ section.section.section-voucher-details: .wrapper
 
     .block.block-map_card
         .map_card-header
-            .map_card-title {{ "voucher.labels.office" | translate }}
-            .map_card-subtitle {{ "voucher.labels.voucher" | translate }}
+            //- regular voucher
+            .map_card-title(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.offices")
+            .map_card-subtitle(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.vouchers")
+            //- product voucher voucher
+            .map_card-title(ng-if="$ctrl.voucherCard.product" translate="voucher.labels.office")
+            .map_card-subtitle(ng-if="$ctrl.voucherCard.product" translate="voucher.labels.voucher")
 
         .map_card-iframe: google-map(offices="$ctrl.voucherCard.offices")
+        //- regular voucher
+        .map_card-header
+            .map_card-subtitle(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.info")
 
 contact-form 

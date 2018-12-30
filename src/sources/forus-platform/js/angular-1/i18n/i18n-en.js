@@ -45,7 +45,11 @@ module.exports = {
             shop: "WEBSHOP",
         },
         header: {
-            title: "Een profiel voor het Forus Platform",
+            title_general: "Een profiel voor het Forus Platform",
+            title_nijmegen: "Een profiel voor de Meedoen-regeling",
+            title_zuidhorn: "Een profiel voor het Kindpakket",
+            title_westerkwartier: "Een profiel voor het Kindpakket",
+            title_forus: "Een profiel voor het Kerstpakket",
             description: "Een profiel om in te loggen, waarmee je vouchers kan beheren en veilig kan betalen",
         },
         buttons: {

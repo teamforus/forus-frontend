@@ -29,7 +29,7 @@ block content
             .header-sprite(
                 style="background-image: url('./assets/img/landing/header-sprite-meapp.png')")
             .header-content
-                .header-title {{ "meapp_index.header.title" | translate }}
+                .header-title(translate="meapp_index.header.title_{{ $root.appConfigs.client_key }}")
                 .header-description 
                     | {{ "meapp_index.header.description" | translate }}                
                 
