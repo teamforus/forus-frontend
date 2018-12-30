@@ -40,8 +40,8 @@
                             input(ng-model="$ctrl.form.values.old_price" type="number" placeholder="Oude prijs" step="0.01").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.old_price" ng-bind="error")
                         .form-group.form-group-inline(ng-if="$ctrl.product")
-                            label.form-label {{ "product_edit.labels.sold_amount" | translate }}
-                            input(ng-model="$ctrl.form.values.sold_amount" type="number" placeholder="Sold amount" disabled).form-control
+                            label.form-label {{ "product_edit.labels.sold" | translate }}
+                            input(ng-model="$ctrl.form.values.sold_amount" type="number" placeholder="Verkocht" disabled).form-control
                         .form-group.form-group-inline.tooltipped
                             label.form-label {{ "product_edit.labels.total" | translate }}
                             input(ng-model="$ctrl.form.values.total_amount" type="number" placeholder="Aantal aanbiedingen" ng-disabled="!!$ctrl.product").form-control
