@@ -45,11 +45,11 @@
                         .form-group.form-group-inline.tooltipped
                             label.form-label {{ "product_edit.labels.total" | translate }}
                             input(ng-model="$ctrl.form.values.total_amount" type="number" placeholder="Aantal aanbiedingen" ng-disabled="!!$ctrl.product").form-control
-                            tooltip(text="'Let op! U kunt het aantal aanbiedingen niet verminderen, u kunt wel meer aanbiedingen toevoegen'")
                             .form-error(ng-repeat="error in $ctrl.form.errors.total_amount" ng-bind="error")
                         .form-group.form-group-inline(ng-if="$ctrl.product")
                             label.form-label {{ "product_edit.labels.stock_amount" | translate }}
                             input(ng-model="$ctrl.form.values.stock_amount" type="number" placeholder="Stock").form-control
+                            tooltip(text="'Let op! U kunt uw aanbod alleen aanvullen en niet verminderen.'")
                             .form-error(ng-repeat="error in $ctrl.form.errors.stock_amount" ng-bind="error")
 
             .card-section.card-section-primary
