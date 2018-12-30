@@ -8,7 +8,7 @@ module.exports = {
         "products-show": 'Aanbieding',
         "products-apply": "Aanbieding kopen",
         vouchers: 'Mijn vouchers',
-        voucher: 'Mijn voucher',
+        voucher: 'Uw voucher',
         records: 'Eigenschappen', 
         "record-validate": 'Valideer eigenschap',
         "record-validations": 'Validaties',
@@ -432,20 +432,23 @@ module.exports = {
     // VOUCHER = voucher.pug
     voucher: {
         header: {
-            title: "Voucher details",
+            title: "Uw voucher",
         },
         buttons: {
             send: "E-MAIL NAAR MIJ",
             details: "Bekijk details",
         },
         labels: {
-            transactions: "Transacties",
+            transactions: "Uitgaven",
             subtract: "Af",
             fund: "Fonds",
-            expire: "Vervaldatum",
+            expire: "Gebruik voor:",
             requirements: "Voor voorwaarden van deze aanbieding neem contact op met de aanbieder.",
-            office: "Locatie van de aanbieder",
-            voucher: "U kunt uw voucher besteden bij de aanbieders op deze locaties",
+            vouchers: "Staat uw gewenste aanbod niet in de webshop? Ga dan langs bij de aanbieder.",
+            info: "<span style='font-style: italic;'>Zoek je een organisatie die niet op de kaart staat? Je kunt een organisatie vragen om deel te nemen. Een organisatie kan zich het hele jaar door aanmelden.</span>",
+            offices: "U kunt uw voucher besteden bij de aanbieders op deze locaties",
+            voucher: "Print uw voucher uit of mail hem naar uzelf toe. Ga met de QR-code naar de aanbieder en laat hem scannen.",
+            office: "Locaties waar u deze aanbieding voucher kan verzilveren.",
             shopdetail: "INFORMATIE OVER DE AANBIEDER",
             productdetail: "INFORMATIE OVER DE AANBIEDING",
         },
@@ -454,7 +457,7 @@ module.exports = {
                 title: "Hoe werkt het?",
             },
             labels: {
-                description: "Uw {{fund_name}} voucher kunt u bij de aanbieder laten zien. De aanbieder scant de QR-code scannen om u het aanbod te leveren",
+                description: "Uw {{fund_name}} voucher kunt u bij de aanbieder laten zien. De aanbieder scant de QR-code om u het aanbod te leveren",
                 desc: "Een voucher kunt u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u het aanbod te leveren.",
                 contact_sponsor: "Heeft u vragen over '{{fund_name}}'? Neem dan contact met ons op.",
                 contact_provider: "Heeft u vragen over deze aanbieding? Neem dan contact met ons op.",
@@ -487,8 +490,8 @@ module.exports = {
             title: "Mijn vouchers",
         },
         labels: {
-            transactions: "Transacties",
-            last: "Laatste transactie",
+            transactions: "Uitgaven",
+            last: "Laatste uitgave",
             subtract: "(Af)",
             none: "Geen",
             used: "GEBRUIKT",
