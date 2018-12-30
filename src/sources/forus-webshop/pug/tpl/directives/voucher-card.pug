@@ -5,6 +5,7 @@
         .label(ng-class="{true: 'label-success', false: 'label-warning'}[voucherCard.transactions.length == 0]" ng-if="voucherCard.type == 'product'" ng-bind="voucherCard.transactions.length == 0 ? 'Ongebruikt' : 'Gebruikt'")
         .voucher-name(ng-bind="voucherCard.title")
         .voucher-organization(ng-bind="voucherCard.subtitle")
+        //-.voucher-read_more Uw tegoed is:
         .voucher-value(ng-if="voucherCard.type == 'regular'" ng-bind="voucherCard.amount | currency_format")
         .voucher-read_more(ng-if="voucherCard.type == 'product'" ui-sref="products-show(voucherCard.product)" prevent-propagation)
             | Bekijk details

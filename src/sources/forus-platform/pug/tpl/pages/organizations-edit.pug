@@ -34,6 +34,10 @@
                             label.form-label {{ "organization_edit.labels.phone" | translate }}
                             input(ng-model="$ctrl.form.values.phone" type="text" placeholder="Telefoonnummer").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.phone" ng-bind="error")
+                        .form-group.form-group-inline
+                            label.form-label {{ "organization_edit.labels.website" | translate }}
+                            input(ng-model="$ctrl.form.values.website" type="text" placeholder="Website").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.website" ng-bind="error")
             .card-section.card-section-primary
                 .row 
                     .col.col-lg-9.col-md-12

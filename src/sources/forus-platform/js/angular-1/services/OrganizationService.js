@@ -63,6 +63,7 @@ module.exports = [
                     phone: apiResource.phone,
                     kvk: apiResource.kvk,
                     btw: apiResource.btw,
+                    website: apiResource.website,
                 };
             };
         });

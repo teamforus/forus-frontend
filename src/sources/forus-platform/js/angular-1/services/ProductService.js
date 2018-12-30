@@ -39,6 +39,8 @@ let ProductService = function(ApiRequest) {
                 'price': parseFloat(apiResource.price),
                 'old_price': parseFloat(apiResource.old_price),
                 'total_amount': apiResource.total_amount,
+                'stock_amount': apiResource.stock_amount,
+                'sold_amount': apiResource.total_amount - apiResource.stock_amount,
                 'expire_at': apiResource.expire_at,
                 'product_category_id': apiResource.product_category_id,
             };

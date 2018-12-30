@@ -232,6 +232,11 @@ ui-view{
     .map-card-description {
         color: #131418;
         font: 400 11px $bf;
+
+        a {
+            font: inherit;
+            color: $bc;
+        }
     }
 }
 
