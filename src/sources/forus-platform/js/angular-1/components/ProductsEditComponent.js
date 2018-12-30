@@ -15,6 +15,9 @@ let ProductsEditComponent = function(
     $ctrl.media;
 
     $ctrl.$onInit = function() {
+        let values = {
+            product_category_id: null
+        };
 
         $ctrl.maxProductCount = appConfigs.flags.maxProductCount ? appConfigs.flags.maxProductCount : null;
 
@@ -31,11 +34,9 @@ let ProductsEditComponent = function(
             });
         }
 
-        let values = $ctrl.product ? ProductService.apiResourceToForm(
-            $ctrl.product
-        ) : {
-            "product_category_id": null,
-        };
+        if ($ctrl.product) {
+            values = ProductService.apiResourceToForm($ctrl.product);
+        }
 
         $ctrl.productCategories.unshift({
             id: null,
@@ -43,7 +44,6 @@ let ProductsEditComponent = function(
         });
 
         $ctrl.saveProduct = function () {
-
             if(!$ctrl.product && !alreadyConfirmed) {
                 ModalService.open('modalNotification', {
                     type: 'confirm',
@@ -55,13 +55,18 @@ let ProductsEditComponent = function(
                         $ctrl.form.submit();
                     }
                 });
-            }else{
+            } else {
                 $ctrl.form.submit();
             }
-
         };
 
         $ctrl.form = FormBuilderService.build(values, async (form) => {
+            if ($ctrl.product && form.values.stock_amount < $ctrl.product.stock_amount) {
+                return $ctrl.form.errors.stock_amount = [
+                    'You can only increase stock amount.'
+                ];
+            }
+
             form.lock();
 
             let promise;
@@ -76,10 +81,14 @@ let ProductsEditComponent = function(
             }
 
             if ($ctrl.product) {
+                let values = JSON.parse(JSON.stringify(form.values));
+
+                values.total_amount = values.sold_amount + values.stock_amount;
+
                 promise = ProductService.update(
                     $ctrl.product.organization_id,
                     $ctrl.product.id,
-                    form.values
+                    values
                 )
             } else {
                 promise = ProductService.store(
