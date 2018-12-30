@@ -63,7 +63,7 @@ let ProductsEditComponent = function(
         $ctrl.form = FormBuilderService.build(values, async (form) => {
             if ($ctrl.product && form.values.stock_amount < $ctrl.product.stock_amount) {
                 return $ctrl.form.errors.stock_amount = [
-                    'You can only increase stock amount.'
+                    'Het aantal is alleen op te hogen.'
                 ];
             }
 
