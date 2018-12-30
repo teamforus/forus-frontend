@@ -326,6 +326,7 @@ module.exports = {
             old: "Oude prijs",
             total: "Aantal",
             reserved: "Gereserveerd",
+            sold: "Verkocht",
             stock: "Nog te koop / Totaal",
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
