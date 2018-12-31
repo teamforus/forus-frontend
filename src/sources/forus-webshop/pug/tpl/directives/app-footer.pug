@@ -58,7 +58,7 @@ if (qdt_c.platform.env_data.client_key == 'general')
                 | 
                 a(href="#")
 
-if (qdt_c.platform.env_data.client_key == 'forus')
+else if (qdt_c.platform.env_data.client_key == 'forus')
     section.section.section-footer
         .wrapper
             .block.block-footer: .row
@@ -118,7 +118,7 @@ if (qdt_c.platform.env_data.client_key == 'forus')
                 a(href="#")
 
 //- Zuidhorn
-if (qdt_c.platform.env_data.client_key == 'zuidhorn')
+else if (qdt_c.platform.env_data.client_key == 'zuidhorn')
     section.section.section-footer
         .wrapper
             .block.block-footer: .row
@@ -169,7 +169,7 @@ if (qdt_c.platform.env_data.client_key == 'zuidhorn')
                     .footer-label Navigatie
                     nav.footer-nav
                         .footer-nav-item: a(href="/provider/" target="_self") Bent u een winkelier in Zuidhorn en wilt u meer informatie?
-                        .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van een Gemeente en wilt u meer informatie?
+                        .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van een gemeente en wilt u meer informatie?
                 
                 .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
                     .footer-label Ontvang onze nieuwsbrief
@@ -189,11 +189,23 @@ if (qdt_c.platform.env_data.client_key == 'zuidhorn')
                 a(href="#")
 
 //- Nijmegen
-if (qdt_c.platform.env_data.client_key == 'nijmegen')
+else if (qdt_c.platform.env_data.client_key == 'nijmegen')
     section.section.section-footer
         .wrapper
             .block.block-footer: .row
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
+                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-5'")
+                    .footer-label Contactgegevens
+                    //-img(src="./assets/img/logo-bw.png").footer-logo
+                    .footer-schedule
+                        .schedule-label E-mailadres:		
+                        .schedule-value gemeente@nijmegen.nl
+                    .footer-schedule
+                        .schedule-label Telefoonnummer:		
+                        .schedule-value 14 024
+                    .footer-schedule
+                        .schedule-label Adres:		
+                        .schedule-value Stadswinkel, Mariënburg 30 Nijmegen
+                //-.col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
                     //img(src="./assets/img/forus-logo-bw.svg").footer-logo
                     .block.block-app_download: .footer-label Downloads
                         .download-button: a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
@@ -201,7 +213,7 @@ if (qdt_c.platform.env_data.client_key == 'nijmegen')
                         .download-button: a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
                             .download-icon: img(src="./assets/img/icon-app/app-store-badge.svg")
                             
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-4'")
+                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-3'")
                     .footer-label Openingstijden
                     .footer-schedule
                         .schedule-label Maandag: 		
@@ -226,8 +238,15 @@ if (qdt_c.platform.env_data.client_key == 'nijmegen')
                     .footer-label Navigatie
                     nav.footer-nav
                         .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van de gemeente Nijmegen en wilt u meer informatie?
-                        .footer-nav-item: a(href="/provider/" target="_self") Bent u een aanbieder uit de gemeente Nijmegen en wilt u meer informatie?
-                
+                        .footer-nav-item: a(href="/provider/" target="_self") Bent u een aanbieder en wilt u meer informatie?
+                    .block.block-app_download(style="margin-top:15px;"): .footer-label(style="margin-bottom:0px;") Download Me-app
+                        .wrapper
+                            a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
+                                img(src="./assets/img/icon-app/play-store-badge.png" style="height: 40px; width: 120px; padding-right: 5px; margin-top: 10px;")
+                            a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
+                                img(src="./assets/img/icon-app/app-store-badge.svg" style="height: 40px; width: 120px; margin-top: 10px;")
+                    nav.footer-nav(style="margin-top:0; padding:0;")
+                        .footer-nav-item: a(href="/me/") Wilt u meer informatie over de Me-app?		
                 .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
                     .footer-label Ontvang onze nieuwsbrief
                     .form
@@ -238,9 +257,12 @@ if (qdt_c.platform.env_data.client_key == 'nijmegen')
         .block.block-copyrights: .wrapper
             .copyrights 
             .links
-                a(href="#") Algemene Voorwaarden
+                a(href="https://www.nijmegen.nl/diensten/uitkering-schulden-en-laag-inkomen/meedoen-regeling/" target="_blank") Algemene Voorwaarden
                 .link-separator
-                a(href="#") Privacy Statement
+                a(href="https://www.nijmegen.nl/diensten/privacy/" target="_blank") Privacy Statement
             .developed
                 | 
                 a(href="#")
+
+else
+    div

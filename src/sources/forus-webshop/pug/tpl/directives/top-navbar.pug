@@ -84,7 +84,7 @@
                                 span(translate="topnavbar.buttons.logout")
 
         .auth-out(ng-if="!$root.auth_user")
-            .button.button-default(ng-click="openAuthCodePopup()")
+            .button.button-default(ng-if="$root.appConfigs.flags.aboutSiteMenu" ng-click="openAuthCodePopup()")
                 em.mdi.mdi-ticket-confirmation 
                 span(translate="topnavbar.buttons.activate")
             .button.button-default(ng-click="openAuthPopup()")

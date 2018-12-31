@@ -2,8 +2,10 @@
     .voucher-image(style="background-image: url('{{ voucherCard.thumbnail }}')")
     
     .voucher-details
+        .label(ng-class="{true: 'label-success', false: 'label-warning'}[voucherCard.transactions.length == 0]" ng-if="voucherCard.type == 'product'" ng-bind="voucherCard.transactions.length == 0 ? 'Ongebruikt' : 'Gebruikt'")
         .voucher-name(ng-bind="voucherCard.title")
         .voucher-organization(ng-bind="voucherCard.subtitle")
+        //-.voucher-read_more Uw tegoed is:
         .voucher-value(ng-if="voucherCard.type == 'regular'" ng-bind="voucherCard.amount | currency_format")
         .voucher-read_more(ng-if="voucherCard.type == 'product'" ui-sref="products-show(voucherCard.product)" prevent-propagation)
             | Bekijk details
@@ -17,14 +19,14 @@
         .voucher-overview-item
             .voucher-overview-label(i18n="vouchers.labels.last")
             .voucher-overview-value(ng-if="voucherCard.transactions.length > 0")
-                span(ng-bind="'- ' + (voucherCard.transactions[voucherCard.transactions.length-1].amount | currency_format)")
+                span(ng-bind="'- ' + (voucherCard.transactions[0].amount | currency_format)")
                 small(i18n="vouchers.labels.subtract")
             .voucher-overview-value(ng-if="voucherCard.transactions.length == 0")
                 span.text-muted(i18n="vouchers.labels.none")
 
     // product voucher
     .voucher-overview(ng-if="voucherCard.type == 'product'")
-        .voucher-overview-item
+        //-.voucher-overview-item
             .voucher-overview-label(i18n="vouchers.labels.used")
             .voucher-overview-value(ng-bind="voucherCard.transactions.length == 0 ? 'Nee' : 'Ja'")
         .voucher-overview-item

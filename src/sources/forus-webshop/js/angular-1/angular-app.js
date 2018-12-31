@@ -47,6 +47,7 @@ app.service('ValidatorService', require('./services/ValidatorService'));
 app.service('GoogleMapService', require('./services/GoogleMapService'));
 app.service('ConfigService', require('./services/ConfigService'));
 app.service('ModalService', require('./services/ModalService'));
+app.service('BrowserService', require('./services/BrowserService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
@@ -57,6 +58,7 @@ app.directive('profileCard', require('./directives/ProfileCardDirective'));
 app.directive('blockProducts', require('./directives/BlockProductsDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
+app.directive('dashInputControl', require('./directives/DashInputControlDirective'));
 app.directive('scrollTo', require('./directives/ScrollToDirective'));
 app.directive('collapse', require('./directives/CollapseDirective'));
 app.directive('voucherCard', require('./directives/VoucherCardDirective'));

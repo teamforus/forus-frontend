@@ -39,11 +39,19 @@
                             label.form-label {{ "product_edit.labels.old" | translate }}
                             input(ng-model="$ctrl.form.values.old_price" type="number" placeholder="Oude prijs" step="0.01").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.old_price" ng-bind="error")
+                        .form-group.form-group-inline(ng-if="$ctrl.product")
+                            label.form-label {{ "product_edit.labels.sold" | translate }}
+                            input(ng-model="$ctrl.form.values.sold_amount" type="number" placeholder="Verkocht" disabled).form-control
                         .form-group.form-group-inline.tooltipped
                             label.form-label {{ "product_edit.labels.total" | translate }}
-                            input(ng-model="$ctrl.form.values.total_amount" type="number" placeholder="Aantal aanbiedingen").form-control
-                            tooltip(text="'Let op! U kunt het aantal aanbiedingen niet verminderen, u kunt wel meer aanbiedingen toevoegen'")
+                            input(ng-model="$ctrl.form.values.total_amount" type="number" placeholder="Aantal aanbiedingen" ng-disabled="!!$ctrl.product").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.total_amount" ng-bind="error")
+                        .form-group.form-group-inline(ng-if="$ctrl.product")
+                            label.form-label {{ "product_edit.labels.stock_amount" | translate }}
+                            input(ng-model="$ctrl.form.values.stock_amount" type="number" placeholder="Stock").form-control
+                            tooltip(text="'Let op! U kunt uw aanbod alleen aanvullen en niet verminderen.'")
+                            .form-error(ng-repeat="error in $ctrl.form.errors.stock_amount" ng-bind="error")
+
             .card-section.card-section-primary
                 .row 
                     .col.col-lg-9.col-md-12

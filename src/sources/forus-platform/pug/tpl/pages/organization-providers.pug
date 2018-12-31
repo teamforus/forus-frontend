@@ -27,12 +27,15 @@
                     .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
                         .card-block-listing-label(translate="organization_providers.labels.phone")
                         span.text-primary-light(ng-bind="providerFund.organization.phone")
+                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                        .card-block-listing-label(translate="organization_providers.labels.website")
+                        span.text-primary-light(ng-bind="providerFund.organization.website")
 
                 div(ng-if="!providerFund.collapsed")
                     .card-block.card-block-listing
                         .card-block-listing-label(translate="organization_providers.labels.categories")
                         span(ng-bind="providerFund.organization.fundCategories.join(', ')")
-                        small(ng-show="$ctrl.fundCategories.length == 0").text-muted.small {{ "organization_providers.labels.nocategories" | translate }}
+                        small(ng-show="$ctrl.fundCategories.length == 0" i18n="organization_providers.labels.nocategories").text-muted.small
                     br
                     .card-block.card-block-listing
                         .card-block-listing-label(translate="organization_providers.labels.join")

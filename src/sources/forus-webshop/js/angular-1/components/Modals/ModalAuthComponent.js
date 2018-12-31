@@ -1,6 +1,5 @@
 let ModalAuthComponent = function(
     $filter,
-    $scope,
     $timeout,
     $rootScope,
     AuthService,
@@ -21,7 +20,7 @@ let ModalAuthComponent = function(
     $ctrl.showEmailBlock = false;
 
     if (AuthService.hasCredentials()) {
-        $ctrl.close();
+        IdentityService.identity().then(() => { }, $ctrl.close);
     }
 
     $ctrl.$onInit = () => {
@@ -134,7 +133,6 @@ module.exports = {
     },
     controller: [
         '$filter',
-        '$scope',
         '$timeout',
         '$rootScope',
         'AuthService',

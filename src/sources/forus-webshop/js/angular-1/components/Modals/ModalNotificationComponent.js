@@ -21,7 +21,9 @@ let ModalNotificationComponent = function(
         $ctrl.title = $sce.trustAsHtml($ctrl.modal.scope.title);
         $ctrl.description = $ctrl.modal.scope.description ? $sce.trustAsHtml($ctrl.modal.scope.description) : null;
         $ctrl.subdescription = $ctrl.modal.scope.subdescription ? $sce.trustAsHtml($ctrl.modal.scope.subdescription) : null;
+
         $ctrl.icon = $ctrl.modal.scope.icon ? getIcon($ctrl.modal.scope.icon) : null;
+
         $ctrl.confirmBtnText = $ctrl.modal.scope.confirmBtnText ? $ctrl.modal.scope.confirmBtnText : $ctrl.confirmBtnText;
         $ctrl.closeBtnText = $ctrl.modal.scope.closeBtnText ? $ctrl.modal.scope.closeBtnText : $ctrl.closeBtnText;
         $ctrl.cancelBtnText = $ctrl.modal.scope.cancelBtnText ? $ctrl.modal.scope.cancelBtnText : $ctrl.cancelBtnText;
@@ -48,9 +50,12 @@ let ModalNotificationComponent = function(
 
     let getIcon = (icon) => {
 
-        switch (icon){
+        switch (icon) {
             case 'voucher_apply': {
                 return './assets/img/modal/voucher-apply.png';
+            }; break;
+            case 'email_confirmation': {
+                return './assets/img/modal/email.png';
             }; break;
             default:{
                 return './assets/img/modal/info.png';

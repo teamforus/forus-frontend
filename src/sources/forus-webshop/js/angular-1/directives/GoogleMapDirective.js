@@ -54,7 +54,7 @@ let GoogleMapDirective = function(
 
         infowindow = new google.maps.InfoWindow();
 
-        offices.forEach(function(office) {
+        offices.forEach(function(office, index) {
             let marker = new google.maps.Marker({
                 position: new google.maps.LatLng(office.lat, office.lon),
                 map: map,
@@ -70,10 +70,16 @@ let GoogleMapDirective = function(
                     'Categorieën: ' + (office.organization.categories || 'Geen data'),
                 ];
 
+                if (office.organization.website) {
+                    description.push('Website: <a target="_blank" href="' + office.organization.website + '">' + office.organization.website + '</a>');
+                }
+
                 if (AuthService.hasCredentials()) {
                     description.push('Telefoonnummer: ' + (office.phone || office.organization.phone || 'Geen data'));
                     description.push('E-mailadres: ' + (office.email || office.organization.email || 'Geen data'));
                 }
+
+                description = description.filter(item => item);
 
                 return function() {
                     $timeout(function() {
@@ -89,6 +95,10 @@ let GoogleMapDirective = function(
                     infowindow.open(map, marker);
                 }
             })(marker, office));
+
+            if (index == 0) {
+                google.maps.event.trigger(marker, 'click');
+            }
         });
     }
 
@@ -112,13 +122,12 @@ let GoogleMapDirective = function(
 
 module.exports = () => {
     return {
-        templateUrl: 'assets/tpl/directives/google-map.html',
-        replace: true,
-        transclude: true,
         scope: {
             offices: '=',
             selectedOffice: '=?'
         },
+        replace: true,
+        transclude: true,
         controller: [
             '$scope',
             '$element',
@@ -127,6 +136,7 @@ module.exports = () => {
             'AuthService',
             'appConfigs',
             GoogleMapDirective
-        ]
+        ],
+        templateUrl: 'assets/tpl/directives/google-map.html',
     };
 };

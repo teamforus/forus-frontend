@@ -44,7 +44,7 @@ module.exports = [
                     transaction => addType('transaction', transaction)
                 ).concat((voucher.product_vouchers || []).map(
                     product_voucher => addType('product_voucher', product_voucher)
-                )).sort((a, b) => a.timestamp - b.timestamp);
+                )).sort((a, b) => b.timestamp - a.timestamp);
             }
 
             this.composeCardData = function(voucher) {

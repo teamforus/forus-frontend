@@ -3,7 +3,35 @@ div
         ng-if="prevalidations").form
         .card-header: .row
             .col.col-sm-8.col-xs-12: .card-title(translate="prevalidated_table.header.title")
-            .col.col-sm-4.col-xs-12: .form: input(ng-model="filter.q" type="text" placeholder="Zoeken").form-control
+            .col.col-sm-4.col-xs-12.text-right
+                button.button.button-primary(ng-click="$ctrl.showFilters = !$ctrl.showFilters")
+                    em.mdi.mdi-filter
+                    | {{ "prevalidated_table.labels.filter" | translate }}
+        .card-section(ng-if="$ctrl.showFilters"): .card-block
+            .card-filters: .form: .row
+                .form-group.col.col-sm-6.col-xs-12
+                    label.form-label(i18n="prevalidated_table.labels.search")
+                    input(ng-model="filter.q" type="text" placeholder="Zoeken").form-control
+                .form-group.col.col-sm-6.col-xs-12
+                    label.form-label(i18n="prevalidated_table.status.active")
+                    select(
+                        ng-options="state.key as state.name for state in states" 
+                        ng-model="filter.state"
+                        placeholder="Status").form-control
+                .form-group.col.col-sm-6.col-xs-12
+                    label.form-label(i18n="prevalidated_table.labels.from")
+                    datepicker(date-format="yyyy-MM-dd" datepicker-mobile="").form-control
+                        input(ng-model="filter.from" type="text" placeholder="dd.mm.jjjj").form-control
+                .form-group.col.col-sm-6.col-xs-12
+                    label.form-label(i18n="prevalidated_table.labels.to")
+                    datepicker(date-format="yyyy-MM-dd" datepicker-mobile="").form-control
+                        input(ng-model="filter.to" type="text" placeholder="dd.mm.jjjj").form-control
+                .form-group.col.col-sm-12.col-xs-12
+                .form-group.col.col-sm-12.col-xs-12
+                    button(ng-click="exportList(filter)").button.button-primary
+                        em.mdi.mdi-download  
+                        span(translate="prevalidated_table.buttons.export_selected")
+
         .card-section: .card-block.card-block-table: .table-wrapper
             table.table
                 tr

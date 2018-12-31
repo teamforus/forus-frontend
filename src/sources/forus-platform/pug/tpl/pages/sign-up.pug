@@ -153,6 +153,10 @@
                                 label(translate="organization_edit.labels.phone").form-label
                                 input(ng-model="$ctrl.organizationForm.values.phone" type="text" placeholder="Telefoonnummer").form-control
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.phone" ng-bind="error")
+                            .form-group
+                                label(translate="organization_edit.labels.website").form-label
+                                input(ng-model="$ctrl.organizationForm.values.website" type="text" placeholder="Website").form-control
+                                .form-error(ng-repeat="error in $ctrl.organizationForm.errors.website" ng-bind="error")
 
                         .card-section: .pseudo-wrapper
                             product-categories-control(

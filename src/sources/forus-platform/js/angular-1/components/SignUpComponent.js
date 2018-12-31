@@ -39,6 +39,7 @@ let SignUpComponent = function(
     let has_app = false;
     let orgMediaFile = false;
     let waitingSms = false;
+    let timeout;
 
     let invalidPermissions = {
         sponsor: [
@@ -443,7 +444,7 @@ let SignUpComponent = function(
             if (res.data.message == 'active') {
                 $ctrl.applyAccessToken(access_token);
             } else if (res.data.message == 'pending') {
-                $timeout(function() {
+                timeout =$timeout(function() {
                     $ctrl.checkAccessTokenStatus(type, access_token);
                 }, 2500);
             } else {
@@ -482,6 +483,10 @@ let SignUpComponent = function(
             form.values.auth_code
         );
     });
+
+    $ctrl.$onDestroy = function() {
+        $timeout.cancel(timeout);
+    };
 };
 
 module.exports = {
