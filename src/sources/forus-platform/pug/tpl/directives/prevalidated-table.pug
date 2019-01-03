@@ -9,15 +9,19 @@ div
                     | {{ "prevalidated_table.labels.filter" | translate }}
         .card-section(ng-if="$ctrl.showFilters"): .card-block
             .card-filters: .form: .row
-                .form-group.col.col-sm-6.col-xs-12
+                .form-group.col.col-sm-12.col-xs-12
                     label.form-label(i18n="prevalidated_table.labels.search")
-                    input(ng-model="filter.q" type="text" placeholder="Zoeken").form-control
+                    input(ng-model="filter.q" type="text" placeholder="{{ prevalidated_table.labels.search }}").form-control
                 .form-group.col.col-sm-6.col-xs-12
                     label.form-label(i18n="prevalidated_table.status.active")
                     select(
                         ng-options="state.key as state.name for state in states" 
-                        ng-model="filter.state"
-                        placeholder="Status").form-control
+                        ng-model="filter.state").form-control
+                .form-group.col.col-sm-6.col-xs-12
+                    label.form-label(i18n="prevalidated_table.labels.exported")
+                    select(
+                        ng-options="state.key as state.name for state in statesExported" 
+                        ng-model="filter.exported").form-control
                 .form-group.col.col-sm-6.col-xs-12
                     label.form-label(i18n="prevalidated_table.labels.from")
                     datepicker(date-format="yyyy-MM-dd" datepicker-mobile="").form-control
@@ -38,17 +42,21 @@ div
                     th(translate="prevalidated_table.labels.code")
                     th(ng-repeat="record in prevalidations.data[0].records" ng-if="record.key.indexOf('_eligible') == -1" ng-bind="typesByKey[record.key]")
                     th.text-right(translate="prevalidated_table.status.active")
+                    th.text-right(translate="prevalidated_table.labels.exported")
                 tr(ng-repeat="row in prevalidations.data")
                     td(ng-bind="row.uid")
                     td(ng-repeat="record in row.records"  ng-if="record.key.indexOf('_eligible') == -1" ng-bind="record.value")
                     td.text-right: .tag.tag-sm(
                         ng-class="[row.state == 'pending' ? 'tag-default' : 'tag-success']"
                         ng-bind="row.state == 'pending' ? 'Nee' : 'Ja'")
+                    td.text-right: .tag.tag-sm(
+                        ng-class="[!row.exported ? 'tag-default' : 'tag-success']"
+                        ng-bind="!row.exported ? 'Nee' : 'Ja'")
 
         .card-section(ng-show="prevalidations.meta.last_page > 1")
             paginator(meta="prevalidations.meta" filters="filter" count-buttons="5" on-page-change="onPageChange(query)")
         
-        // .card-section(ng-show="prevalidations.meta.last_page > 1")
+        //- .card-section(ng-show="prevalidations.meta.last_page > 1")
             paginator-loader(meta="prevalidations.meta" filters="filter" on-reset="onReset(query)" on-load-more="onLoadMore(query)")
 
         .card-section: .table-pagination
