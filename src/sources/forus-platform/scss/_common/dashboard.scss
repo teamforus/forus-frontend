@@ -3328,6 +3328,53 @@ translate,
     }
 }
 
+
+.markdown-toolbar-title{
+    float: left;
+    line-height: 50px;
+}
+
+.toolbar-group {
+    display: inline-block;
+    margin-left: 20px;
+
+    &:first-child {
+        margin-left: 0;
+    }
+}
+.toolbar-item {
+    display: block;
+    float: left;
+    padding: 4px 5px;
+    color: #586069;
+    background: none;
+    border: 0;
+    height: 22px;
+    cursor: pointer;
+
+    &:hover {
+        path{
+            fill: #0366d6;
+        }
+    }
+
+    img{
+        height: 100%;
+    }
+}
+.tooltipped {
+    position: relative;
+}
+.markdown-toolbar{
+    float: right;
+    margin-top: 7px;
+}
+.markdown-textarea{
+    height: 200px!important;
+}
+
+
+
 @media screen and (max-width: 1000px) {
     .wrapper {
         padding: 0 25px;

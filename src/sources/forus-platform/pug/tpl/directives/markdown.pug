@@ -1,0 +1,24 @@
+.block
+    .markdownable
+        .markdown-toolbar.toolbar-commenting
+            .toolbar-group
+                button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="### " data-end="" data-mark-type="header" data-placement="top" title="Add header text")
+                    img(ng-src="./assets/img/markdown/add-header.png")
+
+                button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="**" data-end="**" data-mark-type="text" data-placement="top" title="Add bold text")
+                    img(ng-src="./assets/img/markdown/add-bold.png")
+
+                button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="_" data-end="_" data-mark-type="header" data-placement="top" title="Add italic text")
+                    img(ng-src="./assets/img/markdown/add-italic.png")
+
+            .toolbar-group
+                button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="- " data-end="" data-mark-type="list" data-placement="top" title="Add list")
+                    img(ng-src="./assets/img/markdown/add-list.png")
+
+                button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="1. " data-end="" data-mark-type="list" data-placement="top" title="Add numeric list")
+                    img(ng-src="./assets/img/markdown/add-numbered-list.png")
+
+        .form-group
+            textarea.form-control.markdown-textarea(ng-model="ngModel")
+
+        p **bold** _italic_

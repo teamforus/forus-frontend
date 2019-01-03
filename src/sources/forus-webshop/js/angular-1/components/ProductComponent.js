@@ -2,6 +2,7 @@ let ProductComponent = function (
     $scope,
     $state,
     $filter,
+    $sce,
     appConfigs,
     ModalService,
     VoucherService
@@ -29,6 +30,8 @@ let ProductComponent = function (
         });
 
         $ctrl.isApplicable = vouchers.length > 0;
+
+        $ctrl.product.html_desc = $sce.trustAsHtml($ctrl.product.html_description);
     };
 
     $ctrl.applyProduct = () => {
@@ -85,6 +88,7 @@ module.exports = {
         '$scope',
         '$state',
         '$filter',
+        '$sce',
         'appConfigs',
         'ModalService',
         'VoucherService',

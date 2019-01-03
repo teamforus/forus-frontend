@@ -55,7 +55,7 @@ section.section.section-product: .wrapper
         .block.block-info-card
             .block-header {{ "voucher.labels.productdetail" | translate }}
             .block-content
-                p(ng-bind="$ctrl.product.description")
+                div(ng-bind-html="$ctrl.product.html_desc")
         
         .block.block-map_card
             .map_card-header
