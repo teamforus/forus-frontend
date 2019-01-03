@@ -27,7 +27,7 @@ let SignUpComponent = function(
      */
     $ctrl.step = 1;
     $ctrl.organizationStep = false;
-    $ctrl.signedIn = false;
+    $ctrl.signedIn = !!$rootScope.auth_user;
     $ctrl.showLoginBlock = false;
     $ctrl.organization = null;
     $ctrl.fundsAvailable = [];
@@ -53,8 +53,7 @@ let SignUpComponent = function(
     } [appConfigs.panel_type];
 
     $ctrl.beforeInit = () => {
-        if ($rootScope.auth_user) {
-
+        if ($ctrl.signedIn) {
             OrganizationService.list().then(res => {
                 $ctrl.organizations = res.data.data.filter(organization => {
                     return organization.permissions.filter((permission => {
@@ -62,13 +61,14 @@ let SignUpComponent = function(
                     })).length > 0;
                 });
 
-                if ($ctrl.organizations.length == 1) {
+                if ($ctrl.organizations.length == 0) {
+                    $ctrl.setStep(3);
+                } else if ($ctrl.organizations.length == 1) {
                     $ctrl.organization = $ctrl.organizations[0];
                     loadOrganizationOffices($ctrl.organization);
                     loadAvailableFunds($ctrl.organization);
-
                     $ctrl.setStep(4);
-                }else{
+                } else {
                     $state.go('organizations');
                     progressStorage.clear();
                 }
