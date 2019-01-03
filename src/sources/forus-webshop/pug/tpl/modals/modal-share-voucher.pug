@@ -1,0 +1,17 @@
+.modal
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-content.modal-notification
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-section
+            .text-center
+                .modal-icon(ng-if="$ctrl.icon")
+                    img(ng-src="{{ $ctrl.icon }}")
+                .title(i18n="voucher.share_voucher.popup_form.title")
+                .description(i18n="voucher.share_voucher.popup_form.description")
+
+        form.form(ng-submit="$ctrl.shareVoucherForm.submit()")
+            .form-group
+                textarea(ng-model="$ctrl.shareVoucherForm.values.reason" placeholder="{{ 'voucher.share_voucher.reason_placeholder' | i18n }}").form-control
+                .text-center.form-error(ng-repeat="error in $ctrl.shareVoucherForm.errors.reason track by $index" ng-bind="error")
+                br
+            .form-group: button(type="submit").button.button-primary.button-wide {{ "voucher.share_voucher.buttons.submit" | translate }}

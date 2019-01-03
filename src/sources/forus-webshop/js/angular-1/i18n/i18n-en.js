@@ -480,6 +480,21 @@ module.exports = {
             },
             expire: "Gebruik deze voucher voor:",
             expired: "Verlopen"
+        },
+        share_voucher: {
+            popup_form: {
+                title: 'Let op! Neem contact op met aanbieder voordat u de QR-code deelt.',
+                description: 'U kunt de QR-code delen met de aanbieder om een verzilvering op afstand mogelijk te maken. Als de aanbieding een activiteit of dienst betreft: meld in het onderstaande veld eventuele extra informatie die de aanbieder vereist voor deelname. Dit kan een reden zijn maar ook uw naam of telefoonnummer betreffen.'
+            },
+            reason_placeholder: 'Reason',
+            buttons: {
+                submit: 'VOLGENDE',
+                confirm: 'VOLGENDE'
+            },
+            popup_sent: {
+                title: 'Uw voucher is verstuurd naar uw mail.',
+                description: 'Uw voucher is verstuurd naar uw mail.'
+            }
         }
     },
 

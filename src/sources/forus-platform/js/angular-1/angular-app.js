@@ -35,6 +35,8 @@ app.component('modalPhotoUploaderComponent', require('./components/Modals/ModalP
 app.component('modalFundTopUpComponent', require('./components/Modals/ModalFundTopUpComponent'));
 app.component('modalEmployeeEditComponent', require('./components/Modals/ModalEmployeeEditComponent'));
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
+app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCodeComponent'));
+app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -99,7 +101,6 @@ app.directive('prevalidatedTable', require('./directives/PrevalidatedTableDirect
 app.directive('photoSelector', require('./directives/PhotoSelectorDirective'));
 app.directive('radialChart', require('./directives/RadialChartDirective'));
 app.directive('linearChart', require('./directives/LinearChartDirective'));
-app.directive('popupAuth', require('./directives/PopupAuthDirective'));
 app.directive('collapse', require('./directives/CollpaseDirective'));
 app.directive('landingNavbar', require('./directives/landing/NavbarDirective'));
 app.directive('landingContactForm', require('./directives/landing/ContactFormDirective'));

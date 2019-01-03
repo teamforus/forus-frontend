@@ -238,7 +238,11 @@ let SignUpComponent = function(
         OfficeService.list(
             organization.id
         ).then((res) => {
-            $ctrl.offices = res.data.data;
+            if(res.data.data.length){
+                $ctrl.offices = res.data.data;
+            }else{
+               $ctrl.addOffice();
+            }
         });
     };
 
