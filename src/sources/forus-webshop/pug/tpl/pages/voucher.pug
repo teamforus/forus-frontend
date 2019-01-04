@@ -102,7 +102,7 @@ section.section.section-voucher-details: .wrapper
                     .transactions-item-counterpart(ng-if="transaction.type == 'transaction'") 
                         | {{ transaction.organization.name }}
                     .transactions-item-counterpart(ng-if="transaction.type == 'product_voucher'") 
-                        | {{ "Product voucher: " | translate }} {{ transaction.product.name }}
+                        | {{ "Aanbieding:" | translate }} {{ transaction.product.name }}
                     .transactions-item-date {{ transaction.created_at_locale }}
                 .transactions-item-amount 
                     .transactions-item-value - {{ transaction.amount | currency_format }}
