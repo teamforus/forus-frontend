@@ -15,6 +15,9 @@ header.app.app-header
                     a(ui-sref="organizations-edit($root.activeOrganization)" ng-if="$root.activeOrganization | hasPerm:'manage_organization'").auth-user-menu-item
                         em.mdi.mdi-settings
                         | Organisatie
+                    .auth-user-menu-item(ng-click="$root.openPinCodePopup()")
+                        em.mdi.mdi-cellphone
+                        span(translate="topnavbar.buttons.authorize")
                     .auth-user-menu-sep(ng-if="$root.activeOrganization.id")
                     a(ng-click="$root.signOut()").auth-user-menu-item
                         em.mdi.mdi-logout

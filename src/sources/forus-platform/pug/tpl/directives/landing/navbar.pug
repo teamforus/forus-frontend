@@ -16,13 +16,28 @@
         a(href="{{ $root.appConfigs.frontends.url_webshop }}").navbar-item WEBSHOP
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
-            .button.button-default(ui-sref="organizations")
-                em.mdi.mdi-account
-                //- img(src="./assets/img/icon-btn/icon-btn-user.svg")
-                | Open dashboard
+            .auth-user
+                .auth-user-email(ng-bind="$root.auth_user.primary_email")
+                .auth-user-type(translate="topnavbar.items.identity")
+                .auth-user-avatar
+                    img(src="./assets/img/landing/identity-avatar.svg")
+                    nav.auth-user-menu
+                        .triangle
+                        .inner
+                            .auth-user-menu-item(ui-sref="organizations").hide-sm
+                                em.mdi.mdi-account
+                                | Open dashboard
+                            .auth-user-menu-item(ng-click="$root.openPinCodePopup()").hide-sm
+                                em.mdi.mdi-cellphone
+                                span(translate="topnavbar.buttons.authorize")
+
+                            .auth-user-menu-separator.show-sm
+                            div(ng-click="$root.signOut()").auth-user-menu-item
+                                img(src="./assets/img/landing/icon-menu/icon-menu-sign-out.svg")
+                                span(translate="topnavbar.buttons.logout")
         
         .auth-out(ng-if="!$root.auth_user")
-            .button.button-default(ng-click="$root.popups.auth.open('choose')")
+            .button.button-default(ng-click="openAuthPopup()")
                 em.mdi.mdi-account
                 //- img(src="./assets/img/icon-btn/icon-btn-user.svg")
                 | Aanmelden
