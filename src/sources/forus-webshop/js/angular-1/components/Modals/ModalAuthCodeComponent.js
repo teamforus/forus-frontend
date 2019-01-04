@@ -1,5 +1,6 @@
 let ModalAuthComponent = function(
     $filter,
+    appConfigs,
     AuthService,
     IdentityService,
     FormBuilderService,
@@ -44,7 +45,38 @@ let ModalAuthComponent = function(
                 });
             }, (res) => {
                 form.unlock();
-                form.errors = res.data.errors;
+
+                if(res.data.errors['records.primary_email'] && res.data.errors['records.primary_email'].length){
+                    // if email is already registered (it can be registered or invalid if there are errors in primary_email) -
+                    // try to login this email
+                    let source = appConfigs.client_key + '_webshop';
+
+                    IdentityService.makeAuthEmailToken(
+                        source,
+                        records ? records.primary_email : ''
+                    ).then((res) => {
+                        localStorage.setItem('pending_email_token', res.data.access_token);
+                        $ctrl.close();
+
+                        ModalService.open('modalNotification', {
+                            type: 'action-result',
+                            class: 'modal-description-pad',
+                            title: $filter('translate')('popup_auth.labels.join'),
+                            description: $filter('translate')('popup_auth.notifications.link'),
+                            confirmBtnText: $filter('translate')('popup_auth.buttons.submit')
+                        });
+
+                    }, (res) => {
+                        form.unlock();
+
+                        if(res.data.errors['primary_email'] && res.data.errors['primary_email'].length){
+                            form.errors['records.primary_email'] = res.data.errors['primary_email'];
+                        }
+                    });
+
+                }else{
+                    form.errors = res.data.errors;
+                }
             });
         });
     };
@@ -57,6 +89,7 @@ module.exports = {
     },
     controller: [
         '$filter',
+        'appConfigs',
         'AuthService',
         'IdentityService',
         'FormBuilderService',
