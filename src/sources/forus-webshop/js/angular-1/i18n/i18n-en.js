@@ -488,8 +488,8 @@ module.exports = {
             },
             reason_placeholder: 'Bericht voor aanbieder',
             buttons: {
-                submit: 'VOLGENDE',
-                confirm: 'VOLGENDE'
+                submit: 'VERSTUREN',
+                confirm: 'SLUIT'
             },
             popup_sent: {
                 title: 'Uw voucher is verstuurd naar de aanbieder.',
