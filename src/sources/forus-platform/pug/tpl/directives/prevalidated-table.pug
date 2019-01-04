@@ -4,10 +4,13 @@ div
         .card-header: .row
             .col.col-sm-8.col-xs-12: .card-title(translate="prevalidated_table.header.title")
             .col.col-sm-4.col-xs-12.text-right
-                button.button.button-primary(ng-click="$ctrl.showFilters = !$ctrl.showFilters")
+                button.button.button-text(ng-if="showFilters" ng-click="resetFilters(filter)")
+                    em.mdi.mdi-close
+                    | {{ "Clear filters" | i18n }}
+                button.button.button-primary(ng-click="showFilters = !showFilters")
                     em.mdi.mdi-filter
-                    | {{ "prevalidated_table.labels.filter" | translate }}
-        .card-section(ng-if="$ctrl.showFilters"): .card-block
+                    | {{ "prevalidated_table.labels.filter" | i18n }}
+        .card-section(ng-if="showFilters"): .card-block
             .card-filters: .form: .row
                 .form-group.col.col-sm-12.col-xs-12
                     label.form-label(i18n="prevalidated_table.labels.search")
