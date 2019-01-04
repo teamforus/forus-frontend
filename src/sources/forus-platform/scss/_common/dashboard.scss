@@ -359,7 +359,7 @@ translate,
         display: inline-block;
         padding: 10px 0;
         padding-right: 15px;
-        padding-left: 30px;
+        padding-left: 25px;
         vertical-align: middle;
         @include cf();
 
@@ -371,7 +371,7 @@ translate,
             border: 2px solid #cbd6e2;
             position: relative;
             margin-right: 5px;
-            margin-left: -30px;
+            margin-left: -25px;
             float: left;
             border-radius: 3px;
 
@@ -390,11 +390,15 @@ translate,
         .checkbox-label {
             vertical-align: middle;
             cursor: pointer;
-            font: 600 14px/20px $bf;
+            font: 600 12px/20px $bf;
             margin-bottom: 4px;
             padding: 0;
-            color: $tc;
+            color: #134478;
             float: left;
+        }
+
+        input[type='checkbox'] {
+            display: none;
         }
 
         input[type='checkbox']:checked + .checkbox-label {

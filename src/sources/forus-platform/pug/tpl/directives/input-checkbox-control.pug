@@ -1,0 +1,5 @@
+label(for="{{ name }}").checkbox
+    input(type="checkbox" checked id="{{ name }}" ng-model="ngModel")
+    .checkbox-label
+        .checkbox-box: .mdi.mdi-check
+        span(ng-bind="label")
