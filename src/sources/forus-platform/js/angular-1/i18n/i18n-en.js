@@ -778,7 +778,7 @@ module.exports = {
         labels: {
             code: "Code",
             search: "Zoeken",
-            exported: "Exported",
+            exported: "Geëxporteerd",
             from: "Van",
             to: "Tot",
             filter: "Filter",
