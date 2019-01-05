@@ -4,10 +4,8 @@ let CsvUploadDirective = function(
     $rootScope,
     $element,
     $timeout,
-    PrevalidationService,
-    ProgressFakerService
+    PrevalidationService
 ) {
-    let $ctrl = this;
     let csvParser = {};
     let input = false;
     let dataChunkSize = 100;
@@ -183,7 +181,6 @@ module.exports = () => {
             '$element',
             '$timeout',
             'PrevalidationService',
-            'ProgressFakerService',
             CsvUploadDirective
         ],
         templateUrl: 'assets/tpl/directives/csv-upload.html'
