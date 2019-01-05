@@ -4,6 +4,10 @@ let PrevalidatedTableDirective = async function(
     $scope,
     PrevalidationService
 ) {
+    $scope.filter = {
+        q: '',
+    };
+
     $scope.states = [{
         key: null,
         name: 'Alle'
@@ -26,13 +30,14 @@ let PrevalidatedTableDirective = async function(
         name: 'Nee'
     }];
 
-    $scope.filter = {
-        q: '',
-        fund_id: $scope.fund ? $scope.fund.id : null,
-        state: $scope.states[0].key,
-        exported: $scope.statesExported[0].key,
+    $scope.resetFilters = (filter) => {
+        filter.q = '';
+        filter.fund_id = $scope.fund ? $scope.fund.id : null;
+        filter.state = $scope.states[0].key;
+        filter.exported = $scope.statesExported[0].key;
+        filter.from = null;
+        filter.to = null;
     };
-
 
     $scope.$on('csv:uploaded', function() {
         $scope.filter.page = 1;
@@ -59,6 +64,8 @@ let PrevalidatedTableDirective = async function(
     };
 
     $scope.init = async () => {
+        $scope.resetFilters($scope.filter);
+
         PrevalidationService.list($scope.filter).then((res => {
             $scope.prevalidations = res.data;
         }));
