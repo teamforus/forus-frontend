@@ -91,6 +91,31 @@ translate,
         }
     }
 
+    &.button-text {
+        background: none;
+        color: #151b26;
+        border-color: transparent;
+        box-shadow: none;
+        padding: 6px 10px;
+        outline: none;
+
+        .mdi {
+            color: #646f79;
+            margin-right: 3px;
+            margin-left: -3px;
+        }
+
+        &:focus,
+        &:hover {
+            background: none;
+            color: #134478;
+
+            .mdi {
+                color: #134478;
+            }
+        }
+    }
+
     &.button-danger {
         background: #FF0000;
         border-color: #FF0000;
@@ -1205,6 +1230,18 @@ translate,
         padding: 15px 25px;
         position: relative;
         @include cf();
+
+        .button {
+            height: 30px;
+            line-height: 26px;
+            padding-top: 2px;
+            padding-bottom: 2px;
+            font-size: 12px;
+
+            .mdi {
+                font-size: 1.36em;
+            }
+        }
 
         .form-control {
             margin: -3px 0;
