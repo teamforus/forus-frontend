@@ -73,7 +73,7 @@ section.section.section-voucher-details: .wrapper
                         .card-value(ng-bind="$ctrl.voucherCard.expire_at_locale")
                         .label.label-default(ng-if="moment().isAfter(moment($ctrl.voucherCard.expire_at.date))" i18n="voucher.voucher_card.expired" )
                     .card-actions
-                        .action-item(ng-if="$ctrl.voucherCard.product" ng-click="$ctrl.shareVoucher($ctrl.voucher)")
+                        .action-item(ng-if="$ctrl.voucherCard.product && $root.appConfigs.flags.shareProducts" ng-click="$ctrl.shareVoucher($ctrl.voucher)")
                             .action-item-icon
                                 em.mdi.mdi-share-variant
                                 .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
