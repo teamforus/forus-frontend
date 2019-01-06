@@ -12,16 +12,22 @@
                 .organization-categories(ng-bind="fund.fundCategories")
 
             div(
-                ng-if="$ctrl.fund"
+                ng-if="$ctrl.fund && $ctrl.funds.length > 1"
                 ui-sref="csv-validation({fund_id: null})").organization-item
                 .organization-item-inner
                     .organization-logo.organization-logo-mdi: .mdi.mdi-chevron-up
                 .organization-name(ng-bind="'csv_validation.buttons.choose' | translate")
-            br
     
-        csv-upload(ng-if="$ctrl.fund" fund="$ctrl.fund" record-types="$ctrl.recordTypes")
+        csv-upload(
+            ng-if="$ctrl.fund" 
+            fund="$ctrl.fund" 
+            record-types="$ctrl.recordTypes")
         
         prevalidated-table(
             ng-if="$ctrl.panel_type == 'validator' || $ctrl.fund" 
-            fund="$ctrl.fund"
+            fund="$ctrl.fund" 
             record-types="$ctrl.recordTypes")
+        
+        block-empty(
+            ng-if="$ctrl.funds.length == 0" 
+            text="'Sorry, no funds available.'")
