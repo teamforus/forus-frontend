@@ -62,7 +62,10 @@ div
         //- .card-section(ng-show="prevalidations.meta.last_page > 1")
             paginator-loader(meta="prevalidations.meta" filters="filter" on-reset="onReset(query)" on-load-more="onLoadMore(query)")
 
-        .card-section: .table-pagination
-            button(ng-click="exportList()").button.button-primary.pull-right
+        .card-section: .table-pagination.text-right
+            button(ng-click="downloadSample()").button.button-default
+                em.mdi.mdi-file-table-outline  
+                span(i18n="Download upload voorbeeld")
+            button(ng-click="downloadAll()").button.button-primary
                 em.mdi.mdi-download  
-                span(translate="prevalidated_table.buttons.export")
+                span(i18n="prevalidated_table.buttons.export")

@@ -20,9 +20,6 @@ platform.setLibs([
     "ui_router"
 ]);
 
-// files to be copied to destination path (relative to source folder)
-platform.copyAsset("resources/**/*", "./");
-
 // add js task
 platform.addTask('js', {
     src: [
