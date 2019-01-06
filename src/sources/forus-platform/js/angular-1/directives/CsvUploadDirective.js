@@ -20,6 +20,18 @@ let CsvUploadDirective = function(
         }
     };
 
+    let chunk = function(arr, len) {
+        var chunks = [],
+            i = 0,
+            n = arr.length;
+
+        while (i < n) {
+            chunks.push(arr.slice(i, i += len));
+        }
+
+        return chunks;
+    }
+
     $scope.progressBar = 0;
     $scope.progressStatus = "";
 
@@ -36,46 +48,48 @@ let CsvUploadDirective = function(
             input.style.display = 'none';
 
             input.addEventListener('change', function(e) {
-                var target_file = this.files[0];
-
-                new $q(function(resolve, reject) {
-                    Papa.parse(target_file, {
-                        complete: resolve
-                    });
-                }).then(function(results) {
-                    var header = results.data[0];
-                    var body = results.data.slice(1);
-
-                    csvParser.data = body.reduce(function(result, val, key) {
-                        let row = {};
-
-                        header.forEach((hVal, hKey) => {
-                            if(val[hKey] && val[hKey] != '') {
-                                row[hVal] = val[hKey];
-                            }
-                        });
-
-                        if(_.isEmpty(row)) {
-                            return result;
-                        }
-
-                        if ($scope.fund) {
-                            row[$scope.fund.key + '_eligible'] = 'Ja';
-                        }
-
-                        result.push(row);
-                        return result;
-                    }, []);
-
-                    csvParser.csvFile = target_file;
-                    csvParser.progress = 1;
-                    csvParser.isValid = csvParser.validateFile();
-                }, console.log);
+                csvParser.uploadFile(this.files[0]);
             });
 
             $element[0].appendChild(input);
 
             input.click();
+        };
+
+        csvParser.uploadFile = (file) => {
+            new $q(function(resolve, reject) {
+                Papa.parse(file, {
+                    complete: resolve
+                });
+            }).then(function(results) {
+                var header = results.data[0];
+                var body = results.data.slice(1);
+
+                csvParser.data = body.reduce(function(result, val, key) {
+                    let row = {};
+
+                    header.forEach((hVal, hKey) => {
+                        if (val[hKey] && val[hKey] != '') {
+                            row[hVal] = val[hKey];
+                        }
+                    });
+
+                    if (_.isEmpty(row)) {
+                        return result;
+                    }
+
+                    if ($scope.fund) {
+                        row[$scope.fund.key + '_eligible'] = 'Ja';
+                    }
+
+                    result.push(row);
+                    return result;
+                }, []);
+
+                csvParser.csvFile = file;
+                csvParser.progress = 1;
+                csvParser.isValid = csvParser.validateFile();
+            }, console.log);
         };
 
         csvParser.validateFile = function() {
@@ -87,18 +101,6 @@ let CsvUploadDirective = function(
 
             return invalidRows.length === 0;
         };
-
-        let chunk = function(arr, len) {
-            var chunks = [],
-                i = 0,
-                n = arr.length;
-
-            while (i < n) {
-                chunks.push(arr.slice(i, i += len));
-            }
-
-            return chunks;
-        }
 
         csvParser.uploadToServer = function(e) {
             e && (e.preventDefault() & e.stopPropagation());
@@ -144,6 +146,27 @@ let CsvUploadDirective = function(
 
             uploadChunk(submitData[currentChunkNth]);
         }
+
+        $element.on('dragenter dragover', function(e) {
+            e.preventDefault()
+            $element.addClass('on-dragover');
+        });
+
+        $element.on('dragleave', function(e) {
+            e.preventDefault()
+            $element.removeClass('on-dragover');
+        });
+
+        $element.on('drop dragdrop', function(e) {
+            e.preventDefault();
+            $element.removeClass('on-dragover');
+
+            let file = e.originalEvent.dataTransfer.files[0];
+
+            if (file.type == 'text/csv') {
+                csvParser.uploadFile(file);
+            }
+        });
     };
 
     let init = function() {

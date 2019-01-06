@@ -2410,6 +2410,11 @@ translate,
                 }
             }
         }
+
+        &.on-dragover {
+            background: lighten($color: #9ca6af, $amount: 32);
+            border-color: #9ca6af;
+        }
     }
 
     &.block-choose-organization {
