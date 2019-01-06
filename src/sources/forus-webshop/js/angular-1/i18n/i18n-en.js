@@ -233,7 +233,7 @@ module.exports = {
                 faq_thirteen: "Kan ik de voucher van €150 aan iemand anders geven?",
                 thirteen: "Nee, de voucher is strikt persoonlijk. U mag de voucher niet aan iemand anders geven.",
                 faq_fourteen: "Kan ik me ook aanmelden voor een activiteit bij de balie van een organisatie of kan het alleen in de webshop?",
-                fourteen: "U kunt zich ook aanmelden voor een cursus of activiteit bij de organisatie zelf. U heeft dan wel de QR0-code nodig die u in de webshop kunt downloaden en/of uitprinten. U betaalt met de QR-code.", 
+                fourteen: "U kunt zich ook aanmelden voor een cursus of activiteit bij de organisatie zelf. U heeft dan wel de QR-code nodig die u in de webshop kunt downloaden en/of uitprinten. U betaalt met de QR-code.", 
             },
             westerkwartier: {
                 title: "Veelgestelde vragen",
