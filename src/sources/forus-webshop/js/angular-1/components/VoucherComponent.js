@@ -52,6 +52,12 @@ let VoucherComponent = function(
                 }
             });
         };
+
+        $ctrl.shareVoucher = function(voucher) {
+            return ModalService.open('modalShareVoucher', {
+                voucher: voucher
+            });
+        };
     };
 };
 

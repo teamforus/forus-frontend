@@ -2,8 +2,13 @@ let FileSaver = require('file-saver');
 
 let PrevalidatedTableDirective = async function(
     $scope,
+    FundService,
     PrevalidationService
 ) {
+    $scope.filter = {
+        q: '',
+    };
+
     $scope.states = [{
         key: null,
         name: 'Alle'
@@ -15,12 +20,25 @@ let PrevalidatedTableDirective = async function(
         name: 'Nee'
     }];
 
-    $scope.filter = {
-        q: '',
-        fund_id: $scope.fund ? $scope.fund.id : null,
-        state: $scope.states[0].key
-    };
+    $scope.statesExported = [{
+        key: null,
+        name: 'Alle'
+    }, {
+        key: 1,
+        name: 'Ja'
+    }, {
+        key: 0,
+        name: 'Nee'
+    }];
 
+    $scope.resetFilters = (filter) => {
+        filter.q = '';
+        filter.fund_id = $scope.fund ? $scope.fund.id : null;
+        filter.state = $scope.states[0].key;
+        filter.exported = $scope.statesExported[0].key;
+        filter.from = null;
+        filter.to = null;
+    };
 
     $scope.$on('csv:uploaded', function() {
         $scope.filter.page = 1;
@@ -47,40 +65,38 @@ let PrevalidatedTableDirective = async function(
     };
 
     $scope.init = async () => {
+        $scope.resetFilters($scope.filter);
+
         PrevalidationService.list($scope.filter).then((res => {
             $scope.prevalidations = res.data;
         }));
     };
 
+    $scope.downloadCsv = (file_name, file_data) => {
+        var file_type = 'text/csv;charset=utf-8;';
+
+        var blob = new Blob([file_data], {
+            type: file_type,
+        });
+
+        FileSaver.saveAs(blob, file_name);
+    };
+
+
+    $scope.downloadSample = () => {
+        $scope.downloadCsv(
+            ($scope.fund.key || 'fund') + '_sample.csv', 
+            FundService.sampleCSV($scope.fund)
+        );
+    };
+
     // Export to CSV file
-    $scope.exportList = function(filters = {}) {
-        filters = JSON.parse(JSON.stringify(filters))
-
-        filters.per_page = 1000000;
-        filters.page = 1;
-
-        PrevalidationService.list(filters).then((res => {
-            var data = res.data.data.map(function(row) {
-                let mapRow = {
-                    "Code": row.uid
-                };
-
-                row.records.forEach(function(record) {
-                    mapRow[record.name] = record.value;
-                });
-
-                return mapRow;
-            });
-
-            var file_name = 'forus-platform.csv';
-            var file_type = 'text/csv;charset=utf-8;';
-            var file_data = Papa.unparse(data);
-
-            var blob = new Blob([file_data], {
-                type: file_type,
-            });
-
-            FileSaver.saveAs(blob, file_name);
+    $scope.downloadAll = (filters = {}) => {
+        PrevalidationService.export(
+            JSON.parse(JSON.stringify(filters))
+        ).then((res => {
+            $scope.downloadCsv('forus-platform.csv', res.data);
+            $scope.init();
         }));
     };
 
@@ -102,6 +118,7 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
+            'FundService',
             'PrevalidationService',
             PrevalidatedTableDirective
         ],

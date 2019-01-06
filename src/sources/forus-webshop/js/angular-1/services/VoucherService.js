@@ -28,6 +28,10 @@ module.exports = [
                 return ApiRequest.post(apiPrefix + '/' + address + '/send-email');
             }
 
+            this.shareVoucher = function(address, values) {
+                return ApiRequest.post(apiPrefix + '/' + address + '/share', values);
+            }
+
             this.makeTransaction = function(address, values) {
                 return ApiRequest.post(apiPrefix + '/' + address + '/transactions', values);
             }

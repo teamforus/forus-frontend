@@ -26,18 +26,34 @@
                             label.form-label {{ "organization_edit.labels.bank" | translate }}
                             input(ng-model="$ctrl.form.values.iban" type="text" placeholder="IBAN-nummer").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.iban" ng-bind="error")
-                        .form-group.form-group-inline
-                            label.form-label {{ "organization_edit.labels.mail" | translate }}
+            .card-section.card-section-primary
+                .form-group.form-group-inline
+                    label.form-label {{ "organization_edit.labels.mail" | translate }}
+                    .form-offset: .row
+                        .col.col-lg-8.col-md-12
                             input(ng-model="$ctrl.form.values.email" type="text" placeholder="E-mailadres").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
-                        .form-group.form-group-inline
-                            label.form-label {{ "organization_edit.labels.phone" | translate }}
+                        .col.col-lg-4.col-md-12
+                            input-checkbox-control(
+                                name="email_public" label="{{ 'Maak publiek' | i18n }}" ng-model="$ctrl.form.values.email_public")
+                .form-group.form-group-inline
+                    label.form-label {{ "organization_edit.labels.phone" | translate }}
+                    .form-offset: .row
+                        .col.col-lg-8.col-md-12
                             input(ng-model="$ctrl.form.values.phone" type="text" placeholder="Telefoonnummer").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.phone" ng-bind="error")
-                        .form-group.form-group-inline
-                            label.form-label {{ "organization_edit.labels.website" | translate }}
+                        .col.col-lg-4.col-md-12
+                            input-checkbox-control(
+                                name="phone_public" label="{{ 'Maak publiek' | i18n }}" ng-model="$ctrl.form.values.phone_public")
+                .form-group.form-group-inline
+                    label.form-label {{ "organization_edit.labels.website" | translate }}
+                    .form-offset: .row
+                        .col.col-lg-8.col-md-12
                             input(ng-model="$ctrl.form.values.website" type="text" placeholder="Website").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.website" ng-bind="error")
+                        .col.col-lg-4.col-md-12
+                            input-checkbox-control(
+                                name="website_public" label="{{ 'Maak publiek' | i18n }}" ng-model="$ctrl.form.values.website_public")
             .card-section.card-section-primary
                 .row 
                     .col.col-lg-9.col-md-12

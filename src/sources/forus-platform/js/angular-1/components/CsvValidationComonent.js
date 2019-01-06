@@ -1,4 +1,5 @@
 let CsvValidationComonent = function(
+    $state,
     PermissionsService,
     appConfigs
 ) {
@@ -6,9 +7,7 @@ let CsvValidationComonent = function(
 
     $ctrl.panel_type = appConfigs.panel_type;
 
-    $ctrl.$onInit = function() {};
-
-    $ctrl.$onInit = function() {
+    $ctrl.$onInit = () => {
         if (Array.isArray($ctrl.funds)) {
             $ctrl.funds = $ctrl.funds.map(fund => {
                 fund.fundCategories = _.pluck(fund.product_categories, 'name').join(', ');
@@ -16,6 +15,12 @@ let CsvValidationComonent = function(
             }).filter(fund => {
                 return PermissionsService.hasPermission(fund.organization, 'validate_records')
             });
+
+            if ($ctrl.funds.length == 1) {
+                $state.go('csv-validation', {
+                    fund_id: $ctrl.funds[0].id
+                });
+            }
         }
 
         if ($ctrl.fund) {
@@ -31,6 +36,7 @@ module.exports = {
         fund: '<',
     },
     controller: [
+        '$state',
         'PermissionsService',
         'appConfigs',
         CsvValidationComonent,

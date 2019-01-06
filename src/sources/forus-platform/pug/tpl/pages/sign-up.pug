@@ -53,7 +53,7 @@
                     
                 .card-section.card-section-primary
                     .card-block.card-block-download-app
-                        //.download-links
+                        //- .download-links
                             a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").download-link
                                 .download-link-icon(style="background-image: url('./assets/img/sign-up/app-store.png');")
                                 .download-link-title
@@ -145,17 +145,24 @@
                                 label(translate="sign_up.labels.bank_confirmation").form-label
                                 input(ng-model="$ctrl.organizationForm.values.iban_confirmation" type="text" placeholder="Herhaal IBAN-nummer").form-control
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban_confirmation" ng-bind="error")
+                        .card-section
                             .form-group
                                 label(translate="organization_edit.labels.mail").form-label
-                                input(ng-model="$ctrl.organizationForm.values.email" type="text" placeholder="E-mailadres").form-control
+                                .row
+                                    .col.col-md-8: input(ng-model="$ctrl.organizationForm.values.email" type="text" placeholder="E-mailadres").form-control
+                                    .col.col-md-4: input-checkbox-control(name="email_public" label="{{ 'Maak publiek' | i18n }}" ng-model="$ctrl.organizationForm.values.email_public")
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.email" ng-bind="error")
                             .form-group
                                 label(translate="organization_edit.labels.phone").form-label
-                                input(ng-model="$ctrl.organizationForm.values.phone" type="text" placeholder="Telefoonnummer").form-control
+                                .row
+                                    .col.col-md-8: input(ng-model="$ctrl.organizationForm.values.phone" type="text" placeholder="Telefoonnummer").form-control
+                                    .col.col-md-4: input-checkbox-control(name="phone_public" label="{{ 'Maak publiek' | i18n }}" ng-model="$ctrl.organizationForm.values.phone_public")
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.phone" ng-bind="error")
                             .form-group
                                 label(translate="organization_edit.labels.website").form-label
-                                input(ng-model="$ctrl.organizationForm.values.website" type="text" placeholder="Website").form-control
+                                .row
+                                    .col.col-md-8: input(ng-model="$ctrl.organizationForm.values.website" type="text" placeholder="Website").form-control
+                                    .col.col-md-4: input-checkbox-control(name="website_public" label="{{ 'Maak publiek' | i18n }}" ng-model="$ctrl.organizationForm.values.website_public")
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.website" ng-bind="error")
 
                         .card-section: .pseudo-wrapper

@@ -1,0 +1,17 @@
+.modal.modal-auth
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-window.modal-notification.modal-content
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+
+        .modal-body.form
+            .modal-section
+                .text-center
+                    p.modal-title.title {{ "popup_auth.labels.join" | translate }}
+                    p.modal-subtitle.description {{ "popup_auth.labels.mobilecode" | translate }}
+
+                    form.form.no-margin(ng-submit="$ctrl.authorizePincodeForm.submit()")
+                        .form-group
+                            div(ng-if="$ctrl.authorizePincodeForm" pincode-control ng-model="$ctrl.authorizePincodeForm.values.auth_code")
+                            .text-center.form-error(ng-repeat="error in $ctrl.authorizePincodeForm.errors.auth_code track by $index" ng-bind="error")
+                            br
+                        .form-group: button(type="submit").button.button-primary.button-wide {{ "popup_auth.buttons.submit" | translate }}

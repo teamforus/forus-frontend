@@ -60,10 +60,13 @@ module.exports = [
                     name: apiResource.name,
                     iban: apiResource.iban,
                     email: apiResource.email,
+                    email_public: !!apiResource.email_public,
                     phone: apiResource.phone,
+                    phone_public: !!apiResource.phone_public,
                     kvk: apiResource.kvk,
                     btw: apiResource.btw,
                     website: apiResource.website,
+                    website_public: !!apiResource.website_public,
                 };
             };
         });

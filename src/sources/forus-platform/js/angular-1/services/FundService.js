@@ -145,6 +145,12 @@ let FundService = function(ApiRequest) {
                 uriPrefix + organization_id + '/funds/' + fund_id
             );
         }
+
+        this.sampleCSV = (fund) => {
+            return Papa.unparse([
+                fund.csv_required_keys
+            ]);
+        };
     });
 };
 

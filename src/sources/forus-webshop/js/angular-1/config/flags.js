@@ -16,6 +16,9 @@ module.exports = {
         homeSteps: false,
         homeFaq: false,
         homeButton: false,
+        
+        //voucher settings
+        shareProducts: true,
     },
     forus: {
         logoExtension: '.svg',
@@ -34,6 +37,9 @@ module.exports = {
         homeSteps: false,
         homeFaq: false,
         homeButton: false,
+        
+        //voucher settings
+        shareProducts: true,
     },
     zuidhorn: {
         logoExtension: '.png',
@@ -51,6 +57,9 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
+        
+        //voucher settings
+        shareProducts: true,
     },
     nijmegen: {
         logoExtension: '.svg',
@@ -69,5 +78,8 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
+
+        //voucher settings
+        shareProducts: false,
     },
 };
