@@ -72,9 +72,9 @@ module.exports = {
                 button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
             },
             nijmegen: {
-                title: "Nijmegen. Meedoen-regeling.",
+                title: "Nijmegen. Meedoen-regeling",
                 subtitle: "Welkom op de website van de Meedoen-regeling. Als u een toekenning heeft van de gemeente Nijmegen voor de Meedoen-regeling, dan kunt u hier uw budget en het aanbod zien. Vul eerst de activatiecode in die u per brief hebt ontvangen.",
-                button: 'START MET ACTIVEREN', 
+                button: 'START', 
             },
             zuidhorn: {
                 title: "Zuidhorn. Kindpakket",
@@ -126,7 +126,7 @@ module.exports = {
                 subtitle: "Binnen het platform Forus werkt de gemeente Zuidhorn en verschillende aanbieders samen om het beste aanbod te leveren",
             },
             nijmegen: {
-                title: "Overzicht van alle aanbieders",
+                title: "Overzicht van alle organisaties",
                 subtitle: "",
             },
             westerkwartier: {
@@ -306,7 +306,7 @@ module.exports = {
                 stepone: "Stap #1",
                 one: "U hebt een brief ontvangen van de gemeente. In de brief staat een activatiecode.",
                 steptwo: "Stap #2",
-                two: "Start met activeren door op <u>de knop ‘start activeren’</u> te klikken onder de welkomsttekst.",
+                two: "Start met activeren door op <u>de knop ‘start’</u> te klikken onder de welkomsttekst.",
                 stepthree: "Stap #3",
                 three: "Klik daarna op ‘Aanbiedingen’. Daar vindt u alle activiteiten en cursussen. Ook kunt u uw budget zien. De voucher met het budget vindt u terug door bovenaan op ‘Mijn vouchers’ te klikken.",
                 stepfour: "Stap #4",
