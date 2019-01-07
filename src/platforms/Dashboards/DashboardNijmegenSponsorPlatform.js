@@ -12,6 +12,10 @@ platform.setCleanPath([
     `${destPath}/assets`
 ]);
 
+// assets configs
+platform.copyAsset("resources/_platform-common/**/*", "./");
+platform.copyAsset("resources/platform-nijmegen/**/*", "./");
+
 // tweak scss configs
 platform.editTask('scss', (task) => {
     task.src = "nijmegen/style-dashboard-nijmegen.scss";

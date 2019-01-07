@@ -6,7 +6,8 @@ let BaseController = function(
     RecordService,
     OrganizationService,
     ConfigService,
-    appConfigs
+    appConfigs,
+    ModalService
 ) {
     $rootScope.$state = $state;
 
@@ -23,6 +24,10 @@ let BaseController = function(
                 this.screen = screen;
             }
         }
+    };
+
+    $rootScope.openPinCodePopup = function() {
+        ModalService.open('modalPinCode', {});
     };
 
     $rootScope.loadAuthUser = function() {
@@ -120,5 +125,6 @@ module.exports = [
     'OrganizationService',
     'ConfigService',
     'appConfigs',
+    'ModalService',
     BaseController
 ];

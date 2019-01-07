@@ -46,3 +46,69 @@
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
+
+._720kb {
+    &-datepicker {
+        &-calendar {
+            max-width: 275px;
+            border: 1px solid #e9ecee;
+            border-radius: 5px;
+            box-shadow: 5px 5px 20px rgba(0, 0, 0, .1);
+
+            &-days-header {
+                background: #fff;
+                border-bottom: 0;
+
+                div {
+                    color: #134478;
+                    font-size: 12px;
+                }
+            }
+
+            &-body {
+                display: flex;
+                flex-direction: row;
+                align-content: center;
+                flex-wrap: wrap;
+            }
+
+            &-day {
+                width: (100%/7);
+                padding: 0;
+                min-width: 32px;
+                line-height: 27.5px;
+                font-size: 13px;
+                font-weight: 500;
+                color: #282b39;
+                border: 5px solid #fff;
+                border-radius: 40px;
+                margin: 0;
+
+                &._720kb-datepicker-active {
+                    background: #009ef4;
+                    color: #fff;
+                }
+            }
+
+            &-header {
+                &:nth-child(odd), 
+                &:nth-child(even) {
+                    background: #fff;
+                    border-bottom: 1px solid #e9ecee;
+                }
+            }
+
+            &-month {
+                color: #282b39;
+                font: 500 13px/40px $bf;
+
+                a {
+                    &>span {
+                    color: #282b39;
+                    font: 500 13px/40px $bf;
+                    }
+                }
+            }
+        }
+    }
+}

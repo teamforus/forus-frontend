@@ -21,13 +21,16 @@
                     .provider-img: img(ng-src="{{ providerFund.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
                     span(ng-bind="providerFund.organization.name").provider-title
                     br
-                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant(
+                        ng-if="providerFund.organization.email")
                         .card-block-listing-label(translate="organization_providers.labels.mail")
                         span.text-primary-light(ng-bind="providerFund.organization.email")
-                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant(
+                        ng-if="providerFund.organization.phone")
                         .card-block-listing-label(translate="organization_providers.labels.phone")
                         span.text-primary-light(ng-bind="providerFund.organization.phone")
-                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant(
+                        ng-if="providerFund.organization.website")
                         .card-block-listing-label(translate="organization_providers.labels.website")
                         span.text-primary-light(ng-bind="providerFund.organization.website")
 

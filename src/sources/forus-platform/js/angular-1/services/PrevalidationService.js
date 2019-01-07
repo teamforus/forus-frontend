@@ -13,6 +13,10 @@ let PrevalidationService = function(ApiRequest) {
             return ApiRequest.get(uriPrefix + '/prevalidations', filters);
         }
 
+        this.export = function(filters) {
+            return ApiRequest.get(uriPrefix + '/prevalidations/export', filters);
+        }
+
         this.read = function(code) {
             return ApiRequest.get(uriPrefix + '/prevalidations/' + code);
         };

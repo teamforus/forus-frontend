@@ -664,6 +664,15 @@ ui-view{
                 font: 400 22px/36px $bf;
                 margin: 0 0 50px;
             }
+
+            .header-how-it-works {
+                margin: 0 0 50px;
+                font-style: italic;
+                text-decoration: underline;
+                cursor: pointer;
+                font-size: 15px;
+                transition: .4s;
+            }
         }
 
         .lang-selector {
