@@ -79,7 +79,7 @@ section.section.section-faq(ng-if="$root.appConfigs.flags.homeFaq"): .wrapper
                         .faq-item-header(collapse-header,i18n=title)
                             .faq-item-chevron-down.mdi.mdi-chevron-down
                             .faq-item-chevron-up.mdi.mdi-chevron-up
-                        .faq-item-content(collapse-conten,i18n=content)    
+                        .faq-item-content(collapse-conten,translate=content)    
 
                 +faq_item(
                     'home.faq.{{ $root.client_key }}.faq_one',
