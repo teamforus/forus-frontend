@@ -1169,7 +1169,7 @@ ui-view{
     }
     @media screen and (max-width: 1000px) {
         .section-title {
-            font: 700 20px/30px $bf;
+            font: 700 18px/30px $bf;
             margin: 0 0 20px;
         }
 
@@ -1341,6 +1341,8 @@ ui-view{
 .block {
     &.block-breadcrumbs {
         position: relative;
+        margin-bottom: 10px;
+        @include ellipsis();
         
         .breadcrumb-item {
             display: inline-block;
@@ -1721,9 +1723,8 @@ ui-view{
         background: #fff;
         margin-bottom: 50px;
 
-        .map_card-header {
-            border-top-left-radius: inherit;
-            border-top-right-radius: inherit;
+        .map_card-header,
+        .map_card-footer {
             border: 1px solid #d2e6ff;
             padding: 15px 25px;
 
@@ -1738,6 +1739,16 @@ ui-view{
                 font: 400 16px $bf;
                 margin-bottom: 5px;
             }
+        }
+
+        .map_card-header {
+            border-top-left-radius: inherit;
+            border-top-right-radius: inherit;
+        }
+
+        .map_card-footer {
+            border-bottom-left-radius: inherit;
+            border-bottom-right-radius: inherit;
         }
 
         .map_card-iframe {
@@ -3426,9 +3437,9 @@ ui-view{
                 border-bottom: 1px solid #d4d9dd;
                 padding: 20px;
                 @include cf();
+                display: flex;
                 
                 .transactions-item-icon {
-                    float: left;
                     background: #ededed;
                     width: 35px;
                     height: 35px;
@@ -3445,7 +3456,7 @@ ui-view{
                 }
 
                 .transactions-item-details {
-                    float: left;
+                    flex-grow: 1;
 
                     .transactions-item-counterpart {
                         font: 700 16px $bf;
@@ -3460,13 +3471,14 @@ ui-view{
                 }
 
                 .transactions-item-amount {
-                    float: right;
                     text-align: right;
+                    padding-left: 15px;
 
                     .transactions-item-value {
                         font: 700 16px $bf;
                         color: #282b39;
                         margin-bottom: 5px;
+                        white-space: nowrap;
                     }
 
                     .transactions-item-type {
@@ -4746,11 +4758,51 @@ ui-view{
         }
 
         &.block-voucher {
-            flex-direction: column-reverse;
-
+            flex-direction: column;
+            margin: auto;
+            width: 100%;
+            padding-top: 20px;
+            
             .base-card {
+                overflow: visible;
+                box-shadow: 2px 2px 20px rgba($color: #000000, $alpha: 0.05);
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+
+                .card-label {
+                    font: 400 7.5px $bf;
+                    margin-bottom: 5px;
+                    color: #646f79;
+                    text-transform: uppercase;
+
+                    &.euro {
+                        font-size: 12px;
+                        margin: 0;
+                    }
+                }
+
+                .card-value {
+                    color: #282b39;
+                    font: 700 12.5px $bf;
+                    margin-bottom: 5px;
+
+                    &.card-value-sm {
+                        font: 400 9.5px $bf;
+                        color: #134478;
+
+                        strong {
+                            display: block;
+                            font: 700 10px $bf;
+                            color: #282b39;
+                        }
+                    }
+                }
+                
                 .card-qr_code {
                     width: 100%;
+                    background: #fff;
+                    border: 1px solid #ddecff;
+                    border-bottom: 0;
 
                     img {
                         margin: 0 auto 20px;
@@ -4765,40 +4817,105 @@ ui-view{
 
                 .card-body {
                     flex-direction: column;
+                    padding-top: 30px;
+                    border: 1px solid #ddecff;
+                    border-bottom: 0;
+                    border-top-left-radius: 6px;
+                    border-top-right-radius: 6px;
+                    min-height: auto;
 
                     .card-photo {
-                        padding: 20px;
+                        padding: 0;
+                        position: absolute;
+                        top: 0;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background: #fff;
 
                         img {
                             margin: auto;
-                            width: 200px;
+                            width: 60px;
                             max-width: 100%;
+                            border-radius: 60px;
+                            box-shadow: 2px 3px 20px rgba($color: #000000, $alpha: .1);
+                            background: #fff;
                         }
+                    }
+
+                    .card-section {
+                        width: auto;
+                        max-width: 100%;
+                    }
+
+                    .card-title {
+                        font: 700 17.5px $bf;
+                        color: #00122a;
+                    }
+
+                    .card-description {
+                        font: 400 11px $bf;
+                        color: #00122a;
                     }
                 }
 
-                &.base-card-sponsor,
-                &.base-card-voucher {
+                .card-footer {
+                    border: 1px solid #ddecff;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                    min-height: auto;
+                }
+
+                &.base-card-sponsor {
                     width: 100%;
-                    margin: 0 0 20px;
+                    margin: 0 0 20px !important;
                     flex-direction: column-reverse;
                 }
 
                 &.base-card-voucher {
-                    .card-footer {
-                        flex-direction: column;
+                    margin: 0 0 20px;
+                    margin-left: 0;
+                    flex-direction: column-reverse;
 
+                    .card-body {
+                        padding: 0;
+
+                        .card-photo {
+                            display: none;
+                        }
+
+                        .card-title {
+                            margin: 0 0 5px;
+                        }
+                    }
+
+                    .card-footer {
+                        padding: 15px;
+                        
                         .card-section {
-                            margin-bottom: 20px;
+                            margin: 0;
+                            width: auto;
+                            text-align: left;
+                            padding-right: 10px;
                         }
 
                         .card-actions {
-                            justify-content: left;
+                            margin: 0;
+                            justify-content: flex-end;
+                            justify-self: right;
+                            flex-grow: 1;
+                            max-width: 100%;
 
                             .action-item {
-                                margin-right: 20px;
-                                flex: 1;
+                                margin: 0 15px 0 0 !important;
+                                float: right;
                             }
+                        }
+                    }
+
+                    .card-inner:first-child {
+                        .card-body {
+                            border-top-left-radius: 0;
+                            border-top-right-radius: 0;
                         }
                     }
                 }
@@ -4893,6 +5010,8 @@ ui-view{
         }
 
         &.block-show-more {
+            padding-top: 25px;
+
             .button {
                 width: 100%;
                 padding-left: 20px;
@@ -5003,23 +5122,47 @@ ui-view{
 
             .footer-logo {
                 margin: 0 0 20px;
+                margin: 0 auto 40px;
+                display: block;
             }
 
             .footer-label {
-                padding: 20px 0 0;
-                margin: 0 0 20px;
+                text-align: center;
+                padding: 0;
+                margin: 0 0 40px;
                 font: 700 15px/24px $bf;
             }
 
             .footer-schedule {
+                text-align: center;
+
                 .schedule-label {
-                    font: 400 12px/24px $bf;
-                    width: 30%;
+                    font: 400 10px/16px $bf;
+                    color: #646f79;
+                    width: 100%;
                 }
 
                 .schedule-value {
-                    width: 70%;
-                    font: 700 12px/24px $bf;
+                    width: 100%;
+                    color: #00122a;
+                    font: 700 12px/18px $bf;
+                    margin: 0 0 0px;
+                }
+
+                &:last-child {
+                    margin: 0 0 40px;
+                }
+            }
+
+            .footer-nav {
+                text-align: center;
+
+                .footer-nav-item {
+                    font: 700 13px/20px $bf;
+
+                    a {
+                        font: inherit;
+                    }
                 }
             }
 
@@ -5039,6 +5182,11 @@ ui-view{
         &.block-copyrights {
             padding: 20px 0;
             text-align: center;
+            height: auto;
+
+            .wrapper {
+                height: auto;
+            }
 
             .copyrights {
                 width: 100%;
@@ -5200,7 +5348,8 @@ ui-view{
         }
 
         &.block-map_card {
-            .map_card-header {
+            .map_card-header,
+            .map_card-footer {
                 padding: 15px 20px;
 
                 .map_card-title {
@@ -5322,19 +5471,45 @@ ui-view{
 
         &.block-transactions {
             margin-bottom: 30px;
+            border: 1px solid #ddecff;
+            
+            .transactions-header {
+                padding: 15px 20px;
+                border-color: #ddecff;
+                
+                .transactions-title {
+                    font: 700 14px $bf;
+                }
+            }
 
             .transactions-list {
                 .transactions-item {
                     padding: 10px 15px;
+                    border-color: #ddecff;
+
+                    .transactions-item-icon {
+                        width: 30px;
+                        height: 30px;
+                        min-width: 30px;
+                        line-height: 30px;
+                        margin-right: 10px;
+                    }
 
                     .transactions-item-details {
                         .transactions-item-counterpart {
-                            font: 700 15px/22px $bf;
+                            padding: 4px 0;
+                            font: 700 12px/16px $bf;
+                            margin-bottom: 0;
                         }
 
                         .transactions-item-date {
-                            font: 400 12px/18px $bf;
+                            font: 400 10px/14px $bf;
                         }
+                    }
+
+                    &.transactions-item-out .transactions-item-amount .transactions-item-value,
+                    &.transactions-item-out .transactions-item-amount .transactions-item-type {
+                        font-size: 14px;
                     }
                 }
             }
@@ -5714,6 +5889,10 @@ ui-view{
                 }
             }
         }
+
+        &.block-empty {
+            border: 1px solid #ddecff;
+        }
     }
 }
 
@@ -5990,18 +6169,10 @@ ui-view{
             }
         }
     }
+
     .base-card {    
         width: 100% !important;
         margin-left: 0 !important;
-        }
-        
-    .block-voucher.card-label {
-        text-align: center;
-    }
-
-    .block-voucher {
-        margin: auto;
-        width: 80%;
     }
     
     .card-inner {
@@ -6026,6 +6197,40 @@ ui-view{
     .base-card-voucher .card-footer .card-actions .action-item {
         margin-right: 0px;
         margin-lefT: 0px;
+    }
+
+    .gm-style-iw {
+        width: 100% !important;
+        left: 0 !important;
+        top: 0 !important;
+        display: flex;
+
+        &>div {
+            width: 100% !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            display: block !important;
+        }
+    }
+
+    .map-card {
+        padding: 0;
+        background: #fff;
+
+        .map-card-img {
+            width: 100%;
+            position: initial;
+        }
+
+        .map-card-title {
+            padding: 15px 15px 5px;
+        }
+        
+        .map-card-description {
+            padding: 5px 15px 15px;
+            a {
+            }
+        }
     }
 }
 
