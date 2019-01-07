@@ -231,7 +231,7 @@ module.exports = {
                 faq_twelve: "Kan ik iets doen bij een andere organisatie die niet op de webshop staat?",
                 twelve: "Het tegoed kan alleen uitgegeven worden bij de organisaties die zich hebben aangemeld voor de Meedoen-regeling en op de webshop staan. U kunt wel een organisatie vragen deel te nemen. Een organisatie kan zich het hele jaar door aanmelden.",
                 faq_thirteen: "Hoe kom ik in aanmerking voor de Meedoen-regeling?",
-                thirteen: "U doet een aanvraag bij de gemeente Nijmegen. De voorwaarden om mee te doen en deel te nemen doet u hier: https://www.nijmegen.nl/diensten/uitkering-schulden-en-laag-inkomen/meedoen-regeling/'",
+                thirteen: "U doet een aanvraag bij de gemeente Nijmegen. De voorwaarden om mee te doen en deel te nemen doet u <u><a href='https://www.nijmegen.nl/diensten/uitkering-schulden-en-laag-inkomen/meedoen-regeling/'>hier</a></u>",
                 faq_fourteen: "Kan ik de voucher van €150 aan iemand anders geven?",
                 fourteen: "Nee, de voucher is strikt persoonlijk. U mag de voucher niet aan iemand anders geven.",
                 faq_fifteen: "Kan ik me ook aanmelden voor een activiteit bij de balie van een organisatie of kan het alleen in de webshop?",
