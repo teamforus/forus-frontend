@@ -11,6 +11,7 @@ platform.setLibs([
     "babel_polyfill",
     "jquery",
     "angular",
+    'angular_i18n',
     "angular_cookies",
     "angular_datepicker",
     "angular_sanitize",
