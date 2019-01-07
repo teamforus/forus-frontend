@@ -72,8 +72,8 @@ module.exports = {
                 button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
             },
             nijmegen: {
-                title: "Nijmegen. Meedoen-regeling",
-                subtitle: "Welkom op de website van de Meedoen-regeling. Als u een toekenning heeft van de gemeente Nijmegen voor de Meedoen-regeling, dan kunt u hier uw tegoed en het aanbod zien. Vul eerst de activatiecode in die u per brief hebt ontvangen.",
+                title: "Meedoen-regeling",
+                subtitle: "Welkom op de website van de Meedoen-regeling. Heeft u van de gemeente een toekenning voor de Meedoen-regeling? Dan kunt u hier het aanbod van activiteiten en cursussen zien en het geld dat u kunt besteden. <br /> <br /> Klik op start en vul uw activatiecode in. Deze code staat in de brief over de Meedoen-regeling die u heeft ontvangen.",
                 button: 'START', 
             },
             zuidhorn: {
@@ -306,7 +306,7 @@ module.exports = {
                 stepone: "Stap #1",
                 one: "U hebt een brief ontvangen van de gemeente. In de brief staat een activatiecode.",
                 steptwo: "Stap #2",
-                two: "Start met activeren door op <u>de knop ‘start’</u> te klikken onder de welkomsttekst.",
+                two: "Klik op de <u>start</u> knop om uw activatiecode in te vullen.",
                 stepthree: "Stap #3",
                 three: "Klik daarna op ‘Aanbiedingen’. Daar vindt u alle activiteiten en cursussen. Ook kunt u uw tegoed zien. De voucher met het tegoed vindt u terug door bovenaan op ‘Mijn vouchers’ te klikken.",
                 stepfour: "Stap #4",
