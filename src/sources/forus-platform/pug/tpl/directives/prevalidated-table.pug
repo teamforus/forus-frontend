@@ -43,12 +43,12 @@ div
             table.table
                 tr
                     th(translate="prevalidated_table.labels.code")
-                    th(ng-repeat="record in prevalidations.data[0].records" ng-if="record.key.indexOf('_eligible') == -1" ng-bind="typesByKey[record.key]")
+                    th(ng-repeat="record in prevalidations.data[0].records" ng-bind="typesByKey[record.key]")
                     th.text-right(translate="prevalidated_table.status.active")
                     th.text-right(translate="prevalidated_table.labels.exported")
                 tr(ng-repeat="row in prevalidations.data")
                     td(ng-bind="row.uid")
-                    td(ng-repeat="record in row.records"  ng-if="record.key.indexOf('_eligible') == -1" ng-bind="record.value")
+                    td(ng-repeat="record in row.records" ng-bind="record.value")
                     td.text-right: .tag.tag-sm(
                         ng-class="[row.state == 'pending' ? 'tag-default' : 'tag-success']"
                         ng-bind="row.state == 'pending' ? 'Nee' : 'Ja'")

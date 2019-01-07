@@ -72,12 +72,14 @@ let PrevalidatedTableDirective = async function(
         }));
     };
 
-    $scope.downloadCsv = (file_name, file_data) => {
-        var file_type = 'text/csv;charset=utf-8;';
-
-        var blob = new Blob([file_data], {
+    $scope.downloadCsv = (
+        file_name,
+        file_data,
+        file_type = 'text/csv;charset=utf-8;'
+    ) => {
+        var blob = new Blob([file_data]/* , {
             type: file_type,
-        });
+        } */);
 
         FileSaver.saveAs(blob, file_name);
     };
@@ -85,7 +87,7 @@ let PrevalidatedTableDirective = async function(
 
     $scope.downloadSample = () => {
         $scope.downloadCsv(
-            ($scope.fund.key || 'fund') + '_sample.csv', 
+            ($scope.fund.key || 'fund') + '_sample.csv',
             FundService.sampleCSV($scope.fund)
         );
     };
@@ -93,9 +95,19 @@ let PrevalidatedTableDirective = async function(
     // Export to CSV file
     $scope.downloadAll = (filters = {}) => {
         PrevalidationService.export(
-            JSON.parse(JSON.stringify(filters))
+            JSON.parse(JSON.stringify(filters)), {
+                responseType: 'arraybuffer'
+            }
         ).then((res => {
-            $scope.downloadCsv('forus-platform.csv', res.data);
+            console.log(res);
+            $scope.downloadCsv(
+                ($scope.fund.key || 'fund') + '_' + moment().format(
+                    'YYYY-MM-DD HH:mm:ss'
+                ) + '.xls',
+                res.data,
+                res.headers('Content-Type') + ';charset=utf-8;'
+            );
+
             $scope.init();
         }));
     };
@@ -122,6 +134,6 @@ module.exports = () => {
             'PrevalidationService',
             PrevalidatedTableDirective
         ],
-        templateUrl: 'assets/tpl/directives/prevalidated-table.html' 
+        templateUrl: 'assets/tpl/directives/prevalidated-table.html'
     };
 };
