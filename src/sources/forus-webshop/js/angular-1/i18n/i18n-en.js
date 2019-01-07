@@ -72,8 +72,8 @@ module.exports = {
                 button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
             },
             nijmegen: {
-                title: "Nijmegen. Meedoen-regeling",
-                subtitle: "Welkom op de website van de Meedoen-regeling. Als u een toekenning heeft van de gemeente Nijmegen voor de Meedoen-regeling, dan kunt u hier uw tegoed en het aanbod zien. Vul eerst de activatiecode in die u per brief hebt ontvangen.",
+                title: "Meedoen-regeling",
+                subtitle: "Welkom op de website van de Meedoen-regeling. Heeft u van de gemeente een toekenning voor de Meedoen-regeling? Dan kunt u hier het aanbod van activiteiten en cursussen zien en het geld dat u kunt besteden. <br /> <br /> Klik op start en vul uw activatiecode in. Deze code staat in de brief over de Meedoen-regeling die u heeft ontvangen.",
                 button: 'START', 
             },
             zuidhorn: {
@@ -231,7 +231,7 @@ module.exports = {
                 faq_twelve: "Kan ik iets doen bij een andere organisatie die niet op de webshop staat?",
                 twelve: "Het tegoed kan alleen uitgegeven worden bij de organisaties die zich hebben aangemeld voor de Meedoen-regeling en op de webshop staan. U kunt wel een organisatie vragen deel te nemen. Een organisatie kan zich het hele jaar door aanmelden.",
                 faq_thirteen: "Hoe kom ik in aanmerking voor de Meedoen-regeling?",
-                thirteen: "U doet een aanvraag bij de gemeente Nijmegen. De voorwaarden om mee te doen en deel te nemen doet u hier: https://www.nijmegen.nl/diensten/uitkering-schulden-en-laag-inkomen/meedoen-regeling/'",
+                thirteen: "U doet een aanvraag bij de gemeente Nijmegen. De voorwaarden om mee te doen en deel te nemen doet u <u><a href='https://www.nijmegen.nl/diensten/uitkering-schulden-en-laag-inkomen/meedoen-regeling/'>hier</a></u>",
                 faq_fourteen: "Kan ik de voucher van €150 aan iemand anders geven?",
                 fourteen: "Nee, de voucher is strikt persoonlijk. U mag de voucher niet aan iemand anders geven.",
                 faq_fifteen: "Kan ik me ook aanmelden voor een activiteit bij de balie van een organisatie of kan het alleen in de webshop?",
@@ -306,7 +306,7 @@ module.exports = {
                 stepone: "Stap #1",
                 one: "U hebt een brief ontvangen van de gemeente. In de brief staat een activatiecode.",
                 steptwo: "Stap #2",
-                two: "Start met activeren door op <u>de knop ‘start’</u> te klikken onder de welkomsttekst.",
+                two: "Klik op de <u>start</u> knop om uw activatiecode in te vullen.",
                 stepthree: "Stap #3",
                 three: "Klik daarna op ‘Aanbiedingen’. Daar vindt u alle activiteiten en cursussen. Ook kunt u uw tegoed zien. De voucher met het tegoed vindt u terug door bovenaan op ‘Mijn vouchers’ te klikken.",
                 stepfour: "Stap #4",
