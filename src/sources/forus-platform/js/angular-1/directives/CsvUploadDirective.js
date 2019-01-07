@@ -57,6 +57,10 @@ let CsvUploadDirective = function(
         };
 
         csvParser.uploadFile = (file) => {
+            if (file.name.indexOf('.csv') != file.name.length - 4) {
+                return;
+            }
+
             new $q(function(resolve, reject) {
                 Papa.parse(file, {
                     complete: resolve
@@ -163,9 +167,7 @@ let CsvUploadDirective = function(
 
             let file = e.originalEvent.dataTransfer.files[0];
 
-            if (file.type == 'text/csv') {
-                csvParser.uploadFile(file);
-            }
+            csvParser.uploadFile(file);
         });
     };
 
