@@ -19,9 +19,15 @@ let PrevalidationService = function(ApiRequest) {
         this.export = function(filters) {
             return ApiRequest.get(
                 uriPrefix + '/prevalidations/export',
-                this.transformFilters(filters)
+                this.transformFilters(filters), {}, true,
+                (_cfg) => {
+                    _cfg.responseType = 'arraybuffer';
+                    _cfg.cache = false;
+
+                    return _cfg;
+                }
             );
-        }
+        };
 
         this.read = function(code) {
             return ApiRequest.get(uriPrefix + '/prevalidations/' + code);

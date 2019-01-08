@@ -159,7 +159,7 @@ let FundService = function(ApiRequest) {
 
         this.sampleCSV = (fund) => {
             return Papa.unparse([
-                fund.csv_required_keys
+                fund.csv_required_keys.filter(key => key.indexOf('_eligible') == -1)
             ]);
         };
     });
