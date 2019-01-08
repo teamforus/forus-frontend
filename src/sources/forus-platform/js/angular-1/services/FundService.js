@@ -13,13 +13,15 @@ let FundService = function(ApiRequest) {
 
         this.store = function(organization_id, values) {
             return ApiRequest.post(
-                uriPrefix + organization_id + '/funds', values
+                uriPrefix + organization_id + '/funds', 
+                this.apiFormToResource(values)
             );
         };
 
         this.update = function(organization_id, id, values) {
             return ApiRequest.patch(
-                uriPrefix + organization_id + '/funds/' + id, values
+                uriPrefix + organization_id + '/funds/' + id,
+                this.apiFormToResource(values)
             );
         };
 
@@ -114,6 +116,15 @@ let FundService = function(ApiRequest) {
                 uriPrefix + organization_id + '/funds/' + fund_id + '/top-up');
         };
 
+        this.apiFormToResource = function(formData) {
+            let values = JSON.parse(JSON.stringify(formData));
+
+            values.start_date = moment(values.start_date, 'DD-MM-YYYY').format('YYYY-MM-DD');
+            values.end_date = moment(values.end_date, 'DD-MM-YYYY').format('YYYY-MM-DD');
+
+            return values;
+        };
+
         this.apiResourceToForm = function(apiResource) {
             return {
                 product_categories: apiResource.product_categories.map(
@@ -123,8 +134,8 @@ let FundService = function(ApiRequest) {
                 ),
                 name: apiResource.name,
                 state: apiResource.state,
-                start_date: apiResource.start_date,
-                end_date: apiResource.end_date,
+                start_date: moment(apiResource.start_date).format('DD-MM-YYYY'),
+                end_date: moment(apiResource.end_date).format('DD-MM-YYYY'),
             };
         };
 

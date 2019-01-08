@@ -1,4 +1,4 @@
-let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper']);
+let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 'ngLocale']);;
 
 app.constant('appConfigs', env_data);
 
