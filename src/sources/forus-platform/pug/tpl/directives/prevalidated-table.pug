@@ -27,12 +27,18 @@ div
                         ng-model="filter.exported").form-control
                 .form-group.col.col-sm-6.col-xs-12
                     label.form-label(i18n="prevalidated_table.labels.from")
-                    datepicker(date-format="yyyy-MM-dd" datepicker-mobile="").form-control
-                        input(ng-model="filter.from" type="text" placeholder="dd.mm.jjjj").form-control
+                    datepicker(
+                        date-format="dd-MM-yyyy" 
+                        datepicker-mobile="" 
+                        date-week-start-day="1").form-control
+                        input(ng-model="filter.from" type="text" placeholder="dd-MM-yyyy").form-control
                 .form-group.col.col-sm-6.col-xs-12
                     label.form-label(i18n="prevalidated_table.labels.to")
-                    datepicker(date-format="yyyy-MM-dd" datepicker-mobile="").form-control
-                        input(ng-model="filter.to" type="text" placeholder="dd.mm.jjjj").form-control
+                    datepicker(
+                        date-format="dd-MM-yyyy" 
+                        datepicker-mobile="" 
+                        date-week-start-day="1").form-control
+                        input(ng-model="filter.to" type="text" placeholder="dd-MM-yyyy").form-control
                 .form-group.col.col-sm-12.col-xs-12
                 .form-group.col.col-sm-12.col-xs-12
                     button(ng-click="exportList(filter)").button.button-primary
