@@ -77,9 +77,9 @@ let PrevalidatedTableDirective = async function(
         file_data,
         file_type = 'text/csv;charset=utf-8;'
     ) => {
-        var blob = new Blob([file_data]/* , {
+        var blob = new Blob([file_data], {
             type: file_type,
-        } */);
+        });
 
         FileSaver.saveAs(blob, file_name);
     };
@@ -93,13 +93,12 @@ let PrevalidatedTableDirective = async function(
     };
 
     // Export to CSV file
-    $scope.downloadAll = (filters = {}) => {
+    $scope.export = (filters = {}) => {
         PrevalidationService.export(
             JSON.parse(JSON.stringify(filters)), {
                 responseType: 'arraybuffer'
             }
         ).then((res => {
-            console.log(res);
             $scope.downloadCsv(
                 ($scope.fund.key || 'fund') + '_' + moment().format(
                     'YYYY-MM-DD HH:mm:ss'
@@ -107,8 +106,6 @@ let PrevalidatedTableDirective = async function(
                 res.data,
                 res.headers('Content-Type') + ';charset=utf-8;'
             );
-
-            $scope.init();
         }));
     };
 

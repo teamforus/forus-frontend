@@ -41,7 +41,7 @@ div
                         input(ng-model="filter.to" type="text" placeholder="dd-MM-yyyy").form-control
                 .form-group.col.col-sm-12.col-xs-12
                 .form-group.col.col-sm-12.col-xs-12
-                    button(ng-click="exportList(filter)").button.button-primary
+                    button(ng-click="export(filter)").button.button-primary
                         em.mdi.mdi-download  
                         span(translate="prevalidated_table.buttons.export_selected")
 
@@ -72,6 +72,6 @@ div
             button(ng-click="downloadSample()").button.button-default
                 em.mdi.mdi-file-table-outline  
                 span(i18n="Download upload voorbeeld")
-            button(ng-click="downloadAll()").button.button-primary
+            button(ng-click="export()").button.button-primary
                 em.mdi.mdi-download  
                 span(i18n="prevalidated_table.buttons.export")
