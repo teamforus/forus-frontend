@@ -1,5 +1,7 @@
 section.section.section-products#products: .wrapper
-    .section-title(translate="block_products.header.title")
+    a.section-title(
+        translate="block_products.header.title"
+        ui-sref="products")
     .section-filters(ng-if="!sample")
         .row.form
             .col.col-md-4: .form-group
