@@ -64,6 +64,10 @@ section.section.section-voucher-details: .wrapper
                         div(ng-if="!$ctrl.voucherCard.product")
                             .card-label.euro Tegoed:
                             .card-value.euro(ng-bind="'€ ' + ($ctrl.voucherCard.amount)") 
+                    .card-qr_code.show-sm
+                        .card-qr_code-element
+                        .card-qr_code-desc(ng-if="$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.productdescription")
+                        .card-qr_code-desc(ng-if="!$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
 
                 .card-footer
                     .card-section
@@ -86,8 +90,8 @@ section.section.section-voucher-details: .wrapper
                                 em.mdi.mdi-printer
                                 .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.print")
                             .action-item-name(i18n="voucher.voucher_card.footer.actions.print")
-            .card-qr_code
-                #voucher_qr
+            .card-qr_code.hide-sm
+                .card-qr_code-element
                 .card-qr_code-desc(ng-if="$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.productdescription")
                 .card-qr_code-desc(ng-if="!$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
 
