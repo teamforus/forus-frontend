@@ -55,17 +55,6 @@ body {
     display: none;
 }
 
-@media print {
-    .printable-qr_code {
-        display: block;
-
-        img {
-            display: block;
-            width: 200px;
-        }
-    }
-}
-
 ui-view{
     flex: 1 0 auto;
     min-height: 85vh;
@@ -386,12 +375,9 @@ ui-view{
         
         &.form-group-inline {
             margin-bottom: 10px;
-            // display: flex;
             flex-wrap: wrap;
 
             &>.form-label {
-                // flex: 0 0 28%;
-                // max-width: 28%;
                 width: 200px;
                 padding-top: 8px;
                 padding-bottom: 8px;
@@ -403,8 +389,6 @@ ui-view{
 
             &>.form-offset,
             &>.form-control {
-                // flex: 0 0 72%;
-                // max-width: 72%;
                 width: calc(100% - 200px);
                 float: left;
             }
@@ -436,7 +420,6 @@ ui-view{
             height: 20px;
             border: 2px solid #cbd6e2;
             position: relative;
-            vertical-align: middle;
             margin-right: 5px;
             margin-left: -30px;
             float: left;
@@ -618,7 +601,7 @@ ui-view{
     }
 }
 
-.section {        
+.section {
     .section-title {
         font: 700 40px/60px $bf;
         margin: 0 0 40px;
@@ -1132,12 +1115,15 @@ ui-view{
                 height: 200px;
             }
         }
-        .block-voucher .card-inner {
-            min-height: 300px;
+    }
+
+    @media screen and (max-width: 1300px) {
+        .wrapper {
+            width: 1100px;
         }
-        
-        .section.base-card .card-body {
-            min-height: 160px;
+
+        .section.section-header .heade-sprite {
+            background-size: auto 80%;
         }
     }
 
@@ -1152,21 +1138,7 @@ ui-view{
             }
         }
     }
-    .block-voucher .card-inner {
-        min-height: 200px;
-    }
-
-    .card-value {
-        font-size: 20px;
-    }
-
-    .card-footer {
-        min-height: 130px;
-    }
-
-    .base-card .card-body {
-        min-height: 140px;
-    }
+    
     @media screen and (max-width: 1000px) {
         .section-title {
             font: 700 18px/30px $bf;
@@ -1332,9 +1304,6 @@ ui-view{
                 margin: 0;
             }
         }
-    }
-    .section .base-card .card-body {
-        min-height: 200px;
     }
 }
 
@@ -2059,18 +2028,9 @@ ui-view{
 
     &.block-app_download {
         .download-button {
-            /*display: block;
-            background: #fff;
-            box-shadow: 0 0 30px rgba(#000, .15);
-            border-radius: 5px;
-            padding: 10px;
-            padding-right: 65px;
-            position: relative;
-            height: 60px;*/
             width: 240px;
             max-width: 100%;
             margin-bottom: 10px;
-            /*text-align: center;*/
 
             .download-label {
                 font: 400 12px $bf;
@@ -2083,19 +2043,7 @@ ui-view{
             }
 
             .download-icon {
-                /*position: absolute;
-                right: 0;
-                top: 0;
-                width: 65px;
-                height: 100%;
-                background-color: #f4f4f4;*/
-
                 img {
-                    /*display: block;
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);*/
                     width: 100%;
                 }
             }
@@ -2978,6 +2926,7 @@ ui-view{
             flex-direction: row;
             display: flex;
             align-self: flex-start;
+            min-height: 200px;
 
             .label {
                 margin-bottom: 10px;
@@ -2989,6 +2938,7 @@ ui-view{
                 flex-direction: column;
                 flex: 1;
                 display: flex;
+                min-height: 200px;
             }
 
             .card-actions {
@@ -3095,10 +3045,6 @@ ui-view{
                 &.card-value-sm {
                     font-weight: 400;
                     font-size: 14px;
-
-                    strong {
-                        font-weight: 800;
-                    }
                 }
 
                 &:last-child {
@@ -3157,6 +3103,7 @@ ui-view{
 
                 .card-section {
                     padding: 20px;
+                    flex: 1;
                 }
 
                 .card-title {
@@ -3214,6 +3161,7 @@ ui-view{
                 position: relative;
                 display: flex;
                 flex-direction: column;
+                min-height: 130px;
             }
 
             &.base-card-sponsor {
@@ -4683,6 +4631,10 @@ ui-view{
                     }
                 }
             }
+
+            .card-inner {
+                min-height: 300px;
+            }
         }
 
         &.block-funds {
@@ -4768,6 +4720,12 @@ ui-view{
                 box-shadow: 2px 2px 20px rgba($color: #000000, $alpha: 0.05);
                 border-top-left-radius: 8px;
                 border-top-right-radius: 8px;
+                width: 100%;
+                margin-left: 0;
+    
+                .card-inner {
+                    text-align: center;
+                }
 
                 .card-label {
                     font: 400 7.5px $bf;
@@ -4776,7 +4734,7 @@ ui-view{
                     text-transform: uppercase;
 
                     &.euro {
-                        font-size: 12px;
+                        font-size: 10px;
                         margin: 0;
                     }
                 }
@@ -4795,6 +4753,10 @@ ui-view{
                             font: 700 10px $bf;
                             color: #282b39;
                         }
+                    }
+
+                    &.euro {
+                        font-size: 20px;
                     }
                 }
                 
@@ -4845,6 +4807,7 @@ ui-view{
                     .card-section {
                         width: auto;
                         max-width: 100%;
+                        margin: 0 auto;
                     }
 
                     .card-title {
@@ -4865,26 +4828,54 @@ ui-view{
                     min-height: auto;
                 }
 
-                &.base-card-sponsor {
+                &.base-card-sponsor,
+                &.base-card-voucher {
                     width: 100%;
-                    margin: 0 0 20px !important;
+                    margin: 0 0 30px;
                     flex-direction: column-reverse;
                 }
 
                 &.base-card-voucher {
-                    margin: 0 0 20px;
+                    margin: 0 0 30px;
                     margin-left: 0;
-                    flex-direction: column-reverse;
 
                     .card-body {
                         padding: 0;
+                        flex-direction: row;
+
+                        .card-qr_code {
+                            width: 40%;
+                            padding: 20px;
+                            border: none;
+                            background: linear-gradient(to right, #eff0ef, #fefefe);
+                            
+                            .card-qr_code-desc {
+                                font: 400 8.6px/12px $bf;
+                            }
+
+                            img {
+                                border-radius: 0;
+                                padding: 0;
+                                box-shadow: none;
+                                margin: 0 0 10px;
+                            }
+                        }
 
                         .card-photo {
                             display: none;
                         }
 
+                        .label {
+                            margin-bottom: 10px;
+                        }
+
                         .card-title {
                             margin: 0 0 5px;
+                            font: 700 12.5px $bf;
+                        }
+
+                        .card-section {
+                            text-align: left;
                         }
                     }
 
@@ -4917,6 +4908,17 @@ ui-view{
                             border-top-left-radius: 0;
                             border-top-right-radius: 0;
                         }
+                    }
+                }
+            }
+
+            &.block-voucher-regular {
+                .base-card {
+                    &.base-card-sponsor,
+                    &.base-card-voucher {
+                        width: 100%;
+                        margin: 0 0 30px;
+                        flex-direction: column-reverse;
                     }
                 }
             }
@@ -5894,6 +5896,14 @@ ui-view{
             border: 1px solid #ddecff;
         }
     }
+
+    @media screen and (max-width: 767px) {
+        &.block-app_download{
+            .download-icon {
+                width: 200px;
+            }
+        }
+    }
 }
 
 .modal {
@@ -6058,10 +6068,8 @@ ui-view{
             padding: 0;
         }
     }
-}
 
-@media screen and (max-width: 1500px) {
-    .modal {
+    @media screen and (max-width: 1500px) {
         .modal-content {
             width: 1000px;
         }
@@ -6088,10 +6096,8 @@ ui-view{
             }
         }
     }
-}
 
-@media screen and (max-width: 1000px) {
-    .modal {
+    @media screen and (max-width: 1000px) {
         border: none;
 
         .modal-close {
@@ -6170,75 +6176,8 @@ ui-view{
         }
     }
 
-    .base-card {    
-        width: 100% !important;
-        margin-left: 0 !important;
-    }
-    
-    .card-inner {
-        text-align: center;
-    }
-    
-    .card-section {
-        max-width: 60%;
-        margin: 0 auto;
-    }
-    
-    .card-footer.card-action {
-        max-width: 40%;
-        margin: 0 auto;
-    }
-    
-    .base-card-voucher .card-footer .card-actions {
-        max-width: 40%;
-        margin:0 auto;
-    }
-    
-    .base-card-voucher .card-footer .card-actions .action-item {
-        margin-right: 0px;
-        margin-lefT: 0px;
-    }
-
-    .gm-style-iw {
-        width: 100% !important;
-        left: 0 !important;
-        top: 0 !important;
-        display: flex;
-
-        &>div {
-            width: 100% !important;
-            max-width: 100% !important;
-            max-height: 100% !important;
-            display: block !important;
-        }
-    }
-
-    .map-card {
-        padding: 0;
-        background: #fff;
-
-        .map-card-img {
-            width: 100%;
-            position: initial;
-        }
-
-        .map-card-title {
-            padding: 15px 15px 5px;
-        }
-        
-        .map-card-description {
-            padding: 5px 15px 15px;
-            a {
-            }
-        }
-    }
-}
-
-@media screen and (max-width: 767px) {
-    .modal {
-
+    @media screen and (max-width: 767px) {
         .modal-content {
-
             .button{
                 margin-right: 0;
                 margin-bottom: 10px;
@@ -6249,69 +6188,15 @@ ui-view{
             }
         }
     }
-    .base-card {    
-        width: 100% !important;
-        margin-left: 0 !important;
-        }
-        
-    .block-voucher.card-label {
-        text-align: center;
-    }
-    
-    .card-inner {
-        text-align: center;
-    }
-    
-    .card-section {
-        max-width: 80%;
-        margin: 0 auto;
-    }
-    
-    .card-footer.card-action {
-        max-width: 40%;
-        margin: 0 auto;
-    }
-    
-    .base-card-voucher .card-footer .card-actions {
-        max-width: 40%;
-        margin:0 auto;
-    }
-    
-    .base-card-voucher .card-footer .card-actions .action-item {
-        margin-right: 0px;
-        margin-lefT: 0px;
-    }
-    
-    .card-actions .action-item {
-        margin-left: 10px !important;
-        margin-right: 10px !important;
-    }
-    &.block-app_download{
-        .download-icon {
-            width: 200px;
-        }
-    }
-    &.block-footer {
-        .footer-label {
-            font: 700 20px/26px "Source Sans Pro",sans-serif;
-        }
-        .footer-schedule {
-            .schedule-label {
-                color: #fff;
-                font: 400 14px/24px "Source Sans Pro",sans-serif;
-            }
-
-            .schedule-value {
-                color: #fff;
-                font: 300 14px/24px "Source Sans Pro",sans-serif;
-            }
-        }
-    }
 }
 
 @media screen and (max-width: 1500px) {
     .wrapper {
         width: 1100px;
+    }
+        
+    .base-card .card-body {
+        min-height: 160px;
     }
 
     .header-splash {
@@ -6329,9 +6214,7 @@ ui-view{
     .wrapper {
         width: 1100px;
     }
-    .section.section-header .heade-sprite {
-        background-size: auto 80%;
-    }
+    
     .header-splash {
         .splash {
             height: 650px;
@@ -6388,6 +6271,52 @@ ui-view{
             height: 50px;
             padding: 5px 15px;
             font: 400 15px/24px $bf;
+        }
+    }
+
+    .gm-style-iw {
+        width: 100% !important;
+        left: 0 !important;
+        top: 0 !important;
+        display: flex;
+
+        &>div {
+            width: 100% !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            display: block !important;
+        }
+    }
+
+    .map-card {
+        padding: 0;
+        background: #fff;
+
+        .map-card-img {
+            width: 100%;
+            position: initial;
+        }
+
+        .map-card-title {
+            padding: 15px 15px 5px;
+        }
+        
+        .map-card-description {
+            padding: 5px 15px 15px;
+            a {
+            }
+        }
+    }
+}
+
+
+@media print {
+    .printable-qr_code {
+        display: block;
+
+        img {
+            display: block;
+            width: 200px;
         }
     }
 }
