@@ -638,7 +638,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                     $rootScope.loadAuthUser();
                     $state.go('home');
                 }, () => {
-                    alert("Token expired or unknown.");
+                    alert("Helaas, het is niet gelukt om in te loggen. De link is reeds gebruikt of niet meer geldig. Probeer het opnieuw met een andere link.");
                     $state.go('home');
                 });
             }
