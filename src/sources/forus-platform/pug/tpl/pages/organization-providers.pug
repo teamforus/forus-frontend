@@ -3,7 +3,7 @@
     section.app.app-content
         .card-heading 
             span(translate="organization_providers.header.title")
-            span(ng-bind="$ctrl.fundProviders.data.length").span-count
+            span(ng-bind="$ctrl.fundProviders.meta.total").span-count
         .card(
             ng-repeat="providerFund in $ctrl.fundProviders.data | orderBy:'order':'desc'"
             ng-class="[providerFund.collapsable ? 'card-collapsable' : '', providerFund.collapsed ? 'card-collapsed' : '']"
