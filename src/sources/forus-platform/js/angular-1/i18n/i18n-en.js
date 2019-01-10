@@ -242,7 +242,7 @@ module.exports = {
             none: "Geen data",
             phone: "Telefoonnummer",
             hours: "Openingstijden:",
-            offices: "Vestigingen",
+            offices: "Vestigingen ",
         }
     },
 
