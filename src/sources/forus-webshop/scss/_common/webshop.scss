@@ -923,6 +923,7 @@ ui-view{
             width: 820px;
             max-width: 100%;
             margin: 0 auto;
+            padding: 20px;
 
             .faq-item {
                 background: #fff;
@@ -1557,7 +1558,7 @@ ui-view{
     }
 
     &.block-products {
-        margin: 0 -45px 0;
+        margin: 20px -45px 0 !important;
         display: flex;
         flex-wrap: wrap;
 
@@ -5369,6 +5370,7 @@ ui-view{
         }
 
         &.block-product {
+            padding: 30px 30px;
             .product-card {
                 border-radius: 10px;
 
