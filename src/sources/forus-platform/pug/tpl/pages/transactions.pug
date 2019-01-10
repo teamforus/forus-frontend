@@ -3,7 +3,7 @@
     section.app.app-content
 
         .card(ng-if="$ctrl.transactions.data.length > 0" class=(state=='closed'?'card-outline':'')).form
-            .card-header: .card-title {{ "transactions.header.title" | translate }} ({{ $ctrl.transactions.data.length }})
+            .card-header: .card-title {{ "transactions.header.title" | translate }} ({{ $ctrl.transactions.meta.total }})
             .card-section
                 .card-block.card-block-table
                     .table-wrapper

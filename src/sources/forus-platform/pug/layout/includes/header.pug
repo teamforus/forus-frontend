@@ -15,6 +15,9 @@ header.app.app-header
                     a(ui-sref="organizations-edit($root.activeOrganization)" ng-if="$root.activeOrganization | hasPerm:'manage_organization'").auth-user-menu-item
                         em.mdi.mdi-settings
                         | Organisatie
+                    a(ui-sref="organizations-create").auth-user-menu-item
+                        em.mdi.mdi-plus
+                        | {{ "organizations.buttons.add" | translate }}
                     .auth-user-menu-item(ng-click="$root.openPinCodePopup()")
                         em.mdi.mdi-cellphone
                         span(translate="topnavbar.buttons.authorize")
