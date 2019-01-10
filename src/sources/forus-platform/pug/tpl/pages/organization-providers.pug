@@ -1,11 +1,42 @@
 .app.app-container
     menu
     section.app.app-content
-        .card-heading 
-            span(translate="organization_providers.header.title")
-            span(ng-bind="$ctrl.fundProviders.data.length").span-count
+
+        form(ng-submit="onPageChange({})"): .card: .card-header: .row
+            .col.col-sm-6.col-xs-12
+                .card-title
+                    | {{ 'organization_providers.header.title' | i18n }}
+                    span(ng-bind="$ctrl.fundProviders.data.length").span-count
+
+            .card-header-controls.col.col-sm-6.col-xs-12.text-right
+                .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.resetFilters()")
+                    em.mdi.mdi-close
+                    span(i18n="Wis filters")
+
+                .form(ng-if="!$ctrl.filters.show")
+                    .form-group: input(ng-model="$ctrl.filters.values.q" type="text" placeholder="{{ 'search' | i18n }}").form-control
+
+                .card-header-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
+                    .card-header-dropdown-content(ng-show="$ctrl.filters.show")
+                        .arrow-box.bg-dim: .arrow
+                        .form
+                            .form-group
+                                form-label-toggle(label="{{ 'search' | i18n }}" is-active)
+                                input(ng-model="$ctrl.filters.values.q" type="text" placeholder="{{ 'search' | i18n }}").form-control
+                            .form-group
+                                form-label-toggle(label="{{ 'organization_providers.state' | i18n }}")
+                                select(
+                                ng-options="state.key as state.name for state in $ctrl.states"
+                                ng-model="$ctrl.filters.values.state").form-control
+                            .form-actions
+                                button(type="submit").button.button-primary.button-wide
+                                    em.mdi.mdi-filter-outline
+                                    span(translate="search")
+
+                    .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
+
         .card(
-            ng-repeat="providerFund in $ctrl.fundProviders.data | orderBy:'order':'desc'"
+            ng-repeat="providerFund in $ctrl.fundProviders.data"
             ng-class="[providerFund.collapsable ? 'card-collapsable' : '', providerFund.collapsed ? 'card-collapsed' : '']"
             ng-click="$ctrl.toggleFundCollapse(providerFund)")
             .card-section

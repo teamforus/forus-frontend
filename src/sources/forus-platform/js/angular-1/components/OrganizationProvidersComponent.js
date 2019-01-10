@@ -6,17 +6,44 @@ let OrganizationProvidersComponent = function(
 ) {
     let $ctrl = this;
 
+    $ctrl.filters = {
+        show: false,
+        values: {},
+    };
+
+    $ctrl.states = [
+        {
+            key: '0',
+            name: 'All'
+        },
+        {
+            key: 'approved',
+            name: 'Geaccepteerd'
+        },
+        {
+            key: 'declined',
+            name: 'Geweigerd'
+        },
+        {
+            key: 'pending',
+            name: 'Wachtend'
+        }
+    ];
+
+
+    $ctrl.resetFilters = () => {
+        $ctrl.filters.values.q = '';
+        $ctrl.filters.values.state = $ctrl.states[0].key;
+    };
+
     $ctrl.$onInit = function() {
+        $ctrl.resetFilters();
+
         $ctrl.fundProviders.data.map(function(providerFund) {
             providerFund.organization.fundCategories = 
             providerFund.organization.product_categories.map(function(category) {
                 return category.name;
             });
-            providerFund.order = {
-                'pending': 1,
-                'approved': 0,
-                'declined': -1,
-            } [providerFund.state];
 
             providerFund.collapsed = providerFund.state == 'approved';
             providerFund.collapsable = providerFund.state == 'approved';
@@ -52,14 +79,36 @@ let OrganizationProvidersComponent = function(
     };
 
     $scope.onPageChange = async (query) => {
+
+        let filters = Object.assign({}, query, $ctrl.filters.values);
+
         OrganizationService.listProviders(
             $ctrl.organization.id,
-            query
+            filters
         ).then((res => {
+
             $ctrl.fundProviders = res.data;
+
+            $ctrl.fundProviders.data.map(function(providerFund) {
+                providerFund.organization.fundCategories =
+                    providerFund.organization.product_categories.map(function(category) {
+                        return category.name;
+                    });
+
+                providerFund.collapsed = providerFund.state == 'approved';
+                providerFund.collapsable = providerFund.state == 'approved';
+
+                return providerFund;
+            });
         }));
     };
 
+
+    $ctrl.hideFilters = () => {
+        $scope.$apply(() => {
+            $ctrl.filters.show = false;
+        });
+    };
 };
 
 module.exports = {
