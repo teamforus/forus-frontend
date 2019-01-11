@@ -2,8 +2,6 @@ let OrganizationsEditComponent = function(
     $state,
     $rootScope,
     $stateParams,
-    $filter,
-    $q,
     OrganizationService,
     FormBuilderService,
     MediaService
@@ -17,7 +15,8 @@ let OrganizationsEditComponent = function(
         if (!$ctrl.organization) {
             OrganizationService.clearActive();
             values = {
-                "product_categories": []
+                "product_categories": [],
+                "website": 'https://',
             };
         } else {
             values = OrganizationService.apiResourceToForm($ctrl.organization)
@@ -25,22 +24,6 @@ let OrganizationsEditComponent = function(
 
         $ctrl.form = FormBuilderService.build(values, async (form) => {
             form.lock();
-
-            if(form.values.website != '') {
-
-                let pattern = new RegExp('^(https?:\\/\\/)');
-                let patternOnlyHttp = new RegExp('^(https?:\\/\\/)$');
-
-                if(patternOnlyHttp.test(form.values.website)){
-                    form.values.website = '';
-                }else if (!pattern.test(form.values.website)) {
-                    form.unlock();
-
-                    return form.errors = {
-                        'website': [$filter('i18n')('validation.website')]
-                    };
-                }
-            }
 
             let promise;
             let values = JSON.parse(JSON.stringify(form.values));
@@ -106,8 +89,6 @@ module.exports = {
         '$state',
         '$rootScope',
         '$stateParams',
-        '$filter',
-        '$q',
         'OrganizationService',
         'FormBuilderService',
         'MediaService',
