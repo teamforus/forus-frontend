@@ -1,4 +1,4 @@
-let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper']);
+let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 'ngLocale']);;
 
 app.constant('appConfigs', env_data);
 
@@ -116,6 +116,8 @@ app.directive('phoneControl', require('./directives/PhoneControlDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));
 app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
+app.directive('formLabelToggle', require('./directives/FormLabelToggleDirective'));
+app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));

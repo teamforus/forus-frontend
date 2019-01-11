@@ -17,12 +17,12 @@ section.section.section-product: .wrapper
                 .product-photo(style="background-image: url('{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}')")
                     img(ng-src="{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}")
                 .product-name
-                    | {{ $ctrl.product.name }}
-                    span.label.label-success {{ "product.status.active" | translate }}
+                    span(ng-bind="$ctrl.product.name")
+                    span.label.label-success(i18n="product.status.active")
                 .product-categories(ng-bind="$ctrl.product.product_category.name")
                 
                 .product-funds
-                    .product-fund-label {{ "product.labels.fund" | translate }}
+                    .product-fund-label(i18n="product.labels.fund")
                     .product-fund-list(ng-repeat="fund in $ctrl.product.funds" ng-bind="fund.name")
 
                 .product-price
@@ -30,7 +30,7 @@ section.section.section-product: .wrapper
                     .product-price-old(ng-bind="$ctrl.product.old_price | currency_format")
 
                 .product-expire(ng-if="$ctrl.product.expire_at")
-                    .expire-label {{ "voucher.labels.expire" | translate }}
+                    .expire-label(i18n="voucher.labels.expire")
                     .expire-value(ng-bind="$ctrl.product.expire_at_locale")
                 
                 .button.button-primary(
@@ -41,7 +41,7 @@ section.section.section-product: .wrapper
                     ng-click="openAuthPopup()") LOG IN
 
         .block.block-info-card
-            .block-header {{ "voucher.labels.shopdetail" | translate }}
+            .block-header(i18n="voucher.labels.shopdetail")
             .info-office(ng-repeat="office in $ctrl.product.offices")
                 .info-office-photo(style="background-image: url('{{ office.photo.sizes.thumbnail || './assets/img/placeholders/office-thumbnail.png' }}')") 
                     img(ng-src="{{ office.photo.sizes.thumbnail || './assets/img/placeholders/office-thumbnail.png' }}", alt="")
@@ -53,13 +53,13 @@ section.section.section-product: .wrapper
 
 
         .block.block-info-card
-            .block-header {{ "voucher.labels.productdetail" | translate }}
+            .block-header(i18n="voucher.labels.productdetail")
             .block-content
                 p(ng-bind="$ctrl.product.description")
         
         .block.block-map_card
             .map_card-header
-                .map_card-title {{ "product.labels.find" | translate }}
+                .map_card-title(i18n="product.labels.find")
                 .map_card-subtitle 
 
             .map_card-iframe: google-map(offices="$ctrl.product.offices")

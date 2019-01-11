@@ -7,7 +7,7 @@ module.exports = {
         organizations: 'Organisaties',
         "organizations-create": 'Organisatie aanmaken',
         "organizations-edit": 'Organisatie bewerken',
-        "organization-funds": "Mijn fondsen",
+        "organization-funds": "Fondsen",
         "organization-providers": 'Aanbieders',
         validators: 'Medewerkers',
         "validators-edit": 'Medewerker bewerken',
@@ -691,6 +691,8 @@ module.exports = {
         labels: {
             categories: "Categorieën",
             nocategories: "Geen Categorieën",
+            date: "Datum",
+            max_amount: "Maximale bedrag per voucher"
         }
     },
 

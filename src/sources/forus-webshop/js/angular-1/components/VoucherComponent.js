@@ -7,24 +7,27 @@ let VoucherComponent = function(
     let $ctrl = this;
 
     $ctrl.$onInit = function() {
-        let qrCodeEl = $element.find('#voucher_qr')[0];
+        $element.find('.card-qr_code-element').each(function() {
+            let qrCodeEl = this;
 
-        new QRCode(qrCodeEl, {
-            text: JSON.stringify({
-                type: 'voucher',
-                value: $ctrl.voucher.address
-            }),
-            correctLevel: QRCode.CorrectLevel.L
+            new QRCode(qrCodeEl, {
+                text: JSON.stringify({
+                    type: 'voucher',
+                    value: $ctrl.voucher.address
+                }),
+                colorLight: 'transparent', 
+                correctLevel: QRCode.CorrectLevel.L
+            });
+
+            qrCodeEl.removeAttribute('title');
         });
-
-        qrCodeEl.removeAttribute('title');
 
         $ctrl.voucherCard = VoucherService.composeCardData($ctrl.voucher);
 
         $ctrl.printQrCode = () => {
             let html = angular.element('html');
             let body = angular.element('body');
-            let printContents = $element.find('#voucher_qr').clone();
+            let printContents = $element.find('.card-qr_code-element').first().clone();
             
             printContents.addClass('printable-qr_code');
             body.css('display', 'none');
