@@ -1,10 +1,10 @@
 .app.app-container
     menu
     section.app.app-content
-
         .card-heading: .row
             .col.col-sm-6.col-xs-12
-                span(i18n="organization_providers.header.title")
+                span(translate="organization_providers.header.title")
+                span(ng-bind="$ctrl.fundProviders.meta.total").span-count
             .block.block-inline-filters.col.col-sm-6.col-xs-12.text-right
                 .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.resetFilters()")
                     em.mdi.mdi-close

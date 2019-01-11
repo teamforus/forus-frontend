@@ -81,7 +81,7 @@
     .card-group(ng-show="fundProvider.showTransactions")
         .card-header
             .arrow-box.border.bg-dim: .arrow
-            .card-title {{ "fund_card_provider_finances.buttons.transactions" | translate }} ({{ transactions.data.length }})
+            .card-title {{ "fund_card_provider_finances.buttons.transactions" | translate }} ({{ transactions.meta.total }})
         .card-section
             .card-block.card-block-table
                 .table-wrapper

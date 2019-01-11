@@ -88,7 +88,7 @@
                                     br
                                     | {{ $ctrl.chartData.stringTitle }}
 
-            .card-heading {{ "financial_dashboard.labels.provider" | translate }} ({{ $ctrl.fundProviders.data.length }})
+            .card-heading {{ "financial_dashboard.labels.provider" | translate }} ({{ $ctrl.fundProviders.meta.total }})
             fund-card-provider-finances(ng-repeat="fundProvider in $ctrl.fundProviders.data" fund-provider="fundProvider")
 
             .card: .card-section(ng-show="$ctrl.fundProviders.meta.last_page > 1")
