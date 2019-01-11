@@ -168,19 +168,44 @@ let SignUpComponent = function(
         });
 
         $ctrl.organizationForm = FormBuilderService.build({
+            "website": 'https://',
             "product_categories": []
         }, (form) => {
 
-            if (form.values && form.values.iban != form.values.iban_confirmation) {
-                return $q((resolve, reject) => {
-                    reject({
-                        data: {
-                            errors: {
-                                'iban_confirmation': [$filter('translate')('validation.iban_confirmation')]
+            if (form.values) {
+
+                if(form.values.iban != form.values.iban_confirmation) {
+                    return $q((resolve, reject) => {
+                        reject({
+                            data: {
+                                errors: {
+                                    'iban_confirmation': [$filter('translate')('validation.iban_confirmation')]
+                                }
                             }
-                        }
+                        });
                     });
-                });
+                }
+
+                if(form.values.website != '') {
+
+                    let pattern = new RegExp('^(https?:\\/\\/)');
+                    let patternOnlyHttp = new RegExp('^(https?:\\/\\/)$');
+
+                    if(patternOnlyHttp.test(form.values.website)){
+                        form.values.website = '';
+                    }else if (!pattern.test(form.values.website)) {
+
+                        return $q((resolve, reject) => {
+                            reject({
+                                data: {
+                                    errors: {
+                                        'website': [$filter('translate')('validation.website')]
+                                    }
+                                }
+                            });
+                        });
+                    }
+                }
             }
 
             form.lock();

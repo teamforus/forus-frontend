@@ -583,7 +583,8 @@ module.exports = {
 
     validation: {
         email_confirmation: 'Email verkeerde bevestiging',
-        iban_confirmation: 'IBAN verkeerde bevestiging'
+        iban_confirmation: 'IBAN verkeerde bevestiging',
+        website: 'Het websiteveld is ongeldig (moet beginnen met https://)'
     },
 
     // OVERVIEW VALIDATIONS REQUESTS = validation-requests.pug
