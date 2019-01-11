@@ -900,5 +900,15 @@ module.exports = {
             confirm: "Bevestig",
             close: "Sluit"
         }
+    },
+
+    roles: {
+        tooltip: {
+            beheerder: 'Beheerder',
+            validator: 'Validator',
+            kassa: 'Kassa',
+            financien: 'Financien',
+            manager: 'Manager'
+        }
     }
 };
