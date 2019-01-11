@@ -3,16 +3,19 @@ div
         ng-if="prevalidations").form
         .card-header: .row
             .col.col-sm-6.col-xs-12: .card-title(translate="prevalidated_table.header.title")
-            .card-header-controls.col.col-sm-6.col-xs-12.text-right
+            .block.block-inline-filters.col.col-sm-6.col-xs-12.text-right
                 .button.button-text(ng-if="filters.show" ng-click="resetFilters()")
                     em.mdi.mdi-close
                     span(i18n="Wis filters")
                 
                 .form(ng-if="!filters.show")
-                    .form-group: input(ng-model="filters.values.q" type="text" placeholder="{{ 'prevalidated_table.labels.search' | i18n }}").form-control
+                    .form-group.inline-filters-search: input(
+                        ng-model="filters.values.q" 
+                        type="text" 
+                        placeholder="{{ 'prevalidated_table.labels.search' | i18n }}").form-control
                 
-                .card-header-dropdown.pull-right(click-outside="hideFilters()")
-                    .card-header-dropdown-content(ng-show="filters.show")
+                .inline-filters-dropdown.pull-right(click-outside="hideFilters()")
+                    .inline-filters-dropdown-content(ng-show="filters.show")
                         .arrow-box.bg-dim: .arrow
                         .form
                             .form-group

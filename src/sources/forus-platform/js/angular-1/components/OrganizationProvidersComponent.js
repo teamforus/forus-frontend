@@ -11,24 +11,19 @@ let OrganizationProvidersComponent = function(
         values: {},
     };
 
-    $ctrl.states = [
-        {
-            key: '0',
-            name: 'All'
-        },
-        {
-            key: 'approved',
-            name: 'Geaccepteerd'
-        },
-        {
-            key: 'declined',
-            name: 'Geweigerd'
-        },
-        {
-            key: 'pending',
-            name: 'Wachtend'
-        }
-    ];
+    $ctrl.states = [{
+        key: null,
+        name: 'All'
+    }, {
+        key: 'approved',
+        name: 'Geaccepteerd'
+    }, {
+        key: 'declined',
+        name: 'Geweigerd'
+    }, {
+        key: 'pending',
+        name: 'Wachtend'
+    }];
 
 
     $ctrl.resetFilters = () => {
@@ -40,10 +35,10 @@ let OrganizationProvidersComponent = function(
         $ctrl.resetFilters();
 
         $ctrl.fundProviders.data.map(function(providerFund) {
-            providerFund.organization.fundCategories = 
-            providerFund.organization.product_categories.map(function(category) {
-                return category.name;
-            });
+            providerFund.organization.fundCategories =
+                providerFund.organization.product_categories.map(function(category) {
+                    return category.name;
+                });
 
             providerFund.collapsed = providerFund.state == 'approved';
             providerFund.collapsable = providerFund.state == 'approved';
@@ -79,7 +74,6 @@ let OrganizationProvidersComponent = function(
     };
 
     $scope.onPageChange = async (query) => {
-
         let filters = Object.assign({}, query, $ctrl.filters.values);
 
         OrganizationService.listProviders(

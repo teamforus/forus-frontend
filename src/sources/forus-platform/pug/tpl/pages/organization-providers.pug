@@ -2,22 +2,22 @@
     menu
     section.app.app-content
 
-        form(ng-submit="onPageChange({})"): .card: .card-header: .row
+        .card-heading: .row
             .col.col-sm-6.col-xs-12
-                .card-title
-                    | {{ 'organization_providers.header.title' | i18n }}
-                    span(ng-bind="$ctrl.fundProviders.data.length").span-count
-
-            .card-header-controls.col.col-sm-6.col-xs-12.text-right
+                span(i18n="organization_providers.header.title")
+            .block.block-inline-filters.col.col-sm-6.col-xs-12.text-right
                 .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.resetFilters()")
                     em.mdi.mdi-close
                     span(i18n="Wis filters")
 
                 .form(ng-if="!$ctrl.filters.show")
-                    .form-group: input(ng-model="$ctrl.filters.values.q" type="text" placeholder="{{ 'search' | i18n }}").form-control
+                    .form-group.inline-filters-search: input(
+                        ng-model="$ctrl.filters.values.q" 
+                        type="text" 
+                        placeholder="{{ 'search' | i18n }}").form-control
 
-                .card-header-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
-                    .card-header-dropdown-content(ng-show="$ctrl.filters.show")
+                .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
+                    .inline-filters-dropdown-content(ng-show="$ctrl.filters.show")
                         .arrow-box.bg-dim: .arrow
                         .form
                             .form-group
@@ -28,10 +28,6 @@
                                 select(
                                 ng-options="state.key as state.name for state in $ctrl.states"
                                 ng-model="$ctrl.filters.values.state").form-control
-                            .form-actions
-                                button(type="submit").button.button-primary.button-wide
-                                    em.mdi.mdi-filter-outline
-                                    span(translate="search")
 
                     .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
@@ -98,7 +94,7 @@
                             span(translate="organization_providers.buttons.accept")
 
         .card: .card-section(ng-show="$ctrl.fundProviders.meta.last_page > 1")
-            paginator(meta="$ctrl.fundProviders.meta" filters="filter" count-buttons="5" on-page-change="onPageChange(query)")
+            paginator(meta="$ctrl.fundProviders.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="onPageChange(query)")
 
         block-empty( 
             ng-if="$ctrl.fundProviders.data.length == 0"
