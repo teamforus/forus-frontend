@@ -13,7 +13,7 @@ section.section.section-voucher-details: .wrapper
     .section-title.hide-sm(ng-if="!$ctrl.voucherCard.product") Uw {{ $ctrl.voucherCard.title }} voucher
     .section-title.hide-sm(ng-if="$ctrl.voucherCard.product") Uw aanbieding voucher
 
-    .block.block-voucher(ng-class="$ctrl.voucherCard.product?'':'block-voucher-regular'")
+    .block.block-voucher
         // regular voucher
         div(ng-if="!$ctrl.voucherCard.product").base-card.base-card-sponsor: .card-inner
             .card-body
@@ -75,6 +75,11 @@ section.section.section-voucher-details: .wrapper
                         .card-value(ng-bind="$ctrl.voucherCard.expire_at_locale")
                         .label.label-default(ng-if="moment().isAfter(moment($ctrl.voucherCard.expire_at.date))" i18n="voucher.voucher_card.expired" )
                     .card-actions
+                        .action-item(ng-click="$ctrl.openInMeModal()")
+                            .action-item-icon
+                                em.mdi.mdi-account-circle
+                                .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.open_in_me")
+                            .action-item-name(i18n="voucher.voucher_card.footer.actions.open_in_me")
                         .action-item(ng-if="$ctrl.voucherCard.product && $root.appConfigs.flags.shareProducts" ng-click="$ctrl.shareVoucher($ctrl.voucher)")
                             .action-item-icon
                                 em.mdi.mdi-share-variant
