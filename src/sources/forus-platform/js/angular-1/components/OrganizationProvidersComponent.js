@@ -13,7 +13,7 @@ let OrganizationProvidersComponent = function(
 
     $ctrl.states = [{
         key: null,
-        name: 'All'
+        name: 'Alle'
     }, {
         key: 'approved',
         name: 'Geaccepteerd'
