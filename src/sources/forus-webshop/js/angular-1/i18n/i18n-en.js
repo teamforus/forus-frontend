@@ -733,7 +733,6 @@ module.exports = {
             close: "Sluit"
         }
     },
-
     open_in_me: {
         sms: {
             body: 'Download Me makkelijk via de link: https://www.forus.io/DL',
@@ -758,5 +757,10 @@ module.exports = {
             step_2: 'Ik heb al een profiel',
             step_3: 'Inloggen met Autorisatie code',
         }
+    },
+    sign_up: {
+        sms:{
+            body: 'Download Me makkelijk via de link: https://www.forus.io/DL',
+        }  
     }
 };
