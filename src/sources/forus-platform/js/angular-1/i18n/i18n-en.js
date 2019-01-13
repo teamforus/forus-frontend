@@ -692,7 +692,7 @@ module.exports = {
         labels: {
             categories: "Categorieën",
             nocategories: "Geen Categorieën",
-            date: "Datum",
+            date: "Begindatum / Einddatum",
             max_amount: "Maximale bedrag per voucher"
         }
     },
