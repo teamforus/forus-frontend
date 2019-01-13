@@ -20,7 +20,7 @@
                     ng-bind="product.name").product-title
                 span(ng-bind="product.product_category.name").product-subtitle
                 .label-item {{ "product_edit.labels.expire" | translate }}: {{ product.expire_at }}
-                .label-item {{ "product_edit.labels.sold_amount" | translate }}: {{ (product.total_amount - product.stock_amount) }}
+                .label-item {{ "product_edit.labels.sold" | translate }}: {{ (product.total_amount - product.stock_amount) }}
                 .label-item {{ "product_edit.labels.reserved" | translate }}: {{ product.reserved_amount }}
 
     .card-section.card-section-primary
