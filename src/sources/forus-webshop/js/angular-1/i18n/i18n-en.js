@@ -730,5 +730,10 @@ module.exports = {
             confirm: "Bevestig",
             close: "Sluit"
         }
+    },
+    sign_up: {
+        sms:{
+            body: 'Download Me makkelijk via de link: https://www.forus.io/DL',
+        }  
     }
 };
