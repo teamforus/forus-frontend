@@ -48,6 +48,7 @@ app.service('GoogleMapService', require('./services/GoogleMapService'));
 app.service('ConfigService', require('./services/ConfigService'));
 app.service('ModalService', require('./services/ModalService'));
 app.service('BrowserService', require('./services/BrowserService'));
+app.service('SmsService', require('./services/SmsService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
@@ -66,6 +67,7 @@ app.directive('productCard', require('./directives/ProductCardDirective'));
 app.directive('appFooter', require('./directives/AppFooterDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));
+app.directive('phoneControl', require('./directives/PhoneControlDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
@@ -82,6 +84,7 @@ app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCode
 app.component('modalActivateCodeComponent', require('./components/Modals/ModalActivateCodeComponent'));
 app.component('modalAuthCodeComponent', require('./components/Modals/ModalAuthCodeComponent'));
 app.component('modalShareVoucherComponent', require('./components/Modals/ModalShareVoucherComponent'));
+app.component('modalOpenInMeComponent', require('./components/Modals/ModalOpenInMeComponent'));
 
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
