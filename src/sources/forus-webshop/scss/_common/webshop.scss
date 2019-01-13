@@ -4522,7 +4522,7 @@ ui-view{
         width: calc(60px * 6 + 10px * 5);
         position: relative;
         @include cf();
-        
+
         .pincode-number {
             display: block;
             height: 75px;
@@ -4540,6 +4540,11 @@ ui-view{
                 margin-right: 0;
             }
         }
+    }
+
+    &.block-phone-number {
+        width: calc(60px * 10 + 10px * 9);
+        margin: 25px auto;
     }
 
     @media screen and (max-width: 1500px) {
@@ -5910,6 +5915,95 @@ ui-view{
     }
 }
 
+.with-instructions{
+
+    .block {
+        &.block-pincode {
+            margin: 0 auto 15px;
+        }
+    }
+}
+
+.app-instruction {
+    .step-item {
+        padding: 0 70px;
+        position: relative;
+
+        img {
+            &:not(.line-item) {
+                width: 100%;
+                border: 2px dashed #d2e6ff;
+                border-radius: 5px;
+                box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1);
+                position: relative;
+                z-index: 1;
+            }
+
+            &.line-item {
+                position: absolute;
+                top: 200px;
+                left: calc(100% - 82px);
+                width: 163px;
+                z-index: 2;
+            }
+        }
+
+        .app-title {
+            font: 500 16px/24px $bf;
+            padding: 5px 0 15px 0;
+            text-align: center;
+        }
+    }
+
+    @media screen and (max-width: 1500px) {
+        .step-item {
+            padding: 0 50px;
+
+            img {
+                &.line-item {
+                    top: 140px;
+                    width: 115px;
+                    left: calc(100% - 58px);
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1300px) {
+        .step-item {
+            padding: 0 35px;
+
+            img {
+                &.line-item {
+                    top: 160px;
+                    width: 80px;
+                    left: calc(100% - 41px);
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .step-item {
+            img {
+                &.line-item {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .divider-img{
+        img{
+            width: 100%;
+        }
+    }
+}
+
+.f-w{
+    width: 100%!important;
+}
+
 .modal {
     @include fill_parent();
     position: fixed;
@@ -5987,6 +6081,12 @@ ui-view{
                 font-weight: 600;
                 white-space: nowrap;
             }
+        }
+
+        .description-small{
+            padding: 10px 0;
+            font: 400 16px/26px $bf;
+            color: #646f79;
         }
 
         .button{

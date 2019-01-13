@@ -26,5 +26,9 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('modalShareVoucher', {
         component: 'modalShareVoucherComponent'
     });
-    
+
+    ModalRouteProvider.modal('modalOpenInMe', {
+        component: 'modalOpenInMeComponent'
+    });
+
 }];
