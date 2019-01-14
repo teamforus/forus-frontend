@@ -2772,6 +2772,11 @@ ui-view{
                         text-decoration: line-through;
                     }
 
+                    .product-price-insufficient {
+                        font: 400 18px $bf;
+                        color: #646f79;
+                    }
+
                     &:last-child {
                         margin-bottom: 0;
                     }

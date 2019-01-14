@@ -28,6 +28,9 @@ section.section.section-product: .wrapper
                 .product-price
                     .product-price-new(ng-bind="$ctrl.product.price | currency_format")
                     .product-price-old(ng-bind="$ctrl.product.old_price | currency_format")
+                    .product-price-insufficient(
+                        ng-show="$ctrl.isApplicable == false")(
+                        i18n="product.insufficient")
 
                 .product-expire(ng-if="$ctrl.product.expire_at")
                     .expire-label(i18n="voucher.labels.expire")
