@@ -408,15 +408,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         component: "transactionsComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('transactions-list', 'view_finances'),
-            transactions: function($transition$, TransactionService, appConfigs) {
-                return repackPagination(
-                    TransactionService.list(
-                        appConfigs.panel_type,
-                        $transition$.params().organization_id
-                    )
-                );
-            },
+            permission: permissionMiddleware('transactions-list', 'view_finances')
         }
     });
 
