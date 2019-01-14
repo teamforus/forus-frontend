@@ -363,7 +363,7 @@ module.exports = {
         buttons: {
             buy: "KOOP",
         },
-        insufficient: "Uw tegoed is te laag. Het is hierdoor niet mogelijk om de aanbieding via de webshop te kopen. Mocht u de aanbieding alsnog willen kopen, ga dan langs bij de aanbieder. Laat uw {{fund}}-voucher zien. Uw resterend tegoed wordt afgeschreven en de rest kunt u bijbetalen." 
+        insufficient: "Uw tegoed is te laag." 
     },
 
     // PRODUCTS = Products.pug
