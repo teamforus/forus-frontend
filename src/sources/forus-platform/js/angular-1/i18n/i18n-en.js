@@ -7,7 +7,7 @@ module.exports = {
         organizations: 'Organisaties',
         "organizations-create": 'Organisatie aanmaken',
         "organizations-edit": 'Organisatie bewerken',
-        "organization-funds": "Mijn fondsen",
+        "organization-funds": "Fondsen",
         "organization-providers": 'Aanbieders',
         validators: 'Medewerkers',
         "validators-edit": 'Medewerker bewerken',
@@ -256,6 +256,7 @@ module.exports = {
             rejected: "Geweigerd",
             hold: "Wacht op goedkeuring",
         },
+        state: 'Status',
         labels: {
             mail: "E-mail",
             phone: "Telefoonnummer",
@@ -583,7 +584,7 @@ module.exports = {
 
     validation: {
         email_confirmation: 'Email verkeerde bevestiging',
-        iban_confirmation: 'IBAN verkeerde bevestiging'
+        iban_confirmation: 'IBAN verkeerde bevestiging',
     },
 
     // OVERVIEW VALIDATIONS REQUESTS = validation-requests.pug
@@ -691,6 +692,8 @@ module.exports = {
         labels: {
             categories: "Categorieën",
             nocategories: "Geen Categorieën",
+            date: "Begindatum / Einddatum",
+            max_amount: "Maximale bedrag per voucher"
         }
     },
 
@@ -898,5 +901,7 @@ module.exports = {
             confirm: "Bevestig",
             close: "Sluit"
         }
-    }
+    },
+
+    search: "Zoeken"
 };

@@ -39,8 +39,8 @@
                         .shop-schedule
                             .shop-schedule-label {{ "popup_offices.labels.hours" | translate }}
                             .shop-schedule-value
-                                span(ng-repeat="schedule in office.schedule" ng-show="schedule.start_time || schedule.end_time")
-                                    strong {{ weekDays[schedule.week_day] }}:
+                                span(ng-repeat="schedule in office.schedule" ng-if="schedule.start_time || schedule.end_time")
+                                    strong {{ $ctrl.weekDays[schedule.week_day] }}:
                                     | {{ schedule.start_time || 'Geen data' }} - {{ schedule.end_time || 'Geen data' }}
 
                                 span(ng-if="office.schedule.length == 0")

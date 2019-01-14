@@ -55,17 +55,6 @@ body {
     display: none;
 }
 
-@media print {
-    .printable-qr_code {
-        display: block;
-
-        img {
-            display: block;
-            width: 200px;
-        }
-    }
-}
-
 ui-view{
     flex: 1 0 auto;
     min-height: 85vh;
@@ -386,12 +375,9 @@ ui-view{
         
         &.form-group-inline {
             margin-bottom: 10px;
-            // display: flex;
             flex-wrap: wrap;
 
             &>.form-label {
-                // flex: 0 0 28%;
-                // max-width: 28%;
                 width: 200px;
                 padding-top: 8px;
                 padding-bottom: 8px;
@@ -403,8 +389,6 @@ ui-view{
 
             &>.form-offset,
             &>.form-control {
-                // flex: 0 0 72%;
-                // max-width: 72%;
                 width: calc(100% - 200px);
                 float: left;
             }
@@ -436,7 +420,6 @@ ui-view{
             height: 20px;
             border: 2px solid #cbd6e2;
             position: relative;
-            vertical-align: middle;
             margin-right: 5px;
             margin-left: -30px;
             float: left;
@@ -618,7 +601,7 @@ ui-view{
     }
 }
 
-.section {        
+.section {
     .section-title {
         font: 700 40px/60px $bf;
         margin: 0 0 40px;
@@ -672,6 +655,10 @@ ui-view{
                 cursor: pointer;
                 font-size: 15px;
                 transition: .4s;
+            }
+
+            .header-how-it-works:hover {
+                color: #a5a5a5;
             }
         }
 
@@ -1132,12 +1119,15 @@ ui-view{
                 height: 200px;
             }
         }
-        .block-voucher .card-inner {
-            min-height: 300px;
+    }
+
+    @media screen and (max-width: 1300px) {
+        .wrapper {
+            width: 1100px;
         }
-        
-        .section.base-card .card-body {
-            min-height: 160px;
+
+        .section.section-header .heade-sprite {
+            background-size: auto 80%;
         }
     }
 
@@ -1152,24 +1142,10 @@ ui-view{
             }
         }
     }
-    .block-voucher .card-inner {
-        min-height: 200px;
-    }
-
-    .card-value {
-        font-size: 20px;
-    }
-
-    .card-footer {
-        min-height: 130px;
-    }
-
-    .base-card .card-body {
-        min-height: 140px;
-    }
+    
     @media screen and (max-width: 1000px) {
         .section-title {
-            font: 700 20px/30px $bf;
+            font: 700 18px/30px $bf;
             margin: 0 0 20px;
         }
 
@@ -1333,14 +1309,13 @@ ui-view{
             }
         }
     }
-    .section .base-card .card-body {
-        min-height: 200px;
-    }
 }
 
 .block {
     &.block-breadcrumbs {
         position: relative;
+        margin-bottom: 10px;
+        @include ellipsis();
         
         .breadcrumb-item {
             display: inline-block;
@@ -1721,9 +1696,8 @@ ui-view{
         background: #fff;
         margin-bottom: 50px;
 
-        .map_card-header {
-            border-top-left-radius: inherit;
-            border-top-right-radius: inherit;
+        .map_card-header,
+        .map_card-footer {
             border: 1px solid #d2e6ff;
             padding: 15px 25px;
 
@@ -1738,6 +1712,16 @@ ui-view{
                 font: 400 16px $bf;
                 margin-bottom: 5px;
             }
+        }
+
+        .map_card-header {
+            border-top-left-radius: inherit;
+            border-top-right-radius: inherit;
+        }
+
+        .map_card-footer {
+            border-bottom-left-radius: inherit;
+            border-bottom-right-radius: inherit;
         }
 
         .map_card-iframe {
@@ -2048,18 +2032,9 @@ ui-view{
 
     &.block-app_download {
         .download-button {
-            /*display: block;
-            background: #fff;
-            box-shadow: 0 0 30px rgba(#000, .15);
-            border-radius: 5px;
-            padding: 10px;
-            padding-right: 65px;
-            position: relative;
-            height: 60px;*/
             width: 240px;
             max-width: 100%;
             margin-bottom: 10px;
-            /*text-align: center;*/
 
             .download-label {
                 font: 400 12px $bf;
@@ -2072,19 +2047,7 @@ ui-view{
             }
 
             .download-icon {
-                /*position: absolute;
-                right: 0;
-                top: 0;
-                width: 65px;
-                height: 100%;
-                background-color: #f4f4f4;*/
-
                 img {
-                    /*display: block;
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);*/
                     width: 100%;
                 }
             }
@@ -2967,6 +2930,7 @@ ui-view{
             flex-direction: row;
             display: flex;
             align-self: flex-start;
+            min-height: 200px;
 
             .label {
                 margin-bottom: 10px;
@@ -2978,6 +2942,7 @@ ui-view{
                 flex-direction: column;
                 flex: 1;
                 display: flex;
+                min-height: 200px;
             }
 
             .card-actions {
@@ -3084,10 +3049,6 @@ ui-view{
                 &.card-value-sm {
                     font-weight: 400;
                     font-size: 14px;
-
-                    strong {
-                        font-weight: 800;
-                    }
                 }
 
                 &:last-child {
@@ -3146,6 +3107,7 @@ ui-view{
 
                 .card-section {
                     padding: 20px;
+                    flex: 1;
                 }
 
                 .card-title {
@@ -3203,6 +3165,7 @@ ui-view{
                 position: relative;
                 display: flex;
                 flex-direction: column;
+                min-height: 130px;
             }
 
             &.base-card-sponsor {
@@ -3426,9 +3389,9 @@ ui-view{
                 border-bottom: 1px solid #d4d9dd;
                 padding: 20px;
                 @include cf();
+                display: flex;
                 
                 .transactions-item-icon {
-                    float: left;
                     background: #ededed;
                     width: 35px;
                     height: 35px;
@@ -3445,7 +3408,7 @@ ui-view{
                 }
 
                 .transactions-item-details {
-                    float: left;
+                    flex-grow: 1;
 
                     .transactions-item-counterpart {
                         font: 700 16px $bf;
@@ -3460,13 +3423,14 @@ ui-view{
                 }
 
                 .transactions-item-amount {
-                    float: right;
                     text-align: right;
+                    padding-left: 15px;
 
                     .transactions-item-value {
                         font: 700 16px $bf;
                         color: #282b39;
                         margin-bottom: 5px;
+                        white-space: nowrap;
                     }
 
                     .transactions-item-type {
@@ -4558,7 +4522,7 @@ ui-view{
         width: calc(60px * 6 + 10px * 5);
         position: relative;
         @include cf();
-        
+
         .pincode-number {
             display: block;
             height: 75px;
@@ -4576,6 +4540,11 @@ ui-view{
                 margin-right: 0;
             }
         }
+    }
+
+    &.block-phone-number {
+        width: calc(60px * 10 + 10px * 9);
+        margin: 25px auto;
     }
 
     @media screen and (max-width: 1500px) {
@@ -4671,6 +4640,10 @@ ui-view{
                     }
                 }
             }
+
+            .card-inner {
+                min-height: 300px;
+            }
         }
 
         &.block-funds {
@@ -4746,11 +4719,61 @@ ui-view{
         }
 
         &.block-voucher {
-            flex-direction: column-reverse;
-
+            flex-direction: column;
+            margin: auto;
+            width: 100%;
+            padding-top: 20px;
+            
             .base-card {
+                overflow: visible;
+                box-shadow: 2px 2px 20px rgba($color: #000000, $alpha: 0.05);
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+                width: 100%;
+                margin-left: 0;
+    
+                .card-inner {
+                    text-align: center;
+                }
+
+                .card-label {
+                    font: 400 7.5px $bf;
+                    margin-bottom: 5px;
+                    color: #646f79;
+                    text-transform: uppercase;
+
+                    &.euro {
+                        font-size: 10px;
+                        margin: 0;
+                    }
+                }
+
+                .card-value {
+                    color: #282b39;
+                    font: 700 12.5px $bf;
+                    margin-bottom: 5px;
+
+                    &.card-value-sm {
+                        font: 400 9.5px $bf;
+                        color: #134478;
+
+                        strong {
+                            display: block;
+                            font: 700 10px $bf;
+                            color: #282b39;
+                        }
+                    }
+
+                    &.euro {
+                        font-size: 20px;
+                    }
+                }
+                
                 .card-qr_code {
                     width: 100%;
+                    background: #fff;
+                    border: 1px solid #ddecff;
+                    border-bottom: 0;
 
                     img {
                         margin: 0 auto 20px;
@@ -4765,41 +4788,146 @@ ui-view{
 
                 .card-body {
                     flex-direction: column;
+                    padding-top: 30px;
+                    border: 1px solid #ddecff;
+                    border-bottom: 0;
+                    border-top-left-radius: 6px;
+                    border-top-right-radius: 6px;
+                    min-height: auto;
 
                     .card-photo {
-                        padding: 20px;
+                        padding: 0;
+                        position: absolute;
+                        top: 0;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background: #fff;
 
                         img {
                             margin: auto;
-                            width: 200px;
+                            width: 60px;
                             max-width: 100%;
+                            border-radius: 60px;
+                            box-shadow: 2px 3px 20px rgba($color: #000000, $alpha: .1);
+                            background: #fff;
                         }
                     }
+
+                    .card-section {
+                        width: auto;
+                        max-width: 100%;
+                        margin: 0 auto;
+                    }
+
+                    .card-title {
+                        font: 700 17.5px $bf;
+                        color: #00122a;
+                    }
+
+                    .card-description {
+                        font: 400 11px $bf;
+                        color: #00122a;
+                    }
+                }
+
+                .card-footer {
+                    border: 1px solid #ddecff;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                    min-height: auto;
                 }
 
                 &.base-card-sponsor,
                 &.base-card-voucher {
                     width: 100%;
-                    margin: 0 0 20px;
+                    margin: 0 0 30px;
                     flex-direction: column-reverse;
                 }
 
                 &.base-card-voucher {
-                    .card-footer {
-                        flex-direction: column;
+                    margin: 0 0 30px;
+                    margin-left: 0;
+
+                    .card-body {
+                        padding: 0;
+                        flex-direction: row;
+
+                        .card-qr_code {
+                            width: 40%;
+                            padding: 20px;
+                            border: none;
+                            background: linear-gradient(to right, #eff0ef, #fefefe);
+                            
+                            .card-qr_code-desc {
+                                font: 400 8.6px/12px $bf;
+                            }
+
+                            img {
+                                border-radius: 0;
+                                padding: 0;
+                                box-shadow: none;
+                                margin: 0 0 10px;
+                            }
+                        }
+
+                        .card-photo {
+                            display: none;
+                        }
+
+                        .label {
+                            margin-bottom: 10px;
+                        }
+
+                        .card-title {
+                            margin: 0 0 5px;
+                            font: 700 12.5px $bf;
+                        }
 
                         .card-section {
-                            margin-bottom: 20px;
+                            text-align: left;
+                        }
+                    }
+
+                    .card-footer {
+                        padding: 15px;
+                        
+                        .card-section {
+                            margin: 0;
+                            width: auto;
+                            text-align: left;
+                            padding-right: 10px;
                         }
 
                         .card-actions {
-                            justify-content: left;
+                            margin: 0;
+                            justify-content: flex-end;
+                            justify-self: right;
+                            flex-grow: 1;
+                            max-width: 100%;
 
                             .action-item {
-                                margin-right: 20px;
-                                flex: 1;
+                                margin: 0 15px 0 0 !important;
+                                float: right;
                             }
                         }
+                    }
+
+                    .card-inner:first-child {
+                        .card-body {
+                            border-top-left-radius: 0;
+                            border-top-right-radius: 0;
+                        }
+                    }
+                }
+            }
+
+            &.block-voucher-regular {
+                .base-card {
+                    &.base-card-sponsor,
+                    &.base-card-voucher {
+                        width: 100%;
+                        margin: 0 0 30px;
+                        flex-direction: column-reverse;
                     }
                 }
             }
@@ -4893,6 +5021,8 @@ ui-view{
         }
 
         &.block-show-more {
+            padding-top: 25px;
+
             .button {
                 width: 100%;
                 padding-left: 20px;
@@ -5003,23 +5133,47 @@ ui-view{
 
             .footer-logo {
                 margin: 0 0 20px;
+                margin: 0 auto 40px;
+                display: block;
             }
 
             .footer-label {
-                padding: 20px 0 0;
-                margin: 0 0 20px;
+                text-align: center;
+                padding: 0;
+                margin: 0 0 40px;
                 font: 700 15px/24px $bf;
             }
 
             .footer-schedule {
+                text-align: center;
+
                 .schedule-label {
-                    font: 400 12px/24px $bf;
-                    width: 30%;
+                    font: 400 10px/16px $bf;
+                    color: #646f79;
+                    width: 100%;
                 }
 
                 .schedule-value {
-                    width: 70%;
-                    font: 700 12px/24px $bf;
+                    width: 100%;
+                    color: #00122a;
+                    font: 700 12px/18px $bf;
+                    margin: 0 0 0px;
+                }
+
+                &:last-child {
+                    margin: 0 0 40px;
+                }
+            }
+
+            .footer-nav {
+                text-align: center;
+
+                .footer-nav-item {
+                    font: 700 13px/20px $bf;
+
+                    a {
+                        font: inherit;
+                    }
                 }
             }
 
@@ -5039,6 +5193,11 @@ ui-view{
         &.block-copyrights {
             padding: 20px 0;
             text-align: center;
+            height: auto;
+
+            .wrapper {
+                height: auto;
+            }
 
             .copyrights {
                 width: 100%;
@@ -5200,7 +5359,8 @@ ui-view{
         }
 
         &.block-map_card {
-            .map_card-header {
+            .map_card-header,
+            .map_card-footer {
                 padding: 15px 20px;
 
                 .map_card-title {
@@ -5322,19 +5482,45 @@ ui-view{
 
         &.block-transactions {
             margin-bottom: 30px;
+            border: 1px solid #ddecff;
+            
+            .transactions-header {
+                padding: 15px 20px;
+                border-color: #ddecff;
+                
+                .transactions-title {
+                    font: 700 14px $bf;
+                }
+            }
 
             .transactions-list {
                 .transactions-item {
                     padding: 10px 15px;
+                    border-color: #ddecff;
+
+                    .transactions-item-icon {
+                        width: 30px;
+                        height: 30px;
+                        min-width: 30px;
+                        line-height: 30px;
+                        margin-right: 10px;
+                    }
 
                     .transactions-item-details {
                         .transactions-item-counterpart {
-                            font: 700 15px/22px $bf;
+                            padding: 4px 0;
+                            font: 700 12px/16px $bf;
+                            margin-bottom: 0;
                         }
 
                         .transactions-item-date {
-                            font: 400 12px/18px $bf;
+                            font: 400 10px/14px $bf;
                         }
+                    }
+
+                    &.transactions-item-out .transactions-item-amount .transactions-item-value,
+                    &.transactions-item-out .transactions-item-amount .transactions-item-type {
+                        font-size: 14px;
                     }
                 }
             }
@@ -5714,7 +5900,108 @@ ui-view{
                 }
             }
         }
+
+        &.block-empty {
+            border: 1px solid #ddecff;
+        }
     }
+
+    @media screen and (max-width: 767px) {
+        &.block-app_download{
+            .download-icon {
+                width: 200px;
+            }
+        }
+    }
+}
+
+.with-instructions{
+
+    .block {
+        &.block-pincode {
+            margin: 0 auto 15px;
+        }
+    }
+}
+
+.app-instruction {
+    .step-item {
+        padding: 0 70px;
+        position: relative;
+
+        img {
+            &:not(.line-item) {
+                width: 100%;
+                border: 2px dashed #d2e6ff;
+                border-radius: 5px;
+                box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1);
+                position: relative;
+                z-index: 1;
+            }
+
+            &.line-item {
+                position: absolute;
+                top: 200px;
+                left: calc(100% - 82px);
+                width: 163px;
+                z-index: 2;
+            }
+        }
+
+        .app-title {
+            font: 500 16px/24px $bf;
+            padding: 5px 0 15px 0;
+            text-align: center;
+        }
+    }
+
+    @media screen and (max-width: 1500px) {
+        .step-item {
+            padding: 0 50px;
+
+            img {
+                &.line-item {
+                    top: 140px;
+                    width: 115px;
+                    left: calc(100% - 58px);
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1300px) {
+        .step-item {
+            padding: 0 35px;
+
+            img {
+                &.line-item {
+                    top: 160px;
+                    width: 80px;
+                    left: calc(100% - 41px);
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .step-item {
+            img {
+                &.line-item {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .divider-img{
+        img{
+            width: 100%;
+        }
+    }
+}
+
+.f-w{
+    width: 100%!important;
 }
 
 .modal {
@@ -5794,6 +6081,12 @@ ui-view{
                 font-weight: 600;
                 white-space: nowrap;
             }
+        }
+
+        .description-small{
+            padding: 10px 0;
+            font: 400 16px/26px $bf;
+            color: #646f79;
         }
 
         .button{
@@ -5879,10 +6172,8 @@ ui-view{
             padding: 0;
         }
     }
-}
 
-@media screen and (max-width: 1500px) {
-    .modal {
+    @media screen and (max-width: 1500px) {
         .modal-content {
             width: 1000px;
         }
@@ -5909,10 +6200,8 @@ ui-view{
             }
         }
     }
-}
 
-@media screen and (max-width: 1000px) {
-    .modal {
+    @media screen and (max-width: 1000px) {
         border: none;
 
         .modal-close {
@@ -5990,50 +6279,9 @@ ui-view{
             }
         }
     }
-    .base-card {    
-        width: 100% !important;
-        margin-left: 0 !important;
-        }
-        
-    .block-voucher.card-label {
-        text-align: center;
-    }
 
-    .block-voucher {
-        margin: auto;
-        width: 80%;
-    }
-    
-    .card-inner {
-        text-align: center;
-    }
-    
-    .card-section {
-        max-width: 60%;
-        margin: 0 auto;
-    }
-    
-    .card-footer.card-action {
-        max-width: 40%;
-        margin: 0 auto;
-    }
-    
-    .base-card-voucher .card-footer .card-actions {
-        max-width: 40%;
-        margin:0 auto;
-    }
-    
-    .base-card-voucher .card-footer .card-actions .action-item {
-        margin-right: 0px;
-        margin-lefT: 0px;
-    }
-}
-
-@media screen and (max-width: 767px) {
-    .modal {
-
+    @media screen and (max-width: 767px) {
         .modal-content {
-
             .button{
                 margin-right: 0;
                 margin-bottom: 10px;
@@ -6044,69 +6292,15 @@ ui-view{
             }
         }
     }
-    .base-card {    
-        width: 100% !important;
-        margin-left: 0 !important;
-        }
-        
-    .block-voucher.card-label {
-        text-align: center;
-    }
-    
-    .card-inner {
-        text-align: center;
-    }
-    
-    .card-section {
-        max-width: 80%;
-        margin: 0 auto;
-    }
-    
-    .card-footer.card-action {
-        max-width: 40%;
-        margin: 0 auto;
-    }
-    
-    .base-card-voucher .card-footer .card-actions {
-        max-width: 40%;
-        margin:0 auto;
-    }
-    
-    .base-card-voucher .card-footer .card-actions .action-item {
-        margin-right: 0px;
-        margin-lefT: 0px;
-    }
-    
-    .card-actions .action-item {
-        margin-left: 10px !important;
-        margin-right: 10px !important;
-    }
-    &.block-app_download{
-        .download-icon {
-            width: 200px;
-        }
-    }
-    &.block-footer {
-        .footer-label {
-            font: 700 20px/26px "Source Sans Pro",sans-serif;
-        }
-        .footer-schedule {
-            .schedule-label {
-                color: #fff;
-                font: 400 14px/24px "Source Sans Pro",sans-serif;
-            }
-
-            .schedule-value {
-                color: #fff;
-                font: 300 14px/24px "Source Sans Pro",sans-serif;
-            }
-        }
-    }
 }
 
 @media screen and (max-width: 1500px) {
     .wrapper {
         width: 1100px;
+    }
+        
+    .base-card .card-body {
+        min-height: 160px;
     }
 
     .header-splash {
@@ -6124,9 +6318,7 @@ ui-view{
     .wrapper {
         width: 1100px;
     }
-    .section.section-header .heade-sprite {
-        background-size: auto 80%;
-    }
+    
     .header-splash {
         .splash {
             height: 650px;
@@ -6183,6 +6375,52 @@ ui-view{
             height: 50px;
             padding: 5px 15px;
             font: 400 15px/24px $bf;
+        }
+    }
+
+    .gm-style-iw {
+        width: 100% !important;
+        left: 0 !important;
+        top: 0 !important;
+        display: flex;
+
+        &>div {
+            width: 100% !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            display: block !important;
+        }
+    }
+
+    .map-card {
+        padding: 0;
+        background: #fff;
+
+        .map-card-img {
+            width: 100%;
+            position: initial;
+        }
+
+        .map-card-title {
+            padding: 15px 15px 5px;
+        }
+        
+        .map-card-description {
+            padding: 5px 15px 15px;
+            a {
+            }
+        }
+    }
+}
+
+
+@media print {
+    .printable-qr_code {
+        display: block;
+
+        img {
+            display: block;
+            width: 200px;
         }
     }
 }

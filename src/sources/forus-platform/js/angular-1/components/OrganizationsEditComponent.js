@@ -15,7 +15,8 @@ let OrganizationsEditComponent = function(
         if (!$ctrl.organization) {
             OrganizationService.clearActive();
             values = {
-                "product_categories": []
+                "product_categories": [],
+                "website": 'https://',
             };
         } else {
             values = OrganizationService.apiResourceToForm($ctrl.organization)
