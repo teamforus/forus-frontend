@@ -743,7 +743,7 @@ module.exports = {
             sent_description: 'Heeft u geen bericht ontvangen? Download <i>Me</i> via de link <b>www.forus.io/DL</b> op uw mobiele telefoon.',
             button: {
                 send: 'Versturen',
-                skip: 'Overspringen'
+                skip: 'Overslaan'
             },
             error: {
                 try_later: 'Probeer later nog eens.'
