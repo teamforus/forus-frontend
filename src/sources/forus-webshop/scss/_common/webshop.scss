@@ -2936,7 +2936,6 @@ ui-view{
             overflow: hidden;
             flex-direction: row;
             display: flex;
-            align-self: flex-start;
             min-height: 200px;
 
             .label {
@@ -3097,7 +3096,6 @@ ui-view{
             .card-body {
                 position: relative;
                 background: #fff;
-                flex: 1;
                 display: flex;
 
                 .card-photo {
