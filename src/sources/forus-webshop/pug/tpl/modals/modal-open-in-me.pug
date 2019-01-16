@@ -1,0 +1,42 @@
+.modal.modal-auth
+    .modal-backdrop(ng-click="$ctrl.close()")
+
+    .modal-content(ng-if="!$ctrl.sentSms")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+
+        .modal-title(translate="open_in_me.sms.title")
+        .modal-subtitle(translate="open_in_me.sms.description")
+
+        form.form.f-w(ng-submit="$ctrl.phoneForm.submit()")
+            phone-control(ng-model="$ctrl.phoneForm.values.phone" cant-delete-length="2")
+            .pincode-errors.text-center: .form-error(ng-repeat="error in $ctrl.phoneForm.errors.phone" ng-bind="error")
+            .text-center
+                .description-small(translate="open_in_me.sms.subdescription")
+
+            .form-group: button(type="submit").button.button-primary.button-wide {{ "open_in_me.sms.button.send" | translate }}
+
+
+    .modal-content(ng-if="$ctrl.sentSms")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .row.app-instruction
+            .col.col-md-10.col-md-offset-1
+                .row
+                    .col.col-sm-6.step-item
+                        img(src="./assets/img/screen1.png")
+                        .app-title(translate="open_in_me.app_instruction.step_1")
+                        img.line-item(src="./assets/img/line1.png")
+                    .col.col-sm-6.step-item
+                        img(src="./assets/img/screen2.png")
+                        .app-title(translate="open_in_me.app_instruction.step_2")
+
+            .divider-img: img(src="./assets/img/Base7.png")
+
+        .modal-title {{ "open_in_me.app_header.title" | translate }}
+        .modal-subtitle {{ "open_in_me.app_header.subtitle" | translate }}
+
+        form.form.f-w.with-instructions(ng-submit="$ctrl.authorizePincodeForm.submit()")
+            .form-group
+                div(ng-if="$ctrl.authorizePincodeForm" pincode-control ng-model="$ctrl.authorizePincodeForm.values.auth_code")
+                .text-center.form-error(ng-repeat="error in $ctrl.authorizePincodeForm.errors.auth_code track by $index" ng-bind="error")
+                br
+            .form-group: button(type="submit").button.button-primary.button-wide {{ "popup_auth.buttons.submit" | translate }}

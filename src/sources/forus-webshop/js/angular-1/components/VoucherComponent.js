@@ -56,6 +56,10 @@ let VoucherComponent = function(
             });
         };
 
+        $ctrl.openInMeModal = () => {
+            return ModalService.open('modalOpenInMe', {});
+        };
+
         $ctrl.shareVoucher = function(voucher) {
             return ModalService.open('modalShareVoucher', {
                 voucher: voucher

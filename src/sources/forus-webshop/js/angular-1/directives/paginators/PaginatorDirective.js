@@ -56,7 +56,7 @@ let PaginatorDirective = function(
 
         filterTimeout = $timeout(() => {
             $scope.setPage($scope.meta.current_page);
-        }, 1500);
+        }, 1000);
     }, true);
 
     $scope.$watch('meta', (cur) => {
