@@ -481,7 +481,7 @@ module.exports = {
             },
             qrcode: {
                 description: "Dit is uw {{fund_name}} voucher met een QR-code.",
-                productdescription: "Dit is uw aanbiedings voucher met een QR-code."
+                productdescription: "Dit is uw aanbieding voucher met een QR-code."
             },
             expire: "Gebruik deze voucher voor:",
             expired: "Verlopen"
