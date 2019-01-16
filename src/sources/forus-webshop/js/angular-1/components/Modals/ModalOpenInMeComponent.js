@@ -36,9 +36,6 @@ let ModalOpenInMeComponent = function(
                 }
             });
         });
-        $ctrl.skip = () => {
-            $ctrl.sentSms = true;
-        };
         $ctrl.authorizePincodeForm = FormBuilderService.build({
             auth_code: "",
         }, function(form) {
