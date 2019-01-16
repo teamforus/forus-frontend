@@ -911,7 +911,7 @@ module.exports = {
             finance: 'Overzicht van statistieken, transacties en het financieel dashboard',
             'policy officer': 'Aanbieders goedkeuren en instellingen van het fonds aanpassen'
         }
-    }
+    },
   
     search: "Zoeken"
-
+}
