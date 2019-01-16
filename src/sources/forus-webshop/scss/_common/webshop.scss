@@ -579,7 +579,7 @@ ui-view{
     top: 0;
     right: 0;
     width: 100%;
-    z-index: 0;
+    z-index: -1;
 
     .splash {
         background-image: url("../img/splash-top-b.png");
