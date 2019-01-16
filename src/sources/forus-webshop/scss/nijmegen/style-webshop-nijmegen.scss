@@ -1104,19 +1104,6 @@ body {
         }
     }
 
-    &.block-pincode {
-        margin: 30px auto 60px;
-        padding: 0;
-        text-align: center;
-        width: calc(60px * 6 + 10px * 5);
-        position: relative;
-        @include cf();
-
-        .pincode-number {
-            border-radius: 2px;
-        }
-    }
-
     @media screen and (max-width: 1000px) {
         &.block-navbar {
             .navbar-logo {

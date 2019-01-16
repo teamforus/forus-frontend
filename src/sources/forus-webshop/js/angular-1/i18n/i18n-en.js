@@ -742,7 +742,8 @@ module.exports = {
             sent: 'Een sms-bericht is verstuurd.',
             sent_description: 'Heeft u geen bericht ontvangen? Download <i>Me</i> via de link <b>www.forus.io/DL</b> op uw mobiele telefoon.',
             button: {
-                send: 'Versturen'
+                send: 'Versturen',
+                skip: 'Overslaan'
             },
             error: {
                 try_later: 'Probeer later nog eens.'
@@ -756,6 +757,10 @@ module.exports = {
             step_1: 'Open <i>Me</i>',
             step_2: 'Ik heb al een profiel',
             step_3: 'Inloggen met Autorisatie code',
+        },
+        authorize: {
+            close: 'Annuleren',
+            submit: 'Autoriseer apparaat',
         }
     },
     sign_up: {
