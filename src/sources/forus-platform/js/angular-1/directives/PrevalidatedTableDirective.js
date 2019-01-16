@@ -41,6 +41,12 @@ let PrevalidatedTableDirective = async function(
         $scope.filters.values.to = null;
     };
 
+    $scope.hideFilters = () => {
+        $scope.$apply(() => {
+            $scope.filters.show = false;
+        });
+    };
+
     $scope.$on('csv:uploaded', function() {
         $scope.filters.values.page = 1;
         $scope.onPageChange($scope.filters);
@@ -92,13 +98,6 @@ let PrevalidatedTableDirective = async function(
             FundService.sampleCSV($scope.fund)
         );
     };
-
-    $scope.hideFilters = () => {
-        $scope.$apply(() => {
-            $scope.filters.show = false;
-        });
-    };
-
 
     // Export to CSV file
     $scope.export = (filters = {}) => {
