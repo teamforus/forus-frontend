@@ -69,6 +69,10 @@ let ModalOpenInMeComponent = function(
             });
         });
     };
+
+    $ctrl.skip = () => {
+        $ctrl.sentSms = true;
+    };
 };
 
 module.exports = {

@@ -12,11 +12,9 @@
             .pincode-errors.text-center: .form-error(ng-repeat="error in $ctrl.phoneForm.errors.phone" ng-bind="error")
             .text-center
                 .description-small(translate="open_in_me.sms.subdescription")
-            
-            .modal-footer.text-center
-                .form-group: button(type="submit").button.button-primary {{ "open_in_me.sms.button.send" | translate }}
-                    button.button.button-dark(ng-click="$ctrl.skip()")  Overslaan
-
+            .modal-footer.text-center.no-border
+                button.button.button-primary(type="submit") {{ "open_in_me.sms.button.send" | translate }}
+                button.button.button-dark(type="button" ng-click="$ctrl.skip()") {{ "open_in_me.sms.button.skip" | translate }}
 
     .modal-content(ng-if="$ctrl.sentSms")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
