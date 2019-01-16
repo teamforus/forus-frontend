@@ -19,6 +19,8 @@
                                 .checkbox-label 
                                     .checkbox-box: .mdi.mdi-check
                                     span(ng-bind="role.name")
+                                    tooltip(text="'roles.tooltip.' + role.name.toLowerCase()")
+
                     .form-error(ng-repeat="error in $ctrl.form.errors.roles" ng-bind="error")
 
         .modal-footer.text-center
