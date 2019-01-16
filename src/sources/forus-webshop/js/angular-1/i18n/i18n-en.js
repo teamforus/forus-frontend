@@ -347,7 +347,7 @@ module.exports = {
         },
         popup: {
             title: "Weet u zeker dat u deze aanbieding '<span class='popup-title-styled'>{{product_name}}</span>' met een verloopdatum van <span class='popup-title-styled'>{{expire_at}}</span> wilt kopen voor <span class='popup-title-styled'>€{{product_price}}</span>? Wanneer u klikt op bevestig, dan kunt u de aankoop niet meer ruilen voor iets anders. Een terugbetaling is niet mogelijk!",
-            expiration_information: "De verloopdatum van deze aanbieding is: <span class='popup-title-styled'>{{expire_at}}</span>. Zorg ervoor dat u voor deze datum gebruik maakt van de aanbieding."
+            expiration_information: "De verloopdatum van deze aanbieding is: <span class='popup-title-styled'>{{expire_at}}</span>. Zorg ervoor dat u voor deze datum gebruik maakt van de aanbieding.<br /><br />  Nadat u op bevestig klikt, krijgt u een voucher met een QR-code. Neem de voucher mee naar de aanbieder om deze te kunnen gebruiken. "
         },
     },
 
@@ -362,7 +362,8 @@ module.exports = {
         },
         buttons: {
             buy: "KOOP",
-        }
+        },
+        insufficient: "Uw tegoed is te laag." 
     },
 
     // PRODUCTS = Products.pug
@@ -482,7 +483,7 @@ module.exports = {
             },
             qrcode: {
                 description: "Dit is uw {{fund_name}} voucher met een QR-code.",
-                productdescription: "Dit is uw aanbiedings voucher met een QR-code."
+                productdescription: "Dit is uw aanbieding voucher met een QR-code."
             },
             expire: "Gebruik deze voucher voor:",
             expired: "Verlopen"
@@ -656,8 +657,8 @@ module.exports = {
             timelimit: "U wordt automatisch uitgelogd na 15 minuten inactiviteit.",
             warning: "Sluit dit venster en klik op 'Login' als u de activatiecode al eens heeft gebruikt.",
             join: "Aanmelden",
-            activate: "Stap 1: Webshop account aanmaken.",
-            activate_code: "Stap 3: Activeer uw tegoed.",
+            activate: "Stap 1 van 3: Webshop account aanmaken.",
+            activate_code: "Stap 3 van 3: Activeer uw tegoed.",
             scancode: "Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent.",
             mobilecode: "Vul uw toegangscode van de Me-app in.",
             mail: "Heeft u een brief van de gemeente ontvangen met een activatiecode en deze nog niet gebruikt? Ga dan verder. Heeft u deze al wel gebruikt? Sluit dan dit venster en klik op 'login'.",
