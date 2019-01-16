@@ -757,6 +757,10 @@ module.exports = {
             step_1: 'Open <i>Me</i>',
             step_2: 'Ik heb al een profiel',
             step_3: 'Inloggen met Autorisatie code',
+        },
+        authorize: {
+            close: 'Annuleren',
+            submit: 'Autoriseer apparaat',
         }
     },
     sign_up: {
