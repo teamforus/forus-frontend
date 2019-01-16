@@ -1155,7 +1155,7 @@ ui-view{
 
             .section-title {
                 font: 700 24px/36px $bf;
-                margin: 0 0 20px;
+                margin: 0 0 40px;
             }
 
             .steps {
@@ -1316,6 +1316,7 @@ ui-view{
     &.block-breadcrumbs {
         position: relative;
         margin-bottom: 10px;
+        padding: 0px 0px 40px 0px;
         @include ellipsis();
         
         .breadcrumb-item {
@@ -4714,6 +4715,7 @@ ui-view{
 
     @media screen and (max-width: 1000px) {
         &.block-breadcrumbs {
+            padding: 0px 0px 10px 0px;
             .breadcrumb-item {
                 font-size: 13px;
             }
