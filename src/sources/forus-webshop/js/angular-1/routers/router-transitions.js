@@ -2,14 +2,17 @@ module.exports = [
     '$transitions',
     '$filter',
     '$rootScope',
+    'appConfigs',
     function(
         $transitions,
         $filter,
-        $rootScope
+        $rootScope,
+        appConfigs
     ) {
         $transitions.onSuccess({}, function(transition) {
             let pageTitleKey = 'page_state_titles.' + transition.to().name;
-            let pageTitleText = $filter('translate')(pageTitleKey);
+            let implementationName = $filter('i18n')('implementation_name.' + appConfigs.client_key);
+            let pageTitleText = $filter('i18n')(pageTitleKey, {implementation: implementationName});
 
             if (pageTitleKey == pageTitleText) {
                 pageTitleText = $filter('translate')('page_title');
