@@ -408,15 +408,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         component: "transactionsComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('transactions-list', 'view_finances'),
-            transactions: function($transition$, TransactionService, appConfigs) {
-                return repackPagination(
-                    TransactionService.list(
-                        appConfigs.panel_type,
-                        $transition$.params().organization_id
-                    )
-                );
-            },
+            permission: permissionMiddleware('transactions-list', 'view_finances')
         }
     });
 
@@ -638,7 +630,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                     $rootScope.loadAuthUser();
                     $state.go('home');
                 }, () => {
-                    alert("Token expired or unknown.");
+                    alert("Helaas, het is niet gelukt om in te loggen. De link is reeds gebruikt of niet meer geldig. Probeer het opnieuw met een andere link.");
                     $state.go('home');
                 });
             }

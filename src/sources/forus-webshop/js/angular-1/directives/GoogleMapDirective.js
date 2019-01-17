@@ -32,12 +32,15 @@ let GoogleMapDirective = function(
             }
         ];
 
+        let centerLat = offices.length ? offices[0].lat : appConfigs.features.map.lat;
+        let centerLon = offices.length ? offices[0].lon : appConfigs.features.map.lon;
+
         var mapOptions = {
             zoom: zoomLevel,
             disableDefaultUI: false,
             center: new google.maps.LatLng(
-                appConfigs.features.map.lat,
-                appConfigs.features.map.lon
+                centerLat,
+                centerLon
             ),
             scrollwheel: true,
             fullscreenControl: false,

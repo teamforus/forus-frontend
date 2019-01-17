@@ -15,7 +15,6 @@ let ModalOpenInMeComponent = function(
             phone: "06"
         }, function(form) {
             form.lock();
-
             let phone = "+31" + form.values.phone.substr(1);
             let values = {
                 phone: phone,
@@ -37,7 +36,6 @@ let ModalOpenInMeComponent = function(
                 }
             });
         });
-
         $ctrl.authorizePincodeForm = FormBuilderService.build({
             auth_code: "",
         }, function(form) {
@@ -67,6 +65,10 @@ let ModalOpenInMeComponent = function(
                 }
             });
         });
+    };
+
+    $ctrl.skip = () => {
+        $ctrl.sentSms = true;
     };
 };
 

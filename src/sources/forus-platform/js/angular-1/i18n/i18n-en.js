@@ -242,7 +242,7 @@ module.exports = {
             none: "Geen data",
             phone: "Telefoonnummer",
             hours: "Openingstijden:",
-            offices: "Vestigingen",
+            offices: "Vestigingen ",
         }
     },
 
@@ -903,5 +903,15 @@ module.exports = {
         }
     },
 
+    roles: {
+        tooltip: {
+            admin: 'Alle functionaliteiten',
+            validation: 'Aanvragers toevoegen (inwoners toevoegen via CSV bestand)',
+            'operation officer': 'Verrichten van betalingen via Me app (voor aanbieders)',
+            finance: 'Overzicht van statistieken, transacties en het financieel dashboard',
+            'policy officer': 'Aanbieders goedkeuren en instellingen van het fonds aanpassen'
+        }
+    },
+  
     search: "Zoeken"
-};
+}

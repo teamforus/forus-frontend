@@ -4,7 +4,7 @@ let TooltipDirective = function(
     $element,
     $filter
 ) {
-    $scope.text = $filter('translate')($scope.text);
+    $scope.text = $filter('i18n')($scope.text);
 };
 
 module.exports = () => {

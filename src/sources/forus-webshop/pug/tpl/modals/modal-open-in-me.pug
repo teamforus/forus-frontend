@@ -12,9 +12,9 @@
             .pincode-errors.text-center: .form-error(ng-repeat="error in $ctrl.phoneForm.errors.phone" ng-bind="error")
             .text-center
                 .description-small(translate="open_in_me.sms.subdescription")
-
-            .form-group: button(type="submit").button.button-primary.button-wide {{ "open_in_me.sms.button.send" | translate }}
-
+            .modal-footer.text-center.no-border
+                button.button.button-primary(type="submit") {{ "open_in_me.sms.button.send" | translate }}
+                button.button.button-dark(type="button" ng-click="$ctrl.skip()") {{ "open_in_me.sms.button.skip" | translate }}
 
     .modal-content(ng-if="$ctrl.sentSms")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
@@ -38,5 +38,6 @@
             .form-group
                 div(ng-if="$ctrl.authorizePincodeForm" pincode-control ng-model="$ctrl.authorizePincodeForm.values.auth_code")
                 .text-center.form-error(ng-repeat="error in $ctrl.authorizePincodeForm.errors.auth_code track by $index" ng-bind="error")
-                br
-            .form-group: button(type="submit").button.button-primary.button-wide {{ "popup_auth.buttons.submit" | translate }}
+            .modal-footer.text-center
+                .form-group: button.button.button-dark(ng-click="$ctrl.close()" i18n="open_in_me.authorize.close")
+                    button(type="submit").button.button-primary(i18n="open_in_me.authorize.submit")

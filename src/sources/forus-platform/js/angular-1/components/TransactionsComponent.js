@@ -12,9 +12,40 @@ let TransactionsComponent = function(
     var now = moment().format('YYYY-MM-DD HH:mm');
     var org = OrganizationService.active();
 
-    $ctrl.states = {
-        pending: 'In afwachting',
-        success: 'Voltooid'
+    $ctrl.empty = null;
+
+    $ctrl.filters = {
+        show: false,
+        values: {},
+    };
+
+    $ctrl.states = [{
+        key: null,
+        name: 'Alle'
+    }, {
+        key: 'pending',
+        name: 'In afwachting'
+    }, {
+        key: 'success',
+        name: 'Voltooid'
+    }];
+
+    $ctrl.statesKeyValue = $ctrl.states.reduce((obj, item) => {
+        obj[item.key] = item.name; 
+        return obj;
+    }, {});
+
+    $ctrl.resetFilters = () => {
+        $ctrl.filters.values.q = '';
+        $ctrl.filters.values.state = $ctrl.states[0].key;
+        $ctrl.filters.values.from = null;
+        $ctrl.filters.values.to = null;
+    };
+
+    $ctrl.hideFilters = () => {
+        $scope.$apply(function() { 
+            $ctrl.filters.show = false;
+        });
     };
 
     // Export to CSV file
@@ -50,20 +81,32 @@ let TransactionsComponent = function(
         } : transaction);
     };
 
-    $scope.onPageChange = async (query) => {
+    $ctrl.onPageChange = (query) => {
         TransactionService.list(
             appConfigs.panel_type,
             $ctrl.organization.id,
             query
         ).then((res => {
             $ctrl.transactions = res.data;
+
+            if ($ctrl.empty === null) {
+                $ctrl.empty = res.data.meta.total == 0;
+            }
         }));
+    };
+
+    $ctrl.init = async () => {
+        $ctrl.resetFilters();
+        $ctrl.onPageChange($ctrl.filters.values);
+    };
+
+    $ctrl.$onInit = () => {
+        $ctrl.init();
     };
 };
 
 module.exports = {
     bindings: {
-        transactions: '<',
         organization: '<'
     },
     controller: [

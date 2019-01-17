@@ -140,7 +140,7 @@ body {
     top: 0;
     right: 0;
     width: 100%;
-    z-index: 0;
+    z-index: -1;
 
     .splash {
         background-image: none;
@@ -1100,19 +1100,6 @@ body {
 
         .record_types-form {
             box-shadow: $base_shadow;
-            border-radius: 2px;
-        }
-    }
-
-    &.block-pincode {
-        margin: 30px auto 60px;
-        padding: 0;
-        text-align: center;
-        width: calc(60px * 6 + 10px * 5);
-        position: relative;
-        @include cf();
-
-        .pincode-number {
             border-radius: 2px;
         }
     }
