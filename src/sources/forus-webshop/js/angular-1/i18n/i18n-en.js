@@ -2,7 +2,7 @@ module.exports = {
     test: "{{name}} {{foo}}",
     page_title: 'Forus platform',
     page_state_titles: {
-        home: 'Forus platform',
+        home: '{{implementation}} webshop',
         funds: 'Fondsen',
         products: 'Aanbiedingen',
         "products-show": 'Aanbieding',
@@ -15,6 +15,11 @@ module.exports = {
         "record-create": 'Eigenschap toevoegen',
         "funds-apply": 'Meld u aan voor een fonds',
         "restore-email": 'Inloggen via e-mail',
+    },
+    implementation_name: {
+        general: 'General',
+        zuidhorn: 'Zuidhorn',
+        nijmegen: 'Nijmegen'
     },
     languages: {
         en: 'English',
