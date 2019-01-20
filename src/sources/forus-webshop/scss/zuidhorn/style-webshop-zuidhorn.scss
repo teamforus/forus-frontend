@@ -137,17 +137,19 @@ body {
         }
 
         .navbar-list {
-            .navbar-item {
-                &:hover {
-                    color: $bc;
+            .navbar-item-wrapper{
+                .navbar-item {
+                    &:hover {
+                        color: $bc;
 
-                    &:before {
-                        background: #3396a7;
+                        &:before {
+                            background: #3396a7;
+                        }
                     }
-                }
 
-                &.active {
-                    color: $bc;
+                    &.active {
+                        color: $bc;
+                    }
                 }
             }
         }
