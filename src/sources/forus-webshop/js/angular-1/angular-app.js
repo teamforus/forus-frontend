@@ -19,6 +19,10 @@ app.component('fundApplyComponent', require('./components/FundApplyComponent'));
 app.component('recordValidateComponent', require('./components/RecordValidateComponent'));
 app.component('recordValidationsComponent', require('./components/RecordValidationsComponent'));
 app.component('recordCreateComponent', require('./components/RecordCreateComponent'));
+app.component('platformComponent', require('./components/PlatformComponent'));
+app.component('meComponent', require('./components/MeComponent'));
+app.component('portfolioComponent', require('./components/PortfolioComponent'));
+app.component('kindpakketComponent', require('./components/KindpakketComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
