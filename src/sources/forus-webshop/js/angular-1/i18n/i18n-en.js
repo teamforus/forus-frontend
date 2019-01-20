@@ -68,12 +68,12 @@ module.exports = {
         header: {
             general: {
                 title: "Forus is een platform voor gemeentelijke regelingen",
-                subtitle: "Ons platform biedt een webshop waar een inwoner zich kan aanmelden voor een regeling, vervolgens kan hij met een voucher aan een aanbieder laten zien. De aanbieder kan dan een product of dienst leveren. <br /> <br /> Wil je meer weten?",
+                subtitle: "Het platform biedt een webshop waar een inwoner zich kan aanmelden voor een regeling, vervolgens kan hij een voucher aan een aanbieder laten zien. De aanbieder kan dan een product of dienst leveren. <br /> <br /> Wilt u meer weten?",
                 button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
             },
             forus: {
-                title: "Forus is een platform voor gemeentelijke regelingen",
-                subtitle: "Ons platform biedt een webshop waar een inwoner zich kan aanmelden voor een regeling, vervolgens kan hij met een voucher aan een aanbieder laten zien. De aanbieder kan dan een product of dienst leveren. <br /> <br /> Wil je meer weten?",
+                title: "Forus - Het platform & Me",
+                subtitle: "Forus is een jonge Groningse organisatie. Platform Forus en de Me-app zijn applicaties voor de uitgifte en afhandeling van gemeentelijke diensten en regelingen. <br /> <br /> Wilt u meer weten?",
                 button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
             },
             nijmegen: {

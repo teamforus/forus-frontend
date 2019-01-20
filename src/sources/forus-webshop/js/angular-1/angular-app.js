@@ -58,6 +58,7 @@ app.service('SmsService', require('./services/SmsService'));
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
 app.directive('topNavbar', require('./directives/TopNavbarDirective'));
 app.directive('contactForm', require('./directives/ContactFormDirective'));
+app.directive('webshops', require('./directives/WebshopsDirective'));
 app.directive('fundCriterion', require('./directives/FundCriterionDirective'));
 app.directive('profileCard', require('./directives/ProfileCardDirective'));
 app.directive('blockProducts', require('./directives/BlockProductsDirective'));
