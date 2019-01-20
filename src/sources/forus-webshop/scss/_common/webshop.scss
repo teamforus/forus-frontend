@@ -1566,7 +1566,7 @@ ui-view{
         .product-item {
             margin: 0 0 30px;
             padding: 0 45px;
-            display: block;
+            display: flex;
             width: 33.333%;
             float: left;
 
@@ -1626,6 +1626,7 @@ ui-view{
 
             .product-item-inner {
                 display: block;
+                flex: 1;
                 @include cf();
 
                 &:hover {
