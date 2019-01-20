@@ -18,7 +18,7 @@ section.section.section-product: .wrapper
                     img(ng-src="{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}")
                 .product-name
                     span(ng-bind="$ctrl.product.name")
-                    span.label.label-success(i18n="product.status.active")
+                    span.label.label-success(ng-if="!$ctrl.product.deleted" i18n="product.status.active")
                 .product-categories(ng-bind="$ctrl.product.product_category.name")
                 
                 .product-funds
@@ -37,7 +37,7 @@ section.section.section-product: .wrapper
                     .expire-value(ng-bind="$ctrl.product.expire_at_locale")
                 
                 .button.button-primary(
-                    ng-show="$ctrl.isApplicable" 
+                    ng-if="$ctrl.isApplicable && !$ctrl.product.deleted"
                     ng-click="$ctrl.applyProduct()") KOOP
                 .button.button-primary(
                     ng-if="!$root.auth_user" 
