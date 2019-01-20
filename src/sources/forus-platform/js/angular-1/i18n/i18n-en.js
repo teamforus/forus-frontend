@@ -562,6 +562,13 @@ module.exports = {
             fund: "FONDS",
             status: "STATUS",
             provider: "AANBIEDER",
+            search: "Zoeken",
+            from: "Vanaf",
+            to: "Tot",
+            state: "Status",
+            amount: "Bedrag",
+            amount_min: "0",
+            amount_max: "Alles"
         },
         buttons: {
             previous: "Vorige",
