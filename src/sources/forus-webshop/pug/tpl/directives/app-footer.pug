@@ -3,9 +3,9 @@ if (qdt_c.platform.env_data.client_key == 'general')
     section.section.section-footer
         .wrapper
             .block.block-footer: .row
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
+                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-6'")
                     
-                    //-.block.block-app_download
+                    .block.block-app_download
                         .download-button: a(href="https://play.google.com/store/apps/details?id=io.forus.me")
                             .download-icon: img(src="./assets/img/icon-app/play-store-badge.png")
                         .download-button: a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676")
@@ -33,12 +33,12 @@ if (qdt_c.platform.env_data.client_key == 'general')
                         .schedule-label Vrijdag: 		
                         .schedule-value 8.30-12.30
                 
-                //-.col.col-md-2
+                .col.col-md-2
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="/sponsor/") SPONSOR
-                        .footer-nav-item: a(href="/provider/") PROVIDER
-                        .footer-nav-item: a(href="/validator/") VALIDATOR
+                        .footer-nav-item: a(href="/sponsor/" target="_self") SPONSOR
+                        .footer-nav-item: a(href="/provider/" target="_self") PROVIDER
+                        //-.footer-nav-item: a(href="/validator/") VALIDATOR
                 
                 //-.col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
                     .footer-label Ontvang onze nieuwsbrief
@@ -47,7 +47,7 @@ if (qdt_c.platform.env_data.client_key == 'general')
                             input(type="email" placeholder="E-mail").form-control.form-control-fancy
                             button.button.button-primary: .mdi.mdi-arrow-right
                 
-        .block.block-copyrights: .wrapper
+        //-.block.block-copyrights: .wrapper
             .copyrights 
                 img(src="./assets/img/logo-bw.svg").footer-logo
             //-.links
@@ -64,7 +64,7 @@ else if (qdt_c.platform.env_data.client_key == 'forus')
             .block.block-footer: .row
                 .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
                     
-                    //-.block.block-app_download
+                    .block.block-app_download
                         .download-button: a(href="https://play.google.com/store/apps/details?id=io.forus.me")
                             .download-icon: img(src="./assets/img/icon-app/play-store-badge.png")
                         .download-button: a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676")
@@ -92,12 +92,12 @@ else if (qdt_c.platform.env_data.client_key == 'forus')
                         .schedule-label Vrijdag: 		
                         .schedule-value 8.30-12.30
                 
-                //-.col.col-md-2
+                .col.col-md-2
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="/sponsor/") SPONSOR
-                        .footer-nav-item: a(href="/provider/") PROVIDER
-                        .footer-nav-item: a(href="/validator/") VALIDATOR
+                        .footer-nav-item: a(href="/sponsor/" target="_self") SPONSOR
+                        .footer-nav-item: a(href="/provider/" target="_self") PROVIDER
+                        //-.footer-nav-item: a(href="/validator/") VALIDATOR
                 
                 //-.col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
                     .footer-label Ontvang onze nieuwsbrief
