@@ -19,7 +19,8 @@ module.exports = {
     implementation_name: {
         general: 'General',
         zuidhorn: 'Zuidhorn',
-        nijmegen: 'Nijmegen'
+        nijmegen: 'Nijmegen',
+        forus: 'Forus platform & '
     },
     languages: {
         en: 'English',
