@@ -4,6 +4,11 @@ module.exports = {
     page_state_titles: {
         home: '{{implementation}} webshop',
         funds: 'Fondsen',
+        platform: 'Forus Platform',
+        me: 'Me',
+        'me-app': 'Me-app',
+        portfolio: 'Portfolio',
+        kindpakket: 'Portofolio - Kindpakket',
         products: 'Aanbiedingen',
         "products-show": 'Aanbieding',
         "products-apply": "Aanbieding kopen",
