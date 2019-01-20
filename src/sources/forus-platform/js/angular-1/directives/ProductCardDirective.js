@@ -1,8 +1,10 @@
 let ProductCardDirective = function(
     $scope, 
-    $state, 
+    $state,
+    $filter,
     FundService,
-    ProductService
+    ProductService,
+    ModalService
 ) {
     $scope.productFunds = $scope.product.funds;
 
@@ -13,11 +15,20 @@ let ProductCardDirective = function(
     };
 
     $scope.deleteProduct = function(product) {
-        ProductService.destroy(
-            product.organization_id,
-            product.id
-        ).then((res) => {
-            $state.reload();
+
+        ModalService.open('modalNotification', {
+            type: 'confirm',
+            title: $filter('i18n')('products.confirm_delete.title'),
+            description: $filter('i18n')('products.confirm_delete.description'),
+            icon: 'product_create',
+            confirm: () => {
+                ProductService.destroy(
+                    product.organization_id,
+                    product.id
+                ).then((res) => {
+                    $state.reload();
+                });
+            }
         });
     };
 };
@@ -33,8 +44,10 @@ module.exports = () => {
         controller: [
             '$scope',
             '$state',
+            '$filter',
             'FundService',
             'ProductService',
+            'ModalService',
             ProductCardDirective
         ],
         templateUrl: 'assets/tpl/directives/product-card.html' 

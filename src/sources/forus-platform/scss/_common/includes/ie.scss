@@ -16,6 +16,13 @@
 }
 
 .block{
+  &.block-cards{
+    .card-item{
+      .card-description {
+        max-width:400px;
+      }
+    }
+  }
   &.block-old-ie{
     width: 1200px;
     margin: auto;

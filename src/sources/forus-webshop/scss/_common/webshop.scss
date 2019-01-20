@@ -579,12 +579,12 @@ ui-view{
     top: 0;
     right: 0;
     width: 100%;
-    z-index: 0;
+    z-index: -1;
 
     .splash {
         background-image: url("../img/splash-top-b.png");
         background-position: 100% 0%;
-        background-size: auto 100%;
+        background-size: auto 90%;
         background-repeat: no-repeat;
         height: 800px;
         width: 100%;
@@ -597,6 +597,22 @@ ui-view{
         &.splash-d {
             background-image: url("../img/splash-top-d.png");
             height: 1130px;
+            &.flipped {
+                -moz-transform: scaleY(-1);
+                -o-transform: scaleY(-1);
+                -webkit-transform: scaleY(-1);
+                transform: scaleY(-1);
+                filter: FlipV;
+                -ms-filter: "FlipV";
+            }
+        }
+        &.splash-kp {
+            background-image: url("../img/splash-steps.png");
+            height: 1080px;
+            background-position: 0% 100%;
+            background-position-y: 0px !important;
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
         }
     }
 }
@@ -607,6 +623,15 @@ ui-view{
         margin: 0 0 40px;
         position: relative;
     }
+    .section-subtitle
+    {
+        font: 500 26px/46px $bf;
+        color: blue;
+        margin-top:-20px;
+        margin-bottom: 40px;
+        position: relative;
+
+    }
 
     &.section-header {
         padding: 40px 0 40px;
@@ -616,7 +641,7 @@ ui-view{
         .heade-sprite {
             background: url("../img/sprite-meapp.png") no-repeat;
             background-position: 100% 0%;
-            background-size: auto 100%;
+            background-size: auto 90%;
             @include fill_parent();
             bottom: -50px;
             z-index: 2;
@@ -754,7 +779,81 @@ ui-view{
             }
         }
     }
+    &.section-page {
+        position: relative;
+        margin-bottom: 50px;
 
+        .section-title {
+            margin: 0 0 20px;
+        } 
+        .section-subtitle {
+            margin-bottom: 20px;
+        } 
+        .section-splash {
+            position: absolute;
+            right: 0;
+            width: 100%;
+            height: 900px;
+            background: url('../img/splash-faq.png') no-repeat;
+            background-position: 100% 50%;
+            background-size: auto 100%;
+            top: 900px;
+            transform: translate(0, -50%);
+            z-index: -1;
+        }
+        .section-description {
+            font: 400 22px/32px $bf;
+            color: #000;
+            text-align: left;
+            padding: 0 50px;
+            margin-bottom: 10px;
+            width: 65%;
+
+            ul {
+                list-style: none;
+                margin: 15px 0 15px 0; 
+                li {
+                    font: 400 22px/32px $bf;
+                    b {
+                        font: 400 22px/32px $bf;
+                        font-weight: bold;
+                    }
+                }
+                li:before {
+                    content: "•";
+                    padding-right: 8px;
+                    font: 400 32px/38px $bf;
+                    color: blue;
+                }
+            }
+            &.wide-80{
+                width: 80%;
+            }
+            &.wide-100{
+                width: 100%;
+            }
+        }
+        .section-sprite {
+            position: absolute;
+            background-repeat: no-repeat;
+
+            &.section-sprite-a {
+                width: 25%;
+                height: 100%;
+                top: 35px;
+                right: 300px;
+                background-size: 100%;
+                background-position: 100% 100px;
+            }
+            &.section-sprite-b {
+                width: 50%;
+                height: 120%;
+                background-size: 50%;
+                top: 0;
+                right: -125px;
+            }
+        }
+    }
     &.section-products {
         z-index: 1;
         position: relative;
@@ -923,6 +1022,7 @@ ui-view{
             width: 820px;
             max-width: 100%;
             margin: 0 auto;
+            padding: 20px;
 
             .faq-item {
                 background: #fff;
@@ -1010,7 +1110,20 @@ ui-view{
 
     &.section-flow {
         margin-bottom: 100px;
-        
+        &.wide-70 {
+            width: 50%;
+            margin-left:12%; 
+        }
+
+        .section-sprite {
+            position: absolute;
+            right: 100px;
+            width: 50%;
+            height: 50%;
+            background: url('../img/sprite-steps.png') no-repeat;
+            background-position: 100% 0%;
+        }
+
         .section-title {
             text-align: center;
             margin-bottom: 5px;
@@ -1029,6 +1142,26 @@ ui-view{
             margin: 0 auto 40px;
             max-width: 100%;
         }
+        .section-sites {
+            display: flex;
+            margin: 0 auto 40px;
+            max-width: 100%;
+            margin-top: 35px;
+            .section-sites-item {
+                flex: 1;
+                width: 19%;
+                height: 19%;
+                margin: 2%;
+                margin-top: 0;
+                &.section-sites-item-long {
+                    width: 15%;
+                    height: 15%;
+                    margin: 5%;
+                    margin-top: 0;
+                }
+            }
+        }
+
     }
 
     &.section-blogs {
@@ -1106,6 +1239,7 @@ ui-view{
 
         &.section-header {
             .heade-sprite {
+                background-size: auto 75%;
                 bottom: 100px;
             }
         }
@@ -1129,10 +1263,21 @@ ui-view{
         .section.section-header .heade-sprite {
             background-size: auto 80%;
         }
+        &.section-flow {
+            &.wide-70 {
+                width: 100%;
+                margin: 0;
+            }
+            .wrapper {
+                .section-sprite {
+                    display: none;
+                }
+            }
+        }
     }
 
     @media screen and (max-width: 1200px) {
-        &.section-steps {
+        .section.section-steps {
             .section-splash {
                 display: none;
             }
@@ -1141,12 +1286,62 @@ ui-view{
                 display: none;
             }
         }
+        &.section-flow {
+            &.wide-70 {
+                width: 100%;
+                margin: 0;
+            }
+            .wrapper {
+                .section-sprite {
+                    display: none;
+                }
+            }
+        }
     }
     
     @media screen and (max-width: 1000px) {
+        &.section-flow {
+            &.wide-70 {
+                width: 100%;
+                margin: 0;
+            }
+            .wrapper {
+                .section-sprite {
+                    display: none;
+                }
+            }
+        }
         .section-title {
             font: 700 18px/30px $bf;
             margin: 0 0 20px;
+        }
+        .section-subtitle {
+            font: 700 16px/22px $bf;
+            margin-bottom:5px !important;
+        }
+        &.section-page {
+            margin: 0;
+            .section-description {
+                padding: 0;
+                font: 400 15px/26px $bf;
+                margin: 0 0 30px;
+                width: 100%;
+                ul {
+                    li {
+                        font: 400 15px/26px $bf;
+                    }
+                    li:before {
+                        font: 400 15px/26px $bf;
+                    }
+                }
+            }
+            .section-sprite {
+                right: 0;
+                display:none;
+            }
+            .section-splash {
+                display: none;
+            }
         }
 
         &.section-steps {
@@ -1154,7 +1349,7 @@ ui-view{
 
             .section-title {
                 font: 700 24px/36px $bf;
-                margin: 0 0 20px;
+                margin: 0 0 40px;
             }
 
             .steps {
@@ -1315,6 +1510,7 @@ ui-view{
     &.block-breadcrumbs {
         position: relative;
         margin-bottom: 10px;
+        padding: 0px 0px 40px 0px;
         @include ellipsis();
         
         .breadcrumb-item {
@@ -1380,44 +1576,112 @@ ui-view{
             flex-grow: 1;
             display: block;
             text-align: left;
-
-            .navbar-item {
-                color: #646f79;
+            .navbar-item-wrapper {
                 display: inline-block;
-                font: 700 15px/30px $bf;
-                padding: 30px 25px;
                 position: relative;
-                transition: .4s;
-                cursor: pointer;
 
-                &:before {
-                    content: '';
-                    top: 0;
-                    left: 25px;
-                    right: 25px;
-                    height: 3px;
-                    display: block;
-                    position: absolute;
-                    background: transparent;
+                .navbar-item {
+                    color: #646f79;
+                    display: inline-block;
+                    font: 700 15px/30px $bf;
+                    padding: 30px 25px;
+                    position: relative;
                     transition: .4s;
+                    cursor: pointer;
+                    a.caps {
+                        font-weight: bold;
+                        text-transform: uppercase;
+                    }
+                    &:before {
+                        content: '';
+                        top: 0;
+                        left: 25px;
+                        right: 25px;
+                        height: 3px;
+                        display: block;
+                        position: absolute;
+                        background: transparent;
+                        transition: .4s;
+                    }
+                    
+                    &:hover {
+                        color: #2987fd;
+    
+                        &:before {
+                            background: #d2e6ff;
+                        }
+                    }
+                    
+                    &.active {
+                        color: #2987fd;
+    
+                        &:before {
+                            background: #134478;
+                        }
+                    }
                 }
-                
                 &:hover {
-                    color: #2987fd;
-
-                    &:before {
-                        background: #d2e6ff;
+                    .navbar-menu {
+                        display: block;
+                    }
+                }
+                .navbar-menu {
+                    background: #ffffff;
+                    box-shadow: 0 0 20px rgba(#000, .075);
+                    width: 220px;
+                    left: 20px;
+                    position: absolute;
+                    top: 70px;
+                    border: 1px solid #f3f4f5;
+                    border-radius: 5px;
+                    padding: 5px 0;
+                    display: none;
+    
+                    .triangle {
+                        position: absolute;
+                        left: 15px;
+                        bottom: 100%;
+                    }
+    
+                    .navbar-menu-item {
+                        display: block;
+                        padding: 5px 15px;
+                        font: 700 13px/26px $bf;
+                        transition: .4s;
+                        cursor: pointer;
+    
+                        img {
+                            display: block;
+                            float: left;
+                            margin: 0 5px 0 0;
+                        }
+    
+                        .mdi {
+                            display: block;
+                            width: 26px;
+                            height: 26px;
+                            margin: 0 5px 0 0;
+                            float: left;
+                            text-align: center;
+                            font-size: 22px;
+                        }
+    
+                        &:hover {
+                            color: #305dfb;
+                            background: #f6f8f9;
+                        }
+                    }
+    
+                    .navbar-menu-separator {
+                        display: block;
+                        border-bottom: 1px solid #f3f4f5;
+                        width: 100%;
+                        height: 5px;
+                        margin: 0 0 5px
                     }
                 }
                 
-                &.active {
-                    color: #2987fd;
-
-                    &:before {
-                        background: #134478;
-                    }
-                }
-            }
+            }  
         }
 
         .block-auth {
@@ -1557,14 +1821,14 @@ ui-view{
     }
 
     &.block-products {
-        margin: 0 -45px 0;
+        margin: 20px -45px 0 !important;
         display: flex;
         flex-wrap: wrap;
 
         .product-item {
             margin: 0 0 30px;
             padding: 0 45px;
-            display: block;
+            display: flex;
             width: 33.333%;
             float: left;
 
@@ -1624,6 +1888,7 @@ ui-view{
 
             .product-item-inner {
                 display: block;
+                flex: 1;
                 @include cf();
 
                 &:hover {
@@ -2771,6 +3036,11 @@ ui-view{
                         text-decoration: line-through;
                     }
 
+                    .product-price-insufficient {
+                        font: 400 18px $bf;
+                        color: #646f79;
+                    }
+
                     &:last-child {
                         margin-bottom: 0;
                     }
@@ -2929,7 +3199,6 @@ ui-view{
             overflow: hidden;
             flex-direction: row;
             display: flex;
-            align-self: flex-start;
             min-height: 200px;
 
             .label {
@@ -3044,7 +3313,7 @@ ui-view{
             .card-value {
                 font: 700 16px $bf;
                 color: #272525;
-                margin-bottom: 10px;
+                margin-top: 10px;
 
                 &.card-value-sm {
                     font-weight: 400;
@@ -3090,7 +3359,6 @@ ui-view{
             .card-body {
                 position: relative;
                 background: #fff;
-                flex: 1;
                 display: flex;
 
                 .card-photo {
@@ -4597,7 +4865,7 @@ ui-view{
                 }
 
                 .card-label {
-                    font: 400 11px/16px $bf;
+                    font: 400 14px/16px $bf;
                 }
 
                 .card-value {
@@ -4622,7 +4890,7 @@ ui-view{
                     }
 
                     .card-description {
-                        font-size: 12px;
+                        font-size: 14px;
                     }
                 }
 
@@ -4713,6 +4981,7 @@ ui-view{
 
     @media screen and (max-width: 1000px) {
         &.block-breadcrumbs {
+            padding: 0px 0px 10px 0px;
             .breadcrumb-item {
                 font-size: 13px;
             }
@@ -5374,6 +5643,7 @@ ui-view{
         }
 
         &.block-product {
+            padding: 30px 30px;
             .product-card {
                 border-radius: 10px;
 

@@ -2853,7 +2853,7 @@ translate,
                                     }
                                 }
 
-                                &+.form-control {
+                                &+* {
                                     display: none;
                                 }
 
@@ -2869,7 +2869,7 @@ translate,
                                         display: block;
                                     }
 
-                                    &+.form-control {
+                                    &+* {
                                         display: block;
                                     }
                                 }

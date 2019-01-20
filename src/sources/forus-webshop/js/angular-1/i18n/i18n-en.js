@@ -2,8 +2,13 @@ module.exports = {
     test: "{{name}} {{foo}}",
     page_title: 'Forus platform',
     page_state_titles: {
-        home: 'Forus platform',
+        home: '{{implementation}} webshop',
         funds: 'Fondsen',
+        platform: 'Forus Platform',
+        me: 'Me',
+        'me-app': 'Me-app',
+        portfolio: 'Portfolio',
+        kindpakket: 'Portofolio - Kindpakket',
         products: 'Aanbiedingen',
         "products-show": 'Aanbieding',
         "products-apply": "Aanbieding kopen",
@@ -15,6 +20,12 @@ module.exports = {
         "record-create": 'Eigenschap toevoegen',
         "funds-apply": 'Meld u aan voor een fonds',
         "restore-email": 'Inloggen via e-mail',
+    },
+    implementation_name: {
+        general: 'General',
+        zuidhorn: 'Zuidhorn',
+        nijmegen: 'Nijmegen',
+        forus: 'Forus platform & '
     },
     languages: {
         en: 'English',
@@ -63,12 +74,12 @@ module.exports = {
         header: {
             general: {
                 title: "Forus is een platform voor gemeentelijke regelingen",
-                subtitle: "Ons platform biedt een webshop waar een inwoner zich kan aanmelden voor een regeling, vervolgens kan hij met een voucher aan een aanbieder laten zien. De aanbieder kan dan een product of dienst leveren. <br /> <br /> Wil je meer weten?",
+                subtitle: "Het platform biedt een webshop waar een inwoner zich kan aanmelden voor een regeling, vervolgens kan hij een voucher aan een aanbieder laten zien. De aanbieder kan dan een product of dienst leveren. <br /> <br /> Wilt u meer weten?",
                 button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
             },
             forus: {
-                title: "Forus is een platform voor gemeentelijke regelingen",
-                subtitle: "Ons platform biedt een webshop waar een inwoner zich kan aanmelden voor een regeling, vervolgens kan hij met een voucher aan een aanbieder laten zien. De aanbieder kan dan een product of dienst leveren. <br /> <br /> Wil je meer weten?",
+                title: "Forus platform en de Me-app",
+                subtitle: "Forus is een jonge Groningse organisatie. Platform Forus en de Me-app zijn applicaties voor de uitgifte en afhandeling van gemeentelijke diensten en regelingen. <br /> <br /> Wilt u meer weten?",
                 button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
             },
             nijmegen: {
@@ -347,7 +358,7 @@ module.exports = {
         },
         popup: {
             title: "Weet u zeker dat u deze aanbieding '<span class='popup-title-styled'>{{product_name}}</span>' met een verloopdatum van <span class='popup-title-styled'>{{expire_at}}</span> wilt kopen voor <span class='popup-title-styled'>€{{product_price}}</span>? Wanneer u klikt op bevestig, dan kunt u de aankoop niet meer ruilen voor iets anders. Een terugbetaling is niet mogelijk!",
-            expiration_information: "De verloopdatum van deze aanbieding is: <span class='popup-title-styled'>{{expire_at}}</span>. Zorg ervoor dat u voor deze datum gebruik maakt van de aanbieding."
+            expiration_information: "De verloopdatum van deze aanbieding is: <span class='popup-title-styled'>{{expire_at}}</span>. Zorg ervoor dat u voor deze datum gebruik maakt van de aanbieding.<br /><br />  Nadat u op bevestig klikt, krijgt u een voucher met een QR-code. Neem de voucher mee naar de aanbieder om deze te kunnen gebruiken. "
         },
     },
 
@@ -362,7 +373,8 @@ module.exports = {
         },
         buttons: {
             buy: "KOOP",
-        }
+        },
+        insufficient: "Uw tegoed is te laag." 
     },
 
     // PRODUCTS = Products.pug
@@ -482,7 +494,7 @@ module.exports = {
             },
             qrcode: {
                 description: "Dit is uw {{fund_name}} voucher met een QR-code.",
-                productdescription: "Dit is uw aanbiedings voucher met een QR-code."
+                productdescription: "Dit is uw aanbieding voucher met een QR-code."
             },
             expire: "Gebruik deze voucher voor:",
             expired: "Verlopen"
@@ -656,8 +668,8 @@ module.exports = {
             timelimit: "U wordt automatisch uitgelogd na 15 minuten inactiviteit.",
             warning: "Sluit dit venster en klik op 'Login' als u de activatiecode al eens heeft gebruikt.",
             join: "Aanmelden",
-            activate: "Stap 1: Webshop account aanmaken.",
-            activate_code: "Stap 3: Activeer uw tegoed.",
+            activate: "Stap 1 van 3: Webshop account aanmaken.",
+            activate_code: "Stap 3 van 3: Activeer uw tegoed.",
             scancode: "Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent.",
             mobilecode: "Vul uw toegangscode van de Me-app in.",
             mail: "Heeft u een brief van de gemeente ontvangen met een activatiecode en deze nog niet gebruikt? Ga dan verder. Heeft u deze al wel gebruikt? Sluit dan dit venster en klik op 'login'.",
@@ -742,7 +754,8 @@ module.exports = {
             sent: 'Een sms-bericht is verstuurd.',
             sent_description: 'Heeft u geen bericht ontvangen? Download <i>Me</i> via de link <b>www.forus.io/DL</b> op uw mobiele telefoon.',
             button: {
-                send: 'Versturen'
+                send: 'Versturen',
+                skip: 'Overslaan'
             },
             error: {
                 try_later: 'Probeer later nog eens.'
@@ -756,6 +769,10 @@ module.exports = {
             step_1: 'Open <i>Me</i>',
             step_2: 'Ik heb al een profiel',
             step_3: 'Inloggen met Autorisatie code',
+        },
+        authorize: {
+            close: 'Annuleren',
+            submit: 'Autoriseer apparaat',
         }
     },
     sign_up: {

@@ -21,7 +21,7 @@ platform.editTask('scss', (task) => {
     task.src = "forus/style-webshop-forus.scss";
     task.watch = [
         "_common/**/*.scss",
-        "general/**/*.scss"
+        "forus/**/*.scss"
     ];
 
     return task

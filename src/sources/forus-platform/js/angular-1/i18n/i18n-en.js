@@ -242,7 +242,7 @@ module.exports = {
             none: "Geen data",
             phone: "Telefoonnummer",
             hours: "Openingstijden:",
-            offices: "Vestigingen",
+            offices: "Vestigingen ",
         }
     },
 
@@ -385,7 +385,11 @@ module.exports = {
     products: {
         offers: "Aanbiedingen",
         add: "Voeg een aanbieding toe",
-        cannot_delete: 'Let op! Wanneer een aanbieding geplaatst is kunt u deze niet meer verwijderen. Bedenk dus goed hoeveel aanbiedingen en daarmee aanbiedingvouchers u wilt uitgeven. Wanneer een aanbieding is aangemaakt bent u verplicht deze te leveren.'
+        cannot_delete: 'Let op! Wanneer een aanbieding geplaatst is moet u dit aanbod kunnen leveren. Bedenk dus goed hoeveel aanbiedingen en daarmee aanbiedingvouchers u wilt uitgeven. U kunt uw aanbod altijd ophogen maar niet meer verlagen.',
+        confirm_delete: {
+            title: 'Weet u zeker dat u deze aanbieding wilt verwijderen?',
+            description: 'Als u de aanbieding verwijderd, wordt de aanbieding uit de webshop gehaald. Ook verdwijnt het aanbod uit uw dashboard. U kunt de gereserveerde aanbiedingen dan niet meer inzien. Reeds gemaakte reserveringen blijven actief en kunnen nog opgehaald worden.'
+        }
     },
 
     // FUNDS AVAILABLE FOR PROVIDERS = provider-funds-available.pug
@@ -558,6 +562,13 @@ module.exports = {
             fund: "FONDS",
             status: "STATUS",
             provider: "AANBIEDER",
+            search: "Zoeken",
+            from: "Vanaf",
+            to: "Tot",
+            state: "Status",
+            amount: "Bedrag",
+            amount_min: "0",
+            amount_max: "Alles"
         },
         buttons: {
             previous: "Vorige",
@@ -903,5 +914,15 @@ module.exports = {
         }
     },
 
+    roles: {
+        tooltip: {
+            admin: 'Alle functionaliteiten',
+            validation: 'Aanvragers toevoegen (inwoners toevoegen via CSV bestand)',
+            'operation officer': 'Verrichten van betalingen via Me app (voor aanbieders)',
+            finance: 'Overzicht van statistieken, transacties en het financieel dashboard',
+            'policy officer': 'Aanbieders goedkeuren en instellingen van het fonds aanpassen'
+        }
+    },
+  
     search: "Zoeken"
-};
+}
