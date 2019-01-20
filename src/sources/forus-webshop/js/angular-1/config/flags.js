@@ -5,9 +5,9 @@ module.exports = {
 
         // menu settings
         productsMenu: false,
-        sponsorLandingMenu: true,
-        providerLandingMenu: true,
-        meLandingMenu: true,
+        meAppMenu: true,
+        forusPlatformMenu: true,
+        portfolioMenu: true,
         aboutSiteMenu: true,
 
         // home settings
@@ -26,9 +26,9 @@ module.exports = {
 
         // menu settings
         productsMenu: false,
-        sponsorLandingMenu: true,
-        providerLandingMenu: true,
-        meLandingMenu: true,
+        meAppMenu: true,
+        forusPlatformMenu: true,
+        portfolioMenu: true,
         aboutSiteMenu: true,
 
         // home settings
@@ -46,9 +46,9 @@ module.exports = {
         showAccountSidebar: false,
         // menu settings
         productsMenu: true,
-        sponsorLandingMenu: false,
-        providerLandingMenu: false,
-        meLandingMenu: false,
+        meAppMenu: false,
+        forusPlatformMenu: false,
+        portfolioMenu: false,
         aboutSiteMenu: false,
 
         // home
@@ -67,9 +67,9 @@ module.exports = {
 
         // menu settings
         productsMenu: true,
-        sponsorLandingMenu: false,
-        providerLandingMenu: false,
-        meLandingMenu: false,
+        meAppMenu: false,
+        forusPlatformMenu: false,
+        portfolioMenu: false,
         aboutSiteMenu: false,
 
         // home settings

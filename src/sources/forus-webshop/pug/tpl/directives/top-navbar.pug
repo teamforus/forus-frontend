@@ -17,21 +17,21 @@
                 ng-bind="'topnavbar.items.products' | translate")
         nav.navbar-item-wrapper
             a.navbar-item.caps(
-            ng-if="$root.appConfigs.flags.sponsorLandingMenu && !$root.auth_user"
+            ng-if="$root.appConfigs.flags.forusPlatformMenu && !$root.auth_user"
             ui-sref="forus-platform" 
             ui-sref-active="active" 
             i18n="PLATFORM"
             target="_self")      
         nav.navbar-item-wrapper
             a.navbar-item.caps(
-            ng-if="$root.appConfigs.flags.sponsorLandingMenu && !$root.auth_user"
+            ng-if="$root.appConfigs.flags.meAppMenu && !$root.auth_user"
             ui-sref="me-app" 
             ui-sref-active="active"
             i18n="ME"
             target="_self")                        
         nav.navbar-item-wrapper
             a.navbar-item.caps(
-            ng-if="$root.appConfigs.flags.sponsorLandingMenu && !$root.auth_user"
+            ng-if="$root.appConfigs.flags.portfolioMenu && !$root.auth_user"
             ui-sref="portfolio"
             ui-sref-active="active" 
             i18n="PORTFOLIO"
@@ -108,7 +108,7 @@
                                 span(translate="topnavbar.buttons.logout")
 
         .auth-out(ng-if="!$root.auth_user")
-            .button.button-default(ng-if="$root.appConfigs.flags.aboutSiteMenu" ng-click="openAuthCodePopup()")
+            //-.button.button-default(ng-if="$root.appConfigs.flags.aboutSiteMenu" ng-click="openAuthCodePopup()")
                 em.mdi.mdi-ticket-confirmation 
                 span(translate="topnavbar.buttons.activate")
             .button.button-default(ng-click="openAuthPopup()")
