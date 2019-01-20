@@ -19,6 +19,10 @@ app.component('fundApplyComponent', require('./components/FundApplyComponent'));
 app.component('recordValidateComponent', require('./components/RecordValidateComponent'));
 app.component('recordValidationsComponent', require('./components/RecordValidationsComponent'));
 app.component('recordCreateComponent', require('./components/RecordCreateComponent'));
+app.component('platformComponent', require('./components/PlatformComponent'));
+app.component('meComponent', require('./components/MeComponent'));
+app.component('portfolioComponent', require('./components/PortfolioComponent'));
+app.component('kindpakketComponent', require('./components/KindpakketComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -54,6 +58,8 @@ app.service('SmsService', require('./services/SmsService'));
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
 app.directive('topNavbar', require('./directives/TopNavbarDirective'));
 app.directive('contactForm', require('./directives/ContactFormDirective'));
+app.directive('webshops', require('./directives/WebshopsDirective'));
+app.directive('implementation', require('./directives/ImplementationDirective'));
 app.directive('fundCriterion', require('./directives/FundCriterionDirective'));
 app.directive('profileCard', require('./directives/ProfileCardDirective'));
 app.directive('blockProducts', require('./directives/BlockProductsDirective'));

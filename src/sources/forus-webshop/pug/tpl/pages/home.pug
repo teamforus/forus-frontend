@@ -25,6 +25,10 @@ block-products(
     products="$ctrl.products" 
     product-categories="$ctrl.productCategories")
 
+webshops(ng-if="!$root.appConfigs.flags.homeButton")
+
+implementation(ng-if="!$root.appConfigs.flags.homeButton")
+
 section.section.section-map(ng-if="$root.appConfigs.flags.homeMap"): .wrapper
     .block.block-map
         .block-content
