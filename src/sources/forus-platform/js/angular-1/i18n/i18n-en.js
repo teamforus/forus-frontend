@@ -246,8 +246,8 @@ module.exports = {
             offices: "Vestigingen ",
         },
         confirm_delete: {
-            title: "Are you sure?",
-            description: "Are you sure?"
+            title: "Weet u zeker dat u deze vestiging wilt verwijderen?",
+            description: "Wanneer u de vestiging verwijderd kunt u dit niet ongedaan maken. Bedenk daarom goed of u deze actie wilt verrichten."
         }
     },
 
