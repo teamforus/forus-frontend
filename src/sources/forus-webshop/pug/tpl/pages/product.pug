@@ -30,6 +30,7 @@ section.section.section-product: .wrapper
                     .product-price-old(ng-bind="$ctrl.product.old_price | currency_format")
                     .product-price-insufficient(
                         ng-show="$ctrl.isApplicable == false"
+                        ng-if="$root.auth_user"
                         i18n="product.insufficient")
 
                 .product-expire(ng-if="$ctrl.product.expire_at")
