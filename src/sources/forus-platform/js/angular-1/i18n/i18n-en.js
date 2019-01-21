@@ -587,12 +587,12 @@ module.exports = {
         },
         export: {
             labels: {
-                date: 'date',
-                amount: 'amount',
-                fund: 'fund',
-                provider: 'provider',
-                payment_id: 'payment_id',
-                state: 'state'
+                date: 'Datum',
+                amount: 'Bedrag',
+                fund: 'Fonds',
+                provider: 'Aanbieder',
+                payment_id: 'Betalingskenmerk',
+                state: 'Status'
             }
         }
     },
