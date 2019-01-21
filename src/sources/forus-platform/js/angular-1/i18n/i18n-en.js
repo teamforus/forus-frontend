@@ -781,7 +781,7 @@ module.exports = {
             account: "NL83 BUNQ 3456 3344 32",
             addcode: "voeg code  ",
             description: "  toe aan de beschrijving",
-            copy: "Copy to clipboard"
+            copy: "Kopieer naar klembord"
         }
     },
 
