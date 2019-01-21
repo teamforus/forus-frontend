@@ -62,9 +62,9 @@
                         .chart-control
                             .chart-label(ng-bind="'financial_dashboard.labels.total' | translate")
                             .chart-value
-                                .chart-value_value(ng-bind="$ctrl.fund.budget.total | currency_format")
+                                .chart-value_value(ng-bind="$ctrl.fund.budget.left | currency_format")
                                 .chart-value_label {{ "financial_dashboard.labels.spend" | translate }}
-                                .chart-value_value_b(ng-bind="$ctrl.fund.budget.used | currency_format")
+                                .chart-value_value_b(ng-bind="$ctrl.fund.budget.total | currency_format")
 
                     .card: .card-section
                         .chart-control

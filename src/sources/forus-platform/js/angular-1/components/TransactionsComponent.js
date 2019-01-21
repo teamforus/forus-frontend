@@ -3,6 +3,7 @@ let FileSaver = require('file-saver');
 let TransactionsComponent = function(
     $state,
     $scope,
+    $filter,
     OrganizationService,
     appConfigs,
     TransactionService
@@ -52,14 +53,21 @@ let TransactionsComponent = function(
     $ctrl.exportList = function(e) {
         e && (e.preventDefault() & e.stopPropagation());
 
+        let date_label = $filter('translate')('transactions.export.labels.date'),
+            amount_label = $filter('translate')('transactions.export.labels.amount'),
+            fund_label = $filter('translate')('transactions.export.labels.fund'),
+            provider_label = $filter('translate')('transactions.export.labels.provider'),
+            payment_id_label = $filter('translate')('transactions.export.labels.payment_id'),
+            state_label = $filter('translate')('transactions.export.labels.state');
+
         var data = $ctrl.transactions.data.map(function(row) {
             return {
-                date: row.created_at,
-                amount: row.amount,
-                fund: row.fund.name,
-                provider: row.organization.name,
-                state: $ctrl.states[row.state],
-                payment_id: row.payment_id,
+                [date_label] : row.created_at,
+                [amount_label]: row.amount,
+                [fund_label]: row.fund.name,
+                [provider_label]: row.organization.name,
+                [state_label]: $ctrl.states[row.state],
+                [payment_id_label]: row.payment_id,
             };
         });
 
@@ -112,6 +120,7 @@ module.exports = {
     controller: [
         '$state',
         '$scope',
+        '$filter',
         'OrganizationService',
         'appConfigs',
         'TransactionService',

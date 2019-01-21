@@ -234,6 +234,7 @@ module.exports = {
             adjust: "Bewerk",
             add: "Voeg een nieuwe vestiging toe",
             map: "Bekijk op de kaart",
+            delete: "Verwijderen"
         },
         labels: {
             mail: "E-mail",
@@ -243,6 +244,10 @@ module.exports = {
             phone: "Telefoonnummer",
             hours: "Openingstijden:",
             offices: "Vestigingen ",
+        },
+        confirm_delete: {
+            title: "Are you sure?",
+            description: "Are you sure?"
         }
     },
 
@@ -579,6 +584,16 @@ module.exports = {
             one: "1",
             two: "2",
             three: "3",
+        },
+        export: {
+            labels: {
+                date: 'date',
+                amount: 'amount',
+                fund: 'fund',
+                provider: 'provider',
+                payment_id: 'payment_id',
+                state: 'state'
+            }
         }
     },
 
@@ -766,6 +781,7 @@ module.exports = {
             account: "NL83 BUNQ 3456 3344 32",
             addcode: "voeg code  ",
             description: "  toe aan de beschrijving",
+            copy: "Copy to clipboard"
         }
     },
 
