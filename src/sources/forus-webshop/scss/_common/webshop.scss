@@ -444,6 +444,10 @@ ui-view{
             cursor: pointer;
         }
 
+        input[type='checkbox'] {
+            display: none;
+        }
+
         input[type=checkbox]:checked+.checkbox-label {
             .checkbox-box {
                 .mdi {
