@@ -24,7 +24,13 @@ let OfficeService = function(ApiRequest) {
             return ApiRequest.get(
                 uriPrefix + organization_id + '/offices/' + id
             );
-        }
+        };
+
+        this.destroy = function(organization_id, id) {
+            return ApiRequest.delete(
+                uriPrefix + organization_id + '/offices/' + id
+            );
+        };
 
         this.states = function() {
             return [{

@@ -90,7 +90,7 @@ let ModalAuthComponent = function(
         $ctrl.showChoose = false;
 
         $ctrl.signInEmailForm = FormBuilderService.build({
-            source: appConfigs.client_key + '_webshop',
+            source: appConfigs.client_key + '_' + appConfigs.panel_type,
             primary_email: "",
         }, function(form) {
             form.lock();
