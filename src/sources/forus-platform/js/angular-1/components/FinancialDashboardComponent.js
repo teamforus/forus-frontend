@@ -8,7 +8,7 @@ let FinancialDashboardComponent = function(
 
     $ctrl.chartData = {
         request: {
-            type: "month",
+            type: "all",
             nth: moment().month() + 1,
             year: moment().year(),
         },
