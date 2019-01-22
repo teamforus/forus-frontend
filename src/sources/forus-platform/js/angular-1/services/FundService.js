@@ -136,6 +136,7 @@ let FundService = function(ApiRequest) {
                 state: apiResource.state,
                 start_date: moment(apiResource.start_date).format('DD-MM-YYYY'),
                 end_date: moment(apiResource.end_date).format('DD-MM-YYYY'),
+                notification_amount: apiResource.notification_amount
             };
         };
 
