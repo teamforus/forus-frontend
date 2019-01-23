@@ -86,7 +86,7 @@ body {
         left: 0;
         transition: 0.2s ease-out;
         cursor: text;
-        top: 1.3rem;
+        top: 1.9rem;
         transform: translateY(-160%);
         font: 600 16px/26px $bf;
     }
@@ -100,7 +100,7 @@ body {
         border-radius: 0;
         background-color: transparent;
         color: #212121;
-        padding: 0.55rem 0 0.3rem 0;
+        padding: 1.1rem 0 0.3rem 0;
         font: 400 17px/24px "Source Sans Pro",sans-serif;
         width: 100%;
         display: block;
@@ -130,7 +130,7 @@ body {
 
     .form-group {
         position: relative;
-        margin-top: 1.5rem;
+        margin-top: 2rem;
         margin-bottom: 15px;
     }
 }

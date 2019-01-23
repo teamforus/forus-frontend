@@ -149,7 +149,7 @@ module.exports = {
         faq: {
             title: "Veelgestelde vragen {{client_key}}",
             faq_one: "Hoe kan ik {{fund}} activeren?",
-            one: "Klik rechts bovenaan op 'Activatiecode'. Vul je e-mailadres en de activatiecode in die je per brief hebt ontvangen. Klik vervolgens op 'versturen'. Je profiel is aangemaakt en je {{voucher}}-voucher is geactiveerd!",
+            one: "Klik rechts bovenaan op 'Activatiecode'. Vul je e-mailadres en de activatiecode in die je per brief hebt ontvangen. Klik vervolgens op 'versturen'. Je profiel is aangemaakt en je Kindpakket voucher is geactiveerd!",
             faq_two: "Hoe kan ik inloggen op de webshop?",
             two: "Dit kan op meerdere manieren, de makkelijkste is per e-mail. Klik rechts bovenaan op 'Inloggen'. Kies voor 'log in via e-mail'. Vul het e-mailadres in die je ook tijdens de activatie hebt gebruikt en klik op 'Versturen'. Open je e-mail en klik op de link die je hebt ontvangen om in te loggen.",
             faq_three: "Bij welke aanbieders kan ik {{fund}} besteden?",
@@ -218,7 +218,7 @@ module.exports = {
             nijmegen: {
                 title: "Veelgestelde vragen",
                 faq_one: "Hoe kan ik de Meedoen-regeling activeren?",
-                one: "Klik rechts bovenaan op 'Activatiecode'. Vul uw e-mailadres en de activatiecode in die u per brief hebt ontvangen. Klik vervolgens op 'versturen'. Uw profiel is aangemaakt en uw Meedoen voucher is geactiveerd.",
+                one: "<ul><b><li>Stap 1: </b>Klik op de start knop om uw activatiecode in te vullen.</li><br /><li><b>Stap 2: </b>Vul uw e-mailadres in. U ontvangt een bevestigingsmail. Bevestiging dat u toegang heeft tot dit e-mailadres door op de knop in de mail te klikken.</li><br /><li><b>Stap 3: </b>Vul uw activatiecode in om de Meedoen-regeling te activeren en klik vervolgens op 'Volgende'. Uw profiel is aangemaakt en uw Meedoen-regeling is geactiveerd.</li></ul>",
                 faq_two: "Ik ben mijn activatiecode kwijt. Wat kan ik doen?",
                 two: "Neem contact op met de gemeente Nijmegen. Wij kunnen de brief opnieuw versturen met daarin de activatiecode of de code aan de telefoon doorgeven.",
                 faq_three: "Hoe kan ik mij aanmelden voor een activiteit of cursus",
