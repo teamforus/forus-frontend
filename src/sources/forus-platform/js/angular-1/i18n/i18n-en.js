@@ -178,7 +178,7 @@ module.exports = {
             status: "Status",
             start: "Startdatum",
             end: "Einddatum",
-            notification_amount: "Threshold amount"
+            notification_amount: "Onderlimiet bereikt notificatie"
         },
         buttons: {
             cancel: "Annuleren",
