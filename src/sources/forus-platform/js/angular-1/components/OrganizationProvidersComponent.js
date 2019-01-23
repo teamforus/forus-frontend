@@ -1,10 +1,12 @@
 let OrganizationProvidersComponent = function(
     $state,
     $scope,
-    OrganizationService,
-    FundService
+    FundService,
+    FileService,
+    OrganizationService
 ) {
     let $ctrl = this;
+    let org = OrganizationService.active();
 
     $ctrl.filters = {
         show: false,
@@ -97,6 +99,21 @@ let OrganizationProvidersComponent = function(
         }));
     };
 
+    // Export to XLS file
+    $ctrl.exportList = () => {
+        OrganizationService.listProvidersExport(
+            $ctrl.organization.id,
+            $ctrl.filters.values
+        ).then((res => {
+            FileService.downloadFile(
+                'providers_'  + org + '_' + moment().format(
+                    'YYYY-MM-DD HH:mm:ss'
+                ) + '.xls',
+                res.data,
+                res.headers('Content-Type') + ';charset=utf-8;'
+            );
+        }));
+    };
 
     $ctrl.hideFilters = () => {
         $scope.$apply(() => {
@@ -113,8 +130,9 @@ module.exports = {
     controller: [
         '$state',
         '$scope',
-        'OrganizationService',
         'FundService',
+        'FileService',
+        'OrganizationService',
         OrganizationProvidersComponent
     ],
     templateUrl: 'assets/tpl/pages/organization-providers.html'

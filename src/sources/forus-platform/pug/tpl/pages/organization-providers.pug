@@ -93,8 +93,15 @@
                             em.mdi.mdi-check 
                             span(translate="organization_providers.buttons.accept")
 
-        .card: .card-section(ng-show="$ctrl.fundProviders.meta.last_page > 1")
-            paginator(meta="$ctrl.fundProviders.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="onPageChange(query)")
+
+        .card
+            .card-section(ng-show="$ctrl.fundProviders.meta.last_page > 1")
+                paginator(meta="$ctrl.fundProviders.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="onPageChange(query)")
+
+            .card-section: .table-pagination.text-right
+                button(ng-click="$ctrl.exportList()").button.button-primary
+                    em.mdi.mdi-download  
+                    span(i18n="transactions.buttons.export")
 
         block-empty( 
             ng-if="$ctrl.fundProviders.data.length == 0"

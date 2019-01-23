@@ -1,8 +1,7 @@
-let FileSaver = require('file-saver');
-
 let PrevalidatedTableDirective = async function(
     $scope,
     FundService,
+    FileService,
     PrevalidationService
 ) {
     $scope.filters = {
@@ -79,34 +78,18 @@ let PrevalidatedTableDirective = async function(
         }));
     };
 
-    $scope.downloadCsv = (
-        file_name,
-        file_data,
-        file_type = 'text/csv;charset=utf-8;'
-    ) => {
-        var blob = new Blob([file_data], {
-            type: file_type,
-        });
-
-        FileSaver.saveAs(blob, file_name);
-    };
-
 
     $scope.downloadSample = () => {
-        $scope.downloadCsv(
+        FileService.downloadFile(
             ($scope.fund.key || 'fund') + '_sample.csv',
             FundService.sampleCSV($scope.fund)
         );
     };
 
-    // Export to CSV file
+    // Export to XLS file
     $scope.export = (filters = {}) => {
-        PrevalidationService.export(
-            JSON.parse(JSON.stringify(filters)), {
-                responseType: 'arraybuffer'
-            }
-        ).then((res => {
-            $scope.downloadCsv(
+        PrevalidationService.export(filters).then((res => {
+            FileService.downloadFile(
                 ($scope.fund.key || 'fund') + '_' + moment().format(
                     'YYYY-MM-DD HH:mm:ss'
                 ) + '.xls',
@@ -135,6 +118,7 @@ module.exports = () => {
         controller: [
             '$scope',
             'FundService',
+            'FileService',
             'PrevalidationService',
             PrevalidatedTableDirective
         ],

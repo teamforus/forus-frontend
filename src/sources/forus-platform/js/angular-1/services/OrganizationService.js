@@ -5,20 +5,36 @@ module.exports = [
         ApiRequest,
         $rootScope
     ) {
-        return new(function() {
+        return new (function() {
             this.list = function() {
                 return ApiRequest.get('/platform/organizations');
             };
 
             this.listProviders = function(
                 organization_id,
-                query
+                query = {}
             ) {
-                query = query ? query : {};
-
                 return ApiRequest.get(
-                    '/platform/organizations/' + organization_id + '/providers',
+                    '/platform/organizations/' + organization_id +
+                    '/providers',
                     query
+                );
+            };
+
+            this.listProvidersExport = function(
+                organization_id,
+                query = {}
+            ) {
+                return ApiRequest.get(
+                    '/platform/organizations/' + organization_id +
+                    '/providers/export',
+                    query, {}, true,
+                    (_cfg) => {
+                        _cfg.responseType = 'arraybuffer';
+                        _cfg.cache = false;
+
+                        return _cfg;
+                    }
                 );
             };
 
@@ -29,7 +45,7 @@ module.exports = [
             this.update = function(id, values) {
                 return ApiRequest.patch('/platform/organizations/' + id, values);
             };
-            
+
             this.read = function(id) {
                 return ApiRequest.get('/platform/organizations/' + id);
             }

@@ -67,6 +67,7 @@ app.service('ModalService', require('./services/ModalService'));
 app.service('PermissionsService', require('./services/PermissionsService'));
 app.service('RoleService', require('./services/RoleService'));
 app.service('SmsService', require('./services/SmsService'));
+app.service('FileService', require('./services/FileService'));
 
 // Directives
 switch (env_data.panel_type) {
