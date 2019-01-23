@@ -512,6 +512,9 @@ module.exports = {
             popup_sent: {
                 title: 'Uw voucher is verstuurd naar de aanbieder.',
                 description: 'De aanbieder heeft de aanbieding voucher en uw bericht ontvangen. Neem contact op met aanbieder of ga bij bij de organisatie langs om het aanbod af te nemen.'
+            },
+            labels: {
+                send_copy: "Stuur e-mail als bewijs ook naar uzelf"
             }
         }
     },
