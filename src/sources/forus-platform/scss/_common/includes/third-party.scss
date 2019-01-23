@@ -58,6 +58,7 @@
             &-days-header {
                 background: #fff;
                 border-bottom: 0;
+                padding: 0 5px;
 
                 div {
                     color: #134478;
@@ -70,23 +71,64 @@
                 flex-direction: row;
                 align-content: center;
                 flex-wrap: wrap;
+                padding: 0 5px 5px;
+                margin: 0;
+                width: 100%;
             }
 
             &-day {
                 width: (100%/7);
                 padding: 0;
-                min-width: 32px;
-                line-height: 27.5px;
                 font-size: 13px;
                 font-weight: 500;
                 color: #282b39;
-                border: 5px solid #fff;
                 border-radius: 40px;
                 margin: 0;
+                height: 38px;
+                line-height: 38px;
+                position: relative;
+                z-index: 1;
+                transition: color .4s;
+
+                &:before {
+                    content: '';
+                    display: block;
+                    width: 28px;
+                    height: 28px;
+                    margin: 0;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: -1;
+                    border-radius: 20px;
+                    transition: background .4s;
+                }
+
+                &:hover {
+                    background: transparent;
+
+                    &:before {
+                        background: rgba(0,0,0,.03);
+                    }
+                }
 
                 &._720kb-datepicker-active {
-                    background: #009ef4;
                     color: #fff;
+                    background: transparent;
+
+                    &:before {
+                        background: #009ef4;
+                    }
+                }
+
+                &._720kb-datepicker-disabled {
+                    color: rgba(0,0,0,.2);
+                    background: transparent;
+
+                    &:before {
+                        background: rgba(25,2,0,.02);
+                    }
                 }
             }
 
@@ -104,8 +146,8 @@
 
                 a {
                     &>span {
-                    color: #282b39;
-                    font: 500 13px/40px $bf;
+                        color: #282b39;
+                        font: 500 13px/40px $bf;
                     }
                 }
             }
