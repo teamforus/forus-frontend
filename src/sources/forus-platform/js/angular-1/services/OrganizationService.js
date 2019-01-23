@@ -39,11 +39,17 @@ module.exports = [
             };
 
             this.store = function(values) {
-                return ApiRequest.post('/platform/organizations', values);
+                return ApiRequest.post(
+                    '/platform/organizations',
+                    this.apiFormToResource(values)
+                );
             };
 
             this.update = function(id, values) {
-                return ApiRequest.patch('/platform/organizations/' + id, values);
+                return ApiRequest.patch(
+                    '/platform/organizations/' + id,
+                    this.apiFormToResource(values)
+                );
             };
 
             this.read = function(id) {
@@ -66,6 +72,16 @@ module.exports = [
                 return isNaN(id) ? false : id;
             }
 
+            this.apiFormToResource = function(formData) {
+                let values = JSON.parse(JSON.stringify(formData));
+
+                if (['http://', 'https://'].indexOf(values.website) != -1) {
+                    values.website = '';
+                }
+
+                return values;
+            };
+
             this.apiResourceToForm = function(apiResource) {
                 return {
                     product_categories: apiResource.product_categories.map(
@@ -81,7 +97,7 @@ module.exports = [
                     phone_public: !!apiResource.phone_public,
                     kvk: apiResource.kvk,
                     btw: apiResource.btw,
-                    website: apiResource.website,
+                    website: apiResource.website || 'https://',
                     website_public: !!apiResource.website_public,
                 };
             };
