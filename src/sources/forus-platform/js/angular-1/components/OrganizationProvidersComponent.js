@@ -1,14 +1,20 @@
 let OrganizationProvidersComponent = function(
     $state,
+    $stateParams,
     $scope,
-    OrganizationService,
-    FundService
+    FundService,
+    FileService,
+    OrganizationService
 ) {
     let $ctrl = this;
+    let org = OrganizationService.active();
+
 
     $ctrl.filters = {
         show: false,
-        values: {},
+        values: {
+            fund_id: $stateParams.fund_id || null
+        },
     };
 
     $ctrl.states = [{
@@ -25,26 +31,9 @@ let OrganizationProvidersComponent = function(
         name: 'Wachtend'
     }];
 
-
     $ctrl.resetFilters = () => {
         $ctrl.filters.values.q = '';
         $ctrl.filters.values.state = $ctrl.states[0].key;
-    };
-
-    $ctrl.$onInit = function() {
-        $ctrl.resetFilters();
-
-        $ctrl.fundProviders.data.map(function(providerFund) {
-            providerFund.organization.fundCategories =
-                providerFund.organization.product_categories.map(function(category) {
-                    return category.name;
-                });
-
-            providerFund.collapsed = providerFund.state == 'approved';
-            providerFund.collapsable = providerFund.state == 'approved';
-
-            return providerFund;
-        });
     };
 
     $ctrl.toggleFundCollapse = function(providerFund) {
@@ -97,24 +86,79 @@ let OrganizationProvidersComponent = function(
         }));
     };
 
+    // Export to XLS file
+    $ctrl.exportList = () => {
+        OrganizationService.listProvidersExport(
+            $ctrl.organization.id,
+            $ctrl.filters.values
+        ).then((res => {
+            FileService.downloadFile(
+                'providers_' + org + '_' + moment().format(
+                    'YYYY-MM-DD HH:mm:ss'
+                ) + '.xls',
+                res.data,
+                res.headers('Content-Type') + ';charset=utf-8;'
+            );
+        }));
+    };
 
     $ctrl.hideFilters = () => {
         $scope.$apply(() => {
             $ctrl.filters.show = false;
         });
     };
+
+    $ctrl.$onInit = function() {
+        $ctrl.resetFilters();
+
+        if ($ctrl.fundProviders) {
+            $ctrl.fundProviders.data.map(function(providerFund) {
+                providerFund.organization.fundCategories =
+                    providerFund.organization.product_categories.map(function(category) {
+                        return category.name;
+                    });
+
+                providerFund.collapsed = providerFund.state == 'approved';
+                providerFund.collapsable = providerFund.state == 'approved';
+
+                return providerFund;
+            });
+        }
+
+        if (Array.isArray($ctrl.funds)) {
+            $ctrl.funds = $ctrl.funds.map(fund => {
+                fund.fundCategories = _.pluck(fund.product_categories, 'name').join(', ');
+                return fund;
+            });
+
+            if ($ctrl.funds.length == 1) {
+                $state.go('organization-providers', {
+                    organization_id: $stateParams.organization_id,
+                    fund_id: $ctrl.funds[0].id
+                });
+            }
+        }
+
+        if ($ctrl.fund) {
+            $ctrl.fund.fundCategories = _.pluck($ctrl.fund.product_categories, 'name').join(', ');
+        }
+    };
 };
 
 module.exports = {
     bindings: {
         fundProviders: '<',
-        organization: '<'
+        organization: '<',
+        funds: '<',
+        fund: '<'
     },
     controller: [
         '$state',
+        '$stateParams',
         '$scope',
-        'OrganizationService',
         'FundService',
+        'FileService',
+        'OrganizationService',
         OrganizationProvidersComponent
     ],
     templateUrl: 'assets/tpl/pages/organization-providers.html'
