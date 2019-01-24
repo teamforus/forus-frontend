@@ -13,15 +13,16 @@ section.section.section-products#products: .wrapper
         mixin product_item(name, discounted)
             .product-item(class=discounted?'discounted':''): a(href="#").product-item-inner
                 .product-image: img(src="./assets/img/placeholders/product-small.png")
-                .product-name=name
-                .product-discount
-                    | 58% 
-                    br
-                    | KORTING!
-                .product-price
-                    small VAN € 59,95
-                    br
-                    | VOOR € 24,95
+                .product-details
+                    .product-name=name
+                    .product-discount
+                        | 58% 
+                        br
+                        | KORTING!
+                    .product-price
+                        small VAN € 59,95
+                        br
+                        | VOOR € 24,95
         +product_item("Gecertificeerde Meditor Plus", true)
         +product_item("Gecertificeerde Meditor Plus Lorem Ipsum", true)
         +product_item("Gecertificeerde Meditor Plus Lorem ", false)

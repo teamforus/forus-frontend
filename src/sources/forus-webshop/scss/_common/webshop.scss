@@ -11,7 +11,7 @@
 
 .wrapper {
     width: 1280px;
-    padding: 0 40px;
+    padding: 0 30px;
     max-width: 100%;
     margin: 0 auto;
     display: block;
@@ -875,6 +875,12 @@ ui-view{
 
         .section-filters {
             margin-bottom: 40px;
+
+            input[type=text] {
+                background: url('../img/looking-glass.png') no-repeat;
+                background-position: 100% 0;
+                background-size: 60px 60px;
+            }
         }
     }
 
@@ -1235,7 +1241,7 @@ ui-view{
 
     @media screen and (max-width: 1700px) {
         .section-title {
-            font: 700 30px/40px $bf;
+            font: 700 26px/40px $bf;
             margin: 0 0 15px;
         }
 
@@ -1244,7 +1250,7 @@ ui-view{
                 padding: 80px 0;
                 
                 .header-title {
-                    font: 700 30px/40px $bf;
+                    font: 700 26px/40px $bf;
                     margin: 0 0 15px;
                 }
 
@@ -1261,7 +1267,7 @@ ui-view{
             position: relative;
 
             .section-title {
-                font: 700 30px/40px $bf;
+                font: 700 26px/40px $bf;
                 margin: 0 0 15px;
             }
         }
@@ -1288,7 +1294,7 @@ ui-view{
 
         &.section-steps {
             .section-title {
-                font: 700 30px/40px $bf;
+                font: 700 26px/40px $bf;
                 margin: 0 0 40px;
             }
 
@@ -1550,11 +1556,68 @@ ui-view{
             }
         }
 
-        &.section.section-products {
+        &.section-products {
             margin: 0 0 30px;
 
             .section-filters {
-                margin: 0 0 20px;
+                margin: 0 0 30px;
+                box-shadow: 5px 5px 20px rgba(#000, .1);
+                border-radius: 6px;
+
+                .row {
+                    margin: 0;
+                    
+                    .col {
+                        padding: 0;
+                        float: left;
+
+                        .form-group {
+                            .form-control {
+                                &:first-child {
+
+                                }
+                            }
+                        }
+
+                        &:first-child {
+                            width: 40%;
+                            
+                            .form-group {
+                                margin: 0;
+
+                                .form-control {
+                                    box-shadow: none;
+                                    border-top-right-radius: 0;
+                                    border-bottom-right-radius: 0;
+                                    padding-right: 30px;
+                                    @include ellipsis();
+                                    border: 1px solid #e4e9ec;
+                                }
+                            }
+                        }
+
+                        &:last-child {
+                            width: 60%;
+
+                            .form-group {
+                                margin: 0;
+
+                                .form-control {
+                                    box-shadow: none;
+                                    border-top-left-radius: 0;
+                                    border-bottom-left-radius: 0;
+                                    padding-right: 50px;
+                                    border: 1px solid #e4e9ec;
+                                    border-left: none;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                input[type=text] {
+                    background-size: 50px 50px;
+                }
             }
         }
 
@@ -1925,7 +1988,6 @@ ui-view{
                 border-radius: 10px;
                 overflow: hidden;
                 display: block;
-                margin-bottom: 20px;
                 position: relative;
                 transform: translate(0, 0);
                 transition: .4s;
@@ -1944,6 +2006,12 @@ ui-view{
                     @include fill_parent();
                     transition: opacity .4s;
                 }
+            }
+            
+            .product-details {
+                padding: 20px 0 0;
+                display: block;
+                @include cf();
             }
 
             .product-name {
@@ -3144,7 +3212,6 @@ ui-view{
                 .product-details-link {
                     font: 600 13px/20px $bf;
                     color: #083f49;
-                    vertical-align: bottom;
                     width: 100%;
                     cursor: pointer;
                     display: block;
@@ -5049,7 +5116,7 @@ ui-view{
                 padding: 0;
 
                 .block-title {
-                    font: 700 30px/40px $bf;
+                    font: 700 26px/40px $bf;
                     margin: 0 0 15px;
                 }
 
@@ -5160,7 +5227,7 @@ ui-view{
             padding: 20px;
 
             .block-title {
-                font: 700 20px/28px $bf;
+                font: 700 20px/36px $bf;
                 margin: 0;
             }
 
@@ -5501,28 +5568,75 @@ ui-view{
         }
 
         &.block-products {
-            margin: 0 -25px 30px;
+            margin: 0 0 30px;
+            padding: 0;
             
             .section-title {
                 text-align: center;
             }
 
             .product-item {
-                padding: 0 25px 0;
+                padding: 0;
                 margin: 0 0 20px;
                 width: 100%;
 
-                .product-image {
-                    margin: 0 0 10px;
-                }
+                .product-item-inner {
+                    display: flex;
+                   
+                    .product-image {
+                        margin: 0 0 ;
+                        width: 130px;
+                        float: left;
+                    }
 
-                .product-name {
-                    font: 700 16px/22px $bf;
-                    margin: 0 0 10px;
-                }
+                    .product-details {
+                        padding:  0 0 0 15px;
+                        display: flex;
+                        flex-direction: column;
+                        flex: 1;
+                    }
 
-                &:last-of-type {
-                    margin-bottom: 0;
+                    .product-discount {
+                        width: 100%;
+                        text-align: left;
+                        font: 700 11px $bf;
+                        order: 0;
+
+                        br {
+                            display: none;
+                        }
+                    }
+
+                    .product-price {
+                        width: 100%;
+                        text-align: left;
+                        order: 2;
+                        font: 700 14px $bf;
+
+                        small {
+                            color: #646f79;
+                            font: 600 12px $bf;
+                        }
+                    }
+
+                    .product-name {
+                        font: 700 16px/26px $bf;
+                        margin: 0 0 5px;
+                        width: 100%;
+                        color: #00122a;
+                        order: 1;
+                    }
+
+                    &:last-of-type {
+                        margin-bottom: 0;
+                        width: 100%;
+                    }
+
+                    &:hover {
+                        .product-image {
+                            transform: none;
+                        }
+                    }
                 }
             }
         }
@@ -6933,7 +7047,7 @@ ui-view{
         .form-control:not([type="radio"]):not([type="checkbox"]).form-control-fancy {
             height: 50px;
             padding: 5px 15px;
-            font: 400 15px/24px $bf;
+            font: 400 14px/24px $bf;
         }
     }
 

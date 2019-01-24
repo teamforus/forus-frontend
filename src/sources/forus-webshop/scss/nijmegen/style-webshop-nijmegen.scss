@@ -125,12 +125,6 @@ body {
             color: #297c68;
         }
     }
-
-    .form-group {
-        position: relative;
-        margin-top: 2rem;
-        margin-bottom: 15px;
-    }
 }
 
 .header-splash {
@@ -253,8 +247,6 @@ body {
         }
     }
 }
-
-
 
 .block {
     $navbar_transition: .5s ease-in-out;
@@ -461,11 +453,7 @@ body {
     }
 
     &.block-products {
-        padding: 0 30px;
-
         .product-item {
-            padding: 0 15px;
-
             .product-item-inner {
                 box-shadow: $base_shadow;
                 border-radius: 5px;
@@ -473,26 +461,7 @@ body {
             }
 
             .product-image {
-                width: 100%;
-                position: relative;
-                height: 200px;
                 border: 1px solid #ececec;
-                border-radius: none;
-                margin: none;
-                transform: none;
-                box-shadow: none;
-                transition: none;
-
-                img {
-                    position: absolute;
-                    z-index: 1;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    min-height: 100%;
-                    border-radius: .25rem .25rem 0 0;
-                }
 
                 &:after {
                     background: rgba(33, 33, 33, 0.3);
@@ -501,23 +470,16 @@ body {
                 }
             }
 
+            .product-details {
+                padding: 20px;
+            }
+
             .product-name {
                 color: #a80a2d;
-                word-wrap: break-word;
-                padding: 1.25rem 1.25rem 0;
-                font: 600 18px/26px $bf;
             }
 
             .product-discount {
                 color: #157c68;
-                padding-left: 1.25rem;
-                padding-bottom: 1.25rem;
-            }
-
-            .product-price {
-                width: 50%;
-                padding-right: 1.25rem;
-                padding-bottom: 1.25rem;
             }
 
             .product-item-inner {
@@ -1124,7 +1086,23 @@ body {
         }
 
         &.block-products {
-            padding: 0 10px;
+            .product-item {
+                .product-item-inner {
+                    .product-image {
+                        height: 100%;
+                        background-size: cover;
+                        background-position: 50%;
+
+                        img {
+                            display: none;
+                        }
+                    }
+                    
+                    .product-details {
+                        padding: 20px;
+                    }
+                }
+            }
         }
     }
 }
