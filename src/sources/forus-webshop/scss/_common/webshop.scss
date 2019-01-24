@@ -186,12 +186,13 @@ ui-view{
 
     &.button-wide,
     &.button-wide {
-        width: 100%;
+        margin: 0 auto;
+        display: block !important;
     }
 
     &:last-child,
     &:last-of-type {
-        margin-right: 0;
+        
     }
 }
 
@@ -6199,7 +6200,7 @@ ui-view{
 
 .app-instruction {
     .step-item {
-        padding: 0 70px;
+        padding: 50px 30px;
         position: relative;
 
         img {
@@ -6215,8 +6216,8 @@ ui-view{
             &.line-item {
                 position: absolute;
                 top: 200px;
-                left: calc(100% - 82px);
-                width: 163px;
+                left: calc(100% - 35px);
+                width: 70px;
                 z-index: 2;
             }
         }
@@ -6230,13 +6231,13 @@ ui-view{
 
     @media screen and (max-width: 1500px) {
         .step-item {
-            padding: 0 50px;
+            padding: 10px 70px;
 
             img {
                 &.line-item {
                     top: 140px;
-                    width: 115px;
-                    left: calc(100% - 58px);
+                    width: 170px;
+                    left: calc(100% - 85px);
                 }
             }
         }
@@ -6310,7 +6311,6 @@ ui-view{
         overflow: hidden;
         margin: 0 auto;
         box-shadow: 0 20px 40px rgba(#000000, 0.3);
-        padding: 30px 200px;
 
         &.modal-description-pad{
             .description {
@@ -6323,7 +6323,7 @@ ui-view{
             display: inline-block;
             border: 1px solid #eff6f8;
             background: #fff;
-            padding: 10px;
+            padding: 10px 80px;
             border-radius: 5px;
             font: 400 22px/34px $bf;
             color: #646f79;
@@ -6345,7 +6345,7 @@ ui-view{
         }
 
         .description{
-            padding: 10px 0;
+            padding: 10px 80px;
             font: 400 22px/34px $bf;
             color: #646f79;
 
@@ -6365,6 +6365,7 @@ ui-view{
         .button{
             min-width: 250px;
             text-transform: uppercase;
+            display: inline-block;
         }
 
         .modal-icon{
@@ -6425,7 +6426,6 @@ ui-view{
         }
 
         .modal-content {
-            padding: 30px 200px;
 
             .form {
                 width: 480px;
@@ -6449,6 +6449,7 @@ ui-view{
     @media screen and (max-width: 1500px) {
         .modal-content {
             width: 1000px;
+            padding: 30px 0px;
         }
 
         .modal-footer {
@@ -6469,7 +6470,8 @@ ui-view{
 
             .modal-subtitle {
                 font: 400 16px $bf;
-                padding: 0 0 20px;
+                padding: 0px 150px 20px;
+                margin: 0px 40px;
             }
         }
     }
