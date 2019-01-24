@@ -53,6 +53,7 @@ app.service('ConfigService', require('./services/ConfigService'));
 app.service('ModalService', require('./services/ModalService'));
 app.service('BrowserService', require('./services/BrowserService'));
 app.service('SmsService', require('./services/SmsService'));
+app.directive('forusChat', require('./directives/ForusChatDirective'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
