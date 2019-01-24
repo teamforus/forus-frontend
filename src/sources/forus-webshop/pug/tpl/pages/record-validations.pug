@@ -1,6 +1,6 @@
 .header-splash: .splash.splash-d
 
-header.section.section-header: .wrapper
+header.section.section-header
     top-navbar
 
 section.section.section-profile: .wrapper
@@ -18,7 +18,7 @@ section.section.section-profile: .wrapper
                     .record-validation-count
                         strong {{ $ctrl.record.validations.length }}
                         | {{ "records_validations.header.count" | translate }}
-                    a(ui-sref="record-validate($ctrl.record)").button.button-outline.button-primary-outline.button-wide 
+                    a(ui-sref="record-validate($ctrl.record)").button.button-outline.button-primary-outline.button-fill 
                         | {{ "records_validations.header.send" | translate }}
 
                 .validation-card

@@ -73,5 +73,5 @@
                             .form-error(ng-repeat="error in $ctrl.form.errors.btw" ng-bind="error")
             .card-section.card-section-primary
                 .text-center
-                    button(type="button" ng-click="$ctrl.cancel()").button.button-default(i18n="organization_edit.buttons.cancel")
+                    button(type="button" ng-click="$ctrl.cancel()" i18n="organization_edit.buttons.cancel").button.button-default
                     button(type="submit").button.button-primary(i18n="organization_edit.buttons.create")
