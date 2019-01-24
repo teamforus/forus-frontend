@@ -276,10 +276,12 @@ body {
     }
 }
 
-.modal .modal-content {
-    .description{
-        font: 400 22px/34px $bf;
-        color: $ptc;
+.modal {
+    background: rgba(25,39,52,0.5);
+    .modal-content {
+        .description{
+            font: 400 22px/34px $bf;
+            color: $ptc;
     
         .popup-title-styled{
             color: #157c68;
@@ -287,7 +289,7 @@ body {
             white-space: nowrap;
         }
     }
-
+}
     .subdescription {
         color: grey;
 

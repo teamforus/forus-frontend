@@ -4788,6 +4788,7 @@ ui-view{
     }
 
     &.block-pincode {
+        display: flex;
         margin: 30px auto 60px;
         padding: 0;
         text-align: center;
@@ -4797,16 +4798,17 @@ ui-view{
 
         .pincode-number {
             display: block;
-            height: 75px;
+            height: 70px;
             float: left;
-            width: 60px;
+            width: 50px;
             border: 1px solid #dfe4ec;
             background: #fff;
             border-radius: 4px;
             margin-right: 10px;
-            font: 600 28px/75px $bf;
+            font: 600 28px/70px $bf;
             text-align: center;
             cursor: default;
+            flex: 1;
 
             &:last-of-type {
                 margin-right: 0;
@@ -4815,7 +4817,7 @@ ui-view{
     }
 
     &.block-phone-number {
-        width: calc(60px * 10 + 10px * 9);
+        width: calc(50px * 10 + 10px * 9);
         margin: 25px auto;
     }
 
@@ -6186,6 +6188,17 @@ ui-view{
                 width: 200px;
             }
         }
+
+        &.block-pincode {
+            .pincode-number {
+                height: 50px;
+                font: 600 22px/50px "Source Sans Pro",sans-serif;
+            }
+        }
+
+        &.block-phone-number {
+            width: calc(30px * 10 + 10px * 1);
+        }
     }
 }
 
@@ -6194,6 +6207,16 @@ ui-view{
     .block {
         &.block-pincode {
             margin: 0 auto 15px;
+            width: calc(60px * 6 + 10px * 5);
+        }
+    }
+    @media screen and (max-width: 767px) {
+        .block {
+            &.block-pincode {
+                margin: 0 auto 15px;
+                width: calc(50px * 6 + 10px * 5);
+                height: 40px;
+            }
         }
     }
 }
@@ -6262,6 +6285,21 @@ ui-view{
             img {
                 &.line-item {
                     display: none;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .step-item {
+            img {
+                &:not(.line-item) {
+                    width: 80%;
+                    border: 2px dashed #d2e6ff;
+                    border-radius: 5px;
+                    box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1);
+                    left: 50%;
+                    margin-left: -40%;
                 }
             }
         }
@@ -6470,7 +6508,7 @@ ui-view{
 
             .modal-subtitle {
                 font: 400 16px $bf;
-                padding: 0px 150px 20px;
+                padding: 0px 10px 20px;
                 margin: 0px 40px;
             }
         }
@@ -6558,7 +6596,6 @@ ui-view{
     @media screen and (max-width: 767px) {
         .modal-content {
             .button{
-                margin-right: 0;
                 margin-bottom: 10px;
 
                 &:last-child{
@@ -6584,6 +6621,15 @@ ui-view{
 
             &.splash-c {
                 height: 700px;
+            }
+        }
+    }
+
+    .block {
+        .block-pincode {
+            .pincode-number {
+                height: 50px;
+                font: 600 22px/50px "Source Sans Pro",sans-serif;
             }
         }
     }
