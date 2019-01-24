@@ -5603,7 +5603,7 @@ ui-view{
         }
 
         &.block-footer {
-            margin: 0 0 20px;
+            margin: 0 0 30px;
 
             .footer-logo {
                 margin: 0 0 20px;
@@ -5614,8 +5614,8 @@ ui-view{
             .footer-label {
                 text-align: center;
                 padding: 0;
-                margin: 0 0 40px;
-                font: 700 15px/24px $bf;
+                margin: 0 0 5px;
+                font: 700 16px/30px $bf;
             }
 
             .footer-schedule {
@@ -5635,7 +5635,7 @@ ui-view{
                 }
 
                 &:last-child {
-                    margin: 0 0 40px;
+                    margin: 0 0 50px;
                 }
             }
 
