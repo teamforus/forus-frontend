@@ -8,7 +8,7 @@
                     span(ng-bind="$ctrl.transactions.meta.total").span-count
             
                 .block.block-inline-filters.col.col-sm-6.col-xs-12.text-right
-                    .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.resetFilters()")
+                    .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                         em.mdi.mdi-close
                         span(i18n="Wis filters")
                     

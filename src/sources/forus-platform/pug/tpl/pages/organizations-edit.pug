@@ -19,16 +19,16 @@
                 .row 
                     .col.col-lg-9.col-md-12
                         .form-group.form-group-inline
-                            label.form-label {{ "organization_edit.labels.name" | translate }}
+                            label.form-label(i18n="organization_edit.labels.name")
                             input(ng-model="$ctrl.form.values.name" type="text" placeholder="Bedrijfsnaam").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
                         .form-group.form-group-inline
-                            label.form-label {{ "organization_edit.labels.bank" | translate }}
+                            label.form-label(i18n="organization_edit.labels.bank")
                             input(ng-model="$ctrl.form.values.iban" type="text" placeholder="IBAN-nummer").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.iban" ng-bind="error")
             .card-section.card-section-primary
                 .form-group.form-group-inline
-                    label.form-label {{ "organization_edit.labels.mail" | translate }}
+                    label.form-label(i18n="organization_edit.labels.mail")
                     .form-offset: .row
                         .col.col-lg-8.col-md-12
                             input(ng-model="$ctrl.form.values.email" type="text" placeholder="E-mailadres").form-control
@@ -37,7 +37,7 @@
                             input-checkbox-control(
                                 name="email_public" label="{{ 'Maak publiek' | i18n }}" ng-model="$ctrl.form.values.email_public")
                 .form-group.form-group-inline
-                    label.form-label {{ "organization_edit.labels.phone" | translate }}
+                    label.form-label(i18n="organization_edit.labels.phone")
                     .form-offset: .row
                         .col.col-lg-8.col-md-12
                             input(ng-model="$ctrl.form.values.phone" type="text" placeholder="Telefoonnummer").form-control
@@ -46,7 +46,7 @@
                             input-checkbox-control(
                                 name="phone_public" label="{{ 'Maak publiek' | i18n }}" ng-model="$ctrl.form.values.phone_public")
                 .form-group.form-group-inline
-                    label.form-label {{ "organization_edit.labels.website" | translate }}
+                    label.form-label(i18n="organization_edit.labels.website")
                     .form-offset: .row
                         .col.col-lg-8.col-md-12
                             input(ng-model="$ctrl.form.values.website" type="text" placeholder="Website").form-control
@@ -64,14 +64,14 @@
                 .row 
                     .col.col-lg-9.col-md-12
                         .form-group.form-group-inline
-                            label.form-label {{ "organization_edit.labels.kvk" | translate }}
+                            label.form-label(i18n="organization_edit.labels.kvk")
                             input(ng-model="$ctrl.form.values.kvk" type="text" placeholder="KvK-nummer").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.kvk" ng-bind="error")
                         .form-group.form-group-inline
-                            label.form-label {{ "organization_edit.labels.tax" | translate }}
+                            label.form-label(i18n="organization_edit.labels.tax")
                             input(ng-model="$ctrl.form.values.btw" type="text" placeholder="BTW-nummer").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.btw" ng-bind="error")
             .card-section.card-section-primary
                 .text-center
-                    button(type="button" ng-click="$ctrl.cancel()").button.button-default {{ "organization_edit.buttons.cancel" | translate }}
-                    button(type="submit").button.button-primary {{ "organization_edit.buttons.create" | translate }}
+                    button(type="button" ng-click="$ctrl.cancel()" i18n="organization_edit.buttons.cancel").button.button-default
+                    button(type="submit").button.button-primary(i18n="organization_edit.buttons.create")

@@ -1,4 +1,5 @@
 .modal.modal-auth
+    .modal-backdrop(ng-click="$ctrl.close()")
     .modal-content
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
         .row.app-instruction
@@ -21,4 +22,4 @@
             .form-group
                 div(ng-if="$ctrl.authorizePincodeForm" pincode-control ng-model="$ctrl.authorizePincodeForm.values.auth_code")
                 .text-center.form-error(ng-repeat="error in $ctrl.authorizePincodeForm.errors.auth_code track by $index" ng-bind="error")
-            .form-group: button(type="submit").button.button-primary.button-wide {{ "open_in_me.authorize.submit" | translate }}
+            .form-group: button(type="submit").button.button-primary.button-fill {{ "open_in_me.authorize.submit" | translate }}

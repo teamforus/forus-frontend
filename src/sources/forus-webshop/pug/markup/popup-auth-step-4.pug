@@ -4,7 +4,7 @@ block vars
     - var modal_shown=true
     
 block content
-    header.section.section-header: .wrapper
+    header.section.section-header
         include ../layout/includes/navbar
 
     - for (var i = 0; i < 32; i++)
@@ -30,7 +30,7 @@ block content
                         .form-label Activation code
                         input(type="text" placeholder="Activation code").form-control
                     .form-group
-                    .form-group: button.button.button-primary.button-wide SUBMIT
+                    .form-group: button.button.button-primary.button-fill SUBMIT
 
                 .popup-footer
                     .footer-text U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.

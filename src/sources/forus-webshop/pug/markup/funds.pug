@@ -2,7 +2,7 @@ extends ../layout/layout
 block content
     .header-splash: .splash.splash-c
 
-    header.section.section-header: .wrapper
+    header.section.section-header
         include ../layout/includes/navbar
     
     section.section.section-funds: .wrapper
@@ -46,7 +46,7 @@ block content
             +fund_item()
             +fund_item()
             
-            .block.block-show-more: a(href="#").button.button-primary SHOW MORE
+            .block.block-show-more: a(href="#").button.button-primary.button-wide SHOW MORE
 
 
     include ../layout/sections/contact-form 

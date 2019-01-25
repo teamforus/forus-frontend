@@ -49,6 +49,9 @@
                     a(ui-sref="offices-edit(office)").button.button-default
                         em.mdi.mdi-pen  
                         span(translate="offices.buttons.adjust")
+                    a(ng-click="$ctrl.delete(office)" ng-if="$ctrl.offices.length > 1").button.button-default
+                        em.mdi.mdi-delete
+                        span(translate="offices.buttons.delete")
                     a(
                         ng-if="office.lat && office.lon"
                         href="https://www.google.com/maps/place/{{ office.lat }},{{ office.lon }}" 

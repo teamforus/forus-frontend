@@ -91,25 +91,12 @@ body {
 .section {
     &.section-header {
         .heade-sprite {
-            background-image: url("../img/splash-top-ba.png");
             height: 625px;
             width: 100%;
         }
         .header-splash {
             .splash {
                 height: 700px;
-            }
-        }
-    }
-}
-
-.section {
-    &.section-products {
-        .section-filters {
-            input[type=text] {
-                background: url('../img/looking-glass.png') no-repeat;
-                background-position: 100% 0;
-                background-size: 60px 60px;
             }
         }
     }
@@ -129,13 +116,6 @@ body {
     }
 
     &.block-navbar {
-        .navbar-logo {
-            img {
-                height: 40px;
-                margin: -5px 0;
-            }
-        }
-
         .navbar-list {
             .navbar-item-wrapper{
                 .navbar-item {
@@ -427,7 +407,7 @@ body {
         }
     }
 
-    &.block-record_categories {om: 30px;
+    &.block-record_categories {
         .record_category-item {
             &:hover {
                 .category-title {
@@ -509,17 +489,6 @@ body {
                     .record_type-radio {
                         background: $bc_2;
                     }
-                }
-            }
-        }
-    }
-
-    @media screen and (max-width: 1500px) {
-        &.block-navbar {
-            .navbar-logo {
-                img {
-                    height: 30px;
-                    margin: -5px 0;
                 }
             }
         }

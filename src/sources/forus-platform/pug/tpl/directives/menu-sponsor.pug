@@ -35,7 +35,7 @@ aside.app.app-sidebar
             '$root.activeOrganization | hasPerm:["manage_employees"]')
         +nav_item(
             "Aanbieders", "people", 'organization-providers', 
-            '{organization_id: $root.activeOrganization.id}',
+            '{organization_id: $root.activeOrganization.id, fund_id: null}',
             '$root.activeOrganization | hasPerm:["manage_providers"]')
         +nav_item(
             "Aanvragers", "file_csv", 'csv-validation', false,
