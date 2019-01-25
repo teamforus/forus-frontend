@@ -72,6 +72,10 @@ module.exports = function() {
                 var ajax = function(method, endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
                     var params = {};
 
+                    if (typeof data == 'object') {
+                        data = JSON.parse(JSON.stringify(data));
+                    }
+
                     if (typeof auth_redirect == 'undefined') {
                         auth_redirect = true;
                     }

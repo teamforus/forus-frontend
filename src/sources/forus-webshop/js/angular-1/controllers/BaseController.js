@@ -1,6 +1,7 @@
 let BaseController = function(
     $rootScope,
     $state,
+    $q,
     IdentityService,
     AuthService,
     RecordService,
@@ -11,9 +12,11 @@ let BaseController = function(
     appConfigs
 ) {
     $rootScope.loadAuthUser = function() {
-        
+        let deferred = $q.defer();
+
         AuthService.identity().then((res) => {
             let auth_user = res.data;
+            let count = 0;
 
             // 15 minutes
             BrowserService.detectInactivity(15 * 60 * 1000).then(() => {
@@ -28,7 +31,9 @@ let BaseController = function(
                 auth_user.primary_email = res.data.filter((record) => {
                     return record.key == 'primary_email';
                 })[0].value;
-            });
+
+                ++count == 2 ? null : deferred.resolve();
+            }, deferred.reject);
 
             OrganizationService.list().then((res) => {
                 auth_user.organizations = res.data.data;
@@ -37,10 +42,14 @@ let BaseController = function(
                     auth_user.organizationsMap[organization.id] = organization;
                     return organization.id;
                 });
-            });
+
+                ++count == 2 ? null : deferred.resolve();
+            }, deferred.reject);
 
             $rootScope.auth_user = auth_user;
-        });
+        }, deferred.reject);
+
+        return deferred.promise;
     };
 
     $rootScope.$on('organization-changed', (event) => {
@@ -48,7 +57,7 @@ let BaseController = function(
     });
 
     $rootScope.$on('auth:update', (event) => {
-        $rootScope.loadAuthUser();
+        $rootScope.loadAuthUser().then(() => $state.reload(), console.error);
     });
 
     $rootScope.activeOrganization = OrganizationService.active();
@@ -76,6 +85,7 @@ let BaseController = function(
 module.exports = [
     '$rootScope',
     '$state',
+    '$q',
     'IdentityService',
     'AuthService',
     'RecordService',

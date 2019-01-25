@@ -53,6 +53,7 @@ app.service('ConfigService', require('./services/ConfigService'));
 app.service('ModalService', require('./services/ModalService'));
 app.service('BrowserService', require('./services/BrowserService'));
 app.service('SmsService', require('./services/SmsService'));
+app.directive('forusChat', require('./directives/ForusChatDirective'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
@@ -74,6 +75,7 @@ app.directive('appFooter', require('./directives/AppFooterDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));
 app.directive('phoneControl', require('./directives/PhoneControlDirective'));
+app.directive('tooltip', require('./directives/TooltipDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
