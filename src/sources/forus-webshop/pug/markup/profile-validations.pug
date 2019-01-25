@@ -2,7 +2,7 @@ extends ../layout/layout
 block content
     .header-splash: .splash.splash-d
     
-    header.section.section-header: .wrapper
+    header.section.section-header
         include ../layout/includes/navbar
     
     section.section.section-profile: .wrapper
@@ -19,7 +19,7 @@ block content
                         .record-validation-count
                             strong 3
                             | validaties
-                        button.button.button-outline.button-primary-outline.button-wide Send to validation
+                        button.button.button-outline.button-primary-outline.button-fill Send to validation
 
                     .validation-card
                         .validation-header Validations

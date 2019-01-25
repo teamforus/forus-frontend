@@ -44,7 +44,7 @@
                 input(ng-model="$ctrl.signInEmailForm.values.primary_email" type="email" placeholder="E-mail").form-control
                 .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.primary_email" ng-bind="error")
             .form-group
-            .form-group: button(type="submit").button.button-primary.button-wide {{ "popup_auth.buttons.submit" | translate }}
+            .form-group: button(type="submit").button.button-primary.button-fill {{ "popup_auth.buttons.submit" | translate }}
 
         //-.modal-footer
             .footer-text {{ "popup_auth.labels.timelimit" | translate }}

@@ -44,6 +44,7 @@ module.exports = {
     zuidhorn: {
         logoExtension: '.png',
         showAccountSidebar: false,
+
         // menu settings
         productsMenu: true,
         meAppMenu: false,

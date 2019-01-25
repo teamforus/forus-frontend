@@ -4,7 +4,7 @@ block vars
     - var modal_shown=true
     
 block content
-    header.section.section-header: .wrapper
+    header.section.section-header
         include ../layout/includes/navbar
 
     - for (var i = 0; i < 32; i++)
@@ -28,4 +28,4 @@ block content
                             .pincode-number 4
                             .pincode-number 5
                             .pincode-number 6
-                    .form-group: button.button.button-primary.button-wide SUBMIT
+                    .form-group: button.button.button-primary.button-fill SUBMIT
