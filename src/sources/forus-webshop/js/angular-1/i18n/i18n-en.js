@@ -686,6 +686,16 @@ module.exports = {
             code: "Activatiecode",
             mailing: "E-mail",
             confirmation: "Bevestig uw e-mailadres",
+        },
+        pin_code: {
+            confirmation: {
+                title: "Is de mobiele app gekoppeld aan uw persoonlijk e-mailadres?",
+                description: "Ga naar het tabblad Profiel in de app. Ziet u hier uw e-mailadres staan? Dan is de app succesvol gekoppeld. Als u de keuze voor Profiel niet hebt, probeer het dan nog is.",
+                buttons: {
+                    try_again: "Opnieuw proberen",
+                    confirm: "Volgende"
+                }
+            }
         }
     },
 
