@@ -91,6 +91,7 @@ body {
 .section {
     &.section-header {
         .heade-sprite {
+            display:none;
             height: 625px;
             width: 100%;
             display: none;
