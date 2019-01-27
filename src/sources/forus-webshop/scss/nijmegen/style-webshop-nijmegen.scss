@@ -162,7 +162,7 @@ body {
     &.section-header {
         .heade-sprite {
             background-image: url("../img/splash-top-ba.png");
-            height: 100%;
+            height: 650px;
             width: 100%;
         }
 
@@ -229,11 +229,12 @@ body {
     }
 }
 
-.modal .modal-content {
-    .description{
-        padding: 10px 0;
-        font: 400 22px/34px $bf;
-        color: $ptc;
+.modal {
+    background: rgba(25,39,52,0.5);
+    .modal-content {
+        .description{
+            font: 400 22px/34px $bf;
+            color: $ptc;
     
         .popup-title-styled{
             color: #157c68;
@@ -241,7 +242,7 @@ body {
             white-space: nowrap;
         }
     }
-
+}
     .subdescription {
         color: grey;
 
