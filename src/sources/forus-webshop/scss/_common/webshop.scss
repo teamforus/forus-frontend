@@ -156,6 +156,7 @@ ui-view{
     }
 
     &.button-dark {
+        display: inline-block;
         color: #fff;
         background: #282b39;
         border: 1px solid #282b39;
@@ -188,10 +189,9 @@ ui-view{
     &.button-wide,
     &.button-wide {
         margin: 0 auto;
-        display: block !important;
     }
     &.button-fill {
-        width: 100%;
+        margin: 0 auto;
     }
 
     &.button-wide {
@@ -6775,9 +6775,8 @@ ui-view{
         }
 
         .button{
-            min-width: 250px;
             text-transform: uppercase;
-            display: inline-block;
+            display: flex;
         }
 
         .modal-icon{
@@ -6792,6 +6791,8 @@ ui-view{
     .modal-footer {
         padding: 30px;
         border-top: 1px solid #d2e6ff;
+        display: flex;
+        justify-content: center;
 
         &.no-border{
             border: 0!important;
@@ -6844,11 +6845,19 @@ ui-view{
                 margin: 0 auto;
                 padding: 10px 0;
             }
+
+            &.button {
+                display: inline-block;
+            }
         }
 
         .modal-footer {
             padding: 30px 200px;
             margin: 30px -200px -30px;
+        }
+
+        .button {
+            display: block;
         }
     }
 
@@ -6970,7 +6979,6 @@ ui-view{
     @media screen and (max-width: 767px) {
         .modal-content {
             .button{
-                margin-bottom: 10px;
 
                 &:last-child{
                     margin-bottom: 0;
