@@ -72,7 +72,7 @@ module.exports = function() {
                 var ajax = function(method, endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
                     var params = {};
 
-                    if (typeof data == 'object') {
+                    if (typeof data == 'object' && !(data instanceof FormData)) {
                         data = JSON.parse(JSON.stringify(data));
                     }
 
