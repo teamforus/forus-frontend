@@ -15,7 +15,7 @@
                 placeholder="{{ 'popup_auth.input.mail' | translate }}").form-control.form-control
                 .form-error(ng-repeat="error in $ctrl.signUpForm.errors['records.primary_email']" ng-bind="error")
             .form-group
-                .form-label (translate="popup_auth.input.confirmation")
+                .form-label(translate="popup_auth.input.confirmation")
                 input(
                 type="email"
                 ng-model="$ctrl.signUpForm.values.records.primary_email_confirmation"
