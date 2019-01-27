@@ -8,14 +8,14 @@
 
         form.form(ng-submit="$ctrl.signUpForm.submit()")
             .form-group
-                .form-label
+                .form-label {{ "popup_auth.input.mail" | translate }}
                 input(
                 type="email"
                 ng-model="$ctrl.signUpForm.values.records.primary_email"
                 placeholder="{{ 'popup_auth.input.mail' | translate }}").form-control.form-control
                 .form-error(ng-repeat="error in $ctrl.signUpForm.errors['records.primary_email']" ng-bind="error")
             .form-group
-                .form-label
+                .form-label(translate="popup_auth.input.confirmation")
                 input(
                 type="email"
                 ng-model="$ctrl.signUpForm.values.records.primary_email_confirmation"
