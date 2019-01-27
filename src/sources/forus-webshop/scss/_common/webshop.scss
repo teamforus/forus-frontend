@@ -191,12 +191,12 @@ ui-view{
         margin: 0 auto;
     }
     &.button-fill {
-        margin: 0 auto;
+        margin: 30px auto;
     }
 
     &.button-wide {
-        padding-left: 100px;
-        padding-right: 100px;
+        padding-left: 50px;
+        padding-right: 50px;
     }
 
     &:last-child,
@@ -1253,15 +1253,15 @@ ui-view{
 
         &.section-header {
             .header-content {
-                padding: 80px 0;
+                padding: 180px 0;
                 
                 .header-title {
-                    font: 700 26px/40px $bf;
+                    font: 700 40px/50px "Source Sans Pro",sans-serif;
                     margin: 0 0 15px;
                 }
 
                 .header-description {
-                    font: 400 16px/28px $bf;
+                    font: 400 22px/36px "Source Sans Pro",sans-serif;
                     margin: 0 0 30px;
                 }
             }
@@ -1665,7 +1665,7 @@ ui-view{
 .block {
     &.block-breadcrumbs {
         position: relative;
-        margin-bottom: 10px;
+        margin: 40px 0px;
         @include ellipsis();
         
         .breadcrumb-item {
