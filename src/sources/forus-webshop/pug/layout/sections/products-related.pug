@@ -5,15 +5,16 @@ section.section.section-products: .wrapper
         mixin product_item()
             .product-item: a(href="#").product-item-inner
                 .product-image: img(src="./assets/img/placeholders/product-small.png")
-                .product-name Gecertificeerde MeditorPlus
-                .product-discount
-                    | 58% 
-                    br
-                    | KORTING!
-                .product-price
-                    small VAN € 59,95
-                    br
-                    | VOOR € 24,95
+                .product-details
+                    .product-name Gecertificeerde MeditorPlus
+                    .product-discount
+                        | 58% 
+                        br
+                        | KORTING!
+                    .product-price
+                        small VAN € 59,95
+                        br
+                        | VOOR € 24,95
         +product_item()
         +product_item()
         +product_item()
@@ -21,4 +22,4 @@ section.section.section-products: .wrapper
         +product_item()
         +product_item()
 
-        .block.block-show-more: .wrapper: a(href="#").button.button-primary SHOW MORE
+        .block.block-show-more: .wrapper: a(href="#").button.button-primary.button-wide SHOW MORE

@@ -13,7 +13,7 @@ let FundService = function(ApiRequest) {
 
         this.store = function(organization_id, values) {
             return ApiRequest.post(
-                uriPrefix + organization_id + '/funds', 
+                uriPrefix + organization_id + '/funds',
                 this.apiFormToResource(values)
             );
         };
@@ -35,14 +35,14 @@ let FundService = function(ApiRequest) {
             return ApiRequest.get('/platform/funds/' + fund_id);
         };
 
-        this.readFinances = function (organization_id, id, data) {
+        this.readFinances = function(organization_id, id, data) {
             return ApiRequest.get(
-                uriPrefix + organization_id + '/funds/' + id + '/finances', 
+                uriPrefix + organization_id + '/funds/' + id + '/finances',
                 data || {}
             );
         }
 
-        this.listProviders = function (organization_id, fund_id, state, query) {
+        this.listProviders = function(organization_id, fund_id, state, query) {
             query = query ? query : {};
             query.state = state;
 
@@ -51,28 +51,50 @@ let FundService = function(ApiRequest) {
             );
         };
 
-        this.readProvider = function (organization_id, fund_id, provider_id) {
+        this.readProvider = function(organization_id, fund_id, provider_id) {
             return ApiRequest.get(
                 uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + provider_id
             );
         };
 
-        this.readProvidersTransactions = function (organization_id, fund_id, provider_id, query) {
-            query = query ? query : {};
-
+        this.readProvidersTransactions = function(
+            organization_id,
+            fund_id,
+            provider_id,
+            filters = {}
+        ) {
             return ApiRequest.get(
-                uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + provider_id + '/transactions',
-                query
+                uriPrefix + organization_id + '/funds/' + fund_id + 
+                '/providers/' + provider_id + '/transactions',
+                filters
             );
         };
 
-        this.readProvidersTransaction = function (organization_id, fund_id, provider_id, transaction_id) {
+        this.exportProvidersTransactions = function(
+            organization_id,
+            fund_id,
+            provider_id,
+            filters = {}
+        ) {
+            return ApiRequest.get(
+                uriPrefix + organization_id + '/funds/' + fund_id + 
+                '/providers/' + provider_id + '/transactions/export',
+                filters, {}, true, (_cfg) => {
+                    _cfg.responseType = 'arraybuffer';
+                    _cfg.cache = false;
+
+                    return _cfg;
+                }
+            );
+        };
+
+        this.readProvidersTransaction = function(organization_id, fund_id, provider_id, transaction_id) {
             return ApiRequest.get(
                 uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + provider_id + '/transactions/' + transaction_id
             );
         };
 
-        this.readProvidersFinances = function (organization_id, fund_id, provider_id, data) {
+        this.readProvidersFinances = function(organization_id, fund_id, provider_id, data) {
             return ApiRequest.get(
                 uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + provider_id + '/finances',
                 data
@@ -99,7 +121,7 @@ let FundService = function(ApiRequest) {
             return [{
                 name: "Waiting",
                 value: 'waiting',
-            },{
+            }, {
                 name: "Actief",
                 value: 'active',
             }, {
@@ -111,7 +133,7 @@ let FundService = function(ApiRequest) {
             }];
         }
 
-        this.makeTopUp = function (organization_id, fund_id) {
+        this.makeTopUp = function(organization_id, fund_id) {
             return ApiRequest.post(
                 uriPrefix + organization_id + '/funds/' + fund_id + '/top-up');
         };
@@ -136,17 +158,18 @@ let FundService = function(ApiRequest) {
                 state: apiResource.state,
                 start_date: moment(apiResource.start_date).format('DD-MM-YYYY'),
                 end_date: moment(apiResource.end_date).format('DD-MM-YYYY'),
+                notification_amount: apiResource.notification_amount
             };
         };
 
         this.changeState = function(apiResource, state) {
             let formValues = this.apiResourceToForm(apiResource);
-            
+
             formValues.state = state;
-            
+
             return this.update(
-                apiResource.organization_id, 
-                apiResource.id, 
+                apiResource.organization_id,
+                apiResource.id,
                 formValues
             );
         };

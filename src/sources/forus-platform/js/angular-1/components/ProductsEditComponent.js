@@ -1,5 +1,5 @@
 let ProductsEditComponent = function(
-    $state, 
+    $state,
     $stateParams,
     $filter,
     appConfigs,
@@ -11,6 +11,7 @@ let ProductsEditComponent = function(
     let $ctrl = this;
     let mediaFile = false;
     let alreadyConfirmed = false;
+    let trans = $filter('translate');
 
     $ctrl.media;
 
@@ -21,10 +22,10 @@ let ProductsEditComponent = function(
 
         $ctrl.maxProductCount = appConfigs.flags.maxProductCount ? appConfigs.flags.maxProductCount : null;
 
-        if($ctrl.maxProductCount && !$ctrl.product && $ctrl.products.length >= $ctrl.maxProductCount){
+        if ($ctrl.maxProductCount && !$ctrl.product && $ctrl.products.length >= $ctrl.maxProductCount) {
             ModalService.open('modalNotification', {
                 type: 'danger',
-                title: $filter('translate')('product_edit.errors.already_added'),
+                title: trans('product_edit.errors.already_added'),
                 icon: 'product_error_create_more',
                 cancel: () => {
                     return $state.go('products', {
@@ -43,12 +44,12 @@ let ProductsEditComponent = function(
             name: 'Selecteer categorie'
         });
 
-        $ctrl.saveProduct = function () {
-            if(!$ctrl.product && !alreadyConfirmed) {
+        $ctrl.saveProduct = function() {
+            if (!$ctrl.product && !alreadyConfirmed) {
                 ModalService.open('modalNotification', {
                     type: 'confirm',
-                    title: $filter('translate')('product_edit.confirm_create.title'),
-                    description: $filter('translate')('product_edit.confirm_create.description'),
+                    title: trans('product_edit.confirm_create.title'),
+                    description: trans('product_edit.confirm_create.description'),
                     icon: 'product_create',
                     confirm: () => {
                         alreadyConfirmed = true;
@@ -61,9 +62,9 @@ let ProductsEditComponent = function(
         };
 
         $ctrl.form = FormBuilderService.build(values, async (form) => {
-            if ($ctrl.product && form.values.stock_amount < $ctrl.product.stock_amount) {
+            if ($ctrl.product && form.values.stock_amount < 0) {
                 return $ctrl.form.errors.stock_amount = [
-                    'Het aantal is alleen op te hogen.'
+                    'Nog te koop moet minimaal 0 zijn.'
                 ];
             }
 
@@ -118,8 +119,8 @@ let ProductsEditComponent = function(
         mediaFile = file;
     };
 
-    $ctrl.cancel = function () {
-        $state.go('products', {'organization_id' : $stateParams.organization_id});
+    $ctrl.cancel = function() {
+        $state.go('products', { 'organization_id': $stateParams.organization_id });
     };
 };
 
@@ -130,12 +131,12 @@ module.exports = {
         products: '<'
     },
     controller: [
-        '$state', 
+        '$state',
         '$stateParams',
         '$filter',
         'appConfigs',
         'ProductService',
-        'FormBuilderService', 
+        'FormBuilderService',
         'MediaService',
         'ModalService',
         ProductsEditComponent

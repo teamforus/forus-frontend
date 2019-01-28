@@ -13,13 +13,9 @@ $base_shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
 body {
     background: #fff;
 }
-.product-details .button {
-    padding-left: 0px!important;
-    padding-right: 0px!important;
-}
 
 .button {
-    font: 600 17px/24px $bf;
+    font: 600 18px/24px $bf;
     padding: 15px 20px;
     transition: all 0.2s ease-in-out;
     border: 0;
@@ -27,9 +23,7 @@ body {
     text-transform: uppercase;
     white-space: normal;
     word-wrap: break-word;
-    font-size: 18px;
     letter-spacing: 0.7px;
-    width: 250px;
     box-shadow: none;
     outline: none;
 
@@ -52,7 +46,9 @@ body {
             }
         }
     }
-
+    &.button-fill {
+        margin: 10px auto;
+    }
     &.button-primary {
         background-color: #157c68;
         border-color: #157c68;
@@ -79,16 +75,20 @@ body {
 }
 
 .form {
+    .form-group{
+        vertical-align: top;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 0;
+    }
     .form-label {
         color: #878787;
         width: 100%;
-        position: absolute;
-        left: 0;
         transition: 0.2s ease-out;
         cursor: text;
-        top: 1.3rem;
-        transform: translateY(-160%);
         font: 600 16px/26px $bf;
+        z-index: 2;
     }
 
     .form-control:not([type="radio"]):not([type="checkbox"]) {
@@ -100,10 +100,12 @@ body {
         border-radius: 0;
         background-color: transparent;
         color: #212121;
-        padding: 0.55rem 0 0.3rem 0;
+        padding: 1.1rem 0 0.3rem 0;
         font: 400 17px/24px "Source Sans Pro",sans-serif;
         width: 100%;
         display: block;
+        margin-top:-15px;
+        z-index: 1;
 
         &:focus {
             border: none;
@@ -126,12 +128,6 @@ body {
             padding: 0 15px 0 3px;
             color: #297c68;
         }
-    }
-
-    .form-group {
-        position: relative;
-        margin-top: 1.5rem;
-        margin-bottom: 15px;
     }
 }
 
@@ -165,40 +161,33 @@ body {
 
 .section {
     &.section-header {
-        min-height: 120px;
-        
         .heade-sprite {
             background-image: url("../img/splash-top-ba.png");
-            height: 100%;
+            height: 650px;
             width: 100%;
-        }
-
-        .header-content {
-            padding: 180px 0;
-            .button {
-                margin: 0 auto;
-                width: auto;
-            }
         }
 
         .block-navbar {
             position: fixed;
         }
     }
+
     &.section-steps {
         .wrapper {
             .section-sprite {
-                display:none;
+                display: none;
             }
             .section-splash {
                 display: none;
             }
         }
     }
+
     &.section-faq {
         .section-splash {
-            display:none;
+            display: none;
         }
+
         .faq {
             .faq-item {
                 &:hover:not(.active) {
@@ -214,6 +203,7 @@ body {
             }
         }
     }
+
     &.section-footer {
         background-color: #3a3a3a;
         margin-top: 0;
@@ -221,41 +211,7 @@ body {
         color: #fff;
     }
 
-    @media screen and (max-width: 1920px) {
-        &.section-steps {
-            .section-splash {
-                height: 725px;
-            }
-        }
-        &.section-header {
-            .heade-sprite {
-                height: 90%;
-                background-size: auto 100%;
-            }
-        }
-    }
-    @media screen and (max-width: 1800px) {
-        &.section-header {
-            .heade-sprite {
-                height: 80%;
-                background-size: auto 100%;
-            }
-        }
-    }
     @media screen and (max-width: 1500px) {
-        .section-title {
-            margin: 0 0 20px;
-            font: 700 30px/40px $bf;
-        }
-
-        &.section-header {
-            .heade-sprite {
-                height: 625px;
-                background-size: auto 100%;
-                bottom: 100px;
-            }
-        }
-
         &.section-steps {
             .section-splash {
                 height: 600px;
@@ -266,21 +222,30 @@ body {
             }
         }
     }
-    @media screen and (max-width: 1070px) {
+
+    @media screen and (max-width: 1000px) {
         &.section-header {
-            .heade-sprite {
-                height: 60%;
-                background-size: auto 100%;
-            }
+            padding-top: 60px;            
         }
     }
 }
 
-.modal .modal-content {
-    .description{
-        padding: 10px 0;
-        font: 400 22px/34px $bf;
-        color: $ptc;
+.modal {
+    background: rgba(25,39,52,0.5);
+    .modal-content {
+        .form {
+            .form-group{
+                flex-direction: column;
+            }
+        }
+        .text-center {
+            .form-group{
+                flex-direction: row;
+            }
+        }
+        .description{
+            font: 400 22px/34px $bf;
+            color: $ptc;
     
         .popup-title-styled{
             color: #157c68;
@@ -288,7 +253,7 @@ body {
             white-space: nowrap;
         }
     }
-
+}
     .subdescription {
         color: grey;
 
@@ -297,8 +262,6 @@ body {
         }
     }
 }
-
-
 
 .block {
     $navbar_transition: .5s ease-in-out;
@@ -505,39 +468,17 @@ body {
     }
 
     &.block-products {
-        padding: 0 30px;
-
         .product-item {
-            padding: 0 15px;
-
             .product-item-inner {
                 box-shadow: $base_shadow;
-                border-radius: 5px;
+                border-radius: 0px;
                 background-color: rgba(255, 255, 255, .9);
             }
 
             .product-image {
-                width: 100%;
-                position: relative;
-                height: 200px;
                 border: 1px solid #ececec;
-                border-radius: none;
-                margin: none;
-                transform: none;
-                box-shadow: none;
-                transition: none;
-
-                img {
-                    position: absolute;
-                    z-index: 1;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    min-height: 100%;
-                    border-radius: .25rem .25rem 0 0;
-                }
-
+                border-radius: 0px;
+                
                 &:after {
                     background: rgba(33, 33, 33, 0.3);
                     transition: all 0.4s ease-in-out;
@@ -545,27 +486,19 @@ body {
                 }
             }
 
+            .product-details {
+                padding: 20px;
+            }
+
             .product-name {
                 color: #a80a2d;
-                word-wrap: break-word;
-                padding: 1.25rem 1.25rem 0;
-                font: 600 18px/26px $bf;
             }
 
             .product-discount {
                 color: #157c68;
-                padding-left: 1.25rem;
-                padding-bottom: 1.25rem;
-            }
-
-            .product-price {
-                width: 50%;
-                padding-right: 1.25rem;
-                padding-bottom: 1.25rem;
             }
 
             .product-item-inner {
-                display: block;
                 @include cf();
 
                 &:hover {
@@ -582,15 +515,6 @@ body {
         }
     }
 
-    &.block-map {
-        .block-content {
-            .button {
-                padding-left: 0;
-                padding-right: 0;
-            }
-        }
-    }
-
     &.block-map_card {
         border-radius: 2px;
         box-shadow: $base_shadow;
@@ -598,13 +522,6 @@ body {
 
     &.block-show-more {
         text-align: center;
-        padding: 20px 0 20px 0;
-        margin: 0;
-
-        .button {
-            padding-left: 0;
-            padding-right: 0;
-        }
     }
 
     &.block-blogs {
@@ -662,11 +579,6 @@ body {
         .contact-form {
             border-radius: 2px;
 
-            .button {
-                padding-left: initial;
-                padding-right: initial;
-            }
-
             .contact-details {
                 .contact-email {
                     color: #a92b2d;
@@ -706,9 +618,6 @@ body {
 
         .footer-subscribe {
             .button {
-                width: 76px;
-                padding-right: 0;
-                padding-left: 0;
                 margin: 0;
                 border-radius: 0;
 
@@ -723,7 +632,6 @@ body {
         border: none;
         background-color: #212121;
         color: #fff;
-        height: 4.875rem;
         font-size: 1rem;
         padding: 25px 0;
 
@@ -917,25 +825,15 @@ body {
         border-radius: 2px;
 
         .block-title {
-            font: 500 22px $bf;
             color: #a80a2d;
-            font-size: 1.75rem;
-            line-height: calc(32 / 28);
-            margin-bottom: 2rem;
-            padding: 0;
         }
 
         .block-description {
             color: #212121;
-            font-size: inherit;
         }
 
         .block-link {
-            font: 400 16px/22px $bf;
-            display: block;
-            text-align: right;
             color: #297c68;
-            text-transform: uppercase;
 
             .mdi {
                 color: #297c68;
@@ -1167,8 +1065,9 @@ body {
         &.block-navbar {
             .navbar-logo {
                 display: block;
-                padding: 5px 0;
-                padding-right: 40px;
+                padding: 0;
+                padding-right: 0;
+                margin-right: 0;
 
                 img {
                     height: 40px;
@@ -1176,8 +1075,10 @@ body {
             }
 
             .block-auth {
+                padding: 0 0 0 0;
+
                 .button {
-                    padding: 7px 5px;
+                    padding: 9px 15px;
                 }
 
                 &.block-auth-border {
@@ -1185,57 +1086,36 @@ body {
                     padding: 1px 10px 0 0;
                 }
             }
-        }
-
-        &.block-navbar {
-            .block-auth {
-                padding: 0 10px 0 0;
-            }
 
             &.top-nav-collapse {
                 .block-auth {
                     .auth-in {
-                        padding-top: 2px;
+                        // padding-top: 2px;
+                    }
+
+                .button {
+                        padding: 9px 15px;
                     }
                 }
             }
         }
 
         &.block-products {
-            padding: 0 10px;
-        }
-    }
+            .product-item {
+                .product-item-inner {
+                    .product-image {
+                        height: 100%;
+                        background-size: cover;
+                        background-position: 50%;
 
-    @media screen and (max-width: 767px) {
-        &.block-map{
-            background:none;
-        }
-        &.block-navbar {
-            .navbar-logo {
-                width: 40px;
-                padding: 5px;
-                margin-right: 0;
-            }
-
-            .block-auth {
-                padding: 0;
-                
-                .button {
-                    width: 130px;
-                }
-            }
-
-            &.top-nav-collapse{
-                .block-auth{
-                    .button {
-                        padding: 4px 5px;
+                        img {
+                            display: none;
+                        }
                     }
-                }
-
-                .navbar-logo {
-                    width: 40px;
-                    margin-right: 0;
-                    padding: 5px;
+                    
+                    .product-details {
+                        padding: 20px;
+                    }
                 }
             }
         }
@@ -1434,32 +1314,6 @@ body {
                             margin-bottom: 0;
                         }
                     }
-                }
-            }
-        }
-    }
-}
-
-@media screen and (max-width: 1000px) {
-    .section {
-        &.section-header {
-            min-height: 70px;
-        }
-    }
-}
-
-@media screen and (max-width: 746px) {
-    .section {
-        &.section-header {
-            .header-content {
-                padding: 100px 20px 0px 20px;
-
-                .button {
-                    margin: 0 auto;
-                    width: 100%;
-                    padding-left: 0px;
-                    padding-right: 0px;
-                    font: 600 17px/24px "Source Sans Pro",sans-serif;
                 }
             }
         }

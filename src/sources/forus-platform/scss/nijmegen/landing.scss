@@ -1,3 +1,8 @@
+ui-view {
+    flex: 1 0 auto;
+    min-height: 85vh;
+}
+
 .form {
     .form-error {
         font: 400 13px/24px $bf;

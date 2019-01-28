@@ -1,6 +1,6 @@
 .header-splash: .splash.splash-product
 
-header.section.section-header: .wrapper
+header.section.section-header
     top-navbar
 
 section.section.section-product: .wrapper
@@ -30,18 +30,20 @@ section.section.section-product: .wrapper
                     .product-price-old(ng-bind="$ctrl.product.old_price | currency_format")
                     .product-price-insufficient(
                         ng-show="$ctrl.isApplicable == false"
+                        ng-if="$root.auth_user"
                         i18n="product.insufficient")
 
                 .product-expire(ng-if="$ctrl.product.expire_at")
                     .expire-label(i18n="voucher.labels.expire")
                     .expire-value(ng-bind="$ctrl.product.expire_at_locale")
-                
+
                 .button.button-primary(
                     ng-if="$ctrl.isApplicable && !$ctrl.product.deleted"
                     ng-click="$ctrl.applyProduct()") KOOP
+                
                 .button.button-primary(
                     ng-if="!$root.auth_user" 
-                    ng-click="openAuthPopup()") LOG IN
+                    ng-click="openAuthPopup()") LOG IN OM TE KOPEN
 
         .block.block-info-card
             .block-header(i18n="voucher.labels.shopdetail")

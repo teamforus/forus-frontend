@@ -137,8 +137,8 @@ module.exports = {
             month: "Maand",
             week: "Week",
             all: "Alles",
-            total: "Totaal resterend bedrag",
-            spend: "Totaal uitgegeven bedrag",
+            total: "Huidig saldo",
+            spend: "Startbudget",
             used: "Totaal uitgegeven bedrag in %",
             usage: "uitgegeven",
             payed: "Uitgegeven bij",
@@ -178,6 +178,7 @@ module.exports = {
             status: "Status",
             start: "Startdatum",
             end: "Einddatum",
+            notification_amount: "Aanvulherinnering grens"
         },
         buttons: {
             cancel: "Annuleren",
@@ -234,6 +235,7 @@ module.exports = {
             adjust: "Bewerk",
             add: "Voeg een nieuwe vestiging toe",
             map: "Bekijk op de kaart",
+            delete: "Verwijderen"
         },
         labels: {
             mail: "E-mail",
@@ -243,6 +245,10 @@ module.exports = {
             phone: "Telefoonnummer",
             hours: "Openingstijden:",
             offices: "Vestigingen ",
+        },
+        confirm_delete: {
+            title: "Weet u zeker dat u deze vestiging wilt verwijderen?",
+            description: "Wanneer u de vestiging verwijderd kunt u dit niet ongedaan maken. Bedenk daarom goed of u deze actie wilt verrichten."
         }
     },
 
@@ -348,7 +354,7 @@ module.exports = {
         },
         confirm_create: {
             title: 'Een aanbieding toevoegen.',
-            description: 'Let op! U staat op het punt een aanbieding op de webshop toe te voegen. Daarna kunt u de aanbieding niet meer verwijderen. De aanbieding kan alleen verwijderd worden vanaf het moment dat het is uitverkocht of de vervaldatum is bereikt.'
+            description: 'Let op! U staat op het punt een aanbieding op de webshop toe te voegen. U kunt maximaal twee aanbiedingen toevoegen op de webshop. Klik op bevestig om door te gaan.'
         }
     },
 
@@ -579,6 +585,16 @@ module.exports = {
             one: "1",
             two: "2",
             three: "3",
+        },
+        export: {
+            labels: {
+                date: 'Datum',
+                amount: 'Bedrag',
+                fund: 'Fonds',
+                provider: 'Aanbieder',
+                payment_id: 'Betalingskenmerk',
+                state: 'Status'
+            }
         }
     },
 
@@ -766,6 +782,7 @@ module.exports = {
             account: "NL83 BUNQ 3456 3344 32",
             addcode: "voeg code  ",
             description: "  toe aan de beschrijving",
+            copy: "Kopieer naar klembord"
         }
     },
 
@@ -898,6 +915,16 @@ module.exports = {
             code: "Activatiecode",
             mailing: "E-mail",
         },
+        pin_code: {
+            confirmation: {
+                title: "Is de mobiele app gekoppeld aan uw persoonlijk e-mailadres?",
+                description: "Ga naar het tabblad Profiel in de app. Ziet u hier uw e-mailadres staan? Dan is de app succesvol gekoppeld. Als u de keuze voor Profiel niet hebt, probeer het dan nog is.",
+                buttons: {
+                    try_again: "Opnieuw proberen",
+                    confirm: "Volgende"
+                }
+            }
+        }
     },
     product_category_type: {
         products: "PRODUCTEN",

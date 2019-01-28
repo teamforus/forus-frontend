@@ -1,6 +1,6 @@
 .header-splash: .splash.splash-d
 
-header.section.section-header: .wrapper
+header.section.section-header
     top-navbar
 
 section.section.section-apply_fund: .wrapper
@@ -27,7 +27,7 @@ section.section.section-apply_fund: .wrapper
                     +cirteria_item("Inkomensgrens", "< € 1118.46")
 
             .apply_fund-menu
-                button(ng-if="$ctrl.countInvalid == 0" ng-click="$ctrl.applyFund()").button.button-primary.button-wide {{ "fund_apply.buttons.join" | translate }}
+                button(ng-if="$ctrl.countInvalid == 0" ng-click="$ctrl.applyFund()").button.button-primary.button-fill {{ "fund_apply.buttons.join" | translate }}
         .apply_fund-content
             .block.block-fund_criteria
                 fund-criterion(
