@@ -13,10 +13,6 @@ $base_shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
 body {
     background: #fff;
 }
-.product-details .button {
-    padding-left: 0px!important;
-    padding-right: 0px!important;
-}
 
 .button {
     font: 600 18px/24px $bf;
@@ -50,7 +46,9 @@ body {
             }
         }
     }
-
+    &.button-fill {
+        margin: 10px auto;
+    }
     &.button-primary {
         background-color: #157c68;
         border-color: #157c68;
@@ -77,16 +75,20 @@ body {
 }
 
 .form {
+    .form-group{
+        vertical-align: top;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 0;
+    }
     .form-label {
         color: #878787;
         width: 100%;
-        position: absolute;
-        left: 0;
         transition: 0.2s ease-out;
         cursor: text;
-        top: 1.9rem;
-        transform: translateY(-160%);
         font: 600 16px/26px $bf;
+        z-index: 2;
     }
 
     .form-control:not([type="radio"]):not([type="checkbox"]) {
@@ -102,6 +104,8 @@ body {
         font: 400 17px/24px "Source Sans Pro",sans-serif;
         width: 100%;
         display: block;
+        margin-top:-15px;
+        z-index: 1;
 
         &:focus {
             border: none;
@@ -159,7 +163,7 @@ body {
     &.section-header {
         .heade-sprite {
             background-image: url("../img/splash-top-ba.png");
-            height: 100%;
+            height: 650px;
             width: 100%;
         }
 
@@ -226,11 +230,22 @@ body {
     }
 }
 
-.modal .modal-content {
-    .description{
-        padding: 10px 0;
-        font: 400 22px/34px $bf;
-        color: $ptc;
+.modal {
+    background: rgba(25,39,52,0.5);
+    .modal-content {
+        .form {
+            .form-group{
+                flex-direction: column;
+            }
+        }
+        .text-center {
+            .form-group{
+                flex-direction: row;
+            }
+        }
+        .description{
+            font: 400 22px/34px $bf;
+            color: $ptc;
     
         .popup-title-styled{
             color: #157c68;
@@ -238,7 +253,7 @@ body {
             white-space: nowrap;
         }
     }
-
+}
     .subdescription {
         color: grey;
 
@@ -456,13 +471,14 @@ body {
         .product-item {
             .product-item-inner {
                 box-shadow: $base_shadow;
-                border-radius: 5px;
+                border-radius: 0px;
                 background-color: rgba(255, 255, 255, .9);
             }
 
             .product-image {
                 border: 1px solid #ececec;
-
+                border-radius: 0px;
+                
                 &:after {
                     background: rgba(33, 33, 33, 0.3);
                     transition: all 0.4s ease-in-out;
@@ -483,7 +499,6 @@ body {
             }
 
             .product-item-inner {
-                display: block;
                 @include cf();
 
                 &:hover {

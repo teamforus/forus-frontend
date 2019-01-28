@@ -156,6 +156,7 @@ ui-view{
     }
 
     &.button-dark {
+        display: inline-block;
         color: #fff;
         background: #282b39;
         border: 1px solid #282b39;
@@ -184,18 +185,23 @@ ui-view{
         }
     }
 
+
+    &.button-wide,
+    &.button-wide {
+        margin: 0 auto;
+    }
     &.button-fill {
-        width: 100%;
+        margin: 30px auto;
     }
 
     &.button-wide {
-        padding-left: 100px;
-        padding-right: 100px;
+        padding-left: 50px;
+        padding-right: 50px;
     }
 
     &:last-child,
     &:last-of-type {
-        margin-right: 0;
+        
     }
 }
 
@@ -1247,15 +1253,15 @@ ui-view{
 
         &.section-header {
             .header-content {
-                padding: 80px 0;
+                padding: 180px 0;
                 
                 .header-title {
-                    font: 700 26px/40px $bf;
+                    font: 700 40px/50px "Source Sans Pro",sans-serif;
                     margin: 0 0 15px;
                 }
 
                 .header-description {
-                    font: 400 16px/28px $bf;
+                    font: 400 22px/36px "Source Sans Pro",sans-serif;
                     margin: 0 0 30px;
                 }
             }
@@ -1659,7 +1665,7 @@ ui-view{
 .block {
     &.block-breadcrumbs {
         position: relative;
-        margin-bottom: 10px;
+        margin: 40px 0px;
         @include ellipsis();
         
         .breadcrumb-item {
@@ -4928,6 +4934,7 @@ ui-view{
     }
 
     &.block-pincode {
+        display: flex;
         margin: 30px auto 60px;
         padding: 0;
         text-align: center;
@@ -4937,16 +4944,17 @@ ui-view{
 
         .pincode-number {
             display: block;
-            height: 75px;
+            height: 70px;
             float: left;
-            width: 60px;
+            width: 50px;
             border: 1px solid #dfe4ec;
             background: #fff;
             border-radius: 4px;
             margin-right: 10px;
-            font: 600 28px/75px $bf;
+            font: 600 28px/70px $bf;
             text-align: center;
             cursor: default;
+            flex: 1;
 
             &:last-of-type {
                 margin-right: 0;
@@ -4955,7 +4963,7 @@ ui-view{
     }
 
     &.block-phone-number {
-        width: calc(60px * 10 + 10px * 9);
+        width: calc(50px * 10 + 10px * 9);
         margin: 25px auto;
     }
 
@@ -6554,6 +6562,17 @@ ui-view{
                 max-width: 100%;
             }
         }
+
+        &.block-pincode {
+            .pincode-number {
+                height: 50px;
+                font: 600 22px/50px "Source Sans Pro",sans-serif;
+            }
+        }
+
+        &.block-phone-number {
+            width: calc(30px * 10 + 10px * 1);
+        }
     }
 }
 
@@ -6562,14 +6581,37 @@ ui-view{
     .block {
         &.block-pincode {
             margin: 0 auto 15px;
+            width: calc(60px * 6 + 10px * 5);
+        }
+    }
+    @media screen and (max-width: 767px) {
+        .block {
+            &.block-pincode {
+                margin: 0 auto 15px;
+                width: calc(50px * 6 + 10px * 5);
+                height: 40px;
+            }
         }
     }
 }
 
 .app-instruction {
+    text-align: center;
+    .row {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+    }
+    .col {
+        text-align: center;
+        display:block;
+    }
     .step-item {
-        padding: 0 70px;
+        padding: 50px 30px;
         position: relative;
+        width:400px;
+        margin: 0 auto;
 
         img {
             &:not(.line-item) {
@@ -6583,9 +6625,10 @@ ui-view{
 
             &.line-item {
                 position: absolute;
+
                 top: 200px;
-                left: calc(100% - 82px);
-                width: 163px;
+                left: calc(100% - 35px);
+                min-width: 70px;
                 z-index: 2;
             }
         }
@@ -6599,13 +6642,13 @@ ui-view{
 
     @media screen and (max-width: 1500px) {
         .step-item {
-            padding: 0 50px;
+            padding: 10px 70px;
 
             img {
                 &.line-item {
                     top: 140px;
-                    width: 115px;
-                    left: calc(100% - 58px);
+                    width: 170px;
+                    left: calc(100% - 85px);
                 }
             }
         }
@@ -6630,6 +6673,19 @@ ui-view{
             img {
                 &.line-item {
                     display: none;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .step-item {
+            img {
+                &:not(.line-item) {
+                    width: 80%;
+                    border: 2px dashed #d2e6ff;
+                    border-radius: 5px;
+                    box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1);
                 }
             }
         }
@@ -6679,7 +6735,6 @@ ui-view{
         overflow: hidden;
         margin: 0 auto;
         box-shadow: 0 20px 40px rgba(#000000, 0.3);
-        padding: 30px 200px;
 
         &.modal-description-pad{
             .description {
@@ -6687,12 +6742,11 @@ ui-view{
                 color: #134478 !important;
             }
         }
-
         .subdescription{
             display: inline-block;
             border: 1px solid #eff6f8;
             background: #fff;
-            padding: 10px;
+            padding: 10px 80px;
             border-radius: 5px;
             font: 400 22px/34px $bf;
             color: #646f79;
@@ -6706,7 +6760,8 @@ ui-view{
             }
         }
 
-        .title{
+        .title {
+            margin-top:20px;
             color: #282b39;
             font: 700 40px $bf;
             text-align: center;
@@ -6714,7 +6769,7 @@ ui-view{
         }
 
         .description{
-            padding: 10px 0;
+            padding: 10px 80px;
             font: 400 22px/34px $bf;
             color: #646f79;
 
@@ -6732,8 +6787,8 @@ ui-view{
         }
 
         .button{
-            min-width: 250px;
             text-transform: uppercase;
+            display: flex;
         }
 
         .modal-icon{
@@ -6748,6 +6803,8 @@ ui-view{
     .modal-footer {
         padding: 30px;
         border-top: 1px solid #d2e6ff;
+        display: flex;
+        justify-content: center;
 
         &.no-border{
             border: 0!important;
@@ -6784,6 +6841,7 @@ ui-view{
             font: 700 40px $bf;
             text-align: center;
             margin-bottom: 10px;
+            margin-top: 20px;
         }
 
         .modal-subtitle {
@@ -6794,18 +6852,27 @@ ui-view{
         }
 
         .modal-content {
-            padding: 30px 200px;
 
             .form {
                 width: 480px;
                 margin: 0 auto;
                 padding: 10px 0;
             }
+
+            &.button {
+                display: inline-block;
+            }
         }
 
-        .modal-footer {
-            padding: 30px 200px;
-            margin: 30px -200px -30px;
+        .with-instructions {
+            .modal-footer {
+                padding: 30px 200px;
+                margin: 30px -200px -30px;
+            }
+        }
+
+        .button {
+            display: block;
         }
     }
 
@@ -6818,6 +6885,7 @@ ui-view{
     @media screen and (max-width: 1500px) {
         .modal-content {
             width: 1000px;
+            padding: 30px 0px;
         }
 
         .modal-footer {
@@ -6838,7 +6906,8 @@ ui-view{
 
             .modal-subtitle {
                 font: 400 16px $bf;
-                padding: 0 0 20px;
+                padding: 0px 10px 20px;
+                margin: 0px 40px;
             }
         }
     }
@@ -6925,8 +6994,6 @@ ui-view{
     @media screen and (max-width: 767px) {
         .modal-content {
             .button{
-                margin-right: 0;
-                margin-bottom: 10px;
 
                 &:last-child{
                     margin-bottom: 0;
@@ -7032,6 +7099,15 @@ ui-view{
 
             &.splash-c {
                 height: 700px;
+            }
+        }
+    }
+
+    .block {
+        .block-pincode {
+            .pincode-number {
+                height: 50px;
+                font: 600 22px/50px "Source Sans Pro",sans-serif;
             }
         }
     }

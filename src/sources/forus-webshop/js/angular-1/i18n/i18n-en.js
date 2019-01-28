@@ -675,7 +675,7 @@ module.exports = {
             activate_code: "Stap 3 van 3: Activeer uw tegoed.",
             scancode: "Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent.",
             mobilecode: "Vul uw toegangscode van de Me-app in.",
-            mail: "Heeft u een brief van de gemeente ontvangen met een activatiecode en deze nog niet gebruikt? Ga dan verder. Heeft u deze al wel gebruikt? Sluit dan dit venster en klik op 'login'.",
+            mail: "Heeft u een brief van de gemeente ontvangen met een activatiecode en deze nog niet gebruikt? Ga dan verder.",
             link: "Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen.",
             code: "Vul de activatiecode in die u per brief hebt ontvangen.",
             voucher_email: "Het is gelukt!",
