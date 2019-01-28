@@ -6742,7 +6742,6 @@ ui-view{
                 color: #134478 !important;
             }
         }
-
         .subdescription{
             display: inline-block;
             border: 1px solid #eff6f8;
@@ -6761,7 +6760,8 @@ ui-view{
             }
         }
 
-        .title{
+        .title {
+            margin-top:20px;
             color: #282b39;
             font: 700 40px $bf;
             text-align: center;
@@ -6864,9 +6864,11 @@ ui-view{
             }
         }
 
-        .modal-footer {
-            padding: 30px 200px;
-            margin: 30px -200px -30px;
+        .with-instructions {
+            .modal-footer {
+                padding: 30px 200px;
+                margin: 30px -200px -30px;
+            }
         }
 
         .button {
