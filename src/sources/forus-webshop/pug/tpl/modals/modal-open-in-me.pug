@@ -40,4 +40,4 @@
                 .text-center.form-error(ng-repeat="error in $ctrl.authorizePincodeForm.errors.auth_code track by $index" ng-bind="error")
             .modal-footer.text-center
                 .form-group: button.button.button-dark(ng-click="$ctrl.close()" i18n="open_in_me.authorize.close")
-                    button(type="submit").button.button-primary(i18n="open_in_me.authorize.submit")
+                    button(type="submit" i18n="open_in_me.authorize.submit").button.button-primary
