@@ -233,8 +233,15 @@ body {
 .modal {
     background: rgba(25,39,52,0.5);
     .modal-content {
-        .form-group{
-            flex-direction: column;
+        .form {
+            .form-group{
+                flex-direction: column;
+            }
+        }
+        .text-center {
+            .form-group{
+                flex-direction: row;
+            }
         }
         .description{
             font: 400 22px/34px $bf;
