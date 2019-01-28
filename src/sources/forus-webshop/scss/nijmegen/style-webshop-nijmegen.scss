@@ -80,7 +80,6 @@ body {
         display: flex;
         align-items: flex-start;
         justify-content: flex-start;
-        flex-direction: column;
         padding: 0;
     }
     .form-label {
@@ -234,6 +233,9 @@ body {
 .modal {
     background: rgba(25,39,52,0.5);
     .modal-content {
+        .form-group{
+            flex-direction: column;
+        }
         .description{
             font: 400 22px/34px $bf;
             color: $ptc;
