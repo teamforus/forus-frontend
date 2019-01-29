@@ -1,7 +1,7 @@
 .modal.modal-auth
     .modal-backdrop(ng-click="$ctrl.close()")
 
-    .modal-content(ng-if="!$ctrl.sentSms")
+    .modal-content(ng-if="!$ctrl.sentSms"): .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
 
         .modal-title(translate="open_in_me.sms.title")
@@ -16,7 +16,7 @@
                 button.button.button-primary(type="submit") {{ "open_in_me.sms.button.send" | translate }}
                 button.button.button-dark(type="button" ng-click="$ctrl.skip()") {{ "open_in_me.sms.button.skip" | translate }}
 
-    .modal-content(ng-if="$ctrl.sentSms")
+    .modal-content(ng-if="$ctrl.sentSms"): .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
         .row.app-instruction
             .col.col-md-10.col-md-offset-1

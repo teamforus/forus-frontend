@@ -33,6 +33,12 @@
     display: none !important;
 }
 
+.f-w {
+    width: 100%!important;
+}
+
+
+a[ng-click],
 a[ui-sref] {
     cursor: pointer !important;
 }
@@ -118,18 +124,18 @@ ui-view{
     }
 
     &.button-default {
-        color: #004195;
-        border: 1px solid #d2e6ff;
+        color: $color_default;
+        border: 1px solid $border_color;
         box-shadow: 0 10px 25px rgba(#000, 0);
 
         .mdi {
-            color: #3863fb;
+            color: $color_default_light;
         }
 
         &:hover {
             color: #fff;
-            background: #3863fb;
-            border-color: #3863fb;
+            background: $color_default_light;
+            border-color: $color_default_light;
             box-shadow: 0 10px 20px rgba(#000, .2);
 
             .mdi {
@@ -140,13 +146,14 @@ ui-view{
 
     &.button-primary {
         color: #fff;
-        background: #305dfb;
-        border: 1px solid #305dfb;
+        background: $color_primary;
+        border: 1px solid $color_primary;
         box-shadow: 0 10px 25px rgba(#000, .15);
 
         &:hover {
             color: #fff;
-            background: #4c74ff;
+            background: $color_primary_light;
+            background-color: $color_primary_light;
             box-shadow: 0 10px 20px rgba(#000, .3);
 
             img {
@@ -180,7 +187,7 @@ ui-view{
         border-radius: 50px;
 
         &:hover {
-            background: #305dfb;
+            background: $color_primary;
             color: #fff;
         }
     }
@@ -190,8 +197,9 @@ ui-view{
     &.button-wide {
         margin: 0 auto;
     }
+    
     &.button-fill {
-        margin: 30px auto;
+        width: 100%;
     }
 
     &.button-wide {
@@ -201,12 +209,82 @@ ui-view{
 
     &:last-child,
     &:last-of-type {
-        
+        margin-right: 0;
     }
 }
 
 .map-canvas {
     @include fill_parent();
+}
+
+.tooltip-block {
+    position: relative;
+    display: inline-block;
+    padding-right: 15px;
+    vertical-align: text-bottom;
+    margin-left: 3px;
+
+    .tooltip-icon {
+        width: 16px;
+        height: 16px;
+        background: url('../img/Info.png') no-repeat 50% 50%;
+        background-size: contain;
+        cursor: pointer;
+    }
+
+    .tooltip {
+        position: absolute;
+        top: 8px;
+        transform: translate(0, -50%);
+        left: 100%;
+        width: 300px;
+        border: 1px solid $border_color;
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        background: #fff;
+        z-index: 5;
+        border-radius: 4px;
+        font: 500 14px/20px $bf;
+        text-transform: none;
+        color: #45535e;
+        display: none;
+
+        &:after,
+        &:before {
+            right: 100%;
+            top: 50%;
+            border: solid transparent;
+            content: ' ';
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        &:after {
+            border-color: rgba(255, 255, 255, 0);
+            border-right-color: #fff;
+            border-width: 10px;
+            margin-top: -10px;
+        }
+
+        &:before {
+            border-color: rgba(210, 230, 255, 0);
+            border-right-color: #d2e6ff;
+            border-width: 11px;
+            margin-top: -11px;
+        }
+    }
+
+    &:hover {
+        .tooltip-icon {
+            background-image: url('../img/Info_hover.png');
+        }
+
+        .tooltip {
+            display: block;
+        }
+    }
 }
 
 .map-card {
@@ -333,7 +411,7 @@ ui-view{
             line-height: 50px;
             padding: 0 15px;
             font-size: 25px;
-            color: #305dfb;
+            color: $color_primary;
         }
     }
 
@@ -412,6 +490,10 @@ ui-view{
             &:last-child, &:last-of-type {
                 margin-bottom: 0;
             }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
         }
     }
 
@@ -631,14 +713,59 @@ ui-view{
     }
 }
 
+.app-instruction {
+    text-align: center;
+
+    .step-item {
+        padding: 50px 80px;
+        position: relative;
+        width: 400px;
+        margin: 0 auto;
+        display: inline-block;
+
+        img {
+            &:not(.line-item) {
+                width: 100%;
+                border: 2px dashed #d2e6ff;
+                border-radius: 5px;
+                box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1);
+                position: relative;
+                z-index: 1;
+            }
+
+            &.line-item {
+                position: absolute;
+
+                top: 200px;
+                left: calc(100% - 80px);
+                min-width: 70px;
+                z-index: 2;
+            }
+        }
+
+        .app-title {
+            font: 500 16px/24px $bf;
+            padding: 5px 0 15px 0;
+            text-align: center;
+        }
+    }
+
+    .divider-img {
+        img {
+            width: 100%;
+        }
+    }
+}
+
 .section {
     .section-title {
         font: 700 40px/60px $bf;
         margin: 0 0 40px;
         position: relative;
+        color: #00122a;
     }
-    .section-subtitle
-    {
+
+    .section-subtitle {
         font: 500 26px/46px $bf;
         color: blue;
         margin-top:-20px;
@@ -652,7 +779,7 @@ ui-view{
         position: relative;
         @include cf();
 
-        .heade-sprite {
+        .header-sprite {
             background: url("../img/sprite-meapp.png") no-repeat;
             background-position: 100% 0%;
             background-size: auto 90%;
@@ -873,6 +1000,7 @@ ui-view{
     &.section-products {
         z-index: 1;
         position: relative;
+        margin: 0 0 40px;
 
         .section-title {
             margin: 0 0 20px;
@@ -880,6 +1008,7 @@ ui-view{
         }
 
         .section-filters {
+            @include cf();
             margin-bottom: 40px;
 
             input[type=text] {
@@ -897,6 +1026,7 @@ ui-view{
     &.section-steps {
         position: relative;
         margin-top: 25px;
+        margin-bottom: 40px;
 
         .section-splash {
             position: absolute;
@@ -926,7 +1056,6 @@ ui-view{
 
         .section-title {
             text-align: center;
-            color: #00122a;
             font: 700 40px/60px $bf;
             margin: 0 0 70px;
         }
@@ -936,7 +1065,7 @@ ui-view{
             max-width: 100%;
             padding: 0 100px;
             margin: 0 auto;
-            min-height: 1100px;
+            min-height: 800px;
             background: url('../img/steps-shape.png') no-repeat;
             background-size: 303px 930px;
             background-position: 65px 50%;
@@ -1024,7 +1153,6 @@ ui-view{
         margin: 0 0 40px;
 
         .section-title {
-            color: #00122a;
             font: 700 40px/60px $bf;
             margin: 0 0 40px;
             text-align: center;
@@ -1048,11 +1176,11 @@ ui-view{
             width: 820px;
             max-width: 100%;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
 
             .faq-item {
                 background: #fff;
-                border: 1px solid #d2e6ff;
+                border: 1px solid $border_color;
                 border-radius: 4px;
                 margin-bottom: 10px;
                 position: relative;
@@ -1082,13 +1210,6 @@ ui-view{
 
                     .faq-item-chevron-down {
                         display: block;
-                    }
-
-                    &:hover {
-                        .faq-item-chevron-up,
-                        .faq-item-chevron-down {
-                            color: #017f96;
-                        }
                     }
                 }
                 
@@ -1136,6 +1257,7 @@ ui-view{
 
     &.section-flow {
         margin-bottom: 100px;
+
         &.wide-70 {
             width: 50%;
             margin-left:12%; 
@@ -1237,9 +1359,6 @@ ui-view{
         z-index: 1;
     }
 
-    &.section-profile {
-    }
-
     &.section-apply_fund {
         position: relative;
         z-index: 1;
@@ -1256,12 +1375,12 @@ ui-view{
                 padding: 180px 0;
                 
                 .header-title {
-                    font: 700 40px/50px "Source Sans Pro",sans-serif;
+                    font: 700 40px/50px $bf;
                     margin: 0 0 15px;
                 }
 
                 .header-description {
-                    font: 400 22px/36px "Source Sans Pro",sans-serif;
+                    font: 400 22px/36px $bf;
                     margin: 0 0 30px;
                 }
             }
@@ -1336,8 +1455,8 @@ ui-view{
     }
 
     @media screen and (max-width: 1500px) {
-        .section.section-header {
-            .heade-sprite {
+        .section-header {
+            .header-sprite {
                 background-size: auto 80%;
             }
         }
@@ -1511,7 +1630,7 @@ ui-view{
                 padding: 0;
             }
 
-            .heade-sprite {
+            .header-sprite {
                 display: none;
             }
 
@@ -1539,10 +1658,13 @@ ui-view{
 
                 .header-title {
                     margin: 0 0 20px;
+                    font-size: 26px;
+                    line-height: 38px;
                 }
 
                 .header-description {
                     margin: 0 0 20px;
+                    font: 400 16px/32px $bf;
                 }
 
                 .button {
@@ -1671,7 +1793,7 @@ ui-view{
         .breadcrumb-item {
             display: inline-block;
             font: 600 16px $bf;
-            color: #305dfb;
+            color: $color_primary;
             transition: .4s;
 
             &:after {
@@ -1703,7 +1825,7 @@ ui-view{
         padding: 0 30px;
 
         .navbar-inner {
-            border-radius: 8px;
+            border-radius: $border_radius;
             background-color: #ffffff;
             box-shadow: 0 10px 20px rgba(#000, .075);
             @include cf();
@@ -1715,11 +1837,11 @@ ui-view{
         .navbar-logo {
             justify-self: flex-start;
             padding: 30px 40px;
-            border-right: 1px solid #d2e6ff;
+            border-right: 1px solid $border_color;
 
             img {
                 display: block;
-                margin: -5px 0;
+                margin: 0 0;
 
                 &.hover {
                     display: none;
@@ -1733,6 +1855,7 @@ ui-view{
             flex-grow: 1;
             display: block;
             text-align: left;
+
             .navbar-item-wrapper {
                 display: inline-block;
                 position: relative;
@@ -1745,10 +1868,9 @@ ui-view{
                     position: relative;
                     transition: .4s;
                     cursor: pointer;
-                    a.caps {
-                        font-weight: bold;
-                        text-transform: uppercase;
-                    }
+                    font-weight: bold;
+                    text-transform: uppercase;
+
                     &:before {
                         content: '';
                         top: 0;
@@ -1777,11 +1899,13 @@ ui-view{
                         }
                     }
                 }
+
                 &:hover {
                     .navbar-menu {
                         display: block;
                     }
                 }
+
                 .navbar-menu {
                     background: #ffffff;
                     box-shadow: 0 0 20px rgba(#000, .075);
@@ -1824,7 +1948,7 @@ ui-view{
                         }
     
                         &:hover {
-                            color: #305dfb;
+                            color: $color_primary;
                             background: #f6f8f9;
                         }
                     }
@@ -1880,7 +2004,7 @@ ui-view{
 
                     .auth-user-email {
                         font: 700 13px $bf;
-                        color: #305dfb;
+                        color: $color_primary;
                         float: left;
                         text-align: right
                     }
@@ -1896,7 +2020,7 @@ ui-view{
                         width: 40px;
                         height: 40px;
                         border-radius: 40px;
-                        border: 1px solid #d2e6ff;
+                        border: 1px solid $border_color;
                         position: absolute;
                         right: 0;
                         top: 20px;
@@ -1949,7 +2073,7 @@ ui-view{
                             }
 
                             &:hover {
-                                color: #305dfb;
+                                color: $color_primary;
                                 background: #f6f8f9;
                             }
                         }
@@ -2055,7 +2179,7 @@ ui-view{
 
                 &:hover {
                     .product-name {
-                        color: #004195;
+                        color: $color_default;
                     }
 
                     .product-image {
@@ -2120,7 +2244,7 @@ ui-view{
 
         .map_card-header,
         .map_card-footer {
-            border: 1px solid #d2e6ff;
+            border: 1px solid $border_color;
             padding: 15px 25px;
 
             .map_card-title {
@@ -2147,7 +2271,7 @@ ui-view{
         }
 
         .map_card-iframe {
-            border: 1px solid #d2e6ff;
+            border: 1px solid $border_color;
             border-top: none;
             border-bottom-left-radius: inherit;
             border-bottom-right-radius: inherit;
@@ -2174,7 +2298,6 @@ ui-view{
 
     &.block-show-more {
         text-align: center;
-        padding: 20px 0 0;
         margin: 0 0 30px;
 
         &:last-child {
@@ -2227,7 +2350,7 @@ ui-view{
 
             .blog-read-more {
                 font: 500 13px $bf;
-                color: #004195;
+                color: $color_default;
             }
 
             .blog-item-inner {
@@ -2247,7 +2370,7 @@ ui-view{
                     transform: translate(0, -5px);
                     
                     .blog-name {
-                        color: #004195;
+                        color: $color_default;
                     }
 
                     .blog-image {
@@ -2273,7 +2396,7 @@ ui-view{
 
         .contact-form {
             background-color: #fff;
-            border-radius: 8px;
+            border-radius: $border_radius;
             padding: 50px 70px;
             box-shadow: 0 5px 40px rgba(#000, .1);
             position: relative;
@@ -2316,7 +2439,7 @@ ui-view{
                         display: block;
                         width: 40px;
                         height: 40px;
-                        border: 1px solid #d2e6ff;
+                        border: 1px solid $border_color;
                         background: #fff;
                         border-radius: 40px;
                         text-align: center;
@@ -2393,7 +2516,7 @@ ui-view{
                 margin-bottom: 10px;
 
                 a {
-                    color: #004195;
+                    color: $color_default;
                     font: 700 14px/24px $bf;
                     transition: color .4s;
 
@@ -2493,7 +2616,7 @@ ui-view{
 
             .link-separator {
                 height: 30px;
-                border-left: 1px solid #d2e6ff;
+                border-left: 1px solid $border_color;
                 margin-right: 30px;
                 display: block;
                 float: left;
@@ -2506,7 +2629,7 @@ ui-view{
             a {
                 float: left;
                 font: inherit;
-                color: #004195;
+                color: $color_default;
                 margin-right: 30px;
                 display: block;
                 transition: .4s;
@@ -2528,7 +2651,7 @@ ui-view{
 
             a {
                 font: inherit;
-                color: #004195;
+                color: $color_default;
                 transition: .4s;
 
                 &:hover {
@@ -2544,7 +2667,7 @@ ui-view{
         max-height: 100%;
         min-height: 500px;
         height: 90vh;
-        border-radius: 8px;
+        border-radius: $border_radius;
         background-color: #fefefe;
         position: relative;
         overflow: hidden;
@@ -2618,7 +2741,7 @@ ui-view{
                         background: linear-gradient(to bottom, #2788fc 0%,#08abeb 100%);
                         height: 120px;
                         display: block;
-                        border-radius: 8px;
+                        border-radius: $border_radius;
                         padding: 15px;
                         position: relative;
                         box-shadow: 0 10px 25px rgba(#000000, 0.175);
@@ -2722,7 +2845,7 @@ ui-view{
         .shops {
             .shop-item {
                 padding: 20px;
-                border-bottom: 1px solid #d2e6ff;
+                border-bottom: 1px solid $border_color;
                 border-right: 4px solid transparent;
                 cursor: pointer;
                 transition: .4s;
@@ -2771,7 +2894,7 @@ ui-view{
                 }
 
                 .shop-schedule {
-                    border-top: 1px solid #d2e6ff;
+                    border-top: 1px solid $border_color;
                     padding-top: 20px;
                     
                     .shop-schedule-label {
@@ -2881,7 +3004,7 @@ ui-view{
                     .mdi {
                         font-size: 1em;
                         line-height: inherit;
-                        color: #004195;
+                        color: $color_default;
                         vertical-align: baseline;
                         position: relative;
                         margin-left: 0;
@@ -2960,7 +3083,7 @@ ui-view{
                     }
 
                     .auth_type-name {
-                        color: #004195;
+                        color: $color_default;
                     }
                 }
             }
@@ -3020,7 +3143,7 @@ ui-view{
 
                 .fund-name {
                     font: 700 26px $bf;
-                    color: #004195;
+                    color: $color_default;
                     margin-bottom: 5px;
                     @include ellipsis();
 
@@ -3133,7 +3256,7 @@ ui-view{
                 width: 100%;
                 position: relative;
                 padding-left: calc(40% + 30px);
-                border-bottom: 1px solid #d2e6ff;
+                border-bottom: 1px solid $border_color;
                 background: #fff;
 
                 .product-name {
@@ -3340,7 +3463,7 @@ ui-view{
 
         .base-card {
             background-color: #fff;
-            border-radius: 8px;
+            border-radius: $border_radius;
             margin-bottom: 50px;
             box-shadow: 0 10px 25px rgba(#000, .2);
             cursor: default;
@@ -3385,7 +3508,7 @@ ui-view{
                         color: #7b8893;
                         font-size: 20px;
                         background: #fff;
-                        border: 1px solid #d2e6ff;
+                        border: 1px solid $border_color;
                         transition: .4s;
                         cursor: pointer;
                         margin-bottom: 6px;
@@ -3579,7 +3702,7 @@ ui-view{
                 width: 100%;
                 background: #fcfcfc;
                 padding: 20px 25px;
-                border-top: 1px solid #d2e6ff;
+                border-top: 1px solid $border_color;
                 position: relative;
                 display: flex;
                 flex-direction: column;
@@ -3624,7 +3747,7 @@ ui-view{
     }
 
     &.block-info-card {
-        border: 1px solid #d2e6ff;
+        border: 1px solid $border_color;
         background: #fff;
         border-radius: 6px;
         overflow: hidden;
@@ -3634,7 +3757,7 @@ ui-view{
         .block-header {
             font: 700 16px/30px $bf;
             padding: 20px 25px;
-            border-bottom: 1px solid #d2e6ff;
+            border-bottom: 1px solid $border_color;
         }
 
         .block-content {
@@ -3779,7 +3902,7 @@ ui-view{
     }
     
     &.block-transactions {
-        border-radius: 8px;
+        border-radius: $border_radius;
         box-shadow: 0 10px 35px rgba(#000, .05);
         background: #fff;
         margin-bottom: 50px;
@@ -3961,7 +4084,7 @@ ui-view{
                         }
 
                         &:hover {
-                            color: #4c74ff;
+                            color: $color_primary_light;
                         }
                     }
                 }
@@ -3971,7 +4094,7 @@ ui-view{
                 .profile-menu-item {
                     margin-bottom: 15px;
                     background-color: #ffffff;
-                    color: #305dfb;
+                    color: $color_primary;
                     padding: 15px 20px;
                     font: 700 13px/20px $bf;
                     border-radius: 7.5px;
@@ -3982,7 +4105,7 @@ ui-view{
                     transition: .4s;
 
                     .mdi {
-                        color: #305dfb;
+                        color: $color_primary;
                         position: absolute;
                         right: 15px;
                         top: 50%;
@@ -4274,11 +4397,12 @@ ui-view{
         }
     }
 
-    &.block.block-empty {
+    &.block-empty {
         background: #fff;
-        border-radius: 8px;
+        border-radius: $border_radius;
         box-shadow: 0 5px 30px rgba(#000, .05);
         padding: 15px 25px 20px;
+        margin: 0 0 30px;
 
         .block-title {
             font: 700 22px $bf;
@@ -4289,16 +4413,16 @@ ui-view{
         .block-description {
             font: 400 14px $bf;
             color: #646f79;
-            margin-bottom: 15px;
+            margin-bottom: 0;
         }
 
         .block-link {
             font: 600 13px/22px $bf;
-            color: #004195;
+            color: $color_default;
             display: inline-block;
 
             .mdi {
-                color: #2987fd;
+                color: $color_default;
                 font-size: 1.3em;
                 float: right;
                 margin-left: 5px;
@@ -4317,7 +4441,7 @@ ui-view{
 
     &.block-fund_criteria {
         .criteria-item {
-            border-radius: 8px;
+            border-radius: $border_radius;
             overflow: hidden;
             display: block;
             margin-bottom: 15px;
@@ -4346,7 +4470,7 @@ ui-view{
 
                     .criteria-label {
                         font: 400 13px/13px $bf;
-                        color: #004195;
+                        color: $color_default;
                         @include ellipsis();
                         margin-bottom: 6px;
                     }
@@ -4393,25 +4517,25 @@ ui-view{
 
                         .criteria-validation-add {
                             font: 600 13px $bf;
-                            color: #004195;
+                            color: $color_default;
                             transition: .4s;
                             
                             .mdi {
-                                background: #004195;
+                                background: $color_default;
                             }
 
                             &:hover {
-                                color: #4c74ff;
+                                color: $color_primary_light;
 
                                 .mdi {
-                                    background: #4c74ff;
+                                    background: $color_primary_light;
                                 }
                             }
                         }
 
                         .criteria-validation-valid {
                             font: 600 13px $bf;
-                            color: #004195;
+                            color: $color_default;
                             transition: .4s;
 
                             .mdi {
@@ -4452,7 +4576,7 @@ ui-view{
         margin-bottom: 30px;
 
         .record_category-item {
-            border-radius: 8px;
+            border-radius: $border_radius;
             background: #fff;
             padding: 20px;
             width: 100%;
@@ -4490,7 +4614,7 @@ ui-view{
                 box-shadow: 0 5px 25px rgba(#000000, 0.25);
                 
                 .category-title {
-                    color: #004195;
+                    color: $color_default;
                 }
             }
         }
@@ -4500,7 +4624,7 @@ ui-view{
         margin-bottom: 30px;
 
         .record-item {
-            border-radius: 8px;
+            border-radius: $border_radius;
             background: #fff;
             padding: 20px;
             width: 100%;
@@ -4516,7 +4640,7 @@ ui-view{
 
                 .record-type {
                     font: 400 13px $bf;
-                    color: #004195;
+                    color: $color_default;
                 }
                 
                 .record-value {
@@ -4549,7 +4673,7 @@ ui-view{
                     float: right;
                     display: block;
                     padding: 10px 0px 10px 20px;
-                    color: #004195;
+                    color: $color_default;
                     font: 600 13px/20px $bf;
                     transition: .4s;
 
@@ -4567,7 +4691,7 @@ ui-view{
                     }
 
                     &:hover {
-                        color: #4c74ff;
+                        color: $color_primary_light;
                     }
                 }
             }
@@ -4580,7 +4704,7 @@ ui-view{
         .block-card {
             background: #fff;
             box-shadow: 0 5px 20px rgba(#000000, 0.1);
-            border-radius: 8px;
+            border-radius: $border_radius;
             overflow: hidden;
             margin-bottom: 15px;
         }
@@ -4636,7 +4760,7 @@ ui-view{
 
                 .validator-send {
                     font: 600 13px/24px $bf;;
-                    color: #004195;
+                    color: $color_default;
                     display: block;
                     cursor: pointer;
 
@@ -4672,13 +4796,13 @@ ui-view{
             padding: 20px 25px;
             background: #fff;
             box-shadow: 0 5px 20px rgba(#000000, 0.1);
-            border-radius: 8px;
+            border-radius: $border_radius;
             overflow: hidden;
             margin-bottom: 15px;
 
             .record-type {
                 font: 500 13px/20px $bf;
-                color: #004195;
+                color: $color_default;
                 margin-top: -5px;
             }
 
@@ -4712,7 +4836,7 @@ ui-view{
         .validation-card {
             background: #fff;
             box-shadow: 0 5px 20px rgba(#000000, 0.1);
-            border-radius: 8px;
+            border-radius: $border_radius;
             overflow: hidden;
             margin-bottom: 15px;
         }
@@ -4763,7 +4887,7 @@ ui-view{
             }
 
             .validation-date {
-                color: #305dfb;
+                color: $color_primary;
                 font: 700 14px/30px $bf;
                 padding: 10px 0;
                 float: right;
@@ -4807,7 +4931,7 @@ ui-view{
 
                 .categories-item-inner {
                     background: #fff;
-                    border-radius: 8px;
+                    border-radius: $border_radius;
                     padding: 15px;
                     box-shadow: 0 5px 30px rgba(#000, .05);
                     position: relative;
@@ -4819,7 +4943,7 @@ ui-view{
                         width: 24px;
                         height: 24px;
                         border-radius: 24px;
-                        border: 2px solid #305dfb;
+                        border: 2px solid $color_primary;
                     }
 
                     .categories-image {
@@ -4854,7 +4978,7 @@ ui-view{
                 padding: 20px 25px;
                 background: #fff;
                 box-shadow: 0 5px 20px rgba(#000000, 0.1);
-                border-radius: 8px;
+                border-radius: $border_radius;
                 overflow: hidden;
                 margin-bottom: 15px;
                 position: relative;
@@ -4875,7 +4999,7 @@ ui-view{
                     width: 24px;
                     height: 24px;
                     border-radius: 24px;
-                    border: 2px solid #305dfb;
+                    border: 2px solid $color_primary;
                     top: 50%;
                     right: 20px;
                     transform: translate(0, -50%);
@@ -4900,7 +5024,7 @@ ui-view{
                     box-shadow: 0 5px 20px rgba(#000000, 0.25);
 
                     .record_type-name {
-                        color: #004195;
+                        color: $color_default;
                     }
 
                     .record_type-radio {
@@ -4924,7 +5048,7 @@ ui-view{
             padding: 20px 25px;
             background: #fff;
             box-shadow: 0 5px 20px rgba(#000000, 0.1);
-            border-radius: 8px;
+            border-radius: $border_radius;
             overflow: hidden;
             margin-bottom: 25px;
             position: relative;
@@ -4934,27 +5058,24 @@ ui-view{
     }
 
     &.block-pincode {
-        display: flex;
-        margin: 30px auto 60px;
+        display: block;
+        margin: 0 auto 20px;
         padding: 0;
         text-align: center;
-        width: calc(60px * 6 + 10px * 5);
         position: relative;
         @include cf();
+        width: 100%;
 
         .pincode-number {
-            display: block;
-            height: 70px;
-            float: left;
-            width: 50px;
+            display: inline-block;
+            height: 60px;
+            width: 60px;
             border: 1px solid #dfe4ec;
             background: #fff;
             border-radius: 4px;
             margin-right: 10px;
-            font: 600 28px/70px $bf;
-            text-align: center;
+            font: 600 26px/60px $bf;
             cursor: default;
-            flex: 1;
 
             &:last-of-type {
                 margin-right: 0;
@@ -5231,7 +5352,7 @@ ui-view{
             }
         }
 
-        &.block.block-empty {
+        &.block-empty {
             padding: 20px;
 
             .block-title {
@@ -5244,19 +5365,19 @@ ui-view{
                 margin: 0;
             }
         }
-    }
 
+        &.block-pincode {
+            margin-bottom: 10px;
 
-    @media screen and (max-width: 1500px) {
+            .pincode-number {
+                font: 600 22px/60px $bf
+            }
+        }
     }
 
     @media screen and (max-width: 1000px) {
-        .section-title {
-            text-align: center;
-        }
-
         &.block-breadcrumbs {
-            padding: 0px 0px 10px 0px;
+            margin: 0px 0px 10px 0px;
 
             .breadcrumb-item {
                 font-size: 13px;
@@ -5566,8 +5687,6 @@ ui-view{
         }
 
         &.block-show-more {
-            padding-top: 25px;
-
             .button {
                 width: 100%;
                 padding-left: 20px;
@@ -5658,7 +5777,7 @@ ui-view{
                 padding: 0 25px;
                 
                 .blog-item-inner {
-                    border-radius: 8px;
+                    border-radius: $border_radius;
                     box-shadow: 0 5px 15px rgba($color: #000000, $alpha: .1);
 
                     .blog-image {
@@ -5970,7 +6089,8 @@ ui-view{
         }
 
         &.block-product {
-            padding: 30px 30px;
+            padding: 10px 0px;
+
             .product-card {
                 border-radius: 10px;
 
@@ -6563,143 +6683,21 @@ ui-view{
             }
         }
 
-        &.block-pincode {
-            .pincode-number {
-                height: 50px;
-                font: 600 22px/50px "Source Sans Pro",sans-serif;
-            }
-        }
-
         &.block-phone-number {
             width: calc(30px * 10 + 10px * 1);
         }
-    }
-}
 
-.with-instructions{
-
-    .block {
         &.block-pincode {
-            margin: 0 auto 15px;
-            width: calc(60px * 6 + 10px * 5);
-        }
-    }
-    @media screen and (max-width: 767px) {
-        .block {
-            &.block-pincode {
-                margin: 0 auto 15px;
-                width: calc(50px * 6 + 10px * 5);
-                height: 40px;
+            width: auto;
+            margin: 0 -30px 10px;
+            
+            .pincode-number {
+                height: 42px;
+                width: 42px;
+                font: 600 22px/42px $bf
             }
         }
     }
-}
-
-.app-instruction {
-    text-align: center;
-    .row {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        justify-content: space-around;
-    }
-    .col {
-        text-align: center;
-        display:block;
-    }
-    .step-item {
-        padding: 50px 30px;
-        position: relative;
-        width:400px;
-        margin: 0 auto;
-
-        img {
-            &:not(.line-item) {
-                width: 100%;
-                border: 2px dashed #d2e6ff;
-                border-radius: 5px;
-                box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1);
-                position: relative;
-                z-index: 1;
-            }
-
-            &.line-item {
-                position: absolute;
-
-                top: 200px;
-                left: calc(100% - 35px);
-                min-width: 70px;
-                z-index: 2;
-            }
-        }
-
-        .app-title {
-            font: 500 16px/24px $bf;
-            padding: 5px 0 15px 0;
-            text-align: center;
-        }
-    }
-
-    @media screen and (max-width: 1500px) {
-        .step-item {
-            padding: 10px 70px;
-
-            img {
-                &.line-item {
-                    top: 140px;
-                    width: 170px;
-                    left: calc(100% - 85px);
-                }
-            }
-        }
-    }
-
-    @media screen and (max-width: 1300px) {
-        .step-item {
-            padding: 0 35px;
-
-            img {
-                &.line-item {
-                    top: 160px;
-                    width: 80px;
-                    left: calc(100% - 41px);
-                }
-            }
-        }
-    }
-
-    @media screen and (max-width: 1000px) {
-        .step-item {
-            img {
-                &.line-item {
-                    display: none;
-                }
-            }
-        }
-    }
-
-    @media screen and (max-width: 767px) {
-        .step-item {
-            img {
-                &:not(.line-item) {
-                    width: 80%;
-                    border: 2px dashed #d2e6ff;
-                    border-radius: 5px;
-                    box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1);
-                }
-            }
-        }
-    }
-
-    .divider-img{
-        img{
-            width: 100%;
-        }
-    }
-}
-
-.f-w{
-    width: 100%!important;
 }
 
 .modal {
@@ -6730,7 +6728,7 @@ ui-view{
         width: 1200px;
         max-width: 100%;
         background: #f7f9fc;
-        border-radius: 8px;
+        border-radius: $border_radius;
         min-height: 100px;
         overflow: hidden;
         margin: 0 auto;
@@ -6742,6 +6740,11 @@ ui-view{
                 color: #134478 !important;
             }
         }
+
+        .modal-section {
+            padding: 30px;
+        }
+
         .subdescription{
             display: inline-block;
             border: 1px solid #eff6f8;
@@ -6761,11 +6764,10 @@ ui-view{
         }
 
         .title {
-            margin-top:20px;
             color: #282b39;
             font: 700 40px $bf;
             text-align: center;
-            margin-bottom: 10px;
+            margin: 0 0 10px;
         }
 
         .description{
@@ -6774,7 +6776,7 @@ ui-view{
             color: #646f79;
 
             .popup-title-styled{
-                color: #305dfb;
+                color: $color_primary;
                 font-weight: 600;
                 white-space: nowrap;
             }
@@ -6784,11 +6786,6 @@ ui-view{
             padding: 10px 0;
             font: 400 16px/28px $bf;
             color: #646f79;
-        }
-
-        .button{
-            text-transform: uppercase;
-            display: flex;
         }
 
         .modal-icon{
@@ -6802,7 +6799,7 @@ ui-view{
 
     .modal-footer {
         padding: 30px;
-        border-top: 1px solid #d2e6ff;
+        border-top: 1px solid $border_color;
         display: flex;
         justify-content: center;
 
@@ -6822,7 +6819,7 @@ ui-view{
 
         .modal-footer-link {
             display: block;
-            color: #305dfb;
+            color: $color_primary;
             font: 700 13px/30px $bf;
 
             span {
@@ -6840,19 +6837,17 @@ ui-view{
             color: #282b39;
             font: 700 40px $bf;
             text-align: center;
-            margin-bottom: 10px;
-            margin-top: 20px;
+            margin: 0 0 10px;
         }
 
         .modal-subtitle {
             color: #646f79;
-            font: 400 22px $bf;
+            font: 400 18px $bf;
             text-align: center;
             padding-bottom: 30px;
         }
 
         .modal-content {
-
             .form {
                 width: 480px;
                 margin: 0 auto;
@@ -6870,10 +6865,6 @@ ui-view{
                 margin: 30px -200px -30px;
             }
         }
-
-        .button {
-            display: block;
-        }
     }
 
     &.modal-shops_map {
@@ -6885,7 +6876,6 @@ ui-view{
     @media screen and (max-width: 1500px) {
         .modal-content {
             width: 1000px;
-            padding: 30px 0px;
         }
 
         .modal-footer {
@@ -6930,11 +6920,15 @@ ui-view{
             overflow-y: auto;
             padding: 50px 25px 25px;
 
-            .subdescription{
+            .modal-section {
+                padding: 0;
+            }
+
+            .subdescription {
                 margin: 40px 10px 30px;
             }
 
-            .title{
+            .title  {
                 padding: 10px;
             }
 
@@ -7003,76 +6997,6 @@ ui-view{
     }
 }
 
-.tooltip-block {
-    position: relative;
-    display: inline-block;
-    padding-right: 15px;
-    vertical-align: text-bottom;
-    margin-left: 3px;
-
-    .tooltip-icon {
-        width: 16px;
-        height: 16px;
-        background: url('../img/Info.png') no-repeat 50% 50%;
-        background-size: contain;
-        cursor: pointer;
-    }
-
-    .tooltip {
-        position: absolute;
-        top: 8px;
-        transform: translate(0, -50%);
-        left: 100%;
-        width: 300px;
-        border: 1px solid #d2e6ff;
-        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-        padding: 15px;
-        background: #fff;
-        z-index: 5;
-        border-radius: 4px;
-        font: 500 14px/20px $bf;
-        text-transform: none;
-        color: #45535e;
-        display: none;
-
-        &:after,
-        &:before {
-            right: 100%;
-            top: 50%;
-            border: solid transparent;
-            content: ' ';
-            height: 0;
-            width: 0;
-            position: absolute;
-            pointer-events: none;
-        }
-
-        &:after {
-            border-color: rgba(255, 255, 255, 0);
-            border-right-color: #fff;
-            border-width: 10px;
-            margin-top: -10px;
-        }
-
-        &:before {
-            border-color: rgba(210, 230, 255, 0);
-            border-right-color: #d2e6ff;
-            border-width: 11px;
-            margin-top: -11px;
-        }
-    }
-
-    &:hover {
-        .tooltip-icon {
-            background-image: url('../img/Info_hover.png');
-        }
-
-        .tooltip {
-            display: block;
-        }
-    }
-}
-
 @media screen and (max-width: 1700px) {
     .wrapper {
         width: 1200px;
@@ -7103,11 +7027,16 @@ ui-view{
         }
     }
 
-    .block {
-        .block-pincode {
-            .pincode-number {
-                height: 50px;
-                font: 600 22px/50px "Source Sans Pro",sans-serif;
+    .app-instruction {
+        .step-item {
+            padding: 10px 70px;
+
+            img {
+                &.line-item {
+                    top: 140px;
+                    width: 170px;
+                    left: calc(100% - 85px);
+                }
             }
         }
     }
@@ -7129,7 +7058,6 @@ ui-view{
         }
     }
 }
-
 
 @media screen and (max-width: 1000px) {
     .hide-sm {
@@ -7210,8 +7138,33 @@ ui-view{
             }
         }
     }
-}
 
+    .app-instruction {
+
+        .divider-img {
+            width: auto;
+            padding-top: 10px;
+            margin: 0 -25px 10px;
+        }
+
+        .step-item {
+            width: 50%;
+            padding: 0 30px;
+            vertical-align: top;
+
+            .app-title {
+                font-size: 13px;
+                margin: 0 -30px;
+            }
+
+            img {
+                &.line-item {
+                    display: none;
+                }
+            }
+        }
+    }
+}
 
 @media print {
     .printable-qr_code {

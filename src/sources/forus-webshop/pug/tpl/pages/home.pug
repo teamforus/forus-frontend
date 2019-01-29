@@ -3,7 +3,7 @@
 header.section.section-header.section-header-landing
     top-navbar
     .wrapper
-        .heade-sprite
+        .header-sprite
 
         .header-content
             .header-title(i18n="home.header.{{ $root.client_key }}.title")
@@ -56,7 +56,6 @@ section.section.section-steps#steps(ng-if="$root.appConfigs.flags.homeSteps"): .
         .step-item: .step-item-content
             h4(translate="home.guide.{{ $root.client_key }}.stepfive")
             p(translate="home.guide.{{ $root.client_key }}.five")
-        .step-item
 
 section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
     .section-title(i18n="home.blog.forus.title")
@@ -80,7 +79,8 @@ section.section.section-faq(ng-if="$root.appConfigs.flags.homeFaq"): .wrapper
     .faq(collapse)
         mixin faq_item(title, content, active)
             .faq-item(class=active?'active':'' collapse-item)
-                .faq-item-header(collapse-header,i18n=title)
+                .faq-item-header(collapse-header)
+                    span(i18n=title)
                     .faq-item-chevron-down.mdi.mdi-chevron-down
                     .faq-item-chevron-up.mdi.mdi-chevron-up
                 .faq-item-content(collapse-conten,translate=content)    
