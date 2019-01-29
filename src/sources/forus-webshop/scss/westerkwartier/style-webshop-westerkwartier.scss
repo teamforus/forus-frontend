@@ -77,6 +77,12 @@
     }
 
     &.section-steps {
+        .section-splash{
+            display:none;
+        }
+        .section-sprite{
+            display:none;
+        }
         .steps {
             background: none;
 
