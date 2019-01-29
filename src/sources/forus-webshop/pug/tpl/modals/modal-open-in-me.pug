@@ -18,16 +18,14 @@
 
     .modal-content(ng-if="$ctrl.sentSms"): .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-        .row.app-instruction
-            .col.col-md-10.col-md-offset-1
-                .row
-                    .col.col-sm-6.step-item
-                        img(src="./assets/img/screen1.png")
-                        .app-title(translate="open_in_me.app_instruction.step_1")
-                        img.line-item(src="./assets/img/line1.png")
-                    .col.col-sm-6.step-item
-                        img(src="./assets/img/screen2.png")
-                        .app-title(translate="open_in_me.app_instruction.step_2")
+        .app-instruction
+            .step-item
+                img(src="./assets/img/screen1.png")
+                .app-title(translate="open_in_me.app_instruction.step_1")
+                img.line-item(src="./assets/img/line1.png")
+            .step-item
+                img(src="./assets/img/screen2.png")
+                .app-title(translate="open_in_me.app_instruction.step_2")
 
             .divider-img: img(src="./assets/img/Base7.png")
 
@@ -38,6 +36,6 @@
             .form-group
                 div(ng-if="$ctrl.authorizePincodeForm" pincode-control ng-model="$ctrl.authorizePincodeForm.values.auth_code")
                 .text-center.form-error(ng-repeat="error in $ctrl.authorizePincodeForm.errors.auth_code track by $index" ng-bind="error")
-            .modal-footer.text-center
-                .form-group: button.button.button-dark(ng-click="$ctrl.close()" i18n="open_in_me.authorize.close")
+            .modal-footer
+                .form-group.text-center: button.button.button-dark(ng-click="$ctrl.close()" i18n="open_in_me.authorize.close")
                     button(type="submit" i18n="open_in_me.authorize.submit").button.button-primary

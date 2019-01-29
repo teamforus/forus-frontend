@@ -5084,8 +5084,11 @@ ui-view{
     }
 
     &.block-phone-number {
-        width: calc(50px * 10 + 10px * 9);
-        margin: 25px auto;
+        margin: 0 auto 20px;
+        
+        .pincode-number {
+            width: 50px;
+        }
     }
 
     @media screen and (max-width: 1700px) {
@@ -5371,6 +5374,12 @@ ui-view{
 
             .pincode-number {
                 font: 600 22px/60px $bf
+            }
+        }
+
+        &.block-phone-number {
+            .pincode-number {
+                width: 45px;
             }
         }
     }
@@ -6697,6 +6706,13 @@ ui-view{
                 font: 600 22px/42px $bf
             }
         }
+
+        &.block-phone-number {
+            .pincode-number {
+                margin-right: 5px;
+                width: 30px;
+            }
+        }
     }
 }
 
@@ -6743,6 +6759,10 @@ ui-view{
 
         .modal-section {
             padding: 30px;
+
+            .modal-footer {
+                padding: 30px 0 0;
+            }
         }
 
         .subdescription{
