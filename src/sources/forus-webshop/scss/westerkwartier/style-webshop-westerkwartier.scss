@@ -21,10 +21,41 @@
 }
 
 .header-splash {
+    height: 27.5vw;
     .splash,
     .splash.splash-d {
         background-image: url(../img/splash-top-b.png);
-        background-size: contain;
+        background-size: cover;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        background-origin: padding-box;
+    }
+    &:after {
+        position: absolute;
+        left:0;
+        bottom: (0 - 10vmax);
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 10vmax 15vmax 0 0;
+        border-color: #acb862 transparent transparent transparent;
+        -webkit-transform:rotate(360deg);
+        content: " ";
+        z-index:5;
+    }
+    &:before {
+        position: absolute;
+        right:0;
+        bottom: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 0 10vmax 15vmax;
+        border-color: transparent transparent #72bdea transparent;
+        -webkit-transform:rotate(360deg);
+        content: " ";
+        z-index:5;
     }
 }
 
@@ -49,20 +80,22 @@
     }
 
     &.section-header {
-        padding: 20px 0 20px;
-        
+        padding: 1vw 0 1vw;
+        position: relative;
+        display: block;
         .header-content {
-            padding-top: 90px;
-            padding-bottom: 50px;
+            padding-top: 3.4vw;
+            padding-bottom: 5.1vw;
+            padding-left: 1vw;
             color: #fff;
 
             .header-title {
-                font: 700 40px $bf;
+                font: 700 2vw $bf;
             }
 
             .header-description {
-                font: 400 20px/30px $bf;
-                margin-bottom: 30px;
+                font: 400 1.05vw/1.6vw $bf;
+                margin-bottom: 1vw;
             }
 
             .header-how-it-works {
@@ -114,13 +147,24 @@
         &:before {
             left: 0;
             bottom: 100%;
-            background-image: url('../img/footer-triangle-a.png');
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 15vw 0 0 15vw;
+            border-color: transparent transparent transparent #acb862;
+            -webkit-transform:rotate(360deg);
         }
 
         &:after {
             right: 0;
             bottom: 0;
             background-image: url('../img/footer-triangle-b.png');
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 0 15vw 15vw;
+            border-color: transparent transparent #72bdea transparent;
+            -webkit-transform:rotate(360deg);
         }
     }
 
