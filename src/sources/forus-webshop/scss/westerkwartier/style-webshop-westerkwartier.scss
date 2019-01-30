@@ -2,7 +2,9 @@
 @import '../_common/webshop';
 
 @import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700');
-
+body {
+    min-height:1390px;
+}
 .button {
     &.button-default {
         background-color: $color_default;
@@ -21,10 +23,63 @@
 }
 
 .header-splash {
+    height: 20.5vw;
+    overflow:auto;
+    display: table;
     .splash,
     .splash.splash-d {
         background-image: url(../img/splash-top-b.png);
-        background-size: contain;
+        display: table-row;
+        background-size: cover;
+        height: 26.5vw;
+        background-position: 50% 50%;
+        &.splash-d{
+            background-position: 50% 65%;
+            height: 20.5vw;
+        }
+
+        &:after {
+            position: absolute;
+            left:0;
+            bottom: (0 - 12vmax);
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 12vmax 12vmax 0 0;
+            border-color: #72bdea  transparent transparent transparent;
+            -webkit-transform:rotate(360deg);
+            content: " ";
+        }
+    
+        &:before {
+            position: absolute;
+            right:0;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 0 12vmax 12vmax;
+            border-color: transparent transparent #acb862 transparent;
+            -webkit-transform:rotate(360deg);
+            content: " ";
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .header-splash {
+        .splash,
+        .splash.splash-d {
+            background: none;
+    
+            &:after {
+                border: 0;
+            }
+        
+            &:before {
+                border: 0;
+            }
+        }
     }
 }
 
@@ -32,8 +87,11 @@
     .section-title {
         color: #4e4d40;
         text-align: center;
+        padding-bottom: 1vw;
     }
-
+    .wrapper {
+        padding-left: 4vw;
+    }
     &.section-profile {
         .section-title {
             text-align: left;
@@ -49,20 +107,22 @@
     }
 
     &.section-header {
-        padding: 20px 0 20px;
-        
+        padding: 1vw 0 1vw;
+        position: relative;
+        display: block;
         .header-content {
-            padding-top: 90px;
-            padding-bottom: 50px;
+            padding-top: 3.4vw;
+            padding-bottom: 5.1vw;
+            padding-left: 1vw;
             color: #fff;
 
             .header-title {
-                font: 700 40px $bf;
+                font: 700 2vw $bf;
             }
 
             .header-description {
-                font: 400 20px/30px $bf;
-                margin-bottom: 30px;
+                font: 400 1.05vw/1.6vw $bf;
+                margin-bottom: 1vw;
             }
 
             .header-how-it-works {
@@ -114,13 +174,24 @@
         &:before {
             left: 0;
             bottom: 100%;
-            background-image: url('../img/footer-triangle-a.png');
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 12vw 0 0 12vw;
+            border-color: transparent transparent transparent #acb862;
+            -webkit-transform:rotate(360deg);
         }
 
         &:after {
             right: 0;
             bottom: 0;
             background-image: url('../img/footer-triangle-b.png');
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 0 12vw 12vw;
+            border-color: transparent transparent #72bdea transparent;
+            -webkit-transform:rotate(360deg);
         }
     }
 
@@ -232,8 +303,7 @@
     }
 
     &.block-breadcrumbs {
-        margin: 0 0 20px;
-        
+        margin: 1vw 4vw 2vw 0;
         .breadcrumb-item {
             color: #b9ca2f;
 
