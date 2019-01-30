@@ -9,7 +9,8 @@ let BaseController = function(
     ConfigService,
     BrowserService,
     $filter,
-    appConfigs
+    appConfigs,
+    ModalService
 ) {
     $rootScope.loadAuthUser = function() {
         let deferred = $q.defer();
@@ -23,6 +24,11 @@ let BaseController = function(
                 if (AuthService.hasCredentials()) {
                     IdentityService.deleteToken();
                     $rootScope.signOut();
+
+                    ModalService.open('modalNotification', {
+                        type: 'info',
+                        description: $filter('i18n')('modal.logout.description')
+                    });
                 }
             }, () => {});
 
@@ -94,5 +100,6 @@ module.exports = [
     'BrowserService',
     '$filter',
     'appConfigs',
+    'ModalService',
     BaseController
 ];
