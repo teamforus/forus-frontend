@@ -950,6 +950,12 @@ module.exports = {
             'policy officer': 'Aanbieders goedkeuren en instellingen van het fonds aanpassen'
         }
     },
+
+    tooltip: {
+        product: {
+            limit: "U kunt ook de inwoner in uw organisatie te woord staan en hem een persoonlijk aanbod aanbieden. U scant dan de QR-code en vult een bedrag in!",
+        }
+    },
   
     search: "Zoeken"
 }
