@@ -137,8 +137,8 @@ module.exports = {
             month: "Maand",
             week: "Week",
             all: "Alles",
-            total: "Totaal resterend bedrag",
-            spend: "Totaal uitgegeven bedrag",
+            total: "Huidig saldo",
+            spend: "Startbudget",
             used: "Totaal uitgegeven bedrag in %",
             usage: "uitgegeven",
             payed: "Uitgegeven bij",
@@ -354,7 +354,7 @@ module.exports = {
         },
         confirm_create: {
             title: 'Een aanbieding toevoegen.',
-            description: 'Let op! U staat op het punt een aanbieding op de webshop toe te voegen. Daarna kunt u de aanbieding niet meer verwijderen. De aanbieding kan alleen verwijderd worden vanaf het moment dat het is uitverkocht of de vervaldatum is bereikt.'
+            description: 'Let op! U staat op het punt een aanbieding op de webshop toe te voegen. U kunt maximaal twee aanbiedingen toevoegen op de webshop. Klik op bevestig om door te gaan.'
         }
     },
 
@@ -915,6 +915,16 @@ module.exports = {
             code: "Activatiecode",
             mailing: "E-mail",
         },
+        pin_code: {
+            confirmation: {
+                title: "Is de mobiele app gekoppeld aan uw persoonlijk e-mailadres?",
+                description: "Ga naar het tabblad Profiel in de app. Ziet u hier uw e-mailadres staan? Dan is de app succesvol gekoppeld. Als u de keuze voor Profiel niet hebt, probeer het dan nog is.",
+                buttons: {
+                    try_again: "Opnieuw proberen",
+                    confirm: "Volgende"
+                }
+            }
+        }
     },
     product_category_type: {
         products: "PRODUCTEN",

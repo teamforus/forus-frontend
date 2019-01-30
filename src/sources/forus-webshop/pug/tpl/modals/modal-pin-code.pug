@@ -1,16 +1,15 @@
 .modal.modal-auth
-    .modal-content
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-content: .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-        .row.app-instruction
-            .col.col-md-10.col-md-offset-1
-                .row
-                    .col.col-sm-6.step-item
-                        img(src="./assets/img/screen1.png")
-                        .app-title(translate="open_in_me.app_instruction.step_1")
-                        img.line-item(src="./assets/img/line1.png")
-                    .col.col-sm-6.step-item
-                        img(src="./assets/img/screen2.png")
-                        .app-title(translate="open_in_me.app_instruction.step_2")
+        .app-instruction
+            .step-item
+                img(src="./assets/img/screen1.png")
+                .app-title(translate="open_in_me.app_instruction.step_1")
+                img.line-item(src="./assets/img/line1.png")
+            .step-item
+                img(src="./assets/img/screen2.png")
+                .app-title(translate="open_in_me.app_instruction.step_2")
 
             .divider-img: img(src="./assets/img/Base7.png")
 
@@ -21,4 +20,5 @@
             .form-group
                 div(ng-if="$ctrl.authorizePincodeForm" pincode-control ng-model="$ctrl.authorizePincodeForm.values.auth_code")
                 .text-center.form-error(ng-repeat="error in $ctrl.authorizePincodeForm.errors.auth_code track by $index" ng-bind="error")
-            .form-group: button(type="submit").button.button-primary.button-wide {{ "open_in_me.authorize.submit" | translate }}
+            .form-group.text-center
+                button(type="submit").button.button-primary {{ "open_in_me.authorize.submit" | translate }}

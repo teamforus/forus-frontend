@@ -1,6 +1,6 @@
 .modal.modal-auth
     .modal-backdrop(ng-click="$ctrl.close()")
-    .modal-content
+    .modal-content: .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
 
         .modal-title {{ "popup_auth.labels.activate" | translate }}
@@ -22,7 +22,8 @@
                 placeholder="{{ 'popup_auth.input.confirmation' | translate }}").form-control.form-control
                 .form-error(ng-repeat="error in $ctrl.signUpForm.errors['records.primary_email_confirmation']" ng-bind="error")
             .form-group
-            .form-group: button(type="submit").button.button-primary.button-wide {{ "popup_auth.buttons.submit" | translate }}
+            .form-group.text-center
+                button(type="submit").button.button-primary {{ "popup_auth.buttons.submit" | translate }}
 
-        .modal-footer
+        //-.modal-footer
             //-.footer-text {{ "popup_auth.labels.warning" | translate }}

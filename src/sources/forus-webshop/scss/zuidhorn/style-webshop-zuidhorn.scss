@@ -30,7 +30,7 @@ body {
 
 .label {
     &.label-success {
-        background: $bc_2;
+        background: $color_primary;
         color: #fff;
     }
 
@@ -47,6 +47,7 @@ body {
 .button {
     &.button-default {
         color: $bc;
+        border-color: #d2e6ff;
 
         .mdi {
             color: $bc;
@@ -59,20 +60,20 @@ body {
     }
 
     &.button-primary {
-        background: $bc_2;
-        border: 1px solid $bc_2;
+        background: $color_primary;
+        border: 1px solid $color_primary;
 
         &:hover {
-            background: #8fd888;
+            background: $color_primary_light;
         }
     }
 
     &.button-primary-outline {
-        color: $bc_2;
-        border: 1px solid $bc_2;
+        color: $color_primary;
+        border: 1px solid $color_primary;
 
         &:hover {
-            background: $bc_2;
+            background: $color_primary;
         }
     }
 }
@@ -84,32 +85,32 @@ body {
 
     .form-control-checked {
         .mdi {
-            color: $bc_2;
-        }
-    }
-}
-.section {
-    &.section-header {
-        .heade-sprite {
-            background-image: url("../img/splash-top-ba.png");
-            height: 625px;
-            width: 100%;
-        }
-        .header-splash {
-            .splash {
-                height: 700px;
-            }
+            color: $color_primary;
         }
     }
 }
 
 .section {
-    &.section-products {
-        .section-filters {
-            input[type=text] {
-                background: url('../img/looking-glass.png') no-repeat;
-                background-position: 100% 0;
-                background-size: 60px 60px;
+    &.section-header {
+        .header-sprite {
+            display:none;
+            height: 625px;
+            width: 100%;
+            display: none;
+        }
+
+        &.section-header {
+            .header-content {
+                .header-title,
+                .header-description {
+                    font-family: 'Source Sans Pro', arial, sans-serif;;
+                }
+            }
+        }
+
+        .header-splash {
+            .splash {
+                height: 700px;
             }
         }
     }
@@ -131,13 +132,12 @@ body {
     &.block-navbar {
         .navbar-logo {
             img {
-                height: 40px;
                 margin: -5px 0;
             }
         }
 
         .navbar-list {
-            .navbar-item-wrapper{
+            .navbar-item-wrapper {
                 .navbar-item {
                     &:hover {
                         color: $bc;
@@ -164,7 +164,7 @@ body {
                     .auth-user-menu {
                         .auth-user-menu-item {
                             &:hover {
-                                color: $bc_2;
+                                color: $color_primary;
                             }
                         }
                     }
@@ -359,11 +359,11 @@ body {
                         color: $tc;
 
                         .mdi {
-                            color: $bc_2;
+                            color: $color_primary;
                         }
 
                         &:hover {
-                            color: $bc_2;
+                            color: $color_primary;
                         }
                     }
                 }
@@ -371,14 +371,14 @@ body {
 
             .profile-menu {
                 .profile-menu-item {
-                    color: $bc_2;
+                    color: $color_primary;
 
                     .mdi {
-                        color: $bc_2;
+                        color: $color_primary;
                     }
 
                     &.active {
-                        background-color: $bc_2;
+                        background-color: $color_primary;
                     }
                 }
             }
@@ -421,13 +421,13 @@ body {
 
             &.active {
                 .criteria-header {
-                    background-color: $bc_2;
+                    background-color: $color_primary;
                 }
             }
         }
     }
 
-    &.block-record_categories {om: 30px;
+    &.block-record_categories {
         .record_category-item {
             &:hover {
                 .category-title {
@@ -476,7 +476,7 @@ body {
 
         .validation-item {
             .validation-date {
-                color: $bc_2;
+                color: $color_primary;
             }
         }
     }
@@ -486,7 +486,7 @@ body {
             .categories-item {
                 .categories-item-inner {
                     .categories-radio {
-                        border: 2px solid $bc_2;
+                        border: 2px solid $color_primary;
                     }
                 }
             }
@@ -495,7 +495,7 @@ body {
         .record_types-list {
             .record_type-item {
                 .record_type-radio {
-                    border: 2px solid $bc_2;
+                    border: 2px solid $color_primary;
                 }
 
                 &.active,
@@ -507,19 +507,8 @@ body {
 
                 &.active {
                     .record_type-radio {
-                        background: $bc_2;
+                        background: $color_primary;
                     }
-                }
-            }
-        }
-    }
-
-    @media screen and (max-width: 1500px) {
-        &.block-navbar {
-            .navbar-logo {
-                img {
-                    height: 30px;
-                    margin: -5px 0;
                 }
             }
         }
@@ -555,7 +544,7 @@ body {
             width: 1200px;
             max-width: 100%;
             background: #f7f9fc;
-            border-radius: 8px;
+            border-radius: $border_radius;
             min-height: 100px;
             overflow: hidden;
             margin: 0 auto;
@@ -564,7 +553,7 @@ body {
 
         .popup-footer {
             padding: 30px;
-            border-top: 1px solid #d2e6ff;
+            border-top: 1px solid $border_color;
 
             .footer-text {
                 font: 700 18px $bf;

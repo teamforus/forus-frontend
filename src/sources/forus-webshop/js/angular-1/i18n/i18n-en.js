@@ -676,7 +676,7 @@ module.exports = {
             activate_code: "Stap 3 van 3: Activeer uw tegoed.",
             scancode: "Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent.",
             mobilecode: "Vul uw toegangscode van de Me-app in.",
-            mail: "Heeft u een brief van de gemeente ontvangen met een activatiecode en deze nog niet gebruikt? Ga dan verder. Heeft u deze al wel gebruikt? Sluit dan dit venster en klik op 'login'.",
+            mail: "Heeft u een brief van de gemeente ontvangen met een activatiecode en deze nog niet gebruikt? Ga dan verder.",
             link: "Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen.",
             code: "Vul de activatiecode in die u per brief hebt ontvangen.",
             voucher_email: "Het is gelukt!",
@@ -687,6 +687,16 @@ module.exports = {
             code: "Activatiecode",
             mailing: "E-mail",
             confirmation: "Bevestig uw e-mailadres",
+        },
+        pin_code: {
+            confirmation: {
+                title: "Is de mobiele app gekoppeld aan uw persoonlijk e-mailadres?",
+                description: "Ga naar het tabblad Profiel in de app. Ziet u hier uw e-mailadres staan? Dan is de app succesvol gekoppeld. Als u de keuze voor Profiel niet hebt, probeer het dan nog is.",
+                buttons: {
+                    try_again: "Opnieuw proberen",
+                    confirm: "Volgende"
+                }
+            }
         }
     },
 
@@ -747,6 +757,9 @@ module.exports = {
             cancel: "Annuleren",
             confirm: "Bevestig",
             close: "Sluit"
+        },
+        logout: {
+            description: "U bent automatisch uitgelogd door 15 minuten aan inactiviteit."
         }
     },
     open_in_me: {
