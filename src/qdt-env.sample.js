@@ -62,6 +62,17 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('dashboard_westerkwartier_provider', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'westerkwartier',
+            panel_type: 'provider',
+            chat_id: false
+        });
+
+        return platform;
+    });
+
     core.editPlatform('dashboard_nijmegen_sponsor', (platform) => {
         platform.setEnvData({
             api_url: api_url,
@@ -78,6 +89,17 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'nijmegen',
             panel_type: 'provider',
+            chat_id: false
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('dashboard_westerkwartier_sponsor', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'westerkwartier',
+            panel_type: 'sponsor',
             chat_id: false
         });
 
@@ -127,6 +149,16 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('webshop_westerkwartier', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'westerkwartier',
+            client_type: 'webshop',
+        });
+
+        return platform;
+    });
+
     // Config meapp landings
     core.editPlatform('landing_meapp_general', (platform) => {
         platform.setEnvData({
@@ -150,6 +182,15 @@ module.exports = (core) => {
         platform.setEnvData({
             api_url: api_url,
             client_key: 'nijmegen'
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('landing_meapp_westerkwartier', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'westerkwartier'
         });
 
         return platform;
