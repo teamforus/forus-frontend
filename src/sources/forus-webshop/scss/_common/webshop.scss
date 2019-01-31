@@ -9,7 +9,6 @@
 // DEV PAGES
 @import 'includes/dev-pages';
 html {
-    overflow: scroll; 
     -webkit-overflow-scrolling: touch;
     }
 
@@ -3269,8 +3268,8 @@ ui-view{
                 &.product-card {
                     
                     .product-photo {
-                        width: 80px;
-                        height: 80px;
+                        width: 75px;
+                        height: 75px;
                         left: auto;
                         border-radius: 4em;
                         right: 7.5%;
