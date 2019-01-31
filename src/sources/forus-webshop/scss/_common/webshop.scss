@@ -8,6 +8,14 @@
 
 // DEV PAGES
 @import 'includes/dev-pages';
+html {
+    overflow: scroll; 
+    -webkit-overflow-scrolling: touch;
+    }
+
+.scroll-img {
+    display: none;
+}
 
 .wrapper {
     width: 1280px;
@@ -2694,7 +2702,24 @@ ui-view{
                 margin: 0 -8px;
                 position: relative;
                 @include cf();
+                
+                @media screen and (max-width: 767px) {
+                    .shop_map-categories {
+                        height: auto;
+                    }
 
+                    .shop_map-category-item {
+                        width: 42%;
+                        float: none;
+                        display: inline-block;
+                        padding: 0 10px 0;
+                        margin: 5px 0 15px;
+
+                        .shop_map-category-item-inner {
+                            box-shadow: none;
+                        }
+                    }
+                }
                 .shop_map-prev,
                 .shop_map-next {
                     display: none;
@@ -6611,6 +6636,38 @@ ui-view{
                 left: 50%;
             }
 
+            @media screen and (max-width: 767px) {
+                .scroll {
+                    overflow-x: scroll;
+                    overflow-y: hidden;
+                    white-space: nowrap;
+                    position: relative;
+                }
+
+                .shop_map-header {
+                    height: auto;
+                    position: relative;
+                    padding: 25px 20px 0
+                }
+                
+                .shop_map-content {
+                    width: 0%;
+                    left: 50%;
+                    display: none;
+                }
+
+                .shop_map-sidebar {
+                    width: 100%;
+                    top: 160px;
+                }
+
+                &.block-shops_map {
+                    padding-left: 0px;
+                    padding-top: 0px;
+                    z-index: 2;
+                }
+            }
+
             .shops {
                 .shop-item {
                     .shop-details {
@@ -6619,8 +6676,8 @@ ui-view{
 
                         .shop-image {
                             position: relative;
-                            display: none;
-
+                            float: right;
+                        
                             img {
                                 display: block;
                             }
@@ -6736,7 +6793,7 @@ ui-view{
         color: #646f79;
         font-size: 28px;
         cursor: pointer;
-        z-index: 1;
+        z-index: 4;
     }
 
     .modal-content {
