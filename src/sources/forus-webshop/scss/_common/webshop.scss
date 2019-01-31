@@ -2704,16 +2704,27 @@ ui-view{
                 @include cf();
                 
                 @media screen and (max-width: 767px) {
-                    .shop_map-categories {
+                    
+                    &.shop_map-categories {
                         height: auto;
+                        margin: 0 -17px 0;
+                        padding: 0 10px;
                     }
 
                     .shop_map-category-item {
-                        width: 42%;
-                        float: none;
+                        width: 40% !important;
+                        clear: left;
                         display: inline-block;
-                        padding: 0 10px 0;
-                        margin: 5px 0 15px;
+                        padding: 0 5px 0 !important;
+                        margin: 0 0 17px;
+                        
+                        .shop_map-category-radio {
+                            top: 14px !important;
+                            width: 17px !important;
+                            height: 17px !important;
+                            border: solid 2px #fff !important;
+                            border-radius: 24px;
+                        }
 
                         .shop_map-category-item-inner {
                             box-shadow: none;
@@ -2760,6 +2771,12 @@ ui-view{
                     width: (100% / 7);
                     float: left;
                     padding: 0 8px;
+
+                    @media screen and (max-width: 767px) {
+                        &.shop_map-category-item {
+                            float: none;
+                        }
+                    }
 
                     .shop_map-category-item-inner {
                         background: #2788fc;
@@ -6647,7 +6664,11 @@ ui-view{
                 .shop_map-header {
                     height: auto;
                     position: relative;
-                    padding: 25px 20px 0
+                    padding: 25px 20px 0;
+
+                    .shop_map-title {
+                        font: 700 16px/20px "Lato",arial,sans-serif;
+                    }
                 }
                 
                 .shop_map-content {
@@ -6791,7 +6812,7 @@ ui-view{
         right: 30px;
         top: 30px;
         color: #646f79;
-        font-size: 28px;
+        font-size: 20px;
         cursor: pointer;
         z-index: 4;
     }
