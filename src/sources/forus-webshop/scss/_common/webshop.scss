@@ -230,7 +230,6 @@ ui-view{
     display: inline-block;
     padding-right: 15px;
     vertical-align: text-bottom;
-    margin-left: 3px;
 
     .tooltip-icon {
         width: 16px;
@@ -3254,6 +3253,58 @@ ui-view{
             position: relative;
             overflow: hidden;
 
+            @media screen and (max-width: 767px) {
+                
+                .tooltip-block {
+                    z-index: 1;
+                    display: block;
+                    margin-left: 0px;
+
+                    .tooltip {
+                        left: -50px;
+                    }
+                
+                }
+
+                &.product-card {
+                    
+                    .product-photo {
+                        width: 80px;
+                        height: 80px;
+                        left: auto;
+                        border-radius: 4em;
+                        right: 7.5%;
+                        top: 7.5%;
+                    }
+
+                    .product-details {
+                        padding-left: 10%;
+
+                        .product-price {
+                            .product-price-new {
+                                font: 700 16px/26px "Lato",arial,sans-serif;
+                            }
+
+                            .product-price-insufficient {
+                                font: 400 16px "Lato",arial,sans-serif;
+                                padding-top: 20px;
+                            }
+                        }
+
+                        .product-expire {
+                            .expire-value {
+                                font: 700 18px "Lato",arial,sans-serif;
+                            }
+                        }
+
+                        .button {
+                            padding-right: 0;
+                            padding-left: 0;
+                        }
+                    }
+                }
+            }
+
             .product-photo {
                 position: absolute;
                 width: 40%;
@@ -6142,7 +6193,8 @@ ui-view{
 
                 .product-photo {
                     max-width: none;
-                    width: 100%;
+                    width: 40%;
+                    left: 0;
                     border-top-right-radius: inherit;
                     border-bottom-left-radius: 0;
 
@@ -6154,6 +6206,7 @@ ui-view{
                 .product-details {
                     padding: 25px;
                     width: 100%;
+                    padding-left: calc(40% + 30px);
 
                     .product-name {
                         font: 700 18px/32px $bf;
@@ -6193,7 +6246,9 @@ ui-view{
                     }
 
                     &>.button {
-                        width: 100%;    
+                        width: 100%;
+                        padding-left: 0px;
+                        padding-right: 0px;
                     }
                 }
             }
@@ -6214,8 +6269,8 @@ ui-view{
                     img {
                         border-top-right-radius: inherit;
                     }
-                }
 
+                }
                 .product-details {
                     padding: 25px;
                     width: 100%;
@@ -7149,6 +7204,18 @@ ui-view{
 }
 
 @media screen and (max-width: 1000px) {
+    .tooltip-block {
+        .tooltip {
+            left: 0%;
+            width: 250px;
+        }
+    }
+
+    .product-price-insufficient {
+        font: 400 16px "Lato",arial,sans-serif;
+        padding-top: 20px;
+    }
+
     .hide-sm {
         display: none !important;
     }
