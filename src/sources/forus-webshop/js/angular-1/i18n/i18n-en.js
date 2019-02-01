@@ -374,7 +374,8 @@ module.exports = {
         buttons: {
             buy: "KOOP",
         },
-        insufficient: "Uw tegoed is te laag." 
+        insufficient: "Uw tegoed is te laag.",
+        tooltip: "U kunt de aanbieding alsnog kopen door met uw {{fund}} QR-code naar de aanbieder te gaan. Bij de aanbieder kunt u een bijbetaling doen.",
     },
 
     // PRODUCTS = Products.pug
@@ -756,6 +757,9 @@ module.exports = {
             cancel: "Annuleren",
             confirm: "Bevestig",
             close: "Sluit"
+        },
+        logout: {
+            description: "U bent automatisch uitgelogd door 15 minuten aan inactiviteit."
         }
     },
     open_in_me: {

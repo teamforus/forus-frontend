@@ -1,0 +1,193 @@
+@import '../_common/landing';
+.button {
+    &.button-default {
+        background-color: $color_default;
+        border-color: $color_default;
+        color: #fff;
+
+        .mdi {
+            color: #fff;
+        }
+
+        &:hover {
+            background-color: $color_default_light;
+            border-color: $color_default_light;
+        }
+    }
+    &.button-primary {
+        color: #fff;
+        background: $color_primary;
+        border: 1px solid $color_primary;
+        box-shadow: 0 10px 25px rgba(#000, .15);
+
+        &:hover {
+            color: #fff;
+            background: $color_primary_light;
+            background-color: $color_primary_light;
+            box-shadow: 0 10px 20px rgba(#000, .3);
+
+            img {
+                filter: brightness(5);
+            }
+        }
+    }
+
+    &.button-dark {
+        display: inline-block;
+        color: #fff;
+        background: #282b39;
+        border: 1px solid #282b39;
+        box-shadow: 0 10px 25px rgba(#000, .15);
+
+        &:hover {
+            color: #fff;
+            background: #646f79;
+            border-color: #646f79;
+            box-shadow: 0 10px 20px rgba(#000, .3);
+
+            img {
+                filter: brightness(5);
+            }
+        }
+    }
+
+}
+.header-splash {
+    height: 20.5vw;
+    overflow:auto;
+    display: table;
+
+    .splash {
+        background-image: url(../img/landing/splash-top.png);
+        display: table-row;
+        background-size: cover;
+        height: 26.5vw;
+        background-position: 50% 50%;
+
+        &:after {
+            position: absolute;
+            left:0;
+            bottom: (0 - 12vmax);
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 12vmax 12vmax 0 0;
+            border-color: #72bdea  transparent transparent transparent;
+            -webkit-transform:rotate(360deg);
+            content: " ";
+        }
+    
+        &:before {
+            position: absolute;
+            right:0;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 0 12vmax 12vmax;
+            border-color: transparent transparent #acb862 transparent;
+            -webkit-transform:rotate(360deg);
+            content: " ";
+        }
+    }
+}
+.section {
+    &.section-header {
+        padding: 1vw 0 1vw;
+        position: relative;
+        display: block;
+        .wrapper {
+            width: 100%;
+        }
+        .header-body {
+            width: 1280px;
+            max-width: 100%;
+            margin: 0 auto;
+            .header-content {
+                padding-top: 3.4vw;
+                padding-bottom: 5.1vw;
+                padding-left: 1vw;
+                color: #fff;
+
+                .header-title {
+                    font: 700 2vw $bf;
+                }
+
+                .header-description {
+                    font: 400 1.05vw/1.6vw $bf;
+                    margin-bottom: 1vw;
+                }
+
+                .header-how-it-works {
+                    color: inherit;
+                    font: 400 14px/26px $bf
+                }
+            }
+
+            .header-sprite {
+                display: none;
+            }
+        }
+    }
+}
+.block {
+    &.block-navbar {
+        width: 100%;
+        padding: 0 0px;
+        border-radius: 0px;
+        .navbar-logo {
+            float: left;
+            padding-top: 1vm;
+            padding-left: 0;
+            padding: 17.5px 45px;
+
+            img {
+                height: 50px;
+            }
+        }
+
+        .navbar-list {
+            text-align: center;
+        
+            .navbar-item {
+                &:hover {
+                    color: $tc;
+
+                    &:before {
+                        background-color: $color_default;
+                        opacity: .5;
+                    }
+                }
+
+                &.active {
+                    color: $tc;
+
+                    &:before {
+                        background-color: $color_default;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        .block-auth {
+            padding: 25px 30px;
+            .auth-in {
+                .auth-user {
+                    .auth-user-email {
+                        color: $color_default_light;
+                    }
+
+                    .auth-user-avatar {
+                        border-color: $color_default;
+                        border-radius: 4px;
+                        
+                        img {
+                            filter: grayscale(.8);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

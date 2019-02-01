@@ -53,7 +53,7 @@
                         .form-group.form-group-inline(ng-if="$ctrl.product")
                             label.form-label(i18n="product_edit.labels.stock_amount")
                             input(ng-model="$ctrl.form.values.stock_amount" type="number" placeholder="Stock").form-control
-                            tooltip(text="'Let op! U kunt uw aanbod alleen aanvullen en niet verminderen.'")
+                            tooltip(text="'tooltip.product.limit'")
                             .form-error(ng-repeat="error in $ctrl.form.errors.stock_amount" ng-bind="error")
 
             .card-section.card-section-primary

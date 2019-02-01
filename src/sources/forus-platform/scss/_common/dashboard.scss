@@ -1640,9 +1640,9 @@ translate,
 
             img {
                 display: block;
+                min-height: 160px;
                 width: 100%;
                 margin: -25px 20px -25px -25px;
-                min-height: 150px;
             }
         }
 
@@ -2117,6 +2117,17 @@ translate,
         }
 
         .sign-up-content {
+
+            // fill parrent block
+            @mixin nth_offset($nth: 1, $count: 7) {
+                &:nth-child(#{$nth}) {
+                    .card:before,
+                    .card:after {
+                        left: calc(calc(100% / #{$count}) * #{$nth - 1} + 35px);
+                    }
+                }
+            }
+
             .step-item {
                 margin-bottom: 30px;
 
@@ -2242,16 +2253,6 @@ translate,
                     }
                 }
 
-                // fill parrent block
-                @mixin nth_offset($nth: 1) {
-                    &:nth-child(#{$nth}) {
-                        .card:before,
-                        .card:after {
-                            left: calc(calc(100% / 7) * #{$nth - 1} + 35px);
-                        }
-                    }
-                }
-
                 @include nth_offset(1);
                 @include nth_offset(2);
                 @include nth_offset(3);
@@ -2259,6 +2260,16 @@ translate,
                 @include nth_offset(5);
                 @include nth_offset(6);
                 @include nth_offset(7);
+            }
+
+            &.steps_5{
+                .step-item{
+                    @include nth_offset(1, 5);
+                    @include nth_offset(2, 5);
+                    @include nth_offset(3, 5);
+                    @include nth_offset(4, 5);
+                    @include nth_offset(5, 5);
+                }
             }
 
             .app-instruction {
@@ -3214,6 +3225,7 @@ translate,
 
 .signup-layout {
     background-color: #f7f9fc;
+    padding-top: 60px;
 
     .header-auth {
         display: none !important;
@@ -3221,6 +3233,14 @@ translate,
 
     .header-logo {
         display: none !important;
+    }
+
+    .section-footer{
+        display: none !important;
+    }
+
+    .app.app-header {
+        padding: 0;
     }
 
     .card {
