@@ -17,6 +17,7 @@ platform.setLibs([
     "angular_translate_storage_cookies",
     "angular_translate_storage_local",
     "mdi",
+    "qrcodejs",
     "ui_router"
 ]);
 

@@ -1,7 +1,7 @@
 .modal.modal-auth
     .modal-backdrop(ng-click="$ctrl.close()")
     //- Choose Sign In type
-    .modal-content(ng-show="$ctrl.showChoose")
+    .modal-content(ng-show="$ctrl.showChoose"): .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
 
         .modal-title(i18n="popup_auth.header.{{ $root.client_key }}.title")
@@ -19,7 +19,7 @@
             .footer-text {{ "popup_auth.labels.timelimit" | translate }}
 
     //- Sign In by qr-code
-    .modal-content(ng-show="$ctrl.showQrCodeBlock")
+    .modal-content(ng-show="$ctrl.showQrCodeBlock"): .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
 
         .modal-title {{ "popup_auth.labels.join" | translate }}
@@ -32,7 +32,7 @@
             .footer-text {{ "popup_auth.labels.timelimit" | translate }}
 
     //- Sign In by email
-    .modal-content(ng-show="$ctrl.showEmailBlock")
+    .modal-content(ng-show="$ctrl.showEmailBlock"): .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
 
         .modal-title {{ "popup_auth.labels.join" | translate }}
@@ -44,7 +44,8 @@
                 input(ng-model="$ctrl.signInEmailForm.values.primary_email" type="email" placeholder="E-mail").form-control
                 .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.primary_email" ng-bind="error")
             .form-group
-            .form-group: button(type="submit").button.button-primary.button-fill {{ "popup_auth.buttons.submit" | translate }}
+            .form-group.text-center
+                button(type="submit").button.button-primary {{ "popup_auth.buttons.submit" | translate }}
 
         //-.modal-footer
             .footer-text {{ "popup_auth.labels.timelimit" | translate }}

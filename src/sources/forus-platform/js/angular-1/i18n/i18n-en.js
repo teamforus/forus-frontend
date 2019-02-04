@@ -465,6 +465,22 @@ module.exports = {
             title_step_7: "Meld u aan voor een fonds",
             subtitle_step_7: "Uw aanvraag wordt binnen twee weken behandeld door de gemeente.",
         },
+        meapp_header: {
+            title_step_1: "Installeer Me",
+            subtitle_step_1: "Om betalingen te ontvangen heeft u een app nodig. Een transactie doet u door een QR-code te scannen en een bedrag in te vullen.",
+            title_step_2: "Profiel aanmaken",
+            subtitle_step_2: "Een persoonlijk profiel is nodig om betalingen te ontvangen. Later is het mogelijk om meerdere medewerkers toe te voegen.",
+            title_step_3: "Stel de app <i>Me</i> in op uw telefoon",
+            subtitle_step_3: "U heeft zojuist een profiel aangemaakt, daarom kunt u klikken op: ‘Ik heb een profiel’. Het instellen van uw profiel op de mobiele applicatie gebeurt door het invullen van een autorisatie code.",
+            top_title_step_3: "Gebruik Me",
+            top_subtitle_step_3: "Rond de installatie af door gebruik te maken van <i>Me</i>",
+            title_step_4: "Het is gelukt! Het profiel van de organisatie is gekoppeld aan <i>Me</i>.",
+            subtitle_step_4: "",
+            top_title_step_4: "Gebruik Me",
+            top_subtitle_step_4: "Rond de installatie af door gebruik te maken van <i>Me</i>",
+            title_step_5: "Het is gelukt om een profiel aan te maken",
+            subtitle_step_5: "Als u deel uit maakt van een organisatie, vraag de beheerder van uw organisatie om u toe te voegen als medewerker.",
+        },
         labels: {
             mail: "Persoonlijk E-mailadres",
             mail_confirmation: 'Herhaal persoonlijk E-mailadres',
@@ -948,6 +964,12 @@ module.exports = {
             'operation officer': 'Verrichten van betalingen via Me app (voor aanbieders)',
             finance: 'Overzicht van statistieken, transacties en het financieel dashboard',
             'policy officer': 'Aanbieders goedkeuren en instellingen van het fonds aanpassen'
+        }
+    },
+
+    tooltip: {
+        product: {
+            limit: "U kunt ook de inwoner in uw organisatie te woord staan en hem een persoonlijk aanbod aanbieden. U scant dan de QR-code en vult een bedrag in!",
         }
     },
   

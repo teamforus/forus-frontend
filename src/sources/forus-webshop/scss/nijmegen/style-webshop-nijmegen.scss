@@ -46,9 +46,7 @@ body {
             }
         }
     }
-    &.button-fill {
-        margin: 10px auto;
-    }
+
     &.button-primary {
         background-color: #157c68;
         border-color: #157c68;
@@ -63,7 +61,7 @@ body {
 
     &.button-dark {
         background-color: #fff;
-        border: 1px solid #ababab;
+        border: 1px solid $border_color;
         color: #157c68;
 
         &:hover {
@@ -75,13 +73,6 @@ body {
 }
 
 .form {
-    .form-group{
-        vertical-align: top;
-        display: flex;
-        align-items: flex-start;
-        justify-content: flex-start;
-        padding: 0;
-    }
     .form-label {
         color: #878787;
         width: 100%;
@@ -97,16 +88,17 @@ body {
         box-shadow: none;
         border: none;
         border-bottom: 1px solid #ced4da;
-        border-radius: 0;
+        border-radius: $border_radius;
         background-color: transparent;
         color: #212121;
         padding: 1.1rem 0 0.3rem 0;
-        font: 400 17px/24px "Source Sans Pro",sans-serif;
+        font: 400 17px/24px $bf;
         width: 100%;
         display: block;
         margin-top:-15px;
         z-index: 1;
 
+        &:active,
         &:focus {
             border: none;
             border-bottom: 1px solid #00b593;
@@ -161,7 +153,7 @@ body {
 
 .section {
     &.section-header {
-        .heade-sprite {
+        .header-sprite {
             background-image: url("../img/splash-top-ba.png");
             height: 650px;
             width: 100%;
@@ -232,28 +224,32 @@ body {
 
 .modal {
     background: rgba(25,39,52,0.5);
+    
     .modal-content {
         .form {
             .form-group{
                 flex-direction: column;
             }
         }
+        
         .text-center {
             .form-group{
                 flex-direction: row;
             }
         }
+        
         .description{
             font: 400 22px/34px $bf;
             color: $ptc;
     
-        .popup-title-styled{
-            color: #157c68;
-            font-weight: 600;
-            white-space: nowrap;
+            .popup-title-styled {
+                color: #157c68;
+                font-weight: 600;
+                white-space: nowrap;
+            }
         }
     }
-}
+
     .subdescription {
         color: grey;
 
@@ -289,7 +285,7 @@ body {
         border: none;
         font-weight: 300;
         transition: background $navbar_transition, padding $navbar_transition;
-        border-radius: 0;
+        border-radius: $border_radius;
         width: 1140px;
         padding: 0;
         max-width: 100%;
@@ -332,7 +328,8 @@ body {
             z-index: 1;
             padding: 0;
             transition: $navbar_transition;
-            .navbar-item-wrapper{
+            
+            .navbar-item-wrapper {
                 .navbar-item {
                     margin: 0 20px;
                     color: #fff;
@@ -355,7 +352,7 @@ body {
                         color: #e4b3be;
 
                     }
-                }
+                }        
             }
         }
 
@@ -368,7 +365,7 @@ body {
 
             .button {
                 background-color: #fff;
-                border: 1px solid #ababab;
+                border: 1px solid $border_color;
                 color: #157c68;
                 float: none;
                 margin-right: none;
@@ -452,10 +449,10 @@ body {
             }
 
             .navbar-list {
-                .navbar-item-wrapper{
+                .navbar-item-wrapper {
                     .navbar-item {
                         padding: 5px 5px;
-                    }
+                    }   
                 }
             }
 
@@ -471,13 +468,13 @@ body {
         .product-item {
             .product-item-inner {
                 box-shadow: $base_shadow;
-                border-radius: 0px;
+                border-radius: $border_radius;
                 background-color: rgba(255, 255, 255, .9);
             }
 
             .product-image {
-                border: 1px solid #ececec;
-                border-radius: 0px;
+                border: 1px solid $border_color;
+                border-radius: $border_radius;
                 
                 &:after {
                     background: rgba(33, 33, 33, 0.3);
@@ -596,7 +593,7 @@ body {
             .footer-nav-item {
                 a {
                     color: #efefef;
-                    font: 500 14px/24px "Source Sans Pro",sans-serif;
+                    font: 500 14px/24px $bf;
 
                     &:hover {
                         color: #fff;
@@ -619,7 +616,7 @@ body {
         .footer-subscribe {
             .button {
                 margin: 0;
-                border-radius: 0;
+                border-radius: $border_radius;
 
                 .mdi {
                     float: none;
@@ -993,7 +990,7 @@ body {
                 width: 100%;
                 text-align: center;
                 background-color: #fff;
-                border: 1px solid #ababab;
+                border: 1px solid $border_color;
                 color: #157c68;
 
                 &:hover,
@@ -1259,7 +1256,7 @@ body {
             }
 
             .popup-content {
-                border-radius: 0;
+                border-radius: $border_radius;
                 height: 100%;
                 border: none;
                 transform: none;
