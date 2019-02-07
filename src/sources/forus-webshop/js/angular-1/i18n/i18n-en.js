@@ -643,7 +643,7 @@ module.exports = {
                 subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres",
             },
             zuidhorn: {
-                title: "Inloggen op bij het Kindpakket",
+                title: "Inloggen op het Kindpakket",
                 subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres",                
             },
             general: {
@@ -662,7 +662,7 @@ module.exports = {
             voucher_email: "Uw voucher is verstuurd naar uw mail.",
         },
         buttons: {
-            qrcode: "Log in via QR-Code",
+            qrcode: "Log in via de Me-app",
             mail: "Log in via e-mail",
             submit: "VOLGENDE",
             cancel: "ANNULEREN",
