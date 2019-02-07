@@ -14,7 +14,7 @@ section.section.section-product: .wrapper
     .block.block-product
         .product-card
             .product-details
-                .product-photo(style="background-image: url('{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}')")
+                .product-photo(ng-style="{'background-image':'url({{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }})'}")
                     img(ng-src="{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}")
                 .product-name
                     span(ng-bind="$ctrl.product.name")
