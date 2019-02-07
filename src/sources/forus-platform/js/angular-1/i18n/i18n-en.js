@@ -50,7 +50,7 @@ module.exports = {
             title_zuidhorn: "Een profiel voor het Kindpakket",
             title_westerkwartier: "Een profiel voor het Kindpakket",
             title_forus: "Een profiel voor het Kerstpakket",
-            description: "Een profiel om in te loggen, waarmee je vouchers kan beheren en veilig kan betalen",
+            description: "Een profiel om in te loggen, waarmee u vouchers kan beheren en veilig kan betalen",
         },
         buttons: {
             join: "Aanmelden",
@@ -64,11 +64,11 @@ module.exports = {
                 title: "Functies",
             },
             profile: "Maak een profiel aan",
-            pin: "Je hebt de mogelijkheid om een profiel aan te maken en deze daarna te beveiligen met een pincode.",
+            pin: "U heeft de mogelijkheid om een profiel aan te maken en deze daarna te beveiligen met een pincode.",
             vouchers: "Vouchers",
-            criterion: "Als je aan gestelde criteria voldoet van een gemeente. Kan je een voucher aanvragen. Deze voucher kan je beheren in Me. Met Me kan je veilig betalingen verrichten.",
+            criterion: "Als u aan gestelde criteria voldoet van een gemeente. Kunt u een voucher aanvragen. Deze voucher kunt u beheren in Me. Met Me kunt u veilig betalingen verrichten.",
             apply: "Aanmelden",
-            webshop: "Meld je aan op de webshop met Me. Dit doe je doordat de webshop een QR-code presenteert waarna deze gescant kan worden met Me.",
+            webshop: "Meld u aan op de webshop met Me. Dit doet u door de QR-code te scannen met Me die de webshop presenteert.",
             profileb: "Profiel",
             app: "De app bewaart een profiel van de gebruiker, dit profiel maakt het mogelijk dat de gegevens hergebruikt kunnen worden voor het mee doen aan andere regelingen.",
         }
@@ -76,8 +76,8 @@ module.exports = {
     // PROVIDER HOME = home-provider.pug
     home_provider: {
         header: {
-            title: "Meld je aan als winkelier of dienstverlener",
-            title_nijmegen: "Meld je aan als dienstverlener",
+            title: "Meld u aan als winkelier of dienstverlener",
+            title_nijmegen: "Meld u aan als dienstverlener",
             subtitle: "Bereik meer klanten, maak winst en draag bij aan een maatschappelijk doel.",
             subtitle_nijmegen: "De gemeente geeft inwoners met een laag inkomen maximaal € 150,- voor culturele, sportieve en educatieve activiteiten. Dit heet de Meedoen-regeling.",
         },
@@ -92,14 +92,14 @@ module.exports = {
             title_nijmegen: "Als uw organisatie een passend aanbod heeft, kunt u zich opgeven.",
             description: "Doe mee aan ons platform door onderstaande stappen te volgen, maak een organisatie aan, verkoop jouw producten of diensten en trek nieuwe klanten aan.",
             description_nijmegen: "Uw organisatie is in het bezit van een smartphone, deze heeft u nodig om een mobiele applicatie te installeren die QR-codes kan scannen. Heeft u deze smartphone bij de hand? Regel het dan direct!",
-            button: "Start je reis!",
+            button: "Start uw reis!",
             button_nijmegen: "DIRECT REGELEN",
         }
     },
     // SPONSOR HOME = home-sponsor.pug
     home_sponsor: {
         header: {
-            title: "Meld je aan als gemeente en maak een regeling aan.",
+            title: "Meld u aan als gemeente en maak een regeling aan.",
             description: "Een platform om gemeentelijke regelingen doelmatig, rechtmatig en efficient uit te geven aan inwoners.",
         },
         subject: {
@@ -111,7 +111,7 @@ module.exports = {
         guide: {
             title: "Word onderdeel van een innovatieve beweging",
             join: "Doe mee aan ons platform door onderstaande stappen te volgen.",
-            button: "Start je reis ",
+            button: "Start uw reis ",
         }
     },
     // VALIDATOR HOME = home-validator.pug
@@ -408,7 +408,7 @@ module.exports = {
         },
         error_apply: {
             title: 'U heeft nog geen vestigingen aangemaakt!',
-            description: 'U hebt tenminste één vestiging nodig om uw organisatie aan te melden voor {{fund_name}}'
+            description: 'U heeft tenminste één vestiging nodig om uw organisatie aan te melden voor {{fund_name}}'
         }
     },
 
@@ -900,8 +900,8 @@ module.exports = {
     // AUTHENTICATION POPUP = popup-auth.pug
     popup_auth: {
         header: {
-            title: "Inloggen op platform Forus",
-            subtitle: "Scan de QR-code met de Me App of log in met je e-mail adres",
+            title: "Inloggen op het dashboard",
+            subtitle: "Scan de QR-code met de Me-app of log in met uw e-mail adres",
         },
         notifications: {
             confirmation: "Het is gelukt!",
@@ -917,18 +917,18 @@ module.exports = {
             confirm: "VOLGENDE",
         },
         labels: {
-            timelimit: "Je kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt je sessie.",
+            timelimit: "U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.",
             join: "Aanmelden",
-            scancode: "Scan deze QR-Code met een ander apparaat waar je al op aangemeld bent",
-            mobilecode: "Vul je toegangscode van de Me App in",
+            scancode: "Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent",
+            mobilecode: "Vul de toegangscode van de Me-app in",
             mail: "Dit scherm is alleen bedoeld voor inwoners die een brief van de gemeente hebben ontvangen met daarin een activatiecode en deze nog niet hebben gebruikt.",
-            link: "Vul je e-mail adres in om een link te ontvangen waarmee je kunt inloggen",
-            code: "Vul de activatiecode in die je per brief hebt ontvangen",
+            link: "Vul uw e-mail adres in om een link te ontvangen waarmee u kunt inloggen",
+            code: "Vul de activatiecode in die u per brief heeft ontvangen",
             voucher_email: "Verstuur de voucher per e-mail",
 
         },
         input: {
-            mail: "Vul je e-mail adres in",
+            mail: "Vul uw e-mail adres in",
             code: "Activatiecode",
             mailing: "E-mail",
         },

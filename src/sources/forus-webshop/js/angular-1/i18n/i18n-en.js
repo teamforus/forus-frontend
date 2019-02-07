@@ -643,7 +643,7 @@ module.exports = {
                 subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres",
             },
             zuidhorn: {
-                title: "Inloggen op bij het Kindpakket",
+                title: "Inloggen op het Kindpakket",
                 subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres",                
             },
             general: {
