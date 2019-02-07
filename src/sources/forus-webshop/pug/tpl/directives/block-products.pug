@@ -23,7 +23,7 @@ section.section.section-products#products: .wrapper
                 .product-details
                     .product-name(ng-bind="product.name")
                     .product-discount
-                        | {{ 100 - (product.price / product.old_price) * 100 | to_fixed:0 }}% 
+                        | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}%
                         br
                         | {{ "block_products.labels.discount" | translate }}
                     .product-price
