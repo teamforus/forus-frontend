@@ -141,11 +141,12 @@ module.exports = {
             spend: "Startbudget",
             used: "Totaal uitgegeven bedrag in %",
             usage: "uitgegeven",
-            payed: "Uitgegeven bij",
+            payed: "Uitgegeven in",
             shops: "Aanbieders",
             activation: "Aantal geactiveerd",
             citizen: "Nieuwe inwoners",
             provider: "Aanbieders",
+            transactions: "transacties",
 
         },
         buttons: {
