@@ -28,10 +28,10 @@ section.section.section-product: .wrapper
                 .product-price
                     .product-price-new
                         .new-label(i18n="block_products.labels.new")
-                        .new-value(ng-bind="$ctrl.product.old_price | currency_format")
+                        .new-value(ng-bind="$ctrl.product.price | currency_format")
                     .product-price-old
                         .old-label(i18n="block_products.labels.old")
-                        .old-value(ng-bind="$ctrl.product.price | currency_format")
+                        .old-value(ng-bind="$ctrl.product.old_price | currency_format")
                     .product-price-insufficient.tooltip-block(ng-show="$ctrl.isApplicable == false" ng-if="$root.auth_user" i18n="product.insufficient")
                     tooltip(text="'product.tooltip'" ng-show="$ctrl.isApplicable == false" ng-if="$root.auth_user")
 
