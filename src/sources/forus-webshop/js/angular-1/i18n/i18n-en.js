@@ -662,7 +662,7 @@ module.exports = {
             voucher_email: "Uw voucher is verstuurd naar uw mail.",
         },
         buttons: {
-            qrcode: "Log in via QR-Code",
+            qrcode: "Log in via de Me-app",
             mail: "Log in via e-mail",
             submit: "VOLGENDE",
             cancel: "ANNULEREN",

@@ -910,7 +910,7 @@ module.exports = {
             voucher_email: "Het is gelukt, de e-mail is verstuurd",
         },
         buttons: {
-            qrcode: "Log in via QR-Code",
+            qrcode: "Log in via de Me-app",
             mail: "Log in via e-mail",
             submit: "VERSTUREN",
             cancel: "ANNULEREN",
