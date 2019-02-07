@@ -109,7 +109,7 @@ let ModalAuthComponent = function(
                     class: 'modal-description-pad modal-content',
                     title: $filter('translate')('popup_auth.labels.join'),
                     description: $filter('translate')('popup_auth.notifications.link'),
-                    confirmBtnText: $filter('translate')('popup_auth.buttons.submit')
+                    confirmBtnText: $filter('translate')('popup_auth.buttons.confirm')
                 });
 
             }, (res) => {
