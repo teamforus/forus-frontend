@@ -17,6 +17,18 @@
             border-color: $color_default_light;
         }
     }
+    &.button-primary {
+        color: #fff;
+        background: $color_primary;
+        border: 1px solid $color_primary;
+        box-shadow: 0 10px 25px rgba(#000, .15);
+
+        &:hover {
+            color: #fff;
+            background: $color_primary_light;
+            background-color: $color_primary_light;
+        }
+    }
 }
 
 .header-splash {
