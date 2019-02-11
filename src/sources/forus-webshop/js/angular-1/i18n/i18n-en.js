@@ -25,6 +25,7 @@ module.exports = {
         general: 'General',
         zuidhorn: 'Zuidhorn',
         nijmegen: 'Nijmegen',
+        westerkwartier: 'Westerkwartier',
         forus: 'Forus platform & '
     },
     languages: {
@@ -580,9 +581,9 @@ module.exports = {
                 mail: "kindpakket@zuidhorn.nl",
             },
             westerkwartier: {
-                address:"Hooiweg 9, 9801 AJ Zuidhorn",
-                phone:"(0594) 508888",
-                mail: "kindpakket@zuidhorn.nl",
+                address:"Grootegast, Hoofdstraat 97, 9861 AC <br/>Leek, Tolberterstraat 66, 9351 BJ <br/>Marum, Molenstraat 45, 9363 BA <br />Zuidhorn, Hooiweg 9, 9801 AJ",
+                phone:"14 0594",
+                mail: "kindpakket@westerkwartier.nl",
             },
             follow: "Volg ons",
             name: "Naam",
@@ -643,6 +644,10 @@ module.exports = {
                 subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres",
             },
             zuidhorn: {
+                title: "Inloggen op het Kindpakket",
+                subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres",                
+            },
+            westerkwartier: {
                 title: "Inloggen op het Kindpakket",
                 subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres",                
             },

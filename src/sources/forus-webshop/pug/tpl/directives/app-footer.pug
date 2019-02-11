@@ -273,13 +273,17 @@ else if (qdt_c.platform.env_data.client_key == 'westerkwartier')
                     img(src="./assets/img/logo-bw.png").footer-logo
                     .footer-schedule
                         .schedule-label E-mailadres:		
-                        .schedule-value kindpakket@zuidhorn.nl
+                        .schedule-value kindpakket@westerkwartier.nl
                     .footer-schedule
                         .schedule-label Telefoonnummer:		
-                        .schedule-value (0594) 508888
+                        .schedule-value 14 0594
                     .footer-schedule
-                        .schedule-label Adres:		
-                        .schedule-value Hooiweg 9, 9801 AJ Zuidhorn
+                        .schedule-label Adres:
+                        .schedule-value &nbsp;                        		
+                        .schedule-value Grootegast, Hoofdstraat 97, 9861 AC
+                        .schedule-value Leek, Tolberterstraat 66, 9351 BJ
+                        .schedule-value Marum, Molenstraat 45, 9363 BA
+                        .schedule-value Zuidhorn, Hooiweg 9, 9801 AJ
                     //.block.block-app_download
                         .download-button: a(href="https://play.google.com/store/apps/details?id=io.forus.me")
                             .download-label Beschikbaar in de
@@ -294,29 +298,32 @@ else if (qdt_c.platform.env_data.client_key == 'westerkwartier')
                     .footer-label Openingstijden Gemeente
                     .footer-schedule
                         .schedule-label Maandag: 		
-                        .schedule-value 8.30-12.30, 13.30-16.30, 18.00-19.30
+                        .schedule-value 08.00-12.00 uur, na 12:00 uur alleen op afspraak.
                         
                     .footer-schedule
                         .schedule-label Dinsdag:		
-                        .schedule-value 8.30-12.30
+                        .schedule-value 08.00-12.00 uur, na 12:00 uur alleen op afspraak.
 
                     .footer-schedule
                         .schedule-label Woensdag: 		
-                        .schedule-value 8.30-12.30, 13.30-17.30
+                        .schedule-value 08.00-12.00 uur, na 12:00 uur alleen op afspraak.
                     
                     .footer-schedule
                         .schedule-label Donderdag:	 	
-                        .schedule-value 8.30-12.30
+                        .schedule-value 08.00-12.00 uur, na 12:00 uur alleen op afspraak.
                     
                     .footer-schedule
                         .schedule-label Vrijdag: 		
-                        .schedule-value 8.30-12.30
+                        .schedule-value 08.00-12.00 uur, na 12:00 uur alleen op afspraak.
+                    .footer-schedule
+                        .schedule-label(style="width: 100%;") Locatie Zuidhorn is op maandagavond van 18:00 tot 19:30 uur geopend.		
+                        .schedule-label(style="width: 100%;") Locatie Leek is op donderdagavond van 18:00 uur tot 19:30 uur geopend.
                 
                 .col.col-md-3
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="/provider/" target="_self") Bent u een winkelier in Zuidhorn en wilt u meer informatie?
-                        .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van een gemeente en wilt u meer informatie?
+                        .footer-nav-item: a(href="/provider/" target="_self") Bent u een winkelier of vereniging en wilt u meer informatie?
+                        .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van de gemeente en wilt u meer informatie?
                 
                 .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
                     .footer-label Ontvang onze nieuwsbrief
@@ -326,7 +333,7 @@ else if (qdt_c.platform.env_data.client_key == 'westerkwartier')
                             button.button.button-primary: .mdi.mdi-arrow-right
                 
         .block.block-copyrights: .wrapper
-            .copyrights © 2018 Forus.io
+            .copyrights 
             .links
                 a(href="https://media.forus.io/static/Algemene%20Voorwaarden%20Kindpakket%20website.pdf") Algemene Voorwaarden
                 .link-separator
