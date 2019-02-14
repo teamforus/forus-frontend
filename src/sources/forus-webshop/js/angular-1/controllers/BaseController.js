@@ -2,6 +2,7 @@ let BaseController = function(
     $rootScope,
     $state,
     $q,
+    $window,
     IdentityService,
     AuthService,
     RecordService,
@@ -86,12 +87,17 @@ let BaseController = function(
 
     $rootScope.pageTitle = $filter('translate')('page_title');
     $rootScope.client_key = appConfigs.client_key;
+
+    $window.onbeforeunload = function (event) {
+        BrowserService.unsetInactivity();
+    };
 };
 
 module.exports = [
     '$rootScope',
     '$state',
     '$q',
+    '$window',
     'IdentityService',
     'AuthService',
     'RecordService',
