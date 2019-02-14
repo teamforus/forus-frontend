@@ -219,7 +219,7 @@ module.exports = {
             nijmegen: {
                 title: "Veelgestelde vragen",
                 faq_one: "Hoe kan ik de Meedoen-regeling activeren?",
-                one: "<ul><b><li>Stap 1: </b>Klik op de start knop om uw activatiecode in te vullen.</li><br /><li><b>Stap 2: </b>Vul uw e-mailadres in. U ontvangt een bevestigingsmail. Bevestiging dat u toegang heeft tot dit e-mailadres door op de knop in de mail te klikken.</li><br /><li><b>Stap 3: </b>Vul uw activatiecode in om de Meedoen-regeling te activeren en klik vervolgens op 'Volgende'. Uw profiel is aangemaakt en uw Meedoen-regeling is geactiveerd.</li></ul>",
+                one: "<ul><b><li>Stap 1: </b>Klik op de start knop om uw activatiecode in te vullen.</li><br /><li><b>Stap 2: </b>Vul uw eigen e-mailadres in om een bevestigingsmail te ontvangen. Bevestig dat u toegang heeft tot dit e-mailadres door op de knop in de mail te klikken.</li><br /><li><b>Stap 3: </b>Vul uw activatiecode in om de Meedoen-regeling te activeren en klik vervolgens op 'Volgende'. Uw profiel is aangemaakt en uw Meedoen-regeling is geactiveerd.</li></ul><br /><u><strong>Let op:</strong>U kunt één activatiecode per e-mailadres gebruiken.</ul>",
                 faq_two: "Ik ben mijn activatiecode kwijt. Wat kan ik doen?",
                 two: "Neem contact op met de gemeente Nijmegen. Wij kunnen de brief opnieuw versturen met daarin de activatiecode of de code aan de telefoon doorgeven.",
                 faq_three: "Hoe kan ik mij aanmelden voor een activiteit of cursus",
@@ -248,6 +248,8 @@ module.exports = {
                 fourteen: "Nee, de voucher is strikt persoonlijk. U mag de voucher niet aan iemand anders geven.",
                 faq_fifteen: "Kan ik me ook aanmelden voor een activiteit bij de balie van een organisatie of kan het alleen in de webshop?",
                 fifteen: "U kunt zich ook aanmelden voor een cursus of activiteit bij de organisatie zelf. U heeft dan wel de QR-code nodig die u in de webshop kunt downloaden en/of uitprinten. U betaalt met de QR-code.",
+                faq_sixteen: "Ik krijg een foutmelding als ik de activatiecode invul, wat moet ik doen ?",
+                sixteen: "Neem contact op met de gemeente Nijmegen. Wij gaan het voor u nakijken en een passende oplossing bieden.",
             },
             westerkwartier: {
                 title: "Veelgestelde vragen",
@@ -318,7 +320,7 @@ module.exports = {
                 stepone: "Stap #1",
                 one: "U hebt een brief ontvangen van de gemeente. In de brief staat een activatiecode.",
                 steptwo: "Stap #2",
-                two: "Klik op de <u>start</u> knop om uw activatiecode in te vullen.",
+                two: "Klik op de <u>start</u> knop om uw activatiecode in te vullen. Gebruik uw eigen e-mailadres. U kunt voor de Meedoen-regeling ieder jaar maximaal één activatiecode per e-mailadres gebruiken.",
                 stepthree: "Stap #3",
                 three: "Klik daarna op ‘Aanbiedingen’. Daar vindt u alle activiteiten en cursussen. Ook kunt u uw tegoed zien. De voucher met het tegoed vindt u terug door bovenaan op ‘Mijn vouchers’ te klikken.",
                 stepfour: "Stap #4",
@@ -681,9 +683,9 @@ module.exports = {
             activate_code: "Stap 3 van 3: Activeer uw tegoed.",
             scancode: "Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent.",
             mobilecode: "Vul uw toegangscode van de Me-app in.",
-            mail: "Heeft u een brief van de gemeente ontvangen met een activatiecode en deze nog niet gebruikt? Ga dan verder.",
+            mail: "<strong>Let op</strong>: gebruik uw eigen e-mailadres.<br /> U kunt voor de Meedoen-regeling per jaar maximaal één activatiecode per e-mailadres gebruiken.",
             link: "Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen.",
-            code: "Vul de activatiecode in die u per brief hebt ontvangen.",
+            code: "Vul de activatiecode in die u per brief hebt ontvangen.<br /><strong>Let op:</strong> U kunt één activatiecode per e-mailadres gebruiken. Sluit dit venster als u al een activatiecode heeft gebruikt.",
             voucher_email: "Het is gelukt!",
         },
         input: {
