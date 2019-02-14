@@ -50,8 +50,8 @@ section.section.section-product: .wrapper
         .block.block-info-card
             .block-header(i18n="voucher.labels.shopdetail")
             .info-office(ng-repeat="office in $ctrl.product.offices")
-                .info-office-photo(style="background-image: url('{{ office.photo.sizes.thumbnail || './assets/img/placeholders/office-thumbnail.png' }}')") 
-                    img(ng-src="{{ office.photo.sizes.thumbnail || './assets/img/placeholders/office-thumbnail.png' }}", alt="")
+                .info-office-photo(style="background-image: url('{{ office.photo.sizes.thumbnail || (office.organization.logo.sizes.thumbnail || './assets/img/placeholders/office-thumbnail.png') }}')")
+                    img(ng-src="{{ office.photo.sizes.thumbnail || (office.organization.logo.sizes.thumbnail || './assets/img/placeholders/office-thumbnail.png') }}", alt="")
                 .info-office-details
                     .info-office-title(ng-bind="$ctrl.product.organization.name")
                     .info-office-description
