@@ -15,6 +15,7 @@ let FundCardProviderFinancesDirective = function(
             type: "month",
             nth: moment().month() + 1,
             year: moment().year(),
+            product_category: null
         },
         response: {},
         stringTitle: "",
@@ -151,6 +152,12 @@ let FundCardProviderFinancesDirective = function(
     $scope.fund = $scope.fundProvider.fund;
     $scope.fundCategories = $scope.fund.product_categories.map((val) => {
         return val.name;
+    });
+
+    $scope.productCategories = _.clone($scope.fund.product_categories);
+    $scope.productCategories.unshift({
+        name: 'Alle',
+        id: null
     });
 
     // Export to XLS file
