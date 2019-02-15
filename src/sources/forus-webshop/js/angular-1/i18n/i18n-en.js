@@ -247,6 +247,8 @@ module.exports = {
                 fourteen: "Nee, de voucher is strikt persoonlijk. U mag de voucher niet aan iemand anders geven.",
                 faq_fifteen: "Kan ik me ook aanmelden voor een activiteit bij de balie van een organisatie of kan het alleen in de webshop?",
                 fifteen: "U kunt zich ook aanmelden voor een cursus of activiteit bij de organisatie zelf. U heeft dan wel de QR-code nodig die u in de webshop kunt downloaden en/of uitprinten. U betaalt met de QR-code.",
+                faq_sixteen: "Ik krijg een foutmelding als ik de activatiecode invul, wat moet ik doen ?",
+                sixteen: "Neem contact op met de gemeente Nijmegen. Wij gaan het voor u nakijken en een passende oplossing bieden.",
             },
             westerkwartier: {
                 title: "Veelgestelde vragen",
@@ -317,7 +319,7 @@ module.exports = {
                 stepone: "Stap #1",
                 one: "U hebt een brief ontvangen van de gemeente. In de brief staat een activatiecode.",
                 steptwo: "Stap #2",
-                two: "Klik op de <u>start</u> knop om uw activatiecode in te vullen.",
+                two: "Klik op de <u>start</u> knop om uw activatiecode in te vullen. Gebruik uw eigen e-mailadres. U kunt voor de Meedoen-regeling ieder jaar maximaal één activatiecode per e-mailadres gebruiken.",
                 stepthree: "Stap #3",
                 three: "Klik daarna op ‘Aanbiedingen’. Daar vindt u alle activiteiten en cursussen. Ook kunt u uw tegoed zien. De voucher met het tegoed vindt u terug door bovenaan op ‘Mijn vouchers’ te klikken.",
                 stepfour: "Stap #4",
@@ -680,6 +682,8 @@ module.exports = {
             link: "Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen.",
             code: "Vul de activatiecode in die u per brief hebt ontvangen.",
             voucher_email: "Het is gelukt!",
+            isactivated: "Uw voucher is al geactiveerd.",
+            codeactivated: "U heeft al een activatiecode gebruikt. Het is niet mogelijk nog één te gebruiken.",
         },
         input: {
             mail: "Vul uw e-mailadres in",

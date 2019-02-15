@@ -4,8 +4,17 @@ let ModalAuthComponent = function(
     FormBuilderService,
     PrevalidationService,
     ConfigService,
-    FundService
+    FundService,
+    AuthService,
+    VoucherService
 ) {
+
+    if(AuthService.hasCredentials()) {
+        VoucherService.list().then(res => {
+            $ctrl.vouchers = res.data.data; });
+        } else {
+            $ctrl.vouchers = [];
+        }
 
     let $ctrl = this;
 
@@ -67,6 +76,8 @@ module.exports = {
         'PrevalidationService',
         'ConfigService',
         'FundService',
+        'AuthService',
+        'VoucherService',
         ModalAuthComponent
     ],
     templateUrl: () => {
