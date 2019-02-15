@@ -319,7 +319,7 @@ module.exports = {
                 stepone: "Stap #1",
                 one: "U hebt een brief ontvangen van de gemeente. In de brief staat een activatiecode.",
                 steptwo: "Stap #2",
-                two: "Klik op de <u>start</u> knop om uw activatiecode in te vullen.",
+                two: "Klik op de <u>start</u> knop om uw activatiecode in te vullen. Gebruik uw eigen e-mailadres. U kunt voor de Meedoen-regeling ieder jaar maximaal één activatiecode per e-mailadres gebruiken.",
                 stepthree: "Stap #3",
                 three: "Klik daarna op ‘Aanbiedingen’. Daar vindt u alle activiteiten en cursussen. Ook kunt u uw tegoed zien. De voucher met het tegoed vindt u terug door bovenaan op ‘Mijn vouchers’ te klikken.",
                 stepfour: "Stap #4",
