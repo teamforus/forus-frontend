@@ -247,6 +247,8 @@ module.exports = {
                 fourteen: "Nee, de voucher is strikt persoonlijk. U mag de voucher niet aan iemand anders geven.",
                 faq_fifteen: "Kan ik me ook aanmelden voor een activiteit bij de balie van een organisatie of kan het alleen in de webshop?",
                 fifteen: "U kunt zich ook aanmelden voor een cursus of activiteit bij de organisatie zelf. U heeft dan wel de QR-code nodig die u in de webshop kunt downloaden en/of uitprinten. U betaalt met de QR-code.",
+                faq_sixteen: "Ik krijg een foutmelding als ik de activatiecode invul, wat moet ik doen ?",
+                sixteen: "Neem contact op met de gemeente Nijmegen. Wij gaan het voor u nakijken en een passende oplossing bieden.",
             },
             westerkwartier: {
                 title: "Veelgestelde vragen",
