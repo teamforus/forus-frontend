@@ -160,6 +160,11 @@ let FundCardProviderFinancesDirective = function(
         id: null
     });
 
+    $scope.productCategories.push({
+        name: 'Others',
+        id: -1
+    });
+
     // Export to XLS file
     $scope.exportList = () => {
         FundService.exportProvidersTransactions(
