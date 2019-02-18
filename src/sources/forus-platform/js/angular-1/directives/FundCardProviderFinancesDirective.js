@@ -161,7 +161,7 @@ let FundCardProviderFinancesDirective = function(
     });
 
     $scope.productCategories.push({
-        name: 'Others',
+        name: 'Anders',
         id: -1
     });
 
