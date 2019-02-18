@@ -156,6 +156,11 @@ let FinancialDashboardComponent = function(
                 name: 'Alle',
                 id: null
             });
+
+            $ctrl.productCategories.push({
+                name: 'Anders',
+                id: -1
+            });
         }
     };
 
