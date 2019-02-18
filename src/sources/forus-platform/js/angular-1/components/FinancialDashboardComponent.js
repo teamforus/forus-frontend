@@ -158,7 +158,7 @@ let FinancialDashboardComponent = function(
             });
 
             $ctrl.productCategories.push({
-                name: 'Others',
+                name: 'Anders',
                 id: -1
             });
         }
