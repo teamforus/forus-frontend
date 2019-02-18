@@ -25,6 +25,7 @@ module.exports = {
         general: 'General',
         zuidhorn: 'Zuidhorn',
         nijmegen: 'Nijmegen',
+        westerkwartier: 'Westerkwartier',
         forus: 'Forus platform & '
     },
     languages: {
@@ -218,7 +219,7 @@ module.exports = {
             nijmegen: {
                 title: "Veelgestelde vragen",
                 faq_one: "Hoe kan ik de Meedoen-regeling activeren?",
-                one: "<ul><b><li>Stap 1: </b>Klik op de start knop om uw activatiecode in te vullen.</li><br /><li><b>Stap 2: </b>Vul uw e-mailadres in. U ontvangt een bevestigingsmail. Bevestiging dat u toegang heeft tot dit e-mailadres door op de knop in de mail te klikken.</li><br /><li><b>Stap 3: </b>Vul uw activatiecode in om de Meedoen-regeling te activeren en klik vervolgens op 'Volgende'. Uw profiel is aangemaakt en uw Meedoen-regeling is geactiveerd.</li></ul>",
+                one: "<ul><b><li>Stap 1: </b>Klik op de start knop om uw activatiecode in te vullen.</li><br /><li><b>Stap 2: </b>Vul uw eigen e-mailadres in om een bevestigingsmail te ontvangen. Bevestig dat u toegang heeft tot dit e-mailadres door op de knop in de mail te klikken.</li><br /><li><b>Stap 3: </b>Vul uw activatiecode in om de Meedoen-regeling te activeren en klik vervolgens op 'Volgende'. Uw profiel is aangemaakt en uw Meedoen-regeling is geactiveerd.</li></ul><br /><u><strong>Let op:</strong>U kunt één activatiecode per e-mailadres gebruiken.</ul>",
                 faq_two: "Ik ben mijn activatiecode kwijt. Wat kan ik doen?",
                 two: "Neem contact op met de gemeente Nijmegen. Wij kunnen de brief opnieuw versturen met daarin de activatiecode of de code aan de telefoon doorgeven.",
                 faq_three: "Hoe kan ik mij aanmelden voor een activiteit of cursus",
@@ -582,9 +583,9 @@ module.exports = {
                 mail: "kindpakket@zuidhorn.nl",
             },
             westerkwartier: {
-                address:"Hooiweg 9, 9801 AJ Zuidhorn",
-                phone:"(0594) 508888",
-                mail: "kindpakket@zuidhorn.nl",
+                address:"Grootegast, Hoofdstraat 97, 9861 AC <br/>Leek, Tolberterstraat 66, 9351 BJ <br/>Marum, Molenstraat 45, 9363 BA <br />Zuidhorn, Hooiweg 9, 9801 AJ",
+                phone:"14 0594",
+                mail: "kindpakket@westerkwartier.nl",
             },
             follow: "Volg ons",
             name: "Naam",
@@ -648,6 +649,10 @@ module.exports = {
                 title: "Inloggen op het Kindpakket",
                 subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres",                
             },
+            westerkwartier: {
+                title: "Inloggen op het Kindpakket",
+                subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres",                
+            },
             general: {
                 title: "Inloggen op Platform Forus",
                 subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres", 
@@ -678,9 +683,9 @@ module.exports = {
             activate_code: "Stap 3 van 3: Activeer uw tegoed.",
             scancode: "Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent.",
             mobilecode: "Vul uw toegangscode van de Me-app in.",
-            mail: "Heeft u een brief van de gemeente ontvangen met een activatiecode en deze nog niet gebruikt? Ga dan verder.",
+            mail: "<strong>Let op</strong>: gebruik uw eigen e-mailadres.<br /> U kunt voor de Meedoen-regeling per jaar maximaal één activatiecode per e-mailadres gebruiken.",
             link: "Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen.",
-            code: "Vul de activatiecode in die u per brief hebt ontvangen.",
+            code: "Vul de activatiecode in die u per brief hebt ontvangen.<br /><strong>Let op:</strong> U kunt één activatiecode per e-mailadres gebruiken. Sluit dit venster als u al een activatiecode heeft gebruikt.",
             voucher_email: "Het is gelukt!",
             isactivated: "Uw voucher is al geactiveerd.",
             codeactivated: "U heeft al een activatiecode gebruikt. Het is niet mogelijk nog één te gebruiken.",

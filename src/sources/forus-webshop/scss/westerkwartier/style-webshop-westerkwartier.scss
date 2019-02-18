@@ -2,9 +2,6 @@
 @import '../_common/webshop';
 
 @import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700');
-body {
-    min-height:1390px;
-}
 .button {
     &.button-default {
         background-color: $color_default;
@@ -18,6 +15,18 @@ body {
         &:hover {
             background-color: $color_default_light;
             border-color: $color_default_light;
+        }
+    }
+    &.button-primary {
+        color: #fff;
+        background: $color_primary;
+        border: 1px solid $color_primary;
+        box-shadow: 0 10px 25px rgba(#000, .15);
+
+        &:hover {
+            color: #fff;
+            background: $color_primary_light;
+            background-color: $color_primary_light;
         }
     }
 }
@@ -38,18 +47,6 @@ body {
             height: 20.5vw;
         }
 
-        &:after {
-            position: absolute;
-            left:0;
-            bottom: (0 - 12vmax);
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 12vmax 12vmax 0 0;
-            border-color: #72bdea  transparent transparent transparent;
-            -webkit-transform:rotate(360deg);
-            content: " ";
-        }
     
         &:before {
             position: absolute;

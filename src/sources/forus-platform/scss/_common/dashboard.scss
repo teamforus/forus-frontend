@@ -1215,6 +1215,10 @@ translate,
     }
 }
 
+.inline-block{
+    display: inline-block;
+}
+
 .card {
     background: #ffffff;
     border-radius: 5px;
@@ -2651,7 +2655,7 @@ translate,
             cursor: default;
 
             .chart-header-range {
-                flex: 1 0px;
+                flex: 2 0px;
 
                 .chart-header-item {
                     color: rgba($color: #151b26, $alpha: 0.5);
@@ -2681,8 +2685,12 @@ translate,
             }
 
             .chart-header-actions {
-                flex: 1 0px;
+                flex: 2 0px;
                 text-align: right;
+
+                .inline-block + .inline-block{
+                    margin-left: 10px;
+                }
             }
         }
     }
