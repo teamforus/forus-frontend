@@ -124,6 +124,12 @@ let ModalAuthComponent = function(
         $timeout.cancel(timeout);
         qrCodeEl.innerHTML = '';
     };
+
+    $ctrl.openAuthCodePopup = function () {
+        $ctrl.close();
+
+        ModalService.open('modalAuthCode', {});
+    };
 };
 
 module.exports = {
