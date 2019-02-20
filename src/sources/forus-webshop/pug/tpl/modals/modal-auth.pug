@@ -15,8 +15,8 @@
                 .auth_type-icon: img(src="./assets/img/icon-login-type/icon_login-type_email.png")
                 .auth_type-name {{ "popup_auth.buttons.mail" | translate }}
 
-        //-.modal-footer
-            .footer-text {{ "popup_auth.labels.timelimit" | translate }}
+        .modal-footer
+            a.footer-text(ng-click="$ctrl.openAuthCodePopup()") {{ "popup_auth.labels.dont_have_account" | translate }}
 
     //- Sign In by qr-code
     .modal-content(ng-show="$ctrl.showQrCodeBlock"): .modal-section
