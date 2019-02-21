@@ -179,7 +179,7 @@ module.exports = {
             status: "Status",
             start: "Startdatum",
             end: "Einddatum",
-            notification_amount: "Aanvulherinnering grens"
+            notification_amount: "Aanvulherinnering grens €"
         },
         buttons: {
             cancel: "Annuleren",
@@ -335,8 +335,8 @@ module.exports = {
         labels: {
             name: "Titel van aanbieding",
             description: "Omschrijving",
-            new: "Aanbiedingsprijs",
-            old: "Oude prijs",
+            new: "Aanbiedingsprijs €",
+            old: "Oude prijs €",
             total: "Aantal",
             reserved: "Gereserveerd",
             sold: "Verkocht",
