@@ -45,6 +45,9 @@
                 .card-block.card-block-keyvalue
                     .keyvalue-item
                         .keyvalue-key {{ "financial_dashboard_transaction.labels.id" | translate }}
+                        .keyvalue-value {{ $ctrl.transaction.id }}
+                    .keyvalue-item
+                        .keyvalue-key {{ "financial_dashboard_transaction.labels.bunq_id" | translate }}
                         .keyvalue-value {{ $ctrl.transaction.payment_id }}
                     .keyvalue-item
                         .keyvalue-key {{ "financial_dashboard_transaction.labels.statement" | translate }}
