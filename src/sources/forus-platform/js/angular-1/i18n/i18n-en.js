@@ -356,7 +356,7 @@ module.exports = {
         },
         confirm_create: {
             title: 'Een aanbieding toevoegen.',
-            description: 'Let op! U staat op het punt een aanbieding op de webshop toe te voegen. U kunt maximaal twee aanbiedingen toevoegen op de webshop. Klik op bevestig om door te gaan.'
+            description: 'U staat op het punt een aanbieding op de webshop toe te voegen. Uw aanbieding wordt van de webshop verwijderd als de vervaldatum bereikt is.'
         }
     },
 
