@@ -4,7 +4,7 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
 
         .modal-title {{ "popup_auth.labels.activate" | translate }}
-        .modal-subtitle(translate="popup_auth.labels.mail")
+        .modal-subtitle(translate="popup_auth.labels.{{ $root.client_key }}.mail")
 
         form.form(ng-submit="$ctrl.signUpForm.submit()")
             .form-group
