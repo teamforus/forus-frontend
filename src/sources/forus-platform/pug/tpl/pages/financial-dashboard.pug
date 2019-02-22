@@ -46,8 +46,14 @@
                                     ng-bind="'financial_dashboard.labels.all' | translate")
 
                             .chart-header-title(ng-bind="$ctrl.chartData.stringTitle")
-                            .chart-header-actions
-                                div(ng-if="$ctrl.chartData.request.type!='all'")
+                            .chart-header-actions.form
+                                .form-group.inline-block
+                                    select(
+                                    ng-change="$ctrl.chartData.update()"
+                                    ng-options="productCategory.id as productCategory.name for productCategory in $ctrl.productCategories"
+                                    ng-model="$ctrl.chartData.request.product_category").form-control
+
+                                div.inline-block(ng-if="$ctrl.chartData.request.type!='all'")
                                     .button.button-default(
                                         ng-click="$ctrl.chartData.decrease()"
                                         ng-bind="'financial_dashboard.buttons.previous' | translate")

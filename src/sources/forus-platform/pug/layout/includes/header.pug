@@ -7,7 +7,7 @@ header.app.app-header
                 .auth-user-name {{ $root.auth_user.primary_email }}
                 .auth-user-role(
                     ng-bind="{provider: 'Aanbieder', sponsor: 'Gemeente', validator: 'Gemeente'}[appConfigs.panel_type]")
-                img(ng-src="{{ './assets/img/placeholders/organization-thumbnail.png'}} ").auth-user-img
+                img(ng-src="{{ $root.activeOrganization ? ($root.activeOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png') : './assets/img/placeholders/organization-thumbnail.png'}} ").auth-user-img
                 .auth-user-menu
                     //- a(href="#").auth-user-menu-item
                         em.mdi.mdi-account
@@ -30,11 +30,11 @@ header.app.app-header
             .notifications-icon.mdi.mdi-bell
             .notifications-menu: .notifications-menu-inner
                 .arrow-box: .arrow
-                .notifications-menu-header 
+                .notifications-menu-header
                     | Notifications
-                    .notifications-menu-header-link 
+                    .notifications-menu-header-link
                         | View all
-                        em.mdi.mdi-arrow-right 
+                        em.mdi.mdi-arrow-right
                 .notifications-menu-body.nano
                     .nano-content
                         mixin notification_item(icon, text, date)
@@ -42,7 +42,7 @@ header.app.app-header
                                 img(src="./assets/img/note-icons/note-icon-" + icon + ".jpg").notifications-menu-item-icon
                                 .notifications-menu-item-text=text
                                 .notifications-menu-item-date=date
-                        
+
                         +notification_item('quote', 'Payment succeeded', 'Jan 23, 12:26 AM')
                         +notification_item('quote', 'Payment declined by customer\'s bank The bank returned the decline code do...', 'Jan 23, 12:26 AM')
                         +notification_item('quote', 'Stripe risk evaluation: normal', 'Jan 23, 12:26 AM')

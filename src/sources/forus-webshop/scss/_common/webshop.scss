@@ -1418,8 +1418,13 @@ ui-view{
 
                     .faq-item-content {
                         font: 400 14px $bf;
+                        
+                        ul li {
+                            font: 400 14px $bf;
+                        }
                     }
                 }
+
             }
         }
 
