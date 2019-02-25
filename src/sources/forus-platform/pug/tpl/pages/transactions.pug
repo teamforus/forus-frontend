@@ -58,6 +58,7 @@
                     .table-wrapper
                         table.table
                             tr
+                                th(i18n="financial_dashboard_transaction.labels.id")
                                 th(i18n="transactions.labels.price")
                                 th(i18n="transactions.labels.date")
                                 th(i18n="transactions.labels.fund")
@@ -66,6 +67,7 @@
                             tr(
                                 ng-repeat="transaction in $ctrl.transactions.data"
                                 ng-click="$ctrl.showTransaction(transaction)").pointer
+                                td(ng-bind="transaction.id")
                                 td
                                     a.text-primary-light(ng-bind="transaction.amount | currency_format")
                                 td(ng-bind="transaction.created_at_locale")

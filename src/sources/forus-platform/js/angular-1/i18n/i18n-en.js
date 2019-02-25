@@ -161,8 +161,9 @@ module.exports = {
             payment: "Transactie",
             details: "Transactie details",
             id: "ID",
+            bunq_id: "ID bunq",
             statement: "Naam begunstigde",
-            bunq: "BUNQ transactiekosten",
+            bunq: "Transactiekosten",
             fee: "€ 0.10",
             date: "Datum",
         },
@@ -179,7 +180,7 @@ module.exports = {
             status: "Status",
             start: "Startdatum",
             end: "Einddatum",
-            notification_amount: "Aanvulherinnering grens"
+            notification_amount: "Aanvulherinnering grens €"
         },
         buttons: {
             cancel: "Annuleren",
@@ -335,8 +336,8 @@ module.exports = {
         labels: {
             name: "Titel van aanbieding",
             description: "Omschrijving",
-            new: "Aanbiedingsprijs",
-            old: "Oude prijs",
+            new: "Aanbiedingsprijs €",
+            old: "Oude prijs €",
             total: "Aantal",
             reserved: "Gereserveerd",
             sold: "Verkocht",
@@ -355,7 +356,7 @@ module.exports = {
         },
         confirm_create: {
             title: 'Een aanbieding toevoegen.',
-            description: 'Let op! U staat op het punt een aanbieding op de webshop toe te voegen. U kunt maximaal twee aanbiedingen toevoegen op de webshop. Klik op bevestig om door te gaan.'
+            description: 'U staat op het punt een aanbieding op de webshop toe te voegen. Uw aanbieding wordt van de webshop verwijderd als de vervaldatum bereikt is.'
         }
     },
 
