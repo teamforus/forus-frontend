@@ -695,7 +695,7 @@ module.exports = {
             voucher_email: "Het is gelukt!",
             isactivated: "Uw voucher is al geactiveerd.",
             codeactivated: "U heeft al een activatiecode gebruikt. Het is niet mogelijk nog één te gebruiken.",
-            dont_have_account: "Heeft geen account en wilt u één aanmaken door een activatiecode te gebruiken?",
+            dont_have_account: "Heeft u geen account en wilt u één aanmaken door een activatiecode te gebruiken?",
         },
         input: {
             mail: "Vul uw e-mailadres in",
