@@ -2,30 +2,30 @@
     a(ui-sref="home").navbar-logo
         img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
         img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover
-    nav.navbar-list
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.features.funds.list")
+    nav.navbar-list(ng-class="mobileMenu?'navbar-list-show':''")
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
             a.navbar-item(
                 ui-sref="funds" 
                 ui-sref-active="active"
                 ng-bind="'topnavbar.items.funds' | translate")
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.productsMenu || $root.auth_user")
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.productsMenu || $root.auth_user" ng-click="mobileMenu = false")
             a.navbar-item(
                 ui-sref="products" 
                 ui-sref-active="active"
                 ng-bind="'topnavbar.items.products' | translate")
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.forusPlatformMenu && !$root.auth_user")
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.forusPlatformMenu && !$root.auth_user" ng-click="mobileMenu = false")
             a.navbar-item(
             ui-sref="forus-platform" 
             ui-sref-active="active" 
             i18n="PLATFORM"
             target="_self")      
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.meAppMenu && !$root.auth_user")
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.meAppMenu && !$root.auth_user" ng-click="mobileMenu = false")
             a.navbar-item(
             ui-sref="me-app" 
             ui-sref-active="active"
             i18n="ME"
             target="_self")                        
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.portfolioMenu && !$root.auth_user")
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.portfolioMenu && !$root.auth_user" ng-click="mobileMenu = false")
             a.navbar-item(
             ui-sref="portfolio"
             ui-sref-active="active" 
@@ -37,7 +37,7 @@
                     a(ui-sref="kindpakket" i18n="Kindpakket").navbar-menu-item
                     //- a(ui-sref="funds" i18n="Longfonds").navbar-menu-item  
                     //- a(ui-sref="funds" i18n="Common Grounds").navbar-menu-item                                                         
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.aboutSiteMenu && !$root.auth_user") 
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.aboutSiteMenu && !$root.auth_user" ng-click="mobileMenu = false") 
             a.navbar-item(
             href="{{ $root.appConfigs.about_url }}" 
             i18n="OVER ONS"
@@ -108,6 +108,8 @@
             .button.button-default(ng-click="openAuthPopup()")
                 em.mdi.mdi-account
                 span(translate="topnavbar.buttons.login")
+    .navbar-mobile-menu.show-sm
+        em.mdi(ng-class="mobileMenu?'mdi-close':'mdi-menu'" ng-click="mobileMenu = !mobileMenu")
 
     //- .block.block-auth.sm-pull-left
         .lang-selector

@@ -8,6 +8,8 @@ let TopNavbarDirective = function(
         ModalService.open('modalAuth', {});
     };
 
+    $scope.mobileMenu = false;
+
     $scope.openPinCodePopup = function () {
         ModalService.open('modalPinCode', {});
     };
