@@ -53,14 +53,15 @@ section.section.section-product: .wrapper
 
 
         .block.block-info-card
-            .block-header {{ "voucher.labels.productdetail" | translate }}
-            .block-content
-                div(ng-bind-html="$ctrl.product.html_desc")
+            .block-header(i18n="voucher.labels.productdetail")
+            .block-content: .block.block-markdown
+                div(ng-bind-html="$ctrl.product.description_html")
         
         .block.block-map_card
             .map_card-header
-                .map_card-title {{ "product.labels.find" | translate }}
+                .map_card-title(i18n="product.labels.find")
                 .map_card-subtitle 
 
             .map_card-iframe: google-map(offices="$ctrl.product.offices")
+
 contact-form 

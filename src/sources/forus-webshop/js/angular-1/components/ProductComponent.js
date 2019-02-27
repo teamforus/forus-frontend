@@ -30,8 +30,7 @@ let ProductComponent = function (
         });
 
         $ctrl.isApplicable = vouchers.length > 0;
-
-        $ctrl.product.html_desc = $sce.trustAsHtml($ctrl.product.html_description);
+        $ctrl.product.description_html = $sce.trustAsHtml($ctrl.product.description_html);
     };
 
     $ctrl.applyProduct = () => {

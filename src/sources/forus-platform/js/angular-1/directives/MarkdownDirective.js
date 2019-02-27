@@ -1,17 +1,18 @@
-let MarkdownDirective = function($scope, $element) {
-    $($element).find('.toolbar-item').unbind('click').bind('click', function (e) {
+let MarkdownDirective = function($scope, $element, ModalService) {
+    $($element).find('.toolbar-item').unbind('click').bind('click', function(e) {
         e.preventDefault();
 
-        let el = $(this),
-            textarea = $($element).find('textarea');
+        let el = $(this);
+        let textarea = $($element).find('textarea');
 
-        if(textarea.length) {
+        if (textarea.length) {
             replaceSelectedText(textarea[0], el.data('start'), el.data('end'), el.data('markType'));
         }
     });
 
     function getInputSelection(el) {
-        let start = 0, end = 0;
+        let start = 0,
+            end = 0;
 
         if (typeof el.selectionStart == "number" && typeof el.selectionEnd == "number") {
             start = el.selectionStart;
@@ -26,47 +27,82 @@ let MarkdownDirective = function($scope, $element) {
     }
 
     function replaceSelectedText(el, start, end, type) {
-        let sel = getInputSelection(el),
-            val = el.value,
-            arrayOfSelected = sel.selected.split("\n"),
-            moveSelection = 0,
-            needSelectAll = true,
-            moveStartSelection = sel.start,
-            finalRes = '';
+        let sel = getInputSelection(el);
+        let val = el.value;
+        let arrayOfSelected = sel.selected.split("\n");
+        let moveSelection = 0;
+        let needSelectAll = true;
+        let moveStartSelection = sel.start;
+        let finalRes = '';
 
         type = type ? type : 'text';
 
-        if(arrayOfSelected.length > 1 && type == 'list'){
+        if (arrayOfSelected.length > 1 && type == 'list') {
+            $.each(arrayOfSelected, function(i, value) {
 
-            $.each(arrayOfSelected, function (i, value) {
-
-                if(start == '1. ') {
+                if (start == '1. ') {
                     finalRes += (i + 1) + '. ' + value + end + "\n";
-                }else {
+                } else {
                     finalRes += start + value + end + "\n";
                 }
             });
 
-            moveSelection = sel.end + arrayOfSelected.length * (start.length + end.length);
-        }else{
+            moveSelection = sel.end + arrayOfSelected.length * (
+                start.length + end.length
+            );
+        } else if (type == 'custom-link') {
+            ModalService.open('markdownCustomLink', {
+                pages: $scope.pages,
+                selection: sel.selected,
+                success: (data) => {
+                    let url = data.url;
+                    let text = sel.selected ? sel.selected : data.description;
+                    let components = ['[', text, '](', url, ')'];
+
+                    finalRes = components.join('');
+
+                    if (sel.selected == '') {
+                        needSelectAll = false;
+                    } else {
+                        //Leave only the dynamic components
+                        delete components[1];
+                    }
+
+                    moveSelection = sel.end + (sel.selected == '' ?
+                        finalRes.length : components.join('').length);
+
+                    $scope.ngModel = val.slice(0, sel.start) + finalRes + val.slice(sel.end);
+
+                    applySelection(el, needSelectAll, moveStartSelection, moveSelection);
+                }
+            });
+        } else {
             finalRes = start + sel.selected + end;
 
             moveSelection = sel.end + start.length + (sel.selected == '' ? 0 : end.length);
 
-            if(sel.selected == '')
+            if (sel.selected == '')
                 needSelectAll = false;
 
-            if(type == 'list' || type == 'header')
+            if (type == 'list' || type == 'header')
                 moveStartSelection += start.length;
         }
 
-        $scope.$apply(function() {
-            $scope.ngModel = val.slice(0, sel.start) + finalRes + val.slice(sel.end);
+        if (moveSelection) {
+            $scope.$apply(function() {
+                $scope.ngModel = val.slice(0, sel.start) + finalRes + val.slice(sel.end);
+            });
+
+            applySelection(el, needSelectAll, moveStartSelection, moveSelection);
+        }
+    }
+
+    function applySelection(el, needSelectAll, moveStartSelection, moveSelection) {
+        el.focus({
+            preventScroll: true
         });
 
-        el.focus();
-
-        if(needSelectAll)
+        if (needSelectAll)
             el.selectionStart = moveStartSelection;
 
         el.selectionEnd = moveSelection;
@@ -77,12 +113,15 @@ module.exports = () => {
     return {
         restrict: "EA",
         scope: {
-            ngModel: '='
+            ngModel: '=',
+            modal: '=',
+            pages: '='
         },
         replace: true,
         controller: [
             '$scope',
             '$element',
+            'ModalService',
             MarkdownDirective
         ],
         templateUrl: 'assets/tpl/directives/markdown.html'

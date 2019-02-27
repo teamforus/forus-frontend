@@ -1364,6 +1364,58 @@ ui-view{
         }
     }
 
+    &.block-markdown {
+        text-align: justify;
+        font: 400 14px/24px $bf;
+
+        h1 {
+            font: 500 2.5em $bf;
+            margin: 0 0 0.4em;
+            text-align: left;
+        }
+
+        h2 {
+            font: 500 2em $bf;
+            margin: 0 0 0.5em;
+            text-align: left;
+        }
+
+        h3 {
+            font: 500 1.5em $bf;
+            margin: 0 0 0.5em;
+            text-align: left;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+            font: inherit;
+        }
+
+        ul, ol {
+            list-style: disc;
+            margin-bottom: 15px;
+            padding-left: 18px;
+            font: inherit;
+
+            li {
+                font: inherit;
+            }
+        }
+
+        a {
+            color: $bc;
+            font-weight: 500;
+            transition: .4s;
+            font: inherit;
+
+            &:hover {
+                color: $bc;
+                text-decoration: underline;
+            }
+        }
+    }
+
     &.block-navbar {
         .navbar-inner {
             border-radius: 8px;
@@ -3251,7 +3303,7 @@ ui-view{
             padding: 20px 25px;
             color: #00122a;
 
-            p {
+            /* p {
                 font: 400 14px/24px $bf;
                 color: inherit;
                 margin: 0 0 25px;
@@ -3261,7 +3313,7 @@ ui-view{
                 font: 700 16px $bf;
                 color: inherit;
                 margin: 0 0 25px;
-            }
+            } */
 
             .lvl {
                 display: flex;
@@ -4733,6 +4785,23 @@ ui-view{
         &.block-breadcrumbs {
             .breadcrumb-item {
                 font-size: 13px;
+            }
+        }
+
+        &.block-markdown {
+            h1 {
+                font: 500 1.8em $bf;
+                margin-bottom: 1em;
+            }
+
+            h2 {
+                font: 500 1.6em $bf;
+                margin-bottom: 1em;
+            }
+
+            h3 {
+                font: 500 1.3em $bf;
+                margin-bottom: 1em;
             }
         }
 
