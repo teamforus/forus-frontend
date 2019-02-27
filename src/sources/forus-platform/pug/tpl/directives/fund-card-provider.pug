@@ -19,7 +19,14 @@
             .fund-title(ng-if="!(fund.organization | hasPerm:['manage_funds'])" ng-bind="fund.name")
             br
             div(ng-bind="fund.organization.name").fund-organization
+
         .card-block.card-block-listing
-            .card-block-listing-label(ng-bind="fund_card_provider.labels.categories")
+            .card-block-listing-label(translate="fund_card_provider.labels.categories")
             span(ng-bind="fundCategories.join(', ')")
             small(ng-show="fundCategories.length == 0" ng-bind="fund_card_provider.labels.nocategories").text-muted.small
+
+        .card-block.card-block-listing
+            .card-block-listing-label(translate="fund_card_provider.labels.date")
+            span(ng-bind="fund.start_date_locale + ' / ' + fund.end_date_locale")
+            .card-block-listing-label(translate="fund_card_provider.labels.max_amount" ng-if="fund.fund_amount")
+            span(ng-bind="fund.fund_amount | currency_format" ng-if="fund.fund_amount")

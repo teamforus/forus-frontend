@@ -1,46 +1,73 @@
-let FileSaver = require('file-saver');
-
 let TransactionsComponent = function(
     $state,
     $scope,
-    OrganizationService,
     appConfigs,
-    TransactionService
+    FileService,
+    TransactionService,
+    OrganizationService
 ) {
     let $ctrl = this;
 
-    var now = moment().format('YYYY-MM-DD HH:mm');
-    var org = OrganizationService.active();
+    let org = OrganizationService.active();
 
-    $ctrl.states = {
-        pending: 'In afwachting',
-        success: 'Voltooid'
+    $ctrl.empty = null;
+
+    $ctrl.states = [{
+        key: null,
+        name: 'Alle'
+    }, {
+        key: 'pending',
+        name: 'In afwachting'
+    }, {
+        key: 'success',
+        name: 'Voltooid'
+    }];
+
+    $ctrl.filters = {
+        show: false,
+        values: {},
+        reset: function() {
+            this.values.state = $ctrl.states[0].key;
+            this.values.from = null;
+            this.values.to = null;
+            this.values.amount_min = null;
+            this.values.amount_max = null;
+        }
     };
 
-    // Export to CSV file
-    $ctrl.exportList = function(e) {
-        e && (e.preventDefault() & e.stopPropagation());
+    $ctrl.statesKeyValue = $ctrl.states.reduce((obj, item) => {
+        obj[item.key] = item.name;
+        return obj;
+    }, {});
 
-        var data = $ctrl.transactions.data.map(function(row) {
-            return {
-                date: row.created_at,
-                amount: row.amount,
-                fund: row.fund.name,
-                provider: row.organization.name,
-                state: $ctrl.states[row.state],
-                payment_id: row.payment_id,
-            };
+    $ctrl.resetFilters = () => {
+        $ctrl.filters.values.q = '';
+        $ctrl.filters.values.state = $ctrl.states[0].key;
+        $ctrl.filters.values.from = null;
+        $ctrl.filters.values.to = null;
+    };
+
+    $ctrl.hideFilters = () => {
+        $scope.$apply(function() {
+            $ctrl.filters.show = false;
         });
+    };
 
-        var file_name = appConfigs.panel_type + '-' + org;
-        var file_type = 'text/csv;charset=utf-8;';
-        var file_data = Papa.unparse(data);
-
-        var blob = new Blob([file_data], {
-            type: file_type,
-        });
-
-        FileSaver.saveAs(blob, file_name + '-transactions-' + now + '.csv');
+    // Export to XLS file
+    $ctrl.exportList = () => {
+        TransactionService.export(
+            appConfigs.panel_type,
+            $ctrl.organization.id,
+            $ctrl.filters.values
+        ).then((res => {
+            FileService.downloadFile(
+                appConfigs.panel_type + '_' + org + '_' + moment().format(
+                    'YYYY-MM-DD HH:mm:ss'
+                ) + '.xls',
+                res.data,
+                res.headers('Content-Type') + ';charset=utf-8;'
+            );
+        }));
     };
 
     $ctrl.showTransaction = (transaction) => {
@@ -50,28 +77,41 @@ let TransactionsComponent = function(
         } : transaction);
     };
 
-    $scope.onPageChange = async (query) => {
+    $ctrl.onPageChange = (query) => {
         TransactionService.list(
             appConfigs.panel_type,
             $ctrl.organization.id,
             query
         ).then((res => {
             $ctrl.transactions = res.data;
+
+            if ($ctrl.empty === null) {
+                $ctrl.empty = res.data.meta.total == 0;
+            }
         }));
+    };
+
+    $ctrl.init = async () => {
+        $ctrl.filters.reset();
+        $ctrl.onPageChange($ctrl.filters.values);
+    };
+
+    $ctrl.$onInit = () => {
+        $ctrl.init();
     };
 };
 
 module.exports = {
     bindings: {
-        transactions: '<',
         organization: '<'
     },
     controller: [
         '$state',
         '$scope',
-        'OrganizationService',
         'appConfigs',
+        'FileService',
         'TransactionService',
+        'OrganizationService',
         TransactionsComponent
     ],
     templateUrl: 'assets/tpl/pages/transactions.html'

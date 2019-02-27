@@ -23,4 +23,12 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalAuthCodeComponent'
     });
 
+    ModalRouteProvider.modal('modalShareVoucher', {
+        component: 'modalShareVoucherComponent'
+    });
+
+    ModalRouteProvider.modal('modalOpenInMe', {
+        component: 'modalOpenInMeComponent'
+    });
+
 }];

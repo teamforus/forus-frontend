@@ -1,4 +1,20 @@
-let LandingNavbarDirective = function($scope) {};
+let LandingNavbarDirective = function(
+    $scope,
+    ModalService,
+    ConfigService
+) {
+    $scope.openPinCodePopup = function () {
+        ModalService.open('modalPinCode', {});
+    };
+
+    $scope.openAuthPopup = function () {
+        ModalService.open('modalAuth', {});
+    };
+
+    $scope.cfg = {
+        logoExtension: ConfigService.getFlag('logoExtension'),
+    };
+};
 
 module.exports = () => {
     return {
@@ -10,8 +26,10 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
+            'ModalService',
+            'ConfigService',
             LandingNavbarDirective
         ],
-        templateUrl: 'assets/tpl/directives/landing/navbar.html' 
+        templateUrl: 'assets/tpl/directives/landing/navbar.html'
     };
 };

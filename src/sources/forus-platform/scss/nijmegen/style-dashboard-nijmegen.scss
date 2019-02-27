@@ -3,6 +3,11 @@
 
 .landing-root {
     background: #fff;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    height: 100%;
+
     @import './landing';
 }
 
@@ -13,7 +18,7 @@
 .form-group-inline {
     &.tooltipped {
         .tooltip-block {
-            z-index: 10;
+            z-index: 5;
         }
     }
 }

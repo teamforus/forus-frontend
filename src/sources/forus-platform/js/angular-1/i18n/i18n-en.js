@@ -7,7 +7,7 @@ module.exports = {
         organizations: 'Organisaties',
         "organizations-create": 'Organisatie aanmaken',
         "organizations-edit": 'Organisatie bewerken',
-        "organization-funds": "Mijn fondsen",
+        "organization-funds": "Fondsen",
         "organization-providers": 'Aanbieders',
         validators: 'Medewerkers',
         "validators-edit": 'Medewerker bewerken',
@@ -50,7 +50,7 @@ module.exports = {
             title_zuidhorn: "Een profiel voor het Kindpakket",
             title_westerkwartier: "Een profiel voor het Kindpakket",
             title_forus: "Een profiel voor het Kerstpakket",
-            description: "Een profiel om in te loggen, waarmee je vouchers kan beheren en veilig kan betalen",
+            description: "Een profiel om in te loggen, waarmee u vouchers kan beheren en veilig kan betalen",
         },
         buttons: {
             join: "Aanmelden",
@@ -64,11 +64,11 @@ module.exports = {
                 title: "Functies",
             },
             profile: "Maak een profiel aan",
-            pin: "Je hebt de mogelijkheid om een profiel aan te maken en deze daarna te beveiligen met een pincode.",
+            pin: "U heeft de mogelijkheid om een profiel aan te maken en deze daarna te beveiligen met een pincode.",
             vouchers: "Vouchers",
-            criterion: "Als je aan gestelde criteria voldoet van een gemeente. Kan je een voucher aanvragen. Deze voucher kan je beheren in Me. Met Me kan je veilig betalingen verrichten.",
+            criterion: "Als u aan gestelde criteria voldoet van een gemeente. Kunt u een voucher aanvragen. Deze voucher kunt u beheren in Me. Met Me kunt u veilig betalingen verrichten.",
             apply: "Aanmelden",
-            webshop: "Meld je aan op de webshop met Me. Dit doe je doordat de webshop een QR-code presenteert waarna deze gescant kan worden met Me.",
+            webshop: "Meld u aan op de webshop met Me. Dit doet u door de QR-code te scannen met Me die de webshop presenteert.",
             profileb: "Profiel",
             app: "De app bewaart een profiel van de gebruiker, dit profiel maakt het mogelijk dat de gegevens hergebruikt kunnen worden voor het mee doen aan andere regelingen.",
         }
@@ -76,8 +76,8 @@ module.exports = {
     // PROVIDER HOME = home-provider.pug
     home_provider: {
         header: {
-            title: "Meld je aan als winkelier of dienstverlener",
-            title_nijmegen: "Meld je aan als dienstverlener",
+            title: "Meld u aan als winkelier of dienstverlener",
+            title_nijmegen: "Meld u aan als dienstverlener",
             subtitle: "Bereik meer klanten, maak winst en draag bij aan een maatschappelijk doel.",
             subtitle_nijmegen: "De gemeente geeft inwoners met een laag inkomen maximaal € 150,- voor culturele, sportieve en educatieve activiteiten. Dit heet de Meedoen-regeling.",
         },
@@ -92,14 +92,14 @@ module.exports = {
             title_nijmegen: "Als uw organisatie een passend aanbod heeft, kunt u zich opgeven.",
             description: "Doe mee aan ons platform door onderstaande stappen te volgen, maak een organisatie aan, verkoop jouw producten of diensten en trek nieuwe klanten aan.",
             description_nijmegen: "Uw organisatie is in het bezit van een smartphone, deze heeft u nodig om een mobiele applicatie te installeren die QR-codes kan scannen. Heeft u deze smartphone bij de hand? Regel het dan direct!",
-            button: "Start je reis!",
+            button: "Start uw reis!",
             button_nijmegen: "DIRECT REGELEN",
         }
     },
     // SPONSOR HOME = home-sponsor.pug
     home_sponsor: {
         header: {
-            title: "Meld je aan als gemeente en maak een regeling aan.",
+            title: "Meld u aan als gemeente en maak een regeling aan.",
             description: "Een platform om gemeentelijke regelingen doelmatig, rechtmatig en efficient uit te geven aan inwoners.",
         },
         subject: {
@@ -111,7 +111,7 @@ module.exports = {
         guide: {
             title: "Word onderdeel van een innovatieve beweging",
             join: "Doe mee aan ons platform door onderstaande stappen te volgen.",
-            button: "Start je reis ",
+            button: "Start uw reis ",
         }
     },
     // VALIDATOR HOME = home-validator.pug
@@ -137,15 +137,16 @@ module.exports = {
             month: "Maand",
             week: "Week",
             all: "Alles",
-            total: "Totaal resterend bedrag",
-            spend: "Totaal uitgegeven bedrag",
+            total: "Huidig saldo",
+            spend: "Startbudget",
             used: "Totaal uitgegeven bedrag in %",
             usage: "uitgegeven",
-            payed: "Uitgegeven bij",
+            payed: "Uitgegeven in",
             shops: "Aanbieders",
             activation: "Aantal geactiveerd",
             citizen: "Nieuwe inwoners",
             provider: "Aanbieders",
+            transactions: "transacties",
 
         },
         buttons: {
@@ -160,8 +161,9 @@ module.exports = {
             payment: "Transactie",
             details: "Transactie details",
             id: "ID",
+            bunq_id: "ID bunq",
             statement: "Naam begunstigde",
-            bunq: "BUNQ transactiekosten",
+            bunq: "Transactiekosten",
             fee: "€ 0.10",
             date: "Datum",
         },
@@ -178,6 +180,7 @@ module.exports = {
             status: "Status",
             start: "Startdatum",
             end: "Einddatum",
+            notification_amount: "Aanvulherinnering grens €"
         },
         buttons: {
             cancel: "Annuleren",
@@ -234,6 +237,7 @@ module.exports = {
             adjust: "Bewerk",
             add: "Voeg een nieuwe vestiging toe",
             map: "Bekijk op de kaart",
+            delete: "Verwijderen"
         },
         labels: {
             mail: "E-mail",
@@ -242,7 +246,11 @@ module.exports = {
             none: "Geen data",
             phone: "Telefoonnummer",
             hours: "Openingstijden:",
-            offices: "Vestigingen",
+            offices: "Vestigingen ",
+        },
+        confirm_delete: {
+            title: "Weet u zeker dat u deze vestiging wilt verwijderen?",
+            description: "Wanneer u de vestiging verwijderd kunt u dit niet ongedaan maken. Bedenk daarom goed of u deze actie wilt verrichten."
         }
     },
 
@@ -256,6 +264,7 @@ module.exports = {
             rejected: "Geweigerd",
             hold: "Wacht op goedkeuring",
         },
+        state: 'Status',
         labels: {
             mail: "E-mail",
             phone: "Telefoonnummer",
@@ -327,8 +336,8 @@ module.exports = {
         labels: {
             name: "Titel van aanbieding",
             description: "Omschrijving",
-            new: "Aanbiedingsprijs",
-            old: "Oude prijs",
+            new: "Aanbiedingsprijs €",
+            old: "Oude prijs €",
             total: "Aantal",
             reserved: "Gereserveerd",
             sold: "Verkocht",
@@ -347,7 +356,7 @@ module.exports = {
         },
         confirm_create: {
             title: 'Een aanbieding toevoegen.',
-            description: 'Let op! U staat op het punt een aanbieding op de webshop toe te voegen. Daarna kunt u de aanbieding niet meer verwijderen. De aanbieding kan alleen verwijderd worden vanaf het moment dat het is uitverkocht of de vervaldatum is bereikt.'
+            description: 'U staat op het punt een aanbieding op de webshop toe te voegen. Uw aanbieding wordt van de webshop verwijderd als de vervaldatum bereikt is.'
         }
     },
 
@@ -384,7 +393,11 @@ module.exports = {
     products: {
         offers: "Aanbiedingen",
         add: "Voeg een aanbieding toe",
-        cannot_delete: 'Let op! Wanneer een aanbieding geplaatst is kunt u deze niet meer verwijderen. Bedenk dus goed hoeveel aanbiedingen en daarmee aanbiedingvouchers u wilt uitgeven. Wanneer een aanbieding is aangemaakt bent u verplicht deze te leveren.'
+        cannot_delete: 'Let op! Wanneer een aanbieding geplaatst is moet u dit aanbod kunnen leveren. Bedenk dus goed hoeveel aanbiedingen en daarmee aanbiedingvouchers u wilt uitgeven. U kunt uw aanbod altijd ophogen maar niet meer verlagen.',
+        confirm_delete: {
+            title: 'Weet u zeker dat u deze aanbieding wilt verwijderen?',
+            description: 'Als u de aanbieding verwijderd, wordt de aanbieding uit de webshop gehaald. Ook verdwijnt het aanbod uit uw dashboard. U kunt de gereserveerde aanbiedingen dan niet meer inzien. Reeds gemaakte reserveringen blijven actief en kunnen nog opgehaald worden.'
+        }
     },
 
     // FUNDS AVAILABLE FOR PROVIDERS = provider-funds-available.pug
@@ -396,7 +409,7 @@ module.exports = {
         },
         error_apply: {
             title: 'U heeft nog geen vestigingen aangemaakt!',
-            description: 'U hebt tenminste één vestiging nodig om uw organisatie aan te melden voor {{fund_name}}'
+            description: 'U heeft tenminste één vestiging nodig om uw organisatie aan te melden voor {{fund_name}}'
         }
     },
 
@@ -453,6 +466,22 @@ module.exports = {
             top_subtitle_step_6: "Rond de installatie af door gebruik te maken van <i>Me</i>",
             title_step_7: "Meld u aan voor een fonds",
             subtitle_step_7: "Uw aanvraag wordt binnen twee weken behandeld door de gemeente.",
+        },
+        meapp_header: {
+            title_step_1: "Installeer Me",
+            subtitle_step_1: "Om betalingen te ontvangen heeft u een app nodig. Een transactie doet u door een QR-code te scannen en een bedrag in te vullen.",
+            title_step_2: "Profiel aanmaken",
+            subtitle_step_2: "Een persoonlijk profiel is nodig om betalingen te ontvangen. Later is het mogelijk om meerdere medewerkers toe te voegen.",
+            title_step_3: "Stel de app <i>Me</i> in op uw telefoon",
+            subtitle_step_3: "U heeft zojuist een profiel aangemaakt, daarom kunt u klikken op: ‘Ik heb een profiel’. Het instellen van uw profiel op de mobiele applicatie gebeurt door het invullen van een autorisatie code.",
+            top_title_step_3: "Gebruik Me",
+            top_subtitle_step_3: "Rond de installatie af door gebruik te maken van <i>Me</i>",
+            title_step_4: "Het is gelukt! Het profiel van de organisatie is gekoppeld aan <i>Me</i>.",
+            subtitle_step_4: "",
+            top_title_step_4: "Gebruik Me",
+            top_subtitle_step_4: "Rond de installatie af door gebruik te maken van <i>Me</i>",
+            title_step_5: "Het is gelukt om een profiel aan te maken",
+            subtitle_step_5: "Als u deel uit maakt van een organisatie, vraag de beheerder van uw organisatie om u toe te voegen als medewerker.",
         },
         labels: {
             mail: "Persoonlijk E-mailadres",
@@ -557,6 +586,13 @@ module.exports = {
             fund: "FONDS",
             status: "STATUS",
             provider: "AANBIEDER",
+            search: "Zoeken",
+            from: "Vanaf",
+            to: "Tot",
+            state: "Status",
+            amount: "Bedrag",
+            amount_min: "0",
+            amount_max: "Alles"
         },
         buttons: {
             previous: "Vorige",
@@ -567,6 +603,16 @@ module.exports = {
             one: "1",
             two: "2",
             three: "3",
+        },
+        export: {
+            labels: {
+                date: 'Datum',
+                amount: 'Bedrag',
+                fund: 'Fonds',
+                provider: 'Aanbieder',
+                payment_id: 'Betalingskenmerk',
+                state: 'Status'
+            }
         }
     },
 
@@ -583,7 +629,7 @@ module.exports = {
 
     validation: {
         email_confirmation: 'Email verkeerde bevestiging',
-        iban_confirmation: 'IBAN verkeerde bevestiging'
+        iban_confirmation: 'IBAN verkeerde bevestiging',
     },
 
     // OVERVIEW VALIDATIONS REQUESTS = validation-requests.pug
@@ -691,6 +737,8 @@ module.exports = {
         labels: {
             categories: "Categorieën",
             nocategories: "Geen Categorieën",
+            date: "Begindatum / Einddatum",
+            max_amount: "Maximale bedrag per voucher"
         }
     },
 
@@ -752,6 +800,7 @@ module.exports = {
             account: "NL83 BUNQ 3456 3344 32",
             addcode: "voeg code  ",
             description: "  toe aan de beschrijving",
+            copy: "Kopieer naar klembord"
         }
     },
 
@@ -778,6 +827,7 @@ module.exports = {
         labels: {
             code: "Code",
             search: "Zoeken",
+            exported: "Geëxporteerd",
             from: "Van",
             to: "Tot",
             filter: "Filter",
@@ -851,8 +901,8 @@ module.exports = {
     // AUTHENTICATION POPUP = popup-auth.pug
     popup_auth: {
         header: {
-            title: "Inloggen op platform Forus",
-            subtitle: "Scan de QR-code met de Me App of log in met je e-mail adres",
+            title: "Inloggen op het dashboard",
+            subtitle: "Scan de QR-code met de Me-app of log in met uw e-mail adres",
         },
         notifications: {
             confirmation: "Het is gelukt!",
@@ -861,28 +911,38 @@ module.exports = {
             voucher_email: "Het is gelukt, de e-mail is verstuurd",
         },
         buttons: {
-            qrcode: "Log in via QR-Code",
+            qrcode: "Log in via de Me-app",
             mail: "Log in via e-mail",
             submit: "VERSTUREN",
             cancel: "ANNULEREN",
             confirm: "VOLGENDE",
         },
         labels: {
-            timelimit: "Je kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt je sessie.",
+            timelimit: "U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.",
             join: "Aanmelden",
-            scancode: "Scan deze QR-Code met een ander apparaat waar je al op aangemeld bent",
-            mobilecode: "Vul je toegangscode van de Me App in",
+            scancode: "Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent",
+            mobilecode: "Vul de toegangscode van de Me-app in",
             mail: "Dit scherm is alleen bedoeld voor inwoners die een brief van de gemeente hebben ontvangen met daarin een activatiecode en deze nog niet hebben gebruikt.",
-            link: "Vul je e-mail adres in om een link te ontvangen waarmee je kunt inloggen",
-            code: "Vul de activatiecode in die je per brief hebt ontvangen",
+            link: "Vul uw e-mail adres in om een link te ontvangen waarmee u kunt inloggen",
+            code: "Vul de activatiecode in die u per brief heeft ontvangen",
             voucher_email: "Verstuur de voucher per e-mail",
 
         },
         input: {
-            mail: "Vul je e-mail adres in",
+            mail: "Vul uw e-mail adres in",
             code: "Activatiecode",
             mailing: "E-mail",
         },
+        pin_code: {
+            confirmation: {
+                title: "Is de mobiele app gekoppeld aan uw persoonlijk e-mailadres?",
+                description: "Ga naar het tabblad Profiel in de app. Ziet u hier uw e-mailadres staan? Dan is de app succesvol gekoppeld. Als u de keuze voor Profiel niet hebt, probeer het dan nog is.",
+                buttons: {
+                    try_again: "Opnieuw proberen",
+                    confirm: "Volgende"
+                }
+            }
+        }
     },
     product_category_type: {
         products: "PRODUCTEN",
@@ -897,5 +957,23 @@ module.exports = {
             confirm: "Bevestig",
             close: "Sluit"
         }
-    }
-};
+    },
+
+    roles: {
+        tooltip: {
+            admin: 'Alle functionaliteiten',
+            validation: 'Aanvragers toevoegen (inwoners toevoegen via CSV bestand)',
+            'operation officer': 'Verrichten van betalingen via Me app (voor aanbieders)',
+            finance: 'Overzicht van statistieken, transacties en het financieel dashboard',
+            'policy officer': 'Aanbieders goedkeuren en instellingen van het fonds aanpassen'
+        }
+    },
+
+    tooltip: {
+        product: {
+            limit: "U kunt ook de inwoner in uw organisatie te woord staan en hem een persoonlijk aanbod aanbieden. U scant dan de QR-code en vult een bedrag in!",
+        }
+    },
+  
+    search: "Zoeken"
+}

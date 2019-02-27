@@ -1,4 +1,4 @@
-let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper']);
+let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 'ngLocale']);;
 
 app.constant('appConfigs', env_data);
 
@@ -36,6 +36,8 @@ app.component('modalFundTopUpComponent', require('./components/Modals/ModalFundT
 app.component('modalEmployeeEditComponent', require('./components/Modals/ModalEmployeeEditComponent'));
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
 app.component('modalMarkdownCustomLinkComponent', require('./components/Modals/ModalMarkdownCustomLinkComponent'));
+app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCodeComponent'));
+app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -66,6 +68,7 @@ app.service('ModalService', require('./services/ModalService'));
 app.service('PermissionsService', require('./services/PermissionsService'));
 app.service('RoleService', require('./services/RoleService'));
 app.service('SmsService', require('./services/SmsService'));
+app.service('FileService', require('./services/FileService'));
 
 // Directives
 switch (env_data.panel_type) {
@@ -100,7 +103,6 @@ app.directive('prevalidatedTable', require('./directives/PrevalidatedTableDirect
 app.directive('photoSelector', require('./directives/PhotoSelectorDirective'));
 app.directive('radialChart', require('./directives/RadialChartDirective'));
 app.directive('linearChart', require('./directives/LinearChartDirective'));
-app.directive('popupAuth', require('./directives/PopupAuthDirective'));
 app.directive('collapse', require('./directives/CollpaseDirective'));
 app.directive('landingNavbar', require('./directives/landing/NavbarDirective'));
 app.directive('landingContactForm', require('./directives/landing/ContactFormDirective'));
@@ -116,6 +118,9 @@ app.directive('phoneControl', require('./directives/PhoneControlDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));
 app.directive('markdown', require('./directives/MarkdownDirective'));
+app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
+app.directive('formLabelToggle', require('./directives/FormLabelToggleDirective'));
+app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));

@@ -46,8 +46,14 @@
                                     ng-bind="'financial_dashboard.labels.all' | translate")
 
                             .chart-header-title(ng-bind="$ctrl.chartData.stringTitle")
-                            .chart-header-actions
-                                div(ng-if="$ctrl.chartData.request.type!='all'")
+                            .chart-header-actions.form
+                                .form-group.inline-block
+                                    select(
+                                    ng-change="$ctrl.chartData.update()"
+                                    ng-options="productCategory.id as productCategory.name for productCategory in $ctrl.productCategories"
+                                    ng-model="$ctrl.chartData.request.product_category").form-control
+
+                                div.inline-block(ng-if="$ctrl.chartData.request.type!='all'")
                                     .button.button-default(
                                         ng-click="$ctrl.chartData.decrease()"
                                         ng-bind="'financial_dashboard.buttons.previous' | translate")
@@ -62,13 +68,13 @@
                         .chart-control
                             .chart-label(ng-bind="'financial_dashboard.labels.total' | translate")
                             .chart-value
-                                .chart-value_value(ng-bind="$ctrl.fund.budget.total | currency_format")
-                                .chart-value_label {{ "financial_dashboard.labels.spend" | translate }}
-                                .chart-value_value_b(ng-bind="$ctrl.fund.budget.used | currency_format")
+                                .chart-value_value(ng-bind="$ctrl.fund.budget.left | currency_format")
+                                .chart-value_label(i18n="financial_dashboard.labels.spend")
+                                .chart-value_value_b(ng-bind="$ctrl.fund.budget.total | currency_format")
 
                     .card: .card-section
                         .chart-control
-                            .chart-label {{ "financial_dashboard.labels.used" | translate }}
+                            .chart-label(i18n="financial_dashboard.labels.used")
                             radial-chart(total="$ctrl.fund.budget.total" value="$ctrl.fund.budget.used")
 
                     .card: .card-section
@@ -76,7 +82,7 @@
                             .chart-label {{ $ctrl.chartData.stringTitle }} {{ "financial_dashboard.labels.usage" | translate }}
                             .chart-value
                                 .chart-value_value(ng-bind="$ctrl.chartData.response.usage | currency_format")
-                                .chart-value_label {{ "financial_dashboard.labels.payed" | translate }} {{ $ctrl.chartData.response.providers }} {{ "financial_dashboard.labels.shops" | translate }}
+                                .chart-value_label {{ "financial_dashboard.labels.payed" | translate }} {{ $ctrl.chartData.response.providers }} {{ "financial_dashboard.labels.transactions" | translate }}
 
                     .card: .card-section
                         .chart-control
@@ -88,7 +94,7 @@
                                     br
                                     | {{ $ctrl.chartData.stringTitle }}
 
-            .card-heading {{ "financial_dashboard.labels.provider" | translate }} ({{ $ctrl.fundProviders.data.length }})
+            .card-heading {{ "financial_dashboard.labels.provider" | translate }} ({{ $ctrl.fundProviders.meta.total }})
             fund-card-provider-finances(ng-repeat="fundProvider in $ctrl.fundProviders.data" fund-provider="fundProvider")
 
             .card: .card-section(ng-show="$ctrl.fundProviders.meta.last_page > 1")

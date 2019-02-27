@@ -5,9 +5,9 @@ module.exports = {
 
         // menu settings
         productsMenu: false,
-        sponsorLandingMenu: true,
-        providerLandingMenu: true,
-        meLandingMenu: true,
+        meAppMenu: true,
+        forusPlatformMenu: true,
+        portfolioMenu: true,
         aboutSiteMenu: true,
 
         // home settings
@@ -16,6 +16,9 @@ module.exports = {
         homeSteps: false,
         homeFaq: false,
         homeButton: false,
+        
+        //voucher settings
+        shareProducts: true,
     },
     forus: {
         logoExtension: '.svg',
@@ -23,9 +26,9 @@ module.exports = {
 
         // menu settings
         productsMenu: false,
-        sponsorLandingMenu: true,
-        providerLandingMenu: true,
-        meLandingMenu: true,
+        meAppMenu: true,
+        forusPlatformMenu: true,
+        portfolioMenu: true,
         aboutSiteMenu: true,
 
         // home settings
@@ -34,15 +37,19 @@ module.exports = {
         homeSteps: false,
         homeFaq: false,
         homeButton: false,
+        
+        //voucher settings
+        shareProducts: true,
     },
     zuidhorn: {
         logoExtension: '.png',
         showAccountSidebar: false,
+
         // menu settings
         productsMenu: true,
-        sponsorLandingMenu: false,
-        providerLandingMenu: false,
-        meLandingMenu: false,
+        meAppMenu: false,
+        forusPlatformMenu: false,
+        portfolioMenu: false,
         aboutSiteMenu: false,
 
         // home
@@ -51,6 +58,9 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
+        
+        //voucher settings
+        shareProducts: true,
     },
     nijmegen: {
         logoExtension: '.svg',
@@ -58,9 +68,9 @@ module.exports = {
 
         // menu settings
         productsMenu: true,
-        sponsorLandingMenu: false,
-        providerLandingMenu: false,
-        meLandingMenu: false,
+        meAppMenu: false,
+        forusPlatformMenu: false,
+        portfolioMenu: false,
         aboutSiteMenu: false,
 
         // home settings
@@ -69,5 +79,29 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
+
+        //voucher settings
+        shareProducts: false,
+    },
+    westerkwartier: {
+        logoExtension: '.png',
+        showAccountSidebar: false,
+
+        // menu settings
+        productsMenu: true,
+        meAppMenu: false,
+        forusPlatformMenu: false,
+        portfolioMenu: false,
+        aboutSiteMenu: false,
+
+        // home
+        homeProducts: true,
+        homeMap: true,
+        homeSteps: true,
+        homeFaq: true,
+        homeButton: true,
+
+        //voucher settings
+        shareProducts: true,
     },
 };

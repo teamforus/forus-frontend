@@ -49,7 +49,7 @@ let ModalAuthComponent = function(
 
     $ctrl.applyAccessToken = function(access_token) {
         CredentialsService.set(access_token);
-        $rootScope.loadAuthUser();
+        $rootScope.$broadcast('auth:update');
         $ctrl.close();
     };
 
@@ -123,6 +123,12 @@ let ModalAuthComponent = function(
     $ctrl.$onDestroy = function() {
         $timeout.cancel(timeout);
         qrCodeEl.innerHTML = '';
+    };
+
+    $ctrl.openAuthCodePopup = function () {
+        $ctrl.close();
+
+        ModalService.open('modalAuthCode', {});
     };
 };
 

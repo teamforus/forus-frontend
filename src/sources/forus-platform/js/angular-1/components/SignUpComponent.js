@@ -27,7 +27,7 @@ let SignUpComponent = function(
      */
     $ctrl.step = 1;
     $ctrl.organizationStep = false;
-    $ctrl.signedIn = false;
+    $ctrl.signedIn = !!$rootScope.auth_user;
     $ctrl.showLoginBlock = false;
     $ctrl.organization = null;
     $ctrl.fundsAvailable = [];
@@ -50,11 +50,10 @@ let SignUpComponent = function(
             "manage_funds", "manage_providers", "manage_validators",
             "validate_records", "scan_vouchers"
         ]
-    } [appConfigs.panel_type];
+    }[appConfigs.panel_type];
 
     $ctrl.beforeInit = () => {
-        if ($rootScope.auth_user) {
-
+        if ($ctrl.signedIn) {
             OrganizationService.list().then(res => {
                 $ctrl.organizations = res.data.data.filter(organization => {
                     return organization.permissions.filter((permission => {
@@ -62,13 +61,14 @@ let SignUpComponent = function(
                     })).length > 0;
                 });
 
-                if ($ctrl.organizations.length == 1) {
+                if ($ctrl.organizations.length == 0) {
+                    $ctrl.setStep(3);
+                } else if ($ctrl.organizations.length == 1) {
                     $ctrl.organization = $ctrl.organizations[0];
                     loadOrganizationOffices($ctrl.organization);
                     loadAvailableFunds($ctrl.organization);
-
                     $ctrl.setStep(4);
-                }else{
+                } else {
                     $state.go('organizations');
                     progressStorage.clear();
                 }
@@ -77,10 +77,10 @@ let SignUpComponent = function(
     };
 
     $ctrl.afterInit = () => {
-        
+
     };
 
-    let progressStorage = new(function() {
+    let progressStorage = new (function() {
         let interval;
 
         this.init = () => {
@@ -168,26 +168,28 @@ let SignUpComponent = function(
         });
 
         $ctrl.organizationForm = FormBuilderService.build({
+            "website": 'https://',
             "product_categories": []
         }, (form) => {
-
-            if (form.values && form.values.iban != form.values.iban_confirmation) {
-                return $q((resolve, reject) => {
-                    reject({
-                        data: {
-                            errors: {
-                                'iban_confirmation': [$filter('translate')('validation.iban_confirmation')]
+            if (form.values) {
+                if (form.values.iban != form.values.iban_confirmation) {
+                    return $q((resolve, reject) => {
+                        reject({
+                            data: {
+                                errors: {
+                                    'iban_confirmation': [$filter('translate')('validation.iban_confirmation')]
+                                }
                             }
-                        }
+                        });
                     });
-                });
+                }
             }
 
             form.lock();
 
             let values = JSON.parse(JSON.stringify(form.values));
 
-            if (typeof(values.iban) === 'string') {
+            if (typeof (values.iban) === 'string') {
                 values.iban = values.iban.replace(/\s/g, '');
             }
 
@@ -238,7 +240,11 @@ let SignUpComponent = function(
         OfficeService.list(
             organization.id
         ).then((res) => {
-            $ctrl.offices = res.data.data;
+            if (res.data.data.length) {
+                $ctrl.offices = res.data.data;
+            } else {
+                $ctrl.addOffice();
+            }
         });
     };
 
@@ -295,7 +301,7 @@ let SignUpComponent = function(
 
         if ($ctrl.step == 1) {
 
-            if(!waitingSms) {
+            if (!waitingSms) {
                 $scope.phoneForm.submit().then((res) => {
                     $ctrl.sentSms = true;
                 }, (res) => {
@@ -321,7 +327,7 @@ let SignUpComponent = function(
                     records: {
                         primary_email: $ctrl.signUpForm.values.records ? $ctrl.signUpForm.values.records.primary_email : ''
                     }
-                }).then((res) => {}, (res) => {
+                }).then((res) => { }, (res) => {
                     $ctrl.signUpForm.errors = {};
                     if (res.data.errors['records.primary_email'] && res.data.errors['records.primary_email'].length) {
                         $ctrl.signUpForm.errors['records.primary_email'] = res.data.errors['records.primary_email'];
@@ -342,7 +348,7 @@ let SignUpComponent = function(
                     $ctrl.setStep(2);
                 });
 
-                if (typeof(authRes) !== 'undefined') {
+                if (typeof (authRes) !== 'undefined') {
                     CredentialsService.set(authRes.data.access_token);
                     $ctrl.signedIn = true;
                 } else {
@@ -422,7 +428,7 @@ let SignUpComponent = function(
         loginQrBlock.show();
     };
 
-    let loginQrBlock = new(function() {
+    let loginQrBlock = new (function() {
         this.show = () => {
             $ctrl.showLoginBlock = true;
         };
@@ -444,7 +450,7 @@ let SignUpComponent = function(
             if (res.data.message == 'active') {
                 $ctrl.applyAccessToken(access_token);
             } else if (res.data.message == 'pending') {
-                timeout =$timeout(function() {
+                timeout = $timeout(function() {
                     $ctrl.checkAccessTokenStatus(type, access_token);
                 }, 2500);
             } else {

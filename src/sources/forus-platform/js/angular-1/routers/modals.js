@@ -18,4 +18,12 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('markdownCustomLink', {
         component: 'modalMarkdownCustomLinkComponent'
     });
+
+    ModalRouteProvider.modal('modalPinCode', {
+        component: 'modalPinCodeComponent'
+    });
+
+    ModalRouteProvider.modal('modalAuth', {
+        component: 'modalAuthComponent'
+    });
 }];

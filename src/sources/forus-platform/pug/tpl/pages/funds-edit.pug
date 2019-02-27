@@ -28,26 +28,34 @@
                     .col.col-lg-9.col-md-12
                         .form-group.form-group-inline
                             label.form-label {{ "funds_edit.labels.start" | translate }}
-                            datepicker(date-format="yyyy-MM-dd" datepicker-mobile="").form-control
+                            datepicker(date-format="dd-MM-yyyy" datepicker-mobile="" date-week-start-day="1").form-control
                                 input(
                                 ng-model="$ctrl.form.values.start_date"
                                 type="text"
-                                placeholder="dd.mm.jjjj"
+                                placeholder="dd-MM-yyyy"
                                 ng-disabled="$ctrl.form.values.state != 'waiting'"
                                 ).form-control
 
                             .form-error(ng-repeat="error in $ctrl.form.errors.start_date" ng-bind="error")
                         .form-group.form-group-inline
                             label.form-label {{ "funds_edit.labels.end" | translate }}
-                            datepicker(date-format="yyyy-MM-dd" datepicker-mobile="").form-control
+                            datepicker(date-format="dd-MM-yyyy" datepicker-mobile="" date-week-start-day="1").form-control
                                 input(
                                 ng-model="$ctrl.form.values.end_date"
                                 type="text"
-                                placeholder="dd.mm.jjjj"
+                                placeholder="dd-MM-yyyy"
                                 ng-disabled="$ctrl.form.values.state != 'waiting'"
                                 ).form-control
 
                             .form-error(ng-repeat="error in $ctrl.form.errors.end_date" ng-bind="error")
+
+            .card-section.card-section-primary
+                .row
+                    .col.col-lg-9.col-md-12
+                        .form-group.form-group-inline
+                            label.form-label {{ "funds_edit.labels.notification_amount" | translate }}
+                            input(ng-model="$ctrl.form.values.notification_amount" type="text" placeholder="{{ funds_edit.labels.notification_amount | translate }}").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.notification_amount" ng-bind="error")
 
             .card-section.card-section-primary
                 .row 

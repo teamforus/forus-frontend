@@ -1,14 +1,21 @@
 let FundCardProviderFinancesDirective = function(
     $scope, 
-    $state, 
-    FundService
+    $state,
+    FundService,
+    FileService,
+    OrganizationService
 ) {
+
+    let now = moment().format('YYYY-MM-DD HH:mm');
+    let org = OrganizationService.active();
+
     $scope.one = 1;
     $scope.chartData = {
         request: {
             type: "month",
             nth: moment().month() + 1,
             year: moment().year(),
+            product_category: null
         },
         response: {},
         stringTitle: "",
@@ -108,10 +115,73 @@ let FundCardProviderFinancesDirective = function(
         }
     };
 
+    $scope.states = [{
+        key: null,
+        name: 'Alle'
+    }, {
+        key: 'pending',
+        name: 'In afwachting'
+    }, {
+        key: 'success',
+        name: 'Voltooid'
+    }];
+
+    $scope.filters = {
+        show: false,
+        values: {},
+        reset: function() {
+            this.values.state = $scope.states[0].key;
+            this.values.from = null;
+            this.values.to = null;
+            this.values.amount_min = null;
+            this.values.amount_max = null;
+        }
+    };
+
+    $scope.statesKeyValue = $scope.states.reduce((obj, item) => {
+        obj[item.key] = item.name;
+        return obj;
+    }, {});
+
+    $scope.hideFilters = () => {
+        $scope.$apply(function() {
+            $scope.filters.show = false;
+        });
+    };
+
     $scope.fund = $scope.fundProvider.fund;
     $scope.fundCategories = $scope.fund.product_categories.map((val) => {
         return val.name;
     });
+
+    $scope.productCategories = _.clone($scope.fund.product_categories);
+    $scope.productCategories.unshift({
+        name: 'Alle',
+        id: null
+    });
+
+    $scope.productCategories.push({
+        name: 'Anders',
+        id: -1
+    });
+
+    // Export to XLS file
+    $scope.exportList = () => {
+        FundService.exportProvidersTransactions(
+            $scope.fundProvider.fund.organization_id,
+            $scope.fundProvider.fund.id,
+            $scope.fundProvider.id,
+            $scope.filters.values
+        ).then((res => {
+            FileService.downloadFile(
+                'financial-dashboard_' + org + '_' + moment().format(
+                    'YYYY-MM-DD HH:mm:ss'
+                ) + '.xls',
+                res.data,
+                res.headers('Content-Type') + ';charset=utf-8;'
+            );
+        }));
+    };
 
     $scope.showTransaction = (transaction) => {
         $state.go('transaction', {
@@ -122,6 +192,8 @@ let FundCardProviderFinancesDirective = function(
 
     $scope.toggleDetails = function(type) {
         if (type == 'transactions') {
+            $scope.filters.reset();
+
             FundService.readProvidersTransactions(
                 $scope.fundProvider.fund.organization_id,
                 $scope.fundProvider.fund.id,
@@ -161,6 +233,8 @@ module.exports = () => {
             '$scope',
             '$state',
             'FundService',
+            'FileService',
+            'OrganizationService',
             FundCardProviderFinancesDirective
         ],
         templateUrl: 'assets/tpl/directives/fund-card-provider-finances.html' 

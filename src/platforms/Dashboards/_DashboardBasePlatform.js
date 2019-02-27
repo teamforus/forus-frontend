@@ -8,10 +8,10 @@ platform = new Platform('forus-platform');
 
 // add libs to bundle (see libs folder)
 platform.setLibs([
-    // "bootstrap3",
     "babel_polyfill",
     "jquery",
     "angular",
+    'angular_i18n',
     "angular_cookies",
     "angular_datepicker",
     "angular_sanitize",
@@ -30,9 +30,6 @@ platform.setLibs([
     "underscore",
     "underscore.string",
 ]);
-
-// files to be copied to destination path (relative to source folder)
-platform.copyAsset("resources/**/*", "./");
 
 // add js task
 platform.addTask('js', {

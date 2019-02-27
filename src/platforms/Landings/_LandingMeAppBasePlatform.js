@@ -17,11 +17,9 @@ platform.setLibs([
     "angular_translate_storage_cookies",
     "angular_translate_storage_local",
     "mdi",
+    "qrcodejs",
     "ui_router"
 ]);
-
-// files to be copied to destination path (relative to source folder)
-platform.copyAsset("resources/**/*", "./");
 
 // add js task
 platform.addTask('js', {

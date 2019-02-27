@@ -1,6 +1,8 @@
 let BaseController = function(
     $rootScope,
     $state,
+    $q,
+    $window,
     IdentityService,
     AuthService,
     RecordService,
@@ -8,18 +10,26 @@ let BaseController = function(
     ConfigService,
     BrowserService,
     $filter,
-    appConfigs
+    appConfigs,
+    ModalService
 ) {
     $rootScope.loadAuthUser = function() {
-        
+        let deferred = $q.defer();
+
         AuthService.identity().then((res) => {
             let auth_user = res.data;
+            let count = 0;
 
             // 15 minutes
             BrowserService.detectInactivity(15 * 60 * 1000).then(() => {
                 if (AuthService.hasCredentials()) {
                     IdentityService.deleteToken();
                     $rootScope.signOut();
+
+                    ModalService.open('modalNotification', {
+                        type: 'info',
+                        description: $filter('i18n')('modal.logout.description')
+                    });
                 }
             }, () => {});
 
@@ -28,7 +38,9 @@ let BaseController = function(
                 auth_user.primary_email = res.data.filter((record) => {
                     return record.key == 'primary_email';
                 })[0].value;
-            });
+
+                ++count == 2 ? null : deferred.resolve();
+            }, deferred.reject);
 
             OrganizationService.list().then((res) => {
                 auth_user.organizations = res.data.data;
@@ -37,10 +49,14 @@ let BaseController = function(
                     auth_user.organizationsMap[organization.id] = organization;
                     return organization.id;
                 });
-            });
+
+                ++count == 2 ? null : deferred.resolve();
+            }, deferred.reject);
 
             $rootScope.auth_user = auth_user;
-        });
+        }, deferred.reject);
+
+        return deferred.promise;
     };
 
     $rootScope.$on('organization-changed', (event) => {
@@ -48,7 +64,7 @@ let BaseController = function(
     });
 
     $rootScope.$on('auth:update', (event) => {
-        $rootScope.loadAuthUser();
+        $rootScope.loadAuthUser().then(() => $state.reload(), console.error);
     });
 
     $rootScope.activeOrganization = OrganizationService.active();
@@ -71,11 +87,17 @@ let BaseController = function(
 
     $rootScope.pageTitle = $filter('translate')('page_title');
     $rootScope.client_key = appConfigs.client_key;
+
+    $window.onbeforeunload = function (event) {
+        BrowserService.unsetInactivity();
+    };
 };
 
 module.exports = [
     '$rootScope',
     '$state',
+    '$q',
+    '$window',
     'IdentityService',
     'AuthService',
     'RecordService',
@@ -84,5 +106,6 @@ module.exports = [
     'BrowserService',
     '$filter',
     'appConfigs',
+    'ModalService',
     BaseController
 ];

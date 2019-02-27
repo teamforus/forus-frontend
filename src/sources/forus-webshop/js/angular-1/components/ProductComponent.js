@@ -1,4 +1,5 @@
 let ProductComponent = function (
+    $rootScope,
     $scope,
     $state,
     $filter,
@@ -22,8 +23,8 @@ let ProductComponent = function (
 
     $ctrl.$onInit = function() {
         let fundIds = $ctrl.product.funds.map(fund => fund.id);
-      
-        vouchers = $ctrl.vouchers.filter(function (voucher) {
+
+        vouchers = $ctrl.vouchers.filter(function(voucher) {
             return (fundIds.indexOf(voucher.fund_id) != -1) && (
                 parseFloat($ctrl.product.price) <= parseFloat(voucher.amount)
             ) && !voucher.parent;
@@ -84,6 +85,7 @@ module.exports = {
         vouchers: '<',
     },
     controller: [
+        '$rootScope',
         '$scope',
         '$state',
         '$filter',

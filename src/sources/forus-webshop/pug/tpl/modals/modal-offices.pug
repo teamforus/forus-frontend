@@ -7,7 +7,7 @@
             .shop_map-header
                 .shop_map-title {{ "popup_offices.header.title_first_part" | translate }} {{ $ctrl.providersCount }} {{ "popup_offices.header.title_last_part" | translate }}
                 .shop_map-subtitle(translate="popup_offices.header.subtitle")
-                .shop_map-categories(ng-class="$ctrl.productCategories.length > $ctrl.per_page ? 'has-pagination' : ''")
+                .scroll.shop_map-categories(ng-class="$ctrl.productCategories.length > $ctrl.per_page ? 'has-pagination' : ''")
                     .shop_map-prev(ng-click="$ctrl.prevCategoriesPage()" ng-class="$ctrl.cur_page == 1 ? 'disabled' : ''"): .mdi.mdi-chevron-left
                     .shop_map-next(ng-click="$ctrl.nextCategoriesPage()" ng-class="$ctrl.isLast() ? 'disabled' : ''"): .mdi.mdi-chevron-right
                     .shop_map-category-item(
@@ -39,8 +39,8 @@
                         .shop-schedule
                             .shop-schedule-label {{ "popup_offices.labels.hours" | translate }}
                             .shop-schedule-value
-                                span(ng-repeat="schedule in office.schedule" ng-show="schedule.start_time || schedule.end_time")
-                                    strong {{ weekDays[schedule.week_day] }}:
+                                span(ng-repeat="schedule in office.schedule" ng-if="schedule.start_time || schedule.end_time")
+                                    strong {{ $ctrl.weekDays[schedule.week_day] }}:
                                     | {{ schedule.start_time || 'Geen data' }} - {{ schedule.end_time || 'Geen data' }}
 
                                 span(ng-if="office.schedule.length == 0")

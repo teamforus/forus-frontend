@@ -80,11 +80,11 @@
 
     .hidden-md.card-section.card-section-primary(
         ng-show="level != 'fundsAvailable' && (fundOrg | hasPerm:['view_finances','manage_funds']:false)"): .row
-        .col.col-lg-5.md-12(
+        .col.col-lg-7.md-12(
             ng-if="fundOrg | hasPerm:'view_finances'"): +stats()
         .col.md-12(
             ng-if="fundOrg | hasPerm:'manage_funds'" 
-            ng-class="(fundOrg | hasPerm:'view_finances') ? 'col-lg-7' : 'col-lg-12'").text-right: +edit_buttons()
+            ng-class="(fundOrg | hasPerm:'view_finances') ? 'col-lg-5' : 'col-lg-12'").text-right: +edit_buttons()
 
     .visible-md
         .card-section.card-section-primary(ng-show="level != 'fundsAvailable' && (fundOrg | hasPerm:'view_finances')"): +stats()

@@ -1,38 +1,56 @@
-.block.block-navbar: .navbar-inner
+.block.block-navbar.wrapper: .navbar-inner
     a(ui-sref="home").navbar-logo
         img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
         img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover
-    nav.navbar-list 
-        a(
-            ui-sref="funds" 
+    nav.navbar-list
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.features.funds.list")
+            a.navbar-item(
+                ui-sref="funds" 
+                ui-sref-active="active"
+                ng-bind="'topnavbar.items.funds' | translate")
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.productsMenu || $root.auth_user")
+            a.navbar-item(
+                ui-sref="products" 
+                ui-sref-active="active"
+                ng-bind="'topnavbar.items.products' | translate")
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.forusPlatformMenu && !$root.auth_user")
+            a.navbar-item(
+            ui-sref="forus-platform" 
+            ui-sref-active="active" 
+            i18n="PLATFORM"
+            target="_self")      
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.meAppMenu && !$root.auth_user")
+            a.navbar-item(
+            ui-sref="me-app" 
             ui-sref-active="active"
-            ng-if="$root.appConfigs.features.funds.list"
-            ng-bind="'topnavbar.items.funds' | translate").navbar-item 
-        a(
-            ui-sref="products" 
-            ui-sref-active="active"
-            ng-if="$root.appConfigs.flags.productsMenu"
-            ng-bind="'topnavbar.items.products' | translate").navbar-item
-        a(
-            ng-if="$root.appConfigs.flags.sponsorLandingMenu"
-            href="{{ $root.appConfigs.features.fronts.url_sponsor }}" 
-            translate="GEMEENTE"
-            target="_self").navbar-item  
-        a(
-            ng-if="$root.appConfigs.flags.providerLandingMenu"
-            href="{{ $root.appConfigs.features.fronts.url_provider }}"
-            translate="AANBIEDER"
-            target="_self").navbar-item  
-        a(
-            ng-if="$root.appConfigs.flags.meLandingMenu"
-            href="{{ $root.appConfigs.features.fronts.url_app }}" 
-            translate="ME"
-            target="_self").navbar-item 
-        a(
-            ng-if="$root.appConfigs.flags.aboutSiteMenu"
+            i18n="ME"
+            target="_self")                        
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.portfolioMenu && !$root.auth_user")
+            a.navbar-item(
+            ui-sref="portfolio"
+            ui-sref-active="active" 
+            i18n="PORTFOLIO"
+            target="_self")
+            nav.navbar-menu
+                .triangle
+                .inner
+                    a(ui-sref="kindpakket" i18n="Kindpakket").navbar-menu-item
+                    //- a(ui-sref="funds" i18n="Longfonds").navbar-menu-item  
+                    //- a(ui-sref="funds" i18n="Common Grounds").navbar-menu-item                                                         
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.aboutSiteMenu && !$root.auth_user") 
+            a.navbar-item(
             href="{{ $root.appConfigs.about_url }}" 
-            translate="OVER ONS"
-            target="_blank").navbar-item
+            i18n="OVER ONS"
+            target="_blank")
+            //- nav.navbar-menu
+                .triangle
+                .inner
+                    a(ui-sref="funds" i18n="Achtergrond").navbar-menu-item
+                    a(ui-sref="funds" i18n="Werkwijze").navbar-menu-item
+                    a(ui-sref="funds" i18n="Team").navbar-menu-item     
+                    a(ui-sref="funds" i18n="Raad van toezicht").navbar-menu-item       
+                    a(ui-sref="funds" i18n="Samenwerkingen").navbar-menu-item     
+                    a(ui-sref="funds" i18n="Contact").navbar-menu-item                                                    
     .block.block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
         .auth-code
             a(ui-sref="vouchers").button.button-default
@@ -57,7 +75,7 @@
                                 ng-if="$root.appConfigs.features.records.list").auth-user-menu-item
                                 img(src="./assets/img/icon-menu/icon-menu-my-records.svg")
                                 | Mijn eigenschappen
-                            .auth-user-menu-item(ng-click="openPinCodePopup()").hide-sm
+                            .auth-user-menu-item(ng-click="openPinCodePopup()")
                                 em.mdi.mdi-cellphone
                                 span(translate="topnavbar.buttons.authorize")
 
@@ -84,7 +102,7 @@
                                 span(translate="topnavbar.buttons.logout")
 
         .auth-out(ng-if="!$root.auth_user")
-            .button.button-default(ng-if="$root.appConfigs.flags.aboutSiteMenu" ng-click="openAuthCodePopup()")
+            //-.button.button-default(ng-if="$root.appConfigs.flags.aboutSiteMenu" ng-click="openAuthCodePopup()")
                 em.mdi.mdi-ticket-confirmation 
                 span(translate="topnavbar.buttons.activate")
             .button.button-default(ng-click="openAuthPopup()")

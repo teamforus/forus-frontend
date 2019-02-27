@@ -49,28 +49,32 @@ module.exports = function() {
                     return headers;
                 };
 
-                var get = function(endpoint, data, headers, auth_redirect) {
-                    return ajax('GET', endpoint, data, headers, auth_redirect);
+                var get = function(endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
+                    return ajax('GET', endpoint, data, headers, auth_redirect, cfg);
                 };
 
-                var post = function(endpoint, data, headers, auth_redirect) {
-                    return ajax('POST', endpoint, data, headers, auth_redirect);
+                var post = function(endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
+                    return ajax('POST', endpoint, data, headers, auth_redirect, cfg);
                 };
 
-                var patch = function(endpoint, data, headers, auth_redirect) {
-                    return ajax('PATCH', endpoint, data, headers, auth_redirect);
+                var patch = function(endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
+                    return ajax('PATCH', endpoint, data, headers, auth_redirect, cfg);
                 };
 
-                var put = function(endpoint, data, headers, auth_redirect) {
-                    return ajax('PUT', endpoint, data, headers, auth_redirect);
+                var put = function(endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
+                    return ajax('PUT', endpoint, data, headers, auth_redirect, cfg);
                 };
 
-                var _delete = function(endpoint, data, headers, auth_redirect) {
-                    return ajax('DELETE', endpoint, data, headers, auth_redirect);
+                var _delete = function(endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
+                    return ajax('DELETE', endpoint, data, headers, auth_redirect, cfg);
                 };
 
-                var ajax = function(method, endpoint, data, headers, auth_redirect) {
+                var ajax = function(method, endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
                     var params = {};
+
+                    if (typeof data == 'object' && !(data instanceof FormData)) {
+                        data = JSON.parse(JSON.stringify(data));
+                    }
 
                     if (typeof auth_redirect == 'undefined') {
                         auth_redirect = true;
@@ -93,6 +97,8 @@ module.exports = function() {
                     params.url = resolveUrl(host + endpoint);
                     params.method = method;
 
+                    params = cfg(params);
+
                     return $q(function(done, reject) {
                         $http(params).then(function(response) {
                             done(response);
@@ -100,6 +106,7 @@ module.exports = function() {
                             if (response.status == 401) {
                                 CredentialsService.delete(CredentialsService.get());
                                 CredentialsService.set(null);
+                                
                                 $state.go('home');
                             }
 

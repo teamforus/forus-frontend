@@ -1,15 +1,18 @@
 .modal.modal-auth
     .modal-backdrop(ng-click="$ctrl.close()")
-    .modal-content
+    .modal-content: .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
 
-        .modal-title(i18n="popup_auth.labels.activate_code")
-        .modal-subtitle(i18n="popup_auth.labels.code")
+        .modal-title(translate="popup_auth.labels.activate_code" ng-if="$ctrl.vouchers.length == 0")
+        .modal-title(translate="popup_auth.labels.isactivated" ng-if="$ctrl.vouchers.length > 0")
+        .modal-subtitle(translate="popup_auth.labels.code" ng-if="$ctrl.vouchers.length == 0")
+        .modal-subtitle(translate="popup_auth.labels.codeactivated" ng-if="$ctrl.vouchers.length > 0")
 
-        form.form(ng-submit="$ctrl.activateCodeForm.submit()")
+        form.form(ng-submit="$ctrl.activateCodeForm.submit()" ng-if="$ctrl.vouchers.length == 0")
             .form-group
                 .form-label(i18n="popup_auth.input.code")
                 input(dash-input-control block-size="4" max-length="8" ng-model="$ctrl.activateCodeForm.values.code" type="text" placeholder="{{ 'popup_auth.input.code' | translate }}").form-control
                 .form-error(ng-if="$ctrl.activateCodeForm.errors.code" i18n="popup_auth.notifications.invalid")
             .form-group
-            .form-group: button(type="submit" i18n="popup_auth.buttons.submit").button.button-primary.button-wide
+            .form-group.text-center
+                button(type="submit" i18n="popup_auth.buttons.submit").button.button-primary

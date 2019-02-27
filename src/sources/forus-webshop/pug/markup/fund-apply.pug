@@ -2,7 +2,7 @@ extends ../layout/layout
 block content
     .header-splash: .splash.splash-d
     
-    header.section.section-header: .wrapper
+    header.section.section-header
         include ../layout/includes/navbar
     
     section.section.section-apply_fund: .wrapper
@@ -29,7 +29,7 @@ block content
                         +cirteria_item("Inkomensgren", "< € 1118.46")
 
                 .apply_fund-menu
-                    button.button.button-primary.button-wide SUBMIT
+                    button.button.button-primary.button-fill SUBMIT
 
             .apply_fund-content
                 .block.block-fund_criteria
@@ -67,6 +67,6 @@ block content
                     +criteria_item("Age: > 18 jaar", "validate", 2)
                     +criteria_item("Age: > 18 jaar", "valid")
                 
-                .block.block-show-more: a(href="#").button.button-primary APPLY
+                .block.block-show-more: a(href="#").button.button-primary.button-wide APPLY
 
     include ../layout/sections/contact-form 

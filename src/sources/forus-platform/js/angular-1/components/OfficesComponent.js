@@ -1,7 +1,9 @@
 let OfficesComponent = function(
     $state,
     $stateParams,
-    OfficeService
+    $filter,
+    OfficeService,
+    ModalService
 ) {
     let $ctrl = this;
 
@@ -14,6 +16,20 @@ let OfficesComponent = function(
 
         $ctrl.emptyBlockLink = $state.href('offices-create', $stateParams);
     };
+
+    $ctrl.delete = (office) => {
+        ModalService.open('modalNotification', {
+            type: 'confirm',
+            title: $filter('i18n')('offices.confirm_delete.title'),
+            description: $filter('i18n')('offices.confirm_delete.description'),
+            confirm: () => {
+                OfficeService.destroy(office.organization_id, office.id)
+                    .then((res) => {
+                        $state.reload();
+                    });
+            }
+        });
+    };
 };
 
 module.exports = {
@@ -24,7 +40,9 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
+        '$filter',
         'OfficeService',
+        'ModalService',
         OfficesComponent
     ],
     templateUrl: 'assets/tpl/pages/offices.html'

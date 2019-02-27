@@ -46,7 +46,7 @@ let permissionMiddleware = (
         ) => {
             let organization;
 
-            if (dependencyResolver && typeof(dependencyResolver) == 'function') {
+            if (dependencyResolver && typeof (dependencyResolver) == 'function') {
                 organization = dependencyResolver(dependency);
             } else {
                 if (dependencyKey == 'organization') {
@@ -184,16 +184,33 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     // Organization providers
     $stateProvider.state({
         name: "organization-providers",
-        url: "/organizations/{organization_id}/providers",
+        url: "/organizations/{organization_id}/providers?fund_id",
         component: "organizationProvidersComponent",
+        params: {
+            fund_id: {
+                squash: true,
+                value: null
+            },
+        },
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('organization-providers', 'manage_providers'),
             fundProviders: function(permission, $transition$, OrganizationService) {
-                return repackPagination(
+                return $transition$.params().fund_id != null ? repackPagination(
                     OrganizationService.listProviders(
-                        $transition$.params().organization_id
+                        $transition$.params().organization_id,
+                        $transition$.params().fund_id
                     )
+                ) : new Promise((res) => res(null));
+            },
+            fund: function(permission, $transition$, FundService) {
+                return $transition$.params().fund_id != null ? repackResponse(
+                    FundService.readPublic($transition$.params().fund_id)
+                ) : new Promise((res) => res(null));
+            },
+            funds: function(permission, $transition$, FundService) {
+                return repackResponse(
+                    FundService.list($transition$.params().organization_id)
                 );
             },
             fundLevel: (permission) => "organizationFunds"
@@ -408,15 +425,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         component: "transactionsComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('transactions-list', 'view_finances'),
-            transactions: function($transition$, TransactionService, appConfigs) {
-                return repackPagination(
-                    TransactionService.list(
-                        appConfigs.panel_type,
-                        $transition$.params().organization_id
-                    )
-                );
-            },
+            permission: permissionMiddleware('transactions-list', 'view_finances')
         }
     });
 
@@ -638,7 +647,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                     $rootScope.loadAuthUser();
                     $state.go('home');
                 }, () => {
-                    alert("Token expired or unknown.");
+                    alert("Helaas, het is niet gelukt om in te loggen. De link is reeds gebruikt of niet meer geldig. Probeer het opnieuw met een andere link.");
                     $state.go('home');
                 });
             }

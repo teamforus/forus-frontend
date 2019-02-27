@@ -44,6 +44,7 @@
     "angular": "^1.7.5",
     "angular-cookie": "^4.1.0",
     "angular-sanitize": "^1.7.5",
+    "angular-i18n": "^1.7.5",
     "angular-translate": "^2.18.1",
     "angular-translate-storage-cookie": "^2.18.1",
     "angular-translate-storage-local": "^2.18.1",

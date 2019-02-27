@@ -1,6 +1,6 @@
 .header-splash: .splash.splash-product
 
-header.section.section-header: .wrapper
+header.section.section-header
     top-navbar
 
 section.section.section-product: .wrapper
@@ -14,37 +14,44 @@ section.section.section-product: .wrapper
     .block.block-product
         .product-card
             .product-details
-                .product-photo(style="background-image: url('{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}')")
+                .product-photo(ng-style="{'background-image':'url({{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }})'}")
                     img(ng-src="{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}")
                 .product-name
-                    | {{ $ctrl.product.name }}
-                    span.label.label-success {{ "product.status.active" | translate }}
+                    span(ng-bind="$ctrl.product.name")
+                    span.label.label-success(ng-if="!$ctrl.product.deleted" i18n="product.status.active")
                 .product-categories(ng-bind="$ctrl.product.product_category.name")
                 
                 .product-funds
-                    .product-fund-label {{ "product.labels.fund" | translate }}
+                    .product-fund-label(i18n="product.labels.fund")
                     .product-fund-list(ng-repeat="fund in $ctrl.product.funds" ng-bind="fund.name")
 
                 .product-price
-                    .product-price-new(ng-bind="$ctrl.product.price | currency_format")
-                    .product-price-old(ng-bind="$ctrl.product.old_price | currency_format")
+                    .product-price-old
+                        .old-label(i18n="block_products.labels.old")
+                        .old-value(ng-bind="$ctrl.product.old_price | currency_format")
+                    .product-price-new
+                        .new-label(i18n="block_products.labels.new")
+                        .new-value(ng-bind="$ctrl.product.price | currency_format")
+                    .product-price-insufficient.tooltip-block(ng-show="$ctrl.isApplicable == false" ng-if="$root.auth_user" i18n="product.insufficient")
+                    tooltip(text="'product.tooltip'" ng-show="$ctrl.isApplicable == false" ng-if="$root.auth_user")
 
                 .product-expire(ng-if="$ctrl.product.expire_at")
-                    .expire-label {{ "voucher.labels.expire" | translate }}
+                    .expire-label(i18n="voucher.labels.expire")
                     .expire-value(ng-bind="$ctrl.product.expire_at_locale")
+
+                .button.button-primary(
+                    ng-if="$ctrl.isApplicable && !$ctrl.product.deleted"
+                    ng-click="$ctrl.applyProduct()") KOOP
                 
                 .button.button-primary(
-                    ng-show="$ctrl.isApplicable" 
-                    ng-click="$ctrl.applyProduct()") KOOP
-                .button.button-primary(
                     ng-if="!$root.auth_user" 
-                    ng-click="openAuthPopup()") LOG IN
+                    ng-click="openAuthPopup()") LOG IN OM TE KOPEN
 
         .block.block-info-card
-            .block-header {{ "voucher.labels.shopdetail" | translate }}
+            .block-header(i18n="voucher.labels.shopdetail")
             .info-office(ng-repeat="office in $ctrl.product.offices")
-                .info-office-photo(style="background-image: url('{{ office.photo.sizes.thumbnail || './assets/img/placeholders/office-thumbnail.png' }}')") 
-                    img(ng-src="{{ office.photo.sizes.thumbnail || './assets/img/placeholders/office-thumbnail.png' }}", alt="")
+                .info-office-photo(style="background-image: url('{{ office.photo.sizes.thumbnail || (office.organization.logo.sizes.thumbnail || './assets/img/placeholders/office-thumbnail.png') }}')")
+                    img(ng-src="{{ office.photo.sizes.thumbnail || (office.organization.logo.sizes.thumbnail || './assets/img/placeholders/office-thumbnail.png') }}", alt="")
                 .info-office-details
                     .info-office-title(ng-bind="$ctrl.product.organization.name")
                     .info-office-description

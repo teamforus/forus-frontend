@@ -8,9 +8,10 @@ let FinancialDashboardComponent = function(
 
     $ctrl.chartData = {
         request: {
-            type: "month",
+            type: "all",
             nth: moment().month() + 1,
             year: moment().year(),
+            product_category: null
         },
         response: {},
         stringTitle: "",
@@ -149,6 +150,17 @@ let FinancialDashboardComponent = function(
 
         if ($ctrl.fund) {
             $ctrl.fund.fundCategories = _.pluck($ctrl.fund.product_categories, 'name').join(', ');
+
+            $ctrl.productCategories = _.clone($ctrl.fund.product_categories);
+            $ctrl.productCategories.unshift({
+                name: 'Alle',
+                id: null
+            });
+
+            $ctrl.productCategories.push({
+                name: 'Anders',
+                id: -1
+            });
         }
     };
 
