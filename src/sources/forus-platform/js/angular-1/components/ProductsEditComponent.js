@@ -26,7 +26,7 @@ let ProductsEditComponent = function(
             ModalService.open('modalNotification', {
                 type: 'danger',
                 title: trans('product_edit.errors.already_added'),
-                icon: 'product_error_create_more',
+                icon: 'product-error',
                 cancel: () => {
                     return $state.go('products', {
                         organization_id: $stateParams.organization_id
@@ -50,7 +50,7 @@ let ProductsEditComponent = function(
                     type: 'confirm',
                     title: trans('product_edit.confirm_create.title'),
                     description: trans('product_edit.confirm_create.description'),
-                    icon: 'product_create',
+                    icon: 'product-create',
                     confirm: () => {
                         alreadyConfirmed = true;
                         $ctrl.form.submit();

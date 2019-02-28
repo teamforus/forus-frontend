@@ -94,6 +94,7 @@ app.component('modalActivateCodeComponent', require('./components/Modals/ModalAc
 app.component('modalAuthCodeComponent', require('./components/Modals/ModalAuthCodeComponent'));
 app.component('modalShareVoucherComponent', require('./components/Modals/ModalShareVoucherComponent'));
 app.component('modalOpenInMeComponent', require('./components/Modals/ModalOpenInMeComponent'));
+app.component('modalProductApplyComponent', require('./components/Modals/ModalProductApplyComponent'));
 
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));

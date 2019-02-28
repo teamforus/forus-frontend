@@ -47,21 +47,7 @@ let ModalNotificationComponent = function(
     };
 
     let getIcon = (icon) => {
-
-        switch (icon){
-            case 'product_error_create_more': {
-                return './assets/img/modal/product-error.png';
-            }; break;
-            case 'product_create': {
-                return './assets/img/modal/product-create.png';
-            }; break;
-            case 'fund_applied': {
-                return './assets/img/modal/fund_applied.png';
-            }; break;
-            default:{
-                return './assets/img/modal/product-error.png';
-            }
-        }
+        return './assets/img/modal/' + icon + '.png';
     };
 
     $ctrl.cancel = () => {
