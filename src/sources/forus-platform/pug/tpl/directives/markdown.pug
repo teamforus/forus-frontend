@@ -2,33 +2,20 @@
     .markdownable
         .markdown-toolbar.toolbar-commenting
             .toolbar-group
-                button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="# " data-end="" data-mark-type="header" data-placement="top" title="Add header text")
-                    em.mdi.mdi-format-header-1
-
-                button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="## " data-end="" data-mark-type="header" data-placement="top" title="Add header text")
-                    em.mdi.mdi-format-header-2
-
-                button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="### " data-end="" data-mark-type="header" data-placement="top" title="Add header text")
-                    em.mdi.mdi-format-header-3
-
-                button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="**" data-end="**" data-mark-type="text" data-placement="top" title="Add bold text")
+                button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="**" data-end="**" data-mark-type="text" data-placement="top" title="Maak dikgedrukt")
                     em.mdi.mdi-format-bold
 
-                button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="_" data-end="_" data-mark-type="header" data-placement="top" title="Add italic text")
+                button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="_" data-end="_" data-mark-type="header" data-placement="top" title="Maak schuingedrukt")
                     em.mdi.mdi-format-italic
 
             .toolbar-group
-                button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="- " data-end="" data-mark-type="list" data-placement="top" title="Add list")
+                button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="- " data-end="" data-mark-type="list" data-placement="top" title="Voeg lijst toe")
                     em.mdi.mdi-format-list-bulleted
 
-                button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="1. " data-end="" data-mark-type="list" data-placement="top" title="Add numeric list")
+                button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="1. " data-end="" data-mark-type="list" data-placement="top" title="Voeg nummerlijst toe")
                     em.mdi.mdi-format-list-numbered
-
-            .toolbar-group
-                button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="(" data-end=")" data-mark-type="custom-link" data-placement="top" title="Add link")
-                    em.mdi.mdi-link
 
         .form-group
             textarea.form-control.markdown-textarea(ng-model="ngModel")
 
-        .markdow-hint **bold** _italic_
+        .markdow-hint **dikgedrukt** _schuingedrukt_
