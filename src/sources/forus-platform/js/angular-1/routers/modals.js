@@ -15,6 +15,10 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalNotificationComponent'
     });
 
+    ModalRouteProvider.modal('markdownCustomLink', {
+        component: 'modalMarkdownCustomLinkComponent'
+    });
+
     ModalRouteProvider.modal('modalPinCode', {
         component: 'modalPinCodeComponent'
     });
