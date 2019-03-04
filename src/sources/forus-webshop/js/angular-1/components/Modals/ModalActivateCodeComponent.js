@@ -84,5 +84,3 @@ module.exports = {
         return 'assets/tpl/modals/modal-activate-code.html';
     }
 };
-
-
