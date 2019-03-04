@@ -61,8 +61,8 @@ section.section.section-product: .wrapper
 
         .block.block-info-card
             .block-header(i18n="voucher.labels.productdetail")
-            .block-content
-                p(ng-bind="$ctrl.product.description")
+            .block-content: .block.block-markdown
+                div(ng-bind-html="$ctrl.product.description_html")
         
         .block.block-map_card
             .map_card-header
@@ -70,4 +70,5 @@ section.section.section-product: .wrapper
                 .map_card-subtitle 
 
             .map_card-iframe: google-map(offices="$ctrl.product.offices")
+
 contact-form 

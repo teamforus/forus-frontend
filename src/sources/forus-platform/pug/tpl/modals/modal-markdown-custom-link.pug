@@ -1,0 +1,18 @@
+.modal
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-window: form.form(ng-submit="$ctrl.form.submit()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-header 
+            | Add Custom Link
+        .modal-body
+            .modal-section
+                .form-group
+                    label.form-label URL
+                    input(type="text" ng-model="$ctrl.form.values.url").form-control
+                .form-group
+                    label.form-label Description
+                    input(type="text" ng-init="$ctrl.form.values.description=$ctrl.description" ng-model="$ctrl.form.values.description").form-control
+
+        .modal-footer.text-center
+            button.button.button-primary(type="submit") Add
+            button.button.button-dark(type="button" ng-click="$ctrl.close()") Close
