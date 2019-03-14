@@ -81,6 +81,7 @@ module.exports = {
             forus: {
                 title: "Forus platform en de Me-app",
                 subtitle: "Forus is een jonge Groningse organisatie. Platform Forus en de Me-app zijn applicaties voor de uitgifte en afhandeling van gemeentelijke diensten en regelingen. <br /> <br /> Wilt u meer weten?",
+                auth_subtitle: "Forus is een jonge Groningse organisatie. Platform Forus en de Me-app zijn applicaties voor de uitgifte en afhandeling van gemeentelijke diensten en regelingen. <br /> <br /> Wilt u meer weten?",
                 button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
             },
             nijmegen: {
