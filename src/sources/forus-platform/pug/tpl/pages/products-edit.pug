@@ -36,12 +36,12 @@
                     .col.col-lg-9.col-md-12
                         .form-group.form-group-inline
                             label.form-label {{ "product_edit.labels.new" | translate }}
-                            input(ng-model="$ctrl.form.values.price" type="number" placeholder="Prijs" step="0.01").form-control
+                            input(ng-model="$ctrl.form.values.price" type="number" placeholder="Prijs" step="0.01" number-control).form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.price" ng-bind="error")
                         
                         .form-group.form-group-inline
                             label.form-label {{ "product_edit.labels.old" | translate }}
-                            input(ng-model="$ctrl.form.values.old_price" type="number" placeholder="Oude prijs" step="0.01").form-control
+                            input(ng-model="$ctrl.form.values.old_price" type="number" placeholder="Oude prijs" step="0.01" number-control).form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.old_price" ng-bind="error")
                         
                         .form-group.form-group-inline(ng-if="$ctrl.product")
