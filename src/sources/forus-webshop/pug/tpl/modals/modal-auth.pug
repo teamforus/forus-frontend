@@ -5,7 +5,11 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
 
         .modal-title(i18n="popup_auth.header.{{ $root.client_key }}.title")
-        .modal-subtitle(i18n="popup_auth.header.{{ $root.client_key }}.subtitle")
+        .modal-subtitle: a(
+                translate="popup_auth.header.{{ $root.client_key }}.subtitle" 
+                ui-sref="me-app" 
+                ui-sref-active="active"
+                target="_blank")
 
         .block.block-auth-type
             .auth_type-item: .auth_type-item-inner(ng-click="$ctrl.showQrForm()")

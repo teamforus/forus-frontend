@@ -6976,7 +6976,7 @@ ui-view{
         }
 
         .footer-text {
-            font: 700 18px $bf;
+            font: 500 18px $bf;
             color: #151b26;
             margin-bottom: 20px;
         }
@@ -7013,6 +7013,18 @@ ui-view{
             font: 400 18px $bf;
             text-align: center;
             padding-bottom: 30px;
+
+            u {
+                cursor: pointer;
+            }
+            span {
+                cursor: auto;
+            }
+
+            a {
+                font: 400 16px "Source Sans Pro",sans-serif;
+                color:rgb(100, 111, 121);
+            }
         }
 
         .modal-content {
@@ -7048,7 +7060,7 @@ ui-view{
 
         .modal-footer {
             .footer-text {
-                font: 700 15px $bf;
+                font: 500 15px $bf;
                 margin: 0 0 15px;
             }
 
@@ -7131,7 +7143,7 @@ ui-view{
                 padding: 25px 25px 0;
 
                 .footer-text {
-                    font: 700 14px/26px $bf;
+                    font: 500 14px/26px $bf;
                     margin: 0 0 30px;
                 }
 

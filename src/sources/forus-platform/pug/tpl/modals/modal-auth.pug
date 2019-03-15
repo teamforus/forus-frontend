@@ -5,7 +5,11 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
 
         .modal-title(i18n="popup_auth.header.title")
-        .modal-subtitle(i18n="popup_auth.header.subtitle")
+        .modal-subtitle: a(
+                translate="popup_auth.header.subtitle" 
+                href="{{ $root.appConfigs.frontends.url_app }}" 
+                ui-sref-active="active"
+                target="_blank")
 
         .block.block-auth-type
             .auth_type-item: .auth_type-item-inner(ng-click="$ctrl.showQrForm()")
