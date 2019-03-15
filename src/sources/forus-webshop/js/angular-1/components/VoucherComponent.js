@@ -25,15 +25,15 @@ let VoucherComponent = function(
         $ctrl.voucherCard = VoucherService.composeCardData($ctrl.voucher);
 
         $ctrl.printQrCode = () => {
-            let html = angular.element('html');
             let body = angular.element('body');
+            let bodyElements = angular.element('body>*');
             let printContents = $element.find('.card-qr_code-element').first().clone();
             
             printContents.addClass('printable-qr_code');
-            body.css('display', 'none');
-            html.append(printContents);
+            bodyElements.css('display', 'none');
+            body.append(printContents);
             window.print();
-            body.css('display', '');
+            bodyElements.css('display', '');
             printContents.remove();
         }
 
