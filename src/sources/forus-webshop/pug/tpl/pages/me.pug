@@ -1,26 +1,51 @@
 .header-splash: .splash.splash-d
 
-header.section.section-header
+header.section.section-header: .wrapper
     top-navbar
 
-section.section.section-page: .wrapper
-    .section-title Me -
-    .section-sprite.section-sprite-b(style="background-image: url('https://forus.io/me/assets/img/landing/meapp-flow/screen-1.png')")
-    .section-description De app Me werkt samen met het Forus platform en biedt de volgende mogelijkheden:  
-        ul 
-            li inloggen op applicaties;
-            li vouchers beheren;
-            li profiel beheren.
-        | De applicatie biedt een duidelijk overzicht van vouchers en makkelijke en veilige manier van inloggen zonder wachtwoord.
-        br
-        br
+    .header-body.header-body-sprite-fill
+        .header-sprite(
+        style="background-image: url('./assets/img/header-sprite-meapp.png')")
+        .header-content
+            .header-title(translate="meapp_index.header.title_{{ $root.appConfigs.client_key }}")
+            .header-description
+                | {{ "meapp_index.header.description" | translate }}
 
-section.section.section-flow: .wrapper
-    .section-title(translate="Me is een Android & iOS applicatie")
-    .section-description(translate="De applicatie functioneert als een generieke stadspas waarmee men zich kan identificeren en betalingen kan verrichten.")
-    .section-sites
-        img(src="./assets/img/site/me/scan.png").section-sites-item.section-sites-item-long 
-        img(src="./assets/img/site/me/vouchers.png").section-sites-item.section-sites-item-long 
-        img(src="./assets/img/site/me/profiel.png").section-sites-item.section-sites-item-long 
+            //- usage example:
+            //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
+            //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
 
-contact-form 
+            .header-download-apps
+                a(href="https://play.google.com/store/apps/details?id=io.forus.me").app-item.app-item-android
+                    | {{ "meapp_index.download.android" | translate }}
+                    em.mdi.mdi-arrow-right
+                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").app-item.app-item-ios
+                    | {{ "meapp_index.download.ios" | translate }}
+                    em.mdi.mdi-arrow-right
+
+
+section.section.section-flow.responsive: .wrapper
+    .section-title {{ "meapp_index.functions.header.title" | translate }}
+    .scheme
+        img(src="../assets/img/me/forus-flow-meapp.png").scheme-img
+        .scheme-points-preset
+            .scheme-point
+                img(src="./assets/img/me/meapp-flow/screen-1.png").scheme-point-image
+                .scheme-point-text
+                    h4 {{ "meapp_index.functions.profile" | translate }}
+                    p {{ "meapp_index.functions.pin" | translate }}
+            .scheme-point
+                img(src="./assets/img/me/meapp-flow/screen-2.png").scheme-point-image
+                .scheme-point-text
+                    h4 {{ "meapp_index.functions.apply" | translate }}
+                    p {{ "meapp_index.functions.webshop" | translate }}
+            .scheme-point
+                img(src="./assets/img/me/meapp-flow/screen-3.png").scheme-point-image
+                .scheme-point-text
+                    h4 {{ "meapp_index.functions.vouchers" | translate }}
+                    p {{ "meapp_index.functions.criterion" | translate }}
+            .scheme-point
+                img(src="./assets/img/me/meapp-flow/screen-4.png").scheme-point-image
+                .scheme-point-text
+                    h4 {{ "meapp_index.functions.profileb" | translate }}
+                    p {{ "meapp_index.functions.app" | translate }}
