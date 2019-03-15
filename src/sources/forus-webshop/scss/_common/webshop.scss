@@ -453,9 +453,10 @@ html {
 
     &.section-footer {
         padding: 30px 0 0;
-        background-color: #3a3a3a;
+        background-color: $fc;
         margin-top: 0;
         color: #fff;
+        display: $fd;
     }
     
     @media screen and (max-width: 1500px) {
@@ -681,8 +682,7 @@ html {
 }
 
 .wrapper {
-    width: 1280px;
-    padding: 0 30px;
+    width: 1280px;    
     max-width: 100%;
     margin: 0 auto;
     display: block;
@@ -2497,7 +2497,6 @@ ui-view{
     }
 
     &.block-navbar {
-        padding: 0 30px;
 
         .navbar-inner {
             border-radius: $border_radius;
