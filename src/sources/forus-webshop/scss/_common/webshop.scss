@@ -8,9 +8,10 @@
 
 // DEV PAGES
 @import 'includes/dev-pages';
+
 html {
     -webkit-overflow-scrolling: touch;
-    }
+}
 
 .scroll-img {
     display: none;
@@ -2026,6 +2027,10 @@ ui-view{
                 }
                 
             }  
+
+            .navbar-list-auth {
+                margin-bottom: 30px;
+            }
         }
 
         .navbar-mobile-menu {
@@ -5854,6 +5859,7 @@ ui-view{
 
                 .navbar-item-wrapper {
                     width: 100%;
+                    margin-bottom: -1px;
 
                     .navbar-item {
                         padding: 10px 20px;

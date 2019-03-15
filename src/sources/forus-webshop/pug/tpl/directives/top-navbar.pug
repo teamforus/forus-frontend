@@ -3,6 +3,31 @@
         img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
         img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover
     nav.navbar-list(ng-class="mobileMenu?'navbar-list-show':''")
+        .navbar-list-auth.show-sm
+            // Auth menu
+            nav.navbar-item-wrapper
+                .navbar-item(ng-click="openActivateCodePopup()" translate="topnavbar.buttons.activate")
+
+            nav.navbar-item-wrapper(ng-if="$root.appConfigs.features.records.list")
+                .navbar-item(ui-sref="records") 
+                    | Mijn eigenschappen
+
+            nav.navbar-item-wrapper
+                .navbar-item(ng-click="openPinCodePopup()" translate="topnavbar.buttons.authorize")
+            
+            nav.navbar-item-wrapper(ng-if="$root.appConfigs.features.funds.list" )
+                .navbar-item(ui-sref="funds" ui-sref-active="active" translate="topnavbar.buttons.logout")
+            
+            nav.navbar-item-wrapper(ng-if="$root.appConfigs.features.products.list")
+                .navbar-item(ui-sref="products" ui-sref-active="active" translate="topnavbar.buttons.products")
+
+            nav.navbar-item-wrapper
+                .navbar-item(ui-sref="vouchers" translate="topnavbar.buttons.voucher")
+
+            nav.navbar-item-wrapper
+                .navbar-item(ng-click="$root.signOut()" translate="topnavbar.buttons.logout")
+
+        // Menu
         nav.navbar-item-wrapper(ng-if="$root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
             a.navbar-item(
                 ui-sref="funds" 
@@ -64,7 +89,7 @@
                 .auth-user-type(translate="topnavbar.items.identity")
                 .auth-user-avatar
                     img(src="./assets/img/identity-avatar.svg")
-                    nav.auth-user-menu
+                    nav.auth-user-menu.hide-sm
                         .triangle
                         .inner
                             a(ng-click="openActivateCodePopup()").auth-user-menu-item
@@ -108,6 +133,7 @@
             .button.button-default(ng-click="openAuthPopup()")
                 em.mdi.mdi-account
                 span(translate="topnavbar.buttons.login")
+    
     .navbar-mobile-menu.show-sm
         em.mdi(ng-class="mobileMenu?'mdi-close':'mdi-menu'" ng-click="mobileMenu = !mobileMenu")
 
