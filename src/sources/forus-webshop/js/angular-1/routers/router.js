@@ -29,7 +29,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "me-app",
-        url: "/me-app",
+        url: "/me",
         component: "meComponent",
         params: {
             confirmed: null
