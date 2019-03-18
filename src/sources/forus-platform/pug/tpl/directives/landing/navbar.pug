@@ -1,19 +1,25 @@
-.block.block-navbar(menu_scroll_toggle)
-    a(href="{{ $root.appConfigs.frontends.webshop }}" target="_self").navbar-logo
+.block.block-navbar.wrapper(menu_scroll_toggle): .navbar-inner
+    a(href="{{ $root.appConfigs.frontends.url_webshop }}" target="_self").navbar-logo
         img(ng-src="./assets/img/landing/logo-normal.svg")
         img(ng-src="./assets/img/landing/logo-hover.svg").hover
-    nav.navbar-list
-        a(
+    nav.navbar-list(ng-class="mobileMenu?'navbar-list-show':''")
+        .navbar-list-auth.show-sm
+            // Auth menu
+            nav.navbar-item-wrapper: .navbar-item(ui-sref="organizations") Open dashboard
+            nav.navbar-item-wrapper: .navbar-item(ng-click="$root.openPinCodePopup()" translate="topnavbar.buttons.authorize")
+            nav.navbar-item-wrapper: .navbar-item(ng-click="$root.signOut()" translate="topnavbar.buttons.logout")
+
+        nav.navbar-item-wrapper: a(
             href="{{ $root.appConfigs.frontends.url_sponsor }}"
             ng-class="$root.appConfigs.panel_type=='sponsor'?'active':''").navbar-item GEMEENTE
-        a(
+        nav.navbar-item-wrapper: a(
             href="{{ $root.appConfigs.frontends.url_provider }}"
             ng-class="$root.appConfigs.panel_type=='provider'?'active':''").navbar-item AANBIEDER
         //a(
             href="{{ $root.appConfigs.frontends.url_validator }}"
             ng-class="$root.appConfigs.panel_type=='validator'?'active':''").navbar-item VALIDATOR
-        a(href="{{ $root.appConfigs.frontends.url_app }}").navbar-item ME
-        a(href="{{ $root.appConfigs.frontends.url_webshop }}").navbar-item WEBSHOP
+        nav.navbar-item-wrapper: a(href="{{ $root.appConfigs.frontends.url_app }}" target="_blank").navbar-item ME
+        nav.navbar-item-wrapper: a(href="{{ $root.appConfigs.frontends.url_webshop }}").navbar-item WEBSHOP
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
             .auth-user
@@ -21,7 +27,7 @@
                 .auth-user-type(translate="topnavbar.items.identity")
                 .auth-user-avatar
                     img(src="./assets/img/landing/identity-avatar.svg")
-                    nav.auth-user-menu
+                    nav.auth-user-menu.hide-sm
                         .triangle
                         .inner
                             .auth-user-menu-item(ui-sref="organizations")
@@ -41,3 +47,6 @@
                 em.mdi.mdi-account
                 //- img(src="./assets/img/icon-btn/icon-btn-user.svg")
                 | Login
+
+    .navbar-mobile-menu.show-sm
+        em.mdi(ng-class="mobileMenu?'mdi-close':'mdi-menu'" ng-click="mobileMenu = !mobileMenu")

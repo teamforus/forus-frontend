@@ -3,6 +3,10 @@ ui-view {
     min-height: 85vh;
 }
 
+.show-sm {
+    display: none !important;
+}
+
 .form {
     .form-error {
         font: 400 13px/24px $bf;
@@ -976,8 +980,8 @@ ui-view {
             margin: 0 0 30px;
 
             .block-navbar {
-                margin-left: -25px;
-                margin-right: -25px;
+                position: relative;
+                z-index: 4;
             }
 
             .heade-sprite {
@@ -1161,18 +1165,26 @@ ui-view {
 
 .block {
     &.block-navbar {
-        border-radius: 8px;
-        background-color: #ffffff;
-        box-shadow: 0 10px 20px rgba(#000, .075);
-        @include cf();
+        padding: 0 30px;
+
+        .navbar-inner {
+            border-radius: $border_radius;
+            background-color: #ffffff;
+            box-shadow: 0 10px 20px rgba(#000, .075);
+            @include cf();
+            max-width: 100%;
+            margin: 0 auto;
+            display: flex;
+        }
 
         .navbar-logo {
-            float: left;
+            justify-self: flex-start;
             padding: 30px 40px;
-            border-right: 1px solid #d2e6ff;
+            border-right: 1px solid $border_color;
 
             img {
                 display: block;
+                margin: 0 0;
 
                 &.hover {
                     display: none;
@@ -1183,52 +1195,142 @@ ui-view {
         .navbar-list {
             float: left;
             padding-left: 30px;
+            flex-grow: 1;
+            display: block;
+            text-align: left;
 
-            .navbar-item {
-                color: #646f79;
-                float: left;
-                display: block;
-                font: 700 15px/30px $bf;
-                padding: 30px 25px;
-                display: block;
+            .navbar-item-wrapper {
+                display: inline-block;
                 position: relative;
-                transition: .4s;
-                cursor: pointer;
 
-                &:before {
-                    content: '';
-                    top: 0;
-                    left: 25px;
-                    right: 25px;
-                    height: 3px;
-                    display: block;
-                    position: absolute;
-                    background: transparent;
+                .navbar-item {
+                    color: #646f79;
+                    display: inline-block;
+                    font: 700 15px/30px $bf;
+                    padding: 30px 25px;
+                    position: relative;
                     transition: .4s;
+                    cursor: pointer;
+                    font-weight: bold;
+                    text-transform: uppercase;
+
+                    &:before {
+                        content: '';
+                        top: 0;
+                        left: 25px;
+                        right: 25px;
+                        height: 3px;
+                        display: block;
+                        position: absolute;
+                        background: transparent;
+                        transition: .4s;
+                    }
+
+                    &:hover {
+                        color: #2987fd;
+
+                        &:before {
+                            background: #d2e6ff;
+                        }
+                    }
+
+                    &.active {
+                        color: #2987fd;
+
+                        &:before {
+                            background: #134478;
+                        }
+                    }
                 }
-                
+
                 &:hover {
-                    color: #2987fd;
-
-                    &:before {
-                        background: #d2e6ff;
+                    .navbar-menu {
+                        display: block;
                     }
                 }
-                
-                &.active {
-                    color: #2987fd;
 
-                    &:before {
-                        background: #134478;
+                .navbar-menu {
+                    background: #ffffff;
+                    box-shadow: 0 0 20px rgba(#000, .075);
+                    width: 220px;
+                    left: 20px;
+                    position: absolute;
+                    top: 70px;
+                    border: 1px solid #f3f4f5;
+                    border-radius: 5px;
+                    padding: 5px 0;
+                    display: none;
+
+                    .triangle {
+                        position: absolute;
+                        left: 15px;
+                        bottom: 100%;
+                    }
+
+                    .navbar-menu-item {
+                        display: block;
+                        padding: 5px 15px;
+                        font: 700 13px/26px $bf;
+                        transition: .4s;
+                        cursor: pointer;
+
+                        img {
+                            display: block;
+                            float: left;
+                            margin: 0 5px 0 0;
+                        }
+
+                        .mdi {
+                            display: block;
+                            width: 26px;
+                            height: 26px;
+                            margin: 0 5px 0 0;
+                            float: left;
+                            text-align: center;
+                            font-size: 22px;
+                        }
+
+                        &:hover {
+                            color: $color_primary;
+                            background: #f6f8f9;
+                        }
+                    }
+
+                    .navbar-menu-separator {
+                        display: block;
+                        border-bottom: 1px solid #f3f4f5;
+                        width: 100%;
+                        height: 5px;
+                        margin: 0 0 5px
                     }
                 }
+
+            }
+
+            .navbar-list-auth {
+                margin-bottom: 30px;
+            }
+        }
+
+        .navbar-mobile-menu {
+            float: right;
+            text-align: center;
+            border-left: 1px solid #e6ecf0;
+
+            em {
+                display: block;
+                height: 60px;
+                line-height: 60px;
+                width: 60px;
+                font-size: 30px;
+                color: #9ca6af;
             }
         }
 
         .block-auth {
-            float: right;
             border-left: 1px solid #e6ecf0;
-            padding: 30px 30px;
+            padding: 25px 30px;
+            justify-self: flex-end;
             @include cf();
 
             .button {
@@ -1245,7 +1347,7 @@ ui-view {
             .auth-code {
                 float: right;
             }
-            
+
             .auth-out {
                 float: right;
             }
@@ -1264,7 +1366,7 @@ ui-view {
 
                     .auth-user-email {
                         font: 700 13px $bf;
-                        color: #305dfb;
+                        color: $color_primary;
                         float: left;
                         text-align: right
                     }
@@ -1275,12 +1377,12 @@ ui-view {
                         float: right;
                         clear: both;
                     }
-                    
+
                     .auth-user-avatar {
                         width: 40px;
                         height: 40px;
                         border-radius: 40px;
-                        border: 1px solid #d2e6ff;
+                        border: 1px solid $border_color;
                         position: absolute;
                         right: 0;
                         top: 20px;
@@ -1333,7 +1435,7 @@ ui-view {
                             }
 
                             &:hover {
-                                color: #305dfb;
+                                color: $color_primary;
                                 background: #f6f8f9;
                             }
                         }
@@ -1945,33 +2047,48 @@ ui-view {
             }
         }
     }
-
-    @media screen and (max-width: 1500px) {
+    
+    @media screen and (max-width: 1700px) {
         &.block-navbar {
             .navbar-logo {
-                padding: 25px 20px;
+                padding: 20px 20px;
 
                 img {
-                    height: 20px;
+                    height: 30px;
+                    margin: 0;
                 }
             }
 
             .navbar-list {
-                padding-left: 10px;
+                padding: 0;
 
-                .navbar-item {
-                    padding: 20px 15px;
-                    font: 700 13px/30px $bf;
+                .navbar-item-wrapper {
+                    .navbar-item {
+                        padding: 20px 20px;
+                        font: 700 12px/30px $bf;
 
-                    &:before {
-                        left: 15px;
-                        right: 15px;
+                        &:before {
+                            left: 15px;
+                            right: 15px;
+                        }
                     }
                 }
             }
 
             .block-auth {
                 padding: 15px 20px;
+
+                .auth-in {
+                    .auth-user {
+                        .auth-user-email {
+                            font: 700 12px/20px $bf;
+                        }
+
+                        .auth-user-type {
+                            font: 400 11px/20px $bf;
+                        }
+                    }
+                }
 
                 .button {
                     font: 700 12px/24px $bf;
@@ -1982,7 +2099,9 @@ ui-view {
                 }
             }
         }
+    }
 
+    @media screen and (max-width: 1500px) {
         &.block-blogs {
             margin: 0 -15px 30px;
 
@@ -2019,25 +2138,33 @@ ui-view {
 
     @media screen and (max-width: 1000px){
         &.block-navbar {
+            padding: 0;
             border-radius: 0;
-            box-shadow: 0 2px 10px rgba($color: #000000, $alpha: 0.1);
+
+            .navbar-inner {
+                border-radius: 0;
+            }
 
             .navbar-logo {
-                padding: 20px 0px;
+                padding: 15px 0px;
                 padding-left: 20px;
                 padding-right: -40px;
                 border-right: none;
+                flex-grow: 1;
 
                 img {
-                    height: 20px;
+                    height: 30px;
                 }
             }
 
             .block-auth {
+                padding: 10px 10px 10px 0;
+                border: none;
+
                 .button {
                     margin-right: 10px;
                     font-size: 11px;
-                    padding: 7px 15px;
+                    padding: 7px 10px;
                 }
 
                 .auth-in {
@@ -2045,7 +2172,7 @@ ui-view {
                         .auth-user-email {
                             font: 700 12px/22px $bf;
                         }
-                        
+
                         .auth-user-type {
                             font: 500 12px/14px $bf;
                         }
@@ -2054,22 +2181,49 @@ ui-view {
             }
 
             .navbar-list {
-                padding: 0;
                 display: none;
+                top: 100%;
+                position: absolute;
+                width: 100%;
+                background: #fff;
+                height: calc(100vh - 100%);
+                border-top: 1px solid #e6ecf0;
+                padding: 50px 0;
 
-                .navbar-item {
-                    padding: 15px 10px;
-                    font: 700 14px/30px $bf;
+                .navbar-item-wrapper {
+                    width: 100%;
+                    margin-bottom: -1px;
 
-                    &:first-of-type {
-                        padding-left: 0;
+                    .navbar-item {
+                        padding: 10px 20px;
+                        padding-left: 15px;
+                        font: 700 12px/30px $bf;
+                        color: #646f79;
+                        border-bottom: 1px solid #e6ecf0;
+                        width: 100%;
+                        display: block;
+                        border-left: 5px solid transparent;
+                        transition: .4s;
+
+                        &:first-of-type {
+                            border-top: 1px solid #e6ecf0;
+                        }
+
+                        &:hover,
+                        &.active {
+                            border-left-color: #3396a7;
+
+                            &:before,
+                            &:after {
+                                display: none;
+                            }
+                        }
                     }
                 }
-            }
 
-            .block-auth {
-                padding: 10px 10px 10px 0;
-                border: none;
+                &.navbar-list-show {
+                    display: block;
+                }
             }
         }
 
@@ -2442,6 +2596,11 @@ ui-view {
             font: 400 22px $bf;
             text-align: center;
             padding-bottom: 30px;
+
+            a {
+                font: 400 16px "Source Sans Pro",sans-serif;
+                color: #646f79;
+            }
         }
 
         .modal-content {
@@ -2492,6 +2651,11 @@ ui-view {
             .modal-subtitle {
                 font: 400 16px $bf;
                 padding: 0 0 20px;
+
+                a {
+                    font: 400 16px "Source Sans Pro",sans-serif;
+                    color: #646f79;
+                }
             }
         }
     }
@@ -2542,6 +2706,11 @@ ui-view {
                     font: 400 15px/24px $bf;
                     margin: 0 0 30px;
                     padding: 0;
+
+                    a {
+                        font: 400 16px "Source Sans Pro",sans-serif;
+                        color: #646f79;
+                    }
                 }
 
                 .form {

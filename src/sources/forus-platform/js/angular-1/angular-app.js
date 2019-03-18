@@ -109,6 +109,7 @@ app.directive('landingContactForm', require('./directives/landing/ContactFormDir
 app.directive('landingAppFooter', require('./directives/landing/LandingAppFooterDirective'));
 app.directive('forusChat', require('./directives/ForusChatDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
+app.directive('numberControl', require('./directives/NumberControlDirective'));
 app.directive('productCategoriesControl', require('./directives/ProductCategoriesControlDirective'));
 app.directive('officeEditInline', require('./directives/OfficeEditInlineDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));

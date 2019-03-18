@@ -1,4 +1,5 @@
 @import '../_common/landing';
+
 .button {
     &.button-default {
         background-color: $color_default;
@@ -50,8 +51,8 @@
             }
         }
     }
-
 }
+
 .header-splash {
     height: 20.5vw;
     overflow:auto;
@@ -91,18 +92,22 @@
         }
     }
 }
+
 .section {
     &.section-header {
         padding: 1vw 0 1vw;
         position: relative;
         display: block;
+
         .wrapper {
             width: 100%;
         }
+
         .header-body {
             width: 1280px;
             max-width: 100%;
             margin: 0 auto;
+            
             .header-content {
                 padding-top: 3.4vw;
                 padding-bottom: 5.1vw;
@@ -129,49 +134,54 @@
             }
         }
     }
+
+    @media screen and (max-width: 1000px) { 
+        &.section-header {
+            padding: 0;
+        }
+    }
 }
+
 .block {
     &.block-navbar {
         width: 100%;
-        padding: 0 0px;
-        border-radius: 0px;
+        padding: 0 40px;
+
         .navbar-logo {
-            float: left;
-            padding-top: 1vm;
-            padding-left: 0;
             padding: 17.5px 45px;
 
             img {
-                height: 50px;
+                height: 55px;
             }
         }
 
         .navbar-list {
             text-align: center;
-        
-            .navbar-item {
-                &:hover {
-                    color: $tc;
 
-                    &:before {
-                        background-color: $color_default;
-                        opacity: .5;
+            .navbar-item-wrapper {
+                .navbar-item {
+                    &:hover {
+                        color: $tc;
+
+                        &:before {
+                            background-color: $color_default;
+                            opacity: .5;
+                        }
                     }
-                }
 
-                &.active {
-                    color: $tc;
+                    &.active {
+                        color: $tc;
 
-                    &:before {
-                        background-color: $color_default;
-                        opacity: 1;
+                        &:before {
+                            background-color: $color_default;
+                            opacity: 1;
+                        }
                     }
                 }
             }
         }
 
         .block-auth {
-            padding: 25px 30px;
             .auth-in {
                 .auth-user {
                     .auth-user-email {
@@ -181,11 +191,36 @@
                     .auth-user-avatar {
                         border-color: $color_default;
                         border-radius: 4px;
-                        
+
                         img {
                             filter: grayscale(.8);
                         }
                     }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1700px) {
+        &.block.block-navbar .navbar-logo {
+            padding: 15px 30px;
+
+            img {
+                margin: -5px 0;
+                height: 50px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        &.block-navbar {
+            padding: 0;
+
+            .navbar-logo {
+                padding: 15px 15px;
+
+                img {
+                    height: 40px !important;
                 }
             }
         }

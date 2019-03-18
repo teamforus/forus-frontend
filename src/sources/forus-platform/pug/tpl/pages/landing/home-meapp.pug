@@ -1,13 +1,13 @@
 .header-splash: .splash
 
-header.section.section-header: .wrapper
-    .block.block-navbar(menu_scroll_toggle)
+header.section.section-header
+    .block.block-navbar.wrapper(menu_scroll_toggle): .navbar-inner
         a(href="{{ $root.appConfigs.frontends.webshop }}").navbar-logo
             img(ng-src="./assets/img/landing/logo-normal.svg")
             img(ng-src="./assets/img/landing/logo-hover.svg").hover
         nav.navbar-list
-            a(href="{{ $root.appConfigs.frontends.url_sponsor }}").navbar-item {{ "meapp_index.navbar.municipality" | translate }}
-            a(href="{{ $root.appConfigs.frontends.url_provider }}").navbar-item {{ "meapp_index.navbar.provider" | translate }}
+            //a(href="{{ $root.appConfigs.frontends.url_sponsor }}").navbar-item {{ "meapp_index.navbar.municipality" | translate }}
+            //a(href="{{ $root.appConfigs.frontends.url_provider }}").navbar-item {{ "meapp_index.navbar.provider" | translate }}
             //a(href="{{ $root.appConfigs.frontends.url_validator }}").navbar-item VALIDATOR
             a(href="{{ $root.appConfigs.frontends.url_app }}").navbar-item.active {{ "meapp_index.navbar.me" | translate }}
             a(href="{{ $root.appConfigs.frontends.url_webshop }}").navbar-item {{ "meapp_index.navbar.shop" | translate }}
@@ -22,26 +22,26 @@ header.section.section-header: .wrapper
                     em.mdi.mdi-account
                     //- img(src="./assets/img/icon-btn/icon-btn-user.svg")
                     | {{ "meapp_index.buttons.join" | translate }}
+    .wrapper
+        .header-body.header-body-sprite-fill
+            .header-sprite(
+            style="background-image: url('./assets/img/landing/header-sprite-meapp.png')")
+            .header-content
+                .header-title(translate="meapp_index.header.title_{{ $root.appConfigs.client_key }}")
+                .header-description
+                    | {{ "meapp_index.header.description" | translate }}
 
-    .header-body.header-body-sprite-fill
-        .header-sprite(
-        style="background-image: url('./assets/img/landing/header-sprite-meapp.png')")
-        .header-content
-            .header-title(translate="meapp_index.header.title_{{ $root.appConfigs.client_key }}")
-            .header-description
-                | {{ "meapp_index.header.description" | translate }}
+                //- usage example:
+                //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
+                //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
 
-            //- usage example:
-            //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
-            //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
-
-            .header-download-apps
-                a(href="https://play.google.com/store/apps/details?id=io.forus.me").app-item.app-item-android
-                    | {{ "meapp_index.download.android" | translate }}
-                    em.mdi.mdi-arrow-right
-                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").app-item.app-item-ios
-                    | {{ "meapp_index.download.ios" | translate }}
-                    em.mdi.mdi-arrow-right
+                .header-download-apps
+                    a(href="https://play.google.com/store/apps/details?id=io.forus.me").app-item.app-item-android
+                        | {{ "meapp_index.download.android" | translate }}
+                        em.mdi.mdi-arrow-right
+                    a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").app-item.app-item-ios
+                        | {{ "meapp_index.download.ios" | translate }}
+                        em.mdi.mdi-arrow-right
 
 
 section.section.section-flow.responsive: .wrapper

@@ -152,7 +152,7 @@
     }
     
     &.section-footer {
-        background: #4e4d40;
+        background-color: $fd;
         position: relative;
 
         &:before,
@@ -517,11 +517,15 @@
     }
 
     @media screen and (max-width: 1000px) {
-        &.block.block-navbar .navbar-logo {
-            padding: 15px 15px;
-            
-            img {
-                height: 40px;
+        &.block-navbar  {
+            padding: 0;
+
+            .navbar-logo {
+                padding: 15px 15px;
+
+                img {
+                    height: 40px !important;
+                }
             }
         }
 
