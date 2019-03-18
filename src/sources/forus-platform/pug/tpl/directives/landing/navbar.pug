@@ -1,5 +1,5 @@
 .block.block-navbar.wrapper(menu_scroll_toggle): .navbar-inner
-    a(href="{{ $root.appConfigs.frontends.webshop }}" target="_self").navbar-logo
+    a(href="{{ $root.appConfigs.frontends.url_webshop }}" target="_self").navbar-logo
         img(ng-src="./assets/img/landing/logo-normal.svg")
         img(ng-src="./assets/img/landing/logo-hover.svg").hover
     nav.navbar-list(ng-class="mobileMenu?'navbar-list-show':''")
@@ -18,7 +18,7 @@
         //a(
             href="{{ $root.appConfigs.frontends.url_validator }}"
             ng-class="$root.appConfigs.panel_type=='validator'?'active':''").navbar-item VALIDATOR
-        nav.navbar-item-wrapper: a(href="{{ $root.appConfigs.frontends.url_app }}").navbar-item ME
+        nav.navbar-item-wrapper: a(href="{{ $root.appConfigs.frontends.url_app }}" target="_blank").navbar-item ME
         nav.navbar-item-wrapper: a(href="{{ $root.appConfigs.frontends.url_webshop }}").navbar-item WEBSHOP
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")

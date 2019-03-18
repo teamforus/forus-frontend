@@ -902,7 +902,7 @@ module.exports = {
     popup_auth: {
         header: {
             title: "Inloggen op het dashboard",
-            subtitle: "Scan de QR-code met de Me-app of log in met uw e-mail adres",
+            subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
         },
         notifications: {
             confirmation: "Het is gelukt!",

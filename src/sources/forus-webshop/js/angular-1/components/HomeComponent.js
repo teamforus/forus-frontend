@@ -1,8 +1,11 @@
 let HomeComponent = function(
     $scope,
     $stateParams,
-    ModalService
+    ModalService,
+    AuthService,
+    VoucherService,
 ) {
+
     let $ctrl = this;
 
     $ctrl.showPopupOffices = function() {
@@ -21,11 +24,24 @@ let HomeComponent = function(
         ModalService.open('modalActivateCode', {});
     };
 
+    $ctrl.openInMeModal = () => {
+        return ModalService.open('modalOpenInMe', {});
+    };
+
+    if(AuthService.hasCredentials()) {
+        VoucherService.list().then(res => {
+            $ctrl.vouchers = res.data.data; });
+        } else {
+            $ctrl.vouchers = [];
+        }
+
+
 
 };
 
 module.exports = {
-    bindings: {},
+    bindings: {
+    },
     scope: {
         text: '=',
         button: '=',
@@ -34,7 +50,10 @@ module.exports = {
         '$scope',
         '$stateParams',
         'ModalService',
-        HomeComponent
+        'AuthService',
+        'VoucherService',
+        'IdentityService',
+        HomeComponent,
     ],
     templateUrl: 'assets/tpl/pages/home.html'
 };

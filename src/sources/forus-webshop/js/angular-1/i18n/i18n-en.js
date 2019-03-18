@@ -81,21 +81,28 @@ module.exports = {
             forus: {
                 title: "Forus platform en de Me-app",
                 subtitle: "Forus is een jonge Groningse organisatie. Platform Forus en de Me-app zijn applicaties voor de uitgifte en afhandeling van gemeentelijke diensten en regelingen. <br /> <br /> Wilt u meer weten?",
+                auth_subtitle: "Forus is een jonge Groningse organisatie. Platform Forus en de Me-app zijn applicaties voor de uitgifte en afhandeling van gemeentelijke diensten en regelingen. <br /> <br /> Wilt u meer weten?",
                 button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
             },
             nijmegen: {
                 title: "Meedoen-regeling",
-                subtitle: "Welkom op de website van de Meedoen-regeling. Heeft u van de gemeente een toekenning voor de Meedoen-regeling? Dan kunt u hier het aanbod van activiteiten en cursussen zien en het geld dat u kunt besteden. <br /> <br /> Klik op start en vul uw activatiecode in. Deze code staat in de brief over de Meedoen-regeling die u heeft ontvangen.",
+                subtitle: "Welkom op de website van de Meedoen-regeling. Heeft u van de gemeente een toekenning voor de Meedoen-regeling? Dan kunt u hier het aanbod van activiteiten en cursussen zien en het geld dat u kunt besteden. <br /><br />Klik op start en vul uw activatiecode in. Deze code staat in de brief over de Meedoen-regeling die u heeft ontvangen",
+                auth_subtitle: "Welkom op de website van de Meedoen-regeling. Heeft u van de gemeente een toekenning voor de Meedoen-regeling? Dan kunt u hier het aanbod van activiteiten en cursussen zien en het geld dat u kunt besteden. <br /><br />Beheer uw vouchers en neem ze overal mee door de Me-app te downloaden.",
+                auth_button: "Download Me",
                 button: 'START', 
             },
             zuidhorn: {
                 title: "Zuidhorn. Kindpakket",
                 subtitle: "Welkom op de website van het Kindpakket Zuidhorn. Het Kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Zuidhorn.",
+                auth_subtitle: "Welkom op de website van het Kindpakket Zuidhorn. Het Kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Zuidhorn. <br /><br />Beheer uw vouchers en neem ze overal mee door de Me-app te downloaden.",
+                auth_button: "Download Me",
                 button: 'START MET ACTIVEREN',
             },
             westerkwartier: {
                 title: "Westerkwartier. Kindpakket",
                 subtitle: "Welkom op de website van het Kindpakket Westerkwartier. Het Kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Westerkwartier.",
+                auth_subtitle: "Welkom op de website van het Kindpakket. Heeft u van de gemeente een toekenning voor het Kindpakket? Dan kunt u hier het aanbod van activiteiten en cursussen zien en het geld dat u kunt besteden. <br /><br />Beheer uw vouchers en neem ze overal mee door de Me-app te downloaden.",
+                auth_button: "Download Me",
                 button: 'START MET ACTIVEREN',
             },
         },
@@ -298,7 +305,7 @@ module.exports = {
                 stepthree: "Stap #3",
                 three: "Na uw aanmelding wordt de Meedoen-regeling gelijk geactiveerd. De voucher met bijbehorende QR-Code kunt u terugvinden door bovenaan op ‘Mijn vouchers’ te klikken.",
                 stepfour: "Stap #4",
-                four: "De QR-Code kunt u uitprinten, naar uzelf toe mailen of altijd op uw telefoon hebben door in te loggen op de app 'Me'. De app 'Me' kunt u downloaden via de Google Playstore en de App Store.",
+                four: "De QR-Code kunt u uitprinten, naar uzelf toe mailen of altijd op uw telefoon hebben door in te loggen op de app <a href='#!/me-app' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me-app' tartget='_blank'><u><i>Me</i></u></a> kunt u downloaden via de Google Playstore en de App Store.",
                 stepfive: "Stap #5",
                 five: "Ga naar de webshop om te zien waar de voucher te besteden is of om een aanbieding te kopen. Laat de bijbehorende QR-Code zien om uw aanbieding af te nemen.",  
             },
@@ -311,7 +318,7 @@ module.exports = {
                 stepthree: "Stap #3",
                 three: "Na je aanmelding wordt het Kindpakket gelijk geactiveerd. De voucher met bijbehorende QR-Code kan je terugvinden door bovenaan op ‘Mijn vouchers’ te klikken.",
                 stepfour: "Stap #4",
-                four: "De QR-Code kan je uitprinten, naar jezelf toe mailen of altijd op je telefoon hebben door in te loggen op de Me app. De Me app kun je downloaden via de Google Playstore en de App Store.",
+                four: "De QR-Code kan je uitprinten, naar jezelf toe mailen of altijd op je telefoon hebben door in te loggen op de app <a href='#!/me-app' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me-app' tartget='_blank'><u><i>Me</i></u></a> kun je downloaden via de Google Playstore en de App Store.",
                 stepfive: "Stap #5",
                 five: "Ga naar de webshop om te zien waar de voucher te besteden is of om een aanbieding te kopen. Laat de bijbehorende QR-Code zien om je aanbieding in ontvangst te nemen.",
             },
@@ -324,7 +331,7 @@ module.exports = {
                 stepthree: "Stap #3",
                 three: "Klik daarna op ‘Aanbiedingen’. Daar vindt u alle activiteiten en cursussen. Ook kunt u uw tegoed zien. De voucher met het tegoed vindt u terug door bovenaan op ‘Mijn vouchers’ te klikken.",
                 stepfour: "Stap #4",
-                four: "Bij ‘Mijn vouchers’ staat ook een persoonlijke QR-code. Daarmee betaalt u de organisatie waar u een activiteit wilt doen. De QR-code kunt u uitprinten, naar uzelf mailen of altijd op uw telefoon hebben door in te loggen op de app <i>Me</i>. De app <i>Me</i> kunt u downloaden via de Google Playstore en de App Store.",
+                four: "Bij ‘Mijn vouchers’ staat ook een persoonlijke QR-code. Daarmee betaalt u de organisatie waar u een activiteit wilt doen. De QR-code kunt u uitprinten, naar uzelf mailen of altijd op uw telefoon hebben door in te loggen op de app <a href='#!/me-app' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me-app' tartget='_blank'><u><i>Me</i></u></a> kunt u downloaden via de Google Playstore en de App Store.",
                 stepfive: "Stap #5",
                 five: "Ga naar 'Aanbiedingen' of het overzicht van alle organisaties om te zien waar de voucher te besteden is of om een aanbieding te kopen. Ga naar de organisatie en laat de bijbehorende QR-code zien om uw aanbieding in ontvangst te nemen.",
             },
@@ -337,7 +344,7 @@ module.exports = {
                 stepthree: "Stap #3",
                 three: "Na uw aanmelding wordt de Meedoen-regeling gelijk geactiveerd. De voucher met bijbehorende QR-Code kunt u terugvinden door bovenaan op ‘Mijn vouchers’ te klikken.",
                 stepfour: "Stap #4",
-                four: "De QR-Code kunt u uitprinten, naar uzelf toe mailen of altijd op uw telefoon hebben door in te loggen op de app 'Me'. De app 'Me' kunt u downloaden via de Google Playstore en de App Store.",
+                four: "De QR-Code kunt u uitprinten, naar uzelf toe mailen of altijd op uw telefoon hebben door in te loggen op de app <a href='#!/me-app' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me-app' tartget='_blank'><u><i>Me</i></u></a> kunt u downloaden via de Google Playstore en de App Store.",
                 stepfive: "Stap #5",
                 five: "Ga naar de webshop om te zien waar de voucher te besteden is of om een aanbieding te kopen. Laat de bijbehorende QR-Code zien om uw aanbieding af te nemen.",
             },
@@ -540,6 +547,42 @@ module.exports = {
         }
     },
 
+    meapp_index: {
+        navbar: {
+            municipality: "GEMEENTE",
+            provider: "AANBIEDER",
+            me: "ME",
+            shop: "WEBSHOP",
+        },
+        header: {
+            title_general: "Een profiel voor het Forus Platform",
+            title_nijmegen: "Een profiel voor de Meedoen-regeling",
+            title_zuidhorn: "Een profiel voor het Kindpakket",
+            title_westerkwartier: "Een profiel voor het Kindpakket",
+            title_forus: "Een profiel voor het Kerstpakket",
+            description: "Een profiel om in te loggen, waarmee u vouchers kan beheren en veilig kan betalen",
+        },
+        buttons: {
+            join: "Aanmelden",
+        },
+        download: {
+            ios: "Download Me voor iOS",
+            android: "Download Me voor Android",
+        },
+        functions: {
+            header: {
+                title: "Functies",
+            },
+            profile: "Maak een profiel aan",
+            pin: "U heeft de mogelijkheid om een profiel aan te maken en deze daarna te beveiligen met een pincode.",
+            vouchers: "Vouchers",
+            criterion: "Als u aan gestelde criteria voldoet van een gemeente. Kunt u een voucher aanvragen. Deze voucher kunt u beheren in Me. Met Me kunt u veilig betalingen verrichten.",
+            apply: "Aanmelden",
+            webshop: "Meld u aan op de webshop met Me. Dit doet u door de QR-code te scannen met Me die de webshop presenteert.",
+            profileb: "Profiel",
+            app: "De app bewaart een profiel van de gebruiker, dit profiel maakt het mogelijk dat de gegevens hergebruikt kunnen worden voor het mee doen aan andere regelingen.",
+        }
+    },
 // DIRECTIVES
     // PRODUCT BLOCKS = block-products.pug
     block_products: {
@@ -643,23 +686,23 @@ module.exports = {
         header: {
             nijmegen: {
                 title: "Inloggen bij de Meedoen-regeling",
-                subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres",
+                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
             },
             zuidhorn: {
                 title: "Inloggen op het Kindpakket",
-                subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres",                
+                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",                
             },
             westerkwartier: {
                 title: "Inloggen op het Kindpakket",
-                subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres",                
+                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",             
             },
             general: {
                 title: "Inloggen op Platform Forus",
-                subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres", 
+                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
             },
             forus: {
                 title: "Inloggen op Platform Forus",
-                subtitle: "Scan de QR-code met de Me-app of log in met uw e-mailadres", 
+                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
             }
         },
         notifications: {
@@ -695,7 +738,7 @@ module.exports = {
             voucher_email: "Het is gelukt!",
             isactivated: "Uw voucher is al geactiveerd.",
             codeactivated: "U heeft al een activatiecode gebruikt. Het is niet mogelijk nog één te gebruiken.",
-            dont_have_account: "Heeft geen account en wilt u één aanmaken door een activatiecode te gebruiken?",
+            dont_have_account: "Heeft u geen account en wilt u één aanmaken door een activatiecode te gebruiken?",
         },
         input: {
             mail: "Vul uw e-mailadres in",

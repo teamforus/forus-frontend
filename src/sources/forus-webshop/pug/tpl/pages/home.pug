@@ -12,13 +12,19 @@ header.section.section-header.section-header-landing
             //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
             //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
             
-            .header-description#desc(translate="home.header.{{ $root.client_key }}.subtitle")
-            a(ng-if="$root.appConfigs.flags.homeButton && !$root.auth_user" ng-click="openAuthCodePopup()" i18n="home.header.{{ $root.client_key }}.button").button.button-primary
-            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user" ng-click="openActivateCodePopup()" i18n="home.header.{{ $root.client_key }}.button").button.button-primary
+            .header-description#desc(translate="home.header.{{ $root.client_key }}.auth_subtitle" ng-show="$root.auth_user && $ctrl.vouchers.length > 0")
+            .header-description#desc(translate="home.header.{{ $root.client_key }}.subtitle" ng-show="$root.auth_user && $ctrl.vouchers.length == 0")
+            .header-description#desc(translate="home.header.{{ $root.client_key }}.subtitle" ng-show="!$root.auth_user")
+            a(ng-if="$root.appConfigs.flags.homeButton && !$root.auth_user" ng-click="openAuthCodePopup()" i18n="home.header.{{ $root.client_key }}.button").button.button-primary 
+            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length == 0" ng-click="openActivateCodePopup()" i18n="home.header.{{ $root.client_key }}.button").button.button-primary
+            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length > 0" ng-click="$ctrl.openInMeModal()" i18n="home.header.{{ $root.client_key }}.auth_button").button.button-primary
             br
             br
-            a(ng-if="$root.appConfigs.flags.homeButton" scroll-to="#steps" i18n="Hoe werkt het?").header-how-it-works
+            a(ng-if="$root.appConfigs.flags.homeButton" scroll-to="#steps" i18n="Hoe werkt het?" ng-show="!$root.auth_user").header-how-it-works
+            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length == 0" scroll-to="#steps" i18n="Hoe werkt het?" ng-show="$root.auth_user").header-how-it-works
+            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" href="#!/me-app" target="_blank" ng-show="$root.auth_user").header-how-it-works
             a(ng-if="!$root.appConfigs.flags.homeButton" href="https://about.forus.io/nl/contact/" i18n="NEEM CONTACT MET ONS OP").button.button-primary
+
 block-products(
     ng-if="$root.appConfigs.flags.homeProducts"
     sample="true" 
@@ -138,7 +144,7 @@ section.section.section-faq(ng-if="$root.appConfigs.flags.homeFaq"): .wrapper
             'home.faq.{{ $root.client_key }}.fourteen')
         +faq_item(
             'home.faq.{{ $root.client_key }}.faq_fifteen',
-            'home.faq.{{ $root.client_key }}.fifteen')
+            'home.faq.{{ $root.client_key }}.fifteen') 
         +faq_item(
             'home.faq.{{ $root.client_key }}.faq_sixteen',
             'home.faq.{{ $root.client_key }}.sixteen')

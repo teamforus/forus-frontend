@@ -2836,6 +2836,11 @@ ui-view {
             font: 400 22px $bf;
             text-align: center;
             padding-bottom: 30px;
+
+            a {
+                font: 400 16px "Source Sans Pro",sans-serif;
+                color: #646f79;
+            }
         }
 
         .modal-content {
@@ -2886,6 +2891,11 @@ ui-view {
             .modal-subtitle {
                 font: 400 16px $bf;
                 padding: 0 0 20px;
+
+                a {
+                    font: 400 16px "Source Sans Pro",sans-serif;
+                    color: #646f79;
+                }
             }
         }
     }
@@ -2936,6 +2946,11 @@ ui-view {
                     font: 400 15px/24px $bf;
                     margin: 0 0 30px;
                     padding: 0;
+
+                    a {
+                        font: 400 16px "Source Sans Pro",sans-serif;
+                        color: #646f79;
+                    }
                 }
 
                 .form {
