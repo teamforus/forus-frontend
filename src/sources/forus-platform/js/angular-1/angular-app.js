@@ -35,6 +35,7 @@ app.component('modalPhotoUploaderComponent', require('./components/Modals/ModalP
 app.component('modalFundTopUpComponent', require('./components/Modals/ModalFundTopUpComponent'));
 app.component('modalEmployeeEditComponent', require('./components/Modals/ModalEmployeeEditComponent'));
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
+app.component('modalMarkdownCustomLinkComponent', require('./components/Modals/ModalMarkdownCustomLinkComponent'));
 app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCodeComponent'));
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
 
@@ -108,6 +109,7 @@ app.directive('landingContactForm', require('./directives/landing/ContactFormDir
 app.directive('landingAppFooter', require('./directives/landing/LandingAppFooterDirective'));
 app.directive('forusChat', require('./directives/ForusChatDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
+app.directive('numberControl', require('./directives/NumberControlDirective'));
 app.directive('productCategoriesControl', require('./directives/ProductCategoriesControlDirective'));
 app.directive('officeEditInline', require('./directives/OfficeEditInlineDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
@@ -116,6 +118,7 @@ app.directive('menuScrollToggle', require('./directives/landing/MenuScrollToggle
 app.directive('phoneControl', require('./directives/PhoneControlDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));
+app.directive('markdown', require('./directives/MarkdownDirective'));
 app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
 app.directive('formLabelToggle', require('./directives/FormLabelToggleDirective'));
 app.directive('clickOutside', require('./directives/ClickOutsideDirective'));

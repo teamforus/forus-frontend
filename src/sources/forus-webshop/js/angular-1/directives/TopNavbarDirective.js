@@ -4,6 +4,8 @@ let TopNavbarDirective = function(
     ModalService,
     ConfigService
 ) {
+    $scope.mobileMenu = false;
+    
     $scope.openAuthPopup = function () {
         ModalService.open('modalAuth', {});
     };
