@@ -3,7 +3,7 @@
         img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
         img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover
     nav.navbar-list(ng-class="mobileMenu?'navbar-list-show':''")
-        .navbar-list-auth.show-sm
+        .navbar-list-auth.show-sm(ng-if="$root.auth_user")
             // Auth menu
             nav.navbar-item-wrapper
                 .navbar-item(ng-click="openActivateCodePopup()" translate="topnavbar.buttons.activate")
@@ -14,12 +14,6 @@
 
             nav.navbar-item-wrapper
                 .navbar-item(ng-click="openPinCodePopup()" translate="topnavbar.buttons.authorize")
-            
-            nav.navbar-item-wrapper(ng-if="$root.appConfigs.features.funds.list" )
-                .navbar-item(ui-sref="funds" ui-sref-active="active" translate="topnavbar.buttons.logout")
-            
-            nav.navbar-item-wrapper(ng-if="$root.appConfigs.features.products.list")
-                .navbar-item(ui-sref="products" ui-sref-active="active" translate="topnavbar.buttons.products")
 
             nav.navbar-item-wrapper
                 .navbar-item(ui-sref="vouchers" translate="topnavbar.buttons.voucher")
