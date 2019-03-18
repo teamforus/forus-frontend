@@ -1,35 +1,32 @@
 /*==========  Style Sheet - Vars  ==========*/
-// text color
-$tc:                #555;
-
-// base error color
-$bec:                #e63b3b;
-
-// placeholder text color
-$ptc:               #9ca6af;
-
-/*==========  Style Sheet - Vars  ==========*/
 
 // base font
-$bf:                'Lato', arial, sans-serif;
+$bf: 'Lato',
+arial,
+sans-serif;
 
 // text color
-$tc:                #4e4d40;
+$tc: #4e4d40;
 
 // base color
-$bc:                #017f96;
+$bc: #017f96;
 
-$bc_2:              #70c567;
+$bc_2: #70c567;
 
 // placeholder text color
-$ptc:               #c4c4c4;
+$ptc: #c4c4c4;
 
-$borderColor:      #dbdcdb;
+$border_color: #dbdcdb;
 
-$border_radius:     0px;
+$border_radius: 0px;
 
-$color_primary:         #91b845;
-$color_primary_light:   #a1c361;
+$color_primary: #8b9911;
+$color_primary_light: #92a112;
 
-$color_default:         #b9ca2f;
-$color_default_light:   #c3d24e;
+$color_default: #b9ca2f;
+$color_default_light: #c3d24e;
+
+$borderColor: #dbdcdb;
+
+// base error color
+$bec: #e63b3b;

@@ -1,27 +1,27 @@
 .header-splash: .splash
     
-header.section.section-header: .wrapper
+header.section.section-header
     landing-navbar
-    
-    .header-body
-        .header-content
-            .header-title(translate="home_sponsor.header.title")
-            //- usage example: 
-            //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
-            //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
-            .header-description(translate="home_sponsor.header.description")
-        .header-sprite(style="background-image: url('./assets/img/landing/header-sprite-sponsor.png')")
-        .block.block-cards
-            .card-item: .card-item-inner
-                .card-icon: img(src="./assets/img/landing/icon-cards/icon-card-money.png")
-                .card-content
-                    .card-title(translate="home_sponsor.subject.title")
-                    .card-description(translate="home_sponsor.header.description")
-            .card-item: .card-item-inner
-                .card-icon: img(src="./assets/img/landing/icon-cards/icon-card-wallet.png")
-                .card-content
-                    .card-title(translate="home_sponsor.subject.paragraph")
-                    .card-description(translate="home_sponsor.subject.paragraphtwo")
+    .wrapper
+        .header-body
+            .header-content
+                .header-title(translate="home_sponsor.header.title")
+                //- usage example: 
+                //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
+                //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
+                .header-description(translate="home_sponsor.header.description")
+            .header-sprite(style="background-image: url('./assets/img/landing/header-sprite-sponsor.png')")
+            .block.block-cards
+                .card-item: .card-item-inner
+                    .card-icon: img(src="./assets/img/landing/icon-cards/icon-card-money.png")
+                    .card-content
+                        .card-title(translate="home_sponsor.subject.title")
+                        .card-description(translate="home_sponsor.header.description")
+                .card-item: .card-item-inner
+                    .card-icon: img(src="./assets/img/landing/icon-cards/icon-card-wallet.png")
+                    .card-content
+                        .card-title(translate="home_sponsor.subject.paragraph")
+                        .card-description(translate="home_sponsor.subject.paragraphtwo")
 
 section.section.section-flow: .wrapper
     .section-title(translate="home_sponsor.guide.title")

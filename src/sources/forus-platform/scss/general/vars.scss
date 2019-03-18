@@ -1,19 +1,31 @@
 /*==========  Style Sheet - Vars  ==========*/
 
 // base font
-$bf:                'Montserrat', sans-serif;
+$bf: 'Open Sans',
+arial,
+sans-serif;
 
 // text color
-$tc:                #555;
+$tc: #353535;
 
 // base color
-$bc:                #305dfb;
-
-// base error color
-$bec:               #e63b3b;
+$bc: #d13b3b;
 
 // placeholder text color
-$ptc:               #9ca6af;
+$ptc: #646f79;
+
+$border_color: #d2e6ff;
+
+$border_radius: 8px;
+
+$color_primary: #305dfb;
+$color_primary_light: #4c74ff;
+
+$color_default: #305dfb;
+$color_default_light: #4c74ff;
+
+// base error color
+$bec: #e63b3b;
 
 // border color
-$borderColor:       #ddd;
+$borderColor: #ddd;
