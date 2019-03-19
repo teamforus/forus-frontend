@@ -4468,7 +4468,7 @@ ui-view{
 
                 .card-qr_code-desc {
                     color: #272525;
-                    font: 500 12px $bf;
+                    font: 500 14px $bf;
                     margin: 0 -10px;
                 }
             }
@@ -6011,7 +6011,6 @@ ui-view{
 
                     &.card-value-sm {
                         font-weight: 400;
-                        font-size: 12px;
                     }
                 }
 
@@ -6398,7 +6397,7 @@ ui-view{
                             background: linear-gradient(to right, #eff0ef, #fefefe);
                             
                             .card-qr_code-desc {
-                                font: 400 8.6px/12px $bf;
+                                font: 400 8.6px/16px $bf;
                             }
 
                             img {
