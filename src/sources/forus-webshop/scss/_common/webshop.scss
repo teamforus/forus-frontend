@@ -5164,6 +5164,10 @@ ui-view{
                     vertical-align: middle;
                     margin-bottom: 10px;
 
+                    @media screen and (max-width: 767px) {
+                        display: none;
+                    }
+
                     .mdi {
                         color: #3396a7;
                         position: relative;
