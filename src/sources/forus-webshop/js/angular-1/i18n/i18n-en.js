@@ -257,6 +257,8 @@ module.exports = {
                 fifteen: "U kunt zich ook aanmelden voor een cursus of activiteit bij de organisatie zelf. U heeft dan wel de QR-code nodig die u in de webshop kunt downloaden en/of uitprinten. U betaalt met de QR-code.",
                 faq_sixteen: "Ik krijg een foutmelding als ik de activatiecode invul, wat moet ik doen ?",
                 sixteen: "Neem contact op met de gemeente Nijmegen. Wij gaan het voor u nakijken en een passende oplossing bieden.",
+                faq_seventeen: "Wat kan ik doen als ik geen e-mails ontvang om in te loggen of de voucher naar mijzelf wil toe sturen ?",
+                seventeen: "Bekijk uw spam of ongewenste e-mail map. Controleer in de instellingen van uw e-mail programma of het e-mailadres <strong>noreply@forus.io</strong> in de blokkadelijst lijst staat en haal deze uit de blokkadelijst. ",
             },
             westerkwartier: {
                 title: "Veelgestelde vragen",
