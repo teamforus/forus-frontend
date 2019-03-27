@@ -32,15 +32,15 @@
 }
 
 .header-splash {
-    height: 20.5vw;
+    height: 27.5vw;
     overflow:auto;
-    display: table;
+    display: block;
     .splash,
     .splash.splash-d {
         background-image: url(../img/splash-top-b.png);
-        display: table-row;
+        display: block;
         background-size: cover;
-        height: 26.5vw;
+        height: 27.5vw;
         background-position: 50% 50%;
         &.splash-d{
             background-position: 50% 65%;
@@ -105,9 +105,10 @@
         position: relative;
         display: block;
         .header-content {
-            padding-top: 3.4vw;
+            padding-top: 2.5vw;
             padding-bottom: 5.1vw;
-            padding-left: 1vw;
+            padding-left: 40px;
+            padding-right: 40px;
             color: #fff;
 
             .header-title {

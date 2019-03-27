@@ -99,7 +99,7 @@ module.exports = {
                 button: 'START MET ACTIVEREN',
             },
             westerkwartier: {
-                title: "Westerkwartier. Kindpakket",
+                title: "Kindpakket Westerkwartier",
                 subtitle: "Welkom op de website van het Kindpakket Westerkwartier. Het Kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Westerkwartier.",
                 auth_subtitle: "Welkom op de website van het Kindpakket. Heeft u van de gemeente een toekenning voor het Kindpakket? Dan kunt u hier het aanbod van activiteiten en cursussen zien en het geld dat u kunt besteden. <br /><br />Beheer uw vouchers en neem ze overal mee door de Me-app te downloaden.",
                 auth_button: "Download Me",
@@ -338,11 +338,11 @@ module.exports = {
             westerkwartier: {
                 title: "Hoe het werkt",
                 stepone: "Stap #1",
-                one: "U heeft een brief  ontvangen van de gemeente. In de brief staat een activatiecode. Gebruik deze bij stap 2.",
+                one: "U heeft een brief ontvangen van de gemeente. In de brief staat een activatiecode. Gebruik deze bij stap 2.",
                 steptwo: "Stap #2",
-                two: "Met de activatiecode kunt u zich aanmelden en de Meedoen-regeling activeren. Druk op ‘Activatiecode’ bovenaan de pagina en vul de gevraagde gegevens in",
+                two: "Met de activatiecode kunt u zich aanmelden en de Kindpakket activeren. Druk op ‘Activatiecode’ bovenaan de pagina en vul de gevraagde gegevens in",
                 stepthree: "Stap #3",
-                three: "Na uw aanmelding wordt de Meedoen-regeling gelijk geactiveerd. De voucher met bijbehorende QR-Code kunt u terugvinden door bovenaan op ‘Mijn vouchers’ te klikken.",
+                three: "Na uw aanmelding wordt het Kindpakket gelijk geactiveerd. De voucher met bijbehorende QR-Code kunt u terugvinden door bovenaan op ‘Mijn vouchers’ te klikken.",
                 stepfour: "Stap #4",
                 four: "De QR-Code kunt u uitprinten, naar uzelf toe mailen of altijd op uw telefoon hebben door in te loggen op de app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a> kunt u downloaden via de Google Playstore en de App Store.",
                 stepfive: "Stap #5",
