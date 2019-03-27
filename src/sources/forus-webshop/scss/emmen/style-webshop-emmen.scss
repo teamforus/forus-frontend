@@ -1,0 +1,719 @@
+@import './vars';
+@import '../_common/webshop';
+
+body {
+    background-color: #f7f9fc;
+    background: linear-gradient(to bottom, #f7f9fc 0%, #ffffff 100%);
+}
+
+.modal .modal-content {
+    .description{
+        padding: 10px 0;
+        font: 400 22px/34px $bf;
+        color: $ptc;
+    
+        .popup-title-styled{
+            color: #157c68;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+    }
+
+    .subdescription {
+        color: $ptc;
+
+        .popup-title-styled{
+            color: #157c68;
+        }
+    }
+}
+
+.label {
+    &.label-success {
+        background: $color_primary;
+        color: #fff;
+    }
+
+    &.label-primary {
+        background: #2cc6ab;
+        color: #fff;
+    }
+
+    &.label-square {
+        border-radius: 4px;
+    }
+}
+
+.button {
+    &.button-default {
+        color: $bc;
+        border-color: #d2e6ff;
+
+        .mdi {
+            color: $bc;
+        }
+
+        &:hover {
+            background: $bc;
+            border-color: $bc;
+        }
+    }
+
+    &.button-primary {
+        background: $color_primary;
+        border: 1px solid $color_primary;
+
+        &:hover {
+            background: $color_primary_light;
+        }
+    }
+
+    &.button-primary-outline {
+        color: $color_primary;
+        border: 1px solid $color_primary;
+
+        &:hover {
+            background: $color_primary;
+        }
+    }
+}
+
+.form {
+    .form-error {
+        color: #d13b3b;
+    }
+
+    .form-control-checked {
+        .mdi {
+            color: $color_primary;
+        }
+    }
+}
+
+.section {
+    &.section-header {
+        .header-sprite {
+            display:none;
+            height: 625px;
+            width: 100%;
+            display: none;
+        }
+
+        &.section-header {
+            .header-content {
+                .header-title,
+                .header-description {
+                    font-family: 'Source Sans Pro', arial, sans-serif;;
+                }
+            }
+        }
+
+        .header-splash {
+            .splash {
+                height: 700px;
+            }
+        }
+    }
+    &.section-footer {
+        background-color: $fc;
+    }
+}
+
+.block {
+    &.block-breadcrumbs {
+        .breadcrumb-item {
+            color: #017f96;
+
+            &:not(.active) {
+                &:hover {
+                    color: darken($color: #017f96, $amount: 10);
+                }
+            }
+        }
+    }
+
+    &.block-navbar {
+        .navbar-logo {
+            img {
+                margin: -5px 0;
+            }
+        }
+
+        .navbar-list {
+            .navbar-item-wrapper {
+                .navbar-item {
+                    &:hover {
+                        color: $bc;
+
+                        &:before {
+                            background: #3396a7;
+                        }
+                    }
+
+                    &.active {
+                        color: $bc;
+                    }
+                }
+            }
+        }
+
+        .block-auth {
+            .auth-in {
+                .auth-user {
+                    .auth-user-email {
+                        color: $bc;
+                    }
+
+                    .auth-user-menu {
+                        .auth-user-menu-item {
+                            &:hover {
+                                color: $color_primary;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.block-blogs {
+        .blog-item {
+            .label {
+                margin-bottom: 10px;
+            }
+        }
+
+        .blog-read-more {
+            color: $bc;
+        }
+
+        .blog-item-inner {
+            &:hover {
+                .blog-name {
+                    color: $bc;
+                }
+
+                .blog-image {
+                    &:after {
+                        opacity: .5;
+                        ;
+                    }
+                }
+            }
+        }
+    }
+
+    &.block-contact_form {
+        .contact-form {
+            .contact-logo {
+                width: auto;
+                max-width: auto;
+
+                img {
+                    width: auto;
+                    max-width: 100%;
+                }
+            }
+
+            .contact-details {
+                .contact-email {
+                    color: #3396a7;
+                }
+            }
+        }
+    }
+
+    &.block-footer {
+        width: auto;
+
+        .footer-nav {
+            a {
+                color: $bc;
+
+                &:hover {
+                    color: $bc;
+                }
+            }
+        }
+    }
+
+    &.block-copyrights {
+        .links {
+            a {
+                color: $bc;
+
+                &:hover {
+                    color: $bc;
+                }
+            }
+        }
+
+        .developed {
+            a {
+                color: $bc;
+
+                &:hover {
+                    color: $bc;
+                }
+            }
+        }
+    }
+
+    &.block-shops_map {
+        .shop_map-header {
+            .shop_map-categories {
+                position: initial;
+
+                .shop_map-category-item {
+                    .shop_map-category-item-inner {
+                        background: #0f859b;
+                        background: linear-gradient(to bottom, #028096 0%, #2f94a6 100%);
+
+                        .shop_map-category-arrow {
+                            width: 0;
+                            height: 0;
+                            border-style: solid;
+                            border-width: 10px 9px 0 9px;
+                            border-color: #2f94a6 transparent transparent transparent;
+                            position: absolute;
+                            top: 100%;
+                            left: 50%;
+                            transform: translate(-50%);
+                            opacity: 0;
+                        }
+
+                        &:hover {
+                            background: linear-gradient(to bottom, #2f94a6 0%, #028096 100%);
+
+                            .shop_map-category-arrow {
+                                border-color: #028096 transparent transparent transparent;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .shops {
+            .shop-item {
+                .shop-details {
+                    .shop-details-value {
+                        @include ellipsis();
+                    }
+                }
+
+                &.active {
+                    box-shadow: 0 0 50px rgba(0, 0, 0, .2);
+                    border-right-color: $bc;
+                }
+            }
+        }
+    }
+
+    &.block-cards {
+        .card-item {
+            .card-item-inner {
+                .card-title {
+                    .mdi {
+                        color: $bc;
+                    }
+                }
+            }
+        }
+    }
+
+    &.block-auth-type {
+        .auth_type-item {
+            .auth_type-item-inner {
+                &:hover {
+                    .auth_type-name {
+                        color: $bc;
+                    }
+                }
+            }
+        }
+    }
+
+    &.block-funds {
+        .fund-item {
+            .fund-details {
+                .fund-name {
+                    color: $bc;
+                }
+
+                .fund-organization {
+                    color: $bc;
+                }
+            }
+        }
+    }
+
+    &.block-profile {
+        .profile-aside {
+            .profile-card {
+                .profile-details {
+                    .profile-heading {
+                        color: $bc;
+                    }
+                }
+
+                .profile-actions {
+                    .profile-action {
+                        color: $tc;
+
+                        .mdi {
+                            color: $color_primary;
+                        }
+
+                        &:hover {
+                            color: $color_primary;
+                        }
+                    }
+                }
+            }
+
+            .profile-menu {
+                .profile-menu-item {
+                    color: $color_primary;
+
+                    .mdi {
+                        color: $color_primary;
+                    }
+
+                    &.active {
+                        background-color: $color_primary;
+                    }
+                }
+            }
+        }
+    }
+
+    &.block.block-empty {
+        .block-link {
+            color: $bc;
+
+            .mdi {
+                color: $bc;
+            }
+        }
+    }
+
+    &.block-fund_criteria {
+        .criteria-item {
+            .criteria-body {
+                .criteria-section {
+                    .criteria-label {
+                        color: $bc;
+                    }
+
+                    .criteria-validations {
+                        .criteria-validation-add {
+                            color: $bc;
+
+                            .mdi {
+                                background: $bc;
+                            }
+                        }
+
+                        .criteria-validation-valid {
+                            color: $bc;
+                        }
+                    }
+                }
+            }
+
+            &.active {
+                .criteria-header {
+                    background-color: $color_primary;
+                }
+            }
+        }
+    }
+
+    &.block-record_categories {
+        .record_category-item {
+            &:hover {
+                .category-title {
+                    color: $bc;
+                }
+            }
+        }
+    }
+
+    &.block-records {
+        .record-item {
+            .record-details {
+                .record-type {
+                    color: $bc;
+                }
+            }
+
+            .record-validations {
+                .record-validation-request {
+                    color: $bc;
+                }
+            }
+        }
+    }
+
+    &.block-validators {
+        .validator-item {
+            .validator-state {
+                .validator-send {
+                    color: $bc;
+
+                    .mdi {
+                        color: $bc;
+                    }
+                }
+            }
+        }
+    }
+
+    &.block-validations {
+        .validation-record-details {
+            .record-type {
+                color: $bc;
+            }
+        }
+
+        .validation-item {
+            .validation-date {
+                color: $color_primary;
+            }
+        }
+    }
+
+    &.block-record_create {
+        .categories-list {
+            .categories-item {
+                .categories-item-inner {
+                    .categories-radio {
+                        border: 2px solid $color_primary;
+                    }
+                }
+            }
+        }
+
+        .record_types-list {
+            .record_type-item {
+                .record_type-radio {
+                    border: 2px solid $color_primary;
+                }
+
+                &.active,
+                &:hover {
+                    .record_type-name {
+                        color: $bc;
+                    }
+                }
+
+                &.active {
+                    .record_type-radio {
+                        background: $color_primary;
+                    }
+                }
+            }
+        }
+    }
+    
+    @media screen and (max-width: 1700px) {
+        &.block-navbar .navbar-logo img {
+            margin: 0;
+        }
+    }
+}
+
+.popups {
+    .popup {
+        @include fill_parent();
+        position: fixed;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+
+        .popup-backdrop {
+            @include fill_parent();
+            cursor: pointer;
+            background: rgba(#192734, .5);
+        }
+
+        .popup-close {
+            position: absolute;
+            right: 30px;
+            top: 30px;
+            color: #646f79;
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .popup-content {
+            position: relative;
+            width: 1200px;
+            max-width: 100%;
+            background: #f7f9fc;
+            border-radius: $border_radius;
+            min-height: 100px;
+            overflow: hidden;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(#000000, 0.3);
+        }
+
+        .popup-footer {
+            padding: 30px;
+            border-top: 1px solid $border_color;
+
+            .footer-text {
+                font: 700 18px $bf;
+                color: #151b26;
+                margin-bottom: 20px;
+            }
+
+            .popup-footer-link {
+                display: block;
+                color: $bc;
+                font: 700 13px/30px $bf;
+
+                span {
+                    display: block;
+                    width: 40px;
+                    float: left;
+                }
+            }
+        }
+
+        &.popup-auth {
+            padding: 30px 200px;
+
+            .popup-title {
+                color: #282b39;
+                font: 700 40px $bf;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            .popup-subtitle {
+                color: #646f79;
+                font: 400 22px $bf;
+                text-align: center;
+                padding-bottom: 30px;
+            }
+
+            .popup-content {
+                padding: 30px 200px;
+
+                .form {
+                    width: 480px;
+                    margin: 0 auto;
+                    padding: 10px 0;
+                }
+            }
+
+            .popup-footer {
+                padding: 30px 200px;
+                margin: 30px -200px -30px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1500px) {
+        .popup {
+            .popup-content {
+                width: 1000px;
+            }
+
+            .popup-footer {
+                .footer-text {
+                    font: 700 15px $bf;
+                    margin: 0 0 15px;
+                }
+
+                .popup-footer-link {
+                    font: 700 12px/26px $bf;
+                }
+            }
+
+            &.popup-auth {
+                .popup-title {
+                    font: 700 24px $bf;
+                }
+
+                .popup-subtitle {
+                    font: 400 16px $bf;
+                    padding: 0 0 20px;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .popup {
+            border: none;
+
+            .popup-close {
+                top: 20px;
+                right: 20px;
+            }
+
+            .popup-content {
+                border-radius: 0;
+                height: 100%;
+                border: none;
+                transform: none;
+                top: 0;
+                left: 0;
+            }
+
+            &.popup-auth {
+                padding: 0;
+
+                .popup-content {
+                    overflow-y: auto;
+                    padding: 50px 25px 25px;
+
+                    .popup-title {
+                        font: 700 22px/32px $bf;
+                        margin: 0 0 10px;
+                    }
+
+                    .popup-subtitle {
+                        font: 400 15px/24px $bf;
+                        margin: 0 0 30px;
+                        padding: 0;
+                    }
+
+                    .form {
+                        margin-bottom: 10px;
+                        width: 100%;
+                    }
+                }
+
+                .popup-footer {
+                    margin: 0 -25px 0;
+                    padding: 25px 25px 0;
+
+                    .footer-text {
+                        font: 700 14px/26px $bf;
+                        margin: 0 0 30px;
+                    }
+
+                    .popup-footer-link {
+                        font: 700 11px/20px $bf;
+                        padding-left: 20px;
+                        margin-bottom: 15px;
+
+                        span {
+                            width: 20px;
+                            margin-left: -20px;
+                        }
+
+                        &:last-of-type {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

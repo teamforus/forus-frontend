@@ -62,6 +62,27 @@ module.exports = {
         //voucher settings
         shareProducts: true,
     },
+	emmen: {
+        logoExtension: '.png',
+        showAccountSidebar: false,
+
+        // menu settings
+        productsMenu: true,
+        meAppMenu: false,
+        forusPlatformMenu: false,
+        portfolioMenu: false,
+        aboutSiteMenu: false,
+
+        // home
+        homeProducts: true,
+        homeMap: true,
+        homeSteps: true,
+        homeFaq: false,
+        homeButton: true,
+        
+        //voucher settings
+        shareProducts: true,
+    },
     nijmegen: {
         logoExtension: '.svg',
         showAccountSidebar: false,

@@ -8,5 +8,8 @@ module.exports = {
     },
     zuidhorn: {
         name: "Zuidhorn"
+    },
+	emmen: {
+        name: "Emmen"
     }
 };

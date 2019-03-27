@@ -50,6 +50,7 @@ module.exports = {
             title_zuidhorn: "Een profiel voor het Kindpakket",
             title_westerkwartier: "Een profiel voor het Kindpakket",
             title_forus: "Een profiel voor het Kerstpakket",
+			title_emmen: "Een profiel voor de Participatiewebshop",
             description: "Een profiel om in te loggen, waarmee u vouchers kan beheren en veilig kan betalen",
         },
         buttons: {

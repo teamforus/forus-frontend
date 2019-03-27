@@ -11,6 +11,9 @@ core.addPlatform(require('./platforms/Dashboards/DashboardGeneralValidatorPlatfo
 core.addPlatform(require('./platforms/Dashboards/DashboardZuidhornSponsorPlatform'));
 core.addPlatform(require('./platforms/Dashboards/DashboardZuidhornProviderPlatform'));
 
+core.addPlatform(require('./platforms/Dashboards/DashboardEmmenSponsorPlatform'));
+core.addPlatform(require('./platforms/Dashboards/DashboardEmmenProviderPlatform'));
+
 core.addPlatform(require('./platforms/Dashboards/DashboardNijmegenSponsorPlatform'));
 core.addPlatform(require('./platforms/Dashboards/DashboardNijmegenProviderPlatform'));
 
@@ -20,6 +23,7 @@ core.addPlatform(require('./platforms/Dashboards/DashboardWesterkwartierProvider
 // Register webshops
 core.addPlatform(require('./platforms/Webshops/WebshopGeneralPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopZuidhornPlatform'));
+core.addPlatform(require('./platforms/Webshops/WebshopEmmenPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopNijmegenPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopForusPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopWesterkwartierPlatform'));
@@ -27,6 +31,7 @@ core.addPlatform(require('./platforms/Webshops/WebshopWesterkwartierPlatform'));
 // Register meapp landings
 core.addPlatform(require('./platforms/Landings/LandingMeAppGeneralPlatform'));
 core.addPlatform(require('./platforms/Landings/LandingMeAppZuidhornPlatform'));
+core.addPlatform(require('./platforms/Landings/LandingMeAppEmmenPlatform'));
 core.addPlatform(require('./platforms/Landings/LandingMeAppNijmegenPlatform'));
 core.addPlatform(require('./platforms/Landings/LandingMeAppWesterkwartierPlatform'));
 

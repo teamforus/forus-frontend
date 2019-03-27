@@ -24,6 +24,7 @@ module.exports = {
     implementation_name: {
         general: 'General',
         zuidhorn: 'Zuidhorn',
+		emmen: 'Emmen',
         nijmegen: 'Nijmegen',
         westerkwartier: 'Westerkwartier',
         forus: 'Forus platform & '
@@ -98,6 +99,13 @@ module.exports = {
                 auth_button: "Download Me",
                 button: 'START MET ACTIVEREN',
             },
+			emmen: {
+                title: "Participatiewebshop",
+                subtitle: "Welkom op de participatie webshop van de gemeente Emmen.",
+                auth_subtitle: "Heeft u recht op de participatie- of stimuleringsregeling? Log dan in met de gegevens die u van de gemeente heeft ontvangen en bestel direct online producten. <br /><br />Beheer uw vouchers en neem ze overal mee door de Me-app te downloaden.",
+                auth_button: "Download Me",
+                button: 'START MET ACTIVEREN',
+            },
             westerkwartier: {
                 title: "Westerkwartier. Kindpakket",
                 subtitle: "Welkom op de website van het Kindpakket Westerkwartier. Het Kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Westerkwartier.",
@@ -118,6 +126,10 @@ module.exports = {
             zuidhorn: {
                 title: "Onze blog",
                 name: "Blog: Nieuw fonds Kindpakket 2019 Zuidhorn",
+            },
+			emmen: {
+                title: "Onze blog",
+                name: "Blog: Nieuw fonds Participatiewebshop 2019 Emmen",
             },
             westerkwartier: {
                 title: "Onze blog",
@@ -143,6 +155,10 @@ module.exports = {
             zuidhorn: {
                 title: "Overzicht van alle aanbieders",
                 subtitle: "Binnen het platform Forus werkt de gemeente Zuidhorn en verschillende aanbieders samen om het beste aanbod te leveren",
+            },
+			emmen: {
+                title: "Overzicht van alle aanbieders",
+                subtitle: "Binnen het platform Forus werkt de gemeente Emmen en verschillende aanbieders samen om het beste aanbod te leveren",
             },
             nijmegen: {
                 title: "Overzicht van alle organisaties",
@@ -190,6 +206,40 @@ module.exports = {
             sixteen: "Je kan een aanbieding kopen via de webshop, er wordt dan een nieuwe voucher aangemaakt die alleen gebruikt kan worden voor het specifieke aanbod. Deze kun je meegeven aan je kind.",
         
             zuidhorn: {
+                faq_one: "Hoe kan ik het Kindpakket activeren?",
+                one: "Klik rechts bovenaan op 'Activatiecode'. Vul je e-mailadres en de activatiecode in die je per brief hebt ontvangen. Klik vervolgens op 'versturen'. Je profiel is aangemaakt en je Kindpakket voucher is geactiveerd!",
+                faq_two: "Hoe kan ik inloggen op de webshop?",
+                two: "Dit kan op meerdere manieren, de makkelijkste is per e-mail. Klik rechts bovenaan op 'Inloggen'. Kies voor 'log in via e-mail'. Vul het e-mailadres in die je ook tijdens de activatie hebt gebruikt en klik op 'Versturen'. Open je e-mail en klik op de link die je hebt ontvangen om in te loggen.",
+                faq_three: "Bij welke aanbieders kan ik het Kindpakket besteden?",
+                three: "Je kan een overzicht van alle aanbieders terugvinden op de webshop. Ga naar 'Overzicht van alle aanbieders'",
+                faq_four: "Ik ben mijn voucher kwijt. Wat moet ik doen?",
+                four: "Je kan je voucher altijd terugvinden door in te loggen op de webshop, de voucher kun je uitprinten, naar je e-mail toesturen of zelfs altijd bij hand hebben door gebruik te maken van de Me app.",
+                faq_five: "Hoe kan ik zien hoeveel tegoed ik nog over heb?",
+                five: "Na elke betaling wordt er een e-mail toegestuurd met het huidige tegoed, daarnaast kan je het tegoed inzien door in te loggen op de webshop of door gebruik te maken van de Me app.",
+                faq_six: "Kan ik iets wat ik heb gekocht ruilen/retour brengen?",
+                six: "Retour brengen is helaas niet mogelijk. Ruilen misschien wel, vraag de winkelier naar de mogelijkheden.",
+                faq_seven: "Moet het tegoed in een keer besteed worden?",
+                seven: "Nee, je hoeft het tegoed niet in een keer te besteden.",
+                faq_eight: "Ik heb meerdere kinderen. Moet ik aan ieder kind perse 300 euro besteden?",
+                eight: "Nee, je mag zelf bepalen hoeveel je per kind wilt besteden.",
+                faq_nine: "Hoe lang is de voucher geldig?",
+                nine: "De voucher is vanaf 1 november 2018 een jaar geldig.",
+                faq_ten: "Kan ik de voucher omruilen voor contant geld?",
+                ten: "Nee, de waarde van de voucher krijg je niet in contact geld uitbetaald.",
+                faq_eleven: "Kan ik iets kopen bij een andere aanbieder die niet op de webshop staat?",
+                eleven: "Nee, het tegoed kan alleen uitgegeven worden bij aanbieders die op de webshop staan.",
+                faq_twelve: "Ik heb nog een kind gekregen, kom ik in aanmerking voor een hoger tegoed?",
+                twelve: "Ja dat kan. Neem dan even contact op met de gemeente.",
+                faq_thirteen: "Hoe kom ik in aanmerking voor het Kindpakket?",
+                thirteen: "Als je denkt recht te hebben op het Kindpakket, neem dan contact op met de gemeente. De gemeente bekijkt dan of je voldoet aan de voorwaarden.",
+                faq_fourteen: "Kan ik de voucher aan iemand anders geven?",
+                fourteen: "Nee, de voucher is strikt persoonlijk. Je mag de voucher niet aan iemand anders geven. Maakt iemand anders wel gebruik van jouw voucher dan wordt je eigen bedrag lager.",
+                faq_fifteen: "Ik zie aanbiedingen op de webshop staan, hoe kan ik een aanbieding kopen?",
+                fifteen: "Log in op de webshop en klik op 'Aanbiedingen'. Kies vervolgens de aanbieding die je wilt en klik op 'Koop'. Kies vervolgens het Kindpakket voucher om de aanbieding mee te kopen. Het bedrag van de aanbieding wordt van je Kindpakket voucher afgehaald en er wordt een nieuwe voucher aangemaakt. De nieuwe voucher kan alleen gebruikt worden voor de aanbieding die je hebt gekocht.",
+                faq_sixteen: "Ik wil mijn kind zelf de aanbieding op laten halen, maar wil hem niet het Kindpakket voucher meegeven. Wat kan ik doen?",
+                sixteen: "Je kan een aanbieding kopen via de webshop, er wordt dan een nieuwe voucher aangemaakt die alleen gebruikt kan worden voor het specifieke aanbod. Deze kun je meegeven aan je kind.",
+            },
+			emmen: {
                 faq_one: "Hoe kan ik het Kindpakket activeren?",
                 one: "Klik rechts bovenaan op 'Activatiecode'. Vul je e-mailadres en de activatiecode in die je per brief hebt ontvangen. Klik vervolgens op 'versturen'. Je profiel is aangemaakt en je Kindpakket voucher is geactiveerd!",
                 faq_two: "Hoe kan ik inloggen op de webshop?",
@@ -317,6 +367,19 @@ module.exports = {
                 two: "Start met activeren door op <u>de knop ‘start activeren’</u> te klikken onder de welkomsttekst.",
                 stepthree: "Stap #3",
                 three: "Na je aanmelding wordt het Kindpakket gelijk geactiveerd. De voucher met bijbehorende QR-Code kan je terugvinden door bovenaan op ‘Mijn vouchers’ te klikken.",
+                stepfour: "Stap #4",
+                four: "De QR-Code kan je uitprinten, naar jezelf toe mailen of altijd op je telefoon hebben door in te loggen op de app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a> kun je downloaden via de Google Playstore en de App Store.",
+                stepfive: "Stap #5",
+                five: "Ga naar de webshop om te zien waar de voucher te besteden is of om een aanbieding te kopen. Laat de bijbehorende QR-Code zien om je aanbieding in ontvangst te nemen.",
+            },
+			zuidhorn: {
+                title: "Hoe het werkt",
+                stepone: "Stap #1",
+                one: "Je hebt een brief  ontvangen van de gemeente. In de brief staat een activatiecode. Gebruik deze bij stap 2.",
+                steptwo: "Stap #2",
+                two: "Start met activeren door op <u>de knop ‘start activeren’</u> te klikken onder de welkomsttekst.",
+                stepthree: "Stap #3",
+                three: "Na je aanmelding wordt het Participatieregeling gelijk geactiveerd. De voucher met bijbehorende QR-Code kan je terugvinden door bovenaan op ‘Mijn vouchers’ te klikken.",
                 stepfour: "Stap #4",
                 four: "De QR-Code kan je uitprinten, naar jezelf toe mailen of altijd op je telefoon hebben door in te loggen op de app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a> kun je downloaden via de Google Playstore en de App Store.",
                 stepfive: "Stap #5",
@@ -620,6 +683,11 @@ module.exports = {
                 phone:"(0594) 508888",
                 mail: "kindpakket@zuidhorn.nl",
             },
+			emmen: {
+                address:"Raadhuisplein 1, 7811 AP Emmen",
+                phone:"14 0591",
+                mail: "gemeente@emmen.nl",
+            },
             nijmegen: {
                 address:"Hooiweg 9, 9801 AJ Zuidhorn",
                 phone:"(0594) 508888",
@@ -654,6 +722,9 @@ module.exports = {
             },
             zuidhorn: {
                 location: "Zuidhorn",
+            },
+			emmen: {
+                location: "Emmen",
             },
             nijmegen: {
                 location: "Nijmegen",
@@ -690,6 +761,10 @@ module.exports = {
             },
             zuidhorn: {
                 title: "Inloggen op het Kindpakket",
+                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",                
+            },
+			emmen: {
+                title: "Inloggen op de Participatiewebshop",
                 subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",                
             },
             westerkwartier: {

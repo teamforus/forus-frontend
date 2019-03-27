@@ -2,5 +2,6 @@
 module.exports = {
     general: {},
     nijmegen: {},
-    zuidhorn: {}
+    zuidhorn: {},
+	emmen: {}
 };
