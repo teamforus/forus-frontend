@@ -338,9 +338,9 @@ module.exports = {
             westerkwartier: {
                 title: "Hoe het werkt",
                 stepone: "Stap #1",
-                one: "U heeft een brief  ontvangen van de gemeente. In de brief staat een activatiecode. Gebruik deze bij stap 2.",
+                one: "U heeft een brief ontvangen van de gemeente. In de brief staat een activatiecode. Gebruik deze bij stap 2.",
                 steptwo: "Stap #2",
-                two: "Met de activatiecode kunt u zich aanmelden en de Meedoen-regeling activeren. Druk op ‘Activatiecode’ bovenaan de pagina en vul de gevraagde gegevens in",
+                two: "Met de activatiecode kunt u zich aanmelden en de Kindpakket activeren. Druk op ‘Activatiecode’ bovenaan de pagina en vul de gevraagde gegevens in",
                 stepthree: "Stap #3",
                 three: "Na uw aanmelding wordt het Kindpakket gelijk geactiveerd. De voucher met bijbehorende QR-Code kunt u terugvinden door bovenaan op ‘Mijn vouchers’ te klikken.",
                 stepfour: "Stap #4",
