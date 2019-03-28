@@ -56,7 +56,7 @@ section.section.section-voucher-details: .wrapper
                     .card-photo: img(ng-src="{{ $ctrl.voucherCard.thumbnail }}").voucher-img
                     
                     .card-section
-                        .label(ng-class="{true: 'label-success', false: 'label-warning'}[$ctrl.voucherCard.transactions.length == 0]" ng-if="$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.transactions.length == 0 ? 'Ongebruikt' : 'Gebruikt'")
+                        .label(ng-class="{true: 'label-success', false: 'label-warning'}[$ctrl.voucherCard.transactions.length == 0]" ng-if="$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.transactions.length == 0 ? 'Ongebruikt' : 'Gebruikt'") 
                         .card-title(ng-bind="$ctrl.voucherCard.title")
                         a(ng-if="$ctrl.voucherCard.product" ui-sref="products-show($ctrl.voucherCard.product)").card-read_more 
                             | Bekijk details
@@ -70,10 +70,13 @@ section.section.section-voucher-details: .wrapper
                         .card-qr_code-desc(ng-if="!$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
 
                 .card-footer
-                    .card-section
+                    .card-section(ng-if="!$ctrl.voucherCard.transactions && $ctrl.voucherCard.product")
                         .card-label(i18n="voucher.voucher_card.expire")
                         .card-value(ng-bind="$ctrl.voucherCard.expire_at_locale")
                         .label.label-default(ng-if="moment().isAfter(moment($ctrl.voucherCard.expire_at.date))" i18n="voucher.voucher_card.expired" )
+                    .card-section(ng-if="$ctrl.voucherCard.transactions && $ctrl.voucherCard.product" ng-repeat="transaction in $ctrl.voucherCard.transactions")
+                        .card-label Gebruikt op:
+                        .card-value {{ transaction.created_at_locale }}
                     .card-actions
                         .action-item(ng-click="$ctrl.openInMeModal()")
                             .action-item-icon
