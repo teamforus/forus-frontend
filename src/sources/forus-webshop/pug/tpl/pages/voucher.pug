@@ -70,7 +70,7 @@ section.section.section-voucher-details: .wrapper
                         .card-qr_code-desc(ng-if="!$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
 
                 .card-footer
-                    .card-section(ng-if="!$ctrl.voucherCard.transactions && $ctrl.voucherCard.product")
+                    .card-section(ng-if="!$ctrl.voucherCard.product || (!moment().isAfter(moment($ctrl.voucherCard.expire_at.date)) && $ctrl.voucherCard.transactions.length == 0)")
                         .card-label(i18n="voucher.voucher_card.expire")
                         .card-value(ng-bind="$ctrl.voucherCard.expire_at_locale")
                         .label.label-default(ng-if="moment().isAfter(moment($ctrl.voucherCard.expire_at.date))" i18n="voucher.voucher_card.expired" )
