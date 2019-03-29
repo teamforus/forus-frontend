@@ -46,6 +46,7 @@ let ProductComponent = function (
             let popupDescription = $filter('i18n')('product_apply.popup.title', {
                     product_name: $ctrl.product.name,
                     expire_at: expire_at,
+                    org_name: $ctrl.product.organization.name,
                     product_price: $ctrl.product.price
                 });
 
