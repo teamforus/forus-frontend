@@ -103,7 +103,7 @@ module.exports = {
                 subtitle: "Welkom op de website van het Kindpakket Westerkwartier. Het Kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Westerkwartier.",
                 auth_subtitle: "Welkom op de website van het Kindpakket. Heeft u van de gemeente een toekenning voor het Kindpakket? Dan kunt u hier het aanbod van activiteiten en cursussen zien en het geld dat u kunt besteden. <br /><br />Beheer uw vouchers en neem ze overal mee door de Me-app te downloaden.",
                 auth_button: "Download Me",
-                button: 'START MET ACTIVEREN',
+                button: 'Start met activeren',
             },
         },
         blog: {
@@ -135,24 +135,28 @@ module.exports = {
             general: {
                 title: "Overzicht van alle aanbieders",
                 subtitle: "Binnen het Forus platform werken sponsoren en leveranciers samen om de beste diensten en producten te leveren voor het publieke domein.",
+                button: "BEKIJK DE KAART",
             },
             forus: {
                 title: "Overzicht van alle aanbieders",
                 subtitle: "Binnen het Forus platform werken sponsoren en leveranciers samen om de beste diensten en producten te leveren voor het publieke domein.",
+                button: "BEKIJK DE KAART",
             },
             zuidhorn: {
                 title: "Overzicht van alle aanbieders",
                 subtitle: "Binnen het platform Forus werkt de gemeente Zuidhorn en verschillende aanbieders samen om het beste aanbod te leveren",
+                button: "BEKIJK DE KAART",
             },
             nijmegen: {
                 title: "Overzicht van alle organisaties",
                 subtitle: "",
+                button: "BEKIJK DE KAART",
             },
             westerkwartier: {
                 title: "Overzicht van alle aanbieders",
                 subtitle: "Binnen het platform Forus werkt de gemeente Westerkwartier en verschillende aanbieders samen om het beste aanbod te leveren",
+                button: "Bekijk de kaart",
             },
-            button: "BEKIJK DE KAART",
         },
         faq: {
             title: "Veelgestelde vragen {{client_key}}",
@@ -599,9 +603,18 @@ module.exports = {
             title: "Er zijn geen aanbiedingen",
             subtitle: "Op dit moment zijn er geen aanbiedingen beschikbaar",
         },
-        buttons: {
-            more: "BEKIJK MEER",
-        }
+        zuidhorn: {
+            button: "BEKIJK MEER",
+        },
+        westerkwartier: {
+            button: "Bekijk meer",
+        },
+        nijmegen: {
+            button: "BEKIJK MEER",
+        },
+        forus: {
+            button: "BEKIJK MEER",
+        },
     },
     // CONTACT FORM = contact-form.pug
     contact: {
