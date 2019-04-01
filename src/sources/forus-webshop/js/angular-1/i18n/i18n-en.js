@@ -222,6 +222,8 @@ module.exports = {
                 fifteen: "Log in op de webshop en klik op 'Aanbiedingen'. Kies vervolgens de aanbieding die je wilt en klik op 'Koop'. Kies vervolgens het Kindpakket voucher om de aanbieding mee te kopen. Het bedrag van de aanbieding wordt van je Kindpakket voucher afgehaald en er wordt een nieuwe voucher aangemaakt. De nieuwe voucher kan alleen gebruikt worden voor de aanbieding die je hebt gekocht.",
                 faq_sixteen: "Ik wil mijn kind zelf de aanbieding op laten halen, maar wil hem niet het Kindpakket voucher meegeven. Wat kan ik doen?",
                 sixteen: "Je kan een aanbieding kopen via de webshop, er wordt dan een nieuwe voucher aangemaakt die alleen gebruikt kan worden voor het specifieke aanbod. Deze kun je meegeven aan je kind.",
+                faq_seventeen: "Wat kan ik doen als ik geen e-mails ontvang om in te loggen of de voucher naar mijzelf wil toe sturen ?",
+                seventeen: "Bekijk uw spam of ongewenste e-mail map. Controleer in de instellingen van uw e-mail programma of het e-mailadres <strong>noreply@forus.io</strong> in de blokkadelijst lijst staat en haal deze uit de blokkadelijst. ",
             },
             nijmegen: {
                 title: "Veelgestelde vragen",
@@ -257,6 +259,8 @@ module.exports = {
                 fifteen: "U kunt zich ook aanmelden voor een cursus of activiteit bij de organisatie zelf. U heeft dan wel de QR-code nodig die u in de webshop kunt downloaden en/of uitprinten. U betaalt met de QR-code.",
                 faq_sixteen: "Ik krijg een foutmelding als ik de activatiecode invul, wat moet ik doen ?",
                 sixteen: "Neem contact op met de gemeente Nijmegen. Wij gaan het voor u nakijken en een passende oplossing bieden.",
+                faq_seventeen: "Wat kan ik doen als ik geen e-mails ontvang om in te loggen of de voucher naar mijzelf wil toe sturen ?",
+                seventeen: "Bekijk uw spam of ongewenste e-mail map. Controleer in de instellingen van uw e-mail programma of het e-mailadres <strong>noreply@forus.io</strong> in de blokkadelijst lijst staat en haal deze uit de blokkadelijst. ",
             },
             westerkwartier: {
                 title: "Veelgestelde vragen",
@@ -292,6 +296,8 @@ module.exports = {
                 fifteen: "Log in op de webshop en klik op 'Aanbiedingen'. Kies vervolgens de aanbieding die je wilt en klik op 'Koop'. Kies vervolgens het Kindpakket voucher om de aanbieding mee te kopen. Het bedrag van de aanbieding wordt van je Kindpakket voucher afgehaald en er wordt een nieuwe voucher aangemaakt. De nieuwe voucher kan alleen gebruikt worden voor de aanbieding die je hebt gekocht.",
                 faq_sixteen: "Ik wil mijn kind zelf de aanbieding op laten halen, maar wil hem niet het Kindpakket voucher meegeven. Wat kan ik doen?",
                 sixteen: "Je kan een aanbieding kopen via de webshop, er wordt dan een nieuwe voucher aangemaakt die alleen gebruikt kan worden voor het specifieke aanbod. Deze kun je meegeven aan je kind.",
+                faq_seventeen: "Wat kan ik doen als ik geen e-mails ontvang om in te loggen of de voucher naar mijzelf wil toe sturen ?",
+                seventeen: "Bekijk uw spam of ongewenste e-mail map. Controleer in de instellingen van uw e-mail programma of het e-mailadres <strong>noreply@forus.io</strong> in de blokkadelijst lijst staat en haal deze uit de blokkadelijst. ",
             },
             title: "Veelgestelde vragen"
         },
