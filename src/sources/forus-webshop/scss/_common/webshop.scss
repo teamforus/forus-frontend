@@ -1770,13 +1770,12 @@ ui-view{
                     &:before {
                         position: absolute;
                         content: '';
-                        width: 220px;
-                        height: 220px;
+                        width: 200px;
+                        height: 200px;
                         display: block;
                         background: url('../img/icon-steps/step-1.png') no-repeat;
                         right: 100%;
-                        transform: translate(0, -40px);
-                        margin-right: -15px;
+                        transform: translate(0, -20px);
                     }
                 }
 
@@ -4468,7 +4467,7 @@ ui-view{
 
                 .card-qr_code-desc {
                     color: #272525;
-                    font: 500 12px $bf;
+                    font: 500 14px $bf;
                     margin: 0 -10px;
                 }
             }
@@ -5163,6 +5162,10 @@ ui-view{
                     cursor: hover;
                     vertical-align: middle;
                     margin-bottom: 10px;
+
+                    @media screen and (max-width: 767px) {
+                        display: none;
+                    }
 
                     .mdi {
                         color: #3396a7;
@@ -6007,7 +6010,6 @@ ui-view{
 
                     &.card-value-sm {
                         font-weight: 400;
-                        font-size: 12px;
                     }
                 }
 
@@ -6394,7 +6396,7 @@ ui-view{
                             background: linear-gradient(to right, #eff0ef, #fefefe);
                             
                             .card-qr_code-desc {
-                                font: 400 8.6px/12px $bf;
+                                font: 400 8.6px/16px $bf;
                             }
 
                             img {
@@ -7628,13 +7630,25 @@ ui-view{
         }
 
         &.block-pincode {
-            width: auto;
-            margin: 0 -30px 10px;
+            width: calc(60px * 6 + 10px * 5);
+
+            @media screen and (max-width: 767px) {
+                &.block-pincode {
+                    margin: 30px auto 30px;
+                    width: calc(50px * 6 + 10px * 5);
+        
+                    .pincode-number {
+                        width: 50px;
+                        height: 60px;
+                        font: 600 26px/60px $bf;
+                    }
+                }
+        }
             
             .pincode-number {
-                height: 42px;
-                width: 42px;
-                font: 600 22px/42px $bf
+                height: 60px;
+                width: 60px;
+                font: 600 22px/70px $bf
             }
         }
 
@@ -7782,7 +7796,6 @@ ui-view{
     }
 
     &.modal-auth {
-        padding: 30px 200px;
 
         .modal-title {
             color: #282b39;

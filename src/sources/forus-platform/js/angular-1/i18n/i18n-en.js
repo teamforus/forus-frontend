@@ -975,5 +975,22 @@ module.exports = {
         }
     },
   
-    search: "Zoeken"
+    search: "Zoeken",
+
+    open_in_me: {
+        app_header: {
+            title: 'Vul de code in op het invoerveld',
+            subtitle: 'De code is te vinden in de mobiele applicatie, volg de bovenstaande stappen op om de code te kunnen aflezen.'
+        },
+        app_instruction: {
+            step_1: 'Open <i>Me</i>',
+            step_2: 'Ik heb al een profiel',
+            step_3: 'Inloggen met Autorisatie code',
+        },
+        authorize: {
+            close: 'Annuleren',
+            submit: 'Autoriseer apparaat',
+        }
+    },
 }
+

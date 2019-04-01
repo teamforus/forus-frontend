@@ -1,17 +1,24 @@
 .modal.modal-auth
     .modal-backdrop(ng-click="$ctrl.close()")
-    .modal-window.modal-notification.modal-content
+    .modal-content: .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .app-instruction
+            .step-item
+                img(src="./assets/img/screen1.png")
+                .app-title(translate="open_in_me.app_instruction.step_1")
+                img.line-item(src="./assets/img/line1.png")
+            .step-item
+                img(src="./assets/img/screen2.png")
+                .app-title(translate="open_in_me.app_instruction.step_2")
 
-        .modal-body.form
-            .modal-section
-                .text-center
-                    p.modal-title.title {{ "popup_auth.labels.join" | translate }}
-                    p.modal-subtitle.description {{ "popup_auth.labels.mobilecode" | translate }}
+            .divider-img: img(src="./assets/img/Base7.png")
 
-                    form.form.no-margin(ng-submit="$ctrl.authorizePincodeForm.submit()")
-                        .form-group
-                            div(ng-if="$ctrl.authorizePincodeForm" pincode-control ng-model="$ctrl.authorizePincodeForm.values.auth_code")
-                            .text-center.form-error(ng-repeat="error in $ctrl.authorizePincodeForm.errors.auth_code track by $index" ng-bind="error")
-                            br
-                        .form-group: button(type="submit").button.button-primary.button-wide {{ "popup_auth.buttons.submit" | translate }}
+        .modal-title {{ "open_in_me.app_header.title" | translate }}
+        .modal-subtitle {{ "open_in_me.app_header.subtitle" | translate }}
+
+        form.form.f-w.with-instructions(ng-submit="$ctrl.authorizePincodeForm.submit()")
+            .form-group
+                div(ng-if="$ctrl.authorizePincodeForm" pincode-control ng-model="$ctrl.authorizePincodeForm.values.auth_code")
+                .text-center.form-error(ng-repeat="error in $ctrl.authorizePincodeForm.errors.auth_code track by $index" ng-bind="error")
+            .form-group.text-center
+                button(type="submit").button.button-primary {{ "open_in_me.authorize.submit" | translate }}
