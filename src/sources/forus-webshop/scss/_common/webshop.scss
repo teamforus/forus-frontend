@@ -818,9 +818,14 @@ ui-view{
 
     &.button-primary {
         color: #fff;
+        text-transform: $tf;
         background: $color_primary;
         border: 1px solid $color_primary;
         box-shadow: 0 10px 25px rgba(#000, .15);
+
+        &:first-letter {
+            text-transform: capitalize;
+        }
 
         &:hover {
             color: #fff;
