@@ -2990,14 +2990,43 @@ translate,
         background: rgba(#192734, .5);
     }
 
+    .modal-window {
+        position: relative;
+        z-index: 2;
+        background: #f6f9fc;
+        width: 1200px;
+        max-width: 100%;
+        border-radius: 6px;
+        display: inline-block;
+        font-size: 0;
+        overflow: hidden;
+        min-height: 100px;
+        margin: 0 auto;
+
+        .modal-section {
+            padding: 30px;
+        }
+
+        .modal-header {
+            background: #fff;
+            padding: 20px 25px;
+            font: 600 16px/25px "Source Sans Pro",sans-serif;
+            border-bottom: 1px solid #d4d9dd;
+            position: relative;
+            border-radius: 3px 3px 0 0;
+        }
+    }
+
     .modal-close {
         position: absolute;
-        right: 30px;
-        top: 30px;
-        color: #646f79;
-        font-size: 20px;
+        font-size: 24px;
+        right: 20px;
+        top: 20px;
+        display: block;
         cursor: pointer;
-        z-index: 4;
+        color: #222;
+        transition: color .4s;
+        z-index: 1;
     }
 
     .modal-content {
