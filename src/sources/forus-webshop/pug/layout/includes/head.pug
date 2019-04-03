@@ -1,23 +1,23 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
 head
-    meta(charset="UTF-8")
-    title(ng-bind="$root.pageTitle") Forus 
+	meta(charset="UTF-8")
+	title(ng-bind="$root.pageTitle") Forus 
 
-    //- disable resize on mobiles
-    meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+	//- disable resize on mobiles
+	meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
 
-    //- fonts
-    link(href="https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,500,700" rel="stylesheet")
+	//- fonts
+	link(href="https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,500,700" rel="stylesheet")
 
-    //- libs bundle
-    link(rel="stylesheet", href=src_prefix + "assets/dist/bundle/css/bundle.min.css")
+	//- libs bundle
+	link(rel="stylesheet", href=src_prefix + "assets/dist/bundle/css/bundle.min.css")
 
-    //- custom style
-    link(rel="stylesheet", href=src_prefix + "assets/css/style.min.css")
+	//- custom style
+	link(rel="stylesheet", href=src_prefix + "assets/css/style.min.css")
 	
 	//- Favicon
 	link (rel="shortcut icon" type="image/x-icon" href="http://www.website.nl/favicon.ico")
-    
-    if (qdt_c.platform.env_data.html5ModeEnabled)
-        base(href=qdt_c.platform.env_data.html5Mode.basePath)
+	
+	if (qdt_c.platform.env_data.html5ModeEnabled)
+		base(href=qdt_c.platform.env_data.html5Mode.basePath)
