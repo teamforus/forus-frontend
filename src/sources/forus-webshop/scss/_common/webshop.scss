@@ -2890,6 +2890,10 @@ ui-view{
                 @include cf();
             }
 
+            .product-organization {
+                font: 700 16px/26px $bf;
+            }
+
             .product-name {
                 color: #00122a;
                 font: 700 18px/26px $bf;

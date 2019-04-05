@@ -21,6 +21,8 @@ section.section.section-products#products: .wrapper
                 .product-image
                     img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
                 .product-details
+                    .product-organization
+                        span(ng-bind="product.organization.name")
                     .product-name(ng-bind="product.name")
                     .product-discount
                         | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}%
