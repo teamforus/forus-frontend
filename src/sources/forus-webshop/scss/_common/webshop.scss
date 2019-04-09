@@ -4021,7 +4021,14 @@ ui-view{
             overflow: hidden;
 
             @media screen and (max-width: 767px) {
-                
+            
+                .truncated {
+                    flex: 1;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
                 .tooltip-block {
                     z-index: 1;
                     display: block;
@@ -6622,7 +6629,7 @@ ui-view{
                 max-width: none;
 
                 .product-item-inner {
-                    display: flex;
+                    display: inline-block;
                    
                     .product-image {
                         margin: 0 0 ;
