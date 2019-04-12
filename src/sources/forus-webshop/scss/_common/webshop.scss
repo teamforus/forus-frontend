@@ -2167,6 +2167,10 @@ ui-view{
         .section-title {
             font: 700 18px/30px $bf;
             margin: 0 0 20px;
+
+            @media screen and (max-width: 767px) {
+                display: none;
+            }
         }
         
         .section-subtitle {
@@ -2412,6 +2416,7 @@ ui-view{
                                     padding-right: 50px;
                                     border: 1px solid #e4e9ec;
                                     border-left: none;
+                                    @include ellipsis();
                                 }
                             }
                         }
@@ -2872,6 +2877,11 @@ ui-view{
                 img {
                     display: block;
                     width: 100%;
+
+                    @media screen and (max-width: 1000px) {
+                        display: table;
+                        width: 200px;
+                    }
                 }
 
                 &:after {
@@ -2892,6 +2902,10 @@ ui-view{
 
             .product-organization {
                 font: 700 16px/26px $bf;
+                flex: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .product-name {
@@ -4619,6 +4633,10 @@ ui-view{
             font: 700 16px/30px $bf;
             padding: 20px 25px;
             border-bottom: 1px solid $border_color;
+
+            @media screen and (max-width: 767px) {
+                padding: 20px 10px;
+            }
         }
 
         .block-content {
@@ -4680,6 +4698,10 @@ ui-view{
 
             .info-office-details {
                 padding: 15px 25px 20px;
+
+                @media screen and (max-width: 767px)  {
+                    padding: 5px 10px 5px;
+                }
 
                 .info-office-title {
                     font: 700 16px/24px $bf;
