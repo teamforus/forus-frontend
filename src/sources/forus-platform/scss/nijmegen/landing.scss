@@ -2171,6 +2171,19 @@ ui-view {
         width: calc(60px * 6 + 10px * 5);
         position: relative;
         @include cf();
+        
+        @media screen and (max-width: 1000px) {
+            &.block-pincode {
+                margin: 30px auto 30px;
+                width: calc(50px * 6 + 10px * 5);
+
+                .pincode-number {
+                    width: 50px;
+                    height: 60px;
+                    font: 600 26px/60px "Source Sans Pro",sans-serif;
+                }
+            }
+        }
 
         .pincode-number {
             display: block;
@@ -2729,13 +2742,21 @@ ui-view {
         overflow: hidden;
         margin: 0 auto;
         box-shadow: 0 20px 40px rgba(#000000, 0.3);
-        padding: 30px 200px;
+        padding: none;
         z-index: 2;
 
         &.modal-description-pad{
             .description {
                 padding: 50px 0;
                 color: #134478 !important;
+            }
+        }
+
+        .modal-section {
+            padding: 0px;
+
+            .modal-footer {
+                padding: 30px 0 0;
             }
         }
 
@@ -2822,7 +2843,6 @@ ui-view {
     }
 
     &.modal-auth {
-        padding: 30px 200px;
 
         .modal-title {
             color: #282b39;
@@ -2844,8 +2864,7 @@ ui-view {
         }
 
         .modal-content {
-            padding: 30px 200px;
-
+            padding: 30;
             .form {
                 width: 480px;
                 margin: 0 auto;
