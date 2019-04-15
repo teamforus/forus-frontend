@@ -3015,6 +3015,199 @@ translate,
             position: relative;
             border-radius: 3px 3px 0 0;
         }
+
+        .modal-body {
+            min-height: 65px;
+
+            .modal-section {
+                padding: 25px;
+                border-bottom: 1px solid #d4d9dd;
+
+                &:last-child {
+                    border-bottom: 0;
+                }
+            }
+
+            .modal-info {
+                padding: 0 50px 0 100px;
+                position: relative;
+                color: #282b39;
+                font: 400 13px/20px $bf;
+                cursor: default;
+
+                .mdi {
+                    position: absolute;
+                    left: 75px;
+                    top: 0;
+                    color: #134478;
+                    font-size: 1.35em;
+                    line-height: 20px;
+                }
+            }
+
+            .modal-funds-added {
+                text-align: center;
+
+                p {
+                    font: 400 14px/22px $bf;
+                    color: #282b39;
+                    margin-bottom: 24px;
+
+                    .text-primary {
+                        font-weight: 600;
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                .funds-amount {
+                    font: 600 13px/21px $bf;
+                    color: #134478;
+                    margin-bottom: 25px;
+                    background: #ffffff;
+                    border: 1px dashed #d4d9dd;
+                    padding: 10px 50px;
+                    display: inline-block;
+                    border-radius: 10px;
+
+                    .funds-amount-sum {
+                        font: 600 22px $bf;
+                        color: #009ef4;
+                    }
+                }
+            }
+
+            .modal-photo-upload {
+                width: 1200px;
+                display: flex;
+                border-radius: inherit;
+                max-width: 100%;
+                
+                .button {
+                    padding-left: 25px;
+                    padding-right: 25px;
+                    @include ellipsis();
+                }
+
+                .photo-upload-crop {
+                    width: 60%;
+                    padding: 50px;
+                    background: #f7f9fc;
+                    border-right: 1px solid #d2e6ff;
+
+                    .crop-control {
+                        position: relative;
+                        width: 60%;
+                        float: left;
+                        border-radius: 8px;
+                        overflow: hidden;
+
+                        .crop-control-ratio {
+                            width: 100%;
+                            height: auto;
+                            display: block;
+                            opacity: 0;
+                        }
+
+                        ui-cropper {
+                            @include fill_parent();
+                        }
+                    }
+
+                    .crop-control-preview {
+                        width: 40%;
+                        padding-left: 20px;
+                        display: flex;
+                        flex-direction: column;
+                        float: left;
+
+                        img {
+                            display: block;
+                            width: 100%;
+                            border-radius: 8px;
+                            border: 1px solid #dadada;
+                            box-shadow: 2px 5px 20px rgba(0, 0, 0, .075);
+                        }
+
+                        .crop-control-orignal {
+                            margin-bottom: 20px;
+                            height: 100%;
+                        }
+
+                        .crop-control-thumbnails {
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                        }
+
+                        .crop-control-thumbnail {
+                            width: 50%;
+                            margin-right: 10px;
+
+                            &:last-child {
+                                margin-right: 0;
+                                margin-left: 10px;
+
+                                img {
+                                    border-radius: 1000px;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                .photo-upload-details {
+                    width: 40%;
+                    background: #fff;
+
+                    .photo-upload-header {
+                        padding: 50px 50px 25px;
+                        border-bottom: 1px solid #d2e6ff;
+                        
+                        .photo-upload-title {
+                            font: 700 22px/32px $bf;
+                            color: #151b26;
+                            margin: 0 0 10px;
+                        }
+
+                        .photo-upload-subtitle {
+                            font: 400 16px/22px $bf;
+                            color: #646f79;
+                        }
+                    }
+
+                    .photo-upload-body {
+                        padding: 25px 50px;
+                        border-bottom: 1px solid #d2e6ff;
+
+                        .photo-upload-heading {
+                            font: 700 18px/26px $bf;
+                            color: #282b39;
+                            margin: 0 0 15px;
+                        }
+
+                        .button {
+                            margin-bottom: 20px;
+                        }
+                    }
+
+                    .photo-upload-footer {
+                        padding: 25px 50px;
+                    }
+                }
+            }
+
+            .modal-icon-rounded{
+                background: #fff;
+                display: inline-block;
+                padding: 23px;
+                border-radius: 50%;
+                margin: 20px 0;
+                box-shadow: 0 7px 15px rgba(#000, 0.10);
+            }
+        }
     }
 
     .modal-close {
