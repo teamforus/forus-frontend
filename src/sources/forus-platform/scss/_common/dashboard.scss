@@ -3007,6 +3007,18 @@ translate,
             padding: 30px;
         }
 
+        .modal-close {
+            position: absolute;
+            font-size: 24px;
+            right: 20px;
+            top: 20px;
+            display: block;
+            cursor: pointer;
+            color: #222;
+            transition: color .4s;
+            z-index: 1;
+        }
+    
         .modal-header {
             background: #fff;
             padding: 20px 25px;
@@ -3018,7 +3030,11 @@ translate,
 
         .modal-body {
             min-height: 65px;
-
+        
+            .signup-layout {
+                padding-top: 0px;
+            }
+            
             .modal-section {
                 padding: 25px;
                 border-bottom: 1px solid #d4d9dd;
@@ -3208,18 +3224,6 @@ translate,
                 box-shadow: 0 7px 15px rgba(#000, 0.10);
             }
         }
-    }
-
-    .modal-close {
-        position: absolute;
-        font-size: 24px;
-        right: 20px;
-        top: 20px;
-        display: block;
-        cursor: pointer;
-        color: #222;
-        transition: color .4s;
-        z-index: 1;
     }
 
     .modal-content {
