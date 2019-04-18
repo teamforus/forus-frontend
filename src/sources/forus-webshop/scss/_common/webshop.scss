@@ -2873,15 +2873,22 @@ ui-view{
                 transition: .4s;
                 box-shadow: 0 0 0 rgba(#000, .05);
                 border: 1px solid #ececec;
+                    
+                    @media screen and (max-width: 1000px) {
+                        
+                        &.product-image {
+                            border-radius: $pi;
 
+                            img {
+                                display: table;
+                                width: 200px;
+                            }
+                        }
+                    }
+                    
                 img {
                     display: block;
                     width: 100%;
-
-                    @media screen and (max-width: 1000px) {
-                        display: table;
-                        width: 200px;
-                    }
                 }
 
                 &:after {
@@ -6665,7 +6672,6 @@ ui-view{
                     }
 
                     .product-details {
-                        padding:  0 0 0 15px;
                         display: flex;
                         flex-direction: column;
                         flex: 1;
