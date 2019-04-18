@@ -2865,7 +2865,7 @@ ui-view{
 
             .product-image {
                 width: 100%;
-                border-radius: 10px;
+                border-radius: 10px 10px 0 0;
                 overflow: hidden;
                 display: block;
                 position: relative;
@@ -2894,9 +2894,11 @@ ui-view{
             }
             
             .product-details {
-                padding: 20px 0 0;
+                padding: 20px;
                 background: #ffffff;
                 display: block;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
                 @include cf();
             }
 
@@ -2909,7 +2911,7 @@ ui-view{
             }
 
             .product-name {
-                color: #00122a;
+                color: $bc;
                 font: 700 18px/26px $bf;
                 margin: 0 0 15px;
                 transition: .4s;
@@ -2944,13 +2946,16 @@ ui-view{
             }
 
             .product-item-inner {
+                box-shadow: $base_shadow;
+                border-radius: $border_radius;
+                background-color: rgba(255, 255, 255, .9);
                 display: block;
                 flex: 1;
                 @include cf();
 
                 &:hover {
                     .product-name {
-                        color: $color_default;
+                        color: $tc;
                     }
 
                     .product-image {
