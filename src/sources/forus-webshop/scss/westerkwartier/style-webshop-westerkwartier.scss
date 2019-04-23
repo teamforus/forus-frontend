@@ -13,8 +13,8 @@
         }
 
         &:hover {
-            background-color: $color_default_light;
-            border-color: $color_default;
+            background-color: $color_default;
+            border-color: $color_default_light;
         }
     }
     &.button-primary {
