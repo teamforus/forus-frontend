@@ -1,7 +1,7 @@
 /*==========  Style Sheet - Vars  ==========*/
 
 // base font
-$bf:                'Cantarell', arial, sans-serif;
+$bf:                'Lato' ,"Lucida Sans","Lucida Sans Unicode","Lucida Grande",Verdana,Arial,Helvetica,sans-serif;
 
 // text color
 $tc:                #4e4d40;
@@ -13,6 +13,7 @@ $bc_2:              #70c567;
 
 // text formatting
 $tf:                lowercase;
+
 
 // footer color
 $fc:                #4e4d40;
@@ -27,8 +28,8 @@ $border_color:      #dbdcdb;
 
 $border_radius:     0px;
 
-$color_primary:         #8b9911;
-$color_primary_light:   #92a112;
+$color_primary:         #b9cb18;
+$color_primary_light:   1px solid #b9cb18;
 
-$color_default:         #b9ca2f;
-$color_default_light:   #c3d24e;
+$color_default:         #d4e630;
+$color_default_light:   1px solid #b9cb18;

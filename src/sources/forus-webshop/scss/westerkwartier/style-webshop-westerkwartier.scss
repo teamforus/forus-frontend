@@ -5,28 +5,34 @@
 .button {
     &.button-default {
         background-color: $color_primary;
-        border-color: $color_primary_light;
-        color: #fff;
+        border: $color_primary_light;
+        color: #666;
+        box-shadow: 0 15px 15px -6px #969696;
 
         .mdi {
-            color: #fff;
+            color: #666;
         }
 
         &:hover {
             background-color: $color_default;
             border-color: $color_default_light;
+            color: #666;
+
+            .mdi {
+                color: #666;
+            }
         }
     }
     &.button-primary {
-        color: #fff;
+        color: #666;
         background: $color_primary;
-        border: 1px solid $color_primary;
-        box-shadow: 0 10px 25px rgba(#000, .15);
+        border: $color_primary;
+        box-shadow: 0 15px 15px -6px #969696;
 
         &:hover {
-            color: #fff;
-            background: $color_primary_light;
-            background-color: $color_primary_light;
+            color: #666;
+            background: $color_default;
+            background-color: $color_default_light;
         }
     }
 }
