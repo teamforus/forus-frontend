@@ -716,8 +716,8 @@ a[ui-sref] {
 }
 
 body {
-    background-color: #f3f8fe;
-    background: linear-gradient(to bottom, #f3f8fe 0%,#feffff 100%);
+    background-color: $bg;
+    background: $bg_2;
 
     display: flex;
     min-height: 100vh;

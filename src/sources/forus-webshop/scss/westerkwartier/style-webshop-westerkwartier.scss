@@ -7,7 +7,7 @@
         background-color: $color_primary;
         border: $color_primary_light;
         color: #666;
-        box-shadow: 0 15px 15px -6px #969696;
+        box-shadow: 0 10px 15px -6px #969696;
 
         .mdi {
             color: #666;
@@ -27,7 +27,7 @@
         color: #666;
         background: $color_primary;
         border: $color_primary;
-        box-shadow: 0 15px 15px -6px #969696;
+        box-shadow: 0 10px 15px -6px #969696;
 
         &:hover {
             color: #666;
@@ -43,7 +43,7 @@
     display: block;
     .splash,
     .splash.splash-d {
-        background-image: url(../img/splash-top-b.png);
+        background-image: url(../img/splash-top-ba.png);
         display: block;
         background-size: cover;
         height: 27.5vw;
@@ -62,7 +62,7 @@
             height: 0;
             border-style: solid;
             border-width: 0 0 12vmax 12vmax;
-            border-color: transparent transparent #acb862 transparent;
+            border-color: transparent transparent #b9cb18 transparent;
             -webkit-transform:rotate(360deg);
             content: " ";
         }
@@ -179,7 +179,7 @@
             height: 0;
             border-style: solid;
             border-width: 12vw 0 0 12vw;
-            border-color: transparent transparent transparent #acb862;
+            border-color: transparent transparent transparent #b9cb18;
             -webkit-transform:rotate(360deg);
         }
 
@@ -191,7 +191,7 @@
             height: 0;
             border-style: solid;
             border-width: 0 0 12vw 12vw;
-            border-color: transparent transparent #72bdea transparent;
+            border-color: transparent transparent #72BDEA transparent;
             -webkit-transform:rotate(360deg);
         }
     }
