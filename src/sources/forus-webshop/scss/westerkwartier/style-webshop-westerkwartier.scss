@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700');
 .button {
     &.button-default {
-        background-color: $color_primary;
+        background-color: $lb;
         border: $color_primary_light;
         color: #666;
         box-shadow: 0 10px 15px -6px #969696;
