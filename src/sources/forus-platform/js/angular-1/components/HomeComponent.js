@@ -9,6 +9,8 @@ let HomeComponent = function(
     let $ctrl = this;
     let qrCodeEl = document.getElementById('qrcode');
 
+    $ctrl.signedIn = !!$rootScope.auth_user;
+
     let $redirectAuthorizedState = 'organizations';
 
     if (appConfigs.panel_type == 'validator') {
@@ -17,12 +19,19 @@ let HomeComponent = function(
 
     $ctrl.showModal = false;
 
+    $ctrl.$onInit = () => {
+        if ($ctrl.signedIn){
+            console.log('test');
+            $state.go('organizations');
+        }
+    }
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
         IdentityService.checkAccessToken(access_token).then((res) => {
             if (res.data.message == 'active') {
                 CredentialsService.set(access_token);
                 $rootScope.loadAuthUser();
                 $state.go($redirectAuthorizedState);
+                $ctrl.signedIn = true;
             } else if (res.data.message == 'pending') {
                 $timeout(function() {
                     $ctrl.checkAccessTokenStatus(type, access_token);
