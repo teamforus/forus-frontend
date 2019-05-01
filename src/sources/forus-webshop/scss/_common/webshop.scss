@@ -2047,6 +2047,10 @@ ui-view{
         .section-title {
             font: 700 18px/30px $bf;
             margin: 0 0 20px;
+
+            @media screen and (max-width: 767px) {
+                display: none;
+            }
         }
         
         .section-subtitle {
@@ -2268,6 +2272,7 @@ ui-view{
                                     padding-right: 50px;
                                     border: 1px solid #e4e9ec;
                                     border-left: none;
+                                    @include ellipsis();
                                 }
                             }
                         }
@@ -2710,13 +2715,13 @@ ui-view{
         .product-item {
             margin: 0 0 30px;
             padding: 0 45px;
-            display: flex;
-            width: 33.333%;
+            display: inline-block;
+            max-width: 33.333%;
             float: left;
 
             .product-image {
                 width: 100%;
-                border-radius: 10px;
+                border-radius: 10px 10px 0 0;
                 overflow: hidden;
                 display: block;
                 position: relative;
@@ -2724,7 +2729,19 @@ ui-view{
                 transition: .4s;
                 box-shadow: 0 0 0 rgba(#000, .05);
                 border: 1px solid #ececec;
+                    
+                    @media screen and (max-width: 1000px) {
+                        
+                        &.product-image {
+                            border-radius: $pi;
 
+                            img {
+                                display: table;
+                                width: 200px;
+                            }
+                        }
+                    }
+                    
                 img {
                     display: block;
                     width: 100%;
@@ -2740,17 +2757,34 @@ ui-view{
             }
             
             .product-details {
-                padding: 20px 0 0;
+                padding: 20px;
                 background: #ffffff;
                 display: block;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
                 @include cf();
             }
 
+            .product-organization {
+                font: 700 16px/26px $bf;
+                flex: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
             .product-name {
-                color: #00122a;
+                color: $bc;
                 font: 700 18px/26px $bf;
                 margin: 0 0 15px;
                 transition: .4s;
+            }
+
+            .truncated {
+                flex: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .product-discount {
@@ -2775,13 +2809,16 @@ ui-view{
             }
 
             .product-item-inner {
+                box-shadow: $base_shadow;
+                border-radius: $border_radius;
+                background-color: rgba(255, 255, 255, .9);
                 display: block;
                 flex: 1;
                 @include cf();
 
                 &:hover {
                     .product-name {
-                        color: $color_default;
+                        color: $tc;
                     }
 
                     .product-image {
@@ -3866,7 +3903,14 @@ ui-view{
             overflow: hidden;
 
             @media screen and (max-width: 767px) {
-                
+            
+                .truncated {
+                    flex: 1;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
                 .tooltip-block {
                     z-index: 1;
                     display: block;
@@ -4457,6 +4501,10 @@ ui-view{
             font: 700 16px/30px $bf;
             padding: 20px 25px;
             border-bottom: 1px solid $border_color;
+
+            @media screen and (max-width: 767px) {
+                padding: 20px 10px;
+            }
         }
 
         .block-content {
@@ -4518,6 +4566,10 @@ ui-view{
 
             .info-office-details {
                 padding: 15px 25px 20px;
+
+                @media screen and (max-width: 767px)  {
+                    padding: 5px 10px 5px;
+                }
 
                 .info-office-title {
                     font: 700 16px/24px $bf;
@@ -6464,9 +6516,10 @@ ui-view{
                 padding: 0;
                 margin: 0 0 20px;
                 width: 100%;
+                max-width: none;
 
                 .product-item-inner {
-                    display: flex;
+                    display: inline-block;
                    
                     .product-image {
                         margin: 0 0 ;
@@ -6475,7 +6528,6 @@ ui-view{
                     }
 
                     .product-details {
-                        padding:  0 0 0 15px;
                         display: flex;
                         flex-direction: column;
                         flex: 1;
@@ -7877,6 +7929,7 @@ ui-view{
 @media screen and (max-width: 1300px) {
     .wrapper {
         width: 1100px;
+        padding: 0 25px;
     }
     
     .header-splash {
@@ -7892,6 +7945,7 @@ ui-view{
 }
 
 @media screen and (max-width: 1000px) {
+
     .tooltip-block {
         .tooltip {
             left: 0%;
