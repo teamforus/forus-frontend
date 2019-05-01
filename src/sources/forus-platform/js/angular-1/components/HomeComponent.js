@@ -3,6 +3,7 @@ let HomeComponent = function(
     $rootScope, 
     $timeout, 
     CredentialsService, 
+    OrganizationService,
     IdentityService,
     appConfigs
 ) {
@@ -13,18 +14,24 @@ let HomeComponent = function(
 
     let $redirectAuthorizedState = 'organizations';
 
+    if (typeof (authRes) !== 'undefined') {
+        CredentialsService.set(authRes.data.access_token);
+        $ctrl.signedIn = true;
+    }
+
     if (appConfigs.panel_type == 'validator') {
         $redirectAuthorizedState = 'csv-validation';
     }
 
     $ctrl.showModal = false;
 
-    $ctrl.$onInit = () => {
-        if ($ctrl.signedIn){
+    if ($ctrl.signedIn){
+        OrganizationService.list().then(res => {
             console.log('test');
             $state.go('organizations');
-        }
+        });
     }
+
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
         IdentityService.checkAccessToken(access_token).then((res) => {
             if (res.data.message == 'active') {
@@ -74,6 +81,7 @@ module.exports = {
         '$rootScope', 
         '$timeout', 
         'CredentialsService', 
+        'OrganizationService',
         'IdentityService',
         'appConfigs', 
         HomeComponent
