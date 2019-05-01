@@ -32,44 +32,7 @@
                 ui-sref="products" 
                 ui-sref-active="active"
                 ng-bind="'topnavbar.items.products' | translate")
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.forusPlatformMenu && !$root.auth_user" ng-click="mobileMenu = false")
-            a.navbar-item(
-            ui-sref="forus-platform" 
-            ui-sref-active="active" 
-            i18n="PLATFORM"
-            target="_self")      
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.meAppMenu && !$root.auth_user" ng-click="mobileMenu = false")
-            a.navbar-item(
-            ui-sref="me-app" 
-            ui-sref-active="active"
-            i18n="ME"
-            target="_self")                        
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.portfolioMenu && !$root.auth_user" ng-click="mobileMenu = false")
-            a.navbar-item(
-            ui-sref="portfolio"
-            ui-sref-active="active" 
-            i18n="PORTFOLIO"
-            target="_self")
-            nav.navbar-menu
-                .triangle
-                .inner
-                    a(ui-sref="kindpakket" i18n="Kindpakket").navbar-menu-item
-                    //- a(ui-sref="funds" i18n="Longfonds").navbar-menu-item  
-                    //- a(ui-sref="funds" i18n="Common Grounds").navbar-menu-item                                                         
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.aboutSiteMenu && !$root.auth_user" ng-click="mobileMenu = false") 
-            a.navbar-item(
-            href="{{ $root.appConfigs.about_url }}" 
-            i18n="OVER ONS"
-            target="_blank")
-            //- nav.navbar-menu
-                .triangle
-                .inner
-                    a(ui-sref="funds" i18n="Achtergrond").navbar-menu-item
-                    a(ui-sref="funds" i18n="Werkwijze").navbar-menu-item
-                    a(ui-sref="funds" i18n="Team").navbar-menu-item     
-                    a(ui-sref="funds" i18n="Raad van toezicht").navbar-menu-item       
-                    a(ui-sref="funds" i18n="Samenwerkingen").navbar-menu-item     
-                    a(ui-sref="funds" i18n="Contact").navbar-menu-item                                                    
+                                                                                                                               
     .block.block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
         .auth-code
             a(ui-sref="vouchers").button.button-default

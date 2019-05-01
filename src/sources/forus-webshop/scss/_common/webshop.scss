@@ -1364,22 +1364,6 @@ ui-view{
         &.splash-d {
             background-image: url("../img/splash-top-d.png");
             height: 1130px;
-            &.flipped {
-                -moz-transform: scaleY(-1);
-                -o-transform: scaleY(-1);
-                -webkit-transform: scaleY(-1);
-                transform: scaleY(-1);
-                filter: FlipV;
-                -ms-filter: "FlipV";
-            }
-        }
-        &.splash-kp {
-            background-image: url("../img/splash-steps.png");
-            height: 1080px;
-            background-position: 0% 100%;
-            background-position-y: 0px !important;
-            -webkit-transform: scaleX(-1);
-            transform: scaleX(-1);
         }
     }
 }
@@ -1434,15 +1418,6 @@ ui-view{
         margin: 0 0 40px;
         position: relative;
         color: #00122a;
-    }
-
-    .section-subtitle {
-        font: 500 26px/46px $bf;
-        color: blue;
-        margin-top:-20px;
-        margin-bottom: 40px;
-        position: relative;
-
     }
 
     &.section-header {
@@ -1588,82 +1563,6 @@ ui-view{
 
             .header-title {
                 margin-top: 25px;
-            }
-        }
-    }
-
-    &.section-page {
-        position: relative;
-        margin-bottom: 50px;
-
-        .section-title {
-            margin: 0 0 20px;
-        } 
-        .section-subtitle {
-            margin-bottom: 20px;
-        } 
-        .section-splash {
-            position: absolute;
-            right: 0;
-            width: 100%;
-            height: 900px;
-            background: url('../img/splash-faq.png') no-repeat;
-            background-position: 100% 50%;
-            background-size: auto 100%;
-            top: 900px;
-            transform: translate(0, -50%);
-            z-index: -1;
-        }
-        .section-description {
-            font: 400 22px/32px $bf;
-            color: #000;
-            text-align: left;
-            padding: 0 50px;
-            margin-bottom: 10px;
-            width: 65%;
-
-            ul {
-                list-style: none;
-                margin: 15px 0 15px 0; 
-                li {
-                    font: 400 22px/32px $bf;
-                    b {
-                        font: 400 22px/32px $bf;
-                        font-weight: bold;
-                    }
-                }
-                li:before {
-                    content: "•";
-                    padding-right: 8px;
-                    font: 400 32px/38px $bf;
-                    color: blue;
-                }
-            }
-            &.wide-80{
-                width: 80%;
-            }
-            &.wide-100{
-                width: 100%;
-            }
-        }
-        .section-sprite {
-            position: absolute;
-            background-repeat: no-repeat;
-
-            &.section-sprite-a {
-                width: 25%;
-                height: 100%;
-                top: 35px;
-                right: 300px;
-                background-size: 100%;
-                background-position: 100% 100px;
-            }
-            &.section-sprite-b {
-                width: 50%;
-                height: 120%;
-                background-size: 50%;
-                top: 0;
-                right: -125px;
             }
         }
     }
@@ -1960,25 +1859,6 @@ ui-view{
             margin: 0 auto 40px;
             max-width: 100%;
         }
-        .section-sites {
-            display: flex;
-            margin: 0 auto 40px;
-            max-width: 100%;
-            margin-top: 35px;
-            .section-sites-item {
-                flex: 1;
-                width: 19%;
-                height: 19%;
-                margin: 2%;
-                margin-top: 0;
-                &.section-sites-item-long {
-                    width: 15%;
-                    height: 15%;
-                    margin: 5%;
-                    margin-top: 0;
-                }
-            }
-        }
 
     }
 
@@ -2186,30 +2066,6 @@ ui-view{
             }
         }
 
-        &.section-page {
-            margin: 0;
-            .section-description {
-                padding: 0;
-                font: 400 15px/26px $bf;
-                margin: 0 0 30px;
-                width: 100%;
-                ul {
-                    li {
-                        font: 400 15px/26px $bf;
-                    }
-                    li:before {
-                        font: 400 15px/26px $bf;
-                    }
-                }
-            }
-            .section-sprite {
-                right: 0;
-                display:none;
-            }
-            .section-splash {
-                display: none;
-            }
-        }
 
         &.section-steps {
             margin-bottom: 60px;
