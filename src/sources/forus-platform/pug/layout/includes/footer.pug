@@ -1,2 +1,26 @@
 footer
-modals-root
+    .container
+        nav.navbar
+            .container-fluid
+                .navbar-header
+                    a.navbar-brand(href="/"): include ../../../resources/platform-general/assets/img/svg/forus-logo-footer.svg
+                #navbar_footer.navbar-collapse
+                    ul.nav.navbar-nav
+                        //li
+                            a(href="#") Privacy & Terms
+
+                        //li
+                            a(href="#") Contact Us
+
+
+                    ul.nav.navbar-nav.navbar-right
+
+                        li.social
+                            a(href="https://github.com/teamforus/")
+                                include ../../../resources/platform-general/assets/img/svg/bitmap.svg
+                        li.social
+                            a(href="https://chat.forus.io/")
+                                include ../../../resources/platform-general/assets/img/svg/rocketchat.svg
+    .container
+        .copyright Copyright &copy; Stichting Forus 2019
+

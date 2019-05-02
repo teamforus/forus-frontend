@@ -1,0 +1,28 @@
+header
+    nav.navbar
+        .container-fluid
+            .navbar-header
+                button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar")
+                    span.sr-only Toggle navigation
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(href="/"): include ../../../resources/platform-general/assets/img/svg/forus-logo.svg
+            #navbar.navbar-collapse.collapse
+                //-ul.nav.navbar-nav
+                    li
+                        a(href="#" type="button" data-toggle="collapse" data-target="#nav-product" aria-expanded="false" aria-controls="nav-product") Product
+                            .caret
+                                include ../../../resources/platform-general/assets/img/svg/arrow.svg
+                        span#nav-product.dropdown.collapse
+                            .dropdown-column-1                                
+                                a(href="about-us.html").zuidhorn Gemeente Zuidhorn
+                                a(href="about-us.html").nijmegen Gemeente Nijmegen
+                            .dropdown-column-2
+                                a(href="about-us.html") Kindpakket
+                                a(href="about-us.html") Meedoenregeling
+                    li
+                        a(href="about-us.html") Over ons
+
+                ul.nav.navbar-nav.navbar-right
+                    li.login_btn
+                        a.login_btn(ng-click="$root.popups.auth.open('choose')") Login

@@ -160,37 +160,10 @@ module.exports = (core) => {
     });
 
     // Config meapp landings
-    core.editPlatform('landing_meapp_general', (platform) => {
+    core.editPlatform('website', (platform) => {
         platform.setEnvData({
             api_url: api_url,
             client_key: 'general'
-        });
-
-        return platform;
-    });
-
-    core.editPlatform('landing_meapp_zuidhorn', (platform) => {
-        platform.setEnvData({
-            api_url: api_url,
-            client_key: 'zuidhorn'
-        });
-
-        return platform;
-    });
-
-    core.editPlatform('landing_meapp_nijmegen', (platform) => {
-        platform.setEnvData({
-            api_url: api_url,
-            client_key: 'nijmegen'
-        });
-
-        return platform;
-    });
-
-    core.editPlatform('landing_meapp_westerkwartier', (platform) => {
-        platform.setEnvData({
-            api_url: api_url,
-            client_key: 'westerkwartier'
         });
 
         return platform;
