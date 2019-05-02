@@ -23,6 +23,6 @@ header
                     li
                         a(href="about-us.html") Over ons
 
-                ul.nav.navbar-nav.navbar-right
+                ul.nav.navbar-nav.navbar-right.auth-out(ng-if="!$root.auth_user")
                     li.login_btn
-                        a.login_btn(ng-click="$root.popups.auth.open('choose')") Login
+                        a.login_btn(ng-click="openAuthPopup()") Login
