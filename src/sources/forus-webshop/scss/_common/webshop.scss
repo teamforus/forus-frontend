@@ -4676,8 +4676,14 @@ ui-view{
 
                 .info-office-description {
                     font: 400 13px/20px $bf;
-                    margin-bottom: 0px;
+                    margin-bottom: 20px;
                     color: #282b39;
+                }
+
+                .sub-description {
+                    font: 700 14px/2px $bf;
+                    margin-top: 10px;
+                    color: $color_primary;
                 }
             }
         }

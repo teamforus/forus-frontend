@@ -484,6 +484,7 @@ module.exports = {
             office: "Locaties waar u deze aanbieding voucher kan verzilveren.",
             shopdetail: "INFORMATIE OVER DE AANBIEDER",
             productdetail: "INFORMATIE OVER DE AANBIEDING",
+            offers: "Ga voor het volledige aanbod langs bij de aanbieder.",
         },
         voucher_card: {
             header: {
