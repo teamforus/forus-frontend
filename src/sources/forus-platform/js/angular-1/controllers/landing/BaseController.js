@@ -3,7 +3,10 @@ let BaseController = function(
     $scope,
     $state,
     appConfigs,
-    ConfigService
+    ConfigService,
+    CredentialsService, 
+    IdentityService,
+    ModalService
 ) {
     $rootScope.appConfigs = appConfigs;
     $scope.appConfigs = appConfigs;
@@ -12,7 +15,12 @@ let BaseController = function(
         $rootScope.appConfigs.features = res.data;
         $rootScope.appConfigs.frontends = res.data.fronts;
     });
+    
+    $scope.openAuthPopup = function () {
+        ModalService.open('modalAuth', {});
+    };
 
+    console.log('test');
     $scope.$watch(function() {
         return $state.$current.name
     }, function(newVal, oldVal) {
@@ -32,5 +40,8 @@ module.exports = [
     '$state',
     'appConfigs',
     'ConfigService',
+    'CredentialsService', 
+    'IdentityService',
+    'ModalService',
     BaseController
 ];
