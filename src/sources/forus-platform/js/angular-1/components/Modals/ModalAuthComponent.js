@@ -1,6 +1,7 @@
 let ModalAuthComponent = function(
     $filter,
     $timeout,
+    $state,
     $rootScope,
     AuthService,
     IdentityService,
@@ -14,6 +15,12 @@ let ModalAuthComponent = function(
     let qrCodeEl;
     let qrCode;
     let timeout;
+
+    let $redirectAuthorizedState = 'organizations';
+
+    if (appConfigs.panel_type == 'validator') {
+        $redirectAuthorizedState = 'csv-validation';
+    }
 
     $ctrl.showChoose = true;
     $ctrl.showQrCodeBlock = false;
@@ -57,6 +64,7 @@ let ModalAuthComponent = function(
         IdentityService.checkAccessToken(access_token).then((res) => {
             if (res.data.message == 'active') {
                 $ctrl.applyAccessToken(access_token);
+                $state.go($redirectAuthorizedState);
             } else if (res.data.message == 'pending') {
                 timeout = $timeout(function() {
                     $ctrl.checkAccessTokenStatus(type, access_token);
@@ -134,6 +142,7 @@ module.exports = {
     controller: [
         '$filter',
         '$timeout',
+        '$state',
         '$rootScope',
         'AuthService',
         'IdentityService',
