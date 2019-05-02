@@ -7750,6 +7750,11 @@ ui-view{
             font: 400 22px/34px $bf;
             color: #646f79;
 
+            b {
+                font: 400 22px/34px $bf;
+                font-weight: bold;
+            }
+
             .popup-title-styled{
                 color: $color_primary;
                 font-weight: 600;
