@@ -1369,22 +1369,6 @@ ui-view{
         &.splash-d {
             background-image: url("../img/splash-top-d.png");
             height: 1130px;
-            &.flipped {
-                -moz-transform: scaleY(-1);
-                -o-transform: scaleY(-1);
-                -webkit-transform: scaleY(-1);
-                transform: scaleY(-1);
-                filter: FlipV;
-                -ms-filter: "FlipV";
-            }
-        }
-        &.splash-kp {
-            background-image: url("../img/splash-steps.png");
-            height: 1080px;
-            background-position: 0% 100%;
-            background-position-y: 0px !important;
-            -webkit-transform: scaleX(-1);
-            transform: scaleX(-1);
         }
     }
 }
@@ -1439,15 +1423,6 @@ ui-view{
         margin: 0 0 40px;
         position: relative;
         color: #00122a;
-    }
-
-    .section-subtitle {
-        font: 500 26px/46px $bf;
-        color: blue;
-        margin-top:-20px;
-        margin-bottom: 40px;
-        position: relative;
-
     }
 
     &.section-header {
@@ -1593,82 +1568,6 @@ ui-view{
 
             .header-title {
                 margin-top: 25px;
-            }
-        }
-    }
-
-    &.section-page {
-        position: relative;
-        margin-bottom: 50px;
-
-        .section-title {
-            margin: 0 0 20px;
-        } 
-        .section-subtitle {
-            margin-bottom: 20px;
-        } 
-        .section-splash {
-            position: absolute;
-            right: 0;
-            width: 100%;
-            height: 900px;
-            background: url('../img/splash-faq.png') no-repeat;
-            background-position: 100% 50%;
-            background-size: auto 100%;
-            top: 900px;
-            transform: translate(0, -50%);
-            z-index: -1;
-        }
-        .section-description {
-            font: 400 22px/32px $bf;
-            color: #000;
-            text-align: left;
-            padding: 0 50px;
-            margin-bottom: 10px;
-            width: 65%;
-
-            ul {
-                list-style: none;
-                margin: 15px 0 15px 0; 
-                li {
-                    font: 400 22px/32px $bf;
-                    b {
-                        font: 400 22px/32px $bf;
-                        font-weight: bold;
-                    }
-                }
-                li:before {
-                    content: "•";
-                    padding-right: 8px;
-                    font: 400 32px/38px $bf;
-                    color: blue;
-                }
-            }
-            &.wide-80{
-                width: 80%;
-            }
-            &.wide-100{
-                width: 100%;
-            }
-        }
-        .section-sprite {
-            position: absolute;
-            background-repeat: no-repeat;
-
-            &.section-sprite-a {
-                width: 25%;
-                height: 100%;
-                top: 35px;
-                right: 300px;
-                background-size: 100%;
-                background-position: 100% 100px;
-            }
-            &.section-sprite-b {
-                width: 50%;
-                height: 120%;
-                background-size: 50%;
-                top: 0;
-                right: -125px;
             }
         }
     }
@@ -1965,25 +1864,6 @@ ui-view{
             margin: 0 auto 40px;
             max-width: 100%;
         }
-        .section-sites {
-            display: flex;
-            margin: 0 auto 40px;
-            max-width: 100%;
-            margin-top: 35px;
-            .section-sites-item {
-                flex: 1;
-                width: 19%;
-                height: 19%;
-                margin: 2%;
-                margin-top: 0;
-                &.section-sites-item-long {
-                    width: 15%;
-                    height: 15%;
-                    margin: 5%;
-                    margin-top: 0;
-                }
-            }
-        }
 
     }
 
@@ -2172,6 +2052,10 @@ ui-view{
         .section-title {
             font: 700 18px/30px $bf;
             margin: 0 0 20px;
+
+            @media screen and (max-width: 767px) {
+                display: none;
+            }
         }
         
         .section-subtitle {
@@ -2191,30 +2075,6 @@ ui-view{
             }
         }
 
-        &.section-page {
-            margin: 0;
-            .section-description {
-                padding: 0;
-                font: 400 15px/26px $bf;
-                margin: 0 0 30px;
-                width: 100%;
-                ul {
-                    li {
-                        font: 400 15px/26px $bf;
-                    }
-                    li:before {
-                        font: 400 15px/26px $bf;
-                    }
-                }
-            }
-            .section-sprite {
-                right: 0;
-                display:none;
-            }
-            .section-splash {
-                display: none;
-            }
-        }
 
         &.section-steps {
             margin-bottom: 60px;
@@ -2417,6 +2277,7 @@ ui-view{
                                     padding-right: 50px;
                                     border: 1px solid #e4e9ec;
                                     border-left: none;
+                                    @include ellipsis();
                                 }
                             }
                         }
@@ -2859,13 +2720,13 @@ ui-view{
         .product-item {
             margin: 0 0 30px;
             padding: 0 45px;
-            display: flex;
-            width: 33.333%;
+            display: inline-block;
+            max-width: 33.333%;
             float: left;
 
             .product-image {
                 width: 100%;
-                border-radius: 10px;
+                border-radius: 10px 10px 0 0;
                 overflow: hidden;
                 display: block;
                 position: relative;
@@ -2873,7 +2734,19 @@ ui-view{
                 transition: .4s;
                 box-shadow: 0 0 0 rgba(#000, .05);
                 border: 1px solid #ececec;
+                    
+                    @media screen and (max-width: 1000px) {
+                        
+                        &.product-image {
+                            border-radius: $pi;
 
+                            img {
+                                display: table;
+                                width: 200px;
+                            }
+                        }
+                    }
+                    
                 img {
                     display: block;
                     width: 100%;
@@ -2889,17 +2762,34 @@ ui-view{
             }
             
             .product-details {
-                padding: 20px 0 0;
+                padding: 20px;
                 background: #ffffff;
                 display: block;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
                 @include cf();
             }
 
+            .product-organization {
+                font: 700 16px/26px $bf;
+                flex: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
             .product-name {
-                color: #00122a;
+                color: $bc;
                 font: 700 18px/26px $bf;
                 margin: 0 0 15px;
                 transition: .4s;
+            }
+
+            .truncated {
+                flex: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .product-discount {
@@ -2924,13 +2814,16 @@ ui-view{
             }
 
             .product-item-inner {
+                box-shadow: $base_shadow;
+                border-radius: $border_radius;
+                background-color: rgba(255, 255, 255, .9);
                 display: block;
                 flex: 1;
                 @include cf();
 
                 &:hover {
                     .product-name {
-                        color: $color_default;
+                        color: $tc;
                     }
 
                     .product-image {
@@ -4015,7 +3908,14 @@ ui-view{
             overflow: hidden;
 
             @media screen and (max-width: 767px) {
-                
+            
+                .truncated {
+                    flex: 1;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
                 .tooltip-block {
                     z-index: 1;
                     display: block;
@@ -4606,6 +4506,10 @@ ui-view{
             font: 700 16px/30px $bf;
             padding: 20px 25px;
             border-bottom: 1px solid $border_color;
+
+            @media screen and (max-width: 767px) {
+                padding: 20px 10px;
+            }
         }
 
         .block-content {
@@ -4667,6 +4571,10 @@ ui-view{
 
             .info-office-details {
                 padding: 15px 25px 20px;
+
+                @media screen and (max-width: 767px)  {
+                    padding: 5px 10px 5px;
+                }
 
                 .info-office-title {
                     font: 700 16px/24px $bf;
@@ -6618,9 +6526,10 @@ ui-view{
                 padding: 0;
                 margin: 0 0 20px;
                 width: 100%;
+                max-width: none;
 
                 .product-item-inner {
-                    display: flex;
+                    display: inline-block;
                    
                     .product-image {
                         margin: 0 0 ;
@@ -6629,7 +6538,6 @@ ui-view{
                     }
 
                     .product-details {
-                        padding:  0 0 0 15px;
                         display: flex;
                         flex-direction: column;
                         flex: 1;
@@ -8036,6 +7944,7 @@ ui-view{
 @media screen and (max-width: 1300px) {
     .wrapper {
         width: 1100px;
+        padding: 0 25px;
     }
     
     .header-splash {
@@ -8051,6 +7960,7 @@ ui-view{
 }
 
 @media screen and (max-width: 1000px) {
+
     .tooltip-block {
         .tooltip {
             left: 0%;

@@ -36,7 +36,7 @@ let ModalPinCodeComponent = function(
 
                 if (res.status == 404) {
                     form.errors = {
-                        auth_code: ["Unknown code."]
+                        auth_code: ["Onbekende autorisatie code"]
                     };
                 }
             });

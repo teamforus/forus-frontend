@@ -23,17 +23,12 @@ header.section.section-header.section-header-landing
             a(ng-if="$root.appConfigs.flags.homeButton" scroll-to="#steps" i18n="Hoe werkt het?" ng-show="!$root.auth_user").header-how-it-works
             a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length == 0" scroll-to="#steps" i18n="Hoe werkt het?" ng-show="$root.auth_user").header-how-it-works
             a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" href="#!/me-app" target="_blank" ng-show="$root.auth_user").header-how-it-works
-            a(ng-if="!$root.appConfigs.flags.homeButton" href="https://about.forus.io/nl/contact/" i18n="NEEM CONTACT MET ONS OP").button.button-primary
 
 block-products(
     ng-if="$root.appConfigs.flags.homeProducts"
     sample="true" 
     products="$ctrl.products" 
     product-categories="$ctrl.productCategories")
-
-webshops(ng-if="!$root.appConfigs.flags.homeButton")
-
-implementation(ng-if="!$root.appConfigs.flags.homeButton")
 
 section.section.section-map(ng-if="$root.appConfigs.flags.homeMap"): .wrapper
     .block.block-map

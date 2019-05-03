@@ -358,6 +358,9 @@
     &.block-products {
         .product-item {
             .product-item-inner {
+                .product-name {
+                    color:#8b9911
+                }
                 &:hover {
                     .product-name {
                         color: #91b845;
@@ -366,7 +369,7 @@
             }
 
             .product-discount {
-                color: #6c2a71;
+                color: #4990b5;
             }
         }
     }
