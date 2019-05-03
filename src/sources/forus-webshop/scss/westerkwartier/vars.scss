@@ -1,15 +1,24 @@
 /*==========  Style Sheet - Vars  ==========*/
 
 // base font
-$bf:                'Lato', arial, sans-serif;
+$bf:                'Lato' ,"Lucida Sans","Lucida Sans Unicode","Lucida Grande",Verdana,Arial,Helvetica,sans-serif;
 
 // text color
 $tc:                #4e4d40;
 
 // base color
-$bc:                #017f96;
+$bc:                #4990b5;
 
 $bc_2:              #70c567;
+
+// background color
+$bg:                #fff;
+
+$bg_2:              none;
+
+// text formatting
+$tf:                lowercase;
+
 
 // footer color
 $fc:                #4e4d40;
@@ -28,8 +37,12 @@ $border_color:      #dbdcdb;
 $border_radius:     0px;
 $base_shadow:       0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 
-$color_primary:         #8b9911;
-$color_primary_light:   #92a112;
+$color_primary:         #b9cb18;
+$color_primary_light:   1px solid #b9cb18;
 
-$color_default:         #b9ca2f;
-$color_default_light:   #c3d24e;
+$color_default:         #d4e630;
+$color_default_light:   1px solid #b9cb18;
+
+// Login button
+
+$lb:                #fff;

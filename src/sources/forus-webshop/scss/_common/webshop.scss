@@ -716,8 +716,8 @@ a[ui-sref] {
 }
 
 body {
-    background-color: #f3f8fe;
-    background: linear-gradient(to bottom, #f3f8fe 0%,#feffff 100%);
+    background-color: $bg;
+    background: $bg_2;
 
     display: flex;
     min-height: 100vh;
@@ -818,9 +818,14 @@ ui-view{
 
     &.button-primary {
         color: #fff;
+        text-transform: $tf;
         background: $color_primary;
         border: 1px solid $color_primary;
         box-shadow: 0 10px 25px rgba(#000, .15);
+
+        &:first-letter {
+            text-transform: capitalize;
+        }
 
         &:hover {
             color: #fff;
@@ -4579,8 +4584,13 @@ ui-view{
 
                 .info-office-description {
                     font: 400 13px/20px $bf;
-                    margin-bottom: 0px;
+                    margin-bottom: 10px;
                     color: #282b39;
+                }
+
+                .sub-description {
+                    font: 700 14px/2px $bf;
+                    margin-top: 20px;
                 }
             }
         }
@@ -7647,6 +7657,11 @@ ui-view{
             padding: 10px 80px;
             font: 400 22px/34px $bf;
             color: #646f79;
+
+            b {
+                font: 400 22px/34px $bf;
+                font-weight: bold;
+            }
 
             .popup-title-styled{
                 color: $color_primary;

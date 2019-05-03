@@ -484,6 +484,7 @@ module.exports = {
             office: "Locaties waar u deze aanbieding voucher kan verzilveren.",
             shopdetail: "INFORMATIE OVER DE AANBIEDER",
             productdetail: "INFORMATIE OVER DE AANBIEDING",
+            offers: "Ga voor het volledige aanbod langs bij de aanbieder.",
         },
         voucher_card: {
             header: {
@@ -756,7 +757,7 @@ module.exports = {
         pin_code: {
             confirmation: {
                 title: "Is de mobiele app gekoppeld aan uw persoonlijk e-mailadres?",
-                description: "Ga naar het tabblad <b><i>Profiel</i></b> in de app. Ziet u hier uw e-mailadres staan? Dan is de app succesvol gekoppeld. Als u het tabblad <b><i>Profiel</i></b> niet ziet staan, probeer het dan nog opnieuw.",
+                description: "Ga naar het tabblad <b>Profiel</b> in de app. Ziet u hier uw e-mailadres staan? Dan is de app succesvol gekoppeld. Als u het tabblad <b>Profiel</b> niet ziet staan, probeer het dan opnieuw.",
                 buttons: {
                     try_again: "Opnieuw proberen",
                     confirm: "Volgende"
