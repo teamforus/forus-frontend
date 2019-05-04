@@ -13,6 +13,7 @@ platform.setCleanPath([
 ]);
 
 // assets configs
+platform.copyAsset("resources/_platform-common/**/*", "./");
 platform.copyAsset("resources/platform-general/**/*", "./");
 
 // tweak scss configs

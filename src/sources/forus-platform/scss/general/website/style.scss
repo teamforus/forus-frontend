@@ -18,6 +18,14 @@
 		}
 	}
 }
+@mixin fill_parent($offset: 0px, $position: absolute){
+    position: $position;
+    top: $offset;
+    right: $offset;
+    bottom: $offset;
+    left: $offset;
+}
+
 html {
     // code
     //
@@ -1380,8 +1388,100 @@ html {
                 margin-bottom: 10px;
             }
         }
-        .modal-backdrop{
-            background-color: rgba(25, 26, 28, 0.2);
+        modals-root{
+            modal-auth2-component {
+                .modal {
+                    position: fixed;
+                    z-index: 5;
+                    display: flex;
+                    align-items: center;
+                    .modal-backdrop {
+                        @include fill_parent();
+                        cursor: pointer;
+                        background: rgba(#192734, .5);
+                        z-index: 0;
+                    }
+                    .modal-content {
+                        position: relative;
+                        padding: 30px;
+                        width: 1200px;
+                        max-width: 100%;
+                        background: #f7f9fc;
+                        border-radius: 5px;
+                        min-height: 100px;
+                        overflow: hidden;
+                        margin: 0 auto;
+                        box-shadow: 0 20px 40px rgba(#000000, 0.3);
+                        .modal-description-pad{
+                            .description {
+                                padding: 50px 0;
+                                color: #134478 !important;
+                            }
+                        }
+                        .modal-title {
+                            color: #282b39;
+                            font-size: 40px;
+                            text-align: center;
+                            margin: 0 0 10px;
+                        }
+                
+                        .modal-subtitle {
+                            color: #646f79;
+                            font-size:d 18px;
+                            text-align: center;
+                            padding-bottom: 30px;
+                
+                            u {
+                                cursor: pointer;
+                            }
+                            span {
+                                cursor: auto;
+                            }
+                
+                            a {
+                                font: 400 16px "Source Sans Pro",sans-serif;
+                                color:rgb(100, 111, 121);
+                            }
+                        }
+                        .modal-close {
+                            position: absolute;
+                            font-size: 24px;
+                            right: 20px;
+                            top: 20px;
+                            display: block;
+                            cursor: pointer;
+                            color: #222;
+                            transition: color .4s;
+                            z-index: 1;
+                        }
+
+                        .block-auth-qr-code {
+                            .qr_code {
+                                width: 280px;
+                                height: 280px;
+                                padding: 20px;
+                                background: #fff;
+                                margin: auto;
+                                border-radius: 15px;
+                                -webkit-box-shadow: 0 5px 35px rgba(0, 0, 0, 0.075);
+                                box-shadow: 0 5px 35px rgba(0, 0, 0, 0.075);
+                                border: 2px dashed #d2e6ff;
+                
+                                img {
+                                    display: block;
+                                    width: 100%;
+                                }
+                            }
+                            .qr_code-desc {
+                                text-align: center;
+                                padding: 25px 0;
+                                font-size: 15px/28px;
+                            }
+                        }
+                    }
+                    
+                }
+            }
         }
         #modalContact{
             .modal-dialog{

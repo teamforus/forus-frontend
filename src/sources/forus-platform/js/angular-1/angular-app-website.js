@@ -14,12 +14,14 @@ app.service('CredentialsService', require('./services/CredentialsService'));
 app.service('ConfigService', require('./services/ConfigService'));
 app.service('SmsService', require('./services/SmsService'));
 app.service('AuthService', require('./services/AuthService'));
+app.service('RecordService', require('./services/RecordService'));
 app.service('OrganizationService', require('./services/OrganizationService'));
 app.service('IdentityService', require('./services/IdentityService'));
 app.service('FormBuilderService', require('./services/FormBuilderService'));
 app.service('ModalService', require('./services/ModalService'));
 
 // Modal Components
+app.component('modalAuth2Component', require('./components/Modals/ModalAuth2Component'));
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
 app.component('modalPhotoUploaderComponent', require('./components/Modals/ModalPhotoUploaderComponent'));
 app.component('modalFundTopUpComponent', require('./components/Modals/ModalFundTopUpComponent'));
