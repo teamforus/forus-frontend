@@ -1404,7 +1404,7 @@ html {
                     .modal-content {
                         position: relative;
                         padding: 30px;
-                        width: 1200px;
+                        width: 650px;
                         max-width: 100%;
                         background: #f7f9fc;
                         border-radius: 5px;
@@ -1412,6 +1412,19 @@ html {
                         overflow: hidden;
                         margin: 0 auto;
                         box-shadow: 0 20px 40px rgba(#000000, 0.3);
+                        input {
+                            height: 46px;
+                            border-radius: 8px;
+                            background-color: #eff2f4;
+                            float:left;
+                            width:365px;
+                            margin-right:20px;
+                        }
+                        button {
+                            height:46px;
+                            width: 175px;
+                            padding: 0;
+                        }
                         .modal-description-pad{
                             .description {
                                 padding: 50px 0;
@@ -1420,16 +1433,16 @@ html {
                         }
                         .modal-title {
                             color: #282b39;
-                            font-size: 40px;
-                            text-align: center;
+                            font-size: 28px;
+                            font-weight: 500;
+                            text-align: left;
                             margin: 0 0 10px;
                         }
                 
                         .modal-subtitle {
                             color: #646f79;
                             font-size:d 18px;
-                            text-align: center;
-                            padding-bottom: 30px;
+                            text-align: left;
                 
                             u {
                                 cursor: pointer;
@@ -1442,6 +1455,14 @@ html {
                                 font: 400 16px "Source Sans Pro",sans-serif;
                                 color:rgb(100, 111, 121);
                             }
+                            img {
+                                height: 40px;
+                                margin-right: 10px;
+                            }
+                        }
+                        .subtitle-left{
+                            width: 385px;
+                            float:left;
                         }
                         .modal-close {
                             position: absolute;
@@ -1456,26 +1477,23 @@ html {
                         }
 
                         .block-auth-qr-code {
+                            float:right;
+                            margin:0;
                             .qr_code {
-                                width: 280px;
-                                height: 280px;
-                                padding: 20px;
-                                background: #fff;
+                                width: 200px;
+                                height: 160px;
+                                padding: 0px 20px;
+                                //background: #fff;
                                 margin: auto;
-                                border-radius: 15px;
-                                -webkit-box-shadow: 0 5px 35px rgba(0, 0, 0, 0.075);
-                                box-shadow: 0 5px 35px rgba(0, 0, 0, 0.075);
-                                border: 2px dashed #d2e6ff;
+                                //border-radius: 15px;
+                                //-webkit-box-shadow: 0 5px 35px rgba(0, 0, 0, 0.075);
+                                //box-shadow: 0 5px 35px rgba(0, 0, 0, 0.075);
+                                //border: 2px dashed #000;
                 
                                 img {
                                     display: block;
                                     width: 100%;
                                 }
-                            }
-                            .qr_code-desc {
-                                text-align: center;
-                                padding: 25px 0;
-                                font-size: 15px/28px;
                             }
                         }
                     }

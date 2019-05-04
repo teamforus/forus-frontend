@@ -26,3 +26,5 @@ header
                 ul.nav.navbar-nav.navbar-right.auth-out(ng-if="!$root.auth_user")
                     li.login_btn
                         a.login_btn(ng-click="openAuthPopup()") Login
+                ul.nav.navbar-nav.navbar-right.auth-out(ng-if="$root.auth_user")
+                    .auth-user-email(ng-bind="$root.auth_user.primary_email")
