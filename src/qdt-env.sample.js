@@ -163,7 +163,8 @@ module.exports = (core) => {
     core.editPlatform('website', (platform) => {
         platform.setEnvData({
             api_url: api_url,
-            client_key: 'general'
+            client_key: 'general',
+            panel_type: 'validator',
         });
 
         return platform;
