@@ -14,25 +14,13 @@ let BaseController = function(
     $rootScope.appConfigs = appConfigs;
     $scope.appConfigs = appConfigs;
     let $ctrl = this;
-    
-    $rootScope.popups = {
-        auth: {
-            show: false,
-            screen: false,
-            close: function() {
-                this.show = false;
-                this.screen = false;
-            },
-            open: function(screen) {
-                this.show = true;
-                this.screen = screen;
-            }
-        }
-    };
-
 
     let invalidPermissions = {
         sponsor: [
+            "manage_provider_funds", "manage_products", "manage_offices",
+            "scan_vouchers"
+        ],
+        validator: [
             "manage_provider_funds", "manage_products", "manage_offices",
             "scan_vouchers"
         ],
@@ -113,6 +101,16 @@ let BaseController = function(
         AuthService.signOut();
         $rootScope.auth_user = false;
     };
+
+    $scope.$watch(function() {
+        return $state.$current.name
+    }, function(newVal, oldVal) {
+        if ($state.current.name == 'sign-up') {
+            $rootScope.viewLayout = 'signup';
+        } else {
+            $rootScope.viewLayout = 'landing';
+        }
+    });
 
     $rootScope.appConfigs = appConfigs;
 };

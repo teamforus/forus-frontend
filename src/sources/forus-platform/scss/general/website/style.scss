@@ -1781,7 +1781,73 @@ html {
                     .container-fluid{
                         .navbar-collapse{
                             .navbar-nav{
-                                
+                                .header-auth {
+                                    float: left;
+                                    position: relative;
+                                    z-index: 1;
+                        
+                                    .auth-user {
+                                        position: relative;
+                                        padding-right: 0px;
+                                        padding-top: 0px;
+                                        padding-bottom: 0px;
+                                        margin-bottom: 0px;
+                                        cursor: default;
+                        
+                                        .auth-user-name {
+                                            display: none;
+                                        }
+                        
+                                        .auth-user-role {
+                                            display:none;
+                                        }
+                        
+                                        .auth-user-img {
+                                            display: none;
+                                            width: 0px;
+                                            height: 0px;
+                                        }
+                        
+                                        .auth-user-menu {
+                                            position: relative;
+                                            border: 0;
+                                            background: #fff;
+                                            border-radius: 0;
+                                            box-shadow: none;
+                                            width: 100%;
+                                            max-width: 80%;
+                                            display: block;
+                        
+                                            .auth-user-menu-item {
+                                                display: block;
+                                                cursor: pointer;
+                                                padding: 5px 15px;
+                                                font: 500 13px/30px 'Montserrat';
+                                                color: #282b39;
+                                                transition: 0.4s;
+                                                width: 100%;
+                        
+                                                &:hover {
+                                                    text-decoration: none;
+                                                    background: #FFF;
+                                                    color: $forus-sky-blue;
+                        
+                                                }
+                                            }
+                        
+                                            .auth-user-menu-sep {
+                                                display: block;
+                                                border-top: 1px solid #f3f4f5;
+                                            }
+                                        }
+                        
+                                        &:hover {
+                                            .auth-user-menu {
+                                                display: block;
+                                            }
+                                        }
+                                    }
+                                }
                                 &>li{
                                     &>a{
                                         width: 100%;
