@@ -262,6 +262,7 @@ html {
                                     font-size: 18px;
                                     font-weight: 600;
                                     line-height: 24px;
+                                    color: #191a1c;
                                     -webkit-transform: rotate(0);
                                     -ms-transform: rotate(0);
                                     transform: rotate(0);
@@ -328,7 +329,8 @@ html {
                                     border-radius: 20px;
                                     border: solid 1px #edf0f8;
                                     background-color: #FFFFFF;
-                                    width: 550px;      
+                                    width: 550px;    
+                                    z-index: 5;  
                                     .dropdown-column-1 {
                                         width: 273px;
                                         position:relative;
