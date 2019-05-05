@@ -11,14 +11,19 @@ platform.setLibs([
     "babel_polyfill",
     "jquery",
     "angular",
+    'angular_i18n',
     "angular_cookies",
     "angular_sanitize",
     "angular_translate",
     "angular_translate_storage_cookies",
     "angular_translate_storage_local",
     "mdi",
+    "nanoscroller",,
     "qrcodejs",
-    "ui_router"
+    "ui_cropper",
+    "ui_router",
+    "underscore",
+    "underscore.string",
 ]);
 
 // add js task

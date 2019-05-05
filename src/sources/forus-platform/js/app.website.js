@@ -1,5 +1,16 @@
 require("./angular-1/angular-app-website");
 
+setTimeout(() => {
+    $('.nano').nanoScroller({
+        iOSNativeScrolling: true 
+    });
+    
+    $('.nano.nano-scrolldown').nanoScroller({
+        iOSNativeScrolling: true,
+        scroll: 'bottom' 
+    });
+}, 500);
+
 function validateElement(element){
 
     var nameReg = /^[^0-9]+$/;

@@ -1,7 +1,7 @@
 module.exports = [() => {
     let ModalScrollBrakeDirective = function($scope, $element, ModalService) {
         $scope.modals = ModalService.getModals();
-
+        
         $scope.$watch('modals', (modals) => {
             if (!modals) return;
             
@@ -14,7 +14,6 @@ module.exports = [() => {
     };
 
     return {
-        scope: {},
         restrict: "EA",
         replace: true,
         controller: [

@@ -34,6 +34,7 @@ html {
         * {
             font-family: $bf;
         }
+
         .download {
             display: flex;
             padding: 20px 20px 60px;
@@ -1780,6 +1781,7 @@ html {
                     .container-fluid{
                         .navbar-collapse{
                             .navbar-nav{
+                                
                                 &>li{
                                     &>a{
                                         width: 100%;
@@ -2101,6 +2103,62 @@ html {
                 }
                 .copyright{
                     padding: 0 15px;
+                }
+            }
+            modals-root{
+                modal-auth2-component {
+                    .modal {
+                        .modal-content {
+                            padding: 15px;
+                            width: 100%;
+                            max-width: 650px;
+                            border-radius: 5px;
+                            min-height: 100px;
+                            input {
+                                width:250px;
+                                margin-right:20px;
+                            }
+                            button {
+                                width: 150px;
+                            }
+                            .modal-title {
+                                font-size: 24px;
+                                margin: 0 0 5px;
+                            }
+                            .download-badges {
+                                text-align:center;
+                            }
+                            .modal-subtitle {
+                                font-size: 12px;
+                                u {
+                                    cursor: pointer;
+                                }
+                                span {
+                                    cursor: auto;
+                                }
+                    
+                                a {
+                                    font: 400 12px "Source Sans Pro",sans-serif;
+                                    color:rgb(100, 111, 121);
+                                }
+                                img {
+                                    height: 40px;
+                                    margin-right: 10px;
+                                }
+                            }
+                            .subtitle-left{
+                                width: 100%;
+                                float:left;
+                            }
+    
+                            .block-auth-qr-code {
+                                margin-bottom:10px;
+                                float:left;
+                                width: 100%;
+                            }
+                        }
+                        
+                    }
                 }
             }
             #modalContact{

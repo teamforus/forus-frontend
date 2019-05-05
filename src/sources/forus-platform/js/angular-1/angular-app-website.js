@@ -1,5 +1,5 @@
 let app = angular.module('forusApp', [
-    'ui.router', 'pascalprecht.translate', 'ngCookies'
+    'ui.router', 'pascalprecht.translate', 'ngCookies', 'ngLocale'
 ]);
 
 app.constant('appConfigs', env_data);
@@ -44,6 +44,10 @@ app.directive('pincodeControl', require('./directives/PincodeControlDirective'))
 app.directive('phoneControl', require('./directives/PhoneControlDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
 
+app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
+app.directive('modalItem', require('./directives/modals/ModalItemDirective'));
+app.directive('modalScrollBraker', require('./directives/modals/ModalScrollBrakerDirective'));
+
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
 app.provider('I18nLib', require('./providers/I18nLibProvider'));
@@ -59,11 +63,17 @@ app.config(require('./routers/modals'));
 app.config(require('./config/i18n'));
 app.config(require('./config/api-service'));
 
-app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
-app.directive('modalItem', require('./directives/modals/ModalItemDirective'));
-app.directive('modalScrollBraker', require('./directives/modals/ModalScrollBrakerDirective'));
-
 // Bootstrap the app
 angular.bootstrap(document.querySelector('body'), ['forusApp']);
+
+if (!env_data.html5ModeEnabled) {
+    let hash = document.location.hash;
+
+    if (hash.length > 3 && hash[hash.length - 1] == '/') {
+        document.location.hash = hash.slice(0, hash.length - 1);
+    } else if (hash.length < 3) {
+        document.location.hash = '#!/';
+    }
+}
 
 module.exports = app;
