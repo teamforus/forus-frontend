@@ -1897,6 +1897,7 @@ html {
                 .navbar{
                     border-bottom: 1px solid #e5e6ec;
                     padding: 12px 0 0px;
+                
                     .navbar-header{
                         text-align: center;
                         .navbar-toggle{
@@ -1999,8 +2000,50 @@ html {
                                         border-radius: 0!important;
                                         font-size: 13px;
                                         text-align: left;
-                                        padding: 10px 15px!important;
+                                        padding: 5px 15px!important;
                                         height: auto!important;
+                                    }
+                                    span.dropdown {
+                                        position:relative;
+                                        border-radius: 0;
+                                        border: 0;
+                                        background-color: #FFFFFF;
+                                        width: 100%;    
+                                        z-index: 4;  
+                                        padding: 0;
+                                        .dropdown-column-1 {
+                                            width: 100%;
+                                            position:relative;
+                                            float: left;
+                                            a {
+                                                font-weight: 400;
+                                                display: block;
+                                                color: #191a1c;
+                                                margin: 0;
+                                                margin-left: 0;
+                                                padding: 5px 15px!important;
+                
+                                                &:before{
+                                                    width: 0;
+                                                    display: none;
+                                                    height: 0;
+                                                }
+                                            }
+                                        }       
+                                        .dropdown-column-2 {
+                                            a {
+                                                font-weight: 400;
+                                                display: block;
+                                                margin: 0;
+                                                color: #191a1c;
+                                                padding: 5px 15px!important;
+                                            }
+                                            width: 100%;
+                                            position:relative;
+                                            float: left;
+                                            background-color: #fff;
+                                            border-radius: 0px;
+                                        }                      
                                     }
                                 }
                             }
