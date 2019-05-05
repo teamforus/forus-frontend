@@ -1,4 +1,4 @@
-let NoPermissionComonent = function() {
+let NoPermissionComponent = function() {
     this.$onInit = () => {};
 };
 
@@ -8,7 +8,7 @@ module.exports = {
     },
     controller: [
         '$scope',
-        NoPermissionComonent
+        NoPermissionComponent
     ],
     templateUrl: 'assets/tpl/pages/no-permission.html'
 };

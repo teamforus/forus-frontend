@@ -1,4 +1,4 @@
-let CsvValidationComonent = function(
+let CsvValidationComponent = function(
     $state,
     PermissionsService,
     appConfigs
@@ -39,7 +39,7 @@ module.exports = {
         '$state',
         'PermissionsService',
         'appConfigs',
-        CsvValidationComonent,
+        CsvValidationComponent,
     ],
     templateUrl: 'assets/tpl/pages/csv-validation.html'
 };

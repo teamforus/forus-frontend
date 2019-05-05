@@ -1,4 +1,4 @@
-let ValidationRequestsComonent = function(
+let ValidationRequestsComponent = function(
     $state,
     ValidatorRequestService,
     appConfigs
@@ -100,7 +100,7 @@ module.exports = {
         '$state',
         'ValidatorRequestService',
         'appConfigs',
-        ValidationRequestsComonent
+        ValidationRequestsComponent
     ],
     templateUrl: 'assets/tpl/pages/validation-requests.html'
 };
