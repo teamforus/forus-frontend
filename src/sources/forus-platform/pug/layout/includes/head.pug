@@ -1,45 +1,24 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 - var client_key = (qdt_c.platform.env_data.client_key);
-    
+
 head
     meta(charset="UTF-8")
-    //base(href="https://forus.io/")
-    title 
-        | Forus.io
-    //- disable resize on mobiles
-    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    title(ng-bind="$root.pageTitle") Forus
 
-    //- fonts (roboto)
-    link(href='https://fonts.googleapis.com/css?family=Roboto:400,900italic,900,700,700italic,500italic,500,400italic,300,100italic,100,300italic&subset=latin,cyrillic,latin-ext', rel='stylesheet', type='text/css')
+    //- disable resize on mobiles
+    meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+
+    //- fonts
+    link(href="https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,500,700" rel="stylesheet")
+
+    //- libs bundle
+    link(rel="stylesheet", href=src_prefix + "assets/dist/bundle/css/bundle.min.css")
+    
+    //- Favicon
+    link(rel="shortcut icon", type="image/x-icon", href=src_prefix + "assets/img/favicon.ico")
 
     //- custom style
-    link(rel="stylesheet", href="assets/css/style.min.css")
-
-    //- bootstrap 3
-    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous")
-    
-    script(src="https://www.google.com/recaptcha/api.js?hl=nl" async defer)
-    script.
-        function onSubmit(el) {
-            var form = $(el).closest('form');
-            $.post($(form).attr('action'), JSON.stringify({
-                 name: $(form).find("input[name='name']").val(),
-                 email: $(form).find("input[name='email']").val(),
-                 phone: $(form).find("input[name='phone']").val(),
-                 organization: $(form).find("input[name='organization']").val(),
-                 message: $(form).find("textarea[name='message']").val(),
-                 'g-recaptcha-response': $(form).find("textarea[name='g-recaptcha-response']").val()
-             }), function (data) {
-                $(form).find(".thanks").show();
-                $(form).find("button").hide();
-             }, 'json');
-        }
-        function onSubmitCFModal() {
-            onSubmit($('button#formSubmit'));
-        }
-        function onSubmitCFHome() {
-            onSubmit($('button#formSubmitHome'));
-        }
+    link(rel="stylesheet", href=src_prefix + "assets/css/style.min.css")
 
     <!--[if lte IE 9]>
         style.
@@ -54,3 +33,6 @@ head
                 display: block!important;
             }
     <![endif]-->
+    
+    if (qdt_c.platform.env_data.html5ModeEnabled)
+        base(href=qdt_c.platform.env_data.html5Mode.basePath)
