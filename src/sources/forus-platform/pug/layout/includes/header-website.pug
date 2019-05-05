@@ -27,4 +27,18 @@ header
                     li.login_btn
                         a.login_btn(ng-click="openAuthPopup()") Login
                 ul.nav.navbar-nav.navbar-right.auth-out(ng-if="$root.auth_user")
-                    .auth-user-email(ng-bind="$root.auth_user.primary_email")
+                    .header-auth(ng-if="$root.auth_user")
+                        .auth-user
+                            .auth-user-name {{ $root.auth_user.primary_email }}
+                            .auth-user-role Uw profiel
+                            img(ng-src="{{ $root.activeOrganization ? ($root.activeOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png') : './assets/img/placeholders/organization-thumbnail.png'}} ").auth-user-img
+                            .auth-user-menu
+                                a(href="/sponsor" ng-if="$root.activeOrganization.id").auth-user-menu-item
+                                    | Sponsor
+                                a(href="/provider" ng-if="$root.activeOrganization.id").auth-user-menu-item
+                                    | Aanbieder
+                                .auth-user-menu-sep(ng-if="$root.activeOrganization.id")
+                                //-.auth-user-menu-item(ng-click="$root.openPinCodePopup()")
+                                    span(translate="topnavbar.buttons.authorize")
+                                a(ng-click="$root.signOut()").auth-user-menu-item
+                                    span Uitloggen

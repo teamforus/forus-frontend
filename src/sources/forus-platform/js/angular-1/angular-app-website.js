@@ -19,6 +19,8 @@ app.service('OrganizationService', require('./services/OrganizationService'));
 app.service('IdentityService', require('./services/IdentityService'));
 app.service('FormBuilderService', require('./services/FormBuilderService'));
 app.service('ModalService', require('./services/ModalService'));
+app.service('OrganizationService', require('./services/OrganizationService'));
+
 
 // Modal Components
 app.component('modalAuth2Component', require('./components/Modals/ModalAuth2Component'));
