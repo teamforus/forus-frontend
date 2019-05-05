@@ -92,7 +92,6 @@ let BaseController = function(
     loadActiveOrganization();
 
     $rootScope.activeOrganization = OrganizationService.active();
-    console.log('org id: ', $rootScope.activeOrganization);
 
     $rootScope.signOut = () => {
         AuthService.signOut();
