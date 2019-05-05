@@ -18,14 +18,13 @@ let ModalAuthComponent = function(
     $ctrl.showChoose = true;
     $ctrl.showQrCodeBlock = false;
     $ctrl.showEmailBlock = false;
-    
+
     if (AuthService.hasCredentials()) {
         IdentityService.identity().then(() => { }, $ctrl.close);
     }
 
     $ctrl.$onInit = () => {
         qrCodeEl = document.getElementById('auth_qrcode');
-        
         qrCode = new QRCode(qrCodeEl, {
             correctLevel: QRCode.CorrectLevel.L
         });
@@ -39,7 +38,6 @@ let ModalAuthComponent = function(
                 }
             }, 0);
         });
-        $ctrl.showQrForm();
     };
 
     $ctrl.showQrForm = function() {
@@ -72,6 +70,7 @@ let ModalAuthComponent = function(
     $ctrl.requestAuthQrToken = () => {
         IdentityService.makeAuthToken().then((res) => {
             $ctrl.authToken = res.data.auth_token;
+
             qrCode.makeCode(
                 JSON.stringify({
                     type: 'auth_token',
