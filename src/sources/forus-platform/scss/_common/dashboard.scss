@@ -3226,6 +3226,22 @@ translate,
         }
     }
 
+    .modal-body {
+            
+        .modal-funds-added {
+            text-align: center;
+
+            p {
+                font: 400 14px/22px "Source Sans Pro",sans-serif;
+                color: #282b39;   
+            }
+
+            p:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
     .modal-content {
         position: relative;
         padding: 30px;

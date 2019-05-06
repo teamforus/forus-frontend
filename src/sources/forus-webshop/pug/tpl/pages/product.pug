@@ -57,7 +57,7 @@ section.section.section-product: .wrapper
                     .info-office-description
                         div(ng-if="office.address" ng-bind="office.address")
                         div(ng-if="$root.auth_user" ng-bind="office.phone || ' '")
-
+                    .sub-description(i18n="voucher.labels.offers")
 
         .block.block-info-card
             .block-header(i18n="voucher.labels.productdetail")
