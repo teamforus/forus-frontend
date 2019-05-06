@@ -561,7 +561,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: 'csv-validation',
         url: '/csv-validation/funds/{fund_id}?page&q',
-        component: 'csvValidationComonent',
+        component: 'csvValidationComponent',
         params: {
             fund_id: {
                 squash: true,
@@ -598,7 +598,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: 'validation-requests',
         url: '/validation-requests',
-        component: 'validationRequestsComonent',
+        component: 'validationRequestsComponent',
         resolve: {
             validatorRequests: function(ValidatorRequestService) {
                 return repackResponse(
@@ -611,7 +611,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: 'validation-request',
         url: '/validation-request/{id}',
-        component: 'validationRequestComonent',
+        component: 'validationRequestComponent',
         resolve: {
             validatorRequest: function($transition$, ValidatorRequestService) {
                 return repackResponse(

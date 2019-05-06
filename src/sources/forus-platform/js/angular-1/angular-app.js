@@ -21,14 +21,14 @@ app.component('productsEditComponent', require('./components/ProductsEditCompone
 app.component('productsShowComponent', require('./components/ProductsShowComponent'));
 app.component('organizationProvidersComponent', require('./components/OrganizationProvidersComponent'));
 app.component('organizationEmployeesComponent', require('./components/OrganizationEmployeesComponent'));
-app.component('csvValidationComonent', require('./components/CsvValidationComonent'));
-app.component('validationRequestsComonent', require('./components/ValidationRequestsComonent'));
-app.component('validationRequestComonent', require('./components/ValidationRequestComonent'));
+app.component('csvValidationComponent', require('./components/CsvValidationComponent'));
+app.component('validationRequestsComponent', require('./components/ValidationRequestsComponent'));
+app.component('validationRequestComponent', require('./components/ValidationRequestComponent'));
 app.component('signUpComponent', require('./components/SignUpComponent'));
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
 app.component('transactionComponent', require('./components/TransactionComponent'));
 
-app.component('noPermissionComponent', require('./components/NoPermissionComonent'));
+app.component('noPermissionComponent', require('./components/NoPermissionComponent'));
 
 // Modal Components
 app.component('modalPhotoUploaderComponent', require('./components/Modals/ModalPhotoUploaderComponent'));

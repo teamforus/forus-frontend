@@ -1,0 +1,34 @@
+.modal.modal-auth2
+    .modal-backdrop(ng-click="$ctrl.close()")
+    //- Sign In by qr-code
+    .modal-content
+        .modal-close(ng-click="$ctrl.close()")
+            include ../../../resources/platform-general/assets/img/svg/close.svg
+
+        .modal-title Login met e-mail
+        .modal-subtitle {{ "popup_auth.labels.link" | translate }}
+
+        form.form(ng-submit="$ctrl.signInEmailForm.submit()")
+            .form-group
+                input(ng-model="$ctrl.signInEmailForm.values.primary_email" type="email" placeholder="E-mail").form-control.email-auth
+                .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.primary_email" ng-bind="error")
+            .form-group
+            .form-group: button(type="submit").btn.main_button Login
+
+        .modal-footer
+            //-.footer-text {{ "popup_auth.labels.timelimit" | translate }}
+
+        .modal-title Login met Me-app
+        .modal-subtitle.subtitle-left. 
+            Scan de QR code aan de rechterzijde met de QR-scanner in de me app. 
+            #[br] #[br]
+            De me app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.
+            #[br] #[br]
+        .block.block-auth-qr-code
+            .qr_code#auth_qrcode
+        .modal-subtitle.subtitle-left.download-badges
+            a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676")
+                img(src="./assets/img/landing/icon-app/app-store-badge.svg") 
+            a(href="https://play.google.com/store/apps/details?id=io.forus.me")
+                img(src="./assets/img/landing/icon-app/icon-app-android.svg")
+

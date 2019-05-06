@@ -26,4 +26,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('modalAuth', {
         component: 'modalAuthComponent'
     });
+
+    ModalRouteProvider.modal('modalAuth2', {
+        component: 'modalAuth2Component'
+    });
 }];
