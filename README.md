@@ -1,7 +1,16 @@
 # Forus front-end local deployment
 
-You need docker to run the front-ends locally.
+Requirements:
+- NodeJS -> https://nodejs.org/en/download/
+- npm install npm
+- gulp
+
+## Run frontends locally
+go to src/ folder
 
 ```
-docker run --rm -ti -p 8080:8080 --name http-server -v DIRECTORY_TO_EXPOSE:/sponsor teamforus/forus-frontend
+gulp init
+gulp
 ```
+
+Optional: edit src/qdt-env.js to connect to local backend.
