@@ -9,6 +9,7 @@ Requirements:
 go to src/ folder
 
 ```
+npm install
 gulp init
 gulp
 ```
