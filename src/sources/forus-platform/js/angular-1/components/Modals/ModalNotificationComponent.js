@@ -58,6 +58,9 @@ let ModalNotificationComponent = function(
             case 'fund_applied': {
                 return './assets/img/modal/fund_applied.png';
             }; break;
+            case 'email_confirmation': {
+                return './assets/img/modal/email.png';
+            }; break;
             default:{
                 return './assets/img/modal/product-error.png';
             }

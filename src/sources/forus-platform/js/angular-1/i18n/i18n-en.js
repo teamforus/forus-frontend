@@ -906,7 +906,8 @@ module.exports = {
         },
         notifications: {
             confirmation: "Het is gelukt!",
-            link: "Er is een link naar je e-mail adres gestuurd",
+            link: "Er is een link naar je e-mailadres gestuurd.",
+            link_website: "Er is een e-mail naar uw inbox gestuurd. In de e-mail vindt u een link dat u inlogd in op deze website.",
             invalid: "De activatiecode is ongeldig of al gebruikt",
             voucher_email: "Het is gelukt, de e-mail is verstuurd",
         },
@@ -916,10 +917,12 @@ module.exports = {
             submit: "VERSTUREN",
             cancel: "ANNULEREN",
             confirm: "VOLGENDE",
+            close: "SLUITEN",
         },
         labels: {
-            timelimit: "U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.",
+            timelimit: "De link verloopt in 24 uur, gebruik de link dus binnenkort.",
             join: "Aanmelden",
+            mail_sent: "Een e-mail is onderweg!",
             scancode: "Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent",
             mobilecode: "Vul de toegangscode van de Me-app in",
             mail: "Dit scherm is alleen bedoeld voor inwoners die een brief van de gemeente hebben ontvangen met daarin een activatiecode en deze nog niet hebben gebruikt.",
