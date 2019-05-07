@@ -35,25 +35,32 @@ h1 {
 h2 {
     @include font-size-map($h2-font-size);
 }
-
+.h2-subtitle {
+    @include font-size-map($h2-font-size);
+}
 h3 {
     @include font-size-map($h3-font-size);
 }
-.h3-text {
+.h3-subtitle {
     @include font-size-map($h3-font-size);
 }
-
 h4 {
     @include font-size-map($h4-font-size);
 }
-.h4-text {
+.h4-subtile {
     @include font-size-map($h4-font-size);
+}
+h5 {
+    @include font-size-map($h5-font-size);
+}
+.h5-subtitle {
+    @include font-size-map($h5-font-size);
 }
 .btn_link {
-    @include font-size-map($h4-font-size);
+    @include font-size-map($h5-font-size);
 }
 .navbar-nav a {
-    @include font-size-map($h4-font-size);
+    @include font-size-map($h5-font-size);
 }
 
 
