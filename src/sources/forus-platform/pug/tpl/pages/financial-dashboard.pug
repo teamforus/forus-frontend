@@ -82,7 +82,7 @@
                             .chart-label {{ $ctrl.chartData.stringTitle }} {{ "financial_dashboard.labels.usage" | translate }}
                             .chart-value
                                 .chart-value_value(ng-bind="$ctrl.chartData.response.usage | currency_format")
-                                .chart-value_label {{ "financial_dashboard.labels.payed" | translate }} {{ $ctrl.chartData.response.providers }} {{ "financial_dashboard.labels.transactions" | translate }}
+                                .chart-value_label {{ "financial_dashboard.labels.payed" | translate }} {{ $ctrl.chartData.response.providers }} {{ "financial_dashboard.labels.provider" | translate | lowercase }}
 
                     .card: .card-section
                         .chart-control

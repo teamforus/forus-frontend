@@ -141,7 +141,7 @@ module.exports = {
             spend: "Startbudget",
             used: "Totaal uitgegeven bedrag in %",
             usage: "uitgegeven",
-            payed: "Uitgegeven in",
+            payed: "Uitgegeven bij",
             shops: "Aanbieders",
             activation: "Aantal geactiveerd",
             citizen: "Nieuwe inwoners",
@@ -906,7 +906,8 @@ module.exports = {
         },
         notifications: {
             confirmation: "Het is gelukt!",
-            link: "Er is een link naar je e-mail adres gestuurd",
+            link: "Er is een link naar je e-mailadres gestuurd.",
+            link_website: "Er is een e-mail naar uw inbox gestuurd. In de e-mail vindt u een link dat u inlogd in op deze website.",
             invalid: "De activatiecode is ongeldig of al gebruikt",
             voucher_email: "Het is gelukt, de e-mail is verstuurd",
         },
@@ -916,10 +917,12 @@ module.exports = {
             submit: "VERSTUREN",
             cancel: "ANNULEREN",
             confirm: "VOLGENDE",
+            close: "SLUITEN",
         },
         labels: {
-            timelimit: "U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.",
+            timelimit: "De link verloopt in 24 uur, gebruik de link dus binnenkort.",
             join: "Aanmelden",
+            mail_sent: "Een e-mail is onderweg!",
             scancode: "Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent",
             mobilecode: "Vul de toegangscode van de Me-app in",
             mail: "Dit scherm is alleen bedoeld voor inwoners die een brief van de gemeente hebben ontvangen met daarin een activatiecode en deze nog niet hebben gebruikt.",
@@ -936,7 +939,7 @@ module.exports = {
         pin_code: {
             confirmation: {
                 title: "Is de mobiele app gekoppeld aan uw persoonlijk e-mailadres?",
-                description: "Ga naar het tabblad Profiel in de app. Ziet u hier uw e-mailadres staan? Dan is de app succesvol gekoppeld. Als u de keuze voor Profiel niet hebt, probeer het dan nog is.",
+                description: "Ga naar het tabblad Profiel in de app. Ziet u hier uw e-mailadres staan? Dan is de app succesvol gekoppeld. Als u het tabblad Profiel niet ziet staan, probeer het dan nog opnieuw.",
                 buttons: {
                     try_again: "Opnieuw proberen",
                     confirm: "Volgende"

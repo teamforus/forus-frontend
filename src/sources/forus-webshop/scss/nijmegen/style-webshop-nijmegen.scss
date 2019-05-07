@@ -10,10 +10,6 @@ $base_shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
     width: 1140px;
 }
 
-body {
-    background: #fff;
-}
-
 .button {
     font: 600 18px/24px $bf;
     padding: 15px 20px;
@@ -131,12 +127,12 @@ body {
     z-index: -1;
 
     .splash {
-        background-image: none;
+        background-image: url("../img/splash-top-ba.png");
+        height: 650px;
+        width: 100%;
         background-position: 100% 0%;
         background-size: auto 100%;
         background-repeat: no-repeat;
-        height: 800px;
-        width: 100%;
 
         &.splash-c {
             background-image: none;
@@ -1134,10 +1130,6 @@ body {
                         height: 100%;
                         background-size: cover;
                         background-position: 50%;
-
-                        img {
-                            display: none;
-                        }
                     }
                     
                     .product-details {
