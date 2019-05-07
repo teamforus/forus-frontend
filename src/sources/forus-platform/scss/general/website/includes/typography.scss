@@ -48,7 +48,7 @@ $browser-context: 16;
 // typography scale
 $body-font-size: (null: 16, $md: 15, $sm: 14, $xs: 13);
 $h1-font-size: (null: 72, $lg: 72, $md: 72, $sm: 48, $xs: 36);
-$h2-font-size: (null: 36px);
-$h3-font-size: (null: 24px);
-$h4-font-size: (null: 18px);
+$h2-font-size: (null: 36px, $lg: 36, $md: 32, $sm: 28, $xs: 24);
+$h3-font-size: (null: 24px, $lg: 24, $md: 18, $sm: 16, $xs: 16);
+$h4-font-size: (null: 18px, $lg: 18, $md: 16, $sm: 16, $xs: 15);
 $paragraph-font-size: (null: 21, $lg: 21, $md: 16, $sm: 16, $xs: 15);
