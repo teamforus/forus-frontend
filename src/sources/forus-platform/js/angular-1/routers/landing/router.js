@@ -8,9 +8,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: "kindpakket",
+        url: "/kindpakket",
+        component: "kindpakketComponent"
+    });
+
+    $stateProvider.state({
         name: "me",
         url: "/me",
-        component: "MeComponent"
+        component: "meComponent"
     });
 
     $stateProvider.state({
