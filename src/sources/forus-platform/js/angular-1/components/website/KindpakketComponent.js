@@ -4,5 +4,5 @@ module.exports = {
     controller: [
         KindpakketComponent
     ],
-    templateUrl: 'assets/tpl/pages/landing/kindpakket-website.html'
+    templateUrl: 'assets/tpl/pages/website/kindpakket.html'
 };

@@ -192,5 +192,5 @@ module.exports = {
     controller: [
         HomeComponent
     ],
-    templateUrl: 'assets/tpl/pages/landing/home-website.html'
+    templateUrl: 'assets/tpl/pages/landing/home.html'
 };
