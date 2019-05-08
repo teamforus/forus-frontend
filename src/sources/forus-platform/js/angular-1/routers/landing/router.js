@@ -8,6 +8,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: "history",
+        url: "/geschiedenis",
+        component: "historyComponent"
+    });
+
+    $stateProvider.state({
         name: "kindpakket",
         url: "/kindpakket",
         component: "kindpakketComponent"
