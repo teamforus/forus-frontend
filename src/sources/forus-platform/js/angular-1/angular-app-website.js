@@ -8,7 +8,7 @@ app.constant('appConfigs', env_data);
 app.controller('BaseController', require('./controllers/landing/BaseController'));
 app.component('homeComponent', require('./components/landing/HomeComponent'));
 app.component('kindpakketComponent', require('./components/landing/KindpakketComponent'));
-app.component('MeComponent', require('./components/landing/MeComponent'));
+app.component('meComponent', require('./components/landing/MeComponent'));
 app.component('signUpComponent', require('./components/landing/SignUpComponent'));
 
 // Services

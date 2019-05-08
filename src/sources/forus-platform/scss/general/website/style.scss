@@ -34,7 +34,6 @@ html {
         * {
             font-family: $bf;
         }
-
         .download {
             display: flex;
             padding: 20px 20px 60px;
@@ -1211,6 +1210,83 @@ html {
                     max-width: 835px;
                 }
             }
+            &_me {
+                display: flex;
+                margin: auto;
+                
+                .column {
+                    margin: 0 auto;
+                    flex: 1;
+                }
+                img {
+                    height: 320px;
+                    -webkit-background-size: cover;
+                    -moz-background-size: cover;
+                    -o-background-size: cover;
+                    background-size: cover;
+                }
+                :nth-of-type(2) {
+
+                }
+            }
+            &_reason {
+                display: block;
+                text-align: center;
+            }
+            &_feature_one {
+                background-color: #f9fafb;
+                display: flex;
+                margin: auto;
+                .column {
+                    margin: 0;
+                    flex: 1;
+                }
+                img {
+                    height: 320px;
+                    -webkit-background-size: cover;
+                    -moz-background-size: cover;
+                    -o-background-size: cover;
+                    background-size: cover;
+                }
+                :nth-of-type(2) {
+                }
+            }
+            &_feature_two {
+                display: flex;
+                margin: auto;
+                .column {
+                    margin: 0;
+                    flex: 1;
+                }
+                img {
+                    height: 320px;
+                    -webkit-background-size: cover;
+                    -moz-background-size: cover;
+                    -o-background-size: cover;
+                    background-size: cover;
+                }
+            }
+            &_feature_three {
+                background-color: #f9fafb;
+                display: flex;
+                margin: auto;
+
+                .column {
+                    margin: 0;
+                    flex: 1;
+                }
+                img {
+                    height: 320px;
+                    -webkit-background-size: contain;
+                    -moz-background-size: contain;
+                    -o-background-size: contain;
+                    background-size: contain;
+                }
+                :nth-of-type(2) {
+                }
+            }
+
+
             &_fund {
                 .container {
                     text-align: center;
@@ -2476,7 +2552,7 @@ html {
             }
         }
     }
-    @media (max-width: 450px) {
+    @media (max-width: 576px) {
         body{
             .wrapper{
                 &_roles {
@@ -2508,6 +2584,20 @@ html {
                             text-align: left;
                         }
                     }
+                }
+                &_me, &_feature_one, &_feature_two, &_feature_three {
+                    flex-flow: column;
+                }
+                &_feature_two {
+                    :nth-of-type(1) {
+                        order: 2;
+                    }
+                    :nth-of-type(2) {
+                        order: 1;
+                    }
+                }
+                &_reason {
+                    text-align: left;
                 }
             }
             #modalContact{

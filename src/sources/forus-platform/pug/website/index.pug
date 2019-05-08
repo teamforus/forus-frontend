@@ -1,9 +1,10 @@
 doctype
 html(lang="en")
+    head
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     include ../layout/includes/head-website
     body(ng-cloak ng-controller="BaseController" modal-scroll-braker)
         include ../layout/includes/header-website
-        //-include ../../pug/website/layout
         ui-view
         include ../layout/includes/footer-website
         include ../layout/includes/modalContact
