@@ -2452,6 +2452,13 @@ html {
                         }
                     }
                 }
+                &_downloads {
+                    .download_links {    
+                        div {
+                            margin-bottom: 30px;       
+                        }
+                    }
+                }
             }
             footer{
                 margin-top: 30px;
