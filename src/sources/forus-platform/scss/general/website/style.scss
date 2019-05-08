@@ -3,14 +3,14 @@
 @import 'includes/helpers';
 @import 'includes/placeholders';
 @import 'includes/third-party';
+@import 'includes/typography';
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
 
 // COMMON
 @import 'includes/common';
 
-// DEV PAGES
-@import 'includes/dev-pages';
+
 @mixin timeline-entry {
 	@for $i from 1 through 11 {
 		&:nth-child(#{$i}) {
@@ -26,9 +26,51 @@
     left: $offset;
 }
 
+h1 {
+    @include font-size-map($h1-font-size);
+}
+.h1-subtitle {
+    @include font-size-map($h3-font-size);
+}
+h2 {
+    @include font-size-map($h2-font-size);
+}
+.h2-subtitle {
+    @include font-size-map($h2-font-size);
+}
+h3 {
+    @include font-size-map($h3-font-size);
+}
+.h3-subtitle {
+    @include font-size-map($h3-font-size);
+}
+h4 {
+    @include font-size-map($h4-font-size);
+}
+.h4-subtitle {
+    @include font-size-map($h4-font-size);
+}
+h5 {
+    @include font-size-map($h5-font-size);
+}
+.h5-subtitle {
+    @include font-size-map($h5-font-size);
+}
+.btn_link {
+    @include font-size-map($h5-font-size);
+}
+.navbar-nav a {
+    @include font-size-map($h5-font-size);
+}
+
+
+p {
+    @include font-size-map($paragraph-font-size);
+}
 html {
-    // code
-    //
+    line-height: 1.2;
+    @include font-size-map($body-font-size);
+    
     body {
         font-family: $bf;
         * {
@@ -48,13 +90,11 @@ html {
         .download__title {
             max-width: 700px;
             margin: 30px auto;
-            font-size: 42px;
             font-weight: bold;
             text-align: center;
         }
         .download__subtitle {
             margin-bottom: 50px;
-            font-size: 28px;
             font-weight: bold;
             text-align: center;
         }
@@ -258,7 +298,6 @@ html {
                             & > li {
                                 & > a {
                                     padding: 18px 33px!important;
-                                    font-size: 18px;
                                     font-weight: 600;
                                     line-height: 24px;
                                     color: #191a1c;
@@ -302,7 +341,6 @@ html {
                                                 }
                                                 & + span{
                                                     font-weight: 600;
-                                                    font-size: 18px;
                                                 }
                                             }
                                         }
@@ -401,7 +439,6 @@ html {
                 float: left;
             }
             &_title{
-                font-size: 52px;
                 font-weight: 600;
                 font-style: normal;
                 font-stretch: normal;
@@ -410,7 +447,6 @@ html {
                 text-align: center;
             }
             &_desc, &_desc *{
-                font-size: 24px;
                 font-style: normal;
                 font-stretch: normal;
                 line-height: 1.83;
@@ -443,7 +479,7 @@ html {
                     background-size: cover;
                 }
                 h1{
-                    font-size: 72px;
+                    
                     font-weight: 600;
                     font-style: normal;
                     font-stretch: normal;
@@ -468,7 +504,7 @@ html {
             &_logo_title{
                 text-align: center;
                 span{
-                    font-size: 16px;
+                    
                     font-weight: 500;
                     font-style: normal;
                     font-stretch: normal;
@@ -483,6 +519,7 @@ html {
             &_parties_list{
                 .wrapper_title{
                     margin-bottom: 35px;
+                    color: $tc;
                 }
                 .wrapper_desc{
                     margin-bottom: 0;
@@ -514,7 +551,7 @@ html {
                             line-height: 25px;
                             width: 100%;
                             text-align: left;
-                            font-size: 18px;
+                           
                             font-weight: 500;
                             font-style: normal;
                             font-stretch: normal;
@@ -547,7 +584,7 @@ html {
                             }
                             @include transition();
                             a{
-                                font-size: 18px;
+                               
                                 border: 0;
                             }
                         }
@@ -568,7 +605,7 @@ html {
                             span{
                                 display: inline-block;
                                 vertical-align: middle;
-                                font-size: 21px;
+                                
                                 font-weight: 500;
                                 font-style: normal;
                                 font-stretch: normal;
@@ -601,7 +638,7 @@ html {
                     width: 100%;
                 }
                 .wrapper_title{
-                    font-size: 36px;
+                    
                     font-weight: 600;
                     font-style: normal;
                     font-stretch: normal;
@@ -615,7 +652,7 @@ html {
                     margin-bottom: 26px;
                 }
                 .wrapper_desc,.wrapper_desc *{
-                    font-size: 18px;
+                   
                     font-weight: normal;
                     font-style: normal;
                     font-stretch: normal;
@@ -628,7 +665,7 @@ html {
                     display: flex;
                     align-items: center;
                     line-height: 26px;
-                    font-size: 18px;
+                   
                     cursor: pointer;
                     span {
                         color: $forus-demi-blue;
@@ -647,7 +684,7 @@ html {
                     span{
                         display: inline-block;
                         vertical-align: middle;
-                        font-size: 18px;
+                       
                         font-weight: 500;
                         font-style: normal;
                         font-stretch: normal;
@@ -692,7 +729,7 @@ html {
                 ul{
                     padding-left: 45px;
                     li{
-                        font-size: 18px;
+                       
                         font-weight: normal;
                         font-style: normal;
                         font-stretch: normal;
@@ -711,7 +748,7 @@ html {
                 padding: 70px 0 30px;
                 margin-top: 12vw;
                 .wrapper_title{
-                    font-size: 72px;
+                    color: $tc;
                 }
                 &.fixed{
                     width: 100vw;
@@ -799,12 +836,12 @@ html {
                             line-height: 1;
                             color: $forus-sky-blue;
                             margin-bottom: 30px;
-                            font-size: 16px;
+                            
                             font-weight: 500;
                             display: inline-block;
                         }
                         &_title {
-                            font-size: 44px;
+                            
                             font-weight: 500;
                             font-style: normal;
                             font-stretch: normal;
@@ -814,14 +851,14 @@ html {
                             margin-bottom: 24px;
                         }
                         &_content {
-                            font-size: 18px;
+                           
                             font-weight: normal;
                             font-style: normal;
                             font-stretch: normal;
                             line-height: 1.56;
                             letter-spacing: normal;
                             *{
-                                font-size: 18px;
+                               
                                 font-weight: normal;
                                 font-style: normal;
                                 font-stretch: normal;
@@ -1071,7 +1108,7 @@ html {
                             text-align: left;
                             .title{
                                 display: block;
-                                font-size: 24px;
+                                
                                 font-weight: 500;
                                 font-style: normal;
                                 font-stretch: normal;
@@ -1084,7 +1121,7 @@ html {
                             .btn_link{
                                 line-height: 22px;
                                 font-family: $bf;
-                                font-size: 18px;
+                               
                                 font-weight: 500;
                                 font-style: normal;
                                 font-stretch: normal;
@@ -1109,6 +1146,7 @@ html {
                                         opacity: 1;
                                         &:nth-child(1){
                                             opacity: 1;
+                                            left:5px;
                                         }
                                         &:nth-child(2){
                                             opacity: 0;
@@ -1133,7 +1171,7 @@ html {
                             }
                             .text{
                                 display: block;
-                                font-size: 18px;
+                               
                                 font-weight: normal;
                                 font-style: normal;
                                 font-stretch: normal;
@@ -1197,7 +1235,7 @@ html {
                     }
                 }
                 .wrapper_desc{
-                    font-size: 18px;
+                   
                     font-weight: normal;
                     font-style: normal;
                     font-stretch: normal;
@@ -1291,10 +1329,104 @@ html {
                 .container {
                     text-align: center;
                     width: 100%;
+                    .macbook {
+                        position: relative;
+                        width: calc(84vh * 1.61666667);
+                        display: inline-block;
+                        height: 84vh;
+                        & > div{
+                            position: relative;
+                            width: 100%;
+                            height: 100%;
+                            display: block;
+                        }
+                        .frame{
+                            position: relative;
+                            height: 100%;
+                            width: 100%;
+                            left: 0;
+                            top: 0;
+                            img{
+                                height: 100%;
+                                width: 100%;
+                            }
+                            .screens{
+                                position: absolute;
+                                left: 12.8%;
+                                top: 8.1%;
+                                width: calc(100% - (12.8% * 2));
+                                height: calc(100% - (12% * 2));
+                                img{
+                                    width: 100%;
+                                    position: absolute;
+                                    left: 0;
+                                    top: 0;
+                                    height: auto;
+                                    opacity: 0.7;
+                                    @include transition(0.7s);
+                                    &:nth-child(1){
+                                        transform: scale(1);
+                                        -webkit-transform:  scale(1);
+                                        opacity: 1;
+                                        z-index: 4;
+                                        &.move{
+                                            top: -200vw;
+                                            opacity: 0;
+                                            @include transition(0.7s);
+                                        }
+                                    }
+                                    &:nth-child(2){
+                                        transform:  scale(0.9);
+                                        -webkit-transform:  scale(0.9);
+                                        opacity: 0.7;
+                                        z-index: 3;
+                                        &.move{
+                                            top: 200vw;
+                                            opacity: 0;
+                                            @include transition(0.7s);
+                                        }
+                                    }
+                                    &:nth-child(3){
+                                        transform:  scale(0.8);
+                                        -webkit-transform:  scale(0.8);
+                                        opacity: 0.7;
+                                        z-index: 2;
+                                        &.move{
+                                            left: 200vw;
+                                            opacity: 0;
+                                            @include transition(0.7s);
+                                        }
+                                    }
+                                    &:nth-child(4){
+                                        transform:  scale(0.7);
+                                        -webkit-transform:  scale(0.7);
+                                        opacity: 0.7;
+                                        z-index: 1;
+                                        &.move{
+                                            left: -200vw;
+                                            opacity: 0;
+                                            @include transition(0.7s);
+                                        }
+                                    }
+                                    &.show{
+                                        transform: scale(1);
+                                        -webkit-transform:  scale(1);
+                                        opacity: 1;
+                                        z-index: 5;
+                                        left: 0;
+                                        top: 0;
+                                        right: initial;
+                                        bottom: initial;
+                                        @include transition(0.7s);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
                 .fund {
                     font-family: Montserrat;
-                    font-size: 16px;
+                    
                     font-weight: 500;
                     letter-spacing: 1px;
                     color: #7e818c;
@@ -1303,7 +1435,6 @@ html {
                 }
                 .wrapper_title {
                     font-family: Montserrat;
-                    font-size: 72px;
                     font-weight: 500;
                     line-height: 0.75;
                     text-align: center;
@@ -1313,7 +1444,6 @@ html {
                 .wrapper_desc {
                     height: 84px;
                     font-family: Montserrat;
-                    font-size: 21px;
                     line-height: 1.33;
                     text-align: center;
                     color: #4a4e5b;
@@ -1328,12 +1458,10 @@ html {
                 margin-bottom: 100px;
 
                 .wrapper_title {
-                    font-size: 36px;
                     margin-top: 90px;
                 }
                 .wrapper_desc p {
                     
-                    font-size: 21px;
                     font-family: Montserrat;
                     font-weight: 400;
                     margin: 25px;
@@ -1344,6 +1472,10 @@ html {
                 .container {
                     display: flex;
                     justify-content: space-between;
+                    img {
+                        width:560px;
+                        height: 350px;
+                    }
                 }
                 span {
                     width:462px;
@@ -1351,14 +1483,12 @@ html {
                     float:left;
                     .wrapper_title {
                         text-align: left;
-                        font-size: 36px;
                         line-height: 1.11;
                         display:block;
 
                     }
                     .wrapper_desc {
                         text-align: left;
-                        font-size: 18px;
                         line-height: 1.44;
                     }
                 }   
@@ -1368,7 +1498,6 @@ html {
                     max-width: 1008px;
                 }
                 .wrapper_title {
-                    font-size: 36px;
                     margin-bottom: 40px;
                 }
                 .download_links {
@@ -1413,7 +1542,6 @@ html {
                             }
                         }
                         a {
-                            font-size: 21px;
                             color: #000000;
                             line-height: 1.43;
                         }
@@ -1422,7 +1550,6 @@ html {
             }
             &_aboutus {
                 .wrapper_title{
-                    font-size: 72px;
                     font-family: Montserrat;
                     font-weight: 500;
                     line-height: 0.75;
@@ -1441,7 +1568,6 @@ html {
                                 width: 183px;
                                 height: 50px;
                                 font-family: Montserrat;
-                                font-size: 21px;
                                 font-weight: 500;
                                 font-style: normal;
                                 font-stretch: normal;
@@ -1455,7 +1581,6 @@ html {
                                 height: 50px;
                                 opacity: 0.6;
                                 font-family: Montserrat;
-                                font-size: 21px;
                                 font-weight: 500;
                                 font-style: normal;
                                 font-stretch: normal;
@@ -1479,7 +1604,6 @@ html {
                 .timeline {
                     margin-bottom: 155px;
                     line-height: 1.5em;
-                    font-size: 14px;
                     transition: all .4s ease;
                     position: relative;
                     text-align: right;
@@ -1516,7 +1640,6 @@ html {
                         &_title {
                             color: #000;
                             font-family: Montserrat;
-                            font-size: 21px;
                             font-weight: bold;
                             text-align: left;
                             width: auto;
@@ -1541,7 +1664,6 @@ html {
                             max-width: 430px;
                             max-height: 10em;
                             font-family: Montserrat;
-                            font-size: 18px;
                             line-height: 1.44;
                             color: #454545;
                             &_left {
@@ -1556,7 +1678,6 @@ html {
                             }
                             span.txt_link {
                                 line-height: 26px;
-                                font-size: 18px;
                                 cursor: pointer;
                                 span {
                                     color: $forus-demi-blue;
@@ -1572,7 +1693,6 @@ html {
                         }
                         .date_align {
                             position: absolute;  
-                            font-size: 16px;
                             font-weight: 500;
                             font-family: Montserrat;
                             color: #7e818c;  
@@ -1646,7 +1766,6 @@ html {
                     li {
                         margin: 0 20px;
                         a {
-                            font-size: 13px;
                             font-weight: 400;
                             font-style: normal;
                             font-stretch: normal;
@@ -1677,7 +1796,6 @@ html {
             }
             .copyright{
                 display: none;
-                font-size: 11px;
                 font-weight: normal;
                 font-style: normal;
                 font-stretch: normal;
@@ -1713,7 +1831,6 @@ html {
                     .modal-body{
                         .title{
                             text-align: center;
-                            font-size: 26px;
                             font-weight: 500;
                             font-style: normal;
                             font-stretch: normal;
@@ -1766,7 +1883,6 @@ html {
                     }
                     .modal-title {
                         color: #282b39;
-                        font-size: 28px;
                         font-weight: 500;
                         text-align: left;
                         margin: 0 0 10px;
@@ -1774,7 +1890,6 @@ html {
             
                     .modal-subtitle {
                         color: #646f79;
-                        font-size:d 18px;
                         text-align: left;
             
                         u {
@@ -1799,7 +1914,6 @@ html {
                     }
                     .modal-close {
                         position: absolute;
-                        font-size: 24px;
                         right: 20px;
                         top: 20px;
                         display: block;
@@ -1855,7 +1969,6 @@ html {
                         }
                         .modal-title{
                             text-align: center;
-                            font-size: 44px;
                             font-weight: 500;
                             font-style: normal;
                             font-stretch: normal;
@@ -1889,7 +2002,6 @@ html {
             }
             .form-group{
                 label{
-                    font-size: 12px;
                     font-weight: 500;
                     font-style: normal;
                     font-stretch: normal;
@@ -1939,7 +2051,6 @@ html {
                         height: 52px;
                         padding: 16px 40px 16px 20px;
                         position: relative;
-                        font-size: 14px;
                         font-weight: normal;
                         font-style: normal;
                         font-stretch: normal;
@@ -1986,10 +2097,8 @@ html {
                             .role_content {
                                 .title {
                                     padding-left: 0;
-                                    font-size: 15px;
                                 }
                                 .text {
-                                    font-size: 14px;
                                     min-height: 85px;
                                 }
                             }
@@ -2106,7 +2215,6 @@ html {
                                         max-width: 100%;
                                         min-width: 100%;
                                         border-radius: 0!important;
-                                        font-size: 13px;
                                         text-align: left;
                                         padding: 5px 15px!important;
                                         height: auto!important;
@@ -2169,7 +2277,6 @@ html {
                     h1 {
                         //max-width: 288px;
                         width: 100%;
-                        font-size: 36px;
                         font-weight: 600;
                         font-style: normal;
                         font-stretch: normal;
@@ -2179,7 +2286,6 @@ html {
                     }
                 }
                 &_title{
-                    font-size: 28px;
                     font-weight: 600;
                     font-style: normal;
                     font-stretch: normal;
@@ -2188,7 +2294,6 @@ html {
                     text-align: center;
                 }
                 &_desc, &_desc *{
-                    font-size: 16px;
                     font-weight: normal;
                     font-style: normal;
                     font-stretch: normal;
@@ -2206,7 +2311,6 @@ html {
                             .btn_link {
                                 display: block;
                                 margin: 30px auto 20px;
-                                font-size: 14px;
                                 svg{
                                     width: 20px!important;
                                     height: 20px!important;
@@ -2223,12 +2327,10 @@ html {
                         padding: 0;
                         margin: 0 auto 15px;
                         text-align: left;
-                        font-size: 28px;
                         line-height: 1.29;
                     }
                     .wrapper_desc,.wrapper_desc *{
                         text-align: left;
-                        font-size: 14px;
                         font-weight: normal;
                         font-style: normal;
                         font-stretch: normal;
@@ -2250,7 +2352,6 @@ html {
                                 text-align: left!important;
                                 padding-bottom: 25px;
                                 .title{
-                                    font-size: 12px;
                                     font-weight: 600;
                                     font-style: normal;
                                     font-stretch: normal;
@@ -2261,7 +2362,6 @@ html {
                                     margin: auto;
                                 }
                                 .text{
-                                    font-size: 14px;
                                     font-weight: normal;
                                     font-style: normal;
                                     font-stretch: normal;
@@ -2281,7 +2381,6 @@ html {
                         }
                         .wrapper_desc{
                             padding: 20px 0 0;
-                            font-size: 14px;
                             line-height: 1.43;
                         }
                     }
@@ -2291,7 +2390,6 @@ html {
                     margin-bottom: 30px;
                     background-image: linear-gradient(to top, #f8fafb, rgba(251, 252, 253, 0));
                     .wrapper_title{
-                        font-size: 34px;
                         margin: 0 0 20px;
                     }
                     .success_story{
@@ -2304,12 +2402,10 @@ html {
                             height: auto!important;
                             &_label{
                                 background: transparent;
-                                font-size: 12px;
                                 margin-bottom: 5px;
                                 padding-left: 0;
                             }
                             &_title{
-                                font-size: 24px;
                                 font-weight: 500;
                                 margin-bottom: 20px;
                             }
@@ -2368,11 +2464,7 @@ html {
                                     }
                                 }
                             }
-                            &_content, &_content * {
-                                font-size: 15px;
-                            }
                             &_content{
-                                font-size: 15px;
                                 font-weight: normal;
                                 ul{
                                     padding-left: 30px;
@@ -2390,13 +2482,48 @@ html {
                     }
                     ul{
                         li{
-                            font-size: 15px;
                             font-weight: normal;
                             font-style: normal;
                             font-stretch: normal;
                             line-height: 1.6;
                             letter-spacing: normal;
                             margin-bottom: 16px!important;
+                        }
+                    }
+                }
+                &_fund{
+                    .container {
+                        .macbook ,.iphone{
+                            position: relative;
+                            width: 100%;
+                            text-align: center;
+                            max-width: 300px;
+                            max-height:200px;
+                            margin: 0 auto;
+                            display: block;
+                        }
+                        .macbook{
+                            .frame{
+                                width: 100%;
+                                height: 100%;
+                                position: relative;
+                                top:35%;
+                                & > img{
+                                    width: 100%;
+                                }
+                                .screens{
+                                    position: absolute;
+                                    left: 13%;
+                                    top: 8%;
+                                    width: calc(100% - 26%);
+                                    & > img{
+                                        width: 100%;
+                                        &:nth-child(n+2){
+                                            display: none;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -2432,9 +2559,6 @@ html {
                             margin: 0;
                             li{
                                 display: inline-block;
-                                a{
-                                    font-size: 12px;
-                                }
                                 &:not(:last-child){
                                     border-right: 1px solid rgba(34, 37, 48, 0.4);
                                 }
@@ -2451,7 +2575,6 @@ html {
                                 display: inline-block;
                                 a{
                                     padding: 0;
-                                    font-size: 12px;
                                 }
                                 &.dropdown{
                                     display: none;
@@ -2481,14 +2604,12 @@ html {
                                 width: 150px;
                             }
                             .modal-title {
-                                font-size: 24px;
                                 margin: 0 0 5px;
                             }
                             .download-badges {
                                 text-align:center;
                             }
                             .modal-subtitle {
-                                font-size: 12px;
                                 u {
                                     cursor: pointer;
                                 }
@@ -2532,7 +2653,6 @@ html {
                         .modal-header{
                             padding: 60px 0 30px;
                             .modal-title{
-                                font-size: 20px;
                                 font-weight: 500;
                                 font-style: normal;
                                 font-stretch: normal;
@@ -2543,12 +2663,6 @@ html {
                         }
                     }
                 }
-            }
-            .download__title {
-                font-size: 28px;
-            }
-            .download__subtitle {
-                font-size: 18px;
             }
         }
     }
@@ -2563,17 +2677,14 @@ html {
                             .role_content {
                                 .title{
                                     padding-left: 0;
-                                    font-size: 11px;
                                 }
                                 .text{
-                                    font-size: 9px;
                                     min-height: 50px;
                                 }
                             }
                         }
                         .wrapper_desc{
                             padding: 20px 0 0;
-                            font-size: 14px;
                             line-height: 1.43;
                         }
                     }

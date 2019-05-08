@@ -12,12 +12,12 @@ head
     //- fonts (roboto)
     link(href='https://fonts.googleapis.com/css?family=Roboto:400,900italic,900,700,700italic,500italic,500,400italic,300,100italic,100,300italic&subset=latin,cyrillic,latin-ext', rel='stylesheet', type='text/css')
 
-    //- custom style
-    link(rel="stylesheet", href="assets/css/style.min.css")
-
     //- bootstrap 3
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous")
     
+    //- custom style
+    link(rel="stylesheet", href="assets/css/style.min.css")
+
     script(src="https://www.google.com/recaptcha/api.js?hl=nl" async defer)
     script.
         function onSubmit(el) {
@@ -54,3 +54,6 @@ head
                 display: block!important;
             }
     <![endif]-->
+    
+    if (qdt_c.platform.env_data.html5ModeEnabled)
+        base(href=qdt_c.platform.env_data.html5Mode.basePath)
