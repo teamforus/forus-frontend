@@ -22,27 +22,27 @@
 
     .container
         .tab-content
-            #panel1.tab-pane.fade.in.active
+            #panel1-video.tab-pane.fade.in.active
                 .wrapper_tab_video
                     video(id="player_tab_1" poster="assets/img/poster/aanvrager.gif")
                         source(src="assets/video/Aanvrager.mov" type="video/mp4")
                 a.btn_link(href="#" )
 
-            #panel2.tab-pane.fade
+            #panel2-video.tab-pane.fade
                 .wrapper_tab_video
                     video(id="player_tab_2" )
                         source(src="assets/video/Aanbieder.mov" type="video/mp4")
                 a.btn_link(href="#" )
 
 
-            #panel3.tab-pane.fade
+            #panel3-video.tab-pane.fade
                 .wrapper_tab_video
                     video(id="player_tab_3" )
                         source(src="assets/video/Sponsor.mov" type="video/mp4")
                 a.btn_link(href="#" )
 
 
-            #panel4.tab-pane.fade
+            #panel4-video.tab-pane.fade
                 .wrapper_tab_video
                     video(id="player_tab_4" )
                         source(src="assets/video/Validator.mov" type="video/mp4")
@@ -50,7 +50,7 @@
         .wrapper_roles
             ul.nav.nav-tabs.roles
                 li.role
-                    a(data-toggle="tab" href="#panel1")
+                    a(data-toggle="tab" href="#panel1-video" id="#panel1")
                         span.role_content
                             span.title.h4-subtitle Aanvrager
                             span.text.h5-subtitle die in aanmerking komt voor een uitkering
@@ -60,7 +60,7 @@
                                     include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
                                     include ../../../../resources/platform-general/assets/img/svg/pause.svg
                 li.role
-                    a(data-toggle="tab" href="#panel2")
+                    a(data-toggle="tab" href="#panel2-video" id="#panel2")
                         span.role_content
                             span.title.h4-subtitle Aanbieder
                             span.text.h5-subtitle waar het geld kan worden uitgegeven
@@ -70,7 +70,7 @@
                                     include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
                                     include ../../../../resources/platform-general/assets/img/svg/pause.svg
                 li.role
-                    a(data-toggle="tab" href="#panel3")
+                    a(data-toggle="tab" href="#panel3-video" id="#panel3")
                         span.role_content
                             span.title.h4-subtitle Sponsor
                             span.text.h5-subtitle die het geld heeft en/of beheert
@@ -80,7 +80,7 @@
                                     include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
                                     include ../../../../resources/platform-general/assets/img/svg/pause.svg
                 li.role
-                    a(data-toggle="tab" href="#panel4")
+                    a(data-toggle="tab" href="#panel4-video" id="#panel4")
                         span.role_content
                             span.title.h4-subtitle Validator
                             span.text.h5-subtitle die aanbieders en aanvragers goedkeurt
