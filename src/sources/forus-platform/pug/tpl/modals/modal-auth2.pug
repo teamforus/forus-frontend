@@ -5,7 +5,7 @@
         .modal-close(ng-click="$ctrl.close()")
             include ../../../resources/platform-general/assets/img/svg/close.svg
 
-        .modal-title Login met e-mail
+        h4.modal-title Login met e-mail
         .modal-subtitle {{ "popup_auth.labels.link" | translate }}
 
         form.form(ng-submit="$ctrl.signInEmailForm.submit()")
@@ -18,7 +18,7 @@
         .modal-footer
             //-.footer-text {{ "popup_auth.labels.timelimit" | translate }}
 
-        .modal-title Login met Me-app
+        h4.modal-title Login met Me-app
         .modal-subtitle.subtitle-left. 
             Scan de QR code aan de rechterzijde met de QR-scanner in de me app. 
             #[br] #[br]
