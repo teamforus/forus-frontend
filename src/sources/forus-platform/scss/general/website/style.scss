@@ -57,7 +57,7 @@ h5 {
     @include font-size-map($h5-font-size);
 }
 .btn_link {
-    @include font-size-map($h5-font-size);
+    @include font-size-map($h4-font-size);
 }
 .navbar-nav a {
     @include font-size-map($h5-font-size);
