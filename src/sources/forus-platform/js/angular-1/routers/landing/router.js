@@ -16,7 +16,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: "hall-of-fame",
         url: "/hall-of-fame",
-        component: "HallOfFameComponent"
+        component: "hallOfFameComponent"
     });
 
     $stateProvider.state({
