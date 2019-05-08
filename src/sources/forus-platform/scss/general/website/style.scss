@@ -62,10 +62,11 @@ h5 {
 .navbar-nav a {
     @include font-size-map($h5-font-size);
 }
-
-
 p {
     @include font-size-map($paragraph-font-size);
+}
+.modal-title {
+    @include font-size-map($h4-font-size);
 }
 html {
     line-height: 1.2;
