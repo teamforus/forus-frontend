@@ -4,5 +4,5 @@ module.exports = {
     controller: [
         MeComponent
     ],
-    templateUrl: 'assets/tpl/pages/landing/me-website.html'
+    templateUrl: 'assets/tpl/pages/website/me.html'
 };

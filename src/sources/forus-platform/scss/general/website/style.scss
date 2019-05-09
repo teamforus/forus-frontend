@@ -431,7 +431,13 @@ html {
                 }
             }
         }
+        .container-me {
+            max-width: 1760px;
+            margin: auto;
+            overflow: hidden;
+        }
         .wrapper{
+            align-items: center;
             h1 {
                 color: #fff;
             }
@@ -1251,76 +1257,111 @@ html {
             &_me {
                 display: flex;
                 margin: auto;
+                background: linear-gradient(to top, rgba(251, 252, 253, 0), #f8fafc);
+                
+                h1 {color: black;}
                 
                 .column {
-                    margin: 0 auto;
                     flex: 1;
+                    width: 50%;
+                    padding: 20px 30px 20px 30px;
+                    span {
+                        max-width: 500px;
+                        float: right;
+                    }
+                    .dl_buttons {
+                        width: 130px;
+                        height: 40px;
+                        margin: 0 2.5% 0 0;
+                    }
+                    img {
+                        -webkit-background-size: contain;
+                        -moz-background-size: contain;
+                        -o-background-size: contain;
+                        background-size: contain;
+                        height: 500px;
+                    }
                 }
-                img {
-                    height: 320px;
-                    -webkit-background-size: cover;
-                    -moz-background-size: cover;
-                    -o-background-size: cover;
-                    background-size: cover;
-                }
-                :nth-of-type(2) {
-
-                }
+                
             }
             &_reason {
+                padding: 10px 0 10px 0;
                 display: block;
                 text-align: center;
+                margin: 0 auto;
+                max-width: 750px;
             }
             &_feature_one {
                 background-color: #f9fafb;
                 display: flex;
                 margin: auto;
                 .column {
-                    margin: 0;
+                    padding: 0 30px 0 30px;
                     flex: 1;
-                }
-                img {
-                    height: 320px;
-                    -webkit-background-size: cover;
-                    -moz-background-size: cover;
-                    -o-background-size: cover;
-                    background-size: cover;
-                }
-                :nth-of-type(2) {
+                    width: 50%;
+
+                    span {
+                        max-width: 500px;
+                        float: left;
+                        vertical-align: middle;
+                    }
+                    img {
+                        -webkit-background-size: contain;
+                        -moz-background-size: contain;
+                        -o-background-size: contain;
+                        background-size: contain;
+                        float: right;
+                        height: 600px;
+                    }
                 }
             }
             &_feature_two {
                 display: flex;
                 margin: auto;
                 .column {
-                    margin: 0;
+                    padding: 0 30px 0 30px;
                     flex: 1;
+                    width: 50%;
+
+                    span {
+                        max-width: 500px;
+                        float: right;
+                        vertical-align: middle;
+                    }
+                    img {
+                        -webkit-background-size: contain;
+                        -moz-background-size: contain;
+                        -o-background-size: contain;
+                        background-size: contain;
+                        width: 850px;
+                    }
                 }
-                img {
-                    height: 320px;
-                    -webkit-background-size: cover;
-                    -moz-background-size: cover;
-                    -o-background-size: cover;
-                    background-size: cover;
-                }
+
             }
             &_feature_three {
+                padding: 10px 0 10px 0;
                 background-color: #f9fafb;
                 display: flex;
                 margin: auto;
 
                 .column {
-                    margin: 0;
+                    padding: 0 30px 0 30px;
                     flex: 1;
-                }
-                img {
-                    height: 320px;
-                    -webkit-background-size: contain;
-                    -moz-background-size: contain;
-                    -o-background-size: contain;
-                    background-size: contain;
-                }
-                :nth-of-type(2) {
+                    width: 50%;
+
+                    span {
+                        max-width: 500px;
+                        float: left;
+                        vertical-align: middle;
+                    }
+                    img {
+                        -webkit-background-size: contain;
+                        -moz-background-size: contain;
+                        -o-background-size: contain;
+                        background-size: contain;
+                        float: right;
+                        height: 500px;
+                    }   
                 }
             }
 
@@ -2088,7 +2129,7 @@ html {
             }
         }
     }
-    @media (max-width: 1200px) {
+    @media (min-width: 1200px) {
         body{
             .wrapper{
                 &_roles {
@@ -2491,6 +2532,26 @@ html {
                         }
                     }
                 }
+                &_me, &_reason, &_feature_one, &_feature_two, &_feature_three {
+                    .column {
+                        padding: 0 30px 0 30px;
+                    }
+                }
+                &_me, &_feature_one {
+                    .column {
+                        img {
+                            height: 400px;
+                        }
+                    }
+                }
+                &_feature_two {
+                    .column {
+                        img {
+                            width: 700px;
+                        }
+                    }
+                }
+
                 &_fund{
                     .container {
                         .macbook ,.iphone{
@@ -2698,8 +2759,55 @@ html {
                 }
                 &_me, &_feature_one, &_feature_two, &_feature_three {
                     flex-flow: column;
+
+                    div:nth-of-type(1) {
+                        margin-left: 0;
+                        margin-right: 0;
+                    }
+                    div:nth-of-type(2) {
+                        margin-left: 0;
+                        margin-right: 0;
+                    }
+                    .column {
+                        width: 100%;
+                        padding: 0 20px 0 20px;
+                        span {
+                        }
+                        img {
+                            clear: both;
+                            width: auto;
+                        }
+                    }
+                }
+                &_me {
+                    text-align: center;
+                    .column {
+                        img {
+                            height: 400px;
+                        }
+                        span {
+                            .dl_buttons {
+                                display: inline-block;
+                            }
+                        }
+                    }
+                }
+                &_feature_one {
+                    .column {
+                        img {
+                            height: 300px;
+                            margin: 0 auto;
+                            float: unset;
+                            display: block;
+                        }
+                    }
                 }
                 &_feature_two {
+                    .column {
+                        img {
+                            width: calc(100% + 20px)
+                        }
+                    }
                     :nth-of-type(1) {
                         order: 2;
                     }
@@ -2707,8 +2815,19 @@ html {
                         order: 1;
                     }
                 }
+                &_feature_three {
+                    .column {
+                        img { 
+                            height: 300px;
+                            float: unset;
+                        }
+                    }
+                }
                 &_reason {
-                    text-align: left;
+                    text-align: center;
+                        .column {
+                            padding: 0 20px 0 20px;
+                        }
                 }
             }
             #modalContact{
