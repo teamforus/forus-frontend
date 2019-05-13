@@ -14,6 +14,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: "current",
+        url: "/nu",
+        component: "currentComponent"
+    });
+
+
+    $stateProvider.state({
         name: "kindpakket",
         url: "/kindpakket",
         component: "kindpakketComponent"

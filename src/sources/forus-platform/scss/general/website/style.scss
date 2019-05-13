@@ -1395,6 +1395,25 @@ html {
                     margin: 25px;
                 }
             }
+            &_current {
+                .container{
+                    svg {
+                        margin: 0 auto;
+                        width: 120px;
+                        height: 100px;
+                        display: block;
+                    }
+                }
+                .wrapper_title {
+                    margin-top: 15px;
+                }
+                .wrapper_desc p {
+                    
+                    font-family: Montserrat;
+                    font-weight: 400;
+                    margin: 25px;
+                }
+            }
             &_explain {
                 margin-bottom:125px;
                 .container {
@@ -1517,9 +1536,15 @@ html {
                                 color: #9b9b9b;
                                 border-bottom: solid 2px #dbdbddd5;
                                 &:hover, &:active, &focus{
+                                    cursor: pointer;
+                                    color: #222530;
+                                    border-bottom: solid 2px #191a1c;
+                                }
+                            }
+                            .disabled {
+                                &:hover, &:active, &focus{
                                     cursor: not-allowed;
                                     color: #222530;
-                                    cursor: not-allowed;
                                     border-bottom: solid 2px #191a1c;
                                 }
                             }
@@ -2429,6 +2454,14 @@ html {
                         }
                     }
                 }
+                &_current {
+                    .container{
+                        svg {
+                            width: 75px;
+                            height: 75px;
+                        }
+                    }
+                }
                 &_downloads {
                     .download_links {    
                         div {
@@ -2484,9 +2517,15 @@ html {
                                     color: #9b9b9b;
                                     border-bottom: solid 2px #dbdbddd5;
                                     &:hover, &:active, &focus{
+                                        cursor: pointer;
+                                        color: #222530;
+                                        border-bottom: solid 2px #191a1c;
+                                    }
+                                }
+                                .disabled {
+                                    &:hover, &:active, &focus{
                                         cursor: not-allowed;
                                         color: #222530;
-                                        cursor: not-allowed;
                                         border-bottom: solid 2px #191a1c;
                                     }
                                 }
