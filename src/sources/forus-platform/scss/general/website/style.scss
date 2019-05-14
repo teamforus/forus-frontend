@@ -1565,6 +1565,7 @@ html {
                         content:"";
                         width: 1px;
                         height: 95%;
+                        margin-top: 50px;
                         background: #dadde7;
                         position: absolute;
                         border-radius: 40px 40px;
@@ -2608,6 +2609,9 @@ html {
                             &:before {
                             left:16px;
                             width: 1px;
+                            height: 91%;
+                            margin-top: 95px;
+
                             }                        
                             /* Full-width containers */
                             .timeline_entry {
