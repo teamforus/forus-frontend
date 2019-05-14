@@ -1682,6 +1682,64 @@ html {
 
                 }
             }
+            &_dev {
+                margin-bottom: 30px;
+                .column-33 {
+                    width: 33%;
+                    display:-webkit-flex;
+                    -webkit-justify-content:center;                
+                    display:flex;
+                    justify-content:center;
+                    float: left;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+                .column-title {
+                    margin: 0 auto;
+                    position: relative;
+                }
+                h3 {
+                    font-weight: 600;
+                }
+                h5 {
+                    font-weight: 600;
+                }
+                .card {
+                    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+                    border-radius: 5px;
+                    margin: 11px;
+                    display: flex;
+                    flex-flow: row wrap;
+                    align-content: space-between;
+
+                    &.red {
+                        border-left: 8px solid #f05252;
+                    }
+                    &.yellow {
+                        border-left: 8px solid #ffb900;
+                    }
+                    &.green {
+                        border-left: 8px solid #50e3c2;
+                    }
+                    img {
+                        border-radius: 50px;
+                        height: 50px;
+                        width: 50px;
+                        margin: 22px;
+                    }
+                    .content{
+                        margin-top:12px;
+                        margin-bottom: 12px;
+                        width: calc(100% - 94px);
+                    }
+                    h5 {
+                        width: 100%;
+                    }
+                    .card_desc {
+                        width: 100%;
+                    }
+                }
+            }
         }
         footer{
             background: #f6f8f9;
