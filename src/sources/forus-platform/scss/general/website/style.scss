@@ -2093,6 +2093,13 @@ html {
                         }
                     }
                 }
+                &_timeline {
+                    .timeline{
+                        .even::after {
+                            right: -63px;
+                        }
+                    }
+                }
             }
         }
     }
