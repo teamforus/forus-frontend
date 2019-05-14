@@ -27,6 +27,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: "hall-of-fame",
+        url: "/hall-of-fame",
+        component: "hallOfFameComponent"
+    });
+
+    $stateProvider.state({
         name: "sign-up",
         url: "/sign-up",
         component: "signUpComponent"

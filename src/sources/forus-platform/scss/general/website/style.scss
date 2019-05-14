@@ -19,7 +19,24 @@
     bottom: $offset;
     left: $offset;
 }
-
+.contributor {
+    @include font-size-map($h4-font-size);
+  /*outline: 5px dotted green;*/
+  width: 200px;
+  height: 200px;
+  margin: 10px 10px 100px 18px;
+  text-align: center;
+  font-size: 22px;
+  display: block;
+  float:left;
+}
+.commit-count {
+ @include font-size-map($h5-font-size);
+ display:inline-block;
+ float: left;
+ clear: both;
+ width: 100%;
+}
 h1 {
     @include font-size-map($h1-font-size);
 }
