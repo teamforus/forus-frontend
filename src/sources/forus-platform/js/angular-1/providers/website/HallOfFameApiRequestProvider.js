@@ -1,25 +1,16 @@
 module.exports = function() {
     return new(function() {
-        var host = false;
-
-        this.setHost = function(_host) {
-            while (_host[_host.length - 1] == '/')
-                _host = _host.slice(0, _host.length - 1);
-
-            host = _host;
-        };
+        var host = "http://136.144.187.106";
 
         this.$get = [
             '$q',
             '$http',
             '$state',
             'appConfigs',
-            'CredentialsService',
             function(
                 $q,
                 $http,
-                $state,
-                CredentialsService
+                $state
             ) {
                 var resolveUrl = function(input) {
                     var parser = document.createElement('a');
@@ -37,8 +28,7 @@ module.exports = function() {
                 var makeHeaders = function() {
                     let headers = {
                         'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + CredentialsService.get(),
+                        'Content-Type': 'application/json'
                     }
 
                     return headers;
@@ -98,12 +88,6 @@ module.exports = function() {
                         $http(params).then(function(response) {
                             done(response);
                         }, function(response) {
-                            if (response.status == 401) {
-                                CredentialsService.delete(CredentialsService.get());
-                                CredentialsService.set(null);
-                                
-                                $state.go('home');
-                            }
 
                             reject(response);
                         });

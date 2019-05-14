@@ -5,7 +5,7 @@ module.exports = [
     ) {
         let apiPrefix = '/hall-of-fame';
         return new(function() {
-            this.get = function(type) {
+            this.get = function() {
                 return hofApiRequest.get(apiPrefix + '/');
             }
         });

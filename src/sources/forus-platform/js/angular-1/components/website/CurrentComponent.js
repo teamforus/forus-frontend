@@ -1,15 +1,18 @@
 let CurrentComponent = function(
     hofService,
 ) {
-    let $ctrl;
-    let res = hofService.getList();
+    let $ctrl = this;
+    hofService.get().then(function(response) {
 
-    $ctrl.list = res.data.data;
-    console.log($ctrl.list);
-    console.log("yo");
+        $ctrl.list = response.data.length;
+    });
+    hofService.get();
 };
 
 module.exports = {
+    bindings: {
+        list: '<'
+    },
     controller: [
         'hofService',
         CurrentComponent
