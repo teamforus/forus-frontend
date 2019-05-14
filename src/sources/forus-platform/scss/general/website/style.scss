@@ -2076,7 +2076,7 @@ html {
             }
         }
     }
-    @media (max-width: 1200px) {
+    @media (min-width: 767px) and (max-width: 1200px) {
         body{
             .wrapper{
                 &_roles {
@@ -2633,6 +2633,8 @@ html {
                             }
                             hr {
                                 height: 1px;
+                                width: 105%;
+                                margin-left: -11px;
                             }                        
                             /* Make sure all circles are at the same spot */
                             .uneven::before, .even::before {
