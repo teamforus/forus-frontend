@@ -1397,11 +1397,15 @@ html {
             }
             &_current {
                 .container{
-                    svg {
+                    svg, img {
                         margin: 0 auto;
                         width: 120px;
-                        height: 100px;
+                        height: 120px;
                         display: block;
+                        margin-bottom: 18px;
+                    }
+                    .me-logo {
+                        height: 100px;
                     }
                     hr {
                         margin-bottom: 75px;
@@ -1431,11 +1435,12 @@ html {
                     h2 {
                         font-weight: 600;
                         text-align: center;
-                        color: black;
+                        color:  $tc; 
                     }
-                    h5 {
+                    h4 {
                         text-align: center;
-                        color: black;
+                        color: $tc;  
+                        font-weight: 500;
                     }
                 }
             }
