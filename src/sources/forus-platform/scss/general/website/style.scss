@@ -1403,6 +1403,10 @@ html {
                         height: 100px;
                         display: block;
                     }
+                    hr {
+                        margin-bottom: 75px;
+                        margin-top: 75px;
+                    }
                 }
                 .wrapper_title {
                     margin-top: 15px;
@@ -1412,6 +1416,27 @@ html {
                     font-family: Montserrat;
                     font-weight: 400;
                     margin: 25px;
+                    a {
+                        color:  $forus-demi-blue;
+                    }
+                }
+                .wrapper_numbers {
+                    display: flex;
+                    width: 100%;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    .col-33{
+                        width: 33.33%;
+                    }
+                    h2 {
+                        font-weight: 600;
+                        text-align: center;
+                        color: black;
+                    }
+                    h5 {
+                        text-align: center;
+                        color: black;
+                    }
                 }
             }
             &_explain {
