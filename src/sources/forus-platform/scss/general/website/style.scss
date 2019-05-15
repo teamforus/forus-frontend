@@ -10,8 +10,6 @@
 // COMMON
 @import 'includes/common';
 
-$body-bg: transparent; 
-
 @mixin timeline-entry {
 	@for $i from 1 through 11 {
 		&:nth-child(#{$i}) {
@@ -58,13 +56,11 @@ h5 {
     @include font-size-map($h5-font-size);
 }
 .btn_link {
-    @include font-size-map($h5-font-size);
+    @include font-size-map($h4-font-size);
 }
 .navbar-nav a {
     @include font-size-map($h5-font-size);
 }
-
-
 p {
     @include font-size-map($paragraph-font-size);
 }
@@ -1619,8 +1615,6 @@ html {
                     }   
                 }
             }
-
-
             &_fund {
                 .container {
                     text-align: center;
@@ -2868,7 +2862,6 @@ html {
                         }
                     }
                 }
-
                 &_fund{
                     .container {
                         .macbook ,.iphone{
@@ -2902,6 +2895,13 @@ html {
                                     }
                                 }
                             }
+                        }
+                    }
+                }
+                &_downloads {
+                    .download_links {    
+                        div {
+                            margin-bottom: 30px;       
                         }
                     }
                 }

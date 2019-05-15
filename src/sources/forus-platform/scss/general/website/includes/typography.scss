@@ -1,13 +1,13 @@
 // unitless function to convert px to em
-//@function em($pixels, $context: $browser-context) {
-//  @if (unitless($pixels)) {
-//    $pixels: $pixels * 1px;
-//  }
-//  @if (unitless($context)) {
-//    $context: $context * 1px;
-//  }
-//  @return $pixels / $context * 1em;
-//}
+@function em($pixels, $context: $browser-context) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+  @if (unitless($context)) {
+    $context: $context * 1px;
+  }
+  @return $pixels / $context * 1em;
+}
 
 // breakpoint mixin
 @mixin breakpoint($mq01: 0, $mq2: false, $maxmin: max-width) {
@@ -52,4 +52,4 @@ $h2-font-size: (null: 48, $lg: 48, $md: 48, $sm: 36, $xs: 24);
 $h3-font-size: (null: 36px, $lg: 36, $md: 32, $sm: 28, $xs: 24);
 $h4-font-size: (null: 24px, $lg: 24, $md: 18, $sm: 16, $xs: 16);
 $h5-font-size: (null: 18px, $lg: 18, $md: 16, $sm: 16, $xs: 15);
-$paragraph-font-size: (null: 16, $lg: 16, $md: 16, $sm: 16, $xs: 15);
+$paragraph-font-size: (null: 21, $lg: 21, $md: 16, $sm: 16, $xs: 15);
