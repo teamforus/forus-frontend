@@ -1501,9 +1501,6 @@ html {
                             float: right;
 
                             ul {
-                                p {
-                                    margin: 5px 0;
-                                }
                             }
                         }
                     }
@@ -2513,10 +2510,6 @@ html {
                         &_sm {
                             width: 50%;
                             justify-content: left;
-                            
-                            span {
-                                padding: 10px 5% 10px 15%;
-                            }
                             .g_map {
                                 
                             }
@@ -3321,7 +3314,7 @@ html {
                         }
                     }
                 }
-                &_me, &_feature_one, &_feature_two, &_feature_three, &_content, &_holder {
+                &_me, &_feature_one, &_feature_two, &_feature_three, &_content, &_holder, &_sup {
                     flex-flow: column;
 
                     div:nth-of-type(1) {
@@ -3346,6 +3339,9 @@ html {
                         img {
                             clear: both;
                             height: auto;
+                        }
+                        &_sm {
+                            padding: 0 20px 0 20px;
                         }
                         &_lr {
                             width: 100%;
@@ -3442,15 +3438,16 @@ html {
                             }
                         }
                         &_sm {
+                            display: block;
+                            justify-content: left;
                             width: 100%;
-                            min-height: 300px;
-                            justify-content: center;
+                            min-height: 200px;
+                            text-align: left;
                             span {
-                                padding: 5px 5% 5px 5%;
-
+                                float: unset;
                             }
                             .g_map {
-                                height: 300px;
+                                height: 200px;
                             }
                         }
                     }
