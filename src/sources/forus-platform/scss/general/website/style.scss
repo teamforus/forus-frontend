@@ -77,6 +77,10 @@ html {
         .container_contact {
             max-width: 1440px;
             margin: 0 auto;
+
+            .wrapper {
+                align-items: unset;
+            }
         }
         font-family: $bf;
         * {
@@ -1474,7 +1478,7 @@ html {
                     }
                 }
             }
-            &_me {
+            &_me, &_sup {
                 display: flex;
                 margin: auto;
                 
@@ -1490,12 +1494,15 @@ html {
                         height: 300px;
                     }
                     &_sm {
-                        width: 45%;
-                        min-height: 500px;
+                        width: 50%;
                         display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        margin: 5% 0;
+                        margin: 5%;
+
+                        .g_maps {
+                            height: 460px;
+                            width: 655px;
+                            border: none;
+                        }
 
                         span {
                             float: right;
@@ -1528,6 +1535,14 @@ html {
                 text-align: center;
                 margin: 0 auto;
                 max-width: 750px;
+
+                &_sec {
+                    max-width: 1440px;
+                    background-color: #f4f5f7;
+                    border-radius: 12px;
+                    margin-top: 5%;
+                    padding-top: 50px;
+                }
                 span {
                     ul {
                         display: inline-flex;
@@ -2902,7 +2917,7 @@ html {
                         }
                     }
                 }
-                &_me, &_reason, &_feature_one, &_feature_two, &_feature_three, &_content, &_holder, &_variable {
+                &_me, &_reason, &_feature_one, &_feature_two, &_feature_three, &_content, &_holder, &_variable, &_sup {
                     flex-direction: column;
                     .column {
                         padding: 0 30px 0 30px;
@@ -2913,6 +2928,17 @@ html {
                         &_xl {
                             width: 100%;
                             min-width: auto;
+                        }
+                        &_sm {
+                            width: 100%;
+                            margin: 0 auto;
+                            span {
+                                margin: 0 auto;
+                                text-align: center;
+                            }
+                            .g_maps {
+                                margin: 0 auto;
+                            }
                         }
                         &_sidebar {
                             width: 100%;
@@ -3287,6 +3313,9 @@ html {
     @media (max-width: 576px) {
         body{
             .wrapper{
+                .main_button {
+                    float: unset;
+                }
                 &_roles {
                     .roles {
                         padding: 10px;
@@ -3342,6 +3371,14 @@ html {
                         }
                         &_sm {
                             padding: 0 20px 0 20px;
+                            span {
+                                text-align: left;
+                            }
+                            .g_maps {
+                                width: 100%;
+                                height: 202px;
+
+                            }
                         }
                         &_lr {
                             width: 100%;
@@ -3426,7 +3463,7 @@ html {
                 &_holder {
                     align-items: center;
                 }
-                &_me {
+                &_me, &_sup {
                     text-align: center;
                     .column {
                         img {
@@ -3443,6 +3480,7 @@ html {
                             width: 100%;
                             min-height: 200px;
                             text-align: left;
+                            h2 {text-align: center;}
                             span {
                                 float: unset;
                             }
