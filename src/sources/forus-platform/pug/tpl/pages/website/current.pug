@@ -1,0 +1,100 @@
+.wrapper.wrapper_aboutus
+    .container
+        h1.wrapper_title Over ons
+        .wrapper_desc
+            ul
+                li.tab-inactive.enabled(ui-sref="history") Geschiedenis
+                li.tab-active Nu
+                li.tab-inactive.disabled Toekomst
+
+.wrapper.wrapper_current
+    .container
+        include ../../../../resources/platform-general/assets/img/svg/teamwork.svg 
+        h3.wrapper_title Organisatie
+        .wrapper_desc 
+            p Technologie speelt een steeds grotere rol in ons dagelijks leven. Wij streven naar een generatie van open software die ons belang dient, zonder concessies. Software "For us".
+            p We bestaan uit een onafhankelijke Stichting en een netwerk van organisaties en individuen die op allerlei manieren aan deze ontwikkeling bijdragen. Van het ontwikkelen van code tot aan het delen van onze waarden, producten en diensten. We ontwikkelen open, dat betekent dat iedereen welkom is in onze #[a.link(href="https://chat.forus.io/" target="_blank") chatbox] en op onze #[a.someClass(href="https://github.com/teamforus/" target="_blank") Github] pagina.
+            p De Stichting is opgericht in 2017 en gevestigd in Groningen.
+        .wrapper_numbers
+            .col-33
+                h2 6
+                h4 Stichting leden
+            .col-33
+                h2 3
+                h4 Netwerk Forus Partners
+            .col-33
+                h2(ng-bind="$ctrl.list")
+                h4 Open source bijdragers
+
+.wrapper.wrapper_current
+    .container
+        hr
+        img.me-logo(src="./assets/img/svg/me-logo.svg")
+        h3.wrapper_title Me
+        .wrapper_desc 
+            p Onze persoonlijke informatie op het internet is gefragmenteerd en ontransparant. Met “me” ontwikkelen we een app die jou de controle terug geeft over jouw (digitale) eigendommen, eigenschappen en identiteit.
+            //-p Leer meer over de huidige versie en over onze toekomstplannen.
+        .wrapper_numbers
+            .col-33
+                h2 3300
+                h4 Identiteiten
+                
+.wrapper.wrapper_current
+    .container
+        hr
+        include ../../../../resources/platform-general/assets/img/svg/platform-flat.svg 
+        h3.wrapper_title Forus
+        .wrapper_desc 
+            p Waardeuitkering is traag, bureaucratisch, fraude en corruptie gevoelig, moeizaam en ontransparant. Met Forus ontwikkelen en bieden we een platform waarop het mogelijk wordt om waarde snel en transparant uit te keren met instandhouding van privacy.
+        .wrapper_numbers
+            .col-33
+                h2 300
+                h4 Aanbieders
+            .col-33
+                h2 2
+                h4 Sponsors
+            .col-33
+                h2 15
+                h4 Validators
+            .col-33
+                h2 3500
+                h4 Aanvragers
+.wrapper.wrapper_current
+    .container
+        hr
+        include ../../../../resources/platform-general/assets/img/svg/development.svg 
+        h3.wrapper_title Development
+        .wrapper_desc 
+            p Onze producten zijn continue in ontwikkeling. Hieronder zie je de verbeteringen die we gepland hebben, waar we mee bezig zijn, en wat we af hebben gemaakt.
+            //-p Bekijk voor de lange termijn planning onze roadmap
+.wrapper.wrapper_dev
+    .container
+        .column-33
+            .column-title   
+                h3 Backlog
+            .card.red
+                img(src="https://www.wphandleiding.nl/wp-content/uploads/2015/12/Google-Maps-toevoegen-aan-WordPress-met-je-eigen-shortcode.png")
+                .content
+                    h5 Uitgebreide kaart
+                    .card_desc Een lijst met aanbieders waardoor d.m.v. filters, zoekfunctie gezocht kan worden.
+        .column-33
+            .column-title   
+                h3 Nu mee bezig
+            .card.yellow
+                img(src="https://s3.eu-west-1.amazonaws.com/media.forus.link/ac11f89f39e3a736c606064712d057b86a101a2ef427b0e3811682838bf0e4.png")
+                .content
+                    h5 Kerstpakket
+                    .card_desc Forus gaat kerstpakket uitgeven binnen gemeenten, dit zorgt voor minder stigma.
+            .card.yellow
+                img(src="https://forus.io/assets/img/general-logo.svg")
+                .content 
+                    h5 Nieuwe Forus.io website
+                    .card_desc Video's, klantverhalen en productpagina's gaan een goed beeld geven van de applicatie.
+        .column-33
+            .column-title   
+                h3 Klaar
+            .card.green
+                img(src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdWxXiodlGOegImphBan6lYVTE92yz-29ybwLjv6_4OTUhyNkO")
+                .content
+                    h5 Meedoen-regeling
+                    .card_desc Gebouwt en geimplementeerd in de gemeente Nijmegen.
