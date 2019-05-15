@@ -11,6 +11,8 @@ app.component('kindpakketComponent', require('./components/website/KindpakketCom
 app.component('meComponent', require('./components/website/MeComponent'));
 app.component('contactComponent', require('./components/website/ContactComponent'));
 app.component('storyComponent', require('./components/website/StoryComponent'));
+app.component('historyComponent', require('./components/website/HistoryComponent'));
+app.component('currentComponent', require('./components/website/CurrentComponent'));
 app.component('signUpComponent', require('./components/landing/SignUpComponent'));
 
 // Services
