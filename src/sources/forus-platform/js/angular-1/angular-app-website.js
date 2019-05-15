@@ -10,6 +10,7 @@ app.component('homeComponent', require('./components/website/HomeComponent'));
 app.component('kindpakketComponent', require('./components/website/KindpakketComponent'));
 app.component('meComponent', require('./components/website/MeComponent'));
 app.component('contactComponent', require('./components/website/ContactComponent'));
+app.component('storyComponent', require('./components/website/StoryComponent'));
 app.component('signUpComponent', require('./components/landing/SignUpComponent'));
 
 // Services
