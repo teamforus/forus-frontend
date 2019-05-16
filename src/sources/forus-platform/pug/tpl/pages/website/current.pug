@@ -69,9 +69,13 @@
             //-p Bekijk voor de lange termijn planning onze roadmap
 .wrapper.wrapper_dev
     .container
-        input(type="radio" name="slider" title="slide1" checked="checked" class="slider__nav")
-        input(type="radio" name="slider" title="slide2" class="slider__nav")
-        input(type="radio" name="slider" title="slide3" class="slider__nav")
+        input(id="slide1" type="radio" name="slider" title="slide1" checked="checked" class="slider__nav")
+        input(id="slide2" type="radio" name="slider" title="slide2" class="slider__nav")
+        input(id="slide3" type="radio" name="slider" title="slide3" class="slider__nav")
+        a.previous(class="slide1" ng-click="$ctrl.check('1')") < Backlog 
+        a.previous(class="slide2" ng-click="$ctrl.check('2')") < Nu bezig 
+        a.next(class="slide2" ng-click="$ctrl.check('2')") Nu bezig >
+        a.next(class="slide3" ng-click="$ctrl.check('3')") Klaar >
         .backlog
             .column-33
                 .column-title   
@@ -101,4 +105,4 @@
                     img(src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdWxXiodlGOegImphBan6lYVTE92yz-29ybwLjv6_4OTUhyNkO")
                     .content
                         h5 Meedoen-regeling
-                        .card_desc Gebouwt en geimplementeerd in de gemeente Nijmegen.         
+                        .card_desc Gebouwt en geimplementeerd in de gemeente Nijmegen.        
