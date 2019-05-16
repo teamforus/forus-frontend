@@ -3174,7 +3174,7 @@ html {
                 &_dev {
                     background-color: #f4f5f7;
                     .container{
-                        min-height: 100vw;
+                        min-height: 400px;
                         position: relative;
                         overflow: hidden;  
                         display: -webkit-box;
@@ -3213,6 +3213,8 @@ html {
                         color: #b8bac4;
                     }
                     .slider__nav {
+                        position:absolute;
+                        bottom: 0;
                         width: 10px;
                         height: 10px;
                         margin: 2rem 12px;
@@ -3220,6 +3222,15 @@ html {
                         z-index: 10;
                         background-color: #b8bac4;
                         cursor: pointer;
+                    }
+                    #slide1{
+                        left:37.5%;
+                    }
+                    #slide2{
+                        left:45%;
+                    }
+                    #slide3{
+                        left:52.5%;
                     }
                     .slider__nav:checked {
                         -webkit-animation: check 0.4s linear forwards;
@@ -3251,10 +3262,11 @@ html {
                         display: none;
                     }
                     .backlog {
-                        position: absolute;
+                        position: relative;
                         top: 0;
-                        left: 0;
+                        margin-left: 195%;
                         width: 300%;
+                        margin-bottom: 50px;
                         -webkit-transition: left 0.4s;
                         transition: left 0.4s;
                         display: -webkit-box;
