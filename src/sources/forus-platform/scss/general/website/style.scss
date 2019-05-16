@@ -2111,9 +2111,20 @@ html {
                 }
                 h3 {
                     font-weight: 600;
+                    text-align: center;
                 }
                 h5 {
                     font-weight: 600;
+                }
+                .slider__nav {
+                        -webkit-appearance: none;
+                        -moz-appearance: none;
+                         appearance: none;
+                        -webkit-backface-visibility: hidden;
+                         backface-visibility: hidden;
+                }
+                .previous, .next {
+                    display: none;
                 }
                 .card {
                     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
@@ -2122,7 +2133,7 @@ html {
                     display: flex;
                     flex-flow: row wrap;
                     align-content: space-between;
-
+                    background-color: white;
                     &.red {
                         border-left: 8px solid #f05252;
                     }
@@ -2508,6 +2519,15 @@ html {
                         .even::after {
                             right: -63px;
                         }
+                    }
+                }
+                &_dev {
+                    img {
+                        display:none;
+                    }
+                    .content {
+                        margin: 12px;
+                        min-width: 100%;
                     }
                 }
             }
@@ -3170,7 +3190,125 @@ html {
                             }
                         }  
                 }
-
+                &_dev {
+                    background-color: #f4f5f7;
+                    .container{
+                        min-height: 400px;
+                        position: relative;
+                        overflow: hidden;  
+                        display: -webkit-box;
+                        display: -webkit-flex;
+                        display: -ms-flexbox;
+                        display: flex;
+                        -webkit-flex-flow: row nowrap;
+                        -ms-flex-flow: row nowrap;
+                        flex-flow: row nowrap;
+                        -webkit-box-align: end;
+                        -webkit-align-items: flex-end;
+                        -ms-flex-align: end;
+                        align-items: flex-end;
+                        -webkit-box-pack: center;
+                        -webkit-justify-content: center;
+                        -ms-flex-pack: center;
+                        justify-content: center;
+                    }
+                    .previous {
+                        order: -1;
+                        display: inline-flex;
+                        margin: 1.6rem 12px;
+                        margin-right:5px;
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        color: #b8bac4;
+                    }
+                    .next {
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                        display:inline-flex;
+                        margin: 1.6rem 12px;
+                        margin-left: 5px;
+                        color: #b8bac4;
+                    }
+                    .slider__nav {
+                        position:absolute;
+                        bottom: 0;
+                        width: 10px;
+                        height: 10px;
+                        margin: 2rem 12px;
+                        border-radius: 5px;
+                        z-index: 10;
+                        background-color: #b8bac4;
+                        cursor: pointer;
+                    }
+                    #slide1{
+                        left:37.5%;
+                    }
+                    #slide2{
+                        left:45%;
+                    }
+                    #slide3{
+                        left:52.5%;
+                    }
+                    .slider__nav:checked {
+                        -webkit-animation: check 0.4s linear forwards;
+                        animation: check 0.4s linear forwards;
+                        background-color:  blue;
+                    }
+                    .slider__nav:checked:nth-of-type(1) ~ .backlog {
+                        left: 0%;
+                    }
+                    .slider__nav:checked:nth-of-type(1) ~ .previous {
+                        display: none;
+                    }
+                    .slider__nav:checked:nth-of-type(1) ~ .slide3 {
+                        display: none;
+                    }
+                    .slider__nav:checked:nth-of-type(2) ~ .backlog {
+                        left: -100%;
+                    }
+                    .slider__nav:checked:nth-of-type(2) ~ .slide2 {
+                        display: none;
+                    }
+                    .slider__nav:checked:nth-of-type(3) ~ .backlog {
+                        left: -200%;
+                    }
+                    .slider__nav:checked:nth-of-type(3) ~ .next {
+                        display: none;
+                    }
+                    .slider__nav:checked:nth-of-type(3) ~ .slide1 {
+                        display: none;
+                    }
+                    .backlog {
+                        position: relative;
+                        top: 0;
+                        margin-left: 195%;
+                        width: 300%;
+                        margin-bottom: 50px;
+                        -webkit-transition: left 0.4s;
+                        transition: left 0.4s;
+                        display: -webkit-box;
+                        display: -webkit-flex;
+                        display: -ms-flexbox;
+                        display: flex;
+                        -webkit-flex-flow: row nowrap;
+                            -ms-flex-flow: row nowrap;
+                                flex-flow: row nowrap;
+                    }
+                    .column-33 {
+                        display: inline-block;
+                        min-width: 33%; 
+                        width: 99vw;    
+                        margin: 0 auto;
+                        margin-left:0;
+                    }
+                    .column-title {
+                        margin: 0 auto;
+                        position: relative;
+                        margin: 0 auto;    
+                    }
+                }
             }
             footer{
                 margin-top: 30px;

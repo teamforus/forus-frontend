@@ -69,32 +69,41 @@
             //-p Bekijk voor de lange termijn planning onze roadmap
 .wrapper.wrapper_dev
     .container
-        .column-33
-            .column-title   
-                h3 Backlog
-            .card.red
-                img(src="https://www.wphandleiding.nl/wp-content/uploads/2015/12/Google-Maps-toevoegen-aan-WordPress-met-je-eigen-shortcode.png")
-                .content
-                    h5 Uitgebreide kaart
-                    .card_desc Een lijst met aanbieders waardoor d.m.v. filters, zoekfunctie gezocht kan worden.
-        .column-33
-            .column-title   
-                h3 Nu mee bezig
-            .card.yellow
-                img(src="https://s3.eu-west-1.amazonaws.com/media.forus.link/ac11f89f39e3a736c606064712d057b86a101a2ef427b0e3811682838bf0e4.png")
-                .content
-                    h5 Kerstpakket
-                    .card_desc Forus gaat kerstpakket uitgeven binnen gemeenten, dit zorgt voor minder stigma.
-            .card.yellow
-                img(src="https://forus.io/assets/img/general-logo.svg")
-                .content 
-                    h5 Nieuwe Forus.io website
-                    .card_desc Video's, klantverhalen en productpagina's gaan een goed beeld geven van de applicatie.
-        .column-33
-            .column-title   
-                h3 Klaar
-            .card.green
-                img(src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdWxXiodlGOegImphBan6lYVTE92yz-29ybwLjv6_4OTUhyNkO")
-                .content
-                    h5 Meedoen-regeling
-                    .card_desc Gebouwt en geimplementeerd in de gemeente Nijmegen.
+        input(id="slide1" type="radio" name="slider" title="slide1" checked="checked" class="slider__nav")
+        input(id="slide2" type="radio" name="slider" title="slide2" class="slider__nav")
+        input(id="slide3" type="radio" name="slider" title="slide3" class="slider__nav")
+        a.previous(class="slide1" ng-click="$ctrl.check('1')") < Backlog 
+        a.previous(class="slide2" ng-click="$ctrl.check('2')") < Nu bezig 
+        a.next(class="slide2" ng-click="$ctrl.check('2')") Nu bezig >
+        a.next(class="slide3" ng-click="$ctrl.check('3')") Klaar >
+        .backlog
+            .column-33
+                .column-title   
+                    h3 Backlog
+                .card.red
+                    img(src="https://www.wphandleiding.nl/wp-content/uploads/2015/12/Google-Maps-toevoegen-aan-WordPress-met-je-eigen-shortcode.png")
+                    .content
+                        h5 Uitgebreide kaart
+                        .card_desc Een lijst met aanbieders waardoor d.m.v. filters, zoekfunctie gezocht kan worden.
+            .column-33
+                .column-title   
+                    h3 Nu mee bezig
+                .card.yellow
+                    img(src="https://s3.eu-west-1.amazonaws.com/media.forus.link/ac11f89f39e3a736c606064712d057b86a101a2ef427b0e3811682838bf0e4.png")
+                    .content
+                        h5 Kerstpakket
+                        .card_desc Forus gaat kerstpakket uitgeven binnen gemeenten, dit zorgt voor minder stigma.
+                .card.yellow
+                    img(src="https://forus.io/assets/img/general-logo.svg")
+                    .content 
+                        h5 Nieuwe Forus.io website
+                        .card_desc Video's, klantverhalen en productpagina's gaan een goed beeld geven van de applicatie.
+                        
+            .column-33
+                .column-title   
+                    h3 Klaar
+                .card.green
+                    img(src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdWxXiodlGOegImphBan6lYVTE92yz-29ybwLjv6_4OTUhyNkO")
+                    .content
+                        h5 Meedoen-regeling
+                        .card_desc Gebouwt en geimplementeerd in de gemeente Nijmegen.        
