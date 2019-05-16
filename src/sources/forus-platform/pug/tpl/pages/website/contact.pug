@@ -1,9 +1,9 @@
 .container_contact
     .wrapper.wrapper_me
-        .column_xs
         .column_sm
             span
-                h3 Contact
+                h2 Contact
+                br
                 ul
                     li
                         p
@@ -13,7 +13,6 @@
                         p
                             strong  E-mail:
                             |   info@forus.io
-                    br
                     li  
                         p
                             strong Bezoekadres
@@ -23,7 +22,6 @@
                             | 9743 AD, Groningen
                             br
                             | Groningen, Nederland 
-                    br
                     li
                         p
                             strong Postadres:
@@ -33,8 +31,14 @@
                             | 9723 BK, Groningen
                             br
                             | Groningen, Nederland
+                
+        .column_sm
+            iframe(src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2388.316186660783!2d6.5303644159414205!3d53.23010817995487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c9cd23aff36831%3A0xcb68c04fa209b3f0!2sFriesestraatweg+211%2C+9743+AD+Groningen!5e0!3m2!1sen!2snl!4v1557435904937!5m2!1sen!2snl" class='g_maps')
+    .wrapper.wrapper_sup
+        .column_sm
+            span
+                h2 Support
                 br
-                h3 Support
                 ul
                     li
                         p
@@ -43,25 +47,21 @@
                     li
                         p 
                             strong E-mail:
-                            |   support@forus.io
-                
-        .column_sm
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2388.316186660783!2d6.5303644159414205!3d53.23010817995487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c9cd23aff36831%3A0xcb68c04fa209b3f0!2sFriesestraatweg+211%2C+9743+AD+Groningen!5e0!3m2!1sen!2snl!4v1557435904937!5m2!1sen!2snl" class="g_map" width="100%" height="550px" frameborder="0" style="border:0" allowfullscreen></iframe>
-        .column_xs
-    
-    .wrapper.wrapper_reason
+                            |   support@forus.io  
+    .wrapper.wrapper_reason.wrapper_reason_sec
         .column
             .wrapper.wrapper_contact_form.hidden-sm.hidden-md.hidden-lg
         .container-contact
-            h2 Contactformulier
-            br
+            h3(style='white-space:pre; color:#3561ff;') 
+                | Vragen ?
+                |  Neem contact met ons op
             form#formContactHome(action="https://xlak8w5706.execute-api.eu-west-1.amazonaws.com/Prod" method="POST")
                 .row
                     .col-xs-12.col-md-6
                         .form-group.required
                             label.control-label NAAM
                             .input-group
-                                input#nameInput.form-control(placeholder="Naam" name="name"  value="" onkeyup="this.setAttribute('value', this.value);" )
+                                input#nameInput.form-control(style="background-color: #fff" placeholder="Naam" name="name"  value="" onkeyup="this.setAttribute('value', this.value);" )
                                 a(href="#").clear_field
                                     include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
                                 span.help-block
@@ -69,7 +69,7 @@
                         .form-group.required
                             label.control-label EMAIL
                             .input-group
-                                input#emailInput.form-control(placeholder="Email" name="email" value="" onkeyup="this.setAttribute('value', this.value);" )
+                                input#emailInput.form-control(style="background-color: #fff" placeholder="Email" name="email" value="" onkeyup="this.setAttribute('value', this.value);" )
                                 a(href="#").clear_field
                                     include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
                                 span.help-block
@@ -77,7 +77,7 @@
                         .form-group
                             label.control-label ORGANISATIE
                             .input-group
-                                input#companyInput.form-control(placeholder="Organisatie" name="organization" value="" onkeyup="this.setAttribute('value', this.value);" )
+                                input#companyInput.form-control(style="background-color: #fff" placeholder="Organisatie" name="organization" value="" onkeyup="this.setAttribute('value', this.value);" )
                                 a(href="#").clear_field
                                     include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
                                 span.help-block
@@ -85,7 +85,7 @@
                         .form-group
                             label.control-label TELEFOONNUMMER
                             .input-group
-                                input#telInput.form-control(placeholder="Telefoonnumber" name="phone" value="" onkeyup="this.setAttribute('value', this.value);" )
+                                input#telInput.form-control(style="background-color: #fff" placeholder="Telefoonnumber" name="phone" value="" onkeyup="this.setAttribute('value', this.value);" )
                                 a(href="#").clear_field
                                     include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
                                 span.help-block
@@ -93,7 +93,7 @@
                         .form-group.required
                             label.control-label BERICHT
                             .input-group
-                                textarea#messageInput.form-control(placeholder="Bericht" name="message")
+                                textarea#messageInput.form-control(style="background-color: #fff" placeholder="Bericht" name="message")
 
                                 a(href="#").clear_field
                                     include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
@@ -104,4 +104,4 @@
                     .col-xs-12
                         .form-group.center-block
                             p.thanks Bedankt! Er wordt zo snel mogelijk contact met u opgenomen.
-                            button#formSubmitHome.main_button.g-recaptcha( data-sitekey="6LfA-JcUAAAAAC9SpgAr2ZmL4rFwjb83_U2MDcfQ" data-callback="onSubmitCFHome" data-badge="inline" type="button") Versturen
+                            button#formSubmitHome.btn.main_button.g-recaptcha( data-sitekey="6LfA-JcUAAAAAC9SpgAr2ZmL4rFwjb83_U2MDcfQ" data-callback="onSubmitCFHome" data-badge="inline" type="button" style="float: unset;") Versturen
