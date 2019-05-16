@@ -10,9 +10,6 @@ let CurrentComponent = function(
 };
 
 module.exports = {
-    bindings: {
-        list: '<'
-    },
     controller: [
         'hofService',
         CurrentComponent
