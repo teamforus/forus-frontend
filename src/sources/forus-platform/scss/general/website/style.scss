@@ -1427,6 +1427,34 @@ html {
                         max-width: 500px;
                         vertical-align: middle;
                         ul {
+                            display: inline-flex;
+                            li * {
+                                margin-bottom: 20px;
+                            }
+                            li {
+                                min-width: 175px;
+                                img {
+                                    margin: 0 auto;
+                                }
+                                p {
+                                    font-size: 14px;
+                                }
+                            }
+                            :nth-of-type(2) {
+                                margin: 0 20% 0 20%;
+                            }
+                            .media_1{
+                                height: 40px;
+                                width: 185px;
+                            }
+                            .media_2{
+                                height: 40px;
+                                width: 148px;
+                            }
+                            .media_3{
+                                height: 40px;
+                                width: 106px
+                            }
                         }
                         .hide-lg {
                             display: none;
@@ -1532,7 +1560,19 @@ html {
                 text-align: center;
                 margin: 0 auto;
                 max-width: 750px;
-
+                .column {
+                    span {
+                        ul {
+                            display: inline-flex;
+                            margin: 0 auto;
+                            justify-content: center;
+                            text-align: center;
+                            li {
+                                padding: 0 5% 0 5%;
+                            }
+                        }
+                    }
+                }
                 &_sec {
                     max-width: 1440px;
                     background-color: #f4f5f7;
@@ -1540,17 +1580,11 @@ html {
                     margin-top: 5%;
                     padding-top: 50px;
                 }
-                span {
-                    ul {
-                        display: inline-flex;
-                    }
-                }
                 .blue {
                     margin: 0px 5% 0px 5%;
                     display: block; 
                     border-bottom: solid 1px #edeef0;
                 }
-
                 .container-contact {
                     width: 500px;
                     margin: 0 auto;
@@ -2977,6 +3011,23 @@ html {
                 &_story {
                     padding: 50px 5vw;
                 }
+                &_variable {
+                    .column {
+                        span {
+                            margin: 0 auto;
+                            justify-content: center;
+                            ul {
+                                display: block;
+                                li {
+
+                                }
+                                :nth-of-type(2) {
+                                    margin: 0;
+                                }
+                            }
+                        }
+                    }
+                }
                 &_me, &_reason, &_feature_one, &_feature_two, &_feature_three, &_content, &_holder, &_variable, &_sup {
                     flex-direction: column;
                     .column {
@@ -2998,7 +3049,7 @@ html {
                             margin: 0 auto;
                             span {
                                 margin: 0 auto;
-                                text-align: center;
+                                text-align: center; 
                             }
                             .g_maps {
                                 margin: 0 auto;
@@ -3056,6 +3107,11 @@ html {
                                 display: block;
                                 margin: 0 auto;
                                 text-align: center;
+                                li {
+                                    .arrow {
+                                        transform: rotate(90deg); 
+                                    }
+                                }
                             }
                         }
                     }
@@ -3600,6 +3656,20 @@ html {
                     text-align: left;
                     .column {
                         padding: 0 20px 0 20px;
+                        .quote_img {
+                            margin: 0 auto;
+                            display: block;
+                            height: 20px;
+                        }
+                        span {
+                            ul {
+                                li {
+                                    .arrow {
+                                        transform: rotate(90deg); 
+                                    }
+                                }
+                            }
+                        }
                     }
                     .container-contact {
                         width: 100%;
@@ -3609,6 +3679,17 @@ html {
                 &_variable {
                     .column {
                         padding: 0 20px 0 20px;
+                        span {
+                            ul {
+                                display: block;
+                                li {
+                                    min-width: auto;
+                                }
+                                :nth-of-type(2) {
+                                    margin: 0 auto;
+                                }
+                            }
+                        }
                     }
                     display: block;
                 }
