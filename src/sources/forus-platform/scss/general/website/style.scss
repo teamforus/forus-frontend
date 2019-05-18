@@ -2190,24 +2190,74 @@ html {
                 ul {
                     padding-top: 20px;
                     position: relative;
+                    display: flex;
+                    align-items: row;
+                    min-width: 100%;
+                    justify-content: space-between;
                 }
                 li {
                     float: left; 
                     text-align: center;
                     list-style-type: none;
                     position: relative;
-                    padding: 20px 5px 0 5px;
+                    padding: 0px 0 0 0;
+                    margin-top: 150px;
+                    width:100%;
+                }
+                .label {
+                    color: black;
+                    text-align: center;
+                    position: relative;
+                    display: table;
+                    margin: 0 auto;
+                    width: 25%;
+                    &_two {
+                        right: -25%;
+                    }
+                }
+                li:first-of-type:not(:only-of-type) {
+                    text-align: right;
+                    right:0px;
+                }
+                li:last-of-type:not(:only-of-type) {
+                    text-align: right;
+                }
+                li.head {
+                    padding: 0px 5px 0 5px;
+                    left:auto !important;
+                    margin-top: 0;
+                    text-align: center !important;
                 }
                 li::before, li::after{
-                    content: '';
-                    position: absolute; top: 0; right: 50%;
-                    border-top: 1px solid #ccc;
-                    width: 50%; height: 20px;
+                    content: ' ';
+                    position: absolute; 
+                    top: 0; 
+                    right: 50%;
+                    //border-top: 1px solid #ccc;
+                    width: 50%; 
+                    height: 20px;
                 }
                 li::after{
                     right: auto; 
-                    left: 50%;
+                    left: 83%;
+                    top: 0;
                     border-left: 1px solid #ccc;
+                    height: 0px;
+                    transform: rotate(360deg);
+                    transform-origin: top right;
+                }
+                li:last-child:before {
+                    left: -15px;
+                    top: -172px;
+                    height: 200px;
+                    transform: rotate(-30deg) !important;
+                    transform-origin: top bottom;
+                }
+                li.head:before {
+                    height: 0;
+                }
+                li.head::after {
+                    display: none;
                 }
                 li:only-child::after, li:only-child::before {
                     display: none;
@@ -2217,54 +2267,51 @@ html {
                     border: 0 none;
                 }
                 li:last-child::before{
-                    border-right: 1px solid #ccc;
-                    border-radius: 0 5px 0 0;
-                    -webkit-border-radius: 0 5px 0 0;
-                    -moz-border-radius: 0 5px 0 0;
+                    border-right: 1px solid #ccd0e0;
+                    //border-radius: 0 5px 0 0;
+                    //-webkit-border-radius: 0 5px 0 0;
+                    //-moz-border-radius: 0 5px 0 0;
                 }
                 li:first-child::after{
-                    border-radius: 5px 0 0 0;
-                    -webkit-border-radius: 5px 0 0 0;
-                    -moz-border-radius: 5px 0 0 0;
+                    //border-radius: 5px 0 0 0;
+                    //-webkit-border-radius: 5px 0 0 0;
+                    //-moz-border-radius: 5px 0 0 0;
                 }
-
+                /* line between ul */
                 ul ul::before{
                     content: '';
-                    position: absolute; top: 0; left: 50%;
-                    border-left: 1px solid #ccc;
-                    width: 0; height: 20px;
+                    position: absolute; 
+                    top: 0; 
+                    right: 50%;
+                    border-left: 1px solid #ccd0e0;
+                    width: 0; 
+                    height: 175px;
                 }
-                
                 li a{
                     content: ' ';
-                    border: 1px solid #ccc;
-                    padding: 5px 10px;
+                    padding: 12px 12px;
                     text-decoration: none;
-                    color: #666;
+                    color: #FFF;
+                    height: 51px;
+                    width: 51px;
                     font-family: arial, verdana, tahoma;
                     font-size: 11px;
                     display: inline-block;
-                    
-                    border-radius: 5px;
-                    -webkit-border-radius: 5px;
-                    -moz-border-radius: 5px;
+                    background-color: #fff;
+
+                    border-radius: 25px;
+                    -webkit-border-radius: 25px;
+                    -moz-border-radius: 25px;
                     
                     transition: all 0.5s;
                     -webkit-transition: all 0.5s;
                     -moz-transition: all 0.5s;
                 }
-                
-                /*Time for some hover effects*/
-                /*We will apply the hover effect the the lineage of the element also*/
-                li a:hover, li a:hover+ul li a {
-                    background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
+                .blue {
+                    border: 2px solid #bbdeff;
                 }
-                /*Connector styles on hover*/
-                li a:hover+ul li::after, 
-                li a:hover+ul li::before, 
-                li a:hover+ul::before, 
-                li a:hover+ul ul::before{
-                    border-color:  #94a0b4;
+                .checkmark-sponsor{
+                    background: url('../../assets/img/svg/sponsor.svg');
                 }
             }
         }
