@@ -1638,9 +1638,10 @@ html {
                     width: 100%;
                     .macbook {
                         position: relative;
-                        width: calc(84vh * 1.61666667);
+                        width: 100%;
                         display: inline-block;
                         height: 84vh;
+                        margin: 0 auto;
                         & > div{
                             position: relative;
                             width: 100%;
