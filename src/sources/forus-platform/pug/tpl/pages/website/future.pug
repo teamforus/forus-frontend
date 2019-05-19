@@ -3,7 +3,7 @@
         h1.wrapper_title Over ons
         .wrapper_desc
             ul
-                li.tab-inactive.enabled(ui=sref="history") Geschiedenis
+                li.tab-inactive.enabled(ui-sref="history") Geschiedenis
                 li.tab-inactive.enabled(ui-sref="current") Nu
                 li.tab-active Toekomst
 
@@ -12,50 +12,83 @@
         h3.wrapper_title Roadmap
         p.wrapper_desc Communicatie en ontwikkeling vind plaats op onze chat en github, dat betekent dat het mogelijk is voor iedereen om mee te praten en ontwikkelen.
         .row
-            .tab.active
+            a.tab(data-toggle="tab" href="#panel1-techtree" id="#panel1")
                 img(src="./assets/img/svg/platform-flat.svg")
                 h5 Forus
                 span De vier rollen nuttig en breed toegankelijk maken zodat waarde uitkering zo effectief mogelijk plaats kan vinden.
-            .tab
+            a.tab(data-toggle="tab" href="#panel2-techtree" id="#panel2")
                 img(src="./assets/img/svg/stack.svg")
                 h5 Stack
                 span Technologie gebruiken die geen centrale beheerder of administrator nodig heeft zodat drempels tot aansluiten verlaagd worden.
-            .tab
+            a.tab(data-toggle="tab" href="#panel3-techtree" id="#panel3")
                 img(src="./assets/img/svg/teamwork.svg")
                 h5 Organisatie
                 span Een open, dynamische en decentraal georganiseerde organisatie, zodat ontwikkeling en gebruik goed en breed worden ondersteund.
-            .tab
+            a.tab(data-toggle="tab" href="#panel4-techtree" id="#panel4")
                 img(src="./assets/img/svg/me-logo.svg")
                 h5 Me
                 span Een digitale identiteit voor eigendommen, eigenschappen en identificatie zodat zeggenschap zo dicht mogelijk bij de eindgebruiker komt.
 
 .wrapper.wrapper_techtree
     .container
-        ul
-            li.head 
-                h5.title Sponsor
-                a.checkmark-sponsor(href="#")
-                ul 
-                    li 
-                        a.blue(href="#") ?
-                        .label Sponsor dit sponsor dat
-                        ul 
-                            li 
-                                a.blue(href="#") ?
-                                .label Sponsor dit sponsor dat
-                                ul 
-                                    li 
-                                        a.blue(href="#") ?
-                                        .label.label_two Sponsor dit sponsor dat
-                                    li
-                                        a.blue(href="#") ?
-                                        .label.label_two Sponsor
-            li.head 
-                a.blue(href="#") ?
-            li.head  
-                a.blue(href="#") ?
-            li.head  
-                a.blue(href="#") ?
+        .panel#panel1-techtree
+            ul
+                li.head 
+                    h5.title Sponsor
+                    a.checkmark-sponsor(href="#")
+                    ul 
+                        li 
+                            a.blue(href="#") ?
+                            .tt-label Multiple Funds for one sponsor
+                            ul 
+                                li 
+                                    a.blue(href="#") ?
+                                    .tt-label Sponser products instead of shops
+                                    ul 
+                                        li 
+                                            a.blue.two(href="#") ?
+                                            .tt-label.tt-label_two Ether funds
+                                            ul
+                                                li
+                                                    a.blue(href="#") ?
+                                                    .tt-label.tt-label_two ERC20 Funds
+                                        li
+                                            a.blue(href="#") ?
+                                            .tt-label.tt-label_two Set fund criteria
+                                            ul 
+                                                li 
+                                                    a.blue.two(href="#") ?
+                                                    .tt-label.tt-label_two Configure funds yourself
+                li.head 
+                    h5.title Aanbieder
+                    a.checkmark-sponsor(href="#")
+                    ul
+                        li
+                            a.blue(href="#") ?
+                            .tt-label Accepteer ether                                           
+                li.head  
+                    h5.title Aanvrager
+                    a.checkmark-sponsor(href="#")
+                    ul 
+                        li 
+                            a.blue(href="#") ?
+                            .tt-label Apply trough platform (instead of activation code)
+                li.head  
+                    h5.title Validator
+                    a.checkmark-sponsor(href="#")
+                    ul 
+                        li 
+                            a.blue(href="#") ?
+                            .tt-label Validation dashboard
+        .panel#panel2-techtree
+            ul                 
+                li.head 
+                    h5.title database
+                    a.checkmark-sponsor(href="#")
+        .panel#panel3-techtree
+            ul test
+        .panel#panel4-techtree
+            ul test
 
 .wrapper.wrapper_contact_form.hidden-sm.hidden-md.hidden-lg
     .container

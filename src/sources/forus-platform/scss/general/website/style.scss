@@ -66,6 +66,9 @@ h5 {
 .tab-active, .tab-inactive {
     @include font-size-map($paragraph-font-size);
 }
+.tt-label, .head .title {
+    @include font-size-map($paragraph-font-size);
+}
 p {
     @include font-size-map($paragraph-font-size);
 }
@@ -2167,6 +2170,7 @@ html {
                     display: flex;
                     align-items: row;
                     box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.09);
+                    margin-bottom: 15px;
                 }
                 .tab {
                     width: calc(100% / 4);
@@ -2185,15 +2189,25 @@ html {
                     background-color: #fafbfd;
                     border-bottom: 3px solid #191a1c;      
                 }
+                a {
+                    text-decoration: none;
+                    color: #191a1c;
+                }
             }
             &_techtree {
                 ul {
                     padding-top: 20px;
                     position: relative;
-                    display: flex;
                     align-items: row;
                     min-width: 100%;
                     justify-content: space-between;
+                    display: flex;
+                }
+                .panel {
+                    display: none;
+                }
+                .panel.active {
+                    display: block;
                 }
                 li {
                     float: left; 
@@ -2204,24 +2218,22 @@ html {
                     margin-top: 150px;
                     width:100%;
                 }
-                .label {
+                .tt-label {
                     color: black;
                     text-align: center;
                     position: relative;
                     display: table;
                     margin: 0 auto;
-                    width: 25%;
-                    &_two {
-                        right: -25%;
-                    }
+                    width: 100%;
+                    font-weight: 500;
                 }
-                li:first-of-type:not(:only-of-type) {
+                /*li:first-of-type:not(:only-of-type) {
                     text-align: right;
                     right:0px;
                 }
                 li:last-of-type:not(:only-of-type) {
                     text-align: right;
-                }
+                }*/
                 li.head {
                     padding: 0px 5px 0 5px;
                     left:auto !important;
@@ -2239,19 +2251,19 @@ html {
                 }
                 li::after{
                     right: auto; 
-                    left: 83%;
+                    left: 50%;
                     top: 0;
                     border-left: 1px solid #ccc;
                     height: 0px;
-                    transform: rotate(360deg);
-                    transform-origin: top right;
+                    //transform: rotate(360deg);
+                    //transform-origin: top right;
                 }
                 li:last-child:before {
-                    left: -15px;
-                    top: -172px;
+                    left: 0;
+                    top: 0;
                     height: 200px;
-                    transform: rotate(-30deg) !important;
-                    transform-origin: top bottom;
+                    //transform: rotate(-30deg) !important;
+                    //transform-origin: top bottom;
                 }
                 li.head:before {
                     height: 0;
@@ -2267,7 +2279,7 @@ html {
                     border: 0 none;
                 }
                 li:last-child::before{
-                    border-right: 1px solid #ccd0e0;
+                    //border-right: 1px solid #ccd0e0;
                     //border-radius: 0 5px 0 0;
                     //-webkit-border-radius: 0 5px 0 0;
                     //-moz-border-radius: 0 5px 0 0;
@@ -2298,7 +2310,7 @@ html {
                     font-size: 11px;
                     display: inline-block;
                     background-color: #fff;
-
+                    
                     border-radius: 25px;
                     -webkit-border-radius: 25px;
                     -moz-border-radius: 25px;
