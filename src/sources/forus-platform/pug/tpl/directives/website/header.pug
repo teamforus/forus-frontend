@@ -35,11 +35,11 @@ header
                             .auth-user-role Uw profiel
                             img(ng-src="{{ $root.activeOrganization ? ($root.activeOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png') : './assets/img/placeholders/organization-thumbnail.png'}} ").auth-user-img
                             .auth-user-menu
-                                a(href="/sponsor" ng-if="$root.activeOrganization.id").auth-user-menu-item
+                                a(href="/sponsor").auth-user-menu-item
                                     | Sponsor
-                                a(href="/provider" ng-if="$root.activeOrganization.id").auth-user-menu-item
+                                a(href="/provider").auth-user-menu-item
                                     | Aanbieder
-                                .auth-user-menu-sep(ng-if="$root.activeOrganization.id")
+                                .auth-user-menu-sep
                                 //-.auth-user-menu-item(ng-click="$root.openPinCodePopup()")
                                     span(translate="topnavbar.buttons.authorize")
                                 a(ng-click="$root.signOut()").auth-user-menu-item
