@@ -1272,12 +1272,13 @@ html {
                 padding: 20px 0;
             }
             &_story {
-                background: url(../img/kp_launch2.jpg) no-repeat top center;
+                background: url(../img/kp_launch2.jpg) no-repeat center center;
                 background-size: cover;
-                height: auto;
+                height: 50vh;
+                min-height: 300px;
+                width: 100%;
                 display: flex;
                 text-align: center;
-                padding: 150px 5vw;
                 .column {
                     max-width: 700px;
                     margin: 0 auto;
@@ -3028,9 +3029,16 @@ html {
                         }
                     }
                 }
+                &_me {
+                    text-align: center;
+                }
                 &_me, &_reason, &_feature_one, &_feature_two, &_feature_three, &_content, &_holder, &_variable, &_sup {
                     flex-direction: column;
                     .column {
+                        width: 100%;
+                        span{
+                            float: unset;
+                        }
                         padding: 0 30px 0 30px;
                         &_lr {
                             width: 100%;
@@ -3086,10 +3094,33 @@ html {
                         }
                     }
                 }
+                &_feature_one {
+                    .column {
+                        img {
+                            height: 400px;
+                            margin: 0 auto;
+                            float: unset;
+                            display: block;
+                        }
+                    }
+                }
                 &_feature_two {
                     .column {
                         img {
-                            width: 700px;
+                            width: calc(100% + 30px);
+                        }
+                    }
+                    :nth-of-type(1) {
+                        order: 1;
+                    }
+                }
+                &_feature_three {
+                    .column {
+                        img {
+                            height: 400px;
+                            float: unset;
+                            display: block;
+                            margin: 0 auto;
                         }
                     }
                 }
@@ -3569,8 +3600,10 @@ html {
                     }
                 }
                 &_story {
+                    height: 50vh;
+                    min-height: 200px;
+                    max-height: 300px;
                     padding: 30px;
-                    flex-flow: column;
                     .column {
                         text-align: center;
                         img {
