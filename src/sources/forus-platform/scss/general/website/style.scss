@@ -1978,6 +1978,7 @@ html {
                         margin-bottom: 65px;
                         margin-right: 11px;
                         margin-left: 11px;
+                        
                         background-color: #f4f5f7;
                         border-radius: 15px;
                         text-align: center;
@@ -3333,7 +3334,8 @@ html {
                     }
                     .download_links {    
                         div {
-                            margin-bottom: 30px;       
+                            margin: 0 auto;     
+                            margin-bottom: 30px;  
                         }
                     }
                 }
