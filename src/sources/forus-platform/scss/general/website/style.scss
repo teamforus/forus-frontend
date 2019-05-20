@@ -4,7 +4,7 @@
 @import 'includes/placeholders';
 @import 'includes/third-party';
 @import 'includes/typography';
-@import 'includes/components/laptop.scss';
+@import 'includes/components/devices.scss';
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
 
@@ -469,6 +469,7 @@ html {
             }
             &_desc, &_desc *{
                 font-style: normal;
+                font-weight: 500;
                 font-stretch: normal;
                 line-height: 1.83;
                 letter-spacing: normal;
@@ -657,6 +658,7 @@ html {
                 }
                 img{
                     width: 100%;
+                    margin-bottom: 15px;
                 }
                 .wrapper_title{
                     
@@ -674,12 +676,12 @@ html {
                 }
                 .wrapper_desc,.wrapper_desc *{
                    
-                    font-weight: normal;
+                    font-weight: 500;
                     font-style: normal;
                     font-stretch: normal;
                     line-height: 1.56;
                     letter-spacing: normal;
-                    color: #191a1c;
+                    color: #454545;
                     text-align: left;
                 }
                 .txt_link{
@@ -873,14 +875,14 @@ html {
                         }
                         &_content {
                            
-                            font-weight: normal;
+                            font-weight: 400;
                             font-style: normal;
                             font-stretch: normal;
                             line-height: 1.56;
                             letter-spacing: normal;
                             *{
                                
-                                font-weight: normal;
+                                font-weight: 500;
                                 font-style: normal;
                                 font-stretch: normal;
                                 line-height: 1.56;
@@ -919,96 +921,6 @@ html {
                         }
                         .container{
                             position: relative;
-                        }
-                        .iphone {
-                            position: relative;
-                            left: -90px;
-                            top: 0;
-                            padding: 0 0 55px;
-                            width: 39%;
-                            display: inline-block;
-
-                            & > div{
-                                position: relative;
-                            }
-                            .frame{
-                                height: 100%;
-                                position: relative;
-                                img{
-                                    width: 100%;
-                                }
-                                .screens{
-                                    position: absolute;
-                                    left: 17.8%;
-                                    top: 1.1%;
-                                    width: calc(100% - (17.8% * 2));
-                                    height: calc(100% - (7% * 2));
-                                    img{
-                                        width: 100%;
-                                        position: absolute;
-                                        left: 0;
-                                        top: 0;
-                                        height: auto;
-                                        opacity: 0.7;
-                                        @include transition(0.7s);
-                                        &:nth-child(1){
-                                            transform: scale(1);
-                                            -webkit-transform:  scale(1);
-                                            opacity: 1;
-                                            z-index: 4;
-                                            &.move{
-                                                top: -200vw;
-                                                opacity: 0;
-                                                @include transition(0.7s);
-                                            }
-                                        }
-                                        &:nth-child(2){
-                                            transform:  scale(0.9);
-                                            -webkit-transform:  scale(0.9);
-                                            opacity: 0.7;
-                                            z-index: 3;
-                                            &.move{
-                                                top: 200vw;
-                                                opacity: 0;
-                                                @include transition(0.7s);
-                                            }
-                                        }
-                                        &:nth-child(3){
-                                            transform:  scale(0.8);
-                                            -webkit-transform:  scale(0.8);
-                                            opacity: 0.7;
-                                            z-index: 2;
-                                            &.move{
-                                                left: 200vw;
-                                                opacity: 0;
-                                                @include transition(0.7s);
-                                            }
-                                        }
-                                        &:nth-child(4){
-                                            transform:  scale(0.7);
-                                            -webkit-transform:  scale(0.7);
-                                            opacity: 0.7;
-                                            z-index: 1;
-                                            &.move{
-                                                left: -200vw;
-                                                opacity: 0;
-                                                @include transition(0.7s);
-                                            }
-                                        }
-                                        &.show{
-                                            transform: scale(1);
-                                            -webkit-transform:  scale(1);
-                                            opacity: 1;
-                                            z-index: 5;
-                                            left: 0;
-                                            top: 0;
-                                            right: initial;
-                                            bottom: initial;
-                                            @include transition();
-                                        }
-                                    }
-                                }
-                            }
                         }
                         .part_story {
                             padding: 175px 0 90px 40px;
@@ -1104,7 +1016,7 @@ html {
                             .text{
                                 display: block;
                                
-                                font-weight: normal;
+                                font-weight: 500;
                                 font-style: normal;
                                 font-stretch: normal;
                                 line-height: 1.56;
@@ -1168,7 +1080,7 @@ html {
                 }
                 .wrapper_desc{
                    
-                    font-weight: normal;
+                    font-weight: 500;
                     font-style: normal;
                     font-stretch: normal;
                     line-height: 1.44;
@@ -2749,7 +2661,7 @@ html {
                     text-align: center;
                 }
                 &_desc, &_desc *{
-                    font-weight: normal;
+                    font-weight: 500;
                     font-style: normal;
                     font-stretch: normal;
                     line-height: 1.63;
@@ -2786,12 +2698,13 @@ html {
                     }
                     .wrapper_desc,.wrapper_desc *{
                         text-align: left;
-                        font-weight: normal;
+                        font-weight: 500;
                         font-style: normal;
                         font-stretch: normal;
                         line-height: 1.62;
                         letter-spacing: normal;
                         max-width: 100%;
+                        color: #454545;
                     }
                     &>.row>div {
                         padding: 0 10px;
@@ -2817,7 +2730,7 @@ html {
                                     margin: auto;
                                 }
                                 .text{
-                                    font-weight: normal;
+                                    font-weight: 500;
                                     font-style: normal;
                                     font-stretch: normal;
                                     line-height: 1.43;
@@ -2859,68 +2772,15 @@ html {
                                 background: transparent;
                                 margin-bottom: 5px;
                                 padding-left: 0;
+                                font-size: 12px;
                             }
                             &_title{
                                 font-weight: 500;
                                 margin-bottom: 20px;
-                            }
-                            &_iphone, &_macbook {
-                                .macbook ,.iphone{
-                                    position: inherit!important;
-                                    width: 100%;
-                                    text-align: center;
-                                    max-width: 300px;
-                                    margin: 0 auto;
-                                    display: block;
-                                }
-                                .macbook{
-                                    .frame{
-                                        width: 100%;
-                                        position: relative;
-                                        & > img{
-                                            width: 100%;
-                                        }
-                                        .screens{
-                                            position: absolute;
-                                            left: 13%;
-                                            top: 8%;
-                                            width: calc(100% - 26%);
-                                            & > img{
-                                                width: 100%;
-                                                &:nth-child(n+2){
-                                                    display: none;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                .iphone{
-                                    & > div{
-                                        height: auto;
-                                    }
-                                    .frame{
-                                        width: 100%;
-                                        position: relative;
-                                        & > img{
-                                            width: 100%;
-                                        }
-                                        .screens{
-                                            position: absolute;
-                                            left: 18.3%;
-                                            top: 1.6%;
-                                            width: calc(100% - 36%);
-                                            & > img{
-                                                width: 100%;
-                                                &:nth-child(n+2){
-                                                    display: none;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                margin-top:0;
                             }
                             &_content{
-                                font-weight: normal;
+                                font-weight: 500;
                                 ul{
                                     padding-left: 30px;
                                 }
@@ -3092,43 +2952,6 @@ html {
                                         background: url(../img/mobile-arrow-down.png) no-repeat center center;
                                         margin-top: 0;
                                         height: 50px;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                &_fund{
-                    .container {
-                        .laptop ,.iphone{
-                            position: relative;
-                            width: 100%;
-                            text-align: center;
-                            max-width: 300px;
-                            max-height:200px;
-                            margin: 0 auto;
-                            display: block;
-                        }
-                        .laptop{
-                            height: auto;
-                            .frame{
-                                width: 100%;
-                                height: 100%;
-                                position: relative;
-                                top:35%;
-                                & > img{
-                                    width: 100%;
-                                }
-                                .screens{
-                                    position: absolute;
-                                    left: 13%;
-                                    top: 8%;
-                                    width: calc(100% - 26%);
-                                    & > img{
-                                        width: 100%;
-                                        &:nth-child(n+2){
-                                            display: none;
-                                        }
                                     }
                                 }
                             }
@@ -3577,8 +3400,10 @@ html {
                     .success_story {
                         .part_story {
                             text-align: left;
+                            margin-bottom: 0;
                         }
                     }
+                    padding-bottom: 0;
                 }
                 &_me, &_feature_one, &_feature_two, &_feature_three, &_content, &_holder, &_sup {
                     flex-flow: column;
