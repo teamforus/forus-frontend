@@ -3,7 +3,7 @@
         .column
             img(src="assets/img/zh_logo.png")
             span
-                h4 Customer Story
+                h4 Klantverhaal
                 h2 Gemeente Zuidhorn          
     .wrapper.wrapper_holder
         .column_xl
@@ -26,11 +26,12 @@
                             strong Aantal inwoners
                             br
                             | 10.000
-                    li
+                    li(ui-sref="kindpakket")
                         p   
                             strong Gebruikte regeling
                             br
-                            | Kindpakket
+                            span(class="btn-link")
+                                | Kindpakket
                     li
                         p
                             strong Aantal ontvangers
@@ -67,25 +68,23 @@
             span
                 ul
                     li
-                        strong 8,4
+                        h2 8,4
                         p   Winkeliers
                     li 
-                        img(src="assets/img/arrow-back.svg" class="arrow")
+                        .arrow_back
                     li
-                        strong Enquête
+                        h2 Enquête
                         p   Gemiddelde score
                     li
-                        img(src="assets/img/arrow-forward.svg" class="arrow")
+                        .arrow_forward
                     li
-                        strong 8,5
+                        h2 8,5
                         p   Inwoners
     .wrapper.wrapper_content
         .column
             span
                 h2 Effect op de gemeente
                 p Waar gemeentemedewerkers Marleen en Margrieta  voorheen een omslachtige administratieve taak hadden, staan ze nu vooraan bij de goedkeuring van nieuwe ondernemers op het platform en leggen ze meteen contact zodra ze zien dat inwoners hun code niet activeren. Ook hebben ze gemerkt dat door de digitale QR-code het geld nu direct bij de kinderen terecht komt en niet in de algemene huishoudpot.
-                p "De Forus technologie is niet het doel, maar ons middel voor meerwaarde"
-                p Erwin van der Maesen de Sombreff, - Hoofd ruimte en welzijn.
         .column
             .img_zh
     .wrapper.wrapper_variable
@@ -94,7 +93,6 @@
                 h2 Erkenning Kindpakket
                 p.text-left Met de innovatie van Forus is het vernieuwde Kindpakket niet onopgemerkt gebleven. Onlangs werd het Kindpakket uitgeroepen tot "Beste ICT-project bij de Overheid 2018" op basis van de "toegevoegde waarde op het gebied van maatschappelijk belang" en de brede toepasbaarheid van het platform.
                 p.text-left Eerder datzelfde jaar won Zuidhorn ook de GemeentePioniers Award 2018 waarbij het vernieuwde Kindpakket erkent werd als "het beste, meest innovatieve en meest maatschappelijke voorbeeld van digitale dienstverlening".
-        .column
             span
                 ul
                     li
@@ -112,8 +110,6 @@
                         p
                             strong RVO
                             br
-    .wrapper.wrapper_variable
-        .column
     .wrapper.wrapper_holder
         .column_sidebar
             span
@@ -123,7 +119,12 @@
             span
                 h2.hide-sm Kindpakket in de media
                 p Ook heeft de innovatie bij gemeente Zuidhorn aandacht van de media gekregen. Tijdens een interview op EenVandaag vertelt fietshandelaar Jannes dat het platform "wel heel erg simpel" werkt. "Het zou wel makkelijk zijn als iedereen zo kon betalen”, want betalen met de QR-code gaat "nog sneller dan pinnen".
-                p Voor De Groene Amsterdammer inspireerde het vernieuwde Kindpakket een uitgebreid artikel over decentralisatie. "Nadat eerst een hoop zorgtaken van de rijksoverheid naar de gemeenten gingen," schrijft Coen van de Ven, wordt in Zuidhorn "zelfs een zorgtaak gedecentraliseerd naar de burgers"
+                p Voor De Groene Amsterdammer inspireerde het vernieuwde Kindpakket een uitgebreid artikel over decentralisatie. "Nadat eerst een hoop zorgtaken van de rijksoverheid naar de gemeenten gingen," schrijft Coen van de Ven, wordt in Zuidhorn "zelfs een zorgtaak gedecentraliseerd naar de burgers".
+            .img_box
+                .media_one
+                .media_two
+                .media_three
+                .media_four
     .wrapper.wrapper_variable
         .column
             span.full-width
@@ -143,5 +144,5 @@
             span
                 h3 Ook geïnteresseerd in het kindpakket voor uw gemeente?
                 span.txt_link(ui-sref="kindpakket")
-                        span Lees meer over het kindpakket
+                        span Leer meer over het kindpakket
                         include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg 

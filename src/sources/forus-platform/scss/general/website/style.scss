@@ -1302,6 +1302,45 @@ html {
                         width: 60%;
                         margin: 0 5%;
                         h2 {margin-top: 0;}
+                        .img_box {
+                            display: block;
+                            max-width: 80%;
+                            .media_one {
+                                float: left;
+                                background: url(../img/Logo-degroeneamsterdammer.png) no-repeat left center;
+                                background-size: contain;
+                                width: 50%;
+                                height: 50px;
+                                margin-top: 10%;
+                            }
+                            .media_two {
+                                display: block;
+                                float: left;
+                                background: url(../img/logo-binnenlandsbestuur.jpg) no-repeat center center;
+                                background-size: contain;
+                                width: 50%;
+                                height: 50px;
+                                margin-top: 10%;
+                            }
+                            .media_three {
+                                display: block;
+                                float: left;
+                                background: url(../img/logo-1vandaag.png) no-repeat left center;
+                                background-size: contain;
+                                width: 50%;
+                                height: 50px;
+                                margin-top: 10%;
+                            }
+                            .media_four {
+                                display: block;
+                                float: left;
+                                background: url(../img/logo-npo-radio1.png) no-repeat center center;
+                                background-size: contain;
+                                width: 50%;
+                                height: 50px;
+                                margin-top: 10%;
+                            }
+                        }
                     }
                     &_sidebar {
                         width: 40%;
@@ -1310,6 +1349,16 @@ html {
                         &_bg {
                             margin: 0 5%;
                             width: 40%;
+                            .btn-link {
+                                text-decoration: none;
+                                color: #191a1c;
+                                font-weight: 300;
+                                cursor: pointer;
+                                &:hover {
+                                    color: $forus-demi-blue;
+                                    text-decoration: underline;
+                                }
+                            }
                         }
                         span {
                             .hide-lg {
@@ -1423,7 +1472,7 @@ html {
                 display: flex;
                 .column{
                     flex: 1;
-
+                    margin: 0 5% 0 0%;
                     span {
                         max-width: 500px;
                         vertical-align: middle;
@@ -1434,9 +1483,6 @@ html {
                             }
                             li {
                                 min-width: 175px;
-                                img {
-                                    margin: 0 auto;
-                                }
                                 p {
                                     font-size: 14px;
                                 }
@@ -1460,6 +1506,9 @@ html {
                         .hide-lg {
                             display: none;
                         }
+                    }
+                    :nth-of-type(2) {
+                        margin: 0 0 5% 0;
                     }
                     .img_em {
                         max-width: 100%;
@@ -1568,8 +1617,24 @@ html {
                             margin: 0 auto;
                             justify-content: center;
                             text-align: center;
+                            align-items: center;
                             li {
-                                padding: 0 5% 0 5%;
+                                min-width: 125px;
+                                align-self: flex-end;
+                                .arrow_forward {
+                                    background: url(../img/arrow-forward.png) no-repeat right center;
+                                    background-size: cover;
+                                    height: 10px;
+                                    margin: 0 auto;
+                                    margin-top: -35px;
+                                }
+                                .arrow_back {
+                                    background: url(../img/arrow-back.png) no-repeat left center;
+                                    background-size: cover;
+                                    height: 10px;
+                                    margin: 0 auto;
+                                    margin-top: -35px;  
+                                }
                             }
                         }
                     }
@@ -2786,6 +2851,27 @@ html {
                 }
             }
             .wrapper{
+                &_story {
+                    height: 25vh;
+                }
+                &_holder {
+                    .column {
+                        &_sidebar {
+                            span {
+                                .hide-lg {
+                                    display: block;
+                                }
+                            }
+                        }
+                        &_lr {
+                            span {
+                                .hide-sm {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
                 &_value_allowance{
                     padding: 30px 0 0;
                     &:before{
@@ -3018,7 +3104,11 @@ html {
                             margin: 0 auto;
                             justify-content: center;
                             ul {
-                                display: block;
+                                display: flex;
+                                margin: 0 auto;
+                                justify-content: center;
+                                flex-direction: column;
+                                text-align: center;
                                 li {
 
                                 }
@@ -3038,6 +3128,9 @@ html {
                         width: 100%;
                         span{
                             float: unset;
+                            .hide-lg {
+                                display: block;
+                            }
                         }
                         padding: 0 30px 0 30px;
                         &_lr {
@@ -3139,8 +3232,15 @@ html {
                                 margin: 0 auto;
                                 text-align: center;
                                 li {
-                                    .arrow {
-                                        transform: rotate(90deg); 
+                                    .arrow_back {
+                                        background: url(../img/mobile-arrow-up.png) no-repeat center center;
+                                        margin-top: 0;
+                                        height: 50px;
+                                    }
+                                    .arrow_forward {
+                                        background: url(../img/mobile-arrow-down.png) no-repeat center center;
+                                        margin-top: 0;
+                                        height: 50px;
                                     }
                                 }
                             }
@@ -3524,9 +3624,6 @@ html {
                             .hide-sm {
                                 display: none;
                             }
-                            .hide-lg {
-                                display: block;
-                            }
                         }
                         img {
                             clear: both;
@@ -3547,6 +3644,9 @@ html {
                             width: 100%;
                             order: 2;
                             padding: 0 20px 0 20px;
+                            .img_box {
+                                max-width: 100%;
+                            }
                         }
                         &_sidebar {
                             text-align: center;
@@ -3697,9 +3797,6 @@ html {
                         span {
                             ul {
                                 li {
-                                    .arrow {
-                                        transform: rotate(90deg); 
-                                    }
                                 }
                             }
                         }
@@ -3714,7 +3811,11 @@ html {
                         padding: 0 20px 0 20px;
                         span {
                             ul {
-                                display: block;
+                                display: flex;
+                                margin: 0 auto;
+                                justify-content: center;
+                                flex-direction: column;
+                                text-align: center;
                                 li {
                                     min-width: auto;
                                 }
