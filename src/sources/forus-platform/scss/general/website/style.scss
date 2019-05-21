@@ -1650,11 +1650,15 @@ html {
                 .wrapper_title {
                     margin-top: 15px;
                 }
-                .wrapper_desc p {
-                    
-                    font-family: Montserrat;
-                    font-weight: 400;
+                .wrapper_desc {
                     margin: 25px;
+                    text-align: center;
+                    p {
+                        max-width: 800px;
+                        margin: 0 auto;
+                        font-family: Montserrat;
+                        font-weight: 400;
+                    }
                     a {
                         color:  $forus-demi-blue;
                     }
