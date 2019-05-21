@@ -1288,7 +1288,7 @@ html {
                 align-items: flex-start;
                 display: flex;
                 .column{
-                    flex: 1;
+                    flex: auto;
                     margin: 0 5% 0 0%;
                     span {
                         max-width: 500px;
@@ -1377,7 +1377,7 @@ html {
                 h1 {color: black;}
                 
                 .column {
-                    flex: 1;
+                    flex: auto;
                     width: 50%;
                     padding: 20px 30px 20px 30px;
 
@@ -1500,7 +1500,7 @@ html {
                 }
                 .column {
                     padding: 0 30px 0 30px;
-                    flex: 1;
+                    flex: auto;
                     width: 50%;
 
                     span {
@@ -1526,7 +1526,7 @@ html {
                 margin: auto;
                 .column {
                     padding: 0 30px 0 30px;
-                    flex: 1;
+                    flex: auto;
                     width: 50%;
 
                     span {
@@ -1556,7 +1556,7 @@ html {
 
                 .column {
                     padding: 0 30px 0 30px;
-                    flex: 1;
+                    flex: auto;
                     width: 50%;
 
                     span {
