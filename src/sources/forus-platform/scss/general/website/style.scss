@@ -70,6 +70,25 @@ h5 {
 p {
     @include font-size-map($paragraph-font-size);
 }
+
+.txt_link{
+    display: flex;
+    align-items: center;
+    line-height: 26px;
+   
+    cursor: pointer;
+    span {
+        color: $forus-demi-blue;
+        font-weight: 500;
+        padding: 0 10px;
+    }
+    svg{
+        fill: $forus-demi-blue;
+        height: 22px;
+        width: 22px;
+    }
+}
+
 html {
     line-height: 1.2;
     @include font-size-map($body-font-size);
@@ -683,23 +702,6 @@ html {
                     letter-spacing: normal;
                     color: #454545;
                     text-align: left;
-                }
-                .txt_link{
-                    display: flex;
-                    align-items: center;
-                    line-height: 26px;
-                   
-                    cursor: pointer;
-                    span {
-                        color: $forus-demi-blue;
-                        font-weight: 500;
-                        padding: 0 10px;
-                    }
-                    svg{
-                        fill: $forus-demi-blue;
-                        height: 22px;
-                        width: 22px;
-                    }
                 }
                 .btn_link{
                     position: relative;
@@ -1463,6 +1465,9 @@ html {
                         }
                     }
                 }
+                &_fund {
+                    margin-bottom: 100px;
+                }
                 &_sec {
                     max-width: 1440px;
                     background-color: #f4f5f7;
@@ -1479,12 +1484,27 @@ html {
                     width: 500px;
                     margin: 0 auto;
                 }
+                .txt_link {
+                    @include font-size-map($paragraph-font-size);
+                    span {
+                        text-align: center;
+                        margin: 0 auto;
+                    }
+                    span:hover {
+                        text-decoration: underline;
+                    }
+                    svg {
+                        padding-top: 5px;
+                        margin-bottom: -2px;
+                    }
+                }
             }
             &_feature_one {
                 background-color: #f9fafb;
                 display: flex;
                 margin: auto;
                 &_white {
+                    margin-top: 100px;
                     background-color: white;
                 }
                 .column {
@@ -2836,6 +2856,12 @@ html {
                 }
                 &_me, &_reason, &_feature_one, &_feature_two, &_feature_three, &_content, &_holder, &_variable, &_sup {
                     flex-direction: column;
+                    &_white {
+                        margin-top: 10px;
+                    }
+                    &_fund {
+                        margin-bottom: 10px;
+                    }
                     .column {
                         width: 100%;
                         span{
