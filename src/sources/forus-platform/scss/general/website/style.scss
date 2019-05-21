@@ -532,6 +532,10 @@ html {
             }
             &_concept{
                 padding: 80px 0 60px;
+                .wrapper_desc{
+                    line-height: 1.44;
+                    font-weight: 400;
+                }
             }
             &_logo_title{
                 text-align: center;
