@@ -39,7 +39,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
-        name: "story",
+        name: "cs-zuidhorn",
         url: "/cs-zuidhorn",
         component: "storyComponent"
     });
