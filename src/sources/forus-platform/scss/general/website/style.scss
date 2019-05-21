@@ -532,6 +532,10 @@ html {
             }
             &_concept{
                 padding: 80px 0 60px;
+                .wrapper_desc{
+                    line-height: 1.44;
+                    font-weight: 400;
+                }
             }
             &_logo_title{
                 text-align: center;
@@ -1657,6 +1661,8 @@ html {
                 .wrapper_numbers {
                     display: flex;
                     width: 100%;
+                    max-width: 800px;
+                    margin: 0 auto;
                     flex-direction: row;
                     justify-content: space-around;
                     .col-33{
@@ -2420,15 +2426,6 @@ html {
                         min-height: 280px;
                     }
                 }
-                &_dev {
-                    img {
-                        display:none;
-                    }
-                    .content {
-                        margin: 12px;
-                        min-width: 100%;
-                    }
-                }
             }
         }
     }
@@ -2439,6 +2436,15 @@ html {
                     padding: 80px 5vw;
                     .column {
                         padding: 20px;
+                    }
+                }
+                &_dev {
+                    img {
+                        display:none;
+                    }
+                    .content {
+                        margin: 12px;
+                        min-width: 100%;
                     }
                 }
                 &_me, &_reason, &_feature_one, &_feature_two, &_feature_three, &_content, &_holder, &_variable, &_sup {
