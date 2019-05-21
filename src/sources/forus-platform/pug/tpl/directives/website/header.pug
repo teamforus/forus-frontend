@@ -21,11 +21,11 @@ header
                                 .column-title Klantverhalen                               
                                 a(ui-sref="story" data-toggle="collapse" data-target="#nav-product").zuidhorn gemeente Zuidhorn
                     li
-                        a(ui-sref="me" data-toggle="collapse" data-target="#nav-product") Me
+                        a(ui-sref="me") Me
                     li
-                        a(ui-sref="current" data-toggle="collapse" data-target="#nav-product") Over ons
+                        a(ui-sref="current") Over ons
                     li
-                        a(ui-sref="contact" data-toggle="collapse" data-target="#nav-product") Contact
+                        a(ui-sref="contact") Contact
                 ul.nav.navbar-nav.navbar-right.auth-out(ng-if="!$root.auth_user")
                     li.login_btn
                         a.login_btn(ng-click="openAuthPopup()") Inloggen
