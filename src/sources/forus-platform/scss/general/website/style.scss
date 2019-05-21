@@ -2426,15 +2426,6 @@ html {
                         min-height: 280px;
                     }
                 }
-                &_dev {
-                    img {
-                        display:none;
-                    }
-                    .content {
-                        margin: 12px;
-                        min-width: 100%;
-                    }
-                }
             }
         }
     }
@@ -2445,6 +2436,15 @@ html {
                     padding: 80px 5vw;
                     .column {
                         padding: 20px;
+                    }
+                }
+                &_dev {
+                    img {
+                        display:none;
+                    }
+                    .content {
+                        margin: 12px;
+                        min-width: 100%;
                     }
                 }
                 &_me, &_reason, &_feature_one, &_feature_two, &_feature_three, &_content, &_holder, &_variable, &_sup {
