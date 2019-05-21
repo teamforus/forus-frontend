@@ -10,22 +10,22 @@ header
             #navbar.navbar-collapse.collapse
                 ul.nav.navbar-nav
                     li
-                        a(ui-sref="kindpakket") Kindpakket
-                    li
-                        a(ui-sref="me") Me
-                        //-a(href="#" type="button" data-toggle="collapse" data-target="#nav-product" aria-expanded="false" aria-controls="nav-product") Product
+                        a(type="button" data-toggle="collapse" data-target="#nav-product" aria-expanded="false" aria-controls="nav-product") Forus
                             .caret
-                                include ../../../resources/platform-general/assets/img/svg/arrow.svg
-                        //-span#nav-product.dropdown.collapse
-                            .dropdown-column-1                                
-                                a(href="/#!/kindpakket").zuidhorn Kindpakket
-                                a(href="#").nijmegen Meedoen-regeling
+                                include ../../../../resources/platform-general/assets/img/svg/arrow.svg
+                        span#nav-product.dropdown.collapse
+                            .dropdown-column-1
+                                .column-title Producten                           
+                                a(ui-sref="kindpakket" data-toggle="collapse" data-target="#nav-product") Kindpakket
                             .dropdown-column-2
-                                a(href="#") Klantervaringen
+                                .column-title Klantverhalen                               
+                                a(ui-sref="story" data-toggle="collapse" data-target="#nav-product").zuidhorn gemeente Zuidhorn
                     li
-                        a(ui-sref="current") Over ons
+                        a(ui-sref="me" data-toggle="collapse" data-target="#nav-product") Me
                     li
-                        a(ui-sref="contact") Contact
+                        a(ui-sref="current" data-toggle="collapse" data-target="#nav-product") Over ons
+                    li
+                        a(ui-sref="contact" data-toggle="collapse" data-target="#nav-product") Contact
                 ul.nav.navbar-nav.navbar-right.auth-out(ng-if="!$root.auth_user")
                     li.login_btn
                         a.login_btn(ng-click="openAuthPopup()") Inloggen

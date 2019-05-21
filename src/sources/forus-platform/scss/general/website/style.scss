@@ -398,48 +398,39 @@ html {
                                     background-color: #FFFFFF;
                                     width: 550px;    
                                     z-index: 5;  
+                                    .column-title {
+                                        text-transform: uppercase;
+                                        font-size: 15px;
+                                        font-weight: 500;
+                                        margin: 0px 31px;
+                                        margin-top: 20px;
+                                        margin-bottom: 2px;
+                                        letter-spacing: 0.4px;
+                                        color: #abacb2;
+                                    }
                                     .dropdown-column-1 {
                                         width: 273px;
                                         position:relative;
                                         float: left;
                                         a {
-                                            font-weight: 500;
+                                            font-weight: 600;
                                             display: block;
-                                            margin: 31px;
-                                            margin-left: 70px;
-    
-                                            &:before{
-                                                content: '';
-                                                position: absolute;  
-                                                width: 34px;
-                                                display: block;
-                                                height: 34px;
-                                                left: 25px;
-                                                margin-top: -6px;
-                                                background-color: #eef5ff;                                               
-                                                background-position: center center;
-                                                background-repeat: no-repeat;
-                                                border-radius: 5px;
-                                            }
-                                            &.zuidhorn {
-                                                &:before{
-                                                    background-image: url("http://www.zorgsaamoldehove.nl/wp-content/uploads/2017/04/LogoZuidhorn-500x400.png");                                        
-                                                    background-size: 34px 28px;
-                                                }
-                                            }
-                                            &.nijmegen {
-                                                &:before{
-                                                    background-size: 17px 24px;
-                                                    background-image: url("https://www.nijmegen.nl/fileadmin/site/framework/img/beeldmerk.svg");
-                                                }
+                                            padding: 12px 31px;
+                                            margin-bottom: 12px;
+                                            &:hover {
+                                                background-color: #f4f5f7;
                                             }
                                         }
                                     }       
                                     .dropdown-column-2 {
                                         a {
-                                            font-weight: 600;
+                                            font-weight: 500;
                                             display: block;
-                                            margin: 31px;
+                                            padding: 12px 31px;
+                                            margin-bottom: 12px;
+                                            &:hover {
+                                                background-color: #f4f5f7;
+                                            }
                                         }
                                         width: 273px;
                                         position:relative;
