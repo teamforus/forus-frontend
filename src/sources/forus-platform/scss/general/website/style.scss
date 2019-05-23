@@ -2739,20 +2739,31 @@ html {
                 &_roles {
                     .roles {
                         padding: 0;
+                        display: flex;
+                        flex-wrap: wrap;
                         .role{
-                            padding: 0 10px;
+                            padding: 15px 25px;
+                            display: flex; 
+                            flex-basis: 50%;
+                            margin-left: -5px;
+
                             .role_content {
-                                text-align: left!important;
-                                padding-bottom: 25px;
+                                padding-bottom: 5px;
+                                text-align: center;
+                                display: flex;
+                                flex-wrap: wrap;
                                 .title{
                                     font-weight: 600;
                                     font-style: normal;
                                     font-stretch: normal;
                                     line-height: normal;
                                     letter-spacing: normal;
+                                    display: block;
+                                    margin: 0 auto;
                                     text-align: left;
-                                    display: inline-block;
-                                    margin: auto;
+                                    flex:1;
+                                    margin-top: 10px;
+                                    flex-basis:25%;
                                 }
                                 .text{
                                     font-weight: 500;
@@ -2760,12 +2771,21 @@ html {
                                     font-stretch: normal;
                                     line-height: 1.43;
                                     letter-spacing: normal;
-                                    text-align: left;
+                                    flex-basis:100%;
+                                    text-align: center;
+                                    padding-left: 15px;
+                                    padding-top: 10px;
                                 }
                                 .btn_link{
                                     width: 100%;
-                                    margin: 0 auto 10px;
                                     display: block;
+                                    margin: 0;
+                                    margin-right: 15px;
+                                    order: -1;
+                                    flex:1;
+                                    flex-basis:10%;
+                                    text-align: right;
+
                                     span:not([class*='play_btn']){
                                         display: none;
                                     }

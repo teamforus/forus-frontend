@@ -84,10 +84,10 @@ let HomeComponent = function() {
     
         e.preventDefault();
     
-        var video = $(this).closest('.tab-pane').find('.wrapper_tab_video video');
+        var target = $(this).attr("id");
+        var video = $(target).closest('.tab-pane').find('.wrapper_tab_video video');
     
         $(this).toggleClass('active');
-    
         if($(this).hasClass('active')){
             $(video)[0].play();
         } else {
