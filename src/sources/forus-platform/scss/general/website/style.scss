@@ -3,8 +3,9 @@
 @import 'includes/helpers';
 @import 'includes/placeholders';
 @import 'includes/third-party';
-@import 'includes/typography';
+@import 'includes/base/typography';
 @import 'includes/components/devices.scss';
+@import 'includes/components/buttons.scss';
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
 
@@ -18,77 +19,6 @@
     bottom: $offset;
     left: $offset;
 }
-
-h1 {
-    @include font-size-map($h1-font-size);
-}
-.h1-subtitle {
-    @include font-size-map($h3-font-size);
-}
-h2 {
-    @include font-size-map($h2-font-size);
-}
-.h2-subtitle {
-    @include font-size-map($h2-font-size);
-}
-h3 {
-    @include font-size-map($h3-font-size);
-}
-.h3-subtitle {
-    @include font-size-map($h3-font-size);
-}
-h4 {
-    @include font-size-map($h4-font-size);
-}
-.h4-subtitle {
-    @include font-size-map($h4-font-size);
-}
-h5 {
-    @include font-size-map($h5-font-size);
-}
-.h5-subtitle {
-    @include font-size-map($h5-font-size);
-}
-.btn_link {
-    @include font-size-map($h4-font-size);
-}
-.navbar-nav a {
-    @include font-size-map($h5-font-size);
-}
-.timeline_entry_title {
-    @include font-size-map($big-font-size);
-}
-.timeline_entry_description {
-    @include font-size-map($small-font-size);
-}
-.timeline_entry_date {
-    @include font-size-map($h5-font-size);
-}
-.tab-active, .tab-inactive {
-    @include font-size-map($paragraph-font-size);
-}
-p {
-    @include font-size-map($paragraph-font-size);
-}
-
-.txt_link{
-    display: flex;
-    align-items: center;
-    line-height: 26px;
-   
-    cursor: pointer;
-    span {
-        color: $forus-demi-blue;
-        font-weight: 500;
-        padding: 0 10px;
-    }
-    svg{
-        fill: $forus-demi-blue;
-        height: 22px;
-        width: 22px;
-    }
-}
-
 html {
     line-height: 1.2;
     @include font-size-map($body-font-size);
@@ -97,7 +27,6 @@ html {
         .container_contact {
             max-width: 1440px;
             margin: 0 auto;
-
             .wrapper {
                 align-items: flex-start;
             }
@@ -128,27 +57,6 @@ html {
             font-weight: bold;
             text-align: center;
         }
-        .download__buttons {
-            width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            overflow: auto;
-        }
-        .download__buttons-item {
-            display: block;
-            margin: 30px;
-            text-decoration: none;
-            -webkit-box-shadow: 0 10px 30px 0 rgba(0,0,0,0.5);
-            -moz-box-shadow: 0 10px 30px 0 rgba(0,0,0,0.5);
-            box-shadow: 0 10px 30px 0 rgba(0,0,0,0.5);
-        }
-        .download__buttons-item img {
-            display: block;
-            max-width: 100%;
-        }
-
         .thanks {
             display:none;
             text-align: center;
@@ -375,20 +283,6 @@ html {
                                             }
                                         }
                                     }
-                                    &.login_btn{
-                                        width: 161px;
-                                        height: 60px;
-                                        border-radius: 8px;
-                                        background-color: rgba(12,102,255,0.1);
-                                        color: $forus-sky-blue;
-                                        text-align: center;
-                                        &:hover, &:active, &focus{
-                                            cursor: pointer;
-                                            color: #fff;
-                                            background: $forus-sky-blue;
-                                            font-weight: bold;
-                                        }
-                                    }
                                 }
                                 span.dropdown {
                                     position:absolute;
@@ -463,29 +357,7 @@ html {
         }
         .wrapper{
             align-items: center;
-            h1 {
-                color: #fff;
-            }
-            .main_button {
-                float: left;
-            }
-            &_title{
-                font-weight: 600;
-                font-style: normal;
-                font-stretch: normal;
-                line-height: 0.85;
-                letter-spacing: normal;
-                text-align: center;
-            }
-            &_desc, &_desc *{
-                font-style: normal;
-                font-weight: 500;
-                font-stretch: normal;
-                line-height: 1.83;
-                letter-spacing: normal;
-                text-align: center;
-                margin-bottom: 60px;
-            }
+
             &_value_allowance{
                 padding: 150px 5vw;
                 position: relative;
@@ -510,8 +382,8 @@ html {
                     -o-background-size: cover;
                     background-size: cover;
                 }
-                h1{
-                    
+                h1 {
+                    color: #FFF;
                     font-weight: 600;
                     font-style: normal;
                     font-stretch: normal;
@@ -521,21 +393,16 @@ html {
                     text-align: left;
                     margin: 25px auto;
                 }
-                .wrapper_desc{
+                p {
                     color: #fff;
                     max-width: 550px;
                     width: 100%;
-                    text-align: left;
                     text-shadow: 1px 5px 10px black;
                     font-weight: 500;
                 }
             }
             &_concept{
                 padding: 80px 0 60px;
-                .wrapper_desc{
-                    line-height: 1.44;
-                    font-weight: 400;
-                }
             }
             &_logo_title{
                 text-align: center;
@@ -553,13 +420,6 @@ html {
                 }
             }
             &_parties_list{
-                .wrapper_title{
-                    margin-bottom: 35px;
-                    color: $tc;
-                }
-                .wrapper_desc{
-                    margin-bottom: 0;
-                }
                 .nav{
                     text-align: center;
                     border: 0;
@@ -634,26 +494,6 @@ html {
                                 width: 100%;
                             }
                         }
-                        .btn_link{
-                            display: block;
-                            text-align: center;
-                            margin: 45px auto 55px;
-                            span{
-                                display: inline-block;
-                                vertical-align: middle;
-                                
-                                font-weight: 500;
-                                font-style: normal;
-                                font-stretch: normal;
-                                letter-spacing: normal;
-                                color: $forus-demi-blue;
-                                line-height: 26px;
-                                svg{
-                                    display: block;
-                                    margin-left: 10px;
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -674,66 +514,11 @@ html {
                     width: 100%;
                     margin-bottom: 15px;
                 }
-                .wrapper_title{
-                    
-                    font-weight: 600;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 1.11;
-                    letter-spacing: normal;
-                    color: #191a1c;
-                    text-align: left;
-                    margin-bottom: 24px;
-                }
-                .wrapper_desc{
-                    margin-bottom: 26px;
-                }
-                .wrapper_desc,.wrapper_desc *{
-                   
-                    font-weight: 500;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 1.56;
-                    letter-spacing: normal;
-                    color: #454545;
-                    text-align: left;
-                }
-                .btn_link{
-                    position: relative;
-                    left: -20px;
-                    span{
-                        display: inline-block;
-                        vertical-align: middle;
-                       
-                        font-weight: 500;
-                        font-style: normal;
-                        font-stretch: normal;
-                        letter-spacing: normal;
-                        color: $forus-demi-blue;
-                        line-height: 26px;
-                        svg{
-                            display: block;
-                            margin-left: 10px;
-                            -webkit-transform: rotate(-90deg);
-                            -ms-transform: rotate(-90deg);
-                            transform: rotate(-90deg);
-                            width: 34px;
-                            height: 34px;
-                            g, path{
-                                fill: $forus-demi-blue!important;
-                            }
-                        }
-                    }
-                }
             }
             &_benefits{
                 background-color: #f4f5f7;
                 padding: 70px 0!important;
                 position: relative;
-                .wrapper_title{
-                    margin-bottom: 50px;
-                    text-align: left;
-                }
                 &:after{
                     content: '';
                     position: absolute;
@@ -749,7 +534,6 @@ html {
                 ul{
                     padding-left: 45px;
                     li{
-                       
                         font-weight: normal;
                         font-style: normal;
                         font-stretch: normal;
@@ -767,16 +551,10 @@ html {
                 background-image: linear-gradient(to top, #fbfcfd, rgba(251, 252, 253, 0.0000000001));
                 padding: 70px 0 30px;
                 margin-top: 12vw;
-                .wrapper_title{
-                    color: $tc;
-                }
                 &.fixed{
                     width: 100vw;
                     left: 0;
                     top: 0;
-                }
-                .wrapper_title{
-                    margin-bottom: 50px;
                 }
                 .fix_side.nav {
                     width: 135px;
@@ -838,9 +616,6 @@ html {
                         }
                     }
                 }
-                .fix_side, .fix_side * {
-
-                }
                 .success_story {
                     position: relative;
                     overflow: hidden;
@@ -859,16 +634,6 @@ html {
                             
                             font-weight: 500;
                             display: inline-block;
-                        }
-                        &_title {
-                            
-                            font-weight: 500;
-                            font-style: normal;
-                            font-stretch: normal;
-                            line-height: 1.23;
-                            letter-spacing: normal;
-                            color: #000000;
-                            margin-bottom: 24px;
                         }
                         &_content {
                            
@@ -936,9 +701,6 @@ html {
             }
             &_roles{
                 margin-bottom: 15px;
-                .wrapper_title{
-                    margin-bottom: 35px;
-                }
                 .roles{
                     box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.09);
                     background-color: #ffffff;
@@ -959,57 +721,6 @@ html {
                                 margin-bottom: 7px;
                                 position: relative;
                             }
-                            .btn_link{
-                                line-height: 22px;
-                                font-family: $bf;
-                               
-                                font-weight: 500;
-                                font-style: normal;
-                                font-stretch: normal;
-                                letter-spacing: normal;
-                                margin-top: 35px;
-                                svg{
-                                    position: relative;
-                                    top: 7px;
-                                    g, path{
-                                        stroke: rgb(255,255,255);
-                                        stroke-width: 0;
-                                    }
-                                }
-                                .play_btn{
-                                    width: 26px;
-                                    height: 26px;
-                                    position: relative;
-                                    vertical-align: top;
-                                    svg{
-                                        height: 25px;
-                                        width: 25px;
-                                        opacity: 1;
-                                        &:nth-child(1){
-                                            opacity: 1;
-                                            left:5px;
-                                        }
-                                        &:nth-child(2){
-                                            opacity: 0;
-                                            position: absolute;
-                                            left:5px;
-                                            top: 9px;
-                                        }
-                                    }
-                                }
-                                &.active{
-                                    .play_btn{
-                                        svg{
-                                            &:nth-child(1){
-                                                opacity: 0;
-                                            }
-                                            &:nth-child(2){
-                                                opacity: 1;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
                             .text{
                                 display: block;
                                
@@ -1024,7 +735,7 @@ html {
 
                         &:nth-child(n + 1){
                             .role_content{
-                                .btn_link{
+                                .play_btn_link{
                                     color: #1e90ff;
                                     svg{
                                         path,g{
@@ -1037,7 +748,7 @@ html {
 
                         &:nth-child(n + 2){
                             .role_content{
-                                .btn_link {
+                                .play_btn_link {
                                     color: #9013fe;
                                     svg{
                                         path, g{
@@ -1050,7 +761,7 @@ html {
 
                         &:nth-child(n + 3){
                             .role_content {
-                                .btn_link {
+                                .play_btn_link {
                                     color: #ff7815;
                                     svg{
                                         path,g{
@@ -1063,7 +774,7 @@ html {
 
                         &:nth-child(n + 4){
                             .role_content {
-                                .btn_link {
+                                .play_btn_link {
                                     color: #ffb900;
                                     svg{
                                         path,g{
@@ -1074,19 +785,6 @@ html {
                             }
                         }
                     }
-                }
-                .wrapper_desc{
-                   
-                    font-weight: 500;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 1.44;
-                    letter-spacing: normal;
-                    text-align: center;
-                    color: rgba(0, 0, 0, 0.52);
-                    padding: 0 27px;
-                    margin: 40px auto 0;
-                    max-width: 835px;
                 }
             }
             &_story, &_holder, &_quote, &_reason, &_content, &_variable {
@@ -1104,8 +802,6 @@ html {
                     max-width: 700px;
                     margin: 0 auto;
                     background-color: #fff;
-                    span {
-                    }
                 }
             }
             &_holder {
@@ -1170,16 +866,6 @@ html {
                         &_bg {
                             margin: 0 5%;
                             width: 40%;
-                            .btn-link {
-                                text-decoration: none;
-                                color: #191a1c;
-                                font-weight: 300;
-                                cursor: pointer;
-                                &:hover {
-                                    color: $forus-demi-blue;
-                                    text-decoration: underline;
-                                }
-                            }
                         }
                         span {
                             .hide-lg {
@@ -1344,26 +1030,13 @@ html {
                 text-align: center;
                 max-width: 1140px;
                 margin: 0 auto;
+                display: flex;
                 .column {
                     padding: 60px;
                     background-color: #f4f5f7;
-
-                    span.txt_link {
-                        line-height: 26px;
-                        cursor: pointer;
-                        color: $forus-demi-blue;
-                        text-decoration: underline;
-                        svg{
-                            fill: $forus-demi-blue;
-                            padding-top: 2px;
-                            height: 14px;
-                            width: 18px;
-                        }
-                    }
+                    justify-content: center;
                     span {
                         font-weight: 500;
-                        max-width: 500px;
-                        margin: 0 auto;
                     }
                     .blue {
                         display: block;
@@ -1376,10 +1049,7 @@ html {
             }
             &_me, &_sup {
                 display: flex;
-                margin: auto;
-                
-                h1 {color: black;}
-                
+                margin: auto;             
                 .column {
                     flex: auto;
                     width: 50%;
@@ -1411,10 +1081,10 @@ html {
                         max-width: 500px;
                         float: right;
                     }
-                    .dl_buttons {
-                        width: 130px;
-                        height: 40px;
-                        margin: 0 2.5% 0 0;
+                    a {
+                        img {
+                            height: auto;
+                        }
                     }
                     img {
                         -webkit-background-size: contain;
@@ -1592,20 +1262,6 @@ html {
                     text-align: center;
                     margin-top: 25px;
                 }
-                .wrapper_title {
-                    font-family: Montserrat;
-                    font-weight: 500;
-                    line-height: 0.75;
-                    text-align: center;
-                    margin-bottom: 25px;
-                    color: #000;
-                }
-                .wrapper_desc {
-                    font-family: Montserrat;
-                    line-height: 1.33;
-                    text-align: center;
-                    color: #4a4e5b;
-                }
                 .macbookpro {
                     width: 1170px;
                     height: 673px;
@@ -1614,19 +1270,12 @@ html {
             }
             &_question {
                 margin-bottom: 100px;
-
-                .wrapper_title {
-                    margin-top: 90px;
-                }
-                .wrapper_desc p {
-                    
-                    font-family: Montserrat;
-                    font-weight: 400;
-                    margin: 25px;
-                }
             }
             &_current {
                 .container{
+                    p {
+                        max-width: 800px;
+                    }
                     svg, img {
                         margin: 0 auto;
                         width: 120px;
@@ -1642,27 +1291,12 @@ html {
                         margin-top: 75px;
                     }
                 }
-                .wrapper_title {
-                    margin-top: 15px;
-                }
-                .wrapper_desc {
-                    margin: 25px;
-                    text-align: center;
-                    p {
-                        max-width: 800px;
-                        margin: 0 auto;
-                        font-family: Montserrat;
-                        font-weight: 400;
-                    }
-                    a {
-                        color:  $forus-demi-blue;
-                    }
-                }
                 .wrapper_numbers {
                     display: flex;
                     width: 100%;
                     max-width: 800px;
                     margin: 0 auto;
+                    margin-top: 25px;
                     flex-direction: row;
                     justify-content: space-around;
                     .col-33{
@@ -1694,16 +1328,6 @@ html {
                     width:462px;
                     display:block;
                     float:left;
-                    .wrapper_title {
-                        text-align: left;
-                        line-height: 1.11;
-                        display:block;
-
-                    }
-                    .wrapper_desc {
-                        text-align: left;
-                        line-height: 1.44;
-                    }
                 }   
             }
             &_downloads {
@@ -1713,9 +1337,6 @@ html {
                     border-radius: 5px;
                     margin-top: 110px;
                     margin-bottom: 55px;
-                }
-                .wrapper_title {
-                    margin-bottom: 40px;
                 }
                 .download_links {
                     display:flex;
@@ -1767,12 +1388,6 @@ html {
                 }
             }
             &_aboutus {
-                .wrapper_title{
-                    font-family: Montserrat;
-                    font-weight: 500;
-                    line-height: 0.75;
-                    color: #000000;
-                }
                 .wrapper_desc {
                     margin-bottom: 25px;
                     ul {
@@ -1859,22 +1474,6 @@ html {
                             }
                             &_left {
                                 left: -130px; 
-                            }
-                        }
-                        &_description {
-                            span.txt_link {
-                                line-height: 26px;
-                                cursor: pointer;
-                                span {
-                                    color: $forus-demi-blue;
-                                    font-weight: 500;
-                                }
-                                svg{
-                                    fill: $forus-demi-blue;
-                                    padding-top: 2px;
-                                    height: 14px;
-                                    width: 18px;
-                                }
                             }
                         }
                       }
@@ -2110,21 +1709,6 @@ html {
                             color: #282b39;
                         }
                     }
-                    .button {
-                        width: 161px;
-                        height: 60px;
-                        border-radius: 8px;
-                        background-color: rgba(12,102,255,0.1);
-                        color: $forus-sky-blue;
-                        text-align: center;
-                        border-width: 0;
-                        &:hover, &:active, &focus{
-                            cursor: pointer;
-                            color: #fff;
-                            background: $forus-sky-blue;
-                            font-weight: bold;
-                        }
-                    }
                     .text-center {
                         text-align: center;
                     }
@@ -2135,11 +1719,6 @@ html {
                         float:left;
                         width:365px;
                         margin-right:20px;
-                    }
-                    button {
-                        height:46px;
-                        width: 175px;
-                        padding: 0;
                     }
                     .form-error {
                         clear: both;
@@ -2338,10 +1917,6 @@ html {
                     }
                 }
 
-                .main_button{
-                    margin: 20px auto 0;
-                    display: block;
-                }
                 &:focus{
                     label{
                         color: $forus-demi-blue!important;
@@ -2677,63 +2252,30 @@ html {
                         margin: 0 auto 7px;
                     }
                 }
-                &_title{
-                    font-weight: 600;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 1.29;
-                    letter-spacing: normal;
-                    text-align: center;
-                }
-                &_desc, &_desc *{
-                    font-weight: 500;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 1.63;
-                    letter-spacing: normal;
-                    text-align: center;
-                    margin-bottom: 15px;
-                }
                 &_concept{
                     padding: 70px 0 0;
                 }
                 &_parties_list{
                     .tab-content {
                         .tab-pane {
-                            .btn_link {
-                                display: block;
-                                margin: 30px auto 20px;
-                                svg{
-                                    width: 20px!important;
-                                    height: 20px!important;
-                                }
-                            }
+
                         }
                     }
                 }
                 &_block_bg{
                     padding: 15px;
                     margin: 0 -10px 25px;
-                    .wrapper_title {
-                        font-weight: 600;
-                        padding: 0;
-                        margin: 0 auto 15px;
-                        text-align: left;
-                        line-height: 1.29;
-                    }
-                    .wrapper_desc,.wrapper_desc *{
-                        text-align: left;
-                        font-weight: 500;
-                        font-style: normal;
-                        font-stretch: normal;
-                        line-height: 1.62;
-                        letter-spacing: normal;
-                        max-width: 100%;
-                        color: #454545;
-                    }
                     &>.row>div {
                         padding: 0 10px;
                         text-align: left;
+                    }
+                }
+                &_current {
+                    .container{
+                        hr {
+                            margin-top: 25px;
+                            margin-bottom: 25px;
+                        }
                     }
                 }
                 &_roles {
@@ -2776,25 +2318,7 @@ html {
                                     padding-left: 15px;
                                     padding-top: 10px;
                                 }
-                                .btn_link{
-                                    width: 100%;
-                                    display: block;
-                                    margin: 0;
-                                    margin-right: 15px;
-                                    order: -1;
-                                    flex:1;
-                                    flex-basis:10%;
-                                    text-align: right;
-
-                                    span:not([class*='play_btn']){
-                                        display: none;
-                                    }
-                                }
                             }
-                        }
-                        .wrapper_desc{
-                            padding: 20px 0 0;
-                            line-height: 1.43;
                         }
                     }
                 }
@@ -2802,9 +2326,6 @@ html {
                     padding: 50px 0;
                     margin-bottom: 30px;
                     background-image: linear-gradient(to top, #f8fafb, rgba(251, 252, 253, 0));
-                    .wrapper_title{
-                        margin: 0 0 20px;
-                    }
                     .success_story{
                         margin-bottom: 30px!important;
                         .part_story{
@@ -3030,12 +2551,6 @@ html {
                     }
                 }
                 &_aboutus {
-                    .wrapper_title{
-                        font-family: Montserrat;
-                        font-weight: 500;
-                        line-height: 0.75;
-                        color: #000000;
-                    }
                     .wrapper_desc {
                         margin-bottom: 25px;
                         ul {
@@ -3109,9 +2624,6 @@ html {
                             width: 100%;
                             padding-left: 32px;
                             padding-right: 25px;
-                                &_title{
-                                    font-weight: 700;
-                                }
                                 .date_align {
                                     position: relative;  
                                     font-weight: 400;
@@ -3386,7 +2898,6 @@ html {
                                 width: 100%;
                                 float:left;
                             }
-    
                             .block-auth-qr-code {
                                 margin-bottom:10px;
                                 float:left;
@@ -3425,9 +2936,6 @@ html {
     @media (max-width: 576px) {
         body{
             .wrapper{
-                .main_button {
-                    float: unset;
-                }
                 &_roles {
                     .roles {
                         padding: 10px;
@@ -3441,10 +2949,6 @@ html {
                                     min-height: 50px;
                                 }
                             }
-                        }
-                        .wrapper_desc{
-                            padding: 20px 0 0;
-                            line-height: 1.43;
                         }
                     }
                 }
@@ -3507,14 +3011,11 @@ html {
                             margin: 20px;
                             padding: 0 20px 0 20px;
                         }
-                        .img_zh, .img_em {
-                        }
                     }
                 }
                 &_holder {
                     .column {
                         &_sidebar {
-
                             &_bg {
                                 text-align: center;
                                 background-color: #f4f5f7;
@@ -3561,8 +3062,6 @@ html {
                             width: 80px;
                             margin: 0 auto;
                         }
-                        span {
-                        }
                     }
                 }
                 &_content {
@@ -3583,11 +3082,6 @@ html {
                     .column {
                         img {
                             height: 400px;
-                        }
-                        span {
-                            .dl_buttons {
-                                display: inline-block;
-                            }
                         }
                         &_sm {
                             display: block;

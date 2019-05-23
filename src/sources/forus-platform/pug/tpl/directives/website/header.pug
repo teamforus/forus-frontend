@@ -27,7 +27,7 @@ header
                     li
                         a(ui-sref="contact") Contact
                 ul.nav.navbar-nav.navbar-right.auth-out(ng-if="!$root.auth_user")
-                    li.login_btn
+                    li
                         a.login_btn(ng-click="openAuthPopup()") Inloggen
                 ul.nav.navbar-nav.navbar-right.auth-out(ng-if="$root.auth_user")
                     .header-auth(ng-if="$root.auth_user")

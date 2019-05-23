@@ -14,5 +14,4 @@
 
 .cf { @include cf(); }
 
-.btn.main_button { @include button($forus-demi-blue, #ffffff, $forus-sky-blue); }
 .slideRight { @include slideRight()}

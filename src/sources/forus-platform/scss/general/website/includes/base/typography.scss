@@ -55,3 +55,80 @@ $h5-font-size: (null: 18px);
 $big-font-size: (null: 21);
 $small-font-size: (null: 14px);
 $paragraph-font-size: (null: 21, $lg: 21, $md: 16, $sm: 16, $xs: 15);
+
+h1 {
+    @include font-size-map($h1-font-size);
+}
+.h1-subtitle {
+    @include font-size-map($h3-font-size);
+}
+h2 {
+    @include font-size-map($h2-font-size);
+}
+.h2-subtitle {
+    @include font-size-map($h2-font-size);
+}
+h3 {
+    @include font-size-map($h3-font-size);
+}
+.h3-subtitle {
+    @include font-size-map($h3-font-size);
+}
+h4 {
+    @include font-size-map($h4-font-size);
+}
+.h4-subtitle {
+    @include font-size-map($h4-font-size);
+}
+h5 {
+    @include font-size-map($h5-font-size);
+}
+.h5-subtitle {
+    @include font-size-map($h5-font-size);
+}
+.btn_link {
+    @include font-size-map($h4-font-size);
+}
+.navbar-nav a {
+    @include font-size-map($h5-font-size);
+}
+.timeline_entry_title {
+    @include font-size-map($big-font-size);
+}
+.timeline_entry_description {
+    @include font-size-map($small-font-size);
+}
+.timeline_entry_date {
+    @include font-size-map($h5-font-size);
+}
+.tab-active, .tab-inactive {
+    @include font-size-map($paragraph-font-size);
+}
+p {
+    @include font-size-map($paragraph-font-size);
+}
+.paragraph-text-small {
+    @include font-size-map($small-font-size);
+}
+body {
+    color: $tc;
+}
+.txt_link {
+    @include font-size-map($paragraph-font-size);
+} 
+.wrapper_title {
+    color: $tc;
+}               
+.wrapper_desc{
+    width: 100%;
+    text-align: left;
+    font-weight: 400;
+    line-height: 1.56; 
+    p {
+        text-align: center;
+        margin: 0 auto;
+    }
+    a {
+        color:  $forus-demi-blue;
+    }
+}
