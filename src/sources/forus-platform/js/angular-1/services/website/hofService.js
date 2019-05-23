@@ -3,7 +3,7 @@ module.exports = [
     function(
         hofApiRequest
     ) {
-        let apiPrefix = '/hall-of-fame';
+        let apiPrefix = '/';
         return new(function() {
             this.get = function() {
                 return hofApiRequest.get(apiPrefix + '/');
