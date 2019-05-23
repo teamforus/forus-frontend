@@ -13,7 +13,7 @@
                 input(ng-model="$ctrl.signInEmailForm.values.primary_email" type="email" placeholder="E-mail").form-control.email-auth
                 .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.primary_email" ng-bind="error")
             .form-group
-            .form-group: button(type="submit").btn.main_button Login
+            .form-group: button(type="submit").btn.main_button.modal-login-btn Login
 
         .modal-footer.hidden-xs
             //-.footer-text {{ "popup_auth.labels.timelimit" | translate }}

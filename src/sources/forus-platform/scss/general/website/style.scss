@@ -5,6 +5,7 @@
 @import 'includes/third-party';
 @import 'includes/base/typography';
 @import 'includes/components/devices.scss';
+@import 'includes/components/buttons.scss';
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
 
@@ -19,23 +20,6 @@
     left: $offset;
 }
 
-.txt_link{
-    display: flex;
-    align-items: center;
-    line-height: 26px;
-   
-    cursor: pointer;
-    span {
-        color: $forus-demi-blue;
-        font-weight: 500;
-        padding: 0 10px;
-    }
-    svg{
-        fill: $forus-demi-blue;
-        height: 22px;
-        width: 22px;
-    }
-}
 
 html {
     line-height: 1.2;
@@ -76,27 +60,6 @@ html {
             font-weight: bold;
             text-align: center;
         }
-        .download__buttons {
-            width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            overflow: auto;
-        }
-        .download__buttons-item {
-            display: block;
-            margin: 30px;
-            text-decoration: none;
-            -webkit-box-shadow: 0 10px 30px 0 rgba(0,0,0,0.5);
-            -moz-box-shadow: 0 10px 30px 0 rgba(0,0,0,0.5);
-            box-shadow: 0 10px 30px 0 rgba(0,0,0,0.5);
-        }
-        .download__buttons-item img {
-            display: block;
-            max-width: 100%;
-        }
-
         .thanks {
             display:none;
             text-align: center;
@@ -323,20 +286,6 @@ html {
                                             }
                                         }
                                     }
-                                    &.login_btn{
-                                        width: 161px;
-                                        height: 60px;
-                                        border-radius: 8px;
-                                        background-color: rgba(12,102,255,0.1);
-                                        color: $forus-sky-blue;
-                                        text-align: center;
-                                        &:hover, &:active, &focus{
-                                            cursor: pointer;
-                                            color: #fff;
-                                            background: $forus-sky-blue;
-                                            font-weight: bold;
-                                        }
-                                    }
                                 }
                                 span.dropdown {
                                     position:absolute;
@@ -411,9 +360,7 @@ html {
         }
         .wrapper{
             align-items: center;
-            .main_button {
-                float: left;
-            }
+
             &_value_allowance{
                 padding: 150px 5vw;
                 position: relative;
@@ -550,26 +497,6 @@ html {
                                 width: 100%;
                             }
                         }
-                        .btn_link{
-                            display: block;
-                            text-align: center;
-                            margin: 45px auto 55px;
-                            span{
-                                display: inline-block;
-                                vertical-align: middle;
-                                
-                                font-weight: 500;
-                                font-style: normal;
-                                font-stretch: normal;
-                                letter-spacing: normal;
-                                color: $forus-demi-blue;
-                                line-height: 26px;
-                                svg{
-                                    display: block;
-                                    margin-left: 10px;
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -589,33 +516,6 @@ html {
                 img{
                     width: 100%;
                     margin-bottom: 15px;
-                }
-                .btn_link{
-                    position: relative;
-                    left: -20px;
-                    span{
-                        display: inline-block;
-                        vertical-align: middle;
-                       
-                        font-weight: 500;
-                        font-style: normal;
-                        font-stretch: normal;
-                        letter-spacing: normal;
-                        color: $forus-demi-blue;
-                        line-height: 26px;
-                        svg{
-                            display: block;
-                            margin-left: 10px;
-                            -webkit-transform: rotate(-90deg);
-                            -ms-transform: rotate(-90deg);
-                            transform: rotate(-90deg);
-                            width: 34px;
-                            height: 34px;
-                            g, path{
-                                fill: $forus-demi-blue!important;
-                            }
-                        }
-                    }
                 }
             }
             &_benefits{
@@ -828,57 +728,6 @@ html {
                                 margin-bottom: 7px;
                                 position: relative;
                             }
-                            .btn_link{
-                                line-height: 22px;
-                                font-family: $bf;
-                               
-                                font-weight: 500;
-                                font-style: normal;
-                                font-stretch: normal;
-                                letter-spacing: normal;
-                                margin-top: 35px;
-                                svg{
-                                    position: relative;
-                                    top: 7px;
-                                    g, path{
-                                        stroke: rgb(255,255,255);
-                                        stroke-width: 0;
-                                    }
-                                }
-                                .play_btn{
-                                    width: 26px;
-                                    height: 26px;
-                                    position: relative;
-                                    vertical-align: top;
-                                    svg{
-                                        height: 25px;
-                                        width: 25px;
-                                        opacity: 1;
-                                        &:nth-child(1){
-                                            opacity: 1;
-                                            left:5px;
-                                        }
-                                        &:nth-child(2){
-                                            opacity: 0;
-                                            position: absolute;
-                                            left:5px;
-                                            top: 9px;
-                                        }
-                                    }
-                                }
-                                &.active{
-                                    .play_btn{
-                                        svg{
-                                            &:nth-child(1){
-                                                opacity: 0;
-                                            }
-                                            &:nth-child(2){
-                                                opacity: 1;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
                             .text{
                                 display: block;
                                
@@ -893,7 +742,7 @@ html {
 
                         &:nth-child(n + 1){
                             .role_content{
-                                .btn_link{
+                                .play_btn_link{
                                     color: #1e90ff;
                                     svg{
                                         path,g{
@@ -906,7 +755,7 @@ html {
 
                         &:nth-child(n + 2){
                             .role_content{
-                                .btn_link {
+                                .play_btn_link {
                                     color: #9013fe;
                                     svg{
                                         path, g{
@@ -919,7 +768,7 @@ html {
 
                         &:nth-child(n + 3){
                             .role_content {
-                                .btn_link {
+                                .play_btn_link {
                                     color: #ff7815;
                                     svg{
                                         path,g{
@@ -932,7 +781,7 @@ html {
 
                         &:nth-child(n + 4){
                             .role_content {
-                                .btn_link {
+                                .play_btn_link {
                                     color: #ffb900;
                                     svg{
                                         path,g{
@@ -960,8 +809,6 @@ html {
                     max-width: 700px;
                     margin: 0 auto;
                     background-color: #fff;
-                    span {
-                    }
                 }
             }
             &_holder {
@@ -1026,16 +873,6 @@ html {
                         &_bg {
                             margin: 0 5%;
                             width: 40%;
-                            .btn-link {
-                                text-decoration: none;
-                                color: #191a1c;
-                                font-weight: 300;
-                                cursor: pointer;
-                                &:hover {
-                                    color: $forus-demi-blue;
-                                    text-decoration: underline;
-                                }
-                            }
                         }
                         span {
                             .hide-lg {
@@ -1200,26 +1037,13 @@ html {
                 text-align: center;
                 max-width: 1140px;
                 margin: 0 auto;
+                display: flex;
                 .column {
                     padding: 60px;
                     background-color: #f4f5f7;
-
-                    span.txt_link {
-                        line-height: 26px;
-                        cursor: pointer;
-                        color: $forus-demi-blue;
-                        text-decoration: underline;
-                        svg{
-                            fill: $forus-demi-blue;
-                            padding-top: 2px;
-                            height: 14px;
-                            width: 18px;
-                        }
-                    }
+                    justify-content: center;
                     span {
                         font-weight: 500;
-                        max-width: 500px;
-                        margin: 0 auto;
                     }
                     .blue {
                         display: block;
@@ -1267,10 +1091,10 @@ html {
                         max-width: 500px;
                         float: right;
                     }
-                    .dl_buttons {
-                        width: 130px;
-                        height: 40px;
-                        margin: 0 2.5% 0 0;
+                    a {
+                        img {
+                            height: auto;
+                        }
                     }
                     img {
                         -webkit-background-size: contain;
@@ -1661,22 +1485,6 @@ html {
                                 left: -130px; 
                             }
                         }
-                        &_description {
-                            span.txt_link {
-                                line-height: 26px;
-                                cursor: pointer;
-                                span {
-                                    color: $forus-demi-blue;
-                                    font-weight: 500;
-                                }
-                                svg{
-                                    fill: $forus-demi-blue;
-                                    padding-top: 2px;
-                                    height: 14px;
-                                    width: 18px;
-                                }
-                            }
-                        }
                       }
                       /* Place the container to the left */
                     .left {
@@ -1910,21 +1718,6 @@ html {
                             color: #282b39;
                         }
                     }
-                    .button {
-                        width: 161px;
-                        height: 60px;
-                        border-radius: 8px;
-                        background-color: rgba(12,102,255,0.1);
-                        color: $forus-sky-blue;
-                        text-align: center;
-                        border-width: 0;
-                        &:hover, &:active, &focus{
-                            cursor: pointer;
-                            color: #fff;
-                            background: $forus-sky-blue;
-                            font-weight: bold;
-                        }
-                    }
                     .text-center {
                         text-align: center;
                     }
@@ -1935,11 +1728,6 @@ html {
                         float:left;
                         width:365px;
                         margin-right:20px;
-                    }
-                    button {
-                        height:46px;
-                        width: 175px;
-                        padding: 0;
                     }
                     .form-error {
                         clear: both;
@@ -2138,10 +1926,6 @@ html {
                     }
                 }
 
-                .main_button{
-                    margin: 20px auto 0;
-                    display: block;
-                }
                 &:focus{
                     label{
                         color: $forus-demi-blue!important;
@@ -2483,14 +2267,7 @@ html {
                 &_parties_list{
                     .tab-content {
                         .tab-pane {
-                            .btn_link {
-                                display: block;
-                                margin: 30px auto 20px;
-                                svg{
-                                    width: 20px!important;
-                                    height: 20px!important;
-                                }
-                            }
+
                         }
                     }
                 }
@@ -2541,20 +2318,6 @@ html {
                                     text-align: center;
                                     padding-left: 15px;
                                     padding-top: 10px;
-                                }
-                                .btn_link{
-                                    width: 100%;
-                                    display: block;
-                                    margin: 0;
-                                    margin-right: 15px;
-                                    order: -1;
-                                    flex:1;
-                                    flex-basis:10%;
-                                    text-align: right;
-
-                                    span:not([class*='play_btn']){
-                                        display: none;
-                                    }
                                 }
                             }
                         }
@@ -3174,9 +2937,6 @@ html {
     @media (max-width: 576px) {
         body{
             .wrapper{
-                .main_button {
-                    float: unset;
-                }
                 &_roles {
                     .roles {
                         padding: 10px;
@@ -3323,11 +3083,6 @@ html {
                     .column {
                         img {
                             height: 400px;
-                        }
-                        span {
-                            .dl_buttons {
-                                display: inline-block;
-                            }
                         }
                         &_sm {
                             display: block;

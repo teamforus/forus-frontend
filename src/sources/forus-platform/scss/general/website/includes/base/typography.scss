@@ -107,7 +107,12 @@ h5 {
 p {
     @include font-size-map($paragraph-font-size);
 }
- 
+.paragraph-text-small {
+    @include font-size-map($small-font-size);
+}
+.txt_link {
+    @include font-size-map($paragraph-font-size);
+} 
 .wrapper_title {
     color: $tc;
 }               
