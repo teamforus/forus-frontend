@@ -1,11 +1,11 @@
 .wrapper.wrapper_aboutus
     .container
-        h1.wrapper_title Over ons
-        .wrapper_desc
+        h1.wrapper_title.text-center Over ons
+        .wrapper_desc.text-center
             ul
                 li.tab-active Geschiedenis
                 li.tab-inactive.enabled(ui-sref="current") Nu
-                li.tab-inactive.disabled Toekomst
+                li.tab-inactive.enabled(ui-sref="future") Toekomst
 .wrapper.wrapper_timeline
     .container
         .timeline
@@ -86,10 +86,9 @@
                 hr.uneven 
                 .timeline_entry_description  
                     p Tot zover heeft Forus zich vooral gericht op productontwikkeling. De resultaten zijn positief en nu richt de stichting zich op ondersteuning bij nieuwe implementaties. Heb je interesse?
-                        br
-                        span.txt_link(href="#" data-toggle="modal" data-target="#modalContact")
-                            span Neem contact op
-                                include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg  
+                    span.txt_link.pull-left(href="#" data-toggle="modal" data-target="#modalContact")
+                        span Neem contact op
+                        include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg  
 
 .wrapper.wrapper_contact_form.hidden-sm.hidden-md.hidden-lg
     .container
@@ -123,7 +122,7 @@
                     .form-group
                         label.control-label TELEFOONNUMMER
                         .input-group
-                            input#telInput.form-control(placeholder="Telefoonnumber" name="phone" value="" onkeyup="this.setAttribute('value', this.value);" )
+                            input#telInput.form-control(placeholder="Telefoonnummer" name="phone" value="" onkeyup="this.setAttribute('value', this.value);" )
                             a(href="#").clear_field
                                 include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
                             span.help-block

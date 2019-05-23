@@ -10,23 +10,24 @@ header
             #navbar.navbar-collapse.collapse
                 ul.nav.navbar-nav
                     li
-                        a(ui-sref="kindpakket") Kindpakket
-                    li
-                        a(ui-sref="history") Over ons
-                        //-a(href="#" type="button" data-toggle="collapse" data-target="#nav-product" aria-expanded="false" aria-controls="nav-product") Product
+                        a(type="button" data-toggle="collapse" data-target="#nav-product" aria-expanded="false" aria-controls="nav-product") Product
                             .caret
-                                include ../../../resources/platform-general/assets/img/svg/arrow.svg
-                        //-span#nav-product.dropdown.collapse
-                            .dropdown-column-1                                
-                                a(href="/#!/kindpakket").zuidhorn Kindpakket
-                                a(href="#").nijmegen Meedoen-regeling
+                                include ../../../../resources/platform-general/assets/img/svg/arrow.svg
+                        span#nav-product.dropdown.collapse
+                            .dropdown-column-1
+                                .column-title Producten                           
+                                a(ui-sref="kindpakket" data-toggle="collapse" data-target="#nav-product") Kindpakket
                             .dropdown-column-2
-                                a(href="#") Klantervaringen
-                    //-li
-                        a(href="about-us.html") Over ons
-
+                                .column-title Klantverhalen                               
+                                a(ui-sref="story" data-toggle="collapse" data-target="#nav-product").zuidhorn gemeente Zuidhorn
+                    li
+                        a(ui-sref="me") Me
+                    li
+                        a(ui-sref="current") Over ons
+                    li
+                        a(ui-sref="contact") Contact
                 ul.nav.navbar-nav.navbar-right.auth-out(ng-if="!$root.auth_user")
-                    li.login_btn
+                    li
                         a.login_btn(ng-click="openAuthPopup()") Inloggen
                 ul.nav.navbar-nav.navbar-right.auth-out(ng-if="$root.auth_user")
                     .header-auth(ng-if="$root.auth_user")
@@ -35,11 +36,11 @@ header
                             .auth-user-role Uw profiel
                             img(ng-src="{{ $root.activeOrganization ? ($root.activeOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png') : './assets/img/placeholders/organization-thumbnail.png'}} ").auth-user-img
                             .auth-user-menu
-                                a(href="/sponsor" ng-if="$root.activeOrganization.id").auth-user-menu-item
+                                a(href="/sponsor").auth-user-menu-item
                                     | Sponsor
-                                a(href="/provider" ng-if="$root.activeOrganization.id").auth-user-menu-item
+                                a(href="/provider").auth-user-menu-item
                                     | Aanbieder
-                                .auth-user-menu-sep(ng-if="$root.activeOrganization.id")
+                                .auth-user-menu-sep
                                 //-.auth-user-menu-item(ng-click="$root.openPinCodePopup()")
                                     span(translate="topnavbar.buttons.authorize")
                                 a(ng-click="$root.signOut()").auth-user-menu-item

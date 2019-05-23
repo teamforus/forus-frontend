@@ -7,6 +7,11 @@ let CurrentComponent = function(
         $ctrl.list = response.data.length;
     });
     hofService.get();
+      
+    $ctrl.check = function(slide) {
+        document.getElementById("slide" + slide).checked = true;
+    }
+      
 };
 
 module.exports = {

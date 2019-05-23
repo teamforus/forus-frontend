@@ -19,17 +19,39 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         component: "currentComponent"
     });
 
+    $stateProvider.state({
+        name: "future",
+        url: "/toekomst",
+        component: "futureComponent"
+    });
+
 
     $stateProvider.state({
         name: "kindpakket",
         url: "/kindpakket",
         component: "kindpakketComponent"
     });
-
     $stateProvider.state({
         name: "hall-of-fame",
         url: "/hall-of-fame",
         component: "hallOfFameComponent"
+    });     
+    $stateProvider.state({
+        name: "me",
+        url: "/me",
+        component: "meComponent"
+    });
+
+    $stateProvider.state({
+        name: "contact",
+        url: "/contact",
+        component: "contactComponent"
+    });
+
+    $stateProvider.state({
+        name: "story",
+        url: "/cs-zuidhorn",
+        component: "storyComponent"
     });
 
     $stateProvider.state({
