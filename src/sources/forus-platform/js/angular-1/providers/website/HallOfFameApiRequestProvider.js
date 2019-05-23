@@ -1,6 +1,6 @@
 module.exports = function() {
     return new(function() {
-        var host = "http://136.144.187.106";
+        var host = "https://hof-api.forus.io";
 
         this.$get = [
             '$q',
