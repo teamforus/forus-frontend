@@ -3,7 +3,7 @@
 @import 'includes/helpers';
 @import 'includes/placeholders';
 @import 'includes/third-party';
-@import 'includes/typography';
+@import 'includes/base/typography';
 @import 'includes/components/devices.scss';
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
@@ -17,58 +17,6 @@
     right: $offset;
     bottom: $offset;
     left: $offset;
-}
-
-h1 {
-    @include font-size-map($h1-font-size);
-}
-.h1-subtitle {
-    @include font-size-map($h3-font-size);
-}
-h2 {
-    @include font-size-map($h2-font-size);
-}
-.h2-subtitle {
-    @include font-size-map($h2-font-size);
-}
-h3 {
-    @include font-size-map($h3-font-size);
-}
-.h3-subtitle {
-    @include font-size-map($h3-font-size);
-}
-h4 {
-    @include font-size-map($h4-font-size);
-}
-.h4-subtitle {
-    @include font-size-map($h4-font-size);
-}
-h5 {
-    @include font-size-map($h5-font-size);
-}
-.h5-subtitle {
-    @include font-size-map($h5-font-size);
-}
-.btn_link {
-    @include font-size-map($h4-font-size);
-}
-.navbar-nav a {
-    @include font-size-map($h5-font-size);
-}
-.timeline_entry_title {
-    @include font-size-map($big-font-size);
-}
-.timeline_entry_description {
-    @include font-size-map($small-font-size);
-}
-.timeline_entry_date {
-    @include font-size-map($h5-font-size);
-}
-.tab-active, .tab-inactive {
-    @include font-size-map($paragraph-font-size);
-}
-p {
-    @include font-size-map($paragraph-font-size);
 }
 
 .txt_link{
@@ -463,28 +411,8 @@ html {
         }
         .wrapper{
             align-items: center;
-            h1 {
-                color: #fff;
-            }
             .main_button {
                 float: left;
-            }
-            &_title{
-                font-weight: 600;
-                font-style: normal;
-                font-stretch: normal;
-                line-height: 0.85;
-                letter-spacing: normal;
-                text-align: center;
-            }
-            &_desc, &_desc *{
-                font-style: normal;
-                font-weight: 500;
-                font-stretch: normal;
-                line-height: 1.83;
-                letter-spacing: normal;
-                text-align: center;
-                margin-bottom: 60px;
             }
             &_value_allowance{
                 padding: 150px 5vw;
@@ -510,8 +438,8 @@ html {
                     -o-background-size: cover;
                     background-size: cover;
                 }
-                h1{
-                    
+                h1 {
+                    color: #FFF;
                     font-weight: 600;
                     font-style: normal;
                     font-stretch: normal;
@@ -521,21 +449,16 @@ html {
                     text-align: left;
                     margin: 25px auto;
                 }
-                .wrapper_desc{
+                p {
                     color: #fff;
                     max-width: 550px;
                     width: 100%;
-                    text-align: left;
                     text-shadow: 1px 5px 10px black;
                     font-weight: 500;
                 }
             }
             &_concept{
                 padding: 80px 0 60px;
-                .wrapper_desc{
-                    line-height: 1.44;
-                    font-weight: 400;
-                }
             }
             &_logo_title{
                 text-align: center;
@@ -553,13 +476,6 @@ html {
                 }
             }
             &_parties_list{
-                .wrapper_title{
-                    margin-bottom: 35px;
-                    color: $tc;
-                }
-                .wrapper_desc{
-                    margin-bottom: 0;
-                }
                 .nav{
                     text-align: center;
                     border: 0;
@@ -674,30 +590,6 @@ html {
                     width: 100%;
                     margin-bottom: 15px;
                 }
-                .wrapper_title{
-                    
-                    font-weight: 600;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 1.11;
-                    letter-spacing: normal;
-                    color: #191a1c;
-                    text-align: left;
-                    margin-bottom: 24px;
-                }
-                .wrapper_desc{
-                    margin-bottom: 26px;
-                }
-                .wrapper_desc,.wrapper_desc *{
-                   
-                    font-weight: 500;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 1.56;
-                    letter-spacing: normal;
-                    color: #454545;
-                    text-align: left;
-                }
                 .btn_link{
                     position: relative;
                     left: -20px;
@@ -730,10 +622,6 @@ html {
                 background-color: #f4f5f7;
                 padding: 70px 0!important;
                 position: relative;
-                .wrapper_title{
-                    margin-bottom: 50px;
-                    text-align: left;
-                }
                 &:after{
                     content: '';
                     position: absolute;
@@ -767,16 +655,10 @@ html {
                 background-image: linear-gradient(to top, #fbfcfd, rgba(251, 252, 253, 0.0000000001));
                 padding: 70px 0 30px;
                 margin-top: 12vw;
-                .wrapper_title{
-                    color: $tc;
-                }
                 &.fixed{
                     width: 100vw;
                     left: 0;
                     top: 0;
-                }
-                .wrapper_title{
-                    margin-bottom: 50px;
                 }
                 .fix_side.nav {
                     width: 135px;
@@ -860,16 +742,6 @@ html {
                             font-weight: 500;
                             display: inline-block;
                         }
-                        &_title {
-                            
-                            font-weight: 500;
-                            font-style: normal;
-                            font-stretch: normal;
-                            line-height: 1.23;
-                            letter-spacing: normal;
-                            color: #000000;
-                            margin-bottom: 24px;
-                        }
                         &_content {
                            
                             font-weight: 400;
@@ -936,9 +808,6 @@ html {
             }
             &_roles{
                 margin-bottom: 15px;
-                .wrapper_title{
-                    margin-bottom: 35px;
-                }
                 .roles{
                     box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.09);
                     background-color: #ffffff;
@@ -1074,19 +943,6 @@ html {
                             }
                         }
                     }
-                }
-                .wrapper_desc{
-                   
-                    font-weight: 500;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 1.44;
-                    letter-spacing: normal;
-                    text-align: center;
-                    color: rgba(0, 0, 0, 0.52);
-                    padding: 0 27px;
-                    margin: 40px auto 0;
-                    max-width: 835px;
                 }
             }
             &_story, &_holder, &_quote, &_reason, &_content, &_variable {
@@ -1592,20 +1448,6 @@ html {
                     text-align: center;
                     margin-top: 25px;
                 }
-                .wrapper_title {
-                    font-family: Montserrat;
-                    font-weight: 500;
-                    line-height: 0.75;
-                    text-align: center;
-                    margin-bottom: 25px;
-                    color: #000;
-                }
-                .wrapper_desc {
-                    font-family: Montserrat;
-                    line-height: 1.33;
-                    text-align: center;
-                    color: #4a4e5b;
-                }
                 .macbookpro {
                     width: 1170px;
                     height: 673px;
@@ -1614,19 +1456,12 @@ html {
             }
             &_question {
                 margin-bottom: 100px;
-
-                .wrapper_title {
-                    margin-top: 90px;
-                }
-                .wrapper_desc p {
-                    
-                    font-family: Montserrat;
-                    font-weight: 400;
-                    margin: 25px;
-                }
             }
             &_current {
                 .container{
+                    p {
+                        max-width: 800px;
+                    }
                     svg, img {
                         margin: 0 auto;
                         width: 120px;
@@ -1640,22 +1475,6 @@ html {
                     hr {
                         margin-bottom: 75px;
                         margin-top: 75px;
-                    }
-                }
-                .wrapper_title {
-                    margin-top: 15px;
-                }
-                .wrapper_desc {
-                    margin: 25px;
-                    text-align: center;
-                    p {
-                        max-width: 800px;
-                        margin: 0 auto;
-                        font-family: Montserrat;
-                        font-weight: 400;
-                    }
-                    a {
-                        color:  $forus-demi-blue;
                     }
                 }
                 .wrapper_numbers {
@@ -1694,16 +1513,6 @@ html {
                     width:462px;
                     display:block;
                     float:left;
-                    .wrapper_title {
-                        text-align: left;
-                        line-height: 1.11;
-                        display:block;
-
-                    }
-                    .wrapper_desc {
-                        text-align: left;
-                        line-height: 1.44;
-                    }
                 }   
             }
             &_downloads {
@@ -1713,9 +1522,6 @@ html {
                     border-radius: 5px;
                     margin-top: 110px;
                     margin-bottom: 110px;
-                }
-                .wrapper_title {
-                    margin-bottom: 40px;
                 }
                 .download_links {
                     display:flex;
@@ -1767,12 +1573,6 @@ html {
                 }
             }
             &_aboutus {
-                .wrapper_title{
-                    font-family: Montserrat;
-                    font-weight: 500;
-                    line-height: 0.75;
-                    color: #000000;
-                }
                 .wrapper_desc {
                     margin-bottom: 25px;
                     ul {
@@ -2677,23 +2477,6 @@ html {
                         margin: 0 auto 7px;
                     }
                 }
-                &_title{
-                    font-weight: 600;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 1.29;
-                    letter-spacing: normal;
-                    text-align: center;
-                }
-                &_desc, &_desc *{
-                    font-weight: 500;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 1.63;
-                    letter-spacing: normal;
-                    text-align: center;
-                    margin-bottom: 15px;
-                }
                 &_concept{
                     padding: 70px 0 0;
                 }
@@ -2714,23 +2497,6 @@ html {
                 &_block_bg{
                     padding: 15px;
                     margin: 0 -10px 25px;
-                    .wrapper_title {
-                        font-weight: 600;
-                        padding: 0;
-                        margin: 0 auto 15px;
-                        text-align: left;
-                        line-height: 1.29;
-                    }
-                    .wrapper_desc,.wrapper_desc *{
-                        text-align: left;
-                        font-weight: 500;
-                        font-style: normal;
-                        font-stretch: normal;
-                        line-height: 1.62;
-                        letter-spacing: normal;
-                        max-width: 100%;
-                        color: #454545;
-                    }
                     &>.row>div {
                         padding: 0 10px;
                         text-align: left;
@@ -2792,19 +2558,12 @@ html {
                                 }
                             }
                         }
-                        .wrapper_desc{
-                            padding: 20px 0 0;
-                            line-height: 1.43;
-                        }
                     }
                 }
                 &_success_stories{
                     padding: 50px 0;
                     margin-bottom: 30px;
                     background-image: linear-gradient(to top, #f8fafb, rgba(251, 252, 253, 0));
-                    .wrapper_title{
-                        margin: 0 0 20px;
-                    }
                     .success_story{
                         margin-bottom: 30px!important;
                         .part_story{
@@ -3030,12 +2789,6 @@ html {
                     }
                 }
                 &_aboutus {
-                    .wrapper_title{
-                        font-family: Montserrat;
-                        font-weight: 500;
-                        line-height: 0.75;
-                        color: #000000;
-                    }
                     .wrapper_desc {
                         margin-bottom: 25px;
                         ul {
@@ -3109,9 +2862,6 @@ html {
                             width: 100%;
                             padding-left: 32px;
                             padding-right: 25px;
-                                &_title{
-                                    font-weight: 700;
-                                }
                                 .date_align {
                                     position: relative;  
                                     font-weight: 400;
@@ -3386,7 +3136,6 @@ html {
                                 width: 100%;
                                 float:left;
                             }
-    
                             .block-auth-qr-code {
                                 margin-bottom:10px;
                                 float:left;
@@ -3441,10 +3190,6 @@ html {
                                     min-height: 50px;
                                 }
                             }
-                        }
-                        .wrapper_desc{
-                            padding: 20px 0 0;
-                            line-height: 1.43;
                         }
                     }
                 }
@@ -3507,14 +3252,11 @@ html {
                             margin: 20px;
                             padding: 0 20px 0 20px;
                         }
-                        .img_zh, .img_em {
-                        }
                     }
                 }
                 &_holder {
                     .column {
                         &_sidebar {
-
                             &_bg {
                                 text-align: center;
                                 background-color: #f4f5f7;
@@ -3560,8 +3302,6 @@ html {
                         img {
                             width: 80px;
                             margin: 0 auto;
-                        }
-                        span {
                         }
                     }
                 }
