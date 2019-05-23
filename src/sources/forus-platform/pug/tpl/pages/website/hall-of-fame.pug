@@ -1,8 +1,11 @@
 .wrapper
   .container
     h1(style="color:black;").wrapper-title.text-center Hall of Fame
-    div(ng-repeat="n in $ctrl.list track by $index")
-      .contributor
-       h5(ng-bind="n[0]")
-       img(style="max-width:200px;" ng-src="{{ $ctrl.profileURL(n[0]) }}")
-       p(ng-bind="n[1]")
+    .wrapper_desc 
+      p Team Forus is een internationaal team van open source programmeurs, designers en creatievelingen. Deze hall of fame geeft ieder zijn bijdrage weer op basis van 'commits'. Een commit kan staan voor een bijdrage aan onze code, documentatie of het ontwerp.
+      br
+    .contributor-list
+      div.contributor(ng-repeat="n in $ctrl.list track by $index")
+          h5(ng-bind="n[0]")
+          img(style="max-width:200px;" ng-src="{{ $ctrl.profileURL(n[0]) }}")
+          p(ng-bind="n[1]")
