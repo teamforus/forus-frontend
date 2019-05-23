@@ -1,8 +1,8 @@
-@mixin button($bg, $color, $hover_color) {
-    background: $bg;
+@mixin button($bg, $color, $hover_color, $bg_hover_color) {
+
     border: 1px solid transparent;
     background-color: $bg;
-    color: $color;
+    color: $color !important;
     font-weight: 600;
     border-radius: 6px;
     position: relative;
@@ -12,7 +12,6 @@
     font-family: inherit;
     text-align: center;
     font-size: 18px;
-    margin-bottom: 20px;
     @include transition();
     a{
         color: $color!important;
@@ -32,8 +31,8 @@
         @include transition();
         outline: none;
         text-decoration: none;
-        background-color: $hover_color!important;
-        color: $color!important;
+        background-color: $bg_hover_color!important;
+        color: $hover_color!important;
         & > svg{
             left: 10px;
         }
@@ -42,7 +41,7 @@
         @include transition();
         border-radius: 8px;
         background-color: rgba(158, 177, 215, 0.2);
-        color: #9eaad7;
+        color: #9eaad7 !important;
         &:hover, &:active, &:focus{
             background-color: rgba(158, 177, 215, 0.2)!important;
             cursor: not-allowed;
@@ -64,55 +63,22 @@
     float: left;
 }
 
-.btn.main_button { @include button($forus-demi-blue, #ffffff, $forus-sky-blue); }
+.btn.main_button { @include button($forus-demi-blue, #ffffff, #FFF, $forus-demi-blue); }
 
 .login_btn{
+    $forus-sky-blue2: rgba(12,102,255,0.1);
+    @include button($forus-sky-blue2, $forus-sky-blue, #ffffff, $forus-demi-blue);
     width: 161px;
     height: 60px;
-    border-radius: 8px;
-    background-color: rgba(12,102,255,0.1);
-    color: $forus-sky-blue !important;
-    text-align: center;
-    &:hover, &:active, &focus{
-        cursor: pointer;
-        color: #fff !important;
-        background: $forus-sky-blue;
-        font-weight: bold;
-    }
 }
-/*.btn_link{
-    display: block;
-    text-align: center;
-    margin: 45px auto 55px;
-    span{
-        display: inline-block;
-        vertical-align: middle;
-        
-        font-weight: 500;
-        font-style: normal;
-        font-stretch: normal;
-        letter-spacing: normal;
-        color: $forus-demi-blue;
-        line-height: 26px;
-        svg{
-            display: block;
-            margin-left: 10px;
-        }
-    }
-}
-*/
+
 .btn_link{
     position: relative;
     span{
         display: inline-block;
         vertical-align: middle;
-       
         font-weight: 500;
-        font-style: normal;
-        font-stretch: normal;
-        letter-spacing: normal;
         color: $forus-demi-blue;
-        line-height: 26px;
         svg{
             display: block;
             margin-left: 10px;
@@ -215,22 +181,6 @@
     width: 130px;
     height: 40px;
     margin: 0 2.5% 0 0;
-}
-
-.button {
-    width: 161px;
-    height: 60px;
-    border-radius: 8px;
-    background-color: rgba(12,102,255,0.1);
-    color: $forus-sky-blue;
-    text-align: center;
-    border-width: 0;
-    &:hover, &:active, &focus{
-        cursor: pointer;
-        color: #fff;
-        background: $forus-sky-blue;
-        font-weight: bold;
-    }
 }
 
 .txt_link{
