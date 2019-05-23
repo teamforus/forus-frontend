@@ -56,9 +56,6 @@
     }
 }
 
-.button-center {
-    margin: 0 auto;
-}
 .button-left {
     float: left;
 }
@@ -66,10 +63,7 @@
 .btn.main_button { @include button($forus-demi-blue, #ffffff, #FFF, $forus-demi-blue); }
 
 .login_btn{
-    $forus-sky-blue2: rgba(12,102,255,0.1);
-    @include button($forus-sky-blue2, $forus-sky-blue, #ffffff, $forus-demi-blue);
-    width: 161px;
-    height: 60px;
+    @include button($forus-dark-blue, $forus-sky-blue, #ffffff, $forus-demi-blue);
 }
 
 .btn_link{
@@ -200,6 +194,9 @@
 }
 
 @media (max-width: 767px) {
+    .btn.main_button {
+        margin-bottom: 25px;
+    }
     .dl_buttons {
         display: inline-block;
     }
@@ -211,7 +208,10 @@
             height: 20px!important;
         }
     }
-    .btn_link{
+    .login_btn {
+        text-align: center !important;
+    }
+    .play_btn_link{
         width: 100%;
         display: block;
         margin: 0;
