@@ -80,7 +80,7 @@ let HomeComponent = function() {
         }
     }
     
-    $('.play_link').on('click', function(e) {
+    $('.play_btn_link').on('click', function(e) {
     
         e.preventDefault();
     
