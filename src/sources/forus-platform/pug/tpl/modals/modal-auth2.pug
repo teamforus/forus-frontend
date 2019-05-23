@@ -13,20 +13,20 @@
                 input(ng-model="$ctrl.signInEmailForm.values.primary_email" type="email" placeholder="E-mail").form-control.email-auth
                 .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.primary_email" ng-bind="error")
             .form-group
-            .form-group: button(type="submit").btn.main_button Login
+            .form-group: button(type="submit").btn.main_button.modal-login-btn Login
 
-        .modal-footer
+        .modal-footer.hidden-xs
             //-.footer-text {{ "popup_auth.labels.timelimit" | translate }}
 
-        h4.modal-title Login met Me-app
-        .modal-subtitle.subtitle-left. 
+        h4.modal-title.hidden-xs Login met Me-app
+        .modal-subtitle.subtitle-left.hidden-xs.
             Scan de QR code aan de rechterzijde met de QR-scanner in de me app. 
             #[br] #[br]
             De me app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.
             #[br] #[br]
-        .block.block-auth-qr-code
-            .qr_code#auth_qrcode
-        .modal-subtitle.subtitle-left.download-badges
+        .block.block-auth-qr-code.hidden-xs
+            .qr_code#auth_qrcode.hidden-xs
+        .modal-subtitle.subtitle-left.download-badges.hidden-xs
             a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676")
                 img(src="./assets/img/landing/icon-app/app-store-badge.svg") 
             a(href="https://play.google.com/store/apps/details?id=io.forus.me")
