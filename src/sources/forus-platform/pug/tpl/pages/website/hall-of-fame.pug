@@ -2,16 +2,7 @@
   .container
     h1(style="color:black;").wrapper-title.text-center Hall of Fame
     div(ng-repeat="n in $ctrl.list track by $index")
-      //-script. 
-        var imgurl = n[0];
-      // img(ng-src=n[0])
-      span(ng-bind="n[0]")
-      span(ng-bind="n[1]")
-
-    h2(ng-bind="$ctrl.eentest")
-    h2(ng-bind="$ctrl.eentest")
-
-
-
-
-      // https://github.com/'+element[0]+'.png?size=200'
+      .contributor
+       h5(ng-bind="n[0]")
+       img(src="https://github.com/jamalv.png?size=200")
+       p(ng-bind="n[1]")
