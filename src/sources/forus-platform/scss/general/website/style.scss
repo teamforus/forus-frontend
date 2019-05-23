@@ -1624,6 +1624,21 @@ html {
                 }
             }
             &_future {
+                margin-bottom: 50px;
+                p {
+                    max-width: 800px;
+                    margin-bottom:50px;
+                }
+                a {
+                    font-weight: 400;           
+                }
+                a.paragraph-text-small {
+                    text-decoration: underline;
+                    color: $forus-demi-blue;
+                    &:hover {
+                        font-weight: 500;
+                    }
+                }
                 .row {
                     display: flex;
                     align-items: row;
@@ -1639,14 +1654,14 @@ html {
                         height: 75px;
                     }
                 }
-                .tab:hover {
+                /*.tab:hover {
                     background-color: #fafbfd;
                     border-bottom: 3px solid #191a1c;
                 }
                 .tab.active {
                     background-color: #fafbfd;
                     border-bottom: 3px solid #191a1c;      
-                }
+                }*/
                 a {
                     text-decoration: none;
                     color: #191a1c;

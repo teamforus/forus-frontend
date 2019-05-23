@@ -1,7 +1,7 @@
 .wrapper.wrapper_aboutus
-    .container
+    .container.text-center
         h1.wrapper_title Over ons
-        .wrapper_desc
+        .wrapper_desc.text-center
             ul
                 li.tab-inactive.enabled(ui-sref="history") Geschiedenis
                 li.tab-inactive.enabled(ui-sref="current") Nu
@@ -9,27 +9,29 @@
 
 .wrapper.wrapper_future
     .container
-        h3.wrapper_title Roadmap
-        p.wrapper_desc Communicatie en ontwikkeling vind plaats op onze chat en github, dat betekent dat het mogelijk is voor iedereen om mee te praten en ontwikkelen.
+        h3.wrapper_title.text-center Roadmap
+        .wrapper_desc.text-center
+            p Communicatie en ontwikkeling vind plaats op onze #[a.paragraph-text-small(href="https://chat.forus.io/") chat] en #[a.paragraph-text-small(href="https://github.com/teamforus/") github], dat betekent dat het mogelijk is voor iedereen om mee te praten en ontwikkelen.
         .row
-            a.tab(data-toggle="tab" href="#panel1-techtree" id="#panel1")
+            a.tab
                 img(src="./assets/img/svg/platform-flat.svg")
                 h5 Forus
-                span De vier rollen nuttig en breed toegankelijk maken zodat waarde uitkering zo effectief mogelijk plaats kan vinden.
-            a.tab(data-toggle="tab" href="#panel2-techtree" id="#panel2")
+                span #[strong Doel:] De vier rollen nuttig en breed toegankelijk maken zodat waarde uitkering zo effectief mogelijk plaats kan vinden.
+            a.tab
                 img(src="./assets/img/svg/stack.svg")
-                h5 Stack
-                span Technologie gebruiken die geen centrale beheerder of administrator nodig heeft zodat drempels tot aansluiten verlaagd worden.
-            a.tab(data-toggle="tab" href="#panel3-techtree" id="#panel3")
+                h5 Technologie
+                span #[strong Doel:] Technologie gebruiken die geen centrale beheerder of administrator nodig heeft zodat drempels tot aansluiten verlaagd worden.
+            a.tab
                 img(src="./assets/img/svg/teamwork.svg")
                 h5 Organisatie
-                span Een open, dynamische en decentraal georganiseerde organisatie, zodat ontwikkeling en gebruik goed en breed worden ondersteund.
-            a.tab(data-toggle="tab" href="#panel4-techtree" id="#panel4")
+                span #[strong Doel:] Een open, dynamische en decentraal georganiseerde organisatie, zodat ontwikkeling en gebruik goed en breed worden ondersteund.
+            a.tab
                 img(src="./assets/img/svg/me-logo.svg")
                 h5 Me
-                span Een digitale identiteit voor eigendommen, eigenschappen en identificatie zodat zeggenschap zo dicht mogelijk bij de eindgebruiker komt.
+                span #[strong Doel:] Een digitale identiteit voor eigendommen, eigenschappen en identificatie zodat zeggenschap zo dicht mogelijk bij de eindgebruiker komt.
 
-.wrapper.wrapper_techtree
+//- (data-toggle="tab" href="#panel3-techtree" id="#panel3")
+//-.wrapper.wrapper_techtree
     .container
         .panel#panel1-techtree
             ul
@@ -90,7 +92,7 @@
         .panel#panel4-techtree
             ul test
 
-.wrapper.wrapper_contact_form.hidden-sm.hidden-md.hidden-lg
+//-.wrapper.wrapper_contact_form.hidden-sm.hidden-md.hidden-lg
     .container
         form#formContactHome(action="https://xlak8w5706.execute-api.eu-west-1.amazonaws.com/Prod" method="POST")
             .row
