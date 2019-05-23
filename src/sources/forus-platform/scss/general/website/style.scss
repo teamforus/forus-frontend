@@ -1316,6 +1316,12 @@ html {
                         color: $tc;  
                         font-weight: 500;
                     }
+                    .number_link {
+                        text-decoration: underline;
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
                 }
             }
             &_explain {

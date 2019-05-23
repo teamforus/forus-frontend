@@ -4,7 +4,6 @@
     align-items: column;
     flex-wrap: wrap;
 }
-
 .contributor {
     @include font-size-map($h4-font-size);
   /*outline: 5px dotted green;*/
