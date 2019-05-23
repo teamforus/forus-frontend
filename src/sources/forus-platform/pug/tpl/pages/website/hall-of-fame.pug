@@ -4,5 +4,6 @@
     div(ng-repeat="n in $ctrl.list track by $index")
       .contributor
        h5(ng-bind="n[0]")
+       p($ctrl.profileURL(n[0]))
        img(src="https://github.com/jamalv.png?size=200")
        p(ng-bind="n[1]")

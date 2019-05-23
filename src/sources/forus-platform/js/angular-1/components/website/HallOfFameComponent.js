@@ -7,6 +7,11 @@ let HallOfFameComponent = function(
     });
 
     hofService.get()
+
+    $ctrl.profileURL = function(username) { return 'https://github.com/' + username + '.png?size=200'; };
+
+    $ctrl.test = ["hey", "sup", "krak"]
+    // make an array of image urls; using ctrl.theArray
 };
 
 module.exports = {
