@@ -19,8 +19,6 @@
     bottom: $offset;
     left: $offset;
 }
-
-
 html {
     line-height: 1.2;
     @include font-size-map($body-font-size);
@@ -29,7 +27,6 @@ html {
         .container_contact {
             max-width: 1440px;
             margin: 0 auto;
-
             .wrapper {
                 align-items: flex-start;
             }
@@ -537,7 +534,6 @@ html {
                 ul{
                     padding-left: 45px;
                     li{
-                       
                         font-weight: normal;
                         font-style: normal;
                         font-stretch: normal;
@@ -619,9 +615,6 @@ html {
                             }
                         }
                     }
-                }
-                .fix_side, .fix_side * {
-
                 }
                 .success_story {
                     position: relative;
@@ -1056,10 +1049,7 @@ html {
             }
             &_me, &_sup {
                 display: flex;
-                margin: auto;
-                
-                h1 {color: black;}
-                
+                margin: auto;             
                 .column {
                     flex: auto;
                     width: 50%;
