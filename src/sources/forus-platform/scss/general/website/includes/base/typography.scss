@@ -107,9 +107,6 @@ h5 {
 p {
     @include font-size-map($paragraph-font-size);
 }
-.paragraph-text-small {
-    @include font-size-map($small-font-size);
-}
 body {
     color: $tc;
 }
@@ -129,6 +126,12 @@ body {
         margin: 0 auto;
     }
     a {
-        color:  $forus-demi-blue;
+        color:  $forus-sky-blue !important;
+        font-weight: 400;
+        @include font-size-map($small-font-size);
+        text-decoration: underline !important;
+        &:hover {
+            color:  $tc !important;
+        }
     }
 }
