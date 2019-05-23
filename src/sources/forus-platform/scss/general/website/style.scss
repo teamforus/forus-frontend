@@ -1296,6 +1296,7 @@ html {
                     width: 100%;
                     max-width: 800px;
                     margin: 0 auto;
+                    margin-top: 25px;
                     flex-direction: row;
                     justify-content: space-around;
                     .col-33{
@@ -2267,6 +2268,14 @@ html {
                     &>.row>div {
                         padding: 0 10px;
                         text-align: left;
+                    }
+                }
+                &_current {
+                    .container{
+                        hr {
+                            margin-top: 25px;
+                            margin-bottom: 25px;
+                        }
                     }
                 }
                 &_roles {
