@@ -356,6 +356,11 @@ html {
             max-width: 1760px;
             margin: auto;
         }
+        .container-kp {
+            max-width: 1760px;
+            margin: auto;
+            overflow: hidden;
+        }
         .wrapper{
             align-items: center;
 
@@ -926,6 +931,26 @@ html {
                             margin: 5% 15%;
                         }
                     }
+                    &_first {
+                        margin-right: 0;
+                        margin-left: 0;
+                    }
+                    &_third {
+                        margin-right: 0;
+                        margin-left: 0;                        
+                    }
+                    .img_kp {
+                        background: url(../img/kindpakket.jpg) no-repeat right center;
+                        background-size: contain;
+                        height: 380px;
+                        width: 100%;
+                    }
+                    .img_ra {
+                        background: url(../img/regeerakkoord.jpeg) no-repeat right center;
+                        background-size: contain;
+                        height: 380px;
+                        width: 100%;
+                    }
                     &_sidebar {
                         width: 30%;
                         text-align: left;
@@ -1033,6 +1058,7 @@ html {
                 margin: 0 auto;
                 display: flex;
                 .column {
+                    width: 100%;
                     padding: 60px;
                     background-color: #f4f5f7;
                     justify-content: center;
@@ -1131,9 +1157,6 @@ html {
                         }
                     }
                 }
-                &_fund {
-                    margin-bottom: 100px;
-                }
                 &_sec {
                     max-width: 1440px;
                     background-color: #f4f5f7;
@@ -1169,10 +1192,6 @@ html {
                 background-color: #f9fafb;
                 display: flex;
                 margin: auto;
-                &_white {
-                    margin-top: 100px;
-                    background-color: white;
-                }
                 .column {
                     padding: 0 30px 0 30px;
                     flex: auto;
@@ -2137,6 +2156,18 @@ html {
                         }
                     }
                 }
+                &_content {
+                    .column {
+                        .img_kp {
+                            height: 30vw;
+                            width: 100%;
+                        }
+                        .img_ra {
+                            height: 30vw;
+                            width: 100%;
+                        }
+                    }
+                }
                 &_timeline {
                     .timeline{
                         .even::after {
@@ -2173,6 +2204,11 @@ html {
                         .img_zh {
                             height: 60vw;
                         }
+                    }
+                }
+                &_downloads {
+                    .download_links {
+                        justify-content: center;
                     }
                 }
             }
@@ -2536,6 +2572,20 @@ html {
                                 ul{
                                     padding-left: 30px;
                                 }
+                                .column {
+                                    margin: 0 auto;
+                                    margin-right: 0;
+                                    &_first {
+                                        order: 1;
+                                        margin-left: 10%;
+                                    }
+                                    &_sec {
+                                        order: 1;
+                                    }
+                                    &_third {
+                                        
+                                    }
+                                }
                             }
                         }
                     }
@@ -2690,6 +2740,20 @@ html {
                     .column {
                         margin-right: 0%;
                         width: 100%;
+                        &_first {
+                            margin-right: 0;
+                        }
+                        &_sec {
+                            order: 2;
+                        }
+                        .img_kp {
+                            height: 60vw;
+                            width: 100%;
+                        }
+                        .img_ra {
+                            height: 60vw;
+                            width: 100%;
+                        }
                     }
                 }
                 &_reason {
@@ -3258,6 +3322,17 @@ html {
                     }
                     div:nth-of-type(2) {
                         order: 1;
+                    }
+                    .column {
+                        &_first {
+                            order: 2 !important;
+                        }
+                        &_third {
+                            order: 2;
+                        }
+                        &_sec {
+                            order: 1;
+                        }
                     }
                 }
                 &_holder {
