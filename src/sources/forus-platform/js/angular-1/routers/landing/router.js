@@ -25,7 +25,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         component: "futureComponent"
     });
 
-
     $stateProvider.state({
         name: "kindpakket",
         url: "/kindpakket",

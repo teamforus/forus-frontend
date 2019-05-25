@@ -243,6 +243,7 @@ html {
                                     -webkit-transform: rotate(0);
                                     -ms-transform: rotate(0);
                                     transform: rotate(0);
+                                    cursor: pointer !important;
                                     @include transition();
                                     .caret{
                                         width: 24px;
