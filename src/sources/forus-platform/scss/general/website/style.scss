@@ -236,13 +236,15 @@ html {
                             }
                             & > li {
                                 & > a {
-                                    padding: 18px 33px!important;
+                                    //padding: 18px 33px!important;
+                                    padding: 1.25vw 2.15vw;
                                     font-weight: 600;
                                     line-height: 24px;
                                     color: #191a1c;
                                     -webkit-transform: rotate(0);
                                     -ms-transform: rotate(0);
                                     transform: rotate(0);
+                                    cursor: pointer !important;
                                     @include transition();
                                     .caret{
                                         width: 24px;
@@ -1032,10 +1034,12 @@ html {
                 max-width: 1140px;
                 margin: 0 auto;
                 display: flex;
+                align-items: center;
                 .column {
                     padding: 60px;
                     background-color: #f4f5f7;
                     justify-content: center;
+                    flex: auto;
                     span {
                         font-weight: 500;
                     }
@@ -1352,14 +1356,15 @@ html {
                     display:flex;
                     justify-content: space-between; 
                     flex-direction: row;     
-                    flex-wrap: wrap;              
-                    div {
+                    flex-wrap: wrap;   
+                    align-items: center;           
+                    .dl_box {
                         width: 462px;
                         height: 124px;
                         margin-bottom: 65px;
                         margin-right: 11px;
                         margin-left: 11px;
-                        
+                        flex: auto;
                         background-color: #f4f5f7;
                         border-radius: 15px;
                         text-align: center;
@@ -1390,9 +1395,13 @@ html {
                                 }
                             }
                         }
-                        a {
+                        span {
                             color: #000000;
                             line-height: 1.43;
+                        }
+                        .btn_link {
+                            margin: 0 auto;
+                            margin-top: 2%;
                         }
                     }
                 }
@@ -1453,6 +1462,7 @@ html {
             }
             &_timeline {
                 box-sizing: border-box;
+                margin-bottom: 5%;
                 .timeline {
                     position: relative;
                     max-width: 1200px;
@@ -2180,6 +2190,9 @@ html {
     }
     @media (min-width: 1000px) {
         body {
+            .navbar-collapse .navbar-nav > li > a {
+                padding: 18px 33px!important;
+            }
             .wrapper {
                 &_story {
                     .column {
@@ -2206,6 +2219,14 @@ html {
                     .content {
                         margin: 12px;
                         min-width: 100%;
+                    }
+                }
+                &_downloads {
+                    .download_links {
+                        align-items: center;
+                        .dl_box {
+                            flex: auto;
+                        }
                     }
                 }
                 &_me, &_reason, &_feature_one, &_feature_two, &_feature_three, &_content, &_holder, &_variable, &_sup {
@@ -2668,8 +2689,14 @@ html {
                 }
                 &_feature_two {
                     .column {
+                        display: flex;
                         img {
+                            flex: auto;
+                            margin: auto;
                             width: calc(100% + 30px);
+                        }
+                        .small {
+                            float:unset;
                         }
                     }
                     :nth-of-type(1) {
@@ -2730,7 +2757,7 @@ html {
                         margin-bottom: 25px;
                     }
                     .download_links {    
-                        div {
+                        .dl_box {
                             margin: 0 auto;     
                             margin-bottom: 30px;  
                         }
@@ -2979,6 +3006,17 @@ html {
                         margin: 0 auto;
                         position: relative;
                         margin: 0 auto;    
+                    }
+                }
+                &_future {
+                    .row {
+                        flex-direction: column;
+                        align-items: center;
+                    }
+                    .tab{
+                        width: 80%;
+                        height: auto;
+                        padding: 10px;
                     }
                 }
             }
