@@ -2685,8 +2685,14 @@ html {
                 }
                 &_feature_two {
                     .column {
+                        display: flex;
                         img {
+                            flex: auto;
+                            margin: auto;
                             width: calc(100% + 30px);
+                        }
+                        .small {
+                            float:unset;
                         }
                     }
                     :nth-of-type(1) {
