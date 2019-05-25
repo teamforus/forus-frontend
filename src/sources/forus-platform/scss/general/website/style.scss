@@ -1033,10 +1033,12 @@ html {
                 max-width: 1140px;
                 margin: 0 auto;
                 display: flex;
+                align-items: center;
                 .column {
                     padding: 60px;
                     background-color: #f4f5f7;
                     justify-content: center;
+                    flex: auto;
                     span {
                         font-weight: 500;
                     }
