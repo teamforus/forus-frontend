@@ -61,7 +61,8 @@
 }
 
 .btn.main_button { @include button($forus-demi-blue, #ffffff, #FFF, $forus-demi-blue); }
-
+.main_button {@include button($forus-demi-blue, #ffffff, #FFF, $forus-demi-blue);}
+.button-primary{@include button($forus-demi-blue, #ffffff, #FFF, $forus-demi-blue);}
 .login_btn{
     @include button($forus-dark-blue, $forus-sky-blue, #ffffff, $forus-demi-blue);
 }

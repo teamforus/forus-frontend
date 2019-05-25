@@ -25,17 +25,18 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         component: "futureComponent"
     });
 
-
     $stateProvider.state({
         name: "kindpakket",
         url: "/kindpakket",
         component: "kindpakketComponent"
     });
+
     $stateProvider.state({
         name: "hall-of-fame",
         url: "/hall-of-fame",
         component: "hallOfFameComponent"
-    });     
+    });  
+
     $stateProvider.state({
         name: "me",
         url: "/me",
@@ -92,6 +93,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         data: {
             token: null
         }
+    });
+
+    $stateProvider.state("otherwise", {
+        url: "*path",
+        component: "homeComponent"
     });
 
     if (appConfigs.html5ModeEnabled) {

@@ -74,6 +74,8 @@ app.config(require('./config/i18n'));
 app.config(require('./config/api-service'));
 //app.config(require('./config/website/hof-api-service'));
 
+app.run(require('./routers/landing/router-transitions'));
+
 // Bootstrap the app
 angular.bootstrap(document.querySelector('body'), ['forusApp']);
 
