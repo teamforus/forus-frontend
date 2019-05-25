@@ -236,7 +236,8 @@ html {
                             }
                             & > li {
                                 & > a {
-                                    padding: 18px 33px!important;
+                                    //padding: 18px 33px!important;
+                                    padding: 1.25vw 2.15vw;
                                     font-weight: 600;
                                     line-height: 24px;
                                     color: #191a1c;
@@ -2189,6 +2190,9 @@ html {
     }
     @media (min-width: 1000px) {
         body {
+            .navbar-collapse .navbar-nav > li > a {
+                padding: 18px 33px!important;
+            }
             .wrapper {
                 &_story {
                     .column {
