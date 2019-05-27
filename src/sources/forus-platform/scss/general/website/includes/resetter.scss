@@ -13,7 +13,6 @@ html, body {
 
 h1, h2, h3, h4, h5, h6, p, span, b, i, li, td{
     font-family: $bf;
-    font-weight: 300;
     color: inherit;
 }
 
@@ -27,19 +26,8 @@ ul {
     }
 }
 
-p, b {
-    font: 300 16px/28px $bf;
-    margin: 0 0 16px;
-
-    a {
-        font: inherit;
-        color: inherit;
-    }
-}
-
 a {
     text-decoration: none;
-    font: 300 14px/26px $bf;
     color: #222; 
 }
 

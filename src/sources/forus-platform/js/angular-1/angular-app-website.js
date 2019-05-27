@@ -8,10 +8,18 @@ app.constant('appConfigs', env_data);
 app.controller('BaseController', require('./controllers/landing/BaseController'));
 app.component('homeComponent', require('./components/website/HomeComponent'));
 app.component('kindpakketComponent', require('./components/website/KindpakketComponent'));
+app.component('meComponent', require('./components/website/MeComponent'));
+app.component('contactComponent', require('./components/website/ContactComponent'));
+app.component('storyComponent', require('./components/website/StoryComponent'));
+app.component('futureComponent', require('./components/website/FutureComponent'));
+app.component('historyComponent', require('./components/website/HistoryComponent'));
+app.component('currentComponent', require('./components/website/CurrentComponent'));
+app.component('hallOfFameComponent', require('./components/website/HallOfFameComponent'));
 app.component('signUpComponent', require('./components/landing/SignUpComponent'));
 
 // Services
 app.service('CredentialsService', require('./services/CredentialsService'));
+app.service('hofService', require('./services/website/hofService'));
 app.service('ConfigService', require('./services/ConfigService'));
 app.service('SmsService', require('./services/SmsService'));
 app.service('AuthService', require('./services/AuthService'));
@@ -51,6 +59,7 @@ app.directive('modalScrollBraker', require('./directives/modals/ModalScrollBrake
 
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
+app.provider('hofApiRequest', require('./providers/website/HallOfFameApiRequestProvider'));
 app.provider('I18nLib', require('./providers/I18nLibProvider'));
 app.provider('ModalRoute', require('./providers/ModalRouteProvider'));
 
@@ -63,6 +72,9 @@ app.config(require('./routers/landing/router'));
 app.config(require('./routers/modals'));
 app.config(require('./config/i18n'));
 app.config(require('./config/api-service'));
+//app.config(require('./config/website/hof-api-service'));
+
+app.run(require('./routers/landing/router-transitions'));
 
 // Bootstrap the app
 angular.bootstrap(document.querySelector('body'), ['forusApp']);

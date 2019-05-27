@@ -2,23 +2,29 @@
     .container
         .row
             .col-xs-12
-                h1.wrapper_title Veilige waarde-uitkering
-                p.wrapper_desc.text-left
+                h1 Veilige waarde-uitkering
+                p.text-left
                     | Efficiënt en eerlijk met fondsen omgaan. Inzicht en overzicht houden.
                 div
-                    a.btn.main_button(href="#" data-toggle="modal" data-target="#modalContact") Neem contact op
+                    a.btn.button-left.main_button(href="#" data-toggle="modal" data-target="#modalContact") Neem contact op
 
 .wrapper.wrapper_concept
     .container
         .wrapper_logo_title
             include ../../../../resources/platform-general/assets/img/svg/platform.svg
             span HET PLATFORM
-        p.wrapper_desc.h4-subtitle Geld op een veilige, efficiënte en eerlijke manier uitgeven? Inzicht en overzicht houden? Maak een fonds. Accepteer aanbieders die hun producten en diensten beschikbaar mogen stellen. Voeg mensen die voor de regeling in aanmerking komen toe. Geef vouchers uit die ze bij de aanbieders kunnen besteden. Forus is een digitaal platform voor waarde-uitkering.
+        .wrapper_desc 
+            p Geld op een veilige, efficiënte en eerlijke manier uitgeven? Inzicht en overzicht houden? Maak een fonds. Accepteer aanbieders die hun producten en diensten beschikbaar mogen stellen. Voeg mensen die voor de regeling in aanmerking komen toe. Geef vouchers uit die ze bij de aanbieders kunnen besteden. Forus is een digitaal platform voor waarde-uitkering.
+            br
+            span.txt_link(ui-sref="story")
+                span.text-center Lees meer over de implementatie van het kindpakket in de gemeente Zuidhorn
+                include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg 
 
 .wrapper.wrapper_parties_list
     .container
-        h2.wrapper_title Forus kent vier rollen:
-        p.wrapper_desc.h4-subtitle Elke rol heeft een eigen webomgeving. Zo kunnen de aanbieders hun omzet bekijken en kunnen gebruikers zien hoe veel ze nog te besteden hebben.
+        h2.wrapper_title.text-center Forus kent vier rollen:
+        .wrapper_desc 
+            p Elke rol heeft een eigen webomgeving. Zo kunnen de aanbieders hun omzet bekijken en kunnen gebruikers zien hoe veel ze nog te besteden hebben.
 
     .container
         .tab-content
@@ -26,65 +32,60 @@
                 .wrapper_tab_video
                     video(id="player_tab_1" poster="assets/img/poster/aanvrager.gif")
                         source(src="assets/video/Aanvrager.mov" type="video/mp4")
-                a.btn_link(href="#" )
-
+                a.play_btn_link(href="#" )
             #panel2-video.tab-pane.fade
                 .wrapper_tab_video
                     video(id="player_tab_2" )
                         source(src="assets/video/Aanbieder.mov" type="video/mp4")
                 a.btn_link(href="#" )
-
-
             #panel3-video.tab-pane.fade
                 .wrapper_tab_video
                     video(id="player_tab_3" )
                         source(src="assets/video/Sponsor.mov" type="video/mp4")
-                a.btn_link(href="#" )
-
-
+                a.play_btn_link(href="#" )
             #panel4-video.tab-pane.fade
                 .wrapper_tab_video
                     video(id="player_tab_4" )
                         source(src="assets/video/Validator.mov" type="video/mp4")
-                a.btn_link(href="#" )
+                a.play_btn_link(href="#" )
         .wrapper_roles
             ul.nav.nav-tabs.roles
                 li.role
-                    a(data-toggle="tab" href="#panel1-video" id="#panel1")
+                    a(data-toggle="tab" data-target="#panel1-video" id="#panel1")
                         span.role_content
                             span.title.h4-subtitle Aanvrager
                             span.text.h5-subtitle die in aanmerking komt voor een uitkering
-                            span.btn_link(href="#" )
+                            span.play_btn_link(href="#" id="#panel1-video")
                                 span Bekijk de film
                                 span.play_btn
                                     include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
                                     include ../../../../resources/platform-general/assets/img/svg/pause.svg
                 li.role
-                    a(data-toggle="tab" href="#panel2-video" id="#panel2")
+                    a(data-toggle="tab" data-target="#panel2-video" id="#panel2")
                         span.role_content
                             span.title.h4-subtitle Aanbieder
                             span.text.h5-subtitle waar het geld kan worden uitgegeven
-                            span.btn_link(href="#" )
+                            span.play_btn_link(href="#" id="#panel2-video")
                                 span Bekijk de film
                                 span.play_btn
                                     include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
                                     include ../../../../resources/platform-general/assets/img/svg/pause.svg
                 li.role
-                    a(data-toggle="tab" href="#panel3-video" id="#panel3")
+                    a(data-toggle="tab" data-target="#panel3-video" id="#panel3")
                         span.role_content
                             span.title.h4-subtitle Sponsor
                             span.text.h5-subtitle die het geld heeft en/of beheert
-                            span.btn_link(href="#" )
+                            span.play_btn_link(href="#" id="#panel3-video")
                                 span Bekijk de film
                                 span.play_btn
                                     include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
                                     include ../../../../resources/platform-general/assets/img/svg/pause.svg
                 li.role
-                    a(data-toggle="tab" href="#panel4-video" id="#panel4")
+                    a(data-toggle="tab" data-target="#panel4-video" id="#panel4")
                         span.role_content
                             span.title.h4-subtitle Validator
                             span.text.h5-subtitle die aanbieders en aanvragers goedkeurt
-                            span.btn_link(href="#" )
+                            span.play_btn_link(href="#" id="#panel4-video")
                                 span Bekijk de film
                                 span.play_btn
                                     include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
@@ -96,12 +97,12 @@
                 .col-xs-12.hidden-sm.hidden-md.hidden-lg
                     h3.wrapper_title Hoe werkt Forus voor jou?
                 .col-xs-12.col-md-5
-                    img(src="assets/img/how_work.png")
+                    img(src="assets/img/presentatie.png")
                 .col-xs-12.col-md-7
                     h3.wrapper_title.hidden-xs Hoe werkt Forus voor jou?
                     p.wrapper_desc Forus is makkelijk aan de voorkant en goed doordacht aan de achterkant. De back-end is voor iedereen gelijk, de front-end maken we op maat. Compleet met eigen huisstijl.
                     p.wrapper_desc Het team helpt je met conceptualisatie, implementatie, programmering en beheer. Ook verlenen we support aan sponsor en aanbieder.
-                    span.txt_link(href="#" data-toggle="modal" data-target="#modalContact")
+                    span.txt_link.pull-left(href="#" data-toggle="modal" data-target="#modalContact")
                         include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg 
                         span Neem contact op                          
 
@@ -120,7 +121,7 @@
 
 .wrapper.wrapper_success_stories
     .container
-        h1.wrapper_title Succesverhalen met Forus
+        h1.wrapper_title.text-center Succesverhalen met Forus
     .success_story.success_story_1
         .container
             .fix_side.nav
@@ -137,26 +138,29 @@
                                 li
                                     a(href="#part_story_14")
             #part_story_11.part_story
-                .part_story_label Implementatie
-                h3.part_story_title Kindpakket Zuidhorn
+                .part_story_label Product
+                h3.part_story_title Kindpakket
                 .part_story_macbook.hidden-sm.hidden-md.hidden-lg
-                    .macbook
+                    .laptop
                         div
                             .frame
                                 img(src="assets/img/macbook.png")
                                 .screens
-                                    img(src="assets/img/macbook_img_1.png")
-                p.part_story_content Samen met de gemeente Zuidhorn hebben we een toepassing van Forus ontwikkeld. Deze is speciaal bedoeld voor de Kindpakket-regeling voor minima.
+                                    img(src="assets/img/laptop_img_1.png")
+                p.part_story_content Met het Kindpakket ondersteunt de gemeente gezinnen met kinderen in armoede. Een kans voor kinderen om mee te doen op sociaal gebied, met sport, culturele activiteiten en op school.
+                span.txt_link.pull-left
+                    span(ui-sref="kindpakket") Ook geïnteresseerd in het kindpakket?
+                    include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg  
 
-            .fix_side.macbook.hidden-xs
+            .fix_side.laptop.hidden-xs
                 div
                     .frame
                         img(src="assets/img/macbook.png")
                         .screens
-                            img(src="assets/img/macbook_img_1.png" data-part="#part_story_11")
-                            img(src="assets/img/macbook_img_1.png" data-part="#part_story_12")
-                            img(src="assets/img/macbook_img_1.png" data-part="#part_story_13")
-                            img(src="assets/img/macbook_img_1.png" data-part="#part_story_14")
+                            img(src="assets/img/laptop_img_1.png" data-part="#part_story_11")
+                            img(src="assets/img/laptop_img_1.png" data-part="#part_story_12")
+                            img(src="assets/img/laptop_img_1.png" data-part="#part_story_13")
+                            img(src="assets/img/laptop_img_1.png" data-part="#part_story_14")
     .success_story.success_story_2
         .container
             .fix_side.iphone.hidden-xs
@@ -170,7 +174,7 @@
 
             #part_story_21.part_story
                 .part_story_label Implementatie
-                h3.part_story_title Meedoen-regeling Nijmegen
+                h3.part_story_title Kindpakket Zuidhorn
                 .part_story_iphone.hidden-sm.hidden-md.hidden-lg
                     .iphone
                         div
@@ -178,7 +182,10 @@
                                 img(src="assets/img/iphone-x-colors.png")
                                 .screens
                                     img(src="assets/img/iphone_img_1.png" data-part="#part_story_21")
-                p.part_story_content Voor de gemeente Nijmegen hebben we de meedoen-regeling voor minima uitgegeven met Forus.
+                p.part_story_content Samen met de gemeente Zuidhorn hebben we een toepassing van Forus ontwikkeld. Deze is speciaal bedoeld voor de Kindpakket-regeling voor minima.
+                span.txt_link.pull-left
+                    span(ui-sref="story") Lees meer over de implementatie in Zuidhorn
+                    include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg  
             .fix_side.nav
                 div
                     .frame
@@ -223,7 +230,7 @@
                     .form-group
                         label.control-label TELEFOONNUMMER
                         .input-group
-                            input#telInput.form-control(placeholder="Telefoonnumber" name="phone" value="" onkeyup="this.setAttribute('value', this.value);" )
+                            input#telInput.form-control(placeholder="Telefoonnummer" name="phone" value="" onkeyup="this.setAttribute('value', this.value);" )
                             a(href="#").clear_field
                                 include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
                             span.help-block

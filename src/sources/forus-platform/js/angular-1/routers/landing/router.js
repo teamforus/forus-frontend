@@ -8,9 +8,51 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: "history",
+        url: "/geschiedenis",
+        component: "historyComponent"
+    });
+
+    $stateProvider.state({
+        name: "current",
+        url: "/nu",
+        component: "currentComponent"
+    });
+
+    $stateProvider.state({
+        name: "future",
+        url: "/toekomst",
+        component: "futureComponent"
+    });
+
+    $stateProvider.state({
         name: "kindpakket",
         url: "/kindpakket",
         component: "kindpakketComponent"
+    });
+
+    $stateProvider.state({
+        name: "hall-of-fame",
+        url: "/hall-of-fame",
+        component: "hallOfFameComponent"
+    });  
+
+    $stateProvider.state({
+        name: "me",
+        url: "/me",
+        component: "meComponent"
+    });
+
+    $stateProvider.state({
+        name: "contact",
+        url: "/contact",
+        component: "contactComponent"
+    });
+
+    $stateProvider.state({
+        name: "story",
+        url: "/cs-zuidhorn",
+        component: "storyComponent"
     });
 
     $stateProvider.state({
@@ -51,6 +93,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         data: {
             token: null
         }
+    });
+
+    $stateProvider.state("otherwise", {
+        url: "*path",
+        component: "homeComponent"
     });
 
     if (appConfigs.html5ModeEnabled) {
