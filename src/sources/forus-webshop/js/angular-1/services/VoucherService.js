@@ -36,6 +36,12 @@ module.exports = [
                 return ApiRequest.post(apiPrefix + '/' + address + '/transactions', values);
             }
 
+            this.destroy = function(address) {
+                return ApiRequest.delete(
+                    apiPrefix + '/' + address
+                );
+            }
+
             this.makeProductVoucher = function(voucherAddress, productId) {
                 return ApiRequest.post(apiPrefix, {
                     voucher_address: voucherAddress,

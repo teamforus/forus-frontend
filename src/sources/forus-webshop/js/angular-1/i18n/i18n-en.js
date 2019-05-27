@@ -515,6 +515,7 @@ module.exports = {
                 productdescription: "Dit is uw aanbieding voucher met een QR-code."
             },
             expire: "Gebruik deze voucher voor:",
+            delete: "Annuleer reservering",
             expired: "Verlopen"
         },
         share_voucher: {
@@ -534,6 +535,16 @@ module.exports = {
             labels: {
                 send_copy: "Stuur e-mail als bewijs ook naar uzelf"
             }
+        },
+        delete_voucher: {
+            popup_form: {
+                title: 'Wilt u uw reservering voor aankoop annuleren?',
+                description: 'U kunt uw reservering annuleren om af te zien van de aankoop. Wanneer u deze aankoop niet wenst te annuleren klikt u op "sluit".'
+            },
+            buttons: {
+                submit: 'BEVESTIG',
+                close: 'SLUIT'
+            },
         }
     },
 
