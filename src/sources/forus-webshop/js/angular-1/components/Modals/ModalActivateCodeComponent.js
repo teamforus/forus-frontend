@@ -35,7 +35,7 @@ let ModalAuthComponent = function(
 
                 ConfigService.get().then((res) => {
                     if (!res.data.funds.list) {
-                        FundService.applyToFirstAvailable().then(res => {
+                        FundService.applyToFundPrevalidationCode(form.values.code).then(res => {
                             $state.go('voucher', res.data.data);
                         }, () => {
                             alert('Helaas, er is geen fonds waarvoor u zich kan aanmelden.');
