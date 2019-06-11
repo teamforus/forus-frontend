@@ -3,6 +3,7 @@ let VoucherCardDirective = function(
     VoucherService,
 ) {
     $scope.voucherCard = VoucherService.composeCardData($scope.voucher);
+
 };
 
 module.exports = () => {
