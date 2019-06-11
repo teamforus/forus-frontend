@@ -11,11 +11,11 @@ let ModalAuthComponent = function(
 
     if(AuthService.hasCredentials()) {
         VoucherService.list().then(res => {
-            $ctrl.vouchers = res.data.data; });
+            $ctrl.vouchers = res.data.data; 
+        });
         } else {
             $ctrl.vouchers = [];
         }
-
     let $ctrl = this;
 
     $ctrl.$onInit = () => {
@@ -29,37 +29,58 @@ let ModalAuthComponent = function(
             }
 
             form.lock();
-
-            PrevalidationService.redeem(form.values.code).then((res) => {
-                $ctrl.close();
-
-                ConfigService.get().then((res) => {
-                    if (!res.data.funds.list) {
-                        FundService.applyToFirstAvailable().then(res => {
-                            $state.go('voucher', res.data.data);
-                        }, () => {
-                            alert('Helaas, er is geen fonds waarvoor u zich kan aanmelden.');
+            FundService.read_fundid(form.values.code).then((res) => {
+                let prevalidations = res.data.data;
+                VoucherService.list().then(result => {
+                    let vouchers = result.data.data;
+                    var arrayWithIds = vouchers.map(function(x){
+                        return x.fund_id
+                    }); 
+                    $ctrl.present = arrayWithIds.indexOf(prevalidations.fund_id) != -1
+                    console.log($ctrl.present)
+                    if(!$ctrl.present){
+                        PrevalidationService.redeem(form.values.code).then((res) => {
+                            $ctrl.close();
+        
+                            ConfigService.get().then((res) => {
+                                if (!res.data.funds.list) {
+                                    FundService.applyToFundPrevalidationCode(form.values.code).then(res => {
+                                        $state.go('voucher', res.data.data);
+                                    }, () => {
+                                        alert('Helaas, er is geen fonds waarvoor u zich kan aanmelden.');
+                                    });
+                                } else if (res.data.records.list) {
+                                    $state.go('records');
+                                } else {
+                                    $state.go('home');
+                                }
+                            });
+                        }, (res) => {
+                            if (res.status == 403) {
+                                form.errors.code = true;
+                            } else if (res.status == 429) {
+                                $ctrl.close();
+                                ModalService.open('modalNotification', {
+                                    type: 'info',
+                                    title: 'Te veel pogingen!',
+                                    description: 'U heeft driemaal een verkeerde activatiecode ingevuld. Probeer het over drie uur opnieuw.'
+                                });
+                            }
+        
+                            form.unlock();
                         });
-                    } else if (res.data.records.list) {
-                        $state.go('records');
-                    } else {
-                        $state.go('home');
-                    }
+                    }        
+                    else{
+                        $ctrl.close();
+                        ModalService.open('modalNotification', {
+                            type: 'info',
+                            icon: 'info',
+                            title: 'U heeft een voucher voor deze regeling!',
+                            description: 'Gebruik voor iedere individuele aanvraag een apart account. Wilt u een tweede code activeren, gebruik hiervoor een nieuw e-mailadres.'
+                        });
+                    } 
                 });
-            }, (res) => {
-                if (res.status == 403) {
-                    form.errors.code = true;
-                } else if (res.status == 429) {
-                    $ctrl.close();
-                    ModalService.open('modalNotification', {
-                        type: 'info',
-                        title: 'Te veel pogingen!',
-                        description: 'U heeft driemaal een verkeerde activatiecode ingevuld. Probeer het over drie uur opnieuw.'
-                    });
-                }
-
-                form.unlock();
-            });
+            })
         });
     };
 };
