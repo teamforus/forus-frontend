@@ -68,7 +68,7 @@
         background-image: url(../img/landing/splash-top-b.png);
         display: table-row;
         background-size: cover;
-        height: 26.5vw;
+        height: 10vw;
         background-position: 50% 50%;
     
         &:before {
@@ -98,13 +98,17 @@
                 padding-left: 1vw;
                 color: #fff;
                 min-height: 450px;
-
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                position: relative;
+                text-align: left;
                 .header-title {
                     font: 700 40px $bf;
                 }
 
                 .header-description {
-                    font: 400 16/1.6vw $bf;
+                    font: 400 16px/1.55 $bf;
                     margin-bottom: 1vw;
                 }
 
@@ -122,6 +126,9 @@
 }
 
 .section {
+    &.section-flow {
+        margin: 20px 0 20px 0;
+    }
     &.section-faq {
         .section-splash {
             display: none;
@@ -132,6 +139,8 @@
         position: absolute;
         width: 100%;
         display: block;
+        max-width: 1440px;
+
 
         .wrapper {
             width: 100%;

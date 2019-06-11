@@ -4,7 +4,7 @@ header.section.section-header
     .wrapper
         .header-body
             .header-content
-                .header-title Gemeente Nijmegen. Meedoen regeling.
+                .header-title Gemeentelijk dashboard
                 .header-description Dit is het start scherm om uzelf aan te melden op het gemeentelijke dashboard.
 
 if (qdt_c.platform.env_data.client_key == 'general')    
@@ -14,7 +14,6 @@ if (qdt_c.platform.env_data.client_key == 'general')
         img(src="./assets/img/landing/forus-flow-sponsor.png").section-scheme
         .block.block-show-more: a(href="../sponsor/#!/sign-up" translate="home_sponsor.guide.button").button.button-primary
 
-if (qdt_c.platform.env_data.client_key == 'westerkwartier')
     section.section.section-flow: .wrapper
 section.section.section-faq: .wrapper
     .section-splash
@@ -29,36 +28,16 @@ section.section.section-faq: .wrapper
                 .faq-item-content(collapse-content)=content
 
         +faq_item(
-            "Ik weet niet hoe ik moet inloggen; hoe de activatiecode werkt.",
-            "In de brief staat uw activatiecode. Die code vult u in op de website onder de knop activatie-code. Daana u ontvangt u een e-mail met uw QR-code")
+            "Wat zijn de technische vereisten om mee te doen?",
+            "Een smartphone op de locatie van uw organisatie. Android verreist: 4.3 en hoger. iOS vereist: 10.0 en hoger. Een computer met een willekeurige internet browser. Internet Explorer: 10 of hoger")
 
         +faq_item(
-            "Ik ben mijn QR-code kwijt. Wat moet ik doen?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
+            "Hoe gaat het met uitbetalen?",
+            "Als eerste scan de QR-code van de inwoner. Ten tweede vul het bedrag van de betaling in en eventueel een omschrijving. Als laatste bevestig de betaling in de app. Het geld wordt binnen drie werkdagen op de rekening bijgeschreven.")
 
         +faq_item(
-            "Hoe kan ik zien hoe hoog mijn budget nog is?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
-
-        +faq_item(
-            "Kan ik iets wat ik gekocht heb ruilen/retour brengen?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
-
-        +faq_item(
-            "Moet ik mijn budget in 1x besteden?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
-
-        +faq_item(
-            "Kan ik iets kopen bij een andere winkelier die niet op de website staat?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
-
-        +faq_item(
-            "Ik heb nog een kind gekregen. Kom ik in aanmerking voor een hoger budget?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
-
-        +faq_item(
-            "Hoe kom ik in aanmerking voor het kindpakket?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
+            "Hoe kan ik mijn transacties in zien?",
+            "Naast de mobiele applicatie kunt u ook gebruik maken van de gebruikersomgeving voor organisaties. Hier kunt u het profiel van de organisatie beheren, transacties bijhouden en aanbiedingen op de webshop plaatsen. Het gebruik maken van de gebruikersomgeving is optioneel.")
 
 //- section.section.section-blogs: .wrapper
     .block.block-blogs
