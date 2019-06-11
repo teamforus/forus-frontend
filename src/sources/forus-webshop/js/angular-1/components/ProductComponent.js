@@ -23,7 +23,6 @@ let ProductComponent = function (
 
     $ctrl.$onInit = function() {
         let fundIds = $ctrl.product.funds.map(fund => fund.id);
-
         vouchers = $ctrl.vouchers.filter(function(voucher) {
             return (fundIds.indexOf(voucher.fund_id) != -1) && (
                 parseFloat($ctrl.product.price) <= parseFloat(voucher.amount)
