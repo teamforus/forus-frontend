@@ -41,11 +41,11 @@ section.section.section-product: .wrapper
 
                 .button.button-primary(
                     ng-if="$ctrl.isApplicable && !$ctrl.product.deleted"
-                    ng-click="$ctrl.applyProduct()") KOOP
+                    ng-click="$ctrl.applyProduct()") RESERVEER
                 
                 .button.button-primary(
                     ng-if="!$root.auth_user" 
-                    ng-click="openAuthPopup()") LOG IN OM TE KOPEN
+                    ng-click="openAuthPopup()") LOG IN OM TE RESERVEREN
 
         .block.block-info-card
             .block-header(i18n="voucher.labels.shopdetail")
