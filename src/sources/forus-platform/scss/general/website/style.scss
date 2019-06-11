@@ -252,6 +252,8 @@ html {
                                         border: 0;
                                         margin-top: -2px;
                                         svg{
+                                            stroke: #fff;
+                                            fill: #000;
                                             width: 24px;
                                             height: 24px;
                                             -webkit-transform: rotate(0);
@@ -1194,6 +1196,7 @@ html {
                         background-size: contain;
                         float: right;
                         height: 600px;
+                        padding: 50px 0 0 0;
                     }
                     .small{
                         max-height: 350px;
@@ -1219,6 +1222,7 @@ html {
                         -o-background-size: contain;
                         background-size: contain;
                         width: 850px;
+                        padding: 50px 0 0 0;
                     }
                     .small{
                         max-width: 560px;
@@ -1250,6 +1254,7 @@ html {
                         background-size: contain;
                         float: right;
                         height: 500px;
+                        padding: 50px 0 0 0;
                     }   
                 }
             }
