@@ -33,7 +33,7 @@ let FundService = function(
         }
         this.read_fundid = function(prevalidation) {
             return ApiRequest.get(
-                '/platform/prevalidations/' + prevalidation + '/fund/'
+                '/platform/prevalidations/' + prevalidation + '/fund'
             );
         }
 
