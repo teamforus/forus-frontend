@@ -99,7 +99,7 @@ module.exports = {
     // SPONSOR HOME = home-sponsor.pug
     home_sponsor: {
         header: {
-            title: "Meld u aan als gemeente en maak een regeling aan.",
+            title: "",
             description: "Een platform om gemeentelijke regelingen doelmatig, rechtmatig en efficient uit te geven aan inwoners.",
         },
         subject: {
