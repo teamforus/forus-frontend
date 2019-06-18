@@ -1826,10 +1826,26 @@ html {
             }
         }
         footer{
-            background: #f6f8f9;
-            padding: 15px 0;
+            max-width: 1440px;
+            margin: 0 auto;
+            .main_button {
+                float: left;
+            }
+            .hidden-sm-up {
+                display: none;
+            }
             .navbar-brand{
                 padding: 15px 0 10px;
+            }
+            p {
+                font-size: inherit;
+            }
+            .card-block {
+                li {
+                    .indent {
+                        margin-left: 20px;
+                    }
+                }
             }
             nav {
                 margin-bottom: 0!important;
@@ -3028,8 +3044,13 @@ html {
             footer{
                 margin-top: 30px;
                 padding: 15px 0 10px;
+                padding-right: 15px;
+                padding-left: 15px;
                 & > .container{
                     padding: 0;
+                }
+                .hidden-xs-down {
+                    display: none;
                 }
                 .navbar{
                     margin-bottom: 0;
@@ -3164,6 +3185,45 @@ html {
     }
     @media (max-width: 576px) {
         body{
+            footer {
+                .text-bold {
+                    font-weight: 600;
+                    display: flex;
+                    justify-content: space-between;
+                    flex: auto;
+                }
+                .text-boldest {
+                    font-weight: 700;
+                }
+                .hidden-xs-down {
+                    display: none;
+                }
+                .hidden-sm-up {
+                    display: block;
+                    border-bottom: solid 1px #e5e6ec;
+
+                    ul {
+                        li {
+                            font: 300 13px/28px "Montserrat", sans-serif;
+                        }
+                    }
+                    & a {
+                        .cross {
+                            text-align: right;
+                        }
+                        &[aria-expanded="true"]{
+                            .cross{
+                                svg{
+                                    -webkit-transform: rotate(-45deg);
+                                    -ms-transform: rotate(-45deg);
+                                    transform: rotate(-45deg);
+                                    @include transition();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             .wrapper{
                 &_roles {
                     .roles {
