@@ -222,5 +222,30 @@
                         .form-group.center-block
                             p.thanks Bedankt! Er wordt zo snel mogelijk contact met u opgenomen.
                             button#formSubmitHome.main_button.g-recaptcha( data-sitekey="6LfA-JcUAAAAAC9SpgAr2ZmL4rFwjb83_U2MDcfQ" data-callback="onSubmitCFHome" data-badge="inline" type="button") Versturen
+footer(class="footer_sub")
+    .container
+        nav.navbar
+            .container-fluid
+                .navbar-header
+                    a.navbar-brand(href="/"): include ../../../../resources/platform-general/assets/img/svg/forus-logo-footer.svg
+                #navbar_footer.navbar-collapse
+                    ul.nav.navbar-nav
+                        //li
+                            a(href="#") Privacy & Terms
+
+                        //li
+                            a(href="#") Contact Us
+
+
+                    ul.nav.navbar-nav.navbar-right
+
+                        li.social
+                            a(href="https://github.com/teamforus/")
+                                include ../../../../resources/platform-general/assets/img/svg/bitmap.svg
+                        li.social
+                            a(href="https://chat.forus.io/")
+                                include ../../../../resources/platform-general/assets/img/svg/rocketchat.svg
+    .container
+        .copyright Copyright &copy; Stichting Forus 2019
 modals-root
 
