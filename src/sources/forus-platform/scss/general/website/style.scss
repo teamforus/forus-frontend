@@ -1826,8 +1826,16 @@ html {
             }
         }
         footer{
-            max-width: 1440px;
             margin: 0 auto;
+            .text-boldest {
+                font-weight: bold;
+                font-size: 15px;
+                margin-bottom: 25px;
+            }
+            .text-bold {
+                font-weight: 600;
+                font-size: 13px;
+            }
             .main_button {
                 float: left;
             }
@@ -1838,12 +1846,14 @@ html {
                 padding: 15px 0 10px;
             }
             p {
-                font-size: inherit;
+                font-size: 13px;
             }
-            .card-block {
+            .card-block,
+            .widget-list {
                 li {
+                    font-size: 13px;
                     .indent {
-                        margin-left: 20px;
+                        margin-left: 10px;
                     }
                 }
             }
@@ -3046,6 +3056,53 @@ html {
                 padding: 15px 0 10px;
                 padding-right: 15px;
                 padding-left: 15px;
+                .control-label {
+                    font-size: 12px;
+                }
+                .main_button {
+                    float: none;
+                    clear: left;
+                }
+                .text-bold {
+                    font-weight: 600;
+                    display: flex;
+                    justify-content: space-between;
+                    flex: auto;
+                }
+                .text-boldest {
+                    font-weight: 700;
+                }
+                .hidden-xs-down {
+                    display: none;
+                }
+                .hidden-sm-up {
+                    display: block;
+                    border-bottom: solid 1px #e5e6ec;
+                    .card-header {
+                        margin-top: 15px;
+                        margin-bottom: 15px;
+                    }
+                    ul {
+                        li {
+                            font: 300 13px/28px "Montserrat", sans-serif;
+                        }
+                    }
+                    & a {
+                        .cross {
+                            text-align: right;
+                        }
+                        &[aria-expanded="true"]{
+                            .cross{
+                                svg{
+                                    -webkit-transform: rotate(-45deg);
+                                    -ms-transform: rotate(-45deg);
+                                    transform: rotate(-45deg);
+                                    @include transition();
+                                }
+                            }
+                        }
+                    }
+                }
                 & > .container{
                     padding: 0;
                 }
@@ -3186,6 +3243,13 @@ html {
     @media (max-width: 576px) {
         body{
             footer {
+                .control-label {
+                    font-size: 12px;
+                }
+                .main_button {
+                    float: none;
+                    clear: left;
+                }
                 .text-bold {
                     font-weight: 600;
                     display: flex;
@@ -3201,7 +3265,10 @@ html {
                 .hidden-sm-up {
                     display: block;
                     border-bottom: solid 1px #e5e6ec;
-
+                    .card-header {
+                        margin-top: 15px;
+                        margin-bottom: 15px;
+                    }
                     ul {
                         li {
                             font: 300 13px/28px "Montserrat", sans-serif;
