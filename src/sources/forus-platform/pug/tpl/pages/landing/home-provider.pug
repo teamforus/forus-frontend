@@ -20,8 +20,12 @@ header.section.section-header
                         .card-title {{ "home_provider.labels.join" | translate }}
                         .card-description {{ "home_provider.labels.subdescription" | translate }}
 if (qdt_c.platform.env_data.client_key == 'westerkwartier')
-    section.section.section-flow: .wrapper
-        .block.block-show-more: a(href="../provider/#!/sign-up" translate="home_sponsor.guide.button").button.button-primary
+
+section.section.section-flow: .wrapper
+    .section-title {{ "home_provider.guide.title_westerkwartier" | translate }}
+    .section-description {{ "home_provider.guide.description_westerkwartier" | translate }}
+    //- img(src="./assets/img/landing/forus-flow-provider.png").section-scheme
+    .block.block-show-more: a(href="../provider/#!/sign-up").button.button-primary {{ "home_provider.guide.button_westerkwartier" | translate }}
 
 section.section.section-faq: .wrapper
     .section-splash
