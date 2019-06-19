@@ -3271,6 +3271,7 @@ html {
                 .hidden-sm-up {
                     display: block;
                     border-bottom: solid 1px #e5e6ec;
+                    -webkit-tap-highlight-color: #d8d8d8;
                     .card-header {
                         margin-top: 15px;
                         margin-bottom: 15px;
@@ -3283,6 +3284,9 @@ html {
                     & a {
                         .cross {
                             text-align: right;
+                            svg {
+                                @include transition();
+                            }
                         }
                         &[aria-expanded="true"]{
                             .cross{
@@ -3295,6 +3299,9 @@ html {
                             }
                         }
                     }
+                }
+                :hover {
+                    -webkit-tap-highlight-color: #d8d8d8;
                 }
             }
             .wrapper{
