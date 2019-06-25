@@ -28,6 +28,7 @@
         background: $color_primary;
         border: $color_primary;
         box-shadow: 0 10px 15px -6px #969696;
+        text-shadow: none;
 
         &:hover {
             color: #666;
@@ -38,7 +39,7 @@
 }
 
 .header-splash {
-    height: 27.5vw;
+    height: 30vw;
     overflow:auto;
     display: block;
     .splash,
@@ -46,11 +47,11 @@
         background-image: url(../img/splash-top-b.png);
         display: block;
         background-size: cover;
-        height: 27.5vw;
+        height: 30vw;
         background-position: 50% 50%;
         &.splash-d{
             background-position: 50% 65%;
-            height: 20.5vw;
+            height: 30vw;
         }
 
     
@@ -111,12 +112,10 @@
         position: relative;
         display: block;
         .header-content {
-            padding-top: 2.5vw;
-            padding-bottom: 5.1vw;
-            padding-left: 40px;
-            padding-right: 40px;
             color: #fff;
-
+            min-height: auto;
+            padding: 90px 0;
+            text-shadow: 1px 1px 4px #000000;
             .header-title {
                 font: 700 2vw $bf;
             }
@@ -248,7 +247,10 @@
     &.block-navbar {
         width: 100%;
         padding: 0 40px;
-
+        .navbar-inner {
+            width: 80%;
+            border-radius: 6px;
+        }
         .navbar-logo {
             padding: 17.5px 45px;
 
@@ -258,7 +260,7 @@
         }
 
         .navbar-list {
-            text-align: center;
+            text-align: left;
             
             .navbar-item-wrapper {
                 .navbar-item {
@@ -347,7 +349,7 @@
     &.block-voucher {
         .base-card {
             border-radius: 8px;
-
+            margin-bottom: 70px;
             .card-footer {
                 background-color: #f6f8fa;
                 border-top-color: #d2e6ff;
@@ -358,6 +360,8 @@
     &.block-products {
         .product-item {
             .product-item-inner {
+                border-top-right-radius: 10px;
+                border-top-left-radius: 10px;            
                 .product-name {
                     color:#8b9911
                 }
