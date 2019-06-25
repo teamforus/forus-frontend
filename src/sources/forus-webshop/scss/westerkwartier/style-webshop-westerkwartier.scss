@@ -219,7 +219,7 @@
             .header-content {
                 padding: 50px 25px 0;
                 color: $tc;
-
+                text-shadow: none;
                 .header-title {
                     font-size: 24px;
                     line-height: 38px;
@@ -522,7 +522,6 @@
     @media screen and (max-width: 1700px) {
         &.block.block-navbar .navbar-logo {
             padding: 15px 30px;
-            
             img {
                 margin: -5px 0;
                 height: 50px;
@@ -533,7 +532,9 @@
     @media screen and (max-width: 1000px) {
         &.block-navbar  {
             padding: 0;
-
+            .navbar-inner {
+                width: 100%;
+            }
             .navbar-logo {
                 padding: 15px 15px;
 
@@ -550,6 +551,30 @@
                 &.active {
                     color: $tc;
                 }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .wrapper {
+        width: 1100px;
+        padding: 0 25px;
+    }
+    .block {
+        &.block-navbar {
+            .navbar-inner {
+                width: 1100px;
+            }
+        }
+    }
+    .header-splash {
+        .splash {
+            height: 650px;
+            background-size: auto 80%;
+
+            &.splash-c {
+                height: 700px;
             }
         }
     }
