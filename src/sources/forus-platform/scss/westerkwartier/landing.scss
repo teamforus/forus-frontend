@@ -91,7 +91,7 @@
             width: 100%;
             max-width: 100%;
             margin: 0 auto;
-            
+            max-width: 1440px;
             .header-content {
                 padding-top: 3.4vw;
                 padding-bottom: 5.1vw;
@@ -127,7 +127,7 @@
 
 .section {
     &.section-flow {
-        margin: 20px 0 20px 0;
+        margin: 5% 0;
     }
     &.section-faq {
         .section-splash {
@@ -140,7 +140,10 @@
         width: 100%;
         display: block;
         max-width: 1440px;
-
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
 
         .wrapper {
             width: 100%;
@@ -148,7 +151,7 @@
 
         .header-body {
             width: 1280px;
-            max-width: 100%;
+            max-width: 1440px;
             margin: 0 auto;
             
             .header-content {
@@ -335,7 +338,7 @@
     }
     &.block-navbar {
         width: 100%;
-        padding: 0 40px;
+        padding: 0 0px;
 
         .navbar-logo {
             padding: 17.5px 45px;

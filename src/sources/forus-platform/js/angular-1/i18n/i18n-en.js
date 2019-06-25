@@ -90,10 +90,13 @@ module.exports = {
         guide: {
             title: "Word onderdeel van een innovatieve beweging",
             title_nijmegen: "Als uw organisatie een passend aanbod heeft, kunt u zich opgeven.",
+            title_westerkwartier: "Als uw organisatie een passend aanbod heeft, kunt u zich opgeven.",
             description: "Doe mee aan ons platform door onderstaande stappen te volgen, maak een organisatie aan, verkoop jouw producten of diensten en trek nieuwe klanten aan.",
             description_nijmegen: "Uw organisatie is in het bezit van een smartphone, deze heeft u nodig om een mobiele applicatie te installeren die QR-codes kan scannen. Heeft u deze smartphone bij de hand? Regel het dan direct!",
+            description_westerkwartier: "Uw organisatie is in het bezit van een smartphone, deze heeft u nodig om een mobiele applicatie te installeren die QR-codes kan scannen. Heeft u deze smartphone bij de hand? Regel het dan direct!",
             button: "Start uw reis!",
             button_nijmegen: "DIRECT REGELEN",
+            button_westerkwartier: "Direct regelen",
         }
     },
     // SPONSOR HOME = home-sponsor.pug
