@@ -1,31 +1,29 @@
-.header-splash: .splash
-
 header.section.section-header.section-header-landing
     top-navbar
-    .wrapper
-        .header-sprite
+    .header-splash: .splash
+        .wrapper
+            .header-sprite
+            .header-content
+                .header-title(i18n="home.header.title" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                //- usage example: 
+                //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
+                //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
 
-        .header-content
-            .header-title(i18n="home.header.title" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
-            //- usage example: 
-            //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
-            //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
-            
-            .header-description#desc(ng-show="!$root.auth_user || $root.auth_user && $ctrl.vouchers.length == 0")
-                p(i18n="home.header.subtitle" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
-                p(i18n="home.header.cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
-            .header-description#desc(ng-show="$root.auth_user && $ctrl.vouchers.length > 0")
-                p(i18n="home.header.subtitle" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
-                p(i18n="home.header.auth_cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                .header-description#desc(ng-show="!$root.auth_user || $root.auth_user && $ctrl.vouchers.length == 0")
+                    p(i18n="home.header.subtitle" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                    p(i18n="home.header.cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                .header-description#desc(ng-show="$root.auth_user && $ctrl.vouchers.length > 0")
+                    p(i18n="home.header.subtitle" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                    p(i18n="home.header.auth_cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
 
-            a(ng-if="$root.appConfigs.flags.homeButton && !$root.auth_user" ng-click="openAuthCodePopup()" i18n="home.header.button").button.button-primary 
-            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length == 0" ng-click="openActivateCodePopup()" i18n="home.header.button").button.button-primary
-            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length > 0" ng-click="$ctrl.openInMeModal()" i18n="home.header.auth_button").button.button-primary
-            br
-            br
-            a(ng-if="$root.appConfigs.flags.homeButton" scroll-to="#steps" i18n="Hoe werkt het?" ng-show="!$root.auth_user").header-how-it-works
-            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length == 0" scroll-to="#steps" i18n="Hoe werkt het?" ng-show="$root.auth_user").header-how-it-works
-            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" href="#!/me-app" target="_blank" ng-show="$root.auth_user").header-how-it-works
+                a(ng-if="$root.appConfigs.flags.homeButton && !$root.auth_user" ng-click="openAuthCodePopup()" i18n="home.header.button").button.button-primary 
+                a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length == 0" ng-click="openActivateCodePopup()" i18n="home.header.button").button.button-primary
+                a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length > 0" ng-click="$ctrl.openInMeModal()" i18n="home.header.auth_button").button.button-primary
+                br
+                br
+                a(ng-if="$root.appConfigs.flags.homeButton" scroll-to="#steps" i18n="Hoe werkt het?" ng-show="!$root.auth_user").header-how-it-works
+                a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length == 0" scroll-to="#steps" i18n="Hoe werkt het?" ng-show="$root.auth_user").header-how-it-works
+                a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" href="#!/me-app" target="_blank" ng-show="$root.auth_user").header-how-it-works
 
 block-products(
     ng-if="$root.appConfigs.flags.homeProducts"

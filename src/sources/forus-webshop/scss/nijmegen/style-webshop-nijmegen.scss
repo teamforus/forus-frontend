@@ -7,7 +7,7 @@ $base_shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 
 .wrapper {
-    width: 1140px;
+    max-width: 1140px;
 }
 
 .button {
@@ -120,11 +120,6 @@ $base_shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
 }
 
 .header-splash {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    z-index: -1;
 
     .splash {
         background-image: url("../img/splash-top-ba.png");
@@ -146,7 +141,12 @@ $base_shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
         }
     }
 }
-
+.header-content {
+    .header-title {
+        font-weight: 700 !important;
+    }
+    padding: 155px 0 !important;
+}
 .section {
     &.section-header {
         .header-sprite {

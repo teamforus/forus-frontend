@@ -18,25 +18,19 @@ html {
 }
 
 .section {
+    max-width: 1200px;
+    margin: 0 auto;
     .section-title {
         font: 700 40px/60px $bf;
         margin: 0 0 40px;
     }
 
     &.section-header {
-        padding: 80px 0 40px;
+        padding: 0px 0 40px;
         position: relative;
         background-image: none;
+        max-width: 100%;
         @include cf();
-
-        .heade-sprite {
-            background: url("../img/me/sprite-meapp.png") no-repeat;
-            background-position: 100% 0%;
-            background-size: auto 100%;
-            @include fill_parent();
-            bottom: -50px;
-            z-index: 2;
-        }
 
         .block-navbar {
            /* position: relative;*/
@@ -63,13 +57,20 @@ html {
             min-height: 450px;
 
             .header-title {
-                font: 700 40px/50px $bf;
-                margin: 0 0 25px;
+                font: 500 40px/50px $bf;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.08;
+                letter-spacing: -0.9px;
+                text-align: left;
+                margin: 25px auto;
+                color: $htc;
             }
 
             .header-description {
                 font: 400 22px/36px $bf;
                 margin: 0 0 50px;
+                color: $htc;
             }
 
             .header-download-apps {
@@ -465,27 +466,6 @@ html {
             margin: 0 0 20px;
             font: 700 30px/40px $bf;
         }
-
-        &.section-header {
-            .heade-sprite {
-                bottom: 100px;
-            }
-
-            .header-content {
-                padding: 75px 0;
-                padding-right: 150px;
-
-                .header-title {
-                    font: 700 30px/46px $bf;
-                    margin: 0 0 20px;
-                }
-
-                .header-description {
-                    font: 400 18px/30px $bf;
-                    margin: 0 0 20px;
-                }
-            }
-        }
     }
 
     @media screen and (max-width: 1000px) {
@@ -531,14 +511,14 @@ html {
                 min-height: auto;
 
                 .header-title {
-                    font: 700 20px/28px $bf;
+                    font: 500 20px/28px $bf;
                     margin: 0 0 20px;
                 }
 
                 .header-description {
                     font: 400 14px/24px $bf;
                     margin: 0;
-                    color: #353b46;
+                    color: $htc;
                 }
 
                 .button {
@@ -682,8 +662,7 @@ html {
     }
 }
 
-.wrapper {
-    width: 1280px;    
+.wrapper { 
     max-width: 100%;
     margin: 0 auto;
     display: block;
@@ -1347,29 +1326,25 @@ ui-view{
 }
 
 .header-splash {
-    position: absolute;
+    position: relative;
     top: 0;
     right: 0;
     width: 100%;
     z-index: -1;
 
     .splash {
-        background-image: url("../img/splash-top-b.png");
-        background-position: 100% 0%;
-        background-size: auto 90%;
-        background-repeat: no-repeat;
-        height: 800px;
+        background: url("../img/header-fig-a.png") no-repeat top center;
+        background-size: cover;
+        overflow: hidden;
+        height: 400px;
         width: 100%;
-
-        &.splash-c {
-            background-image: url("../img/splash-top-c.png");
-            height: 920px;
-        }
-
-        &.splash-d {
-            background-image: url("../img/splash-top-d.png");
-            height: 1130px;
-        }
+    }
+    .splash-d {
+        display:none;
+    }
+    .wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
     }
 }
 
@@ -1426,7 +1401,7 @@ ui-view{
     }
 
     &.section-header {
-        padding: 40px 0 40px;
+        padding: 0px 0 40px;
         position: relative;
         @include cf();
 
@@ -1449,14 +1424,14 @@ ui-view{
         }
 
         .header-content {
-            padding: 145px 0;
+            padding: 50px 0;
             width: 50%;
             float: left;
             position: relative;
             z-index: 3;
 
             .header-title {
-                font: 700 40px/50px $bf;
+                font: 500 40px/50px $bf;
                 margin: 0 0 20px;
             }
 
@@ -1575,11 +1550,14 @@ ui-view{
     &.section-products {
         z-index: 1;
         position: relative;
-        margin: 0 0 40px;
+        margin: 0 auto;
+        max-width: 1200px;
 
         .section-title {
+            font: 700 40px/60px $bf;
             margin: 0 0 20px;
             display: block;
+            text-align:center;
         }
 
         .section-filters {
@@ -1602,12 +1580,13 @@ ui-view{
         position: relative;
         margin-top: 25px;
         margin-bottom: 40px;
+        max-width: 100%;
 
         .section-splash {
             position: absolute;
             left: 0;
             width: 100%;
-            height: 1080px;
+            height: 800px;
             max-height: 100%;
             background: url('../img/splash-steps.png') no-repeat;
             background-position: 0 50%;
@@ -1620,7 +1599,7 @@ ui-view{
             position: absolute;
             right: 100px;
             width: 100%;
-            height: 480px;
+            height: 300px;
             max-height: 100%;
             background: url('../img/sprite-steps.png') no-repeat;
             background-position: 100% 50%;
@@ -1725,7 +1704,7 @@ ui-view{
     &.section-faq {
         position: relative;
         margin: 0 0 40px;
-
+        max-width: 100%;
         .section-title {
             font: 700 40px/60px $bf;
             margin: 0 0 40px;
@@ -1917,101 +1896,6 @@ ui-view{
     &.section-apply_fund {
         position: relative;
         z-index: 1;
-    }
-
-    @media screen and (max-width: 1700px) {
-        .section-title {
-            font: 700 26px/40px $bf;
-            margin: 0 0 15px;
-        }
-
-        &.section-header {
-            .header-content {
-                padding: 180px 0;
-                
-                .header-title {
-                    font: 700 40px/50px $bf;
-                    margin: 0 0 15px;
-                }
-
-                .header-description {
-                    font: 400 22px/36px $bf;
-                    margin: 0 0 30px;
-                }
-            }
-        }
-
-        &.section-faq,
-        &.section-products {
-            z-index: 1;
-            position: relative;
-
-            .section-title {
-                font: 700 26px/40px $bf;
-                margin: 0 0 15px;
-            }
-        }
-
-        &.section-products {
-            .section-filters {
-                margin-bottom: 30px;
-            }
-        }
-
-        &.section-faq {
-            .faq {
-                .faq-item {
-                    .faq-item-header {
-                        font: 500 15px $bf;
-                    }
-
-                    .faq-item-content {
-                        font: 400 14px $bf;
-                        
-                        ul li {
-                            font: 400 14px $bf;
-                        }
-                    }
-                }
-
-            }
-        }
-
-        &.section-steps {
-            .section-title {
-                font: 700 26px/40px $bf;
-                margin: 0 0 40px;
-            }
-
-            .steps {
-                .step-item {
-                    .step-item-content {
-                        padding-top: 40px;
-                    }
-
-                    h4 {
-                        font: 700 17px $bf;
-                    }
-
-                    p {
-                        font: 400 14px/20px $bf;
-                        margin: 0;
-                    }
-                }
-            }
-        }
-
-        &.section-steps {
-            margin: 0 0 30px;
-
-            .section-splash {
-                height: 800px;
-            }
-
-            .section-sprite {
-                height: 300px;
-            }
-        }
     }
 
     @media screen and (max-width: 1500px) {
@@ -2415,13 +2299,12 @@ ui-view{
     }
 
     &.block-navbar {
-
+        background-color: #ffffff;
+        box-shadow: 0 10px 20px rgba(#000, .075);
         .navbar-inner {
-            border-radius: $border_radius;
             background-color: #ffffff;
-            box-shadow: 0 10px 20px rgba(#000, .075);
             @include cf();
-            max-width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
         }
@@ -7919,9 +7802,6 @@ ui-view{
 }
 
 @media screen and (max-width: 1700px) {
-    .wrapper {
-        width: 1200px;
-    }
 
     .button {
         font: 700 12px/20px $bf;
@@ -7930,17 +7810,12 @@ ui-view{
 }
 
 @media screen and (max-width: 1500px) {
-    .wrapper {
-        width: 1100px;
-    }
-        
     .base-card .card-body {
         min-height: 160px;
     }
 
     .header-splash {
         .splash {
-            height: 650px;
 
             &.splash-c {
                 height: 700px;
@@ -7965,7 +7840,6 @@ ui-view{
 
 @media screen and (max-width: 1300px) {
     .wrapper {
-        width: 1100px;
         padding: 0 25px;
     }
     
@@ -8012,11 +7886,10 @@ ui-view{
     }
 
     .header-splash {
-        display: none;
+        
 
         .splash  {
             height: 300px;
-            background-size: 75% auto;
         }
     }
 
