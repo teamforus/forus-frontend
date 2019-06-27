@@ -1,58 +1,16 @@
 module.exports = {
     // HOME = home.pug
     header: {
-        general: {
-            title: "Forus is een platform voor gemeentelijke regelingen",
-            subtitle: "Het platform biedt een webshop waar een inwoner zich kan aanmelden voor een regeling, vervolgens kan hij een voucher aan een aanbieder laten zien. De aanbieder kan dan een product of dienst leveren. <br /> <br /> Wilt u meer weten?",
-            button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
-        },
-        forus: {
-            title: "Forus platform en de Me-app",
-            subtitle: "Forus is een jonge Groningse organisatie. Platform Forus en de Me-app zijn applicaties voor de uitgifte en afhandeling van gemeentelijke diensten en regelingen. <br /> <br /> Wilt u meer weten?",
-            auth_subtitle: "Forus is een jonge Groningse organisatie. Platform Forus en de Me-app zijn applicaties voor de uitgifte en afhandeling van gemeentelijke diensten en regelingen. <br /> <br /> Wilt u meer weten?",
-            button: 'LEES MEER OVER HOE HET SYSTEEM WERKT',
-        },
-        nijmegen: {
-            title: "Meedoen-regeling",
-            subtitle: "Welkom op de website van de Meedoen-regeling. Heeft u van de gemeente een toekenning voor de Meedoen-regeling? Dan kunt u hier het aanbod van activiteiten en cursussen zien en het geld dat u kunt besteden. <br /><br />Klik op start en vul uw activatiecode in. Deze code staat in de brief over de Meedoen-regeling die u heeft ontvangen",
-            auth_subtitle: "Welkom op de website van de Meedoen-regeling. Heeft u van de gemeente een toekenning voor de Meedoen-regeling? Dan kunt u hier het aanbod van activiteiten en cursussen zien en het geld dat u kunt besteden. <br /><br />Beheer uw vouchers en neem ze overal mee door de Me-app te downloaden.",
-            auth_button: "Download Me",
-            button: 'START', 
-        },
-        zuidhorn: {
-            title: "Zuidhorn. Kindpakket",
-            subtitle: "Welkom op de website van het Kindpakket Zuidhorn. Het Kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Zuidhorn.",
-            auth_subtitle: "Welkom op de website van het Kindpakket Zuidhorn. Het Kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Zuidhorn. <br /><br />Beheer uw vouchers en neem ze overal mee door de Me-app te downloaden.",
-            auth_button: "Download Me",
-            button: 'START MET ACTIVEREN',
-        },
-        westerkwartier: {
-            title: "Kindpakket Westerkwartier",
-            subtitle: "Welkom op de website van het Kindpakket Westerkwartier. Het Kindpakket is een jaarlijks ondersteunende regeling voor kinderen in de gemeente Westerkwartier.",
-            auth_subtitle: "Welkom op de website van het Kindpakket. Heeft u van de gemeente een toekenning voor het Kindpakket? Dan kunt u hier het aanbod van activiteiten en cursussen zien en het geld dat u kunt besteden. <br /><br />Beheer uw vouchers en neem ze overal mee door de Me-app te downloaden.",
-            auth_button: "Download Me",
-            button: 'START MET ACTIVEREN',
-        },
+        title: "{{fund}} ",
+        subtitle: "Welkom op de website van {{fund}}. Heeft u van de gemeente een toekenning voor {{fund}}? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
+        cta: "Klik op start en vul uw activatiecode in. Deze code staat in de brief over {{fund}} die u heeft ontvangen",
+        auth_cta: "Beheer uw vouchers en neem ze overal mee door de Me-app te downloaden.",
+        auth_button: "Download Me",
+        button: 'START', 
     },
     blog: {
-        general: {
-            title: "Onze blog",
-            name: "Blog: Twee nieuwe implementaties van ons platform",
-        },
-        nijmegen: {
-            title: "Onze blog",
-            name: "Blog: Nieuw fonds Meedoen-regeling 2019 Nijmegen",
-        },
-        zuidhorn: {
-            title: "Onze blog",
-            name: "Blog: Nieuw fonds Kindpakket 2019 Zuidhorn",
-        },
-        westerkwartier: {
-            title: "Onze blog",
-            name: "Blog: Nieuw fonds Kindpakket 2019 Westerkwartier",
-        },
-        more: "Lees meer",
-        button: "BEKIJK MEER",
+        title: "Onze blog",
+        name: "Blog: Twee nieuwe implementaties van ons platform",
     },
     product: {
         title: "Aanbiedingen",
@@ -60,27 +18,8 @@ module.exports = {
         search: "Zoek naar een aanbieding",
     },
     map: { 
-        general: {
-            title: "Overzicht van alle aanbieders",
-            subtitle: "Binnen het Forus platform werken sponsoren en leveranciers samen om de beste diensten en producten te leveren voor het publieke domein.",
-        },
-        forus: {
-            title: "Overzicht van alle aanbieders",
-            subtitle: "Binnen het Forus platform werken sponsoren en leveranciers samen om de beste diensten en producten te leveren voor het publieke domein.",
-        },
-        zuidhorn: {
-            title: "Overzicht van alle aanbieders",
-            subtitle: "Binnen het platform Forus werkt de gemeente Zuidhorn en verschillende aanbieders samen om het beste aanbod te leveren",
-        },
-        nijmegen: {
-            title: "Overzicht van alle organisaties",
-            subtitle: "",
-        },
-        westerkwartier: {
-            title: "Overzicht van alle aanbieders",
-            subtitle: "Binnen het platform Forus werkt de gemeente Westerkwartier en verschillende aanbieders samen om het beste aanbod te leveren",
-        },
-        button: "BEKIJK DE KAART",
+        title: "Overzicht van alle organisaties",
+        subtitle: "",
     },
     faq: {
         title: "Veelgestelde vragen {{client_key}}",

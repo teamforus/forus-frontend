@@ -6,17 +6,21 @@ header.section.section-header.section-header-landing
         .header-sprite
 
         .header-content
-            .header-title(i18n="home.header.{{ $root.client_key }}.title")
+            .header-title(i18n="home.header.title" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
             //- usage example: 
             //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
             //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
             
-            .header-description#desc(translate="home.header.{{ $root.client_key }}.auth_subtitle" ng-show="$root.auth_user && $ctrl.vouchers.length > 0")
-            .header-description#desc(translate="home.header.{{ $root.client_key }}.subtitle" ng-show="$root.auth_user && $ctrl.vouchers.length == 0")
-            .header-description#desc(translate="home.header.{{ $root.client_key }}.subtitle" ng-show="!$root.auth_user")
-            a(ng-if="$root.appConfigs.flags.homeButton && !$root.auth_user" ng-click="openAuthCodePopup()" i18n="home.header.{{ $root.client_key }}.button").button.button-primary 
-            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length == 0" ng-click="openActivateCodePopup()" i18n="home.header.{{ $root.client_key }}.button").button.button-primary
-            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length > 0" ng-click="$ctrl.openInMeModal()" i18n="home.header.{{ $root.client_key }}.auth_button").button.button-primary
+            .header-description#desc(ng-show="!$root.auth_user || $root.auth_user && $ctrl.vouchers.length == 0")
+                p(i18n="home.header.subtitle" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                p(i18n="home.header.cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+            .header-description#desc(ng-show="$root.auth_user && $ctrl.vouchers.length > 0")
+                p(i18n="home.header.subtitle" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                p(i18n="home.header.auth_cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+
+            a(ng-if="$root.appConfigs.flags.homeButton && !$root.auth_user" ng-click="openAuthCodePopup()" i18n="home.header.button").button.button-primary 
+            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length == 0" ng-click="openActivateCodePopup()" i18n="home.header.button").button.button-primary
+            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length > 0" ng-click="$ctrl.openInMeModal()" i18n="home.header.auth_button").button.button-primary
             br
             br
             a(ng-if="$root.appConfigs.flags.homeButton" scroll-to="#steps" i18n="Hoe werkt het?" ng-show="!$root.auth_user").header-how-it-works
@@ -32,8 +36,8 @@ block-products(
 section.section.section-map(ng-if="$root.appConfigs.flags.homeMap"): .wrapper
     .block.block-map
         .block-content
-            .block-title(i18n="home.map.{{ $root.client_key }}.title")
-            .block-description(i18n="home.map.{{ $root.client_key }}.subtitle")
+            .block-title(i18n="home.map.title")
+            .block-description(i18n="home.map.subtitle")
             button(ng-click="$ctrl.showPopupOffices()" i18n="buttons.show_map").button.button-primary.button-wide
 
 section.section.section-steps#steps(ng-if="$root.appConfigs.flags.homeSteps"): .wrapper
