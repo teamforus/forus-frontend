@@ -34,7 +34,7 @@ section.section.section-map(ng-if="$root.appConfigs.flags.homeMap"): .wrapper
         .block-content
             .block-title(i18n="home.map.{{ $root.client_key }}.title")
             .block-description(i18n="home.map.{{ $root.client_key }}.subtitle")
-            button(ng-click="$ctrl.showPopupOffices()" i18n="home.map.button").button.button-primary.button-wide
+            button(ng-click="$ctrl.showPopupOffices()" i18n="buttons.show_map").button.button-primary.button-wide
 
 section.section.section-steps#steps(ng-if="$root.appConfigs.flags.homeSteps"): .wrapper
     .section-splash
@@ -70,7 +70,7 @@ section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
         +blog_item(1)
         +blog_item(2)
         +blog_item(3)
-    .block.block-show-more: a(href="#" i18n="home.blog.button").button.button-primary.button-wide
+    .block.block-show-more: a(href="#" i18n="buttons.read_more").button.button-primary.button-wide
 
 
 section.section.section-faq(ng-if="$root.appConfigs.flags.homeFaq"): .wrapper
