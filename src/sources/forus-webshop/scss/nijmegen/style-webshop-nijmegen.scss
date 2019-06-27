@@ -196,6 +196,8 @@ $base_shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
         margin-top: 0;
         padding-top: 30px;
         color: #fff;
+        width: 100%;
+        max-width: 100% !important;
     }
 
     @media screen and (max-width: 1500px) {

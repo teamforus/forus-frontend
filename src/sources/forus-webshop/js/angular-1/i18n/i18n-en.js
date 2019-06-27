@@ -22,7 +22,7 @@ module.exports = {
         "restore-email": 'Inloggen via e-mail',
     },
     implementation_name: {
-        general: 'General',
+        general: '+1 Gemeente',
         zuidhorn: 'Zuidhorn',
         nijmegen: 'Nijmegen',
         westerkwartier: 'Westerkwartier',

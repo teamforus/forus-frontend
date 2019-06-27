@@ -1330,12 +1330,12 @@ ui-view{
     top: 0;
     right: 0;
     width: 100%;
-    z-index: -1;
+    z-index: 0;
 
     .splash {
         background: url("../img/header-fig-a.png") no-repeat top center;
         background-size: cover;
-        overflow: hidden;
+        //overflow: hidden;
         height: 400px;
         width: 100%;
     }
@@ -1428,7 +1428,7 @@ ui-view{
             width: 50%;
             float: left;
             position: relative;
-            z-index: 3;
+            z-index: 999;
 
             .header-title {
                 font: 500 40px/50px $bf;
@@ -1447,8 +1447,13 @@ ui-view{
                 cursor: pointer;
                 font-size: 15px;
                 transition: .4s;
+                display: inline;
+                color: $htc;
             }
-
+            .button {
+                display: inline;
+                position: relative;
+            }
             .header-how-it-works:hover {
                 color: #a5a5a5;
             }
@@ -2214,6 +2219,8 @@ ui-view{
         position: relative;
         margin: 40px 0px;
         @include ellipsis();
+        max-width: 1200px;
+        margin:0 auto;
         
         .breadcrumb-item {
             display: inline-block;
@@ -2311,7 +2318,7 @@ ui-view{
 
         .navbar-logo {
             justify-self: flex-start;
-            padding: 30px 40px;
+            padding: 20px 40px;
             border-right: 1px solid $border_color;
 
             img {
@@ -2336,15 +2343,14 @@ ui-view{
                 position: relative;
 
                 .navbar-item {
-                    color: #646f79;
+                    color: $tc;
                     display: inline-block;
-                    font: 700 15px/30px $bf;
-                    padding: 30px 25px;
+                    font: 600 16px/20px $bf;
+                    padding: 28px 25px;
+                    line-height: 24px;
                     position: relative;
                     transition: .4s;
                     cursor: pointer;
-                    font-weight: bold;
-                    text-transform: uppercase;
 
                     &:before {
                         content: '';
@@ -2448,11 +2454,11 @@ ui-view{
             float: right;
             text-align: center;
             border-left: 1px solid #e6ecf0;
-
+            height: 50px;
             em {
                 display: block;
-                height: 60px;
-                line-height: 60px;
+                height: 50px;
+                line-height: 50px;
                 width: 60px;
                 font-size: 30px;
                 color: #9ca6af;
@@ -2461,15 +2467,16 @@ ui-view{
 
         .block-auth {
             border-left: 1px solid #e6ecf0;
-            padding: 25px 30px;
+            padding: 10px 30px;
             justify-self: flex-end;
             @include cf();
 
             .button {
-                padding: 7px 15px;
+                padding: 18px 15px;
                 float: left;
                 margin-right: 20px;
-                font: 700 14px/24px $bf;
+                font: 700 16px/28px $bf;
+                line-height: 24px;
 
                 &:last-of-type {
                     margin-right: 0px;
@@ -2486,13 +2493,11 @@ ui-view{
 
             .auth-in {
                 float: right;
-
+                margin-top: 10px;
                 .auth-user {
-                    padding: 20px 0;
                     padding-right: 50px;
                     position: relative;
-                    height: 80px;
-                    margin: -20px 0;
+                    height: 50px;
                     cursor: default;
                     @include cf();
 
@@ -2517,7 +2522,6 @@ ui-view{
                         border: 1px solid $border_color;
                         position: absolute;
                         right: 0;
-                        top: 20px;
 
                         &>img {
                             display: block;
@@ -6302,7 +6306,7 @@ ui-view{
             }
 
             .navbar-logo {
-                padding: 15px 0px;
+                padding: 5px 0px;
                 padding-left: 20px;
                 padding-right: -40px;
                 border-right: none;
@@ -6314,7 +6318,7 @@ ui-view{
             }
 
             .block-auth {
-                padding: 10px 10px 10px 0;
+                padding: 5px 5px 5px 0;
                 border: none;
 
                 .button {
@@ -6324,7 +6328,9 @@ ui-view{
                 }
 
                 .auth-in {
+                    margin: unset;
                     .auth-user {
+                        height: unset;
                         .auth-user-email {
                             font: 700 12px/22px $bf;
                         }

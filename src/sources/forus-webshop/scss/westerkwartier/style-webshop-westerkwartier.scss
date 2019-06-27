@@ -8,7 +8,7 @@
         border: $color_primary_light;
         color: #666;
         box-shadow: 0 10px 15px -6px #969696;
-
+        min-width: 160px;
         .mdi {
             color: #666;
         }
@@ -39,19 +39,27 @@
 }
 
 .header-splash {
-    height: 30vw;
-    overflow:auto;
+    .wrapper{
+        width: 100%;
+        padding: 15px !important;
+    }
     display: block;
     .splash,
     .splash.splash-d {
         background-image: url(../img/splash-top-b.png);
         display: block;
         background-size: cover;
-        height: 30vw;
+        height: 20vw;
         background-position: 50% 50%;
+        overflow: unset;
         &.splash-d{
-            background-position: 50% 65%;
-            height: 30vw;
+            display: none;
+            &:before {
+                display:none;
+            }
+            &:after {
+                display:none;
+            }
         }
 
     
@@ -84,6 +92,16 @@
                 border: 0;
             }
         }
+        .header-content {
+            max-width: 100%;
+        }
+        .header-title {
+            color: $tc !important;
+            text-align:center!important;
+        }
+        .header-description {
+            color: $tc !important;
+        }
     }
 }
 
@@ -108,13 +126,12 @@
     }
 
     &.section-header {
-        padding: 1vw 0 1vw;
         position: relative;
         display: block;
         .header-content {
             color: #fff;
             min-height: auto;
-            padding: 90px 0;
+            //padding: 90px 0;
             text-shadow: 1px 1px 4px #000000;
             .header-title {
                 font: 700 2vw $bf;
@@ -158,9 +175,13 @@
     }
     
     &.section-footer {
-        background-color: $fd;
         position: relative;
-
+        display: block;
+        margin: unset;
+        max-width: unset;
+        .row {
+            margin: unset;
+        }
         &:before,
         &:after {
             content: '';
@@ -217,7 +238,7 @@
             padding: 0;
 
             .header-content {
-                padding: 50px 25px 0;
+                //padding: 50px 25px 0;
                 color: $tc;
                 text-shadow: none;
                 .header-title {
@@ -228,6 +249,7 @@
                 .header-description {
                     font: 400 15px/24px $bf;
                     margin-bottom: 20px;
+                    width: 100%;
                 }
             }
         }
@@ -252,10 +274,10 @@
             border-radius: 6px;
         }
         .navbar-logo {
-            padding: 17.5px 45px;
+            padding: 15px 45px;
 
             img {
-                height: 55px;
+                height: 50px;
             }
         }
 
@@ -477,6 +499,7 @@
     }
 
     &.block-footer {
+        margin: 0;
         .footer-label {
             color: #fff;
         }
@@ -564,19 +587,12 @@
     .block {
         &.block-navbar {
             .navbar-inner {
-                width: 1100px;
+                width: 100%;
             }
         }
     }
-    .header-splash {
-        .splash {
-            height: 650px;
-            background-size: auto 80%;
-
-            &.splash-c {
-                height: 700px;
-            }
-        }
+    .header-content {
+        padding: 30px 0 !important;
     }
 }
 

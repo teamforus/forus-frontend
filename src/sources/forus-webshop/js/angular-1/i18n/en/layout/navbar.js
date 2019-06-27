@@ -1,12 +1,12 @@
 module.exports = {
     items: {
-        funds:"FONDSEN",
-        products:"AANBIEDINGEN",
+        funds:"Fondsen",
+        products:"Aanbiedingen",
         identity:"Profiel",
     },
     buttons: {
         activate:"Activatiecode",
-        login:"Login",
+        login:"Inloggen",
         voucher:"Mijn vouchers",
         records: "Mijn eigenschappen",
         authorize:"Autoriseer apparaat",

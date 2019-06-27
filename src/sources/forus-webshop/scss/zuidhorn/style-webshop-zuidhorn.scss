@@ -102,12 +102,6 @@
                 }
             }
         }
-
-        .header-splash {
-            .splash {
-                height: 700px;
-            }
-        }
     }
     &.section-footer {
         background-color: $fc;
@@ -128,11 +122,6 @@
     }
 
     &.block-navbar {
-        .navbar-logo {
-            img {
-                margin: -5px 0;
-            }
-        }
 
         .navbar-list {
             .navbar-item-wrapper {
