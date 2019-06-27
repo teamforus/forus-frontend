@@ -7,7 +7,6 @@ header.section.section-header.section-header-landing
 
         .header-content
             .header-title(i18n="home.header.{{ $root.client_key }}.title")
-            
             //- usage example: 
             //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
             //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
@@ -77,18 +76,18 @@ section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
 section.section.section-faq(ng-if="$root.appConfigs.flags.homeFaq"): .wrapper
     .section-splash
     .section-title {{ "home.faq.title" | i18n }}
-    .faq(collapse)
-        mixin faq_item(title, content, active)
+    .faq(collapse ng-if="$ctrl.funds.length == 1")
+        mixin faq_item(title, content, active, fund_name)
             .faq-item(class=active?'active':'' collapse-item)
                 .faq-item-header(collapse-header)
                     span(i18n=title)
                     .faq-item-chevron-down.mdi.mdi-chevron-down
                     .faq-item-chevron-up.mdi.mdi-chevron-up
-                .faq-item-content(collapse-conten,translate=content)    
+                .faq-item-content(collapse-conten,translate=content i18-vars=fund_name)    
 
         +faq_item(
             'home.faq.{{ $root.client_key }}.faq_one',
-            'home.faq.{{ $root.client_key }}.one')
+            'home.faq.{{ $root.client_key }}.one', '{{ $ctrl.funds[0].name }}')
 
         +faq_item(
             'home.faq.{{ $root.client_key }}.faq_two',

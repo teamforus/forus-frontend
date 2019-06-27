@@ -15,6 +15,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         component: "homeComponent",
         params: {
             confirmed: null
+        },
+        resolve: {
+            funds: function($transition$, FundService) {
+                return repackResponse(
+                    FundService.list()
+                );
+            }
         }
     });
 
