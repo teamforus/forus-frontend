@@ -30,17 +30,15 @@ let HomeComponent = function(
 
     if(AuthService.hasCredentials()) {
         VoucherService.list().then(res => {
-            $ctrl.vouchers = res.data.data; });
-        } else {
-            $ctrl.vouchers = [];
-        }
-
-
-
+        $ctrl.vouchers = res.data.data; });
+    } else {
+        $ctrl.vouchers = [];
+    }
 };
 
 module.exports = {
     bindings: {
+        funds: '<',
     },
     scope: {
         text: '=',

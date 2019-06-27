@@ -2,19 +2,23 @@ header.section.section-header.section-header-landing
     top-navbar
     .header-splash: .splash
         .wrapper
+            .header-sprite
             .header-content
-                .header-title(i18n="home.header.{{ $root.client_key }}.title")
-                
+                .header-title(i18n="home.header.title" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
                 //- usage example: 
                 //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
                 //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
-                
-                .header-description#desc(translate="home.header.{{ $root.client_key }}.auth_subtitle" ng-show="$root.auth_user && $ctrl.vouchers.length > 0")
-                .header-description#desc(translate="home.header.{{ $root.client_key }}.subtitle" ng-show="$root.auth_user && $ctrl.vouchers.length == 0")
-                .header-description#desc(translate="home.header.{{ $root.client_key }}.subtitle" ng-show="!$root.auth_user")
-                a(ng-if="$root.appConfigs.flags.homeButton && !$root.auth_user" ng-click="openAuthCodePopup()" i18n="home.header.{{ $root.client_key }}.button").button.button-primary 
-                a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length == 0" ng-click="openActivateCodePopup()" i18n="home.header.{{ $root.client_key }}.button").button.button-primary
-                a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length > 0" ng-click="$ctrl.openInMeModal()" i18n="home.header.{{ $root.client_key }}.auth_button").button.button-primary
+
+                .header-description#desc(ng-show="!$root.auth_user || $root.auth_user && $ctrl.vouchers.length == 0")
+                    p(i18n="home.header.subtitle" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                    p(i18n="home.header.cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                .header-description#desc(ng-show="$root.auth_user && $ctrl.vouchers.length > 0")
+                    p(i18n="home.header.subtitle" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                    p(i18n="home.header.auth_cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+
+                a(ng-if="$root.appConfigs.flags.homeButton && !$root.auth_user" ng-click="openAuthCodePopup()" i18n="home.header.button").button.button-primary 
+                a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length == 0" ng-click="openActivateCodePopup()" i18n="home.header.button").button.button-primary
+                a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length > 0" ng-click="$ctrl.openInMeModal()" i18n="home.header.auth_button").button.button-primary
                 br
                 br
                 a(ng-if="$root.appConfigs.flags.homeButton" scroll-to="#steps" i18n="Hoe werkt het?" ng-show="!$root.auth_user").header-how-it-works
@@ -30,30 +34,30 @@ block-products(
 section.section.section-map(ng-if="$root.appConfigs.flags.homeMap"): .wrapper
     .block.block-map
         .block-content
-            .block-title(i18n="home.map.{{ $root.client_key }}.title")
-            .block-description(i18n="home.map.{{ $root.client_key }}.subtitle")
+            .block-title(i18n="home.map.title")
+            .block-description(i18n="home.map.subtitle")
             button(ng-click="$ctrl.showPopupOffices()" i18n="buttons.show_map").button.button-primary.button-wide
 
 section.section.section-steps#steps(ng-if="$root.appConfigs.flags.homeSteps"): .wrapper
     .section-splash
     .section-sprite
-    .section-title(i18n="home.guide.{{ $root.client_key }}.title")
+    .section-title(i18n="home.guide.title")
     .steps
         .step-item: .step-item-content
-            h4(translate="home.guide.{{ $root.client_key }}.stepone")
-            p(translate="home.guide.{{ $root.client_key }}.one")
+            h4(i18n="home.guide.stepone")
+            p(i18n="home.guide.one")
         .step-item: .step-item-content
-            h4(translate="home.guide.{{ $root.client_key }}.steptwo")
-            p(translate="home.guide.{{ $root.client_key }}.two" scroll-to="#desc")
+            h4(i18n="home.guide.steptwo")
+            p(translate="home.guide.two" scroll-to="#desc")
         .step-item: .step-item-content
-            h4(translate="home.guide.{{ $root.client_key }}.stepthree")
-            p(translate="home.guide.{{ $root.client_key }}.three")
+            h4(i18n="home.guide.stepthree")
+            p(i18n="home.guide.three" )
         .step-item: .step-item-content
-            h4(translate="home.guide.{{ $root.client_key }}.stepfour")
-            p(translate="home.guide.{{ $root.client_key }}.four")
+            h4(i18n="home.guide.stepfour")
+            p(translate="home.guide.four")
         .step-item: .step-item-content
-            h4(translate="home.guide.{{ $root.client_key }}.stepfive")
-            p(translate="home.guide.{{ $root.client_key }}.five")
+            h4(i18n="home.guide.stepfive")
+            p(translate="home.guide.five")
 
 section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
     .section-title(i18n="home.blog.forus.title")
@@ -71,76 +75,66 @@ section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
     .block.block-show-more: a(href="#" i18n="buttons.read_more").button.button-primary.button-wide
 
 
-section.section.section-faq(ng-if="$root.appConfigs.flags.homeFaq"): .wrapper
+section.section.section-faq(ng-if="$root.appConfigs.flags.homeFaq && $ctrl.funds.length == 1"): .wrapper
     .section-splash
     .section-title {{ "home.faq.title" | i18n }}
     .faq(collapse)
         mixin faq_item(title, content, active)
             .faq-item(class=active?'active':'' collapse-item)
                 .faq-item-header(collapse-header)
-                    span(i18n=title)
+                    span(i18n=title i18n-vars="{ fund: $ctrl.funds[0].name }")
                     .faq-item-chevron-down.mdi.mdi-chevron-down
                     .faq-item-chevron-up.mdi.mdi-chevron-up
-                .faq-item-content(collapse-conten,translate=content)    
+                .faq-item-content(collapse-conten,i18n=content i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")    
 
         +faq_item(
-            'home.faq.{{ $root.client_key }}.faq_one',
-            'home.faq.{{ $root.client_key }}.one')
+            'home.faq.faq_one',
+            'home.faq.one')
 
         +faq_item(
-            'home.faq.{{ $root.client_key }}.faq_two',
-            'home.faq.{{ $root.client_key }}.two')
+            'home.faq.faq_two',
+            'home.faq.two')
 
         +faq_item(
-            'home.faq.{{ $root.client_key }}.faq_three',
-            'home.faq.{{ $root.client_key }}.three')
+            'home.faq.faq_three',
+            'home.faq.three')
 
         +faq_item(
-            'home.faq.{{ $root.client_key }}.faq_four',
-            'home.faq.{{ $root.client_key }}.four')
+            'home.faq.faq_four',
+            'home.faq.four')
 
         +faq_item(
-            'home.faq.{{ $root.client_key }}.faq_five',
-            'home.faq.{{ $root.client_key }}.five')
+            'home.faq.faq_five',
+            'home.faq.five')
 
         +faq_item(
-            'home.faq.{{ $root.client_key }}.faq_six',
-            'home.faq.{{ $root.client_key }}.six')
+            'home.faq.faq_six',
+            'home.faq.six')
 
         +faq_item(
-            'home.faq.{{ $root.client_key }}.faq_seven',
-            'home.faq.{{ $root.client_key }}.seven')
-
-        +faq_item(
-            'home.faq.{{ $root.client_key }}.faq_eight',
-            'home.faq.{{ $root.client_key }}.eight')
+            'home.faq.faq_seven',
+            'home.faq.seven')
             
         +faq_item(
-            'home.faq.{{ $root.client_key }}.faq_nine',
-            'home.faq.{{ $root.client_key }}.nine')
+            'home.faq.faq_nine',
+            'home.faq.nine')
         +faq_item(
-            'home.faq.{{ $root.client_key }}.faq_ten',
-            'home.faq.{{ $root.client_key }}.ten')
+            'home.faq.faq_ten',
+            'home.faq.ten')
 
         +faq_item(
-            'home.faq.{{ $root.client_key }}.faq_eleven',
-            'home.faq.{{ $root.client_key }}.eleven')
+            'home.faq.faq_eleven',
+            'home.faq.eleven')
         +faq_item(
-            'home.faq.{{ $root.client_key }}.faq_twelve',
-            'home.faq.{{ $root.client_key }}.twelve') 
+            'home.faq.faq_twelve',
+            'home.faq.twelve') 
         +faq_item(
-            'home.faq.{{ $root.client_key }}.faq_thirteen',
-            'home.faq.{{ $root.client_key }}.thirteen')
+            'home.faq.faq_thirteen',
+            'home.faq.thirteen')
         +faq_item(
-            'home.faq.{{ $root.client_key }}.faq_fourteen',
-            'home.faq.{{ $root.client_key }}.fourteen')
+            'home.faq.faq_fourteen',
+            'home.faq.fourteen')
         +faq_item(
-            'home.faq.{{ $root.client_key }}.faq_fifteen',
-            'home.faq.{{ $root.client_key }}.fifteen') 
-        +faq_item(
-            'home.faq.{{ $root.client_key }}.faq_sixteen',
-            'home.faq.{{ $root.client_key }}.sixteen')
-        +faq_item(
-            'home.faq.{{ $root.client_key }}.faq_seventeen',
-            'home.faq.{{ $root.client_key }}.seventeen')
+            'home.faq.faq_fifteen',
+            'home.faq.fifteen') 
 contact-form 
