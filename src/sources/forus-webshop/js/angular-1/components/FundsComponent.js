@@ -9,7 +9,6 @@ let FundsComponent = function(
     }
 
     $ctrl.$onInit = function() {
-        console.log($ctrl.funds)
         $ctrl.funds = $ctrl.funds.map(function(fund) {
             fund.categories = fund.product_categories.map(function(category) {
                 return category.name;

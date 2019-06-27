@@ -34,9 +34,6 @@ let HomeComponent = function(
     } else {
         $ctrl.vouchers = [];
     }
-    $ctrl.$onInit = function() {
-        console.log($ctrl.funds[0].name)
-    }
 };
 
 module.exports = {

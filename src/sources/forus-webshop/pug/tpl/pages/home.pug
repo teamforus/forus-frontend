@@ -73,10 +73,10 @@ section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
     .block.block-show-more: a(href="#" i18n="buttons.read_more").button.button-primary.button-wide
 
 
-section.section.section-faq(ng-if="$root.appConfigs.flags.homeFaq"): .wrapper
+section.section.section-faq(ng-if="$root.appConfigs.flags.homeFaq && $ctrl.funds.length == 1"): .wrapper
     .section-splash
     .section-title {{ "home.faq.title" | i18n }}
-    .faq(collapse ng-if="$ctrl.funds.length == 1")
+    .faq(collapse)
         mixin faq_item(title, content, active)
             .faq-item(class=active?'active':'' collapse-item)
                 .faq-item-header(collapse-header)
