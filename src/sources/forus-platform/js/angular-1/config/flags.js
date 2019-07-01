@@ -11,4 +11,8 @@ module.exports = {
         logoExtension: '.svg',
         maxProductCount: 2
     },
+    westerkwartier: {
+        logoExtension: '.svg',
+        maxProductCount: 20
+    }
 };
