@@ -1832,11 +1832,18 @@ html {
         }
         footer{
             margin: 0 auto;
+            margin-top: 80px;
             .text-boldest {
                 font-weight: bold;
                 font-size: 15px;
                 margin-bottom: 25px;
                 margin-top: 25px;
+            }
+            .pointer {
+                cursor: pointer;
+                &:hover {
+                    color: #3561ff;
+                }
             }
             .text-bold {
                 font-weight: 600;
@@ -3096,13 +3103,19 @@ html {
                     & a {
                         .cross {
                             text-align: right;
+                            svg {
+                                -webkit-transform: rotate(-45deg);
+                                -ms-transform: rotate(-45deg);
+                                transform: rotate(-45deg);
+                                @include transition();
+                            }
                         }
                         &[aria-expanded="true"]{
                             .cross{
                                 svg{
-                                    -webkit-transform: rotate(-45deg);
-                                    -ms-transform: rotate(-45deg);
-                                    transform: rotate(-45deg);
+                                    -webkit-transform: rotate(0deg);
+                                    -ms-transform: rotate(0deg);
+                                    transform: rotate(0deg);
                                     @include transition();
                                 }
                             }
@@ -3285,15 +3298,18 @@ html {
                         .cross {
                             text-align: right;
                             svg {
+                                -webkit-transform: rotate(-45deg);
+                                -ms-transform: rotate(-45deg);
+                                transform: rotate(-45deg);
                                 @include transition();
                             }
                         }
                         &[aria-expanded="true"]{
                             .cross{
                                 svg{
-                                    -webkit-transform: rotate(-45deg);
-                                    -ms-transform: rotate(-45deg);
-                                    transform: rotate(-45deg);
+                                    -webkit-transform: rotate(0deg);
+                                    -ms-transform: rotate(0deg);
+                                    transform: rotate(0deg);
                                     @include transition();
                                 }
                             }

@@ -5,7 +5,7 @@
       .col-sm-4.col-md-4
         h4.text-boldest Sitemap
         .widget.hidden-xs-down
-          h4.text-bold(ui-sref="home") Home
+          h4.text-bold.pointer(ui-sref="home") Home
           h4.text-bold Forus
           ul.widget-list.list-unstyled.p-0
                 li Producten
@@ -16,8 +16,8 @@
                   br
                   a(ui-sref='story' class='indent')
                     | Gemeente Zuidhorn
-          h4.text-bold(ui-sref="me") Me
-          h4.text-bold(ui-sref="current") Over ons
+          h4.text-bold.pointer(ui-sref="me") Me
+          h4.text-bold.pointer(ui-sref="current") Over ons
             ul.widget-list.list-unstyled.p-0
               li
                 a(ui-sref='history' class='indent') Geschiedenis
@@ -26,8 +26,8 @@
               li
                 a(ui-sref='future' class='indent') Toekomst
               li
-                a(ui-sref='hall-of-fame' class='indent') Hall of Fame
-          h4.text-bold(ui-sref="/#!/") Contact
+                a(ng-link='hall-of-fame' class='indent') Hall of Fame
+          h4.text-bold.pointer(ui-sref="/#!/") Contact
         #accordion.widget.hidden-sm-up(role='tablist' aria-multiselectable='true')
           #headingFour(role='tab')
             h4.card-header.py-3.border-0.text-bold
@@ -76,7 +76,7 @@
                   a(ui-sref='future' class='indent')
                     | Toekomst
                 li
-                  a(ui-sref='hall-of-fame' class='indent')
+                  a(ng-link='hall-of-fame' ui-sref='hall-of-fame' class='indent')
                     | Hall of Fame
         #accordion.widget.hidden-sm-up(role='tablist' aria-multiselectable='true')
           #headingSix(role='tab')
