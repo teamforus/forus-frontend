@@ -17,16 +17,17 @@
                   a(ui-sref='story' class='indent')
                     | Gemeente Zuidhorn
           h4.text-bold.pointer(ui-sref="me") Me
-          h4.text-bold.pointer(ui-sref="current") Over ons
-            ul.widget-list.list-unstyled.p-0
-              li
-                a(ui-sref='history' class='indent') Geschiedenis
-              li
-                a(ui-sref='current' class='indent') Nu
-              li
-                a(ui-sref='future' class='indent') Toekomst
-              li
-                a(ng-link='hall-of-fame' class='indent') Hall of Fame
+          h4.text-bold.pointer
+            a(ui-sref="current") Over ons
+          ul.widget-list.list-unstyled.p-0
+            li
+              a(ui-sref='history' class='indent') Geschiedenis
+            li
+              a(ui-sref='current' class='indent') Nu
+            li
+              a(ui-sref='future' class='indent') Toekomst
+            li
+              a(ui-sref='hall-of-fame' class='indent') Hall of Fame
           h4.text-bold.pointer(ui-sref="/#!/") Contact
         #accordion.widget.hidden-sm-up(role='tablist' aria-multiselectable='true')
           #headingFour(role='tab')
