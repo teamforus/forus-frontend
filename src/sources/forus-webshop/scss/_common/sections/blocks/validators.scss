@@ -90,4 +90,39 @@
             }
         }
     }
+    @media screen and (max-width: 1000px) {
+        &.block-validators {
+            .block-header {
+                font: 700 16px $bf;
+                padding: 15px 20px;
+            }
+
+            .block-body {
+                padding: 0 20px;
+                
+                .validator-item {
+                    margin: 0 -20px 0;
+                    padding: 20px;
+                    border-bottom: 1px solid #eee;
+
+                    .validator-name {
+                        font: 700 16px/30px $bf;
+                        @include ellipsis();
+                    }
+
+                    .validator-state {
+                        padding: 0 20px 0;
+                        float: left;
+                        width: calc(100% + 40px);
+                        margin: 0 -20px;
+                        text-align: center;
+
+                        .validator-send {
+                            display: inline-block;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

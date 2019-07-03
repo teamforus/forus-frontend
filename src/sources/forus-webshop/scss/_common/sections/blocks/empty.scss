@@ -41,4 +41,26 @@
             }
         }
     }
+    @media screen and (max-width: 1700px) {
+
+        &.block-empty {
+            padding: 20px;
+
+            .block-title {
+                font: 700 20px/36px $bf;
+                margin: 0;
+            }
+
+            .block-description {
+                font: 400 14px/24px $bf;
+                margin: 0;
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-empty {
+            border: 1px solid #ddecff;
+            text-align: center;
+        }
+    }
 }

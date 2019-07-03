@@ -311,5 +311,162 @@
             }
         }
     }
-}
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-shops_map {
+            padding-top: 220px;
+            height: 100%;
+
+            .shop_map-header {
+                height: 220px;
+                padding: 25px 25px 0;
+
+                .shop_map-title {
+                    font: 700 20px/30px $bf;
+                    @include ellipsis();
+                }
+
+                .shop_map-subtitle {
+                    font: 400 13px/25px $bf;
+                    margin: 0 0 15px;
+                }
+
+                .shop_map-categories {
+                    height: 125px;
+                    overflow: auto;
+                    margin: 0 -25px 0;
+                    padding: 0 17px;
+
+                    .shop_map-category-item {
+                        width: 50%;
+                        margin: 0 0 20px;
+                        padding: 0 10px 0;
+
+                        .shop_map-category-item-inner {
+                            height: auto;
+                            padding-right: 30px;
+
+                            .shop_map-category-arrow {
+                                display: none;
+                            }
+
+                            .shop_map-category-icon {
+                                display: none;
+
+                                img {
+                                    width: 50px;
+                                    margin-bottom: 0;
+                                }
+                            }
+
+                            .shop_map-category-name {
+                                font: 700 14px/14px $bf;
+                            }
+
+                            &:hover {
+                                transform: none;
+                            }
+                        }
+
+                        &.active {
+                            transform: none;
+                            
+                            .shop_map-category-item-inner {
+                                transform: none;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .shop_map-sidebar,
+            .shop_map-content {
+                top: 220px;
+            }
+
+            .shop_map-sidebar {
+                width: 50%;
+            }
+
+            .shop_map-content {
+                width: 50%;
+                left: 50%;
+            }
+
+            @media screen and (max-width: 767px) {
+                .scroll {
+                    overflow-x: scroll;
+                    overflow-y: hidden;
+                    white-space: nowrap;
+                    position: relative;
+                }
+
+                .shop_map-header {
+                    height: auto;
+                    position: relative;
+                    padding: 25px 20px 0;
+
+                    .shop_map-title {
+                        font: 700 16px/20px "Lato",arial,sans-serif;
+                    }
+                }
+                
+                .shop_map-content {
+                    width: 0%;
+                    left: 50%;
+                    display: none;
+                }
+
+                .shop_map-sidebar {
+                    width: 100%;
+                    top: 160px;
+                }
+
+                &.block-shops_map {
+                    padding-left: 0px;
+                    padding-top: 0px;
+                    z-index: 2;
+                }
+            }
+
+            .shops {
+                .shop-item {
+                    .shop-details {
+                        padding: 0;
+                        margin: 0 0 10px;
+
+                        .shop-image {
+                            position: relative;
+                            float: right;
+                        
+                            img {
+                                display: block;
+                            }
+                        }
+
+                        .shop-details-label {
+                            font: 400 9px/16px $bf;
+                            margin: 0 0 0;
+                        }
+
+                        .shop-details-value {
+                            font: 700 12px/20px $bf;
+                            margin: 0 0 10px;
+                        }
+
+                        .shop-name {
+                            font: 700 13px $bf;
+                            margin: 0 0 10px;
+                            color: $bc;
+                        }
+                    }
+
+                    .shop-schedule {
+                        border: none;
+                        padding: 0;
+                    }
+                }
+            }
+        }
+    }
 }

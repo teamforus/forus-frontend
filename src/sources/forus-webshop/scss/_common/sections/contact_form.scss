@@ -152,4 +152,56 @@
             }
         }
     }
+    @media screen and (max-width: 1000px) {
+        &.block-contact_form {
+            padding: 40px 0 0;
+
+            .contact-title {
+                color: $tc;
+                position: relative;
+                z-index: 2;
+                margin: 0 0 10px;
+                font: 700 32px/46px $bf;
+                padding: 0 25px;
+            }
+
+            .contact-form {
+                padding: 30px 25px;
+                border-radius: 0;
+
+                .contact-logo {
+                    width: 50%;
+                    padding: 0;
+                    margin: 0 0 20px;
+                }
+
+                .contact-details {
+                    .contact-label {
+                        margin: 0 0 10px;
+                    }
+
+                    .contact-address {
+                        font: 400 14px/24px $bf;
+                        margin: 0 0 5px;
+                    }
+
+                    .contact-email {
+                        font: 400 14px/24px $bf;
+                        margin: 0 0 5px;
+                    }
+
+                    .contact-socials {
+                        padding: 0;
+                        margin: 0 0 20px;
+                    }
+                }
+
+                .button {
+                    width: 100%;
+                    padding-left: 25px;
+                    padding-right: 25px;
+                }
+            }
+        }
+    }
 }

@@ -96,4 +96,53 @@
             }
         }
     }
+    @media screen and (max-width: 1700px) {
+        &.block-cards {
+            margin: 0 -16px 0;
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-cards {
+            padding: 0 25px;
+            width: 100%;
+            margin: 0 0 30px;
+
+            .card-item {
+                width: 100%;
+                padding: 0;
+
+                .card-item-inner {
+                    height: 160px;
+
+                    .card-icon {
+                        width: 320px;
+                        height: 320px;
+                        margin-left: -40px;
+
+                        img {
+                            width: 70px;
+                            height: 70px;
+                        }
+                    }
+
+                    .card-content {
+                        left: 145px;
+                        right: 30px;
+
+                        .card-title {
+                            font: 700 14px/22px $bf;
+                        }
+
+                        .card-description {
+                            font: 600 12px/20px $bf;
+                        }
+                    }
+                }
+
+                &:last-child {
+                    margin: 0 0 0;
+                }
+            }
+        }
+    }
 }

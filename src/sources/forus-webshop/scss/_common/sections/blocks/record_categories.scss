@@ -47,4 +47,11 @@
             }
         }
     }
+    @media screen and (max-width: 1000px) {
+        &.block-record_categories {
+            .button {
+                width: 100%;
+            }
+        }
+    }
 }

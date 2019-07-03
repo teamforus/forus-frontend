@@ -157,4 +157,54 @@
             transition: .4s;
         }
     }
+    @media screen and (max-width: 1700px) {
+
+        &.block-record_create {
+            .categories-list {
+                .categories-item {
+                    width: 160px;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-record_create {
+            .block-title {
+                font: 700 20px/30px $bf;
+                margin: 0 0 10px;
+            }
+
+            .block-description {
+                font: 400 14px/20px $bf;
+                margin: 0 0 20px;
+            }
+
+            .categories-list {
+                .categories-item {
+                    width: 50%;
+                }
+            }
+
+            .record_types-list {
+                .record_type-item {
+                    padding: 10px 20px;
+                    box-shadow: 0 2px 5px rgba($color: #000000, $alpha: .1);
+
+                    .record_type-name {
+                        font: 700 15px/30px $bf;
+                    }
+
+                    &:hover,
+                    &.active {
+                        box-shadow: 0 4px 8px rgba($color: #000000, $alpha: .15);
+                    }
+                }
+            }
+
+            .button {
+                width: 100%;
+                margin: 0 0 20px;
+            }
+        }
+    }
 }

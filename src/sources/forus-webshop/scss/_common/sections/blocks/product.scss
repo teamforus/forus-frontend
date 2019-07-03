@@ -309,4 +309,74 @@
             }
         }
     }
+    @media screen and (max-width: 1000px) {
+        &.block-product {
+            padding: 10px 0px;
+
+            .product-card {
+                border-radius: 10px;
+
+                .product-photo {
+                    max-width: none;
+                    width: 40%;
+                    left: 0;
+                    border-top-right-radius: inherit;
+                    border-bottom-left-radius: 0;
+
+                    img {
+                        border-top-right-radius: inherit;
+                    }
+                }
+
+                .product-details {
+                    padding: 25px;
+                    width: 100%;
+                    padding-left: calc(40% + 30px);
+
+                    .product-name {
+                        font: 700 18px/32px $bf;
+                        margin: 0 0 0;
+                        display: inline-block;
+                    }
+
+                    .product-categories {
+                        font: 600 13px $bf;
+                        margin: 0 0 15px;
+                    }
+
+                    .product-funds {
+                        margin: 0 0 15px;
+
+                        .product-fund-label {
+                            font: 400 10px/18px $bf;
+                            margin: 0 0 0;
+                        }
+
+                        .product-fund-list {
+                            font: 700 14px $bf;
+                        }
+                    }
+
+                    .product-price {
+                        margin: 0 0 15px;
+
+                        .product-price-new {
+                            font: 700 20px/30px $bf;
+                            margin: 0 0 0;
+                        }
+
+                        .product-price-old {
+                            font: 400 15px $bf;
+                        }
+                    }
+
+                    &>.button {
+                        width: 100%;
+                        padding-left: 0px;
+                        padding-right: 0px;
+                    }
+                }
+            }
+        }
+    }
 }

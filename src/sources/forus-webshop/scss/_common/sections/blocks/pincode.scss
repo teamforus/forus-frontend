@@ -25,4 +25,38 @@
             }
         }
     }
+    @media screen and (max-width: 1700px) {
+
+        &.block-pincode {
+            margin-bottom: 10px;
+
+            .pincode-number {
+                font: 600 22px/60px $bf
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-pincode {
+            width: calc(60px * 6 + 10px * 5);
+
+            @media screen and (max-width: 767px) {
+                &.block-pincode {
+                    margin: 30px auto 30px;
+                    width: calc(50px * 6 + 10px * 5);
+        
+                    .pincode-number {
+                        width: 50px;
+                        height: 60px;
+                        font: 600 26px/60px $bf;
+                    }
+                }
+        }
+            
+            .pincode-number {
+                height: 60px;
+                width: 60px;
+                font: 600 22px/70px $bf
+            }
+        }
+    }
 }

@@ -104,4 +104,33 @@
             margin-left: -340px;
         }
     }
+    @media screen and (max-width: 1000px) {
+        &.block-apply_fund {
+            margin: 0 0 30px;
+            
+            .apply_fund-aside {
+                width: 100%;
+                margin-bottom: 30px;
+
+                .apply_fund-card {
+                    .fund-details {
+                        .fund-name {
+                            font: 700 16px/28px $bf;
+                            margin: 0 0;
+                        }
+
+                        .fund-organization {
+                            font: 600 12px $bf;
+                        }
+                    }
+                }
+            }
+
+            .apply_fund-content {
+                width: 100%;
+                margin: 0 0 30px;
+                padding: 0;
+            }
+        }
+    }
 }

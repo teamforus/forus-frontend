@@ -77,4 +77,58 @@
             }
         }
     }
+    @media screen and (max-width: 1000px) {
+        &.block.block-records {
+            .record-item {
+                .record-details {
+                    width: calc(100% + 40px);
+                    float: left;
+                    margin: -20px -20px 0;
+                    padding: 20px;
+                    border-bottom: 1px solid #eee;
+
+                    .record-value {
+                        @include ellipsis();
+                    }
+                }
+
+                .record-validations {
+                    width: 100%;
+                    margin: 0 -20px -20px;
+                    padding: 10px 20px;
+                    width: calc(100% + 40px);
+                    
+                    .record-validation-count {
+                        width: calc(50% + 20px);
+                        margin: 0;
+                        padding: 20px;
+                        height: auto;
+                        margin: -10px 0 -10px -20px;
+
+                        strong {
+                            display: inline;
+                            margin-right: 3px;
+                        }
+                    }
+
+                    .record-validation-request {
+                        padding: 20px;
+                        text-align: center;
+                        height: auto;
+                        width: calc(50% + 20px);
+                        margin: -10px -20px -10px 0;
+                        font: 600 13px/20px $bf;
+
+                        .mdi {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            .button {
+                width: 100%;
+            }
+        }
+    }
 }

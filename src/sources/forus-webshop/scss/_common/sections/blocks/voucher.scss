@@ -310,4 +310,279 @@
             }
         }
     }
+    @media screen and (max-width: 1700px) {
+
+        &.block-voucher {
+            .base-card {
+                .label {
+                    margin-bottom: 5px;
+                    font-size: 11px;
+                    line-height: 20px;
+                }
+
+                .card-label {
+                    font: 400 14px/16px $bf;
+                }
+
+                .card-value {
+                    font: 700 16px $bf;
+
+                    &.card-value-sm {
+                        font-weight: 400;
+                    }
+                }
+
+
+                .card-body {
+                    .card-photo {
+                        img {
+                            width: 100px;
+                        }
+                    }
+
+                    .card-read_more {
+                        font: 600 12px/18px $bf;
+                    }
+
+                    .card-description {
+                        font-size: 14px;
+                    }
+                }
+
+                .card-actions {
+                    .action-item {
+                        margin-right: 15px;
+                    }
+                }
+
+                &.base-card-voucher {
+                    .card-body {
+                        .card-title {
+                            font: 700 16px $bf;
+                        }
+                    }
+                }
+            }
+
+            .card-inner {
+                min-height: 300px;
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-voucher {
+            flex-direction: column;
+            margin: auto;
+            width: 100%;
+            padding-top: 20px;
+
+            .base-card {
+                overflow: visible;
+                box-shadow: 2px 2px 20px rgba($color: #000000, $alpha: 0.05);
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+                width: 100%;
+                margin-left: 0;
+    
+                .card-inner {
+                    text-align: center;
+                }
+
+                .card-label {
+                    font: 400 7.5px $bf;
+                    margin-bottom: 5px;
+                    color: #646f79;
+                    text-transform: uppercase;
+
+                    &.euro {
+                        font-size: 10px;
+                        margin: 0;
+                    }
+                }
+
+                .card-value {
+                    color: #282b39;
+                    font: 700 12.5px $bf;
+                    margin-bottom: 5px;
+
+                    &.card-value-sm {
+                        font: 400 9.5px $bf;
+                        color: #134478;
+
+                        strong {
+                            display: block;
+                            font: 700 10px $bf;
+                            color: #282b39;
+                        }
+                    }
+
+                    &.euro {
+                        font-size: 20px;
+                    }
+                }
+                
+                .card-qr_code {
+                    width: 100%;
+                    background: #fff;
+                    border: 1px solid #ddecff;
+                    border-bottom: 0;
+
+                    img {
+                        margin: 0 auto 20px;
+                        background: #fff;
+                        padding: 10px;
+                        border-radius: 5px;
+                        width: 200px;
+                        max-width: 100%;
+                        box-shadow: 5px 5px 20px rgba($color: #000000, $alpha: .1);
+                    }
+                }
+
+                .card-body {
+                    flex-direction: column;
+                    padding-top: 30px;
+                    border: 1px solid #ddecff;
+                    border-bottom: 0;
+                    border-top-left-radius: 6px;
+                    border-top-right-radius: 6px;
+                    min-height: auto;
+
+                    .card-photo {
+                        padding: 0;
+                        position: absolute;
+                        top: 0;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background: #fff;
+
+                        img {
+                            margin: auto;
+                            width: 60px;
+                            max-width: 100%;
+                            border-radius: 60px;
+                            box-shadow: 2px 3px 20px rgba($color: #000000, $alpha: .1);
+                            background: #fff;
+                        }
+                    }
+
+                    .card-section {
+                        width: auto;
+                        max-width: 100%;
+                        margin: 0 auto;
+                    }
+
+                    .card-title {
+                        font: 700 17.5px $bf;
+                        color: #00122a;
+                    }
+
+                    .card-description {
+                        font: 400 11px $bf;
+                        color: #00122a;
+                    }
+                }
+
+                .card-footer {
+                    border: 1px solid #ddecff;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                    min-height: auto;
+                }
+
+                &.base-card-sponsor,
+                &.base-card-voucher {
+                    width: 100%;
+                    margin: 0 0 30px;
+                    flex-direction: column-reverse;
+                }
+
+                &.base-card-voucher {
+                    margin: 0 0 30px;
+                    margin-left: 0;
+
+                    .card-body {
+                        padding: 0;
+                        flex-direction: row;
+
+                        .card-qr_code {
+                            width: 40%;
+                            padding: 20px;
+                            border: none;
+                            background: linear-gradient(to right, #eff0ef, #fefefe);
+                            
+                            .card-qr_code-desc {
+                                font: 400 8.6px/16px $bf;
+                            }
+
+                            img {
+                                border-radius: 0;
+                                padding: 0;
+                                box-shadow: none;
+                                margin: 0 0 10px;
+                            }
+                        }
+
+                        .card-photo {
+                            display: none;
+                        }
+
+                        .label {
+                            margin-bottom: 10px;
+                        }
+
+                        .card-title {
+                            margin: 0 0 5px;
+                            font: 700 12.5px $bf;
+                        }
+
+                        .card-section {
+                            text-align: left;
+                        }
+                    }
+
+                    .card-footer {
+                        padding: 15px;
+                        
+                        .card-section {
+                            margin: 0;
+                            width: auto;
+                            text-align: left;
+                            padding-right: 10px;
+                        }
+
+                        .card-actions {
+                            margin: 0;
+                            justify-content: flex-end;
+                            justify-self: right;
+                            flex-grow: 1;
+                            max-width: 100%;
+
+                            .action-item {
+                                margin: 0 15px 0 0 !important;
+                                float: right;
+                            }
+                        }
+                    }
+
+                    .card-inner:first-child {
+                        .card-body {
+                            border-top-left-radius: 0;
+                            border-top-right-radius: 0;
+                        }
+                    }
+                }
+            }
+
+            &.block-voucher-regular {
+                .base-card {
+                    &.base-card-sponsor,
+                    &.base-card-voucher {
+                        width: 100%;
+                        margin: 0 0 30px;
+                        flex-direction: column-reverse;
+                    }
+                }
+            }
+        }
+    }
 }

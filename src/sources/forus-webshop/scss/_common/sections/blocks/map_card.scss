@@ -61,6 +61,22 @@
     }
 }
 @media screen and (max-width: 1000px) {
+    .block {
+        &.block-map_card {
+            .map_card-header,
+            .map_card-footer {
+                padding: 15px 20px;
+
+                .map_card-title {
+                    font: 700 18px $bf;
+                }
+
+                .map_card-subtitle {
+                    font: 400 12px $bf;
+                }
+            }
+        }
+    }
     .map-card {
         padding: 0;
         background: #fff;
@@ -76,8 +92,6 @@
         
         .map-card-description {
             padding: 5px 15px 15px;
-            a {
-            }
         }
     }
 }

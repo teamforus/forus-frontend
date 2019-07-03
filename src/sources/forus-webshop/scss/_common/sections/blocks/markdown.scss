@@ -50,4 +50,22 @@
             }
         }
     }
+    @media screen and (max-width: 1000px) {
+        &.block-markdown {
+            h1 {
+                font: 500 1.8em $bf;
+                margin-bottom: 1em;
+            }
+
+            h2 {
+                font: 500 1.6em $bf;
+                margin-bottom: 1em;
+            }
+
+            h3 {
+                font: 500 1.3em $bf;
+                margin-bottom: 1em;
+            }
+        }
+    }
 }

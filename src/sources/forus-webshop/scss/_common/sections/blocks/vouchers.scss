@@ -144,4 +144,70 @@
             }
         }
     }
+    @media screen and (max-width: 1000px) {
+        &.block-vouchers {
+            margin-bottom: 30px;
+
+            .voucher-item {
+                padding: 0;
+                height: auto;
+                position: relative;
+                min-height: auto;
+                margin: 0 0 15px;
+
+                .voucher-image {
+                    width: 70px;
+                    height: 70px;
+                    border-radius: 70px;
+                    overflow: hidden;
+                    display: block;
+                    border-bottom: 1px solid #eee;
+                    position: absolute;
+                    min-height: auto;
+                    right: 20px;
+                    top: 50%;
+                    transform: translate(0, -50%);
+                    border: none;
+                }
+
+                .voucher-details {
+                    width: 100%;
+                    text-align: left;
+                    padding: 20px;
+                    padding-right: 110px;
+
+                    .voucher-name {
+                        font: 700 18px/24px $bf;
+                        margin: 0 0 0;
+                        @include ellipsis();
+                    }
+
+                    .voucher-organization {
+                        font: 400 11px/18px $bf;
+                        margin: 0 0 0;
+                    }
+
+                    .voucher-value {
+                        font: 700 16px/22px $bf;
+                    }
+
+                    .voucher-read_more {
+                        margin-bottom: 0;
+                    }
+
+                    .label {
+                        margin-bottom: 7px;
+                    }
+                }
+
+                .voucher-overview {
+                    display: none;
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
 }

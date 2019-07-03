@@ -103,4 +103,86 @@
             }
         }
     }
+    @media screen and (max-width: 1700px) {
+
+        &.block-funds {
+            .fund-item {
+                .fund-image {
+                    width: 150px;
+                    padding: 35px 10px;
+                    position: relative;
+
+                    img {
+                        max-width: 100%;
+                    }
+                }
+
+                .fund-criterias {
+                    width: 400px;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-funds {
+            .fund-item {
+                border-radius: 6px;
+
+                .fund-image {
+                    width: 100%;
+                    padding: 20px 20px 0;
+
+                    img {
+                        width: 150px;
+                        display: block;
+                        margin: 0 auto;
+                    }
+                }
+
+                .fund-details {
+                    width: 100%;
+                    padding: 20px 20px 0;
+
+                    .fund-name {
+                        font: 700 20px $bf;
+                        margin: 0;
+                        @include ellipsis();
+                    }
+
+                    .fund-organization {
+                        font: 600 13px $bf;
+                        margin: 0 0 20px;
+                    }
+
+                    .fund-categories {
+                        margin: 0 0 20px;
+
+                        .fund-categories-label {
+                            font: 400 9px $bf;
+                            margin: 0 0 0;
+                        }
+                        
+                        .fund-categories-list {
+                            font: 600 14px $bf;
+                        }
+                    }
+
+                    .button {
+                        width: 100%;
+                    }
+                }
+
+                .fund-criterias {
+                    width: 100%;
+                    float: left;
+                    position: relative;
+                    left: auto;
+                    top: auto;
+                    bottom: auto;
+                    right: auto;
+                    border: none;
+                }
+            }
+        }
+    }
 }

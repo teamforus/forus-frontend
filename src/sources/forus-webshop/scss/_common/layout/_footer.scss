@@ -183,4 +183,136 @@
             }
         }
     }
+    @media screen and (max-width: 1700px) {
+
+        &.block-footer {
+            .footer-label {
+                font: 700 16px $bf;
+            }
+
+            .footer-schedule {
+                .schedule-label {
+                    font: 400 12px/24px $bf;
+                }
+
+                .schedule-value {
+                    font: 700 12px/24px $bf;
+                }
+            }
+
+            .footer-nav {
+                .footer-nav-item {
+                    a {
+                        font: 700 12px/24px $bf;
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-app_download{
+            text-align: center;
+
+            .download-icon {
+                width: 200px;
+                display: inline-block;
+                max-width: 100%;
+            }
+        }
+        &.block-app_download {
+            margin: 0 0 20px;
+
+            .download-button {
+                width: 100%;
+            }
+        }
+        &.block-copyrights {
+            padding: 20px 0;
+            text-align: center;
+            height: auto;
+
+            .wrapper {
+                height: auto;
+            }
+
+            .copyrights {
+                width: 100%;
+            }
+
+            .links {
+                width: 100%;
+
+                a {
+                    width: 100%;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .link-separator {
+                    display: none;
+                }
+            }
+        }
+        &.block-footer {
+            margin: 0 0 30px;
+
+            .footer-logo {
+                margin: 0 0 20px;
+                margin: 0 auto 40px;
+                display: block;
+            }
+
+            .footer-label {
+                text-align: center;
+                padding: 0;
+                margin: 0 0 5px;
+                font: 700 16px/30px $bf;
+            }
+
+            .footer-schedule {
+                text-align: center;
+
+                .schedule-label {
+                    font: 400 10px/16px $bf;
+                    color: #646f79;
+                    width: 100%;
+                }
+
+                .schedule-value {
+                    width: 100%;
+                    color: #00122a;
+                    font: 700 12px/18px $bf;
+                    margin: 0 0 0px;
+                }
+
+                &:last-child {
+                    margin: 0 0 35px;
+                }
+            }
+
+            .footer-nav {
+                text-align: center;
+
+                .footer-nav-item {
+                    font: 700 13px/20px $bf;
+
+                    a {
+                        font: inherit;
+                    }
+                }
+            }
+
+            .footer-subscribe {
+                .button {
+                    height: 50px;
+                    padding-left: 20px;
+                    padding-right: 20px;
+
+                    .mdi {
+                        font-size: 24px;
+                    }
+                }
+            }
+        }
+    }
 }
