@@ -1,68 +1,44 @@
 .section {
-    .section-title {
-        font: 700 40px/60px $bf;
-        margin: 0 0 40px;
-    }
-
     &.section-header {
-        padding: 80px 0 40px;
         position: relative;
-        background-image: none;
         @include cf();
-
-        .heade-sprite {
-            background: url("../img/me/sprite-meapp.png") no-repeat;
-            background-position: 100% 0%;
-            background-size: auto 100%;
-            @include fill_parent();
-            bottom: -50px;
-            z-index: 2;
-        }
-
-        .block-navbar {
-           /* position: relative;*/
-            z-index: 4;
-        }
-
         .header-body {
             @include cf();
             position: relative;
-
-            &.header-body-sprite-fill {
-                position: initial;
-            }
         }
-
         .header-content {
-            padding: 105px 0;
-            width: 75%;
             float: left;
             position: relative;
-            z-index: 3;
+            margin-top: 25px;
             padding-bottom: 30px;
-            padding-right: 120px;
-            min-height: 450px;
-
             .header-title {
-                font: 700 40px/50px $bf;
-                margin: 0 0 25px;
+                font: 700 20px/28px $bf;
+                margin: 0 0 20px;
+                text-align:center;
             }
-
+            .button {
+                width: 100%;
+            }
             .header-description {
-                font: 400 22px/36px $bf;
-                margin: 0 0 50px;
+                font: 400 14px/24px $bf;
+                text-align:center;
             }
-
+            .header-how-it-works {
+                font-style: italic;
+                text-decoration: underline;
+                cursor: pointer;
+            }
+            .header-how-it-works:hover {
+                color: #a5a5a5;
+            }
             .header-download-apps {
-                margin-right: -60px;
-                padding-top: 50px;
-
                 .app-item {
+                    padding: 25px 20px 25px 90px;
+                    font: 700 12px/20px $bf;
+                    @include ellipsis();
                     width: 100%;
                     display: block;
                     margin-bottom: 20px;
-                    padding: 50px 50px 50px 200px;
-                    font: 700 18px/30px $bf;
                     position: relative;
                     color: #282b39;
                     overflow: hidden;
@@ -73,546 +49,164 @@
                     transform: translate(0, 0);
                     box-shadow: 5px 15px 30px rgba($color: #000000, $alpha: .05);
 
-                    .mdi {
-                        top: 50%;
-                        right: 40px;
-                        position: absolute;
-                        transform: translate(0, -50%);
-                        font-size: 18px;
-                        color: #5374d9;
-                    }
-
                     &:before {
                         content: '';
                         position: absolute;
                         display: block;
-                        width: 225px;
-                        height: 200px;
-                        left: -60px;
                         top: 50%;
-                        border-radius: 200px;
                         background-color: #f9fbf0;
-                        background-image: url('../img/me/icon-app-android.png');
+                        background-image: url(../img/me/icon-app-android.png);
                         background-repeat: no-repeat;
-                        background-position: 70% 50%;
                         transform: translate(0, -50%);
+                        width: 70px;
+                        height: 100%;
+                        border-radius: 0;
+                        left: 0;
+                        background-size: 50px;
+                        background-position: 50%;
                     }
-
                     &.app-item-ios {
                         &:before {
                             background-color: #f2fafd;
                             background-image: url('../img/me/icon-app-ios.png');
                         }
                     }
-
                     &:hover {
                         transform: translate(0, -5px);
                         box-shadow: 5px 20px 40px rgba($color: #000000, $alpha: .15);
                     }
-
                     &:last-child {
                         margin-bottom: 0;
                     }
                 }
             }
         }
-
-        .header-sprite {
-            display: none;
-            position: absolute;
-            width: 50%;
-            height: 100%;
-            top: 0;
-            right: 0;
-            background-position: 100% 100px;
-            background-repeat: no-repeat;
-            background-size: 100%;
-        }
-
-        .lang-selector {
-            float: left;
-            padding: 20px 20px;
-            cursor: pointer;
-            position: relative;
-            margin: -20px 0;
-
-            .lang-label {
-                padding: 4px 0 0;
-                font: 400 10px/16px $bf;
-
-                .mdi {
-                    display: block;
-                    width: 20px;
-                    color: #064597;
-                    float: left;
-                    font-size: 16px;
-                    margin-left: -20px;
-                }
-            }
-
-            .lang-active {
-                font: 700 13px/20px $bf;
-            }
-
-            .lang-list {
-                position: absolute;
-                border: 1px solid #e8edf1;
-                text-align: center;
-                background: #fff;
-                border-radius: 5px;
-                margin-top: 10px;
-                left: 50%;
-                transform: translate(-50%);
-                padding: 10px 0;
-                display: none;
-
-                &:before {
-                    content: '';
-                    display: block;
-                    width: 20px;
-                    height: 10px;
-                    position: absolute;
-                    bottom: 100%;
-                    left: 50%;
-                    transform: translate(-50%, 0);
-                    background: url('../img/popup-arrow.png');
-                }
-
-                .lang-list-item {
-                    padding: 5px 15px;
-                    min-width: 110px;
-                    font: 600 12px/18px $bf;
-                    background: #fff;
-                    transition: background .4s;
-
-                    &:hover {
-                        background: #d2e6ff;
-                    }
-                }
-            }
-
-            &:hover {
-                .lang-list {
-                    display: block;
-                }
-            }
-        }
-
-        &.section-header-landing {
-            padding-bottom: 0;
-        }
     }
-    .section-title {
-        font: 700 40px/60px $bf;
-        margin: 0 0 40px;
+    &.section-title {
+        font: 700 20px/30px $bf;
+        margin: 0 0 20px;
         position: relative;
         color: #00122a;
     }
 
-    &.section-header {
-        padding: 40px 0 40px;
-        position: relative;
-        @include cf();
-
-        .header-sprite {
-            background: url("../img/sprite-meapp.png") no-repeat;
-            background-position: 100% 0%;
-            background-size: auto 90%;
-            @include fill_parent();
-            bottom: -50px;
-            z-index: 2;
-        }
-
-        .block-navbar {
-            position: relative;
-            z-index: 4;
-        }
-
-        .header-body {
-            @include cf();
-        }
-
-        .header-content {
-            padding: 145px 0;
-            width: 50%;
-            float: left;
-            position: relative;
-            z-index: 3;
-
-            .header-title {
-                font: 700 40px/50px $bf;
-                margin: 0 0 20px;
-            }
-
-            .header-description {
-                font: 400 22px/36px $bf;
-                margin: 0 0 50px;
-            }
-
-            .header-how-it-works {
-                margin: 0 0 50px;
-                font-style: italic;
-                text-decoration: underline;
-                cursor: pointer;
-                font-size: 15px;
-                transition: .4s;
-            }
-
-            .header-how-it-works:hover {
-                color: #a5a5a5;
-            }
-        }
-
-        .lang-selector {
-            float: left;
-            padding: 20px 20px;
-            cursor: pointer;
-            position: relative;
-            margin: -20px 0;
-            
-            .lang-label {
-                padding: 4px 0 0;
-                font: 400 10px/16px $bf;
-
-                .mdi {
-                    display: block;
-                    width: 20px;
-                    color: #064597;
-                    float: left;
-                    font-size: 16px;
-                    margin-left: -20px;
-                }
-            }
-
-            .lang-active {
-                font: 700 13px/20px $bf;
-            }
-
-            .lang-list {
-                position: absolute;
-                border: 1px solid #e8edf1;
-                text-align: center;
-                background: #fff;
-                border-radius: 5px;
-                margin-top: 10px;
-                left: 50%;
-                transform: translate(-50%);
-                padding: 10px 0;
-                display: none;
-
-                &:before {
-                    content: '';
-                    display: block;
-                    width: 20px;
-                    height: 10px;
-                    position: absolute;
-                    bottom: 100%;
-                    left: 50%;
-                    transform: translate(-50%, 0);
-                    background: url('../img/popup-arrow.png');
-                }
-
-                .lang-list-item {
-                    padding: 5px 15px;
-                    min-width: 110px;
-                    font: 600 12px/18px $bf;
-                    background: #fff;
-                    transition: background .4s;
-
-                    &:hover {
-                        background: #d2e6ff;
-                    }
-                }
-            }
-
-            &:hover {
-                .lang-list {
-                    display: block;
-                }
-            }
-        }
-
-        &.section-header-landing {
-            padding-bottom: 0;   
-        }
-
-        &.section-header-voucher {
-            .header-content {
-                padding-top: 100px;
-                padding-bottom: 0;
-
-                &:first-child {
-                    padding-right: 15px;
-                }
-
-                &:last-child {
-                    padding-left: 15px;
-                }
-            }
-
-            .header-title {
-                margin-top: 25px;
-            }
-        }
-    }
-    @media screen and (max-width: 1700px) {
+}
+@media screen and (min-width: 1024px) {
+    .section {
         .section-title {
-            font: 700 26px/40px $bf;
-            margin: 0 0 15px;
+            font: 700 40px/60px $bf;
+            margin: 0 0 40px;
+            text-align: center;
         }
-
         &.section-header {
+            padding: 1vw 0 1vw;
             .header-content {
-                padding: 180px 0;
-                
+                padding: 105px 0;
+                width: 75%;
+                float: left;
+                position: relative;
+                padding-bottom: 30px;
+                padding-right: 120px;
+                min-height: 450px;
+
                 .header-title {
                     font: 700 40px/50px $bf;
-                    margin: 0 0 15px;
+                    margin: 0 0 20px;
+                    text-align:left;
                 }
-
+    
                 .header-description {
                     font: 400 22px/36px $bf;
-                    margin: 0 0 30px;
-                }
-            }
-        }
-    }
-    @media screen and (max-width: 1500px) {
-        .section-title {
-            margin: 0 0 20px;
-            font: 700 30px/40px $bf;
-        }
-
-        &.section-header {
-            .heade-sprite {
-                background-size: auto 80%;
-                bottom: 100px;
-            }
-
-            .header-content {
-                padding: 75px 0;
-                padding-right: 150px;
-
-                .header-title {
-                    font: 700 30px/46px $bf;
-                    margin: 0 0 20px;
-                }
-
-                .header-description {
-                    font: 400 18px/30px $bf;
-                    margin: 0 0 20px;
-                }
-            }
-        }
-    }
-    @media screen and (max-width: 1000px) {
-        .section-title {
-            font: 700 20px/30px $bf;
-            margin: 0 0 20px;
-        }
-        
-        .section-subtitle {
-            font: 700 16px/22px $bf;
-            margin-bottom:5px !important;
-        }
-        &.section-header {
-            padding: 0;
-            margin: 0 0 30px;
-
-            .wrapper {
-                padding: 0;
-            }
-
-            .header-sprite {
-                display: none;
-            }
-
-            .lang-selector {
-                padding: 10px 20px;
-                margin: -10px 0;
-                padding-left: 30px;
-
-                .lang-list {
-                    left: 50%;
-                    margin-left: -20px;
-                    margin-top: 8px;
-                    transform: none;
-
-                    &:before {
-                        left: 15px;;
+                    margin: 0 0 50px;
+                    text-align:left;
+                    p {
+                        font: 400 22px/36px $bf;
                     }
                 }
-            }
-
-            .header-content {
-                width: 100%;
-                padding: 40px 25px 0;
-                text-align: center;
-
-                .header-title {
-                    margin: 0 0 20px;
-                    font-size: 26px;
-                    line-height: 38px;
-                }
-
-                .header-description {
-                    margin: 0 0 20px;
-                    font: 400 16px/32px $bf;
-                }
-
                 .button {
-                    width: 100%;
+                    width: unset;
                 }
-            }
-
-            &.section-header-voucher {
-                .header-content {
-                    padding: 25px 25px 0;
-
-                    .header-title {
-                        font: 700 20px/30px $bf;
-                        margin: 0 0 10px;
-                    }
+                .header-how-it-works {
+                    margin: 0 0 50px;
+                    font-size: 15px;
+                    transition: .4s;
                 }
-            }
-        }
-        &.section-header {
-            padding-bottom: 0;
-            margin: 0 0 30px;
-            .heade-sprite {
-                display: none;
-            }
-
-            .lang-selector {
-                padding: 10px 20px;
-                margin: -10px 0;
-                padding-left: 30px;
-
-                .lang-list {
-                    left: 50%;
-                    margin-left: -20px;
-                    margin-top: 8px;
-                    transform: none;
-
-                    &:before {
-                        left: 15px;;
-                    }
-                }
-            }
-
-            .header-content {
-                width: 100%;
-                padding: 25px 25px;
-                text-align: center;
-                min-height: auto;
-
-                .header-title {
-                    font: 700 20px/28px $bf;
-                    margin: 0 0 20px;
-                }
-
-                .header-description {
-                    font: 400 14px/24px $bf;
-                    margin: 0;
-                    color: #353b46;
-                }
-
-                .button {
-                    text-align: center;
-                    font-size: 11px;
-                    padding: 12px 10px;
-                    width: 100%;
-                }
-
                 .header-download-apps {
-                    padding: 0;
-                    margin: 0 0 0;
-
                     .app-item {
-                        padding: 25px 20px 25px 90px;
-                        font: 700 12px/20px $bf;
-                        @include ellipsis();
-
-                        &:before {
-                            width: 70px;
-                            height: 100%;
-                            border-radius: 0;
-                            left: 0;
-                            background-size: 50px;
-                            background-position: 50%;
-                        }
-
+                        padding: 50px 50px 50px 200px;
+                        width: 100%;
+                        font: 700 18px/30px $bf;
+                        top: 0;
                         .mdi {
-                            display: none;
+                            top: 50%;
+                            right: 40px;
+                            position: absolute;
+                            transform: translate(0, -50%);
+                            font-size: 18px;
+                            color: #5374d9;
                         }
+    
+                        &:before {
+                            width: 200px;
+                            height: 175px;
+                            border-radius: 200px;
+                            background-repeat: no-repeat;
+                            background-position: 75%;
+                            background-size: 90px;
+                            left: -60px;
+                        }
+    
                     }
                 }
             }
-
-            .header-sprite {
-                display: none;
-            }
         }
     }
-}
-.header-splash {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    z-index: -1;
-
-    .splash {
-        background-image: url("../img/splash-top-b.png");
-        background-position: 100% 0%;
-        background-size: auto 90%;
-        background-repeat: no-repeat;
-        height: 800px;
+    .header-splash {
+        position: absolute;
+        top: 0;	  
+        right: 0;	   
         width: 100%;
-
-        &.splash-c {
-            background-image: url("../img/splash-top-c.png");
-            height: 920px;
-        }
-
-        &.splash-d {
-            background-image: url("../img/splash-top-d.png");
-            height: 1130px;
-        }
-    }
-}
-
-@media screen and (max-width: 1500px) {
-    .header-splash {
+        z-index: -1;
+    
         .splash {
-            height: 650px;
-
+            background-image: url("../img/splash-top-b.png");
+            background-position: 100% 0%;
+            background-size: auto 60%;
+            background-repeat: no-repeat;
+            height: 800px;
+            width: 100%;
+    
             &.splash-c {
-                height: 700px;
+                background-image: url("../img/splash-top-c.png");
+                height: 920px;
+            }
+    
+            &.splash-d {
+                background-image: url("../img/splash-top-d.png");
+                height: 1130px;
             }
         }
     }
 }
-
-@media screen and (max-width: 1300px) {
+@media screen and (min-width: 1366px) {
     .header-splash {
         .splash {
-            height: 650px;
             background-size: auto 80%;
-
-            &.splash-c {
-                height: 700px;
-            }
         }
     }
 }
-@media screen and (max-width: 1000px) {
+@media screen and (min-width: 1920px) {
     .header-splash {
-        display: none;
-
-        .splash  {
-            height: 300px;
-            background-size: 75% auto;
+        .splash {
+            background-size:auto 90%;
         }
     }
+}
+
+@media screen and (min-width: 3840px) {
+    .header-splash {
+        .splash {
+            background-size:auto 100%;
+            height: 1200px;
+        }
+    }  
 }
