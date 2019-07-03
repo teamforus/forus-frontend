@@ -1,0 +1,315 @@
+.block{
+    &.block-shops_map {
+    padding-top: 230px;
+    padding-left: 40%;
+    max-height: 100%;
+    min-height: 500px;
+    height: 90vh;
+    border-radius: $border_radius;
+    background-color: #fefefe;
+    position: relative;
+    overflow: hidden;
+
+    .shop_map-header {
+        @include fill_parent();
+        bottom: auto;
+        height: 230px;
+        border-bottom: 1px solid #cee2fb;
+        padding: 25px;
+
+        .shop_map-title {
+            font: 700 22px/28px $bf;
+            color: #282b39;
+        }
+
+        .shop_map-subtitle {
+            font: 400 16px/24px $bf;
+            color: #646f79;
+            margin-bottom: 10px;
+        }
+
+        .shop_map-categories {
+            margin: 0 -8px;
+            position: relative;
+            @include cf();
+            
+            @media screen and (max-width: 767px) {
+                
+                &.shop_map-categories {
+                    height: auto;
+                    margin: 0 -17px 0;
+                    padding: 0 10px;
+                }
+
+                .shop_map-category-item {
+                    width: 40% !important;
+                    clear: left;
+                    display: inline-block;
+                    padding: 0 5px 0 !important;
+                    margin: 0 0 17px;
+                    
+                    .shop_map-category-radio {
+                        top: 14px !important;
+                        width: 17px !important;
+                        height: 17px !important;
+                        border: solid 2px #fff !important;
+                        border-radius: 24px;
+                    }
+
+                    .shop_map-category-item-inner {
+                        box-shadow: none;
+                    }
+                }
+            }
+            .shop_map-prev,
+            .shop_map-next {
+                display: none;
+                position: absolute;
+                left: 0px;
+                top: 50%;
+                transform: translate(0, -50%);
+                z-index: 1;
+                cursor: pointer;
+                transition: .4s;
+
+                .mdi {
+                    display: block;
+                    font-size: 50px;
+                    color: #ccc;
+                    transform: translate(-10px);
+                    transition: .4s;
+                }
+
+                &:hover:not(.disabled) {
+                    .mdi {
+                        color: #868686;
+                    }
+                }
+
+                &.disabled {
+                    cursor: default;
+                    opacity: .25;
+                }
+            }
+
+            .shop_map-next {
+                right: -20px;
+                left: auto;
+            }
+
+            .shop_map-category-item {
+                width: (100% / 7);
+                float: left;
+                padding: 0 8px;
+
+                @media screen and (max-width: 767px) {
+                    &.shop_map-category-item {
+                        float: none;
+                    }
+                }
+
+                .shop_map-category-item-inner {
+                    background: #2788fc;
+                    background: linear-gradient(to bottom, #2788fc 0%,#08abeb 100%);
+                    height: 120px;
+                    display: block;
+                    border-radius: $border_radius;
+                    padding: 15px;
+                    position: relative;
+                    box-shadow: 0 10px 25px rgba(#000000, 0.175);
+                    cursor: pointer;
+                    transform: translate(0, 0);
+                    transition: .4s;
+
+                    &:hover {
+                        transform: translate(0, -10px);
+                        background: linear-gradient(to bottom, #08abeb 0%,#2788fc 100%);
+
+                        .shop_map-category-arrow {
+                            border-color: #2788fc transparent transparent transparent;
+                        }
+                    }
+                }
+
+                .shop_map-category-radio {
+                    border: 3px solid #fff;
+                    right: 10px;
+                    top: 10px;
+                    position: absolute;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 24px;
+                }
+
+                .shop_map-category-icon {
+                    img {
+                        margin-top: -10px;
+                        margin-left: -10px;
+                        margin-bottom: 10px;
+                        display: block;
+                        width: 70px;
+                        max-width: 100%;
+                        @include ellipsis();
+                    }
+                }
+
+                .shop_map-category-name {
+                    color: #fff;
+                    font: 700 14px $bf;
+                    @include ellipsis();
+                }
+
+                .shop_map-category-arrow {
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: 10px 9px 0 9px;
+                    border-color: #08abeb transparent transparent transparent;
+                    position: absolute;
+                    top: 100%;
+                    left: 50%;
+                    transform: translate(-50%);
+                    opacity: 0;
+                }
+
+                &.active {
+                    .shop_map-category-radio {
+                        border-width: 6px;
+                    }
+
+                    .shop_map-category-arrow {
+                        opacity: 1;
+                    }
+                }
+            }
+
+            &.has-pagination {
+                padding: 0 30px;
+                
+                .shop_map-prev,
+                .shop_map-next {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    .shop_map-sidebar {
+        background-color: #ffffff;
+        @include fill_parent();
+        right: 60%;
+        top: 230px;
+    }
+
+    .shop_map-content {
+        @include fill_parent();
+        top: 230px;
+        left: 40%;
+
+        iframe {
+            display: block;
+            width: 100%;
+            height: 100%;
+            @include fill_parent();
+        }
+    }
+
+    .shops {
+        .shop-item {
+            padding: 20px;
+            border-bottom: 1px solid $border_color;
+            border-right: 4px solid transparent;
+            cursor: pointer;
+            transition: .4s;
+
+            &:last-child {
+                border-bottom: 0;
+            }
+
+            .shop-details {
+                padding-left: 75px;
+                padding-bottom: 20px;
+                position: relative;
+
+                .shop-image {
+                    position: absolute;
+                    width: 60px;
+                    height: 60px;
+                    float: left;
+                    border-radius: 60px;
+                    border: 1px solid #eaeaea;
+                    overflow: hidden;
+                    left: 0;
+                    top: 5px;
+
+                    img {
+                        display: block;
+                        width: 100%;
+                    }
+                }
+
+                .shop-name {
+                    font: 700 16px $bf;
+                    color: #151b26;
+                    margin-bottom: 10px;
+                }
+
+                .shop-details-label {
+                    font: 400 10px/20px $bf;
+                    color: #646f79;
+                }
+
+                .shop-details-value {
+                    font: 700 12px $bf;
+                    color: #282b39;
+                }            
+            }
+
+            .shop-schedule {
+                border-top: 1px solid $border_color;
+                padding-top: 20px;
+                
+                .shop-schedule-label {
+                    color: #646f79;
+                    font: 400 10px/20px $bf;
+                }
+
+                .shop-schedule-value {
+                    color: #282b39;
+                    font: 400 12px/20px $bf;
+
+                    strong {
+                        font: inherit;
+                        font-weight: 700;
+                    }
+
+                    span {
+                        &:after {
+                            content: ', ';
+                        }
+
+                        &:last-child,
+                        &:last-of-type {
+                            &:after {
+                                content: none;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &:hover {
+                background: #f6f9fc;
+            }
+
+            &.active {
+                position: relative;
+                z-index: 1;
+                background: #fff;
+                box-shadow: 0 0 50px rgba(0,0,0,.2);
+                border-right-color: #2987fd;
+            }
+        }
+    }
+}
+}

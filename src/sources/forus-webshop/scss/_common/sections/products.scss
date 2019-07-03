@@ -1,0 +1,23 @@
+.section {
+    &.section-products {
+        z-index: 1;
+        position: relative;
+        margin: 0 0 40px;
+
+        .section-title {
+            margin: 0 0 20px;
+            display: block;
+        }
+
+        .section-filters {
+            @include cf();
+            margin-bottom: 40px;
+
+            input[type=text] {
+                background: url('../img/looking-glass.png') no-repeat;
+                background-position: 100% 0;
+                background-size: 60px 60px;
+            }
+        }
+    }
+}

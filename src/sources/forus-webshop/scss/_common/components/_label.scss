@@ -1,0 +1,21 @@
+.label {
+    font: 700 12px/24px $bf;
+    display: inline-block;
+    padding: 0 15px;
+    border-radius: 24px;
+
+    &.label-success {
+        background: #2cc6ab;
+        color: #fff;
+    }
+
+    &.label-warning {
+        background: #ffae42;
+        color: #fff;
+    }
+
+    &.label-default {
+        background: #8ca3a6;
+        color: #fff;
+    }
+}

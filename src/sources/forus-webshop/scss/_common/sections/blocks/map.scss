@@ -1,0 +1,25 @@
+.block {
+    &.block-map {
+        padding: 120px 0 240px;
+        @include cf();
+        background: url('../img/sprite-map.png') no-repeat;
+        background-position: 100% 50%;
+        background-size: auto 80%;
+
+        .block-content {
+            padding: 130px 0;
+            width: 50%;
+            float: left;
+
+            .block-title {
+                font: 700 40px $bf;
+                margin: 0 0 20px;
+            }
+
+            .block-description {
+                font: 400 22px/36px $bf;
+                margin: 0 0 40px;
+            }
+        }
+    }
+}

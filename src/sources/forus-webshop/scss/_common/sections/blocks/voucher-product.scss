@@ -1,0 +1,66 @@
+.block {
+    &.block-voucher-product {
+        position: relative;
+        z-index: 1;
+
+        .product-card {
+            background-color: #fff;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 25px rgba(#000, .2);
+            height: 150px;
+            cursor: default;
+            @include cf();
+            position: relative;
+            display: block;
+
+            .product-photo {
+                width: 180px;
+                height: 100%;
+                max-width: 50%;
+                float: left;
+                border-top-left-radius: inherit;
+                border-bottom-left-radius: inherit;
+                background-size: cover;
+                background-position: 50%;
+            }
+
+            .product-details {
+                float: left;
+                padding: 35px 30px 45px;
+
+                .product-name {
+                    color: #00122a;
+                    font: 700 26px/30px $bf;
+                    margin-bottom: 10px;
+
+                    .label {
+                        margin-top: 6px;
+                        float: right;
+                        margin-left: 10px;
+                    }
+                }
+
+                .product-price {
+                    vertical-align: middle;
+                    @include cf();
+
+                    .product-price-new {
+                        font: 700 24px/30px $bf;
+                        color: #151b26;
+                        float: left;
+                        margin-right: 4px;
+                    }
+
+                    .product-price-old {
+                        font: 400 18px/26px $bf;
+                        color: #646f79;
+                        text-decoration: line-through;
+                        float: left;
+                        padding-top: 4px;
+                    }
+                }
+            }
+        }
+    }
+}

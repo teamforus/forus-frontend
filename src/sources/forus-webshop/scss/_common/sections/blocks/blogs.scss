@@ -1,0 +1,79 @@
+.block {
+    &.block-blogs {
+        margin: 0 -45px 30px;
+        display: block;
+        @include cf();
+
+        .blog-item {
+            margin: 0 0 50px;
+            padding: 0 45px;
+            display: block;
+            width: 33.333%;
+            float: left;
+
+            .blog-image {
+                margin: -30px -30px 40px;
+                border-radius: 15px;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                overflow: hidden;
+                display: block;
+                margin-bottom: 20px;
+                position: relative;
+
+                img {
+                    display: block;
+                    width: 100%;
+                }
+
+                &:after {
+                    content: '';
+                    background: #394260;
+                    opacity: 0;
+                    @include fill_parent();
+                    transition: opacity .4s;
+                }
+            }
+
+            .blog-name {
+                color: #00122a;
+                font: 700 18px/26px $bf;
+                margin: 0 0 20px;
+                transition: .4s;
+            }
+
+            .blog-read-more {
+                font: 500 13px $bf;
+                color: $color_default;
+            }
+
+            .blog-item-inner {
+                box-shadow: 0 20px 50px rgba(#000, 0.025);
+                transition: box-shadow .4s, transform .4s;
+                display: block;
+                background: #fff;
+                padding: 30px;
+                border-radius: 15px;
+                @include cf();
+                position: relative;
+                transform: translate(0, 0);
+                box-shadow: 0 10px 25px rgba(#000000, 0.05);
+
+                &:hover {
+                    box-shadow: 0 25px 40px rgba(#000, 0.15);
+                    transform: translate(0, -5px);
+                    
+                    .blog-name {
+                        color: $color_default;
+                    }
+
+                    .blog-image {
+                        &:after {
+                            opacity: .5;;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

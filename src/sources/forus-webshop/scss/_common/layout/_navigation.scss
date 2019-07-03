@@ -1,0 +1,299 @@
+.block {
+    &.block-navbar {
+
+        .navbar-inner {
+            border-radius: $border_radius;
+            background-color: #ffffff;
+            box-shadow: 0 10px 20px rgba(#000, .075);
+            @include cf();
+            max-width: 100%;
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .navbar-logo {
+            justify-self: flex-start;
+            padding: 30px 40px;
+            border-right: 1px solid $border_color;
+
+            img {
+                display: block;
+                margin: 0 0;
+
+                &.hover {
+                    display: none;
+                }
+            }
+        }
+
+        .navbar-list {
+            float: left;
+            padding-left: 30px;
+            flex-grow: 1;
+            display: block;
+            text-align: left;
+
+            .navbar-item-wrapper {
+                display: inline-block;
+                position: relative;
+
+                .navbar-item {
+                    color: #646f79;
+                    display: inline-block;
+                    font: 700 15px/30px $bf;
+                    padding: 30px 25px;
+                    position: relative;
+                    transition: .4s;
+                    cursor: pointer;
+                    font-weight: bold;
+                    text-transform: uppercase;
+
+                    &:before {
+                        content: '';
+                        top: 0;
+                        left: 25px;
+                        right: 25px;
+                        height: 3px;
+                        display: block;
+                        position: absolute;
+                        background: transparent;
+                        transition: .4s;
+                    }
+                    
+                    &:hover {
+                        color: #2987fd;
+    
+                        &:before {
+                            background: #d2e6ff;
+                        }
+                    }
+                    
+                    &.active {
+                        color: #2987fd;
+    
+                        &:before {
+                            background: #134478;
+                        }
+                    }
+                }
+
+                &:hover {
+                    .navbar-menu {
+                        display: block;
+                    }
+                }
+
+                .navbar-menu {
+                    background: #ffffff;
+                    box-shadow: 0 0 20px rgba(#000, .075);
+                    width: 220px;
+                    left: 20px;
+                    position: absolute;
+                    top: 70px;
+                    border: 1px solid #f3f4f5;
+                    border-radius: 5px;
+                    padding: 5px 0;
+                    display: none;
+    
+                    .triangle {
+                        position: absolute;
+                        left: 15px;
+                        bottom: 100%;
+                    }
+    
+                    .navbar-menu-item {
+                        display: block;
+                        padding: 5px 15px;
+                        font: 700 13px/26px $bf;
+                        transition: .4s;
+                        cursor: pointer;
+    
+                        img {
+                            display: block;
+                            float: left;
+                            margin: 0 5px 0 0;
+                        }
+    
+                        .mdi {
+                            display: block;
+                            width: 26px;
+                            height: 26px;
+                            margin: 0 5px 0 0;
+                            float: left;
+                            text-align: center;
+                            font-size: 22px;
+                        }
+    
+                        &:hover {
+                            color: $color_primary;
+                            background: #f6f8f9;
+                        }
+                    }
+    
+                    .navbar-menu-separator {
+                        display: block;
+                        border-bottom: 1px solid #f3f4f5;
+                        width: 100%;
+                        height: 5px;
+                        margin: 0 0 5px
+                    }
+                }
+                
+            }  
+
+            .navbar-list-auth {
+                margin-bottom: 30px;
+            }
+        }
+
+        .navbar-mobile-menu {
+            float: right;
+            text-align: center;
+            border-left: 1px solid #e6ecf0;
+
+            em {
+                display: block;
+                height: 60px;
+                line-height: 60px;
+                width: 60px;
+                font-size: 30px;
+                color: #9ca6af;
+            }
+        }
+
+        .block-auth {
+            border-left: 1px solid #e6ecf0;
+            padding: 25px 30px;
+            justify-self: flex-end;
+            @include cf();
+
+            .button {
+                padding: 7px 15px;
+                float: left;
+                margin-right: 20px;
+                font: 700 14px/24px $bf;
+
+                &:last-of-type {
+                    margin-right: 0px;
+                }
+            }
+
+            .auth-code {
+                float: right;
+            }
+            
+            .auth-out {
+                float: right;
+            }
+
+            .auth-in {
+                float: right;
+
+                .auth-user {
+                    padding: 20px 0;
+                    padding-right: 50px;
+                    position: relative;
+                    height: 80px;
+                    margin: -20px 0;
+                    cursor: default;
+                    @include cf();
+
+                    .auth-user-email {
+                        font: 700 13px $bf;
+                        color: $color_primary;
+                        float: left;
+                        text-align: right
+                    }
+
+                    .auth-user-type {
+                        font: 400 13px $bf;
+                        color: #151b26;
+                        float: right;
+                        clear: both;
+                    }
+                    
+                    .auth-user-avatar {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 40px;
+                        border: 1px solid $border_color;
+                        position: absolute;
+                        right: 0;
+                        top: 20px;
+
+                        &>img {
+                            display: block;
+                            width: 100%;
+                        }
+                    }
+
+                    .auth-user-menu {
+                        background: #ffffff;
+                        box-shadow: 0 0 20px rgba(#000, .075);
+                        width: 220px;
+                        right: 0;
+                        position: absolute;
+                        top: 50px;
+                        border: 1px solid #f3f4f5;
+                        border-radius: 5px;
+                        padding: 5px 0;
+                        display: none;
+
+                        .triangle {
+                            position: absolute;
+                            right: 5px;
+                            bottom: 100%;
+                        }
+
+                        .auth-user-menu-item {
+                            display: block;
+                            padding: 5px 15px;
+                            font: 700 13px/26px $bf;
+                            transition: .4s;
+                            cursor: pointer;
+
+                            img {
+                                display: block;
+                                float: left;
+                                margin: 0 5px 0 0;
+                            }
+
+                            .mdi {
+                                display: block;
+                                width: 26px;
+                                height: 26px;
+                                margin: 0 5px 0 0;
+                                float: left;
+                                text-align: center;
+                                font-size: 22px;
+                            }
+
+                            &:hover {
+                                color: $color_primary;
+                                background: #f6f8f9;
+                            }
+                        }
+
+                        .auth-user-menu-separator {
+                            display: block;
+                            border-bottom: 1px solid #f3f4f5;
+                            width: 100%;
+                            height: 5px;
+                            margin: 0 0 5px
+                        }
+                    }
+
+                    &:hover {
+                        .auth-user-menu {
+                            display: block;
+                        }
+                    }
+                }
+            }
+
+            &.block-auth-border {
+                border-left: none;
+            }
+        }
+    }
+}

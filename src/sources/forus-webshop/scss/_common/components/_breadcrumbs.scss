@@ -1,0 +1,37 @@
+.block {
+    &.block-breadcrumbs {
+        position: relative;
+        margin: 40px 0px;
+        @include ellipsis();
+        
+        .breadcrumb-item {
+            display: inline-block;
+            font: 600 16px $bf;
+            color: $color_primary;
+            transition: .4s;
+
+            &:after {
+                content: '/';
+                user-select: none;
+                padding: 0 10px;
+                color: #aaa;
+                font-weight: 400;
+            }
+
+            &:last-child {
+                &:after {
+                    content: none;
+                }
+            }
+
+            &:hover {
+                color: #0f1f8f;
+            }
+
+            &.active {
+                color: #bbb;
+                cursor: default;
+            }
+        }
+    }
+}

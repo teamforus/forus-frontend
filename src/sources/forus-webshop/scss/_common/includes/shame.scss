@@ -1,0 +1,99 @@
+html {
+    -webkit-overflow-scrolling: touch;
+}
+
+.scroll-img {
+    display: none;
+}
+.show-sm {
+    display: none !important;
+}
+
+.f-w {
+    width: 100%!important;
+}
+
+a[ng-click],
+a[ui-sref] {
+    cursor: pointer !important;
+}
+
+body {
+    background-color: $bg;
+    background: $bg_2;
+
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    height:100%;
+
+    &.modal-shown {
+        overflow: hidden;
+    }
+}
+
+.span-count {
+    display: inline;
+
+    &::before {
+        content: " (";
+    }
+
+    &::after {
+        content: ")";
+    }
+}
+
+
+.printable-qr_code {
+    display: none;
+}
+
+ui-view{
+    flex: 1 0 auto;
+    min-height: 85vh;
+}
+
+.app-instruction {
+    text-align: center;
+
+    .step-item {
+        padding: 50px 80px;
+        position: relative;
+        width: 400px;
+        margin: 0 auto;
+        display: inline-block;
+
+        img {
+            &:not(.line-item) {
+                width: 100%;
+                border: 2px dashed #d2e6ff;
+                border-radius: 5px;
+                box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1);
+                position: relative;
+                z-index: 1;
+            }
+
+            &.line-item {
+                position: absolute;
+
+                top: 200px;
+                left: calc(100% - 80px);
+                min-width: 70px;
+                z-index: 2;
+            }
+        }
+
+        .app-title {
+            font: 500 16px/24px $bf;
+            padding: 5px 0 15px 0;
+            text-align: center;
+        }
+    }
+
+    .divider-img {
+        img {
+            width: 100%;
+        }
+    }
+}

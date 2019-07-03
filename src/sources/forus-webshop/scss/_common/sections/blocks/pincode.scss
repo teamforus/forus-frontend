@@ -1,0 +1,28 @@
+.block {
+
+    &.block-pincode {
+        display: block;
+        margin: 0 auto 20px;
+        padding: 0;
+        text-align: center;
+        position: relative;
+        @include cf();
+        width: 100%;
+
+        .pincode-number {
+            display: inline-block;
+            height: 60px;
+            width: 60px;
+            border: 1px solid #dfe4ec;
+            background: #fff;
+            border-radius: 4px;
+            margin-right: 10px;
+            font: 600 26px/60px $bf;
+            cursor: default;
+
+            &:last-of-type {
+                margin-right: 0;
+            }
+        }
+    }
+}
