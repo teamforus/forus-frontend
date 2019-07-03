@@ -205,4 +205,79 @@
             }
         }
     }
+    @media screen and (max-width: 1700px) {
+        &.section-faq {
+            .faq {
+                .faq-item {
+                    .faq-item-header {
+                        font: 500 15px $bf;
+                    }
+
+                    .faq-item-content {
+                        font: 400 14px $bf;
+                        
+                        ul li {
+                            font: 400 14px $bf;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.section-faq {
+            margin-bottom: 60px;
+
+            .section-title {
+                font: 700 24px/36px $bf;
+                margin: 0 0 30px;
+            }
+
+            .section-splash {
+                height: 600px;
+                opacity: .75;
+            }
+
+            .faq {
+                padding: 0;
+                max-width: 100%;
+                width: 600px;
+
+                .faq-item {
+                    .faq-item-header {
+                        font: 500 14px $bf;
+                    }
+
+                    .faq-item-content {
+                        font: 400 14px $bf;
+                    }
+                }
+            }
+        }
+        &.section-faq {
+            margin-bottom: 60px;
+
+            .section-title {
+                font: 700 24px/36px $bf;
+                margin: 0 0 30px;
+            }
+
+            .section-splash {
+                height: 600px;
+            }
+
+            .faq {
+                .faq-item {
+                    .faq-item-header {
+                        font: 500 14px $bf;
+                    }
+
+                    .faq-item-content {
+                        font: 400 14px $bf;
+                    }
+                }
+            }
+        }
+    }
 }

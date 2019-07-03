@@ -122,4 +122,90 @@
             }
         }
     }
+    @media screen and (max-width: 1700px) {
+        &.section-steps {
+            margin: 0 0 30px;
+
+            .section-splash {
+                height: 800px;
+            }
+
+            .section-sprite {
+                height: 300px;
+            }
+        }
+        &.section-steps {
+            .section-title {
+                font: 700 26px/40px $bf;
+                margin: 0 0 40px;
+            }
+
+            .steps {
+                .step-item {
+                    .step-item-content {
+                        padding-top: 40px;
+                    }
+
+                    h4 {
+                        font: 700 17px $bf;
+                    }
+
+                    p {
+                        font: 400 14px/20px $bf;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.section-steps {
+            margin-bottom: 60px;
+
+            .section-splash {
+                display: none;
+            }
+
+            .section-sprite {
+                display: none;
+            }
+
+            .section-title {
+                font: 700 24px/36px $bf;
+                margin: 0 0 30px;
+            }
+
+            .steps {
+                padding: 0;
+                background: none;
+                min-height: auto;
+                text-align: center;
+                padding: 0;
+                
+                .step-item {
+                    width: 100%;
+                    padding: 0;
+                    margin: 0 0 20px !important;
+
+                    .step-item-content {
+                        padding: 120px 0 0;
+                        max-width: 100%;
+                        width: 400px;
+                        margin:  0 auto;
+
+                        &:before {
+                            width: 140px;
+                            height: 140px;
+                            background-size: 100%;
+                            transform: none;
+                            margin-right: 0px;
+                            top: 0;
+                            left: 50%;
+                            transform: translate(-50%, 0);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

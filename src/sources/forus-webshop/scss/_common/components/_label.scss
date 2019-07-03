@@ -19,3 +19,9 @@
         color: #fff;
     }
 }
+@media screen and (max-width: 1000px) {
+    .label {
+        padding: 0 10px;
+        font: 700 11px/22px $bf;
+    }
+}

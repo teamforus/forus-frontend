@@ -350,3 +350,13 @@
         }
     }
 }
+@media screen and (max-width: 1000px) {
+    .form {
+        .form-control:not([type="radio"]):not([type="checkbox"]),
+        .form-control:not([type="radio"]):not([type="checkbox"]).form-control-fancy {
+            height: 50px;
+            padding: 5px 15px;
+            font: 400 14px/24px $bf;
+        }
+    }
+}

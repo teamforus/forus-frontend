@@ -119,6 +119,20 @@
         margin-right: 0;
     }
 }
+@media screen and (max-width: 1700px) {
+    .button {
+        font: 700 12px/20px $bf;
+        padding: 10px 25px;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .button {
+        &.button-primary {
+            box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+        }
+    }
+}
+
 .block {
     &.block-show-more {
         text-align: center;

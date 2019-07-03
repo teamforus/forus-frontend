@@ -355,6 +355,205 @@
             }
         }
     }
+    @media screen and (max-width: 1700px) {
+        .section-title {
+            font: 700 26px/40px $bf;
+            margin: 0 0 15px;
+        }
+
+        &.section-header {
+            .header-content {
+                padding: 180px 0;
+                
+                .header-title {
+                    font: 700 40px/50px $bf;
+                    margin: 0 0 15px;
+                }
+
+                .header-description {
+                    font: 400 22px/36px $bf;
+                    margin: 0 0 30px;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1500px) {
+        .section-title {
+            margin: 0 0 20px;
+            font: 700 30px/40px $bf;
+        }
+
+        &.section-header {
+            .heade-sprite {
+                background-size: auto 80%;
+                bottom: 100px;
+            }
+
+            .header-content {
+                padding: 75px 0;
+                padding-right: 150px;
+
+                .header-title {
+                    font: 700 30px/46px $bf;
+                    margin: 0 0 20px;
+                }
+
+                .header-description {
+                    font: 400 18px/30px $bf;
+                    margin: 0 0 20px;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        .section-title {
+            font: 700 20px/30px $bf;
+            margin: 0 0 20px;
+        }
+        
+        .section-subtitle {
+            font: 700 16px/22px $bf;
+            margin-bottom:5px !important;
+        }
+        &.section-header {
+            padding: 0;
+            margin: 0 0 30px;
+
+            .wrapper {
+                padding: 0;
+            }
+
+            .header-sprite {
+                display: none;
+            }
+
+            .lang-selector {
+                padding: 10px 20px;
+                margin: -10px 0;
+                padding-left: 30px;
+
+                .lang-list {
+                    left: 50%;
+                    margin-left: -20px;
+                    margin-top: 8px;
+                    transform: none;
+
+                    &:before {
+                        left: 15px;;
+                    }
+                }
+            }
+
+            .header-content {
+                width: 100%;
+                padding: 40px 25px 0;
+                text-align: center;
+
+                .header-title {
+                    margin: 0 0 20px;
+                    font-size: 26px;
+                    line-height: 38px;
+                }
+
+                .header-description {
+                    margin: 0 0 20px;
+                    font: 400 16px/32px $bf;
+                }
+
+                .button {
+                    width: 100%;
+                }
+            }
+
+            &.section-header-voucher {
+                .header-content {
+                    padding: 25px 25px 0;
+
+                    .header-title {
+                        font: 700 20px/30px $bf;
+                        margin: 0 0 10px;
+                    }
+                }
+            }
+        }
+        &.section-header {
+            padding-bottom: 0;
+            margin: 0 0 30px;
+            .heade-sprite {
+                display: none;
+            }
+
+            .lang-selector {
+                padding: 10px 20px;
+                margin: -10px 0;
+                padding-left: 30px;
+
+                .lang-list {
+                    left: 50%;
+                    margin-left: -20px;
+                    margin-top: 8px;
+                    transform: none;
+
+                    &:before {
+                        left: 15px;;
+                    }
+                }
+            }
+
+            .header-content {
+                width: 100%;
+                padding: 25px 25px;
+                text-align: center;
+                min-height: auto;
+
+                .header-title {
+                    font: 700 20px/28px $bf;
+                    margin: 0 0 20px;
+                }
+
+                .header-description {
+                    font: 400 14px/24px $bf;
+                    margin: 0;
+                    color: #353b46;
+                }
+
+                .button {
+                    text-align: center;
+                    font-size: 11px;
+                    padding: 12px 10px;
+                    width: 100%;
+                }
+
+                .header-download-apps {
+                    padding: 0;
+                    margin: 0 0 0;
+
+                    .app-item {
+                        padding: 25px 20px 25px 90px;
+                        font: 700 12px/20px $bf;
+                        @include ellipsis();
+
+                        &:before {
+                            width: 70px;
+                            height: 100%;
+                            border-radius: 0;
+                            left: 0;
+                            background-size: 50px;
+                            background-position: 50%;
+                        }
+
+                        .mdi {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            .header-sprite {
+                display: none;
+            }
+        }
+    }
 }
 .header-splash {
     position: absolute;
@@ -379,6 +578,41 @@
         &.splash-d {
             background-image: url("../img/splash-top-d.png");
             height: 1130px;
+        }
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .header-splash {
+        .splash {
+            height: 650px;
+
+            &.splash-c {
+                height: 700px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .header-splash {
+        .splash {
+            height: 650px;
+            background-size: auto 80%;
+
+            &.splash-c {
+                height: 700px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 1000px) {
+    .header-splash {
+        display: none;
+
+        .splash  {
+            height: 300px;
+            background-size: 75% auto;
         }
     }
 }

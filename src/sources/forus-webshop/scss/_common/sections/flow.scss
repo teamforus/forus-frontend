@@ -142,4 +142,123 @@
             }
         }
     }
+    @media screen and (max-width: 1500px) {
+        &.section-flow {
+            &.wide-70 {
+                width: 100%;
+                margin: 0;
+            }
+            .wrapper {
+                .section-sprite {
+                    display: none;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1200px) {
+        &.section-flow {
+            &.wide-70 {
+                width: 100%;
+                margin: 0;
+            }
+            .wrapper {
+                .section-sprite {
+                    display: none;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.section-flow {
+            margin: 0 0 30px;
+            
+            .section-title {
+                padding: 0;
+                font: 700 18px/32px $bf;
+            }
+
+            .section-description {
+                padding: 0;
+                font: 400 15px/26px $bf;
+                margin: 0 0 30px;
+            }
+
+            .section-scheme {
+                margin: 0;
+            }
+        }
+        &.section-flow {
+            &.wide-70 {
+                width: 100%;
+                margin: 0;
+            }
+            .wrapper {
+                .section-sprite {
+                    display: none;
+                }
+            }
+        }
+        &.section-flow {
+            margin: 0 0 30px;
+
+            .section-title {
+                padding: 0;
+                font: 700 20px/28px $bf;
+                margin-bottom: 15px;
+            }
+
+            .section-description {
+                padding: 0;
+                font: 400 14px/22px $bf;
+                margin: 0 0 30px;
+                color: #353b46;
+            }
+
+            .scheme {
+                margin: 0;
+            }
+
+            &.responsive {
+                display: block;
+
+                .scheme {
+                    .scheme-img {
+                        display: none;
+                    }
+
+                    .scheme-points-preset {
+                        position: initial;
+                    }
+
+                    .scheme-point {
+                        width: 100%;
+                        text-align: center;
+                        margin: 0 0 30px;
+
+                        .scheme-point-text {
+                            position: initial;
+                            width: 100%;
+                        }
+
+                        .scheme-point-image {
+                            position: initial;
+                            width: 100%;
+                            padding: 0;
+                            border-radius: 0;
+                            margin-bottom: -30px;
+                            margin-top: -30px;
+                        }
+
+                        h4 {
+                            font: 600 16px/28px $bf;
+                        }
+
+                        p {
+                            font: 400 13px/20px $bf;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

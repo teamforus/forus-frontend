@@ -60,3 +60,24 @@
         }
     }
 }
+@media screen and (max-width: 1000px) {
+    .map-card {
+        padding: 0;
+        background: #fff;
+
+        .map-card-img {
+            width: 100%;
+            position: initial;
+        }
+
+        .map-card-title {
+            padding: 15px 15px 5px;
+        }
+        
+        .map-card-description {
+            padding: 5px 15px 15px;
+            a {
+            }
+        }
+    }
+}

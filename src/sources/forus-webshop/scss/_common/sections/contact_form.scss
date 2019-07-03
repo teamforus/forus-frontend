@@ -26,6 +26,17 @@
             background-origin: 0 0;
         }
     }
+    @media screen and (max-width: 1000px) {
+          &.section-contact_form {
+            .wrapper {
+                padding: 0;
+            }
+
+            &:before {
+                background: none;
+            }
+        }
+    }
 }
 
 .block {
