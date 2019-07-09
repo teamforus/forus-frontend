@@ -1,0 +1,25 @@
+.section {
+    &.section-header {
+        .header-sprite {
+            display:none;
+            height: 625px;
+            width: 100%;
+            display: none;
+        }
+
+        &.section-header {
+            .header-content {
+                .header-title,
+                .header-description {
+                    font-family: 'Source Sans Pro', arial, sans-serif;;
+                }
+            }
+        }
+
+        .header-splash {
+            .splash {
+                height: 700px;
+            }
+        }
+    }
+}
