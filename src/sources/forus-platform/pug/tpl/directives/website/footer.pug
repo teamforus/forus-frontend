@@ -1,4 +1,229 @@
-footer
+.container
+  footer.footer-collapse.px-1.py-3
+    h2.sr-only
+    .row
+      .col-sm-4.col-md-4
+        h4.text-boldest Sitemap
+        .widget.hidden-xs-down
+          h4.text-bold.pointer(ui-sref="home") Home
+          h4.text-bold Forus
+          ul.widget-list.list-unstyled.p-0
+                li Producten
+                  br
+                  a(ui-sref='kindpakket' class='indent') 
+                    | Kindpakket
+                li Succesverhalen
+                  br
+                  a(ui-sref='story' class='indent')
+                    | Gemeente Zuidhorn
+          h4.text-bold.pointer(ui-sref="me") Me
+          h4.text-bold.pointer
+            a(ui-sref="current") Over ons
+          ul.widget-list.list-unstyled.p-0
+            li
+              a(ui-sref='history' class='indent') Geschiedenis
+            li
+              a(ui-sref='current' class='indent') Nu
+            li
+              a(ui-sref='future' class='indent') Toekomst
+            li
+              a(ui-sref='hall-of-fame' class='indent') Hall of Fame
+          h4.text-bold.pointer(ui-sref="/#!/") Contact
+        #accordion.widget.hidden-sm-up(role='tablist' aria-multiselectable='true')
+          #headingFour(role='tab')
+            h4.card-header.py-3.border-0.text-bold
+              a(data-toggle='collapse' data-parent='#accordion' ui-sref='/#!/' aria-expanded='false' aria-controls='collapseFour').text-bold
+                | Home
+        #accordion.widget.hidden-sm-up(role='tablist' aria-multiselectable='true')
+          #headingOne(role='tab')
+            h4.card-header.py-3.border-0.text-bold
+              a(data-toggle='collapse' data-parent='#accordion' href='#collapseOne' aria-expanded='false' aria-controls='collapseOne').text-bold
+                | Forus
+                .cross
+                  include ../../../../resources/platform-general/assets/img/svg/accordeon-close.svg
+          #collapseOne.collapse(role='tabpanel' aria-labelledby='headingOne')
+            .card-block
+              ul.widget-list.list-unstyled.p-0
+                li Producten
+                  br
+                  a(ui-sref='kindpakket' class='indent') 
+                    | Kindpakket
+                li Succesverhalen
+                  br
+                  a(ui-sref='story' class='indent')
+                    | Gemeente Zuidhorn
+        #accordion.widget.hidden-sm-up(role='tablist' aria-multiselectable='true')
+          #headingFive(role='tab')
+            h4.card-header.py-3.border-0.text-bold
+              a(data-toggle='collapse' data-parent='#accordion' href='#collapseFive' aria-expanded='true' aria-controls='collapseFive' ui-sref='me').text-bold
+                | Me
+        #accordion.widget.hidden-sm-up(role='tablist' aria-multiselectable='true')
+          #headingTwo(role='tab')
+            h4.card-header.py-3.border-0.text-bold
+              a(data-toggle='collapse' data-parent='#accordion' href='#collapseTwo' aria-expanded='false' aria-controls='collapseTwo').text-bold
+                | Over ons
+                .cross
+                  include ../../../../resources/platform-general/assets/img/svg/accordeon-close.svg
+          #collapseTwo.collapse(role='tabpanel' aria-labelledby='headingTwo')
+            .card-block
+              ul.widget-list.list-unstyled.p-0
+                li
+                  a(ui-sref='history' class='indent')
+                    | Geschiedenis
+                li
+                  a(ui-sref='current' class='indent')
+                    | Nu
+                li
+                  a(ui-sref='future' class='indent')
+                    | Toekomst
+                li
+                  a(ui-sref='hall-of-fame' class='indent')
+                    | Hall of Fame
+        #accordion.widget.hidden-sm-up(role='tablist' aria-multiselectable='true')
+          #headingSix(role='tab')
+            h4.card-header.py-3.border-0.text-bold(ui-sref='contact')
+              a(data-toggle='collapse' data-parent='#accordion' href='#collapseSix' aria-expanded='true' aria-controls='collapseSix').text-bold
+                | Contact
+          #collapseSix.collapse.in(role='tabpanel' aria-labelledby='headingSix')
+            .card-block
+              ul.widget-list.list-unstyled.p-0
+                span
+                  ul
+                    li
+                        p
+                            strong  Telefoon:
+                            |   06 23 90 51 19
+                    li
+                        p
+                            strong  E-mail:
+                            |   info@forus.io
+                    li  
+                        p
+                            strong Bezoekadres
+                            br
+                            | Friesestraatweg 211c
+                            br
+                            | 9743 AD, Groningen
+                            br
+                            | Groningen, Nederland 
+                    li
+                        p
+                            strong Postadres:
+                            br
+                            | Osloweg 131
+                            br
+                            | 9723 BK, Groningen
+                            br
+                            | Groningen, Nederland
+                span
+                    h4 Support
+                    ul
+                      li
+                          p
+                              strong  Telefoon:
+                              |   06 36 26 12 31
+                      li
+                          p 
+                              strong E-mail:
+                              |   support@forus.io
+      .col-sm-4.col-md-4
+        .widget.hidden-xs-down
+          h4.text-boldest(ui-sref="contact") Contact
+          .card-block
+              ul.widget-list.list-unstyled.p-0
+                span
+                  ul
+                    li
+                        p
+                            strong  Telefoon:
+                            |   06 23 90 51 19
+                    li
+                        p
+                            strong  E-mail:
+                            |   info@forus.io
+                    li  
+                        p
+                            strong Bezoekadres
+                            br
+                            | Friesestraatweg 211c
+                            br
+                            | 9743 AD, Groningen
+                            br
+                            | Groningen, Nederland 
+                    li
+                        p
+                            strong Postadres:
+                            br
+                            | Osloweg 131
+                            br
+                            | 9723 BK, Groningen
+                            br
+                            | Groningen, Nederland
+                span
+                    h4.text-boldest Support
+                    ul
+                      li
+                          p
+                              strong  Telefoon:
+                              |   06 36 26 12 31
+                      li
+                          p 
+                              strong E-mail:
+                              |   support@forus.io
+      .col-sm-4.col-md-4
+          .container-form
+            form#formContactHome(action="https://xlak8w5706.execute-api.eu-west-1.amazonaws.com/Prod" method="POST")
+                .row
+                    .col-xs-12
+                        h4.text-boldest(ui-sref="contact") Contactformulier
+                        .form-group.required
+                            label.control-label NAAM
+                            .input-group
+                                input#nameInput.form-control(placeholder="Naam" name="name"  value="" onkeyup="this.setAttribute('value', this.value);" )
+                                a(href="#").clear_field
+                                    include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
+                                span.help-block
+                    .col-xs-12
+                        .form-group.required
+                            label.control-label EMAIL
+                            .input-group
+                                input#emailInput.form-control(placeholder="Email" name="email" value="" onkeyup="this.setAttribute('value', this.value);" )
+                                a(href="#").clear_field
+                                    include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
+                                span.help-block
+                    .col-xs-12
+                        .form-group
+                            label.control-label ORGANISATIE
+                            .input-group
+                                input#companyInput.form-control(placeholder="Organisatie" name="organization" value="" onkeyup="this.setAttribute('value', this.value);" )
+                                a(href="#").clear_field
+                                    include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
+                                span.help-block
+                    .col-xs-12
+                        .form-group
+                            label.control-label TELEFOONNUMMER
+                            .input-group
+                                input#telInput.form-control(placeholder="Telefoonnummer" name="phone" value="" onkeyup="this.setAttribute('value', this.value);" )
+                                a(href="#").clear_field
+                                    include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
+                                span.help-block
+                    .col-xs-12
+                        .form-group.required
+                            label.control-label BERICHT
+                            .input-group
+                                textarea#messageInput.form-control(placeholder="Bericht" name="message")
+
+                                a(href="#").clear_field
+                                    include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
+                                span.help-block
+                    .col-xs-12.info
+                        span(style="color: red") *
+                        | velden zijn verplicht
+                    .col-xs-12
+                        .form-group.center-block
+                            p.thanks Bedankt! Er wordt zo snel mogelijk contact met u opgenomen.
+                            button#formSubmitHome.main_button.g-recaptcha( data-sitekey="6LfA-JcUAAAAAC9SpgAr2ZmL4rFwjb83_U2MDcfQ" data-callback="onSubmitCFHome" data-badge="inline" type="button") Versturen
+footer(class="footer_sub")
     .container
         nav.navbar
             .container-fluid
