@@ -1,4 +1,4 @@
-let LinearChartDirective = function($scope, $element) {
+let BarChartDirective = function($scope, $element) {
     var timeFormat = 'MM/DD/YYYY';
 
     $scope.$watch('data', function(data) {
@@ -21,13 +21,13 @@ let LinearChartDirective = function($scope, $element) {
 
 
         new Chart($element, {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
                     data: values,
                     borderColor: '#2987fd',
-                    backgroundColor: 'transparent'
+                    backgroundColor: '#2987fd'
                 }]
             },
             options: {
@@ -43,10 +43,16 @@ let LinearChartDirective = function($scope, $element) {
                         type: 'time',
                         time: {
                             unit: 'day',
+                            round: 'day',
                             tooltipFormat: 'll',
                             displayFormats: {
                                 quarter: 'll',
                             }
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                          beginAtZero: true
                         }
                     }]
                 },
@@ -67,8 +73,8 @@ module.exports = () => {
         controller: [
             '$scope',
             '$element',
-            LinearChartDirective
+            BarChartDirective
         ],
-        templateUrl: 'assets/tpl/directives/linear-chart.html' 
+        templateUrl: 'assets/tpl/directives/bar-chart.html' 
     };
 };

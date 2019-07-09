@@ -61,7 +61,7 @@
                                         ng-click="$ctrl.chartData.increase()"
                                         ng-bind="'financial_dashboard.buttons.next' | translate")
                         .chart-body
-                            linear-chart(data="$ctrl.chartData.response.dates")
+                            bar-chart(data="$ctrl.chartData.response.dates")
 
                 .chart-row
                     .card: .card-section
