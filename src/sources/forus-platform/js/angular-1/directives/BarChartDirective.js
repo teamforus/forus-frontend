@@ -1,4 +1,4 @@
-let LinearChartDirective = function($scope, $element) {
+let BarChartDirective = function($scope, $element) {
     var timeFormat = 'MM/DD/YYYY';
 
     $scope.$watch('data', function(data) {
@@ -73,8 +73,8 @@ module.exports = () => {
         controller: [
             '$scope',
             '$element',
-            LinearChartDirective
+            BarChartDirective
         ],
-        templateUrl: 'assets/tpl/directives/linear-chart.html' 
+        templateUrl: 'assets/tpl/directives/bar-chart.html' 
     };
 };

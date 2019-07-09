@@ -102,7 +102,7 @@ app.directive('progressBar', require('./directives/ProgressBarDirective'));
 app.directive('prevalidatedTable', require('./directives/PrevalidatedTableDirective'));
 app.directive('photoSelector', require('./directives/PhotoSelectorDirective'));
 app.directive('radialChart', require('./directives/RadialChartDirective'));
-app.directive('linearChart', require('./directives/LinearChartDirective'));
+app.directive('barChart', require('./directives/BarChartDirective'));
 app.directive('collapse', require('./directives/CollpaseDirective'));
 app.directive('landingNavbar', require('./directives/landing/NavbarDirective'));
 app.directive('landingContactForm', require('./directives/landing/ContactFormDirective'));
