@@ -215,7 +215,6 @@ let Platform = function(source) {
         });
 
         return outCfg;
-        console.log('taskStorage', outCfg);
     };
 };
 
