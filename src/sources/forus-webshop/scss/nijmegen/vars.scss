@@ -39,3 +39,8 @@ $color_primary_light:   #8fd888;
 
 $color_default:         #017f96;
 $color_default_light:   #017f96;
+
+$base_shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
+$navbar_transition: .5s ease-in-out;

@@ -1,0 +1,58 @@
+.modal {
+    .modal-content {
+        .form {
+            .form-group{
+                flex-direction: column;
+            }
+        }
+        
+        .text-center {
+            .form-group{
+                flex-direction: row;
+            }
+        }
+        
+        .description{
+            font: 400 22px/34px $bf;
+            color: $ptc;
+    
+            .popup-title-styled {
+                color: #157c68;
+                font-weight: 600;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    .subdescription {
+        color: grey;
+
+        .popup-title-styled{
+            color: #157c68;
+        }
+    }
+}
+.block {
+    &.block-auth-type {
+        .auth_type-item {
+            .auth_type-icon {
+                box-shadow: $base_shadow;
+                border-radius: 2px;
+            }
+
+            .auth_type-item-inner {
+                &:hover {
+                    .auth_type-name {
+                        color: #157c68;
+                    }
+                }
+            }
+        }
+    }
+
+    &.block-auth-qr-code {
+        .qr_code {
+            border-radius: 2px;
+        }
+    }
+}
