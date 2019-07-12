@@ -16,7 +16,7 @@ aside.app.app-sidebar
                 +nav_item_icon(icon)
                 | #{name} 
 
-        //+nav_item("Fondsen", "clock", 'funds', false)
+        //- +nav_item("Fondsen", "clock", 'funds', false)
         +nav_item(
             "Fondsen", "my_funds", 'organization-funds', 
             '{organization_id: $root.activeOrganization.id}', 
@@ -40,3 +40,7 @@ aside.app.app-sidebar
         +nav_item(
             "Aanvragers", "file_csv", 'csv-validation', false,
             '$root.activeOrganization | hasPerm:["validate_records"]')
+        +nav_item(
+            "Vouchers", "list", 'vouchers', 
+            '{organization_id: $root.activeOrganization.id}',
+            '$root.activeOrganization | hasPerm:["manage_employees"]')

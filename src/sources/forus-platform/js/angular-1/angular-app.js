@@ -14,6 +14,7 @@ app.component('providerFundsComponent', require('./components/ProviderFundsCompo
 app.component('fundsEditComponent', require('./components/FundsEditComponent'));
 app.component('fundsShowComponent', require('./components/FundsShowComponent'));
 app.component('transactionsComponent', require('./components/TransactionsComponent'));
+app.component('vouchersComponent', require('./components/VouchersComponent'));
 app.component('officesComponent', require('./components/OfficesComponent'));
 app.component('officesEditComponent', require('./components/OfficesEditComponent'));
 app.component('productsComponent', require('./components/ProductsComponent'));
@@ -31,18 +32,22 @@ app.component('transactionComponent', require('./components/TransactionComponent
 app.component('noPermissionComponent', require('./components/NoPermissionComponent'));
 
 // Modal Components
-app.component('modalPhotoUploaderComponent', require('./components/Modals/ModalPhotoUploaderComponent'));
+app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
+app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCodeComponent'));
 app.component('modalFundTopUpComponent', require('./components/Modals/ModalFundTopUpComponent'));
 app.component('modalEmployeeEditComponent', require('./components/Modals/ModalEmployeeEditComponent'));
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
+app.component('modalPhotoUploaderComponent', require('./components/Modals/ModalPhotoUploaderComponent'));
+app.component('modalVoucherCreateComponent', require('./components/Modals/ModalVoucherCreateComponent'));
+app.component('modalVoucherQrCodeComponent', require('./components/Modals/ModalVoucherQrCodeComponent'));
 app.component('modalMarkdownCustomLinkComponent', require('./components/Modals/ModalMarkdownCustomLinkComponent'));
-app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCodeComponent'));
-app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
+app.service('DateService', require('./services/DateService'));
 app.service('OrganizationService', require('./services/OrganizationService'));
 app.service('TransactionService', require('./services/TransactionService'));
+app.service('VoucherService', require('./services/VoucherService'));
 app.service('FundService', require('./services/FundService'));
 app.service('CredentialsService', require('./services/CredentialsService'));
 app.service('FormBuilderService', require('./services/FormBuilderService'));

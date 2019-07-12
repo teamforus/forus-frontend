@@ -417,6 +417,26 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     /**
+     * Vouchers
+     */
+    $stateProvider.state({
+        name: "vouchers",
+        url: "/organizations/{organization_id}/vouchers",
+        component: "vouchersComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
+            funds: function(permission, $transition$, FundService) {
+                return repackResponse(
+                    FundService.list(
+                        $transition$.params().organization_id
+                    )
+                );
+            },
+        }
+    });
+
+    /**
      * Transactions
      */
     $stateProvider.state({
