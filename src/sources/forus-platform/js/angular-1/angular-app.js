@@ -150,6 +150,7 @@ app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('file_size', require('./filters/FileSizeFilter'));
 app.filter('hasPerm', require('./filters/HasPerm'));
 app.filter('i18n', require('./filters/I18nFilter'));
+app.filter('str_limit', require('./filters/StrLimitFilter'));
 
 // Config
 app.config(require('./routers/modals'));

@@ -80,7 +80,7 @@
                                 td(ng-bind="voucher.created_at_locale")
                                 td(ng-bind="voucher.expire_at_locale")
                                 td(ng-bind="voucher.fund.name")
-                                td(ng-bind="voucher.note || '-'")
+                                td(ng-bind="(voucher.note || '-') | str_limit:64" title="{{ voucher.note }}")
                                 td(ng-if="voucher.is_granted")
                                     .td-boolean
                                         em.mdi.mdi-check-circle
