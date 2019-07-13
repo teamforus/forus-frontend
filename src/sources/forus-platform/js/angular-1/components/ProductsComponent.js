@@ -20,7 +20,7 @@ let ProductsComponent = function(
             ModalService.open('modalNotification', {
                 type: 'danger',
                 title: $filter('translate')('product_edit.errors.already_added'),
-                icon: 'product_error_create_more'
+                icon: 'product-error'
             });
         }else{
             $state.go('products-create', {

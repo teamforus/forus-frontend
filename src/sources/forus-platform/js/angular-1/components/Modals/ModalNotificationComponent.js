@@ -1,5 +1,4 @@
 let ModalNotificationComponent = function(
-    $sce,
     $filter
 ) {
     let $ctrl = this;
@@ -18,10 +17,12 @@ let ModalNotificationComponent = function(
 
         $ctrl.class = 'modal-notification-' + type + ' ' + additionalClass;
 
-        $ctrl.title = $sce.trustAsHtml($ctrl.modal.scope.title);
-        $ctrl.description = $ctrl.modal.scope.description ? $sce.trustAsHtml($ctrl.modal.scope.description) : null;
-        $ctrl.subdescription = $ctrl.modal.scope.subdescription ? $sce.trustAsHtml($ctrl.modal.scope.subdescription) : null;
+        $ctrl.title = $ctrl.modal.scope.title;
+        $ctrl.description = $ctrl.modal.scope.description;
+        $ctrl.subdescription = $ctrl.modal.scope.subdescription;
+
         $ctrl.icon = $ctrl.modal.scope.icon ? getIcon($ctrl.modal.scope.icon) : null;
+        
         $ctrl.confirmBtnText = $ctrl.modal.scope.confirmBtnText ? $ctrl.modal.scope.confirmBtnText : $ctrl.confirmBtnText;
         $ctrl.closeBtnText = $ctrl.modal.scope.closeBtnText ? $ctrl.modal.scope.closeBtnText : $ctrl.closeBtnText;
         $ctrl.cancelBtnText = $ctrl.modal.scope.cancelBtnText ? $ctrl.modal.scope.cancelBtnText : $ctrl.cancelBtnText;
@@ -47,24 +48,7 @@ let ModalNotificationComponent = function(
     };
 
     let getIcon = (icon) => {
-
-        switch (icon){
-            case 'product_error_create_more': {
-                return './assets/img/modal/product-error.png';
-            }; break;
-            case 'product_create': {
-                return './assets/img/modal/product-create.png';
-            }; break;
-            case 'fund_applied': {
-                return './assets/img/modal/fund_applied.png';
-            }; break;
-            case 'email_confirmation': {
-                return './assets/img/modal/email.png';
-            }; break;
-            default:{
-                return './assets/img/modal/product-error.png';
-            }
-        }
+        return './assets/img/modal/' + icon + '.png';
     };
 
     $ctrl.cancel = () => {
@@ -92,7 +76,6 @@ module.exports = {
         modal: '='
     },
     controller: [
-        '$sce',
         '$filter',
         ModalNotificationComponent
     ],
