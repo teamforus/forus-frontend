@@ -1,8 +1,6 @@
 let ProductComponent = function (
-    $rootScope,
     $scope,
     $state,
-    $filter,
     $sce,
     appConfigs,
     ModalService,
@@ -72,10 +70,8 @@ module.exports = {
         vouchers: '<',
     },
     controller: [
-        '$rootScope',
         '$scope',
         '$state',
-        '$filter',
         '$sce',
         'appConfigs',
         'ModalService',
