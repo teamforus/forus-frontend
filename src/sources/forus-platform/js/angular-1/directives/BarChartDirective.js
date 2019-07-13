@@ -1,6 +1,6 @@
 let BarChartDirective = function($scope, $element) {
+    var BarChart=null;
     var timeFormat = 'MM/DD/YYYY';
-
     $scope.$watch('data', function(data) {
         drawChart(data ? data : []);
     });
@@ -18,9 +18,10 @@ let BarChartDirective = function($scope, $element) {
                 y: value.value,
             });
         });
-
-
-        new Chart($element, {
+        if(BarChart!=null){
+            BarChart.destroy();
+        }
+        BarChart = new Chart($element, {
             type: 'bar',
             data: {
                 labels: labels,
