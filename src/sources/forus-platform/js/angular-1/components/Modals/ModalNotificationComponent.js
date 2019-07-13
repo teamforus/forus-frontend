@@ -1,5 +1,4 @@
 let ModalNotificationComponent = function(
-    $sce,
     $filter
 ) {
     let $ctrl = this;
@@ -18,10 +17,12 @@ let ModalNotificationComponent = function(
 
         $ctrl.class = 'modal-notification-' + type + ' ' + additionalClass;
 
-        $ctrl.title = $sce.trustAsHtml($ctrl.modal.scope.title);
-        $ctrl.description = $ctrl.modal.scope.description ? $sce.trustAsHtml($ctrl.modal.scope.description) : null;
-        $ctrl.subdescription = $ctrl.modal.scope.subdescription ? $sce.trustAsHtml($ctrl.modal.scope.subdescription) : null;
+        $ctrl.title = $ctrl.modal.scope.title;
+        $ctrl.description = $ctrl.modal.scope.description;
+        $ctrl.subdescription = $ctrl.modal.scope.subdescription;
+
         $ctrl.icon = $ctrl.modal.scope.icon ? getIcon($ctrl.modal.scope.icon) : null;
+        
         $ctrl.confirmBtnText = $ctrl.modal.scope.confirmBtnText ? $ctrl.modal.scope.confirmBtnText : $ctrl.confirmBtnText;
         $ctrl.closeBtnText = $ctrl.modal.scope.closeBtnText ? $ctrl.modal.scope.closeBtnText : $ctrl.closeBtnText;
         $ctrl.cancelBtnText = $ctrl.modal.scope.cancelBtnText ? $ctrl.modal.scope.cancelBtnText : $ctrl.cancelBtnText;
@@ -75,7 +76,6 @@ module.exports = {
         modal: '='
     },
     controller: [
-        '$sce',
         '$filter',
         ModalNotificationComponent
     ],

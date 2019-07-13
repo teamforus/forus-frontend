@@ -18,8 +18,8 @@ let ModalNotificationComponent = function(
         $ctrl.class = 'modal-notification-' + type + ' ' + additionalClass;
 
         $ctrl.title = $ctrl.modal.scope.title;
-        $ctrl.description = $ctrl.modal.scope.description ? $ctrl.modal.scope.description : null;
-        $ctrl.subdescription = $ctrl.modal.scope.subdescription ? $ctrl.modal.scope.subdescription : null;
+        $ctrl.description = $ctrl.modal.scope.description;
+        $ctrl.subdescription = $ctrl.modal.scope.subdescription;
 
         $ctrl.icon = $ctrl.modal.scope.icon ? getIcon($ctrl.modal.scope.icon) : null;
 
