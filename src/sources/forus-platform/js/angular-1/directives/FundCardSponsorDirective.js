@@ -44,7 +44,7 @@ let FundCardDirective = function(
         ModalService.open('modalNotification', {
             type: 'confirm',
             title: $filter('i18n')('fund_card_sponsor.confirm_delete.title'),
-            icon: 'product_error_create_more',
+            icon: 'product-error',
             description: $filter('i18n')('fund_card_sponsor.confirm_delete.description'),
             confirm: () => {
                 FundService.destroy(

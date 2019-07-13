@@ -1,0 +1,15 @@
+.modal
+    .modal-backdrop(ng-click="$ctrl.cancel()")
+    .modal-content.modal-notification.modal-notification-confirm
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()")
+        .modal-section
+            .text-center
+                .modal-icon
+                    img(ng-src="./assets/img/modal/voucher-apply.png")
+                .description(i18n="product_apply.popup.title" i18n-vars="{product_name: $ctrl.modal.scope.product.name,expire_at: $ctrl.modal.scope.expire_at,product_price: $ctrl.modal.scope.product.price}")
+                .text-center(ng-if="$ctrl.subdescription")
+                    .subdescription(i18n="product_apply.popup.expiration_information" i18n-vars="{ expire_at: $ctrl.modal.scope.expire_at }")
+
+        .modal-footer.text-center.no-border
+            button.button.button-dark(ng-click="$ctrl.cancel()" i18n="modal.buttons.cancel")
+            button.button.button-primary(ng-click="$ctrl.confirm()" i18n="modal.buttons.confirm")
