@@ -26,7 +26,7 @@ let fetchLibAsset = (libs, key) => {
 };
 
 let concatFiles = (paths) => {
-    return paths.map(path => fs.readFileSync(path).toString()).join('');
+    return paths.map(path => fs.readFileSync(path).toString()).join("\n");
 };
 
 let buildLibsBundle = (requiredLibs) => {

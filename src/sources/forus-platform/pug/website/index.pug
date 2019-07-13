@@ -1,0 +1,10 @@
+doctype
+html(lang="en")
+    include ../tpl/directives/website/head
+    body(ng-cloak ng-controller="BaseController" modal-scroll-braker)
+        include ../tpl/directives/website/header
+        //-include ../../pug/website/layout
+        ui-view
+        include ../tpl/directives/website/footer
+        include ../layout/includes/modalContact
+        include ../layout/includes/scripts

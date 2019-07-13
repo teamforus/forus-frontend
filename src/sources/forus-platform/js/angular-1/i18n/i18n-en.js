@@ -90,16 +90,19 @@ module.exports = {
         guide: {
             title: "Word onderdeel van een innovatieve beweging",
             title_nijmegen: "Als uw organisatie een passend aanbod heeft, kunt u zich opgeven.",
+            title_westerkwartier: "Als uw organisatie een passend aanbod heeft, kunt u zich opgeven.",
             description: "Doe mee aan ons platform door onderstaande stappen te volgen, maak een organisatie aan, verkoop jouw producten of diensten en trek nieuwe klanten aan.",
             description_nijmegen: "Uw organisatie is in het bezit van een smartphone, deze heeft u nodig om een mobiele applicatie te installeren die QR-codes kan scannen. Heeft u deze smartphone bij de hand? Regel het dan direct!",
+            description_westerkwartier: "Uw organisatie is in het bezit van een smartphone, deze heeft u nodig om een mobiele applicatie te installeren die QR-codes kan scannen. Heeft u deze smartphone bij de hand? Regel het dan direct!",
             button: "Start uw reis!",
             button_nijmegen: "DIRECT REGELEN",
+            button_westerkwartier: "Direct regelen",
         }
     },
     // SPONSOR HOME = home-sponsor.pug
     home_sponsor: {
         header: {
-            title: "Meld u aan als gemeente en maak een regeling aan.",
+            title: "",
             description: "Een platform om gemeentelijke regelingen doelmatig, rechtmatig en efficient uit te geven aan inwoners.",
         },
         subject: {
@@ -141,7 +144,7 @@ module.exports = {
             spend: "Startbudget",
             used: "Totaal uitgegeven bedrag in %",
             usage: "uitgegeven",
-            payed: "Uitgegeven in",
+            payed: "Uitgegeven bij",
             shops: "Aanbieders",
             activation: "Aantal geactiveerd",
             citizen: "Nieuwe inwoners",
@@ -902,11 +905,12 @@ module.exports = {
     popup_auth: {
         header: {
             title: "Inloggen op het dashboard",
-            subtitle: "Scan de QR-code met de Me-app of log in met uw e-mail adres",
+            subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
         },
         notifications: {
             confirmation: "Het is gelukt!",
-            link: "Er is een link naar je e-mail adres gestuurd",
+            link: "Er is een link naar je e-mailadres gestuurd.",
+            link_website: "Er is een e-mail naar uw inbox gestuurd. In de e-mail vindt u een link dat u inlogd in op deze website.",
             invalid: "De activatiecode is ongeldig of al gebruikt",
             voucher_email: "Het is gelukt, de e-mail is verstuurd",
         },
@@ -916,10 +920,12 @@ module.exports = {
             submit: "VERSTUREN",
             cancel: "ANNULEREN",
             confirm: "VOLGENDE",
+            close: "SLUITEN",
         },
         labels: {
-            timelimit: "U kunt tot 14:55 uur (Nederlandse tijd) inloggen. Daarna verloopt uw sessie.",
+            timelimit: "De link verloopt in 24 uur, gebruik de link dus binnenkort.",
             join: "Aanmelden",
+            mail_sent: "Een e-mail is onderweg!",
             scancode: "Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent",
             mobilecode: "Vul de toegangscode van de Me-app in",
             mail: "Dit scherm is alleen bedoeld voor inwoners die een brief van de gemeente hebben ontvangen met daarin een activatiecode en deze nog niet hebben gebruikt.",
@@ -936,7 +942,7 @@ module.exports = {
         pin_code: {
             confirmation: {
                 title: "Is de mobiele app gekoppeld aan uw persoonlijk e-mailadres?",
-                description: "Ga naar het tabblad Profiel in de app. Ziet u hier uw e-mailadres staan? Dan is de app succesvol gekoppeld. Als u de keuze voor Profiel niet hebt, probeer het dan nog is.",
+                description: "Ga naar het tabblad Profiel in de app. Ziet u hier uw e-mailadres staan? Dan is de app succesvol gekoppeld. Als u het tabblad Profiel niet ziet staan, probeer het dan nog opnieuw.",
                 buttons: {
                     try_again: "Opnieuw proberen",
                     confirm: "Volgende"
@@ -975,5 +981,22 @@ module.exports = {
         }
     },
   
-    search: "Zoeken"
+    search: "Zoeken",
+
+    open_in_me: {
+        app_header: {
+            title: 'Vul de code in op het invoerveld',
+            subtitle: 'De code is te vinden in de mobiele applicatie, volg de bovenstaande stappen op om de code te kunnen aflezen.'
+        },
+        app_instruction: {
+            step_1: 'Open <i>Me</i>',
+            step_2: 'Ik heb al een profiel',
+            step_3: 'Inloggen met Autorisatie code',
+        },
+        authorize: {
+            close: 'Annuleren',
+            submit: 'Autoriseer apparaat',
+        }
+    },
 }
+

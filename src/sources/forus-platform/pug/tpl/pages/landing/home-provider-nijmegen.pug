@@ -1,25 +1,25 @@
 .header-splash: .splash
 
-header.section.section-header: .wrapper
+header.section.section-header
     landing-navbar
-    
-    .header-body
-        .header-content
-            .header-title {{ "home_provider.header.title_nijmegen" | translate }}
-            .header-description {{ "home_provider.header.subtitle_nijmegen" | translate }}
-        //- .header-sprite(
-            style="background-image: url('./assets/img/landing/vouchers-sprite.svg')")
-        .block.block-cards
-            .card-item: .card-item-inner
-                .card-icon: img(src="./assets/img/landing/icon-cards/icon-card-money.png")
-                .card-content
-                    .card-title Uitgifte
-                    .card-description De uitgifte van de Meedoen-regeling gaat via een webshop, de inwoners krijgen een waardebon in de vorm van een QR-Code. De inwoner komt met deze QR-Code naar uw organisatie om in aanmerking te komen voor het aanbod wat u levert.
-            .card-item: .card-item-inner
-                .card-icon: img(src="./assets/img/landing/icon-cards/icon-card-wallet.png")
-                .card-content
-                    .card-title Doe mee
-                    .card-description Deelnemers van de Meedoen-regeling kunnen dan bij uw organisatie bijvoorbeeld komen sporten of een cursus volgen. De kosten voor de deelnemers worden uitbetaald door de gemeente.
+    .wrapper
+        .header-body
+            .header-content
+                .header-title {{ "home_provider.header.title_nijmegen" | translate }}
+                .header-description {{ "home_provider.header.subtitle_nijmegen" | translate }}
+            //- .header-sprite(
+                style="background-image: url('./assets/img/landing/vouchers-sprite.svg')")
+            .block.block-cards
+                .card-item: .card-item-inner
+                    .card-icon: img(src="./assets/img/landing/icon-cards/icon-card-money.png")
+                    .card-content
+                        .card-title Uitgifte
+                        .card-description De uitgifte van de Meedoen-regeling gaat via een webshop, de inwoners krijgen een waardebon in de vorm van een QR-Code. De inwoner komt met deze QR-Code naar uw organisatie om in aanmerking te komen voor het aanbod wat u levert.
+                .card-item: .card-item-inner
+                    .card-icon: img(src="./assets/img/landing/icon-cards/icon-card-wallet.png")
+                    .card-content
+                        .card-title Doe mee
+                        .card-description Deelnemers van de Meedoen-regeling kunnen dan bij uw organisatie bijvoorbeeld komen sporten of een cursus volgen. De kosten voor de deelnemers worden uitbetaald door de gemeente.
 
 
 section.section.section-flow: .wrapper

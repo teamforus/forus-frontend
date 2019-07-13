@@ -32,6 +32,9 @@
         .voucher-overview-item
             .voucher-overview-label(i18n="vouchers.labels.generated")
             .voucher-overview-value(ng-bind="voucherCard.created_at_locale")
-        .voucher-overview-item
+        .voucher-overview-item(ng-if="voucherCard.transactions.length == 0")
             .voucher-overview-label(i18n="vouchers.labels.expire")
             .voucher-overview-value(ng-bind="voucherCard.expire_at_locale")
+        .voucher-overview-item(ng-if="voucherCard.transactions.length == 1")
+            .voucher-overview-label Gebruikt op
+            .voucher-overview-value(ng-bind="voucherCard.transactions[0].created_at_locale")

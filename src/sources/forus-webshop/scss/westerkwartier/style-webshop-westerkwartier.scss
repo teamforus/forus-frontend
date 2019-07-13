@@ -4,47 +4,54 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700');
 .button {
     &.button-default {
-        background-color: $color_default;
-        border-color: $color_default;
-        color: #fff;
+        background-color: $lb;
+        border: $color_primary_light;
+        color: #666;
+        box-shadow: 0 10px 15px -6px #969696;
 
         .mdi {
-            color: #fff;
+            color: #666;
         }
 
         &:hover {
-            background-color: $color_default_light;
+            background-color: $color_default;
             border-color: $color_default_light;
+            color: #666;
+
+            .mdi {
+                color: #666;
+            }
         }
     }
     &.button-primary {
-        color: #fff;
+        color: #666;
         background: $color_primary;
-        border: 1px solid $color_primary;
-        box-shadow: 0 10px 25px rgba(#000, .15);
+        border: $color_primary;
+        box-shadow: 0 10px 15px -6px #969696;
+        text-shadow: none;
 
         &:hover {
-            color: #fff;
-            background: $color_primary_light;
-            background-color: $color_primary_light;
+            color: #666;
+            background: $color_default;
+            background-color: $color_default_light;
         }
     }
 }
 
 .header-splash {
-    height: 20.5vw;
+    height: 30vw;
     overflow:auto;
-    display: table;
+    display: block;
     .splash,
     .splash.splash-d {
         background-image: url(../img/splash-top-b.png);
-        display: table-row;
+        display: block;
         background-size: cover;
-        height: 26.5vw;
+        height: 30vw;
         background-position: 50% 50%;
         &.splash-d{
             background-position: 50% 65%;
-            height: 20.5vw;
+            height: 30vw;
         }
 
     
@@ -56,7 +63,7 @@
             height: 0;
             border-style: solid;
             border-width: 0 0 12vmax 12vmax;
-            border-color: transparent transparent #acb862 transparent;
+            border-color: transparent transparent #b9cb18 transparent;
             -webkit-transform:rotate(360deg);
             content: " ";
         }
@@ -105,11 +112,10 @@
         position: relative;
         display: block;
         .header-content {
-            padding-top: 3.4vw;
-            padding-bottom: 5.1vw;
-            padding-left: 1vw;
             color: #fff;
-
+            min-height: auto;
+            padding: 90px 0;
+            text-shadow: 1px 1px 4px #000000;
             .header-title {
                 font: 700 2vw $bf;
             }
@@ -152,7 +158,7 @@
     }
     
     &.section-footer {
-        background: #4e4d40;
+        background-color: $fd;
         position: relative;
 
         &:before,
@@ -172,7 +178,7 @@
             height: 0;
             border-style: solid;
             border-width: 12vw 0 0 12vw;
-            border-color: transparent transparent transparent #acb862;
+            border-color: transparent transparent transparent #b9cb18;
             -webkit-transform:rotate(360deg);
         }
 
@@ -184,7 +190,7 @@
             height: 0;
             border-style: solid;
             border-width: 0 0 12vw 12vw;
-            border-color: transparent transparent #72bdea transparent;
+            border-color: transparent transparent #72BDEA transparent;
             -webkit-transform:rotate(360deg);
         }
     }
@@ -213,7 +219,7 @@
             .header-content {
                 padding: 50px 25px 0;
                 color: $tc;
-
+                text-shadow: none;
                 .header-title {
                     font-size: 24px;
                     line-height: 38px;
@@ -241,7 +247,10 @@
     &.block-navbar {
         width: 100%;
         padding: 0 40px;
-
+        .navbar-inner {
+            width: 80%;
+            border-radius: 6px;
+        }
         .navbar-logo {
             padding: 17.5px 45px;
 
@@ -251,7 +260,7 @@
         }
 
         .navbar-list {
-            text-align: center;
+            text-align: left;
             
             .navbar-item-wrapper {
                 .navbar-item {
@@ -340,7 +349,7 @@
     &.block-voucher {
         .base-card {
             border-radius: 8px;
-
+            margin-bottom: 70px;
             .card-footer {
                 background-color: #f6f8fa;
                 border-top-color: #d2e6ff;
@@ -351,6 +360,11 @@
     &.block-products {
         .product-item {
             .product-item-inner {
+                border-top-right-radius: 10px;
+                border-top-left-radius: 10px;            
+                .product-name {
+                    color:#8b9911
+                }
                 &:hover {
                     .product-name {
                         color: #91b845;
@@ -359,7 +373,7 @@
             }
 
             .product-discount {
-                color: #6c2a71;
+                color: #4990b5;
             }
         }
     }
@@ -508,7 +522,6 @@
     @media screen and (max-width: 1700px) {
         &.block.block-navbar .navbar-logo {
             padding: 15px 30px;
-            
             img {
                 margin: -5px 0;
                 height: 50px;
@@ -517,11 +530,17 @@
     }
 
     @media screen and (max-width: 1000px) {
-        &.block.block-navbar .navbar-logo {
-            padding: 15px 15px;
-            
-            img {
-                height: 40px;
+        &.block-navbar  {
+            padding: 0;
+            .navbar-inner {
+                width: 100%;
+            }
+            .navbar-logo {
+                padding: 15px 15px;
+
+                img {
+                    height: 40px !important;
+                }
             }
         }
 
@@ -532,6 +551,30 @@
                 &.active {
                     color: $tc;
                 }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .wrapper {
+        width: 1100px;
+        padding: 0 25px;
+    }
+    .block {
+        &.block-navbar {
+            .navbar-inner {
+                width: 1100px;
+            }
+        }
+    }
+    .header-splash {
+        .splash {
+            height: 650px;
+            background-size: auto 80%;
+
+            &.splash-c {
+                height: 700px;
             }
         }
     }

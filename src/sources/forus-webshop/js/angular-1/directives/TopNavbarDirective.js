@@ -4,11 +4,11 @@ let TopNavbarDirective = function(
     ModalService,
     ConfigService
 ) {
+    $scope.mobileMenu = false;
+    
     $scope.openAuthPopup = function () {
         ModalService.open('modalAuth', {});
     };
-
-    $scope.mobileMenu = false;
 
     $scope.openPinCodePopup = function () {
         ModalService.open('modalPinCode', {});

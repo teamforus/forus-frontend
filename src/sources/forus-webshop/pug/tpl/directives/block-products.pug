@@ -18,10 +18,12 @@ section.section.section-products#products: .wrapper
     .block.block-products(ng-if="products.data.length > 0")
         .product-item(ng-repeat="product in products.data" ng-class="{discounted:product.old_price}")
             a(ui-sref="products-show(product)").product-item-inner
-                .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}');")
+                .product-image
                     img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
                 .product-details
-                    .product-name(ng-bind="product.name")
+                    .product-organization
+                        span(ng-bind="product.organization.name")
+                    .product-name.truncated(ng-bind="product.name")
                     .product-discount
                         | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}%
                         br

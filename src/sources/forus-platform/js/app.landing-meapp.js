@@ -1,1 +1,0 @@
-require("./angular-1/angular-app-landing-meapp");

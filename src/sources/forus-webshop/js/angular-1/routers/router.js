@@ -19,36 +19,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
-        name: "forus-platform",
-        url: "/platform",
-        component: "platformComponent",
-        params: {
-            confirmed: null
-        }
-    });
-
-    $stateProvider.state({
         name: "me-app",
-        url: "/me-app",
+        url: "/me",
         component: "meComponent",
-        params: {
-            confirmed: null
-        }
-    });
-
-    $stateProvider.state({
-        name: "portfolio",
-        url: "/portfolio",
-        component: "portfolioComponent",
-        params: {
-            confirmed: null
-        }
-    });
-
-    $stateProvider.state({
-        name: "kindpakket",
-        url: "/kindpakket",
-        component: "kindpakketComponent",
         params: {
             confirmed: null
         }

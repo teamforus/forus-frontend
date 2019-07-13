@@ -1,5 +1,6 @@
 let VoucherComponent = function(
     $filter,
+    $state,
     $element,
     VoucherService,
     ModalService
@@ -24,16 +25,35 @@ let VoucherComponent = function(
 
         $ctrl.voucherCard = VoucherService.composeCardData($ctrl.voucher);
 
+        $ctrl.deleteVoucher = function(voucher) {
+
+            ModalService.open('modalNotification', {
+                type: 'confirm',
+                title: 'Annuleer reservering',
+                icon: 'voucher_apply',
+                description: $filter('translate')('voucher.delete_voucher.popup_form.description'),
+                confirmBtnText: $filter('translate')('voucher.delete_voucher.buttons.submit'),
+                cancelBtnText: $filter('translate')('voucher.delete_voucher.buttons.close'),
+                confirm: () => {
+                    VoucherService.destroy(
+                        voucher.address
+                    ).then(function(res) {
+                        $state.go('vouchers')
+                    })
+                }
+            })
+        }
+
         $ctrl.printQrCode = () => {
-            let html = angular.element('html');
             let body = angular.element('body');
+            let bodyElements = angular.element('body>*');
             let printContents = $element.find('.card-qr_code-element').first().clone();
             
             printContents.addClass('printable-qr_code');
-            body.css('display', 'none');
-            html.append(printContents);
+            bodyElements.css('display', 'none');
+            body.append(printContents);
             window.print();
-            body.css('display', '');
+            bodyElements.css('display', '');
             printContents.remove();
         }
 
@@ -74,6 +94,7 @@ module.exports = {
     },
     controller: [
         '$filter',
+        '$state',
         '$element',
         'VoucherService',
         'ModalService',

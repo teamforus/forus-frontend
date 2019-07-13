@@ -21,20 +21,21 @@ app.component('productsEditComponent', require('./components/ProductsEditCompone
 app.component('productsShowComponent', require('./components/ProductsShowComponent'));
 app.component('organizationProvidersComponent', require('./components/OrganizationProvidersComponent'));
 app.component('organizationEmployeesComponent', require('./components/OrganizationEmployeesComponent'));
-app.component('csvValidationComonent', require('./components/CsvValidationComonent'));
-app.component('validationRequestsComonent', require('./components/ValidationRequestsComonent'));
-app.component('validationRequestComonent', require('./components/ValidationRequestComonent'));
+app.component('csvValidationComponent', require('./components/CsvValidationComponent'));
+app.component('validationRequestsComponent', require('./components/ValidationRequestsComponent'));
+app.component('validationRequestComponent', require('./components/ValidationRequestComponent'));
 app.component('signUpComponent', require('./components/SignUpComponent'));
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
 app.component('transactionComponent', require('./components/TransactionComponent'));
 
-app.component('noPermissionComponent', require('./components/NoPermissionComonent'));
+app.component('noPermissionComponent', require('./components/NoPermissionComponent'));
 
 // Modal Components
 app.component('modalPhotoUploaderComponent', require('./components/Modals/ModalPhotoUploaderComponent'));
 app.component('modalFundTopUpComponent', require('./components/Modals/ModalFundTopUpComponent'));
 app.component('modalEmployeeEditComponent', require('./components/Modals/ModalEmployeeEditComponent'));
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
+app.component('modalMarkdownCustomLinkComponent', require('./components/Modals/ModalMarkdownCustomLinkComponent'));
 app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCodeComponent'));
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
 
@@ -101,13 +102,14 @@ app.directive('progressBar', require('./directives/ProgressBarDirective'));
 app.directive('prevalidatedTable', require('./directives/PrevalidatedTableDirective'));
 app.directive('photoSelector', require('./directives/PhotoSelectorDirective'));
 app.directive('radialChart', require('./directives/RadialChartDirective'));
-app.directive('linearChart', require('./directives/LinearChartDirective'));
+app.directive('barChart', require('./directives/BarChartDirective'));
 app.directive('collapse', require('./directives/CollpaseDirective'));
 app.directive('landingNavbar', require('./directives/landing/NavbarDirective'));
 app.directive('landingContactForm', require('./directives/landing/ContactFormDirective'));
 app.directive('landingAppFooter', require('./directives/landing/LandingAppFooterDirective'));
 app.directive('forusChat', require('./directives/ForusChatDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
+app.directive('numberControl', require('./directives/NumberControlDirective'));
 app.directive('productCategoriesControl', require('./directives/ProductCategoriesControlDirective'));
 app.directive('officeEditInline', require('./directives/OfficeEditInlineDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
@@ -116,6 +118,7 @@ app.directive('menuScrollToggle', require('./directives/landing/MenuScrollToggle
 app.directive('phoneControl', require('./directives/PhoneControlDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));
+app.directive('markdown', require('./directives/MarkdownDirective'));
 app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
 app.directive('formLabelToggle', require('./directives/FormLabelToggleDirective'));
 app.directive('clickOutside', require('./directives/ClickOutsideDirective'));

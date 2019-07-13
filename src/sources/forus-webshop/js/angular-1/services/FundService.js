@@ -31,6 +31,11 @@ let FundService = function(
                 uriPrefix + organization_id + '/funds/' + id
             );
         }
+        this.read_fundid = function(prevalidation) {
+            return ApiRequest.get(
+                '/platform/prevalidations/' + prevalidation + '/fund'
+            );
+        }
 
         this.apply = function(id) {
             return ApiRequest.post(
@@ -48,6 +53,16 @@ let FundService = function(
                             resolve(res);
                         }, reject);
                     }
+                }, reject);
+            });
+        };
+
+        this.applyToFundPrevalidationCode = (prevalidation) => {
+            return $q((resolve, reject) => {
+                this.read_fundid(prevalidation).then((res) => {
+                    this.apply(res.data.data.fund_id).then(function(res) {
+                        resolve(res);
+                    }, reject);
                 }, reject);
             });
         };

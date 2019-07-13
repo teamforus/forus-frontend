@@ -41,11 +41,11 @@ section.section.section-product: .wrapper
 
                 .button.button-primary(
                     ng-if="$ctrl.isApplicable && !$ctrl.product.deleted"
-                    ng-click="$ctrl.applyProduct()") KOOP
+                    ng-click="$ctrl.applyProduct()") RESERVEER
                 
                 .button.button-primary(
                     ng-if="!$root.auth_user" 
-                    ng-click="openAuthPopup()") LOG IN OM TE KOPEN
+                    ng-click="openAuthPopup()") LOG IN OM TE RESERVEREN
 
         .block.block-info-card
             .block-header(i18n="voucher.labels.shopdetail")
@@ -57,12 +57,12 @@ section.section.section-product: .wrapper
                     .info-office-description
                         div(ng-if="office.address" ng-bind="office.address")
                         div(ng-if="$root.auth_user" ng-bind="office.phone || ' '")
-
+                    .sub-description(i18n="voucher.labels.offers")
 
         .block.block-info-card
             .block-header(i18n="voucher.labels.productdetail")
-            .block-content
-                p(ng-bind="$ctrl.product.description")
+            .block-content: .block.block-markdown
+                div(ng-bind-html="$ctrl.product.description_html")
         
         .block.block-map_card
             .map_card-header
@@ -70,4 +70,5 @@ section.section.section-product: .wrapper
                 .map_card-subtitle 
 
             .map_card-iframe: google-map(offices="$ctrl.product.offices")
+
 contact-form 
