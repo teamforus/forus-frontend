@@ -12,8 +12,6 @@ let ModalAuthComponent = function(
 ) {
     let $ctrl = this;
 
-    let qrCodeEl;
-    let qrCode;
     let timeout;
 
     let $redirectAuthorizedState = 'organizations';
@@ -22,6 +20,7 @@ let ModalAuthComponent = function(
         $redirectAuthorizedState = 'csv-validation';
     }
 
+    $ctrl.qrValue = null;
     $ctrl.showChoose = true;
     $ctrl.showQrCodeBlock = false;
     $ctrl.showEmailBlock = false;
@@ -31,11 +30,6 @@ let ModalAuthComponent = function(
     }
 
     $ctrl.$onInit = () => {
-        qrCodeEl = document.getElementById('auth_qrcode');
-        qrCode = new QRCode(qrCodeEl, {
-            correctLevel: QRCode.CorrectLevel.L
-        });
-
         $(document).bind('keydown', (e) => {
             $timeout(function() {
                 var key = e.charCode || e.keyCode || 0;
@@ -78,15 +72,7 @@ let ModalAuthComponent = function(
     $ctrl.requestAuthQrToken = () => {
         IdentityService.makeAuthToken().then((res) => {
             $ctrl.authToken = res.data.auth_token;
-
-            qrCode.makeCode(
-                JSON.stringify({
-                    type: 'auth_token',
-                    'value': $ctrl.authToken
-                })
-            );
-
-            qrCodeEl.removeAttribute('title');
+            $ctrl.qrValue = $ctrl.authToken;
 
             $ctrl.checkAccessTokenStatus('token', res.data.access_token);
         }, console.log);
@@ -130,7 +116,6 @@ let ModalAuthComponent = function(
 
     $ctrl.$onDestroy = function() {
         $timeout.cancel(timeout);
-        qrCodeEl.innerHTML = '';
     };
 };
 

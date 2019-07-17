@@ -52,6 +52,7 @@ app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
 app.directive('phoneControl', require('./directives/PhoneControlDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
+app.directive('qrCode', require('./directives/QrCodeDirective'));
 
 app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
 app.directive('modalItem', require('./directives/modals/ModalItemDirective'));

@@ -24,12 +24,6 @@ let ModalAuth2Component = function(
     }
 
     $ctrl.$onInit = () => {
-        qrCodeEl = document.getElementById('auth_qrcode');
-        
-        qrCode = new QRCode(qrCodeEl, {
-            correctLevel: QRCode.CorrectLevel.L
-        });
-
         $(document).bind('keydown', (e) => {
             $timeout(function() {
                 var key = e.charCode || e.keyCode || 0;

@@ -1,6 +1,6 @@
 let ModalVoucherQrCodeComponent = function(
-    $element,
     FormBuilderService,
+    PrintableService,
     VoucherService
 ) {
     let $ctrl = this;
@@ -22,7 +22,7 @@ let ModalVoucherQrCodeComponent = function(
 
     $ctrl.sendToEmail = (email) => {
         return VoucherService.sendToEmail(
-            $ctrl.organziation.id,
+            $ctrl.organization.id,
             $ctrl.voucher.id,
             email
         );
@@ -30,45 +30,26 @@ let ModalVoucherQrCodeComponent = function(
 
     $ctrl.assignToIdentity = (email) => {
         return VoucherService.assign(
-            $ctrl.organziation.id,
+            $ctrl.organization.id,
             $ctrl.voucher.id,
             email
         );
     };
 
     $ctrl.printQrCode = () => {
-        let body = angular.element('body');
-        let bodyElements = angular.element('body>*');
-        let printContents = $element.find('.qr_code').first().clone();
-
-        printContents.addClass('printable-qr_code');
-        bodyElements.css('display', 'none');
-        body.append(printContents);
-        window.print();
-        bodyElements.css('display', '');
-        printContents.remove();
+        PrintableService.open('voucherQrCode', {
+            voucher: $ctrl.voucher,
+            organization: $ctrl.organization,
+        });
     }
 
     $ctrl.$onInit = () => {
         $ctrl.voucher = $ctrl.modal.scope.voucher;
-        $ctrl.organziation = $ctrl.modal.scope.organization;
+        $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.onSent = $ctrl.modal.scope.onSent;
         $ctrl.onAssigned = $ctrl.modal.scope.onAssigned;
 
-        let qrCodeEl = $element.find('.qr_code')[0];
-        let qrCode = new QRCode(qrCodeEl, {
-            colorLight: 'transparent', 
-            correctLevel: QRCode.CorrectLevel.L
-        });
-
-        qrCode.makeCode(
-            JSON.stringify({
-                type: 'voucher',
-                value: $ctrl.voucher.address
-            })
-        );
-
-        qrCodeEl.removeAttribute('title');
+        $ctrl.qrCodeValue = $ctrl.voucher.address
 
         $ctrl.form = FormBuilderService.build({}, (form) => {
             form.lock();
@@ -97,8 +78,8 @@ module.exports = {
         modal: '=',
     },
     controller: [
-        '$element',
         'FormBuilderService',
+        'PrintableService',
         'VoucherService',
         ModalVoucherQrCodeComponent
     ],

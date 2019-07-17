@@ -34,8 +34,6 @@ let SignUpComponent = function(
     $ctrl.offices = [];
     $ctrl.sentSms = false;
 
-    let qrCodeEl;
-    let qrCode;
     let has_app = false;
     let orgMediaFile = false;
     let waitingSms = false;
@@ -381,11 +379,6 @@ let SignUpComponent = function(
             $scope.authorizePincodeForm.submit().then((res) => {
                 CredentialsService.set(null);
 
-                qrCodeEl = document.getElementById('platform_auth_qrcode');
-                qrCode = new QRCode(qrCodeEl, {
-                    correctLevel: QRCode.CorrectLevel.L
-                });
-
                 $ctrl.requestAuthQrToken();
                 $ctrl.setStep($ctrl.step + 1);
 
@@ -415,14 +408,6 @@ let SignUpComponent = function(
     };
 
     $ctrl.showLoginQrCode = function() {
-
-        qrCodeEl = document.getElementById('login_auth_qrcode');
-        qrCodeEl.innerHTML = "";
-
-        qrCode = new QRCode(qrCodeEl, {
-            correctLevel: QRCode.CorrectLevel.L
-        });
-
         $ctrl.requestAuthQrToken();
 
         loginQrBlock.show();
@@ -462,15 +447,6 @@ let SignUpComponent = function(
     $ctrl.requestAuthQrToken = () => {
         IdentityService.makeAuthToken().then((res) => {
             $ctrl.authToken = res.data.auth_token;
-
-            qrCode.makeCode(
-                JSON.stringify({
-                    type: 'auth_token',
-                    'value': $ctrl.authToken
-                })
-            );
-
-            qrCodeEl.removeAttribute('title');
 
             $ctrl.checkAccessTokenStatus('token', res.data.access_token);
         }, console.log);
