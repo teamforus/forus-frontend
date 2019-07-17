@@ -14,6 +14,7 @@ let ProductsEditComponent = function(
     let trans = $filter('translate');
 
     $ctrl.media;
+    $ctrl.mediaErrors = [];
 
     $ctrl.$onInit = function() {
         let values = {
@@ -72,7 +73,7 @@ let ProductsEditComponent = function(
 
             let promise;
 
-            if (mediaFile) {
+            if (mediaFile && $ctrl.mediaErrors.length == 0) {
                 try {
                     let res = await MediaService.store('product_photo', mediaFile);
 
@@ -121,6 +122,12 @@ let ProductsEditComponent = function(
 
     $ctrl.selectPhoto = (file) => {
         mediaFile = file;
+
+        if (mediaFile.size > (1024 * 1024 * 2)) {
+            $ctrl.mediaErrors = [trans('product_edit.media_file_to_big')];
+        } else {
+            $ctrl.mediaErrors = [];
+        }
     };
 
     $ctrl.cancel = function() {
