@@ -1,26 +1,26 @@
 module.exports = {
     title: "Voucher QR-Code",
-    title_assign: "Assign voucher to identity",
+    title_assign: "Toekennen aan account",
     labels: {
         sent_to_email: 'Verstuur naar e-mail adres:',
-        assign_to_identity: 'Assign to identity:'
+        assign_to_identity: 'Toekennen aan account:'
     },
     placeholders: {
         email: 'E-mail adres'
     },
-    info_assign: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.",
+    info_assign: "Wanneer toegekend heeft de voucher een nieuwe eigenaar. De nieuwe eigenaar kan de voucher beheren via de webshop. Hierdoor verliest u eigenaarschap en daarmee de functies: via e-mail versturen en QR-code printen.",
     success: {
-        sending_title: "Success",
-        sending_details: "Voucher sent",
-        assigned_title: "Success",
-        assigned_details: "Voucher assigned",
+        sending_title: "Succes",
+        sending_details: "Voucher verstuurd",
+        assigned_title: "Succes",
+        assigned_details: "Voucher toegekend",
     },
     buttons: {
-        close: "Close",
-        cancel: "Cancel",
-        submit: "Aanmaken",
+        close: "Sluiten",
+        cancel: "Annuleren",
+        submit: "Bevestigen",
         print: "Print",
-        send: "Send",
-        assign: "Assign",
+        send: "Versturen",
+        assign: "Toekennen",
     }
 };

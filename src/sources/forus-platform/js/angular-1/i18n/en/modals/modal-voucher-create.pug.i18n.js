@@ -1,14 +1,14 @@
 module.exports = {
-    title: "Voucher toevoegen",
+    title: "Voucher aanmaken",
     labels: {
-        fund: 'Fond',
+        fund: 'Fonds',
         amount: 'Bedrag',
-        note: 'Note',
+        note: 'Notitie',
         expire_at: 'Geldig tot',
     },
-    info: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.",
+    info: "Voucher eenmaal aangemaakt kan niet verwijderd worden. Met een voucher gemaakt via deze functie kan een gebruiker gebruik maken van een budget zonder account zolang niet toegekend.",
     buttons: {
-        cancel: "Cancel",
+        cancel: "Annuleren",
         submit: "Aanmaken",
     }
 };

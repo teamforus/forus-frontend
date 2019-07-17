@@ -6,13 +6,13 @@ module.exports = {
         amount: "Bedrag",
         created_date: "Aangemaakt op",
         expire_date: "Geldig tot",
-        fund: "Fond",
+        fund: "Fonds",
         granted: "Toegekend",
-        note: "Note",
-        search: "Search",
+        note: "Notitie",
+        search: "Zoeken",
         qr_code: "QR-Code"
     },
     buttons: {
-        add_new: "Toevoegen"
+        add_new: "Aanmaken"
     }
 };
