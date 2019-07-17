@@ -22,6 +22,10 @@ aside.app.app-sidebar
             '{organization_id: $root.activeOrganization.id}', 
             '$root.activeOrganization | hasPerm:["manage_funds","view_finances"]:false')
         +nav_item(
+            "Vouchers", "list", 'vouchers', 
+            '{organization_id: $root.activeOrganization.id}',
+            '$root.activeOrganization | hasPerm:["manage_vouchers"]')            
+        +nav_item(
             "Transacties", "transactions", 'transactions', 
             '{organization_id: $root.activeOrganization.id}', 
             '$root.activeOrganization | hasPerm:["view_finances"]')
@@ -40,7 +44,3 @@ aside.app.app-sidebar
         +nav_item(
             "Aanvragers", "file_csv", 'csv-validation', false,
             '$root.activeOrganization | hasPerm:["validate_records"]')
-        +nav_item(
-            "Vouchers", "list", 'vouchers', 
-            '{organization_id: $root.activeOrganization.id}',
-            '$root.activeOrganization | hasPerm:["manage_vouchers"]')

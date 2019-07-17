@@ -20,7 +20,7 @@ module.exports = {
         cancel: "Annuleren",
         submit: "Bevestigen",
         print: "Print",
-        send: "Versturen",
+        send: "Verstuur",
         assign: "Toekennen",
     }
 };
