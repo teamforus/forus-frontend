@@ -35,7 +35,14 @@ module.exports = {
         "validation-request": 'Validatie verzoek',
         "restore-email": 'Inloggen via e-mail',
     },
+    // MODALS
+    modals: {
+        modal_voucher_create: require('./en/modals/modal-voucher-create.pug.i18n'),
+        modal_voucher_qr_code: require('./en/modals/modal-voucher-qr_code.pug.i18n'),
+    },
     // PAGES
+    vouchers: require('./en/pages/vouchers.pug.i18n'),
+    
     // MEAPP LANDINGSPAGE = index.pug
     meapp_index: {
         navbar: {

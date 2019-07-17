@@ -170,5 +170,15 @@ module.exports = (core) => {
         return platform;
     });
 
+    //- Enable only given platforms
+    /* core.enableOnly([
+        'webshop_general'
+    ]); */
+
+    //- Enable all but given platforms
+    /* core.disableOnly([
+        'webshop_general'
+    ]); */
+
     return core;
 };

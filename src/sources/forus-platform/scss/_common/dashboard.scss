@@ -99,6 +99,26 @@ translate,
         }
     }
 
+    &.button-default-dashed {
+        background: transparent;
+        color: #151b26;
+        border: 1px dashed $borderColor;
+        box-shadow: none;
+
+        &>.mdi {
+            color: #646f79;
+        }
+
+        &:hover {
+            background: #f3f4f5;
+            color: #134478;
+
+            &>.mdi {
+                color: inherit;
+            }
+        }
+    }
+
     &.button-dropdown {
         outline: none;
     }
@@ -139,15 +159,15 @@ translate,
         }
     }
 
-
-
     &.button-icon {
+        padding: 6px 15px;
+
         &>.mdi {
             margin: 0 -5px;
         }
     }
 
-    &.button-wide,
+    &.button-fill,
     &.button-wide {
         width: 100%;
     }
@@ -174,6 +194,10 @@ translate,
             top: 0 !important;
         }
     }
+}
+
+.printable-qr_code {
+    display: none;
 }
 
 .arrow-box {
@@ -376,6 +400,22 @@ translate,
                 margin-left: 200px;
                 width: calc(100% - 200px);
                 float: left;
+            }
+
+            &.form-group-inline-sm {
+                & > .form-label {
+                    width: 80px;
+                }
+
+                & > .form-offset,
+                & > .form-control {
+                    width: calc(100% - 80px);
+                }
+
+                & > .form-error {
+                    margin-left: 80px;
+                    width: calc(100% - 80px);
+                }
             }
         }
 
@@ -667,6 +707,18 @@ translate,
                 background: #fff;
                 color: #282b39;
                 font: 500 13px/20px $bf;
+
+                .td-boolean {
+                    color: #646f79;
+                    font: 500 13px/20px $bf;
+
+                    .mdi {
+                        font-size: 16px;
+                        line-height: 20px;
+                        margin-right: 5px;
+                        float: left;
+                    }
+                }
             }
 
             &:hover {
@@ -1240,20 +1292,25 @@ translate,
     }
 
     .card-title {
-        font: 500 16px/30px $bf;
+        font: 500 16px/28px $bf;
         color: #282b39;
         cursor: default;
-
-        .button {
-            margin-top: -2px;
-            margin-bottom: -2px;
-        }
     }
 
     .card-header {
         padding: 15px 25px;
         position: relative;
         @include cf();
+
+        .form-control,
+        .button {
+            margin-top: -2px;
+            margin-bottom: -2px;
+        }
+
+        .button {
+            line-height: 22px;
+        }
     }
 
     .card-section {
@@ -1953,6 +2010,35 @@ translate,
 }
 
 .block {
+    &.block-info {
+        padding-left: 30px;
+        font: 500 13px/20px $bf;
+        color: #45535e;
+    
+        .block-info-icon {
+            float: left;
+            font-size: 20px;
+            margin-left: -25px;
+            margin-right: 5px;
+            color: #134478;
+        }
+    }
+
+    &.block-message {
+        .message-title {
+            color: #282b39;
+            font: 600 16px/24px $bf;
+            text-align: center;
+            margin: 0 0 10px;
+        }
+
+        .message-details {
+            color: #282b39;
+            font: 500 13px/20px $bf;
+            text-align: center;
+        }
+    }
+
     &.block-pincode {
         margin: 0 auto 20px;
         padding: 0;
@@ -2784,8 +2870,8 @@ translate,
             margin-right: 15px;
 
             .form-group {
+                margin: -2px 0;
                 margin-right: 15px;
-                margin-bottom: 0;
 
                 &:last-child {
                     margin-right: 0;
@@ -2998,8 +3084,6 @@ translate,
         max-width: 100%;
         border-radius: 6px;
         display: inline-block;
-        font-size: 0;
-        overflow: hidden;
         min-height: 100px;
         margin: 0 auto;
 
@@ -3227,7 +3311,8 @@ translate,
     }
 
     .modal-body {
-            
+        border-bottom: 1px solid $border_color;
+        
         .modal-funds-added {
             text-align: center;
 
@@ -3329,7 +3414,6 @@ translate,
 
     .modal-footer {
         padding: 30px;
-        border-top: 1px solid $border_color;
         display: flex;
         justify-content: center;
 
@@ -3361,7 +3445,6 @@ translate,
     }
 
     &.modal-auth {
-
         .modal-title {
             color: #282b39;
             font: 700 40px $bf;
@@ -3411,6 +3494,60 @@ translate,
     &.modal-shops_map {
         .modal-content{
             padding: 0;
+        }
+    }
+
+    &.modal-voucher_qr {
+        .modal-window {
+            width: 540px;
+
+            .form {
+                width: 380px;
+                max-width: 100%;
+                margin: 0 auto;
+            }
+
+            .voucher_qr-block {
+                .voucher_qr-title {
+                    color: #282b39;
+                    font: 600 16px $bf;
+                    text-align: center;
+                    margin: 0 0 20px;
+                }
+
+                .voucher_qr-actions {
+                    width: 300px;
+                    max-width: 100%;
+                    margin: 0 auto;
+                }
+
+                .block.block-auth-qr-code {
+                    width: 170px;
+                    margin: 0 auto 20px;
+    
+                    .qr_code {
+                        width: 100%;
+                        background: #fff;
+                        padding: 10px;
+                        border: 1px solid $borderColor;
+                        box-shadow: 0 2px 4px 1px rgba($color: #000000, $alpha: .05);
+    
+                        img {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.modal-sm {
+            .modal-window {
+                width: 440px;
+            }
+            
+            .modal-footer {
+                padding: 20px 30px;
+            }
         }
     }
 
@@ -4064,6 +4201,18 @@ translate,
                     width: 100%;
                 }
             }
+        }
+    }
+}
+
+
+@media print {
+    .printable-qr_code {
+        display: block;
+
+        img {
+            display: block;
+            width: 200px;
         }
     }
 }
