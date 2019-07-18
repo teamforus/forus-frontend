@@ -73,15 +73,17 @@ let ProductsEditComponent = function(
 
             let promise;
 
-            try {
-                let res = await MediaService.store('product_photo', mediaFile);
+            if (mediaFile) {
+                try {
+                    let res = await MediaService.store('product_photo', mediaFile);
 
-                $ctrl.media = res.data.data;
-                $ctrl.form.values.media_uid = $ctrl.media.uid;
+                    $ctrl.media = res.data.data;
+                    $ctrl.form.values.media_uid = $ctrl.media.uid;
 
-                mediaFile = false;
-            } catch (err) {
-                $ctrl.mediaErrors = err.data.errors.file;
+                    mediaFile = false;
+                } catch (err) {
+                    $ctrl.mediaErrors = err.data.errors.file;
+                }
             }
 
             if ($ctrl.product) {
