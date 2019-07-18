@@ -73,17 +73,15 @@ let ProductsEditComponent = function(
 
             let promise;
 
-            if (mediaFile && $ctrl.mediaErrors.length == 0) {
-                try {
-                    let res = await MediaService.store('product_photo', mediaFile);
+            try {
+                let res = await MediaService.store('product_photo', mediaFile);
 
-                    $ctrl.media = res.data.data;
-                    $ctrl.form.values.media_uid = $ctrl.media.uid;
+                $ctrl.media = res.data.data;
+                $ctrl.form.values.media_uid = $ctrl.media.uid;
 
-                    mediaFile = false;
-                } catch (err) {
-                    $ctrl.mediaErrors = err.data.errors.file;
-                }
+                mediaFile = false;
+            } catch (err) {
+                $ctrl.mediaErrors = err.data.errors.file;
             }
 
             if ($ctrl.product) {
@@ -122,12 +120,6 @@ let ProductsEditComponent = function(
 
     $ctrl.selectPhoto = (file) => {
         mediaFile = file;
-
-        if (mediaFile.size > (1024 * 1024 * 2)) {
-            $ctrl.mediaErrors = [trans('product_edit.media_file_to_big')];
-        } else {
-            $ctrl.mediaErrors = [];
-        }
     };
 
     $ctrl.cancel = function() {
