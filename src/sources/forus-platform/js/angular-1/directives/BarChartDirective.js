@@ -12,9 +12,9 @@ let BarChartDirective = function($scope, $element) {
         moment.locale('nl');
 
         data.forEach(value => {
-            labels.push(moment(value.key, "YYYY-MM-DD").toDate());
+            labels.push(value.key);
             values.push({
-                x: moment(value.key, "YYYY-MM-DD"),
+                x: value.key,
                 y: value.value,
             });
         });
@@ -41,7 +41,6 @@ let BarChartDirective = function($scope, $element) {
                 },
                 scales: {
                     xAxes: [{
-                        type: 'time',
                         time: {
                             unit: 'day',
                             round: 'day',
@@ -76,6 +75,6 @@ module.exports = () => {
             '$element',
             BarChartDirective
         ],
-        templateUrl: 'assets/tpl/directives/bar-chart.html' 
+        templateUrl: 'assets/tpl/directives/bar-chart.html'
     };
 };
