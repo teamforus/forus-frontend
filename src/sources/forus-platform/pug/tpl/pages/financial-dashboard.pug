@@ -4,7 +4,7 @@
         .card-heading(ng-bind="'financial_dashboard.header.title' | translate")
         .block.block-choose-organization(ng-if="$ctrl.funds.length > 0")
             div(
-                ng-repeat="fund in $ctrl.fund ? [$ctrl.fund] : $ctrl.funds" 
+                ng-repeat="fund in $ctrl.fund ? [$ctrl.fund] : $ctrl.funds"
                 ui-sref="financial-dashboard({fund_id: fund.id})").organization-item
                 .organization-item-inner
                     .organization-logo: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
@@ -18,7 +18,7 @@
                     .organization-logo.organization-logo-mdi: .mdi.mdi-chevron-up
                 .organization-name(ng-bind="'financial_dashboard.buttons.choose' | translate")
             br
-    
+
         div(ng-if="$ctrl.fundProviders.data.length > 0")
             .block.block-charts
                 .row: .col.col-sm-12: .card
@@ -26,7 +26,12 @@
                         .chart-header
                             .chart-header-range
                                 .chart-header-item(
-                                    ng-click="$ctrl.chartData.changeType('quarter')" 
+                                    ng-click="$ctrl.chartData.changeType('all')"
+                                    ng-class="$ctrl.chartData.request.type=='all'?'active':''"
+                                    ng-bind="'financial_dashboard.labels.all' | translate")
+
+                                .chart-header-item(
+                                    ng-click="$ctrl.chartData.changeType('quarter')"
                                     ng-class="$ctrl.chartData.request.type=='quarter'?'active':''"
                                     ng-bind="'financial_dashboard.labels.quarter' | translate")
 
@@ -36,14 +41,9 @@
                                     ng-bind="'financial_dashboard.labels.month' | translate")
 
                                 .chart-header-item(
-                                    ng-click="$ctrl.chartData.changeType('week')" 
+                                    ng-click="$ctrl.chartData.changeType('week')"
                                     ng-class="$ctrl.chartData.request.type=='week'?'active':''"
                                     ng-bind="'financial_dashboard.labels.week' | translate")
-
-                                .chart-header-item(
-                                    ng-click="$ctrl.chartData.changeType('all')" 
-                                    ng-class="$ctrl.chartData.request.type=='all'?'active':''"
-                                    ng-bind="'financial_dashboard.labels.all' | translate")
 
                             .chart-header-title(ng-bind="$ctrl.chartData.stringTitle")
                             .chart-header-actions.form
@@ -89,8 +89,8 @@
                             .chart-label {{ "financial_dashboard.labels.activation" | translate }}
                             .chart-value
                                 .chart-value_value {{ $ctrl.chartData.response.activations }}
-                                .chart-value_label 
-                                    | {{ "financial_dashboard.labels.citizen" | translate }} 
+                                .chart-value_label
+                                    | {{ "financial_dashboard.labels.citizen" | translate }}
                                     br
                                     | {{ $ctrl.chartData.stringTitle }}
 
@@ -102,9 +102,9 @@
 
     section.app.app-content(ng-if="$ctrl.funds.length == 0")
         block-empty(
-            ng-if="$ctrl.fund == null && $ctrl.funds.length == 0 && ($root.activeOrganization | hasPerm:'manage_funds')" 
-            text="'Helaas, geen fondsen beschikbaar'" 
+            ng-if="$ctrl.fund == null && $ctrl.funds.length == 0 && ($root.activeOrganization | hasPerm:'manage_funds')"
+            text="'Helaas, geen fondsen beschikbaar'"
             button="{href: $ctrl.emptyBlockLink, text: 'Fonds toevoegen'}")
         block-empty(
-            ng-if="$ctrl.fund == null && $ctrl.funds.length > 0" 
+            ng-if="$ctrl.fund == null && $ctrl.funds.length > 0"
             text="'Selecteer een fonds'")
