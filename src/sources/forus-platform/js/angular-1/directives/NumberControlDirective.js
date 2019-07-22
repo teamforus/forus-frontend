@@ -1,7 +1,6 @@
 let NumberControlDirective = function($scope, $element, $attributes) {
     var limit = $attributes.ngDecimal;
 
-    console.log('NumberControlDirective');
     function caret(node) {
         if (node.selectionStart) {
             return node.selectionStart;

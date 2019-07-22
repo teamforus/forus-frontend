@@ -14,6 +14,7 @@ let ProductsEditComponent = function(
     let trans = $filter('translate');
 
     $ctrl.media;
+    $ctrl.mediaErrors = [];
 
     $ctrl.$onInit = function() {
         let values = {
@@ -73,12 +74,16 @@ let ProductsEditComponent = function(
             let promise;
 
             if (mediaFile) {
-                let res = await MediaService.store('product_photo', mediaFile);
+                try {
+                    let res = await MediaService.store('product_photo', mediaFile);
 
-                $ctrl.media = res.data.data;
-                $ctrl.form.values.media_uid = $ctrl.media.uid;
+                    $ctrl.media = res.data.data;
+                    $ctrl.form.values.media_uid = $ctrl.media.uid;
 
-                mediaFile = false;
+                    mediaFile = false;
+                } catch (err) {
+                    $ctrl.mediaErrors = err.data.errors.file;
+                }
             }
 
             if ($ctrl.product) {
