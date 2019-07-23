@@ -27,7 +27,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
-
     $stateProvider.state({
         name: "funds",
         url: "/funds",
@@ -328,6 +327,31 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                     $state.go('home', {
                         confirmed: 1
                     });
+                }, () => {
+                    alert("Token expired or unknown.");
+                    $state.go('home');
+                });
+            }
+        ],
+        data: {
+            token: null
+        }
+    });
+
+    $stateProvider.state({
+        name: "auth-link",
+        url: "/auth-link?token",
+        controller: [
+            '$state', '$rootScope', 'IdentityService', 'CredentialsService',
+            function(
+                $state, $rootScope, IdentityService, CredentialsService
+            ) {
+                IdentityService.exchangeShortToken(
+                    $state.params.token
+                ).then(res => {
+                    CredentialsService.set(res.data.access_token);
+                    $rootScope.loadAuthUser();
+                    $state.go('home');
                 }, () => {
                     alert("Token expired or unknown.");
                     $state.go('home');
