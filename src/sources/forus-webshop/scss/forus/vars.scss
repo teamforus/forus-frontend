@@ -1,10 +1,14 @@
 /*==========  Style Sheet - Vars  ==========*/
 
+// header background            
+$bg-values:          url("../img/splash-top-b.png") no-repeat 100% 0;
+
 // base font
 $bf:                'Open Sans', arial, sans-serif;
 
 // text color
 $tc:                #353535;
+$tc-var:            inherit;
 
 // base color
 $bc:                #d13b3b;

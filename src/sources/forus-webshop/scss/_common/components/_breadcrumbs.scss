@@ -1,0 +1,54 @@
+.block {
+    &.block-breadcrumbs {
+        position: relative;
+        margin: 40px 0px;
+        @include ellipsis();
+        
+        .breadcrumb-item {
+            display: inline-block;
+            font: 600 16px $bf;
+            color: $color_primary;
+            transition: .4s;
+
+            &:after {
+                content: '/';
+                user-select: none;
+                padding: 0 10px;
+                color: #aaa;
+                font-weight: 400;
+            }
+
+            &:last-child {
+                &:after {
+                    content: none;
+                }
+            }
+
+            &:hover {
+                color: #0f1f8f;
+            }
+
+            &.active {
+                color: #bbb;
+                cursor: default;
+            }
+        }
+    }
+    @media screen and (max-width: 1700px) {
+
+        &.block-breadcrumbs {
+            .breadcrumb-item {
+                font: 600 14px $bf;
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-breadcrumbs {
+            margin: 0px 0px 10px 0px;
+
+            .breadcrumb-item {
+                font-size: 13px;
+            }
+        }
+    }
+}

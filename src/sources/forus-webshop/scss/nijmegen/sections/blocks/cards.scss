@@ -1,0 +1,9 @@
+.block {
+    &.block-cards {
+        .card-item {
+            .card-item-inner {
+                border-radius: 2px;
+            }
+        }
+    }
+}

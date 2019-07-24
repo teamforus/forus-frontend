@@ -6,6 +6,8 @@ app.constant('appConfigs', env_data);
 
 // Controllers
 app.controller('BaseController', require('./controllers/landing/BaseController'));
+
+// Components
 app.component('homeComponent', require('./components/website/HomeComponent'));
 app.component('kindpakketComponent', require('./components/website/KindpakketComponent'));
 app.component('meComponent', require('./components/website/MeComponent'));
