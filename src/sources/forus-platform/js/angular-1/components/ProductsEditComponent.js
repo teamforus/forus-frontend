@@ -14,6 +14,7 @@ let ProductsEditComponent = function(
     let trans = $filter('translate');
 
     $ctrl.media;
+    $ctrl.mediaErrors = [];
 
     $ctrl.$onInit = function() {
         let values = {
@@ -26,7 +27,7 @@ let ProductsEditComponent = function(
             ModalService.open('modalNotification', {
                 type: 'danger',
                 title: trans('product_edit.errors.already_added'),
-                icon: 'product_error_create_more',
+                icon: 'product-error',
                 cancel: () => {
                     return $state.go('products', {
                         organization_id: $stateParams.organization_id
@@ -50,7 +51,7 @@ let ProductsEditComponent = function(
                     type: 'confirm',
                     title: trans('product_edit.confirm_create.title'),
                     description: trans('product_edit.confirm_create.description'),
-                    icon: 'product_create',
+                    icon: 'product-create',
                     confirm: () => {
                         alreadyConfirmed = true;
                         $ctrl.form.submit();
@@ -73,12 +74,16 @@ let ProductsEditComponent = function(
             let promise;
 
             if (mediaFile) {
-                let res = await MediaService.store('product_photo', mediaFile);
+                try {
+                    let res = await MediaService.store('product_photo', mediaFile);
 
-                $ctrl.media = res.data.data;
-                $ctrl.form.values.media_uid = $ctrl.media.uid;
+                    $ctrl.media = res.data.data;
+                    $ctrl.form.values.media_uid = $ctrl.media.uid;
 
-                mediaFile = false;
+                    mediaFile = false;
+                } catch (err) {
+                    $ctrl.mediaErrors = err.data.errors.file;
+                }
             }
 
             if ($ctrl.product) {

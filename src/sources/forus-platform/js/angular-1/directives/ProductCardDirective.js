@@ -20,7 +20,7 @@ let ProductCardDirective = function(
             type: 'confirm',
             title: $filter('i18n')('products.confirm_delete.title'),
             description: $filter('i18n')('products.confirm_delete.description'),
-            icon: 'product_create',
+            icon: 'product-create',
             confirm: () => {
                 ProductService.destroy(
                     product.organization_id,

@@ -31,4 +31,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalOpenInMeComponent'
     });
 
+    ModalRouteProvider.modal('modalProductApply', {
+        component: 'modalProductApplyComponent'
+    });
+
 }];

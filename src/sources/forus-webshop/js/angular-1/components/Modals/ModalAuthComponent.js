@@ -74,7 +74,7 @@ let ModalAuthComponent = function(
             qrCode.makeCode(
                 JSON.stringify({
                     type: 'auth_token',
-                    'value': $ctrl.authToken
+                    value: $ctrl.authToken
                 })
             );
 
@@ -85,7 +85,6 @@ let ModalAuthComponent = function(
     };
 
     $ctrl.showEmailForm = function() {
-
         $ctrl.showEmailBlock = true;
         $ctrl.showChoose = false;
 

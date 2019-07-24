@@ -58,7 +58,7 @@
                         .button.button-default(ng-click="chartData.decrease()") {{ "fund_card_provider_finances.buttons.previous" | translate }}
                         .button.button-default(ng-click="chartData.increase()") {{ "fund_card_provider_finances.buttons.next" | translate }}
             .chart-body
-                linear-chart(data="chartData.response.dates")
+                bar-chart(data="chartData.response.dates")
         .card-section
             .row.chart-row.chart-row-condensed
                 .col.col-sm-3

@@ -1,6 +1,6 @@
 let TransactionsComponent = function(
     $state,
-    $scope,
+    $timeout,
     appConfigs,
     FileService,
     TransactionService,
@@ -27,6 +27,7 @@ let TransactionsComponent = function(
         show: false,
         values: {},
         reset: function() {
+            this.values.q = '';
             this.values.state = $ctrl.states[0].key;
             this.values.from = null;
             this.values.to = null;
@@ -41,16 +42,13 @@ let TransactionsComponent = function(
     }, {});
 
     $ctrl.resetFilters = () => {
-        $ctrl.filters.values.q = '';
-        $ctrl.filters.values.state = $ctrl.states[0].key;
-        $ctrl.filters.values.from = null;
-        $ctrl.filters.values.to = null;
+        $ctrl.filters.reset();
     };
 
     $ctrl.hideFilters = () => {
-        $scope.$apply(function() {
+        $timeout(() => {
             $ctrl.filters.show = false;
-        });
+        }, 0);
     };
 
     // Export to XLS file
@@ -107,7 +105,7 @@ module.exports = {
     },
     controller: [
         '$state',
-        '$scope',
+        '$timeout',
         'appConfigs',
         'FileService',
         'TransactionService',

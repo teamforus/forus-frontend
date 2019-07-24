@@ -10,6 +10,7 @@ platform = new Platform('forus-platform');
 platform.setLibs([
     "babel_polyfill",
     "jquery",
+    "bootstrap3",
     "angular",
     'angular_i18n',
     "angular_cookies",

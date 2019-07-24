@@ -32,21 +32,10 @@ let ProductApplyComponent = function(
 
         let expire_at = fund_expire_at.isAfter(product_expire_at) ? $ctrl.product.expire_at_locale : voucher.fund.end_date_locale;
 
-        let popupDescription = $filter('i18n')('product_apply.popup.title', {
-            product_name: $ctrl.product.name,
+        return ModalService.open('modalProductApply', {
             expire_at: expire_at,
-            product_price: $ctrl.product.price
-        });
-
-        let popupSubDescription = $filter('i18n')('product_apply.popup.expiration_information', {
-            expire_at: expire_at
-        });
-
-        return ModalService.open('modalNotification', {
-            type: 'confirm',
-            description: popupDescription,
-            subdescription: popupSubDescription,
-            icon: 'voucher_apply',
+            product: $ctrl.product,
+            org_name: $ctrl.org_name,
             confirm: () => {
 
                 return VoucherService.makeProductVoucher(

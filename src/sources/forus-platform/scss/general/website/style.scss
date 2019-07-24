@@ -1825,11 +1825,50 @@ html {
                 }
             }
         }
-        footer{
+        .footer_sub {
             background: #f6f8f9;
             padding: 15px 0;
+            margin-top: 25px;
+        }
+        footer{
+            margin: 0 auto;
+            margin-top: 80px;
+            .text-boldest {
+                font-weight: bold;
+                font-size: 15px;
+                margin-bottom: 25px;
+                margin-top: 25px;
+            }
+            .pointer {
+                cursor: pointer;
+                &:hover {
+                    color: #aaacb5;
+                }
+            }
+            .text-bold {
+                font-weight: 600;
+                font-size: 13px;
+            }
+            .main_button {
+                float: left;
+            }
+            .hidden-sm-up {
+                display: none;
+            }
             .navbar-brand{
                 padding: 15px 0 10px;
+            }
+            p {
+                font-size: 13px;
+            }
+            .card-block,
+            .widget-list {
+                li {
+                    font-size: 13px;
+                    .indent {
+                        margin-left: 10px;
+                    }
+                }
             }
             nav {
                 margin-bottom: 0!important;
@@ -3028,8 +3067,66 @@ html {
             footer{
                 margin-top: 30px;
                 padding: 15px 0 10px;
+                padding-right: 15px;
+                padding-left: 15px;
+                .control-label {
+                    font-size: 12px;
+                }
+                .main_button {
+                    float: none;
+                    clear: left;
+                }
+                .text-bold {
+                    font-weight: 600;
+                    display: flex;
+                    justify-content: space-between;
+                    flex: auto;
+                }
+                .text-boldest {
+                    font-weight: 700;
+                }
+                .hidden-xs-down {
+                    display: none;
+                }
+                .hidden-sm-up {
+                    display: block;
+                    border-bottom: solid 1px #e5e6ec;
+                    .card-header {
+                        margin-top: 15px;
+                        margin-bottom: 15px;
+                    }
+                    ul {
+                        li {
+                            font: 300 13px/28px "Montserrat", sans-serif;
+                        }
+                    }
+                    & a {
+                        .cross {
+                            text-align: right;
+                            svg {
+                                -webkit-transform: rotate(-45deg);
+                                -ms-transform: rotate(-45deg);
+                                transform: rotate(-45deg);
+                                @include transition();
+                            }
+                        }
+                        &[aria-expanded="true"]{
+                            .cross{
+                                svg{
+                                    -webkit-transform: rotate(0deg);
+                                    -ms-transform: rotate(0deg);
+                                    transform: rotate(0deg);
+                                    @include transition();
+                                }
+                            }
+                        }
+                    }
+                }
                 & > .container{
                     padding: 0;
+                }
+                .hidden-xs-down {
+                    display: none;
                 }
                 .navbar{
                     margin-bottom: 0;
@@ -3164,6 +3261,65 @@ html {
     }
     @media (max-width: 576px) {
         body{
+            footer {
+                .control-label {
+                    font-size: 12px;
+                }
+                .main_button {
+                    float: none;
+                    clear: left;
+                }
+                .text-bold {
+                    font-weight: 600;
+                    display: flex;
+                    justify-content: space-between;
+                    flex: auto;
+                }
+                .text-boldest {
+                    font-weight: 700;
+                }
+                .hidden-xs-down {
+                    display: none;
+                }
+                .hidden-sm-up {
+                    display: block;
+                    border-bottom: solid 1px #e5e6ec;
+                    -webkit-tap-highlight-color: #d8d8d8;
+                    .card-header {
+                        margin-top: 15px;
+                        margin-bottom: 15px;
+                    }
+                    ul {
+                        li {
+                            font: 300 13px/28px "Montserrat", sans-serif;
+                        }
+                    }
+                    & a {
+                        .cross {
+                            text-align: right;
+                            svg {
+                                -webkit-transform: rotate(-45deg);
+                                -ms-transform: rotate(-45deg);
+                                transform: rotate(-45deg);
+                                @include transition();
+                            }
+                        }
+                        &[aria-expanded="true"]{
+                            .cross{
+                                svg{
+                                    -webkit-transform: rotate(0deg);
+                                    -ms-transform: rotate(0deg);
+                                    transform: rotate(0deg);
+                                    @include transition();
+                                }
+                            }
+                        }
+                    }
+                }
+                :hover {
+                    -webkit-tap-highlight-color: #d8d8d8;
+                }
+            }
             .wrapper{
                 &_roles {
                     .roles {
