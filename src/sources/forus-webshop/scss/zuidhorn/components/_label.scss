@@ -1,0 +1,15 @@
+.label {
+    &.label-success {
+        background: $color_primary;
+        color: #fff;
+    }
+
+    &.label-primary {
+        background: #2cc6ab;
+        color: #fff;
+    }
+
+    &.label-square {
+        border-radius: 4px;
+    }
+}

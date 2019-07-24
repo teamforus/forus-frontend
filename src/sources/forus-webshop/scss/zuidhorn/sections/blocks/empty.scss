@@ -1,0 +1,11 @@
+.block {
+    &.block.block-empty {
+        .block-link {
+            color: $bc;
+
+            .mdi {
+                color: $bc;
+            }
+        }
+    }
+}

@@ -1,0 +1,213 @@
+.block {
+
+    &.block-profile {
+        @include cf();
+
+        .profile-aside {
+            width: 340px;
+            float: left;
+            position: relative;
+            z-index: 2;
+
+            .profile-card {
+                background: #fff;
+                border-radius: 10px;
+                box-shadow: 0 5px 30px rgba(#000, .05);
+                padding: 20px;
+                margin-bottom: 30px;
+                cursor: default;
+
+                .profile-qr_code {
+                    padding-top: 10px;
+                    width: 100%;
+                    margin-bottom: 25px;
+
+                    img {
+                        display: block;
+                        margin: 0 auto;
+                        max-width: 100%;
+                        width: 160px;
+                    }
+                }
+
+                .profile-details {
+                    text-align: center;
+
+                    .profile-heading {
+                        font: 700 18px $bf;
+                        color: #315efd;
+                        margin-bottom: 5px;
+                    }
+
+                    .profile-description {
+                        font: 400 13px $bf;
+                        color: #646f79;
+                        margin-bottom: 20px;
+                    }
+                }
+
+                .profile-address {
+                    margin: 0 -20px;
+                    padding: 20px;
+                    border-top: 1px solid #e9ecee;
+                    border-bottom: 1px solid #e9ecee;
+                    
+                    .profile-address-label {
+                        font: 400 10px $bf;
+                        color: #646f79;
+                        margin-bottom: 5px;
+                    }
+
+                    .profile-address-value {
+                        font: 700 16px $bf;
+                        color: #282b39;
+                        @include ellipsis();
+                    }
+                }
+
+                .profile-actions {
+                    margin: 0 -20px -40px;
+                    padding: 20px 20px 20px;
+                    @include cf();
+
+                    .profile-action {
+                        font: 700 12px $bf;
+                        color: #2f5bf6;
+                        @include cf();
+                        float: left;
+                        margin-right: 30px;
+                        margin-bottom: 20px;
+                        transition: color .4s;
+                        cursor: pointer;
+
+                        .mdi {
+                            color: inherit;
+                            float: left;
+                            margin-right: 5px;
+                            font-size: 1.6em;
+                            line-height: initial;
+                            margin-top: -0.25em;
+                        }
+
+                        &:hover {
+                            color: $color_primary_light;
+                        }
+                    }
+                }
+            }
+
+            .profile-menu {
+                .profile-menu-item {
+                    margin-bottom: 15px;
+                    background-color: #ffffff;
+                    color: $color_primary;
+                    padding: 15px 20px;
+                    font: 700 13px/20px $bf;
+                    border-radius: 7.5px;
+                    margin-bottom: 15px;
+                    box-shadow: 0 5px 30px rgba(#000, .035);
+                    display: block;
+                    position: relative;
+                    transition: .4s;
+
+                    .mdi {
+                        color: $color_primary;
+                        position: absolute;
+                        right: 15px;
+                        top: 50%;
+                        transform: translate(0, -50%);
+                        font-size: 20px;
+                        transition: .4s;
+                    }
+
+                    &.active,
+                    &:hover {
+                        background-color: #4c74fe;
+                        color: #fff;
+                        box-shadow: 0 5px 20px rgba(#000, .20);
+                        
+                        .mdi {
+                            right: 10px;
+                            color: #fff;
+                        }
+                    }
+
+                    &.active {
+                        background-color: #305dfa;
+                    }
+                }
+            }
+        }
+        
+        .profile-content {
+            padding-left: 370px;
+            width: 375px;
+            float: left;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            margin-left: -340px;
+
+            &:first-child {
+                margin-left: 0;
+                padding-left: 0;
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-profile {
+            .profile-aside,
+            .profile-content {
+                width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+
+            .profile-aside {
+                .profile-card {
+                    margin: 0 0 20px;
+
+                    .profile-address {
+                        text-align: center;
+                        padding: 20px 40px;
+                    }
+
+                    .profile-actions {
+                        padding: 0;
+                        margin-bottom: -20px;
+
+                        .profile-action {
+                            margin: 0;
+                            width: 50%;
+                            text-align: center;
+                            padding: 15px 20px;
+                            border-right: 1px solid #e9ecee;
+                            line-height: 27px;
+
+                            .mdi {
+                                float: none;
+                                margin: 0 5px 0 0;
+                                transform: translate(0, 2px);
+                                display: inline-block;
+                            }
+
+                            &:last-child {
+                                border-right: none;
+                            }
+                        }
+                    }
+                }
+
+                .profile-menu {
+                    margin-bottom: 20px;
+
+                    .profile-men-item {
+                        &:last-child {
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,9 @@
+.section {
+    &.section-funds {
+        margin-bottom: 30px;
+    }
+    &.section-apply_fund {
+        position: relative;
+        z-index: 1;
+    }
+}

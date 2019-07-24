@@ -1,0 +1,207 @@
+.section {
+    &.section-contact_form {
+        margin-bottom: 30px;
+        position: relative;
+
+        &:before, &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+        }
+
+        &:before {
+            left: 0;
+            background: url('../img/splash-left.png') no-repeat;
+            background-size: 100% 100%;
+            background-origin: 0 0;
+        }
+
+        &:after {
+            right: 0;
+            background: url('../img/sprite-clouds.png') no-repeat;
+            background-size: 100% auto;
+            background-origin: 0 0;
+        }
+    }
+    @media screen and (max-width: 1000px) {
+          &.section-contact_form {
+            .wrapper {
+                padding: 0;
+            }
+
+            &:before {
+                background: none;
+            }
+        }
+    }
+}
+
+.block {
+
+    &.block-contact_form {
+        padding: 240px 0 120px;
+        position: relative;
+        z-index: 1;
+
+        .contact-title {
+            color: #fff;
+            font: 700 60px/60px $bf;
+            margin-bottom: 60px;
+        }
+
+        .contact-form {
+            background-color: #fff;
+            border-radius: $border_radius;
+            padding: 50px 70px;
+            box-shadow: 0 5px 40px rgba(#000, .1);
+            position: relative;
+
+            .contact-logo {
+                width: 240px;
+                max-width: 100%;
+                padding-top: 30px;
+                margin-bottom: 40px;
+
+                img {
+                    display: block;
+                    width: 100%;
+                }
+            }
+
+            .contact-details {
+                .contact-label {
+                    color: #003366;
+                    font: 700 14px $bf;
+                    margin-bottom: 5px;
+                }
+
+                .contact-address {
+                    color: #191919;
+                    font: 400 16px/28px $bf;
+                }
+
+                .contact-email {
+                    color: #00a5fe;
+                    font: 400 16px/28px $bf;
+                    margin-bottom: 20px;
+                }
+
+                .contact-socials {
+                    padding-top: 20px;
+                    @include cf();
+
+                    .contact-social {
+                        display: block;
+                        width: 40px;
+                        height: 40px;
+                        border: 1px solid $border_color;
+                        background: #fff;
+                        border-radius: 40px;
+                        text-align: center;
+                        line-height: 38px;
+                        font-size: 20px;
+                        box-shadow: 0 5px 10px rgba(#000, .1);
+                        float: left;
+                        margin-right: 15px;
+                        margin-bottom: 10px;
+
+                        &:last-of-type {
+                            margin-right: 0;
+                        }
+
+                        &:nth-child(0n+1) {
+                            .mdi {
+                                color: #3c5998;
+                            }
+                        }
+
+                        &:nth-child(0n+2) {
+                            .mdi {
+                                color: #00aced;
+                            }
+                        }
+
+                        &:nth-child(0n+3) {
+                            .mdi {
+                                color: #017bb5;
+                            }
+                        }
+
+                        &:nth-child(0n+4) {
+                            .mdi {
+                                color: #de4e3c;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &:after {
+                content: '';
+                position: absolute;
+                width: 130px;
+                height: 210px;
+                right: 0;
+                top: -100px;
+                display: block;
+                background: url('../img/sprite-girl.png') no-repeat;
+                background-size: contain;
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-contact_form {
+            padding: 40px 0 0;
+
+            .contact-title {
+                color: $tc;
+                position: relative;
+                z-index: 2;
+                margin: 0 0 10px;
+                font: 700 32px/46px $bf;
+                padding: 0 25px;
+            }
+
+            .contact-form {
+                padding: 30px 25px;
+                border-radius: 0;
+
+                .contact-logo {
+                    width: 50%;
+                    padding: 0;
+                    margin: 0 0 20px;
+                }
+
+                .contact-details {
+                    .contact-label {
+                        margin: 0 0 10px;
+                    }
+
+                    .contact-address {
+                        font: 400 14px/24px $bf;
+                        margin: 0 0 5px;
+                    }
+
+                    .contact-email {
+                        font: 400 14px/24px $bf;
+                        margin: 0 0 5px;
+                    }
+
+                    .contact-socials {
+                        padding: 0;
+                        margin: 0 0 20px;
+                    }
+                }
+
+                .button {
+                    width: 100%;
+                    padding-left: 25px;
+                    padding-right: 25px;
+                }
+            }
+        }
+    }
+}

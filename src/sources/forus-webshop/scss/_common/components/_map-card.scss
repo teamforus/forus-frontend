@@ -1,0 +1,29 @@
+.map-card {
+    padding-left: 130px;
+    padding-top: 5px;
+    position: relative;
+    min-height: 100px;
+
+    .map-card-img {
+        left: 0;
+        top: 5px;
+        position: absolute;
+        display: block;
+        width: 110px;
+    }
+
+    .map-card-title {
+        color: #282b39;
+        font: 700 14px/28px $bf;
+    }
+    
+    .map-card-description {
+        color: #131418;
+        font: 400 11px $bf;
+
+        a {
+            font: inherit;
+            color: $bc;
+        }
+    }
+}
