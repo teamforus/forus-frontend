@@ -19,6 +19,7 @@
             position: relative;
         }
         .header-content {
+            padding-top: 30px;
             .button {
                 width: 100%;
             }
@@ -39,13 +40,13 @@
                 }
             }
             .header-description {
-                font: 400 21px/1.5em $bf;
+                font: 400 16px/32px $bf;
                 text-align: center;
                 @media screen and (min-width: 1024px){ 
                     text-align:left;
                 }
                 p {
-                    font: 400 22px/36px $bf;
+                    font: 400 16px/32px $bf;
                 }
             }
             .header-how-it-works {

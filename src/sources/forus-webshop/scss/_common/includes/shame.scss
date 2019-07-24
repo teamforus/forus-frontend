@@ -12,7 +12,11 @@ html {
 .f-w {
     width: 100%!important;
 }
-
+.section-product {
+    .section-title {
+        text-align: left !important;
+    }
+}
 a[ng-click],
 a[ui-sref] {
     cursor: pointer !important;
@@ -117,7 +121,17 @@ ui-view{
     }
 }
 @media screen and (max-width: 1000px) {
-
+    .map-card-img {
+        display:none !important;
+    }
+    .block-breadcrumbs {
+        margin-top: 10px !important;
+    }
+    .section-product {
+        .section-title {
+            display:none;
+        }
+    }
     .product-price-insufficient {
         font: 400 16px "Lato",arial,sans-serif;
         padding-top: 20px;

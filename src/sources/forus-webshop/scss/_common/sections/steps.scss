@@ -5,6 +5,7 @@
         .section-title {
             font: 700 24px/36px $bf;
             margin: 0 0 30px;
+            text-align:center;
         }
 
         .steps {
@@ -25,17 +26,21 @@
                     margin: 0 auto;
                     max-width: 100%;
                     &:before {
-                        width: 200px;
-                        height: 200px;
+                        width: 140px;
+                        height: 125px;
                         background-size: 100%;
-                        left: 22.5%;
+                        margin: 0 auto;
                         position: relative;
                         top: 0;
                         content: '';
                         display: block;
-                        background: url('../img/icon-steps/step-1.png') no-repeat;
                     }
                     
+                }
+                &:nth-child(1) {
+                    .step-item-content:before {
+                        background-image: url('../img/icon-steps/step-1.png');
+                    }
                 }
                 &:nth-child(2) {
                     .step-item-content:before {
@@ -128,11 +133,13 @@
                     .step-item-content {
                         position: relative;
                         padding-top: 20px;
-                        
+                        text-align: left;
                         &:before {
                             position: absolute;
                             content: '';
                             left: unset;
+                            height: 200px;
+                            width: 200px;
                             display: block;
                             right: 105%;
                             transform: translate(0, -20px);
