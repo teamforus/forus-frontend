@@ -1,10 +1,28 @@
 /*==========  Style Sheet - Vars  ==========*/
 
+// header background            
+$bg-values:          url("../img/splash-top-b.png") no-repeat 100% 0;
+
+// header background 1024
+$bg-size:           auto 80%;
+$hc-fix:            90px;
+$bg-height:         650px;
+
+// header content
+$hc-pad:            0;
+
+// Navbar attributes 1024
+$nb-bs:             0;
+
+// header content
+$hc-pad:            0;        
+
 // base font
 $bf:                'Open Sans', arial, sans-serif;
 
 // text color
 $tc:                #353535;
+$tc-var:            inherit;
 
 // base color
 $bc:                #d13b3b;

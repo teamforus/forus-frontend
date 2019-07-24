@@ -2,7 +2,7 @@
 .block {
     &.block-navbar {
         background-color: #a80a2d;
-        position: fixed;
+        position: sticky;
         top: 0;
         right: 0;
         left: 0;
@@ -277,7 +277,6 @@
                 position: absolute;
                 padding: 50px 0;
                 left: 0;
-
                 .navbar-item-wrapper {
                     .navbar-item {
                         margin: 0;

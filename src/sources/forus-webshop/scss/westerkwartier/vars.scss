@@ -1,10 +1,30 @@
 /*==========  Style Sheet - Vars  ==========*/
 
+// header attributes
+$bg-values:          url("../img/splash-top-b.png") no-repeat 100% 0;
+// header background 1024
+$bg-size:           cover;
+
+// header content
+$hc-pad:            0;
+
+// Navbar attributes 1024
+$nb-bs:             0;
+
+// header content
+$hc-pad:            0;
+
+// Navbar attributes
+$nb-fix:            0;
+$nb-bs:             0;
+$rs-pos:            0;
+
 // base font
 $bf:                'Lato' ,"Lucida Sans","Lucida Sans Unicode","Lucida Grande",Verdana,Arial,Helvetica,sans-serif;
 
 // text color
 $tc:                #4e4d40;
+$tc-var:            #fff;
 
 // base color
 $bc:                #4990b5;
