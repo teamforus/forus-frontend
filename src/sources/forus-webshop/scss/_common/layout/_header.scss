@@ -31,12 +31,18 @@
                 top: 50%;
                 transform: translateY(-50%);
             }
+            @media screen and (min-width: 1440px){ 
+                max-width: 650px;
+            }
             .header-title {
                 margin: 0 0 20px;
                 text-align: center;
                 font: 700 32px/1.5em $bf;
                 @media screen and (min-width: 1024px){ 
                     text-align:left;
+                }
+                @media screen and (min-width: 1440px){ 
+                    font: 700 48px/1.5em $bf;
                 }
             }
             .header-description {
@@ -47,6 +53,9 @@
                 }
                 p {
                     font: 400 16px/32px $bf;
+                    @media screen and (min-width: 1440px){ 
+                        font: 200 21px/1.5em $bf;
+                    }
                 }
             }
             .header-how-it-works {
