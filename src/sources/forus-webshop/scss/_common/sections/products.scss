@@ -1,6 +1,5 @@
 .section {
     &.section-products {
-        z-index: 1;
         position: relative;
         margin: 0 0 40px;
 
@@ -23,7 +22,6 @@
     @media screen and (max-width: 1700px) {
         &.section-faq,
         &.section-products {
-            z-index: 1;
             position: relative;
 
             .section-title {
