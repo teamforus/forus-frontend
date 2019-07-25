@@ -14,5 +14,9 @@ module.exports = {
     },
     buttons: {
         add_new: "Aanmaken"
+    },
+    csv: {
+        default_note: "Uploaded at {{ upload_date }} by {{ uploader_email }}, assigned to {{ target_email }}",
+        default_note_no_email: "Uploaded at {{ upload_date }} by {{ uploader_email }}",
     }
 };

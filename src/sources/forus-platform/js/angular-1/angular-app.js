@@ -40,6 +40,7 @@ app.component('modalNotificationComponent', require('./components/Modals/ModalNo
 app.component('modalPhotoUploaderComponent', require('./components/Modals/ModalPhotoUploaderComponent'));
 app.component('modalVoucherCreateComponent', require('./components/Modals/ModalVoucherCreateComponent'));
 app.component('modalVoucherQrCodeComponent', require('./components/Modals/ModalVoucherQrCodeComponent'));
+app.component('modalVouchersUploadComponent', require('./components/Modals/ModalVouchersUploadComponent'));
 app.component('modalMarkdownCustomLinkComponent', require('./components/Modals/ModalMarkdownCustomLinkComponent'));
 
 // Services
