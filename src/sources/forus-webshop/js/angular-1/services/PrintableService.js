@@ -8,7 +8,7 @@ let PrintableService = function(PrintableRoute, $timeout) {
         return printableKeys.indexOf(key) !== -1;
     };
 
-     this.open2 = (key, scope, events) => {
+     this.open = (key, scope, events) => {
         if (!this.printableKeyExists(key)) {
             throw new Error(`Unknown printable key "${key}".`);
         }

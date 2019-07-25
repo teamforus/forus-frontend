@@ -79,8 +79,8 @@ module.exports = {
         '$filter',
         '$state',
         'VoucherService',
-        'ModalService',
         'PrintableService',
+        'ModalService',
         VoucherComponent
     ],
     templateUrl: 'assets/tpl/pages/voucher.html'

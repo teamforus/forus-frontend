@@ -94,6 +94,9 @@ app.component('modalShareVoucherComponent', require('./components/Modals/ModalSh
 app.component('modalOpenInMeComponent', require('./components/Modals/ModalOpenInMeComponent'));
 app.component('modalProductApplyComponent', require('./components/Modals/ModalProductApplyComponent'));
 
+// Printable Components
+app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
+
 // Providers
 app.provider('PrintableRoute', require('./providers/PrintableRouteProvider'));
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
