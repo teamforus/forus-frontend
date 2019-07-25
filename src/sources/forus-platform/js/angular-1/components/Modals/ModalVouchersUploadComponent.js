@@ -52,7 +52,7 @@ let ModalVouchersUploadComponent = function(
     $ctrl.getFundBudget = () => {
         return ($ctrl.fund.budget && (
             typeof $ctrl.fund.budget.left != 'undefined'
-        )) ? $ctrl.fund.budget.left : 0;
+        )) ? $ctrl.fund.budget.left : 1000000000;
     };
 
     $ctrl.reset = function() {
