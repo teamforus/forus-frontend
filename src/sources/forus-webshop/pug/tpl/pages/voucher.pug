@@ -3,7 +3,7 @@ section.section.section-voucher-details: .wrapper
     .block.block-breadcrumbs.hide-sm
         a(ui-sref="home").breadcrumb-item Home
         a(ui-sref="vouchers").breadcrumb-item Mijn vouchers
-        .breadcrumb-item.active(ng-if="!$ctrl.voucherCard.product") Uw {{ $ctrl.voucherCard.title }} voucher
+        .breadcrumb-item.active(ng-if="!$ctrl.voucherCard.product") Uw {{ $ctrl.voucherCard.title }} voucher 
         .breadcrumb-item.active(ng-if="$ctrl.voucherCard.product") Uw aanbieding voucher
 
     .section-title.hide-sm(ng-if="!$ctrl.voucherCard.product") Uw {{ $ctrl.voucherCard.title }} voucher
@@ -61,7 +61,7 @@ section.section.section-voucher-details: .wrapper
                             .card-label.euro Uw tegoed is:
                             .card-value.euro(ng-bind="'€ ' + ($ctrl.voucherCard.amount)") 
                     .card-qr_code.show-sm
-                        .card-qr_code-element
+                        qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="auth_token").card-qr_code-element
                         .card-qr_code-desc(ng-if="$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.productdescription")
                         .card-qr_code-desc(ng-if="!$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
 
@@ -97,7 +97,7 @@ section.section.section-voucher-details: .wrapper
                                 .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.print")
                             .action-item-name(i18n="voucher.voucher_card.footer.actions.print")
             .card-qr_code.hide-sm
-                .card-qr_code-element
+                qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="auth_token")
                 .card-qr_code-desc(ng-if="$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.productdescription")
                 .card-qr_code-desc(ng-if="!$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
 
