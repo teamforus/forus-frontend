@@ -1,12 +1,11 @@
 let VouchersComponent = function(
+    $state,
     $timeout,
     DateService,
     ModalService,
     VoucherService
 ) {
     let $ctrl = this;
-
-    $ctrl.empty = null;
 
     $ctrl.states = [{
         value: null,
@@ -66,6 +65,17 @@ let VouchersComponent = function(
         });
     }
 
+    $ctrl.uploadVouchersCsv = () => {
+        ModalService.open('vouchersUpload', {
+            funds: $ctrl.funds.filter(fund => fund.id),
+            organization: $ctrl.organization,
+            done: () => {
+                console.log('vouchers->done');
+                $state.reload();
+            }
+        });
+    };
+
     $ctrl.onPageChange = (query) => {
         let _query = JSON.parse(JSON.stringify(query));
 
@@ -77,10 +87,6 @@ let VouchersComponent = function(
             _query
         ).then((res => {
             $ctrl.vouchers = res.data;
-
-            if ($ctrl.empty === null) {
-                $ctrl.empty = res.data.meta.total == 0;
-            }
         }));
     };
 
@@ -105,6 +111,7 @@ module.exports = {
         organization: '<',
     },
     controller: [
+        '$state',
         '$timeout',
         'DateService',
         'ModalService',
