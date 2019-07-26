@@ -28,7 +28,8 @@
 'components/_map-card.scss',
 'components/_modals.scss',
 'components/_tooltip.scss',
-'components/_triangle.scss';
+'components/_triangle.scss',
+'components/_printables.scss';
 
 // SECTIONS
 @import 'sections/blogs.scss',
@@ -67,16 +68,3 @@
  'sections/blocks/voucher-product.scss',
  'sections/blocks/voucher.scss',
  'sections/blocks/vouchers.scss';
-
-
-
-@media print {
-    .printable-qr_code {
-        display: block;
-
-        img {
-            display: block;
-            width: 200px;
-        }
-    }
-}
