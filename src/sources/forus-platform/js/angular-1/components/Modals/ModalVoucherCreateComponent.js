@@ -51,6 +51,6 @@ module.exports = {
         ModalVoucherCreateComponent
     ],
     templateUrl: () => {
-        return '/assets/tpl/modals/modal-voucher-create.html';
+        return 'assets/tpl/modals/modal-voucher-create.html';
     }
 };
