@@ -10,7 +10,10 @@ let ModalFundTopUpComponent = function(
             $ctrl.topUpCode = res.data.data.code;
             $ctrl.topUpIban = res.data.data.iban;
             $ctrl.isReady = true;
-        }, $ctrl.close);
+        }, res => {
+            alert(res.data.message);
+            $ctrl.close();
+        });
     };
     $ctrl.$onDestroy = function() {};
 

@@ -38,4 +38,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('voucher_qr_code', {
         component: 'modalVoucherQrCodeComponent'
     });
+
+    ModalRouteProvider.modal('vouchersUpload', {
+        component: 'modalVouchersUploadComponent'
+    });
 }];

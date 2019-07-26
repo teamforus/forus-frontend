@@ -1,5 +1,4 @@
 let VouchersComponent = function(
-    $state,
     ConfigService
 ) {
     let $ctrl = this;
@@ -16,7 +15,6 @@ module.exports = {
         vouchers: '<'
     },
     controller: [
-        '$state',
         'ConfigService',
         VouchersComponent
     ],
