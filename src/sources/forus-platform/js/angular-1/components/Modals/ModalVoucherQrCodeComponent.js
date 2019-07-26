@@ -103,6 +103,6 @@ module.exports = {
         ModalVoucherQrCodeComponent
     ],
     templateUrl: () => {
-        return '/assets/tpl/modals/modal-voucher-qr_code.html';
+        return 'assets/tpl/modals/modal-voucher-qr_code.html';
     }
 };
