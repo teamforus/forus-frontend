@@ -9,7 +9,7 @@ section.section.section-profile: .wrapper
         .span-count(ng-bind="$ctrl.vouchers.length")
 
     .block.block-profile
-        profile-card(ng-if="$ctrl.cfg.showAccountSidebar")
+        profile-card(ng-if="$ctrl.cfg.showAccountSidebar && ($ctrl.appConfigs.features.identity.address || $ctrl.appConfigs.features.records.list)")
         
         .profile-content
             .block.block-vouchers(ng-if="$ctrl.vouchers.length > 0")
