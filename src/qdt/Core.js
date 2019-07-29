@@ -21,6 +21,20 @@ let Core = function() {
         
         return configs;
     };
+    
+    this.enableOnly = (only = []) => {
+        Object.keys(platforms).forEach(prop => {
+            let platform = platforms[prop];
+            
+            only.indexOf(prop) != -1 ? platform.enable() : platform.disable();
+        });
+    };
+    
+    this.disableOnly = (only = []) => {
+        this.enableOnly(Object.keys(platforms).filter(prop => {
+            return only.indexOf(prop) == -1;
+        }));
+    };
 };
 
 module.exports = new Core();
