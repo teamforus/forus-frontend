@@ -1,9 +1,11 @@
 top-navbar
-.header-splash: section.section.section-funds: .wrapper
-
+section.section.section-funds: .wrapper
+    .block.block-breadcrumbs
+        a(ui-sref="home").breadcrumb-item Home
+        .breadcrumb-item.active Fondsen
     .section-title(translate="funds.header.title")
     
-    .block.block-funds(style="padding-top: 200px;")
+    .block.block-funds
         .fund-item(ng-repeat="fund in $ctrl.funds" ui-sref="fund-apply(fund)")
             .fund-image
                 img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
@@ -11,9 +13,6 @@ top-navbar
                 .fund-name {{ fund.name }} 
                     span(ng-show="funds.status == 'active'" translate="funds.status.active").label.label-primary.label-square
                 .fund-organization(ng-bind="fund.organization.name") 
-                .fund-categories
-                    .fund-categories-label(translate="funds.labels.categorie")
-                    .fund-categories-list(ng-bind="fund.categories")
                 .fund-categories
                     .fund-categories-label U KUNT UW VOUCHER ACTIVEREN TOT:
                     .fund-categories-list(ng-bind="fund.end_date_locale")
@@ -30,9 +29,9 @@ top-navbar
 
         empty-block(
             ng-if="$ctrl.funds.length == 0"
-            title="Geen funds"
-            description="Momenteel heeft u geen funds"
-            text="Momenteel heeft u geen funds"
-            hide-link="false")
+            title="Geen fondsen beschikbaar"
+            description="Momenteel zijn er geen regelingen om je voor aan te melden."
+            text="Gebruik een activatiecode"
+            hide-link="true")
 
 contact-form 

@@ -1,9 +1,9 @@
-.header-splash: .splash.splash-d
-
-header.section.section-header
-    top-navbar
+top-navbar
 
 section.section.section-profile: .wrapper
+    .block.block-breadcrumbs
+        a(ui-sref="home").breadcrumb-item Home
+        .breadcrumb-item.active Eigenschappen
     .section-title {{ "records.header.title" | translate }} ({{ $ctrl.records.length }})
     
     .block.block-profile

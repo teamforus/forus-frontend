@@ -1,7 +1,7 @@
 module.exports = {
     // FUNDS = funds.pug
     header: {
-        title: "Beschikbare fondsen",
+        title: "Fondsen",
     },
     labels: {
         categorie: "CATEGORIEËN",

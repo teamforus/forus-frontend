@@ -1,10 +1,11 @@
-.header-splash: .splash.splash-d
-
-header.section.section-header
-    top-navbar
-
+top-navbar
 section.section.section-apply_fund: .wrapper
-    .section-title(translate="fund_apply.header.title")
+    .block.block-breadcrumbs
+        a(ui-sref="home").breadcrumb-item Home
+        a(ui-sref="funds").breadcrumb-item Fondsen
+        a.breadcrumb-item.active(translate="fund_apply.header.title" translate-values="{fund_name: $ctrl.fund.name}")
+
+    .section-title(translate="fund_apply.header.title" translate-values="{fund_name: $ctrl.fund.name}")
     
     .block.block-apply_fund
         .apply_fund-aside
@@ -16,25 +17,25 @@ section.section.section-apply_fund: .wrapper
                     .fund-organization(ng-bind="$ctrl.fund.organization.name")
                 
                 .fund-criterias
-                    .fund-criterias-label Fund details
+                    .fund-criterias-label(translate="fund_apply.criterias.label")
                     .fund-criteria-item
-                        .fund-criteria-item-label End date:
+                        .fund-criteria-item-label(translate="fund_apply.criterias.enddate")
                         .fund-criteria-item-value(ng-bind="$ctrl.fund.end_date_locale")
                     .fund-criteria-item
-                        .fund-criteria-item-label E-mail:
+                        .fund-criteria-item-label(translate="fund_apply.criterias.email")
                         .fund-criteria-item-value(ng-bind="$ctrl.fund.organization.email")
                     .fund-criteria-item
-                        .fund-criteria-item-label Phone:
+                        .fund-criteria-item-label(translate="fund_apply.criterias.phone")
                         .fund-criteria-item-value(ng-bind="$ctrl.fund.organization.phone")
                     
                     //- Fixed
                     .fund-criteria-item(ng-repeat="formula in $ctrl.formulaList.fixed")
-                        .fund-criteria-item-label Vast bedrag
+                        .fund-criteria-item-label(translate="fund_apply.criterias.fixed_amount")
                         .fund-criteria-item-value(ng-bind="formula.amount | currency_format")
                     
                     //- Dynamic
                     .fund-criteria-item(ng-repeat="formula in $ctrl.formulaList.multiply")
-                        .fund-criteria-item-label Multiplied amount
+                        .fund-criteria-item-label(translate="fund_apply.criterias.multiplied_amount")
                         .fund-criteria-item-value   
                             span(ng-bind="formula.label + ': '")
                             span(ng-bind="formula.amount | currency_format")
