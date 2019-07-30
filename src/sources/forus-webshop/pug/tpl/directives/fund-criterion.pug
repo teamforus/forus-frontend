@@ -20,7 +20,7 @@
                 div(ng-if="record.state == 'valid'").criteria-validation-valid
                     em.mdi.mdi-check
                     | {{ "fund_criterion.status.valid" | translate }}
-                a(ng-if="record.state == 'addRecord'" ui-sref="record-create").criteria-validation-add
+                a(ng-if="record.state == 'addRecord' && $root.appConfigs.features.records.create" ui-sref="record-create").criteria-validation-add
                     em.mdi.mdi-plus
                     | {{ "fund_criterion.buttons.add" | translate }}
         

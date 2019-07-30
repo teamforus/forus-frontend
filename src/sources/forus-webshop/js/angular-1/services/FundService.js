@@ -4,7 +4,7 @@ let FundService = function(
 ) {
     let uriPrefix = '/platform/organizations/';
 
-    return new (function() {
+    return new(function() {
         this.list = function(organization_id) {
             if (organization_id) {
                 return ApiRequest.get(
@@ -126,6 +126,59 @@ let FundService = function(
                 apiResource.id,
                 formValues
             );
+        };
+
+        this.checkEligibility = (records = [], criterion, validators) => {
+            return records.map(function(record) {
+                let validated = record.validations.filter(function(validation) {
+                    return (validation.state == 'approved') && validators.indexOf(
+                        validation.identity_address
+                    ) != -1;
+                }).length > 0;
+
+                let validValue = false;
+
+                if (criterion.operator == '!=') {
+                    validValue = record.value != criterion.value;
+                } else if (criterion.operator == '=') {
+                    validValue = record.value == criterion.value;
+                } else if (criterion.operator == '>') {
+                    validValue = parseFloat(record.value) > parseFloat(criterion.value);
+                } else if (criterion.operator == '<') {
+                    validValue = parseFloat(record.value) < parseFloat(criterion.value);
+                } else if (criterion.operator == '>=') {
+                    validValue = parseFloat(record.value) >= parseFloat(criterion.value);
+                } else if (criterion.operator == '<=') {
+                    validValue = parseFloat(record.value) <= parseFloat(criterion.value);
+                }
+
+                if (!validValue) {
+                    record.state = 'addRecord';
+                } else if (validated && !validValue) {
+                    record.state = 'invalid';
+                } else if (!validated && validValue) {
+                    record.state = 'validate';
+                } else if (validated && validValue) {
+                    record.state = 'valid';
+                }
+
+                return record;
+            });
+        }
+
+
+        this.fundCriteriaList = (criteria, recordsByTypesKey) => {
+            return criteria.filter(
+                criterion => !criterion.record_type_key.endsWith('_eligible')
+            ).map(criterion => {
+                return {
+                    key: recordsByTypesKey[criterion.record_type_key].name || '',
+                    value: [
+                        criterion.operator != '=' ? criterion.operator : "",
+                        criterion.value
+                    ].join(" ").trim(),
+                };
+            });
         };
     });
 };

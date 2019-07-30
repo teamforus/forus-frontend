@@ -1,37 +1,38 @@
 top-navbar
 .header-splash: section.section.section-funds: .wrapper
 
-    .section-title {{ "funds.header.title" | translate }}
+    .section-title(translate="funds.header.title")
     
-    .block.block-funds
-        .fund-item(ng-repeat="fund in $ctrl.funds")
+    .block.block-funds(style="padding-top: 200px;")
+        .fund-item(ng-repeat="fund in $ctrl.funds" ui-sref="fund-apply(fund)")
             .fund-image
                 img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
             .fund-details
                 .fund-name {{ fund.name }} 
-                    span(ng-show="funds.status == 'active'").label.label-primary.label-square {{ "funds.status.active" | translate }}
+                    span(ng-show="funds.status == 'active'" translate="funds.status.active").label.label-primary.label-square
                 .fund-organization(ng-bind="fund.organization.name") 
                 .fund-categories
-                    .fund-categories-label {{ "funds.labels.categorie" | translate }}
+                    .fund-categories-label(translate="funds.labels.categorie")
                     .fund-categories-list(ng-bind="fund.categories")
-                a(ng-if="$root.auth_user && fund.voucherCanBeUsed" ui-sref="fund-apply(fund)").button.button-primary {{ "funds.buttons.join" | translate }}
+                .fund-categories
+                    .fund-categories-label U KUNT UW VOUCHER ACTIVEREN TOT:
+                    .fund-categories-list(ng-bind="fund.end_date_locale")
+                //- ng-if="$root.auth_user && fund.voucherCanBeUsed" 
+                //- a(ng-if="$root.auth_user" ui-sref="fund-apply(fund)" translate="funds.buttons.join").button.button-primary
 
-            .fund-criterias
-                .fund-criterias-label {{ "funds.labels.criteria" | translate }}
-                .fund-criteria-item
-                    .fund-criteria-item-label {{ "funds.labels.location" | translate }}
-                    .fund-criteria-item-value {{ "funds.labels.office" | translate }}
-                .fund-criteria-item
-                    .fund-criteria-item-label {{ "funds.labels.children" | translate }}
-                    .fund-criteria-item-value {{ "funds.labels.count" | translate }}
-                .fund-criteria-item
-                    .fund-criteria-item-label {{ "funds.labels.agelimit" | translate }}
-                    .fund-criteria-item-value {{ "funds.labels.age" | translate }}
-                .fund-criteria-item
-                    .fund-criteria-item-label {{ "funds.labels.income" | translate }}
-                    .fund-criteria-item-value {{ "funds.labels.amount" | translate }}
+            .fund-criterias(ng-if="fund.criterioaList.length > 0")
+                .fund-criterias-label(translate="funds.labels.criteria" translate-values="{nth: fund.criterioaList.length}")
+                .fund-criteria-item(ng-repeat="criterion in fund.criterioaList")
+                    .fund-criteria-item-label(ng-bind="criterion.key")
+                    .fund-criteria-item-value(ng-bind="criterion.value")
         
         // .block.block-show-more: a(href="#").button.button-primary.button-wide {{ "funds.buttons.more" | translate }}
 
+        empty-block(
+            ng-if="$ctrl.funds.length == 0"
+            title="Geen funds"
+            description="Momenteel heeft u geen funds"
+            text="Momenteel heeft u geen funds"
+            hide-link="false")
 
 contact-form 

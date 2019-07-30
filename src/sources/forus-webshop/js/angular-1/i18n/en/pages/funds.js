@@ -5,7 +5,7 @@ module.exports = {
     },
     labels: {
         categorie: "CATEGORIEËN",
-        criteria: "Voorwaarden (4)",
+        criteria: "Voorwaarden ({{ nth }})",
         location: "Locatie",
         office: "Zuidhorn Gemeente",
         children: "Kinderen",
