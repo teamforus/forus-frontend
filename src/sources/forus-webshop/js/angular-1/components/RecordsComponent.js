@@ -1,11 +1,7 @@
 let RecordsComponent = function(
     $state,
-    $rootScope,
-    $timeout,
-    CredentialsService,
-    IdentityService,
-    AuthService,
-    appConfigs
+    appConfigs,
+    ModalService
 ) {
     let $ctrl = this;
 
@@ -13,10 +9,15 @@ let RecordsComponent = function(
         return $state.go('home');
     }
 
+    $ctrl.appConfigs = appConfigs;
+
     $ctrl.recordsByTypesKey = {};
 
-    $ctrl.$onInit = function() {
+    $ctrl.openActivateCodePopup = function () {
+        ModalService.open('modalActivateCode', {});
+    };
 
+    $ctrl.$onInit = function() {
         $ctrl.recordTypes.forEach(function(recordType) {
             $ctrl.recordsByTypesKey[recordType.key] = recordType;
         });
@@ -30,12 +31,8 @@ module.exports = {
     },
     controller: [
         '$state',
-        '$rootScope',
-        '$timeout',
-        'CredentialsService',
-        'IdentityService',
-        'AuthService',
         'appConfigs',
+        'ModalService',
         RecordsComponent
     ],
     templateUrl: 'assets/tpl/pages/records.html'

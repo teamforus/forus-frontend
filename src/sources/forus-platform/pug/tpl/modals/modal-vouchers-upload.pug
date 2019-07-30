@@ -1,0 +1,50 @@
+.modal
+    .modal-backdrop(ng-click="$ctrl.closeModal()")
+    .modal-window
+        a(ng-click="$ctrl.closeModal()").mdi.mdi-close.modal-close
+        .modal-header Upload vouchers
+        .modal-body.form
+            .modal-section.form
+                .form-group(ng-if="$ctrl.funds.length > 1")
+                    label.form-label(i18n="modals.modal_voucher_create.labels.fund")
+                    select(
+                        ng-options="fund as fund.name for fund in $ctrl.funds" 
+                        ng-change="$ctrl.fundChanged()"
+                        ng-model="$ctrl.fund").form-control
+                .block.block-csv.condensed(ng-if="$ctrl.fund")
+                    .csv-inner
+                        .csv-upload-btn(
+                            ng-show="$ctrl.csvParser.progress <= 1" 
+                            ng-click="$ctrl.csvParser.selectFile()")
+                            .csv-upload-icon: .mdi.mdi-upload
+                            .csv-upload-text
+                                | {{ "csv_upload.labels.upload" | translate  }}
+                                br
+                                span {{ "csv_upload.labels.swipe" | translate  }}
+
+                        .csv-upload-progress(
+                            ng-show="$ctrl.csvParser.progress >= 2" 
+                            ng-class="{done: $ctrl.csvParser.progress == 3}")
+                            .csv-upload-icon: .mdi(
+                                ng-class="{'mdi-loading': $ctrl.csvParser.progress == 2, 'mdi-check': $ctrl.csvParser.progress == 3}")
+                            progress-bar(progress="$ctrl.progressBar" status="$scope.progressStatus")
+
+                        .csv-upload-actions
+                            .csv-file(ng-if="$ctrl.csvParser.csvFile && $ctrl.csvParser.progress < 2")
+                                .block.block-file(ng-class="$ctrl.csvParser.isValid?'':'has-error'")
+                                    .file-error.mdi.mdi-close-circle
+                                    .file-name(ng-bind="$ctrl.csvParser.csvFile.name")
+                                    .file-size(ng-bind="$ctrl.csvParser.csvFile.size | file_size")
+                                    .file-remove.mdi.mdi-close(ng-click="$ctrl.reset()")
+                                .text-left(ng-if="!$ctrl.csvParser.isValid")
+                                    .form-error(ng-if="!$ctrl.csvParser.csvIsValid")
+                                        | The ammount field is missing.
+                                    .form-error(ng-if="!$ctrl.csvParser.amountIsValid")
+                                        | The sum of vouchers `amount` field exceedes fund budget.
+
+                            .text-center(ng-show="$ctrl.csvParser.progress == 1 && $ctrl.csvParser.isValid")
+                                button(
+                                    ng-click="$ctrl.csvParser.uploadToServer()"
+                                    translate="csv_upload.buttons.upload").button.button-primary
+        .modal-footer.text-center
+            button.button.button-primary(ng-click="$ctrl.closeModal()" translate="modal_funds_add.buttons.close")

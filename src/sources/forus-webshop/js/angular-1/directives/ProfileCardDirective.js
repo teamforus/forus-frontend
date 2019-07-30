@@ -1,18 +1,11 @@
 let ProfileCardDirective = function(
     $scope,
-    $rootScope
+    $timeout,
+    $element,
+    $rootScope,
+    appConfigs
 ) {
-    let qrCodeEl = document.getElementById('profile_qr');
-
-    new QRCode(qrCodeEl, {
-        text: JSON.stringify({
-            type: 'identity',
-            value: $rootScope.auth_user.address
-        }),
-        correctLevel: QRCode.CorrectLevel.L
-    });
-
-    qrCodeEl.removeAttribute('title');
+    $scope.appConfigs = appConfigs;
 
     $scope.copyAddress = function() {
         // todo: rewrite 
@@ -22,6 +15,27 @@ let ProfileCardDirective = function(
         document.execCommand("copy");
         input.remove();
     };
+
+
+    $timeout(() => {
+        let qrCodeEl = $element.find('#profile_qr');
+        
+        if (qrCodeEl.length == 0) {
+            return;
+        }
+
+        qrCodeEl = qrCodeEl[0];
+    
+        new QRCode(qrCodeEl, {
+            text: JSON.stringify({
+                type: 'identity',
+                value: $rootScope.auth_user.address
+            }),
+            correctLevel: QRCode.CorrectLevel.L
+        });
+    
+        qrCodeEl.removeAttribute('title');
+    }, 500);
 };
 
 module.exports = () => {
@@ -31,7 +45,10 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
+            '$timeout',
+            '$element',
             '$rootScope',
+            'appConfigs',
             ProfileCardDirective
         ],
         templateUrl: 'assets/tpl/directives/profile-card.html' 

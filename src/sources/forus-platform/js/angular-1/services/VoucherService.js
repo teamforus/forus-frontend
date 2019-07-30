@@ -17,6 +17,16 @@ module.exports = [
                     '/sponsor/vouchers'
                 ].join(''), data);
             };
+            
+            this.storeCollection = function(organization_id, fund_id, vouchers) {
+                return ApiRequest.post([
+                    '/platform/organizations/' + organization_id,
+                    '/sponsor/vouchers'
+                ].join(''), {
+                    fund_id: fund_id,
+                    vouchers: vouchers
+                });
+            };
 
             this.show = (organization_id, voucher_id) => {
                 return ApiRequest.get([

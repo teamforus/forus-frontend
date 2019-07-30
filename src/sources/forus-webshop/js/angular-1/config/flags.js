@@ -43,7 +43,7 @@ module.exports = {
     },
     zuidhorn: {
         logoExtension: '.png',
-        showAccountSidebar: false,
+        showAccountSidebar: true,
 
         // menu settings
         productsMenu: true,
