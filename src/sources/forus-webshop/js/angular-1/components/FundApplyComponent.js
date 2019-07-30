@@ -37,6 +37,25 @@ let FundsComponent = function(
         $ctrl.recordTypes.forEach(function(recordType) {
             $ctrl.recordsByTypesKey[recordType.key] = recordType;
         });
+
+        $ctrl.criterioaList = FundService.fundCriteriaList(
+            $ctrl.fund.criteria,
+            $ctrl.recordsByTypesKey
+        );
+
+        $ctrl.formulaList = {
+            fixed: $ctrl.fund.formulas.filter(formula => {
+                return formula.type == 'fixed'
+            }),
+            multiply: $ctrl.fund.formulas.filter(formula => {
+                return formula.type == 'multiply'
+            }).map(multiply => {
+                return {
+                    amount: multiply.amount,
+                    label: $ctrl.recordsByTypesKey[multiply.record_type_key].name
+                }
+            }),
+        };
     };
 
     $ctrl.applyFund = function() {

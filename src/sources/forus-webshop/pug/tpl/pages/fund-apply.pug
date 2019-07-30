@@ -1,38 +1,61 @@
-.header-splash: .splash.splash-d
-
-header.section.section-header
-    top-navbar
-
+top-navbar
 section.section.section-apply_fund: .wrapper
-    .section-title {{ "fund_apply.header.title" | translate }}
+    .block.block-breadcrumbs
+        a(ui-sref="home").breadcrumb-item Home
+        a(ui-sref="funds").breadcrumb-item Fondsen
+        a.breadcrumb-item.active(translate="fund_apply.header.title" translate-values="{fund_name: $ctrl.fund.name}")
+
+    .section-title(translate="fund_apply.header.title" translate-values="{fund_name: $ctrl.fund.name}")
     
     .block.block-apply_fund
         .apply_fund-aside
             .apply_fund-card
                 .fund-image: img(ng-src="{{ $ctrl.fund.logo.sizes.thumbnail || $ctrl.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
                 .fund-details
-                    .fund-name 
-                        | {{ $ctrl.fund.name }} 
-                        // span(ng-show="$ctrl.fund.state == 'active'").label.label-success Actief
-                    .fund-organization {{ $ctrl.fund.organization.name }} 
+                    .fund-name(ng-bind="$ctrl.fund.name") 
+                        //- span(ng-show="$ctrl.fund.state == 'active'").label.label-success Actief
+                    .fund-organization(ng-bind="$ctrl.fund.organization.name")
+                
                 .fund-criterias
-                    .fund-criterias-label {{ "fund_apply.header.criteria" | translate }}
-                    mixin cirteria_item(label, value)
-                        .fund-criteria-item
-                            .fund-criteria-item-label=label
-                            .fund-criteria-item-value=value
-                    +cirteria_item("Locatie", "Zuidhorn Gemeente")
-                    +cirteria_item("Kinderen", "1")
-                    +cirteria_item("Leeftijd", "< 18 jaar oud")
-                    +cirteria_item("Inkomensgrens", "< € 1118.46")
+                    .fund-criterias-label(translate="fund_apply.criterias.label")
+                    .fund-criteria-item
+                        .fund-criteria-item-label(translate="fund_apply.criterias.enddate")
+                        .fund-criteria-item-value(ng-bind="$ctrl.fund.end_date_locale")
+                    .fund-criteria-item
+                        .fund-criteria-item-label(translate="fund_apply.criterias.email")
+                        .fund-criteria-item-value(ng-bind="$ctrl.fund.organization.email")
+                    .fund-criteria-item
+                        .fund-criteria-item-label(translate="fund_apply.criterias.phone")
+                        .fund-criteria-item-value(ng-bind="$ctrl.fund.organization.phone")
+                    
+                    //- Fixed
+                    .fund-criteria-item(ng-repeat="formula in $ctrl.formulaList.fixed")
+                        .fund-criteria-item-label(translate="fund_apply.criterias.fixed_amount")
+                        .fund-criteria-item-value(ng-bind="formula.amount | currency_format")
+                    
+                    //- Dynamic
+                    .fund-criteria-item(ng-repeat="formula in $ctrl.formulaList.multiply")
+                        .fund-criteria-item-label(translate="fund_apply.criterias.multiplied_amount")
+                        .fund-criteria-item-value   
+                            span(ng-bind="formula.label + ': '")
+                            span(ng-bind="formula.amount | currency_format")
+
+                .fund-criterias(ng-if="$ctrl.criterioaList.length > 0")
+                    .fund-criterias-label(
+                        translate="fund_apply.header.criteria" 
+                        translate-values="{nth: $ctrl.criterioaList.length}")
+                    .fund-criteria-item(ng-repeat="criterion in $ctrl.criterioaList")
+                        .fund-criteria-item-label(ng-bind="criterion.key")
+                        .fund-criteria-item-value(ng-bind="criterion.value")
 
             .apply_fund-menu
-                button(ng-if="$ctrl.countInvalid == 0" ng-click="$ctrl.applyFund()").button.button-primary.button-fill {{ "buttons.join" | translate }}
+                button(ng-if="$ctrl.countInvalid == 0" ng-click="$ctrl.applyFund()" translate="buttons.join").button.button-primary.button-fill
+
         .apply_fund-content
             .block.block-fund_criteria
                 fund-criterion(
                     ng-repeat="criterion in $ctrl.fund.criteria" 
-                    fund="$ctrl.fund" 
+                fund="$ctrl.fund" 
                     criterion="criterion" 
                     record-type="$ctrl.recordsByTypesKey[criterion.record_type_key]" 
                     records="$ctrl.recordsByKey[criterion.record_type_key]" 

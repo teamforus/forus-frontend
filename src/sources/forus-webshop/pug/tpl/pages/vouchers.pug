@@ -17,10 +17,10 @@ section.section.section-profile: .wrapper
                 voucher-card(ng-repeat="voucher in $ctrl.vouchers" voucher="voucher")
                 
             empty-block(
+                ng-if="$ctrl.vouchers.length == 0"
                 title="Geen vouchers"
                 description="Momenteel heeft u geen vouchers"
                 text="Gebruik een activatiecode"
-                hide-link="false"
-                ng-if="$ctrl.vouchers.length == 0")
+                hide-link="false")
 
 contact-form 

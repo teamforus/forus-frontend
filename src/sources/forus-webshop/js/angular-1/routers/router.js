@@ -44,6 +44,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                     FundService.list()
                 );
             },
+            records: function($transition$, RecordService) {
+                return repackResponse(
+                    RecordService.list()
+                );
+            },
+            recordTypes: function($transition$, RecordTypeService) {
+                return repackResponse(
+                    RecordTypeService.list()
+                );
+            },
             vouchers: function($transition$, AuthService, VoucherService) {
                 return AuthService.hasCredentials() ? repackResponse(
                     VoucherService.list()

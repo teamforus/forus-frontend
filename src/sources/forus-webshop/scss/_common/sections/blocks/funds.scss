@@ -9,6 +9,7 @@
             margin: 0 0 20px;
             cursor: default;
             @include cf();
+            cursor: pointer;
 
             .fund-image {
                 width: 250px;
