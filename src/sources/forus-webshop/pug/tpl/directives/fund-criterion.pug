@@ -29,6 +29,6 @@
                 .criteria-label(ng-bind="recordType.name")
                 .criteria-value-empty {{ "fund_criterion.labels.value" | translate }}
             .criteria-validations
-                a(ui-sref="record-create").criteria-validation-add
+                a(ui-sref="record-create" ng-if="$root.appConfigs.features.records.create").criteria-validation-add
                     em.mdi.mdi-plus
                     | {{ "fund_criterion.buttons.add" | translate }}
