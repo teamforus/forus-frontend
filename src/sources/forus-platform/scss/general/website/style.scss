@@ -4,24 +4,40 @@
 @import 'includes/placeholders';
 @import 'includes/third-party';
 @import 'includes/typography';
+@import 'includes/shame';
+@import 'includes/useless';
+
 @import 'layout/footer.scss';
+@import 'layout/_header.scss';
 @import 'layout/grid.scss';
 @import 'layout/navigation.scss';
 @import 'layout/grid.scss';
+
 @import 'media-queries/small.scss';
 @import 'media-queries/medium.scss';
 @import 'media-queries/large.scss';
 @import 'media-queries/xlarge.scss';
-@import 'sections/contact_form.scss';
-@import 'sections/faq.scss';
-@import 'sections/wrappers.scss';
-@import 'sections/timeline.scss';
+
+@import 'sections/contact_form.scss', 
+'sections/faq.scss',
+'sections/benefits.scss',
+'sections/how_do_we_work.scss',
+'sections/video_player.scss',
+'sections/future_techtree.scss',
+'sections/downloads.scss',
+'sections/backlog.scss',
+'sections/success_stories.scss',
+'sections/timeline.scss';
+
 
 @import 'components/buttons.scss';
 @import 'components/tabs.scss';
 @import 'components/contributors.scss';
 @import 'components/devices.scss';
 @import 'components/modals.scss';
+
+@import 'themes/_cs_template.scss', 
+'themes/_template.scss';
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
 

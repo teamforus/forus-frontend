@@ -24,5 +24,35 @@ html {
             -ms-filter: blur(5px);
             filter: blur(5px);
         }
+        .wrapper {
+            &_story, &_holder, &_quote, &_reason, &_content, &_variable {
+                padding: 20px 0;
+            }
+            &_concept{
+                padding: 80px 0 60px;
+            }
+            &_start{
+                padding-top: 50px;
+                border-top: 1px solid #edeef0;
+            }
+            &_question {
+                margin-bottom: 100px;
+            }
+        }
+    }
+}
+.wrapper_logo_title {
+    text-align: center;
+    span{
+        
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1px;
+        color: #7e818c;
+        display: block;
+        margin: 5px auto 25px;
+        text-transform: uppercase;
     }
 }
