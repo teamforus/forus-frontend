@@ -1,8 +1,8 @@
 const platform = require('./_WebshopBasePlatform').clone();
-const destPath = '../dist/forus-webshop-forus.panel';
+const destPath = '../dist/forus-webshop-kerstpakket.panel';
 
 // change platform name
-platform.setName('webshop_forus');
+platform.setName('webshop_kerstpakket');
 
 // tweaking output and cleaned paths config
 platform.setDest(`${destPath}`);
@@ -14,14 +14,14 @@ platform.setCleanPath([
 
 // assets configs
 platform.copyAsset("resources/_webshop-common/**/*", "./");
-platform.copyAsset("resources/webshop-forus/**/*", "./");
+platform.copyAsset("resources/webshop-kerstpakket/**/*", "./");
 
 // tweak scss configs
 platform.editTask('scss', (task) => {
-    task.src = "forus/style-webshop-forus.scss";
+    task.src = "kerstpakket/style-webshop-kerstpakket.scss";
     task.watch = [
         "_common/**/*.scss",
-        "forus/**/*.scss"
+        "kerstpakket/**/*.scss"
     ];
 
     return task
