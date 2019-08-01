@@ -43,7 +43,8 @@ let FundsComponent = function(
                 return FundService.checkEligibility(
                     $ctrl.recordsByKey[criterion.record_type_key] || [],
                     criterion,
-                    validators
+                    validators,
+                    fund.organization_id
                 ).filter(
                     record => record.state == 'valid').length > 0;
             }).filter(isValid => isValid).length == fund.criteria.length;
@@ -57,7 +58,7 @@ let FundsComponent = function(
         });
 
         // Filter non applicable funds
-        // $ctrl.funds = $ctrl.funds.filter(fund => fund.isApplicable);
+        $ctrl.funds = $ctrl.funds.filter(fund => fund.isApplicable);
     };
 };
 

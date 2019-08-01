@@ -23,7 +23,7 @@ section.section.section-profile: .wrapper
                     .validation-body
                         .validation-item(ng-repeat="validation in $ctrl.record.validations")
                             .validation-image: img(src="./assets/img/placeholders/fund-thumbnail.png", alt="")
-                            .validation-name(ng-bind="validation.identity_address")
+                            .validation-name(ng-bind="validation.organization ? validation.organization.name : validation.identity_address")
                             .validation-date(ng-bind="validation.updated_at")
 
             empty-block(
