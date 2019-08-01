@@ -30,4 +30,16 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('modalAuth2', {
         component: 'modalAuth2Component'
     });
+
+    ModalRouteProvider.modal('voucher_create', {
+        component: 'modalVoucherCreateComponent'
+    });
+
+    ModalRouteProvider.modal('voucher_qr_code', {
+        component: 'modalVoucherQrCodeComponent'
+    });
+
+    ModalRouteProvider.modal('vouchersUpload', {
+        component: 'modalVouchersUploadComponent'
+    });
 }];

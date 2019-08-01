@@ -1,5 +1,4 @@
 let ModalNotificationComponent = function(
-    $sce,
     $filter
 ) {
     let $ctrl = this;
@@ -18,9 +17,9 @@ let ModalNotificationComponent = function(
 
         $ctrl.class = 'modal-notification-' + type + ' ' + additionalClass;
 
-        $ctrl.title = $sce.trustAsHtml($ctrl.modal.scope.title);
-        $ctrl.description = $ctrl.modal.scope.description ? $sce.trustAsHtml($ctrl.modal.scope.description) : null;
-        $ctrl.subdescription = $ctrl.modal.scope.subdescription ? $sce.trustAsHtml($ctrl.modal.scope.subdescription) : null;
+        $ctrl.title = $ctrl.modal.scope.title;
+        $ctrl.description = $ctrl.modal.scope.description;
+        $ctrl.subdescription = $ctrl.modal.scope.subdescription;
 
         $ctrl.icon = $ctrl.modal.scope.icon ? getIcon($ctrl.modal.scope.icon) : null;
 
@@ -49,18 +48,7 @@ let ModalNotificationComponent = function(
     };
 
     let getIcon = (icon) => {
-
-        switch (icon) {
-            case 'voucher_apply': {
-                return './assets/img/modal/voucher-apply.png';
-            }; break;
-            case 'email_confirmation': {
-                return './assets/img/modal/email.png';
-            }; break;
-            default:{
-                return './assets/img/modal/info.png';
-            }
-        }
+        return './assets/img/modal/' + icon + '.png';
     };
 
     $ctrl.cancel = () => {
@@ -88,7 +76,6 @@ module.exports = {
         modal: '='
     },
     controller: [
-        '$sce',
         '$filter',
         ModalNotificationComponent
     ],

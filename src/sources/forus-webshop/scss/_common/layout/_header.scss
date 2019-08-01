@@ -1,0 +1,174 @@
+.section {
+    &.section-header {
+        width: 100%;
+        position: relative;
+        @media screen and (min-width: 1024px){
+            background: $bg-values;
+            background-size: auto 80%;
+            height: 650px;
+        }
+        @media screen and (min-width: 1440px){
+            height: 750px;
+        }
+        @media screen and (min-width: 1700px){
+            background-size: auto 90%;
+        }
+        @include cf();
+        .header-body {
+            @include cf();
+            position: relative;
+        }
+        .header-content {
+            padding-top: 30px;
+            .button {
+                width: 100%;
+            }
+            @media screen and (min-width: 1024px){
+                width: 50%;
+                max-width: 500px;
+                position: absolute;
+                margin: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            @media screen and (min-width: 1440px){ 
+                max-width: 650px;
+            }
+            .header-title {
+                margin: 0 0 20px;
+                text-align: center;
+                font: 700 32px/1.5em $bf;
+                @media screen and (min-width: 1024px){ 
+                    text-align:left;
+                }
+                @media screen and (min-width: 1440px){ 
+                    font: 700 48px/1.5em $bf;
+                }
+            }
+            .header-description {
+                font: 400 16px/32px $bf;
+                text-align: center;
+                @media screen and (min-width: 1024px){ 
+                    text-align:left;
+                }
+                p {
+                    font: 400 16px/32px $bf;
+                    @media screen and (min-width: 1440px){ 
+                        font: 200 21px/1.5em $bf;
+                    }
+                }
+            }
+            .header-how-it-works {
+                font-style: italic;
+                text-decoration: underline;
+                cursor: pointer;
+            }
+            .header-how-it-works:hover {
+                color: #a5a5a5;
+            }
+            .header-download-apps {
+                .app-item {
+                    padding: 25px 20px 25px 90px;
+                    font: 700 12px/20px $bf;
+                    @include ellipsis();
+                    width: 100%;
+                    display: block;
+                    margin-bottom: 20px;
+                    position: relative;
+                    color: #282b39;
+                    overflow: hidden;
+                    border-radius: 5px;
+                    background: #fff;
+                    text-align: left;
+                    transition: .4s;
+                    transform: translate(0, 0);
+                    box-shadow: 5px 15px 30px rgba($color: #000000, $alpha: .05);
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        display: block;
+                        top: 50%;
+                        background-color: #f9fbf0;
+                        background-image: url(../img/me/icon-app-android.png);
+                        background-repeat: no-repeat;
+                        transform: translate(0, -50%);
+                        width: 70px;
+                        height: 100%;
+                        border-radius: 0;
+                        left: 0;
+                        background-size: 50px;
+                        background-position: 50%;
+                    }
+                    &.app-item-ios {
+                        &:before {
+                            background-color: #f2fafd;
+                            background-image: url('../img/me/icon-app-ios.png');
+                        }
+                    }
+                    &:hover {
+                        transform: translate(0, -5px);
+                        box-shadow: 5px 20px 40px rgba($color: #000000, $alpha: .15);
+                    }
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+    &.section-title {
+        font: 700 20px/30px $bf;
+        margin: 0 0 20px;
+        position: relative;
+        color: #00122a;
+    }
+
+}
+@media screen and (min-width: 1024px) {
+    .section {
+        .section-title {
+            font: 700 40px/60px $bf;
+            margin: 0 0 40px;
+            text-align: center;
+        }
+        &.section-header {
+            .header-content {
+                .button {
+                    width: unset;
+                }
+                .header-how-it-works {
+                    margin: 0 0 50px;
+                    font-size: 15px;
+                    transition: .4s;
+                }
+                .header-download-apps {
+                    .app-item {
+                        padding: 50px 50px 50px 200px;
+                        width: 100%;
+                        font: 700 18px/30px $bf;
+                        top: 0;
+                        .mdi {
+                            top: 50%;
+                            right: 40px;
+                            position: absolute;
+                            transform: translate(0, -50%);
+                            font-size: 18px;
+                            color: #5374d9;
+                        }
+    
+                        &:before {
+                            width: 200px;
+                            height: 175px;
+                            border-radius: 200px;
+                            background-repeat: no-repeat;
+                            background-position: 75%;
+                            background-size: 90px;
+                            left: -60px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

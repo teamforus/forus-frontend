@@ -1,0 +1,33 @@
+.button {
+    &.button-default {
+        color: $bc;
+        border-color: #d2e6ff;
+
+        .mdi {
+            color: $bc;
+        }
+
+        &:hover {
+            background: $bc;
+            border-color: $bc;
+        }
+    }
+
+    &.button-primary {
+        background: $color_primary;
+        border: 1px solid $color_primary;
+
+        &:hover {
+            background: $color_primary_light;
+        }
+    }
+
+    &.button-primary-outline {
+        color: $color_primary;
+        border: 1px solid $color_primary;
+
+        &:hover {
+            background: $color_primary;
+        }
+    }
+}

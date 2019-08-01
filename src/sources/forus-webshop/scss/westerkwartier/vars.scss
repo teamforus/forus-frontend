@@ -1,15 +1,17 @@
 /*==========  Style Sheet - Vars  ==========*/
 
+// header attributes
+$bg-values:          url("../img/splash-top-b.png") no-repeat 100% 0;
+
 // base font
 $bf:                'Lato' ,"Lucida Sans","Lucida Sans Unicode","Lucida Grande",Verdana,Arial,Helvetica,sans-serif;
 
 // text color
 $tc:                #4e4d40;
+$tc-var:            #fff;
 
 // base color
 $bc:                #4990b5;
-
-$bc_2:              #70c567;
 
 // background color
 $bg:                #fff;
@@ -18,7 +20,6 @@ $bg_2:              none;
 
 // text formatting
 $tf:                lowercase;
-
 
 // footer color
 $fc:                #4e4d40;

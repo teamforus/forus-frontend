@@ -417,6 +417,26 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     /**
+     * Vouchers
+     */
+    $stateProvider.state({
+        name: "vouchers",
+        url: "/organizations/{organization_id}/vouchers",
+        component: "vouchersComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
+            funds: function(permission, $transition$, FundService) {
+                return repackResponse(
+                    FundService.list(
+                        $transition$.params().organization_id
+                    )
+                );
+            },
+        }
+    });
+
+    /**
      * Transactions
      */
     $stateProvider.state({
@@ -648,6 +668,31 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                     $state.go('home');
                 }, () => {
                     alert("Helaas, het is niet gelukt om in te loggen. De link is reeds gebruikt of niet meer geldig. Probeer het opnieuw met een andere link.");
+                    $state.go('home');
+                });
+            }
+        ],
+        data: {
+            token: null
+        }
+    });
+
+    $stateProvider.state({
+        name: "auth-link",
+        url: "/auth-link?token",
+        controller: [
+            '$state', '$rootScope', 'IdentityService', 'CredentialsService',
+            function(
+                $state, $rootScope, IdentityService, CredentialsService
+            ) {
+                IdentityService.exchangeShortToken(
+                    $state.params.token
+                ).then(res => {
+                    CredentialsService.set(res.data.access_token);
+                    $rootScope.loadAuthUser();
+                    $state.go('home');
+                }, () => {
+                    alert("Token expired or unknown.");
                     $state.go('home');
                 });
             }

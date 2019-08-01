@@ -1,6 +1,6 @@
-let LinearChartDirective = function($scope, $element) {
+let BarChartDirective = function($scope, $element) {
+    var BarChart=null;
     var timeFormat = 'MM/DD/YYYY';
-
     $scope.$watch('data', function(data) {
         drawChart(data ? data : []);
     });
@@ -12,22 +12,23 @@ let LinearChartDirective = function($scope, $element) {
         moment.locale('nl');
 
         data.forEach(value => {
-            labels.push(moment(value.key, "YYYY-MM-DD").toDate());
+            labels.push(value.key);
             values.push({
-                x: moment(value.key, "YYYY-MM-DD"),
+                x: value.key,
                 y: value.value,
             });
         });
-
-
-        new Chart($element, {
-            type: 'line',
+        if(BarChart!=null){
+            BarChart.destroy();
+        }
+        BarChart = new Chart($element, {
+            type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
                     data: values,
                     borderColor: '#2987fd',
-                    backgroundColor: 'transparent'
+                    backgroundColor: '#2987fd'
                 }]
             },
             options: {
@@ -40,13 +41,18 @@ let LinearChartDirective = function($scope, $element) {
                 },
                 scales: {
                     xAxes: [{
-                        type: 'time',
                         time: {
                             unit: 'day',
+                            round: 'day',
                             tooltipFormat: 'll',
                             displayFormats: {
                                 quarter: 'll',
                             }
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                          beginAtZero: true
                         }
                     }]
                 },
@@ -67,8 +73,8 @@ module.exports = () => {
         controller: [
             '$scope',
             '$element',
-            LinearChartDirective
+            BarChartDirective
         ],
-        templateUrl: 'assets/tpl/directives/linear-chart.html' 
+        templateUrl: 'assets/tpl/directives/bar-chart.html'
     };
 };

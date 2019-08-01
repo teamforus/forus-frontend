@@ -1,5 +1,5 @@
 .profile-aside
-    .profile-card
+    .profile-card(ng-if="appConfigs.features.identity.address")
         .profile-qr_code#profile_qr
         .profile-details
             .profile-heading {{ "profile_card.header.title" | translate }}
@@ -14,7 +14,7 @@
             a(href="#").profile-action 
                 em.mdi.mdi-share-variant 
                 | {{ "profile_card.buttons.share" | translate }}
-    .profile-menu
+    .profile-menu(ng-if="appConfigs.features.records.list")
         a(ui-sref="vouchers" ui-sref-active="active").profile-menu-item 
             | {{ "profile_card.buttons.vouchers" | translate }}
             em.mdi.mdi-arrow-right

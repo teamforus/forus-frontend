@@ -1,8 +1,4 @@
-.header-splash: .splash.splash-d
-
-header.section.section-header
-    top-navbar
-
+top-navbar
 section.section.section-profile: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
@@ -11,19 +7,20 @@ section.section.section-profile: .wrapper
     .section-title
         span(translate="vouchers.header.title")  
         .span-count(ng-bind="$ctrl.vouchers.length")
-
-    .block.block-profile
-        profile-card(ng-if="$ctrl.cfg.showAccountSidebar")
         
+    .block.block-profile
+        .profile-aside(
+            ng-if="$ctrl.appConfigs.features.identity.address || $ctrl.appConfigs.features.records.list")
+            profile-card
         .profile-content
             .block.block-vouchers(ng-if="$ctrl.vouchers.length > 0")
                 voucher-card(ng-repeat="voucher in $ctrl.vouchers" voucher="voucher")
                 
             empty-block(
+                ng-if="$ctrl.vouchers.length == 0"
                 title="Geen vouchers"
                 description="Momenteel heeft u geen vouchers"
                 text="Gebruik een activatiecode"
-                hide-link="false"
-                ng-if="$ctrl.vouchers.length == 0")
+                hide-link="false")
 
 contact-form 

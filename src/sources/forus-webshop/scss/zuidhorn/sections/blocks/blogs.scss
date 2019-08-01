@@ -1,0 +1,28 @@
+.block {
+    &.block-blogs {
+        .blog-item {
+            .label {
+                margin-bottom: 10px;
+            }
+        }
+
+        .blog-read-more {
+            color: $bc;
+        }
+
+        .blog-item-inner {
+            &:hover {
+                .blog-name {
+                    color: $bc;
+                }
+
+                .blog-image {
+                    &:after {
+                        opacity: .5;
+                        ;
+                    }
+                }
+            }
+        }
+    }
+}

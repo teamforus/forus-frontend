@@ -1,0 +1,15 @@
+.section {
+    &.section-funds {
+        margin-bottom: 30px;
+        .section-title {
+            text-align: left;
+        }
+    }
+    &.section-apply_fund {
+        .section-title {
+            text-align: left;
+        }
+        position: relative;
+        z-index: 1;
+    }
+}

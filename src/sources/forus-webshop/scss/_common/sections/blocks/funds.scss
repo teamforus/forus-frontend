@@ -1,0 +1,189 @@
+.block {
+    &.block-funds {
+        .fund-item {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 60px rgba(#000, .025);
+            transition: .4s ease-out;
+            position: relative;
+            margin: 0 0 20px;
+            cursor: default;
+            @include cf();
+            cursor: pointer;
+
+            .fund-image {
+                width: 250px;
+                padding: 35px 50px;
+                float: left;
+
+                img {
+                    display: block;
+                    width: 150px;
+                }
+            }
+
+            .fund-details {
+                float: left;
+                padding: 20px 25px 25px;
+                width: calc(100% - 600px);
+
+                .button {
+                    padding: 7px 45px;
+                }
+
+                .fund-name {
+                    font: 700 26px $bf;
+                    color: $color_default;
+                    margin-bottom: 5px;
+                    @include ellipsis();
+
+                    .label {
+                        vertical-align: middle;
+                        margin-top: -5px;
+                    }
+                }
+                
+                .fund-organization {
+                    font: 600 14px $bf;
+                    color: #009ef4;
+                    margin-bottom: 10px;
+                }
+
+                .fund-categories {
+                    margin-bottom: 10px;
+
+                    .fund-categories-label {
+                        font: 400 10px $bf;
+                        color: #646f79;
+                        margin-bottom: 10px;
+                    }
+
+                    .fund-categories-list {
+                        font: 600 16px $bf;
+                        color: #282b39;
+                    }
+                }
+            }
+
+            .fund-criterias {
+                float: right;
+                width: 350px;
+                @include fill_parent();
+                left: auto;
+                padding: 20px;
+                border-left: 1px solid #d4d9dd;
+
+                .fund-criterias-label {
+                    color: #00122a;
+                    font: 700 16px $bf;
+                    margin-bottom: 15px;
+                }
+
+                .fund-criteria-item {
+                    width: 100%;
+                    margin-bottom: 5px;
+                    @include cf();
+
+                    .fund-criteria-item-label {
+                        font: 400 13px/20px $bf;
+                        color: #134478;
+                        width: 120px;
+                        float: left;
+                    }
+
+                    .fund-criteria-item-value {
+                        font: 700 13px $bf;
+                        color: #282b39;
+                        float: left;
+                    }
+                }
+            }
+            
+            &:hover {
+                box-shadow: 0 10px 40px rgba(#000, .15);
+            }
+        }
+    }
+    @media screen and (max-width: 1700px) {
+
+        &.block-funds {
+            .fund-item {
+                .fund-image {
+                    width: 150px;
+                    padding: 35px 10px;
+                    position: relative;
+
+                    img {
+                        max-width: 100%;
+                    }
+                }
+
+                .fund-criterias {
+                    width: 400px;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-funds {
+            .fund-item {
+                border-radius: 6px;
+
+                .fund-image {
+                    width: 100%;
+                    padding: 20px 20px 0;
+
+                    img {
+                        width: 150px;
+                        display: block;
+                        margin: 0 auto;
+                    }
+                }
+
+                .fund-details {
+                    width: 100%;
+                    padding: 20px 20px 0;
+
+                    .fund-name {
+                        font: 700 20px $bf;
+                        margin: 0;
+                        @include ellipsis();
+                    }
+
+                    .fund-organization {
+                        font: 600 13px $bf;
+                        margin: 0 0 20px;
+                    }
+
+                    .fund-categories {
+                        margin: 0 0 20px;
+
+                        .fund-categories-label {
+                            font: 400 9px $bf;
+                            margin: 0 0 0;
+                        }
+                        
+                        .fund-categories-list {
+                            font: 600 14px $bf;
+                        }
+                    }
+
+                    .button {
+                        width: 100%;
+                    }
+                }
+
+                .fund-criterias {
+                    width: 100%;
+                    float: left;
+                    position: relative;
+                    left: auto;
+                    top: auto;
+                    bottom: auto;
+                    right: auto;
+                    border: none;
+                }
+            }
+        }
+    }
+}

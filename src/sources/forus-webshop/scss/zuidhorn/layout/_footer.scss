@@ -1,0 +1,41 @@
+.section {
+    &.section-footer {
+        background-color: $fc;
+    }
+}
+.block {
+    &.block-footer {
+        width: auto;
+
+        .footer-nav {
+            a {
+                color: $bc;
+
+                &:hover {
+                    color: $bc;
+                }
+            }
+        }
+    }
+    &.block-copyrights {
+        .links {
+            a {
+                color: $bc;
+
+                &:hover {
+                    color: $bc;
+                }
+            }
+        }
+
+        .developed {
+            a {
+                color: $bc;
+
+                &:hover {
+                    color: $bc;
+                }
+            }
+        }
+    }
+}

@@ -6,10 +6,10 @@
             .text-center
                 .modal-icon(ng-if="$ctrl.icon")
                     img(ng-src="{{ $ctrl.icon }}")
-                .title(ng-bind-html="$ctrl.title")
-                .description(ng-if="$ctrl.description" ng-bind-html="$ctrl.description")
+                .title(ng-bind="$ctrl.title")
+                .description(ng-if="$ctrl.description" ng-bind="$ctrl.description")
                 .text-center(ng-if="$ctrl.subdescription")
-                    .subdescription(ng-bind-html="$ctrl.subdescription")
+                    .subdescription(ng-bind="$ctrl.subdescription")
 
         .modal-footer.text-center.no-border
             button.button.button-dark(ng-if="$ctrl.showCloseBtn" ng-click="$ctrl.close()" ng-bind="$ctrl.closeBtnText")

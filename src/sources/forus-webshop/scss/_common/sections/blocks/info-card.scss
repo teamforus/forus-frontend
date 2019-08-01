@@ -1,0 +1,104 @@
+.block {
+
+    &.block-info-card {
+        border: 1px solid $border_color;
+        background: #fff;
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(#000, .2);
+        margin-bottom: 30px;
+        
+        .block-header {
+            font: 700 16px/30px $bf;
+            padding: 20px 25px;
+            border-bottom: 1px solid $border_color;
+
+            @media screen and (max-width: 767px) {
+                padding: 20px 10px;
+            }
+        }
+
+        .block-content {
+            padding: 20px 25px;
+            color: #00122a;
+
+            /* p {
+                font: 400 14px/24px $bf;
+                color: inherit;
+                margin: 0 0 25px;
+            }
+
+            h4 {
+                font: 700 16px $bf;
+                color: inherit;
+                margin: 0 0 25px;
+            } */
+
+            .lvl {
+                display: flex;
+                flex-wrap: wrap;
+                margin-bottom: 15px;
+                
+                .lvr {
+                    width: 100%;
+                    display: flex;
+                    flex-wrap: nowrap;
+                    margin-bottom: 15px;
+
+                    .lvl-label {
+                        font: 500 14px/24px $bf;
+                        color: #017f96;
+                        width: 220px;
+                    }
+
+                    .lvl-value {
+                        font: 400 14px/24px $bf;
+                        color: #282b39;
+                        width: calc(100% - 220px);
+                    }
+                }
+            }
+        }
+
+        .info-office {
+            display: flex;
+
+            .info-office-photo {
+                width: 130px;
+                background-size: cover;
+                background-position: 50%;
+                background-repeat: no-repeat;
+
+                img {
+                    display: block;
+                    width: 100%;
+                }
+            }
+
+            .info-office-details {
+                padding: 15px 25px 20px;
+
+                @media screen and (max-width: 767px)  {
+                    padding: 5px 10px 5px;
+                }
+
+                .info-office-title {
+                    font: 700 16px/24px $bf;
+                    margin-bottom: 10px;
+                    color: #282b39;
+                }
+
+                .info-office-description {
+                    font: 400 13px/20px $bf;
+                    margin-bottom: 10px;
+                    color: #282b39;
+                }
+
+                .sub-description {
+                    font: 700 14px/2px $bf;
+                    margin-top: 20px;
+                }
+            }
+        }
+    }
+}

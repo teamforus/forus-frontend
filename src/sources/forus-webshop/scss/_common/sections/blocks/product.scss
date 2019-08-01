@@ -1,0 +1,381 @@
+.block {
+    &.block-product {
+        position: relative;
+
+        .product-card {
+            background-color: #fff;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 25px rgba(#000, .2);
+            cursor: default;
+            @include cf();
+            position: relative;
+            overflow: hidden;
+
+            @media screen and (max-width: 767px) {
+            
+                .truncated {
+                    flex: 1;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .tooltip-block {
+                    z-index: 1;
+                    display: block;
+                    margin-left: 0px;
+
+                    .tooltip {
+                        left: -50px;
+                    }
+                
+                }
+
+                &.product-card {
+                    
+                    .product-photo {
+                        width: 75px;
+                        height: 75px;
+                        left: auto;
+                        border-radius: 4em;
+                        right: 7.5%;
+                        top: 7.5%;
+                    }
+
+                    .product-details {
+                        padding-left: 10%;
+
+                        .product-price {
+                            .product-price-new {
+                                font: 700 16px/26px "Lato",arial,sans-serif;
+                            }
+
+                            .product-price-insufficient {
+                                font: 400 16px "Lato",arial,sans-serif;
+                                padding-top: 20px;
+                            }
+                        }
+
+                        .product-expire {
+                            .expire-value {
+                                font: 700 18px "Lato",arial,sans-serif;
+                            }
+                        }
+
+                        .button {
+                            padding-right: 0;
+                            padding-left: 0;
+                        }
+                    }
+                }
+            }
+
+            .product-photo {
+                position: absolute;
+                width: 40%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                float: left;
+                border-top-left-radius: inherit;
+                border-bottom-left-radius: inherit;
+                background-size: cover;
+                background-position: 50%;
+                background-repeat: no-repeat;
+
+                img {
+                    width: 100%;
+                    display: none;
+                    border-top-left-radius: inherit;
+                    border-bottom-left-radius: inherit;
+                }
+            }
+
+            .product-details {
+                padding: 30px;
+                width: 100%;
+                position: relative;
+                padding-left: calc(40% + 30px);
+                border-bottom: 1px solid $border_color;
+                background: #fff;
+
+                .product-name {
+                    color: #00122a;
+                    font: 700 26px $bf;
+
+                    .label {
+                        margin-top: 6px;
+                        float: right;
+                        margin-left: 10px;
+                    }
+                }
+
+                .product-categories {
+                    color: #282b39;
+                    font: 600 16px $bf;
+                    margin-bottom: 20px;
+                }
+
+                .product-funds {
+                    margin-bottom: 20px;
+
+                    .product-fund-label {
+                        font: 500 10px $bf;
+                        color: #646f79;
+                        margin-bottom: 5px;
+                    }
+
+                    .product-fund-list {
+                        font: 700 16px $bf;
+                        color: #282b39;
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                .product-price {
+                    margin-bottom: 20px;
+
+                    .product-price-new {
+                        font: 700 24px $bf;
+                        color: #151b26;
+                        margin-bottom: 5px;
+                        display: flex;
+                        align-items: center;
+                        
+                        .new-value {
+                            padding: 0px 10px;
+                        }
+                    }
+
+                    .product-price-old {
+                        font: 400 18px $bf;
+                        color: #646f79;
+                        display: flex;
+                        align-items: center;
+                        text-decoration: line-through;
+
+                        .old-value {
+                            padding: 0 10px;
+                        }
+                    }
+
+                    .product-price-insufficient {
+                        font: 400 18px $bf;
+                        color: #646f79;
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                .product-expire {
+                    margin-bottom: 20px;
+
+                    .expire-label {
+                        font: 500 13px $bf;
+                        color: #646f79;
+                    }
+
+                    .expire-value {
+                        font: 700 24px $bf;
+                        color: #282b39;
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                .product-details-link {
+                    font: 600 13px/20px $bf;
+                    color: #083f49;
+                    width: 100%;
+                    cursor: pointer;
+                    display: block;
+
+                    .mdi {
+                        color: #3396a7;
+                        display: inline-block;
+                        font-size: 1.5em;
+                        line-height: 20px;
+                        vertical-align: bottom;
+                        position: relative;
+                        transform: translate(0px);
+                        transition: .4s;
+                    }
+
+                    &:hover {
+                        .mdi {
+                            transform: translate(5px);
+                        }
+                    }
+                }
+                
+                .button {
+                    padding-left: 100px;
+                    padding-right: 100px;
+                }
+            }
+
+            .product-footer {
+                width: 100%;
+                background: #fcfcfc;
+                padding: 20px 25px;
+
+                .product-provider {
+                    margin-bottom: 20px;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                .product-provider-label {
+                    color: #646779;
+                    font: 400 10px/18px $bf;
+                }
+
+                .product-provider-value {
+                    font: 700 16px $bf;
+                    color: #131418;
+                    margin-bottom: 5px;
+                }
+
+                .product-provider-details {
+                    font: 400 13px/20px $bf;
+                    color: #131418;
+                }
+            }
+        }
+
+        &.block-product-sm {
+            .product-card {
+                .product-details {
+                    .product-name {
+                        font-size: 16px;
+                    }
+
+                    .product-categories {
+                        font-size: 13px;
+                        margin-bottom: 15px;
+                    }
+                }
+
+                .product-funds {
+                    margin-bottom: 10px;
+
+                    .product-fund-label {
+                        font-size: 10px;
+                        margin: 0;
+                    }
+
+                    .product-fund-list {
+                        font-size: 15px;
+                    }
+                }
+
+                .product-price {
+                    width: 100%;
+                    margin-bottom: 10px;
+                    @include cf();
+
+                    .product-price-new {
+                        float: left;
+                        margin: 0;
+                    }
+
+                    .product-price-old {
+                        float: left;
+                        margin-top: 8px;
+                        margin-left: 5px;
+                    }
+                }
+
+                .product-expire {
+                    .expire-label {
+                        font-size: 10px;
+                    }
+
+                    .expire-value {
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-product {
+            padding: 10px 0px;
+
+            .product-card {
+                border-radius: 10px;
+
+                .product-photo {
+                    max-width: none;
+                    width: 40%;
+                    left: 0;
+                    border-top-right-radius: inherit;
+                    border-bottom-left-radius: 0;
+
+                    img {
+                        border-top-right-radius: inherit;
+                    }
+                }
+
+                .product-details {
+                    padding: 25px;
+                    width: 100%;
+                    padding-left: calc(40% + 30px);
+
+                    .product-name {
+                        font: 700 18px/32px $bf;
+                        margin: 0 0 0;
+                        display: inline-block;
+                    }
+
+                    .product-categories {
+                        font: 600 13px $bf;
+                        margin: 0 0 15px;
+                    }
+
+                    .product-funds {
+                        margin: 0 0 15px;
+
+                        .product-fund-label {
+                            font: 400 10px/18px $bf;
+                            margin: 0 0 0;
+                        }
+
+                        .product-fund-list {
+                            font: 700 14px $bf;
+                        }
+                    }
+
+                    .product-price {
+                        margin: 0 0 15px;
+
+                        .product-price-new {
+                            font: 700 20px/30px $bf;
+                            margin: 0 0 0;
+                        }
+
+                        .product-price-old {
+                            font: 400 15px $bf;
+                        }
+                    }
+
+                    &>.button {
+                        width: 100%;
+                        padding-left: 0px;
+                        padding-right: 0px;
+                    }
+                }
+            }
+        }
+    }
+}

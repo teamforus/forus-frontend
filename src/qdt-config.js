@@ -2,6 +2,7 @@ const core = require('./qdt/Core');
 
 // Register markups
 core.addPlatform(require('./platforms/Webshops/WebshopMarkupPlatform'));
+core.addPlatform(require('./platforms/Dashboards/DashboardMarkupPlatform'));
 
 // Register dashbaords
 core.addPlatform(require('./platforms/Dashboards/DashboardGeneralSponsorPlatform'));

@@ -4,25 +4,54 @@ module.exports = [
         ApiRequest
     ) {
         return new(function() {
-            this.checkCode = function(code) {
-                return ApiRequest.get('/vouchers/' + code);
+            this.index = (organization_id, query) => {
+                return ApiRequest.get([
+                    '/platform/organizations/' + organization_id,
+                    '/sponsor/vouchers'
+                ].join(''), query);
             };
 
-            this.makeTransaction = function(code, values) {
-                return ApiRequest.post('/vouchers/' + code + '/transactions', values);
+            this.store = (organization_id, data) => {
+                return ApiRequest.post([
+                    '/platform/organizations/' + organization_id,
+                    '/sponsor/vouchers'
+                ].join(''), data);
+            };
+            
+            this.storeCollection = function(organization_id, fund_id, vouchers) {
+                return ApiRequest.post([
+                    '/platform/organizations/' + organization_id,
+                    '/sponsor/vouchers'
+                ].join(''), {
+                    fund_id: fund_id,
+                    vouchers: vouchers
+                });
             };
 
-            this.markTransactionForRefund = function(code, transaction, values) {
-                var values = JSON.parse(JSON.stringify(values));
-
-                values._method = 'PUT';
-                
-                return ApiRequest.post('/vouchers/' + code + '/transactions/' + transaction + '/refund');
+            this.show = (organization_id, voucher_id) => {
+                return ApiRequest.get([
+                    '/platform/organizations/' + organization_id,
+                    '/sponsor/vouchers/' + voucher_id
+                ].join(''));
             };
 
-            this.getTransactions = function(code) {
-                return ApiRequest.get('/vouchers/' + code + '/transactions');
-            }
+            this.assign = (organization_id, voucher_id, email) => {
+                return ApiRequest.patch([
+                    '/platform/organizations/' + organization_id,
+                    '/sponsor/vouchers/' + voucher_id + '/assign',
+                ].join(''), {
+                    email: email
+                });
+            };
+
+            this.sendToEmail = (organization_id, voucher_id, email) => {
+                return ApiRequest.post([
+                    '/platform/organizations/' + organization_id,
+                    '/sponsor/vouchers/' + voucher_id + '/send',
+                ].join(''), {
+                    email: email
+                });
+            };
         });
     }
 ];

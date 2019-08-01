@@ -35,7 +35,14 @@ module.exports = {
         "validation-request": 'Validatie verzoek',
         "restore-email": 'Inloggen via e-mail',
     },
+    // MODALS
+    modals: {
+        modal_voucher_create: require('./en/modals/modal-voucher-create.pug.i18n'),
+        modal_voucher_qr_code: require('./en/modals/modal-voucher-qr_code.pug.i18n'),
+    },
     // PAGES
+    vouchers: require('./en/pages/vouchers.pug.i18n'),
+
     // MEAPP LANDINGSPAGE = index.pug
     meapp_index: {
         navbar: {
@@ -139,7 +146,7 @@ module.exports = {
             quarter: "Kwartaal",
             month: "Maand",
             week: "Week",
-            all: "Alles",
+            all: "Jaar",
             total: "Huidig saldo",
             spend: "Startbudget",
             used: "Totaal uitgegeven bedrag in %",
@@ -363,7 +370,7 @@ module.exports = {
         }
     },
 
-    // SHOW PRODUCTS = product-show.pug 
+    // SHOW PRODUCTS = product-show.pug
     //TRANSLATION NOT FINISHED -> PAGE NOT DONE
     products_show: {
         header: {
@@ -980,7 +987,7 @@ module.exports = {
             limit: "U kunt ook de inwoner in uw organisatie te woord staan en hem een persoonlijk aanbod aanbieden. U scant dan de QR-code en vult een bedrag in!",
         }
     },
-  
+
     search: "Zoeken",
 
     open_in_me: {

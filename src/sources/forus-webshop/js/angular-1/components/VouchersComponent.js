@@ -1,10 +1,12 @@
 let VouchersComponent = function(
-    $state,
+    appConfigs,
     ConfigService
 ) {
     let $ctrl = this;
 
     $ctrl.$onInit = function() {
+        $ctrl.appConfigs = appConfigs;
+        $ctrl.ConfigService = ConfigService;
         $ctrl.cfg = {
             showAccountSidebar: ConfigService.getFlag('showAccountSidebar', true)
         }
@@ -16,7 +18,7 @@ module.exports = {
         vouchers: '<'
     },
     controller: [
-        '$state',
+        'appConfigs',
         'ConfigService',
         VouchersComponent
     ],
