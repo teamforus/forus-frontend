@@ -1,64 +1,52 @@
-.wrapper{
-    align-items: center;
-
-    // home header
-    &_value_allowance{
-        padding: 150px 5vw;
-        position: relative;
-        text-align: center;
-        background-color: rgba(255, 255, 255, 0.1);
-        overflow: hidden;
-        .container{
-            width: 100%;
-        }
-        &:before{
-            content: '';
-            z-index: -1;
-            position: absolute;
-            left: 0px;
-            top: -5%;
-            text-align: center;
-            width: 100%;
-            height: 100%;
-            background: url($img_path + "/header-fig-b.jpg")no-repeat top center;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-        }
-        h1 {
-            color: #FFF;
-            font-weight: 600;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 1.08;
-            text-shadow: 1px 5px 10px black;
-            letter-spacing: -0.9px;
-            text-align: left;
-            margin: 25px auto;
-        }
-        p {
-            color: #fff;
-            max-width: 550px;
-            width: 100%;
-            text-shadow: 1px 5px 10px black;
-            font-weight: 500;
-        }
-    }
-
-    // customer story header
-    &_story {
-        background: url(../img/kp_launch2.jpg) no-repeat center center;
-        background-size: cover;
-        height: 50vh;
-        min-height: 300px;
+// home header
+.Jumbotron {
+    padding: 150px 5vw;
+    position: relative;
+    overflow: hidden;
+    text-align: left;
+    &.container{
         width: 100%;
-        display: flex;
-        text-align: center;
-        .column {
-            max-width: 700px;
-            margin: 0 auto;
-            background-color: #fff;
-        }
+        max-width: 1440px;
+    }
+    &:before{
+        content: '';
+        z-index: -1;
+        position: absolute;
+        left: 0px;
+        top: -5%;
+        width: 100%;
+        height: 100%;
+        background: url($img_path + "/header-fig-b.jpg")no-repeat top center;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    h1 {
+        color: #FFF;
+        font-weight: 600;
+        text-shadow: 1px 5px 10px black;
+        margin: 0 auto;
+    }
+    h3 {
+        color: #fff;
+        text-shadow: 1px 5px 10px black;
+        font-weight: 400;
+    }
+}
+.CS_story {
+    align-items: center;
+    background: url(../img/kp_launch2.jpg) no-repeat center center;
+    background-size: cover;
+    height: 50vh;
+    min-height: 300px;
+    width: 100%;
+    display: flex;
+    text-align: center;
+    .column {
+        max-width: 700px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
     }
 }

@@ -1,22 +1,22 @@
-@import 'includes/vars';
-@import 'includes/resetter';
-@import 'includes/helpers';
-@import 'includes/placeholders';
-@import 'includes/third-party';
-@import 'includes/typography';
-@import 'includes/shame';
-@import 'includes/useless';
+@import 'includes/vars',
+'includes/resetter',
+'includes/helpers',
+'includes/placeholders',
+'includes/third-party',
+'includes/typography',
+'includes/shame',
+'includes/useless'; 
 
-@import 'layout/footer.scss';
-@import 'layout/_header.scss';
-@import 'layout/grid.scss';
-@import 'layout/navigation.scss';
-@import 'layout/grid.scss';
+@import 'layout/footer.scss',
+'layout/_header.scss',
+'layout/grid.scss',
+'layout/navigation.scss';
 
-@import 'media-queries/small.scss';
-@import 'media-queries/medium.scss';
-@import 'media-queries/large.scss';
-@import 'media-queries/xlarge.scss';
+@import 'media-queries/small.scss',
+'media-queries/medium.scss',
+'media-queries/large.scss',
+'media-queries/xlarge.scss';
+
 
 @import 'sections/contact_form.scss', 
 'sections/faq.scss',

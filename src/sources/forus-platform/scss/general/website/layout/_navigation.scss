@@ -1,218 +1,217 @@
 html {
     body {
-        header{
-            max-width: 1440px;
-            margin: auto;
-            .navbar {
-                padding: 18px 0;
-                border: 0;
-                margin-bottom: 0;
-                background-color: #ffffff;
-                .container-fluid {
-                    .navbar-header{
-                        .navbar-brand {
-                            padding: 15px 33px 20px;
-                            margin-top: -2px;
-                            width: 200px;
-                            height: 60px;
-                            svg{
-                                height: 25px!important;
-                                path{
-                                    fill: #000;
-                                }
+        margin: auto;
+        .navbar {
+            padding: 18px 0;
+            border: 0;
+            margin: 0 auto;
+            max-width: 1200px;
+            background-color: #ffffff;
+            .container-fluid {
+                
+                .navbar-header{
+                    .navbar-brand {
+                        padding: 15px 33px 20px;
+                        margin-top: -2px;
+                        width: 200px;
+                        height: 60px;
+                        svg{
+                            height: 25px!important;
+                            path{
+                                fill: #000;
                             }
                         }
                     }
-                    .navbar-collapse {
-                        .navbar-nav{
-                            .header-auth {
-                                float: right;
+                }
+                .navbar-collapse {
+                    .navbar-nav{
+                        .header-auth {
+                            float: right;
+                            position: relative;
+                            z-index: 1;
+                
+                            .auth-user {
                                 position: relative;
-                                z-index: 1;
-                    
-                                .auth-user {
-                                    position: relative;
-                                    padding-right: 60px;
-                                    padding-top: 5px;
-                                    padding-bottom: 15px;
-                                    margin-bottom: -10px;
-                                    cursor: default;
-                    
-                                    .auth-user-name {
-                                        font: 500 14px/20px $bf;
-                                        color: #151b26;
-                                        text-align: right;
-                                    }
-                    
-                                    .auth-user-role {
-                                        font: 400 12px/20px $bf;
-                                        color: #151b26;
-                                        text-align: right;
-                                    }
-                    
-                                    .auth-user-img {
-                                        position: absolute;
-                                        top: 0;
-                                        right: 0;
+                                padding-right: 60px;
+                                padding-top: 5px;
+                                padding-bottom: 15px;
+                                margin-bottom: -10px;
+                                cursor: default;
+                
+                                .auth-user-name {
+                                    font: 500 14px/20px $bf;
+                                    color: #151b26;
+                                    text-align: right;
+                                }
+                
+                                .auth-user-role {
+                                    font: 400 12px/20px $bf;
+                                    color: #151b26;
+                                    text-align: right;
+                                }
+                
+                                .auth-user-img {
+                                    position: absolute;
+                                    top: 0;
+                                    right: 0;
+                                    display: block;
+                                    width: 50px;
+                                    height: 50px;
+                                    border-radius: 50px;
+                                    background: #fff;
+                                    box-shadow: 0 5px 15px rgba(#000, 0.25);
+                                }
+                
+                                .auth-user-menu {
+                                    position: absolute;
+                                    right: 0;
+                                    top: 100%;
+                                    border: 1px solid #f3f4f5;
+                                    background: #fff;
+                                    border-radius: 5px;
+                                    box-shadow: 0 5px 30px rgba(#000, 0.1);
+                                    min-width: 220px;
+                                    max-width: 80%;
+                                    padding: 10px 0;
+                                    display: none;
+                
+                                    .auth-user-menu-item {
                                         display: block;
-                                        width: 50px;
-                                        height: 50px;
-                                        border-radius: 50px;
-                                        background: #fff;
-                                        box-shadow: 0 5px 15px rgba(#000, 0.25);
+                                        cursor: pointer;
+                                        padding: 5px 15px;
+                                        font: 500 13px/30px 'Montserrat';
+                                        color: #282b39;
+                                        transition: 0.4s;
+                
+                                        &:hover {
+                                            text-decoration: none;
+                                            background: #f6f8f9;
+                                            color: $forus-sky-blue;
+                
+                                        }
                                     }
-                    
+                
+                                    .auth-user-menu-sep {
+                                        display: block;
+                                        border-top: 1px solid #f3f4f5;
+                                    }
+                                }
+                
+                                &:hover {
                                     .auth-user-menu {
-                                        position: absolute;
-                                        right: 0;
-                                        top: 100%;
-                                        border: 1px solid #f3f4f5;
-                                        background: #fff;
-                                        border-radius: 5px;
-                                        box-shadow: 0 5px 30px rgba(#000, 0.1);
-                                        min-width: 220px;
-                                        max-width: 80%;
-                                        padding: 10px 0;
-                                        display: none;
-                    
-                                        .auth-user-menu-item {
-                                            display: block;
-                                            cursor: pointer;
-                                            padding: 5px 15px;
-                                            font: 500 13px/30px 'Montserrat';
-                                            color: #282b39;
-                                            transition: 0.4s;
-                    
-                                            &:hover {
-                                                text-decoration: none;
-                                                background: #f6f8f9;
-                                                color: $forus-sky-blue;
-                    
-                                            }
-                                        }
-                    
-                                        .auth-user-menu-sep {
-                                            display: block;
-                                            border-top: 1px solid #f3f4f5;
+                                        display: block;
+                                    }
+                                }
+                            }
+                        }
+                        & > li {
+                            & > a {
+                                //padding: 18px 33px!important;
+                                padding: 1.25vw 2.15vw;
+                                font-weight: 600;
+                                line-height: 24px;
+                                color: #191a1c;
+                                -webkit-transform: rotate(0);
+                                -ms-transform: rotate(0);
+                                transform: rotate(0);
+                                cursor: pointer !important;
+                                @include transition();
+                                .caret{
+                                    width: 24px;
+                                    height: 24px;
+                                    border: 0;
+                                    margin-top: -2px;
+                                    svg{
+                                        stroke: #fff;
+                                        fill: #000;
+                                        width: 24px;
+                                        height: 24px;
+                                        -webkit-transform: rotate(0);
+                                        -ms-transform: rotate(0);
+                                        transform: rotate(0);
+                                        @include transition();
+                                    }
+                                }
+                                &:hover, &:active, &:focus, &.active{
+                                    background-color: transparent;
+                                }
+                                &[aria-expanded="true"]{
+                                    .caret{
+                                        svg{
+                                            -webkit-transform: rotate(-180deg);
+                                            -ms-transform: rotate(-180deg);
+                                            transform: rotate(-180deg);
+                                            @include transition();
                                         }
                                     }
-                    
-                                    &:hover {
-                                        .auth-user-menu {
-                                            display: block;
+                                }
+                                &.lang{
+                                    span{
+                                        &.icon{
+                                            img{
+                                                width: 23px;
+                                                margin: -3px 13px 0 0;
+                                            }
+                                            & + span{
+                                                font-weight: 600;
+                                            }
                                         }
                                     }
                                 }
                             }
-                            & > li {
-                                & > a {
-                                    //padding: 18px 33px!important;
-                                    padding: 1.25vw 2.15vw;
-                                    font-weight: 600;
-                                    line-height: 24px;
-                                    color: #191a1c;
-                                    -webkit-transform: rotate(0);
-                                    -ms-transform: rotate(0);
-                                    transform: rotate(0);
-                                    cursor: pointer !important;
-                                    @include transition();
-                                    .caret{
-                                        width: 24px;
-                                        height: 24px;
-                                        border: 0;
-                                        margin-top: -2px;
-                                        svg{
-                                            stroke: #fff;
-                                            fill: #000;
-                                            width: 24px;
-                                            height: 24px;
-                                            -webkit-transform: rotate(0);
-                                            -ms-transform: rotate(0);
-                                            transform: rotate(0);
-                                            @include transition();
-                                        }
-                                    }
-                                    &:hover, &:active, &:focus, &.active{
-                                        background-color: transparent;
-                                    }
-                                    &[aria-expanded="true"]{
-                                        .caret{
-                                            svg{
-                                                -webkit-transform: rotate(-180deg);
-                                                -ms-transform: rotate(-180deg);
-                                                transform: rotate(-180deg);
-                                                @include transition();
-                                            }
-                                        }
-                                    }
-                                    &.lang{
-                                        span{
-                                            &.icon{
-                                                img{
-                                                    width: 23px;
-                                                    margin: -3px 13px 0 0;
-                                                }
-                                                & + span{
-                                                    font-weight: 600;
-                                                }
-                                            }
-                                        }
-                                    }
+                            span.dropdown {
+                                position:absolute;
+                                max-height: 355px;
+                                border-radius: 20px;
+                                border: solid 1px #edf0f8;
+                                background-color: #FFFFFF;
+                                width: 550px;    
+                                z-index: 5;  
+                                .column-title {
+                                    text-transform: uppercase;
+                                    font-size: 15px;
+                                    font-weight: 500;
+                                    margin: 0px 31px;
+                                    margin-top: 20px;
+                                    margin-bottom: 2px;
+                                    letter-spacing: 0.4px;
+                                    color: #abacb2;
                                 }
-                                span.dropdown {
-                                    position:absolute;
-                                    max-height: 355px;
-                                    border-radius: 20px;
-                                    border: solid 1px #edf0f8;
-                                    background-color: #FFFFFF;
-                                    width: 550px;    
-                                    z-index: 5;  
-                                    .column-title {
-                                        text-transform: uppercase;
-                                        font-size: 15px;
+                                .dropdown-column-1 {
+                                    width: 273px;
+                                    position:relative;
+                                    float: left;
+                                    a {
+                                        font-weight: 600;
+                                        display: block;
+                                        padding: 12px 31px;
+                                        margin-bottom: 12px;
+                                        &:hover {
+                                            background-color: #f4f5f7;
+                                        }
+                                    }
+                                }       
+                                .dropdown-column-2 {
+                                    a {
                                         font-weight: 500;
-                                        margin: 0px 31px;
-                                        margin-top: 20px;
-                                        margin-bottom: 2px;
-                                        letter-spacing: 0.4px;
-                                        color: #abacb2;
+                                        display: block;
+                                        padding: 12px 31px;
+                                        margin-bottom: 12px;
+                                        &:hover {
+                                            background-color: #f4f5f7;
+                                        }
                                     }
-                                    .dropdown-column-1 {
-                                        width: 273px;
-                                        position:relative;
-                                        float: left;
-                                        a {
-                                            font-weight: 600;
-                                            display: block;
-                                            padding: 12px 31px;
-                                            margin-bottom: 12px;
-                                            &:hover {
-                                                background-color: #f4f5f7;
-                                            }
-                                        }
-                                    }       
-                                    .dropdown-column-2 {
-                                        a {
-                                            font-weight: 500;
-                                            display: block;
-                                            padding: 12px 31px;
-                                            margin-bottom: 12px;
-                                            &:hover {
-                                                background-color: #f4f5f7;
-                                            }
-                                        }
-                                        width: 273px;
-                                        position:relative;
-                                        float: right;
-                                        background-color: #fbfbfc;
-                                        border-radius: 20px;
-                                    }                      
-                                }
-                                &.dropdown{
-                                    &.open{
-                                        a{
-                                            background-color: transparent;
-                                        }
+                                    width: 273px;
+                                    position:relative;
+                                    float: right;
+                                    background-color: #fbfbfc;
+                                    border-radius: 20px;
+                                }                      
+                            }
+                            &.dropdown{
+                                &.open{
+                                    a{
+                                        background-color: transparent;
                                     }
                                 }
                             }

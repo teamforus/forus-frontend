@@ -1,0 +1,46 @@
+nav.navbar
+    .container-fluid
+        .navbar-header
+            button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar")
+                span.sr-only Toggle navigation
+                span.icon-bar
+                span.icon-bar
+            a.navbar-brand(href="/#!/"): include ../../../../resources/platform-general/assets/img/svg/forus-logo.svg
+        #navbar.navbar-collapse.collapse
+            ul.nav.navbar-nav
+                li
+                    a(type="button" data-toggle="collapse" data-target="#nav-product" aria-expanded="false" aria-controls="nav-product") Product
+                        .caret
+                            include ../../../../resources/platform-general/assets/img/svg/arrow.svg
+                    span#nav-product.dropdown.collapse
+                        .dropdown-column-1
+                            .column-title Producten                           
+                            a(ui-sref="kindpakket" data-toggle="collapse" data-target="#nav-product") Kindpakket
+                        .dropdown-column-2
+                            .column-title Klantverhalen                               
+                            a(ui-sref="story" data-toggle="collapse" data-target="#nav-product").zuidhorn Gemeente Zuidhorn
+                li
+                    a(ui-sref="me") Me
+                li
+                    a(ui-sref="current") Over ons
+                li
+                    a(ui-sref="contact") Contact
+            ul.nav.navbar-nav.navbar-right.auth-out(ng-if="!$root.auth_user")
+                li
+                    a.login_btn(ng-click="openAuthPopup()") Inloggen
+            ul.nav.navbar-nav.navbar-right.auth-out(ng-if="$root.auth_user")
+                .header-auth(ng-if="$root.auth_user")
+                    .auth-user
+                        .auth-user-name {{ $root.auth_user.primary_email }}
+                        .auth-user-role Uw profiel
+                        img(ng-src="{{ $root.activeOrganization ? ($root.activeOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png') : './assets/img/placeholders/organization-thumbnail.png'}} ").auth-user-img
+                        .auth-user-menu
+                            a(href="/sponsor").auth-user-menu-item
+                                | Sponsor
+                            a(href="/provider").auth-user-menu-item
+                                | Aanbieder
+                            .auth-user-menu-sep
+                            //-.auth-user-menu-item(ng-click="$root.openPinCodePopup()")
+                                span(translate="topnavbar.buttons.authorize")
+                            a(ng-click="$root.signOut()").auth-user-menu-item
+                                span Uitloggen
