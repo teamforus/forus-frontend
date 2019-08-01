@@ -28,9 +28,6 @@ html {
             &_story, &_holder, &_quote, &_reason, &_content, &_variable {
                 padding: 20px 0;
             }
-            &_concept{
-                padding: 80px 0 60px;
-            }
             &_start{
                 padding-top: 50px;
                 border-top: 1px solid #edeef0;
@@ -39,20 +36,16 @@ html {
                 margin-bottom: 100px;
             }
         }
-    }
-}
-.wrapper_logo_title {
-    text-align: center;
-    span{
-        
-        font-weight: 500;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: normal;
-        letter-spacing: 1px;
-        color: #7e818c;
-        display: block;
-        margin: 5px auto 25px;
-        text-transform: uppercase;
+        footer{
+            margin: 0 auto;
+            margin-top: 80px;
+            .container {
+                max-width: unset !important;
+                width: 100%;
+            }
+            .navbar {
+                max-width: unset !important;
+            }
+        }
     }
 }

@@ -299,19 +299,5 @@
             width: 500px;
             margin: 0 auto;
         }
-        .txt_link {
-            @include font-size-map($paragraph-font-size);
-            span {
-                text-align: center;
-                margin: 0 auto;
-            }
-            span:hover {
-                text-decoration: underline;
-            }
-            svg {
-                padding-top: 5px;
-                margin-bottom: -2px;
-            }
-        }
     }
 }

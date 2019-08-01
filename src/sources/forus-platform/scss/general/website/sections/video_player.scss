@@ -1,85 +1,84 @@
-.wrapper{
-    align-items: center;
-
-    &_parties_list{
-        .nav{
-            text-align: center;
+.section-video-player {
+    .container {
+        text-align: center;
+    }
+    .nav{
+        text-align: center;
+        border: 0;
+        margin-bottom: 40px;
+        display: table;
+        li{
+            width: 25% ;
+            display: table-cell;
+            vertical-align: top;
+            float: inherit;
             border: 0;
-            margin-bottom: 40px;
-            display: table;
-            li{
-                width: 25% ;
-                display: table-cell;
-                vertical-align: top;
-                float: inherit;
-                border: 0;
+            padding: 0;
+            position: relative;
+            &:after{
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 0;
+                bottom: 0;
+                left: 0;
+                border-bottom: 3px solid transparent;
+                @include transition();
+            }
+            a{
+                line-height: 25px;
+                width: 100%;
+                text-align: left;
+                
+                font-weight: 500;
+                font-style: normal;
+                font-stretch: normal;
+                letter-spacing: normal;
+                border-radius: 4px 4px 0 0;
+                color: #222530;
                 padding: 0;
-                position: relative;
-                &:after{
-                    content: '';
-                    position: absolute;
-                    width: 0;
-                    height: 0;
-                    bottom: 0;
-                    left: 0;
-                    border-bottom: 3px solid transparent;
+                & > *{
                     @include transition();
-                }
-                a{
-                    line-height: 25px;
-                    width: 100%;
-                    text-align: left;
-                   
-                    font-weight: 500;
-                    font-style: normal;
-                    font-stretch: normal;
-                    letter-spacing: normal;
-                    border-radius: 4px 4px 0 0;
-                    color: #222530;
-                    padding: 0;
-                    & > *{
-                        @include transition();
-                    }
-                }
-                &:hover, &:focus, &:active, &.active{
-                    border-color: transparent!important;
-                    background-color: #fafbfd;
-                }
-                &>a:active, &>a:focus, &>a:hover{
-                    border-color: transparent!important;
-                    background-color: transparent!important;
-                }
-                &.active{
-                    &>a, &>a:focus, &>a:hover{
-                        background-color: transparent!important;
-                    }
-                }
-                &.active{
-                    &:after{
-                        @include transition();
-                        border-bottom: 3px solid $tc;
-                        width: 100%;
-                    }
-                    @include transition();
-                    a{
-                       
-                        border: 0;
-                    }
                 }
             }
-        }
-        .tab-content{
-            margin: 40px 0;
-            .tab-pane{
-                .wrapper_tab_video {
-                    video{
-                        width: 100%;
-                    }
+            &:hover, &:focus, &:active, &.active{
+                border-color: transparent!important;
+                background-color: #fafbfd;
+            }
+            &>a:active, &>a:focus, &>a:hover{
+                border-color: transparent!important;
+                background-color: transparent!important;
+            }
+            &.active{
+                &>a, &>a:focus, &>a:hover{
+                    background-color: transparent!important;
+                }
+            }
+            &.active{
+                &:after{
+                    @include transition();
+                    border-bottom: 3px solid $tc;
+                    width: 100%;
+                }
+                @include transition();
+                a{
+                    
+                    border: 0;
                 }
             }
         }
     }
-    &_roles{
+    .tab-content{
+        margin: 40px 0;
+        .tab-pane{
+            .tab_video {
+                video{
+                    width: 100%;
+                }
+            }
+        }
+    }
+    .play-buttons {
         margin-bottom: 15px;
         .roles{
             box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.09);
@@ -103,7 +102,7 @@
                     }
                     .text{
                         display: block;
-                       
+                        
                         font-weight: 500;
                         font-style: normal;
                         font-stretch: normal;

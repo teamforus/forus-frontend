@@ -1,11 +1,7 @@
-.wrapper{
-    align-items: center;
-
-    &_start{
-        padding-top: 50px;
-        border-top: 1px solid #edeef0;
-    }
-    &_block_bg{
+.section-how-do-we-work {
+    padding-top: 50px;
+    border-top: 1px solid #edeef0;
+    .hdww-block{
         border-radius: 5px;
         background-color: #f4f5f7;
         padding: 50px 65px;
