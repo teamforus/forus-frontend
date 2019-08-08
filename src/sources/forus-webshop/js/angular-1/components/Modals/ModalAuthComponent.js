@@ -106,9 +106,9 @@ let ModalAuthComponent = function(
                 ModalService.open('modalNotification', {
                     type: 'action-result',
                     class: 'modal-description-pad',
-                    title: $filter('translate')('popup_auth.labels.join'),
-                    description: $filter('translate')('popup_auth.notifications.link'),
-                    confirmBtnText: $filter('translate')('popup_auth.buttons.submit')
+                    title: 'popup_auth.labels.join',
+                    description: 'popup_auth.notifications.link',
+                    confirmBtnText: 'popup_auth.buttons.submit'
                 });
 
             }, (res) => {

@@ -31,9 +31,9 @@ let VoucherComponent = function(
                 type: 'confirm',
                 title: 'Annuleer reservering',
                 icon: 'voucher_apply',
-                description: $filter('translate')('voucher.delete_voucher.popup_form.description'),
-                confirmBtnText: $filter('translate')('voucher.delete_voucher.buttons.submit'),
-                cancelBtnText: $filter('translate')('voucher.delete_voucher.buttons.close'),
+                description: 'voucher.delete_voucher.popup_form.description',
+                confirmBtnText: 'voucher.delete_voucher.buttons.submit',
+                cancelBtnText: 'voucher.delete_voucher.buttons.close',
                 confirm: () => {
                     VoucherService.destroy(
                         voucher.address
@@ -67,9 +67,9 @@ let VoucherComponent = function(
                         ModalService.open('modalNotification', {
                             type: 'action-result',
                             class: 'modal-description-pad',
-                            title: $filter('translate')('popup_auth.labels.voucher_email'),
-                            description: $filter('translate')('popup_auth.notifications.voucher_email'),
-                            confirmBtnText: $filter('translate')('popup_auth.buttons.confirm')
+                            title: 'popup_auth.labels.voucher_email',
+                            description: 'popup_auth.notifications.voucher_email',
+                            confirmBtnText: 'popup_auth.buttons.confirm'
                         });
                     });
                 }
