@@ -330,6 +330,78 @@ translate,
         margin-top: 10px;
     }
 
+    .ui-select-container, .ui-select-container.form-control:not([type='radio']):not([type='checkbox']) {
+        width: 100%;
+        height: auto;
+        min-height: 36px;
+        // padding: 0;
+        outline: none;
+
+        input {
+            width: 100%;
+        }
+
+        .ui-select-match {
+            outline: none;
+            box-shadow: none;
+            @include cf();
+
+            .ui-select-match-text {
+                font: 500 13px/25px $bf;
+                display: block;
+            }
+
+            .ui-select-match-item {
+                background: #fff;
+                border: 1px solid #cecece;
+                border-radius: 3px;
+                display: block;
+                float: left;
+                padding: 0 5px 0 0;
+
+                span {
+                    font: 500 13px/25px $bf;
+                    cursor: default;
+
+                    &.close {
+                        font-size: 20px;
+                        float: left;
+                        margin-right: 5px;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        .ui-select-toggle {
+            display: block;
+            width: 100%;
+        }
+
+        // .ui-select-multiple.ui-select-bootstrap input.ui-select-search
+
+        .ui-select-choices-content {
+            background: #fff;
+            left: 0;
+            top: 100%;
+            position: absolute;
+
+            .ui-select-choices-row-inner {
+                font: 500 13px/24px $bf;
+            }
+        }
+
+        &.open {
+            position: relative;
+            z-index: 10;
+        }
+
+        &.ui-select-multiple {
+            padding-left: 4px !important;
+            padding-right: 4px !important;
+        }
+    }
+
     textarea.form-control:not([type='radio']):not([type='checkbox']) {
         padding: 6px 10px;
         line-height: initial;

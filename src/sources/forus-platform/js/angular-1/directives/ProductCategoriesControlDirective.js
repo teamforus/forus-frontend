@@ -21,6 +21,10 @@ let ProductCategoriesControlDirective = function($scope) {
     }
 
     $scope.types = {}
+    $scope.select = {
+        single: null,
+        multiple: null,
+    };
 
     if (getFiltred($scope.options, 0).length > 0) {
         $scope.types['0'] = 'product_category_type.products';

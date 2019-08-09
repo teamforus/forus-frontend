@@ -1,4 +1,6 @@
-let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 'ngLocale']);;
+let app = angular.module('forusApp', [
+    'ui.select', 'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 'ngLocale', '720kb.datepicker'
+]);;
 
 app.constant('appConfigs', env_data);
 
@@ -170,7 +172,7 @@ app.run(['appConfigs', (appConfigs) => {
 }]);
 
 // Bootstrap the app
-angular.bootstrap(document.querySelector('html'), ['forusApp', '720kb.datepicker']);
+angular.bootstrap(document.querySelector('html'), ['forusApp']);
 
 if (!env_data.html5ModeEnabled) {
     let hash = document.location.hash;

@@ -27,6 +27,7 @@ platform.setLibs([
     "qrcodejs",
     "ui_cropper",
     "ui_router",
+    "ui_select",
     "underscore",
     "underscore.string",
 ]);
