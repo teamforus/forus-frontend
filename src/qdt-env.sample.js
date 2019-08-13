@@ -105,6 +105,28 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('dashboard_noordoostpolder_provider', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'noordoostpolder',
+            panel_type: 'provider',
+            chat_id: false
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('dashboard_noordoostpolder_sponsor', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'noordoostpolder',
+            panel_type: 'sponsor',
+            chat_id: false
+        });
+
+        return platform;
+    });
+
     // Config webshops
     core.editPlatform('webshop_general', (platform) => {
         platform.setEnvData({
@@ -150,6 +172,16 @@ module.exports = (core) => {
         platform.setEnvData({
             api_url: api_url,
             client_key: 'westerkwartier',
+            client_type: 'webshop',
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_noordoostpolder', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'noordoostpolder',
             client_type: 'webshop',
         });
 

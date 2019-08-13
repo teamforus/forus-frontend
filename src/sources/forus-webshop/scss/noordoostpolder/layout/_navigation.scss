@@ -1,0 +1,83 @@
+.block {
+    &.block-navbar {
+        position: relative;
+        top: 0;
+        width: 100%;
+        padding: 0;
+        background-color: transparent;
+        max-width: 100%;
+        z-index: 2;
+        box-shadow: 1px -5px 10px rgb(187, 187, 187);
+        .navbar-inner {
+            width: 100%;
+            max-width: 1140px;
+            padding: 0px 15px;
+            align-items: center;
+            background-color: transparent;
+        }
+        .block-auth {
+            border-left: 1px solid #dbdcdb;
+        }
+        .navbar-logo {
+            @media screen and (min-width: 1024px) {
+                padding: 10px 20px 10px 0px;
+                border-right: 1px solid #dbdcdb;
+            }
+
+            img {
+                height: 55px;
+            }
+        }
+        
+        .navbar-list {
+            text-align: left;
+            
+            .navbar-item-wrapper {
+                .navbar-item {
+                    font-size: 1em;
+                    &:hover {
+                        color: $tc;
+
+                        &:before {
+                            background-color: $color_default;
+                            opacity: .5;
+                        }
+                    }
+
+                    &.active {
+                        color: $tc;
+
+                        &:before {
+                            background-color: $color_default;
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        .block-auth {
+            .auth-in {
+                .auth-user {
+                    .auth-user-email {
+                        color: $color_default_light;
+                    }
+
+                    .auth-user-avatar {
+                        border-color: $color_default;
+                        border-radius: 4px;
+                        
+                        img {
+                            filter: grayscale(.8);
+                        }
+                    }
+                }
+            }
+            .button {
+                &:hover {
+                    box-shadow: 0
+                }
+            }
+        }
+    }
+}

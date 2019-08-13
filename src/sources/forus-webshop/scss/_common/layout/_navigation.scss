@@ -349,7 +349,7 @@
                 }
 
                 .button {
-                    font: 700 12px/24px $bf;
+                    font: 700 16px/24px $bf;
 
                     &:hover {
                         box-shadow: 0 3px 6px rgba($color: #000000, $alpha: 0.1);
@@ -382,7 +382,6 @@
             .block-auth {
                 padding: 10px 10px 10px 0;
                 border: none;
-
                 .button {
                     margin-right: 10px;
                     font-size: 11px;
