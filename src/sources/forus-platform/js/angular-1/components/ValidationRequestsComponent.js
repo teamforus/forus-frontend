@@ -1,5 +1,7 @@
 let ValidationRequestsComponent = function(
+    $q,
     $state,
+    $timeout,
     ValidatorRequestService,
     appConfigs
 ) {
@@ -8,6 +10,7 @@ let ValidationRequestsComponent = function(
     }
 
     let $ctrl = this;
+    
 
     let statePriority = {
         pending: 1,
@@ -17,9 +20,40 @@ let ValidationRequestsComponent = function(
 
     $ctrl.shownUsers = {};
 
+    $ctrl.states = [{
+        key: null,
+        name: 'Alle'
+    }, {
+        key: 'approved',
+        name: 'Geaccepteerd'
+    }, {
+        key: 'declined',
+        name: 'Geweigerd'
+    }, {
+        key: 'pending',
+        name: 'Wachtend'
+    }];
+
+    $ctrl.filters = {
+        show: false,
+        values: {},
+        reset: function() {
+            $ctrl.filters.values.q = '';
+            $ctrl.filters.values.state = $ctrl.states[0].key;
+        }
+    };
+
+    $ctrl.resetFilters = () => {
+        $ctrl.filters.reset();
+    };
+
+    $ctrl.hideFilters = () => {
+        $timeout(() => $ctrl.filters.show = false);
+    };
+
     let reloadRequests = () => {
-        ValidatorRequestService.list().then(function(res) {
-            $ctrl.validatorRequests = res.data.data;
+        ValidatorRequestService.index($ctrl.filters.values).then(function(res) {
+            $ctrl.validatorRequests = res.data;
             init();
         }, console.error);
     };
@@ -28,7 +62,7 @@ let ValidationRequestsComponent = function(
         let byBsn = {};
         let bsnCollection = [];
 
-        $ctrl.validatorRequests.forEach(request => {
+        $ctrl.validatorRequests.data.forEach(request => {
             if (!byBsn[request.bsn]) {
                 byBsn[request.bsn] = {
                     requests: []
@@ -59,6 +93,7 @@ let ValidationRequestsComponent = function(
 
         $ctrl.validatorRequestsByBsn = Object.values(byBsn).map(function(byBsnRow) {
             byBsnRow.bsn = byBsnRow.requests[0].bsn;
+            byBsnRow.collapsed = byBsnRow.nth.pending == 0;
             return byBsnRow;
         });
 
@@ -67,28 +102,45 @@ let ValidationRequestsComponent = function(
         })).reverse();
     };
 
+    $ctrl.validateRequest = (request, reload = false) => {
+        let req = ValidatorRequestService.approve(request.id);
+
+        return reload ? $q((resolve, reject) => {
+            req.then(res => reloadRequests() & resolve(res), reject);
+        }) : req;
+    }
+
+    $ctrl.declineRequest = (request, reload = false) => {
+        let req = ValidatorRequestService.decline(request.id);
+        
+        return reload ? $q((resolve, reject) => {
+            req.then(res => reloadRequests() & resolve(res), reject);
+        }) : req;
+    }
+
+    $ctrl.validateAll = function(request) {
+        let requests = request.requests.filter((request) => {
+            return request.state == 'pending';
+        }).map(request => $ctrl.validateRequest(request));
+
+        Promise.all(requests).then(() => reloadRequests());
+    };
+
+    $ctrl.declineAll = function(request) {
+        let requests = request.requests.filter((request) => {
+            return request.state == 'pending';
+        }).map(request => $ctrl.declineRequest(request));
+
+        Promise.all(requests).then(() => reloadRequests());
+    };
+
     $ctrl.$onInit = function() {
+        $ctrl.filters.reset();
         init();
+    };
 
-        $ctrl.validateAll = function(request) {
-            let requests = request.requests.filter((request) => {
-                return request.state == 'pending';
-            }).map(function(request) {
-                return ValidatorRequestService.approve(request.id);
-            });
-
-            Promise.all(requests).then(() => reloadRequests());
-        };
-
-        $ctrl.declineAll = function(request) {
-            let requests = request.requests.filter((request) => {
-                return request.state == 'pending';
-            }).map(function(request) {
-                return ValidatorRequestService.decline(request.id);
-            });
-
-            Promise.all(requests).then(() => reloadRequests());
-        };
+    $ctrl.onPageChange = async (query) => {
+        reloadRequests();
     };
 };
 
@@ -97,7 +149,9 @@ module.exports = {
         validatorRequests: '<'
     },
     controller: [
+        '$q',
         '$state',
+        '$timeout',
         'ValidatorRequestService',
         'appConfigs',
         ValidationRequestsComponent

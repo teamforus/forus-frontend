@@ -2,10 +2,8 @@ let ValidatorRequestService = function(ApiRequest) {
     let uriPrefix = '/platform/validator/validator-requests';
 
     return new (function() {
-        this.list = function(state) {
-            return ApiRequest.get(uriPrefix, state ? {
-                state: state
-            } : undefined);
+        this.index = function(data = {}) {
+            return ApiRequest.get(uriPrefix, data);
         };
 
         this.read = function(id) {

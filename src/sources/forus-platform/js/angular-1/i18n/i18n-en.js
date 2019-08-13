@@ -645,24 +645,29 @@ module.exports = {
     // OVERVIEW VALIDATIONS REQUESTS = validation-requests.pug
     validation_requests: {
         labels: {
-            requests: "Openstaande aanvragen",
+            requests: "Openstaande aanvragen ({{ count }})",
             bsn: "BSN: ",
             type: "Type",
-            value: "Waarde",
-            date: "Datum,",
-            results: "resultaten",
+            value: "Eigenschap",
+            date: "Datum, tijd",
+            results: "{{ count }} resultaten",
             status: "Status",
             records: "Eigenschappen",
+            actions: "Acties",
         },
         status: {
             hold: "Wachten",
+            pending: 'Wachtend', 
+            declined: 'Geweigerd', 
+            approved: 'Geaccepteerd'
         },
         buttons: {
             show: "Bekijk eigenschappen",
             allaccept: "Alles valideren",
-            alldeclined: "Alles Weigeren",
-
-        }
+            alldecline: "Alles weigeren",
+            accept: "Valideren",
+            decline: "Weigeren",
+        },
     },
 
     // EDIT VALIDATORS

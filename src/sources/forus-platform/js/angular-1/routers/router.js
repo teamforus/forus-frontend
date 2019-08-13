@@ -46,7 +46,7 @@ let permissionMiddleware = (
         ) => {
             let organization;
 
-            if (dependencyResolver && typeof (dependencyResolver) == 'function') {
+            if (dependencyResolver && typeof(dependencyResolver) == 'function') {
                 organization = dependencyResolver(dependency);
             } else {
                 if (dependencyKey == 'organization') {
@@ -620,10 +620,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         url: '/validation-requests',
         component: 'validationRequestsComponent',
         resolve: {
-            validatorRequests: function(ValidatorRequestService) {
-                return repackResponse(
-                    ValidatorRequestService.list()
-                );
+            validatorRequests: function($transition$, ValidatorRequestService) {
+                return repackPagination(ValidatorRequestService.index(
+                    objectOnlyKeys($transition$.params(), [
+                        'page', 'q', 'state'
+                    ])
+                ));
             }
         }
     });
