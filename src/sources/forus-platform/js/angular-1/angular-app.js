@@ -43,6 +43,9 @@ app.component('modalVoucherQrCodeComponent', require('./components/Modals/ModalV
 app.component('modalVouchersUploadComponent', require('./components/Modals/ModalVouchersUploadComponent'));
 app.component('modalMarkdownCustomLinkComponent', require('./components/Modals/ModalMarkdownCustomLinkComponent'));
 
+// Modal Components
+app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
+
 // Services
 app.service('AuthService', require('./services/AuthService'));
 app.service('DateService', require('./services/DateService'));
@@ -71,6 +74,7 @@ app.service('ProviderIdentityService', require('./services/ProviderIdentityServi
 app.service('ConfigService', require('./services/ConfigService'));
 app.service('ImageConvertorService', require('./services/ImageConvertorService'));
 app.service('ModalService', require('./services/ModalService'));
+app.service('PrintableService', require('./services/PrintableService'));
 app.service('PermissionsService', require('./services/PermissionsService'));
 app.service('RoleService', require('./services/RoleService'));
 app.service('SmsService', require('./services/SmsService'));
@@ -128,18 +132,26 @@ app.directive('markdown', require('./directives/MarkdownDirective'));
 app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
 app.directive('formLabelToggle', require('./directives/FormLabelToggleDirective'));
 app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
+app.directive('qrCode', require('./directives/QrCodeDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
 
+// Modals
 app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
 app.directive('modalItem', require('./directives/modals/ModalItemDirective'));
 app.directive('modalScrollBraker', require('./directives/modals/ModalScrollBrakerDirective'));
+
+// Printable
+app.directive('printablesRoot', require('./directives/printables/PrintableRootDirective'));
+app.directive('printableItem', require('./directives/printables/PrintableItemDirective'));
+app.directive('printableEnabler', require('./directives/printables/PrintableEnablerDirective'));
 
 app.directive('blockEmpty', require('./directives/blocks/BlockEmptyDirective'));
 app.directive('blockNoPermission', require('./directives/blocks/BlockNoPermissionDirective'));
 
 // Providers
+app.provider('PrintableRoute', require('./providers/PrintableRouteProvider'));
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
 app.provider('ModalRoute', require('./providers/ModalRouteProvider'));
 app.provider('I18nLib', require('./providers/I18nLibProvider'));
@@ -154,6 +166,7 @@ app.filter('i18n', require('./filters/I18nFilter'));
 app.filter('str_limit', require('./filters/StrLimitFilter'));
 
 // Config
+app.config(require('./routers/printables'));
 app.config(require('./routers/modals'));
 app.config(require('./routers/router'));
 app.config(require('./config/api-service'));

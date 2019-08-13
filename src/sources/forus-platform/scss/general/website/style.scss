@@ -2019,19 +2019,19 @@ html {
                             width: 125px;
                         }
                     }
-                    .block-auth-qr-code {
+                    .block-qr-code {
                         float:right;
                         margin:0;
                         .qr_code {
-                            width: 200px;
-                            height: 160px;
-                            padding: 0px 20px;
-                            //background: #fff;
+                            width: 175px;
+                            height: 175px;
+                            padding: 15px 15px;
+                            background: #fff;
                             margin: auto;
-                            //border-radius: 15px;
-                            //-webkit-box-shadow: 0 5px 35px rgba(0, 0, 0, 0.075);
-                            //box-shadow: 0 5px 35px rgba(0, 0, 0, 0.075);
-                            //border: 2px dashed #000;
+                            border-radius: 15px;
+                            -webkit-box-shadow: 0 5px 35px rgba(0, 0, 0, 0.075);
+                            box-shadow: 0 5px 35px rgba(0, 0, 0, 0.075);
+                            border: 2px dashed #000;
             
                             img {
                                 display: block;

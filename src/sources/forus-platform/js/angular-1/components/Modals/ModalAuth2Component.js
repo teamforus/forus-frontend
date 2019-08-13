@@ -12,8 +12,12 @@ let ModalAuth2Component = function(
     let $ctrl = this;
 
     let qrCodeEl;
-    let qrCode;
     let timeout;
+
+    $ctrl.qrValue = null;
+    $ctrl.showChoose = true;
+    $ctrl.showQrCodeBlock = false;
+    $ctrl.showEmailBlock = false;
 
     $ctrl.showChoose = true;
     $ctrl.showQrCodeBlock = false;
@@ -24,12 +28,6 @@ let ModalAuth2Component = function(
     }
 
     $ctrl.$onInit = () => {
-        qrCodeEl = document.getElementById('auth_qrcode');
-        
-        qrCode = new QRCode(qrCodeEl, {
-            correctLevel: QRCode.CorrectLevel.L
-        });
-
         $(document).bind('keydown', (e) => {
             $timeout(function() {
                 var key = e.charCode || e.keyCode || 0;
@@ -44,6 +42,9 @@ let ModalAuth2Component = function(
     };
 
     $ctrl.showQrForm = function() {
+        $ctrl.showQrCodeBlock = true;
+        $ctrl.showChoose = false;
+
         $ctrl.requestAuthQrToken();
     };
 
@@ -70,14 +71,7 @@ let ModalAuth2Component = function(
     $ctrl.requestAuthQrToken = () => {
         IdentityService.makeAuthToken().then((res) => {
             $ctrl.authToken = res.data.auth_token;
-            qrCode.makeCode(
-                JSON.stringify({
-                    type: 'auth_token',
-                    'value': $ctrl.authToken
-                })
-            );
-
-            qrCodeEl.removeAttribute('title');
+            $ctrl.qrValue = $ctrl.authToken;
 
             $ctrl.checkAccessTokenStatus('token', res.data.access_token);
         }, console.log);
