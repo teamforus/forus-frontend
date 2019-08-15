@@ -1,11 +1,13 @@
 //- Printable class is required 
 .printable.printable-voucher-qr_code
-    .printable-title This is demo printable title
-    .printable-description This is demo printable description lorem ipsum dolor sit amet consectetur.
-    qr-code(qr-value="$ctrl.qrCodeValue" qr-type="auth_token")
+    .printable-title(ng-if="$ctrl.voucher.type != 'product'") Uw {{ $ctrl.voucher.fund.name }}-voucher
+    .printable-title(ng-if="$ctrl.voucher.type == 'product'") Uw {{ $ctrl.voucher.product.name }}-voucher
+    br
+    qr-code(qr-value="$ctrl.qrCodeValue" qr-type="voucher")
+    .printable-description De verloopdatum van deze voucher is {{ $ctrl.voucher.expire_at_locale }}
     
     //- Voucher details
-    pre(ng-bind="$ctrl.voucher | pretty_json")
+    //-pre(ng-bind="$ctrl.voucher | pretty_json")
     
     //- Organization details
     //- pre(ng-bind="$ctrl.organization | pretty_json")
