@@ -30,7 +30,44 @@
             }
         }
     }
-
+    &.button-two-spans{
+        display: flex !important;
+        padding: 7px !important;
+        align-items: center !important;
+        .icon-me {
+            mask: url('../img/icon-me.svg');
+            background: $color_default;
+            transition: background-color 0.5s ease;
+            display: inline-block;
+            mask-size: cover;
+            height: 30px;
+            width: 30px;
+            margin: 0 7px 0px 0px;
+            border: 1px;
+        }
+        .first-line-button {
+            line-height: 10px;
+            font-size: 16px;
+            height: 100%;
+            text-align: right;
+            flex: 1;
+            text-transform: lowercase;
+            &::first-letter{
+                text-transform: uppercase;
+            }
+        }
+        
+        .second-line-button {
+            display: none;
+        }
+        &:hover {
+            .icon-me {
+                mask: url('../img/icon-me.svg');
+                background: #157c68;
+                mask-size: cover;
+            }
+        }
+    }
     &.button-primary {
         background-color: #157c68;
         border-color: #157c68;
