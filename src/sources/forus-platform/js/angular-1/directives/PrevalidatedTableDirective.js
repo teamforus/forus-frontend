@@ -1,5 +1,6 @@
 let PrevalidatedTableDirective = async function(
     $scope,
+    $timeout,
     FundService,
     FileService,
     PrevalidationService
@@ -41,9 +42,9 @@ let PrevalidatedTableDirective = async function(
     };
 
     $scope.hideFilters = () => {
-        $scope.$apply(() => {
+        $timeout(() => {
             $scope.filters.show = false;
-        });
+        }, 0);
     };
 
     $scope.$on('csv:uploaded', function() {
@@ -117,6 +118,7 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
+            '$timeout',
             'FundService',
             'FileService',
             'PrevalidationService',
