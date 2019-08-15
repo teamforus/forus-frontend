@@ -97,7 +97,7 @@ section.section.section-voucher-details: .wrapper
                                 .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.print")
                             .action-item-name(i18n="voucher.voucher_card.footer.actions.print")
             .card-qr_code.hide-sm
-                qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="auth_token")
+                qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="voucher")
                 .card-qr_code-desc(ng-if="$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.productdescription")
                 .card-qr_code-desc(ng-if="!$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
 
