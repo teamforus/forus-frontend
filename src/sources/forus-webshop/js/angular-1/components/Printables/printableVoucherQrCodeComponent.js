@@ -8,10 +8,10 @@ let PrintableVoucherQrCodeComponent = function($timeout) {
         $ctrl.organization = $ctrl.printable.scope.organization;
         $ctrl.qrCodeValue = $ctrl.voucher.address;
 
-         $timeout(() => {
+        $timeout(() => {
             window.print();
             $ctrl.close();
-        }, 0);
+        }, 500);
     };
 
      $ctrl.$onDestroy = function() {};

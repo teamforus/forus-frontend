@@ -11,7 +11,7 @@ let PrintableVoucherQrCodeComponent = function($timeout) {
         $timeout(() => {
             window.print();
             $ctrl.close();
-        }, 0);
+        }, 500);
     };
 
     $ctrl.$onDestroy = function() {};

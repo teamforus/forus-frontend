@@ -30,20 +30,29 @@ body {
                 margin-bottom: 20px;
             }
 
-            .block-qr-code {
-                margin-bottom: 20px;
+            .block.block-qr_code {
+                margin: 0 auto 20px;
+
+                .qr_code {
+                    margin: 0 auto;
+                    width: 240px;
+                    height: auto;
+                    box-shadow: none;
+                }
 
                 img {
                     padding: 10px;
                     margin: 0 auto;
-                    width: 200px;
+                    width: 100%;
                     border: 1px solid silver;
                     background: #fff;
+                    box-shadow: none;
                 }
             }
         }
     }
 }
+
 .printable-layout {
     display: block;
     align-content: flex-start;
