@@ -1,7 +1,6 @@
 let FundCardDirective = function(
     $scope,
     $state,
-    $filter,
     FundService,
     ModalService,
     ProviderFundService
@@ -43,9 +42,9 @@ let FundCardDirective = function(
 
         ModalService.open('modalNotification', {
             type: 'confirm',
-            title: $filter('i18n')('fund_card_sponsor.confirm_delete.title'),
+            title: 'fund_card_sponsor.confirm_delete.title',
             icon: 'product-error',
-            description: $filter('i18n')('fund_card_sponsor.confirm_delete.description'),
+            description: 'fund_card_sponsor.confirm_delete.description',
             confirm: () => {
                 FundService.destroy(
                     fund.organization_id,
@@ -72,7 +71,6 @@ module.exports = () => {
         controller: [
             '$scope',
             '$state',
-            '$filter',
             'FundService',
             'ModalService',
             'ProviderFundService',
