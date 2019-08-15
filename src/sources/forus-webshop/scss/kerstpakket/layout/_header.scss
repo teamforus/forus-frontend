@@ -1,0 +1,13 @@
+.section {
+    &.section-header {
+        @media screen and (min-width: 1024px) {
+            background-size: cover;
+            background-position: center center;
+        }
+        .header-content {
+            .header-title {
+                font: 700 48px/1.5em $bf_2;
+            }
+        }
+    }
+}

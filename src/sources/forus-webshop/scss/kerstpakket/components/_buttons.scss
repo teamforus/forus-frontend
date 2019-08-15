@@ -1,0 +1,15 @@
+.button {
+    &.button-default {
+        color: $color_default;
+        border: 1px solid $color_default;
+        .mdi {
+            color: $color_default;
+        }
+    }
+    &.button-primary {
+        &:hover {
+            background-color: $fc;
+            color: $color_default;
+        }
+    }
+}

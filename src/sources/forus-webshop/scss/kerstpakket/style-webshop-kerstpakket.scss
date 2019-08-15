@@ -1,2 +1,16 @@
 @import './vars';
 @import '../_common/webshop';
+
+@import url('https://fonts.googleapis.com/css?family=Cherry+Swash&display=swap');
+
+// COMPONENTS
+@import 'components/_buttons.scss';
+
+// LAYOUTS
+@import 'layout/_header.scss',
+'layout/_navigation.scss',
+'layout/_footer.scss';
+
+// SECTIONS
+@import 'sections/faq.scss',
+'sections/steps.scss';
