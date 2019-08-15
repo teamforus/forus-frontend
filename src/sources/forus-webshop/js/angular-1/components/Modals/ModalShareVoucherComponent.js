@@ -21,9 +21,9 @@ let ModalShareVoucherComponent = function(
                 ModalService.open('modalNotification', {
                     type: 'action-result',
                     class: 'modal-description-pad',
-                    title: $filter('i18n')('voucher.share_voucher.popup_sent.title'),
-                    description: $filter('i18n')('voucher.share_voucher.popup_sent.description'),
-                    confirmBtnText: $filter('i18n')('voucher.share_voucher.buttons.confirm')
+                    title: 'voucher.share_voucher.popup_sent.title',
+                    description: 'voucher.share_voucher.popup_sent.description',
+                    confirmBtnText: 'voucher.share_voucher.buttons.confirm',
                 });
             }, (res) => {
                 form.unlock();

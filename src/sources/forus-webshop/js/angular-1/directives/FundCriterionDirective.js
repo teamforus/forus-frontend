@@ -9,7 +9,8 @@ let FundCriterionDirective = function(
     $scope.records = FundService.checkEligibility(
         $scope.records || [],
         $scope.criterion,
-        $scope.validators
+        $scope.validators,
+        $scope.fund.organization_id
     );
 
     if ($scope.records.filter(

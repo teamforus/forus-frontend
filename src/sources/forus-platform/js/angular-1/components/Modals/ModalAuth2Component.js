@@ -1,5 +1,4 @@
 let ModalAuth2Component = function(
-    $filter,
     $timeout,
     $rootScope,
     AuthService,
@@ -98,9 +97,9 @@ let ModalAuth2Component = function(
                     type: 'action-result',
                     class: 'modal-description-pad modal-content',
                     icon: 'email_confirmation',
-                    title: $filter('translate')('popup_auth.labels.mail_sent'),
-                    description: $filter('translate')('popup_auth.notifications.link_website'),
-                    confirmBtnText: $filter('translate')('popup_auth.buttons.close')
+                    title: 'popup_auth.labels.mail_sent',
+                    description: 'popup_auth.notifications.link_website',
+                    confirmBtnText: 'popup_auth.buttons.close'
                 });
 
             }, (res) => {
@@ -123,7 +122,6 @@ module.exports = {
         modal: '='
     },
     controller: [
-        '$filter',
         '$timeout',
         '$rootScope',
         'AuthService',

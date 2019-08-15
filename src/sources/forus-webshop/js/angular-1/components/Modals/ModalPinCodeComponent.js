@@ -21,10 +21,10 @@ let ModalPinCodeComponent = function(
 
                 ModalService.open('modalNotification', {
                     type: 'confirm',
-                    title: $filter('translate')('popup_auth.pin_code.confirmation.title'),
-                    description: $filter('translate')('popup_auth.pin_code.confirmation.description'),
-                    confirmBtnText: $filter('translate')('popup_auth.pin_code.confirmation.buttons.confirm'),
-                    cancelBtnText: $filter('translate')('popup_auth.pin_code.confirmation.buttons.try_again'),
+                    title: 'popup_auth.pin_code.confirmation.title',
+                    description: 'popup_auth.pin_code.confirmation.description',
+                    confirmBtnText: 'popup_auth.pin_code.confirmation.buttons.confirm',
+                    cancelBtnText: 'popup_auth.pin_code.confirmation.buttons.try_again',
                     cancel: () => {
                         ModalService.open('modalPinCode', {});
                     }
