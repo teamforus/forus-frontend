@@ -5,6 +5,7 @@
     br
     qr-code(qr-value="$ctrl.qrCodeValue" qr-type="voucher")
     .printable-description De verloopdatum van deze voucher is {{ $ctrl.voucher.expire_at_locale }}
+    
      //- Voucher details
     //-pre(ng-bind="$ctrl.voucher | pretty_json")
 
