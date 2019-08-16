@@ -41,7 +41,7 @@ let QrCodeDirective = function(
                 text: value,
                 size: 600,
                 margin: 0,
-                dotScale: backgroundImage ? .5 : 1,
+                dotScale: 0.8,
                 bindElement: qrCodeEl,
                 logoImage: logoImage || undefined,
                 backgroundImage: backgroundImage || undefined,
