@@ -10,7 +10,7 @@ section.section.section-voucher-details: .wrapper
     .section-title.hide-sm(ng-if="$ctrl.voucherCard.product") Uw aanbieding voucher
 
     .block.block-voucher
-        // regular voucher
+        //- regular voucher
         div(ng-if="!$ctrl.voucherCard.product").base-card.base-card-sponsor: .card-inner
             .card-body
                 .card-photo: img(ng-src="{{ $ctrl.voucherCard.fund.organization.logo.sizes.large || './assets/img/placeholders/organization-large.png' }}", alt="")
@@ -27,7 +27,7 @@ section.section.section-voucher-details: .wrapper
                     | Telefoonnummer: 
                     strong(ng-bind="$ctrl.voucherCard.fund.organization.phone")
 
-        // product voucher
+        //- product voucher
         div(ng-if="$ctrl.voucherCard.product").base-card.base-card-sponsor: .card-inner
             .card-body
                 .card-photo: img(ng-src="{{ $ctrl.voucherCard.product.organization.logo.sizes.large || './assets/img/placeholders/organization-large.png' }}", alt="")
@@ -44,11 +44,11 @@ section.section.section-voucher-details: .wrapper
                     | Telefoonnummer: 
                     strong(ng-bind="$ctrl.voucherCard.product.organization.phone")
         
-        // voucher details
+        //- voucher details
         .base-card.base-card-voucher
             .card-inner
                 .card-body.flex-row
-                    // product voucher
+                    //- product voucher
                     .card-photo: img(ng-src="{{ $ctrl.voucherCard.thumbnail }}").voucher-img
                     
                     .card-section
@@ -60,8 +60,11 @@ section.section.section-voucher-details: .wrapper
                         div(ng-if="!$ctrl.voucherCard.product")
                             .card-label.euro Uw tegoed is:
                             .card-value.euro(ng-bind="'€ ' + ($ctrl.voucherCard.amount)") 
+                    
                     .card-qr_code.show-sm
-                        qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="voucher").card-qr_code-element
+                        qr-code(
+                            ng-if="$ctrl.qrValue" qr-type="voucher" qr-value="$ctrl.qrValue" 
+                            qr-background="{{ $ctrl.voucherCard.thumbnail }}").card-qr_code-element
                         .card-qr_code-desc(ng-if="$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.productdescription")
                         .card-qr_code-desc(ng-if="!$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
 

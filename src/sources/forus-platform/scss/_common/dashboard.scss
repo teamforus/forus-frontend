@@ -47,12 +47,18 @@ body {
             }
     
             .block-qr-code {
-                margin-bottom: 20px;
-    
+                margin: 0 auto 20px;
+
+                .qr_code {
+                    margin: 0 auto;
+                    width: 240px;
+                    height: auto;
+                }
+
                 img {
                     padding: 10px;
                     margin: 0 auto;
-                    width: 200px;
+                    width: 100%;
                     border: 1px solid silver;
                     background: #fff;
                 }

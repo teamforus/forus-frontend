@@ -318,8 +318,8 @@
         }
     }
 }
-.block {
 
+.block {
     &.block-auth-type {
         @include cf();
         font-size: 0;
@@ -390,8 +390,8 @@
             }
         }
     }
-    @media screen and (max-width: 1700px) {
 
+    @media screen and (max-width: 1700px) {
         &.block-auth-type {
             .auth_type-item {
                 .auth_type-icon {
@@ -405,6 +405,7 @@
             }
         }
     }
+
     @media screen and (max-width: 1000px) {
         &.block-auth-type {
             margin: 0 0 10px;
