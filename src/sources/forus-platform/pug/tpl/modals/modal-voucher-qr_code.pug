@@ -6,7 +6,7 @@
         .modal-body: .modal-section
             .voucher_qr-block
                 .voucher_qr-title(i18n="modals.modal_voucher_qr_code.title")
-                .block.block-auth-qr-code: .qr_code
+                qr-code(qr-value="$ctrl.qrCodeValue" qr-type="voucher")
                 .voucher_qr-actions: .row
                     .col.col-xs-6: button(
                         type="button"
@@ -34,7 +34,7 @@
                             ng-model="$ctrl.form.values.email").form-control
 
                     .col.col-xs-3
-                        button.button.button-primary.button-fill(type="submit" i18n="modals.modal_voucher_qr_code.buttons.send")
+                        button.button.button-primary.button-fill.button-slim(type="submit" i18n="modals.modal_voucher_qr_code.buttons.send")
                 .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
         
         .modal-footer.text-center

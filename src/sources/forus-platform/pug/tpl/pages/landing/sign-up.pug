@@ -111,7 +111,7 @@
                         .card-block.card-block-login(ng-show="$ctrl.showLoginBlock")
                             .login-title(translate="sign_up.login.title")
                             
-                            .login-qrcode: .block.block-auth-qr-code: .qr_code#login_auth_qrcode
+                            .login-qrcode: .block.block-qr-code: .qr_code#login_auth_qrcode
                             
                             .login-description(translate="sign_up.login.qr_description")
                             .login-actions
@@ -161,7 +161,7 @@
             .card
                 +card_header(4)
 
-                .card-section.card-section-primary: .block.block-auth-qr-code
+                .card-section.card-section-primary: .block.block-qr-code
                     .qr_code#platform_auth_qrcode
                     .qr_code-desc(translate="sign_up.qr_code.description")
 

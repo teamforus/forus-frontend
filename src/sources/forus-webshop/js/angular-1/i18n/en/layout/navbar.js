@@ -8,7 +8,7 @@ module.exports = {
         activate:"Activatiecode",
         login:"Login",
         voucher:"Mijn vouchers",
-        profile:"Open profiel",
+        profile:"Profiel >",
         records: "Mijn eigenschappen",
         authorize:"Autoriseer apparaat",
         logout:"Uitloggen",

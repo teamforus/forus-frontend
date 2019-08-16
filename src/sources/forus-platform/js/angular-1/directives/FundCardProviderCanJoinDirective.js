@@ -1,8 +1,5 @@
 let FundCardProviderCanJoinDirective = function(
     $scope, 
-    $state,
-    $filter,
-    FundService, 
     ProviderFundService,
     ModalService
 ) {
@@ -19,10 +16,10 @@ let FundCardProviderCanJoinDirective = function(
 
             ModalService.open('modalNotification', {
                 type: 'info',
-                title: $filter('translate')('provider_funds_available.applied_for_fund.title'),
-                description: $filter('translate')('provider_funds_available.applied_for_fund.description'),
+                title: 'provider_funds_available.applied_for_fund.title',
+                description: 'provider_funds_available.applied_for_fund.description',
                 icon: 'fund_applied',
-                closeBtnText: $filter('translate')('modal.buttons.confirm'),
+                closeBtnText: 'modal.buttons.confirm',
             }, {
                 onClose: () => $scope.fund.applied = true
             });
@@ -40,9 +37,6 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
-            '$state',
-            '$filter',
-            'FundService',
             'ProviderFundService',
             'ModalService',
             FundCardProviderCanJoinDirective

@@ -1,6 +1,7 @@
 let SignUpComponent = function(
     $q,
     $state,
+    $stateParams,
     $scope,
     $rootScope,
     $timeout,
@@ -34,8 +35,6 @@ let SignUpComponent = function(
     $ctrl.offices = [];
     $ctrl.sentSms = false;
 
-    let qrCodeEl;
-    let qrCode;
     let has_app = false;
     let orgMediaFile = false;
     let waitingSms = false;
@@ -50,7 +49,7 @@ let SignUpComponent = function(
             "manage_funds", "manage_providers", "manage_validators",
             "validate_records", "scan_vouchers"
         ]
-    }[appConfigs.panel_type];
+    } [appConfigs.panel_type];
 
     $ctrl.beforeInit = () => {
         if ($ctrl.signedIn) {
@@ -80,7 +79,7 @@ let SignUpComponent = function(
 
     };
 
-    let progressStorage = new (function() {
+    let progressStorage = new(function() {
         let interval;
 
         this.init = () => {
@@ -189,7 +188,7 @@ let SignUpComponent = function(
 
             let values = JSON.parse(JSON.stringify(form.values));
 
-            if (typeof (values.iban) === 'string') {
+            if (typeof(values.iban) === 'string') {
                 values.iban = values.iban.replace(/\s/g, '');
             }
 
@@ -250,9 +249,26 @@ let SignUpComponent = function(
 
     let loadAvailableFunds = (organization) => {
         ProviderFundService.listAvailableFunds(
-            organization.id
+            organization.id, $stateParams.fundId ? {
+                fund_id: $stateParams.fundId
+            } : {}
         ).then((res) => {
-            $ctrl.fundsAvailable = res.data.data;
+            let fundsAvailable = res.data.data;
+
+            if ($stateParams.fundId && fundsAvailable.length > 0) {
+                let targetFund = fundsAvailable.filter(
+                    fund => fund.id == $stateParams.fundId
+                )[0] || null;
+
+                if (targetFund) {
+                    return ProviderFundService.applyForFund(
+                        $ctrl.organization.id, 
+                        targetFund.id
+                    ).then($ctrl.next);
+                }
+            }
+
+            $ctrl.fundsAvailable = fundsAvailable;
         });
     };
 
@@ -274,7 +290,6 @@ let SignUpComponent = function(
         $ctrl.organization = organization;
 
         loadOrganizationOffices(organization);
-        loadAvailableFunds(organization);
     };
 
     $ctrl.addOffice = () => {
@@ -318,7 +333,7 @@ let SignUpComponent = function(
 
         } else if ($ctrl.step == 2) {
 
-            if ($ctrl.signUpForm.values.records && $ctrl.signUpForm.values.records.primary_email != $ctrl.signUpForm.values.records.primary_email_confirmation) {
+            if ($ctrl.signUpForm.values.records && $ctrl.signUpForm.values.records.primary_email !=     $ctrl.signUpForm.values.records.primary_email_confirmation) {
                 $ctrl.signUpForm.errors = {};
                 $ctrl.signUpForm.errors['records.primary_email_confirmation'] = [$filter('translate')('validation.email_confirmation')];
             } else {
@@ -327,7 +342,7 @@ let SignUpComponent = function(
                     records: {
                         primary_email: $ctrl.signUpForm.values.records ? $ctrl.signUpForm.values.records.primary_email : ''
                     }
-                }).then((res) => { }, (res) => {
+                }).then((res) => {}, (res) => {
                     $ctrl.signUpForm.errors = {};
                     if (res.data.errors['records.primary_email'] && res.data.errors['records.primary_email'].length) {
                         $ctrl.signUpForm.errors['records.primary_email'] = res.data.errors['records.primary_email'];
@@ -348,7 +363,7 @@ let SignUpComponent = function(
                     $ctrl.setStep(2);
                 });
 
-                if (typeof (authRes) !== 'undefined') {
+                if (typeof(authRes) !== 'undefined') {
                     CredentialsService.set(authRes.data.access_token);
                     $ctrl.signedIn = true;
                 } else {
@@ -381,11 +396,6 @@ let SignUpComponent = function(
             $scope.authorizePincodeForm.submit().then((res) => {
                 CredentialsService.set(null);
 
-                qrCodeEl = document.getElementById('platform_auth_qrcode');
-                qrCode = new QRCode(qrCodeEl, {
-                    correctLevel: QRCode.CorrectLevel.L
-                });
-
                 $ctrl.requestAuthQrToken();
                 $ctrl.setStep($ctrl.step + 1);
 
@@ -400,9 +410,7 @@ let SignUpComponent = function(
                 }
             });
         } else if ($ctrl.step == 6) {
-
             $ctrl.setStep($ctrl.step + 1);
-
         } else if ($ctrl.step == 7) {
             $state.go('organizations');
         }
@@ -415,20 +423,12 @@ let SignUpComponent = function(
     };
 
     $ctrl.showLoginQrCode = function() {
-
-        qrCodeEl = document.getElementById('login_auth_qrcode');
-        qrCodeEl.innerHTML = "";
-
-        qrCode = new QRCode(qrCodeEl, {
-            correctLevel: QRCode.CorrectLevel.L
-        });
-
         $ctrl.requestAuthQrToken();
 
         loginQrBlock.show();
     };
 
-    let loginQrBlock = new (function() {
+    let loginQrBlock = new(function() {
         this.show = () => {
             $ctrl.showLoginBlock = true;
         };
@@ -463,15 +463,6 @@ let SignUpComponent = function(
         IdentityService.makeAuthToken().then((res) => {
             $ctrl.authToken = res.data.auth_token;
 
-            qrCode.makeCode(
-                JSON.stringify({
-                    type: 'auth_token',
-                    'value': $ctrl.authToken
-                })
-            );
-
-            qrCodeEl.removeAttribute('title');
-
             $ctrl.checkAccessTokenStatus('token', res.data.access_token);
         }, console.log);
     };
@@ -502,6 +493,7 @@ module.exports = {
     controller: [
         '$q',
         '$state',
+        '$stateParams',
         '$scope',
         '$rootScope',
         '$timeout',

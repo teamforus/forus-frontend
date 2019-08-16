@@ -702,10 +702,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
-    if (appConfigs.panel_type == 'provider' || appConfigs.panel_type == 'sponsor') {
+    if (['provider', 'sponsor'].indexOf(appConfigs.panel_type) != -1) {
         $stateProvider.state({
             name: "sign-up",
-            url: "/sign-up",
+            url: "/sign-up?fundId",
             component: "signUpComponent",
             resolve: {
                 productCategories: function(ProductCategoryService) {
