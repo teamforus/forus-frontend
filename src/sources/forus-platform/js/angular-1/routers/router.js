@@ -621,11 +621,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         component: 'validationRequestsComponent',
         resolve: {
             validatorRequests: function($transition$, ValidatorRequestService) {
-                return repackPagination(ValidatorRequestService.index(
-                    objectOnlyKeys($transition$.params(), [
-                        'page', 'q', 'state'
-                    ])
-                ));
+                return repackPagination(ValidatorRequestService.indexGroup());
             }
         }
     });

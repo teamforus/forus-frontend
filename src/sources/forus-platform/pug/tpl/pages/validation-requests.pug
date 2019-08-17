@@ -4,7 +4,7 @@
         .card-heading: .row
             .col.col-sm-6.col-xs-12(
                 translate="validation_requests.labels.requests" 
-                translate-values="{count: $ctrl.validatorRequestsByBsn.length}")
+                translate-values="{count: $ctrl.validatorRequests.data.length}")
             .block.block-inline-filters.col.col-sm-6.col-xs-12
                 .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.resetFilters()")
                     em.mdi.mdi-close
@@ -32,7 +32,7 @@
                     .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
         .card.card-collapsable(
-            ng-repeat="validatorRequest in $ctrl.validatorRequestsByBsn")
+            ng-repeat="validatorRequest in $ctrl.validatorRequestsData")
             .card-section(ng-click="validatorRequest.collapsed = !validatorRequest.collapsed")
                 .card-section-actions(ng-show="validatorRequest.nth.pending > 0")
                     .tag.tag-warning(translate="validation_requests.status.hold")
@@ -97,12 +97,7 @@
                     .table-pagination-counter(
                         translate="validation_requests.labels.results"
                         translate-values="{count: validatorRequest.requests.length}")
-                    //-  .table-pagination-navigation
-                        button(disabled).button.button-default Prev
-                        button.button.button-default 1
-                        button.button.button-default 2
-                        button.button.button-primary 3
-                        button(disabled).button.button-default Next
+        
         .card: .card-section(ng-show="$ctrl.validatorRequests.meta.last_page > 1"): paginator(
             meta="$ctrl.validatorRequests.meta" 
             filters="$ctrl.filters.values" 

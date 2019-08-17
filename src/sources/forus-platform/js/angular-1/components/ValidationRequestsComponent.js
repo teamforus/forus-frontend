@@ -10,7 +10,6 @@ let ValidationRequestsComponent = function(
     }
 
     let $ctrl = this;
-    
 
     let statePriority = {
         pending: 1,
@@ -36,7 +35,9 @@ let ValidationRequestsComponent = function(
 
     $ctrl.filters = {
         show: false,
-        values: {},
+        values: {
+            group: 1,
+        },
         reset: function() {
             $ctrl.filters.values.q = '';
             $ctrl.filters.values.state = $ctrl.states[0].key;
@@ -51,55 +52,46 @@ let ValidationRequestsComponent = function(
         $timeout(() => $ctrl.filters.show = false);
     };
 
-    let reloadRequests = () => {
-        ValidatorRequestService.index($ctrl.filters.values).then(function(res) {
+    let reloadRequests = (query = false) => {
+        if (query) {
+            $ctrl.filters.values = query;
+        }
+
+        ValidatorRequestService.indexGroup($ctrl.filters.values).then(function(res) {
             $ctrl.validatorRequests = res.data;
             init();
         }, console.error);
     };
 
     let init = () => {
-        let byBsn = {};
-        let bsnCollection = [];
+        let data = $ctrl.validatorRequests.data;
 
-        $ctrl.validatorRequests.data.forEach(request => {
-            if (!byBsn[request.bsn]) {
-                byBsn[request.bsn] = {
-                    requests: []
-                };
-
-                bsnCollection.push(request.bsn);
-            }
-
-            byBsn[request.bsn].requests.push(request);
-        });
-
-        bsnCollection.forEach(function(bsn) {
-            byBsn[bsn].requests.sort(((a, b) => {
+        data.forEach(function(row) {
+            row.sort(((a, b) => {
                 return statePriority[a.state] - statePriority[b.state];
             })).reverse();
         });
 
-        for (var prop in byBsn) {
-            let byBsnItem = byBsn[prop];
-            let requests = byBsnItem.requests;
-
-            byBsnItem.nth = {
+        data = data.map(requests => {
+            let nth = {
                 approved: requests.filter((request) => request.state == 'approved').length,
                 declined: requests.filter((request) => request.state == 'declined').length,
                 pending: requests.filter((request) => request.state == 'pending').length,
             };
-        }
 
-        $ctrl.validatorRequestsByBsn = Object.values(byBsn).map(function(byBsnRow) {
-            byBsnRow.bsn = byBsnRow.requests[0].bsn;
-            byBsnRow.collapsed = byBsnRow.nth.pending == 0;
-            return byBsnRow;
+            return {
+                requests: requests,
+                nth: nth,
+                bsn: requests[0].bsn,
+                collapsed: nth.pending == 0
+            }
         });
-
-        $ctrl.validatorRequestsByBsn.sort(((a, b) => {
+        
+        data.sort(((a, b) => {
             return a.nth.pending > 0 ? 1 : -1;
         })).reverse();
+
+        $ctrl.validatorRequestsData = data;
     };
 
     $ctrl.validateRequest = (request, reload = false) => {
@@ -139,8 +131,8 @@ let ValidationRequestsComponent = function(
         init();
     };
 
-    $ctrl.onPageChange = async (query) => {
-        reloadRequests();
+    $ctrl.onPageChange = (query) => {
+        reloadRequests(query);
     };
 };
 

@@ -6,6 +6,12 @@ let ValidatorRequestService = function(ApiRequest) {
             return ApiRequest.get(uriPrefix, data);
         };
 
+        this.indexGroup = function(data = {}) {
+            return ApiRequest.get(uriPrefix, Object.assign(data, {
+                group: 1
+            }));
+        };
+
         this.read = function(id) {
             return ApiRequest.get(
                 uriPrefix + '/' + id
