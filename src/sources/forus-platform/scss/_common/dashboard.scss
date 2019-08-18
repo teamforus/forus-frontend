@@ -36,3 +36,8 @@
     @import 'sections/blocks/file';
     @import 'sections/blocks/inline_filter';
 }
+.app {
+    @import 'layout/_header';
+    @import 'layout/_navigation';
+    @import 'layout/_grid';
+}
