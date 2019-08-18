@@ -1,0 +1,380 @@
+&.section-header {
+    padding: 40px 0 40px;
+    position: absolute;
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 100%;
+    background-image: none;
+    @include cf();
+
+    .heade-sprite {
+        background: url("../img/sprite-meapp.png") no-repeat;
+        background-position: 100% 0%;
+        background-size: auto 100%;
+        @include fill_parent();
+        bottom: -50px;
+        z-index: 2;
+    }
+
+    .block-navbar {
+        position: relative;
+        z-index: 4;
+    }
+
+    .header-body {
+        @include cf();
+        position: relative;
+
+        &.header-body-sprite-fill {
+            position: initial;
+        }
+    }
+
+    .header-content {
+        padding: 145px 0;
+        width: 50%;
+        float: left;
+        position: relative;
+        z-index: 3;
+        padding-bottom: 30px;
+        padding-right: 120px;
+        min-height: 450px;
+
+        .header-title {
+            font: 700 40px/50px $bf;
+            margin: 0 0 25px;
+        }
+
+        .header-description {
+            font: 400 22px/36px $bf;
+            margin: 0 0 50px;
+        }
+
+        .header-download-apps {
+            margin-right: -60px;
+            padding-top: 50px;
+
+            .app-item {
+                width: 100%;
+                display: block;
+                margin-bottom: 20px;
+                padding: 50px 50px 50px 200px;
+                font: 700 18px/30px $bf;
+                position: relative;
+                color: #282b39;
+                overflow: hidden;
+                border-radius: 5px;
+                background: #fff;
+                text-align: left;
+                transition: .4s;
+                transform: translate(0, 0);
+                box-shadow: 5px 15px 30px rgba($color: #000000, $alpha: .05);
+
+                .mdi {
+                    top: 50%;
+                    right: 40px;
+                    position: absolute;
+                    transform: translate(0, -50%);
+                    font-size: 18px;
+                    color: #5374d9;
+                }
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    display: block;
+                    width: 225px;
+                    height: 200px;
+                    left: -60px;
+                    top: 50%;
+                    border-radius: 200px;
+                    background-color: #f9fbf0;
+                    background-image: url('../img/landing/icon-app-android.png');
+                    background-repeat: no-repeat;
+                    background-position: 70% 50%;
+                    transform: translate(0, -50%);
+                }
+
+                &.app-item-ios {
+                    &:before {
+                        background-color: #f2fafd;
+                        background-image: url('../img/landing/icon-app-ios.png');
+                    }
+                }
+
+                &:hover {
+                    transform: translate(0, -5px);
+                    box-shadow: 5px 20px 40px rgba($color: #000000, $alpha: .15);
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    .header-sprite {
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        top: 0;
+        right: 0;
+        background-position: 100% 100px;
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+
+    .lang-selector {
+        float: left;
+        padding: 20px 20px;
+        cursor: pointer;
+        position: relative;
+        margin: -20px 0;
+        
+        .lang-label {
+            padding: 4px 0 0;
+            font: 400 10px/16px $bf;
+
+            .mdi {
+                display: block;
+                width: 20px;
+                color: #064597;
+                float: left;
+                font-size: 16px;
+                margin-left: -20px;
+            }
+        }
+
+        .lang-active {
+            font: 700 13px/20px $bf;
+        }
+
+        .lang-list {
+            position: absolute;
+            border: 1px solid #e8edf1;
+            text-align: center;
+            background: #fff;
+            border-radius: 5px;
+            margin-top: 10px;
+            left: 50%;
+            transform: translate(-50%);
+            padding: 10px 0;
+            display: none;
+
+            &:before {
+                content: '';
+                display: block;
+                width: 20px;
+                height: 10px;
+                position: absolute;
+                bottom: 100%;
+                left: 50%;
+                transform: translate(-50%, 0);
+                background: url('../img/popup-arrow.png');
+            }
+
+            .lang-list-item {
+                padding: 5px 15px;
+                min-width: 110px;
+                font: 600 12px/18px $bf;
+                background: #fff;
+                transition: background .4s;
+
+                &:hover {
+                    background: #d2e6ff;
+                }
+            }
+        }
+
+        &:hover {
+            .lang-list {
+                display: block;
+            }
+        }
+    }
+
+    &.section-header-landing {
+        padding-bottom: 0;   
+    }
+}
+@media screen and (max-width: 1500px) {
+    &.section-header {
+        .heade-sprite {
+            bottom: 100px;
+        }
+
+        .header-content {
+            padding: 75px 0;
+            padding-right: 150px;
+            
+            .header-title {
+                font: 700 30px/46px $bf;
+                margin: 0 0 20px;
+            }
+            
+            .header-description {
+                font: 400 18px/30px $bf;
+                margin: 0 0 20px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 1000px) {
+    &.section-header {
+        padding: 0;
+        margin: 0 0 30px;
+
+        .block-navbar {
+            position: relative;
+            z-index: 4;
+        }
+
+        .heade-sprite {
+            display: none;
+        }
+
+        .lang-selector {
+            padding: 10px 20px;
+            margin: -10px 0;
+            padding-left: 30px;
+
+            .lang-list {
+                left: 50%;
+                margin-left: -20px;
+                margin-top: 8px;
+                transform: none;
+
+                &:before {
+                    left: 15px;;
+                }
+            }
+        }
+
+        .header-content {
+            width: 100%;
+            padding: 25px 25px;
+            text-align: center;
+            min-height: auto;
+
+            .header-title {
+                font: 700 20px/28px $bf;
+                margin: 0 0 20px;
+            }
+
+            .header-description {
+                font: 400 14px/24px $bf;
+                margin: 0;
+                color: #353b46;
+            }
+
+            .button {
+                text-align: center;
+                font-size: 11px;
+                padding: 12px 10px;
+                width: 100%;
+            }
+
+            .header-download-apps {
+                padding: 0;
+                margin: 0 0 0;
+
+                .app-item {
+                    padding: 25px 20px 25px 90px;
+                    font: 700 12px/20px $bf;
+                    @include ellipsis();
+
+                    &:before {
+                        width: 70px;
+                        height: 100%;
+                        border-radius: 0;
+                        left: 0;
+                        background-size: 50px;
+                        background-position: 50%;
+                    }
+
+                    .mdi {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .header-sprite {
+            display: none;
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .hide-sm {
+        display: none !important;
+    }
+
+    .show-sm {
+        display: block !important;
+    }
+
+    .sm-pull-left {
+        float: left !important;
+    }
+
+    .wrapper {
+        padding: 0 25px;
+    }
+
+    .header-splash {
+
+        .splash  {
+            height: 300px;
+            background-size: 75% auto;
+        }
+    }
+
+    .label {
+        padding: 0 10px;
+        font: 700 11px/22px $bf;
+    }
+
+    .button {
+        &.button-primary {
+            box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+        }
+    }
+
+    .form {
+        .form-control:not([type="radio"]):not([type="checkbox"]),
+        .form-control:not([type="radio"]):not([type="checkbox"]).form-control-fancy {
+            height: 50px;
+            padding: 5px 15px;
+            font: 400 15px/24px $bf;
+        }
+    }
+
+    .app-instruction {
+
+        .divider-img {
+            width: auto;
+            padding-top: 10px;
+            margin: 0 -25px 10px;
+        }
+
+        .step-item {
+            padding: 50px 80px;
+            width: 50%;
+            padding: 0 30px;
+            vertical-align: top;
+
+            .app-title {
+                font-size: 13px;
+                margin: 0 -30px;
+            }
+
+            img {
+                &.line-item {
+                    display: none;
+                }
+            }
+        }
+    }
+}

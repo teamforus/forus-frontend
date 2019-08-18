@@ -1,0 +1,59 @@
+
+.hover-actions {
+    position: relative;
+
+    .mdi {
+        font-size: 1.5em;
+        color: #8ca3a6;
+        cursor: pointer;
+    }
+
+    .hover-actions-menu {
+        display: none;
+        z-index: 1;
+        position: absolute;
+        right: 50%;
+        top: 50%;
+        margin-top: 2px;
+        background: #fff;
+        max-width: 80vw;
+        width: 240px;
+        border: 1px solid #f3f4f5;
+        border-radius: 5px;
+        @include cf();
+        box-shadow: 0 5px 25px rgba(#000, 0.15);
+        padding: 5px 20px;
+
+        .hover-actions-label {
+            padding: 10px 20px;
+            margin: 0 -20px;
+            font: 500 13px/20px $bf;
+            color: #646f79;
+        }
+
+        .hover-actions-item {
+            padding: 10px 20px;
+            margin: 0 -20px;
+            white-space: nowrap;
+            color: #134478;
+            cursor: pointer;
+            font: 500 12px/20px $bf;
+            transition: 0.4s;
+
+            &:hover {
+                color: #d91d46;
+                background: #f6f8f9;
+            }
+        }
+
+        .hover-actions-sep {
+            border-bottom: 1px solid #f3f4f5;
+        }
+    }
+
+    &:hover {
+        .hover-actions-menu {
+            display: block;
+        }
+    }
+}

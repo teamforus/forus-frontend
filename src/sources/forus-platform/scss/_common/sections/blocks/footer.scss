@@ -1,0 +1,114 @@
+&.block-footer {
+    margin-bottom: 40px;
+
+    .footer-logo {
+        width: 140px;
+        max-width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .footer-label {
+        color: #282b39;
+        font: 700 18px $bf;
+        margin-bottom: 25px;
+    }
+
+    .footer-nav {
+        .footer-nav-item {
+            display: block;
+            margin-bottom: 10px;
+
+            a {
+                color: #004195;
+                font: 700 14px/24px $bf;
+                transition: color .4s;
+
+                &:hover {
+                    color: #2987fd;
+                }
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .footer-schedule {
+        width: 100%;
+        margin-bottom: 10px;
+        @include cf();
+
+        .schedule-label {
+            color: #646f79;
+            font: 400 13px/24px $bf;
+            float: left;
+            width: 35%;
+        }
+
+        .schedule-value {
+            color: #00122a;
+            font: 700 13px/24px $bf;
+            float: left;
+            width: 65%;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .footer-subscribe {
+        position: relative;
+
+        .button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 60px;
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+        }
+    }
+}
+
+@media screen and (max-width: 1000px){
+
+    &.block-footer {
+        margin: 0 0 20px;
+
+        .footer-logo {
+            margin: 0 0 20px;
+        }
+
+        .footer-label {
+            padding: 20px 0 0;
+            margin: 0 0 20px;
+            font: 700 15px/24px $bf;
+        }
+
+        .footer-schedule {
+            .schedule-label {
+                font: 400 12px/24px $bf;
+                width: 30%;
+            }
+
+            .schedule-value {
+                width: 70%;
+                font: 700 12px/24px $bf;
+            }
+        }
+
+        .footer-subscribe {
+            .button {
+                height: 50px;
+                padding-left: 20px;
+                padding-right: 20px;
+
+                .mdi {
+                    font-size: 24px;
+                }
+            }
+        }
+    }
+}

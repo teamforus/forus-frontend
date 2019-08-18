@@ -1,0 +1,91 @@
+&.block-auth-type {
+    @include cf();
+    font-size: 0;
+    padding: 0 0 20px;
+    text-align: center;
+
+    .auth_type-item {
+        display: inline-block;
+        width: 340px;
+        max-width: 50%;
+        padding: 0 30px;
+
+        .auth_type-icon {
+            padding: 50px 0;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(#000, .04);
+            margin-bottom: 30px;
+            transform: translate(0, 0);
+            transition: .4s;
+
+            img {
+                display: block;
+                margin: 0 auto;
+            }
+        }
+        
+        .auth_type-name {
+            font: 700 18px $bf;
+            color: #282b39;
+            transition: .4s;
+        }
+
+        .auth_type-item-inner {
+            width: 100%;
+            cursor: pointer;
+
+            &:hover {
+                .auth_type-icon {
+                    transform: translate(0, -10px);
+                box-shadow: 0 10px 60px rgba(#000, .15);
+                }
+
+                .auth_type-name {
+                    color: #004195;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 1500px) {
+    &.block-auth-type {
+        .auth_type-item {
+            .auth_type-icon {
+                padding: 40px 0;
+                margin-bottom: 20px;
+
+                img {
+                    width: 100px;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 1000px){
+    &.block-auth-type {
+        margin: 0 0 10px;
+
+        .auth_type-item {
+            padding: 0 10px;
+            width: 50%;
+
+            .auth_type-item-inner {
+                .auth_type-icon {
+                    padding: 20px;
+                    margin: 0 0 20px;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+
+                .auth_type-name {
+                    font: 700 12px $bf;
+                    @include ellipsis();
+                    margin: 0 -10px;
+                }
+            }
+        }
+    }
+}

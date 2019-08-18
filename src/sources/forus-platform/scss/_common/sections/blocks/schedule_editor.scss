@@ -1,0 +1,17 @@
+&.block-schedule-editor {
+    @include cf();
+
+    .schedule-item {
+        padding: 0 5px;
+        float: left;
+        width: 14.2857%;
+
+        &:first-child {
+            padding-left: 0;
+        }
+
+        &:last-child {
+            padding-right: 0;
+        }
+    }
+}

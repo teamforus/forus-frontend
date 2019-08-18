@@ -1,0 +1,13 @@
+&.block-info {
+    padding-left: 30px;
+    font: 500 13px/20px $bf;
+    color: #45535e;
+
+    .block-info-icon {
+        float: left;
+        font-size: 20px;
+        margin-left: -25px;
+        margin-right: 5px;
+        color: #134478;
+    }
+}

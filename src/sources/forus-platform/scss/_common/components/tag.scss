@@ -1,0 +1,55 @@
+.tag {
+    border-radius: 20px;
+    color: #fff;
+    font: 600 12px/25px $bf;
+    padding: 0 15px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    cursor: default;
+
+    .mdi {
+        margin-left: 5px;
+        margin-right: -5px;
+        font-size: 1.5em;
+        float: right;
+        color: inherit;
+    }
+
+    .tag-link {
+        cursor: pointer;
+    }
+
+    &.tag-primary {
+        background: #134478;
+    }
+
+    &.tag-success {
+        background: #2cc6ab;
+    }
+
+    &.tag-danger {
+        background: #e63b3b;
+    }
+
+    &.tag-warning {
+        background: #ff9b00;
+    }
+
+    &.tag-default {
+        background: #8ca3a6;
+    }
+
+    &.tag-sm {
+        line-height: 20px;
+    }
+
+    &.tag-square {
+        border-radius: 2px;
+    }
+
+    &:last-of-type,
+    &:last-child {
+        margin-right: 0;
+    }
+}

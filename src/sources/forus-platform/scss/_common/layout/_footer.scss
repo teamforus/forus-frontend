@@ -1,0 +1,9 @@
+&.section-footer {
+    padding: 40px 0 0;
+}
+@media screen and (max-width: 1000px) {
+
+    &.section-footer {
+        padding: 0;
+    }
+}

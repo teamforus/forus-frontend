@@ -1,0 +1,325 @@
+&.block-sign-up-steps {
+    width: 1200px;
+    max-width: 100%;
+    margin: 0 auto;
+
+    .block.block-photo-selector {
+        margin-bottom: 25px;
+
+        .photo-img {
+            width: 85px;
+            height: 85px;
+            border-radius: 6px;
+            margin-right: 25px;
+        }
+
+        .photo-label {
+            font: 700 22px/35px $bf;
+            color: #282b39;
+            margin-bottom: 10px;
+        }
+
+        .button {
+            padding: 4px 30px;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .sign-up-header {
+        .steps {
+            margin-bottom: 30px;
+            width: 100%;
+            display: flex;
+
+            .step-item {
+                flex-grow: 1;
+                float: left;
+                position: relative;
+                padding-top: 80px;
+                padding-bottom: 20px;
+
+                .step-item-icon {
+                    background: #fff;
+                    border-radius: 50%;
+                    width: 50px;
+                    height: 50px;
+                    margin-bottom: 10px;
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+                    z-index: 2;
+                    position: absolute;
+                    top: 10px;
+                    left: 35px;
+                    border: 3px solid #d2e6ff;
+                    transition: 0.4s;
+                    transform: translate(-50%);
+
+                    img {
+                        width: 27px;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%) scale(0.7);
+                        margin: auto;
+                    }
+                }
+
+                .step-item-title {
+                    text-transform: uppercase;
+                    font: 600 12px/20px $bf;
+                    color: #8ca3a6;
+                    position: absolute;
+                    left: 35px;
+                    transform: translate(-50%);
+                    max-width: 100px;
+                    @include ellipsis();
+                    text-align: center;
+                }
+
+                &:after {
+                    content: ' ';
+                    position: absolute;
+                    top: 35px;
+                    left: 0;
+                    border: 3px solid #d2e6ff;
+                    width: calc(100% + 30px);
+                    z-index: 1;
+                }
+
+                &:last-child {
+                    &:after {
+                        border: none;
+                    }
+                }
+
+                &.active {
+                    .step-item-icon {
+                        width: 70px;
+                        height: 70px;
+                        top: 0px;
+                        left: 35px;
+                        border-width: 0;
+
+                        img {
+                            transform: translate(-50%, -50%) scale(1);
+                        }
+                    }
+
+                    .step-item-title {
+                        color: #305dfb;
+                    }
+                }
+
+                &.done {
+                    .step-item-icon {
+                        background: #305dfb;
+                        width: 70px;
+                        height: 70px;
+                        top: 0px;
+                        left: 35px;
+                        border-width: 0;
+
+                        img {
+                            transform: translate(-50%, -50%) scale(1);
+                        }
+                    }
+
+                    .step-item-title {
+                        color: #00122a;
+                    }
+                }
+            }
+        }
+    }
+
+    .sign-up-content {
+
+        // fill parrent block
+        @mixin nth_offset($nth: 1, $count: 7) {
+            &:nth-child(#{$nth}) {
+                .card:before,
+                .card:after {
+                    left: calc(calc(100% / #{$count}) * #{$nth - 1} + 35px);
+                }
+            }
+        }
+
+        .step-item {
+            margin-bottom: 30px;
+
+            .step-header {
+                padding-top: 10px;
+
+                .step-header-title {
+                    font: 700 40px/60px $bf;
+                    color: #282b39;
+                    margin-bottom: 10px;
+                }
+
+                .step-header-subtitle {
+                    font: 400 22px/30px $bf;
+                    color: #646f79;
+                    margin-bottom: 20px;
+                }
+            }
+
+            .card {
+                position: relative;
+
+                .card-section-fund {
+                    border-radius: 5px;
+                    background: #fff;
+                    margin-bottom: 12.5px;
+                    box-shadow: 0 5px 10px rgba($color: #000000, $alpha: 0.05);
+                    border: none;
+
+                    .fund-img {
+                        display: none;
+                    }
+
+                    .card-block-fund {
+                        padding: 0;
+                        cursor: default;
+
+                        .fund-title {
+                            color: #151b26;
+                            font: 500 16px $bf;
+                            position: relative;
+
+                            &:before {
+                                content: '▶';
+                                position: absolute;
+                                right: 100%;
+                                top: 50%;
+                                opacity: 0;
+                                transform: translate(-3px, -50%);
+                                font-size: .5em;
+                                transition: .4s;
+                            }
+
+                            &:hover {
+                                color: #9ca6af;
+
+                                &:before {
+                                    opacity: 1;
+                                    color: #9ca6af;
+                                }
+                            }
+                        }
+
+                        .fund-organization {
+                            color: #009ef4;
+                            margin-bottom: 15px;
+                        }
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                .pseudo-wrapper {
+                    width: 480px;
+                    max-width: 100%;
+                }
+
+                .divider-img {
+                    background-color: #f7f9fc;
+                    margin-top: -1px;
+                    z-index: 1;
+                    position: relative;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+
+                &:before,
+                &:after {
+                    bottom: 100%;
+                    left: 50%;
+                    border: solid transparent;
+                    content: ' ';
+                    height: 0;
+                    width: 0;
+                    position: absolute;
+                    pointer-events: none;
+                }
+
+                &:before {
+                    border-color: rgba(255, 255, 255, 0);
+                    border-bottom-color: #fff;
+                    border-width: 13px;
+                    margin-left: -13px;
+                    z-index: 1;
+                }
+
+                &:after {
+                    border-color: rgba(210, 230, 255, 0);
+                    border-bottom-color: #d2e6ff;
+                    border-width: 14px;
+                    margin-left: -14px;
+                }
+
+                &:not(:first-child) {
+                    &:before,
+                    &:after {
+                        display: none;
+                    }
+                }
+            }
+
+            @include nth_offset(1);
+            @include nth_offset(2);
+            @include nth_offset(3);
+            @include nth_offset(4);
+            @include nth_offset(5);
+            @include nth_offset(6);
+            @include nth_offset(7);
+        }
+
+        &.steps_5{
+            .step-item{
+                @include nth_offset(1, 5);
+                @include nth_offset(2, 5);
+                @include nth_offset(3, 5);
+                @include nth_offset(4, 5);
+                @include nth_offset(5, 5);
+            }
+        }
+
+        .app-instruction {
+            .col {
+                padding: 0 70px;
+                position: relative;
+
+                img {
+                    &:not(.line-item) {
+                        width: 100%;
+                        border: 2px dashed #d2e6ff;
+                        border-radius: 5px;
+                        box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1);
+                        position: relative;
+                        z-index: 1;
+                    }
+
+                    &.line-item {
+                        position: absolute;
+                        top: 200px;
+                        left: calc(100% - 82px);
+                        width: 163px;
+                        z-index: 2;
+                    }
+                }
+
+                .title {
+                    font: 500 16px/24px $bf;
+                    padding: 5px 0 15px 0;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}

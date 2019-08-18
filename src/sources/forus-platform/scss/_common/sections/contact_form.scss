@@ -1,0 +1,38 @@
+&.section-contact_form {
+    margin-bottom: 30px;
+    position: relative;
+
+    &:before, &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        width: 50%;
+        height: 100%;
+    }
+
+    &:before {
+        left: 0;
+        background: url('../img/landing/splash-left.png') no-repeat;
+        background-size: 100% 100%;
+        background-origin: 0 0;
+    }
+
+    &:after {
+        right: 0;
+        background: url('../img/landing/sprite-clouds.png') no-repeat;
+        background-size: 100% auto;
+        background-origin: 0 0;
+    }
+}
+@media screen and (max-width: 1000px) {
+    &.section-contact_form {
+        .wrapper {
+            padding: 0;
+        }
+
+        &:before {
+            background: none;
+        }
+    }
+}

@@ -1,0 +1,12 @@
+.paginator-loader {
+    text-align: center;
+
+    .paginator-actions {
+        margin: 0 0 10px;
+    }
+
+    .paginator-progress {
+        font: 500 13px/16px $bf;
+        color: #666;
+    }
+}
