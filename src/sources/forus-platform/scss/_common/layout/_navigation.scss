@@ -439,3 +439,109 @@
         }
     }
 }
+
+&.app-sidebar {
+    width: 320px;
+    float: left;
+    padding-right: 60px;
+
+    .sidebar-nav {
+        .sidebar-nav-item {
+            position: relative;
+            padding: 10px 0 10px 45px;
+            margin-bottom: 5px;
+            display: block;
+            font: 500 14px/20px $bf;
+            transition: 0.4s;
+
+            .sidebar-nav-item-icon {
+                top: 5px;
+                left: 0;
+                position: absolute;
+
+                img {
+                    opacity: 1;
+                    float: left;
+                    width: 30px;
+                    height: 30px;
+                    transition: 0.4s;
+
+                    &.active,
+                    &.hover {
+                        opacity: 0;
+                    }
+
+                    &.hover {
+                        margin-left: -30px;
+                    }
+
+                    &.active {
+                        margin-left: -30px;
+                    }
+                }
+            }
+
+            .sidebar-nav-item-arrow {
+                opacity: 0;
+                top: 50%;
+                right: 0;
+                position: absolute;
+                transform: translate(0, -50%);
+
+                .mdi {
+                    font-size: 20px;
+                    line-height: 20px;
+                    float: right;
+                }
+            }
+
+            &.active,
+            &:focus,
+            &:hover {
+                color: #d91d46;
+                text-decoration: none;
+            }
+
+            &:hover:not(.active) {
+                .sidebar-nav-item-icon {
+                    img {
+                        opacity: 0;
+
+                        &.hover {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+
+            &.active {
+                .sidebar-nav-item-arrow {
+                    opacity: 1;
+                }
+
+                .sidebar-nav-item-icon {
+                    img {
+                        opacity: 0;
+
+                        &.active {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 1300px) {
+    &.app-sidebar {
+        width: 240px;
+        padding-right: 40px;
+    }
+}
+@media screen and (max-width: 1000px) {
+    &.app-sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 0;
+    }
+}

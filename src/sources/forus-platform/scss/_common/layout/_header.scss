@@ -378,3 +378,230 @@
         }
     }
 }
+&.app-header {
+    padding: 30px 0;
+
+    .header-logo {
+        float: left;
+        padding: 10px 0;
+
+        .header-logo-img {
+            display: block;
+            height: 40px;
+        }
+    }
+
+    .notifications {
+        float: right;
+        margin-right: 50px;
+        padding-bottom: 0px;
+        position: relative;
+
+        .notifications-icon {
+            color: #d91d46;
+            background: #fff;
+            box-shadow: 0 5px 15px rgba($color: #000000, $alpha: 0.1);
+            border-radius: 50px;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        .notifications-menu {
+            display: none;
+            padding-top: 20px;
+            position: absolute;
+            width: 360px;
+            transform: translate(-50%);
+            z-index: 1;
+            left: 50%;
+
+            .notifications-menu-inner {
+                background: #ffffff;
+                border-radius: 5px;
+                box-shadow: 0 10px 25px rgba(#000, 0.15);
+                position: relative;
+
+                .notifications-menu-header {
+                    border-bottom: 1px solid #d4d9dd;
+                    padding: 20px;
+                    font: 500 14px $bf;
+                    color: #282b39;
+                    position: relative;
+                    cursor: default;
+
+                    .notifications-menu-header-link {
+                        font: 500 13px $bf;
+                        position: absolute;
+                        right: 20px;
+                        top: 50%;
+                        transform: translate(0, -50%);
+                        cursor: pointer;
+                        transition: color 0.4s;
+
+                        .mdi {
+                            padding-left: 5px;
+                            font-size: 1.15em;
+                            color: #a1abb3;
+                            transition: color 0.4s;
+                        }
+
+                        &:hover {
+                            color: #009ef4;
+
+                            .mdi {
+                                color: #009ef4;
+                            }
+                        }
+                    }
+                }
+
+                .notifications-menu-body {
+                    height: 300px;
+
+                    .notifications-menu-item {
+                        padding: 15px 30px 15px 50px;
+                        border-bottom: 1px solid #d4d9dd;
+                        position: relative;
+                        transition: background-color 0.4s;
+                        cursor: pointer;
+
+                        .notifications-menu-item-icon {
+                            position: absolute;
+                            left: 25px;
+                            top: 17px;
+                        }
+
+                        .notifications-menu-item-text {
+                            font: 500 13px/18px $bf;
+                            color: #282b39;
+                        }
+
+                        .notifications-menu-item-date {
+                            font: 500 12px/16px $bf;
+                            color: #646f79;
+                        }
+
+                        &:last-child {
+                            border-bottom: 0;
+                        }
+
+                        &:hover {
+                            background: #f6f8f9;
+                        }
+                    }
+                }
+            }
+        }
+
+        &:hover {
+            .notifications-menu {
+                display: block;
+            }
+        }
+    }
+
+    .header-auth {
+        float: right;
+        position: relative;
+        z-index: 1;
+
+        .auth-user {
+            position: relative;
+            padding-right: 60px;
+            padding-top: 5px;
+            padding-bottom: 15px;
+            margin-bottom: -10px;
+            @include cf();
+            cursor: default;
+
+            .auth-user-name {
+                font: 500 14px/20px $bf;
+                color: #151b26;
+                text-align: right;
+            }
+
+            .auth-user-role {
+                font: 400 12px/20px $bf;
+                color: #151b26;
+                text-align: right;
+            }
+
+            .auth-user-img {
+                position: absolute;
+                top: 0;
+                right: 0;
+                display: block;
+                width: 50px;
+                height: 50px;
+                border-radius: 50px;
+                background: #fff;
+                box-shadow: 0 5px 15px rgba(#000, 0.25);
+            }
+
+            .auth-user-menu {
+                position: absolute;
+                right: 0;
+                top: 100%;
+                border: 1px solid #f3f4f5;
+                background: #fff;
+                border-radius: 5px;
+                box-shadow: 0 5px 30px rgba(#000, 0.1);
+                min-width: 220px;
+                max-width: 80%;
+                padding: 10px 0;
+                display: none;
+
+                .auth-user-menu-item {
+                    display: block;
+                    cursor: pointer;
+                    padding: 5px 15px;
+                    font: 500 13px/30px $bf;
+                    color: #282b39;
+                    transition: 0.4s;
+
+                    .mdi {
+                        float: left;
+                        line-height: 30px;
+                        font-size: 1.5em;
+                        margin-right: 5px;
+                        transition: 0.4s;
+                    }
+
+                    &:hover {
+                        text-decoration: none;
+                        background: #f6f8f9;
+                        color: #d91d46;
+
+                        .mdi {
+                            color: #134478;
+                        }
+                    }
+                }
+
+                .auth-user-menu-sep {
+                    display: block;
+                    border-top: 1px solid #f3f4f5;
+                }
+            }
+
+            &:hover {
+                .auth-user-menu {
+                    display: block;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 1000px) {
+    &.app-header {
+        padding: 25px 0;
+
+        .header-logo {
+            display: none;
+        }
+    }
+}

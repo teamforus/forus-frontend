@@ -1,0 +1,21 @@
+&.app-container {
+    @extend .wrapper;
+    @include cf();
+}
+&.app-content {
+    width: calc(100% - 320px);
+    float: left;
+    padding: 10px 0;
+}
+
+@media screen and (max-width: 1300px) {
+    &.app-content {
+        width: calc(100% - 240px);
+    }
+}
+@media screen and (max-width: 1000px) {
+    &.app-content {
+        padding: 0;
+        width: 100%;
+    }
+}

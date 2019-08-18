@@ -1,0 +1,29 @@
+.error_404 {
+    width: 100%;
+    padding: 0 30px;
+    text-align: center;
+
+    .error_404-icon {
+        img {
+            display: block;
+            width: 100px;
+            height: 100px;
+            border-radius: 100px;
+            margin: 0 auto 20px;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 5px 10px rgba(#000, 0.15);
+        }
+    }
+
+    .error_404-title {
+        font: 600 16px/20px $bf;
+        margin: 0 0 10px;
+    }
+
+    .error_404-subtitle {
+        font: 500 14px/20px $bf;
+        margin: 0 0 10px;
+        color: #646f79;
+    }
+}
