@@ -1,0 +1,11 @@
+.block {
+    &.block-record_categories {
+        .record_category-item {
+            &:hover {
+                .category-title {
+                    color: $bc;
+                }
+            }
+        }
+    }
+}

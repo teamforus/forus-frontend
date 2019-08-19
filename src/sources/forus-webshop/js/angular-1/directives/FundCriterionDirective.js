@@ -1,45 +1,20 @@
-let FundCriterionDirective = function($scope) {
+let FundCriterionDirective = function(
+    $scope,
+    FundService
+) {
     $scope.validators = $scope.fund.validators.map(function(validator) {
         return validator.identity_address;
     });
 
-    $scope.records = ($scope.records || []).map(function(record) {
-        let validated = record.validations.filter(function(validation) {
-            return (validation.state == 'approved') && $scope.validators.indexOf(
-                validation.identity_address
-            ) != -1;
-        }).length > 0;
+    $scope.records = FundService.checkEligibility(
+        $scope.records || [],
+        $scope.criterion,
+        $scope.validators,
+        $scope.fund.organization_id
+    );
 
-        let validValue = false;
-
-        if ($scope.criterion.operator == '!=') {
-            validValue = record.value != $scope.criterion.value;
-        } else if ($scope.criterion.operator == '=') {
-            validValue = record.value == $scope.criterion.value;
-        } else if ($scope.criterion.operator == '>') {
-            validValue = record.value > $scope.criterion.value;
-        } else if ($scope.criterion.operator == '<') {
-            validValue = record.value < $scope.criterion.value;
-        } else if ($scope.criterion.operator == '>=') {
-            validValue = record.value >= $scope.criterion.value;
-        } else if ($scope.criterion.operator == '<=') {
-            validValue = record.value <= $scope.criterion.value;
-        }
-
-        if (!validValue) {
-            record.state = 'addRecord';
-        } else if (validated && !validValue) {
-            record.state = 'invalid';
-        } else if (!validated && validValue) {
-            record.state = 'validate';
-        } else if (validated && validValue) {
-            record.state = 'valid';
-        }
-
-        return record;
-    });
-
-    if ($scope.records.filter(record => record.state == 'valid').length > 0) {
+    if ($scope.records.filter(
+            record => record.state == 'valid').length > 0) {
         $scope.criterion.state = 'valid';
     }
 
@@ -59,8 +34,9 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
+            'FundService',
             FundCriterionDirective
         ],
-        templateUrl: 'assets/tpl/directives/fund-criterion.html' 
+        templateUrl: 'assets/tpl/directives/fund-criterion.html'
     };
 };

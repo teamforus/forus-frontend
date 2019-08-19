@@ -6,12 +6,11 @@
             .text-center
                 .modal-icon(ng-if="$ctrl.icon")
                     img(ng-src="{{ $ctrl.icon }}")
-                .title(ng-bind="$ctrl.title")
-                .description(ng-if="$ctrl.description" ng-bind="$ctrl.description")
-                .text-center(ng-if="$ctrl.subdescription")
-                    .subdescription(ng-bind="$ctrl.subdescription")
+                .title(translate="{{ $ctrl.title }}")
+                .description(ng-if="$ctrl.description" translate="{{ $ctrl.description }}")
+                .text-center(ng-if="$ctrl.subdescription"): .subdescription(translate="{{ $ctrl.subdescription }}")
 
         .modal-footer.text-center.no-border
-            button.button.button-dark(ng-if="$ctrl.showCloseBtn" ng-click="$ctrl.close()" ng-bind="$ctrl.closeBtnText")
-            button.button.button-dark(ng-if="$ctrl.showCancelBtn" ng-click="$ctrl.cancel()" ng-bind="$ctrl.cancelBtnText")
-            button.button.button-primary(ng-if="$ctrl.showConfirmBtn" ng-click="$ctrl.confirm()" ng-bind="$ctrl.confirmBtnText")
+            button.button.button-dark(ng-if="$ctrl.showCloseBtn" ng-click="$ctrl.close()" translate="{{ $ctrl.closeBtnText }}")
+            button.button.button-dark(ng-if="$ctrl.showCancelBtn" ng-click="$ctrl.cancel()" translate="{{ $ctrl.cancelBtnText }}")
+            button.button.button-primary(ng-if="$ctrl.showConfirmBtn" ng-click="$ctrl.confirm()" translate="{{ $ctrl.confirmBtnText }}")

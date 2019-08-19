@@ -13,11 +13,11 @@ module.exports = {
             westerkwartier: {
                 location: "Westerkwartier",
             },
-            value: "Eigenschap waarde",
+            value: "Eigenschap ontbreekt in uw profiel",
         },
         buttons: {
             validate: "Valideer",
-            add: "Voeg een eigenschap toe",
+            add: "Voeg toe",
         },
         status: {
             invalid: "Ongeldig",

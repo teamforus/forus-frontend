@@ -15,6 +15,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         component: "homeComponent",
         params: {
             confirmed: null
+        },
+        resolve: {
+            funds: function($transition$, FundService) {
+                return repackResponse(
+                    FundService.list()
+                );
+            }
         }
     });
 
@@ -35,6 +42,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             funds: function($transition$, FundService) {
                 return repackResponse(
                     FundService.list()
+                );
+            },
+            records: function($transition$, RecordService) {
+                return repackResponse(
+                    RecordService.list()
+                );
+            },
+            recordTypes: function($transition$, RecordTypeService) {
+                return repackResponse(
+                    RecordTypeService.list()
                 );
             },
             vouchers: function($transition$, AuthService, VoucherService) {

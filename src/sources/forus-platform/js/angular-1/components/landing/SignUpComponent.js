@@ -1,5 +1,4 @@
 let SignUpComponent = function(
-    $q,
     $state,
     $scope,
     $rootScope,
@@ -24,8 +23,6 @@ let SignUpComponent = function(
     $ctrl.showLoginBlock = false;
     $ctrl.sentSms = false;
 
-    let qrCodeEl;
-    let qrCode;
     let has_app = false;
     let waitingSms = false;
     let timeout;
@@ -192,11 +189,6 @@ let SignUpComponent = function(
             $scope.authorizePincodeForm.submit().then((res) => {
                 CredentialsService.set(null);
 
-                qrCodeEl = document.getElementById('platform_auth_qrcode');
-                qrCode = new QRCode(qrCodeEl, {
-                    correctLevel: QRCode.CorrectLevel.L
-                });
-
                 $ctrl.requestAuthQrToken();
                 $ctrl.setStep($ctrl.step + 1);
 
@@ -226,14 +218,6 @@ let SignUpComponent = function(
     };
 
     $ctrl.showLoginQrCode = function() {
-
-        qrCodeEl = document.getElementById('login_auth_qrcode');
-        qrCodeEl.innerHTML = "";
-
-        qrCode = new QRCode(qrCodeEl, {
-            correctLevel: QRCode.CorrectLevel.L
-        });
-
         $ctrl.requestAuthQrToken();
 
         loginQrBlock.show();
@@ -274,15 +258,6 @@ let SignUpComponent = function(
         IdentityService.makeAuthToken().then((res) => {
             $ctrl.authToken = res.data.auth_token;
 
-            qrCode.makeCode(
-                JSON.stringify({
-                    type: 'auth_token',
-                    'value': $ctrl.authToken
-                })
-            );
-
-            qrCodeEl.removeAttribute('title');
-
             $ctrl.checkAccessTokenStatus('token', res.data.access_token);
         }, console.log);
     };
@@ -304,7 +279,6 @@ let SignUpComponent = function(
 
 module.exports = {
     controller: [
-        '$q',
         '$state',
         '$scope',
         '$rootScope',

@@ -1,13 +1,14 @@
-.header-splash: .splash.splash-d
-
-header.section.section-header
-    top-navbar
+top-navbar
 
 section.section.section-profile: .wrapper
+    .block.block-breadcrumbs
+        a(ui-sref="home").breadcrumb-item Home
+        .breadcrumb-item.active Eigenschappen
     .section-title {{ "records.header.title" | translate }} ({{ $ctrl.records.length }})
     
     .block.block-profile
-        .profile-aside
+        .profile-aside(
+            ng-if="$ctrl.appConfigs.features.identity.address || $ctrl.appConfigs.features.records.list")
             profile-card
 
         .profile-content
@@ -27,9 +28,11 @@ section.section.section-profile: .wrapper
                             em.mdi.mdi-check
                             | {{ "records.buttons.validate" | translate }}
             
-                .text-right(ng-if="$root.appConfigs.features.records.create"): a(ui-sref="record-create").button.button-primary 
-                    em.mdi.mdi-plus
-                    | {{ "records.buttons.create" | translate }}
+                .text-right
+                    button.button.button-primary(ng-click="$ctrl.openActivateCodePopup()") Activatiecode
+                    button(ng-if="$root.appConfigs.features.records.create" type="buttons" ui-sref="record-create").button.button-primary 
+                        em.mdi.mdi-plus
+                        | {{ "records.buttons.create" | translate }}
 
             empty-block(
                 title="Geen eigenschappen"

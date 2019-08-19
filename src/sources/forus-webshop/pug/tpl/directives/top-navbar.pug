@@ -22,7 +22,7 @@
                 .navbar-item(ng-click="$root.signOut()" translate="topnavbar.buttons.logout")
 
         // Menu
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.features.funds.list && $root.auth_user" ng-click="mobileMenu = false")
             a.navbar-item(
                 ui-sref="funds" 
                 ui-sref-active="active"
@@ -35,28 +35,30 @@
                                                                                                                                
     .block.block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
         .auth-code
-            a(ui-sref="vouchers").button.button-default
+            a(ng-if="!$root.appConfigs.features.records.list" ui-sref="vouchers").button.button-default
                 em.mdi.mdi-ticket-confirmation
                 span(translate="topnavbar.buttons.voucher") 
 
+            a(ng-if="$root.appConfigs.features.records.list" ui-sref="vouchers").button.button-default.button-two-spans.button-profile
+                .icon-me
+                span(ng-bind="$root.auth_user.primary_email").first-line-button
+                span(translate="topnavbar.buttons.profile").second-line-button
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
             .auth-user
-                .auth-user-email(ng-bind="$root.auth_user.primary_email")
-                .auth-user-type(translate="topnavbar.items.identity")
+                .auth-user-email(ng-bind="$root.auth_user.primary_email" ng-if="!$root.appConfigs.features.records.list") 
+                .auth-user-type(translate="topnavbar.items.identity" ng-if="!$root.appConfigs.features.records.list")
+
                 .auth-user-avatar
-                    img(src="./assets/img/identity-avatar.svg")
+                    .em.mdi.mdi-settings(ng-if="$root.appConfigs.features.records.list") 
+                    img(src="./assets/img/identity-avatar.svg" ng-if="!$root.appConfigs.features.records.list")
                     nav.auth-user-menu.hide-sm
                         .triangle
                         .inner
                             a(ng-click="openActivateCodePopup()").auth-user-menu-item
                                 img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg")
                                 span(translate="topnavbar.buttons.activate")
-                            a(
-                                ui-sref="records"
-                                ng-if="$root.appConfigs.features.records.list").auth-user-menu-item
-                                img(src="./assets/img/icon-menu/icon-menu-my-records.svg")
-                                | Mijn eigenschappen
+
                             .auth-user-menu-item(ng-click="openPinCodePopup()")
                                 em.mdi.mdi-cellphone
                                 span(translate="topnavbar.buttons.authorize")
@@ -65,7 +67,7 @@
                             a.auth-user-menu-item.show-sm(
                                 ui-sref="funds" 
                                 ui-sref-active="active"
-                                ng-if="$root.appConfigs.features.funds.list")
+                                ng-if="$root.appConfigs.features.funds.list && $root.auth_user")
                                 em.mdi.mdi-star-outline
                                 span(translate="topnavbar.buttons.logout")
                             a.auth-user-menu-item.show-sm(
