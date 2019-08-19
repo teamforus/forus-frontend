@@ -50,7 +50,7 @@ app.service('ConfigService', require('./services/ConfigService'));
 app.service('ModalService', require('./services/ModalService'));
 app.service('BrowserService', require('./services/BrowserService'));
 app.service('SmsService', require('./services/SmsService'));
-app.directive('forusChat', require('./directives/ForusChatDirective'));
+app.service('PrintableService', require('./services/PrintableService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
@@ -74,6 +74,7 @@ app.directive('preventPropagation', require('./directives/PreventPropagation'));
 app.directive('phoneControl', require('./directives/PhoneControlDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('forusChat', require('./directives/ForusChatDirective'));
+app.directive('qrCode', require('./directives/QrCodeDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
@@ -93,10 +94,19 @@ app.component('modalShareVoucherComponent', require('./components/Modals/ModalSh
 app.component('modalOpenInMeComponent', require('./components/Modals/ModalOpenInMeComponent'));
 app.component('modalProductApplyComponent', require('./components/Modals/ModalProductApplyComponent'));
 
+// Printable Components
+app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
+
 // Providers
+app.provider('PrintableRoute', require('./providers/PrintableRouteProvider'));
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));
 app.provider('ModalRoute', require('./providers/ModalRouteProvider'));
 app.provider('I18nLib', require('./providers/I18nLibProvider'));
+
+// Printable
+app.directive('printablesRoot', require('./directives/printables/PrintableRootDirective'));
+app.directive('printableItem', require('./directives/printables/PrintableItemDirective'));
+app.directive('printableEnabler', require('./directives/printables/PrintableEnablerDirective'));
 
 // Filters
 app.filter('currency_format', require('./filters/CurrencyFormatFilter'));
@@ -105,6 +115,7 @@ app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('i18n', require('./filters/I18nFilter'));
 
 // Config
+app.config(require('./routers/printables'));
 app.config(require('./routers/modals'));
 app.config(require('./routers/router'));
 app.config(require('./config/api-service'));

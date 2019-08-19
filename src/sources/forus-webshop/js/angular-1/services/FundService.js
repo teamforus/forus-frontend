@@ -128,9 +128,20 @@ let FundService = function(
             );
         };
 
-        this.checkEligibility = (records = [], criterion, validators) => {
+        this.checkEligibility = (
+            records = [],
+            criterion,
+            validators,
+            organization_id = null
+        ) => {
             return records.map(function(record) {
                 let validated = record.validations.filter(function(validation) {
+                    if (organization_id && validation.organization) {
+                        if (validation.organization.id != organization_id) {
+                            return false;
+                        }
+                    }
+
                     return (validation.state == 'approved') && validators.indexOf(
                         validation.identity_address
                     ) != -1;

@@ -2,7 +2,6 @@ let FundCardAvailableProviderDirective = function(
     $scope, 
     $state,
     $filter,
-    FundService, 
     ProviderFundService,
     ModalService,
     OfficeService
@@ -25,10 +24,10 @@ let FundCardAvailableProviderDirective = function(
 
                     ModalService.open('modalNotification', {
                         type: 'info',
-                        title: $filter('i18n')('provider_funds_available.applied_for_fund.title'),
-                        description: $filter('i18n')('provider_funds_available.applied_for_fund.description'),
+                        title: 'provider_funds_available.applied_for_fund.title',
+                        description: 'provider_funds_available.applied_for_fund.description',
                         icon: 'fund_applied',
-                        closeBtnText: $filter('i18n')('modal.buttons.confirm')
+                        closeBtnText: 'modal.buttons.confirm',
                     }, {
                         onClose: () => $state.reload()
                     });
@@ -37,7 +36,7 @@ let FundCardAvailableProviderDirective = function(
             }else{
                 ModalService.open('modalNotification', {
                     type: 'danger',
-                    title: $filter('i18n')('provider_funds_available.error_apply.title'),
+                    title: 'provider_funds_available.error_apply.title',
                     description: $filter('i18n')('provider_funds_available.error_apply.description', {
                         fund_name: $scope.fund.name
                     })
@@ -60,7 +59,6 @@ module.exports = () => {
             '$scope',
             '$state',
             '$filter',
-            'FundService',
             'ProviderFundService',
             'ModalService',
             'OfficeService',

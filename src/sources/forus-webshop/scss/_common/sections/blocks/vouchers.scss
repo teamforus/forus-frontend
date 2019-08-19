@@ -147,6 +147,11 @@
     @media screen and (max-width: 1000px) {
         &.block-vouchers {
             margin-bottom: 30px;
+            .block-title {
+                font: 700 40px $bf;
+                margin-bottom: 20px;
+                cursor: default;
+            }
 
             .voucher-item {
                 padding: 0;

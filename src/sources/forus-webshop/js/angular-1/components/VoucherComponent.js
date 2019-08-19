@@ -1,29 +1,18 @@
 let VoucherComponent = function(
     $filter,
     $state,
-    $element,
     VoucherService,
+    PrintableService,
     ModalService
 ) {
     let $ctrl = this;
+    $ctrl.qrValue = null;
 
     $ctrl.$onInit = function() {
-        $element.find('.card-qr_code-element').each(function() {
-            let qrCodeEl = this;
-
-            new QRCode(qrCodeEl, {
-                text: JSON.stringify({
-                    type: 'voucher',
-                    value: $ctrl.voucher.address
-                }),
-                colorLight: 'transparent', 
-                correctLevel: QRCode.CorrectLevel.L
-            });
-
-            qrCodeEl.removeAttribute('title');
-        });
-
+        
+        $ctrl.qrValue = $ctrl.voucher.address;
         $ctrl.voucherCard = VoucherService.composeCardData($ctrl.voucher);
+        $ctrl.qrCodeValue = $ctrl.voucher.address;
 
         $ctrl.deleteVoucher = function(voucher) {
 
@@ -31,9 +20,9 @@ let VoucherComponent = function(
                 type: 'confirm',
                 title: 'Annuleer reservering',
                 icon: 'voucher_apply',
-                description: $filter('translate')('voucher.delete_voucher.popup_form.description'),
-                confirmBtnText: $filter('translate')('voucher.delete_voucher.buttons.submit'),
-                cancelBtnText: $filter('translate')('voucher.delete_voucher.buttons.close'),
+                description: 'voucher.delete_voucher.popup_form.description',
+                confirmBtnText: 'voucher.delete_voucher.buttons.submit',
+                cancelBtnText: 'voucher.delete_voucher.buttons.close',
                 confirm: () => {
                     VoucherService.destroy(
                         voucher.address
@@ -45,16 +34,10 @@ let VoucherComponent = function(
         }
 
         $ctrl.printQrCode = () => {
-            let body = angular.element('body');
-            let bodyElements = angular.element('body>*');
-            let printContents = $element.find('.card-qr_code-element').first().clone();
-            
-            printContents.addClass('printable-qr_code');
-            bodyElements.css('display', 'none');
-            body.append(printContents);
-            window.print();
-            bodyElements.css('display', '');
-            printContents.remove();
+            PrintableService.open('voucherQrCode', {
+                voucher: $ctrl.voucher,
+                organization: $ctrl.organization,
+            });
         }
 
         $ctrl.sendVoucherEmail = function(voucher) {
@@ -67,9 +50,9 @@ let VoucherComponent = function(
                         ModalService.open('modalNotification', {
                             type: 'action-result',
                             class: 'modal-description-pad',
-                            title: $filter('translate')('popup_auth.labels.voucher_email'),
-                            description: $filter('translate')('popup_auth.notifications.voucher_email'),
-                            confirmBtnText: $filter('translate')('popup_auth.buttons.confirm')
+                            title: 'popup_auth.labels.voucher_email',
+                            description: 'popup_auth.notifications.voucher_email',
+                            confirmBtnText: 'popup_auth.buttons.confirm'
                         });
                     });
                 }
@@ -95,8 +78,8 @@ module.exports = {
     controller: [
         '$filter',
         '$state',
-        '$element',
         'VoucherService',
+        'PrintableService',
         'ModalService',
         VoucherComponent
     ],

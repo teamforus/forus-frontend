@@ -29,8 +29,7 @@
         .modal-title {{ "popup_auth.labels.join" | translate }}
         .modal-subtitle {{ "popup_auth.labels.scancode" | translate }}
 
-        .block.block-auth-qr-code
-            .qr_code#auth_qrcode
+        qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="auth_token" qr-logo="https://media.forus.io/assets/me2.svg")
 
         //-.modal-footer
             .footer-text {{ "popup_auth.labels.timelimit" | translate }}

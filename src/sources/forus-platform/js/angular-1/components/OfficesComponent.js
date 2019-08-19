@@ -1,7 +1,6 @@
 let OfficesComponent = function(
     $state,
     $stateParams,
-    $filter,
     OfficeService,
     ModalService
 ) {
@@ -20,8 +19,8 @@ let OfficesComponent = function(
     $ctrl.delete = (office) => {
         ModalService.open('modalNotification', {
             type: 'confirm',
-            title: $filter('i18n')('offices.confirm_delete.title'),
-            description: $filter('i18n')('offices.confirm_delete.description'),
+            title: 'offices.confirm_delete.title',
+            description: 'offices.confirm_delete.description',
             confirm: () => {
                 OfficeService.destroy(office.organization_id, office.id)
                     .then((res) => {
@@ -40,7 +39,6 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
-        '$filter',
         'OfficeService',
         'ModalService',
         OfficesComponent

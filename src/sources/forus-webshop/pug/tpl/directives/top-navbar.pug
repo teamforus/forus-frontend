@@ -39,17 +39,19 @@
                 em.mdi.mdi-ticket-confirmation
                 span(translate="topnavbar.buttons.voucher") 
 
-            a(ng-if="$root.appConfigs.features.records.list" ui-sref="vouchers").button.button-default
-                em.mdi.mdi-account-circle
-                span(translate="topnavbar.buttons.profile") 
-
+            a(ng-if="$root.appConfigs.features.records.list" ui-sref="vouchers").button.button-default.button-two-spans.button-profile
+                .icon-me
+                span(ng-bind="$root.auth_user.primary_email").first-line-button
+                span(translate="topnavbar.buttons.profile").second-line-button
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
             .auth-user
-                .auth-user-email(ng-bind="$root.auth_user.primary_email")
-                .auth-user-type(translate="topnavbar.items.identity")
+                .auth-user-email(ng-bind="$root.auth_user.primary_email" ng-if="!$root.appConfigs.features.records.list") 
+                .auth-user-type(translate="topnavbar.items.identity" ng-if="!$root.appConfigs.features.records.list")
+
                 .auth-user-avatar
-                    img(src="./assets/img/identity-avatar.svg")
+                    .em.mdi.mdi-settings(ng-if="$root.appConfigs.features.records.list") 
+                    img(src="./assets/img/identity-avatar.svg" ng-if="!$root.appConfigs.features.records.list")
                     nav.auth-user-menu.hide-sm
                         .triangle
                         .inner
