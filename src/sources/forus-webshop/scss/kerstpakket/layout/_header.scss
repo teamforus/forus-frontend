@@ -1,6 +1,7 @@
 .section {
     &.section-header {
         @media screen and (min-width: 1024px) {
+            background: $bg-values;
             background-size: cover;
             background-position: center center;
         }
