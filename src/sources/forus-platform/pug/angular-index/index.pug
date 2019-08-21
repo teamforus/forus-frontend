@@ -2,7 +2,9 @@ doctype
 html(ng-controller="BaseController" ng-cloak)
     include ../layout/includes/head
 
-    body(ng-class="$root.viewLayout == 'signup' ? 'signup-layout' : ''" modal-scroll-braker)
+    body(ng-class="$root.viewLayout == 'signup' ? 'signup-layout' : ''" modal-scroll-braker printable-enabler)
+        printables-root
+        
         div(ng-class="$root.viewLayout == 'landing' ? 'landing-root' : ''")
             .ie-hide: div(ng-if="$root.viewLayout != 'landing'"): include ../layout/includes/header
 

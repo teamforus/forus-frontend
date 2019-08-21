@@ -1,7 +1,6 @@
 let ProductsComponent = function(
     $state, 
     $stateParams,
-    $filter,
     appConfigs,
     ModalService
 ) {
@@ -19,7 +18,7 @@ let ProductsComponent = function(
         if($ctrl.maxProductCount && $ctrl.products.length >= $ctrl.maxProductCount){
             ModalService.open('modalNotification', {
                 type: 'danger',
-                title: $filter('translate')('product_edit.errors.already_added'),
+                title: 'product_edit.errors.already_added',
                 icon: 'product-error'
             });
         }else{
@@ -38,7 +37,6 @@ module.exports = {
     controller: [
         '$state', 
         '$stateParams',
-        '$filter',
         'appConfigs',
         'ModalService',
         ProductsComponent

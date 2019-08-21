@@ -1,7 +1,6 @@
 let ProductsEditComponent = function(
     $state,
     $stateParams,
-    $filter,
     appConfigs,
     ProductService,
     FormBuilderService,
@@ -11,7 +10,6 @@ let ProductsEditComponent = function(
     let $ctrl = this;
     let mediaFile = false;
     let alreadyConfirmed = false;
-    let trans = $filter('translate');
 
     $ctrl.media;
     $ctrl.mediaErrors = [];
@@ -26,7 +24,7 @@ let ProductsEditComponent = function(
         if ($ctrl.maxProductCount && !$ctrl.product && $ctrl.products.length >= $ctrl.maxProductCount) {
             ModalService.open('modalNotification', {
                 type: 'danger',
-                title: trans('product_edit.errors.already_added'),
+                title: 'product_edit.errors.already_added',
                 icon: 'product-error',
                 cancel: () => {
                     return $state.go('products', {
@@ -49,8 +47,8 @@ let ProductsEditComponent = function(
             if (!$ctrl.product && !alreadyConfirmed) {
                 ModalService.open('modalNotification', {
                     type: 'confirm',
-                    title: trans('product_edit.confirm_create.title'),
-                    description: trans('product_edit.confirm_create.description'),
+                    title: 'product_edit.confirm_create.title',
+                    description: 'product_edit.confirm_create.description',
                     icon: 'product-create',
                     confirm: () => {
                         alreadyConfirmed = true;
@@ -138,7 +136,6 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
-        '$filter',
         'appConfigs',
         'ProductService',
         'FormBuilderService',

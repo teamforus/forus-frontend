@@ -2,9 +2,9 @@ let ProviderFundService = function(ApiRequest) {
     let uriPrefix = '/platform/organizations/';
 
     return new (function() {
-        this.listAvailableFunds = function(organization_id) {
+        this.listAvailableFunds = function(organization_id, data) {
             return ApiRequest.get(
-                uriPrefix + organization_id + '/provider/funds-available'
+                uriPrefix + organization_id + '/provider/funds-available', data
             );
         };
 

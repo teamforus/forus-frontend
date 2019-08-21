@@ -12,6 +12,59 @@
 
 body {
     background: #f1f4f7;
+
+    &.printable-only {
+        @media screen {
+            &>printables-root {
+                display: none;
+            }
+        }
+
+        @media print {
+            &>*:not(printables-root) {
+                display: none !important;
+            }
+        }
+    }
+}
+
+@media print {
+    size: A5;
+
+    .printable {
+        text-align: left;
+    
+        &.printable-voucher-qr_code {
+            .printable-title {
+                font: 700 16px $bf;
+                text-align: center;
+            }
+    
+            .printable-description {
+                font: 400 12px $bf;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+    
+            .block-qr-code {
+                margin: 0 auto 20px;
+
+                .qr_code {
+                    margin: 0 auto;
+                    width: 240px;
+                    height: auto;
+                }
+
+                img {
+                    padding: 10px;
+                    margin: 0 auto;
+                    width: 100%;
+                    border: 1px solid silver;
+                    background: #fff;
+                }
+            }
+        }
+    }
 }
 
 [ui-sref] {
@@ -22,6 +75,11 @@ body {
     td {
         cursor: pointer !important;
     }
+}
+
+.printable-layout {
+    display: block;
+    align-content: flex-start;
 }
 
 translate,
@@ -170,6 +228,11 @@ translate,
     &.button-fill,
     &.button-wide {
         width: 100%;
+
+        &.button-slim {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
     }
 
     &:not(:last-of-type),
@@ -2044,7 +2107,7 @@ translate,
             width: 200px;
             height: 200px;
 
-            .block-auth-qr-code {
+            .block-qr-code {
                 width: 100%;
 
                 .qr_code {
@@ -3605,7 +3668,7 @@ translate,
                     margin: 0 auto;
                 }
 
-                .block.block-auth-qr-code {
+                .block.block-qr-code {
                     width: 170px;
                     margin: 0 auto 20px;
     
@@ -4001,7 +4064,7 @@ translate,
             }
         }
 
-        &.block-auth-qr-code {
+        &.block-qr-code {
             .qr_code {
                 width: 280px;
                 height: 280px;
@@ -4285,18 +4348,6 @@ translate,
                     width: 100%;
                 }
             }
-        }
-    }
-}
-
-
-@media print {
-    .printable-qr_code {
-        display: block;
-
-        img {
-            display: block;
-            width: 200px;
         }
     }
 }
