@@ -1,29 +1,12 @@
+landing-navbar
 header.section.section-header
-    landing-navbar
-.header-splash: .splash
     .wrapper
-        .header-body
-            .header-content
-                .header-title {{ "home_provider.header.title" | translate }}
-                .header-description {{ "home_provider.header.subtitle" | translate }}
-            .header-sprite(
-                style="background-image: url('./assets/img/landing/vouchers-sprite.svg')")
-            //-.block.block-cards
-                .card-item: .card-item-inner
-                    .card-icon: img(src="./assets/img/landing/icon-cards/icon-card-money.png")
-                    .card-content
-                        .card-title {{ "home_provider.labels.partners" | translate }}
-                        .card-description {{ "home_provider.labels.description" | translate }}
-                .card-item: .card-item-inner
-                    .card-icon: img(src="./assets/img/landing/icon-cards/icon-card-wallet.png")
-                    .card-content
-                        .card-title {{ "home_provider.labels.join" | translate }}
-                        .card-description {{ "home_provider.labels.subdescription" | translate }}
-if (qdt_c.platform.env_data.client_key == 'westerkwartier')
-
+        .header-content
+            .header-title {{ "home_provider.header.title_westerkwartier" | translate }}
+            .header-description {{ "home_provider.header.subtitle_westerkwartier" | translate }}
 section.section.section-flow: .wrapper
     .section-title {{ "home_provider.guide.title_westerkwartier" | translate }}
-    .section-description {{ "home_provider.guide.description_westerkwartier" | translate }}
+    .section-description(translate="home_provider.guide.description_westerkwartier")
     //- img(src="./assets/img/landing/forus-flow-provider.png").section-scheme
     .block.block-show-more: a(href="../provider/#!/sign-up").button.button-primary {{ "home_provider.guide.button_westerkwartier" | translate }}
 
@@ -45,7 +28,7 @@ section.section.section-faq: .wrapper
 
         +faq_item(
             "Hoe gaat het met uitbetalen?",
-            "Als eerste scan de QR-code van de inwoner. Ten tweede vul het bedrag van de betaling in en eventueel een omschrijving. Als laatste bevestig de betaling in de app. Het geld wordt binnen drie werkdagen op de rekening bijgeschreven.")
+            "Scan de QR-code van de inwoner. Vul vervolgens het bedrag van de betaling in en eventueel een omschrijving. Tot slot, bevestig de betaling in de app. Het geld wordt binnen drie werkdagen op de rekening bijgeschreven.")
 
         +faq_item(
             "Hoe kan ik mijn transacties in zien?",
