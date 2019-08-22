@@ -1,0 +1,101 @@
+@import '../_common/landing';
+
+.block {
+    &.block-navbar {
+        position: sticky;
+        z-index: 4;
+        @media screen and (min-width: 1024px) {
+            padding: 20px 30px;
+            position: absolute;
+            left: 0;
+            right: 0;
+        }     
+    }
+}
+
+.section {
+    &.section-flow {
+        margin: 5% 0;
+    }
+    &.section-faq {
+        .section-splash {
+            display: none;
+        }
+    }
+    &.section-header {
+        background: none;
+        height: auto;
+        padding: 1vw 0 1vw;
+        position: relative;
+        width: 100%;
+        display: block;
+        max-width: 100%;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        @media screen and (min-width: 1024px){
+            background: url(../img/landing/splash-top-b.png) no-repeat 100% 0;
+            background-size: contain;
+            background-position: right;
+            height: 500px;
+        } 
+        .header-content {
+            padding-top: 30px;
+            .button {
+                width: 100%;
+            }
+            @media screen and (min-width: 1024px){
+                width: 50%;
+                max-width: 450px;
+                position: absolute;
+                margin: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            @media screen and (min-width: 1440px){ 
+                max-width: 500px;
+            }
+            .header-title {
+                margin: 0 0 20px;
+                text-align: center;
+                font: 700 32px/1.5em $bf;
+                color: #353b46;
+                @media screen and (min-width: 1024px){ 
+                    text-align:left;
+                }
+                @media screen and (min-width: 1440px){ 
+                    font: 700 40px/1.5em $bf;
+                }
+            }
+            .header-description {
+                font: 400 21px/1.5em $bf;
+                color: #353b46;
+                margin-bottom: 1vw;
+                @media screen and (min-width: 1024px){ 
+
+                }
+            }
+
+            .header-how-it-works {
+                color: inherit;
+                font: 400 14px/26px $bf
+            }
+        }
+
+        .header-sprite {
+            display: none;
+        }
+    }
+    &.section-footer {
+        background-color: #fff;
+        margin-top: 0;
+        display: block;
+    }
+
+    @media screen and (max-width: 1000px) { 
+        &.section-header {
+            padding: 0;
+        }
+    }
+}
