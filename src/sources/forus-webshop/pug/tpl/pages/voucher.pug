@@ -62,9 +62,7 @@ section.section.section-voucher-details: .wrapper
                             .card-value.euro(ng-bind="'€ ' + ($ctrl.voucherCard.amount)") 
                     
                     .card-qr_code.show-sm
-                        qr-code(
-                            ng-if="$ctrl.qrValue" qr-type="voucher" qr-value="$ctrl.qrValue" 
-                            qr-background="{{ $ctrl.voucherCard.thumbnail }}").card-qr_code-element
+                        qr-code(ng-if="$ctrl.qrValue" qr-type="voucher" qr-value="$ctrl.qrValue").card-qr_code-element
                         .card-qr_code-desc(ng-if="$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.productdescription")
                         .card-qr_code-desc(ng-if="!$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
 
