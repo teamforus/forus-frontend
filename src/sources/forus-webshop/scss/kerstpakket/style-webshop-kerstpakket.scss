@@ -6,6 +6,9 @@
 // COMPONENTS
 @import 'components/_buttons.scss';
 
+// SHAME
+@import 'includes/shame.scss';
+
 // LAYOUTS
 @import 'layout/_header.scss',
 'layout/_navigation.scss',
@@ -13,4 +16,8 @@
 
 // SECTIONS
 @import 'sections/faq.scss',
-'sections/steps.scss';
+'sections/steps.scss',
+'sections/map.scss';
+
+// BLOCKS
+@import 'sections/blocks/products.scss';

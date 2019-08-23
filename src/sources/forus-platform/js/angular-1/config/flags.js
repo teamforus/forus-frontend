@@ -5,13 +5,17 @@ module.exports = {
     },
     zuidhorn: {
         logoExtension: '.png',
-        maxProductCount: 2
+        maxProductCount: 20
     },
     nijmegen: {
         logoExtension: '.svg',
         maxProductCount: 2
     },
     westerkwartier: {
+        logoExtension: '.svg',
+        maxProductCount: 20
+    },
+    kerstpakket: {
         logoExtension: '.svg',
         maxProductCount: 20
     }
