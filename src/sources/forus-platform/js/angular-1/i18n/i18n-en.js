@@ -159,7 +159,8 @@ module.exports = {
             citizen: "Nieuwe inwoners",
             provider: "Aanbieders",
             transactions: "transacties",
-
+            service_costs: "Servicekosten",
+            transaction_costs: "Transactiekosten",
         },
         buttons: {
             choose: "Kies een andere regeling",
