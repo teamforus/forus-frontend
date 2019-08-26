@@ -1357,7 +1357,14 @@ translate,
     .card-title {
         font: 500 16px/28px $bf;
         color: #282b39;
-        cursor: default;
+        cursor: inherit;
+
+        .card-collapse {
+            float: right;
+            font-size: 36px;
+            line-height: 28px;
+            color: #777;
+        }
     }
 
     .card-header {
@@ -1379,12 +1386,13 @@ translate,
     .card-section {
         padding: 25px;
         position: relative;
+        cursor: inherit;
         @include cf();
 
         .card-title {
             font: 500 16px/30px $bf;
             color: #282b39;
-            cursor: default;
+            cursor: inherit;
             margin: 0 0 10px;
 
             &:last-child,
@@ -2084,6 +2092,120 @@ translate,
             margin-left: -25px;
             margin-right: 5px;
             color: #134478;
+        }
+    }
+
+
+    &.block-auth-type {
+        @include cf();
+        font-size: 0;
+        padding: 0 0 20px;
+        text-align: center;
+
+        .auth_type-item {
+            display: inline-block;
+            width: 340px;
+            max-width: 50%;
+            padding: 0 30px;
+
+            .auth_type-icon {
+                padding: 50px 0;
+                background: #ffffff;
+                border-radius: 10px;
+                box-shadow: 0 10px 40px rgba(#000, .04);
+                margin-bottom: 30px;
+                transform: translate(0, 0);
+                transition: .4s;
+
+                img {
+                    display: block;
+                    margin: 0 auto;
+                }
+            }
+            
+            .auth_type-name {
+                font: 700 18px $bf;
+                color: #282b39;
+                transition: .4s;
+            }
+
+            .auth_type-item-inner {
+                width: 100%;
+                cursor: pointer;
+
+                &:hover {
+                    .auth_type-icon {
+                        transform: translate(0, -10px);
+                    box-shadow: 0 10px 60px rgba(#000, .15);
+                    }
+
+                    .auth_type-name {
+                        color: #004195;
+                    }
+                }
+            }
+        }
+    }
+
+    &.block-auth-qr-code {
+        width: 100%;
+        padding-bottom: 20px;
+
+        .qr_code {
+            width: 280px;
+            height: 280px;
+            padding: 20px;
+            background: #fff;
+            margin: auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 35px rgba(#000, .075);
+
+            img {
+                display: block;
+                width: 100%;
+            }
+        }
+    }
+
+    &.block-pincode {
+        margin: 30px auto 60px;
+        padding: 0;
+        text-align: center;
+        width: calc(60px * 6 + 10px * 5);
+        position: relative;
+        @include cf();
+
+        @media screen and (max-width: 767px) {
+            &.block {
+                &.block-pincode {
+                    margin: 30px auto 30px;
+                    width: calc(40px * 6 + 10px * 5);
+        
+                    .pincode-number {
+                        width: 40px;
+                        height: 60px;
+                        font: 600 26px/60px $bf;
+                    }
+                }
+            }
+        }
+        
+        .pincode-number {
+            display: block;
+            height: 75px;
+            float: left;
+            width: 60px;
+            border: 1px solid #dfe4ec;
+            background: #fff;
+            border-radius: 4px;
+            margin-right: 10px;
+            font: 600 28px/75px $bf;
+            text-align: center;
+            cursor: default;
+
+            &:last-of-type {
+                margin-right: 0;
+            }
         }
     }
 
