@@ -488,11 +488,14 @@ ui-view {
 
     &.section-header {
         padding: 40px 0 40px;
-        position: absolute;
+        position: relative;
         max-width: 1440px;
         margin: 0 auto;
         width: 100%;
-        background-image: none;
+        background: url(../img/landing/splash-top-b.png) no-repeat 100% 0;
+        background-size: auto 80%;
+        background-position: center center;
+        height: 450px;
         @include cf();
 
         .heade-sprite {
@@ -519,14 +522,9 @@ ui-view {
         }
 
         .header-content {
-            padding: 145px 0;
-            width: 50%;
             float: left;
             position: relative;
             z-index: 3;
-            padding-bottom: 30px;
-            padding-right: 120px;
-            min-height: 450px;
 
             .header-title {
                 font: 700 40px/50px $bf;
@@ -808,7 +806,7 @@ ui-view {
         }
 
         .section-description {
-            font: 400 22px/32px $bf;
+            font: 400 18px/1.5em $bf;
             color: #646f79;
             text-align: center;
             padding: 0 50px;
@@ -954,8 +952,6 @@ ui-view {
             }
 
             .header-content {
-                padding: 75px 0;
-                padding-right: 150px;
                 
                 .header-title {
                     font: 700 30px/46px $bf;
@@ -2002,7 +1998,7 @@ ui-view {
         }
     }
 
-    &.block-auth-qr-code {
+    &.block-qr-code {
         width: 100%;
         padding-bottom: 20px;
 

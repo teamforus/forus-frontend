@@ -28,7 +28,7 @@ let BaseController = function(
 
                     ModalService.open('modalNotification', {
                         type: 'info',
-                        description: $filter('i18n')('modal.logout.description')
+                        description: 'modal.logout.description'
                     });
                 }
             }, () => {});

@@ -22,7 +22,7 @@ core.addPlatform(require('./platforms/Dashboards/DashboardWesterkwartierProvider
 core.addPlatform(require('./platforms/Webshops/WebshopGeneralPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopZuidhornPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopNijmegenPlatform'));
-core.addPlatform(require('./platforms/Webshops/WebshopForusPlatform'));
+core.addPlatform(require('./platforms/Webshops/WebshopKerstpakketPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopWesterkwartierPlatform'));
 
 // Register meapp landings

@@ -1,6 +1,13 @@
 .section {
     &.section-voucher-details {
         position: relative;
-        z-index: 1;
+    }
+    @media screen and (max-width: 1000px) {
+        &.section-profile {
+            .section-title {
+                font: 700 24px/36px $bf;
+                margin-bottom: 15px;
+            }
+        }
     }
 }
