@@ -258,7 +258,7 @@ var js_compiler = function(platform, src, task) {
         }
 
         stream.push(plugins.insert.prepend(
-            'let env_data = ' + JSON.stringify(platform.env_data) + ';'
+            'var env_data = ' + JSON.stringify(platform.env_data) + ';'
         ));
 
         stream.push(gulp.dest(platform.paths.assets + '/js/' + dest[i]));
