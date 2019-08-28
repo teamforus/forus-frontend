@@ -193,7 +193,7 @@ module.exports = {
             status: "Status",
             start: "Startdatum",
             end: "Einddatum",
-            notification_amount: "Aanvulherinnering grens €"
+            notification_amount: "Aanvulherinnering grens"
         },
         buttons: {
             cancel: "Annuleren",
@@ -818,7 +818,9 @@ module.exports = {
             account: "NL83 BUNQ 3456 3344 32",
             addcode: "voeg code  ",
             description: "  toe aan de beschrijving",
-            copy: "Kopieer naar klembord"
+            copy: "Kopieer naar klembord",
+            ethereum_address: "Ethereum address",
+            ethereum_address_desc: "Please use this address to transfer ether to the fond.",
         }
     },
 

@@ -10,10 +10,19 @@ let FundsEditComponent = function(
     
     $ctrl.media;
 
+    $ctrl.currencies = [{
+        key: 'eur',
+        name: "Euro",
+    }, {
+        key: 'eth',
+        name: "Etereum",
+    }];
+
     $ctrl.$onInit = function() {
         let values = $ctrl.fund ? FundService.apiResourceToForm(
             $ctrl.fund
         ) : {
+            "currency": "eur",
             "product_categories": [],
             "state": $ctrl.fundStates[0].value
         };

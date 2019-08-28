@@ -5,7 +5,7 @@ let QrCodeDirective = function(
 ) {
     let buildQrCode = () => {
         let qrCodeEl = element.find('.qr_code img').attr('id', "").empty()[0];
-        let value = JSON.stringify({
+        let value = scope.qrRawContent ? scope.qrRawContent : JSON.stringify({
             type: scope.qrType,
             value: scope.qrValue
         });
@@ -81,6 +81,7 @@ module.exports = ['$q', ($q) => {
         scope: {
             qrDescription: '@',
             qrValue: '=',
+            qrRawContent: '@',
             qrBackground: '@',
             qrLogo: '@',
             qrType: '@'
