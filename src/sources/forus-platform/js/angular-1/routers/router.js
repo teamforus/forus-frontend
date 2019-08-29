@@ -22,7 +22,7 @@ let objectOnlyKeys = (obj, keys) => {
 
 /**
  * Permission middleware
- * 
+ *
  * @param {string} messageKey Error message key
  * @param {string|string[]} permissions List all required permissions
  * @param {bool} permissionsAll Require all permissions from the list
@@ -639,6 +639,18 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 );
             }
         }
+    });
+
+    $stateProvider.state({
+        name: 'email-preferences',
+        url: '/email/preferences/{identity_address}/{exchange_token}',
+        component: 'emailPreferencesComponent'
+    });
+
+    $stateProvider.state({
+        name: 'email-unsubscribe',
+        url: '/email/unsubscribe/{identity_address}/{exchange_token}',
+        component: 'emailPreferencesComponent'
     });
 
     $stateProvider.state({
