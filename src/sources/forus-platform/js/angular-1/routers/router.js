@@ -650,7 +650,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: 'email-unsubscribe',
         url: '/email/unsubscribe/{identity_address}/{exchange_token}',
-        component: 'emailPreferencesComponent'
+        component: 'emailUnsubscribeComponent'
     });
 
     $stateProvider.state({

@@ -1013,5 +1013,14 @@ module.exports = {
             submit: 'Autoriseer apparaat',
         }
     },
+    notification_preferences: {
+        unsubscribe: 'Uitschrijven voor alle notificaties van Forus',
+        unsubscribe_button: 'Uitschrijven',
+        errors: {
+            'not_found': 'Deze token is ongeldig',
+            'expired': 'Deze token is verlopen',
+            'not-pending': 'De notificatieinstellingen zijn al aangepast via deze link'
+        }
+    }
 }
 

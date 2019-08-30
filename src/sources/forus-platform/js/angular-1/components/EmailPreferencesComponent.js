@@ -5,12 +5,6 @@ let EmailPreferencesComponent =  (
     EmailPreferencesService
 ) => {
     let $ctrl = this;
-
-    // $scope.onPageChange = async (query) => {
-    //     EmailPreferencesService.getPreferences($stateParams.identity_address).then(res => {
-    //         $ctrl.preferences = res.data.preferences;
-    //     })
-    // }
 }
 
 module.exports = {
