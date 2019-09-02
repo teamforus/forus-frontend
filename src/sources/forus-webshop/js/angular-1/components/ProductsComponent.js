@@ -8,9 +8,7 @@ let ProductsComponent = function(
         return $state.go('home');
     }
 
-    $ctrl.$onInit = function() {
-        
-    };
+    $ctrl.$onInit = function() {};
 };
 
 module.exports = {

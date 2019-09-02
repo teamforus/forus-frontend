@@ -1,4 +1,4 @@
-let AwesomeQR = require('../../../../forus-platform/js/angular-1/libs/AwesomeQrCode');
+// let AwesomeQR = require('../../../../forus-platform/js/angular-1/libs/AwesomeQrCode');
 
 let QrCodeDirective = function(
     scope, element, $q

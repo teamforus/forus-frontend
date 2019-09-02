@@ -1,0 +1,146 @@
+let ProductCategoriesControlDirective = function(
+    $q,
+    $scope,
+    ProductCategoryService
+) {
+    let $ctrl = {};
+
+    $scope.$ctrl = $ctrl;
+
+    $ctrl.productType = 'product';
+    $ctrl.categoriesValues = [];
+    $ctrl.categoriesHierarchy = [];
+
+    $ctrl.loadCategories = (index, parent_id = 'null', loadOnly = false) => {
+        return $q((resolve, reject) => {
+            if (!loadOnly) {
+                $ctrl.categoriesHierarchy.splice(index);
+                $ctrl.categoriesValues.splice(index);
+            }
+
+            if (index > 0 && parent_id == 'null') {
+                return resolve([]);
+            }
+
+            return ProductCategoryService.list({
+                parent_id: parent_id,
+                service: $ctrl.productType == "service" ? 1 : 0,
+            }).then(res => {
+                let categories = res.data.data;
+
+                categories.unshift({
+                    id: "null",
+                    name: "Select category..."
+                });
+
+                if (categories.length > 1) {
+                    $ctrl.categoriesHierarchy[index] = categories;
+
+                    if (!loadOnly) {
+                        $ctrl.categoriesValues[index] = categories[0].id;
+                    }
+                }
+
+                resolve(categories);
+            }, reject);
+        });
+    };
+
+    $ctrl.changeCategory = (index) => {
+        return $q((resolve, reject) => {
+            $ctrl.loadCategories(index + 1, $ctrl.categoriesValues[index]).then(categories => {
+                $scope.ngModel = $ctrl.getSelectedCategory();
+                resolve();
+            }, reject);
+        });
+    };
+
+    $ctrl.getSelectedCategory = () => {
+        let categories = $ctrl.categoriesValues.filter(
+            category => category != 'null'
+        );
+
+        return categories[categories.length - 1];
+    };
+
+    $ctrl.changeType = (type) => {
+        let changed = $ctrl.productType != type;
+
+        $ctrl.productType = type;
+        $ctrl.changeCategory(-1).then(() => {
+            if (changed && !!$ctrl.initialValue && ($ctrl.productType == $scope.productType)) {
+                console.log('$ctrl.loadProductCategories();');
+                $scope.ngModel = $ctrl.initialValue;
+                $ctrl.loadProductCategories();
+            }
+        });
+    };
+
+    $ctrl.loadProductCategoriesParent = (ids, category_id) => {
+        /// console.log('$ctrl.loadProductCategoriesParent', ids, category_id);
+
+        return $q((resolve, reject) => {
+            if (category_id == null || category_id == 'null') {
+                return resolve(ids);
+            }
+
+            ids.push(category_id);
+
+            ProductCategoryService.show(category_id).then(res => {
+                console.log('11111111111', res.data.data);
+                $ctrl.loadProductCategoriesParent(ids, res.data.data.parent_id).then(resolve, reject);
+            });
+        });
+    };
+
+    $ctrl.loadProductCategories = () => {;
+        console.info("asdasdas");
+
+        $ctrl.loadProductCategoriesParent([], $scope.ngModel).then(values => {
+            values.unshift("null");
+            console.log('asdasdasdasdasdasd', values);
+            $ctrl.categoriesValues = values.reverse();
+
+            $ctrl.loadCategories(0, 'null', true);
+
+            values.forEach((value, index) => {
+                console.log(value, index);
+                $ctrl.loadCategories(index + 1, value, true);
+            });
+        });
+    };
+
+    $ctrl.onInit = () => {
+        console.log($scope);
+
+        $ctrl.initialValue = $scope.ngModel;
+        $ctrl.productType = $scope.productType;
+
+        if ($scope.ngModel) {
+            $ctrl.loadProductCategories();
+        } else {
+            $ctrl.changeCategory(-1);
+        }
+    };
+
+    $ctrl.onInit();
+};
+
+module.exports = () => {
+    return {
+        scope: {
+            ngModel: '=',
+            productType: "=",
+            errors: "="
+        },
+        restrict: "EA",
+        replace: true,
+        controller: [
+            '$q',
+            '$scope',
+            'ProductCategoryService',
+            ProductCategoriesControlDirective
+        ],
+        templateUrl: 'assets/tpl/directives/product-categories-control2.html'
+    };
+};

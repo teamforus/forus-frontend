@@ -63,6 +63,7 @@
     mixin edit_buttons()
 
         button(ng-if="(fundOrg | hasPerm:'manage_funds') && fund.state == 'waiting'" ng-click="deleteFund(fund)").button.button-danger
+            em.mdi.mdi-delete
             translate(translate="fund_card_sponsor.buttons.delete")
 
         button(ui-sref="funds-edit(fund)").button.button-default

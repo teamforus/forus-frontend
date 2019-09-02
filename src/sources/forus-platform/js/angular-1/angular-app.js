@@ -1,6 +1,9 @@
+require('./modules/select-control/SelectControlModule');
+
 let app = angular.module('forusApp', [
-    'ui.select', 'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 'ngLocale', '720kb.datepicker'
-]);;
+    'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 
+    'ngLocale', '720kb.datepicker', 'forus.selectControl',
+]);
 
 app.constant('appConfigs', env_data);
 
@@ -64,6 +67,7 @@ app.service('RecordCategoryService', require('./services/RecordCategoryService')
 app.service('RecordValidationService', require('./services/RecordValidationService'));
 app.service('QrScannerService', require('./services/QrScannerService'));
 app.service('ProductCategoryService', require('./services/ProductCategoryService'));
+app.service('BusinessTypeService', require('./services/BusinessTypeService'));
 app.service('OfficeService', require('./services/OfficeService'));
 app.service('ProductService', require('./services/ProductService'));
 app.service('ProviderFundService', require('./services/ProviderFundService'));
@@ -123,6 +127,7 @@ app.directive('forusChat', require('./directives/ForusChatDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
 app.directive('numberControl', require('./directives/NumberControlDirective'));
 app.directive('productCategoriesControl', require('./directives/ProductCategoriesControlDirective'));
+app.directive('productCategoriesControl2', require('./directives/ProductCategoriesControl2Directive'));
 app.directive('officeEditInline', require('./directives/OfficeEditInlineDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('informationBlock', require('./directives/InformationBlockDirective'));
@@ -134,6 +139,7 @@ app.directive('markdown', require('./directives/MarkdownDirective'));
 app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
 app.directive('formLabelToggle', require('./directives/FormLabelToggleDirective'));
 app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
+app.directive('scrollEnd', require('./directives/ScrollEndDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));

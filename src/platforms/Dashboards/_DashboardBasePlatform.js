@@ -28,6 +28,7 @@ platform.setLibs([
     "ui_cropper",
     "ui_router",
     "ui_select",
+    "file_saver",
     "underscore",
     "underscore.string",
 ]);

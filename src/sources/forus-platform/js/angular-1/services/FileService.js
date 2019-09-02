@@ -1,6 +1,4 @@
-let FileService = function(ApiRequest) {
-    let FileSaver = require('file-saver');
-
+let FileService = function() {
     return new (function() {
         this.downloadFile = (
             file_name,
@@ -11,7 +9,7 @@ let FileService = function(ApiRequest) {
                 type: file_type,
             });
 
-            FileSaver.saveAs(blob, file_name);
+            window.saveAs(blob, file_name);
         };
     });
 };

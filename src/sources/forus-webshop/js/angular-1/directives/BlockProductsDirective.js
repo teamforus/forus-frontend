@@ -24,7 +24,9 @@ let BlockProductsDirective = async function(
     if ($scope.sample) {
         ProductService.sample().then((res) => $scope.products = res.data);
     } else {
-        ProductCategoryService.list().then(res => {
+        ProductCategoryService.list({
+            used: 1
+        }).then(res => {
             $scope.productCategories = res.data.data;
             $scope.onReset($scope.filters);
 

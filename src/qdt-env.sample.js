@@ -14,6 +14,12 @@ module.exports = (core) => {
             // }
         });
 
+        /* platform.editTask('js', (task) => {
+            task.minify = true;
+
+            return task;
+        }); */
+
         return platform;
     });
 

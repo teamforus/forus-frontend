@@ -29,7 +29,7 @@
         border: 1px solid transparent;
         background-color: #ffffff;
         padding: 14px 15px;
-        height: 50px;
+        /* height: 50px; */
         color: rgba(#00122a, .9);
         font: 600 17px/24px $bf;
         line-height: 24px !important;
@@ -135,6 +135,66 @@
 
         &::-ms-expand {
             display: none;
+        }
+    }
+
+    .select-control-input {
+        $optionHeight: 40px;
+
+        position: relative;
+
+        .form-control {
+            display: block;
+        }
+
+        label.form-control:not([type='radio']):not([type='checkbox']) {
+            line-height: 26px;
+        }
+            
+        .select-control-search {
+            cursor: pointer;
+        }
+        
+        .select-control-options {
+            z-index: 100;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            border: 1px solid #d4d9dd;
+            border-top: none;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+            overflow: auto;
+            max-height: $optionHeight * 5;
+
+            .select-control-option {
+                padding: 5px 15px 4px;
+                font: 500 13px/30px $bf;
+                color: rgba($tc, .75);
+                border-bottom: 1px solid whitesmoke;
+                cursor: pointer;
+                transition: .4s;
+                height: $optionHeight;
+                @include ellipsis();
+
+                &:hover {
+                    background: whitesmoke;
+                    border-color: whitesmoke;
+                }
+
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
+
+        &.options {
+            .form-control:not([type='radio']):not([type='checkbox']) {
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+            }
         }
     }
     
@@ -354,7 +414,7 @@
     .form {
         .form-control:not([type="radio"]):not([type="checkbox"]),
         .form-control:not([type="radio"]):not([type="checkbox"]).form-control-fancy {
-            height: 50px;
+            /* height: 50px; */
             padding: 5px 15px;
             font: 400 14px/24px $bf;
         }

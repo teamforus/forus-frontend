@@ -67,14 +67,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         url: "/products",
         component: "productsComponent",
         resolve: {
-            products: function($transition$, ProductService) {
+            products: ['$transition$', 'ProductService', function($transition$, ProductService) {
                 return repackResponse(
                     ProductService.list()
                 );
-            },
+            }],
             productCategories: function($transition$, ProductCategoryService) {
                 return repackResponse(
-                    ProductCategoryService.list()
+                    ProductCategoryService.list({
+                        used: 1
+                    })
                 );
             },
         }

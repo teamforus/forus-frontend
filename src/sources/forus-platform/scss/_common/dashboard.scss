@@ -29,8 +29,6 @@ body {
 }
 
 @media print {
-    size: A5;
-
     .printable {
         text-align: left;
     
@@ -207,8 +205,8 @@ translate,
     }
 
     &.button-danger {
-        background: #d91d46;
-        border-color: #d91d46;
+        background: #c21e1b;
+        border-color: #c21e1b;
         color: #fff;
 
         &:hover {
@@ -369,7 +367,6 @@ translate,
         height: 36px;
         color: $tc;
         font: 500 13px/24px $bf;
-        line-height: 24px !important;
         transition: background-color 0.4s ease, border 0.4s ease;
         border-radius: 3px;
         appearance: none;
@@ -389,79 +386,67 @@ translate,
         }
     }
 
-    .form-control ~ .form-control {
+    /* .form-control ~ .form-control {
         margin-top: 10px;
-    }
+    } */
 
-    .ui-select-container, .ui-select-container.form-control:not([type='radio']):not([type='checkbox']) {
-        width: 100%;
-        height: auto;
-        min-height: 36px;
-        // padding: 0;
-        outline: none;
+    .select-control-input {
+        $optionHeight: 40px;
 
-        input {
-            width: 100%;
+        position: relative;
+
+        .form-control {
+            display: block;
         }
 
-        .ui-select-match {
-            outline: none;
-            box-shadow: none;
-            @include cf();
+        label.form-control:not([type='radio']):not([type='checkbox']) {
+            line-height: 26px;
+        }
+            
+        .select-control-search {
+            cursor: pointer;
+        }
+        
+        .select-control-options {
+            z-index: 100;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            border: 1px solid #d4d9dd;
+            border-top: none;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+            overflow: auto;
+            max-height: $optionHeight * 5;
 
-            .ui-select-match-text {
-                font: 500 13px/25px $bf;
-                display: block;
-            }
+            .select-control-option {
+                padding: 5px 15px 4px;
+                font: 500 13px/30px $bf;
+                color: rgba($tc, .75);
+                border-bottom: 1px solid whitesmoke;
+                cursor: pointer;
+                transition: .4s;
+                height: $optionHeight;
+                @include ellipsis();
 
-            .ui-select-match-item {
-                background: #fff;
-                border: 1px solid #cecece;
-                border-radius: 3px;
-                display: block;
-                float: left;
-                padding: 0 5px 0 0;
+                &:hover {
+                    background: whitesmoke;
+                    border-color: whitesmoke;
+                }
 
-                span {
-                    font: 500 13px/25px $bf;
-                    cursor: default;
-
-                    &.close {
-                        font-size: 20px;
-                        float: left;
-                        margin-right: 5px;
-                        cursor: pointer;
-                    }
+                &:last-child {
+                    border-bottom: none;
                 }
             }
         }
 
-        .ui-select-toggle {
-            display: block;
-            width: 100%;
-        }
-
-        // .ui-select-multiple.ui-select-bootstrap input.ui-select-search
-
-        .ui-select-choices-content {
-            background: #fff;
-            left: 0;
-            top: 100%;
-            position: absolute;
-
-            .ui-select-choices-row-inner {
-                font: 500 13px/24px $bf;
+        &.options {
+            .form-control:not([type='radio']):not([type='checkbox']) {
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
             }
-        }
-
-        &.open {
-            position: relative;
-            z-index: 10;
-        }
-
-        &.ui-select-multiple {
-            padding-left: 4px !important;
-            padding-right: 4px !important;
         }
     }
 
@@ -691,6 +676,11 @@ translate,
         &.radio-narrow {
             padding-top: 5px;
             padding-bottom: 5px;
+        }
+
+        &.radio-inline {
+            display: inline-block;
+            width: auto;
         }
     }
 
@@ -4028,11 +4018,6 @@ translate,
                     margin: 0;
                 }
             }
-        }
-
-        .form-control:not([type='radio']):not([type='checkbox']) {
-            height: 40px;
-            padding: 13px 15px;
         }
     }
 

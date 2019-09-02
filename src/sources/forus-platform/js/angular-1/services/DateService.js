@@ -1,5 +1,3 @@
-let moment = require('moment');
-
 let DateService = function() {
     return new(function() {
         this.dateFormat = 'dd-MM-yyyy'

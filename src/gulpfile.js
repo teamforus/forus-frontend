@@ -227,6 +227,12 @@ var js_compiler = function(platform, src, task) {
                 presets: ["@babel/preset-env"],
                 extensions: ['.js']
             }).bundle());
+            
+            stream.push(_browserify.transform('pugify', {
+                extensions: ['.pug'],
+                compileDebug: false,
+                pretty: false
+            }).bundle());
 
             // Required for Browserify & Babelify
             stream.push(vinyl_source(name));
@@ -518,6 +524,9 @@ let watchTask = () => {
         _watch_src = _watch_src.concat(task.watch).map(value => {
             return _path + value;
         });
+
+        
+        _watch_src.forEach(src => console.log(src));
 
         gulp.watch(_watch_src).on('change', async () => {
             await scss_compiler(platform, _path + task.src, task);

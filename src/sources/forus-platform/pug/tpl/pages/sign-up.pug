@@ -166,10 +166,13 @@
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.website" ng-bind="error")
 
                         .card-section: .pseudo-wrapper
-                            product-categories-control(
-                                ng-model="$ctrl.organizationForm.values.product_categories"
-                                options="$ctrl.productCategories")
-
+                            .form-group
+                                .form-label(translate="organization_edit.labels.business_type")
+                                .form-offset: select-control(
+                                    ng-model="$ctrl.businessType" 
+                                    ng-change="$ctrl.chageBusinessType(value)"
+                                    options="$ctrl.businessTypes"
+                                    placeholder="Select business type...")
                             .form-group
                                 label(translate="organization_edit.labels.kvk").form-label
                                 input(ng-model="$ctrl.organizationForm.values.kvk" type="text" placeholder="KvK-nummer").form-control
