@@ -1,0 +1,25 @@
+.section {
+    &.section-header {
+        @media screen and (min-width: 1024px) {
+            background: $bg-values;
+            background-size: contain;
+            background-position: right bottom;
+            &:before {
+                position: absolute;
+                left:0;
+                bottom: 0;
+                width: 420px;
+                height: 100%;
+                background-image: url("../img/left_leaf.png");
+                background-repeat: no-repeat;
+                z-index: -1;
+                content: " ";
+            }
+        }
+        .header-content {
+            .header-title {
+                font: 700 48px/1.5em $bf_2;
+            }
+        }
+    }
+}

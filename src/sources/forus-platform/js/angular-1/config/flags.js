@@ -13,6 +13,10 @@ module.exports = {
     },
     westerkwartier: {
         logoExtension: '.svg',
-        maxProductCount: 20
+        maxProductCount: 2
+    },
+    kerstpakket: {
+        logoExtension: '.svg',
+        maxProductCount: 2
     }
 };

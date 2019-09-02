@@ -15,6 +15,9 @@ core.addPlatform(require('./platforms/Dashboards/DashboardZuidhornProviderPlatfo
 core.addPlatform(require('./platforms/Dashboards/DashboardNijmegenSponsorPlatform'));
 core.addPlatform(require('./platforms/Dashboards/DashboardNijmegenProviderPlatform'));
 
+core.addPlatform(require('./platforms/Dashboards/DashboardKerstpakketSponsorPlatform'));
+core.addPlatform(require('./platforms/Dashboards/DashboardKerstpakketProviderPlatform'));
+
 core.addPlatform(require('./platforms/Dashboards/DashboardWesterkwartierSponsorPlatform'));
 core.addPlatform(require('./platforms/Dashboards/DashboardWesterkwartierProviderPlatform'));
 
