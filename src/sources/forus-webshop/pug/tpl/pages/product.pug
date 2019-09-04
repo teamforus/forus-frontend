@@ -20,7 +20,7 @@ section.section.section-product: .wrapper
                 
                 .product-funds
                     .product-fund-label(i18n="product.labels.fund")
-                    .product-fund-list(ng-repeat="fund in $ctrl.product.funds" ng-bind="fund.name")
+                    .product-fund-list(ng-if="$ctrl.product.funds.length > 0" ng-bind="$ctrl.fundNames")
 
                 .product-price
                     .product-price-old

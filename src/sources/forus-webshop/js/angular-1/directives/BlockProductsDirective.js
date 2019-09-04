@@ -21,31 +21,38 @@ let BlockProductsDirective = async function(
         }));
     };
 
+    $scope.fetchAheadOfTime = (filters, filtersOld) => {
+        return filters.product_category_id != filtersOld.product_category_id;
+    };
+
     if ($scope.sample) {
         ProductService.sample().then((res) => $scope.products = res.data);
     } else {
-        ProductCategoryService.list({
-            used: 1
-        }).then(res => {
-            $scope.productCategories = res.data.data;
-            $scope.onReset($scope.filters);
+        ProductService.list().then((res => {
+            $scope.products = res.data.data;
 
-            if ($scope.productCategories.filter(category => {
-                    return category.id == null;
-                }).length == 0) {
-                $scope.productCategories.unshift({
-                    name: 'Selecteer categorie...',
-                    id: null
-                });
-            }
-        });
+            ProductCategoryService.list({
+                parent_id: 'null',
+            }).then(res => {
+                $scope.productCategories = res.data.data;
+                $scope.onReset($scope.filters);
+    
+                if ($scope.productCategories.filter(category => {
+                        return category.id == null;
+                    }).length == 0) {
+                    $scope.productCategories.unshift({
+                        name: 'Selecteer categorie...',
+                        id: null
+                    });
+                }
+            });
+        }));
     }
 };
 
 module.exports = () => {
     return {
         scope: {
-            productCategories: "=",
             sample: '=',
         },
         restrict: "EA",
