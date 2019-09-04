@@ -8,7 +8,7 @@
                 .shop_map-title(translate="popup_offices.header.title" translate-values="{count: $ctrl.providersCount || 0}")
                 .shop_map-subtitle(translate="popup_offices.header.subtitle")
                 
-                .form: select-control(
+                .form(ng-if="$ctrl.businessTypes.length > 0"): select-control(
                     ng-model="$ctrl.business_type" 
                     ng-change="$ctrl.chageBusinessType(value)"
                     options="$ctrl.businessTypes"

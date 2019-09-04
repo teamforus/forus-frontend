@@ -2,7 +2,7 @@ require('./modules/select-control/SelectControlModule');
 
 let app = angular.module('forusApp', [
     'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 
-    'ngLocale', '720kb.datepicker', 'forus.selectControl',
+    'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize',
 ]);
 
 app.constant('appConfigs', env_data);

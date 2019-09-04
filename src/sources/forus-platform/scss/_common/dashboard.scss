@@ -431,6 +431,11 @@ translate,
                 height: $optionHeight;
                 @include ellipsis();
 
+                strong, b {
+                    color: $tc;
+                    font-weight: 700;
+                }
+
                 &:hover {
                     background: whitesmoke;
                     border-color: whitesmoke;

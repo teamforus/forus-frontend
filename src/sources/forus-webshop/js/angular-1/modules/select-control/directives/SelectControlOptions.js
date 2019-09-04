@@ -27,7 +27,7 @@ let SelectControlOptions = function($scope, $timeout) {
     });
 
     $scope.init = () => {
-        optionsPreloadSize = parseInt($scope.optionsPreloadSize || 50); 
+        optionsPreloadSize = parseInt($scope.optionsPreloadSize || 50);
         $dir.onScrolledOption();
     }
 

@@ -1,5 +1,6 @@
 let SelectControl = function($scope, $timeout) {
     let $dir = {};
+    let $optionsMap = [];
 
     $scope.$dir = $dir;
 
@@ -15,9 +16,26 @@ let SelectControl = function($scope, $timeout) {
     }
 
     $scope.buildSearchedOptions = () => {
-        $dir.options = $scope.options.filter(
-            option => option.name.includes($dir.filter.name)
-        );
+        let search = $dir.filter.name.toLowerCase();
+        let search_len = search.length;
+        let options = $optionsMap.map((option) => {
+            option._index = option._name.indexOf(search);
+            return option;
+        }).filter(option => option._index > -1);
+
+        options.sort((a, b) => a._index - b._index);
+
+        $dir.options = options.map(option => {
+            let end = -(option.name.length - (option._index + search_len));
+            let nameFormat = [
+                option.name.slice(0, option._index),
+                option.name.slice(option._index, option._index + search_len),
+                end < 0 ? option.name.slice(end) : "",
+            ];
+            option.nameFormat = nameFormat;
+            
+            return option;
+        });
     };
 
     $dir.updateOptions = () => {
@@ -51,7 +69,7 @@ let SelectControl = function($scope, $timeout) {
 
     $dir.setModel = (value) => {
         $scope.ngModel = value;
-        
+
         if (typeof $scope.ngChange == 'function') {
             $scope.ngChange({
                 value: $scope.ngModel
@@ -60,10 +78,17 @@ let SelectControl = function($scope, $timeout) {
     };
 
     $scope.init = () => {
+        $scope.optionsPreloadSize = $scope.optionsPreloadSize || 50;
+        $optionsMap = JSON.parse(JSON.stringify($scope.options));
+        $optionsMap = $optionsMap.map(option => {
+            option._name = option.name.toLowerCase();
+            return option;
+        });
+
         $scope.buildSearchedOptions();
 
         $dir.controlId = 'select_control_';
-        $dir.controlId +=  Date.now() + '_' + Math.random().toString().slice(2);
+        $dir.controlId += Date.now() + '_' + Math.random().toString().slice(2);
     }
 
     $scope.init();
