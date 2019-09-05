@@ -11,7 +11,8 @@
                             div(ng-repeat="(type, subscribed) in $ctrl.form.values")
                                 .row
                                     .col.col-md-11
-                                        p {{ type }}
+                                        h4 {{ 'notification_preferences.types.' + type + '.title' | translate }}
+                                        p {{ 'notification_preferences.types.' + type + '.description' | translate }}
                                     .col.col-md-1
                                         input(
                                             type="checkbox"

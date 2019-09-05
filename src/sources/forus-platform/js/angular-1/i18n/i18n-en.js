@@ -1022,8 +1022,33 @@ module.exports = {
             'expired': 'Deze token is verlopen',
             'not-pending': 'De notificatieinstellingen zijn al aangepast via deze link'
         },
-        email: {
-
+        types: {
+            forus: {
+                fund_created: {
+                    title: 'Fonds aangemaakt',
+                    description: 'Notificatie wanneer het fonds is aangemaakt'
+                },
+                fund_statistics: {
+                    title: 'Fonds statistieken',
+                    description: 'Notificatie bij het opvragen van de fondsstatistieken'
+                },
+                new_fund_created: {
+                    title: 'Nieuw fonds is aangemaakt',
+                    description: 'Notificatie wanneer een nieuw fonds is aangemaakt'
+                },
+                balance_warning: {
+                    title: 'Balans op voucher is niet toerijkend',
+                    description: 'Notificatie wanneer een balans op een voucher niet toerijkend is'
+                },
+                fund_expires: {
+                    title: 'fund_expies',
+                    description: 'description'
+                },
+                fund_expires: {
+                    title: 'fund_expies',
+                    description: 'description'
+                },
+            }
         }
 
     }
