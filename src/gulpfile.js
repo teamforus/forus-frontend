@@ -4,6 +4,7 @@ var fse = require('fs-extra');
 var del = require('del');
 var glob = require('glob');
 var path = require('path');
+var compress = require('compression');
 var historyApiFallback = require('connect-history-api-fallback')
 
 // console colors
@@ -488,7 +489,8 @@ let serverTask = () => {
     ).filter(platform => platform.server).forEach(function(platform) {
         var server = {
             server: {
-                baseDir: platform.paths.root + platform.server.path
+                baseDir: platform.paths.root + platform.server.path,
+                middleware: [compress()]
             },
             notify: true,
             open: false,

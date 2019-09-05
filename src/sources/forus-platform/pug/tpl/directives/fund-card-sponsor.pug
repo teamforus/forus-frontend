@@ -44,7 +44,7 @@
             div(ng-bind="fund.name").fund-title
             br
             div(ng-bind="fundOrg.name").fund-organization
-        .card-block.card-block-listing
+        //- .card-block.card-block-listing
             .card-block-listing-label(translate="fund_card_sponsor.labels.categories") 
             translate(ng-bind="fundCategories.join(', ')")
             small(ng-show="fundCategories.length == 0" translate="fund_card_sponsor.labels.nocategories").text-muted.small

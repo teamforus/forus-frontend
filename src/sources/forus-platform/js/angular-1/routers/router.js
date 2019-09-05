@@ -46,7 +46,7 @@ let permissionMiddleware = (
         ) => {
             let organization;
 
-            if (dependencyResolver && typeof (dependencyResolver) == 'function') {
+            if (dependencyResolver && typeof(dependencyResolver) == 'function') {
                 organization = dependencyResolver(dependency);
             } else {
                 if (dependencyKey == 'organization') {
@@ -271,7 +271,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                         'approved'
                     )
                 );
-            }
+            },
+            productCategories: ['ProductCategoryService', (ProductCategoryService) => {
+                return repackResponse(ProductCategoryService.list({
+                    parent_id: 'null'
+                }));
+            }]
         }
     });
 

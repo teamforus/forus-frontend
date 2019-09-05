@@ -1,5 +1,4 @@
 .col.col-lg-9.col-md-12
-    .row: .col.col-lg-9.col-md-12: pre {{ $ctrl.productType }}
     .form-group.form-group-inline
         .form-label Type
         .form-offset
@@ -19,9 +18,6 @@
                 .radio-label 
                     .radio-circle
                     | Service
-
-    pre {{ $ctrl.categoriesValues | pretty_json }}
-    pre {{ ngModel | pretty_json }}
 
     .form-group.form-group-inline(ng-repeat="(index, categories) in $ctrl.categoriesHierarchy  track by $index")
         label.form-label(ng-if="index == 0" translate="product_edit.labels.category")

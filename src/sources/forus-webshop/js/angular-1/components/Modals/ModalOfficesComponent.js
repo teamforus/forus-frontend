@@ -49,6 +49,7 @@ let ModalOfficesComponent = function(
         });
 
         OfficeService.list().then(res => {
+            console.log(res.data.data);
             $ctrl.offices = res.data.data;
             $ctrl.shownOffices = $ctrl.offices;
             $ctrl.providersCount = getCountOfProviders($ctrl.shownOffices);

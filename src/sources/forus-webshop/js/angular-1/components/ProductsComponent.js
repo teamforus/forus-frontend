@@ -2,7 +2,6 @@ let ProductsComponent = function(
     $scope,
     $state,
     appConfigs,
-    ProductCategoryService
 ) {
     let $ctrl = this;
 
@@ -23,7 +22,6 @@ module.exports = {
         '$scope',
         '$state',
         'appConfigs',
-        'ProductCategoryService',
         ProductsComponent
     ],
     templateUrl: 'assets/tpl/pages/products.html'
