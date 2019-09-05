@@ -1041,13 +1041,71 @@ module.exports = {
                     description: 'Notificatie wanneer een balans op een voucher niet toerijkend is'
                 },
                 fund_expires: {
-                    title: 'fund_expies',
-                    description: 'description'
+                    title: 'Een fonds is verlopen',
+                    description: 'Notificatie wanneer een fonds is verlopen'
                 },
-                fund_expires: {
-                    title: 'fund_expies',
-                    description: 'description'
+                product_added: {
+                    title: 'Een nieuw product is toegevoegd',
+                    description: 'Notificatie wanneer een nieuw product is toegevoegd in de webshop',
                 },
+                product_bought: {
+                    title: 'Product gekocht',
+                    description: 'notificatie wanneer product gekocht',
+                },
+                product_sold_out: {
+                    title: 'Product uitverkocht',
+                    description: 'Notificatie wanneer een product is uitverkocht'
+                },
+                provider_applied: {
+                    title: 'Aanbieder biedt zich aan',
+                    description: 'Notificatie wanneer een nieuwe aanbieder zich aanbiedt bij een fonds'
+                },
+                provider_approved: {
+                    title: 'Aanbieder geaccepteerd',
+                    description: 'Notificatie wanneer een nieuwe aanbieder geaccepteerd is'
+                },
+                provider_rejected: {
+                    title: 'Aanbieder afgewezen',
+                    description: 'Notificatie wanneer een nieuwe aanbieder is afgewezen'
+                },
+            },
+            identity: {
+                'authorize-email_token': {
+                    title: 'title',
+                    description: 'description'
+                }
+            },
+            login: {
+                login_via_email: {
+                    title: 'Inloggen via e-mail',
+                    description: 'E-mailnotificatie waarmee ingelogd kan worden'
+                }
+            },
+            user: {
+                email_activation: {
+                    title: 'Emailactivatie',
+                    description: 'Activatie e-mail'
+                }
+            },
+            validation: {
+                new_validation_request: {
+                    title: 'Nieuw validatieverzoek',
+                    description: 'Notificatie wanneer er een nieuw validatieverzoek is'
+                },
+                you_added_as_validator: {
+                    title: 'Je bent toegevoegd als validator',
+                    description: 'Notificatie wanneer je toegevoegd bent als validator bij een fonds'
+                }
+            },
+            vouchers: {
+                payment_success: {
+                    title: 'Betaling gelukt',
+                    description: 'Notificatie wanneer een betaling is gelukt'
+                },
+                share_product: {
+                    title: 'Produchtvoucher delen',
+                    description: 'Notificatie wanneer er een product met u gedeeld is'
+                }
             }
         }
 
