@@ -8,9 +8,9 @@ let EmailPreferencesService = (ApiRequest) => {
             }
         };
 
-        this.updatePreferences = (identity_address, exchange_token) => {
+        this.updatePreferences = (identity_address, exchange_token, data) => {
             if (identity_address && exchange_token) {
-                return ApiRequest.post(`${uriPrefix}/${identity_address}/${exchange_token}`)
+                return ApiRequest.post(`${uriPrefix}/${identity_address}/${exchange_token}`, {data})
             }
         };
 

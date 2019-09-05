@@ -1,5 +1,23 @@
 .app.app-container
-    menu
-    section.app.app-content
-
-
+    section.section.section-products
+    p(ng-if="$ctrl.message" ng-bind="$ctrl.message | translate").form-error
+        .row
+            .col
+                .card
+                    .card-header
+                        .card-title {{ 'notification_preferences.title_preferences' | translate }}
+                    .card-section
+                        form.form(ng-submit="$ctrl.form.submit()")
+                            div(ng-repeat="(type, subscribed) in $ctrl.form.values")
+                                .row
+                                    .col.col-md-11
+                                        p {{ type }}
+                                    .col.col-md-1
+                                        input(
+                                            type="checkbox"
+                                            ng-checked="subscribed"
+                                            ng-model="$ctrl.form.values[type]"
+                                        )
+                                hr
+                            div.push-right
+                                button.button.button-primary(type="submit") Verzenden
