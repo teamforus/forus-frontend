@@ -1036,6 +1036,8 @@ module.exports = {
                     title: 'Nieuw fonds is aangemaakt',
                     description: 'Notificatie wanneer een nieuw fonds is aangemaakt'
                 },
+            },
+            funds: {
                 balance_warning: {
                     title: 'Balans op voucher is niet toerijkend',
                     description: 'Notificatie wanneer een balans op een voucher niet toerijkend is'
@@ -1047,6 +1049,10 @@ module.exports = {
                 product_added: {
                     title: 'Een nieuw product is toegevoegd',
                     description: 'Notificatie wanneer een nieuw product is toegevoegd in de webshop',
+                },
+                new_fund_created: {
+                    title: 'Nieuw fonds is aangemaakt',
+                    description: 'Notificatie wanneer een nieuw fonds is aangemaakt'
                 },
                 product_bought: {
                     title: 'Product gekocht',
@@ -1087,7 +1093,7 @@ module.exports = {
                     description: 'Activatie e-mail'
                 }
             },
-            validation: {
+            validations: {
                 new_validation_request: {
                     title: 'Nieuw validatieverzoek',
                     description: 'Notificatie wanneer er een nieuw validatieverzoek is'
