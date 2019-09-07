@@ -33,6 +33,7 @@ let BlockProductsDirective = async function(
 
             ProductCategoryService.list({
                 parent_id: 'null',
+                used: 1,
             }).then(res => {
                 $scope.productCategories = res.data.data;
                 $scope.onReset($scope.filters);

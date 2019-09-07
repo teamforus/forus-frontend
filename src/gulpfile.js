@@ -527,9 +527,6 @@ let watchTask = () => {
             return _path + value;
         });
 
-        
-        _watch_src.forEach(src => console.log(src));
-
         gulp.watch(_watch_src).on('change', async () => {
             await scss_compiler(platform, _path + task.src, task);
         });
