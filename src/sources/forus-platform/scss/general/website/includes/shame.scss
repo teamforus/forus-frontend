@@ -5,9 +5,11 @@
     bottom: $offset;
     left: $offset;
 }
+.stretched {
+    width: 100%;
+}
 html {
     line-height: 1.2;
-    @include font-size-map($body-font-size);
     body {
         font-family: $bf;
         * {

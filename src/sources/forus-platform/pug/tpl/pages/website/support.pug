@@ -1,0 +1,136 @@
+section.header.header__faq
+    .container
+        h1 Veelgestelde vragen
+
+section.section.section-faq.wrapper
+    .section-splash
+    .section-title Veelgestelde vragen
+    .faq(collapse)
+        mixin faq_item(title, content, active)
+            .faq-item(class=active?'active':'' collapse-item)
+                .faq-item-header(collapse-header)
+                    span(i18n=title i18n-vars="{ fund: $ctrl.funds[0].name }")
+                    .faq-item-chevron-down.mdi.mdi-chevron-down
+                    .faq-item-chevron-up.mdi.mdi-chevron-up
+                .faq-item-content(collapse-conten,i18n=content i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")    
+
+        +faq_item(
+            'home.faq.faq_one',
+            'home.faq.one')
+
+        +faq_item(
+            'home.faq.faq_two',
+            'home.faq.two')
+
+        +faq_item(
+            'home.faq.faq_three',
+            'home.faq.three')
+
+        +faq_item(
+            'home.faq.faq_four',
+            'home.faq.four')
+
+        +faq_item(
+            'home.faq.faq_five',
+            'home.faq.five')
+
+        +faq_item(
+            'home.faq.faq_six',
+            'home.faq.six')
+
+        +faq_item(
+            'home.faq.faq_seven',
+            'home.faq.seven')
+            
+        +faq_item(
+            'home.faq.faq_nine',
+            'home.faq.nine')
+        +faq_item(
+            'home.faq.faq_ten',
+            'home.faq.ten')
+
+        +faq_item(
+            'home.faq.faq_eleven',
+            'home.faq.eleven')
+        +faq_item(
+            'home.faq.faq_twelve',
+            'home.faq.twelve') 
+        +faq_item(
+            'home.faq.faq_thirteen',
+            'home.faq.thirteen')
+        +faq_item(
+            'home.faq.faq_fourteen',
+            'home.faq.fourteen')
+        +faq_item(
+            'home.faq.faq_fifteen',
+            'home.faq.fifteen') 
+section
+    .container.text-center
+        h2 Support
+        p Je kan support aanvragen via chat, telefoon of door ons een e-mail sturen.
+        .row.flexed
+            .col-6.col-md-4.e-fb
+                .upper
+                    img(src="assets/img/icon-kindpakket.png") 
+                    p <b>Telefoon:</b>
+                    p +31 (0)6 36 26 12 31
+            .col-6.col-md-4.e-fb
+                .upper
+                    img(src="assets/img/icon-meedoen.png") 
+                    p <b>E-mail:</b>
+                    p support@forus.io
+            .col-6.col-md-4.e-fb
+                .upper
+                    img(src="assets/img/icon-kerstpakket.png") 
+                    p <b>WhatsApp</b>
+                    p +31 (0)6 36 26 12 31 
+
+section
+    .container
+        form#formContact(action="https://xlak8w5706.execute-api.eu-west-1.amazonaws.com/Prod" method="POST")
+            .row.cont_txt_a.cta-area.text-center
+                h2 Contactformulier
+                p Vul onderstaand contactformulier in en we nemen<br />zo snel mogelijk contact met je op.<br /><br />
+                .col-xs-12.col-md-6
+                    .form-group.required
+                        label.control-label NAAM
+                        .input-group
+                            input#nameInput.form-control(placeholder="Naam" name="name"  value="" onkeyup="this.setAttribute('value', this.value);" )
+                            a(href="#").clear_field
+                            span.help-block
+                .col-xs-12.col-md-6
+                    .form-group.required
+                        label.control-label EMAIL
+                        .input-group
+                            input#emailInput.form-control(placeholder="Email" name="email" value="" onkeyup="this.setAttribute('value', this.value);" )
+                            a(href="#").clear_field
+                            span.help-block
+                .col-xs-12.col-md-6
+                    .form-group
+                        label.control-label ORGANISATIE
+                        .input-group
+                            input#companyInput.form-control(placeholder="Organisatie" name="organization" value="" onkeyup="this.setAttribute('value', this.value);" )
+                            a(href="#").clear_field
+                            span.help-block
+                .col-xs-12.col-md-6
+                    .form-group
+                        label.control-label TELEFOONNUMMER
+                        .input-group
+                            input#telInput.form-control(placeholder="Telefoonnummer" name="phone" value="" onkeyup="this.setAttribute('value', this.value);" )
+                            a(href="#").clear_field
+                            span.help-block
+                .col-xs-12
+                    .form-group.required
+                        label.control-label BERICHT
+                        .input-group
+                            textarea#messageInput.form-control(placeholder="Bericht" name="message")
+
+                            a(href="#").clear_field
+                            span.help-block
+                .col-xs-12.info
+                    span(style="color: red") *
+                    | velden zijn verplicht
+                .col-xs-12
+                    .form-group.center-block
+                        p.thanks Bedankt! Er wordt zo snel mogelijk contact met u opgenomen.
+                        button#formSubmit.button-center.btn.main_button.g-recaptcha( data-sitekey="6LfA-JcUAAAAAC9SpgAr2ZmL4rFwjb83_U2MDcfQ" data-callback="onSubmitCFModal" data-badge="inline" type="button") Versturen

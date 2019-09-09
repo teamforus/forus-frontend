@@ -1,0 +1,65 @@
+.usp {
+    padding: 7.5% 0;
+    height: 100%;
+    &:before {
+        content: "";
+        position: absolute;
+        margin-top: -10px;
+        left: -40px;
+        height: 40px;
+        width: 100px;
+        background-repeat: no-repeat;
+    }
+    &__sp-1 {
+        &:before {
+            background-image: url($img_path + "/icon-facturatie.svg");
+        }       
+    }
+    &__sp-2 {
+        &:before {
+            background-image: url($img_path + "/icon-privacy.svg");
+        }       
+    }
+    &__sp-3 {
+        &:before {
+            background-image: url($img_path + "/icon-toegankelijkheid.svg");
+        }       
+    }
+    &__sp-4 {
+        &:before {
+            background-image: url($img_path + "/icon-economie.svg");
+        }       
+    }
+    &__sp-5 {
+        &:before {
+            background-image: url($img_path + "/icon-managementinformatie.svg");
+        }       
+    }
+    &__sp-6 {
+        &:before {
+            background-image: url($img_path + "/icon-huisstijl.svg");
+        }       
+    }
+    &__sp-7 {
+        &:before {
+            background-image: url($img_path + "/icon-support.svg");
+        }       
+    }
+    &__sp-8 {
+        &:before {
+            background-image: url($img_path + "/icon-samenwerking.svg");
+        }       
+    }
+}
+.phone-m {
+    width: 170px;
+    padding: 5%;
+    margin: 0 auto;
+    display: block;
+}
+.cont-p {
+    padding: 35px 25px 100px;
+}
+.cont-b {
+    padding: 35px 25px 35px; 
+}

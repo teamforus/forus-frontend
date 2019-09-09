@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="ICONS">
+    </g>
+    <g transform="matrix(0.0423223,0,0,0.0413756,1.0041,27.0044)">
+        <g id="LOGOS">
+            <use id="gemeente-westerkwartier" xlink:href="#_Image1" x="0" y="0" width="1843px" height="619px" transform="matrix(23.9351,0,0,23.8077,0,0)"/>
+        </g>
+    </g>
+    <defs>
+        <image id="_Image1" width="77px" height="26px" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE0AAAAaCAYAAADygtH/AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACaUlEQVRYhe2YsW4UMRCG/z0FISUKMlRIoDSJ0l2DoEjDbWc6F34BlLwEPEHeIUVESbPFlu6yVVokKJAQHSCliC6HooDSbBpbGjn22Htc7m6P/M16dzzj8Xdjr/cAotPPRQtGnH10cjGVrY8qXIMC2Ru2hd+Rs1MoTSmybX1VAYQriILh7KEqcnA4W59VcEtub9hy9vbd+XgqAH0HNwgtRacE0AGAJ3eS1ZJrAIT3ME6uf1OKMYCnXXz7XmWAhQbkg/P7NaU4A/Asx3cVgAEEGpAGF7M3pfgF4DnnuyrAAA8aEAeTAtqU4ieA3YhtZYABAWjAbUC5S7cpxTcAL71nKwUsqdQXQkyjk4sR9xWglZzpF8Ks46UUrDQnrsK4RJtSNP9SYS62VrINtRctFlpMdCKzTSeuqjZLs8w7Q9NKXnv3ncFVtSm0kj8I/LdenFN3tX1breRj1w6EXJ/nD9np19NKXgLYCNmWqRLuWtmVppWcIAJs0Zr3iyULmlbyN4BHMXuqyrSSwk8mZ6Lz3DPpWKn5JKFpJf8C2IzZM5flOJQcvU+9Hf09i4tjr39y++aO5a5r3Ey1klcAHsbsU+xjxwD2bXuilfxOk6EbfSg2B9X1Z14WnSo3AvYVkKi0qjbrOYFzk6hqc0DaoqrNth2noJNm8ili9lAuFuCWvR5y/gENAXwN+SSXZ8Z+lQPuAwBD4hlie2GX5hut5GsL9FbVkKPHR+tHYxivwgyAB7Z9ZP3fE/unQIxd6l/V5guAQzvmjn0+ATocOVJw7o8cAf1PUFLqDCK2d8wmnX5oqsl2OdPci2hZ/nFYhG4A+ARfZLTxlSMAAAAASUVORK5CYII="/>
+    </defs>
+</svg>

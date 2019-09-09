@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g id="cadeau" transform="matrix(0.567013,0,0,0.567013,-537.406,-461.885)">
+        <g transform="matrix(1.13739,0,0,0.994739,-139.835,4.53952)">
+            <rect x="1005.93" y="858.717" width="24.096" height="80.829" style="fill:none;stroke:rgb(255,75,153);stroke-width:3.3px;"/>
+        </g>
+        <rect x="979.312" y="886.3" width="77.119" height="52.893" style="fill:none;stroke:rgb(255,75,153);stroke-width:3.53px;"/>
+        <rect x="974.08" y="858.603" width="88.391" height="27.194" style="fill:none;stroke:rgb(255,75,153);stroke-width:3.53px;"/>
+        <path d="M1017.8,858.717C1017.8,858.717 999.168,818.246 985.079,835.071C975.965,845.953 982.112,860.011 1017.8,858.717Z" style="fill:none;stroke:rgb(255,75,153);stroke-width:3.53px;"/>
+        <g transform="matrix(-0.948821,0,0,1,1983.5,0)">
+            <path d="M1017.8,858.717C1017.8,858.717 999.168,818.246 985.079,835.071C975.965,845.953 982.112,860.011 1017.8,858.717Z" style="fill:none;stroke:rgb(255,75,153);stroke-width:3.62px;"/>
+        </g>
+    </g>
+</svg>

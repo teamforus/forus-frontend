@@ -1,17 +1,56 @@
 .pull-right { float: right; }
 .pull-left { float: left; }
+.pull-down { margin-top: 50px; }
+
+.content-left {justify-content: left;}
+.cleared { clear: both; }
 
 .text-right { text-align: right; }
 .text-center { text-align: center; }
 .text-left { text-align: left; }
 
+.e-fb {
+    justify-content: space-between;
+    flex-direction: column;
+    display: flex;
+}
+
+.upper {
+    svg {
+        height: 80px;
+        width: 80px;
+    }
+}
+
+.upper-a {
+    svg {
+        height: 40px;
+        width: 40px;
+    }
+}
+
+.grad-var {
+    align-content: center;
+    align-self: center;
+    vertical-align: middle;
+    padding: 30px;
+    border-radius: 10px;
+}
+
 .text-strike { text-decoration: line-through; }
 .text-muted { color: #a1a1a1; }
 
 .hidden { display: none; }
-
+.gradient {background: $forus-gradient; color: $forus-white;}
 .blue {color: $forus-demi-blue;}
 
 .cf { @include cf(); }
 
 .slideRight { @include slideRight()}
+
+.g_maps {
+    border: none;
+    width: 100%;
+    height: 400px;
+    align-self: center;
+}

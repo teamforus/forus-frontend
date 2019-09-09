@@ -10,8 +10,12 @@ app.controller('BaseController', require('./controllers/landing/BaseController')
 // Components
 app.component('homeComponent', require('./components/website/HomeComponent'));
 app.component('kindpakketComponent', require('./components/website/KindpakketComponent'));
+app.component('meedoenComponent', require('./components/website/MeedoenComponent'));
+app.component('kerstpakketComponent', require('./components/website/KerstpakketComponent'));
+app.component('platformComponent', require('./components/website/PlatformComponent'));
 app.component('meComponent', require('./components/website/MeComponent'));
 app.component('contactComponent', require('./components/website/ContactComponent'));
+app.component('supportComponent', require('./components/website/SupportComponent'));
 app.component('storyComponent', require('./components/website/StoryComponent'));
 app.component('futureComponent', require('./components/website/FutureComponent'));
 app.component('historyComponent', require('./components/website/HistoryComponent'));

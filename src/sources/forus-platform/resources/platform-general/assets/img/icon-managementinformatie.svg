@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(1.45562,0,0,1.45562,-1660.86,-3264.06)">
+        <g transform="matrix(0.686991,-0,-0,0.686991,1140.99,2242.38)">
+            <use xlink:href="#_Image1" x="57.594" y="27.391" width="14.132px" height="48.05px" transform="matrix(0.942122,0,0,0.980618,0,0)"/>
+        </g>
+        <g transform="matrix(1.01409,0,0,1,-16.8192,0.123535)">
+            <path d="M1145.8,2293.62L1191.76,2293.62" style="fill:none;stroke:white;stroke-width:1.36px;"/>
+        </g>
+        <g transform="matrix(1,0,0,0.745372,0,581.638)">
+            <path d="M1157.14,2282.26C1157.14,2282.14 1157.06,2282.03 1156.97,2282.03L1148.85,2282.03C1148.76,2282.03 1148.68,2282.14 1148.68,2282.26L1148.68,2296.7C1148.68,2296.83 1148.76,2296.93 1148.85,2296.93L1156.97,2296.93C1157.06,2296.93 1157.14,2296.83 1157.14,2296.7L1157.14,2282.26Z" style="fill:none;stroke:white;stroke-width:1.56px;"/>
+        </g>
+        <g transform="matrix(1,0,0,1.29674,15.527,-684.807)">
+            <path d="M1157.14,2282.17C1157.14,2282.09 1157.06,2282.03 1156.97,2282.03L1148.85,2282.03C1148.76,2282.03 1148.68,2282.09 1148.68,2282.17L1148.68,2296.8C1148.68,2296.87 1148.76,2296.93 1148.85,2296.93L1156.97,2296.93C1157.06,2296.93 1157.14,2296.87 1157.14,2296.8L1157.14,2282.17Z" style="fill:none;stroke:white;stroke-width:1.19px;"/>
+        </g>
+        <path d="M1154.08,2271.1L1171.77,2253.6L1176.02,2257.45L1188.27,2245.66L1188.35,2251.7L1188.27,2245.66L1181.96,2245.67" style="fill:none;stroke:white;stroke-width:1.37px;"/>
+    </g>
+    <defs>
+        <image id="_Image1" width="15px" height="49px" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAxCAYAAAAFpvOXAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAApklEQVRIie3WMUoDURAG4O/tboSAVcADWHgCsQx4GO+zVxLS5gYeQUgngm/3TQqj2VJjJcwPw5spvpn2gYgYI2IfEe0HtY+I0QJeknHAFp5feH2jNqbGNH/2tTHFeb655ukBbAds4GOmzmdcF7gulr1XX9l0/pDEiRMnTpw4ceLE/xAPOOD2qmfVo1AKxektdB19oWusV9/2MGCH+8e7Xx/e4fL/9hHb6s/UAa+UQQAAAABJRU5ErkJggg=="/>
+    </defs>
+</svg>

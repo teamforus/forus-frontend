@@ -5,7 +5,6 @@
     flex-wrap: wrap;
 }
 .contributor {
-    @include font-size-map($h4-font-size);
   /*outline: 5px dotted green;*/
   width: 200px;
   height: 200px;
@@ -20,7 +19,6 @@
     }
 }
 .commit-count {
- @include font-size-map($h5-font-size);
  display:inline-block;
  float: left;
  clear: both;

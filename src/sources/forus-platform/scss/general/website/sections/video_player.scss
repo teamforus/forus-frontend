@@ -1,167 +1,84 @@
-.section-video-player {
-    .container {
-        text-align: center;
-    }
-    .nav{
-        text-align: center;
+.nav{
+    text-align: center;
+    border: 0;
+    display: table;
+    li{
+        display: table-cell;
+        vertical-align: top;
+        float: inherit;
         border: 0;
-        margin-bottom: 40px;
-        display: table;
-        li{
-            width: 25% ;
-            display: table-cell;
-            vertical-align: top;
-            float: inherit;
-            border: 0;
+        padding: 0;
+        position: relative;
+        &:after{
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            bottom: 0;
+            left: 0;
+            border-bottom: 3px solid transparent;
+            @include transition();
+        }
+        a{
+            line-height: 25px;
+            width: 100%;
+            border-radius: 4px 4px 0 0;
+            color: #222530;
             padding: 0;
-            position: relative;
-            &:after{
-                content: '';
-                position: absolute;
-                width: 0;
-                height: 0;
-                bottom: 0;
-                left: 0;
-                border-bottom: 3px solid transparent;
+            & > *{
                 @include transition();
             }
-            a{
-                line-height: 25px;
-                width: 100%;
-                text-align: left;
-                
-                font-weight: 500;
-                font-style: normal;
-                font-stretch: normal;
-                letter-spacing: normal;
-                border-radius: 4px 4px 0 0;
-                color: #222530;
-                padding: 0;
-                & > *{
-                    @include transition();
-                }
-            }
-            &:hover, &:focus, &:active, &.active{
-                border-color: transparent!important;
-                background-color: #fafbfd;
-            }
-            &>a:active, &>a:focus, &>a:hover{
-                border-color: transparent!important;
+        }
+        &:hover, &:focus, &:active, &.active{
+            border-color: transparent!important;
+            background-color: #fafbfd;
+        }
+        &>a:active, &>a:focus, &>a:hover{
+            border-color: transparent!important;
+            background-color: transparent!important;
+        }
+        &.active{
+            &>a, &>a:focus, &>a:hover{
                 background-color: transparent!important;
             }
-            &.active{
-                &>a, &>a:focus, &>a:hover{
-                    background-color: transparent!important;
-                }
-            }
-            &.active{
-                &:after{
-                    @include transition();
-                    border-bottom: 3px solid $tc;
-                    width: 100%;
-                }
+        }
+        &.active{
+            &:after{
                 @include transition();
-                a{
-                    
-                    border: 0;
-                }
+                border-bottom: 3px solid $tc;
+                width: 100%;
+            }
+            @include transition();
+            a{
+                
+                border: 0;
             }
         }
     }
-    .tab-content{
-        margin: 40px 0;
-        .tab-pane{
-            .tab_video {
-                video{
-                    width: 100%;
-                }
+}
+.tab-content{
+    margin: 40px 0;
+    .tab-pane{
+        .tab_video {
+            video{
+                width: 100%;
             }
         }
     }
-    .play-buttons {
-        margin-bottom: 15px;
-        .roles{
-            box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.09);
-            background-color: #ffffff;
-            .role{
-                position: relative;
-                padding: 40px 30px;
-                .role_content{
-                    text-align: left;
-                    .title{
-                        display: block;
-                        
-                        font-weight: 500;
-                        font-style: normal;
-                        font-stretch: normal;
-                        line-height: 1.25;
-                        letter-spacing: normal;
-                        color: #000000;
-                        margin-bottom: 7px;
-                        position: relative;
-                    }
-                    .text{
-                        display: block;
-                        
-                        font-weight: 500;
-                        font-style: normal;
-                        font-stretch: normal;
-                        line-height: 1.56;
-                        letter-spacing: normal;
-                        color: #191a1c;
-                    }
-                }
-
-                &:nth-child(n + 1){
-                    .role_content{
-                        .play_btn_link{
-                            color: #1e90ff;
-                            svg{
-                                path,g{
-                                    fill: #1e90ff;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                &:nth-child(n + 2){
-                    .role_content{
-                        .play_btn_link {
-                            color: #9013fe;
-                            svg{
-                                path, g{
-                                    fill: #9013fe;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                &:nth-child(n + 3){
-                    .role_content {
-                        .play_btn_link {
-                            color: #ff7815;
-                            svg{
-                                path,g{
-                                    fill: #ff7815;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                &:nth-child(n + 4){
-                    .role_content {
-                        .play_btn_link {
-                            color: #ffb900;
-                            svg{
-                                path,g{
-                                    fill: #ffb900;
-                                }
-                            }
-                        }
-                    }
+}
+.play-buttons {
+    .roles{
+        box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.09);
+        background-color: #ffffff;
+        .role{
+            position: relative;
+            padding: 40px 30px;
+            .role_content{
+                text-align: left;
+                .title{
+                    display: block;
+                    margin-bottom: 7px;
+                    position: relative;
                 }
             }
         }

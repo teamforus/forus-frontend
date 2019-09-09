@@ -1,52 +1,96 @@
 // home header
-.Jumbotron {
-    padding: 150px 5vw;
-    position: relative;
-    overflow: hidden;
-    text-align: left;
-    &.container{
-        width: 100%;
-        max-width: 1440px;
+section {
+    &.header {
+        max-height: 400px;
+        height: 40vh;
+        position: relative;
+        background: rgba(0, 0, 0, 0.2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: $forus-white;
+        margin: 0;
+        &:after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            z-index: -1;
+            width: 100%;
+            height: 40vh;
+            max-height: 400px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+        }
+        &__home {        
+            max-height: 600px;
+            height: 60vh;
+            &:after {
+                background-image: url($img_path + "/header-home.jpg");
+                height: 60vh;
+                max-height: 600px;
+            }
+        }
+        &__me {
+            &:after {
+                background-image: url($img_path + "/header-me.jpg");
+            }
+        }
+        &__contact {
+            &:after {
+                background-image: url($img_path + "/header-contact.jpg");
+            }
+        }
+        &__about {
+            &:after {
+                background-image: url($img_path + "/header-about.jpg");
+            }
+        }
+        &__product_one {
+            &:after {
+                background-image: url($img_path + "/header-product-kindpakket.jpg");
+            }
+        }
+        &__product_two {
+            &:after {
+                background-image: url($img_path + "/header-product-meedoen.jpg");
+            }
+        }
+        &__product_three {
+            &:after {
+                background-image: url($img_path + "/header-product-kerstpakket.jpg");
+            }
+        }
+        &__cs-story {
+            &:after {
+                background-image: url($img_path + "/header-klantverhaal-zuidhorn.jpg");
+            }
+        }
+        &__platform {
+            &:after {
+                background-image: url($img_path + "/header-platform.jpg");
+            }
+        }
+        &__faq {
+            &:after {
+                background-image: url($img_path + "/header-platform.jpg");
+            }
+        }
+        &__stats-a {
+            background: rgba(53, 120, 255, 0.8);
+            &:after {
+                background-image: url($img_path + "/header-stats.jpg");
+            }
+            svg {
+                height: 80px;
+                width: 80px;
+            }
+        }
     }
-    &:before{
-        content: '';
-        z-index: -1;
-        position: absolute;
-        left: 0px;
-        top: -5%;
-        width: 100%;
-        height: 100%;
-        background: url($img_path + "/header-fig-b.jpg")no-repeat top center;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-    }
-    h1 {
-        color: #FFF;
-        font-weight: 600;
-        text-shadow: 1px 5px 10px black;
-        margin: 0 auto;
-    }
-    h3 {
-        color: #fff;
-        text-shadow: 1px 5px 10px black;
-        font-weight: 400;
-    }
-}
-.CS_story {
-    align-items: center;
-    background: url(../img/kp_launch2.jpg) no-repeat center center;
-    background-size: cover;
-    height: 50vh;
-    min-height: 300px;
-    width: 100%;
-    display: flex;
-    text-align: center;
-    .column {
-        max-width: 700px;
-        margin: 0 auto;
-        background-color: #fff;
-        padding: 20px;
-    }
-}
+} 
