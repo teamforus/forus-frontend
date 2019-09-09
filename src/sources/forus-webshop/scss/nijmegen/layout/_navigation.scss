@@ -1,4 +1,6 @@
-// check items in navbar
+.nav-var {
+    position: fixed !important;
+}
 .block {
     &.block-navbar {
         background-color: #a80a2d;
@@ -119,14 +121,24 @@
                 transition: padding .5s ease-in-out;
 
                 .auth-user {
-                    padding: 15px 0;
-                    padding-right: 50px;
+                    grid-template-columns: auto auto;
+                    grid-template-rows: 10px;
+                    grid-gap:10px;
                     padding-left: 20px;
+                    
 
                     .auth-user-email {
                         color: #e4b3be;
                         line-height: 25px;
                         display: block;
+                    }
+                    .mdi-settings {
+                        margin-top:10px;
+                    }
+                    .mdi-settings:before {
+                        content: "\F493";
+                        font-size: 26px;
+                        color: #fff;
                     }
                     
                     .auth-user-type {

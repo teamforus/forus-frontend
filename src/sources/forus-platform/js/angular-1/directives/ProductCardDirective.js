@@ -1,7 +1,6 @@
 let ProductCardDirective = function(
     $scope, 
     $state,
-    $filter,
     FundService,
     ProductService,
     ModalService
@@ -18,8 +17,8 @@ let ProductCardDirective = function(
 
         ModalService.open('modalNotification', {
             type: 'confirm',
-            title: $filter('i18n')('products.confirm_delete.title'),
-            description: $filter('i18n')('products.confirm_delete.description'),
+            title: 'products.confirm_delete.title',
+            description: 'products.confirm_delete.description',
             icon: 'product-create',
             confirm: () => {
                 ProductService.destroy(
@@ -44,7 +43,6 @@ module.exports = () => {
         controller: [
             '$scope',
             '$state',
-            '$filter',
             'FundService',
             'ProductService',
             'ModalService',

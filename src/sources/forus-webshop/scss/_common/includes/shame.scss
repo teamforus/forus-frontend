@@ -1,3 +1,7 @@
+.nav-var {
+    position: absolute !important;
+}
+
 html {
     -webkit-overflow-scrolling: touch;
 }
@@ -25,7 +29,7 @@ a[ui-sref] {
 body {
     background-color: $bg;
     background: $bg_2;
-
+    background-size: cover;
     display: flex;
     min-height: 100vh;
     flex-direction: column;

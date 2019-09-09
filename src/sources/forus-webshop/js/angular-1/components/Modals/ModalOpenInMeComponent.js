@@ -49,9 +49,9 @@ let ModalOpenInMeComponent = function(
 
                 ModalService.open('modalNotification', {
                     type: 'action-result',
-                    title: $filter('i18n')('popup_auth.labels.join'),
-                    description: $filter('i18n')('popup_auth.notifications.confirmation'),
-                    confirmBtnText: $filter('i18n')('popup_auth.notifications.confirmation')
+                    title: 'popup_auth.labels.join',
+                    description: 'popup_auth.notifications.confirmation',
+                    confirmBtnText: 'popup_auth.notifications.confirmation'
                 });
 
             }, (res) => {

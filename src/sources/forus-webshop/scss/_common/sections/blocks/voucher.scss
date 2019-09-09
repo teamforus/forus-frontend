@@ -1,7 +1,6 @@
 .block {
     &.block-voucher {
         position: relative;
-        z-index: 1;
         display: flex;
 
         .base-card {
@@ -281,7 +280,25 @@
 
             &.base-card-voucher {
                 width: 62%;
-
+                .block-qr-code {
+                    width: 100%;
+                    padding-bottom: 20px;
+            
+                    .qr_code {
+                        width: 150px;
+                        height: 150px;
+                        padding: 0px;
+                        background: unset;
+                        margin: auto;
+                        border-radius: 0px;
+                        box-shadow: unset;
+            
+                        img {
+                            display: block;
+                            width: 100%;
+                        }
+                    }
+                }
                 .card-body {
                     .card-title {
                         font: 600 16px $bf;
@@ -499,7 +516,15 @@
                 &.base-card-voucher {
                     margin: 0 0 30px;
                     margin-left: 0;
-
+                    @media screen and (max-width: 500px) {
+                        .block-qr-code {
+                            padding-bottom: 5px;
+                            .qr_code {
+                                width: 90px;
+                                height: 90px;
+                            }
+                        }
+                    }
                     .card-body {
                         padding: 0;
                         flex-direction: row;

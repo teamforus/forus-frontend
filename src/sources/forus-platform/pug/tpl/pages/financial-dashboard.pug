@@ -68,14 +68,17 @@
                         .chart-control
                             .chart-label(ng-bind="'financial_dashboard.labels.total' | translate")
                             .chart-value
-                                .chart-value_value(ng-bind="$ctrl.fund.budget.left | currency_format")
+                                .chart-value_value(ng-bind="($ctrl.fund.budget.left - $ctrl.chartData.response.service_costs.total) | currency_format")
                                 .chart-value_label(i18n="financial_dashboard.labels.spend")
                                 .chart-value_value_b(ng-bind="$ctrl.fund.budget.total | currency_format")
 
                     .card: .card-section
                         .chart-control
-                            .chart-label(i18n="financial_dashboard.labels.used")
-                            radial-chart(total="$ctrl.fund.budget.total" value="$ctrl.fund.budget.used")
+                            .chart-label(i18n="financial_dashboard.labels.service_costs")
+                            .chart-value
+                                .chart-value_value(ng-bind="$ctrl.chartData.response.service_costs.total | currency_format")
+                                .chart-value_label(i18n="financial_dashboard.labels.transaction_costs")
+                                .chart-value_value_b(ng-bind="$ctrl.chartData.response.service_costs.transaction_costs | currency_format")
 
                     .card: .card-section
                         .chart-control

@@ -111,7 +111,7 @@
                         .card-block.card-block-login(ng-show="$ctrl.showLoginBlock")
                             .login-title(translate="sign_up.login.title")
                             
-                            .login-qrcode: .block.block-auth-qr-code: .qr_code#login_auth_qrcode
+                            .login-qrcode: qr-code(ng-if="$ctrl.authToken" qr-value="$ctrl.authToken" qr-type="auth_token")
                             
                             .login-description(translate="sign_up.login.qr_description")
                             .login-actions
@@ -248,9 +248,8 @@
             .card
                 +card_header(6)
 
-                .card-section.card-section-primary: .block.block-auth-qr-code
-                    .qr_code#platform_auth_qrcode
-                    .qr_code-desc(translate="sign_up.qr_code.description")
+                .card-section.card-section-primary
+                    qr-code(ng-if="$ctrl.authToken" qr-value="$ctrl.authToken" qr-type="auth_token" qr-description="{{ 'sign_up.qr_code.description' | translate }}")
 
         // Step 7: Funds available
         .step-item(ng-show="$ctrl.step == 7")

@@ -18,5 +18,9 @@ module.exports = {
     noordoostpolder: {
         logoExtension: '.svg',
         maxProductCount: 20
+    },
+    kerstpakket: {
+        logoExtension: '.svg',
+        maxProductCount: 2
     }
 };
