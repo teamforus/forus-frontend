@@ -62,7 +62,6 @@
     "progressbar.js": "^1.0.1",
     "qrcodejs": "^1.0.0",
     "ui-cropper": "^1.0.7",
-    "ui-select": "^0.19.8",
     "underscore": "^1.9.1",
     "underscore.string": "^3.3.5"
   }
