@@ -1,6 +1,6 @@
 .section {
     &.section-footer {
-        background-color: $fd;
+        background-color: $lb;
         position: relative;
     }
     @media screen and (max-width: 1000px) {
@@ -17,23 +17,23 @@
 .block {
     &.block-footer {
         .footer-label {
-            color: #fff;
+            color: $color_primary;
         }
         
         .footer-schedule {
             .schedule-label,
             .schedule-value {
-                color: #fff;
+                color: $color_primary;
             }
         }
 
         .footer-nav {
             .footer-nav-item {
                 a {
-                    color: #fff;
+                    color: $color_primary;
 
                     &:hover {
-                        color: #b9ca2f;
+                        color: $tc-var;
                     }
                 }
             }
@@ -43,15 +43,15 @@
         border-top: 1px solid #666666;
         
         .copyrights {
-            color: #fff;
+            color: $color_primary;
         }
 
         .links {
             a {
-                color: #fff;
+                color: $color_primary;
 
                 &:hover {
-                    color: #b9ca2f;
+                    color: $tc-var;
                 }
             }
         }

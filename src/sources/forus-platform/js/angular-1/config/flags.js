@@ -15,7 +15,7 @@ module.exports = {
         logoExtension: '.svg',
         maxProductCount: 20
     },
-    noordoostpolder: {
+    berkelland: {
         logoExtension: '.svg',
         maxProductCount: 20
     },

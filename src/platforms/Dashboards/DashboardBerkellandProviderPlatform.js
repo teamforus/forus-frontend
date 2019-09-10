@@ -1,8 +1,8 @@
 const platform = require('./_DashboardBasePlatform').clone();
-const destPath = '../dist/forus-platform.sponsor.noordoostpolder';
+const destPath = '../dist/forus-platform.provider.berkelland';
 
 // change platform name
-platform.setName('dashboard_noordoostpolder_sponsor');
+platform.setName('dashboard_berkelland_provider');
 
 // tweaking output and cleaned paths config
 platform.setDest(`${destPath}`);
@@ -14,20 +14,20 @@ platform.setCleanPath([
 
 // assets configs
 platform.copyAsset("resources/_platform-common/**/*", "./");
-platform.copyAsset("resources/platform-noordoostpolder/**/*", "./");
+platform.copyAsset("resources/platform-berkelland/**/*", "./");
 
 // tweak scss configs
 platform.editTask('scss', (task) => {
-    task.src = "noordoostpolder/style-dashboard-noordoostpolder.scss";
+    task.src = "berkelland/style-dashboard-berkelland.scss";
     task.watch = [
         "_common/**/*.scss",
-        "noordoostpolder/**/*.scss"
+        "berkelland/**/*.scss"
     ];
 
     return task
 });
 
 // change server port
-platform.serve(3550, '/');
+platform.serve(4060, '/');
 
 module.exports = platform;

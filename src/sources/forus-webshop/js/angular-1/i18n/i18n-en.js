@@ -27,7 +27,7 @@ module.exports = {
         nijmegen: 'Nijmegen',
         westerkwartier: 'Westerkwartier',
         forus: 'Forus platform & ',
-        noordoostpolder: 'Noordoostpolder',
+        berkelland: 'berkelland',
     },
     languages: {
         en: 'English',

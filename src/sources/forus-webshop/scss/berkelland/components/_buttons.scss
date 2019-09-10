@@ -4,21 +4,21 @@
     }
     font: 700 16px/1.5em $bf;
     border-radius: 0;
-    text-transform: uppercase;
+    text-transform: lowercase;
     &.button-default {
-        background-color: none;
+        background-color: $color_primary;
         border: none;
-        color: #de286b;
+        color: $tc-var;
 
         .mdi {
-            color: #de286b;
+            color: $tc-var;
         }
 
         &:hover {
-            background-color: transparent;
+            background-color: $bg;
             border-color: transparent;
             border: 0;
-            color: #535252;
+            color:  $tc;
             text-decoration: underline;
 
             .mdi {
@@ -27,8 +27,8 @@
         }
     }
     &.button-primary {
-        color: $tc;
-        background: $bg;
+        color: $tc-var;
+        background: $color-default;
         text-shadow: none;
         border: 1px solid #53525246;
         &:hover {

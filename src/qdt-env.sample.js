@@ -126,10 +126,10 @@ module.exports = (core) => {
         return platform;
     });
 
-    core.editPlatform('dashboard_noordoostpolder_provider', (platform) => {
+    core.editPlatform('dashboard_berkelland_provider', (platform) => {
         platform.setEnvData({
             api_url: api_url,
-            client_key: 'noordoostpolder',
+            client_key: 'berkelland',
             panel_type: 'provider',
             chat_id: false
         });
@@ -137,10 +137,10 @@ module.exports = (core) => {
         return platform;
     });
 
-    core.editPlatform('dashboard_noordoostpolder_sponsor', (platform) => {
+    core.editPlatform('dashboard_berkelland_sponsor', (platform) => {
         platform.setEnvData({
             api_url: api_url,
-            client_key: 'noordoostpolder',
+            client_key: 'berkelland',
             panel_type: 'sponsor',
             chat_id: false
         });
@@ -199,10 +199,10 @@ module.exports = (core) => {
         return platform;
     });
 
-    core.editPlatform('webshop_noordoostpolder', (platform) => {
+    core.editPlatform('webshop_berkelland', (platform) => {
         platform.setEnvData({
             api_url: api_url,
-            client_key: 'noordoostpolder',
+            client_key: 'berkelland',
             client_type: 'webshop',
         });
 
