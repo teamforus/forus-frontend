@@ -100,6 +100,27 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('dashboard_kerstpakket_sponsor', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'kerstpakket',
+            panel_type: 'sponsor',
+            chat_id: false
+        });
+
+        return platform;
+    });
+        core.editPlatform('dashboard_kerstpakket_provider', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'kerstpakker',
+            panel_type: 'provider',
+            chat_id: false
+        });
+
+        return platform;
+    });
+
     core.editPlatform('dashboard_westerkwartier_sponsor', (platform) => {
         platform.setEnvData({
             api_url: api_url,

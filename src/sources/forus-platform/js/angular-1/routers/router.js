@@ -616,10 +616,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         url: '/validation-requests',
         component: 'validationRequestsComponent',
         resolve: {
-            validatorRequests: function(ValidatorRequestService) {
-                return repackResponse(
-                    ValidatorRequestService.list()
-                );
+            validatorRequests: function($transition$, ValidatorRequestService) {
+                return repackPagination(ValidatorRequestService.indexGroup());
             }
         }
     });

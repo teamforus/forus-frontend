@@ -76,6 +76,7 @@
 
             .section-splash {
                 position: absolute;
+                display: none;
                 left: 0;
                 width: 100%;
                 height: 400px;
@@ -89,6 +90,7 @@
 
             .section-sprite {
                 position: absolute;
+                display: none;
                 right: 0px;
                 width: 100%;
                 height: 180px;

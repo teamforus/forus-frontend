@@ -9,7 +9,6 @@ let OrganizationProvidersComponent = function(
     let $ctrl = this;
     let org = OrganizationService.active();
 
-
     $ctrl.filters = {
         show: false,
         values: {
