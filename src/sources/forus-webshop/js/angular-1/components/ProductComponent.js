@@ -27,6 +27,7 @@ let ProductComponent = function (
             ) && !voucher.parent;
         });
 
+        $ctrl.fundNames = $ctrl.product.funds.map(fund => fund.name).join(', ');
         $ctrl.isApplicable = vouchers.length > 0;
         $ctrl.product.description_html = $sce.trustAsHtml($ctrl.product.description_html);
     };

@@ -100,8 +100,6 @@ let CsvUploadDirective = function(
         csvParser.validateFile = function() {
             let invalidRows = csvParser.data.filter(row => {
                 let keys = Object.keys(row);
-
-                console.log(keys, $scope.recordTypeKeys);
                 return keys.filter((key) => $scope.recordTypeKeys.indexOf(key) == -1).length > 0;
             });
 

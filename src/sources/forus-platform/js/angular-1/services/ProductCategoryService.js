@@ -2,8 +2,12 @@ let ProductCategoryService = function(
     ApiRequest
 ) {
     return new (function() {
-        this.list = function() {
-            return ApiRequest.get('/platform/product-categories');
+        this.list = function(query = {}) {
+            return ApiRequest.get('/platform/product-categories', query);
+        };
+        
+        this.show = function(id, query = {}) {
+            return ApiRequest.get('/platform/product-categories/' + id, query);
         };
 
         this.listAll = function() {

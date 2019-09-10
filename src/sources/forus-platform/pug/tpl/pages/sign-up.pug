@@ -1,5 +1,5 @@
 .app.app-container: .block.block-sign-up-steps
-    // Steps header
+    //- Steps header
     .sign-up-header: .steps
         mixin step_item(step)
             .step-item(ng-class="{active: $ctrl.step == " + step + ", done: $ctrl.step > " + step + "}")
@@ -14,13 +14,13 @@
             +step_item(i)
 
     .sign-up-content
-        // Step header
+        //- Step header
         mixin step_header(step)
             .step-header
                 .step-header-title(translate="sign_up.header.top_title_step_" + step)
                 .step-header-subtitle(translate="sign_up.header.top_subtitle_step_" + step)
 
-        // Step card header
+        //- Step card header
         mixin card_header(step)
             .card-header
                 .card-title(translate="sign_up.header.title_step_" + step)
@@ -28,7 +28,7 @@
                 - if(step == 1)
                     img.card-header-image(ng-src="./assets/img/sign-up/scan-qr.png")
                 
-        // Step 1: Download the app
+        //- Step 1: Download the app
         .step-item(ng-show="$ctrl.step == 1")
             .card
                 +card_header(1)
@@ -76,7 +76,7 @@
             .step-footer(ng-if="$ctrl.has_app")
                 a(translate="sign_up.buttons.go_step_2" ng-click="$ctrl.skipToStep(2)").button.button-primary
 
-        // Step 2: Personal info
+        //- Step 2: Personal info
         .step-item(ng-show="$ctrl.step == 2"): form(ng-submit="$ctrl.next()").form
             .card
                 +card_header(2)
@@ -121,7 +121,7 @@
                 a(translate="sign_up.buttons.cancel" ng-click="$ctrl.back()").button.button-default
                 button(type="submit" translate="sign_up.buttons.next").button.button-primary
 
-        // Step 3: Organization info
+        //- Step 3: Organization info
         .step-item(ng-show="$ctrl.step == 3"): form(ng-submit="$ctrl.next()").form
             .card
                 +card_header(3)
@@ -166,10 +166,13 @@
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.website" ng-bind="error")
 
                         .card-section: .pseudo-wrapper
-                            product-categories-control(
-                                ng-model="$ctrl.organizationForm.values.product_categories"
-                                options="$ctrl.productCategories")
-
+                            .form-group
+                                .form-label(translate="organization_edit.labels.business_type")
+                                .form-offset: select-control(
+                                    ng-model="$ctrl.businessType" 
+                                    ng-change="$ctrl.chageBusinessType(value)"
+                                    options="$ctrl.businessTypes"
+                                    placeholder="Select business type...")
                             .form-group
                                 label(translate="organization_edit.labels.kvk").form-label
                                 input(ng-model="$ctrl.organizationForm.values.kvk" type="text" placeholder="KvK-nummer").form-control
@@ -208,7 +211,7 @@
                 a(translate="sign_up.buttons.cancel" ng-click="$ctrl.back()" ng-if="!$ctrl.signedIn").button.button-default
                 a(translate="sign_up.buttons.next" ng-click="$ctrl.next()").button.button-primary
 
-        // Step 5: Authenticate device
+        //- Step 5: Authenticate device
         .step-item(ng-show="$ctrl.step == 5")
             +step_header(5)
 
@@ -241,7 +244,7 @@
                     a(ng-click="$ctrl.skipToStep(7)" translate="sign_up.buttons.skip").button.button-default
                     button(ng-click="$ctrl.next()" translate="sign_up.buttons.next").button.button-primary
 
-        // Step 6: SignIn through QrCode
+        //- Step 6: SignIn through QrCode
         .step-item(ng-show="$ctrl.step == 6")
             +step_header(6)
 
@@ -251,7 +254,7 @@
                 .card-section.card-section-primary
                     qr-code(ng-if="$ctrl.authToken" qr-value="$ctrl.authToken" qr-type="auth_token" qr-description="{{ 'sign_up.qr_code.description' | translate }}")
 
-        // Step 7: Funds available
+        //- Step 7: Funds available
         .step-item(ng-show="$ctrl.step == 7")
             .card
                 +card_header(7)
@@ -268,7 +271,7 @@
 
             .step-footer: a(ng-click="$ctrl.next()" translate="sign_up.buttons.next").button.button-primary
 
-        // Mobile device warning
+        //- Mobile device warning
         .hidden-lg.hidden-md.open-pc-section: .section-inner
             .img-block: img(src="./assets/img/sign-up/user-mobile.png")
             .title(translate="sign_up.open_pc.title")

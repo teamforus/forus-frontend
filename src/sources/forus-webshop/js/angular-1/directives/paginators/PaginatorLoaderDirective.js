@@ -6,7 +6,11 @@ let PaginatorDirective = function(
     let filterTimeout;
     let initialized;
 
-    let onInit = () => {};
+    let onInit = () => {
+        if (!Array.isArray($scope.filtersTimeoutAttr)) {
+            $scope.filtersTimeoutAttr = [];
+        }
+    };
 
     $scope.loadMore = () => {
         let query = {};
@@ -45,16 +49,20 @@ let PaginatorDirective = function(
         }
     };
 
-    $scope.$watch('filters', () => {
+    $scope.$watch('filters', (filters, filtersBefore) => {
         if (!initialized) {
             return initialized = true;
         }
 
         $timeout.cancel(filterTimeout);
+        
+        let fetchAhead = $scope.filtersTimeoutAttr.filter((attr) => {
+            return $scope.filters[attr] != $scope.filtersTimeoutAttr[attr];
+        }).length > 0;
 
         filterTimeout = $timeout(() => {
             $scope.reset();
-        }, 1500);
+        }, fetchAhead ? 0 : 1500);
     }, true);
 
     $scope.$watch('meta', (cur) => {
@@ -75,6 +83,7 @@ module.exports = () => {
         scope: {
             meta: '=',
             filters: '=',
+            filtersTimeoutAttr: '=',
             onReset: '&',
             onLoadMore: '&'
         },

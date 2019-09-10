@@ -1,26 +1,35 @@
-.product-categories-control
+.col.col-lg-9.col-md-12
     .form-group.form-group-inline
-        .form-label IK BIED AAN
+        .form-label Type
         .form-offset
-            .flex-row
-                div(ng-repeat="(type_key, type) in types").flex-item.flex-item-grow
-                    label(for="radio_product_type_{{ type_key }}" ng-click="filterOptions(type_key)").radio
-                        input(
-                            name="selectedType"
-                            type="radio"
-                            ng-checked="selectedType == type_key"
-                            id="radio_product_type_{{ type_key }}")
-                        .radio-label 
-                            .radio-circle
-                            span(translate="{{type}}")
+            label.radio.radio-inline
+                input(
+                    type="radio"
+                    ng-click="$ctrl.changeType('product')"
+                    ng-checked="$ctrl.productType == 'product'")
+                .radio-label 
+                    .radio-circle
+                    | Product
+            
+            label.radio.radio-inline
+                input(
+                    type="radio"
+                    ng-click="$ctrl.changeType('service')"
+                    ng-checked="$ctrl.productType == 'service'")
+                .radio-label 
+                    .radio-circle
+                    | Service
 
-            .control-frame(ng-if="filteredOptions.length == 0") Empty 
+    .form-group.form-group-inline(ng-repeat="(index, categories) in $ctrl.categoriesHierarchy  track by $index")
+        label.form-label(ng-if="index == 0" translate="product_edit.labels.category")
+        label.form-label(ng-if="index > 0") &nbsp;
 
-            .control-frame(ng-if="filteredOptions.length > 0")
-                .flex-row
-                    .flex-item.flex-item-2(ng-repeat="option in filteredOptions")
-                        label(ng-click="toggleOption(option.id)" for="product_{{ option.id }}").checkbox.checkbox-narrow
-                            input(type="checkbox" ng-checked="isChecked(option.id)")
-                            .checkbox-label 
-                                .checkbox-box: .mdi.mdi-check
-                                | {{ option.name }}
+        select(
+            ng-options="productCategory.id as productCategory.name for productCategory in categories" 
+            ng-model="$ctrl.categoriesValues[index]"
+            ng-change="$ctrl.changeCategory(index)"
+            placeholder="Status").form-control
+
+        .form-error(
+            ng-if="index == $ctrl.categoriesHierarchy.length - 1"
+            ng-repeat="error in errors" ng-bind="error")
