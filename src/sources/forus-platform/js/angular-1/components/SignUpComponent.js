@@ -34,7 +34,7 @@ let SignUpComponent = function(
     $ctrl.fundsAvailable = [];
     $ctrl.offices = [];
     $ctrl.sentSms = false;
-
+    
     let has_app = false;
     let orgMediaFile = false;
     let waitingSms = false;
@@ -117,10 +117,6 @@ let SignUpComponent = function(
                         localStorage.setItem('sign_up_form.organizationForm', JSON.stringify(
                             $ctrl.organizationForm.values
                         ));
-
-                        if (!$ctrl.organizationForm.values.product_categories) {
-                            $ctrl.organizationForm.values.product_categories = [];
-                        }
                     }
                 }
             }, 500);
@@ -149,6 +145,10 @@ let SignUpComponent = function(
         };
     })();
 
+    $ctrl.chageBusinessType = (value) => {
+        $ctrl.organizationForm.values.business_type_id = value.id;
+    };
+
     $ctrl.$onInit = function() {
         $ctrl.beforeInit();
 
@@ -168,7 +168,6 @@ let SignUpComponent = function(
 
         $ctrl.organizationForm = FormBuilderService.build({
             "website": 'https://',
-            "product_categories": []
         }, (form) => {
             if (form.values) {
                 if (form.values.iban != form.values.iban_confirmation) {
@@ -212,6 +211,10 @@ let SignUpComponent = function(
                 values
             );
         });
+
+        $ctrl.businessType = $ctrl.businessTypes.filter(
+            option => option.id == $ctrl.organizationForm.values.business_type_id
+        )[0] || null;
 
         progressStorage.init();
 
@@ -488,7 +491,7 @@ let SignUpComponent = function(
 
 module.exports = {
     bindings: {
-        productCategories: '<'
+        businessTypes: '<',
     },
     controller: [
         '$q',

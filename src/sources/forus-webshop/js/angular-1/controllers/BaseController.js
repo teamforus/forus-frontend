@@ -19,19 +19,22 @@ let BaseController = function(
         AuthService.identity().then((res) => {
             let auth_user = res.data;
             let count = 0;
+            let timer = (appConfigs.log_out_time || 15) * 60 * 1000;
 
-            // 15 minutes
-            BrowserService.detectInactivity(15 * 60 * 1000).then(() => {
-                if (AuthService.hasCredentials()) {
-                    IdentityService.deleteToken();
-                    $rootScope.signOut();
-
-                    ModalService.open('modalNotification', {
-                        type: 'info',
-                        description: 'modal.logout.description'
-                    });
-                }
-            }, () => {});
+            if (appConfigs.log_out_time !== false) {
+                // sign out after :timer of inactivity (default: 15min)
+                BrowserService.detectInactivity(timer).then(() => {
+                    if (AuthService.hasCredentials()) {
+                        IdentityService.deleteToken();
+                        $rootScope.signOut();
+    
+                        ModalService.open('modalNotification', {
+                            type: 'info',
+                            description: 'modal.logout.description'
+                        });
+                    }
+                }, () => {});
+            }
 
             RecordService.list().then((res) => {
                 auth_user.records = res.data;

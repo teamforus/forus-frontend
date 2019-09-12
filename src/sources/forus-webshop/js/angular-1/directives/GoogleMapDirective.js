@@ -20,15 +20,18 @@ let GoogleMapDirective = function(
         // var styledMap = new google.maps.StyledMapType($scope.style, {
         //    name: "Styled Map"
         // });
-        let styles = [
-            {
+        let styles = [{
                 featureType: 'poi.business',
-                stylers: [{ visibility: 'off' }]
+                stylers: [{
+                    visibility: 'off'
+                }]
             },
             {
                 featureType: 'transit',
                 elementType: 'labels.icon',
-                stylers: [{ visibility: 'off' }]
+                stylers: [{
+                    visibility: 'off'
+                }]
             }
         ];
 
@@ -70,11 +73,18 @@ let GoogleMapDirective = function(
             google.maps.event.addListener(marker, 'click', (function(marker, office) {
                 var description = [
                     'Adres: ' + (office.address || 'Geen data'),
+                    'Business type: ' + (office.organization.business_type ?
+                        office.organization.business_type.name : 'Geen data'),
                     'Categorieën: ' + (office.organization.categories || 'Geen data'),
                 ];
 
                 if (office.organization.website) {
-                    description.push('Website: <a target="_blank" href="' + office.organization.website + '">' + office.organization.website + '</a>');
+                    description.push([
+                        'Website: <a target="_blank" href="', 
+                        office.organization.website, 
+                        '">', 
+                        office.organization.website + '</a>'
+                    ].join(''));
                 }
 
                 if (AuthService.hasCredentials()) {

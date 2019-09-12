@@ -1,8 +1,10 @@
 let ProductsEditComponent = function(
+    $q,
     $state,
     $stateParams,
     appConfigs,
     ProductService,
+    ProductCategoryService,
     FormBuilderService,
     MediaService,
     ModalService
@@ -15,7 +17,9 @@ let ProductsEditComponent = function(
     $ctrl.mediaErrors = [];
 
     $ctrl.$onInit = function() {
-        let values = {
+        let values = $ctrl.product ? ProductService.apiResourceToForm(
+            $ctrl.product
+        ) : {
             product_category_id: null
         };
 
@@ -33,15 +37,6 @@ let ProductsEditComponent = function(
                 }
             });
         }
-
-        if ($ctrl.product) {
-            values = ProductService.apiResourceToForm($ctrl.product);
-        }
-
-        $ctrl.productCategories.unshift({
-            id: null,
-            name: 'Selecteer categorie'
-        });
 
         $ctrl.saveProduct = function() {
             if (!$ctrl.product && !alreadyConfirmed) {
@@ -123,21 +118,25 @@ let ProductsEditComponent = function(
     };
 
     $ctrl.cancel = function() {
-        $state.go('products', { 'organization_id': $stateParams.organization_id });
+        $state.go('products', {
+            'organization_id': $stateParams.organization_id
+        });
     };
 };
 
 module.exports = {
     bindings: {
         product: '<',
-        productCategories: '<',
+        // productCategories: '<',
         products: '<'
     },
     controller: [
+        '$q',
         '$state',
         '$stateParams',
         'appConfigs',
         'ProductService',
+        'ProductCategoryService',
         'FormBuilderService',
         'MediaService',
         'ModalService',

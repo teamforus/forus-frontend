@@ -21,6 +21,7 @@ platform.setLibs([
     "nanoscroller",
     "qrcodejs",
     "ui_router",
+    "ui_select",
     "underscore",
     "underscore.string",
 ]);

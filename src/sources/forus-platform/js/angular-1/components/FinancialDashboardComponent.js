@@ -147,21 +147,16 @@ let FinancialDashboardComponent = function(
                 return fundProvider;
             });
         }
+        
+        $ctrl.productCategories.unshift({
+            name: 'Alle',
+            id: null
+        });
 
-        if ($ctrl.fund) {
-            $ctrl.fund.fundCategories = _.pluck($ctrl.fund.product_categories, 'name').join(', ');
-
-            $ctrl.productCategories = _.clone($ctrl.fund.product_categories);
-            $ctrl.productCategories.unshift({
-                name: 'Alle',
-                id: null
-            });
-
-            $ctrl.productCategories.push({
-                name: 'Anders',
-                id: -1
-            });
-        }
+        $ctrl.productCategories.push({
+            name: 'Anders',
+            id: -1
+        });
     };
 
     $scope.onPageChange = async (query) => {
@@ -180,7 +175,8 @@ module.exports = {
     bindings: {
         fund: '<',
         funds: '<',
-        fundProviders: '<'
+        fundProviders: '<',
+        productCategories: "<",
     },
     controller: [
         '$state',
