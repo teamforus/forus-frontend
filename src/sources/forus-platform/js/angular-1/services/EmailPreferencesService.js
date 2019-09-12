@@ -1,24 +1,14 @@
 let EmailPreferencesService = (ApiRequest) => {
-    let uriPrefix = '/identity/notification-preferences';
+    let uriPrefix = '/platform/notifications';
 
     return new(function() {
-        this.getPreferences = (identity_address, exchange_token) => {
-            if (identity_address && exchange_token) {
-                return ApiRequest.get(`${uriPrefix}/${identity_address}/${exchange_token}`)
-            }
+        this.get = () => {
+            return ApiRequest.get(`${uriPrefix}`);
         };
 
-        this.updatePreferences = (identity_address, exchange_token, data) => {
-            if (identity_address && exchange_token) {
-                return ApiRequest.post(`${uriPrefix}/${identity_address}/${exchange_token}`, {data})
-            }
+        this.update = (data) => {
+            return ApiRequest.patch(`${uriPrefix}`, data);
         };
-
-        this.unsubscribe = (identity_address, exchange_token) => {
-            if (identity_address && exchange_token) {
-                return ApiRequest.post(`${uriPrefix}/${identity_address}/${exchange_token}/unsubscribe`)
-            }
-        }
     })
 }
 

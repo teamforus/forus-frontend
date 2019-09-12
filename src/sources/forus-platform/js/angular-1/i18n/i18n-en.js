@@ -1023,20 +1023,6 @@ module.exports = {
             'not-pending': 'De notificatieinstellingen zijn al aangepast via deze link'
         },
         types: {
-            forus: {
-                fund_created: {
-                    title: 'Fonds aangemaakt',
-                    description: 'Notificatie wanneer het fonds is aangemaakt'
-                },
-                fund_statistics: {
-                    title: 'Fonds statistieken',
-                    description: 'Notificatie bij het opvragen van de fondsstatistieken'
-                },
-                new_fund_created: {
-                    title: 'Nieuw fonds is aangemaakt',
-                    description: 'Notificatie wanneer een nieuw fonds is aangemaakt'
-                },
-            },
             funds: {
                 balance_warning: {
                     title: 'Balans op voucher is niet toerijkend',
@@ -1054,7 +1040,7 @@ module.exports = {
                     title: 'Nieuw fonds is aangemaakt',
                     description: 'Notificatie wanneer een nieuw fonds is aangemaakt'
                 },
-                product_bought: {
+                product_reserved: {
                     title: 'Product gekocht',
                     description: 'notificatie wanneer product gekocht',
                 },
@@ -1074,24 +1060,6 @@ module.exports = {
                     title: 'Aanbieder afgewezen',
                     description: 'Notificatie wanneer een nieuwe aanbieder is afgewezen'
                 },
-            },
-            identity: {
-                'authorize-email_token': {
-                    title: 'title',
-                    description: 'description'
-                }
-            },
-            login: {
-                login_via_email: {
-                    title: 'Inloggen via e-mail',
-                    description: 'E-mailnotificatie waarmee ingelogd kan worden'
-                }
-            },
-            user: {
-                email_activation: {
-                    title: 'Emailactivatie',
-                    description: 'Activatie e-mail'
-                }
             },
             validations: {
                 new_validation_request: {

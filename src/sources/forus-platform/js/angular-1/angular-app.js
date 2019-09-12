@@ -32,7 +32,6 @@ app.component('transactionComponent', require('./components/TransactionComponent
 app.component('noPermissionComponent', require('./components/NoPermissionComponent'));
 
 app.component('emailPreferencesComponent', require('./components/EmailPreferencesComponent'));
-app.component('emailUnsubscribeComponent', require('./components/EmailUnsubscribeComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));

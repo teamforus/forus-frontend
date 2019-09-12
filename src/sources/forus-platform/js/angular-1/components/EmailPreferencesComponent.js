@@ -1,70 +1,76 @@
-let EmailPreferencesComponent =  function (
+let EmailPreferencesComponent = function(
     $state,
-    $scope,
-    $stateParams,
+    AuthService,
+    ModalService,
     EmailPreferencesService,
     FormBuilderService
 ) {
     let $ctrl = this;
 
-    EmailPreferencesService.getPreferences(
-        $stateParams.identity_address,
-        $stateParams.exchange_token
-    ).then(response => {
-        $ctrl.email = response.data.email;
-        $ctrl.preferences = response.data.preferences;
+    $ctrl.loaded = false;
 
-        $ctrl.form = FormBuilderService.build(
-            this.buildValues(response.data.preferences),
-            function (form) {
-                form.lock();
+    let toggleSubscription = (email_unsubscribed = true) => {
+        return EmailPreferencesService.update({
+            email_unsubscribed: email_unsubscribed,
+        }).then((res) => {
+            $ctrl.email_unsubscribed = res.data.data.email_unsubscribed;
+        });
+    };
 
-                EmailPreferencesService.updatePreferences(
-                    $stateParams.identity_address,
-                    $stateParams.exchange_token,
-                    form.values
-                ).then(response => {
-                    if (response.data.success) {
-                        $ctrl.message = `Succesvol e-mail voorkeuren geüpdate ${response.data.email}`;
-                    }
-                    else {
-                        $ctrl.message = `Er is iets misgegaan, probeer het opnieuw`;
-                    }
-                }, response => {
-                    if (response.status === 404) {
-                        $ctrl.message = 'notification_preferences.errors.not_found';
-                    }
-                    else if (response.status === 403) {
-                        $ctrl.message = 'notification_preferences.errors.not-pending';
-                    }
+    $ctrl.buildForm = (preferences) => {
+        $ctrl.form = FormBuilderService.build(preferences, (form) => {
+            form.lock();
+
+            EmailPreferencesService.update({
+                email_unsubscribed: $ctrl.email_unsubscribed,
+                preferences: form.values
+            }).then(res => {
+                ModalService.open('modalNotification', {
+                    type: 'action-result',
+                    description: `Succesvol e-mail voorkeuren geüpdate ${$ctrl.email}`,
                 });
             }, (res) => {
                 form.unlock();
                 form.errors = res.data.errors;
-            }
-        );
-    }, (response) => {
-        if (response.status === 404) {
-            $ctrl.message = 'notification_preferences.errors.not_found';
+            });
+        });
+    };
+
+    $ctrl.enableSubscription = () => {
+        return toggleSubscription(false);
+    };
+
+    $ctrl.disableSubscription = () => {
+        return toggleSubscription(true);
+    };
+
+    $ctrl.$onInit = () => {
+        if (AuthService.hasCredentials()) {
+            return EmailPreferencesService.get().then(res => {
+                $ctrl.email = res.data.data.email;
+                $ctrl.preferences = res.data.data.preferences;
+                $ctrl.email_unsubscribed = res.data.data.email_unsubscribed;
+                $ctrl.loaded = true;
+                
+                $ctrl.buildForm($ctrl.preferences);
+            })
         }
-    })
 
-    this.buildValues = function (preferenceValues) {
-        let values = {};
+        ModalService.open('modalNotification', {
+            type: 'action-result',
+            title: "Authentification required.",
+            description: `Please sign in to manage your notification preferences.`,
+        });
 
-        for (let preference of preferenceValues) {
-            values[preference.notification_type] = Boolean(preference.notification_preferences.length && preference.notification_preferences[0].subscribed);
-        }
-
-        return values;
-    }
+        $state.go('home');
+    };
 }
 
 module.exports = {
     controller: [
         '$state',
-        '$scope',
-        '$stateParams',
+        'AuthService',
+        'ModalService',
         'EmailPreferencesService',
         'FormBuilderService',
         EmailPreferencesComponent

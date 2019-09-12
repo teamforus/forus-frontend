@@ -1,24 +1,37 @@
-.app.app-container
-    section.section.section-products
+.app.app-container(ng-if="$ctrl.loaded")
     p(ng-if="$ctrl.message" ng-bind="$ctrl.message | translate").form-error
-        .row
-            .col
-                .card
-                    .card-header
-                        .card-title {{ 'notification_preferences.title_preferences' | translate }}
-                    .card-section
-                        form.form(ng-submit="$ctrl.form.submit()")
-                            div(ng-repeat="(type, subscribed) in $ctrl.form.values")
-                                .row
-                                    .col.col-md-11
-                                        h4 {{ 'notification_preferences.types.' + type + '.title' | translate }}
-                                        p {{ 'notification_preferences.types.' + type + '.description' | translate }}
-                                    .col.col-md-1
-                                        input(
-                                            type="checkbox"
-                                            ng-checked="subscribed"
-                                            ng-model="$ctrl.form.values[type]"
-                                        )
-                                hr
-                            div.push-right
-                                button.button.button-primary(type="submit") Verzenden
+    
+    .card(ng-if="$ctrl.email_unsubscribed")
+        .card-header: .card-title(translate="notification_preferences.title_preferences")
+        .card-section
+            p 
+                | Your email `{{ $ctrl.email }}` is currently unsubscribed from all notifications.
+                br
+                | Do you want to enable notifications and configure which emails you actually want to receive?
+            p: button(type="button" ng-click="$ctrl.enableSubscription()").button.button-primary 
+                | Yes, i want to receive notification
+
+    .card(ng-if="!$ctrl.email_unsubscribed")
+        .card-header: .card-title(translate="notification_preferences.title_preferences")
+        .card-section
+            p I want to unsubscribe from all email notifications.
+            p: button(type="button" ng-click="$ctrl.disableSubscription()").button.button-primary 
+                | Unsubscribe
+
+    .card(ng-if="!$ctrl.email_unsubscribed")
+        .card-header: .card-title(translate="notification_preferences.title_preferences")
+        .card-section(ng-if="!$ctrl.email_unsubscribed")
+            form.form(ng-submit="$ctrl.form.submit()")
+                div(ng-repeat="type in $ctrl.form.values")
+                    .row
+                        .col.col-md-11
+                            h4(translate="{{ 'notification_preferences.types.' + type.key + '.title' }}")
+                            p(translate="{{ 'notification_preferences.types.' + type.key + '.description' }}")
+                        .col.col-md-1
+                            input(
+                                type="checkbox"
+                                ng-checked="type.subscribed"
+                                ng-model="type.subscribed")
+                    hr
+                div.push-right
+                    button.button.button-primary(type="submit") Verzenden
