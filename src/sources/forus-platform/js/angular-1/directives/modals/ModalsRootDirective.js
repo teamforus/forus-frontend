@@ -1,5 +1,3 @@
-let _string = require("underscore.string");
-
 let ModalsRootDirective = function($scope, ModalService, ModalRoute) {
     let routeModals = ModalRoute.modals();
 
@@ -15,7 +13,7 @@ let ModalsRootDirective = function($scope, ModalService, ModalRoute) {
 
             modal.ready = true;
             modal.component = routeModals[modal.key].component;
-            modal.componentType = _string.dasherize(
+            modal.componentType = s.dasherize(
                 routeModals[modal.key].component
             );
             modal.close = function() {

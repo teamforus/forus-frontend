@@ -283,7 +283,9 @@ module.exports = {
             phone: "Telefoonnummer",
             website: "Website",
             categories: "Categorieën",
+            business_type: "Business type",
             nocategories: "Geen categorieën",
+            no_business_type: "No business type",
             join: "Aanmelding voor fonds",
         },
         buttons: {

@@ -1,4 +1,9 @@
-let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 'ngLocale']);
+require('./modules/select-control/SelectControlModule');
+
+let app = angular.module('forusApp', [
+    'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 
+    'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize',
+]);
 
 app.constant('appConfigs', env_data);
 
@@ -64,6 +69,7 @@ app.service('RecordCategoryService', require('./services/RecordCategoryService')
 app.service('RecordValidationService', require('./services/RecordValidationService'));
 app.service('QrScannerService', require('./services/QrScannerService'));
 app.service('ProductCategoryService', require('./services/ProductCategoryService'));
+app.service('BusinessTypeService', require('./services/BusinessTypeService'));
 app.service('OfficeService', require('./services/OfficeService'));
 app.service('ProductService', require('./services/ProductService'));
 app.service('ProviderFundService', require('./services/ProviderFundService'));
@@ -135,6 +141,7 @@ app.directive('markdown', require('./directives/MarkdownDirective'));
 app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
 app.directive('formLabelToggle', require('./directives/FormLabelToggleDirective'));
 app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
+app.directive('scrollEnd', require('./directives/ScrollEndDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
@@ -186,7 +193,7 @@ app.run(['appConfigs', (appConfigs) => {
 }]);
 
 // Bootstrap the app
-angular.bootstrap(document.querySelector('html'), ['forusApp', '720kb.datepicker']);
+angular.bootstrap(document.querySelector('html'), ['forusApp']);
 
 if (!env_data.html5ModeEnabled) {
     let hash = document.location.hash;

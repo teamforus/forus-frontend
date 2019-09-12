@@ -21,10 +21,9 @@
                     .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
                         .card-block-listing-label(translate="offices.labels.mail")
                         span.text-primary-light(ng-bind="$ctrl.organization.email")
-                .card-block.card-block-listing
-                    .card-block-listing-label(translate="offices.labels.categories")
-                    span(ng-bind="$ctrl.fundCategories.join(', ')")
-                    small(ng-show="$ctrl.fundCategories.length == 0").text-muted.small {{ "offices.labels.nocategories" | translate }}
+                .card-block.card-block-listing(ng-if="$ctrl.organization.business_type")
+                    .card-block-listing-label(translate="offices.labels.business_type")
+                    span(ng-bind="$ctrl.organization.business_type.name")
 
             mixin keyvalue_item_horizontal(key, value)
                 .keyvalue-item

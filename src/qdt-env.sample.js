@@ -14,6 +14,12 @@ module.exports = (core) => {
             // }
         });
 
+        /* platform.editTask('js', (task) => {
+            task.minify = true;
+
+            return task;
+        }); */
+
         return platform;
     });
 
@@ -132,6 +138,9 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'general',
             client_type: 'webshop',
+            log_out_time: 15,
+            // set false to disable auto-logout
+            // log_out_time: false,
         });
 
         return platform;
@@ -142,6 +151,7 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'zuidhorn',
             client_type: 'webshop',
+            log_out_time: 15,
         });
 
         return platform;
@@ -152,6 +162,7 @@ module.exports = (core) => {
             api_url: api_url,
             client_type: 'webshop',
             client_key: 'nijmegen',
+            log_out_time: 15,
         });
 
         return platform;
@@ -161,7 +172,8 @@ module.exports = (core) => {
         platform.setEnvData({
             api_url: api_url,
             client_key: 'kerstpakket',
-            client_type: 'webshop'
+            client_type: 'webshop',
+            log_out_time: 15,
         });
 
         return platform;
@@ -171,6 +183,7 @@ module.exports = (core) => {
         platform.setEnvData({
             api_url: api_url,
             client_key: 'westerkwartier',
+            client_type: 'webshop',
             client_type: 'webshop',
         });
 

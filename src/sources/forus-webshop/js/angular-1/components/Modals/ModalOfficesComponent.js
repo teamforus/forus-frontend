@@ -1,86 +1,17 @@
 let ModalOfficesComponent = function(
     OfficeService,
-    ProductCategoryService
+    BusinessTypeService
 ) {
     let $ctrl = this;
 
     $ctrl.selectedOffice = false;
-    $ctrl.selectedCategories = [];
-    $ctrl.productCategories = [];
-
-    $ctrl.per_page = 7;
-    $ctrl.cur_page = 1;
-
-    $ctrl.getCategories = (cur_page, per_page) => {
-        return $ctrl.productCategories.slice(
-            per_page * (cur_page - 1),
-            per_page * cur_page
-        );
-    };
-
-    $ctrl.isLast = () => {
-        return $ctrl.getCategories($ctrl.cur_page + 1, $ctrl.per_page).length == 0;
-    };
-
-    $ctrl.prevCategoriesPage = () => {
-        if ($ctrl.cur_page > 1) {
-            $ctrl.cur_page--;
-        }
-    };
-
-    $ctrl.nextCategoriesPage = () => {
-        if (!$ctrl.isLast()) {
-            $ctrl.cur_page++;
-        }
-    };
-
-    $ctrl.$onInit = () => {
-        ProductCategoryService.list().then(res => {
-            $ctrl.productCategories = res.data.data;
-        });
-
-        OfficeService.list().then(res => {
-            $ctrl.offices = res.data.data;
-            $ctrl.shownOffices = $ctrl.offices;
-            $ctrl.providersCount = getCountOfProviders($ctrl.offices);
-        });
-    };
+    $ctrl.businessTypes = [];
 
     let getCountOfProviders = function(offices) {
         return _.uniq(_.pluck(offices, 'organization_id')).length
     };
 
     $ctrl.weekDays = OfficeService.scheduleWeekDays();
-
-    $ctrl.selectCategory = (category) => {
-        if ($ctrl.selectedCategories.indexOf(category.id) !== -1) {
-            $ctrl.shownOffices = $ctrl.offices;
-            $ctrl.selectedCategories.splice($ctrl.selectedCategories.indexOf(category.id), 1);
-        } else {
-            $ctrl.selectedCategories.push(category.id);
-        }
-
-        if ($ctrl.selectedCategories.length) {
-
-            let offices = $ctrl.offices.filter(office => {
-                return office.organization.product_categories.filter(function(category) {
-                    return $ctrl.selectedCategories.filter(function(selectedCategory) {
-                        return category.id == selectedCategory;
-                    }).length > 0;
-                }).length > 0
-            });
-
-            $ctrl.shownOffices = offices;
-
-            $ctrl.providersCount = getCountOfProviders(offices);
-
-        } else {
-            $ctrl.shownOffices = $ctrl.offices;
-            $ctrl.providersCount = getCountOfProviders($ctrl.offices);
-        }
-
-        $ctrl.selectOffice(false);
-    };
 
     $ctrl.selectOffice = (office) => {
         $ctrl.selectedOffice = office ? office.id : office;
@@ -94,6 +25,37 @@ let ModalOfficesComponent = function(
         $ctrl.close();
     };
 
+    $ctrl.chageBusinessType = (option) => {
+        $ctrl.businessType = option;
+
+        if ($ctrl.businessType) {
+            $ctrl.shownOffices = $ctrl.offices.filter(
+                office => {
+                    return office.organization.business_type_id == $ctrl.businessType.id;
+                }
+            );
+
+            $ctrl.providersCount = getCountOfProviders($ctrl.shownOffices);
+        }
+
+        $ctrl.selectOffice(false);
+    };
+
+    $ctrl.$onInit = () => {
+        BusinessTypeService.list({
+            used: 1
+        }).then(res => {
+            $ctrl.businessTypes = res.data.data;
+        });
+
+        OfficeService.list().then(res => {
+            console.log(res.data.data);
+            $ctrl.offices = res.data.data;
+            $ctrl.shownOffices = $ctrl.offices;
+            $ctrl.providersCount = getCountOfProviders($ctrl.shownOffices);
+        });
+    };
+
     $ctrl.$onDestroy = function() {};
 };
 
@@ -104,7 +66,7 @@ module.exports = {
     },
     controller: [
         'OfficeService',
-        'ProductCategoryService',
+        'BusinessTypeService',
         ModalOfficesComponent
     ],
     templateUrl: () => {

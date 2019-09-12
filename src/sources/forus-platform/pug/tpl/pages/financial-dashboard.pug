@@ -47,8 +47,7 @@
 
                             .chart-header-title(ng-bind="$ctrl.chartData.stringTitle")
                             .chart-header-actions.form
-                                .form-group.inline-block
-                                    select(
+                                .form-group.inline-block: select(
                                     ng-change="$ctrl.chartData.update()"
                                     ng-options="productCategory.id as productCategory.name for productCategory in $ctrl.productCategories"
                                     ng-model="$ctrl.chartData.request.product_category").form-control
