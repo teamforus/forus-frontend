@@ -25,6 +25,7 @@ let EmailPreferencesComponent = function(
                 email_unsubscribed: $ctrl.email_unsubscribed,
                 preferences: form.values
             }).then(res => {
+                form.unlock();
                 ModalService.open('modalNotification', {
                     type: 'action-result',
                     description: `Succesvol e-mail voorkeuren geüpdate ${$ctrl.email}`,
