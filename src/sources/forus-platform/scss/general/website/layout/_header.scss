@@ -83,7 +83,7 @@ section {
             }
         }
         &__stats-a {
-            background: rgba(53, 120, 255, 0.8);
+            background: linear-gradient(to top left, rgba(53, 120, 255, 0.9215686274509803) 0%, rgba(53, 215, 255, 0.92) 100%);
             &:after {
                 background-image: url($img_path + "/header-stats.jpg");
             }

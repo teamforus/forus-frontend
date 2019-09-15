@@ -6,7 +6,7 @@ app.constant('appConfigs', env_data);
 
 // Controllers
 app.controller('BaseController', require('./controllers/landing/BaseController'));
-
+app.controller('ToggleController', require('./controllers/landing/ToggleController.js'));
 // Components
 app.component('homeComponent', require('./components/website/HomeComponent'));
 app.component('kindpakketComponent', require('./components/website/KindpakketComponent'));
