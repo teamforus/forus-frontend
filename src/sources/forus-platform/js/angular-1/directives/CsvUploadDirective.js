@@ -14,9 +14,9 @@ let CsvUploadDirective = function(
         $scope.progressBar = progress;
 
         if (progress < 100) {
-            $scope.progressStatus = "Uploading...";
+            $scope.progressStatus = "Aan het uploaden...";
         } else {
-            $scope.progressStatus = "Completed";
+            $scope.progressStatus = "Klaar!";
         }
     };
 
