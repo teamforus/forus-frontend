@@ -16,6 +16,12 @@
         margin-right: 5px;
         float: left;
         transition: .4s;
+
+        &.icon-right {
+            float: right;
+            margin-right: 0;
+            margin-left: 5px;
+        }
     }
 
     img {
@@ -45,6 +51,7 @@
             }
         }
     }
+
     &.button-two-spans{
         display: grid;
         grid-template-columns: auto auto;
@@ -122,6 +129,12 @@
         }
     }
 
+    &.button-text {
+        &.button-text-padless {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
 
     &.button-wide,
     &.button-wide {

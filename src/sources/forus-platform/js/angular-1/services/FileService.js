@@ -1,5 +1,7 @@
-let FileService = function() {
+let FileService = function(ApiRequest) {
     return new (function() {
+        let uriPrefix = '/files';
+
         this.downloadFile = (
             file_name,
             file_data,
@@ -10,6 +12,17 @@ let FileService = function() {
             });
 
             window.saveAs(blob, file_name);
+        };
+
+        this.download = function(file) {
+            return ApiRequest.get(uriPrefix + '/' + file.uid + '/download', {}, {}, true, (params) => {
+                params.responseType = 'blob';
+                return params;
+            });
+        };
+
+        this.downloadUrl = function(file) {
+            return ApiRequest.endpointToUrl(uriPrefix + '/' + file.uid + '/download');
         };
     });
 };

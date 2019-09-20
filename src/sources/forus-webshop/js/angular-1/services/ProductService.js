@@ -13,6 +13,10 @@ let ProductService = function(ApiRequest) {
         this.read = function(id) {
             return ApiRequest.get(uriPrefix + '/' + id);
         }
+
+        this.request = function(id, data) {
+            return ApiRequest.post(uriPrefix + '/' + id + '/request', data);
+        }
     });
 };
 

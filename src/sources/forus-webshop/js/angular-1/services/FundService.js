@@ -128,6 +128,31 @@ let FundService = function(
             );
         };
 
+        this.demoCheckProductEligibilityState = (recordsByKey, product) => {
+            let invalid = this.demoCheckProductEligibility(recordsByKey, product);
+            let fund = product.funds[product.funds.length - 1];
+
+            if (invalid.length == 0) {
+                return 'valid';
+            }
+
+            return fund.criteria.length != invalid.length ? 'partial' : 'missing';
+        }
+
+        this.demoCheckProductEligibility = (recordsByKey, product) => {
+            let fund = product.funds[product.funds.length - 1];
+
+            return fund.criteria.map((criterion) => {
+                return this.checkEligibility(
+                    JSON.parse(JSON.stringify(recordsByKey))[criterion.record_type_key] || [],
+                    criterion,
+                    fund.validators.map(validator => validator.identity_address)
+                ).filter((record) => {
+                    return record.state == 'valid';
+                }).length > 0 ? false : criterion;
+            }).filter(criterion => criterion);
+        }
+
         this.checkEligibility = (
             records = [],
             criterion,

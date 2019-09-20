@@ -1,0 +1,14 @@
+.form {
+    .form-label {
+        color: #7E818C;
+        font-size: 13px;
+        font-weight: 400;
+    }
+
+    .form-control:not([type="radio"]):not([type="checkbox"]) {
+        padding: 12px 15px;
+        background: #EFF2F4;
+        font-weight: 500;
+        font-size: 16px;
+    }
+}

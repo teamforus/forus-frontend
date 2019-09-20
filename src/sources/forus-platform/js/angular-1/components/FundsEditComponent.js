@@ -2,20 +2,49 @@ let FundsEditComponent = function(
     $state,
     $stateParams,
     FundService,
+    RecordTypeService,
     FormBuilderService,
     MediaService
 ) {
     let $ctrl = this;
     let mediaFile = false;
-    
+
     $ctrl.media;
+    $ctrl.recordTypes = [];
+    $ctrl.operators = [{
+        key: "=",
+        name: "=",
+    }, {
+        key: "<",
+        name: "<",
+    }, {
+        key: ">",
+        name: ">",
+    }];
+
+    $ctrl.addCriteria = () => {
+        $ctrl.form.values.criteria.push({
+            record_type_key: $ctrl.recordTypes[0].key,
+            operator: "=",
+            value: "",
+        });
+    };
+
+    $ctrl.removeCriteria = (criteria) => {
+        let index;
+
+        if ((index = $ctrl.form.values.criteria.indexOf(criteria)) != -1) {
+            $ctrl.form.values.criteria.splice(index, 1)
+        }
+    };
 
     $ctrl.$onInit = function() {
         let values = $ctrl.fund ? FundService.apiResourceToForm(
             $ctrl.fund
         ) : {
-            "product_categories": [],
-            "state": $ctrl.fundStates[0].value
+            criteria: [],
+            product_categories: [],
+            state: $ctrl.fundStates[0].value
         };
 
         $ctrl.form = FormBuilderService.build(values, async (form) => {
@@ -58,14 +87,20 @@ let FundsEditComponent = function(
                 $ctrl.media = res.data.data;
             });
         }
+
+        RecordTypeService.list().then(res => {
+            $ctrl.recordTypes = res.data;
+        });
     };
 
     $ctrl.selectPhoto = (file) => {
         mediaFile = file;
     };
 
-    $ctrl.cancel = function () {
-        $state.go('organization-funds', {'organization_id' : $stateParams.organization_id});
+    $ctrl.cancel = function() {
+        $state.go('organization-funds', {
+            'organization_id': $stateParams.organization_id
+        });
     };
 };
 
@@ -77,11 +112,12 @@ module.exports = {
         productCategories: '<'
     },
     controller: [
-        '$state', 
-        '$stateParams', 
-        'FundService', 
-        'FormBuilderService', 
-        'MediaService', 
+        '$state',
+        '$stateParams',
+        'FundService',
+        'RecordTypeService',
+        'FormBuilderService',
+        'MediaService',
         FundsEditComponent
     ],
     templateUrl: 'assets/tpl/pages/funds-edit.html'

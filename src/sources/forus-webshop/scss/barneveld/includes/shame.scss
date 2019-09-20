@@ -1,0 +1,19 @@
+// these items have  section as parent class, while other implementatios have block as parent
+.nav-var {
+    position: sticky !important;
+}
+
+.section {
+    .section-title {
+        color: #4e4d40;
+        text-align: center;
+        padding-bottom: 1vw;
+    }
+
+    &.section-profile {
+        .section-title {
+            text-align: left;
+            color: #fff;
+        }
+    }
+}

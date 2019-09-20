@@ -2,6 +2,7 @@ let ValidationRequestsComponent = function(
     $q,
     $state,
     $timeout,
+    FileService,
     ValidatorRequestService,
     appConfigs
 ) {
@@ -16,8 +17,6 @@ let ValidationRequestsComponent = function(
         approved: 0,
         declined: -1
     };
-
-    $ctrl.shownUsers = {};
 
     $ctrl.states = [{
         key: null,
@@ -83,6 +82,7 @@ let ValidationRequestsComponent = function(
                 requests: requests,
                 nth: nth,
                 bsn: requests[0].bsn,
+                identity_address: requests[0].identity_address,
                 collapsed: nth.pending == 0
             }
         });
@@ -110,12 +110,17 @@ let ValidationRequestsComponent = function(
         }) : req;
     }
 
-    $ctrl.validateAll = function(request) {
+    $ctrl.validateAll = async function(request) {
         let requests = request.requests.filter((request) => {
             return request.state == 'pending';
-        }).map(request => $ctrl.validateRequest(request));
+        });
+        
+        for (let index = 0; index < requests.length; index++) {
+            const request = requests[index];
+            await $ctrl.validateRequest(request);
+        }
 
-        Promise.all(requests).then(() => reloadRequests());
+        $timeout(() => reloadRequests(), 0);
     };
 
     $ctrl.declineAll = function(request) {
@@ -124,6 +129,18 @@ let ValidationRequestsComponent = function(
         }).map(request => $ctrl.declineRequest(request));
 
         Promise.all(requests).then(() => reloadRequests());
+    };
+
+    $ctrl.toggleRequestCollapsing = (validatorRequest) => {
+        validatorRequest.collapsed = !validatorRequest.collapsed;
+    };
+
+    $ctrl.downloadFile = (file) => {
+        FileService.download(file).then(res => {
+            FileService.downloadFile(file.original_name, res.data);
+        }, console.error);
+        /* let $form = $('<form method="POST" action="' + FileService.downloadUrl(file) + '"></form>');
+        $form.submit(); */
     };
 
     $ctrl.$onInit = function() {
@@ -144,6 +161,7 @@ module.exports = {
         '$q',
         '$state',
         '$timeout',
+        'FileService',
         'ValidatorRequestService',
         'appConfigs',
         ValidationRequestsComponent
