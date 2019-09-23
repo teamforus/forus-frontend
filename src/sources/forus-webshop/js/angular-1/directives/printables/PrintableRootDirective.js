@@ -1,6 +1,5 @@
-let _string = require("underscore.string");
 
- let PrintablesRootDirective = function($scope, PrintableService, PrintableRoute) {
+let PrintablesRootDirective = function($scope, PrintableService, PrintableRoute) {
     let routePrintables = PrintableRoute.printables();
 
      $scope.printables = PrintableService.getPrintables();
@@ -15,7 +14,7 @@ let _string = require("underscore.string");
 
              printable.ready = true;
             printable.component = routePrintables[printable.key].component;
-            printable.componentType = _string.dasherize(
+            printable.componentType = s.dasherize(
                 routePrintables[printable.key].component
             );
             printable.close = function() {

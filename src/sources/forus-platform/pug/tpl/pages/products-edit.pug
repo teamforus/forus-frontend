@@ -1,7 +1,7 @@
 .app.app-container
     menu
     section.app.app-content
-        //information-block(text="'products.cannot_delete'" type="'danger'")
+        //- information-block(text="'products.cannot_delete'" type="'danger'")
         .card: form(ng-submit="$ctrl.saveProduct()").form
             .card-header
                 .card-title(ng-if="!$ctrl.product" i18n="product_edit.header.title_add")
@@ -21,14 +21,12 @@
                 .row 
                     .col.col-lg-9.col-md-12
                         .form-group.form-group-inline
-                            label.form-label {{ "product_edit.labels.name" | translate }}
+                            label.form-label(translate="product_edit.labels.name")
                             input(ng-model="$ctrl.form.values.name" type="text" placeholder="Naam").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
                         .form-group.form-group-inline.tooltipped
-                            label.form-label {{ "product_edit.labels.description" | translate }}
-                            //-textarea(ng-model="$ctrl.form.values.description" placeholder="Omschrijving").form-control
-                            .form-offset
-                                markdown(ng-model="$ctrl.form.values.description")
+                            label.form-label(translate="product_edit.labels.description")
+                            .form-offset: markdown(ng-model="$ctrl.form.values.description")
 
                             tooltip(text="'Bijvoorbeeld: aantal lessen, abonnementsvorm, omschrijving cursus, einddatum activiteit, voorwaarden, bijzonderheden, etc.'")
                             .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
@@ -36,21 +34,21 @@
                 .row 
                     .col.col-lg-9.col-md-12
                         .form-group.form-group-inline
-                            label.form-label {{ "product_edit.labels.new" | translate }}
+                            label.form-label(translate="product_edit.labels.new")
                             input(ng-model="$ctrl.form.values.price" type="number" placeholder="Prijs" step="0.01" number-control).form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.price" ng-bind="error")
                         
                         .form-group.form-group-inline
-                            label.form-label {{ "product_edit.labels.old" | translate }}
+                            label.form-label(translate="product_edit.labels.old")
                             input(ng-model="$ctrl.form.values.old_price" type="number" placeholder="Oude prijs" step="0.01" number-control).form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.old_price" ng-bind="error")
                         
                         .form-group.form-group-inline(ng-if="$ctrl.product")
-                            label.form-label {{ "product_edit.labels.sold" | translate }}
+                            label.form-label(translate="product_edit.labels.sold")
                             input(ng-model="$ctrl.form.values.sold_amount" type="number" placeholder="Verkocht" disabled).form-control
                         
                         .form-group.form-group-inline.tooltipped
-                            label.form-label {{ "product_edit.labels.total" | translate }}
+                            label.form-label(translate="product_edit.labels.total")
                             input(ng-model="$ctrl.form.values.total_amount" type="number" placeholder="Aantal aanbiedingen" ng-disabled="!!$ctrl.product").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.total_amount" ng-bind="error")
                         
@@ -64,7 +62,7 @@
                 .row 
                     .col.col-lg-9.col-md-12
                         .form-group.form-group-inline.tooltipped
-                            label.form-label {{ "product_edit.labels.expire" | translate }}
+                            label.form-label(translate="product_edit.labels.expire")
                             datepicker(
                                 date-format="dd-MM-yyyy" 
                                 datepicker-mobile="" 
@@ -72,18 +70,13 @@
                                 input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="dd-MM-yyyy").form-control
                             tooltip(text="'De uiterlijke datum tot waneer uw aanbieding loopt. Aanbieding wordt na deze datum verwijderd uit de webshop en kan niet meer worden opgehaald.'")
                             .form-error(ng-repeat="error in $ctrl.form.errors.expire_at" ng-bind="error")
-            .card-section.card-section-primary
-                .row 
-                    .col.col-lg-9.col-md-12
-                        .form-group.form-group-inline
-                            label.form-label {{ "product_edit.labels.category" | translate }}
-                            select(
-                                ng-options="productCategory.id as productCategory.name for productCategory in $ctrl.productCategories" 
-                                ng-model="$ctrl.form.values.product_category_id"
-                                placeholder="Status").form-control
-                            .form-error(ng-repeat="error in $ctrl.form.errors.product_category_id" ng-bind="error")
 
             .card-section.card-section-primary
-                .text-center
-                    button(type="button" ng-click="$ctrl.cancel()").button.button-default {{ "product_edit.buttons.cancel" | translate }}
-                    button(type="submit").button.button-primary {{ "product_edit.buttons.confirm" | translate }}
+                .row: product-categories-control(
+                    ng-model="$ctrl.form.values.product_category_id"
+                    product-type="$ctrl.product.product_category.service ? 'service' : 'product'"
+                    errors="$ctrl.form.errors.product_category_id")
+
+            .card-section.card-section-primary: .text-center
+                button(type="button" ng-click="$ctrl.cancel()" translate="product_edit.buttons.cancel").button.button-default
+                button(type="submit" translate="product_edit.buttons.confirm").button.button-primary

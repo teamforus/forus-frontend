@@ -2,7 +2,7 @@ section.section.section-products#products: .wrapper
     a.section-title(
         translate="block_products.header.title"
         ui-sref="products")
-    .section-filters(ng-if="!sample")
+    .section-filters(ng-if="!sample && productCategories")
         .row.form
             .col.col-md-4: .form-group
                 select(
@@ -42,6 +42,8 @@ section.section.section-products#products: .wrapper
         ng-if="products.meta" 
         meta="products.meta" 
         filters="filters" 
+        filters-timeout-attr="['product_category_id']" 
         on-load-more="onLoadMore(query)" 
         on-reset="onReset(query)")
+
     .block.block-show-more(ng-if="sample"): a(ui-sref="products" translate="block_products.buttons.more").button.button-primary.button-wide
