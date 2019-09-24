@@ -49,6 +49,11 @@
             border-color: darken($color: rgba(158, 167, 182, 0.15), $amount: 100);
         }
     }
+    
+    &.button-disabled {
+        @extend .button-primary;
+        opacity: .5;
+    }
 
     &.button-primary-outline {
         border-radius: 6px;

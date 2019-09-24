@@ -9,7 +9,7 @@ section.section.section-product: .wrapper
                 ng-bind="'Stap ' + step")
         
     .block.block-product-request: .block-wrapper
-        //- Step 1
+        //- Log in
         div(ng-if="$ctrl.state == 'auth'")
             h2(ng-if="!$ctrl.authToken").block-title Zomer zwem regeling aanvraag
             p.block-description
@@ -42,15 +42,39 @@ section.section.section-product: .wrapper
                 .request-pane-body
                     p.request-pane-text Email you privided already exists in the system, please scan this qr-code to authorize.
                     qr-code(ng-if="$ctrl.authToken" qr-value="$ctrl.authToken" qr-type="auth_token")
-                
-                //- .request-pane-footer: .row
-                    .col.col-lg-6.text-left
-                    .col.col-lg-6.text-right
-                        .button.button-text.button-text-padless(ng-click="$ctrl.step = 2")
-                            | Volgende stap
-                            em.mdi.mdi-chevron-right.icon-right
         
-        //- Step 2
+        //- List the criteria
+        div(ng-if="$ctrl.state == 'criteria'")
+            h2.block-title Bevestig uw gemeente
+            p.block-description
+                | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
+                strong woonplaats 
+                | en 
+                a(href="#") inkomen 
+                | te controleren 
+            
+            +progress()
+            
+            .request-pane
+                .request-pane-header Overzicht van voorwaarden
+                .request-pane-body
+                    p.request-pane-text.text-center 
+                        | De volgende gegevens zijn vereist om deze regeling aan te vragen:
+                    .request-pane-info: ul.request-pane-list 
+                        li(ng-repeat="critera in $ctrl.fund.criteria")
+                            | {{ critera.record_type_name }} should be 
+                            span(ng-if="critera.operator == '>'") more than 
+                            span(ng-if="critera.operator == '='") 
+                            span(ng-if="critera.operator == '<'") less than 
+                            | {{ critera.value }}.
+
+                
+                .request-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
+                    .col.col-lg-6.text-left
+                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
+                        | Volgende stap
+                        em.mdi.mdi-chevron-right.icon-right
+        //- Confirm city
         div(ng-if="$ctrl.state == 'location'")
             h2.block-title Bevestig uw gemeente
             p.block-description
@@ -64,37 +88,19 @@ section.section.section-product: .wrapper
             
             .request-pane
                 .request-pane-header Bevestig uw emailadres 
-                .request-pane-body
-                    //- p.request-pane-text 
-                        | Op deze manier kan u de aanvraag tussentijds onderbreken en verder gaan wanneer u wil zonder uw voortgang te verliezen
-                    
-                    form().form: .row
-                        .form-group.col.col-lg-12.text-center
-                            .checkbox
-                                input(type="checkbox" ng-model="$ctrl.confirmLocation" id="accept" name="accept")
-                                label.checkbox-label(for="accept")
-                                    .checkbox-box: .mdi.mdi-check
-                                    | Ik verklaar dat ik woon in de gemeente Barneveld.
-
-
-                    //- Debug file uploader
-                    //- file-uploader(files="$ctrl.files")
-                    //- pre {{ $ctrl.files | pretty_json }}
+                .request-pane-body: form().form.row: .form-group.col.col-lg-12.text-center: .checkbox
+                    input(type="checkbox" ng-model="$ctrl.confirmLocation" id="accept" name="accept")
+                    label.checkbox-label(for="accept")
+                        .checkbox-box: .mdi.mdi-check
+                        | Ik verklaar dat ik woon in de gemeente Barneveld.
                 
-                .request-pane-footer: .row
+                .request-pane-footer(ng-if="$ctrl.confirmLocation"): .row
                     .col.col-lg-6.text-left
-                        //- .button.button-text.button-text-padless(ng-click="$ctrl.step = 1")
-                            em.mdi.mdi-chevron-left
-                            | Vorige stap
-
-                    .col.col-lg-6.text-right
-                        .button.button-text.button-text-padless(
-                            ng-if="$ctrl.confirmLocation" 
-                            ng-click="$ctrl.nextStep()")
-                            | Volgende stap
-                            em.mdi.mdi-chevron-right.icon-right
+                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
+                        | Volgende stap
+                        em.mdi.mdi-chevron-right.icon-right
         
-        //- Step 3
+        //- Confirm net worth
         div(ng-if="$ctrl.state == 'net_worth'")
             h2.block-title Zomer zwem regeling aanvraag
             p.block-description
@@ -109,41 +115,32 @@ section.section.section-product: .wrapper
             .request-pane
                 .request-pane-header Bevestig uw inkomen en vermogen 
                 .request-pane-body: .form
-                    p.request-pane-text.text-left
+                    p.request-pane-text
                         | Upload bewijsstukken om aan te tonen dat uw verzamelinkomen onder 
                         a(href="#") de 110% norm
                         |  valt en dat u aan de 
                         a(href="#") vermogensvrijstelling
                         | voldoet
                     h4.request-pane-heading Bevestig uw inkomen
-                    p.request-pane-text.text-left
+                    p.request-pane-text
                         | Upload bewijsstukken om aan te tonen dat u aan de gestelde inkomensgegevens voldoet.
-                    p.request-pane-text.text-left
-                        | – Bewijsstukken van uw vermogen (spaarrekening en bezittingen)
-                        br
-                        | – Overzicht van schulden
-                        br
-                        | – Bankafschriften van alle bank- en spaarrekeningen van de afgelopen 3 maanden
-                        br
-                        | – Loonstroken van uw werk en/of uitkering van de laatste drie maanden
-                        br
-                        | – Betaalbewijs zwemabonnement. Vermeld op het bewijs voor wie het abonnement is en hierbij de geboortedatum.
+                    ul.request-pane-list 
+                        li Bewijsstukken van uw vermogen (spaarrekening en bezittingen)
+                        li Overzicht van schulden
+                        li Bankafschriften van alle bank- en spaarrekeningen van de afgelopen 3 maanden
+                        li Loonstroken van uw werk en/of uitkering van de laatste drie maanden
+                        li Betaalbewijs zwemabonnement. Vermeld op het bewijs voor wie het abonnement is en hierbij de geboortedatum.
                     
                     file-uploader(files="$ctrl.netCriteria.files")
                     .form-error(ng-repeat="err in $ctrl.netCriteria.errors.file" ng-bind="err")
                 
                 .request-pane-footer: .row
                     .col.col-lg-6.text-left
-                        //- .button.button-text.button-text-padless(ng-click="$ctrl.step = 2")
-                            em.mdi.mdi-chevron-left
-                            | Vorige stap
-
                     .col.col-lg-6.text-right
                         .button.button-text.button-text-padless(ng-click="$ctrl.submitNetWorth()")
                             | Volgende stap
                             em.mdi.mdi-chevron-right.icon-right
         
-        //- Step 4
         div(
             ng-repeat="invalidCriteria in $ctrl.invalidCriteria track by $index"
             ng-if="$ctrl.state == 'criteria_' + $index")
@@ -161,26 +158,24 @@ section.section.section-product: .wrapper
                 .request-pane-header(ng-bind="$ctrl.recordTypes[invalidCriteria.record_type_key].name")
                 .request-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
                     .form-group.col.col-lg-12
-                        //- p.request-pane-text(
-                            ng-if="invalidCriteria.record_type_key == 'gender'") Some hardcoded description for gender criteria
-                        
                         input(
                             ng-model="invalidCriteria.input_value"
                             type="{string:'text', number:'number'}[$ctrl.recordTypes[invalidCriteria.record_type_key].type]" 
                             placeholder="Generieke waarde").form-control
                         .form-error(ng-repeat="error in invalidCriteria.errors.value" ng-bind="error")
-
-                    //- .form-group.col.col-lg-5
-                        button(type="submit").button.button-primary.button-fill Bevestig
-                
+                        
+                    .form-group.col.col-lg-12: .request-pane-info
+                        p.request-pane-text 
+                            | For this particular product "{{ $ctrl.product.name }}" 
+                            | fund sponsor required your record "{{ invalidCriteria.record_type_name }}" to be 
+                            span(ng-if="invalidCriteria.operator == '>'") more than 
+                            span(ng-if="invalidCriteria.operator == '='") 
+                            span(ng-if="invalidCriteria.operator == '<'") less than 
+                            | {{ invalidCriteria.value }}.
                     .form-group.col.col-lg-12: file-uploader(files="invalidCriteria.files")
                 
                 .request-pane-footer: .row
                     .col.col-lg-6.text-left
-                        //- .button.button-text.button-text-padless(ng-click="$ctrl.step = 3")
-                            em.mdi.mdi-chevron-left
-                            | Vorige stap
-
                     .col.col-lg-6.text-right
                         .button.button-text.button-text-padless(ng-click="$ctrl.submitCriteria(invalidCriteria)")
                             | Volgende stap
@@ -188,13 +183,22 @@ section.section.section-product: .wrapper
         
         //- Done
         div(ng-if="$ctrl.state == 'done'")
-            .block-icon: .mdi.mdi-check-bold
             h2.block-title Zomer zwem regeling aanvraag
             p.block-description
                 | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
                 strong woonplaats 
                 | en 
                 a(href="#") inkomen 
-                | te controleren 
+            
+            .request-pane
+                .request-pane-header Aanvraag voltooid
+                .request-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
+                    .form-group.col.col-lg-12
+                        .block-icon: .mdi.mdi-check-bold
+                        p.request-pane-text.text-center 
+                            | Uw aanvraag is voltooid, u krijgt een email wanneer deze is goedgekeurd.
+                
+                        .text-center: .button.button-default(ui-sref="home") Terug naar de webshop
+                    .form-group.col.col-lg-12: br
 
 contact-form 

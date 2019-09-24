@@ -7,6 +7,7 @@
                 box-sizing: border-box;
                 border-radius: 5px;
                 box-shadow: none;
+                cursor: default;
 
                 .product-image {
                     transform: none;
@@ -33,7 +34,7 @@
                     width: 10px;
                     height: 10px;
                     border-radius: 10px;
-                    background: red;
+                    background: whitesmoke;
 
                     &.product-state-dot-success {
                         background: #007377;
@@ -45,6 +46,10 @@
 
                     &.product-state-dot-danger {
                         background: #9EA7B6;
+                    }
+
+                    &.product-state-dot-hidden {
+                        background: transparent;
                     }
                 }
 

@@ -154,6 +154,12 @@
     &:last-of-type {
         margin-right: 0;
     }
+
+    &[disabled] {
+        cursor: default;
+        user-select: none;
+        pointer-events: none;
+    }
 }
 .first-line-button {
     line-height: 10px;

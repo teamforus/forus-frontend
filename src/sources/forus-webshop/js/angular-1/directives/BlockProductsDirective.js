@@ -14,10 +14,18 @@ let BlockProductsDirective = function(
 
     $scope.$dir = $dir;
     $scope.recordsByKey = {};
+    $scope.vouchers = [];
 
     $scope.filters = {
         product_category_id: null,
         q: ""
+    };
+
+    $scope.eligibilityStateColors = {
+        'valid': 'success',
+        'missing': 'danger',
+        'partial': 'warning',
+        'taken': 'hidden',
     };
 
     $scope.onReset = (query) => {
@@ -45,42 +53,18 @@ let BlockProductsDirective = function(
 
     $scope.processProduct = (product) => {
         let state = 'missing';
+        let taken = $scope.vouchers.filter(
+            voucher => voucher.product.id == product.id
+        ).length > 0
 
         if ($scope.authUser) {
-            /* console.log(
-                'processProduct',
-                FundService.demoCheckProductEligibility(
-                    $scope.recordsByKey,
-                    product
-                ),
-                FundService.demoCheckProductEligibilityState(
-                    $scope.recordsByKey,
-                    product
-                )
-            ); */
-
-            state = FundService.demoCheckProductEligibilityState(
+            state = taken ? 'taken' : FundService.demoCheckProductEligibilityState(
                 $scope.recordsByKey,
                 product
             );
-
-            // console.log($scope.recordsByKey, product, state);
-
-            /* FundService.checkEligibility(
-                $scope.records || [],
-                $scope.criterion,
-                $scope.validators,
-                $scope.fund.organization_id
-            ); */
         }
 
-        product.eligibilityState = {
-            'valid': 'success',
-            'missing': 'danger',
-            'partial': 'warning',
-        }[state];
-
-        product.isEligible = state == 'valid';
+        product.eligibilityState = state;
     };
 
     $scope.applyForProduct = (product) => {
@@ -93,40 +77,53 @@ let BlockProductsDirective = function(
         });
     };
 
-    if ($scope.sample) {
-        ProductService.sample().then((res) => $scope.products = res.data);
-    } else {
-        ProductCategoryService.list({
-            parent_id: 'null',
-            used: 1,
-        }).then(res => {
-            $scope.productCategories = res.data.data;
-            $scope.onReset($scope.filters);
+    $scope.loadProducts = () => {
+        if ($scope.sample) {
+            ProductService.sample().then((res) => $scope.products = res.data);
+        } else {
+            ProductCategoryService.list({
+                parent_id: 'null',
+                used: 1,
+            }).then(res => {
+                $scope.productCategories = res.data.data;
+                $scope.onReset($scope.filters);
 
-            if ($scope.productCategories.filter(category => {
-                    return category.id == null;
-                }).length == 0) {
+                if ($scope.productCategories.filter(category => {
+                        return category.id == null;
+                    }).length == 0) {
 
-                $scope.productCategories.unshift({
-                    name: 'Selecteer categorie...',
-                    id: null
-                });
-            }
-        });
-    }
-
-    if ($scope.authUser = AuthService.hasCredentials()) {
-        RecordService.list().then(function(res) {
-            $scope.records = res.data;
-            $scope.records.forEach(function(record) {
-                if (!$scope.recordsByKey[record.key]) {
-                    $scope.recordsByKey[record.key] = [];
+                    $scope.productCategories.unshift({
+                        name: 'Selecteer categorie...',
+                        id: null
+                    });
                 }
-    
-                $scope.recordsByKey[record.key].push(record);
             });
-        });
-    }
+        }
+    };
+
+    $scope.onInit = () => {
+        if ($scope.authUser = AuthService.hasCredentials()) {
+            VoucherService.list().then(res => {
+                $scope.vouchers = res.data.data;
+                $scope.loadProducts();
+            });
+
+            RecordService.list().then(function(res) {
+                $scope.records = res.data;
+                $scope.records.forEach(function(record) {
+                    if (!$scope.recordsByKey[record.key]) {
+                        $scope.recordsByKey[record.key] = [];
+                    }
+
+                    $scope.recordsByKey[record.key].push(record);
+                });
+            });
+        } else {
+            $scope.loadProducts();
+        }
+    };
+
+    $scope.onInit();
 };
 
 module.exports = () => {

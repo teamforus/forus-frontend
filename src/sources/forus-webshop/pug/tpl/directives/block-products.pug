@@ -35,14 +35,17 @@ section.section.section-products#products: .wrapper
                             | {{ "block_products.labels.new" | translate }} {{ product.price | currency_format }}
                     
                     div(ng-if="$dir.requestProducts")
-                        .product-state-dot(ng-class="'product-state-dot-' + product.eligibilityState")
+                        .product-state-dot(ng-class="'product-state-dot-' + eligibilityStateColors[product.eligibilityState]")
                         .product-btn(
-                            ng-if="product.isEligible" 
+                            ng-if="product.eligibilityState == 'valid'" 
                             ng-click="applyForProduct(product)"): .button.button-default.button-fill VRAAG AAN
                         
                         .product-btn(
-                            ng-if="!product.isEligible" 
+                            ng-if="product.eligibilityState == 'missing' || product.eligibilityState == 'partial'" 
                             ui-sref="products-request(product)"): .button.button-primary.button-fill DOE DE CHECK
+                        
+                        .product-btn(
+                            ng-if="product.eligibilityState == 'taken'"): .button.button-disabled.button-fill(disabled) TAKEN
 
     empty-block(
         title= "{{ 'block_products.labels.title' | translate }}"

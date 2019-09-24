@@ -132,8 +132,8 @@ let ProductRequestComponent = function(
     };
 
     $ctrl.buildSteps = () => {
-        // Sign up step + location confirm
-        let totalSteps = $ctrl.signedIn ? 1 : 2;
+        // Sign up step + criteria list + location confirm
+        let totalSteps = $ctrl.signedIn ? 2 : 3;
 
         // Net criteria
         totalSteps += ($ctrl.netCriteria ? 1 : 0);
@@ -154,11 +154,15 @@ let ProductRequestComponent = function(
         }
 
         if ((step == 2 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
+            return 'criteria';
+        }
+
+        if ((step == 3 && !$ctrl.signedIn) || (step == 2 && $ctrl.signedIn)) {
             return 'location';
         }
 
         if ($ctrl.netCriteria && ((
-            $ctrl.signedIn && step == 2) || (!$ctrl.signedIn && step == 3))) {
+            $ctrl.signedIn && step == 3) || (!$ctrl.signedIn && step == 4))) {
             return 'net_worth';
         }
 
@@ -166,7 +170,7 @@ let ProductRequestComponent = function(
             return 'done';
         }
 
-        let prevSteps = 1 + ($ctrl.signedIn ? 0 : 1) + ($ctrl.netCriteria ? 1 : 0);
+        let prevSteps = 2 + ($ctrl.signedIn ? 0 : 1) + ($ctrl.netCriteria ? 1 : 0);
 
         return 'criteria_' + ((step - prevSteps) - 1);
     };
