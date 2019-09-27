@@ -269,7 +269,10 @@
 
                     block-empty(ng-if="$ctrl.funds.length == 0" text="'Er zijn momenteel geen actieve fondsen.'")
 
-            .step-footer: a(ng-click="$ctrl.next()" translate="sign_up.buttons.next").button.button-primary
+            .step-footer: a(
+                ng-click="$ctrl.next()" 
+                translate="sign_up.buttons.skip_to_dashboard"
+                ).button.button-text.button-text-muted
 
         //- Mobile device warning
         .hidden-lg.hidden-md.open-pc-section: .section-inner
