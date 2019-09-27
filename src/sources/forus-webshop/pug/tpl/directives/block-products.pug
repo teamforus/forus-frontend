@@ -42,7 +42,7 @@ section.section.section-products#products: .wrapper
                         
                         .product-btn(
                             ng-if="product.eligibilityState == 'missing' || product.eligibilityState == 'partial'" 
-                            ui-sref="products-request(product)"): .button.button-primary.button-fill DOE DE CHECK
+                            ui-sref="products-request(product)"): .button.button-muted.button-fill DOE DE CHECK
                         
                         .product-btn(
                             ng-if="product.eligibilityState == 'taken'"): .button.button-disabled.button-fill(disabled) TAKEN

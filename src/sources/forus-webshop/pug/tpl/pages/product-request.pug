@@ -24,7 +24,7 @@ section.section.section-product: .wrapper
             .request-pane(ng-if="!$ctrl.authToken")
                 .request-pane-header Bevestig uw emailadres 
                 .request-pane-body
-                    p.request-pane-text 
+                    .request-pane-text 
                         | Op deze manier kan u de aanvraag tussentijds onderbreken en 
                         | verder gaan wanneer u wil zonder uw voortgang te verliezen
 
@@ -32,10 +32,15 @@ section.section.section-product: .wrapper
                         .form-group.col.col-lg-9
                             label.form-label EMAIL
                             input(type="email" ng-model="$ctrl.authForm.values.records.primary_email" placeholder="ex. info@info.io").form-control
-                            .form-error(ng-repeat="error in $ctrl.authForm.errors['records.primary_email']" ng-model="error")
+                            .form-error(ng-repeat="error in $ctrl.authForm.errors['records.primary_email']" ng-bind="error")
                         .form-group.col.col-lg-3
                             label.form-label &nbsp;
                             button(type="submit").button.button-primary.button-fill Bevestig
+                    
+                    .request-pane-text
+                        | Door verder te gaan, gaat u akkoord met de 
+                        a(href="#" target="_blank") algemene voorwaarden
+                        | .
                 
             .request-pane(ng-if="$ctrl.authToken")
                 .request-pane-header Please authorize
@@ -66,8 +71,7 @@ section.section.section-product: .wrapper
                             span(ng-if="critera.operator == '>'") more than 
                             span(ng-if="critera.operator == '='") 
                             span(ng-if="critera.operator == '<'") less than 
-                            | {{ critera.value }}.
-
+                            | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }}.
                 
                 .request-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
                     .col.col-lg-6.text-left
@@ -155,7 +159,7 @@ section.section.section-product: .wrapper
             +progress()
             
             .request-pane
-                .request-pane-header(ng-bind="$ctrl.recordTypes[invalidCriteria.record_type_key].name")
+                .request-pane-header(ng-bind="'Bevestig uw ' + $ctrl.recordTypes[invalidCriteria.record_type_key].name")
                 .request-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
                     .form-group.col.col-lg-12
                         input(
@@ -171,7 +175,7 @@ section.section.section-product: .wrapper
                             span(ng-if="invalidCriteria.operator == '>'") more than 
                             span(ng-if="invalidCriteria.operator == '='") 
                             span(ng-if="invalidCriteria.operator == '<'") less than 
-                            | {{ invalidCriteria.value }}.
+                            | {{ invalidCriteria.record_type_key == 'net_worth' ? '€' : '' }}{{ invalidCriteria.value }}.
                     .form-group.col.col-lg-12: file-uploader(files="invalidCriteria.files")
                 
                 .request-pane-footer: .row
@@ -198,7 +202,7 @@ section.section.section-product: .wrapper
                         p.request-pane-text.text-center 
                             | Uw aanvraag is voltooid, u krijgt een email wanneer deze is goedgekeurd.
                 
-                        .text-center: .button.button-default(ui-sref="home") Terug naar de webshop
+                        .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
                     .form-group.col.col-lg-12: br
 
 contact-form 

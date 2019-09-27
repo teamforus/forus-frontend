@@ -26,9 +26,9 @@
     }
     
     &.button-primary {
-        color: #9EA7B6;
-        background: rgba(158, 167, 182, 0.15);
-        border-color: rgba(158, 167, 182, 0.15);
+        color: #fff;
+        background: $color_primary;
+        border-color: $color_primary;
         box-shadow: 0 10px 15px -6px #969696;
         text-shadow: none;
         box-shadow: none;
@@ -38,9 +38,9 @@
 
         &:hover {
             box-shadow: none;
-            color: #666;
-            background: rgba(158, 167, 182, 0.15);
-            border-color: rgba(158, 167, 182, 0.15);
+            color: #fff;
+            background: $color_default_light;
+            border-color: $color_default_light;
             font-weight: 500;
         }
 

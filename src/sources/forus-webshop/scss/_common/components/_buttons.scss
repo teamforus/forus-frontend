@@ -117,6 +117,23 @@
             }
         }
     }
+    
+    &.button-muted {
+        color: #9ea7b5;
+        background: #f0f2f4;
+        border-color: #f0f2f4;
+
+        &:hover {
+            color: #9ea7b5;
+            background: #f0f2f4;
+            border-color: #f0f2f4;
+        }
+
+        &:focus, &:active {
+            outline: none;
+            border-color: darken($color: rgba(158, 167, 182, 0.15), $amount: 100);
+        }
+    }
 
     &.button-primary-outline {
         color: #2f5bf6;

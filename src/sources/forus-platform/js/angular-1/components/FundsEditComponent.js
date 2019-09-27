@@ -1,6 +1,7 @@
 let FundsEditComponent = function(
     $state,
     $stateParams,
+    $rootScope,
     FundService,
     RecordTypeService,
     FormBuilderService,
@@ -46,6 +47,10 @@ let FundsEditComponent = function(
             product_categories: [],
             state: $ctrl.fundStates[0].value
         };
+
+        if (!$rootScope.appConfigs.features.organizations.funds.criteria) {
+            delete values.criteria;
+        }
 
         $ctrl.form = FormBuilderService.build(values, async (form) => {
             form.lock();
@@ -114,6 +119,7 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
+        '$rootScope',
         'FundService',
         'RecordTypeService',
         'FormBuilderService',

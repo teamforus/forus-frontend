@@ -17,6 +17,17 @@ let FileService = function(
             window.saveAs(blob, file_name);
         };
 
+        this.download = function(file) {
+            return ApiRequest.get(uriPrefix + '/' + file.uid + '/download', {}, {}, true, (params) => {
+                params.responseType = 'blob';
+                return params;
+            });
+        };
+
+        this.downloadUrl = function(file) {
+            return ApiRequest.endpointToUrl(uriPrefix + '/' + file.uid + '/download');
+        };
+
         this.store = function(file) {
             var formData = new FormData();
 

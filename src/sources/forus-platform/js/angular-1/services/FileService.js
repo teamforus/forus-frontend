@@ -1,7 +1,10 @@
-let FileService = function(ApiRequest) {
-    return new (function() {
-        let uriPrefix = '/files';
+let FileService = function(
+    $q,
+    ApiRequest,
+) {
+    let uriPrefix = '/files';
 
+    return new (function() {
         this.downloadFile = (
             file_name,
             file_data,
@@ -24,10 +27,25 @@ let FileService = function(ApiRequest) {
         this.downloadUrl = function(file) {
             return ApiRequest.endpointToUrl(uriPrefix + '/' + file.uid + '/download');
         };
+
+        this.store = function(file) {
+            var formData = new FormData();
+
+            formData.append('file', file);
+
+            return ApiRequest.post(uriPrefix, formData, {
+                'Content-Type': undefined
+            });
+        };
+
+        this.storeAll = function(files) {
+            return $q.all(files.map(this.store));
+        };
     });
 };
 
 module.exports = [
+    '$q',
     'ApiRequest',
     FileService
 ];

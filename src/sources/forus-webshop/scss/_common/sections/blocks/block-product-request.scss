@@ -77,8 +77,14 @@
             }
 
             .request-pane-text {
-                font: 400 16px/28px $bf;
+                font: 400 15px/28px $bf;
                 margin: 0 0 20px;
+
+                a {
+                    font: inherit;
+                    color: #3561FF;
+                    font-weight: 500;
+                }
             }
 
             .request-pane-list {

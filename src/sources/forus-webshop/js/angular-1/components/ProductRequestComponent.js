@@ -88,9 +88,7 @@ let ProductRequestComponent = function(
     };
 
     $ctrl.applyAccessToken = function(access_token) {
-        console.log('$ctrl.applyAccessToken', access_token);
         CredentialsService.set(access_token);
-        //- $rootScope.$broadcast('auth:update');
         $ctrl.buildTypes();
         $ctrl.nextStep();
     };
@@ -112,7 +110,6 @@ let ProductRequestComponent = function(
     $ctrl.requestAuthQrToken = () => {
         IdentityService.makeAuthToken().then((res) => {
             $ctrl.authToken = res.data.auth_token;
-
             $ctrl.checkAccessTokenStatus('token', res.data.access_token);
         }, console.log);
     };
@@ -205,7 +202,7 @@ let ProductRequestComponent = function(
             records: $ctrl.requestRecords,
             fund_id: $ctrl.fund.id
         }).then(res => {
-            console.log('done', res);
+            // console.log('done', res);
         }, res => alert(JSON.stringify(res.data)));
     };
 
@@ -238,12 +235,11 @@ let ProductRequestComponent = function(
         }
 
         $ctrl.updateState();
-
-        //- console.log($ctrl.netCriteria, $ctrl.invalidCriteria, $ctrl.signedIn);
     };
 
-    $ctrl.applyForProduct = (voucher) => {
-
+    $ctrl.finish = () => {
+        $rootScope.$broadcast('auth:update');
+        $state.go('home');
     };
 };
 

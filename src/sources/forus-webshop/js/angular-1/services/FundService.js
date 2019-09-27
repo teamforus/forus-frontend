@@ -189,16 +189,6 @@ let FundService = function(
             });
 
             let record = typeof _records[0] != 'undefined' ? _records[0] : null;
-
-            /// return validatedRecords;
-
-            /* console.log(validators);
-            console.log(records);
-            console.log(_records);
-            console.log(record);
-
-            console.log('='.repeat(80)); */
-
             let validValue = false;
 
             if (criterion.operator == '!=') {
@@ -216,6 +206,55 @@ let FundService = function(
             }
 
             return validValue;
+        }
+
+        this.checkEligibilityLegacy = (
+            records = [],
+            criterion,
+            validators,
+            organization_id = null
+        ) => {
+            return records.map(function(record) {
+                let validated = record.validations.filter(function(validation) {
+                    if (organization_id && validation.organization) {
+                        if (validation.organization.id != organization_id) {
+                            return false;
+                        }
+                    }
+
+                    return (validation.state == 'approved') && validators.indexOf(
+                        validation.identity_address
+                    ) != -1;
+                }).length > 0;
+
+                let validValue = false;
+
+                if (criterion.operator == '!=') {
+                    validValue = record.value != criterion.value;
+                } else if (criterion.operator == '=') {
+                    validValue = record.value == criterion.value;
+                } else if (criterion.operator == '>') {
+                    validValue = parseFloat(record.value) > parseFloat(criterion.value);
+                } else if (criterion.operator == '<') {
+                    validValue = parseFloat(record.value) < parseFloat(criterion.value);
+                } else if (criterion.operator == '>=') {
+                    validValue = parseFloat(record.value) >= parseFloat(criterion.value);
+                } else if (criterion.operator == '<=') {
+                    validValue = parseFloat(record.value) <= parseFloat(criterion.value);
+                }
+
+                if (!validValue) {
+                    record.state = 'addRecord';
+                } else if (validated && !validValue) {
+                    record.state = 'invalid';
+                } else if (!validated && validValue) {
+                    record.state = 'validate';
+                } else if (validated && validValue) {
+                    record.state = 'valid';
+                }
+
+                return record;
+            });
         }
 
         this.fundCriteriaList = (criteria, recordsByTypesKey) => {
