@@ -43,9 +43,9 @@ section.section.section-product: .wrapper
                         | .
                 
             .request-pane(ng-if="$ctrl.authToken")
-                .request-pane-header Please authorize
+                .request-pane-header Log in door QR-code te scannen
                 .request-pane-body
-                    p.request-pane-text Email you privided already exists in the system, please scan this qr-code to authorize.
+                    p.request-pane-text Het e-mail adres dat u invulde bestaat al in het systeem. Scan de QR-code met de Me-app om verder te gaan waar u gebleven was.
                     qr-code(ng-if="$ctrl.authToken" qr-value="$ctrl.authToken" qr-type="auth_token")
         
         //- List the criteria
@@ -67,10 +67,10 @@ section.section.section-product: .wrapper
                         | De volgende gegevens zijn vereist om deze regeling aan te vragen:
                     .request-pane-info: ul.request-pane-list 
                         li(ng-repeat="critera in $ctrl.fund.criteria")
-                            | {{ critera.record_type_name }} should be 
-                            span(ng-if="critera.operator == '>'") more than 
+                            | {{ critera.record_type_name }} moet
+                            span(ng-if="critera.operator == '>'") meer dan 
                             span(ng-if="critera.operator == '='") 
-                            span(ng-if="critera.operator == '<'") less than 
+                            span(ng-if="critera.operator == '<'") minder dan 
                             | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }}.
                 
                 .request-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
@@ -91,7 +91,7 @@ section.section.section-product: .wrapper
             +progress()
             
             .request-pane
-                .request-pane-header Bevestig uw emailadres 
+                .request-pane-header Bevestig uw adres
                 .request-pane-body: form().form.row: .form-group.col.col-lg-12.text-center: .checkbox
                     input(type="checkbox" ng-model="$ctrl.confirmLocation" id="accept" name="accept")
                     label.checkbox-label(for="accept")
@@ -106,7 +106,7 @@ section.section.section-product: .wrapper
         
         //- Confirm net worth
         div(ng-if="$ctrl.state == 'net_worth'")
-            h2.block-title Zomer zwem regeling aanvraag
+            h2.block-title Zomerzwemregeling aanvraag
             p.block-description
                 | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
                 strong woonplaats 
@@ -148,7 +148,7 @@ section.section.section-product: .wrapper
         div(
             ng-repeat="invalidCriteria in $ctrl.invalidCriteria track by $index"
             ng-if="$ctrl.state == 'criteria_' + $index")
-            h2.block-title Zomer zwem regeling aanvraag
+            h2.block-title Zomerzwemregeling aanvraag
             p.block-description
                 | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
                 strong woonplaats 
@@ -165,16 +165,16 @@ section.section.section-product: .wrapper
                         input(
                             ng-model="invalidCriteria.input_value"
                             type="{string:'text', number:'number'}[$ctrl.recordTypes[invalidCriteria.record_type_key].type]" 
-                            placeholder="Generieke waarde").form-control
+                            placeholder="Uw {{ invalidCriteria.record_type_name }}").form-control
                         .form-error(ng-repeat="error in invalidCriteria.errors.value" ng-bind="error")
                         
                     .form-group.col.col-lg-12: .request-pane-info
                         p.request-pane-text 
-                            | For this particular product "{{ $ctrl.product.name }}" 
-                            | fund sponsor required your record "{{ invalidCriteria.record_type_name }}" to be 
-                            span(ng-if="invalidCriteria.operator == '>'") more than 
+                            | Voor een "{{ $ctrl.product.name }}" 
+                            | vereist de sponsor dat uw "{{ invalidCriteria.record_type_name }}" moet zijn
+                            span(ng-if="invalidCriteria.operator == '>'") meer dan 
                             span(ng-if="invalidCriteria.operator == '='") 
-                            span(ng-if="invalidCriteria.operator == '<'") less than 
+                            span(ng-if="invalidCriteria.operator == '<'") minder dan 
                             | {{ invalidCriteria.record_type_key == 'net_worth' ? '€' : '' }}{{ invalidCriteria.value }}.
                     .form-group.col.col-lg-12: file-uploader(files="invalidCriteria.files")
                 
@@ -187,7 +187,7 @@ section.section.section-product: .wrapper
         
         //- Done
         div(ng-if="$ctrl.state == 'done'")
-            h2.block-title Zomer zwem regeling aanvraag
+            h2.block-title Zomerzwemregeling aanvraag
             p.block-description
                 | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
                 strong woonplaats 
