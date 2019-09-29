@@ -74,10 +74,15 @@ section.section.section-product: .wrapper
                             | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }}.
                 
                 .request-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
-                    .col.col-lg-6.text-left
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(
+                        ng-if="!$ctrl.signedIn"
+                        ng-click="$ctrl.prevStep()")
+                        | Vorige stap
+                        em.mdi.mdi-chevron-left.icon-left
                     .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
                         | Volgende stap
                         em.mdi.mdi-chevron-right.icon-right
+        
         //- Confirm city
         div(ng-if="$ctrl.state == 'location'")
             h2.block-title Bevestig uw gemeente
@@ -98,9 +103,14 @@ section.section.section-product: .wrapper
                         .checkbox-box: .mdi.mdi-check
                         | Ik verklaar dat ik woon in de gemeente Barneveld.
                 
-                .request-pane-footer(ng-if="$ctrl.confirmLocation"): .row
-                    .col.col-lg-6.text-left
-                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
+                .request-pane-footer: .row
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(
+                        ng-click="$ctrl.prevStep()")
+                        | Vorige stap
+                        em.mdi.mdi-chevron-left.icon-left
+                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(
+                        ng-click="$ctrl.nextStep()"
+                        ng-if="$ctrl.confirmLocation")
                         | Volgende stap
                         em.mdi.mdi-chevron-right.icon-right
         
@@ -139,7 +149,10 @@ section.section.section-product: .wrapper
                     .form-error(ng-repeat="err in $ctrl.netCriteria.errors.file" ng-bind="err")
                 
                 .request-pane-footer: .row
-                    .col.col-lg-6.text-left
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(
+                        ng-click="$ctrl.prevStep()")
+                        | Vorige stap
+                        em.mdi.mdi-chevron-left.icon-lefts
                     .col.col-lg-6.text-right
                         .button.button-text.button-text-padless(ng-click="$ctrl.submitNetWorth()")
                             | Volgende stap
@@ -160,7 +173,7 @@ section.section.section-product: .wrapper
             
             .request-pane
                 .request-pane-header(ng-bind="'Bevestig uw ' + $ctrl.recordTypes[invalidCriteria.record_type_key].name")
-                .request-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
+                .request-pane-body: form(ng-submit="$ctrl.submitStepCriteria(invalidCriteria)").form.row
                     .form-group.col.col-lg-12
                         input(
                             ng-model="invalidCriteria.input_value"
@@ -179,9 +192,11 @@ section.section.section-product: .wrapper
                     .form-group.col.col-lg-12: file-uploader(files="invalidCriteria.files")
                 
                 .request-pane-footer: .row
-                    .col.col-lg-6.text-left
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()")
+                        | Vorige stap
+                        em.mdi.mdi-chevron-left.icon-left
                     .col.col-lg-6.text-right
-                        .button.button-text.button-text-padless(ng-click="$ctrl.submitCriteria(invalidCriteria)")
+                        .button.button-text.button-text-padless(ng-click="$ctrl.submitStepCriteria(invalidCriteria)")
                             | Volgende stap
                             em.mdi.mdi-chevron-right.icon-right
         

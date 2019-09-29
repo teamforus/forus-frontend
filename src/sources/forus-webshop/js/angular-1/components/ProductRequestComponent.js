@@ -1,4 +1,5 @@
 let ProductRequestComponent = function(
+    $q,
     $state,
     $rootScope,
     $timeout,
@@ -9,12 +10,9 @@ let ProductRequestComponent = function(
     IdentityService,
     FormBuilderService,
     CredentialsService,
-    FileService,
-    VoucherService,
-    ModalService
+    FileService
 ) {
     let $ctrl = this;
-    let timeout;
 
     $ctrl.step = 1;
     $ctrl.state = '';
@@ -26,12 +24,18 @@ let ProductRequestComponent = function(
     $ctrl.authToken = false;
     $ctrl.signedIn = false;
     $ctrl.recordsSubmitting = false;
-    $ctrl.requestRecords = [
-        
-    ];
-
+    $ctrl.requestRecords = [];
+    $ctrl.stepsCriterias = [];
     $ctrl.files = [];
 
+    let array_unique = (arr) => {
+        return arr.reduce((_arr, val) => {
+            (_arr.indexOf(val) == -1) && _arr.push(val);
+            return _arr;
+        }, []);
+    };
+
+    // Initialize authorization form
     $ctrl.initAuthForm = () => {
         $ctrl.authForm = FormBuilderService.build({
             email: '',
@@ -53,37 +57,52 @@ let ProductRequestComponent = function(
         });
     };
 
+    // Submit nth worth criteria record (hardcoded for the demo)
     $ctrl.submitNetWorth = () => {
-        $ctrl.netCriteria.input_value = $ctrl.netCriteria.value -100;
-        $ctrl.submitCriteria($ctrl.netCriteria);
+        $ctrl.netCriteria.input_value = $ctrl.netCriteria.value - 100;
+        $ctrl.submitStepCriteria($ctrl.netCriteria);
     };
 
-    $ctrl.submitCriteria = (criteria) => {
-        $ctrl.recordsSubmitting = true;
+    // Submit criteria record
+    $ctrl.submitStepCriteria = (criteria) => {
+        return $ctrl.submitCriteria(criteria).then($ctrl.nextStep, () => {});
+    };
 
-        RecordService.store({
-            type: criteria.record_type_key,
-            value: criteria.input_value
-        }).then(res => {
-            let record = res.data;
-            $ctrl.recordsSubmitting = false;
+    // Submit or Validate record criteria
+    $ctrl.submitCriteria = (criteria, onlyValidate = true) => {
+        return $q((resolve, reject) => {
+            $ctrl.recordsSubmitting = true;
 
-            FileService.storeAll(criteria.files).then(res => {
-                let files = res.map(res => res.data.data.uid);
+            (onlyValidate ? RecordService.storeValidate({
+                type: criteria.record_type_key,
+                value: criteria.input_value
+            }) : RecordService.store({
+                type: criteria.record_type_key,
+                value: criteria.input_value
+            })).then(_res => {
+                let record = _res.data;
 
-                $ctrl.requestRecords.push({
-                    record_id: record.id,
-                    files: files,
+                (onlyValidate ? FileService.storeValidateAll(
+                    criteria.files
+                ) : FileService.storeAll(criteria.files)).then(res => {
+                    onlyValidate ? $ctrl.stepsCriterias.push(
+                        criteria
+                    ) : $ctrl.requestRecords.push({
+                        record_id: record.id,
+                        files: res.map(res => res.data.data.uid),
+                    });
+
+                    $ctrl.recordsSubmitting = false;
+                    criteria.errors = {};
+                    resolve(record);
+                }, res => {
+                    $ctrl.recordsSubmitting = false;
+                    reject(criteria.errors = res.data.errors);
                 });
-
-                $ctrl.nextStep();
             }, res => {
-                criteria.errors = res.data.errors;
-                
+                $ctrl.recordsSubmitting = false;
+                reject(criteria.errors = res.data.errors);
             });
-        }, res => {
-            $ctrl.recordsSubmitting = false;
-            criteria.errors = res.data.errors;
         });
     };
 
@@ -113,7 +132,6 @@ let ProductRequestComponent = function(
             $ctrl.checkAccessTokenStatus('token', res.data.access_token);
         }, console.log);
     };
-
 
     $ctrl.updateEligibility = () => {
         $ctrl.invalidCriteria = FundService.demoCheckProductEligibility(
@@ -159,7 +177,7 @@ let ProductRequestComponent = function(
         }
 
         if ($ctrl.netCriteria && ((
-            $ctrl.signedIn && step == 3) || (!$ctrl.signedIn && step == 4))) {
+                $ctrl.signedIn && step == 3) || (!$ctrl.signedIn && step == 4))) {
             return 'net_worth';
         }
 
@@ -197,13 +215,20 @@ let ProductRequestComponent = function(
         }
     };
 
+    $ctrl.prevStep = () => {
+        $ctrl.step--;
+        $ctrl.updateState();
+    };
+
     $ctrl.submitRequest = () => {
-        ProductService.request($ctrl.product.id, {
-            records: $ctrl.requestRecords,
-            fund_id: $ctrl.fund.id
-        }).then(res => {
-            // console.log('done', res);
-        }, res => alert(JSON.stringify(res.data)));
+        $q.all(array_unique($ctrl.stepsCriterias).map(
+            criteria => $ctrl.submitCriteria(criteria, false)
+        )).then(() => {
+            ProductService.request($ctrl.product.id, {
+                records: $ctrl.requestRecords,
+                fund_id: $ctrl.fund.id
+            }).then(console.log, console.error);
+        });
     };
 
     $ctrl.updateState = () => {
@@ -250,6 +275,7 @@ module.exports = {
         product: '<',
     },
     controller: [
+        '$q',
         '$state',
         '$rootScope',
         '$timeout',
@@ -261,8 +287,6 @@ module.exports = {
         'FormBuilderService',
         'CredentialsService',
         'FileService',
-        'VoucherService',
-        'ModalService',
         ProductRequestComponent
     ],
     templateUrl: 'assets/tpl/pages/product-request.html'
