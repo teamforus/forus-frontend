@@ -1,7 +1,11 @@
 require('./modules/select-control/SelectControlModule');
+require('./modules/ui-controls/UIControlsModule');
 
-let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies', 'forus.selectControl']);
 let appConfigs = JSON.parse(JSON.stringify(env_data));
+let app = angular.module('forusApp', [
+    'pascalprecht.translate', 'ui.router', 'ngCookies', 
+    'forus.selectControl', 'forus.uiControls',
+]);
 
 app.constant('appConfigs', appConfigs);
 

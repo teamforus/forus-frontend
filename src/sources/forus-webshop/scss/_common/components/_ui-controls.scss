@@ -1,0 +1,161 @@
+.ui-control {
+    display: flex;
+    position: relative;
+
+    .ui-control-clear {
+        position: absolute;
+        right: 0;
+        width: 35px;
+        top: 50%;
+        text-align: left;
+        transform: translate(0, -50%);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .4s;
+
+        .mdi {
+            color: #CCD0E0;
+            font-size: 22px;
+            height: 24px;
+            vertical-align: bottom;
+            cursor: pointer;
+        }
+    }
+
+    .form-control:not([type="radio"]):not([type="checkbox"]) {
+        appearance: none;
+    
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            appearance: none;
+        }
+    }
+
+    &:focus, &:hover, &:active, .form-control:focus {
+        .ui-control-clear {
+            opacity: 1;
+            pointer-events: initial;
+
+            &:before {
+                float: left;
+            }
+        }
+    }
+
+    &.ui-control-currency {
+        position: relative;
+
+        .ui-control-currency-icon {
+            position: absolute;
+            left: 0;
+            font: 700 18px $bf;
+            width: 40px;
+            top: 50%;
+            text-align: center;
+            transform: translate(0, -50%);
+            pointer-events: none;
+        }
+
+        .form-control:not([type="radio"]):not([type="checkbox"]) {
+            padding-left: 40px;
+            margin: 0; 
+        }
+    }
+
+
+    &.ui-control-text,
+    &.ui-control-number,
+    &.ui-control-currency {
+        .form-control:not([type="radio"]):not([type="checkbox"]) {
+            &:focus, &:active {
+                &+.ui-control-clear {
+                    opacity: 1;
+                    pointer-events: initial;
+                }
+            }
+        }
+    }
+
+    &.ui-control-date {
+        position: relative;
+    }
+
+    &.ui-control-step {
+        @extend .ui-control;
+        display: inline-block;
+        background-color: #EFF2F4;
+        border-radius: $border_radius;
+        font-size: 0;
+        position: relative;
+
+        .ui-control-step-icon {
+            padding: $formPadding;
+            padding-left: 20px;
+            padding-right: 20px;
+            text-align: center;
+            cursor: pointer;
+            opacity: .7;
+            font-size: 24px;
+            @include cf();
+            float: left;
+            transition: opacity .4s;
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -50%);
+
+            &:hover {
+                opacity: 1;
+            }
+
+            &:first-of-type {
+                left: 0;
+                padding-right: 5px;
+            }
+
+            &:last-of-type {
+                right: 0;
+                padding-left: 5px;
+            }
+        }
+
+        .ui-control-step-value {
+            border: 1px solid transparent;
+            text-align: center;
+            padding: 0;
+            font: inherit;
+            padding: $formPadding;
+            min-width: 152px;
+            padding-left: 40px;
+            padding-right: 40px;
+            font: $formFont;
+            float: left;
+        }
+
+        &:not(.ui-control-step-fill)+.ui-control-step {
+            margin-left: 10px;
+        }
+
+        &.ui-control-step-fill {
+            display: flex;
+
+            .ui-control-step-value {
+                flex-grow: 1;
+            }
+        }
+
+        &.ui-control-step-variant {
+            background: transparent;
+
+            .ui-control-step-icon {
+                background-color: #EFF2F4;
+                border-radius: 50px;
+                height: 28px;
+                width: 28px;
+                padding: 0;
+                text-align: center;
+                line-height: 28px;
+                font-size: 20px;
+            }
+        }
+    }
+}

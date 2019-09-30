@@ -16,6 +16,7 @@ platform.setLibs([
     "angular_translate",
     "angular_translate_storage_cookies",
     "angular_translate_storage_local",
+    "angular_datepicker",
     "mdi",
     "moment",
     "nanoscroller",
@@ -33,6 +34,7 @@ platform.addTask('js', {
     ],
     watch: [
         "angular-1/**/**.js",
+        "angular-1/**/**.pug",
     ],
     dest: "/",
     name: "app.min.js",
