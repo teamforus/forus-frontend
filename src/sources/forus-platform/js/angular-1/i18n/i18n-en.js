@@ -513,7 +513,8 @@ module.exports = {
             next: "Volgende",
             reload_qr: 'Herlaad de code.',
             login: 'Login',
-            skip: "Overslaan"
+            skip: "Overslaan",
+            skip_to_dashboard: 'Sla over en ga naar dashboard >'
         },
         step: {
             step_1: 'Stap 1',
