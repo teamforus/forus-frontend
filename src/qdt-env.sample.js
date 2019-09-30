@@ -190,6 +190,17 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('webshop_barneveld', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'barneveld',
+            client_type: 'webshop',
+            log_out_time: false,
+        });
+
+        return platform;
+    });
+
     // Config meapp landings
     core.editPlatform('website', (platform) => {
         platform.setEnvData({

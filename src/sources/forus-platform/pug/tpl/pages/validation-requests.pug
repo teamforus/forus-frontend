@@ -33,31 +33,26 @@
 
         .card.card-collapsable(
             ng-repeat="validatorRequest in $ctrl.validatorRequestsData")
-            .card-section(ng-click="validatorRequest.collapsed = !validatorRequest.collapsed")
-                .card-section-actions(ng-show="validatorRequest.nth.pending > 0")
-                    .tag.tag-warning(translate="validation_requests.status.hold")
+            .card-section(ng-click="$ctrl.toggleRequestCollapsing(validatorRequest)")
                 .card-title
-                    span(ng-bind="'BSN: ' + validatorRequest.bsn")
+                    span(ng-bind="'ID: ' + validatorRequest.identity_address")
                     .card-collapse.mdi(ng-class="'mdi-chevron-' + (validatorRequest.collapsed ? 'down' : 'up')")
 
-            mixin keyvalue_item_horizontal(key, value)
-                .keyvalue-item.col.col-sm-3
-                    .keyvalue-key=key
-                    .keyvalue-value=value
-
-            .card-section.card-section-primary(ng-click="validatorRequest.collapsed = !validatorRequest.collapsed")
+            .card-section.card-section-primary(ng-click="$ctrl.toggleRequestCollapsing(validatorRequest)")
                 .card-block.card-block-keyvalue.card-block-keyvalue-horizontal: .row
+                    mixin keyvalue_item_horizontal(key, value)
+                        .keyvalue-item.col.col-sm-3
+                            .keyvalue-key=key
+                            .keyvalue-value=value
+
                     +keyvalue_item_horizontal("Gevalideerd", "{{ validatorRequest.nth.approved }}")
                     +keyvalue_item_horizontal("Niet gevalideerd", "{{ validatorRequest.nth.declined }}")
                     +keyvalue_item_horizontal("Openstaande validaties", "{{ validatorRequest.nth.pending }}")
+                
+                .card-section-actions.card-section-actions-narrow(ng-show="validatorRequest.nth.pending > 0")
+                    .tag.tag-warning(translate="validation_requests.status.hold")
             
-            .card-section.card-section-primary.text-center(ng-if="!validatorRequest.collapsed")
-                button.button.button-primary(
-                    ng-click="$ctrl.shownUsers[validatorRequest.bsn] = !$ctrl.shownUsers[validatorRequest.bsn]")
-                    em.mdi.mdi-format-list-bulleted 
-                    | {{ "validation_requests.buttons.show" | translate }}
-            
-            .card-header(ng-show="$ctrl.shownUsers[validatorRequest.bsn] && !validatorRequest.collapsed")
+            .card-header.card-header-collapsable(ng-show="!validatorRequest.collapsed")
                 .arrow-box.border.bg-dim: .arrow
                 .card-title 
                     .row 
@@ -65,34 +60,45 @@
                         .col.col-sm-6.text-right
                             button(ng-click="$ctrl.validateAll(validatorRequest)").button.button-primary
                                 em.mdi.mdi-check-circle
-                                | {{ "validation_requests.buttons.allaccept" | translate }}
+                                translate(translate="validation_requests.buttons.allaccept")
                             button(ng-click="$ctrl.declineAll(validatorRequest)").button.button-default
                                 em.mdi.mdi-close
-                                | {{ "validation_requests.buttons.alldecline" | translate }}
-            .card-section(ng-show="$ctrl.shownUsers[validatorRequest.bsn] && !validatorRequest.collapsed")
-                .card-block.card-block-table: .table-wrapper: table.table
-                    tr
+                                translate(translate="validation_requests.buttons.alldecline")
+            
+            .card-section.card-section-collapsable(ng-show="!validatorRequest.collapsed")
+                .card-block.card-block-table: .table-wrapper: table.table.table-hoverless.table-borderless-end
+                    thead: tr
                         th(translate="validation_requests.labels.type")
                         th(translate="validation_requests.labels.value")
                         th(translate="validation_requests.labels.date")
                         th(translate="validation_requests.labels.status")
                         th(translate="validation_requests.labels.actions").text-right
-                    tr(ng-repeat="request in validatorRequest.requests")
-                        td: a(ui-sref="validation-request(request)" ng-bind="request.record.name").text-primary
-                        td(ng-bind="request.record.value")
-                        td(ng-bind="request.created_at")
-                        td.text-right: .tag(
-                            ng-class="{pending: 'tag-warning', declined: 'tag-danger', approved: 'tag-success'}[request.state]"
-                            translate="validation_requests.status.{{ request.state }}")
-                        td.text-right
-                            .button.button-primary.button-icon(
-                                ng-if="request.state == 'pending'"
-                                ng-click="$ctrl.validateRequest(request, true)"): em.mdi.mdi-check
-                            .button.button-default.button-icon(
-                                ng-if="request.state == 'pending'"
-                                ng-click="$ctrl.declineRequest(request, true)"): em.mdi.mdi-close
+                    
+                    tbody(ng-repeat="request in validatorRequest.requests")
+                        tr
+                            td: a(ui-sref="validation-request(request)" ng-bind="request.record.name").text-primary
+                            td(ng-bind="request.record.value")
+                            td(ng-bind="request.created_at")
+                            td.text-right: .tag(
+                                ng-class="{pending: 'tag-warning', declined: 'tag-danger', approved: 'tag-success'}[request.state]"
+                                translate="validation_requests.status.{{ request.state }}")
+                            td.text-right
+                                .button.button-primary.button-icon(
+                                    ng-if="request.state == 'pending'"
+                                    ng-click="$ctrl.validateRequest(request, true)"): em.mdi.mdi-check
+                                .button.button-default.button-icon(
+                                    ng-if="request.state == 'pending'"
+                                    ng-click="$ctrl.declineRequest(request, true)"): em.mdi.mdi-close
+                        
+                        tr(ng-if="(request.files.length > 0)").dim: td(colspan="6"): .block.block-attachments-list: .block-attachments-inner
+                            a(ng-repeat="file in request.files" ng-click="$ctrl.downloadFile(file)").attachment-item
+                                .attachment-icon
+                                    .mdi.mdi-file
+                                    .attachment-size(ng-bind="file.size")
+                                .attachment-name(ng-bind="file.original_name")
+
                                     
-            .card-section(ng-show="$ctrl.shownUsers[validatorRequest.bsn] && !validatorRequest.collapsed")
+            .card-section.card-section-collapsable(ng-show="!validatorRequest.collapsed")
                 .table-pagination
                     .table-pagination-counter(
                         translate="validation_requests.labels.results"

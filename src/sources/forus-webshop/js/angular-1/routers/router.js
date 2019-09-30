@@ -116,6 +116,29 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: "products-request",
+        url: "/products/{id}/request",
+        component: "productRequestComponent",
+        data: {
+            id: null
+        },
+        resolve: {
+            product: function($transition$, ProductService) {
+                return repackResponse(
+                    ProductService.read(
+                        $transition$.params().id
+                    )
+                );
+            },
+            recordTypes: function($transition$, RecordTypeService) {
+                return repackResponse(
+                    RecordTypeService.list()
+                );
+            },
+        }
+    });
+
+    $stateProvider.state({
         name: "vouchers",
         url: "/vouchers",
         component: "vouchersComponent",

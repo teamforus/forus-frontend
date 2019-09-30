@@ -20,6 +20,7 @@ app.component('recordsComponent', require('./components/RecordsComponent'));
 app.component('productsComponent', require('./components/ProductsComponent'));
 app.component('productComponent', require('./components/ProductComponent'));
 app.component('productApplyComponent', require('./components/ProductApplyComponent'));
+app.component('productRequestComponent', require('./components/ProductRequestComponent'));
 app.component('voucherComponent', require('./components/VoucherComponent'));
 app.component('fundApplyComponent', require('./components/FundApplyComponent'));
 app.component('recordValidateComponent', require('./components/RecordValidateComponent'));
@@ -85,6 +86,7 @@ app.directive('forusChat', require('./directives/ForusChatDirective'));
 app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
 app.directive('scrollEnd', require('./directives/ScrollEndDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
+app.directive('fileUploader', require('./directives/controls/FileUploaderDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));

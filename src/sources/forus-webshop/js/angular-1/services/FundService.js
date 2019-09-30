@@ -128,7 +128,87 @@ let FundService = function(
             );
         };
 
+        this.demoCheckProductEligibilityState = (recordsByKey, product) => {
+            let invalid = this.demoCheckProductEligibility(recordsByKey, product);
+            let fund = product.funds[product.funds.length - 1];
+
+            if (invalid.length == 0) {
+                return 'valid';
+            }
+
+            return fund.criteria.length != invalid.length ? 'partial' : 'missing';
+        }
+
+        this.demoCheckProductEligibility = (recordsByKey, product) => {
+            let fund = product.funds[product.funds.length - 1];
+
+            return fund.criteria.map((criterion) => {
+                return this.checkEligibility(
+                    JSON.parse(JSON.stringify(recordsByKey))[criterion.record_type_key] || [],
+                    criterion,
+                    fund.validators.map(validator => validator.identity_address)
+                ) ? false : criterion;
+            }).filter(criterion => criterion);
+        }
+
+        let newest = (arr, prop) => {
+            let _newest = null;
+            let _newsetTime = 0;
+
+            arr.forEach(item => {
+                if (moment(item[prop]).format('X') > _newsetTime) {
+                    _newest = item;
+                }
+            });
+
+            return _newest;
+        };
+
         this.checkEligibility = (
+            records = [],
+            criterion,
+            validators,
+            organization_id = null
+        ) => {
+            let _records = records.filter(record => {
+                return (record.validations.filter(validation => {
+                    return (validation.organization_id == organization_id ||
+                        validation.organization_id == null) && validators.indexOf(validation.identity_address) != -1;
+                }).length > 0);
+            });
+
+            if (_records.length == 0) {
+                return null;
+            }
+
+            _records.sort((a, b) => {
+                let _a = moment(newest(a.validations, 'created_at').created_at).format('X');
+                let _b = moment(newest(b.validations, 'created_at').created_at).format('X');
+
+                return _a > _b ? -1 : (_a == _b ? 0 : 1);
+            });
+
+            let record = typeof _records[0] != 'undefined' ? _records[0] : null;
+            let validValue = false;
+
+            if (criterion.operator == '!=') {
+                validValue = record.value != criterion.value;
+            } else if (criterion.operator == '=') {
+                validValue = record.value == criterion.value;
+            } else if (criterion.operator == '>') {
+                validValue = parseFloat(record.value) > parseFloat(criterion.value);
+            } else if (criterion.operator == '<') {
+                validValue = parseFloat(record.value) < parseFloat(criterion.value);
+            } else if (criterion.operator == '>=') {
+                validValue = parseFloat(record.value) >= parseFloat(criterion.value);
+            } else if (criterion.operator == '<=') {
+                validValue = parseFloat(record.value) <= parseFloat(criterion.value);
+            }
+
+            return validValue;
+        }
+
+        this.checkEligibilityLegacy = (
             records = [],
             criterion,
             validators,
@@ -176,7 +256,6 @@ let FundService = function(
                 return record;
             });
         }
-
 
         this.fundCriteriaList = (criteria, recordsByTypesKey) => {
             return criteria.filter(

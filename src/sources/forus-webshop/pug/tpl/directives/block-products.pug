@@ -17,20 +17,35 @@ section.section.section-products#products: .wrapper
 
     .block.block-products(ng-if="products.data.length > 0")
         .product-item(ng-repeat="product in products.data" ng-class="{discounted:product.old_price}")
-            a(ui-sref="products-show(product)").product-item-inner
+            .product-item-inner
                 .product-image
                     img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
                 .product-details
                     .product-organization
                         span(ng-bind="product.organization.name")
                     .product-name.truncated(ng-bind="product.name")
-                    .product-discount
-                        | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}%
-                        br
-                        | {{ "block_products.labels.discount" | translate }}
-                    .product-price
-                        small {{ "block_products.labels.old" | translate }} {{ product.old_price | currency_format }}
-                        | {{ "block_products.labels.new" | translate }} {{ product.price | currency_format }}
+                    
+                    div(ng-if="!$dir.requestProducts")
+                        .product-discount
+                            | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}%
+                            br
+                            | {{ "block_products.labels.discount" | translate }}
+                        .product-price
+                            small {{ "block_products.labels.old" | translate }} {{ product.old_price | currency_format }}
+                            | {{ "block_products.labels.new" | translate }} {{ product.price | currency_format }}
+                    
+                    div(ng-if="$dir.requestProducts")
+                        .product-state-dot(ng-class="'product-state-dot-' + eligibilityStateColors[product.eligibilityState]")
+                        .product-btn(
+                            ng-if="product.eligibilityState == 'valid'" 
+                            ng-click="applyForProduct(product)"): .button.button-default.button-fill VRAAG AAN
+                        
+                        .product-btn(
+                            ng-if="product.eligibilityState == 'missing' || product.eligibilityState == 'partial'" 
+                            ui-sref="products-request(product)"): .button.button-muted.button-fill DOE DE CHECK
+                        
+                        .product-btn(
+                            ng-if="product.eligibilityState == 'taken'"): .button.button-disabled.button-fill(disabled) TAKEN
 
     empty-block(
         title= "{{ 'block_products.labels.title' | translate }}"

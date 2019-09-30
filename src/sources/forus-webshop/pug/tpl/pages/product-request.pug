@@ -1,0 +1,223 @@
+top-navbar
+
+section.section.section-product: .wrapper
+    mixin progress()
+        .request-progress
+            .request-step(
+                ng-repeat="step in $ctrl.totalSteps"
+                ng-class="$ctrl.step == step ? 'request-step-active' : ($ctrl.step > step ? 'request-step-done' : '')"
+                ng-bind="'Stap ' + step")
+        
+    .block.block-product-request: .block-wrapper
+        //- Log in
+        div(ng-if="$ctrl.state == 'auth'")
+            h2(ng-if="!$ctrl.authToken").block-title Zomer zwem regeling aanvraag
+            p.block-description
+                | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
+                strong woonplaats 
+                | en 
+                a(href="#") inkomen 
+                | te controleren 
+            
+            +progress()
+            
+            .request-pane(ng-if="!$ctrl.authToken")
+                .request-pane-header Bevestig uw emailadres 
+                .request-pane-body
+                    .request-pane-text 
+                        | Op deze manier kan u de aanvraag tussentijds onderbreken en 
+                        | verder gaan wanneer u wil zonder uw voortgang te verliezen
+
+                    form(ng-submit="$ctrl.authForm.submit()").form: .row
+                        .form-group.col.col-lg-9
+                            label.form-label EMAIL
+                            input(type="email" ng-model="$ctrl.authForm.values.records.primary_email" placeholder="ex. info@info.io").form-control
+                            .form-error(ng-repeat="error in $ctrl.authForm.errors['records.primary_email']" ng-bind="error")
+                        .form-group.col.col-lg-3
+                            label.form-label &nbsp;
+                            button(type="submit").button.button-primary.button-fill Bevestig
+                    
+                    .request-pane-text
+                        | Door verder te gaan, gaat u akkoord met de 
+                        a(href="#" target="_blank") algemene voorwaarden
+                        | .
+                
+            .request-pane(ng-if="$ctrl.authToken")
+                .request-pane-header Log in door QR-code te scannen
+                .request-pane-body
+                    p.request-pane-text Het e-mail adres dat u invulde bestaat al in het systeem. Scan de QR-code met de Me-app om verder te gaan waar u gebleven was.
+                    qr-code(ng-if="$ctrl.authToken" qr-value="$ctrl.authToken" qr-type="auth_token")
+        
+        //- List the criteria
+        div(ng-if="$ctrl.state == 'criteria'")
+            h2.block-title Bevestig uw gemeente
+            p.block-description
+                | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
+                strong woonplaats 
+                | en 
+                a(href="#") inkomen 
+                | te controleren 
+            
+            +progress()
+            
+            .request-pane
+                .request-pane-header Overzicht van voorwaarden
+                .request-pane-body
+                    p.request-pane-text.text-center 
+                        | De volgende gegevens zijn vereist om deze regeling aan te vragen:
+                    .request-pane-info: ul.request-pane-list 
+                        li(ng-repeat="critera in $ctrl.fund.criteria")
+                            | {{ critera.record_type_name }} moet
+                            span(ng-if="critera.operator == '>'") meer dan 
+                            span(ng-if="critera.operator == '='") 
+                            span(ng-if="critera.operator == '<'") minder dan 
+                            | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }}.
+                
+                .request-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(
+                        ng-if="!$ctrl.signedIn"
+                        ng-click="$ctrl.prevStep()")
+                        | Vorige stap
+                        em.mdi.mdi-chevron-left.icon-left
+                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
+                        | Volgende stap
+                        em.mdi.mdi-chevron-right.icon-right
+        
+        //- Confirm city
+        div(ng-if="$ctrl.state == 'location'")
+            h2.block-title Bevestig uw gemeente
+            p.block-description
+                | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
+                strong woonplaats 
+                | en 
+                a(href="#") inkomen 
+                | te controleren 
+            
+            +progress()
+            
+            .request-pane
+                .request-pane-header Bevestig uw adres
+                .request-pane-body: form().form.row: .form-group.col.col-lg-12.text-center: .checkbox
+                    input(type="checkbox" ng-model="$ctrl.confirmLocation" id="accept" name="accept")
+                    label.checkbox-label(for="accept")
+                        .checkbox-box: .mdi.mdi-check
+                        | Ik verklaar dat ik woon in de gemeente Barneveld.
+                
+                .request-pane-footer: .row
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(
+                        ng-click="$ctrl.prevStep()")
+                        | Vorige stap
+                        em.mdi.mdi-chevron-left.icon-left
+                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(
+                        ng-click="$ctrl.nextStep()"
+                        ng-if="$ctrl.confirmLocation")
+                        | Volgende stap
+                        em.mdi.mdi-chevron-right.icon-right
+        
+        //- Confirm net worth
+        div(ng-if="$ctrl.state == 'net_worth'")
+            h2.block-title Zomerzwemregeling aanvraag
+            p.block-description
+                | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
+                strong woonplaats 
+                | en 
+                a(href="#") inkomen 
+                | te controleren 
+            
+            +progress()
+            
+            .request-pane
+                .request-pane-header Bevestig uw inkomen en vermogen 
+                .request-pane-body: .form
+                    p.request-pane-text
+                        | Upload bewijsstukken om aan te tonen dat uw verzamelinkomen onder 
+                        a(href="#") de 110% norm
+                        |  valt en dat u aan de 
+                        a(href="#") vermogensvrijstelling
+                        | voldoet
+                    h4.request-pane-heading Bevestig uw inkomen
+                    p.request-pane-text
+                        | Upload bewijsstukken om aan te tonen dat u aan de gestelde inkomensgegevens voldoet.
+                    ul.request-pane-list 
+                        li Bewijsstukken van uw vermogen (spaarrekening en bezittingen)
+                        li Overzicht van schulden
+                        li Bankafschriften van alle bank- en spaarrekeningen van de afgelopen 3 maanden
+                        li Loonstroken van uw werk en/of uitkering van de laatste drie maanden
+                        li Betaalbewijs zwemabonnement. Vermeld op het bewijs voor wie het abonnement is en hierbij de geboortedatum.
+                    
+                    file-uploader(files="$ctrl.netCriteria.files")
+                    .form-error(ng-repeat="err in $ctrl.netCriteria.errors.file" ng-bind="err")
+                
+                .request-pane-footer: .row
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(
+                        ng-click="$ctrl.prevStep()")
+                        | Vorige stap
+                        em.mdi.mdi-chevron-left.icon-lefts
+                    .col.col-lg-6.text-right
+                        .button.button-text.button-text-padless(ng-click="$ctrl.submitNetWorth()")
+                            | Volgende stap
+                            em.mdi.mdi-chevron-right.icon-right
+        
+        div(
+            ng-repeat="invalidCriteria in $ctrl.invalidCriteria track by $index"
+            ng-if="$ctrl.state == 'criteria_' + $index")
+            h2.block-title Zomerzwemregeling aanvraag
+            p.block-description
+                | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
+                strong woonplaats 
+                | en 
+                a(href="#") inkomen 
+                | te controleren 
+            
+            +progress()
+            
+            .request-pane
+                .request-pane-header(ng-bind="'Bevestig uw ' + $ctrl.recordTypes[invalidCriteria.record_type_key].name")
+                .request-pane-body: form(ng-submit="$ctrl.submitStepCriteria(invalidCriteria)").form.row
+                    .form-group.col.col-lg-12
+                        input(
+                            ng-model="invalidCriteria.input_value"
+                            type="{string:'text', number:'number'}[$ctrl.recordTypes[invalidCriteria.record_type_key].type]" 
+                            placeholder="Uw {{ invalidCriteria.record_type_name }}").form-control
+                        .form-error(ng-repeat="error in invalidCriteria.errors.value" ng-bind="error")
+                        
+                    .form-group.col.col-lg-12: .request-pane-info
+                        p.request-pane-text 
+                            | Voor een "{{ $ctrl.product.name }}" 
+                            | vereist de sponsor dat uw "{{ invalidCriteria.record_type_name }}" moet zijn
+                            span(ng-if="invalidCriteria.operator == '>'") meer dan 
+                            span(ng-if="invalidCriteria.operator == '='") 
+                            span(ng-if="invalidCriteria.operator == '<'") minder dan 
+                            | {{ invalidCriteria.record_type_key == 'net_worth' ? '€' : '' }}{{ invalidCriteria.value }}.
+                    .form-group.col.col-lg-12: file-uploader(files="invalidCriteria.files")
+                
+                .request-pane-footer: .row
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()")
+                        | Vorige stap
+                        em.mdi.mdi-chevron-left.icon-left
+                    .col.col-lg-6.text-right
+                        .button.button-text.button-text-padless(ng-click="$ctrl.submitStepCriteria(invalidCriteria)")
+                            | Volgende stap
+                            em.mdi.mdi-chevron-right.icon-right
+        
+        //- Done
+        div(ng-if="$ctrl.state == 'done'")
+            h2.block-title Zomerzwemregeling aanvraag
+            p.block-description
+                | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
+                strong woonplaats 
+                | en 
+                a(href="#") inkomen 
+            
+            .request-pane
+                .request-pane-header Aanvraag voltooid
+                .request-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
+                    .form-group.col.col-lg-12
+                        .block-icon: .mdi.mdi-check-bold
+                        p.request-pane-text.text-center 
+                            | Uw aanvraag is voltooid, u krijgt een email wanneer deze is goedgekeurd.
+                
+                        .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
+                    .form-group.col.col-lg-12: br
+
+contact-form 

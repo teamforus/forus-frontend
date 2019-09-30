@@ -851,17 +851,27 @@ translate,
                 }
             }
 
-            &:hover {
-                td,
-                th {
-                    background: #f6f8f9;
+            &.dim {
+                td {
+                    background: #f6f9fc;
                 }
             }
+        }
 
-            &:last-child {
-                td,
-                th {
-                    border-bottom: 0;
+        &:not(.table-hoverless) {
+            tr {
+                &:hover {
+                    td,
+                    th {
+                        background: #f6f8f9;
+                    }
+                }
+
+                &:last-child {
+                    td,
+                    th {
+                        border-bottom: 0;
+                    }
                 }
             }
         }
@@ -993,6 +1003,10 @@ translate,
     &:last-of-type,
     &:last-child {
         margin-right: 0;
+    }
+
+    &:first-child:last-child {
+        margin-bottom: 0;
     }
 }
 
@@ -1554,6 +1568,11 @@ translate,
                     text-decoration: line-through;
                 }
             }
+
+            &.card-section-actions-narrow {
+                top: 20px;
+                right: 20px;
+            }
         }
 
         .divider {
@@ -1593,6 +1612,12 @@ translate,
     &.card-collapsable {
         cursor: pointer;
         transition: background .4s;
+
+        .card-header-collapsable,
+        .card-section-collapsable {
+            cursor: default;
+            background: #fff;
+        }
 
         &:hover {
             background: lighten($color: #f3f4f5, $amount: 2);
@@ -2161,6 +2186,56 @@ translate,
         }
     }
 
+    &.block-attachments-list {
+        @include cf();
+
+        .block-attachments-inner {
+            margin: 0 0 -10px;
+            width: 100%;
+            float: left;
+        }
+
+        .attachment-item {
+            background: #fff;
+            display: flex;
+            max-width: 100%;
+            width: calc(50% - 10px);
+            border: 1px solid #d4d9dd;
+            flex-direction: row;
+            padding: 5px 15px;
+            border-radius: 5px;
+            float: left;
+            margin-bottom: 10px;
+
+            .attachment-icon {
+                display: flex;
+                flex-direction: row;
+
+                .mdi {
+                    font-size: 18px;
+                    line-height: 25px;
+                    color: #004195;
+                    margin-right: 10px;
+                }
+
+                .attachment-size {
+                    color: #646f79;
+                    margin-right: 30px;
+                    font: 500 12px/25px $bf;
+                }
+            }
+
+            .attachment-name {
+                @include ellipsis();
+                color: #262626;
+                font: 500 12px/25px $bf;
+            }
+
+            &:nth-child(odd) {
+                margin-right: 20px;
+            }
+        }
+    }
 
     &.block-auth-type {
         @include cf();
