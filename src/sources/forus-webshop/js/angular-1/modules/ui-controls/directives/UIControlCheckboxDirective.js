@@ -1,17 +1,18 @@
 let UIControlCheckboxDirective = function(
     $scope
 ) {
-    let $dir = {};
+    let $dir = {
+        id: $scope.id,
+        name: $scope.name,
+        label: $scope.label,
+        onChange: $scope.ngChange
+    };
 
     $dir.clear = () => {
         $scope.ngModel = undefined;
     };
-    
-    $dir.name = $scope.name || '';
-    $dir.id = $scope.id || '';
-    $dir.ngChange = $scope.ngChange;
 
-    $scope.$dir = $dir;
+    $dir.ngChange = $scope.ngChange;
 
     $dir.onChange = () => $scope.ngChange();
 
@@ -20,6 +21,8 @@ let UIControlCheckboxDirective = function(
             return 'ui-control-' + style;
         });
     }
+
+    $scope.$dir = $dir;
 };
 
 module.exports = () => {
@@ -27,6 +30,7 @@ module.exports = () => {
         scope: {
             id: "@",
             name: "@",
+            label: "@",
             ngModel: '=',
             controlStyle: '@',
             ngChange: '&',
