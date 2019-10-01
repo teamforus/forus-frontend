@@ -158,4 +158,86 @@
             }
         }
     }
+
+    &.ui-control-checkbox {
+        display: inline-block;
+        padding: 10px 0;
+        padding-right: 15px;
+        padding-left: 30px;
+        vertical-align: middle;
+        @include cf();
+
+        .ui-checkbox-box {
+            float: left;
+            display: block;
+            width: 20px;
+            height: 20px;
+            border: 1px solid #c5ccd6;
+            border-radius: $border_radius / 2;
+            background: #eff2f4;
+            position: relative;
+            margin-right: 5px;
+            margin-left: -30px;
+            float: left;
+            transition: background-color .4s, border-color .4s;
+
+            .mdi {
+                color: #262626;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate3d(-50%, -50%, 0);
+                font-size: 20px;
+                transition: .4s;
+                opacity: 0;
+            }
+        }
+
+        .ui-checkbox-label {
+            font: 500 15px/20px $bf;
+            color: #45535e;
+            display: inline-block;
+            vertical-align: middle;
+            transition: color .4s;
+            cursor: pointer;
+        }
+
+        input[type='checkbox'] {
+            display: none;
+        }
+
+        input[type=checkbox]:checked+.ui-checkbox-label {
+            .ui-checkbox-box {
+                border-color: #333333;
+
+                .mdi {
+                    opacity: 1;
+                }
+            }
+        }
+
+        &:hover {
+            .ui-checkbox-box {
+
+            }
+        }
+
+        &.ui-control-checkbox-slim {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        &.ui-control-checkbox-disabled {
+            pointer-events: none;
+
+            .ui-checkbox-label {
+                color: #9b9b9b;
+            }
+
+            .ui-checkbox-box {
+                background: #fafafa;
+                border-color: #e5e6ec;
+            }
+        }
+    }
 }
