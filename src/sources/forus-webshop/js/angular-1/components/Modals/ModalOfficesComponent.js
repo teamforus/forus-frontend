@@ -1,8 +1,13 @@
 let ModalOfficesComponent = function(
+    $timeout,
+    $element,
     OfficeService,
     BusinessTypeService
 ) {
     let $ctrl = this;
+    let timeout = false;
+    let itemsPerScroll = 5;
+    let itemsShown = itemsPerScroll;
 
     $ctrl.selectedOffice = false;
     $ctrl.businessTypes = [];
@@ -25,20 +30,24 @@ let ModalOfficesComponent = function(
         $ctrl.close();
     };
 
-    $ctrl.chageBusinessType = (option) => {
-        $ctrl.businessType = option;
-
-        if ($ctrl.businessType) {
-            $ctrl.shownOffices = $ctrl.offices.filter(
-                office => {
-                    return office.organization.business_type_id == $ctrl.businessType.id;
-                }
-            );
-
-            $ctrl.providersCount = getCountOfProviders($ctrl.shownOffices);
+    $ctrl.chageSearchString = (value) => {
+        if (timeout) {
+            $timeout.cancel(timeout);
         }
 
-        $ctrl.selectOffice(false);
+        $ctrl.loadOffices(value);
+    };
+
+    $ctrl.loadOffices = (q = "") => {
+        itemsShown = 0;
+
+        OfficeService.list({
+            q: q
+        }).then(res => {
+            $ctrl.offices = res.data.data;
+            $ctrl.providersCount = getCountOfProviders($ctrl.offices);
+            $ctrl.shownOffices = $ctrl.offices;
+        });
     };
 
     $ctrl.$onInit = () => {
@@ -48,12 +57,7 @@ let ModalOfficesComponent = function(
             $ctrl.businessTypes = res.data.data;
         });
 
-        OfficeService.list().then(res => {
-            console.log(res.data.data);
-            $ctrl.offices = res.data.data;
-            $ctrl.shownOffices = $ctrl.offices;
-            $ctrl.providersCount = getCountOfProviders($ctrl.shownOffices);
-        });
+        $ctrl.loadOffices();
     };
 
     $ctrl.$onDestroy = function() {};
@@ -65,6 +69,8 @@ module.exports = {
         modal: '='
     },
     controller: [
+        '$timeout',
+        '$element',
         'OfficeService',
         'BusinessTypeService',
         ModalOfficesComponent

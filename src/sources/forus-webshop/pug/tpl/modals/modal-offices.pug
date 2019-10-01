@@ -8,12 +8,16 @@
                 .shop_map-title(translate="popup_offices.header.title" translate-values="{count: $ctrl.providersCount || 0}")
                 .shop_map-subtitle(translate="popup_offices.header.subtitle")
                 
-                .form(ng-if="$ctrl.businessTypes.length > 0"): select-control(
-                    ng-model="$ctrl.business_type" 
-                    ng-change="$ctrl.chageBusinessType(value)"
-                    options="$ctrl.businessTypes"
-                    options-preload-size=10
-                    placeholder="Select business type...")
+                .form(ng-if="$ctrl.businessTypes.length > 0")
+                    select-control(
+                        mode="search"
+                        ng-model="$ctrl.business_type" 
+                        ng-change="$ctrl.chageBusinessType(value)"
+                        ng-change-search="$ctrl.chageSearchString(value, prev)"
+                        options="$ctrl.businessTypes"
+                        options-preload-size=10
+                        placeholder="Select business type...")
+                    pre {{ $ctrl.business_type }}
 
             .shop_map-body
                 .shop_map-sidebar: .nano: .nano-content
@@ -41,4 +45,4 @@
 
                                     span(ng-if="office.schedule.length == 0")
                                         | {{ "popup_offices.labels.none" | translate }}
-                .shop_map-content: google-map(offices="$ctrl.shownOffices" selected-office="$ctrl.selectedOffice")
+                .shop_map-content: google-map(offices="$ctrl.offices" selected-office="$ctrl.selectedOffice")
