@@ -1,22 +1,12 @@
 let ModalOfficesComponent = function(
     $timeout,
-    $element,
-    OfficeService,
-    BusinessTypeService
+    OfficeService
 ) {
     let $ctrl = this;
     let timeout = false;
-    let itemsPerScroll = 5;
-    let itemsShown = itemsPerScroll;
-
-    $ctrl.selectedOffice = false;
-    $ctrl.businessTypes = [];
-
-    let getCountOfProviders = function(offices) {
-        return _.uniq(_.pluck(offices, 'organization_id')).length
-    };
 
     $ctrl.weekDays = OfficeService.scheduleWeekDays();
+    $ctrl.selectedOffice = false;
 
     $ctrl.selectOffice = (office) => {
         $ctrl.selectedOffice = office ? office.id : office;
@@ -35,28 +25,23 @@ let ModalOfficesComponent = function(
             $timeout.cancel(timeout);
         }
 
-        $ctrl.loadOffices(value);
+        timeout = $timeout(() => $ctrl.loadOffices($ctrl.query), 1000);
     };
 
     $ctrl.loadOffices = (q = "") => {
-        itemsShown = 0;
-
         OfficeService.list({
-            q: q
+            q: q,
+            approved: 1,
         }).then(res => {
             $ctrl.offices = res.data.data;
-            $ctrl.providersCount = getCountOfProviders($ctrl.offices);
             $ctrl.shownOffices = $ctrl.offices;
+            $ctrl.providersCount = _.uniq(
+                _.pluck($ctrl.offices, 'organization_id')
+            ).length;
         });
     };
 
     $ctrl.$onInit = () => {
-        BusinessTypeService.list({
-            used: 1
-        }).then(res => {
-            $ctrl.businessTypes = res.data.data;
-        });
-
         $ctrl.loadOffices();
     };
 
@@ -70,9 +55,7 @@ module.exports = {
     },
     controller: [
         '$timeout',
-        '$element',
         'OfficeService',
-        'BusinessTypeService',
         ModalOfficesComponent
     ],
     templateUrl: () => {
