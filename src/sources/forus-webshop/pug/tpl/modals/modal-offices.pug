@@ -5,14 +5,14 @@
 
         .block.block-shops_map
             .shop_map-header
-                .shop_map-title(translate="popup_offices.header.title" translate-values="{count: $ctrl.providersCount || 0}")
-                .shop_map-subtitle(translate="popup_offices.header.subtitle")
+                .shop_map-title Overzicht van alle locaties van aanbieders
+                .shop_map-subtitle Gebruik het zoekveld om de lijst van aanbieders te doorzoeken.
                 
                 .form: input(
                     type="search" 
                     ng-model="$ctrl.query" 
                     ng-change="$ctrl.chageSearchString(value, prev)" 
-                    placeholder="Search").form-control
+                    placeholder="Zoeken").form-control
 
             .shop_map-body
                 .shop_map-sidebar(ng-if="$ctrl.offices.length > 0"): .nano: .nano-content: .shops: .shop-item(
