@@ -8,6 +8,7 @@ let SelectControl = function($scope, $timeout) {
         name: "",
     };
 
+    $dir.mode = $scope.mode || 'strict';
     $dir.showOptions = false;
     $dir.options = [];
 
@@ -45,11 +46,28 @@ let SelectControl = function($scope, $timeout) {
     $dir.searchOption = () => {
         $dir.showOptions = true;
 
-        if ($scope.ngModel && $scope.ngModel.name) {
-            $dir.filter.name = $scope.ngModel.name;
+        if ($dir.mode == 'strict') {
+            if ($scope.ngModel && $scope.ngModel.name) {
+                $dir.filter.name = $scope.ngModel.name;
+            }
         }
 
         $scope.buildSearchedOptions();
+    };
+
+    $dir.searchKeydown = (e) => {
+        if (e.key == 'Enter') {
+            $dir.showOptions = false;
+            $dir.searchUpdate();
+        }
+    };
+
+    $dir.searchUpdate = () => {
+        if (typeof $scope.ngChangeSearch == 'function') {
+            $scope.ngChangeSearch({
+                value: $dir.filter.name
+            });
+        }
     };
 
     $dir.searchInputChanged = () => {
@@ -69,6 +87,9 @@ let SelectControl = function($scope, $timeout) {
 
     $dir.setModel = (value) => {
         $scope.ngModel = value;
+        $dir.filter.name = value.name;
+
+        $dir.searchUpdate();
 
         if (typeof $scope.ngChange == 'function') {
             $scope.ngChange({
@@ -89,6 +110,15 @@ let SelectControl = function($scope, $timeout) {
 
         $dir.controlId = 'select_control_';
         $dir.controlId += Date.now() + '_' + Math.random().toString().slice(2);
+
+        if (typeof $scope.ngChangeQuery == 'function') {
+            $scope.$watch('$dir.filter.name', (value, prev) => {
+                $scope.ngChangeQuery({
+                    value: value,
+                    prev: prev
+                });
+            });
+        }
     }
 
     $scope.init();
@@ -97,12 +127,15 @@ let SelectControl = function($scope, $timeout) {
 module.exports = () => {
     return {
         scope: {
+            mode: '@',
             placeholder: "@",
             multiple: "=",
             search: "=",
             options: "=",
             ngModel: '=',
             ngChange: '&',
+            ngChangeQuery: '&',
+            ngChangeSearch: '&',
             optionsPreloadSize: "@"
         },
         restrict: "EA",
