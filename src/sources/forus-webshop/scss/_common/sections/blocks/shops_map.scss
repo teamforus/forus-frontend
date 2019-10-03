@@ -41,8 +41,10 @@
         }
 
         .shop_map-content {
-            width: 60%;
+            // width: 60%;
+            flex-grow: 1;
             position: relative;
+            padding: 30px;
 
             iframe {
                 display: flex;

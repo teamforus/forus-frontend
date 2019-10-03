@@ -34,7 +34,7 @@ let SignUpComponent = function(
     $ctrl.fundsAvailable = [];
     $ctrl.offices = [];
     $ctrl.sentSms = false;
-    
+
     let has_app = false;
     let orgMediaFile = false;
     let waitingSms = false;
@@ -265,13 +265,19 @@ let SignUpComponent = function(
 
                 if (targetFund) {
                     return ProviderFundService.applyForFund(
-                        $ctrl.organization.id, 
+                        $ctrl.organization.id,
                         targetFund.id
                     ).then($ctrl.next);
                 }
             }
 
             $ctrl.fundsAvailable = fundsAvailable;
+
+            $scope.$watch(() => $ctrl.fundsAvailable, function(funds) {
+                $ctrl.fundsLeft = (funds || []).filter(fund => {
+                    return !fund.applied;
+                });
+            }, true);
         });
     };
 
@@ -336,7 +342,9 @@ let SignUpComponent = function(
 
         } else if ($ctrl.step == 2) {
 
-            if ($ctrl.signUpForm.values.records && $ctrl.signUpForm.values.records.primary_email !=     $ctrl.signUpForm.values.records.primary_email_confirmation) {
+            if ($ctrl.signUpForm.values.records && (
+                    $ctrl.signUpForm.values.records.primary_email !=
+                    $ctrl.signUpForm.values.records.primary_email_confirmation)) {
                 $ctrl.signUpForm.errors = {};
                 $ctrl.signUpForm.errors['records.primary_email_confirmation'] = [$filter('translate')('validation.email_confirmation')];
             } else {

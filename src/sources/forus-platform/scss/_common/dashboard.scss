@@ -202,6 +202,19 @@ translate,
                 color: #134478;
             }
         }
+
+        &:first-child {
+            padding-left: 0;
+        }
+
+        &:last-child {
+            padding-right: 0;
+        }
+
+        &.button-text-muted {
+            color: #646f79;
+            font-weight: 600;
+        }
     }
 
     &.button-danger {
@@ -4113,8 +4126,14 @@ translate,
             }
         }
 
-        &:hover {
+        &:hover:not(.button-text) {
             transform: translate(0, -3px);
+        }
+
+        &.button-text {
+            &:hover {
+                color: #305dfb;
+            }
         }
     }
 
