@@ -1,5 +1,11 @@
-.app.app-container(ng-if="$ctrl.loaded")
-    menu(ng-if="!!$root.activeOrganization")
+top-navbar
+section.section.section-voucher-details: .wrapper
+    .block.block-breadcrumbs.hide-sm
+        a(ui-sref="home").breadcrumb-item Home
+        .breadcrumb-item.active Notification settings
+
+    .section-title Notification settings
+
     section(ng-class="!!$root.activeOrganization ? 'app app-content' : ''")
         p(ng-if="$ctrl.message" ng-bind="$ctrl.message | translate").form-error
         
@@ -41,3 +47,6 @@
             .card-section
                 div.push-right
                     button.button.button-primary(type="submit") Verzenden
+
+
+contact-form 
