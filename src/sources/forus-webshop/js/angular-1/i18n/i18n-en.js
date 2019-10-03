@@ -52,6 +52,7 @@ module.exports = {
     records: require("./en/pages/records"),
     voucher: require("./en/pages/voucher"),
     vouchers: require("./en/pages/vouchers"),
+    notification_preferences: require("./en/pages/notification-preferences"),
 
     // MODALS
     popup_auth: require("./en/modals/modal-auth"),
