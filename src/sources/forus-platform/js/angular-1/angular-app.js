@@ -36,6 +36,8 @@ app.component('transactionComponent', require('./components/TransactionComponent
 
 app.component('noPermissionComponent', require('./components/NoPermissionComponent'));
 
+app.component('emailPreferencesComponent', require('./components/EmailPreferencesComponent'));
+
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
 app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCodeComponent'));
@@ -85,6 +87,7 @@ app.service('PermissionsService', require('./services/PermissionsService'));
 app.service('RoleService', require('./services/RoleService'));
 app.service('SmsService', require('./services/SmsService'));
 app.service('FileService', require('./services/FileService'));
+app.service('EmailPreferencesService', require('./services/EmailPreferencesService'));
 
 // Directives
 switch (env_data.panel_type) {
