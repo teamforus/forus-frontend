@@ -23,7 +23,6 @@ platform.setLibs([
     "ui_router",
     "ui_select",
     "underscore",
-    "underscore.string",
 ]);
 
 // add js task
