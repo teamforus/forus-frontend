@@ -15,7 +15,7 @@ module.exports = {
             },
             fund_expires: {
                 title: 'Herinneringsnotificatie einddatum voucher',
-                description: 'Notificatie verstuurd 1 maand voor de einddatum van uw voucher.'
+                description: 'Notificatie 1 maand voor de einddatum van uw voucher.'
             },
             product_added: {
                 title: 'Een nieuw product is toegevoegd',
