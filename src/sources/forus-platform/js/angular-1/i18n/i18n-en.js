@@ -236,6 +236,7 @@ module.exports = {
             phone: "Telefoonnummer",
             mail: "E-mail",
             hours: "Openingstijden",
+            business_type: "Organisatie type"
         },
         buttons: {
             add_office: "Voeg een nieuwe vestiging toe",
@@ -260,6 +261,7 @@ module.exports = {
             phone: "Telefoonnummer",
             hours: "Openingstijden:",
             offices: "Vestigingen ",
+            business_type: "Organisatie type"
         },
         confirm_delete: {
             title: "Weet u zeker dat u deze vestiging wilt verwijderen?",
