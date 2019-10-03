@@ -1,6 +1,9 @@
 module.exports = {
     title_preferences: 'E-mailvoorkeuren',
+    subscribe_desc: 'Jouw e-mailadres "{{email}}" is momenteel uitgeschreven van alle notificaties. Wanneer u specifieke notificaties weer wilt ontvangen zult eerst moeten kiezen om notificaties weer te willen ontvangen.',
     unsubscribe: 'Uitschrijven voor alle notificaties',
+    unsubscribe_desc:  'Ik wil me uitschrijven van alle notificaties.',
+    subscribe: 'Ja, ik wil notificaties ontvangen.',
     unsubscribe_button: 'Uitschrijven',
     errors: {
         'not_found': 'Deze token is ongeldig',

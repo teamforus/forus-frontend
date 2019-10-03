@@ -2,29 +2,24 @@ top-navbar
 section.section.section-voucher-details: .wrapper
     .block.block-breadcrumbs.hide-sm
         a(ui-sref="home").breadcrumb-item Home
-        .breadcrumb-item.active Notificatie settings
+        .breadcrumb-item.active(translate="notification_preferences.title_preferences")
 
-    .section-title Notificatie instellingen
+    .section-title(translate="notification_preferences.title_preferences")
 
     section(ng-class="!!$root.activeOrganization ? 'app app-content' : ''")
         p(ng-if="$ctrl.message" ng-bind="$ctrl.message | translate").form-error
         
         .card(ng-if="$ctrl.email_unsubscribed")
-            .card-header: .card-title Notificatie instellingen
+            .card-header: .card-title(translate="notification_preferences.title_preferences")
             .card-section
-                .card-heading 
-                    | Jouw e-mailadres `{{ $ctrl.email }}` is momenteel uitgeschreven van alle notificaties.
-                    br
-                    | Wanneer u specifieke notificaties weer wilt ontvangen zult eerst moeten kiezen om notificaties weer te willen ontvangen.
-                div: button(type="button" ng-click="$ctrl.enableSubscription()").button.button-primary 
-                    | Ja, ik wil notificaties ontvangen.
+                .card-heading(i18n="notification_preferences.subscribe_desc" i18n-vars="{ email: $ctrl.email }")
+                div: button(type="button" ng-click="$ctrl.enableSubscription()").button.button-primary(i18n="notification_preferences.subscribe") 
 
         .card(ng-if="!$ctrl.email_unsubscribed")
             .card-header: .card-title(translate="notification_preferences.title_preferences")
             .card-section
-                .card-heading Ik wil me uitschrijven van alle notificaties.
-                div: button(type="button" ng-click="$ctrl.disableSubscription()").button.button-primary 
-                    | Uitschrijven
+                .card-heading(i18n="notification_preferences.unsubscribe_desc")
+                div: button(type="button" ng-click="$ctrl.disableSubscription()" i18n="notification_preferences.unsubscribe").button.button-primary 
         form.card(ng-if="!$ctrl.email_unsubscribed" ng-submit="$ctrl.form.submit()")
             .card-header: .card-title(translate="notification_preferences.title_preferences")
             .form.block.block-preferences(ng-if="!$ctrl.email_unsubscribed"): label(

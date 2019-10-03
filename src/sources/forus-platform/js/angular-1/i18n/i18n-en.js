@@ -1017,8 +1017,11 @@ module.exports = {
     },
     notification_preferences: {
         title_preferences: 'E-mailvoorkeuren',
+        subscribe_desc: 'Jouw e-mailadres "{{email}}" is momenteel uitgeschreven van alle notificaties. Wanneer u specifieke notificaties weer wilt ontvangen zult eerst moeten kiezen om notificaties weer te willen ontvangen.',
         unsubscribe: 'Uitschrijven voor alle notificaties',
+        unsubscribe_desc:  'Ik wil me uitschrijven van alle notificaties.',
         unsubscribe_button: 'Uitschrijven',
+        subscribe: 'Ja, ik wil notificaties ontvangen.',
         errors: {
             'not_found': 'Deze token is ongeldig',
             'expired': 'Deze token is verlopen',
@@ -1026,6 +1029,14 @@ module.exports = {
         },
         types: {
             funds: {
+                new_fund_started: {
+                    title: 'Fonds waar u bij bent aangesloten is van start gegaan',
+                    description: 'Notificatie wanneer er een fonds is gestart en u klanten kunt ontvangen.'
+                },
+                new_fund_applicable: {
+                    title: 'Nieuw fonds toegevoegd om aan te melden.',
+                    description: 'Notificatie wanneer er een nieuw fonds is toegevoegd waarvoor u zich kunt aanmelden.'
+                },
                 balance_warning: {
                     title: 'Balans op fonds is onder herinneringsgrens',
                     description: 'Notificatie wanneer een balans op de fonds onder herinneringsgrens komt.'
@@ -1077,6 +1088,10 @@ module.exports = {
                 payment_success: {
                     title: 'Betaling gelukt',
                     description: 'Notificatie wanneer een betaling is gelukt'
+                },
+                send_voucher: {
+                    title: 'Stuur een voucher naar jezelf.',
+                    description: 'Notificatie voor wanneer u erzelf voor kiest om een voucher naar u zelf te sturen.'
                 },
                 share_product: {
                     title: 'Reservering delen',
