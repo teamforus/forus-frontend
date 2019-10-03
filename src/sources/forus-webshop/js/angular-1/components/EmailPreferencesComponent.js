@@ -64,8 +64,8 @@ let EmailPreferencesComponent = function(
 
         ModalService.open('modalNotification', {
             type: 'action-result',
-            title: "Authentification required.",
-            description: `Please sign in to manage your notification preferences.`,
+            title: "U bent niet ingelogd.",
+            description: `U zal moeten inloggen om uw notificatie instellingen te kunnen aanpassen.`,
         });
 
         $state.go('home');

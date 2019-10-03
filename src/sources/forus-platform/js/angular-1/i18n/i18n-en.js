@@ -1027,12 +1027,12 @@ module.exports = {
         types: {
             funds: {
                 balance_warning: {
-                    title: 'Balans op voucher is niet toerijkend',
-                    description: 'Notificatie wanneer een balans op een voucher niet toerijkend is'
+                    title: 'Balans op fonds is onder herinneringsgrens',
+                    description: 'Notificatie wanneer een balans op de fonds onder herinneringsgrens komt.'
                 },
                 fund_expires: {
-                    title: 'Een fonds is verlopen',
-                    description: 'Notificatie wanneer een fonds is verlopen'
+                    title: 'Herinneringsnotificatie einddatum voucher',
+                    description: 'Notificatie verstuurd 1 maand voor de einddatum van uw voucher.'
                 },
                 product_added: {
                     title: 'Een nieuw product is toegevoegd',
@@ -1043,8 +1043,8 @@ module.exports = {
                     description: 'Notificatie wanneer een nieuw fonds is aangemaakt'
                 },
                 product_reserved: {
-                    title: 'Product gekocht',
-                    description: 'notificatie wanneer product gekocht',
+                    title: 'Product gereserveerd',
+                    description: 'Notificatie wanneer product gereserveerd',
                 },
                 product_sold_out: {
                     title: 'Product uitverkocht',
@@ -1079,8 +1079,8 @@ module.exports = {
                     description: 'Notificatie wanneer een betaling is gelukt'
                 },
                 share_product: {
-                    title: 'Produchtvoucher delen',
-                    description: 'Notificatie wanneer er een product met u gedeeld is'
+                    title: 'Reservering delen',
+                    description: 'Notificatie wanneer er een reservering met u gedeeld is'
                 }
             }
         }

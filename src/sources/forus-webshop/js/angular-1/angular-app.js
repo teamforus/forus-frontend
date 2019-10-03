@@ -54,11 +54,8 @@ app.service('ModalService', require('./services/ModalService'));
 app.service('BrowserService', require('./services/BrowserService'));
 app.service('SmsService', require('./services/SmsService'));
 app.service('PrintableService', require('./services/PrintableService'));
-<<<<<<< HEAD
 app.service('BusinessTypeService', require('./services/BusinessTypeService'));
-=======
 app.service('EmailPreferencesService', require('./services/EmailPreferencesService'));
->>>>>>> 222e78bd058ab01342acbac9b3661a62e0703bd9
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
