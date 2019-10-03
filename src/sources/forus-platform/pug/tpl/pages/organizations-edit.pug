@@ -65,12 +65,12 @@
             
             .card-section.card-section-primary: .row: .col.col-lg-9.col-md-12
                 .form-group.form-group-inline
-                    .form-label Business type
+                    .form-label(i18n="organization_edit.labels.business_type")
                     .form-offset: select-control(
                         ng-model="$ctrl.businessType" 
                         ng-change="$ctrl.chageBusinessType(value)"
                         options="$ctrl.businessTypes"
-                        placeholder="Select business type...")
+                        placeholder="Selecteer organisatie type...")
 
             .card-section.card-section-primary: .row: .col.col-lg-9.col-md-12
                 .form-group.form-group-inline

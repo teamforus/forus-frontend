@@ -5,40 +5,39 @@
 
         .block.block-shops_map
             .shop_map-header
-                .shop_map-title(translate="popup_offices.header.title" translate-values="{count: $ctrl.providersCount || 0}")
-                .shop_map-subtitle(translate="popup_offices.header.subtitle")
-                
-                .form(ng-if="$ctrl.businessTypes.length > 0"): select-control(
-                    ng-model="$ctrl.business_type" 
-                    ng-change="$ctrl.chageBusinessType(value)"
-                    options="$ctrl.businessTypes"
-                    options-preload-size=10
-                    placeholder="Select business type...")
-
+                .shop_map-title Overzicht van alle locaties van aanbieders
+                .shop_map-subtitle Gebruik het zoekveld om de lijst van aanbieders te doorzoeken.           
+                .form: input(
+                    type="search" 
+                    ng-model="$ctrl.query" 
+                    ng-change="$ctrl.chageSearchString(value, prev)" 
+                    placeholder="Zoeken").form-control
             .shop_map-body
-                .shop_map-sidebar: .nano: .nano-content
-                    .shops
-                        .shop-item(
-                        ng-repeat="office in $ctrl.shownOffices"
-                        ng-class="{active: office.id == $ctrl.selectedOffice}"
-                        ng-click="$ctrl.selectOffice(office)")
-                            .shop-details
-                                .shop-image: img(ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}")
-                                .shop-name {{ office.organization.name }}
-                                .row
-                                    .col.col-md-6
-                                        .shop-details-label {{ "popup_offices.labels.mail" | translate }}
-                                        .shop-details-value {{ office.email || office.organization.email || 'Geen data' }}
-                                    .col.col-md-6
-                                        .shop-details-label {{ "popup_offices.labels.address" | translate }}
-                                        .shop-details-value {{ office.address || 'Geen data' }}
-                            .shop-schedule
-                                .shop-schedule-label {{ "popup_offices.labels.hours" | translate }}
-                                .shop-schedule-value
-                                    span(ng-repeat="schedule in office.schedule" ng-if="schedule.start_time || schedule.end_time")
-                                        strong {{ $ctrl.weekDays[schedule.week_day] }}:
-                                        | {{ schedule.start_time || 'Geen data' }} - {{ schedule.end_time || 'Geen data' }}
+                .shop_map-sidebar(ng-if="$ctrl.offices.length > 0"): .nano: .nano-content: .shops: .shop-item(
+                    ng-repeat="office in $ctrl.shownOffices"
+                    ng-class="{active: office.id == $ctrl.selectedOffice}"
+                    ng-click="$ctrl.selectOffice(office)")
+                        .shop-details
+                            .shop-image: img(ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}")
+                            .shop-name(ng-bind="office.organization.name")
+                            .row
+                                .col.col-md-6
+                                    .shop-details-label(translate="popup_offices.labels.mail")
+                                    .shop-details-value(ng-bind="office.email || office.organization.email || 'Geen data'")
+                                .col.col-md-6
+                                    .shop-details-label(translate="popup_offices.labels.address")
+                                    .shop-details-value(ng-bind="office.address || 'Geen data'")
+                        .shop-schedule
+                            .shop-schedule-label(translate="popup_offices.labels.hours")
+                            .shop-schedule-value
+                                span(ng-repeat="schedule in office.schedule" ng-if="schedule.start_time || schedule.end_time")
+                                    strong {{ $ctrl.weekDays[schedule.week_day] }}:
+                                    | {{ schedule.start_time || 'Geen data' }} - {{ schedule.end_time || 'Geen data' }}
 
-                                    span(ng-if="office.schedule.length == 0")
-                                        | {{ "popup_offices.labels.none" | translate }}
-                .shop_map-content: google-map(offices="$ctrl.shownOffices" selected-office="$ctrl.selectedOffice")
+                                span(ng-if="office.schedule.length == 0" translate="popup_offices.labels.none")
+
+                .shop_map-content
+                    google-map(ng-if="$ctrl.offices.length > 0" offices="$ctrl.offices" selected-office="$ctrl.selectedOffice")
+                    .block.block-empty(ng-if="$ctrl.offices.length == 0")
+                        .block-title Geen zoekresultaten gevonden
+                        .block-description Met de ingevulde zoekwoorden is geen resultaat gevonden.

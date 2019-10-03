@@ -30,7 +30,7 @@ let ProductCategoriesControlDirective = function(
 
                 categories.unshift({
                     id: "null",
-                    name: "Select category..."
+                    name: "Selecteer categorie..."
                 });
 
                 if (categories.length > 1) {

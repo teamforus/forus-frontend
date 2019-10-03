@@ -18,7 +18,7 @@
                     ng-checked="$ctrl.productType == 'service'")
                 .radio-label 
                     .radio-circle
-                    | Service
+                    | Dienst
 
     .form-group.form-group-inline(ng-repeat="(index, categories) in $ctrl.categoriesHierarchy  track by $index")
         label.form-label(ng-if="index == 0" translate="product_edit.labels.category")

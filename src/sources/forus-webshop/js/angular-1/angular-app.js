@@ -56,6 +56,7 @@ app.service('SmsService', require('./services/SmsService'));
 app.service('PrintableService', require('./services/PrintableService'));
 app.service('BusinessTypeService', require('./services/BusinessTypeService'));
 app.service('EmailPreferencesService', require('./services/EmailPreferencesService'));
+app.service('FileService', require('./services/FileService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
