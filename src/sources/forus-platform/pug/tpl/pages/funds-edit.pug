@@ -5,58 +5,86 @@
             .card-header
                 .card-title(ng-if="!$ctrl.fund" i18n="funds_edit.header.title_add")
                 .card-title(ng-if="$ctrl.fund" i18n="funds_edit.header.title_edit")
-            .card-section.card-section-primary
-                .row 
-                    .col.col-xs-12
-                        .form-group.form-group-inline
-                            label.form-label.hidden-md &nbsp;
-                            .form-offset: photo-selector(
-                                type="fund_logo"
-                                thumbnail="$ctrl.media.sizes.thumbnail"
-                                select-photo="$ctrl.selectPhoto(file)")
-            .card-section.card-section-primary
-                .row 
-                    .col.col-lg-9.col-md-12
-                        .form-group.form-group-inline
-                            label(translate="funds_edit.labels.name").form-label
-                            input(ng-model="$ctrl.form.values.name" type="text" placeholder="Naam").form-control
-                            .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
-                            input(type="hidden" ng-model="$ctrl.form.values.state")
-            .card-section.card-section-primary
-                .row 
-                    .col.col-lg-9.col-md-12
-                        .form-group.form-group-inline
-                            label(translate="funds_edit.labels.start").form-label
-                            datepicker(date-format="dd-MM-yyyy" datepicker-mobile="" date-week-start-day="1").form-control
-                                input(
-                                ng-model="$ctrl.form.values.start_date"
-                                type="text"
-                                placeholder="dd-MM-yyyy"
-                                ng-disabled="$ctrl.form.values.state != 'waiting'"
-                                ).form-control
+            
+            .card-section.card-section-primary: .row: .col.col-xs-12
+                .form-group.form-group-inline
+                    label.form-label.hidden-md &nbsp;
+                    .form-offset: photo-selector(
+                        type="fund_logo"
+                        thumbnail="$ctrl.media.sizes.thumbnail"
+                        select-photo="$ctrl.selectPhoto(file)")
+            
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-md-12
+                .form-group.form-group-inline
+                    label(translate="funds_edit.labels.name").form-label
+                    input(ng-model="$ctrl.form.values.name" type="text" placeholder="Naam").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
+                    input(type="hidden" ng-model="$ctrl.form.values.state")
+            
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-md-12
+                .form-group.form-group-inline
+                    label(translate="funds_edit.labels.start").form-label
+                    datepicker(date-format="dd-MM-yyyy" datepicker-mobile="" date-week-start-day="1").form-control
+                        input(
+                        ng-model="$ctrl.form.values.start_date"
+                        type="text"
+                        placeholder="dd-MM-yyyy"
+                        ng-disabled="$ctrl.form.values.state != 'waiting'"
+                        ).form-control
 
-                            .form-error(ng-repeat="error in $ctrl.form.errors.start_date" ng-bind="error")
-                        .form-group.form-group-inline
-                            label(translate="funds_edit.labels.end").form-label
-                            datepicker(date-format="dd-MM-yyyy" datepicker-mobile="" date-week-start-day="1").form-control
-                                input(
-                                ng-model="$ctrl.form.values.end_date"
-                                type="text"
-                                placeholder="dd-MM-yyyy"
-                                ng-disabled="$ctrl.form.values.state != 'waiting'"
-                                ).form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.start_date" ng-bind="error")
+                
+                .form-group.form-group-inline
+                    label(translate="funds_edit.labels.end").form-label
+                    datepicker(date-format="dd-MM-yyyy" datepicker-mobile="" date-week-start-day="1").form-control
+                        input(
+                        ng-model="$ctrl.form.values.end_date"
+                        type="text"
+                        placeholder="dd-MM-yyyy"
+                        ng-disabled="$ctrl.form.values.state != 'waiting'"
+                        ).form-control
 
-                            .form-error(ng-repeat="error in $ctrl.form.errors.end_date" ng-bind="error")
+                    .form-error(ng-repeat="error in $ctrl.form.errors.end_date" ng-bind="error")
 
-            .card-section.card-section-primary
-                .row
-                    .col.col-lg-9.col-md-12
-                        .form-group.form-group-inline
-                            label.form-label(translate="funds_edit.labels.notification_amount")
-                            input(ng-model="$ctrl.form.values.notification_amount" type="text" placeholder="{{ funds_edit.labels.notification_amount | translate }}").form-control
-                            .form-error(ng-repeat="error in $ctrl.form.errors.notification_amount" ng-bind="error")
+            .card-section.card-section-primary(ng-if="$root.appConfigs.features.organizations.funds.criteria")
+                .row(ng-repeat="criteria in $ctrl.form.values.criteria")
+                    .col.col-lg-4.form-group
+                        label.form-label Eigenschap
+                        select(
+                            ng-model="criteria.record_type_key" 
+                            ng-options="operator.key as operator.name for operator in $ctrl.recordTypes").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors['criteria.' + $index + '.record_type_key']" ng-bind="error")
+                    
+                    .col.col-lg-3.form-group
+                        label.form-label Operator
+                        select(
+                            ng-model="criteria.operator" 
+                            ng-options="operator.key as operator.name for operator in $ctrl.operators").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors['criteria.' + $index + '.operator']" ng-bind="error")
+                    
+                    .col.col-lg-4.form-group
+                        label.form-label Waarde
+                        input(type="text" ng-model="criteria.value").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors['criteria.' + $index + '.value']" ng-bind="error")
+                    
+                    .col.col-lg-1.form-group
+                        label.form-label &nbsp;
+                        .button.button-default.button-icon(ng-click="$ctrl.removeCriteria(criteria)"): .mdi.mdi-close
+                
+                .row: .col.col-lg-12.form-group.text-center
+                    br(ng-if="$ctrl.form.values.criteria.length > 0")
+                    .row: .button.button-primary(ng-click="$ctrl.addCriteria()")
+                        em.mdi.mdi-plus-circle
+                        translate(translate="{{ $ctrl.form.values.criteria.length == 0 ? 'Add criteria' : 'Add new criteria' }}")
+                    .row: .col.col-lg-12.form-group.text-center
+                    .form-error(ng-repeat="error in $ctrl.form.errors.criteria" ng-bind="error")
 
-            .card-section.card-section-primary
-                .text-center
-                    button(type="button" ng-click="$ctrl.cancel()" translate="funds_edit.buttons.cancel").button.button-default
-                    button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-md-12
+                .form-group.form-group-inline
+                    label.form-label(translate="funds_edit.labels.notification_amount")
+                    input(ng-model="$ctrl.form.values.notification_amount" type="text" placeholder="{{ funds_edit.labels.notification_amount | translate }}").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.notification_amount" ng-bind="error")
+
+            .card-section.card-section-primary: .text-center
+                button(type="button" ng-click="$ctrl.cancel()" translate="funds_edit.buttons.cancel").button.button-default
+                button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary
