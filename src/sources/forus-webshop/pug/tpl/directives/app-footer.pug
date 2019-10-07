@@ -342,5 +342,81 @@ else if (qdt_c.platform.env_data.client_key == 'westerkwartier')
                 | 
                 a(href="#")
 
+//- Kerstpakket
+else if (qdt_c.platform.env_data.client_key == 'kerstpakket')
+    section.section.section-footer
+        .wrapper
+            .block.block-footer: .row
+                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-5'")
+                    .footer-label 
+                    //-img(src="./assets/img/logo-bw.png").footer-logo
+                    .footer-schedule
+                        .schedule-label 
+                        .schedule-value 
+                    .footer-schedule
+                        .schedule-label 	
+                        .schedule-value 
+                    .footer-schedule
+                        .schedule-label 		
+                        .schedule-value 
+                //-.col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
+                    //img(src="./assets/img/forus-logo-bw.svg").footer-logo
+                    .block.block-app_download: .footer-label Downloads
+                        .download-button: a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
+                            .download-icon: img(src="./assets/img/icon-app/play-store-badge.png")
+                        .download-button: a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
+                            .download-icon: img(src="./assets/img/icon-app/app-store-badge.svg")
+                            
+                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-3'")
+                    .footer-label 
+                    .footer-schedule
+                        .schedule-label  		
+                        .schedule-value 
+                        
+                    .footer-schedule
+                        .schedule-label 		
+                        .schedule-value 
+
+                    .footer-schedule
+                        .schedule-label 		
+                        .schedule-value 
+                    
+                    .footer-schedule
+                        .schedule-label  	
+                        .schedule-value 
+                    
+                    .footer-schedule
+                        .schedule-label 		
+                        .schedule-value 
+                .col.col-md-4
+                    .footer-label 
+                    nav.footer-nav
+                        .footer-nav-item: a(href="/sponsor/" target="_self") 
+                        .footer-nav-item: a(href="/provider/" target="_self") 
+                    .block.block-app_download(style="margin-top:15px;"): .footer-label(style="margin-bottom:0px;") 
+                        .wrapper
+                            a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
+                                img(src="./assets/img/icon-app/play-store-badge.png" style="height: 40px; width: 120px; padding-right: 5px; margin-top: 10px;")
+                            a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
+                                img(src="./assets/img/icon-app/app-store-badge.svg" style="height: 40px; width: 120px; margin-top: 10px;")
+                    nav.footer-nav(style="margin-top:0; padding:0;")
+                        .footer-nav-item: a(ui-sref="me-app") 		
+                .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
+                    .footer-label 
+                    .form
+                        .form-group.footer-subscribe
+                            input(type="email" placeholder="E-mail").form-control.form-control-fancy
+                            button.button.button-primary: .mdi.mdi-arrow-right
+                
+        .block.block-copyrights: .wrapper
+            .copyrights 
+            .links
+                a(href="" target="_blank") Algemene Voorwaarden
+                .link-separator
+                a(href="" target="_blank") Privacy Statement
+            .developed
+                | 
+                a(href="#")
+
 else
     div

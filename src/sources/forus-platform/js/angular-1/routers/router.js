@@ -22,7 +22,7 @@ let objectOnlyKeys = (obj, keys) => {
 
 /**
  * Permission middleware
- * 
+ *
  * @param {string} messageKey Error message key
  * @param {string|string[]} permissions List all required permissions
  * @param {bool} permissionsAll Require all permissions from the list
@@ -129,8 +129,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         url: "/organizations/create",
         component: "organizationsEditComponent",
         resolve: {
-            productCategories: ['ProductCategoryService', function(ProductCategoryService) {
-                return repackResponse(ProductCategoryService.list());
+            businessTypes: ['BusinessTypeService', function(BusinessTypeService) {
+                return repackResponse(BusinessTypeService.list({
+                    per_page: 9999
+                }));
             }]
         }
     });
@@ -142,22 +144,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         resolve: {
             organization: organziationResolver('id'),
             permission: permissionMiddleware('organization-edit', 'manage_organization'),
-            productCategories: [
-                'permission',
-                'ProductCategoryService',
-                'appConfigs',
-                function(
-                    permission,
-                    ProductCategoryService,
-                    appConfigs
-                ) {
-                    if (appConfigs.client_key == 'general') {
-                        return repackResponse(ProductCategoryService.listAll());
-                    }
-
-                    return repackResponse(ProductCategoryService.list());
-                }
-            ]
+            businessTypes: ['BusinessTypeService', function(BusinessTypeService) {
+                return repackResponse(BusinessTypeService.list({
+                    per_page: 9999
+                }));
+            }]
         }
     });
 
@@ -170,14 +161,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             permission: permissionMiddleware('organization-funds', [
                 'manage_funds', 'view_finances'
             ], false),
-            funds: function(permission, $transition$, FundService) {
+            funds: ['permission', '$transition$', 'FundService', function(permission, $transition$, FundService) {
                 return repackResponse(
                     FundService.list(
                         $transition$.params().organization_id
                     )
                 );
-            },
-            fundLevel: (permission) => "organizationFunds"
+            }],
+            fundLevel: [('permission'), (permission) => "organizationFunds"]
         }
     });
 
@@ -280,7 +271,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                         'approved'
                     )
                 );
-            }
+            },
+            productCategories: ['ProductCategoryService', (ProductCategoryService) => {
+                return repackResponse(ProductCategoryService.list({
+                    parent_id: 'null'
+                }));
+            }]
         }
     });
 
@@ -642,6 +638,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: 'email-preferences',
+        url: '/email/preferences',
+        component: 'emailPreferencesComponent'
+    });
+
+    $stateProvider.state({
         name: "restore-email",
         url: "/identity-restore?token",
         controller: [
@@ -706,9 +708,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             url: "/sign-up?fundId",
             component: "signUpComponent",
             resolve: {
-                productCategories: function(ProductCategoryService) {
-                    return repackResponse(ProductCategoryService.list());
-                }
+                businessTypes: ['BusinessTypeService', function(BusinessTypeService) {
+                    return repackResponse(BusinessTypeService.list({
+                        per_page: 9999
+                    }));
+                }]
             }
         });
     }

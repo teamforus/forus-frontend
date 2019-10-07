@@ -15,11 +15,13 @@
             .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
                 .card-block-listing-label {{ "fund_card_provider_finances.labels.mail" | translate }}
                 span.text-primary-light(ng-bind="fundProvider.organization.email")
+        
         //-.card-block.card-block-listing
             .card-block-listing-label {{ "fund_card_provider_finances.labels.categories" | translate }}
             | {{ fundProvider.organization.fundCategories.join(', ') }}
             small(ng-show="fundCategories.length == 0").text-muted.small {{ "fund_card_provider_finances.labels.nocategories" | translate }}
         //-br
+        
         //-.card-block.card-block-listing
             .card-block-listing-label {{ "fund_card_provider_finances.labels.join" | translate }}
             span(
@@ -48,8 +50,7 @@
                     .chart-header-item(ng-click="chartData.changeType('all')" ng-class="chartData.request.type=='all'?'active':''") {{ "fund_card_provider_finances.labels.all" | translate }}
                 .chart-header-title {{ chartData.stringTitle }}
                 .chart-header-actions.form
-                    .form-group.inline-block
-                        select(
+                    .form-group.inline-block: select(
                         ng-change="chartData.update()"
                         ng-options="productCategory.id as productCategory.name for productCategory in productCategories"
                         ng-model="chartData.request.product_category").form-control

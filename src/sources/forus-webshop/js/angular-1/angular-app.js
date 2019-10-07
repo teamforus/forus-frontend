@@ -1,4 +1,6 @@
-let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies']);
+require('./modules/select-control/SelectControlModule');
+
+let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies', 'forus.selectControl']);
 let appConfigs = JSON.parse(JSON.stringify(env_data));
 
 app.constant('appConfigs', appConfigs);
@@ -20,6 +22,7 @@ app.component('recordValidateComponent', require('./components/RecordValidateCom
 app.component('recordValidationsComponent', require('./components/RecordValidationsComponent'));
 app.component('recordCreateComponent', require('./components/RecordCreateComponent'));
 app.component('meComponent', require('./components/MeComponent'));
+app.component('emailPreferencesComponent', require('./components/EmailPreferencesComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -51,6 +54,9 @@ app.service('ModalService', require('./services/ModalService'));
 app.service('BrowserService', require('./services/BrowserService'));
 app.service('SmsService', require('./services/SmsService'));
 app.service('PrintableService', require('./services/PrintableService'));
+app.service('BusinessTypeService', require('./services/BusinessTypeService'));
+app.service('EmailPreferencesService', require('./services/EmailPreferencesService'));
+app.service('FileService', require('./services/FileService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
@@ -74,6 +80,8 @@ app.directive('preventPropagation', require('./directives/PreventPropagation'));
 app.directive('phoneControl', require('./directives/PhoneControlDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('forusChat', require('./directives/ForusChatDirective'));
+app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
+app.directive('scrollEnd', require('./directives/ScrollEndDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));

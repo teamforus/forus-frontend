@@ -1,6 +1,6 @@
 .block {
     &.block-navbar {
-        z-index: 1;
+        z-index: 5;
         @media screen and (min-width: 1024px){
             position: relative;
             left: 0;
@@ -206,7 +206,8 @@
                     display:grid;
                     grid-template-columns: auto auto;
                     grid-template-rows: 10px;
-                    grid-gap:10px;
+                    grid-gap: 10px;
+
                     .mdi-settings {
                         margin-top:5px;
                         display: flex;
@@ -252,10 +253,10 @@
                     .auth-user-menu {
                         background: #ffffff;
                         box-shadow: 0 0 20px rgba(#000, .075);
-                        width: 220px;
+                        width: 240px;
                         right: 5px;
                         position: absolute;
-                        top: 40px;
+                        top: 38px;
                         border: 1px solid #f3f4f5;
                         border-radius: 5px;
                         padding: 5px 0;
@@ -370,7 +371,7 @@
             }
         }
     }
-    @media screen and (max-width: 1000px) {
+    @media screen and (max-width: 1024px) {
         &.block-navbar {
             padding: 0;
             border-radius: 0;
