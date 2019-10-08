@@ -283,7 +283,9 @@ module.exports = {
             phone: "Telefoonnummer",
             website: "Website",
             categories: "Categorieën",
+            business_type: "Organisatie type",
             nocategories: "Geen categorieën",
+            no_business_type: "Geen organisatie type",
             join: "Aanmelding voor fonds",
         },
         buttons: {
@@ -320,6 +322,7 @@ module.exports = {
             kvk: "KvK-nummer",
             tax: "BTW-nummer (Optioneel)",
             website: "Website",
+            business_type: "Organisatie type",
         },
         buttons: {
             cancel: "Annuleren",
@@ -510,7 +513,8 @@ module.exports = {
             next: "Volgende",
             reload_qr: 'Herlaad de code.',
             login: 'Login',
-            skip: "Overslaan"
+            skip: "Overslaan",
+            skip_to_dashboard: 'Sla over en ga naar dashboard >'
         },
         step: {
             step_1: 'Stap 1',

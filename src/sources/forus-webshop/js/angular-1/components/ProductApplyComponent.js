@@ -1,6 +1,5 @@
 let ProductApplyComponent = function(
     $state,
-    $filter,
     VoucherService,
     ModalService
 ) {
@@ -13,7 +12,7 @@ let ProductApplyComponent = function(
 
         $ctrl.applicableVouchers = $ctrl.vouchers.filter(function(voucher) {
             return (fundIds.indexOf(voucher.fund_id) != -1) && (
-                $ctrl.product.price <= voucher.amount
+                parseFloat($ctrl.product.price) <= parseFloat(voucher.amount)
             ) && !voucher.parent;
         });
 
@@ -57,7 +56,6 @@ module.exports = {
     },
     controller: [
         '$state',
-        '$filter',
         'VoucherService',
         'ModalService',
         ProductApplyComponent
