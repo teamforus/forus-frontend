@@ -6,7 +6,7 @@ let FundCriterionDirective = function(
         return validator.identity_address;
     });
 
-    $scope.records = FundService.checkEligibility(
+    $scope.records = FundService.checkEligibilityLegacy(
         $scope.records || [],
         $scope.criterion,
         $scope.validators,
