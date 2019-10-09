@@ -26,9 +26,9 @@ let FundsComponent = function(
         });
 
         // Filter already applied funds
-        $ctrl.funds = $ctrl.funds.filter(fund => $ctrl.vouchers.filter(voucher => {
+        /* $ctrl.funds = $ctrl.funds.filter(fund => $ctrl.vouchers.filter(voucher => {
             return voucher.fund_id == fund.id;
-        }).length == 0);
+        }).length == 0); */
 
         $ctrl.funds = $ctrl.funds.map(function(fund) {
             fund.categories = fund.product_categories.map(function(category) {
@@ -45,9 +45,8 @@ let FundsComponent = function(
                     criterion,
                     validators,
                     fund.organization_id
-                ).filter(
-                    record => record.state == 'valid').length > 0;
-            }).filter(isValid => isValid).length == fund.criteria.length;
+                );
+            }).length == fund.criteria.length;
 
             fund.criterioaList = FundService.fundCriteriaList(
                 fund.criteria,
@@ -58,7 +57,7 @@ let FundsComponent = function(
         });
 
         // Filter non applicable funds
-        $ctrl.funds = $ctrl.funds.filter(fund => fund.isApplicable);
+        // $ctrl.funds = $ctrl.funds.filter(fund => fund.isApplicable);
     };
 };
 

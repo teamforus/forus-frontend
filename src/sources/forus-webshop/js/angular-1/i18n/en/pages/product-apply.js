@@ -1,5 +1,4 @@
 module.exports = {
-    
     // APPLY FOR PRODUCT = product-apply.pug
         header: {
             title: "Kies voucher",
