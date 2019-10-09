@@ -7,7 +7,7 @@
             .card-header: .card-title(translate="notification_preferences.title_preferences")
             .card-section
                 .card-heading(i18n="notification_preferences.subscribe_desc" i18n-vars="{ email: $ctrl.email }")
-                div: button(type="button" ng-click="$ctrl.enableSubscription()").button.button-primary(i18n="notification_preferences.subscribe") 
+                div: button(type="button" ng-click="$ctrl.enableSubscription()" i18n="notification_preferences.subscribe") .button.button-primary
 
         .card(ng-if="!$ctrl.email_unsubscribed")
             .card-header: .card-title(translate="notification_preferences.title_preferences")

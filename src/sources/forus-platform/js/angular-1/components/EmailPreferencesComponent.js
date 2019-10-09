@@ -3,23 +3,26 @@ let EmailPreferencesComponent = function(
     AuthService,
     ModalService,
     EmailPreferencesService,
-    FormBuilderService
+    FormBuilderService,
+    appConfigs
 ) {
     let $ctrl = this;
 
     $ctrl.loaded = false;
+    let keysEditableOnDashboard;
+
     if(appConfigs.panel_type == 'sponsor'){
-        let keysEditableOnDashboard = [
+        keysEditableOnDashboard = [
             'funds.provider_applied', 'funds.balance_warning', 'funds.product_added'
         ];
     }
-    if (appConfigs.panel_type == 'sponsor'){
-        let keysEditableOnDashboard = [
+    if (appConfigs.panel_type == 'provider'){
+        keysEditableOnDashboard = [
             'funds.new_fund_started', 'funds.new_fund_applicable', 'funds.provider_approved', 'funds.provider_rejected', 'funds.product_reserved', 'funds.product_sold_out'
         ];
     }
     if (appConfigs.panel_type == 'validator'){
-        let keysEditableOnDashboard = [
+        keysEditableOnDashboard = [
             'validations.new_validation_request','validations.you_added_as_validator'
         ];
     }
@@ -91,6 +94,7 @@ module.exports = {
         'ModalService',
         'EmailPreferencesService',
         'FormBuilderService',
+        'appConfigs',
         EmailPreferencesComponent
     ],
     templateUrl: 'assets/tpl/pages/email-preferences.html'
