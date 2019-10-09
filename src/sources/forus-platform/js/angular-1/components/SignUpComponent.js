@@ -421,6 +421,7 @@ let SignUpComponent = function(
                 }
             });
         } else if ($ctrl.step == 6) {
+            loadAvailableFunds($ctrl.organization);
             $ctrl.setStep($ctrl.step + 1);
         } else if ($ctrl.step == 7) {
             $state.go('organizations');
@@ -452,7 +453,13 @@ let SignUpComponent = function(
     $ctrl.applyAccessToken = function(access_token) {
         CredentialsService.set(access_token);
         $rootScope.$broadcast('auth:update');
-        $ctrl.setStep($ctrl.step + 1);
+
+        if ($ctrl.step == 2) {
+            $ctrl.setStep($ctrl.step + 1);
+        } else {
+            $ctrl.next();
+        }
+
         $ctrl.signedIn = true;
     };
 
