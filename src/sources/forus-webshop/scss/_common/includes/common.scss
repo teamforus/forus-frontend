@@ -64,6 +64,13 @@ img {
     display: none;
 }
 
+.hard-disabled {
+    filter: grayscale(1);
+    user-select: none;
+    pointer-events: none;
+    opacity: .75;
+}
+
 .cf {
     img {
     border: none;

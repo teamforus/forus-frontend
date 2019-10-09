@@ -1,6 +1,7 @@
 let FundsComponent = function(
     $state,
     FundService,
+    RecordService,
     appConfigs
 ) {
     let $ctrl = this;
@@ -12,6 +13,9 @@ let FundsComponent = function(
     $ctrl.recordsByKey = {};
     $ctrl.recordsByTypesKey = {};
     $ctrl.countInvalid = 0;
+    $ctrl.state = 'list_records';
+    $ctrl.stepState = 'criteria';
+    $ctrl.step = 1;
 
     $ctrl.checkStates = function(isValid) {
         if (!isValid) {
@@ -19,12 +23,72 @@ let FundsComponent = function(
         }
     };
 
+    $ctrl.addMissingRecords = function() {
+        $ctrl.state = 'add_missing';
+    };
+
+    $ctrl.buildSteps = () => {
+        // criteria list
+        let totalSteps = 1;
+
+        // Other criteria
+        totalSteps += $ctrl.invalidCriteria.length;
+
+        $ctrl.totalSteps = [];
+
+        for (let index = 0; index < totalSteps; index++) {
+            $ctrl.totalSteps.push(index + 1);
+        }
+    };
+
+    $ctrl.step2state = (step) => {
+        if (step == 1) {
+            return 'criteria';
+        }
+
+        if (step > $ctrl.totalSteps.length) {
+            return 'done';
+        }
+
+        let prevSteps = 1;
+
+        return 'criteria_' + ((step - prevSteps) - 1);
+    };
+
+    $ctrl.nextStep = () => {
+        $ctrl.step++;
+        $ctrl.updateState();
+    };
+
+    $ctrl.reload = () => {
+        $state.reload();
+    };
+
+    $ctrl.updateState = () => {
+        $ctrl.stepState = $ctrl.step2state($ctrl.step);
+    };
+
+    $ctrl.submitCriteria = (criteria) => {
+        $ctrl.recordsSubmitting = true;
+
+        RecordService.store({
+            type: criteria.record_type_key,
+            value: criteria.input_value
+        }).then(res => {
+            $ctrl.recordsSubmitting = false;
+            $ctrl.nextStep();
+        }, res => {
+            $ctrl.recordsSubmitting = false;
+            criteria.errors = res.data.errors;
+        });
+    };
+
     $ctrl.$onInit = function() {
-        if ($ctrl.vouchers.filter(voucher => {
+        /* if ($ctrl.vouchers.filter(voucher => {
             return voucher.fund_id == $ctrl.fund.id;
         }).length > 0) {
             return $state.go('home');
-        }
+        } */
 
         $ctrl.records.forEach(function(record) {
             if (!$ctrl.recordsByKey[record.key]) {
@@ -43,6 +107,15 @@ let FundsComponent = function(
             $ctrl.recordsByTypesKey
         );
 
+        $ctrl.invalidCriteria = $ctrl.fund.criteria.filter(criterion => !FundService.checkEligibility(
+            $ctrl.records || [],
+            criterion,
+            $ctrl.fund.validators,
+            $ctrl.fund.organization_id
+        ));
+
+        console.log($ctrl.records);
+
         $ctrl.formulaList = {
             fixed: $ctrl.fund.formulas.filter(formula => {
                 return formula.type == 'fixed'
@@ -55,7 +128,9 @@ let FundsComponent = function(
                     label: $ctrl.recordsByTypesKey[multiply.record_type_key].name
                 }
             }),
-        };
+        }; 
+
+        $ctrl.buildSteps();
     };
 
     $ctrl.applyFund = function() {
@@ -75,6 +150,7 @@ module.exports = {
     controller: [
         '$state',
         'FundService',
+        'RecordService',
         'appConfigs',
         FundsComponent
     ],
