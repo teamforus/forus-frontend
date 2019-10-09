@@ -88,8 +88,12 @@ input {
 	}
 }
 
-
-
+@media (max-width: 991px) {
+    .hidden-xs {
+        display: none !important;
+	}
+	img {max-width: 100%;}
+}
 
 .text-strike { text-decoration: line-through; }
 .text-muted { color: #a1a1a1; }

@@ -1,15 +1,21 @@
-h1 {font: 500 50px/60px $bf;}
-h2 {font: 400 36px/60px $bf;}
-h3 {font: 400 24px/1.5em $bf;}
-p { 
-    font: 400 16px/1.5em $bf;
-    margin-bottom: 1em;
+h1 {font: 500 28px $bf;}
+h2 {font: 400 22px $bf;}
+h3 {font: 400 18px $bf;}
+p {font: 400 14px $bf;}
+@media screen and (min-width: 1024px) {
+    h1 {font: 500 50px/60px $bf;}
+    h2 {font: 400 36px/60px $bf;}
+    h3 {font: 400 24px/1.5em $bf;}
+    p { 
+        font: 400 16px/1.5em $bf;
+        margin-bottom: 1em;
+    }
+    .pt-large {font: 400 24px/1.5em $bf;}
+    
+    h1, h2, h3, h4, h5 {
+        margin: 0;
+    }
+    
+    .no-mar-t {margin-top: 0px}
+    .no-mar-b {margin-bottom: 0px}
 }
-.pt-large {font: 400 24px/1.5em $bf;}
-
-h1, h2, h3, h4, h5 {
-    margin: 0;
-}
-
-.no-mar-t {margin-top: 0px}
-.no-mar-b {margin-bottom: 0px}

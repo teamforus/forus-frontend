@@ -10,13 +10,15 @@ nav.navbar
         #navbar.navbar-collapse.collapse
             ul.nav.navbar-nav
                 li
-                    a(type="button" data-toggle="collapse" data-target="#nav-product" aria-expanded="false" aria-controls="nav-product") Product
+                    a(type="button" data-toggle="collapse" data-target="#nav-product" aria-expanded="false" aria-controls="nav-product") Toepassingen
                         .caret
                             include ../../../../resources/platform-general/assets/img/svg/arrow.svg
                     span#nav-product.dropdown.collapse
                         .dropdown-column-1
-                            .column-title Producten                           
+                            .column-title                           
                             a(ui-sref="kindpakket" data-toggle="collapse" data-target="#nav-product") Kindpakket
+                            a(ui-sref="meedoen" data-toggle="collapse" data-target="#nav-product") Meedoenpakket
+                            a(ui-sref="kerstpakket" data-toggle="collapse" data-target="#nav-product") Kerstpakket
                         .dropdown-column-2
                             .column-title Klantverhalen                               
                             a(ui-sref="story" data-toggle="collapse" data-target="#nav-product").zuidhorn Gemeente Zuidhorn

@@ -3,8 +3,12 @@
    .cupa {
         float: left;
         img {
-            height: 140px;
-            padding: 20px;
+            height: 90px;
+            padding: 10px 10px 10px 10px;
+            @media screen and (min-width: 1024px) {
+                height: 140px;
+                padding: 10px 20px 10px 20px;
+            }
         }
     }
 }
