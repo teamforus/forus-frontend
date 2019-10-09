@@ -215,6 +215,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'berkelland',
             client_type: 'webshop',
+            log_out_time: 15,
+            matomo_site_id: false,
         });
 
         return platform;
@@ -225,6 +227,19 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'oostgelre',
             client_type: 'webshop',
+            log_out_time: 15,
+            matomo_site_id: false,
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_winterswijk', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'winterswijk',
+            client_type: 'webshop',
+            log_out_time: 15,
             matomo_site_id: false,
         });
 
