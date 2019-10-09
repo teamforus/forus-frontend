@@ -139,6 +139,7 @@ module.exports = (core) => {
             client_key: 'general',
             client_type: 'webshop',
             log_out_time: 15,
+            matomo_site_id: false,
             // set false to disable auto-logout
             // log_out_time: false,
         });
@@ -152,6 +153,7 @@ module.exports = (core) => {
             client_key: 'zuidhorn',
             client_type: 'webshop',
             log_out_time: 15,
+            matomo_site_id: false,
         });
 
         return platform;
@@ -163,6 +165,7 @@ module.exports = (core) => {
             client_type: 'webshop',
             client_key: 'nijmegen',
             log_out_time: 15,
+            matomo_site_id: false,
         });
 
         return platform;
@@ -174,6 +177,7 @@ module.exports = (core) => {
             client_key: 'kerstpakket',
             client_type: 'webshop',
             log_out_time: 15,
+            matomo_site_id: false,
         });
 
         return platform;
@@ -185,6 +189,7 @@ module.exports = (core) => {
             client_key: 'westerkwartier',
             client_type: 'webshop',
             client_type: 'webshop',
+            matomo_site_id: false,
         });
 
         return platform;
