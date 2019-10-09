@@ -14,12 +14,6 @@ module.exports = (core) => {
             // }
         });
 
-        /* platform.editTask('js', (task) => {
-            task.minify = true;
-
-            return task;
-        }); */
-
         return platform;
     });
 
@@ -100,27 +94,6 @@ module.exports = (core) => {
         return platform;
     });
 
-    core.editPlatform('dashboard_kerstpakket_sponsor', (platform) => {
-        platform.setEnvData({
-            api_url: api_url,
-            client_key: 'kerstpakket',
-            panel_type: 'sponsor',
-            chat_id: false
-        });
-
-        return platform;
-    });
-        core.editPlatform('dashboard_kerstpakket_provider', (platform) => {
-        platform.setEnvData({
-            api_url: api_url,
-            client_key: 'kerstpakker',
-            panel_type: 'provider',
-            chat_id: false
-        });
-
-        return platform;
-    });
-
     core.editPlatform('dashboard_westerkwartier_sponsor', (platform) => {
         platform.setEnvData({
             api_url: api_url,
@@ -154,15 +127,34 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('dashboard_oostgelre_provider', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'oostgelre',
+            panel_type: 'provider',
+            chat_id: false
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('dashboard_oostgelre_sponsor', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'oostgelre',
+            panel_type: 'sponsor',
+            chat_id: false
+        });
+
+        return platform;
+    });
+
     // Config webshops
     core.editPlatform('webshop_general', (platform) => {
         platform.setEnvData({
             api_url: api_url,
             client_key: 'general',
             client_type: 'webshop',
-            log_out_time: 15,
-            // set false to disable auto-logout
-            // log_out_time: false,
         });
 
         return platform;
@@ -173,7 +165,6 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'zuidhorn',
             client_type: 'webshop',
-            log_out_time: 15,
         });
 
         return platform;
@@ -184,7 +175,6 @@ module.exports = (core) => {
             api_url: api_url,
             client_type: 'webshop',
             client_key: 'nijmegen',
-            log_out_time: 15,
         });
 
         return platform;
@@ -194,8 +184,7 @@ module.exports = (core) => {
         platform.setEnvData({
             api_url: api_url,
             client_key: 'kerstpakket',
-            client_type: 'webshop',
-            log_out_time: 15,
+            client_type: 'webshop'
         });
 
         return platform;
@@ -206,7 +195,6 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'westerkwartier',
             client_type: 'webshop',
-            client_type: 'webshop',
         });
 
         return platform;
@@ -216,6 +204,16 @@ module.exports = (core) => {
         platform.setEnvData({
             api_url: api_url,
             client_key: 'berkelland',
+            client_type: 'webshop',
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_oostgelre', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'oostgelre',
             client_type: 'webshop',
         });
 
