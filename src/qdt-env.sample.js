@@ -259,7 +259,9 @@ module.exports = (core) => {
 
     //- Enable only given platforms
     /* core.enableOnly([
-        'webshop_general'
+        'webshop_berkelland',
+        'webshop_oostgelre',
+        'webshop_winterswijk',
     ]); */
 
     //- Enable all but given platforms
