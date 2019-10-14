@@ -27,7 +27,10 @@ module.exports = {
         nijmegen: 'Nijmegen',
         westerkwartier: 'Westerkwartier',
         forus: 'Forus platform & ',
-        berkelland: 'berkelland',
+        kerstpakket: 'Kerstpakket',
+        berkelland: 'Berkelland',
+        oostgelre: 'Oostgelre',
+        winterswijk: 'Winterswijk',
     },
     languages: {
         en: 'English',
