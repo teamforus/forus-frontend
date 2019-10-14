@@ -1020,7 +1020,7 @@ module.exports = {
     },
     notification_preferences: {
         title_preferences: 'E-mailvoorkeuren',
-        subscribe_desc: 'Jouw e-mailadres "{{email}}" is momenteel uitgeschreven van alle notificaties. Wanneer u specifieke notificaties weer wilt ontvangen zult eerst moeten kiezen om notificaties weer te willen ontvangen.',
+        subscribe_desc: 'Met dit e-mailadres "{{email}}" bent u momenteel voor alle notificaties uitgeschreven. Wanneer u notificaties wilt ontvangen, kunt u dit hieronder per notificatie instellen.',
         unsubscribe: 'Uitschrijven voor alle notificaties',
         unsubscribe_desc:  'Ik wil me uitschrijven van alle notificaties.',
         unsubscribe_button: 'Uitschrijven',
@@ -1028,81 +1028,81 @@ module.exports = {
         errors: {
             'not_found': 'Deze token is ongeldig',
             'expired': 'Deze token is verlopen',
-            'not-pending': 'De notificatieinstellingen zijn al aangepast via deze link'
+            'not-pending': 'De notificatie instellingen zijn al aangepast via deze link'
         },
         types: {
             funds: {
                 new_fund_started: {
-                    title: 'Fonds waar u bij bent aangesloten is van start gegaan',
-                    description: 'Notificatie wanneer er een fonds is gestart en u klanten kunt ontvangen.'
+                    title: 'Fonds is van start gegaan',
+                    description: 'Ontvang een notificatie wanneer er een fonds waar u voor bent aangemeld is gestart en u klanten kunt verwachten.' 
                 },
                 new_fund_applicable: {
-                    title: 'Nieuw fonds toegevoegd om aan te melden.',
-                    description: 'Notificatie wanneer er een nieuw fonds is toegevoegd waarvoor u zich kunt aanmelden.'
+                    title: 'Nieuw fonds waar u zich voor kunt aanmelden',
+                    description: 'Ontvang een notificatie wanneer er een nieuw fonds is aangemaakt waarvoor u zich kunt aanmelden.'
                 },
                 balance_warning: {
-                    title: 'Balans op fonds is onder herinneringsgrens',
-                    description: 'Notificatie wanneer een balans op de fonds onder herinneringsgrens komt.'
+                    title: 'Actie vereist: saldo aanvullen',
+                    description: 'Ontvang een notificatie wanneer het saldo voor een fonds lager is dan de vooraf ingestelde grens.'
                 },
                 fund_expires: {
-                    title: 'Herinneringsnotificatie einddatum voucher',
-                    description: 'Notificatie 1 maand voor de einddatum van uw voucher.'
+                    title: 'Herinnering einddatum voucher',
+                    description: 'Ontvang een notificatie 1 maand voor de einddatum van uw voucher.'
                 },
                 product_added: {
-                    title: 'Een nieuw product is toegevoegd',
-                    description: 'Notificatie wanneer een nieuw product is toegevoegd in de webshop',
+                    title: 'Nieuwe aanbieding toegevoegd',
+                    description: 'Ontvang een notificatie wanneer er een nieuwe aanbieding is toegevoegd.',
                 },
                 new_fund_created: {
-                    title: 'Nieuw fonds is aangemaakt',
-                    description: 'Notificatie wanneer een nieuw fonds is aangemaakt'
+                    title: 'Nieuw fonds aangemaakt',
+                    description: 'Ontvang een notificatie wanneer er een nieuw fonds is aangemaakt.'
                 },
                 product_reserved: {
-                    title: 'Product gereserveerd',
-                    description: 'Notificatie wanneer product gereserveerd',
+                    title: 'Aanbieding gereserveerd',
+                    description: 'Ontvang een notificatie wanneer een aanbieding is gereserveerd.',
                 },
                 product_sold_out: {
-                    title: 'Product uitverkocht',
-                    description: 'Notificatie wanneer een product is uitverkocht'
+                    title: 'Aanbieding uitverkocht',
+                    description: 'Ontvang een notificatie wanneer een aanbieding is uitverkocht.'
                 },
                 provider_applied: {
-                    title: 'Aanbieder biedt zich aan',
-                    description: 'Notificatie wanneer een nieuwe aanbieder zich aanbiedt bij een fonds'
+                    title: 'Aanmelding aanbieder',
+                    description: 'Ontvang een notificatie wanneer een aanbieder zich heeft aangemeld voor een fonds.'
                 },
                 provider_approved: {
-                    title: 'Aanbieder geaccepteerd',
-                    description: 'Notificatie wanneer een nieuwe aanbieder geaccepteerd is'
+                    title: 'Aanmelding aanbieder geaccepteerd',
+                    description: 'Ontvang een notificatie wanneer een aanbieder voor een fonds is geaccepteerd.'
                 },
                 provider_rejected: {
-                    title: 'Aanbieder afgewezen',
-                    description: 'Notificatie wanneer een nieuwe aanbieder is afgewezen'
+                    title: 'Aanmelding aanbieder afgewezen',
+                    description: 'Ontvang een notificatie wanneer een aanbieder voor een fonds is afgewezen.'
                 },
             },
             validations: {
                 new_validation_request: {
                     title: 'Nieuw validatieverzoek',
-                    description: 'Notificatie wanneer er een nieuw validatieverzoek is'
+                    description: 'Ontvang een notificatie wanneer er een nieuw validatieverzoek is gedaan.'
                 },
                 you_added_as_validator: {
-                    title: 'Je bent toegevoegd als validator',
-                    description: 'Notificatie wanneer je toegevoegd bent als validator bij een fonds'
+                    title: 'Toegevoegd als validator',
+                    description: 'Ontvang een notificatie wanneer u als validator aan een fonds bent toegevoegd.'
                 }
             },
             vouchers: {
                 payment_success: {
                     title: 'Betaling gelukt',
-                    description: 'Notificatie wanneer een betaling is gelukt'
+                    description: 'Ontvang een notificatie wanneer een betaling is gelukt.'
                 },
                 send_voucher: {
-                    title: 'Stuur een voucher naar jezelf.',
-                    description: 'Notificatie voor wanneer u erzelf voor kiest om een voucher naar u zelf te sturen.'
+                    title: 'Stuur een voucher naar uzelf',
+                    description: 'Ontvang een notificatie wanneer u een voucher naar uzelf verstuurt.'
                 },
                 share_product: {
-                    title: 'Reservering delen',
-                    description: 'Notificatie wanneer er een reservering met u gedeeld is'
+                    title: 'Reservering aanbieding gedeeld',
+                    description: 'Ontvang een notificatie wanneer er een reservering voor een aanbieding met u is gedeeld.'
                 }
             }
         }
-
+    
     }
 }
 
