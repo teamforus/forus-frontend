@@ -7,6 +7,15 @@
         box-shadow: 12px 8px 30px rgba(0, 0, 0, 0.19);
         padding: 20px 10%;
     }
+    .tl-list {
+        display: inline-block;
+        ul {
+            padding: 20px;
+            @media screen and (min-width: 1024px) {
+                float: left;
+            }
+        }
+    }
 }
 .wrap_cs {
     &__1 {
@@ -16,6 +25,15 @@
         padding: 20px 20px 20px;
         @media screen and (min-width: 1024px) {
             padding: 75px 20px 75px;
+        }
+        .work-st {
+            li {
+                :first-of-type {
+                    &::before {
+                        background-image: url($img_path + "/number-1-pink.svg");
+                    }
+                }
+            }
         }
     }
     &__3 {

@@ -1,6 +1,11 @@
 .pull-right { float: right; }
 .pull-left { float: left; }
-.pull-down { margin-top: 50px; }
+.pull-down {
+	margin-top: 25px;
+	@media screen and (min-width: 1024px) {
+		margin-top: 50px;
+	}
+}
 .self-align {align-self: center;}
 .content-left {justify-content: left;}
 .cleared { clear: both; }
