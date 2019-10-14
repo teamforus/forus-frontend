@@ -483,14 +483,13 @@ ui-view {
         }
 
         .header-content {
-            padding: 105px 0;
-            width: 75%;
-            float: left;
+            padding: 0 !important;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
             position: relative;
             z-index: 3;
             padding-bottom: 30px;
-            padding-right: 120px;
-            min-height: 450px;
 
             .header-title {
                 font: 700 40px/50px $bf;
@@ -1414,190 +1413,58 @@ ui-view {
     }
 
     &.block-navbar {
-        background-color: #a80a2d;
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
-        z-index: 9;
-        padding: 0;
-        border: none;
-        font-weight: 300;
-        transition: background $navbar_transition, padding $navbar_transition;
-        border-radius: $border_radius;
-        width: 1140px;
-        padding: 0;
-        max-width: 100%;
-        margin: 0 auto;
-        box-shadow: 0 2px 5px 0 rgba(224, 204, 204, 0.16),
-            0 2px 10px 0 rgba(0, 0, 0, 0.12);
         width: 100%;
-
+        padding: 0 0px;
+        top: 0;
+        position: sticky;
+        z-index: 10;
+        background: #fff;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.075);
         .navbar-inner {
-            background: transparent;
-            width: 1140px;
-            padding: 10px 15px;
-            transition: all $navbar_transition;
+            width: 1100px;
             box-shadow: none;
         }
-
-        .navbar-logo {
-            margin-right: 0;
-            position: relative;
-            transition: all $navbar_transition;
-            padding: 0;
-            float: left;
-            overflow: hidden;
-            width: 150px;
-            border: none;
-            margin-right: 100px;
-
-            img {
-                overflow: hidden;
-                z-index: 2;
-                opacity: 1;
-                transition: height $navbar_transition,
-                    opacity $navbar_transition;
-                height: 50px;
-            }
-        }
-
         .navbar-list {
-            position: relative;
-            z-index: 1;
-            padding: 0;
-            transition: $navbar_transition;
+            text-align: left;
 
             .navbar-item-wrapper {
                 .navbar-item {
-                    margin: 0 20px;
-                    color: #fff;
-                    transition: padding $navbar_transition;
-                    font-size: 1.25rem;
-                    padding: 10px 5px;
-                    font-weight: 300;
-                    line-height: 30px;
-
-                    &:before {
-                        content: none;
-                    }
-
                     &:hover {
-                        color: #e4b3be;
+                        color: $tc;
 
+                        &:before {
+                            background-color: $color_default;
+                            opacity: .5;
+                        }
                     }
 
                     &.active {
-                        color: #e4b3be;
+                        color: $tc;
 
+                        &:before {
+                            background-color: $color_default;
+                            opacity: 1;
+                        }
                     }
                 }
             }
         }
 
         .block-auth {
-            position: relative;
-            z-index: 1;
-            padding: 0;
-            border: none;
-            padding: 5px 0;
-
-            .button {
-                background-color: #fff;
-                border: 1px solid $border_color;
-                color: #157c68;
-                float: none;
-                margin-right: none;
-                font-size: 18px;
-                line-height: 20px;
-                padding: 10px 15px;
-                transition: all $navbar_transition;
-
-                .mdi {
-                    color: #157c68;
-                }
-
-                &:hover {
-                    border-color: #ababab;
-                    color: #17564a;
-
-                    .mdi {
-                        color: #17564a;
-                    }
-                }
-            }
-
             .auth-in {
-                padding: 0;
-                transition: padding .5s ease-in-out;
-
                 .auth-user {
-                    padding: 15px 0;
-                    padding-right: 50px;
-                    padding-left: 20px;
-
                     .auth-user-email {
-                        color: #e4b3be;
-                        line-height: 25px;
-                        display: block;
-                    }
-
-                    .auth-user-type {
-                        color: #fff;
-                        line-height: 15px;
-                        display: block;
+                        color: $color_default_light;
                     }
 
                     .auth-user-avatar {
-                        border: none;
-                        border-radius: initial;
+                        border-color: $color_default;
+                        border-radius: 4px;
 
-                        &>img {
-                            border: 2px solid #c34367;
-                            border-radius: 50%;
+                        img {
+                            filter: grayscale(.8);
                         }
                     }
-
-                    .auth-user-menu {
-                        border-radius: 2px;
-
-                        .auth-user-menu-item {
-                            &:hover {
-                                color: #a92b2d;
-                                background: #fff;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        &.top-nav-collapse {
-            .navbar-inner {
-                padding: 5px 15px;
-                box-shadow: none;
-            }
-
-            .navbar-logo {
-                margin-right: 2rem;
-                width: 35px;
-
-                img {
-                    height: 40px;
-                }
-            }
-
-            .navbar-list {
-                .navbar-item-wrapper {
-                    .navbar-item {
-                        padding: 5px 5px;
-                    }
-                }
-            }
-
-            .block-auth {
-                .button {
-                    padding: 5px 15px;
                 }
             }
         }
