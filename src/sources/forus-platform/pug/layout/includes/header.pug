@@ -17,7 +17,10 @@ header.app.app-header
                         | Organisatie
                     a(ui-sref="organizations-create").auth-user-menu-item
                         em.mdi.mdi-plus
-                        | {{ "organizations.buttons.add" | translate }}
+                        translate(translate="organizations.buttons.add")
+                    a(ui-sref="email-preferences").auth-user-menu-item
+                        em.mdi.mdi-settings-outline
+                        translate(translate="E-mailvoorkeuren")
                     .auth-user-menu-item(ng-click="$root.openPinCodePopup()")
                         em.mdi.mdi-cellphone
                         span(translate="topnavbar.buttons.authorize")

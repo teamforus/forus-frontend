@@ -1,59 +1,134 @@
-let ProductCategoriesControlDirective = function($scope) {
-    if (!Array.isArray($scope.options)) {
-        $scope.options = [];
-    }
+let ProductCategoriesControlDirective = function(
+    $q,
+    $scope,
+    ProductCategoryService
+) {
+    let $ctrl = {};
 
-    if (!Array.isArray($scope.ngModel)) {
-        $scope.ngModel = [];
-    }
+    $scope.$ctrl = $ctrl;
 
-    let getFiltred = (list, type) => {
-        return list.filter(option => option.service == type);
+    $ctrl.productType = 'product';
+    $ctrl.categoriesValues = [];
+    $ctrl.categoriesHierarchy = [];
+
+    $ctrl.loadCategories = (index, parent_id = 'null', loadOnly = false) => {
+        return $q((resolve, reject) => {
+            if (!loadOnly) {
+                $ctrl.categoriesHierarchy.splice(index);
+                $ctrl.categoriesValues.splice(index);
+            }
+
+            if (index > 0 && parent_id == 'null') {
+                return resolve([]);
+            }
+
+            return ProductCategoryService.list({
+                parent_id: parent_id,
+                service: $ctrl.productType == "service" ? 1 : 0,
+            }).then(res => {
+                let categories = res.data.data;
+
+                categories.unshift({
+                    id: "null",
+                    name: "Selecteer categorie..."
+                });
+
+                if (categories.length > 1) {
+                    $ctrl.categoriesHierarchy[index] = categories;
+
+                    if (!loadOnly) {
+                        $ctrl.categoriesValues[index] = categories[0].id;
+                    }
+                }
+
+                resolve(categories);
+            }, reject);
+        });
     };
 
-    $scope.filterOptions = (type) => {
-        if ($scope.selectedType == type) {
-            return;
-        }
-
-        $scope.selectedType = type;
-        $scope.filteredOptions = getFiltred($scope.options, type);
-    }
-
-    $scope.types = {}
-
-    if (getFiltred($scope.options, 0).length > 0) {
-        $scope.types['0'] = 'product_category_type.products';
+    $ctrl.changeCategory = (index) => {
+        return $q((resolve, reject) => {
+            $ctrl.loadCategories(index + 1, $ctrl.categoriesValues[index]).then(categories => {
+                $scope.ngModel = $ctrl.getSelectedCategory();
+                resolve();
+            }, reject);
+        });
     };
 
-    if (getFiltred($scope.options, 1).length > 0) {
-        $scope.types['1'] = 'product_category_type.services';
+    $ctrl.getSelectedCategory = () => {
+        let categories = $ctrl.categoriesValues.filter(
+            category => category != 'null'
+        );
+
+        return categories[categories.length - 1];
     };
 
-    $scope.ngModel = $scope.ngModel.filter(id => !isNaN(parseInt(id)));
+    $ctrl.changeType = (type) => {
+        let changed = $ctrl.productType != type;
 
-    $scope.isChecked = (id) => $scope.ngModel.indexOf(id) != -1;
-    $scope.toggleOption = (id) => {
-        if ($scope.isChecked(id)) {
-            $scope.ngModel = $scope.ngModel.filter(option => option != id);
+        $ctrl.productType = type;
+        $ctrl.changeCategory(-1).then(() => {
+            if (changed && !!$ctrl.initialValue && ($ctrl.productType == $scope.productType)) {
+                $scope.ngModel = $ctrl.initialValue;
+                $ctrl.loadProductCategories();
+            }
+        });
+    };
+
+    $ctrl.loadProductCategoriesParent = (ids, category_id) => {
+        return $q((resolve, reject) => {
+            if (category_id == null || category_id == 'null') {
+                return resolve(ids);
+            }
+
+            ids.push(category_id);
+
+            ProductCategoryService.show(category_id).then(res => {
+                $ctrl.loadProductCategoriesParent(ids, res.data.data.parent_id).then(resolve, reject);
+            });
+        });
+    };
+
+    $ctrl.loadProductCategories = () => {;
+        $ctrl.loadProductCategoriesParent([], $scope.ngModel).then(values => {
+            values.unshift("null");
+            
+            $ctrl.categoriesValues = values.reverse();
+            $ctrl.loadCategories(0, 'null', true);
+
+            values.forEach((value, index) => {
+                $ctrl.loadCategories(index + 1, value, true);
+            });
+        });
+    };
+
+    $ctrl.onInit = () => {
+        $ctrl.initialValue = $scope.ngModel;
+        $ctrl.productType = $scope.productType;
+
+        if ($scope.ngModel) {
+            $ctrl.loadProductCategories();
         } else {
-            $scope.ngModel.push(id);
+            $ctrl.changeCategory(-1);
         }
     };
 
-    $scope.filterOptions(Object.keys($scope.types)[0]);
+    $ctrl.onInit();
 };
 
 module.exports = () => {
     return {
         scope: {
             ngModel: '=',
-            options: '='
+            productType: "=",
+            errors: "="
         },
         restrict: "EA",
         replace: true,
         controller: [
+            '$q',
             '$scope',
+            'ProductCategoryService',
             ProductCategoriesControlDirective
         ],
         templateUrl: 'assets/tpl/directives/product-categories-control.html'

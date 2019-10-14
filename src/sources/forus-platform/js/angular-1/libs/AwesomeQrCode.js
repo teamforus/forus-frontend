@@ -1075,14 +1075,11 @@ var Drawing = (function() { // Drawing in Canvas
 
         if (_htOption.gifBackground !== undefined) {
             var gif = new GIF(_htOption.gifBackground);
-            // console.log(_htOption.gifBackground);
-            // console.log(gif);
             if (!gif.raw.hasImages) {
                 throw new Error("An invalid gif has been selected as the background.")
             }
             gifBackground = gif;
             gifFrames = gif.decompressFrames(true);
-            // console.log(gifFrames);
             if (_htOption.autoColor) {
                 var r = 0,
                     g = 0,
@@ -1101,7 +1098,6 @@ var Drawing = (function() { // Drawing in Canvas
                 r = ~~(r / count);
                 g = ~~(g / count);
                 b = ~~(b / count);
-                // console.log("rgb(" + r + ", " + g + ", " + b + ")");
                 _htOption.colorDark = "rgb(" + r + ", " + g + ", " + b + ")";
             }
         } else if (_htOption.backgroundImage !== undefined) {
@@ -1208,7 +1204,6 @@ var Drawing = (function() { // Drawing in Canvas
                 } else {
                     _drawAlignProtector(_oContext, agnX, agnY, nSize, nSize);
                 }
-                // console.log("agnX=" + agnX + ", agnY=" + agnX);
             }
         }
 
@@ -1367,7 +1362,6 @@ var Drawing = (function() { // Drawing in Canvas
             var patchData;
 
             gifFrames.forEach(function(frame) {
-                // console.log(frame);
                 if (gifOutput === undefined) {
                     gifOutput = new GIFE({
                         workers: 4,
@@ -1385,7 +1379,6 @@ var Drawing = (function() { // Drawing in Canvas
                     hRawBkg.rect(0, 0, rawBkg.width, rawBkg.height);
                     hRawBkg.fillStyle = "#ffffff";
                     hRawBkg.fill();
-                    // console.log(rawBkg);
                 }
 
                 if (!patchData || frame.dims.width !== patchCanvas.width || frame.dims.height !== patchCanvas.height) {
@@ -1413,7 +1406,6 @@ var Drawing = (function() { // Drawing in Canvas
                 _fCanvas.width = rawSize;
                 _fCanvas.height = rawSize;
                 _fContext.drawImage(stdCanvas, 0, 0, rawSize, rawSize);
-                // console.log(_fContext);
                 gifOutput.addFrame(_fContext, {
                     copy: true,
                     delay: frame.delay
@@ -1514,7 +1506,6 @@ function _greyscale(r, g, b) {
 }
 
 function _fillRectWithMask(canvas, x, y, w, h, maskSrc, bDark) {
-    //console.log("maskSrc=" + maskSrc);
     if (maskSrc === undefined) {
         canvas.fillRect(x, y, w, h);
     } else {

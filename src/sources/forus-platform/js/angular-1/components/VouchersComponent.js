@@ -70,7 +70,6 @@ let VouchersComponent = function(
             funds: $ctrl.funds.filter(fund => fund.id),
             organization: $ctrl.organization,
             done: () => {
-                console.log('vouchers->done');
                 $state.reload();
             }
         });

@@ -84,9 +84,11 @@
 
                     div(ng-if="!providerFund.collapsed")
                         .card-block.card-block-listing
-                            .card-block-listing-label(translate="organization_providers.labels.categories")
-                            span(ng-bind="providerFund.organization.fundCategories.join(', ')")
-                            small(ng-show="$ctrl.fundCategories.length == 0" i18n="organization_providers.labels.nocategories").text-muted.small
+                            .card-block-listing-label(translate="organization_providers.labels.business_type")
+                            span(ng-bind="providerFund.organization.business_type.name")
+                            small(
+                                ng-show="!providerFund.organization.business_type" 
+                                translate="organization_providers.labels.no_business_type").text-muted.small
                         br
                         .card-block.card-block-listing
                             .card-block-listing-label(translate="organization_providers.labels.join")

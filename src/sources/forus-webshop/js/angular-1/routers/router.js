@@ -66,18 +66,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: "products",
         url: "/products",
         component: "productsComponent",
-        resolve: {
-            products: function($transition$, ProductService) {
-                return repackResponse(
-                    ProductService.list()
-                );
-            },
-            productCategories: function($transition$, ProductCategoryService) {
-                return repackResponse(
-                    ProductCategoryService.list()
-                );
-            },
-        }
+        resolve: {}
     });
 
     $stateProvider.state({
@@ -353,6 +342,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         data: {
             token: null
         }
+    });
+
+    $stateProvider.state({
+        name: 'email-preferences',
+        url: '/email/preferences',
+        component: 'emailPreferencesComponent'
     });
 
     $stateProvider.state({

@@ -1,24 +1,25 @@
 let ProductsComponent = function(
+    $scope,
     $state,
-    appConfigs
+    appConfigs,
 ) {
     let $ctrl = this;
 
-    if (!appConfigs.features.products.list) {
-        return $state.go('home');
-    }
+    $scope.appConfigs = appConfigs;
 
-    $ctrl.$onInit = function() {
-        
-    };
+    $scope.$watch('appConfigs', (_appConfigs) => {
+        if (_appConfigs.features && !_appConfigs.features.products.list) {
+            $state.go('home');
+        }
+    }, true);
+
+    $ctrl.$onInit = function() {};
 };
 
 module.exports = {
-    bindings: {
-        products: '<',
-        productCategories: '<'
-    },
+    bindings: {},
     controller: [
+        '$scope',
         '$state',
         'appConfigs',
         ProductsComponent

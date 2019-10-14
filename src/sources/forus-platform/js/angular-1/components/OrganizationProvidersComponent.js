@@ -9,7 +9,6 @@ let OrganizationProvidersComponent = function(
     let $ctrl = this;
     let org = OrganizationService.active();
 
-
     $ctrl.filters = {
         show: false,
         values: {
@@ -69,15 +68,7 @@ let OrganizationProvidersComponent = function(
             $ctrl.organization.id,
             filters
         ).then((res => {
-
-            $ctrl.fundProviders = res.data;
-
-            $ctrl.fundProviders.data.map(function(providerFund) {
-                providerFund.organization.fundCategories =
-                    providerFund.organization.product_categories.map(function(category) {
-                        return category.name;
-                    });
-
+            $ctrl.fundProviders = res.data.data.map(providerFund => {
                 providerFund.collapsed = providerFund.state == 'approved';
                 providerFund.collapsable = providerFund.state == 'approved';
 
@@ -112,12 +103,7 @@ let OrganizationProvidersComponent = function(
         $ctrl.resetFilters();
 
         if ($ctrl.fundProviders) {
-            $ctrl.fundProviders.data.map(function(providerFund) {
-                providerFund.organization.fundCategories =
-                    providerFund.organization.product_categories.map(function(category) {
-                        return category.name;
-                    });
-
+            $ctrl.fundProviders.data.map(providerFund => {
                 providerFund.collapsed = providerFund.state == 'approved';
                 providerFund.collapsable = providerFund.state == 'approved';
 

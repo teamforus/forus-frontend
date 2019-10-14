@@ -9,6 +9,23 @@ let OrganizationsEditComponent = function(
     let $ctrl = this;
     let mediaFile = false;
 
+    $ctrl.selectPhoto = (file) => {
+        mediaFile = file;
+    };
+
+    $ctrl.cancel = function() {
+        if ($ctrl.organization)
+            $state.go('offices', {
+                'organization_id': $ctrl.organization.id
+            });
+        else
+            $state.go('organizations');
+    };
+
+    $ctrl.chageBusinessType = (value) => {
+        $ctrl.form.values.business_type_id = value.id;
+    };
+
     $ctrl.$onInit = function() {
         let values;
 
@@ -64,26 +81,17 @@ let OrganizationsEditComponent = function(
                 $ctrl.media = res.data.data;
             });
         }
-    };
 
-    $ctrl.selectPhoto = (file) => {
-        mediaFile = file;
-    };
-
-    $ctrl.cancel = function() {
-        if ($ctrl.organization)
-            $state.go('offices', {
-                'organization_id': $ctrl.organization.id
-            });
-        else
-            $state.go('organizations');
+        $ctrl.businessType = $ctrl.businessTypes.filter(
+            option => option.id == $ctrl.form.values.business_type_id
+        )[0] || null;
     };
 };
 
 module.exports = {
     bindings: {
         organization: '<',
-        productCategories: '<'
+        businessTypes: '<'
     },
     controller: [
         '$state',
