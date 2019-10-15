@@ -281,11 +281,13 @@ module.exports = (core) => {
     });
 
     //- Enable only given platforms
-    /* core.enableOnly([
+    core.enableOnly([
         'webshop_berkelland',
         'webshop_oostgelre',
         'webshop_winterswijk',
-    ]); */
+        'webshop_westerkwartier',
+        'webshop_nijmegen'
+    ]);
 
     //- Enable all but given platforms
     /* core.disableOnly([
