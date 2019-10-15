@@ -7,6 +7,12 @@ ui-view {
     display: none !important;
 }
 
+
+.mdi-close {
+    float: right;
+    cursor: pointer;
+}
+
 .form {
     .form-error {
         font: 400 13px/24px $bf;
@@ -489,13 +495,11 @@ ui-view {
     &.section-header {
         padding: 40px 0 40px;
         position: relative;
-        max-width: 1440px;
         margin: 0 auto;
         width: 100%;
         background: url(../img/landing/splash-top-b.png) no-repeat 100% 0;
-        background-size: auto 80%;
+        background-size: cover;
         background-position: center center;
-        height: 450px;
         @include cf();
 
         .heade-sprite {
@@ -522,10 +526,10 @@ ui-view {
         }
 
         .header-content {
-            float: left;
             position: relative;
             z-index: 3;
-
+            text-align: center;
+            padding: 125px 0;
             .header-title {
                 font: 700 40px/50px $bf;
                 margin: 0 0 25px;
@@ -1003,11 +1007,16 @@ ui-view {
             }
 
             .header-content {
-                width: 100%;
-                padding: 25px 25px;
-                text-align: center;
-                min-height: auto;
+                .button {
+                    width: 100%;
+                }
+                @media screen and (min-width: 1024px){
+                    width: 100%;
+                    text-align: center;
+                    position: relative;
+                    margin: 0 auto;
 
+                }
                 .header-title {
                     font: 700 20px/28px $bf;
                     margin: 0 0 20px;
@@ -1456,6 +1465,63 @@ ui-view {
 
             &.block-auth-border {
                 border-left: none;
+            }
+        }
+    }
+    &.block-navbar {
+        width: 100%;
+        padding: 0 0px;
+        top: 0;
+        position: sticky;
+        z-index: 10;
+        background: #fff;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.075);
+        .navbar-inner {
+            width: 1100px;
+            box-shadow: none;
+        }
+        .navbar-list {
+            text-align: left;
+
+            .navbar-item-wrapper {
+                .navbar-item {
+                    &:hover {
+                        color: $tc;
+
+                        &:before {
+                            background-color: $color_default;
+                            opacity: .5;
+                        }
+                    }
+
+                    &.active {
+                        color: $tc;
+
+                        &:before {
+                            background-color: $color_default;
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        .block-auth {
+            .auth-in {
+                .auth-user {
+                    .auth-user-email {
+                        color: $color_default_light;
+                    }
+
+                    .auth-user-avatar {
+                        border-color: $color_default;
+                        border-radius: 4px;
+
+                        img {
+                            filter: grayscale(.8);
+                        }
+                    }
+                }
             }
         }
     }
