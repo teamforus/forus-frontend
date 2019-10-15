@@ -1,5 +1,6 @@
 .section {
     &.section-products {
+        min-height: 500px;
         @media screen and (min-width: 1024px) {
             &:before {
                 position: absolute;
