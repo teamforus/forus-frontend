@@ -149,6 +149,29 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('dashboard_winterswijk_provider', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'oostgelre',
+            panel_type: 'provider',
+            chat_id: false
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('dashboard_winterswijk_sponsor', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'oostgelre',
+            panel_type: 'sponsor',
+            chat_id: false
+        });
+
+        return platform;
+    });
+
+
     // Config webshops
     core.editPlatform('webshop_general', (platform) => {
         platform.setEnvData({

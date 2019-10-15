@@ -19,6 +19,14 @@ module.exports = {
         logoExtension: '.svg',
         maxProductCount: 20
     },
+    oostgelre: {
+        logoExtension: '.svg',
+        maxProductCount: 20
+    },
+    winterswijk: {
+        logoExtension: '.svg',
+        maxProductCount: 20
+    },
     kerstpakket: {
         logoExtension: '.svg',
         maxProductCount: 2

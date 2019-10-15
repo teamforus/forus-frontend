@@ -409,18 +409,18 @@ ui-view {
     }
 
     &.button-default {
-        color: #004195;
-        border: 1px solid #d2e6ff;
+        color: $bc;
+        border: 1px solid $bc;
         box-shadow: 0 10px 25px rgba(#000, 0);
 
         .mdi {
-            color: #3863fb;
+            color: $bc;
         }
 
         &:hover {
-            color: #fff;
-            background: #3863fb;
-            border-color: #3863fb;
+            color: $bc-hover;
+            background: $bc;
+            border-color: $bc;
             box-shadow: 0 10px 20px rgba(#000, .2);
 
             .mdi {
@@ -431,15 +431,15 @@ ui-view {
 
     &.button-primary {
         color: #fff;
-        background: #305dfb;
-        border: 1px solid #305dfb;
+        background: $bc;
+        border: 1px solid $borderColor;
         box-shadow: 0 10px 25px rgba(#000, .15);
 
         &:hover {
-            color: #fff;
-            background: #4c74ff;
+            color: $bc;
+            background: $bc-hover;
             box-shadow: 0 10px 20px rgba(#000, .3);
-
+            border: 1px solid $bc;
             img {
                 filter: brightness(5);
             }
@@ -465,12 +465,12 @@ ui-view {
     }
 
     &.button-primary-outline {
-        color: #2f5bf6;
-        border: 1px solid #2f5bf6;
+        color: $color_primary;
+        border: $color_default_light;
         border-radius: 50px;
 
         &:hover {
-            background: #305dfb;
+            background: $color_default;
             color: #fff;
         }
     }
@@ -489,7 +489,7 @@ ui-view {
 .section {        
     .section-title {
         font: 700 40px/60px $bf;
-        margin: 0 0 40px;
+        margin: 40px 0 40px;
     }
 
     &.section-header {
@@ -530,6 +530,7 @@ ui-view {
             z-index: 3;
             text-align: center;
             padding: 125px 0;
+            color: #fff;
             .header-title {
                 font: 700 40px/50px $bf;
                 margin: 0 0 25px;
@@ -696,7 +697,7 @@ ui-view {
         .section-title {
             color: #00122a;
             font: 700 40px/60px $bf;
-            margin: 0 0 40px;
+            margin: 40px 0 40px;
             text-align: center;
             z-index: 2;
         }
@@ -806,7 +807,9 @@ ui-view {
         
         .section-title {
             text-align: center;
-            margin-bottom: 5px;
+            @media screen and (min-width: 1024px) {
+                margin: 30px 0 10px;
+            }
         }
 
         .section-description {
@@ -1025,7 +1028,7 @@ ui-view {
                 .header-description {
                     font: 400 14px/24px $bf;
                     margin: 0;
-                    color: #353b46;
+                    color: #fff;
                 }
 
                 .button {
@@ -1187,11 +1190,14 @@ ui-view {
             justify-self: flex-start;
             padding: 30px 40px;
             border-right: 1px solid $border_color;
-
+            @media screen and (min-width: 1024px) {
+                padding: 20px 20px;    
+            }
             img {
                 display: block;
                 margin: 0 0;
-
+                height: 50px;
+                margin: 0;
                 &.hover {
                     display: none;
                 }
@@ -2129,12 +2135,7 @@ ui-view {
     @media screen and (max-width: 1700px) {
         &.block-navbar {
             .navbar-logo {
-                padding: 20px 20px;
-
-                img {
-                    height: 30px;
-                    margin: 0;
-                }
+                padding: 20px 20px 20px 0;
             }
 
             .navbar-list {
@@ -2142,7 +2143,6 @@ ui-view {
 
                 .navbar-item-wrapper {
                     .navbar-item {
-                        padding: 20px 20px;
                         font: 700 12px/30px $bf;
 
                         &:before {
@@ -2154,7 +2154,7 @@ ui-view {
             }
 
             .block-auth {
-                padding: 15px 20px;
+                
 
                 .auth-in {
                     .auth-user {
@@ -2289,7 +2289,7 @@ ui-view {
 
                         &:hover,
                         &.active {
-                            border-left-color: #3396a7;
+                            border-left-color: $bc;
 
                             &:before,
                             &:after {
