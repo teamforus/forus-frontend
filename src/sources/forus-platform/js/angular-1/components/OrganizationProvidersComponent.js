@@ -68,7 +68,8 @@ let OrganizationProvidersComponent = function(
             $ctrl.organization.id,
             filters
         ).then((res => {
-            $ctrl.fundProviders = res.data.data.map(providerFund => {
+            $ctrl.fundProviders.meta = res.data.meta;
+            $ctrl.fundProviders.data = res.data.data.map(providerFund => {
                 providerFund.collapsed = providerFund.state == 'approved';
                 providerFund.collapsable = providerFund.state == 'approved';
 
