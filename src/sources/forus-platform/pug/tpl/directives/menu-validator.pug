@@ -16,5 +16,11 @@ aside.app.app-sidebar
                 +nav_item_icon(icon)
                 | #{name} 
         
-        +nav_item("Aanvragers valideren", "file_csv", 'csv-validation', false, 'true')
-        +nav_item("Openstaande aanvragen", "clock", 'validation-requests', false, '$root.appConfigs.features.validationRequests')
+        +nav_item(
+            "Aanvragers valideren", "file_csv", 'csv-validation',  
+            '{organization_id: $root.activeOrganization.id}',
+            'true')
+        +nav_item(
+            "Openstaande aanvragen", "clock", 'fund-requests', 
+            '{organization_id: $root.activeOrganization.id}', 
+            '$root.appConfigs.features.validationRequests')

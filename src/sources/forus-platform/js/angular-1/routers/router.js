@@ -71,7 +71,7 @@ let permissionMiddleware = (
     ];
 };
 
-let organziationResolver = (uriKey = 'organization_id') => {
+let organziationResolver = (uriKey = 'organization_id', apiDependencies) => {
     return [
         '$transition$',
         'OrganizationService',
@@ -80,9 +80,7 @@ let organziationResolver = (uriKey = 'organization_id') => {
             OrganizationService
         ) {
             return repackResponse(
-                OrganizationService.read(
-                    $transition$.params()[uriKey]
-                )
+                OrganizationService.read($transition$.params()[uriKey])
             );
         }
     ];
@@ -612,13 +610,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     // Validators
     $stateProvider.state({
-        name: 'validation-requests',
-        url: '/validation-requests',
-        component: 'validationRequestsComponent',
+        name: 'fund-requests',
+        url: '/organizations/{organization_id}/requests',
+        component: 'fundRequestsComponent',
+        params: {
+            organization_id: null,
+        },
         resolve: {
-            validatorRequests: function($transition$, ValidatorRequestService) {
-                return repackPagination(ValidatorRequestService.indexGroup());
-            }
+            organization: organziationResolver(),
         }
     });
 

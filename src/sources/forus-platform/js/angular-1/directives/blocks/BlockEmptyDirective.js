@@ -1,11 +1,12 @@
 let BlockEmptyDirective = function($scope) {
-
+    $scope.align = 'center';
 };
 
 module.exports = () => {
     return {
         scope: {
-            text: '=',
+            title: '@',
+            text: '@',
             button: '=',
         },
         restrict: "EA",

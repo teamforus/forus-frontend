@@ -9,6 +9,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         });
     }
 
+    let promiseResolve = (res) => {
+        return new Promise(resolve => resolve(res))
+    };
+
     $stateProvider.state({
         name: "home",
         url: "/",
@@ -31,34 +35,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         component: "meComponent",
         params: {
             confirmed: null
-        }
-    });
-
-    $stateProvider.state({
-        name: "funds",
-        url: "/funds",
-        component: "fundsComponent",
-        resolve: {
-            funds: function($transition$, FundService) {
-                return repackResponse(
-                    FundService.list()
-                );
-            },
-            records: function($transition$, RecordService) {
-                return repackResponse(
-                    RecordService.list()
-                );
-            },
-            recordTypes: function($transition$, RecordTypeService) {
-                return repackResponse(
-                    RecordTypeService.list()
-                );
-            },
-            vouchers: function($transition$, AuthService, VoucherService) {
-                return AuthService.hasCredentials() ? repackResponse(
-                    VoucherService.list()
-                ) : new Promise(resolve => resolve([]));
-            },
         }
     });
 
@@ -245,6 +221,30 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: "funds",
+        url: "/funds",
+        component: "fundsComponent2",
+        resolve: {
+            funds: ['FundService', (
+                FundService
+            ) => repackResponse(FundService.list())],
+            recordTypes: ['RecordTypeService', (
+                RecordTypeService
+            ) => repackResponse(RecordTypeService.list())],
+            records: ['AuthService', 'RecordService', (
+                AuthService, RecordService
+            ) => AuthService.hasCredentials() ? repackResponse(
+                RecordService.list()
+            ) : promiseResolve(null)],
+            vouchers: ['AuthService', 'VoucherService', (
+                AuthService, VoucherService
+            ) => AuthService.hasCredentials() ? repackResponse(
+                VoucherService.list()
+            ) : promiseResolve([])],
+        }
+    });
+
+    $stateProvider.state({
         name: "fund-apply",
         url: "/funds/{id}",
         component: "fundApplyComponent",
@@ -269,11 +269,27 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                     RecordTypeService.list()
                 );
             },
-            vouchers: function($transition$, VoucherService) {
-                return repackResponse(
-                    VoucherService.list()
-                );
-            },
+            vouchers: ['VoucherService', (VoucherService) => repackResponse(
+                VoucherService.list()
+            )],
+        }
+    });
+
+    // Apply to fund by submitting fund request
+    $stateProvider.state({
+        name: "fund-request",
+        url: "/fund/{fund_id}/request",
+        component: "fundRequestComponent",
+        data: {
+            fund_id: null
+        },
+        resolve: {
+            fund: ['$transition$', 'FundService', (
+                $transition$, FundService
+            ) => repackResponse(FundService.readById($transition$.params().fund_id))],
+            recordTypes: ['RecordTypeService', (
+                RecordTypeService
+            ) => repackResponse(RecordTypeService.list())],
         }
     });
 

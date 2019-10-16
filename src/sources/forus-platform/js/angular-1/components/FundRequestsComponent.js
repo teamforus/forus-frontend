@@ -1,15 +1,18 @@
-let ValidationRequestsComponent = function(
+let FundRequestsComponent = function(
     $q,
+    $scope,
     $state,
     $timeout,
-    ValidatorRequestService,
+    FundService,
+    ModalService,
+    FundRequestValidatorService,
     appConfigs
 ) {
-    if (!appConfigs.features.validationRequests) {
-        return $state.go('csv-validation');
-    }
 
     let $ctrl = this;
+
+    $ctrl.funds = [];
+    $ctrl.fundsById = {};
 
     let statePriority = {
         pending: 1,
@@ -35,9 +38,7 @@ let ValidationRequestsComponent = function(
 
     $ctrl.filters = {
         show: false,
-        values: {
-            group: 1,
-        },
+        values: {},
         reset: function() {
             $ctrl.filters.values.q = '';
             $ctrl.filters.values.state = $ctrl.states[0].key;
@@ -57,7 +58,10 @@ let ValidationRequestsComponent = function(
             $ctrl.filters.values = query;
         }
 
-        ValidatorRequestService.indexGroup($ctrl.filters.values).then(function(res) {
+        FundRequestValidatorService.indexAll(
+            $ctrl.organization.id,
+            $ctrl.filters.values
+        ).then(function(res) {
             $ctrl.validatorRequests = res.data;
             init();
         }, console.error);
@@ -65,14 +69,18 @@ let ValidationRequestsComponent = function(
 
     let init = () => {
         let data = $ctrl.validatorRequests.data;
+        
+        data.forEach(request => {
+            request.collapsed = request.state != 'pending';
+        });
 
-        data.forEach(function(row) {
+        /* data.forEach(function(row) {
             row.sort(((a, b) => {
                 return statePriority[a.state] - statePriority[b.state];
             })).reverse();
-        });
+        }); */
 
-        data = data.map(requests => {
+        /* data = data.map(requests => {
             let nth = {
                 approved: requests.filter((request) => request.state == 'approved').length,
                 declined: requests.filter((request) => request.state == 'declined').length,
@@ -85,17 +93,48 @@ let ValidationRequestsComponent = function(
                 bsn: requests[0].bsn,
                 collapsed: nth.pending == 0
             }
-        });
-        
-        data.sort(((a, b) => {
+        }); */
+
+        /* data.sort(((a, b) => {
             return a.nth.pending > 0 ? 1 : -1;
-        })).reverse();
+        })).reverse(); */
 
         $ctrl.validatorRequestsData = data;
     };
 
+    $ctrl.approveRecord = (request, requestRecord) => {
+        ModalService.open('test', {
+            fund: $ctrl.fundsById[request.fund_id],
+            requestRecord: requestRecord,
+            submit: (res) => {
+                console.log(res);
+            }
+        });
+    };
+
+    $ctrl.declineRecord = (request, requestRecord) => {
+        ModalService.open('fundRequestRecordDecline', {
+            fund: $ctrl.fundsById[request.fund_id],
+            requestRecord: requestRecord,
+            submit: (res) => {
+                console.log(res);
+            }
+        });
+    };
+
+    $ctrl.clarifyRecord = (request, requestRecord) => {
+        console.log(request, requestRecord);
+        ModalService.open('fundRequestRecordClarify', {
+            fund: $ctrl.fundsById[request.fund_id],
+            requestRecord: requestRecord,
+            submit: (res) => {
+                console.log(res);
+            }
+        });
+    };
+
     $ctrl.validateRequest = (request, reload = false) => {
-        let req = ValidatorRequestService.approve(request.id);
+        let req = FundRequestValidatorService.approve(request.id);
 
         return reload ? $q((resolve, reject) => {
             req.then(res => reloadRequests() & resolve(res), reject);
@@ -103,8 +142,8 @@ let ValidationRequestsComponent = function(
     }
 
     $ctrl.declineRequest = (request, reload = false) => {
-        let req = ValidatorRequestService.decline(request.id);
-        
+        let req = FundRequestValidatorService.decline(request.id);
+
         return reload ? $q((resolve, reject) => {
             req.then(res => reloadRequests() & resolve(res), reject);
         }) : req;
@@ -127,8 +166,31 @@ let ValidationRequestsComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        $ctrl.filters.reset();
-        init();
+
+        FundService.list($ctrl.organization.id, {
+            per_page: 10000
+        }).then(res => {
+            $ctrl.funds = res.data.data;
+            $ctrl.funds.forEach(fund => {
+                $ctrl.fundsById[fund.id] = fund;
+            });
+        });
+
+        $scope.$watch(() => {
+            return appConfigs.features;
+        }, (res) => {
+            if (!res) {
+                return;
+            }
+
+            if (!appConfigs.features.validationRequests) {
+                return $state.go('csv-validation');
+            }
+
+
+            $ctrl.filters.reset();
+            reloadRequests();
+        });
     };
 
     $ctrl.onPageChange = (query) => {
@@ -138,15 +200,19 @@ let ValidationRequestsComponent = function(
 
 module.exports = {
     bindings: {
-        validatorRequests: '<'
+        appConfigs: '<',
+        organization: '<',
     },
     controller: [
         '$q',
+        '$scope',
         '$state',
         '$timeout',
-        'ValidatorRequestService',
+        'FundService',
+        'ModalService',
+        'FundRequestValidatorService',
         'appConfigs',
-        ValidationRequestsComponent
+        FundRequestsComponent
     ],
-    templateUrl: 'assets/tpl/pages/validation-requests.html'
+    templateUrl: 'assets/tpl/pages/fund-requests.html'
 };

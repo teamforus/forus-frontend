@@ -42,4 +42,12 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('vouchersUpload', {
         component: 'modalVouchersUploadComponent'
     });
+
+    ModalRouteProvider.modal('fundRequestRecordClarify', {
+        component: 'modalFundRequestRecordClarifyComponent'
+    });
+
+    ModalRouteProvider.modal('fundRequestRecordDecline', {
+        component: 'modalFundRequestRecordDeclineComponent'
+    });
 }];

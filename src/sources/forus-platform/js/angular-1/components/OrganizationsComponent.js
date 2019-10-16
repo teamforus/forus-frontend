@@ -16,28 +16,39 @@ let OrganizationsComponent = function(
         provider: [
             "manage_funds", "manage_providers", "manage_validators",
             "validate_records", "scan_vouchers"
-        ]
+        ],
+        validator: []
     } [appConfigs.panel_type];
 
-    OrganizationService.list().then(res => {
+    let requiredPermissions = {
+        sponsor: [
+
+        ],
+        provider: [
+
+        ],
+        validator: [
+            "scan_vouchers"
+        ]
+    };
+
+    OrganizationService.list({
+        dependency: "permissions,logo"
+    }).then(res => {
         $ctrl.organizations = res.data.data.filter(organization => {
             return organization.permissions.filter((permission => {
                 return invalidPermissions.indexOf(permission) == -1;
             })).length > 0;
         });
 
-        if ($ctrl.organizations.length == 1) {
-            OrganizationService.use($ctrl.organizations[0].id);
+        $ctrl.organizations.filter(organization => {
+            return requiredPermissions.validator.filter(permission => {
+                return organization.permissions.indexOf(permission) != -1;
+            }).length == requiredPermissions.validator.length;
+        })
 
-            if (appConfigs.panel_type == 'sponsor') {
-                $state.go('organization-funds', {
-                    organization_id: $ctrl.organizations[0].id
-                });
-            } else {
-                $state.go('offices', {
-                    organization_id: $ctrl.organizations[0].id
-                });
-            }
+        if ($ctrl.organizations.length == 1) {
+            $ctrl.chooseOrganization($ctrl.organizations[0]);
         }else{
             $ctrl.showOrganizations = true;
         }
@@ -46,15 +57,13 @@ let OrganizationsComponent = function(
     $ctrl.chooseOrganization = (organization) => {
         OrganizationService.use(organization.id);
 
-        if (appConfigs.panel_type == 'sponsor') {
-            $state.go('organization-funds', {
-                organization_id: organization.id
-            });
-        } else {
-            $state.go('offices', {
-                organization_id: organization.id
-            });
-        }
+        $state.go({
+            sponsor: 'organization-funds',
+            provider: 'offices',
+            validator: 'fund-requests',
+        }[appConfigs.panel_type], {
+            organization_id: organization.id
+        });
     };
 };
 
