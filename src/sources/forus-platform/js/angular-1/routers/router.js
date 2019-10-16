@@ -157,7 +157,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('organization-funds', [
-                'manage_funds', 'view_finances'
+                'manage_funds', 'view_finances', 'view_funds',
             ], false),
             funds: ['permission', '$transition$', 'FundService', function(permission, $transition$, FundService) {
                 return repackResponse(
@@ -667,6 +667,39 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                     $state.go('home');
                 }, () => {
                     alert("Helaas, het is niet gelukt om in te loggen. De link is reeds gebruikt of niet meer geldig. Probeer het opnieuw met een andere link.");
+                    $state.go('home');
+                });
+            }
+        ],
+        data: {
+            token: null
+        }
+    });
+
+    $stateProvider.state({
+        name: "confirmation-email",
+        url: "/confirmation/email/{token}",
+        controller: [
+            '$rootScope',
+            '$state',
+            'IdentityService',
+            'CredentialsService',
+            function(
+                $rootScope,
+                $state,
+                IdentityService,
+                CredentialsService
+            ) {
+                IdentityService.exchangeConfirmationToken(
+                    $state.params.token
+                ).then(function(res) {
+                    CredentialsService.set(res.data.access_token);
+                    $rootScope.loadAuthUser();
+                    $state.go('home', {
+                        confirmed: 1
+                    });
+                }, () => {
+                    alert("Token expired or unknown.");
                     $state.go('home');
                 });
             }

@@ -5,6 +5,22 @@ module.exports = {
                 title: "Inloggen bij de Meedoen-regeling",
                 subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
             },
+            berkelland: {
+                title: "Inloggen op de Meedoenapplicatie",
+                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
+            },
+            oostgelre: {
+                title: "Inloggen op de Meedoenapplicatie",
+                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
+            },
+            winterswijk: {
+                title: "Inloggen op de Meedoenapplicatie",
+                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
+            },
+            kerstpakket: {
+                title: "Inloggen op het Kerstpakket",
+                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",                
+            },
             zuidhorn: {
                 title: "Inloggen op het Kindpakket",
                 subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",                
@@ -41,6 +57,15 @@ module.exports = {
             },
             zuidhorn: {
                 mail: "<strong>Let op</strong>: gebruik uw eigen e-mailadres.<br /> U kunt voor het Kindpakket per jaar maximaal één activatiecode per e-mailadres gebruiken.",
+            },
+            berkelland: {
+                mail: "Maak een account aan voordat u verder kan met de activatie."
+            },
+            oostgelre: {
+                mail: "Maak een account aan voordat u verder kan met de activatie."
+            },
+            winterswijk: {
+                mail: "Maak een account aan voordat u verder kan met de activatie."
             },
             timelimit: "U wordt automatisch uitgelogd na 15 minuten inactiviteit.",
             warning: "Sluit dit venster en klik op 'Login' als u de activatiecode al eens heeft gebruikt.",
