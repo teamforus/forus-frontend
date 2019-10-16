@@ -66,5 +66,9 @@ module.exports = {
         four: "Bij ‘Mijn vouchers’ staat ook een persoonlijke QR-code. Daarmee betaalt u de organisatie waar u een activiteit wilt doen. De QR-code kunt u uitprinten, naar uzelf mailen of altijd op uw telefoon hebben door in te loggen op de app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a> kunt u downloaden via de Google Playstore en de App Store.",
         stepfive: "Stap #5",
         five: "Ga naar 'Aanbiedingen' of het overzicht van alle organisaties om te zien waar de voucher te besteden is of om een aanbieding te kopen. Ga naar de organisatie en laat de bijbehorende QR-code zien om uw aanbieding in ontvangst te nemen.",
+        westerkwartier: {
+            three: "Klik daarna op ‘Aanbiedingen’ om het aanbod op de webshop te zien. Ook kunt u uw tegoed zien. De voucher met het tegoed vindt u terug door bovenaan op ‘Mijn vouchers’ te klikken.",       
+            four: "Bij ‘Mijn vouchers’ staat ook een persoonlijke QR-code. Daarmee betaalt u de organisatie waar u een aankoop wilt doen. De QR-code kunt u uitprinten, naar uzelf mailen of op uw telefoon hebben door in te loggen op de app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a> kunt u downloaden via de Google Playstore en de App Store.",
+        },
     },
 };
