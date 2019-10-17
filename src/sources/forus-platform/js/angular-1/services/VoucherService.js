@@ -52,6 +52,13 @@ module.exports = [
                     email: email
                 });
             };
+
+            this.exportUnassignedQRCodes = (organization_id) => {
+                return ApiRequest.post([
+                    '/platform/organizations/' + organization_id,
+                    '/sponsor/vouchers/export-unassigned',
+                ].join(''));
+            };
         });
     }
 ];

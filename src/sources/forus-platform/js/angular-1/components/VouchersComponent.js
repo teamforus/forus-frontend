@@ -75,6 +75,10 @@ let VouchersComponent = function(
         });
     };
 
+    $ctrl.exportUnassignedQRCodes = () => {
+        VoucherService.exportUnassignedQRCodes($ctrl.organization.id);
+    };
+
     $ctrl.onPageChange = (query) => {
         let _query = JSON.parse(JSON.stringify(query));
 

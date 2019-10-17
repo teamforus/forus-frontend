@@ -13,6 +13,9 @@
                 .button.button-primary(ng-click="$ctrl.uploadVouchersCsv()")
                     em.mdi.mdi-upload
                     span Upload CSV
+                .button.button-primary(ng-click="$ctrl.exportUnassignedQRCodes()")
+                    em.mdi.mdi-file-export
+                    span Export Unassigned QR Codes   
                 .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                     em.mdi.mdi-close
                     span(i18n="Wis filters")
