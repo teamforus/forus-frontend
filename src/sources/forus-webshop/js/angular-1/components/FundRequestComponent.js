@@ -233,7 +233,7 @@ let FundRequestComponent = function(
 
         // Other criteria
         totalSteps += $ctrl.invalidCriteria.length;
-        console.log(totalSteps, $ctrl.invalidCriteria);
+        
         // Success screen
         totalSteps++;
 
@@ -336,6 +336,7 @@ let FundRequestComponent = function(
             $ctrl.buildTypes();
         } else {
             $ctrl.buildSteps();
+            $ctrl.updateEligibility();
         }
 
         $ctrl.updateState();

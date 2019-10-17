@@ -6,13 +6,24 @@
             ng-repeat='validatorRequest in $ctrl.validatorRequests.data')
             .card-section(ng-click='validatorRequest.collapsed = !validatorRequest.collapsed')
                 .card-section-actions(ng-show="validatorRequest.state == 'pending'")
-                    .tag.tag-primary-light(translate='validation_requests.status.hold')
+                    .tag.tag-primary-light
+                        em.mdi.mdi-circle-outline
+                        span(translate='validation_requests.status.hold')
                 
                 .card-section-actions(ng-show="validatorRequest.state == 'approved'")
-                    .tag.tag-success Geaccepteerd
+                    .tag.tag-success 
+                        em.mdi.mdi-circle-slice-8
+                        | Geaccepteerd
+                
+                .card-section-actions(ng-show="validatorRequest.state == 'approved_partly'")
+                    .tag.tag-success 
+                        em.mdi.mdi-circle-slice-4
+                        | Approved partly
                 
                 .card-section-actions(ng-show="validatorRequest.state == 'declined'")
-                    .tag.tag-danger Declined
+                    .tag.tag-danger 
+                        em.mdi.mdi-circle-off-outline
+                        | Declined
                 
                 .card-title
                     | BSN: 4577654445
