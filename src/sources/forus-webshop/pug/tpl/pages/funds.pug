@@ -6,18 +6,25 @@ section.section.section-funds: .wrapper
     .section-title(translate="funds.header.title")
     
     .block.block-funds
-        .fund-item(ng-repeat="fund in $ctrl.funds" ui-sref="fund-apply(fund)")
+        .fund-item(ng-repeat="fund in $ctrl.funds")
             .fund-image
                 img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
             .fund-details
-                .fund-name {{ fund.name }} 
+                .fund-name {{ fund.name }}
                     span(ng-show="funds.status == 'active'" translate="funds.status.active").label.label-primary.label-square
                 .fund-organization(ng-bind="fund.organization.name") 
                 .fund-categories
                     .fund-categories-label U KUNT UW VOUCHER ACTIVEREN TOT:
                     .fund-categories-list(ng-bind="fund.end_date_locale")
-                //- ng-if="$root.auth_user && fund.voucherCanBeUsed" 
-                //- a(ng-if="$root.auth_user" ui-sref="fund-apply(fund)" translate="funds.buttons.join").button.button-primary
+
+                a.button.button-primary(
+                    ng-if="!fund.alreadyReceived && fund.isApplicable" 
+                    ng-click="$ctrl.applyFund(fund)" 
+                    translate="funds.buttons.join")
+                a.button.button-default(
+                    ng-if="!fund.alreadyReceived && !fund.isApplicable" 
+                    ui-sref="fund-request({fund_id: fund.id})") Request
+                a.button.button-muted.disabled(ng-if="fund.alreadyReceived") Received
 
             .fund-criterias(ng-if="fund.criterioaList.length > 0")
                 .fund-criterias-label(translate="funds.labels.criteria" translate-values="{nth: fund.criterioaList.length}")

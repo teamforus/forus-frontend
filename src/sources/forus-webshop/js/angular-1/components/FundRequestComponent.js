@@ -1,9 +1,7 @@
 let FundRequestComponent = function(
     $q,
     $state,
-    $rootScope,
     $timeout,
-    ModalService,
     RecordService,
     FundService,
     AuthService,
@@ -11,7 +9,8 @@ let FundRequestComponent = function(
     FundRequestService,
     FormBuilderService,
     CredentialsService,
-    FileService
+    FileService,
+    appConfigs
 ) {
     let $ctrl = this;
 
@@ -23,6 +22,7 @@ let FundRequestComponent = function(
     $ctrl.authToken = false;
     $ctrl.signedIn = false;
     $ctrl.authEmailSent = false;
+    $ctrl.authEmailRestoreSent = false;
     $ctrl.recordsSubmitting = false;
     $ctrl.files = [];
     $ctrl.errorReason = false;
@@ -30,26 +30,42 @@ let FundRequestComponent = function(
     let timeout = null;
     let stopTimeout = null;
 
-    let array_unique = (arr) => {
-        return arr.reduce((_arr, val) => {
-            (_arr.indexOf(val) == -1) && _arr.push(val);
-            return _arr;
-        }, []);
-    };
-
     // Initialize authorization form
     $ctrl.initAuthForm = () => {
+        let target = 'fundRequest-' + $ctrl.fund.id;
+
         $ctrl.authForm = FormBuilderService.build({
             email: '',
-            pin_code: 1111
+            pin_code: 1111,
+            target: target,
         }, function(form) {
-            IdentityService.make(form.values).then(res => {
-                $ctrl.authEmailSent = true;
-                $ctrl.nextStep();
-            }, res => {
+            let resolveErrors = () => {
                 form.unlock();
                 form.errors = res.data.errors;
-            });
+            };
+
+            IdentityService.validateEmail({
+                email: form.values.records.primary_email,
+            }).then(res => {
+                if (res.data.email.unique) {
+                    IdentityService.make(form.values).then(() => {
+                        stopTimeout = true;
+                        $ctrl.authEmailSent = true;
+                        $ctrl.nextStep();
+                    }, resolveErrors);
+                } else {
+                    IdentityService.makeAuthEmailToken(
+                        appConfigs.client_key + '_webshop',
+                        form.values.records.primary_email,
+                        target
+                    ).then(() => {
+                        stopTimeout = true;
+                        $ctrl.authEmailRestoreSent = true;
+                        $ctrl.nextStep();
+                    }, resolveErrors);
+                }
+
+            }, resolveErrors);
         }, true);
     };
 
@@ -211,9 +227,9 @@ let FundRequestComponent = function(
 
     $ctrl.buildSteps = () => {
         // Sign up step + criteria list
-        let totalSteps = ($ctrl.signedIn ? 1 : 2) + ($ctrl.authEmailSent ? 1 : 0);
-
-        console.log(totalSteps);
+        let totalSteps = ($ctrl.signedIn ? 1 : 2) + ((
+            $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
+        ) ? 1 : 0);
 
         // Other criteria
         totalSteps += $ctrl.invalidCriteria.length;
@@ -233,7 +249,9 @@ let FundRequestComponent = function(
             return 'auth';
         }
 
-        if (step == 2 && !$ctrl.signedIn && $ctrl.authEmailSent) {
+        if (step == 2 && !$ctrl.signedIn && (
+                $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
+            )) {
             return 'auth_email_sent';
         }
 
@@ -333,9 +351,7 @@ module.exports = {
     controller: [
         '$q',
         '$state',
-        '$rootScope',
         '$timeout',
-        'ModalService',
         'RecordService',
         'FundService',
         'AuthService',
@@ -344,6 +360,7 @@ module.exports = {
         'FormBuilderService',
         'CredentialsService',
         'FileService',
+        'appConfigs',
         FundRequestComponent
     ],
     templateUrl: 'assets/tpl/pages/fund-request.html'

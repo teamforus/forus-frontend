@@ -13,6 +13,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         return new Promise(resolve => resolve(res))
     };
 
+    let handleAuthTarget = ($state, target) => {
+        if (target[0] == 'fundRequest') {
+            return !!$state.go('fund-request', {
+                fund_id: target[1]
+            });
+        }
+
+        return false;
+    };
+
     $stateProvider.state({
         name: "home",
         url: "/",
@@ -223,7 +233,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: "funds",
         url: "/funds",
-        component: "fundsComponent2",
+        component: "fundsComponent",
         resolve: {
             funds: ['FundService', (
                 FundService
@@ -300,7 +310,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "restore-email",
-        url: "/identity-restore?token",
+        url: "/identity-restore?token&target",
         controller: [
             '$rootScope',
             '$state',
@@ -314,13 +324,20 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 CredentialsService,
                 appConfigs
             ) {
+                let target = $state.params.target || '';
+
                 IdentityService.authorizeAuthEmailToken(
                     appConfigs.client_key + '_webshop',
                     $state.params.token
                 ).then(function(res) {
                     CredentialsService.set(res.data.access_token);
                     $rootScope.loadAuthUser();
-                    $state.go('home');
+
+                    if (typeof target == 'string') {
+                        if (!handleAuthTarget($state, target.split('-'))) {
+                            $state.go('home');
+                        }
+                    }
                 }, () => {
                     alert("Token expired or unknown.");
                     $state.go('home');
@@ -334,7 +351,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "confirmation-email",
-        url: "/confirmation/email/{token}",
+        url: "/confirmation/email/{token}?target",
         controller: [
             '$rootScope',
             '$state',
@@ -346,14 +363,21 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 IdentityService,
                 CredentialsService
             ) {
+                let target = $state.params.target || '';
+
                 IdentityService.exchangeConfirmationToken(
                     $state.params.token
                 ).then(function(res) {
                     CredentialsService.set(res.data.access_token);
                     $rootScope.loadAuthUser();
-                    $state.go('home', {
-                        confirmed: 1
-                    });
+
+                    if (typeof target == 'string') {
+                        if (!handleAuthTarget($state, target.split('-'))) {
+                            $state.go('home', {
+                                confirmed: 1
+                            });
+                        }
+                    }
                 }, () => {
                     alert("Token expired or unknown.");
                     $state.go('home');

@@ -15,7 +15,6 @@ app.controller('BaseController', require('./controllers/BaseController'));
 // Components
 app.component('homeComponent', require('./components/HomeComponent'));
 app.component('fundsComponent', require('./components/FundsComponent'));
-app.component('fundsComponent2', require('./components/FundsComponent2'));
 app.component('vouchersComponent', require('./components/VouchersComponent'));
 app.component('recordsComponent', require('./components/RecordsComponent'));
 app.component('productsComponent', require('./components/ProductsComponent'));

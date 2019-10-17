@@ -27,8 +27,8 @@ section.section.section-product: .wrapper
                 .sign_up-pane-header Overzicht 
                 .sign_up-pane-body
                     .sign_up-pane-text 
-                        | U staat op het punt om een zomer zwemregeling aan te vragen. 
-                        | Om in aanmmerking te komen, dient u aan de voorwaarden te voldoen:
+                        | U staat op het punt om een {{ $ctrl.fund.name }} aan te vragen. 
+                        | Om in aanmmerking te komen, dient u aan de |voorwaarden te voldoen:
                     ul.sign_up-pane-list 
                         li(ng-repeat="critera in $ctrl.fund.criteria")
                             | {{ critera.record_type_name }} moet
@@ -83,16 +83,30 @@ section.section.section-product: .wrapper
         
         //- Log in email sent
         div(ng-if="$ctrl.state == 'auth_email_sent'")
-            h2.block-title Zomer zwem regeling aanvraag
-            +progress()
-            
-            .sign_up-pane
+            //- For new users
+            .sign_up-pane(ng-if="$ctrl.authEmailSent")
                 .sign_up-pane-header Overzicht 
                 .sign_up-pane-body
                     .sign_up-email_sent
                         .sign_up-email_sent-icon
                             img(src=src_prefix + "./assets/img/sign_up-email.png").sign_up-email_sent-icon-img
                         .sign_up-email_sent-title Confirm your account
+                        .sign_up-email_sent-text
+                            | Welcome to Webshop Barneveld! 
+                            br
+                            | Before we get started, please confirm your email address. 
+                            br
+                            | We’re send you a mail to 
+                            span(ng-bind="$ctrl.authForm.values.records.primary_email").text-primary
+            
+            //- For existing users
+            .sign_up-pane(ng-if="$ctrl.authEmailRestoreSent")
+                .sign_up-pane-header Overzicht 
+                .sign_up-pane-body
+                    .sign_up-email_sent
+                        .sign_up-email_sent-icon
+                            img(src=src_prefix + "./assets/img/sign_up-email.png").sign_up-email_sent-icon-img
+                        .sign_up-email_sent-title Authorization email sent!
                         .sign_up-email_sent-text
                             | Welcome to Webshop Barneveld! 
                             br
@@ -110,7 +124,8 @@ section.section.section-product: .wrapper
                 .sign_up-pane-header Overzicht
                 .sign_up-pane-body
                     p.sign_up-pane-text
-                        | U staat op het punt om een zomer zwemregeling aan te vragen. Om in aanmmerking te komen, dient u aan de voorwaarden te voldoen:
+                        | U staat op het punt om een {{ $ctrl.fund.name }} aan te vragen. 
+                        | Om in aanmmerking te komen, dient u aan de |voorwaarden te voldoen:
                     ul.sign_up-pane-list 
                         li(ng-repeat="critera in $ctrl.fund.criteria")
                             | {{ critera.record_type_name }} moet
