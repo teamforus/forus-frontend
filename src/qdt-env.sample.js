@@ -282,11 +282,17 @@ module.exports = (core) => {
 
     //- Enable only given platforms
     core.enableOnly([
-        'webshop_berkelland',
+        'dashboard_oostgelre_sponsor',
+        'dashboard_oostgelre_provider',
+        'dashboard_winterswijk_sponsor',
+        'dashboard_winterswijk_provider',
+        'dashboard_berkelland_sponsor',
+        'dashboard_berkelland_provider',
+        'webshop_nijmegen',
+        'webshop_westerkwartier',
         'webshop_oostgelre',
         'webshop_winterswijk',
-        'webshop_westerkwartier',
-        'webshop_nijmegen'
+        'webshop_berkelland',
     ]);
 
     //- Enable all but given platforms
