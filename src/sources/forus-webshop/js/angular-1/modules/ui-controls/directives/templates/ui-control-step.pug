@@ -1,0 +1,5 @@
+.ui-control.ui-control-step(ng-class="$dir.class" id="{{ $dir.id }}")
+    input(type="number" name="$dir.name" ng-model="ngModel" hidden)
+    .ui-control-step-icon(ng-click="$dir.decrease()"): .mdi.mdi-minus
+    .ui-control-step-value(ng-bind="$dir.value.toString()")
+    .ui-control-step-icon(ng-click="$dir.increase()"): .mdi.mdi-plus

@@ -36,7 +36,7 @@ let FundRequestValidatorService = function(ApiRequest) {
         this.decline = function(organziation_id, fund_id, request_id) {
             return ApiRequest.patch(
                 sprintf(uriPrefix + '/%s', organziation_id, fund_id, request_id), {
-                    state: 'decline'
+                    state: 'declined'
                 }
             );
         };

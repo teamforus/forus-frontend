@@ -2,19 +2,19 @@
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window
         a(ng-click="$ctrl.close()").mdi.mdi-close.modal-close
-        .modal-body.form
-            .modal-section.modal-section-pad
-                .modal-section-icon.modal-section-icon-primary: .mdi.mdi-message-text-outline
-                .text-center
-                    .modal-heading Decline request
-                    .modal-text
-                        | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
-                        | incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                        | quis nostrud exercitation ullamco laboris nisi ut aliquip.
-                form(ng-submit="$ctrl.form.submit()").form: .form-group
-                    .form-label Message (optional)
-                    textarea(ng-bind="$ctrl.form.values.note" placeholder="Message to requester").form-control
-                    .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
+        .modal-body.form: .modal-section.modal-section-pad
+            .modal-section-icon.modal-section-icon-primary: .mdi.mdi-message-text-outline
+            .text-center
+                .modal-heading Decline request
+                .modal-text
+                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
+                    | incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+                    | quis nostrud exercitation ullamco laboris nisi ut aliquip.
+            form(ng-submit="$ctrl.form.submit()").form: .form-group
+                .form-label Message (optional)
+                textarea(ng-model="$ctrl.form.values.note" placeholder="Message to requester").form-control
+                .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
+        
         .modal-footer.text-center
             button.button.button-default(ng-click="$ctrl.close()") Cancel
             button.button.button-primary(ng-click="$ctrl.form.submit()") Submit

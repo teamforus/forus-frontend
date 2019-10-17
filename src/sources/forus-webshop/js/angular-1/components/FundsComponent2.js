@@ -27,11 +27,6 @@ let FundsComponent2 = function(
             $ctrl.recordsByTypesKey[recordType.key] = recordType;
         });
 
-        // Filter already applied funds
-        /* $ctrl.funds = $ctrl.funds.filter(fund => $ctrl.vouchers.filter(voucher => {
-            return voucher.fund_id == fund.id;
-        }).length == 0); */
-
         $ctrl.funds = $ctrl.funds.map(function(fund) {
             fund.categories = fund.product_categories.map(function(category) {
                 return category.name;
@@ -50,6 +45,10 @@ let FundsComponent2 = function(
                 );
             }).length == fund.criteria.length;
 
+            fund.alreadyReceived = $ctrl.vouchers.filter(voucher => {
+                return voucher.fund_id == fund.id;
+            }).length !== 0;
+
             fund.criterioaList = FundService.fundCriteriaList(
                 fund.criteria,
                 $ctrl.recordsByTypesKey
@@ -57,6 +56,12 @@ let FundsComponent2 = function(
 
             return fund;
         });
+
+        $ctrl.applyFund = function(fund) {
+            FundService.apply(fund.id).then(function(res) {
+                $state.go('voucher', res.data.data);
+            }, console.error);
+        };
 
         // Filter non applicable funds
         // $ctrl.funds = $ctrl.funds.filter(fund => fund.isApplicable);

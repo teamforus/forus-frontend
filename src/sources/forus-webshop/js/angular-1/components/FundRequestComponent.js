@@ -3,11 +3,12 @@ let FundRequestComponent = function(
     $state,
     $rootScope,
     $timeout,
+    ModalService,
     RecordService,
     FundService,
     AuthService,
-    ProductService,
     IdentityService,
+    FundRequestService,
     FormBuilderService,
     CredentialsService,
     FileService
@@ -18,18 +19,16 @@ let FundRequestComponent = function(
     $ctrl.state = '';
     $ctrl.totalSteps = 1;
     $ctrl.recordsByKey = {};
-    $ctrl.netCriteria = false;
     $ctrl.invalidCriteria = [];
-    $ctrl.specialKey = 'net_worth';
     $ctrl.authToken = false;
     $ctrl.signedIn = false;
+    $ctrl.authEmailSent = false;
     $ctrl.recordsSubmitting = false;
-    $ctrl.requestRecords = [];
-    $ctrl.stepsCriterias = [];
     $ctrl.files = [];
+    $ctrl.errorReason = false;
 
-    // TODO: Remove
-    $ctrl.qrValue = 'sadsadasd';
+    let timeout = null;
+    let stopTimeout = null;
 
     let array_unique = (arr) => {
         return arr.reduce((_arr, val) => {
@@ -44,57 +43,33 @@ let FundRequestComponent = function(
             email: '',
             pin_code: 1111
         }, function(form) {
-            form.lock();
-
             IdentityService.make(form.values).then(res => {
-                $ctrl.applyAccessToken(res.data.access_token);
+                $ctrl.authEmailSent = true;
+                $ctrl.nextStep();
             }, res => {
                 form.unlock();
                 form.errors = res.data.errors;
-
-                if (res.data.errors['records.primary_email'] ==
-                    'Het e-mail eigenschap is al gekozen.') {
-                    $ctrl.requestAuthQrToken();
-                }
             });
-        });
-    };
-
-    // Submit nth worth criteria record (hardcoded for the demo)
-    $ctrl.submitNetWorth = () => {
-        $ctrl.netCriteria.input_value = $ctrl.netCriteria.value - 100;
-        $ctrl.submitStepCriteria($ctrl.netCriteria);
+        }, true);
     };
 
     // Submit criteria record
     $ctrl.submitStepCriteria = (criteria) => {
-        return $ctrl.submitCriteria(criteria).then($ctrl.nextStep, () => {});
+        return $ctrl.validateCriteria(criteria).then($ctrl.nextStep, () => {});
     };
 
     // Submit or Validate record criteria
-    $ctrl.submitCriteria = (criteria, onlyValidate = true) => {
+    $ctrl.validateCriteria = (criteria) => {
         return $q((resolve, reject) => {
             $ctrl.recordsSubmitting = true;
 
-            (onlyValidate ? RecordService.storeValidate({
+            RecordService.storeValidate({
                 type: criteria.record_type_key,
                 value: criteria.input_value
-            }) : RecordService.store({
-                type: criteria.record_type_key,
-                value: criteria.input_value
-            })).then(_res => {
+            }).then(_res => {
                 let record = _res.data;
 
-                (onlyValidate ? FileService.storeValidateAll(
-                    criteria.files
-                ) : FileService.storeAll(criteria.files)).then(res => {
-                    onlyValidate ? $ctrl.stepsCriterias.push(
-                        criteria
-                    ) : $ctrl.requestRecords.push({
-                        record_id: record.id,
-                        files: res.map(res => res.data.data.uid),
-                    });
-
+                FileService.storeValidateAll(criteria.files).then(res => {
                     $ctrl.recordsSubmitting = false;
                     criteria.errors = {};
                     resolve(record);
@@ -109,13 +84,53 @@ let FundRequestComponent = function(
         });
     };
 
+    // Submit or Validate record criteria
+    $ctrl.uploadCriteriaFiles = (criteria) => {
+        return $q((resolve, reject) => {
+            $ctrl.recordsSubmitting = true;
+
+            FileService.storeAll(criteria.files || []).then(res => {
+                criteria.filesUploaded = res.map(file => file.data.data);
+                resolve(criteria);
+            }, res => {
+                reject(criteria.errors = res.data.errors);
+            });
+        });
+    };
+
+    $ctrl.submitRequest = () => {
+        $q.all(
+            $ctrl.invalidCriteria.map($ctrl.uploadCriteriaFiles)
+        ).then(criteria => {
+            FundRequestService.store($ctrl.fund.id, {
+                records: criteria.map(criterion => ({
+                    value: criterion.input_value,
+                    record_type_key: criterion.record_type_key,
+                    files: criterion.filesUploaded.map(file => file.uid),
+                })),
+            }).then((res) => {
+                $ctrl.step = $ctrl.totalSteps.length;
+                $ctrl.updateState();
+            }, (res) => {
+                $ctrl.step = $ctrl.totalSteps.length + 1;
+                $ctrl.updateState();
+                $ctrl.errorReason = res.data.message;
+            });
+        });
+    };
+
     $ctrl.applyAccessToken = function(access_token) {
+        stopTimeout = true;
         CredentialsService.set(access_token);
         $ctrl.buildTypes();
         $ctrl.nextStep();
     };
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
+        if (stopTimeout) {
+            return stopTimeout = null;
+        }
+
         IdentityService.checkAccessToken(access_token).then((res) => {
             if (res.data.message == 'active') {
                 $ctrl.applyAccessToken(access_token);
@@ -137,21 +152,31 @@ let FundRequestComponent = function(
     };
 
     $ctrl.updateEligibility = () => {
-        $ctrl.invalidCriteria = FundService.demoCheckProductEligibility(
-            $ctrl.recordsByKey,
-            $ctrl.product
-        ).map(criteria => {
+        let validators = $ctrl.fund.validators.map(function(validator) {
+            return validator.identity_address;
+        });
+
+        let validCriteria = $ctrl.fund.criteria.filter(criterion => {
+            return FundService.checkEligibility(
+                $ctrl.recordsByKey[criterion.record_type_key] || [],
+                criterion,
+                validators,
+                $ctrl.fund.organization_id
+            );
+        });
+
+        let invalidCriteria = $ctrl.fund.criteria.filter(criteria => {
+            return validCriteria.indexOf(criteria) === -1;
+        });
+
+        $ctrl.invalidCriteria = JSON.parse(JSON.stringify(
+            invalidCriteria
+        )).map(criteria => {
             criteria.files = [];
             return criteria;
         });
 
-        $ctrl.netCriteria = $ctrl.invalidCriteria.filter(
-            criterion => criterion.record_type_key == $ctrl.specialKey
-        )[0] || false;
-
-        $ctrl.invalidCriteria = $ctrl.invalidCriteria.filter(
-            criterion => criterion.record_type_key != $ctrl.specialKey
-        ).map(criterion => {
+        $ctrl.invalidCriteria = $ctrl.invalidCriteria.map(criterion => {
             let control_type = {
                 // checkboxes
                 'children': 'ui_control_checkbox',
@@ -167,7 +192,7 @@ let FundRequestComponent = function(
                 // currency
                 'net_worth': 'ui_control_currency',
                 'base_salary': 'ui_control_currency',
-            }[criterion.record_type_key] || 'ui_control_text';
+            } [criterion.record_type_key] || 'ui_control_text';
 
             return Object.assign(criterion, {
                 control_type: control_type,
@@ -177,23 +202,24 @@ let FundRequestComponent = function(
                     ui_control_step: 0,
                     ui_control_number: undefined,
                     ui_control_currency: undefined,
-                }[control_type]
+                } [control_type]
             });
         });
 
-        $ctrl.isEligible = (
-            $ctrl.invalidCriteria.length == 0 && !$ctrl.netCriteria);
+        $ctrl.buildSteps();
     };
 
     $ctrl.buildSteps = () => {
-        // Sign up step + criteria list + location confirm
-        let totalSteps = $ctrl.signedIn ? 2 : 3;
+        // Sign up step + criteria list
+        let totalSteps = ($ctrl.signedIn ? 1 : 2) + ($ctrl.authEmailSent ? 1 : 0);
 
-        // Net criteria
-        totalSteps += ($ctrl.netCriteria ? 1 : 0);
+        console.log(totalSteps);
 
         // Other criteria
         totalSteps += $ctrl.invalidCriteria.length;
+        console.log(totalSteps, $ctrl.invalidCriteria);
+        // Success screen
+        totalSteps++;
 
         $ctrl.totalSteps = [];
 
@@ -207,24 +233,23 @@ let FundRequestComponent = function(
             return 'auth';
         }
 
+        if (step == 2 && !$ctrl.signedIn && $ctrl.authEmailSent) {
+            return 'auth_email_sent';
+        }
+
         if ((step == 2 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
             return 'criteria';
         }
 
-        if ((step == 3 && !$ctrl.signedIn) || (step == 2 && $ctrl.signedIn)) {
-            return 'location';
-        }
-
-        if ($ctrl.netCriteria && ((
-                $ctrl.signedIn && step == 3) || (!$ctrl.signedIn && step == 4))) {
-            return 'net_worth';
-        }
-
-        if (step > $ctrl.totalSteps.length) {
+        if (step == $ctrl.totalSteps.length) {
             return 'done';
         }
 
-        let prevSteps = 2 + ($ctrl.signedIn ? 0 : 1) + ($ctrl.netCriteria ? 1 : 0);
+        if (step > $ctrl.totalSteps.length) {
+            return 'error';
+        }
+
+        let prevSteps = 1 + ($ctrl.signedIn ? 0 : 1);
 
         return 'criteria_' + ((step - prevSteps) - 1);
     };
@@ -240,38 +265,33 @@ let FundRequestComponent = function(
                 $ctrl.recordsByKey[record.key].push(record);
             });
 
-            // $ctrl.updateEligibility();
             $ctrl.buildSteps();
+            $ctrl.updateEligibility();
         });
     };
 
     $ctrl.nextStep = () => {
+        $ctrl.buildSteps();
+        if ($ctrl.step == $ctrl.totalSteps.length - 1) {
+            return $ctrl.submitRequest();
+        }
+
         $ctrl.step++;
         $ctrl.updateState();
-
-        if ($ctrl.step == $ctrl.totalSteps.length + 1) {
-            $ctrl.submitRequest();
-        }
     };
 
     $ctrl.prevStep = () => {
+        $ctrl.buildSteps();
         $ctrl.step--;
         $ctrl.updateState();
     };
 
-    $ctrl.submitRequest = () => {
-        $q.all(array_unique($ctrl.stepsCriterias).map(
-            criteria => $ctrl.submitCriteria(criteria, false)
-        )).then(() => {
-            ProductService.request($ctrl.product.id, {
-                records: $ctrl.requestRecords,
-                fund_id: $ctrl.fund.id
-            }).then(console.log, console.error);
-        });
-    };
-
     $ctrl.updateState = () => {
         $ctrl.state = $ctrl.step2state($ctrl.step);
+
+        if ($ctrl.state == 'auth') {
+            $ctrl.requestAuthQrToken();
+        }
     };
 
     $ctrl.prepareRecordTypes = () => {
@@ -284,8 +304,11 @@ let FundRequestComponent = function(
         $ctrl.recordTypes = recordTypes;
     };
 
+    $ctrl.finish = () => {
+        $state.go('home');
+    };
+
     $ctrl.$onInit = function() {
-        // $ctrl.fund = $ctrl.product.funds[$ctrl.product.funds.length - 1];
         $ctrl.signedIn = AuthService.hasCredentials();
 
         $ctrl.initAuthForm();
@@ -294,16 +317,10 @@ let FundRequestComponent = function(
         if ($ctrl.signedIn) {
             $ctrl.buildTypes();
         } else {
-            // $ctrl.updateEligibility();
             $ctrl.buildSteps();
         }
 
         $ctrl.updateState();
-    };
-
-    $ctrl.finish = () => {
-        $rootScope.$broadcast('auth:update');
-        $state.go('home');
     };
 };
 
@@ -318,11 +335,12 @@ module.exports = {
         '$state',
         '$rootScope',
         '$timeout',
+        'ModalService',
         'RecordService',
         'FundService',
         'AuthService',
-        'ProductService',
         'IdentityService',
+        'FundRequestService',
         'FormBuilderService',
         'CredentialsService',
         'FileService',

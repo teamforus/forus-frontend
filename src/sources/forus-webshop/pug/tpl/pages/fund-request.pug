@@ -13,7 +13,7 @@ section.section.section-product: .wrapper
     .block.block-sign_up: .block-wrapper
         //- Log in
         div(ng-if="$ctrl.state == 'auth'")
-            h2(ng-if="!$ctrl.authToken").block-title Zomer zwem regeling aanvraag
+            h2.block-title Zomer zwem regeling aanvraag
             //- p.block-description
                 | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
                 strong woonplaats 
@@ -23,7 +23,7 @@ section.section.section-product: .wrapper
             
             +progress()
             
-            .sign_up-pane(ng-if="!$ctrl.authToken")
+            .sign_up-pane
                 .sign_up-pane-header Overzicht 
                 .sign_up-pane-body
                     .sign_up-pane-text 
@@ -42,15 +42,16 @@ section.section.section-product: .wrapper
                         | Er wordt gecontroleeerd aan welke voorwaarden u al voldoet, 
                         | en u kan tussentijds afbreken en op een ander moment verder gaan.
 
-
-                    form(ng-submit="$ctrl.authForm.submit()").form: .row
+                    .sign_up-pane-text: form(ng-submit="$ctrl.authForm.submit()").form: .row
                         .form-group.col.col-lg-9
                             label.form-label EMAIL
-                            ui-control-text(ng-model="$ctrl.authForm.values.records.primary_email" data-placeholder="ex. info@info.io")
+                            ui-control-email(ng-model="$ctrl.authForm.values.records.primary_email" data-placeholder="ex. info@info.io")
                             .form-error(ng-repeat="error in $ctrl.authForm.errors['records.primary_email']" ng-bind="error")
                         .form-group.col.col-lg-3
                             label.form-label &nbsp;
-                            button(type="submit").button.button-primary.button-fill Bevestig
+                            button(
+                                ng-class="{'button-disabled': !$ctrl.authForm.values.records.primary_email}"
+                                type="submit").button.button-primary.button-fill Bevestig
                     
                     .sign_up-pane-heading Heeft u de Me App al?
                     .sign_up-pane-text 
@@ -59,42 +60,58 @@ section.section.section-product: .wrapper
 
                     .sign_up-pane-auth
                         .sign_up-pane-auth-content
-                            | Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.
+                            | Scan de QR code aan de rechterzijde met de 
+                            br
+                            | QR-scanner in de Me App.
                             br
                             br
-                            | De Me App wordt gebruikt omm makkelijk en veilig in te loggen, 
-                            | betalingen te doen en vouchers te beheren.
+                            | De Me App wordt gebruikt omm makkelijk en veilig in 
+                            br
+                            | te loggen, betalingen te doen en vouchers te beheren.
+                            br
+                            br
+                            .sign_up-pane-auth-apps
+                                a(href="#").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
+                                a(href="#").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
+                        
                         .sign_up-pane-auth-qr_code
                             qr-code(
-                                ng-if="$ctrl.qrValue" 
-                                qr-value="$ctrl.qrValue" 
+                                ng-if="$ctrl.authToken" 
+                                qr-value="$ctrl.authToken" 
                                 qr-type="auth_token" 
                                 qr-logo=src_prefix + "./assets/img/me-logo.png")
-                
-            .sign_up-pane(ng-if="$ctrl.authToken")
-                .sign_up-pane-header Log in door QR-code te scannen
+        
+        //- Log in email sent
+        div(ng-if="$ctrl.state == 'auth_email_sent'")
+            h2.block-title Zomer zwem regeling aanvraag
+            +progress()
+            
+            .sign_up-pane
+                .sign_up-pane-header Overzicht 
                 .sign_up-pane-body
-                    p.sign_up-pane-text Het e-mail adres dat u invulde bestaat al in het systeem. Scan de QR-code met de Me-app om verder te gaan waar u gebleven was.
-                    qr-code(ng-if="$ctrl.authToken" qr-value="$ctrl.authToken" qr-type="auth_token")
+                    .sign_up-email_sent
+                        .sign_up-email_sent-icon
+                            img(src=src_prefix + "./assets/img/sign_up-email.png").sign_up-email_sent-icon-img
+                        .sign_up-email_sent-title Confirm your account
+                        .sign_up-email_sent-text
+                            | Welcome to Webshop Barneveld! 
+                            br
+                            | Before we get started, please confirm your email address. 
+                            br
+                            | We’re send you a mail to 
+                            span(ng-bind="$ctrl.authForm.values.records.primary_email").text-primary
         
         //- List the criteria
         div(ng-if="$ctrl.state == 'criteria'")
             h2.block-title Bevestig uw gemeente
-            p.block-description
-                | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
-                strong woonplaats 
-                | en 
-                a(href="#") inkomen 
-                | te controleren 
-            
             +progress()
             
             .sign_up-pane
-                .sign_up-pane-header Overzicht van voorwaarden
+                .sign_up-pane-header Overzicht
                 .sign_up-pane-body
-                    p.sign_up-pane-text.text-center 
-                        | De volgende gegevens zijn vereist om deze regeling aan te vragen:
-                    .sign_up-pane-info: ul.sign_up-pane-list 
+                    p.sign_up-pane-text
+                        | U staat op het punt om een zomer zwemregeling aan te vragen. Om in aanmmerking te komen, dient u aan de voorwaarden te voldoen:
+                    ul.sign_up-pane-list 
                         li(ng-repeat="critera in $ctrl.fund.criteria")
                             | {{ critera.record_type_name }} moet
                             span(ng-if="critera.operator == '>'") meer dan 
@@ -112,47 +129,9 @@ section.section.section-product: .wrapper
                         | Volgende stap
                         em.mdi.mdi-chevron-right.icon-right
         
-        //- Confirm city
-        div(ng-if="$ctrl.state == 'location'")
-            h2.block-title Bevestig uw gemeente
-            p.block-description
-                | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
-                strong woonplaats 
-                | en 
-                a(href="#") inkomen 
-                | te controleren 
-            
-            +progress()
-            
-            .sign_up-pane
-                .sign_up-pane-header Bevestig uw adres
-                .sign_up-pane-body: form().form.row: .form-group.col.col-lg-12.text-center: .checkbox
-                    input(type="checkbox" ng-model="$ctrl.confirmLocation" id="accept" name="accept")
-                    label.checkbox-label(for="accept")
-                        .checkbox-box: .mdi.mdi-check
-                        | Ik verklaar dat ik woon in de gemeente Barneveld.
-                
-                .sign_up-pane-footer: .row
-                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(
-                        ng-click="$ctrl.prevStep()")
-                        | Vorige stap
-                        em.mdi.mdi-chevron-left.icon-left
-                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(
-                        ng-click="$ctrl.nextStep()"
-                        ng-if="$ctrl.confirmLocation")
-                        | Volgende stap
-                        em.mdi.mdi-chevron-right.icon-right
-        
         //- Confirm net worth
         div(ng-if="$ctrl.state == 'net_worth'")
             h2.block-title Zomerzwemregeling aanvraag
-            p.block-description
-                | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
-                strong woonplaats 
-                | en 
-                a(href="#") inkomen 
-                | te controleren 
-            
             +progress()
             
             .sign_up-pane
@@ -191,13 +170,6 @@ section.section.section-product: .wrapper
             ng-repeat="invalidCriteria in $ctrl.invalidCriteria track by $index"
             ng-if="$ctrl.state == 'criteria_' + $index")
             h2.block-title Zomerzwemregeling aanvraag
-            p.block-description
-                | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
-                strong woonplaats 
-                | en 
-                a(href="#") inkomen 
-                | te controleren 
-            
             +progress()
             
             .sign_up-pane
@@ -263,21 +235,29 @@ section.section.section-product: .wrapper
         //- Done
         div(ng-if="$ctrl.state == 'done'")
             h2.block-title Zomerzwemregeling aanvraag
-            p.block-description
-                | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
-                strong woonplaats 
-                | en 
-                a(href="#") inkomen 
-            
             .sign_up-pane
                 .sign_up-pane-header Aanvraag voltooid
                 .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
                     .form-group.col.col-lg-12
-                        .block-icon: .mdi.mdi-check-bold
+                        .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
                         p.sign_up-pane-text.text-center 
                             | Uw aanvraag is voltooid, u krijgt een email wanneer deze is goedgekeurd.
                 
                         .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
                     .form-group.col.col-lg-12: br
-
+        
+        //- Error
+        div(ng-if="$ctrl.state == 'error'")
+            h2.block-title Zomerzwemregeling aanvraag
+            .sign_up-pane
+                .sign_up-pane-header Error during fund request submission.
+                .sign_up-pane-body: .row
+                    .form-group.col.col-lg-12
+                        .block-icon: .mdi.mdi-close
+                        p.sign_up-pane-text.text-center 
+                            | Reason: 
+                            span(ng-bind="$ctrl.errorReason")
+                
+                        .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
+                    .form-group.col.col-lg-12: br
 contact-form 

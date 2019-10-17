@@ -5,27 +5,32 @@ let ModalFundRequestRecordClarifyComponent = function(
     let $ctrl = this;
 
     $ctrl.$onInit = () => {
+        let submit = $ctrl.modal.scope.submit;
         let fund = $ctrl.modal.scope.fund;
         let requestRecord = $ctrl.modal.scope.requestRecord;
 
         $ctrl.form = FormBuilderService.build({
-            note: 'test note'
+            question: ''
         }, (form) => {
-            /* console.log([
-                fund.organization_id,
-                fund.id,
-                requestRecord.fund_request_id,
-                requestRecord.id,
-                form.values.note
-            ]); */
-
             FundRequestValidatorService.requestRecordClarification(
                 fund.organization_id,
                 fund.id,
                 requestRecord.fund_request_id,
                 requestRecord.id,
-                form.values.note
-            ).then(console.log, console.error);
+                form.values.question
+            ).then(() => {
+                form.unlock();
+                $ctrl.close();
+                submit(null);
+            }, (res) => {
+                form.unlock();
+                if (res.status === 422) {
+                    return form.errors = res.data.errors;
+                }
+
+                $ctrl.close();
+                submit(res);
+            });
         }, true);
     };
     $ctrl.$onDestroy = function() {};

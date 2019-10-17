@@ -16,6 +16,12 @@
         margin-right: 5px;
         float: left;
         transition: .4s;
+
+        &.icon-right {
+            float: right;
+            margin-right: 0;
+            margin-left: 5px;
+        }
     }
 
     img {
@@ -110,6 +116,23 @@
             }
         }
     }
+    
+    &.button-muted {
+        color: #9ea7b5;
+        background: #f0f2f4;
+        border-color: #f0f2f4;
+
+        &:hover {
+            color: #9ea7b5;
+            background: #f0f2f4;
+            border-color: #f0f2f4;
+        }
+
+        &:focus, &:active {
+            outline: none;
+            border-color: darken($color: rgba(158, 167, 182, 0.15), $amount: 100);
+        }
+    }
 
     &.button-primary-outline {
         color: #2f5bf6;
@@ -122,6 +145,12 @@
         }
     }
 
+    &.button-text {
+        &.button-text-padless {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
 
     &.button-wide,
     &.button-wide {
@@ -141,12 +170,20 @@
     &:last-of-type {
         margin-right: 0;
     }
+
+    &[disabled], &.disabled {
+        cursor: default;
+        user-select: none;
+        pointer-events: none;
+    }
 }
+
 .first-line-button {
     line-height: 10px;
     font-size: 12px;
     text-align: right;
 }
+
 .second-line-button {
     line-height: 10px;
     margin-top: -10px;
@@ -156,15 +193,18 @@
     grid-row: 2;
     grid-column: 2 / 3;
 }
+
 .button-profile {
     padding-left:0px !important;
 }
+
 @media screen and (max-width: 1700px) {
     .button {
         font: 700 12px/20px $bf;
         padding: 10px 25px;
     }
 }
+
 @media screen and (max-width: 1000px) {
     .button {
         &.button-primary {

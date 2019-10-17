@@ -2,33 +2,33 @@ let OrganizationEmployeesService = function(ApiRequest) {
     let uriPrefix = '/platform/organizations/';
 
     return new(function() {
-        this.list = function(employee_id) {
+        this.list = function(organization_id) {
             return ApiRequest.get(
-                uriPrefix + employee_id + '/employees'
+                uriPrefix + organization_id + '/employees'
             );
         };
 
-        this.store = function(employee_id, values) {
+        this.store = function(organization_id, values) {
             return ApiRequest.post(
-                uriPrefix + employee_id + '/employees', values
+                uriPrefix + organization_id + '/employees', values
             );
         };
 
-        this.update = function(employee_id, id, values) {
+        this.update = function(organization_id, id, values) {
             return ApiRequest.patch(
-                uriPrefix + employee_id + '/employees/' + id, values
+                uriPrefix + organization_id + '/employees/' + id, values
             );
         };
 
-        this.read = function(employee_id, id) {
+        this.read = function(organization_id, id) {
             return ApiRequest.get(
-                uriPrefix + employee_id + '/employees/' + id
+                uriPrefix + organization_id + '/employees/' + id
             );
         }
 
-        this.destroy = function(employee_id, id) {
+        this.destroy = function(organization_id, id) {
             return ApiRequest.delete(
-                uriPrefix + employee_id + '/employees/' + id
+                uriPrefix + organization_id + '/employees/' + id
             );
         }
 

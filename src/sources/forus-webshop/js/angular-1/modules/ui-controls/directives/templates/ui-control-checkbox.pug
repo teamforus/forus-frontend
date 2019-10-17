@@ -1,0 +1,11 @@
+.ui-control.ui-control-checkbox(ng-class="$dir.class")
+    input(
+        hidden
+        type="checkbox" 
+        id="{{ $dir.id }}" 
+        name="{{ $dir.name }}" 
+        ng-change="$dir.onChange()"
+        ng-model="ngModel").form-control
+    label(for="{{ $dir.id }}").ui-checkbox-label
+        .ui-checkbox-box: .mdi.mdi-check
+        | {{ $dir.label }}
