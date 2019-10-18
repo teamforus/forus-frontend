@@ -23,6 +23,7 @@ app.component('productApplyComponent', require('./components/ProductApplyCompone
 app.component('voucherComponent', require('./components/VoucherComponent'));
 app.component('fundApplyComponent', require('./components/FundApplyComponent'));
 app.component('fundRequestComponent', require('./components/FundRequestComponent'));
+app.component('fundRequestClarificationComponent', require('./components/FundRequestClarificationComponent'));
 app.component('recordValidateComponent', require('./components/RecordValidateComponent'));
 app.component('recordValidationsComponent', require('./components/RecordValidationsComponent'));
 app.component('recordCreateComponent', require('./components/RecordCreateComponent'));
@@ -35,6 +36,7 @@ app.service('OrganizationService', require('./services/OrganizationService'));
 app.service('TransactionService', require('./services/TransactionService'));
 app.service('FundService', require('./services/FundService'));
 app.service('FundRequestService', require('./services/FundRequestService'));
+app.service('FundRequestClarificationService', require('./services/FundRequestClarificationService'));
 app.service('CredentialsService', require('./services/CredentialsService'));
 app.service('FormBuilderService', require('./services/FormBuilderService'));
 app.service('IdentityService', require('./services/IdentityService'));

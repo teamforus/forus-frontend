@@ -67,7 +67,8 @@
 
     &.ui-control-text,
     &.ui-control-number,
-    &.ui-control-currency {
+    &.ui-control-currency,
+    &.ui-control-textarea {
         .form-control:not([type="radio"]):not([type="checkbox"]) {
             &:focus, &:active {
                 &+.ui-control-clear {
@@ -80,6 +81,17 @@
 
     &.ui-control-date {
         position: relative;
+    }
+
+    &.ui-control-textarea {
+        .ui-control-clear {
+            top: 0px;
+            height: 40px;
+            width: 40px;
+            transform: none;
+            line-height: 40px;
+            text-align: center;
+        }
     }
 
     &.ui-control-step {
