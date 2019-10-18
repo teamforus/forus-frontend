@@ -10,6 +10,9 @@
 @import 'includes/dev-pages';
 @import 'includes/ie';
 
+@import '../../../forus-webshop/scss/_common/components/ui-controls';
+@import '../../../forus-webshop/scss/_common/sections/blocks/block-sign_up';
+
 body {
     background: #f1f4f7;
     min-height: 100vh;
@@ -2392,6 +2395,188 @@ translate,
 }
 
 .block {
+    &.block-sign_up {
+        .sign_up-pane {
+            .sign_up-pane-header {
+                font-style: normal;
+                font-weight: 500;
+                font-size: 21px;
+                line-height: 30px;
+            }
+
+            .sign_up-heading-block {
+                font: 400 18px/22px $bf;
+                padding: 40px;
+                font-style: normal;
+                color: #222530;
+                border-bottom: 1px solid #EDEEF0;
+            }
+        }
+
+        .next-link {
+            height: 20px;
+            left: 59.22%;
+            right: 33.96%;
+            top: calc(50% - 20px/2 + 27px);
+
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 20px;
+
+            align-items: center;
+            text-align: right;
+
+            color: #3561FF;
+            display: block;
+            background: none;
+            border: none;
+            float: right;
+            cursor: pointer;
+
+            &:focus {
+                outline:0;
+            }
+        }
+
+        .location-btns {
+            padding: 25px;
+
+            button {
+                background: rgba(53, 97, 255, 0.15);
+                border-radius: 5px;
+                width: 100%;
+                padding: 12px;
+                border: none;
+                color: #3561FF;
+                cursor: pointer;
+            }
+        }
+
+        .add-employee {
+            padding: 0px;
+            color: #3561FF;
+        }
+
+        .form {
+            .ui-control .form-control:not([type="radio"]):not([type="checkbox"]) {
+                background-color: #EFF2F4;
+                border-color: #EFF2F4;
+            }
+
+            .ui-control {
+                &.large {
+                    input {
+                        height: 54px;
+                    }
+                }
+            }
+
+            .group-block {
+                border-bottom: 1px solid #EDEEF0;
+                padding-top: 30px;
+                padding-bottom: 30px;
+
+                &.padding-30 {
+                    padding-left: 30px;
+                    padding-right: 30px;
+                }
+
+                .sign_up-pane-text {
+                    font-weight: 500;
+                    font-size: 21px;
+                    line-height: 26px;
+                    padding-bottom: 10px;
+                }
+
+                &.description {
+                    font-family: Montserrat;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 16px;
+                    line-height: 24px;
+                    padding-left: 40px;
+                }
+            }
+
+            .select-control-search {
+                background-color: #EFF2F4;
+                border-color: #EFF2F4;
+            }
+
+            .select-control-option {
+                background-color: #EFF2F4;
+                border-color: #EFF2F4;
+                border-bottom: 1px solid #e3e3e3;
+            }
+
+            .select-control-options {
+                border: none;
+            }
+
+            .form-label {
+                color: #7E818C;
+                font-weight: normal;
+                font-size: 13px;
+                line-height: 16px;
+                padding-left: 10px;
+
+                letter-spacing: 0.08px;
+            }
+
+            .ui-control.ui-control-checkbox .ui-checkbox-label {
+                color: #222530;
+                font-size: 14px;
+                line-height: 17px;
+                font-weight: normal;
+            }
+
+            .block.block-photo-selector {
+                margin-bottom: 0px;
+
+                .photo-img {
+                    margin-left: auto;
+                    margin-right: auto;
+                    float: none;
+                    margin-bottom: 15px;
+                }
+
+                .photo-label {
+                    text-align: center;
+                    font-weight: normal;
+                    font-size: 18px;
+                    line-height: 26px;
+                }
+            }
+
+            .opening {
+                .ui-control.ui-control-checkbox .ui-checkbox-label {
+                    font-size: 16px;
+                }
+            }
+
+            .info-block.info-block-primary {
+                padding-top: 0px;
+                text-align: center;
+
+                background: none;
+                border: none;
+            }
+
+            .schedule {
+                th {
+                    text-transform: uppercase;
+                    text-align: left;
+                }
+
+                td {
+                    padding-right: 30px;
+                }
+            }
+        }
+    }
+    
     &.block-tooltip-details {
         position: relative;
 
@@ -3820,6 +4005,7 @@ translate,
         }
     }
 }
+
 
 .modal {
     @include fill_parent();

@@ -466,19 +466,19 @@ module.exports = {
     // SIGN UP FORM FOR PROVIDERS = sign-up.pug
     sign_up: {
         header: {
-            title_step_1: "Installeer Me",
-            subtitle_step_1: "Om betalingen te ontvangen heeft u een app nodig. Een transactie doet u door een QR-code te scannen en een bedrag in te vullen.",
-            title_step_2: "Profiel aanmaken",
+            title_step_1: "Algemene informatie",
+            subtitle_step_1: "",
+            title_step_2: "De kassa app instaleren",
             subtitle_step_2: "Een persoonlijk profiel is nodig om betalingen te ontvangen. Later is het mogelijk om meerdere medewerkers toe te voegen.",
             title_step_3: "Organisatie aanmaken",
             subtitle_step_3: "Om deel te nemen aan het platform is het nodig om een organisatie aan te maken.",
-            title_step_4: "Voeg nieuwe vestigingen toe",
+            title_step_4: "Organisatie aanmaken",
             subtitle_step_4: "Een organisatie kan uit meerdere vestigingen bestaan. Voeg in dit venster vestigingen toe.",
-            title_step_5: "Stel de app <i>Me</i> in op uw telefoon",
+            title_step_5: "Kassa medewerkers toevoegen",
             subtitle_step_5: "U heeft zojuist een profiel aangemaakt, daarom kunt u klikken op: ‘Ik heb een profiel’. Het instellen van uw profiel op de mobiele applicatie gebeurt door het invullen van een autorisatie code.",
             top_title_step_5: "Gebruik Me",
             top_subtitle_step_5: "Rond de installatie af door gebruik te maken van <i>Me</i>",
-            title_step_6: "Het is gelukt! Het profiel van de organisatie is gekoppeld aan <i>Me</i>.",
+            title_step_6: "Aanvraag voltooid",
             subtitle_step_6: "",
             top_title_step_6: "Gebruik Me",
             top_subtitle_step_6: "Rond de installatie af door gebruik te maken van <i>Me</i>",
@@ -568,6 +568,11 @@ module.exports = {
             error: {
                 try_later: 'Probeer later nog eens.'
             }
+        },
+        details:{
+            description: 'Bedankt dat u wil aanmelden als aanbieder. De volledige aanmeld procedure duurt ongeveer 5 minuten. ' + 
+                'Klanten zullen bij u in de winkel komen met een plaatje (QR code),  bekend van toegangskaartjes en vliegtickets. ' + 
+                'Deze code scant u met een app die u in de volgende stap gaat instaleren. Zorg dat u de volgende zaken alvast bij de hand heeft: ',
         }
     },
 

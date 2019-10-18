@@ -14,6 +14,7 @@ let SignUpComponent = function(
     FormBuilderService,
     MediaService,
     ProviderFundService,
+    OrganizationEmployeesService,
     SmsService,
     appConfigs
 ) {
@@ -150,6 +151,8 @@ let SignUpComponent = function(
     };
 
     $ctrl.$onInit = function() {
+        $ctrl.requestAuthQrToken();
+
         $ctrl.beforeInit();
 
         $ctrl.signUpForm = FormBuilderService.build({
@@ -324,6 +327,29 @@ let SignUpComponent = function(
         }
 
         if ($ctrl.step == 1) {
+            $ctrl.setStep($ctrl.step + 1);
+        } else if ($ctrl.step == 2) {
+
+            // if ($ctrl.signUpForm.values.records && (
+            //         $ctrl.signUpForm.values.records.primary_email !=
+            //         $ctrl.signUpForm.values.records.primary_email_confirmation)) {
+            //     $ctrl.signUpForm.errors = {};
+            //     $ctrl.signUpForm.errors['records.primary_email_confirmation'] = [$filter('translate')('validation.email_confirmation')];
+            // } else {
+
+            //     IdentityService.make({
+            //         records: {
+            //             primary_email: $ctrl.signUpForm.values.records ? $ctrl.signUpForm.values.records.primary_email : ''
+            //         }
+            //     }).then((res) => {}, (res) => {
+            //         $ctrl.signUpForm.errors = {};
+            //         if (res.data.errors['records.primary_email'] && res.data.errors['records.primary_email'].length) {
+            //             $ctrl.signUpForm.errors['records.primary_email'] = res.data.errors['records.primary_email'];
+            //         } else {
+            //             $ctrl.setStep(3);
+            //         }
+            //     });
+            // }
 
             if (!waitingSms) {
                 $scope.phoneForm.submit().then((res) => {
@@ -339,31 +365,10 @@ let SignUpComponent = function(
                     }
                 });
             }
-
-        } else if ($ctrl.step == 2) {
-
-            if ($ctrl.signUpForm.values.records && (
-                    $ctrl.signUpForm.values.records.primary_email !=
-                    $ctrl.signUpForm.values.records.primary_email_confirmation)) {
-                $ctrl.signUpForm.errors = {};
-                $ctrl.signUpForm.errors['records.primary_email_confirmation'] = [$filter('translate')('validation.email_confirmation')];
-            } else {
-
-                IdentityService.make({
-                    records: {
-                        primary_email: $ctrl.signUpForm.values.records ? $ctrl.signUpForm.values.records.primary_email : ''
-                    }
-                }).then((res) => {}, (res) => {
-                    $ctrl.signUpForm.errors = {};
-                    if (res.data.errors['records.primary_email'] && res.data.errors['records.primary_email'].length) {
-                        $ctrl.signUpForm.errors['records.primary_email'] = res.data.errors['records.primary_email'];
-                    } else {
-                        $ctrl.setStep(3);
-                    }
-                });
-            }
-
+            //$ctrl.setStep(3);
         } else if ($ctrl.step == 3) {
+            //$ctrl.setStep(4);
+            
             let authRes;
 
             if (!$ctrl.signedIn) {
@@ -455,7 +460,7 @@ let SignUpComponent = function(
         $rootScope.$broadcast('auth:update');
 
         if ($ctrl.step == 2) {
-            $ctrl.setStep($ctrl.step + 1);
+            $ctrl.setStep(3);
         } else {
             $ctrl.next();
         }
@@ -502,6 +507,54 @@ let SignUpComponent = function(
     $ctrl.$onDestroy = function() {
         $timeout.cancel(timeout);
     };
+
+    $ctrl.readMoreFields = [
+        'Smartphone',
+        'Telefoonnummer',
+        'IBAN nummer',
+        'Persoonlijke email adres',
+        'Email adres van uw bedrijf',
+        'Kamer van koophandel nummer',
+        'BTW-Nummer (optioneel)',
+        'Email adressen van uw kassa medewerkers (optioneel)'
+    ];
+
+    $ctrl.weekDays = [
+        'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
+    ];
+
+    $ctrl.totalSteps = Array.from({length: 4}, (v, k) => k + 1);
+
+    $ctrl.addEmployee = () => {
+        //console.log('add employee');
+
+        OrganizationEmployeesService.store(
+            employee.organization_id,
+            {}
+        ).then((res) => {
+            $state.reload();
+        }, console.error);
+    }
+
+    $ctrl.editEmployee = (employee) => {
+        ModalService.open('employeeEdit', {
+            organization: $ctrl.organization,
+            roles: $ctrl.roles,
+            employee: employee,
+            submit: () => {
+                $state.reload();
+            }
+        });
+    };
+
+    $ctrl.deleteEmployee = function(employee) {
+        OrganizationEmployeesService.destroy(
+            employee.organization_id,
+            employee.id
+        ).then((res) => {
+            $state.reload();
+        }, console.error);
+    }
 };
 
 module.exports = {
@@ -524,6 +577,7 @@ module.exports = {
         'FormBuilderService',
         'MediaService',
         'ProviderFundService',
+        'OrganizationEmployeesService',
         'SmsService',
         'appConfigs',
         'ModalService',

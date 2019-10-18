@@ -1,8 +1,10 @@
 require('./modules/select-control/SelectControlModule');
+require('../../../forus-webshop/js/angular-1/modules/ui-controls/UIControlsModule');
 
 let app = angular.module('forusApp', [
     'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 
     'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize',
+    'forus.uiControls',
 ]);
 
 app.constant('appConfigs', env_data);
