@@ -80,9 +80,12 @@ let FundRequestComponent = function(
         return $q((resolve, reject) => {
             $ctrl.recordsSubmitting = true;
 
-            RecordService.storeValidate({
-                type: criteria.record_type_key,
-                value: criteria.input_value
+            FundRequestService.storeValidate($ctrl.fund.id, {
+                records: [{
+                    fund_criterion_id: criteria.id,
+                    record_type_key: criteria.record_type_key,
+                    value: criteria.input_value
+                }]
             }).then(_res => {
                 let record = _res.data;
 
@@ -96,7 +99,11 @@ let FundRequestComponent = function(
                 });
             }, res => {
                 $ctrl.recordsSubmitting = false;
-                reject(criteria.errors = res.data.errors);
+                reject(criteria.errors = {
+                    value : res.data.errors['records.0.value'],
+                    record_type_key : res.data.errors['records.0.record_type_key'],
+                    fund_criterion_id : res.data.errors['records.0.fund_criterion_id'],
+                });
             });
         });
     };
@@ -123,6 +130,7 @@ let FundRequestComponent = function(
                 records: criteria.map(criterion => ({
                     value: criterion.input_value,
                     record_type_key: criterion.record_type_key,
+                    fund_criterion_id: criterion.id,
                     files: criterion.filesUploaded.map(file => file.uid),
                 })),
             }).then((res) => {
