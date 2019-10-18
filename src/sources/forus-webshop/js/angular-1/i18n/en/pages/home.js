@@ -2,7 +2,7 @@ module.exports = {
     // HOME = home.pug
     header: {
         title: "{{fund}} ",
-        subtitle: "Welkom op de website van {{fund}}. Heeft u van de gemeente een toekenning voor {{fund}}? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
+        subtitle: "Welkom op de website van. Heeft u van de gemeente een toekenning voor {{fund}}? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
         title_multi: "Kindregelingen {{org_name}}",
         subtitle_multi: "Welkom op de website van de Kindregelingen van de {{org_name}}. Heeft u van de gemeente een toekenning voor de Kindregelingen gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
         cta: "Klik op start en vul uw activatiecode in. Deze code staat in de brief over {{fund}} die u heeft ontvangen",

@@ -3,21 +3,17 @@ top-navbar.nav-var
 header.section.section-header.section-header-landing
     .wrapper
         .header-sprite
-        .header-content(ng-if="$ctrl.funds.length == 1")
+        .header-content(ng-if="$ctrl.funds.length <= 1")
             .header-title(i18n="home.header.title" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
-        .header-content(ng-if="$ctrl.funds.length >= 1")
+            .header-description#desc(ng-show="!$root.auth_user || $root.auth_user && $ctrl.vouchers.length == 0")
+                p(i18n="home.header.subtitle" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                p(i18n="home.header.cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+
+        .header-content(ng-if="$ctrl.funds.length >= 2")
             .header-title(i18n="home.header.title_multi" i18n-vars="{ fund: $ctrl.funds[0].name, org_name: $ctrl.funds[0].organization.name }")
             //- usage example: 
             //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
             //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
-
-            .header-description#desc(ng-show="!$root.auth_user && $ctrl.funds.length == 1|| $root.auth_user && $ctrl.vouchers.length == 0 && $ctrl.funds.length == 1")
-                p(i18n="home.header.subtitle" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
-                p(i18n="home.header.cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
-            .header-description#desc(ng-show="!$root.auth_user && $ctrl.funds.length >= 1 || $root.auth_user && $ctrl.vouchers.length == 0 && $ctrl.funds.length >= 1")
-                p(i18n="home.header.subtitle_multi" i18n-vars="{ org_name: $ctrl.funds[0].organization.name, start_date: $ctrl.funds[0].start_date_locale }")
-                p(i18n="home.header.cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
-            
             .header-description#desc(ng-show="$root.auth_user && $ctrl.vouchers.length > 0")
                 p(i18n="home.header.subtitle" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
                 p(i18n="home.header.auth_cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")

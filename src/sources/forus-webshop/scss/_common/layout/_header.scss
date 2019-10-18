@@ -22,13 +22,9 @@
                 width: 100%;
             }
             @media screen and (min-width: 1024px){
-                width: 50%;
-                max-width: 500px;
+                max-width: 600px;
                 position: relative;
                 margin: 0;
-            }
-            @media screen and (min-width: 1440px){ 
-                max-width: 650px;
             }
             .header-title {
                 margin: 0 0 20px;
