@@ -130,8 +130,8 @@ let FundRequestsComponent = function(
                     request.fund_id,
                     request.id,
                     requestRecord.id
-                ).then(res => {
-                    $state.reload();
+                ).then(() => {
+                    $ctrl.reloadRequest(request);
                     showInfoModal('Record approved.')
                 }, res => showInfoModal('Can\'t approve record.', res.data.message));
             }
@@ -150,7 +150,7 @@ let FundRequestsComponent = function(
                     );
                 }
 
-                $state.reload();
+                $ctrl.reloadRequest(request);
                 showInfoModal('Record declined.')
             }
         });
@@ -168,7 +168,7 @@ let FundRequestsComponent = function(
                     );
                 }
 
-                $state.reload();
+                $ctrl.reloadRequest(request);
                 showInfoModal('Record clarification requested.')
             }
         });
@@ -179,7 +179,9 @@ let FundRequestsComponent = function(
             $ctrl.fundsById[request.fund_id].organization_id,
             request.fund_id,
             request.id
-        ).then(() => $state.reload(), (res) => {
+        ).then(() => {
+            $ctrl.reloadRequest(request);
+        }, (res) => {
             showInfoModal(
                 'Request approvement failed.',
                 'Reason: ' + res.data.message
@@ -192,7 +194,9 @@ let FundRequestsComponent = function(
             $ctrl.fundsById[request.fund_id].organization_id,
             request.fund_id,
             request.id
-        ).then(() => $state.reload(), (res) => {
+        ).then(() => {
+            $ctrl.reloadRequest(request);
+        }, (res) => {
             showInfoModal(
                 'Request declining failed.',
                 'Reason: ' + res.data.message
