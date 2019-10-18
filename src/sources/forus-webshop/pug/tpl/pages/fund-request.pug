@@ -126,8 +126,11 @@ section.section.section-product: .wrapper
                     p.sign_up-pane-text
                         | U staat op het punt om een {{ $ctrl.fund.name }} aan te vragen. 
                         | Om in aanmmerking te komen, dient u aan de |voorwaarden te voldoen:
-                    ul.sign_up-pane-list 
-                        li(ng-repeat="critera in $ctrl.fund.criteria")
+                    ul.sign_up-pane-list.sign_up-pane-list-criteria
+                        li(
+                            ng-repeat="critera in $ctrl.fund.criteria" 
+                            ng-class="{'item-valid': critera.isValid, 'item-invalid' : !critera.isValid}")
+                            .item-icon: em.mdi.mdi-check-bold(ng-if="critera.isValid")
                             | {{ critera.record_type_name }} moet
                             span(ng-if="critera.operator == '>'") meer dan 
                             span(ng-if="critera.operator == '='") 
@@ -249,30 +252,36 @@ section.section.section-product: .wrapper
         
         //- Done
         div(ng-if="$ctrl.state == 'done'")
-            h2.block-title Zomerzwemregeling aanvraag
-            .sign_up-pane
-                .sign_up-pane-header Aanvraag voltooid
-                .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
-                    .form-group.col.col-lg-12
-                        .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
-                        p.sign_up-pane-text.text-center 
-                            | Uw aanvraag is voltooid, u krijgt een email wanneer deze is goedgekeurd.
+            //- Success
+            div(ng-if="!$ctrl.finishError")
+                h2.block-title Zomerzwemregeling aanvraag
+                +progress()
                 
-                        .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
-                    .form-group.col.col-lg-12: br
-        
-        //- Error
-        div(ng-if="$ctrl.state == 'error'")
-            h2.block-title Zomerzwemregeling aanvraag
-            .sign_up-pane
-                .sign_up-pane-header Error during fund request submission.
-                .sign_up-pane-body: .row
-                    .form-group.col.col-lg-12
-                        .block-icon: .mdi.mdi-close
-                        p.sign_up-pane-text.text-center 
-                            | Reason: 
-                            span(ng-bind="$ctrl.errorReason")
+                .sign_up-pane
+                    .sign_up-pane-header Aanvraag voltooid
+                    .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
+                        .form-group.col.col-lg-12
+                            .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
+                            p.sign_up-pane-text.text-center 
+                                | Uw aanvraag is voltooid, u krijgt een email wanneer deze is goedgekeurd.
+                    
+                            .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
+                        .form-group.col.col-lg-12: br
                 
-                        .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
-                    .form-group.col.col-lg-12: br
+            //- Error
+            div(ng-if="$ctrl.finishError")
+                h2.block-title Zomerzwemregeling aanvraag
+                +progress()
+
+                .sign_up-pane
+                    .sign_up-pane-header Error during fund request submission.
+                    .sign_up-pane-body: .row
+                        .form-group.col.col-lg-12
+                            .block-icon: .mdi.mdi-close
+                            p.sign_up-pane-text.text-center 
+                                | Reason: 
+                                span(ng-bind="$ctrl.errorReason")
+                    
+                            .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
+                        .form-group.col.col-lg-12: br
 contact-form 

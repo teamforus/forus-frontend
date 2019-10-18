@@ -26,6 +26,7 @@ let FundRequestComponent = function(
     $ctrl.recordsSubmitting = false;
     $ctrl.files = [];
     $ctrl.errorReason = false;
+    $ctrl.finishError = false;
 
     let timeout = null;
     let stopTimeout = null;
@@ -125,11 +126,12 @@ let FundRequestComponent = function(
                     files: criterion.filesUploaded.map(file => file.uid),
                 })),
             }).then((res) => {
-                $ctrl.step = $ctrl.totalSteps.length;
+                $ctrl.step++;
                 $ctrl.updateState();
             }, (res) => {
-                $ctrl.step = $ctrl.totalSteps.length + 1;
+                $ctrl.step++;
                 $ctrl.updateState();
+                $ctrl.finishError = true;
                 $ctrl.errorReason = res.data.message;
             });
         });
@@ -140,6 +142,7 @@ let FundRequestComponent = function(
         CredentialsService.set(access_token);
         $ctrl.buildTypes();
         $ctrl.nextStep();
+        document.location.reload();
     };
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
@@ -179,10 +182,18 @@ let FundRequestComponent = function(
                 validators,
                 $ctrl.fund.organization_id
             );
-        });
+        });;
 
         let invalidCriteria = $ctrl.fund.criteria.filter(criteria => {
             return validCriteria.indexOf(criteria) === -1;
+        });
+
+        validCriteria.forEach((criterion) => {
+            criterion.isValid = true;
+        });
+
+        invalidCriteria.forEach((criterion) => {
+            criterion.isValid = false;
         });
 
         $ctrl.invalidCriteria = JSON.parse(JSON.stringify(
@@ -233,9 +244,6 @@ let FundRequestComponent = function(
 
         // Other criteria
         totalSteps += $ctrl.invalidCriteria.length;
-        
-        // Success screen
-        totalSteps++;
 
         $ctrl.totalSteps = [];
 
@@ -259,12 +267,8 @@ let FundRequestComponent = function(
             return 'criteria';
         }
 
-        if (step == $ctrl.totalSteps.length) {
+        if (step == $ctrl.totalSteps.length + 1) {
             return 'done';
-        }
-
-        if (step > $ctrl.totalSteps.length) {
-            return 'error';
         }
 
         let prevSteps = 1 + ($ctrl.signedIn ? 0 : 1);
@@ -290,7 +294,8 @@ let FundRequestComponent = function(
 
     $ctrl.nextStep = () => {
         $ctrl.buildSteps();
-        if ($ctrl.step == $ctrl.totalSteps.length - 1) {
+
+        if ($ctrl.step == $ctrl.totalSteps.length) {
             return $ctrl.submitRequest();
         }
 

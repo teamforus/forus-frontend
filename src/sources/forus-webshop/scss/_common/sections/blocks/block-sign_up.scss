@@ -114,6 +114,42 @@
                         margin-bottom: 0;
                     }
                 }
+
+                &.sign_up-pane-list-criteria {
+                    li {
+                        &:before {
+                            display: none;
+                        }
+
+                        .item-icon {
+                            display: inline-block;
+                            width: 20px;
+                            height: 20px;
+                            border-radius: 20px;
+                            border: 2px solid #c4c4c4;
+                            background: transparent;
+                            line-height: 16px;
+                            position: absolute;
+                            left: 0;
+                            top: 1px;
+                            font-size: 16px;
+                            text-align: center;
+                        }
+
+                        &.item-valid {
+                            .item-icon {
+                                border-color: #2ac039;
+                                color: #2ac039;
+                            }
+                        }
+
+                        &.item-invalid {
+                            .item-icon {
+                                border-color: $color_primary;
+                            }
+                        }
+                    }
+                }
             }
 
             .sign_up-pane-heading,
