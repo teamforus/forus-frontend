@@ -61,6 +61,29 @@ let FundRequestsComponent = function(
         $timeout(() => $ctrl.filters.show = false);
     };
 
+    $ctrl.reloadRequest = (request) => {
+        FundRequestValidatorService.read(
+            $ctrl.organization.id,
+            request.fund_id,
+            request.id
+        ).then((res) => {
+            // console.log(res.data.data);
+            res.data.data.hasContent = request.hasContent;
+            res.data.data.collapsed = request.collapsed;
+
+            request.records.forEach((record, index) => {
+                res.data.data.records[index].shown = record.shown;
+            });
+
+            $ctrl.validatorRequests.data[
+                $ctrl.validatorRequests.data.indexOf(request)
+            ] = res.data.data;
+
+            $ctrl.updateSelfAssignedFlags();
+            // $ctrl.validatorRequests.data.indexOf(request);
+        }, console.error);
+    };
+
     let reloadRequests = (query = false) => {
         if (query) {
             $ctrl.filters.values = query;
@@ -184,8 +207,8 @@ let FundRequestsComponent = function(
             request.id,
             $ctrl.employee.id
         ).then(() => {
-            $state.reload();
             showInfoModal("Done!", "Now you are the validator of this request.")
+            $ctrl.reloadRequest(request);
         }, res => showInfoModal(
             "Can't request clarification for the record.",
             res.data.error.message
@@ -198,8 +221,8 @@ let FundRequestsComponent = function(
             request.fund_id,
             request.id
         ).then(() => {
-            $state.reload();
             showInfoModal("Done!", "You successifully resigned from validation request.")
+            $ctrl.reloadRequest(request);
         }, res => showInfoModal(
             "Can't resign from the record.",
             res.data.error.message
@@ -217,12 +240,6 @@ let FundRequestsComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        OrganizationEmployeesService.list($ctrl.organization.id).then(res => {
-            $ctrl.employee = res.data.data.filter((employee) => {
-                return employee.identity_address == $scope.$root.auth_user.address;
-            })[0];
-        });
-
         FundService.list($ctrl.organization.id, {
             per_page: 10000
         }).then(res => {
