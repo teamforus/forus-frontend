@@ -199,7 +199,7 @@ let SignUpComponent = function(
     
             let promise;
     
-            if ($ctrl.office) {
+            if ($ctrl.employee) {
                 promise = OrganizationEmployeesService.update(
                     $ctrl.organization.id,
                     $ctrl.office.id,
@@ -342,6 +342,15 @@ let SignUpComponent = function(
         $ctrl.officeForm.submit().then((res) => {
             $ctrl.enableSaveOfficeBtn = !$ctrl.enableSaveOfficeBtn;
             $ctrl.enableAddOfficeBtn  = !$ctrl.enableAddOfficeBtn;
+        });
+    }
+
+    $ctrl.saveEmployee = () => {
+        $ctrl.employeeForm = $ctrl.buildOfficeForm($ctrl.employeeForm.values);
+
+        $ctrl.employeeForm.submit().then((res) => {
+            $ctrl.enableSaveEmployeeBtn = !$ctrl.enableSaveEmployeeBtn;
+            $ctrl.enableAddEmployeeBtn  = !$ctrl.enableAddEmployeeBtn;
         });
     }
 

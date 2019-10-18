@@ -386,6 +386,7 @@
             
             div(ng-if="$ctrl.step == 5")
                 h2.block-title Zomerzwemregeling aanvraag
+                
                 +progress()
                 
                 .sign_up-pane
@@ -423,7 +424,7 @@
                                         .form-group.col
                                         label.form-label &nbsp;
                                         button(
-                                            ng-click="$ctrl.addEmployee"
+                                            ng-click="$ctrl.saveEmployee()"
                                             ng-class="{'button-disabled': !$ctrl.authForm.values.records.primary_email}"
                                             type="submit").button.button-primary.button-fill Add employee 
 

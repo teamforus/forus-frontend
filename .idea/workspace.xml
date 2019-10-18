@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="faf1e8cb-84f7-4b01-bcc3-637bd66cc016" name="Default Changelist" comment="" />
+    <list default="true" id="faf1e8cb-84f7-4b01-bcc3-637bd66cc016" name="Default Changelist" comment="Provider sign up flow">
+      <change beforePath="$PROJECT_DIR$/src/sources/forus-platform/js/angular-1/components/SignUpComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sources/forus-platform/js/angular-1/components/SignUpComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sources/forus-platform/pug/tpl/pages/sign-up.pug" beforeDir="false" afterPath="$PROJECT_DIR$/src/sources/forus-platform/pug/tpl/pages/sign-up.pug" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -9,7 +12,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -23,7 +26,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -96,6 +98,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -135,6 +138,7 @@
       <workItem from="1571323295023" duration="1289000" />
       <workItem from="1571376308925" duration="649000" />
       <workItem from="1571379256833" duration="212000" />
+      <workItem from="1571404427388" duration="68000" />
     </task>
     <task id="LOCAL-00001" summary="Provider sign up flow">
       <created>1571379416667</created>
@@ -147,12 +151,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3522000" />
+    <option name="totallyTimeSpent" value="3590000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1048" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26040554" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26307365" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
