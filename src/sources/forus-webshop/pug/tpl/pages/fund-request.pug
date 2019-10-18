@@ -28,14 +28,14 @@ section.section.section-product: .wrapper
                 .sign_up-pane-body
                     .sign_up-pane-text 
                         | U staat op het punt om een {{ $ctrl.fund.name }} aan te vragen. 
-                        | Om in aanmmerking te komen, dient u aan de |voorwaarden te voldoen:
+                        | Om in aanmmerking te komen, dient u aan de voorwaarden te voldoen:
                     ul.sign_up-pane-list 
                         li(ng-repeat="critera in $ctrl.fund.criteria")
-                            | {{ critera.record_type_name }} moet
+                            | {{ critera.record_type_name }} moet 
                             span(ng-if="critera.operator == '>'") meer dan 
                             span(ng-if="critera.operator == '='") 
                             span(ng-if="critera.operator == '<'") minder dan 
-                            | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }}.
+                            | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }} zijn.
                     
                     .sign_up-pane-heading Vul uw email adres in om verder te gaan
                     .sign_up-pane-text 
@@ -117,7 +117,7 @@ section.section.section-product: .wrapper
         
         //- List the criteria
         div(ng-if="$ctrl.state == 'criteria'")
-            h2.block-title Bevestig uw gemeente
+            h2.block-title {{ $ctrl.fund.name }} aanvragen
             +progress()
             
             .sign_up-pane
@@ -125,17 +125,17 @@ section.section.section-product: .wrapper
                 .sign_up-pane-body
                     p.sign_up-pane-text
                         | U staat op het punt om een {{ $ctrl.fund.name }} aan te vragen. 
-                        | Om in aanmmerking te komen, dient u aan de |voorwaarden te voldoen:
+                        | Om in aanmmerking te komen, dient u aan de voorwaarden te voldoen:
                     ul.sign_up-pane-list.sign_up-pane-list-criteria
                         li(
                             ng-repeat="critera in $ctrl.fund.criteria" 
                             ng-class="{'item-valid': critera.isValid, 'item-invalid' : !critera.isValid}")
                             .item-icon: em.mdi.mdi-check-bold(ng-if="critera.isValid")
-                            | {{ critera.record_type_name }} moet
+                            | {{ critera.record_type_name }} moet 
                             span(ng-if="critera.operator == '>'") meer dan 
                             span(ng-if="critera.operator == '='") 
                             span(ng-if="critera.operator == '<'") minder dan 
-                            | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }}.
+                            | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }} zijn.
                 
                 .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
                     .col.col-lg-6.text-left: .button.button-text.button-text-padless(
@@ -149,7 +149,7 @@ section.section.section-product: .wrapper
         
         //- Confirm net worth
         div(ng-if="$ctrl.state == 'net_worth'")
-            h2.block-title Zomerzwemregeling aanvraag
+            h2.block-title {{ $ctrl.fund.name }} aanvraag
             +progress()
             
             .sign_up-pane
@@ -187,7 +187,7 @@ section.section.section-product: .wrapper
         div(
             ng-repeat="invalidCriteria in $ctrl.invalidCriteria track by $index"
             ng-if="$ctrl.state == 'criteria_' + $index")
-            h2.block-title Zomerzwemregeling aanvraag
+            h2.block-title {{ $ctrl.fund.name }} aanvraag
             +progress()
             
             .sign_up-pane
@@ -233,12 +233,11 @@ section.section.section-product: .wrapper
                         
                     .form-group.col.col-lg-12: .sign_up-pane-info
                         p.sign_up-pane-text 
-                            | Voor een "{{ $ctrl.product.name }}" 
-                            | vereist de sponsor dat uw "{{ invalidCriteria.record_type_name }}" moet zijn
+                            | Uw "{{ invalidCriteria.record_type_name }}" moet 
                             span(ng-if="invalidCriteria.operator == '>'") meer dan 
-                            span(ng-if="invalidCriteria.operator == '='") 
+                            span(ng-if="invalidCriteria.operator == '='")
                             span(ng-if="invalidCriteria.operator == '<'") minder dan 
-                            | {{ invalidCriteria.record_type_key == 'net_worth' ? '€' : '' }}{{ invalidCriteria.value }}.
+                            | {{ invalidCriteria.record_type_key == 'net_worth' ? '€' : '' }}{{ invalidCriteria.value }} zijn.
                     .form-group.col.col-lg-12: file-uploader(files="invalidCriteria.files")
                 
                 .sign_up-pane-footer: .row
@@ -254,7 +253,7 @@ section.section.section-product: .wrapper
         div(ng-if="$ctrl.state == 'done'")
             //- Success
             div(ng-if="!$ctrl.finishError")
-                h2.block-title Zomerzwemregeling aanvraag
+                h2.block-title {{ $ctrl.fund.name }} aanvraag
                 +progress()
                 
                 .sign_up-pane
@@ -270,16 +269,16 @@ section.section.section-product: .wrapper
                 
             //- Error
             div(ng-if="$ctrl.finishError")
-                h2.block-title Zomerzwemregeling aanvraag
+                h2.block-title {{ $ctrl.fund.name }} aanvraag
                 +progress()
 
                 .sign_up-pane
-                    .sign_up-pane-header Error during fund request submission.
+                    .sign_up-pane-header Er is een fout opgetreden tijdens het aanvragen.
                     .sign_up-pane-body: .row
                         .form-group.col.col-lg-12
                             .block-icon: .mdi.mdi-close
                             p.sign_up-pane-text.text-center 
-                                | Reason: 
+                                | Reden:
                                 span(ng-bind="$ctrl.errorReason")
                     
                             .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
