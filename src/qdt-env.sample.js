@@ -171,6 +171,28 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('dashboard_kerstpakket_provider', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'kerstpakket',
+            panel_type: 'provider',
+            chat_id: false
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('dashboard_kerstpakket_sponsor', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'kerstpakket',
+            panel_type: 'sponsor',
+            chat_id: false
+        });
+
+        return platform;
+    });
+
 
     // Config webshops
     core.editPlatform('webshop_general', (platform) => {
@@ -281,19 +303,9 @@ module.exports = (core) => {
     });
 
     //- Enable only given platforms
-    core.enableOnly([
-        'dashboard_oostgelre_sponsor',
-        'dashboard_oostgelre_provider',
-        'dashboard_winterswijk_sponsor',
-        'dashboard_winterswijk_provider',
-        'dashboard_berkelland_sponsor',
-        'dashboard_berkelland_provider',
-        'webshop_nijmegen',
-        'webshop_westerkwartier',
-        'webshop_oostgelre',
-        'webshop_winterswijk',
-        'webshop_berkelland',
-    ]);
+    /* core.enableOnly([
+
+    ]); */
 
     //- Enable all but given platforms
     /* core.disableOnly([
