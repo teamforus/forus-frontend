@@ -166,9 +166,9 @@
                                                 translate(translate="HERHAAL IBAN–NUMMER")
                                                 tooltip(text="'Vul hier het rekeningnummer in waar u de betalingen op wilt ontvangen'")
                                             ui-control-text(
-                                                ng-model="$ctrl.organizationForm.values.hiban" 
+                                                ng-model="$ctrl.organizationForm.values.iban_confirmation" 
                                                 data-placeholder="HERHAAL IBAN–NUMMER")
-                                            .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban" ng-bind="error")
+                                            .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban_confirmation" ng-bind="error")
                                     
                                     .col.col-md-4
                                         photo-selector.col(
@@ -255,7 +255,6 @@
                                         translate(translate="sign_up.sms.button.send")
                                         em.mdi.mdi-arrow-right-bold                       
 
-
             //- Confirm net worth
             div(ng-if="$ctrl.step == 4")
                 h2.block-title
@@ -269,30 +268,46 @@
                     
                     .sign_up-pane-text: form(ng-submit="$ctrl.next()").form
                         .card-section: .pseudo-wrapper
+                            div(class="office" ng-repeat="office in $ctrl.offices")
+                                .details
+                                    .address
+                                        em.mdi.mdi-map-marker 
+                                        | {{ office.address }}
+                                    .phone(ng-if="office.phone") 
+                                        em.mdi.mdi-phone 
+                                        | {{ office.phone }}
+                                    //- .schedule(ng-if="office.schedule.length") 
+                                    //-     em.mdi.mdi-clock-outline 
+                                    //-     | {{ office.schedule }}
+
+                                .actions
+                                    em.mdi.mdi-pencil-outline(ng-click="$ctrl.editOffice(office)") Edit location  
+                                    em.mdi.mdi-delete(ng-click="$ctrl.deleteOffice($event, office)") Delete location  
+
                             .row.group-block.padding-30
                                 .col.col-md-8
                                     .form-group.col
-                                        label.form-label(translate="Street, building number")
+                                        label.form-label(translate="Address")
                                         ui-control-text(
-                                            ng-model="$ctrl.organizationForm.values.phone.street"
-                                            data-id="criterion_street"
-                                            data-placeholder="Street, building number")
-                                        .form-error(ng-repeat="error in $ctrl.organizationForm.errors.name" ng-bind="error")
+                                            ng-model="$ctrl.officeForm.values.address"
+                                            data-id="office_address"
+                                            data-placeholder="Address")
+                                        .form-error(ng-repeat="error in $ctrl.officeForm.errors.address" ng-bind="error")
                                     
                                     .form-group.col
                                         label.form-label
                                             translate(translate="Telefoonnummer")
                                         ui-control-text(
-                                            ng-model="$ctrl.organizationForm.values.phone" 
+                                            ng-model="$ctrl.officeForm.values.phone" 
                                             data-placeholder="Telefoonnummer")
-                                        .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban" ng-bind="error")
+                                        .form-error(ng-repeat="error in $ctrl.officeForm.errors.phone" ng-bind="error")
                                 
                                 .col.col-md-4
                                     photo-selector.col(
                                         template="photo-selector-sign_up"
                                         type="organization_logo"
                                         thumbnail="$ctrl.media.sizes.thumbnail" 
-                                        select-photo="$ctrl.selectPhoto(file)")
+                                        select-photo="$ctrl.selectOfficePhoto(file)")
                                     .info-block.info-block-primary
                                         | De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px. 
                                         br
@@ -305,45 +320,45 @@
                                     .form-group.col
                                         .row
                                             ui-control-checkbox(
-                                                name="phone_public" 
-                                                data-id="phone_public_input"
+                                                name="office_same_hours" 
+                                                data-id="office_same_hours"
                                                 data-label="{{ 'All weekdays have same hours' }}" 
-                                                ng-model="$ctrl.organizationForm.values.phone_public")
-                                        .form-error(ng-repeat="error in $ctrl.organizationForm.errors.phone" ng-bind="error")
+                                                ng-model="$ctrl.officeForm.values.same_hours")
+                                        .form-error(ng-repeat="error in $ctrl.officeForm.errors.office_same_hours" ng-bind="error")
 
                                     .form-group.col
                                         .row
                                             ui-control-checkbox(
-                                                name="website_public" 
-                                                data-id="website_public_input"
+                                                name="weekend_same_hours" 
+                                                data-id="weekend_same_hours"
                                                 data-label="{{ 'Saturday and Sunday have same hours' }}" 
-                                                ng-model="$ctrl.organizationForm.values.website_public")
-                                        .form-error(ng-repeat="error in $ctrl.organizationForm.errors.website" ng-bind="error")
+                                                ng-model="$ctrl.officeForm.values.weekend_same_hours")
+                                        .form-error(ng-repeat="error in $ctrl.officeForm.errors.weekend_same_hours" ng-bind="error")
                 
                             .row.group-block.padding-30
-                                .col.col-md-8
-                                    table.schedule
-                                        tr 
-                                            th Day
-                                            th Open
-                                            th Start
-                                            th End
-                                        tr(ng-repeat="weekDay in $ctrl.weekDays track by $index")
-                                            td {{ weekDay }}  
-                                            td 
-                                                ui-control-checkbox(
-                                                    name="is_opened{{$index}}" 
-                                                    data-id="schedule_is_opened{{$index}}"
-                                                    ng-model="$ctrl.organizationForm.values.workDays[$index].is_opened")     
-                                            td
-                                                ui-control-text(
-                                                    ng-model="$ctrl.organizationForm.values.iban" 
-                                                    data-placeholder="08:00")          
-                                            td
-                                                ui-control-text(
-                                                    ng-model="$ctrl.organizationForm.values.iban" 
-                                                    data-placeholder="16:00")      
-                            
+                                    .col.col-md-8
+                                        table.schedule
+                                            tr 
+                                                th Day
+                                                th Open
+                                                th Start
+                                                th End
+                                            tr(ng-repeat="(weekDayKey, weekDay) in $ctrl.weekDays")
+                                                td {{ weekDay }}  
+                                                td 
+                                                    ui-control-checkbox(
+                                                        name="is_opened{{$index}}" 
+                                                        data-id="schedule_is_opened{{$index}}"
+                                                        ng-model="$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened")     
+                                                td
+                                                    ui-control-text(
+                                                        ng-model="$ctrl.officeForm.values.schedule[weekDayKey].start_time" 
+                                                        data-placeholder="08:00")          
+                                                td
+                                                    ui-control-text(
+                                                        ng-model="$ctrl.officeForm.values.schedule[weekDayKey].end_time" 
+                                                        data-placeholder="16:00")      
+                                
                             .row.group-block.description                              
                                 | Weekdays from 08:00 till 16:00. 
                                 br 
@@ -353,10 +368,10 @@
                     
                     .location-btns: .row
                         .col.col-lg-4.text-left
-                            button.button-text.button-text-padless(ng-click="$ctrl.saveLocation()")
+                            button.button-text.button-text-padless(ng-click="$ctrl.saveOffice()" ng-disabled="!$ctrl.enableSaveOfficeBtn")
                                 | Save location
                         .col.col-lg-8.text-right
-                            button.button-text.button-text-padless(ng-click="$ctrl.addLocation()")
+                            button.button-text.button-text-padless(ng-click="$ctrl.addOffice()" ng-disabled="!$ctrl.enableAddOfficeBtn")
                                 | Add location
 
                     .sign_up-pane-footer: .row
@@ -385,6 +400,15 @@
 
                         .sign_up-pane-text: form(ng-submit="$ctrl.next()").form: .row
                             .card-section: .pseudo-wrapper
+                                div(class="office" ng-repeat="employee in $ctrl.employees")
+                                    .details
+                                        .email
+                                            | {{ employee.email }}
+
+                                    .actions
+                                        em.mdi.mdi-pencil-outline(ng-click="$ctrl.editEmployee(employee)") Edit employee  
+                                        em.mdi.mdi-delete(ng-click="$ctrl.deleteEmployee($event, employee)") Delete employee  
+
                                 .row.group-block
                                     .col.col-md-7
                                         .form-group.col
@@ -393,16 +417,17 @@
                                                 ng-model="$ctrl.employeeForm.values.email"
                                                 data-id="employee"
                                                 data-placeholder="EMAIL").large
-                                            .form-error(ng-repeat="error in $ctrl.organizationForm.errors.name" ng-bind="error")
+                                            .form-error(ng-repeat="error in $ctrl.employeeForm.errors.name" ng-bind="error")
                                     
                                     .col.col-md-5
                                         .form-group.col
                                         label.form-label &nbsp;
                                         button(
+                                            ng-click="$ctrl.addEmployee"
                                             ng-class="{'button-disabled': !$ctrl.authForm.values.records.primary_email}"
                                             type="submit").button.button-primary.button-fill Add employee 
 
-                        .button.button-text.button-text-padless.add-employee(ng-click="$ctrl.addEmployee()") Add new employee                     
+                        //- .button.button-text.button-text-padless.add-employee(ng-click="$ctrl.addEmployee()") Add new employee                     
 
                     .sign_up-pane-footer: .row
                         .col.col-lg-6.text-left: .button.button-text.button-text-padless(

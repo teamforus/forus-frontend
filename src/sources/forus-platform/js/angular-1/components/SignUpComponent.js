@@ -34,12 +34,14 @@ let SignUpComponent = function(
     $ctrl.organization = null;
     $ctrl.fundsAvailable = [];
     $ctrl.offices = [];
+    $ctrl.employees = [];
     $ctrl.sentSms = false;
 
     let has_app = false;
     let orgMediaFile = false;
     let waitingSms = false;
     let timeout;
+    let officeMediaFile = false;
 
     let invalidPermissions = {
         sponsor: [
@@ -69,8 +71,8 @@ let SignUpComponent = function(
                     loadAvailableFunds($ctrl.organization);
                     $ctrl.setStep(4);
                 } else {
-                    $state.go('organizations');
-                    progressStorage.clear();
+                    //$state.go('organizations');
+                    //progressStorage.clear();
                 }
             });
         }
@@ -150,6 +152,77 @@ let SignUpComponent = function(
         $ctrl.organizationForm.values.business_type_id = value.id;
     };
 
+    $ctrl.buildOfficeForm = (values) => {
+        return FormBuilderService.build(values, async (form) => {
+            form.lock();
+    
+            let promise;
+    
+            if (officeMediaFile) {
+                let res = await MediaService.store('office_photo', officeMediaFile);
+    
+                $ctrl.media = res.data.data;
+                $ctrl.form.values.media_uid = $ctrl.media.uid;
+                
+                officeMediaFile = false;
+            } else {
+                delete $ctrl.officeForm.values.media_uid;
+            }
+    
+            if ($ctrl.office) {
+                promise = OfficeService.update(
+                    $ctrl.organization.id,
+                    $ctrl.office.id,
+                    form.values
+                )
+            } else {
+                promise = OfficeService.store(
+                    $ctrl.organization.id,
+                    form.values
+                )
+            }
+    
+            promise.then((res) => {
+                if (!$ctrl.officeForm.values.id) {
+                    $ctrl.offices.push(res.data.data);
+                }
+            }, (res) => {
+                form.errors = res.data.errors;
+                form.unlock();
+            });
+        });
+    };
+
+    $ctrl.buildEmployeeForm = (values) => {
+        return FormBuilderService.build(values, async (form) => {
+            form.lock();
+    
+            let promise;
+    
+            if ($ctrl.office) {
+                promise = OrganizationEmployeesService.update(
+                    $ctrl.organization.id,
+                    $ctrl.office.id,
+                    form.values
+                )
+            } else {
+                promise = OrganizationEmployeesService.store(
+                    $ctrl.organization.id,
+                    form.values
+                )
+            }
+            
+            promise.then((res) => {
+                if (!$ctrl.employeeForm.values.id) {
+                    $ctrl.employees.push(res.data.data);
+                }
+            }, (res) => {
+                form.errors = res.data.errors;
+                form.unlock();
+            });
+        });
+    };
+
     $ctrl.$onInit = function() {
         $ctrl.requestAuthQrToken();
 
@@ -215,6 +288,14 @@ let SignUpComponent = function(
             );
         });
 
+        $ctrl.officeForm = $ctrl.buildOfficeForm({});
+
+        if ($ctrl.office && $ctrl.office.photo) {
+            MediaService.read($ctrl.office.photo.uid).then((res) => {
+                $ctrl.media = res.data.data;
+            });
+        }
+
         $ctrl.businessType = $ctrl.businessTypes.filter(
             option => option.id == $ctrl.organizationForm.values.business_type_id
         )[0] || null;
@@ -225,6 +306,73 @@ let SignUpComponent = function(
 
         $ctrl.afterInit();
     };
+
+    $ctrl.deleteOffice = ($event, office) => {
+        OfficeService.destroy(office.organization_id, office.id).then((res) => {
+            $ctrl.offices = $ctrl.offices.filter((_office) => {
+                _office.id == 'undefined' ||_office.id != office.id;
+            });
+        });
+
+        $event.preventDefault();
+        $event.stopPropagation();
+    }
+
+    $ctrl.editOffice = (office) => {
+        $ctrl.officeForm = $ctrl.buildOfficeForm(office);
+
+        $ctrl.enableSaveOfficeBtn = !$ctrl.enableSaveOfficeBtn;
+        $ctrl.enableAddOfficeBtn  = !$ctrl.enableAddOfficeBtn;
+    }
+
+    $ctrl.addOffice = () => {
+        if (!Array.isArray($ctrl.offices)) {
+            $ctrl.offices = [];
+        }
+
+        $ctrl.officeForm = $ctrl.buildOfficeForm();
+
+        $ctrl.enableSaveOfficeBtn = !$ctrl.enableSaveOfficeBtn;
+        $ctrl.enableAddOfficeBtn  = !$ctrl.enableAddOfficeBtn;
+    };
+
+    $ctrl.saveOffice = () => {
+        $ctrl.officeForm = $ctrl.buildOfficeForm($ctrl.officeForm.values);
+
+        $ctrl.officeForm.submit().then((res) => {
+            $ctrl.enableSaveOfficeBtn = !$ctrl.enableSaveOfficeBtn;
+            $ctrl.enableAddOfficeBtn  = !$ctrl.enableAddOfficeBtn;
+        });
+    }
+
+    $ctrl.addEmployee = () => {
+        if (!Array.isArray($ctrl.employees)) {
+            $ctrl.employees = [];
+        }
+
+        $ctrl.employeeForm = $ctrl.buildEmployeeForm();
+
+        $ctrl.enableSaveEmployeeBtn = !$ctrl.enableSaveEmployeeBtn;
+        $ctrl.enableAddEmployeeBtn  = !$ctrl.enableAddEmployeeBtn;
+    }
+
+    $ctrl.editEmployee = (employee) => {
+        $ctrl.employeeForm = $ctrl.buildOfficeForm(employee);
+
+        $ctrl.enableSaveEmployeeBtn = !$ctrl.enableSaveEmployeeBtn;
+        $ctrl.enableAddEmployeeBtn  = !$ctrl.enableAddEmployeeBtn;
+    };
+
+    $ctrl.deleteEmployee = function(employee) {
+        OrganizationEmployeesService.destroy(office.organization_id, office.id).then((res) => {
+            $ctrl.employees = $ctrl.employees.filter((_employee) => {
+                _employee.id == 'undefined' ||_employee.id != employee.id;
+            });
+        });
+
+        $event.preventDefault();
+        $event.stopPropagation();
+    }
 
     $ctrl.changeHasApp = function() {
         has_app = !has_app;
@@ -304,13 +452,8 @@ let SignUpComponent = function(
         loadOrganizationOffices(organization);
     };
 
-    $ctrl.addOffice = () => {
-        if (!Array.isArray($ctrl.offices)) {
-            $ctrl.offices = [];
-        }
-
-        $ctrl.offices.push(false);
-    };
+    $ctrl.enableSaveOfficeBtn = true;
+    $ctrl.enableAddOfficeBtn = false;
 
     $ctrl.next = async function() {
         if ($ctrl.organizationStep && !$ctrl.signedIn && $ctrl.step > 1) {
@@ -330,27 +473,6 @@ let SignUpComponent = function(
             $ctrl.setStep($ctrl.step + 1);
         } else if ($ctrl.step == 2) {
 
-            // if ($ctrl.signUpForm.values.records && (
-            //         $ctrl.signUpForm.values.records.primary_email !=
-            //         $ctrl.signUpForm.values.records.primary_email_confirmation)) {
-            //     $ctrl.signUpForm.errors = {};
-            //     $ctrl.signUpForm.errors['records.primary_email_confirmation'] = [$filter('translate')('validation.email_confirmation')];
-            // } else {
-
-            //     IdentityService.make({
-            //         records: {
-            //             primary_email: $ctrl.signUpForm.values.records ? $ctrl.signUpForm.values.records.primary_email : ''
-            //         }
-            //     }).then((res) => {}, (res) => {
-            //         $ctrl.signUpForm.errors = {};
-            //         if (res.data.errors['records.primary_email'] && res.data.errors['records.primary_email'].length) {
-            //             $ctrl.signUpForm.errors['records.primary_email'] = res.data.errors['records.primary_email'];
-            //         } else {
-            //             $ctrl.setStep(3);
-            //         }
-            //     });
-            // }
-
             if (!waitingSms) {
                 $scope.phoneForm.submit().then((res) => {
                     $ctrl.sentSms = true;
@@ -365,10 +487,7 @@ let SignUpComponent = function(
                     }
                 });
             }
-            //$ctrl.setStep(3);
         } else if ($ctrl.step == 3) {
-            //$ctrl.setStep(4);
-            
             let authRes;
 
             if (!$ctrl.signedIn) {
@@ -494,6 +613,10 @@ let SignUpComponent = function(
         orgMediaFile = file;
     };
 
+    $ctrl.selectOfficePhoto = (file) => {
+        officeMediaFile = file;
+    };
+
     $scope.authorizePincodeForm = FormBuilderService.build({
         auth_code: "",
     }, function(form) {
@@ -519,42 +642,9 @@ let SignUpComponent = function(
         'Email adressen van uw kassa medewerkers (optioneel)'
     ];
 
-    $ctrl.weekDays = [
-        'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
-    ];
+    $ctrl.weekDays = OfficeService.scheduleWeekDays();
 
     $ctrl.totalSteps = Array.from({length: 4}, (v, k) => k + 1);
-
-    $ctrl.addEmployee = () => {
-        //console.log('add employee');
-
-        OrganizationEmployeesService.store(
-            employee.organization_id,
-            {}
-        ).then((res) => {
-            $state.reload();
-        }, console.error);
-    }
-
-    $ctrl.editEmployee = (employee) => {
-        ModalService.open('employeeEdit', {
-            organization: $ctrl.organization,
-            roles: $ctrl.roles,
-            employee: employee,
-            submit: () => {
-                $state.reload();
-            }
-        });
-    };
-
-    $ctrl.deleteEmployee = function(employee) {
-        OrganizationEmployeesService.destroy(
-            employee.organization_id,
-            employee.id
-        ).then((res) => {
-            $state.reload();
-        }, console.error);
-    }
 };
 
 module.exports = {

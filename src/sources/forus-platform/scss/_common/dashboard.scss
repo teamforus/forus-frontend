@@ -2444,6 +2444,11 @@ translate,
             padding: 25px;
 
             button {
+                &:disabled {
+                    background-color: #EFF2F4;
+                    color: #CCD0E0;
+                }
+
                 background: rgba(53, 97, 255, 0.15);
                 border-radius: 5px;
                 width: 100%;
@@ -2451,6 +2456,33 @@ translate,
                 border: none;
                 color: #3561FF;
                 cursor: pointer;
+            }
+        }
+
+        .office {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #EFF2F4;
+            // font-style: normal;
+            // font-weight: normal;
+            // font-size: 16px;
+            // line-height: 20px;
+            color: #222530;
+            font: 400 16px/20px $bf;
+
+            .details {
+                width: 60%;
+                display: inline-block;
+                text-align: center;
+            }
+
+            .actions {
+                cursor: pointer;
+                width: 40%;
+                display: inline-block;
+                text-align: right;
+                font-size: 13px;
+                color: #9EA7B6;
             }
         }
 
