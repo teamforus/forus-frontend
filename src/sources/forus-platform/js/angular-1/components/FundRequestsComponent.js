@@ -15,6 +15,7 @@ let FundRequestsComponent = function(
         type: 'info',
         title: title,
         description: message,
+        modalClass: 'modal-md',
     });
 
     $ctrl.funds = [];
