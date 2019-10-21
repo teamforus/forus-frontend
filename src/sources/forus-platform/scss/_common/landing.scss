@@ -1,3 +1,16 @@
+@mixin cf(){
+    *zoom: 1;
+
+    &:before, &:after{
+        content: " ";
+        display: table;
+    }
+
+    &:after{
+        clear: both;
+    }
+}
+
 ui-view {
     flex: 1 0 auto;
     min-height: 85vh;

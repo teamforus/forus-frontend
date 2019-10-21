@@ -155,24 +155,24 @@ let SignUpComponent = function(
     $ctrl.buildOfficeForm = (values) => {
         return FormBuilderService.build(values, async (form) => {
             form.lock();
-    
+            
             let promise;
     
             if (officeMediaFile) {
                 let res = await MediaService.store('office_photo', officeMediaFile);
     
-                $ctrl.media = res.data.data;
-                $ctrl.form.values.media_uid = $ctrl.media.uid;
+                $ctrl.officeMedia = res.data.data;
+                form.values.media_uid = $ctrl.officeMedia.uid;
                 
                 officeMediaFile = false;
             } else {
-                delete $ctrl.officeForm.values.media_uid;
+                delete form.values.media_uid;
             }
     
-            if ($ctrl.office) {
+            if (form.values.id) {
                 promise = OfficeService.update(
                     $ctrl.organization.id,
-                    $ctrl.office.id,
+                    form.values.id,
                     form.values
                 )
             } else {
@@ -181,14 +181,20 @@ let SignUpComponent = function(
                     form.values
                 )
             }
-    
+            
             promise.then((res) => {
-                if (!$ctrl.officeForm.values.id) {
+                if (!form.values.id) {
                     $ctrl.offices.push(res.data.data);
                 }
+
+                $ctrl.enableSaveOfficeBtn = false;
+                $ctrl.enableAddOfficeBtn  = true;
             }, (res) => {
                 form.errors = res.data.errors;
                 form.unlock();
+
+                $ctrl.enableSaveOfficeBtn = true;
+                $ctrl.enableAddOfficeBtn  = false;
             });
         });
     };
@@ -199,10 +205,13 @@ let SignUpComponent = function(
     
             let promise;
     
-            if ($ctrl.employee) {
+            // Fix later
+            form.values.roles = [1];
+
+            if (form.values.id) {
                 promise = OrganizationEmployeesService.update(
                     $ctrl.organization.id,
-                    $ctrl.office.id,
+                    form.values.id,
                     form.values
                 )
             } else {
@@ -213,12 +222,18 @@ let SignUpComponent = function(
             }
             
             promise.then((res) => {
-                if (!$ctrl.employeeForm.values.id) {
+                if (!form.values.id) {
                     $ctrl.employees.push(res.data.data);
                 }
+
+                $ctrl.enableSaveEmployeeBtn = false;
+                $ctrl.enableAddEmployeeBtn  = true;
             }, (res) => {
                 form.errors = res.data.errors;
                 form.unlock();
+
+                $ctrl.enableSaveEmployeeBtn = true;
+                $ctrl.enableAddEmployeeBtn  = false;
             });
         });
     };
@@ -292,7 +307,7 @@ let SignUpComponent = function(
 
         if ($ctrl.office && $ctrl.office.photo) {
             MediaService.read($ctrl.office.photo.uid).then((res) => {
-                $ctrl.media = res.data.data;
+                $ctrl.officeMedia = res.data.data;
             });
         }
 
@@ -307,22 +322,31 @@ let SignUpComponent = function(
         $ctrl.afterInit();
     };
 
-    $ctrl.deleteOffice = ($event, office) => {
+    $ctrl.deleteOffice = (office) => {
         OfficeService.destroy(office.organization_id, office.id).then((res) => {
             $ctrl.offices = $ctrl.offices.filter((_office) => {
-                _office.id == 'undefined' ||_office.id != office.id;
+                return typeof _office.id == 'undefined' || _office.id != office.id;
             });
         });
-
-        $event.preventDefault();
-        $event.stopPropagation();
+        
+        $ctrl.enableSaveOfficeBtn = true;
+        $ctrl.enableAddOfficeBtn  = false;
     }
 
     $ctrl.editOffice = (office) => {
         $ctrl.officeForm = $ctrl.buildOfficeForm(office);
 
-        $ctrl.enableSaveOfficeBtn = !$ctrl.enableSaveOfficeBtn;
-        $ctrl.enableAddOfficeBtn  = !$ctrl.enableAddOfficeBtn;
+        if ($ctrl.officeForm.values.schedule) {
+            $ctrl.officeForm.values.scheduleDetails = {};
+
+            $ctrl.officeForm.values.schedule.forEach((weekDay, index) => {
+                $ctrl.officeForm.values.scheduleDetails[index] = {};
+                $ctrl.officeForm.values.scheduleDetails[index].is_opened = true;
+            });
+        }
+
+        $ctrl.enableSaveOfficeBtn = true;
+        $ctrl.enableAddOfficeBtn  = false;
     }
 
     $ctrl.addOffice = () => {
@@ -332,26 +356,68 @@ let SignUpComponent = function(
 
         $ctrl.officeForm = $ctrl.buildOfficeForm();
 
-        $ctrl.enableSaveOfficeBtn = !$ctrl.enableSaveOfficeBtn;
-        $ctrl.enableAddOfficeBtn  = !$ctrl.enableAddOfficeBtn;
-    };
+        $ctrl.enableSaveOfficeBtn = true;
+        $ctrl.enableAddOfficeBtn  = false;
+    }
 
     $ctrl.saveOffice = () => {
         $ctrl.officeForm = $ctrl.buildOfficeForm($ctrl.officeForm.values);
 
-        $ctrl.officeForm.submit().then((res) => {
-            $ctrl.enableSaveOfficeBtn = !$ctrl.enableSaveOfficeBtn;
-            $ctrl.enableAddOfficeBtn  = !$ctrl.enableAddOfficeBtn;
-        });
+        $ctrl.officeForm.submit();
     }
 
-    $ctrl.saveEmployee = () => {
-        $ctrl.employeeForm = $ctrl.buildOfficeForm($ctrl.employeeForm.values);
+    $ctrl.syncHours = (modifiedFieldIndex) => {
+        $timeout(() => {
+            let time = $ctrl.officeForm.values.schedule[modifiedFieldIndex],
+                start_time = time.start_time,
+                end_time = time.end_time;
+    
+            if (!$ctrl.officeForm.values.same_hours) {
+                return false;
+            }
+    
+            $ctrl.weekDays.forEach((weekDayKey, index) => {
+                if (typeof $ctrl.officeForm.values.scheduleDetails != 'undefined' && 
+                    typeof $ctrl.officeForm.values.scheduleDetails[index] != 'undefined' &&
+                    $ctrl.officeForm.values.scheduleDetails[index].is_opened
+                ) {
+                    if (typeof $ctrl.officeForm.values.schedule[index] == 'undefined') {
+                        $ctrl.officeForm.values.schedule[index] = {};
+                    }
+                    
+                    $ctrl.officeForm.values.schedule[index].start_time = start_time;
+                    $ctrl.officeForm.values.schedule[index].end_time = end_time;
+                }
+            });
+        }, 0);
+    };
 
-        $ctrl.employeeForm.submit().then((res) => {
-            $ctrl.enableSaveEmployeeBtn = !$ctrl.enableSaveEmployeeBtn;
-            $ctrl.enableAddEmployeeBtn  = !$ctrl.enableAddEmployeeBtn;
-        });
+    $ctrl.toggleOpened = (index) => {
+        $timeout(() => {
+            let schedule = $ctrl.officeForm.values.scheduleDetails;
+
+            if (typeof schedule[index] == 'undefined') {
+                schedule[index] = {};
+            }
+
+            $ctrl.officeForm.values.scheduleDetails[index].is_opened != 
+                schedule[index].is_opened;
+
+            if (!schedule[index].is_opened || 
+                typeof $ctrl.officeForm.values.schedule == 'undefined' ||
+                typeof $ctrl.officeForm.values.schedule[index] == 'undefined'
+            ) {
+                return;
+            }
+
+            delete $ctrl.officeForm.values.schedule[index];
+        }, 0);
+    };
+
+    $ctrl.saveEmployee = () => {
+        $ctrl.employeeForm = $ctrl.buildEmployeeForm($ctrl.employeeForm.values);
+
+        $ctrl.employeeForm.submit();
     }
 
     $ctrl.addEmployee = () => {
@@ -361,26 +427,23 @@ let SignUpComponent = function(
 
         $ctrl.employeeForm = $ctrl.buildEmployeeForm();
 
-        $ctrl.enableSaveEmployeeBtn = !$ctrl.enableSaveEmployeeBtn;
-        $ctrl.enableAddEmployeeBtn  = !$ctrl.enableAddEmployeeBtn;
+        $ctrl.enableSaveEmployeeBtn = true;
+        $ctrl.enableAddEmployeeBtn  = false;
     }
 
     $ctrl.editEmployee = (employee) => {
         $ctrl.employeeForm = $ctrl.buildOfficeForm(employee);
 
-        $ctrl.enableSaveEmployeeBtn = !$ctrl.enableSaveEmployeeBtn;
-        $ctrl.enableAddEmployeeBtn  = !$ctrl.enableAddEmployeeBtn;
+        $ctrl.enableSaveEmployeeBtn = true;
+        $ctrl.enableAddEmployeeBtn  = false;
     };
 
     $ctrl.deleteEmployee = function(employee) {
-        OrganizationEmployeesService.destroy(office.organization_id, office.id).then((res) => {
+        OrganizationEmployeesService.destroy($ctrl.organization.id, employee.id).then((res) => {
             $ctrl.employees = $ctrl.employees.filter((_employee) => {
-                _employee.id == 'undefined' ||_employee.id != employee.id;
+                return _employee.id == 'undefined' ||_employee.id != employee.id;
             });
         });
-
-        $event.preventDefault();
-        $event.stopPropagation();
     }
 
     $ctrl.changeHasApp = function() {
@@ -536,28 +599,7 @@ let SignUpComponent = function(
         } else if ($ctrl.step == 4) {
             $ctrl.setStep(5);
         } else if ($ctrl.step == 5) {
-
-            $scope.authorizePincodeForm.submit().then((res) => {
-                CredentialsService.set(null);
-
-                $ctrl.requestAuthQrToken();
-                $ctrl.setStep($ctrl.step + 1);
-
-            }, (res) => {
-                $scope.authorizePincodeForm.unlock();
-                $scope.authorizePincodeForm.errors = res.data.errors;
-
-                if (res.status == 404) {
-                    $scope.authorizePincodeForm.errors = {
-                        auth_code: ["Unknown code."]
-                    };
-                }
-            });
-        } else if ($ctrl.step == 6) {
-            loadAvailableFunds($ctrl.organization);
-            $ctrl.setStep($ctrl.step + 1);
-        } else if ($ctrl.step == 7) {
-            $state.go('organizations');
+            $ctrl.setStep(6);
         }
     };
 
@@ -610,6 +652,10 @@ let SignUpComponent = function(
         });
     };
 
+    $ctrl.finish = () => {
+        $state.go('organizations');
+    }
+
     $ctrl.requestAuthQrToken = () => {
         IdentityService.makeAuthToken().then((res) => {
             $ctrl.authToken = res.data.auth_token;
@@ -651,7 +697,7 @@ let SignUpComponent = function(
         'Email adressen van uw kassa medewerkers (optioneel)'
     ];
 
-    $ctrl.weekDays = OfficeService.scheduleWeekDays();
+    $ctrl.weekDays = Object.values(OfficeService.scheduleWeekDays());
 
     $ctrl.totalSteps = Array.from({length: 4}, (v, k) => k + 1);
 };
