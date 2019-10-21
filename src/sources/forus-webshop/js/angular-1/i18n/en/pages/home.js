@@ -24,7 +24,7 @@ module.exports = {
     faq: {
         title: "Veelgestelde vragen {{client_key}}",
         faq_one: "Hoe kan ik {{fund}} activeren?",
-        one: "Klik rechts bovenaan op 'Activatiecode'. Vul je e-mailadres en de activatiecode in die je per brief hebt ontvangen. Klik vervolgens op 'versturen'. Je profiel is aangemaakt en je {{fund}} voucher is geactiveerd!",
+        one: "Klik bovenaan de pagina onder de welkomsttekst op 'Start'. Gebruik uw eigen e-mailadres en vul vervolgens uw activatiecode in.",
         faq_two: "Hoe kan ik inloggen op de webshop?",
         two: "Dit kan op meerdere manieren, de makkelijkste is per e-mail. Klik rechts bovenaan op 'Inloggen'. Kies voor 'log in via e-mail'. Vul het e-mailadres in die je ook tijdens de activatie hebt gebruikt en klik op 'Versturen'. Open je e-mail en klik op de link die je hebt ontvangen om in te loggen.",
         faq_three: "Bij welke aanbieders kan ik {{fund}} besteden?",
