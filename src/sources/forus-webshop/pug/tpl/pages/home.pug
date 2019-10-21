@@ -3,33 +3,38 @@ top-navbar.nav-var
 header.section.section-header.section-header-landing
     .wrapper
         .header-sprite
-        .header-content(ng-if="$ctrl.funds.length == 1")
-            .header-title(i18n="home.header.title" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
-        .header-content(ng-if="$ctrl.funds.length >= 1")
-            .header-title(i18n="home.header.title_multi" i18n-vars="{ fund: $ctrl.funds[0].name, org_name: $ctrl.funds[0].organization.name }")
+        //.header-content(ng-if="$ctrl.funds.length <= 1")
+        .header-content
+            .header-title(ng-if="$ctrl.funds.length <= 1" i18n="home.header.title" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+            .header-title(ng-if="$ctrl.funds.length > 1" i18n="home.header.title_multi" i18n-vars="{ fund: $ctrl.funds[0].name, org_name: $ctrl.funds[0].organization.name }")
+            .header-description#desc
+                p(ng-if="$ctrl.funds.length <= 1" i18n="home.header.subtitle" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                p(ng-if="$ctrl.funds.length > 1" i18n="home.header.subtitle_multi" i18n-vars="{ org_name: $ctrl.funds[0].organization.name  }")
+
+                // gebruik activatiecode tekst
+                p(ng-if="!$root.auth_user" i18n="home.header.cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                // beheer uw voucher in me tekst
+                p(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" i18n="home.header.auth_cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+            // uitgelogd en activatiecode invullen
+            a(ng-if="!$root.auth_user" ng-click="openAuthCodePopup()" i18n="home.header.button").button.button-primary 
+            // ingelogd geen vouchers  activatie code invullen
+            a(ng-if="$root.auth_user && $ctrl.vouchers.length == 0" ng-click="openActivateCodePopup()" i18n="home.header.button").button.button-primary
+            // download me button
+            a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" ng-click="$ctrl.openInMeModal()" i18n="home.header.auth_button").button.button-primary
+            br
+            br
+            a(ng-if="!$root.auth_user" scroll-to="#steps" i18n="Hoe werkt het?").header-how-it-works
+            a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" href="#!/me-app" target="_blank").header-how-it-works
             //- usage example: 
             //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
             //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
 
-            .header-description#desc(ng-show="!$root.auth_user && $ctrl.funds.length == 1|| $root.auth_user && $ctrl.vouchers.length == 0 && $ctrl.funds.length == 1")
-                p(i18n="home.header.subtitle" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
-                p(i18n="home.header.cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
-            .header-description#desc(ng-show="!$root.auth_user && $ctrl.funds.length >= 1 || $root.auth_user && $ctrl.vouchers.length == 0 && $ctrl.funds.length >= 1")
-                p(i18n="home.header.subtitle_multi" i18n-vars="{ org_name: $ctrl.funds[0].organization.name, start_date: $ctrl.funds[0].start_date_locale }")
-                p(i18n="home.header.cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+            // !$root.auth_user 
+            // $ctrl.vouchers.length == 0
+            // $ctrl.funds.length <= 1
             
-            .header-description#desc(ng-show="$root.auth_user && $ctrl.vouchers.length > 0")
-                p(i18n="home.header.subtitle" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
-                p(i18n="home.header.auth_cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
 
-            a(ng-if="$root.appConfigs.flags.homeButton && !$root.auth_user" ng-click="openAuthCodePopup()" i18n="home.header.button").button.button-primary 
-            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length == 0" ng-click="openActivateCodePopup()" i18n="home.header.button").button.button-primary
-            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length > 0" ng-click="$ctrl.openInMeModal()" i18n="home.header.auth_button").button.button-primary
-            br
-            br
-            a(ng-if="$root.appConfigs.flags.homeButton" scroll-to="#steps" i18n="Hoe werkt het?" ng-show="!$root.auth_user").header-how-it-works
-            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length == 0" scroll-to="#steps" i18n="Hoe werkt het?" ng-show="$root.auth_user").header-how-it-works
-            a(ng-if="$root.appConfigs.flags.homeButton && $root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" href="#!/me-app" target="_blank" ng-show="$root.auth_user").header-how-it-works
+        //.header-content(ng-if="$ctrl.funds.length >= 2")
 
 block-products(
     ng-if="$root.appConfigs.flags.homeProducts"
@@ -50,20 +55,20 @@ section.section.section-steps#steps(ng-if="$root.appConfigs.flags.homeSteps"): .
     .section-title(i18n="home.guide.title")
     .steps
         .step-item: .step-item-content
-            h4(i18n="home.guide.stepone")
-            p(i18n="home.guide.one")
+            h4(translate="home.guide.stepone") 
+            p(translate="home.guide.{{ $root.client_key }}.one" translate-default="{{'home.guide.one' | translate }}")
         .step-item: .step-item-content
-            h4(i18n="home.guide.steptwo")
-            p(translate="home.guide.two" scroll-to="#desc")
+            h4(translate="home.guide.steptwo")
+            p(translate="home.guide.{{ $root.client_key }}.two" translate-default="{{'home.guide.two' | translate }}" scroll-to="#desc")
         .step-item: .step-item-content
-            h4(i18n="home.guide.stepthree")
-            p(i18n="home.guide.three" )
+            h4(translate="home.guide.stepthree")
+            p(translate="home.guide.{{ $root.client_key }}.three" translate-default="{{'home.guide.three' | translate }}")
         .step-item: .step-item-content
-            h4(i18n="home.guide.stepfour")
-            p(translate="home.guide.four")
+            h4(translate="home.guide.stepfour")
+            p(translate="home.guide.{{ $root.client_key }}.four" translate-default="{{'home.guide.four' | translate }}")
         .step-item: .step-item-content
             h4(i18n="home.guide.stepfive")
-            p(translate="home.guide.five")
+            p(translate="home.guide.{{ $root.client_key }}.five" translate-default="{{'home.guide.five' | translate }}")
 
 section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
     .section-title(i18n="home.blog.forus.title")
@@ -81,7 +86,7 @@ section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
     .block.block-show-more: a(href="#" i18n="buttons.read_more").button.button-primary.button-wide
 
 
-section.section.section-faq(ng-if="$root.appConfigs.flags.homeFaq && $ctrl.funds.length == 1"): .wrapper
+section.section.section-faq(ng-if="$root.appConfigs.flags.homeFaq"): .wrapper
     .section-splash
     .section-title {{ "home.faq.title" | i18n }}
     .faq(collapse)
@@ -147,6 +152,6 @@ section.section.section-faq(ng-if="$root.appConfigs.flags.homeFaq && $ctrl.funds
 
         +faq_item(
             'home.faq.faq_fifteen',
-            'home.faq.fifteen') 
+            'home.faq.fifteen')
 
 contact-form 
