@@ -1,160 +1,158 @@
 html {
     @media (max-width: 767px) {
         body{
-            header{
-                .navbar{
-                    border-bottom: 1px solid #e5e6ec;
-                    padding: 12px 0 0px;
-                
-                    .navbar-header{
-                        text-align: center;
-                        .navbar-toggle{
-                            float: left;
-                            padding: 6px 0 0 15px;
-                            margin: 0;
-                            .icon-bar{
-                                background: #9eaad7;
-                                margin-bottom: 0;
-                                &:nth-child(2){
-                                    margin-bottom: 10px;
-                                }
-                            }
-                        }
-                        .navbar-brand{
-                            float: none;
-                            padding-left: 0!important;
-                            margin-left: -10px;
-                            svg{
-                                width: 73px;
-                                height: 14px!important;
+            .navbar{
+                border-bottom: 1px solid #e5e6ec;
+                padding: 12px 0 0px;
+            
+                .navbar-header{
+                    text-align: center;
+                    .navbar-toggle{
+                        float: left;
+                        padding: 6px 0 0 15px;
+                        margin: 0;
+                        .icon-bar{
+                            background: #9eaad7;
+                            margin-bottom: 0;
+                            &:nth-child(2){
+                                margin-bottom: 10px;
                             }
                         }
                     }
-                    .container-fluid{
-                        .navbar-collapse{
-                            .navbar-nav{
-                                .header-auth {
-                                    float: left;
+                    .navbar-brand{
+                        float: none;
+                        padding-left: 0!important;
+                        margin-left: -10px;
+                        svg{
+                            width: 73px;
+                            height: 14px!important;
+                        }
+                    }
+                }
+                .container-fluid{
+                    .navbar-collapse{
+                        .navbar-nav{
+                            .header-auth {
+                                float: left;
+                                position: relative;
+                                z-index: 1;
+                    
+                                .auth-user {
                                     position: relative;
-                                    z-index: 1;
-                        
-                                    .auth-user {
+                                    padding-right: 0px;
+                                    padding-top: 0px;
+                                    padding-bottom: 0px;
+                                    margin-bottom: 0px;
+                                    cursor: default;
+                    
+                                    .auth-user-name {
+                                        display: none;
+                                    }
+                    
+                                    .auth-user-role {
+                                        display:none;
+                                    }
+                    
+                                    .auth-user-img {
+                                        display: none;
+                                        width: 0px;
+                                        height: 0px;
+                                    }
+                    
+                                    .auth-user-menu {
                                         position: relative;
-                                        padding-right: 0px;
-                                        padding-top: 0px;
-                                        padding-bottom: 0px;
-                                        margin-bottom: 0px;
-                                        cursor: default;
-                        
-                                        .auth-user-name {
-                                            display: none;
-                                        }
-                        
-                                        .auth-user-role {
-                                            display:none;
-                                        }
-                        
-                                        .auth-user-img {
-                                            display: none;
-                                            width: 0px;
-                                            height: 0px;
-                                        }
-                        
-                                        .auth-user-menu {
-                                            position: relative;
-                                            border: 0;
-                                            background: #fff;
-                                            border-radius: 0;
-                                            box-shadow: none;
-                                            width: 100%;
-                                            max-width: 80%;
+                                        border: 0;
+                                        background: #fff;
+                                        border-radius: 0;
+                                        box-shadow: none;
+                                        width: 100%;
+                                        max-width: 80%;
+                                        display: block;
+                    
+                                        .auth-user-menu-item {
                                             display: block;
-                        
-                                            .auth-user-menu-item {
-                                                display: block;
-                                                cursor: pointer;
-                                                padding: 5px 15px;
-                                                font: 500 13px/30px 'Montserrat';
-                                                color: #282b39;
-                                                transition: 0.4s;
-                                                width: 100%;
-                        
-                                                &:hover {
-                                                    text-decoration: none;
-                                                    background: #FFF;
-                                                    color: $forus-sky-blue;
-                        
-                                                }
-                                            }
-                        
-                                            .auth-user-menu-sep {
-                                                display: block;
-                                                border-top: 1px solid #f3f4f5;
+                                            cursor: pointer;
+                                            padding: 5px 15px;
+                                            font: 500 13px/30px 'Montserrat';
+                                            color: #282b39;
+                                            transition: 0.4s;
+                                            width: 100%;
+                    
+                                            &:hover {
+                                                text-decoration: none;
+                                                background: #FFF;
+                                                color: $forus-sky-blue;
+                    
                                             }
                                         }
-                        
-                                        &:hover {
-                                            .auth-user-menu {
-                                                display: block;
-                                            }
+                    
+                                        .auth-user-menu-sep {
+                                            display: block;
+                                            border-top: 1px solid #f3f4f5;
+                                        }
+                                    }
+                    
+                                    &:hover {
+                                        .auth-user-menu {
+                                            display: block;
                                         }
                                     }
                                 }
-                                &>li{
-                                    &>a{
+                            }
+                            &>li{
+                                &>a{
+                                    width: 100%;
+                                    max-width: 100%;
+                                    min-width: 100%;
+                                    border-radius: 0!important;
+                                    text-align: left;
+                                    padding: 5px 15px!important;
+                                    height: auto!important;
+                                }
+                                .column-title {
+                                    display:none;
+                                }
+                                span.dropdown {
+                                    position:relative;
+                                    border-radius: 0;
+                                    border: 0;
+                                    background-color: #FFFFFF;
+                                    width: 100%;    
+                                    z-index: 4;  
+                                    padding: 0;
+                                    .dropdown-column-1 {
                                         width: 100%;
-                                        max-width: 100%;
-                                        min-width: 100%;
-                                        border-radius: 0!important;
-                                        text-align: left;
-                                        padding: 5px 15px!important;
-                                        height: auto!important;
-                                    }
-                                    .column-title {
-                                        display:none;
-                                    }
-                                    span.dropdown {
                                         position:relative;
-                                        border-radius: 0;
-                                        border: 0;
-                                        background-color: #FFFFFF;
-                                        width: 100%;    
-                                        z-index: 4;  
-                                        padding: 0;
-                                        .dropdown-column-1 {
-                                            width: 100%;
-                                            position:relative;
-                                            float: left;
-                                            a {
-                                                font-weight: 400;
-                                                display: block;
-                                                color: #191a1c;
-                                                margin: 0;
-                                                margin-left: 0;
-                                                padding: 5px 15px!important;
-                
-                                                &:before{
-                                                    width: 0;
-                                                    display: none;
-                                                    height: 0;
-                                                }
+                                        float: left;
+                                        a {
+                                            font-weight: 400;
+                                            display: block;
+                                            color: #191a1c;
+                                            margin: 0;
+                                            margin-left: 0;
+                                            padding: 5px 15px!important;
+            
+                                            &:before{
+                                                width: 0;
+                                                display: none;
+                                                height: 0;
                                             }
-                                        }       
-                                        .dropdown-column-2 {
-                                            a {
-                                                font-weight: 400;
-                                                display: block;
-                                                margin: 0;
-                                                color: #191a1c;
-                                                padding: 5px 15px!important;
-                                            }
-                                            width: 100%;
-                                            position:relative;
-                                            float: left;
-                                            background-color: #fff;
-                                            border-radius: 0px;
-                                        }                      
-                                    }
+                                        }
+                                    }       
+                                    .dropdown-column-2 {
+                                        a {
+                                            font-weight: 400;
+                                            display: block;
+                                            margin: 0;
+                                            color: #191a1c;
+                                            padding: 5px 15px!important;
+                                        }
+                                        width: 100%;
+                                        position:relative;
+                                        float: left;
+                                        background-color: #fff;
+                                        border-radius: 0px;
+                                    }                      
                                 }
                             }
                         }

@@ -1,6 +1,17 @@
+.collapsing {
+    display: none !important;
+}
+
 html {
     body {
         margin: auto;
+        .nav {
+            display: flex;
+            flex-direction: column;
+            @media screen and (min-width: 768px) { 
+                display: table;
+            }
+        }
         .navbar {
             padding: 18px 0;
             border: 0;
@@ -8,7 +19,10 @@ html {
             max-width: 1200px;
             background-color: #ffffff;
             .container-fluid {
-                
+                @media screen and (min-width: 768px) {
+                    display: flex;
+                    justify-content: center;
+                }
                 .navbar-header{
                     .navbar-brand {
                         padding: 15px 33px 20px;
@@ -109,6 +123,7 @@ html {
                                 //padding: 18px 33px!important;
                                 padding: 1.25vw 2.15vw;
                                 font-weight: 600;
+                                display: flex;
                                 line-height: 24px;
                                 color: #191a1c;
                                 -webkit-transform: rotate(0);
@@ -116,33 +131,21 @@ html {
                                 transform: rotate(0);
                                 cursor: pointer !important;
                                 @include transition();
-                                .caret{
-                                    width: 24px;
-                                    height: 24px;
-                                    border: 0;
-                                    margin-top: -2px;
                                     svg{
-                                        stroke: #fff;
-                                        fill: #000;
-                                        width: 24px;
-                                        height: 24px;
                                         -webkit-transform: rotate(0);
                                         -ms-transform: rotate(0);
                                         transform: rotate(0);
                                         @include transition();
                                     }
-                                }
                                 &:hover, &:active, &:focus, &.active{
                                     background-color: transparent;
                                 }
                                 &[aria-expanded="true"]{
-                                    .caret{
-                                        svg{
-                                            -webkit-transform: rotate(-180deg);
-                                            -ms-transform: rotate(-180deg);
-                                            transform: rotate(-180deg);
-                                            @include transition();
-                                        }
+                                    svg{
+                                        -webkit-transform: rotate(-180deg);
+                                        -ms-transform: rotate(-180deg);
+                                        transform: rotate(-180deg);
+                                        @include transition();
                                     }
                                 }
                                 &.lang{
@@ -166,7 +169,8 @@ html {
                                 border: solid 1px #edf0f8;
                                 background-color: #FFFFFF;
                                 width: 550px;    
-                                z-index: 5;  
+                                z-index: 5;
+                                @include transition();
                                 .column-title {
                                     text-transform: uppercase;
                                     font-size: 15px;

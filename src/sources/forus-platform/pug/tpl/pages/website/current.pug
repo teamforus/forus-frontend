@@ -45,14 +45,14 @@ section
                 h2 Werkwijze
                 .work-st
                     ul
-                        li 1. De mens staat centraal
-                        li 2. Klein beginnen
-                        li 3. Onderzoek als fundament
-                        li 4. Toekomsgericht
-                        li 5. Proactief samenwerken
-                        li 6. Iedereen doet mee
-                        li 7. Persoonlijke communicatie
-                        li 8. Transparant
+                        li De mens staat centraal
+                        li Klein beginnen
+                        li Onderzoek als fundament
+                        li Toekomsgericht
+                        li Proactief samenwerken
+                        li Iedereen doet mee
+                        li Persoonlijke communicatie
+                        li Transparant
 section
     .container
         .cta-area.text-center
@@ -63,9 +63,34 @@ section
 section
     .container
         .wrap_cs__2
-            .wrapper.wrapper_timeline
-                .container.ex2
-                    .timeline
+            .wrapper
+                ul.timeline
+                    // Item 1
+                    li
+                        .direction-r
+                            .flag-wrapper
+                                span.flag Freelancer
+                                span.time-wrapper
+                                    span.time 2013 - present
+                            .desc My current employment. Way better than the position before!
+                    // Item 2
+                    li
+                        .direction-l
+                            .flag-wrapper
+                                span.flag Apple Inc.
+                                span.time-wrapper
+                                    span.time 2011 - 2013
+                            .desc My first employer. All the stuff I&apos;ve learned and projects I&apos;ve been working on.
+                    // Item 3
+                    li
+                        .direction-r
+                            .flag-wrapper
+                                span.flag Harvard University
+                                span.time-wrapper
+                                    span.time 2008 - 2011
+                            .desc A description of all the lectures and courses I have taken and my final degree?
+
+                //-    .timeline
                             .timeline_entry.right
                                 .timeline_entry_date.date_align.date_align_left JAN 2017
                                 .timeline_entry_title
@@ -87,10 +112,9 @@ section
                                 hr.uneven 
                                 .timeline_entry_description 
                                     p Om de visie van de hackathon in de praktijk te kunnen brengen richten Maarten en Jamal Stichting Forus op. De stichting heeft als missie het ontwikkelen van "decentrale applicaties voor het publieke domein".
-                    label(for='item-2') Lees verder
-                    input#item-2(type='checkbox', name='rwo')
-                    .inner 
-                        .hide2   
+                    input#item-2(type='checkbox', name='rwo', checkbox="false")
+                    .inner
+                        .hide2.timeline
                             .timeline_entry.left
                                 .hide2.timeline_entry_date.date_align.date_align_right JUN 2017
                                 .timeline_entry_title
@@ -149,4 +173,7 @@ section
                                     p Tot zover heeft Forus zich vooral gericht op productontwikkeling. De resultaten zijn positief en nu richt de stichting zich op ondersteuning bij nieuwe implementaties. Heb je interesse?
                                     .txt_link.pull-left(href="#" data-toggle="modal" data-target="#modalContact")
                                         | Neem contact op
-                                        include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg    
+                                        include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg
+                    label(for='item-2').txt_link
+                        | Lees verder
+                        include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg

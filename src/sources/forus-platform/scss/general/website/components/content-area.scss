@@ -28,9 +28,54 @@
         }
         .work-st {
             li {
-                :first-of-type {
-                    &::before {
+                display: block;
+                height: 50px;
+                padding-left: 40px;
+                &:before {
+                    position: absolute;
+                    content: "";
+                    height: 30px;
+                    width: 30px;
+                    left: 10px;
+                }
+                &:first-of-type {
+                    &:before {
                         background-image: url($img_path + "/number-1-pink.svg");
+                    }
+                }
+                &:nth-of-type(2n) {
+                    &:before {
+                        background-image: url($img_path + "/number-2-pink.svg");
+                    }
+                }
+                &:nth-of-type(3n) {
+                    &:before {
+                        background-image: url($img_path + "/number-3-pink.svg");
+                    }
+                }
+                &:nth-of-type(4n) {
+                    &:before {
+                        background-image: url($img_path + "/number-4-pink.svg");
+                    }
+                }
+                &:nth-of-type(5n) {
+                    &:before {
+                        background-image: url($img_path + "/number-5-pink.svg");
+                    }
+                }
+                &:nth-of-type(6n) {
+                    &:before {
+                        background-image: url($img_path + "/number-6-pink.svg");
+                    }
+                }
+                &:nth-of-type(7n) {
+                    &:before {
+                        background-image: url($img_path + "/number-7-pink.svg");
+                    }
+                }
+                &:nth-of-type(8n) {
+                    &:before {
+                        background-image: url($img_path + "/number-8-pink.svg");
                     }
                 }
             }

@@ -168,9 +168,9 @@ module.exports = (core) => {
     });
 
     //- Enable only given platforms
-    /* core.enableOnly([
-        'webshop_general'
-    ]); */
+    core.enableOnly([
+        'website'
+    ]);
 
     //- Enable all but given platforms
     /* core.disableOnly([

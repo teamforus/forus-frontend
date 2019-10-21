@@ -2,7 +2,8 @@ nav.navbar
     .container-fluid
         .navbar-header
             button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar")
-                span.sr-only Toggle navigation
+                span.sr-only
+                span.icon-bar
                 span.icon-bar
                 span.icon-bar
             a.navbar-brand(href="/#!/")
@@ -11,8 +12,7 @@ nav.navbar
             ul.nav.navbar-nav
                 li
                     a(type="button" data-toggle="collapse" data-target="#nav-product" aria-expanded="false" aria-controls="nav-product") Toepassingen
-                        .caret
-                            include ../../../../resources/platform-general/assets/img/svg/arrow.svg
+                        include ../../../../resources/platform-general/assets/img/svg/arrow.svg
                     span#nav-product.dropdown.collapse
                         .dropdown-column-1
                             .column-title                           
@@ -28,7 +28,7 @@ nav.navbar
                     a(ui-sref="current") Over ons
                 li
                     a(ui-sref="contact") Contact
-            ul.nav.navbar-nav.navbar-right.auth-out(ng-if="!$root.auth_user")
+                .nav.navbar-nav.navbar-right.auth-out(ng-if="!$root.auth_user")
                 li
                     a.login_btn(ng-click="openAuthPopup()") Inloggen
             ul.nav.navbar-nav.navbar-right.auth-out(ng-if="$root.auth_user")

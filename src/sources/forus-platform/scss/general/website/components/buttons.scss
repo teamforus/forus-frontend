@@ -32,8 +32,9 @@
         @include transition();
         outline: none;
         text-decoration: none;
-        background-color: $bg_hover_color!important;
-        color: $hover_color!important;
+        background-color: $forus-white !important;
+        color: $forus-pink !important;
+        border: solid 1px $forus-pink;
         & > svg{
             left: 10px;
         }
@@ -64,7 +65,16 @@
     @include button($forus-dark-blue, $forus-sky-blue, #ffffff, $forus-demi-blue);
 }
 
-// this txt link is being used
+
+label {
+    &.txt_link {
+        flex-direction: column;
+        svg {
+            transform: rotate(90deg);
+        }
+    }
+}
+
 .txt_link{
     display: flex;
     align-items: center;
