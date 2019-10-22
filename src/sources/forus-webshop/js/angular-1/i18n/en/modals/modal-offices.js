@@ -1,12 +1,12 @@
 module.exports = {
         header: {
-            title: "We hebben {{ count }} aanbieders gevonden",
-            subtitle: "Selecteer een om meer informatie te zien",
+            title: "We have found {{ count }} providers",
+            subtitle: "Select to see more information",
         },
         labels: {
             mail: "E-MAIL",
-            address: "ADRES",
-            hours: "OPENINGSTIJDEN",
-            none: "Openingstijden onbekend, raadpleeg de aanbieder.",
+            address: "ADDRESS",
+            hours: "OPENING HOURS",
+            none: "Opening hours unknown, consult the provider.",
         },
 }

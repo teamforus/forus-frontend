@@ -7,3 +7,6 @@ html(lang="en" ng-controller="BaseController" ng-cloak)
         include ../layout/includes/footer
         printables-root
         include ../layout/includes/scripts
+        script.
+            function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');}
