@@ -2,6 +2,7 @@
     &.section-footer {
         background-color: $lb;
         position: relative;
+        border-top: 1px solid #dbdcdb;
     }
     @media screen and (max-width: 1000px) {
         &.section.section-footer {
@@ -16,32 +17,33 @@
 }
 .block {
     &.block-footer {
+        margin-top: 40px;
         .footer-label {
-            color: $color_primary;
+            color: $color_default;
         }
         
         .footer-schedule {
             .schedule-label,
             .schedule-value {
-                color: $color_primary;
+                color: $tc;
             }
         }
 
         .footer-nav {
             .footer-nav-item {
                 a {
-                    color: $color_primary;
+                    color: $tc;
 
                     &:hover {
-                        color: $tc-var;
+                        color: $color-default;
+                        text-decoration: underline;
                     }
                 }
             }
         }
     }
     &.block-copyrights {
-        border-top: 1px solid #666666;
-        
+        border-top: 1px solid #dbdcdb;
         .copyrights {
             color: $color_primary;
         }
