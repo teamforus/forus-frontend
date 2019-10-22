@@ -321,17 +321,17 @@
                                             
                                             .form-group.col
                                                 .row
-                                                    ui-control-checkbox(
+                                                    ui-control-checkbox.sync(
                                                         name="office_same_hours" 
                                                         data-id="office_same_hours"
                                                         data-label="{{ 'All weekdays have same hours' }}" 
-                                                        ng-change="$ctrl.setSameHours()"
+                                                        ng-change="$ctrl.setSameHours(true)"
                                                         ng-model="$ctrl.officeForm.values.same_hours")
                                                 .form-error(ng-repeat="error in $ctrl.officeForm.errors.office_same_hours" ng-bind="error")
 
                                             .form-group.col
                                                 .row
-                                                    ui-control-checkbox(
+                                                    ui-control-checkbox.sync(
                                                         name="weekend_same_hours" 
                                                         data-id="weekend_same_hours"
                                                         data-label="{{ 'Saturday and Sunday have same hours' }}" 
@@ -390,7 +390,7 @@
                                     em.mdi.mdi-chevron-right.icon-right
 
        
-                div(ng-if="$ctrl.step == 5")
+                div(ng-if="$ctrl.step == 1")
                     h2.block-title
                     
                     +progress()
@@ -445,7 +445,7 @@
                                     | Volgende stap
                                     em.mdi.mdi-chevron-right.icon-right
                 //- Done
-                div.finish-screen(ng-if="$ctrl.step == 6")
+                .finish-screen(ng-if="$ctrl.step == 6")
                     h2.block-title Aanvraag voltooid
                     .sign_up-pane
                         .sign_up-pane-header Aanvraag voltooid

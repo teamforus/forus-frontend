@@ -2768,6 +2768,10 @@ translate,
                             margin-bottom: 5px;
                         }
                     }
+
+                    .sync {
+                        padding-bottom: 0;
+                    }
                 }
             }
         }
@@ -2916,11 +2920,9 @@ translate,
                     }
 
                     button {
-                        // background: #EFF2F4;
-                        // color: #CCD0E0;
-
                         background: #3561FF;
                         color: #FFFFFF;
+                        font-size: 16px;
 
                         &:focus {
                             background: #3561FF;
