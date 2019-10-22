@@ -2,15 +2,15 @@ module.exports = {
 
     // VALIDATE A RECORD = record-validate.pug
         header: { 
-            title: "Mijn eigenschappen",
+            title: "My records",
         },
         labels: {
             validators: "Validators",
         },
         status: {
-            hold: "Wachten",
+            hold: "Pending",
         },
         buttons: {
-            send: "VERZENDEN",
+            send: "SEND",
         }
 }

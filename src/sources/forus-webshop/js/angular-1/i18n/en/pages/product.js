@@ -1,15 +1,15 @@
 module.exports = {
     // PRODUCT = product.pug
     labels: {
-        fund: "Fonds",
-        find: "U kunt ons hier vinden",      
+        fund: "Funds",
+        find: "You can find us here!",      
     },
     status: {
-        active: "Actief",
+        active: "Active",
     },
     buttons: {
-        buy: "KOOP",
+        buy: "BUY",
     },
-    insufficient: "Uw tegoed is te laag.",
-    tooltip: "U kunt de aanbieding alsnog kopen door met uw {{fund}} QR-code naar de aanbieder te gaan. Bij de aanbieder kunt u een bijbetaling doen.",
+    insufficient: "Insufficient budget",
+    tooltip: "You can still purchase the offer by going to the provider with your {{fund}} QR code. You can make an additional payment with the provider.",
 };

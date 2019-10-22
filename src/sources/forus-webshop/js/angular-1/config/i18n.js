@@ -4,7 +4,7 @@ module.exports = ['$translateProvider', 'I18nLibProvider', function($translatePr
 
     $translateProvider.registerAvailableLanguageKeys(['en', 'nl']);
 
-    $translateProvider.preferredLanguage('en');
+    $translateProvider.preferredLanguage('nl');
     $translateProvider.useSanitizeValueStrategy('escapeParameters');
     $translateProvider.useLocalStorage();
 

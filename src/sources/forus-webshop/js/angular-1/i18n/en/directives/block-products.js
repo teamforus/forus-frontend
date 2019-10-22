@@ -1,18 +1,18 @@
 module.exports = { 
         header: {
-            title: "Aanbiedingen",
+            title: "Offers",
         },
         input : {
-            placeholder: "Zoek naar een aanbieding",
+            placeholder: "Search for an offer",
         },
         labels: {
-            discount: "KORTING",
-            old: "VAN",
-            new: "VOOR",
-            title: "Er zijn geen aanbiedingen",
-            subtitle: "Op dit moment zijn er geen aanbiedingen beschikbaar",
+            discount: "DISCOUNT",
+            old: "FROM",
+            new: "FOR",
+            title: "There are no offers",
+            subtitle: "There are currently no offers available",
         },
         buttons: {
-            more: "BEKIJK MEER",
+            more: "Show more",
         }
 }
