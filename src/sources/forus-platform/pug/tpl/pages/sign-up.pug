@@ -38,11 +38,12 @@
                                 li(ng-repeat="field in $ctrl.readMoreFields") {{ field }}
 
                         .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
-                            .col.col-lg-6.text-left: .button.button-text.button-text-padless(
-                                ng-if="!$ctrl.signedIn"
-                                ng-click="$ctrl.prev()")
-                                | Vorige stap
-                                em.mdi.mdi-chevron-left.icon-left
+                            .col.col-lg-6.text-left
+                                //- .button.button-text.button-text-padless(
+                                //-     ng-if="!$ctrl.signedIn"
+                                //-     ng-click="$ctrl.prev()")
+                                //-         | Vorige stap
+                                //-         em.mdi.mdi-chevron-left.icon-left
 
                             .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.next()")
                                 | Volgende stap
@@ -308,7 +309,7 @@
                                             photo-selector.col(
                                                 template="photo-selector-sign_up"
                                                 type="office_photo"
-                                                thumbnail="office.photo.sizes.thumbnail" 
+                                                thumbnail="$ctrl.officeForm.values.photo.sizes.thumbnail" 
                                                 select-photo="$ctrl.selectOfficePhoto(file)")
                                             .info-block.info-block-primary
                                                 | De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px. 
@@ -347,13 +348,13 @@
                                                         th Open
                                                         th Start
                                                         th End
+                                                    
                                                     tr(ng-repeat="(weekDayKey, weekDay) in $ctrl.weekDays track by $index")
                                                         td(ng-class="$index >= 5 ? 'weekend' : ''") {{ weekDay }}
                                                         td
                                                             ui-control-checkbox(
                                                                 name="is_opened{{$index}}" 
                                                                 data-id="schedule_is_opened{{$index}}"
-                                                                ng-init="$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened = false"
                                                                 ng-change="$ctrl.toggleOpened($index)" 
                                                                 ng-model="$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened")     
                                                         td
@@ -381,9 +382,9 @@
 
                         .sign_up-pane-footer: .row
                             .col.col-lg-6.text-left
-                                .button.button-text.button-text-padless(ng-click="$ctrl.back()")
-                                    | Vorige stap
-                                    em.mdi.mdi-chevron-left.icon-lefts
+                                //- .button.button-text.button-text-padless(ng-click="$ctrl.back()")
+                                //-     | Vorige stap
+                                //-     em.mdi.mdi-chevron-left.icon-lefts
                             .col.col-lg-6.text-right
                                 .button.button-text.button-text-padless(ng-click="$ctrl.next()")
                                     | Volgende stap
@@ -422,7 +423,7 @@
                                                 ui-control-text(
                                                     data-id="employee"
                                                     ng-model="$ctrl.employeeForm.values.email"
-                                                    data-placeholder="EMAIL").large
+                                                    data-placeholder="ex. info@info.io").large
                                                 .form-error(ng-repeat="error in $ctrl.employeeForm.errors.name" ng-bind="error")
                                         
                                         .col.col-md-5
@@ -430,10 +431,7 @@
                                             label.form-label &nbsp;
                                             button.button.button-primary.button-fill(
                                                 type="button"
-                                                ng-click="$ctrl.saveEmployee()") Add employee 
-                            
-                            span.add-employee(ng-click="$ctrl.addEmployee()" )
-                                | Voeg nog een medewerker toe                     
+                                                ng-click="$ctrl.saveEmployee()") Add employee               
 
                         .sign_up-pane-footer: .row
                             .col.col-lg-6.text-left: .button.button-text.button-text-padless(
@@ -446,7 +444,10 @@
                                     em.mdi.mdi-chevron-right.icon-right
                 //- Done
                 .finish-screen(ng-if="$ctrl.step == 6")
-                    h2.block-title Aanvraag voltooid
+                    h2.block-title
+                    
+                    +progress()
+
                     .sign_up-pane
                         .sign_up-pane-header Aanvraag voltooid
                         .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row

@@ -54,93 +54,57 @@ let SignUpComponent = function(
         ]
     } [appConfigs.panel_type];
 
-    $ctrl.beforeInit = () => {
-        if ($ctrl.signedIn) {
-            OrganizationService.list().then(res => {
-                $ctrl.organizations = res.data.data.filter(organization => {
-                    return organization.permissions.filter((permission => {
-                        return invalidPermissions.indexOf(permission) == -1;
-                    })).length > 0;
-                });
-
-                if ($ctrl.organizations.length == 0) {
-                    $ctrl.setStep(3);
-                } else if ($ctrl.organizations.length == 1) {
-                    $ctrl.organization = $ctrl.organizations[0];
-                    loadOrganizationOffices($ctrl.organization);
-                    $ctrl.setStep(4);
-                } else {
-                    //$state.go('organizations');
-                    //progressStorage.clear();
-                }
-            });
-        }
-    };
-
     $ctrl.afterInit = () => {
 
     };
 
     let progressStorage = new(function() {
-        let interval;
-
         this.init = () => {
-            let step = this.getStep();
-
-            if (step != null) {
-                if (step == 3 && !$ctrl.signedIn) {
-                    step = 2;
+            if ($ctrl.signedIn) {
+                let step = this.getStep();
+    
+                if (step) {
+                    this.setStep(step);
+                } else {
+                    this.setStep(3);
                 }
-
-                $ctrl.setStep(step);
+            } else {
+                this.setStep(1);
             }
-
-            if (localStorage.getItem('sign_up_form.signUpForm') != null) {
-                $ctrl.signUpForm.values = JSON.parse(
-                    localStorage.getItem('sign_up_form.signUpForm')
-                );
-            }
-
-            if (localStorage.getItem('sign_up_form.organizationForm') != null) {
-                $ctrl.organizationForm.values = JSON.parse(
-                    localStorage.getItem('sign_up_form.organizationForm')
-                );
-            }
-
-            interval = $interval(() => {
-                if ($ctrl.step == 2) {
-                    if ($ctrl.signUpForm.values) {
-                        localStorage.setItem('sign_up_form.signUpForm', JSON.stringify(
-                            $ctrl.signUpForm.values
-                        ));
-                    }
-                } else if ($ctrl.step == 3) {
-                    if ($ctrl.organizationForm.values) {
-                        localStorage.setItem('sign_up_form.organizationForm', JSON.stringify(
-                            $ctrl.organizationForm.values
-                        ));
-                    }
-                }
-            }, 500);
-        };
-
-        this.destroy = () => {
-            $interval.cancel(interval);
         };
 
         this.setStep = (step) => {
             localStorage.setItem('sign_up_form.step', step);
+
+            $ctrl.step = step;
         };
 
         this.getStep = () => {
             let step = parseInt(localStorage.getItem('sign_up_form.step'));
 
+            if (step >= 3) {
+                let organisation_data = {};
+
+                if (localStorage.getItem('sign_up_form.organizationForm') != null) {
+                    organisation_data = JSON.parse(
+                        localStorage.getItem('sign_up_form.organizationForm')
+                    );
+                }
+
+                if (step == 3) {
+                    $ctrl.organizationForm.values = organisation_data;
+                } else {
+                    $ctrl.organization = organisation_data;
+
+                    loadOrganizationOffices($ctrl.organization);
+                    loadEmployees($ctrl.organization);
+                }
+            }
+
             return isNaN(step) ? null : step;
         };
 
         this.clear = () => {
-            $interval.cancel(interval);
-
             localStorage.removeItem('sign_up_form.step');
             localStorage.removeItem('sign_up_form.signUpForm');
             localStorage.removeItem('sign_up_form.organizationForm');
@@ -184,8 +148,13 @@ let SignUpComponent = function(
             promise.then((res) => {
                 if (!form.values.id) {
                     $ctrl.offices.push(res.data.data);
+                } else {
+                    let office = $ctrl.offices.filter((office) => office.id == form.values.id)[0];
+                    for(let value in form.values) {
+                        office[value] = form.values[value];
+                    }
                 }
-
+                
                 $ctrl.enableSaveOfficeBtn = false;
                 $ctrl.enableAddOfficeBtn  = true;
             }, (res) => {
@@ -223,6 +192,14 @@ let SignUpComponent = function(
             promise.then((res) => {
                 if (!form.values.id) {
                     $ctrl.employees.push(res.data.data);
+                } else {
+                    let employee = $ctrl.employees.filter(
+                        (employee) => employee.id == form.values.id
+                    )[0];
+
+                    for(let value in form.values) {
+                        employee[value] = form.values[value];
+                    }
                 }
 
                 $ctrl.enableSaveEmployeeBtn = false;
@@ -239,8 +216,6 @@ let SignUpComponent = function(
 
     $ctrl.$onInit = function() {
         $ctrl.requestAuthQrToken();
-
-        $ctrl.beforeInit();
 
         $ctrl.signUpForm = FormBuilderService.build({
             pin_code: "1111",
@@ -330,16 +305,17 @@ let SignUpComponent = function(
     };
 
     $ctrl.editOffice = (office) => {
-        $ctrl.officeForm = $ctrl.buildOfficeForm(angular.copy(office));
+        if (office.schedule) {
+            office.scheduleDetails = [];
 
-        if ($ctrl.officeForm.values.schedule) {
-            $ctrl.officeForm.values.scheduleDetails = {};
-
-            $ctrl.officeForm.values.schedule.forEach((weekDay, index) => {
-                $ctrl.officeForm.values.scheduleDetails[index] = {};
-                $ctrl.officeForm.values.scheduleDetails[index].is_opened = true;
+            office.schedule.forEach((weekDay, index) => {
+                office.scheduleDetails.push({
+                    is_opened : true
+                });
             });
         }
+        
+        $ctrl.officeForm.values = angular.copy(office);
 
         $ctrl.enableSaveOfficeBtn = true;
         $ctrl.enableAddOfficeBtn  = false;
@@ -357,7 +333,7 @@ let SignUpComponent = function(
     };
 
     $ctrl.saveOffice = () => {
-        $ctrl.officeForm = $ctrl.buildOfficeForm($ctrl.officeForm.values);
+        $ctrl.officeForm = $ctrl.buildOfficeForm($ctrl.officeForm.values); 
 
         $ctrl.officeForm.submit();
     };
@@ -486,10 +462,12 @@ let SignUpComponent = function(
     };
 
     $ctrl.editEmployee = (employee) => {
-        $ctrl.employeeForm = $ctrl.buildOfficeForm(angular.copy(employee));
+        $timeout(function() {
+            $ctrl.employeeForm.values = angular.copy(employee);
 
-        $ctrl.enableSaveEmployeeBtn = true;
-        $ctrl.enableAddEmployeeBtn  = false;
+            $ctrl.enableSaveEmployeeBtn = true;
+            $ctrl.enableAddEmployeeBtn  = false;
+        }, 500);
     };
 
     $ctrl.deleteEmployee = function(employee) {
@@ -500,22 +478,8 @@ let SignUpComponent = function(
         });
     };
 
-    $ctrl.focusEvent = () => {
-        console.log('test');
-    };
-
     $ctrl.changeHasApp = function() {
         has_app = !has_app;
-    };
-
-    $ctrl.skipToStep = (step) => {
-        if (step == 7) {
-            if ($ctrl.organization) {
-                loadOrganizationOffices($ctrl.organization);
-            }
-        }
-
-        $ctrl.setStep(step);
     };
 
     let loadOrganizationOffices = (organization) => {
@@ -530,17 +494,23 @@ let SignUpComponent = function(
         });
     };
 
-    $ctrl.setStep = (step) => {
-        $ctrl.step = step;
+    let loadEmployees = (organization) => {
+        OrganizationEmployeesService.list(
+            organization.id
+        ).then((res) => {
+            if (res.data.data.length) {
+                $ctrl.employees = res.data.data;
+            } else {
+                $ctrl.addEmployee();
+            }
+        });
+    };
 
-        if (step <= 3) {
-            progressStorage.setStep($ctrl.step);
+    $ctrl.setStep = (step) => {
+        if (step <= $ctrl.totalSteps.length) {
+            progressStorage.setStep(step);
         } else {
             progressStorage.clear();
-        }
-
-        if (step == 7 && appConfigs.panel_type == 'sponsor') {
-            $state.go('organizations');
         }
     };
 
@@ -548,6 +518,7 @@ let SignUpComponent = function(
         $ctrl.organization = organization;
 
         loadOrganizationOffices(organization);
+        loadEmployees(organization);
     };
 
     $ctrl.enableSaveOfficeBtn = false;
@@ -558,6 +529,7 @@ let SignUpComponent = function(
             $ctrl.signUpForm.submit().then((res) => {
                 CredentialsService.set(res.data.access_token);
                 $ctrl.setStep($ctrl.step + 1);
+
                 $ctrl.signedIn = true;
             }, (res) => {
                 $ctrl.signUpForm.unlock();
@@ -593,6 +565,7 @@ let SignUpComponent = function(
                     $ctrl.signUpForm.unlock();
                     $ctrl.signUpForm.errors = res.data.errors;
                     $ctrl.organizationStep = true;
+                    
                     $ctrl.setStep(2);
                 });
 
@@ -616,6 +589,12 @@ let SignUpComponent = function(
                 $rootScope.$broadcast('auth:update');
 
                 $ctrl.setOrganization(res.data.data);
+                if ($ctrl.step == 3 && $ctrl.organizationForm.values) {
+                    localStorage.setItem('sign_up_form.organizationForm', JSON.stringify(
+                        res.data.data
+                    ));
+                }
+
                 $ctrl.setStep(4);
             }, (res) => {
                 $ctrl.organizationForm.errors = res.data.errors;
@@ -630,6 +609,10 @@ let SignUpComponent = function(
     };
 
     $ctrl.back = function() {
+        if ($ctrl.signedIn && $ctrl.step <= 4) {
+            return;
+        }
+
         $ctrl.setStep($ctrl.step - 1);
 
         loginQrBlock.hide();
@@ -725,7 +708,7 @@ let SignUpComponent = function(
 
     $ctrl.weekDays = Object.values(OfficeService.scheduleWeekDays());
 
-    $ctrl.totalSteps = Array.from({length: 4}, (v, k) => k + 1);
+    $ctrl.totalSteps = Array.from({length: 6}, (v, k) => k + 1);
 };
 
 module.exports = {
