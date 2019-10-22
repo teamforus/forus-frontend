@@ -55,7 +55,7 @@ module.exports = {
     guide: {
         title: "How does it work?",
         stepone: "Step #1",
-        one: "You have received a letter from the municipality. ",
+        one: "You have received a letter from the municipality. The letter contains the activation code.",
         steptwo: "Step #2",
         two: "Klik op de <u>start</u> knop om uw activatiecode in te vullen. Gebruik uw eigen e-mailadres.",
         stepthree: "Step #3",
