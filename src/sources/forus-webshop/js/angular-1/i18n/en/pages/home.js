@@ -24,7 +24,7 @@ module.exports = {
     faq: {
         title: "Veelgestelde vragen {{client_key}}",
         faq_one: "Hoe kan ik {{fund}} activeren?",
-        one: "Klik rechts bovenaan op 'Activatiecode'. Vul je e-mailadres en de activatiecode in die je per brief hebt ontvangen. Klik vervolgens op 'versturen'. Je profiel is aangemaakt en je {{fund}} voucher is geactiveerd!",
+        one: "Klik bovenaan de pagina onder de welkomsttekst op 'Start'. Gebruik uw eigen e-mailadres en vul vervolgens uw activatiecode in.",
         faq_two: "Hoe kan ik inloggen op de webshop?",
         two: "Dit kan op meerdere manieren, de makkelijkste is per e-mail. Klik rechts bovenaan op 'Inloggen'. Kies voor 'log in via e-mail'. Vul het e-mailadres in die je ook tijdens de activatie hebt gebruikt en klik op 'Versturen'. Open je e-mail en klik op de link die je hebt ontvangen om in te loggen.",
         faq_three: "Bij welke aanbieders kan ik {{fund}} besteden?",
@@ -64,5 +64,9 @@ module.exports = {
         four: "Bij ‘Mijn vouchers’ staat ook een persoonlijke QR-code. Daarmee betaalt u de organisatie waar u een activiteit wilt doen. De QR-code kunt u uitprinten, naar uzelf mailen of altijd op uw telefoon hebben door in te loggen op de app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a> kunt u downloaden via de Google Playstore en de App Store.",
         stepfive: "Stap #5",
         five: "Ga naar 'Aanbiedingen' of het overzicht van alle organisaties om te zien waar de voucher te besteden is of om een aanbieding te kopen. Ga naar de organisatie en laat de bijbehorende QR-code zien om uw aanbieding in ontvangst te nemen.",
+        westerkwartier: {
+            three: "Klik daarna op ‘Aanbiedingen’ om het aanbod op de webshop te zien. Ook kunt u uw tegoed zien. De voucher met het tegoed vindt u terug door bovenaan op ‘Mijn vouchers’ te klikken.",       
+            four: "Bij ‘Mijn vouchers’ staat ook een persoonlijke QR-code. Daarmee betaalt u de organisatie waar u een aankoop wilt doen. De QR-code kunt u uitprinten, naar uzelf mailen of op uw telefoon hebben door in te loggen op de app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a> kunt u downloaden via de Google Playstore en de App Store.",
+        },
     },
 };
