@@ -345,6 +345,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: 'email-preferences',
+        url: '/email/preferences',
+        component: 'emailPreferencesComponent'
+    });
+
+    $stateProvider.state({
         name: "auth-link",
         url: "/auth-link?token",
         controller: [

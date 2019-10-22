@@ -1,0 +1,49 @@
+.section {
+    &.section-profile {
+        .section-title {
+            text-align: left;
+            color: #fff;
+        }
+    }
+}
+.block {
+    &.block-profile {
+        .profile-aside {
+            .profile-card {
+                .profile-details {
+                    .profile-heading {
+                        color: $bc;
+                    }
+                }
+
+                .profile-actions {
+                    .profile-action {
+                        color: $tc;
+
+                        .mdi {
+                            color: $color_primary;
+                        }
+
+                        &:hover {
+                            color: $color_primary;
+                        }
+                    }
+                }
+            }
+
+            .profile-menu {
+                .profile-menu-item {
+                    color: $color_primary;
+
+                    .mdi {
+                        color: $color_primary;
+                    }
+
+                    &.active {
+                        background-color: $color_primary;
+                    }
+                }
+            }
+        }
+    }
+}

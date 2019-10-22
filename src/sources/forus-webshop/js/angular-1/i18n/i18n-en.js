@@ -26,7 +26,11 @@ module.exports = {
         zuidhorn: 'Zuidhorn',
         nijmegen: 'Nijmegen',
         westerkwartier: 'Westerkwartier',
-        forus: 'Forus platform & '
+        forus: 'Forus platform & ',
+        kerstpakket: 'Kerstpakket',
+        berkelland: 'Berkelland',
+        oostgelre: 'Oostgelre',
+        winterswijk: 'Winterswijk',
     },
     languages: {
         en: 'English',
@@ -52,6 +56,7 @@ module.exports = {
     records: require("./en/pages/records"),
     voucher: require("./en/pages/voucher"),
     vouchers: require("./en/pages/vouchers"),
+    notification_preferences: require("./en/pages/notification-preferences"),
 
     // MODALS
     popup_auth: require("./en/modals/modal-auth"),

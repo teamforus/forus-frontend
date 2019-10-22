@@ -173,6 +173,9 @@
                                     ng-change="$ctrl.chageBusinessType(value)"
                                     options="$ctrl.businessTypes"
                                     placeholder="Selecteer organisatie type...")
+                                .form-error(
+                                    ng-repeat="error in $ctrl.organizationForm.errors.business_type_id" 
+                                    ng-bind="error")
                             .form-group
                                 label(translate="organization_edit.labels.kvk").form-label
                                 input(ng-model="$ctrl.organizationForm.values.kvk" type="text" placeholder="KvK-nummer").form-control
@@ -251,11 +254,11 @@
             .card
                 +card_header(6)
 
-                .card-section.card-section-primary
-                    qr-code(ng-if="$ctrl.authToken" qr-value="$ctrl.authToken" qr-type="auth_token" qr-description="{{ 'sign_up.qr_code.description' | translate }}")
+                .card-section.card-section-primary(ng-if="$ctrl.authToken")
+                    qr-code(qr-value="$ctrl.authToken" qr-type="auth_token" qr-description="{{ 'sign_up.qr_code.description' | translate }}")
 
         //- Step 7: Funds available
-        .step-item(ng-show="$ctrl.step == 7")
+        .step-item(ng-if="$ctrl.step == 7")
             .card
                 +card_header(7)
 
@@ -269,7 +272,16 @@
 
                     block-empty(ng-if="$ctrl.funds.length == 0" text="'Er zijn momenteel geen actieve fondsen.'")
 
-            .step-footer: a(ng-click="$ctrl.next()" translate="sign_up.buttons.next").button.button-primary
+            .step-footer
+                a.button.button-text.button-text-muted(
+                    ng-if="$ctrl.fundsLeft.length > 0"
+                    ng-click="$ctrl.next()" 
+                    translate="sign_up.buttons.skip_to_dashboard")
+                
+                a.button.button-primary(
+                    ng-if="$ctrl.fundsLeft.length == 0"
+                    ng-click="$ctrl.next()" 
+                    translate="sign_up.buttons.next")
 
         //- Mobile device warning
         .hidden-lg.hidden-md.open-pc-section: .section-inner

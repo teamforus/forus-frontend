@@ -2,10 +2,8 @@ let OfficeService = function(ApiRequest) {
     let uriPrefix = '/platform';
 
     return new(function() {
-        this.list = function() {
-            return ApiRequest.get(
-                uriPrefix + '/offices'
-            );
+        this.list = function(query = {}) {
+            return ApiRequest.get(uriPrefix + '/offices', query);
         };
 
         this.read = function(id) {

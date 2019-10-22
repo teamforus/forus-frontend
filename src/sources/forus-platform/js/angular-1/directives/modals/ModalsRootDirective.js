@@ -13,7 +13,7 @@ let ModalsRootDirective = function($scope, ModalService, ModalRoute) {
 
             modal.ready = true;
             modal.component = routeModals[modal.key].component;
-            modal.componentType = s.dasherize(
+            modal.componentType = require("underscore.string/dasherize")(
                 routeModals[modal.key].component
             );
             modal.close = function() {

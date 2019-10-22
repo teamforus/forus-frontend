@@ -154,6 +154,7 @@ let FundService = function(ApiRequest) {
                         return product_category.id;
                     }
                 ),
+                criteria: apiResource.criteria,
                 name: apiResource.name,
                 state: apiResource.state,
                 start_date: moment(apiResource.start_date).format('DD-MM-YYYY'),

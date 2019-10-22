@@ -1,17 +1,12 @@
 let ModalOfficesComponent = function(
-    OfficeService,
-    BusinessTypeService
+    $timeout,
+    OfficeService
 ) {
     let $ctrl = this;
-
-    $ctrl.selectedOffice = false;
-    $ctrl.businessTypes = [];
-
-    let getCountOfProviders = function(offices) {
-        return _.uniq(_.pluck(offices, 'organization_id')).length
-    };
+    let timeout = false;
 
     $ctrl.weekDays = OfficeService.scheduleWeekDays();
+    $ctrl.selectedOffice = false;
 
     $ctrl.selectOffice = (office) => {
         $ctrl.selectedOffice = office ? office.id : office;
@@ -25,35 +20,29 @@ let ModalOfficesComponent = function(
         $ctrl.close();
     };
 
-    $ctrl.chageBusinessType = (option) => {
-        $ctrl.businessType = option;
-
-        if ($ctrl.businessType) {
-            $ctrl.shownOffices = $ctrl.offices.filter(
-                office => {
-                    return office.organization.business_type_id == $ctrl.businessType.id;
-                }
-            );
-
-            $ctrl.providersCount = getCountOfProviders($ctrl.shownOffices);
+    $ctrl.chageSearchString = (value) => {
+        if (timeout) {
+            $timeout.cancel(timeout);
         }
 
-        $ctrl.selectOffice(false);
+        timeout = $timeout(() => $ctrl.loadOffices($ctrl.query), 1000);
+    };
+
+    $ctrl.loadOffices = (q = "") => {
+        OfficeService.list({
+            q: q,
+            approved: 1,
+        }).then(res => {
+            $ctrl.offices = res.data.data;
+            $ctrl.shownOffices = $ctrl.offices;
+            $ctrl.providersCount = _.uniq(
+                _.pluck($ctrl.offices, 'organization_id')
+            ).length;
+        });
     };
 
     $ctrl.$onInit = () => {
-        BusinessTypeService.list({
-            used: 1
-        }).then(res => {
-            $ctrl.businessTypes = res.data.data;
-        });
-
-        OfficeService.list().then(res => {
-            console.log(res.data.data);
-            $ctrl.offices = res.data.data;
-            $ctrl.shownOffices = $ctrl.offices;
-            $ctrl.providersCount = getCountOfProviders($ctrl.shownOffices);
-        });
+        $ctrl.loadOffices();
     };
 
     $ctrl.$onDestroy = function() {};
@@ -65,8 +54,8 @@ module.exports = {
         modal: '='
     },
     controller: [
+        '$timeout',
         'OfficeService',
-        'BusinessTypeService',
         ModalOfficesComponent
     ],
     templateUrl: () => {

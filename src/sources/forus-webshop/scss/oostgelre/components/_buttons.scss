@@ -1,0 +1,42 @@
+.button {
+    &:hover {
+        box-shadow: none;
+    }
+    font: 700 16px/1.5em $bf;
+    border-radius: 0;
+    text-transform: lowercase;
+    &.button-default {
+        background-color: $color_primary;
+        border: none;
+        color: $tc-var;
+
+        .mdi {
+            color: $tc-var;
+        }
+
+        &:hover {
+            background-color: $bg;
+            border-color: transparent;
+            border: 0;
+            color:  $tc;
+            text-decoration: underline;
+
+            .mdi {
+                color: $tc;
+            }
+        }
+    }
+    &.button-primary {
+        color: $tc-var;
+        background: $color-default;
+        text-shadow: none;
+        border: 1px solid #53525246;
+        &:hover {
+            color: #535252;
+            text-decoration: underline;
+            background: #e9f5fa;
+            background-color: #e9f5fa;
+            border: 0;
+        }
+    }
+}

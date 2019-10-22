@@ -30,7 +30,6 @@ platform.setLibs([
     "ui_select",
     "file_saver",
     "underscore",
-    "underscore.string",
 ]);
 
 // add js task

@@ -74,8 +74,7 @@ let GoogleMapDirective = function(
                 var description = [
                     'Adres: ' + (office.address || 'Geen data'),
                     'Business type: ' + (office.organization.business_type ?
-                        office.organization.business_type.name : 'Geen data'),
-                    'Categorieën: ' + (office.organization.categories || 'Geen data'),
+                        office.organization.business_type.name : 'Geen data')
                 ];
 
                 if (office.organization.website) {
