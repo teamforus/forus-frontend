@@ -51,10 +51,11 @@
             }
         }
     }
+    
     &.button-two-spans{
-        display: grid;
-        grid-template-columns: auto auto;
-        grid-template-rows: auto auto;
+        display: flex !important;
+        padding: 7px !important;
+        align-items: center !important;
         .icon-me {
             mask: url('../img/icon-me.svg');
             background: $color_default;
@@ -63,13 +64,28 @@
             mask-size: cover;
             height: 30px;
             width: 30px;
-            margin: 0px 15px;
+            margin: 0 7px 0px 0px;
             border: 1px;
+        }
+        .first-line-button {
+            line-height: 10px;
+            font-size: 16px;
+            height: 100%;
+            text-align: right;
+            flex: 1;
+            text-transform: lowercase;
+            &::first-letter{
+                text-transform: uppercase;
+            }
+        }
+        
+        .second-line-button {
+            display: none;
         }
         &:hover {
             .icon-me {
                 mask: url('../img/icon-me.svg');
-                background: #FFF;
+                background: #157c68;
                 mask-size: cover;
             }
         }
