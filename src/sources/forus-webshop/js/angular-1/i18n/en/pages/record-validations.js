@@ -1,13 +1,13 @@
 module.exports = {
     // VALIDATIONS OF THE RECORDS = record-validations.pug
         header: { 
-            title: "Mijn eigenschappen",
+            title: "My records",
         },
         labels: {
-            count: "validaties",
-            validations: "Validaties",
+            count: "validations",
+            validations: "Validations",
         },
         buttons: {
-            send: "Verstuur een validatieverzoek",
+            send: "Send a validation request",
         }
 }

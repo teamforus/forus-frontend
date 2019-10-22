@@ -1,13 +1,13 @@
 module.exports = {
     // RECORDS = records.pug
     header: { 
-        title: "Eigenschappen",
+        title: "Records",
     },
     labels: {
-        count: "validaties",
+        count: "Validation",
     },
     buttons: {
-        validate: "Valideer",
-        create: "Eigenschap aanmaken",
+        validate: "Validate",
+        create: "Create record",
     }
 }
