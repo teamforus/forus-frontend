@@ -68,7 +68,6 @@ let SignUpComponent = function(
                 } else if ($ctrl.organizations.length == 1) {
                     $ctrl.organization = $ctrl.organizations[0];
                     loadOrganizationOffices($ctrl.organization);
-                    loadAvailableFunds($ctrl.organization);
                     $ctrl.setStep(4);
                 } else {
                     //$state.go('organizations');
@@ -205,8 +204,8 @@ let SignUpComponent = function(
     
             let promise;
     
-            // Fix later
-            form.values.roles = [1];
+            // Fix later - role operation_officer
+            form.values.roles = [5];
 
             if (form.values.id) {
                 promise = OrganizationEmployeesService.update(
@@ -328,9 +327,6 @@ let SignUpComponent = function(
                 return typeof _office.id == 'undefined' || _office.id != office.id;
             });
         });
-        
-        $ctrl.enableSaveOfficeBtn = true;
-        $ctrl.enableAddOfficeBtn  = false;
     }
 
     $ctrl.editOffice = (office) => {
@@ -366,27 +362,59 @@ let SignUpComponent = function(
         $ctrl.officeForm.submit();
     }
 
+    $ctrl.setSameHours = (week_days = true) => {
+        $timeout(() => {
+            if ($ctrl.officeForm.values.same_hours && week_days) {
+                $ctrl.weekDays.forEach((weekDayKey, index) => {
+                    if (index <= 4) {
+                        if (typeof $ctrl.officeForm.values.scheduleDetails == 'undefined') {
+                            $ctrl.officeForm.values.scheduleDetails = {};
+                        }
+                        if (typeof $ctrl.officeForm.values.scheduleDetails[index] == 'undefined') {
+                            $ctrl.officeForm.values.scheduleDetails[index] = {};
+                        }
+                        
+                        $ctrl.officeForm.values.scheduleDetails[index].is_opened = true;
+                    }
+                });
+            }
+
+            if ($ctrl.officeForm.values.weekend_same_hours && !week_days) {
+                $ctrl.weekDays.forEach((weekDayKey, index) => {
+                    if (index >= 5) {
+                        if (typeof $ctrl.officeForm.values.scheduleDetails == 'undefined') {
+                            $ctrl.officeForm.values.scheduleDetails = {};
+                        }
+                        if (typeof $ctrl.officeForm.values.scheduleDetails[index] == 'undefined') {
+                            $ctrl.officeForm.values.scheduleDetails[index] = {};
+                        }
+                        
+                        $ctrl.officeForm.values.scheduleDetails[index].is_opened = true;
+                    }
+                });
+            }
+        }, 0);
+    }
+
     $ctrl.syncHours = (modifiedFieldIndex) => {
         $timeout(() => {
-            let time = $ctrl.officeForm.values.schedule[modifiedFieldIndex],
-                start_time = time.start_time,
-                end_time = time.end_time;
-    
-            if (!$ctrl.officeForm.values.same_hours) {
-                return false;
-            }
-    
+            let time = $ctrl.officeForm.values.schedule[modifiedFieldIndex]; 
+
             $ctrl.weekDays.forEach((weekDayKey, index) => {
                 if (typeof $ctrl.officeForm.values.scheduleDetails != 'undefined' && 
                     typeof $ctrl.officeForm.values.scheduleDetails[index] != 'undefined' &&
                     $ctrl.officeForm.values.scheduleDetails[index].is_opened
                 ) {
+                    if (!$ctrl.officeForm.values.same_hours) { 
+                        return;
+                    }
+
                     if (typeof $ctrl.officeForm.values.schedule[index] == 'undefined') {
                         $ctrl.officeForm.values.schedule[index] = {};
                     }
-                    
-                    $ctrl.officeForm.values.schedule[index].start_time = start_time;
-                    $ctrl.officeForm.values.schedule[index].end_time = end_time;
+
+                    $ctrl.officeForm.values.schedule[index].start_time =  time.start_time;
+                    $ctrl.officeForm.values.schedule[index].end_time = time.end_time;
                 }
             });
         }, 0);
@@ -454,7 +482,6 @@ let SignUpComponent = function(
         if (step == 7) {
             if ($ctrl.organization) {
                 loadOrganizationOffices($ctrl.organization);
-                loadAvailableFunds($ctrl.organization);
             }
         }
 
@@ -470,37 +497,6 @@ let SignUpComponent = function(
             } else {
                 $ctrl.addOffice();
             }
-        });
-    };
-
-    let loadAvailableFunds = (organization) => {
-        ProviderFundService.listAvailableFunds(
-            organization.id, $stateParams.fundId ? {
-                fund_id: $stateParams.fundId
-            } : {}
-        ).then((res) => {
-            let fundsAvailable = res.data.data;
-
-            if ($stateParams.fundId && fundsAvailable.length > 0) {
-                let targetFund = fundsAvailable.filter(
-                    fund => fund.id == $stateParams.fundId
-                )[0] || null;
-
-                if (targetFund) {
-                    return ProviderFundService.applyForFund(
-                        $ctrl.organization.id,
-                        targetFund.id
-                    ).then($ctrl.next);
-                }
-            }
-
-            $ctrl.fundsAvailable = fundsAvailable;
-
-            $scope.$watch(() => $ctrl.fundsAvailable, function(funds) {
-                $ctrl.fundsLeft = (funds || []).filter(fund => {
-                    return !fund.applied;
-                });
-            }, true);
         });
     };
 
@@ -524,8 +520,8 @@ let SignUpComponent = function(
         loadOrganizationOffices(organization);
     };
 
-    $ctrl.enableSaveOfficeBtn = true;
-    $ctrl.enableAddOfficeBtn = false;
+    $ctrl.enableSaveOfficeBtn = false;
+    $ctrl.enableAddOfficeBtn = true;
 
     $ctrl.next = async function() {
         if ($ctrl.organizationStep && !$ctrl.signedIn && $ctrl.step > 1) {

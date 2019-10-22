@@ -2,453 +2,475 @@
 
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 .app.app-container: .block.block-sign-up-steps
-    section.section.section-product: .wrapper
-        mixin progress()
-            .sign_up-progress
-                .sign_up-step(
-                    ng-repeat="step in $ctrl.totalSteps"
-                    ng-class="$ctrl.step == step ? 'sign_up-step-active' : ($ctrl.step > step ? 'sign_up-step-done' : '')"
-                    ng-bind="'Stap ' + step")
+    section.section.section-product
+        .header 
+            .back Terug
+            .heading Aanmelden als aanbieder
 
-        //- General information
-        mixin card_header(step)
-            .sign_up-pane-header(translate="sign_up.header.title_step_" + step)         
-            
-        .block.block-sign_up: .block-wrapper
-            //- Log in
-            div(ng-if="$ctrl.step == 1")
-                h2.block-title
+        .wrapper
+            mixin progress()
+                .sign_up-progress
+                    .sign_up-step(
+                        ng-repeat="step in $ctrl.totalSteps"
+                        ng-class="$ctrl.step == step ? 'sign_up-step-active' : ($ctrl.step > step ? 'sign_up-step-done' : '')"
+                        ng-bind="'Stap ' + step")
+
+            //- General information
+            mixin card_header(step)
+                .sign_up-pane-header(translate="sign_up.header.title_step_" + step)         
                 
-                +progress()
-                
-                .sign_up-pane
-                    +card_header(1)
-
-                    .sign_up-pane-body
-                        .sign_up-pane-text
-                            | Bedankt dat u wil aanmelden als aanbieder. De volledige aanmeld procedure duurt ongeveer 5 minuten. Klanten zullen bij u in de winkel komen met een plaatje (QR code),  bekend van toegangskaartjes en vliegtickets. Deze code scant u met een app die u in de volgende stap gaat instaleren. Zorg dat u de volgende zaken alvast bij de hand heeft: 
-                        
-                        br
-                        ul.sign_up-pane-list 
-                            li(ng-repeat="field in $ctrl.readMoreFields") {{ field }}
-
-                    .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
-                        .col.col-lg-6.text-left: .button.button-text.button-text-padless(
-                            ng-if="!$ctrl.signedIn"
-                            ng-click="$ctrl.prev()")
-                            | Vorige stap
-                            em.mdi.mdi-chevron-left.icon-left
-
-                        .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.next()")
-                            | Volgende stap
-                            em.mdi.mdi-chevron-right.icon-right    
-            
-            //- Scan QR Code
-            div(ng-if="$ctrl.step == 2")
-                h2.block-title
-                
-                +progress()
-                
-                .sign_up-pane
-                    +card_header(2)
-
-                    .sign_up-pane-body
-                        .sign_up-pane-text
-                            | U gaat de app installeren waarmee u de betalingen zal uitvoeren. 
-                            | In de app maakt u eerst zelf een profiel, later kan u eventueel meerdere (kassa) medewerkers toevoegen die namens u betalingen kunnen uitvoeren.
-
-                        .sign_up-pane-heading De app installeren
-                        .sign_up-pane-text 
-                            | De app kan op vrijwel elke smartphone gebruikt worden en is beschikbaar op iOS en Android. 
-                            | Vul uw telefoon nummer in om een download link te ontvangen, of ga op uw mobiele telefoon naar 
-                            a(href="http://www.forus.io/DL" target="_blank") www.forus.io/DL
-
-                        .sign_up-pane-heading Vul uw mobiele nummer in            
-                            phone-control(ng-model="phoneForm.values.phone" cant-delete-length="2")
-                            .pincode-errors.text-center: .form-error(ng-repeat="error in phoneForm.errors.phone" ng-bind="error")
-
-                        .button.download-link
-                            | Verstuur downloadlink
-                            
-                        .sign_up-pane-auth
-                            .sign_up-pane-auth-content
-                                .sign_up-pane-heading Scan de code om verder te gaan    
-                                
-                                | Maak een persoonlijk profiel aan in de app, en scan vervolgens de code die u rechts ziet met de scanner in de app.
-                                
-                                .sign_up-pane-auth-apps
-                                    a(href="#").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
-                                    a(href="#").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
-                            
-                            .sign_up-pane-auth-qr_code
-                                qr-code(
-                                    ng-if="$ctrl.authToken" 
-                                    qr-value="$ctrl.authToken" 
-                                    qr-type="auth_token" 
-                                    qr-logo=src_prefix + "./assets/img/me-logo.png")
-
-                .step-footer(ng-if="$ctrl.has_app")
-                    a(translate="sign_up.buttons.go_step_2" ng-click="$ctrl.skipToStep(2)").button.button-primary                
-            
-            //- Manage organization details
-            div(ng-if="$ctrl.step == 3")
-                h2.block-title
-                
-                +progress()
-                
-                .sign_up-pane
-                    +card_header(3)
+            .block.block-sign_up: .block-wrapper
+                //- Log in
+                div(ng-if="$ctrl.step == 1")
+                    h2.block-title
                     
-                    .sign_up-pane-body
-                        .sign_up-pane-text.with-border
-                            | Om deel te kunnen nemen, gaat u uw organisatie aanmaken. 
-                            | Door de gegevens in te vullen zal u de betalingen automatisch op uw rekening ontvangen, u hoeft hier straks zelf verder niks meer voor te doen.
-
-                        .sign_up-pane-text: form(ng-submit="$ctrl.next()").form: .row
-                            .card-section: .pseudo-wrapper
-                                .row.group-block.with-border
-                                    .col.col-md-8
-                                        .form-group.col
-                                            label.form-label(translate="organization_edit.labels.name")
-                                            ui-control-text(
-                                                ng-model="$ctrl.organizationForm.values.name"
-                                                data-id="criterion_{{ invalidCriteria.id }}"
-                                                data-placeholder="Bedrijfsnaam")
-                                            .form-error(ng-repeat="error in $ctrl.organizationForm.errors.name" ng-bind="error")
-                                        
-                                        .form-group.col
-                                            label.form-label
-                                                translate(translate="organization_edit.labels.bank")
-                                                tooltip(text="'Vul hier het rekeningnummer in waar u de betalingen op wilt ontvangen'")
-                                            ui-control-text(
-                                                ng-model="$ctrl.organizationForm.values.iban" 
-                                                data-placeholder="IBAN-nummer")
-                                            .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban" ng-bind="error")
-                                        
-                                        .form-group.col
-                                            label.form-label
-                                                translate(translate="HERHAAL IBAN–NUMMER")
-                                                tooltip(text="'Vul hier het rekeningnummer in waar u de betalingen op wilt ontvangen'")
-                                            ui-control-text(
-                                                ng-model="$ctrl.organizationForm.values.iban_confirmation" 
-                                                data-placeholder="Example: NL123456789B01")
-                                            .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban_confirmation" ng-bind="error")
-                                    
-                                    .col.col-md-4
-                                        photo-selector.col(
-                                            template="photo-selector-sign_up"
-                                            type="organization_logo"
-                                            thumbnail="$ctrl.media.sizes.thumbnail" 
-                                            select-photo="$ctrl.selectPhoto(file)")
-                                        .info-block.info-block-primary
-                                            | De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px. 
-                                            br
-                                            | Toegestaande formaten: .JPG, .PNG    
-
-                                .row.group-block.with-border
-                                    .col
-                                        .form-group.col
-                                            label(translate="organization_edit.labels.mail").form-label
-                                            .row
-                                                .col.col-md-8: ui-control-text(
-                                                    ng-model="$ctrl.organizationForm.values.email"
-                                                    placeholder="E-mailadres")
-
-                                                .col.col-md-4: ui-control-checkbox(
-                                                    name="email_public" 
-                                                    data-id="email_public_input"
-                                                    data-label="{{ 'Maak publiek' | i18n }}" 
-                                                    ng-model="$ctrl.organizationForm.values.email_public")
-                                            .form-error(ng-repeat="error in $ctrl.organizationForm.errors.email" ng-bind="error")
-                                        
-                                        .form-group.col
-                                            label(translate="organization_edit.labels.phone").form-label
-                                            .row
-                                                .col.col-md-8: ui-control-text(
-                                                    ng-model="$ctrl.organizationForm.values.phone"
-                                                    placeholder="Telefoonnummer")
-                                                .col.col-md-4: ui-control-checkbox(
-                                                    name="phone_public" 
-                                                    data-id="phone_public_input"
-                                                    data-label="{{ 'Maak publiek' | i18n }}" 
-                                                    ng-model="$ctrl.organizationForm.values.phone_public")
-                                            .form-error(ng-repeat="error in $ctrl.organizationForm.errors.phone" ng-bind="error")
-
-                                        .form-group.col
-                                            label(translate="organization_edit.labels.website").form-label
-                                            .row
-                                                .col.col-md-8: ui-control-text(
-                                                    ng-model="$ctrl.organizationForm.values.website"
-                                                    placeholder="Website")
-                                                .col.col-md-4: ui-control-checkbox(
-                                                    name="website_public" 
-                                                    data-id="website_public_input"
-                                                    data-label="{{ 'Maak publiek' | i18n }}" 
-                                                    ng-model="$ctrl.organizationForm.values.website_public")
-                                            .form-error(ng-repeat="error in $ctrl.organizationForm.errors.website" ng-bind="error")
+                    +progress()
                     
-                                .row.group-block
-                                    .col.col-md-8
-                                        .form-group.col
-                                            .form-label(translate="organization_edit.labels.business_type")
-                                            .form-offset: select-control(
-                                                ng-model="$ctrl.businessType" 
-                                                ng-change="$ctrl.chageBusinessType(value)"
-                                                options="$ctrl.businessTypes"
-                                                placeholder="Selecteer organisatie type...")
-                                            .form-error(
-                                                ng-repeat="error in $ctrl.organizationForm.errors.business_type_id" 
-                                                ng-bind="error")
+                    .sign_up-pane
+                        +card_header(1)
 
-                                        .form-group.col
-                                            label(translate="organization_edit.labels.kvk").form-label
-                                            ui-control-text(
-                                                ng-model="$ctrl.organizationForm.values.kvk"
-                                                data-placeholder="KvK-nummer")
-                                            .form-error(ng-repeat="error in $ctrl.organizationForm.errors.kvk" ng-bind="error")
+                        .sign_up-pane-body
+                            .sign_up-pane-text
+                                | Bedankt dat u wil aanmelden als aanbieder. De volledige aanmeld procedure duurt ongeveer 5 minuten. Klanten zullen bij u in de winkel komen met een plaatje (QR code),  bekend van toegangskaartjes en vliegtickets. Deze code scant u met een app die u in de volgende stap gaat instaleren. Zorg dat u de volgende zaken alvast bij de hand heeft: 
+                            
+                            br
+                            ul.sign_up-pane-list 
+                                li(ng-repeat="field in $ctrl.readMoreFields") {{ field }}
 
-                                        .form-group.col
-                                            label(translate="organization_edit.labels.tax").form-label
-                                            ui-control-text(
-                                                ng-model="$ctrl.organizationForm.values.btw"
-                                                data-placeholder="BTW-nummer")
-                                            .form-error(ng-repeat="error in $ctrl.organizationForm.errors.btw" ng-bind="error")
-
-                    .sign_up-pane-footer: .row
-                        .col.col-lg-6.text-left 
-                            .button.button-text.button-text-padless(ng-click="$ctrl.back()")
+                        .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
+                            .col.col-lg-6.text-left: .button.button-text.button-text-padless(
+                                ng-if="!$ctrl.signedIn"
+                                ng-click="$ctrl.prev()")
                                 | Vorige stap
-                                em.mdi.mdi-chevron-left.icon-lefts
-                        .col.col-lg-6.text-right
-                            .button.button-text.button-text-padless(ng-click="$ctrl.next()")
+                                em.mdi.mdi-chevron-left.icon-left
+
+                            .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.next()")
                                 | Volgende stap
-                                em.mdi.mdi-chevron-right.icon-right
-            
-            //- Manage offices
-            div(ng-if="$ctrl.step == 4")
-                h2.block-title
+                                em.mdi.mdi-chevron-right.icon-right    
                 
-                +progress()
-                
-                .sign_up-pane.offices
-                    +card_header(4)
-
-                    .sign_up-heading-block 
-                        | Als u een of meerdere vestigingen heeft, kan u deze hieronder toevoegen. Uw vestigingen zullen op een kaart in de webwinkel verschijnen.
+                //- Scan QR Code
+                div(ng-if="$ctrl.step == 2")
+                    h2.block-title
                     
-                    .sign_up-pane-text: form(ng-submit="$ctrl.next()").form
-                        .card-section: .pseudo-wrapper
-                            .office(ng-repeat="office in $ctrl.offices")
-                                .preview
-                                    img(
-                                        ng-if="office.photo" 
-                                        ng-src="{{ office.photo.sizes.thumbnail }}")
+                    +progress()
+                    
+                    .sign_up-pane
+                        +card_header(2)
 
-                                .details
-                                    .address
-                                        em.mdi.mdi-map-marker 
-                                        | {{ office.address }}
+                        .sign_up-pane-body
+                            .sign_up-pane-text
+                                | U gaat de app installeren waarmee u de betalingen zal uitvoeren. 
+                                | In de app maakt u eerst zelf een profiel, later kan u eventueel meerdere (kassa) medewerkers toevoegen die namens u betalingen kunnen uitvoeren.
 
-                                    .phone(ng-if="office.phone") 
-                                        em.mdi.mdi-phone 
-                                        | {{ office.phone }}
-                                    //- .schedule(ng-if="office.schedule.length") 
-                                    //-     em.mdi.mdi-clock-outline 
-                                    //-     | {{ office.schedule }}
+                            .sign_up-pane-heading De app installeren
+                            .sign_up-pane-text 
+                                | De app kan op vrijwel elke smartphone gebruikt worden en is beschikbaar op iOS en Android. 
+                                | Vul uw telefoon nummer in om een download link te ontvangen, of ga op uw mobiele telefoon naar 
+                                a(href="http://www.forus.io/DL" target="_blank") www.forus.io/DL
 
-                                .actions
-                                    em.mdi.mdi-pencil-outline(ng-click="$ctrl.editOffice(office)") Edit location  
-                                    em.mdi.mdi-delete(ng-click="$ctrl.deleteOffice(office)") Delete location  
+                            .sign_up-pane-heading Vul uw mobiele nummer in            
+                                phone-control(ng-model="phoneForm.values.phone" cant-delete-length="2")
+                                .pincode-errors.text-center: .form-error(ng-repeat="error in phoneForm.errors.phone" ng-bind="error")
 
-                            .row.group-block.office-block
-                                .col.col-md-8
-                                    .form-group.col
-                                        label.form-label(translate="Address")
-                                        ui-control-text(
-                                            ng-model="$ctrl.officeForm.values.address"
-                                            data-id="office_address"
-                                            data-placeholder="Address")
-                                        .form-error(ng-repeat="error in $ctrl.officeForm.errors.address" ng-bind="error")
-                                    
-                                    .form-group.col
-                                        label.form-label
-                                            translate(translate="Telefoonnummer")
-                                        ui-control-text(
-                                            ng-model="$ctrl.officeForm.values.phone" 
-                                            data-placeholder="Telefoonnummer")
-                                        .form-error(ng-repeat="error in $ctrl.officeForm.errors.phone" ng-bind="error")
+                            .button.download-link
+                                | Verstuur downloadlink
                                 
-                                .col.col-md-4
-                                    photo-selector.col(
-                                        template="photo-selector-sign_up"
-                                        type="office_photo"
-                                        thumbnail="office.photo.sizes.thumbnail" 
-                                        select-photo="$ctrl.selectOfficePhoto(file)")
-                                    .info-block.info-block-primary
-                                        | De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px. 
-                                        br
-                                        | Toegestaande formaten: .JPG, .PNG    
-
-                            .row.group-block.schedule-settings-block
-                                .col.opening
-                                    .sign_up-pane-text Openingstijden
+                            .sign_up-pane-auth
+                                .sign_up-pane-auth-content
+                                    .sign_up-pane-heading Scan de code om verder te gaan    
                                     
-                                    .form-group.col
-                                        .row
-                                            ui-control-checkbox(
-                                                name="office_same_hours" 
-                                                data-id="office_same_hours"
-                                                data-label="{{ 'All weekdays have same hours' }}" 
-                                                ng-model="$ctrl.officeForm.values.same_hours")
-                                        .form-error(ng-repeat="error in $ctrl.officeForm.errors.office_same_hours" ng-bind="error")
+                                    | Maak een persoonlijk profiel aan in de app, en scan vervolgens de code die u rechts ziet met de scanner in de app.
+                                    
+                                    .sign_up-pane-auth-apps
+                                        a(href="#").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
+                                        a(href="#").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
+                                
+                                .sign_up-pane-auth-qr_code
+                                    qr-code(
+                                        ng-if="$ctrl.authToken" 
+                                        qr-value="$ctrl.authToken" 
+                                        qr-type="auth_token" 
+                                        qr-logo=src_prefix + "./assets/img/me-logo.png")
 
-                                    .form-group.col
-                                        .row
-                                            ui-control-checkbox(
-                                                name="weekend_same_hours" 
-                                                data-id="weekend_same_hours"
-                                                data-label="{{ 'Saturday and Sunday have same hours' }}" 
-                                                ng-model="$ctrl.officeForm.values.weekend_same_hours")
-                                        .form-error(ng-repeat="error in $ctrl.officeForm.errors.weekend_same_hours" ng-bind="error")
+                    .step-footer(ng-if="$ctrl.has_app")
+                        a(translate="sign_up.buttons.go_step_2" ng-click="$ctrl.skipToStep(2)").button.button-primary                
                 
-                            .row.group-block.schedule-block
-                                    .col.col-md-8
-                                        table.schedule
-                                            tr 
-                                                th Day
-                                                th Open
-                                                th Start
-                                                th End
-                                            tr(ng-repeat="(weekDayKey, weekDay) in $ctrl.weekDays")
-                                                td {{ weekDay }}
-                                                td
+                //- Manage organization details
+                div(ng-if="$ctrl.step == 3")
+                    h2.block-title
+                    
+                    +progress()
+                    
+                    .sign_up-pane
+                        +card_header(3)
+                        
+                        .sign_up-pane-body
+                            .sign_up-pane-text.with-border
+                                | Om deel te kunnen nemen, gaat u uw organisatie aanmaken. 
+                                | Door de gegevens in te vullen zal u de betalingen automatisch op uw rekening ontvangen, u hoeft hier straks zelf verder niks meer voor te doen.
+
+                            .sign_up-pane-text: form(ng-submit="$ctrl.next()").form: .row
+                                .card-section: .pseudo-wrapper
+                                    .row.group-block.with-border
+                                        .col.col-md-8
+                                            .form-group.col
+                                                label.form-label(translate="organization_edit.labels.name")
+                                                ui-control-text(
+                                                    ng-model="$ctrl.organizationForm.values.name"
+                                                    data-id="criterion_{{ invalidCriteria.id }}"
+                                                    data-placeholder="Bedrijfsnaam")
+                                                .form-error(ng-repeat="error in $ctrl.organizationForm.errors.name" ng-bind="error")
+                                            
+                                            .form-group.col
+                                                label.form-label
+                                                    translate(translate="organization_edit.labels.bank")
+                                                    tooltip(text="'Vul hier het rekeningnummer in waar u de betalingen op wilt ontvangen'")
+                                                ui-control-text(
+                                                    ng-model="$ctrl.organizationForm.values.iban" 
+                                                    data-placeholder="IBAN-nummer")
+                                                .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban" ng-bind="error")
+                                            
+                                            .form-group.col
+                                                label.form-label
+                                                    translate(translate="HERHAAL IBAN–NUMMER")
+                                                    tooltip(text="'Vul hier het rekeningnummer in waar u de betalingen op wilt ontvangen'")
+                                                ui-control-text(
+                                                    ng-model="$ctrl.organizationForm.values.iban_confirmation" 
+                                                    data-placeholder="Example: NL123456789B01")
+                                                .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban_confirmation" ng-bind="error")
+                                        
+                                        .col.col-md-4
+                                            .image-preview
+                                                photo-selector.col(
+                                                    template="photo-selector-sign_up"
+                                                    type="organization_logo"
+                                                    thumbnail="$ctrl.media.sizes.thumbnail" 
+                                                    select-photo="$ctrl.selectPhoto(file)")
+                                                .info-block.info-block-primary
+                                                    | De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px. 
+                                                    br
+                                                    | Toegestaande formaten: .JPG, .PNG    
+
+                                    .row.group-block.with-border
+                                        .col
+                                            .form-group.col
+                                                label(translate="organization_edit.labels.mail").form-label
+                                                .row
+                                                    .col.col-md-8: ui-control-text(
+                                                        ng-model="$ctrl.organizationForm.values.email"
+                                                        placeholder="E-mailadres")
+
+                                                    .col.col-md-4: ui-control-checkbox.make-public(
+                                                        name="email_public" 
+                                                        data-id="email_public_input"
+                                                        data-label="{{ 'Maak publiek' | i18n }}" 
+                                                        ng-model="$ctrl.organizationForm.values.email_public")
+                                                .form-error(ng-repeat="error in $ctrl.organizationForm.errors.email" ng-bind="error")
+                                            
+                                            .form-group.col
+                                                label(translate="organization_edit.labels.phone").form-label
+                                                
+                                                .row
+                                                    .col.col-md-8: ui-control-text(
+                                                        ng-model="$ctrl.organizationForm.values.phone"
+                                                        placeholder="Telefoonnummer")
+                                                    .col.col-md-4: ui-control-checkbox.make-public(
+                                                        name="phone_public" 
+                                                        data-id="phone_public_input"
+                                                        data-label="{{ 'Maak publiek' | i18n }}" 
+                                                        ng-model="$ctrl.organizationForm.values.phone_public")
+                                                .form-error(ng-repeat="error in $ctrl.organizationForm.errors.phone" ng-bind="error")
+
+                                            .form-group.col
+                                                label(translate="organization_edit.labels.website").form-label
+                                                
+                                                .row
+                                                    .col.col-md-8: ui-control-text(
+                                                        ng-model="$ctrl.organizationForm.values.website"
+                                                        placeholder="Website")
+                                                    .col.col-md-4: ui-control-checkbox.make-public(
+                                                        name="website_public" 
+                                                        data-id="website_public_input"
+                                                        data-label="{{ 'Maak publiek' | i18n }}" 
+                                                        ng-model="$ctrl.organizationForm.values.website_public")
+                                                .form-error(ng-repeat="error in $ctrl.organizationForm.errors.website" ng-bind="error")
+                        
+                                    .row.group-block.last
+                                        .col
+                                            .form-group.col
+                                                .row
+                                                    .col.col-md-8
+                                                        .form-label(translate="organization_edit.labels.business_type")
+                                                        
+                                                        .form-offset: select-control(
+                                                            ng-model="$ctrl.businessType" 
+                                                            ng-change="$ctrl.chageBusinessType(value)"
+                                                            options="$ctrl.businessTypes"
+                                                            placeholder="Selecteer organisatie type...")
+                                                        
+                                                        .form-error(
+                                                            ng-repeat="error in $ctrl.organizationForm.errors.business_type_id" 
+                                                            ng-bind="error")
+
+                                            .form-group.col
+                                                .row
+                                                    .col.col-md-8
+                                                        label(translate="organization_edit.labels.kvk").form-label
+                                                        
+                                                        ui-control-text(
+                                                            ng-model="$ctrl.organizationForm.values.kvk"
+                                                            data-placeholder="KvK-nummer")
+                                                        .form-error(ng-repeat="error in $ctrl.organizationForm.errors.kvk" ng-bind="error")
+
+                                            .form-group.col
+                                                .row
+                                                    .col.col-md-8
+                                                        label(translate="organization_edit.labels.tax").form-label
+                                                        
+                                                        ui-control-text(
+                                                            ng-model="$ctrl.organizationForm.values.btw"
+                                                            data-placeholder="BTW-nummer")
+                                                        
+                                                        .form-error(ng-repeat="error in $ctrl.organizationForm.errors.btw" ng-bind="error")
+
+                                                        .info-fields
+                                                            span.info-field.red * 
+                                                            span.info-field Optional
+                        .sign_up-pane-footer: .row
+                            .col.col-lg-6.text-left 
+                                .button.button-text.button-text-padless(ng-click="$ctrl.back()")
+                                    | Vorige stap
+                                    em.mdi.mdi-chevron-left.icon-lefts
+                            .col.col-lg-6.text-right
+                                .button.button-text.button-text-padless(ng-click="$ctrl.next()")
+                                    | Volgende stap
+                                    em.mdi.mdi-chevron-right.icon-right
+                
+                //- Manage offices
+                div(ng-if="$ctrl.step == 4")
+                    h2.block-title
+                    
+                    +progress()
+                    
+                    .sign_up-pane.offices
+                        +card_header(4)
+
+                        .sign_up-pane-body
+                            .sign_up-pane-text.header.with-border
+                                | Als u een of meerdere vestigingen heeft, kan u deze hieronder toevoegen. Uw vestigingen zullen op een kaart in de webwinkel verschijnen.
+                            
+                            .sign_up-pane-text(ng-if="$ctrl.offices.length"): .row
+                                .card-section: .pseudo-wrapper
+                                    .office(ng-repeat="office in $ctrl.offices")
+                                        .preview
+                                            img(
+                                                ng-src="{{ office.photo.sizes.thumbnail ? office.photo.sizes.thumbnail : './assets/img/organization-no-logo.svg' }}")
+
+                                        .details
+                                            .address
+                                                em.mdi.mdi-map-marker 
+                                                    span {{ office.address }}
+
+                                            .phone
+                                                em.mdi.mdi-phone 
+                                                    span {{ office.phone ? office.phone : 'Not specified' }}
+                                            //- .schedule(ng-if="office.schedule.length") 
+                                            //-     em.mdi.mdi-clock-outline 
+                                            //-     | {{ office.schedule }}
+
+                                        .actions
+                                            em.mdi.mdi-pencil-outline(ng-click="$ctrl.editOffice(office)") 
+                                                span Edit location  
+                                            em.mdi.mdi-delete(ng-click="$ctrl.deleteOffice(office)") 
+                                                span Delete location
+                            
+                            .sign_up-pane-text.last(ng-if="$ctrl.enableSaveOfficeBtn"): form(ng-submit="$ctrl.next()").form: .row
+                                .card-section: .pseudo-wrapper
+                                    .row.group-block.office-block
+                                        .col.col-md-8
+                                            .form-group.col
+                                                label.form-label(translate="Address")
+                                                ui-control-text(
+                                                    ng-model="$ctrl.officeForm.values.address"
+                                                    data-id="office_address"
+                                                    data-placeholder="Address")
+                                                .form-error(ng-repeat="error in $ctrl.officeForm.errors.address" ng-bind="error")
+                                            
+                                            .form-group.col
+                                                label.form-label
+                                                    translate(translate="Telefoonnummer")
+                                                ui-control-text(
+                                                    ng-model="$ctrl.officeForm.values.phone" 
+                                                    data-placeholder="Telefoonnummer")
+                                                .form-error(ng-repeat="error in $ctrl.officeForm.errors.phone" ng-bind="error")
+                                        
+                                        .col.col-md-4.image-preview
+                                            photo-selector.col(
+                                                template="photo-selector-sign_up"
+                                                type="office_photo"
+                                                thumbnail="office.photo.sizes.thumbnail" 
+                                                select-photo="$ctrl.selectOfficePhoto(file)")
+                                            .info-block.info-block-primary
+                                                | De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px. 
+                                                br
+                                                | Toegestaande formaten: .JPG, .PNG    
+
+                                    .row.group-block.schedule-settings-block
+                                        .col.opening
+                                            .sign_up-pane-text Openingstijden
+                                            
+                                            .form-group.col
+                                                .row
                                                     ui-control-checkbox(
-                                                        name="is_opened{{$index}}" 
-                                                        data-id="schedule_is_opened{{$index}}"
-                                                        ng-init="$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened = false"
-                                                        ng-change="$ctrl.toggleOpened($index)" 
-                                                        ng-model="$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened")     
-                                                td
-                                                    ui-control-text.time.start(
-                                                        ng-model="$ctrl.officeForm.values.schedule[weekDayKey].start_time"
-                                                        ng-if="$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened"
-                                                        ng-change="$ctrl.syncHours($index)" 
-                                                        data-placeholder="from")
-                                                    span(        
-                                                        ng-if="!$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened") closed
-                                                td
-                                                    ui-control-text.time.end(
-                                                        ng-model="$ctrl.officeForm.values.schedule[weekDayKey].end_time" 
-                                                        ng-if="$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened"
-                                                        ng-change="$ctrl.syncHours($index)" 
-                                                        data-placeholder="till")                    
-                                
-                            .row.group-block.description                              
-                                | Weekdays from 08:00 till 16:00. 
-                                br 
-                                | Saturdays from 00:00 till 23:59, closed on Sunday. 
-                                br 
-                                | Break on Monday from 12:00 till 14:00
-                    
-                    .location-btns: .row
-                        .col.col-lg-4
-                            button.button-text.button-text-padless.save(ng-click="$ctrl.saveOffice()" ng-disabled="!$ctrl.enableSaveOfficeBtn")
-                                | Save location
-                        .col.col-lg-8
-                            button.button-text.button-text-padless.location(ng-click="$ctrl.addOffice()" ng-disabled="!$ctrl.enableAddOfficeBtn")
-                                | Add location
+                                                        name="office_same_hours" 
+                                                        data-id="office_same_hours"
+                                                        data-label="{{ 'All weekdays have same hours' }}" 
+                                                        ng-change="$ctrl.setSameHours()"
+                                                        ng-model="$ctrl.officeForm.values.same_hours")
+                                                .form-error(ng-repeat="error in $ctrl.officeForm.errors.office_same_hours" ng-bind="error")
 
-                    .sign_up-pane-footer: .row
-                        .col.col-lg-6.text-left
-                            .button.button-text.button-text-padless(ng-click="$ctrl.back()")
+                                            .form-group.col
+                                                .row
+                                                    ui-control-checkbox(
+                                                        name="weekend_same_hours" 
+                                                        data-id="weekend_same_hours"
+                                                        data-label="{{ 'Saturday and Sunday have same hours' }}" 
+                                                        ng-change="$ctrl.setSameHours(false)"
+                                                        ng-model="$ctrl.officeForm.values.weekend_same_hours")
+                                                .form-error(ng-repeat="error in $ctrl.officeForm.errors.weekend_same_hours" ng-bind="error")
+                        
+                                    .row.group-block.schedule-block
+                                            .col.col-md-8
+                                                table.schedule
+                                                    tr 
+                                                        th Day
+                                                        th Open
+                                                        th Start
+                                                        th End
+                                                    tr(ng-repeat="(weekDayKey, weekDay) in $ctrl.weekDays track by $index")
+                                                        td(ng-class="$index >= 5 ? 'weekend' : ''") {{ weekDay }}
+                                                        td
+                                                            ui-control-checkbox(
+                                                                name="is_opened{{$index}}" 
+                                                                data-id="schedule_is_opened{{$index}}"
+                                                                ng-init="$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened = false"
+                                                                ng-change="$ctrl.toggleOpened($index)" 
+                                                                ng-model="$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened")     
+                                                        td
+                                                            ui-control-text.time.start(
+                                                                ng-model="$ctrl.officeForm.values.schedule[weekDayKey].start_time"
+                                                                ng-if="$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened"
+                                                                ng-change="$ctrl.syncHours($index)" 
+                                                                data-placeholder="from")
+                                                            span(        
+                                                                ng-if="!$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened") closed
+                                                        td
+                                                            ui-control-text.time.end(
+                                                                ng-model="$ctrl.officeForm.values.schedule[weekDayKey].end_time" 
+                                                                ng-if="$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened"
+                                                                ng-change="$ctrl.syncHours($index)" 
+                                                                data-placeholder="till")                    
+                                    
+                            .location-btns.col: .row
+                                .col.col-lg-4
+                                    button.button-text.button-text-padless.save(ng-click="$ctrl.saveOffice()" ng-disabled="!$ctrl.enableSaveOfficeBtn")
+                                        | Save location
+                                .col.col-lg-8
+                                    button.button-text.button-text-padless.location(ng-click="$ctrl.addOffice()" ng-disabled="!$ctrl.enableAddOfficeBtn")
+                                        | Add location
+
+                        .sign_up-pane-footer: .row
+                            .col.col-lg-6.text-left
+                                .button.button-text.button-text-padless(ng-click="$ctrl.back()")
+                                    | Vorige stap
+                                    em.mdi.mdi-chevron-left.icon-lefts
+                            .col.col-lg-6.text-right
+                                .button.button-text.button-text-padless(ng-click="$ctrl.next()")
+                                    | Volgende stap
+                                    em.mdi.mdi-chevron-right.icon-right
+
+       
+                div(ng-if="$ctrl.step == 5")
+                    h2.block-title
+                    
+                    +progress()
+                    
+                    .sign_up-pane
+                        +card_header(5)
+
+                        .sign_up-pane-body
+                            .sign_up-pane-text.header.with-border
+                                | In deze stap kunnen kassa medewerkers worden toegevoegd aan de organisatie. 
+                                | Deze medewerkers kunnen vervolgens ook vouchers scannen met de kassa app en betalingen verwerken. 
+                                | Er zal een uitnodiging met instructies verstuurd worden naar de email adressen die hieronder ingevuld worden. 
+                                | Als u geen medewerkers wil toevoegen kan u deze stap overslaan.
+
+                            .sign_up-pane-text: form(ng-submit="$ctrl.next()").form: .row
+                                .card-section: .pseudo-wrapper
+                                    .employee-info(ng-repeat="employee in $ctrl.employees")
+                                        .details
+                                            .email {{ employee.email }}
+
+                                        .actions
+                                            //- em.mdi.mdi-pencil-outline(ng-click="$ctrl.editEmployee(employee)") 
+                                            em.mdi.mdi-delete(ng-click="$ctrl.deleteEmployee(employee)")  
+
+                                    .row.group-block.employee
+                                        .col.col-md-7
+                                            .form-group.col
+                                                label.form-label(translate="EMAIL")
+                                                ui-control-text(
+                                                    data-id="employee"
+                                                    ng-model="$ctrl.employeeForm.values.email"
+                                                    data-placeholder="EMAIL").large
+                                                .form-error(ng-repeat="error in $ctrl.employeeForm.errors.name" ng-bind="error")
+                                        
+                                        .col.col-md-5
+                                            .form-group.col
+                                            label.form-label &nbsp;
+                                            button.button.button-primary.button-fill(
+                                                type="button"
+                                                ng-click="$ctrl.saveEmployee()") Add employee 
+                            
+                            span.add-employee(ng-click="$ctrl.addEmployee()" )
+                                | Voeg nog een medewerker toe                     
+
+                        .sign_up-pane-footer: .row
+                            .col.col-lg-6.text-left: .button.button-text.button-text-padless(
+                                ng-click="$ctrl.back()")
                                 | Vorige stap
                                 em.mdi.mdi-chevron-left.icon-lefts
-                        .col.col-lg-6.text-right
-                            .button.button-text.button-text-padless(ng-click="$ctrl.next()")
-                                | Volgende stap
-                                em.mdi.mdi-chevron-right.icon-right
-            
-            div(ng-if="$ctrl.step == 5")
-                h2.block-title Zomerzwemregeling aanvraag
-                
-                +progress()
-                
-                .sign_up-pane
-                    +card_header(5)
-
-                    .sign_up-pane-body
-                        .sign_up-pane-text
-                            | In deze stap kunnen kassa medewerkers worden toegevoegd aan de organisatie. 
-                            | Deze medewerkers kunnen vervolgens ook vouchers scannen met de kassa app en betalingen verwerken. 
-                            | Er zal een uitnodiging met instructies verstuurd worden naar de email adressen die hieronder ingevuld worden. 
-                            | Als u geen medewerkers wil toevoegen kan u deze stap overslaan.
-
-                        .sign_up-pane-text: form(ng-submit="$ctrl.next()").form: .row
-                            .card-section: .pseudo-wrapper
-                                .employee-info(ng-repeat="employee in $ctrl.employees")
-                                    .details
-                                        .email {{ employee.email }}
-
-                                    .actions
-                                        em.mdi.mdi-pencil-outline(ng-click="$ctrl.editEmployee(employee)") 
-                                        em.mdi.mdi-delete(ng-click="$ctrl.deleteEmployee(employee)")  
-
-                                .row.group-block.employee
-                                    .col.col-md-7
-                                        .form-group.col
-                                            label.form-label(translate="EMAIL")
-                                            ui-control-text(
-                                                data-id="employee"
-                                                ng-model="$ctrl.employeeForm.values.email"
-                                                data-placeholder="EMAIL").large
-                                            .form-error(ng-repeat="error in $ctrl.employeeForm.errors.name" ng-bind="error")
-                                    
-                                    .col.col-md-5
-                                        .form-group.col
-                                        label.form-label &nbsp;
-                                        button.button.button-primary.button-fill(
-                                            type="button"
-                                            ng-click="$ctrl.saveEmployee()"
-                                            ) Add employee 
+                            .col.col-lg-6.text-right
+                                .button.button-text.button-text-padless(ng-click="$ctrl.next()")
+                                    | Volgende stap
+                                    em.mdi.mdi-chevron-right.icon-right
+                //- Done
+                div.finish-screen(ng-if="$ctrl.step == 6")
+                    h2.block-title Aanvraag voltooid
+                    .sign_up-pane
+                        .sign_up-pane-header Aanvraag voltooid
+                        .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
+                            .form-group.col.col-lg-12
+                                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
+                                .sign_up-pane-heading.text-center Uw aanvraag is verzonden
+                                p.sign_up-pane-text.text-center 
+                                    | We gaan controleren of uw gegevens kloppen, u ontvangt een email op blabla@blabla.com wanneer de aanvraag is afgerond, of indien er nog overige vragen zijn
                         
-                        span.add-employee(ng-click="$ctrl.addEmployee()" )
-                            | Voeg nog een medewerker toe                     
+                                .text-center: .button.button-finish(ng-click="$ctrl.finish()") Terug naar het dashboard
+                            .form-group.col.col-lg-12: br
+                
+                //- Error
+                div(ng-if="$ctrl.state == 'error'")
+                    h2.block-title Zomerzwemregeling aanvraag
 
-                    .sign_up-pane-footer: .row
-                        .col.col-lg-6.text-left: .button.button-text.button-text-padless(
-                            ng-click="$ctrl.back()")
-                            | Vorige stap
-                            em.mdi.mdi-chevron-left.icon-lefts
-                        .col.col-lg-6.text-right
-                            .button.button-text.button-text-padless(ng-click="$ctrl.next()")
-                                | Volgende stap
-                                em.mdi.mdi-chevron-right.icon-right
-            //- Done
-            div.finish-screen(ng-if="$ctrl.step == 6")
-                h2.block-title Aanvraag voltooid
-                .sign_up-pane
-                    .sign_up-pane-header Aanvraag voltooid
-                    .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
-                        .form-group.col.col-lg-12
-                            .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
-                            .sign_up-pane-heading.text-center Uw aanvraag is verzonden
-                            p.sign_up-pane-text.text-center 
-                                | We gaan controleren of uw gegevens kloppen, u ontvangt een email op blabla@blabla.com wanneer de aanvraag is afgerond, of indien er nog overige vragen zijn
-                    
-                            .text-center: .button.button-finish(ng-click="$ctrl.finish()") Terug naar het dashboard
-                        .form-group.col.col-lg-12: br
-            
-            //- Error
-            div(ng-if="$ctrl.state == 'error'")
-                h2.block-title Zomerzwemregeling aanvraag
-                .sign_up-pane
-                    .sign_up-pane-header Error during sign up request submission.
-                    .sign_up-pane-body: .row
-                        .form-group.col.col-lg-12
-                            .block-icon: .mdi.mdi-close
-                            p.sign_up-pane-text.text-center 
-                                | Reason: 
-                                span(ng-bind="$ctrl.errorReason")
-                    
-                            .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar het dashboard
-                        .form-group.col.col-lg-12: br
+                    .sign_up-pane
+                        .sign_up-pane-header Error during sign up request submission.
+                        .sign_up-pane-body: .row
+                            .form-group.col.col-lg-12
+                                .block-icon: .mdi.mdi-close
+                                p.sign_up-pane-text.text-center 
+                                    | Reason: 
+                                    span(ng-bind="$ctrl.errorReason")
+                        
+                                .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar het dashboard
+                            .form-group.col.col-lg-12: br
