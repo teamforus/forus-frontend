@@ -4,7 +4,7 @@ module.exports = {
         maxProductCount: 2
     },
     zuidhorn: {
-        logoExtension: '.png',
+        logoExtension: '.svg',
         maxProductCount: 2
     },
     nijmegen: {
