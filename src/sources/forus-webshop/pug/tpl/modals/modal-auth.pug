@@ -19,17 +19,17 @@
 
         //-.modal-footer
             //-.footer-text {{ "popup_auth.labels.timelimit" | translate }}
-
-        h4.modal-title.hidden-xs Login met Me-app
-        .modal-subtitle.subtitle-left.
-            Scan de QR code aan de rechterzijde met de QR-scanner in de me app. 
-            #[br] #[br]
-            De me app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.
-            #[br] #[br]
-        .block.block-qr-code
-            qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="auth_token" qr-logo=src_prefix + "./assets/img/me-logo.png")
-        .modal-subtitle.subtitle-left.download-badges
-            a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676")
-                img(src="./assets/img/icon-app-ios.svg") 
-            a(href="https://play.google.com/store/apps/details?id=io.forus.me")
-                img(src="./assets/img/icon-app-android.svg")
+        .hidden-xs
+            h4.modal-title Login met Me-app
+            .modal-subtitle.subtitle-left.
+                Scan de QR code aan de rechterzijde met de QR-scanner in de me app. 
+                #[br] #[br]
+                De me app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.
+                #[br] #[br]
+            .block.block-qr-code
+                qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="auth_token" qr-logo=src_prefix + "./assets/img/me-logo.png")
+            .modal-subtitle.subtitle-left.download-badges
+                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676")
+                    img(src="./assets/img/icon-app-ios.svg") 
+                a(href="https://play.google.com/store/apps/details?id=io.forus.me")
+                    img(src="./assets/img/icon-app-android.svg")

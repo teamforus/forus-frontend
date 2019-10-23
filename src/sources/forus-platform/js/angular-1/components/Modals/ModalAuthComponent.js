@@ -38,6 +38,7 @@ let ModalAuthComponent = function(
                 }
             }, 0);
         });
+        $ctrl.requestAuthQrToken();
     };
 
     $ctrl.showQrForm = function() {
