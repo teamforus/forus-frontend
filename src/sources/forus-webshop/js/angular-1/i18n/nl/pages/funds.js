@@ -5,7 +5,7 @@ module.exports = {
     },
     labels: {
         categorie: "CATEGORIEËN",
-        criteria: "Voorwaarden ({{ nth }})",
+        criteria: "Voorwaarden",
         location: "Locatie",
         office: "Zuidhorn Gemeente",
         children: "Kinderen",
@@ -15,8 +15,11 @@ module.exports = {
         income: "Inkomensgrens",
         amount: "< € 1118.46",
     },
+    criteria:{
+        key: "{{key}}"
+    },
     buttons: {
-        join: "Doe mee",
+        join: "Activeer",
         more: "BEKIJK MEER",
     },
     status: {

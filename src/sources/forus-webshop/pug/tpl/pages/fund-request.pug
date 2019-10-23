@@ -13,7 +13,7 @@ section.section.section-product: .wrapper
     .block.block-sign_up: .block-wrapper
         //- Log in
         div(ng-if="$ctrl.state == 'auth'")
-            h2.block-title Zomer zwem regeling aanvraag
+            h2.block-title {{ $ctrl.fund.name }} aanvraag
             //- p.block-description
                 | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
                 strong woonplaats 
@@ -71,8 +71,8 @@ section.section.section-product: .wrapper
                             br
                             br
                             .sign_up-pane-auth-apps
-                                a(href="#").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
-                                a(href="#").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
+                                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
+                                a(href="https://play.google.com/store/apps/details?id=io.forus.me").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
                         
                         .sign_up-pane-auth-qr_code
                             qr-code(
@@ -84,36 +84,25 @@ section.section.section-product: .wrapper
         //- Log in email sent
         div(ng-if="$ctrl.state == 'auth_email_sent'")
             //- For new users
-            .sign_up-pane(ng-if="$ctrl.authEmailSent")
-                .sign_up-pane-header Overzicht 
-                .sign_up-pane-body
-                    .sign_up-email_sent
-                        .sign_up-email_sent-icon
-                            img(src=src_prefix + "./assets/img/sign_up-email.png").sign_up-email_sent-icon-img
-                        .sign_up-email_sent-title(i18n="popup_auth.header.{{ $root.client_key }}.title")
-                        .sign_up-email_sent-text
-                            | Welcome to Webshop Barneveld! 
-                            br
-                            | Er is een link naar uw e-mailadres gestuurd. Klik op de link om verder te gaan.
-                            br
-                            | We’re send you a mail to 
-                            span(ng-bind="$ctrl.authForm.values.records.primary_email").text-primary
-            
-            //- For existing users
             .sign_up-pane(ng-if="$ctrl.authEmailRestoreSent")
                 .sign_up-pane-header Overzicht 
                 .sign_up-pane-body
                     .sign_up-email_sent
                         .sign_up-email_sent-icon
                             img(src=src_prefix + "./assets/img/sign_up-email.png").sign_up-email_sent-icon-img
-                        .sign_up-email_sent-title E-Mail is verzonden!
+                        .sign_up-email_sent-title(i18n="popup_auth.labels.join")
+                        .sign_up-email_sent-text(i18n="popup_auth.notifications.link")
+            
+            //- For existing users
+            .sign_up-pane(ng-if="$ctrl.authEmailSent")
+                .sign_up-pane-header Overzicht 
+                .sign_up-pane-body
+                    .sign_up-email_sent
+                        .sign_up-email_sent-icon
+                            img(src=src_prefix + "./assets/img/sign_up-email.png").sign_up-email_sent-icon-img
+                        .sign_up-email_sent-title Bevestig dat u toegang heeft tot dit e-mailadres.
                         .sign_up-email_sent-text
-                            | Welcome to Webshop Barneveld! 
-                            br
-                            | Before we get started, please confirm your email address. 
-                            br
-                            | We’re send you a mail to 
-                            span(ng-bind="$ctrl.authForm.values.records.primary_email").text-primary
+                            | U heeft een e-mail ontvangen op "#[span(ng-bind="$ctrl.authForm.values.records.primary_email").text-primary]". Ga naar uw inbox en open de e-mail met het onderwerp "E-mail activering" en klik in de e-mail op de blauwe knop.
         
         //- List the criteria
         div(ng-if="$ctrl.state == 'criteria'")
@@ -121,7 +110,7 @@ section.section.section-product: .wrapper
             +progress()
             
             .sign_up-pane
-                .sign_up-pane-header Overzicht
+                .sign_up-pane-header Overzicht 
                 .sign_up-pane-body
                     p.sign_up-pane-text
                         | U staat op het punt om een {{ $ctrl.fund.name }} aan te vragen. 
@@ -198,12 +187,12 @@ section.section.section-product: .wrapper
                             ng-if="invalidCriteria.control_type == 'ui_control_checkbox' && invalidCriteria.record_type_key == 'children'"
                             ng-model="invalidCriteria.input_value"
                             data-id="criterion_{{ invalidCriteria.id }}"
-                            data-label="I do have kids")
+                            data-label="Ik heb geen kinderen")
                         ui-control-checkbox(
                             ng-if="invalidCriteria.control_type == 'ui_control_checkbox' && (invalidCriteria.record_type_key == 'kindpakket_eligible' || invalidCriteria.record_type_key =='kindpakket_2018_eligible')"
                             ng-model="invalidCriteria.input_value"
                             data-id="criterion_{{ invalidCriteria.id }}"
-                            data-label="Yes, i am eligible for kindpakket fund")
+                            data-label="Ja, ik verklaar dat ik recht heb op kindpakket.")
                         ui-control-step(
                             ng-if="invalidCriteria.control_type == 'ui_control_step'"
                             ng-model="invalidCriteria.input_value"

@@ -23,8 +23,8 @@ section.section.section-funds: .wrapper
                     translate="funds.buttons.join")
                 a.button.button-default(
                     ng-if="!fund.alreadyReceived && !fund.isApplicable" 
-                    ui-sref="fund-request({fund_id: fund.id})") Request
-                a.button.button-muted.disabled(ng-if="fund.alreadyReceived") Received
+                    ui-sref="fund-request({fund_id: fund.id})") Aanvragen
+                a.button.button-primary(ng-if="fund.alreadyReceived" ui-sref="vouchers") Ga naar uw vouchers
 
             .fund-criterias(ng-if="fund.criterioaList.length > 0")
                 .fund-criterias-label(translate="funds.labels.criteria" translate-values="{nth: fund.criterioaList.length}")

@@ -37,6 +37,34 @@ let ModalAuthComponent = function(
             }, 0);
         });
         $ctrl.showQrForm();
+        $ctrl.signInEmailForm = FormBuilderService.build({
+            source: appConfigs.client_key + '_webshop',
+            primary_email: "",
+        }, function(form) {
+            form.lock();
+
+            IdentityService.makeAuthEmailToken(
+                form.values.source,
+                form.values.primary_email
+            ).then((res) => {
+                localStorage.setItem('pending_email_token', res.data.access_token);
+                $ctrl.screen = 'sign_in-email-sent';
+
+                $ctrl.close();
+
+                ModalService.open('modalNotification', {
+                    type: 'action-result',
+                    class: 'modal-description-pad',
+                    title: 'popup_auth.labels.join',
+                    description: 'popup_auth.notifications.link',
+                    confirmBtnText: 'popup_auth.buttons.submit'
+                });
+
+            }, (res) => {
+                form.unlock();
+                form.errors = res.data.errors;
+            });
+        });
     };
 
 
@@ -68,41 +96,6 @@ let ModalAuthComponent = function(
 
             $ctrl.checkAccessTokenStatus('token', res.data.access_token);
         }, console.log);
-    };
-
-    $ctrl.showEmailForm = function() {
-        $ctrl.showEmailBlock = true;
-        $ctrl.showChoose = false;
-
-        $ctrl.signInEmailForm = FormBuilderService.build({
-            source: appConfigs.client_key + '_webshop',
-            primary_email: "",
-        }, function(form) {
-            form.lock();
-
-            IdentityService.makeAuthEmailToken(
-                form.values.source,
-                form.values.primary_email
-            ).then((res) => {
-                localStorage.setItem('pending_email_token', res.data.access_token);
-                $ctrl.screen = 'sign_in-email-sent';
-
-                $ctrl.close();
-
-                ModalService.open('modalNotification', {
-                    type: 'action-result',
-                    class: 'modal-description-pad',
-                    title: 'popup_auth.labels.join',
-                    description: 'popup_auth.notifications.link',
-                    confirmBtnText: 'popup_auth.buttons.submit'
-                });
-
-            }, (res) => {
-                form.unlock();
-                form.errors = res.data.errors;
-            });
-        });
-
     };
 
     $ctrl.$onDestroy = function() {
