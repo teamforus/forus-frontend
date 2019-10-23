@@ -207,9 +207,11 @@ module.exports = (core) => {
     });
 
     //- Enable only given platforms
-    /* core.enableOnly([
-        'webshop_general'
-    ]); */
+    core.enableOnly([
+        'webshop_zuidhorn',
+        'dashboard_zuidhorn_sponsor',
+        'dashboard_zuidhorn_provider',
+    ]);
 
     //- Enable all but given platforms
     /* core.disableOnly([
