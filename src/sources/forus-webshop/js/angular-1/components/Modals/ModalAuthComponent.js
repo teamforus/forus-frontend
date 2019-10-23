@@ -20,7 +20,12 @@ let ModalAuthComponent = function(
     if (AuthService.hasCredentials()) {
         IdentityService.identity().then(() => { }, $ctrl.close);
     }
+    $ctrl.showQrForm = function() {
+        $ctrl.showQrCodeBlock = true;
+        $ctrl.showChoose = false;
 
+        $ctrl.requestAuthQrToken();
+    };
     $ctrl.$onInit = () => {
         $(document).bind('keydown', (e) => {
             $timeout(function() {
@@ -31,14 +36,9 @@ let ModalAuthComponent = function(
                 }
             }, 0);
         });
+        $ctrl.showQrForm();
     };
 
-    $ctrl.showQrForm = function() {
-        $ctrl.showQrCodeBlock = true;
-        $ctrl.showChoose = false;
-
-        $ctrl.requestAuthQrToken();
-    };
 
     $ctrl.applyAccessToken = function(access_token) {
         CredentialsService.set(access_token);
