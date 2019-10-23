@@ -123,8 +123,8 @@ let FundRequestsComponent = function(
         ModalService.open('modalNotification', {
             modalClass: 'modal-md',
             type: 'confirm',
-            title: 'Do you confirm record approvment?',
-            description: 'Pellentesque elementum magnis massa eget cras pretium montes.',
+            title: 'Weet u zeker dat u deze eigenschap wil valideren?',
+            description: 'Een validatie kan niet ongedaan gemaakt worden. Kijk goed of u deze actie wilt verrichten.',
             confirm: (res) => {
                 FundRequestValidatorService.approveRecord(
                     $ctrl.fundsById[request.fund_id].organization_id,
@@ -133,8 +133,8 @@ let FundRequestsComponent = function(
                     requestRecord.id
                 ).then(() => {
                     $ctrl.reloadRequest(request);
-                    showInfoModal('Record approved.')
-                }, res => showInfoModal('Can\'t approve record.', res.data.message));
+                    showInfoModal('Eigenschap gevalideert')
+                }, res => showInfoModal('Fout: U kunt deze eigenschap op dit moment niet valideren', res.data.message));
             }
         });
     };
@@ -146,13 +146,13 @@ let FundRequestsComponent = function(
             submit: (err) => {
                 if (err) {
                     return showInfoModal(
-                        'Can\'t decline record.',
-                        'Reason: ' + err.data.message
+                        'U kunt op dit moment deze eigenschap niet weigeren.',
+                        'Reden: ' + err.data.message
                     );
                 }
 
                 $ctrl.reloadRequest(request);
-                showInfoModal('Record declined.')
+                showInfoModal('Eigenschap geweigerd.')
             }
         });
     };
@@ -164,13 +164,13 @@ let FundRequestsComponent = function(
             submit: (err) => {
                 if (err) {
                     return showInfoModal(
-                        "Can't request clarification for the record.",
+                        "U kunt op dit moment geen aanvullingsverzoek doen.",
                         'Reason: ' + res.data.message
                     );
                 }
 
                 $ctrl.reloadRequest(request);
-                showInfoModal('Record clarification requested.')
+                showInfoModal('Gelukt! Aanvullingsverzoek op aanvraag verstuurd.')
             }
         });
     };
@@ -184,8 +184,8 @@ let FundRequestsComponent = function(
             $ctrl.reloadRequest(request);
         }, (res) => {
             showInfoModal(
-                'Request approvement failed.',
-                'Reason: ' + res.data.message
+                'Validatie van eigenschap mislukt.',
+                'Reden: ' + res.data.message
             );
         });
     }
@@ -199,8 +199,8 @@ let FundRequestsComponent = function(
             $ctrl.reloadRequest(request);
         }, (res) => {
             showInfoModal(
-                'Request declining failed.',
-                'Reason: ' + res.data.message
+                'Aanvraag weigeren mislukt.',
+                'Reden:' + res.data.message
             );
         });
     }
@@ -212,10 +212,10 @@ let FundRequestsComponent = function(
             request.id,
             $ctrl.employee.id
         ).then(() => {
-            showInfoModal("Done!", "Now you are the validator of this request.")
+            showInfoModal("Gelukt!", "U bent nu toegewezen aan deze aanvraag.")
             $ctrl.reloadRequest(request);
         }, res => showInfoModal(
-            "Can't request clarification for the record.",
+            "U kunt op dit moment geen aanvullingsverzoek doen.",
             res.data.error.message
         ));
     };
@@ -226,10 +226,10 @@ let FundRequestsComponent = function(
             request.fund_id,
             request.id
         ).then(() => {
-            showInfoModal("Done!", "You successifully resigned from validation request.")
+            showInfoModal("Gelukt!", "U heeft zich afgemeld van deze aanvraag, iemand anders kan deze aanvraag nu oppakken.")
             $ctrl.reloadRequest(request);
         }, res => showInfoModal(
-            "Can't resign from the record.",
+            "Mislukt! U kunt u zelf niet van deze aanvraag afhalen.",
             res.data.error.message
         ));
     };

@@ -5,16 +5,16 @@
         .modal-body.form: .modal-section.modal-section-pad
             .modal-section-icon: .mdi.mdi-message-text-outline
             .text-center
-                .modal-heading Clarification request
+                .modal-heading Aanvullingsverzoek
                 .modal-text
-                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
-                    | incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                    | quis nostrud exercitation ullamco laboris nisi ut aliquip.
+                    | Wanneer de aanvraag incompleet of onduidelijk is, 
+                    | kunt u aan de aanvrager extra informatie vragen.
+                    | Een bericht bijvoegen is daarom niet optioneel.
             form(ng-submit="$ctrl.form.submit()").form: .form-group
-                .form-label Message
+                .form-label Bericht
                 textarea(ng-model="$ctrl.form.values.question" placeholder="Message to requester").form-control
                 .form-error(ng-repeat="error in $ctrl.form.errors.question" ng-bind="error")
         
         .modal-footer.text-center
-            button.button.button-default(ng-click="$ctrl.close()") Cancel
-            button.button.button-primary(ng-click="$ctrl.form.submit()") Submit
+            button.button.button-default(ng-click="$ctrl.close()") Annuleer
+            button.button.button-primary(ng-click="$ctrl.form.submit()") Bevestig
