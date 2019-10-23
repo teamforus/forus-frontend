@@ -403,6 +403,11 @@
                 }
             }
         }
+        &.modal-auth2 {
+            .modal-content {
+                height: auto !important;
+            }
+        }
     }
 }
 
