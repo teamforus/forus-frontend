@@ -42,7 +42,7 @@ module.exports = {
         shareProducts: true,
     },
     zuidhorn: {
-        logoExtension: '.png',
+        logoExtension: '.svg',
         showAccountSidebar: true,
 
         // menu settings

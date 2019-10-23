@@ -8,43 +8,19 @@
     min-height: 100vh;
     flex-direction: column;
     height: 100%;
-    max-width: 1440px;
     margin: 0 auto;
     @import './landing';
-    @media screen and (max-width: 1000px) {
-        .section {
-            &.section-faq {
-                &.section-splash {
-                    height: 300px;
-                }
+    .section {
+        &.section-header {
+            background-size: contain;
+            background-position: right bottom;
+            @media screen and (max-width: 1024px) {
+                background: none;
             }
         }
-    }
-}
-.wrapper {
-    .header-body {
-        width: 100%;
-        max-width: 100%;
-        margin: 0 auto;
-        .header-content {
-            padding-top: 3.4vw;
-            padding-bottom: 5.1vw;
-            padding-left: 1vw;
-            color: black;
-            min-height: 450px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            text-align: left;
-            width: 50%;
-            margin-top: 10%;
-            .header-title {
-                font: 700 30px/46px $bf;
-            }
-            .header-description {
-                font: 400 18px/30px "Open Sans",arial,sans-serif;
-                margin: 0 0 20px;
+        &.section-faq {
+            .section-splash {
+                height: auto;
             }
         }
     }
