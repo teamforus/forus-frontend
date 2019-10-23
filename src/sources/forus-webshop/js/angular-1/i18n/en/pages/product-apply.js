@@ -1,21 +1,21 @@
 module.exports = {
     // APPLY FOR PRODUCT = product-apply.pug
         header: {
-            title: "Kies voucher",
+            title: "Select a voucher",
         },
         labels: {
-            transactions: "Transacties",
-            last: "Laatste transactie",
-            subtract: "(Af)",
-            none: "Geen",
-            example: "Welke tekst komt hier ?",
+            transactions: "Transactions",
+            last: "Last transaction",
+            subtract: "(Substract)",
+            none: "None",
+            example: "",
         },
         buttons: {
-            use: "Gebruik",
+            use: "Use",
         },
         popup: {
-            title: "Weet u zeker dat u deze aanbieding '<span class='popup-title-styled'>{{product_name}}</span>' bij '<span class='popup-title-styled'>{{org_name}}</span>' met een verloopdatum van <span class='popup-title-styled'>{{expire_at}}</span> wilt reserveren voor <span class='popup-title-styled'>€{{product_price}}</span>? ",
-            expiration_information: "Nadat u op bevestig klikt, krijgt u een voucher met een QR-code. Neem de voucher mee naar de aanbieder om deze te kunnen gebruiken. "
+            title: "Are you sure you want this offer '<span class =' ​​popup-title-styled '> {{product_name}} </span>' at '<span class =' ​​popup-title-styled '> {{org_name}} </span> 'with an expiration date of <span class ='popup-title-styled '> {{expire_at}} </span> to reserve for <span class =' ​​popup-title-styled '> € {{product_price}} </span>?",
+            expiration_information: "You will receive a voucher wth a QR-code after sumbitting. You can use this QR-code to do a payment at the provider."
         },
 
 }
