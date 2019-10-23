@@ -5,7 +5,11 @@
                 flex-direction: column;
             }
         }
-        
+        input {
+            border-radius: unset !important;
+            padding: 27px 20px !important;
+            margin-top: 0px !important;
+        }
         .text-center {
             .form-group{
                 flex-direction: row;
@@ -21,6 +25,9 @@
                 font-weight: 600;
                 white-space: nowrap;
             }
+        }
+        input {
+
         }
     }
 
