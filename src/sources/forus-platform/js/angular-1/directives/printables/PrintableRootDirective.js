@@ -13,7 +13,7 @@ let PrintablesRootDirective = function($scope, PrintableService, PrintableRoute)
 
             printable.ready = true;
             printable.component = routePrintables[printable.key].component;
-            printable.componentType = s.dasherize(
+            printable.componentType = require("underscore.string/dasherize")(
                 routePrintables[printable.key].component
             );
             printable.close = function() {

@@ -206,6 +206,10 @@
         &:last-child {
             margin-bottom: 0;
         }
+        &.alert {
+            color: #a80a2d;
+            font: 600 16px/18px $bf;
+        }
     }
 
     &.card-collapsable {

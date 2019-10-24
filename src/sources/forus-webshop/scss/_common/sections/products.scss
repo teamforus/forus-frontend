@@ -6,6 +6,7 @@
         .section-title {
             margin: 0 0 20px;
             display: block;
+            color: $tc;
         }
 
         .section-filters {
@@ -25,8 +26,8 @@
             position: relative;
 
             .section-title {
-                font: 700 26px/40px $bf;
-                margin: 0 0 15px;
+                font: 700 32px/1.5em $bf;
+                margin: 20px 0px 20px 0px;
             }
         }
 
