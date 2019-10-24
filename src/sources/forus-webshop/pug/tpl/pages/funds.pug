@@ -2,7 +2,7 @@ top-navbar
 section.section.section-funds: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
-        .breadcrumb-item.active Fondsen
+        .breadcrumb-item.active(i18n="page_state_titles.funds")
     .section-title(translate="funds.header.title")
     
     .block.block-funds
@@ -14,17 +14,21 @@ section.section.section-funds: .wrapper
                     span(ng-show="funds.status == 'active'" translate="funds.status.active").label.label-primary.label-square
                 .fund-organization(ng-bind="fund.organization.name") 
                 .fund-categories
-                    .fund-categories-label U KUNT UW VOUCHER ACTIVEREN TOT:
+                    .fund-categories-label(i18n="funds.labels.categories_label")
                     .fund-categories-list(ng-bind="fund.end_date_locale")
 
                 a.button.button-primary(
                     ng-if="!fund.alreadyReceived && fund.isApplicable" 
                     ng-click="$ctrl.applyFund(fund)" 
-                    translate="funds.buttons.join")
+                    translate="funds.buttons.is_applicable")
                 a.button.button-default(
                     ng-if="!fund.alreadyReceived && !fund.isApplicable" 
-                    ui-sref="fund-request({fund_id: fund.id})") Aanvragen
-                a.button.button-primary(ng-if="fund.alreadyReceived" ui-sref="vouchers") Ga naar uw vouchers
+                    ui-sref="fund-request({fund_id: fund.id})"
+                    translate="funds.buttons.start_request")
+                a.button.button-primary(
+                    ng-if="fund.alreadyReceived" 
+                    ui-sref="vouchers" 
+                    translate="funds.buttons.already_received")
 
             .fund-criterias(ng-if="fund.criterioaList.length > 0")
                 .fund-criterias-label(translate="funds.labels.criteria" translate-values="{nth: fund.criterioaList.length}")

@@ -45,6 +45,8 @@ module.exports = {
 
     // PAGES
     fund_apply: require("./nl/pages/fund-apply"),
+    fund_request: require("./nl/pages/fund-request"),
+    fund_request_clarification: require("./nl/pages/fund-request-clarification"),
     funds: require("./nl/pages/funds"),
     home: require("./nl/pages/home"),
     meapp_index: require("./nl/pages/me-index"),
