@@ -8,14 +8,16 @@
     min-height: 100vh;
     flex-direction: column;
     height: 100%;
+    @import '../_common/landing';
 
     .section {
         &.section-header {
             background: url(../img/landing/splash-top-b.png) no-repeat 100% 0;
-            background-size: cover;
+            background-size: contain;
             background-position: center center;
+            .header-content {
+                color: $tc;
+            }
         }
     }
-
-    @import '../_common/landing';
 }

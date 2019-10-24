@@ -1,30 +1,30 @@
 module.exports = {
         sms: {
-            body: 'Download Me makkelijk via de link: https://www.forus.io/DL',
-            title: 'Download <i>Me</i> op uw mobiele telefoon',
-            description: 'Vul uw telefoonnummer in het onderstaande invoerveld om een sms te ontvangen met de download link.',
-            subdescription: 'Krijgt u geen sms dan kunt u <i>Me</i> downloaden via de link <b>www.forus.io/DL</b> op uw mobiele telefoon.',
-            sent: 'Een sms-bericht is verstuurd.',
-            sent_description: 'Heeft u geen bericht ontvangen? Download <i>Me</i> via de link <b>www.forus.io/DL</b> op uw mobiele telefoon.',
+            body: 'Download the Me-app by visiting: https://www.forus.io/DL',
+            title: 'Download <i>Me</i> on your smartphone.',
+            description: 'Enter your phone number to receive a downloadlink.',
+            subdescription: "Visit https://www.forus.io/DL to download <i>Me<i> if you didn't receive the sms.",
+            sent: 'Sms has been succesfully sent.',
+            sent_description: "Visit https://www.forus.io/DL to download <i>Me<i> if you didn't receive the message.",
             button: {
-                send: 'Versturen',
-                skip: 'Overslaan'
+                send: 'Send',
+                skip: 'Skip'
             },
             error: {
-                try_later: 'Probeer later nog eens.'
+                try_later: 'Try again later.'
             }
         },
         app_header: {
-            title: 'Vul de code in op het invoerveld',
-            subtitle: 'De code is te vinden in de mobiele applicatie, volg de bovenstaande stappen op om de code te kunnen aflezen.'
+            title: 'Pleas enter the code on the input field. ',
+            subtitle: 'You can find the code in the mobile application. Follow the steps above to find the code.'
         },
         app_instruction: {
             step_1: 'Open <i>Me</i>',
-            step_2: 'Ik heb al een profiel',
-            step_3: 'Inloggen met Autorisatie code',
+            step_2: 'I already have a profile',
+            step_3: 'Log in by using a authorization code.',
         },
         authorize: {
-            close: 'Annuleren',
-            submit: 'Autoriseer apparaat',
+            close: 'Cancel',
+            submit: 'Authorize device',
         }
 }

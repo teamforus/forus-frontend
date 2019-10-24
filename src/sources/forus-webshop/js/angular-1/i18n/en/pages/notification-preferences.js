@@ -1,74 +1,85 @@
 module.exports = {
-    title_preferences: 'E-mailvoorkeuren',
-    subscribe_desc: 'Jouw e-mailadres "{{email}}" is momenteel uitgeschreven van alle notificaties. Wanneer u specifieke notificaties weer wilt ontvangen zult eerst moeten kiezen om notificaties weer te willen ontvangen.',
-    unsubscribe: 'Uitschrijven voor alle notificaties',
-    unsubscribe_desc:  'Ik wil me uitschrijven van alle notificaties.',
-    subscribe: 'Ja, ik wil notificaties ontvangen.',
-    unsubscribe_button: 'Uitschrijven',
+    title_preferences: 'Email preferences',
+    subscribe_desc: 'You are currently unsubscribed from all notifications with this e-mail address "{{email}}". If you want to receive notifications, you can set this per notification below.',
+    unsubscribe: 'Unsubscribe from all notifications',
+    unsubscribe_desc:  'I would like to unsubscribe from all notifications',
+    unsubscribe_button: 'Unsubscribe',
+    subscribe: 'Yes, I would like to receive all notifications',
     errors: {
-        'not_found': 'Deze token is ongeldig',
-        'expired': 'Deze token is verlopen',
-        'not-pending': 'De notificatieinstellingen zijn al aangepast via deze link'
+        'not_found': 'This token is invalid',
+        'expired': 'This token is expired',
+        'not-pending': 'The notfication preferences have already been adjusted with this link.'
     },
     types: {
         funds: {
+            new_fund_started: {
+                title: 'Fund has started',
+                description: 'Receive a notification when a fund for which you are registered has started and you can expect customers.' 
+            },
+            new_fund_applicable: {
+                title: 'New fund that you can apply for',
+                description: 'Receive a notification when a new fund has been created for which you can apply.'
+            },
             balance_warning: {
-                title: 'Balans op fonds is onder herinneringsgrens',
-                description: 'Notificatie wanneer een balans op de fonds onder herinneringsgrens komt.'
+                title: 'Action required: top up balance',
+                description: 'Receive a notification when the balance for a fund is lower than the limit.'
             },
             fund_expires: {
-                title: 'Herinneringsnotificatie einddatum voucher',
-                description: 'Notificatie 1 maand voor de einddatum van uw voucher.'
+                title: 'Reminder expiration date voucher',
+                description: 'Receive a notification a month before the expiration date of your voucher.'
             },
             product_added: {
-                title: 'Een nieuw product is toegevoegd',
-                description: 'Notificatie wanneer een nieuw product is toegevoegd in de webshop',
+                title: 'New product has been added',
+                description: 'Receive a notification when a new offer has been added.',
             },
             new_fund_created: {
-                title: 'Nieuw fonds is aangemaakt',
-                description: 'Notificatie wanneer een nieuw fonds is aangemaakt'
+                title: 'New fund created',
+                description: 'Receive a notification when a new fund has been created.'
             },
             product_reserved: {
-                title: 'Product gereserveerd',
-                description: 'Notificatie wanneer product gereserveerd',
+                title: 'Offer reserved',
+                description: 'Receive a notification when an offer is reserved.',
             },
             product_sold_out: {
-                title: 'Product uitverkocht',
-                description: 'Notificatie wanneer een product is uitverkocht'
+                title: 'Offer sold out',
+                description: 'Receive a notification when an offer is sold out.'
             },
             provider_applied: {
-                title: 'Aanbieder biedt zich aan',
-                description: 'Notificatie wanneer een nieuwe aanbieder zich aanbiedt bij een fonds'
+                title: 'Provider applied',
+                description: 'Receive a notification when a provider applied for a fund.'
             },
             provider_approved: {
-                title: 'Aanbieder geaccepteerd',
-                description: 'Notificatie wanneer een nieuwe aanbieder geaccepteerd is'
+                title: 'Provider application approved',
+                description: 'Receive a notification when a provider is approved.'
             },
             provider_rejected: {
-                title: 'Aanbieder afgewezen',
-                description: 'Notificatie wanneer een nieuwe aanbieder is afgewezen'
+                title: 'Provider application rejected',
+                description: 'Receive a notification when a provider is rejected.'
             },
         },
         validations: {
             new_validation_request: {
-                title: 'Nieuw validatieverzoek',
-                description: 'Notificatie wanneer er een nieuw validatieverzoek is'
+                title: 'New validation request',
+                description: 'Receive a notification when you received a new validation request.'
             },
             you_added_as_validator: {
-                title: 'Je bent toegevoegd als validator',
-                description: 'Notificatie wanneer je toegevoegd bent als validator bij een fonds'
+                title: 'You have been added as validator',
+                description: 'Receive a notification when you have been added as a validator.'
             }
         },
         vouchers: {
             payment_success: {
-                title: 'Betaling gelukt',
-                description: 'Notificatie wanneer een betaling is gelukt'
+                title: 'Payment successful',
+                description: 'Receive a notification when a payment is succeeded'
+            },
+            send_voucher: {
+                title: 'Send voucher by mail',
+                description: 'Receive a notification when a voucher has been sent to your email.'
             },
             share_product: {
-                title: 'Reservering delen',
-                description: 'Notificatie wanneer er een reservering met u gedeeld is'
+                title: 'Offer reservation shared',
+                description: 'Receive a notification when a reservation has been shared.'
             }
         }
     }
-
 }

@@ -4,7 +4,7 @@ module.exports = {
         maxProductCount: 2
     },
     zuidhorn: {
-        logoExtension: '.png',
+        logoExtension: '.svg',
         maxProductCount: 2
     },
     nijmegen: {
@@ -13,7 +13,19 @@ module.exports = {
     },
     westerkwartier: {
         logoExtension: '.svg',
-        maxProductCount: 2
+        maxProductCount: 20
+    },
+    berkelland: {
+        logoExtension: '.svg',
+        maxProductCount: 20
+    },
+    oostgelre: {
+        logoExtension: '.svg',
+        maxProductCount: 20
+    },
+    winterswijk: {
+        logoExtension: '.svg',
+        maxProductCount: 20
     },
     kerstpakket: {
         logoExtension: '.svg',
