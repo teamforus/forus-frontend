@@ -482,7 +482,7 @@ module.exports = {
             subtitle_step_6: "",
             top_title_step_6: "Gebruik Me",
             top_subtitle_step_6: "Rond de installatie af door gebruik te maken van <i>Me</i>",
-            title_step_7: "Meld u aan voor een fonds",
+            title_step_7: "Test betaling",
             subtitle_step_7: "Uw aanvraag wordt binnen twee weken behandeld door de gemeente.",
         },
         meapp_header: {

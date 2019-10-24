@@ -4,16 +4,23 @@
 .app.app-container: .block.block-sign-up-steps
     section.section.section-product
         .header 
-            .back Terug
+            .back 
+                include ../../../resources/platform-general/assets/img/svg/icon-back.svg 
+                a(ng-click="$ctrl.goToMain()") 
+                    span Terug
             .heading Aanmelden als aanbieder
 
         .wrapper
             mixin progress()
                 .sign_up-progress
+                    .pre-step1(ng-class="$ctrl.step >= 2 ? 'active' : ''")
+                        .icon
+                            include ../../../resources/platform-general/assets/img/svg/pre-step.svg
+
                     .sign_up-step(
-                        ng-repeat="step in $ctrl.totalSteps"
+                        ng-repeat="step in $ctrl.shownSteps"
                         ng-class="$ctrl.step == step ? 'sign_up-step-active' : ($ctrl.step > step ? 'sign_up-step-done' : '')"
-                        ng-bind="'Stap ' + step")
+                        ng-bind="'Stap ' + (step - 1)")
 
             //- General information
             mixin card_header(step)
@@ -390,7 +397,7 @@
                                     | Volgende stap
                                     em.mdi.mdi-chevron-right.icon-right
 
-       
+                //- Manage employees
                 div(ng-if="$ctrl.step == 5")
                     h2.block-title
                     
@@ -442,6 +449,7 @@
                                 .button.button-text.button-text-padless(ng-click="$ctrl.next()")
                                     | Volgende stap
                                     em.mdi.mdi-chevron-right.icon-right
+                
                 //- Done
                 .finish-screen(ng-if="$ctrl.step == 6")
                     h2.block-title
@@ -459,7 +467,31 @@
                         
                                 .text-center: .button.button-finish(ng-click="$ctrl.finish()") Terug naar het dashboard
                             .form-group.col.col-lg-12: br
-                
+ 
+                //- Scan QR Code (test)
+                div(ng-if="$ctrl.step == 7")
+                    h2.block-title
+                    
+                    +progress()
+                    
+                    .sign_up-pane
+                        +card_header(7)
+
+                        .sign_up-pane-body
+                            .sign_up-pane-text.header
+                                | Wanneer u bent goedgekeurd, bent u er klaar voor om betalingen te doen. Klanten zullen bij u in de winkel komen met een plaatje (QR code) veelal bekend van concertkaartjes en vliegtickets. Deze code scant u met de app die u zojuist heeft geinstaleerd. Vervolgens kan u de betaling verichten. Scan de afbeelding hieronder om een test betaling te doen.
+                                
+                            .sign_up-pane-auth.test-qr
+                                .sign_up-pane-auth-qr_code
+                                    qr-code(
+                                        ng-if="$ctrl.testToken" 
+                                        qr-value="$ctrl.testToken" 
+                                        qr-type="auth_token" 
+                                        qr-logo=src_prefix + "./assets/img/me-logo.png")
+
+                    .step-footer(ng-if="$ctrl.has_app")
+                        a(translate="sign_up.buttons.go_step_2" ng-click="$ctrl.skipToStep(2)").button.button-primary                
+
                 //- Error
                 div(ng-if="$ctrl.state == 'error'")
                     h2.block-title Zomerzwemregeling aanvraag

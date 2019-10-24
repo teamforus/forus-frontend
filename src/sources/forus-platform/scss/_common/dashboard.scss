@@ -2400,6 +2400,25 @@ translate,
 
 .block {
     &.block-sign_up {
+        .pre-step1 {
+            width: 40px;
+            border-top: 6px solid #BDCBFF;
+            text-align: center;
+
+            .icon {
+                margin-top: 3px;
+            }
+
+            &.active {
+                border-top: 6px solid #3561FF;
+            }
+        }
+
+        .sign_up-step {
+            margin-left: 1px;
+            width: calc((100% - 45px)/4);
+        }
+
         .sign_up-pane {
             .sign_up-pane-header {
                 font-style: normal;
@@ -2522,6 +2541,11 @@ translate,
 
             .sign_up-pane-auth {
                 margin-top: 50px;
+
+                &.test-qr {
+                    margin-top: 30px;
+                    justify-content: space-around;
+                }
 
                 .sign_up-pane-auth-content {
                     font: 400 18px/27px $bf !important;
@@ -3452,6 +3476,13 @@ translate,
                 margin: 0px 50px;
                 font: 500 18px/22px $bf;
                 color: #9E9E9E;
+
+                span {
+                    display: inline-block;
+                    margin-top: 2px;
+                    font-size: 18px;
+                    color: #9E9E9E;
+                }
             }
 
             .heading {

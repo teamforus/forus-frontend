@@ -601,10 +601,8 @@ let SignUpComponent = function(
                 $ctrl.organizationForm.unlock();
             });
 
-        } else if ($ctrl.step == 4) {
-            $ctrl.setStep(5);
-        } else if ($ctrl.step == 5) {
-            $ctrl.setStep(6);
+        } else if ($ctrl.step >= 4) {
+            $ctrl.setStep($ctrl.step + 1);
         }
     };
 
@@ -662,8 +660,11 @@ let SignUpComponent = function(
     };
 
     $ctrl.finish = () => {
-        $state.go('organizations');
+        //$state.go('organizations');
+        $ctrl.setStep(7);
     }
+
+    $ctrl.testToken = 'secret';
 
     $ctrl.requestAuthQrToken = () => {
         IdentityService.makeAuthToken().then((res) => {
@@ -708,7 +709,12 @@ let SignUpComponent = function(
 
     $ctrl.weekDays = Object.values(OfficeService.scheduleWeekDays());
 
-    $ctrl.totalSteps = Array.from({length: 6}, (v, k) => k + 1);
+    $ctrl.totalSteps = Array.from({length: 7}, (v, k) => k + 1);
+    $ctrl.shownSteps = $ctrl.totalSteps.filter(step => step > 1 && step <= 5);
+
+    $ctrl.goToMain = () => {
+        $state.go('home');
+    }
 };
 
 module.exports = {
