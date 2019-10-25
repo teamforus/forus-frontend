@@ -149,6 +149,11 @@
             width: 100%;
             margin-bottom: 10px;
             @include cf();
+            .schedule-title {
+                color: #00122a;
+                font: 700 14px/24px $bf;
+                margin-top: 10px;
+            }
 
             .schedule-label {
                 color: #646f79;
