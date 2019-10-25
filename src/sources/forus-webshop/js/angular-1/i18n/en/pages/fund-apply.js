@@ -1,18 +1,18 @@
 module.exports = {
     // APPLY FOR FUNDS = fund-apply.pug
     header: {
-        title: "{{fund_name}} aanmelden",
-        criteria: "Voorwaarden ({{ nth }})",
+        title: "Apply for {{fund_name}}",
+        criteria: "Criteria ({{ nth }})",
     },
     criterias: {
         label: "Details",
-        enddate: "Einddatum:",
+        enddate: "Expiration date",
         email: "E-Mail:",
-        phone: "Telefoonnummer:",
-        fixed_amount: "Vast tegoed:",
-        multiplied_amount: "Vermenigvuldiger:",
+        phone: "Phone number",
+        fixed_amount: "Fixed amount:",
+        multiplied_amount: "Multiplier",
     },
     buttons: {
-        join: "DOE MEE",
+        join: "Apply",
     }  
 }

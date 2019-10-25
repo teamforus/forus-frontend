@@ -1,5 +1,5 @@
 module.exports = {
         sms:{
-            body: 'Download Me makkelijk via de link: https://www.forus.io/DL',
+            body: 'Visit https://www.forus.io/DL to dowload the Me-app',
         }  
 }
