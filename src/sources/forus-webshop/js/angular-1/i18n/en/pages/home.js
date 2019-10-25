@@ -3,6 +3,8 @@ module.exports = {
     header: {
         title: "{{fund}} ",
         subtitle: "Welcome to the website of {{fund}}. Heeft u van de gemeente een toekenning voor {{fund}}? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
+        title_multi: "Webshop {{org_name}}",
+        subtitle_multi: "Welkom op de webshop van de {{org_name}}. Heeft u van de gemeente een toekenning voor een regeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
         cta: "Click start and enter your activation code. You find the code in the letter about {{fund}} that you've received.",
         auth_cta: "Manage your vouchers by downloading the Me-ap.",
         auth_button: "Download Me",

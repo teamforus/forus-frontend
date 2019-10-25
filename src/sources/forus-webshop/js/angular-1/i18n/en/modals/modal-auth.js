@@ -21,6 +21,22 @@ module.exports = {
                 title: "Log in to the Kerstpakket",
                 subtitle: "<span>Scan the QR-code with the</span> <strong><u>Me-app</u></strong><span> or log in with your e-mailaddress</span>",                
             },
+            berkelland: {
+                title: "Inloggen op de Meedoenapplicatie",
+                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
+            },
+            oostgelre: {
+                title: "Inloggen op de Meedoenapplicatie",
+                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
+            },
+            winterswijk: {
+                title: "Inloggen op de Meedoenapplicatie",
+                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
+            },
+            kerstpakket: {
+                title: "Inloggen op het Kerstpakket",
+                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",                
+            },
             zuidhorn: {
                 title: "Log in to the Kindpakket",
                 subtitle: "<span>Scan the QR-code with the</span> <strong><u>Me-app</u></strong><span> or log in with your e-mailaddress</span>",                
@@ -66,6 +82,15 @@ module.exports = {
             },
             winterswijk: {
                 mail: "Please create a profile before you continue with the activation."
+            },
+            berkelland: {
+                mail: "Maak een account aan voordat u verder kan met de activatie."
+            },
+            oostgelre: {
+                mail: "Maak een account aan voordat u verder kan met de activatie."
+            },
+            winterswijk: {
+                mail: "Maak een account aan voordat u verder kan met de activatie."
             },
             timelimit: "You will be logged out automatically after 15 minutes of inactivity.",
             warning: "Close this window and click 'Login' if you have already used the activation code.",
