@@ -355,9 +355,11 @@
                                                         th Open
                                                         th Start
                                                         th End
+                                                        th.breaks Break
                                                     
                                                     tr(ng-repeat="(weekDayKey, weekDay) in $ctrl.weekDays track by $index")
                                                         td(ng-class="$index >= 5 ? 'weekend' : ''") {{ weekDay }}
+                                                        
                                                         td
                                                             ui-control-checkbox(
                                                                 name="is_opened{{$index}}" 
@@ -377,7 +379,20 @@
                                                                 ng-model="$ctrl.officeForm.values.schedule[weekDayKey].end_time" 
                                                                 ng-if="$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened"
                                                                 ng-change="$ctrl.syncHours($index)" 
-                                                                data-placeholder="till")                    
+                                                                data-placeholder="till")  
+
+                                                        td.breaks
+                                                            ui-control-text.time.breaks.start(
+                                                                ng-model="$ctrl.officeForm.values.schedule[weekDayKey].break_start_time"
+                                                                ng-if="$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened"
+                                                                ng-change="$ctrl.syncHours($index)" 
+                                                                data-placeholder="from")
+                                                        
+                                                            ui-control-text.time.breaks.end(
+                                                                ng-model="$ctrl.officeForm.values.schedule[weekDayKey].break_end_time" 
+                                                                ng-if="$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened"
+                                                                ng-change="$ctrl.syncHours($index)" 
+                                                                data-placeholder="till")                   
                                     
                             .location-btns.col: .row
                                 .col.col-lg-4

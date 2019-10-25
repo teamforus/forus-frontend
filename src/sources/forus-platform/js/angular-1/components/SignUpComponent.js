@@ -338,6 +338,13 @@ let SignUpComponent = function(
         $ctrl.officeForm.submit();
     };
 
+    $ctrl.syncTwoDatesHours = (date1, date2) => {
+        date1.start_time = date2.start_time;
+        date1.end_time   = date2.end_time;
+        date1.break_start_time = date2.break_start_time;
+        date1.break_end_time   = date2.break_end_time;
+    }
+
     $ctrl.setSameWeekDayHours = (week_days) => {
         if ((week_days && $ctrl.officeForm.values.same_hours) || 
             (!week_days && $ctrl.officeForm.values.weekend_same_hours)
@@ -376,8 +383,7 @@ let SignUpComponent = function(
                         $ctrl.officeForm.values.schedule[index] = {};
                     }
 
-                    $ctrl.officeForm.values.schedule[index].start_time =  time.start_time;
-                    $ctrl.officeForm.values.schedule[index].end_time = time.end_time;
+                    $ctrl.syncTwoDatesHours($ctrl.officeForm.values.schedule[index], time);
                 }
             });
         }
@@ -402,9 +408,8 @@ let SignUpComponent = function(
                 if (typeof $ctrl.officeForm.values.schedule[index] == 'undefined') {
                     $ctrl.officeForm.values.schedule[index] = {};
                 }
-
-                $ctrl.officeForm.values.schedule[index].start_time =  time.start_time;
-                $ctrl.officeForm.values.schedule[index].end_time = time.end_time;
+                
+                $ctrl.syncTwoDatesHours($ctrl.officeForm.values.schedule[index], time);
             }
         });
     };

@@ -2718,6 +2718,9 @@ translate,
                     border-bottom: 1px solid #EFF2F4;   
                 }
 
+                .schedule-block {
+                }
+
                 .description {
                     margin-left: 0px;
                     margin-right: 0px;
@@ -2734,15 +2737,11 @@ translate,
                         letter-spacing: 0.08px;
                         text-transform: uppercase;
                         color: #222530;
-                    }
-
-                    th {
-                        text-transform: uppercase;
                         text-align: left;
                     }
 
                     td {
-                        padding-right: 30px;
+                        padding-right: 22px;
                         height: 30px;
                         font: 400 16px/20px $bf;
                         color: #222530;
@@ -2756,6 +2755,18 @@ translate,
                         }
                     }
 
+                    th, td {
+                        &.breaks {
+                            text-align: center;
+                        }
+                    }
+
+                    td {
+                        &.breaks {
+                            padding-left: 40px;
+                        }
+                    }
+
                     .ui-control {
                         &.ui-control-text {
                             width: 80px;
@@ -2764,6 +2775,21 @@ translate,
                             input {
                                 height: 30px;
                                 border-radius: 6px;
+                            }
+                        }
+                    
+                        &.breaks {
+                            display: table-cell;
+
+                            &.end {
+                                input {
+                                    margin-right: 0px;
+                                }
+                            }
+    
+                            input {
+                                width: 80px;
+                                margin-right: 22px;
                             }
                         }
 
