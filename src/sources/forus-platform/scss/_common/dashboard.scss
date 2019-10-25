@@ -4290,39 +4290,46 @@ translate,
         }
     }
     &.modal-auth2 {
+        .modal-window {
+            width: 650px;
+            max-width: 100%;
+        }
+
         .modal-content {
             padding: 20px;
-            width: 100%;
-            max-width: 650px;
             border-radius: 5px;
             min-height: 100px;
+            font: 400 13px $bf;
+
             .form {
                 display: flex;
                 margin: 10px 0;
-                input {
-                    width:385px !important;
+
+                .form-control {
+                    width: 385px;
                     margin-right:20px;
                     height: 46px;
-                    border-radius: 8px;
+                    border-radius: 6px;
                     background-color: #eff2f4;
-    
                     float: left !important;
+                    border-radius: 6px;
                 }
-                button {
+
+                .button {
                     width: 180px;
                     position: relative;
                     display: block;
+                    padding: 11px 20px;
+                    border-radius: 6px;
                 }
             }
-            font: 400 13px $bf;
+
             .modal-title {
                 margin-bottom: 5px;
                 font: 600 1.4em $bf;
                 width: 375px;
             }
-            .download-badges {
-                text-align:left;
-            }
+
             .modal-subtitle {
                 font-size: 15px;
                 u {
@@ -4341,10 +4348,16 @@ translate,
                     margin-right: 10px;
                 }
             }
+            
             .subtitle-left {
                 width: 375px;
                 float:left;
             }
+            
+            .download-badges {
+                text-align:left;
+            }
+
             .block-qr-code {
                 .qr_code {
                     width: 175px !important;

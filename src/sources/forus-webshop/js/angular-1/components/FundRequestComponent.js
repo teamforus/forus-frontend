@@ -89,7 +89,10 @@ let FundRequestComponent = function(
             }).then(_res => {
                 let record = _res.data;
 
-                FileService.storeValidateAll(criteria.files).then(res => {
+                FileService.storeValidateAll(
+                    criteria.files,
+                    'fund_request_record_proof'
+                ).then(res => {
                     $ctrl.recordsSubmitting = false;
                     criteria.errors = {};
                     resolve(record);
@@ -100,9 +103,9 @@ let FundRequestComponent = function(
             }, res => {
                 $ctrl.recordsSubmitting = false;
                 reject(criteria.errors = {
-                    value : res.data.errors['records.0.value'],
-                    record_type_key : res.data.errors['records.0.record_type_key'],
-                    fund_criterion_id : res.data.errors['records.0.fund_criterion_id'],
+                    value: res.data.errors['records.0.value'],
+                    record_type_key: res.data.errors['records.0.record_type_key'],
+                    fund_criterion_id: res.data.errors['records.0.fund_criterion_id'],
                 });
             });
         });
@@ -113,7 +116,10 @@ let FundRequestComponent = function(
         return $q((resolve, reject) => {
             $ctrl.recordsSubmitting = true;
 
-            FileService.storeAll(criteria.files || []).then(res => {
+            FileService.storeAll(
+                criteria.files || [],
+                'fund_request_record_proof'
+                ).then(res => {
                 criteria.filesUploaded = res.map(file => file.data.data);
                 resolve(criteria);
             }, res => {
@@ -341,12 +347,18 @@ let FundRequestComponent = function(
 
     $ctrl.$onInit = function() {
         $ctrl.signedIn = AuthService.hasCredentials();
-
         $ctrl.initAuthForm();
         $ctrl.prepareRecordTypes();
 
         if ($ctrl.signedIn) {
             $ctrl.buildTypes();
+
+            FundRequestService.index($ctrl.fund.id).then((res) => {
+                if (res.data.data.length > 0) {
+                    alert('You already requested this fund');
+                    $state.go('funds');
+                }
+            });
         } else {
             $ctrl.buildSteps();
             $ctrl.updateEligibility();
