@@ -5,7 +5,7 @@ top-navbar
 section.section.section-product: .wrapper
     .block.block-sign_up: .block-wrapper
         div(ng-if="$ctrl.state == 'clarification_form'")
-            h2.block-title(i18n="fund_request_clarification.blocktitle" i18n-vars="{fundname: $ctrl.fund.name}")
+            h2.block-title(i18n="fund_request_clarification.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
             .sign_up-pane
                 .sign_up-pane-header(ng-bind="'Bevestig uw ' + $ctrl.recordTypes[invalidCriteria.record_type_key].name")
                 .sign_up-pane-body: form(ng-submit="$ctrl.form.submit()").form.row
@@ -26,7 +26,7 @@ section.section.section-product: .wrapper
                         .form-error(ng-repeat="error in $ctrl.form.errors.files" ng-bind="error")
                     
                     .form-group.col.col-lg-12.text-center
-                        button(type="submit").button.button-primary(i18n="fund_request_clarification.buttons.submit")
+                        button(type="submit" i18n="fund_request_clarification.buttons.submit").button.button-primary
         //- Done
         div(ng-if="$ctrl.state == 'done'")
             h2.block-title(i18n="fund_request_clarification.blocktitle" i18n-vars="{fundname: $ctrl.fund.name}")

@@ -222,11 +222,11 @@ section.section.section-product: .wrapper
                         
                     .form-group.col.col-lg-12: .sign_up-pane-info
                         p.sign_up-pane-text 
-                            span(i18n="fund_request.sign_up.pane.operator.same" i18n-vars="{name: critera.record_type_name }")
-                            span(ng-if="invalidCriteria.operator == '>'") meer dan 
+                            span(i18n="fund_request.sign_up.pane.operator.same" i18n-vars="{name: invalidCriteria.record_type_name }")
+                            span(ng-if="invalidCriteria.operator == '>'") meer dan
                             span(ng-if="invalidCriteria.operator == '='")
-                            span(ng-if="invalidCriteria.operator == '<'") minder dan 
-                            | {{ invalidCriteria.record_type_key == 'net_worth' ? '€' : '' }}{{ invalidCriteria.value }} zijn.
+                            span(ng-if="invalidCriteria.operator == '<'") minder dan
+                            |  {{ invalidCriteria.record_type_key == 'net_worth' ? '€' : '' }}{{ invalidCriteria.value }} zijn.
                     .form-group.col.col-lg-12: file-uploader(files="invalidCriteria.files")
                 
                 .sign_up-pane-footer: .row
