@@ -1,25 +1,25 @@
 module.exports = {
     // FUNDS = funds.pug
     header: {
-        title: "Fondsen",
+        title: "Funds",
     },
     labels: {
-        categorie: "CATEGORIEËN",
-        criteria: "Voorwaarden ({{ nth }})",
-        location: "Locatie",
-        office: "Zuidhorn Gemeente",
-        children: "Kinderen",
+        categorie: "CATEGORIES",
+        criteria: "Criteria ({{ nth }})",
+        location: "Location",
+        office: "Municipality of Zuidhorn",
+        children: "Children",
         count: "1",
-        agelimit: "Leeftijdsgrens",
-        age: "< 18 jaar oud",
-        income: "Inkomensgrens",
+        agelimit: "Age limit",
+        age: "< 18 year or older.",
+        income: "Wage limit",
         amount: "< € 1118.46",
     },
     buttons: {
-        join: "Doe mee",
-        more: "BEKIJK MEER",
+        join: "Apply",
+        more: "SHOW MORE",
     },
     status: {
-        active: "Actief",
+        active: "Active",
     }
 }

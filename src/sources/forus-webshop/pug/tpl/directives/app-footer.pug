@@ -264,6 +264,236 @@ else if (qdt_c.platform.env_data.client_key == 'nijmegen')
                 | 
                 a(href="#")
 
+//- berkelland
+else if (qdt_c.platform.env_data.client_key == 'berkelland')
+    section.section.section-footer
+        .wrapper
+            .block.block-footer: .row
+                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-5'")
+                    .footer-label Contactgegevens
+                    //-img(src="./assets/img/logo-bw.png").footer-logo
+                    .footer-schedule
+                        .schedule-label E-mailadres:		
+                        .schedule-value minima@socialedienstoostachterhoek.nl
+                    .footer-schedule
+                        .schedule-label Telefoonnummer:		
+                        .schedule-value 0544-474200
+                    .footer-schedule
+                        .schedule-label Adres:		
+                        .schedule-value 
+                            | Burgemeester Bosmastraat 7 <br />
+                            | 7101DE, Winterswijk
+                //-.col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
+                    //img(src="./assets/img/forus-logo-bw.svg").footer-logo
+                    .block.block-app_download: .footer-label Downloads
+                        .download-button: a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
+                            .download-icon: img(src="./assets/img/icon-app/play-store-badge.png")
+                        .download-button: a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
+                            .download-icon: img(src="./assets/img/icon-app/app-store-badge.svg")
+                            
+                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-3'")
+                    .footer-label Openingstijden
+                    .footer-schedule
+                        .schedule-label Maandag: 		
+                        .schedule-value 8.30 - 16:30
+
+                    .footer-schedule
+                        .schedule-label Dinsdag: 		
+                        .schedule-value 8.30 - 16:30
+
+                        .schedule-label Woensdag: 		
+                        .schedule-value 8.30 - 16:30
+
+                    .footer-schedule
+                        .schedule-label Donderdag: 		
+                        .schedule-value 8.30 - 16:30
+
+                        .schedule-label Vrijdag: 		
+                        .schedule-value 8.30 - 12:30
+                .col.col-md-4
+                    .footer-label Navigatie
+                    nav.footer-nav
+                        .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van de gemeente Berkelland en wilt u meer informatie?
+                        .footer-nav-item: a(href="/provider/" target="_self") Bent u een aanbieder en wilt u meer informatie?
+                    .block.block-app_download(style="margin-top:15px;"): .footer-label(style="margin-bottom:0px;") Download Me-app
+                        .wrapper
+                            a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
+                                img(src="./assets/img/icon-app/play-store-badge.png" style="height: 40px; width: 120px; padding-right: 5px; margin-top: 10px;")
+                            a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
+                                img(src="./assets/img/icon-app/app-store-badge.svg" style="height: 40px; width: 120px; margin-top: 10px;")
+                    nav.footer-nav(style="margin-top:0; padding:0;")
+                        .footer-nav-item: a(ui-sref="me-app") Wilt u meer informatie over de Me-app?		
+                .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
+                    .footer-label Ontvang onze nieuwsbrief
+                    .form
+                        .form-group.footer-subscribe
+                            input(type="email" placeholder="E-mail").form-control.form-control-fancy
+                            button.button.button-primary: .mdi.mdi-arrow-right
+                
+        .block.block-copyrights: .wrapper
+            .copyrights 
+            .links
+                a(href="" target="_blank") Algemene Voorwaarden
+                .link-separator
+                a(href="" target="_blank") Privacy Statement
+            .developed
+                | 
+                a(href="#")
+
+//- winterswijk
+else if (qdt_c.platform.env_data.client_key == 'winterswijk')
+    section.section.section-footer
+        .wrapper
+            .block.block-footer: .row
+                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-5'")
+                    .footer-label Contactgegevens
+                    //-img(src="./assets/img/logo-bw.png").footer-logo
+                    .footer-schedule
+                        .schedule-label E-mailadres:		
+                        .schedule-value minima@socialedienstoostachterhoek.nl
+                    .footer-schedule
+                        .schedule-label Telefoonnummer:		
+                        .schedule-value 0544-474200
+                    .footer-schedule
+                        .schedule-label Adres:		
+                        .schedule-value 
+                            | Burgemeester Bosmastraat 7 <br />
+                            | 7101DE, Winterswijk
+                //-.col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
+                    //img(src="./assets/img/forus-logo-bw.svg").footer-logo
+                    .block.block-app_download: .footer-label Downloads
+                        .download-button: a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
+                            .download-icon: img(src="./assets/img/icon-app/play-store-badge.png")
+                        .download-button: a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
+                            .download-icon: img(src="./assets/img/icon-app/app-store-badge.svg")
+                            
+                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-3'")
+                    .footer-label Openingstijden
+                    .footer-schedule
+                        .schedule-label Maandag: 		
+                        .schedule-value 8.30 - 16:30
+
+                    .footer-schedule
+                        .schedule-label Dinsdag: 		
+                        .schedule-value 8.30 - 16:30
+
+                        .schedule-label Woensdag: 		
+                        .schedule-value 8.30 - 16:30
+
+                    .footer-schedule
+                        .schedule-label Donderdag: 		
+                        .schedule-value 8.30 - 16:30
+
+                        .schedule-label Vrijdag: 		
+                        .schedule-value 8.30 - 12:30
+
+                .col.col-md-4
+                    .footer-label Navigatie
+                    nav.footer-nav
+                        .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van de gemeente Winterswijk en wilt u meer informatie?
+                        .footer-nav-item: a(href="/provider/" target="_self") Bent u een aanbieder en wilt u meer informatie?
+                    .block.block-app_download(style="margin-top:15px;"): .footer-label(style="margin-bottom:0px;") Download Me-app
+                        .wrapper
+                            a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
+                                img(src="./assets/img/icon-app/play-store-badge.png" style="height: 40px; width: 120px; padding-right: 5px; margin-top: 10px;")
+                            a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
+                                img(src="./assets/img/icon-app/app-store-badge.svg" style="height: 40px; width: 120px; margin-top: 10px;")
+                    nav.footer-nav(style="margin-top:0; padding:0;")
+                        .footer-nav-item: a(ui-sref="me-app") Wilt u meer informatie over de Me-app?		
+                .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
+                    .footer-label Ontvang onze nieuwsbrief
+                    .form
+                        .form-group.footer-subscribe
+                            input(type="email" placeholder="E-mail").form-control.form-control-fancy
+                            button.button.button-primary: .mdi.mdi-arrow-right
+                
+        .block.block-copyrights: .wrapper
+            .copyrights 
+            .links
+                a(href="" target="_blank") Algemene Voorwaarden
+                .link-separator
+                a(href="" target="_blank") Privacy Statement
+            .developed
+                | 
+                a(href="#")
+
+//- oostgelre
+else if (qdt_c.platform.env_data.client_key == 'oostgelre')
+    section.section.section-footer
+        .wrapper
+            .block.block-footer: .row
+                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-5'")
+                    .footer-label Contactgegevens
+                    //-img(src="./assets/img/logo-bw.png").footer-logo
+                    .footer-schedule
+                        .schedule-label E-mailadres:		
+                        .schedule-value minima@socialedienstoostachterhoek.nl
+                    .footer-schedule
+                        .schedule-label Telefoonnummer:		
+                        .schedule-value 0544-474200
+                    .footer-schedule
+                        .schedule-label Adres:		
+                        .schedule-value 
+                            | Burgemeester Bosmastraat 7 <br />
+                            | 7101DE, Winterswijk
+                //-.col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
+                    //img(src="./assets/img/forus-logo-bw.svg").footer-logo
+                    .block.block-app_download: .footer-label Downloads
+                        .download-button: a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
+                            .download-icon: img(src="./assets/img/icon-app/play-store-badge.png")
+                        .download-button: a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
+                            .download-icon: img(src="./assets/img/icon-app/app-store-badge.svg")
+                            
+                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-3'")
+                    .footer-label Openingstijden
+                    .footer-schedule
+                        .schedule-label Maandag: 		
+                        .schedule-value 8.30 - 16:30
+
+                    .footer-schedule
+                        .schedule-label Dinsdag: 		
+                        .schedule-value 8.30 - 16:30
+
+                        .schedule-label Woensdag: 		
+                        .schedule-value 8.30 - 16:30
+
+                    .footer-schedule
+                        .schedule-label Donderdag: 		
+                        .schedule-value 8.30 - 16:30
+
+                        .schedule-label Vrijdag: 		
+                        .schedule-value 8.30 - 12:30
+
+                .col.col-md-4
+                    .footer-label Navigatie
+                    nav.footer-nav
+                        .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van de gemeente Oost Gelre  en wilt u meer informatie?
+                        .footer-nav-item: a(href="/provider/" target="_self") Bent u een aanbieder en wilt u meer informatie?
+                    .block.block-app_download(style="margin-top:15px;"): .footer-label(style="margin-bottom:0px;") Download Me-app
+                        .wrapper
+                            a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
+                                img(src="./assets/img/icon-app/play-store-badge.png" style="height: 40px; width: 120px; padding-right: 5px; margin-top: 10px;")
+                            a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
+                                img(src="./assets/img/icon-app/app-store-badge.svg" style="height: 40px; width: 120px; margin-top: 10px;")
+                    nav.footer-nav(style="margin-top:0; padding:0;")
+                        .footer-nav-item: a(ui-sref="me-app") Wilt u meer informatie over de Me-app?		
+                .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
+                    .footer-label Ontvang onze nieuwsbrief
+                    .form
+                        .form-group.footer-subscribe
+                            input(type="email" placeholder="E-mail").form-control.form-control-fancy
+                            button.button.button-primary: .mdi.mdi-arrow-right
+                
+        .block.block-copyrights: .wrapper
+            .copyrights 
+            .links
+                a(href="" target="_blank") Algemene Voorwaarden
+                .link-separator
+                a(href="" target="_blank") Privacy Statement
+            .developed
+                | 
+                a(href="#")
+
 //- Westerkwartier
 else if (qdt_c.platform.env_data.client_key == 'westerkwartier')
     section.section.section-footer
@@ -295,29 +525,35 @@ else if (qdt_c.platform.env_data.client_key == 'westerkwartier')
                             .download-icon: img(src="./assets/img/icon-app/icon-app-ios.svg")
                             
                 .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-5'")
-                    .footer-label Openingstijden Gemeente
-                    .footer-schedule
-                        .schedule-label Maandag: 		
-                        .schedule-value 08.00-12.00 uur, na 12:00 uur alleen op afspraak.
-                        
-                    .footer-schedule
-                        .schedule-label Dinsdag:		
-                        .schedule-value 08.00-12.00 uur, na 12:00 uur alleen op afspraak.
+                    .footer-label Openingstijden gemeente
 
                     .footer-schedule
-                        .schedule-label Woensdag: 		
-                        .schedule-value 08.00-12.00 uur, na 12:00 uur alleen op afspraak.
+                        .schedule-title Leek
+                        .schedule-label Maandag	t/m donderdag
+                        .schedule-value 08.00 - 12.00 uur
+                        .schedule-label Donderdavond
+                        .schedule-value 18:00 - 19:30 uur
+                        .schedule-label Vrijdag
+                        .schedule-value 8:00 tot 12:00 uur
+                        
+                    .footer-schedule
+                        .schedule-title Zuidhorn
+                        .schedule-label Maandag	t/m donderdag
+                        .schedule-value 08.00 - 12.00 uur
+                        .schedule-label Donderdavond
+                        .schedule-value 18:00 - 19:30 uur
+                        .schedule-label Vrijdag
+                        .schedule-value 8:00 tot 12:00 uur
+
+                    .footer-schedule
+                        .schedule-title Marum
+                        .schedule-label Dinsdag en donderdag		
+                        .schedule-value 8:00 tot 12:00 uur
                     
                     .footer-schedule
-                        .schedule-label Donderdag:	 	
-                        .schedule-value 08.00-12.00 uur, na 12:00 uur alleen op afspraak.
-                    
-                    .footer-schedule
-                        .schedule-label Vrijdag: 		
-                        .schedule-value 08.00-12.00 uur, na 12:00 uur alleen op afspraak.
-                    .footer-schedule
-                        .schedule-label(style="width: 100%;") Locatie Zuidhorn is op maandagavond van 18:00 tot 19:30 uur geopend.		
-                        .schedule-label(style="width: 100%;") Locatie Leek is op donderdagavond van 18:00 uur tot 19:30 uur geopend.
+                        .schedule-title Grootegast
+                        .schedule-label Woensdag en vrijdag
+                        .schedule-value 8:00 tot 12:00 uur
                 
                 .col.col-md-3
                     .footer-label Navigatie
@@ -337,7 +573,7 @@ else if (qdt_c.platform.env_data.client_key == 'westerkwartier')
             .links
                 a(href="https://media.forus.io/static/Algemene%20Voorwaarden%20Kindpakket%20website.pdf") Algemene Voorwaarden
                 .link-separator
-                a(href="https://www.leek.nl/home/privacybeleid_3895") Privacy Statement
+                a(href="https://www.westerkwartier.nl/home/privacyverklaring_3442") Privacy Statement
             .developed
                 | 
                 a(href="#")

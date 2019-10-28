@@ -953,7 +953,6 @@ module.exports = {
             link: "Vul uw e-mail adres in om een link te ontvangen waarmee u kunt inloggen",
             code: "Vul de activatiecode in die u per brief heeft ontvangen",
             voucher_email: "Verstuur de voucher per e-mail",
-
         },
         input: {
             mail: "Vul uw e-mail adres in",
