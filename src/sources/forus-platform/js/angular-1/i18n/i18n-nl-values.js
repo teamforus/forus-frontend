@@ -1,6 +1,12 @@
-// No nested objects allowed 
+// No nested objects allowed
 module.exports = {
-    general: {},
-    nijmegen: {},
-    zuidhorn: {}
+    general: {
+        name: "General"
+    },
+    nijmegen: {
+        name: "Nijmegen"
+    },
+    zuidhorn: {
+        name: "Zuidhorn"
+    }
 };
