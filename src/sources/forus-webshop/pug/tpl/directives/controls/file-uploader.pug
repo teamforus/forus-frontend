@@ -4,11 +4,11 @@
     .uploader-droparea
         .droparea-icon: .mdi.mdi-file-upload-outline
         .droparea-title 
-            | Bestand hier slepen &amp; laten vallen
+            | Document slepen &amp; neer zetten
             br
             small of
-        .droparea-button: .button.button-primary-outline(ng-click="$dir.selectFile()") Upload nog een document
-        .droparea-size max. size 8Mb
+        .droparea-button: .button.button-primary-outline(ng-click="$dir.selectFile()") Upload een document
+        .droparea-size max. grootte 8Mb
     
     .uploader-files(ng-if="files.length > 0")
         .file-item.file-item-with-progress(ng-repeat="file in files")
