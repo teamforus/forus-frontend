@@ -12,7 +12,9 @@ let ClickOutsideDirective = function($scope, $element) {
             targetElement = targetElement.parentNode;
         } while (targetElement);
 
-        $scope.clickOutside();
+        $scope.clickOutside({
+            '$event': e
+        });
     };
 
 

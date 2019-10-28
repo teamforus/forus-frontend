@@ -76,7 +76,7 @@
                                 th(i18n="transactions.labels.status")
                             tr(
                                 ng-repeat="transaction in $ctrl.transactions.data"
-                                ng-click="$ctrl.showTransaction(transaction)").pointer
+                                ng-click="$ctrl.showTransaction(transaction)")
                                 td(ng-bind="transaction.id")
                                 td: a.text-primary-light(ng-bind="transaction.amount | currency_format")
                                 td(ng-bind="transaction.created_at_locale")
