@@ -1,0 +1,72 @@
+.block {
+    &.block-navbar {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        padding: 0;
+        background-color: #fff;
+        max-width: 100%;
+        z-index: 2;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.075);
+        .navbar-inner {
+            width: 1140px;
+            padding: 0px 15px;
+            align-items: center;
+        }
+        .navbar-logo {
+            @media screen and (min-width: 1024px) {
+                padding: 0px 20px 0px 0px;
+            }
+
+            img {
+                height: 55px;
+            }
+        }
+        
+        .navbar-list {
+            text-align: left;
+            
+            .navbar-item-wrapper {
+                .navbar-item {
+                    font-size: 1em;
+                    &:hover {
+                        color: $tc;
+
+                        &:before {
+                            background-color: $color_default;
+                            opacity: .5;
+                        }
+                    }
+
+                    &.active {
+                        color: $tc;
+
+                        &:before {
+                            background-color: $color_default;
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        .block-auth {
+            .auth-in {
+                .auth-user {
+                    .auth-user-email {
+                        color: $color_default_light;
+                    }
+
+                    .auth-user-avatar {
+                        border-color: $color_default;
+                        border-radius: 4px;
+                        
+                        img {
+                            filter: grayscale(.8);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
