@@ -3,7 +3,7 @@ top-navbar.nav-var
 header.section.section-header.section-header-landing
     .wrapper
         .header-sprite
-        //.header-content(ng-if="$ctrl.funds.length <= 1")
+        //- .header-content(ng-if="$ctrl.funds.length <= 1")
         .header-content
             .header-title(ng-if="$ctrl.funds.length <= 1" i18n="home.header.title" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
             .header-title(ng-if="$ctrl.funds.length > 1" i18n="home.header.title_multi" i18n-vars="{ fund: $ctrl.funds[0].name, org_name: $ctrl.funds[0].organization.name }")
@@ -29,12 +29,7 @@ header.section.section-header.section-header-landing
             //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
             //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
 
-            // !$root.auth_user 
-            // $ctrl.vouchers.length == 0
-            // $ctrl.funds.length <= 1
-            
-
-        //.header-content(ng-if="$ctrl.funds.length >= 2")
+        //- .header-content(ng-if="$ctrl.funds.length >= 2")
 
 block-products(
     ng-if="$root.appConfigs.flags.homeProducts"
