@@ -1,56 +1,35 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
-.modal.modal-auth
+.modal.modal-auth2
     .modal-backdrop(ng-click="$ctrl.close()")
-    //- Choose Sign In type
-    .modal-content(ng-show="$ctrl.showChoose"): .modal-section
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-
-        .modal-title(i18n="popup_auth.header.{{ $root.client_key }}.title")
-        .modal-subtitle: a(
-                translate="popup_auth.header.{{ $root.client_key }}.subtitle" 
-                ui-sref="me-app" 
-                ui-sref-active="active"
-                target="_blank")
-
-        .block.block-auth-type
-            .auth_type-item: .auth_type-item-inner(ng-click="$ctrl.showQrForm()")
-                .auth_type-icon: img(src="./assets/img/icon-login-type/icon_login-type_qr.png")
-                .auth_type-name {{ "popup_auth.buttons.qrcode" | translate }}
-            .auth_type-item: .auth_type-item-inner(ng-click="$ctrl.showEmailForm()")
-                .auth_type-icon: img(src="./assets/img/icon-login-type/icon_login-type_email.png")
-                .auth_type-name {{ "popup_auth.buttons.mail" | translate }}
-
-        .modal-footer
-            a.footer-text(ng-click="$ctrl.openAuthCodePopup()") {{ "popup_auth.labels.dont_have_account" | translate }}
-
     //- Sign In by qr-code
-    .modal-content(ng-show="$ctrl.showQrCodeBlock"): .modal-section
+    .modal-content
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
 
-        .modal-title {{ "popup_auth.labels.join" | translate }}
-        .modal-subtitle {{ "popup_auth.labels.scancode" | translate }}
 
-        qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="auth_token" qr-logo=src_prefix + "./assets/img/me-logo.png")
-
-        //-.modal-footer
-            .footer-text {{ "popup_auth.labels.timelimit" | translate }}
-
-    //- Sign In by email
-    .modal-content(ng-show="$ctrl.showEmailBlock"): .modal-section
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-
-        .modal-title {{ "popup_auth.labels.join" | translate }}
+        h4.modal-title Login met e-mail
         .modal-subtitle {{ "popup_auth.labels.link" | translate }}
 
         form.form(ng-submit="$ctrl.signInEmailForm.submit()")
             .form-group
-                .form-label {{ "popup_auth.input.mail" | translate }}
-                input(ng-model="$ctrl.signInEmailForm.values.primary_email" type="email" placeholder="E-mail").form-control
+                input(ng-model="$ctrl.signInEmailForm.values.primary_email" type="email" placeholder="E-mail").form-control.email-auth
                 .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.primary_email" ng-bind="error")
             .form-group
-            .form-group.text-center
-                button(type="submit").button.button-primary {{ "popup_auth.buttons.submit" | translate }}
+            .form-group: button(type="submit").button.button-primary Login
 
         //-.modal-footer
-            .footer-text {{ "popup_auth.labels.timelimit" | translate }}
+            //-.footer-text {{ "popup_auth.labels.timelimit" | translate }}
+        .hidden-xs
+            h4.modal-title Login met Me-app
+            .modal-subtitle.subtitle-left.
+                Scan de QR code aan de rechterzijde met de QR-scanner in de me app. 
+                #[br] #[br]
+                De me app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.
+                #[br] #[br]
+            .block.block-qr-code
+                qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="auth_token" qr-logo=src_prefix + "./assets/img/me-logo.png")
+            .modal-subtitle.subtitle-left.download-badges
+                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676")
+                    img(src="./assets/img/icon-app-ios.svg") 
+                a(href="https://play.google.com/store/apps/details?id=io.forus.me")
+                    img(src="./assets/img/icon-app-android.svg")

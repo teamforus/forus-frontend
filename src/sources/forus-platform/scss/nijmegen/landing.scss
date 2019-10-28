@@ -2734,15 +2734,12 @@ ui-view {
 
     .modal-content {
         position: relative;
-        width: 1200px;
-        max-width: 100%;
         background: #f7f9fc;
         border-radius: 8px;
         min-height: 100px;
         overflow: hidden;
         margin: 0 auto;
         box-shadow: 0 20px 40px rgba(#000000, 0.3);
-        padding: none;
         z-index: 2;
 
         &.modal-description-pad{
@@ -2753,7 +2750,6 @@ ui-view {
         }
 
         .modal-section {
-            padding: 0px;
 
             .modal-footer {
                 padding: 30px 0 0;
@@ -2798,7 +2794,6 @@ ui-view {
         }
 
         .button{
-            min-width: 250px;
             text-transform: uppercase;
         }
 

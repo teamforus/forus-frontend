@@ -1,4 +1,4 @@
-let FundsComponent = function(
+let FundsComponent2 = function(
     $state,
     appConfigs,
     FundService
@@ -13,22 +13,19 @@ let FundsComponent = function(
     $ctrl.recordsByTypesKey = {};
 
     $ctrl.$onInit = function() {
-        $ctrl.records.forEach(function(record) {
-            if (!$ctrl.recordsByKey[record.key]) {
-                $ctrl.recordsByKey[record.key] = [];
-            }
-
-            $ctrl.recordsByKey[record.key].push(record);
-        });
+        if (Array.isArray($ctrl.records)) {
+            $ctrl.records.forEach(function(record) {
+                if (!$ctrl.recordsByKey[record.key]) {
+                    $ctrl.recordsByKey[record.key] = [];
+                }
+    
+                $ctrl.recordsByKey[record.key].push(record);
+            });
+        }
 
         $ctrl.recordTypes.forEach(function(recordType) {
             $ctrl.recordsByTypesKey[recordType.key] = recordType;
         });
-
-        // Filter already applied funds
-        /* $ctrl.funds = $ctrl.funds.filter(fund => $ctrl.vouchers.filter(voucher => {
-            return voucher.fund_id == fund.id;
-        }).length == 0); */
 
         $ctrl.funds = $ctrl.funds.map(function(fund) {
             fund.categories = fund.product_categories.map(function(category) {
@@ -48,6 +45,10 @@ let FundsComponent = function(
                 );
             }).length == fund.criteria.length;
 
+            fund.alreadyReceived = $ctrl.vouchers.filter(voucher => {
+                return voucher.fund_id == fund.id;
+            }).length !== 0;
+
             fund.criterioaList = FundService.fundCriteriaList(
                 fund.criteria,
                 $ctrl.recordsByTypesKey
@@ -56,8 +57,11 @@ let FundsComponent = function(
             return fund;
         });
 
-        // Filter non applicable funds
-        // $ctrl.funds = $ctrl.funds.filter(fund => fund.isApplicable);
+        $ctrl.applyFund = function(fund) {
+            FundService.apply(fund.id).then(function(res) {
+                $state.go('voucher', res.data.data);
+            }, console.error);
+        };
     };
 };
 
@@ -72,7 +76,7 @@ module.exports = {
         '$state',
         'appConfigs',
         'FundService',
-        FundsComponent
+        FundsComponent2
     ],
     templateUrl: 'assets/tpl/pages/funds.html'
 };

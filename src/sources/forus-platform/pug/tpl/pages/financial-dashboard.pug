@@ -105,8 +105,8 @@
     section.app.app-content(ng-if="$ctrl.funds.length == 0")
         block-empty(
             ng-if="$ctrl.fund == null && $ctrl.funds.length == 0 && ($root.activeOrganization | hasPerm:'manage_funds')"
-            text="'Helaas, geen fondsen beschikbaar'"
+            text="Helaas, geen fondsen beschikbaar"
             button="{href: $ctrl.emptyBlockLink, text: 'Fonds toevoegen'}")
         block-empty(
             ng-if="$ctrl.fund == null && $ctrl.funds.length > 0"
-            text="'Selecteer een fonds'")
+            text="Selecteer een fonds")

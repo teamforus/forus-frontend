@@ -2,17 +2,11 @@ let HomeComponent = function(
     $state, 
     CredentialsService, 
     IdentityService,
-    ModalService,
-    appConfigs
+    ModalService
 ) {
     let $ctrl = this;
     let qrCodeEl = document.getElementById('qrcode');
-
     let $redirectAuthorizedState = 'organizations';
-
-    if (appConfigs.panel_type == 'validator') {
-        $redirectAuthorizedState = 'csv-validation';
-    }
 
     $ctrl.showModal = false;
 
@@ -36,7 +30,6 @@ module.exports = {
         'CredentialsService', 
         'IdentityService',
         'ModalService',
-        'appConfigs', 
         HomeComponent
     ],
     templateUrl: (appConfigs) => {

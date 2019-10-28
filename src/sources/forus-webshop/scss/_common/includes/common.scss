@@ -41,11 +41,11 @@ img {
 }
 
 .text-primary {
-    color: #134478 !important;
+    color: $color_primary !important;
 }
 
 .text-primary-light {
-    color: #009ef4 !important;
+    color: $color_primary_light !important;
 }
 
 .text-danger {
