@@ -1,6 +1,6 @@
 module.exports = [function() {
     return new(function() {
-        this.build = function(values, submit) {
+        this.build = function(values, submit, autoLock = false) {
             return {
                 values: values || {},
                 errors: {},
@@ -13,6 +13,10 @@ module.exports = [function() {
                 },
                 submit: function() {
                     if (!this.locked) {
+                        if (autoLock) {
+                            this.lock();
+                        }
+
                         return submit(this);
                     }
                 },

@@ -38,8 +38,22 @@ let FileService = function(
             });
         };
 
+        this.storeValidate = function(file) {
+            var formData = new FormData();
+
+            formData.append('file', file);
+
+            return ApiRequest.post(uriPrefix + '/validate', formData, {
+                'Content-Type': undefined
+            });
+        };
+
         this.storeAll = function(files) {
             return $q.all(files.map(this.store));
+        };
+
+        this.storeValidateAll = function(files) {
+            return $q.all(files.map(this.storeValidate));
         };
     });
 };

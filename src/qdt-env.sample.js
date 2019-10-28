@@ -1,6 +1,10 @@
 let api_url = "https://dev.api.forus.io/api/v1";
 
 module.exports = (core) => {
+    // Config markups
+    core.editPlatform('dashboard_markup', (platform) => platform);
+    core.editPlatform('webshop_markup', (platform) => platform);
+    
     // Config dashboards
     core.editPlatform('dashboard_general_sponsor', (platform) => {
         platform.setEnvData({
@@ -308,9 +312,10 @@ module.exports = (core) => {
     ]); */
 
     //- Enable all but given platforms
-    /* core.disableOnly([
-        'webshop_general'
-    ]); */
+    core.disableOnly([
+        'dashboard_markup',
+        'webshop_markup'
+    ]);
 
     return core;
 };

@@ -1,0 +1,269 @@
+.block.block-sign_up {
+    padding: 30px 0;
+    cursor: default;
+
+    .block-title {
+        font: 500 36px/36px $bf;
+        text-align: center;
+        color: #191A1C;
+    }
+
+    .block-icon {
+        text-align: center;
+        font-size: 96px;
+        padding: 40px 0 30px;
+        color: #007377;
+    }
+
+    .block-description {
+        font: 400 18px/26px $bf;
+        text-align: center;
+        color: #191A1C;
+        margin: 0 0 40px;
+
+        strong, a {
+            font-weight: 600;
+        }
+
+        a {
+            color: #3561FF;
+            text-decoration: underline;
+        }
+    }
+
+    .sign_up-progress {
+        width: 100%;
+        display: flex;
+        margin: 0 0 30px;
+
+        .sign_up-step {
+            flex-grow: 1;
+            text-align: right;
+            border-top: 6px solid #EBEDF0;
+            font: 500 14px/30px $bf;
+            color: #DADADA;
+
+            &.sign_up-step-active {
+                border-top-color: #BDCBFF;
+                color: #315EFD;
+            }
+
+            &.sign_up-step-done {
+                border-top-color: #3561FF;
+                color: #3561FF;
+            }
+        }
+    }
+
+    .sign_up-pane {
+        background: #FFFFFF;
+        border: 1px solid #EBEDF0;
+        box-sizing: border-box;
+        border-radius: 5px;
+        
+        .sign_up-pane-header {
+            border-bottom: 1px solid #EBEDF0;
+            font: 500 18px/34px $bf;
+            padding: 15px 40px;
+            text-align: center;
+        }
+
+        .sign_up-pane-body {
+            padding: 40px 40px;
+
+            .sign_up-pane-heading {
+                font: 500 21px/27px $bf;   
+                margin: 0 0 20px;
+            }
+
+            .sign_up-pane-text {
+                font: 400 18px/27px $bf;
+                margin: 0 0 20px;
+
+                a {
+                    font: inherit;
+                    color: #3561FF;
+                    font-weight: 500;
+                }
+            }
+
+            .sign_up-pane-list {
+                margin: 0 0 20px;
+
+                li {
+                    font: 400 18px/22px $bf;
+                    vertical-align: middle;
+                    position: relative;
+                    padding-left: 30px;
+                    margin: 0 0 20px;
+                    
+                    &:before {
+                        content: '';
+                        display: inline-block;
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 10px;
+                        background: #c4c4c4;
+                        line-height: 22px;
+                        position: absolute;
+                        left: 0;
+                        top: 6px;
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                &.sign_up-pane-list-criteria {
+                    li {
+                        &:before {
+                            display: none;
+                        }
+
+                        .item-icon {
+                            display: inline-block;
+                            width: 20px;
+                            height: 20px;
+                            border-radius: 20px;
+                            border: 2px solid #c4c4c4;
+                            background: transparent;
+                            line-height: 16px;
+                            position: absolute;
+                            left: 0;
+                            top: 1px;
+                            font-size: 16px;
+                            text-align: center;
+                        }
+
+                        &.item-valid {
+                            .item-icon {
+                                border-color: #2ac039;
+                                color: #2ac039;
+                            }
+                        }
+
+                        &.item-invalid {
+                            .item-icon {
+                                border-color: $color_primary;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .sign_up-pane-heading,
+            .sign_up-pane-text,
+            .sign_up-pane-list {
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            .sign_up-pane-info {
+                border: 1px solid #EBEDF0;
+                padding: 15px 20px;
+                border-radius: 8px;
+                background: #f4f5f7;
+
+                .sign_up-pane-text {
+                    margin-bottom: 0;
+                    font: 400 14px/24px $bf;
+                }
+
+                .sign_up-pane-list {
+                    margin-bottom: 0;
+                    
+                    li {
+                        font: 400 14px/24px $bf;
+                    }   
+                }
+            }
+
+            .sign_up-pane-auth {
+                display: flex;
+                flex-direction: row;
+
+                .sign_up-pane-auth-content {
+                    display: flex;
+                    flex-direction: column;
+                    font: 400 15px/22px $bf;
+                    padding-right: 30px;
+                    flex-grow: 1;
+                    
+                    .sign_up-pane-auth-apps {
+                        .sign_up-pane-auth-app-item {
+                            width: 130px;
+                            margin-right: 10px;
+
+                            &:last-child {
+                                margin-right: 0;
+                            }
+                        }
+                    }
+                }
+
+                .sign_up-pane-auth-qr_code {
+                    display: flex;
+
+                    .block.block-qr-code {
+                        padding: 0;
+
+                        .qr_code {
+                            width: 200px;
+                            height: 200px;
+                            padding: 10px;
+                            border-radius: 5px;
+                            box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
+                        }
+                    }
+                }
+            }
+
+            .sign_up-email_sent {
+                text-align: center;
+
+                .sign_up-email_sent-icon {
+                    margin: 0 auto 10px;
+
+                    .sign_up-email_sent-icon-img {
+                        display: block;
+                        width: 300px;
+                        max-width: 100%;
+                        margin: auto;
+                    }
+                }
+
+                .sign_up-email_sent-title {
+                    font: 500 28px/38px $bf;
+                    color: $color_primary;
+                    margin: 0 0 20px;
+                }
+
+                .sign_up-email_sent-text {
+                    font: 500 18px/27px $bf;
+                    color: #454545;
+                    margin: 0 0 20px;
+                }
+            }
+        }
+
+        .sign_up-pane-footer {
+            padding: 15px 40px;
+
+            .button {
+                &.button-text {
+                    color: $color_primary;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    
+    .block-wrapper {
+        width: 750px;
+        max-width: 100%;
+        margin: 0 auto 40px;
+    }
+}

@@ -17,8 +17,8 @@
         div(ng-if="$ctrl.funds.length == 0")
             block-empty(
                 ng-if="($root.activeOrganization | hasPerm:'manage_funds')"
-                text="'Je hebt momenteel geen fondsen.'" 
+                text="Je hebt momenteel geen fondsen." 
                 button="{text: 'Fonds toevoegen', href: $ctrl.emptyBlockLink}")
             block-empty(
                 ng-if="!($root.activeOrganization | hasPerm:'manage_funds')"
-                text="'Je hebt momenteel geen fondsen.'" )
+                text="Je hebt momenteel geen fondsen." )

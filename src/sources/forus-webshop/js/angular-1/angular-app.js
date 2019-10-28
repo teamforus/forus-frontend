@@ -1,7 +1,11 @@
 require('./modules/select-control/SelectControlModule');
+require('./modules/ui-controls/UIControlsModule');
 
-let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies', 'forus.selectControl']);
 let appConfigs = JSON.parse(JSON.stringify(env_data));
+let app = angular.module('forusApp', [
+    'pascalprecht.translate', 'ui.router', 'ngCookies', 
+    'forus.selectControl', 'forus.uiControls',
+]);
 
 app.constant('appConfigs', appConfigs);
 
@@ -18,6 +22,8 @@ app.component('productComponent', require('./components/ProductComponent'));
 app.component('productApplyComponent', require('./components/ProductApplyComponent'));
 app.component('voucherComponent', require('./components/VoucherComponent'));
 app.component('fundApplyComponent', require('./components/FundApplyComponent'));
+app.component('fundRequestComponent', require('./components/FundRequestComponent'));
+app.component('fundRequestClarificationComponent', require('./components/FundRequestClarificationComponent'));
 app.component('recordValidateComponent', require('./components/RecordValidateComponent'));
 app.component('recordValidationsComponent', require('./components/RecordValidationsComponent'));
 app.component('recordCreateComponent', require('./components/RecordCreateComponent'));
@@ -29,6 +35,8 @@ app.service('AuthService', require('./services/AuthService'));
 app.service('OrganizationService', require('./services/OrganizationService'));
 app.service('TransactionService', require('./services/TransactionService'));
 app.service('FundService', require('./services/FundService'));
+app.service('FundRequestService', require('./services/FundRequestService'));
+app.service('FundRequestClarificationService', require('./services/FundRequestClarificationService'));
 app.service('CredentialsService', require('./services/CredentialsService'));
 app.service('FormBuilderService', require('./services/FormBuilderService'));
 app.service('IdentityService', require('./services/IdentityService'));
@@ -83,6 +91,7 @@ app.directive('forusChat', require('./directives/ForusChatDirective'));
 app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
 app.directive('scrollEnd', require('./directives/ScrollEndDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
+app.directive('fileUploader', require('./directives/controls/FileUploaderDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));

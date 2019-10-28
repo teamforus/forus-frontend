@@ -270,7 +270,9 @@
                         fund="fund"
                         organization="$ctrl.organization")
 
-                    block-empty(ng-if="$ctrl.funds.length == 0" text="'Er zijn momenteel geen actieve fondsen.'")
+                    block-empty(
+                        ng-if="$ctrl.funds.length == 0" 
+                        text="Er zijn momenteel geen actieve fondsen.")
 
             .step-footer
                 a.button.button-text.button-text-muted(
