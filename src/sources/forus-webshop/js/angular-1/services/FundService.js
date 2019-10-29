@@ -243,14 +243,21 @@ let FundService = function(
         }
 
         this.fundCriteriaList = (criteria, recordsByTypesKey) => {
-            return criteria.filter(
-                criterion => !criterion.record_type_key.endsWith('_eligible')
-            ).map(criterion => {
+            /* .filter(criterion => !criterion.record_type_key.endsWith('_eligible')) */
+            return criteria.map(criterion => {
                 return {
-                    key: recordsByTypesKey[criterion.record_type_key].name || '',
-                    value: [
-                        criterion.operator != '=' ? criterion.operator : "",
-                        criterion.value
+                    key: recordsByTypesKey[
+                        criterion.record_type_key
+                    ].name || '',
+                    value: [({
+                            '>': 'is groter dan',
+                            '<': 'is kleiner dan',
+                            '=': 'gelijk aan',
+                        } [criterion.operator] || ''),
+                        (({
+                            base_salary: '€',
+                            net_worth: '€',
+                        } [criterion.record_type_key] || '') + criterion.value)
                     ].join(" ").trim(),
                 };
             });

@@ -13,11 +13,11 @@ header.section.section-header.section-header-landing
                 p(ng-if="!$root.auth_user" i18n="home.header.cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
                 // beheer uw voucher in me tekst
                 p(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" i18n="home.header.auth_cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
-            // uitgelogd en activatiecode invullen
-            a(ng-if="!$root.auth_user" ng-click="openAuthCodePopup()" i18n="home.header.button").button.button-primary 
-            // ingelogd geen vouchers  activatie code invullen
-            a(ng-if="$root.auth_user && $ctrl.vouchers.length == 0" ng-click="openActivateCodePopup()" i18n="home.header.button").button.button-primary
-            // download me button
+            //- uitgelogd en activatiecode invullen
+            a(ng-if="!$root.auth_user" ui-sref="fund-request({fund_id: 5})" i18n="home.header.button").button.button-primary 
+            //- ingelogd geen vouchers  activatie code invullen
+            a(ng-if="$root.auth_user && $ctrl.vouchers.length == 0" ui-sref="fund-request({fund_id: 5})" i18n="home.header.button").button.button-primary
+            //- download me button
             a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" ng-click="$ctrl.openInMeModal()" i18n="home.header.auth_button").button.button-primary
             br
             br

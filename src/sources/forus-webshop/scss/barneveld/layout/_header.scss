@@ -3,10 +3,12 @@
         @media screen and (min-width: 1024px) {
             background-size: cover;
             background-position: center center;
-            height: 450px;
+            height: 500px;
+
             .header-content {
                 text-shadow: 1px 1px 4px #000000;
                 color: $tc-var;
+                
                 .header-how-it-works {
                     color: $tc-var;
                 }
