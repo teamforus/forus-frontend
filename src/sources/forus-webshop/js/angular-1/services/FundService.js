@@ -151,7 +151,6 @@ let FundService = function(
             validators,
             organization_id = null
         ) => {
-            // console.log(records, criterion, validators, organization_id);
             let validRecords = records.filter(record => {
                 return record.key == criterion.record_type_key;
             }).filter(record => {

@@ -3,7 +3,7 @@
 top-navbar
 
 section.section.section-product: .wrapper
-    .block.block-sign_up: .block-wrapper
+    .block.block-sign_up(ng-if="$ctrl.clarification"): .block-wrapper
         div(ng-if="$ctrl.state == 'clarification_form'")
             h2.block-title(i18n="fund_request_clarification.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
             .sign_up-pane
