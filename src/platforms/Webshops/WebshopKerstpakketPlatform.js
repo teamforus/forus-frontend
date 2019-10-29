@@ -1,5 +1,6 @@
 const platform = require('./_WebshopBasePlatform').clone();
-const destPath = '../dist/forus-webshop-kerstpakket.panel';
+const destPath = '../../lab.forus.io/kerstpakket';
+
 
 // change platform name
 platform.setName('webshop_kerstpakket');
