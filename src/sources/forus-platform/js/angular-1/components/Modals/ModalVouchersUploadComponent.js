@@ -4,7 +4,8 @@ let ModalVouchersUploadComponent = function(
     $timeout,
     $filter,
     $element,
-    VoucherService
+    VoucherService,
+    ProductService
 ) {
     let $ctrl = this;
 
@@ -13,6 +14,7 @@ let ModalVouchersUploadComponent = function(
     $ctrl.changed = false;
     $ctrl.progressBar = 0;
     $ctrl.progressStatus = "";
+    $ctrl.productsIds = [];
 
     $ctrl.csvParser = {
         progress: 0
@@ -21,9 +23,6 @@ let ModalVouchersUploadComponent = function(
     let $translate = $filter('translate')
     let input;
     let dataChunkSize = 100;
-    let csvRequiredKeys = [
-        'amount'
-    ];
 
     let setProgress = function(progress) {
         $ctrl.progressBar = progress;
@@ -47,8 +46,6 @@ let ModalVouchersUploadComponent = function(
         return chunks;
     }
 
-    $ctrl.fundChanged = () => {};
-
     $ctrl.getFundBudget = () => {
         return ($ctrl.fund.budget && (
             typeof $ctrl.fund.budget.left != 'undefined'
@@ -59,7 +56,7 @@ let ModalVouchersUploadComponent = function(
         $ctrl.init();
     };
 
-    $ctrl.init = () => {
+    $ctrl.init = (csvRequiredKeys = []) => {
         $ctrl.csvParser = {
             progress: 0
         };
@@ -85,6 +82,20 @@ let ModalVouchersUploadComponent = function(
             input.click();
         };
 
+        $ctrl.csvParser.validateCsvData = (data) => {
+            $ctrl.csvParser.csvIsValid = $ctrl.csvParser.validateData(data);
+
+            if ($ctrl.type == 'voucher') {
+                $ctrl.csvParser.amountIsValid = $ctrl.csvParser.validateAmount(data);
+                return $ctrl.csvParser.csvIsValid && $ctrl.csvParser.amountIsValid;
+            } else if ($ctrl.type == 'product_voucher') {
+                $ctrl.csvParser.csvProductIdValid = $ctrl.csvParser.validateProductId(data);
+                return $ctrl.csvParser.csvIsValid && $ctrl.csvParser.csvProductIdValid;
+            }
+
+            return false;
+        };
+
         $ctrl.csvParser.uploadFile = (file) => {
             if (file.name.indexOf('.csv') != file.name.length - 4) {
                 return;
@@ -108,7 +119,9 @@ let ModalVouchersUploadComponent = function(
             }).then(function(results) {
                 let body = results.data;
                 let header = results.data.shift();
-                let data = body.map(function(val) {
+                let data = body.filter(row => {
+                    return row.filter(col => !_.isEmpty(col)).length > 0;
+                }).map(function(val) {
                     let row = {};
 
                     header.forEach((hVal, hKey) => {
@@ -128,11 +141,7 @@ let ModalVouchersUploadComponent = function(
                     return row;
                 }).filter(row => !!row);
 
-                $ctrl.csvParser.csvIsValid = $ctrl.csvParser.validateData(data);
-                $ctrl.csvParser.amountIsValid = $ctrl.csvParser.validateAmount(data);
-                $ctrl.csvParser.isValid =
-                    $ctrl.csvParser.csvIsValid && $ctrl.csvParser.amountIsValid;
-
+                $ctrl.csvParser.isValid = $ctrl.csvParser.validateCsvData(data);
                 $ctrl.csvParser.data = data;
                 $ctrl.csvParser.csvFile = file;
                 $ctrl.csvParser.progress = 1;
@@ -156,6 +165,14 @@ let ModalVouchersUploadComponent = function(
             ) <= $ctrl.getFundBudget();
         };
 
+        $ctrl.csvParser.validateProductId = (data = []) => {
+            return data.map(row => {
+                return row.product_id && ($ctrl.productsIds.indexOf(
+                    parseInt(row.product_id)
+                ) != -1);
+            }).filter(row => !row).length == 0;
+        };
+
         $ctrl.csvParser.uploadToServer = function(e) {
             e && (e.preventDefault() & e.stopPropagation());
 
@@ -176,7 +193,7 @@ let ModalVouchersUploadComponent = function(
 
             let uploadChunk = function(data) {
                 $ctrl.changed = true;
-                
+
                 VoucherService.storeCollection(
                     $ctrl.organization.id,
                     $ctrl.fund.id,
@@ -229,15 +246,29 @@ let ModalVouchersUploadComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.organization = $ctrl.modal.scope.organization;
-        $ctrl.funds = $ctrl.modal.scope.funds;
-        $ctrl.fund = $ctrl.funds[0] || null;
-        $ctrl.fundChanged();
+        $ctrl.fund = $ctrl.modal.scope.fund || null;
+        $ctrl.type = $ctrl.modal.scope.type || 'voucher';
 
-        $ctrl.init();
+        if ($ctrl.type == 'product_voucher') {
+            ProductService.listAll({
+                fund_id: $ctrl.fund.id
+            }).then((res) => {
+                $ctrl.products = res.data.data;
+                $ctrl.productsIds = $ctrl.products.map(
+                    product => parseInt(product.id)
+                );
+                $ctrl.init([
+                    'product_id'
+                ]);
+            });
+        } else {
+            $ctrl.init([
+                'amount'
+            ]);
+        }
     };
 
     $ctrl.$onDestroy = () => {};
-
     $ctrl.closeModal = () => {
         if ($ctrl.changed) {
             $ctrl.modal.scope.done();
@@ -259,6 +290,7 @@ module.exports = {
         '$filter',
         '$element',
         'VoucherService',
+        'ProductService',
         ModalVouchersUploadComponent
     ],
     templateUrl: () => {
