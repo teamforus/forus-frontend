@@ -2,6 +2,7 @@ let BaseController = function(
     $rootScope,
     $scope,
     $state,
+    $translate,
     AuthService,
     RecordService,
     OrganizationService,
@@ -116,12 +117,15 @@ let BaseController = function(
         $rootScope.appConfigs.features = res.data;
         $rootScope.appConfigs.frontends = res.data.fronts;
     });
+
+    $translate.use('nl');
 };
 
 module.exports = [
     '$rootScope',
     '$scope',
     '$state',
+    '$translate',
     'AuthService',
     'RecordService',
     'OrganizationService',
