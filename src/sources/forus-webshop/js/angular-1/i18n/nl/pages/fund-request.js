@@ -7,8 +7,8 @@ module.exports = {
             text: "U staat op het punt om een {{ fundname }} aan te vragen. Om in aanmmerking te komen, dient u aan de voorwaarden te voldoen:",
             operator: {
                 same: "'{{ name }}' moet",
-                more: "meer dan",
-                less: "minder dan"
+                more: " meer dan",
+                less: " minder dan"
             },
             footer: {
                 prev: "Vorige stap",
