@@ -1,5 +1,5 @@
 const platform = require('./_WebshopBasePlatform').clone();
-const destPath = '../dist/forus-webshop-barneveld.panel';
+const destPath = '../../lab.forus.io/barneveld';
 
 // change platform name
 platform.setName('webshop_barneveld');

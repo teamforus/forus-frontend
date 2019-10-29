@@ -7,8 +7,14 @@ let ModalFundTopUpComponent = function(
         let fund = $ctrl.modal.scope.fund;
 
         FundService.makeTopUp(fund.organization_id, fund.id).then((res) => {
-            $ctrl.topUpCode = res.data.data.code;
-            $ctrl.topUpIban = res.data.data.iban;
+            if (fund.currency == 'eur') {
+                $ctrl.topUpCode = res.data.data.code;
+                $ctrl.topUpIban = res.data.data.iban;
+            } else {
+                $ctrl.address = res.data.data.address;
+            }
+
+            $ctrl.type = fund.currency;
             $ctrl.isReady = true;
         }, res => {
             alert(res.data.message);

@@ -1,5 +1,5 @@
 const platform = require('./_DashboardBasePlatform').clone();
-const destPath = '../dist/forus-platform.validator.general';
+const destPath = '../../lab.forus.io/validator';
 
 // change platform name
 platform.setName('dashboard_general_validator');
