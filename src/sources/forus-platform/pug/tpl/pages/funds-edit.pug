@@ -86,7 +86,7 @@
                     br(ng-if="$ctrl.form.values.criteria.length > 0")
                     .row: .button.button-primary(ng-click="$ctrl.addCriteria()")
                         em.mdi.mdi-plus-circle
-                        translate(translate="{{ $ctrl.form.values.criteria.length == 0 ? 'Add criteria' : 'Add new criteria' }}")
+                        translate(translate="{{ $ctrl.form.values.criteria.length == 0 ? 'Voeg voorwaarde toe' : 'Voeg voorwaarde toe' }}")
                     .row: .col.col-lg-12.form-group.text-center
                     .form-error(ng-repeat="error in $ctrl.form.errors.criteria" ng-bind="error")
 
