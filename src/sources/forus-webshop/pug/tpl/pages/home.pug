@@ -5,11 +5,9 @@ header.section.section-header.section-header-landing
         .header-sprite
         //- .header-content(ng-if="$ctrl.funds.length <= 1")
         .header-content
-            .header-title(ng-if="$ctrl.funds.length <= 1" i18n="home.header.title" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
-            .header-title(ng-if="$ctrl.funds.length > 1" i18n="home.header.title_multi" i18n-vars="{ fund: $ctrl.funds[0].name, org_name: $ctrl.funds[0].organization.name }")
+            .header-title(i18n="home.header.title" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
             .header-description#desc
-                p(ng-if="$ctrl.funds.length <= 1" i18n="home.header.subtitle" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
-                p(ng-if="$ctrl.funds.length > 1" i18n="home.header.subtitle_multi" i18n-vars="{ org_name: $ctrl.funds[0].organization.name  }")
+                p(i18n="home.header.subtitle" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
 
                 // gebruik activatiecode tekst
                 p(ng-if="!$root.auth_user" i18n="home.header.cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")

@@ -1,0 +1,67 @@
+.button {
+    &.button-default {
+        background-color: $lb;
+        border-color: $lb;
+        color: #007377;
+
+        .mdi {
+            color: #666;
+        }
+
+        &:hover {
+            background: darken($color: $lb, $amount: 5);
+            border-color: darken($color: $lb, $amount: 5);
+            box-shadow: none;
+            color: #007377;
+
+            .mdi {
+                color: #666;
+            }
+        }
+
+        &:focus, &:active {
+            outline: none;
+            border-color: darken($color: darken($color: $lb, $amount: 5), $amount: 100);
+        }
+    }
+    
+    &.button-primary {
+        color: #fff;
+        background: $color_primary;
+        border-color: $color_primary;
+        box-shadow: 0 10px 15px -6px #969696;
+        text-shadow: none;
+        box-shadow: none;
+        text-transform: none;
+        font-weight: 500;
+        font-size: 16px;
+
+        &:hover {
+            box-shadow: none;
+            color: #fff;
+            background: $color_default_light;
+            border-color: $color_default_light;
+            font-weight: 500;
+        }
+
+        &:focus, &:active {
+            outline: none;
+            border-color: darken($color: rgba(158, 167, 182, 0.15), $amount: 100);
+        }
+    }
+    
+    &.button-disabled {
+        @extend .button-primary;
+        opacity: .5;
+    }
+
+    &.button-primary-outline {
+        border-radius: 6px;
+        font-weight: 500;
+    }
+
+    &.button-text {
+        color: #3561FF;
+        font-weight: 500;
+    }
+}

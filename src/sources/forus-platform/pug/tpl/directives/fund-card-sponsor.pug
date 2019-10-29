@@ -76,8 +76,8 @@
 
     mixin stats()
         .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
-            +keyvalue_item_horizontal("Totaal budget", "fund.budget.total | currency_format")
-            +keyvalue_item_horizontal("Gebruikt", "fund.budget.used | currency_format")
+            +keyvalue_item_horizontal("Totaal budget", "fund.budget.total | currency_format:fund.currency")
+            +keyvalue_item_horizontal("Gebruikt", "fund.budget.used | currency_format:fund.currency")
 
     .hidden-md.card-section.card-section-primary(
         ng-show="level != 'fundsAvailable' && (fundOrg | hasPerm:['view_finances','manage_funds']:false)"): .row

@@ -1,5 +1,5 @@
 const platform = require('./_WebshopBasePlatform').clone();
-const destPath = '../dist/forus-webshop-zuidhorn.panel';
+const destPath = '../../lab.forus.io/zuidhorn';
 
 // change platform name
 platform.setName('webshop_zuidhorn');

@@ -1,5 +1,5 @@
 const platform = require('./_DashboardBasePlatform').clone();
-const destPath = '../dist/forus-platform.sponsor.general';
+const destPath = '../../lab.forus.io/sponsor';
 
 // change platform name
 platform.setName('dashboard_general_sponsor');

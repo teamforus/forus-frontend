@@ -1,5 +1,5 @@
 const platform = require('./_WebshopBasePlatform').clone();
-const destPath = '../dist/forus-webshop.markup';
+const destPath = '../../lab.forus.io/markup';
 
 // change platform name
 platform.setName('webshop_markup');

@@ -36,6 +36,7 @@ core.addPlatform(require('./platforms/Webshops/WebshopZuidhornPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopNijmegenPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopKerstpakketPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopWesterkwartierPlatform'));
+core.addPlatform(require('./platforms/Webshops/WebshopBarneveldPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopBerkellandPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopOostGelrePlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopWinterswijkPlatform'));

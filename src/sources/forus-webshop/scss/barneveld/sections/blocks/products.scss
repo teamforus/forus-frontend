@@ -1,0 +1,87 @@
+.block {
+    &.block-products {
+        .product-item {
+            .product-item-inner {
+                background: #FFFFFF;
+                border: 1px solid #EBEDF0;
+                box-sizing: border-box;
+                border-radius: 5px;
+                box-shadow: none;
+                cursor: default;
+
+                .product-image {
+                    transform: none;
+                }
+
+                .product-organization {
+                    color: #abacb2;
+                    font-size: 14px;
+                }
+                
+                .product-name {
+                    color:#191a1c;
+                    font-size: 18px;
+                }
+
+                .product-details {
+                    position: relative;
+                }
+                
+                .product-state-dot {
+                    position: absolute;
+                    right: 18px;
+                    top: 18px;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 10px;
+                    background: whitesmoke;
+
+                    &.product-state-dot-success {
+                        background: #007377;
+                    }
+
+                    &.product-state-dot-warning {
+                        background: #FFB900;
+                    }
+
+                    &.product-state-dot-danger {
+                        background: #9EA7B6;
+                    }
+
+                    &.product-state-dot-hidden {
+                        background: transparent;
+                    }
+                }
+
+                &:hover {
+                    .product-image {
+                        transform: none;
+                        box-shadow: none;
+
+                        &:after {
+                            opacity: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+products-component {
+    .section {
+        &.section-products {
+            .section-title {
+                text-align: left;
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            &.section-products {
+                .section-title {
+                    color: $tc;
+                }
+            }
+        }
+    }
+}

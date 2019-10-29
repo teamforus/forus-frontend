@@ -3,23 +3,16 @@ let ModalVoucherCreateComponent = function(
     VoucherService
 ) {
     let $ctrl = this;
-
-    $ctrl.fundChanged = (fund_id) => {
-        $ctrl.fund = $ctrl.funds.filter(fund => fund.id == fund_id)[0] || null;
-        $ctrl.form.values.fund_id = fund_id;
-
-        if ($ctrl.fund) {
-            $ctrl.form.values.expire_at = $ctrl.fund.end_date;
-        }
-    };
-
+    
     $ctrl.$onInit = () => {
-        $ctrl.funds = $ctrl.modal.scope.funds;
+        $ctrl.fund = $ctrl.modal.scope.fund || null;
         $ctrl.organization = $ctrl.modal.scope.organization;
-        $ctrl.fund = $ctrl.funds[0] || null;
         $ctrl.onCreated = $ctrl.modal.scope.onCreated;
 
-        $ctrl.form = FormBuilderService.build({}, (form) => {
+        $ctrl.form = FormBuilderService.build({
+            fund_id: $ctrl.fund.id,
+            expire_at: $ctrl.fund.end_date,
+        }, (form) => {
             form.lock();
 
             VoucherService.store(
@@ -33,8 +26,6 @@ let ModalVoucherCreateComponent = function(
                 form.unlock();
             });
         });
-
-        $ctrl.fundChanged($ctrl.fund ? $ctrl.fund.id : null);
     };
 
     $ctrl.$onDestroy = function() {};

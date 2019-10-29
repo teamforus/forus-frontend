@@ -1,5 +1,5 @@
 const platform = require('./_WebshopBasePlatform').clone();
-const destPath = '../dist/forus-webshop-nijmegen.panel';
+const destPath = '../../lab.forus.io/nijmegen';
 
 // change platform name
 platform.setName('webshop_nijmegen');

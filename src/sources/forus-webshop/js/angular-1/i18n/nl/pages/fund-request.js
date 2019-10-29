@@ -12,9 +12,10 @@ module.exports = {
             // depricated, delete?
             /* operator: {
                 same: "'{{ name }}' moet",
-                more: "meer dan",
-                less: "minder dan"
-            }, */
+                more: " meer dan",
+                less: " minder dan"
+            },*/
+            
             footer: {
                 prev: "Vorige stap",
                 next: "Volgende stap"

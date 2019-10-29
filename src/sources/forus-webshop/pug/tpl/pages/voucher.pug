@@ -59,7 +59,8 @@ section.section.section-voucher-details: .wrapper
                             em.mdi.mdi-arrow-right
                         div(ng-if="!$ctrl.voucherCard.product")
                             .card-label.euro Uw tegoed is:
-                            .card-value.euro(ng-bind="'€ ' + ($ctrl.voucherCard.amount)") 
+                            .card-value.euro(ng-if="$ctrl.voucherCard.fund.currency == 'eur'" ng-bind="'€ ' + ($ctrl.voucherCard.amount)") 
+                            .card-value.euro(ng-if="$ctrl.voucherCard.fund.currency == 'eth'" ng-bind="'eth ' + ($ctrl.voucherCard.amount)") 
                     
                     .card-qr_code.show-sm
                         qr-code(ng-if="$ctrl.qrValue" qr-type="voucher" qr-value="$ctrl.qrValue").card-qr_code-element
@@ -117,7 +118,7 @@ section.section.section-voucher-details: .wrapper
                     .transactions-item-value - {{ transaction.amount | currency_format }}
                     .transactions-item-type {{ "voucher.labels.subtract" | translate }}
 
-block-products(
+//-block-products(
     ng-if="$root.appConfigs.features.products.list && !$ctrl.voucherCard.product"
     sample="true"
     products="$ctrl.products"

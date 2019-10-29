@@ -7,20 +7,31 @@
             .modal-section
                 .modal-funds-added
                     p(ng-if="!$ctrl.isReady" translate="Even geduld a.u.b.").text-center.text-muted
-                    p(ng-if="$ctrl.isReady")
+                    div(ng-if="$ctrl.isReady && $ctrl.type == 'eur'"): p
                         translate(translate="modal_funds_add.labels.payment") 
                         a.text-primary(
                             ng-bind="$ctrl.topUpIban"
                             ng-click="$ctrl.copyToClipboard($ctrl.topUpIban)"
-                            title="{{ 'modal_funds_add.labels.copy' | i18n }}"
-                        )
+                            title="{{ 'modal_funds_add.labels.copy' | i18n }}")
                         br
                         translate(translate="modal_funds_add.labels.addcode")
                         a.text-primary(
                             ng-bind="$ctrl.topUpCode"
                             ng-click="$ctrl.copyToClipboard($ctrl.topUpCode)"
-                            title="{{ 'modal_funds_add.labels.copy' | i18n }}"
-                        )
+                            title="{{ 'modal_funds_add.labels.copy' | i18n }}")
                         translate(translate="modal_funds_add.labels.description")
+
+                    div(ng-if="$ctrl.isReady && $ctrl.type == 'eth'")
+                        qr-code(qr-raw-content="{{ $ctrl.address }}")
+                        br
+                        h4(translate="modal_funds_add.labels.ethereum_address")
+                        p
+                            a.text-primary(
+                                ng-bind="$ctrl.address"
+                                ng-click="$ctrl.copyToClipboard($ctrl.address)"
+                                title="{{ 'modal_funds_add.labels.copy' | i18n }}")
+                            br
+                            translate(translate="modal_funds_add.labels.ethereum_address_desc")
+
         .modal-footer.text-center
             button.button.button-primary(ng-click="$ctrl.close()" translate="modal_funds_add.buttons.close")
