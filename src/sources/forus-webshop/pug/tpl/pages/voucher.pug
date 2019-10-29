@@ -118,7 +118,7 @@ section.section.section-voucher-details: .wrapper
                     .transactions-item-value - {{ transaction.amount | currency_format }}
                     .transactions-item-type {{ "voucher.labels.subtract" | translate }}
 
-block-products(
+//-block-products(
     ng-if="$root.appConfigs.features.products.list && !$ctrl.voucherCard.product"
     sample="true"
     products="$ctrl.products"
