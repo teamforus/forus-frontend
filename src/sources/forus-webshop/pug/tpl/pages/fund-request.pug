@@ -123,7 +123,13 @@ section.section.section-product: .wrapper
                             span(ng-if="critera.operator == '='") 
                             span(ng-if="critera.operator == '<'" i18n="fund_request.sign_up.pane.operator.less")
                             | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }} zijn.
-                
+
+                    .button.button-primary(ng-click="$ctrl.applyDigiD()" ng-if="!$ctrl.identityBsn") Login with DigiD
+                    p.sign_up-pane-text(ng-if="$ctrl.identityBsn")
+                        span {{ $ctrl.isEligible ? 'Ingelogd met DigiD ' : 'Last used DigiD ' }} : {{ $ctrl.identityBsn }}
+                    .button.button-primary(ng-if="$ctrl.isEligible" ng-click="$ctrl.applyToFund()") Apply to fund
+
+  
                 .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
                     .col.col-lg-6.text-left: .button.button-text.button-text-padless(
                         ng-if="!$ctrl.signedIn"
@@ -131,6 +137,7 @@ section.section.section-product: .wrapper
                         i18n="fund_request.sign_up.pane.footer.prev")
                         em.mdi.mdi-chevron-left.icon-left
                     .col.col-lg-6.text-right: .button.button-text.button-text-padless(
+                        ng-if="!$ctrl.isEligible"
                         ng-click="$ctrl.nextStep()"
                         i18n="fund_request.sign_up.pane.footer.next")
                         em.mdi.mdi-chevron-right.icon-right
@@ -161,7 +168,7 @@ section.section.section-product: .wrapper
                     
                     file-uploader(files="$ctrl.netCriteria.files")
                     .form-error(ng-repeat="err in $ctrl.netCriteria.errors.file" ng-bind="err")
-                
+               
                 .sign_up-pane-footer: .row
                     .col.col-lg-6.text-left: .button.button-text.button-text-padless(
                         ng-click="$ctrl.prevStep()"

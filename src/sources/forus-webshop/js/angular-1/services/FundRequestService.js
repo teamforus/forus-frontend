@@ -19,6 +19,10 @@ let FundRequestService = function(ApiRequest) {
         this.read = function(fund_id, request_id) {
             return ApiRequest.patch(sprintf(uriPrefix, fund_id, request_id));
         }
+
+        this.getActivationCode = function(fund_id, data) {
+            return ApiRequest.post(sprintf(uriPrefix + '/activation-code', fund_id), data);
+        }
     });
 };
 

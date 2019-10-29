@@ -10,6 +10,7 @@ let FundRequestComponent = function(
     FormBuilderService,
     CredentialsService,
     FileService,
+    PrevalidationService,
     appConfigs
 ) {
     let $ctrl = this;
@@ -247,6 +248,10 @@ let FundRequestComponent = function(
             });
         });
 
+        if ($ctrl.invalidCriteria.length === 0) {
+            $ctrl.isEligible = true;
+        }
+
         $ctrl.buildSteps();
     };
 
@@ -345,6 +350,61 @@ let FundRequestComponent = function(
         $state.go('home');
     };
 
+    $ctrl.applyToFund = () => {
+        FundService.apply($ctrl.fund.id).then(res => {
+            $state.go('voucher', res.data.data);
+        }, () => {
+            alert('Helaas, er is geen fonds waarvoor u zich kan aanmelden.');
+        });
+    };
+
+    $ctrl.applyDigiD = () => {
+        let bsn_list = [
+            866251810,
+            693411035,
+            102085520,
+            390796905,
+            472140510,
+            629499449,
+            227370065,
+            323447175,
+            535417391,
+            725124332,
+            963890707,
+            510707151,
+            509141335,
+            771212384,
+            279673255,
+            802189925,
+            610868366,
+            878514904,
+            663871140,
+            231894125,
+            363950946,
+            941780210,
+            866959384,
+            372195462,
+            666052467
+        ];
+
+        $ctrl.identityBsn = bsn_list[Math.floor(Math.random() * bsn_list.length)];
+
+        FundRequestService.getActivationCode($ctrl.fund.id, {
+            'bsn' : $ctrl.identityBsn
+        }).then(_res => {
+            $ctrl.isEligible = false;
+            
+            if (!_res.data.code) {
+                return;
+            }
+
+            PrevalidationService.redeem(_res.data.code).then((res) => {
+                $ctrl.buildSteps();
+                $ctrl.updateEligibility();
+            }, console.error);
+        }, console.error);
+    }
+
     $ctrl.$onInit = function() {
         $ctrl.signedIn = AuthService.hasCredentials();
         $ctrl.initAuthForm();
@@ -386,6 +446,7 @@ module.exports = {
         'FormBuilderService',
         'CredentialsService',
         'FileService',
+        'PrevalidationService',
         'appConfigs',
         FundRequestComponent
     ],
