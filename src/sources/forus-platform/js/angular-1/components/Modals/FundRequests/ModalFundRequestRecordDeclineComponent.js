@@ -12,7 +12,6 @@ let ModalFundRequestRecordDeclineComponent = function(
         $ctrl.form = FormBuilderService.build({
             note: ''
         }, (form) => {
-            console.log(form.values);
             FundRequestValidatorService.declineRecord(
                 fund.organization_id,
                 fund.id,

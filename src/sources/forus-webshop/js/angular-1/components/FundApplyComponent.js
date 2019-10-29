@@ -114,8 +114,6 @@ let FundsComponent = function(
             $ctrl.fund.organization_id
         ));
 
-        console.log($ctrl.records);
-
         $ctrl.formulaList = {
             fixed: $ctrl.fund.formulas.filter(formula => {
                 return formula.type == 'fixed'
