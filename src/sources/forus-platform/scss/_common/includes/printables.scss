@@ -30,14 +30,13 @@ body {
                 margin-bottom: 20px;
             }
 
-            .block.block-qr_code {
+            .block-qr-code {
                 margin: 0 auto 20px;
 
                 .qr_code {
                     margin: 0 auto;
                     width: 240px;
                     height: auto;
-                    box-shadow: none;
                 }
 
                 img {
@@ -46,7 +45,6 @@ body {
                     width: 100%;
                     border: 1px solid silver;
                     background: #fff;
-                    box-shadow: none;
                 }
             }
         }

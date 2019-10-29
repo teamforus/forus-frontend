@@ -14,14 +14,14 @@
                         thumbnail="$ctrl.media.sizes.thumbnail"
                         select-photo="$ctrl.selectPhoto(file)")
             
-            .card-section.card-section-primary: .row: .col.col-lg-9.col-md-12
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     label(translate="funds_edit.labels.name").form-label
                     input(ng-model="$ctrl.form.values.name" type="text" placeholder="Naam").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
                     input(type="hidden" ng-model="$ctrl.form.values.state")
             
-            .card-section.card-section-primary: .row: .col.col-lg-9.col-md-12
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     label(translate="funds_edit.labels.start").form-label
                     datepicker(date-format="dd-MM-yyyy" datepicker-mobile="" date-week-start-day="1").form-control
@@ -74,12 +74,12 @@
                 .row: .col.col-lg-12.form-group.text-center
                     br(ng-if="$ctrl.form.values.criteria.length > 0")
                     .row: .button.button-primary(ng-click="$ctrl.addCriteria()")
-                        em.mdi.mdi-plus-circle
+                        em.mdi.mdi-plus-circle.icon-start
                         translate(translate="{{ $ctrl.form.values.criteria.length == 0 ? 'Add criteria' : 'Add new criteria' }}")
                     .row: .col.col-lg-12.form-group.text-center
                     .form-error(ng-repeat="error in $ctrl.form.errors.criteria" ng-bind="error")
 
-            .card-section.card-section-primary: .row: .col.col-lg-9.col-md-12
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     label.form-label(translate="funds_edit.labels.notification_amount")
                     input(ng-model="$ctrl.form.values.notification_amount" type="text" placeholder="{{ funds_edit.labels.notification_amount | translate }}").form-control

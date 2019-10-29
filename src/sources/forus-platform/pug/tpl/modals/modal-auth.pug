@@ -6,16 +6,14 @@
     .modal-window: .modal-content
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
 
-
         h4.modal-title Login met e-mail
         .modal-subtitle {{ "popup_auth.labels.link" | translate }}
 
-        form.form(ng-submit="$ctrl.signInEmailForm.submit()")
-            .form-group
+        form.form(ng-submit="$ctrl.signInEmailForm.submit()"): .flex-row.flex-grow
+            .flex-col.flex-grow: .form-group
                 input(ng-model="$ctrl.signInEmailForm.values.primary_email" type="email" placeholder="E-mail").form-control.email-auth
                 .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.primary_email" ng-bind="error")
-            .form-group
-            .form-group: button(type="submit").button.button-primary Login
+            .flex-col: .form-group: button(type="submit").button.button-primary Login
 
         //-.modal-footer
             //-.footer-text {{ "popup_auth.labels.timelimit" | translate }}

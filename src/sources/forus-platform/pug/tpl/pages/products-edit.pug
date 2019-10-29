@@ -19,7 +19,7 @@
                                 .form-error(ng-repeat="error in $ctrl.mediaErrors" ng-bind="error")
             .card-section.card-section-primary
                 .row 
-                    .col.col-lg-9.col-md-12
+                    .col.col-lg-9.col-lg-12
                         .form-group.form-group-inline
                             label.form-label(translate="product_edit.labels.name")
                             input(ng-model="$ctrl.form.values.name" type="text" placeholder="Naam").form-control
@@ -32,7 +32,7 @@
                             .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
             .card-section.card-section-primary
                 .row 
-                    .col.col-lg-9.col-md-12
+                    .col.col-lg-9.col-lg-12
                         .form-group.form-group-inline
                             label.form-label(translate="product_edit.labels.new")
                             input(ng-model="$ctrl.form.values.price" type="number" placeholder="Prijs" step="0.01" number-control).form-control
@@ -60,7 +60,7 @@
 
             .card-section.card-section-primary
                 .row 
-                    .col.col-lg-9.col-md-12
+                    .col.col-lg-9.col-lg-12
                         .form-group.form-group-inline.tooltipped
                             label.form-label(translate="product_edit.labels.expire")
                             datepicker(

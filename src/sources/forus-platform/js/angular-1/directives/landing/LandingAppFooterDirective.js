@@ -8,6 +8,6 @@ module.exports = () => {
         controller: [
             LandingAppFooterDirective
         ],
-        templateUrl: 'assets/tpl/directives/landing/landing-app-footer.html'
+        // templateUrl: 'assets/tpl/directives/landing/landing-app-footer.html'
     };
 };

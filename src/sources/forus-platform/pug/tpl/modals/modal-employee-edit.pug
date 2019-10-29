@@ -5,7 +5,7 @@
         .modal-header(ng-if="$ctrl.modal.scope.employee" translate="Medewerker aanpassen")
         .modal-header(ng-if="!$ctrl.modal.scope.employee" translate="Medewerker toevoegen")
         .modal-body.form
-            .modal-section: .row: .col.col-lg-8.col-lg-offset-2.col-sm-12
+            .modal-section: .row: .col.col-lg-8.col-lg-offset-2.col-lg-12
                 .form-group(ng-if="!$ctrl.modal.scope.employee")
                     label.form-label E-mailadres
                     input(type="text" ng-model="$ctrl.form.values.email").form-control
