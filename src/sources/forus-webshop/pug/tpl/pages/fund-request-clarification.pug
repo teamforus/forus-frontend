@@ -7,7 +7,8 @@ section.section.section-product: .wrapper
         div(ng-if="$ctrl.state == 'clarification_form'")
             h2.block-title(i18n="fund_request_clarification.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
             .sign_up-pane
-                .sign_up-pane-header(ng-bind="'Bevestig uw ' + $ctrl.recordTypes[invalidCriteria.record_type_key].name")
+                //- TODO: var does not work
+                .sign_up-pane-header(ng-bind="'Bevestig uw ' + $ctrl.recordTypes[invalidCriteria.record_type_key].name") 
                 .sign_up-pane-body: form(ng-submit="$ctrl.form.submit()").form.row
                     .form-group.col.col-lg-12
                         .form-label(i18n="fund_request_clarification.labels.question")
@@ -29,7 +30,7 @@ section.section.section-product: .wrapper
                         button(type="submit" i18n="fund_request_clarification.buttons.submit").button.button-primary
         //- Done
         div(ng-if="$ctrl.state == 'done'")
-            h2.block-title(i18n="fund_request_clarification.blocktitle" i18n-vars="{fundname: $ctrl.fund.name}")
+            h2.block-title(i18n="fund_request_clarification.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
             
             .sign_up-pane
                 .sign_up-pane-header(i18n="fund_request_clarification.done.title")

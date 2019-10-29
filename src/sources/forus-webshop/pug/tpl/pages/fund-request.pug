@@ -30,7 +30,7 @@ section.section.section-product: .wrapper
                         span(i18n="fund_request.sign_up.pane.text" i18n-vars="{fundname: $ctrl.fund.name }")
                     ul.sign_up-pane-list 
                         li(ng-repeat="critera in $ctrl.fund.criteria")
-                            span(i18n="fund_request.sign_up.pane.operator.same" i18n-vars="{name: critera.record_type_name }") 
+                            span(i18n="fund_request.sign_up.pane.operator.same" i18n-vars="{name: critera.record_type_name }")
                             span(ng-if="critera.operator == '>'" i18n="fund_request.sign_up.pane.operator.more")
                             span(ng-if="critera.operator == '='") 
                             span(ng-if="critera.operator == '<'" i18n="fund_request.sign_up.pane.operator.less")

@@ -12,7 +12,7 @@
                     | Een bericht bijvoegen is daarom niet optioneel.
             form(ng-submit="$ctrl.form.submit()").form: .form-group
                 .form-label Bericht
-                textarea(ng-model="$ctrl.form.values.question" placeholder="Message to requester").form-control
+                textarea(ng-model="$ctrl.form.values.question" placeholder="Bericht aan aanvrager").form-control
                 .form-error(ng-repeat="error in $ctrl.form.errors.question" ng-bind="error")
         
         .modal-footer.text-center
