@@ -48,25 +48,37 @@
 
             .card-section.card-section-primary(ng-if="$root.appConfigs.features.organizations.funds.criteria")
                 .row(ng-repeat="criteria in $ctrl.form.values.criteria")
-                    .col.col-lg-4.form-group
+                    .col.col-lg-2.form-group
                         label.form-label Eigenschap
                         select(
                             ng-model="criteria.record_type_key" 
                             ng-options="operator.key as operator.name for operator in $ctrl.recordTypes").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors['criteria.' + $index + '.record_type_key']" ng-bind="error")
                     
-                    .col.col-lg-3.form-group
+                    .col.col-lg-2.form-group
                         label.form-label Operator
                         select(
                             ng-model="criteria.operator" 
                             ng-options="operator.key as operator.name for operator in $ctrl.operators").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors['criteria.' + $index + '.operator']" ng-bind="error")
                     
-                    .col.col-lg-4.form-group
+                    .col.col-lg-3.form-group
                         label.form-label Waarde
                         input(type="text" ng-model="criteria.value").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors['criteria.' + $index + '.value']" ng-bind="error")
                     
+                    .col.col-lg-2.form-group
+                        label.form-label Show attachment
+                        input-checkbox-control(
+                            name="show_attachment" 
+                            ng-model="criteria.show_attachment")
+                        .form-error(ng-repeat="error in $ctrl.form.errors['criteria.' + $index + '.show_attachment']" ng-bind="error")
+
+                    .col.col-lg-2.form-group
+                        label.form-label Edit description
+                        .button.button-primary(ng-click="$ctrl.editDescription(criteria)")
+                            em.mdi.mdi-pencil
+
                     .col.col-lg-1.form-group
                         label.form-label &nbsp;
                         .button.button-default.button-icon(ng-click="$ctrl.removeCriteria(criteria)"): .mdi.mdi-close

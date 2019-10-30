@@ -227,7 +227,9 @@ section.section.section-product: .wrapper
                             span(ng-if="invalidCriteria.operator == '='")
                             span(ng-if="invalidCriteria.operator == '<'") minder dan
                             |  {{ invalidCriteria.record_type_key == 'net_worth' ? '€' : '' }}{{ invalidCriteria.value }} zijn.
-                    .form-group.col.col-lg-12: file-uploader(files="invalidCriteria.files")
+                    .form-group.col.col-lg-12(ng-if="invalidCriteria.description"): .sign_up-pane-info
+                        p.sign_up-pane-text {{ invalidCriteria.description }}
+                    .form-group.col.col-lg-12(ng-if="invalidCriteria.show_attachment"): file-uploader(files="invalidCriteria.files")
                 
                 .sign_up-pane-footer: .row
                     .col.col-lg-6.text-left: .button.button-text.button-text-padless(

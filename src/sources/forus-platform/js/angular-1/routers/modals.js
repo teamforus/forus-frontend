@@ -50,4 +50,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('fundRequestRecordDecline', {
         component: 'modalFundRequestRecordDeclineComponent'
     });
+
+    ModalRouteProvider.modal('fundCriteriaDescriptionEdit', {
+        component: 'modalFundCriteriaDescriptionEditComponent'
+    });
 }];
