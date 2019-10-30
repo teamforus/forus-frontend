@@ -113,6 +113,11 @@
                                     .mdi.mdi-file
                                     .attachment-size(ng-bind='file.size')
                                 .attachment-name(ng-bind='file.original_name')
+                                .attachment-preview( 
+                                    title="Preview pdf file" 
+                                    ng-if="file.ext == 'pdf'"
+                                    ng-click="$ctrl.previewFile($event, file)")
+                                    .mdi.mdi-eye
                         
                         .block.block-request-clarification(ng-if='record.clarifications.length > 0')
                             .block-title Aanvullingen
@@ -137,6 +142,11 @@
                                                         .mdi.mdi-file
                                                         .attachment-size(ng-bind='file.size')
                                                     .attachment-name(ng-bind='file.original_name')
+                                                    .attachment-preview( 
+                                                        title="Preview pdf file" 
+                                                        ng-if="file.ext == 'pdf'"
+                                                        ng-click="$ctrl.previewFile($event, file)")
+                                                        .mdi.mdi-eye
     
         .card-section(ng-show='$ctrl.shownUsers[validatorRequest.bsn] && !validatorRequest.collapsed'): .table-pagination
             .table-pagination-counter(

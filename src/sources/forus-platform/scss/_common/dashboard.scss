@@ -2392,6 +2392,14 @@ translate,
 }
 
 .block {
+    &.block-pdf-preview {
+        background: #242424;
+        
+        canvas {
+            display: block;
+            margin: 0 auto;
+        }
+    }
     &.block-tooltip-details {
         position: relative;
 
@@ -2615,6 +2623,25 @@ translate,
                 @include ellipsis();
                 color: #262626;
                 font: 500 12px/25px $bf;
+                flex-grow: 1;
+            }
+
+            .attachment-preview {
+                display: flex;
+                @include ellipsis();
+                color: #262626;
+                font: 500 12px/25px $bf;
+
+                .mdi {
+                    float: left;
+                    font-size: 1.5em;
+                    margin-right: 4px;
+                    color: #555;
+
+                    &:hover {
+                        color: $color_primary;
+                    }
+                }
             }
 
             &:nth-child(odd) {
@@ -3844,6 +3871,7 @@ translate,
         display: inline-block;
         min-height: 100px;
         margin: 0 auto;
+        max-height: 90vh;
 
         .modal-section {
             padding: 30px;
@@ -4125,6 +4153,10 @@ translate,
                 margin-bottom: 0;
             }
         }
+
+        &:last-child {
+            border-bottom: none;
+        }
     }
 
     .modal-content {
@@ -4227,7 +4259,7 @@ translate,
             margin-bottom: 20px;
         }
 
-        .modal-footer-links {}
+        // .modal-footer-links {}
 
         .modal-footer-link {
             display: block;
@@ -4358,6 +4390,74 @@ translate,
                 text-align:left;
             }
 
+    &.modal-auth2 {
+        .modal-window {
+            width: 650px;
+            max-width: 100%;
+        }
+
+        .modal-content {
+            padding: 20px;
+            border-radius: 5px;
+            min-height: 100px;
+            font: 400 13px $bf;
+
+            .form {
+                display: flex;
+                margin: 10px 0;
+
+                .form-control {
+                    width: 385px;
+                    margin-right:20px;
+                    height: 46px;
+                    border-radius: 6px;
+                    background-color: #eff2f4;
+                    float: left !important;
+                    border-radius: 6px;
+                }
+
+                .button {
+                    width: 180px;
+                    position: relative;
+                    display: block;
+                    padding: 11px 20px;
+                    border-radius: 6px;
+                }
+            }
+
+            .modal-title {
+                margin-bottom: 5px;
+                font: 600 1.4em $bf;
+                width: 375px;
+            }
+
+            .modal-subtitle {
+                font-size: 15px;
+                u {
+                    cursor: pointer;
+                }
+                span {
+                    cursor: auto;
+                }
+    
+                a {
+                    font: 400 12px $bf;
+                    color:rgb(100, 111, 121);
+                }
+                img {
+                    height: 40px;
+                    margin-right: 10px;
+                }
+            }
+            
+            .subtitle-left {
+                width: 375px;
+                float:left;
+            }
+            
+            .download-badges {
+                text-align:left;
+            }
             .block-qr-code {
                 .qr_code {
                     width: 175px !important;
@@ -4417,6 +4517,26 @@ translate,
                     }
                 }
             }
+        }
+    }
+
+    &.modal-pdf-preview {
+        .modal-window {
+            height: 900px;
+            display: flex;
+            flex-direction: column;
+
+            .modal-body {
+                flex-grow: 1;
+                width: 100%;
+                display: flex;
+            }
+
+            .block.block-pdf-preview {
+                width: 100%;
+                flex-grow: 1;
+                overflow: auto;
+            } 
         }
     }
 

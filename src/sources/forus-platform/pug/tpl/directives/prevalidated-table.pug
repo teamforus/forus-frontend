@@ -37,14 +37,14 @@ div
                                     date-format="dd-MM-yyyy" 
                                     datepicker-mobile="" 
                                     date-week-start-day="1").form-control
-                                    input(ng-model="filters.values.from" type="text" placeholder="dd-MM-yyyy").form-control
+                                    input(ng-model="filters.values.from" type="text" placeholder="dd-MM-jjjj").form-control
                             .form-group
                                 form-label-toggle(label="{{ 'prevalidated_table.labels.to' | i18n }}")
                                 datepicker(
                                     date-format="dd-MM-yyyy" 
                                     datepicker-mobile="" 
                                     date-week-start-day="1").form-control
-                                    input(ng-model="filters.values.to" type="text" placeholder="dd-MM-yyyy").form-control
+                                    input(ng-model="filters.values.to" type="text" placeholder="dd-MM-jjjj").form-control
                             .form-actions
                                 button(ng-click="export(filters.values)").button.button-primary.button-wide
                                     em.mdi.mdi-download  
