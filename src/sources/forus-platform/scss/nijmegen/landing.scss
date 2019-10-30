@@ -541,7 +541,7 @@ ui-view {
                         top: 50%;
                         border-radius: 200px;
                         background-color: #f9fbf0;
-                        background-image: url('../img/landing/icon-app-android.png');
+                        background-image: url('../img/landing/icon-app-android.svg');
                         background-repeat: no-repeat;
                         background-position: 70% 50%;
                         transform: translate(0, -50%);
@@ -550,7 +550,7 @@ ui-view {
                     &.app-item-ios {
                         &:before {
                             background-color: #f2fafd;
-                            background-image: url('../img/landing/icon-app-ios.png');
+                            // background-image: url('../img/landing/icon-app-ios.png');
                         }
                     }
 

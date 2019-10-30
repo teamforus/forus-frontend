@@ -21,6 +21,7 @@
 // COMPONENTS
 @import 'components/_breadcrumbs.scss',
 'components/_buttons.scss',
+'components/flex-grid.scss',
 'components/_carrousel.scss',
 'components/_dropdown.scss',
 'components/_form.scss',
@@ -73,4 +74,5 @@
 'sections/blocks/fund-add-records.scss',
 'sections/blocks/block-preferences.scss',
 'sections/blocks/block-sign_up.scss',
-'sections/blocks/block-file-uploader.scss';
+'sections/blocks/block-file-uploader.scss',
+'sections/blocks/block-auth-widget.scss';

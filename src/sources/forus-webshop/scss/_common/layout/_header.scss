@@ -82,7 +82,7 @@
                         display: block;
                         top: 50%;
                         background-color: #f9fbf0;
-                        background-image: url(../img/me/icon-app-android.png);
+                        background-image: url(../img/me/icon-app-android.svg);
                         background-repeat: no-repeat;
                         transform: translate(0, -50%);
                         width: 70px;
@@ -95,7 +95,7 @@
                     &.app-item-ios {
                         &:before {
                             background-color: #f2fafd;
-                            background-image: url('../img/me/icon-app-ios.png');
+                            // background-image: url('../img/me/icon-app-ios.png');
                         }
                     }
                     &:hover {

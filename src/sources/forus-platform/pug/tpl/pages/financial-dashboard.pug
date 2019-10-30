@@ -20,8 +20,8 @@
 
         div(ng-if="$ctrl.fundProviders.data.length > 0")
             .block.block-charts
-                .row: .col.col-lg-12: .card
-                    .card-section: .chart-header
+                .row: .col.col-lg-12: .card: .card-section
+                    .chart-header
                         .chart-header-range
                             .chart-header-item(
                                 ng-click="$ctrl.chartData.changeType('all')"

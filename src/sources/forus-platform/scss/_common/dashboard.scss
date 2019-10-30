@@ -2495,6 +2495,11 @@
 
         .chart-body {
             padding: 20px 0 0;
+            margin: 0 -20px -10px -10px;
+            
+            canvas {
+                margin: 0 auto;
+            }
         }
 
         .chart-header {
@@ -2943,6 +2948,73 @@
         }
     }
 
+    &.block-auth-widget {
+        .auth-title {
+            font: 600 18px/25px $bf;
+            color: #333;
+            margin: 0;
+        }
+
+        .auth-subtitle {
+            cursor: pointer;
+            font: 400 14px/20px $bf;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .auth-form {
+            margin: 0 0 30px;
+
+            .button {
+                box-shadow: none;
+                text-transform: uppercase;
+                width: 175px;
+                text-align: center;
+
+                &:hover {
+                    box-shadow: none;
+                }
+            }
+        }
+
+        .auth-qr_code {
+            display: flex;
+            flex-direction: column;
+
+            .qr_code-container {
+                display: flex;
+                flex-direction: row;
+                font: 400 14px/20px $bf;
+
+                .qr_code-description {
+                    .qr_code-download-app {
+                        display: flex;
+
+                        .download-link {
+                            height: 40px;
+                            display: inline-flex;
+                            margin-right: 10px;
+                        }
+                    }
+                }
+
+                .qr_code-block {
+                    width: 175px;
+                    min-width: 175px;
+
+                    .block-qr-code {
+                        .qr_code {
+                            padding: 10px;
+                            width: 100%;
+                            height: auto;
+                            border: 2px dashed #000;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     @media screen and (max-width: 1000px) {
         &.block-photo-selector {
             text-align: center;
@@ -3301,13 +3373,6 @@
         margin: 0 auto;
         box-shadow: 0 20px 40px rgba(#000000, 0.3);
 
-        &.modal-description-pad {
-            .description {
-                padding: 50px 0;
-                color: $color_primary !important;
-            }
-        }
-
         .modal-section {
             padding: 30px;
 
@@ -3367,10 +3432,11 @@
             }
         }
 
-        .button {
-            font: 600 16px/22px "Source Sans Pro", sans-serif;
-            padding: 15px 20px;
-            text-transform: uppercase;
+        &.modal-description-pad {
+            .description {
+                padding: 50px 0;
+                color: $color_primary !important;
+            }
         }
     }
 
@@ -3389,7 +3455,7 @@
             margin-bottom: 20px;
         }
 
-        .modal-footer-links {}
+        // .modal-footer-links {}
 
         .modal-footer-link {
             display: block;
@@ -3456,83 +3522,9 @@
         .modal-window {
             width: 650px;
             max-width: 100%;
-        }
 
-        .modal-content {
-            padding: 20px;
-            border-radius: 5px;
-            min-height: 100px;
-            font: 400 13px $bf;
-
-            .form {
-                display: flex;
-                margin: 10px 0;
-
-                .form-control {
-                    border-radius: 6px;
-                    background-color: #eff2f4;
-                    line-height: 20px;
-                    // float: left !important;
-                    border-radius: 6px;
-                }
-
-                .button {
-                    padding: 14px 50px;
-                    line-height: 20px;
-                }
-            }
-
-            .modal-title {
-                margin-bottom: 5px;
-                font: 600 1.4em $bf;
-                width: 375px;
-            }
-
-            .modal-subtitle {
-                font-size: 15px;
-                u {
-                    cursor: pointer;
-                }
-                span {
-                    cursor: auto;
-                }
-    
-                a {
-                    font: 400 12px $bf;
-                    color:rgb(100, 111, 121);
-                }
-                img {
-                    height: 40px;
-                    margin-right: 10px;
-                }
-            }
-            
-            .subtitle-left {
-                width: 375px;
-                float:left;
-            }
-            
-            .download-badges {
-                text-align:left;
-            }
-
-            .block.block-qr-code {
-                .qr_code {
-                    width: 175px;
-                    height: 175px;
-                    padding: 10px;
-                    float: right;
-                }
-            }
-        }
-
-        @media screen and (max-width: 1000px) {
             .modal-content {
-                .form .button {
-                    padding: 14px 20px;
-                    line-height: 20px;
-                    font-size: 14px;
-                }
+                padding: 20px;
             }
         }
     }
