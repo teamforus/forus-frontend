@@ -1373,6 +1373,15 @@
         }
     }
 
+    &.block-pdf-preview {
+        background: #242424;
+        
+        canvas {
+            display: block;
+            margin: 0 auto;
+        }
+    }
+    
     &.block-tooltip-details {
         position: relative;
 
@@ -1608,6 +1617,25 @@
                 @include ellipsis();
                 color: #262626;
                 font: 500 12px/25px $bf;
+                flex-grow: 1;
+            }
+
+            .attachment-preview {
+                display: flex;
+                @include ellipsis();
+                color: #262626;
+                font: 500 12px/25px $bf;
+
+                .mdi {
+                    float: left;
+                    font-size: 1.5em;
+                    margin-right: 4px;
+                    color: #555;
+
+                    &:hover {
+                        color: $color_primary;
+                    }
+                }
             }
 
             &:nth-child(odd) {
@@ -3078,6 +3106,7 @@
         display: inline-block;
         min-height: 100px;
         margin: 0 auto;
+        max-height: 90vh;
 
         .modal-section {
             padding: 30px;
@@ -3359,6 +3388,10 @@
                 margin-bottom: 0;
             }
         }
+
+        &:last-child {
+            border-bottom: none;
+        }
     }
 
     .modal-content {
@@ -3580,6 +3613,26 @@
         }
     }
 
+    &.modal-pdf-preview {
+        .modal-window {
+            height: 900px;
+            display: flex;
+            flex-direction: column;
+
+            .modal-body {
+                flex-grow: 1;
+                width: 100%;
+                display: flex;
+            }
+
+            .block.block-pdf-preview {
+                width: 100%;
+                flex-grow: 1;
+                overflow: auto;
+            } 
+        }
+    }
+
     &.modal-md {
         .modal-window {
             width: 680px;
@@ -3722,6 +3775,9 @@
             }
         }
     }
+
+
+
 }
 
 .signup-layout {

@@ -28,7 +28,7 @@
                         input(
                         ng-model="$ctrl.form.values.start_date"
                         type="text"
-                        placeholder="dd-MM-yyyy"
+                        placeholder="dd-MM-jjjj"
                         ng-disabled="$ctrl.form.values.state != 'waiting'"
                         ).form-control
 
@@ -40,7 +40,7 @@
                         input(
                         ng-model="$ctrl.form.values.end_date"
                         type="text"
-                        placeholder="dd-MM-yyyy"
+                        placeholder="dd-MM-jjjj"
                         ng-disabled="$ctrl.form.values.state != 'waiting'"
                         ).form-control
 
@@ -56,7 +56,7 @@
                         .form-error(ng-repeat="error in $ctrl.form.errors['criteria.' + $index + '.record_type_key']" ng-bind="error")
                     
                     .col.col-lg-3.form-group
-                        label.form-label Operator
+                        label.form-label Verhouding
                         select(
                             ng-model="criteria.operator" 
                             ng-options="operator.key as operator.name for operator in $ctrl.operators").form-control

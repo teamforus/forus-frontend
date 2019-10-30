@@ -55,14 +55,14 @@
                                     date-format="dd-MM-yyyy" 
                                     datepicker-mobile=""
                                     date-week-start-day="1").form-control
-                                    input(ng-model="$ctrl.filters.values.from" type="text" placeholder="dd-MM-yyyy").form-control
+                                    input(ng-model="$ctrl.filters.values.from" type="text" placeholder="dd-MM-jjjj").form-control
                             .form-group
                                 form-label-toggle(label="{{ 'transactions.labels.to' | i18n }}")
                                 datepicker(
                                     date-format="dd-MM-yyyy" 
                                     datepicker-mobile="" 
                                     date-week-start-day="1").form-control
-                                    input(ng-model="$ctrl.filters.values.to" type="text" placeholder="dd-MM-yyyy").form-control
+                                    input(ng-model="$ctrl.filters.values.to" type="text" placeholder="dd-MM-jjjj").form-control
                     
                     .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 

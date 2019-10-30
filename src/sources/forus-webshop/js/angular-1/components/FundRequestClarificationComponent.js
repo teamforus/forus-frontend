@@ -2,6 +2,7 @@ let FundRequestClarificationComponent = function(
     $q,
     $state,
     $stateParams,
+    AuthService,
     FormBuilderService,
     FundRequestClarificationService,
     FileService
@@ -25,7 +26,10 @@ let FundRequestClarificationComponent = function(
         return $q((resolve, reject) => {
             $ctrl.recordsSubmitting = true;
 
-            FileService.storeAll(form.values.rawFiles || []).then(res => {
+            FileService.storeAll(
+                form.values.rawFiles || [],
+                'fund_request_clarification_proof'
+            ).then(res => {
                 form.values.files = res.map(file => file.data.data);
                 resolve(form);
             }, res => {
@@ -51,9 +55,7 @@ let FundRequestClarificationComponent = function(
                     }
                 ).then(res => {
                     $ctrl.state = 'done';
-                    console.log(res);
                 }, (res) => {
-                    console.error(res);
                     form.errors = res.data.errors;
                     form.unlock();
                 });
@@ -66,9 +68,15 @@ let FundRequestClarificationComponent = function(
     };
 
     $ctrl.$onInit = function() {
+        if (!AuthService.hasCredentials()) {
+            alert('Please log in first.');
+            $state.go('home');
+        }
+
         if ($ctrl.clarification.state != 'pending') {
             return $ctrl.state = 'not_pending';
         }
+
         $ctrl.initForm();
     };
 };
@@ -84,6 +92,7 @@ module.exports = {
         '$q',
         '$state',
         '$stateParams',
+        'AuthService',
         'FormBuilderService',
         'FundRequestClarificationService',
         'FileService',
