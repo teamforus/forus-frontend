@@ -8,13 +8,6 @@ module.exports = {
             criterion_more: "'{{ name }}' moet meer dan {{ value }} zijn.",
             criterion_less: "'{{ name }}' moet minder dan {{ value }} zijn.",
             criterion_same: "'{{ name }}' moet {{ value }} zijn.",
-            
-            // depricated, delete?
-            /* operator: {
-                same: "'{{ name }}' moet",
-                more: "meer dan",
-                less: "minder dan"
-            }, */
             footer: {
                 prev: "Vorige stap",
                 next: "Volgende stap"

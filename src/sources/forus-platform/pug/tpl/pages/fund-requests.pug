@@ -118,7 +118,6 @@
                                     ng-if="file.ext == 'pdf'"
                                     ng-click="$ctrl.previewFile($event, file)")
                                     .mdi.mdi-eye
-                                    //- | Preview
                         
                         .block.block-request-clarification(ng-if='record.clarifications.length > 0')
                             .block-title Aanvullingen
@@ -148,7 +147,6 @@
                                                         ng-if="file.ext == 'pdf'"
                                                         ng-click="$ctrl.previewFile($event, file)")
                                                         .mdi.mdi-eye
-                                                        //- | Preview
     
         .card-section(ng-show='$ctrl.shownUsers[validatorRequest.bsn] && !validatorRequest.collapsed'): .table-pagination
             .table-pagination-counter(
