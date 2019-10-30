@@ -5,7 +5,6 @@ let ModalPhotoUploaderComponent = function(
 ) {
     let $ctrl = this;
 
-    $ctrl.cancel = $ctrl.close;
     $ctrl.targetFile = false;
 
     $ctrl.$onInit = () => {
@@ -62,6 +61,10 @@ let ModalPhotoUploaderComponent = function(
             );
         }, 0);
     };
+    
+    $ctrl.cancel = () => {
+        $ctrl.close();
+    }
 
     $ctrl.apply = () => {
         let file = ImageConvertorService.dataURItoBlob($ctrl.cropedPhoto);
