@@ -21,11 +21,11 @@
 
         .card(ng-if="$ctrl.vouchers")
             .card-header: .row
-                .col.col-sm-6.col-xs-12: .card-title
+                .col.col-lg-4.col-xs-12: .card-title
                     span(i18n="vouchers.header.title") 
                     span(ng-bind="$ctrl.vouchers.meta.total").span-count
             
-                .block.block-inline-filters.col.col-sm-6.col-xs-12.text-right
+                .block.block-inline-filters.col.col-lg-8.col-xs-12.text-right
                     .button.button-primary(ng-click="$ctrl.createProductVoucher()")
                         em.mdi.mdi-plus-circle.icon-start
                         span(i18n="vouchers.buttons.add_new")
@@ -95,7 +95,7 @@
                                 th(i18n="vouchers.labels.granted")
                                 th(i18n="vouchers.labels.qr_code").nowrap.text-right
                             tr(ng-repeat="voucher in $ctrl.vouchers.data")
-                                td: em.td-find-button.mdi.mdi-information.block.block-tooltip-details.pull-left(
+                                td: em.td-icon.mdi.mdi-information.block.block-tooltip-details.pull-left(
                                     ng-if="voucher.note"
                                     ng-click="$ctrl.showTooltip($event, voucher)"
                                     ng-class="{active: voucher.showTooltip}")
