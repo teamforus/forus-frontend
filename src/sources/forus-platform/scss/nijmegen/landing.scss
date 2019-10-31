@@ -9,7 +9,7 @@ ui-view {
 
 .form {
     .form-error {
-        font: 400 13px/24px $bf;
+        font: 400 13px/24px $bf-landing;
         color: $bc;
         margin: 0;
     }
@@ -22,7 +22,7 @@ ui-view {
         transition: 0.2s ease-out;
         cursor: text;
         top: 0.65rem;
-        font: 600 13px/23px $bf;
+        font: 600 13px/23px $bf-landing;
 
         &.active{
             top: 1.3rem;
@@ -51,7 +51,7 @@ ui-view {
         background-color: transparent;
         color: #212121;
         padding: 0.55rem 0 0.3rem 0;
-        font: 400 17px/24px $bf;
+        font: 400 17px/24px $bf-landing;
         width: 100%;
         display: block;
 
@@ -240,7 +240,7 @@ ui-view {
         }
 
         .checkbox-label {
-            font: 400 13px/20px $bf;
+            font: 400 13px/20px $bf-landing;
             color: #45535e;
             display: inline-block;
             vertical-align: middle;
@@ -301,7 +301,7 @@ ui-view {
         }
 
         .radio-label {
-            font: 400 13px/20px $bf;
+            font: 400 13px/20px $bf-landing;
             color: #45535e;
             display: inline-block;
             vertical-align: middle;
@@ -327,7 +327,7 @@ ui-view {
         margin-right: 8px;
         color: $tc;
         text-transform: inherit;
-        font: 400 12px/30px $bf;
+        font: 400 12px/30px $bf-landing;
 
         .dot {
             display: inline-block;
@@ -390,7 +390,7 @@ ui-view {
 }
 
 .button {
-    font: 600 18px/24px $bf;
+    font: 600 18px/24px $bf-landing;
     padding: 15px 20px;
     transition: all 0.2s ease-in-out;
     border: 0;
@@ -449,7 +449,7 @@ ui-view {
 
 .section {
     .section-title {
-        font: 700 40px/60px $bf;
+        font: 700 40px/60px $bf-landing;
         margin: 0 0 40px;
     }
 
@@ -493,12 +493,12 @@ ui-view {
             min-height: 450px;
 
             .header-title {
-                font: 700 40px/50px $bf;
+                font: 700 40px/50px $bf-landing;
                 margin: 0 0 25px;
             }
 
             .header-description {
-                font: 400 22px/36px $bf;
+                font: 400 22px/36px $bf-landing;
                 margin: 0 0 50px;
             }
 
@@ -511,7 +511,7 @@ ui-view {
                     display: block;
                     margin-bottom: 20px;
                     padding: 50px 50px 50px 200px;
-                    font: 700 18px/30px $bf;
+                    font: 700 18px/30px $bf-landing;
                     position: relative;
                     color: #282b39;
                     overflow: hidden;
@@ -541,7 +541,7 @@ ui-view {
                         top: 50%;
                         border-radius: 200px;
                         background-color: #f9fbf0;
-                        background-image: url('../img/landing/icon-app-android.png');
+                        background-image: url('../img/landing/icon-app-android.svg');
                         background-repeat: no-repeat;
                         background-position: 70% 50%;
                         transform: translate(0, -50%);
@@ -550,7 +550,7 @@ ui-view {
                     &.app-item-ios {
                         &:before {
                             background-color: #f2fafd;
-                            background-image: url('../img/landing/icon-app-ios.png');
+                            // background-image: url('../img/landing/icon-app-ios.png');
                         }
                     }
 
@@ -587,7 +587,7 @@ ui-view {
 
             .lang-label {
                 padding: 4px 0 0;
-                font: 400 10px/16px $bf;
+                font: 400 10px/16px $bf-landing;
 
                 .mdi {
                     display: block;
@@ -600,7 +600,7 @@ ui-view {
             }
 
             .lang-active {
-                font: 700 13px/20px $bf;
+                font: 700 13px/20px $bf-landing;
             }
 
             .lang-list {
@@ -630,7 +630,7 @@ ui-view {
                 .lang-list-item {
                     padding: 5px 15px;
                     min-width: 110px;
-                    font: 600 12px/18px $bf;
+                    font: 600 12px/18px $bf-landing;
                     background: #fff;
                     transition: background .4s;
 
@@ -658,7 +658,7 @@ ui-view {
 
         .section-title {
             color: #00122a;
-            font: 700 40px/60px $bf;
+            font: 700 40px/60px $bf-landing;
             margin: 0 0 40px;
             text-align: center;
             z-index: 2;
@@ -685,7 +685,7 @@ ui-view {
                 .faq-item-header {
                     padding: 15px 30px;
                     padding-right: 45px;
-                    font: 500 18px $bf;
+                    font: 500 18px $bf-landing;
                     color: #00122a;
                     position: relative;
                     transition: .4s;
@@ -717,7 +717,7 @@ ui-view {
 
                 .faq-item-content {
                     padding-right: 200px;
-                    font: 400 16px $bf;
+                    font: 400 16px $bf-landing;
                     padding: 0 30px 20px;
                     color: #646f79;
                     display: none;
@@ -766,7 +766,7 @@ ui-view {
         }
 
         .section-description {
-            font: 400 22px/32px $bf;
+            font: 400 22px/32px $bf-landing;
             color: #646f79;
             text-align: center;
             padding: 0 50px;
@@ -804,13 +804,13 @@ ui-view {
 
                     h4 {
                         color: #00122a;
-                        font: 500 28px/38px $bf;
+                        font: 500 28px/38px $bf-landing;
                         margin: 0 0 10px;
                     }
 
                     p {
                         color: #646f79;
-                        font: 400 15px/24px $bf;
+                        font: 400 15px/24px $bf-landing;
                         margin: 0 0 10px;
                     }
                 }
@@ -892,7 +892,7 @@ ui-view {
     @media screen and (max-width: 1500px) {
         .section-title {
             margin: 0 0 20px;
-            font: 700 30px/40px $bf;
+            font: 700 30px/40px $bf-landing;
         }
 
         &.section-header {
@@ -905,12 +905,12 @@ ui-view {
                 padding-right: 150px;
 
                 .header-title {
-                    font: 700 30px/46px $bf;
+                    font: 700 30px/46px $bf-landing;
                     margin: 0 0 20px;
                 }
 
                 .header-description {
-                    font: 400 18px/30px $bf;
+                    font: 400 18px/30px $bf-landing;
                     margin: 0 0 20px;
                 }
             }
@@ -919,7 +919,7 @@ ui-view {
 
     @media screen and (max-width: 1000px) {
         .section-title {
-            font: 700 20px/30px $bf;
+            font: 700 20px/30px $bf-landing;
             margin: 0 0 20px;
         }
 
@@ -960,12 +960,12 @@ ui-view {
                 min-height: auto;
 
                 .header-title {
-                    font: 700 20px/28px $bf;
+                    font: 700 20px/28px $bf-landing;
                     margin: 0 0 20px;
                 }
 
                 .header-description {
-                    font: 400 14px/24px $bf;
+                    font: 400 14px/24px $bf-landing;
                     margin: 0;
                     color: #353b46;
                 }
@@ -983,7 +983,7 @@ ui-view {
 
                     .app-item {
                         padding: 25px 20px 25px 90px;
-                        font: 700 12px/20px $bf;
+                        font: 700 12px/20px $bf-landing;
                         @include ellipsis();
 
                         &:before {
@@ -1025,7 +1025,7 @@ ui-view {
             margin-bottom: 60px;
 
             .section-title {
-                font: 700 24px/36px $bf;
+                font: 700 24px/36px $bf-landing;
                 margin: 0 0 30px;
             }
 
@@ -1036,11 +1036,11 @@ ui-view {
             .faq {
                 .faq-item {
                     .faq-item-header {
-                        font: 500 14px $bf;
+                        font: 500 14px $bf-landing;
                     }
 
                     .faq-item-content {
-                        font: 400 14px $bf;
+                        font: 400 14px $bf-landing;
                     }
                 }
             }
@@ -1051,13 +1051,13 @@ ui-view {
 
             .section-title {
                 padding: 0;
-                font: 700 20px/28px $bf;
+                font: 700 20px/28px $bf-landing;
                 margin-bottom: 15px;
             }
 
             .section-description {
                 padding: 0;
-                font: 400 14px/22px $bf;
+                font: 400 14px/22px $bf-landing;
                 margin: 0 0 30px;
                 color: #353b46;
             }
@@ -1098,11 +1098,11 @@ ui-view {
                         }
 
                         h4 {
-                            font: 600 16px/28px $bf;
+                            font: 600 16px/28px $bf-landing;
                         }
 
                         p {
-                            font: 400 13px/20px $bf;
+                            font: 400 13px/20px $bf-landing;
                         }
                     }
                 }
@@ -1156,7 +1156,7 @@ ui-view {
                 .navbar-item {
                     color: #646f79;
                     display: inline-block;
-                    font: 700 15px/30px $bf;
+                    font: 700 15px/30px $bf-landing;
                     padding: 30px 25px;
                     position: relative;
                     transition: .4s;
@@ -1220,7 +1220,7 @@ ui-view {
                     .navbar-menu-item {
                         display: block;
                         padding: 5px 15px;
-                        font: 700 13px/26px $bf;
+                        font: 700 13px/26px $bf-landing;
                         transition: .4s;
                         cursor: pointer;
 
@@ -1287,7 +1287,7 @@ ui-view {
                 padding: 7px 15px;
                 float: left;
                 margin-right: 20px;
-                font: 700 14px/24px $bf;
+                font: 700 14px/24px $bf-landing;
 
                 &:last-of-type {
                     margin-right: 0px;
@@ -1315,14 +1315,14 @@ ui-view {
                     @include cf();
 
                     .auth-user-email {
-                        font: 700 13px $bf;
+                        font: 700 13px $bf-landing;
                         color: $color_primary;
                         float: left;
                         text-align: right
                     }
 
                     .auth-user-type {
-                        font: 400 13px $bf;
+                        font: 400 13px $bf-landing;
                         color: #151b26;
                         float: right;
                         clear: both;
@@ -1364,7 +1364,7 @@ ui-view {
                         .auth-user-menu-item {
                             display: block;
                             padding: 5px 15px;
-                            font: 700 13px/26px $bf;
+                            font: 700 13px/26px $bf-landing;
                             transition: .4s;
                             cursor: pointer;
 
@@ -1651,13 +1651,13 @@ ui-view {
 
             .blog-name {
                 color: #00122a;
-                font: 700 18px/26px $bf;
+                font: 700 18px/26px $bf-landing;
                 margin: 0 0 20px;
                 transition: .4s;
             }
 
             .blog-read-more {
-                font: 500 13px $bf;
+                font: 500 13px $bf-landing;
                 color: #004195;
             }
 
@@ -1698,7 +1698,7 @@ ui-view {
 
         .contact-title {
             color: #fff;
-            font: 700 60px/60px $bf;
+            font: 700 60px/60px $bf-landing;
             margin-bottom: 60px;
         }
 
@@ -1729,18 +1729,18 @@ ui-view {
             .contact-details {
                 .contact-label {
                     color: #003366;
-                    font: 700 14px $bf;
+                    font: 700 14px $bf-landing;
                     margin-bottom: 5px;
                 }
 
                 .contact-address {
                     color: #191919;
-                    font: 400 18px/30px $bf;
+                    font: 400 18px/30px $bf-landing;
                 }
 
                 .contact-email {
                     color: #00a5fe;
-                    font: 400 18px/30px $bf;
+                    font: 400 18px/30px $bf-landing;
                     margin-bottom: 20px;
                 }
 
@@ -1819,7 +1819,7 @@ ui-view {
 
         .footer-label {
             /*color: #282b39;*/
-            font: 700 18px $bf;
+            font: 700 18px $bf-landing;
             margin-bottom: 25px;
         }
 
@@ -1830,7 +1830,7 @@ ui-view {
 
                 a {
                     color: #fff !important;
-                    font: 700 14px/24px $bf;
+                    font: 700 14px/24px $bf-landing;
                     transition: color .4s;
 
                     &:hover {
@@ -1851,14 +1851,14 @@ ui-view {
 
             .schedule-label {
                 color: #646f79;
-                font: 400 13px/24px $bf;
+                font: 400 13px/24px $bf-landing;
                 float: left;
                 width: 35%;
             }
 
             .schedule-value {
                 color: #00122a;
-                font: 700 13px/24px $bf;
+                font: 700 13px/24px $bf-landing;
                 float: left;
                 width: 65%;
             }
@@ -1898,12 +1898,12 @@ ui-view {
             /*text-align: center;*/
 
             .download-label {
-                font: 400 12px $bf;
+                font: 400 12px $bf-landing;
                 color: #646f79;
             }
 
             .download-value {
-                font: 700 16px $bf;
+                font: 700 16px $bf-landing;
                 color: #282b39;
             }
 
@@ -1935,7 +1935,7 @@ ui-view {
         font-size: 1rem;
         padding: 25px 0;
         text-align: center;
-        font: 400 14px/30px $bf;
+        font: 400 14px/30px $bf-landing;
 
         .wrapper {
             @include cf();
@@ -2056,7 +2056,7 @@ ui-view {
                 }
 
                 .card-title {
-                    font: 700 18px/24px $bf;
+                    font: 700 18px/24px $bf-landing;
                     color: #282b39;
                     margin-bottom: 5px;
 
@@ -2072,7 +2072,7 @@ ui-view {
                 }
 
                 .card-description {
-                    font: 600 14px/25px $bf;
+                    font: 600 14px/25px $bf-landing;
                     color: #646f79;
                 }
             }
@@ -2121,7 +2121,7 @@ ui-view {
             }
 
             .auth_type-name {
-                font: 700 18px $bf;
+                font: 700 18px $bf-landing;
                 color: #282b39;
                 transition: .4s;
             }
@@ -2194,7 +2194,7 @@ ui-view {
             background: #fff;
             border-radius: 4px;
             margin-right: 10px;
-            font: 600 28px/75px $bf;
+            font: 600 28px/75px $bf-landing;
             text-align: center;
             cursor: default;
 
@@ -2219,7 +2219,7 @@ ui-view {
 
                 .navbar-item {
                     padding: 20px 15px;
-                    font: 700 13px/30px $bf;
+                    font: 700 13px/30px $bf-landing;
 
                     &:before {
                         left: 15px;
@@ -2232,7 +2232,7 @@ ui-view {
                 padding: 15px 20px;
 
                 .button {
-                    font: 700 12px/24px $bf;
+                    font: 700 12px/24px $bf-landing;
 
                     &:hover {
                         box-shadow: 0 3px 6px rgba($color: #000000, $alpha: 0.1);
@@ -2309,11 +2309,11 @@ ui-view {
                 .auth-in {
                     .auth-user {
                         .auth-user-email {
-                            font: 700 12px/22px $bf;
+                            font: 700 12px/22px $bf-landing;
                         }
 
                         .auth-user-type {
-                            font: 500 12px/14px $bf;
+                            font: 500 12px/14px $bf-landing;
                         }
                     }
                 }
@@ -2336,7 +2336,7 @@ ui-view {
                     .navbar-item {
                         padding: 10px 20px;
                         padding-left: 15px;
-                        font: 700 12px/30px $bf;
+                        font: 700 12px/30px $bf-landing;
                         color: #646f79;
                         border-bottom: 1px solid #e6ecf0;
                         width: 100%;
@@ -2410,14 +2410,14 @@ ui-view {
                     .navbar-item {
                         margin: 0;
                         color: $tc;
-                        font: 700 14px/24px $bf;
+                        font: 700 14px/24px $bf-landing;
                         padding: 10px 20px;
 
                         &:hover,
                         &.active {
                             margin: 0;
                             color: $tc;
-                            font: 700 14px/24px $bf;
+                            font: 700 14px/24px $bf-landing;
                         }
                     }
                 }
@@ -2476,7 +2476,7 @@ ui-view {
                 position: relative;
                 z-index: 2;
                 margin: 0 0 10px;
-                font: 700 32px/46px $bf;
+                font: 700 32px/46px $bf-landing;
                 padding: 0 25px;
             }
 
@@ -2496,12 +2496,12 @@ ui-view {
                     }
 
                     .contact-address {
-                        font: 400 14px/24px $bf;
+                        font: 400 14px/24px $bf-landing;
                         margin: 0 0 5px;
                     }
 
                     .contact-email {
-                        font: 400 14px/24px $bf;
+                        font: 400 14px/24px $bf-landing;
                         margin: 0 0 5px;
                     }
 
@@ -2529,18 +2529,18 @@ ui-view {
             .footer-label {
                 padding: 20px 0 0;
                 margin: 0 0 20px;
-                font: 700 15px/24px $bf;
+                font: 700 15px/24px $bf-landing;
             }
 
             .footer-schedule {
                 .schedule-label {
-                    font: 400 12px/24px $bf;
+                    font: 400 12px/24px $bf-landing;
                     width: 30%;
                 }
 
                 .schedule-value {
                     width: 70%;
-                    font: 700 12px/24px $bf;
+                    font: 700 12px/24px $bf-landing;
                 }
             }
 
@@ -2618,12 +2618,12 @@ ui-view {
                     }
 
                     .card-title {
-                        font: 700 16px/24px $bf;
+                        font: 700 16px/24px $bf-landing;
                         margin: 0 0 10px;
                     }
 
                     .card-description {
-                        font: 400 14px/22px $bf;
+                        font: 400 14px/22px $bf-landing;
                         margin: 0 0 10px;
                     }
 
@@ -2661,7 +2661,7 @@ ui-view {
                     }
 
                     .auth_type-name {
-                        font: 700 12px $bf;
+                        font: 700 12px $bf-landing;
                         @include ellipsis();
                         margin: 0 -10px;
                     }
@@ -2762,7 +2762,7 @@ ui-view {
             background: #fff;
             padding: 10px;
             border-radius: 5px;
-            font: 400 22px/34px $bf;
+            font: 400 22px/34px $bf-landing;
             color: grey;
             box-shadow: 0 5px 20px rgba(0,0,0,0.05);
             margin: 40px 0 30px;
@@ -2776,14 +2776,14 @@ ui-view {
 
         .title{
             color: #282b39;
-            font: 700 40px $bf;
+            font: 700 40px $bf-landing;
             text-align: center;
             margin-bottom: 10px;
         }
 
         .description{
             padding: 10px 0;
-            font: 400 22px/34px $bf;
+            font: 400 22px/34px $bf-landing;
             color: #646f79;
 
             .popup-title-styled{
@@ -2815,7 +2815,7 @@ ui-view {
         }
 
         .footer-text {
-            font: 700 18px $bf;
+            font: 700 18px $bf-landing;
             color: #151b26;
             margin-bottom: 20px;
         }
@@ -2827,7 +2827,7 @@ ui-view {
         .modal-footer-link {
             display: block;
             color: #305dfb;
-            font: 700 13px/30px $bf;
+            font: 700 13px/30px $bf-landing;
 
             span {
                 display: block;
@@ -2841,14 +2841,14 @@ ui-view {
 
         .modal-title {
             color: #282b39;
-            font: 700 40px $bf;
+            font: 700 40px $bf-landing;
             text-align: center;
             margin-bottom: 10px;
         }
 
         .modal-subtitle {
             color: #646f79;
-            font: 400 22px $bf;
+            font: 400 22px $bf-landing;
             text-align: center;
             padding-bottom: 30px;
 
@@ -2888,22 +2888,22 @@ ui-view {
 
         .modal-footer {
             .footer-text {
-                font: 700 15px $bf;
+                font: 700 15px $bf-landing;
                 margin: 0 0 15px;
             }
 
             .modal-footer-link {
-                font: 700 12px/26px $bf;
+                font: 700 12px/26px $bf-landing;
             }
         }
 
         &.modal-auth {
             .modal-title {
-                font: 700 24px $bf;
+                font: 700 24px $bf-landing;
             }
 
             .modal-subtitle {
-                font: 400 16px $bf;
+                font: 400 16px $bf-landing;
                 padding: 0 0 20px;
 
                 a {
@@ -2952,12 +2952,12 @@ ui-view {
                 padding: 50px 25px 25px;
 
                 .modal-title {
-                    font: 700 22px/32px $bf;
+                    font: 700 22px/32px $bf-landing;
                     margin: 0 0 10px;
                 }
 
                 .modal-subtitle {
-                    font: 400 15px/24px $bf;
+                    font: 400 15px/24px $bf-landing;
                     margin: 0 0 30px;
                     padding: 0;
 
@@ -2978,12 +2978,12 @@ ui-view {
                 padding: 25px 25px 0;
 
                 .footer-text {
-                    font: 700 14px/26px $bf;
+                    font: 700 14px/26px $bf-landing;
                     margin: 0 0 30px;
                 }
 
                 .modal-footer-link {
-                    font: 700 11px/20px $bf;
+                    font: 700 11px/20px $bf-landing;
                     padding-left: 20px;
                     margin-bottom: 15px;
 
@@ -3058,7 +3058,7 @@ ui-view {
 
     .label {
         padding: 0 10px;
-        font: 700 11px/22px $bf;
+        font: 700 11px/22px $bf-landing;
     }
 
     .button {
@@ -3072,7 +3072,7 @@ ui-view {
         .form-control:not([type="radio"]):not([type="checkbox"]).form-control-fancy {
             height: 50px;
             padding: 5px 15px;
-            font: 400 15px/24px $bf;
+            font: 400 15px/24px $bf-landing;
         }
     }
 }

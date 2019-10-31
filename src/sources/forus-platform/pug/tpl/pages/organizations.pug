@@ -11,6 +11,5 @@
         .organization-name(ng-bind="organization.name")
 
     div(ui-sref="organizations-create").organization-item
-        .organization-item-inner
-            .organization-logo.organization-logo-mdi: .mdi.mdi-plus
+        .organization-item-inner: .organization-logo.organization-logo-mdi: .mdi.mdi-plus
         .organization-name {{ "organizations.buttons.add" | translate }}

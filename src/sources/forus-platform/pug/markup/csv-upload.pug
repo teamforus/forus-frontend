@@ -40,8 +40,8 @@ block content
     .card(class=(state=='closed'?'card-outline':'')).form
         .card-header
             .row
-                .col.col-sm-8.col-xs-12: .card-title Vouchers
-                .col.col-sm-4.col-xs-12: .form: input(type="text" placeholder="Search").form-control
+                .col.col-lg-8.col-xs-12: .card-title Vouchers
+                .col.col-lg-4.col-xs-12: .form: input(type="text" placeholder="Search").form-control
         .card-section
             .card-block.card-block-table
                 .table-wrapper
@@ -80,11 +80,11 @@ block content
             .table-pagination
                 .table-pagination-navigation
                     button.button.button-default
-                        em.mdi.mdi-upload 
+                        em.mdi.mdi-upload.icon-start 
                         | Import
                     button.button.button-default
-                        em.mdi.mdi-download  
+                        em.mdi.mdi-download.icon-start  
                         | Export
                     button.button.button-default
-                        .mdi.mdi-delete  
+                        .mdi.mdi-delete.icon-start  
                         | Delete
