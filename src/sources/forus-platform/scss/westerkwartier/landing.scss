@@ -124,17 +124,17 @@ $color_default_light: #b9cb18;
             .header-title {
                 margin: 0 0 20px;
                 text-align: center;
-                font: 700 32px/1.5em $bf;
+                font: 700 32px/1.5em $bf-landing;
                 color: #353b46;
                 @media screen and (min-width: 1024px){ 
                     color: #fff;
                 }
                 @media screen and (min-width: 1440px){ 
-                    font: 700 40px/1.5em $bf;
+                    font: 700 40px/1.5em $bf-landing;
                 }
             }
             .header-description {
-                font: 400 21px/1.5em $bf;
+                font: 400 21px/1.5em $bf-landing;
                 color: #353b46;
                 margin-bottom: 1vw;
                 @media screen and (min-width: 1024px){ 
@@ -144,7 +144,7 @@ $color_default_light: #b9cb18;
 
             .header-how-it-works {
                 color: inherit;
-                font: 400 14px/26px $bf
+                font: 400 14px/26px $bf-landing
             }
         }
 
@@ -179,7 +179,7 @@ $color_default_light: #b9cb18;
 
         .footer-label {
             color: #282b39;
-            font: 700 18px $bf;
+            font: 700 18px $bf-landing;
             margin-bottom: 25px;
         }
 
@@ -190,7 +190,7 @@ $color_default_light: #b9cb18;
 
                 a {
                     color: #fff;
-                    font: 700 14px/24px $bf;
+                    font: 700 14px/24px $bf-landing;
                     transition: color .4s;
 
                     &:hover {
@@ -211,14 +211,14 @@ $color_default_light: #b9cb18;
 
             .schedule-label {
                 color: #fff;
-                font: 400 13px/24px $bf;
+                font: 400 13px/24px $bf-landing;
                 float: left;
                 width: 35%;
             }
 
             .schedule-value {
                 color: #fff;
-                font: 700 13px/24px $bf;
+                font: 700 13px/24px $bf-landing;
                 float: left;
                 width: 65%;
             }
@@ -247,7 +247,7 @@ $color_default_light: #b9cb18;
         border-top: 1px solid #d7e9ed;
         padding: 40px 0;
         text-align: center;
-        font: 400 14px/30px $bf;
+        font: 400 14px/30px $bf-landing;
 
         .wrapper {
             @include cf();
