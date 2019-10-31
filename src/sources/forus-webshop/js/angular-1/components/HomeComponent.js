@@ -34,9 +34,6 @@ let HomeComponent = function(
         } else {
             $ctrl.vouchers = [];
         }
-
-
-
 };
 
 module.exports = {
