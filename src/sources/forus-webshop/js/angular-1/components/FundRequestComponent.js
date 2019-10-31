@@ -31,6 +31,11 @@ let FundRequestComponent = function(
     let timeout = null;
     let stopTimeout = null;
 
+    $ctrl.criterionValuePrefix = {
+        net_worth: '€',
+        base_salary: '€'
+    };
+
     // Initialize authorization form
     $ctrl.initAuthForm = () => {
         let target = 'fundRequest-' + $ctrl.fund.id;

@@ -68,7 +68,6 @@ let FundRequestsComponent = function(
             request.fund_id,
             request.id
         ).then((res) => {
-            // console.log(res.data.data);
             res.data.data.hasContent = request.hasContent;
             res.data.data.collapsed = request.collapsed;
 
@@ -81,7 +80,6 @@ let FundRequestsComponent = function(
             ] = res.data.data;
 
             $ctrl.updateSelfAssignedFlags();
-            // $ctrl.validatorRequests.data.indexOf(request);
         }, console.error);
     };
 
@@ -290,6 +288,16 @@ let FundRequestsComponent = function(
         }, console.error);
     };
 
+    $ctrl.previewFile = ($event, file) => {
+        $event.originalEvent.preventDefault();
+        $event.originalEvent.stopPropagation();
+
+        FileService.download(file).then(res => {
+            ModalService.open('modalPdfPreview', {
+                rawPdfFile: res.data
+            });
+        }, console.error);
+    };
 
     $ctrl.onPageChange = (query) => {
         reloadRequests(query);

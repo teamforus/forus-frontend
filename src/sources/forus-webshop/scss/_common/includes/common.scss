@@ -2,6 +2,10 @@ img {
     border: none;
 }
 
+.flex-grow {
+    flex-grow: 100 !important;
+}
+
 .flex-row {
     display: flex;
     flex-direction: row;

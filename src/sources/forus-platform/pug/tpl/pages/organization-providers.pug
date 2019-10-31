@@ -2,7 +2,7 @@
     menu
     section.app.app-content
         .card-heading: .row
-            .col.col-sm-6.col-xs-12
+            .col.col-lg-6.col-xs-12
                 span(translate="organization_providers.header.title")
         
         .block.block-choose-organization(ng-if="$ctrl.funds.length > 0")
@@ -23,12 +23,12 @@
         
         div(ng-if="$ctrl.fund")
             .card-heading: .row
-                .col.col-sm-6.col-xs-12
+                .col.col-lg-6.col-xs-12
                     span(translate="organization_providers.header.title")
                     span(ng-bind="$ctrl.fundProviders.meta.total").span-count
-                .block.block-inline-filters.col.col-sm-6.col-xs-12
+                .block.block-inline-filters.col.col-lg-6.col-xs-12
                     .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.resetFilters()")
-                        em.mdi.mdi-close
+                        em.mdi.mdi-close.icon-start
                         span(i18n="Wis filters")
 
                     .form(ng-if="!$ctrl.filters.show")
@@ -107,13 +107,13 @@
                                 prevent-propagation
                                 ng-show="(providerFund.state == 'pending') || (providerFund.state == 'approved')"
                                 ng-click="$ctrl.declineProvider(providerFund)").button.button-default
-                                em.mdi.mdi-close 
+                                em.mdi.mdi-close.icon-start 
                                 span(translate="organization_providers.buttons.reject")
                             button(
                                 prevent-propagation
                                 ng-show="(providerFund.state == 'pending') || (providerFund.state == 'declined')"
                                 ng-click="$ctrl.approveProvider(providerFund)").button.button-primary
-                                em.mdi.mdi-check 
+                                em.mdi.mdi-check.icon-start 
                                 span(translate="organization_providers.buttons.accept")
 
 
@@ -123,7 +123,7 @@
 
                 .card-section(ng-show="$ctrl.fundProviders.meta.total > 0"): .table-pagination.text-right
                     button(ng-click="$ctrl.exportList()").button.button-primary
-                        em.mdi.mdi-download  
+                        em.mdi.mdi-download.icon-start 
                         span(i18n="transactions.buttons.export")
 
             block-empty( 

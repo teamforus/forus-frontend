@@ -54,4 +54,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('fundRequestRecordDecline', {
         component: 'modalFundRequestRecordDeclineComponent'
     });
+
+    ModalRouteProvider.modal('modalPdfPreview', {
+        component: 'modalPdfPreviewComponent'
+    });
 }];

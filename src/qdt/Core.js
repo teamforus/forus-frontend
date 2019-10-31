@@ -10,7 +10,6 @@ let Core = function() {
     }
 
     this.getConfig = () => {
-        // console.log(platforms);
         let configs = {};
         
         for (let prop in platforms) {
