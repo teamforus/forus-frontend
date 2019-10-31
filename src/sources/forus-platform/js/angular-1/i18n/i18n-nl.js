@@ -190,6 +190,7 @@ module.exports = {
         },
         labels: {
             name: "Naam",
+            products: "Products",
             status: "Status",
             start: "Startdatum",
             end: "Einddatum",
