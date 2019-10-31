@@ -14,6 +14,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     };
 
     let handleAuthTarget = ($state, target) => {
+        if (target[0] == 'homeStart') {
+            return !!$state.go('home', {
+                confirmed: true
+            });
+        }
+
         if (target[0] == 'fundRequest') {
             return !!$state.go('fund-request', {
                 fund_id: target[1]
