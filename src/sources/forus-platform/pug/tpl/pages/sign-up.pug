@@ -149,20 +149,20 @@
                             .form-group
                                 label(translate="organization_edit.labels.mail").form-label
                                 .row
-                                    .col.col-md-8: input(ng-model="$ctrl.organizationForm.values.email" type="text" placeholder="E-mailadres").form-control
-                                    .col.col-md-4: input-checkbox-control(name="email_public" label="{{ 'Maak publiek' | i18n }}" ng-model="$ctrl.organizationForm.values.email_public")
+                                    .col.col-lg-8: input(ng-model="$ctrl.organizationForm.values.email" type="text" placeholder="E-mailadres").form-control
+                                    .col.col-lg-4: input-checkbox-control(name="email_public" label="{{ 'Maak publiek' | i18n }}" ng-model="$ctrl.organizationForm.values.email_public")
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.email" ng-bind="error")
                             .form-group
                                 label(translate="organization_edit.labels.phone").form-label
                                 .row
-                                    .col.col-md-8: input(ng-model="$ctrl.organizationForm.values.phone" type="text" placeholder="Telefoonnummer").form-control
-                                    .col.col-md-4: input-checkbox-control(name="phone_public" label="{{ 'Maak publiek' | i18n }}" ng-model="$ctrl.organizationForm.values.phone_public")
+                                    .col.col-lg-8: input(ng-model="$ctrl.organizationForm.values.phone" type="text" placeholder="Telefoonnummer").form-control
+                                    .col.col-lg-4: input-checkbox-control(name="phone_public" label="{{ 'Maak publiek' | i18n }}" ng-model="$ctrl.organizationForm.values.phone_public")
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.phone" ng-bind="error")
                             .form-group
                                 label(translate="organization_edit.labels.website").form-label
                                 .row
-                                    .col.col-md-8: input(ng-model="$ctrl.organizationForm.values.website" type="text" placeholder="Website").form-control
-                                    .col.col-md-4: input-checkbox-control(name="website_public" label="{{ 'Maak publiek' | i18n }}" ng-model="$ctrl.organizationForm.values.website_public")
+                                    .col.col-lg-8: input(ng-model="$ctrl.organizationForm.values.website" type="text" placeholder="Website").form-control
+                                    .col.col-lg-4: input-checkbox-control(name="website_public" label="{{ 'Maak publiek' | i18n }}" ng-model="$ctrl.organizationForm.values.website_public")
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.website" ng-bind="error")
 
                         .card-section: .pseudo-wrapper
@@ -190,7 +190,7 @@
                             type="organization_logo"
                             thumbnail="$ctrl.media.sizes.thumbnail" 
                             select-photo="$ctrl.selectPhoto(file)")
-                        .info-block.info-block-primary
+                        .block.block-info.block-info-primary
                             | De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px. 
                             br
                             | Toegestaande formaten: .JPG, .PNG
@@ -223,13 +223,13 @@
 
                 .card-section.card-section-primary
                     .row
-                        .col.col-sm-8.col-sm-offset-2.app-instruction
+                        .col.col-lg-8.col-lg-offset-2.block.block-app-instruction
                             .row
-                                .col.col-sm-6
+                                .col.col-lg-6
                                     img(src="./assets/img/sign-up/screen1.png")
                                     .title(translate="sign_up.app_instruction.step_1")
                                     img.line-item(src="./assets/img/sign-up/line1.png")
-                                .col.col-sm-6
+                                .col.col-lg-6
                                     img(src="./assets/img/sign-up/screen2.png")
                                     .title(translate="sign_up.app_instruction.step_2")
 

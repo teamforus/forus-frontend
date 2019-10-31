@@ -3,10 +3,12 @@
         .product-item {
             .product-item-inner {
                 border-top-right-radius: 10px;
-                border-top-left-radius: 10px;            
+                border-top-left-radius: 10px;
+
                 .product-name {
-                    color:#8b9911
+                    color: #8b9911
                 }
+
                 &:hover {
                     .product-name {
                         color: #91b845;
@@ -20,9 +22,12 @@
         }
     }
 }
-products-component {
-    .section {
-        &.section-products {
+
+.section {
+    &.section-products {
+        padding: 30px 0;
+
+        &products-component {
             .section-title {
                 text-align: left;
             }

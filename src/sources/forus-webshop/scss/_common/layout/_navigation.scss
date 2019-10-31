@@ -13,6 +13,7 @@
         @media screen and (min-width: 1440px){
             padding: 3vw 0;
         }
+
         .navbar-inner {
             border-radius: $border_radius;
             background-color: #ffffff;
@@ -21,6 +22,7 @@
             margin: 0 auto;
             display: flex;
         }
+
         .navbar-logo {
             justify-self: flex-start;
             padding: 30px 40px;
@@ -319,6 +321,7 @@
             }
         }
     }
+
     @media screen and (max-width: 1700px) {
         &.block-navbar {
             .navbar-logo {
@@ -371,6 +374,7 @@
             }
         }
     }
+    
     @media screen and (max-width: 1024px) {
         &.block-navbar {
             padding: 0;

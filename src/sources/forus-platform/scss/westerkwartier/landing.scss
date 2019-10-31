@@ -1,7 +1,15 @@
 @import '../_common/landing';
+
+$color_primary: #b9cb18;
+$color_primary_light: #92a112;
+
+$color_default: #fff;
+$color_default_light: #b9cb18;
+
 .wrapper {
     width: 1100px;
 }
+
 .button {
     &.button-default {
         background-color: #fff;
@@ -23,6 +31,7 @@
             }
         }
     }
+
     &.button-primary {
         color: #666;
         background: $color_primary;
@@ -31,8 +40,8 @@
 
         &:hover {
             color: #666;
-            background: #d4e630;
             background-color: #d4e630;
+            border-color: $color_primary;
             box-shadow: 0 10px 20px rgba(#000, .3);
 
             img {
@@ -65,12 +74,15 @@
     &.section-flow {
         margin: 30px 0;
     }
+
     &.section-faq {
         margin: 30px 0;
+
         .section-splash {
             display: none;
         }
     }
+
     &.section-header {
         background: none;
         height: auto;
@@ -83,6 +95,7 @@
         bottom: 0;
         left: 0;
         right: 0;
+
         @media screen and (min-width: 1024px){
             background: url(../img/landing/splash-top-b.png) no-repeat 100% 0;
             background-size: cover;
@@ -139,6 +152,7 @@
             display: none;
         }
     }
+
     &.section-footer {
         background-color: #4e4d40;
         margin-top: 0;
@@ -227,6 +241,7 @@
             }
         }
     }
+
     &.block-copyrights {
         width: 100%;
         border-top: 1px solid #d7e9ed;
@@ -294,6 +309,7 @@
             }
         }
     }
+
     &.block-navbar {
         width: 100%;
         padding: 0 0px;
@@ -358,6 +374,7 @@
             }
         }
     }
+
     &.block-footer {
         &.footer-nav {
             a {

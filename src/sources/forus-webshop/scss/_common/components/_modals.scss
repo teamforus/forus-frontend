@@ -25,6 +25,34 @@
         z-index: 4;
     }
 
+    .modal-window {
+        position: relative;
+        z-index: 2;
+        background: #f6f9fc;
+        width: 1200px;
+        max-width: 100%;
+        border-radius: $border_radius;
+        display: inline-block;
+        min-height: 100px;
+        margin: 0 auto;
+
+        .modal-section {
+            padding: 30px;
+        }
+
+        .modal-close {
+            position: absolute;
+            font-size: 24px;
+            right: 20px;
+            top: 20px;
+            display: block;
+            cursor: pointer;
+            color: #222;
+            transition: color .4s;
+            z-index: 1;
+        }
+    }
+
     .modal-content {
         position: relative;
         width: 1200px;
@@ -124,9 +152,7 @@
             margin-bottom: 20px;
         }
 
-        .modal-footer-links {
-
-        }
+        // .modal-footer-links {}
 
         .modal-footer-link {
             display: block;
@@ -142,7 +168,6 @@
     }
 
     &.modal-auth {
-
         .modal-title {
             color: #282b39;
             font: 700 40px $bf;
@@ -189,6 +214,17 @@
         }
     }
     &.modal-auth2 {
+        .modal-window {
+            width: 650px;
+            max-width: 100%;
+
+            .modal-content {
+                padding: 20px;
+            }
+        }
+    }
+    /* &.modal-auth2 {
+
         .modal-content {
             padding: 20px;
             width: 100%;
@@ -254,9 +290,9 @@
                 }
             }
         }
-        
-    }
-    .block-qr-code {
+    } */
+
+    /* .block-qr-code {
         float:right;
         margin:0;
         .qr_code {
@@ -275,7 +311,7 @@
                 width: 100%;
             }
         }
-    }
+    } */
     &.modal-shops_map {
         .modal-content{
             padding: 0;

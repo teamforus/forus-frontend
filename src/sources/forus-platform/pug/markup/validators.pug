@@ -2,14 +2,14 @@ extends ../layout/layout-markup
 block content
     .card(class=(state=='closed'?'card-outline':'')).form
         .card-header: .row
-            .col.col-sm-6
+            .col.col-lg-6
                 .card-title 
                     | Validators (8)
-            .col.col-sm-3
+            .col.col-lg-3
                 .card-title: button.button.button-primary.pull-right
-                    .em.mdi.mdi-plus-circle
+                    .em.mdi.mdi-plus-circle.icon-start
                     | Add new validator
-            .col.col-sm-3.form
+            .col.col-lg-3.form
                 input(type="text" placeholder="Search").form-control
         .card-section
             .card-block.card-block-table
