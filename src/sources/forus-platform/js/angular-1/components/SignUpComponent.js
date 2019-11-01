@@ -65,15 +65,15 @@ let SignUpComponent = function(
                 DemoTransactionService.store().then(res => {
                     $ctrl.demoToken = res.data.data.token;
 
-                    // let interval = $interval(() => {
-                    //     DemoTransactionService.read($ctrl.demoToken).then(res => {
-                    //         console.log(res);
+                    let interval = $interval(() => {
+                        DemoTransactionService.read($ctrl.demoToken).then(res => {
 
-                    //         if (res.data.data.status != 'pending') {
-                    //             $interval.cancel(interval);
-                    //         }
-                    //     });
-                    // }, 1000);
+                            if (res.data.data.state != 'pending') {
+                                $interval.cancel(interval);
+                                //alert('transaction status changed');
+                            }
+                        });
+                    }, 1000);
                 });
             }
 
@@ -97,8 +97,8 @@ let SignUpComponent = function(
                 } else {
                     $ctrl.organization = organisation_data;
 
-                    loadOrganizationOffices($ctrl.organization);
-                    loadEmployees($ctrl.organization);
+                    //loadOrganizationOffices($ctrl.organization);
+                    //loadEmployees($ctrl.organization);
                 }
             }
 
