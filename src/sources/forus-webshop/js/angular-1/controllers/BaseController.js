@@ -3,6 +3,7 @@ let BaseController = function(
     $state,
     $q,
     $window,
+    $translate,
     IdentityService,
     AuthService,
     RecordService,
@@ -94,6 +95,8 @@ let BaseController = function(
     $window.onbeforeunload = function (event) {
         BrowserService.unsetInactivity();
     };
+
+    $translate.use('nl');
 };
 
 module.exports = [
@@ -101,6 +104,7 @@ module.exports = [
     '$state',
     '$q',
     '$window',
+    '$translate',
     'IdentityService',
     'AuthService',
     'RecordService',

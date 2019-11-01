@@ -1,10 +1,10 @@
 module.exports = {
         buttons: {
-            cancel: "Annuleren",
-            confirm: "Bevestig",
-            close: "Sluit"
+            cancel: "Cancel",
+            confirm: "Confirm",
+            close: "Close"
         },
         logout: {
-            description: "U bent automatisch uitgelogd door 15 minuten aan inactiviteit."
+            description: "You are automatically logged out by 15 minutes of inactivity."
         }
 }

@@ -1,3 +1,3 @@
 module.exports = {
-        guide: "Gebruik de activatie code",
+        guide: "Use an activationcode",
 }

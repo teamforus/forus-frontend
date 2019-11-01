@@ -13,14 +13,14 @@ module.exports = {
             westerkwartier: {
                 location: "Westerkwartier",
             },
-            value: "Eigenschap ontbreekt in uw profiel",
+            value: "Record is missing on your profile",
         },
         buttons: {
-            validate: "Valideer",
-            add: "Voeg toe",
+            validate: "Validate",
+            add: "Add",
         },
         status: {
-            invalid: "Ongeldig",
-            valid: "Geldig",
+            invalid: "Invalid",
+            valid: "Valid",
         }
 }

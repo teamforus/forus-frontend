@@ -1,15 +1,15 @@
 module.exports = {
         header: {
-            title: "Uw persoonlijke QR-code",
-            subtitle: "Laat uw persoonlijke QR-code scannen door een validator.",
+            title: "Your personal QR-code",
+            subtitle: "Have a validator scan your personal QR-code.",
         },
         labels: {
-            address: "Adres:",
+            address: "Address:",
         },
         buttons: {
-            share: "Deel",
-            copy: "Kopieer",
+            share: "Share",
+            copy: "Copy",
             vouchers: "VOUCHERS",
-            records: "EIGENSCHAPPEN",
+            records: "RECORDS",
         },
 }
