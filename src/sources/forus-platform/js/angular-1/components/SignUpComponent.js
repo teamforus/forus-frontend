@@ -1,38 +1,36 @@
 let SignUpComponent = function(
     $q,
     $state,
-    $stateParams,
     $scope,
     $rootScope,
     $timeout,
-    $interval,
     $filter,
+    $interval,
     OrganizationService,
     OfficeService,
     IdentityService,
     CredentialsService,
     FormBuilderService,
     MediaService,
-    ProviderFundService,
     OrganizationEmployeesService,
     SmsService,
+    DemoTransactionService,
     appConfigs
 ) {
     let $ctrl = this;
 
     /*
-     step 1 - app links
-     step 2 - email and name form
-     step 3 - organization form
-     step 5 - pin code
-     step 6 - qr code
+     step 1 - General information
+     step 2 - Scan QR Code
+     step 3 - Manage organization details
+     step 4 - Manage offices
+     step 5 - Manage employees
      */
     $ctrl.step = 1;
     $ctrl.organizationStep = false;
     $ctrl.signedIn = !!$rootScope.auth_user;
     $ctrl.showLoginBlock = false;
     $ctrl.organization = null;
-    $ctrl.fundsAvailable = [];
     $ctrl.offices = [];
     $ctrl.employees = [];
     $ctrl.sentSms = false;
@@ -43,20 +41,7 @@ let SignUpComponent = function(
     let timeout;
     let officeMediaFile = false;
 
-    let invalidPermissions = {
-        sponsor: [
-            "manage_provider_funds", "manage_products", "manage_offices",
-            "scan_vouchers"
-        ],
-        provider: [
-            "manage_funds", "manage_providers", "manage_validators",
-            "validate_records", "scan_vouchers"
-        ]
-    } [appConfigs.panel_type];
-
-    $ctrl.afterInit = () => {
-
-    };
+    $ctrl.afterInit = () => {};
 
     let progressStorage = new(function() {
         this.init = () => {
@@ -75,6 +60,22 @@ let SignUpComponent = function(
 
         this.setStep = (step) => {
             localStorage.setItem('sign_up_form.step', step);
+
+            if (step == 7) {
+                DemoTransactionService.store().then(res => {
+                    $ctrl.demoToken = res.data.data.token;
+
+                    // let interval = $interval(() => {
+                    //     DemoTransactionService.read($ctrl.demoToken).then(res => {
+                    //         console.log(res);
+
+                    //         if (res.data.data.status != 'pending') {
+                    //             $interval.cancel(interval);
+                    //         }
+                    //     });
+                    // }, 1000);
+                });
+            }
 
             $ctrl.step = step;
         };
@@ -173,7 +174,7 @@ let SignUpComponent = function(
     
             let promise;
     
-            // Fix later - role operation_officer
+            // Role operation_officer
             form.values.roles = [5];
 
             if (form.values.id) {
@@ -669,8 +670,6 @@ let SignUpComponent = function(
         $ctrl.setStep(7);
     }
 
-    $ctrl.testToken = 'secret';
-
     $ctrl.requestAuthQrToken = () => {
         IdentityService.makeAuthToken().then((res) => {
             $ctrl.authToken = res.data.auth_token;
@@ -729,23 +728,21 @@ module.exports = {
     controller: [
         '$q',
         '$state',
-        '$stateParams',
         '$scope',
         '$rootScope',
         '$timeout',
-        '$interval',
         '$filter',
+        '$interval',
         'OrganizationService',
         'OfficeService',
         'IdentityService',
         'CredentialsService',
         'FormBuilderService',
         'MediaService',
-        'ProviderFundService',
         'OrganizationEmployeesService',
         'SmsService',
+        'DemoTransactionService',
         'appConfigs',
-        'ModalService',
         SignUpComponent
     ],
     templateUrl: 'assets/tpl/pages/sign-up.html'

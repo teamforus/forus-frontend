@@ -21,13 +21,12 @@
                         ng-repeat="step in $ctrl.shownSteps"
                         ng-class="$ctrl.step == step ? 'sign_up-step-active' : ($ctrl.step > step ? 'sign_up-step-done' : '')"
                         ng-bind="'Stap ' + (step - 1)")
-
-            //- General information
+            
             mixin card_header(step)
                 .sign_up-pane-header(translate="sign_up.header.title_step_" + step)         
                 
             .block.block-sign_up: .block-wrapper
-                //- Log in
+                //- General information
                 div(ng-if="$ctrl.step == 1")
                     h2.block-title
                     
@@ -46,11 +45,6 @@
 
                         .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
                             .col.col-lg-6.text-left
-                                //- .button.button-text.button-text-padless(
-                                //-     ng-if="!$ctrl.signedIn"
-                                //-     ng-click="$ctrl.prev()")
-                                //-         | Vorige stap
-                                //-         em.mdi.mdi-chevron-left.icon-left
 
                             .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.next()")
                                 | Volgende stap
@@ -404,9 +398,7 @@
 
                         .sign_up-pane-footer: .row
                             .col.col-lg-6.text-left
-                                //- .button.button-text.button-text-padless(ng-click="$ctrl.back()")
-                                //-     | Vorige stap
-                                //-     em.mdi.mdi-chevron-left.icon-lefts
+
                             .col.col-lg-6.text-right
                                 .button.button-text.button-text-padless(ng-click="$ctrl.next()")
                                     | Volgende stap
@@ -499,9 +491,9 @@
                             .sign_up-pane-auth.test-qr
                                 .sign_up-pane-auth-qr_code
                                     qr-code(
-                                        ng-if="$ctrl.testToken" 
-                                        qr-value="$ctrl.testToken" 
-                                        qr-type="auth_token" 
+                                        ng-if="$ctrl.demoToken" 
+                                        qr-value="$ctrl.demoToken" 
+                                        qr-type="demo_voucher" 
                                         qr-logo=src_prefix + "./assets/img/me-logo.png")
 
                     .step-footer(ng-if="$ctrl.has_app")

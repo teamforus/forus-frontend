@@ -93,6 +93,7 @@ app.service('SmsService', require('./services/SmsService'));
 app.service('FileService', require('./services/FileService'));
 app.service('FundRequestValidatorService', require('./services/FundRequestValidatorService'));
 app.service('EmailPreferencesService', require('./services/EmailPreferencesService'));
+app.service('DemoTransactionService', require('./services/DemoTransactionService'));
 
 // Directives
 switch (env_data.panel_type) {
