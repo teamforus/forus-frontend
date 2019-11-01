@@ -97,8 +97,8 @@ let SignUpComponent = function(
                 } else {
                     $ctrl.organization = organisation_data;
 
-                    //loadOrganizationOffices($ctrl.organization);
-                    //loadEmployees($ctrl.organization);
+                    loadOrganizationOffices($ctrl.organization);
+                    loadEmployees($ctrl.organization);
                 }
             }
 
