@@ -54,4 +54,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('fundCriteriaDescriptionEdit', {
         component: 'modalFundCriteriaDescriptionEditComponent'
     });
+    
+    ModalRouteProvider.modal('modalPdfPreview', {
+        component: 'modalPdfPreviewComponent'
+    });
 }];

@@ -1,5 +1,5 @@
 .app.app-container: .block.block-sign-up-steps
-    // Steps header
+    //- Steps header
     .sign-up-header: .steps
         mixin step_item(step)
             .step-item(ng-class="{active: $ctrl.step == " + step + ", done: $ctrl.step > " + step + "}")
@@ -14,13 +14,13 @@
             +step_item(i)
 
     .sign-up-content.steps_5
-        // Step header
+        //- Step header
         mixin step_header(step)
             .step-header
                 .step-header-title(translate="sign_up.meapp_header.top_title_step_" + step)
                 .step-header-subtitle(translate="sign_up.meapp_header.top_subtitle_step_" + step)
 
-        // Step card header
+        //- Step card header
         mixin card_header(step)
             .card-header
                 .card-title(translate="sign_up.meapp_header.title_step_" + step)
@@ -28,7 +28,7 @@
                 - if(step == 1)
                     img.card-header-image(ng-src="./assets/img/sign-up/scan-qr.png")
                 
-        // Step 1: Download the app
+        //- Step 1: Download the app
         .step-item(ng-show="$ctrl.step == 1")
             .card
                 +card_header(1)
@@ -76,7 +76,7 @@
             .step-footer(ng-if="$ctrl.has_app")
                 a(translate="sign_up.buttons.go_step_2" ng-click="$ctrl.skipToStep(2)").button.button-primary
 
-        // Step 2: Personal info
+        //- Step 2: Personal info
         .step-item(ng-show="$ctrl.step == 2"): form(ng-submit="$ctrl.next()").form
             .card
                 +card_header(2)
@@ -121,24 +121,21 @@
                 a(translate="sign_up.buttons.cancel" ng-click="$ctrl.back()").button.button-default
                 button(type="submit" translate="sign_up.buttons.next").button.button-primary
 
-        // Step 3: Authenticate device
+        //- Step 3: Authenticate device
         .step-item(ng-show="$ctrl.step == 3")
             +step_header(3)
 
             .card(ng-if="$ctrl.step == 3")
                 +card_header(3)
 
-                .card-section.card-section-primary
-                    .row
-                        .col.col-sm-8.col-sm-offset-2.app-instruction
-                            .row
-                                .col.col-sm-6
-                                    img(src="./assets/img/sign-up/screen1.png")
-                                    .title(translate="sign_up.app_instruction.step_1")
-                                    img.line-item(src="./assets/img/sign-up/line1.png")
-                                .col.col-sm-6
-                                    img(src="./assets/img/sign-up/screen2.png")
-                                    .title(translate="sign_up.app_instruction.step_2")
+                .card-section.card-section-primary: .block.block-app-instruction
+                    .step-item
+                        img(src="./assets/img/sign-up/screen1.png")
+                        .app-title(translate="sign_up.app_instruction.step_1")
+                        img.line-item(src="./assets/img/sign-up/line1.png")
+                    .step-item
+                        img(src="./assets/img/sign-up/screen2.png")
+                        .app-title(translate="sign_up.app_instruction.step_2")
 
                 .divider-img: img(src="./assets/img/sign-up/Base7.png")
 
@@ -154,7 +151,7 @@
                     a(ng-click="$ctrl.skipToStep(5)" translate="sign_up.buttons.skip").button.button-default
                     button(ng-click="$ctrl.next()" translate="sign_up.buttons.next").button.button-primary
 
-        // Step 4: SignIn through QrCode
+        //- Step 4: SignIn through QrCode
         .step-item(ng-show="$ctrl.step == 4")
             +step_header(4)
 
@@ -165,14 +162,14 @@
                     .qr_code#platform_auth_qrcode
                     .qr_code-desc(translate="sign_up.qr_code.description")
 
-        // Step 5: Success
+        //- Step 5: Success
         .step-item(ng-show="$ctrl.step == 5")
             .card
                 +card_header(5)
 
             .step-footer: a(ng-click="$ctrl.next()" translate="sign_up.buttons.next").button.button-primary
 
-        // Mobile device warning
+        //- Mobile device warning
         .hidden-lg.hidden-md.open-pc-section: .section-inner
             .img-block: img(src="./assets/img/sign-up/user-mobile.png")
             .title(translate="sign_up.open_pc.title")

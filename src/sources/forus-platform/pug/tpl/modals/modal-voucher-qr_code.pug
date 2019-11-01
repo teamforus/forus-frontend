@@ -9,16 +9,15 @@
                 qr-code(qr-value="$ctrl.qrCodeValue" qr-type="voucher")
                 .voucher_qr-actions: .row
                     .col.col-xs-6: button(
-                        type="button"
-                        ng-click="$ctrl.printQrCode()"
-                        ).button.button-default-dashed.button-fill 
-                        em.mdi.mdi-printer
+                        type="button" 
+                        ng-click="$ctrl.printQrCode()").button.button-default-dashed.button-fill 
+                        em.mdi.mdi-printer.icon-start
                         div(i18n="modals.modal_voucher_qr_code.buttons.print")
                     .col.col-xs-6
                         button(
                             type="button"
                             ng-click="$ctrl.goAssigning()").button.button-default-dashed.button-fill 
-                            em.mdi.mdi-email
+                            em.mdi.mdi-email.icon-start
                             | {{ "modals.modal_voucher_qr_code.buttons.assign" | i18n }}
 
         .modal-body: .modal-section: .form
@@ -33,8 +32,9 @@
                             placeholder="{{ 'modals.modal_voucher_qr_code.placeholders.email' | i18n }}"
                             ng-model="$ctrl.form.values.email").form-control
 
-                    .col.col-xs-3
-                        button.button.button-primary.button-fill.button-slim(type="submit" i18n="modals.modal_voucher_qr_code.buttons.send")
+                    .col.col-xs-3: button.button.button-primary.button-fill.button-slim(
+                        type="submit" 
+                        i18n="modals.modal_voucher_qr_code.buttons.send")
                 .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
         
         .modal-footer.text-center

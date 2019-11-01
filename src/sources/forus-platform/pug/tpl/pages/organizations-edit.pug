@@ -15,7 +15,7 @@
                         select-photo="$ctrl.selectPhoto(file)")
             
             .card-section.card-section-primary
-                .row: .col.col-lg-9.col-md-12
+                .row: .col.col-lg-9.col-lg-12
                     .form-group.form-group-inline
                         label.form-label(i18n="organization_edit.labels.name")
                         input(ng-model="$ctrl.form.values.name" type="text" placeholder="Bedrijfsnaam").form-control
@@ -29,11 +29,11 @@
                 .form-group.form-group-inline
                     label.form-label(i18n="organization_edit.labels.mail")
                     .form-offset: .row
-                        .col.col-lg-8.col-md-12
+                        .col.col-lg-8.col-lg-12
                             input(ng-model="$ctrl.form.values.email" type="text" placeholder="E-mailadres").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
                         
-                        .col.col-lg-4.col-md-12
+                        .col.col-lg-4.col-lg-12
                             input-checkbox-control(
                                 name="email_public" 
                                 label="{{ 'Maak publiek' | i18n }}" 
@@ -42,28 +42,28 @@
                 .form-group.form-group-inline
                     label.form-label(i18n="organization_edit.labels.phone")
                     .form-offset: .row
-                        .col.col-lg-8.col-md-12
+                        .col.col-lg-8.col-lg-12
                             input(type="text" ng-model="$ctrl.form.values.phone" placeholder="Telefoonnummer").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.phone" ng-bind="error")
                         
-                        .col.col-lg-4.col-md-12
+                        .col.col-lg-4.col-lg-12
                             input-checkbox-control(
                                 name="phone_public" label="{{ 'Maak publiek' | i18n }}" ng-model="$ctrl.form.values.phone_public")
                 
                 .form-group.form-group-inline
                     label.form-label(i18n="organization_edit.labels.website")
                     .form-offset: .row
-                        .col.col-lg-8.col-md-12
+                        .col.col-lg-8.col-lg-12
                             input(ng-model="$ctrl.form.values.website" type="text" placeholder="Website").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.website" ng-bind="error")
                         
-                        .col.col-lg-4.col-md-12
+                        .col.col-lg-4.col-lg-12
                             input-checkbox-control(
                                 name="website_public" 
                                 label="{{ 'Maak publiek' | i18n }}" 
                                 ng-model="$ctrl.form.values.website_public")
             
-            .card-section.card-section-primary: .row: .col.col-lg-9.col-md-12
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     .form-label(i18n="organization_edit.labels.business_type")
                     .form-offset: select-control(
@@ -72,7 +72,7 @@
                         options="$ctrl.businessTypes"
                         placeholder="Selecteer organisatie type...")
 
-            .card-section.card-section-primary: .row: .col.col-lg-9.col-md-12
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     label.form-label(i18n="organization_edit.labels.kvk")
                     input(ng-model="$ctrl.form.values.kvk" type="text" placeholder="KvK-nummer").form-control
