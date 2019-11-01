@@ -5,6 +5,10 @@ $bf: 'Montserrat',
 arial,
 sans-serif;
 
+$bf-landing: 'Montserrat',
+arial,
+sans-serif;
+
 // text color
 $tc: #353535;
 
@@ -29,5 +33,7 @@ $bec: #e63b3b;
 
 // border color
 $borderColor: #ddd;
-$formFont: 600 16px/24px $bf;
-$formPadding: 14px 15px;
+
+// wrapper size
+$wrapperWidth: 1400px;
+$wrapperPadding: 30px;

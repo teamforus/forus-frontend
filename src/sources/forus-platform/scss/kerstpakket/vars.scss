@@ -4,8 +4,12 @@ $borderColor:       #ddd;
 
 /*==========  Style Sheet - Vars  ==========*/
 
+$bf: 'Montserrat',
+arial,
+sans-serif;
+
 // base font
-$bf: 'Source Sans Pro',
+$bf-landing: 'Source Sans Pro',
 sans-serif;
 
 // text color
@@ -22,15 +26,16 @@ $border_color: #ececec;
 
 $border_radius: 0px;
 
-$color_primary: #157c68;
-$color_primary_light: #8fd888;
+$color_primary: #134478;
+$color_primary_light: #2987fd;
 
-$color_default: #017f96;
-$color_default_light: #017f96;
-
+$color_default: #134478;
+$color_default_light: #2987fd;
 
 // base error color
 $bec: #e63b3b;
 $borderColor: $border_color;
-$formFont: 600 16px/24px $bf;
-$formPadding: 14px 15px;
+
+// wrapper size
+$wrapperWidth: 1400px;
+$wrapperPadding: 30px;

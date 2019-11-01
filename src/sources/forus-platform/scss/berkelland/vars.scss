@@ -1,7 +1,11 @@
 /*==========  Style Sheet - Vars  ==========*/
 
 // base font
-$bf: 'Lato',
+$bf: 'Montserrat',
+arial,
+sans-serif;
+
+$bf-landing: 'Lato',
 arial,
 sans-serif;
 
@@ -29,5 +33,7 @@ $borderColor: #dbdcdb;
 
 // base error color
 $bec: #e63b3b;
-$formFont: 600 16px/24px $bf;
-$formPadding: 14px 15px;
+
+// wrapper size
+$wrapperWidth: 1400px;
+$wrapperPadding: 30px;
