@@ -330,13 +330,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             recordTypes: ['RecordTypeService', (
                 RecordTypeService
             ) => repackResponse(RecordTypeService.list())],
-            clarification: ['$transition$', 'FundRequestClarificationService', (
-                $transition$, FundRequestClarificationService
-            ) => repackResponse(FundRequestClarificationService.read(
+            clarification: ['$transition$', 'FundRequestClarificationService', 'AuthService', (
+                $transition$, FundRequestClarificationService, AuthService
+                ) => AuthService.hasCredentials() ? repackResponse(FundRequestClarificationService.read(
                 $transition$.params().fund_id,
                 $transition$.params().request_id,
                 $transition$.params().clarification_id
-            ))],
+            )): promiseResolve(null)],
         }
     });
 

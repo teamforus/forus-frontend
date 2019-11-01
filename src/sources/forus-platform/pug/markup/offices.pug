@@ -5,10 +5,10 @@ block content
             .card-section
                 .card-section-actions
                     button.button.button-default
-                        em.mdi.mdi-pen  
+                        em.mdi.mdi-pen.icon-start  
                         | Bewerk
                     button.button.button-primary
-                        em.mdi.mdi-plus-circle  
+                        em.mdi.mdi-plus-circle.icon-start  
                         | Voeg een nieuwe vestiging toe
                         
                 .card-block.card-block-provider
@@ -33,7 +33,7 @@ block content
             .card-section.card-section-primary
                 .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
                     .row
-                        .col.col-sm-9
+                        .col.col-lg-9
                             +keyvalue_item_horizontal("KVK", "45667773")
                             +keyvalue_item_horizontal("BTW", "NL3213214556B01")
                             +keyvalue_item_horizontal("IBAN", "NL10INGB3455664430")
@@ -62,15 +62,15 @@ block content
                 .row
                     .col.col-xs-12
                         small Openingstijden:
-                    .col.col-sm-9
+                    .col.col-lg-9
                         +keyvalue_item_horizontal("MA:", "09:00-17:00")
                         +keyvalue_item_horizontal("Di:", "09:00-17:00")
                         +keyvalue_item_horizontal("Wo:", "09:00-17:00")
                         +keyvalue_item_horizontal("Do:", "09:00-17:00")
                         +keyvalue_item_horizontal("Vr:", "09:00-17:00")
-                    .col.col-sm-3
+                    .col.col-lg-3
                         button.button.button-primary
-                            em.mdi.mdi-map-marker  
+                            em.mdi.mdi-map-marker.icon-start  
                             | Bekijk op de kaart
 
     +card("Rocket Minds")

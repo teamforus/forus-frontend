@@ -30,6 +30,7 @@ platform.setLibs([
     "ui_select",
     "file_saver",
     "underscore",
+    "pdfjs",
 ]);
 
 // add js task

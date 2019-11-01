@@ -59,6 +59,7 @@
     "moment": "^2.22.2",
     "nanoscroller": "^0.8.7",
     "papaparse": "^4.6.2",
+    "pdfjs-dist": "^2.2.228",
     "progressbar.js": "^1.0.1",
     "qrcodejs": "^1.0.0",
     "ui-cropper": "^1.0.7",

@@ -17,11 +17,11 @@
         border-radius: $border_radius;
         background-color: transparent;
         color: #212121;
-        padding: 1.1rem 0 0.3rem 0;
-        font: 400 17px/24px $bf;
+        padding: 20px 0 9px 0;
+        font: 400 17px/20px $bf;
         width: 100%;
         display: block;
-        margin-top:-15px;
+        // margin-top: -15px;
         z-index: 1;
 
         &:active,

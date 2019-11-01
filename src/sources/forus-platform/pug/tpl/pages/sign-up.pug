@@ -33,7 +33,7 @@
                     +progress()
                     
                     .sign_up-pane
-                        +card_header(1)
+                        .sign_up-pane-header Algemene informatie
 
                         .sign_up-pane-body
                             .sign_up-pane-text
@@ -57,7 +57,7 @@
                     +progress()
                     
                     .sign_up-pane
-                        +card_header(2)
+                        .sign_up-pane-header De kassa app instaleren
 
                         .sign_up-pane-body
                             .sign_up-pane-text
@@ -104,7 +104,7 @@
                     +progress()
                     
                     .sign_up-pane
-                        +card_header(3)
+                        .sign_up-pane-header Organisatie aanmaken
                         
                         .sign_up-pane-body
                             .sign_up-pane-text.with-border
@@ -255,7 +255,7 @@
                     +progress()
                     
                     .sign_up-pane.offices
-                        +card_header(4)
+                        .sign_up-pane-header Organisatie aanmaken
 
                         .sign_up-pane-body
                             .sign_up-pane-text.header.with-border
@@ -411,7 +411,7 @@
                     +progress()
                     
                     .sign_up-pane
-                        +card_header(5)
+                        .sign_up-pane-header Kassa medewerkers toevoegen
 
                         .sign_up-pane-body
                             .sign_up-pane-text.header.with-border
@@ -465,6 +465,7 @@
 
                     .sign_up-pane
                         .sign_up-pane-header Aanvraag voltooid
+
                         .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
                             .form-group.col.col-lg-12
                                 .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
@@ -482,7 +483,7 @@
                     +progress()
                     
                     .sign_up-pane
-                        +card_header(7)
+                        .sign_up-pane-header Test betaling
 
                         .sign_up-pane-body
                             .sign_up-pane-text.header

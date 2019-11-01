@@ -29,12 +29,9 @@ section.section.section-product: .wrapper
                     .sign_up-pane-text
                         span(i18n="fund_request.sign_up.pane.text" i18n-vars="{fundname: $ctrl.fund.name }")
                     ul.sign_up-pane-list 
-                        li(ng-repeat="critera in $ctrl.fund.criteria")
-                            span(i18n="fund_request.sign_up.pane.operator.same" i18n-vars="{name: critera.record_type_name }")
-                            span(ng-if="critera.operator == '>'" i18n="fund_request.sign_up.pane.operator.more")
-                            span(ng-if="critera.operator == '='") 
-                            span(ng-if="critera.operator == '<'" i18n="fund_request.sign_up.pane.operator.less")
-                            | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }} zijn.
+                        li(ng-repeat="critera in $ctrl.fund.criteria"): span(
+                            i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}" 
+                            i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}") 
                     
                     .sign_up-pane-heading Vul uw email adres in om verder te gaan
                     .sign_up-pane-text 
@@ -113,16 +110,13 @@ section.section.section-product: .wrapper
                 .sign_up-pane-body
                     p.sign_up-pane-text
                         span(i18n="fund_request.sign_up.pane.text" i18n-vars="{fundname: $ctrl.fund.name }")
-                    ul.sign_up-pane-list.sign_up-pane-list-criteria
-                        li(
-                            ng-repeat="critera in $ctrl.fund.criteria" 
-                            ng-class="{'item-valid': critera.isValid, 'item-invalid' : !critera.isValid}")
-                            .item-icon: em.mdi.mdi-check-bold(ng-if="critera.isValid")
-                            span(i18n="fund_request.sign_up.pane.operator.same" i18n-vars="{name: critera.record_type_name }")
-                            span(ng-if="critera.operator == '>'" i18n="fund_request.sign_up.pane.operator.more")
-                            span(ng-if="critera.operator == '='") 
-                            span(ng-if="critera.operator == '<'" i18n="fund_request.sign_up.pane.operator.less")
-                            | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }} zijn.
+                    ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
+                        ng-repeat="critera in $ctrl.fund.criteria" 
+                        ng-class="{'item-valid': critera.isValid, 'item-invalid' : !critera.isValid}")
+                        .item-icon: em.mdi.mdi-check-bold(ng-if="critera.isValid")
+                        span(
+                            i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}" 
+                            i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}") 
                 
                 .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
                     .col.col-lg-6.text-left: .button.button-text.button-text-padless(
@@ -221,12 +215,9 @@ section.section.section-product: .wrapper
                         .form-error(ng-repeat="error in invalidCriteria.errors.value" ng-bind="error")
                         
                     .form-group.col.col-lg-12: .sign_up-pane-info
-                        p.sign_up-pane-text 
-                            span(i18n="fund_request.sign_up.pane.operator.same" i18n-vars="{name: invalidCriteria.record_type_name }")
-                            span(ng-if="invalidCriteria.operator == '>'") meer dan
-                            span(ng-if="invalidCriteria.operator == '='")
-                            span(ng-if="invalidCriteria.operator == '<'") minder dan
-                            |  {{ invalidCriteria.record_type_key == 'net_worth' ? '€' : '' }}{{ invalidCriteria.value }} zijn.
+                        p.sign_up-pane-text: span(
+                            i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[invalidCriteria.operator]}}" 
+                            i18n-vars="{name: invalidCriteria.record_type_name, value: ($ctrl.criterionValuePrefix[invalidCriteria.record_type_key]) + invalidCriteria.value}") 
                     .form-group.col.col-lg-12: file-uploader(files="invalidCriteria.files")
                 
                 .sign_up-pane-footer: .row
