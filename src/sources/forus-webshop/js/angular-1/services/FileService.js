@@ -28,32 +28,34 @@ let FileService = function(
             return ApiRequest.endpointToUrl(uriPrefix + '/' + file.uid + '/download');
         };
 
-        this.store = function(file) {
+        this.store = function(file, type) {
             var formData = new FormData();
 
             formData.append('file', file);
+            formData.append('type', type);
 
             return ApiRequest.post(uriPrefix, formData, {
                 'Content-Type': undefined
             });
         };
 
-        this.storeValidate = function(file) {
+        this.storeValidate = function(file, type) {
             var formData = new FormData();
 
             formData.append('file', file);
+            formData.append('type', type);
 
             return ApiRequest.post(uriPrefix + '/validate', formData, {
                 'Content-Type': undefined
             });
         };
 
-        this.storeAll = function(files) {
-            return $q.all(files.map(this.store));
+        this.storeAll = function(files, type) {
+            return $q.all(files.map(file => this.store(file, type)));
         };
 
-        this.storeValidateAll = function(files) {
-            return $q.all(files.map(this.storeValidate));
+        this.storeValidateAll = function(files, type) {
+            return $q.all(files.map(file => this.storeValidate(file, type)));
         };
     });
 };

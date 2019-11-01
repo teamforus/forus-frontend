@@ -39,13 +39,13 @@
                 .card-section-actions(ng-show="validatorRequest.state == 'approved'")
                     .tag.tag-success Geaccepteerd
                 .card-section-actions(ng-show="validatorRequest.state == 'declined'")
-                    .tag.tag-danger Declined
+                    .tag.tag-danger Geweigerd
 
                 .card-title
                     | BSN: 4577654445
                     .card-collapse.mdi(ng-class="'mdi-chevron-' + (validatorRequest.collapsed ? 'down' : 'up')")
                 .card-block.card-block-listing.card-block-listing-inline
-                    .card-block-listing-label Fund name
+                    .card-block-listing-label Fonds:
                     | {{ $ctrl.fundsById[validatorRequest.fund_id].name }}
                     em.mdi.mdi-info 
             
@@ -101,7 +101,7 @@
                                     .attachment-name(ng-bind="file.original_name")
                             
                             .block.block-request-clarification
-                                .block-title Requested file
+                                .block-title Bestand aangevraagd
                                 .clarification-item
                                     .clarification-item-nth 1
                                     .clarification-item-details

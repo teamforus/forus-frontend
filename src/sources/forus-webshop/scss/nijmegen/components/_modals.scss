@@ -5,7 +5,6 @@
                 flex-direction: column;
             }
         }
-        
         .text-center {
             .form-group{
                 flex-direction: row;
@@ -29,6 +28,15 @@
 
         .popup-title-styled{
             color: #157c68;
+        }
+    }
+    &.modal-auth2 {
+        .modal-content {
+            .form input {
+                border-radius: 0px;
+                padding: 27px 20px;
+                margin-top: 0px;
+            }
         }
     }
 }

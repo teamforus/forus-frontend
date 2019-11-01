@@ -1,9 +1,7 @@
 let FundRequestComponent = function(
     $q,
     $state,
-    $rootScope,
     $timeout,
-    ModalService,
     RecordService,
     FundService,
     AuthService,
@@ -11,7 +9,8 @@ let FundRequestComponent = function(
     FundRequestService,
     FormBuilderService,
     CredentialsService,
-    FileService
+    FileService,
+    appConfigs
 ) {
     let $ctrl = this;
 
@@ -23,33 +22,51 @@ let FundRequestComponent = function(
     $ctrl.authToken = false;
     $ctrl.signedIn = false;
     $ctrl.authEmailSent = false;
+    $ctrl.authEmailRestoreSent = false;
     $ctrl.recordsSubmitting = false;
     $ctrl.files = [];
     $ctrl.errorReason = false;
+    $ctrl.finishError = false;
 
     let timeout = null;
     let stopTimeout = null;
 
-    let array_unique = (arr) => {
-        return arr.reduce((_arr, val) => {
-            (_arr.indexOf(val) == -1) && _arr.push(val);
-            return _arr;
-        }, []);
-    };
-
     // Initialize authorization form
     $ctrl.initAuthForm = () => {
+        let target = 'fundRequest-' + $ctrl.fund.id;
+
         $ctrl.authForm = FormBuilderService.build({
             email: '',
-            pin_code: 1111
+            pin_code: 1111,
+            target: target,
         }, function(form) {
-            IdentityService.make(form.values).then(res => {
-                $ctrl.authEmailSent = true;
-                $ctrl.nextStep();
-            }, res => {
+            let resolveErrors = () => {
                 form.unlock();
                 form.errors = res.data.errors;
-            });
+            };
+
+            IdentityService.validateEmail({
+                email: form.values.records.primary_email,
+            }).then(res => {
+                if (res.data.email.unique) {
+                    IdentityService.make(form.values).then(() => {
+                        stopTimeout = true;
+                        $ctrl.authEmailSent = true;
+                        $ctrl.nextStep();
+                    }, resolveErrors);
+                } else {
+                    IdentityService.makeAuthEmailToken(
+                        appConfigs.client_key + '_webshop',
+                        form.values.records.primary_email,
+                        target
+                    ).then(() => {
+                        stopTimeout = true;
+                        $ctrl.authEmailRestoreSent = true;
+                        $ctrl.nextStep();
+                    }, resolveErrors);
+                }
+
+            }, resolveErrors);
         }, true);
     };
 
@@ -63,13 +80,19 @@ let FundRequestComponent = function(
         return $q((resolve, reject) => {
             $ctrl.recordsSubmitting = true;
 
-            RecordService.storeValidate({
-                type: criteria.record_type_key,
-                value: criteria.input_value
+            FundRequestService.storeValidate($ctrl.fund.id, {
+                records: [{
+                    fund_criterion_id: criteria.id,
+                    record_type_key: criteria.record_type_key,
+                    value: criteria.input_value
+                }]
             }).then(_res => {
                 let record = _res.data;
 
-                FileService.storeValidateAll(criteria.files).then(res => {
+                FileService.storeValidateAll(
+                    criteria.files,
+                    'fund_request_record_proof'
+                ).then(res => {
                     $ctrl.recordsSubmitting = false;
                     criteria.errors = {};
                     resolve(record);
@@ -79,7 +102,11 @@ let FundRequestComponent = function(
                 });
             }, res => {
                 $ctrl.recordsSubmitting = false;
-                reject(criteria.errors = res.data.errors);
+                reject(criteria.errors = {
+                    value: res.data.errors['records.0.value'],
+                    record_type_key: res.data.errors['records.0.record_type_key'],
+                    fund_criterion_id: res.data.errors['records.0.fund_criterion_id'],
+                });
             });
         });
     };
@@ -89,7 +116,10 @@ let FundRequestComponent = function(
         return $q((resolve, reject) => {
             $ctrl.recordsSubmitting = true;
 
-            FileService.storeAll(criteria.files || []).then(res => {
+            FileService.storeAll(
+                criteria.files || [],
+                'fund_request_record_proof'
+                ).then(res => {
                 criteria.filesUploaded = res.map(file => file.data.data);
                 resolve(criteria);
             }, res => {
@@ -106,14 +136,16 @@ let FundRequestComponent = function(
                 records: criteria.map(criterion => ({
                     value: criterion.input_value,
                     record_type_key: criterion.record_type_key,
+                    fund_criterion_id: criterion.id,
                     files: criterion.filesUploaded.map(file => file.uid),
                 })),
             }).then((res) => {
-                $ctrl.step = $ctrl.totalSteps.length;
+                $ctrl.step++;
                 $ctrl.updateState();
             }, (res) => {
-                $ctrl.step = $ctrl.totalSteps.length + 1;
+                $ctrl.step++;
                 $ctrl.updateState();
+                $ctrl.finishError = true;
                 $ctrl.errorReason = res.data.message;
             });
         });
@@ -124,6 +156,7 @@ let FundRequestComponent = function(
         CredentialsService.set(access_token);
         $ctrl.buildTypes();
         $ctrl.nextStep();
+        document.location.reload();
     };
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
@@ -163,10 +196,18 @@ let FundRequestComponent = function(
                 validators,
                 $ctrl.fund.organization_id
             );
-        });
+        });;
 
         let invalidCriteria = $ctrl.fund.criteria.filter(criteria => {
             return validCriteria.indexOf(criteria) === -1;
+        });
+
+        validCriteria.forEach((criterion) => {
+            criterion.isValid = true;
+        });
+
+        invalidCriteria.forEach((criterion) => {
+            criterion.isValid = false;
         });
 
         $ctrl.invalidCriteria = JSON.parse(JSON.stringify(
@@ -211,15 +252,12 @@ let FundRequestComponent = function(
 
     $ctrl.buildSteps = () => {
         // Sign up step + criteria list
-        let totalSteps = ($ctrl.signedIn ? 1 : 2) + ($ctrl.authEmailSent ? 1 : 0);
-
-        console.log(totalSteps);
+        let totalSteps = ($ctrl.signedIn ? 1 : 2) + ((
+            $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
+        ) ? 1 : 0);
 
         // Other criteria
         totalSteps += $ctrl.invalidCriteria.length;
-        console.log(totalSteps, $ctrl.invalidCriteria);
-        // Success screen
-        totalSteps++;
 
         $ctrl.totalSteps = [];
 
@@ -233,7 +271,9 @@ let FundRequestComponent = function(
             return 'auth';
         }
 
-        if (step == 2 && !$ctrl.signedIn && $ctrl.authEmailSent) {
+        if (step == 2 && !$ctrl.signedIn && (
+                $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
+            )) {
             return 'auth_email_sent';
         }
 
@@ -241,12 +281,8 @@ let FundRequestComponent = function(
             return 'criteria';
         }
 
-        if (step == $ctrl.totalSteps.length) {
+        if (step == $ctrl.totalSteps.length + 1) {
             return 'done';
-        }
-
-        if (step > $ctrl.totalSteps.length) {
-            return 'error';
         }
 
         let prevSteps = 1 + ($ctrl.signedIn ? 0 : 1);
@@ -272,7 +308,8 @@ let FundRequestComponent = function(
 
     $ctrl.nextStep = () => {
         $ctrl.buildSteps();
-        if ($ctrl.step == $ctrl.totalSteps.length - 1) {
+
+        if ($ctrl.step == $ctrl.totalSteps.length) {
             return $ctrl.submitRequest();
         }
 
@@ -310,14 +347,21 @@ let FundRequestComponent = function(
 
     $ctrl.$onInit = function() {
         $ctrl.signedIn = AuthService.hasCredentials();
-
         $ctrl.initAuthForm();
         $ctrl.prepareRecordTypes();
 
         if ($ctrl.signedIn) {
             $ctrl.buildTypes();
+
+            FundRequestService.index($ctrl.fund.id).then((res) => {
+                if (res.data.data.length > 0) {
+                    alert('You already requested this fund');
+                    $state.go('funds');
+                }
+            });
         } else {
             $ctrl.buildSteps();
+            $ctrl.updateEligibility();
         }
 
         $ctrl.updateState();
@@ -333,9 +377,7 @@ module.exports = {
     controller: [
         '$q',
         '$state',
-        '$rootScope',
         '$timeout',
-        'ModalService',
         'RecordService',
         'FundService',
         'AuthService',
@@ -344,6 +386,7 @@ module.exports = {
         'FormBuilderService',
         'CredentialsService',
         'FileService',
+        'appConfigs',
         FundRequestComponent
     ],
     templateUrl: 'assets/tpl/pages/fund-request.html'

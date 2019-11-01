@@ -20,8 +20,8 @@ let FundRequestValidatorService = function(ApiRequest) {
         };
 
         this.read = function(organziation_id, fund_id, request_id) {
-            return ApiRequest.patch(
-                sprintf(uriPrefix, organziation_id, fund_id, request_id)
+            return ApiRequest.get(
+                sprintf(uriPrefix + '/%s', organziation_id, fund_id, request_id)
             );
         }
 

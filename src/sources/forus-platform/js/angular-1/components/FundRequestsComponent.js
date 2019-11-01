@@ -15,6 +15,7 @@ let FundRequestsComponent = function(
         type: 'info',
         title: title,
         description: message,
+        modalClass: 'modal-md',
     });
 
     $ctrl.funds = [];
@@ -61,6 +62,29 @@ let FundRequestsComponent = function(
         $timeout(() => $ctrl.filters.show = false);
     };
 
+    $ctrl.reloadRequest = (request) => {
+        FundRequestValidatorService.read(
+            $ctrl.organization.id,
+            request.fund_id,
+            request.id
+        ).then((res) => {
+            // console.log(res.data.data);
+            res.data.data.hasContent = request.hasContent;
+            res.data.data.collapsed = request.collapsed;
+
+            request.records.forEach((record, index) => {
+                res.data.data.records[index].shown = record.shown;
+            });
+
+            $ctrl.validatorRequests.data[
+                $ctrl.validatorRequests.data.indexOf(request)
+            ] = res.data.data;
+
+            $ctrl.updateSelfAssignedFlags();
+            // $ctrl.validatorRequests.data.indexOf(request);
+        }, console.error);
+    };
+
     let reloadRequests = (query = false) => {
         if (query) {
             $ctrl.filters.values = query;
@@ -99,18 +123,18 @@ let FundRequestsComponent = function(
         ModalService.open('modalNotification', {
             modalClass: 'modal-md',
             type: 'confirm',
-            title: 'Do you confirm record approvment?',
-            description: 'Pellentesque elementum magnis massa eget cras pretium montes.',
+            title: 'Weet u zeker dat u deze eigenschap wil valideren?',
+            description: 'Een validatie kan niet ongedaan gemaakt worden. Kijk goed of u deze actie wilt verrichten.',
             confirm: (res) => {
                 FundRequestValidatorService.approveRecord(
                     $ctrl.fundsById[request.fund_id].organization_id,
                     request.fund_id,
                     request.id,
                     requestRecord.id
-                ).then(res => {
-                    $state.reload();
-                    showInfoModal('Record approved.')
-                }, res => showInfoModal('Can\'t approve record.', res.data.message));
+                ).then(() => {
+                    $ctrl.reloadRequest(request);
+                    showInfoModal('Eigenschap gevalideert')
+                }, res => showInfoModal('Fout: U kunt deze eigenschap op dit moment niet valideren', res.data.message));
             }
         });
     };
@@ -122,13 +146,13 @@ let FundRequestsComponent = function(
             submit: (err) => {
                 if (err) {
                     return showInfoModal(
-                        'Can\'t decline record.',
-                        'Reason: ' + err.data.message
+                        'U kunt op dit moment deze eigenschap niet weigeren.',
+                        'Reden: ' + err.data.message
                     );
                 }
 
-                $state.reload();
-                showInfoModal('Record declined.')
+                $ctrl.reloadRequest(request);
+                showInfoModal('Eigenschap geweigerd.')
             }
         });
     };
@@ -140,13 +164,13 @@ let FundRequestsComponent = function(
             submit: (err) => {
                 if (err) {
                     return showInfoModal(
-                        "Can't request clarification for the record.",
+                        "U kunt op dit moment geen aanvullingsverzoek doen.",
                         'Reason: ' + res.data.message
                     );
                 }
 
-                $state.reload();
-                showInfoModal('Record clarification requested.')
+                $ctrl.reloadRequest(request);
+                showInfoModal('Gelukt! Aanvullingsverzoek op aanvraag verstuurd.')
             }
         });
     };
@@ -156,10 +180,12 @@ let FundRequestsComponent = function(
             $ctrl.fundsById[request.fund_id].organization_id,
             request.fund_id,
             request.id
-        ).then(() => $state.reload(), (res) => {
+        ).then(() => {
+            $ctrl.reloadRequest(request);
+        }, (res) => {
             showInfoModal(
-                'Request approvement failed.',
-                'Reason: ' + res.data.message
+                'Validatie van eigenschap mislukt.',
+                'Reden: ' + res.data.message
             );
         });
     }
@@ -169,10 +195,12 @@ let FundRequestsComponent = function(
             $ctrl.fundsById[request.fund_id].organization_id,
             request.fund_id,
             request.id
-        ).then(() => $state.reload(), (res) => {
+        ).then(() => {
+            $ctrl.reloadRequest(request);
+        }, (res) => {
             showInfoModal(
-                'Request declining failed.',
-                'Reason: ' + res.data.message
+                'Aanvraag weigeren mislukt.',
+                'Reden:' + res.data.message
             );
         });
     }
@@ -184,10 +212,10 @@ let FundRequestsComponent = function(
             request.id,
             $ctrl.employee.id
         ).then(() => {
-            $state.reload();
-            showInfoModal("Done!", "Now you are the validator of this request.")
+            showInfoModal("Gelukt!", "U bent nu toegewezen aan deze aanvraag.")
+            $ctrl.reloadRequest(request);
         }, res => showInfoModal(
-            "Can't request clarification for the record.",
+            "U kunt op dit moment geen aanvullingsverzoek doen.",
             res.data.error.message
         ));
     };
@@ -198,10 +226,10 @@ let FundRequestsComponent = function(
             request.fund_id,
             request.id
         ).then(() => {
-            $state.reload();
-            showInfoModal("Done!", "You successifully resigned from validation request.")
+            showInfoModal("Gelukt!", "U heeft zich afgemeld van deze aanvraag, iemand anders kan deze aanvraag nu oppakken.")
+            $ctrl.reloadRequest(request);
         }, res => showInfoModal(
-            "Can't resign from the record.",
+            "Mislukt! U kunt u zelf niet van deze aanvraag afhalen.",
             res.data.error.message
         ));
     };
@@ -217,12 +245,6 @@ let FundRequestsComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        OrganizationEmployeesService.list($ctrl.organization.id).then(res => {
-            $ctrl.employee = res.data.data.filter((employee) => {
-                return employee.identity_address == $scope.$root.auth_user.address;
-            })[0];
-        });
-
         FundService.list($ctrl.organization.id, {
             per_page: 10000
         }).then(res => {

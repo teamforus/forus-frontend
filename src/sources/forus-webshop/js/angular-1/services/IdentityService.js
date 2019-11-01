@@ -12,6 +12,10 @@ module.exports = [
                 return ApiRequest.post('/identity', values);
             };
 
+            this.validateEmail = (values) => {
+                return ApiRequest.post('/identity/validate/email', values);
+            };
+
             this.deleteToken = () => {
                 return ApiRequest.delete('/identity/proxy');
             };
@@ -24,10 +28,11 @@ module.exports = [
                 return ApiRequest.post('/identity/proxy/code');
             };
 
-            this.makeAuthEmailToken = (source, primary_email) => {
+            this.makeAuthEmailToken = (source, primary_email, target = undefined) => {
                 return ApiRequest.post('/identity/proxy/email', {
                     source: source,
-                    primary_email: primary_email
+                    primary_email: primary_email,
+                    target: target,
                 });
             };
 

@@ -1,6 +1,7 @@
 let VouchersComponent = function(
     $state,
     $timeout,
+    FileService,
     DateService,
     ModalService,
     VoucherService
@@ -75,6 +76,22 @@ let VouchersComponent = function(
         });
     };
 
+    $ctrl.exportUnassignedQRCodes = () => {
+        VoucherService.downloadQRCodes(
+            $ctrl.organization.id,
+            $ctrl.filters.values.from,
+            $ctrl.filters.values.to
+        ).then(res => {
+            FileService.downloadFile(
+                'vouchers_' + moment().format(
+                    'YYYY-MM-DD HH:mm:ss'
+                ) + '.zip',
+                res.data,
+                res.headers('Content-Type') + ';charset=utf-8;'
+            );
+        });
+    };
+
     $ctrl.onPageChange = (query) => {
         let _query = JSON.parse(JSON.stringify(query));
 
@@ -112,6 +129,7 @@ module.exports = {
     controller: [
         '$state',
         '$timeout',
+        'FileService',
         'DateService',
         'ModalService',
         'VoucherService',

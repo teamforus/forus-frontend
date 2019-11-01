@@ -13,7 +13,7 @@ section.section.section-product: .wrapper
     .block.block-sign_up: .block-wrapper
         //- Log in
         div(ng-if="$ctrl.state == 'auth'")
-            h2.block-title Zomer zwem regeling aanvraag
+            h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
             //- p.block-description
                 | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
                 strong woonplaats 
@@ -24,18 +24,17 @@ section.section.section-product: .wrapper
             +progress()
             
             .sign_up-pane
-                .sign_up-pane-header Overzicht 
+                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
                 .sign_up-pane-body
-                    .sign_up-pane-text 
-                        | U staat op het punt om een zomer zwemregeling aan te vragen. 
-                        | Om in aanmmerking te komen, dient u aan de voorwaarden te voldoen:
+                    .sign_up-pane-text
+                        span(i18n="fund_request.sign_up.pane.text" i18n-vars="{fundname: $ctrl.fund.name }")
                     ul.sign_up-pane-list 
                         li(ng-repeat="critera in $ctrl.fund.criteria")
-                            | {{ critera.record_type_name }} moet
-                            span(ng-if="critera.operator == '>'") meer dan 
+                            span(i18n="fund_request.sign_up.pane.operator.same" i18n-vars="{name: critera.record_type_name }")
+                            span(ng-if="critera.operator == '>'" i18n="fund_request.sign_up.pane.operator.more")
                             span(ng-if="critera.operator == '='") 
-                            span(ng-if="critera.operator == '<'") minder dan 
-                            | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }}.
+                            span(ng-if="critera.operator == '<'" i18n="fund_request.sign_up.pane.operator.less")
+                            | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }} zijn.
                     
                     .sign_up-pane-heading Vul uw email adres in om verder te gaan
                     .sign_up-pane-text 
@@ -44,14 +43,14 @@ section.section.section-product: .wrapper
 
                     .sign_up-pane-text: form(ng-submit="$ctrl.authForm.submit()").form: .row
                         .form-group.col.col-lg-9
-                            label.form-label EMAIL
-                            ui-control-email(ng-model="$ctrl.authForm.values.records.primary_email" data-placeholder="ex. info@info.io")
+                            label.form-label(i18n="popup_auth.input.mail")
+                            ui-control-email(ng-model="$ctrl.authForm.values.records.primary_email" data-placeholder="bijv. info@info.nl")
                             .form-error(ng-repeat="error in $ctrl.authForm.errors['records.primary_email']" ng-bind="error")
                         .form-group.col.col-lg-3
                             label.form-label &nbsp;
                             button(
                                 ng-class="{'button-disabled': !$ctrl.authForm.values.records.primary_email}"
-                                type="submit").button.button-primary.button-fill Bevestig
+                                type="submit").button.button-primary.button-fill {{ "popup_auth.buttons.submit" | translate }}
                     
                     .sign_up-pane-heading Heeft u de Me App al?
                     .sign_up-pane-text 
@@ -71,8 +70,8 @@ section.section.section-product: .wrapper
                             br
                             br
                             .sign_up-pane-auth-apps
-                                a(href="#").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
-                                a(href="#").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
+                                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
+                                a(href="https://play.google.com/store/apps/details?id=io.forus.me").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
                         
                         .sign_up-pane-auth-qr_code
                             qr-code(
@@ -83,55 +82,62 @@ section.section.section-product: .wrapper
         
         //- Log in email sent
         div(ng-if="$ctrl.state == 'auth_email_sent'")
-            h2.block-title Zomer zwem regeling aanvraag
-            +progress()
-            
-            .sign_up-pane
-                .sign_up-pane-header Overzicht 
+            //- For new users
+            .sign_up-pane(ng-if="$ctrl.authEmailRestoreSent")
+                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
                 .sign_up-pane-body
                     .sign_up-email_sent
                         .sign_up-email_sent-icon
                             img(src=src_prefix + "./assets/img/sign_up-email.png").sign_up-email_sent-icon-img
-                        .sign_up-email_sent-title Confirm your account
+                        .sign_up-email_sent-title(i18n="popup_auth.labels.join")
+                        .sign_up-email_sent-text(i18n="popup_auth.notifications.link")
+            
+            //- For existing users
+            .sign_up-pane(ng-if="$ctrl.authEmailSent")
+                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
+                .sign_up-pane-body
+                    .sign_up-email_sent
+                        .sign_up-email_sent-icon
+                            img(src=src_prefix + "./assets/img/sign_up-email.png").sign_up-email_sent-icon-img
+                        .sign_up-email_sent-title Bevestig dat u toegang heeft tot dit e-mailadres.
                         .sign_up-email_sent-text
-                            | Welcome to Webshop Barneveld! 
-                            br
-                            | Before we get started, please confirm your email address. 
-                            br
-                            | We’re send you a mail to 
-                            span(ng-bind="$ctrl.authForm.values.records.primary_email").text-primary
+                            | U heeft een e-mail ontvangen op "#[span(ng-bind="$ctrl.authForm.values.records.primary_email").text-primary]". Ga naar uw inbox en open de e-mail met het onderwerp "E-mail activering" en klik in de e-mail op de blauwe knop.
         
         //- List the criteria
         div(ng-if="$ctrl.state == 'criteria'")
-            h2.block-title Bevestig uw gemeente
+            h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
             +progress()
             
             .sign_up-pane
-                .sign_up-pane-header Overzicht
+                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
                 .sign_up-pane-body
                     p.sign_up-pane-text
-                        | U staat op het punt om een zomer zwemregeling aan te vragen. Om in aanmmerking te komen, dient u aan de voorwaarden te voldoen:
-                    ul.sign_up-pane-list 
-                        li(ng-repeat="critera in $ctrl.fund.criteria")
-                            | {{ critera.record_type_name }} moet
-                            span(ng-if="critera.operator == '>'") meer dan 
+                        span(i18n="fund_request.sign_up.pane.text" i18n-vars="{fundname: $ctrl.fund.name }")
+                    ul.sign_up-pane-list.sign_up-pane-list-criteria
+                        li(
+                            ng-repeat="critera in $ctrl.fund.criteria" 
+                            ng-class="{'item-valid': critera.isValid, 'item-invalid' : !critera.isValid}")
+                            .item-icon: em.mdi.mdi-check-bold(ng-if="critera.isValid")
+                            span(i18n="fund_request.sign_up.pane.operator.same" i18n-vars="{name: critera.record_type_name }")
+                            span(ng-if="critera.operator == '>'" i18n="fund_request.sign_up.pane.operator.more")
                             span(ng-if="critera.operator == '='") 
-                            span(ng-if="critera.operator == '<'") minder dan 
-                            | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }}.
+                            span(ng-if="critera.operator == '<'" i18n="fund_request.sign_up.pane.operator.less")
+                            | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }} zijn.
                 
                 .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
                     .col.col-lg-6.text-left: .button.button-text.button-text-padless(
                         ng-if="!$ctrl.signedIn"
-                        ng-click="$ctrl.prevStep()")
-                        | Vorige stap
+                        ng-click="$ctrl.prevStep()"
+                        i18n="fund_request.sign_up.pane.footer.prev")
                         em.mdi.mdi-chevron-left.icon-left
-                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
-                        | Volgende stap
+                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(
+                        ng-click="$ctrl.nextStep()"
+                        i18n="fund_request.sign_up.pane.footer.next")
                         em.mdi.mdi-chevron-right.icon-right
         
         //- Confirm net worth
         div(ng-if="$ctrl.state == 'net_worth'")
-            h2.block-title Zomerzwemregeling aanvraag
+            h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
             +progress()
             
             .sign_up-pane
@@ -158,18 +164,19 @@ section.section.section-product: .wrapper
                 
                 .sign_up-pane-footer: .row
                     .col.col-lg-6.text-left: .button.button-text.button-text-padless(
-                        ng-click="$ctrl.prevStep()")
-                        | Vorige stap
+                        ng-click="$ctrl.prevStep()"
+                        i18n="fund_request.sign_up.pane.footer.prev")
                         em.mdi.mdi-chevron-left.icon-lefts
                     .col.col-lg-6.text-right
-                        .button.button-text.button-text-padless(ng-click="$ctrl.submitNetWorth()")
-                            | Volgende stap
+                        .button.button-text.button-text-padless(
+                            ng-click="$ctrl.submitNetWorth()"
+                            i18n="fund_request.sign_up.pane.footer.next")
                             em.mdi.mdi-chevron-right.icon-right
         
         div(
             ng-repeat="invalidCriteria in $ctrl.invalidCriteria track by $index"
             ng-if="$ctrl.state == 'criteria_' + $index")
-            h2.block-title Zomerzwemregeling aanvraag
+            h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
             +progress()
             
             .sign_up-pane
@@ -180,12 +187,12 @@ section.section.section-product: .wrapper
                             ng-if="invalidCriteria.control_type == 'ui_control_checkbox' && invalidCriteria.record_type_key == 'children'"
                             ng-model="invalidCriteria.input_value"
                             data-id="criterion_{{ invalidCriteria.id }}"
-                            data-label="I do have kids")
+                            data-label="Ik heb geen kinderen")
                         ui-control-checkbox(
                             ng-if="invalidCriteria.control_type == 'ui_control_checkbox' && (invalidCriteria.record_type_key == 'kindpakket_eligible' || invalidCriteria.record_type_key =='kindpakket_2018_eligible')"
                             ng-model="invalidCriteria.input_value"
                             data-id="criterion_{{ invalidCriteria.id }}"
-                            data-label="Yes, i am eligible for kindpakket fund")
+                            data-label="Ja, ik verklaar dat ik recht heb op kindpakket.")
                         ui-control-step(
                             ng-if="invalidCriteria.control_type == 'ui_control_step'"
                             ng-model="invalidCriteria.input_value"
@@ -215,49 +222,56 @@ section.section.section-product: .wrapper
                         
                     .form-group.col.col-lg-12: .sign_up-pane-info
                         p.sign_up-pane-text 
-                            | Voor een "{{ $ctrl.product.name }}" 
-                            | vereist de sponsor dat uw "{{ invalidCriteria.record_type_name }}" moet zijn
-                            span(ng-if="invalidCriteria.operator == '>'") meer dan 
-                            span(ng-if="invalidCriteria.operator == '='") 
-                            span(ng-if="invalidCriteria.operator == '<'") minder dan 
-                            | {{ invalidCriteria.record_type_key == 'net_worth' ? '€' : '' }}{{ invalidCriteria.value }}.
+                            span(i18n="fund_request.sign_up.pane.operator.same" i18n-vars="{name: invalidCriteria.record_type_name }")
+                            span(ng-if="invalidCriteria.operator == '>'") meer dan
+                            span(ng-if="invalidCriteria.operator == '='")
+                            span(ng-if="invalidCriteria.operator == '<'") minder dan
+                            |  {{ invalidCriteria.record_type_key == 'net_worth' ? '€' : '' }}{{ invalidCriteria.value }} zijn.
                     .form-group.col.col-lg-12: file-uploader(files="invalidCriteria.files")
                 
                 .sign_up-pane-footer: .row
-                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()")
-                        | Vorige stap
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(
+                        ng-click="$ctrl.prevStep()"
+                        i18n="fund_request.sign_up.pane.footer.prev")
                         em.mdi.mdi-chevron-left.icon-left
                     .col.col-lg-6.text-right
-                        .button.button-text.button-text-padless(ng-click="$ctrl.submitStepCriteria(invalidCriteria)")
-                            | Volgende stap
+                        .button.button-text.button-text-padless(
+                            ng-click="$ctrl.submitStepCriteria(invalidCriteria)"
+                            i18n="fund_request.sign_up.pane.footer.next")
                             em.mdi.mdi-chevron-right.icon-right
         
         //- Done
         div(ng-if="$ctrl.state == 'done'")
-            h2.block-title Zomerzwemregeling aanvraag
-            .sign_up-pane
-                .sign_up-pane-header Aanvraag voltooid
-                .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
-                    .form-group.col.col-lg-12
-                        .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
-                        p.sign_up-pane-text.text-center 
-                            | Uw aanvraag is voltooid, u krijgt een email wanneer deze is goedgekeurd.
+            //- Success
+            div(ng-if="!$ctrl.finishError")
+                h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
+                +progress()
                 
-                        .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
-                    .form-group.col.col-lg-12: br
-        
-        //- Error
-        div(ng-if="$ctrl.state == 'error'")
-            h2.block-title Zomerzwemregeling aanvraag
-            .sign_up-pane
-                .sign_up-pane-header Error during fund request submission.
-                .sign_up-pane-body: .row
-                    .form-group.col.col-lg-12
-                        .block-icon: .mdi.mdi-close
-                        p.sign_up-pane-text.text-center 
-                            | Reason: 
-                            span(ng-bind="$ctrl.errorReason")
+                .sign_up-pane
+                    .sign_up-pane-header Aanvraag voltooid
+                    .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
+                        .form-group.col.col-lg-12
+                            .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
+                            p.sign_up-pane-text.text-center 
+                                | Uw aanvraag is voltooid, u krijgt een email wanneer deze is goedgekeurd.
+                    
+                            .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
+                        .form-group.col.col-lg-12: br
                 
-                        .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
-                    .form-group.col.col-lg-12: br
+            //- Error
+            div(ng-if="$ctrl.finishError")
+                h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
+                +progress()
+
+                .sign_up-pane
+                    .sign_up-pane-header Er is een fout opgetreden tijdens het aanvragen.
+                    .sign_up-pane-body: .row
+                        .form-group.col.col-lg-12
+                            .block-icon: .mdi.mdi-close
+                            p.sign_up-pane-text.text-center 
+                                | Reden:
+                                span(ng-bind="$ctrl.errorReason")
+                    
+                            .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
+                        .form-group.col.col-lg-12: br
 contact-form 

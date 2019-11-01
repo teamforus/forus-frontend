@@ -6,20 +6,31 @@
             ng-repeat='validatorRequest in $ctrl.validatorRequests.data')
             .card-section(ng-click='validatorRequest.collapsed = !validatorRequest.collapsed')
                 .card-section-actions(ng-show="validatorRequest.state == 'pending'")
-                    .tag.tag-primary-light(translate='validation_requests.status.hold')
+                    .tag.tag-primary-light
+                        em.mdi.mdi-circle-outline
+                        span(translate='validation_requests.status.hold')
                 
                 .card-section-actions(ng-show="validatorRequest.state == 'approved'")
-                    .tag.tag-success Geaccepteerd
+                    .tag.tag-success 
+                        em.mdi.mdi-circle-slice-8
+                        | Geaccepteerd
+                
+                .card-section-actions(ng-show="validatorRequest.state == 'approved_partly'")
+                    .tag.tag-success 
+                        em.mdi.mdi-circle-slice-4
+                        | Aanvulling gevraagd
                 
                 .card-section-actions(ng-show="validatorRequest.state == 'declined'")
-                    .tag.tag-danger Declined
+                    .tag.tag-danger 
+                        em.mdi.mdi-circle-off-outline
+                        | Geweigerd
                 
                 .card-title
                     | BSN: 4577654445
                     .card-collapse.mdi(ng-class="'mdi-chevron-' + (validatorRequest.collapsed ? 'down' : 'up')")
                 
                 .card-block.card-block-listing.card-block-listing-inline
-                    .card-block-listing-label Fund name
+                    .card-block-listing-label Fonds
                     span(ng-bind="$ctrl.fundsById[validatorRequest.fund_id].name") 
                     em.mdi.mdi-information.block.block-tooltip-details(
                         ng-click="$ctrl.showFundCriteria($event, validatorRequest)"
@@ -42,12 +53,12 @@
                     .col.col-sm-6.text-right(ng-show="validatorRequest.state == 'pending' && !validatorRequest.self_assigned")
                         button.button.button-primary(ng-click='$ctrl.requestAssign(validatorRequest)')
                             em.mdi.mdi-account-plus
-                            | Assign to me
+                            | Toewijzen aan mij
                     
                     .col.col-sm-6.text-right(ng-show="validatorRequest.state == 'pending' && validatorRequest.self_assigned")
                         button.button.button-primary-light(ng-click='$ctrl.requestResign(validatorRequest)')
                             em.mdi.mdi-account-minus
-                            | Resign
+                            | Meld af
                         button.button.button-default(ng-click='$ctrl.requestApprove(validatorRequest)')
                             em.mdi.mdi-check-circle
                             | {{ "validation_requests.buttons.allaccept" | translate }}
@@ -82,9 +93,9 @@
                         
                         td.text-right(ng-if="record.state == 'pending' && !validatorRequest.self_assigned")
                             .text-muted(ng-if="validatorRequest.employee_id")
-                                | Assigned to: {{ validatorRequest.employee.email }}
+                                | Toegewezen aan: {{ validatorRequest.employee.email }}
                             .text-muted(ng-if="!validatorRequest.employee_id")
-                                | Self assign to validate
+                                | Zelf toewijzen
                         
                         td.text-right(ng-if="record.state == 'pending' && validatorRequest.self_assigned")
                             .button-group.flex-end
@@ -104,7 +115,7 @@
                                 .attachment-name(ng-bind='file.original_name')
                         
                         .block.block-request-clarification(ng-if='record.clarifications.length > 0')
-                            .block-title Clarifications
+                            .block-title Aanvullingen
                             .clarification-item(ng-repeat="clarification in record.clarifications")
                                 .clarification-item-nth(ng-bind="$index + 1")
                                 .clarification-item-details

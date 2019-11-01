@@ -12,6 +12,10 @@ let FundRequestService = function(ApiRequest) {
             return ApiRequest.post(sprintf(uriPrefix, fund_id), data);
         }
 
+        this.storeValidate = function(fund_id, data) {
+            return ApiRequest.post(sprintf(uriPrefix + '/validate', fund_id), data);
+        }
+
         this.read = function(fund_id, request_id) {
             return ApiRequest.patch(sprintf(uriPrefix, fund_id, request_id));
         }
