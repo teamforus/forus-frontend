@@ -8,11 +8,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             }, reject);
         });
     }
-
     let promiseResolve = (res) => {
         return new Promise(resolve => resolve(res))
     };
-
     let handleAuthTarget = ($state, target) => {
         if (target[0] == 'homeStart') {
             return !!$state.go('home', {
