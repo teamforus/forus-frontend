@@ -73,7 +73,7 @@
                             input-checkbox-control(
                                 name="show_attachment_{{ $index }}" 
                                 ng-model="criteria.show_attachment"
-                                label="Show attachment")
+                                label="Bijlage uploaden")
                             .form-error(ng-repeat="error in $ctrl.form.errors['criteria.' + $index + '.show_attachment']" ng-bind="error")
 
                         .col.col-lg-2.form-group
@@ -81,10 +81,10 @@
 
                             .button-group.pull-right
                                 .button.button-primary.button-icon(
-                                    title="Edit criteria description"
+                                    title="Beschrijving aanpassen"
                                     ng-click="$ctrl.editDescription(criteria)"): .mdi.mdi-text-subject
                                 .button.button-default.button-icon(
-                                    title="Delete criteria"
+                                    title="Verwijder criteria"
                                     ng-click="$ctrl.removeCriteria(criteria)"): .mdi.mdi-close
                     
                 .row: .col.col-lg-12.form-group.text-center
