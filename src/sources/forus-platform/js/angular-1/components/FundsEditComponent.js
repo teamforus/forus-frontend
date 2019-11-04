@@ -5,7 +5,8 @@ let FundsEditComponent = function(
     FundService,
     RecordTypeService,
     FormBuilderService,
-    MediaService
+    MediaService,
+    ModalService,
 ) {
     let $ctrl = this;
     let mediaFile = false;
@@ -37,6 +38,15 @@ let FundsEditComponent = function(
         if ((index = $ctrl.form.values.criteria.indexOf(criteria)) != -1) {
             $ctrl.form.values.criteria.splice(index, 1)
         }
+    };
+
+    $ctrl.editDescription = (criteria) => {
+        ModalService.open('fundCriteriaDescriptionEdit', {
+            description: criteria.description,
+            success: (data) => {
+                criteria.description = data.description;
+            }
+        });
     };
 
     $ctrl.$onInit = function() {
@@ -124,6 +134,7 @@ module.exports = {
         'RecordTypeService',
         'FormBuilderService',
         'MediaService',
+        'ModalService',
         FundsEditComponent
     ],
     templateUrl: 'assets/tpl/pages/funds-edit.html'
