@@ -5,17 +5,17 @@
     //- Select type
     .modal-window(ng-if="$ctrl.state == 'select_type'"): form.form(ng-submit="$ctrl.form.submit()")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-        .modal-header Create product voucher
+        .modal-header Aanbiedingsvoucher aanmaken
 
         .modal-body: .modal-section
             .voucher-type
-                .voucher-type-title Please select what type of product voucher you want to create. 
-                .voucher-type-subtitle If you use an existing activation code - please choose the second option.
+                .voucher-type-title Selecteer op welke manier u een aanbiedingsvoucher wilt aanmaken.
+                .voucher-type-subtitle Als u een activatie code bij de hand hebt, gebruik dan de tweede optie.
                 .voucher-type-row
                     .voucher-type-item(ng-click="$ctrl.voucherType = 'giftcard'" ng-class="{active: $ctrl.voucherType == 'giftcard'}")
                         .voucher-type-item-check: em.mdi.mdi-check-bold
                         .voucher-type-item-icon: img(src=src_prefix + "/assets/img/voucher-type-giftcard.svg").voucher-type-item-icon-img
-                        | As giftcard
+                        | Als een niet-toegekende voucher
                     .voucher-type-item(ng-click="$ctrl.voucherType = 'activation_code'" ng-class="{active: $ctrl.voucherType == 'activation_code'}")
                         .voucher-type-item-check: em.mdi.mdi-check-bold
                         .voucher-type-item-icon: img(src=src_prefix + "/assets/img/voucher-type-code.svg").voucher-type-item-icon-img
@@ -28,13 +28,13 @@
     //- Activation code form
     .modal-window(ng-if="$ctrl.state == 'activation_code'")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-        .modal-header Create product voucher
+        .modal-header Aanbiedingsvoucher aanmaken
         .modal-body 
             .modal-section: .voucher-type
-                .voucher-type-title Please fill in the activation code.
+                .voucher-type-title Vul een activatiecode in.
                 .voucher-type-subtitle 
-                    | Our system will check if the code is still available and 
-                    | will cancel it while creating the new product voucher.
+                    | Het systeem zal controleren of de activatie code nog niet gebruikt is,
+                    | wanneer hij niet gebruikt is zal hij worden gebruikt om een aanbiedingsvoucher te genereren.
             
             .modal-section
                 pincode-control(
@@ -55,10 +55,10 @@
         .modal-body 
             .modal-section: .voucher-type
                 .voucher-type-icon: .mdi.mdi-alert-outline
-                .voucher-type-title Oops! The activation code is not valid
+                .voucher-type-title Mislukt! Deze activatiecode is niet juist.
                 .voucher-type-subtitle 
-                    | The code you introduced is not valid or has already been used. 
-                    | You are not allowed to create the new product voucher by using this code.
+                    | U voerde een activatiecode in die gebruikt is of niet bestaat.
+                    | Met deze code kunt u geen aanbiedingsvoucher genereren. 
 
         .modal-footer.text-center
             button.button.button-dark(type="button" ng-click="$ctrl.close()") Annuleren
@@ -69,9 +69,9 @@
         .modal-body 
             .modal-section: .voucher-type
                 .voucher-type-icon: .mdi.mdi-alert-outline
-                .voucher-type-title Oops! No products to select from
+                .voucher-type-title Mislukt! Er zijn geen aanbiedingen om uit te selecteren.
                 .voucher-type-subtitle 
-                    | Sorry but selected fund has no approved providers with products.
+                    | U moet eerst aanbieders goedkeuren die aanbiedingen hebben geplaatst.
 
         .modal-footer.text-center
             button.button.button-dark(type="button" ng-click="$ctrl.close()") Annuleren
@@ -79,18 +79,18 @@
     //- Voucher form
     .modal-window(ng-if="$ctrl.state == 'voucher_form'"): form.form(ng-submit="$ctrl.form.submit()")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-        .modal-header Create product voucher
+        .modal-header Aanbiedingsvoucher aanmaken
         .modal-body
             .modal-section 
                 .form-group.form-group-inline.form-group-inline-sm
-                    label.form-label Product
+                    label.form-label Aanbieding
                     select(
                         ng-options="product.id as product.name for product in $ctrl.products" 
                         ng-change="$ctrl.productChanged($ctrl.form.values.product_id)"
                         ng-model="$ctrl.form.values.product_id").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.product_id" ng-bind="error")
                     .form-error(ng-if="$ctrl.products.length == 0") 
-                        | Sorry but this fund has no approved providers with products.
+                        | Mislukt, dit fonds heeft geen goedgekeurde aanbieders met aanbiedingen.
                 
                 .form-group.form-group-inline.form-group-inline-sm
                     label.form-label(i18n="modals.modal_voucher_create.labels.expire_at")
@@ -98,7 +98,7 @@
                         date-format="dd-MM-yyyy" 
                         datepicker-mobile="" 
                         date-week-start-day="1").form-control
-                        input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="dd-MM-yyyy").form-control
+                        input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="dd-MM-jjjj").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.expire_at" ng-bind="error")
                 
                 .form-group.form-group-inline.form-group-inline-sm

@@ -23,12 +23,12 @@ aside.app.app-sidebar
             '$root.activeOrganization | hasPerm:["manage_funds","view_finances","view_funds"]:false')
 
         +nav_item(
-            "Vouchers", "list", 'vouchers', 
+            "Vouchers", "vouchers", 'vouchers', 
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization | hasPerm:["manage_vouchers"]')
 
         +nav_item(
-            "Product Vouchers", "list", 'product-vouchers', 
+            "Aanbiedingsvouchers", "productvoucher", 'product-vouchers', 
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization | hasPerm:["manage_vouchers"]')
 
