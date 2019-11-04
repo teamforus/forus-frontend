@@ -86,7 +86,13 @@ let ModalProductVoucherCreateComponent = function(
         ProductService.listAll({
             fund_id: $ctrl.fund.id
         }).then((res) => {
-            $ctrl.products = res.data.data;
+            $ctrl.products = res.data.data.map(product => {
+                return {
+                    id: product.id,
+                    price: product.price,
+                    name: product.name + ' - €' + product.price + ' (' + product.organization.name + ')',
+                }
+            });
 
             if ($ctrl.products.length > 0) {
                 $ctrl.product = $ctrl.products[0];
