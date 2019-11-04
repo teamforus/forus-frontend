@@ -583,6 +583,9 @@ module.exports = {
             delete: "Verwijderen",
             add: "Toevoegen",
         },
+        status: {
+            owner: "Eigenaar"
+        }
     },
 
     // TRANSACTIONS = transaction.pug
