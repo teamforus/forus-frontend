@@ -8,7 +8,8 @@ let FundsEditComponent = function(
     ProductService,
     RecordTypeService,
     FormBuilderService,
-    MediaService
+    MediaService,
+    ModalService,
 ) {
     let $ctrl = this;
     let mediaFile = false;
@@ -79,11 +80,20 @@ let FundsEditComponent = function(
                 );
             });
         }, 250);
-    }
+    };
 
     $ctrl.getProductOptions = (product) => {
         return ($ctrl.productOptions || []).concat(product);
-    }
+    };
+
+    $ctrl.editDescription = (criteria) => {
+        ModalService.open('fundCriteriaDescriptionEdit', {
+            description: criteria.description,
+            success: (data) => {
+                criteria.description = data.description;
+            }
+        });
+    };
 
     $ctrl.$onInit = function() {
         let values = $ctrl.fund ? FundService.apiResourceToForm(
@@ -198,6 +208,7 @@ module.exports = {
         'RecordTypeService',
         'FormBuilderService',
         'MediaService',
+        'ModalService',
         FundsEditComponent
     ],
     templateUrl: 'assets/tpl/pages/funds-edit.html'
