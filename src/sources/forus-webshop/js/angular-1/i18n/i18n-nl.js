@@ -36,14 +36,6 @@ module.exports = {
         en: 'English',
         nl: 'Dutch',
     },
-    provider_details: {
-        address: 'Adres',
-        organization_type: 'Organisatie type',
-        website: 'Website',
-        phone: 'Telefoonnummer',
-        email: 'E-mailadres',
-        no_data: 'Geen data'
-    },
 
     // COMPONENTS
     buttons: require("./nl/components/buttons"),
@@ -82,5 +74,4 @@ module.exports = {
     fund_criterion: require("./nl/directives/fund-criterion"),
     maps: require("./nl/directives/google-map"),
     profile_card: require("./nl/directives/profile-card"),
-
 };
