@@ -13,7 +13,7 @@
                     td(ng-bind="employee.email").text-primary-light
                     td(ng-bind="employee.rolesList").ellipsis
                     td.text-right(ng-if="$ctrl.organization.identity_address == employee.identity_address")
-                        span.text-muted(translate="organization_employees.status.owner")
+                        span.text-muted(translate="organization_employees.labels.owner")
                     td.text-right(ng-if="$ctrl.organization.identity_address != employee.identity_address")
                         a(ng-click="$ctrl.editEmployee(employee)" translate="organization_employees.buttons.adjust").text-primary-light
                         | &nbsp;

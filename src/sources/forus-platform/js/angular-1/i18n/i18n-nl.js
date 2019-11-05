@@ -577,14 +577,12 @@ module.exports = {
             email: "E-mailadres",
             roles: "Rollen",
             actions: "Actie",
+            owner: "Eigenaar"
         },
         buttons: {
             adjust: "Aanpassen",
             delete: "Verwijderen",
             add: "Toevoegen",
-        },
-        status: {
-            owner: "Eigenaar"
         }
     },
 
