@@ -36,6 +36,14 @@ module.exports = {
         en: 'English',
         nl: 'Dutch',
     },
+    provider_details: {
+        address: 'Adres',
+        organization_type: 'Organisatie type',
+        website: 'Website',
+        phone: 'Telefoonnummer',
+        email: 'E-mailadres',
+        no_data: 'Geen data'
+    },
 
     // COMPONENTS
     buttons: require("./nl/components/buttons"),

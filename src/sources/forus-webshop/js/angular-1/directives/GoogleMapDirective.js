@@ -2,6 +2,7 @@ let GoogleMapDirective = function(
     $scope,
     $element,
     $timeout,
+    $filter,
     GoogleMapService,
     AuthService,
     appConfigs
@@ -9,6 +10,8 @@ let GoogleMapDirective = function(
     $scope.style = [];
     // locations = [];
     $scope.markers = [];
+
+    let $translate = $filter('translate');
 
     var initialize = function(obj, offices) {
         offices = offices || [];
@@ -72,14 +75,14 @@ let GoogleMapDirective = function(
 
             google.maps.event.addListener(marker, 'click', (function(marker, office) {
                 var description = [
-                    'Adres: ' + (office.address || 'Geen data'),
-                    'Business type: ' + (office.organization.business_type ?
-                        office.organization.business_type.name : 'Geen data')
+                    $translate('provider_details.address') + ': ' + (office.address || $translate('provider_details.no_data')),
+                    $translate('provider_details.organization_type') + ': ' + (office.organization.business_type ?
+                        office.organization.business_type.name : $translate('provider_details.no_data'))
                 ];
 
                 if (office.organization.website) {
                     description.push([
-                        'Website: <a target="_blank" href="', 
+                        $translate('provider_details.website') + ': ' + '<a target="_blank" href="', 
                         office.organization.website, 
                         '">', 
                         office.organization.website + '</a>'
@@ -87,8 +90,8 @@ let GoogleMapDirective = function(
                 }
 
                 if (AuthService.hasCredentials()) {
-                    description.push('Telefoonnummer: ' + (office.phone || office.organization.phone || 'Geen data'));
-                    description.push('E-mailadres: ' + (office.email || office.organization.email || 'Geen data'));
+                    description.push($translate('provider_details.phone') + ': ' + (office.phone || office.organization.phone || $translate('provider_details.no_data')));
+                    description.push($translate('provider_details.email') + ': ' + (office.email || office.organization.email || $translate('provider_details.no_data')));
                 }
 
                 description = description.filter(item => item);
@@ -144,6 +147,7 @@ module.exports = () => {
             '$scope',
             '$element',
             '$timeout',
+            '$filter',
             'GoogleMapService',
             'AuthService',
             'appConfigs',
