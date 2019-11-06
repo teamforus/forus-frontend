@@ -60,7 +60,7 @@ let ModalAuthComponent = function(
                                 } else if (res.data.records.list) {
                                     $state.go('records');
                                 } else {
-                                    $state.go('home');
+                                    $state.go('funds');
                                 }
                             });
                         }, (res) => {
