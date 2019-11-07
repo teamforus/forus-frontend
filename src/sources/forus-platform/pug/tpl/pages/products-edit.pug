@@ -59,7 +59,7 @@
                                 input(type="checkbox" id="unlimited_stock" ng-model="$ctrl.form.values.unlimited_stock")
                                 label(for="unlimited_stock").checkbox-label
                                     .checkbox-box: em.mdi.mdi-check
-                                    | Unlimited stock
+                                    | Onbeperkt aanbod
                         .form-error(ng-repeat="error in $ctrl.form.errors.total_amount" ng-bind="error")
                     
                     .form-group.form-group-inline(ng-if="$ctrl.product && !$ctrl.product.unlimited_stock")
