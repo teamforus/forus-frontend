@@ -16,6 +16,7 @@ platform.setLibs([
     "angular_translate",
     "angular_translate_storage_cookies",
     "angular_translate_storage_local",
+    "angular_datepicker",
     "mdi",
     "moment",
     "nanoscroller",

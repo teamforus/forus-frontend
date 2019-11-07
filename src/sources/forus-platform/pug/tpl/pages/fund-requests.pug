@@ -1,0 +1,164 @@
+.app.app-container
+    menu
+    section.app.app-content(ng-if='$ctrl.validatorRequests')
+        .card.card-collapsable(
+            ng-class="{'card-collapsed' : !validatorRequest.collapsed}"
+            ng-repeat='validatorRequest in $ctrl.validatorRequests.data')
+            .card-section(ng-click='validatorRequest.collapsed = !validatorRequest.collapsed')
+                .card-section-actions(ng-show="validatorRequest.state == 'pending'")
+                    .tag.tag-primary-light
+                        em.mdi.mdi-circle-outline
+                        span(translate='validation_requests.status.hold')
+                
+                .card-section-actions(ng-show="validatorRequest.state == 'approved'")
+                    .tag.tag-success 
+                        em.mdi.mdi-circle-slice-8
+                        | Geaccepteerd
+                
+                .card-section-actions(ng-show="validatorRequest.state == 'approved_partly'")
+                    .tag.tag-success 
+                        em.mdi.mdi-circle-slice-4
+                        | Aanvulling gevraagd
+                
+                .card-section-actions(ng-show="validatorRequest.state == 'declined'")
+                    .tag.tag-danger 
+                        em.mdi.mdi-circle-off-outline
+                        | Geweigerd
+                
+                .card-title
+                    | BSN: 4577654445
+                    .card-collapse.mdi(ng-class="'mdi-chevron-' + (validatorRequest.collapsed ? 'down' : 'up')")
+                
+                .card-block.card-block-listing.card-block-listing-inline
+                    .card-block-listing-label Fonds
+                    span(ng-bind="$ctrl.fundsById[validatorRequest.fund_id].name") 
+                    em.mdi.mdi-information.block.block-tooltip-details(
+                        ng-click="$ctrl.showFundCriteria($event, validatorRequest)"
+                        ng-class="{active: validatorRequest.showCriteria}")
+                        .tooltip-content(
+                            ng-if="validatorRequest.showCriteria" 
+                            click-outside="$ctrl.hideFundCriteria($event, validatorRequest)"): ul.tooltip-list
+                            li(ng-repeat="critera in $ctrl.fundsById[validatorRequest.fund_id].criteria").tooltip-list-item
+                                em.mdi.mdi-check
+                                | {{ critera.record_type_name }} moet
+                                span(ng-if="critera.operator == '>'") meer dan 
+                                span(ng-if="critera.operator == '='") 
+                                span(ng-if="critera.operator == '<'") minder dan 
+                                | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }}.
+            
+            .card-header(ng-hide='validatorRequest.collapsed')
+                .arrow-box.border.bg-dim: .arrow
+                .card-title: .row
+                    .col.col-lg-6(translate='validation_requests.labels.records')
+                    .col.col-lg-6.text-right(ng-show="validatorRequest.state == 'pending' && !validatorRequest.self_assigned")
+                        button.button.button-primary(ng-click='$ctrl.requestAssign(validatorRequest)')
+                            em.mdi.mdi-account-plus.icon-start
+                            | Toewijzen aan mij
+                    
+                    .col.col-lg-6.text-right(ng-show="validatorRequest.state == 'pending' && validatorRequest.self_assigned")
+                        button.button.button-primary-light(ng-click='$ctrl.requestResign(validatorRequest)')
+                            em.mdi.mdi-account-minus.icon-start
+                            | Meld af
+                        button.button.button-default(ng-click='$ctrl.requestApprove(validatorRequest)')
+                            em.mdi.mdi-check-circle.icon-start
+                            | {{ "validation_requests.buttons.allaccept" | translate }}
+                        button.button.button-primary(ng-click='$ctrl.requestDecline(validatorRequest)')
+                            em.mdi.mdi-close.icon-start
+                            | {{ "validation_requests.buttons.alldecline" | translate }}
+        
+            .card-section(ng-hide='validatorRequest.collapsed'): .card-block.card-block-table: .table-wrapper: table.table
+                thead: tr
+                    th.cell-chevron(ng-if="validatorRequest.hasContent")
+                    th(translate='validation_requests.labels.type' width="20%")
+                    th(translate='validation_requests.labels.value' width="20%")
+                    th(translate='validation_requests.labels.date' width="20%")
+                    th(translate='validation_requests.labels.status' width="20%")
+                    th.text-right(translate='validation_requests.labels.actions' width="20%")
+                
+                tbody(ng-repeat='record in validatorRequest.records')
+                    tr
+                        td.cell-chevron(ng-if="validatorRequest.hasContent"): a.mdi.mdi-menu-down.td-menu-icon(
+                            ng-if="(record.files.length > 0) || (record.clarifications.length > 0)"
+                            ng-class="{'mdi-menu-down': !record.shown, 'mdi-menu-up': record.shown}"
+                            ng-click="record.shown = !record.shown")
+                        td(ng-bind='record.record_type.name')
+                        td(ng-bind='record.value')
+                        td(ng-bind='record.created_at_locale')
+                        td: .tag(
+                            ng-class="{pending: 'tag-primary-light', declined: 'tag-danger', approved: 'tag-success'}[record.state]" 
+                            translate='validation_requests.status.{{ record.state }}')
+                        
+                        td.text-right(ng-if="record.state != 'pending'")
+                            .text-muted(translate='validation_requests.status.{{ record.state }}')
+                        
+                        td.text-right(ng-if="record.state == 'pending' && !validatorRequest.self_assigned")
+                            .text-muted(ng-if="validatorRequest.employee_id")
+                                | Toegewezen aan: {{ validatorRequest.employee.email }}
+                            .text-muted(ng-if="!validatorRequest.employee_id")
+                                | Zelf toewijzen
+                        
+                        td.text-right(ng-if="record.state == 'pending' && validatorRequest.self_assigned")
+                            .button-group.flex-end
+                                .button.button-primary.button-icon(ng-click='$ctrl.declineRecord(validatorRequest, record)')
+                                    em.mdi.mdi-close
+                                .button.button-primary-light.button-icon(ng-click='$ctrl.clarifyRecord(validatorRequest, record)')
+                                    em.mdi.mdi-message-text
+                                .button.button-default.button-icon(ng-click='$ctrl.approveRecord(validatorRequest, record)')
+                                    em.mdi.mdi-check
+                    
+                    tr.dim(ng-if='(record.shown) && ((record.files.length > 0) || (record.clarifications.length > 0))'): td(colspan='6')
+                        .block.block-attachments-list(ng-if='record.files.length > 0'): .block-attachments-inner
+                            a.attachment-item(ng-repeat='file in record.files' ng-click='$ctrl.downloadFile(file)')
+                                .attachment-icon
+                                    .mdi.mdi-file
+                                    .attachment-size(ng-bind='file.size')
+                                .attachment-name(ng-bind='file.original_name')
+                                .attachment-preview( 
+                                    title="Preview pdf file" 
+                                    ng-if="file.ext == 'pdf'"
+                                    ng-click="$ctrl.previewFile($event, file)")
+                                    .mdi.mdi-eye
+                        
+                        .block.block-request-clarification(ng-if='record.clarifications.length > 0')
+                            .block-title Aanvullingen
+                            .clarification-item(ng-repeat="clarification in record.clarifications")
+                                .clarification-item-nth(ng-bind="$index + 1")
+                                .clarification-item-details
+                                    .clarification-item-question
+                                        .clarification-item-icon.mdi.mdi-message-text.text-primary
+                                        span(ng-bind="clarification.question")
+                                    .clarification-item-answer
+                                        .clarification-item-icon.mdi.mdi-message-text.text-primary-light
+                                        span(
+                                            ng-class="clarification.answered_at ? '' : 'text-muted'"
+                                            ng-bind="clarification.answered_at ? clarification.answer : 'No reply...'")
+                                    .clarification-item-attachments(ng-if="clarification.files.length > 0")
+                                        .block.block-attachments-list
+                                            .block-attachments-inner
+                                                a.attachment-item(
+                                                    ng-repeat='file in clarification.files' 
+                                                    ng-click='$ctrl.downloadFile(file)')
+                                                    .attachment-icon
+                                                        .mdi.mdi-file
+                                                        .attachment-size(ng-bind='file.size')
+                                                    .attachment-name(ng-bind='file.original_name')
+                                                    .attachment-preview( 
+                                                        title="Preview pdf file" 
+                                                        ng-if="file.ext == 'pdf'"
+                                                        ng-click="$ctrl.previewFile($event, file)")
+                                                        .mdi.mdi-eye
+    
+        .card-section(ng-show='$ctrl.shownUsers[validatorRequest.bsn] && !validatorRequest.collapsed'): .table-pagination
+            .table-pagination-counter(
+                translate='validation_requests.labels.results' 
+                translate-values='{count: validatorRequest.requests.length}')
+        
+        .card: .card-section(ng-show='$ctrl.validatorRequests.meta.last_page > 1'): paginator(
+            meta='$ctrl.validatorRequests.meta' 
+            filters='$ctrl.filters.values' 
+            count-buttons='5' 
+            on-page-change='$ctrl.onPageChange(query)')
+        
+        block-empty(
+            ng-if='$ctrl.validatorRequests.data.length == 0' 
+            text='No validation requests.')

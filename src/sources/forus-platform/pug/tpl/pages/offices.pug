@@ -5,10 +5,10 @@
             .card-section
                 .card-section-actions
                     a(ng-if="$ctrl.organization | hasPerm:'manage_organization'" ui-sref="organizations-edit($ctrl.organization)").button.button-default
-                        em.mdi.mdi-pen
+                        em.mdi.mdi-pen.icon-start
                         span(translate="offices.buttons.adjust")
                     a(ng-if="$ctrl.organization | hasPerm:'manage_offices'" ui-sref="offices-create({organization_id: $ctrl.organization.id})").button.button-primary
-                        em.mdi.mdi-plus-circle 
+                        em.mdi.mdi-plus-circle.icon-start 
                         span(translate="offices.buttons.add")
                 
                 .card-block.card-block-provider
@@ -46,7 +46,7 @@
             .card-section
                 .card-section-actions
                     a(ui-sref="offices-edit(office)").button.button-default
-                        em.mdi.mdi-pen  
+                        em.mdi.mdi-pen.icon-start  
                         span(translate="offices.buttons.adjust")
                     a(ng-click="$ctrl.delete(office)" ng-if="$ctrl.offices.length > 1").button.button-default
                         em.mdi.mdi-delete
@@ -55,7 +55,7 @@
                         ng-if="office.lat && office.lon"
                         href="https://www.google.com/maps/place/{{ office.lat }},{{ office.lon }}" 
                         target="_blank").button.button-primary
-                        em.mdi.mdi-map-marker  
+                        em.mdi.mdi-map-marker.icon-start 
                         span(translate="offices.buttons.map")
                         
                 .card-block.card-block-provider
@@ -81,5 +81,5 @@
         
         block-empty(
             ng-if="$ctrl.offices.length == 0" 
-            text="'Je hebt momenteel geen vestigingen.'" 
+            text="Je hebt momenteel geen vestigingen." 
             button="{text: 'Vestiging toevoegen', href: $ctrl.emptyBlockLink}")

@@ -37,12 +37,13 @@ let ModalAuthComponent = function(
             form.lock();
             FundService.read_fundid(code).then((res) => {
                 let prevalidations = res.data.data;
+                
                 VoucherService.list().then(result => {
                     let vouchers = result.data.data;
                     let arrayWithIds = vouchers.map(function(x){
                         return x.fund_id
                     }); 
-                    
+
                     $ctrl.present = arrayWithIds.indexOf(prevalidations.fund_id) != -1
                     
                     if (!$ctrl.present){

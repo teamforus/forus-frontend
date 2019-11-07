@@ -1,0 +1,12 @@
+.ui-control.ui-control-date(ng-class="$dir.class")
+    datepicker(date-format="{{ $dir.dateFormat }}" datepicker-mobile="" date-week-start-day="1").form-control
+        | &nbsp;
+        input(
+        id="{{ $dir.id }}" 
+        name="{{ $dir.name }}" 
+        ng-change="$dir.onChange()"
+        ng-model="ngModel"
+        type="text"
+        placeholder="{{ $dir.placeholder || $dir.dateFormat }}"
+        ).form-control
+    label(for="{{ $dir.id }}" ng-click="$dir.clear()").ui-control-clear: .mdi.mdi-close-circle

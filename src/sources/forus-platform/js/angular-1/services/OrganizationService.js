@@ -6,8 +6,8 @@ module.exports = [
         $rootScope
     ) {
         return new (function() {
-            this.list = function() {
-                return ApiRequest.get('/platform/organizations');
+            this.list = function(query = {}) {
+                return ApiRequest.get('/platform/organizations', query);
             };
 
             this.listProviders = function(

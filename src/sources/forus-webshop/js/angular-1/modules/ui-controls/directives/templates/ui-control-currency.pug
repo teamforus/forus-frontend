@@ -1,0 +1,12 @@
+.ui-control.ui-control-currency(ng-class="$dir.class")
+    .ui-control-currency-icon(ng-bind="$dir.currency") 
+    input(
+        type="number" 
+        id="{{ $dir.id }}" 
+        name="{{ $dir.name }}" 
+        min="{{ $dir.min }}" 
+        max="{{ $dir.max }}" 
+        step="{{ $dir.step }}" 
+        ng-change="$dir.onChange()"
+        ng-model="ngModel").form-control
+    label(for="{{ $dir.id }}" ng-click="$dir.clear()").ui-control-clear: .mdi.mdi-close-circle

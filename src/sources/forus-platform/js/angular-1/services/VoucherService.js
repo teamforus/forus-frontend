@@ -52,6 +52,19 @@ module.exports = [
                     email: email
                 });
             };
+
+            this.downloadQRCodes = function(organization_id, fromDate, toDate) {
+                return ApiRequest.get([
+                    '/platform/organizations/' + organization_id,
+                    '/sponsor/vouchers/export-unassigned',
+                ].join(''), {
+                    fromDate: fromDate,
+                    toDate: toDate,
+                }, {}, true, (params) => {
+                    params.responseType = 'blob';
+                    return params;
+                });
+            };
         });
     }
 ];

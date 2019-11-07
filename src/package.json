@@ -42,7 +42,7 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
-    "@mdi/font": "^3.5.95",
+    "@mdi/font": "^4.5.95",
     "@uirouter/angularjs": "^1.0.20",
     "angular": "^1.7.5",
     "angular-cookie": "^4.1.0",
@@ -59,6 +59,7 @@
     "moment": "^2.22.2",
     "nanoscroller": "^0.8.7",
     "papaparse": "^4.6.2",
+    "pdfjs-dist": "^2.2.228",
     "progressbar.js": "^1.0.1",
     "qrcodejs": "^1.0.0",
     "ui-cropper": "^1.0.7",

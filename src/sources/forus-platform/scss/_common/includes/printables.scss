@@ -1,0 +1,52 @@
+body {
+    &.printable-only {
+        @media screen {
+            &>printables-root {
+                display: none;
+            }
+        }
+
+        @media print {
+            &>*:not(printables-root) {
+                display: none !important;
+            }
+        }
+    }
+}
+
+@media print {
+    .printable {
+        text-align: left;
+
+        &.printable-voucher-qr_code {
+            .printable-title {
+                font: 700 16px $bf;
+                text-align: center;
+            }
+
+            .printable-description {
+                font: 400 12px $bf;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .block-qr-code {
+                margin: 0 auto 20px;
+
+                .qr_code {
+                    margin: 0 auto;
+                    width: 240px;
+                    height: auto;
+                }
+
+                img {
+                    padding: 10px;
+                    margin: 0 auto;
+                    width: 100%;
+                    border: 1px solid silver;
+                    background: #fff;
+                }
+            }
+        }
+    }
+}

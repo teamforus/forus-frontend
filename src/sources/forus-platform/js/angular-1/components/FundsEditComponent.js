@@ -14,13 +14,13 @@ let FundsEditComponent = function(
     $ctrl.recordTypes = [];
     $ctrl.operators = [{
         key: "=",
-        name: "=",
+        name: "gelijk aan",
     }, {
         key: "<",
-        name: "<",
+        name: "is kleiner dan",
     }, {
         key: ">",
-        name: ">",
+        name: "is groter dan",
     }];
 
     $ctrl.addCriteria = () => {

@@ -5,7 +5,7 @@ module.exports = {
     },
     labels: {
         categorie: "CATEGORIEËN",
-        criteria: "Voorwaarden ({{ nth }})",
+        criteria: "Voorwaarden",
         location: "Locatie",
         office: "Zuidhorn Gemeente",
         children: "Kinderen",
@@ -14,10 +14,16 @@ module.exports = {
         age: "< 18 jaar oud",
         income: "Inkomensgrens",
         amount: "< € 1118.46",
+        categories_label: "U KUNT UW VOUCHER ACTIVEREN TOT:",
+    },
+    criteria:{
+        key: "{{key}}"
     },
     buttons: {
-        join: "Doe mee",
         more: "BEKIJK MEER",
+        start_request: "Aanvragen",
+        is_applicable: "Activeer",
+        already_received: "Ga naar uw vouchers",
     },
     status: {
         active: "Actief",

@@ -12,6 +12,10 @@ module.exports = [
                 return ApiRequest.post('/identity/records', values);
             };
 
+            this.storeValidate = function(values) {
+                return ApiRequest.post('/identity/records/validate', values);
+            };
+
             this.update = function(id, values) {
                 return ApiRequest.patch('/identity/records/' + id, values);
             };

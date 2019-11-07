@@ -43,6 +43,10 @@ let FundService = function(
             );
         };
 
+        this.request = (id, data) => {
+            return ApiRequest.post('/platform/funds/' + id + '/request', data);
+        };
+
         this.applyToFirstAvailable = () => {
             return $q((resolve, reject) => {
                 this.list().then((res) => {
@@ -147,7 +151,7 @@ let FundService = function(
             validators,
             organization_id = null
         ) => {
-            let _records = records.filter(record => {
+            let validRecords = records.filter(record => {
                 return record.key == criterion.record_type_key;
             }).filter(record => {
                 return (record.validations.filter(validation => {
@@ -156,18 +160,19 @@ let FundService = function(
                 }).length > 0);
             });
 
-            if (_records.length == 0) {
+            if (validRecords.length == 0) {
                 return null;
             }
 
-            _records.sort((a, b) => {
+            validRecords.sort((a, b) => {
                 let _a = moment(newest(a.validations, 'created_at').created_at).format('X');
                 let _b = moment(newest(b.validations, 'created_at').created_at).format('X');
 
                 return _a > _b ? -1 : (_a == _b ? 0 : 1);
             });
 
-            let record = typeof _records[0] != 'undefined' ? _records[0] : null;
+
+            let record = typeof validRecords[0] != 'undefined' ? validRecords[0] : null;
             let validValue = false;
 
             if (criterion.operator == '!=') {

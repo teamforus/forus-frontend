@@ -1,0 +1,12 @@
+.ui-control.ui-control-number(ng-class="$dir.class")
+    input(
+        type="number" 
+        id="{{ $dir.id }}" 
+        name="{{ $dir.name }}" 
+        min="{{ $dir.min }}" 
+        max="{{ $dir.max }}" 
+        step="{{ $dir.step }}" 
+        ng-change="$dir.onChange()"
+        placeholder="{{ $dir.placeholder }}" 
+        ng-model="ngModel").form-control
+    label(for="{{ $dir.id }}" ng-click="$dir.clear()").ui-control-clear: .mdi.mdi-close-circle

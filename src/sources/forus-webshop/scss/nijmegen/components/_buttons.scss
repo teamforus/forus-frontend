@@ -1,6 +1,6 @@
 .button {
-    font: 600 18px/24px $bf;
-    padding: 15px 20px;
+    font: 600 18px/20px $bf;
+    padding: 14px 20px;
     transition: all 0.2s ease-in-out;
     border: 0;
     border-radius: 2px;
@@ -30,6 +30,7 @@
             }
         }
     }
+
     &.button-two-spans{
         display: flex !important;
         padding: 7px !important;
@@ -68,6 +69,7 @@
             }
         }
     }
+    
     &.button-primary {
         background-color: #157c68;
         border-color: #157c68;
