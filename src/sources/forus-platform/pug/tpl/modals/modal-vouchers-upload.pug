@@ -2,7 +2,7 @@
     .modal-backdrop(ng-click="$ctrl.closeModal()")
     .modal-window
         a(ng-click="$ctrl.closeModal()").mdi.mdi-close.modal-close
-        .modal-header Upload vouchers
+        .modal-header Upload CSV-bestand
         .modal-body.form: .modal-section.form
             .block.block-csv.condensed(ng-if="$ctrl.fund"): .csv-inner
                 .csv-upload-btn(
@@ -30,15 +30,15 @@
                             .file-remove.mdi.mdi-close(ng-click="$ctrl.reset()")
                         .text-left(ng-if="!$ctrl.csvParser.isValid && $ctrl.type == 'voucher'")
                             .form-error(ng-if="!$ctrl.csvParser.csvIsValid")
-                                | The `ammount` field is missing.
+                                | Het veld 'amount' mist in het bestand.
                             .form-error(ng-if="!$ctrl.csvParser.amountIsValid")
-                                | The sum of vouchers `amount` field exceedes fund budget.
+                                | Het totaal aantal budget van het gewenste aantal vouchers overschrijd het gestorte bedrag op het fonds.
                         
                         .text-left(ng-if="!$ctrl.csvParser.isValid && $ctrl.type == 'product_voucher'")
                             .form-error(ng-if="!$ctrl.csvParser.csvIsValid")
-                                | The `product_id` field is missing.
+                                | Het veld `product_id` mist in het bestand.
                             .form-error(ng-if="!$ctrl.csvParser.csvProductIdValid")
-                                | One or more `product_id` fields have invalid value.
+                                | Één of meer `product_id` velden hebben een ongeldige waarde.
 
                     .text-center(ng-show="$ctrl.csvParser.progress == 1 && $ctrl.csvParser.isValid")
                         button(
