@@ -1,5 +1,5 @@
 let ProductsEditComponent = function(
-    $q,
+    $timeout,
     $state,
     $stateParams,
     appConfigs,
@@ -101,8 +101,10 @@ let ProductsEditComponent = function(
                     organization_id: $stateParams.organization_id
                 });
             }, (res) => {
-                form.errors = res.data.errors;
-                form.unlock();
+                $timeout(() => {
+                    form.errors = res.data.errors;
+                    form.unlock();
+                }, 100);
             });
         });
 
@@ -131,7 +133,7 @@ module.exports = {
         products: '<'
     },
     controller: [
-        '$q',
+        '$timeout',
         '$state',
         '$stateParams',
         'appConfigs',
