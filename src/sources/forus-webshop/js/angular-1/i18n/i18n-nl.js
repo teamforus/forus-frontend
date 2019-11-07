@@ -74,5 +74,4 @@ module.exports = {
     fund_criterion: require("./nl/directives/fund-criterion"),
     maps: require("./nl/directives/google-map"),
     profile_card: require("./nl/directives/profile-card"),
-
 };
