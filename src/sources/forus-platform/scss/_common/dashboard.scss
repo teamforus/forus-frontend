@@ -2335,6 +2335,10 @@
             margin-bottom: 15px;
             cursor: pointer;
 
+            &:nth-of-type(4n + 1) {
+                clear:both;
+            }
+
             .organization-item-inner {
                 padding: 30px;
                 display: block;

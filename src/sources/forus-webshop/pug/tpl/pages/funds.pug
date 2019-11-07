@@ -27,7 +27,7 @@ section.section.section-funds: .wrapper
                     translate="funds.buttons.start_request")
                 a.button.button-primary(
                     ng-if="fund.alreadyReceived" 
-                    ui-sref="vouchers" 
+                    ui-sref="{{ fund.voucherStateName }}" 
                     translate="funds.buttons.already_received")
 
             .fund-criterias(ng-if="fund.criterioaList.length > 0")
