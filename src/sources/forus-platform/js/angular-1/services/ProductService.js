@@ -8,6 +8,10 @@ let ProductService = function(ApiRequest) {
             );
         };
 
+        this.listAll = function(query = {}) {
+            return ApiRequest.get('/platform/products', query);
+        };
+
         this.store = function(organization_id, values) {
             return ApiRequest.post(
                 uriPrefix + organization_id + '/products', 

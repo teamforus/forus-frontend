@@ -155,6 +155,7 @@ let FundService = function(ApiRequest) {
                     }
                 ),
                 criteria: apiResource.criteria,
+                formula_products: apiResource.formula_products || [],
                 name: apiResource.name,
                 state: apiResource.state,
                 start_date: moment(apiResource.start_date).format('DD-MM-YYYY'),

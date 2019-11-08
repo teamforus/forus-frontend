@@ -1,8 +1,11 @@
 let FundsEditComponent = function(
     $state,
+    $scope,
+    $timeout,
     $stateParams,
     $rootScope,
     FundService,
+    ProductService,
     RecordTypeService,
     FormBuilderService,
     MediaService,
@@ -11,6 +14,7 @@ let FundsEditComponent = function(
     let $ctrl = this;
     let mediaFile = false;
 
+    $ctrl.products = [];
     $ctrl.media;
     $ctrl.recordTypes = [];
     $ctrl.operators = [{
@@ -40,6 +44,48 @@ let FundsEditComponent = function(
         }
     };
 
+    $ctrl.addProduct = () => {
+        $ctrl.form.products.push(null);
+        $ctrl.updateProductOptions();
+    };
+
+    $ctrl.removeProduct = (product) => {
+        let index;
+
+        if ((index = $ctrl.form.products.indexOf(product)) != -1) {
+            $ctrl.form.products.splice(index, 1)
+        }
+
+        $ctrl.updateProductOptions();
+    };
+
+    $scope.$watch('$ctrl.form.products', (products) => {
+        if (products && Array.isArray(products)) {
+            $ctrl.updateProductOptions();
+        }
+    }, true);
+
+    $ctrl.updateProductOptions = () => {
+        $timeout(() => {
+            let productOptions = $ctrl.products.filter(product => {
+                return $ctrl.form.products.map(
+                    product => product ? product.id : false
+                ).filter(id => !!id).indexOf(product.id) == -1;
+            });
+
+            $ctrl.productOptions = [];
+            $ctrl.form.products.forEach((product, $index) => {
+                $ctrl.productOptions[$index] = productOptions.concat(
+                    product ? [product] : []
+                );
+            });
+        }, 250);
+    };
+
+    $ctrl.getProductOptions = (product) => {
+        return ($ctrl.productOptions || []).concat(product);
+    };
+
     $ctrl.editDescription = (criteria) => {
         ModalService.open('fundCriteriaDescriptionEdit', {
             description: criteria.description,
@@ -53,6 +99,7 @@ let FundsEditComponent = function(
         let values = $ctrl.fund ? FundService.apiResourceToForm(
             $ctrl.fund
         ) : {
+            formula_products: [],
             criteria: [],
             product_categories: [],
             state: $ctrl.fundStates[0].value
@@ -60,6 +107,10 @@ let FundsEditComponent = function(
 
         if (!$rootScope.appConfigs.features.organizations.funds.criteria) {
             delete values.criteria;
+        }
+
+        if (!$rootScope.appConfigs.features.organizations.funds.formula_products) {
+            delete values.formula_products;
         }
 
         $ctrl.form = FormBuilderService.build(values, async (form) => {
@@ -73,6 +124,8 @@ let FundsEditComponent = function(
                 $ctrl.media = res.data.data;
                 $ctrl.form.values.media_uid = $ctrl.media.uid;
             }
+
+            form.values.formula_products = form.products.map(product => product.id);
 
             if ($ctrl.fund) {
                 promise = FundService.update(
@@ -103,6 +156,24 @@ let FundsEditComponent = function(
             });
         }
 
+        ProductService.listAll({
+            per_page: 100000
+        }).then(res => {
+            $ctrl.products = res.data.data.map(product => {
+                return {
+                    id: product.id,
+                    price: product.price,
+                    name: product.name + ' - €' + product.price + ' (' + product.organization.name + ')',
+                }
+            });
+
+            $ctrl.form.products = $ctrl.products.filter(
+                product => $ctrl.form.values.formula_products.indexOf(product.id) != -1
+            );
+
+            $ctrl.updateProductOptions();
+        }, console.error);
+
         RecordTypeService.list().then(res => {
             $ctrl.recordTypes = res.data;
         });
@@ -128,9 +199,12 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$scope',
+        '$timeout',
         '$stateParams',
         '$rootScope',
         'FundService',
+        'ProductService',
         'RecordTypeService',
         'FormBuilderService',
         'MediaService',
