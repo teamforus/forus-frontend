@@ -46,7 +46,7 @@
 
                     .form-error(ng-repeat="error in $ctrl.form.errors.end_date" ng-bind="error")
 
-            .card-section.card-section-primary(ng-if="$root.appConfigs.features.organizations.funds.products")
+            .card-section.card-section-primary(ng-if="$root.appConfigs.features.organizations.funds.formula_products")
                 .row: .col.col-lg-9.col-md-12
                     .form-group.form-group-inline(ng-repeat="product in $ctrl.form.products track by $index")
                         label(translate="{{ $index == 0 ? 'funds_edit.labels.products' : '' }}").form-label

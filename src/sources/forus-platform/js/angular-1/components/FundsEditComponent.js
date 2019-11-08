@@ -109,7 +109,7 @@ let FundsEditComponent = function(
             delete values.criteria;
         }
 
-        if (!$rootScope.appConfigs.features.organizations.funds.products) {
+        if (!$rootScope.appConfigs.features.organizations.funds.formula_products) {
             delete values.formula_products;
         }
 
