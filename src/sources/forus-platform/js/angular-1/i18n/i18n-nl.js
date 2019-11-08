@@ -190,6 +190,7 @@ module.exports = {
         },
         labels: {
             name: "Naam",
+            products: "Products",
             status: "Status",
             start: "Startdatum",
             end: "Einddatum",
@@ -577,12 +578,13 @@ module.exports = {
             email: "E-mailadres",
             roles: "Rollen",
             actions: "Actie",
+            owner: "Eigenaar"
         },
         buttons: {
             adjust: "Aanpassen",
             delete: "Verwijderen",
             add: "Toevoegen",
-        },
+        }
     },
 
     // TRANSACTIONS = transaction.pug

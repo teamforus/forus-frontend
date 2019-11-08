@@ -28,24 +28,31 @@ let ModalAuthComponent = function(
                 return;
             }
 
+            let code = form.values.code;
+            
+            if (typeof code == 'string') {
+                code = code.replace(/o|O/g, "0");
+            }
+
             form.lock();
-            FundService.read_fundid(form.values.code).then((res) => {
+            FundService.read_fundid(code).then((res) => {
                 let prevalidations = res.data.data;
                 
                 VoucherService.list().then(result => {
                     let vouchers = result.data.data;
-                    var arrayWithIds = vouchers.map(function(x){
+                    let arrayWithIds = vouchers.map(function(x){
                         return x.fund_id
                     }); 
-                    $ctrl.present = arrayWithIds.indexOf(prevalidations.fund_id) != -1;
 
-                    if(!$ctrl.present){
-                        PrevalidationService.redeem(form.values.code).then((res) => {
+                    $ctrl.present = arrayWithIds.indexOf(prevalidations.fund_id) != -1
+                    
+                    if (!$ctrl.present){
+                        PrevalidationService.redeem(code).then((res) => {
                             $ctrl.close();
         
                             ConfigService.get().then((res) => {
                                 if (!res.data.funds.list) {
-                                    FundService.applyToFundPrevalidationCode(form.values.code).then(res => {
+                                    FundService.applyToFundPrevalidationCode(code).then(res => {
                                         $state.go('voucher', res.data.data);
                                     }, () => {
                                         alert('Helaas, er is geen fonds waarvoor u zich kan aanmelden.');
@@ -53,7 +60,7 @@ let ModalAuthComponent = function(
                                 } else if (res.data.records.list) {
                                     $state.go('records');
                                 } else {
-                                    $state.go('home');
+                                    $state.go('funds');
                                 }
                             });
                         }, (res) => {

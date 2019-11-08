@@ -8,7 +8,7 @@ let ProductService = function(ApiRequest) {
             );
         };
 
-        this.listAll = function(query) {
+        this.listAll = function(query = {}) {
             return ApiRequest.get('/platform/products', query);
         };
 

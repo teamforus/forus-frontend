@@ -2384,6 +2384,10 @@
             flex-wrap: wrap;
         }
 
+        .organizations-list {
+            display: block;
+        }
+
         .organization-item {
             width: 25%;
             text-align: center;
@@ -2392,8 +2396,12 @@
             margin-bottom: 15px;
             cursor: pointer;
 
+            &:nth-of-type(4n + 1) {
+                clear:both;
+            }
+
             .organization-item-inner {
-                padding: 30px;
+                padding: 30px 30px 20px;
                 display: block;
                 background: #fff;
                 border-radius: 5px;
@@ -2410,6 +2418,7 @@
                     border: 2px solid #e2e8e9;
                     margin: 0 auto;
                     overflow: hidden;
+                    margin-bottom: 10px;
 
                     img {
                         display: block;
@@ -2448,7 +2457,6 @@
             .organization-name {
                 font: 500 16px/30px $bf;
                 color: #282b39;
-                cursor: default;
             }
 
             .organization-categories {
