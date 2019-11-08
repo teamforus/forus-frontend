@@ -24,6 +24,7 @@
 @import 'components/grid';
 @import 'components/flex-grid';
 
+@import '../../../forus-webshop/scss/_common/includes/common';
 @import '../../../forus-webshop/scss/_common/components/ui-controls';
 @import '../../../forus-webshop/scss/_common/components/_buttons.scss';
 @import '../../../forus-webshop/scss/_common/sections/blocks/block-sign_up';
@@ -1378,6 +1379,7 @@
     }
 
     &.block-sign_up {
+
         .pre-step1 {
             width: 40px;
             border-top: 6px solid #BDCBFF;
@@ -1951,6 +1953,7 @@
                         background: #3561FF;
                         color: #FFFFFF;
                         font-size: 16px;
+                        text-transform: none;
 
                         &:focus {
                             background: #3561FF;
@@ -2022,9 +2025,11 @@
             }
 
             .info-block.info-block-primary {
+                color: #646f79;
+                font: 400 11px/16px $bf;
                 padding-top: 0px;
+                padding: 17.5px;
                 text-align: center;
-
                 background: none;
                 border: none;
             }
@@ -2510,6 +2515,37 @@
         width: 1200px;
         max-width: 100%;
         margin: 0 auto;
+
+        .section-product {
+            .back {
+                padding-bottom: 15px;
+                margin: 0px 50px;
+                font: 500 18px/22px $bf;
+                color: #9E9E9E;
+
+                span {
+                    display: inline-block;
+                    margin-top: 2px;
+                    font-size: 18px;
+                    color: #9E9E9E;
+                }
+            }
+
+            .heading {
+                font: 500 36px/36px $bf;
+                color: #191A1C;
+                text-align: center;
+            }
+
+            .sign_up-progress {
+                .sign_up-step {
+                    &.sign_up-step-active {
+                        border-top: 6px solid #BDCBFF;
+                        border-radius: 6px;   
+                    }      
+                }
+            }
+        }
 
         .block.block-photo-selector {
             margin-bottom: 25px;
