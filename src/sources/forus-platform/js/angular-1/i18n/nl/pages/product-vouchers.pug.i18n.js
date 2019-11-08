@@ -1,9 +1,10 @@
 module.exports = {
     header: {
-        title: "Vouchers",
+        title: "Aanbiedingsvouchers",
     },
     labels: {
         amount: "Bedrag",
+        product: "Aanbieding",
         created_date: "Aangemaakt op",
         expire_date: "Geldig tot",
         fund: "Fonds",
@@ -17,7 +18,6 @@ module.exports = {
     buttons: {
         add_new: "Aanmaken",
         upload_csv: "Upload CSV",
-        export: "Export",
         clear_filter: "Wis filter"
     },
     csv: {

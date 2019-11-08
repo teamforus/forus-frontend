@@ -9,8 +9,8 @@
 
         .modal-body: .modal-section
             .voucher-type
-                .voucher-type-title(i18n="modals.modal_product_voucher_create.modal_section.voucher_type_title")
-                .voucher-type-subtitle(i18n="modals.modal_product_voucher_create.modal_section.voucher_type_subtitle")
+                .voucher-type-title(i18n="modals.modal_product_voucher_create.modal_section.choose_title")
+                .voucher-type-subtitle(i18n="modals.modal_product_voucher_create.modal_section.choose_subtitle")
                 .voucher-type-row
                     .voucher-type-item(ng-click="$ctrl.voucherType = 'giftcard'" ng-class="{active: $ctrl.voucherType == 'giftcard'}")
                         .voucher-type-item-check: em.mdi.mdi-check-bold
@@ -28,14 +28,11 @@
     //- Activation code form
     .modal-window(ng-if="$ctrl.state == 'activation_code'")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-        .modal-header Aanbiedingsvoucher aanmaken
+        .modal-header(i18n="modals.modal_product_voucher_create.title")
         .modal-body 
             .modal-section: .voucher-type
-                .voucher-type-title Vul een activatiecode in.
-                .voucher-type-subtitle 
-                    | Het systeem zal controleren of de activatie code nog niet gebruikt is,
-                    | wanneer hij niet gebruikt is zal hij worden gebruikt om een aanbiedingsvoucher te genereren.
-            
+                .voucher-type-title(i18n="modals.modal_product_voucher_create.modal_section.activation_code_title")
+                .voucher-type-subtitle(i18n="modals.modal_product_voucher_create.modal_section.activation_code_subtitle" style="white-space: pre-wrap")
             .modal-section
                 pincode-control(
                     ng-model="$ctrl.activationCode" 
@@ -44,10 +41,10 @@
                     block-input-type="alphanum").block-pincode-compact
 
         .modal-footer.text-center
-            button.button.button-dark(type="button" ng-click="$ctrl.close()") Annuleren
+            button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="modals.modal_product_voucher_create.buttons.cancel")
             button.button.button-primary(
                 ng-if="$ctrl.voucherType" 
-                ng-click="$ctrl.submitActivationCode($ctrl.activationCode)") Aanmaken
+                ng-click="$ctrl.submitActivationCode($ctrl.activationCode)" i18n="modals.modal_product_voucher_create.buttons.submit")
     
     //- Invalid/Used activation code
     .modal-window(ng-if="$ctrl.state == 'activation_code_invalid'"): form.form(ng-submit="$ctrl.form.submit()")
@@ -55,13 +52,11 @@
         .modal-body 
             .modal-section: .voucher-type
                 .voucher-type-icon: .mdi.mdi-alert-outline
-                .voucher-type-title Mislukt! Deze activatiecode is niet juist.
-                .voucher-type-subtitle 
-                    | U voerde een activatiecode in die gebruikt is of niet bestaat.
-                    | Met deze code kunt u geen aanbiedingsvoucher genereren. 
+                .voucher-type-title(i18n="modals.modal_product_voucher_create.errors.title.activation_code_invalid")
+                .voucher-type-subtitle(i18n="modals.modal_product_voucher_create.errors.activation_code_invalid")
 
         .modal-footer.text-center
-            button.button.button-dark(type="button" ng-click="$ctrl.close()") Annuleren
+            button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="modals.modal_product_voucher_create.buttons.cancel")
     
     //- Invalid/Used activation code
     .modal-window(ng-if="$ctrl.state == 'no_products'"): form.form(ng-submit="$ctrl.form.submit()")
@@ -69,28 +64,26 @@
         .modal-body 
             .modal-section: .voucher-type
                 .voucher-type-icon: .mdi.mdi-alert-outline
-                .voucher-type-title Mislukt! Er zijn geen aanbiedingen om uit te selecteren.
-                .voucher-type-subtitle 
-                    | U moet eerst aanbieders goedkeuren die aanbiedingen hebben geplaatst.
+                .voucher-type-title(i18n="modals.modal_product_voucher_create.errors.title.no_products")
+                .voucher-type-subtitle(i18n="modals.modal_product_voucher_create.errors.no_products")
 
         .modal-footer.text-center
-            button.button.button-dark(type="button" ng-click="$ctrl.close()") Annuleren
+            button.button.button-dark(type="button" ng-click="$ctrl.close()"  i18n="modals.modal_product_voucher_create.buttons.cancel")
 
     //- Voucher form
     .modal-window(ng-if="$ctrl.state == 'voucher_form'"): form.form(ng-submit="$ctrl.form.submit()")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-        .modal-header Aanbiedingsvoucher aanmaken
+        .modal-header(i18n="modals.modal_product_voucher_create.title")
         .modal-body
             .modal-section 
                 .form-group.form-group-inline.form-group-inline-sm
-                    label.form-label Aanbieding
+                    label.form-label(i18n="modals.modal_product_voucher_create.labels.product")
                     select(
                         ng-options="product.id as product.name for product in $ctrl.products" 
                         ng-change="$ctrl.productChanged($ctrl.form.values.product_id)"
                         ng-model="$ctrl.form.values.product_id").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.product_id" ng-bind="error")
-                    .form-error(ng-if="$ctrl.products.length == 0") 
-                        | Mislukt, dit fonds heeft geen goedgekeurde aanbieders met aanbiedingen.
+                    .form-error(ng-if="$ctrl.products.length == 0" i18n="modals.modal_product_voucher_create.errors.need_providers")
                 
                 .form-group.form-group-inline.form-group-inline-sm
                     label.form-label(i18n="modals.modal_voucher_create.labels.expire_at")
