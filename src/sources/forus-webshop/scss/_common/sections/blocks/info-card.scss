@@ -1,5 +1,4 @@
 .block {
-
     &.block-info-card {
         border: 1px solid $border_color;
         background: #fff;
@@ -7,38 +6,22 @@
         overflow: hidden;
         box-shadow: 0 10px 25px rgba(#000, .2);
         margin-bottom: 30px;
-        
+
         .block-header {
             font: 700 16px/30px $bf;
             padding: 20px 25px;
             border-bottom: 1px solid $border_color;
-
-            @media screen and (max-width: 767px) {
-                padding: 20px 10px;
-            }
         }
 
         .block-content {
             padding: 20px 25px;
             color: #00122a;
 
-            /* p {
-                font: 400 14px/24px $bf;
-                color: inherit;
-                margin: 0 0 25px;
-            }
-
-            h4 {
-                font: 700 16px $bf;
-                color: inherit;
-                margin: 0 0 25px;
-            } */
-
             .lvl {
                 display: flex;
                 flex-wrap: wrap;
                 margin-bottom: 15px;
-                
+
                 .lvr {
                     width: 100%;
                     display: flex;
@@ -78,10 +61,6 @@
             .info-office-details {
                 padding: 15px 25px 20px;
 
-                @media screen and (max-width: 767px)  {
-                    padding: 5px 10px 5px;
-                }
-
                 .info-office-title {
                     font: 700 16px/24px $bf;
                     margin-bottom: 10px;
@@ -95,8 +74,37 @@
                 }
 
                 .sub-description {
-                    font: 700 14px/2px $bf;
+                    font: 700 14px/20px $bf;
                     margin-top: 20px;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        &.block-info-card {
+            .info-office {
+                display: flex;
+                flex-direction: column;
+
+                .info-office-photo {
+                    width: 100%;
+                    overflow: hidden;
+
+                    img {
+                        display: block;
+                        margin: -25% 0;
+                    }
+                }
+
+                .info-office-details {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 20px;
+
+                    .sub-description {
+                        margin: 0 0 0;
+                    }
                 }
             }
         }
