@@ -2328,20 +2328,19 @@
         }
 
         .organizations-list {
-            display: block;
+            display: flex;
+            flex-wrap: wrap;
+            @include cf();
         }
 
         .organization-item {
             width: 25%;
             text-align: center;
             padding: 0 12px;
-            float: left;
             margin-bottom: 15px;
             cursor: pointer;
-
-            &:nth-of-type(4n + 1) {
-                clear:both;
-            }
+            float: left;
+            height: 100%;
 
             .organization-item-inner {
                 padding: 30px 30px 20px;
@@ -2398,7 +2397,7 @@
             }
 
             .organization-name {
-                font: 500 16px/30px $bf;
+                font: 500 15px/24px $bf;
                 color: #282b39;
             }
 

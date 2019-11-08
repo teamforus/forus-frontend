@@ -3,7 +3,7 @@ let ValidationRequestComponent = function(
     ValidatorRequestService,
     appConfigs
 ) {
-    if (!appConfigs.features.validationRequests) {
+    if (!appConfigs.features.organizations.funds.fund_requests) {
         return $state.go('csv-validation');
     }
     
