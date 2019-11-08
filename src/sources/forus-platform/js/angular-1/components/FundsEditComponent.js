@@ -160,7 +160,6 @@ let FundsEditComponent = function(
 
         ProductService.listAll({
             per_page: 1000,
-            fund_id: 1,
             unlimited_stock: 1,
         }).then(res => {
             $ctrl.products = res.data.data.map(product => ({
