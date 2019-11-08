@@ -578,12 +578,13 @@ module.exports = {
             email: "E-mailadres",
             roles: "Rollen",
             actions: "Actie",
+            owner: "Eigenaar"
         },
         buttons: {
             adjust: "Aanpassen",
             delete: "Verwijderen",
             add: "Toevoegen",
-        },
+        }
     },
 
     // TRANSACTIONS = transaction.pug

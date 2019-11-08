@@ -18,7 +18,7 @@ module.exports = {
         "record-validate": 'Valideer eigenschap',
         "record-validations": 'Validaties',
         "record-create": 'Eigenschap toevoegen',
-        "funds-apply": 'Meld u aan voor een fonds',
+        "funds-apply": 'Meld u aan voor de fondsen',
         "restore-email": 'Inloggen via e-mail',
     },
     implementation_name: {
@@ -74,5 +74,4 @@ module.exports = {
     fund_criterion: require("./nl/directives/fund-criterion"),
     maps: require("./nl/directives/google-map"),
     profile_card: require("./nl/directives/profile-card"),
-
 };

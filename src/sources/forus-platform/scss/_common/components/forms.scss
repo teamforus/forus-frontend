@@ -25,6 +25,14 @@
         color: $color_primary;
     }
 
+    .form-value {
+        display: block;
+        cursor: default;
+        font: 500 13px/26px $bf;
+        padding: 5px 0;
+        color: $tc;
+    }
+
     .form-toggle {
         width: 100%;
         $colorPrimary: $color_primary;
@@ -359,7 +367,6 @@
         padding-right: 15px;
         padding-left: 25px;
         vertical-align: middle;
-        @include cf();
 
         .checkbox-box {
             float: left;
@@ -410,6 +417,20 @@
         &.checkbox-narrow {
             padding-top: 5px;
             padding-bottom: 5px;
+        }
+
+        &[disabled] {
+            position: relative;
+            opacity: .4;
+            filter: grayscale(1);
+            cursor: default;
+            user-select: none;
+            pointer-events: none;
+
+            &:after {
+                content: '';
+                @include fill_parent();
+            }
         }
     }
 
