@@ -38,10 +38,12 @@ module.exports = {
     // MODALS
     modals: {
         modal_voucher_create: require('./nl/modals/modal-voucher-create.pug.i18n'),
+        modal_product_voucher_create: require('./nl/modals/modal-product-voucher-create.pug.i18n'),
         modal_voucher_qr_code: require('./nl/modals/modal-voucher-qr_code.pug.i18n'),
     },
     // PAGES
     vouchers: require('./nl/pages/vouchers.pug.i18n'),
+    product_vouchers: require('./nl/pages/product-vouchers.pug.i18n'),
 
     // MEAPP LANDINGSPAGE = index.pug
     meapp_index: {

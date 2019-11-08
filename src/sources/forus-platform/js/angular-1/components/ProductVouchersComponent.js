@@ -1,7 +1,6 @@
-let VouchersComponent = function(
+let ProductVouchersComponent = function(
     $state,
     $timeout,
-    FileService,
     DateService,
     ModalService,
     VoucherService
@@ -22,7 +21,7 @@ let VouchersComponent = function(
     $ctrl.filters = {
         show: false,
         values: {},
-        reset: function() {
+        reset: function () {
             this.values.q = '';
             this.values.granted = null;
             this.values.fund_id = $ctrl.funds[0] ? $ctrl.funds[0].id : null;
@@ -30,7 +29,7 @@ let VouchersComponent = function(
             this.values.amount_max = null;
             this.values.from = null;
             this.values.to = null;
-            this.values.type = 'fund_voucher';
+            this.values.type = 'product_voucher';
         }
     };
 
@@ -57,8 +56,8 @@ let VouchersComponent = function(
         });
     };
 
-    $ctrl.createVoucher = () => {
-        ModalService.open('voucher_create', {
+    $ctrl.createProductVoucher = () => {
+        ModalService.open('product_voucher_create', {
             fund: $ctrl.fund,
             organization: $ctrl.organization,
             onCreated: () => {
@@ -67,29 +66,14 @@ let VouchersComponent = function(
         });
     }
 
-    $ctrl.uploadVouchersCsv = () => {
+    $ctrl.uploadProductVouchersCsv = () => {
         ModalService.open('vouchersUpload', {
             fund: $ctrl.fund,
             organization: $ctrl.organization,
+            type: 'product_voucher',
             done: () => {
                 $state.reload();
             }
-        });
-    };
-
-    $ctrl.exportUnassignedQRCodes = () => {
-        VoucherService.downloadQRCodes(
-            $ctrl.organization.id,
-            $ctrl.filters.values.from,
-            $ctrl.filters.values.to
-        ).then(res => {
-            FileService.downloadFile(
-                'vouchers_' + moment().format(
-                    'YYYY-MM-DD HH:mm:ss'
-                ) + '.zip',
-                res.data,
-                res.headers('Content-Type') + ';charset=utf-8;'
-            );
         });
     };
 
@@ -129,7 +113,7 @@ let VouchersComponent = function(
     $ctrl.$onInit = () => {
         if (!$ctrl.fund) {
             if ($ctrl.funds.length > 0) {
-                $state.go('vouchers', {
+                $state.go('product-vouchers', {
                     organization_id: $state.params.organization_id,
                     fund_id: $ctrl.funds[0].id,
                 });
@@ -152,11 +136,10 @@ module.exports = {
     controller: [
         '$state',
         '$timeout',
-        'FileService',
         'DateService',
         'ModalService',
         'VoucherService',
-        VouchersComponent
+        ProductVouchersComponent
     ],
-    templateUrl: 'assets/tpl/pages/vouchers.html'
+    templateUrl: 'assets/tpl/pages/product-vouchers.html'
 };

@@ -63,6 +63,16 @@
                     margin-bottom: 0;
                 }
 
+                .td-icon {
+                    color: $color_primary;
+                    transition: .4s;
+                    font-size: 20px;
+
+                    &:hover {
+                        color: $color_primary_light;
+                    }
+                }
+
                 .td-boolean {
                     color: #646f79;
                     font: 500 13px/20px $bf;
