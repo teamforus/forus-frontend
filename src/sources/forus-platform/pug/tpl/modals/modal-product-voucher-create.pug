@@ -5,25 +5,25 @@
     //- Select type
     .modal-window(ng-if="$ctrl.state == 'select_type'"): form.form(ng-submit="$ctrl.form.submit()")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-        .modal-header Aanbiedingsvoucher aanmaken
+        .modal-header(i18n="modals.modal_product_voucher_create.title")
 
         .modal-body: .modal-section
             .voucher-type
-                .voucher-type-title Selecteer op welke manier u een aanbiedingsvoucher wilt aanmaken.
-                .voucher-type-subtitle Als u een activatie code bij de hand hebt, gebruik dan de tweede optie.
+                .voucher-type-title(i18n="modals.modal_product_voucher_create.modal_section.voucher_type_title")
+                .voucher-type-subtitle(i18n="modals.modal_product_voucher_create.modal_section.voucher_type_subtitle")
                 .voucher-type-row
                     .voucher-type-item(ng-click="$ctrl.voucherType = 'giftcard'" ng-class="{active: $ctrl.voucherType == 'giftcard'}")
                         .voucher-type-item-check: em.mdi.mdi-check-bold
                         .voucher-type-item-icon: img(src=src_prefix + "/assets/img/voucher-type-giftcard.svg").voucher-type-item-icon-img
-                        | Als een niet-toegekende voucher
+                        | {{ 'modals.modal_product_voucher_create.modal_section.voucher_type_item.giftcard' | i18n }}
                     .voucher-type-item(ng-click="$ctrl.voucherType = 'activation_code'" ng-class="{active: $ctrl.voucherType == 'activation_code'}")
                         .voucher-type-item-check: em.mdi.mdi-check-bold
                         .voucher-type-item-icon: img(src=src_prefix + "/assets/img/voucher-type-code.svg").voucher-type-item-icon-img
-                        | via activatie-code
+                        | {{ 'modals.modal_product_voucher_create.modal_section.voucher_type_item.activation_code' | i18n }}
 
         .modal-footer.text-center
-            button.button.button-dark(type="button" ng-click="$ctrl.close()") Annuleren
-            button.button.button-primary(type="button" ng-if="$ctrl.voucherType" ng-click="$ctrl.submitVoucherType()") Aanmaken
+            button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="modals.modal_product_voucher_create.buttons.cancel")
+            button.button.button-primary(type="button" ng-if="$ctrl.voucherType" ng-click="$ctrl.submitVoucherType()" i18n="modals.modal_product_voucher_create.buttons.submit")
 
     //- Activation code form
     .modal-window(ng-if="$ctrl.state == 'activation_code'")
