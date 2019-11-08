@@ -63,7 +63,7 @@
                         label(translate="{{ !$ctrl.form.products.length ? 'funds_edit.labels.products' : '' }}").form-label
                         .button.button-primary(ng-click="$ctrl.addProduct()")
                             em.mdi.mdi-plus-circle.icon-start
-                            translate Add new product
+                            translate Product toevoegen
 
             .card-section.card-section-primary(ng-if="$root.appConfigs.features.organizations.funds.criteria")
                 .row(ng-repeat="criteria in $ctrl.form.values.criteria")
