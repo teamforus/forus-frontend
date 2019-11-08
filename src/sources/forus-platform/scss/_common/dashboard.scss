@@ -24,6 +24,10 @@
 @import 'components/grid';
 @import 'components/flex-grid';
 
+@import '../../../forus-webshop/scss/_common/components/ui-controls';
+@import '../../../forus-webshop/scss/_common/components/_buttons.scss';
+@import '../../../forus-webshop/scss/_common/sections/blocks/block-sign_up';
+
 
 .hover-actions {
     position: relative;
