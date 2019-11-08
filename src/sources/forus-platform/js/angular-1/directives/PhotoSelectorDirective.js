@@ -62,6 +62,9 @@ module.exports = () => {
             'ModalService',
             PhotoSelectorDirective
         ],
-        templateUrl: 'assets/tpl/directives/photo-selector.html'
+        templateUrl: ($el, $attr) => {
+            let template = $attr.template || 'photo-selector';
+            return 'assets/tpl/directives/' + template + '.html'
+        }
     };
 };

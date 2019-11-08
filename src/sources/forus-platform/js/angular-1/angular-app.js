@@ -1,8 +1,10 @@
 require('./modules/select-control/SelectControlModule');
+require('../../../forus-webshop/js/angular-1/modules/ui-controls/UIControlsModule');
 
 let app = angular.module('forusApp', [
     'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 
     'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize',
+    'forus.uiControls'
 ]);
 
 app.constant('appConfigs', env_data);
@@ -93,6 +95,7 @@ app.service('SmsService', require('./services/SmsService'));
 app.service('FileService', require('./services/FileService'));
 app.service('FundRequestValidatorService', require('./services/FundRequestValidatorService'));
 app.service('EmailPreferencesService', require('./services/EmailPreferencesService'));
+app.service('DemoTransactionService', require('./services/DemoTransactionService'));
 
 // Directives
 switch (env_data.panel_type) {

@@ -1,144 +1,110 @@
 let SignUpComponent = function(
     $q,
     $state,
-    $stateParams,
     $scope,
     $rootScope,
     $timeout,
-    $interval,
     $filter,
+    $interval,
     OrganizationService,
     OfficeService,
     IdentityService,
     CredentialsService,
     FormBuilderService,
     MediaService,
-    ProviderFundService,
+    OrganizationEmployeesService,
     SmsService,
+    DemoTransactionService,
     appConfigs
 ) {
     let $ctrl = this;
 
     /*
-     step 1 - app links
-     step 2 - email and name form
-     step 3 - organization form
-     step 5 - pin code
-     step 6 - qr code
+     step 1 - General information
+     step 2 - Scan QR Code
+     step 3 - Manage organization details
+     step 4 - Manage offices
+     step 5 - Manage employees
      */
     $ctrl.step = 1;
     $ctrl.organizationStep = false;
     $ctrl.signedIn = !!$rootScope.auth_user;
     $ctrl.showLoginBlock = false;
     $ctrl.organization = null;
-    $ctrl.fundsAvailable = [];
     $ctrl.offices = [];
+    $ctrl.employees = [];
     $ctrl.sentSms = false;
 
     let has_app = false;
     let orgMediaFile = false;
     let waitingSms = false;
     let timeout;
+    let officeMediaFile = false;
 
-    let invalidPermissions = {
-        sponsor: [
-            "manage_provider_funds", "manage_products", "manage_offices",
-            "scan_vouchers"
-        ],
-        provider: [
-            "manage_funds", "manage_providers", "manage_validators",
-            "validate_records", "scan_vouchers"
-        ]
-    } [appConfigs.panel_type];
-
-    $ctrl.beforeInit = () => {
-        if ($ctrl.signedIn) {
-            OrganizationService.list().then(res => {
-                $ctrl.organizations = res.data.data.filter(organization => {
-                    return organization.permissions.filter((permission => {
-                        return invalidPermissions.indexOf(permission) == -1;
-                    })).length > 0;
-                });
-
-                if ($ctrl.organizations.length == 0) {
-                    $ctrl.setStep(3);
-                } else if ($ctrl.organizations.length == 1) {
-                    $ctrl.organization = $ctrl.organizations[0];
-                    loadOrganizationOffices($ctrl.organization);
-                    loadAvailableFunds($ctrl.organization);
-                    $ctrl.setStep(4);
-                } else {
-                    $state.go('organizations');
-                    progressStorage.clear();
-                }
-            });
-        }
-    };
-
-    $ctrl.afterInit = () => {
-
-    };
+    $ctrl.afterInit = () => {};
 
     let progressStorage = new(function() {
-        let interval;
-
         this.init = () => {
-            let step = this.getStep();
-
-            if (step != null) {
-                if (step == 3 && !$ctrl.signedIn) {
-                    step = 2;
+            if ($ctrl.signedIn) {
+                let step = this.getStep();
+    
+                if (step) {
+                    this.setStep(step);
+                } else {
+                    this.setStep(3);
                 }
-
-                $ctrl.setStep(step);
+            } else {
+                this.setStep(1);
             }
-
-            if (localStorage.getItem('sign_up_form.signUpForm') != null) {
-                $ctrl.signUpForm.values = JSON.parse(
-                    localStorage.getItem('sign_up_form.signUpForm')
-                );
-            }
-
-            if (localStorage.getItem('sign_up_form.organizationForm') != null) {
-                $ctrl.organizationForm.values = JSON.parse(
-                    localStorage.getItem('sign_up_form.organizationForm')
-                );
-            }
-
-            interval = $interval(() => {
-                if ($ctrl.step == 2) {
-                    if ($ctrl.signUpForm.values) {
-                        localStorage.setItem('sign_up_form.signUpForm', JSON.stringify(
-                            $ctrl.signUpForm.values
-                        ));
-                    }
-                } else if ($ctrl.step == 3) {
-                    if ($ctrl.organizationForm.values) {
-                        localStorage.setItem('sign_up_form.organizationForm', JSON.stringify(
-                            $ctrl.organizationForm.values
-                        ));
-                    }
-                }
-            }, 500);
-        };
-
-        this.destroy = () => {
-            $interval.cancel(interval);
         };
 
         this.setStep = (step) => {
             localStorage.setItem('sign_up_form.step', step);
+
+            if (step == 7) {
+                DemoTransactionService.store().then(res => {
+                    $ctrl.demoToken = res.data.data.token;
+
+                    let interval = $interval(() => {
+                        DemoTransactionService.read($ctrl.demoToken).then(res => {
+
+                            if (res.data.data.state != 'pending') {
+                                $interval.cancel(interval);
+                            }
+                        });
+                    }, 1000);
+                });
+            }
+
+            $ctrl.step = step;
         };
 
         this.getStep = () => {
             let step = parseInt(localStorage.getItem('sign_up_form.step'));
 
+            if (step >= 3) {
+                let organisation_data = {};
+
+                if (localStorage.getItem('sign_up_form.organizationForm') != null) {
+                    organisation_data = JSON.parse(
+                        localStorage.getItem('sign_up_form.organizationForm')
+                    );
+                }
+
+                if (step == 3) {
+                    $ctrl.organizationForm.values = organisation_data;
+                } else {
+                    $ctrl.organization = organisation_data;
+
+                    loadOrganizationOffices($ctrl.organization);
+                    loadEmployees($ctrl.organization);
+                }
+            }
+
             return isNaN(step) ? null : step;
         };
 
         this.clear = () => {
-            $interval.cancel(interval);
-
             localStorage.removeItem('sign_up_form.step');
             localStorage.removeItem('sign_up_form.signUpForm');
             localStorage.removeItem('sign_up_form.organizationForm');
@@ -149,8 +115,107 @@ let SignUpComponent = function(
         $ctrl.organizationForm.values.business_type_id = value.id;
     };
 
+    $ctrl.buildOfficeForm = (values) => {
+        return FormBuilderService.build(values, async (form) => {
+            form.lock();
+            
+            let promise;
+    
+            if (officeMediaFile) {
+                let res = await MediaService.store('office_photo', officeMediaFile);
+    
+                $ctrl.officeMedia = res.data.data;
+                form.values.media_uid = $ctrl.officeMedia.uid;
+                
+                officeMediaFile = false;
+            } else {
+                delete form.values.media_uid;
+            }
+    
+            if (form.values.id) {
+                promise = OfficeService.update(
+                    $ctrl.organization.id,
+                    form.values.id,
+                    form.values
+                )
+            } else {
+                promise = OfficeService.store(
+                    $ctrl.organization.id,
+                    form.values
+                )
+            }
+            
+            promise.then((res) => {
+                if (!form.values.id) {
+                    $ctrl.offices.push(res.data.data);
+                } else {
+                    let office = $ctrl.offices.filter((office) => office.id == form.values.id)[0];
+                    for(let value in form.values) {
+                        office[value] = form.values[value];
+                    }
+                }
+                
+                $ctrl.enableSaveOfficeBtn = false;
+                $ctrl.enableAddOfficeBtn  = true;
+            }, (res) => {
+                form.errors = res.data.errors;
+                form.unlock();
+
+                $ctrl.enableSaveOfficeBtn = true;
+                $ctrl.enableAddOfficeBtn  = false;
+            });
+        });
+    };
+
+    $ctrl.buildEmployeeForm = (values) => {
+        return FormBuilderService.build(values, async (form) => {
+            form.lock();
+    
+            let promise;
+    
+            // Role operation_officer
+            form.values.roles = [5];
+
+            if (form.values.id) {
+                promise = OrganizationEmployeesService.update(
+                    $ctrl.organization.id,
+                    form.values.id,
+                    form.values
+                )
+            } else {
+                promise = OrganizationEmployeesService.store(
+                    $ctrl.organization.id,
+                    form.values
+                )
+            }
+            
+            promise.then((res) => {
+                if (!form.values.id) {
+                    $ctrl.employees.push(res.data.data);
+                } else {
+                    let employee = $ctrl.employees.filter(
+                        (employee) => employee.id == form.values.id
+                    )[0];
+
+                    for(let value in form.values) {
+                        employee[value] = form.values[value];
+                    }
+                }
+
+                $ctrl.enableSaveEmployeeBtn = false;
+                $ctrl.enableAddEmployeeBtn  = true;
+            }, (res) => {
+                form.errors = res.data.errors;
+                form.unlock();
+
+                $ctrl.enableSaveEmployeeBtn = true;
+                $ctrl.enableAddEmployeeBtn  = false;
+            });
+        });
+    };
+
     $ctrl.$onInit = function() {
-        $ctrl.beforeInit();
+        $ctrl.requestAuthQrToken();
 
         $ctrl.signUpForm = FormBuilderService.build({
             pin_code: "1111",
@@ -212,6 +277,14 @@ let SignUpComponent = function(
             );
         });
 
+        $ctrl.officeForm = $ctrl.buildOfficeForm({});
+
+        if ($ctrl.office && $ctrl.office.photo) {
+            MediaService.read($ctrl.office.photo.uid).then((res) => {
+                $ctrl.officeMedia = res.data.data;
+            });
+        }
+
         $ctrl.businessType = $ctrl.businessTypes.filter(
             option => option.id == $ctrl.organizationForm.values.business_type_id
         )[0] || null;
@@ -223,19 +296,195 @@ let SignUpComponent = function(
         $ctrl.afterInit();
     };
 
-    $ctrl.changeHasApp = function() {
-        has_app = !has_app;
+    $ctrl.deleteOffice = (office) => {
+        OfficeService.destroy(office.organization_id, office.id).then((res) => {
+            $ctrl.offices = $ctrl.offices.filter((_office) => {
+                return typeof _office.id == 'undefined' || _office.id != office.id;
+            });
+        });
     };
 
-    $ctrl.skipToStep = (step) => {
-        if (step == 7) {
-            if ($ctrl.organization) {
-                loadOrganizationOffices($ctrl.organization);
-                loadAvailableFunds($ctrl.organization);
-            }
+    $ctrl.editOffice = (office) => {
+        if (office.schedule) {
+            office.scheduleDetails = [];
+
+            office.schedule.forEach((weekDay, index) => {
+                office.scheduleDetails.push({
+                    is_opened : true
+                });
+            });
+        }
+        
+        $ctrl.officeForm.values = angular.copy(office);
+
+        $ctrl.enableSaveOfficeBtn = true;
+        $ctrl.enableAddOfficeBtn  = false;
+    };
+
+    $ctrl.addOffice = () => {
+        if (!Array.isArray($ctrl.offices)) {
+            $ctrl.offices = [];
         }
 
-        $ctrl.setStep(step);
+        $ctrl.officeForm = $ctrl.buildOfficeForm();
+
+        $ctrl.enableSaveOfficeBtn = true;
+        $ctrl.enableAddOfficeBtn  = false;
+    };
+
+    $ctrl.saveOffice = () => {
+        $ctrl.officeForm = $ctrl.buildOfficeForm($ctrl.officeForm.values); 
+
+        $ctrl.officeForm.submit();
+    };
+
+    $ctrl.syncTwoDatesHours = (date1, date2) => {
+        date1.start_time = date2.start_time;
+        date1.end_time   = date2.end_time;
+        date1.break_start_time = date2.break_start_time;
+        date1.break_end_time   = date2.break_end_time;
+    }
+
+    $ctrl.setSameWeekDayHours = (week_days) => {
+        if ((week_days && $ctrl.officeForm.values.same_hours) || 
+            (!week_days && $ctrl.officeForm.values.weekend_same_hours)
+        ) {
+            $ctrl.weekDays.forEach((weekDayKey, index) => {
+                if ((week_days && index <= 4) || (!week_days && index >= 5)) {
+                    if (typeof $ctrl.officeForm.values.scheduleDetails == 'undefined') {
+                        $ctrl.officeForm.values.scheduleDetails = {};
+                    }
+                    
+                    if (typeof $ctrl.officeForm.values.scheduleDetails[index] == 'undefined') {
+                        $ctrl.officeForm.values.scheduleDetails[index] = {};
+                    }
+                    
+                    $ctrl.officeForm.values.scheduleDetails[index].is_opened = true;
+                }
+            });
+        }
+    };
+
+    $ctrl.syncWithFirstRecord = (week_days) => {
+        if (((week_days && $ctrl.officeForm.values.same_hours) ||
+            (!week_days && $ctrl.officeForm.values.weekend_same_hours)) &&
+            typeof $ctrl.officeForm.values.schedule != 'undefined' &&
+            typeof $ctrl.officeForm.values.schedule[week_days ? 0 : 5] != 'undefined'
+        ) { 
+            let time = $ctrl.officeForm.values.schedule[week_days ? 0 : 5];
+
+            $ctrl.weekDays.forEach((weekDayKey, index) => {
+                if (typeof $ctrl.officeForm.values.scheduleDetails != 'undefined' && 
+                    typeof $ctrl.officeForm.values.scheduleDetails[index] != 'undefined' &&
+                    $ctrl.officeForm.values.scheduleDetails[index].is_opened &&
+                    (week_days && index <= 4) || (!week_days && index >= 5)
+                ) {
+                    if (typeof $ctrl.officeForm.values.schedule[index] == 'undefined') {
+                        $ctrl.officeForm.values.schedule[index] = {};
+                    }
+
+                    $ctrl.syncTwoDatesHours($ctrl.officeForm.values.schedule[index], time);
+                }
+            });
+        }
+    };
+
+    $ctrl.syncTime = (modifiedFieldIndex) => {
+        let time = $ctrl.officeForm.values.schedule[modifiedFieldIndex],
+            week_days = modifiedFieldIndex <= 4;
+
+        $ctrl.weekDays.forEach((weekDayKey, index) => {
+            if (typeof $ctrl.officeForm.values.scheduleDetails != 'undefined' && 
+                typeof $ctrl.officeForm.values.scheduleDetails[index] != 'undefined' &&
+                $ctrl.officeForm.values.scheduleDetails[index].is_opened &&
+                (week_days && index <= 4) || (!week_days && index >= 5)
+            ) {
+                if ((week_days && !$ctrl.officeForm.values.same_hours) || 
+                    (!week_days && !$ctrl.officeForm.values.weekend_same_hours)
+                ) {
+                    return;
+                }
+
+                if (typeof $ctrl.officeForm.values.schedule[index] == 'undefined') {
+                    $ctrl.officeForm.values.schedule[index] = {};
+                }
+                
+                $ctrl.syncTwoDatesHours($ctrl.officeForm.values.schedule[index], time);
+            }
+        });
+    };
+
+    $ctrl.setSameHours = (week_days = true) => {
+        $timeout(() => {
+            $ctrl.setSameWeekDayHours(week_days);
+            $ctrl.syncWithFirstRecord(week_days);
+        }, 0);
+    };
+
+    $ctrl.syncHours = (modifiedFieldIndex) => {
+        $timeout(() => {
+            $ctrl.syncTime(modifiedFieldIndex);
+        }, 0);
+    };
+
+    $ctrl.toggleOpened = (index) => {
+        $timeout(() => {
+            let schedule = $ctrl.officeForm.values.scheduleDetails;
+
+            if (typeof schedule[index] == 'undefined') {
+                schedule[index] = {};
+            }
+
+            $ctrl.officeForm.values.scheduleDetails[index].is_opened != 
+                schedule[index].is_opened;
+
+            if (!schedule[index].is_opened || 
+                typeof $ctrl.officeForm.values.schedule == 'undefined' ||
+                typeof $ctrl.officeForm.values.schedule[index] == 'undefined'
+            ) {
+                return;
+            }
+
+            delete $ctrl.officeForm.values.schedule[index];
+        }, 0);
+    };
+
+    $ctrl.saveEmployee = () => {
+        $ctrl.employeeForm = $ctrl.buildEmployeeForm($ctrl.employeeForm.values);
+
+        $ctrl.employeeForm.submit();
+    };
+
+    $ctrl.addEmployee = () => {
+        if (!Array.isArray($ctrl.employees)) {
+            $ctrl.employees = [];
+        }
+
+        $ctrl.employeeForm = $ctrl.buildEmployeeForm();
+
+        $ctrl.enableSaveEmployeeBtn = true;
+        $ctrl.enableAddEmployeeBtn  = false;
+    };
+
+    $ctrl.editEmployee = (employee) => {
+        $timeout(function() {
+            $ctrl.employeeForm.values = angular.copy(employee);
+
+            $ctrl.enableSaveEmployeeBtn = true;
+            $ctrl.enableAddEmployeeBtn  = false;
+        }, 500);
+    };
+
+    $ctrl.deleteEmployee = function(employee) {
+        OrganizationEmployeesService.destroy($ctrl.organization.id, employee.id).then((res) => {
+            $ctrl.employees = $ctrl.employees.filter((_employee) => {
+                return _employee.id == 'undefined' ||_employee.id != employee.id;
+            });
+        });
+    };
+
+    $ctrl.changeHasApp = function() {
+        has_app = !has_app;
     };
 
     let loadOrganizationOffices = (organization) => {
@@ -250,48 +499,23 @@ let SignUpComponent = function(
         });
     };
 
-    let loadAvailableFunds = (organization) => {
-        ProviderFundService.listAvailableFunds(
-            organization.id, $stateParams.fundId ? {
-                fund_id: $stateParams.fundId
-            } : {}
+    let loadEmployees = (organization) => {
+        OrganizationEmployeesService.list(
+            organization.id
         ).then((res) => {
-            let fundsAvailable = res.data.data;
-
-            if ($stateParams.fundId && fundsAvailable.length > 0) {
-                let targetFund = fundsAvailable.filter(
-                    fund => fund.id == $stateParams.fundId
-                )[0] || null;
-
-                if (targetFund) {
-                    return ProviderFundService.applyForFund(
-                        $ctrl.organization.id,
-                        targetFund.id
-                    ).then($ctrl.next);
-                }
+            if (res.data.data.length) {
+                $ctrl.employees = res.data.data;
+            } else {
+                $ctrl.addEmployee();
             }
-
-            $ctrl.fundsAvailable = fundsAvailable;
-
-            $scope.$watch(() => $ctrl.fundsAvailable, function(funds) {
-                $ctrl.fundsLeft = (funds || []).filter(fund => {
-                    return !fund.applied;
-                });
-            }, true);
         });
     };
 
     $ctrl.setStep = (step) => {
-        $ctrl.step = step;
-
-        if (step <= 3) {
-            progressStorage.setStep($ctrl.step);
+        if (step <= $ctrl.totalSteps.length) {
+            progressStorage.setStep(step);
         } else {
             progressStorage.clear();
-        }
-
-        if (step == 7 && appConfigs.panel_type == 'sponsor') {
-            $state.go('organizations');
         }
     };
 
@@ -299,21 +523,18 @@ let SignUpComponent = function(
         $ctrl.organization = organization;
 
         loadOrganizationOffices(organization);
+        loadEmployees(organization);
     };
 
-    $ctrl.addOffice = () => {
-        if (!Array.isArray($ctrl.offices)) {
-            $ctrl.offices = [];
-        }
-
-        $ctrl.offices.push(false);
-    };
+    $ctrl.enableSaveOfficeBtn = false;
+    $ctrl.enableAddOfficeBtn = true;
 
     $ctrl.next = async function() {
         if ($ctrl.organizationStep && !$ctrl.signedIn && $ctrl.step > 1) {
             $ctrl.signUpForm.submit().then((res) => {
                 CredentialsService.set(res.data.access_token);
                 $ctrl.setStep($ctrl.step + 1);
+
                 $ctrl.signedIn = true;
             }, (res) => {
                 $ctrl.signUpForm.unlock();
@@ -324,6 +545,8 @@ let SignUpComponent = function(
         }
 
         if ($ctrl.step == 1) {
+            $ctrl.setStep($ctrl.step + 1);
+        } else if ($ctrl.step == 2) {
 
             if (!waitingSms) {
                 $scope.phoneForm.submit().then((res) => {
@@ -339,30 +562,6 @@ let SignUpComponent = function(
                     }
                 });
             }
-
-        } else if ($ctrl.step == 2) {
-
-            if ($ctrl.signUpForm.values.records && (
-                    $ctrl.signUpForm.values.records.primary_email !=
-                    $ctrl.signUpForm.values.records.primary_email_confirmation)) {
-                $ctrl.signUpForm.errors = {};
-                $ctrl.signUpForm.errors['records.primary_email_confirmation'] = [$filter('translate')('validation.email_confirmation')];
-            } else {
-
-                IdentityService.make({
-                    records: {
-                        primary_email: $ctrl.signUpForm.values.records ? $ctrl.signUpForm.values.records.primary_email : ''
-                    }
-                }).then((res) => {}, (res) => {
-                    $ctrl.signUpForm.errors = {};
-                    if (res.data.errors['records.primary_email'] && res.data.errors['records.primary_email'].length) {
-                        $ctrl.signUpForm.errors['records.primary_email'] = res.data.errors['records.primary_email'];
-                    } else {
-                        $ctrl.setStep(3);
-                    }
-                });
-            }
-
         } else if ($ctrl.step == 3) {
             let authRes;
 
@@ -371,6 +570,7 @@ let SignUpComponent = function(
                     $ctrl.signUpForm.unlock();
                     $ctrl.signUpForm.errors = res.data.errors;
                     $ctrl.organizationStep = true;
+                    
                     $ctrl.setStep(2);
                 });
 
@@ -394,41 +594,28 @@ let SignUpComponent = function(
                 $rootScope.$broadcast('auth:update');
 
                 $ctrl.setOrganization(res.data.data);
+                if ($ctrl.step == 3 && $ctrl.organizationForm.values) {
+                    localStorage.setItem('sign_up_form.organizationForm', JSON.stringify(
+                        res.data.data
+                    ));
+                }
+
                 $ctrl.setStep(4);
             }, (res) => {
                 $ctrl.organizationForm.errors = res.data.errors;
                 $ctrl.organizationForm.unlock();
             });
 
-        } else if ($ctrl.step == 4) {
-            $ctrl.setStep(5);
-        } else if ($ctrl.step == 5) {
-
-            $scope.authorizePincodeForm.submit().then((res) => {
-                CredentialsService.set(null);
-
-                $ctrl.requestAuthQrToken();
-                $ctrl.setStep($ctrl.step + 1);
-
-            }, (res) => {
-                $scope.authorizePincodeForm.unlock();
-                $scope.authorizePincodeForm.errors = res.data.errors;
-
-                if (res.status == 404) {
-                    $scope.authorizePincodeForm.errors = {
-                        auth_code: ["Unknown code."]
-                    };
-                }
-            });
-        } else if ($ctrl.step == 6) {
-            loadAvailableFunds($ctrl.organization);
+        } else if ($ctrl.step >= 4) {
             $ctrl.setStep($ctrl.step + 1);
-        } else if ($ctrl.step == 7) {
-            $state.go('organizations');
         }
     };
 
     $ctrl.back = function() {
+        if ($ctrl.signedIn && $ctrl.step <= 4) {
+            return;
+        }
+
         $ctrl.setStep($ctrl.step - 1);
 
         loginQrBlock.hide();
@@ -455,7 +642,7 @@ let SignUpComponent = function(
         $rootScope.$broadcast('auth:update');
 
         if ($ctrl.step == 2) {
-            $ctrl.setStep($ctrl.step + 1);
+            $ctrl.setStep(3);
         } else {
             $ctrl.next();
         }
@@ -477,6 +664,11 @@ let SignUpComponent = function(
         });
     };
 
+    $ctrl.finish = () => {
+        //$state.go('organizations');
+        $ctrl.setStep(7);
+    }
+
     $ctrl.requestAuthQrToken = () => {
         IdentityService.makeAuthToken().then((res) => {
             $ctrl.authToken = res.data.auth_token;
@@ -487,6 +679,10 @@ let SignUpComponent = function(
 
     $ctrl.selectPhoto = (file) => {
         orgMediaFile = file;
+    };
+
+    $ctrl.selectOfficePhoto = (file) => {
+        officeMediaFile = file;
     };
 
     $scope.authorizePincodeForm = FormBuilderService.build({
@@ -502,6 +698,26 @@ let SignUpComponent = function(
     $ctrl.$onDestroy = function() {
         $timeout.cancel(timeout);
     };
+
+    $ctrl.readMoreFields = [
+        'Smartphone',
+        'Telefoonnummer',
+        'IBAN nummer',
+        'Persoonlijke email adres',
+        'Email adres van uw bedrijf',
+        'Kamer van koophandel nummer',
+        'BTW-Nummer (optioneel)',
+        'Email adressen van uw kassa medewerkers (optioneel)'
+    ];
+
+    $ctrl.weekDays = Object.values(OfficeService.scheduleWeekDays());
+
+    $ctrl.totalSteps = Array.from({length: 7}, (v, k) => k + 1);
+    $ctrl.shownSteps = $ctrl.totalSteps.filter(step => step > 1 && step <= 5);
+
+    $ctrl.goToMain = () => {
+        $state.go('home');
+    }
 };
 
 module.exports = {
@@ -511,22 +727,21 @@ module.exports = {
     controller: [
         '$q',
         '$state',
-        '$stateParams',
         '$scope',
         '$rootScope',
         '$timeout',
-        '$interval',
         '$filter',
+        '$interval',
         'OrganizationService',
         'OfficeService',
         'IdentityService',
         'CredentialsService',
         'FormBuilderService',
         'MediaService',
-        'ProviderFundService',
+        'OrganizationEmployeesService',
         'SmsService',
+        'DemoTransactionService',
         'appConfigs',
-        'ModalService',
         SignUpComponent
     ],
     templateUrl: 'assets/tpl/pages/sign-up.html'

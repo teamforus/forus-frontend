@@ -1373,6 +1373,660 @@
         }
     }
 
+    &.block-sign_up {
+        .pre-step1 {
+            width: 40px;
+            border-top: 6px solid #BDCBFF;
+            text-align: center;
+
+            .icon {
+                margin-top: 3px;
+            }
+
+            &.active {
+                border-top: 6px solid #3561FF;
+            }
+        }
+
+        .sign_up-step {
+            margin-left: 1px;
+            width: calc((100% - 45px)/4);
+        }
+
+        .sign_up-pane {
+            .sign_up-pane-header {
+                font-style: normal;
+                font-weight: 500;
+                font-size: 21px;
+                line-height: 30px;
+            }
+
+            .sign_up-heading-block {
+                font: 400 18px/22px $bf;
+                padding: 30px 40px;
+                font-style: normal;
+                color: #222530;
+                border-bottom: 1px solid #EDEEF0;
+            }
+
+            .sign_up-pane-body {
+                padding: 30px 40px;
+
+                .sign_up-pane-text {
+                    margin: 0;
+
+                    &.with-border {
+                        margin-left: -40px;
+                        margin-right: -40px;
+                        padding-right: 50px;
+                        padding-left: 50px;
+                        padding-bottom: 30px;
+                        border-bottom: 1px solid #EDEEF0;
+                    }
+                }
+            }
+
+            .sign_up-pane-footer {
+                .button {
+                    &.button-text { 
+                        font-weight: 500;
+                        font-size: 16px;
+                        line-height: 20px;
+                        color: #3561FF;
+
+                        line-height: 30px;
+
+                        .mdi {
+                            color: #3561FF;    
+                            width: 36px;
+                            font-size: 34px;    
+                        }
+                    }
+                }
+            }
+
+            .sign_up-pane-heading {
+                margin-top: 30px !important;
+
+                .block-pincode {
+                    margin-top: 16px;
+
+                    .pincode-number {
+                        width: 56px;
+                        height: 71px;
+                        background: #FAFAFA;
+                        border: 1px solid #EDEEF0;
+                        border-radius: 10px;
+
+                        font: 400 52px/26px $bf;
+                        margin-right: 13px;
+
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+
+            .group-block {
+                margin-left: -30px !important;
+                margin-right: -30px !important;
+                padding-right: 30px;
+                padding-left: 30px;
+                padding-bottom: 30px;
+
+                &.with-border {
+                    border-bottom: 1px solid #EDEEF0;
+                }
+
+                &.last {
+                    padding-bottom: 0px;
+                }
+
+                .info-fields {
+                    float: right;
+
+                    .info-field {
+                        font: 500 10px/12px $bf;
+                        letter-spacing: 0.833333px;
+                        text-transform: uppercase;
+                        margin-top: 8px;
+                        color: #000;
+
+                        &.red {
+                            color: #FF2100;
+                        }
+                    }
+                }
+            }
+
+            .button {
+                &.download-link {
+                    display: inline-block;
+                    background: #FFFFFF;
+                    border: 1px solid #3561FF;
+                    border-radius: 5px;
+                    font: 500 14px/17px $bf;
+                    text-align: center;
+                    color: #3561FF;
+                    padding: 15px 40px;
+                }
+            }
+
+            .sign_up-pane-auth {
+                margin-top: 50px;
+
+                &.test-qr {
+                    margin-top: 30px;
+                    justify-content: space-around;
+                }
+
+                .sign_up-pane-auth-content {
+                    font: 400 18px/27px $bf !important;
+                    padding-right: 70px !important;
+
+                    .sign_up-pane-auth-apps {
+                        margin-top: 50px;
+                    }
+                }
+
+                .sign_up-pane-auth-qr_code {
+
+                    .qr_code {
+                        width: 228px !important;
+                        height: 228px !important;
+                    }
+                }
+            }
+        }
+
+        .offices {
+            .office {
+                padding: 20px 0px;
+                text-align: center;
+                border-bottom: 1px solid #EFF2F4;
+                color: #222530;
+                height: 120px;
+                margin-left: -30px;
+                margin-right: -30px;
+                padding-left: 20px;
+                padding-right: 40px;
+                font: 400 16px/20px $bf;
+    
+                .preview {
+                    display: inline-block;
+                    width: 72px;
+                    height: 72px;
+                    border-radius: 8px;
+                    margin-right: 25px;
+
+                    img {
+                        height: 72px;
+                        width: 100%;
+                    }
+                }
+
+                .details {
+                    width: calc(70% - 110px);
+                    display: inline-block;
+                    vertical-align: top;
+                    text-align: left;
+                    height: 100%;
+                    padding-top: 20px;
+
+                    em {
+                        color: #9EA7B6;
+                        font: 400 16px/20px $bf;
+
+                        span {
+                            color: #222530;
+                        }
+                    }
+                }
+    
+                .actions {
+                    cursor: pointer;
+                    width: auto;
+                    display: inline-block;
+                    text-align: right;
+                    font-size: 13px;
+                    color: #9EA7B6;
+                    margin-right: -60px;
+
+                    .mdi {
+                        font-style: normal;
+                        color: #9EA7B6;
+                        padding-left: 5px;
+
+                        span {
+                            color: #9EA7B6;
+                        }
+                    }
+                }
+            }
+
+            .sign_up-pane-text.header {
+                padding-right: 40px !important;
+                padding-left: 40px !important;
+            }
+
+            .location-btns {
+                padding: 25px 0px 0px;
+    
+                button {
+                    &:disabled {
+                        display: inline-block;
+                        background: #FFFFFF;
+                        border: 1px solid #3561FF;
+                        border-radius: 5px;
+                        font: 500 14px/17px $bf;
+                        text-align: center;
+                        color: #3561FF;
+                        padding: 12px 40px;
+                        cursor: default;
+                    }
+
+                    &.save {
+                        &:disabled {
+                            background-color: #EFF2F4;
+                            color: #CCD0E0;
+                            border: none;
+                        }
+                    }
+
+                    &.location {
+                        background: #FFFFFF;
+                        border: 1px solid #3561FF;
+
+                        &:before {
+                            position: absolute;
+                            content: '+';
+                            height: 24px;
+                            width: 24px;
+                            border-radius: 24px;
+                            top: 10px;
+                            left: 55px;
+                            line-height: 23px;
+                            border: 1px solid #3561FF;
+                            font-weight: 400;
+                            text-align: center;
+                        }
+                    }
+    
+                    background: rgba(53, 97, 255, 0.15);
+                    border-radius: 5px;
+                    width: 100%;
+                    padding: 12px;
+                    border: none;
+                    color: #3561FF;
+                    font-family: Montserrat;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 17px;
+                    text-align: center;
+                    cursor: pointer;
+                }
+            }
+
+            .form {
+                .form-group {
+                    &.col {
+                        padding-right: 0px;
+                    }
+                }
+
+                .office-block {
+                    margin-left: 0px;
+                    margin-right: 0px;
+                    padding-left: 20px;
+                    padding-right: 20px;
+                    border-bottom: 1px solid #EFF2F4;    
+                }
+
+                .schedule-settings-block, .schedule-block {
+                    margin-left: 0px;
+                    margin-right: 0px;
+                    padding-left: 35px;
+                    padding-right: 35px;
+                    border-bottom: 1px solid #EFF2F4;   
+                }
+
+                .description {
+                    margin-left: 0px;
+                    margin-right: 0px;
+                    padding-left: 40px;
+                    padding-right: 40px;
+                    font: 400 16px/24px $bf;
+                    color: #222530;
+                    border-bottom: 1px solid #EFF2F4;  
+                }
+
+                .schedule {
+                    th {
+                        font: 600 13px/16px $bf;
+                        letter-spacing: 0.08px;
+                        text-transform: uppercase;
+                        color: #222530;
+                        text-align: left;
+                    }
+
+                    td {
+                        padding-right: 22px;
+                        height: 30px;
+                        font: 400 16px/20px $bf;
+                        color: #222530;
+
+                        &.weekend {
+                            color: #F15642;
+                        }
+
+                        span {
+                            font: 400 16px/20px $bf;
+                        }
+                    }
+
+                    th, td {
+                        &.breaks {
+                            text-align: center;
+                        }
+                    }
+
+                    td {
+                        &.breaks {
+                            padding-left: 40px;
+                        }
+                    }
+
+                    .ui-control {
+                        &.ui-control-text {
+                            width: 80px;
+                            height: 30px;
+        
+                            input {
+                                height: 30px;
+                                border-radius: 6px;
+                            }
+                        }
+                    
+                        &.breaks {
+                            display: table-cell;
+
+                            &.end {
+                                input {
+                                    margin-right: 0px;
+                                }
+                            }
+    
+                            input {
+                                width: 80px;
+                                margin-right: 22px;
+                            }
+                        }
+
+                        .ui-control-clear {
+                            display: none;
+                        }
+                    }
+                }
+
+                .opening {
+                    .ui-control.ui-control-checkbox {
+                        .ui-checkbox-label {
+                            padding-bottom: 0px;
+                            font-size: 16px;
+                        }
+                    }
+
+                    .sign_up-pane-text {
+                        font-weight: 500;
+                        font-size: 21px;
+                        line-height: 26px;        
+                    }
+
+                    .form-group {
+                        &.col {
+                            margin-bottom: 5px;
+                        }
+                    }
+
+                    .sync {
+                        padding-bottom: 0;
+                    }
+                }
+            }
+        }
+
+        .add-employee {
+            font: 500 16px/20px $bf;
+            padding: 0px;
+            color: #3561FF;
+            cursor: pointer;
+            display: inline-block;
+            padding-left: 10px;
+
+            &:before {
+                display: inline-block;
+                content: '+';
+                height: 24px;
+                width: 24px;
+                border-radius: 24px;
+                top: 10px;
+                left: 55px;
+                line-height: 23px;
+                border: 1px solid #3561FF;
+                font-weight: 400;
+                text-align: center;
+                margin-right: 10px;
+            }
+        }
+
+        .finish-screen {
+            .sign_up-pane-heading {
+                font: 500 28px/38px $bf !important;
+                line-height: 38px;
+                text-align: center;
+                color: #3561FF;
+                margin-top: 0px !important;
+            }
+
+            .button-finish {
+                background: rgba(53, 97, 255, 0.15);
+                border-radius: 5px;
+                margin-top: 30px;
+                color: #3561FF;
+                box-shadow: none;
+            }
+        }
+
+        .form {
+            .ui-control .form-control:not([type="radio"]):not([type="checkbox"]) {
+                background-color: #EFF2F4;
+                border-color: #EFF2F4;
+                line-height: 50px;
+
+                ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                    color: #9B9B9B;
+                    opacity: 1; /* Firefox */
+                }
+                  
+                :-ms-input-placeholder { /* Internet Explorer 10-11 */
+                    color: #9B9B9B;
+                }
+                  
+                ::-ms-input-placeholder { /* Microsoft Edge */
+                    color: #9B9B9B;
+                }
+            }
+
+            .ui-control {
+                input {
+                    height: 50px;
+                    font: 400 16px/20px $bf;
+                }
+
+                &.large {
+                    input {
+                        height: 54px;
+                    }
+                }
+
+                &.ui-control-checkbox {
+                    .ui-checkbox-label {
+                        color: #222530;
+                        font-size: 14px;
+                        line-height: 17px;
+                        font-weight: normal;
+                    }
+                }
+            }
+
+            .employee-info {
+                display: block;
+                padding-top: 30px;
+                padding-left: 20px;
+                font: 500 16px/20px $bf;
+
+                .details {
+                    display: inline-block;
+                    width: 200px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .actions {
+                    display: inline-block;
+
+                    .mdi {
+                        padding-right: 20px;
+                        cursor: pointer;
+                        color: #888888;
+                        font-size: 22px;
+                    }
+                }
+            }
+
+            .make-public {
+                margin-left: 30px;
+            }
+
+            .group-block {
+                padding-top: 30px;
+                padding-bottom: 30px;
+
+                &.padding-30 {
+                    padding-left: 30px;
+                    padding-right: 30px;
+                }
+
+                .sign_up-pane-text {
+                    font-weight: 500;
+                    font-size: 21px;
+                    line-height: 26px;
+                    padding-bottom: 10px;
+                }
+
+                &.employee {
+                    .ui-control {
+                        &.ui-control-text {
+                            input {
+                                background: #EFF2F4;
+                                color: #9B9B9B;
+    
+                                &:focus {
+                                    background: #fff;
+                                    color: #222530;
+                                    border: 1px solid #3561FF;
+                                }
+                            }
+                        }
+                    }
+
+                    button {
+                        background: #3561FF;
+                        color: #FFFFFF;
+                        font-size: 16px;
+
+                        &:focus {
+                            background: #3561FF;
+                            color: #FFFFFF;
+                        }
+                    }
+                }
+
+                .image-preview {
+                    margin-top: -30px;
+                    margin-bottom: -30px;
+                    padding-top: 30px;
+                    padding-bottom: 40px;
+                    border-left: 1px solid #EDEEF0;
+                    margin-left: 20px;
+                    margin-right: -40px;
+                }
+            }
+
+            .select-control-input {
+                .select-control-search {
+                    background-color: #EFF2F4;
+                    border-color: #EFF2F4;
+                    height: 50px;
+                    font: 400 16px/40px $bf !important;
+                }
+    
+                .select-control-option {
+                    background-color: #EFF2F4;
+                    border-color: #EFF2F4;
+                    border-bottom: 1px solid #e3e3e3;
+                }
+    
+                .select-control-options {
+                    border: none;
+                }
+            }
+
+            .form-label {
+                color: #7E818C;
+                font-weight: normal;
+                font-size: 13px;
+                line-height: 16px;
+                padding-left: 10px;
+
+                letter-spacing: 0.08px;
+            }
+
+            .block.block-photo-selector {
+                margin-bottom: 0px;
+
+                .photo-img {
+                    margin-left: auto;
+                    margin-right: auto;
+                    float: none;
+                    margin-bottom: 15px;
+                    background: #EFF2F4;
+                    border: none;
+                    border-radius: 8px;
+                }
+
+                .photo-label {
+                    text-align: center;
+                    font-weight: normal;
+                    font-size: 18px;
+                    line-height: 26px;
+                    color: #222530;
+                }
+            }
+
+            .info-block.info-block-primary {
+                padding-top: 0px;
+                text-align: center;
+
+                background: none;
+                border: none;
+            }
+        }
+    }
+
     &.block-pdf-preview {
         background: #242424;
         
