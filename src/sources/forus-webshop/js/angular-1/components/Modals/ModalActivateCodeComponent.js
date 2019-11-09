@@ -62,8 +62,6 @@ let ModalAuthComponent = function(
                         }).length == fund.criteria.length;
                     });
 
-                    console.log('funds: ', funds);
-
                     deferred.resolve(funds);
                 })
             });
@@ -115,9 +113,8 @@ let ModalAuthComponent = function(
                                     $state.go('records');
                                 } else {
                                     $ctrl.getApplicableFunds().then((funds) => {
-                                        console.log('funds2: ', funds);
-
                                         let promises = [];
+                                        
                                         funds.forEach(fund => {
                                             promises.push(FundService.apply(fund.id).then(res => {}, console.error));
                                         });
