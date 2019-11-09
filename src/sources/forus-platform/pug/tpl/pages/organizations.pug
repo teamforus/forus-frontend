@@ -1,10 +1,6 @@
 .wrapper(ng-show="$ctrl.showOrganizations"): .block.block-choose-organization
     .organization-heading {{ "organizations.header.title" | translate }}
-    a(ui-sref="funds" ng-show="$root.appConfigs.panel_type == 'sponsor'").organization-item
-        .organization-item-inner
-            .organization-logo: img(src="./assets/img/placeholders/organization-thumbnail.png")
-            .organization-name(translate="organizations.labels.without")
-
+    
     .organizations-list: div(
         ng-click="$ctrl.chooseOrganization(organization)" 
         ng-repeat="organization in $ctrl.organizations").organization-item
