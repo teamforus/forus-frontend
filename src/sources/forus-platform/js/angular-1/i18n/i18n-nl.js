@@ -152,7 +152,7 @@ module.exports = {
             week: "Week",
             all: "Jaar",
             total: "Huidig saldo",
-            spend: "Startbudget",
+            spend: "Totaal gestort",
             used: "Totaal uitgegeven bedrag in %",
             usage: "uitgegeven",
             payed: "Uitgegeven bij",
