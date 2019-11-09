@@ -1,12 +1,15 @@
 let ModalAuthComponent = function(
     $state,
+    $q,
     ModalService,
     FormBuilderService,
     PrevalidationService,
     ConfigService,
     FundService,
     AuthService,
-    VoucherService
+    VoucherService,
+    RecordTypeService,
+    RecordService
 ) {
 
     if(AuthService.hasCredentials()) {
@@ -17,6 +20,57 @@ let ModalAuthComponent = function(
             $ctrl.vouchers = [];
         }
     let $ctrl = this;
+
+    $ctrl.getApplicableFunds = () => {
+        let deferred = $q.defer(),
+            recordsByKey = {},
+            recordsByTypesKey = {};
+
+        RecordService.list().then(res => {
+            let records = res.data;
+
+            RecordTypeService.list().then(res => {
+                let recordTypes = res.data;
+
+                if (Array.isArray(records)) {
+                    records.forEach(function(record) {
+                        if (!recordsByKey[record.key]) {
+                            recordsByKey[record.key] = [];
+                        }
+            
+                        recordsByKey[record.key].push(record);
+                    });
+                }
+
+                recordTypes.forEach(function(recordType) {
+                    recordsByTypesKey[recordType.key] = recordType;
+                });
+    
+                FundService.list().then(res => {
+                    let funds = res.data.data.filter(fund => {
+                        let validators = fund.validators.map(function(validator) {
+                            return validator.identity_address;
+                        });
+            
+                        return fund.criteria.filter(criterion => {
+                            return FundService.checkEligibility(
+                                recordsByKey[criterion.record_type_key] || [],
+                                criterion,
+                                validators,
+                                fund.organization_id
+                            );
+                        }).length == fund.criteria.length;
+                    });
+
+                    console.log('funds: ', funds);
+
+                    deferred.resolve(funds);
+                })
+            });
+        });
+
+        return deferred.promise;
+    }
 
     $ctrl.$onInit = () => {
 
@@ -60,7 +114,18 @@ let ModalAuthComponent = function(
                                 } else if (res.data.records.list) {
                                     $state.go('records');
                                 } else {
-                                    $state.go('funds');
+                                    $ctrl.getApplicableFunds().then((funds) => {
+                                        console.log('funds2: ', funds);
+
+                                        let promises = [];
+                                        funds.forEach(fund => {
+                                            promises.push(FundService.apply(fund.id).then(res => {}, console.error));
+                                        });
+    
+                                        $q.all(promises).then(() => {
+                                            $state.go('vouchers');
+                                        });
+                                    });
                                 }
                             });
                         }, (res) => {
@@ -100,6 +165,7 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$q',
         'ModalService',
         'FormBuilderService',
         'PrevalidationService',
@@ -107,6 +173,8 @@ module.exports = {
         'FundService',
         'AuthService',
         'VoucherService',
+        'RecordTypeService',
+        'RecordService',
         ModalAuthComponent
     ],
     templateUrl: () => {
