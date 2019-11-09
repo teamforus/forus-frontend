@@ -145,8 +145,10 @@ let FundsEditComponent = function(
                     organization_id: $stateParams.organization_id
                 });
             }, (res) => {
-                form.errors = res.data.errors;
-                form.unlock();
+                $timeout(() => {
+                    form.errors = res.data.errors;
+                    form.unlock();
+                }, 0);
             });
         });
 
@@ -157,15 +159,14 @@ let FundsEditComponent = function(
         }
 
         ProductService.listAll({
-            per_page: 100000
+            per_page: 1000,
+            unlimited_stock: 1,
         }).then(res => {
-            $ctrl.products = res.data.data.map(product => {
-                return {
-                    id: product.id,
-                    price: product.price,
-                    name: product.name + ' - €' + product.price + ' (' + product.organization.name + ')',
-                }
-            });
+            $ctrl.products = res.data.data.map(product => ({
+                id: product.id,
+                price: product.price,
+                name: `${product.name} - €${product.price} (${product.organization.name})`,
+            }));
 
             $ctrl.form.products = $ctrl.products.filter(
                 product => $ctrl.form.values.formula_products.indexOf(product.id) != -1
