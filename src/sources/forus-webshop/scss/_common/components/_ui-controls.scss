@@ -107,7 +107,7 @@ $tf: uppercase;
         position: relative;
 
         .ui-control-step-icon {
-            padding: 40px;
+            padding: $formPadding;
             padding-left: 20px;
             padding-right: 20px;
             text-align: center;
