@@ -117,24 +117,45 @@ section.section.section-voucher-details: .wrapper
                     .transactions-item-value - {{ transaction.amount | currency_format }}
                     .transactions-item-type {{ "voucher.labels.subtract" | translate }}
 
-block-products(
-    ng-if="$root.appConfigs.features.products.list && !$ctrl.voucherCard.product"
-    sample="true"
-    products="$ctrl.products"
-    product-categories="$ctrl.productCategories")
+if (['winterswijk', 'oostgelre', 'berkelland'].indexOf(qdt_c.platform.env_data.client_key) != -1) 
+    .wrapper: .block.block-map_card
+            .map_card-header
+                //- regular voucher
+                .map_card-title(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.offices")
+                .map_card-subtitle(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.vouchers")
+                //- product voucher voucher
+                .map_card-title(ng-if="$ctrl.voucherCard.product" translate="voucher.labels.office")
+                .map_card-subtitle(ng-if="$ctrl.voucherCard.product" translate="voucher.labels.voucher")
 
-.wrapper: .block.block-map_card
-        .map_card-header
+            .map_card-iframe: google-map(offices="$ctrl.voucherCard.offices")
             //- regular voucher
-            .map_card-title(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.offices")
-            .map_card-subtitle(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.vouchers")
-            //- product voucher voucher
-            .map_card-title(ng-if="$ctrl.voucherCard.product" translate="voucher.labels.office")
-            .map_card-subtitle(ng-if="$ctrl.voucherCard.product" translate="voucher.labels.voucher")
+            .map_card-footer
+                .map_card-subtitle(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.info")
 
-        .map_card-iframe: google-map(offices="$ctrl.voucherCard.offices")
-        //- regular voucher
-        .map_card-footer
-            .map_card-subtitle(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.info")
+    block-products(
+        ng-if="$root.appConfigs.features.products.list && !$ctrl.voucherCard.product"
+        sample="true"
+        products="$ctrl.products"
+        product-categories="$ctrl.productCategories")
+else
+    block-products(
+        ng-if="$root.appConfigs.features.products.list && !$ctrl.voucherCard.product"
+        sample="true"
+        products="$ctrl.products"
+        product-categories="$ctrl.productCategories")
+
+    .wrapper: .block.block-map_card
+            .map_card-header
+                //- regular voucher
+                .map_card-title(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.offices")
+                .map_card-subtitle(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.vouchers")
+                //- product voucher voucher
+                .map_card-title(ng-if="$ctrl.voucherCard.product" translate="voucher.labels.office")
+                .map_card-subtitle(ng-if="$ctrl.voucherCard.product" translate="voucher.labels.voucher")
+
+            .map_card-iframe: google-map(offices="$ctrl.voucherCard.offices")
+            //- regular voucher
+            .map_card-footer
+                .map_card-subtitle(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.info")
 
 contact-form 
