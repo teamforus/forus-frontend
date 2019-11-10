@@ -1,5 +1,6 @@
 let ProductVouchersComponent = function(
     $state,
+    $stateParams,
     $timeout,
     DateService,
     ModalService,
@@ -112,12 +113,12 @@ let ProductVouchersComponent = function(
 
     $ctrl.$onInit = () => {
         if (!$ctrl.fund) {
-            if ($ctrl.funds.length > 0) {
+            if ($ctrl.funds.length == 1) {
                 $state.go('product-vouchers', {
                     organization_id: $state.params.organization_id,
                     fund_id: $ctrl.funds[0].id,
                 });
-            } else {
+            } else if ($ctrl.funds.length == 0) {
                 alert('Sorry, but no funds were found to add vouchers.');
                 $state.go('home');
             }
@@ -135,6 +136,7 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$stateParams',
         '$timeout',
         'DateService',
         'ModalService',

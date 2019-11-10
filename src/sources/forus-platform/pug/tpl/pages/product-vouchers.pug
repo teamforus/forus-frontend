@@ -6,18 +6,17 @@
         .block.block-choose-organization(ng-if="$ctrl.funds.length > 1")
             div(
                 ng-repeat="fund in $ctrl.fund ? [$ctrl.fund] : $ctrl.funds" 
-                ui-sref="product-vouchers({fund_id: null, organization_id: $ctrl.organization.id})").organization-item
+                ui-sref="product-vouchers({fund_id: fund.id, organization_id: $ctrl.organization.id})").organization-item
                 .organization-item-inner
                     .organization-logo: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
-                .organization-name(ng-bind="fund.name")
-                .organization-categories(ng-bind="fund.fundCategories")
+                    .organization-name(ng-bind="fund.name")
 
             div(
                 ng-if="$ctrl.fund && $ctrl.funds.length > 1"
                 ui-sref="product-vouchers({fund_id: null, organization_id: $ctrl.organization.id})").organization-item
                 .organization-item-inner
                     .organization-logo.organization-logo-mdi: .mdi.mdi-chevron-up
-                .organization-name(ng-bind="'csv_validation.buttons.choose' | translate")
+                    .organization-name(ng-bind="'csv_validation.buttons.choose' | translate")
 
         .card(ng-if="$ctrl.vouchers")
             .card-header: .row
