@@ -128,12 +128,12 @@ let VouchersComponent = function(
 
     $ctrl.$onInit = () => {
         if (!$ctrl.fund) {
-            if ($ctrl.funds.length > 0) {
+            if ($ctrl.funds.length == 1) {
                 $state.go('vouchers', {
                     organization_id: $state.params.organization_id,
                     fund_id: $ctrl.funds[0].id,
                 });
-            } else {
+            } else if ($ctrl.funds.length == 0) {
                 alert('Sorry, but no funds were found to add vouchers.');
                 $state.go('home');
             }
