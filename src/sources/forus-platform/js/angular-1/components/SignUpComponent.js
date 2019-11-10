@@ -1,6 +1,7 @@
 let SignUpComponent = function(
     $q,
     $state,
+    $stateParams,
     $scope,
     $rootScope,
     $timeout,
@@ -15,7 +16,7 @@ let SignUpComponent = function(
     OrganizationEmployeesService,
     SmsService,
     DemoTransactionService,
-    appConfigs
+    ProviderFundService
 ) {
     let $ctrl = this;
 
@@ -34,6 +35,7 @@ let SignUpComponent = function(
     $ctrl.offices = [];
     $ctrl.employees = [];
     $ctrl.sentSms = false;
+    $ctrl.fundsAvailable = [];
 
     let has_app = false;
     let orgMediaFile = false;
@@ -70,6 +72,8 @@ let SignUpComponent = function(
 
                             if (res.data.data.state != 'pending') {
                                 $interval.cancel(interval);
+
+                                $ctrl.setStep(8);
                             }
                         });
                     }, 1000);
@@ -98,6 +102,7 @@ let SignUpComponent = function(
 
                     loadOrganizationOffices($ctrl.organization);
                     loadEmployees($ctrl.organization);
+                    loadAvailableFunds($ctrl.organization);
                 }
             }
 
@@ -511,6 +516,37 @@ let SignUpComponent = function(
         });
     };
 
+    let loadAvailableFunds = (organization) => {
+        ProviderFundService.listAvailableFunds(
+            organization.id, $stateParams.fundId ? {
+                fund_id: $stateParams.fundId
+            } : {}
+        ).then((res) => {
+            let fundsAvailable = res.data.data;
+
+            if ($stateParams.fundId && fundsAvailable.length > 0) {
+                let targetFund = fundsAvailable.filter(
+                    fund => fund.id == $stateParams.fundId
+                )[0] || null;
+
+                if (targetFund) {
+                    return ProviderFundService.applyForFund(
+                        $ctrl.organization.id,
+                        targetFund.id
+                    ).then($ctrl.next);
+                }
+            }
+
+            $ctrl.fundsAvailable = fundsAvailable;
+
+            $scope.$watch(() => $ctrl.fundsAvailable, function(funds) {
+                $ctrl.fundsLeft = (funds || []).filter(fund => {
+                    return !fund.applied;
+                });
+            }, true);
+        });
+    };
+
     $ctrl.setStep = (step) => {
         if (step <= $ctrl.totalSteps.length) {
             progressStorage.setStep(step);
@@ -607,6 +643,10 @@ let SignUpComponent = function(
             });
 
         } else if ($ctrl.step >= 4) {
+            if ($ctrl.step == 7) {
+                loadAvailableFunds($ctrl.organization);
+            }
+
             $ctrl.setStep($ctrl.step + 1);
         }
     };
@@ -665,8 +705,8 @@ let SignUpComponent = function(
     };
 
     $ctrl.finish = () => {
-        //$state.go('organizations');
-        $ctrl.setStep(7);
+        $state.go('organizations');
+        //$ctrl.setStep(8);
     }
 
     $ctrl.requestAuthQrToken = () => {
@@ -712,8 +752,8 @@ let SignUpComponent = function(
 
     $ctrl.weekDays = Object.values(OfficeService.scheduleWeekDays());
 
-    $ctrl.totalSteps = Array.from({length: 7}, (v, k) => k + 1);
-    $ctrl.shownSteps = $ctrl.totalSteps.filter(step => step > 1 && step <= 5);
+    $ctrl.totalSteps = Array.from({length: 8}, (v, k) => k + 1);
+    $ctrl.shownSteps = $ctrl.totalSteps.filter(step => step > 1 && step <= 6);
 
     $ctrl.goToMain = () => {
         $state.go('home');
@@ -727,6 +767,7 @@ module.exports = {
     controller: [
         '$q',
         '$state',
+        '$stateParams',
         '$scope',
         '$rootScope',
         '$timeout',
@@ -741,7 +782,7 @@ module.exports = {
         'OrganizationEmployeesService',
         'SmsService',
         'DemoTransactionService',
-        'appConfigs',
+        'ProviderFundService',
         SignUpComponent
     ],
     templateUrl: 'assets/tpl/pages/sign-up.html'

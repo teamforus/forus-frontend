@@ -474,7 +474,7 @@
                                 p.sign_up-pane-text.text-center 
                                     | We gaan controleren of uw gegevens kloppen, u ontvangt een email op blabla@blabla.com wanneer de aanvraag is afgerond, of indien er nog overige vragen zijn
                         
-                                .text-center: .button.button-finish(ng-click="$ctrl.finish()") Terug naar het dashboard
+                                .text-center: .button.button-finish(ng-click="$ctrl.next()") Terug naar het dashboard
                             .form-group.col.col-lg-12: br
  
                 //- Scan QR Code (test)
@@ -499,7 +499,35 @@
                                         qr-logo=src_prefix + "./assets/img/me-logo.png")
 
                     .step-footer(ng-if="$ctrl.has_app")
-                        a(translate="sign_up.buttons.go_step_2" ng-click="$ctrl.skipToStep(2)").button.button-primary                
+                        a(translate="sign_up.buttons.go_step_2" ng-click="$ctrl.skipToStep(2)").button.button-primary     
+
+                //- Step 7: Funds available
+                .step-item.finish-screen(ng-if="$ctrl.step == 8")
+                    h2.block-title
+                    
+                    +progress()
+                    
+                    .sign_up-pane
+                        .sign_up-pane-header Fondsen
+
+                        .sign_up-pane-body
+                            .card(
+                                ng-if="$ctrl.fundsAvailable.length > 0"
+                                ng-repeat="fund in $ctrl.fundsAvailable")
+                                    .card-section.card-section-primary
+                                        div(
+                                            fund-card-provider-can-join
+                                            fund="fund"
+                                            organization="$ctrl.organization")
+
+                                        block-empty(
+                                            ng-if="$ctrl.funds.length == 0" 
+                                            text="Er zijn momenteel geen actieve fondsen.")
+ 
+                        .sign_up-pane-footer.text-center
+                            .button.button-text.button-text-padless(ng-click="$ctrl.finish()") 
+                                | Terug naar het dashboard 
+                                em.mdi.mdi-chevron-right.icon-right   
 
                 //- Error
                 div(ng-if="$ctrl.state == 'error'")
@@ -516,3 +544,9 @@
                         
                                 .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar het dashboard
                             .form-group.col.col-lg-12: br
+
+                //- Mobile device warning
+                .hidden-lg.hidden-md.open-pc-section: .section-inner
+                    .img-block: img(src="./assets/img/sign-up/user-mobile.png")
+                    .title(translate="sign_up.open_pc.title")
+                    .open-pc-description(translate="sign_up.open_pc.description")
