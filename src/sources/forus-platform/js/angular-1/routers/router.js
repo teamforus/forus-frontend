@@ -231,13 +231,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "financial-dashboard",
-        url: "/organizations/{organization_id}/financial-dashboard/funds/{fund_id}",
+        url: "/organizations/{organization_id}/financial-dashboard/funds?fund_id",
         component: "financialDashboardComponent",
         params: {
-            fund_id: {
-                squash: true,
-                value: null
-            },
+            fund_id: null,
         },
         resolve: {
             organization: organziationResolver(),
