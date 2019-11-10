@@ -88,6 +88,7 @@ module.exports = [
                     subtitle: subtitle,
                     amount: voucher.amount,
                     type: voucher.type,
+                    returnable: voucher.returnable,
                     transactions: this.composeTransactions(voucher),
                     created_at_locale: voucher.created_at_locale,
                     expire_at_locale: voucher.expire_at_locale,

@@ -72,7 +72,7 @@ section.section.section-voucher-details: .wrapper
                         .card-value(ng-bind="$ctrl.voucherCard.expire_at_locale")
                         .label.label-default(ng-if="moment().isAfter(moment($ctrl.voucherCard.expire_at.date))" i18n="voucher.voucher_card.expired" )
                         br
-                        a.block-link(ng-if="$ctrl.voucherCard.transactions.length == 0 && $ctrl.voucherCard.product" ng-click="$ctrl.deleteVoucher($ctrl.voucher)" i18n="voucher.voucher_card.delete")
+                        a.block-link(ng-if="$ctrl.voucherCard.transactions.length == 0 && $ctrl.voucherCard.product && $ctrl.voucherCard.returnable" ng-click="$ctrl.deleteVoucher($ctrl.voucher)" i18n="voucher.voucher_card.delete")
                     .card-section(ng-if="$ctrl.voucherCard.transactions && $ctrl.voucherCard.product" ng-repeat="transaction in $ctrl.voucherCard.transactions")
                         .card-label Gebruikt op:
                         .card-value {{ transaction.created_at_locale }}

@@ -21,26 +21,37 @@ aside.app.app-sidebar
             "Fondsen", "my_funds", 'organization-funds', 
             '{organization_id: $root.activeOrganization.id}', 
             '$root.activeOrganization | hasPerm:["manage_funds","view_finances","view_funds"]:false')
+
         +nav_item(
-            "Vouchers", "list", 'vouchers', 
+            "Vouchers", "vouchers", 'vouchers', 
             '{organization_id: $root.activeOrganization.id}',
-            '$root.activeOrganization | hasPerm:["manage_vouchers"]')            
+            '$root.activeOrganization | hasPerm:["manage_vouchers"]')
+
+        +nav_item(
+            "Aanbiedingsvouchers", "productvoucher", 'product-vouchers', 
+            '{organization_id: $root.activeOrganization.id}',
+            '$root.activeOrganization | hasPerm:["manage_vouchers"]')
+
         +nav_item(
             "Transacties", "transactions", 'transactions', 
             '{organization_id: $root.activeOrganization.id}', 
             '$root.activeOrganization | hasPerm:["view_finances"]')
+
         +nav_item(
             "Financiën", "financial_dashboard", 'financial-dashboard', 
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization | hasPerm:["view_finances"]')
+
         +nav_item(
             "Medewerkers", "list", 'employees', 
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization | hasPerm:["manage_employees"]')
+
         +nav_item(
             "Aanbieders", "people", 'organization-providers', 
             '{organization_id: $root.activeOrganization.id, fund_id: null}',
             '$root.activeOrganization | hasPerm:["manage_providers"]')
+
         +nav_item(
             "Aanvragers", "file_csv", 'csv-validation', false,
             '$root.activeOrganization | hasPerm:["validate_records"]')

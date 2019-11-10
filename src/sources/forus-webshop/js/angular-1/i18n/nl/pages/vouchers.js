@@ -10,6 +10,7 @@ module.exports = {
         none: "Geen",
         used: "GEBRUIKT",
         generated: "AANGEMAAKT",
-        expire: "VERVALDATUM"
+        expire: "VERVALDATUM",
+        open_voucher: "Open voucher"
     }
 }
