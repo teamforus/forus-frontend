@@ -60,13 +60,14 @@ module.exports = [
                 });
             };
 
-            this.downloadQRCodes = function(organization_id, fromDate, toDate) {
+            this.downloadQRCodes = function(organization_id, type, from, to) {
                 return ApiRequest.get([
                     '/platform/organizations/' + organization_id,
                     '/sponsor/vouchers/export-unassigned',
                 ].join(''), {
-                    fromDate: fromDate,
-                    toDate: toDate,
+                    type: type,
+                    from: from,
+                    to: to,
                 }, {}, true, (params) => {
                     params.responseType = 'blob';
                     return params;

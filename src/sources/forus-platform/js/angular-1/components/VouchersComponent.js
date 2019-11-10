@@ -78,10 +78,14 @@ let VouchersComponent = function(
     };
 
     $ctrl.exportUnassignedQRCodes = () => {
+        let from = $ctrl.filters.values.from,
+            to = $ctrl.filters.values.to;
+            
         VoucherService.downloadQRCodes(
             $ctrl.organization.id,
-            $ctrl.filters.values.from,
-            $ctrl.filters.values.to
+            $ctrl.filters.values.type,
+            from ? DateService._frontToBack(from) : null,
+            to ? DateService._frontToBack(to) : null,
         ).then(res => {
             FileService.downloadFile(
                 'vouchers_' + moment().format(
