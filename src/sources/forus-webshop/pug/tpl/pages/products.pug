@@ -1,11 +1,12 @@
 top-navbar
 
-.wrapper: .block.block-breadcrumbs
-    a(ui-sref="home").breadcrumb-item Home
-    .breadcrumb-item.active Aanbiedingen
+.wrapper: .page.page-voucher
+    .block.block-breadcrumbs
+        a(ui-sref="home").breadcrumb-item Home
+        .breadcrumb-item.active Aanbiedingen
 
-block-products(
-    sample="false" 
-    product-categories="$ctrl.productCategories")
+    block-products(
+        sample="false" 
+        product-categories="$ctrl.productCategories")
 
-contact-form 
+    contact-form 
