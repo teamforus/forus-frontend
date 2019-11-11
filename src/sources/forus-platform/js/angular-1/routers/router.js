@@ -187,9 +187,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             fundProviders: function(permission, $transition$, OrganizationService) {
                 return $transition$.params().fund_id != null ? repackPagination(
                     OrganizationService.listProviders(
-                        $transition$.params().organization_id,
-                        $transition$.params().fund_id
-                    )
+                        $transition$.params().organization_id, {
+                            fund_id: $transition$.params().fund_id
+                        })
                 ) : new Promise((res) => res(null));
             },
             fund: function(permission, $transition$, FundService) {
