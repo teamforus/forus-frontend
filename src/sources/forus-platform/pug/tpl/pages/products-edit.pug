@@ -18,58 +18,67 @@
                                     select-photo="$ctrl.selectPhoto(file)")
                                 .form-error(ng-repeat="error in $ctrl.mediaErrors" ng-bind="error")
             .card-section.card-section-primary
-                .row 
-                    .col.col-lg-9.col-lg-12
-                        .form-group.form-group-inline
-                            label.form-label(translate="product_edit.labels.name")
-                            input(ng-model="$ctrl.form.values.name" type="text" placeholder="Naam").form-control
-                            .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
-                        .form-group.form-group-inline.tooltipped
-                            label.form-label(translate="product_edit.labels.description")
-                            .form-offset: markdown(ng-model="$ctrl.form.values.description")
+                .row: .col.col-lg-9
+                    .form-group.form-group-inline
+                        label.form-label(translate="product_edit.labels.name")
+                        input(ng-model="$ctrl.form.values.name" type="text" placeholder="Naam").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
+                    .form-group.form-group-inline.tooltipped
+                        label.form-label(translate="product_edit.labels.description")
+                        .form-offset: markdown(ng-model="$ctrl.form.values.description")
 
-                            tooltip(text="'Bijvoorbeeld: aantal lessen, abonnementsvorm, omschrijving cursus, einddatum activiteit, voorwaarden, bijzonderheden, etc.'")
-                            .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
+                        tooltip(text="'Bijvoorbeeld: aantal lessen, abonnementsvorm, omschrijving cursus, einddatum activiteit, voorwaarden, bijzonderheden, etc.'")
+                        .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
             .card-section.card-section-primary
-                .row 
-                    .col.col-lg-9.col-lg-12
-                        .form-group.form-group-inline
-                            label.form-label(translate="product_edit.labels.new")
-                            input(ng-model="$ctrl.form.values.price" type="number" placeholder="Prijs" step="0.01" number-control).form-control
-                            .form-error(ng-repeat="error in $ctrl.form.errors.price" ng-bind="error")
-                        
-                        .form-group.form-group-inline
-                            label.form-label(translate="product_edit.labels.old")
-                            input(ng-model="$ctrl.form.values.old_price" type="number" placeholder="Oude prijs" step="0.01" number-control).form-control
-                            .form-error(ng-repeat="error in $ctrl.form.errors.old_price" ng-bind="error")
-                        
-                        .form-group.form-group-inline(ng-if="$ctrl.product")
-                            label.form-label(translate="product_edit.labels.sold")
-                            input(ng-model="$ctrl.form.values.sold_amount" type="number" placeholder="Verkocht" disabled).form-control
-                        
-                        .form-group.form-group-inline.tooltipped
-                            label.form-label(translate="product_edit.labels.total")
-                            input(ng-model="$ctrl.form.values.total_amount" type="number" placeholder="Aantal aanbiedingen" ng-disabled="!!$ctrl.product").form-control
-                            .form-error(ng-repeat="error in $ctrl.form.errors.total_amount" ng-bind="error")
-                        
-                        .form-group.form-group-inline(ng-if="$ctrl.product")
-                            label.form-label(i18n="product_edit.labels.stock_amount")
-                            input(ng-model="$ctrl.form.values.stock_amount" type="number" placeholder="Stock").form-control
-                            tooltip(text="'tooltip.product.limit'")
-                            .form-error(ng-repeat="error in $ctrl.form.errors.stock_amount" ng-bind="error")
+                .row: .col.col.col-lg-9
+                    .form-group.form-group-inline
+                        label.form-label(translate="product_edit.labels.new")
+                        input(ng-model="$ctrl.form.values.price" type="number" placeholder="Prijs" step="0.01" number-control).form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.price" ng-bind="error")
+                    
+                    .form-group.form-group-inline
+                        label.form-label(translate="product_edit.labels.old")
+                        input(ng-model="$ctrl.form.values.old_price" type="number" placeholder="Oude prijs" step="0.01" number-control).form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.old_price" ng-bind="error")
+                    
+                    .form-group.form-group-inline(ng-if="$ctrl.product")
+                        label.form-label(translate="product_edit.labels.sold")
+                        input(ng-model="$ctrl.form.values.sold_amount" type="number" placeholder="Verkocht" disabled).form-control
+                    
+                    
+                    .form-group.form-group-inline.tooltipped
+                        label.form-label(translate="product_edit.labels.total")
+                        .form-offset(ng-if="$ctrl.product && $ctrl.product.unlimited_stock"): .form-value.text-muted Unlimited stock
+                        .form-offset(ng-if="!$ctrl.product || ($ctrl.product && !$ctrl.product.unlimited_stock)"): .row
+                            .col.col-lg-7: input(
+                                ng-model="$ctrl.form.values.total_amount" 
+                                type="number" 
+                                placeholder="Aantal aanbiedingen" 
+                                ng-disabled="!!$ctrl.product || $ctrl.form.values.unlimited_stock").form-control
+                            .col.col-lg-5: .checkbox(ng-disabled="$ctrl.product && !$ctrl.product.unlimited_stock")
+                                input(type="checkbox" id="unlimited_stock" ng-model="$ctrl.form.values.unlimited_stock")
+                                label(for="unlimited_stock").checkbox-label
+                                    .checkbox-box: em.mdi.mdi-check
+                                    | Onbeperkt aanbod
+                        .form-error(ng-repeat="error in $ctrl.form.errors.total_amount" ng-bind="error")
+                    
+                    .form-group.form-group-inline(ng-if="$ctrl.product && !$ctrl.product.unlimited_stock")
+                        label.form-label(i18n="product_edit.labels.stock_amount")
+                        input(ng-model="$ctrl.form.values.stock_amount" type="number" placeholder="Stock").form-control
+                        tooltip(text="'tooltip.product.limit'")
+                        .form-error(ng-repeat="error in $ctrl.form.errors.stock_amount" ng-bind="error")
 
             .card-section.card-section-primary
-                .row 
-                    .col.col-lg-9.col-lg-12
-                        .form-group.form-group-inline.tooltipped
-                            label.form-label(translate="product_edit.labels.expire")
-                            datepicker(
-                                date-format="dd-MM-yyyy" 
-                                datepicker-mobile="" 
-                                date-week-start-day="1").form-control
-                                input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="dd-MM-jjjj").form-control
-                            tooltip(text="'De uiterlijke datum tot waneer uw aanbieding loopt. Aanbieding wordt na deze datum verwijderd uit de webshop en kan niet meer worden opgehaald.'")
-                            .form-error(ng-repeat="error in $ctrl.form.errors.expire_at" ng-bind="error")
+                .row: .col.col-lg-9
+                    .form-group.form-group-inline.tooltipped
+                        label.form-label(translate="product_edit.labels.expire")
+                        datepicker(
+                            date-format="dd-MM-yyyy" 
+                            datepicker-mobile="" 
+                            date-week-start-day="1").form-control
+                            input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="dd-MM-jjjj").form-control
+                        tooltip(text="'De uiterlijke datum tot waneer uw aanbieding loopt. Aanbieding wordt na deze datum verwijderd uit de webshop en kan niet meer worden opgehaald.'")
+                        .form-error(ng-repeat="error in $ctrl.form.errors.expire_at" ng-bind="error")
 
             .card-section.card-section-primary
                 .row: product-categories-control(

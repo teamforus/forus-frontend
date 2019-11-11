@@ -154,7 +154,7 @@
                             th(i18n="fund_card_provider_finances.labels.status")
                         tr(
                             ng-repeat="transaction in transactions.data"
-                            ng-click="showTransaction(transaction)").pointer
+                            ng-click="showTransaction(transaction)")
                             td: a(ng-bind="transaction.amount | currency_format").text-primary-light
                             td(ng-bind="transaction.created_at_locale")
                             td(ng-bind="{pending: 'In afwachting', success : 'Voltooid'}[transaction.state]")

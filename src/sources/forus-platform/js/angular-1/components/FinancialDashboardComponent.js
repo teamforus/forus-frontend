@@ -115,14 +115,12 @@ let FinancialDashboardComponent = function(
     };
 
     $ctrl.$onInit = function () {
-
         if (Array.isArray($ctrl.funds)) {
-
             $ctrl.funds = $ctrl.funds.filter(function(fund) {
                 return fund.state !== 'waiting';
             });
 
-            if($ctrl.funds.length == 1 && !$ctrl.fund){
+            if ($ctrl.funds.length == 1 && !$ctrl.fund) {
                 $state.go('financial-dashboard', {
                     organization_id: $ctrl.funds[0].organization_id,
                     fund_id: $ctrl.funds[0].id
