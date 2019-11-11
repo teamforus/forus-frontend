@@ -46,6 +46,25 @@
 
                     .form-error(ng-repeat="error in $ctrl.form.errors.end_date" ng-bind="error")
 
+            .card-section.card-section-primary(ng-if="$root.appConfigs.features.organizations.funds.formula_products")
+                .row: .col.col-lg-9.col-md-12
+                    .form-group.form-group-inline(ng-repeat="product in $ctrl.form.products track by $index")
+                        label(translate="{{ $index == 0 ? 'funds_edit.labels.products' : '' }}").form-label
+                        .form-offset: .flex-row
+                            .flex-coll.flex-grow: select-control(
+                                ng-model="$ctrl.form.products[$index]" 
+                                options="$ctrl.productOptions[$index]"
+                                placeholder="Selecteer product...").flex-grow
+                            .flex-coll: .button.button-primary.button-icon(
+                                ng-click="$ctrl.removeProduct($ctrl.form.products[$index])"
+                                ): em.mdi.mdi-close
+                        .form-error(ng-repeat="error in $ctrl.form.errors['products.' + ($index - 1)]" ng-bind="error")
+                    .form-group.form-group-inline
+                        label(translate="{{ !$ctrl.form.products.length ? 'funds_edit.labels.products' : '' }}").form-label
+                        .button.button-primary(ng-click="$ctrl.addProduct()")
+                            em.mdi.mdi-plus-circle.icon-start
+                            translate Product toevoegen
+
             .card-section.card-section-primary(ng-if="$root.appConfigs.features.organizations.funds.criteria")
                 .row(ng-repeat="criteria in $ctrl.form.values.criteria")
                     .col.col-lg-3.form-group

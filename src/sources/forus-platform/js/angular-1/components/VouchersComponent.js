@@ -30,6 +30,7 @@ let VouchersComponent = function(
             this.values.amount_max = null;
             this.values.from = null;
             this.values.to = null;
+            this.values.type = 'fund_voucher';
         }
     };
 
@@ -58,7 +59,7 @@ let VouchersComponent = function(
 
     $ctrl.createVoucher = () => {
         ModalService.open('voucher_create', {
-            funds: $ctrl.funds.filter(fund => fund.id),
+            fund: $ctrl.fund,
             organization: $ctrl.organization,
             onCreated: () => {
                 $ctrl.onPageChange($ctrl.filters.values);
@@ -68,7 +69,7 @@ let VouchersComponent = function(
 
     $ctrl.uploadVouchersCsv = () => {
         ModalService.open('vouchersUpload', {
-            funds: $ctrl.funds.filter(fund => fund.id),
+            fund: $ctrl.fund,
             organization: $ctrl.organization,
             done: () => {
                 $state.reload();
@@ -106,23 +107,45 @@ let VouchersComponent = function(
         }));
     };
 
+    $ctrl.showTooltip = (e, target) => {
+        e.originalEvent.stopPropagation();
+        $ctrl.vouchers.data.forEach(voucher => {
+            voucher.showTooltip = false;
+        });
+        target.showTooltip = true;
+    };
+
+    $ctrl.hideTooltip = (e, target) => {
+        e.stopPropagation();
+        e.preventDefault();
+        $timeout(() => target.showTooltip = false, 0);
+    };
+
     $ctrl.init = async () => {
         $ctrl.resetFilters();
         $ctrl.onPageChange($ctrl.filters.values);
     };
 
     $ctrl.$onInit = () => {
-        $ctrl.funds.unshift({
-            id: null,
-            name: 'Select...'
-        });
-
-        $ctrl.init();
+        if (!$ctrl.fund) {
+            if ($ctrl.funds.length == 1) {
+                $state.go('vouchers', {
+                    organization_id: $state.params.organization_id,
+                    fund_id: $ctrl.funds[0].id,
+                });
+            } else if ($ctrl.funds.length == 0) {
+                alert('Sorry, but no funds were found to add vouchers.');
+                $state.go('home');
+            }
+        } else {
+            $ctrl.init();
+        }
     };
 };
 
 module.exports = {
     bindings: {
+        fund: '<',
         funds: '<',
         organization: '<',
     },

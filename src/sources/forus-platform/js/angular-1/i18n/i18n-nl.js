@@ -38,10 +38,12 @@ module.exports = {
     // MODALS
     modals: {
         modal_voucher_create: require('./nl/modals/modal-voucher-create.pug.i18n'),
+        modal_product_voucher_create: require('./nl/modals/modal-product-voucher-create.pug.i18n'),
         modal_voucher_qr_code: require('./nl/modals/modal-voucher-qr_code.pug.i18n'),
     },
     // PAGES
     vouchers: require('./nl/pages/vouchers.pug.i18n'),
+    product_vouchers: require('./nl/pages/product-vouchers.pug.i18n'),
 
     // MEAPP LANDINGSPAGE = index.pug
     meapp_index: {
@@ -150,7 +152,7 @@ module.exports = {
             week: "Week",
             all: "Jaar",
             total: "Huidig saldo",
-            spend: "Startbudget",
+            spend: "Totaal gestort",
             used: "Totaal uitgegeven bedrag in %",
             usage: "uitgegeven",
             payed: "Uitgegeven bij",
@@ -190,6 +192,7 @@ module.exports = {
         },
         labels: {
             name: "Naam",
+            products: "Products",
             status: "Status",
             start: "Startdatum",
             end: "Einddatum",
@@ -272,7 +275,7 @@ module.exports = {
     // ORGANIZATION PROVIDERS = organization-providers.pug
     organization_providers: {
         header: {
-            title: "Aanbieders"
+            title: "Aanbieders per fonds"
         },
         status: {
             accepted: "Geaccepteerd",
