@@ -1,16 +1,19 @@
 .block {
     &.block-navbar {
         z-index: 5;
-        @media screen and (min-width: 1024px){
+
+        @media screen and (min-width: 1024px) {
             position: relative;
             left: 0;
             right: 0;
             padding: 3vw 25px;
         }
-        @media screen and (min-width: 1200px){
+
+        @media screen and (min-width: 1200px) {
             padding: 3vw 0;
         }
-        @media screen and (min-width: 1440px){
+
+        @media screen and (min-width: 1440px) {
             padding: 3vw 0;
         }
 
@@ -71,18 +74,18 @@
                         background: transparent;
                         transition: .4s;
                     }
-                    
+
                     &:hover {
                         color: #2987fd;
-    
+
                         &:before {
                             background: #d2e6ff;
                         }
                     }
-                    
+
                     &.active {
                         color: #2987fd;
-    
+
                         &:before {
                             background: #134478;
                         }
@@ -106,26 +109,26 @@
                     border-radius: 5px;
                     padding: 5px 0;
                     display: none;
-    
+
                     .triangle {
                         position: absolute;
                         left: 15px;
                         bottom: 100%;
                     }
-    
+
                     .navbar-menu-item {
                         display: block;
                         padding: 5px 15px;
                         font: 700 13px/26px $bf;
                         transition: .4s;
                         cursor: pointer;
-    
+
                         img {
                             display: block;
                             float: left;
                             margin: 0 5px 0 0;
                         }
-    
+
                         .mdi {
                             display: block;
                             width: 26px;
@@ -135,13 +138,13 @@
                             text-align: center;
                             font-size: 22px;
                         }
-    
+
                         &:hover {
                             color: $color_primary;
                             background: #f6f8f9;
                         }
                     }
-    
+
                     .navbar-menu-separator {
                         display: block;
                         border-bottom: 1px solid #f3f4f5;
@@ -150,8 +153,8 @@
                         margin: 0 0 5px
                     }
                 }
-                
-            }  
+
+            }
 
             .navbar-list-auth {
                 margin-bottom: 30px;
@@ -193,7 +196,7 @@
             .auth-code {
                 float: right;
             }
-            
+
             .auth-out {
                 float: right;
             }
@@ -205,21 +208,23 @@
                     position: relative;
                     cursor: default;
                     @include cf();
-                    display:grid;
+                    display: grid;
                     grid-template-columns: auto auto;
                     grid-template-rows: 10px;
                     grid-gap: 10px;
 
                     .mdi-settings {
-                        margin-top:5px;
+                        margin-top: 5px;
                         display: flex;
                     }
+
                     .mdi-settings:before {
                         content: "\F493";
                         font-size: 26px;
                         color: #017f96;
                         margin: 0 auto;
                     }
+
                     .auth-user-email {
                         font: 700 13px $bf;
                         color: $color_primary;
@@ -235,7 +240,7 @@
                         grid-column: 2 / 3;
                         text-align: right;
                     }
-                    
+
                     .auth-user-avatar {
                         width: 40px;
                         height: 40px;
@@ -374,13 +379,15 @@
             }
         }
     }
-    
+
     @media screen and (max-width: 1024px) {
         &.block-navbar {
-            padding: 0;
+            padding: 0 0;
             border-radius: 0;
             position: relative;
+
             .navbar-inner {
+                padding: 0 0;
                 border-radius: 0;
             }
 
@@ -399,20 +406,23 @@
             .block-auth {
                 padding: 10px 10px 10px 0;
                 border: none;
+
                 .button {
                     margin-right: 10px;
                     font-size: 11px;
                     padding: 7px 10px;
                 }
+
                 .mdi-settings {
-                    display:none;
+                    display: none;
                 }
+
                 .auth-in {
                     .auth-user {
                         .auth-user-email {
                             font: 700 12px/22px $bf;
                         }
-                        
+
                         .auth-user-type {
                             font: 500 12px/14px $bf;
                         }
@@ -430,6 +440,7 @@
                 border-top: 1px solid #e6ecf0;
                 padding: 50px 0;
                 z-index: 2;
+
                 .navbar-item-wrapper {
                     width: 100%;
                     margin-bottom: -1px;
@@ -453,7 +464,8 @@
                         &.active {
                             border-left-color: #3396a7;
 
-                            &:before, &:after {
+                            &:before,
+                            &:after {
                                 display: none;
                             }
                         }
