@@ -2399,6 +2399,10 @@
             float: left;
             height: 100%;
 
+            &:nth-of-type(4n + 1) {
+                clear:both;
+            }
+
             .organization-item-inner {
                 padding: 30px 20px 20px;
                 display: block;
