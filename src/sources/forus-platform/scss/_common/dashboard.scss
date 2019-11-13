@@ -1844,6 +1844,112 @@
             }
         }
 
+        .fund-apply {
+            .header {
+                margin-bottom: 30px !important;
+            }
+
+            .card {
+                box-shadow: none;
+                margin-bottom: 16px;
+                border: 1px solid #E5E6EC;
+                border-radius: 5px;
+
+                .card-section {
+                    background: #fff;
+                    padding: 16px 18px;
+
+                    &.card-section-fund {
+                        display: flex;
+                        align-items: center;
+
+                        &.applied {
+                            background-color: #c6c6c6;
+                            cursor: default;
+                            pointer-events: none;
+
+                            &:hover {
+                                background: initial;
+                            }
+
+                            .card-section-actions {
+                                button {
+                                    background-color: rgba(255, 255, 255, 0.5);
+                                    color: #0f0f0f;
+                                    border-color: #c2c2c2;
+                                }
+                            }
+
+                            .card-block {
+                                &.card-block-fund {
+                                    .fund-organization {
+                                        color: #4b4b4b;
+                                    }
+        
+                                    .fund-title {
+                                        color: #4b4b4b;
+                                    }
+                                }
+                            }
+                        }
+
+                        &:hover {
+                            background: #FAFAFA;
+
+                            .card-section-actions {
+                                button {
+                                    background-color: rgba(53, 97, 255, 0.15);
+                                    border-color: rgba(53, 97, 255, 0.15);
+                                    border-color: 1px solid #E5E6EC;
+                                    transform: none;
+                                }
+                            }
+                        }
+
+                        .card-section-actions {
+                            bottom: auto;
+                            top: auto;
+    
+                            button {
+                                background-color: #fff;
+                                color: #3561FF;
+                                padding-top: 12px;
+                                padding-bottom: 12px;
+                                font: 500 14px/17px $bf;
+                                box-shadow: none;
+                                text-transform: none;
+                                width: 200px;
+                            }
+                        }
+                    }
+
+                    &.card-section-primary {
+                        padding: 0px;
+                    }
+
+                    .card-block {
+                        &.card-block-fund {
+                            padding-top: 0px;
+
+                            .fund-organization {
+                                display: block;
+                                margin-bottom: 0px;
+                                font: 400 16px/20px $bf;
+                                color: #222530;
+                            }
+
+                            .fund-title {
+                                display: block;
+                                font: 500 18px/22px $bf;
+                                color: #191A1C;
+                                margin-bottom: 8px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         .form {
             .ui-control .form-control:not([type="radio"]):not([type="checkbox"]) {
                 background-color: #EFF2F4;

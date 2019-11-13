@@ -458,8 +458,46 @@
                                     | Volgende stap
                                     em.mdi.mdi-chevron-right.icon-right
                 
+                //- Step 7: Funds available
+                .step-item.fund-apply(ng-if="$ctrl.step == 6")
+                    h2.block-title
+                    
+                    +progress()
+                    
+                    .sign_up-pane
+                        .sign_up-pane-header Meld u aan voor de fondsen
+
+                        .sign_up-pane-body
+                            
+                            .sign_up-pane-text.header.with-border
+                                | Uw aanvraag wordt binnen twee weken behandeld door de gemeente.
+                            
+                            .card(
+                                ng-if="$ctrl.fundsAvailable.length > 0"
+                                ng-repeat="fund in $ctrl.fundsAvailable")
+                                    .card-section.card-section-primary
+                                        div(
+                                            template="provider-signup-fund-card"
+                                            fund-card-provider-can-join
+                                            fund="fund"
+                                            organization="$ctrl.organization")
+
+                                        block-empty(
+                                            ng-if="$ctrl.funds.length == 0" 
+                                            text="Er zijn momenteel geen actieve fondsen.")
+ 
+                        .sign_up-pane-footer: .row
+                            .col.col-lg-6.text-left 
+                                .button.button-text.button-text-padless(ng-click="$ctrl.back()")
+                                    | Vorige stap
+                                    em.mdi.mdi-chevron-left.icon-lefts
+                            .col.col-lg-6.text-right
+                                .button.button-text.button-text-padless(ng-click="$ctrl.next()")
+                                    | Volgende stap
+                                    em.mdi.mdi-chevron-right.icon-right
+
                 //- Done
-                .finish-screen(ng-if="$ctrl.step == 6")
+                .finish-screen(ng-if="$ctrl.step == 7")
                     h2.block-title
                     
                     +progress()
@@ -478,7 +516,7 @@
                             .form-group.col.col-lg-12: br
  
                 //- Scan QR Code (test)
-                div(ng-if="$ctrl.step == 7")
+                div(ng-if="$ctrl.step == 8")
                     h2.block-title
                     
                     +progress()
@@ -500,34 +538,26 @@
 
                     .step-footer(ng-if="$ctrl.has_app")
                         a(translate="sign_up.buttons.go_step_2" ng-click="$ctrl.skipToStep(2)").button.button-primary     
-
-                //- Step 7: Funds available
-                .step-item.finish-screen(ng-if="$ctrl.step == 8")
+                
+                //- Done
+                .finish-screen(ng-if="$ctrl.step == 9")
                     h2.block-title
                     
                     +progress()
-                    
+
                     .sign_up-pane
-                        .sign_up-pane-header Fondsen
+                        .sign_up-pane-header Aanvraag voltooid
 
-                        .sign_up-pane-body
-                            .card(
-                                ng-if="$ctrl.fundsAvailable.length > 0"
-                                ng-repeat="fund in $ctrl.fundsAvailable")
-                                    .card-section.card-section-primary
-                                        div(
-                                            fund-card-provider-can-join
-                                            fund="fund"
-                                            organization="$ctrl.organization")
-
-                                        block-empty(
-                                            ng-if="$ctrl.funds.length == 0" 
-                                            text="Er zijn momenteel geen actieve fondsen.")
- 
-                        .sign_up-pane-footer.text-center
-                            .button.button-text.button-text-padless(ng-click="$ctrl.finish()") 
-                                | Terug naar het dashboard 
-                                em.mdi.mdi-chevron-right.icon-right   
+                        .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
+                            .form-group.col.col-lg-12
+                                .block-icon: img(src=src_prefix + "./assets/img/icon-smarthone-sign_up.svg")
+                                .sign_up-pane-heading.text-center Uw aanvraag is verzonden
+                                p.sign_up-pane-text.text-center 
+                                    b Gemeente Barneveld 
+                                    | gaat controleren of uw gegevens kloppen, u ontvangt een email op blabla@blabla.com wanneer de aanvraag is afgerond, of indien er nog overige vragen zijn
+                        
+                                .text-center: .button.button-finish(ng-click="$ctrl.finish()") Terug naar het overzicht
+                            .form-group.col.col-lg-12: br
 
                 //- Error
                 div(ng-if="$ctrl.state == 'error'")

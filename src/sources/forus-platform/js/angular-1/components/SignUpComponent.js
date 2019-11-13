@@ -63,7 +63,7 @@ let SignUpComponent = function(
         this.setStep = (step) => {
             localStorage.setItem('sign_up_form.step', step);
 
-            if (step == 7) {
+            if (step == 8) {
                 DemoTransactionService.store().then(res => {
                     $ctrl.demoToken = res.data.data.token;
 
@@ -73,7 +73,7 @@ let SignUpComponent = function(
                             if (res.data.data.state != 'pending') {
                                 $interval.cancel(interval);
 
-                                $ctrl.setStep(8);
+                                $ctrl.setStep(9);
                             }
                         });
                     }, 1000);
@@ -643,11 +643,11 @@ let SignUpComponent = function(
             });
 
         } else if ($ctrl.step >= 4) {
-            if ($ctrl.step == 7) {
+            $ctrl.setStep($ctrl.step + 1);
+
+            if ($ctrl.step == 6) {
                 loadAvailableFunds($ctrl.organization);
             }
-
-            $ctrl.setStep($ctrl.step + 1);
         }
     };
 
@@ -706,7 +706,6 @@ let SignUpComponent = function(
 
     $ctrl.finish = () => {
         $state.go('organizations');
-        //$ctrl.setStep(8);
     }
 
     $ctrl.requestAuthQrToken = () => {
@@ -752,7 +751,7 @@ let SignUpComponent = function(
 
     $ctrl.weekDays = Object.values(OfficeService.scheduleWeekDays());
 
-    $ctrl.totalSteps = Array.from({length: 8}, (v, k) => k + 1);
+    $ctrl.totalSteps = Array.from({length: 9}, (v, k) => k + 1);
     $ctrl.shownSteps = $ctrl.totalSteps.filter(step => step > 1 && step <= 6);
 
     $ctrl.goToMain = () => {

@@ -41,6 +41,9 @@ module.exports = () => {
             'ModalService',
             FundCardProviderCanJoinDirective
         ],
-        templateUrl: 'assets/tpl/directives/fund-card-provider-can-join.html'
+        templateUrl:  ($el, $attr) => {
+            let template = $attr.template || 'fund-card-provider-can-join';
+            return 'assets/tpl/directives/' + template + '.html'
+        }
     };
 };
