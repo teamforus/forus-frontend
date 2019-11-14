@@ -20,17 +20,20 @@
     
         .card(ng-if="$ctrl.vouchers")
             .card-header: .row
-                .col.col-lg-4.col-xs-12: .card-title
+                .col.col-lg-3.col-xs-12: .card-title
                     span(i18n="vouchers.header.title") 
                     span(ng-bind="$ctrl.vouchers.meta.total").span-count
             
-                .block.block-inline-filters.col.col-lg-8.col-xs-12.text-right
+                .block.block-inline-filters.col.col-lg-9.col-xs-12.text-right
                     .button.button-primary(ng-click="$ctrl.createVoucher()")
                         em.mdi.mdi-plus-circle.icon-start 
                         span(i18n="vouchers.buttons.add_new")
                     .button.button-primary(ng-click="$ctrl.uploadVouchersCsv()")
                         em.mdi.mdi-upload.icon-start 
                         span(i18n="vouchers.buttons.upload_csv")
+                    .button.button-primary(ng-click="$ctrl.downloadExampleCsv()")
+                        em.mdi.mdi-download.icon-start
+                        span(i18n="product_vouchers.buttons.download_csv")
                     .button.button-primary(ng-click="$ctrl.exportUnassignedQRCodes()")
                         em.mdi.mdi-file-export.icon-start
                         | {{ "vouchers.buttons.export" | translate }}

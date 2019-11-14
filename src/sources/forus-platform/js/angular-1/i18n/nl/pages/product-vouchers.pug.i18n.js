@@ -18,6 +18,7 @@ module.exports = {
     buttons: {
         add_new: "Aanmaken",
         upload_csv: "Upload CSV",
+        download_csv: "Download Example CSV",
         clear_filter: "Wis filter"
     },
     csv: {

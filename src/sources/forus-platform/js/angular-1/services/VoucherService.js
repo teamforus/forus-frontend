@@ -73,6 +73,15 @@ module.exports = [
                     return params;
                 });
             };
+
+            this.sampleCSV = (voucher_type) => {
+                return Papa.unparse([
+                    [ 
+                        (voucher_type == 'product_voucher' ? 'product_id' : 'amount'),
+                        'expires_at', 'note', 'email'
+                    ]
+                ]);
+            };
         });
     }
 ];

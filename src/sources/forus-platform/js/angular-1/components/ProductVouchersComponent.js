@@ -4,7 +4,8 @@ let ProductVouchersComponent = function(
     $timeout,
     DateService,
     ModalService,
-    VoucherService
+    VoucherService,
+    FileService
 ) {
     let $ctrl = this;
 
@@ -78,6 +79,13 @@ let ProductVouchersComponent = function(
         });
     };
 
+    $ctrl.downloadExampleCsv = () => {
+        FileService.downloadFile(
+            'voucher_upload_sample.csv',
+            VoucherService.sampleCSV('product_voucher')
+        );
+    };
+
     $ctrl.onPageChange = (query) => {
         let _query = JSON.parse(JSON.stringify(query));
 
@@ -141,6 +149,7 @@ module.exports = {
         'DateService',
         'ModalService',
         'VoucherService',
+        'FileService',
         ProductVouchersComponent
     ],
     templateUrl: 'assets/tpl/pages/product-vouchers.html'
