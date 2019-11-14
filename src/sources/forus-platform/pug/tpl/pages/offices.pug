@@ -14,13 +14,13 @@
                 .card-block.card-block-provider
                     .provider-img: img(
                         ng-src="{{ $ctrl.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
-                    a(
-                        ui-sref="organizations-edit($ctrl.organization)" 
-                        ng-bind="$ctrl.organization.name").provider-title
-                    br
-                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                        .card-block-listing-label(translate="offices.labels.mail")
-                        span.text-primary-light(ng-bind="$ctrl.organization.email")
+                    .provider-details
+                        a(
+                            ui-sref="organizations-edit($ctrl.organization)" 
+                            ng-bind="$ctrl.organization.name").provider-title
+                        .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                            .card-block-listing-label(translate="offices.labels.mail")
+                            span.text-primary-light(ng-bind="$ctrl.organization.email")
                 .card-block.card-block-listing(ng-if="$ctrl.organization.business_type")
                     .card-block-listing-label(translate="offices.labels.business_type")
                     span(ng-bind="$ctrl.organization.business_type.name")
@@ -60,12 +60,12 @@
                         
                 .card-block.card-block-provider
                     .provider-img: img(ng-src="{{ office.photo.sizes.thumbnail || './assets/img/placeholders/office-thumbnail.png' }}")
-                    a(ui-sref="offices-edit(office)" ng-bind="office.address").provider-title
-                    br
-                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                        .card-block-listing-label(translate="offices.labels.phone")
-                        span.text-primary-light(ng-show="office.phone" ng-bind="office.phone")
-                        span(ng-show="!office.phone" translate="offices.labels.none").text-muted
+                    .provider-details
+                        a(ui-sref="offices-edit(office)" ng-bind="office.address").provider-title
+                        .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                            .card-block-listing-label(translate="offices.labels.phone")
+                            span.text-primary-light(ng-show="office.phone" ng-bind="office.phone")
+                            span(ng-show="!office.phone" translate="offices.labels.none").text-muted
 
             .card-section.card-section-primary
                 .row

@@ -1,5 +1,5 @@
 .wrapper(ng-show="$ctrl.showOrganizations"): .block.block-choose-organization
-    .organization-heading {{ "organizations.header.title" | translate }}
+    .organization-heading(translate="organizations.header.title")
     
     .organizations-list: div(
         ng-click="$ctrl.chooseOrganization(organization)" 
@@ -12,4 +12,4 @@
     div(ui-sref="organizations-create").organization-item
         .organization-item-inner
             .organization-logo.organization-logo-mdi: .mdi.mdi-plus
-            .organization-name {{ "organizations.buttons.add" | translate }}
+            .organization-name(translate="organizations.buttons.add")

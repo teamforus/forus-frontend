@@ -34,6 +34,7 @@ app.component('validationRequestComponent', require('./components/ValidationRequ
 app.component('signUpComponent', require('./components/SignUpComponent'));
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
 app.component('transactionComponent', require('./components/TransactionComponent'));
+app.component('fundProviderComponent', require('./components/FundProviderComponent'));
 
 app.component('noPermissionComponent', require('./components/NoPermissionComponent'));
 
@@ -95,6 +96,7 @@ app.service('SmsService', require('./services/SmsService'));
 app.service('FileService', require('./services/FileService'));
 app.service('FundRequestValidatorService', require('./services/FundRequestValidatorService'));
 app.service('EmailPreferencesService', require('./services/EmailPreferencesService'));
+app.service('PushNotificationsService', require('./services/PushNotificationsService'));
 
 // Directives
 switch (env_data.panel_type) {

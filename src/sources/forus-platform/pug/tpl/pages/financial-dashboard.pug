@@ -6,16 +6,17 @@
             div(
                 ng-repeat="fund in $ctrl.fund ? [$ctrl.fund] : $ctrl.funds"
                 ui-sref="financial-dashboard({fund_id: fund.id})").organization-item
-                .organization-item-inner: .organization-logo: img(
-                    ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
-                .organization-name(ng-bind="fund.name")
-                .organization-categories(ng-bind="fund.fundCategories")
+                .organization-item-inner
+                    .organization-logo
+                        img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+                    .organization-name(ng-bind="fund.name")
 
             div(
                 ng-if="$ctrl.fund && $ctrl.funds.length > 1"
                 ui-sref="financial-dashboard({fund_id: null})").organization-item
-                .organization-item-inner: .organization-logo.organization-logo-mdi: .mdi.mdi-chevron-up
-                .organization-name(ng-bind="'financial_dashboard.buttons.choose' | translate")
+                .organization-item-inner
+                    .organization-logo.organization-logo-mdi: .mdi.mdi-chevron-up
+                    .organization-name(ng-bind="'financial_dashboard.buttons.choose' | translate")
             br
 
         div(ng-if="$ctrl.fundProviders.data.length > 0")
