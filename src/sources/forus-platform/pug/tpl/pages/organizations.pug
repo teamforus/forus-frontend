@@ -1,15 +1,15 @@
 .wrapper(ng-show="$ctrl.showOrganizations"): .block.block-choose-organization
     .organization-heading(translate="organizations.header.title")
-    
-    .organizations-list: div(
-        ng-click="$ctrl.chooseOrganization(organization)" 
-        ng-repeat="organization in $ctrl.organizations").organization-item
-        .organization-item-inner
-            .organization-logo
-                img(ng-src="{{ organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
-            .organization-name(ng-bind="organization.name")
+    .organizations-list
+        .organization-item(
+            ng-click="$ctrl.chooseOrganization(organization)" 
+            ng-repeat="organization in $ctrl.organizations")
+            .organization-item-inner
+                .organization-logo: img(
+                    ng-src="{{ organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
+                .organization-name(ng-bind="organization.name")
 
-    div(ui-sref="organizations-create").organization-item
-        .organization-item-inner
-            .organization-logo.organization-logo-mdi: .mdi.mdi-plus
-            .organization-name(translate="organizations.buttons.add")
+        .organization-item(ui-sref="organizations-create")
+            .organization-item-inner
+                .organization-logo.organization-logo-mdi: .mdi.mdi-plus
+                .organization-name(translate="organizations.buttons.add")

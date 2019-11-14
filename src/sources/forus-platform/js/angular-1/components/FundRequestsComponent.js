@@ -273,7 +273,7 @@ let FundRequestsComponent = function(
                 return;
             }
 
-            if (!appConfigs.features.validationRequests) {
+            if (!appConfigs.features.organizations.funds.fund_requests) {
                 return $state.go('csv-validation');
             }
 

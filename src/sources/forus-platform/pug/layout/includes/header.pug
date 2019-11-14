@@ -1,6 +1,7 @@
 header.app.app-header
     .wrapper
-        a(ui-sref="home").header-logo: img(ng-src="./assets/img/logo.png").header-logo-img
+        a(ng-if="$root.appConfigs.client_key != 'general'" ui-sref="home").header-logo
+            img(ng-src="./assets/img/logo.png").header-logo-img
 
         .header-auth(ng-if="$root.auth_user")
             .auth-user

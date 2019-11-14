@@ -351,6 +351,12 @@ let FundRequestComponent = function(
     };
 
     $ctrl.$onInit = function() {
+        try {
+            if (appConfigs.features.funds.fund_requests === false) {
+                $state.go('home');
+            }
+        } catch (error) {}
+        
         $ctrl.signedIn = AuthService.hasCredentials();
         $ctrl.initAuthForm();
         $ctrl.prepareRecordTypes();

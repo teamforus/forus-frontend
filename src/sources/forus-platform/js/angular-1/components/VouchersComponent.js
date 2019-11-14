@@ -78,10 +78,14 @@ let VouchersComponent = function(
     };
 
     $ctrl.exportUnassignedQRCodes = () => {
+        let from = $ctrl.filters.values.from,
+            to = $ctrl.filters.values.to;
+            
         VoucherService.downloadQRCodes(
             $ctrl.organization.id,
-            $ctrl.filters.values.from,
-            $ctrl.filters.values.to
+            $ctrl.filters.values.type,
+            from ? DateService._frontToBack(from) : null,
+            to ? DateService._frontToBack(to) : null,
         ).then(res => {
             FileService.downloadFile(
                 'vouchers_' + moment().format(
@@ -128,12 +132,12 @@ let VouchersComponent = function(
 
     $ctrl.$onInit = () => {
         if (!$ctrl.fund) {
-            if ($ctrl.funds.length > 0) {
+            if ($ctrl.funds.length == 1) {
                 $state.go('vouchers', {
                     organization_id: $state.params.organization_id,
                     fund_id: $ctrl.funds[0].id,
                 });
-            } else {
+            } else if ($ctrl.funds.length == 0) {
                 alert('Sorry, but no funds were found to add vouchers.');
                 $state.go('home');
             }

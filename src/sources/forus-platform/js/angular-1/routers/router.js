@@ -184,13 +184,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('organization-providers', 'manage_providers'),
-            fund: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => {
-                return $transition$.params().fund_id != null ? repackResponse(
-                    FundService.readPublic($transition$.params().fund_id)
-                ) : new Promise((res) => res(null));
-            }],
             funds: ['permission', '$transition$', 'FundService', (
                 permission, $transition$, FundService
             ) => {
@@ -198,7 +191,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                     FundService.list($transition$.params().organization_id)
                 );
             }],
-            fundLevel: ['permission', (permission) => "organizationFunds"]
+            fund: ['funds', '$transition$', 'FundService', (
+                funds, $transition$, FundService
+            ) => {
+                return funds.filter(
+                    fund => fund.id == $transition$.params().fund_id
+                )[0] || null;
+            }],
         }
     });
 
@@ -262,7 +261,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "financial-dashboard",
-        url: "/organizations/{organization_id}/financial-dashboard/funds/{fund_id}",
+        url: "/organizations/{organization_id}/financial-dashboard/funds?fund_id",
         component: "financialDashboardComponent",
         params: {
             fund_id: null,

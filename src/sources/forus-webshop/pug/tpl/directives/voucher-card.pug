@@ -23,6 +23,8 @@
                 small(i18n="vouchers.labels.subtract")
             .voucher-overview-value(ng-if="voucherCard.transactions.length == 0")
                 span.text-muted(i18n="vouchers.labels.none")
+        .voucher-overview-item
+            button.button.button-primary {{ "vouchers.labels.open_voucher" | translate }}
 
     // product voucher
     .voucher-overview(ng-if="voucherCard.type == 'product'")
@@ -38,3 +40,5 @@
         .voucher-overview-item(ng-if="voucherCard.transactions.length == 1")
             .voucher-overview-label Gebruikt op
             .voucher-overview-value(ng-bind="voucherCard.transactions[0].created_at_locale")
+        .voucher-overview-item
+            button.button.button-primary {{ "vouchers.labels.open_voucher" | translate }}

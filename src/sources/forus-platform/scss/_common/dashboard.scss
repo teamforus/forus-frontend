@@ -2433,19 +2433,22 @@ $colorPrimaryLight: $color_primary_light;
         }
 
         .organizations-list {
-            display: block;
+            display: flex;
+            flex-wrap: wrap;
+            @include cf();
         }
 
         .organization-item {
             width: 25%;
             text-align: center;
             padding: 0 12px;
-            float: left;
             margin-bottom: 15px;
             cursor: pointer;
+            float: left;
+            height: 100%;
 
             .organization-item-inner {
-                padding: 30px 30px 20px;
+                padding: 30px 20px 20px;
                 display: block;
                 background: #fff;
                 border-radius: 5px;
@@ -2499,7 +2502,7 @@ $colorPrimaryLight: $color_primary_light;
             }
 
             .organization-name {
-                font: 500 16px/30px $bf;
+                font: 500 15px/24px $bf;
                 color: #282b39;
             }
         }

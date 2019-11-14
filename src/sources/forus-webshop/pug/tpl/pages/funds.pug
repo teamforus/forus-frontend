@@ -10,7 +10,8 @@ section.section.section-funds: .wrapper
             .fund-image
                 img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
             .fund-details
-                .fund-name {{ fund.name }}
+                .fund-name 
+                    | {{ fund.name }}
                     span(ng-show="funds.status == 'active'" translate="funds.status.active").label.label-primary.label-square
                 .fund-organization(ng-bind="fund.organization.name") 
                 .fund-categories
@@ -21,10 +22,12 @@ section.section.section-funds: .wrapper
                     ng-if="!fund.alreadyReceived && fund.isApplicable" 
                     ng-click="$ctrl.applyFund(fund)" 
                     translate="funds.buttons.is_applicable")
+                
                 a.button.button-default(
-                    ng-if="!fund.alreadyReceived && !fund.isApplicable" 
+                    ng-if="!fund.alreadyReceived && !fund.isApplicable && $ctrl.appConfigs.features.funds.fund_requests" 
                     ui-sref="fund-request({fund_id: fund.id})"
                     translate="funds.buttons.start_request")
+                
                 a.button.button-primary(
                     ng-if="fund.alreadyReceived" 
                     ui-sref="{{ fund.voucherStateName }}" 
@@ -36,7 +39,7 @@ section.section.section-funds: .wrapper
                     .fund-criteria-item-label(ng-bind="criterion.key")
                     .fund-criteria-item-value(ng-bind="criterion.value")
         
-        // .block.block-show-more: a(href="#").button.button-primary.button-wide {{ "funds.buttons.more" | translate }}
+        //- .block.block-show-more: a(href="#").button.button-primary.button-wide {{ "funds.buttons.more" | translate }}
 
         empty-block(
             ng-if="$ctrl.funds.length == 0"
