@@ -1,9 +1,16 @@
 .section {
     &.section-footer {
-        position: relative;
-        bottom: 0;
-        background-image: url("../img/footer-bg.png");
-        background-repeat: no-repeat;
-        background-size: cover;
+        .block-footer {
+            width: 100%;
+            background-image: url("../img/footer-bg.png");
+            background-repeat: no-repeat;
+            background-size: cover; 
+            margin: 0px;
+            min-height: 300px;
+
+            .block.block-footer {
+                margin-bottom: 0px;
+            }
+        }
     }
 }
