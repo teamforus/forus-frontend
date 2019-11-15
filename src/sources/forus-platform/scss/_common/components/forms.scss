@@ -34,9 +34,11 @@
     }
 
     .form-toggle {
+        display: flex;
         width: 100%;
         $colorPrimary: $color_primary;
         $borderRadius: 4px;
+        margin-right: 10px;
 
         &>input[type=radio],
         &>input[type=checkbox] {
@@ -49,7 +51,6 @@
 
             .toggle-input {
                 background-color: #eaf0f6;
-                margin-right: 10px;
                 border-radius: 10px;
                 width: 45px;
                 border: 1px solid $borderColor;
@@ -121,6 +122,7 @@
             }
         }
 
+        &.form-toggle-active .form-toggle-inner,
         &.active .form-toggle-inner,
         &.checked .form-toggle-inner,
         &>input[type=radio]:checked+.form-toggle-inner,
@@ -137,6 +139,16 @@
                     margin-right: -1px;
                 }
             }
+        }
+
+        &.form-toggle-disabled {
+            pointer-events: none;
+            opacity: .5;
+            filter: saturate(0);
+        }
+
+        &:last-child {
+            margin-right: 0;
         }
     }
 
