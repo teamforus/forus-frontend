@@ -66,10 +66,11 @@
                         ng-model="$ctrl.filters.values.q"
                         placeholder="Search").form-control
 
-            div(ng-if="$ctrl.fundProvider.allow_products").card-section.card-section-success.card-section-narrow: em
+            div(ng-if="$ctrl.fundProvider.allow_products && $ctrl.products.meta.total > 0").card-section.card-section-success.card-section-narrow: em
                 | You can not put individual products off while you have the global toggle on. 
                 | Please take it off to enable individual choices.
             
+            .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") No products
             .card-section.card-section-padless: .table-wrapper: table.table
                 tr
                     th Name
@@ -103,6 +104,7 @@
                 .flex-col: .card-header-drown: +type_toggle()
                 .flex-col
 
+            .card-section.text-center(ng-if="$ctrl.offices.meta.total == 0") No offices
             .card-section.card-section-padless: .table-wrapper: table.table
                 tr
                     th Address
