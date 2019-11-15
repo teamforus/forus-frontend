@@ -50,7 +50,7 @@
                                                 ng-model="$ctrl.filters.values.dismissed")
                                             label(for="show_dismissed").checkbox-label
                                                 .checkbox-box: .mdi.mdi-check
-                                                | Show dismissed
+                                                | Toon verborgen aanbieders
                                 .form-group
                                     form-label-toggle(label="{{ 'organization_providers.state' | i18n }}")
                                     select(
@@ -58,7 +58,7 @@
                                         ng-model="$ctrl.filters.values.state").form-control
                                 
                                 .form-group
-                                    form-label-toggle(label="Allow budget")
+                                    form-label-toggle(label="Accepteer budget")
                                     .inline-filters-pane
                                         .radio
                                             input#allow_budget_yes(
@@ -67,7 +67,7 @@
                                                 ng-model="$ctrl.filters.values.allow_budget" value="1")
                                             label(for="allow_budget_yes").radio-label
                                                 .radio-circle
-                                                | Yes
+                                                | Ja
                                         .radio
                                             input#allow_budget_no(
                                                 type="radio" 
@@ -75,7 +75,7 @@
                                                 ng-model="$ctrl.filters.values.allow_budget" value="0")
                                             label(for="allow_budget_no").radio-label
                                                 .radio-circle
-                                                | No
+                                                | Nee
                                         .radio
                                             input#allow_budget_all(
                                                 type="radio" 
@@ -83,10 +83,10 @@
                                                 ng-model="$ctrl.filters.values.allow_budget" value="")
                                             label(for="allow_budget_all").radio-label
                                                 .radio-circle
-                                                | All
+                                                | Alle
                                 
                                 .form-group
-                                    form-label-toggle(label="Allow products")
+                                    form-label-toggle(label="Accepteer aanbiedingen")
                                     .inline-filters-pane
                                         .radio
                                             input#allow_products_yes(
@@ -95,7 +95,7 @@
                                                 ng-model="$ctrl.filters.values.allow_products" value="1")
                                             label(for="allow_products_yes").radio-label
                                                 .radio-circle
-                                                | All products
+                                                | Alle aanbiedingen
                                         .radio
                                             input#allow_products_some(
                                                 type="radio" 
@@ -103,7 +103,7 @@
                                                 ng-model="$ctrl.filters.values.allow_products" value="some")
                                             label(for="allow_products_some").radio-label
                                                 .radio-circle
-                                                | Some products
+                                                | Sommige aanbiedingen
                                         .radio
                                             input#allow_products_no(
                                                 type="radio" 
@@ -111,7 +111,7 @@
                                                 ng-model="$ctrl.filters.values.allow_products" value="0")
                                             label(for="allow_products_no").radio-label
                                                 .radio-circle
-                                                | No products
+                                                | Geen aanbiedingen
                                         .radio
                                             input#allow_products_all(
                                                 type="radio" 
@@ -119,7 +119,7 @@
                                                 ng-model="$ctrl.filters.values.allow_products" value="")
                                             label(for="allow_products_all").radio-label
                                                 .radio-circle
-                                                | All
+                                                | Alle
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
             .card(ng-repeat="providerFund in $ctrl.fundProviders.data")
@@ -128,12 +128,12 @@
                         button(
                             ng-if="!providerFund.dismissed && !providerFund.allow_budget && !providerFund.allow_products" 
                             ng-click="$ctrl.dismissProvider(providerFund)").button.button-default
-                            | Dismiss
+                            | Verberg
                             em.mdi.mdi-close.icon-end
                         .button.button-text.button-text.button-text-muted.button-narrow(
                             ng-if="providerFund.dismissed"
                             disabled)
-                            | Dismissed
+                            | Verborgen
 
                     .card-block.card-block-provider
                         .provider-img: img(ng-src="{{ providerFund.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
@@ -165,10 +165,10 @@
                             .card-block-listing-label(ng-bind="providerFund.products_count_all + ' aanbiedingen'")
                             button(type="button" ui-sref="fund-provider(providerFund.uiViewParams)").button.button-default.button-flat
                                 em.mdi.mdi-eye-outline.icon-start
-                                | Kijk
+                                | Bekijk
 
                         .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                            .card-block-listing-label Allow budget
+                            .card-block-listing-label Accepteer budget
                             .button.button-text: label(for="option_{{ providerFund.id }}_allow_budget").form-toggle
                                 input(
                                     type="checkbox" 
@@ -179,7 +179,7 @@
                                 .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
                             
                         .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                            .card-block-listing-label Allow products
+                            .card-block-listing-label Accepteer aanbiedingen
                             .button.button-text: label(for="option_{{ providerFund.id }}_allow_products").form-toggle
                                 input(
                                     type="checkbox" 

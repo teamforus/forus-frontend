@@ -1,7 +1,7 @@
 .app.app-container
     menu
     section.app.app-content
-        .card-heading General information
+        .card-heading Algemene informatie
         .card
             .card-section.card-section-narrow: .block.block-entity-overview
                 .entity-photo
@@ -20,7 +20,7 @@
                         .entity-overview-value(ng-bind="$ctrl.fundProvider.organization.website")
                     
                     .entity-overview-row(ng-if="$ctrl.fundProvider.organization.phone")
-                        .entity-overview-label Telephone:
+                        .entity-overview-label Telefoonnummer:
                         .entity-overview-value(ng-bind="$ctrl.fundProvider.organization.phone")
                     
                     .entity-overview-row(ng-if="$ctrl.fundProvider.organization.kvk")
@@ -29,7 +29,7 @@
 
             .card-section.card-section-primary.card-section-narrow.form: .row: .col.col-lg-8: .flex-row
                 .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                    .card-block-listing-label Allow budget
+                    .card-block-listing-label Accepteer budget
                     .button.button-text.button-narrow: label(for="provider_allow_budget").form-toggle
                         input(
                             type="checkbox" 
@@ -39,7 +39,7 @@
                         .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
                     
                 .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                    .card-block-listing-label Allow products
+                    .card-block-listing-label Accepteer aanbiedingen
                     .button.button-text.button-narrow: label(for="provider_allow_products").form-toggle
                         input(
                             type="checkbox" 
@@ -52,10 +52,10 @@
             .block.block-label-tabs
                 button(
                     ng-class="{active: $ctrl.tab == 'products'}"
-                    ng-click="$ctrl.tab = 'products'").label-tab Products
+                    ng-click="$ctrl.tab = 'products'").label-tab Producten
                 button(
                     ng-class="{active: $ctrl.tab == 'offices'}"
-                    ng-click="$ctrl.tab = 'offices'").label-tab Offices
+                    ng-click="$ctrl.tab = 'offices'").label-tab Vestigingen
         
         //- Products tab
         .card(ng-if="$ctrl.tab == 'products'")
@@ -67,20 +67,20 @@
                         placeholder="Search").form-control
 
             div(ng-if="$ctrl.fundProvider.allow_products && $ctrl.products.meta.total > 0").card-section.card-section-success.card-section-narrow: em
-                | You can not put individual products off while you have the global toggle on. 
-                | Please take it off to enable individual choices.
+                | U kunt niet individuele producten uitzetten terwijl een globale instelling aan staat. 
+                | Zet de globale instelling uit om individuele producten goed te keuren.
             
             .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") No products
             .card-section.card-section-padless: .table-wrapper: table.table
                 tr
-                    th Name
-                    th(style="width: 20%;") Stock
-                    th(style="width: 20%;") Price
-                    th.text-right Allowed
+                    th Naam
+                    th(style="width: 20%;") Aanbod
+                    th(style="width: 20%;") Prijs
+                    th.text-right Geaccepteerd
                 
                 tr(ng-repeat="product in $ctrl.products.data")
                     td(ng-bind="product.name")
-                    td(ng-if="product.unlimited_stock") Unlimited
+                    td(ng-if="product.unlimited_stock") Ongelimiteerd
                     td(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
                     td
                         span(ng-bind="product.price | currency_format")
@@ -104,11 +104,11 @@
                 .flex-col: .card-header-drown: +type_toggle()
                 .flex-col
 
-            .card-section.text-center(ng-if="$ctrl.offices.meta.total == 0") No offices
+            .card-section.text-center(ng-if="$ctrl.offices.meta.total == 0") Geen vestigingen
             .card-section.card-section-padless: .table-wrapper: table.table
                 tr
-                    th Address
-                    th.text-right Phone
+                    th Adres
+                    th.text-right Telefoonnummer
                 
                 tr(ng-repeat="office in $ctrl.offices.data")
                     td(ng-bind="office.address || 'n/a'" ng-class="{'text-muted': !office.address}")
