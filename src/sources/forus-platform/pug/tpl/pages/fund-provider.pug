@@ -70,7 +70,6 @@
                 | U kunt niet individuele producten uitzetten terwijl een globale instelling aan staat. 
                 | Zet de globale instelling uit om individuele producten goed te keuren.
             
-            .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") No products
             .card-section.card-section-padless: .table-wrapper: table.table
                 tr
                     th Naam
@@ -94,7 +93,7 @@
                             ng-model="product.allowed"
                             ng-change="$ctrl.updateAllowBudgetItem($ctrl.fundProvider, product)")
                         .form-toggle-inner: .toggle-input: .toggle-input-dot
-
+            .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")
                 paginator(meta="$ctrl.products.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
 
