@@ -1,5 +1,5 @@
 top-navbar
-section.section.section-voucher-details: .wrapper
+section.section.section-voucher-details: .wrapper: .page.page-voucher
     .block.block-breadcrumbs.hide-sm
         a(ui-sref="home").breadcrumb-item Home
         a(ui-sref="vouchers").breadcrumb-item Mijn vouchers
@@ -47,7 +47,7 @@ section.section.section-voucher-details: .wrapper
         //- voucher details
         .base-card.base-card-voucher
             .card-inner
-                .card-body.flex-row
+                .card-body
                     //- product voucher
                     .card-photo: img(ng-src="{{ $ctrl.voucherCard.thumbnail }}").voucher-img
                     
@@ -117,13 +117,13 @@ section.section.section-voucher-details: .wrapper
                     .transactions-item-value - {{ transaction.amount | currency_format }}
                     .transactions-item-type {{ "voucher.labels.subtract" | translate }}
 
-block-products(
-    ng-if="$root.appConfigs.features.products.list && !$ctrl.voucherCard.product"
-    sample="true"
-    products="$ctrl.products"
-    product-categories="$ctrl.productCategories")
+    block-products(
+        ng-if="$root.appConfigs.features.products.list && !$ctrl.voucherCard.product"
+        sample="true"
+        products="$ctrl.products"
+        product-categories="$ctrl.productCategories")
 
-.wrapper: .block.block-map_card
+    .block.block-map_card
         .map_card-header
             //- regular voucher
             .map_card-title(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.offices")

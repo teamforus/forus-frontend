@@ -184,25 +184,55 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('organization-providers', 'manage_providers'),
-            fundProviders: function(permission, $transition$, OrganizationService) {
-                return $transition$.params().fund_id != null ? repackPagination(
-                    OrganizationService.listProviders(
-                        $transition$.params().organization_id, {
-                            fund_id: $transition$.params().fund_id
-                        })
-                ) : new Promise((res) => res(null));
-            },
-            fund: function(permission, $transition$, FundService) {
-                return $transition$.params().fund_id != null ? repackResponse(
-                    FundService.readPublic($transition$.params().fund_id)
-                ) : new Promise((res) => res(null));
-            },
-            funds: function(permission, $transition$, FundService) {
+            funds: ['permission', '$transition$', 'FundService', (
+                permission, $transition$, FundService
+            ) => {
                 return repackResponse(
                     FundService.list($transition$.params().organization_id)
                 );
-            },
-            fundLevel: (permission) => "organizationFunds"
+            }],
+            fund: ['funds', '$transition$', 'FundService', (
+                funds, $transition$, FundService
+            ) => {
+                return funds.filter(
+                    fund => fund.id == $transition$.params().fund_id
+                )[0] || null;
+            }],
+        }
+    });
+
+    // Organization providers
+    $stateProvider.state({
+        name: "fund-provider",
+        url: "/organizations/{organization_id}/funds/{fund_id}/providers/{fund_provider_id}",
+        component: "fundProviderComponent",
+        params: {
+            organization_id: null,
+            fund_id: null,
+            fund_provider_id: null
+        },
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('organization-providers', 'manage_providers'),
+            fundProvider: ['permission', '$transition$', 'FundService', (
+                permission, $transition$, FundService
+            ) => {
+                return $transition$.params().fund_id != null ? repackResponse(
+                    // organization_id, fund_id, provider_id
+                    FundService.readProvider(
+                        $transition$.params().organization_id,
+                        $transition$.params().fund_id,
+                        $transition$.params().fund_provider_id
+                    )
+                ) : new Promise((res) => res(null));
+            }],
+            fund: ['permission', '$transition$', 'FundService', (
+                permission, $transition$, FundService
+            ) => {
+                return $transition$.params().fund_id != null ? repackResponse(
+                    FundService.readPublic($transition$.params().fund_id)
+                ) : new Promise((res) => res(null));
+            }]
         }
     });
 

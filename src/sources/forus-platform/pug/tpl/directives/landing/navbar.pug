@@ -4,7 +4,7 @@
         img(ng-src="{{ './assets/img/landing/logo-normal' + cfg.logoExtension }}").hover
     nav.navbar-list(ng-class="mobileMenu?'navbar-list-show':''")
         .navbar-list-auth.show-sm
-            // Auth menu
+            //- Auth menu
             nav.navbar-item-wrapper: .navbar-item(ui-sref="organizations") Open dashboard
             nav.navbar-item-wrapper: .navbar-item(ng-click="$root.openPinCodePopup()" translate="topnavbar.buttons.authorize")
             nav.navbar-item-wrapper: .navbar-item(ng-click="$root.signOut()" translate="topnavbar.buttons.logout")
@@ -15,7 +15,7 @@
         nav.navbar-item-wrapper: a(
             href="{{ $root.appConfigs.frontends.url_provider }}"
             ng-class="$root.appConfigs.panel_type=='provider'?'active':''").navbar-item AANBIEDER
-        //a(
+        //- a(
             href="{{ $root.appConfigs.frontends.url_validator }}"
             ng-class="$root.appConfigs.panel_type=='validator'?'active':''").navbar-item VALIDATOR
         nav.navbar-item-wrapper: a(href="{{ $root.appConfigs.frontends.url_app }}" target="_blank").navbar-item ME

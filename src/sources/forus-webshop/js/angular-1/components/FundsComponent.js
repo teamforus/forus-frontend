@@ -11,6 +11,7 @@ let FundsComponent2 = function(
 
     $ctrl.recordsByKey = {};
     $ctrl.recordsByTypesKey = {};
+    $ctrl.appConfigs = appConfigs;
 
     $ctrl.$onInit = function() {
         if (Array.isArray($ctrl.records)) {
