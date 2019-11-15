@@ -49,7 +49,7 @@ let OrganizationProvidersComponent = function(
                 allow_budget: fundProvider.allow_budget
             }
         ).then((res) => {
-            PushNotificationsService.success('Updated!');
+            PushNotificationsService.success('Saved!');
 
             if (!$ctrl.filters.values.dismissed) {
                 $ctrl.updateProvidersList();
@@ -87,7 +87,10 @@ let OrganizationProvidersComponent = function(
             fundProvider.fund.id,
             fundProvider.id
         ).then((res) => {
-            PushNotificationsService.success('Dismissed! Adjust the filters to find the request it again.');
+            PushNotificationsService.success(
+                'Dismissed!',
+                "Adjust the filters to find the request it again."
+            );
 
             if (!$ctrl.filters.values.dismissed) {
                 $ctrl.updateProvidersList();

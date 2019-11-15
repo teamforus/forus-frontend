@@ -1,19 +1,45 @@
 let PushNotificationsService = function() {
+    let notifications = [];
+    let listeners = [];
+
+    let pushNotifications = (notification = {}) => {
+        let note = Object.assign({
+            type: '',
+            title: '',
+            message: '',
+            icon: 'check',
+            timeout: 4000,
+        }, notification);
+
+        notifications.push(note);
+        listeners.forEach(listener => listener(note));
+    };
+
     return new (function() {
-        this.push = (type, message, icon = 'check', timeout = 4000) => {
-            if (typeof pushNotifications != 'undefined') {
-                pushNotifications.push(type, icon, message, timeout);
-            } else {
-                alert(message);
-            }
+        this.push = (note) => {
+            pushNotifications(note);
         }
         
-        this.success = (message, icon = 'check') => {
-            this.push('success', message, icon);
+        this.success = (title, message, icon = 'check', other = {}) => {
+            this.push(Object.assign(other, {
+                icon: icon,
+                title: title,
+                message: message,
+                type: 'success',
+            }));
         };
 
-        this.danger = (message, icon = 'close') => {
-            this.push('danger', message, icon);
+        this.danger = (title, message, icon = 'close', other = {}) => {
+            this.push(Object.assign(other, {
+                icon: icon,
+                title: title,
+                message: message,
+                type: 'danger',
+            }));
+        };
+
+        this.onNotification = function(listener) {
+            listeners.push(listener);
         };
     });
 };

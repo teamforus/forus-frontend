@@ -3387,17 +3387,17 @@ $colorPrimaryLight: $color_primary_light;
         position: fixed;
         right: 15px;
         top: 100px;
-        width: 340px;
+        width: 290px;
         z-index: 1;
     
         .notification {
             background: #fff;
             box-shadow: 5px 10px 30px rgba(#000, .2);
             border-radius: 6px;
-            margin: 0 0 20px;
+            margin: 0 0 -59px;
             padding: 20px 30px 20px 45px;
             position: relative;
-            font: 500 14px/20px $bf;
+            font: 500 13px/18px $bf;
             color: #262626;
             width: 100%;
             cursor: default;
@@ -3405,34 +3405,58 @@ $colorPrimaryLight: $color_primary_light;
             transform: translate(120%, 0);
             opacity: 0;
             transition: .5s;
+            display: flex;
+            flex-direction: row;
             filter: blur(15px);
     
-            .close {
+            .notification-close {
                 position: absolute;
                 right: 5px;
                 top: 5px;
                 font-size: 24px;
                 color: #bcc1d3;
                 transition: .4s;
+                z-index: 1;
+                width: 25px;
+                height: 25px;
+                display: block;
+                text-align: center;
+                cursor: pointer;
+
+                &:before {
+                    width: 25px;
+                    line-height: 25px;
+                }
     
                 &:hover {
                     color: $bc;
                 }
             }
     
-            .icon {
+            .notification-icon {
                 font-size: 24px;
                 float: left;
                 width: 25px;
-                height: 25px;
                 margin-left: -25px;
                 margin-top: 0px;
                 margin-right: 5px;
                 color: #33475b;
             }
     
-            .text {
+            .notification-details {
                 font: inherit;
+                flex-grow: 1;
+
+                strong {
+                    display: block;
+                    font-size: 14px;
+                    margin-bottom: 5px;
+                    font-weight: 700;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
             }
     
             &.notification-danger {
@@ -3447,6 +3471,7 @@ $colorPrimaryLight: $color_primary_light;
                 transform: translate(0, 0);
                 opacity: 1;
                 filter: blur(0px);
+                margin: 0 0 20px;
             }
         }
     }

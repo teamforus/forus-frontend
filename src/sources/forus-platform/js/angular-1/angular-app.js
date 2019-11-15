@@ -153,6 +153,7 @@ app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
 app.directive('scrollEnd', require('./directives/ScrollEndDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
 app.directive('pdfPreview', require('./directives/PdfPreviewDirective'));
+app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));

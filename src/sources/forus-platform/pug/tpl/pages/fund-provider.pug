@@ -79,8 +79,8 @@
                 
                 tr(ng-repeat="product in $ctrl.products.data")
                     td(ng-bind="product.name")
-                    td(ng-if="product.stock_unlimited") Unlimited
-                    td(ng-if="!product.stock_unlimited" ng-bind="product.stock_amount")
+                    td(ng-if="product.unlimited_stock") Unlimited
+                    td(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
                     td
                         span(ng-bind="product.price | currency_format")
                         .text-muted(ng-bind="product.old_price | currency_format")
