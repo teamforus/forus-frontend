@@ -271,7 +271,50 @@ let SignUpComponent = function(
                 }
             }
 
+            $ctrl.tmpFundsAvailable = angular.copy(fundsAvailable);
             $ctrl.fundsAvailable = fundsAvailable;
+
+            $ctrl.fundOrganizations = [];
+            $ctrl.fundLabels = [];
+
+            let processedOrganizations = [];
+            let processedLabels = [];
+            
+            $ctrl.fundsAvailable.forEach(fund => {
+                if (processedOrganizations.indexOf(fund.organization.id) == -1) {
+                    $ctrl.fundOrganizations.push({
+                        id: fund.organization.id,
+                        name: fund.organization.name
+                    });
+                }
+                if (processedLabels.indexOf(fund.label.id) == -1) {
+                    $ctrl.fundLabels.push({
+                        id: fund.label.id,
+                        name: fund.label.name
+                    });
+                }
+
+                processedOrganizations.push(fund.organization.id);
+                processedLabels.push(fund.label.id);
+            });
+
+            $ctrl.fundOrganizations = $ctrl.fundOrganizations.map(fundOrganization => {
+                fundOrganization.id_str = fundOrganization.id += '';
+
+                return fundOrganization;
+            });
+
+            $ctrl.fundLabels = $ctrl.fundLabels.map(fundLabel => {
+                fundLabel.id_str = fundLabel.id += '';
+                
+                return fundLabel;
+            });
+
+            $ctrl.fundOrganizations.unshift({ id_str: 'null', name: 'All Organizations' });
+            $ctrl.fundLabels.unshift({ id_str: 'null', name: 'All Labels' });
+
+            $ctrl.fundOrganization = 'null'; 
+            $ctrl.fundLabel = 'null'; 
 
             $scope.$watch(() => $ctrl.fundsAvailable, function(funds) {
                 $ctrl.fundsLeft = (funds || []).filter(fund => {
@@ -308,6 +351,22 @@ let SignUpComponent = function(
 
         $ctrl.offices.push(false);
     };
+
+    $ctrl.filterFunds = () => {
+        $ctrl.fundsAvailable = $ctrl.tmpFundsAvailable.filter(fund => {
+            let matches = true;
+
+            if ($ctrl.fundOrganization != 'null') {
+                matches = fund.organization.id == $ctrl.fundOrganization;
+            }
+
+            if ($ctrl.fundLabel != 'null') {
+                matches = matches && fund.label.id == $ctrl.fundLabel;
+            }
+
+            return matches;
+        });
+    }
 
     $ctrl.next = async function() {
         if ($ctrl.organizationStep && !$ctrl.signedIn && $ctrl.step > 1) {
