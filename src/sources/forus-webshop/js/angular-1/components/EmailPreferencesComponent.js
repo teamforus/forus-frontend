@@ -3,6 +3,7 @@ let EmailPreferencesComponent = function(
     AuthService,
     ModalService,
     EmailPreferencesService,
+    PushNotificationsService,
     FormBuilderService
 ) {
     let $ctrl = this;
@@ -48,6 +49,20 @@ let EmailPreferencesComponent = function(
         return toggleSubscription(true);
     };
 
+    $ctrl.togglePreferenceOption = () => {
+        EmailPreferencesService.update({
+            email_unsubscribed: $ctrl.email_unsubscribed,
+            preferences: $ctrl.form.values
+        }).then(res => {
+            $ctrl.form.unlock();
+            
+            PushNotificationsService.success('Saved!');
+        }, (res) => {
+            $ctrl.form.unlock();
+            $ctrl.form.errors = res.data.errors;
+        });
+    }
+
     $ctrl.$onInit = () => {
         if (AuthService.hasCredentials()) {
             return EmailPreferencesService.get().then(res => {
@@ -78,6 +93,7 @@ module.exports = {
         'AuthService',
         'ModalService',
         'EmailPreferencesService',
+        'PushNotificationsService',
         'FormBuilderService',
         EmailPreferencesComponent
     ],
