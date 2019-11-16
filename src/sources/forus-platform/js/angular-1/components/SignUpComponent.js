@@ -290,6 +290,7 @@ let SignUpComponent = function(
                 if (processedLabels.indexOf(fund.label.id) == -1) {
                     $ctrl.fundLabels.push({
                         id: fund.label.id,
+                        key: fund.label.key,
                         name: fund.label.name
                     });
                 }
@@ -304,17 +305,13 @@ let SignUpComponent = function(
                 return fundOrganization;
             });
 
-            $ctrl.fundLabels = $ctrl.fundLabels.map(fundLabel => {
-                fundLabel.id_str = fundLabel.id += '';
-                
-                return fundLabel;
-            });
-
             $ctrl.fundOrganizations.unshift({ id_str: 'null', name: 'All Organizations' });
-            $ctrl.fundLabels.unshift({ id_str: 'null', name: 'All Labels' });
+            $ctrl.fundLabels.unshift({ key: 'null', name: 'All Labels' });
 
-            $ctrl.fundOrganization = 'null'; 
-            $ctrl.fundLabel = 'null'; 
+            console.log($stateParams.tag_name);
+            $ctrl.fundOrganization = $stateParams.organization_id ? $stateParams.organization_id : 'null'; 
+            $ctrl.fundLabel = $stateParams.tag_name ? $stateParams.tag_name : 'null';
+            $ctrl.filterFunds();
 
             $scope.$watch(() => $ctrl.fundsAvailable, function(funds) {
                 $ctrl.fundsLeft = (funds || []).filter(fund => {
@@ -361,11 +358,29 @@ let SignUpComponent = function(
             }
 
             if ($ctrl.fundLabel != 'null') {
-                matches = matches && fund.label.id == $ctrl.fundLabel;
+                matches = matches && fund.label.key == $ctrl.fundLabel;
             }
 
             return matches;
         });
+    }
+
+    $ctrl.updateFundFilters = () => {
+        $ctrl.setStep(7);
+
+        $state.go('sign-up', {
+            organization: 'organization',
+            organization_id: $ctrl.fundOrganization,
+            tag: 'tag',
+            tag_name: $ctrl.fundLabel
+        }).then(function(result)
+        {
+            onSearch(
+                $stateParams.organization_id, 
+                $stateParams.tag_name);
+        });
+
+        $ctrl.filterFunds();
     }
 
     $ctrl.next = async function() {
