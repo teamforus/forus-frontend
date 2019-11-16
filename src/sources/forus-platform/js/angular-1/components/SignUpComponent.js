@@ -161,13 +161,15 @@ let SignUpComponent = function(
                 }
                 
                 $ctrl.enableSaveOfficeBtn = false;
-                $ctrl.enableAddOfficeBtn  = true;
+                $ctrl.showAddOfficeBtn  = true;
+                $ctrl.showCancelBtn  = false;
             }, (res) => {
                 form.errors = res.data.errors;
                 form.unlock();
 
                 $ctrl.enableSaveOfficeBtn = true;
-                $ctrl.enableAddOfficeBtn  = false;
+                $ctrl.showAddOfficeBtn  = false;
+                $ctrl.showCancelBtn  = true;
             });
         });
     };
@@ -323,7 +325,8 @@ let SignUpComponent = function(
         $ctrl.officeForm.values = angular.copy(office);
 
         $ctrl.enableSaveOfficeBtn = true;
-        $ctrl.enableAddOfficeBtn  = false;
+        $ctrl.showAddOfficeBtn  = false;
+        $ctrl.showCancelBtn  = true;
     };
 
     $ctrl.addOffice = () => {
@@ -334,8 +337,15 @@ let SignUpComponent = function(
         $ctrl.officeForm = $ctrl.buildOfficeForm();
 
         $ctrl.enableSaveOfficeBtn = true;
-        $ctrl.enableAddOfficeBtn  = false;
+        $ctrl.showAddOfficeBtn  = false;
+        $ctrl.showCancelBtn  = true;
     };
+
+    $ctrl.cancelOfficeEdit = () => {
+        $ctrl.enableSaveOfficeBtn = false;
+        $ctrl.showAddOfficeBtn  = true;
+        $ctrl.showCancelBtn  = false;
+    }
 
     $ctrl.saveOffice = () => {
         $ctrl.officeForm = $ctrl.buildOfficeForm($ctrl.officeForm.values); 
@@ -426,8 +436,59 @@ let SignUpComponent = function(
         }, 0);
     };
 
-    $ctrl.syncHours = (modifiedFieldIndex) => {
+    let transformHours = (hours) => {
+        if ((hours + '').length == 1 && hours > 2) {
+            hours = 2;
+        }
+
+        if (hours < 0) {
+            hours = 0;
+        } else if (hours > 23) {
+            hours = 23;
+        }
+
+        return hours;
+    }
+
+    let transformMinutes = (minutes) => {
+        if ((minutes + '').length == 1 && minutes > 5) {
+            minutes = 5;
+        }
+
+        if (minutes < 0) {
+            minutes = 0;
+        } else if (minutes > 59) {
+            minutes = 59;
+        }
+
+        return minutes;
+    }
+
+    let transformTime = (time) => {
+        let time_arr = time.split(':');
+
+        if (time_arr.length > 1) {
+            let hours = transformHours(time_arr[0]);
+            let minutes = transformMinutes(time_arr[1]);
+
+            return [hours, minutes].join(':');
+        } else {
+            if (time.length <= 2) {
+                return transformHours(time);
+            } else {
+                return transformHours(time.substr(0, 2)) + ':' + 
+                    transformMinutes(time.substr(2, time.length - 2));
+            }
+        }
+    }
+
+    $ctrl.syncHours = (modifiedFieldIndex, key) => {
         $timeout(() => {
+            let schedule = $ctrl.officeForm.values.schedule;
+            let time = schedule[modifiedFieldIndex][key];
+            
+            schedule[modifiedFieldIndex][key] = transformTime(time);
+
             $ctrl.syncTime(modifiedFieldIndex);
         }, 0);
     };
@@ -563,7 +624,7 @@ let SignUpComponent = function(
     };
 
     $ctrl.enableSaveOfficeBtn = false;
-    $ctrl.enableAddOfficeBtn = true;
+    $ctrl.showAddOfficeBtn = true;
 
     $ctrl.next = async function() {
         if ($ctrl.organizationStep && !$ctrl.signedIn && $ctrl.step > 1) {

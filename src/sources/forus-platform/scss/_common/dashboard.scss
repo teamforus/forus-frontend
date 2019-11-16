@@ -1426,6 +1426,7 @@ $colorPrimaryLight: $color_primary_light;
             width: 40px;
             border-top: 6px solid #BDCBFF;
             text-align: center;
+            margin-right: 1px;
 
             .icon {
                 margin-top: 3px;
@@ -1438,7 +1439,7 @@ $colorPrimaryLight: $color_primary_light;
 
         .sign_up-step {
             margin-left: 1px;
-            width: calc((100% - 45px)/4);
+            width: calc((100% - 46px)/4);
         }
 
         .sign_up-pane {
@@ -1682,6 +1683,15 @@ $colorPrimaryLight: $color_primary_light;
                         }
                     }
 
+                    &.cancel {
+                        // background-color: #e1e1e1;
+                        // color: #555555;
+
+                        border: 1px solid #3561ff;
+                        color: #3561FF;
+                        background-color: #fff;
+                    }
+
                     &.location {
                         background: #FFFFFF;
                         border: 1px solid #3561FF;
@@ -1907,7 +1917,7 @@ $colorPrimaryLight: $color_primary_light;
                         align-items: center;
 
                         &.applied {
-                            background-color: #c6c6c6;
+                            background-color: #f8f4e7;
                             cursor: default;
                             pointer-events: none;
 
@@ -2746,15 +2756,6 @@ $colorPrimaryLight: $color_primary_light;
                 font: 500 36px/36px $bf;
                 color: #191A1C;
                 text-align: center;
-            }
-
-            .sign_up-progress {
-                .sign_up-step {
-                    &.sign_up-step-active {
-                        border-top: 6px solid #BDCBFF;
-                        border-radius: 6px;   
-                    }      
-                }
             }
         }
 

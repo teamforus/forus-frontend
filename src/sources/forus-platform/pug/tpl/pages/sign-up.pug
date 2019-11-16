@@ -364,7 +364,7 @@
                                                             ui-control-text.time.start(
                                                                 ng-model="$ctrl.officeForm.values.schedule[weekDayKey].start_time"
                                                                 ng-if="$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened"
-                                                                ng-change="$ctrl.syncHours($index)" 
+                                                                ng-change="$ctrl.syncHours($index, 'start_time')" 
                                                                 data-placeholder="from")
                                                             span(        
                                                                 ng-if="!$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened") closed
@@ -372,29 +372,38 @@
                                                             ui-control-text.time.end(
                                                                 ng-model="$ctrl.officeForm.values.schedule[weekDayKey].end_time" 
                                                                 ng-if="$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened"
-                                                                ng-change="$ctrl.syncHours($index)" 
+                                                                ng-change="$ctrl.syncHours($index, 'end_time')" 
                                                                 data-placeholder="till")  
 
                                                         td.breaks
                                                             ui-control-text.time.breaks.start(
                                                                 ng-model="$ctrl.officeForm.values.schedule[weekDayKey].break_start_time"
                                                                 ng-if="$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened"
-                                                                ng-change="$ctrl.syncHours($index)" 
+                                                                ng-change="$ctrl.syncHours($index, 'start_time')" 
                                                                 data-placeholder="from")
                                                         
                                                             ui-control-text.time.breaks.end(
                                                                 ng-model="$ctrl.officeForm.values.schedule[weekDayKey].break_end_time" 
                                                                 ng-if="$ctrl.officeForm.values.scheduleDetails[weekDayKey].is_opened"
-                                                                ng-change="$ctrl.syncHours($index)" 
+                                                                ng-change="$ctrl.syncHours($index, 'end_time')" 
                                                                 data-placeholder="till")                   
                                     
                             .location-btns.col: .row
                                 .col.col-lg-4
-                                    button.button-text.button-text-padless.save(ng-click="$ctrl.saveOffice()" ng-disabled="!$ctrl.enableSaveOfficeBtn")
+                                    button.button-text.button-text-padless.save(
+                                        ng-click="$ctrl.saveOffice()" 
+                                        ng-disabled="!$ctrl.enableSaveOfficeBtn")
                                         | Save location
                                 .col.col-lg-8
-                                    button.button-text.button-text-padless.location(ng-click="$ctrl.addOffice()" ng-disabled="!$ctrl.enableAddOfficeBtn")
+                                    button.button-text.button-text-padless.location(
+                                        ng-click="$ctrl.addOffice()" 
+                                        ng-show="$ctrl.showAddOfficeBtn")
                                         | Add location
+                                .col.col-lg-8
+                                    button.button-text.button-text-padless.cancel(
+                                        ng-click="$ctrl.cancelOfficeEdit()"
+                                        ng-show="$ctrl.showCancelBtn")
+                                        | Cancel
 
                         .sign_up-pane-footer: .row
                             .col.col-lg-6.text-left: .button.button-text.button-text-padless
