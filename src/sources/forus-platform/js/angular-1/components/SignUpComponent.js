@@ -308,7 +308,6 @@ let SignUpComponent = function(
             $ctrl.fundOrganizations.unshift({ id_str: 'null', name: 'All Organizations' });
             $ctrl.fundLabels.unshift({ key: 'null', name: 'All Labels' });
 
-            console.log($stateParams.tag_name);
             $ctrl.fundOrganization = $stateParams.organization_id ? $stateParams.organization_id : 'null'; 
             $ctrl.fundLabel = $stateParams.tag_name ? $stateParams.tag_name : 'null';
             $ctrl.filterFunds();
