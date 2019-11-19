@@ -75,12 +75,13 @@ module.exports = [
             };
 
             this.sampleCSV = (voucher_type) => {
-                return Papa.unparse([
-                    [ 
-                        (voucher_type == 'product_voucher' ? 'product_id' : 'amount'),
-                        'expires_at', 'note', 'email'
-                    ]
-                ]);
+                let fields = ['amount', 'expires_at', 'note', 'email'];
+
+                if (voucher_type == 'product_voucher') {
+                    fields.splice(1, 0, 'product_id');
+                }
+
+                return Papa.unparse([fields]);
             };
         });
     }
