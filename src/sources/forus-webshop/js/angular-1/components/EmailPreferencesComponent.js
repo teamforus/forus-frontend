@@ -56,7 +56,7 @@ let EmailPreferencesComponent = function(
         }).then(res => {
             $ctrl.form.unlock();
             
-            PushNotificationsService.success('Saved!');
+            PushNotificationsService.success('Opgeslagen!');
         }, (res) => {
             $ctrl.form.unlock();
             $ctrl.form.errors = res.data.errors;
