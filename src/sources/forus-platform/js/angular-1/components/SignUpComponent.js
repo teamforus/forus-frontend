@@ -16,7 +16,8 @@ let SignUpComponent = function(
     OrganizationEmployeesService,
     SmsService,
     DemoTransactionService,
-    ProviderFundService
+    ProviderFundService,
+    ModalService
 ) {
     let $ctrl = this;
 
@@ -529,20 +530,17 @@ let SignUpComponent = function(
     };
 
     $ctrl.saveEmployee = () => {
-        $ctrl.employeeForm = $ctrl.buildEmployeeForm($ctrl.employeeForm.values);
+        ModalService.open('employeeAddConfirmation', {
+            email: $ctrl.employeeForm.values.email,
 
-        $ctrl.employeeForm.submit();
-    };
-
-    $ctrl.addEmployee = () => {
-        if (!Array.isArray($ctrl.employees)) {
-            $ctrl.employees = [];
-        }
-
-        $ctrl.employeeForm = $ctrl.buildEmployeeForm();
-
-        $ctrl.enableSaveEmployeeBtn = true;
-        $ctrl.enableAddEmployeeBtn  = false;
+            success: (data) => {
+                if (data.allow) {
+                    $ctrl.employeeForm = $ctrl.buildEmployeeForm($ctrl.employeeForm.values);
+            
+                    $ctrl.employeeForm.submit();
+                }
+            }
+        });
     };
 
     $ctrl.editEmployee = (employee) => {
@@ -856,6 +854,7 @@ module.exports = {
         'SmsService',
         'DemoTransactionService',
         'ProviderFundService',
+        'ModalService',
         SignUpComponent
     ],
     templateUrl: 'assets/tpl/pages/sign-up.html'

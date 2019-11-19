@@ -11,6 +11,10 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalEmployeeEditComponent'
     });
 
+    ModalRouteProvider.modal('employeeAddConfirmation', {
+        component: 'modalEmployeeAddConfirmationComponent'
+    });
+
     ModalRouteProvider.modal('modalNotification', {
         component: 'modalNotificationComponent'
     });

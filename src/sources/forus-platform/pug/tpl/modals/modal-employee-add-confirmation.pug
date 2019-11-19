@@ -1,0 +1,15 @@
+.modal(ng-class="$ctrl.modalClass")
+    .modal-backdrop(ng-click="$ctrl.cancel()")
+    .modal-window.modal-notification(ng-class="$ctrl.class")
+        .modal-close(ng-click="$ctrl.close()")
+            include ../../../resources/platform-general/assets/img/svg/close.svg
+        .modal-header 
+            | Are you sure you want to add this employee?
+        
+        .modal-body
+            .modal-section.text-center
+                p Add employee {{ $ctrl.employee.email }} ?
+
+        .modal-footer.text-center
+            button.button.button-primary(ng-click="$ctrl.confirm()") Yes
+            button.button.button-default(ng-click="$ctrl.cancel()") Cancel
