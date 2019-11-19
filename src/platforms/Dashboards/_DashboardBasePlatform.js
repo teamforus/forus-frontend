@@ -33,6 +33,14 @@ platform.setLibs([
     "pdfjs",
 ]);
 
+// tweaking output and cleaned paths config
+platform.setDest(`./`);
+platform.setAssetsPath(`./assets`);
+platform.setCleanPath([
+    `./`,
+    `./assets`
+]);
+
 // add js task
 platform.addTask('js', {
     src: [
