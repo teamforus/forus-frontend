@@ -1306,6 +1306,9 @@ $colorPrimaryLight: $color_primary_light;
 
         .pincode-errors {
             .form-error {
+                color: #e63b3b;
+                font: 400 13px/24px $bf;
+
                 &:first-of-type {
                     padding-top: 20px;
                 }
