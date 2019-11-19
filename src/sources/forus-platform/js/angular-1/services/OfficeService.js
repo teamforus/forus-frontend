@@ -51,7 +51,7 @@ let OfficeService = function(ApiRequest) {
             let values = JSON.parse(JSON.stringify(formData));
             let schedule = values.schedule || [];
 
-            values.schedule.forEach((schedule_item, week_day) => {
+            schedule.forEach((schedule_item, week_day) => {
                 schedule[week_day] = {
                     start_time: schedule_item.start_time || 'null',
                     end_time: schedule_item.end_time || 'null',

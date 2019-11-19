@@ -154,10 +154,23 @@ let SignUpComponent = function(
                 if (!form.values.id) {
                     $ctrl.offices.push(res.data.data);
                 } else {
-                    let office = $ctrl.offices.filter((office) => office.id == form.values.id)[0];
-                    for(let value in form.values) {
-                        office[value] = form.values[value];
-                    }
+                    // let office = $ctrl.offices.filter(
+                    //     (office, index) => office.id == form.values.id
+                    // )[0];
+                    
+                    // for(let value in form.values) {
+                    //     office[value] = form.values[value];
+                    // }
+
+                    //let offices = angular.copy($ctrl.offices);
+
+                    $ctrl.offices.forEach(
+                        (office, index) => {
+                            if (office.id == form.values.id) {
+                                $ctrl.offices[index] = res.data.data;
+                            }
+                        }
+                    );
                 }
                 
                 $ctrl.enableSaveOfficeBtn = false;

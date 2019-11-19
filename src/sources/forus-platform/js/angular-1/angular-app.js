@@ -100,6 +100,7 @@ app.service('FundRequestValidatorService', require('./services/FundRequestValida
 app.service('EmailPreferencesService', require('./services/EmailPreferencesService'));
 app.service('DemoTransactionService', require('./services/DemoTransactionService'));
 app.service('PushNotificationsService', require('./services/PushNotificationsService'));
+app.service('GoogleMapService', require('./services/GoogleMapService'));
 
 // Directives
 switch (env_data.panel_type) {
@@ -157,6 +158,7 @@ app.directive('scrollEnd', require('./directives/ScrollEndDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
 app.directive('pdfPreview', require('./directives/PdfPreviewDirective'));
 app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
+app.directive('googleMap', require('./directives/GoogleMapDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));

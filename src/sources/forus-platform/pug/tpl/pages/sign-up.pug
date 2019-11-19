@@ -264,7 +264,8 @@
                             .sign_up-pane-text(ng-if="$ctrl.offices.length"): .row
                                 .card-section: .pseudo-wrapper
                                     .office(ng-repeat="office in $ctrl.offices")
-                                        .preview
+
+                                        .preview(ng-class="!office.photo.sizes.thumbnail ? 'placeholder' : ''")
                                             img(
                                                 ng-src="{{ office.photo.sizes.thumbnail ? office.photo.sizes.thumbnail : './assets/img/organization-no-logo.svg' }}")
 
@@ -281,6 +282,10 @@
                                             //-     | {{ office.schedule }}
 
                                         .actions
+                                            .office-map-content
+                                                google-map(offices="$ctrl.offices" selected-office="office.id" hide-info-window="true")
+                                                //iframe(frameborder="0" width="268" height="179" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=Groningen, Netherlands&key=AIzaSyAGtyIwa3fytSaFTzIqDWdxZqdkLUzlYzM" allowfullscreen)
+
                                             em.mdi.mdi-pencil-outline(ng-click="$ctrl.editOffice(office)") 
                                                 span Edit location  
                                             em.mdi.mdi-delete(ng-click="$ctrl.deleteOffice(office)") 
