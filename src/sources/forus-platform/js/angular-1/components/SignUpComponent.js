@@ -305,8 +305,8 @@ let SignUpComponent = function(
                 return fundOrganization;
             });
 
-            $ctrl.fundOrganizations.unshift({ id_str: 'null', name: 'All Organizations' });
-            $ctrl.fundLabels.unshift({ key: 'null', name: 'All Labels' });
+            $ctrl.fundOrganizations.unshift({ id_str: 'null', name: $filter('translate')('sign_up.filters.all_organizations') });
+            $ctrl.fundLabels.unshift({ key: 'null', name: $filter('translate')('sign_up.filters.all_labels') });
 
             $ctrl.fundOrganization = $stateParams.organization_id ? $stateParams.organization_id : 'null'; 
             $ctrl.fundLabel = $stateParams.tag_name ? $stateParams.tag_name : 'null';
