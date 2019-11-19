@@ -13,16 +13,19 @@ let FundCardProviderCanJoinDirective = function(
             $scope.organization.id, 
             $scope.fund.id
         ).then(function(res) {
-
-            ModalService.open('modalNotification', {
-                type: 'info',
-                title: 'provider_funds_available.applied_for_fund.title',
-                description: 'provider_funds_available.applied_for_fund.description',
-                icon: 'fund_applied',
-                closeBtnText: 'modal.buttons.confirm',
-            }, {
-                onClose: () => $scope.fund.applied = true
-            });
+            if (!$scope.hideModal) {
+                ModalService.open('modalNotification', {
+                    type: 'info',
+                    title: 'provider_funds_available.applied_for_fund.title',
+                    description: 'provider_funds_available.applied_for_fund.description',
+                    icon: 'fund_applied',
+                    closeBtnText: 'modal.buttons.confirm',
+                }, {
+                    onClose: () => $scope.fund.applied = true
+                });
+            } else {
+                $scope.fund.applied = true;
+            }
         });
     };
 };
@@ -31,7 +34,8 @@ module.exports = () => {
     return {
         scope: {
             organization: '=',
-            fund: '='
+            fund: '=',
+            hideModal: '='
         },
         restrict: "EA",
         replace: true,

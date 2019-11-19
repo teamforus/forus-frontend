@@ -494,7 +494,8 @@
                                             template="provider-signup-fund-card"
                                             fund-card-provider-can-join
                                             fund="fund"
-                                            organization="$ctrl.organization")
+                                            organization="$ctrl.organization"
+                                            hide-modal="true")
 
                                         block-empty(
                                             ng-if="$ctrl.funds.length == 0" 
@@ -517,16 +518,16 @@
                     +progress()
 
                     .sign_up-pane
-                        .sign_up-pane-header Aanvraag voltooid
+                        .sign_up-pane-header Aanvraag ontvangen
 
                         .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
                             .form-group.col.col-lg-12
                                 .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
-                                .sign_up-pane-heading.text-center Uw aanvraag is verzonden
+                                .sign_up-pane-heading.text-center Uw aanvraag is ontvangen.
                                 p.sign_up-pane-text.text-center 
-                                    | We gaan controleren of uw gegevens kloppen, u ontvangt een email op blabla@blabla.com wanneer de aanvraag is afgerond, of indien er nog overige vragen zijn
+                                    | De sponsor zal uw verzoek behandelen, dit kan maximaal twee weken duren. Zodra de sponsor uw aanvraag heeft behandeld wordt er een e-mail toegestuurd. Daarnaast kunt u de status ook volgen op het dashboard.
                         
-                                .text-center: .button.button-finish(ng-click="$ctrl.next()") Terug naar het dashboard
+                                .text-center: .button.button-finish(ng-click="$ctrl.next()") Doe een test betaling!
                             .form-group.col.col-lg-12: br
  
                 //- Scan QR Code (test)
