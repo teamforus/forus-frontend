@@ -44,7 +44,7 @@
   "dependencies": {
     "@mdi/font": "^4.5.95",
     "@uirouter/angularjs": "^1.0.20",
-    "angular": "^1.7.5",
+    "angular": "^1.7.9",
     "angular-cookie": "^4.1.0",
     "angular-i18n": "^1.7.5",
     "angular-sanitize": "^1.7.5",
