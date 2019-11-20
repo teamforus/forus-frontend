@@ -4,13 +4,8 @@ const destPath = '../dist/forus-platform.sponsor.berkelland';
 // change platform name
 platform.setName('dashboard_berkelland_sponsor');
 
-// tweaking output and cleaned paths config
-platform.setDest(`${destPath}`);
-platform.setAssetsPath(`${destPath}/assets`);
-platform.setCleanPath([
-    `${destPath}`,
-    `${destPath}/assets`
-]);
+// change building root path
+platform.setDestRootPath(destPath);
 
 // assets configs
 platform.copyAsset("resources/_platform-common/**/*", "./");
