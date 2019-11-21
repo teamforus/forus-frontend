@@ -737,26 +737,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     if (['provider', 'sponsor'].indexOf(appConfigs.panel_type) != -1) {
         $stateProvider.state({
             name: "sign-up",
-            url: "/sign-up/:organization/:organization_id/:tag/:tag_name?fund_id",
+            url: "/sign-up?fund_id&organization_id&tag",
             component: "signUpComponent",
             params: {
-                organization: {
-                    squash: true,
-                    value: null,
-                },
                 tag: {
                     squash: true,
                     value: null,
                 },
                 organization_id: {
                     squash: true,
-                    value: null,
-                    dynamic: true
-                },
-                tag_name: {
-                    squash: true,
-                    value: null,
-                    dynamic: true
+                    value: null
                 },
             },
             resolve: {

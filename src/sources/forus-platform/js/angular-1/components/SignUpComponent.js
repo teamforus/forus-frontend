@@ -305,11 +305,18 @@ let SignUpComponent = function(
                 return fundOrganization;
             });
 
-            $ctrl.fundOrganizations.unshift({ id_str: 'null', name: $filter('translate')('sign_up.filters.all_organizations') });
-            $ctrl.fundLabels.unshift({ key: 'null', name: $filter('translate')('sign_up.filters.all_labels') });
+            $ctrl.fundOrganizations.unshift({ 
+                id_str: 'null', 
+                name: $filter('translate')('sign_up.filters.options.all_organizations') 
+            });
+            $ctrl.fundLabels.unshift({ 
+                key: 'null',
+                name: $filter('translate')('sign_up.filters.options.all_labels') 
+            });
 
+            $ctrl.showFilters = !$stateParams.organization_id && !$stateParams.tag;
             $ctrl.fundOrganization = $stateParams.organization_id ? $stateParams.organization_id : 'null'; 
-            $ctrl.fundLabel = $stateParams.tag_name ? $stateParams.tag_name : 'null';
+            $ctrl.fundLabel = $stateParams.tag ? $stateParams.tag : 'null';
             $ctrl.filterFunds();
 
             $scope.$watch(() => $ctrl.fundsAvailable, function(funds) {
@@ -362,24 +369,6 @@ let SignUpComponent = function(
 
             return matches;
         });
-    }
-
-    $ctrl.updateFundFilters = () => {
-        $ctrl.setStep(7);
-
-        $state.go('sign-up', {
-            organization: 'organization',
-            organization_id: $ctrl.fundOrganization,
-            tag: 'tag',
-            tag_name: $ctrl.fundLabel
-        }).then(function(result)
-        {
-            onSearch(
-                $stateParams.organization_id, 
-                $stateParams.tag_name);
-        });
-
-        $ctrl.filterFunds();
     }
 
     $ctrl.next = async function() {

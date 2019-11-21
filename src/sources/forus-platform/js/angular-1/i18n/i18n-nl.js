@@ -535,8 +535,14 @@ module.exports = {
             url_address: "www.forus.io/DL"
         },
         filters: {
-            all_organizations: 'All organizations',
-            all_labels: 'All labels'
+            labels: {
+                organizations: 'Organizations',
+                tags: 'Labels'
+            },
+            options: {
+                all_organizations: 'All organizations',
+                all_labels: 'All labels'
+            }
         },
         qr_code: {
             description: 'Scan deze QR-Code om te testen.'

@@ -260,22 +260,20 @@
                 +card_header(7)
 
                 .card-section.card-section-primary
-                    .row.form   
+                    .row.form.filters(ng-if="$ctrl.showFilters")   
                         .col.col-lg-6
-                            .form-label Organizations
+                            .form-label(translate="sign_up.filters.labels.organizations")
                             select(
                                 ng-options="fundOrganization.id_str as fundOrganization.name for fundOrganization in $ctrl.fundOrganizations" 
                                 ng-model="$ctrl.fundOrganization"
-                                ng-change="$ctrl.updateFundFilters()").form-control 
+                                ng-change="$ctrl.filterFunds()").form-control 
  
                         .col.col-lg-6
-                            .form-label Labels
+                            .form-label(translate="sign_up.filters.labels.tags")
                             select(
                                 ng-options="fundLabel.key as fundLabel.name for fundLabel in $ctrl.fundLabels" 
                                 ng-model="$ctrl.fundLabel"
-                                ng-change="$ctrl.updateFundFilters()").form-control
-
-                    br
+                                ng-change="$ctrl.filterFunds()").form-control
 
                     div(
                         ng-if="$ctrl.fundsAvailable.length > 0"
