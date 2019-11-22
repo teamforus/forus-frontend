@@ -77,6 +77,13 @@ let VouchersComponent = function(
         });
     };
 
+    $ctrl.downloadExampleCsv = () => {
+        FileService.downloadFile(
+            'voucher_upload_sample.csv',
+            VoucherService.sampleCSV('voucher')
+        );
+    };
+
     $ctrl.exportUnassignedQRCodes = () => {
         let from = $ctrl.filters.values.from,
             to = $ctrl.filters.values.to;
