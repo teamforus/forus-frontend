@@ -407,83 +407,85 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
-    /**
-     * Vouchers
-     */
-    $stateProvider.state({
-        name: "vouchers",
-        url: "/organizations/{organization_id}/vouchers?fund_id",
-        component: "vouchersComponent",
-        params: {
-            fund_id: null,
-        },
-        resolve: {
-            organization: organziationResolver(),
-            permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
-            funds: [
-                'permission', '$transition$', 'FundService',
-                function(permission, $transition$, FundService) {
-                    return repackResponse(
-                        FundService.list(
-                            $transition$.params().organization_id, {
-                                per_page: 1000
-                            }
-                        )
-                    );
-                }
-            ],
-            fund: [
-                'funds', '$transition$',
-                function(funds, $transition$) {
-                    // $state.params.token
-                    let fund_id = $transition$.params().fund_id;
+    if (!appConfigs.hide_voucher_generators) {
+        /**
+         * Vouchers
+         */
+        $stateProvider.state({
+            name: "vouchers",
+            url: "/organizations/{organization_id}/vouchers?fund_id",
+            component: "vouchersComponent",
+            params: {
+                fund_id: null,
+            },
+            resolve: {
+                organization: organziationResolver(),
+                permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
+                funds: [
+                    'permission', '$transition$', 'FundService',
+                    function(permission, $transition$, FundService) {
+                        return repackResponse(
+                            FundService.list(
+                                $transition$.params().organization_id, {
+                                    per_page: 1000
+                                }
+                            )
+                        );
+                    }
+                ],
+                fund: [
+                    'funds', '$transition$',
+                    function(funds, $transition$) {
+                        // $state.params.token
+                        let fund_id = $transition$.params().fund_id;
 
-                    return $transition$.params(), fund_id ? funds.filter(
-                        fund => fund.id == $transition$.params().fund_id
-                    )[0] || false : null;
-                }
-            ],
-        }
-    });
+                        return $transition$.params(), fund_id ? funds.filter(
+                            fund => fund.id == $transition$.params().fund_id
+                        )[0] || false : null;
+                    }
+                ],
+            }
+        });
 
-    /**
-     * Vouchers
-     */
-    $stateProvider.state({
-        name: "product-vouchers",
-        url: "/organizations/{organization_id}/product-vouchers?fund_id",
-        component: "productVouchersComponent",
-        params: {
-            fund_id: null,
-        },
-        resolve: {
-            organization: organziationResolver(),
-            permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
-            funds: [
-                'permission', '$transition$', 'FundService',
-                function(permission, $transition$, FundService) {
-                    return repackResponse(
-                        FundService.list(
-                            $transition$.params().organization_id, {
-                                per_page: 1000
-                            }
-                        )
-                    );
-                }
-            ],
-            fund: [
-                'funds', '$transition$',
-                function(funds, $transition$) {
-                    // $state.params.token
-                    let fund_id = $transition$.params().fund_id;
+        /**
+         * Vouchers
+         */
+        $stateProvider.state({
+            name: "product-vouchers",
+            url: "/organizations/{organization_id}/product-vouchers?fund_id",
+            component: "productVouchersComponent",
+            params: {
+                fund_id: null,
+            },
+            resolve: {
+                organization: organziationResolver(),
+                permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
+                funds: [
+                    'permission', '$transition$', 'FundService',
+                    function(permission, $transition$, FundService) {
+                        return repackResponse(
+                            FundService.list(
+                                $transition$.params().organization_id, {
+                                    per_page: 1000
+                                }
+                            )
+                        );
+                    }
+                ],
+                fund: [
+                    'funds', '$transition$',
+                    function(funds, $transition$) {
+                        // $state.params.token
+                        let fund_id = $transition$.params().fund_id;
 
-                    return $transition$.params(), fund_id ? funds.filter(
-                        fund => fund.id == $transition$.params().fund_id
-                    )[0] || false : null;
-                }
-            ],
-        }
-    });
+                        return $transition$.params(), fund_id ? funds.filter(
+                            fund => fund.id == $transition$.params().fund_id
+                        )[0] || false : null;
+                    }
+                ],
+            }
+        });
+    }    
 
     /**
      * Transactions
