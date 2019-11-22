@@ -26,7 +26,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'general',
             panel_type: 'provider',
-            chat_id: false
+            chat_id: false,
+            hide_voucher_generators: false
         });
 
         return platform;
@@ -37,7 +38,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'general',
             panel_type: 'validator',
-            chat_id: false
+            chat_id: false,
+            hide_voucher_generators: false
         });
 
         return platform;
@@ -48,7 +50,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'zuidhorn',
             panel_type: 'sponsor',
-            chat_id: false
+            chat_id: false,
+            hide_voucher_generators: false
         });
 
         return platform;
@@ -59,7 +62,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'zuidhorn',
             panel_type: 'provider',
-            chat_id: false
+            chat_id: false,
+            hide_voucher_generators: false
         });
 
         return platform;
@@ -70,7 +74,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'westerkwartier',
             panel_type: 'provider',
-            chat_id: false
+            chat_id: false,
+            hide_voucher_generators: false
         });
 
         return platform;
@@ -81,7 +86,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'nijmegen',
             panel_type: 'sponsor',
-            chat_id: false
+            chat_id: false,
+            hide_voucher_generators: false
         });
 
         return platform;
@@ -92,7 +98,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'nijmegen',
             panel_type: 'provider',
-            chat_id: false
+            chat_id: false,
+            hide_voucher_generators: false
         });
 
         return platform;
@@ -103,7 +110,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'westerkwartier',
             panel_type: 'sponsor',
-            chat_id: false
+            chat_id: false,
+            hide_voucher_generators: false
         });
 
         return platform;
@@ -114,7 +122,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'berkelland',
             panel_type: 'provider',
-            chat_id: false
+            chat_id: false,
+            hide_voucher_generators: false
         });
 
         return platform;
@@ -125,7 +134,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'berkelland',
             panel_type: 'sponsor',
-            chat_id: false
+            chat_id: false,
+            hide_voucher_generators: false
         });
 
         return platform;
@@ -136,7 +146,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'oostgelre',
             panel_type: 'provider',
-            chat_id: false
+            chat_id: false,
+            hide_voucher_generators: false
         });
 
         return platform;
@@ -147,7 +158,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'oostgelre',
             panel_type: 'sponsor',
-            chat_id: false
+            chat_id: false,
+            hide_voucher_generators: false
         });
 
         return platform;
@@ -158,7 +170,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'winterswijk',
             panel_type: 'provider',
-            chat_id: false
+            chat_id: false,
+            hide_voucher_generators: false
         });
 
         return platform;
@@ -169,7 +182,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'winterswijk',
             panel_type: 'sponsor',
-            chat_id: false
+            chat_id: false,
+            hide_voucher_generators: false
         });
 
         return platform;
@@ -180,7 +194,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'kerstpakket',
             panel_type: 'provider',
-            chat_id: false
+            chat_id: false,
+            hide_voucher_generators: false
         });
 
         return platform;
@@ -191,7 +206,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'kerstpakket',
             panel_type: 'sponsor',
-            chat_id: false
+            chat_id: false,
+            hide_voucher_generators: false
         });
 
         return platform;
