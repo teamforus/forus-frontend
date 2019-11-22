@@ -1,12 +1,6 @@
 let RecordValidateComponent = function(
     $state,
-    $rootScope,
-    $timeout,
-    CredentialsService,
-    IdentityService,
-    AuthService,
-    ValidatorRequestService,
-    appConfigs
+    ValidatorRequestService
 ) {
     let $ctrl = this;
 
@@ -42,13 +36,7 @@ module.exports = {
     },
     controller: [
         '$state',
-        '$rootScope',
-        '$timeout',
-        'CredentialsService',
-        'IdentityService',
-        'AuthService',
         'ValidatorRequestService',
-        'appConfigs',
         RecordValidateComponent
     ],
     templateUrl: 'assets/tpl/pages/record-validate.html'

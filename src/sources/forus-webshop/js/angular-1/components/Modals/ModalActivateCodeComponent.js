@@ -1,6 +1,6 @@
 let ModalAuthComponent = function(
-    $state,
     $q,
+    $state,
     ModalService,
     FormBuilderService,
     PrevalidationService,
@@ -162,8 +162,8 @@ module.exports = {
         modal: '='
     },
     controller: [
-        '$state',
         '$q',
+        '$state',
         'ModalService',
         'FormBuilderService',
         'PrevalidationService',

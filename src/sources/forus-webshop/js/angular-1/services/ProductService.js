@@ -1,7 +1,9 @@
-let ProductService = function(ApiRequest) {
+let ProductService = function(
+    ApiRequest
+) {
     let uriPrefix = '/platform/products';
 
-    return new (function() {
+    return new(function() {
         this.list = function(data) {
             return ApiRequest.get(uriPrefix, data);
         };

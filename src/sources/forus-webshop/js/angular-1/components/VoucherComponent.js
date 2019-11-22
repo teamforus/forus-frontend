@@ -1,5 +1,4 @@
 let VoucherComponent = function(
-    $filter,
     $state,
     VoucherService,
     PrintableService,
@@ -76,7 +75,6 @@ module.exports = {
         voucher: '<'
     },
     controller: [
-        '$filter',
         '$state',
         'VoucherService',
         'PrintableService',
