@@ -540,8 +540,8 @@ module.exports = {
                 tags: 'Labels'
             },
             options: {
-                all_organizations: 'All organizations',
-                all_labels: 'All labels'
+                all_organizations: 'Alle organizations',
+                all_labels: 'Alle labels'
             }
         },
         qr_code: {
