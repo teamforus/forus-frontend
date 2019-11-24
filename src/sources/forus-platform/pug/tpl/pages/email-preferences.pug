@@ -21,10 +21,10 @@
                     ng-click="$ctrl.disableSubscription()" 
                     i18n="notification_preferences.unsubscribe").button.button-primary
 
-        form.card(ng-if="!$ctrl.email_unsubscribed" ng-submit="$ctrl.form.submit()")
+        .card(ng-if="!$ctrl.email_unsubscribed")
             .card-header: .card-title(translate="notification_preferences.title_preferences")
             .form.block.block-preferences(ng-if="!$ctrl.email_unsubscribed"): label(
-                ng-repeat="type in $ctrl.form.values" 
+                ng-repeat="type in $ctrl.preferences" 
                 for="option_{{ type.key }}").preference-option
                 .preference-option-details
                     .card-heading.card-heading-padless(translate="{{ 'notification_preferences.types.' + type.key + '.title' }}")
@@ -33,13 +33,9 @@
                     input(
                         type="checkbox" 
                         id="option_{{ type.key }}" 
+                        ng-change="$ctrl.togglePreferenceOption()" 
                         ng-checked="type.subscribed" 
                         ng-model="type.subscribed")
                     .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
                         em.mdi.mdi-check-bold(ng-if="type.subscribed")
                         .icon-disabled(ng-if="!type.subscribed")
-                        
-            .card-section
-                div.push-right
-                    .card-text.alert LET OP! Bevestig uw voorkeuren nadat u deze aan of uit heeft gezet.
-                    button.button.button-primary(type="submit") Bevestg

@@ -3,8 +3,7 @@ let EmailPreferencesComponent = function(
     AuthService,
     ModalService,
     EmailPreferencesService,
-    PushNotificationsService,
-    FormBuilderService
+    PushNotificationsService
 ) {
     let $ctrl = this;
     let keysEditableOnWebshop = [
@@ -21,26 +20,6 @@ let EmailPreferencesComponent = function(
         });
     };
 
-    $ctrl.buildForm = (preferences) => {
-        $ctrl.form = FormBuilderService.build(preferences, (form) => {
-            form.lock();
-
-            EmailPreferencesService.update({
-                email_unsubscribed: $ctrl.email_unsubscribed,
-                preferences: form.values
-            }).then(res => {
-                form.unlock();
-                ModalService.open('modalNotification', {
-                    type: 'action-result',
-                    description: `Succesvol e-mail voorkeuren geüpdate ${$ctrl.email}`,
-                });
-            }, (res) => {
-                form.unlock();
-                form.errors = res.data.errors;
-            });
-        });
-    };
-
     $ctrl.enableSubscription = () => {
         return toggleSubscription(false);
     };
@@ -52,14 +31,9 @@ let EmailPreferencesComponent = function(
     $ctrl.togglePreferenceOption = () => {
         EmailPreferencesService.update({
             email_unsubscribed: $ctrl.email_unsubscribed,
-            preferences: $ctrl.form.values
+            preferences: $ctrl.preferences
         }).then(res => {
-            $ctrl.form.unlock();
-            
             PushNotificationsService.success('Opgeslagen!');
-        }, (res) => {
-            $ctrl.form.unlock();
-            $ctrl.form.errors = res.data.errors;
         });
     }
 
@@ -72,8 +46,6 @@ let EmailPreferencesComponent = function(
                 });
                 $ctrl.email_unsubscribed = res.data.data.email_unsubscribed;
                 $ctrl.loaded = true;
-                
-                $ctrl.buildForm($ctrl.preferences);
             })
         }
 
@@ -94,7 +66,6 @@ module.exports = {
         'ModalService',
         'EmailPreferencesService',
         'PushNotificationsService',
-        'FormBuilderService',
         EmailPreferencesComponent
     ],
     templateUrl: 'assets/tpl/pages/email-preferences.html'
