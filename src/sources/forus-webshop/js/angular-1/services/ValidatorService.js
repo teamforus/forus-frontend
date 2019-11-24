@@ -1,4 +1,6 @@
-let ValidatorService = function(ApiRequest) {
+let ValidatorService = function(
+    ApiRequest
+) {
     let uriPrefix = '/platform/validators';
 
     return new(function() {

@@ -1,5 +1,4 @@
 let ModalAuthComponent = function(
-    $filter,
     $timeout,
     $rootScope,
     AuthService,
@@ -115,7 +114,6 @@ module.exports = {
         modal: '='
     },
     controller: [
-        '$filter',
         '$timeout',
         '$rootScope',
         'AuthService',

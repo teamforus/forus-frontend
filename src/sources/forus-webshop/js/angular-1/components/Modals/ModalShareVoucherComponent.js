@@ -1,5 +1,4 @@
 let ModalShareVoucherComponent = function(
-    $filter,
     VoucherService,
     FormBuilderService,
     ModalService
@@ -39,7 +38,6 @@ module.exports = {
         modal: '='
     },
     controller: [
-        '$filter',
         'VoucherService',
         'FormBuilderService',
         'ModalService',

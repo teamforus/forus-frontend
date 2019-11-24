@@ -1,4 +1,6 @@
-module.exports = ['$translateProvider', 'I18nLibProvider', function($translateProvider, I18nLibProvider) {
+module.exports = ['$translateProvider', 'I18nLibProvider', function(
+    $translateProvider, I18nLibProvider
+) {
     $translateProvider.translations('en', require('../i18n/i18n-en'));
     $translateProvider.translations('nl', require('../i18n/i18n-nl'));
 

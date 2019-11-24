@@ -6,7 +6,6 @@ let ModalAuthComponent = function(
     FormBuilderService,
     ModalService
 ) {
-
     let $ctrl = this;
 
     $ctrl.$onInit = () => {
