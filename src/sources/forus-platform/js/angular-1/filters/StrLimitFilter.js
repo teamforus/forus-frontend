@@ -8,4 +8,4 @@ let StrLimitFilter = function(str = "", length = 200, char = "...") {
     );
 };
 
-module.exports = [() => StrLimitFilter];
+module.exports = [StrLimitFilter];
