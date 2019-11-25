@@ -811,17 +811,17 @@ let SignUpComponent = function(
     };
 
     $ctrl.readMoreFields = [
-        'Smartphone',
-        'Telefoonnummer',
-        'IBAN nummer',
-        'Persoonlijke email adres',
-        'Email adres van uw bedrijf',
-        'Kamer van koophandel nummer',
-        'BTW-Nummer (optioneel)',
-        'Email adressen van uw kassa medewerkers (optioneel)'
+        $filter('translate')('sign_up.labels.smartphone'),
+        $filter('translate')('sign_up.labels.phone_number'),
+        $filter('translate')('sign_up.labels.email'),
+        $filter('translate')('sign_up.labels.organization_email'),
+        $filter('translate')('sign_up.labels.organization_iban'),
+        $filter('translate')('sign_up.labels.room'),
+        $filter('translate')('sign_up.labels.vat'),
+        $filter('translate')('sign_up.labels.employee_emails'),
     ];
 
-    $ctrl.weekDays = Object.values(OfficeService.scheduleWeekDays());
+    $ctrl.weekDays = Object.values(OfficeService.scheduleWeekDaysExplicit());
 
     $ctrl.totalSteps = Array.from({length: 9}, (v, k) => k + 1);
     $ctrl.shownSteps = $ctrl.totalSteps.filter(step => step > 1 && step <= 6);

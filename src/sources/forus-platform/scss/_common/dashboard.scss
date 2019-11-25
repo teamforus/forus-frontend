@@ -1473,6 +1473,10 @@ $colorPrimaryLight: $color_primary_light;
                         border-bottom: 1px solid #EDEEF0;
                     }
                 }
+
+                .block-icon {
+                    padding: 30px 0 10px;
+                }
             }
 
             .sign_up-pane-footer {
@@ -1667,6 +1671,10 @@ $colorPrimaryLight: $color_primary_light;
 
                         span {
                             color: #9EA7B6;
+                        }
+
+                        &.edit {
+                            padding-right: 20px;
                         }
                     }
                 }
@@ -1912,6 +1920,12 @@ $colorPrimaryLight: $color_primary_light;
                 margin-top: 30px;
                 color: #3561FF;
                 box-shadow: none;
+                font-weight: 500;
+            }
+
+            .sign_up-pane-text {
+                padding-left: 50px;
+                padding-right: 50px;
             }
         }
 
