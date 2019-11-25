@@ -1,4 +1,4 @@
-.modal.modal-notification
+.modal.modal-notification(ng-class="$ctrl.modalClass")
     .modal-backdrop(ng-click="$ctrl.cancel()")
     .modal-content
         .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()")
