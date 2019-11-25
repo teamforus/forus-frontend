@@ -18,7 +18,7 @@ module.exports = {
         "record-validate": 'Valideer eigenschap',
         "record-validations": 'Validaties',
         "record-create": 'Eigenschap toevoegen',
-        "funds-apply": 'Meld u aan voor een fonds',
+        "funds-apply": 'Meld u aan voor de fondsen',
         "restore-email": 'Inloggen via e-mail',
     },
     implementation_name: {

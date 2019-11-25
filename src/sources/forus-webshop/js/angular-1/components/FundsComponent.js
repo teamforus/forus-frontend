@@ -11,6 +11,7 @@ let FundsComponent2 = function(
 
     $ctrl.recordsByKey = {};
     $ctrl.recordsByTypesKey = {};
+    $ctrl.appConfigs = appConfigs;
 
     $ctrl.$onInit = function() {
         if (Array.isArray($ctrl.records)) {
@@ -36,6 +37,10 @@ let FundsComponent2 = function(
                 return validator.identity_address;
             });
 
+            fund.vouchers = $ctrl.vouchers.filter(voucher => {
+                return voucher.fund_id == fund.id;
+            });
+
             fund.isApplicable = fund.criteria.filter(criterion => {
                 return FundService.checkEligibility(
                     $ctrl.recordsByKey[criterion.record_type_key] || [],
@@ -45,14 +50,17 @@ let FundsComponent2 = function(
                 );
             }).length == fund.criteria.length;
 
-            fund.alreadyReceived = $ctrl.vouchers.filter(voucher => {
-                return voucher.fund_id == fund.id;
-            }).length !== 0;
+            fund.alreadyReceived = fund.vouchers.length !== 0;
 
             fund.criterioaList = FundService.fundCriteriaList(
                 fund.criteria,
                 $ctrl.recordsByTypesKey
             );
+
+            fund.voucherStateName = 'vouchers';
+            if (fund.vouchers[0] && fund.vouchers[0].address) {
+                fund.voucherStateName = 'voucher({ address: fund.vouchers[0].address })';
+            }
 
             return fund;
         });

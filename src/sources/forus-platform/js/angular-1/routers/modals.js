@@ -35,6 +35,10 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalVoucherCreateComponent'
     });
 
+    ModalRouteProvider.modal('product_voucher_create', {
+        component: 'modalProductVoucherCreateComponent'
+    });
+
     ModalRouteProvider.modal('voucher_qr_code', {
         component: 'modalVoucherQrCodeComponent'
     });
@@ -51,6 +55,10 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalFundRequestRecordDeclineComponent'
     });
 
+    ModalRouteProvider.modal('fundCriteriaDescriptionEdit', {
+        component: 'modalFundCriteriaDescriptionEditComponent'
+    });
+    
     ModalRouteProvider.modal('modalPdfPreview', {
         component: 'modalPdfPreviewComponent'
     });

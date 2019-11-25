@@ -1917,16 +1917,32 @@ html {
         }
         modals-root{
             .modal {
+                @include fill_parent();
                 position: fixed;
                 z-index: 5;
                 display: flex;
                 align-items: center;
+
                 .modal-backdrop {
                     @include fill_parent();
                     cursor: pointer;
                     background: rgba(#192734, .5);
                     z-index: 0;
                 }
+
+                .modal-window {
+                    position: relative;
+                    z-index: 2;
+                    background: #f7f9fc;
+                    width: 650px;
+                    max-width: 100%;
+                    border-radius: 6px;
+                    display: inline-block;
+                    min-height: 100px;
+                    margin: 0 auto;
+                    max-height: 90vh;
+                }
+
                 .modal-content {
                     position: relative;
                     padding: 30px;
@@ -1938,6 +1954,7 @@ html {
                     overflow: hidden;
                     margin: 0 auto;
                     box-shadow: 0 20px 40px rgba(#000000, 0.3);
+
                     .modal-body{
                         .title{
                             text-align: center;
@@ -1949,9 +1966,11 @@ html {
                             color: #282b39;
                         }
                     }
+
                     .text-center {
                         text-align: center;
                     }
+
                     input {
                         height: 46px;
                         border-radius: 8px;
@@ -1960,17 +1979,20 @@ html {
                         width:365px;
                         margin-right:20px;
                     }
+
                     .form-error {
                         clear: both;
                         float:left;
                         width:100%;
                     }
+
                     .modal-description-pad{
                         .description {
                             padding: 50px 0;
                             color: #134478 !important;
                         }
                     }
+
                     .modal-title {
                         color: #282b39;
                         font-weight: 500;
@@ -2043,6 +2065,7 @@ html {
                 
             }
         }
+
         #modalContact{
             .modal-dialog{
                 max-width: 780px;

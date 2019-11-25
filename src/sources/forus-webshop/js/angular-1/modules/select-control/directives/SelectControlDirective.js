@@ -1,4 +1,4 @@
-let SelectControl = function($scope, $timeout) {
+let SelectControlDirective = function($scope, $timeout) {
     let $dir = {};
     let $optionsMap = [];
 
@@ -11,10 +11,6 @@ let SelectControl = function($scope, $timeout) {
     $dir.mode = $scope.mode || 'strict';
     $dir.showOptions = false;
     $dir.options = [];
-
-    if (!$scope.options) {
-        $scope.options = [];
-    }
 
     $scope.buildSearchedOptions = () => {
         let search = $dir.filter.name.toLowerCase();
@@ -98,15 +94,22 @@ let SelectControl = function($scope, $timeout) {
         }
     };
 
-    $scope.init = () => {
-        $scope.optionsPreloadSize = $scope.optionsPreloadSize || 50;
-        $optionsMap = JSON.parse(JSON.stringify($scope.options));
+    $scope.$watch('options', (options) => {
+        if (!Array.isArray(options)) {
+            return;
+        }
+
+        $optionsMap = JSON.parse(JSON.stringify($scope.options || []));
         $optionsMap = $optionsMap.map(option => {
             option._name = option.name.toLowerCase();
             return option;
         });
 
         $scope.buildSearchedOptions();
+    });
+
+    $scope.init = () => {
+        $scope.optionsPreloadSize = $scope.optionsPreloadSize || 50;
 
         $dir.controlId = 'select_control_';
         $dir.controlId += Date.now() + '_' + Math.random().toString().slice(2);
@@ -143,7 +146,7 @@ module.exports = () => {
         controller: [
             '$scope',
             '$timeout',
-            SelectControl
+            SelectControlDirective
         ],
         template: require('./templates/select-control.pug'),
         //templateUrl: 'assets/tpl/modules/select-control/select-control.html'

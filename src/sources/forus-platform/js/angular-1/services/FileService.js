@@ -14,7 +14,12 @@ let FileService = function(
                 type: file_type,
             });
 
-            window.saveAs(blob, file_name);
+            if (typeof window.navigator != 'undefined' &&
+                typeof window.navigator.msSaveBlob == 'function') {
+                window.navigator.msSaveBlob(blob, file_name);
+            } else {
+                window.saveAs(blob, file_name);
+            }
         };
 
         this.download = function(file) {
