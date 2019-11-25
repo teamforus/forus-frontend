@@ -52,7 +52,7 @@
     "angular-translate-storage-cookie": "^2.18.1",
     "angular-translate-storage-local": "^2.18.1",
     "angularjs-datepicker": "^2.1.23",
-    "bootstrap": "^3.4.1",
+    "bootstrap": "^4.0.0",
     "chart.js": "^2.9.3",
     "file-saver": "^2.0.2",
     "jquery": "^3.4.1",
