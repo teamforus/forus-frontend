@@ -13,9 +13,6 @@ let ModalNotificationComponent = function(
 
     $ctrl.$onInit = () => {
         let type = $ctrl.modal.scope.type;
-        let additionalClass = $ctrl.modal.scope.class ? $ctrl.modal.scope.class : '';
-
-        $ctrl.class = 'modal-notification-' + type + ' ' + additionalClass;
         $ctrl.modalClass = $ctrl.modal.scope.modalClass || '';
 
         $ctrl.title = $ctrl.modal.scope.title;
