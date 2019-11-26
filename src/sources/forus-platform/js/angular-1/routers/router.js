@@ -794,8 +794,18 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     if (['provider', 'sponsor'].indexOf(appConfigs.panel_type) != -1) {
         $stateProvider.state({
             name: "sign-up",
-            url: "/sign-up?fundId",
+            url: "/sign-up?fund_id&organization_id&tag",
             component: "signUpComponent",
+            params: {
+                tag: {
+                    squash: true,
+                    value: null,
+                },
+                organization_id: {
+                    squash: true,
+                    value: null
+                },
+            },
             resolve: {
                 businessTypes: ['BusinessTypeService', function(BusinessTypeService) {
                     return repackResponse(BusinessTypeService.list({
