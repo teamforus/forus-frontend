@@ -166,7 +166,9 @@ let OrganizationProvidersComponent = function(
         $ctrl.resetFilters();
 
         $scope.onPageChange().then(() => {
-            $ctrl.loaded = true;
+            $scope.$apply(() => {
+                $ctrl.loaded = true;
+            });
 
             if ($ctrl.funds.length == 1) {
                 $state.go('organization-providers', {
