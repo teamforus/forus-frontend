@@ -251,10 +251,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     // Apply to fund by submitting fund request
     $stateProvider.state({
         name: "fund-request",
-        url: "/fund/{fund_id}/request",
+        url: "/fund/{fund_id}/request?digid&rid&aselect_credentials",
         component: "fundRequestComponent",
         data: {
-            fund_id: null
+            fund_id: null,
+            digid: false,
+            rid: null,
+            aselect_credentials: null,
         },
         resolve: {
             fund: ['$transition$', 'FundService', (
@@ -262,11 +265,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             ) => repackResponse(FundService.readById(
                 $transition$.params().fund_id
             ))],
-            records: ['AuthService', 'RecordService', (
-                AuthService, RecordService
-            ) => AuthService.hasCredentials() ? repackResponse(
-                RecordService.list()
-            ) : promiseResolve(null)],
             recordTypes: ['RecordTypeService', (
                 RecordTypeService
             ) => repackResponse(RecordTypeService.list())],

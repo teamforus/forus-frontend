@@ -1,6 +1,8 @@
+let sprintf = require('sprintf-js').sprintf;
 let FundRequestComponent = function(
     $q,
     $state,
+    $stateParams,
     $timeout,
     RecordService,
     FundService,
@@ -9,6 +11,8 @@ let FundRequestComponent = function(
     FundRequestService,
     FormBuilderService,
     CredentialsService,
+    PushNotificationsService,
+    DigIdService,
     FileService,
     appConfigs
 ) {
@@ -27,6 +31,7 @@ let FundRequestComponent = function(
     $ctrl.files = [];
     $ctrl.errorReason = false;
     $ctrl.finishError = false;
+    $ctrl.bsnIsKnown = true;
 
     let timeout = null;
     let stopTimeout = null;
@@ -34,6 +39,12 @@ let FundRequestComponent = function(
     $ctrl.criterionValuePrefix = {
         net_worth: '€',
         base_salary: '€'
+    };
+
+    $ctrl.startDigId = () => {
+        DigIdService.start($ctrl.fund.id).then(res => {
+            document.location = res.data.redirectUrl;
+        }, console.error);
     };
 
     // Initialize authorization form
@@ -124,7 +135,7 @@ let FundRequestComponent = function(
             FileService.storeAll(
                 criteria.files || [],
                 'fund_request_record_proof'
-                ).then(res => {
+            ).then(res => {
                 criteria.filesUploaded = res.map(file => file.data.data);
                 resolve(criteria);
             }, res => {
@@ -296,18 +307,21 @@ let FundRequestComponent = function(
     };
 
     $ctrl.buildTypes = () => {
-        RecordService.list().then(res => {
-            $ctrl.records = res.data;
-            $ctrl.records.forEach(function(record) {
-                if (!$ctrl.recordsByKey[record.key]) {
-                    $ctrl.recordsByKey[record.key] = [];
-                }
+        return $q((resolve, reject) => {
+            RecordService.list().then(res => {
+                $ctrl.records = res.data;
+                $ctrl.records.forEach(function(record) {
+                    if (!$ctrl.recordsByKey[record.key]) {
+                        $ctrl.recordsByKey[record.key] = [];
+                    }
 
-                $ctrl.recordsByKey[record.key].push(record);
-            });
+                    $ctrl.recordsByKey[record.key].push(record);
+                });
 
-            $ctrl.buildSteps();
-            $ctrl.updateEligibility();
+                $ctrl.buildSteps();
+                $ctrl.updateEligibility();
+                resolve($ctrl.invalidCriteria);
+            }, reject);
         });
     };
 
@@ -350,25 +364,83 @@ let FundRequestComponent = function(
         $state.go('home');
     };
 
+    $ctrl.cleanReload = () => {
+        $state.go($state.current.name, {
+            fund_id: $ctrl.fund.id,
+            digid: null,
+            rid: null,
+            aselect_credentials: null,
+        });
+    };
+
+    $ctrl.applyFund = function(fund) {
+        return $q((resolve, reject) => {
+            FundService.apply(fund.id).then(function(res) {
+                PushNotificationsService.success(sprintf(
+                    'Fund "%s" voucher received.',
+                    $ctrl.fund.name
+                ));
+                $state.go('voucher', res.data.data);
+                resolve(res.data);
+            }, res => {
+                reject(res);
+                PushNotificationsService.danger(res.data.message);
+                console.error(res);
+            })
+        });
+    };
+
     $ctrl.$onInit = function() {
         try {
             if (appConfigs.features.funds.fund_requests === false) {
                 $state.go('home');
             }
         } catch (error) {}
-        
+
         $ctrl.signedIn = AuthService.hasCredentials();
         $ctrl.initAuthForm();
         $ctrl.prepareRecordTypes();
 
         if ($ctrl.signedIn) {
-            $ctrl.buildTypes();
-
-            FundRequestService.index($ctrl.fund.id).then((res) => {
-                if (res.data.data.length > 0) {
-                    alert('You already requested this fund');
-                    $state.go('funds');
+            $ctrl.buildTypes().then(() => {
+                if ($stateParams.digid && $stateParams.rid &&
+                    $stateParams.aselect_credentials) {
+                    DigIdService.resolve(
+                        $stateParams.rid,
+                        $stateParams.aselect_credentials,
+                    ).then(res => {
+                        PushNotificationsService.success('DigId synchronization success.');
+    
+                        $ctrl.buildTypes().then(invalidCriteria => {
+                            if (invalidCriteria.length == 0) {
+                                $ctrl.applyFund($ctrl.fund);
+                            } else {
+                                $ctrl.cleanReload();
+                            }
+                        });
+                    }, (res) => {
+                        PushNotificationsService.danger(
+                            'Unable to perform synchronization with DigId.',
+                            JSON.stringify(res.data)
+                        );
+                        $ctrl.cleanReload();
+                    });
                 }
+    
+                FundRequestService.index($ctrl.fund.id).then((res) => {
+                    if (res.data.data.length > 0) {
+                        alert('You already requested this fund');
+                        $state.go('funds');
+                    } else {
+                        if ($ctrl.invalidCriteria.length == 0) {
+                            $ctrl.applyFund($ctrl.fund);
+                        }
+                    }
+                });
+    
+                IdentityService.identity().then(res => {
+                    $ctrl.bsnIsKnown = res.data.bsn;
+                });
             });
         } else {
             $ctrl.buildSteps();
@@ -388,6 +460,7 @@ module.exports = {
     controller: [
         '$q',
         '$state',
+        '$stateParams',
         '$timeout',
         'RecordService',
         'FundService',
@@ -396,6 +469,8 @@ module.exports = {
         'FundRequestService',
         'FormBuilderService',
         'CredentialsService',
+        'PushNotificationsService',
+        'DigIdService',
         'FileService',
         'appConfigs',
         FundRequestComponent

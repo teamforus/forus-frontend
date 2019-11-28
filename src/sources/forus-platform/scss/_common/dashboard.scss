@@ -752,19 +752,6 @@ $colorPrimaryLight: $color_primary_light;
             color: inherit;
         }
 
-        &>.mdi {
-            font-size: 18px;
-            line-height: 30px;
-            vertical-align: bottom;
-            color: $color_primary;
-            margin: 0 5px;
-            transition: .32s;
-
-            &:hover {
-                color: $color_primary_light;
-            }
-        }
-
         .card-block-listing-label {
             font: 500 11px/15px $bf;
             color: #646f79;
@@ -773,6 +760,19 @@ $colorPrimaryLight: $color_primary_light;
 
         .card-block-listing-value {
             font: inherit;
+
+            &>.mdi {
+                font-size: 18px;
+                line-height: 18px;
+                vertical-align: bottom;
+                color: $color_primary;
+                margin: 0 5px;
+                transition: .32s;
+    
+                &:hover {
+                    color: $color_primary_light;
+                }
+            }
         }
 
         &.card-block-listing-variant {
