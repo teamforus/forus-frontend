@@ -740,6 +740,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             url: "/sign-up?fund_id&organization_id&tag",
             component: "signUpComponent",
             params: {
+                fund_id: {
+                    squash: true,
+                    value: null,
+                },
                 tag: {
                     squash: true,
                     value: null,
