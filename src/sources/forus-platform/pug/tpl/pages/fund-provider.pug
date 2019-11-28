@@ -112,3 +112,19 @@
                 tr(ng-repeat="office in $ctrl.offices.data")
                     td(ng-bind="office.address || 'n/a'" ng-class="{'text-muted': !office.address}")
                     td(ng-bind="office.phone || 'n/a'" ng-class="{'text-muted': !office.phone}").text-right
+
+        //- Employees
+        .card
+            .card-section.card-section-narrow
+                .entity-details: .entity-title Employees
+            //- .card-header: .flex-row
+            //-     | Employees
+            
+            .card-section.card-section-padless: .table-wrapper: table.table
+                tr
+                    th Email
+                    th.text-right Roles
+                
+                tr(ng-repeat="employee in $ctrl.employees")
+                    td(ng-bind="employee.email")
+                    td(ng-bind="employee.roleNames").text-right            

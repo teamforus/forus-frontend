@@ -2,6 +2,7 @@ let FundProviderComponent = function(
     $q,
     FundService,
     OfficeService,
+    OrganizationEmployeesService,
     ProductService,
     PushNotificationsService
 ) {
@@ -89,6 +90,20 @@ let FundProviderComponent = function(
             OfficeService.list($ctrl.fundProvider.organization_id).then(res => {
                 $ctrl.offices = res.data;
             });
+
+            OrganizationEmployeesService.list($ctrl.fundProvider.organization_id).then(res => {
+                $ctrl.employees = res.data.data;
+                
+                $ctrl.employees.forEach(employee => {
+                    let roles = [];
+
+                    employee.roles.forEach(role => {
+                        roles.push(role.name);
+                    });
+
+                    employee.roleNames = roles.join();
+                });
+            });
         });
     };
 };
@@ -103,6 +118,7 @@ module.exports = {
         '$q',
         'FundService',
         'OfficeService',
+        'OrganizationEmployeesService',
         'ProductService',
         'PushNotificationsService',
         FundProviderComponent
