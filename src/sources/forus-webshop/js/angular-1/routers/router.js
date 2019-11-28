@@ -328,7 +328,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                     }
                 }
             }, () => {
-                alert("Token expired or unknown.");
+                alert("Deze link is reeds gebruikt of ongeldig.");
                 $state.go('home');
             });
         }],
@@ -362,7 +362,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                     }
                 }
             }, () => {
-                alert("Token expired or unknown.");
+                alert("Deze link is reeds gebruikt of ongeldig.");
                 $state.go('home');
             });
         }]
@@ -390,7 +390,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 $rootScope.loadAuthUser();
                 $state.go('home');
             }, () => {
-                alert("Token expired or unknown.");
+                alert("Deze link is reeds gebruikt of ongeldig.");
                 $state.go('home');
             });
         }]
