@@ -117,7 +117,7 @@ module.exports = {
             nijmegen: {
                 title: "Als uw organisatie een passend aanbod heeft, kunt u zich opgeven.",
                 description: "Uw organisatie is in het bezit van een smartphone, deze heeft u nodig om een mobiele applicatie te installeren die QR-codes kan scannen. Heeft u deze smartphone bij de hand? Regel het dan direct!",
-                button_nijmegen: "DIRECT REGELEN",
+                button: "DIRECT REGELEN",
             },
             westerkwartier: {
                 title: "Aanmelden",
