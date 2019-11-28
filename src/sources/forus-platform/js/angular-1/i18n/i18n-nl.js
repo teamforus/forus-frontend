@@ -86,6 +86,10 @@ module.exports = {
     home_provider: {
         header: {
             default: {
+                title: "Meld uw organisatie aan op het platform.",
+                subtitle: "Dit is het start scherm om uzelf aan te melden op het aanbieders dashboard.",
+            },
+            westerkwartier: {
                 title: "Meld uw organisatie aan voor het Kindpakket",
                 subtitle: "De gemeente geeft een bedrag van € 250,- per kind aan gezinnen met een laag inkomen.",
             },
@@ -95,7 +99,7 @@ module.exports = {
             },
             kerstpakket: {
                 title: "Meld uw organisatie aan voor het Kerstpakket",
-                subtitle: "",
+                subtitle: "Dit is het start scherm om uzelf aan te melden op het aanbieders dashboard.",
             },
         },
         labels: {
