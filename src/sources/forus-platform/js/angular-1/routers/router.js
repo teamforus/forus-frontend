@@ -385,64 +385,85 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => FundService.states()]
         }
     });
+    if (!appConfigs.hide_voucher_generators) {
+        /**
+         * Vouchers
+         */
+        $stateProvider.state({
+            name: "vouchers",
+            url: "/organizations/{organization_id}/vouchers?fund_id",
+            component: "vouchersComponent",
+            params: {
+                fund_id: null,
+            },
+            resolve: {
+                organization: organziationResolver(),
+                permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
+                funds: [
+                    'permission', '$transition$', 'FundService',
+                    function(permission, $transition$, FundService) {
+                        return repackResponse(
+                            FundService.list(
+                                $transition$.params().organization_id, {
+                                    per_page: 1000
+                                }
+                            )
+                        );
+                    }
+                ],
+                fund: [
+                    'funds', '$transition$',
+                    function(funds, $transition$) {
+                        // $state.params.token
+                        let fund_id = $transition$.params().fund_id;
 
-    /**
-     * Vouchers
-     */
-    $stateProvider.state({
-        name: "vouchers",
-        url: "/organizations/{organization_id}/vouchers?fund_id",
-        component: "vouchersComponent",
-        params: {
-            fund_id: null,
-        },
-        resolve: {
-            organization: organziationResolver(),
-            permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
-            funds: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => repackResponse(FundService.list(
-                $transition$.params().organization_id, {
-                    per_page: 1000
-                }
-            ))],
-            fund: ['funds', '$transition$', (
-                funds, $transition$
-            ) => {
-                let fund_id = $transition$.params().fund_id;
+                        return $transition$.params(), fund_id ? funds.filter(
+                            fund => fund.id == $transition$.params().fund_id
+                        )[0] || false : null;
+                    }
+                ],
+            }
+        });
 
-                return $transition$.params(), fund_id ? funds.filter(
-                    fund => fund.id == $transition$.params().fund_id
-                )[0] || false : null;
-            }],
-        }
-    });
+        /**
+         * Vouchers
+         */
+        $stateProvider.state({
+            name: "product-vouchers",
+            url: "/organizations/{organization_id}/product-vouchers?fund_id",
+            component: "productVouchersComponent",
+            params: {
+                fund_id: null,
+            },
+            resolve: {
+                organization: organziationResolver(),
+                permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
+                funds: [
+                    'permission', '$transition$', 'FundService',
+                    function(permission, $transition$, FundService) {
+                        return repackResponse(
+                            FundService.list(
+                                $transition$.params().organization_id, {
+                                    per_page: 1000
+                                }
+                            )
+                        );
+                    }
+                ],
+                fund: [
+                    'funds', '$transition$',
+                    function(funds, $transition$) {
+                        // $state.params.token
+                        let fund_id = $transition$.params().fund_id;
 
-    /**
-     * Vouchers
-     */
-    $stateProvider.state({
-        name: "product-vouchers",
-        url: "/organizations/{organization_id}/product-vouchers?fund_id",
-        component: "productVouchersComponent",
-        params: {
-            fund_id: null,
-        },
-        resolve: {
-            organization: organziationResolver(),
-            permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
-            funds: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => repackResponse(FundService.list($transition$.params().organization_id, {
-                per_page: 1000
-            }))],
-            fund: ['$transition$', 'funds', (
-                $transition$, funds,
-            ) => $transition$.params().fund_id ? funds.filter(
-                fund => fund.id == $transition$.params().fund_id
-            )[0] || false : null],
-        }
-    });
+                        return $transition$.params(), fund_id ? funds.filter(
+                            fund => fund.id == $transition$.params().fund_id
+                        )[0] || false : null;
+                    }
+                ],
+            }
+        });
+    }    
 
     /**
      * Transactions
@@ -703,8 +724,22 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     if (['provider', 'sponsor'].indexOf(appConfigs.panel_type) != -1) {
         $stateProvider.state({
             name: "sign-up",
-            url: "/sign-up?fundId",
+            url: "/sign-up?fund_id&organization_id&tag",
             component: "signUpComponent",
+            params: {
+                fund_id: {
+                    squash: true,
+                    value: null,
+                },
+                tag: {
+                    squash: true,
+                    value: null,
+                },
+                organization_id: {
+                    squash: true,
+                    value: null
+                },
+            },
             resolve: {
                 businessTypes: ['BusinessTypeService', (
                     BusinessTypeService

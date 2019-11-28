@@ -537,6 +537,16 @@ module.exports = {
             url_text: "Download de app <i>Me</i> op uw mobiele telefoon via de link:",
             url_address: "www.forus.io/DL"
         },
+        filters: {
+            labels: {
+                organizations: 'Organizations',
+                tags: 'Labels'
+            },
+            options: {
+                all_organizations: 'Alle organizations',
+                all_labels: 'Alle labels'
+            }
+        },
         qr_code: {
             description: 'Scan deze QR-Code om te testen.'
         },
