@@ -3,6 +3,7 @@ let OrganizationProvidersComponent = function(
     $scope,
     $state,
     $stateParams,
+    $timeout,
     FundService,
     FileService,
     OrganizationService,
@@ -166,7 +167,9 @@ let OrganizationProvidersComponent = function(
         $ctrl.resetFilters();
 
         $scope.onPageChange().then(() => {
-            $ctrl.loaded = true;
+            $timeout(() => {
+                $ctrl.loaded = true;
+            }, 0);
 
             if ($ctrl.funds.length == 1) {
                 $state.go('organization-providers', {
@@ -190,6 +193,7 @@ module.exports = {
         '$scope',
         '$state',
         '$stateParams',
+        '$timeout',
         'FundService',
         'FileService',
         'OrganizationService',
