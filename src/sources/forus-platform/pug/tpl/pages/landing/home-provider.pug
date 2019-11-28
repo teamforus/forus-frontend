@@ -2,8 +2,12 @@ landing-navbar
 header.section.section-header
     .wrapper
         .header-content
-            .header-title {{ "home_provider.header.title_westerkwartier" | translate }}
-            .header-description {{ "home_provider.header.subtitle_westerkwartier" | translate }}
+            .header-title(
+                translate="home_provider.header.{{ $root.appConfigs.client_key }}.title"
+                translate-default="{{'home_provider.header.default.title' | translate }}")
+            .header-description(
+                translate="home_provider.header.{{ $root.appConfigs.client_key }}.subtitle"
+                translate-default="{{'home_provider.header.default.subtitle' | translate }}")
 section.section.section-flow: .wrapper
     .section-title {{ "home_provider.guide.title_westerkwartier" | translate }}
     .section-description(translate="home_provider.guide.description_westerkwartier")

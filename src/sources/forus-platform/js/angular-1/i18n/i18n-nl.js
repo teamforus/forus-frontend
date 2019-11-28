@@ -85,12 +85,18 @@ module.exports = {
     // PROVIDER HOME = home-provider.pug
     home_provider: {
         header: {
-            title: "Meld u aan als winkelier of dienstverlener",
-            title_nijmegen: "Meld u aan als dienstverlener",
-            subtitle: "Bereik meer klanten, maak winst en draag bij aan een maatschappelijk doel.",
-            subtitle_nijmegen: "De gemeente geeft inwoners met een laag inkomen maximaal € 150,- voor culturele, sportieve en educatieve activiteiten. Dit heet de Meedoen-regeling.",
-            title_westerkwartier: "Meld uw organisatie aan voor het Kindpakket",
-            subtitle_westerkwartier: "De gemeente geeft een bedrag van € 250,- per kind aan gezinnen met een laag inkomen.",
+            default: {
+                title: "Meld uw organisatie aan voor het Kindpakket",
+                subtitle: "De gemeente geeft een bedrag van € 250,- per kind aan gezinnen met een laag inkomen.",
+            },
+            nijmegen: {
+                title: "Meld u aan als dienstverlener",
+                subtitle: "De gemeente geeft inwoners met een laag inkomen maximaal € 150,- voor culturele, sportieve en educatieve activiteiten. Dit heet de Meedoen-regeling.",
+            },
+            kerstpakket: {
+                title: "Meld uw organisatie aan voor het Kerstpakket",
+                subtitle: "",
+            },
         },
         labels: {
             partners: "Stichting Forus zoekt partners",
