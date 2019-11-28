@@ -4,7 +4,8 @@ let ProductVouchersComponent = function(
     $timeout,
     DateService,
     ModalService,
-    VoucherService
+    VoucherService,
+    FileService
 ) {
     let $ctrl = this;
 
@@ -25,7 +26,9 @@ let ProductVouchersComponent = function(
         reset: function () {
             this.values.q = '';
             this.values.granted = null;
-            this.values.fund_id = $ctrl.funds[0] ? $ctrl.funds[0].id : null;
+            this.values.fund_id = $stateParams.fund_id ?
+                $stateParams.fund_id : 
+                ($ctrl.funds[0] ? $ctrl.funds[0].id : null);
             this.values.amount_min = null;
             this.values.amount_max = null;
             this.values.from = null;
@@ -76,6 +79,13 @@ let ProductVouchersComponent = function(
                 $state.reload();
             }
         });
+    };
+
+    $ctrl.downloadExampleCsv = () => {
+        FileService.downloadFile(
+            'voucher_upload_sample.csv',
+            VoucherService.sampleCSV('product_voucher')
+        );
     };
 
     $ctrl.onPageChange = (query) => {
@@ -141,6 +151,7 @@ module.exports = {
         'DateService',
         'ModalService',
         'VoucherService',
+        'FileService',
         ProductVouchersComponent
     ],
     templateUrl: 'assets/tpl/pages/product-vouchers.html'

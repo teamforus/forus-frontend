@@ -10,11 +10,11 @@
 
         .card-block.card-block-provider
             .provider-img: img(ng-src="{{ fundProvider.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
-            span(ng-bind="fundProvider.organization.name").provider-title
-            br
-            .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                .card-block-listing-label {{ "fund_card_provider_finances.labels.mail" | translate }}
-                span.text-primary-light(ng-bind="fundProvider.organization.email")
+            .provider-details
+                span(ng-bind="fundProvider.organization.name").provider-title
+                .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                    .card-block-listing-label {{ "fund_card_provider_finances.labels.mail" | translate }}
+                    span.text-primary-light(ng-bind="fundProvider.organization.email")
         
         //-.card-block.card-block-listing
             .card-block-listing-label {{ "fund_card_provider_finances.labels.categories" | translate }}

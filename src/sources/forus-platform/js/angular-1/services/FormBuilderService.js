@@ -1,4 +1,4 @@
-module.exports = [function() {
+let FormBuilderService = function() {
     return new(function() {
         this.build = function(values, submit, autoLock = false) {
             return {
@@ -32,4 +32,8 @@ module.exports = [function() {
             };
         };
     });
-}];
+};
+
+module.exports = [
+    FormBuilderService
+];

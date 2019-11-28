@@ -630,13 +630,7 @@ else if (qdt_c.platform.env_data.client_key == 'kerstpakket')
                     .footer-label 
                     nav.footer-nav
                         .footer-nav-item: a(href="/sponsor/" target="_self") 
-                        .footer-nav-item: a(href="/provider/" target="_self") 
-                    .block.block-app_download(style="margin-top:15px;"): .footer-label(style="margin-bottom:0px;") 
-                        .wrapper
-                            a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
-                                img(src="./assets/img/icon-app/icon-app-android.svg" style="height: 40px; width: 120px; padding-right: 5px; margin-top: 10px;")
-                            a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
-                                img(src="./assets/img/icon-app/icon-app-ios.svg" style="height: 40px; width: 120px; margin-top: 10px;")
+                        .footer-nav-item: a(href="/provider/" target="_self")
                     nav.footer-nav(style="margin-top:0; padding:0;")
                         .footer-nav-item: a(ui-sref="me-app") 		
                 .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
@@ -648,10 +642,15 @@ else if (qdt_c.platform.env_data.client_key == 'kerstpakket')
                 
         .block.block-copyrights: .wrapper
             .copyrights 
+            .block.block-app_download(style="margin-bottom:15px;"): .footer-label(style="margin-bottom:0px;") 
+                a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
+                    img(src="./assets/img/icon-app/icon-app-android.svg" style="height: 40px; width: 120px; padding-right: 5px; margin-top: 10px;")
+                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
+                    img(src="./assets/img/icon-app/icon-app-ios.svg" style="height: 40px; width: 120px; margin-top: 10px;")
             .links
                 a(href="" target="_blank") Algemene Voorwaarden
                 .link-separator
-                a(href="" target="_blank") Privacy Statement
+                a(href="" target="_blank") Privacy Statement 
             .developed
                 | 
                 a(href="#")

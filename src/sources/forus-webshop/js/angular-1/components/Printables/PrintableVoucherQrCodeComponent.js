@@ -1,9 +1,11 @@
-let PrintableVoucherQrCodeComponent = function($timeout) {
+let PrintableVoucherQrCodeComponent = function(
+    $timeout
+) {
     let $ctrl = this;
 
-     $ctrl.qrCodeValue = null;
+    $ctrl.qrCodeValue = null;
 
-     $ctrl.$onInit = () => {
+    $ctrl.$onInit = () => {
         $ctrl.voucher = $ctrl.printable.scope.voucher;
         $ctrl.organization = $ctrl.printable.scope.organization;
         $ctrl.qrCodeValue = $ctrl.voucher.address;
@@ -13,10 +15,10 @@ let PrintableVoucherQrCodeComponent = function($timeout) {
         }, 500);
     };
 
-     $ctrl.$onDestroy = function() {};
+    $ctrl.$onDestroy = function() {};
 };
 
- module.exports = {
+module.exports = {
     bindings: {
         close: '=',
         printable: '=',
@@ -28,4 +30,4 @@ let PrintableVoucherQrCodeComponent = function($timeout) {
     templateUrl: () => {
         return '/assets/tpl/printables/printable-voucher-qr_code.html';
     }
-}; 
+};

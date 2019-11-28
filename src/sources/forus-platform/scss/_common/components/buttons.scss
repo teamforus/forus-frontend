@@ -110,6 +110,14 @@
         }
     }
 
+    &.button-flat {
+        box-shadow: none;
+
+        &:hover {
+            box-shadow: none;
+        }
+    }
+
     &.button-dropdown {
         outline: none;
     }
@@ -121,12 +129,6 @@
         box-shadow: none;
         padding: 6px 10px;
         outline: none;
-
-        &>.mdi {
-            color: #646f79;
-            margin-right: 3px;
-            margin-left: -3px;
-        }
 
         &:focus,
         &:hover {
@@ -149,6 +151,18 @@
         &.button-text-muted {
             color: #646f79;
             font-weight: 600;
+        }
+        &[disabled],
+        &.disabled {
+            box-shadow: none !important;
+            background: transparent !important;
+            border-color: transparent !important;
+
+            &:hover {
+                box-shadow: none !important;
+                background: transparent !important;
+                border-color: transparent !important;
+            }
         }
     }
 
@@ -179,6 +193,16 @@
             padding-left: 10px;
             padding-right: 10px;
         }
+    }
+
+    &.button-slim {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    &.button-narrow {
+        padding-left: 0;
+        padding-right: 0;
     }
 
     &:not(:last-of-type),

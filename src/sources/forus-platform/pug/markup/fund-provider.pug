@@ -1,0 +1,99 @@
+extends ../layout/layout-markup
+block content
+    .card-heading General information
+    .card
+        .card-section.card-section-narrow: .block.block-entity-overview
+            .entity-photo
+                img(src="./assets/img/zuidhorn-logo.jpg").entity-photo-img
+                .entity-photo-abbr
+            .entity-details: .entity-title Lidl Nederland GmbH
+        
+        .card-section: .block.block-entity-overview
+            .entity-details: .entity-overview
+                .entity-overview-row
+                    .entity-overview-label Address:
+                    .entity-overview-value Havenstraat 71, 1271 AD Huizen, Postbus 198, 1270 AD Huizen
+                .entity-overview-row
+                    .entity-overview-label Telephone:
+                    .entity-overview-value 020-7095039
+                .entity-overview-row
+                    .entity-overview-label Now open: 
+                    .entity-overview-value 
+                        em.mdi.mdi-clock-outline.text-success
+                        | Open
+
+        .card-section.card-section-primary.card-section-narrow.form: .row: .col.col-lg-8: .flex-row
+            .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                .card-block-listing-label Allow budget
+                .button.button-text.button-narrow: label(for=("option_" + title + '_regular')).form-toggle
+                    input(type="checkbox" id=("option_" + title + '_regular'))
+                    .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+                
+            .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                .card-block-listing-label Allow products
+                .button.button-text.button-narrow: label(for=("option_" + title + '_products')).form-toggle
+                    input(type="checkbox" id=("option_" + title + '_products'))
+                    .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+    
+    mixin row_offices(name = "GSK Pharmacy lorem", address = "Havenstraat 71, 1271 AD Huizen, Postbus 198", phone = "0615 261 612")
+        tr
+            td=name
+            td=address
+            td.text-right=phone
+
+    mixin row_products(id, name, price, old_price, allowed)
+        tr
+            td=name
+            td #{id % 2 == 0 ? 'Unlimited' : id * 10}
+            td
+                | #{price}
+                .text-muted=old_price
+            td: .form.pull-right: label(for=("product_" + id + '_enabled') class=(id < 3 ? 'form-toggle-disabled' : '')).form-toggle
+                input(type="checkbox" id=("product_" + id + '_enabled') checked=allowed)
+                .form-toggle-inner: .toggle-input: .toggle-input-dot
+    
+    mixin card_tab(type="products")
+        .card
+            .card-header: .flex-row
+                .flex-col: .card-header-drown: .block.block-label-tabs
+                    a(href="#" class=(type=='offices'?'active':'')).label-tab Offices
+                    a(href="#" class=(type=='products'?'active':'')).label-tab Products
+                .flex-col: .card-header-drown: .block.block-inline-filters
+                    .form(ng-if="!$ctrl.filters.show"): .form-group: input(placeholder="Search").form-control
+
+            if (type == 'offices')
+                .card-section.card-section-padless: .table-wrapper: table.table
+                    tr
+                        th Name
+                        th Address
+                        th.text-right Phone
+                    
+                    -for (id = 1; id <= 5; ++id)
+                        +row_offices()
+
+            if (type == 'products')
+                .card-section.card-section-success.card-section-narrow: em
+                    | You can not put individual products off while you have the global toggle on. 
+                    | Please take it off to enable individual choices.
+                
+                .card-section.card-section-padless: .table-wrapper: table.table
+                    tr
+                        th Name
+                        th Stock
+                        th Price
+                        th.text-right Allowed
+                    
+                    -for (id = 1; id <= 5; ++id)
+                        +row_products(id, 'Schilderatelier/cursus voor beginners ' + id, '€20,-', '€25,-', id % 2 == 0)
+            
+            .card-section.card-section-narrow: .table-pagination
+                .table-pagination-counter 8 results
+                .table-pagination-navigation
+                    button(disabled).button.button-default Prev
+                    button.button.button-primary 1
+                    button.button.button-default 2
+                    button.button.button-default 3
+                    button(disabled).button.button-default Next
+
+    +card_tab('offices')
+    +card_tab()

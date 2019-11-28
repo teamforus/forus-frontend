@@ -1,9 +1,7 @@
 .app.app-container
     menu
-    section.app.app-content
-        .card-heading: .row
-            .col.col-lg-6.col-xs-12
-                span(translate="organization_providers.header.title")
+    section.app.app-content(ng-if="$ctrl.loaded")
+        .card-heading(ng-if="$ctrl.funds.length > 1" translate="organization_providers.header.title")
         
         .block.block-choose-organization(ng-if="$ctrl.funds.length > 1")
             div(
@@ -42,82 +40,157 @@
                             .form
                                 .form-group
                                     form-label-toggle(label="{{ 'search' | i18n }}" is-active)
-                                    input(ng-model="$ctrl.filters.values.q" type="text" placeholder="{{ 'search' | i18n }}").form-control
+                                    .inline-filters-pane
+                                        input(ng-model="$ctrl.filters.values.q" type="text" placeholder="{{ 'search' | i18n }}").form-control
+                                        .checkbox
+                                            input(
+                                                value="1"
+                                                type="checkbox" 
+                                                id="show_dismissed"
+                                                ng-model="$ctrl.filters.values.dismissed")
+                                            label(for="show_dismissed").checkbox-label
+                                                .checkbox-box: .mdi.mdi-check
+                                                | Toon verborgen aanbieders
                                 .form-group
                                     form-label-toggle(label="{{ 'organization_providers.state' | i18n }}")
                                     select(
-                                    ng-options="state.key as state.name for state in $ctrl.states"
-                                    ng-model="$ctrl.filters.values.state").form-control
-
+                                        ng-options="state.key as state.name for state in $ctrl.states"
+                                        ng-model="$ctrl.filters.values.state").form-control
+                                
+                                .form-group
+                                    form-label-toggle(label="Accepteer budget")
+                                    .inline-filters-pane
+                                        .radio
+                                            input#allow_budget_yes(
+                                                type="radio" 
+                                                name="allow_budget" 
+                                                ng-model="$ctrl.filters.values.allow_budget" value="1")
+                                            label(for="allow_budget_yes").radio-label
+                                                .radio-circle
+                                                | Ja
+                                        .radio
+                                            input#allow_budget_no(
+                                                type="radio" 
+                                                name="allow_budget" 
+                                                ng-model="$ctrl.filters.values.allow_budget" value="0")
+                                            label(for="allow_budget_no").radio-label
+                                                .radio-circle
+                                                | Nee
+                                        .radio
+                                            input#allow_budget_all(
+                                                type="radio" 
+                                                name="allow_budget" 
+                                                ng-model="$ctrl.filters.values.allow_budget" value="")
+                                            label(for="allow_budget_all").radio-label
+                                                .radio-circle
+                                                | Alle
+                                
+                                .form-group
+                                    form-label-toggle(label="Accepteer aanbiedingen")
+                                    .inline-filters-pane
+                                        .radio
+                                            input#allow_products_yes(
+                                                type="radio" 
+                                                name="allow_products" 
+                                                ng-model="$ctrl.filters.values.allow_products" value="1")
+                                            label(for="allow_products_yes").radio-label
+                                                .radio-circle
+                                                | Alle aanbiedingen
+                                        .radio
+                                            input#allow_products_some(
+                                                type="radio" 
+                                                name="allow_products" 
+                                                ng-model="$ctrl.filters.values.allow_products" value="some")
+                                            label(for="allow_products_some").radio-label
+                                                .radio-circle
+                                                | Sommige aanbiedingen
+                                        .radio
+                                            input#allow_products_no(
+                                                type="radio" 
+                                                name="allow_products" 
+                                                ng-model="$ctrl.filters.values.allow_products" value="0")
+                                            label(for="allow_products_no").radio-label
+                                                .radio-circle
+                                                | Geen aanbiedingen
+                                        .radio
+                                            input#allow_products_all(
+                                                type="radio" 
+                                                name="allow_products" 
+                                                ng-model="$ctrl.filters.values.allow_products" value="")
+                                            label(for="allow_products_all").radio-label
+                                                .radio-circle
+                                                | Alle
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
-            .card(
-                ng-repeat="providerFund in $ctrl.fundProviders.data"
-                ng-class="[providerFund.collapsable ? 'card-collapsable' : '', providerFund.collapsed ? 'card-collapsed' : '']"
-                ng-click="$ctrl.toggleFundCollapse(providerFund)")
+            .card(ng-repeat="providerFund in $ctrl.fundProviders.data")
                 .card-section
                     .card-section-actions
-                        div(ng-show="providerFund.state == 'approved'")
-                            .tag.tag-success(translate="organization_providers.status.accepted")
-                        div(ng-show="providerFund.state == 'declined'")
-                            .tag.tag-default(translate="organization_providers.status.rejected")
-                        div(ng-show="providerFund.state == 'pending'")
-                            .tag.tag-warning(translate="organization_providers.status.hold")
+                        button(
+                            ng-if="!providerFund.dismissed && !providerFund.allow_budget && !providerFund.allow_products" 
+                            ng-click="$ctrl.dismissProvider(providerFund)").button.button-default
+                            | Verberg
+                            em.mdi.mdi-close.icon-end
+                        .button.button-text.button-text.button-text-muted.button-narrow(
+                            ng-if="providerFund.dismissed"
+                            disabled)
+                            | Verborgen
 
                     .card-block.card-block-provider
                         .provider-img: img(ng-src="{{ providerFund.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
-                        span(ng-bind="providerFund.organization.name").provider-title
-                        br
-                        .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant(
-                            ng-if="providerFund.organization.email")
-                            .card-block-listing-label(translate="organization_providers.labels.mail")
-                            span.text-primary-light(ng-bind="providerFund.organization.email")
-                        .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant(
-                            ng-if="providerFund.organization.phone")
-                            .card-block-listing-label(translate="organization_providers.labels.phone")
-                            span.text-primary-light(ng-bind="providerFund.organization.phone")
-                        .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant(
-                            ng-if="providerFund.organization.website")
-                            .card-block-listing-label(translate="organization_providers.labels.website")
-                            span.text-primary-light(ng-bind="providerFund.organization.website")
+                        .provider-details
+                            .provider-title(ng-bind="providerFund.organization.name")
+                            .row: .col.col-lg-8: .flex-row
+                                .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant(
+                                    ng-if="providerFund.organization.email")
+                                    .card-block-listing-label(translate="organization_providers.labels.mail")
+                                    .card-block-listing-value.text-primary-light(ng-bind="providerFund.organization.email")
+                                .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant(
+                                    ng-if="providerFund.organization.phone")
+                                    .card-block-listing-label(translate="organization_providers.labels.phone")
+                                    .card-block-listing-value.text-primary-light(ng-bind="providerFund.organization.phone")
+                                .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant(
+                                    ng-if="providerFund.organization.business_type.name")
+                                    .card-block-listing-label(translate="organization_providers.labels.business_type")
+                                    .card-block-listing-value.text-primary-light(ng-bind="providerFund.organization.business_type.name")
+                            .row: .col.col-lg-8: .flex-row
+                                .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant(
+                                    ng-if="providerFund.organization.website")
+                                    .card-block-listing-label(translate="organization_providers.labels.website")
+                                    .card-block-listing-value.text-primary-light(ng-bind="providerFund.organization.website")
 
-                    div(ng-if="!providerFund.collapsed")
-                        .card-block.card-block-listing
-                            .card-block-listing-label(translate="organization_providers.labels.business_type")
-                            span(ng-bind="providerFund.organization.business_type.name")
-                            small(
-                                ng-show="!providerFund.organization.business_type" 
-                                translate="organization_providers.labels.no_business_type").text-muted.small
-                        br
-                        .card-block.card-block-listing
-                            .card-block-listing-label(translate="organization_providers.labels.join")
-                            span(ui-sref="funds-show(providerFund.fund)" ng-bind="providerFund.fund.name").text-primary-light
+                .card-section.card-section-primary.card-section-narrow: .card-block.card-block-provider.form
+                    .provider-offset &nbsp;
+                    .provider-details: .row: .col.col-lg-8: .flex-row
+                        .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                            .card-block-listing-label(ng-bind="providerFund.products_count_all + ' aanbiedingen'")
+                            button(type="button" ui-sref="fund-provider(providerFund.uiViewParams)").button.button-default.button-flat
+                                em.mdi.mdi-eye-outline.icon-start
+                                | Bekijk
 
-                mixin keyvalue_item_horizontal(key, value)
-                    .keyvalue-item
-                        .keyvalue-key=key
-                        .keyvalue-value(ng-bind=value)
-
-                .card-section.card-section-primary(ng-if="!providerFund.collapsed")
-                    .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
-                        +keyvalue_item_horizontal("KVK", "providerFund.organization.kvk")
-                        .pull-right
-                            button(
-                                prevent-propagation
-                                ng-show="(providerFund.state == 'pending') || (providerFund.state == 'approved')"
-                                ng-click="$ctrl.declineProvider(providerFund)").button.button-default
-                                em.mdi.mdi-close.icon-start 
-                                span(translate="organization_providers.buttons.reject")
-                            button(
-                                prevent-propagation
-                                ng-show="(providerFund.state == 'pending') || (providerFund.state == 'declined')"
-                                ng-click="$ctrl.approveProvider(providerFund)").button.button-primary
-                                em.mdi.mdi-check.icon-start 
-                                span(translate="organization_providers.buttons.accept")
-
+                        .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                            .card-block-listing-label Accepteer budget
+                            .button.button-text: label(for="option_{{ providerFund.id }}_allow_budget").form-toggle
+                                input(
+                                    type="checkbox" 
+                                    id="option_{{ providerFund.id }}_allow_budget"
+                                    ng-checked="providerFund.allow_budget"
+                                    ng-change="$ctrl.updateAllowBudget(providerFund)"
+                                    ng-model="providerFund.allow_budget")
+                                .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+                            
+                        .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                            .card-block-listing-label Accepteer aanbiedingen
+                            .button.button-text: label(for="option_{{ providerFund.id }}_allow_products").form-toggle
+                                input(
+                                    type="checkbox" 
+                                    id="option_{{ providerFund.id }}_allow_products" 
+                                    ng-checked="providerFund.allow_products" 
+                                    ng-change="$ctrl.updateAllowProducts(providerFund)"
+                                    ng-model="providerFund.allow_products")
+                                .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
 
             .card
-                .card-section(ng-show="$ctrl.fundProviders.meta.last_page > 1")
+                .card-section(ng-if="$ctrl.fundProviders.meta" ng-show="$ctrl.fundProviders.meta.last_page > 1")
                     paginator(meta="$ctrl.fundProviders.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="onPageChange(query)")
 
                 .card-section(ng-show="$ctrl.fundProviders.meta.total > 0"): .table-pagination.text-right
