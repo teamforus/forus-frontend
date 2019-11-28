@@ -346,7 +346,7 @@ let SignUpComponent = function(
                 $ctrl.fundOrganization : $stateParams.organization_id;
         let label = $ctrl.fundLabel && $ctrl.fundLabel != 'null' ?
                 $ctrl.fundLabel : $stateParams.tag;
-        let fund_id = $stateParams.fundId,
+        let fund_id = $stateParams.fund_id,
             search_params = {};
 
         if (organization_id) {
@@ -357,7 +357,7 @@ let SignUpComponent = function(
         }    
         if (fund_id) {
             search_params.fund_id = fund_id;
-        }    
+        }
 
         return ProviderFundService.listAvailableFunds(
             organization.id, search_params
