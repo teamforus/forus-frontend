@@ -1,10 +1,31 @@
 //- Printable class is required 
 .printable.printable-voucher-qr_code
-    .printable-title(ng-if="$ctrl.voucher.type != 'product'") Uw {{ $ctrl.voucher.fund.name }}-voucher
-    .printable-title(ng-if="$ctrl.voucher.type == 'product'") Uw {{ $ctrl.voucher.product.name }}-voucher
-    br
-    qr-code(qr-value="$ctrl.qrCodeValue" qr-type="voucher")
-    .printable-description De verloopdatum van deze voucher is {{ $ctrl.voucher.expire_at_locale }}
+    .printable-main-info
+        .printable-usage-info
+            | Gebruik deze budget voucher voor:
+            br
+            b {{ $ctrl.voucher.expire_at_locale }}
+
+        .printable-title(ng-if="$ctrl.voucher.type != 'product'") Uw {{ $ctrl.voucher.fund.name }}-voucher
+        .printable-title(ng-if="$ctrl.voucher.type == 'product'") Uw {{ $ctrl.voucher.product.name }}-voucher
+        br
+    
+        qr-code(qr-value="$ctrl.qrCodeValue" qr-type="voucher")
+        .printable-title {{ $ctrl.voucher.fund.name }}
+        .printable-description De verloopdatum van deze voucher is {{ $ctrl.voucher.expire_at_locale }}
+        br
+
+    .printable-additional-info
+        .description Laat deze voucher zien bij een van de destreffende aanbieders, te vinden op:  
+        .site {{ $ctrl.organization.site }} 
+
+    .printable-organization-info
+        .contact Heeft u vragen over ‘{{ $ctrl.voucher.fund.name }}’? 
+            br 
+            | Neem dan contact op.
+        span Telefoonnummer: {{ $ctrl.organization.phone }}  
+        br
+        span E-mailadres: {{ $ctrl.organization.email }}    
     
     //- Voucher details
     //-pre(ng-bind="$ctrl.voucher | pretty_json")

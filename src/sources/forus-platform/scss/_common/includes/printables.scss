@@ -16,35 +16,75 @@ body {
 
 @media print {
     .printable {
-        text-align: left;
+        text-align: center;
+        -webkit-print-color-adjust: exact !important;
 
         &.printable-voucher-qr_code {
-            .printable-title {
-                font: 700 16px $bf;
-                text-align: center;
-            }
+            .printable-main-info {
+                border: 1px solid #EBEDF0;
+                box-sizing: border-box;
+                position: relative;
+                margin-bottom: 85px;
 
-            .printable-description {
-                font: 400 12px $bf;
-                text-align: center;
-                margin-bottom: 20px;
-            }
-
-            .block-qr-code {
-                margin: 0 auto 20px;
-
-                .qr_code {
-                    margin: 0 auto;
-                    width: 240px;
-                    height: auto;
+                .printable-usage-info {
+                    position: absolute;
+                    top: 10px;
+                    left: 10px;
+                    text-align: left;
                 }
 
-                img {
-                    padding: 10px;
-                    margin: 0 auto;
-                    width: 100%;
-                    border: 1px solid silver;
-                    background: #fff;
+                .printable-title {
+                    font: 700 16px $bf;
+                    text-align: center;
+                }
+    
+                .printable-description {
+                    font: 400 12px $bf;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+    
+                .block-qr-code {
+                    margin: 0 auto 20px;
+    
+                    .qr_code {
+                        margin: 0 auto;
+                        width: 240px;
+                        height: auto;
+                    }
+    
+                    img {
+                        padding: 10px;
+                        margin: 0 auto;
+                        width: 100%;
+                        border: 1px solid silver;
+                        background: #fff;
+                    }
+                }
+            }
+
+            .printable-additional-info {
+                margin-bottom: 85px;
+                text-align: center;
+
+                .description {
+                    font: 400 15px/21px $bf;
+                }
+
+                .site {
+                    font: 500 21px/52px $bf;
+                }
+            }
+
+            .printable-organization-info {
+                background: #F5F5F5;
+                border-radius: 5px;
+                padding: 16px;
+                font-size: 13px;
+                line-height: 21px;
+
+                .contact {
+                    margin-bottom: 14px;
                 }
             }
         }
