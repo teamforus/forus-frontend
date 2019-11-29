@@ -208,7 +208,7 @@ module.exports = {
         },
         labels: {
             name: "Naam",
-            description: "Description",
+            description: "Omschrijving",
             products: "Products",
             status: "Status",
             start: "Startdatum",
