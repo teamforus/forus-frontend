@@ -117,14 +117,10 @@
         .card
             .card-section.card-section-narrow
                 .entity-details: .entity-title Medewerkers
-            //- .card-header: .flex-row
-            //-     | Employees
             
             .card-section.card-section-padless: .table-wrapper: table.table
                 tr
                     th E-Mailadres
-                    th.text-right Rol
                 
-                tr(ng-repeat="employee in $ctrl.employees")
-                    td(ng-bind="employee.email")
-                    td(ng-bind="employee.roleNames").text-right            
+                tr(ng-repeat="validator in $ctrl.fundProvider.validators")
+                    td(ng-bind="validator.email")         
