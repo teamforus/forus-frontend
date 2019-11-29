@@ -4205,6 +4205,36 @@ $colorPrimaryLight: $color_primary_light;
         }
     }
 
+    &.modal-notification {
+        .modal-close {
+            top: 50px;
+        }
+        
+        .modal-content {
+            .modal-section {
+                font: 400 18px/34px $bf;
+
+                .modal-icon {
+                    img {
+                        width: 140px;
+                    }
+                }
+
+                .description {
+                    padding: 10px 30px;
+                    font: 400 18px/34px $bf;
+                }
+
+                .subdescription {
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                    padding: 10px 30px;
+                    font: 400 18px/34px $bf;
+                }
+            }
+        }
+    }
+
     @media screen and (max-width: 1500px) {
         .modal-content {
             width: 1000px;
@@ -4326,9 +4356,63 @@ $colorPrimaryLight: $color_primary_light;
                 }
             }
         }
+
+        &.modal-notification {
+            .modal-close {
+                top: 50px;
+            }
+            
+            .modal-content {
+                .modal-section {
+                    font: 400 18px/34px $bf;
+
+                    .modal-icon {
+                        img {
+                            width: 140px;
+                        }
+                    }
+
+                    .description {
+                        padding: 10px 30px;
+                        font: 400 18px/34px $bf;
+                    }
+
+                    .subdescription {
+                        margin-top: 20px;
+                        margin-bottom: 20px;
+                        padding: 10px 30px;
+                        font: 400 18px/34px $bf;
+                    }
+                }
+            }
+        }
     }
 
+    @media screen and (max-width: 320px) {
+        &.modal-notification {
+            .modal-content {
+                .modal-section {
+                    .modal-icon {
+                        img {
+                            width: 100px;
+                        }
+                    }
 
+                    .description {
+                        padding: 10px;
+                        font: 400 16px/34px $bf;
+                    }
+
+                    .subdescription {
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                        padding: 10px 20px;
+                        font: 400 16px/34px $bf;
+                    }
+                }
+            }
+        }
+    }
 
 }
 
