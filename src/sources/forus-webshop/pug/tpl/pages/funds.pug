@@ -14,6 +14,7 @@ section.section.section-funds: .wrapper
                     | {{ fund.name }}
                     span(ng-show="funds.status == 'active'" translate="funds.status.active").label.label-primary.label-square
                 .fund-organization(ng-bind="fund.organization.name") 
+                .fund-description(ng-bind="fund.description") 
                 .fund-categories
                     .fund-categories-label(i18n="funds.labels.categories_label")
                     .fund-categories-list(ng-bind="fund.end_date_locale")
