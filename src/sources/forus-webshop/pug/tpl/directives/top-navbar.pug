@@ -33,9 +33,10 @@
                 ui-sref-active="active"
                 ng-bind="'topnavbar.items.products' | translate")
         
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.features.providers.show" ng-click="showPopupOffices()")
-            a.navbar-item(
-                ng-bind="'topnavbar.items.providers' | translate")
+        if (qdt_c.platform.env_data.client_key == 'westerkwartier')
+            nav.navbar-item-wrapper(ng-click="showPopupOffices()")
+                a.navbar-item(
+                    ng-bind="'topnavbar.items.providers' | translate")
                                                                                                                                
     .block.block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
         .auth-code
