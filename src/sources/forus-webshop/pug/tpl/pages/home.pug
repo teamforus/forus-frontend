@@ -66,21 +66,6 @@ section.section.section-steps#steps(ng-if="$root.appConfigs.flags.homeSteps"): .
             h4(i18n="home.guide.stepfive")
             p(translate="home.guide.{{ $root.client_key }}.five" translate-default="{{'home.guide.five' | translate }}")
 
-section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
-    .section-title(i18n="home.blog.forus.title")
-    
-    .block.block-blogs
-        mixin blog_item(nth)
-            .blog-item: a(href="#").blog-item-inner
-                .blog-image: img(src="./assets/img/blog-image-" + nth + ".jpg")
-                .blog-name(i18n="home.blog.forus.name")
-                .blog-read-more(i18n="home.blog.more")
-                    em.mdi.mdi-arrow-right
-        +blog_item(1)
-        +blog_item(2)
-        +blog_item(3)
-    .block.block-show-more: a(href="#" i18n="buttons.read_more").button.button-primary.button-wide
-
 
 section.section.section-faq(ng-if="$root.appConfigs.flags.homeFaq"): .wrapper
     .section-splash
@@ -149,5 +134,3 @@ section.section.section-faq(ng-if="$root.appConfigs.flags.homeFaq"): .wrapper
         +faq_item(
             'home.faq.faq_fifteen',
             'home.faq.fifteen')
-
-contact-form 
