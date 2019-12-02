@@ -13,17 +13,28 @@ let EmailPreferencesComponent = function(
 
     if(appConfigs.panel_type == 'sponsor'){
         keysEditableOnDashboard = [
-            'funds.provider_applied', 'funds.balance_warning', 'funds.product_added'
+            'funds.provider_applied', 
+            'funds.balance_warning', 
+            'funds.product_added',
+            'bunq.transaction_success'
         ];
     }
     if (appConfigs.panel_type == 'provider'){
         keysEditableOnDashboard = [
-            'funds.new_fund_started', 'funds.new_fund_applicable', 'funds.provider_approved', 'funds.provider_rejected', 'funds.product_reserved', 'funds.product_sold_out'
+            'funds.new_fund_started', 
+            'funds.new_fund_applicable', 
+            'funds.provider_approved', 
+            'funds.provider_rejected', 
+            'funds.product_reserved', 
+            'funds.product_sold_out',
+            'employee.created',
+            'employee.deleted'
         ];
     }
     if (appConfigs.panel_type == 'validator'){
         keysEditableOnDashboard = [
-            'validations.new_validation_request','validations.you_added_as_validator'
+            'validations.new_validation_request',
+            'validations.you_added_as_validator'
         ];
     }
 
@@ -56,9 +67,17 @@ let EmailPreferencesComponent = function(
         if (AuthService.hasCredentials()) {
             return EmailPreferencesService.get().then(res => {
                 $ctrl.email = res.data.data.email;
-                $ctrl.preferences = res.data.data.preferences.filter(preference => {
-                    return keysEditableOnDashboard.indexOf(preference.key) != -1;
+
+                $ctrl.emailPreferences = res.data.data.preferences.filter(preference => {
+                    return keysEditableOnDashboard.indexOf(preference.key) != -1 && preference.type == 'email';
                 });
+
+                $ctrl.pushPreferences = res.data.data.preferences.filter(preference => {
+                    return keysEditableOnDashboard.indexOf(preference.key) != -1 && preference.type == 'push';
+                });
+
+                $ctrl.preferences = $ctrl.emailPreferences.concat($ctrl.pushPreferences);
+
                 $ctrl.email_unsubscribed = res.data.data.email_unsubscribed;
                 $ctrl.loaded = true;
             })
