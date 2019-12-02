@@ -3,7 +3,7 @@ if (qdt_c.platform.env_data.client_key == 'general')
     section.section.section-footer
         .wrapper
             .block.block-footer: .row
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-6'")
+                .col.col-md-6
                     
                     .block.block-app_download
                         .download-button: a(href="https://play.google.com/store/apps/details?id=io.forus.me")
@@ -62,7 +62,7 @@ else if (qdt_c.platform.env_data.client_key == 'forus')
     section.section.section-footer
         .wrapper
             .block.block-footer: .row
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
+                .col.col-md-4
                     
                     .block.block-app_download
                         .download-button: a(href="https://play.google.com/store/apps/details?id=io.forus.me")
@@ -122,7 +122,7 @@ else if (qdt_c.platform.env_data.client_key == 'zuidhorn')
     section.section.section-footer
         .wrapper
             .block.block-footer: .row
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
+                .col.col-md-4
                     img(src="./assets/img/logo-bw.png").footer-logo
                     .footer-schedule
                         .schedule-label E-mailadres:		
@@ -143,7 +143,7 @@ else if (qdt_c.platform.env_data.client_key == 'zuidhorn')
                             .download-value App Store
                             .download-icon: img(src="./assets/img/icon-app/icon-app-ios.svg")
                             
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-5'")
+                .col.col-md-5
                     .footer-label Openingstijden Gemeente
                     .footer-schedule
                         .schedule-label Maandag: 		
@@ -171,13 +171,6 @@ else if (qdt_c.platform.env_data.client_key == 'zuidhorn')
                         .footer-nav-item: a(href="/provider/" target="_self") Bent u een winkelier in Zuidhorn en wilt u meer informatie?
                         .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van een gemeente en wilt u meer informatie?
                 
-                .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
-                    .footer-label Ontvang onze nieuwsbrief
-                    .form
-                        .form-group.footer-subscribe
-                            input(type="email" placeholder="E-mail").form-control.form-control-fancy
-                            button.button.button-primary: .mdi.mdi-arrow-right
-                
         .block.block-copyrights: .wrapper
             .copyrights © 2018 Forus.io
             .links
@@ -193,7 +186,7 @@ else if (qdt_c.platform.env_data.client_key == 'nijmegen')
     section.section.section-footer
         .wrapper
             .block.block-footer: .row
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-5'")
+                .col.col-md-5
                     .footer-label Contactgegevens
                     //-img(src="./assets/img/logo-bw.png").footer-logo
                     .footer-schedule
@@ -213,7 +206,7 @@ else if (qdt_c.platform.env_data.client_key == 'nijmegen')
                         .download-button: a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
                             .download-icon: img(src="./assets/img/icon-app/icon-app-ios.svg")
                             
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-3'")
+                .col.col-md-3
                     .footer-label Openingstijden
                     .footer-schedule
                         .schedule-label Maandag: 		
@@ -246,13 +239,7 @@ else if (qdt_c.platform.env_data.client_key == 'nijmegen')
                             a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
                                 img(src="./assets/img/icon-app/icon-app-ios.svg" style="height: 40px; width: 120px; margin-top: 10px;")
                     nav.footer-nav(style="margin-top:0; padding:0;")
-                        .footer-nav-item: a(ui-sref="me-app") Wilt u meer informatie over de Me-app?		
-                .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
-                    .footer-label Ontvang onze nieuwsbrief
-                    .form
-                        .form-group.footer-subscribe
-                            input(type="email" placeholder="E-mail").form-control.form-control-fancy
-                            button.button.button-primary: .mdi.mdi-arrow-right
+                        .footer-nav-item: a(ui-sref="me-app") Wilt u meer informatie over de Me-app?
                 
         .block.block-copyrights: .wrapper
             .copyrights 
@@ -269,7 +256,7 @@ else if (qdt_c.platform.env_data.client_key == 'berkelland')
     section.section.section-footer
         .wrapper
             .block.block-footer: .row
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-5'")
+                .col.col-md-5
                     .footer-label Contactgegevens
                     //-img(src="./assets/img/logo-bw.png").footer-logo
                     .footer-schedule
@@ -291,7 +278,7 @@ else if (qdt_c.platform.env_data.client_key == 'berkelland')
                         .download-button: a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
                             .download-icon: img(src="./assets/img/icon-app/icon-app-ios.svg")
                             
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-3'")
+                .col.col-md-3
                     .footer-label Openingstijden
                     .footer-schedule
                         .schedule-label Maandag: 		
@@ -322,13 +309,7 @@ else if (qdt_c.platform.env_data.client_key == 'berkelland')
                             a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
                                 img(src="./assets/img/icon-app/icon-app-ios.svg" style="height: 40px; width: 120px; margin-top: 10px;")
                     nav.footer-nav(style="margin-top:0; padding:0;")
-                        .footer-nav-item: a(ui-sref="me-app") Wilt u meer informatie over de Me-app?		
-                .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
-                    .footer-label Ontvang onze nieuwsbrief
-                    .form
-                        .form-group.footer-subscribe
-                            input(type="email" placeholder="E-mail").form-control.form-control-fancy
-                            button.button.button-primary: .mdi.mdi-arrow-right
+                        .footer-nav-item: a(ui-sref="me-app") Wilt u meer informatie over de Me-app?
                 
         .block.block-copyrights: .wrapper
             .copyrights 
@@ -345,7 +326,7 @@ else if (qdt_c.platform.env_data.client_key == 'winterswijk')
     section.section.section-footer
         .wrapper
             .block.block-footer: .row
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-5'")
+                .col.col-md-5
                     .footer-label Contactgegevens
                     //-img(src="./assets/img/logo-bw.png").footer-logo
                     .footer-schedule
@@ -367,7 +348,7 @@ else if (qdt_c.platform.env_data.client_key == 'winterswijk')
                         .download-button: a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
                             .download-icon: img(src="./assets/img/icon-app/icon-app-ios.svg")
                             
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-3'")
+                .col.col-md-3
                     .footer-label Openingstijden
                     .footer-schedule
                         .schedule-label Maandag: 		
@@ -399,13 +380,7 @@ else if (qdt_c.platform.env_data.client_key == 'winterswijk')
                             a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
                                 img(src="./assets/img/icon-app/icon-app-ios.svg" style="height: 40px; width: 120px; margin-top: 10px;")
                     nav.footer-nav(style="margin-top:0; padding:0;")
-                        .footer-nav-item: a(ui-sref="me-app") Wilt u meer informatie over de Me-app?		
-                .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
-                    .footer-label Ontvang onze nieuwsbrief
-                    .form
-                        .form-group.footer-subscribe
-                            input(type="email" placeholder="E-mail").form-control.form-control-fancy
-                            button.button.button-primary: .mdi.mdi-arrow-right
+                        .footer-nav-item: a(ui-sref="me-app") Wilt u meer informatie over de Me-app?
                 
         .block.block-copyrights: .wrapper
             .copyrights 
@@ -422,7 +397,7 @@ else if (qdt_c.platform.env_data.client_key == 'oostgelre')
     section.section.section-footer
         .wrapper
             .block.block-footer: .row
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-5'")
+                .col.col-md-5
                     .footer-label Contactgegevens
                     //-img(src="./assets/img/logo-bw.png").footer-logo
                     .footer-schedule
@@ -444,7 +419,7 @@ else if (qdt_c.platform.env_data.client_key == 'oostgelre')
                         .download-button: a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
                             .download-icon: img(src="./assets/img/icon-app/icon-app-ios.svg")
                             
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-3'")
+                .col.col-md-3
                     .footer-label Openingstijden
                     .footer-schedule
                         .schedule-label Maandag: 		
@@ -476,13 +451,7 @@ else if (qdt_c.platform.env_data.client_key == 'oostgelre')
                             a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
                                 img(src="./assets/img/icon-app/icon-app-ios.svg" style="height: 40px; width: 120px; margin-top: 10px;")
                     nav.footer-nav(style="margin-top:0; padding:0;")
-                        .footer-nav-item: a(ui-sref="me-app") Wilt u meer informatie over de Me-app?		
-                .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
-                    .footer-label Ontvang onze nieuwsbrief
-                    .form
-                        .form-group.footer-subscribe
-                            input(type="email" placeholder="E-mail").form-control.form-control-fancy
-                            button.button.button-primary: .mdi.mdi-arrow-right
+                        .footer-nav-item: a(ui-sref="me-app") Wilt u meer informatie over de Me-app?
                 
         .block.block-copyrights: .wrapper
             .copyrights 
@@ -499,7 +468,7 @@ else if (qdt_c.platform.env_data.client_key == 'westerkwartier')
     section.section.section-footer
         .wrapper
             .block.block-footer: .row
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
+                .col.col-md-4
                     img(src="./assets/img/logo-bw.png").footer-logo
                     .footer-schedule
                         .schedule-label E-mailadres:		
@@ -524,7 +493,7 @@ else if (qdt_c.platform.env_data.client_key == 'westerkwartier')
                             .download-value App Store
                             .download-icon: img(src="./assets/img/icon-app/icon-app-ios.svg")
                             
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-5'")
+                .col.col-md-5
                     .footer-label Openingstijden gemeente
 
                     .footer-label Tijden waartussen u een afspraak kunt maken
@@ -563,13 +532,6 @@ else if (qdt_c.platform.env_data.client_key == 'westerkwartier')
                         .footer-nav-item: a(href="/provider/" target="_self") Bent u een winkelier of vereniging en wilt u meer informatie?
                         .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van de gemeente en wilt u meer informatie?
                 
-                .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
-                    .footer-label Ontvang onze nieuwsbrief
-                    .form
-                        .form-group.footer-subscribe
-                            input(type="email" placeholder="E-mail").form-control.form-control-fancy
-                            button.button.button-primary: .mdi.mdi-arrow-right
-                
         .block.block-copyrights: .wrapper
             .copyrights 
             .links
@@ -585,7 +547,7 @@ else if (qdt_c.platform.env_data.client_key == 'kerstpakket')
     section.section.section-footer
         .wrapper
             .block.block-footer: .row
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-4':'col-md-5'")
+                .col.col-md-5
                     .footer-label 
                     //-img(src="./assets/img/logo-bw.png").footer-logo
                     .footer-schedule
@@ -605,7 +567,7 @@ else if (qdt_c.platform.env_data.client_key == 'kerstpakket')
                         .download-button: a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
                             .download-icon: img(src="./assets/img/icon-app/icon-app-ios.svg")
                             
-                .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-3'")
+                .col.col-md-3
                     .footer-label 
                     .footer-schedule
                         .schedule-label  		
@@ -632,13 +594,7 @@ else if (qdt_c.platform.env_data.client_key == 'kerstpakket')
                         .footer-nav-item: a(href="/sponsor/" target="_self") 
                         .footer-nav-item: a(href="/provider/" target="_self")
                     nav.footer-nav(style="margin-top:0; padding:0;")
-                        .footer-nav-item: a(ui-sref="me-app") 		
-                .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
-                    .footer-label 
-                    .form
-                        .form-group.footer-subscribe
-                            input(type="email" placeholder="E-mail").form-control.form-control-fancy
-                            button.button.button-primary: .mdi.mdi-arrow-right
+                        .footer-nav-item: a(ui-sref="me-app")
                 
         .block.block-copyrights: .wrapper
             .copyrights 
