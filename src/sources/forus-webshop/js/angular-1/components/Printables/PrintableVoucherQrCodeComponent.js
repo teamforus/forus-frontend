@@ -7,8 +7,15 @@ let PrintableVoucherQrCodeComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.voucher = $ctrl.printable.scope.voucher;
+        $ctrl.voucherType = $ctrl.voucher.product ? 'product' : 'budget';
+        
+        $ctrl.printableTitle = $ctrl.voucher.product ? 
+            $ctrl.voucher.product.name : $ctrl.voucher.fund.name;
+
         $ctrl.organization = $ctrl.printable.scope.organization;
+        
         $ctrl.qrCodeValue = $ctrl.voucher.address;
+
         $timeout(() => {
             window.print();
             $ctrl.close();

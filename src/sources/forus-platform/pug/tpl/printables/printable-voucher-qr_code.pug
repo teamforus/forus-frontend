@@ -17,7 +17,7 @@
 
     .printable-additional-info
         .description(i18n="voucher_printable.{{$ctrl.voucherType}}_voucher.labels.show_to")  
-        .reference {{ $ctrl.voucherType != 'product' ? $ctrl.organization.site : $ctrl.organization.name }} 
+        .reference {{ $ctrl.voucherType != 'product' ? $ctrl.organization.website : $ctrl.organization.name }} 
 
     .printable-organization-info
         .contact 
