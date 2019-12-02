@@ -100,6 +100,7 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
+        providersMenu: true,
 
         //voucher settings
         shareProducts: true,
