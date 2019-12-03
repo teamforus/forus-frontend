@@ -178,8 +178,9 @@
 
         .block-auth {
             border-left: 1px solid #e6ecf0;
-            padding: 25px 30px;
+            padding: 25px 10px 25px 30px;
             justify-self: flex-end;
+            display: flex;
             @include cf();
 
             .button {
@@ -202,7 +203,6 @@
             }
 
             .auth-in {
-                float: right;
 
                 .auth-user {
                     position: relative;
@@ -312,17 +312,33 @@
                             margin: 0 0 5px
                         }
                     }
-
-                    &:hover {
-                        .auth-user-menu {
-                            display: block;
-                        }
-                    }
                 }
             }
 
             &.block-auth-border {
                 border-left: none;
+            }
+
+            .caret {
+                display: flex;
+                padding-left: 10px;
+                align-items: center;
+                color: $color_primary;
+    
+                em {
+                    font-size: 20px;
+                    font-weight: 600;
+                }
+            }
+
+            &:hover {
+                .auth-in {
+                    .auth-user {
+                        .auth-user-menu {
+                            display: block;
+                        }
+                    }
+                }
             }
         }
     }

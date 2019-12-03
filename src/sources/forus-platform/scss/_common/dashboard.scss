@@ -226,6 +226,7 @@
             float: right;
             position: relative;
             z-index: 1;
+            display: flex;
 
             .auth-user {
                 position: relative;
@@ -305,11 +306,23 @@
                         border-top: 1px solid #f3f4f5;
                     }
                 }
+            }
 
-                &:hover {
-                    .auth-user-menu {
-                        display: block;
-                    }
+            .caret {
+                display: flex;
+                padding-left: 10px;
+                align-items: center;
+                color: #151b26;
+    
+                em {
+                    font-size: 20px;
+                    font-weight: 600;
+                }
+            }
+
+            &:hover {
+                .auth-user-menu {
+                    display: block;
                 }
             }
         }
