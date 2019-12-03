@@ -44,6 +44,7 @@ module.exports = {
     // PAGES
     vouchers: require('./nl/pages/vouchers.pug.i18n'),
     product_vouchers: require('./nl/pages/product-vouchers.pug.i18n'),
+    voucher_printable: require('./nl/pages/voucher-printable.pug.i18n'),
 
     // MEAPP LANDINGSPAGE = index.pug
     meapp_index: {
