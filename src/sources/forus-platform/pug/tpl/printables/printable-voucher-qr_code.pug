@@ -15,9 +15,9 @@
             i18n="voucher_printable.{{$ctrl.voucherType}}_voucher.labels.description" 
             i18n-vars="{ printableTitle: $ctrl.printableTitle }")
 
-    .printable-additional-info(ng-if="$ctrl.voucherType == 'product' || $ctrl.organization.website")
+    .printable-additional-info
         .description(i18n="voucher_printable.{{$ctrl.voucherType}}_voucher.labels.show_to")  
-        .reference {{ $ctrl.voucherType != 'product' ? $ctrl.organization.website : $ctrl.organization.name }} 
+        .reference {{ $ctrl.voucherType != 'product' ? $root.appConfigs.frontends.url_webshop : $ctrl.organization.name }} 
 
     .printable-organization-info
         .contact 
