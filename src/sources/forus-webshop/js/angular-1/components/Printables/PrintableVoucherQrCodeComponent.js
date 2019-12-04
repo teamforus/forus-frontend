@@ -1,5 +1,6 @@
 let PrintableVoucherQrCodeComponent = function(
-    $timeout
+    $timeout,
+    appConfigs,
 ) {
     let $ctrl = this;
 
@@ -13,7 +14,9 @@ let PrintableVoucherQrCodeComponent = function(
             $ctrl.voucher.product.name : $ctrl.voucher.fund.name;
 
         $ctrl.organization = $ctrl.printable.scope.organization;
-        
+
+        $ctrl.organization = $ctrl.printable.scope.organization;
+        $ctrl.url_webshop = appConfigs.features.fronts.url_webshop;
         $ctrl.qrCodeValue = $ctrl.voucher.address;
 
         $timeout(() => {
@@ -32,6 +35,7 @@ module.exports = {
     },
     controller: [
         '$timeout',
+        'appConfigs',
         PrintableVoucherQrCodeComponent
     ],
     templateUrl: () => {
