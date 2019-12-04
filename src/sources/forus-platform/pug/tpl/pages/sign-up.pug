@@ -178,7 +178,7 @@
                                     ng-bind="error")
                             .form-group
                                 label(translate="organization_edit.labels.kvk").form-label
-                                input(ng-model="$ctrl.organizationForm.values.kvk" type="text" placeholder="KvK-nummer").form-control
+                                input(ng-model="$ctrl.organizationForm.values.kvk" type="text" placeholder="KvK-nummer" number-control).form-control
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.kvk" ng-bind="error")
                             .form-group
                                 label(translate="organization_edit.labels.tax").form-label
