@@ -1,4 +1,6 @@
-let OrganizationValidatorService = function(ApiRequest) {
+let OrganizationValidatorService = function(
+    ApiRequest
+) {
     let uriPrefix = '/platform/organizations/';
 
     return new(function() {

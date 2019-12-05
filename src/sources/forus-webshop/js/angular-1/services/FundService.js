@@ -114,6 +114,7 @@ let FundService = function(
                     }
                 ),
                 name: apiResource.name,
+                description: apiResource.description,
                 state: apiResource.state,
                 start_date: apiResource.start_date,
                 end_date: apiResource.end_date,

@@ -9,9 +9,6 @@ section.section.section-profile: .wrapper
         .span-count(ng-bind="$ctrl.vouchers.length")
         
     .block.block-profile
-        .profile-aside(
-            ng-if="$ctrl.appConfigs.features.identity.address || $ctrl.appConfigs.features.records.list")
-            profile-card
         .profile-content
             .block.block-vouchers(ng-if="$ctrl.vouchers.length > 0")
                 voucher-card(ng-repeat="voucher in $ctrl.vouchers" voucher="voucher")
@@ -22,5 +19,3 @@ section.section.section-profile: .wrapper
                 description="Momenteel heeft u geen vouchers"
                 text="Gebruik een activatiecode"
                 hide-link="false")
-
-contact-form 

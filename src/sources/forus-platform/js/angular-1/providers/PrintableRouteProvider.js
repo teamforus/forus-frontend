@@ -1,15 +1,15 @@
-module.exports = function() {
-    return new(function() {
-        var printables = {};
+let PrintableRouteProvider = function() {
+    var printables = {};
 
-        this.printable = function(printable, config) {
-            printables[printable] = config;
-        };
+    this.printable = function(printable, config) {
+        printables[printable] = config;
+    };
 
-        this.$get = [() => {
-            return {
-                printables: () => printables
-            }
-        }];
-    });
+    this.$get = [() => {
+        return {
+            printables: () => printables
+        }
+    }];
 };
+
+module.exports = new PrintableRouteProvider();

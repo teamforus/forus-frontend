@@ -8,7 +8,6 @@ header.section.section-header.section-header-landing
             .header-title(ng-if="$ctrl.funds.length <= 1" translate="home.header.{{ $root.client_key }}.title" translate-default="{{'home.header.title' | translate:{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale } }}" translate-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
             .header-title(ng-if="$ctrl.funds.length > 1" translate="home.header.{{ $root.client_key }}.title_multi" translate-default="{{'home.header.title_multi' | translate:{ org_name: $ctrl.funds[0].organization.name  } }}" translate-vars="{ fund: $ctrl.funds[0].name, org_name: $ctrl.funds[0].organization.name }")
             .header-description#desc
-                //- p(ng-if="$ctrl.funds.length <= 1" i18n="home.header.subtitle" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
                 p(ng-if="$ctrl.funds.length <= 1" translate="home.header.{{ $root.client_key }}.subtitle" translate-default="{{'home.header.subtitle' | translate:{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale } }}" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
                 p(ng-if="$ctrl.funds.length > 1" translate="home.header.{{ $root.client_key }}.subtitle_multi" translate-default="{{'home.header.subtitle_multi' | translate:{ org_name: $ctrl.funds[0].organization.name  } }}" i18n-vars="{ org_name: $ctrl.funds[0].organization.name  }")
 
@@ -33,120 +32,103 @@ header.section.section-header.section-header-landing
 
         //- .header-content(ng-if="$ctrl.funds.length >= 2")
 
-.wrapper: block-products(
-    ng-if="$root.appConfigs.flags.homeProducts"
-    sample="true")
+.page.page-home
+    .wrapper.block-products: block-products(
+        ng-if="$root.appConfigs.flags.homeProducts"
+        sample="true" )
 
-section.section.section-map(ng-if="$root.appConfigs.flags.homeMap"): .wrapper
-    .block.block-map
-        .block-content
-            .block-title(i18n="home.map.title")
-            .block-description(i18n="home.map.subtitle")
-            button(ng-click="$ctrl.showPopupOffices()" i18n="buttons.show_map").button.button-primary.button-wide
+    section.section.section-map(ng-if="$root.appConfigs.flags.homeMap"): .wrapper
+        .block.block-map
+            .block-content
+                .block-title(i18n="home.map.title")
+                .block-description(i18n="home.map.subtitle")
+                button(ng-click="$ctrl.showPopupOffices()" i18n="buttons.show_map").button.button-primary.button-wide
 
-section.section.section-steps#steps(ng-if="$root.appConfigs.flags.homeSteps"): .wrapper
-    .section-splash
-    .section-sprite
-    .section-title(i18n="home.guide.title")
-    .steps
-        .step-item: .step-item-content
-            h4(translate="home.guide.stepone") 
-            p(translate="home.guide.{{ $root.client_key }}.one" translate-default="{{'home.guide.one' | translate }}")
-        .step-item: .step-item-content
-            h4(translate="home.guide.steptwo")
-            p(translate="home.guide.{{ $root.client_key }}.two" translate-default="{{'home.guide.two' | translate }}" scroll-to="#desc")
-        .step-item: .step-item-content
-            h4(translate="home.guide.stepthree")
-            p(translate="home.guide.{{ $root.client_key }}.three" translate-default="{{'home.guide.three' | translate }}")
-        .step-item: .step-item-content
-            h4(translate="home.guide.stepfour")
-            p(translate="home.guide.{{ $root.client_key }}.four" translate-default="{{'home.guide.four' | translate }}")
-        .step-item: .step-item-content
-            h4(i18n="home.guide.stepfive")
-            p(translate="home.guide.{{ $root.client_key }}.five" translate-default="{{'home.guide.five' | translate }}")
+    section.section.section-steps#steps(ng-if="$root.appConfigs.flags.homeSteps"): .wrapper
+        .section-splash
+        .section-sprite
+        .section-title(i18n="home.guide.title")
+        .steps
+            .step-item: .step-item-content
+                h4(translate="home.guide.stepone")
+                p(translate="home.guide.{{ $root.client_key }}.one" translate-default="{{'home.guide.one' | translate }}")
+            .step-item: .step-item-content
+                h4(translate="home.guide.steptwo")
+                p(translate="home.guide.{{ $root.client_key }}.two" translate-default="{{'home.guide.two' | translate }}" scroll-to="#desc")
+            .step-item: .step-item-content
+                h4(translate="home.guide.stepthree")
+                p(translate="home.guide.{{ $root.client_key }}.three" translate-default="{{'home.guide.three' | translate }}")
+            .step-item: .step-item-content
+                h4(translate="home.guide.stepfour")
+                p(translate="home.guide.{{ $root.client_key }}.four" translate-default="{{'home.guide.four' | translate }}")
+            .step-item: .step-item-content
+                h4(i18n="home.guide.stepfive")
+                p(translate="home.guide.{{ $root.client_key }}.five" translate-default="{{'home.guide.five' | translate }}")
 
-section.section.section-blogs(ng-if="$root.appConfigs.features.blog"): .wrapper
-    .section-title(i18n="home.blog.forus.title")
-    
-    .block.block-blogs
-        mixin blog_item(nth)
-            .blog-item: a(href="#").blog-item-inner
-                .blog-image: img(src="./assets/img/blog-image-" + nth + ".jpg")
-                .blog-name(i18n="home.blog.forus.name")
-                .blog-read-more(i18n="home.blog.more")
-                    em.mdi.mdi-arrow-right
-        +blog_item(1)
-        +blog_item(2)
-        +blog_item(3)
-    .block.block-show-more: a(href="#" i18n="buttons.read_more").button.button-primary.button-wide
+    section.section.section-faq(ng-if="$root.appConfigs.flags.homeFaq"): .wrapper
+        .section-splash
+        .section-title {{ "home.faq.title" | i18n }}
+        .faq(collapse)
+            mixin faq_item(title, content, active)
+                .faq-item(class=active?'active':'' collapse-item)
+                    .faq-item-header(collapse-header)
+                        span(i18n=title i18n-vars="{ fund: $ctrl.funds[0].name }")
+                        .faq-item-chevron-down.mdi.mdi-chevron-down
+                        .faq-item-chevron-up.mdi.mdi-chevron-up
+                    .faq-item-content(collapse-conten,i18n=content i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
 
+            +faq_item(
+                'home.faq.faq_one',
+                'home.faq.one')
 
-section.section.section-faq(ng-if="$root.appConfigs.flags.homeFaq"): .wrapper
-    .section-splash
-    .section-title {{ "home.faq.title" | i18n }}
-    .faq(collapse)
-        mixin faq_item(title, content, active)
-            .faq-item(class=active?'active':'' collapse-item)
-                .faq-item-header(collapse-header)
-                    span(i18n=title i18n-vars="{ fund: $ctrl.funds[0].name }")
-                    .faq-item-chevron-down.mdi.mdi-chevron-down
-                    .faq-item-chevron-up.mdi.mdi-chevron-up
-                .faq-item-content(collapse-conten,i18n=content i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")    
+            +faq_item(
+                'home.faq.faq_two',
+                'home.faq.two')
 
-        +faq_item(
-            'home.faq.faq_one',
-            'home.faq.one')
+            +faq_item(
+                'home.faq.faq_three',
+                'home.faq.three')
 
-        +faq_item(
-            'home.faq.faq_two',
-            'home.faq.two')
+            +faq_item(
+                'home.faq.faq_four',
+                'home.faq.four')
 
-        +faq_item(
-            'home.faq.faq_three',
-            'home.faq.three')
+            +faq_item(
+                'home.faq.faq_five',
+                'home.faq.five')
 
-        +faq_item(
-            'home.faq.faq_four',
-            'home.faq.four')
+            +faq_item(
+                'home.faq.faq_six',
+                'home.faq.six')
 
-        +faq_item(
-            'home.faq.faq_five',
-            'home.faq.five')
+            +faq_item(
+                'home.faq.faq_seven',
+                'home.faq.seven')
 
-        +faq_item(
-            'home.faq.faq_six',
-            'home.faq.six')
+            +faq_item(
+                'home.faq.faq_nine',
+                'home.faq.nine')
 
-        +faq_item(
-            'home.faq.faq_seven',
-            'home.faq.seven')   
+            +faq_item(
+                'home.faq.faq_ten',
+                'home.faq.ten')
 
-        +faq_item(
-            'home.faq.faq_nine',
-            'home.faq.nine')
+            +faq_item(
+                'home.faq.faq_eleven',
+                'home.faq.eleven')
 
-        +faq_item(
-            'home.faq.faq_ten',
-            'home.faq.ten')
+            +faq_item(
+                'home.faq.faq_twelve',
+                'home.faq.twelve')
 
-        +faq_item(
-            'home.faq.faq_eleven',
-            'home.faq.eleven')
+            +faq_item(
+                'home.faq.faq_thirteen',
+                'home.faq.thirteen')
 
-        +faq_item(
-            'home.faq.faq_twelve',
-            'home.faq.twelve') 
+            +faq_item(
+                'home.faq.faq_fourteen',
+                'home.faq.fourteen')
 
-        +faq_item(
-            'home.faq.faq_thirteen',
-            'home.faq.thirteen')
-
-        +faq_item(
-            'home.faq.faq_fourteen',
-            'home.faq.fourteen')
-
-        +faq_item(
-            'home.faq.faq_fifteen',
-            'home.faq.fifteen')
-
-contact-form 
+            +faq_item(
+                'home.faq.faq_fifteen',
+                'home.faq.fifteen')
