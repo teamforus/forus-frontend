@@ -44,6 +44,7 @@ module.exports = {
     // PAGES
     vouchers: require('./nl/pages/vouchers.pug.i18n'),
     product_vouchers: require('./nl/pages/product-vouchers.pug.i18n'),
+    voucher_printable: require('./nl/pages/voucher-printable.pug.i18n'),
 
     // MEAPP LANDINGSPAGE = index.pug
     meapp_index: {
@@ -85,12 +86,22 @@ module.exports = {
     // PROVIDER HOME = home-provider.pug
     home_provider: {
         header: {
-            title: "Meld u aan als winkelier of dienstverlener",
-            title_nijmegen: "Meld u aan als dienstverlener",
-            subtitle: "Bereik meer klanten, maak winst en draag bij aan een maatschappelijk doel.",
-            subtitle_nijmegen: "De gemeente geeft inwoners met een laag inkomen maximaal € 150,- voor culturele, sportieve en educatieve activiteiten. Dit heet de Meedoen-regeling.",
-            title_westerkwartier: "Meld uw organisatie aan voor het Kindpakket",
-            subtitle_westerkwartier: "De gemeente geeft een bedrag van € 250,- per kind aan gezinnen met een laag inkomen.",
+            default: {
+                title: "Meld uw organisatie aan op het platform.",
+                subtitle: "Dit is het start scherm om uzelf aan te melden op het aanbieders dashboard.",
+            },
+            westerkwartier: {
+                title: "Meld uw organisatie aan voor het Kindpakket",
+                subtitle: "De gemeente geeft een bedrag van € 250,- per kind aan gezinnen met een laag inkomen.",
+            },
+            nijmegen: {
+                title: "Meld u aan als dienstverlener",
+                subtitle: "De gemeente geeft inwoners met een laag inkomen maximaal € 150,- voor culturele, sportieve en educatieve activiteiten. Dit heet de Meedoen-regeling.",
+            },
+            kerstpakket: {
+                title: "Meld uw organisatie aan voor het Kerstpakket",
+                subtitle: "Dit is het start scherm om uzelf aan te melden op het aanbieders dashboard.",
+            },
         },
         labels: {
             partners: "Stichting Forus zoekt partners",
@@ -99,15 +110,21 @@ module.exports = {
             subdescription: "Een gemeente zet een bepaalt budget uit. Verdien geld door deel te nemen en inwoners te helpen met jouw aanbiedingen.",
         },
         guide: {
-            title: "Word onderdeel van een innovatieve beweging",
-            title_nijmegen: "Als uw organisatie een passend aanbod heeft, kunt u zich opgeven.",
-            title_westerkwartier: "Aanmelden",
-            description: "Doe mee aan ons platform door onderstaande stappen te volgen, maak een organisatie aan, verkoop jouw producten of diensten en trek nieuwe klanten aan.",
-            description_nijmegen: "Uw organisatie is in het bezit van een smartphone, deze heeft u nodig om een mobiele applicatie te installeren die QR-codes kan scannen. Heeft u deze smartphone bij de hand? Regel het dan direct!",
-            description_westerkwartier: "Levert uw organisatie een aanbod in de volgende categorieën: zwem en sportlessen, (kinder-)kleding, luiers en babyvoeding, dierbenodigdheden, speelgoed en hobby-benodigdheden? Dan kunt u uw organisatie hiervoor aanmelden.<br /><br /> Om u aan te melden heeft u een smartphone nodig. Op de smartphone kunt u een applicatie installeren voor het scannen van QR-codes. Heeft u deze smartphone bij de hand? Regel het dan direct!",
-            button: "Start uw reis!",
-            button_nijmegen: "DIRECT REGELEN",
-            button_westerkwartier: "Direct regelen",
+            default: {
+                title: "Aanmelden",
+                description: "Uw organisatie is in het bezit van een smartphone, deze heeft u nodig om een mobiele applicatie te installeren die QR-codes kan scannen. Heeft u deze smartphone bij de hand? Regel het dan direct!",
+                button: "Direct regelen",
+            },
+            nijmegen: {
+                title: "Als uw organisatie een passend aanbod heeft, kunt u zich opgeven.",
+                description: "Uw organisatie is in het bezit van een smartphone, deze heeft u nodig om een mobiele applicatie te installeren die QR-codes kan scannen. Heeft u deze smartphone bij de hand? Regel het dan direct!",
+                button: "DIRECT REGELEN",
+            },
+            westerkwartier: {
+                title: "Aanmelden",
+                description: "Levert uw organisatie een aanbod in de volgende categorieën: zwem en sportlessen, (kinder-)kleding, luiers en babyvoeding, dierbenodigdheden, speelgoed en hobby-benodigdheden? Dan kunt u uw organisatie hiervoor aanmelden.<br /><br /> Om u aan te melden heeft u een smartphone nodig. Op de smartphone kunt u een applicatie installeren voor het scannen van QR-codes. Heeft u deze smartphone bij de hand? Regel het dan direct!",
+                button: "Direct regelen",
+            },
         }
     },
     // SPONSOR HOME = home-sponsor.pug
@@ -192,6 +209,7 @@ module.exports = {
         },
         labels: {
             name: "Naam",
+            description: "Omschrijving",
             products: "Products",
             status: "Status",
             start: "Startdatum",
@@ -536,6 +554,16 @@ module.exports = {
             already_have_app: 'DE APP IS NU AAN HET DOWNLOADEN. / DE APP IS GEINSTALLEERD.',
             url_text: "Download de app <i>Me</i> op uw mobiele telefoon via de link:",
             url_address: "www.forus.io/DL"
+        },
+        filters: {
+            labels: {
+                organizations: 'Organizations',
+                tags: 'Labels'
+            },
+            options: {
+                all_organizations: 'Alle organizations',
+                all_labels: 'Alle labels'
+            }
         },
         qr_code: {
             description: 'Scan deze QR-Code om te testen.'

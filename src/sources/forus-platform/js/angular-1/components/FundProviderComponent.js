@@ -2,6 +2,7 @@ let FundProviderComponent = function(
     $q,
     FundService,
     OfficeService,
+    OrganizationEmployeesService,
     ProductService,
     PushNotificationsService
 ) {
@@ -103,6 +104,7 @@ module.exports = {
         '$q',
         'FundService',
         'OfficeService',
+        'OrganizationEmployeesService',
         'ProductService',
         'PushNotificationsService',
         FundProviderComponent

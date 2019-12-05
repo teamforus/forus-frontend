@@ -32,7 +32,7 @@
                             placeholder="{{ 'modals.modal_voucher_qr_code.placeholders.email' | i18n }}"
                             ng-model="$ctrl.form.values.email").form-control
 
-                    .col.col-lg-3: button.button.button-primary.button-fill.button-slim(
+                    .col.col-lg-3: button.button.button-primary.button-fill(
                         type="submit" 
                         i18n="modals.modal_voucher_qr_code.buttons.send")
                 .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
