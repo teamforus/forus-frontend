@@ -43,7 +43,7 @@ let FundRequestComponent = function(
 
     $ctrl.startDigId = () => {
         DigIdService.start($ctrl.fund.id).then(res => {
-            document.location = res.data.redirectUrl;
+            document.location = DigIdService.getRedirecturl(res.data.session_uid);
         }, console.error);
     };
 
@@ -367,9 +367,8 @@ let FundRequestComponent = function(
     $ctrl.cleanReload = () => {
         $state.go($state.current.name, {
             fund_id: $ctrl.fund.id,
-            digid: null,
-            rid: null,
-            aselect_credentials: null,
+            digid_success: null,
+            digid_error: null,
         });
     };
 
@@ -403,41 +402,55 @@ let FundRequestComponent = function(
 
         if ($ctrl.signedIn) {
             $ctrl.buildTypes().then(() => {
-                if ($stateParams.digid && $stateParams.rid &&
-                    $stateParams.aselect_credentials) {
-                    DigIdService.resolve(
-                        $stateParams.rid,
-                        $stateParams.aselect_credentials,
-                    ).then(res => {
-                        PushNotificationsService.success('DigId synchronization success.');
-    
-                        $ctrl.buildTypes().then(invalidCriteria => {
-                            if (invalidCriteria.length == 0) {
-                                $ctrl.applyFund($ctrl.fund);
-                            } else {
-                                $ctrl.cleanReload();
-                            }
-                        });
-                    }, (res) => {
-                        PushNotificationsService.danger(
-                            'Unable to perform synchronization with DigId.',
-                            JSON.stringify(res.data)
-                        );
-                        $ctrl.cleanReload();
-                    });
-                }
-    
-                FundRequestService.index($ctrl.fund.id).then((res) => {
-                    if (res.data.data.length > 0) {
-                        alert('You already requested this fund');
-                        $state.go('funds');
+                if ($stateParams.digid_success == 'signed_up' ||
+                    $stateParams.digid_success == 'signed_in') {
+                    PushNotificationsService.success('DigId synchronization success.');
+
+                    if ($ctrl.invalidCriteria.length == 0) {
+                        $ctrl.applyFund($ctrl.fund);
                     } else {
-                        if ($ctrl.invalidCriteria.length == 0) {
+                        $ctrl.cleanReload();
+                    }
+                } else if ($stateParams.digid_error == 'unknown_error') {
+                    PushNotificationsService.danger(
+                        "Error error",
+                    );
+                    $ctrl.cleanReload();
+                }else if ($stateParams.digid_error == 'uid_used') {
+                    PushNotificationsService.danger(
+                        "BSN number used",
+                        "The BSN number returned by DigID was already claimend by another identity."
+                    );
+                    $ctrl.cleanReload();
+                } else if ($stateParams.digid_error == 'uid_dont_match') {
+                    PushNotificationsService.danger(
+                        "BSN differ",
+                        "The BSN number returned by DigID doesn't match BSN number registered by your identity."
+                    );
+                    $ctrl.cleanReload();
+                } else if ($stateParams.digid_error == 'error_0040') {
+                    PushNotificationsService.danger(
+                        "Canceled",
+                        "You canceled DigID authentication."
+                    );
+                    $ctrl.cleanReload();
+                } else if ($stateParams.digid_error && $stateParams.digid_error.indexOf('error_') === 0) {
+                    PushNotificationsService.danger(
+                        "Failed",
+                        "Error code " + $stateParams.digid_error + " encountered."
+                    );
+                    // $ctrl.cleanReload();
+                }  else {
+                    FundRequestService.index($ctrl.fund.id).then((res) => {
+                        if (res.data.data.length > 0) {
+                            alert('You already requested this fund');
+                            $state.go('funds');
+                        } else if ($ctrl.invalidCriteria.length == 0) {
                             $ctrl.applyFund($ctrl.fund);
                         }
-                    }
-                });
-    
+                    });
+                }
+
                 IdentityService.identity().then(res => {
                     $ctrl.bsnIsKnown = res.data.bsn;
                 });

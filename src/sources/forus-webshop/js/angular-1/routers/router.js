@@ -251,13 +251,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     // Apply to fund by submitting fund request
     $stateProvider.state({
         name: "fund-request",
-        url: "/fund/{fund_id}/request?digid&rid&aselect_credentials",
+        url: "/fund/{fund_id}/request?digid_success&digid_error",
         component: "fundRequestComponent",
         data: {
             fund_id: null,
-            digid: false,
-            rid: null,
-            aselect_credentials: null,
+            digid_success: false,
+            digid_error: false,
         },
         resolve: {
             fund: ['$transition$', 'FundService', (
