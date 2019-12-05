@@ -6,38 +6,39 @@ block content
         .card
             .card-section
                 .card-section-actions
-                        
                 .card-block.card-block-provider
                     .provider-img: img(src="./assets/img/zuidhorn-logo.jpg", alt="")
-                    a(href="./fund.html").provider-title #{title}
-                    br
-                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                        .card-block-listing-label Email
-                        span.text-primary-light ulgersmaweg@rminds.nl
-                    .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                        .card-block-listing-label Business Address
-                        | Groningen, Ulgersmaweg 35
-                .card-block.card-block-listing
-                    .card-block-listing-label Categories
-                    | Bikes, Computers
+                    .provider-details
+                        .provider-title(href="./fund.html") #{title}
+                        .provider-details
+                            .row: .col.col-lg-8: .flex-row
+                                .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                                    .card-block-listing-label Email
+                                    .card-block-listing-value.text-primary-light ulgersmaweg@rminds.nl
+                                .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                                    .card-block-listing-label Business Address
+                                    .card-block-listing-value.text-primary-light Groningen, Ulgersmaweg 35
 
-            mixin keyvalue_item_horizontal(key, value)
-                .keyvalue-item
-                    .keyvalue-key=key
-                    .keyvalue-value=value
+            .card-section.card-section-primary.card-section-narrow: .card-block.card-block-provider.form
+                .provider-offset &nbsp;
+                .provider-details: .row: .col.col-lg-8: .flex-row
+                    .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                        .card-block-listing-label 15 aanbiedingen
+                        button(type="button" ui-sref="fund-provider(providerFund.uiViewParams)").button.button-default.button-flat
+                            em.mdi.mdi-eye-outline.icon-start
+                            | Kijk
 
-            .card-section.card-section-primary
-                .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
-                    +keyvalue_item_horizontal("KVK", "45667773")
-                    +keyvalue_item_horizontal("BTW", "NL3213214556B01")
-                    +keyvalue_item_horizontal("IBAN", "NL10INGB3455664430")
-                    .pull-right
-                        a(href="#").button.button-default
-                            em.mdi.mdi-close 
-                            | Decline
-                        a(href="#").button.button-primary
-                            em.mdi.mdi-check 
-                            | Approve
+                    .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                        .card-block-listing-label Allow budget
+                        .button.button-text: label(for=("option_" + title + '_regular')).form-toggle
+                            input(type="checkbox" id=("option_" + title + '_regular'))
+                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+                        
+                    .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                        .card-block-listing-label Allow products
+                        .button.button-text: label(for=("option_" + title + '_products')).form-toggle
+                            input(type="checkbox" id=("option_" + title + '_products'))
+                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
 
 
     +card("Hewlett-Packard")

@@ -27,8 +27,18 @@ platform.setLibs([
     "qrcodejs",
     "ui_cropper",
     "ui_router",
+    "ui_select",
+    "file_saver",
     "underscore",
-    "underscore.string",
+    "pdfjs",
+]);
+
+// tweaking output and cleaned paths config
+platform.setDest(`./`);
+platform.setAssetsPath(`./assets`);
+platform.setCleanPath([
+    `./`,
+    `./assets`
 ]);
 
 // add js task
@@ -38,6 +48,7 @@ platform.addTask('js', {
     ],
     watch: [
         "angular-1/**/**.js",
+        "angular-1/**/**.pug",
     ],
     dest: "/",
     name: "app.min.js",

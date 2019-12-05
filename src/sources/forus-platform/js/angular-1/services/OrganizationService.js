@@ -6,8 +6,8 @@ module.exports = [
         $rootScope
     ) {
         return new (function() {
-            this.list = function() {
-                return ApiRequest.get('/platform/organizations');
+            this.list = function(query = {}) {
+                return ApiRequest.get('/platform/organizations', query);
             };
 
             this.listProviders = function(
@@ -84,11 +84,7 @@ module.exports = [
 
             this.apiResourceToForm = function(apiResource) {
                 return {
-                    product_categories: apiResource.product_categories.map(
-                        function(product_category) {
-                            return product_category.id;
-                        }
-                    ),
+                    business_type_id: apiResource.business_type_id,
                     name: apiResource.name,
                     iban: apiResource.iban,
                     email: apiResource.email,

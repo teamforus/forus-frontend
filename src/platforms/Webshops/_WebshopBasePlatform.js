@@ -16,13 +16,22 @@ platform.setLibs([
     "angular_translate",
     "angular_translate_storage_cookies",
     "angular_translate_storage_local",
+    "angular_datepicker",
     "mdi",
     "moment",
     "nanoscroller",
     "qrcodejs",
     "ui_router",
+    "ui_select",
     "underscore",
-    "underscore.string",
+]);
+
+// tweaking output and cleaned paths config
+platform.setDest(`./`);
+platform.setAssetsPath(`./assets`);
+platform.setCleanPath([
+    `./`,
+    `./assets`
 ]);
 
 // add js task

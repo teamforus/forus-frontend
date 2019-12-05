@@ -1,4 +1,6 @@
-module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
+module.exports = ['ModalRouteProvider', function(
+    ModalRouteProvider
+) {
     ModalRouteProvider.modal('modalNotification', {
         component: 'modalNotificationComponent'
     });

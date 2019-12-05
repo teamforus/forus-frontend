@@ -1,7 +1,6 @@
 .block {
     &.block-products {
         margin: 20px -45px 0;
-        display: flex;
         flex-wrap: wrap;
 
         .product-item {
@@ -9,7 +8,6 @@
             padding: 0 45px;
             display: inline-block;
             max-width: 33.333%;
-            float: left;
 
             .product-image {
                 width: 100%;

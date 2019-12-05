@@ -1,6 +1,6 @@
-module.exports = [function() {
+let FormBuilderService = function() {
     return new(function() {
-        this.build = function(values, submit) {
+        this.build = function(values, submit, autoLock = false) {
             return {
                 values: values || {},
                 errors: {},
@@ -13,7 +13,11 @@ module.exports = [function() {
                 },
                 submit: function() {
                     if (!this.locked) {
-                        submit(this);
+                        if (autoLock) {
+                            this.lock();
+                        }
+
+                        return submit(this);
                     }
                 },
                 resetValues: function() {
@@ -28,4 +32,8 @@ module.exports = [function() {
             };
         };
     });
-}];
+};
+
+module.exports = [
+    FormBuilderService
+];

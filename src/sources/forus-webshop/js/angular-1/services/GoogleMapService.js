@@ -1,4 +1,4 @@
-let GoogleMapService = function($http, $q) {
+let GoogleMapService = function($q) {
     var style = {
         'style': [{
             "featureType": "water",
@@ -130,7 +130,6 @@ let GoogleMapService = function($http, $q) {
 };
 
 module.exports = [
-    '$http',
     '$q',
     GoogleMapService
 ];

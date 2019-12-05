@@ -1,22 +1,11 @@
+landing-navbar
 header.section.section-header
-    landing-navbar
-.header-splash: .splash
     .wrapper
-        .header-body
-            .header-content
-                .header-title Gemeentelijk dashboard
-                .header-description Dit is het start scherm om uzelf aan te melden op het gemeentelijke dashboard.
+        .header-content
+            .header-title Gemeentelijk dashboard
+            .header-description Dit is het start scherm om uzelf aan te melden op het gemeentelijke dashboard.
 
-if (qdt_c.platform.env_data.client_key == 'general')    
-    section.section.section-flow: .wrapper
-        .section-title(translate="home_sponsor.guide.title")
-        .section-description(translate="home_sponsor.guide.join")
-        img(src="./assets/img/landing/forus-flow-sponsor.png").section-scheme
-        .block.block-show-more: a(href="../sponsor/#!/sign-up" translate="home_sponsor.guide.button").button.button-primary
-
-    section.section.section-flow: .wrapper
 section.section.section-faq: .wrapper
-    .section-splash
     .section-title Veel gestelde vragen
     .faq(collapse)
         mixin faq_item(title, content, active)

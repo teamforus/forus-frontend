@@ -117,10 +117,6 @@ let SignUpComponent = function(
                         localStorage.setItem('sign_up_form.organizationForm', JSON.stringify(
                             $ctrl.organizationForm.values
                         ));
-
-                        if (!$ctrl.organizationForm.values.product_categories) {
-                            $ctrl.organizationForm.values.product_categories = [];
-                        }
                     }
                 }
             }, 500);
@@ -149,6 +145,10 @@ let SignUpComponent = function(
         };
     })();
 
+    $ctrl.chageBusinessType = (value) => {
+        $ctrl.organizationForm.values.business_type_id = value.id;
+    };
+
     $ctrl.$onInit = function() {
         $ctrl.beforeInit();
 
@@ -168,7 +168,6 @@ let SignUpComponent = function(
 
         $ctrl.organizationForm = FormBuilderService.build({
             "website": 'https://',
-            "product_categories": []
         }, (form) => {
             if (form.values) {
                 if (form.values.iban != form.values.iban_confirmation) {
@@ -213,6 +212,10 @@ let SignUpComponent = function(
             );
         });
 
+        $ctrl.businessType = $ctrl.businessTypes.filter(
+            option => option.id == $ctrl.organizationForm.values.business_type_id
+        )[0] || null;
+
         progressStorage.init();
 
         $scope.$on('$destroy', progressStorage.destroy);
@@ -247,29 +250,67 @@ let SignUpComponent = function(
         });
     };
 
-    let loadAvailableFunds = (organization) => {
-        ProviderFundService.listAvailableFunds(
-            organization.id, $stateParams.fundId ? {
-                fund_id: $stateParams.fundId
-            } : {}
-        ).then((res) => {
-            let fundsAvailable = res.data.data;
+    $ctrl.getFundFilters = () => {
+        $ctrl.fundOrganizations = [];
+        $ctrl.fundLabels = [];
 
-            if ($stateParams.fundId && fundsAvailable.length > 0) {
-                let targetFund = fundsAvailable.filter(
-                    fund => fund.id == $stateParams.fundId
-                )[0] || null;
+        let processedOrganizations = [];
+        let processedLabels = [];
+        
+        $ctrl.fundsAvailable.forEach(fund => {
+            if (processedOrganizations.indexOf(fund.organization.id) == -1) {
+                $ctrl.fundOrganizations.push({
+                    id: fund.organization.id,
+                    name: fund.organization.name
+                });
 
-                if (targetFund) {
-                    return ProviderFundService.applyForFund(
-                        $ctrl.organization.id, 
-                        targetFund.id
-                    ).then($ctrl.next);
-                }
+                processedOrganizations.push(fund.organization.id);
             }
 
-            $ctrl.fundsAvailable = fundsAvailable;
+            fund.tags.forEach(tag => {
+                if (processedLabels.indexOf(tag.id) == -1) {
+                    $ctrl.fundLabels.push({
+                        id: tag.id,
+                        key: tag.key,
+                        name: tag.name
+                    });
+
+                    processedLabels.push(tag.id);
+                }
+            });
         });
+
+        $ctrl.fundOrganizations = $ctrl.fundOrganizations.map(fundOrganization => {
+            fundOrganization.id_str = fundOrganization.id += '';
+
+            return fundOrganization;
+        });
+
+        $ctrl.fundOrganizations.unshift({ 
+            id_str: 'null',
+            name: $filter('translate')('sign_up.filters.options.all_organizations') 
+        });
+        $ctrl.fundOrganization = $ctrl.fundOrganization ? $ctrl.fundOrganization : 'null';
+
+        $ctrl.fundLabels.unshift({ 
+            key: 'null',
+            name: $filter('translate')('sign_up.filters.options.all_labels') 
+        });
+        $ctrl.fundLabel = $ctrl.fundLabel ? $ctrl.fundLabel : 'null';
+    }
+
+    let loadAvailableFunds = (organization) => {
+        $ctrl.filterFunds(organization).then(() => {
+            if ($ctrl.showFilters = !$stateParams.organization_id && !$stateParams.tag) {
+                $ctrl.getFundFilters();
+            }
+        });
+
+        $scope.$watch(() => $ctrl.fundsAvailable, function(funds) {
+            $ctrl.fundsLeft = (funds || []).filter(fund => {
+                return !fund.applied;
+            });
+        }, true);
     };
 
     $ctrl.setStep = (step) => {
@@ -299,6 +340,46 @@ let SignUpComponent = function(
 
         $ctrl.offices.push(false);
     };
+
+    $ctrl.filterFunds = (organization = $ctrl.organization) => {
+        let organization_id = $ctrl.fundOrganization && $ctrl.fundOrganization != 'null' ?
+                $ctrl.fundOrganization : $stateParams.organization_id;
+        let label = $ctrl.fundLabel && $ctrl.fundLabel != 'null' ?
+                $ctrl.fundLabel : $stateParams.tag;
+        let fund_id = $stateParams.fund_id,
+            search_params = {};
+
+        if (organization_id) {
+            search_params.organization_id = organization_id;
+        }    
+        if (label) {
+            search_params.tag = label;
+        }    
+        if (fund_id) {
+            search_params.fund_id = fund_id;
+        }
+
+        return ProviderFundService.listAvailableFunds(
+            organization.id, search_params
+        ).then(res => {
+            let fundsAvailable = res.data.data;
+
+            if ($stateParams.fundId && fundsAvailable.length > 0) {
+                let targetFund = fundsAvailable.filter(
+                    fund => fund.id == $stateParams.fundId
+                )[0] || null;
+
+                if (targetFund) {
+                    return ProviderFundService.applyForFund(
+                        organization.id,
+                        targetFund.id
+                    ).then($ctrl.next);
+                }
+            }
+
+            $ctrl.fundsAvailable = fundsAvailable;
+        });
+    }
 
     $ctrl.next = async function() {
         if ($ctrl.organizationStep && !$ctrl.signedIn && $ctrl.step > 1) {
@@ -333,7 +414,9 @@ let SignUpComponent = function(
 
         } else if ($ctrl.step == 2) {
 
-            if ($ctrl.signUpForm.values.records && $ctrl.signUpForm.values.records.primary_email !=     $ctrl.signUpForm.values.records.primary_email_confirmation) {
+            if ($ctrl.signUpForm.values.records && (
+                    $ctrl.signUpForm.values.records.primary_email !=
+                    $ctrl.signUpForm.values.records.primary_email_confirmation)) {
                 $ctrl.signUpForm.errors = {};
                 $ctrl.signUpForm.errors['records.primary_email_confirmation'] = [$filter('translate')('validation.email_confirmation')];
             } else {
@@ -410,6 +493,7 @@ let SignUpComponent = function(
                 }
             });
         } else if ($ctrl.step == 6) {
+            loadAvailableFunds($ctrl.organization);
             $ctrl.setStep($ctrl.step + 1);
         } else if ($ctrl.step == 7) {
             $state.go('organizations');
@@ -441,7 +525,13 @@ let SignUpComponent = function(
     $ctrl.applyAccessToken = function(access_token) {
         CredentialsService.set(access_token);
         $rootScope.$broadcast('auth:update');
-        $ctrl.setStep($ctrl.step + 1);
+
+        if ($ctrl.step == 2) {
+            $ctrl.setStep($ctrl.step + 1);
+        } else {
+            $ctrl.next();
+        }
+
         $ctrl.signedIn = true;
     };
 
@@ -488,7 +578,7 @@ let SignUpComponent = function(
 
 module.exports = {
     bindings: {
-        productCategories: '<'
+        businessTypes: '<',
     },
     controller: [
         '$q',

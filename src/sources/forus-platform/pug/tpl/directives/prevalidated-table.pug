@@ -2,10 +2,10 @@ div
     .card(
         ng-if="prevalidations").form
         .card-header: .row
-            .col.col-sm-6.col-xs-12: .card-title(translate="prevalidated_table.header.title")
-            .block.block-inline-filters.col.col-sm-6.col-xs-12.text-right
+            .col.col-lg-6.col-xs-12: .card-title(translate="prevalidated_table.header.title")
+            .block.block-inline-filters.col.col-lg-6.col-xs-12.text-right
                 .button.button-text(ng-if="filters.show" ng-click="resetFilters()")
-                    em.mdi.mdi-close
+                    em.mdi.mdi-close.icon-start
                     span(i18n="Wis filters")
                 
                 .form(ng-if="!filters.show")
@@ -37,17 +37,17 @@ div
                                     date-format="dd-MM-yyyy" 
                                     datepicker-mobile="" 
                                     date-week-start-day="1").form-control
-                                    input(ng-model="filters.values.from" type="text" placeholder="dd-MM-yyyy").form-control
+                                    input(ng-model="filters.values.from" type="text" placeholder="dd-MM-jjjj").form-control
                             .form-group
                                 form-label-toggle(label="{{ 'prevalidated_table.labels.to' | i18n }}")
                                 datepicker(
                                     date-format="dd-MM-yyyy" 
                                     datepicker-mobile="" 
                                     date-week-start-day="1").form-control
-                                    input(ng-model="filters.values.to" type="text" placeholder="dd-MM-yyyy").form-control
+                                    input(ng-model="filters.values.to" type="text" placeholder="dd-MM-jjjj").form-control
                             .form-actions
                                 button(ng-click="export(filters.values)").button.button-primary.button-wide
-                                    em.mdi.mdi-download  
+                                    em.mdi.mdi-download.icon-start  
                                     span(translate="prevalidated_table.buttons.export_selected")
                     
                     .button.button-default.button-icon(ng-click="filters.show = !filters.show"): em.mdi.mdi-filter-outline
@@ -77,8 +77,8 @@ div
 
         .card-section: .table-pagination.text-right
             button(ng-click="downloadSample()").button.button-default
-                em.mdi.mdi-file-table-outline  
+                em.mdi.mdi-file-table-outline.icon-start 
                 span(i18n="Download upload voorbeeld")
             button(ng-click="export()").button.button-primary
-                em.mdi.mdi-download  
+                em.mdi.mdi-download.icon-start 
                 span(i18n="prevalidated_table.buttons.export")

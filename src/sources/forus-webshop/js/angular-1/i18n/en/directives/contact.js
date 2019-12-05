@@ -1,7 +1,7 @@
 module.exports = {
         header: {
             title: "contact",
-            subtitle: "CONTACTGEGEVENS",
+            subtitle: "CONTACT INFORMATION",
         },
         labels: {
             general: {
@@ -24,14 +24,14 @@ module.exports = {
                 phone:"14 0594",
                 mail: "kindpakket@westerkwartier.nl",
             },
-            follow: "Volg ons",
-            name: "Naam",
+            follow: "Follow us",
+            name: "Name",
             usermail: "E-mail",
-            userphone: "Telefoon",
-            organisation: "Organisatie",
-            message: "Bericht",
+            userphone: "Phone",
+            organisation: "Organization",
+            message: "Message",
         },
         buttons: {
-            send: "VERZENDEN",
+            send: "SEND",
         }
 }

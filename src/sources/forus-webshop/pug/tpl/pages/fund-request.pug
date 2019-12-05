@@ -1,0 +1,267 @@
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
+
+top-navbar
+
+section.section.section-product: .wrapper
+    mixin progress()
+        .sign_up-progress
+            .sign_up-step(
+                ng-repeat="step in $ctrl.totalSteps"
+                ng-class="$ctrl.step == step ? 'sign_up-step-active' : ($ctrl.step > step ? 'sign_up-step-done' : '')"
+                ng-bind="'Stap ' + step")
+        
+    .block.block-sign_up: .block-wrapper
+        //- Log in
+        div(ng-if="$ctrl.state == 'auth'")
+            h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
+            //- p.block-description
+                | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
+                strong woonplaats 
+                | en 
+                a(href="#") inkomen 
+                | te controleren 
+            
+            +progress()
+            
+            .sign_up-pane
+                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
+                .sign_up-pane-body
+                    .sign_up-pane-text
+                        span(i18n="fund_request.sign_up.pane.text" i18n-vars="{fundname: $ctrl.fund.name }")
+                    ul.sign_up-pane-list 
+                        li(ng-repeat="critera in $ctrl.fund.criteria"): span(
+                            i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}" 
+                            i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}") 
+                    
+                    .sign_up-pane-heading Vul uw email adres in om verder te gaan
+                    .sign_up-pane-text 
+                        | Er wordt gecontroleeerd aan welke voorwaarden u al voldoet, 
+                        | en u kan tussentijds afbreken en op een ander moment verder gaan.
+
+                    .sign_up-pane-text: form(ng-submit="$ctrl.authForm.submit()").form: .row
+                        .form-group.col.col-lg-9
+                            label.form-label(i18n="popup_auth.input.mail")
+                            ui-control-email(ng-model="$ctrl.authForm.values.records.primary_email" data-placeholder="bijv. info@info.nl")
+                            .form-error(ng-repeat="error in $ctrl.authForm.errors['records.primary_email']" ng-bind="error")
+                        .form-group.col.col-lg-3
+                            label.form-label &nbsp;
+                            button(
+                                ng-class="{'button-disabled': !$ctrl.authForm.values.records.primary_email}"
+                                type="submit").button.button-primary.button-fill {{ "popup_auth.buttons.submit" | translate }}
+                    
+                    .sign_up-pane-heading Heeft u de Me App al?
+                    .sign_up-pane-text 
+                        | De me app is een optionele manier om eenvoudig, 
+                        | veilig en snel in te loggen.                    
+
+                    .sign_up-pane-auth
+                        .sign_up-pane-auth-content
+                            | Scan de QR code aan de rechterzijde met de 
+                            br
+                            | QR-scanner in de Me App.
+                            br
+                            br
+                            | De Me App wordt gebruikt omm makkelijk en veilig in 
+                            br
+                            | te loggen, betalingen te doen en vouchers te beheren.
+                            br
+                            br
+                            .sign_up-pane-auth-apps
+                                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
+                                a(href="https://play.google.com/store/apps/details?id=io.forus.me").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
+                        
+                        .sign_up-pane-auth-qr_code
+                            qr-code(
+                                ng-if="$ctrl.authToken" 
+                                qr-value="$ctrl.authToken" 
+                                qr-type="auth_token" 
+                                qr-logo=src_prefix + "./assets/img/me-logo.png")
+        
+        //- Log in email sent
+        div(ng-if="$ctrl.state == 'auth_email_sent'")
+            //- For new users
+            .sign_up-pane(ng-if="$ctrl.authEmailRestoreSent")
+                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
+                .sign_up-pane-body
+                    .sign_up-email_sent
+                        .sign_up-email_sent-icon
+                            img(src=src_prefix + "./assets/img/sign_up-email.png").sign_up-email_sent-icon-img
+                        .sign_up-email_sent-title(i18n="popup_auth.labels.join")
+                        .sign_up-email_sent-text(i18n="popup_auth.notifications.link")
+            
+            //- For existing users
+            .sign_up-pane(ng-if="$ctrl.authEmailSent")
+                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
+                .sign_up-pane-body
+                    .sign_up-email_sent
+                        .sign_up-email_sent-icon
+                            img(src=src_prefix + "./assets/img/sign_up-email.png").sign_up-email_sent-icon-img
+                        .sign_up-email_sent-title Bevestig dat u toegang heeft tot dit e-mailadres.
+                        .sign_up-email_sent-text
+                            | U heeft een e-mail ontvangen op "#[span(ng-bind="$ctrl.authForm.values.records.primary_email").text-primary]". Ga naar uw inbox en open de e-mail met het onderwerp "E-mail activering" en klik in de e-mail op de blauwe knop.
+        
+        //- List the criteria
+        div(ng-if="$ctrl.state == 'criteria'")
+            h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
+            +progress()
+            
+            .sign_up-pane
+                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
+                .sign_up-pane-body
+                    p.sign_up-pane-text
+                        span(i18n="fund_request.sign_up.pane.text" i18n-vars="{fundname: $ctrl.fund.name }")
+                    ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
+                        ng-repeat="critera in $ctrl.fund.criteria" 
+                        ng-class="{'item-valid': critera.isValid, 'item-invalid' : !critera.isValid}")
+                        .item-icon: em.mdi.mdi-check-bold(ng-if="critera.isValid")
+                        span(
+                            i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}" 
+                            i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}") 
+                
+                .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(
+                        ng-if="!$ctrl.signedIn"
+                        ng-click="$ctrl.prevStep()"
+                        i18n="fund_request.sign_up.pane.footer.prev")
+                        em.mdi.mdi-chevron-left.icon-left
+                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(
+                        ng-click="$ctrl.nextStep()"
+                        i18n="fund_request.sign_up.pane.footer.next")
+                        em.mdi.mdi-chevron-right.icon-right
+        
+        //- Confirm net worth
+        div(ng-if="$ctrl.state == 'net_worth'")
+            h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
+            +progress()
+            
+            .sign_up-pane
+                .sign_up-pane-header Bevestig uw inkomen en vermogen 
+                .sign_up-pane-body: .form
+                    p.sign_up-pane-text
+                        | Upload bewijsstukken om aan te tonen dat uw verzamelinkomen onder 
+                        a(href="#") de 110% norm
+                        |  valt en dat u aan de 
+                        a(href="#") vermogensvrijstelling
+                        | voldoet
+                    h4.sign_up-pane-heading Bevestig uw inkomen
+                    p.sign_up-pane-text
+                        | Upload bewijsstukken om aan te tonen dat u aan de gestelde inkomensgegevens voldoet.
+                    ul.sign_up-pane-list 
+                        li Bewijsstukken van uw vermogen (spaarrekening en bezittingen)
+                        li Overzicht van schulden
+                        li Bankafschriften van alle bank- en spaarrekeningen van de afgelopen 3 maanden
+                        li Loonstroken van uw werk en/of uitkering van de laatste drie maanden
+                        li Betaalbewijs zwemabonnement. Vermeld op het bewijs voor wie het abonnement is en hierbij de geboortedatum.
+                    
+                    file-uploader(files="$ctrl.netCriteria.files")
+                    .form-error(ng-repeat="err in $ctrl.netCriteria.errors.file" ng-bind="err")
+                
+                .sign_up-pane-footer: .row
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(
+                        ng-click="$ctrl.prevStep()"
+                        i18n="fund_request.sign_up.pane.footer.prev")
+                        em.mdi.mdi-chevron-left.icon-lefts
+                    .col.col-lg-6.text-right
+                        .button.button-text.button-text-padless(
+                            ng-click="$ctrl.submitNetWorth()"
+                            i18n="fund_request.sign_up.pane.footer.next")
+                            em.mdi.mdi-chevron-right.icon-right
+        
+        div(
+            ng-repeat="invalidCriteria in $ctrl.invalidCriteria track by $index"
+            ng-if="$ctrl.state == 'criteria_' + $index")
+            h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
+            +progress()
+            
+            .sign_up-pane
+                .sign_up-pane-header(ng-bind="'Bevestig uw ' + $ctrl.recordTypes[invalidCriteria.record_type_key].name")
+                .sign_up-pane-body: form(ng-submit="$ctrl.submitStepCriteria(invalidCriteria)").form.row
+                    .form-group.col.col-lg-12
+                        ui-control-checkbox(
+                            ng-if="invalidCriteria.control_type == 'ui_control_checkbox' && invalidCriteria.record_type_key == 'children'"
+                            ng-model="invalidCriteria.input_value"
+                            data-id="criterion_{{ invalidCriteria.id }}"
+                            data-label="Ik heb geen kinderen")
+                        ui-control-checkbox(
+                            ng-if="invalidCriteria.control_type == 'ui_control_checkbox' && (invalidCriteria.record_type_key == 'kindpakket_eligible' || invalidCriteria.record_type_key =='kindpakket_2018_eligible')"
+                            ng-model="invalidCriteria.input_value"
+                            data-id="criterion_{{ invalidCriteria.id }}"
+                            data-label="Ja, ik verklaar dat ik recht heb op kindpakket.")
+                        ui-control-step(
+                            ng-if="invalidCriteria.control_type == 'ui_control_step'"
+                            ng-model="invalidCriteria.input_value"
+                            data-min="0"
+                            data-max="32"
+                            data-id="criterion_{{ invalidCriteria.id }}")
+                        ui-control-date(
+                            ng-if="invalidCriteria.control_type == 'ui_control_date'"
+                            ng-model="invalidCriteria.input_value"
+                            data-id="criterion_{{ invalidCriteria.id }}")
+                        ui-control-number(
+                            ng-if="invalidCriteria.control_type == 'ui_control_number'"
+                            ng-model="invalidCriteria.input_value"
+                            data-id="criterion_{{ invalidCriteria.id }}"
+                            data-placeholder="Uw {{ invalidCriteria.record_type_name }}")
+                        ui-control-text(
+                            ng-if="invalidCriteria.control_type == 'ui_control_text'"
+                            ng-model="invalidCriteria.input_value"
+                            data-id="criterion_{{ invalidCriteria.id }}"
+                            data-placeholder="Uw {{ invalidCriteria.record_type_name }}")
+                        ui-control-currency(
+                            ng-if="invalidCriteria.control_type == 'ui_control_currency'"
+                            ng-model="invalidCriteria.input_value"
+                            data-id="criterion_{{ invalidCriteria.id }}"
+                            data-placeholder="Uw {{ invalidCriteria.record_type_name }}")
+                        .form-error(ng-repeat="error in invalidCriteria.errors.value" ng-bind="error")
+                        
+                    .form-group.col.col-lg-12: .sign_up-pane-info
+                        p.sign_up-pane-text: span(
+                            i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[invalidCriteria.operator]}}" 
+                            i18n-vars="{name: invalidCriteria.record_type_name, value: ($ctrl.criterionValuePrefix[invalidCriteria.record_type_key]) + invalidCriteria.value}") 
+                    .form-group.col.col-lg-12: file-uploader(files="invalidCriteria.files")
+                
+                .sign_up-pane-footer: .row
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(
+                        ng-click="$ctrl.prevStep()"
+                        i18n="fund_request.sign_up.pane.footer.prev")
+                        em.mdi.mdi-chevron-left.icon-left
+                    .col.col-lg-6.text-right
+                        .button.button-text.button-text-padless(
+                            ng-click="$ctrl.submitStepCriteria(invalidCriteria)"
+                            i18n="fund_request.sign_up.pane.footer.next")
+                            em.mdi.mdi-chevron-right.icon-right
+        
+        //- Done
+        div(ng-if="$ctrl.state == 'done'")
+            //- Success
+            div(ng-if="!$ctrl.finishError")
+                h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
+                +progress()
+                
+                .sign_up-pane
+                    .sign_up-pane-header Aanvraag voltooid
+                    .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
+                        .form-group.col.col-lg-12
+                            .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
+                            p.sign_up-pane-text.text-center 
+                                | Uw aanvraag is voltooid, u krijgt een email wanneer deze is goedgekeurd.
+                    
+                            .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
+                        .form-group.col.col-lg-12: br
+                
+            //- Error
+            div(ng-if="$ctrl.finishError")
+                h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
+                +progress()
+
+                .sign_up-pane
+                    .sign_up-pane-header Er is een fout opgetreden tijdens het aanvragen.
+                    .sign_up-pane-body: .row
+                        .form-group.col.col-lg-12
+                            .block-icon: .mdi.mdi-close
+                            p.sign_up-pane-text.text-center 
+                                | Reden:
+                                span(ng-bind="$ctrl.errorReason")
+                    
+                            .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
+                        .form-group.col.col-lg-12: br 

@@ -1,6 +1,6 @@
 form#formContact(action="https://xlak8w5706.execute-api.eu-west-1.amazonaws.com/Prod" method="POST")
     .row
-        .col-xs-12.col-md-6
+        .col-xs-12.col-lg-6
             .form-group.required
                 label.control-label NAAM
                 .input-group
@@ -8,7 +8,7 @@ form#formContact(action="https://xlak8w5706.execute-api.eu-west-1.amazonaws.com/
                     a(href="#").clear_field
                         include ../../../resources/platform-general/assets/img/svg/clear-field.svg
                     span.help-block
-        .col-xs-12.col-md-6
+        .col-xs-12.col-lg-6
             .form-group.required
                 label.control-label EMAIL
                 .input-group
@@ -16,7 +16,7 @@ form#formContact(action="https://xlak8w5706.execute-api.eu-west-1.amazonaws.com/
                     a(href="#").clear_field
                         include ../../../resources/platform-general/assets/img/svg/clear-field.svg
                     span.help-block
-        .col-xs-12.col-md-6
+        .col-xs-12.col-lg-6
             .form-group
                 label.control-label ORGANISATIE
                 .input-group
@@ -24,7 +24,7 @@ form#formContact(action="https://xlak8w5706.execute-api.eu-west-1.amazonaws.com/
                     a(href="#").clear_field
                         include ../../../resources/platform-general/assets/img/svg/clear-field.svg
                     span.help-block
-        .col-xs-12.col-md-6
+        .col-xs-12.col-lg-6
             .form-group
                 label.control-label TELEFOONNUMMER
                 .input-group
@@ -47,4 +47,8 @@ form#formContact(action="https://xlak8w5706.execute-api.eu-west-1.amazonaws.com/
         .col-xs-12
             .form-group.center-block
                 p.thanks Bedankt! Er wordt zo snel mogelijk contact met u opgenomen.
-                button#formSubmit.button-center.btn.main_button.g-recaptcha( data-sitekey="6LfA-JcUAAAAAC9SpgAr2ZmL4rFwjb83_U2MDcfQ" data-callback="onSubmitCFModal" data-badge="inline" type="button") Versturen
+                button#formSubmit.button-center.btn.main_button.g-recaptcha(
+                    data-sitekey="6LfA-JcUAAAAAC9SpgAr2ZmL4rFwjb83_U2MDcfQ" 
+                    data-callback="onSubmitCFModal" 
+                    data-badge="inline" 
+                    type="button") Versturen

@@ -1,4 +1,9 @@
-let app = angular.module('forusApp', ['ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 'ngLocale']);
+require('./modules/select-control/SelectControlModule');
+
+let app = angular.module('forusApp', [
+    'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 
+    'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize',
+]);
 
 app.constant('appConfigs', env_data);
 
@@ -15,6 +20,7 @@ app.component('fundsEditComponent', require('./components/FundsEditComponent'));
 app.component('fundsShowComponent', require('./components/FundsShowComponent'));
 app.component('transactionsComponent', require('./components/TransactionsComponent'));
 app.component('vouchersComponent', require('./components/VouchersComponent'));
+app.component('productVouchersComponent', require('./components/ProductVouchersComponent'));
 app.component('officesComponent', require('./components/OfficesComponent'));
 app.component('officesEditComponent', require('./components/OfficesEditComponent'));
 app.component('productsComponent', require('./components/ProductsComponent'));
@@ -23,13 +29,16 @@ app.component('productsShowComponent', require('./components/ProductsShowCompone
 app.component('organizationProvidersComponent', require('./components/OrganizationProvidersComponent'));
 app.component('organizationEmployeesComponent', require('./components/OrganizationEmployeesComponent'));
 app.component('csvValidationComponent', require('./components/CsvValidationComponent'));
-app.component('validationRequestsComponent', require('./components/ValidationRequestsComponent'));
+app.component('fundRequestsComponent', require('./components/FundRequestsComponent'));
 app.component('validationRequestComponent', require('./components/ValidationRequestComponent'));
 app.component('signUpComponent', require('./components/SignUpComponent'));
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
 app.component('transactionComponent', require('./components/TransactionComponent'));
+app.component('fundProviderComponent', require('./components/FundProviderComponent'));
 
 app.component('noPermissionComponent', require('./components/NoPermissionComponent'));
+
+app.component('emailPreferencesComponent', require('./components/EmailPreferencesComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -39,9 +48,14 @@ app.component('modalEmployeeEditComponent', require('./components/Modals/ModalEm
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
 app.component('modalPhotoUploaderComponent', require('./components/Modals/ModalPhotoUploaderComponent'));
 app.component('modalVoucherCreateComponent', require('./components/Modals/ModalVoucherCreateComponent'));
+app.component('modalProductVoucherCreateComponent', require('./components/Modals/ModalProductVoucherCreateComponent'));
 app.component('modalVoucherQrCodeComponent', require('./components/Modals/ModalVoucherQrCodeComponent'));
 app.component('modalVouchersUploadComponent', require('./components/Modals/ModalVouchersUploadComponent'));
 app.component('modalMarkdownCustomLinkComponent', require('./components/Modals/ModalMarkdownCustomLinkComponent'));
+app.component('modalPdfPreviewComponent', require('./components/Modals/ModalPdfPreviewComponent'));
+app.component('modalFundRequestRecordClarifyComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordClarifyComponent'));
+app.component('modalFundRequestRecordDeclineComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordDeclineComponent'));
+app.component('modalFundCriteriaDescriptionEditComponent', require('./components/Modals/ModalFundCriteriaDescriptionEditComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -62,6 +76,7 @@ app.service('RecordCategoryService', require('./services/RecordCategoryService')
 app.service('RecordValidationService', require('./services/RecordValidationService'));
 app.service('QrScannerService', require('./services/QrScannerService'));
 app.service('ProductCategoryService', require('./services/ProductCategoryService'));
+app.service('BusinessTypeService', require('./services/BusinessTypeService'));
 app.service('OfficeService', require('./services/OfficeService'));
 app.service('ProductService', require('./services/ProductService'));
 app.service('ProviderFundService', require('./services/ProviderFundService'));
@@ -79,6 +94,9 @@ app.service('PermissionsService', require('./services/PermissionsService'));
 app.service('RoleService', require('./services/RoleService'));
 app.service('SmsService', require('./services/SmsService'));
 app.service('FileService', require('./services/FileService'));
+app.service('FundRequestValidatorService', require('./services/FundRequestValidatorService'));
+app.service('EmailPreferencesService', require('./services/EmailPreferencesService'));
+app.service('PushNotificationsService', require('./services/PushNotificationsService'));
 
 // Directives
 switch (env_data.panel_type) {
@@ -132,7 +150,10 @@ app.directive('markdown', require('./directives/MarkdownDirective'));
 app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
 app.directive('formLabelToggle', require('./directives/FormLabelToggleDirective'));
 app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
+app.directive('scrollEnd', require('./directives/ScrollEndDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
+app.directive('pdfPreview', require('./directives/PdfPreviewDirective'));
+app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
@@ -183,7 +204,7 @@ app.run(['appConfigs', (appConfigs) => {
 }]);
 
 // Bootstrap the app
-angular.bootstrap(document.querySelector('html'), ['forusApp', '720kb.datepicker']);
+angular.bootstrap(document.querySelector('html'), ['forusApp']);
 
 if (!env_data.html5ModeEnabled) {
     let hash = document.location.hash;

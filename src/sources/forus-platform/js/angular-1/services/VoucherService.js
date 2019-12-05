@@ -17,11 +17,18 @@ module.exports = [
                     '/sponsor/vouchers'
                 ].join(''), data);
             };
+
+            this.storeValidate = (organization_id, data) => {
+                return ApiRequest.post([
+                    '/platform/organizations/' + organization_id,
+                    '/sponsor/vouchers/validate'
+                ].join(''), data);
+            };
             
             this.storeCollection = function(organization_id, fund_id, vouchers) {
                 return ApiRequest.post([
                     '/platform/organizations/' + organization_id,
-                    '/sponsor/vouchers'
+                    '/sponsor/vouchers/batch' 
                 ].join(''), {
                     fund_id: fund_id,
                     vouchers: vouchers
@@ -51,6 +58,30 @@ module.exports = [
                 ].join(''), {
                     email: email
                 });
+            };
+
+            this.downloadQRCodes = function(organization_id, type, from, to) {
+                return ApiRequest.get([
+                    '/platform/organizations/' + organization_id,
+                    '/sponsor/vouchers/export-unassigned',
+                ].join(''), {
+                    type: type,
+                    from: from,
+                    to: to,
+                }, {}, true, (params) => {
+                    params.responseType = 'blob';
+                    return params;
+                });
+            };
+
+            this.sampleCSV = (voucher_type) => {
+                let fields = ['amount', 'expires_at', 'note', 'email'];
+
+                if (voucher_type == 'product_voucher') {
+                    fields.splice(1, 0, 'product_id');
+                }
+
+                return Papa.unparse([fields]);
             };
         });
     }

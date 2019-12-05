@@ -21,7 +21,7 @@ block content
                 | Bikes, Computers
 
         mixin keyvalue_item_horizontal(key, value)
-            .keyvalue-item.col.col-sm-2
+            .keyvalue-item.col.col-lg-2
                 .keyvalue-key=key
                 .keyvalue-value=value
 
@@ -41,13 +41,13 @@ block content
                     +keyvalue_item_horizontal("Validated", "€ 23.452,-")
                     +keyvalue_item_horizontal("Used", "€ 10.234,32-")
                     
-                    .col.col-sm-6.text-right
+                    .col.col-lg-6.text-right
                         a(href="#").button.button-default
-                            em.mdi.mdi-settings  
+                            em.mdi.mdi-settings.icon-start 
                             | Settings
 
                         a(href="#").button.button-primary
-                            em.mdi.mdi-plus-circle  
+                            em.mdi.mdi-plus-circle.icon-start 
                             | Add Money
 
     .card

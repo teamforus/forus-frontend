@@ -2,6 +2,7 @@ let BaseController = function(
     $rootScope,
     $scope,
     $state,
+    $translate,
     appConfigs,
     ConfigService,
     CredentialsService, 
@@ -111,7 +112,7 @@ let BaseController = function(
             $rootScope.viewLayout = 'landing';
         }
     });
-
+    $translate.use('nl');
     $rootScope.appConfigs = appConfigs;
 };
 
@@ -119,6 +120,7 @@ module.exports = [
     '$rootScope',
     '$scope',
     '$state',
+    '$translate',
     'appConfigs',
     'ConfigService',
     'CredentialsService', 

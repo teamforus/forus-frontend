@@ -14,9 +14,9 @@ let CsvUploadDirective = function(
         $scope.progressBar = progress;
 
         if (progress < 100) {
-            $scope.progressStatus = "Uploading...";
+            $scope.progressStatus = "Aan het uploaden...";
         } else {
-            $scope.progressStatus = "Completed";
+            $scope.progressStatus = "Klaar!";
         }
     };
 
@@ -100,8 +100,6 @@ let CsvUploadDirective = function(
         csvParser.validateFile = function() {
             let invalidRows = csvParser.data.filter(row => {
                 let keys = Object.keys(row);
-
-                console.log(keys, $scope.recordTypeKeys);
                 return keys.filter((key) => $scope.recordTypeKeys.indexOf(key) == -1).length > 0;
             });
 

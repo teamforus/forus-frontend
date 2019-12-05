@@ -1,0 +1,11 @@
+.modal
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-window: form.form(ng-submit="$ctrl.form.submit()")
+        a(ng-click="$ctrl.close()").mdi.mdi-close.modal-close
+        .modal-header Beschrijving
+        .modal-body: .modal-section
+            .form-group: markdown(ng-model="$ctrl.form.values.description")
+
+        .modal-footer.text-center
+            button.button.button-primary(type="submit") Opslaan
+            button.button.button-dark(type="button" ng-click="$ctrl.close()") Sluiten

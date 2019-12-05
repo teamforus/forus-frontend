@@ -4,7 +4,7 @@
             button(
                 ng-show="level == 'fundsAvailable' && fund.state != 'closed'"
                 ng-click="providerApplyFund(fund)").button.button-primary 
-                em.mdi.mdi-plus-circle
+                em.mdi.mdi-plus-circle.icon-start
                 translate(translate="fund_card_sponsor.buttons.join")
 
             div(ng-if="fundOrg | hasPerm:'manage_funds'")
@@ -44,7 +44,7 @@
             div(ng-bind="fund.name").fund-title
             br
             div(ng-bind="fundOrg.name").fund-organization
-        .card-block.card-block-listing
+        //- .card-block.card-block-listing
             .card-block-listing-label(translate="fund_card_sponsor.labels.categories") 
             translate(ng-bind="fundCategories.join(', ')")
             small(ng-show="fundCategories.length == 0" translate="fund_card_sponsor.labels.nocategories").text-muted.small
@@ -63,14 +63,15 @@
     mixin edit_buttons()
 
         button(ng-if="(fundOrg | hasPerm:'manage_funds') && fund.state == 'waiting'" ng-click="deleteFund(fund)").button.button-danger
+            em.mdi.mdi-delete
             translate(translate="fund_card_sponsor.buttons.delete")
 
         button(ui-sref="funds-edit(fund)").button.button-default
-            em.mdi.mdi-settings
+            em.mdi.mdi-settings.icon-start
             translate(translate='fund_card_sponsor.labels.setting')
 
         button(ng-if="fund.key && fund.state != 'closed'" ng-click="topUpModal()").button.button-primary
-            em.mdi.mdi-plus-circle  
+            em.mdi.mdi-plus-circle.icon-start  
             translate(translate='fund_card_sponsor.buttons.add')
 
     mixin stats()

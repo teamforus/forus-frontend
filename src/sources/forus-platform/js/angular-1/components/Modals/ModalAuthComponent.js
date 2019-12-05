@@ -38,6 +38,8 @@ let ModalAuthComponent = function(
                 }
             }, 0);
         });
+        $ctrl.requestAuthQrToken();
+        $ctrl.showEmailForm();
     };
 
     $ctrl.showQrForm = function() {
@@ -78,7 +80,6 @@ let ModalAuthComponent = function(
     };
 
     $ctrl.showEmailForm = function() {
-
         $ctrl.showEmailBlock = true;
         $ctrl.showChoose = false;
 

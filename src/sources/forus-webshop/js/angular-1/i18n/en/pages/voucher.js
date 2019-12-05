@@ -1,85 +1,85 @@
 module.exports = {
     // VOUCHER = voucher.pug
         header: {
-            title: "Uw voucher",
+            title: "Your voucher",
         },
         buttons: {
-            send: "E-MAIL NAAR MIJ",
-            details: "Bekijk details",
+            send: "SEND VOUCHER BY MAIL",
+            details: "Show details",
         },
         labels: {
-            transactions: "Uitgaven",
-            subtract: "Af",
-            fund: "Fonds",
-            expire: "Gebruik voor:",
-            requirements: "Voor voorwaarden van deze aanbieding neem contact op met de aanbieder.",
-            vouchers: "Staat uw gewenste aanbod niet in de webshop? Ga dan langs bij de aanbieder.",
-            info: "<span style='font-style: italic;'>Zoek je een organisatie die niet op de kaart staat? Je kunt een organisatie vragen om deel te nemen. Een organisatie kan zich het hele jaar door aanmelden.</span>",
-            offices: "U kunt uw voucher besteden bij de aanbieders op deze locaties",
-            voucher: "Print uw voucher uit of mail hem naar uzelf toe. Ga met de QR-code naar de aanbieder en laat hem scannen.",
-            office: "Locaties waar u deze aanbieding voucher kan verzilveren.",
-            shopdetail: "INFORMATIE OVER DE AANBIEDER",
-            productdetail: "INFORMATIE OVER DE AANBIEDING",
-            offers: "Ga voor het volledige aanbod langs bij de aanbieder.",
+            transactions: "Transactions",
+            subtract: "Substract",
+            fund: "Funds",
+            expire: "Use before:",
+            requirements: "Contact the provider for the details of the offer",
+            vouchers: "Visit the provider if you can't find the offer on the webshop.",
+            info: "<span style='font-style: italic;'>Searching for a provider that is not registered? You can ask them to apply for the fund.</span>",
+            offices: "You can spend the budget at the locations of these providers",
+            voucher: "Print your voucher or send it by mail. Present the voucher to the provider to do a payment.",
+            office: "Locations hwere you can spend the budget.",
+            shopdetail: "INFORMATION ABOUT THE PROVIDER",
+            productdetail: "INFORMATION ABOUT THE OFFER",
+            offers: "Visit the provider for the total offer.",
         },
         voucher_card: {
             header: {
-                title: "Hoe werkt het?",
+                title: "Hoe does it work?",
             },
             labels: {
-                description: "Uw {{fund_name}} voucher kunt u bij de aanbieder laten zien. De aanbieder scant de QR-code om u het aanbod te leveren",
-                desc: "Een voucher kunt u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u het aanbod te leveren.",
-                contact_sponsor: "Heeft u vragen over '{{fund_name}}'? Neem dan contact met ons op.",
-                contact_provider: "Heeft u vragen over deze aanbieding? Neem dan contact met ons op.",
+                description: "You can show the {{fund_name}} voucher to the provider. The provider can scan your code to offer you the product or service.",
+                desc: "You can show the {{fund_name}} voucher to the provider. The provider can scan your code to offer you the product or service.",
+                contact_sponsor: "Contact us if you have any questions about '{{fund_name}}'",
+                contact_provider: "Contact us if you have any questions about the offer",
             },
             footer: {
                 actions: {
                     mail: "EMAIL",
                     print: "PRINT",
-                    share: "DEEL",
+                    share: "SHARE",
                     open_in_me: 'Me'
                 },
                 tooltips: {
-                    mail: "E-mail de voucher naar uzelf",
-                    print: "Print de voucher uit",
-                    share: "Deel de voucher met de aanbieder",
+                    mail: "Send the voucher by mail",
+                    print: "Print the voucher",
+                    share: "Share the voucher with the provider",
                     open_in_me: 'Me'
                 }
             },
             qrcode: {
-                description: "Dit is uw {{fund_name}} voucher met een QR-code.",
-                productdescription: "Dit is uw aanbieding voucher met een QR-code."
+                description: "This is your {{fund_name}} voucher with a QR-code",
+                productdescription: "This is your product voucher",
             },
-            expire: "Gebruik deze voucher voor:",
-            delete: "Annuleer reservering",
-            expired: "Verlopen"
+            expire: "Use this voucher before:",
+            delete: "Cancel reservation",
+            expired: "Expired"
         },
         share_voucher: {
             popup_form: {
-                title: 'Let op! Neem contact op met aanbieder voordat u de QR-code deelt.',
-                description: 'U kunt uw aanbieding voucher met de aanbieder delen om koop op afstand mogelijk te maken. Als de aanbieding een activiteit of dienst betreft: meld in het onderstaande veld eventuele extra informatie die de aanbieder vereist voor deelname. Dit kan een reden zijn maar ook uw naam of telefoonnummer betreffen.'
+                title: 'Attention! Please inform the provider before sharing your voucher.',
+                description: 'You can share your product voucher with the provider to buy at a distance. Enter additional information that the provider requires for participation in the field below if the offer concerns an activity or service:  This can be a reason but also your name or telephone number.'
             },
-            reason_placeholder: 'Bericht voor aanbieder',
+            reason_placeholder: 'Message to the provider',
             buttons: {
-                submit: 'VERSTUREN',
-                confirm: 'SLUIT'
+                submit: 'SUBMIT',
+                confirm: 'CLOSE'
             },
             popup_sent: {
-                title: 'Uw voucher is verstuurd naar de aanbieder.',
-                description: 'De aanbieder heeft de aanbieding voucher en uw bericht ontvangen. Neem contact op met aanbieder of ga bij bij de organisatie langs om het aanbod af te nemen.'
+                title: 'Your voucher has beent sent to the provider.',
+                description: 'The provider has received your voucher and the message. Please contact or visit the provider for further information.'
             },
             labels: {
-                send_copy: "Stuur e-mail als bewijs ook naar uzelf"
+                send_copy: "Send a copy of the message to yourself"
             }
         },
         delete_voucher: {
             popup_form: {
-                title: 'Wilt u uw reservering voor aankoop annuleren?',
-                description: 'U kunt uw reservering annuleren om af te zien van de aankoop. Wanneer u deze aankoop niet wenst te annuleren klikt u op "sluit".'
+                title: 'Do you wish to cancel the reservation?',
+                description: "You can cancel the reservation. Close this window if you don't want to cancel the reservation."
             },
             buttons: {
-                submit: 'BEVESTIG',
-                close: 'SLUIT'
+                submit: 'CONFIRM',
+                close: 'CLOSE'
             },
         }
 }

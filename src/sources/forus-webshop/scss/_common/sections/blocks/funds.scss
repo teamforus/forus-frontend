@@ -9,7 +9,6 @@
             margin: 0 0 20px;
             cursor: default;
             @include cf();
-            cursor: pointer;
 
             .fund-image {
                 width: 250px;
@@ -41,6 +40,12 @@
                         vertical-align: middle;
                         margin-top: -5px;
                     }
+                }
+
+                .fund-description {
+                    font: 400 14px $bf;
+                    color: #646f79;
+                    margin-bottom: 10px;
                 }
                 
                 .fund-organization {

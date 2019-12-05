@@ -1,26 +1,22 @@
-module.exports = [
-    '$transitions',
-    '$filter',
-    '$rootScope',
-    'appConfigs',
-    function(
-        $transitions,
-        $filter,
-        $rootScope,
-        appConfigs
-    ) {
-        $transitions.onSuccess({}, function(transition) {
-            let pageTitleKey = 'page_state_titles.' + transition.to().name;
-            let implementationName = $filter('i18n')('implementation_name.' + appConfigs.client_key);
-            let pageTitleText = $filter('i18n')(pageTitleKey, {implementation: implementationName});
+module.exports = ['$transitions', '$filter', '$rootScope', 'appConfigs', (
+    $transitions, $filter, $rootScope, appConfigs
+) => {
+    $transitions.onSuccess({}, function(transition) {
+        let $i18n = $filter('i18n');
+        let $translate = $filter('translate');
 
-            if (pageTitleKey == pageTitleText) {
-                pageTitleText = $filter('translate')('page_title');
-            }
+        let pageTitleKey = 'page_state_titles.' + transition.to().name;
+        let implementationName = $i18n('implementation_name.' + appConfigs.client_key);
+        
+        let pageTitleText = $i18n(pageTitleKey, {
+            implementation: implementationName
+        });
 
-            $rootScope.pageTitle = pageTitleText;
+        if (pageTitleKey == pageTitleText) {
+            pageTitleText = $translate('page_title');
+        }
 
-            document.body.scrollTop = document.documentElement.scrollTop = 0;
-        })
-    }
-];
+        $rootScope.pageTitle = pageTitleText;
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    })
+}];

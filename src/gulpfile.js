@@ -4,6 +4,7 @@ var fse = require('fs-extra');
 var del = require('del');
 var glob = require('glob');
 var path = require('path');
+var compress = require('compression');
 var historyApiFallback = require('connect-history-api-fallback')
 
 // console colors
@@ -227,6 +228,12 @@ var js_compiler = function(platform, src, task) {
                 presets: ["@babel/preset-env"],
                 extensions: ['.js']
             }).bundle());
+            
+            stream.push(_browserify.transform('pugify', {
+                extensions: ['.pug'],
+                compileDebug: false,
+                pretty: false
+            }).bundle());
 
             // Required for Browserify & Babelify
             stream.push(vinyl_source(name));
@@ -258,7 +265,7 @@ var js_compiler = function(platform, src, task) {
         }
 
         stream.push(plugins.insert.prepend(
-            'let env_data = ' + JSON.stringify(platform.env_data) + ';'
+            'var env_data = ' + JSON.stringify(platform.env_data) + ';'
         ));
 
         stream.push(gulp.dest(platform.paths.assets + '/js/' + dest[i]));
@@ -482,7 +489,8 @@ let serverTask = () => {
     ).filter(platform => platform.server).forEach(function(platform) {
         var server = {
             server: {
-                baseDir: platform.paths.root + platform.server.path
+                baseDir: platform.paths.root + platform.server.path,
+                middleware: [compress()]
             },
             notify: true,
             open: false,

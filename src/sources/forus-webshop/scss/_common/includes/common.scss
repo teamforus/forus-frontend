@@ -2,6 +2,10 @@ img {
     border: none;
 }
 
+.flex-grow {
+    flex-grow: 100 !important;
+}
+
 .flex-row {
     display: flex;
     flex-direction: row;
@@ -41,11 +45,11 @@ img {
 }
 
 .text-primary {
-    color: #134478 !important;
+    color: $color_primary !important;
 }
 
 .text-primary-light {
-    color: #009ef4 !important;
+    color: $color_primary_light !important;
 }
 
 .text-danger {
@@ -62,6 +66,13 @@ img {
 
 .hidden {
     display: none;
+}
+
+.hard-disabled {
+    filter: grayscale(1);
+    user-select: none;
+    pointer-events: none;
+    opacity: .75;
 }
 
 .cf {

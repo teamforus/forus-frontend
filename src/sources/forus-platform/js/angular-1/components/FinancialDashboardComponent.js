@@ -115,14 +115,12 @@ let FinancialDashboardComponent = function(
     };
 
     $ctrl.$onInit = function () {
-
         if (Array.isArray($ctrl.funds)) {
-
             $ctrl.funds = $ctrl.funds.filter(function(fund) {
                 return fund.state !== 'waiting';
             });
 
-            if($ctrl.funds.length == 1 && !$ctrl.fund){
+            if ($ctrl.funds.length == 1 && !$ctrl.fund) {
                 $state.go('financial-dashboard', {
                     organization_id: $ctrl.funds[0].organization_id,
                     fund_id: $ctrl.funds[0].id
@@ -147,21 +145,16 @@ let FinancialDashboardComponent = function(
                 return fundProvider;
             });
         }
+        
+        $ctrl.productCategories.unshift({
+            name: 'Alle',
+            id: null
+        });
 
-        if ($ctrl.fund) {
-            $ctrl.fund.fundCategories = _.pluck($ctrl.fund.product_categories, 'name').join(', ');
-
-            $ctrl.productCategories = _.clone($ctrl.fund.product_categories);
-            $ctrl.productCategories.unshift({
-                name: 'Alle',
-                id: null
-            });
-
-            $ctrl.productCategories.push({
-                name: 'Anders',
-                id: -1
-            });
-        }
+        $ctrl.productCategories.push({
+            name: 'Anders',
+            id: -1
+        });
     };
 
     $scope.onPageChange = async (query) => {
@@ -180,7 +173,8 @@ module.exports = {
     bindings: {
         fund: '<',
         funds: '<',
-        fundProviders: '<'
+        fundProviders: '<',
+        productCategories: "<",
     },
     controller: [
         '$state',

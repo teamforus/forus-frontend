@@ -1,5 +1,8 @@
-let FileService = function(ApiRequest) {
-    let FileSaver = require('file-saver');
+let FileService = function(
+    $q,
+    ApiRequest,
+) {
+    let uriPrefix = '/files';
 
     return new (function() {
         this.downloadFile = (
@@ -11,12 +14,57 @@ let FileService = function(ApiRequest) {
                 type: file_type,
             });
 
-            FileSaver.saveAs(blob, file_name);
+            if (typeof window.navigator != 'undefined' &&
+                typeof window.navigator.msSaveBlob == 'function') {
+                window.navigator.msSaveBlob(blob, file_name);
+            } else {
+                window.saveAs(blob, file_name);
+            }
+        };
+
+        this.download = function(file) {
+            return ApiRequest.get(uriPrefix + '/' + file.uid + '/download', {}, {}, true, (params) => {
+                params.responseType = 'blob';
+                return params;
+            });
+        };
+
+        this.downloadUrl = function(file) {
+            return ApiRequest.endpointToUrl(uriPrefix + '/' + file.uid + '/download');
+        };
+
+        this.store = function(file) {
+            var formData = new FormData();
+
+            formData.append('file', file);
+
+            return ApiRequest.post(uriPrefix, formData, {
+                'Content-Type': undefined
+            });
+        };
+
+        this.storeValidate = function(file) {
+            var formData = new FormData();
+
+            formData.append('file', file);
+
+            return ApiRequest.post(uriPrefix + '/validate', formData, {
+                'Content-Type': undefined
+            });
+        };
+
+        this.storeAll = function(files) {
+            return $q.all(files.map(this.store));
+        };
+
+        this.storeValidateAll = function(files) {
+            return $q.all(files.map(this.storeValidate));
         };
     });
 };
 
 module.exports = [
+    '$q',
     'ApiRequest',
     FileService
 ];

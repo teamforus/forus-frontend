@@ -9,10 +9,6 @@ let OfficesComponent = function(
     $ctrl.weekDays = OfficeService.scheduleWeekDays();
 
     $ctrl.$onInit = function() {
-        $ctrl.fundCategories = $ctrl.organization.product_categories.map((val) => {
-            return val.name;
-        });
-
         $ctrl.emptyBlockLink = $state.href('offices-create', $stateParams);
     };
 

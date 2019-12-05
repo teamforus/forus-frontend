@@ -1,4 +1,6 @@
-module.exports = ['$q', function($q) {
+let QrScannerService = function(
+    $q
+) {
     return new(function() {
         var html = window.document.querySelector('html');
 
@@ -86,7 +88,7 @@ module.exports = ['$q', function($q) {
             if (typeof QRScanner == 'undefined') {
                 return;
             }
-            
+
             QRScanner.hide();
             QRScanner.cancelScan();
             QRScanner.destroy();
@@ -95,4 +97,6 @@ module.exports = ['$q', function($q) {
             document.querySelector('body').style.cssText = 'background: #fff !important;';
         }
     })();
-}]
+};
+
+module.exports = ['$q', QrScannerService]

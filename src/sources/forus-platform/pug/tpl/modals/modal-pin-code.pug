@@ -2,7 +2,7 @@
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-content: .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-        .app-instruction
+        .block.block-app-instruction
             .step-item
                 img(src="./assets/img/screen1.png")
                 .app-title(translate="open_in_me.app_instruction.step_1")
@@ -18,7 +18,7 @@
 
         form.form.f-w.with-instructions(ng-submit="$ctrl.authorizePincodeForm.submit()")
             .form-group
-                div(ng-if="$ctrl.authorizePincodeForm" pincode-control ng-model="$ctrl.authorizePincodeForm.values.auth_code")
+                pincode-control(ng-if="$ctrl.authorizePincodeForm" ng-model="$ctrl.authorizePincodeForm.values.auth_code")
                 .text-center.form-error(ng-repeat="error in $ctrl.authorizePincodeForm.errors.auth_code track by $index" ng-bind="error")
             .form-group.text-center
                 button(type="submit").button.button-primary {{ "open_in_me.authorize.submit" | translate }}

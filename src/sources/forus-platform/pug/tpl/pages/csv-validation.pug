@@ -2,21 +2,20 @@
     menu
     section.app.app-content
         .card-heading(ng-bind="'csv_validation.header.title' | translate")
-        .block.block-choose-organization(ng-if="$ctrl.funds.length > 0")
+        .block.block-choose-organization(ng-if="$ctrl.funds.length > 1")
             div(
                 ng-repeat="fund in $ctrl.fund ? [$ctrl.fund] : $ctrl.funds" 
                 ui-sref="csv-validation({fund_id: fund.id})").organization-item
                 .organization-item-inner
                     .organization-logo: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
-                .organization-name(ng-bind="fund.name")
-                .organization-categories(ng-bind="fund.fundCategories")
+                    .organization-name(ng-bind="fund.name")
 
             div(
                 ng-if="$ctrl.fund && $ctrl.funds.length > 1"
                 ui-sref="csv-validation({fund_id: null})").organization-item
                 .organization-item-inner
                     .organization-logo.organization-logo-mdi: .mdi.mdi-chevron-up
-                .organization-name(ng-bind="'csv_validation.buttons.choose' | translate")
+                    .organization-name(ng-bind="'csv_validation.buttons.choose' | translate")
     
         csv-upload(
             ng-if="$ctrl.fund" 
@@ -30,4 +29,4 @@
         
         block-empty( 
             ng-if="$ctrl.funds.length == 0" 
-            text="'U bent geen validator voor een fonds dat actief is om aanvragers aan toe te voegen.'")
+            text="U bent geen validator voor een fonds dat actief is om aanvragers aan toe te voegen.")

@@ -6,7 +6,6 @@ let ModalAuthComponent = function(
     FormBuilderService,
     ModalService
 ) {
-
     let $ctrl = this;
 
     $ctrl.$onInit = () => {
@@ -53,7 +52,8 @@ let ModalAuthComponent = function(
 
                     IdentityService.makeAuthEmailToken(
                         source,
-                        records ? records.primary_email : ''
+                        records ? records.primary_email : '',
+                        'homeStart'
                     ).then((res) => {
                         localStorage.setItem('pending_email_token', res.data.access_token);
                         $ctrl.close();

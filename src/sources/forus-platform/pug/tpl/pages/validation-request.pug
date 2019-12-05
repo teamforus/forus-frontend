@@ -20,6 +20,6 @@
                 .card-title {{ $ctrl.validatorRequest.record.name }}: {{ $ctrl.validatorRequest.record.value }}
 
             .card-section.card-section-primary: .card-block.card-block-keyvalue.card-block-keyvalue-horizontal: .row
-                .keyvalue-item.col.col-sm-3
-                    .keyvalue-key {{ "validation_request.buttons.bsn" | translate }}
+                .keyvalue-item.col.col-lg-3
+                    .keyvalue-key(translate="validation_request.buttons.bsn")
                     .keyvalue-value(ng-bind="$ctrl.validatorRequest.bsn")

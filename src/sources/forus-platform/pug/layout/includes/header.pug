@@ -1,12 +1,13 @@
 header.app.app-header
     .wrapper
-        a(ui-sref="home").header-logo: img(ng-src="./assets/img/logo.png").header-logo-img
+        a(ng-if="$root.appConfigs.client_key != 'general'" ui-sref="home").header-logo
+            img(ng-src="./assets/img/logo.png").header-logo-img
 
         .header-auth(ng-if="$root.auth_user")
             .auth-user
                 .auth-user-name {{ $root.auth_user.primary_email }}
                 .auth-user-role(
-                    ng-bind="{provider: 'Aanbieder', sponsor: 'Gemeente', validator: 'Gemeente'}[appConfigs.panel_type]")
+                    ng-bind="{provider: 'Aanbieder', sponsor: 'Sponsor', validator: 'Validator'}[appConfigs.panel_type]")
                 img(ng-src="{{ $root.activeOrganization ? ($root.activeOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png') : './assets/img/placeholders/organization-thumbnail.png'}} ").auth-user-img
                 .auth-user-menu
                     //- a(href="#").auth-user-menu-item
@@ -17,7 +18,10 @@ header.app.app-header
                         | Organisatie
                     a(ui-sref="organizations-create").auth-user-menu-item
                         em.mdi.mdi-plus
-                        | {{ "organizations.buttons.add" | translate }}
+                        translate(translate="organizations.buttons.add")
+                    a(ui-sref="email-preferences").auth-user-menu-item
+                        em.mdi.mdi-settings-outline
+                        translate(translate="E-mailvoorkeuren")
                     .auth-user-menu-item(ng-click="$root.openPinCodePopup()")
                         em.mdi.mdi-cellphone
                         span(translate="topnavbar.buttons.authorize")

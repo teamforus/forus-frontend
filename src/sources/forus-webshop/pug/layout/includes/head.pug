@@ -11,14 +11,20 @@ head
     link(href="https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,500,700" rel="stylesheet")
     link(href="//fonts.googleapis.com/css?family=Cantarell" rel="stylesheet")
     
+    //- preconnect to api
+    link(rel="preconnect" href=qdt_c.platform.env_data.api_url)
+
     //- favicon
-    link(rel="shortcut icon", type="image/x-icon", href=src_prefix + "assets/img/favicon.ico")
+    link(rel="shortcut icon" type="image/x-icon", href=src_prefix + "assets/img/favicon.ico")
 
     //- libs bundle
-    link(rel="stylesheet", href=src_prefix + "assets/dist/bundle/css/bundle.min.css")
+    link(rel="stylesheet" href=src_prefix + "assets/dist/bundle/css/bundle.min.css")
 
     //- custom style
-    link(rel="stylesheet", href=src_prefix + "assets/css/style.min.css")
+    link(rel="stylesheet" href=src_prefix + "assets/css/style.min.css")
+
+    if (qdt_c.platform.env_data.matomo_site_id)
+        include matomo
     
     if (qdt_c.platform.env_data.html5ModeEnabled)
         base(href=qdt_c.platform.env_data.html5Mode.basePath)

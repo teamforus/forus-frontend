@@ -2,75 +2,125 @@ module.exports = {
     // AUTHENTICATION POPUP = popup-auth.pug
         header: {
             nijmegen: {
-                title: "Inloggen bij de Meedoen-regeling",
+                title: "Log in to the Meedoen-regeling",
+                subtitle: "<span>Scan the QR-code with the</span> <strong><u>Me-app</u></strong><span> or log in with your e-mailaddress</span>",
+            },
+            berkelland: {
+                title: "Log in to the Meedoenapplicatie",
+                subtitle: "<span>Scan the QR-code with the</span> <strong><u>Me-app</u></strong><span> or log in with your e-mailaddress</span>",
+            },
+            oostgelre: {
+                title: "Log in to the Meedoenapplicatie",
+                subtitle: "<span>Scan the QR-code with the</span> <strong><u>Me-app</u></strong><span> or log in with your e-mailaddress</span>",
+            },
+            winterswijk: {
+                title: "Log in to the Meedoenapplicatie",
+                subtitle: "<span>Scan the QR-code with the</span> <strong><u>Me-app</u></strong><span> or log in with your e-mailaddress</span>",
+            },
+            kerstpakket: {
+                title: "Log in to the Kerstpakket",
+                subtitle: "<span>Scan the QR-code with the</span> <strong><u>Me-app</u></strong><span> or log in with your e-mailaddress</span>",                
+            },
+            berkelland: {
+                title: "Inloggen op de Meedoenapplicatie",
                 subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
             },
-            zuidhorn: {
-                title: "Inloggen op het Kindpakket",
+            oostgelre: {
+                title: "Inloggen op de Meedoenapplicatie",
+                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
+            },
+            winterswijk: {
+                title: "Inloggen op de Meedoenapplicatie",
+                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
+            },
+            kerstpakket: {
+                title: "Inloggen op het Kerstpakket",
                 subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",                
             },
+            zuidhorn: {
+                title: "Log in to the Kindpakket",
+                subtitle: "<span>Scan the QR-code with the</span> <strong><u>Me-app</u></strong><span> or log in with your e-mailaddress</span>",                
+            },
             westerkwartier: {
-                title: "Inloggen op het Kindpakket",
-                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",             
+                title: "Log in to the Kindpakket",
+                subtitle: "<span>Scan the QR-code with the</span> <strong><u>Me-app</u></strong><span> or log in with your e-mailaddress</span>",             
             },
             general: {
-                title: "Inloggen op Platform Forus",
-                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
+                title: "Log in to the Platform Forus",
+                subtitle: "<span>Scan the QR-code with the</span> <strong><u>Me-app</u></strong><span> or log in with your e-mailaddress</span>",
             },
             forus: {
-                title: "Inloggen op Platform Forus",
-                subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
+                title: "Log in to the Platform Forus",
+                subtitle: "<span>Scan the QR-code with the</span> <strong><u>Me-app</u></strong><span> or log in with your e-mailaddress</span>",
             }
         },
         notifications: {
-            confirmation: "Het is gelukt!",
-            link: "Er is een link naar uw e-mailadres gestuurd. Klik op de link om verder te gaan.",
-            invalid: "De activatiecode is ongeldig of al gebruikt.",
-            voucher_email: "Uw voucher is verstuurd naar uw mail.",
+            confirmation: "Succes!",
+            link: "A link has been sent to your e-mail address. Click the link to continue.",
+            invalid: "The activationcode is invalid or has already been used.",
+            voucher_email: "Your voucher has been sent by mail",
         },
         buttons: {
-            qrcode: "Log in via de Me-app",
-            mail: "Log in via e-mail",
-            submit: "VOLGENDE",
-            cancel: "ANNULEREN",
-            confirm: "VOLGENDE",
+            qrcode: "Log in using Me-app",
+            mail: "Log in by e-mail",
+            submit: "SUBMIT",
+            cancel: "CANCEL",
+            confirm: "NEXT",
         },
         labels: {
             nijmegen: {
-                mail: "<strong>Let op</strong>: gebruik uw eigen e-mailadres.<br /> U kunt voor de Meedoen-regeling per jaar maximaal één activatiecode per e-mailadres gebruiken.",
+                mail: "<strong>Attention!</strong>: Please use your own e-mail address. You can use a maximum of one activation code per e-mail address per year for the Meedoen-regeling.",
             },
             zuidhorn: {
-                mail: "<strong>Let op</strong>: gebruik uw eigen e-mailadres.<br /> U kunt voor het Kindpakket per jaar maximaal één activatiecode per e-mailadres gebruiken.",
+                mail: "<strong>Attention!</strong>: Please use your own e-mail address. You can use a maximum of one activation code per e-mail address per year for Kindpakket.",
             },
-            timelimit: "U wordt automatisch uitgelogd na 15 minuten inactiviteit.",
-            warning: "Sluit dit venster en klik op 'Login' als u de activatiecode al eens heeft gebruikt.",
-            join: "Aanmelden",
-            activate: "Stap 1 van 3: Webshop account aanmaken.",
-            activate_code: "Stap 3 van 3: Activeer uw tegoed.",
-            scancode: "Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent.",
-            mobilecode: "Vul uw toegangscode van de Me-app in.",
-            mail: "<strong>Let op</strong>: gebruik uw eigen e-mailadres.<br /> U kunt voor {{fund}} per jaar maximaal één activatiecode per e-mailadres gebruiken.",
-            link: "Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen.",
-            code: "Vul de activatiecode in die u per brief hebt ontvangen.<br /><strong>Let op:</strong> U kunt één activatiecode per e-mailadres gebruiken. Sluit dit venster als u al een activatiecode heeft gebruikt.",
-            voucher_email: "Het is gelukt!",
-            isactivated: "Uw voucher is al geactiveerd.",
-            codeactivated: "U heeft al een activatiecode gebruikt. Het is niet mogelijk nog één te gebruiken.",
-            dont_have_account: "Heeft u geen account en wilt u één aanmaken door een activatiecode te gebruiken?",
+            berkelland: {
+                mail: "Please create a profile before you continue with the activation."
+            },
+            oostgelre: {
+                mail: "Please create a profile before you continue with the activation."
+            },
+            winterswijk: {
+                mail: "Please create a profile before you continue with the activation."
+            },
+            berkelland: {
+                mail: "Maak een account aan voordat u verder kan met de activatie."
+            },
+            oostgelre: {
+                mail: "Maak een account aan voordat u verder kan met de activatie."
+            },
+            winterswijk: {
+                mail: "Maak een account aan voordat u verder kan met de activatie."
+            },
+            timelimit: "You will be logged out automatically after 15 minutes of inactivity.",
+            warning: "Close this window and click 'Login' if you have already used the activation code.",
+            join: "Sign up",
+            activate: "Step 1 of 3: Create a webshop profile.",
+            activate_code: "Step 3 of 3: Activate your budget.",
+            scancode: "Scan this QR-Code with another device that you are already registered with.",
+            mobilecode: "Enter the acces code of the Me-app.",
+            mail: "<strong>Attention!</strong>: Please use your own e-mailaddress.<br /> You can use a maximum of one activation code per e-mail address for {{fund}} per year.",
+            link: "Enter your e-mailaddress to receive an e-mail with a link to continue logging in",
+            code: "Please enter the activation code that you received by letter.<br /><strong>Attention!</strong> You can use a maximum of one activation code per e-mail address. Close this window if you already used an activationcode.",
+            voucher_email: "Succes!",
+            isactivated: "Your voucher has already been activated.",
+            codeactivated: "You've already used an activation code. It's not possible to use antoher one.",
+            dont_have_account: "Do you want to create a profile by using a QR-code?",
         },
         input: {
-            mail: "Vul uw e-mailadres in",
-            coding: "Vul de activatiecode in",
-            code: "Activatiecode",
+            mail: "Enter your e-mailaddress",
+            coding: "Enter the activation code",
+            code: "Activation code",
             mailing: "E-mail",
-            confirmation: "Bevestig uw e-mailadres",
+            confirmation: "Confirm your e-mailaddress",
         },
         pin_code: {
             confirmation: {
-                title: "Is de mobiele app gekoppeld aan uw persoonlijk e-mailadres?",
-                description: "Ga naar het tabblad <b>Profiel</b> in de app. Ziet u hier uw e-mailadres staan? Dan is de app succesvol gekoppeld. Als u het tabblad <b>Profiel</b> niet ziet staan, probeer het dan opnieuw.",
+                title: "Is the application connected to your profile?",
+                description: "Visit to the <b>Profile</b> tab in the Me-app. The app is succesfuly connected if you see your e-mailaddress. Try again if you don't see your e-mailaddress.",
                 buttons: {
-                    try_again: "Opnieuw proberen",
-                    confirm: "Volgende"
+                    try_again: "Try again",
+                    confirm: "Next"
                 }
             }
         }

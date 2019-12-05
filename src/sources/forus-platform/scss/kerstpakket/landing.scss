@@ -1,0 +1,22 @@
+@import '../_common/landing';
+
+.section {        
+    .section-title {
+        font: 700 40px/60px $bf;
+        margin: 40px 0 40px;
+    }
+
+    &.section-header {
+        padding: 40px 0 40px;
+        position: relative;
+        margin: 0 auto;
+        width: 100%;
+        background: url(../img/landing/splash-top-b.png) no-repeat 100% 0;
+        background-size: contain;
+        background-position: bottom right;
+        @include cf();
+        .header-content {
+            color: #353535;
+        }
+    }
+}

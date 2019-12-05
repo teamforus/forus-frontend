@@ -1,7 +1,7 @@
 .modal.modal-auth2
     .modal-backdrop(ng-click="$ctrl.close()")
     //- Sign In by qr-code
-    .modal-content
+    .modal-window: .modal-content
         .modal-close(ng-click="$ctrl.close()")
             include ../../../resources/platform-general/assets/img/svg/close.svg
 
@@ -25,10 +25,10 @@
             De me app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.
             #[br] #[br]
         .block.block-qr-code.hidden-xs
-            qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="auth_token" qr-logo="https://media.forus.io/assets/me2.svg").hidden-xs
+            qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="auth_token" qr-logo="https://media.forus.io/assets/me-logo.png").hidden-xs
         .modal-subtitle.subtitle-left.download-badges.hidden-xs
             a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676")
-                img(src="./assets/img/landing/icon-app/app-store-badge.svg") 
+                img(src="./assets/img/landing/icon-app/icon-app-ios.svg") 
             a(href="https://play.google.com/store/apps/details?id=io.forus.me")
                 img(src="./assets/img/landing/icon-app/icon-app-android.svg")
 

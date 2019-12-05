@@ -1,6 +1,9 @@
 top-navbar
 
 section.section.section-product: .wrapper
+    .block.block-breadcrumbs
+        a(ui-sref="home").breadcrumb-item Home
+        .breadcrumb-item.active Fondsen
     product-card(product="$ctrl.product")
         
     .block.block-vouchers(ng-if="$ctrl.applicableVouchers.length > 0")
@@ -25,6 +28,3 @@ section.section.section-product: .wrapper
                         small {{ "product_apply.labels.subtract" | translate }}
                     .voucher-overview-value(ng-if="voucher.transactions.length == 0")
                         span.text-muted {{ "product_apply.labels.none" | translate }}
-    
-
-contact-form 

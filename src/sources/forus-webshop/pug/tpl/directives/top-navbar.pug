@@ -1,37 +1,41 @@
-.block.block-navbar.wrapper: .navbar-inner
+.block.block-navbar.wrapper: .navbar-inner.wrapper
     a(ui-sref="home").navbar-logo
         img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
         img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover
     nav.navbar-list(ng-class="mobileMenu?'navbar-list-show':''")
-        .navbar-list-auth.show-sm(ng-if="$root.auth_user")
-            // Auth menu
-            nav.navbar-item-wrapper
-                .navbar-item(ng-click="openActivateCodePopup()" translate="topnavbar.buttons.activate")
+        ul.navbar-list-auth.show-sm(ng-if="$root.auth_user")
+            //- Auth menu
+            li.navbar-item-wrapper: .navbar-item(
+                ng-click="openActivateCodePopup()" translate="topnavbar.buttons.activate")
+            
+            li.navbar-item-wrapper(ng-if="$root.appConfigs.features.records.list"): .navbar-item(
+                ui-sref="records") Mijn eigenschappen
+            
+            li.navbar-item-wrapper: .navbar-item(
+                ng-click="openPinCodePopup()" translate="topnavbar.buttons.authorize")
+            
+            li.navbar-item-wrapper: .navbar-item(
+                ui-sref="vouchers" translate="topnavbar.buttons.voucher")
+            
+            li.navbar-item-wrapper: .navbar-item(
+                ng-click="$root.signOut()" translate="topnavbar.buttons.logout")
 
-            nav.navbar-item-wrapper(ng-if="$root.appConfigs.features.records.list")
-                .navbar-item(ui-sref="records") 
-                    | Mijn eigenschappen
-
-            nav.navbar-item-wrapper
-                .navbar-item(ng-click="openPinCodePopup()" translate="topnavbar.buttons.authorize")
-
-            nav.navbar-item-wrapper
-                .navbar-item(ui-sref="vouchers" translate="topnavbar.buttons.voucher")
-
-            nav.navbar-item-wrapper
-                .navbar-item(ng-click="$root.signOut()" translate="topnavbar.buttons.logout")
-
-        // Menu
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.features.funds.list && $root.auth_user" ng-click="mobileMenu = false")
+        //- Menu
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
             a.navbar-item(
                 ui-sref="funds" 
                 ui-sref-active="active"
                 ng-bind="'topnavbar.items.funds' | translate")
+        
         nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.productsMenu || $root.auth_user" ng-click="mobileMenu = false")
             a.navbar-item(
                 ui-sref="products" 
                 ui-sref-active="active"
                 ng-bind="'topnavbar.items.products' | translate")
+        
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.providersMenu" ng-click="showPopupOffices()")
+            a.navbar-item(
+                ng-bind="'topnavbar.items.providers' | translate")
                                                                                                                                
     .block.block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
         .auth-code
@@ -42,7 +46,8 @@
             a(ng-if="$root.appConfigs.features.records.list" ui-sref="vouchers").button.button-default.button-two-spans.button-profile
                 .icon-me
                 span(ng-bind="$root.auth_user.primary_email").first-line-button
-                span(translate="topnavbar.buttons.profile").second-line-button
+                //-span(translate="topnavbar.buttons.profile").second-line-button
+    
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
             .auth-user
@@ -55,33 +60,43 @@
                     nav.auth-user-menu.hide-sm
                         .triangle
                         .inner
-                            a(ng-click="openActivateCodePopup()").auth-user-menu-item
+                            .auth-user-menu-item(ng-click="openActivateCodePopup()")
                                 img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg")
                                 span(translate="topnavbar.buttons.activate")
 
                             .auth-user-menu-item(ng-click="openPinCodePopup()")
                                 em.mdi.mdi-cellphone
                                 span(translate="topnavbar.buttons.authorize")
+                                
+                            .auth-user-menu-item(ui-sref="email-preferences")
+                                em.mdi.mdi-settings-outline
+                                translate(translate="notification_preferences.title_preferences")
 
                             .auth-user-menu-separator.show-sm
-                            a.auth-user-menu-item.show-sm(
+                            
+                            .auth-user-menu-item.show-sm(
                                 ui-sref="funds" 
                                 ui-sref-active="active"
                                 ng-if="$root.appConfigs.features.funds.list && $root.auth_user")
                                 em.mdi.mdi-star-outline
                                 span(translate="topnavbar.buttons.logout")
-                            a.auth-user-menu-item.show-sm(
+                            
+                            .auth-user-menu-item.show-sm(
                                 ui-sref="products" 
                                 ui-sref-active="active"
                                 ng-if="$root.appConfigs.features.products.list")
                                 em.mdi.mdi-store
                                 span(translate="topnavbar.buttons.products")
+                            
                             .auth-user-menu-separator.show-sm
+                            
                             .auth-user-menu-item.show-sm(ui-sref="vouchers")
                                 em.mdi.mdi-ticket-confirmation
                                 span(translate="topnavbar.buttons.voucher")
+                            
                             .auth-user-menu-separator
-                            div(ng-click="$root.signOut()").auth-user-menu-item
+                            
+                            .auth-user-menu-item(ng-click="$root.signOut()")
                                 img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
                                 span(translate="topnavbar.buttons.logout")
 

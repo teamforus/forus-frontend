@@ -12,7 +12,6 @@ let FutureComponent = function() {
             e.preventDefault();
     
             var target = $(e.target).attr("id");
-            var tab_block;
 
             $( '.row' ).each(function (i, el) {
                 var btn = $(el).find('.tab');
@@ -29,8 +28,6 @@ let FutureComponent = function() {
             } else if (target == '#panel4'){
                 tab_block=$('#panel4-techtree');
             }
-            //var active_tab = $(".tab").find('panel1');
-            console.log(this);
             $(this).toggleClass('active');
     
         });

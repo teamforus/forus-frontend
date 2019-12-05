@@ -1,0 +1,9 @@
+.ui-control.ui-control-text(ng-class="$dir.class")
+    input(
+        type="text" 
+        id="{{ $dir.id }}" 
+        name="{{ $dir.name }}" 
+        ng-change="$dir.onChange()"
+        placeholder="{{ $dir.placeholder }}" 
+        ng-model="ngModel").form-control
+    label(for="{{ $dir.id }}" ng-click="$dir.clear()").ui-control-clear: .mdi.mdi-close-circle

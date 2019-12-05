@@ -2,6 +2,7 @@ let BaseController = function(
     $rootScope,
     $scope,
     $state,
+    $translate,
     AuthService,
     RecordService,
     OrganizationService,
@@ -41,7 +42,9 @@ let BaseController = function(
                 })[0].value;
             });
 
-            OrganizationService.list().then((res) => {
+            OrganizationService.list({
+                dependency: "permissions,logo"
+            }).then((res) => {
                 auth_user.organizations = res.data.data;
                 auth_user.organizationsMap = {};
                 auth_user.organizationsIds = Object.values(res.data.data).map(function(organization) {
@@ -114,12 +117,15 @@ let BaseController = function(
         $rootScope.appConfigs.features = res.data;
         $rootScope.appConfigs.frontends = res.data.fronts;
     });
+
+    $translate.use('nl');
 };
 
 module.exports = [
     '$rootScope',
     '$scope',
     '$state',
+    '$translate',
     'AuthService',
     'RecordService',
     'OrganizationService',

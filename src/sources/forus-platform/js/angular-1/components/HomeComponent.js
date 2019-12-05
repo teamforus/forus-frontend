@@ -1,22 +1,21 @@
 let HomeComponent = function(
-    $state, 
-    CredentialsService, 
+    $state,
+    CredentialsService,
     IdentityService,
-    appConfigs
+    ModalService
 ) {
     let $ctrl = this;
     let qrCodeEl = document.getElementById('qrcode');
-
     let $redirectAuthorizedState = 'organizations';
-
-    if (appConfigs.panel_type == 'validator') {
-        $redirectAuthorizedState = 'csv-validation';
-    }
 
     $ctrl.showModal = false;
 
+    $ctrl.openAuthPopup = function() {
+        ModalService.open('modalAuth', {});
+    };
+
     if (!!CredentialsService.get()) {
-        IdentityService.identity().then(() => { }, $state.go($redirectAuthorizedState));
+        IdentityService.identity().then(() => {}, $state.go($redirectAuthorizedState));
     }
 
     $ctrl.closeModal = function() {
@@ -27,22 +26,25 @@ let HomeComponent = function(
 
 module.exports = {
     controller: [
-        '$state', 
-        'CredentialsService', 
+        '$state',
+        'CredentialsService',
         'IdentityService',
-        'appConfigs', 
+        'ModalService',
         HomeComponent
     ],
-    templateUrl: (appConfigs) => {
+    templateUrl: ['appConfigs', (appConfigs) => {
         if (appConfigs.panel_type == 'validator') {
             return 'assets/tpl/pages/home.html';
         }
-        if (appConfigs.panel_type == 'provider'  && appConfigs.client_key == 'nijmegen'){
-            return 'assets/tpl/pages/landing/home-' + appConfigs.panel_type + '-'+ appConfigs.client_key +'.html';
+
+        if (appConfigs.panel_type == 'provider' && appConfigs.client_key == 'nijmegen') {
+            return 'assets/tpl/pages/landing/home-' + appConfigs.panel_type + '-' + appConfigs.client_key + '.html';
         }
-        if (appConfigs.panel_type == 'sponsor' && appConfigs.client_key == 'nijmegen'){
-            return 'assets/tpl/pages/landing/home-' + appConfigs.panel_type + '-'+ appConfigs.client_key +'.html';
+
+        if (appConfigs.panel_type == 'sponsor' && appConfigs.client_key == 'nijmegen') {
+            return 'assets/tpl/pages/landing/home-' + appConfigs.panel_type + '-' + appConfigs.client_key + '.html';
         }
+
         return 'assets/tpl/pages/landing/home-' + appConfigs.panel_type + '.html';
-    }
+    }]
 };

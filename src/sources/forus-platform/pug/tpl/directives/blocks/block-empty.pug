@@ -1,7 +1,7 @@
-.card
-    .card-section
-        .text-center
-            p(ng-bind="text").text-strong-half
-            a(ng-if="button" href="{{ button.href }}").button.button-primary
-                em.mdi.mdi-plus-circle 
-                | {{ button.text }}
+.card: .card-section: .block.block-empty(ng-class="{center: 'text-center', right: 'text-right'}[align]")
+    .empty-title(ng-if="title" ng-bind="title")
+    .empty-details(ng-if="text" ng-bind="text")
+    .empty-actions(ng-if="button" )
+        a(ng-if="button" href="{{ button.href }}").button.button-primary
+            em.mdi.mdi-plus-circle.icon-start 
+            span(ng-bind="button.text")

@@ -20,15 +20,15 @@
                     ng-bind="product.name").product-title
                 span(ng-bind="product.product_category.name").product-subtitle
                 .label-item {{ "product_edit.labels.expire" | translate }}: {{ product.expire_at }}
-                .label-item {{ "product_edit.labels.sold" | translate }}: {{ (product.total_amount - product.stock_amount) }}
+                .label-item {{ "product_edit.labels.sold" | translate }}: {{ (product.sold_amount) }}
                 .label-item {{ "product_edit.labels.reserved" | translate }}: {{ product.reserved_amount }}
 
     .card-section.card-section-primary
         .text-right
             a(ng-click="deleteProduct(product)").button.button-primary
-                em.mdi.mdi-delete  
+                em.mdi.mdi-delete.icon-start  
                 | {{ "product_card.buttons.delete" | translate }}
 
             a(ui-sref="products-edit(product)").button.button-default
-                em.mdi.mdi-pen  
+                em.mdi.mdi-pen.icon-start  
                 | {{ "product_card.buttons.edit" | translate }}

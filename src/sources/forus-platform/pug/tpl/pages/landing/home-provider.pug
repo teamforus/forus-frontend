@@ -2,16 +2,26 @@ landing-navbar
 header.section.section-header
     .wrapper
         .header-content
-            .header-title {{ "home_provider.header.title_westerkwartier" | translate }}
-            .header-description {{ "home_provider.header.subtitle_westerkwartier" | translate }}
+            .header-title(
+                translate="home_provider.header.{{ $root.appConfigs.client_key }}.title"
+                translate-default="{{'home_provider.header.default.title' | translate }}")
+            .header-description(
+                translate="home_provider.header.{{ $root.appConfigs.client_key }}.subtitle"
+                translate-default="{{'home_provider.header.default.subtitle' | translate }}")
 section.section.section-flow: .wrapper
-    .section-title {{ "home_provider.guide.title_westerkwartier" | translate }}
-    .section-description(translate="home_provider.guide.description_westerkwartier")
+    .section-title(
+    translate="home_provider.guide.{{ $root.appConfigs.client_key }}.title"
+    translate-default="{{'home_provider.guide.default.title' | translate }}")
+    .section-description(
+    translate="home_provider.guide.{{ $root.appConfigs.client_key }}.description"
+    translate-default="{{'home_provider.guide.default.description' | translate }}")
     //- img(src="./assets/img/landing/forus-flow-provider.png").section-scheme
-    .block.block-show-more: a(href="../provider/#!/sign-up").button.button-primary {{ "home_provider.guide.button_westerkwartier" | translate }}
+    .block.block-show-more: a(
+    href="../provider/#!/sign-up"
+    translate="home_provider.guide.{{ $root.appConfigs.client_key }}.button"
+    translate-default="{{'home_provider.guide.default.button' | translate }}").button.button-primary
 
 section.section.section-faq: .wrapper
-    .section-splash
     .section-title Veel gestelde vragen
     .faq(collapse)
         mixin faq_item(title, content, active)

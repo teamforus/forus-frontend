@@ -18,7 +18,7 @@ module.exports = {
         "record-validate": 'Valideer eigenschap',
         "record-validations": 'Validaties',
         "record-create": 'Eigenschap toevoegen',
-        "funds-apply": 'Meld u aan voor een fonds',
+        "funds-apply": 'Meld u aan voor de fondsen',
         "restore-email": 'Inloggen via e-mail',
     },
     implementation_name: {
@@ -26,7 +26,11 @@ module.exports = {
         zuidhorn: 'Zuidhorn',
         nijmegen: 'Nijmegen',
         westerkwartier: 'Westerkwartier',
-        forus: 'Forus platform & '
+        forus: 'Forus platform & ',
+        kerstpakket: 'Kerstpakket',
+        berkelland: 'Berkelland',
+        oostgelre: 'Oostgelre',
+        winterswijk: 'Winterswijk',
     },
     languages: {
         en: 'English',
@@ -52,6 +56,7 @@ module.exports = {
     records: require("./en/pages/records"),
     voucher: require("./en/pages/voucher"),
     vouchers: require("./en/pages/vouchers"),
+    notification_preferences: require("./en/pages/notification-preferences"),
 
     // MODALS
     popup_auth: require("./en/modals/modal-auth"),
