@@ -1,6 +1,8 @@
+body {color: #131313;}
 h1 {font: 600 32px $bf;}
 h2 {font: 400 22px $bf;}
 h3 {font: 400 18px $bf;}
+h5 {font: 700 16px $bf;}
 p {font: 400 14px $bf;}
 .pt-large {font: 460 18px/1.5em $bf;}
 @media screen and (min-width: 1024px) {
@@ -9,12 +11,11 @@ p {font: 400 14px $bf;}
     h3 {font: 400 24px/1.5em $bf;}
     p { 
         font: 400 16px/1.5em $bf;
-        margin-bottom: 1em;
     }
     .pt-large {font: 400 24px/1.5em $bf;}
     
     h1, h2, h3, h4, h5 {
-        margin: 0;
+        margin-top: 0;
     }
     
     .no-mar-t {margin-top: 0px}

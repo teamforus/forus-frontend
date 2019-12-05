@@ -8,18 +8,28 @@
         padding: 20px 10%;
     }
     .tl-list {
-        display: inline-block;
+        display: flex;
         ul {
             padding: 20px;
+            flex: 1 1 0;
             @media screen and (min-width: 1024px) {
                 float: left;
+            }
+            p {
+                font-style: cursive;
             }
         }
     }
 }
 .wrap_cs {
     &__1 {
-
+        padding: 50px 100px;
+        @media screen and (min-width: 1024px) {
+            padding: 100px;
+        }
+    }
+    &__1a {
+        padding: 100px 100px;
     }
     &__2 {
         padding: 20px 20px 20px;

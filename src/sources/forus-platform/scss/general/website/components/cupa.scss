@@ -12,3 +12,20 @@
         }
     }
 }
+
+// horizontal scroller
+/*.scroller {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: repeat(14, 300px);
+    gap: 16px;
+    animation: scrollLeft 15s linear infinite;
+  }
+  
+  @keyframes scrollLeft {
+    to {
+      transform: translateX(-50%)
+    }
+  }*/

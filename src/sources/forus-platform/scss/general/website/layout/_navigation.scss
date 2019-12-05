@@ -22,15 +22,12 @@ html {
                 @media screen and (min-width: 768px) {
                     display: flex;
                     justify-content: center;
+                    align-items: center;
                 }
                 .navbar-header{
                     .navbar-brand {
-                        padding: 15px 33px 20px;
-                        margin-top: -2px;
-                        width: 200px;
-                        height: 60px;
                         svg{
-                            height: 25px!important;
+                            height: 20px!important;
                             path{
                                 fill: #000;
                             }
@@ -119,6 +116,10 @@ html {
                             }
                         }
                         & > li {
+                            .login_btn {
+                                padding: 14px 24px;
+                                font-size: 15px;
+                            }
                             & > a {
                                 //padding: 18px 33px!important;
                                 padding: 1.25vw 2.15vw;

@@ -1,18 +1,16 @@
 // this mixing is being used, needs cheking
 @mixin button($forus-pink, $color, $hover_color, $bg_hover_color) {
-
+    display: inline-block;
     border: 1px solid transparent;
     background-color: $forus-pink;
     color: $color !important;
     font-weight: 600;
     border-radius: 6px;
     position: relative;
-    width: 100%;
-    max-width: 220px;
-    padding: 15px 5px;
+    padding: 14px 24px;
     font-family: inherit;
     text-align: center;
-    font-size: 18px;
+    font-size: 15px;
     @include transition();
     a{
         color: $color!important;
@@ -69,6 +67,7 @@
 label {
     &.txt_link {
         flex-direction: column;
+        margin-top: 50px;
         svg {
             transform: rotate(90deg);
         }
@@ -82,6 +81,7 @@ label {
     bottom: 0;
     color: $forus-pink;
     font-weight: 700;
+    width: 100%;
     &.var { display: inline }
     svg{
         fill: $forus-pink;
@@ -174,7 +174,8 @@ label {
 
 .main_button {
     margin: 0 auto;
-    display: block;
+    display: inline-block;
+    margin-top: 20px;
 }
 
 .dl_buttons {

@@ -7,7 +7,17 @@
     padding-top: 20px;
     .main_button {
         margin: 0;
+        margin-top: 20px;
     }
+    h4 {
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+    p {
+        font-size: 14px;
+        margin: 0;
+    }
+    .ts-p{margin-top: 15px;}
 }
 .footer .col {
     width: 100%;
@@ -17,12 +27,30 @@
 .sub-foot {
     background-color: #F6F8F9;
     width: 100%;
-    align-items: stretch;
-    svg {
-        fill: black;
+    .container {
+        display: flex;
+    }
+    .footer-brand {
+        align-self: center;
+        display: flex;
+        svg {
+            height: 20px;
+            margin-right: 5px;
+        }
     }
     ul {
         display: flex;
+        margin-left: auto;
+        li {
+            display: flex;
+            align-self: center;
+            align-content: center;
+            padding: 25px 15px 25px;
+            svg {
+                height: 24px;
+                width: auto;
+            }
+        }
     }
 }
 
