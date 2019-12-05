@@ -156,42 +156,13 @@ module.exports = (core) => {
         return platform;
     });
 
-<<<<<<< HEAD
-    core.editPlatform('dashboard_berkelland_provider', (platform) => {
-        platform.setEnvData({
-            api_url: api_url,
-            client_key: 'berkelland',
-            panel_type: 'provider',
-            chat_id: false
-        });
-
-        return platform;
-    });
-
-    core.editPlatform('dashboard_berkelland_sponsor', (platform) => {
-        platform.setEnvData({
-            api_url: api_url,
-            client_key: 'berkelland',
-            panel_type: 'sponsor',
-            chat_id: false
-        });
-
-        return platform;
-    });
-
-=======
->>>>>>> origin/develop
     core.editPlatform('dashboard_oostgelre_provider', (platform) => {
         platform.setEnvData({
             api_url: api_url,
             client_key: 'oostgelre',
             panel_type: 'provider',
-<<<<<<< HEAD
-            chat_id: false
-=======
             chat_id: false,
             hide_voucher_generators: false
->>>>>>> origin/develop
         });
 
         return platform;
@@ -202,12 +173,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'oostgelre',
             panel_type: 'sponsor',
-<<<<<<< HEAD
-            chat_id: false
-=======
             chat_id: false,
             hide_voucher_generators: false
->>>>>>> origin/develop
         });
 
         return platform;
@@ -218,12 +185,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'winterswijk',
             panel_type: 'provider',
-<<<<<<< HEAD
-            chat_id: false
-=======
             chat_id: false,
             hide_voucher_generators: false
->>>>>>> origin/develop
         });
 
         return platform;
@@ -234,12 +197,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'winterswijk',
             panel_type: 'sponsor',
-<<<<<<< HEAD
-            chat_id: false
-=======
             chat_id: false,
             hide_voucher_generators: false
->>>>>>> origin/develop
         });
 
         return platform;
@@ -250,12 +209,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'kerstpakket',
             panel_type: 'provider',
-<<<<<<< HEAD
-            chat_id: false
-=======
             chat_id: false,
             hide_voucher_generators: false
->>>>>>> origin/develop
         });
 
         return platform;
@@ -266,12 +221,8 @@ module.exports = (core) => {
             api_url: api_url,
             client_key: 'kerstpakket',
             panel_type: 'sponsor',
-<<<<<<< HEAD
-            chat_id: false
-=======
             chat_id: false,
             hide_voucher_generators: false
->>>>>>> origin/develop
         });
 
         return platform;
@@ -387,16 +338,6 @@ module.exports = (core) => {
     });
 
     //- Enable only given platforms
-<<<<<<< HEAD
-    core.enableOnly([
-        'website'
-    ]);
-
-    //- Enable all but given platforms
-    /* core.disableOnly([
-        
-    ]); */
-=======
     /* core.enableOnly([
 
     ]); */
@@ -406,7 +347,6 @@ module.exports = (core) => {
         'dashboard_markup',
         'webshop_markup'
     ]);
->>>>>>> origin/develop
 
     return core;
 };
