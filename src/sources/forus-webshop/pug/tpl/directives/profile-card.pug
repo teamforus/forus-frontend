@@ -1,19 +1,4 @@
 .profile-aside
-    .profile-card(ng-if="appConfigs.features.identity.address")
-        .profile-qr_code#profile_qr
-        .profile-details
-            .profile-heading {{ "profile_card.header.title" | translate }}
-            .profile-description {{ "profile_card.header.subtitle" | translate }}
-        .profile-address
-            .profile-address-label {{ "profile_card.labels.address" | translate }}
-            .profile-address-value#identity_address(ng-bind="$root.auth_user.address")
-        .profile-actions
-            div(ng-click="copyAddress()").profile-action 
-                em.mdi.mdi-content-copy 
-                | {{ "profile_card.buttons.copy" | translate }}
-            a(href="#").profile-action 
-                em.mdi.mdi-share-variant 
-                | {{ "profile_card.buttons.share" | translate }}
     .profile-menu(ng-if="appConfigs.features.records.list")
         a(ui-sref="vouchers" ui-sref-active="active").profile-menu-item 
             | {{ "profile_card.buttons.vouchers" | translate }}

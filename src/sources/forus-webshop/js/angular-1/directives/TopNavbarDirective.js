@@ -22,6 +22,10 @@ let TopNavbarDirective = function(
         ModalService.open('modalAuthCode', {});
     };
 
+    $scope.showPopupOffices = function() {
+        ModalService.open('modalOffices', {});
+    };
+
     $scope.cfg = {
         logoExtension: ConfigService.getFlag('logoExtension'),
     };

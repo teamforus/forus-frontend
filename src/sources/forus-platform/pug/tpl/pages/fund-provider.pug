@@ -112,3 +112,15 @@
                 tr(ng-repeat="office in $ctrl.offices.data")
                     td(ng-bind="office.address || 'n/a'" ng-class="{'text-muted': !office.address}")
                     td(ng-bind="office.phone || 'n/a'" ng-class="{'text-muted': !office.phone}").text-right
+
+        //- Employees
+        .card
+            .card-section.card-section-narrow
+                .entity-details: .entity-title Medewerkers
+            
+            .card-section.card-section-padless: .table-wrapper: table.table
+                tr
+                    th E-Mailadres
+                
+                tr(ng-repeat="validator in $ctrl.fundProvider.validators")
+                    td(ng-bind="validator.email")         
