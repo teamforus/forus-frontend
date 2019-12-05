@@ -30,6 +30,9 @@ core.addPlatform(require('./platforms/Dashboards/DashboardOostGelreProviderPlatf
 core.addPlatform(require('./platforms/Dashboards/DashboardWinterswijkSponsorPlatform'));
 core.addPlatform(require('./platforms/Dashboards/DashboardWinterswijkProviderPlatform'));
 
+core.addPlatform(require('./platforms/Dashboards/DashboardNoordoostpolderSponsorPlatform'));
+core.addPlatform(require('./platforms/Dashboards/DashboardNoordoostpolderProviderPlatform'));
+
 // Register webshops
 core.addPlatform(require('./platforms/Webshops/WebshopGeneralPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopZuidhornPlatform'));
@@ -39,6 +42,7 @@ core.addPlatform(require('./platforms/Webshops/WebshopWesterkwartierPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopBerkellandPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopOostGelrePlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopWinterswijkPlatform'));
+core.addPlatform(require('./platforms/Webshops/WebshopNoordoostpolderPlatform'));
 
 // Register meapp landings
 core.addPlatform(require('./platforms/Website/Website'));

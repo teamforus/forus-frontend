@@ -28,12 +28,15 @@ let HomeComponent = function(
         return ModalService.open('modalOpenInMe', {});
     };
 
-    if(AuthService.hasCredentials()) {
-        VoucherService.list().then(res => {
-            $ctrl.vouchers = res.data.data; });
+    $ctrl.$onInit = function() {
+        if(AuthService.hasCredentials()) {
+            VoucherService.list().then(res => {
+                $ctrl.vouchers = res.data.data; 
+            });
         } else {
             $ctrl.vouchers = [];
         }
+    };
 };
 
 module.exports = {
@@ -50,7 +53,6 @@ module.exports = {
         'ModalService',
         'AuthService',
         'VoucherService',
-        'IdentityService',
         HomeComponent,
     ],
     templateUrl: 'assets/tpl/pages/home.html'

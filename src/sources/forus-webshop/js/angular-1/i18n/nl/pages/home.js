@@ -19,7 +19,12 @@ module.exports = {
             title_multi: "Kindregeling gemeente Winterswijk",
             subtitle_multi: "Welkom op de website van de Kindregeling van de gemeente Winterswijk. Heeft u via de Sociale Dienst Oost Achterhoek een toekenning voor de Kindregeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
             cta: "Klik op ‘Start’ en vul uw activatiecode in. Deze code staat in de brief over de Kindregeling die u heeft ontvangen.",
-        },        
+        },
+        noordoostpolder: {
+            title: "Meedoenpakket gemeente Noordoostpolder",
+            subtitle: "Welkom op de website van de Kindregeling van de gemeente Noordoostpolder. Heeft u via de gemeente een toekenning voor de Kindregeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden." +
+                "Klik op ‘Start’ en vul uw activatiecode in. Deze code staat in de brief over de Kindregeling die u heeft ontvangen.",
+        },         
         cta: "Klik op start en vul uw activatiecode in. Deze code staat in de brief over {{fund}} die u heeft ontvangen",
         cta_multi: "Klik op start en vul uw activatiecode in. Deze code staat in de brief die u heeft ontvangen",
         auth_cta: "Beheer uw vouchers en neem ze overal mee door de Me-app te downloaden.",

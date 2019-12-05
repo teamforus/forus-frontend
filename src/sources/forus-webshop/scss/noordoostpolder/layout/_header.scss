@@ -1,0 +1,49 @@
+.section {
+    &.section-header {
+        @media screen and (min-width: 1024px) {
+            background-size: cover;
+            background-position: center center;
+            height: 60vh;
+            .header-content {
+                max-width: 650px;
+                left: 0;
+                right: 0;
+                margin: 0 auto;
+                margin-left: auto;
+                margin-right: auto;
+                color: $tc;
+                text-align: center;
+                .header-title {
+                    text-align: center;
+                    font: 700 40px/1.5em $bf;
+                }
+                .header-description {
+                    text-align: center;
+                    p {
+                        font: 400 18px/1.5em $bf;
+                    }
+                }
+                .button {
+                    text-decoration: none;
+                    &:hover {
+                        background-color: #fff;
+                        color: $bc;
+                    }
+                }
+                .header-how-it-works {
+                    display: block;
+                    padding-top: 10px;
+                    color: $tc;
+                    font-style: normal;
+
+                    &:hover {
+                        color: #f5ffc4;
+                    }
+                }
+                .button {
+                    background-color: $bg;
+                }
+            }
+        }
+    }
+}

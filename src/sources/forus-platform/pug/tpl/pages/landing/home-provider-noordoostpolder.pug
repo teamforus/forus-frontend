@@ -1,0 +1,36 @@
+landing-navbar(template="navbar-noordoostpolder")
+header.section.section-header
+    .wrapper
+        .header-content
+            .header-title {{ "home_provider.header.title_noordoostpolder" | translate }}
+            .header-description {{ "home_provider.header.subtitle_noordoostpolder" | translate }}
+section.section.section-flow: .wrapper
+    .section-title {{ "home_provider.guide.title_noordoostpolder" | translate }}
+    .section-description(translate="home_provider.guide.description_noordoostpolder")
+    //- img(src="./assets/img/landing/forus-flow-provider.png").section-scheme
+    .block.block-show-more: a(href="../provider/#!/sign-up").button.button-primary {{ "home_provider.guide.button_noordoostpolder" | translate }}
+
+section.section.section-faq: .wrapper
+    .section-title Veel gestelde vragen
+    .faq(collapse)
+        mixin faq_item(title, content, active)
+            .faq-item(class=active?'active':'' collapse-item)
+                .faq-item-header(collapse-header)
+                    | #{title}
+                    .faq-item-chevron-down.mdi.mdi-chevron-down
+                    .faq-item-chevron-up.mdi.mdi-chevron-up
+                .faq-item-content(collapse-content)=content
+
+        +faq_item(
+            "Wat zijn de technische vereisten om mee te doen?",
+            "Een smartphone op de locatie van uw organisatie. Android verreist: 4.3 en hoger. iOS vereist: 10.0 en hoger. Een computer met een willekeurige internet browser. Internet Explorer: 10 of hoger")
+
+        +faq_item(
+            "Hoe gaat het met uitbetalen?",
+            "Scan de QR-code van de inwoner. Vul vervolgens het bedrag van de betaling in en eventueel een omschrijving. Tot slot, bevestig de betaling in de app. Het geld wordt binnen drie werkdagen op de rekening bijgeschreven.")
+
+        +faq_item(
+            "Hoe kan ik mijn transacties in zien?",
+            "Naast de mobiele applicatie kunt u ook gebruik maken van de gebruikersomgeving voor organisaties. Hier kunt u het profiel van de organisatie beheren, transacties bijhouden en aanbiedingen op de webshop plaatsen. Het gebruik maken van de gebruikersomgeving is optioneel.")
+
+include includes/noordoostpolder/footer.pug

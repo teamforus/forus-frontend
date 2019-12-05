@@ -1,0 +1,42 @@
+.button {
+    &:hover {
+        box-shadow: none;
+    }
+    font: 700 16px/1.5em $bf;
+    border-radius: 0;
+    text-transform: uppercase;
+    &.button-default {
+        background-color: none;
+        border: none;
+        color: #EF3900;
+
+        .mdi {
+            color: #EF3900;
+        }
+
+        &:hover {
+            background-color: transparent;
+            border-color: transparent;
+            border: 0;
+            color: #535252;
+            text-decoration: underline;
+
+            .mdi {
+                color: $tc-var;
+            }
+        }
+    }
+    &.button-primary {
+        color: $tc;
+        background: $bg;
+        text-shadow: none;
+        border: 1px solid $bc;
+        &:hover {
+            color: $bc;
+            text-decoration: underline;
+            background: #fff;
+            background-color: #fff;
+            border: 0;
+        }
+    }
+}
