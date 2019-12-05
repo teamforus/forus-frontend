@@ -132,7 +132,7 @@ $tc-var:  #595959;
 
         .block-show-more {
             .button {
-                background: #186DCB;
+                background: $bc;
                 box-shadow: 0px 9px 15px rgba(0, 0, 0, 0.1);
                 color: #fff;
                 font: 600 16px/18px $bf;
@@ -153,9 +153,22 @@ $tc-var:  #595959;
         top: 0;
         left: 0;
         background: url(../img/landing/splash-top-noordoostpolder.png) no-repeat 100% 0;
-        background-size: cover;
-        background-position: center center;
+        background-size: contain;
+        background-position: right top;
+        background-color: #95C11F;
         margin: 0;
+
+        &:before {
+            position: absolute;
+            left:0;
+            bottom: 0;
+            width: 430px;
+            height: 100%;
+            background-image: url("../img/landing/left_leaf-noordoostpolder.png");
+            background-repeat: no-repeat;
+            z-index: 2;
+            content: " ";
+        }
 
         .wrapper {
             width: 100%;
@@ -172,6 +185,7 @@ $tc-var:  #595959;
                 padding-left: 1vw;
                 color: #fff;
                 min-height: 450px;
+                z-index: 20;
 
                 .header-title {
                     font: 700 2vw $bf;

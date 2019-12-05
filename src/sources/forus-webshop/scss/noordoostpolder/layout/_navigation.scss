@@ -35,8 +35,9 @@
             .navbar-item-wrapper {
                 .navbar-item {
                     font-size: 1em;
+
                     &:hover {
-                        color: $tc-var;
+                        color: $color_default;
 
                         &:before {
                             background-color: $color_default;
@@ -45,8 +46,6 @@
                     }
 
                     &.active {
-                        color: $tc-var;
-
                         &:before {
                             background-color: $color_default;
                             opacity: 1;
@@ -74,7 +73,7 @@
                     }
 
                     .auth-user-email {
-                        color: $color_default_light;
+                        color: $color_primary;
                     }
 
                     .auth-user-avatar {

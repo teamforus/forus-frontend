@@ -5,29 +5,29 @@
     font: 700 16px/1.5em $bf;
     border-radius: 0;
     text-transform: uppercase;
+
     &.button-default {
         background-color: none;
         border: none;
-        color: #EF3900;
+        color: $bc;
 
         .mdi {
-            color: #EF3900;
+            color: $bc;
         }
 
         &:hover {
+            .mdi {
+                color: $color_default;
+            }
+
             background-color: transparent;
             border-color: transparent;
             border: 0;
-            color: #535252;
+            color: $color_default;
             text-decoration: underline;
-
-            .mdi {
-                color: $tc-var;
-            }
         }
     }
     &.button-primary {
-        color: $tc;
         background: $bg;
         text-shadow: none;
         border: 1px solid $bc;

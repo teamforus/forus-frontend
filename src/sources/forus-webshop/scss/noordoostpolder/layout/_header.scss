@@ -1,9 +1,24 @@
 .section {
     &.section-header {
         @media screen and (min-width: 1024px) {
-            background-size: cover;
-            background-position: center center;
-            height: 60vh;
+            height: 57vh;
+            background: $bg-values;
+            background-size: contain;
+            background-position: right top;
+            background-color: #95C11F;
+
+            &:before {
+                position: absolute;
+                left:0;
+                bottom: 0;
+                width: 430px;
+                height: 100%;
+                background-image: url("../img/left_leaf.png");
+                background-repeat: no-repeat;
+                z-index: 1;
+                content: " ";
+            }
+
             .header-content {
                 max-width: 650px;
                 left: 0;
@@ -11,8 +26,10 @@
                 margin: 0 auto;
                 margin-left: auto;
                 margin-right: auto;
-                color: $tc;
+                color: $tc-var;
                 text-align: center;
+                z-index: 2;
+                
                 .header-title {
                     text-align: center;
                     font: 700 40px/1.5em $bf;
@@ -33,7 +50,7 @@
                 .header-how-it-works {
                     display: block;
                     padding-top: 10px;
-                    color: $tc;
+                    color: $tc-var;
                     font-style: normal;
 
                     &:hover {

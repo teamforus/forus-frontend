@@ -19,18 +19,11 @@
         .footer-label {
             color: $bc;
         }
-        
-        .footer-schedule {
-            .schedule-label,
-            .schedule-value {
-                color: $tc-var;
-            }
-        }
 
         .footer-nav {
             .footer-nav-item {
                 a {
-                    color: $tc-var;
+                    color: $tc;
 
                     &:hover {
                         color: #b9ca2f;
@@ -48,7 +41,7 @@
 
         .links {
             a {
-                color: $tc-var;
+                color: $tc;
 
                 &:hover {
                     color: #b9ca2f;

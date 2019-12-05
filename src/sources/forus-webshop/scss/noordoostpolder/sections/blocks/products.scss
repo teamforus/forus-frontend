@@ -6,20 +6,20 @@
                 border-top-right-radius: 10px;
                 border-top-left-radius: 10px;            
                 .product-name {
-                    color:#8b9911
+                    color:$color_default
                 }
                 .product-image {
                     border-radius: 0px;
                 }
                 &:hover {
                     .product-name {
-                        color: #91b845;
+                        color: $color_default_light;
                     }
                 }
             }
 
             .product-discount {
-                color: #de286b;
+                color: $color_primary;
             }
         }
     }
@@ -35,7 +35,7 @@ products-component {
         @media screen and (max-width: 1700px) {
             &.section-products {
                 .section-title {
-                    color: $tc;
+                    color: $tc-var;
                     font: 700 32px/1.5em $bf;
                 }
             }
