@@ -1,8 +1,10 @@
 require('./modules/select-control/SelectControlModule');
+require('./modules/page-loading-bar/PageLoadingBarModule');
 
 let app = angular.module('forusApp', [
     'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 
-    'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize',
+    'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize', 
+    'forus.pageLoadingBarModule',
 ]);
 
 app.constant('appConfigs', env_data);

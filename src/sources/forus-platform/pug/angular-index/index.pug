@@ -4,6 +4,7 @@ html(ng-controller="BaseController" ng-cloak)
 
     body(ng-class="$root.viewLayout == 'signup' ? 'signup-layout' : ''" modal-scroll-braker printable-enabler)
         printables-root
+        page-loading-bar
         
         div(ng-class="$root.viewLayout == 'landing' ? 'landing-root' : ''")
             .ie-hide: div(ng-if="$root.viewLayout != 'landing'"): include ../layout/includes/header
