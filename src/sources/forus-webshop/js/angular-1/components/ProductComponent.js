@@ -21,10 +21,10 @@ let ProductComponent = function (
 
     $ctrl.$onInit = function() {
         let fundIds = $ctrl.product.funds.map(fund => fund.id);
-        vouchers = $ctrl.vouchers.filter(function(voucher) {
+        vouchers = $ctrl.vouchers.filter(voucher => {
             return (fundIds.indexOf(voucher.fund_id) != -1) && (
                 parseFloat($ctrl.product.price) <= parseFloat(voucher.amount)
-            ) && !voucher.parent;
+            ) && !voucher.parent && moment().isBefore(voucher.expire_at_locale);
         });
 
         $ctrl.fundNames = $ctrl.product.funds.map(fund => fund.name).join(', ');

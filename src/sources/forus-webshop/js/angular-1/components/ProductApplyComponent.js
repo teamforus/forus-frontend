@@ -10,10 +10,10 @@ let ProductApplyComponent = function(
     $ctrl.$onInit = function() {
         let fundIds = $ctrl.product.funds.map(fund => fund.id);
 
-        $ctrl.applicableVouchers = $ctrl.vouchers.filter(function(voucher) {
+        $ctrl.applicableVouchers = $ctrl.vouchers.filter(voucher => {
             return (fundIds.indexOf(voucher.fund_id) != -1) && (
                 parseFloat($ctrl.product.price) <= parseFloat(voucher.amount)
-            ) && !voucher.parent;
+            ) && !voucher.parent && moment().isBefore(voucher.expire_at_locale);
         });
 
         $ctrl.isApplicable = $ctrl.applicableVouchers.length > 0;
