@@ -4,12 +4,20 @@ header.app.app-header
             img(ng-src="./assets/img/logo.png").header-logo-img
 
         .header-auth(ng-if="$root.auth_user")
-            .auth-user
-                .auth-user-name {{ $root.auth_user.primary_email }}
-                .auth-user-role(
-                    ng-bind="{provider: 'Aanbieder', sponsor: 'Sponsor', validator: 'Validator'}[appConfigs.panel_type]")
+            .auth-user(ng-click="$ctrl.openUserMenu($event)")
+                .auth-user-details
+                    .auth-user-name {{ $root.auth_user.primary_email }}
+                    .auth-user-role(
+                        ng-bind="{provider: 'Aanbieder', sponsor: 'Sponsor', validator: 'Validator'}[appConfigs.panel_type]")
+                
                 img(ng-src="{{ $root.activeOrganization ? ($root.activeOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png') : './assets/img/placeholders/organization-thumbnail.png'}} ").auth-user-img
-                .auth-user-menu
+                                
+                .auth-user-caret    
+                    em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
+                
+                .auth-user-menu(
+                    ng-if="$ctrl.userMenuOpened"
+                    click-outside="$ctrl.hideUserMenu()")
                     //- a(href="#").auth-user-menu-item
                         em.mdi.mdi-account
                         | My profile
@@ -29,9 +37,6 @@ header.app.app-header
                     a(ng-click="$root.signOut()").auth-user-menu-item
                         em.mdi.mdi-logout
                         | Uitloggen
-
-            .caret    
-                em.mdi.mdi-chevron-down 
 
         //- .notifications(ng-if="$root.auth_user")
             .notifications-icon.mdi.mdi-bell
