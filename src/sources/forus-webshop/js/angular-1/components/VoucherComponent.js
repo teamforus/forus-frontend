@@ -12,6 +12,7 @@ let VoucherComponent = function(
         $ctrl.qrValue = $ctrl.voucher.address;
         $ctrl.voucherCard = VoucherService.composeCardData($ctrl.voucher);
         $ctrl.qrCodeValue = $ctrl.voucher.address;
+        $ctrl.voucherCanUse = moment().isBefore($ctrl.voucher.expire_at_locale);
 
         $ctrl.deleteVoucher = function(voucher) {
 
