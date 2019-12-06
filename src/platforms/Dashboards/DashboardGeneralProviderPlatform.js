@@ -4,13 +4,8 @@ const destPath = '../dist/forus-platform.provider.general';
 // change platform name
 platform.setName('dashboard_general_provider');
 
-// tweaking output and cleaned paths config
-platform.setDest(`${destPath}`);
-platform.setAssetsPath(`${destPath}/assets`);
-platform.setCleanPath([
-    `${destPath}`,
-    `${destPath}/assets`
-]);
+// change building root path
+platform.setDestRootPath(destPath);
 
 // assets configs
 platform.copyAsset("resources/_platform-common/**/*", "./");

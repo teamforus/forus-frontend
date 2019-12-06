@@ -73,6 +73,16 @@ module.exports = [
                     return params;
                 });
             };
+
+            this.sampleCSV = (voucher_type) => {
+                let fields = ['amount', 'expires_at', 'note', 'email'];
+
+                if (voucher_type == 'product_voucher') {
+                    fields.splice(1, 0, 'product_id');
+                }
+
+                return Papa.unparse([fields]);
+            };
         });
     }
 ];

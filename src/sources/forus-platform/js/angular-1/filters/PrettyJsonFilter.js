@@ -1,5 +1,5 @@
-module.exports = function() {
-    return function(_in) {
-        return JSON.stringify(_in, null, '    ');
-    }
+let PrettyJsonFilter = function(_in) {
+    return JSON.stringify(_in, null, '    ');
 };
+
+module.exports = [PrettyJsonFilter];

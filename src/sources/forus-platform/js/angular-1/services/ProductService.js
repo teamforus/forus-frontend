@@ -2,14 +2,14 @@ let ProductService = function(ApiRequest) {
     let uriPrefix = '/platform/organizations/';
 
     return new(function() {
-        this.list = function(organization_id, query) {
+        this.list = function(organization_id, query = {}) {
             return ApiRequest.get(
                 uriPrefix + organization_id + '/products', query
             );
         };
 
         this.listAll = function(query = {}) {
-            return ApiRequest.get('/platform/products', query);
+            return ApiRequest.get('/platform/products', query = {});
         };
 
         this.store = function(organization_id, values) {

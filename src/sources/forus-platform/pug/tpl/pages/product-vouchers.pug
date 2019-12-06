@@ -16,7 +16,7 @@
                 ui-sref="product-vouchers({fund_id: null, organization_id: $ctrl.organization.id})").organization-item
                 .organization-item-inner
                     .organization-logo.organization-logo-mdi: .mdi.mdi-chevron-up
-                    .organization-name(ng-bind="'csv_validation.buttons.choose' | translate")
+                    .organization-name(translate="csv_validation.buttons.choose")
 
         .card(ng-if="$ctrl.vouchers")
             .card-header: .row
@@ -31,6 +31,9 @@
                     .button.button-primary(ng-click="$ctrl.uploadProductVouchersCsv()")
                         em.mdi.mdi-upload.icon-start
                         span(i18n="product_vouchers.buttons.upload_csv")
+                    .button.button-primary(ng-click="$ctrl.downloadExampleCsv()")
+                        em.mdi.mdi-download.icon-start
+                        span(i18n="product_vouchers.buttons.download_csv")
                     .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                         em.mdi.mdi-close.icon-start
                         span(i18n="product_vouchers.buttons.clear_filter")

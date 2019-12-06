@@ -1,3 +1,5 @@
-module.exports = ['ApiRequestProvider', 'appConfigs', function(ApiRequestProvider, appConfigs) {
+module.exports = ['ApiRequestProvider', 'appConfigs', (
+    ApiRequestProvider, appConfigs
+) => {
     ApiRequestProvider.setHost(appConfigs.api_url);
 }];
