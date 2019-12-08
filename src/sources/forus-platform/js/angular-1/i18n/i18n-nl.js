@@ -557,11 +557,11 @@ module.exports = {
         },
         filters: {
             labels: {
-                organizations: 'Organizations',
+                organizations: 'Organisaties',
                 tags: 'Labels'
             },
             options: {
-                all_organizations: 'Alle organizations',
+                all_organizations: 'Alle organisaties',
                 all_labels: 'Alle labels'
             }
         },
