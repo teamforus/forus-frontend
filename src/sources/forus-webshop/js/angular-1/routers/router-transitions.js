@@ -1,7 +1,17 @@
-module.exports = ['$transitions', '$filter', '$rootScope', 'appConfigs', (
-    $transitions, $filter, $rootScope, appConfigs
+module.exports = ['$transitions', '$filter', '$rootScope', 'appConfigs', 'PageLoadingBarService', (
+    $transitions, $filter, $rootScope, appConfigs, PageLoadingBarService
 ) => {
+    $transitions.onStart({}, function() {
+        PageLoadingBarService.setProgress(0);
+    });
+
+    $transitions.onError({}, function() {
+        PageLoadingBarService.setProgress(100);
+    });
+
     $transitions.onSuccess({}, function(transition) {
+        PageLoadingBarService.setProgress(100);
+
         let $i18n = $filter('i18n');
         let $translate = $filter('translate');
 
