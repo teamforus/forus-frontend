@@ -125,26 +125,26 @@
                     grid-template-rows: 10px;
                     grid-gap:10px;
                     padding-left: 20px;
-                    
 
-                    .auth-user-email {
-                        color: #e4b3be;
-                        line-height: 25px;
-                        display: block;
-                    }
-                    .mdi-settings {
-                        margin-top:10px;
-                    }
-                    .mdi-settings:before {
-                        content: "\F493";
-                        font-size: 26px;
-                        color: #fff;
-                    }
-                    
-                    .auth-user-type {
-                        color: #fff;
-                        line-height: 15px;
-                        display: block;
+                    .auth-user-details {
+                        .auth-user-email {
+                            color: #fff;
+                            line-height: 25px;
+                            display: block;
+                        }
+                        .mdi-settings {
+                            margin-top:10px;
+                        }
+                        .mdi-settings:before {
+                            content: "\F493";
+                            font-size: 26px;
+                            color: #fff;
+                        }
+                        
+                        .auth-user-type {
+                            line-height: 15px;
+                            display: block;
+                        }
                     }
 
                     .auth-user-avatar {
@@ -155,6 +155,10 @@
                             border: 2px solid #c34367;
                             border-radius: 50%;
                         }
+                    }
+
+                    .auth-user-caret {
+                        color: #fff;
                     }
 
                     .auth-user-menu {
