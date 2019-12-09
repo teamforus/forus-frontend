@@ -103,7 +103,7 @@ module.exports = {
                 subtitle: "Dit is het start scherm om uzelf aan te melden op het aanbieders dashboard.",
             },
             noordoostpolder: {
-                title: "Meld uw organisatie aan voor de Kindregeling",
+                title: "Meld uw organisatie aan voor het Meedoenpakket",
                 subtitle: "250,- per kind aan gezinnen met een laag inkomen.",
             }
         },

@@ -34,19 +34,14 @@
                     text-align: center;
                     font: 700 40px/1.5em $bf;
                 }
+                
                 .header-description {
                     text-align: center;
                     p {
                         font: 400 18px/1.5em $bf;
                     }
                 }
-                .button {
-                    text-decoration: none;
-                    &:hover {
-                        background-color: #fff;
-                        color: $bc;
-                    }
-                }
+
                 .header-how-it-works {
                     display: block;
                     padding-top: 10px;
@@ -58,7 +53,10 @@
                     }
                 }
                 .button {
-                    background-color: $bg;
+                    &:hover {
+                        background-color: #fff;
+                        color: $bc;
+                    }
                 }
             }
         }
