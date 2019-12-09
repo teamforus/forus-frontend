@@ -42,8 +42,8 @@ let FundRequestComponent = function(
     };
 
     $ctrl.startDigId = () => {
-        DigIdService.start($ctrl.fund.id).then(res => {
-            document.location = DigIdService.getRedirecturl(res.data.session_uid);
+        DigIdService.startFundRequst($ctrl.fund.id).then(res => {
+            document.location = res.data.redirect_url;
         }, console.error);
     };
 
@@ -416,7 +416,7 @@ let FundRequestComponent = function(
                         "Error error",
                     );
                     $ctrl.cleanReload();
-                }else if ($stateParams.digid_error == 'uid_used') {
+                } else if ($stateParams.digid_error == 'uid_used') {
                     PushNotificationsService.danger(
                         "BSN number used",
                         "The BSN number returned by DigID was already claimend by another identity."
@@ -440,7 +440,7 @@ let FundRequestComponent = function(
                         "Error code " + $stateParams.digid_error + " encountered."
                     );
                     // $ctrl.cleanReload();
-                }  else {
+                } else {
                     FundRequestService.index($ctrl.fund.id).then((res) => {
                         if (res.data.data.length > 0) {
                             alert('You already requested this fund');

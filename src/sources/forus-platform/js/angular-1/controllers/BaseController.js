@@ -1,4 +1,5 @@
 let BaseController = function(
+    $q,
     $rootScope,
     $scope,
     $state,
@@ -32,6 +33,8 @@ let BaseController = function(
     };
 
     $rootScope.loadAuthUser = function() {
+        let deferred = $q.defer();
+        
         AuthService.identity().then((res) => {
             let auth_user = res.data;
 
@@ -53,8 +56,10 @@ let BaseController = function(
                 });
             });
 
-            $rootScope.auth_user = auth_user;
-        });
+            deferred.resolve($rootScope.auth_user = auth_user);
+        }, deferred.reject);
+
+        return deferred.promise;
     };
 
     let loadActiveOrganization = () => {
@@ -122,6 +127,7 @@ let BaseController = function(
 };
 
 module.exports = [
+    '$q',
     '$rootScope',
     '$scope',
     '$state',

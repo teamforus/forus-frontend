@@ -1,11 +1,12 @@
 let HomeComponent = function(
     $scope,
+    $state,
     $stateParams,
     ModalService,
     AuthService,
     VoucherService,
+    PushNotificationsService
 ) {
-
     let $ctrl = this;
 
     $ctrl.showPopupOffices = function() {
@@ -16,11 +17,11 @@ let HomeComponent = function(
         ModalService.open('modalActivateCode', {});
     }
 
-    $scope.openAuthCodePopup = function () {
+    $scope.openAuthCodePopup = function() {
         ModalService.open('modalAuthCode', {});
     };
 
-    $scope.openActivateCodePopup = function () {
+    $scope.openActivateCodePopup = function() {
         ModalService.open('modalActivateCode', {});
     };
 
@@ -28,12 +29,37 @@ let HomeComponent = function(
         return ModalService.open('modalOpenInMe', {});
     };
 
-    if(AuthService.hasCredentials()) {
+    if (AuthService.hasCredentials()) {
         VoucherService.list().then(res => {
-            $ctrl.vouchers = res.data.data; });
-        } else {
-            $ctrl.vouchers = [];
+            $ctrl.vouchers = res.data.data;
+        });
+    } else {
+        $ctrl.vouchers = [];
+    }
+
+    $ctrl.cleanReload = () => {
+        $state.go($state.current.name, {
+            digid_success: null,
+            digid_error: null,
+        });
+    };
+
+    $ctrl.$onInit = () => {
+        if ($stateParams.digid_error == 'uid_not_found') {
+            PushNotificationsService.danger(
+                "Unknown BSN number.",
+            );
+
+            $ctrl.cleanReload();
+        } else if ($stateParams.digid_error != null) {
+            PushNotificationsService.danger(
+                "Something went wrong",
+                "Could not login by DigiD, unknown issue occurred.",
+            );
+
+            $ctrl.cleanReload();
         }
+    };
 };
 
 module.exports = {
@@ -46,11 +72,12 @@ module.exports = {
     },
     controller: [
         '$scope',
+        '$state',
         '$stateParams',
         'ModalService',
         'AuthService',
         'VoucherService',
-        'IdentityService',
+        'PushNotificationsService',
         HomeComponent,
     ],
     templateUrl: 'assets/tpl/pages/home.html'

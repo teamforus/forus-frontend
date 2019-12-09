@@ -1,8 +1,10 @@
 let HomeComponent = function(
     $state,
-    CredentialsService,
+    $stateParams,
+    ModalService,
     IdentityService,
-    ModalService
+    CredentialsService,
+    PushNotificationsService
 ) {
     let $ctrl = this;
     let qrCodeEl = document.getElementById('qrcode');
@@ -22,14 +24,36 @@ let HomeComponent = function(
         $ctrl.showModal = false;
         qrCodeEl.innerHTML = '';
     };
+
+    $ctrl.cleanReload = () => {
+        $state.go($state.current.name, {
+            digid_success: null,
+            digid_error: null,
+        });
+    };
+
+    $ctrl.$onInit = () => {
+        if ($stateParams.digid_error == 'uid_not_found') {
+            PushNotificationsService.danger(
+                "Unknown BSN number.",
+            ) & $ctrl.cleanReload();
+        } else if ($stateParams.digid_error != null) {
+            PushNotificationsService.danger(
+                "Something went wrong",
+                "Could not login by DigiD, unknown issue occurred.",
+            ) & $ctrl.cleanReload();
+        }
+    };
 };
 
 module.exports = {
     controller: [
         '$state',
-        'CredentialsService',
-        'IdentityService',
+        '$stateParams',
         'ModalService',
+        'IdentityService',
+        'CredentialsService',
+        'PushNotificationsService',
         HomeComponent
     ],
     templateUrl: ['appConfigs', (appConfigs) => {

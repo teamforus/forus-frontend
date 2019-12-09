@@ -27,13 +27,13 @@ let handleAuthTarget = ($state, target) => {
 module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider, $locationProvider, appConfigs
 ) {
-
     $stateProvider.state({
         name: "home",
-        url: "/",
+        url: "/?digid_error",
         component: "homeComponent",
         params: {
-            confirmed: null
+            confirmed: null,
+            digid_error: null
         },
         resolve: {
             funds: ['FundService', (
@@ -377,18 +377,20 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         data: {
             token: null
         },
-        controller: ['$state', '$rootScope', 'IdentityService', 'CredentialsService', (
-            $state, $rootScope, IdentityService, CredentialsService
+        controller: ['$state', '$rootScope', '$timeout', 'IdentityService', 'CredentialsService', (
+            $state, $rootScope, $timeout, IdentityService, CredentialsService
         ) => {
             IdentityService.exchangeShortToken(
                 $state.params.token
             ).then(res => {
                 CredentialsService.set(res.data.access_token);
-                $rootScope.loadAuthUser();
-                $state.go('home');
+                $rootScope.loadAuthUser().then(() => {
+                    $state.go('home');
+                });
             }, () => {
-                alert("Deze link is reeds gebruikt of ongeldig.");
-                $state.go('home');
+                PushNotificationsService.danger(
+                    "Deze link is reeds gebruikt of ongeldig."
+                ) & $state.go('home');
             });
         }]
     });
