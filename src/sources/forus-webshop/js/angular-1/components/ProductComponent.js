@@ -24,7 +24,7 @@ let ProductComponent = function (
         vouchers = $ctrl.vouchers.filter(voucher => {
             return (fundIds.indexOf(voucher.fund_id) != -1) && (
                 parseFloat($ctrl.product.price) <= parseFloat(voucher.amount)
-            ) && !voucher.parent && moment().isBefore(voucher.expire_at_locale);
+            ) && !voucher.parent && !voucher.expired;
         });
 
         $ctrl.fundNames = $ctrl.product.funds.map(fund => fund.name).join(', ');
