@@ -4,7 +4,8 @@ let VouchersComponent = function(
     FileService,
     DateService,
     ModalService,
-    VoucherService
+    VoucherService,
+    PushNotificationsService
 ) {
     let $ctrl = this;
 
@@ -101,6 +102,14 @@ let VouchersComponent = function(
                 res.data,
                 res.headers('Content-Type') + ';charset=utf-8;'
             );
+        }, res => {
+            res.data.text().then((data) => {
+                data = JSON.parse(data);
+
+                if (data.message) {
+                    PushNotificationsService.danger(data.message);
+                }
+            });
         });
     };
 
@@ -167,6 +176,7 @@ module.exports = {
         'DateService',
         'ModalService',
         'VoucherService',
+        'PushNotificationsService',
         VouchersComponent
     ],
     templateUrl: 'assets/tpl/pages/vouchers.html'
