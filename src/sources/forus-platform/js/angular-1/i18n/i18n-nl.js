@@ -641,6 +641,7 @@ module.exports = {
             from: "Vanaf",
             to: "Tot",
             state: "Status",
+            fund_state: "Status fonds",
             amount: "Bedrag",
             amount_min: "0",
             amount_max: "Alles"
