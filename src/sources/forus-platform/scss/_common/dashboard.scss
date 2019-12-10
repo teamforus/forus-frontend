@@ -232,44 +232,67 @@ $colorPrimaryLight: $color_primary_light;
             float: right;
             position: relative;
             z-index: 1;
+            display: flex;
 
             .auth-user {
                 position: relative;
-                padding-right: 60px;
                 padding-top: 5px;
                 padding-bottom: 15px;
                 margin-bottom: -10px;
                 @include cf();
-                cursor: default;
+                display: flex;
+                flex-direction: row;
+                cursor: pointer;
+                
+                .auth-user-details {
+                    display: flex;
+                    flex-direction: column;
+                    padding-right: 10px;
 
-                .auth-user-name {
-                    font: 500 14px/20px $bf;
-                    color: #151b26;
-                    text-align: right;
+                    .auth-user-name {
+                        font: 500 14px/20px $bf;
+                        color: #151b26;
+                        text-align: right;
+                    }
+    
+                    .auth-user-role {
+                        font: 400 12px/20px $bf;
+                        color: #151b26;
+                        text-align: right;
+                    }
+
                 }
 
-                .auth-user-role {
-                    font: 400 12px/20px $bf;
-                    color: #151b26;
-                    text-align: right;
+                .auth-user-caret {
+                    display: flex;
+                    align-items: center;
+                    color: $color_primary;
+                    padding-left: 5px;
+        
+                    em {
+                        font-size: 20px;
+                        font-weight: 600;
+                        margin-top: 3px;
+                    }
+
+                    @media screen and (max-width: 1000px){
+                        display: none;
+                    }
                 }
 
                 .auth-user-img {
-                    position: absolute;
-                    top: 0;
-                    right: 0;
                     display: block;
                     width: 50px;
                     height: 50px;
                     border-radius: 50px;
                     background: #fff;
-                    box-shadow: 0 5px 15px rgba(#000, 0.25);
+                    box-shadow: 0 2px 9px rgba(0,0,0,0.1);
                 }
 
                 .auth-user-menu {
                     position: absolute;
                     right: 0;
-                    top: 100%;
+                    top: 60px;
                     border: 1px solid #f3f4f5;
                     background: #fff;
                     border-radius: 5px;
@@ -277,7 +300,6 @@ $colorPrimaryLight: $color_primary_light;
                     min-width: 220px;
                     max-width: 80%;
                     padding: 10px 0;
-                    display: none;
 
                     .auth-user-menu-item {
                         display: block;
@@ -309,12 +331,6 @@ $colorPrimaryLight: $color_primary_light;
                     .auth-user-menu-sep {
                         display: block;
                         border-top: 1px solid #f3f4f5;
-                    }
-                }
-
-                &:hover {
-                    .auth-user-menu {
-                        display: block;
                     }
                 }
             }
