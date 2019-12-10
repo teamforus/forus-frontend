@@ -10,57 +10,23 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
     .section-title.hide-sm(ng-if="$ctrl.voucherCard.product") Uw aanbieding voucher
 
     .block.block-voucher
-        //- regular voucher
-        div(ng-if="!$ctrl.voucherCard.product").base-card.base-card-sponsor: .card-inner
-            .card-body
-                .card-photo: img(ng-src="{{ $ctrl.voucherCard.fund.organization.logo.sizes.large || './assets/img/placeholders/organization-large.png' }}", alt="")
-                .card-section
-                    .card-title {{ "voucher.voucher_card.header.title" | translate }}
-                    .card-description(i18n="voucher.voucher_card.labels.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
-            .card-footer
-                .card-label(i18n="voucher.voucher_card.labels.contact_sponsor" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
-                .card-value(ng-bind="$ctrl.voucherCard.fund.organization.name")
-                .card-value.card-value-sm
-                    | E-mailadres: 
-                    strong(ng-bind="$ctrl.voucherCard.fund.organization.email")
-                    br
-                    | Telefoonnummer: 
-                    strong(ng-bind="$ctrl.voucherCard.fund.organization.phone")
-
-        //- product voucher
-        div(ng-if="$ctrl.voucherCard.product").base-card.base-card-sponsor: .card-inner
-            .card-body
-                .card-photo: img(ng-src="{{ $ctrl.voucherCard.product.organization.logo.sizes.large || './assets/img/placeholders/organization-large.png' }}", alt="")
-                .card-section
-                    .card-title {{ "voucher.voucher_card.header.title" | translate }}
-                    .card-description {{ "voucher.voucher_card.labels.desc" | translate }}
-            .card-footer
-                .card-label {{ "voucher.voucher_card.labels.contact_provider" | translate }}
-                .card-value(ng-bind="$ctrl.voucherCard.product.organization.name")
-                .card-value.card-value-sm
-                    | E-mailadres: 
-                    strong(ng-bind="$ctrl.voucherCard.product.organization.email")
-                    br
-                    | Telefoonnummer: 
-                    strong(ng-bind="$ctrl.voucherCard.product.organization.phone")
-        
         //- voucher details
         .base-card.base-card-voucher
             .card-inner
                 .card-body
                     //- product voucher
                     .card-photo: img(ng-src="{{ $ctrl.voucherCard.thumbnail }}").voucher-img
-                    
+
                     .card-section
-                        .label(ng-class="{true: 'label-success', false: 'label-warning'}[$ctrl.voucherCard.transactions.length == 0]" ng-if="$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.transactions.length == 0 ? 'Ongebruikt' : 'Gebruikt'") 
+                        .label(ng-class="{true: 'label-success', false: 'label-warning'}[$ctrl.voucherCard.transactions.length == 0]" ng-if="$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.transactions.length == 0 ? 'Ongebruikt' : 'Gebruikt'")
                         .card-title(ng-bind="$ctrl.voucherCard.title")
-                        a(ng-if="$ctrl.voucherCard.product" ui-sref="products-show($ctrl.voucherCard.product)").card-read_more 
+                        a(ng-if="$ctrl.voucherCard.product" ui-sref="products-show($ctrl.voucherCard.product)").card-read_more
                             | Bekijk details
                             em.mdi.mdi-arrow-right
                         div(ng-if="!$ctrl.voucherCard.product")
                             .card-label.euro Uw tegoed is:
-                            .card-value.euro(ng-bind="'€ ' + ($ctrl.voucherCard.amount)") 
-                    
+                            .card-value.euro(ng-bind="'€ ' + ($ctrl.voucherCard.amount)")
+
                     .card-qr_code.show-sm
                         qr-code(ng-if="$ctrl.qrValue" qr-type="voucher" qr-value="$ctrl.qrValue").card-qr_code-element
                         .card-qr_code-desc(ng-if="$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.productdescription")
@@ -80,27 +46,70 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                         .action-item(ng-click="$ctrl.openInMeModal()")
                             .action-item-icon
                                 em.mdi.mdi-account-circle
-                                .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.open_in_me")
+                                //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.open_in_me")
                             .action-item-name(i18n="voucher.voucher_card.footer.actions.open_in_me")
-                        .action-item(ng-if="$ctrl.voucherCard.product && $root.appConfigs.flags.shareProducts" ng-click="$ctrl.shareVoucher($ctrl.voucher)")
-                            .action-item-icon
-                                em.mdi.mdi-share-variant
-                                .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
-                            .action-item-name(i18n="voucher.voucher_card.footer.actions.share")
+
                         .action-item(ng-click="$ctrl.sendVoucherEmail($ctrl.voucher)")
                             .action-item-icon
                                 em.mdi.mdi-email-outline
-                                .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.mail")
+                                //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.mail")
                             .action-item-name(i18n="voucher.voucher_card.footer.actions.mail")
                         .action-item(ng-click="$ctrl.printQrCode()")
                             .action-item-icon
                                 em.mdi.mdi-printer
-                                .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.print")
+                                //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.print")
                             .action-item-name(i18n="voucher.voucher_card.footer.actions.print")
+                        .action-item.hide-action-lg(ng-if="$ctrl.voucherCard.product && $root.appConfigs.flags.shareProducts" ng-click="$ctrl.shareVoucher($ctrl.voucher)")
+                            .action-item-icon
+                                em.mdi.mdi-share-variant
+                                //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
+                            .action-item-name(i18n="voucher.voucher_card.footer.actions.share")
+
             .card-qr_code.hide-sm
                 qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="voucher")
                 .card-qr_code-desc(ng-if="$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.productdescription")
                 .card-qr_code-desc(ng-if="!$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
+
+                .card-actions.card-actions-center
+                    .action-item(ng-if="$ctrl.voucherCard.product && $root.appConfigs.flags.shareProducts" ng-click="$ctrl.shareVoucher($ctrl.voucher)")
+                        .action-item-icon
+                            em.mdi.mdi-share-variant
+                            //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
+                        .action-item-name(i18n="voucher.voucher_card.footer.actions.share")
+
+        //- regular voucher
+        div(ng-if="!$ctrl.voucherCard.product").base-card.base-card-sponsor: .card-inner
+            .card-body
+                .card-photo: img(ng-src="{{ $ctrl.voucherCard.fund.organization.logo.sizes.large || './assets/img/placeholders/organization-large.png' }}", alt="")
+                .card-section
+                    .card-title {{ "voucher.voucher_card.header.title" | translate }}
+                    .card-description(i18n="voucher.voucher_card.labels.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
+            .card-footer
+                .card-label(i18n="voucher.voucher_card.labels.contact_sponsor" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
+                .card-value(ng-bind="$ctrl.voucherCard.fund.organization.name")
+                .card-value.card-value-sm
+                    | E-mailadres:
+                    strong(ng-bind="$ctrl.voucherCard.fund.organization.email")
+                    br
+                    | Telefoonnummer:
+                    strong(ng-bind="$ctrl.voucherCard.fund.organization.phone")
+
+        //- product voucher
+        div(ng-if="$ctrl.voucherCard.product").base-card.base-card-sponsor: .card-inner
+            .card-body
+                .card-photo: img(ng-src="{{ $ctrl.voucherCard.product.organization.logo.sizes.large || './assets/img/placeholders/organization-large.png' }}", alt="")
+                .card-section
+                    .card-title {{ "voucher.voucher_card.header.title" | translate }}
+                    .card-description {{ "voucher.voucher_card.labels.desc" | translate }}
+            .card-footer
+                .card-label {{ "voucher.voucher_card.labels.contact_provider" | translate }}
+                .card-value(ng-bind="$ctrl.voucherCard.product.organization.name")
+                .card-value.card-value-sm
+                    | E-mailadres: 
+                    strong(ng-bind="$ctrl.voucherCard.product.organization.email")
+                    br
+                    | Telefoonnummer: 
+                    strong(ng-bind="$ctrl.voucherCard.product.organization.phone")
 
     .block.block-transactions(ng-if="$ctrl.voucherCard.transactions.length > 0 && !$ctrl.voucherCard.product")
         .transactions-header: .transactions-title {{ "voucher.labels.transactions" | translate }}

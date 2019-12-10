@@ -13,7 +13,7 @@ header.section.section-header.section-header-landing
 
                 //- gebruik activatiecode tekst
                 p(ng-if="!$root.auth_user && $ctrl.funds.length <= 1" i18n="home.header.cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
-                p(ng-if="!$root.auth_user && $ctrl.funds.length > 1" translate="home.header.{{ $root.client_key }}.cta" translate-default="{{'home.header.cta_mutli' | translate }}"  i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")               
+                p(ng-if="!$root.auth_user && $ctrl.funds.length > 1" translate="home.header.{{ $root.client_key }}.cta" translate-default="{{ 'home.header.cta_multi' | translate }}"  i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
                 //- beheer uw voucher in me tekst
                 p(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" i18n="home.header.auth_cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
             //- uitgelogd en activatiecode invullen
@@ -87,68 +87,96 @@ header.section.section-header.section-header-landing
         .section-splash
         .section-title {{ "home.faq.title" | i18n }}
         .faq(collapse)
-            mixin faq_item(title, content, active)
+            mixin faq_item(title, content, title_default, content_default, active)
                 .faq-item(class=active?'active':'' collapse-item)
                     .faq-item-header(collapse-header)
-                        span(i18n=title i18n-vars="{ fund: $ctrl.funds[0].name }")
+                        span(translate=title i18n-vars="{ fund: $ctrl.funds[0].name }" translate-default="{{ title_default | i18n }}")
                         .faq-item-chevron-down.mdi.mdi-chevron-down
                         .faq-item-chevron-up.mdi.mdi-chevron-up
-                    .faq-item-content(collapse-conten,i18n=content i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")    
+                    .faq-item-content(collapse-conten, translate=content i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }" translate-default="{{ content_default | translate }}")
 
             +faq_item(
+                'home.faq.{{ $root.client_key }}.faq_one',
+                'home.faq.{{ $root.client_key }}.one',
                 'home.faq.faq_one',
                 'home.faq.one')
 
             +faq_item(
+                'home.faq.{{ $root.client_key }}.faq_two',
+                'home.faq.{{ $root.client_key }}.two',
                 'home.faq.faq_two',
                 'home.faq.two')
 
             +faq_item(
+                'home.faq.{{ $root.client_key }}.faq_three',
+                'home.faq.{{ $root.client_key }}.three',
                 'home.faq.faq_three',
                 'home.faq.three')
 
             +faq_item(
+                'home.faq.{{ $root.client_key }}.faq_four',
+                'home.faq.{{ $root.client_key }}.four',
                 'home.faq.faq_four',
                 'home.faq.four')
 
             +faq_item(
+                'home.faq.{{ $root.client_key }}.faq_five',
+                'home.faq.{{ $root.client_key }}.five',
                 'home.faq.faq_five',
                 'home.faq.five')
 
             +faq_item(
+                'home.faq.{{ $root.client_key }}.faq_six',
+                'home.faq.{{ $root.client_key }}.six',
                 'home.faq.faq_six',
                 'home.faq.six')
 
             +faq_item(
+                'home.faq.{{ $root.client_key }}.faq_seven',
+                'home.faq.{{ $root.client_key }}.seven',
                 'home.faq.faq_seven',
-                'home.faq.seven')   
+                'home.faq.seven')
 
             +faq_item(
+                'home.faq.{{ $root.client_key }}.faq_eight',
+                'home.faq.{{ $root.client_key }}.eight',
+                'home.faq.faq_eight',
+                'home.faq.eight')
+
+            +faq_item(
+                'home.faq.{{ $root.client_key }}.faq_nine',
+                'home.faq.{{ $root.client_key }}.nine',
                 'home.faq.faq_nine',
                 'home.faq.nine')
 
             +faq_item(
+                'home.faq.{{ $root.client_key }}.faq_ten',
+                'home.faq.{{ $root.client_key }}.ten',
                 'home.faq.faq_ten',
                 'home.faq.ten')
 
             +faq_item(
+                'home.faq.{{ $root.client_key }}.faq_eleven',
+                'home.faq.{{ $root.client_key }}.eleven',
                 'home.faq.faq_eleven',
                 'home.faq.eleven')
 
             +faq_item(
+                'home.faq.{{ $root.client_key }}.faq_twelve',
+                'home.faq.{{ $root.client_key }}.twelve',
                 'home.faq.faq_twelve',
                 'home.faq.twelve') 
 
             +faq_item(
+                'home.faq.{{ $root.client_key }}.faq_thirteen',
+                'home.faq.{{ $root.client_key }}.thirteen',
                 'home.faq.faq_thirteen',
                 'home.faq.thirteen')
 
             +faq_item(
+                'home.faq.{{ $root.client_key }}.faq_fourteen',
+                'home.faq.{{ $root.client_key }}.fourteen',
                 'home.faq.faq_fourteen',
                 'home.faq.fourteen')
-
-            +faq_item(
-                'home.faq.faq_fifteen',
-                'home.faq.fifteen')
 
     contact-form 
