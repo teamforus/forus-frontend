@@ -60,14 +60,10 @@
                 .auth-user {
                     .auth-user-menu {
                         .auth-user-menu-item {
-                            color: $bc;
+                            color: $tc;
 
                             :hover {
-                                color: #a52700;
-                            }
-
-                            em {
-                                color: #353535;
+                                color: $bc;
                             }
                         }
                     }
