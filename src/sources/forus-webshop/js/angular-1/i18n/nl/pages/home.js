@@ -11,6 +11,7 @@ module.exports = {
             cta: "Klik op ‘Start’ en vul uw activatiecode in. Deze code staat in de brief over de Kindregeling die u heeft ontvangen.",
         },
         oostgelre: {
+            title: "Kindregeling gemeente Oost Gelre",
             title_multi: "Kindregeling gemeente Oost Gelre",
             subtitle_multi: "Welkom op de website van de Kindregeling van de gemeente Oost Gelre. Heeft u via de Sociale Dienst Oost Achterhoek een toekenning voor de Kindregeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
             cta: "Klik op ‘Start’ en vul uw activatiecode in. Deze code staat in de brief over de Kindregeling die u heeft ontvangen.",

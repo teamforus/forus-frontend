@@ -2,37 +2,45 @@ landing-navbar
 header.section.section-header
     .wrapper
         .header-content
-            .header-title {{ "home_provider.header.title_westerkwartier" | translate }}
-            .header-description {{ "home_provider.header.subtitle_westerkwartier" | translate }}
+            .header-title(translate="home_provider.header.{{ $root.appConfigs.client_key }}.title" translate-default="{{ 'home_provider.header.title' | translate }}")
+            .header-description(translate="home_provider.header.{{ $root.appConfigs.client_key }}.subtitle" translate-default="{{ 'home_provider.header.subtitle' | translate }}")
 section.section.section-flow: .wrapper
-    .section-title {{ "home_provider.guide.title_westerkwartier" | translate }}
-    .section-description(translate="home_provider.guide.description_westerkwartier")
+    .section-title(translate="home_provider.guide.{{ $root.appConfigs.client_key }}.title" translate-default="{{ 'home_provider.guide.title' | translate }}")
+    .section-description(translate="home_provider.guide.{{ $root.appConfigs.client_key }}.description" translate-default="{{ 'home_provider.guide.description' | translate }}")
     //- img(src="./assets/img/landing/forus-flow-provider.png").section-scheme
-    .block.block-show-more: a(href="../provider/#!/sign-up").button.button-primary {{ "home_provider.guide.button_westerkwartier" | translate }}
+    .block.block-show-more: a(href="../provider/#!/sign-up").button.button-primary(
+        translate="home_provider.guide.{{ $root.appConfigs.client_key }}.button" 
+        translate-default="{{ 'home_provider.guide.button' | translate }}")
 
 section.section.section-faq: .wrapper
-    .section-title Veel gestelde vragen
+    .section-title {{ "home_provider.faq.title" | i18n }}
     .faq(collapse)
-        mixin faq_item(title, content, active)
+        mixin faq_item(title, content, title_default, content_default, active)
             .faq-item(class=active?'active':'' collapse-item)
                 .faq-item-header(collapse-header)
-                    | #{title}
+                    span(translate=title i18n-vars="{ fund: $ctrl.funds[0].name }" translate-default=title_default)
                     .faq-item-chevron-down.mdi.mdi-chevron-down
                     .faq-item-chevron-up.mdi.mdi-chevron-up
-                .faq-item-content(collapse-content)=content
+                .faq-item-content(collapse-conten, translate=content translate-default=content_default)
 
         +faq_item(
-            "Wat zijn de technische vereisten om mee te doen?",
-            "Een smartphone op de locatie van uw organisatie. Android verreist: 4.3 en hoger. iOS vereist: 10.0 en hoger. Een computer met een willekeurige internet browser. Internet Explorer: 10 of hoger")
+            'home_provider.faq.{{ $root.client_key }}.faq_one',
+            'home_provider.faq.{{ $root.client_key }}.one',
+            '{{ "home_provider.faq.faq_one" | translate }}',
+            '{{ "home_provider.faq.one" | translate }}')
 
         +faq_item(
-            "Hoe gaat het met uitbetalen?",
-            "Scan de QR-code van de inwoner. Vul vervolgens het bedrag van de betaling in en eventueel een omschrijving. Tot slot, bevestig de betaling in de app. Het geld wordt binnen drie werkdagen op de rekening bijgeschreven.")
+            'home_provider.faq.{{ $root.client_key }}.faq_two',
+            'home_provider.faq.{{ $root.client_key }}.two',
+            '{{ "home_provider.faq.faq_two" | translate }}',
+            '{{ "home_provider.faq.two" | translate }}')
 
         +faq_item(
-            "Hoe kan ik mijn transacties in zien?",
-            "Naast de mobiele applicatie kunt u ook gebruik maken van de gebruikersomgeving voor organisaties. Hier kunt u het profiel van de organisatie beheren, transacties bijhouden en aanbiedingen op de webshop plaatsen. Het gebruik maken van de gebruikersomgeving is optioneel.")
-            
+            'home_provider.faq.{{ $root.client_key }}.faq_three',
+            'home_provider.faq.{{ $root.client_key }}.three',
+            '{{ "home_provider.faq.faq_three" | translate }}',
+            '{{ "home_provider.faq.three" | translate }}')
+
 //- section.section.section-blogs: .wrapper
     .block.block-blogs
         mixin blog_item(nth)

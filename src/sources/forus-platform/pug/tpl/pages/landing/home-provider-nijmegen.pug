@@ -5,8 +5,8 @@ header.section.section-header
     .wrapper
         .header-body
             .header-content
-                .header-title {{ "home_provider.header.title_nijmegen" | translate }}
-                .header-description {{ "home_provider.header.subtitle_nijmegen" | translate }}
+                .header-title(translate="home_provider.header.{{ $root.client_key }}.title" translate-default="{{ 'home_provider.header.title' | translate }}")
+                .header-description(translate="home_provider.header.{{ $root.client_key }}.subtitle" translate-default="{{ 'home_provider.header.subtitle' | translate }}")
             //- .header-sprite(
                 style="background-image: url('./assets/img/landing/vouchers-sprite.svg')")
             .block.block-cards
@@ -23,15 +23,15 @@ header.section.section-header
 
 
 section.section.section-flow: .wrapper
-    .section-title {{ "home_provider.guide.title_nijmegen" | translate }}
-    .section-description {{ "home_provider.guide.description_nijmegen" | translate }}
+    .section-title(translate="home_provider.guide.{{ $root.client_key }}.title" translate-default="{{ 'home_provider.guide.title' | translate }}")
+    .section-description(translate="home_provider.guide.{{ $root.client_key }}.description" translate-default="{{ 'home_provider.guide.description' | translate }}")
     //- img(src="./assets/img/landing/forus-flow-provider.png").section-scheme
-    .block.block-show-more: a(href="../provider/#!/sign-up").button.button-primary {{ "home_provider.guide.button_nijmegen" | translate }}
+    .block.block-show-more: a(href="../provider/#!/sign-up").button.button-primary(translate="home_provider.guide.{{ $root.client_key }}.button" translate-default="{{ 'home_provider.guide.button' | translate }}")
 
 
 section.section.section-faq: .wrapper
     .section-splash
-    .section-title Veel gestelde vragen
+    .section-title {{ "home_provider.faq.title" | i18n }}
     .faq(collapse)
         mixin faq_item(title, content, active)
             .faq-item(class=active?'active':'' collapse-item)
