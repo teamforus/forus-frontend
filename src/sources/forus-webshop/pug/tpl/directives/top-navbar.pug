@@ -50,55 +50,63 @@
     
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
-            .auth-user
-                .auth-user-email(ng-bind="$root.auth_user.primary_email" ng-if="!$root.appConfigs.features.records.list") 
-                .auth-user-type(translate="topnavbar.items.identity" ng-if="!$root.appConfigs.features.records.list")
+            .auth-user(ng-click="$ctrl.openUserMenu($event)")
+                .auth-user-details  
+                    .auth-user-email(ng-bind="$root.auth_user.primary_email" ng-if="!$root.appConfigs.features.records.list") 
+                    .auth-user-type(translate="topnavbar.items.identity" ng-if="!$root.appConfigs.features.records.list")
+
 
                 .auth-user-avatar
                     .em.mdi.mdi-settings(ng-if="$root.appConfigs.features.records.list") 
                     img(src="./assets/img/identity-avatar.svg" ng-if="!$root.appConfigs.features.records.list")
-                    nav.auth-user-menu.hide-sm
-                        .triangle
-                        .inner
-                            .auth-user-menu-item(ng-click="openActivateCodePopup()")
-                                img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg")
-                                span(translate="topnavbar.buttons.activate")
+                
+                .auth-user-caret    
+                    em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
 
-                            .auth-user-menu-item(ng-click="openPinCodePopup()")
-                                em.mdi.mdi-cellphone
-                                span(translate="topnavbar.buttons.authorize")
-                                
-                            .auth-user-menu-item(ui-sref="email-preferences")
-                                em.mdi.mdi-settings-outline
-                                translate(translate="notification_preferences.title_preferences")
+                nav.auth-user-menu.hide-sm(
+                    ng-if="$ctrl.userMenuOpened"
+                    click-outside="$ctrl.hideUserMenu()")
+                    .triangle
+                    .inner
+                        .auth-user-menu-item(ng-click="openActivateCodePopup()")
+                            img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg")
+                            span(translate="topnavbar.buttons.activate")
 
-                            .auth-user-menu-separator.show-sm
+                        .auth-user-menu-item(ng-click="openPinCodePopup()")
+                            em.mdi.mdi-cellphone
+                            span(translate="topnavbar.buttons.authorize")
                             
-                            .auth-user-menu-item.show-sm(
-                                ui-sref="funds" 
-                                ui-sref-active="active"
-                                ng-if="$root.appConfigs.features.funds.list && $root.auth_user")
-                                em.mdi.mdi-star-outline
-                                span(translate="topnavbar.buttons.logout")
-                            
-                            .auth-user-menu-item.show-sm(
-                                ui-sref="products" 
-                                ui-sref-active="active"
-                                ng-if="$root.appConfigs.features.products.list")
-                                em.mdi.mdi-store
-                                span(translate="topnavbar.buttons.products")
-                            
-                            .auth-user-menu-separator.show-sm
-                            
-                            .auth-user-menu-item.show-sm(ui-sref="vouchers")
-                                em.mdi.mdi-ticket-confirmation
-                                span(translate="topnavbar.buttons.voucher")
-                            
-                            .auth-user-menu-separator
-                            
-                            .auth-user-menu-item(ng-click="$root.signOut()")
-                                img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
-                                span(translate="topnavbar.buttons.logout")
+                        .auth-user-menu-item(ui-sref="email-preferences")
+                            em.mdi.mdi-settings-outline
+                            translate(translate="notification_preferences.title_preferences")
+
+                        .auth-user-menu-separator.show-sm
+                        
+                        .auth-user-menu-item.show-sm(
+                            ui-sref="funds" 
+                            ui-sref-active="active"
+                            ng-if="$root.appConfigs.features.funds.list && $root.auth_user")
+                            em.mdi.mdi-star-outline
+                            span(translate="topnavbar.buttons.logout")
+                        
+                        .auth-user-menu-item.show-sm(
+                            ui-sref="products" 
+                            ui-sref-active="active"
+                            ng-if="$root.appConfigs.features.products.list")
+                            em.mdi.mdi-store
+                            span(translate="topnavbar.buttons.products")
+                        
+                        .auth-user-menu-separator.show-sm
+                        
+                        .auth-user-menu-item.show-sm(ui-sref="vouchers")
+                            em.mdi.mdi-ticket-confirmation
+                            span(translate="topnavbar.buttons.voucher")
+                        
+                        .auth-user-menu-separator
+                        
+                        .auth-user-menu-item(ng-click="$root.signOut()")
+                            img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
+                            span(translate="topnavbar.buttons.logout")
 
         .auth-out(ng-if="!$root.auth_user")
             //-.button.button-default(ng-if="$root.appConfigs.flags.aboutSiteMenu" ng-click="openAuthCodePopup()")

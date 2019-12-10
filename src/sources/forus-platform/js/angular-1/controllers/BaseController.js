@@ -26,6 +26,10 @@ let BaseController = function(
             }
         }
     };
+    
+    $scope.$ctrl = {
+        userMenuOpened: false
+    };
 
     $rootScope.openPinCodePopup = function() {
         ModalService.open('modalPinCode', {});
@@ -99,6 +103,19 @@ let BaseController = function(
 
     if (AuthService.hasCredentials()) {
         $rootScope.loadAuthUser();
+    }
+
+    $scope.$ctrl.openUserMenu = (e) => {
+        e.originalEvent.stopPropagation();
+        e.originalEvent.preventDefault();
+        
+        $scope.$ctrl.userMenuOpened = !$scope.$ctrl.userMenuOpened;
+    }
+
+    $scope.$ctrl.hideUserMenu = () => {
+        $scope.$apply(() => {
+            $scope.$ctrl.userMenuOpened = false;
+        });
     }
 
     $scope.$watch(function() {
