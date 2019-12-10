@@ -31,6 +31,7 @@ module.exports = {
                 desc: "You can show the {{fund_name}} voucher to the provider. The provider can scan your code to offer you the product or service.",
                 contact_sponsor: "Contact us if you have any questions about '{{fund_name}}'",
                 contact_provider: "Contact us if you have any questions about the offer",
+                description_expired: "Your voucher is expired",
             },
             footer: {
                 actions: {

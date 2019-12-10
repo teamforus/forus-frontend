@@ -31,6 +31,7 @@ module.exports = {
                 desc: "Een voucher kunt u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u het aanbod te leveren.",
                 contact_sponsor: "Heeft u vragen over '{{fund_name}}'? Neem dan contact met ons op.",
                 contact_provider: "Heeft u vragen over deze aanbieding? Neem dan contact met ons op.",
+                description_expired: "Je voucher is verlopen",
             },
             footer: {
                 actions: {

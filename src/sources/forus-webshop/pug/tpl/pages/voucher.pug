@@ -17,7 +17,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                 .card-section
                     .card-title {{ "voucher.voucher_card.header.title" | translate }}
                     .card-description(i18n="voucher.voucher_card.labels.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
-            .card-footer
+            .card-footer(ng-if="$ctrl.voucherCanUse")
                 .card-label(i18n="voucher.voucher_card.labels.contact_sponsor" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
                 .card-value(ng-bind="$ctrl.voucherCard.fund.organization.name")
                 .card-value.card-value-sm
@@ -34,7 +34,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                 .card-section
                     .card-title {{ "voucher.voucher_card.header.title" | translate }}
                     .card-description {{ "voucher.voucher_card.labels.desc" | translate }}
-            .card-footer
+            .card-footer(ng-if="$ctrl.voucherCanUse")
                 .card-label {{ "voucher.voucher_card.labels.contact_provider" | translate }}
                 .card-value(ng-bind="$ctrl.voucherCard.product.organization.name")
                 .card-value.card-value-sm
@@ -61,7 +61,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                             .card-label.euro Uw tegoed is:
                             .card-value.euro(ng-bind="'€ ' + ($ctrl.voucherCard.amount)") 
                     
-                    .card-qr_code.show-sm
+                    .card-qr_code.show-sm(ng-if="$ctrl.voucherCanUse")
                         qr-code(ng-if="$ctrl.qrValue" qr-type="voucher" qr-value="$ctrl.qrValue").card-qr_code-element
                         .card-qr_code-desc(ng-if="$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.productdescription")
                         .card-qr_code-desc(ng-if="!$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
@@ -97,10 +97,14 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                                 em.mdi.mdi-printer
                                 .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.print")
                             .action-item-name(i18n="voucher.voucher_card.footer.actions.print")
-            .card-qr_code.hide-sm
+            .card-qr_code.hide-sm(ng-if="$ctrl.voucherCanUse") 
                 qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="voucher")
                 .card-qr_code-desc(ng-if="$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.productdescription")
                 .card-qr_code-desc(ng-if="!$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
+            
+            .card-qr_code.hide-sm(ng-if="!$ctrl.voucherCanUse") 
+                img(ng-src="./assets/img/placeholders/product-small.png")
+                .card-qr_code-desc(i18n="voucher.voucher_card.labels.description_expired")
 
     .block.block-transactions(ng-if="$ctrl.voucherCard.transactions.length > 0 && !$ctrl.voucherCard.product")
         .transactions-header: .transactions-title {{ "voucher.labels.transactions" | translate }}
@@ -118,12 +122,12 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                     .transactions-item-type {{ "voucher.labels.subtract" | translate }}
 
     block-products(
-        ng-if="$root.appConfigs.features.products.list && !$ctrl.voucherCard.product"
+        ng-if="$root.appConfigs.features.products.list && !$ctrl.voucherCard.product && $ctrl.voucherCanUse"
         sample="true"
         products="$ctrl.products"
         product-categories="$ctrl.productCategories")
 
-    .block.block-map_card
+    .block.block-map_card(ng-if="$ctrl.voucherCanUse")
         .map_card-header
             //- regular voucher
             .map_card-title(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.offices")
