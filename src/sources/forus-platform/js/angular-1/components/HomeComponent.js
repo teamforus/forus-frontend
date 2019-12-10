@@ -35,12 +35,12 @@ let HomeComponent = function(
     $ctrl.$onInit = () => {
         if ($stateParams.digid_error == 'uid_not_found') {
             PushNotificationsService.danger(
-                "Unknown BSN number.",
+                "Onbekende BSN-nummer.",
             ) & $ctrl.cleanReload();
         } else if ($stateParams.digid_error != null) {
             PushNotificationsService.danger(
-                "Something went wrong",
-                "Could not login by DigiD, unknown issue occurred.",
+                "Er ging iets mis.",
+                "Er kan niet ingelogd worden met DigiD door een onbekend probleem.",
             ) & $ctrl.cleanReload();
         }
     };
