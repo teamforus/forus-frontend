@@ -2,6 +2,11 @@
     &.section-voucher-details {
         position: relative;
     }
+    &.section-profile {
+        .section-title {
+            margin-bottom: 20px;
+        }
+    }
     @media screen and (max-width: 1000px) {
         &.section-profile {
             .section-title {

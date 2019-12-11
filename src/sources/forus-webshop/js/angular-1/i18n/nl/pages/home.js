@@ -9,17 +9,20 @@ module.exports = {
             title_multi: "Kindregeling gemeente Berkelland",
             subtitle_multi: "Welkom op de website van de Kindregeling van de gemeente Berkelland. Heeft u via de Sociale Dienst Oost Achterhoek een toekenning voor de Kindregeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
             cta: "Klik op ‘Start’ en vul uw activatiecode in. Deze code staat in de brief over de Kindregeling die u heeft ontvangen.",
+            header_note: "Fotograaf: H. van Ommen"
         },
         oostgelre: {
             title: "Kindregeling gemeente Oost Gelre",
             title_multi: "Kindregeling gemeente Oost Gelre",
             subtitle_multi: "Welkom op de website van de Kindregeling van de gemeente Oost Gelre. Heeft u via de Sociale Dienst Oost Achterhoek een toekenning voor de Kindregeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
             cta: "Klik op ‘Start’ en vul uw activatiecode in. Deze code staat in de brief over de Kindregeling die u heeft ontvangen.",
+            header_note: "Fotograaf: H. van Ommen"
         },
         winterswijk: {
             title_multi: "Kindregeling gemeente Winterswijk",
             subtitle_multi: "Welkom op de website van de Kindregeling van de gemeente Winterswijk. Heeft u via de Sociale Dienst Oost Achterhoek een toekenning voor de Kindregeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
             cta: "Klik op ‘Start’ en vul uw activatiecode in. Deze code staat in de brief over de Kindregeling die u heeft ontvangen.",
+            header_note: "Fotograaf: H. van Ommen"
         },
         cta: "Klik op start en vul uw activatiecode in. Deze code staat in de brief over {{fund}} die u heeft ontvangen",
         cta_multi: "Klik op start en vul uw activatiecode in. Deze code staat in de brief die u heeft ontvangen",
