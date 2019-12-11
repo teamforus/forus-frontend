@@ -66,6 +66,7 @@ app.service('PrintableService', require('./services/PrintableService'));
 app.service('BusinessTypeService', require('./services/BusinessTypeService'));
 app.service('EmailPreferencesService', require('./services/EmailPreferencesService'));
 app.service('FileService', require('./services/FileService'));
+app.service('DigIdService', require('./services/DigIdService'));
 app.service('PushNotificationsService', require('./services/PushNotificationsService'));
 
 // Directives

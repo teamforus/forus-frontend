@@ -23,12 +23,24 @@ let TransactionsComponent = function(
         name: 'Voltooid'
     }];
 
+    $ctrl.fundStates = [{
+        key: null,
+        name: 'Alle'
+    }, {
+        key: 'closed',
+        name: 'Gesloten'
+    }, {
+        key: 'active',
+        name: 'Actief'
+    }];
+
     $ctrl.filters = {
         show: false,
         values: {},
         reset: function() {
             this.values.q = '';
             this.values.state = $ctrl.states[0].key;
+            this.values.fund_state = $ctrl.fundStates[0].key;
             this.values.from = null;
             this.values.to = null;
             this.values.amount_min = null;
