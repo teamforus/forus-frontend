@@ -904,7 +904,8 @@ module.exports = {
             categories: "Categorieën",
             nocategories: "Geen Categorieën",
             date: "Begindatum / Einddatum",
-            max_amount: "Maximale bedrag per voucher"
+            max_amount: "Maximale bedrag per voucher",
+            closed: "Gesloten"
         }
     },
 

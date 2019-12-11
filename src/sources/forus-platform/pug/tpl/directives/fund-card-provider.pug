@@ -13,10 +13,11 @@
             div(ng-show="providerFund.state == 'abandoned'")
                 .tag.tag-default(translate="fund_card_provider.status.stopped")
 
-        .card-block.card-block-fund
+        .card-block.card-block-fund(data="{{ fund.state }}")
             .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}", alt="")
             .fund-title(ng-if="fund.organization | hasPerm:['manage_funds']" ng-bind="fund.name")
             .fund-title(ng-if="!(fund.organization | hasPerm:['manage_funds'])" ng-bind="fund.name")
+            .fund-closed(translate="fund_card_provider.labels.closed" ng-if="fund.state == 'closed'")
             br
             div(ng-bind="fund.organization.name").fund-organization
 
