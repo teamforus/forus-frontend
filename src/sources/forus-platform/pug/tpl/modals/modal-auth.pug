@@ -16,7 +16,8 @@
                     .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.primary_email" ng-bind="error")
                 .flex-col.IE-FlexAuto: button(type="submit").button.button-primary Login
 
-            .auth-digid(ng-if="$ctrl.digidAvailable"): a(ng-click="$ctrl.useDigId()").auth-digid-link
+            //- Disabled for now
+            //- .auth-digid(ng-if="$ctrl.digidAvailable"): a(ng-click="$ctrl.useDigId()").auth-digid-link
                 | Account herstellen door in te loggen met DigiD
                 em.mdi.mdi-chevron-right
 
