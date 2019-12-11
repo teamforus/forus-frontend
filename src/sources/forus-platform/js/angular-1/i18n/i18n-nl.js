@@ -1051,8 +1051,8 @@ module.exports = {
         }
     },
     notification_preferences: {
-        title_email_preferences: 'E-mailvoorkeuren',
-        title_push_preferences: 'Push preferences',
+        title_email_preferences: 'E-mail notificaties',
+        title_push_preferences: 'Push notificaties',
         subscribe_desc: 'Met dit e-mailadres "{{email}}" bent u momenteel voor alle notificaties uitgeschreven. Wanneer u notificaties wilt ontvangen, kunt u dit hieronder per notificatie instellen.',
         unsubscribe: 'Uitschrijven voor alle notificaties',
         unsubscribe_desc:  'Ik wil me uitschrijven van alle notificaties.',
