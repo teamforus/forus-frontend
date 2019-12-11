@@ -30,5 +30,5 @@
         .voucher-overview-item(ng-if="voucherCard.transactions.length == 1")
             .voucher-overview-label Gebruikt op
             .voucher-overview-value(ng-bind="voucherCard.transactions[0].created_at_locale")
-        .voucher-overview-item.voucher-open
+        .voucher-overview-item
             button.button.button-primary {{ "vouchers.labels.open_voucher" | translate }}
