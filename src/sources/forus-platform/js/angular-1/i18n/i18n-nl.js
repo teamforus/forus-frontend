@@ -90,18 +90,30 @@ module.exports = {
                 title: "Meld uw organisatie aan op het platform.",
                 subtitle: "Dit is het start scherm om uzelf aan te melden op het aanbieders dashboard.",
             },
-            westerkwartier: {
-                title: "Meld uw organisatie aan voor het Kindpakket",
-                subtitle: "De gemeente geeft een bedrag van € 250,- per kind aan gezinnen met een laag inkomen.",
-            },
             nijmegen: {
                 title: "Meld u aan als dienstverlener",
                 subtitle: "De gemeente geeft inwoners met een laag inkomen maximaal € 150,- voor culturele, sportieve en educatieve activiteiten. Dit heet de Meedoen-regeling.",
+            },
+            westerkwartier: {
+                title: "Meld uw organisatie aan voor het Kindpakket",
+                subtitle: "De gemeente geeft een bedrag van € 250,- per kind aan gezinnen met een laag inkomen.",
             },
             kerstpakket: {
                 title: "Meld uw organisatie aan voor het Kerstpakket",
                 subtitle: "Dit is het start scherm om uzelf aan te melden op het aanbieders dashboard.",
             },
+            oostgelre: {
+                title: "Meld uw organisatie aan voor de Kindregeling",
+                subtitle: "Ondersteuning aan gezinnen met een laag inkomen.",
+            },
+            winterswijk: {
+                title: "Meld uw organisatie aan voor de Kindregeling",
+                subtitle: "Ondersteuning aan gezinnen met een laag inkomen.",
+            },
+            berkelland: {
+                title: "Meld uw organisatie aan voor de Kindregeling",
+                subtitle: "Ondersteuning aan gezinnen met een laag inkomen.",
+            }
         },
         labels: {
             partners: "Stichting Forus zoekt partners",
@@ -125,13 +137,81 @@ module.exports = {
                 description: "Levert uw organisatie een aanbod in de volgende categorieën: zwem en sportlessen, (kinder-)kleding, luiers en babyvoeding, dierbenodigdheden, speelgoed en hobby-benodigdheden? Dan kunt u uw organisatie hiervoor aanmelden.<br /><br /> Om u aan te melden heeft u een smartphone nodig. Op de smartphone kunt u een applicatie installeren voor het scannen van QR-codes. Heeft u deze smartphone bij de hand? Regel het dan direct!",
                 button: "Direct regelen",
             },
-        }
+            berkelland: {
+                title: "",
+                button: "DIRECT REGELEN",
+                description: "Voor inwoners met een laag inkomen valt het niet mee om hun kind(eren) overal aan mee te laten doen. Deze gezinnen kunnen profiteren van de Kindregeling. De gemeente biedt diverse vergoedingen aan gezinnen met een laag inkomen. Op deze manier kunnen zij hun kind (-eren) overal aan mee te laten doen. Bijvoorbeeld aan een schoolreisje, sportactiviteiten, bezoek aan het theater of muziekles. Maar het gaat ook om een tegemoetkoming voor schoolkosten, zwemles of een huiswerkcomputer." + 
+                    "<br/><br/>Levert uw organisatie een passend aanbod? Dan kunt u uw organisatie hiervoor aanmelden." +
+                    "<br/><br/>Om u aan te melden, heeft u een smartphone nodig. Op de smartphone kunt u een applicatie installeren voor het scannen van QR-codes. Heeft u deze smartphone bij de hand? Regel het dan direct!",
+            },
+            oostgelre: {
+                title: "",
+                button: "DIRECT REGELEN",
+                description: "Voor inwoners met een laag inkomen valt het niet mee om hun kind(eren) overal aan mee te laten doen. Deze gezinnen kunnen profiteren van de Kindregeling. De gemeente biedt diverse vergoedingen aan gezinnen met een laag inkomen. Op deze manier kunnen zij hun kind (-eren) overal aan mee te laten doen. Bijvoorbeeld aan een schoolreisje, sportactiviteiten, bezoek aan het theater of muziekles. Maar het gaat ook om een tegemoetkoming voor schoolkosten, zwemles of een huiswerkcomputer." + 
+                    "<br/><br/>Levert uw organisatie een passend aanbod? Dan kunt u uw organisatie hiervoor aanmelden." +
+                    "<br/><br/>Om u aan te melden, heeft u een smartphone nodig. Op de smartphone kunt u een applicatie installeren voor het scannen van QR-codes. Heeft u deze smartphone bij de hand? Regel het dan direct!",
+            },
+            winterswijk: {
+                title: "",
+                button: "DIRECT REGELEN",
+                description: "Voor inwoners met een laag inkomen valt het niet mee om hun kind(eren) overal aan mee te laten doen. Deze gezinnen kunnen profiteren van de Kindregeling. De gemeente biedt diverse vergoedingen aan gezinnen met een laag inkomen. Op deze manier kunnen zij hun kind (-eren) overal aan mee te laten doen. Bijvoorbeeld aan een schoolreisje, sportactiviteiten, bezoek aan het theater of muziekles. Maar het gaat ook om een tegemoetkoming voor schoolkosten, zwemles of een huiswerkcomputer." + 
+                    "<br/><br/>Levert uw organisatie een passend aanbod? Dan kunt u uw organisatie hiervoor aanmelden." +
+                    "<br/><br/>Om u aan te melden, heeft u een smartphone nodig. Op de smartphone kunt u een applicatie installeren voor het scannen van QR-codes. Heeft u deze smartphone bij de hand? Regel het dan direct!",
+            }
+        },
+        faq: {
+            title: "Veel gestelde vragen",
+            faq_one: "Wat zijn de technische vereisten om mee te doen?",
+            one: "Een smartphone op de locatie van uw organisatie. Android verreist: 4.3 en hoger. iOS vereist: 10.0 en hoger. Een computer met een willekeurige internet browser. Internet Explorer: 10 of hoger",
+            faq_two: "Hoe gaat het met uitbetalen?",
+            two: "Scan de QR-code van de inwoner. Vul vervolgens het bedrag van de betaling in en eventueel een omschrijving. Tot slot, bevestig de betaling in de app. Het geld wordt binnen drie werkdagen op de rekening bijgeschreven.",
+            faq_three: "Hoe kan ik mijn transacties in zien?",
+            three: "Naast de mobiele applicatie kunt u ook gebruik maken van de gebruikersomgeving voor organisaties. Hier kunt u het profiel van de organisatie beheren, transacties bijhouden en aanbiedingen op de webshop plaatsen. Het gebruik maken van de gebruikersomgeving is optioneel.",
+            
+            winterswijk: {
+                title: "Veelgestelde vragen",
+                faq_one: "Wat zijn de technische vereisten om mee te doen?",
+                one: "Een smartphone op de locatie van uw organisatie. Android vereist: versie 4.3 en hoger. iOS vereist: versie 10.0 en hoger. Een computer met een willekeurige internet browser. Internet Explorer: versie 10 of hoger",
+                faq_two: "Hoe werkt het uitbetalen?",
+                two: "Scan de QR-code van de inwoner. Vul vervolgens het bedrag van de betaling in en eventueel een omschrijving. Tot slot, bevestig de betaling in de app. Het geld wordt binnen drie werkdagen op de rekening bijgeschreven.",
+                faq_three: "Hoe kan ik mijn transacties inzien?",
+                three: "Naast de mobiele applicatie kunt u ook gebruik maken van de gebruikersomgeving voor organisaties. Hier kunt u het profiel van de organisatie beheren, transacties bijhouden en aanbiedingen op de webshop plaatsen. Het gebruik maken van de gebruikersomgeving is optioneel.",
+            },
+    
+            oostgelre: {
+                title: "Veelgestelde vragen",
+                faq_one: "Wat zijn de technische vereisten om mee te doen?",
+                one: "Een smartphone op de locatie van uw organisatie. Android vereist: versie 4.3 en hoger. iOS vereist: versie 10.0 en hoger. Een computer met een willekeurige internet browser. Internet Explorer: versie 10 of hoger",
+                faq_two: "Hoe werkt het uitbetalen?",
+                two: "Scan de QR-code van de inwoner. Vul vervolgens het bedrag van de betaling in en eventueel een omschrijving. Tot slot, bevestig de betaling in de app. Het geld wordt binnen drie werkdagen op de rekening bijgeschreven.",
+                faq_three: "Hoe kan ik mijn transacties inzien?",
+                three: "Naast de mobiele applicatie kunt u ook gebruik maken van de gebruikersomgeving voor organisaties. Hier kunt u het profiel van de organisatie beheren, transacties bijhouden en aanbiedingen op de webshop plaatsen. Het gebruik maken van de gebruikersomgeving is optioneel.",
+            },
+            berkelland: {
+                title: "Veelgestelde vragen",
+                faq_one: "Wat zijn de technische vereisten om mee te doen?",
+                one: "Een smartphone op de locatie van uw organisatie. Android vereist: versie 4.3 en hoger. iOS vereist: versie 10.0 en hoger. Een computer met een willekeurige internet browser. Internet Explorer: versie 10 of hoger",
+                faq_two: "Hoe werkt het uitbetalen?",
+                two: "Scan de QR-code van de inwoner. Vul vervolgens het bedrag van de betaling in en eventueel een omschrijving. Tot slot, bevestig de betaling in de app. Het geld wordt binnen drie werkdagen op de rekening bijgeschreven.",
+                faq_three: "Hoe kan ik mijn transacties inzien?",
+                three: "Naast de mobiele applicatie kunt u ook gebruik maken van de gebruikersomgeving voor organisaties. Hier kunt u het profiel van de organisatie beheren, transacties bijhouden en aanbiedingen op de webshop plaatsen. Het gebruik maken van de gebruikersomgeving is optioneel.",
+            },
+        },
     },
     // SPONSOR HOME = home-sponsor.pug
     home_sponsor: {
         header: {
-            title: "",
+            title: "Gemeentelijk dashboard",
+            subtitle: "Ondersteuning aan gezinnen met een laag inkomen.",
             description: "Een platform om gemeentelijke regelingen doelmatig, rechtmatig en efficient uit te geven aan inwoners.",
+            oostgelre: {
+                title: "Gemeentelijk dashboard",
+                subtitle: "Meld u aan op het gemeentelijke dashboard.",
+            },
+            winterswijk: {
+                title: "Gemeentelijk dashboard",
+                subtitle: "Meld u aan op het gemeentelijke dashboard.",
+            }
         },
         subject: {
             title: "Een innovatieve regeling",
@@ -143,7 +223,36 @@ module.exports = {
             title: "Word onderdeel van een innovatieve beweging",
             join: "Doe mee aan ons platform door onderstaande stappen te volgen.",
             button: "Start uw reis ",
-        }
+        },
+        faq: {
+            title: "Veelgestelde vragen",
+            faq_one: "Wat zijn de technische vereisten om mee te doen?",
+            one: "Een smartphone op de locatie van uw organisatie. Android verreist: 4.3 en hoger. iOS vereist: 10.0 en hoger. Een computer met een willekeurige internet browser. Internet Explorer: 10 of hoger",
+            faq_two: "Hoe gaat het met uitbetalen?",
+            two: "Als eerste scan de QR-code van de inwoner. Ten tweede vul het bedrag van de betaling in en eventueel een omschrijving. Als laatste bevestig de betaling in de app. Het geld wordt binnen drie werkdagen op de rekening bijgeschreven.",
+            faq_three: "Hoe kan ik mijn transacties in zien?",
+            three: "Naast de mobiele applicatie kunt u ook gebruik maken van de gebruikersomgeving voor organisaties. Hier kunt u het profiel van de organisatie beheren, transacties bijhouden en aanbiedingen op de webshop plaatsen. Het gebruik maken van de gebruikersomgeving is optioneel.",
+            
+            winterswijk: {
+                title: "Veelgestelde vragen",
+                faq_one: "Wat zijn de technische vereisten om mee te doen?",
+                one: "Een smartphone op de locatie van uw organisatie. Android vereist: versie 4.3 en hoger. iOS vereist: versie 10.0 en hoger. Een computer met een willekeurige internet browser. Internet Explorer: versie 10 of hoger.",
+                faq_two: "Hoe werkt het uitbetalen?",
+                two: "Scan de QR-code van de inwoner. Vul vervolgens het bedrag van de betaling in en eventueel een omschrijving. Tot slot, bevestig de betaling in de app. Het geld wordt binnen drie werkdagen op de rekening bijgeschreven.",
+                faq_three: "Hoe kan ik mijn transacties inzien?",
+                three: "Naast de mobiele applicatie kunt u ook gebruik maken van de gebruikersomgeving voor organisaties. Hier kunt u het profiel van de organisatie beheren, transacties bijhouden en aanbiedingen op de webshop plaatsen. Het gebruik maken van de gebruikersomgeving is optioneel.",
+            },
+    
+            oostgelre: {
+                title: "Veelgestelde vragen",
+                faq_one: "Wat zijn de technische vereisten om mee te doen?",
+                one: "Een smartphone op de locatie van uw organisatie. Android vereist: versie 4.3 en hoger. iOS vereist: versie 10.0 en hoger. Een computer met een willekeurige internet browser. Internet Explorer: versie 10 of hoger",
+                faq_two: "Hoe werkt het uitbetalen?",
+                two: "Scan de QR-code van de inwoner. Vul vervolgens het bedrag van de betaling in en eventueel een omschrijving. Tot slot, bevestig de betaling in de app. Het geld wordt binnen drie werkdagen op de rekening bijgeschreven.",
+                faq_three: "Hoe kan ik mijn transacties inzien?",
+                three: "Naast de mobiele applicatie kunt u ook gebruik maken van de gebruikersomgeving voor organisaties. Hier kunt u het profiel van de organisatie beheren, transacties bijhouden en aanbiedingen op de webshop plaatsen. Het gebruik maken van de gebruikersomgeving is optioneel.",
+            },
+        },
     },
     // VALIDATOR HOME = home-validator.pug
     // DON'T TRANSLATE , THE VALIDATOR WILL NOT HAVE A LANDINGSPAGE
