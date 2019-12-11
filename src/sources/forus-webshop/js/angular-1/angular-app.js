@@ -1,10 +1,11 @@
 require('./modules/select-control/SelectControlModule');
 require('./modules/ui-controls/UIControlsModule');
+require('./modules/page-loading-bar/PageLoadingBarModule');
 
 let appConfigs = JSON.parse(JSON.stringify(env_data));
 let app = angular.module('forusApp', [
     'pascalprecht.translate', 'ui.router', 'ngCookies', 
-    'forus.selectControl', 'forus.uiControls',
+    'forus.selectControl', 'forus.uiControls', 'forus.pageLoadingBarModule',
 ]);
 
 app.constant('appConfigs', appConfigs);

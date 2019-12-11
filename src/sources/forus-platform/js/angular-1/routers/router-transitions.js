@@ -1,7 +1,17 @@
-module.exports = ['$transitions', '$filter', '$rootScope', 'OrganizationService', (
-    $transitions, $filter, $rootScope, OrganizationService
+module.exports = ['$transitions', '$filter', '$rootScope', 'OrganizationService', 'PageLoadingBarService', (
+    $transitions, $filter, $rootScope, OrganizationService, PageLoadingBarService
 ) => {
+    $transitions.onStart({}, function() {
+        PageLoadingBarService.setProgress(0);
+    });
+
+    $transitions.onError({}, function() {
+        PageLoadingBarService.setProgress(100);
+    });
+
     $transitions.onSuccess({}, function(transition) {
+        PageLoadingBarService.setProgress(100);
+
         let pageTitleKey = 'page_state_titles.' + transition.to().name;
         let pageTitleText = $filter('translate')(pageTitleKey);
 
