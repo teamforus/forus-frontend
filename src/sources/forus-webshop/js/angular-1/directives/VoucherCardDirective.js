@@ -4,6 +4,7 @@ let VoucherCardDirective = function(
 ) {
     $scope.voucherCard = VoucherService.composeCardData($scope.voucher);
 
+    $scope.voucher.disabled = $scope.voucher.expired && !$scope.voucher.transactions.length;
 };
 
 module.exports = () => {

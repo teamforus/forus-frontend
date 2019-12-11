@@ -9,7 +9,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
     .section-title.hide-sm(ng-if="!$ctrl.voucherCard.product") Uw {{ $ctrl.voucherCard.title }} voucher
     .section-title.hide-sm(ng-if="$ctrl.voucherCard.product") Uw aanbieding voucher
 
-    .block.block-voucher
+    .block.block-voucher(ng-if="$ctrl.voucherCanUse")
         //- regular voucher
         div(ng-if="!$ctrl.voucherCard.product").base-card.base-card-sponsor: .card-inner
             .card-body
@@ -100,11 +100,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
             .card-qr_code.hide-sm(ng-if="$ctrl.voucherCanUse") 
                 qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="voucher")
                 .card-qr_code-desc(ng-if="$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.productdescription")
-                .card-qr_code-desc(ng-if="!$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
-            
-            .card-qr_code.hide-sm(ng-if="!$ctrl.voucherCanUse") 
-                img(ng-src="./assets/img/placeholders/product-small.png")
-                .card-qr_code-desc(i18n="voucher.voucher_card.labels.description_expired")
+                .card-qr_code-desc(ng-if="!$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}") 
 
     .block.block-transactions(ng-if="$ctrl.voucherCard.transactions.length > 0 && !$ctrl.voucherCard.product")
         .transactions-header: .transactions-title {{ "voucher.labels.transactions" | translate }}
