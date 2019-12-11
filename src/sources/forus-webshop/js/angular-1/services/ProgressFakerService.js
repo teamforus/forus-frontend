@@ -3,7 +3,7 @@ let ProgressFakerService = function(
 ) {
     return {
         make: function(time) {
-            return new (function(time) {
+            return new(function(time) {
                 var timeout = false;
                 var self = this;
                 var cur_time = time;

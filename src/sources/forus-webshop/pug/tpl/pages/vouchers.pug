@@ -10,9 +10,6 @@ section.section.section-profile: .wrapper
     .section-description(translate="vouchers.header.regular.description")
 
     .block.block-profile
-        .profile-aside(
-            ng-if="$ctrl.appConfigs.features.identity.address || $ctrl.appConfigs.features.records.list")
-            profile-card
         .profile-content
             .block.block-vouchers(ng-if="$ctrl.regularVouchers.length > 0")
                 voucher-card(ng-repeat="voucher in $ctrl.regularVouchers" voucher="voucher")
@@ -40,22 +37,3 @@ section.section.section-profile: .wrapper
                 description="Momenteel heeft u geen vouchers"
                 text="Gebruik een activatiecode"
                 hide-link="false")
-
-    //- .section-title
-        span(translate="vouchers.header.expired.title")
-        .span-count(ng-bind="$ctrl.expiredVouchers.length")
-    //- .section-description(translate="vouchers.header.expired.description")
-
-    //- .block.block-profile
-            .profile-content
-                .block.block-vouchers(ng-if="$ctrl.expiredVouchers.length > 0")
-                    voucher-card(ng-repeat="voucher in $ctrl.expiredVouchers" voucher="voucher")
-
-                empty-block(
-                    ng-if="$ctrl.expiredVouchers.length == 0"
-                    title="Geen vouchers"
-                    description="Momenteel heeft u geen vouchers"
-                    text="Gebruik een activatiecode"
-                    hide-link="false")
-
-contact-form 

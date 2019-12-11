@@ -6,21 +6,17 @@ class I18nLibProvider {
             i18nValues = values;
         };
 
-        this.$get = [
-            '$translate',
-            'appConfigs', (
-                $translate,
-                appConfigs
-            ) => {
-                let activeLang = $translate.use();
+        this.$get = ['$translate', 'appConfigs', (
+            $translate, appConfigs
+        ) => {
+            let activeLang = $translate.use();
 
-                return {
-                    values: (values) => Object.assign({},
-                        i18nValues[activeLang][appConfigs.client_key], values
-                    )
-                }
+            return {
+                values: (values) => Object.assign({},
+                    i18nValues[activeLang][appConfigs.client_key], values
+                )
             }
-        ];
+        }];
     }
 };
 

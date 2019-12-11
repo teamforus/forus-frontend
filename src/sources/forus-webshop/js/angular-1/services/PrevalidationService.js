@@ -1,7 +1,9 @@
-let PrevalidationService = function(ApiRequest) {
+let PrevalidationService = function(
+    ApiRequest
+) {
     let uriPrefix = '/platform';
 
-    return new (function() {
+    return new(function() {
         this.submitData = function(data, fund_id = null) {
             return ApiRequest.post(uriPrefix + '/prevalidations', {
                 data: data,

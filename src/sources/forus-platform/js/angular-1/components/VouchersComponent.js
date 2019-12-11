@@ -4,7 +4,8 @@ let VouchersComponent = function(
     FileService,
     DateService,
     ModalService,
-    VoucherService
+    VoucherService,
+    PushNotificationsService
 ) {
     let $ctrl = this;
 
@@ -77,6 +78,13 @@ let VouchersComponent = function(
         });
     };
 
+    $ctrl.downloadExampleCsv = () => {
+        FileService.downloadFile(
+            'voucher_upload_sample.csv',
+            VoucherService.sampleCSV('voucher')
+        );
+    };
+
     $ctrl.exportUnassignedQRCodes = () => {
         let from = $ctrl.filters.values.from,
             to = $ctrl.filters.values.to;
@@ -94,6 +102,14 @@ let VouchersComponent = function(
                 res.data,
                 res.headers('Content-Type') + ';charset=utf-8;'
             );
+        }, res => {
+            res.data.text().then((data) => {
+                data = JSON.parse(data);
+
+                if (data.message) {
+                    PushNotificationsService.danger(data.message);
+                }
+            });
         });
     };
 
@@ -160,6 +176,7 @@ module.exports = {
         'DateService',
         'ModalService',
         'VoucherService',
+        'PushNotificationsService',
         VouchersComponent
     ],
     templateUrl: 'assets/tpl/pages/vouchers.html'

@@ -1,15 +1,15 @@
-module.exports = function() {
-    return new(function() {
-        var modals = {};
+let ModalRouteProvider = function() {
+    var modals = {};
 
-        this.modal = function(modal, config) {
-            modals[modal] = config;
-        };
+    this.modal = function(modal, config) {
+        modals[modal] = config;
+    };
 
-        this.$get = [() => {
-            return {
-                modals: () => modals
-            }
-        }];
-    });
+    this.$get = [() => {
+        return {
+            modals: () => modals
+        }
+    }];
 };
+
+module.exports = new ModalRouteProvider();

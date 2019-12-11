@@ -1,8 +1,8 @@
 .block.block-auth-widget {
     .auth-title {
-        font: 600 18px/25px $bf;
+        font: 600 18px/20px $bf;
         color: #333;
-        margin: 0;
+        margin: 0 0 5px;
     }
 
     .auth-subtitle {
@@ -27,6 +27,100 @@
         }
     }
 
+    .auth-digid {
+        border: 1px solid #e7e7e7;
+        border-left: none;
+        border-right: none;
+        padding: 18px 0px;
+        margin: 0 0 30px;
+
+        .auth-digid-link {
+            color: #3661ff;
+            font: 600 14px/20px $bf;
+            display: flex;
+            flex-direction: row;
+
+            .mdi {
+                font-size: 1.5em;
+                height: 20px;
+                line-height: 20px;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                justify-items: center;
+                transition: .4s;
+                transform: translate(0, 0);
+                margin: 1px 0 -1px;
+            }
+
+            &:hover {
+                .mdi {
+                    transform: translate(2px, 0);
+                }
+            }
+        }
+    }
+
+    .auth-digid-form {
+        padding: 10px;
+
+        .auth-title {
+            margin: 0 0 20px;
+        }
+
+        .auth-subtitle {
+            margin: 0 0 20px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .modal-button-digid-icon {
+            background-color: #000;
+            background-image: url('../img/icon-digid.svg');
+            background-size: contain;
+            background-repeat: none;
+            background-position: 50% 50%;
+            border-color: #000;
+            cursor: default;
+        }
+    }
+
+    .auth-digid-message {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-items: center;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 10px 0;
+
+        .digid-icon {
+            color: #3661ff;
+            width: 140px;
+            height: 140px;
+            border-radius: 140px;
+            background: #fff;
+            text-align: center;
+            line-height: 140px;
+            font-size: 80px;
+            margin: 0 0 20px;
+        }
+
+        .digid-title {
+            color: #282b39;
+            font: 600 21px/20px $bf;
+            margin: 0 0 20px;
+        }
+
+        .digid-message {
+            color: #646f79;
+            font: 500 14px/20px $bf;
+        }
+    }
+
     .auth-qr_code {
         display: flex;
         flex-direction: column;
@@ -37,6 +131,8 @@
             font: 400 14px/20px $bf;
 
             .qr_code-description {
+                padding-right: 10px;
+
                 .qr_code-download-app {
                     display: flex;
 

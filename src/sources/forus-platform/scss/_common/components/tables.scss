@@ -33,6 +33,14 @@
                 padding-top: 0;
                 padding-bottom: 0;
                 font: 500 13px/30px $bf;
+
+                &:first-child {
+                    padding-left: 25px;
+                }
+
+                &:last-child {
+                    padding-right: 25px;
+                }
             }
 
             td {
@@ -83,6 +91,18 @@
                         margin-right: 5px;
                         float: left;
                     }
+                }
+
+                &.td-narrow {
+                    width: 1%;
+                }
+
+                &:first-child {
+                    padding-left: 25px;
+                }
+
+                &:last-child {
+                    padding-right: 25px;
                 }
             }
 

@@ -56,8 +56,8 @@ module.exports = {
         },
         share_voucher: {
             popup_form: {
-                title: 'Let op! Neem contact op met aanbieder voordat u de QR-code deelt.',
-                description: 'U kunt uw aanbieding voucher met de aanbieder delen om koop op afstand mogelijk te maken. Als de aanbieding een activiteit of dienst betreft: meld in het onderstaande veld eventuele extra informatie die de aanbieder vereist voor deelname. Dit kan een reden zijn maar ook uw naam of telefoonnummer betreffen.'
+                title: 'Let op! Stuur een bericht naar de aanbieder voordat u de QR-code deelt.',
+                description: 'U kunt uw aanbieding voucher met de aanbieder delen om koop op afstand mogelijk te maken. Als de aanbieding een activiteit of dienst betreft: typ in het onderstaande veld extra informatie die de aanbieder vereist voor deelname, zoals: uw naam en telefoonnummer.'
             },
             reason_placeholder: 'Bericht voor aanbieder',
             buttons: {
@@ -66,7 +66,8 @@ module.exports = {
             },
             popup_sent: {
                 title: 'Uw voucher is verstuurd naar de aanbieder.',
-                description: 'De aanbieder heeft de aanbieding voucher en uw bericht ontvangen. Neem contact op met aanbieder of ga bij bij de organisatie langs om het aanbod af te nemen.'
+                description: 'De aanbieder heeft de aanbieding voucher en uw bericht ontvangen. Neem contact op met de aanbieder of ga bij de organisatie langs om het aanbod af te nemen.' +
+                    '<br/>Bijv. voor schoolkosten, dit aanbod kan de inwoner niet afnemen. Ontvangt de inwoner een mail zodra het bedrag is afgeschreven van de aanbiedingvoucher?'
             },
             labels: {
                 send_copy: "Stuur e-mail als bewijs ook naar uzelf"

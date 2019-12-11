@@ -1,18 +1,10 @@
-let RecordValidationsComponent = function(
-    $state,
-    $rootScope,
-    $timeout,
-    CredentialsService,
-    IdentityService,
-    AuthService,
-    appConfigs
-) {
+let RecordValidationsComponent = function() {
     let $ctrl = this;
 
     $ctrl.recordsByTypesKey = {};
 
     $ctrl.$onInit = function() {
-        $ctrl.recordTypes.forEach(function(recordType) {
+        $ctrl.recordTypes.forEach((recordType) => {
             $ctrl.recordsByTypesKey[recordType.key] = recordType;
         });
     };
@@ -25,13 +17,6 @@ module.exports = {
         recordTypes: '<'
     },
     controller: [
-        '$state',
-        '$rootScope',
-        '$timeout',
-        'CredentialsService',
-        'IdentityService',
-        'AuthService',
-        'appConfigs',
         RecordValidationsComponent
     ],
     templateUrl: 'assets/tpl/pages/record-validations.html'

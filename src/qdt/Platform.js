@@ -1,10 +1,13 @@
+const path = require('path');
+
 let Platform = function(source) {
     let cfg = {
         enabled: true,
         name: source,
         source: source,
         paths: {
-            root: null
+            destRootPath: './',
+            root: '/'
         },
         assets: [],
         tasks: {},
@@ -47,6 +50,10 @@ let Platform = function(source) {
         cfg.name = name;
 
         return this;
+    };
+
+    this.setDestRootPath = (destRootPath) => {
+        cfg.paths.destRootPath = destRootPath;
     };
 
     this.setDest = (destPath) => {
@@ -205,6 +212,20 @@ let Platform = function(source) {
 
     this.getConfig = () => {
         let outCfg = JSON.parse(JSON.stringify(cfg));
+        let destRootPath = path.resolve(outCfg.paths.destRootPath);
+
+        outCfg.paths.root = path.resolve(destRootPath, outCfg.paths.root);
+        outCfg.paths.assets = path.resolve(destRootPath, outCfg.paths.assets);
+
+        if (typeof outCfg.paths.clean == 'string') {
+            outCfg.paths.clean = [outCfg.paths.clean];
+        }
+
+        if (Array.isArray(outCfg.paths.clean)) {
+            outCfg.paths.clean = outCfg.paths.clean.map(cleanPath => {
+                return path.resolve(destRootPath, cleanPath);
+            });
+        }
 
         Object.values(taskStorage).forEach(task => {
             if (!Array.isArray(outCfg.tasks[task.type])) {

@@ -101,20 +101,15 @@ let FundService = function(ApiRequest) {
             );
         };
 
-        this.approveProvider = function(organization_id, fund_id, id) {
-            return ApiRequest.patch(
-                uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + id, {
-                    state: 'approved'
-                }
-            );
+        this.dismissProvider = function(organization_id, fund_id, id) {
+            return this.updateProvider(organization_id, fund_id, id, {
+                dismissed: true
+            });
         };
 
-        this.declineProvider = function(organization_id, fund_id, id) {
+        this.updateProvider = function(organization_id, fund_id, id, data = {}) {
             return ApiRequest.patch(
-                uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + id, {
-                    state: 'declined'
-                }
-            );
+                uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + id, data);
         };
 
         this.states = function() {
@@ -157,6 +152,7 @@ let FundService = function(ApiRequest) {
                 criteria: apiResource.criteria,
                 formula_products: apiResource.formula_products || [],
                 name: apiResource.name,
+                description: apiResource.description,
                 state: apiResource.state,
                 start_date: moment(apiResource.start_date).format('DD-MM-YYYY'),
                 end_date: moment(apiResource.end_date).format('DD-MM-YYYY'),

@@ -44,6 +44,7 @@ module.exports = {
     // PAGES
     vouchers: require('./nl/pages/vouchers.pug.i18n'),
     product_vouchers: require('./nl/pages/product-vouchers.pug.i18n'),
+    voucher_printable: require('./nl/pages/voucher-printable.pug.i18n'),
 
     // MEAPP LANDINGSPAGE = index.pug
     meapp_index: {
@@ -85,8 +86,10 @@ module.exports = {
     // PROVIDER HOME = home-provider.pug
     home_provider: {
         header: {
-            title: "Meld u aan als winkelier of dienstverlener",
-            subtitle: "Bereik meer klanten, maak winst en draag bij aan een maatschappelijk doel.",
+            default: {
+                title: "Meld uw organisatie aan op het platform.",
+                subtitle: "Dit is het start scherm om uzelf aan te melden op het aanbieders dashboard.",
+            },
             nijmegen: {
                 title: "Meld u aan als dienstverlener",
                 subtitle: "De gemeente geeft inwoners met een laag inkomen maximaal € 150,- voor culturele, sportieve en educatieve activiteiten. Dit heet de Meedoen-regeling.",
@@ -95,11 +98,19 @@ module.exports = {
                 title: "Meld uw organisatie aan voor het Kindpakket",
                 subtitle: "De gemeente geeft een bedrag van € 250,- per kind aan gezinnen met een laag inkomen.",
             },
+            kerstpakket: {
+                title: "Meld uw organisatie aan voor het Kerstpakket",
+                subtitle: "Dit is het start scherm om uzelf aan te melden op het aanbieders dashboard.",
+            },
             oostgelre: {
                 title: "Meld uw organisatie aan voor de Kindregeling",
                 subtitle: "Ondersteuning aan gezinnen met een laag inkomen.",
             },
             winterswijk: {
+                title: "Meld uw organisatie aan voor de Kindregeling",
+                subtitle: "Ondersteuning aan gezinnen met een laag inkomen.",
+            },
+            berkelland: {
                 title: "Meld uw organisatie aan voor de Kindregeling",
                 subtitle: "Ondersteuning aan gezinnen met een laag inkomen.",
             }
@@ -111,18 +122,27 @@ module.exports = {
             subdescription: "Een gemeente zet een bepaalt budget uit. Verdien geld door deel te nemen en inwoners te helpen met jouw aanbiedingen.",
         },
         guide: {
-            title: "Word onderdeel van een innovatieve beweging",
-            description: "Doe mee aan ons platform door onderstaande stappen te volgen, maak een organisatie aan, verkoop jouw producten of diensten en trek nieuwe klanten aan.",
-            button: "Start uw reis!",
+            default: {
+                title: "Aanmelden",
+                description: "Uw organisatie is in het bezit van een smartphone, deze heeft u nodig om een mobiele applicatie te installeren die QR-codes kan scannen. Heeft u deze smartphone bij de hand? Regel het dan direct!",
+                button: "Direct regelen",
+            },
             nijmegen: {
                 title: "Als uw organisatie een passend aanbod heeft, kunt u zich opgeven.",
-                button: "DIRECT REGELEN",
                 description: "Uw organisatie is in het bezit van een smartphone, deze heeft u nodig om een mobiele applicatie te installeren die QR-codes kan scannen. Heeft u deze smartphone bij de hand? Regel het dan direct!",
+                button: "DIRECT REGELEN",
             },
             westerkwartier: {
                 title: "Aanmelden",
-                button: "DIRECT REGELEN",
                 description: "Levert uw organisatie een aanbod in de volgende categorieën: zwem en sportlessen, (kinder-)kleding, luiers en babyvoeding, dierbenodigdheden, speelgoed en hobby-benodigdheden? Dan kunt u uw organisatie hiervoor aanmelden.<br /><br /> Om u aan te melden heeft u een smartphone nodig. Op de smartphone kunt u een applicatie installeren voor het scannen van QR-codes. Heeft u deze smartphone bij de hand? Regel het dan direct!",
+                button: "Direct regelen",
+            },
+            berkelland: {
+                title: "",
+                button: "DIRECT REGELEN",
+                description: "Voor inwoners met een laag inkomen valt het niet mee om hun kind(eren) overal aan mee te laten doen. Deze gezinnen kunnen profiteren van de Kindregeling. De gemeente biedt diverse vergoedingen aan gezinnen met een laag inkomen. Op deze manier kunnen zij hun kind (-eren) overal aan mee te laten doen. Bijvoorbeeld aan een schoolreisje, sportactiviteiten, bezoek aan het theater of muziekles. Maar het gaat ook om een tegemoetkoming voor schoolkosten, zwemles of een huiswerkcomputer." + 
+                    "<br/><br/>Levert uw organisatie een passend aanbod? Dan kunt u uw organisatie hiervoor aanmelden." +
+                    "<br/><br/>Om u aan te melden, heeft u een smartphone nodig. Op de smartphone kunt u een applicatie installeren voor het scannen van QR-codes. Heeft u deze smartphone bij de hand? Regel het dan direct!",
             },
             oostgelre: {
                 title: "",
@@ -159,6 +179,15 @@ module.exports = {
             },
     
             oostgelre: {
+                title: "Veelgestelde vragen",
+                faq_one: "Wat zijn de technische vereisten om mee te doen?",
+                one: "Een smartphone op de locatie van uw organisatie. Android vereist: versie 4.3 en hoger. iOS vereist: versie 10.0 en hoger. Een computer met een willekeurige internet browser. Internet Explorer: versie 10 of hoger",
+                faq_two: "Hoe werkt het uitbetalen?",
+                two: "Scan de QR-code van de inwoner. Vul vervolgens het bedrag van de betaling in en eventueel een omschrijving. Tot slot, bevestig de betaling in de app. Het geld wordt binnen drie werkdagen op de rekening bijgeschreven.",
+                faq_three: "Hoe kan ik mijn transacties inzien?",
+                three: "Naast de mobiele applicatie kunt u ook gebruik maken van de gebruikersomgeving voor organisaties. Hier kunt u het profiel van de organisatie beheren, transacties bijhouden en aanbiedingen op de webshop plaatsen. Het gebruik maken van de gebruikersomgeving is optioneel.",
+            },
+            berkelland: {
                 title: "Veelgestelde vragen",
                 faq_one: "Wat zijn de technische vereisten om mee te doen?",
                 one: "Een smartphone op de locatie van uw organisatie. Android vereist: versie 4.3 en hoger. iOS vereist: versie 10.0 en hoger. Een computer met een willekeurige internet browser. Internet Explorer: versie 10 of hoger",
@@ -289,6 +318,7 @@ module.exports = {
         },
         labels: {
             name: "Naam",
+            description: "Omschrijving",
             products: "Products",
             status: "Status",
             start: "Startdatum",
@@ -720,6 +750,7 @@ module.exports = {
             from: "Vanaf",
             to: "Tot",
             state: "Status",
+            fund_state: "Status fonds",
             amount: "Bedrag",
             amount_min: "0",
             amount_max: "Alles"
@@ -1100,9 +1131,9 @@ module.exports = {
         tooltip: {
             admin: 'Alle functionaliteiten',
             validation: 'Aanvragers toevoegen (inwoners toevoegen via CSV bestand)',
-            'operation officer': 'Verrichten van betalingen via Me app (voor aanbieders)',
+            operation_officer: 'Verrichten van betalingen via Me app (voor aanbieders)',
             finance: 'Overzicht van statistieken, transacties en het financieel dashboard',
-            'policy officer': 'Aanbieders goedkeuren en instellingen van het fonds aanpassen'
+            policy_officer: 'Aanbieders goedkeuren en instellingen van het fonds aanpassen'
         }
     },
 

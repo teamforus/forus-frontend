@@ -1,18 +1,25 @@
 let OrganizationProvidersComponent = function(
+    $q,
+    $scope,
     $state,
     $stateParams,
-    $scope,
+    $timeout,
     FundService,
     FileService,
-    OrganizationService
+    OrganizationService,
+    PushNotificationsService
 ) {
     let $ctrl = this;
     let org = OrganizationService.active();
 
+    $ctrl.loaded = false;
     $ctrl.filters = {
         show: false,
         values: {
-            fund_id: $stateParams.fund_id || null
+            fund_id: $stateParams.fund_id || null,
+            allow_products: '',
+            allow_budget: '',
+            dismissed: false,
         },
     };
 
@@ -35,47 +42,89 @@ let OrganizationProvidersComponent = function(
         $ctrl.filters.values.state = $ctrl.states[0].key;
     };
 
-    $ctrl.toggleFundCollapse = function(providerFund) {
-        if (providerFund.collapsable) {
-            providerFund.collapsed = !providerFund.collapsed;
-        }
+    $ctrl.updateAllowBudget = function(fundProvider) {
+        FundService.updateProvider(
+            fundProvider.fund.organization_id,
+            fundProvider.fund.id,
+            fundProvider.id, {
+                allow_budget: fundProvider.allow_budget
+            }
+        ).then((res) => {
+            PushNotificationsService.success('Saved!');
+
+            if (!$ctrl.filters.values.dismissed) {
+                $ctrl.updateProvidersList();
+            } else {
+                $ctrl.fundProviders.data[
+                    $ctrl.fundProviders.data.indexOf(fundProvider)
+                ] = $ctrl.transformProvider(res.data.data);
+            }
+        }, console.error);
     };
 
-    $ctrl.approveProvider = function(providerFund) {
-        FundService.approveProvider(
-            providerFund.fund.organization_id,
-            providerFund.fund.id,
-            providerFund.id
+    $ctrl.updateAllowProducts = function(fundProvider) {
+        FundService.updateProvider(
+            fundProvider.fund.organization_id,
+            fundProvider.fund.id,
+            fundProvider.id, {
+                allow_products: fundProvider.allow_products
+            }
         ).then((res) => {
-            $state.reload();
+            PushNotificationsService.success('Saved!');
+
+            if (!$ctrl.filters.values.dismissed) {
+                $ctrl.updateProvidersList();
+            } else {
+                $ctrl.fundProviders.data[
+                    $ctrl.fundProviders.data.indexOf(fundProvider)
+                ] = $ctrl.transformProvider(res.data.data);
+            }
+        }, console.error);
+    };
+
+    $ctrl.dismissProvider = function(fundProvider) {
+        FundService.dismissProvider(
+            fundProvider.fund.organization_id,
+            fundProvider.fund.id,
+            fundProvider.id
+        ).then((res) => {
+            PushNotificationsService.success(
+                'Dismissed!',
+                "Adjust the filters to find the request it again."
+            );
+
+            if (!$ctrl.filters.values.dismissed) {
+                $ctrl.updateProvidersList();
+            } else {
+                $ctrl.fundProviders.data[
+                    $ctrl.fundProviders.data.indexOf(fundProvider)
+                ] = $ctrl.transformProvider(res.data.data);
+            }
         });
     };
 
-    $ctrl.declineProvider = function(providerFund) {
-        FundService.declineProvider(
-            providerFund.fund.organization_id,
-            providerFund.fund.id,
-            providerFund.id
-        ).then((res) => {
-            $state.reload();
+    $ctrl.updateProvidersList = function() {
+        $scope.onPageChange({
+            fund_id: $stateParams.fund_id
         });
     };
 
     $scope.onPageChange = async (query) => {
-        let filters = Object.assign({}, query, $ctrl.filters.values);
+        return $q((resolve, reject) => {
+            OrganizationService.listProviders(
+                $stateParams.organization_id,
+                Object.assign({}, query, $ctrl.filters.values, {
+                    dismissed: $ctrl.filters.values.dismissed ? 1 : 0
+                })
+            ).then((res => {
+                $ctrl.fundProviders = {
+                    meta: res.data.meta,
+                    data: $ctrl.transformProvidersList(res.data.data),
+                };
 
-        OrganizationService.listProviders(
-            $ctrl.organization.id,
-            filters
-        ).then((res => {
-            $ctrl.fundProviders.meta = res.data.meta;
-            $ctrl.fundProviders.data = res.data.data.map(providerFund => {
-                providerFund.collapsed = providerFund.state == 'approved';
-                providerFund.collapsable = providerFund.state == 'approved';
-
-                return providerFund;
-            });
-        }));
+                resolve($ctrl.fundProviders);
+            }), reject);
+        });
     };
 
     // Export to XLS file
@@ -100,23 +149,27 @@ let OrganizationProvidersComponent = function(
         });
     };
 
+    $ctrl.transformProvider = (fundProvider) => {
+        fundProvider.uiViewParams = {
+            organization_id: fundProvider.fund.organization_id,
+            fund_id: fundProvider.fund.id,
+            fund_provider_id: fundProvider.id
+        };
+
+        return fundProvider;
+    };
+
+    $ctrl.transformProvidersList = (providers) => {
+        return providers.map(provider => $ctrl.transformProvider(provider));
+    };
+
     $ctrl.$onInit = function() {
         $ctrl.resetFilters();
 
-        if ($ctrl.fundProviders) {
-            $ctrl.fundProviders.data.map(providerFund => {
-                providerFund.collapsed = providerFund.state == 'approved';
-                providerFund.collapsable = providerFund.state == 'approved';
-
-                return providerFund;
-            });
-        }
-
-        if (Array.isArray($ctrl.funds)) {
-            $ctrl.funds = $ctrl.funds.map(fund => {
-                fund.fundCategories = _.pluck(fund.product_categories, 'name').join(', ');
-                return fund;
-            });
+        $scope.onPageChange().then(() => {
+            $timeout(() => {
+                $ctrl.loaded = true;
+            }, 0);
 
             if ($ctrl.funds.length == 1) {
                 $state.go('organization-providers', {
@@ -124,11 +177,7 @@ let OrganizationProvidersComponent = function(
                     fund_id: $ctrl.funds[0].id
                 });
             }
-        }
-
-        if ($ctrl.fund) {
-            $ctrl.fund.fundCategories = _.pluck($ctrl.fund.product_categories, 'name').join(', ');
-        }
+        });
     };
 };
 
@@ -140,12 +189,15 @@ module.exports = {
         fund: '<'
     },
     controller: [
+        '$q',
+        '$scope',
         '$state',
         '$stateParams',
-        '$scope',
+        '$timeout',
         'FundService',
         'FileService',
         'OrganizationService',
+        'PushNotificationsService',
         OrganizationProvidersComponent
     ],
     templateUrl: 'assets/tpl/pages/organization-providers.html'
