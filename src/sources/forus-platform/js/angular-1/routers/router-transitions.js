@@ -27,7 +27,7 @@ module.exports = ['$transitions', '$filter', '$rootScope', 'OrganizationService'
                 'home', 'organiztions', 'funds', 'funds-show',
                 'organizations-create', 'csv-validation', 'validation-requests',
                 'validation-request', 'sign-up', 'restore-email', 'email-unsubscribe',
-                'email-preferences'
+                'email-preferences', 'auth-link',
             ].indexOf(transition.to().name) == -1) {
             if (!OrganizationService.active()) {
                 transition.router.stateService.transitionTo('organizations');

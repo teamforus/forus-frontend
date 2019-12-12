@@ -6,5 +6,8 @@ html(lang="nl" ng-controller="BaseController" ng-cloak)
         ui-view
         div(forus-chat chat-id="appConfigs.chat_id" ng-if="appConfigs.chat_id && $root.auth_user")
         include ../layout/includes/footer
+        
         printables-root
+        push-notifications
+        
         include ../layout/includes/scripts

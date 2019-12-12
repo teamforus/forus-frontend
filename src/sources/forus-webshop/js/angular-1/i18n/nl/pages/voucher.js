@@ -34,10 +34,10 @@ module.exports = {
             },
             footer: {
                 actions: {
-                    mail: "EMAIL",
-                    print: "PRINT",
-                    share: "DEEL",
-                    open_in_me: 'Me'
+                    mail: "E-mail naar mij",
+                    print: "Print",
+                    share: "Deel met aanbieder",
+                    open_in_me: 'Open in app'
                 },
                 tooltips: {
                     mail: "E-mail de voucher naar uzelf",

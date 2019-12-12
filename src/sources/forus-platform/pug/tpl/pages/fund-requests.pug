@@ -25,26 +25,28 @@
                         em.mdi.mdi-circle-off-outline
                         | Geweigerd
                 
-                .card-title
-                    | BSN: 4577654445
+                .card-title(ng-class="{'text-muted':!validatorRequest.bsn}")
+                    | BSN: 
+                    span(ng-bind="validatorRequest.bsn || 'Geen data'")
                     .card-collapse.mdi(ng-class="'mdi-chevron-' + (validatorRequest.collapsed ? 'down' : 'up')")
                 
                 .card-block.card-block-listing.card-block-listing-inline
                     .card-block-listing-label Fonds
-                    span(ng-bind="$ctrl.fundsById[validatorRequest.fund_id].name") 
-                    em.mdi.mdi-information.block.block-tooltip-details(
-                        ng-click="$ctrl.showFundCriteria($event, validatorRequest)"
-                        ng-class="{active: validatorRequest.showCriteria}")
-                        .tooltip-content(
-                            ng-if="validatorRequest.showCriteria" 
-                            click-outside="$ctrl.hideFundCriteria($event, validatorRequest)"): ul.tooltip-list
-                            li(ng-repeat="critera in $ctrl.fundsById[validatorRequest.fund_id].criteria").tooltip-list-item
-                                em.mdi.mdi-check
-                                | {{ critera.record_type_name }} moet
-                                span(ng-if="critera.operator == '>'") meer dan 
-                                span(ng-if="critera.operator == '='") 
-                                span(ng-if="critera.operator == '<'") minder dan 
-                                | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }}.
+                    .card-block-listing-value
+                        span(ng-bind="$ctrl.fundsById[validatorRequest.fund_id].name") 
+                        em.mdi.mdi-information.block.block-tooltip-details(
+                            ng-click="$ctrl.showFundCriteria($event, validatorRequest)"
+                            ng-class="{active: validatorRequest.showCriteria}")
+                            .tooltip-content(
+                                ng-if="validatorRequest.showCriteria" 
+                                click-outside="$ctrl.hideFundCriteria($event, validatorRequest)"): ul.tooltip-list
+                                li(ng-repeat="critera in $ctrl.fundsById[validatorRequest.fund_id].criteria").tooltip-list-item
+                                    em.mdi.mdi-check
+                                    | {{ critera.record_type_name }} moet
+                                    span(ng-if="critera.operator == '>'") meer dan 
+                                    span(ng-if="critera.operator == '='") 
+                                    span(ng-if="critera.operator == '<'") minder dan 
+                                    | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }}.
             
             .card-header(ng-hide='validatorRequest.collapsed')
                 .arrow-box.border.bg-dim: .arrow
