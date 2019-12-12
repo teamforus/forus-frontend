@@ -4,6 +4,7 @@ let VoucherCardDirective = function(
 ) {
     $scope.voucherCard = VoucherService.composeCardData($scope.voucher);
 
+    $scope.voucherCard.disabled = $scope.voucherCard.type == 'product' && $scope.voucher.transactions.length;
 };
 
 module.exports = () => {
