@@ -95,6 +95,7 @@
                                 th(i18n="product_vouchers.labels.expire_date").nowrap
                                 th(i18n="product_vouchers.labels.fund")
                                 th(i18n="product_vouchers.labels.granted")
+                                th(i18n="product_vouchers.labels.used")
                                 th(i18n="product_vouchers.labels.qr_code").nowrap.text-right
                             tr(ng-repeat="voucher in $ctrl.vouchers.data")
                                 td: em.td-icon.mdi.mdi-information.block.block-tooltip-details.pull-left(
@@ -112,6 +113,14 @@
                                         em.mdi.mdi-check-circle
                                         | {{ "product_vouchers.labels.yes" | translate }}
                                 td(ng-if="!voucher.is_granted")
+                                    .td-boolean
+                                        em.mdi.mdi-close
+                                        | {{ "product_vouchers.labels.no" | translate }}
+                                td(ng-if="voucher.has_transactions")
+                                    .td-boolean
+                                        em.mdi.mdi-check-circle
+                                        | {{ "product_vouchers.labels.yes" | translate }}
+                                td(ng-if="!voucher.has_transactions")
                                     .td-boolean
                                         em.mdi.mdi-close
                                         | {{ "product_vouchers.labels.no" | translate }}

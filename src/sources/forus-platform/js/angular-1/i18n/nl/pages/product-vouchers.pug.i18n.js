@@ -9,6 +9,7 @@ module.exports = {
         expire_date: "Geldig tot",
         fund: "Fonds",
         granted: "Toegekend",
+        used: "In gebruik",
         note: "Notitie",
         search: "Zoeken",
         qr_code: "QR-Code",
