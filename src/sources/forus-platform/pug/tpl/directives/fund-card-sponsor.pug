@@ -75,7 +75,8 @@
             translate(translate='fund_card_sponsor.buttons.add')
 
     mixin stats()
-        .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
+        .card-block.card-block-keyvalue.card-block-keyvalue-horizontal.budget
+            +keyvalue_item_horizontal("Resterend budget", "fund.budget.total - fund.budget.used | currency_format")
             +keyvalue_item_horizontal("Totaal budget", "fund.budget.total | currency_format")
             +keyvalue_item_horizontal("Gebruikt", "fund.budget.used | currency_format")
 
