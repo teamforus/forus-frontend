@@ -101,6 +101,12 @@
                     float: left;
                     width: 100%;
 
+                    &.voucher-open {
+                        position: absolute;
+                        bottom: 25px;
+                        left: 25px;
+                    }
+
                     .voucher-overview-label {
                         font: 400 10px/12px $bf;
                         color: #646f79;

@@ -13,17 +13,7 @@
     
     // regular voucher
     .voucher-overview(ng-if="voucherCard.type == 'regular'")
-        .voucher-overview-item
-            .voucher-overview-label(i18n="vouchers.labels.transactions")
-            .voucher-overview-value(ng-bind="voucherCard.transactions.length")
-        .voucher-overview-item
-            .voucher-overview-label(i18n="vouchers.labels.last")
-            .voucher-overview-value(ng-if="voucherCard.transactions.length > 0")
-                span(ng-bind="'- ' + (voucherCard.transactions[0].amount | currency_format)")
-                small(i18n="vouchers.labels.subtract")
-            .voucher-overview-value(ng-if="voucherCard.transactions.length == 0")
-                span.text-muted(i18n="vouchers.labels.none")
-        .voucher-overview-item
+        .voucher-overview-item.voucher-open
             button.button.button-primary {{ "vouchers.labels.open_voucher" | translate }}
 
     // product voucher

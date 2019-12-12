@@ -5,8 +5,8 @@ header.section.section-header
     .wrapper  
         .header-body
             .header-content
-                .header-title(translate="home_provider.header.{{ $root.client_key }}.title" translate-default="{{ 'home_provider.header.title' | translate }}")
-                .header-description(translate="home_provider.header.{{ $root.client_key }}.subtitle" translate-default="{{ 'home_provider.header.subtitle' | translate }}")
+                .header-title(translate="home_provider.header.{{ $root.client_key }}.title" translate-default="{{ 'home_provider.header.default.title' | translate }}")
+                .header-description(translate="home_provider.header.{{ $root.client_key }}.subtitle" translate-default="{{ 'home_provider.header.default.subtitle' | translate }}")
             //- .header-sprite(
                 style="background-image: url('./assets/img/landing/vouchers-sprite.svg')")
             .block.block-cards
@@ -23,10 +23,14 @@ header.section.section-header
 
 
 section.section.section-flow: .wrapper
-    .section-title(translate="home_provider.guide.{{ $root.client_key }}.title" translate-default="{{ 'home_provider.guide.title' | translate }}")
-    .section-description(translate="home_provider.guide.{{ $root.client_key }}.description" translate-default="{{ 'home_provider.guide.description' | translate }}")
+    .section-title(translate="home_provider.guide.{{ $root.client_key }}.title" translate-default="{{ 'home_provider.guide.default.title' | translate }}")
+    .section-description(translate="home_provider.guide.{{ $root.client_key }}.description" translate-default="{{ 'home_provider.guide.default.description' | translate }}")
     //- img(src="./assets/img/landing/forus-flow-provider.png").section-scheme
-    .block.block-show-more: a(href="../provider/#!/sign-up").button.button-primary(translate="home_provider.guide.{{ $root.client_key }}.button" translate-default="{{ 'home_provider.guide.button' | translate }}")
+    .block.block-show-more 
+        a(
+            href="../provider/#!/sign-up" 
+            translate="home_provider.guide.{{ $root.client_key }}.button" 
+            translate-default="{{ 'home_provider.guide.default.button' | translate }}").button.button-primary
 
 
 section.section.section-faq: .wrapper
