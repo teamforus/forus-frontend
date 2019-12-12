@@ -17,7 +17,6 @@ module.exports = {
     },
     default: {
         labels: {
-            purchases_notice: 'Aankopen met deze voucher kunnen niet worden geretourneerd',
             contact: {
                 have_questions: 'Heeft u vragen over ‘{{printableTitle}}’?',
                 phone: 'Telefoonnummer',
