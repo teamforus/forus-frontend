@@ -24,8 +24,8 @@ body {
                 border: 1px solid #EBEDF0;
                 box-sizing: border-box;
                 position: relative;
-                padding: 80px 14px 0px 14px;
-                margin-bottom: 60px;
+                padding: 50px 14px 0px 14px;
+                margin-bottom: 30px;
 
                 .printable-usage-info {
                     position: absolute;
@@ -80,6 +80,11 @@ body {
             .printable-additional-info {
                 margin-bottom: 40px;
                 text-align: center;
+
+                .notice {
+                    font: 400 13px/17px $bf;
+                    margin-bottom: 20px;
+                }
 
                 .description {
                     font: 400 15px/21px $bf;
