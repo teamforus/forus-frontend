@@ -865,15 +865,6 @@ $colorPrimaryLight: $color_primary_light;
         }
 
         &.card-block-keyvalue-horizontal {
-            &.budget {
-                .keyvalue-item {
-                    &:not(:first-child) {
-                        padding-left: 10px;
-                        padding-right: 10px;
-                    }
-                }
-            }
-
             .keyvalue-item {
                 padding-bottom: 0;
                 position: relative;
@@ -892,6 +883,13 @@ $colorPrimaryLight: $color_primary_light;
                     color: #282b39;
                     width: 100%;
                     display: block;
+                }
+
+                &.keyvalue-item-narrow {
+                    &:not(:first-child) {
+                        padding-left: 10px;
+                        padding-right: 10px;
+                    }
                 }
 
                 &:not(:first-child) {

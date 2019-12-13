@@ -49,8 +49,8 @@
             translate(ng-bind="fundCategories.join(', ')")
             small(ng-show="fundCategories.length == 0" translate="fund_card_sponsor.labels.nocategories").text-muted.small
 
-    mixin keyvalue_item_horizontal(key, value)
-        .keyvalue-item
+    mixin keyvalue_item_horizontal(key, value, _class = '')
+        .keyvalue-item(class=_class)
             .keyvalue-key #{key}
             .keyvalue-value(ng-bind=value)
 
@@ -75,10 +75,10 @@
             translate(translate='fund_card_sponsor.buttons.add')
 
     mixin stats()
-        .card-block.card-block-keyvalue.card-block-keyvalue-horizontal.budget
-            +keyvalue_item_horizontal("Resterend budget", "fund.budget.total - fund.budget.used | currency_format")
-            +keyvalue_item_horizontal("Totaal budget", "fund.budget.total | currency_format")
-            +keyvalue_item_horizontal("Gebruikt", "fund.budget.used | currency_format")
+        .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
+            +keyvalue_item_horizontal("Resterend budget", "fund.budget.total - fund.budget.used | currency_format", 'keyvalue-item-narrow')
+            +keyvalue_item_horizontal("Totaal budget", "fund.budget.total | currency_format", 'keyvalue-item-narrow')
+            +keyvalue_item_horizontal("Gebruikt", "fund.budget.used | currency_format", 'keyvalue-item-narrow')
 
     .hidden-md.card-section.card-section-primary(
         ng-show="level != 'fundsAvailable' && (fundOrg | hasPerm:['view_finances','manage_funds']:false)"): .row
