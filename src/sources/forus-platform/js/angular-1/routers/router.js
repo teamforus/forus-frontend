@@ -76,11 +76,14 @@ let organziationResolver = (uriKey = 'organization_id') => {
 module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     $stateProvider, $locationProvider, appConfigs
 ) => {
-
     $stateProvider.state({
         name: "home",
-        url: "/",
-        component: "homeComponent"
+        url: "/?digid_error",
+        component: "homeComponent",
+        params: {
+            confirmed: null,
+            digid_error: null
+        },
     });
 
     $stateProvider.state({
@@ -705,20 +708,22 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         data: {
             token: null
         },
-        controller: ['$state', '$rootScope', 'IdentityService', 'CredentialsService', (
-            $state, $rootScope, IdentityService, CredentialsService
+        controller: ['$state', '$rootScope', 'IdentityService', 'CredentialsService', 'PushNotificationsService', (
+            $state, $rootScope, IdentityService, CredentialsService, PushNotificationsService
         ) => {
             IdentityService.exchangeShortToken(
                 $state.params.token
             ).then(res => {
                 CredentialsService.set(res.data.access_token);
-                $rootScope.loadAuthUser();
-                $state.go('home');
+                $rootScope.loadAuthUser().then(() => {
+                    $state.go('home');
+                });
             }, () => {
-                alert("Token expired or unknown.");
-                $state.go('home');
+                PushNotificationsService.danger(
+                    "Deze link is reeds gebruikt of ongeldig."
+                ) & $state.go('home');
             });
-        }],
+        }]
     });
 
     if (['provider', 'sponsor'].indexOf(appConfigs.panel_type) != -1) {

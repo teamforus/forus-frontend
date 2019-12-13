@@ -22,9 +22,9 @@
                     i18n="notification_preferences.unsubscribe").button.button-primary
 
         .card(ng-if="!$ctrl.email_unsubscribed")
-            .card-header: .card-title(translate="notification_preferences.title_preferences")
+            .card-header: .card-title(translate="notification_preferences.title_email_preferences")
             .form.block.block-preferences(ng-if="!$ctrl.email_unsubscribed"): label(
-                ng-repeat="type in $ctrl.preferences" 
+                ng-repeat="type in $ctrl.emailPreferences" 
                 for="option_{{ type.key }}").preference-option
                 .preference-option-details
                     .card-heading.card-heading-padless(translate="{{ 'notification_preferences.types.' + type.key + '.title' }}")
@@ -39,3 +39,21 @@
                     .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
                         em.mdi.mdi-check-bold(ng-if="type.subscribed")
                         .icon-disabled(ng-if="!type.subscribed")
+        .card
+            .card-header: .card-title(translate="notification_preferences.title_push_preferences")
+            .form.block.block-preferences: label(
+                ng-repeat="type in $ctrl.pushPreferences" 
+                for="option_{{ type.key }}").preference-option
+                .preference-option-details
+                    .card-heading.card-heading-padless(translate="{{ 'notification_preferences.types.' + type.key + '.title' }}")
+                    .card-text(translate="{{ 'notification_preferences.types.' + type.key + '.description' }}")
+                .preference-option-input: .form-toggle
+                    input(
+                        type="checkbox" 
+                        id="option_{{ type.key }}" 
+                        ng-change="$ctrl.togglePreferenceOption()" 
+                        ng-checked="type.subscribed" 
+                        ng-model="type.subscribed")
+                    .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+                        em.mdi.mdi-check-bold(ng-if="type.subscribed")
+                        .icon-disabled(ng-if="!type.subscribed")                

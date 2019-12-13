@@ -110,7 +110,8 @@ module.exports = {
         shareProducts: true,
     },
     oostgelre: {
-        logoExtension: '.png',
+        logoExtension: '.svg',
+        SDOA: true,
         showAccountSidebar: false,
 
         // menu settings
@@ -132,7 +133,8 @@ module.exports = {
         shareProducts: true,
     },
     winterswijk: {
-        logoExtension: '.jpg',
+        logoExtension: '.svg',
+        SDOA: true,
         showAccountSidebar: false,
 
         // menu settings
@@ -153,4 +155,48 @@ module.exports = {
         //voucher settings
         shareProducts: true,
     },
+    berkelland: {
+        logoExtension: '.svg',
+        SDOA: true,
+        showAccountSidebar: true,
+
+        // menu settings
+        productsMenu: true,
+        meAppMenu: true,
+        forusPlatformMenu: true,
+        portfolioMenu: true,
+        aboutSiteMenu: true,
+
+        // home settings
+        homeProducts: true,
+        homeMap: true,
+        homeSteps: true,
+        homeFaq: true,
+        homeButton: true,
+        providersMenu: false,
+
+        //voucher settings
+        shareProducts: true,
+    },
+    noordoostpolder: {
+        logoExtension: '.svg',
+        showAccountSidebar: true,
+
+        // menu settings
+        productsMenu: true,
+        meAppMenu: true,
+        forusPlatformMenu: true,
+        portfolioMenu: true,
+        aboutSiteMenu: true,
+
+        // home settings
+        homeProducts: true,
+        homeMap: true,
+        homeSteps: true,
+        homeFaq: true,
+        homeButton: true,
+
+        //voucher settings
+        shareProducts: true,
+    }
 };

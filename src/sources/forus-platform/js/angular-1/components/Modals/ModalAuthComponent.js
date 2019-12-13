@@ -6,13 +6,12 @@ let ModalAuthComponent = function(
     IdentityService,
     FormBuilderService,
     CredentialsService,
+    DigIdService,
     ModalService,
     appConfigs
 ) {
     let $ctrl = this;
-
     let timeout;
-
     let $redirectAuthorizedState = 'organizations';
 
     if (appConfigs.panel_type == 'validator') {
@@ -23,9 +22,23 @@ let ModalAuthComponent = function(
     $ctrl.showChoose = true;
     $ctrl.showQrCodeBlock = false;
     $ctrl.showEmailBlock = false;
+    
+    $ctrl.digidAvailable = appConfigs.features.digid;
+    $ctrl.restoreWithDigId = false;
 
     if (AuthService.hasCredentials()) {
         IdentityService.identity().then(() => { }, $ctrl.close);
+    }
+
+    $ctrl.useDigId = () => {
+        $ctrl.restoreWithDigId = true;
+        $ctrl.stopQrCodeVerification();
+    }
+
+    $ctrl.startDigId = () => {
+        DigIdService.startAuthRestore().then((res) => {
+            document.location = res.data.redirect_url;
+        });
     }
 
     $ctrl.$onInit = () => {
@@ -114,9 +127,8 @@ let ModalAuthComponent = function(
 
     };
 
-    $ctrl.$onDestroy = function() {
-        $timeout.cancel(timeout);
-    };
+    $ctrl.stopQrCodeVerification = () => $timeout.cancel(timeout);
+    $ctrl.$onDestroy = () => $ctrl.stopQrCodeVerification();
 };
 
 module.exports = {
@@ -132,6 +144,7 @@ module.exports = {
         'IdentityService',
         'FormBuilderService',
         'CredentialsService',
+        'DigIdService',
         'ModalService',
         'appConfigs',
         ModalAuthComponent

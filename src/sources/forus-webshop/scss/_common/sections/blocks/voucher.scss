@@ -32,14 +32,22 @@
             .card-actions {
                 display: flex;
                 flex: 1;
-                justify-content: flex-end;
+                /*justify-content: flex-end;*/
+
+                &.card-actions-center {
+                    justify-content: center;
+                }
 
                 .action-item {
                     margin-right: 25px;
                     text-align: center;
                     display: flex;
-                    flex-direction: column;
+                    /*flex-direction: column;*/
                     align-items: center;
+
+                    &.hide-action-lg {
+                        display: none;
+                    }
 
                     .action-item-icon {
                         width: 40px;
@@ -49,11 +57,11 @@
                         text-align: center;
                         color: #7b8893;
                         font-size: 20px;
-                        background: #fff;
-                        border: 1px solid $border_color;
+                        background: transparent;
+                        border: none;
                         transition: .4s;
                         cursor: pointer;
-                        margin-bottom: 6px;
+                        margin-bottom: 0;
                         position: relative;
 
                         .action-item-tooltip {
@@ -92,7 +100,7 @@
                         color: #7b8893;
                         font: 600 10px $bf;
                         transition: color .4s;
-                        margin: 0 -20px;
+                        margin: 0 3px;
                     }
 
                     &:last-child {
@@ -122,7 +130,7 @@
 
             .card-label {
                 color: #646f79;
-                font: 400 12px/18px $bf;
+                font: 400 14px/16px $bf;
             }
 
             .block-link {
@@ -189,7 +197,7 @@
                 .card-qr_code-desc {
                     color: #272525;
                     font: 500 14px $bf;
-                    margin: 0 -10px;
+                    margin: 0 -10px 10px -10px;
                 }
             }
 
@@ -275,11 +283,12 @@
 
             &.base-card-sponsor {
                 width: 38%;
-                margin-right: 30px;
             }
 
             &.base-card-voucher {
                 width: 62%;
+                margin-right: 30px;
+
                 .block-qr-code {
                     width: 100%;
                     padding-bottom: 20px;
@@ -301,14 +310,14 @@
                 }
                 .card-body {
                     .card-title {
-                        font: 600 16px $bf;
+                        font: 600 24px $bf;
                         color: #272525;
                         margin-bottom: 10px;
                     }
                 }
 
                 .card-footer {
-                    flex-direction: row;
+                    /*flex-direction: row;*/
                 }
             }
         }
@@ -317,12 +326,12 @@
             .base-card {
                 &.base-card-sponsor {
                     width: 50%;
-                    margin-right: 15px;
+                    margin-left: 15px;
                 }
 
                 &.base-card-voucher {
                     width: 50%;
-                    margin-left: 15px;
+                    margin-right: 15px;
                 }
             }
         }
@@ -375,7 +384,7 @@
                 &.base-card-voucher {
                     .card-body {
                         .card-title {
-                            font: 700 16px $bf;
+                            font: 700 24px $bf;
                         }
                     }
                 }
@@ -581,14 +590,26 @@
 
                         .card-actions {
                             margin: 0;
-                            justify-content: center;
-                            justify-self: center;
+                            flex-flow: row wrap;
                             flex-grow: 1;
                             max-width: 100%;
 
                             .action-item {
-                                margin: 0 15px 0 0 !important;
+                                margin: 0 10px 10px 0 !important;
                                 float: right;
+                                background: #f4f5f7;
+                                border-radius: 20px;
+                                padding: 0 10px 0 5px;
+
+                                &.hide-action-lg {
+                                    display: flex!important;
+                                }
+
+                                .action-item-icon {
+                                    width: 30px;
+                                    height: 30px;
+                                    line-height: 30px;
+                                }
                             }
                         }
                     }

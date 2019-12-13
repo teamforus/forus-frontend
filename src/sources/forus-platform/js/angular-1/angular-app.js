@@ -100,6 +100,7 @@ app.service('FundRequestValidatorService', require('./services/FundRequestValida
 app.service('FundProviderInvitationsService', require('./services/FundProviderInvitationsService'));
 app.service('EmailPreferencesService', require('./services/EmailPreferencesService'));
 app.service('PushNotificationsService', require('./services/PushNotificationsService'));
+app.service('DigIdService', require('./services/DigIdService'));
 
 // Directives
 switch (env_data.panel_type) {
