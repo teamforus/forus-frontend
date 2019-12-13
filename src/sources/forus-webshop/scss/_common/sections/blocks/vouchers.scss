@@ -17,19 +17,6 @@
             display: block;
             min-height: 150px;
             cursor: pointer;
-            
-            &.disabled {
-                cursor: default;
-                pointer-events: none;
-
-                .voucher-overview {
-                    .voucher-overview-item {
-                        .button {
-                            cursor: default;
-                        }
-                    }
-                }
-            }
 
             .voucher-image {
                 border-radius: inherit;
@@ -158,6 +145,19 @@
             &.voucher-item-use {
                 .voucher-details {
                     width: calc(100% - 610px);
+                }
+            }
+            
+            &.voucher-item-disabled {
+                cursor: default;
+                pointer-events: none;
+
+                .voucher-overview {
+                    .voucher-overview-item {
+                        .button {
+                            cursor: default;
+                        }
+                    }
                 }
             }
         }
