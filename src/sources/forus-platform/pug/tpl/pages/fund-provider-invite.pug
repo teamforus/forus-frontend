@@ -36,7 +36,7 @@
             .invite-fund-expiration
                 .invite-fund-expiration-label GELDIG TOT
                 .invite-fund-expiration-value {{ $ctrl.invitation.expire_at_locale }}
-                .button.button-primary.button-slim(ng-if="$ctrl.invitation.state == 'pending'" ng-click="$ctrl.acceptInvitation()") Accept
+                .button.button-primary.button-slim(ng-if="$ctrl.invitation.state == 'pending'" ng-click="$ctrl.acceptInvitation()") Accepteer
 
         .invite-auth(ng-if="!$ctrl.isAuthorized && $ctrl.showAuth")
             .block.block-auth-widget
