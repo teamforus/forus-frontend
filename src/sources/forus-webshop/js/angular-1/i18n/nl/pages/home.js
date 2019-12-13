@@ -5,6 +5,7 @@ module.exports = {
         subtitle: "Welkom op de website van {{fund}}. Heeft u van de gemeente een toekenning voor {{fund}}? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
         title_multi: "Webshop {{org_name}}",
         subtitle_multi: "Welkom op de webshop van {{org_name}} Heeft u via {{org_name}} een toekenning gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
+        header_note: "",
         berkelland: {
             title_multi: "Kindregeling gemeente Berkelland",
             subtitle_multi: "Welkom op de website van de Kindregeling van de gemeente Berkelland. Heeft u via de Sociale Dienst Oost Achterhoek een toekenning voor de Kindregeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
