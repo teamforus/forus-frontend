@@ -178,4 +178,25 @@ module.exports = {
         //voucher settings
         shareProducts: true,
     },
+    noordoostpolder: {
+        logoExtension: '.svg',
+        showAccountSidebar: true,
+
+        // menu settings
+        productsMenu: true,
+        meAppMenu: true,
+        forusPlatformMenu: true,
+        portfolioMenu: true,
+        aboutSiteMenu: true,
+
+        // home settings
+        homeProducts: true,
+        homeMap: true,
+        homeSteps: true,
+        homeFaq: true,
+        homeButton: true,
+
+        //voucher settings
+        shareProducts: true,
+    }
 };
