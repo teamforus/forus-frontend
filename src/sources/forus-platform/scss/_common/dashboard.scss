@@ -3694,13 +3694,7 @@ $colorPrimaryLight: $color_primary_light;
         padding: 20px 0;
 
         .wrapper {
-            width: 1400px;
-        }
-
-        .wrapper-inner {
             width: 900px;
-            margin: 0 auto 0;
-            max-width: 100%;
         }
 
         .invite-icon {
@@ -3708,7 +3702,7 @@ $colorPrimaryLight: $color_primary_light;
 
             .invite-icon-img {
                 display: block;
-                width: 300px;
+                width: 250px;
                 max-width: 100%;
                 margin: 0 auto 0;
             }
@@ -3716,14 +3710,14 @@ $colorPrimaryLight: $color_primary_light;
 
         .invite-title {
             text-align: center;
-            font: 500 42px/62px $bf;
+            font: 500 28px/46px $bf;
             color: #282b39;
             margin: 0 0 15px;
         }
 
         .invite-subtitle {
             text-align: center;
-            font: 300 19px/29px $bf;
+            font: 300 15px/26px $bf;
             color: #191a1c;
             margin: 0 0 30px;
         }
@@ -3806,7 +3800,6 @@ $colorPrimaryLight: $color_primary_light;
             border: 1px solid rgba($color: $borderColor, $alpha: .5);
             border-radius: $borderRadius;
             padding: 40px;
-            width: 900px;
             max-width: 100%;
             margin: 0 auto 30px;
         }
