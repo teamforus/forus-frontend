@@ -49,7 +49,7 @@ let EmailPreferencesComponent = function(
                 });
 
                 $ctrl.pushPreferences = res.data.data.preferences.filter(preference => {
-                    return preference.type == 'push';
+                    return keysEditableOnWebshop.indexOf(preference.key) != -1 && preference.type == 'push';
                 });
 
                 $ctrl.preferences = $ctrl.emailPreferences.concat($ctrl.pushPreferences);

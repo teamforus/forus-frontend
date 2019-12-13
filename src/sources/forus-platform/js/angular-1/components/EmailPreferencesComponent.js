@@ -16,7 +16,8 @@ let EmailPreferencesComponent = function(
             'funds.provider_applied', 
             'funds.balance_warning', 
             'funds.product_added',
-            'bunq.transaction_success'
+            'employee.created',
+            'employee.deleted'
         ];
     }
     if (appConfigs.panel_type == 'provider'){
@@ -27,6 +28,7 @@ let EmailPreferencesComponent = function(
             'funds.provider_rejected', 
             'funds.product_reserved', 
             'funds.product_sold_out',
+            'bunq.transaction_success',
             'employee.created',
             'employee.deleted'
         ];
@@ -34,7 +36,9 @@ let EmailPreferencesComponent = function(
     if (appConfigs.panel_type == 'validator'){
         keysEditableOnDashboard = [
             'validations.new_validation_request',
-            'validations.you_added_as_validator'
+            'validations.you_added_as_validator',
+            'employee.created',
+            'employee.deleted'
         ];
     }
 
@@ -85,8 +89,8 @@ let EmailPreferencesComponent = function(
 
         ModalService.open('modalNotification', {
             type: 'action-result',
-            title: "Authentification required.",
-            description: `U moet inloggen om uw e-mailvoorkeuren te kunnen instellen.`,
+            title: "U bent niet ingelogd.",
+            description: `U zal moeten inloggen om uw notificatie instellingen te kunnen aanpassen.`,
         });
 
         $state.go('home');
