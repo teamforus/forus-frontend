@@ -31,7 +31,7 @@
             .invite-fund-photo: img(ng-src="{{ $ctrl.invitation.fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}").invite-fund-photo-img
             .invite-fund-details
                 .invite-fund-title(ng-bind="$ctrl.invitation.fund.name")
-                .invite-fund-subtitle Aangeboden door: +1 Gemeente
+                .invite-fund-subtitle Aangeboden door: {{ $ctrl.invitation.sponsor_organization.name }}
                 .invite-fund-description(ng-bind="$ctrl.invitation.fund.description")
             .invite-fund-expiration
                 .invite-fund-expiration-label GELDIG TOT
