@@ -22,6 +22,7 @@ module.exports = {
         used: "GEBRUIKT",
         generated: "AANGEMAAKT",
         expire: "VERVALDATUM",
-        open_voucher: "Open"
+        open_voucher: "Open",
+        show_transactions: "Bekijk transacties",
     }
 }

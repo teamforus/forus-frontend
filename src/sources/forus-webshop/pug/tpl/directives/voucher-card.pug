@@ -14,7 +14,10 @@
     // regular voucher
     .voucher-overview(ng-if="voucherCard.type == 'regular'")
         .voucher-overview-item.voucher-open
-            button.button.button-primary {{ "vouchers.labels.open_voucher" | translate }}
+            button.button(
+                ng-if="!voucherCard.disabled"
+                ng-class="voucherCard.disabled ? 'button-gray' : 'button-primary'"
+                i18n="{{ voucher.expired ? 'vouchers.labels.show_transactions' : 'vouchers.labels.open_voucher' }}")
 
     // product voucher
     .voucher-overview(ng-if="voucherCard.type == 'product'")
@@ -31,4 +34,6 @@
             .voucher-overview-label Gebruikt op
             .voucher-overview-value(ng-bind="voucherCard.transactions[0].created_at_locale")
         .voucher-overview-item(ng-if="!voucher.transactions.length")
-            button.button.button-primary {{ "vouchers.labels.open_voucher" | translate }}
+            button.button(
+                ng-class="voucherCard.disabled ? 'button-gray' : 'button-primary'"
+                i18n="{{ voucher.expired ? 'vouchers.labels.show_transactions' : 'vouchers.labels.open_voucher' }}")

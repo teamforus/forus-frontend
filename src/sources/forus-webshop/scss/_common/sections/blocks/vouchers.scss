@@ -103,6 +103,7 @@
                     width: 100%;
 
                     &.voucher-open {
+                        width: 80%;
                         position: absolute;
                         bottom: 25px;
                         left: 25px;
@@ -123,6 +124,13 @@
                             color: #646f79;
                             margin-left: 5px;
                         }
+                    }
+
+                    .button {
+                        width: 100%;
+                        padding: 12px 20px;
+                        font: 700 12px/22px $bf;
+                        text-transform: uppercase;
                     }
 
                     &:last-of-type,
@@ -147,7 +155,7 @@
                     width: calc(100% - 610px);
                 }
             }
-            
+
             &.voucher-item-disabled {
                 cursor: default;
                 pointer-events: none;

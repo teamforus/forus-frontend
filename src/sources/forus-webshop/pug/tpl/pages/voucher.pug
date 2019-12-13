@@ -9,7 +9,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
     .section-title.hide-sm(ng-if="!$ctrl.voucherCard.product") Uw {{ $ctrl.voucherCard.title }} voucher
     .section-title.hide-sm(ng-if="$ctrl.voucherCard.product") Uw aanbieding voucher
 
-    .block.block-voucher
+    .block.block-voucher(ng-if="$ctrl.voucherCanUse")
         //- voucher details
         .base-card.base-card-voucher
             .card-inner
@@ -109,10 +109,10 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                 .card-label {{ "voucher.voucher_card.labels.contact_provider" | translate }}
                 .card-value(ng-bind="$ctrl.voucherCard.product.organization.name")
                 .card-value.card-value-sm
-                    | E-mailadres: 
+                    | E-mailadres:
                     strong(ng-bind="$ctrl.voucherCard.product.organization.email")
                     br
-                    | Telefoonnummer: 
+                    | Telefoonnummer:
                     strong(ng-bind="$ctrl.voucherCard.product.organization.phone")
 
     .block.block-transactions(ng-if="$ctrl.voucherCard.transactions.length > 0 && !$ctrl.voucherCard.product")
@@ -131,12 +131,12 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                     .transactions-item-type {{ "voucher.labels.subtract" | translate }}
 
     block-products(
-        ng-if="$root.appConfigs.features.products.list && !$ctrl.voucherCard.product"
+        ng-if="$root.appConfigs.features.products.list && !$ctrl.voucherCard.product && $ctrl.voucherCanUse"
         sample="true"
         products="$ctrl.products"
         product-categories="$ctrl.productCategories")
 
-    .block.block-map_card
+    .block.block-map_card(ng-if="$ctrl.voucherCanUse")
         .map_card-header
             //- regular voucher
             .map_card-title(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.offices")
