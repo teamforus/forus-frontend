@@ -57,8 +57,8 @@ let FundCardDirective = function(
             fund: $scope.fund,
             confirm: (res) => {
                 PushNotificationsService.success(
-                    "Providers invited!",
-                    sprintf("%s invitation(s) were sent to providers!", res.length),
+                    "Aanbiders uitgenodigd!",
+                    sprintf("%s uitnodigingen verstuurt naar aanbieders!", res.length),
                 ) & $state.reload();
             }
         });
