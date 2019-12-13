@@ -885,6 +885,13 @@ $colorPrimaryLight: $color_primary_light;
                     display: block;
                 }
 
+                &.keyvalue-item-narrow {
+                    &:not(:first-child) {
+                        padding-left: 10px;
+                        padding-right: 10px;
+                    }
+                }
+
                 &:not(:first-child) {
                     padding-left: 30px;
                     padding-right: 30px;
