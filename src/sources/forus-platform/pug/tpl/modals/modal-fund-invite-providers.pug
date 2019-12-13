@@ -2,12 +2,12 @@
     .modal-backdrop(ng-click="$ctrl.closeAnimated()" ng-class="{'blur-active' : !$ctrl.loaded}").blur-lite.blur-active
     .modal-window(ng-class="{'blur-active' : !$ctrl.loaded}").blur.blur-active: form.form(ng-submit="$ctrl.form.submit()")
         a(ng-click="$ctrl.closeAnimated()").mdi.mdi-close.modal-close
-        .modal-header(ng-if="$ctrl.modal.scope.employee" translate="Medewerker aanpassen")
-        .modal-header(ng-if="!$ctrl.modal.scope.employee" translate="Medewerker toevoegen")
+        .modal-header(ng-if="$ctrl.modal.scope.employee" translate="Aanbieders uitnodigen")
+        .modal-header(ng-if="!$ctrl.modal.scope.employee" translate="Aanbieders uitnodigen")
         .modal-body.form
             .modal-section: .row: .col.col-lg-11
                 .form-group.form-group-inline.form-group-inline-md
-                    label.form-label Fund to invite from
+                    label.form-label Nodig aanbieders uit van fonds:
                     //- ng-change="$ctrl.productChanged($ctrl.form.values.product_id)"
                     select(
                         ng-options="fund.id as fund.name for fund in $ctrl.funds" 
@@ -16,8 +16,8 @@
                     .form-error(ng-if="$ctrl.products.length == 0" i18n="modals.modal_product_voucher_create.errors.need_providers")
             .modal-section: .block.block-info
                 em.mdi.mdi-information.block-info-icon
-                | Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-                | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                | Deze functie nodigt alle aanbieders uit van het bovenstaande geselecteerde fonds.
+                | Uitnodigingen worden gelijk verstuurd na bevestiging.
 
         .modal-footer.text-center
             button.button.button-default(type="button" translate="modal_funds_add.buttons.close" ng-click="$ctrl.closeAnimated()")
