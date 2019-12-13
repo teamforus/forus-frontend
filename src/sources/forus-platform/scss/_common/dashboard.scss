@@ -928,6 +928,13 @@ $colorPrimaryLight: $color_primary_light;
             }
         }
 
+        .fund-closed {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font: 500 14px/18px $bf;
+        }
+
         .fund-title {
             cursor: default;
             display: inline-block;
