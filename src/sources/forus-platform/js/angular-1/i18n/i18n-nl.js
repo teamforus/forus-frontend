@@ -483,6 +483,7 @@ module.exports = {
         },
         buttons: {
             add: "Organisatie toevoegen",
+            notifications_preferences: "Notificatievoorkeuren",
         }
     },
 
@@ -1173,12 +1174,14 @@ module.exports = {
         }
     },
     notification_preferences: {
-        title_preferences: 'E-mailvoorkeuren',
+        title_preferences: 'Notificatie voorkeuren',
+        title_email_preferences: 'E-mail notificaties',
+        title_push_preferences: 'Push notificaties',
         subscribe_desc: 'Met dit e-mailadres "{{email}}" bent u momenteel voor alle notificaties uitgeschreven. Wanneer u notificaties wilt ontvangen, kunt u dit hieronder per notificatie instellen.',
-        unsubscribe: 'Uitschrijven voor alle notificaties',
+        unsubscribe: 'Uitschrijven voor alle e-mail notificaties',
         unsubscribe_desc:  'Ik wil me uitschrijven van alle notificaties.',
         unsubscribe_button: 'Uitschrijven',
-        subscribe: 'Ja, ik wil notificaties ontvangen.',
+        subscribe: 'Ja, ik wil e-mail notificaties ontvangen.',
         errors: {
             'not_found': 'Deze token is ongeldig',
             'expired': 'Deze token is verlopen',
@@ -1253,6 +1256,22 @@ module.exports = {
                 share_product: {
                     title: 'Reservering aanbieding gedeeld',
                     description: 'Ontvang een notificatie wanneer er een reservering voor een aanbieding met u is gedeeld.'
+                }
+            },
+            employee: {
+                created: {
+                    title: 'Toegevoegd als medewerker',
+                    description: 'Ontvang een push notificatie wanneer u bent toegevoegd als medewerker aan een organisatie.',
+                },
+                deleted: {
+                    title: 'Verwijderd als medewerker',
+                    description: 'Ontvang een push notificatie wanneer u bent verwijderd als medewerker aan een organisatie.',
+                }
+            },
+            bunq: {
+                transaction_success: {
+                    title: 'Uitbetaling gelukt',
+                    description: 'Ontvang een notificatie van elke uitbetaling die gelukt is.',
                 }
             }
         }
