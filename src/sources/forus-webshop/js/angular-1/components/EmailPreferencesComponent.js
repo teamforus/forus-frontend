@@ -7,7 +7,10 @@ let EmailPreferencesComponent = function(
 ) {
     let $ctrl = this;
     let keysEditableOnWebshop = [
-        'vouchers.payment_success', 'funds.fund_expires'
+        'vouchers.payment_success', 
+        'funds.fund_expires',
+        'voucher.assigned',
+        'voucher.transaction'
     ];
 
     $ctrl.loaded = false;
@@ -41,9 +44,16 @@ let EmailPreferencesComponent = function(
         if (AuthService.hasCredentials()) {
             return EmailPreferencesService.get().then(res => {
                 $ctrl.email = res.data.data.email;
-                $ctrl.preferences = res.data.data.preferences.filter(preference => {
-                    return keysEditableOnWebshop.indexOf(preference.key) != -1;
+                $ctrl.emailPreferences = res.data.data.preferences.filter(preference => {
+                    return keysEditableOnWebshop.indexOf(preference.key) != -1 && preference.type == 'email';
                 });
+
+                $ctrl.pushPreferences = res.data.data.preferences.filter(preference => {
+                    return preference.type == 'push';
+                });
+
+                $ctrl.preferences = $ctrl.emailPreferences.concat($ctrl.pushPreferences);
+
                 $ctrl.email_unsubscribed = res.data.data.email_unsubscribed;
                 $ctrl.loaded = true;
             })

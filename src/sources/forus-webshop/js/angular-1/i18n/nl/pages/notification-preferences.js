@@ -1,5 +1,7 @@
 module.exports = {
-    title_preferences: 'E-mailvoorkeuren',
+    title_preferences: 'Notificatie voorkeuren',
+    title_email_preferences: 'E-mail notificaties',
+    title_push_preferences: 'Push notificaties via app',
     subscribe_desc: 'Met dit e-mailadres "{{email}}" bent u momenteel voor alle notificaties uitgeschreven. Wanneer u notificaties wilt ontvangen, kunt u dit hieronder per notificatie instellen.',
     unsubscribe: 'Uitschrijven voor alle notificaties',
     unsubscribe_desc:  'Ik wil me uitschrijven van alle notificaties.',
