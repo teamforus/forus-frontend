@@ -1,4 +1,4 @@
-.voucher-item(ui-sref="voucher(voucher)")
+.voucher-item(ui-sref="voucher(voucher)" ng-class="voucherCard.disabled  ? 'voucher-item-disabled' : ''")
     .voucher-image(style="background-image: url('{{ voucherCard.thumbnail }}')")
     
     .voucher-details
@@ -30,5 +30,5 @@
         .voucher-overview-item(ng-if="voucherCard.transactions.length == 1")
             .voucher-overview-label Gebruikt op
             .voucher-overview-value(ng-bind="voucherCard.transactions[0].created_at_locale")
-        .voucher-overview-item
+        .voucher-overview-item(ng-if="!voucher.transactions.length")
             button.button.button-primary {{ "vouchers.labels.open_voucher" | translate }}
