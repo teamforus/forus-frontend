@@ -2,11 +2,11 @@ module.exports = {
     // VOUCHERs = vouchers.pug
     header: {
         product: {
-            title: "Product vouchers",
-            description: "Verzilver de product voucher bij de bijbehorende aanbieder. Open de voucher om te zien bij welke aanbieder u de voucher kan verzilveren.",
+            title: "Reserveringen",
+            description: "Verzilver de aanbiedingsvoucher bij de bijbehorende aanbieder. Open de voucher om te zien bij welke aanbieder u de voucher kan verzilveren.",
         },
         regular: {
-            title: "Budget vouchers",
+            title: "Budgetten",
             description: "Met deze budget vouchers kan u naar de aangesloten aanbieders. Open de voucher om te zien bij welke aanbieders u het budget op de voucher kan uitgeven.",
         },
         expired: {
@@ -22,7 +22,7 @@ module.exports = {
         used: "GEBRUIKT",
         generated: "AANGEMAAKT",
         expire: "VERVALDATUM",
-        open_voucher: "Open voucher",
+        open_voucher: "Open",
         show_transactions: "Bekijk transacties",
     }
 }

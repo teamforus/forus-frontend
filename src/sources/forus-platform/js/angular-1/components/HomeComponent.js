@@ -61,12 +61,12 @@ module.exports = {
             return 'assets/tpl/pages/home.html';
         }
 
-        if (appConfigs.panel_type == 'provider' && appConfigs.client_key == 'nijmegen') {
-            return 'assets/tpl/pages/landing/home-' + appConfigs.panel_type + '-' + appConfigs.client_key + '.html';
+        if (appConfigs.panel_type == 'provider'  && (appConfigs.client_key == 'nijmegen')){
+            return 'assets/tpl/pages/landing/home-' + appConfigs.panel_type + '-'+ appConfigs.client_key +'.html';
         }
 
-        if (appConfigs.panel_type == 'sponsor' && appConfigs.client_key == 'nijmegen') {
-            return 'assets/tpl/pages/landing/home-' + appConfigs.panel_type + '-' + appConfigs.client_key + '.html';
+        if (appConfigs.panel_type == 'sponsor' && (appConfigs.client_key == 'nijmegen')){
+            return 'assets/tpl/pages/landing/home-' + appConfigs.panel_type + '-'+ appConfigs.client_key +'.html';
         }
 
         return 'assets/tpl/pages/landing/home-' + appConfigs.panel_type + '.html';

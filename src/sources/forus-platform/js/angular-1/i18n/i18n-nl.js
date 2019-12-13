@@ -113,6 +113,10 @@ module.exports = {
             berkelland: {
                 title: "Meld uw organisatie aan voor de Kindregeling",
                 subtitle: "Ondersteuning aan gezinnen met een laag inkomen.",
+            },
+            noordoostpolder: {
+                title: "Meld uw organisatie aan voor het Meedoenpakket",
+                subtitle: "250,- per kind aan gezinnen met een laag inkomen.",
             }
         },
         labels: {
@@ -137,24 +141,31 @@ module.exports = {
                 description: "Levert uw organisatie een aanbod in de volgende categorieën: zwem en sportlessen, (kinder-)kleding, luiers en babyvoeding, dierbenodigdheden, speelgoed en hobby-benodigdheden? Dan kunt u uw organisatie hiervoor aanmelden.<br /><br /> Om u aan te melden heeft u een smartphone nodig. Op de smartphone kunt u een applicatie installeren voor het scannen van QR-codes. Heeft u deze smartphone bij de hand? Regel het dan direct!",
                 button: "Direct regelen",
             },
+            noordoostpolder: {
+                title: "Aanmelden",
+                description: "Voor inwoners met een laag inkomen valt het niet mee om hun kind(eren) overal aan mee te laten doen. Deze gezinnen kunnen profiteren van de Kindregeling. De gemeente biedt diverse vergoedingen aan gezinnen met een laag inkomen. Op deze manier kunnen zij hun kind (-eren) overal aan mee te laten doen. Bijvoorbeeld aan een schoolreisje, sportactiviteiten, bezoek aan het theater of muziekles. Maar het gaat ook om een tegemoetkoming voor schoolkosten, zwemles of een huiswerkcomputer.<br/><br/>" +
+                    "Levert uw organisatie een passend aanbod? Dan kunt u uw organisatie hiervoor aanmelden.<br/><br/>" +
+                    "Om u aan te melden, heeft u een smartphone nodig. Op de smartphone kunt u een applicatie installeren voor het scannen van QR-codes. Heeft u deze smartphone bij de hand? Regel het dan direct!",
+                button: "Direct regelen",
+            },
             berkelland: {
                 title: "",
                 button: "DIRECT REGELEN",
-                description: "Voor inwoners met een laag inkomen valt het niet mee om hun kind(eren) overal aan mee te laten doen. Deze gezinnen kunnen profiteren van de Kindregeling. De gemeente biedt diverse vergoedingen aan gezinnen met een laag inkomen. Op deze manier kunnen zij hun kind (-eren) overal aan mee te laten doen. Bijvoorbeeld aan een schoolreisje, sportactiviteiten, bezoek aan het theater of muziekles. Maar het gaat ook om een tegemoetkoming voor schoolkosten, zwemles of een huiswerkcomputer." + 
+                description: "Voor inwoners met een laag inkomen valt het niet mee om hun kind(eren) overal aan mee te laten doen. Deze gezinnen kunnen profiteren van de Kindregeling. De gemeente biedt diverse vergoedingen aan gezinnen met een laag inkomen. Op deze manier kunnen zij hun kind (-eren) overal aan mee te laten doen. Bijvoorbeeld aan een schoolreisje, sportactiviteiten, bezoek aan het theater of muziekles. Maar het gaat ook om een tegemoetkoming voor schoolkosten, zwemles of een huiswerkcomputer." +
                     "<br/><br/>Levert uw organisatie een passend aanbod? Dan kunt u uw organisatie hiervoor aanmelden." +
                     "<br/><br/>Om u aan te melden, heeft u een smartphone nodig. Op de smartphone kunt u een applicatie installeren voor het scannen van QR-codes. Heeft u deze smartphone bij de hand? Regel het dan direct!",
             },
             oostgelre: {
                 title: "",
                 button: "DIRECT REGELEN",
-                description: "Voor inwoners met een laag inkomen valt het niet mee om hun kind(eren) overal aan mee te laten doen. Deze gezinnen kunnen profiteren van de Kindregeling. De gemeente biedt diverse vergoedingen aan gezinnen met een laag inkomen. Op deze manier kunnen zij hun kind (-eren) overal aan mee te laten doen. Bijvoorbeeld aan een schoolreisje, sportactiviteiten, bezoek aan het theater of muziekles. Maar het gaat ook om een tegemoetkoming voor schoolkosten, zwemles of een huiswerkcomputer." + 
+                description: "Voor inwoners met een laag inkomen valt het niet mee om hun kind(eren) overal aan mee te laten doen. Deze gezinnen kunnen profiteren van de Kindregeling. De gemeente biedt diverse vergoedingen aan gezinnen met een laag inkomen. Op deze manier kunnen zij hun kind (-eren) overal aan mee te laten doen. Bijvoorbeeld aan een schoolreisje, sportactiviteiten, bezoek aan het theater of muziekles. Maar het gaat ook om een tegemoetkoming voor schoolkosten, zwemles of een huiswerkcomputer." +
                     "<br/><br/>Levert uw organisatie een passend aanbod? Dan kunt u uw organisatie hiervoor aanmelden." +
                     "<br/><br/>Om u aan te melden, heeft u een smartphone nodig. Op de smartphone kunt u een applicatie installeren voor het scannen van QR-codes. Heeft u deze smartphone bij de hand? Regel het dan direct!",
             },
             winterswijk: {
                 title: "",
                 button: "DIRECT REGELEN",
-                description: "Voor inwoners met een laag inkomen valt het niet mee om hun kind(eren) overal aan mee te laten doen. Deze gezinnen kunnen profiteren van de Kindregeling. De gemeente biedt diverse vergoedingen aan gezinnen met een laag inkomen. Op deze manier kunnen zij hun kind (-eren) overal aan mee te laten doen. Bijvoorbeeld aan een schoolreisje, sportactiviteiten, bezoek aan het theater of muziekles. Maar het gaat ook om een tegemoetkoming voor schoolkosten, zwemles of een huiswerkcomputer." + 
+                description: "Voor inwoners met een laag inkomen valt het niet mee om hun kind(eren) overal aan mee te laten doen. Deze gezinnen kunnen profiteren van de Kindregeling. De gemeente biedt diverse vergoedingen aan gezinnen met een laag inkomen. Op deze manier kunnen zij hun kind (-eren) overal aan mee te laten doen. Bijvoorbeeld aan een schoolreisje, sportactiviteiten, bezoek aan het theater of muziekles. Maar het gaat ook om een tegemoetkoming voor schoolkosten, zwemles of een huiswerkcomputer." +
                     "<br/><br/>Levert uw organisatie een passend aanbod? Dan kunt u uw organisatie hiervoor aanmelden." +
                     "<br/><br/>Om u aan te melden, heeft u een smartphone nodig. Op de smartphone kunt u een applicatie installeren voor het scannen van QR-codes. Heeft u deze smartphone bij de hand? Regel het dan direct!",
             }
@@ -167,7 +178,7 @@ module.exports = {
             two: "Scan de QR-code van de inwoner. Vul vervolgens het bedrag van de betaling in en eventueel een omschrijving. Tot slot, bevestig de betaling in de app. Het geld wordt binnen drie werkdagen op de rekening bijgeschreven.",
             faq_three: "Hoe kan ik mijn transacties in zien?",
             three: "Naast de mobiele applicatie kunt u ook gebruik maken van de gebruikersomgeving voor organisaties. Hier kunt u het profiel van de organisatie beheren, transacties bijhouden en aanbiedingen op de webshop plaatsen. Het gebruik maken van de gebruikersomgeving is optioneel.",
-            
+
             winterswijk: {
                 title: "Veelgestelde vragen",
                 faq_one: "Wat zijn de technische vereisten om mee te doen?",
@@ -177,7 +188,7 @@ module.exports = {
                 faq_three: "Hoe kan ik mijn transacties inzien?",
                 three: "Naast de mobiele applicatie kunt u ook gebruik maken van de gebruikersomgeving voor organisaties. Hier kunt u het profiel van de organisatie beheren, transacties bijhouden en aanbiedingen op de webshop plaatsen. Het gebruik maken van de gebruikersomgeving is optioneel.",
             },
-    
+
             oostgelre: {
                 title: "Veelgestelde vragen",
                 faq_one: "Wat zijn de technische vereisten om mee te doen?",
@@ -232,7 +243,7 @@ module.exports = {
             two: "Als eerste scan de QR-code van de inwoner. Ten tweede vul het bedrag van de betaling in en eventueel een omschrijving. Als laatste bevestig de betaling in de app. Het geld wordt binnen drie werkdagen op de rekening bijgeschreven.",
             faq_three: "Hoe kan ik mijn transacties in zien?",
             three: "Naast de mobiele applicatie kunt u ook gebruik maken van de gebruikersomgeving voor organisaties. Hier kunt u het profiel van de organisatie beheren, transacties bijhouden en aanbiedingen op de webshop plaatsen. Het gebruik maken van de gebruikersomgeving is optioneel.",
-            
+
             winterswijk: {
                 title: "Veelgestelde vragen",
                 faq_one: "Wat zijn de technische vereisten om mee te doen?",
@@ -242,7 +253,7 @@ module.exports = {
                 faq_three: "Hoe kan ik mijn transacties inzien?",
                 three: "Naast de mobiele applicatie kunt u ook gebruik maken van de gebruikersomgeving voor organisaties. Hier kunt u het profiel van de organisatie beheren, transacties bijhouden en aanbiedingen op de webshop plaatsen. Het gebruik maken van de gebruikersomgeving is optioneel.",
             },
-    
+
             oostgelre: {
                 title: "Veelgestelde vragen",
                 faq_one: "Wat zijn de technische vereisten om mee te doen?",
@@ -472,6 +483,7 @@ module.exports = {
         },
         buttons: {
             add: "Organisatie toevoegen",
+            notifications_preferences: "Notificatievoorkeuren",
         }
     },
 
@@ -904,7 +916,8 @@ module.exports = {
             categories: "Categorieën",
             nocategories: "Geen Categorieën",
             date: "Begindatum / Einddatum",
-            max_amount: "Maximale bedrag per voucher"
+            max_amount: "Maximale bedrag per voucher",
+            closed: "Gesloten"
         }
     },
 
@@ -1161,12 +1174,14 @@ module.exports = {
         }
     },
     notification_preferences: {
-        title_preferences: 'E-mailvoorkeuren',
+        title_preferences: 'Notificatie voorkeuren',
+        title_email_preferences: 'E-mail notificaties',
+        title_push_preferences: 'Push notificaties',
         subscribe_desc: 'Met dit e-mailadres "{{email}}" bent u momenteel voor alle notificaties uitgeschreven. Wanneer u notificaties wilt ontvangen, kunt u dit hieronder per notificatie instellen.',
-        unsubscribe: 'Uitschrijven voor alle notificaties',
+        unsubscribe: 'Uitschrijven voor alle e-mail notificaties',
         unsubscribe_desc:  'Ik wil me uitschrijven van alle notificaties.',
         unsubscribe_button: 'Uitschrijven',
-        subscribe: 'Ja, ik wil notificaties ontvangen.',
+        subscribe: 'Ja, ik wil e-mail notificaties ontvangen.',
         errors: {
             'not_found': 'Deze token is ongeldig',
             'expired': 'Deze token is verlopen',
@@ -1241,6 +1256,22 @@ module.exports = {
                 share_product: {
                     title: 'Reservering aanbieding gedeeld',
                     description: 'Ontvang een notificatie wanneer er een reservering voor een aanbieding met u is gedeeld.'
+                }
+            },
+            employee: {
+                created: {
+                    title: 'Toegevoegd als medewerker',
+                    description: 'Ontvang een push notificatie wanneer u bent toegevoegd als medewerker aan een organisatie.',
+                },
+                deleted: {
+                    title: 'Verwijderd als medewerker',
+                    description: 'Ontvang een push notificatie wanneer u bent verwijderd als medewerker aan een organisatie.',
+                }
+            },
+            bunq: {
+                transaction_success: {
+                    title: 'Uitbetaling gelukt',
+                    description: 'Ontvang een notificatie van elke uitbetaling die gelukt is.',
                 }
             }
         }
