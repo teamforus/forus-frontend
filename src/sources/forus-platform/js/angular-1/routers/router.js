@@ -139,7 +139,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     $stateProvider.state({
         name: "organization-funds",
         url: "/organizations/{organization_id}/funds",
-        component: "fundsMyComponent",
+        component: "organizationFundsComponent",
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('organization-funds', [
@@ -463,7 +463,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 ],
             }
         });
-    }    
+    }
 
     /**
      * Transactions
@@ -746,6 +746,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 ) => repackResponse(BusinessTypeService.list({
                     per_page: 9999
                 }))]
+            }
+        });
+    }
+
+    if (['provider'].indexOf(appConfigs.panel_type) != -1) {
+        $stateProvider.state({
+            name: "provider-invitation-link",
+            url: "/provider-invitations/{token}",
+            component: 'fundProviderInviteComponent',
+            data: {
+                token: null
             }
         });
     }

@@ -16,7 +16,7 @@ app.controller('BaseController', require('./controllers/BaseController'));
 app.component('homeComponent', require('./components/HomeComponent'));
 app.component('organizationsComponent', require('./components/OrganizationsComponent'));
 app.component('organizationsEditComponent', require('./components/OrganizationsEditComponent'));
-app.component('fundsMyComponent', require('./components/FundsMyComponent'));
+app.component('organizationFundsComponent', require('./components/OrganizationFundsComponent'));
 app.component('providerFundsComponent', require('./components/ProviderFundsComponent'));
 app.component('fundsEditComponent', require('./components/FundsEditComponent'));
 app.component('fundsShowComponent', require('./components/FundsShowComponent'));
@@ -37,10 +37,9 @@ app.component('signUpComponent', require('./components/SignUpComponent'));
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
 app.component('transactionComponent', require('./components/TransactionComponent'));
 app.component('fundProviderComponent', require('./components/FundProviderComponent'));
-
 app.component('noPermissionComponent', require('./components/NoPermissionComponent'));
-
 app.component('emailPreferencesComponent', require('./components/EmailPreferencesComponent'));
+app.component('fundProviderInviteComponent', require('./components/FundProviderInviteComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -58,6 +57,7 @@ app.component('modalPdfPreviewComponent', require('./components/Modals/ModalPdfP
 app.component('modalFundRequestRecordClarifyComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordClarifyComponent'));
 app.component('modalFundRequestRecordDeclineComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordDeclineComponent'));
 app.component('modalFundCriteriaDescriptionEditComponent', require('./components/Modals/ModalFundCriteriaDescriptionEditComponent'));
+app.component('modalFundInviteProvidersComponent', require('./components/Modals/ModalFundInviteProvidersComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -97,6 +97,7 @@ app.service('RoleService', require('./services/RoleService'));
 app.service('SmsService', require('./services/SmsService'));
 app.service('FileService', require('./services/FileService'));
 app.service('FundRequestValidatorService', require('./services/FundRequestValidatorService'));
+app.service('FundProviderInvitationsService', require('./services/FundProviderInvitationsService'));
 app.service('EmailPreferencesService', require('./services/EmailPreferencesService'));
 app.service('PushNotificationsService', require('./services/PushNotificationsService'));
 
