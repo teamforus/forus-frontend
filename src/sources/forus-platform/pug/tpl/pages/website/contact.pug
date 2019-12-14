@@ -1,43 +1,88 @@
-.container_contact
-    .wrapper.wrapper_me
-        .column_sm
-            span
-                h3 Contact
-                br
-                ul
-                    li
-                        strong  Telefoon:
-                        |   06 23 90 51 19
-                    li
-                        strong  E-mail:
-                        |   info@forus.io
-                    li  
-                        strong Bezoekadres
-                        br
-                        | Kraneweg 13 - 12
-                        br
-                        | 9718 JC Groningen
-                        br
-                        | Groningen, Nederland 
-                    li
-                        strong Postadres:
-                        br
-                        | Osloweg 131
-                        br
-                        | 9723 BK, Groningen
-                        br
-                        | Groningen, Nederland
-                h3 Support
-                br
-                ul
-                    li
-                        strong  Telefoon:
-                        |   085 004 33 87‬
-                    li
-                        strong E-mail:
-                        |   support@forus.io
-                
-        .column_sm
-            iframe(src="https://maps.google.com/maps?q=kraneweg%2013%20-12&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" marginheight="0" marginwidth="0" class='g_maps')
-    .wrapper.wrapper_sup
-        .column_sm
+section.header.header__contact
+    .container
+        .wrap_cs__1a
+            h1 Contact
+section
+    .container
+        .row.wrap_cs__2.flexed
+            .col-7.col-md-7.flexed
+                iframe(class="g_maps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2388.316186660783!2d6.5303644159414205!3d53.23010817995487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c9cd23aff36831%3A0xcb68c04fa209b3f0!2sFriesestraatweg+211%2C+9743+AD+Groningen!5e0!3m2!1sen!2snl!4v1557435904937!5m2!1sen!2snl")
+            .col-5.col-md-5.flexed
+                ul: h2 Contactgegevens
+                    li: b Telefoon
+                        p +31 (0)6 23 90 51 19
+                    li: b E-mail
+                        p info@forus.io
+                    li: b Bezoekadres
+                        p Kraneweg 13<br />9718 JC Groningen<br />Nederland
+                    li: b Postadres
+                        p Osloweg 131<br />9723 BK Groningen<br />Nederland
+    .container.text-center
+        h2 Support
+        p Je kan support aanvragen via chat, telefoon of door ons een e-mail sturen.
+        .row.flexed
+            .col-6.col-md-4.e-fb
+                .upper-a
+                    include ../../../../resources/platform-general/assets/img/icon-telephone.svg
+                    p <b>Telefoon:</b>
+                    p +31 (0) 85 004 33 87‬
+            .col-6.col-md-4.e-fb
+                .upper-a
+                    include ../../../../resources/platform-general/assets/img/icon-mail.svg
+                    p <b>E-mail:</b>
+                    p support@forus.io
+            .col-6.col-md-4.e-fb
+                .upper-a
+                    include ../../../../resources/platform-general/assets/img/icon-mobile.svg
+                    p <b>WhatsApp</b>
+                    p +31 (0)6 36 26 12 31  
+section
+    .container
+        form#formContact(action="https://xlak8w5706.execute-api.eu-west-1.amazonaws.com/Prod" method="POST")
+            .row.cta-area.pull-down.text-center
+                h2 Contactformulier
+                p Vul onderstaand contactformulier in en we nemen<br />zo snel mogelijk contact met je op.<br /><br />
+                .cont_txt__a
+                    .col-xs-12.col-md-6
+                        .form-group.required
+                            label.control-label NAAM
+                            .input-group
+                                input#nameInput.form-control(placeholder="Naam" name="name"  value="" onkeyup="this.setAttribute('value', this.value);" )
+                                a(href="#").clear_field
+                                span.help-block
+                    .col-xs-12.col-md-6
+                        .form-group.required
+                            label.control-label EMAIL
+                            .input-group
+                                input#emailInput.form-control(placeholder="Email" name="email" value="" onkeyup="this.setAttribute('value', this.value);" )
+                                a(href="#").clear_field
+                                span.help-block
+                    .col-xs-12.col-md-6
+                        .form-group
+                            label.control-label ORGANISATIE
+                            .input-group
+                                input#companyInput.form-control(placeholder="Organisatie" name="organization" value="" onkeyup="this.setAttribute('value', this.value);" )
+                                a(href="#").clear_field
+                                span.help-block
+                    .col-xs-12.col-md-6
+                        .form-group
+                            label.control-label TELEFOONNUMMER
+                            .input-group
+                                input#telInput.form-control(placeholder="Telefoonnummer" name="phone" value="" onkeyup="this.setAttribute('value', this.value);" )
+                                a(href="#").clear_field
+                                span.help-block
+                    .col-xs-12
+                        .form-group.required
+                            label.control-label BERICHT
+                            .input-group
+                                textarea#messageInput.form-control(placeholder="Bericht" name="message")
+
+                                a(href="#").clear_field
+                                span.help-block
+                    .col-xs-12.info
+                        span(style="color: red") *
+                        | velden zijn verplicht
+                    .col-xs-12
+                        .form-group.center-block
+                            p.thanks Bedankt! Er wordt zo snel mogelijk contact met u opgenomen.
+                            button#formSubmit.button-center.btn.main_button.g-recaptcha( data-sitekey="6LfA-JcUAAAAAC9SpgAr2ZmL4rFwjb83_U2MDcfQ" data-callback="onSubmitCFModal" data-badge="inline" type="button") Versturen

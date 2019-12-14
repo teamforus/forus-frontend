@@ -1,8 +1,8 @@
 .wrapper.wrapper_aboutus
     .container.text-center
         h1.wrapper_title Over ons
-        .wrapper_desc.text-center
-            ul
+        .tabs
+            ul.text-center
                 li.tab-inactive.enabled(ui-sref="history") Geschiedenis
                 li.tab-inactive.enabled(ui-sref="current") Nu
                 li.tab-active Toekomst
@@ -29,118 +29,3 @@
                 img(src="./assets/img/svg/me-logo.svg")
                 h5 Me
                 span #[strong Doel:] Een digitale identiteit voor eigendommen, eigenschappen en identificatie zodat zeggenschap zo dicht mogelijk bij de eindgebruiker komt.
-
-//- (data-toggle="tab" href="#panel3-techtree" id="#panel3")
-//-.wrapper.wrapper_techtree
-    .container
-        .panel#panel1-techtree
-            ul
-                li.head 
-                    h5.title Sponsor
-                    a.checkmark-sponsor(href="#")
-                    ul 
-                        li 
-                            a.blue(href="#") ?
-                            .tt-label Multiple Funds for one sponsor
-                            ul 
-                                li 
-                                    a.blue(href="#") ?
-                                    .tt-label Sponser products instead of shops
-                                    ul 
-                                        li 
-                                            a.blue.two(href="#") ?
-                                            .tt-label.tt-label_two Ether funds
-                                            ul
-                                                li
-                                                    a.blue(href="#") ?
-                                                    .tt-label.tt-label_two ERC20 Funds
-                                        li
-                                            a.blue(href="#") ?
-                                            .tt-label.tt-label_two Set fund criteria
-                                            ul 
-                                                li 
-                                                    a.blue.two(href="#") ?
-                                                    .tt-label.tt-label_two Configure funds yourself
-                li.head 
-                    h5.title Aanbieder
-                    a.checkmark-sponsor(href="#")
-                    ul
-                        li
-                            a.blue(href="#") ?
-                            .tt-label Accepteer ether                                           
-                li.head  
-                    h5.title Aanvrager
-                    a.checkmark-sponsor(href="#")
-                    ul 
-                        li 
-                            a.blue(href="#") ?
-                            .tt-label Apply trough platform (instead of activation code)
-                li.head  
-                    h5.title Validator
-                    a.checkmark-sponsor(href="#")
-                    ul 
-                        li 
-                            a.blue(href="#") ?
-                            .tt-label Validation dashboard
-        .panel#panel2-techtree
-            ul                 
-                li.head 
-                    h5.title database
-                    a.checkmark-sponsor(href="#")
-        .panel#panel3-techtree
-            ul test
-        .panel#panel4-techtree
-            ul test
-
-//-.wrapper.wrapper_contact_form.hidden-sm.hidden-md.hidden-lg
-    .container
-        form#formContactHome(action="https://xlak8w5706.execute-api.eu-west-1.amazonaws.com/Prod" method="POST")
-            .row
-                .col-xs-12.col-lg-6
-                    .form-group.required
-                        label.control-label NAAM
-                        .input-group
-                            input#nameInput.form-control(placeholder="Naam" name="name"  value="" onkeyup="this.setAttribute('value', this.value);" )
-                            a(href="#").clear_field
-                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-                            span.help-block
-                .col-xs-12.col-lg-6
-                    .form-group.required
-                        label.control-label EMAIL
-                        .input-group
-                            input#emailInput.form-control(placeholder="Email" name="email" value="" onkeyup="this.setAttribute('value', this.value);" )
-                            a(href="#").clear_field
-                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-                            span.help-block
-                .col-xs-12.col-lg-6
-                    .form-group
-                        label.control-label ORGANISATIE
-                        .input-group
-                            input#companyInput.form-control(placeholder="Organisatie" name="organization" value="" onkeyup="this.setAttribute('value', this.value);" )
-                            a(href="#").clear_field
-                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-                            span.help-block
-                .col-xs-12.col-lg-6
-                    .form-group
-                        label.control-label TELEFOONNUMMER
-                        .input-group
-                            input#telInput.form-control(placeholder="Telefoonnumber" name="phone" value="" onkeyup="this.setAttribute('value', this.value);" )
-                            a(href="#").clear_field
-                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-                            span.help-block
-                .col-xs-12
-                    .form-group.required
-                        label.control-label BERICHT
-                        .input-group
-                            textarea#messageInput.form-control(placeholder="Bericht" name="message")
-
-                            a(href="#").clear_field
-                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-                            span.help-block
-                .col-xs-12.info
-                    span(style="color: red") *
-                    | velden zijn verplicht
-                .col-xs-12
-                    .form-group.center-block
-                        p.thanks Bedankt! Er wor zo snel mogelijk contact met u opgenomen.
-                        button#formSubmitHome.main_button.g-recaptcha( data-sitekey="6LfA-JcUAAAAAC9SpgAr2ZmL4rFwjb83_U2MDcfQ" data-callback="onSubmitCFHome" data-badge="inline" type="button") Versturen

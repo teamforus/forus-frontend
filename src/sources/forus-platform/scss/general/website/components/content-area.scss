@@ -1,0 +1,114 @@
+.content-area {
+    position: relative;
+    margin: 0 auto;
+    color: $tc;
+    @media screen and (min-width: 1024px) {
+        background-color: rgba(255, 255, 255, 0.94);
+        box-shadow: 12px 8px 30px rgba(0, 0, 0, 0.19);
+        padding: 20px 10%;
+    }
+    .tl-list {
+        display: flex;
+        ul {
+            padding: 20px;
+            flex: 1 1 0;
+            @media screen and (min-width: 1024px) {
+                float: left;
+            }
+            p {
+                font-style: cursive;
+            }
+        }
+    }
+}
+.wrap_cs {
+    &__1 {
+        padding: 50px 100px;
+        @media screen and (min-width: 1024px) {
+            padding: 100px;
+        }
+    }
+    &__1a {
+        padding: 100px 100px;
+    }
+    &__2 {
+        padding: 20px 20px 20px;
+        @media screen and (min-width: 1024px) {
+            padding: 75px 20px 75px;
+        }
+        .work-st {
+            li {
+                display: block;
+                height: 50px;
+                padding-left: 40px;
+                &:before {
+                    position: absolute;
+                    content: "";
+                    height: 30px;
+                    width: 30px;
+                    left: 10px;
+                }
+                &:first-of-type {
+                    &:before {
+                        background-image: url($img_path + "/number-1-pink.svg");
+                    }
+                }
+                &:nth-of-type(2n) {
+                    &:before {
+                        background-image: url($img_path + "/number-2-pink.svg");
+                    }
+                }
+                &:nth-of-type(3n) {
+                    &:before {
+                        background-image: url($img_path + "/number-3-pink.svg");
+                    }
+                }
+                &:nth-of-type(4n) {
+                    &:before {
+                        background-image: url($img_path + "/number-4-pink.svg");
+                    }
+                }
+                &:nth-of-type(5n) {
+                    &:before {
+                        background-image: url($img_path + "/number-5-pink.svg");
+                    }
+                }
+                &:nth-of-type(6n) {
+                    &:before {
+                        background-image: url($img_path + "/number-6-pink.svg");
+                    }
+                }
+                &:nth-of-type(7n) {
+                    &:before {
+                        background-image: url($img_path + "/number-7-pink.svg");
+                    }
+                }
+                &:nth-of-type(8n) {
+                    &:before {
+                        background-image: url($img_path + "/number-8-pink.svg");
+                    }
+                }
+            }
+        }
+    }
+    &__3 {
+        padding: 0px 20px 75px;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .padded {
+        margin: -140px auto 0px;
+    }
+}
+.cont_txt {
+    @media screen and (min-width: 1024px) {
+        &__a {
+            padding: 0 135px 0;
+            img {
+                display: block;
+                width: 100%;
+                margin: 0 auto;
+            }
+        }
+    }
+}

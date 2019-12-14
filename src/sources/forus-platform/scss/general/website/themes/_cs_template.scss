@@ -1,0 +1,303 @@
+.wrapper{
+    align-items: center;
+
+    &_holder {
+        display: flex;
+        max-width: 1140px;
+        margin: 0 auto;
+        align-items: flex-start;
+        .column {
+            width: 50%;
+            &_xl {
+                min-width: 750px;
+                width: 60%;
+            }
+            &_lr {
+                width: 60%;
+                margin: 0 5%;
+                h2 {margin-top: 0;}
+                .img_box {
+                    display: block;
+                    max-width: 80%;
+                    .media_one {
+                        float: left;
+                        background: url(../img/logo-degroeneamsterdammer.png) no-repeat left center;
+                        background-size: contain;
+                        width: 50%;
+                        height: 50px;
+                        margin-top: 10%;
+                    }
+                    .media_two {
+                        display: block;
+                        float: left;
+                        background: url(../img/logo-binnenlandsbestuur.jpg) no-repeat center center;
+                        background-size: contain;
+                        width: 50%;
+                        height: 50px;
+                        margin-top: 10%;
+                    }
+                    .media_three {
+                        display: block;
+                        float: left;
+                        background: url(../img/logo-1vandaag.png) no-repeat left center;
+                        background-size: contain;
+                        width: 50%;
+                        height: 50px;
+                        margin-top: 10%;
+                    }
+                    .media_four {
+                        display: block;
+                        float: left;
+                        background: url(../img/logo-npo-radio1.png) no-repeat center center;
+                        background-size: contain;
+                        width: 50%;
+                        height: 50px;
+                        margin-top: 10%;
+                    }
+                }
+            }
+            &_sidebar {
+                width: 40%;
+                text-align: left;
+
+                &_bg {
+                    margin: 0 5%;
+                    width: 40%;
+                }
+                span {
+                    .hide-lg {
+                        display: none;
+                    }
+                }
+                .img_in {
+                    background: url(../img/interview.jpeg) no-repeat center center;
+                    background-size: cover;
+                    height: 660px;
+                    width: 100%;
+                }
+            }
+            span {
+                max-width: 500px;
+                vertical-align: middle;
+                ul {
+                }
+                .hide-lg {
+                    display: none;
+                }
+            }
+            .img_zh {
+                background: url(../img/office_1.png) no-repeat right center;
+                background-size: contain;
+                height: auto;
+                width: 100%;
+            }
+            img {
+                height: 600px;
+            }
+            img:nth-of-type(2) {
+                height: 600px;
+            }
+            .img_zh {
+                height: 50vw;
+            }
+            .img_em {
+                background: url(../img/elderman.jpg) no-repeat right center;
+                background-size: contain;
+                height: 50vw;
+                width: 100%;
+            }
+        }
+    }
+    &_content {
+        display: flex;
+        max-width: 1140px;
+        margin: 0 auto;
+        .column {
+            width: 50%;
+            margin-right: 5%;
+            &_lr {
+                width: 70%;
+
+                span {
+                    margin: 5% 15%;
+                }
+            }
+            &_sidebar {
+                width: 30%;
+                text-align: left;
+
+                span {
+                    .hide-lg {
+                        display: none;
+                    }
+                }
+                .img_in {
+                    background: url(../img/interview.jpeg) no-repeat center center;
+                    background-size: cover;
+                    height: 660px;
+                    width: 100%;
+                }
+            }
+            span {
+                max-width: 500px;
+                vertical-align: middle;
+                ul {
+                }
+                .hide-lg {
+                    display: none;
+                }
+            }
+            .img_zh {
+                background: url(../img/office_1.png) no-repeat right center;
+                background-size: contain;
+                height: 318px;
+                width: 100%;
+            }
+            img {
+                height: 600px;
+            }
+            img:nth-of-type(2) {
+                height: 600px;
+            }
+            .img_zh {
+            }
+            .img_em {
+                background: url(../img/elderman.jpg) no-repeat right center;
+                background-size: contain;
+                height: 380px;
+                width: 100%;
+            }
+        }
+    }
+    &_variable {
+        max-width: 1140px;
+        margin: 0 auto;
+        align-items: flex-start;
+        display: flex;
+        .column{
+            flex: auto;
+            margin: 0 5% 0 0%;
+            span {
+                max-width: 500px;
+                vertical-align: middle;
+                ul {
+                    display: inline-flex;
+                    li * {
+                        margin-bottom: 20px;
+                    }
+                    li {
+                        min-width: 175px;
+                        p {
+                            font-size: 14px;
+                        }
+                    }
+                    :nth-of-type(2) {
+                        margin: 0 20% 0 20%;
+                    }
+                    .media_1{
+                        height: 40px;
+                        width: 185px;
+                    }
+                    .media_2{
+                        height: 40px;
+                        width: 148px;
+                    }
+                    .media_3{
+                        height: 40px;
+                        width: 106px
+                    }
+                }
+                .hide-lg {
+                    display: none;
+                }
+            }
+            :nth-of-type(2) {
+                margin: 0 0 5% 0;
+            }
+            .img_em {
+                max-width: 100%;
+                height: auto;
+            }
+            img:nth-of-type(2) {
+                height: 600px;
+            }
+        }
+    }
+    &_quote {
+        text-align: center;
+        max-width: 1140px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        .column {
+            padding: 60px;
+            background-color: #f4f5f7;
+            justify-content: center;
+            flex: auto;
+            span {
+                font-weight: 500;
+            }
+            .blue {
+                display: block;
+            }
+            img {
+                height: 54px;
+                height: 54px;
+            }
+        }
+    }
+    &_reason {
+        display: block;
+        text-align: center;
+        margin: 0 auto;
+        max-width: 750px;
+        .column {
+            span {
+                ul {
+                    display: inline-flex;
+                    margin: 0 auto;
+                    justify-content: center;
+                    text-align: center;
+                    align-items: center;
+                    li {
+                        min-width: 125px;
+                        align-self: flex-end;
+                        .arrow_forward {
+                            background: url(../img/arrow-forward.png) no-repeat right center;
+                            background-size: cover;
+                            height: 10px;
+                            margin: 0 auto;
+                            margin-top: -35px;
+                        }
+                        .arrow_back {
+                            background: url(../img/arrow-back.png) no-repeat left center;
+                            background-size: cover;
+                            height: 10px;
+                            margin: 0 auto;
+                            margin-top: -35px;  
+                        }
+                    }
+                }
+            }
+        }
+        &_fund {
+            margin-bottom: 100px;
+        }
+        &_sec {
+            max-width: 1440px;
+            background-color: #f4f5f7;
+            border-radius: 12px;
+            margin-top: 5%;
+            padding-top: 50px;
+        }
+        .blue {
+            margin: 0px 5% 0px 5%;
+            display: block; 
+            border-bottom: solid 1px #edeef0;
+        }
+        .container-contact {
+            width: 500px;
+            margin: 0 auto;
+        }
+    }
+}

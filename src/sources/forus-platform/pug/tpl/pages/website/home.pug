@@ -1,252 +1,133 @@
-.wrapper.wrapper_value_allowance
+section.header.header__home
     .container
-        .row
-            .col-xs-12
-                h1 Veilige waarde-uitkering
-                p.text-left
-                    | Efficiënt en eerlijk met fondsen omgaan. Inzicht en overzicht houden.
-                div
-                    a.btn.button-left.main_button(href="#" data-toggle="modal" data-target="#modalContact") Neem contact op
-
-.wrapper.wrapper_concept
-    .container
-        .wrapper_logo_title
-            include ../../../../resources/platform-general/assets/img/svg/platform.svg
-            span HET PLATFORM
-        .wrapper_desc 
-            p Geld op een veilige, efficiënte en eerlijke manier uitgeven? Inzicht en overzicht houden? Maak een fonds. Accepteer aanbieders die hun producten en diensten beschikbaar mogen stellen. Voeg mensen die voor de regeling in aanmerking komen toe. Geef vouchers uit die ze bij de aanbieders kunnen besteden. Forus is een digitaal platform voor waarde-uitkering.
-            br
-            span.txt_link(ui-sref="story")
-                span.text-center Lees meer over de implementatie van het kindpakket in de gemeente Zuidhorn
-                include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg 
-
-.wrapper.wrapper_parties_list
-    .container
-        h2.wrapper_title.text-center Forus kent vier rollen:
-        .wrapper_desc 
-            p Elke rol heeft een eigen webomgeving. Zo kunnen de aanbieders hun omzet bekijken en kunnen gebruikers zien hoe veel ze nog te besteden hebben.
-
-    .container
-        .tab-content
-            #panel1-video.tab-pane.fade.in.active
-                .wrapper_tab_video
-                    video(id="player_tab_1" poster="assets/img/poster/aanvrager.gif")
-                        source(src="assets/video/Aanvrager.mov" type="video/mp4")
-                a.play_btn_link(href="#" )
-            #panel2-video.tab-pane.fade
-                .wrapper_tab_video
-                    video(id="player_tab_2" )
-                        source(src="assets/video/Aanbieder.mov" type="video/mp4")
-                a.btn_link(href="#" )
-            #panel3-video.tab-pane.fade
-                .wrapper_tab_video
-                    video(id="player_tab_3" )
-                        source(src="assets/video/Sponsor.mov" type="video/mp4")
-                a.play_btn_link(href="#" )
-            #panel4-video.tab-pane.fade
-                .wrapper_tab_video
-                    video(id="player_tab_4" )
-                        source(src="assets/video/Validator.mov" type="video/mp4")
-                a.play_btn_link(href="#" )
-        .wrapper_roles
-            ul.nav.nav-tabs.roles
-                li.role
-                    a(data-toggle="tab" data-target="#panel1-video" id="#panel1")
-                        span.role_content
-                            span.title.h4-subtitle Aanvrager
-                            span.text.h5-subtitle die in aanmerking komt voor een uitkering
-                            span.play_btn_link(href="#" id="#panel1-video")
-                                span Bekijk de film
-                                span.play_btn
-                                    include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
-                                    include ../../../../resources/platform-general/assets/img/svg/pause.svg
-                li.role
-                    a(data-toggle="tab" data-target="#panel2-video" id="#panel2")
-                        span.role_content
-                            span.title.h4-subtitle Aanbieder
-                            span.text.h5-subtitle waar het geld kan worden uitgegeven
-                            span.play_btn_link(href="#" id="#panel2-video")
-                                span Bekijk de film
-                                span.play_btn
-                                    include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
-                                    include ../../../../resources/platform-general/assets/img/svg/pause.svg
-                li.role
-                    a(data-toggle="tab" data-target="#panel3-video" id="#panel3")
-                        span.role_content
-                            span.title.h4-subtitle Sponsor
-                            span.text.h5-subtitle die het geld heeft en/of beheert
-                            span.play_btn_link(href="#" id="#panel3-video")
-                                span Bekijk de film
-                                span.play_btn
-                                    include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
-                                    include ../../../../resources/platform-general/assets/img/svg/pause.svg
-                li.role
-                    a(data-toggle="tab" data-target="#panel4-video" id="#panel4")
-                        span.role_content
-                            span.title.h4-subtitle Validator
-                            span.text.h5-subtitle die aanbieders en aanvragers goedkeurt
-                            span.play_btn_link(href="#" id="#panel4-video")
-                                span Bekijk de film
-                                span.play_btn
-                                    include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
-                                    include ../../../../resources/platform-general/assets/img/svg/pause.svg
-.wrapper.wrapper_start
-    .container
-        .wrapper_block_bg
-            .row
-                .col-xs-12.hidden-sm.hidden-md.hidden-lg
-                    h3.wrapper_title Hoe werkt Forus voor jou?
-                .col-xs-12.col-lg-5
-                    img(src="assets/img/presentatie.png")
-                .col-xs-12.col-lg-7
-                    h3.wrapper_title.hidden-xs Hoe werkt Forus voor jou?
-                    p.wrapper_desc Forus is makkelijk aan de voorkant en goed doordacht aan de achterkant. De back-end is voor iedereen gelijk, de front-end maken we op maat. Compleet met eigen huisstijl.
-                    p.wrapper_desc Het team helpt je met conceptualisatie, implementatie, programmering en beheer. Ook verlenen we support aan sponsor en aanbieder.
-                    span.txt_link.pull-left(href="#" data-toggle="modal" data-target="#modalContact")
+        .wrap_cs__1
+            h1 Digitale oplossingen voor maatschappelijk vraagstukken
+            p.pt-large Forus onderzoekt, ontwikkelt en implementeert innovatieve applicaties voor het publieke domein.
+            a.main_button(href="#" data-toggle="modal" data-target="#modalContact") Neem contact op
+section
+    .container.text-center
+        .wrap_cs__2
+            .cont_txt__a
+                h2 Digitale oplossingen
+                p Uitwisseling van waarde speelt een belangrijke rol bij vraagstukken op het gebied van armoede, duurzaamheid, goede doelen en cadeaupakketten. Hiervoor ontwikkelen wij oplossingen.
+            .row.flexed.pull-down
+                .col-6.col-md-4.e-fb
+                    .upper
+                        include ../../../../resources/platform-general/assets/img/icon-kindpakket.svg
+                        h3 Kindpakket
+                        p Het Kindpakket ondersteunt gezinnen met kinderen in armoede. De kinderen krijgen een kans om mee te doen met leeftijdsgenootjes.. Denk aan schoolmaterialen, sportspullen, kleding, zwemlessen etc. 
+                    a.txt_link(href="#" data-toggle="modal" data-target="#modalContact") 
+                        | Lees meer
                         include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg 
-                        span Neem contact op                          
+                .col-6.col-md-4.e-fb
+                    .upper
+                        include ../../../../resources/platform-general/assets/img/icon-meedoen.svg
+                        h3 Meedoen
+                        p Met de Meedoen-regeling kunnen mensen met een laag inkomen meedoen met sociale, sportieve, maatschappelijke en/of culturele activiteiten. 
+                    a.txt_link(href="#" data-toggle="modal" data-target="#modalContact") 
+                        | Lees meer
+                        include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg 
+                .col-6.col-md-4.e-fb
+                    .upper
+                        include ../../../../resources/platform-general/assets/img/icon-kerstpakket.svg
+                        h3 Kerstpakket
+                        p Het kerstpakket biedt medewerkers de mogelijkheid om zelf een gewenst kerstpakket uit te kiezen. Het kerstpakket is te besteden bij (lokale) ondernemers en goede doelen. 
+                    a.txt_link(href="#" data-toggle="modal" data-target="#modalContact") 
+                        | Lees meer
+                        include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg 
 
-
-.wrapper.wrapper_benefits
+section.gradient
     .container
-        h3.wrapper_title Wat zijn de voordelen van Forus?
-        ul
-            li Papierwinkel en bureaucratie zijn verleden tijd
-            li Altijd overzicht over meerdere fondsen
-            li Snelle aanmeldprocedure
-            li Helder inzicht in de status van het fonds
-            li Zicht en toezicht op alle transacties
-            li Veiligheid voor alle partijen
-            li Ook geschikt voor digibeten
-
-.wrapper.wrapper_success_stories
+        .wrap_cs__2
+            h2.text-center Gemak & Kwaliteit
+            .row.flexed.cont-p
+                .col-6.col-md-4.e-fb
+                    .usp.usp__sp-1
+                        h4 Facturatie
+                        p De financiële afhandeling van een regeling verloopt volledig geautomatiseerd. De rekening wordt real-time uitgelezen en aangestuurd. 
+                    .usp.usp__sp-2
+                        h4 Privacy by Design
+                        p De eindgebruiker eigenaar is van zijn of haar data. Persoonlijke informatie is in te zien en te beheren.
+                    .usp.usp__sp-3
+                        h4 Toegankelijkheid
+                        p De oplossing is toegankelijk voor alle doelgroepen, conform WCAG 2.0 AA.
+                    .usp.usp__sp-4
+                        h4 Stimulering lokale economie
+                        p Samenwerking met (lokale) leveranciers zoals winkeliers, verenigingen en stichtingen ter bevordering van de lokale economie.
+                .col-6.col-md-4.hidden-xs
+                    img.phone-m(src="assets/img/home_usp-meapp.png", alt="")
+                    img.phone-m(src="assets/img/home_usp-meapp.png", alt="")
+                .col-6.col-md-4.e-fb
+                    .usp.usp__sp-5
+                        h4 Support
+                        p Gebruikers kunnen telefonisch en via whatsapp, e-mail en chatfunctie op de webshop contact met ons opnemen.
+                    .usp.usp__sp-6
+                        h4 Managementinformatie
+                        p Managementinformatie, een veelvoud aan statistieken, is te allen tijde op te vragen via het systeem.
+                    .usp.usp__sp-7
+                        h4 Huisstijl op maat
+                        p De oplossing sluit naadloos aan bij uw organisatie door zorgvuldig doorvoeren van huisstijl en website elementen.
+                    .usp.usp__sp-8
+                        h4 Samenwerking
+                        p De oplossing sluit naadloos aan bij uw organisatie door zorgvuldig doorvoeren van huisstijl en website elementen.
+section
     .container
-        h1.wrapper_title.text-center Succesverhalen met Forus
-    .success_story.success_story_1
-        .container
-            .fix_side.nav
-                div
-                    .frame
-                        .nav_story
-                            ul
-                                li.active
-                                    a(href="#part_story_11")
-                                li
-                                    a(href="#part_story_12")
-                                li
-                                    a(href="#part_story_13")
-                                li
-                                    a(href="#part_story_14")
-            #part_story_11.part_story
-                .part_story_label Product
-                h3.part_story_title Kindpakket
-                .part_story_macbook.hidden-sm.hidden-md.hidden-lg
-                    .laptop
-                        div
-                            .frame
-                                img(src="assets/img/macbook.png")
-                                .screens
-                                    img(src="assets/img/laptop_img_1.png")
-                p.part_story_content Met het Kindpakket ondersteunt de gemeente gezinnen met kinderen in armoede. Een kans voor kinderen om mee te doen op sociaal gebied, met sport, culturele activiteiten en op school.
-                span.txt_link.pull-left
-                    span(ui-sref="kindpakket") Ook geïnteresseerd in het kindpakket?
-                    include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg  
-
-            .fix_side.laptop.hidden-xs
-                div
-                    .frame
-                        img(src="assets/img/macbook.png")
-                        .screens
-                            img(src="assets/img/laptop_img_1.png" data-part="#part_story_11")
-                            img(src="assets/img/laptop_img_1.png" data-part="#part_story_12")
-                            img(src="assets/img/laptop_img_1.png" data-part="#part_story_13")
-                            img(src="assets/img/laptop_img_1.png" data-part="#part_story_14")
-    .success_story.success_story_2
-        .container
-            .fix_side.iphone.hidden-xs
-                div
-                    .frame
-                        img(src="assets/img/iphone-x-colors.png")
-                        .screens
-                            img(src="assets/img/iphone_img_1.png" data-part="#part_story_21")
-                            img(src="assets/img/iphone_img_1.png" data-part="#part_story_22")
-                            img(src="assets/img/iphone_img_1.png" data-part="#part_story_23")
-
-            #part_story_21.part_story
-                .part_story_label Implementatie
-                h3.part_story_title Kindpakket Zuidhorn
-                .part_story_iphone.hidden-sm.hidden-md.hidden-lg
-                    .iphone
-                        div
-                            .frame
-                                img(src="assets/img/iphone-x-colors.png")
-                                .screens
-                                    img(src="assets/img/iphone_img_1.png" data-part="#part_story_21")
-                p.part_story_content Samen met de gemeente Zuidhorn hebben we een toepassing van Forus ontwikkeld. Deze is speciaal bedoeld voor de Kindpakket-regeling voor minima.
-                span.txt_link.pull-left
-                    span(ui-sref="story") Lees meer over de implementatie in Zuidhorn
-                    include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg  
-            .fix_side.nav
-                div
-                    .frame
-                        .nav_story
-                            ul
-                                li.active
-                                    a(href="#part_story_21")
-                                li
-                                    a(href="#part_story_22")
-                                li
-                                    a(href="#part_story_23")
-
-//-.wrapper.wrapper_contact_form.hidden-sm.hidden-md.hidden-lg
+        .wrap_cs__4
+            .col-lg-12.content-area.text-center.padded
+                    h2 Proactief & Transparant
+                    p Het systeem kan binnen korte tijd worden geïmplementeerd. Wij komen langs op locatie en stemmen de wensen en eisen met de klant af. Hierbij willen wij de klant zoveel mogelijk ontzorgen. Onze werkwijze is proactief, persoonlijk en transparant. <br /><br /> Het team helpt en biedt ondersteuning bij de conceptualisatie, implementatie, programmering en beheer. Ook verlenen we support aan de gebruikers.          
+                    a.txt_link(href="#" data-toggle="modal" data-target="#modalContact")
+                        | Neem contact op
+                        include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg 
+section
     .container
-        form#formContactHome(action="https://xlak8w5706.execute-api.eu-west-1.amazonaws.com/Prod" method="POST")
+        .wrap_cs__2
+            .row.flex-align
+                .col-6.col-md-6
+                    img(src="assets/img/content-onderzoek.jpg").stretched
+                .col-6.col-md-6
+                    h2 Onderzoek
+                    p Naar de oplossing is gedegen onderzoek verricht. We onderzoeken concepten zoals privacy by design, decentralisatie, blockchain en andere digitale dienstverlening. Tevens heeft Forus twee Small Business Innovation Research (SBIR) trajecten uitgevoerd. In opdracht van het RVO en de Provincie Groningen hebben we een haalbaarheidsonderzoek verricht naar het vier rollen model. De conclusies uit beide SBIR onderzoeken kun je hier downloaden.
+                    a.txt_link.no-mar-b.content-left(href="#" data-toggle="modal" data-target="#modalContact")
+                        | Download SBIR Groningen
+                        include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg 
+                    a.txt_link.no-mar-b.content-left.no-mar-b(href="#" data-toggle="modal" data-target="#modalContact")
+                        | Dowload SBIR Gegevenslandschap
+                        include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg 
+
+section
+    .container.text-center
+        .wrap_cs__5
             .row
-                .col-xs-12.col-lg-6
-                    .form-group.required
-                        label.control-label NAAM
-                        .input-group
-                            input#nameInput.form-control(placeholder="Naam" name="name"  value="" onkeyup="this.setAttribute('value', this.value);" )
-                            a(href="#").clear_field
-                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-                            span.help-block
-                .col-xs-12.col-lg-6
-                    .form-group.required
-                        label.control-label EMAIL
-                        .input-group
-                            input#emailInput.form-control(placeholder="Email" name="email" value="" onkeyup="this.setAttribute('value', this.value);" )
-                            a(href="#").clear_field
-                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-                            span.help-block
-                .col-xs-12.col-lg-6
-                    .form-group
-                        label.control-label ORGANISATIE
-                        .input-group
-                            input#companyInput.form-control(placeholder="Organisatie" name="organization" value="" onkeyup="this.setAttribute('value', this.value);" )
-                            a(href="#").clear_field
-                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-                            span.help-block
-                .col-xs-12.col-lg-6
-                    .form-group
-                        label.control-label TELEFOONNUMMER
-                        .input-group
-                            input#telInput.form-control(placeholder="Telefoonnummer" name="phone" value="" onkeyup="this.setAttribute('value', this.value);" )
-                            a(href="#").clear_field
-                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-                            span.help-block
-                .col-xs-12
-                    .form-group.required
-                        label.control-label BERICHT
-                        .input-group
-                            textarea#messageInput.form-control(placeholder="Bericht" name="message")
-
-                            a(href="#").clear_field
-                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-                            span.help-block
-                .col-xs-12.info
-                    span(style="color: red") *
-                    | velden zijn verplicht
-                .col-xs-12
-                    .form-group.center-block
-                        p.thanks Bedankt! Er wordt zo snel mogelijk contact met u opgenomen.
-                        button#formSubmitHome.main_button.g-recaptcha( data-sitekey="6LfA-JcUAAAAAC9SpgAr2ZmL4rFwjb83_U2MDcfQ" data-callback="onSubmitCFHome" data-badge="inline" type="button") Versturen
+                .col-6.col-md-6
+                    h2 Onze klanten
+                    p We implementeren oplossingen bij:
+                    .wrapped
+                        .cupa
+                            img.e-fb(src="assets/img/logo-nijmegen.png", alt="")
+                        .cupa
+                            img.e-fb(src="assets/img/logo-westerkwartier.png", alt="")
+                        .cupa
+                            img.e-fb(src="assets/img/logo-emmen.png", alt="")
+                        .cupa.cleared
+                            img.e-fb(src="assets/img/logo-barneveld.png", alt="")
+                        .cupa
+                            img.e-fb(src="assets/img/logo-geertruidenberg.png", alt="")
+                        .cupa
+                            img.e-fb(src="assets/img/logo-longfonds.png", alt="")
+                .col-6.col-md-6
+                    h2 Onze partners
+                    p We ontwikkelen onze oplossingen met:
+                    .wrapped
+                        .cupa
+                            img.e-fb(src="assets/img/logo-ilionx.png", alt="")
+                        .cupa
+                            img.e-fb(src="assets/img/logo-berenschot.png", alt="")
+                        .cupa
+                            img.e-fb(src="assets/img/logo-rminds.png", alt="")
+section
+    .container.text-center
+        .cta-area
+            h2 Kennismaken?
+            p Benieuwd naar Forus en naar onze oplossingen?<br />Wij denken graag mee en maken graag kennis met je. 
+            a.main_button(href="#" data-toggle="modal" data-target="#modalContact") Neem contact op  

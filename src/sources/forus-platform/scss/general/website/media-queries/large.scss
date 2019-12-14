@@ -1,0 +1,115 @@
+html {
+    @media (min-width: 767px) and (max-width: 1200px) {
+        body{
+            .wrapper{
+                &_roles {
+                    .roles {
+                        .role {
+                            .role_content {
+                                .title {
+                                    padding-left: 0;
+                                }
+                                .text {
+                                    min-height: 85px;
+                                }
+                            }
+                        }
+                    }
+                }
+                &_timeline {
+                    .timeline{
+                        .even::after {
+                            right: -63px;
+                        }
+                    }
+                }
+                &_story {
+                    .column {
+                        padding: 20px;
+                    }
+                }
+                &_holder {
+                    .column {
+                        &_lr {
+                            width: 60%;
+                        }
+                        &_sidebar {
+                            &_bg {
+                                width: 30%;
+                            }
+                        }
+                    }
+                }
+                &_me, &_reason, &_feature_one, &_feature_two, &_feature_three, &_content, &_holder, &_variable, &_sup {
+                    .column {
+                        padding: 0 30px 0 30px;
+                        &_sidebar {
+                            padding: 0 30px 0 30px;
+                        }
+                        &_xl {
+                            padding: 0 30px 0 30px;
+                        }
+                        .img_zh {
+                            height: 60vw;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @media (max-width: 1000px) {
+        body {
+            .wrapper {
+                &_story {
+                    padding: 80px 5vw;
+                    .column {
+                        padding: 20px;
+                    }
+                }
+                &_dev {
+                    img {
+                        display:none;
+                    }
+                    .content {
+                        margin: 12px;
+                        min-width: 100%;
+                    }
+                }
+                &_downloads {
+                    .download_links {
+                        align-items: center;
+                        .dl_box {
+                            flex: auto;
+                        }
+                    }
+                }
+                &_me, &_reason, &_feature_one, &_feature_two, &_feature_three, &_content, &_holder, &_variable, &_sup {
+                    .column {
+                        padding: 0 30px 0 30px;
+                        &_sidebar {
+                            padding: 0 0 0 30px;
+                        }
+                        &_xs {
+                            width: 0%;
+                            height: 0;
+                        }
+                        &_xl {
+                            min-width: 500px;
+                            padding: 0 0 0 30px;
+                        }
+                        &_sm {
+                            width: 50%;
+                            justify-content: left;
+                            .g_map {
+                                
+                            }
+                        }
+                        .img_zh {
+                            height: 60vw;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

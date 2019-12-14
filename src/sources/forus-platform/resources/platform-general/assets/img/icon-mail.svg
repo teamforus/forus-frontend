@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g id="ICONS">
+    </g>
+    <g id="LOGOS">
+    </g>
+    <g>
+        <g transform="matrix(3.08533,0,0,3.08533,-83.3746,-70.3271)">
+            <path d="M51.288,27.668C51.288,27.481 51.136,27.329 50.949,27.329L28.939,27.329C28.752,27.329 28.6,27.481 28.6,27.668L28.6,43.941C28.6,44.128 28.752,44.28 28.939,44.28L50.949,44.28C51.136,44.28 51.288,44.128 51.288,43.941L51.288,27.668Z" style="fill:none;stroke:rgb(255,75,153);stroke-width:0.68px;"/>
+        </g>
+        <g transform="matrix(3.08533,0,0,3.08533,-83.3746,-70.3271)">
+            <path d="M28.883,27.545L40.002,39.284L51.197,27.648" style="fill:none;stroke:rgb(255,75,153);stroke-width:0.68px;"/>
+        </g>
+        <g transform="matrix(3.08533,0,0,3.08533,-83.3746,-70.3271)">
+            <path d="M28.868,44.009L36.935,36.05" style="fill:none;stroke:rgb(255,75,153);stroke-width:0.68px;"/>
+        </g>
+        <g transform="matrix(3.08533,0,0,3.08533,-83.3746,-70.3271)">
+            <path d="M51.137,43.991L43.274,35.939" style="fill:none;stroke:rgb(255,75,153);stroke-width:0.68px;"/>
+        </g>
+    </g>
+</svg>

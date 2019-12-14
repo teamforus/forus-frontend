@@ -1,0 +1,32 @@
+.pad-bt { padding: 5% 0; }
+.pad-b  { padding-bottom: 5%; }
+.pad-t { padding-top: 5%;}
+.pad-res { padding: 0;}
+
+html {
+    body {
+        .flexed {
+            @media screen and (min-width: 1024px) {
+                display: flex;
+            }
+        }
+        .flex-align {
+            @media screen and (min-width: 1024px) {
+                display: flex;
+                align-items: center;
+            }
+        }
+        .container {
+            max-width: 100%;
+            @media screen and (min-width: 1024px) { 
+                max-width: 1024px;
+            }
+            .col-vr {
+                position: relative;
+                margin: 0 auto;
+                max-width: 700px;
+            }
+        }
+        
+    }
+}

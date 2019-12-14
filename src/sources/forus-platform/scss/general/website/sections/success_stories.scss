@@ -1,0 +1,152 @@
+.section-success-stories {
+    background-image: linear-gradient(to top, #fbfcfd, rgba(251, 252, 253, 0.0000000001));
+    padding: 70px 0 30px;
+    margin-top: 12vw;
+    &.fixed{
+        width: 100vw;
+        left: 0;
+        top: 0;
+    }
+    .fix_side.nav {
+        width: 135px;
+        position: absolute;
+        left: calc((100% - 1400px) / 2);
+        top: 50vh;
+        display: none;
+        &.fix{
+            position: fixed!important;
+            left: calc(((100vw - 1200px) / 2) - 110px);
+        }
+        &.bottom{
+            position: absolute!important;
+            bottom: 0;
+            top: inherit;
+            left: -90px;
+            .frame{
+                position: absolute;
+                bottom: 0;
+                top: inherit;
+            }
+        }
+        & > div{
+            height: 50vw;
+            position: relative;
+        }
+        .frame {
+            height: 100%;
+            position: relative;
+        }
+        .nav_story {
+            width: 100%;
+            text-align: center;
+            ul {
+                position: relative;
+                margin-top: -50%;
+                padding-bottom: calc(50vh);
+                li {
+                    text-align: center;
+                    a {
+                        width: 10px;
+                        height: 10px;
+                        margin: 10px;
+                        display: inline-block;
+                        border-radius: 50%;
+                        background: $forus-demi-blue;
+                        opacity: 0.5;
+                        @include transition();
+                    }
+                    &.active {
+                        a {
+                            opacity: 1;
+                            width: 15px;
+                            height: 15px;
+                            @include transition();
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .success_story {
+        position: relative;
+        overflow: hidden;
+        .part_story {
+            display: inline-block;
+            vertical-align: top;
+            //min-height: 90vh;
+
+            &_label {
+                border-radius: 30px;
+                background-color: #edf1ff;
+                padding: 7px 16px;
+                line-height: 1;
+                color: $forus-sky-blue;
+                margin-bottom: 30px;
+                
+                font-weight: 500;
+                display: inline-block;
+            }
+            &_content {
+                
+                font-weight: 400;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.56;
+                letter-spacing: normal;
+                *{
+                    
+                    font-weight: 500;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: 1.56;
+                    letter-spacing: normal;
+                }
+                p, ul{
+                    margin-bottom: 25px;
+                }
+                @include list_check();
+            }
+        }
+        &_1{
+            position: relative;
+            margin-bottom: 130px;
+            .part_story {
+                padding: 130px 0 90px 40px;
+                width: 40%;
+                display: inline-block;
+                height: 84vh;
+                & + .laptop {
+                    position: absolute;
+                    left: 45%;
+                    height:106%;
+                    width: calc(84vh * 1.61666667);
+                }
+            }
+        }
+        &_2{
+            .nav_story {
+                width: 100%;
+                text-align: center;
+                ul {
+                    position: relative;
+                    margin-top: 0!important;
+                }
+            }
+            .container{
+                position: relative;
+            }
+            .part_story {
+                padding: 175px 0 90px 40px;
+                width: 60%;
+                display: inline-block;
+                & + .fix_side {
+                    right: calc((100% - 1400px) / 2);
+                    left: inherit;
+                    .nav_story{
+                        left: inherit;
+                    }
+                }
+            }
+        }
+    }
+}

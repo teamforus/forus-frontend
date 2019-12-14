@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g id="citizens" transform="matrix(0.145379,0,0,0.145379,-165.212,-44.1447)">
+        <g transform="matrix(1,0,0,1,130,-14)">
+            <circle cx="1282.15" cy="494.915" r="81.596" style="fill:none;stroke:rgb(255,75,153);stroke-width:13.76px;"/>
+        </g>
+        <g transform="matrix(0.867893,0,0,0.867893,172.093,34.6006)">
+            <path d="M1341.65,550.733C1326.76,566.596 1305.61,576.511 1282.15,576.511C1237.12,576.511 1200.56,539.949 1200.56,494.915C1200.56,449.881 1237.12,413.319 1282.15,413.319C1312.94,413.319 1338.51,431.177 1352.4,456.372" style="fill:none;stroke:rgb(255,75,153);stroke-width:15.85px;"/>
+        </g>
+        <g transform="matrix(0.867893,0,0,0.867893,424.368,34.6006)">
+            <path d="M1211.13,454.735C1225.16,430.013 1251.72,413.319 1282.15,413.319C1327.19,413.319 1363.75,449.881 1363.75,494.915C1363.75,539.949 1327.19,576.511 1282.15,576.511C1260.05,576.511 1240,567.707 1225.3,553.417" style="fill:none;stroke:rgb(255,75,153);stroke-width:15.85px;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,140,0)">
+            <path d="M1122.42,761.697L1426.16,761.697C1426.16,761.697 1447.3,592.376 1324.57,544.464C1324.57,544.464 1272.06,586.057 1220.04,543.741C1220.04,543.741 1084.84,610.111 1122.42,761.697Z" style="fill:none;stroke:rgb(255,75,153);stroke-width:13.76px;"/>
+        </g>
+        <g transform="matrix(0.730154,0,0,0.722172,355.854,130.577)">
+            <path d="M1214.01,543.266C1214.01,543.266 1084.84,610.111 1122.42,761.697L1236.09,761.697C1236.09,761.697 1225.24,672.012 1370.36,572.972" style="fill:none;stroke:rgb(255,75,153);stroke-width:18.94px;"/>
+        </g>
+        <g transform="matrix(0.730154,0,0,0.722172,608.53,130.008)">
+            <path d="M1177.1,574.697C1289.93,618.274 1308.67,761.697 1308.67,761.697L1426.16,761.697C1426.16,761.697 1454.39,592.383 1331.66,544.471" style="fill:none;stroke:rgb(255,75,153);stroke-width:18.94px;"/>
+        </g>
+    </g>
+    <g id="ICONS">
+    </g>
+    <g id="LOGOS">
+    </g>
+    <g id="municipality">
+    </g>
+</svg>
