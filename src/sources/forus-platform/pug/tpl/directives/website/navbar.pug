@@ -31,7 +31,7 @@ nav.navbar
                     a(ui-sref="current") Over ons
                 li
                     a(ui-sref="contact") Contact
-                .nav.navbar-nav.navbar-right.auth-out(ng-if="!$root.auth_user")
+            ul.nav.navbar-nav.navbar-right.auth-out(ng-if="!$root.auth_user")
                 li
                     a.login_btn(ng-click="openAuthPopup()") Inloggen
             ul.nav.navbar-nav.navbar-right.auth-out(ng-if="$root.auth_user")
