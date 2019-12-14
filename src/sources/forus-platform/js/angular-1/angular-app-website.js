@@ -17,6 +17,7 @@ app.component('meComponent', require('./components/website/MeComponent'));
 app.component('contactComponent', require('./components/website/ContactComponent'));
 app.component('supportComponent', require('./components/website/SupportComponent'));
 app.component('storyComponent', require('./components/website/StoryComponent'));
+app.component('csNijmegenComponent', require('./components/website/CsNijmegenComponent'));
 app.component('futureComponent', require('./components/website/FutureComponent'));
 app.component('historyComponent', require('./components/website/HistoryComponent'));
 app.component('currentComponent', require('./components/website/CurrentComponent'));

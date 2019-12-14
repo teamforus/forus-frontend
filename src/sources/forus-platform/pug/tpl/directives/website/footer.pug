@@ -18,14 +18,14 @@
       .col-6.col-md-4
         h4 Links
         ul
-          li: p Over ons
-          li: p Forus
-          li: p Me
-          li: p Kindpakket
-          li: p Meedoenpakket
-          li: p Kerstpakket
-          li: p Klantverhaal Zuidhorn
-          li: p Contact
+          li: p(ui-sref="current") Over ons
+          li: p(ui-sref="platform") Forus
+          li: p(ui-sref="me") Me
+          li: p(ui-sref="kindpakket") Kindpakket
+          li: p(ui-sref="meedoen") Meedoenpakket
+          li: p(ui-sref="kerstpakket") Kerstpakket
+          li: p(ui-sref="story") Klantverhaal Zuidhorn
+          li: p(ui-sref="contact") Contact
       .col-6.col-md-4.contact
         h4 Vragen of samenwerking ?
         p Heb je vragen of wil je met ons samenwerken? Neem dan contact met ons op.
@@ -34,7 +34,7 @@
   .container
     a.footer-brand(href="/#!/")
       include ../../../../resources/platform-general/assets/img/svg/forus-logo-footer.svg
-      | © 2019 jojo
+      | © 2019 Forus
     ul.pull-right
       li
         include ../../../../resources/platform-general/assets/img/svg/linkedin.svg
