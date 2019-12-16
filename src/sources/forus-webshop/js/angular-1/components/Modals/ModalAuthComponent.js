@@ -1,11 +1,11 @@
 let ModalAuthComponent = function(
-    $filter,
     $timeout,
     $rootScope,
     AuthService,
     IdentityService,
     FormBuilderService,
     CredentialsService,
+    DigIdService,
     ModalService,
     appConfigs
 ) {
@@ -17,15 +17,31 @@ let ModalAuthComponent = function(
     $ctrl.showQrCodeBlock = false;
     $ctrl.showEmailBlock = false;
 
+    $ctrl.digidAvailable = appConfigs.features.digid;
+    $ctrl.restoreWithDigId = false;
+
     if (AuthService.hasCredentials()) {
         IdentityService.identity().then(() => { }, $ctrl.close);
     }
+
     $ctrl.showQrForm = function() {
         $ctrl.showQrCodeBlock = true;
         $ctrl.showChoose = false;
 
         $ctrl.requestAuthQrToken();
     };
+
+    $ctrl.useDigId = () => {
+        $ctrl.restoreWithDigId = true;
+        $ctrl.stopQrCodeVerification();
+    }
+
+    $ctrl.startDigId = () => {
+        DigIdService.startAuthRestore().then((res) => {
+            document.location = res.data.redirect_url;
+        });
+    }
+
     $ctrl.$onInit = () => {
         $(document).bind('keydown', (e) => {
             $timeout(function() {
@@ -98,9 +114,8 @@ let ModalAuthComponent = function(
         }, console.log);
     };
 
-    $ctrl.$onDestroy = function() {
-        $timeout.cancel(timeout);
-    };
+    $ctrl.stopQrCodeVerification = () => $timeout.cancel(timeout);
+    $ctrl.$onDestroy = () => $ctrl.stopQrCodeVerification();
 
     $ctrl.openAuthCodePopup = function () {
         $ctrl.close();
@@ -115,13 +130,13 @@ module.exports = {
         modal: '='
     },
     controller: [
-        '$filter',
         '$timeout',
         '$rootScope',
         'AuthService',
         'IdentityService',
         'FormBuilderService',
         'CredentialsService',
+        'DigIdService',
         'ModalService',
         'appConfigs',
         ModalAuthComponent

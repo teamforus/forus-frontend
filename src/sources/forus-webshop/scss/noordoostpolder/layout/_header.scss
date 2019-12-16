@@ -1,0 +1,66 @@
+.section {
+    &.section-header {
+        @media screen and (min-width: 1024px) {
+            height: 560px;
+            background: $bg-values;
+            background-size: contain;
+            background-position: right top;
+            background-color: #95C11F;
+
+            &:before {
+                position: absolute;
+                left:0;
+                bottom: 0;
+                width: 430px;
+                height: 100%;
+                background-image: url("../img/left_leaf.png");
+                background-repeat: no-repeat;
+                z-index: 1;
+                content: " ";
+            }
+
+            .header-content {
+                max-width: 650px;
+                left: 0;
+                right: 0;
+                margin: 0 auto;
+                margin-left: auto;
+                margin-right: auto;
+                color: $tc-var;
+                text-align: center;
+                z-index: 2;
+                height: 100%;
+                padding: 80px 0px 0px;
+                
+                .header-title {
+                    text-align: center;
+                    font: 700 40px/1.5em $bf;
+                }
+                
+                .header-description {
+                    text-align: center;
+                    p {
+                        font: 400 18px/1.5em $bf;
+                    }
+                }
+
+                .header-how-it-works {
+                    display: block;
+                    padding-top: 10px;
+                    color: $tc-var;
+                    font-style: normal;
+
+                    &:hover {
+                        color: #f5ffc4;
+                    }
+                }
+                .button {
+                    &:hover {
+                        background-color: #fff;
+                        color: $bc;
+                    }
+                }
+            }
+        }
+    }
+}

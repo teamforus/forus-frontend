@@ -17,13 +17,31 @@
             border-left: 1px solid #dbdcdb;
         }
         .navbar-logo {
+            display:flex;
+            align-items: center;
+
             @media screen and (min-width: 1024px) {
                 padding: 10px 20px 10px 0px;
                 border-right: 1px solid #dbdcdb;
             }
 
             img {
+                width: 170px;
+                height: auto;
+
+                @media screen and (max-width: 1000px) {
+                    width: auto;
+                }
+            }
+
+            .second-logo {
                 height: 55px;
+                width: auto;
+                margin-right: 10px;
+
+                @media screen and (max-width: 1000px) {
+                    display: none;
+                }
             }
         }
         

@@ -1,4 +1,4 @@
-module.exports = [function() {
+let CredentialsService = function() {
     return new(function() {
         this.storageKey = 'accounts';
         this.activeKey = 'active_account';
@@ -62,4 +62,8 @@ module.exports = [function() {
             return localStorage.getItem(this.activeKey);
         };
     });
-}];
+};
+
+module.exports = [
+    CredentialsService
+];

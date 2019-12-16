@@ -17,6 +17,7 @@
             display: block;
             min-height: 150px;
             cursor: pointer;
+
             .voucher-image {
                 border-radius: inherit;
                 float: left;
@@ -101,6 +102,13 @@
                     float: left;
                     width: 100%;
 
+                    &.voucher-open {
+                        width: 80%;
+                        position: absolute;
+                        bottom: 25px;
+                        left: 25px;
+                    }
+
                     .voucher-overview-label {
                         font: 400 10px/12px $bf;
                         color: #646f79;
@@ -116,6 +124,13 @@
                             color: #646f79;
                             margin-left: 5px;
                         }
+                    }
+
+                    .button {
+                        width: 100%;
+                        padding: 12px 20px;
+                        font: 700 12px/22px $bf;
+                        text-transform: uppercase;
                     }
 
                     &:last-of-type,
@@ -138,6 +153,19 @@
             &.voucher-item-use {
                 .voucher-details {
                     width: calc(100% - 610px);
+                }
+            }
+
+            &.voucher-item-disabled {
+                cursor: default;
+                pointer-events: none;
+
+                .voucher-overview {
+                    .voucher-overview-item {
+                        .button {
+                            cursor: default;
+                        }
+                    }
                 }
             }
         }

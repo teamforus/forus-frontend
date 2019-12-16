@@ -32,6 +32,9 @@ module.exports = () => {
             'ConfigService',
             LandingNavbarDirective
         ],
-        templateUrl: 'assets/tpl/directives/landing/navbar.html'
+        templateUrl: ($el, $attr) => {
+            let template = $attr.template || 'navbar';
+            return 'assets/tpl/directives/landing/' + template + '.html';
+        }
     };
 };

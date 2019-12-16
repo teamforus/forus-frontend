@@ -1,8 +1,10 @@
 require('./modules/select-control/SelectControlModule');
+require('./modules/page-loading-bar/PageLoadingBarModule');
 
 let app = angular.module('forusApp', [
     'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 
-    'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize',
+    'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize', 
+    'forus.pageLoadingBarModule',
 ]);
 
 app.constant('appConfigs', env_data);
@@ -34,6 +36,7 @@ app.component('validationRequestComponent', require('./components/ValidationRequ
 app.component('signUpComponent', require('./components/SignUpComponent'));
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
 app.component('transactionComponent', require('./components/TransactionComponent'));
+app.component('fundProviderComponent', require('./components/FundProviderComponent'));
 
 app.component('noPermissionComponent', require('./components/NoPermissionComponent'));
 
@@ -95,6 +98,8 @@ app.service('SmsService', require('./services/SmsService'));
 app.service('FileService', require('./services/FileService'));
 app.service('FundRequestValidatorService', require('./services/FundRequestValidatorService'));
 app.service('EmailPreferencesService', require('./services/EmailPreferencesService'));
+app.service('PushNotificationsService', require('./services/PushNotificationsService'));
+app.service('DigIdService', require('./services/DigIdService'));
 
 // Directives
 switch (env_data.panel_type) {
@@ -151,6 +156,7 @@ app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
 app.directive('scrollEnd', require('./directives/ScrollEndDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
 app.directive('pdfPreview', require('./directives/PdfPreviewDirective'));
+app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));

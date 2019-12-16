@@ -1,5 +1,5 @@
-module.exports = function() {
-    return function(_in, size) {
-        return parseFloat(_in).toFixed(size);
-    }
+let ToFixedFilter = function() {
+    return (_in, size) => parseFloat(_in).toFixed(size);
 };
+
+module.exports = [ToFixedFilter];

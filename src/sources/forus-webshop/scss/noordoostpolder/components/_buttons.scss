@@ -1,0 +1,41 @@
+.button {
+    &:hover {
+        box-shadow: none;
+    }
+
+    font: 700 16px/1.5em $bf;
+    border-radius: 0;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    &.button-default {
+        background-color: none;
+        border: none;
+        color: $bc;
+
+        .mdi {
+            color: $bc;
+        }
+
+        &:hover {
+            .mdi {
+                color: $color_default;
+            }
+
+            background-color: transparent;
+            border-color: transparent;
+            border: 0;
+            color: $color_default;
+        }
+    }
+
+    &.button-primary {
+        background: $bg;
+        text-shadow: none;
+
+        &:hover {
+            background-color: #95C11F;
+            border: 0;
+        }
+    }
+}
