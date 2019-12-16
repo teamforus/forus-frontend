@@ -133,10 +133,21 @@
                                     .td-boolean
                                         em.mdi.mdi-close
                                         | {{ "product_vouchers.labels.no" | translate }}
-                                td: button.button.button-primary.button-icon.pull-right(
-                                    ng-if="!voucher.is_granted" 
-                                    ng-click="$ctrl.showQrCode(voucher)")
-                                    em.mdi.mdi-qrcode
+                                td
+                                    button.button.button-primary.button-icon.pull-right(
+                                        ng-if="!voucher.is_granted" 
+                                        ng-click="$ctrl.showQrCode(voucher)")
+                                        em.mdi.mdi-qrcode
+
+                                    em.tooltip-record-email.mdi.mdi-check.pull-right(
+                                        ng-if="voucher.is_granted && !voucher.has_transactions")  
+                                        .tooltip-content
+                                            .tooltip-text(ng-bind="voucher.record_email" title="{{ voucher.record_email }}")
+
+                                    em.tooltip-record-email.mdi.mdi-check-all.pull-right(
+                                        ng-if="voucher.is_granted && voucher.has_transactions")
+                                        .tooltip-content
+                                            .tooltip-text(ng-bind="voucher.record_email" title="{{ voucher.record_email }}")   
 
             .card-section(ng-if="$ctrl.vouchers" ng-show="$ctrl.vouchers.meta.last_page > 1")
                 paginator(meta="$ctrl.vouchers.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")
