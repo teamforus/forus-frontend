@@ -213,8 +213,19 @@ let ModalVouchersUploadComponent = function(
                         uploadChunk(submitData[currentChunkNth]);
                     }
                 }, (res) => {
-                    if (res.status == 422 && res.data.errors.data) {
-                        return alert(res.data.errors.data[0]);
+                    if (res.status == 422 && res.data.errors) {
+                        let errors = res.data.errors;
+                        let error_msg = '';
+
+                        for (let error_key in errors) {
+                            if (errors.hasOwnProperty(error_key)) {
+                                errors[error_key].forEach(error => {
+                                    error_msg += error + '\n';
+                                });
+                            }
+                        }
+
+                        return alert(error_msg);
                     }
 
                     alert('Unknown error.');
