@@ -503,6 +503,7 @@ module.exports = {
             sold: "Verkocht",
             stock: "Nog te koop / Totaal",
             stock_amount: "Nog te koop",
+            stock_unlimited: "Onbeperkt aanbod",
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
         },
