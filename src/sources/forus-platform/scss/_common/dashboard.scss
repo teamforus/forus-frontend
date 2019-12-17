@@ -1583,8 +1583,27 @@ $colorPrimaryLight: $color_primary_light;
                 border-width: 8.5px 12px 8.5px 0;
                 border-color: transparent $border_color transparent transparent;
             }
+
+            &.tooltip-content-left {
+                left: auto;
+                right: 100%;
+                margin-left: 0;
+                margin-right: 10px;
+
+
+                &:after, &:before {
+                    right: auto;
+                    left: 100%;
+                    transform: rotate(180deg) translate(0, 50%);
+                }
+            }
+
+            &.tooltip-content-fit {
+                width: fit-content
+            }
         }
 
+        &.block-tooltip-hover:hover,
         &.active {
             .tooltip-content {
                 display: block;

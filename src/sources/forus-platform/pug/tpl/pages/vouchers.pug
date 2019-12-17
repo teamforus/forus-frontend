@@ -137,17 +137,13 @@
                                     button.button.button-primary.button-icon.pull-right(
                                         ng-if="!voucher.is_granted" 
                                         ng-click="$ctrl.showQrCode(voucher)")
-                                        em.mdi.mdi-qrcode
+                                        em.mdi.mdi-qrcode 
 
-                                    em.tooltip-record-email.mdi.mdi-check.pull-right(
-                                        ng-if="voucher.is_granted && !voucher.has_transactions")  
-                                        .tooltip-content
-                                            .tooltip-text(ng-bind="voucher.record_email" title="{{ voucher.record_email }}")
-
-                                    em.tooltip-record-email.mdi.mdi-check-all.pull-right(
-                                        ng-if="voucher.is_granted && voucher.has_transactions")
-                                        .tooltip-content
-                                            .tooltip-text(ng-bind="voucher.record_email" title="{{ voucher.record_email }}")   
+                                    .button.button-text.button-icon.pull-right(ng-if="voucher.is_granted")
+                                        .mdi.block.block-tooltip-details.block-tooltip-hover(
+                                            ng-class="voucher.has_transactions ? 'mdi-check-all' : 'mdi-check'")
+                                            .tooltip-content.tooltip-content-left.tooltip-content-fit
+                                                .tooltip-text(ng-bind="voucher.record_email" title="{{ voucher.record_email }}")
 
             .card-section(ng-if="$ctrl.vouchers" ng-show="$ctrl.vouchers.meta.last_page > 1")
                 paginator(meta="$ctrl.vouchers.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")
