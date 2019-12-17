@@ -215,7 +215,7 @@ let ModalVouchersUploadComponent = function(
                     }
                 }, (res) => {
                     if (res.status == 422 && res.data.errors) {
-                        return PushNotificationsService.danger(Object.values(
+                        return PushNotificationsService.danger('Failed to upload CSV', Object.values(
                             res.data.errors
                         ).reduce((msg, arr) => {
                             return msg + arr.join('');
