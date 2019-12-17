@@ -48,7 +48,7 @@
                     
                     .form-group.form-group-inline.tooltipped
                         label.form-label(translate="product_edit.labels.total")
-                        .form-offset(ng-if="$ctrl.product && $ctrl.product.unlimited_stock"): .form-value.text-muted Unlimited stock
+                        .form-offset(ng-if="$ctrl.product && $ctrl.product.unlimited_stock"): .form-value.text-muted Onbeperkt aanbod
                         .form-offset(ng-if="!$ctrl.product || ($ctrl.product && !$ctrl.product.unlimited_stock)"): .row
                             .col.col-lg-7: input(
                                 ng-model="$ctrl.form.values.total_amount" 
