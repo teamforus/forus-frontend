@@ -7,6 +7,7 @@ let FundProviderInviteComponent = function(
     FormBuilderService,
     PushNotificationsService,
     FundProviderInvitationsService,
+    OrganizationService,
     appConfigs,
 ) {
     let $ctrl = this;
@@ -107,6 +108,14 @@ let FundProviderInviteComponent = function(
         }, console.log);
     };
 
+    $ctrl.goToOfficePage = () => {
+        OrganizationService.use($ctrl.invitation.provider_organization.id);
+
+        $state.go('offices', {
+            organization_id: $ctrl.invitation.provider_organization.id
+        });
+    };
+
     $ctrl.showEmailForm = function() {
         $ctrl.showEmailBlock = true;
         $ctrl.showChoose = false;
@@ -157,6 +166,7 @@ module.exports = {
         'FormBuilderService',
         'PushNotificationsService',
         'FundProviderInvitationsService',
+        'OrganizationService',
         'appConfigs',
         FundProviderInviteComponent
     ],
