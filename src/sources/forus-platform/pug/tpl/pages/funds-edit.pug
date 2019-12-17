@@ -25,7 +25,8 @@
                 .form-group.form-group-inline
                     label(translate="funds_edit.labels.description").form-label
                     textarea(
-                        placeholder="Description"
+                        maxlength="140"
+                        placeholder="Omschrijving"
                         ng-model="$ctrl.form.values.description").form-control.r-n
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
             
