@@ -5,7 +5,8 @@ let ModalVouchersUploadComponent = function(
     $filter,
     $element,
     VoucherService,
-    ProductService
+    ProductService,
+    PushNotificationsService
 ) {
     let $ctrl = this;
 
@@ -214,18 +215,11 @@ let ModalVouchersUploadComponent = function(
                     }
                 }, (res) => {
                     if (res.status == 422 && res.data.errors) {
-                        let errors = res.data.errors;
-                        let error_msg = '';
-
-                        for (let error_key in errors) {
-                            if (errors.hasOwnProperty(error_key)) {
-                                errors[error_key].forEach(error => {
-                                    error_msg += error + '\n';
-                                });
-                            }
-                        }
-
-                        return alert(error_msg);
+                        return PushNotificationsService.danger(Object.values(
+                            res.data.errors
+                        ).reduce((msg, arr) => {
+                            return msg + arr.join('');
+                        }, ""));
                     }
 
                     alert('Unknown error.');
@@ -302,6 +296,7 @@ module.exports = {
         '$element',
         'VoucherService',
         'ProductService',
+        'PushNotificationsService',
         ModalVouchersUploadComponent
     ],
     templateUrl: () => {
