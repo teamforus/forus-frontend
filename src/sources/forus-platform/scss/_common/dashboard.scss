@@ -761,12 +761,6 @@ $colorPrimaryLight: $color_primary_light;
         .tooltip-record-email {
             position: relative;
 
-            &:hover {
-                .tooltip-content {
-                    display: block;
-                }
-            }
-
             .tooltip-content {
                 display: none;
                 position: absolute;
@@ -798,6 +792,12 @@ $colorPrimaryLight: $color_primary_light;
                     transform: translate(0, -50%);
                     border-width: 8.5px 12px 8.5px 0;
                     border-color: transparent $border_color transparent transparent;
+                }
+            }
+
+            &:hover {
+                .tooltip-content {
+                    display: block;
                 }
             }
         }
