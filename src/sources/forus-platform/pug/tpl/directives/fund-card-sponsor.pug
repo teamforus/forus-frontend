@@ -58,17 +58,17 @@
                     span(ng-bind="fund.sponsor_count")
                     span.icon.mdi.mdi-account-multiple-plus
 
-            .keyvalue-item(ng-class="{disabled: !$dir.canInviteProviders}" ng-click="$dir.inviteProvider(fund)")
+            .keyvalue-item(ng-class="{'keyvalue-item-disabled': !$dir.canInviteProviders}" ng-click="$dir.inviteProvider(fund)")
                 .keyvalue-key Aanbieders
                 .keyvalue-value
                     span(ng-bind="fund.provider_employees_count")
-                    span.icon.mdi.mdi-account-multiple-plus
+                    span.icon.mdi.mdi-account-multiple-plus(ng-if="$dir.canInviteProviders")
 
-            .keyvalue-item(ng-class="{disabled: !$dir.canAccessFund}" ng-click="$dir.goToCSVValiationPage()")
+            .keyvalue-item(ng-class="{'keyvalue-item-disabled': !$dir.canAccessFund}" ng-click="$dir.goToCSVValiationPage()")
                 .keyvalue-key Aanvragers
                 .keyvalue-value
                     span(ng-bind="fund.requester_count")
-                    span.icon.mdi.mdi-account-multiple-plus             
+                    span.icon.mdi.mdi-account-multiple-plus(ng-if="$dir.canAccessFund")             
 
     mixin edit_buttons()
         button(
@@ -91,11 +91,11 @@
 
     mixin stats()
         .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
-            .keyvalue-item.keyvalue-item-narrow(ng-class="{disabled: !$dir.canTopUpFund}" ng-click="$dir.topUpModal()")
+            .keyvalue-item.keyvalue-item-narrow(ng-class="{'keyvalue-item-disabled': !$dir.canTopUpFund}" ng-click="$dir.topUpModal()")
                 .keyvalue-key Gestort
                 .keyvalue-value
                     span(ng-bind="fund.budget.total | currency_format")
-                    span.icon.mdi.mdi-plus-circle
+                    span.icon.mdi.mdi-plus-circle(ng-if="$dir.canTopUpFund")
 
             .keyvalue-item.keyvalue-item-narrow
                 .keyvalue-key Gebruikt

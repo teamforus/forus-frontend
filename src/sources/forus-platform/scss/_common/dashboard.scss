@@ -885,8 +885,9 @@ $colorPrimaryLight: $color_primary_light;
                 padding-bottom: 0;
             }
 
-            &.disabled {
+            &.keyvalue-item-disabled {
                 pointer-events: none;
+                cursor: default;
             }
         }
 
