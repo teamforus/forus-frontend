@@ -479,6 +479,11 @@ ui-view {
         width: 100%;
     }
 
+    &.button-slim {
+        padding-top: 7.5px;
+        padding-bottom: 7.5px;
+    }
+
     &:last-child,
     &:last-of-type {
         margin-right: 0;
