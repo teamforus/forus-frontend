@@ -29,9 +29,9 @@ let ModalVouchersUploadComponent = function(
         $ctrl.progressBar = progress;
 
         if (progress < 100) {
-            $ctrl.progressStatus = "Uploading...";
+            $ctrl.progressStatus = "Aan het uploaden...";
         } else {
-            $ctrl.progressStatus = "Completed";
+            $ctrl.progressStatus = "Klaar!";
         }
     };
 
@@ -215,14 +215,14 @@ let ModalVouchersUploadComponent = function(
                     }
                 }, (res) => {
                     if (res.status == 422 && res.data.errors) {
-                        return PushNotificationsService.danger('Failed to upload CSV', Object.values(
+                        return PushNotificationsService.danger('Het is niet gelukt om het gekozen bestand te verwerken.', Object.values(
                             res.data.errors
                         ).reduce((msg, arr) => {
                             return msg + arr.join('');
                         }, ""));
                     }
 
-                    alert('Unknown error.');
+                    alert('Onbekende error.');
                 });
             };
 
