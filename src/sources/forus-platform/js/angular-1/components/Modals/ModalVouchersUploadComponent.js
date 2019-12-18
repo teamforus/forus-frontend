@@ -5,7 +5,8 @@ let ModalVouchersUploadComponent = function(
     $filter,
     $element,
     VoucherService,
-    ProductService
+    ProductService,
+    PushNotificationsService
 ) {
     let $ctrl = this;
 
@@ -28,9 +29,9 @@ let ModalVouchersUploadComponent = function(
         $ctrl.progressBar = progress;
 
         if (progress < 100) {
-            $ctrl.progressStatus = "Uploading...";
+            $ctrl.progressStatus = "Aan het uploaden...";
         } else {
-            $ctrl.progressStatus = "Completed";
+            $ctrl.progressStatus = "Klaar!";
         }
     };
 
@@ -213,11 +214,15 @@ let ModalVouchersUploadComponent = function(
                         uploadChunk(submitData[currentChunkNth]);
                     }
                 }, (res) => {
-                    if (res.status == 422 && res.data.errors.data) {
-                        return alert(res.data.errors.data[0]);
+                    if (res.status == 422 && res.data.errors) {
+                        return PushNotificationsService.danger('Het is niet gelukt om het gekozen bestand te verwerken.', Object.values(
+                            res.data.errors
+                        ).reduce((msg, arr) => {
+                            return msg + arr.join('');
+                        }, ""));
                     }
 
-                    alert('Unknown error.');
+                    alert('Onbekende error.');
                 });
             };
 
@@ -291,6 +296,7 @@ module.exports = {
         '$element',
         'VoucherService',
         'ProductService',
+        'PushNotificationsService',
         ModalVouchersUploadComponent
     ],
     templateUrl: () => {
