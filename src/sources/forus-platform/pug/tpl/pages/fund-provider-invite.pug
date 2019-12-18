@@ -40,7 +40,7 @@
             .button.button-primary.button-slim(ng-if="$ctrl.invitation.state == 'pending'" ng-click="$ctrl.acceptInvitation()") Accepteer
 
     .invite-auth(ng-if="$ctrl.isAuthorized && $ctrl.showAuth")
-        .text-center: a.button.button-primary(ng-click="$ctrl.goToOfficePage()") Go to dashboard
+        .text-center: a.button.button-primary(ng-click="$ctrl.goToOfficePage()") Ga naar dashboard
 
     .invite-auth(ng-if="!$ctrl.isAuthorized && $ctrl.showAuth")
         .block.block-auth-widget
