@@ -27,6 +27,30 @@ $borderRadius: $border_radius;
 $colorPrimary: $color_primary;
 $colorPrimaryLight: $color_primary_light;
 
+.blur {
+    // filter: blur(0px);
+    opacity: 1;
+    transform: scale(1, 1) ; // translate3d(0, 0, 0)
+    transition: .25s ease-in;
+
+    &.blur-active {
+        opacity: 0;
+        transform: scale(0, 0) ;// translate3d(0, calc(50vh * 3), 0)
+        // filter: blur(100px);
+        transition: .25s ease-out;
+    }
+}
+
+.blur-lite {
+    opacity: 1;
+    transition: .25s ease-in;
+
+    &.blur-active {
+        opacity: 0;
+        transition: .25s ease-out;
+    }
+}
+
 .hover-actions {
     position: relative;
 
@@ -3664,6 +3688,7 @@ $colorPrimaryLight: $color_primary_light;
         width: 0;
         transition: width .3s linear;
         opacity: 1;
+        z-index: 1000;
 
         &:after {
             content: '';
@@ -3685,6 +3710,121 @@ $colorPrimaryLight: $color_primary_light;
 
         &.start {
             transition: 0s;
+        }
+    }
+
+    &.block-fund-invite {
+        padding: 20px 0;
+
+        .wrapper {
+            width: 900px;
+        }
+
+        .invite-icon {
+            margin: 0 0 20px;
+
+            .invite-icon-img {
+                display: block;
+                width: 250px;
+                max-width: 100%;
+                margin: 0 auto 0;
+            }
+        }
+
+        .invite-title {
+            text-align: center;
+            font: 500 28px/46px $bf;
+            color: #282b39;
+            margin: 0 0 15px;
+        }
+
+        .invite-subtitle {
+            text-align: center;
+            font: 300 15px/26px $bf;
+            color: #191a1c;
+            margin: 0 0 30px;
+        }
+
+        .invite-fund {
+            border: 1px solid rgba($color: $borderColor, $alpha: .5);
+            background: #fff;
+            border-radius: $borderRadius;
+            padding: 30px 40px 36px;
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 30px;
+            position: relative;
+
+            .invite-fund-photo {
+                .invite-fund-photo-img {
+                    display: block;
+                    width: 100px;
+                    border: 1px solid rgba($color: $borderColor, $alpha: .5);
+                    border-radius: $borderRadius;
+                }
+            }
+
+            .invite-fund-details {
+                flex-grow: 1;
+                padding-left: 30px;
+
+                .invite-fund-title {
+                    font: 500 21px/25px $bf;
+                    color: #282b39;
+                    margin: 0 0 0;
+                }
+
+                .invite-fund-subtitle {
+                    font: 400 14px/20px $bf;
+                    color: #7e818c;
+                    margin: 0 0 20px;
+                }
+
+                .invite-fund-description {
+                    font: 400 14px/17.5px $bf;
+                    color: #262728;
+                    margin: 0 0 0;
+                }
+            }
+
+            .invite-fund-expiration {
+                text-align: right;
+                padding-left: 30px;
+                white-space: nowrap;
+
+                .invite-fund-expiration-label {
+                    font: 400 13px $bf;
+                    color: #7e818c;
+                }
+
+                .invite-fund-expiration-value {
+                    font: 400 14px $bf;
+                    color: #262728;
+                    margin: 0 0 25px;
+                }
+            }
+
+            &:after {
+                content: '';
+                height: 6px;
+                width: 100%;
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                background: #fbfbfb;
+                border-top: 1px solid rgba($color: $borderColor, $alpha: .5);
+                border-bottom-left-radius: $borderRadius;
+                border-bottom-right-radius: $borderRadius;
+            }
+        }
+
+        .block-auth-widget {
+            background: #fff;
+            border: 1px solid rgba($color: $borderColor, $alpha: .5);
+            border-radius: $borderRadius;
+            padding: 40px;
+            max-width: 100%;
+            margin: 0 auto 30px;
         }
     }
 

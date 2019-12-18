@@ -1,0 +1,73 @@
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
+
+.landing-root: .block.block-fund-invite(ng-if="$ctrl.invitation"): .wrapper
+    div(ng-if="$ctrl.invitation.state == 'pending'")
+        .invite-icon: img(src=src_prefix + './assets/img/invite-icon.png').invite-icon-img
+        .invite-title U bent uitgenodigd om deel te nemen aan {{ $ctrl.invitation.fund.name }}
+        .invite-subtitle 
+            | U was afgelopen jaar aangesloten als aanbieder, daarom sturen wij u deze uitnodiging. 
+            br
+            | We hopen dat u weer meedoet.
+            br
+            | Heeft u vragen of loopt u tegen problemen aan bij de aanmelding? Dan kunt u een mail sturen naar
+            | {{ $ctrl.invitation.sponsor_organization.email }} 
+            | of bel naar telefoonnummer {{ $ctrl.invitation.sponsor_organization.phone }}
+    
+    div(ng-if="$ctrl.invitation.state == 'expired'")
+        .invite-icon: img(src=src_prefix + './assets/img/invite-icon.png').invite-icon-img
+        .invite-title U bent uitgenodigd om deel te nemen aan {{ $ctrl.invitation.fund.name }}
+        .invite-subtitle 
+            | U was afgelopen jaar aangesloten als aanbieder, daarom sturen wij u deze uitnodiging. We hopen dat u weer meedoet. U dient in te loggen om de uitnodiging te accepteren. Scan de QR-code met uw Me-app of gebruik het e-mailadres van het profiel dat hier op ingesteld staat.
+            br
+            | Heeft u vragen of loopt u tegen problemen aan bij de aanmelding? Dan kunt u een mail sturen naar 
+            | {{ $ctrl.invitation.sponsor_organization.email }} 
+            | of bel naar telefoonnummer {{ $ctrl.invitation.sponsor_organization.phone }}
+    
+    div(ng-if="$ctrl.invitation.state == 'accepted'")
+        .invite-icon: img(src=src_prefix + './assets/img/invite-icon-success.png').invite-icon-img
+        .invite-title U bent geaccepteerd en klaar om te scannen!
+        .invite-subtitle Mocht u alvast een aanbod willen plaatsen voor het nieuwe jaar, log dan in op uw dashboard.
+        
+    .invite-fund(ng-if="$ctrl.invitation.state != 'accepted'")
+        .invite-fund-photo: img(ng-src="{{ $ctrl.invitation.fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}").invite-fund-photo-img
+        .invite-fund-details
+            .invite-fund-title(ng-bind="$ctrl.invitation.fund.name")
+            .invite-fund-subtitle Aangeboden door: {{ $ctrl.invitation.sponsor_organization.name }}
+            .invite-fund-description(ng-bind="$ctrl.invitation.fund.description")
+        .invite-fund-expiration
+            .invite-fund-expiration-label UITNODIGING GELDIG TOT
+            .invite-fund-expiration-value {{ $ctrl.invitation.expire_at_locale }}
+            .button.button-primary.button-slim(ng-if="$ctrl.invitation.state == 'pending'" ng-click="$ctrl.acceptInvitation()") Accepteer
+
+    .invite-auth(ng-if="$ctrl.isAuthorized && $ctrl.showAuth")
+        .text-center: a.button.button-primary(ng-click="$ctrl.goToOfficePage()") Ga naar dashboard
+
+    .invite-auth(ng-if="!$ctrl.isAuthorized && $ctrl.showAuth")
+        .block.block-auth-widget
+            .auth-title Login met e-mail
+            .auth-subtitle {{ "popup_auth.labels.link" | translate }}
+
+            form.form.auth-form(ng-submit="$ctrl.signInEmailForm.submit()"): .flex-row.flex-grow
+                .flex-col.IE-FlexAuto.flex-grow: .form-group
+                    input(ng-model="$ctrl.signInEmailForm.values.primary_email" type="email" placeholder="E-mail").form-control.email-auth
+                    .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.primary_email" ng-bind="error")
+                .flex-col.IE-FlexAuto: button(type="submit").button.button-primary Login
+
+            .auth-qr_code.hidden-xs
+                .qr_code-container
+                    .qr_code-description
+                        .auth-title Login met Me-app
+                        | Scan de QR code aan de rechterzijde met de QR-scanner in de me app. 
+                        | #[br] #[br]
+                        | De me app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.
+                        | #[br] #[br]
+
+                        .qr_code-download-app
+                            a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").download-link
+                                img(src=src_prefix + "./assets/img/landing/icon-app-ios.svg")
+                            a(href="https://play.google.com/store/apps/details?id=io.forus.me")
+                                img(src=src_prefix + "./assets/img/landing/icon-app-android.svg").download-link
+                    .qr_code-block: qr-code(
+                        ng-if="$ctrl.qrValue" 
+                        qr-value="$ctrl.qrValue" 
+                        qr-type="auth_token" qr-logo=src_prefix + "./assets/img/me-logo.png")

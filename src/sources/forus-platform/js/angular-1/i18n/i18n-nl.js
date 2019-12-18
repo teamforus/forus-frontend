@@ -930,7 +930,8 @@ module.exports = {
             restart: "Herstart",
             pause: "Pauze",
             add: "Budget toevoegen",
-            delete: 'Verwijderen'
+            delete: 'Verwijderen',
+            invite_providers: 'Aanbieders'
         },
         status: {
             active: "Actief",
