@@ -52,10 +52,23 @@
 
     .card-section.card-section-warning(ng-if="$dir.fund.organization | hasPerm:'view_finances'")
         .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
-            +keyvalue_item_horizontal("Uw medewerkers", "fund.sponsor_count")
-            +keyvalue_item_horizontal("Aanbieders", "fund.provider_employees_count")
-            +keyvalue_item_horizontal("Aanvragers", "fund.requester_count")
+            .keyvalue-item(ng-click="$dir.goToEmployeePage()")
+                .keyvalue-key Uw medewerkers
+                .keyvalue-value
+                    span(ng-bind="fund.sponsor_count")
+                    span.icon.mdi.mdi-account-multiple-plus
 
+            .keyvalue-item(ng-class="{disabled: !$dir.canInviteProviders}" ng-click="$dir.inviteProvider(fund)")
+                .keyvalue-key Aanbieders
+                .keyvalue-value
+                    span(ng-bind="fund.provider_employees_count")
+                    span.icon.mdi.mdi-account-multiple-plus
+
+            .keyvalue-item(ng-class="{disabled: !$dir.canAccessFund}" ng-click="$dir.goToCSVValiationPage()")
+                .keyvalue-key Aanvragers
+                .keyvalue-value
+                    span(ng-bind="fund.requester_count")
+                    span.icon.mdi.mdi-account-multiple-plus             
 
     mixin edit_buttons()
         button(
@@ -69,11 +82,6 @@
             ui-sref="funds-edit(fund)").button.button-default
             em.mdi.mdi-settings.icon-start
             translate(translate='fund_card_sponsor.labels.setting')
-        button(
-            ng-if="($dir.fund.organization | hasPerm:'manage_funds') && fund.state != 'closed' && $dir.inviteProviders" 
-            ng-click="$dir.inviteProvider(fund)").button.button-primary
-            em.mdi.mdi-account-multiple-plus.icon-start
-            translate(translate='fund_card_sponsor.buttons.invite_providers')
 
         button(
             ng-if="fund.key && fund.state != 'closed'" 
@@ -83,17 +91,29 @@
 
     mixin stats()
         .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
-            +keyvalue_item_horizontal("Resterend budget", "fund.budget.total - fund.budget.used | currency_format", 'keyvalue-item-narrow')
-            +keyvalue_item_horizontal("Totaal budget", "fund.budget.total | currency_format", 'keyvalue-item-narrow')
-            +keyvalue_item_horizontal("Gebruikt", "fund.budget.used | currency_format", 'keyvalue-item-narrow')
+            .keyvalue-item.keyvalue-item-narrow(ng-class="{disabled: !$dir.canTopUpFund}" ng-click="$dir.topUpModal()")
+                .keyvalue-key Gestort
+                .keyvalue-value
+                    span(ng-bind="fund.budget.total | currency_format")
+                    span.icon.mdi.mdi-plus-circle
+
+            .keyvalue-item.keyvalue-item-narrow
+                .keyvalue-key Gebruikt
+                .keyvalue-value
+                    span(ng-bind="fund.budget.used | currency_format")
+
+            .keyvalue-item.keyvalue-item-narrow
+                .keyvalue-key Resterend budget
+                .keyvalue-value
+                    span(ng-bind="fund.budget.total - fund.budget.used | currency_format")
 
     .hidden-md.card-section.card-section-primary(
         ng-show="level != 'fundsAvailable' && ($dir.fund.organization | hasPerm:['view_finances','manage_funds']:false)"): .row
-        .col.col-lg-6.md-12(
+        .col.col-lg-7.md-12(
             ng-if="$dir.fund.organization | hasPerm:'view_finances'"): +stats()
         .col.md-12(
             ng-if="$dir.fund.organization | hasPerm:'manage_funds'" 
-            ng-class="($dir.fund.organization | hasPerm:'view_finances') ? 'col-lg-6' : 'col-lg-12'").text-right: +edit_buttons()
+            ng-class="($dir.fund.organization | hasPerm:'view_finances') ? 'col-lg-5' : 'col-lg-12'").text-right: +edit_buttons()
 
     .visible-md
         .card-section.card-section-primary(ng-show="level != 'fundsAvailable' && ($dir.fund.organization | hasPerm:'view_finances')"): +stats()

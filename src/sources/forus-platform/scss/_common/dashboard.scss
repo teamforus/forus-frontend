@@ -863,6 +863,10 @@ $colorPrimaryLight: $color_primary_light;
                 color: #282b39;
                 font: 500 13px/20px $bf;
                 width: calc(100% - 210px);
+
+                .icon {
+                    margin-left: 7px;
+                }
             }
 
             .keyvalue-link {
@@ -879,6 +883,10 @@ $colorPrimaryLight: $color_primary_light;
             &:last-child,
             &:last-of-type {
                 padding-bottom: 0;
+            }
+
+            &.disabled {
+                pointer-events: none;
             }
         }
 
