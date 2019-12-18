@@ -2,7 +2,7 @@
 
 .landing-root: .block.block-fund-invite(ng-if="$ctrl.invitation"): .wrapper
     div(ng-if="$ctrl.invitation.state == 'pending'")
-        .invite-icon: img(src=src_prefix + './assets/img/invite-icon.png').invite-icon-img
+        .invite-icon: img(src=src_prefix + './assets/img/sign_up-email.svg').invite-icon-img
         .invite-title U bent uitgenodigd om deel te nemen aan {{ $ctrl.invitation.fund.name }}
         .invite-subtitle 
             | U was afgelopen jaar aangesloten als aanbieder, daarom sturen wij u deze uitnodiging. 
@@ -14,7 +14,7 @@
             | of bel naar telefoonnummer {{ $ctrl.invitation.sponsor_organization.phone }}
     
     div(ng-if="$ctrl.invitation.state == 'expired'")
-        .invite-icon: img(src=src_prefix + './assets/img/invite-icon.png').invite-icon-img
+        .invite-icon: img(src=src_prefix + './assets/img/sign_up-email.svg').invite-icon-img
         .invite-title U bent uitgenodigd om deel te nemen aan {{ $ctrl.invitation.fund.name }}
         .invite-subtitle 
             | U was afgelopen jaar aangesloten als aanbieder, daarom sturen wij u deze uitnodiging. We hopen dat u weer meedoet. U dient in te loggen om de uitnodiging te accepteren. Scan de QR-code met uw Me-app of gebruik het e-mailadres van het profiel dat hier op ingesteld staat.
@@ -24,7 +24,7 @@
             | of bel naar telefoonnummer {{ $ctrl.invitation.sponsor_organization.phone }}
     
     div(ng-if="$ctrl.invitation.state == 'accepted'")
-        .invite-icon: img(src=src_prefix + './assets/img/invite-icon-success.png').invite-icon-img
+        .invite-icon: img(src=src_prefix + './assets/img/icon-sign_up-success.svg').invite-icon-img
         .invite-title U bent geaccepteerd en klaar om te scannen!
         .invite-subtitle Mocht u alvast een aanbod willen plaatsen voor het nieuwe jaar, log dan in op uw dashboard.
         
