@@ -91,11 +91,10 @@
 
     mixin stats()
         .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
-            .keyvalue-item.keyvalue-item-narrow(ng-class="{'keyvalue-item-disabled': !$dir.canTopUpFund}" ng-click="$dir.topUpModal()")
+            .keyvalue-item.keyvalue-item-narrow
                 .keyvalue-key Gestort
                 .keyvalue-value
                     span(ng-bind="fund.budget.total | currency_format")
-                    span.icon.mdi.mdi-plus-circle(ng-if="$dir.canTopUpFund")
 
             .keyvalue-item.keyvalue-item-narrow
                 .keyvalue-key Gebruikt
@@ -103,7 +102,7 @@
                     span(ng-bind="fund.budget.used | currency_format")
 
             .keyvalue-item.keyvalue-item-narrow
-                .keyvalue-key Resterend budget
+                .keyvalue-key Resterend
                 .keyvalue-value
                     span(ng-bind="fund.budget.total - fund.budget.used | currency_format")
 
