@@ -1,0 +1,41 @@
+.block.block-products-list {
+    .product-item {
+        background: #ffffff;
+        box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+        margin: 0 0 15px;
+        border-radius: $border_radius;
+        display: flex;
+        flex-direction: row;
+
+        .product-photo {
+            width: 150px;
+            overflow: hidden;
+
+            .product-photo-img {
+                display: block;
+                width: 100%;
+                margin: -20px 0;
+            }
+        }
+
+        .product-details {
+            padding: 15px;
+            flex-grow: 1;
+
+            .product-name {
+                font: 700 15px/20px $bf;
+                margin: 0 0 5px;
+            }
+        }
+
+        .product-actions {
+            padding: 15px;
+            width: 270px;
+            border-left: 1px solid $border_color;
+
+            .product-price {
+                font: 700 17px/26px $bf;   
+            }
+        }
+    }
+}

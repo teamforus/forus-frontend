@@ -1,0 +1,169 @@
+.block.block-office {
+    width: 100%;
+    margin: 0 0 30px;
+
+    .office-map {
+        height: 420px;
+        background: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+
+        .office-map-igrame {
+            @include fill_parent();
+
+            iframe {
+                @include fill_parent();
+                width: 150%;
+                height: 100%;
+                transform: translate(-25%);
+            }
+
+            &:after {
+                content: '';
+                @include fill_parent();
+                background: rgba($color: rgb(186, 201, 221), $alpha: .25);
+            }
+        }
+
+        .office-map-pointer {
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%);
+            height: 80px;
+        }
+
+        .map-office-card {
+            border-radius: $border_radius;
+            box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+            background: #fff;
+            width: 580px;
+            max-width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            transform: translate(0, -50%);
+            position: relative;
+	        background: #ffffff;
+
+            .map-office-photo {
+                width: 120px;
+                min-width: 120px;
+                max-width: 120px;
+
+                .map-office-photo-img {
+                    width: 100%;
+                    display: block;
+                    border-top-left-radius: $border_radius;
+                    border-bottom-left-radius: $border_radius;
+                }
+            }
+
+            .map-office-details {
+                padding: 15px;
+
+                .map-office-title {
+                    font: 700 14px/20px $bf;
+                    color: #282b39;
+                    margin: 0 0 15px;
+                }
+
+                .map-office-info {
+                    font: 600 12px/25px $bf;
+                    display: flex;
+
+                    .mdi {
+                        float: left;
+                        font-size: 15px;
+                        margin: -1px 5px -1px 0;
+                    }
+
+                    &.map-office-info-inline {
+                        display: inline-flex;
+                    }
+
+                    &:not(:last-child) {
+                        margin-right: 20px;
+                    }
+                }
+            }
+
+            &:after {
+                top: 100%;
+                left: 50%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+                border-color: rgba(255, 255, 255, 0);
+                border-top-color: #ffffff;
+                border-width: 15px;
+                margin-left: -15px;
+            }
+        }
+    }
+
+    .office-content {
+        width: 850px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+
+        .block-pane:first-child {
+            margin-top: -70px;
+        }
+
+        .office-organization {
+            display: flex;
+            flex-direction: row;
+
+            .organization-photo {
+                width: 60px;
+                margin: -15px 0;
+
+                .organization-photo-img {
+                    display: block;
+                    width: 100%;
+                }
+            }
+
+            .organization-title {
+                padding-left: 15px;
+                font: 700 14px/30px $bf;
+                display: flex;
+                flex-grow: 1;
+
+                .organization-title-count {
+                    margin-left: 15px;
+                    width: 30px;
+                    height: 30px;
+                    background: #f1f4f7;
+                    text-align: center;
+                    line-height: 30px;
+                    text-align: center;
+                    border-radius: 30px;
+                }
+            }
+
+            .organization-chevron {
+                height: 30px;
+                width: 30px;
+                text-align: center;
+                line-height: 30px;
+                font-size: 28px;
+                transition: .4s;
+                cursor: pointer;
+
+                &:hover {
+                    color: $color_primary;
+                }
+            }
+        }
+    }
+}

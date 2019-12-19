@@ -1,0 +1,126 @@
+.block.block-organizations {
+    .organization-item {
+        margin-bottom: 15px;
+
+        .organization-pane {
+            background: #ffffff;
+            box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+            border-radius: $border_radius;
+            display: flex;
+            flex-direction: row;
+            padding: 25px 15px;
+
+            .organization-logo {
+                margin: -10px 15px -10px 0;
+
+                .organization-logo-img {
+                    display: block;
+                    width: 50px;
+                    border-radius: $border_radius;
+                }
+            }
+            
+            .organization-title {
+                display: flex;
+                flex-direction: row;
+                flex-grow: 1;
+                font: 700 14px/30px $bf;
+                text-align: left;
+
+                .organization-title-count {
+                    width: 30px;
+                    height: 30px;
+                    text-align: center;
+                    font: inherit;
+                    color: #fff;
+                    background: $color_primary;
+                    border-radius: $border_radius / 2;
+                    margin-left: 10px;
+                }
+            }
+
+            .organization-chevron {
+                line-height: 30px;
+                height: 30px;
+                font-size: 30px;
+                color: #646f79;
+                cursor: pointer;
+                transform: .4s;
+
+                .mdi {
+                    font-size: inherit;
+                    color: inherit;
+                }
+
+                &:hover {
+                    color: $color_primary;
+                }
+            }
+        }
+
+        .organization-offices {
+            padding-left: 50px;
+
+            .block-offices {
+                margin-top: 15px;
+                background: #fff;
+                box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+                border-radius: $border_radius;
+    
+                .office-item {
+                    margin-bottom: 0;
+                    position: relative;
+
+                    .office-item-map-icon {
+                        background: $color_primary;
+                        position: absolute;
+                        left: -40px;
+                        width: 26px;
+                        height: 26px;
+                        text-align: center;
+                        color: #fff;
+                        line-height: 26px;
+                        font-size: 18px;
+                        border-radius: $border_radius / 2;
+                        top: 20px;
+                    }
+    
+                    .office-pane {
+                        background: transparent;
+                        box-shadow: none;
+                        border-radius: 0;
+                        border-bottom: 1px solid $border_color;
+                    }
+
+                    &:before {
+                        content: '';
+                        display: block;
+                        position: absolute;
+                        background: #d2d2c7;
+                        width: 2px;
+                        height: 100%;
+                        top: -15px;
+                        bottom: 0;
+                        left: -27px;
+                        transform: translate(-50%);
+                    }
+
+                    &:last-child {
+                        .office-pane {
+                            border-bottom: none;
+                        }
+
+                        &:before {
+                            bottom: auto;
+                            height: 60px
+                        }
+                    }
+                }
+            }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

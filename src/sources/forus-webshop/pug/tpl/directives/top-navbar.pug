@@ -56,15 +56,15 @@
                     .auth-user-email(ng-bind="$root.auth_user.primary_email" ng-if="!$root.appConfigs.features.records.list") 
                     .auth-user-type(translate="topnavbar.items.identity" ng-if="!$root.appConfigs.features.records.list")
 
-
                 .auth-user-avatar
                     .em.mdi.mdi-settings(ng-if="$root.appConfigs.features.records.list") 
                     img(src="./assets/img/identity-avatar.svg" ng-if="!$root.appConfigs.features.records.list")
                 
-                .auth-user-caret    
+                .auth-user-caret
                     em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
 
                 nav.auth-user-menu.hide-sm(
+                    ng-class="{active: $ctrl.userMenuOpened}"
                     ng-if="$ctrl.userMenuOpened"
                     click-outside="$ctrl.hideUserMenu()")
                     .triangle
