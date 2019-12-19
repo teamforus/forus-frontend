@@ -5,7 +5,7 @@
         .card
             .card-section.card-section-narrow: .block.block-entity-overview
                 .entity-photo
-                    img(src="./assets/img/zuidhorn-logo.jpg").entity-photo-img
+                    img(ng-src="{{ $ctrl.fundProvider.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}").entity-photo-img
                     .entity-photo-abbr
                 .entity-details: .entity-title(ng-bind="$ctrl.fundProvider.organization.name")
             
