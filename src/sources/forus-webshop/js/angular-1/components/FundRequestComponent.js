@@ -1,4 +1,5 @@
 let sprintf = require('sprintf-js').sprintf;
+
 let FundRequestComponent = function(
     $q,
     $state,
@@ -16,8 +17,67 @@ let FundRequestComponent = function(
     FileService,
     appConfigs
 ) {
-    let $ctrl = this;
+    try {
+        if (appConfigs.features.funds.fund_requests === false) {
+            $state.go('home');
+        }
+    } catch (error) {}
 
+    !appConfigs.features.auto_validation ? FundRequestComponentDefault(
+        this,
+        $q,
+        $state,
+        $stateParams,
+        $timeout,
+        RecordService,
+        FundService,
+        AuthService,
+        IdentityService,
+        FundRequestService,
+        FormBuilderService,
+        CredentialsService,
+        PushNotificationsService,
+        DigIdService,
+        FileService,
+        appConfigs
+    ) : FundRequestComponentAuto(
+        this,
+        $q,
+        $state,
+        $stateParams,
+        $timeout,
+        RecordService,
+        FundService,
+        AuthService,
+        IdentityService,
+        FundRequestService,
+        FormBuilderService,
+        CredentialsService,
+        PushNotificationsService,
+        DigIdService,
+        FileService,
+        appConfigs
+    );
+};
+
+let FundRequestComponentDefault = function(
+    $ctrl,
+    $q,
+    $state,
+    $stateParams,
+    $timeout,
+    RecordService,
+    FundService,
+    AuthService,
+    IdentityService,
+    FundRequestService,
+    FormBuilderService,
+    CredentialsService,
+    PushNotificationsService,
+    DigIdService,
+    FileService,
+    appConfigs
+) {
     $ctrl.step = 1;
     $ctrl.state = '';
     $ctrl.totalSteps = 1;
@@ -384,18 +444,11 @@ let FundRequestComponent = function(
             }, res => {
                 reject(res);
                 PushNotificationsService.danger(res.data.message);
-                console.error(res);
             })
         });
     };
 
     $ctrl.$onInit = function() {
-        try {
-            if (appConfigs.features.funds.fund_requests === false) {
-                $state.go('home');
-            }
-        } catch (error) {}
-
         $ctrl.signedIn = AuthService.hasCredentials();
         $ctrl.initAuthForm();
         $ctrl.prepareRecordTypes();
@@ -439,7 +492,7 @@ let FundRequestComponent = function(
                         "Failed",
                         "Error code " + $stateParams.digid_error + " encountered."
                     );
-                    // $ctrl.cleanReload();
+                    $ctrl.cleanReload();
                 } else {
                     FundRequestService.index($ctrl.fund.id).then((res) => {
                         if (res.data.data.length > 0) {
@@ -463,6 +516,8 @@ let FundRequestComponent = function(
         $ctrl.updateState();
     };
 };
+
+let FundRequestComponentAuto = require('./FundRequestAutoComponent');
 
 module.exports = {
     bindings: {
@@ -488,5 +543,9 @@ module.exports = {
         'appConfigs',
         FundRequestComponent
     ],
-    templateUrl: 'assets/tpl/pages/fund-request.html'
+    templateUrl: (appConfigs) => {
+        return 'assets/tpl/pages/fund-request' + (
+            appConfigs.features.auto_validation ? '-auto' : ''
+        ) + '.html';
+    }
 };

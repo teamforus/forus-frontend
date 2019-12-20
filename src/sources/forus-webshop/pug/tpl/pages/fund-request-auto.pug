@@ -1,0 +1,111 @@
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
+
+top-navbar
+
+section.section.section-product: .wrapper
+    //- pre {{ [$ctrl.state, ] | pretty_json }}
+    mixin progress()
+        .sign_up-progress
+            .sign_up-step(
+                ng-repeat="step in $ctrl.totalSteps"
+                ng-class="$ctrl.step == step ? 'sign_up-step-active' : ($ctrl.step > step ? 'sign_up-step-done' : '')"
+                ng-bind="'Stap ' + step")
+        
+    .block.block-sign_up: .block-wrapper
+        //- Log in
+        div(ng-if="$ctrl.state == 'auth'")
+            h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
+            +progress()
+            
+            .sign_up-pane
+                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
+                .sign_up-pane-body
+                    .sign_up-pane-text: form(ng-submit="$ctrl.authForm.submit()").form: .row
+                        .form-group.col.col-lg-9
+                            label.form-label(i18n="popup_auth.input.mail")
+                            ui-control-email(ng-model="$ctrl.authForm.values.records.primary_email" data-placeholder="bijv. info@info.nl")
+                            .form-error(ng-repeat="error in $ctrl.authForm.errors['records.primary_email']" ng-bind="error")
+                        .form-group.col.col-lg-3
+                            label.form-label &nbsp;
+                            button(
+                                ng-class="{'button-disabled': !$ctrl.authForm.values.records.primary_email}"
+                                type="submit").button.button-primary.button-fill {{ "popup_auth.buttons.submit" | translate }}
+        
+        //- Log in email sent
+        div(ng-if="$ctrl.state == 'auth_email_sent'")
+            //- For new users
+            .sign_up-pane(ng-if="$ctrl.authEmailRestoreSent")
+                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
+                .sign_up-pane-body
+                    .sign_up-email_sent
+                        .sign_up-email_sent-icon
+                            img(src=src_prefix + "./assets/img/sign_up-email.png").sign_up-email_sent-icon-img
+                        .sign_up-email_sent-title(i18n="popup_auth.labels.join")
+                        .sign_up-email_sent-text(i18n="popup_auth.notifications.link")
+            
+            //- For existing users
+            .sign_up-pane(ng-if="$ctrl.authEmailSent")
+                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
+                .sign_up-pane-body
+                    .sign_up-email_sent
+                        .sign_up-email_sent-icon
+                            img(src=src_prefix + "./assets/img/sign_up-email.png").sign_up-email_sent-icon-img
+                        .sign_up-email_sent-title Bevestig dat u toegang heeft tot dit e-mailadres.
+                        .sign_up-email_sent-text
+                            | U heeft een e-mail ontvangen op "#[span(ng-bind="$ctrl.authForm.values.records.primary_email").text-primary]". Ga naar uw inbox en open de e-mail met het onderwerp "E-mail activering" en klik in de e-mail op de blauwe knop.
+
+        //- Log in by digid
+        div(ng-if="$ctrl.state == 'digid'")
+            h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
+            +progress()
+            
+            .sign_up-pane
+                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
+                .sign_up-pane-body
+                    .sign_up-pane-text Log in met DigiD om verder te gaan 
+                    
+                    .sign_up-pane-digid-form(ng-if="!$ctrl.bsnIsKnown")
+                        .button.button-primary(ng-click="$ctrl.startDigId()") Login met DigID
+                        .button.sign_up-pane-button-digid-icon &nbsp;
+                
+                .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(ng-if="!$ctrl.signedIn" ng-click="$ctrl.prevStep()")
+                        span(i18n="fund_request.sign_up.pane.footer.prev")
+                        em.mdi.mdi-chevron-left.icon-left
+                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
+                        span(i18n="fund_request.sign_up.pane.footer.next")
+                        em.mdi.mdi-chevron-right.icon-right
+        
+        //- Confirm net worth
+        div(ng-if="$ctrl.state == 'confirm_criteria'")
+            h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
+            +progress()
+            
+            .sign_up-pane
+                .sign_up-pane-header Bevestig uw inkomen en vermogen 
+                .sign_up-pane-body: .form
+                    p.sign_up-pane-text U staat op het punt om een meedoenregeling aan te vragen. U dient te verklaren dat u aan de voorwaarden voldoet:
+                    
+                    ul.sign_up-pane-list 
+                        li U bent 18 jaar of ouder
+                        li U bent geen student
+                        li U woont in Nijmegen
+                        li U voldoet aan de maximale inkomensgrens (netto) voor de Meedoen-regeling 2020:
+                    
+                    p.sign_up-pane-text 
+                        | Door te verklaren dat u aan de voorwaarden voldoet, 
+                        | gaat u er mee akkoord dat uw aanvraag gecontroleerd zal worden, en dat het bedrag van €150,- 
+                        | zal worden teruggevorderd indien u achteraf niet blijkt te voldoen.
+
+                    p.sign_up-pane-text: ui-control-checkbox(
+                        ng-model="$ctrl.confirm_criteria"
+                        data-id="confirm_criteria"
+                        data-label="Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden")
+
+                .sign_up-pane-footer: .row
+                    .col.col-lg-6.text-left &nbsp;
+                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(
+                        ng-if="$ctrl.confirm_criteria"
+                        ng-click="$ctrl.submitConfirmCriteria()")
+                        span(i18n="fund_request.sign_up.pane.footer.next")
+                        em.mdi.mdi-chevron-right.icon-right

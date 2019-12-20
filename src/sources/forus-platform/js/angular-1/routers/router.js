@@ -380,6 +380,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $transition$.params().organization_id,
                 $transition$.params().id
             ))],
+            validators: ['permission', '$transition$', 'OrganizationEmployeesService', (
+                permission, $transition$, OrganizationEmployeesService
+            ) => repackResponse(OrganizationEmployeesService.list(
+                $transition$.params().organization_id, {
+                    role: 'validation'
+                }
+            ))],
             productCategories: ['ProductCategoryService', (
                 ProductCategoryService
             ) => repackResponse(ProductCategoryService.listAll())],

@@ -95,15 +95,23 @@ let FundsEditComponent = function(
         });
     };
 
+
+
     $ctrl.$onInit = function() {
         let values = $ctrl.fund ? FundService.apiResourceToForm(
             $ctrl.fund
         ) : {
+            auto_requests_validation: false,
             formula_products: [],
             criteria: [],
             product_categories: [],
             state: $ctrl.fundStates[0].value
         };
+
+        $ctrl.validators.unshift({
+            id: null,
+            email: "None"
+        });
 
         if (!$rootScope.appConfigs.features.organizations.funds.criteria) {
             delete values.criteria;
@@ -196,6 +204,7 @@ let FundsEditComponent = function(
 module.exports = {
     bindings: {
         fund: '<',
+        validators: '<',
         organization: '<',
         fundStates: '<',
         productCategories: '<'

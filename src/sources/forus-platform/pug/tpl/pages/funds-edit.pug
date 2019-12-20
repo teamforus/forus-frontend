@@ -73,6 +73,25 @@
                         .button.button-primary(ng-click="$ctrl.addProduct()")
                             em.mdi.mdi-plus-circle.icon-start
                             translate Product toevoegen
+            
+            .card-section.card-section-primary: .row
+                .form-group.form-group-inline.col.col-lg-9.col-md-12
+                    label.form-label Default validator
+                    select(
+                        ng-model="$ctrl.form.values.default_validator_employee_id" 
+                        ng-options="validator.id as validator.email for validator in $ctrl.validators").form-control
+                    
+                    .form-error(ng-repeat="error in $ctrl.form.errors.default_validator_employee_id" ng-bind="error")
+                
+                | {{ $ctrl.form.values.default_validator_employee_id }}
+                .form-group.form-group-inline.col.col-lg-9.col-md-12(ng-if="$ctrl.form.values.default_validator_employee_id")
+                    label.form-label Validation request
+                    input-checkbox-control(
+                        name="show_attachment_{{ $index }}" 
+                        ng-model="$ctrl.form.values.auto_requests_validation" 
+                        label="Automatically validate fund requests with known BSN number")
+                    
+                    .form-error(ng-repeat="error in $ctrl.form.errors.auto_requests_validation" ng-bind="error")
 
             .card-section.card-section-primary(ng-if="$root.appConfigs.features.organizations.funds.criteria")
                 .row(ng-repeat="criteria in $ctrl.form.values.criteria")

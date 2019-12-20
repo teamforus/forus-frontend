@@ -8,7 +8,7 @@ let ModalService = function(ModalRoute, $timeout) {
         return modalKeys.indexOf(key) !== -1;
     };
 
-    this.open = (key, scope, events) => {
+    this.open = (key, scope = {}, events = undefined) => {
         if (!this.modalKeyExists(key)) {
             throw new Error(`Unknown modal key "${key}".`);
         }
