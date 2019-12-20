@@ -55,6 +55,8 @@ let OfficeService = function(ApiRequest) {
                 schedule[schedule_item.week_day] = {
                     start_time: schedule_item.start_time,
                     end_time: schedule_item.end_time,
+                    break_start_time: schedule_item.break_start_time,
+                    break_end_time: schedule_item.break_end_time,
                 };
             });
 
@@ -63,6 +65,8 @@ let OfficeService = function(ApiRequest) {
                     schedule[prop] = {
                         'start_time': 'null',
                         'end_time': 'null',
+                        'break_start_time': 'null',
+                        'break_end_time': 'null',
                     }
                 } else {
                     if (!schedule[prop].start_time) {
@@ -71,6 +75,14 @@ let OfficeService = function(ApiRequest) {
 
                     if (!schedule[prop].end_time) {
                         schedule[prop].end_time = 'null';
+                    }
+
+                    if (!schedule[prop].break_start_time) {
+                        schedule[prop].break_start_time = 'null';
+                    }
+
+                    if (!schedule[prop].break_end_time) {
+                        schedule[prop].break_end_time = 'null';
                     }
                 }
             }
