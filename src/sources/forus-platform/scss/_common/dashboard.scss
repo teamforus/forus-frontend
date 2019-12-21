@@ -1959,6 +1959,16 @@ $colorPrimaryLight: $color_primary_light;
         justify-content: center;
         @include cf();
 
+        .hidden-input {
+            opacity: 0;
+            height: 40px;
+            width: 100%;
+            position: absolute;
+            top: 0px;
+            border: none;
+            background: none;
+        }
+
         .pincode-number {
             display: inline-block;
             height: 60px;
@@ -3734,7 +3744,7 @@ $colorPrimaryLight: $color_primary_light;
 
             .invite-icon-img {
                 display: block;
-                width: 250px;
+                width: 150px;
                 max-width: 100%;
                 margin: 0 auto 0;
             }

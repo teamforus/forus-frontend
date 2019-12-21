@@ -912,6 +912,8 @@ module.exports = {
             accepted: "Geaccepteerd",
             reject: "Geweigerd",
             stopped: "Gestopt",
+            accepted_only_products: "Geaccepteerd: alleen aanbiedingen",
+            accepted_only_specific_products: "Geaccepteerd: specifieke aanbiedingen",
         },
         labels: {
             categories: "Categorieën",

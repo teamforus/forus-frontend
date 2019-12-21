@@ -2102,6 +2102,16 @@ ui-view {
         position: relative;
         @include cf();
 
+        .hidden-input {
+            opacity: 0;
+            height: 40px;
+            width: 100%;
+            position: absolute;
+            top: 0px;
+            border: none;
+            background: none;
+        }
+
         @media screen and (max-width: 767px) {
             &.block {
                 &.block-pincode {
