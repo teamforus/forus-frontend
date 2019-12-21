@@ -162,3 +162,10 @@ header.section.section-header.section-header-landing
                 'home.faq.{{ $root.client_key }}.fourteen',
                 '{{ "home.faq.faq_fourteen" | translate:{ fund: $ctrl.funds[0].name } }}',
                 '{{ "home.faq.fourteen" | translate }}')
+
+            if (['winterswijk', 'oostgelre', 'berkelland'].indexOf(qdt_c.platform.env_data.client_key) != -1)
+                +faq_item(
+                    'home.faq.{{ $root.client_key }}.faq_fifteen',
+                    'home.faq.{{ $root.client_key }}.fifteen',
+                    '{{ "home.faq.faq_fifteen" | translate:{ fund: $ctrl.funds[0].name } }}',
+                    '{{ "home.faq.fifteen" | translate }}')    
