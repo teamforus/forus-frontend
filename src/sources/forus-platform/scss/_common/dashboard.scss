@@ -1959,6 +1959,16 @@ $colorPrimaryLight: $color_primary_light;
         justify-content: center;
         @include cf();
 
+        .hidden-input {
+            opacity: 0;
+            height: 40px;
+            width: 100%;
+            position: absolute;
+            top: 0px;
+            border: none;
+            background: none;
+        }
+
         .pincode-number {
             display: inline-block;
             height: 60px;
