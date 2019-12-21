@@ -131,7 +131,9 @@ let OrganizationProvidersComponent = function(
     $ctrl.exportList = () => {
         OrganizationService.listProvidersExport(
             $ctrl.organization.id,
-            $ctrl.filters.values
+            Object.assign({}, $ctrl.filters.values, {
+                dismissed: $ctrl.filters.values.dismissed ? 1 : 0
+            })
         ).then((res => {
             FileService.downloadFile(
                 'providers_' + org + '_' + moment().format(
