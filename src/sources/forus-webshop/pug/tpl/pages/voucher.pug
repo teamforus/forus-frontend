@@ -134,8 +134,9 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
         ng-if="$root.appConfigs.features.products.list && !$ctrl.voucherCard.product && $ctrl.voucherCanUse"
         sample="true"
         products="$ctrl.products"
-        product-categories="$ctrl.productCategories")
-
+        product-categories="$ctrl.productCategories"
+        fund="$ctrl.voucherCard.fund")
+        
     .block.block-map_card(ng-if="$ctrl.voucherCanUse")
         .map_card-header
             //- regular voucher
