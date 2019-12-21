@@ -1,8 +1,5 @@
 let FundCardProviderDirective = function(
-    $scope, 
-    $state, 
-    FundService, 
-    ProviderFundService
+    $scope,
 ) {
     $scope.fund = $scope.providerFund.fund;
     $scope.fundCategories = $scope.fund.product_categories.map((val) => {
@@ -21,9 +18,6 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
-            '$state',
-            'FundService',
-            'ProviderFundService',
             FundCardProviderDirective
         ],
         templateUrl: 'assets/tpl/directives/fund-card-provider.html' 

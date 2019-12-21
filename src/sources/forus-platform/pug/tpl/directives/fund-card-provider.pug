@@ -1,17 +1,17 @@
 .card(ng-class="{'card-outline' : fund.state == 'closed'}")
     .card-section
-        .card-section-actions
-            div(ng-show="providerFund.state == 'pending'")
+        .card-section-actions(ng-if="fund.state != 'closed'")
+            div(ng-show="!providerFund.allow_budget && !providerFund.allow_products && !providerFund.allow_some_products")
                 .tag.tag-warning(translate="fund_card_provider.status.hold")
 
-            div(ng-show="providerFund.state == 'approved'")
+            div(ng-show="providerFund.allow_budget")
                 .tag.tag-success(translate="fund_card_provider.status.accepted")
 
-            div(ng-show="providerFund.state == 'declined'")
-                .tag.tag-danger(translate="fund_card_provider.status.reject")
+            div(ng-show="!providerFund.allow_budget && providerFund.allow_products")
+                .tag.tag-success(translate="fund_card_provider.status.accepted_only_products")
 
-            div(ng-show="providerFund.state == 'abandoned'")
-                .tag.tag-default(translate="fund_card_provider.status.stopped")
+            div(ng-show="!providerFund.allow_budget && !providerFund.allow_products && providerFund.allow_some_products")
+                .tag.tag-success(translate="fund_card_provider.status.accepted_only_specific_products")
 
         .card-block.card-block-fund
             .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}", alt="")
