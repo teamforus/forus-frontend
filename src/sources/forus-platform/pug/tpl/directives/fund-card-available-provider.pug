@@ -23,12 +23,16 @@
                 .col.col-md-5
                     .card-block-listing-item
                         .card-block-listing-label(translate="fund_card_provider.labels.allow_budget")
-                        span(ng-bind="fund.allow_budget ? 'Ja' : 'Nee'")    
+                        .tag.tag-sm(
+                            ng-class="'tag-' + (fund.allow_budget ? 'success' : 'danger')" 
+                            ng-bind="fund.allow_budget ? 'Ja' : 'Nee'")      
 
                 .col.col-md-4
                     .card-block-listing-item
                         .card-block-listing-label(translate="fund_card_provider.labels.allow_products")
-                        span(ng-bind="fund.allow_products ? 'Ja' : 'Nee'")
+                        .tag.tag-sm(
+                            ng-class="'tag-' + (fund.allow_products ? 'success' : 'danger')" 
+                            ng-bind="fund.allow_products ? 'Ja' : 'Nee'")  
 
                 .col.col-md-3
                     .button.button-default.pull-right(

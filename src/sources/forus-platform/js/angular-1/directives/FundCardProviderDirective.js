@@ -10,13 +10,11 @@ let FundCardProviderDirective = function(
     
     $scope.viewOffers = () => {
         ProductService.list($scope.organization.id).then(res => {
-            let offers = res.data;
-            
             ModalService.open('fundOffers', {
                 fund: $scope.fund,
                 providerFund: $scope.providerFund,
                 organization: $scope.organization,
-                offers: offers,
+                offers: res.data,
             });
         }, console.error);
     };

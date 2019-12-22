@@ -7,7 +7,7 @@ let ProviderFundsComponent = function(
     let $translate = $filter('translate');
 
     let trans_fund_provider = (key) => {
-        return $translate('fund_card_provider.labels.' + key);
+        return $translate('fund_card_provider.empty_block.' + key);
     }
 
     $ctrl.shownFundsType = $stateParams.fundsType || 'active';
@@ -20,45 +20,35 @@ let ProviderFundsComponent = function(
             'declined': 2,
         };
 
-        $ctrl.fundAvailableInvitations = $ctrl.fundInvitations.filter(fundInvitation => 
-            !fundInvitation.expired
+        $ctrl.fundAvailableInvitations = $ctrl.fundInvitations.filter(
+            fundInvitation => !fundInvitation.expired
         );
 
-        $ctrl.fundExpiredInvitations = $ctrl.fundInvitations.filter(fundInvitation => 
-            fundInvitation.expired
+        $ctrl.fundExpiredInvitations = $ctrl.fundInvitations.filter(
+            fundInvitation => fundInvitation.expired
         );
 
         $ctrl.funds = $ctrl.funds.sort((a, b) => sort[a.state] - sort[b.state]);
 
-        $ctrl.showEmptyBlock = $ctrl.checkForEmptyList();
-        $ctrl.emptyBlockMsg  = $ctrl.getEmptyBlockMessage();
+        $ctrl.showEmptyBlock = $ctrl.checkForEmptyList($ctrl.shownFundsType);
+        $ctrl.emptyBlockMsg  = $ctrl.getEmptyBlockMessage($ctrl.shownFundsType);
     };
 
     $ctrl.filterByFundStatus = (type) => {
         $ctrl.shownFundsType = type;
-
-        $ctrl.showEmptyBlock = $ctrl.checkForEmptyList();
-        $ctrl.emptyBlockMsg  = $ctrl.getEmptyBlockMessage();
+        $ctrl.showEmptyBlock = $ctrl.checkForEmptyList(type);
+        $ctrl.emptyBlockMsg  = $ctrl.getEmptyBlockMessage(type);
     };
 
-    $ctrl.checkForEmptyList = () => {
-        return ($ctrl.shownFundsType == 'available' && $ctrl.fundsAvailable.length == 0) ||
-            ($ctrl.shownFundsType    == 'active' && $ctrl.funds.length == 0) ||
-            ($ctrl.shownFundsType    == 'invitations' && $ctrl.fundAvailableInvitations.length == 0) ||
-            ($ctrl.shownFundsType    == 'invitations-expired' && $ctrl.fundExpiredInvitations.length == 0);
-    };
+    $ctrl.checkForEmptyList = (type) => ({
+        available: $ctrl.fundsAvailable.length == 0,
+        active: $ctrl.funds.length == 0,
+        invitations: $ctrl.fundAvailableInvitations.length == 0,
+        invitations_expired: $ctrl.fundExpiredInvitations.length == 0,
+    }[type]);
 
-    $ctrl.getEmptyBlockMessage = () => {
-        if (!$ctrl.checkForEmptyList()) {
-            return '';
-        }
-
-        switch($ctrl.shownFundsType) {
-            case 'available': return trans_fund_provider('no_available_funds'); break;
-            case 'active':    return trans_fund_provider('no_active_funds'); break;
-            case 'invitations': return trans_fund_provider('no_pending_invitations'); break;
-            case 'invitations-expired': return trans_fund_provider('no_expired_invitations'); break;
-        }
+    $ctrl.getEmptyBlockMessage = (type) => {
+        return trans_fund_provider(type);
     };
 };
 

@@ -1,7 +1,6 @@
-let ModalFundOffersComponent = function(
+let ModalFundOffersComponent = function (
     ProductService,
     FundService,
-    OrganizationService,
 ) {
     let $ctrl = this;
 
@@ -12,12 +11,11 @@ let ModalFundOffersComponent = function(
         $ctrl.offers = $ctrl.modal.scope.offers;
 
         FundService.readProvider(
-            $ctrl.fund.organization.id, 
-            $ctrl.fund.id, 
+            $ctrl.fund.organization.id,
+            $ctrl.fund.id,
             $ctrl.providerFund.id
         ).then(res => {
             $ctrl.enabledProducts = res.data.data.products;
-
             $ctrl.mapOffersAllowedProperty();
         });
     };
@@ -27,18 +25,17 @@ let ModalFundOffersComponent = function(
 
         ProductService.list($ctrl.organization.id, _query).then(res => {
             $ctrl.offers = res.data;
-
             $ctrl.mapOffersAllowedProperty();
         });
     };
 
     $ctrl.mapOffersAllowedProperty = () => {
-        $ctrl.offers.data.map(offer => {
-            offer.allowed = $ctrl.enabledProducts.indexOf(offer.id) !== -1 || $ctrl.providerFund.allow_products;
+        $ctrl.offers.data.forEach(offer => {
+            offer.allowed = $ctrl.enabledProducts.indexOf(
+                offer.id
+            ) !== -1 || $ctrl.providerFund.allow_products
         });
     }
-    
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {
@@ -49,7 +46,6 @@ module.exports = {
     controller: [
         'ProductService',
         'FundService',
-        'OrganizationService',
         ModalFundOffersComponent
     ],
     templateUrl: () => {

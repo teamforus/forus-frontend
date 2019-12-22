@@ -20,8 +20,8 @@
                     ng-click="$ctrl.filterByFundStatus('available')"
                     translate="fund_card_provider.tabs.available")
                 .label-tab.label-tab-sm(
-                    ng-class="{'active' : $ctrl.shownFundsType == 'invitations-expired'}" 
-                    ng-click="$ctrl.filterByFundStatus('invitations-expired')"
+                    ng-class="{'active' : $ctrl.shownFundsType == 'invitations_expired'}" 
+                    ng-click="$ctrl.filterByFundStatus('invitations_expired')"
                     translate="fund_card_provider.tabs.expired")
         fund-card-available-provider(
             ng-if="$ctrl.shownFundsType == 'available' && $ctrl.fundsAvailable.length > 0" 
@@ -39,7 +39,7 @@
             provider-invitation="fundInvitation"  
             organization="$ctrl.organization")
         fund-card-invitation-provider( 
-            ng-if="$ctrl.shownFundsType == 'invitations-expired' && $ctrl.fundExpiredInvitations.length > 0" 
+            ng-if="$ctrl.shownFundsType == 'invitations_expired' && $ctrl.fundExpiredInvitations.length > 0" 
             ng-repeat="fundInvitation in $ctrl.fundExpiredInvitations" 
             provider-invitation="fundInvitation"  
             organization="$ctrl.organization")

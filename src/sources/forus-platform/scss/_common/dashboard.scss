@@ -817,6 +817,10 @@ $colorPrimaryLight: $color_primary_light;
 
         .card-block-listing-row {
             margin: 0px 0px 15px;
+            
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
 
         &.card-block-listing-variant {

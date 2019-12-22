@@ -42,12 +42,16 @@
                 .col.col-md-5
                     .card-block-listing-item
                         .card-block-listing-label(translate="fund_card_provider.labels.allow_budget")
-                        span(ng-bind="providerFund.allow_budget ? 'Ja' : 'Nee'")    
+                        .tag.tag-sm(
+                            ng-class="'tag-' + (providerFund.allow_budget ? 'success' : 'danger')" 
+                            ng-bind="providerFund.allow_budget ? 'Ja' : 'Nee'")      
 
                 .col.col-md-4
                     .card-block-listing-item
                         .card-block-listing-label(translate="fund_card_provider.labels.allow_products")
-                        span(ng-bind="providerFund.allow_products ? 'Ja' : 'Nee'")    
+                        .tag.tag-sm(
+                            ng-class="'tag-' + (providerFund.allow_products ? 'success' : 'danger')" 
+                            ng-bind="providerFund.allow_products ? 'Ja' : 'Nee'")  
 
                 .col.col-md-3(ng-if="fund.state != 'closed'") 
                     .button.button-default.pull-right(ng-if="providerFund.allow_budget" ng-click="viewOffers()") Kijk aanbiedings

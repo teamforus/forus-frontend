@@ -57,7 +57,7 @@ let FundProviderInvitationsService = function(ApiRequest) {
 
         this.acceptInvitationById = (organization_id, invitation_id) => {
             return ApiRequest.patch(sprintf(
-                '/platform/organizations/%s/accept-provider-invitation/%s',
+                '/platform/organizations/%s/provider-invitations/%s',
                 organization_id,
                 invitation_id
             ));
