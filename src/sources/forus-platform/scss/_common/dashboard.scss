@@ -815,6 +815,10 @@ $colorPrimaryLight: $color_primary_light;
             }
         }
 
+        .card-block-listing-row {
+            margin: 0px 0px 15px;
+        }
+
         &.card-block-listing-variant {
             display: inline-block;
             font-size: 14px;
@@ -1003,6 +1007,10 @@ $colorPrimaryLight: $color_primary_light;
             margin-bottom: 10px;
             clear: both;
             text-decoration: none;
+        }
+
+        &.card-block-fund-margin-bottom {
+            margin-bottom: 20px;
         }
     }
 
@@ -3479,7 +3487,6 @@ $colorPrimaryLight: $color_primary_light;
             display: flex;
             justify-content: center;
             justify-items: center;
-            box-shadow: 1px 2px 4px 2px rgba(0,0,0,.075);
     
             .mdi {
                 font-size: 1.1em;
@@ -3574,6 +3581,7 @@ $colorPrimaryLight: $color_primary_light;
             margin-right: 10px;
             display: flex;
             border-radius: inherit;
+            box-shadow: 1px 2px 4px 2px rgba(0,0,0,.075);
     
             &:last-child {
                 margin-right: 0;
@@ -4594,6 +4602,45 @@ $colorPrimaryLight: $color_primary_light;
                     margin-bottom: 20px;
                     padding: 10px 30px;
                     font: 400 18px/34px $bf;
+                }
+            }
+        }
+    }
+
+    &.modal-fund-offers {
+        .modal-window {
+            .modal-section {
+                .table {
+                    .offer-old-price {
+                        margin-left: 10px;
+                        color: #a7a7a7;
+                        text-decoration: line-through;
+                    }
+
+                    td {
+                        &:last-child {
+                            width: 150px;
+                        }
+                    }
+                }
+            }
+
+            .modal-footer {
+                background-color: #fff;
+                justify-content: unset;
+
+                .pagination-offers {
+                    margin-left: auto;
+
+                    .table-pagination-counter {
+                        padding-right: 20px;
+                    }
+
+                    .table-pagination-navigation {
+                        .button {
+                            margin-right: 10px;
+                        }
+                    }
                 }
             }
         }

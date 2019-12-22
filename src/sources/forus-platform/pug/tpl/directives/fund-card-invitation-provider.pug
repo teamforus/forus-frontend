@@ -1,9 +1,12 @@
 .card
     .card-section
+        .card-section-actions 
+            .tag.tag-warning(translate="{{ 'fund_card_provider.status.' + (providerInvitation.expired ? 'expired' : 'invited') }}")
+
         .card-block.card-block-fund.card-block-fund-margin-bottom
             .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}", alt="")
             .fund-title(ng-if="fund.organization | hasPerm:['manage_funds']" ng-bind="fund.name")
-            .fund-title(ng-if="!(fund.organization | hasPerm:['manage_funds'])" ng-bind="fund.name")
+            .fund-title(ng-if="!(fund.organization | hasPerm:['manage_funds'])" ng-bind="fund.organization.name")
             br
             div(ng-bind="fund.organization.name").fund-organization
 
@@ -23,15 +26,16 @@
                 .col.col-md-5
                     .card-block-listing-item
                         .card-block-listing-label(translate="fund_card_provider.labels.allow_budget")
-                        span(ng-bind="fund.allow_budget ? 'Ja' : 'Nee'")    
+                        span(ng-bind="providerInvitation.allow_budget ? 'Ja' : 'Nee'")    
 
                 .col.col-md-4
                     .card-block-listing-item
                         .card-block-listing-label(translate="fund_card_provider.labels.allow_products")
-                        span(ng-bind="fund.allow_products ? 'Ja' : 'Nee'")
-
+                        span(ng-bind="providerInvitation.allow_products ? 'Ja' : 'Nee'")    
+                
                 .col.col-md-3
-                    .button.button-default.pull-right(
-                        ng-if="fund.state != 'closed'"
-                        translate="fund_card_available_provider.buttons.join"
-                        ng-click="providerApplyFund(fund)")
+                    .button.button-primary.button-accept.pull-right(
+                        ng-if="fund.state != 'closed' && !providerInvitation.expired"
+                        ng-click="acceptInvitation()") 
+                            em.mdi.mdi-check
+                            span(translate="fund_card_provider.labels.accept_invitation")

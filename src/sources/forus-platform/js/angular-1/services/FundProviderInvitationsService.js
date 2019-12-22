@@ -47,6 +47,21 @@ let FundProviderInvitationsService = function(ApiRequest) {
                 token
             ));
         };
+
+        this.listInvitations = (organization_id) => {
+            return ApiRequest.get(sprintf(
+                '/platform/organizations/%s/provider-invitations',
+                organization_id
+            ));
+        };
+
+        this.acceptInvitationById = (organization_id, invitation_id) => {
+            return ApiRequest.patch(sprintf(
+                '/platform/organizations/%s/accept-provider-invitation/%s',
+                organization_id,
+                invitation_id
+            ));
+        };
     });
 };
 

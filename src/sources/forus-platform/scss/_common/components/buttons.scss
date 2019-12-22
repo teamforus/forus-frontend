@@ -205,6 +205,29 @@
         padding-right: 0;
     }
 
+    &.button-accept {
+        display: flex;
+        align-items: center;
+
+        .mdi-check {
+            background-color: #ffffff;
+            color: #134478;
+            margin-right: 8px;
+            width: 16px;
+            height: 16px;
+            border-radius: 16px;
+            margin-top: 2px;
+            font-size: 14px;
+            padding-left: 2px;
+        }
+
+        &:hover {
+            .mdi {
+                color: #134478;
+            }
+        }
+    }
+
     &:not(:last-of-type),
     &:not(:last-child) {
         margin-right: 10px;

@@ -40,6 +40,7 @@ module.exports = {
         modal_voucher_create: require('./nl/modals/modal-voucher-create.pug.i18n'),
         modal_product_voucher_create: require('./nl/modals/modal-product-voucher-create.pug.i18n'),
         modal_voucher_qr_code: require('./nl/modals/modal-voucher-qr_code.pug.i18n'),
+        modal_funds_offers: require('./nl/modals/modal-fund-offers.pug.i18n'),
     },
     // PAGES
     vouchers: require('./nl/pages/vouchers.pug.i18n'),
@@ -914,13 +915,28 @@ module.exports = {
             stopped: "Gestopt",
             accepted_only_products: "Geaccepteerd: alleen aanbiedingen",
             accepted_only_specific_products: "Geaccepteerd: specifieke aanbiedingen",
+            invited: "Invited",
+            expired: "Expired"
         },
         labels: {
             categories: "Categorieën",
             nocategories: "Geen Categorieën",
             date: "Begindatum / Einddatum",
             max_amount: "Maximale bedrag per voucher",
-            closed: "Gesloten"
+            closed: "Gesloten",
+            accept_invitation: "Accept invitation",
+            no_available_funds: "No available funds",
+            no_active_funds: "No active funds",
+            no_pending_invitations: "No pending invitations",
+            no_expired_invitations: "No expired invitations",
+            allow_budget: "Allow budget",
+            allow_products: "Allow products"
+        },
+        tabs: {
+            active: 'Actief',
+            invitations: 'Invitaties',
+            available: 'Beschikbaar',
+            expired: 'Verloopt',
         }
     },
 

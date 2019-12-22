@@ -29,7 +29,9 @@ let FundCardAvailableProviderDirective = function(
                         icon: 'fund_applied',
                         closeBtnText: 'modal.buttons.confirm',
                     }, {
-                        onClose: () => $state.reload()
+                        onClose: () => $state.go($state.current, {
+                            fundsType: 'available'
+                        }, {reload: true})
                     });
 
                 });
