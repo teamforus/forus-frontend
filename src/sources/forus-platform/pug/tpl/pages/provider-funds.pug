@@ -4,7 +4,7 @@
         .card-heading.card-heading-funds.flex-row
             .flex-col.flex-grow
                 span(translate="provider_funds_available.title")
-                span(ng-bind="' (' + ($ctrl.funds.length + $ctrl.fundsAvailable.length) + ')'")
+                span(ng-bind="' (' + ($ctrl.getActiveFundsCount($ctrl.shownFundsType)) + ')'")
 
             .flex-col: .block.block-label-tabs: .label-tab-set
                 .label-tab.label-tab-sm(

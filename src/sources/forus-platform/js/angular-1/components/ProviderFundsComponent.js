@@ -40,11 +40,13 @@ let ProviderFundsComponent = function(
         $ctrl.emptyBlockMsg  = $ctrl.getEmptyBlockMessage(type);
     };
 
-    $ctrl.checkForEmptyList = (type) => ({
-        available: $ctrl.fundsAvailable.length == 0,
-        active: $ctrl.funds.length == 0,
-        invitations: $ctrl.fundAvailableInvitations.length == 0,
-        invitations_expired: $ctrl.fundExpiredInvitations.length == 0,
+    $ctrl.checkForEmptyList = (type) => $ctrl.getActiveFundsCount(type) == 0;
+
+    $ctrl.getActiveFundsCount = (type) => ({
+        available: $ctrl.fundsAvailable.length,
+        active: $ctrl.funds.length,
+        invitations: $ctrl.fundAvailableInvitations.length,
+        invitations_expired: $ctrl.fundExpiredInvitations.length,
     }[type]);
 
     $ctrl.getEmptyBlockMessage = (type) => {
