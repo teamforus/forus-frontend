@@ -11,7 +11,7 @@ let FundCardInvitationProviderDirective = function(
             $scope.providerInvitation.provider_organization.id, 
             $scope.providerInvitation.id
         ).then(res => {
-            PushNotificationsService.success('Invitation successfully accepted!');
+            PushNotificationsService.success('Uitnodiging succesvol geaccepteerd!');
 
             $state.go($state.current, {
                 fundsType: 'invitations'
