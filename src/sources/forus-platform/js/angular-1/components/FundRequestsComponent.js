@@ -293,7 +293,7 @@ let FundRequestsComponent = function(
         $event.originalEvent.stopPropagation();
 
         FileService.download(file).then(res => {
-            ModalService.open('modalPdfPreview', {
+            ModalService.open('pdfPreview', {
                 rawPdfFile: res.data
             });
         }, console.error);

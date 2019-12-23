@@ -3,11 +3,14 @@ let EmailPreferencesComponent = function(
     AuthService,
     ModalService,
     EmailPreferencesService,
-    FormBuilderService
+    PushNotificationsService
 ) {
     let $ctrl = this;
     let keysEditableOnWebshop = [
-        'vouchers.payment_success', 'funds.fund_expires'
+        'vouchers.payment_success', 
+        'funds.fund_expires',
+        'voucher.assigned',
+        'voucher.transaction'
     ];
 
     $ctrl.loaded = false;
@@ -20,26 +23,6 @@ let EmailPreferencesComponent = function(
         });
     };
 
-    $ctrl.buildForm = (preferences) => {
-        $ctrl.form = FormBuilderService.build(preferences, (form) => {
-            form.lock();
-
-            EmailPreferencesService.update({
-                email_unsubscribed: $ctrl.email_unsubscribed,
-                preferences: form.values
-            }).then(res => {
-                form.unlock();
-                ModalService.open('modalNotification', {
-                    type: 'action-result',
-                    description: `Succesvol e-mail voorkeuren geüpdate ${$ctrl.email}`,
-                });
-            }, (res) => {
-                form.unlock();
-                form.errors = res.data.errors;
-            });
-        });
-    };
-
     $ctrl.enableSubscription = () => {
         return toggleSubscription(false);
     };
@@ -48,17 +31,31 @@ let EmailPreferencesComponent = function(
         return toggleSubscription(true);
     };
 
+    $ctrl.togglePreferenceOption = () => {
+        EmailPreferencesService.update({
+            email_unsubscribed: $ctrl.email_unsubscribed,
+            preferences: $ctrl.preferences
+        }).then(res => {
+            PushNotificationsService.success('Opgeslagen!');
+        });
+    }
+
     $ctrl.$onInit = () => {
         if (AuthService.hasCredentials()) {
             return EmailPreferencesService.get().then(res => {
                 $ctrl.email = res.data.data.email;
-                $ctrl.preferences = res.data.data.preferences.filter(preference => {
-                    return keysEditableOnWebshop.indexOf(preference.key) != -1;
+                $ctrl.emailPreferences = res.data.data.preferences.filter(preference => {
+                    return keysEditableOnWebshop.indexOf(preference.key) != -1 && preference.type == 'email';
                 });
+
+                $ctrl.pushPreferences = res.data.data.preferences.filter(preference => {
+                    return keysEditableOnWebshop.indexOf(preference.key) != -1 && preference.type == 'push';
+                });
+
+                $ctrl.preferences = $ctrl.emailPreferences.concat($ctrl.pushPreferences);
+
                 $ctrl.email_unsubscribed = res.data.data.email_unsubscribed;
                 $ctrl.loaded = true;
-                
-                $ctrl.buildForm($ctrl.preferences);
             })
         }
 
@@ -78,7 +75,7 @@ module.exports = {
         'AuthService',
         'ModalService',
         'EmailPreferencesService',
-        'FormBuilderService',
+        'PushNotificationsService',
         EmailPreferencesComponent
     ],
     templateUrl: 'assets/tpl/pages/email-preferences.html'

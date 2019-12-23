@@ -52,8 +52,8 @@ module.exports = [
                 );
             };
 
-            this.read = function(id) {
-                return ApiRequest.get('/platform/organizations/' + id);
+            this.read = function(id, query = {}) {
+                return ApiRequest.get('/platform/organizations/' + id, query);
             }
 
             this.use = function(id) {

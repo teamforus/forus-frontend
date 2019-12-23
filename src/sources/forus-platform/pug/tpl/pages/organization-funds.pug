@@ -9,16 +9,18 @@
                 em.mdi.mdi-plus-circle
                 | {{ "funds_my.add" | i18n }}
                 span(ng-bind="' (' + $ctrl.funds.length + ')'")
-        div(
+        
+        fund-card-sponsor(
             ng-if="$ctrl.funds.length > 0" 
             ng-repeat="fund in $ctrl.funds" 
-            fund-card-sponsor fund="fund" level="$ctrl.fundLevel" organization="$ctrl.organization")
+            fund="fund" invite-providers="$ctrl.funds.length > 1" organization="$ctrl.organization" level="$ctrl.fundLevel")
         
         div(ng-if="$ctrl.funds.length == 0")
             block-empty(
                 ng-if="($root.activeOrganization | hasPerm:'manage_funds')"
                 text="Je hebt momenteel geen fondsen." 
                 button="{text: 'Fonds toevoegen', href: $ctrl.emptyBlockLink}")
+            
             block-empty(
                 ng-if="!($root.activeOrganization | hasPerm:'manage_funds')"
                 text="Je hebt momenteel geen fondsen." )

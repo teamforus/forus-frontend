@@ -1,10 +1,11 @@
 require('./modules/select-control/SelectControlModule');
 require('./modules/ui-controls/UIControlsModule');
+require('./modules/page-loading-bar/PageLoadingBarModule');
 
 let appConfigs = JSON.parse(JSON.stringify(env_data));
 let app = angular.module('forusApp', [
     'pascalprecht.translate', 'ui.router', 'ngCookies', 
-    'forus.selectControl', 'forus.uiControls',
+    'forus.selectControl', 'forus.uiControls', 'forus.pageLoadingBarModule',
 ]);
 
 app.constant('appConfigs', appConfigs);
@@ -65,6 +66,8 @@ app.service('PrintableService', require('./services/PrintableService'));
 app.service('BusinessTypeService', require('./services/BusinessTypeService'));
 app.service('EmailPreferencesService', require('./services/EmailPreferencesService'));
 app.service('FileService', require('./services/FileService'));
+app.service('DigIdService', require('./services/DigIdService'));
+app.service('PushNotificationsService', require('./services/PushNotificationsService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
@@ -92,6 +95,7 @@ app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
 app.directive('scrollEnd', require('./directives/ScrollEndDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
 app.directive('fileUploader', require('./directives/controls/FileUploaderDirective'));
+app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));

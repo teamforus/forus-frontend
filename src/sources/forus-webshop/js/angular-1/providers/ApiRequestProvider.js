@@ -103,7 +103,7 @@ module.exports = function() {
                             if (response.status == 401) {
                                 CredentialsService.delete(CredentialsService.get());
                                 CredentialsService.set(null);
-                                
+
                                 $state.go('home');
                             }
 

@@ -7,10 +7,6 @@ section.section.section-profile: .wrapper
     .section-title {{ "records.header.title" | translate }} ({{ $ctrl.records.length }})
     
     .block.block-profile
-        .profile-aside(
-            ng-if="$ctrl.appConfigs.features.identity.address || $ctrl.appConfigs.features.records.list")
-            profile-card
-
         .profile-content
             .block.block-records
                 .record-item(ng-repeat="record in $ctrl.records")
@@ -37,6 +33,4 @@ section.section.section-profile: .wrapper
             empty-block(
                 title="Geen eigenschappen"
                 description="U hebt geen eigenschappen"
-                ng-if="$ctrl.records.length == 0")
-
-contact-form 
+                ng-if="$ctrl.records.length == 0") 

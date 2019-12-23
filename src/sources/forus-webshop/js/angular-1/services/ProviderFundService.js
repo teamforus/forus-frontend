@@ -1,7 +1,9 @@
-let ProviderFundService = function(ApiRequest) {
+let ProviderFundService = function(
+    ApiRequest
+) {
     let uriPrefix = '/platform/organizations/';
 
-    return new (function() {
+    return new(function() {
         this.listAvailableFunds = function(organization_id) {
             return ApiRequest.get(
                 uriPrefix + organization_id + '/provider/funds-available'
@@ -11,7 +13,9 @@ let ProviderFundService = function(ApiRequest) {
         this.listFunds = function(organization_id, state) {
             return ApiRequest.get(
                 uriPrefix + organization_id + '/provider/funds',
-                state ? {state: state} : {}
+                state ? {
+                    state: state
+                } : {}
             );
         };
 

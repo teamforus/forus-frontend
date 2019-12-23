@@ -14,13 +14,6 @@ section.section.section-product: .wrapper
         //- Log in
         div(ng-if="$ctrl.state == 'auth'")
             h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
-            //- p.block-description
-                | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
-                strong woonplaats 
-                | en 
-                a(href="#") inkomen 
-                | te controleren 
-            
             +progress()
             
             .sign_up-pane
@@ -85,7 +78,7 @@ section.section.section-product: .wrapper
                 .sign_up-pane-body
                     .sign_up-email_sent
                         .sign_up-email_sent-icon
-                            img(src=src_prefix + "./assets/img/sign_up-email.png").sign_up-email_sent-icon-img
+                            img(src=src_prefix + "./assets/img/sign_up-email.svg").sign_up-email_sent-icon-img
                         .sign_up-email_sent-title(i18n="popup_auth.labels.join")
                         .sign_up-email_sent-text(i18n="popup_auth.notifications.link")
             
@@ -95,7 +88,7 @@ section.section.section-product: .wrapper
                 .sign_up-pane-body
                     .sign_up-email_sent
                         .sign_up-email_sent-icon
-                            img(src=src_prefix + "./assets/img/sign_up-email.png").sign_up-email_sent-icon-img
+                            img(src=src_prefix + "./assets/img/sign_up-email.svg").sign_up-email_sent-icon-img
                         .sign_up-email_sent-title Bevestig dat u toegang heeft tot dit e-mailadres.
                         .sign_up-email_sent-text
                             | U heeft een e-mail ontvangen op "#[span(ng-bind="$ctrl.authForm.values.records.primary_email").text-primary]". Ga naar uw inbox en open de e-mail met het onderwerp "E-mail activering" en klik in de e-mail op de blauwe knop.
@@ -117,6 +110,11 @@ section.section.section-product: .wrapper
                         span(
                             i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}" 
                             i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}") 
+                    
+                    .sign_up-pane-digid(ng-if="!$ctrl.bsnIsKnown")
+                        button(type="button" ng-click="$ctrl.startDigId()").digid-button
+                            img(src=src_prefix + "./assets/img/icon-digid.svg").digid-button-icon
+                            | Log in met DigiD
                 
                 .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
                     .col.col-lg-6.text-left: .button.button-text.button-text-padless(
@@ -264,5 +262,4 @@ section.section.section-product: .wrapper
                                 span(ng-bind="$ctrl.errorReason")
                     
                             .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
-                        .form-group.col.col-lg-12: br
-contact-form 
+                        .form-group.col.col-lg-12: br 

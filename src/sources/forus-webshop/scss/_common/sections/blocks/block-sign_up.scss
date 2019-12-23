@@ -246,6 +246,31 @@
                     margin: 0 0 20px;
                 }
             }
+
+            .sign_up-pane-digid {
+                padding: 20px 0;
+                display: flex;
+                width: 100%;
+
+                .digid-button {
+                    padding: 8px;
+                    padding-right: 25px;
+                    border: 1px solid #222530;
+                    border-radius: 6px;
+                    margin: 0 auto;
+                    font: 600 14px/52px $bf;
+                    color: #222530;
+                    cursor: pointer;
+                    display: inline-flex;
+
+                    .digid-button-icon {
+                        display: block;
+                        width: 52px;
+                        margin-right: 25px;
+                        float: left;
+                    }
+                }
+            }
         }
 
         .sign_up-pane-footer {

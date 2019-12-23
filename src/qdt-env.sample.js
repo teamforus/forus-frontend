@@ -1,4 +1,9 @@
-let api_url = "https://dev.api.forus.io/api/v1";
+const api_url = "https://dev.api.forus.io/api/v1";
+const outputRoot = "../dist";
+
+// Run gulp with custom qdt-env.js file:
+// gulp --env-file=./qdt-env.js 
+// gulp --env-file=../production.qdt-env.js
 
 module.exports = (core) => {
     // Config markups
@@ -16,6 +21,16 @@ module.exports = (core) => {
             // html5Mode: {
             //    basePath: '/'
             // }
+        });
+
+        // Change building path
+        platform.setDestRootPath(outputRoot + '/forus-platform.sponsor.general');
+
+        // Change js taks options (enable minification)
+        platform.editTask('js', (task) => {
+            // Uncomment
+            // task.minify = true;
+            return task;
         });
 
         return platform;
@@ -213,6 +228,30 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('dashboard_noordoostpolder_provider', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'noordoostpolder',
+            panel_type: 'provider',
+            chat_id: false,
+            hide_voucher_generators: false
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('dashboard_noordoostpolder_sponsor', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'noordoostpolder',
+            panel_type: 'sponsor',
+            chat_id: false,
+            hide_voucher_generators: false
+        });
+
+        return platform;
+    });
+
 
     // Config webshops
     core.editPlatform('webshop_general', (platform) => {
@@ -311,12 +350,23 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('webshop_noordoostpolder', (platform) => {
+        platform.setEnvData({
+            api_url: api_url,
+            client_key: 'noordoostpolder',
+            client_type: 'webshop',
+            log_out_time: false,
+        });
+
+        return platform;
+    });
+
     // Config meapp landings
     core.editPlatform('website', (platform) => {
         platform.setEnvData({
             api_url: api_url,
             client_key: 'general',
-            panel_type: 'validator',
+            panel_type: 'website',
         });
 
         return platform;

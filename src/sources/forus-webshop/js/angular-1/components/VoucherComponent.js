@@ -1,5 +1,4 @@
 let VoucherComponent = function(
-    $filter,
     $state,
     VoucherService,
     PrintableService,
@@ -13,6 +12,7 @@ let VoucherComponent = function(
         $ctrl.qrValue = $ctrl.voucher.address;
         $ctrl.voucherCard = VoucherService.composeCardData($ctrl.voucher);
         $ctrl.qrCodeValue = $ctrl.voucher.address;
+        $ctrl.voucherCanUse = !$ctrl.voucher.expired;
 
         $ctrl.deleteVoucher = function(voucher) {
 
@@ -34,6 +34,8 @@ let VoucherComponent = function(
         }
 
         $ctrl.printQrCode = () => {
+            $ctrl.organization = $ctrl.voucher.fund.organization;
+
             PrintableService.open('voucherQrCode', {
                 voucher: $ctrl.voucher,
                 organization: $ctrl.organization,
@@ -76,7 +78,6 @@ module.exports = {
         voucher: '<'
     },
     controller: [
-        '$filter',
         '$state',
         'VoucherService',
         'PrintableService',

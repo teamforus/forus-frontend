@@ -4,6 +4,10 @@ head
     meta(charset="UTF-8")
     title(ng-bind="$root.pageTitle") Forus 
 
+    //- disable index
+    if (!qdt_c.platform.env_data.allow_indexing)
+        meta(name="robots" content="noindex")
+
     //- disable resize on mobiles
     meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
 

@@ -2,31 +2,37 @@ landing-navbar
 header.section.section-header
     .wrapper
         .header-content
-            .header-title Gemeentelijk dashboard
-            .header-description Dit is het start scherm om uzelf aan te melden op het gemeentelijke dashboard.
+            .header-title(translate="home_sponsor.header.{{ $root.appConfigs.client_key }}.title" translate-default="{{ 'home_sponsor.header.title' | translate }}")
+            .header-description(translate="home_sponsor.header.{{ $root.appConfigs.client_key }}.subtitle" translate-default="{{ 'home_sponsor.header.subtitle' | translate }}")
 
 section.section.section-faq: .wrapper
-    .section-title Veel gestelde vragen
+    .section-title {{ "home_sponsor.faq.title" | i18n }}
     .faq(collapse)
-        mixin faq_item(title, content, active)
+        mixin faq_item(title, content, title_default, content_default, active)
             .faq-item(class=active?'active':'' collapse-item)
                 .faq-item-header(collapse-header)
-                    | #{title}
+                    span(translate=title i18n-vars="{ fund: $ctrl.funds[0].name }" translate-default=title_default)
                     .faq-item-chevron-down.mdi.mdi-chevron-down
                     .faq-item-chevron-up.mdi.mdi-chevron-up
-                .faq-item-content(collapse-content)=content
+                .faq-item-content(collapse-conten, translate=content translate-default=content_default)
 
         +faq_item(
-            "Wat zijn de technische vereisten om mee te doen?",
-            "Een smartphone op de locatie van uw organisatie. Android verreist: 4.3 en hoger. iOS vereist: 10.0 en hoger. Een computer met een willekeurige internet browser. Internet Explorer: 10 of hoger")
+            'home_sponsor.faq.{{ $root.client_key }}.faq_one',
+            'home_sponsor.faq.{{ $root.client_key }}.one',
+            '{{ "home_sponsor.faq.faq_one" | translate }}',
+            '{{ "home_sponsor.faq.one" | translate }}')
 
         +faq_item(
-            "Hoe gaat het met uitbetalen?",
-            "Als eerste scan de QR-code van de inwoner. Ten tweede vul het bedrag van de betaling in en eventueel een omschrijving. Als laatste bevestig de betaling in de app. Het geld wordt binnen drie werkdagen op de rekening bijgeschreven.")
+            'home_sponsor.faq.{{ $root.client_key }}.faq_two',
+            'home_sponsor.faq.{{ $root.client_key }}.two',
+            '{{ "home_sponsor.faq.faq_two" | translate }}',
+            '{{ "home_sponsor.faq.two" | translate }}')
 
         +faq_item(
-            "Hoe kan ik mijn transacties in zien?",
-            "Naast de mobiele applicatie kunt u ook gebruik maken van de gebruikersomgeving voor organisaties. Hier kunt u het profiel van de organisatie beheren, transacties bijhouden en aanbiedingen op de webshop plaatsen. Het gebruik maken van de gebruikersomgeving is optioneel.")
+            'home_sponsor.faq.{{ $root.client_key }}.faq_three',
+            'home_sponsor.faq.{{ $root.client_key }}.three',
+            '{{ "home_sponsor.faq.faq_three" | translate }}',
+            '{{ "home_sponsor.faq.three" | translate }}')
 
 //- section.section.section-blogs: .wrapper
     .block.block-blogs
@@ -43,3 +49,6 @@ section.section.section-faq: .wrapper
         .block.block-show-more: .wrapper: a(href="#").button.button-primary SHOW MORE
 
 //- landing-contact-form
+
+if (qdt_c.platform.env_data.client_key == 'noordoostpolder')
+    include includes/noordoostpolder/footer.pug

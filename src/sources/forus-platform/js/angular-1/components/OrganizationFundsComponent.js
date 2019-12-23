@@ -1,4 +1,4 @@
-let FundsMyComponent = function(
+let OrganizationFundsComponent = function(
     $state,
     $stateParams
 ) {
@@ -12,12 +12,13 @@ let FundsMyComponent = function(
 module.exports = {
     bindings: {
         funds: '<',
-        fundLevel: '<'
+        fundLevel: '<',
+        organization: '<'
     },
     controller: [
         '$state',
         '$stateParams',
-        FundsMyComponent
+        OrganizationFundsComponent
     ],
-    templateUrl: 'assets/tpl/pages/funds-my.html'
+    templateUrl: 'assets/tpl/pages/organization-funds.html'
 };

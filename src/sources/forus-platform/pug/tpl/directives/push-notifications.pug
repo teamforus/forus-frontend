@@ -1,0 +1,9 @@
+.block.block-push-notifications: .inner
+    .notification(
+        ng-repeat="notification in notifications" 
+        ng-class="[notification.shown ? 'shown' : '', 'notification-' + notification.type]")
+        .notification-close.mdi.mdi-close(ng-click="deleteNotification(notification)")
+        .notification-icon(ng-class="'mdi mdi-' + notification.icon")
+        .notification-details
+            strong(ng-if="notification.title" ng-bind="notification.title")
+            span(ng-if="notification.message" ng-bind="notification.message")

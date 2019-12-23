@@ -1,10 +1,12 @@
 let VouchersComponent = function(
     $state,
+    $stateParams,
     $timeout,
     FileService,
     DateService,
     ModalService,
-    VoucherService
+    VoucherService,
+    PushNotificationsService
 ) {
     let $ctrl = this;
 
@@ -25,7 +27,9 @@ let VouchersComponent = function(
         reset: function() {
             this.values.q = '';
             this.values.granted = null;
-            this.values.fund_id = $ctrl.funds[0] ? $ctrl.funds[0].id : null;
+            this.values.fund_id = $stateParams.fund_id ?
+                $stateParams.fund_id : 
+                ($ctrl.funds[0] ? $ctrl.funds[0].id : null);
             this.values.amount_min = null;
             this.values.amount_max = null;
             this.values.from = null;
@@ -77,6 +81,13 @@ let VouchersComponent = function(
         });
     };
 
+    $ctrl.downloadExampleCsv = () => {
+        FileService.downloadFile(
+            'voucher_upload_sample.csv',
+            VoucherService.sampleCSV('voucher')
+        );
+    };
+
     $ctrl.exportUnassignedQRCodes = () => {
         let from = $ctrl.filters.values.from,
             to = $ctrl.filters.values.to;
@@ -94,6 +105,14 @@ let VouchersComponent = function(
                 res.data,
                 res.headers('Content-Type') + ';charset=utf-8;'
             );
+        }, res => {
+            res.data.text().then((data) => {
+                data = JSON.parse(data);
+
+                if (data.message) {
+                    PushNotificationsService.danger(data.message);
+                }
+            });
         });
     };
 
@@ -155,11 +174,13 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$stateParams',
         '$timeout',
         'FileService',
         'DateService',
         'ModalService',
         'VoucherService',
+        'PushNotificationsService',
         VouchersComponent
     ],
     templateUrl: 'assets/tpl/pages/vouchers.html'
