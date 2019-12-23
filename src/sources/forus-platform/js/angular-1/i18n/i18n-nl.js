@@ -916,8 +916,7 @@ module.exports = {
             accepted_only_products: "Geaccepteerd: alleen aanbiedingen",
             accepted_only_specific_products: "Geaccepteerd: specifieke aanbiedingen",
             pending: "Uitgenodigd",
-            expired: "Verlopen",
-            accepted: "Geaccepteerd"
+            expired: "Verlopen"
         },
         labels: {
             categories: "Categorieën",
@@ -930,10 +929,10 @@ module.exports = {
             allow_products: "Scan geplaatste aanbiedingen"
         },
         empty_block: {
-            available: "Geen beschikbare fondsen",
-            active: "Geen actieve fondsen",
-            invitations: "Geen uitnodigingen",
-            invitations_expired: "Geen verlopen uitnodigingen",
+            available: "Er zijn geen beschikbare fondsen waar u zich voor kunt aanmelden.",
+            active: "Er zijn geen fondsen waar u actief voor bent.",
+            invitations: "Er zijn geen openstaande uitnodigingen die u kunt accepteren.",
+            invitations_expired: "Er zijn geen verlopen uitnodigingen of gesloten fondsen waar u zich voor hebt aangemeld.",
         },
         tabs: {
             active: 'Actief',
