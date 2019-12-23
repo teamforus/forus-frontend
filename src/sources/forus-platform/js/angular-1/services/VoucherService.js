@@ -73,6 +73,20 @@ module.exports = [
                     return params;
                 });
             };
+
+            this.sampleCSV = (voucher_type, product_id = null) => {
+                let headers = ['amount', 'expires_at', 'note', 'email'];
+                let values = [10, '2020-02-20', 'voorbeeld notitie', 'test@example.com'];
+
+                if (voucher_type != 'product_voucher') {
+                    return Papa.unparse([headers, values]);
+                }
+
+                headers.splice(1, 0, 'product_id');
+                values.splice(1, 0, product_id);
+
+                return Papa.unparse([headers, values]);
+            };
         });
     }
 ];

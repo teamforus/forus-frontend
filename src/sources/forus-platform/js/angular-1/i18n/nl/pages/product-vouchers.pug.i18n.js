@@ -9,6 +9,7 @@ module.exports = {
         expire_date: "Geldig tot",
         fund: "Fonds",
         granted: "Toegekend",
+        used: "In gebruik",
         note: "Notitie",
         search: "Zoeken",
         qr_code: "QR-Code",
@@ -18,6 +19,7 @@ module.exports = {
     buttons: {
         add_new: "Aanmaken",
         upload_csv: "Upload CSV",
+        download_csv: "Download voorbeeld CSV",
         clear_filter: "Wis filter"
     },
     csv: {

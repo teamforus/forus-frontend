@@ -50,7 +50,7 @@ let SignUpComponent = function(
         this.init = () => {
             if ($ctrl.signedIn) {
                 let step = this.getStep();
-    
+
                 if (step) {
                     this.setStep(step);
                 } else {
@@ -124,20 +124,20 @@ let SignUpComponent = function(
     $ctrl.buildOfficeForm = (values) => {
         return FormBuilderService.build(values, async (form) => {
             form.lock();
-            
+
             let promise;
-    
+
             if (officeMediaFile) {
                 let res = await MediaService.store('office_photo', officeMediaFile);
-    
+
                 $ctrl.officeMedia = res.data.data;
                 form.values.media_uid = $ctrl.officeMedia.uid;
-                
+
                 officeMediaFile = false;
             } else {
                 delete form.values.media_uid;
             }
-    
+
             if (form.values.id) {
                 promise = OfficeService.update(
                     $ctrl.organization.id,
@@ -150,7 +150,7 @@ let SignUpComponent = function(
                     form.values
                 )
             }
-            
+
             promise.then((res) => {
                 if (!form.values.id) {
                     $ctrl.offices.push(res.data.data);
@@ -158,7 +158,7 @@ let SignUpComponent = function(
                     // let office = $ctrl.offices.filter(
                     //     (office, index) => office.id == form.values.id
                     // )[0];
-                    
+
                     // for(let value in form.values) {
                     //     office[value] = form.values[value];
                     // }
@@ -173,7 +173,7 @@ let SignUpComponent = function(
                         }
                     );
                 }
-                
+
                 $ctrl.enableSaveOfficeBtn = false;
                 $ctrl.showAddOfficeBtn  = true;
                 $ctrl.showCancelBtn  = false;
@@ -191,9 +191,9 @@ let SignUpComponent = function(
     $ctrl.buildEmployeeForm = (values) => {
         return FormBuilderService.build(values, async (form) => {
             form.lock();
-    
+
             let promise;
-    
+
             // Role operation_officer
             form.values.roles = [5];
 
@@ -209,7 +209,7 @@ let SignUpComponent = function(
                     form.values
                 )
             }
-            
+
             promise.then((res) => {
                 if (!form.values.id) {
                     $ctrl.employees.push(res.data.data);
@@ -335,7 +335,7 @@ let SignUpComponent = function(
                 });
             });
         }
-        
+
         $ctrl.officeForm.values = angular.copy(office);
 
         $ctrl.enableSaveOfficeBtn = true;
@@ -362,7 +362,7 @@ let SignUpComponent = function(
     }
 
     $ctrl.saveOffice = () => {
-        $ctrl.officeForm = $ctrl.buildOfficeForm($ctrl.officeForm.values); 
+        $ctrl.officeForm = $ctrl.buildOfficeForm($ctrl.officeForm.values);
 
         $ctrl.officeForm.submit();
     };
@@ -375,7 +375,7 @@ let SignUpComponent = function(
     }
 
     $ctrl.setSameWeekDayHours = (week_days) => {
-        if ((week_days && $ctrl.officeForm.values.same_hours) || 
+        if ((week_days && $ctrl.officeForm.values.same_hours) ||
             (!week_days && $ctrl.officeForm.values.weekend_same_hours)
         ) {
             $ctrl.weekDays.forEach((weekDayKey, index) => {
@@ -383,11 +383,11 @@ let SignUpComponent = function(
                     if (typeof $ctrl.officeForm.values.scheduleDetails == 'undefined') {
                         $ctrl.officeForm.values.scheduleDetails = {};
                     }
-                    
+
                     if (typeof $ctrl.officeForm.values.scheduleDetails[index] == 'undefined') {
                         $ctrl.officeForm.values.scheduleDetails[index] = {};
                     }
-                    
+
                     $ctrl.officeForm.values.scheduleDetails[index].is_opened = true;
                 }
             });
@@ -399,11 +399,11 @@ let SignUpComponent = function(
             (!week_days && $ctrl.officeForm.values.weekend_same_hours)) &&
             typeof $ctrl.officeForm.values.schedule != 'undefined' &&
             typeof $ctrl.officeForm.values.schedule[week_days ? 0 : 5] != 'undefined'
-        ) { 
+        ) {
             let time = $ctrl.officeForm.values.schedule[week_days ? 0 : 5];
 
             $ctrl.weekDays.forEach((weekDayKey, index) => {
-                if (typeof $ctrl.officeForm.values.scheduleDetails != 'undefined' && 
+                if (typeof $ctrl.officeForm.values.scheduleDetails != 'undefined' &&
                     typeof $ctrl.officeForm.values.scheduleDetails[index] != 'undefined' &&
                     $ctrl.officeForm.values.scheduleDetails[index].is_opened &&
                     (week_days && index <= 4) || (!week_days && index >= 5)
@@ -423,12 +423,12 @@ let SignUpComponent = function(
             week_days = modifiedFieldIndex <= 4;
 
         $ctrl.weekDays.forEach((weekDayKey, index) => {
-            if (typeof $ctrl.officeForm.values.scheduleDetails != 'undefined' && 
+            if (typeof $ctrl.officeForm.values.scheduleDetails != 'undefined' &&
                 typeof $ctrl.officeForm.values.scheduleDetails[index] != 'undefined' &&
                 $ctrl.officeForm.values.scheduleDetails[index].is_opened &&
                 (week_days && index <= 4) || (!week_days && index >= 5)
             ) {
-                if ((week_days && !$ctrl.officeForm.values.same_hours) || 
+                if ((week_days && !$ctrl.officeForm.values.same_hours) ||
                     (!week_days && !$ctrl.officeForm.values.weekend_same_hours)
                 ) {
                     return;
@@ -437,7 +437,7 @@ let SignUpComponent = function(
                 if (typeof $ctrl.officeForm.values.schedule[index] == 'undefined') {
                     $ctrl.officeForm.values.schedule[index] = {};
                 }
-                
+
                 $ctrl.syncTwoDatesHours($ctrl.officeForm.values.schedule[index], time);
             }
         });
@@ -490,7 +490,7 @@ let SignUpComponent = function(
             if (time.length <= 2) {
                 return transformHours(time);
             } else {
-                return transformHours(time.substr(0, 2)) + ':' + 
+                return transformHours(time.substr(0, 2)) + ':' +
                     transformMinutes(time.substr(2, time.length - 2));
             }
         }
@@ -500,7 +500,7 @@ let SignUpComponent = function(
         $timeout(() => {
             let schedule = $ctrl.officeForm.values.schedule;
             let time = schedule[modifiedFieldIndex][key];
-            
+
             schedule[modifiedFieldIndex][key] = transformTime(time);
 
             $ctrl.syncTime(modifiedFieldIndex);
@@ -515,10 +515,10 @@ let SignUpComponent = function(
                 schedule[index] = {};
             }
 
-            $ctrl.officeForm.values.scheduleDetails[index].is_opened != 
+            $ctrl.officeForm.values.scheduleDetails[index].is_opened !=
                 schedule[index].is_opened;
 
-            if (!schedule[index].is_opened || 
+            if (!schedule[index].is_opened ||
                 typeof $ctrl.officeForm.values.schedule == 'undefined' ||
                 typeof $ctrl.officeForm.values.schedule[index] == 'undefined'
             ) {
@@ -536,7 +536,7 @@ let SignUpComponent = function(
             success: (data) => {
                 if (data.allow) {
                     $ctrl.employeeForm = $ctrl.buildEmployeeForm($ctrl.employeeForm.values);
-            
+
                     $ctrl.employeeForm.submit();
                 }
             }
@@ -678,7 +678,7 @@ let SignUpComponent = function(
                     $ctrl.signUpForm.unlock();
                     $ctrl.signUpForm.errors = res.data.errors;
                     $ctrl.organizationStep = true;
-                    
+
                     $ctrl.setStep(2);
                 });
 

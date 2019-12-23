@@ -5,7 +5,7 @@
         .card
             .card-section.card-section-narrow: .block.block-entity-overview
                 .entity-photo
-                    img(src="./assets/img/zuidhorn-logo.jpg").entity-photo-img
+                    img(ng-src="{{ $ctrl.fundProvider.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}").entity-photo-img
                     .entity-photo-abbr
                 .entity-details: .entity-title(ng-bind="$ctrl.fundProvider.organization.name")
             
@@ -70,7 +70,6 @@
                 | U kunt niet individuele producten uitzetten terwijl een globale instelling aan staat. 
                 | Zet de globale instelling uit om individuele producten goed te keuren.
             
-            .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") No products
             .card-section.card-section-padless: .table-wrapper: table.table
                 tr
                     th Naam
@@ -94,7 +93,7 @@
                             ng-model="product.allowed"
                             ng-change="$ctrl.updateAllowBudgetItem($ctrl.fundProvider, product)")
                         .form-toggle-inner: .toggle-input: .toggle-input-dot
-
+            .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")
                 paginator(meta="$ctrl.products.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
 
@@ -113,3 +112,15 @@
                 tr(ng-repeat="office in $ctrl.offices.data")
                     td(ng-bind="office.address || 'n/a'" ng-class="{'text-muted': !office.address}")
                     td(ng-bind="office.phone || 'n/a'" ng-class="{'text-muted': !office.phone}").text-right
+
+        //- Employees
+        .card
+            .card-section.card-section-narrow
+                .entity-details: .entity-title Medewerkers
+            
+            .card-section.card-section-padless: .table-wrapper: table.table
+                tr
+                    th E-Mailadres
+                
+                tr(ng-repeat="validator in $ctrl.fundProvider.validators")
+                    td(ng-bind="validator.email")         

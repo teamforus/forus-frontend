@@ -9,8 +9,22 @@ let VouchersComponent = function(
         $ctrl.ConfigService = ConfigService;
         $ctrl.cfg = {
             showAccountSidebar: ConfigService.getFlag('showAccountSidebar', true)
-        }
+        };
+
+        $ctrl.productVouchers = $ctrl.vouchers.filter(function(voucher) {
+            return voucher.type == 'product';
+        });
+
+        $ctrl.regularVouchers = $ctrl.vouchers.filter(function(voucher) {
+            return voucher.type == 'regular';
+        });
+
+        /* TODO fix */
+        $ctrl.expiredVouchers = $ctrl.vouchers.filter(function(voucher) {
+            return voucher.type == 'regular';
+        });
     };
+
 };
 
 module.exports = {

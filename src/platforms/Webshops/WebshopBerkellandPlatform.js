@@ -4,13 +4,8 @@ const destPath = '../dist/forus-webshop-berkelland.panel';
 // change platform name
 platform.setName('webshop_berkelland');
 
-// tweaking output and cleaned paths config
-platform.setDest(`${destPath}`);
-platform.setAssetsPath(`${destPath}/assets`);
-platform.setCleanPath([
-    `${destPath}`,
-    `${destPath}/assets`
-]);
+// change building root path
+platform.setDestRootPath(destPath);
 
 // assets configs
 platform.copyAsset("resources/_webshop-common/**/*", "./");

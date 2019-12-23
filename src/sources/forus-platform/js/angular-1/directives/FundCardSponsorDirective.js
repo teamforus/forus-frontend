@@ -1,62 +1,90 @@
+let sprintf = require('sprintf-js').sprintf;
+
 let FundCardDirective = function(
     $scope,
     $state,
     FundService,
     ModalService,
-    ProviderFundService
+    ProviderFundService,
+    PushNotificationsService,
+    PermissionsService
 ) {
+    let $dir = $scope.$dir = {};
     let topUpInProgress = false;
 
-    $scope.fundCategories = $scope.fund.product_categories.map((val) => {
-        return val.name;
-    });
+    $dir.fund = $scope.fund;
+    $dir.inviteProviders = $scope.inviteProviders || false;
+    $dir.canTopUpFund = $dir.fund.key && $dir.fund.state != 'closed';
+    $dir.canAccessFund = $scope.fund.state != 'closed';
+    $dir.canInviteProviders = ($dir.fund.organization && PermissionsService.hasPermission(
+            $dir.fund.organization, 'manage_funds')
+        ) && $scope.fund.state != 'closed' && $dir.inviteProviders;
 
-    $scope.changeState = function(state) {
+    $dir.changeState = function(state) {
         FundService.changeState($scope.fund, state).then((res) => {
             $scope.fund = res.data.data;
         });
     };
 
-    $scope.providerApplyFund = function(fund) {
+    $dir.providerApplyFund = function(fund) {
         ProviderFundService.applyForFund(
             $scope.organization.id,
             $scope.fund.id
-        ).then(function(res) {
-            $state.reload();
-        });
+        ).then(() => $state.reload());
     };
 
-    $scope.topUpModal = () => {
-        if (topUpInProgress) return;
+    $dir.topUpModal = () => {
+        if (!topUpInProgress) {
+            topUpInProgress = true;
 
-        topUpInProgress = true;
-
-        ModalService.open('fundTopUp', {
-            fund: $scope.fund
-        }, {
-            onClose: () => topUpInProgress = false
-        });
+            ModalService.open('fundTopUp', {
+                fund: $scope.fund
+            }, {
+                onClose: () => topUpInProgress = false
+            });
+        }
     };
 
-    $scope.deleteFund = function(fund) {
-
+    $dir.deleteFund = function(fund) {
         ModalService.open('modalNotification', {
             type: 'confirm',
             title: 'fund_card_sponsor.confirm_delete.title',
             icon: 'product-error',
             description: 'fund_card_sponsor.confirm_delete.description',
-            confirm: () => {
-                FundService.destroy(
-                    fund.organization_id,
-                    fund.id
-                ).then(function(res) {
-                    $state.reload();
-                });
-            }
+            confirm: () => FundService.destroy(
+                fund.organization_id,
+                fund.id
+            ).then(() => $state.reload())
         });
     };
 
-    $scope.fundOrg = $scope.fund.organization;
+    $dir.inviteProvider = () => {
+        if ($dir.canInviteProviders) {
+            ModalService.open('fundInviteProviders', {
+                fund: $scope.fund,
+                confirm: (res) => {
+                    PushNotificationsService.success(
+                        "Aanbiders uitgenodigd!",
+                        sprintf("%s uitnodigingen verstuurt naar aanbieders!", res.length),
+                    ) & $state.reload();
+                }
+            });
+        }
+    };
+
+    $dir.goToEmployeePage = () => {
+        $state.go('employees', {
+            organization_id: $dir.fund.organization.id
+        });
+    }
+
+    $dir.goToCSVValiationPage = () => {
+        if ($dir.canAccessFund) {
+            $state.go('csv-validation', {
+                fund_id: $dir.fund.id
+            });
+        }
+    }
 };
 
 module.exports = () => {
@@ -64,7 +92,8 @@ module.exports = () => {
         scope: {
             organization: '=',
             fund: '=',
-            level: '='
+            level: '=',
+            inviteProviders: '<'
         },
         restrict: "EA",
         replace: true,
@@ -74,6 +103,8 @@ module.exports = () => {
             'FundService',
             'ModalService',
             'ProviderFundService',
+            'PushNotificationsService',
+            'PermissionsService',
             FundCardDirective
         ],
         templateUrl: 'assets/tpl/directives/fund-card-sponsor.html'

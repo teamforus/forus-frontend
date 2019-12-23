@@ -1,6 +1,6 @@
 let ModalAuthComponent = function(
-    $state,
     $q,
+    $state,
     ModalService,
     FormBuilderService,
     PrevalidationService,
@@ -84,6 +84,7 @@ let ModalAuthComponent = function(
             
             if (typeof code == 'string') {
                 code = code.replace(/o|O/g, "0");
+                code = code.substring(0, 4) + '-' +  code.substring(4);
             }
 
             form.lock();
@@ -161,8 +162,8 @@ module.exports = {
         modal: '='
     },
     controller: [
-        '$state',
         '$q',
+        '$state',
         'ModalService',
         'FormBuilderService',
         'PrevalidationService',

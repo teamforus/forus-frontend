@@ -31,6 +31,7 @@ module.exports = {
         berkelland: 'Berkelland',
         oostgelre: 'Oostgelre',
         winterswijk: 'Winterswijk',
+        noordoostpolder: 'Meedoenpakket'
     },
     languages: {
         en: 'English',
@@ -59,6 +60,7 @@ module.exports = {
     voucher: require("./nl/pages/voucher"),
     vouchers: require("./nl/pages/vouchers"),
     notification_preferences: require("./nl/pages/notification-preferences"),
+    voucher_printable: require('./nl/pages/voucher-printable'),
 
     // MODALS
     popup_auth: require("./nl/modals/modal-auth"),

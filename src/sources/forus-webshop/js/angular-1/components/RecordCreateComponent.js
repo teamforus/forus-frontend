@@ -1,15 +1,8 @@
 let RecordCreateComponent = function(
     $state,
-    $element,
-    $rootScope,
     $timeout,
-    CredentialsService,
-    IdentityService,
-    AuthService,
-    ValidatorRequestService,
     RecordService,
-    FormBuilderService,
-    appConfigs
+    FormBuilderService
 ) {
     let $ctrl = this;
 
@@ -46,16 +39,9 @@ module.exports = {
     },
     controller: [
         '$state',
-        '$element',
-        '$rootScope',
         '$timeout',
-        'CredentialsService',
-        'IdentityService',
-        'AuthService',
-        'ValidatorRequestService',
         'RecordService',
         'FormBuilderService',
-        'appConfigs',
         RecordCreateComponent
     ],
     templateUrl: 'assets/tpl/pages/record-create.html'

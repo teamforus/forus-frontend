@@ -26,7 +26,9 @@ let BlockProductsDirective = async function(
     };
 
     if ($scope.sample) {
-        ProductService.sample().then((res) => $scope.products = res.data);
+        ProductService.sample($scope.fund ? {
+            fund_id: $scope.fund.id
+        } : {}).then((res) => $scope.products = res.data);
     } else {
         ProductService.list().then((res => {
             $scope.products = res.data.data;
@@ -55,6 +57,7 @@ module.exports = () => {
     return {
         scope: {
             sample: '=',
+            fund: '=?',
         },
         restrict: "EA",
         replace: true,

@@ -2,6 +2,7 @@ module.exports = {
     items: {
         funds:"FONDSEN",
         products:"AANBIEDINGEN",
+        providers:"AANBIEDERS",
         identity:"Profiel",
     },
     buttons: {

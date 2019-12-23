@@ -1,7 +1,7 @@
 let BaseController = function(
-    $rootScope,
-    $state,
     $q,
+    $state,
+    $rootScope,
     $window,
     $translate,
     IdentityService,
@@ -100,9 +100,9 @@ let BaseController = function(
 };
 
 module.exports = [
-    '$rootScope',
-    '$state',
     '$q',
+    '$state',
+    '$rootScope',
     '$window',
     '$translate',
     'IdentityService',

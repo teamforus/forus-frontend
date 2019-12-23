@@ -3,7 +3,7 @@ let EmailPreferencesComponent = function(
     AuthService,
     ModalService,
     EmailPreferencesService,
-    FormBuilderService,
+    PushNotificationsService,
     appConfigs
 ) {
     let $ctrl = this;
@@ -13,17 +13,32 @@ let EmailPreferencesComponent = function(
 
     if(appConfigs.panel_type == 'sponsor'){
         keysEditableOnDashboard = [
-            'funds.provider_applied', 'funds.balance_warning', 'funds.product_added'
+            'funds.provider_applied', 
+            'funds.balance_warning', 
+            'funds.product_added',
+            'employee.created',
+            'employee.deleted'
         ];
     }
     if (appConfigs.panel_type == 'provider'){
         keysEditableOnDashboard = [
-            'funds.new_fund_started', 'funds.new_fund_applicable', 'funds.provider_approved', 'funds.provider_rejected', 'funds.product_reserved', 'funds.product_sold_out'
+            'funds.new_fund_started', 
+            'funds.new_fund_applicable', 
+            'funds.provider_approved', 
+            'funds.provider_rejected', 
+            'funds.product_reserved', 
+            'funds.product_sold_out',
+            'bunq.transaction_success',
+            'employee.created',
+            'employee.deleted'
         ];
     }
     if (appConfigs.panel_type == 'validator'){
         keysEditableOnDashboard = [
-            'validations.new_validation_request','validations.you_added_as_validator'
+            'validations.new_validation_request',
+            'validations.you_added_as_validator',
+            'employee.created',
+            'employee.deleted'
         ];
     }
 
@@ -35,26 +50,6 @@ let EmailPreferencesComponent = function(
         });
     };
 
-    $ctrl.buildForm = (preferences) => {
-        $ctrl.form = FormBuilderService.build(preferences, (form) => {
-            form.lock();
-
-            EmailPreferencesService.update({
-                email_unsubscribed: $ctrl.email_unsubscribed,
-                preferences: form.values
-            }).then(res => {
-                form.unlock();
-                ModalService.open('modalNotification', {
-                    type: 'action-result',
-                    description: `Succesvol e-mail voorkeuren geüpdate ${$ctrl.email}`,
-                });
-            }, (res) => {
-                form.unlock();
-                form.errors = res.data.errors;
-            });
-        });
-    };
-
     $ctrl.enableSubscription = () => {
         return toggleSubscription(false);
     };
@@ -63,24 +58,39 @@ let EmailPreferencesComponent = function(
         return toggleSubscription(true);
     };
 
+    $ctrl.togglePreferenceOption = () => {
+        EmailPreferencesService.update({
+            email_unsubscribed: $ctrl.email_unsubscribed,
+            preferences: $ctrl.preferences
+        }).then(res => {
+            PushNotificationsService.success('Opgeslagen!');
+        });
+    }
+
     $ctrl.$onInit = () => {
         if (AuthService.hasCredentials()) {
             return EmailPreferencesService.get().then(res => {
                 $ctrl.email = res.data.data.email;
-                $ctrl.preferences = res.data.data.preferences.filter(preference => {
-                    return keysEditableOnDashboard.indexOf(preference.key) != -1;
+
+                $ctrl.emailPreferences = res.data.data.preferences.filter(preference => {
+                    return keysEditableOnDashboard.indexOf(preference.key) != -1 && preference.type == 'email';
                 });
+
+                $ctrl.pushPreferences = res.data.data.preferences.filter(preference => {
+                    return keysEditableOnDashboard.indexOf(preference.key) != -1 && preference.type == 'push';
+                });
+
+                $ctrl.preferences = $ctrl.emailPreferences.concat($ctrl.pushPreferences);
+
                 $ctrl.email_unsubscribed = res.data.data.email_unsubscribed;
                 $ctrl.loaded = true;
-                
-                $ctrl.buildForm($ctrl.preferences);
             })
         }
 
         ModalService.open('modalNotification', {
             type: 'action-result',
-            title: "Authentification required.",
-            description: `U moet inloggen om uw e-mailvoorkeuren te kunnen instellen.`,
+            title: "U bent niet ingelogd.",
+            description: `U zal moeten inloggen om uw notificatie instellingen te kunnen aanpassen.`,
         });
 
         $state.go('home');
@@ -93,7 +103,7 @@ module.exports = {
         'AuthService',
         'ModalService',
         'EmailPreferencesService',
-        'FormBuilderService',
+        'PushNotificationsService',
         'appConfigs',
         EmailPreferencesComponent
     ],

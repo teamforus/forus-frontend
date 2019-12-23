@@ -3,6 +3,7 @@ let OrganizationProvidersComponent = function(
     $scope,
     $state,
     $stateParams,
+    $timeout,
     FundService,
     FileService,
     OrganizationService,
@@ -130,7 +131,9 @@ let OrganizationProvidersComponent = function(
     $ctrl.exportList = () => {
         OrganizationService.listProvidersExport(
             $ctrl.organization.id,
-            $ctrl.filters.values
+            Object.assign({}, $ctrl.filters.values, {
+                dismissed: $ctrl.filters.values.dismissed ? 1 : 0
+            })
         ).then((res => {
             FileService.downloadFile(
                 'providers_' + org + '_' + moment().format(
@@ -166,7 +169,9 @@ let OrganizationProvidersComponent = function(
         $ctrl.resetFilters();
 
         $scope.onPageChange().then(() => {
-            $ctrl.loaded = true;
+            $timeout(() => {
+                $ctrl.loaded = true;
+            }, 0);
 
             if ($ctrl.funds.length == 1) {
                 $state.go('organization-providers', {
@@ -190,6 +195,7 @@ module.exports = {
         '$scope',
         '$state',
         '$stateParams',
+        '$timeout',
         'FundService',
         'FileService',
         'OrganizationService',

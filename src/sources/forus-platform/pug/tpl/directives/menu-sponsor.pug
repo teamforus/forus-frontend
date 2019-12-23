@@ -22,15 +22,16 @@ aside.app.app-sidebar
             '{organization_id: $root.activeOrganization.id}', 
             '$root.activeOrganization | hasPerm:["manage_funds","view_finances","view_funds"]:false')
 
-        +nav_item(
-            "Vouchers", "vouchers", 'vouchers', 
-            '{organization_id: $root.activeOrganization.id}',
-            '$root.activeOrganization | hasPerm:["manage_vouchers"]')
+        if (!qdt_c.platform.env_data.hide_voucher_generators)
+            +nav_item(
+                "Vouchers", "vouchers", 'vouchers', 
+                '{organization_id: $root.activeOrganization.id}',
+                '$root.activeOrganization | hasPerm:["manage_vouchers"]')
 
-        +nav_item(
-            "Aanbiedingsvouchers", "productvoucher", 'product-vouchers', 
-            '{organization_id: $root.activeOrganization.id}',
-            '$root.activeOrganization | hasPerm:["manage_vouchers"]')
+            +nav_item(
+                "Aanbiedingsvouchers", "productvoucher", 'product-vouchers', 
+                '{organization_id: $root.activeOrganization.id}',
+                '$root.activeOrganization | hasPerm:["manage_vouchers"]')
 
         +nav_item(
             "Transacties", "transactions", 'transactions', 

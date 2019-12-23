@@ -5,7 +5,8 @@
     //- Sign In by qr-code
     .modal-window: .modal-content
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-        .block.block-auth-widget
+        
+        .block.block-auth-widget(ng-if="!$ctrl.restoreWithDigId")
             .auth-title Login met e-mail
             .auth-subtitle {{ "popup_auth.labels.link" | translate }}
 
@@ -14,6 +15,10 @@
                     input(ng-model="$ctrl.signInEmailForm.values.primary_email" type="email" placeholder="E-mail").form-control.email-auth
                     .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.primary_email" ng-bind="error")
                 .flex-col: button(type="submit").button.button-primary Login
+
+            .auth-digid(ng-if="$ctrl.digidAvailable"): a(ng-click="$ctrl.useDigId()").auth-digid-link
+                | Account herstellen door in te loggen met DigiD
+                em.mdi.mdi-chevron-right
 
             .auth-qr_code.hidden-xs
                 .qr_code-container
@@ -33,3 +38,25 @@
                         ng-if="$ctrl.qrValue" 
                         qr-value="$ctrl.qrValue" 
                         qr-type="auth_token" qr-logo=src_prefix + "./assets/img/me-logo.png")
+    
+        .block.block-auth-widget(ng-if="$ctrl.restoreWithDigId")
+            .auth-digid-form
+                .auth-title 
+                    | Account herstellen met DigiD
+                    br
+                .auth-subtitle 
+                    | Wanneer u eerder heeft ingelogd met DigiD kunt u uw account 
+                    | herstellen door opnieuw hiermee in te loggen.
+                    br
+                .auth-subtitle 
+                    .button.modal-button-digid-icon &nbsp;
+                    .button.button-primary(ng-click="$ctrl.startDigId()") Login met DigID
+
+        .block.block-auth-widget(ng-if="$ctrl.restoreWithDigId && $ctrl.restoreWithDigIdFailed")
+            .auth-digid-message
+                .digid-icon: .mdi.mdi-alert-outline
+                .digid-title Mislukt!
+                .digid-message
+                    | Uw BSN-nummer is niet bekend in het systeem.
+                    br
+                    | Probeer een ander DigiD-account of meld u opnieuw aan.

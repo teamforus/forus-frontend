@@ -1,19 +1,21 @@
-let PrintableService = function(PrintableRoute, $timeout) {
+let PrintableService = function(
+    PrintableRoute, $timeout
+) {
     let printables = {
         list: []
     };
     let printableKeys = Object.keys(PrintableRoute.printables());
 
-     this.printableKeyExists = (key) => {
+    this.printableKeyExists = (key) => {
         return printableKeys.indexOf(key) !== -1;
     };
 
-     this.open = (key, scope, events) => {
+    this.open = (key, scope, events) => {
         if (!this.printableKeyExists(key)) {
             throw new Error(`Unknown printable key "${key}".`);
         }
 
-         $timeout(() => {
+        $timeout(() => {
             printables.list.push({
                 key: key,
                 scope: scope,
@@ -22,17 +24,17 @@ let PrintableService = function(PrintableRoute, $timeout) {
         }, 0);
     };
 
-     this.close = (printable) => {
+    this.close = (printable) => {
         if (printables.list.indexOf(printable) !== -1) {
             printables.list.splice(printables.list.indexOf(printable), 1);
         }
     };
 
-     this.getPrintables = () => {
+    this.getPrintables = () => {
         return printables.list;
     };
 };
 
- module.exports = ['PrintableRoute', '$timeout', function(PrintableRoute, $timeout) {
-    return new PrintableService(PrintableRoute, $timeout);
-}]; 
+module.exports = ['PrintableRoute', '$timeout', (
+    PrintableRoute, $timeout
+) => new PrintableService(PrintableRoute, $timeout)];

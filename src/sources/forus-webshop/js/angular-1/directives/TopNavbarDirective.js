@@ -5,6 +5,9 @@ let TopNavbarDirective = function(
     ConfigService
 ) {
     $scope.mobileMenu = false;
+    $scope.$ctrl = {
+        userMenuOpened: false
+    };
     
     $scope.openAuthPopup = function () {
         ModalService.open('modalAuth', {});
@@ -21,6 +24,14 @@ let TopNavbarDirective = function(
     $scope.openAuthCodePopup = function () {
         ModalService.open('modalAuthCode', {});
     };
+    
+    $scope.showPopupOffices = function() {
+        ModalService.open('modalOffices', {});
+    };
+
+    $scope.showPopupOffices = function() {
+        ModalService.open('modalOffices', {});
+    };
 
     $scope.cfg = {
         logoExtension: ConfigService.getFlag('logoExtension'),
@@ -33,6 +44,19 @@ let TopNavbarDirective = function(
         $translate.use(lang);
         $scope.i18nActive = $translate.use();
     };
+
+    $scope.$ctrl.openUserMenu = (e) => {
+        e.originalEvent.stopPropagation();
+        e.originalEvent.preventDefault();
+        
+        $scope.$ctrl.userMenuOpened = !$scope.$ctrl.userMenuOpened;
+    }
+
+    $scope.$ctrl.hideUserMenu = () => {
+        $scope.$apply(() => {
+            $scope.$ctrl.userMenuOpened = false;
+        });
+    }
 };
 
 module.exports = () => {

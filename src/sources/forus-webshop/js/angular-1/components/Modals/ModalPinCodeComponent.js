@@ -1,5 +1,4 @@
 let ModalPinCodeComponent = function(
-    $filter,
     IdentityService,
     FormBuilderService,
     ModalService
@@ -50,7 +49,6 @@ module.exports = {
         modal: '='
     },
     controller: [
-        '$filter',
         'IdentityService',
         'FormBuilderService',
         'ModalService',
