@@ -1,5 +1,5 @@
 module.exports = {
-    title: "Aanbiedings",
+    title: "Aanbiedingen",
     title_assign: "Toekennen aan account",
     labels: {
         name: 'Naam',
