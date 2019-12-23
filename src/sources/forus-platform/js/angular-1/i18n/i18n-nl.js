@@ -915,9 +915,9 @@ module.exports = {
             stopped: "Gestopt",
             accepted_only_products: "Geaccepteerd: alleen aanbiedingen",
             accepted_only_specific_products: "Geaccepteerd: specifieke aanbiedingen",
-            pending: "Invited",
-            expired: "Expired",
-            accepted: "Accepted"
+            pending: "Uitgenodigd",
+            expired: "Verlopen",
+            accepted: "Geaccepteerd"
         },
         labels: {
             categories: "Categorieën",
@@ -925,19 +925,19 @@ module.exports = {
             date: "Begindatum / Einddatum",
             max_amount: "Maximale bedrag per voucher",
             closed: "Gesloten",
-            accept_invitation: "Accept invitation",
-            allow_budget: "Allow budget",
-            allow_products: "Allow products"
+            accept_invitation: "Accepteer uitnodiging",
+            allow_budget: "Geaccepteerd",
+            allow_products: "Geaccepteerd: alle aanbiedingen"
         },
         empty_block: {
-            available: "No available funds",
-            active: "No active funds",
-            invitations: "No pending invitations",
-            invitations_expired: "No expired invitations",
+            available: "Geen beschikbare fondsen",
+            active: "Geen actieve fondsen",
+            invitations: "Geen uitnodigingen",
+            invitations_expired: "Geen verlopen uitnodigingen",
         },
         tabs: {
             active: 'Actief',
-            invitations: 'Invitaties',
+            invitations: 'Uitnodigingen',
             available: 'Beschikbaar',
             expired: 'Verloopt',
         }
