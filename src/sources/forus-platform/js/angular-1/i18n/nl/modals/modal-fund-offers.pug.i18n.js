@@ -2,11 +2,11 @@ module.exports = {
     title: "Aanbiedings",
     title_assign: "Toekennen aan account",
     labels: {
-        name: 'Name',
-        stock: 'Stock',
-        price: 'Price',
+        name: 'Naam',
+        stock: 'Aanbod',
+        price: 'Prijs',
         status: 'Status',
-        available: 'Available',
-        rejected: 'Rejected',
+        available: 'Beschikbaar',
+        rejected: 'Geweigerd',
     },
 };
