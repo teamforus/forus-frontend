@@ -923,11 +923,11 @@ module.exports = {
             categories: "Categorieën",
             nocategories: "Geen Categorieën",
             date: "Begindatum / Einddatum",
-            max_amount: "Maximale bedrag per voucher",
+            max_amount: "Maximaal tegoed per voucher",
             closed: "Gesloten",
-            accept_invitation: "Accepteer uitnodiging",
-            allow_budget: "Geaccepteerd",
-            allow_products: "Geaccepteerd: alle aanbiedingen"
+            accept_invitation: "Accepteren",
+            allow_budget: "Scan tegoed op voucher",
+            allow_products: "Scan geplaatste aanbiedingen"
         },
         empty_block: {
             available: "Geen beschikbare fondsen",
