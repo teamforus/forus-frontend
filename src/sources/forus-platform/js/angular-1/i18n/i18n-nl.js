@@ -939,7 +939,7 @@ module.exports = {
             active: 'Actief',
             invitations: 'Uitnodigingen',
             available: 'Beschikbaar',
-            expired: 'Verloopt',
+            expired: 'Archief',
         }
     },
 
