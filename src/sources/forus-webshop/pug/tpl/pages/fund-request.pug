@@ -123,6 +123,7 @@ section.section.section-product: .wrapper
                         i18n="fund_request.sign_up.pane.footer.prev")
                         em.mdi.mdi-chevron-left.icon-left
                     .col.col-lg-6.text-right: .button.button-text.button-text-padless(
+                        ng-if="$ctrl.showBtnNext"
                         ng-click="$ctrl.nextStep()"
                         i18n="fund_request.sign_up.pane.footer.next")
                         em.mdi.mdi-chevron-right.icon-right

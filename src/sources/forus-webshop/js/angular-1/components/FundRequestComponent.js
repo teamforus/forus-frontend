@@ -32,6 +32,7 @@ let FundRequestComponent = function(
     $ctrl.errorReason = false;
     $ctrl.finishError = false;
     $ctrl.bsnIsKnown = true;
+    $ctrl.showBtnNext = false;
 
     let timeout = null;
     let stopTimeout = null;
@@ -44,6 +45,7 @@ let FundRequestComponent = function(
     $ctrl.startDigId = () => {
         DigIdService.startFundRequst($ctrl.fund.id).then(res => {
             document.location = res.data.redirect_url;
+            $ctrl.showBtnNext = true;
         }, console.error);
     };
 
