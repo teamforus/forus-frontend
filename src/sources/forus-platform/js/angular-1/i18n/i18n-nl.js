@@ -926,7 +926,9 @@ module.exports = {
             closed: "Gesloten",
             accept_invitation: "Accepteren",
             allow_budget: "Scan tegoed op voucher",
-            allow_products: "Scan geplaatste aanbiedingen"
+            allow_products: "Scan geplaatste aanbiedingen",
+            allow_some_products: "Scan specifieke aanbiedingen",
+            view_products: "Kijk aanbiedings"
         },
         empty_block: {
             available: "Er zijn geen beschikbare fondsen waar u zich voor kunt aanmelden.",
@@ -939,6 +941,12 @@ module.exports = {
             invitations: 'Uitnodigingen',
             available: 'Beschikbaar',
             expired: 'Archief',
+        },
+        title: {
+            available: "Beschikbare fondsen",
+            active: "Actieve fondsen",
+            invitations: "Uitnodigingen",
+            invitations_expired: "Archief",
         }
     },
 

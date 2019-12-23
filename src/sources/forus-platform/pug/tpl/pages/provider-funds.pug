@@ -3,26 +3,26 @@
     section.app.app-content
         .card-heading.card-heading-funds.flex-row
             .flex-col.flex-grow
-                span(translate="provider_funds_available.title")
+                span(translate="fund_card_provider.title.{{ $ctrl.shownFundsType }}")
                 span(ng-bind="' (' + ($ctrl.getActiveFundsCount($ctrl.shownFundsType)) + ')'")
 
-            .flex-col: .block.block-label-tabs: .label-tab-set
+            .flex-col: .block.block-label-tabs.nowrap: .label-tab-set
                 .label-tab.label-tab-sm(
                     ng-class="{'active' : $ctrl.shownFundsType == 'active'}" 
-                    ng-click="$ctrl.filterByFundStatus('active')"
-                    translate="fund_card_provider.tabs.active")
-                .label-tab.label-tab-sm(
-                    ng-class="{'active' : $ctrl.shownFundsType == 'invitations'}" 
-                    ng-click="$ctrl.filterByFundStatus('invitations')"
-                    translate="fund_card_provider.tabs.invitations")
+                    ng-click="$ctrl.filterByFundStatus('active')")
+                    | {{ "fund_card_provider.tabs.active" | translate }} ({{ $ctrl.funds.length }})
                 .label-tab.label-tab-sm(
                     ng-class="{'active' : $ctrl.shownFundsType == 'available'}" 
-                    ng-click="$ctrl.filterByFundStatus('available')"
-                    translate="fund_card_provider.tabs.available")
+                    ng-click="$ctrl.filterByFundStatus('available')")
+                    | {{ "fund_card_provider.tabs.available" | translate }} ({{ $ctrl.fundsAvailable.length }}) 
+                .label-tab.label-tab-sm(
+                    ng-class="{'active' : $ctrl.shownFundsType == 'invitations'}" 
+                    ng-click="$ctrl.filterByFundStatus('invitations')") 
+                    | {{ "fund_card_provider.tabs.invitations" | translate }} ({{ $ctrl.fundAvailableInvitations.length }})
                 .label-tab.label-tab-sm(
                     ng-class="{'active' : $ctrl.shownFundsType == 'invitations_expired'}" 
-                    ng-click="$ctrl.filterByFundStatus('invitations_expired')"
-                    translate="fund_card_provider.tabs.expired")
+                    ng-click="$ctrl.filterByFundStatus('invitations_expired')")
+                    | {{ "fund_card_provider.tabs.expired" | translate }} ({{ $ctrl.fundExpiredInvitations.length }}) 
         fund-card-available-provider(
             ng-if="$ctrl.shownFundsType == 'available' && $ctrl.fundsAvailable.length > 0" 
             ng-repeat="fund in $ctrl.fundsAvailable"  

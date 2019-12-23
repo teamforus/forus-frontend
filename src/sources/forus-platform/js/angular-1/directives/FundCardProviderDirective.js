@@ -7,6 +7,10 @@ let FundCardProviderDirective = function(
     $scope.fundCategories = $scope.fund.product_categories.map((val) => {
         return val.name;
     });
+
+    $scope.shownProductType = $scope.providerFund.allow_some_products && 
+        !$scope.providerFund.allow_products ?
+        'allow_some_products' : 'allow_products';
     
     $scope.viewOffers = () => {
         ProductService.list($scope.organization.id).then(res => {

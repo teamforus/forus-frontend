@@ -4,15 +4,6 @@
             div(ng-show="!providerFund.allow_budget && !providerFund.allow_products && !providerFund.allow_some_products")
                 .tag.tag-warning(translate="fund_card_provider.status.hold")
 
-            div(ng-show="providerFund.allow_budget")
-                .tag.tag-success(translate="fund_card_provider.status.accepted")
-
-            div(ng-show="!providerFund.allow_budget && providerFund.allow_products")
-                .tag.tag-success(translate="fund_card_provider.status.accepted_only_products")
-
-            div(ng-show="!providerFund.allow_budget && !providerFund.allow_products && providerFund.allow_some_products")
-                .tag.tag-success(translate="fund_card_provider.status.accepted_only_specific_products")
-
         .card-block.card-block-fund.card-block-fund-margin-bottom
             .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}", alt="")
             .fund-title(ng-if="fund.organization | hasPerm:['manage_funds']" ng-bind="fund.name")
@@ -48,10 +39,12 @@
 
                 .col.col-md-4
                     .card-block-listing-item
-                        .card-block-listing-label(translate="fund_card_provider.labels.allow_products")
+                        .card-block-listing-label(
+                            translate="fund_card_provider.labels.{{ shownProductType }}")
                         .tag.tag-sm(
-                            ng-class="'tag-' + (providerFund.allow_products ? 'success' : 'warning')" 
-                            ng-bind="providerFund.allow_products ? 'Ja' : 'Nee'")  
+                            ng-class="'tag-' + (providerFund[shownProductType] ? 'success' : 'warning')" 
+                            ng-bind="providerFund[shownProductType] ? 'Ja' : 'Nee'")  
 
-                .col.col-md-3(ng-if="fund.state != 'closed'") 
-                    .button.button-default.pull-right(ng-if="providerFund.allow_budget" ng-click="viewOffers()") Kijk aanbiedings
+                .col.col-md-3(ng-if="fund.state != 'closed' && providerFund.allow_some_products") 
+                    .button.button-default.pull-right(ng-click="viewOffers()"
+                    translate="fund_card_provider.labels.view_products")

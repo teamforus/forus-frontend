@@ -20,6 +20,9 @@ let ProviderFundsComponent = function(
             'declined': 2,
         };
 
+        $ctrl.shownFundsType = $stateParams.fundsType || 
+            ($ctrl.funds.length ? 'active' : 'available');
+
         $ctrl.fundAvailableInvitations = $ctrl.fundInvitations.filter(
             fundInvitation => !fundInvitation.expired
         );
