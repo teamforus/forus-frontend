@@ -1,7 +1,7 @@
 .app.app-container
     menu
     section.app.app-content
-        div(fund-card-sponsor fund="$ctrl.fund" level="$ctrl.fundLevel")
+        fund-card-sponsor(fund="$ctrl.fund" organization="$ctrl.fund.organization" level="$ctrl.fundLevel")
 
         //-.card
             .card-header: .card-title {{ "funds_show.criterion" | translate }}

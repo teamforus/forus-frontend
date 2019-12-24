@@ -48,7 +48,7 @@
                     
                     .form-group.form-group-inline.tooltipped
                         label.form-label(translate="product_edit.labels.total")
-                        .form-offset(ng-if="$ctrl.product && $ctrl.product.unlimited_stock"): .form-value.text-muted Unlimited stock
+                        .form-offset(ng-if="$ctrl.product && $ctrl.product.unlimited_stock"): .form-value.text-muted(translate="product_edit.labels.stock_unlimited")
                         .form-offset(ng-if="!$ctrl.product || ($ctrl.product && !$ctrl.product.unlimited_stock)"): .row
                             .col.col-lg-7: input(
                                 ng-model="$ctrl.form.values.total_amount" 
@@ -59,7 +59,7 @@
                                 input(type="checkbox" id="unlimited_stock" ng-model="$ctrl.form.values.unlimited_stock")
                                 label(for="unlimited_stock").checkbox-label
                                     .checkbox-box: em.mdi.mdi-check
-                                    | Onbeperkt aanbod
+                                    | {{ "product_edit.labels.stock_unlimited" | translate }}
                         .form-error(ng-repeat="error in $ctrl.form.errors.total_amount" ng-bind="error")
                     
                     .form-group.form-group-inline(ng-if="$ctrl.product && !$ctrl.product.unlimited_stock")

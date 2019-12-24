@@ -503,6 +503,7 @@ module.exports = {
             sold: "Verkocht",
             stock: "Nog te koop / Totaal",
             stock_amount: "Nog te koop",
+            stock_unlimited: "Onbeperkt aanbod",
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
         },
@@ -911,6 +912,8 @@ module.exports = {
             accepted: "Geaccepteerd",
             reject: "Geweigerd",
             stopped: "Gestopt",
+            accepted_only_products: "Geaccepteerd: alleen aanbiedingen",
+            accepted_only_specific_products: "Geaccepteerd: specifieke aanbiedingen",
         },
         labels: {
             categories: "Categorieën",
@@ -929,7 +932,8 @@ module.exports = {
             restart: "Herstart",
             pause: "Pauze",
             add: "Budget toevoegen",
-            delete: 'Verwijderen'
+            delete: 'Verwijderen',
+            invite_providers: 'Aanbieders'
         },
         status: {
             active: "Actief",

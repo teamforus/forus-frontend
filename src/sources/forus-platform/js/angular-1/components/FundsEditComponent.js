@@ -162,15 +162,17 @@ let FundsEditComponent = function(
             per_page: 1000,
             unlimited_stock: 1,
         }).then(res => {
-            $ctrl.products = res.data.data.map(product => ({
+            $ctrl.form.products = $ctrl.products = res.data.data.map(product => ({
                 id: product.id,
                 price: product.price,
                 name: `${product.name} - €${product.price} (${product.organization.name})`,
             }));
 
-            $ctrl.form.products = $ctrl.products.filter(
-                product => $ctrl.form.values.formula_products.indexOf(product.id) != -1
-            );
+            if ($rootScope.appConfigs.features.organizations.funds.formula_products) {
+                $ctrl.form.products = $ctrl.form.products.filter(
+                    product => $ctrl.form.values.formula_products.indexOf(product.id) != -1
+                );
+            }
 
             $ctrl.updateProductOptions();
         }, console.error);
