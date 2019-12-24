@@ -1,5 +1,5 @@
-let FundCardAvailableProviderDirective = function(
-    $scope, 
+let FundCardAvailableProviderDirective = function (
+    $scope,
     $state,
     $filter,
     ProviderFundService,
@@ -10,18 +10,15 @@ let FundCardAvailableProviderDirective = function(
         return val.name;
     });
 
-    $scope.providerApplyFund = function(fund) {
-
+    $scope.providerApplyFund = function (fund) {
         OfficeService.list(
             $scope.organization.id
-        ).then(function(res) {
-
-            if(res.data.data.length) {
+        ).then(function (res) {
+            if (res.data.data.length) {
                 ProviderFundService.applyForFund(
                     $scope.organization.id,
                     $scope.fund.id
                 ).then(function (res) {
-
                     ModalService.open('modalNotification', {
                         type: 'info',
                         title: 'provider_funds_available.applied_for_fund.title',
@@ -29,11 +26,13 @@ let FundCardAvailableProviderDirective = function(
                         icon: 'fund_applied',
                         closeBtnText: 'modal.buttons.confirm',
                     }, {
-                        onClose: () => $state.reload()
+                        onClose: () => $state.go($state.current, {
+                            fundsType: 'available'
+                        }, { reload: true })
                     });
 
                 });
-            }else{
+            } else {
                 ModalService.open('modalNotification', {
                     type: 'danger',
                     title: 'provider_funds_available.error_apply.title',
@@ -64,6 +63,6 @@ module.exports = () => {
             'OfficeService',
             FundCardAvailableProviderDirective
         ],
-        templateUrl: 'assets/tpl/directives/fund-card-available-provider.html' 
+        templateUrl: 'assets/tpl/directives/fund-card-available-provider.html'
     };
 };
