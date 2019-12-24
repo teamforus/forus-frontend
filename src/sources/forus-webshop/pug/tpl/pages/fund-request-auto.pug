@@ -72,9 +72,6 @@ section.section.section-product: .wrapper
                     .col.col-lg-6.text-left: .button.button-text.button-text-padless(ng-if="!$ctrl.signedIn" ng-click="$ctrl.prevStep()")
                         span(i18n="fund_request.sign_up.pane.footer.prev")
                         em.mdi.mdi-chevron-left.icon-left
-                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
-                        span(i18n="fund_request.sign_up.pane.footer.next")
-                        em.mdi.mdi-chevron-right.icon-right
         
         //- Confirm net worth
         div(ng-if="$ctrl.state == 'confirm_criteria'")
