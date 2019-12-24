@@ -160,12 +160,23 @@
 
                 .card-section.card-section-primary.card-section-narrow: .card-block.card-block-provider.form
                     .provider-offset &nbsp;
-                    .provider-details: .row: .col.col-lg-8: .flex-row
+                    .provider-details: .row: .col.col-lg-9: .flex-row
                         .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
                             .card-block-listing-label(ng-bind="providerFund.products_count_all + ' aanbiedingen'")
                             button(type="button" ui-sref="fund-provider(providerFund.uiViewParams)").button.button-default.button-flat
                                 em.mdi.mdi-eye-outline.icon-start
                                 | Bekijk
+
+                        .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                            .card-block-listing-label Accepteer alles
+                            .button.button-text: label(for="option_{{ providerFund.id }}_allow_all").form-toggle
+                                input(
+                                    type="checkbox" 
+                                    id="option_{{ providerFund.id }}_allow_all"
+                                    ng-checked="providerFund.allow_all"
+                                    ng-change="$ctrl.updateAllowAll(providerFund)"
+                                    ng-model="providerFund.allow_all")
+                                .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
 
                         .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
                             .card-block-listing-label Accepteer budget

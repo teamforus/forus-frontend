@@ -42,6 +42,29 @@ let OrganizationProvidersComponent = function(
         $ctrl.filters.values.state = $ctrl.states[0].key;
     };
 
+    $ctrl.updateAllowAll = function(fundProvider) {
+        fundProvider.allow_products = fundProvider.allow_budget = fundProvider.allow_all;
+
+        FundService.updateProvider(
+            fundProvider.fund.organization_id,
+            fundProvider.fund.id,
+            fundProvider.id, {
+                allow_budget: fundProvider.allow_budget,
+                allow_products: fundProvider.allow_products
+            }
+        ).then((res) => {
+            PushNotificationsService.success('Saved!');
+
+            if (!$ctrl.filters.values.dismissed) {
+                $ctrl.updateProvidersList();
+            } else {
+                $ctrl.fundProviders.data[
+                    $ctrl.fundProviders.data.indexOf(fundProvider)
+                ] = $ctrl.transformProvider(res.data.data);
+            }
+        }, console.error);
+    };
+
     $ctrl.updateAllowBudget = function(fundProvider) {
         FundService.updateProvider(
             fundProvider.fund.organization_id,
@@ -103,6 +126,12 @@ let OrganizationProvidersComponent = function(
         });
     };
 
+    $ctrl.initAllowAllValue = () => {
+        $ctrl.fundProviders.data.forEach(fundProvider => {
+            fundProvider.allow_all = fundProvider.allow_products && fundProvider.allow_budget;
+        });
+    } 
+
     $ctrl.updateProvidersList = function() {
         $scope.onPageChange({
             fund_id: $stateParams.fund_id
@@ -122,6 +151,7 @@ let OrganizationProvidersComponent = function(
                     data: $ctrl.transformProvidersList(res.data.data),
                 };
 
+                $ctrl.initAllowAllValue();
                 resolve($ctrl.fundProviders);
             }), reject);
         });
