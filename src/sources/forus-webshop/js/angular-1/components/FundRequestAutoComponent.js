@@ -220,7 +220,7 @@ let FundRequestComponentAuto = function(
         return $q((resolve, reject) => {
             FundService.apply(fund.id).then(function(res) {
                 PushNotificationsService.success(sprintf(
-                    'Fund "%s" voucher received.',
+                    'Gelukt! Een "%s"-voucher is aan u toegekend.',
                     $ctrl.fund.name
                 ));
                 $state.go('voucher', res.data.data);
@@ -240,7 +240,7 @@ let FundRequestComponentAuto = function(
             $ctrl.buildTypes().then(() => {
                 if ($stateParams.digid_success == 'signed_up' ||
                     $stateParams.digid_success == 'signed_in') {
-                    PushNotificationsService.success('DigId synchronization success.');
+                    PushNotificationsService.success('DigiD succesvol ingelogd!');
 
                     if ($ctrl.invalidCriteria.length == 0) {
                         $ctrl.applyFund($ctrl.fund);
@@ -254,26 +254,26 @@ let FundRequestComponentAuto = function(
                     $ctrl.cleanReload();
                 } else if ($stateParams.digid_error == 'uid_used') {
                     PushNotificationsService.danger(
-                        "BSN number used",
-                        "The BSN number returned by DigID was already claimend by another identity."
+                        "BSN-nummer al gebruikt",
+                        "Het BSN-nummer is al ingebruik op een ander account. Herstel uw account op het inlog venster om verder te gaan."
                     );
                     $ctrl.cleanReload();
                 } else if ($stateParams.digid_error == 'uid_dont_match') {
                     PushNotificationsService.danger(
-                        "BSN differ",
-                        "The BSN number returned by DigID doesn't match BSN number registered by your identity."
+                        "BSN verschilt",
+                        "U kunt maar één BSN-nummer hebben per account, maak een nieuw account aan en probeer opnieuw."
                     );
                     $ctrl.cleanReload();
                 } else if ($stateParams.digid_error == 'error_0040') {
                     PushNotificationsService.danger(
-                        "Canceled",
-                        "You canceled DigID authentication."
+                        "Geannuleerd",
+                        "U hebt deze inlogpoging geannuleerd. Probeer eventueel opnieuw om verder te gaan."
                     );
                     $ctrl.cleanReload();
                 } else if ($stateParams.digid_error && $stateParams.digid_error.indexOf('error_') === 0) {
                     PushNotificationsService.danger(
-                        "Failed",
-                        "Error code " + $stateParams.digid_error + " encountered."
+                        "Fout!",
+                        "Foutcode " + $stateParams.digid_error + ". Zoek hulp bij de webshopbeheerder om verder te gaan."
                     );
                     $ctrl.cleanReload();
                 } else {
