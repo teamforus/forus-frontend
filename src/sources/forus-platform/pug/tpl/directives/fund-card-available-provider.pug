@@ -14,25 +14,10 @@
                         .card-block-listing-label(translate="fund_card_provider.labels.date")
                         span(ng-bind="fund.start_date_locale + ' / ' + fund.end_date_locale")
 
-                .col.col-md-5
-                    .card-block-listing-item
-                        .card-block-listing-label(translate="fund_card_provider.labels.max_amount" ng-if="fund.fund_amount")
-                        span(ng-bind="fund.fund_amount | currency_format" ng-if="fund.fund_amount")
-
-            .row.card-block-listing-row
-                .col.col-md-5
-                    .card-block-listing-item
-                        .card-block-listing-label(translate="fund_card_provider.labels.allow_budget")
-                        .tag.tag-sm(
-                            ng-class="'tag-' + (fund.allow_budget ? 'success' : 'warning')" 
-                            ng-bind="fund.allow_budget ? 'Ja' : 'Nee'")      
-
                 .col.col-md-4
                     .card-block-listing-item
-                        .card-block-listing-label(translate="fund_card_provider.labels.allow_products")
-                        .tag.tag-sm(
-                            ng-class="'tag-' + (fund.allow_products ? 'success' : 'warning')" 
-                            ng-bind="fund.allow_products ? 'Ja' : 'Nee'")  
+                        .card-block-listing-label(translate="fund_card_provider.labels.max_amount" ng-if="fund.fund_amount")
+                        span(ng-bind="fund.fund_amount | currency_format" ng-if="fund.fund_amount") 
 
                 .col.col-md-3
                     .button.button-default.pull-right(
