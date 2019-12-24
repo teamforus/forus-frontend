@@ -928,7 +928,7 @@ module.exports = {
             allow_budget: "Scan tegoed op voucher",
             allow_products: "Scan geplaatste aanbiedingen",
             allow_some_products: "Scan specifieke aanbiedingen",
-            view_products: "Geaccepteerde aanbiedingen"
+            view_products: "Bekijk aanbiedingen"
         },
         empty_block: {
             available: "Er zijn geen beschikbare fondsen waar u zich voor kunt aanmelden.",
