@@ -22,7 +22,7 @@
                 ng-click="$root.signOut()" translate="topnavbar.buttons.logout")
 
         //- Menu
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.fundsMenu && $root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
             a.navbar-item(
                 ui-sref="funds" 
                 ui-sref-active="active"
