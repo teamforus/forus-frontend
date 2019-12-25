@@ -42,42 +42,62 @@ let OrganizationProvidersComponent = function(
         $ctrl.filters.values.state = $ctrl.states[0].key;
     };
 
-    $ctrl.updateAllowBudget = function(fundProvider) {
-        FundService.updateProvider(
+    $ctrl.replaceProviderItems = (fundProvider, rawFundProvider) => {
+        $ctrl.fundProviders.data[
+            $ctrl.fundProviders.data.indexOf(fundProvider)
+        ] = $ctrl.transformProvider(rawFundProvider);
+    };
+
+    $ctrl.updateProvider = (fundProvider, query) => {
+        return FundService.updateProvider(
             fundProvider.fund.organization_id,
             fundProvider.fund.id,
-            fundProvider.id, {
-                allow_budget: fundProvider.allow_budget
-            }
-        ).then((res) => {
+            fundProvider.id,
+            query
+        );
+    };
+
+    $ctrl.updateAllowBudget = function(fundProvider) {
+        $ctrl.updateProvider(fundProvider, {
+            allow_budget: fundProvider.allow_budget
+        }).then((res) => {
             PushNotificationsService.success('Saved!');
 
             if (!$ctrl.filters.values.dismissed) {
                 $ctrl.updateProvidersList();
             } else {
-                $ctrl.fundProviders.data[
-                    $ctrl.fundProviders.data.indexOf(fundProvider)
-                ] = $ctrl.transformProvider(res.data.data);
+                $ctrl.replaceProviderItems(fundProvider, res.data.data);
             }
         }, console.error);
     };
 
     $ctrl.updateAllowProducts = function(fundProvider) {
-        FundService.updateProvider(
-            fundProvider.fund.organization_id,
-            fundProvider.fund.id,
-            fundProvider.id, {
-                allow_products: fundProvider.allow_products
-            }
-        ).then((res) => {
+        $ctrl.updateProvider(fundProvider, {
+            allow_products: fundProvider.allow_products
+        }).then((res) => {
             PushNotificationsService.success('Saved!');
 
             if (!$ctrl.filters.values.dismissed) {
                 $ctrl.updateProvidersList();
             } else {
-                $ctrl.fundProviders.data[
-                    $ctrl.fundProviders.data.indexOf(fundProvider)
-                ] = $ctrl.transformProvider(res.data.data);
+                $ctrl.replaceProviderItems(fundProvider, res.data.data);
+            }
+        }, console.error);
+    };
+
+    $ctrl.updateAllowAll = function(fundProvider) {
+        fundProvider.allow_budget = fundProvider.allow_products = true;
+
+        $ctrl.updateProvider(fundProvider, {
+            allow_budget: fundProvider.allow_budget,
+            allow_products: fundProvider.allow_products
+        }).then((res) => {
+            PushNotificationsService.success('Saved!');
+
+            if (!$ctrl.filters.values.dismissed) {
+                $ctrl.updateProvidersList();
+            } else {
+                $ctrl.replaceProviderItems(fundProvider, res.data.data);
             }
         }, console.error);
     };
