@@ -426,15 +426,19 @@ module.exports = {
             mail: "E-mail",
             phone: "Telefoonnummer",
             website: "Website",
+            kvk: "KVK",
             categories: "Categorieën",
             business_type: "Organisatie type",
             nocategories: "Geen categorieën",
             no_business_type: "Geen organisatie type",
             join: "Aanmelding voor fonds",
+            accept_budget: "Accepteer budget",
+            accept_all_offers: "Accepteer alle aanbiedingen"
         },
         buttons: {
             reject: "Weigeren",
             accept: "Accepteren",
+            view_request: "Bekijk aanvraag"
         },
     },
 
