@@ -61,7 +61,7 @@ let OrganizationProvidersComponent = function(
         $ctrl.updateProvider(fundProvider, {
             allow_budget: fundProvider.allow_budget
         }).then((res) => {
-            PushNotificationsService.success('Saved!');
+            PushNotificationsService.success('Opgeslagen!');
 
             if (!$ctrl.filters.values.dismissed) {
                 $ctrl.updateProvidersList();
@@ -75,7 +75,7 @@ let OrganizationProvidersComponent = function(
         $ctrl.updateProvider(fundProvider, {
             allow_products: fundProvider.allow_products
         }).then((res) => {
-            PushNotificationsService.success('Saved!');
+            PushNotificationsService.success('Opgeslagen!');
 
             if (!$ctrl.filters.values.dismissed) {
                 $ctrl.updateProvidersList();
@@ -92,7 +92,7 @@ let OrganizationProvidersComponent = function(
             allow_budget: fundProvider.allow_budget,
             allow_products: fundProvider.allow_products
         }).then((res) => {
-            PushNotificationsService.success('Saved!');
+            PushNotificationsService.success('Opgeslagen!');
 
             if (!$ctrl.filters.values.dismissed) {
                 $ctrl.updateProvidersList();
@@ -109,8 +109,8 @@ let OrganizationProvidersComponent = function(
             fundProvider.id
         ).then((res) => {
             PushNotificationsService.success(
-                'Dismissed!',
-                "Adjust the filters to find the request it again."
+                'Verborgen!',
+                "Pas de filters aan om verborgen aanbieders terug te vinden."
             );
 
             if (!$ctrl.filters.values.dismissed) {
