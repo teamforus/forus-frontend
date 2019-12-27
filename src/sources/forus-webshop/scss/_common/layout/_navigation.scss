@@ -1,25 +1,15 @@
 .block {
     &.block-navbar {
         z-index: 5;
+        background-color: #ffffff;
 
         @media screen and (min-width: 1024px) {
             position: relative;
             left: 0;
             right: 0;
-            padding: 3vw 25px;
-        }
-
-        @media screen and (min-width: 1200px) {
-            padding: 3vw 0;
-        }
-
-        @media screen and (min-width: 1440px) {
-            padding: 3vw 0;
         }
 
         .navbar-inner {
-            border-radius: $border_radius;
-            background-color: #ffffff;
             @include cf();
             max-width: 100%;
             margin: 0 auto;
@@ -28,7 +18,7 @@
 
         .navbar-logo {
             justify-self: flex-start;
-            padding: 30px 40px;
+            padding: 30px 40px 30px 0;
             border-right: 1px solid $border_color;
 
             img {
@@ -158,6 +148,11 @@
 
             .navbar-list-auth {
                 margin-bottom: 30px;
+            }
+
+            &:first-child {
+                padding-left: 0;
+                border-left: 1px solid #e6ecf0;
             }
         }
 

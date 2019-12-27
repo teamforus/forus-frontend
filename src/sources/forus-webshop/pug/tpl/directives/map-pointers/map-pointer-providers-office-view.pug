@@ -1,0 +1,16 @@
+.map-office-card
+    .map-office-photo(style="background-image: url('{{ imageUrl }}'")
+    .map-office-details
+        .map-office-title(ng-bind="office.organization.name")
+        .row
+            .col.col-lg-12: .map-office-info
+                .mdi.mdi-map-marker-outline.text-muted
+                span.text-primary(ng-bind="pointer.address")
+            .col.col-lg-12
+                .map-office-info.map-office-info-inline(ng-if="office.phone || office.organization.phone")
+                    .mdi.mdi-phone-outline.text-muted
+                    span.text-primary(ng-bind="office.phone ? office.phone : office.organization.phone")
+                
+                .map-office-info.map-office-info-inline(ng-if="office.email || office.organization.email")
+                    .mdi.mdi-email-outline.text-muted
+                    span.text-primary(ng-bind="office.email ? office.email : office.organization.email")

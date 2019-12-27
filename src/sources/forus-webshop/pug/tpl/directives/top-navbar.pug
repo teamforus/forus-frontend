@@ -1,5 +1,5 @@
-.block.block-navbar.wrapper: .navbar-inner.wrapper
-    a(ui-sref="home").navbar-logo
+.block.block-navbar: .navbar-inner.wrapper
+    a(ui-sref="home" ng-if="$root.appConfigs.client_key != 'general'").navbar-logo
         img(ng-src="{{ './assets/img/SDOA.svg' }}" ng-if="$root.appConfigs.flags.SDOA").second-logo
         img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
         img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover
@@ -22,6 +22,12 @@
                 ng-click="$root.signOut()" translate="topnavbar.buttons.logout")
 
         //- Menu
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.client_key == 'general'" ng-click="mobileMenu = false")
+            a.navbar-item(
+                ui-sref="home" 
+                ui-sref-active="home"
+                ng-bind="'Home'")
+
         nav.navbar-item-wrapper(ng-if="$root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
             a.navbar-item(
                 ui-sref="funds" 

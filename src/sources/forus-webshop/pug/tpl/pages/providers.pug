@@ -1,0 +1,100 @@
+block content
+    .header-splash: .splash.splash-c
+    .block.block-showcase(ng-class="{'block-showcase-fullscreen': $ctrl.showMap}")
+        top-navbar
+        
+        .showcase-wrapper
+            .showcase-title We hebben {{ $ctrl.providers.meta.total }} winkels voor je gevonden
+            .showcase-subtitle Selecteer een winkel voor meer informatie
+            
+            .showcase-layout
+                .showcase-aside.form.form-compact
+                    .showcase-aside-block
+                        .form-group
+                            input.form-control(
+                                ng-model="$ctrl.form.values.q"
+                                placeholder="Search by keyword" 
+                                type="search")
+                        
+                        .form-group
+                            label.form-label BUSINESS TYPE
+                            select-control(
+                                ng-model="$ctrl.form.values.businessType" 
+                                options="$ctrl.businessTypes"
+                                placeholder="Selecteer organisatie type...")
+
+                        .form-group
+                            label.form-label FUND
+                            select-control(
+                                ng-model="$ctrl.form.values.fund" 
+                                options="$ctrl.funds"
+                                placeholder="Selecteer fund...")
+                    
+                    
+                .showcase-content
+                    .showcase-content-header
+                        .showcase-filters-title
+                            div(ng-if="!$ctrl.showMap").pull-left
+                                .showcase-filters-title-count(ng-bind="$ctrl.providers.meta.total")
+                                | Providers
+                            .block.block-label-tabs.pull-right
+                                .label-tab.label-tab-sm(
+                                    ng-class="{active: !$ctrl.showMap}"
+                                    ng-click="$ctrl.showAsList()")
+                                    em.mdi.mdi-format-list-text.icon-start
+                                    | List
+                                .label-tab.label-tab-sm(
+                                    ng-class="{active: $ctrl.showMap}"
+                                    ng-click="$ctrl.showAsMap()")
+                                    em.mdi.mdi-map-marker-radius.icon-start
+                                    | Map
+                    
+                    .block.block-organizations(ng-if="!$ctrl.showMap")
+                        .organization-item(ng-repeat="provider in $ctrl.providers.data")
+                            .organization-pane(ng-click="$ctrl.toggleOffices(provider)")
+                                .organization-logo: img(
+                                    ng-src="{{ provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}"
+                                    ).organization-logo-img
+                                .organization-title
+                                    span(ng-bind="provider.name")
+                                    .organization-title-count(ng-bind="provider.offices.length")
+                                .organization-chevron: .mdi(ng-class="'mdi-chevron-' + (($ctrl.officesShown.indexOf(provider.id) != -1) ? 'up' : 'right')")
+
+                            .organization-offices(ng-if="$ctrl.officesShown.indexOf(provider.id) != -1"): .block.block-offices
+                                a(ng-repeat="office in provider.offices" ng-click="$ctrl.goToOffice(office)").office-item
+                                    .office-item-map-icon: .mdi.mdi-map-marker
+                                    .office-pane
+                                        .office-pane-block
+                                            .office-logo: img(
+                                                ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}"
+                                                ).office-logo-img
+                                            .office-details
+                                                .office-title(ng-bind="office.address")
+                                                .office-labels
+                                                    .label.label-default(ng-bind="provider.business_type.name || 'Geen data'")
+                                                
+                                                div(ng-if="office.phone || provider.phone || provider.email")
+                                                    .office-info.office-info-inline(ng-if="office.phone || provider.phone")
+                                                        .mdi.mdi-phone-outline
+                                                        | {{ office.phone ? office.phone : provider.phone }}
+                                                    
+                                                    .office-info.office-info-inline(ng-if="provider.email")
+                                                        .mdi.mdi-email-outline
+                                                        | {{ provider.email }}
+                    
+                        .card(ng-if="$ctrl.providers"): .card-section(ng-show="$ctrl.providers.meta.last_page > 1"): paginator(
+                            meta="$ctrl.providers.meta" 
+                            filters="$ctrl.form.values" 
+                            count-buttons="5" 
+                            on-page-change="$ctrl.onPageChange(query)")
+                        
+                    paginator(
+                        ng-if="$ctrl.showMap"
+                        ng-show="false"
+                        meta="$ctrl.providers.meta" 
+                        filters="$ctrl.form.values" 
+                        count-buttons="5" 
+                        on-page-change="$ctrl.onPageChange(query)")
+
+                    .block.block-google-map(ng-show="$ctrl.showMap")
+                        google-map(map-pointers="$ctrl.offices" map-pointer-template="providers-office")

@@ -1,0 +1,21 @@
+.map-card
+    .map-card-img(style="background-image: url('{{ imageUrl }}'")
+    .map-card-content
+        .map-card-title(ng-bind="office.organization.name")
+        .map-card-description
+            div
+                strong {{ 'maps.labels.address' | i18n }}: 
+                span(ng-bind="office.address")
+            div(ng-if="office.organization.business_type.name")
+                strong {{ 'maps.labels.organization_type' | i18n }}: 
+                span(ng-bind="office.organization.business_type.name")
+            div(ng-if="office.phone || office.organization.phone")
+                strong {{ 'maps.labels.phone' | i18n }}: 
+                span(ng-bind="office.phone ? office.phone : office.organization.phone")
+            div(ng-if="office.email || office.organization.email")
+                strong {{ 'maps.labels.email' | i18n }}: 
+                span(ng-bind="office.email ? office.email : office.organization.email")
+        
+        a(ui-sref="provider-office(officeStateParams)").map-card-button
+            | Apply
+            em.mdi.mdi-arrow-right

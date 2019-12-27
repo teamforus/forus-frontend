@@ -4,6 +4,10 @@ let repackResponse = (promise) => new Promise((resolve, reject) => {
     ), reject)
 });
 
+let repackPagination = (promise) => new Promise((resolve, reject) => {
+    promise.then((res) => resolve(res.data), reject);
+});
+
 let promiseResolve = (res) => {
     return new Promise(resolve => resolve(res))
 };
@@ -53,9 +57,52 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "products",
-        url: "/products",
+        url: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}",
         component: "productsComponent",
-        resolve: {}
+        params: {
+            q: {
+                dynamic: true,
+                value: "",
+                squash: true,
+            },
+            page: {
+                dynamic: true,
+                value: 1,
+                squash: true,
+            },
+            fund_id: {
+                value: null,
+                squash: true
+            },
+            product_category_id: {
+                value: null,
+                squash: true
+            },
+            display_type: {
+                dynamic: true,
+                value: 'list',
+                squash: true
+            },
+        },
+        resolve: {
+            funds: ['FundService', (
+                FundService
+            ) => repackResponse(FundService.list())],
+            products: ['$transition$', 'ProductService', (
+                $transition$, ProductService
+            ) => repackPagination(ProductService.list({
+                q: $transition$.params().q,
+                page: $transition$.params().page,
+                fund_id: $transition$.params().fund_id,
+                product_category_id: $transition$.params().product_category_id
+            }))],
+            productCategories: ['ProductCategoryService', (
+                ProductCategoryService
+            ) => repackResponse(ProductCategoryService.list({
+                parent_id: 'null',
+                used: 1,
+            }))]
+        }
     });
 
     $stateProvider.state({
@@ -76,6 +123,72 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             ) => repackResponse(ProductService.read(
                 $transition$.params().id
             ))],
+        }
+    });
+
+    $stateProvider.state({
+        name: "providers",
+        url: "/providers?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{show_map:bool}",
+        component: "providersComponent",
+        params: {
+            q: {
+                dynamic: true,
+                value: "",
+                squash: true,
+            },
+            page: {
+                dynamic: true,
+                value: 1,
+                squash: true,
+            },
+            fund_id: {
+                value: null,
+                squash: true
+            },
+            business_type_id: {
+                value: null,
+                squash: true
+            },
+            show_map: {
+                value: null,
+                squash: true
+            },
+        },
+        resolve: {
+            funds: ['FundService', (
+                FundService
+            ) => repackResponse(FundService.list())],
+            businessTypes: ['BusinessTypeService', (
+                BusinessTypeService
+            ) => repackResponse(BusinessTypeService.list({
+                per_page: 9999
+            }))],
+            providers: ['$transition$', 'ProvidersService', (
+                $transition$, ProvidersService
+            ) => repackPagination(ProvidersService.search({
+                q: $transition$.params().q,
+                page: $transition$.params().page,
+                fund_id: $transition$.params().fund_id,
+                business_type_id: $transition$.params().business_type_id,
+            }))]
+        }
+    });
+
+    $stateProvider.state({
+        name: "provider-office",
+        url: "/providers/{provider_id}/offices/{office_id}",
+        component: "providerOfficeComponent",
+        resolve: {
+            provider: ['$transition$', 'ProvidersService', (
+                $transition$, ProvidersService
+            ) => repackResponse(ProvidersService.read(
+                $transition$.params().provider_id
+            ))],
+            office: ['$transition$', 'OfficeService', (
+                $transition$, OfficeService
+            ) => repackResponse(OfficeService.read(
+                $transition$.params().office_id
+            ))]
         }
     });
 

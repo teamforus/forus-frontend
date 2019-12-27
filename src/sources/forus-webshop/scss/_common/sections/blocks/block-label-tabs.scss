@@ -6,7 +6,7 @@
     border-bottom-right-radius: $border_radius;
 
     .label-tab {
-        background: #eaf0f6;
+        background: #fff;
         border: 1px solid $border_color;
         border-right: none;
         font: 600 11px/20px $bf;
@@ -26,6 +26,7 @@
             line-height: 20px;
             float: left;
             color: #6f747e;
+            transition: color .4s;
 
             &.icon-start {
                 margin-right: 5px;
@@ -59,6 +60,10 @@
             color: #fff;
             background-color: $color_primary_light;
             border-color: $color_primary_light;
+
+            .mdi {
+                color: #fff;
+            }
         }
 
         &.label-tab-text {

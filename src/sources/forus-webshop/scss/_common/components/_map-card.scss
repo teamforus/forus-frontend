@@ -1,29 +1,74 @@
 .map-card {
-    padding-left: 130px;
-    padding-top: 5px;
     position: relative;
-    min-height: 100px;
+    min-height: 125px;
+    display: flex;
 
     .map-card-img {
-        left: 0;
-        top: 5px;
-        position: absolute;
-        display: block;
-        width: 110px;
+        display: flex;
+        width: 125px;
+        min-width: 125px;
+        max-width: 125px;
+        background-size: cover;
+        background-position: 50% 50%;
     }
 
-    .map-card-title {
-        color: #282b39;
-        font: 700 14px/28px $bf;
-    }
-    
-    .map-card-description {
-        color: #131418;
-        font: 400 11px $bf;
+    .map-card-content {
+        padding: 10px 15px;
 
-        a {
-            font: inherit;
-            color: $bc;
+        .map-card-title {
+            color: #282b39;
+            font: 700 14px/16px $bf;
+            margin: 0 0 5px;
         }
+        
+        .map-card-description {
+            color: #131418;
+            font: 400 11px/14px $bf;
+            margin: 0 0 5px;
+    
+            a {
+                font: inherit;
+                color: $bc;
+            }
+        }
+
+        .map-card-button {
+            font: 700 11px/15px $bf;
+            display: inline-flex;
+            flex-direction: row;
+            justify-content: center;
+            cursor: pointer;
+            color: $tc;
+            transition: color .4s;
+
+            .mdi {
+                line-height: 15px;
+                font-size: 14px;
+                vertical-align: middle;
+                margin-left: 2px;
+                color: $color_primary;
+                transform: translate(0, 1px);
+                transition: transform .4s;
+            }
+
+            &:hover {
+                color: $color_primary;
+
+                .mdi {
+                    transform: translate(2px, 1px);
+                }
+            }
+        }
+    }
+}
+
+.gm-style {
+    .gm-style-iw-c {
+        padding: 0;
+    }
+
+    .gm-style-iw-d {
+        overflow: auto !important;
+        @include webkit_scrollbar();
     }
 }

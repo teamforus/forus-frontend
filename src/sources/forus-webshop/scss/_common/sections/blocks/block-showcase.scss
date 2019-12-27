@@ -2,8 +2,12 @@
     position: relative;
     margin: 0 0 30px;
 
+    .block-navbar {
+        margin: 0 0 10px;
+    }
+
     .showcase-title {
-        font: 700 22px/38px $bf;
+        font: 700 22px/36px $bf;
         color: $tc;
         margin: 0 0 0;
     }
@@ -12,6 +16,13 @@
         font: 600 14px/22px $bf;
         color: #646f79;
         margin: 0 0 10px;
+    }
+
+    .showcase-wrapper {
+        width: 1280px;
+        max-width: 100%;
+        margin: 0 auto;
+        display: block;
     }
 
     .showcase-layout {
@@ -140,9 +151,13 @@
             flex-grow: 1;
 
             .showcase-content-header {
+                position: relative;
+                z-index: 1;
+
                 .showcase-filters-title, 
                 .showcase-filters-block {
                     margin: 0 0 15px;
+                    @include cf();
                 }
 
                 .showcase-filters-title {
@@ -166,6 +181,68 @@
                         .label-tab {
                             font-weight: 700;
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    &.block-showcase-fullscreen {
+        @include fill_parent();
+        position: fixed;
+        margin: 0 0 0 0;
+        display: flex;
+        flex-direction: column;
+
+        .block-navbar {
+            margin: 0;
+        }
+
+        .showcase-title,
+        .showcase-subtitle {
+            display: none;
+        }
+
+        .showcase-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            flex: 2;
+        }
+
+        .showcase-layout {
+            height: 100%;
+            border-top: 1px solid $border_color;
+            @include fill_parent();
+            position: absolute;
+
+            .showcase-aside {
+                border-radius: 0;
+                border-right: 1px solid $border_color;
+                height: 100%;
+                overflow-y: auto;
+                @include webkit_scrollbar();
+            }
+
+            .showcase-content {
+                padding: 30px;
+                position: relative;
+
+                .showcase-content-header {
+                    .showcase-filters-title {
+                        width: auto;
+                        float: right;
+                    }
+                }
+
+                .block.block.block-google-map {
+                    @include fill_parent();
+
+                    iframe {
+                        display: block;
+                        @include fill_parent();
+                        width: 100%;
+                        height: 100%;
                     }
                 }
             }

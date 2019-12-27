@@ -1,0 +1,29 @@
+.table-pagination {
+    cursor: default;
+    @include cf();
+
+    .table-pagination-counter {
+        float: left;
+        color: #282b39;
+        font: 600 13px/36px $bf;
+    }
+
+    .table-pagination-navigation {
+        float: right;
+
+        .button {
+            padding: 5px 10px;
+            min-width: 40px;
+            font: 600 13px/24px $bf;
+            outline: none;
+
+            &:not([disabled]):not(.disabled) {
+                box-shadow: 0 2px 5px rgba(#000000, 0.1);
+            }
+
+            &:not(:last-of-type) {
+                margin-right: 5px;
+            }
+        }
+    }
+}
