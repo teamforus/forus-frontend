@@ -1,0 +1,33 @@
+.modal.modal-fund-offers
+    .modal-backdrop(ng-click="$ctrl.cancel()")
+    .modal-window
+        a(ng-click="$ctrl.close()").mdi.mdi-close.modal-close
+        .modal-header(translate="modals.modal_funds_offers.title")
+        .modal-body.form
+            .modal-section
+                .card-section
+                .card-block.card-block-table
+                    .table-wrapper
+                        table.table
+                            tr
+                                th(translate="modals.modal_funds_offers.labels.name")
+                                th(translate="modals.modal_funds_offers.labels.stock")
+                                th(translate="modals.modal_funds_offers.labels.price")
+                                th(translate="modals.modal_funds_offers.labels.status")
+
+                                tr(ng-repeat="offer in $ctrl.offers.data")
+                                    td(ng-bind="offer.name") 
+                                    td(ng-bind="offer.unlimited_stock ? 'Unlimited' : offer.total_amount")
+                                    td
+                                        span.offer-price(ng-bind="offer.price | currency_format")
+                                        span.offer-old-price(ng-bind="offer.old_price | currency_format")
+                                    td
+                                        .tag(
+                                            ng-class="offer.allowed ? 'tag-success' : 'tag-default'"
+                                            translate="{{ 'modals.modal_funds_offers.labels.' + (offer.allowed ? 'available' : 'rejected') }}")
+
+        .modal-footer 
+            button.button.button-default.button-close(ng-click="$ctrl.close()" translate="modal_funds_add.buttons.close")
+
+            .pagination-offers(ng-if="$ctrl.offers" ng-show="$ctrl.offers.meta.last_page > 1") 
+                paginator(meta="$ctrl.offers.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")

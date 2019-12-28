@@ -4,16 +4,20 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
         .app-instruction
             .step-item
-                img(src="./assets/img/screen1.png")
-                .app-title(translate="open_in_me.app_instruction.step_1")
+                .step-title Stap 1
+                .step-description 
+                    a(ng-click="$ctrl.openInMeModal()") Download 
+                    | en open de me app
+                img(src="./assets/img/screen1.svg")
                 img.line-item(src="./assets/img/line1.png")
             .step-item
-                img(src="./assets/img/screen2.png")
-                .app-title(translate="open_in_me.app_instruction.step_2")
+                .step-title Stap 2
+                .step-description Kies “Ik heb al een profiel”
+                img(src="./assets/img/screen2.svg")
 
             .divider-img: img(src="./assets/img/Base7.png")
 
-        .modal-title {{ "open_in_me.app_header.title" | translate }}
+        .modal-title Stap 3: {{ "open_in_me.app_header.title" | translate }}
         .modal-subtitle {{ "open_in_me.app_header.subtitle" | translate }}
 
         form.form.f-w.with-instructions(ng-submit="$ctrl.authorizePincodeForm.submit()")

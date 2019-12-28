@@ -15,8 +15,8 @@ module.exports = {
             }
         },
         app_header: {
-            title: 'Vul de code in op het invoerveld',
-            subtitle: 'De code is te vinden in de mobiele applicatie, volg de bovenstaande stappen op om de code te kunnen aflezen.'
+            title: 'Vul de code in',
+            subtitle: 'Vul de 6 cijfers die in uw app verschijnen hieronder in'
         },
         app_instruction: {
             step_1: 'Open <i>Me</i>',
@@ -25,6 +25,6 @@ module.exports = {
         },
         authorize: {
             close: 'Annuleren',
-            submit: 'Autoriseer apparaat',
+            submit: 'Koppel de app',
         }
 }

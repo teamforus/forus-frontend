@@ -70,4 +70,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('fundInviteProviders', {
         component: 'modalFundInviteProvidersComponent'
     });
+    
+    ModalRouteProvider.modal('fundOffers', {
+        component: 'modalFundOffersComponent'
+    });
 }];
