@@ -125,7 +125,8 @@ let OrganizationProvidersComponent = function(
 
     $ctrl.updateProvidersList = function() {
         $scope.onPageChange({
-            fund_id: $stateParams.fund_id
+            fund_id: $stateParams.fund_id,
+            page: $ctrl.fundProviders.meta.current_page
         });
     };
 
