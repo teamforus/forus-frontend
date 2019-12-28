@@ -16,7 +16,7 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
-        providersMenu: false, // Show providers option on the top menu 
+        providersMenu: true, // Show providers option on the top menu 
         
         //voucher settings
         shareProducts: true,
@@ -38,7 +38,7 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
-        providersMenu: false,
+        providersMenu: true,
         
         //voucher settings
         shareProducts: true,
@@ -60,7 +60,7 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
-        providersMenu: false,
+        providersMenu: true,
         
         //voucher settings
         shareProducts: true,
@@ -82,7 +82,7 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
-        providersMenu: false,
+        providersMenu: true,
 
         //voucher settings
         shareProducts: false,
@@ -127,7 +127,7 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
-        providersMenu: false,
+        providersMenu: true,
 
         //voucher settings
         shareProducts: true,
@@ -150,7 +150,7 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
-        providersMenu: false,
+        providersMenu: true,
 
         //voucher settings
         shareProducts: true,
@@ -173,7 +173,7 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
-        providersMenu: false,
+        providersMenu: true,
 
         //voucher settings
         shareProducts: true,
@@ -195,7 +195,8 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
-
+        providersMenu: true,
+        
         //voucher settings
         shareProducts: true,
     }
