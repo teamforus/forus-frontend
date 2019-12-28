@@ -40,8 +40,9 @@
                 ui-sref-active="active"
                 ng-bind="'topnavbar.items.products' | translate")
         
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.providersMenu" ng-click="showPopupOffices()")
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.providersMenu" ng-click="mobileMenu = false")
             a.navbar-item(
+                ui-sref="providers"
                 ng-bind="'topnavbar.items.providers' | translate")
                                                                                                                                
     .block.block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
@@ -103,6 +104,13 @@
                             em.mdi.mdi-store
                             span(translate="topnavbar.buttons.products")
                         
+                        .auth-user-menu-item.show-sm(
+                            ui-sref="providers" 
+                            ui-sref-active="active"
+                            ng-if="$root.appConfigs.flags.providersMenu")
+                            em.mdi.mdi-store
+                            span(translate="topnavbar.items.providers")
+                            
                         .auth-user-menu-separator.show-sm
                         
                         .auth-user-menu-item.show-sm(ui-sref="vouchers")
