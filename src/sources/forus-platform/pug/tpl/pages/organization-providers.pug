@@ -51,11 +51,6 @@
                                             label(for="show_dismissed").checkbox-label
                                                 .checkbox-box: .mdi.mdi-check
                                                 | Toon verborgen aanbieders
-                                .form-group
-                                    form-label-toggle(label="{{ 'organization_providers.state' | i18n }}")
-                                    select(
-                                        ng-options="state.key as state.name for state in $ctrl.states"
-                                        ng-model="$ctrl.filters.values.state").form-control
                                 
                                 .form-group
                                     form-label-toggle(label="Accepteer budget")
