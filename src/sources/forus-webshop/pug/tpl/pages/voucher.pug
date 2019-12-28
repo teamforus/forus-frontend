@@ -34,11 +34,12 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
 
                 .card-footer
                     .card-section(ng-if="!$ctrl.voucherCard.product || (!moment().isAfter(moment($ctrl.voucherCard.expire_at.date)) && $ctrl.voucherCard.transactions.length == 0)")
-                        .card-label(i18n="voucher.voucher_card.expire")
+                        .row
+                            .col.col-md-6.card-label(i18n="voucher.voucher_card.expire") 
+                            .col.col-md-6.card-label.text-right: a(ng-if="$ctrl.voucherCard.transactions.length == 0 && $ctrl.voucherCard.product && $ctrl.voucherCard.returnable" ng-click="$ctrl.deleteVoucher($ctrl.voucher)" i18n="voucher.voucher_card.delete")
                         .card-value(ng-bind="$ctrl.voucherCard.expire_at_locale")
                         .label.label-default(ng-if="moment().isAfter(moment($ctrl.voucherCard.expire_at.date))" i18n="voucher.voucher_card.expired" )
-                        br
-                        a.block-link(ng-if="$ctrl.voucherCard.transactions.length == 0 && $ctrl.voucherCard.product && $ctrl.voucherCard.returnable" ng-click="$ctrl.deleteVoucher($ctrl.voucher)" i18n="voucher.voucher_card.delete")
+                        
                     .card-section(ng-if="$ctrl.voucherCard.transactions && $ctrl.voucherCard.product" ng-repeat="transaction in $ctrl.voucherCard.transactions")
                         .card-label Gebruikt op:
                         .card-value {{ transaction.created_at_locale }}
@@ -48,11 +49,6 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                                 em.mdi.mdi-account-circle
                                 //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.open_in_me")
                             .action-item-name(i18n="voucher.voucher_card.footer.actions.open_in_me")
-                        .action-item(ng-if="$ctrl.voucherCanUse && $ctrl.voucherCard.product && $root.appConfigs.flags.shareProducts" ng-click="$ctrl.shareVoucher($ctrl.voucher)")
-                            .action-item-icon
-                                em.mdi.mdi-share-variant
-                                .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
-                            .action-item-name(i18n="voucher.voucher_card.footer.actions.share")
                         .action-item(ng-if="$ctrl.voucherCanUse" ng-click="$ctrl.sendVoucherEmail($ctrl.voucher)")
                             .action-item-icon
                                 em.mdi.mdi-email-outline
