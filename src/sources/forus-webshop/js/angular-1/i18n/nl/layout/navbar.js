@@ -11,7 +11,7 @@ module.exports = {
         voucher:"Mijn vouchers",
         profile:"Profiel >",
         records: "Mijn eigenschappen",
-        authorize:"Log in op de me app",
+        authorize:"Log in op de app",
         logout:"Uitloggen",
         products:"Aanbiedingen",
         funds: "Fondsen",
