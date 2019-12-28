@@ -22,6 +22,7 @@ let ModalPinCodeComponent = function(
                     type: 'confirm',
                     title: 'popup_auth.pin_code.confirmation.title',
                     description: 'popup_auth.pin_code.confirmation.description',
+                    notice: 'popup_auth.pin_code.confirmation.notice',
                     confirmBtnText: 'popup_auth.pin_code.confirmation.buttons.confirm',
                     cancelBtnText: 'popup_auth.pin_code.confirmation.buttons.try_again',
                     cancel: () => {
@@ -40,6 +41,12 @@ let ModalPinCodeComponent = function(
                 }
             });
         });
+
+        $ctrl.openInMeModal = () => {
+            $ctrl.close();
+
+            return ModalService.open('modalOpenInMe', {});
+        };
     };
 };
 
