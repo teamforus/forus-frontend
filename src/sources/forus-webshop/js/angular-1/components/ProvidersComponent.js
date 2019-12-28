@@ -113,7 +113,7 @@ let ProvidersComponent = function(
 
         $ctrl.funds.unshift({
             id: null,
-            name: 'All funds',
+            name: 'Alle budgetten',
         });
 
         let fund = $ctrl.funds.filter(fund => {
