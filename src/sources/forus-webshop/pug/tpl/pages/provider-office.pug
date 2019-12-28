@@ -5,27 +5,27 @@ block content
         .office-map: .block.block-google-map: google-map(map-pointers="[$ctrl.office]" map-pointer-template="providers-office-view")
         .office-content
             .block.block-pane
-                .pane-head General information
+                .pane-head Vestiging informatie
                 .pane-section.pane-section-compact-vertical
                     .block.block-data-list
                         .data-list-row(ng-if="$ctrl.office.address")
-                            .data-list-key Address:
+                            .data-list-key Adres:
                             .data-list-value(ng-bind="$ctrl.office.address")
                         
                         .data-list-row(ng-if="$ctrl.office.email || $ctrl.provider.email")
-                            .data-list-key E-mail:
+                            .data-list-key E-mailadres:
                             .data-list-value(ng-bind="$ctrl.office.email ? $ctrl.office.email : $ctrl.provider.email")
                         
                         .data-list-row(ng-if="$ctrl.office.phone || $ctrl.provider.phone")
-                            .data-list-key Telephone:
+                            .data-list-key Telefoonnummer:
                             .data-list-value(ng-bind="$ctrl.office.phone ? $ctrl.office.phone : $ctrl.provider.phone")
                         
                         .data-list-row(ng-if="$ctrl.provider")
-                            .data-list-key Categories:
+                            .data-list-key Organisatie type:
                             .data-list-value
-                                .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen data' }}
+                                .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen organisatie type' }}
             .block.block-pane
-                .pane-head Bezorgtijden
+                .pane-head Openingstijden
                 .pane-section.pane-section-compact-vertical
                     .block.block-schedule-list
                         .schedule-item(ng-repeat="(dayIndex, weekDay) in $ctrl.weekDays")
@@ -33,7 +33,7 @@ block content
                             .schedule-hours(ng-bind="$ctrl.schedules[dayIndex].start_time + ' - ' + $ctrl.schedules[dayIndex].end_time")
             
             .block.block-pane.last-child
-                .pane-head Parent organization
+                .pane-head Organisatie
                 .pane-section(ng-click="$ctrl.showOffices = !$ctrl.showOffices")
                     .office-organization
                         .organization-photo: img(src="/assets/img/placeholders/organization-thumbnail.png").organization-photo-img
@@ -55,7 +55,7 @@ block content
                                     .office-details
                                         .office-title(ng-bind="office.address")
                                         .office-labels
-                                            .label.label-default(ng-bind="$ctrl.provider.business_type.name || 'Geen data'")
+                                            .label.label-default(ng-bind="$ctrl.provider.business_type.name || 'Geen organisatie type'")
                                         
                                         div(ng-if="office.phone || provider.phone || provider.email")
                                             .office-info.office-info-inline(ng-if="office.phone || provider.phone")
