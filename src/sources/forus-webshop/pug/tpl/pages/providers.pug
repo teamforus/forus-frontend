@@ -4,8 +4,8 @@ block content
         top-navbar
         
         .showcase-wrapper
-            .showcase-title We hebben {{ $ctrl.providers.meta.total }} winkels voor je gevonden
-            .showcase-subtitle Selecteer een winkel voor meer informatie
+            .showcase-title We hebben {{ $ctrl.providers.meta.total }} aanbieders voor je gevonden
+            .showcase-subtitle Selecteer een organisatie voor meer informatie
             
             .showcase-layout
                 .showcase-aside.form.form-compact
@@ -13,22 +13,22 @@ block content
                         .form-group
                             input.form-control(
                                 ng-model="$ctrl.form.values.q"
-                                placeholder="Search by keyword" 
+                                placeholder="Zoeken..." 
                                 type="search")
                         
                         .form-group
-                            label.form-label BUSINESS TYPE
+                            label.form-label Organisatie type
                             select-control(
                                 ng-model="$ctrl.form.values.businessType" 
                                 options="$ctrl.businessTypes"
                                 placeholder="Selecteer organisatie type...")
 
                         .form-group
-                            label.form-label FUND
+                            label.form-label Budget
                             select-control(
                                 ng-model="$ctrl.form.values.fund" 
                                 options="$ctrl.funds"
-                                placeholder="Selecteer fund...")
+                                placeholder="Selecteer budget...")
                     
                     
                 .showcase-content
@@ -36,18 +36,18 @@ block content
                         .showcase-filters-title
                             div(ng-if="!$ctrl.showMap").pull-left
                                 .showcase-filters-title-count(ng-bind="$ctrl.providers.meta.total")
-                                | Providers
+                                | Aanbieders
                             .block.block-label-tabs.pull-right
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: !$ctrl.showMap}"
                                     ng-click="$ctrl.showAsList()")
                                     em.mdi.mdi-format-list-text.icon-start
-                                    | List
+                                    | Lijst
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: $ctrl.showMap}"
                                     ng-click="$ctrl.showAsMap()")
                                     em.mdi.mdi-map-marker-radius.icon-start
-                                    | Map
+                                    | Kaart
                     
                     .block.block-organizations(ng-if="!$ctrl.showMap")
                         .organization-item(ng-repeat="provider in $ctrl.providers.data")
