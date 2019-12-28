@@ -16,8 +16,8 @@ block content
     .header-splash: .splash.splash-c
     .block.block-showcase(ng-class="{'block-showcase-fullscreen': $ctrl.showMap}")
         .showcase-wrapper
-            .showcase-title We hebben {{ $ctrl.products.meta.total }} winkels voor je gevonden
-            .showcase-subtitle Selecteer een winkel voor meer informatie
+            .showcase-title Er zijn {{ $ctrl.products.meta.total }} aanbiedingen voor je gevonden
+            .showcase-subtitle Selecteer een aanbieding voor meer informatie
             
             .showcase-layout
                 .showcase-aside.form.form-compact
@@ -25,39 +25,39 @@ block content
                         .form-group
                             input.form-control(
                                 ng-model="$ctrl.form.values.q"
-                                placeholder="Search by keyword" 
+                                placeholder="Zoeken..." 
                                 type="search")
 
                         .form-group
-                            label.form-label FUND
+                            label.form-label Categorie
                             select(
                                 ng-options="category.id as category.name for category in $ctrl.productCategories" 
                                 ng-model="$ctrl.form.values.product_category_id").form-control
 
                         .form-group
-                            label.form-label FUND
+                            label.form-label Budgetten
                             select-control(
                                 ng-model="$ctrl.form.values.fund" 
                                 options="$ctrl.funds"
-                                placeholder="Selecteer fund...")
+                                placeholder="Selecteer budget...")
                     
                 .showcase-content
                     .showcase-content-header
                         .showcase-filters-title
                             div(ng-if="!$ctrl.showMap").pull-left
                                 .showcase-filters-title-count(ng-bind="$ctrl.products.meta.total")
-                                | Products
+                                | Aanbiedingen
                             .block.block-label-tabs.pull-right
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: $ctrl.display_type == 'list'}"
                                     ng-click="$ctrl.showAs('list')")
                                     em.mdi.mdi-format-list-text.icon-start
-                                    | List
+                                    | Lijst
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: $ctrl.display_type == 'grid'}"
                                     ng-click="$ctrl.showAs('grid')")
                                     em.mdi.mdi-view-grid-outline.icon-start
-                                    | Grid
+                                    | Foto's
                     
                     .block.block-products(ng-if="$ctrl.products.data.length > 0 && $ctrl.display_type == 'grid'")
                         .product-item(ng-repeat="product in $ctrl.products.data" ng-class="{discounted:product.old_price}")
