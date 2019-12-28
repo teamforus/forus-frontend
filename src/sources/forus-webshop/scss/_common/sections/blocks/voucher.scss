@@ -98,7 +98,7 @@
 
                     .action-item-name {
                         color: #7b8893;
-                        font: 600 10px $bf;
+                        font: 600 12px $bf;
                         transition: color .4s;
                         margin: 0 3px;
                     }
@@ -131,6 +131,11 @@
             .card-label {
                 color: #646f79;
                 font: 400 14px/16px $bf;
+
+                a {
+                    color: #646f79;
+                    text-decoration: underline;
+                }
             }
 
             .block-link {
@@ -166,7 +171,7 @@
                 }
 
                 &:last-child {
-                    margin-bottom: 0;
+                    margin-bottom: 10px;
                 }
             }
 
