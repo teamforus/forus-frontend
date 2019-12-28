@@ -1,4 +1,4 @@
-.block.block-pane {
+&.block-pane {
     box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
     margin-bottom: 30px;
     border-radius: $border_radius;
@@ -29,6 +29,7 @@
     .pane-section {
         background: #ffffff;
         padding: 25px;
+        font: 400 14px/20px $bf;
 
         &.pane-section-compact-vertical {
             padding-top: 10px;
@@ -39,5 +40,16 @@
     &.last-child,
     &:last-child {
         margin-bottom: 0;
+    }
+
+    @media screen and (max-width: 1000px) {
+        .pane-head {
+            padding: 15px 20px;
+            font: 700 16px/20px $bf;
+        }
+
+        .pane-section {
+            padding: 20px;
+        }
     }
 }

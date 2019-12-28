@@ -6,7 +6,7 @@
         .navbar-item-wrapper: a(ui-sref="funds").navbar-item FONDSEN
         .navbar-item-wrapper: a(scroll-to="products").navbar-item PRODUCTEN
     .block.block-auth.block-auth-border.hide-sm
-        .auth-code  
+        .auth-code 
             .button.button-default
                 em.mdi.mdi-ticket-confirmation
                 | Activatiecode
@@ -37,6 +37,13 @@
                             img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
                             | Uitloggen
     
+        //- .auth-out.flex-end
+            .button.button-default
+                em.mdi.mdi-account
+                | Log in
+    .navbar-mobile-menu.show-sm
+        em.mdi.mdi-menu
+
     //- .block.block-auth.sm-pull-left
         .lang-selector
             .lang-label 

@@ -23,7 +23,7 @@ block content
     .header-splash: .splash.splash-c
 
     header.section.section-header
-        include ../layout/includes/navbar
+        include ../layout/includes/top-navbar
     
     .block.block-showcase: .showcase-wrapper
         .showcase-title We hebben 365 winkels voor je gevonden
@@ -142,15 +142,16 @@ block content
                     mixin product_item()
                         .product-item
                             .product-photo: img(src="/assets/img/placeholders/product-thumbnail.png").product-photo-img
-                            .product-details
-                                .product-name 
-                                    | Getertificeerde MeditorPlus 
-                                    br
-                                    | Polsbloeddrukmeter
-                                .label.label-danger.label-sm 58% KORTING!
-                            .product-actions
-                                .label.label-default.label-sm VAN € 39,95
-                                .product-price VOOR € 24,95
+                            .product-content
+                                .product-details
+                                    .product-name 
+                                        | Getertificeerde MeditorPlus 
+                                        br
+                                        | Polsbloeddrukmeter
+                                    .product-discount.label.label-danger.label-sm 58% KORTING!
+                                .product-actions
+                                    .label.label-default.label-sm VAN € 39,95
+                                    .product-price VOOR € 24,95
                     
                     +product_item()
                     +product_item()

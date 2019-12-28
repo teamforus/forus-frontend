@@ -1,4 +1,4 @@
-.block.block-schedule-list {
+&.block-schedule-list {
     display: flex;
     flex-direction: column;
 
@@ -25,6 +25,18 @@
 
         &:last-child {
             border-bottom: none;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .schedule-item {
+            .schedule-day {
+                font: 600 12px/36px $bf;
+            }
+
+            .schedule-hours {
+                font: 600 12px/36px $bf;
+            }
         }
     }
 }

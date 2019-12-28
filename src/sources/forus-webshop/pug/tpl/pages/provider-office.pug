@@ -26,11 +26,14 @@ block content
                                 .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen organisatie type' }}
             .block.block-pane
                 .pane-head Openingstijden
-                .pane-section.pane-section-compact-vertical
-                    .block.block-schedule-list
+                .pane-section.pane-section-compact-vertical(ng-if="$ctrl.office.schedule.length > 0")
+                    .block.block-schedule-list($ctrl.schedules.lenght)
                         .schedule-item(ng-repeat="(dayIndex, weekDay) in $ctrl.weekDays")
                             .schedule-day(ng-bind="weekDay")
                             .schedule-hours(ng-bind="$ctrl.schedules[dayIndex].start_time + ' - ' + $ctrl.schedules[dayIndex].end_time")
+                
+                .pane-section(ng-if="$ctrl.office.schedule.length == 0")
+                    | Aanbieder heeft geen openingstijden ingesteld. Contacteer aanbieder voor de openingstijden.
             
             .block.block-pane.last-child
                 .pane-head Organisatie
@@ -38,7 +41,7 @@ block content
                     .office-organization
                         .organization-photo: img(src="/assets/img/placeholders/organization-thumbnail.png").organization-photo-img
                         .organization-title
-                            span(ng-bind="$ctrl.provider.name")
+                            .organization-title-value(ng-bind="$ctrl.provider.name")
                             .organization-title-count(ng-bind="$ctrl.provider.offices.length")
                         .organization-chevron: .mdi(ng-class="'mdi-chevron-' + ($ctrl.showOffices ? 'up' : 'right')")
             

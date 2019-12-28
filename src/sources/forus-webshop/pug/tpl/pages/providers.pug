@@ -19,6 +19,7 @@ block content
                         .form-group
                             label.form-label Organisatie type
                             select-control(
+                                autoclear="true"
                                 ng-model="$ctrl.form.values.businessType" 
                                 options="$ctrl.businessTypes"
                                 placeholder="Selecteer organisatie type...")
@@ -26,6 +27,7 @@ block content
                         .form-group
                             label.form-label Budget
                             select-control(
+                                autoclear="true"
                                 ng-model="$ctrl.form.values.fund" 
                                 options="$ctrl.funds"
                                 placeholder="Selecteer budget...")
@@ -56,7 +58,7 @@ block content
                                     ng-src="{{ provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}"
                                     ).organization-logo-img
                                 .organization-title
-                                    span(ng-bind="provider.name")
+                                    .organization-title-value(ng-bind="provider.name")
                                     .organization-title-count(ng-bind="provider.offices.length")
                                 .organization-chevron: .mdi(ng-class="'mdi-chevron-' + (($ctrl.officesShown.indexOf(provider.id) != -1) ? 'up' : 'right')")
 
@@ -93,7 +95,7 @@ block content
                         ng-show="false"
                         meta="$ctrl.providers.meta" 
                         filters="$ctrl.form.values" 
-                        count-buttons="5" 
+                        count-buttons="3" 
                         on-page-change="$ctrl.onPageChange(query)")
 
                     .block.block-google-map(ng-show="$ctrl.showMap")

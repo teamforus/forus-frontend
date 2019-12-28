@@ -3,12 +3,6 @@
         z-index: 5;
         background-color: #ffffff;
 
-        @media screen and (min-width: 1024px) {
-            position: relative;
-            left: 0;
-            right: 0;
-        }
-
         .navbar-inner {
             @include cf();
             max-width: 100%;
@@ -161,7 +155,7 @@
             text-align: center;
             border-left: 1px solid #e6ecf0;
 
-            em {
+            .mdi {
                 display: block;
                 height: 60px;
                 line-height: 60px;
@@ -397,7 +391,7 @@
         }
     }
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: 1000px) {
         &.block-navbar {
             padding: 0 0;
             border-radius: 0;
@@ -423,6 +417,8 @@
             .block-auth {
                 padding: 10px 10px 10px 0;
                 border: none;
+                display: block;
+                width: 100%;
 
                 .button {
                     margin-right: 10px;
@@ -436,6 +432,9 @@
 
                 .auth-in {
                     .auth-user {
+                        margin-right: 0;
+                        justify-content: flex-end;
+
                         .auth-user-email {
                             font: 700 12px/22px $bf;
                         }

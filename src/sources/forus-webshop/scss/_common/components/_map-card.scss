@@ -60,11 +60,20 @@
             }
         }
     }
+
+    @media screen and (max-width: 1000px) {
+        .map-card-img {
+            width: 100px;
+            min-width: 100px;
+            max-width: 100px;
+        }
+    }
 }
 
 .gm-style {
     .gm-style-iw-c {
         padding: 0;
+        max-width: 360px !important;
     }
 
     .gm-style-iw-d {

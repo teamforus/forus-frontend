@@ -1,4 +1,4 @@
-.block.block-showcase {
+&.block-showcase {
     position: relative;
     margin: 0 0 30px;
 
@@ -104,18 +104,19 @@
                         cursor: pointer;
                         z-index: 1;
                         border-radius: $border_radius;
-    
+
                         .mdi {
                             font-size: inherit;
                             color: inherit;
                         }
-    
+
                         &:hover {
                             color: $color_primary;
                         }
                     }
 
-                    &:after, &:before {
+                    &:after,
+                    &:before {
                         content: '';
                         display: block;
                         width: 0;
@@ -154,7 +155,7 @@
                 position: relative;
                 z-index: 1;
 
-                .showcase-filters-title, 
+                .showcase-filters-title,
                 .showcase-filters-block {
                     margin: 0 0 15px;
                     @include cf();
@@ -169,12 +170,14 @@
                         background: $color_primary;
                         border-radius: $border_radius / 2;
                         float: left;
-                        width: 30px;
+                        min-width: 30px;
                         height: 30px;
                         margin: 0 10px 0 0;
                         float: left;
                         text-align: center;
                         color: #fff;
+                        text-align: center;
+                        padding: 0 5px;
                     }
 
                     .block-label-tabs {
@@ -244,6 +247,60 @@
                         width: 100%;
                         height: 100%;
                     }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1300px) {
+        .showcase-wrapper {
+            width: 1100px;
+            padding: 0 25px;
+        }
+
+        .showcase-layout {
+            .showcase-aside {
+                width: 280px;
+                min-width: 280px;
+                max-width: 280px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .showcase-title {
+            font: 700 16px/26px $bf;
+            margin: 0 0 0;
+        }
+
+        .showcase-subtitle {
+            font: 500 13px/20px $bf;
+        }
+
+        .showcase-wrapper {
+            padding: 0 20px;
+        }
+
+        .showcase-layout {
+            flex-direction: column;
+
+            .showcase-aside {
+                width: 100%;
+                min-width: 100%;
+                max-width: 100%;
+                margin: 0 0 20px;
+            }
+
+            .showcase-content {
+                padding: 0 0 0;
+            }
+        }
+
+        &.block-showcase-fullscreen {
+            .showcase-layout {
+                .showcase-aside {
+                    height: auto;
+                    margin: 0;
                 }
             }
         }

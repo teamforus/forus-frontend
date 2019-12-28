@@ -161,7 +161,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             businessTypes: ['BusinessTypeService', (
                 BusinessTypeService
             ) => repackResponse(BusinessTypeService.list({
-                per_page: 9999
+                per_page: 9999,
+                used: 1,
             }))],
             providers: ['$transition$', 'ProvidersService', (
                 $transition$, ProvidersService

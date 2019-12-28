@@ -1,15 +1,3 @@
-//- 
-    top-navbar
-
-    .wrapper: .page.page-voucher
-        .block.block-breadcrumbs
-            a(ui-sref="home").breadcrumb-item Home
-            .breadcrumb-item.active Aanbiedingen
-
-        block-products(
-            sample="false" 
-            product-categories="$ctrl.productCategories")
-
 block content
     top-navbar
     br
@@ -37,6 +25,7 @@ block content
                         .form-group
                             label.form-label Budgetten
                             select-control(
+                                autoclear="true"
                                 ng-model="$ctrl.form.values.fund" 
                                 options="$ctrl.funds"
                                 placeholder="Selecteer budget...")
@@ -62,7 +51,8 @@ block content
                     .block.block-products(ng-if="$ctrl.products.data.length > 0 && $ctrl.display_type == 'grid'")
                         .product-item(ng-repeat="product in $ctrl.products.data" ng-class="{discounted:product.old_price}")
                             a(ui-sref="products-show(product)").product-item-inner
-                                .product-image: img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
+                                .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
+                                    img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
                                 .product-details
                                     .product-organization(ng-bind="product.organization.name")
                                     .product-name.truncated(ng-bind="product.name")
@@ -75,17 +65,21 @@ block content
                                         | {{ "block_products.labels.new" | translate }} {{ product.price | currency_format }}
                     
                     .block.block-products-list(ng-if="$ctrl.products.data.length > 0 && $ctrl.display_type == 'list'")
-                        .product-item(ng-repeat="product in $ctrl.products.data" ng-class="{discounted:product.old_price}")
-                            .product-photo: img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}").product-photo-img
-                            .product-details
-                                .product-name(ng-bind="product.name")
-                                .label.label-danger.label-sm(ng-if="product.old_price")
-                                    | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}%
-                                    | {{ "block_products.labels.discount" | translate }}
-                            .product-actions
-                                .label.label-default.label-sm(ng-if="product.old_price") 
-                                    | {{ "block_products.labels.old" | translate }} {{ product.old_price | currency_format }}
-                                .product-price {{ "block_products.labels.new" | translate }} {{ product.price | currency_format }}
+                        .product-item(
+                            ng-repeat="product in $ctrl.products.data" 
+                            ng-class="{discounted:product.old_price}"
+                            ui-sref="products-show(product)")
+                            .product-photo(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
+                            .product-content
+                                .product-details
+                                    .product-name(ng-bind="product.name")
+                                    .product-discount.label.label-danger.label-sm(ng-if="product.old_price")
+                                        | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}%
+                                        | {{ "block_products.labels.discount" | translate }}
+                                .product-actions
+                                    .label.label-default.label-sm(ng-if="product.old_price") 
+                                        | {{ "block_products.labels.old" | translate }} {{ product.old_price | currency_format }}
+                                    .product-price {{ "block_products.labels.new" | translate }} {{ product.price | currency_format }}
 
                     empty-block(
                         title= "{{ 'block_products.labels.title' | translate }}"

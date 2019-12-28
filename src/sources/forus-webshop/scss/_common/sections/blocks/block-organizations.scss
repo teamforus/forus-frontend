@@ -1,4 +1,4 @@
-.block.block-organizations {
+&.block-organizations {
     .organization-item {
         margin-bottom: 15px;
 
@@ -24,14 +24,24 @@
                 display: flex;
                 flex-direction: row;
                 flex-grow: 1;
-                font: 700 14px/30px $bf;
+                font: 700 14px/20px $bf;
                 text-align: left;
 
+                .organization-title-value {
+                    vertical-align: middle;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+
                 .organization-title-count {
-                    width: 30px;
+                    min-width: 30px;
+                    text-align: center;
+                    padding: 0 5px;
                     height: 30px;
                     text-align: center;
                     font: inherit;
+                    line-height: 30px;
                     color: #fff;
                     background: $color_primary;
                     border-radius: $border_radius / 2;

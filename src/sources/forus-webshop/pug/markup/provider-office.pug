@@ -4,14 +4,18 @@ block content
     .header-splash: .splash.splash-c
 
     header.section.section-header
-        include ../layout/includes/navbar
+        include ../layout/includes/top-navbar
     
     .block.block-office
         .office-map
-            .office-map-igrame: iframe(frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=Groningen, Netherlands&key=AIzaSyAGtyIwa3fytSaFTzIqDWdxZqdkLUzlYzM&zoom=16" allowfullscreen)
-            img(src="/assets/img/map-pin.png").office-map-pointer
+            .block.block-google-map
+                .block-google-map-backdrop
+                iframe(
+                    allowfullscreen
+                    frameborder="0" 
+                    src="https://www.google.com/maps/embed/v1/place?q=Groningen, Netherlands&key=AIzaSyAGtyIwa3fytSaFTzIqDWdxZqdkLUzlYzM&zoom=16")
             .map-office-card
-                .map-office-photo: img(src="/assets/img/placeholders/office-thumbnail.png").map-office-photo-img
+                .map-office-photo(style="background-image: url('/assets/img/placeholders/office-thumbnail.png');")
                 .map-office-details
                     .map-office-title GSK Pharmacy from lorem ipsum dolor sit amet
                     .row
@@ -89,6 +93,6 @@ block content
                     .office-organization
                         .organization-photo: img(src="/assets/img/placeholders/organization-thumbnail.png").organization-photo-img
                         .organization-title
-                            | GlaxoSmithKline
+                            .organization-title-value GlaxoSmithKline
                             .organization-title-count 4
                         .organization-chevron: .mdi.mdi-chevron-right

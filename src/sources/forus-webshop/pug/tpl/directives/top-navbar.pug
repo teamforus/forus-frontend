@@ -3,6 +3,7 @@
         img(ng-src="{{ './assets/img/SDOA.svg' }}" ng-if="$root.appConfigs.flags.SDOA").second-logo
         img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
         img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover
+    
     nav.navbar-list(ng-class="mobileMenu?'navbar-list-show':''")
         ul.navbar-list-auth.show-sm(ng-if="$root.auth_user")
             //- Auth menu
