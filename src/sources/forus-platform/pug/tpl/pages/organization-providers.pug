@@ -51,11 +51,6 @@
                                             label(for="show_dismissed").checkbox-label
                                                 .checkbox-box: .mdi.mdi-check
                                                 | Toon verborgen aanbieders
-                                .form-group
-                                    form-label-toggle(label="{{ 'organization_providers.state' | i18n }}")
-                                    select(
-                                        ng-options="state.key as state.name for state in $ctrl.states"
-                                        ng-model="$ctrl.filters.values.state").form-control
                                 
                                 .form-group
                                     form-label-toggle(label="Accepteer budget")
@@ -139,7 +134,7 @@
                         .provider-img: img(ng-src="{{ providerFund.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
                         .provider-details
                             .provider-title(ng-bind="providerFund.organization.name")
-                            .row: .col.col-lg-8: .flex-row
+                            .row: .col.col-lg-10: .flex-row
                                 .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant(
                                     ng-if="providerFund.organization.email")
                                     .card-block-listing-label(translate="organization_providers.labels.mail")
@@ -152,6 +147,10 @@
                                     ng-if="providerFund.organization.business_type.name")
                                     .card-block-listing-label(translate="organization_providers.labels.business_type")
                                     .card-block-listing-value.text-primary-light(ng-bind="providerFund.organization.business_type.name")
+                                .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant(
+                                    ng-if="providerFund.organization.kvk")
+                                    .card-block-listing-label(translate="organization_providers.labels.kvk")
+                                    .card-block-listing-value.text-primary-light(ng-bind="providerFund.organization.kvk")
                             .row: .col.col-lg-8: .flex-row
                                 .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant(
                                     ng-if="providerFund.organization.website")
@@ -160,15 +159,15 @@
 
                 .card-section.card-section-primary.card-section-narrow: .card-block.card-block-provider.form
                     .provider-offset &nbsp;
-                    .provider-details: .row: .col.col-lg-8: .flex-row
+                    .provider-details: .row: .col.col-lg-12: .flex-row
                         .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
                             .card-block-listing-label(ng-bind="providerFund.products_count_all + ' aanbiedingen'")
                             button(type="button" ui-sref="fund-provider(providerFund.uiViewParams)").button.button-default.button-flat
                                 em.mdi.mdi-eye-outline.icon-start
-                                | Bekijk
+                                | {{ 'organization_providers.buttons.view_request' | translate }}
 
                         .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                            .card-block-listing-label Accepteer budget
+                            .card-block-listing-label(translate="organization_providers.labels.accept_budget")
                             .button.button-text: label(for="option_{{ providerFund.id }}_allow_budget").form-toggle
                                 input(
                                     type="checkbox" 
@@ -179,7 +178,7 @@
                                 .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
                             
                         .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                            .card-block-listing-label Accepteer aanbiedingen
+                            .card-block-listing-label(translate="organization_providers.labels.accept_all_offers")
                             .button.button-text: label(for="option_{{ providerFund.id }}_allow_products").form-toggle
                                 input(
                                     type="checkbox" 
@@ -188,6 +187,12 @@
                                     ng-change="$ctrl.updateAllowProducts(providerFund)"
                                     ng-model="providerFund.allow_products")
                                 .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+                        .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant.pull-right
+                            .card-block-listing-label &nbsp;
+                            button(
+                                ng-if="!providerFund.allow_budget || !providerFund.allow_products"
+                                ng-click="$ctrl.updateAllowAll(providerFund)").button.button-primary.button-flat
+                                | Accepteer alles
 
             .card
                 .card-section(ng-if="$ctrl.fundProviders.meta" ng-show="$ctrl.fundProviders.meta.last_page > 1")

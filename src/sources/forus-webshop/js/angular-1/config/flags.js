@@ -16,7 +16,8 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
-        providersMenu: true, // Show providers option on the top menu 
+        providersMenu: false, // Show providers option on the top menu
+        fundsMenu: false,  // Show funds option on the top menu
         
         //voucher settings
         shareProducts: true,
@@ -39,6 +40,7 @@ module.exports = {
         homeFaq: true,
         homeButton: true,
         providersMenu: true,
+        fundsMenu: false,
         
         //voucher settings
         shareProducts: true,
@@ -61,6 +63,7 @@ module.exports = {
         homeFaq: true,
         homeButton: true,
         providersMenu: true,
+        fundsMenu: false,
         
         //voucher settings
         shareProducts: true,
@@ -83,6 +86,7 @@ module.exports = {
         homeFaq: true,
         homeButton: true,
         providersMenu: true,
+        fundsMenu: false,
 
         //voucher settings
         shareProducts: false,
@@ -105,6 +109,7 @@ module.exports = {
         homeFaq: true,
         homeButton: true,
         providersMenu: true,
+        fundsMenu: false,
 
         //voucher settings
         shareProducts: true,
@@ -128,6 +133,7 @@ module.exports = {
         homeFaq: true,
         homeButton: true,
         providersMenu: true,
+        fundsMenu: false,
 
         //voucher settings
         shareProducts: true,
@@ -151,6 +157,7 @@ module.exports = {
         homeFaq: true,
         homeButton: true,
         providersMenu: true,
+        fundsMenu: false,
 
         //voucher settings
         shareProducts: true,
@@ -174,6 +181,7 @@ module.exports = {
         homeFaq: true,
         homeButton: true,
         providersMenu: true,
+        fundsMenu: false,
 
         //voucher settings
         shareProducts: true,
@@ -196,7 +204,8 @@ module.exports = {
         homeFaq: true,
         homeButton: true,
         providersMenu: true,
-        
+        fundsMenu: false,
+
         //voucher settings
         shareProducts: true,
     }
