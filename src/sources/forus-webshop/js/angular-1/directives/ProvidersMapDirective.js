@@ -44,6 +44,7 @@ let GoogleMapDirective = function (
 
         var mapOptions = {
             zoom: zoomLevel,
+            gestureHandling: 'greedy',
             disableDefaultUI: false,
             center: new google.maps.LatLng(
                 centerLat,
