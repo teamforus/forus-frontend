@@ -25,6 +25,7 @@
         .product-content {
             display: flex;
             flex-direction: row;
+            width: 100%;
         }
 
         .product-details {
@@ -41,7 +42,8 @@
             padding: 15px;
             width: 270px;
             border-left: 1px solid $border_color;
-
+            justify-self: end;
+            
             .product-price {
                 font: 700 17px/30px $bf;   
             }
