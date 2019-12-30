@@ -39,7 +39,7 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
-        providersMenu: false,
+        providersMenu: true,
         fundsMenu: false,
 
         // voucher settings
@@ -62,7 +62,7 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
-        providersMenu: false,
+        providersMenu: true,
         fundsMenu: false,
 
         // voucher settings
@@ -85,7 +85,7 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
-        providersMenu: false,
+        providersMenu: true,
         fundsMenu: false,
 
         // voucher settings
@@ -132,7 +132,7 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
-        providersMenu: false,
+        providersMenu: true,
         fundsMenu: false,
 
         // voucher settings
@@ -156,7 +156,7 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
-        providersMenu: false,
+        providersMenu: true,
         fundsMenu: false,
 
         // voucher settings
@@ -180,7 +180,7 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
-        providersMenu: false,
+        providersMenu: true,
         fundsMenu: false,
 
         // voucher settings
@@ -203,7 +203,7 @@ module.exports = {
         homeSteps: true,
         homeFaq: true,
         homeButton: true,
-        providersMenu: false,
+        providersMenu: true,
         fundsMenu: false,
 
         // voucher settings

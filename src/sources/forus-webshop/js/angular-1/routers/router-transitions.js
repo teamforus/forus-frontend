@@ -17,7 +17,7 @@ module.exports = ['$transitions', '$filter', '$rootScope', 'appConfigs', 'PageLo
 
         let pageTitleKey = 'page_state_titles.' + transition.to().name;
         let implementationName = $i18n('implementation_name.' + appConfigs.client_key);
-        
+
         let pageTitleText = $i18n(pageTitleKey, {
             implementation: implementationName
         });

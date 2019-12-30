@@ -5,7 +5,12 @@ let VoucherComponent = function(
     ModalService
 ) {
     let $ctrl = this;
+    
     $ctrl.qrValue = null;
+
+    $ctrl.mapOptions = {
+        centerType: 'avg',
+    };
 
     $ctrl.$onInit = function() {
         
