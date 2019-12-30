@@ -11,6 +11,10 @@ let ProvidersComponent = function(
     $ctrl.showmap = false;
     $ctrl.officesShown = [];
 
+    $ctrl.mapOptions = {
+        centerType: 'avg',
+    };
+
     $ctrl.toggleOffices = ($event, provider) => {
         $event.preventDefault();
         $event.stopPropagation();

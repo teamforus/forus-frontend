@@ -100,4 +100,8 @@ block content
                         on-page-change="$ctrl.onPageChange(query)")
 
                     .block.block-google-map(ng-show="$ctrl.showMap")
-                        google-map(map-pointers="$ctrl.offices" map-pointer-template="providers-office" map-gesture-handling="'greedy'")
+                        google-map(
+                            map-pointers="$ctrl.offices" 
+                            map-pointer-template="providers-office" 
+                            map-gesture-handling="'greedy'"
+                            map-options="$ctrl.mapOptions")

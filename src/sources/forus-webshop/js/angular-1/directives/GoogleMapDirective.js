@@ -30,16 +30,27 @@ let GoogleMapDirective = function(
             }]
         }];
 
-        let centerLat = mapPointers.length ? mapPointers[0].lat : appConfigs.features.map.lat;
-        let centerLon = mapPointers.length ? mapPointers[0].lon : appConfigs.features.map.lon;
+        let avg = (values) => {
+            return values.reduce((avg, value) => value + avg, 0) / values.length;
+        }
+
+        let centerLat = mapPointers.length > 0 ? mapPointers[0].lat : appConfigs.features.map.lat;
+        let centerLon = mapPointers.length > 0 ? mapPointers[0].lon : appConfigs.features.map.lon;
+
+        if ($scope.mapOptions && $scope.mapOptions.centerType == 'avg' && mapPointers.length > 0) {
+            centerLat = avg(mapPointers.map(pointer => {
+                return typeof pointer.lat == 'string' ? parseFloat(pointer.lat) : pointer.lat
+            }));
+            
+            centerLon = avg(mapPointers.map(pointer => {
+                return typeof pointer.lon == 'string' ? parseFloat(pointer.lon) : pointer.lon
+            }));
+        }
 
         var mapOptions = Object.assign({
             zoom: zoomLevel,
             disableDefaultUI: false,
-            center: new google.maps.LatLng(
-                $scope.mapOptions ? $scope.mapOptions.lat || centerLat : centerLat,
-                $scope.mapOptions ? $scope.mapOptions.lon || centerLon : centerLon,
-            ),
+            center: new google.maps.LatLng(centerLat, centerLon),
             scrollwheel: true,
             fullscreenControl: true,
             styles: styles,
@@ -87,6 +98,10 @@ let GoogleMapDirective = function(
 
     $scope.$watch('mapPointers', function(mapPointers) {
         $scope.initialize('map-canvas-contact', mapPointers);
+    });
+
+    $scope.$watch('mapOptions', function() {
+        $scope.initialize('map-canvas-contact', $scope.mapPointers);
     });
 
     GoogleMapService.getStyle().then(function(style) {

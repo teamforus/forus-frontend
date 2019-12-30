@@ -3,10 +3,6 @@ let ProviderComponent = function(
 ) {
     let $ctrl = this;
 
-    let avg = (values) => {
-        return values.reduce((avg, value) => value + avg, 0) / values.length;
-    }
-
     $ctrl.goToOffice = (office) => {
         $state.go('provider-office', {
             provider_id: office.organization_id,
@@ -15,12 +11,9 @@ let ProviderComponent = function(
     };
 
     $ctrl.$onInit = () => {
-        let offices = $ctrl.provider.offices;
-
         $ctrl.mapOptions = {
             zoom: 11,
-            lat: avg(offices.map(office => parseFloat(office.lat))),
-            lon: avg(offices.map(office => parseFloat(office.lon))),
+            centerType: 'avg',
         };
     };
 

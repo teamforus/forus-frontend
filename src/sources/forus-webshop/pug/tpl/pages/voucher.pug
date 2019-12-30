@@ -142,7 +142,10 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
             .map_card-title(ng-if="$ctrl.voucherCard.product" translate="voucher.labels.office")
             .map_card-subtitle(ng-if="$ctrl.voucherCard.product" translate="voucher.labels.voucher")
 
-        .map_card-iframe: google-map(map-pointers="$ctrl.voucherCard.offices" map-gesture-handling="'greedy'")
+        .map_card-iframe: google-map(
+            map-pointers="$ctrl.voucherCard.offices" 
+            map-gesture-handling="'greedy'"
+            map-options="$ctrl.mapOptions")
         
         //- regular voucher
         .map_card-footer
