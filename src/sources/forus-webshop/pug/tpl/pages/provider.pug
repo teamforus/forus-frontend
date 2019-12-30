@@ -10,7 +10,7 @@ block content
             map-gesture-handling="'greedy'")
         .provider-content
             .block.block-pane
-                .pane-head Vestiging informatie
+                .pane-head Organisatie informatie
                 .pane-section: .provider-details
                     .provider-description
                         img(ng-src="{{ $ctrl.provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}").provider-logo
@@ -36,7 +36,7 @@ block content
                                 .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen organisatie type' }}
             
             .block.block-pane.last-child: .pane-head.flex-row 
-                .flex-grow List offices
+                .flex-grow Vestigingen
                 .pane-head-count(ng-bind="$ctrl.provider.offices.length")
             
             .block.block-organizations
