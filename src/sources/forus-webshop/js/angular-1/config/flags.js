@@ -17,9 +17,9 @@ module.exports = {
         homeFaq: true,
         homeButton: true,
         providersMenu: false, // Show providers option on the top menu
-        fundsMenu: false,  // Show funds option on the top menu
-        
-        //voucher settings
+        fundsMenu: false, // Show funds option on the top menu
+
+        // voucher settings
         shareProducts: true,
     },
     forus: {
@@ -41,8 +41,8 @@ module.exports = {
         homeButton: true,
         providersMenu: true,
         fundsMenu: false,
-        
-        //voucher settings
+
+        // voucher settings
         shareProducts: true,
     },
     zuidhorn: {
@@ -64,8 +64,8 @@ module.exports = {
         homeButton: true,
         providersMenu: true,
         fundsMenu: false,
-        
-        //voucher settings
+
+        // voucher settings
         shareProducts: true,
     },
     nijmegen: {
@@ -88,7 +88,7 @@ module.exports = {
         providersMenu: true,
         fundsMenu: false,
 
-        //voucher settings
+        // voucher settings
         shareProducts: false,
     },
     westerkwartier: {
@@ -111,7 +111,7 @@ module.exports = {
         providersMenu: true,
         fundsMenu: false,
 
-        //voucher settings
+        // voucher settings
         shareProducts: true,
     },
     oostgelre: {
@@ -135,7 +135,7 @@ module.exports = {
         providersMenu: true,
         fundsMenu: false,
 
-        //voucher settings
+        // voucher settings
         shareProducts: true,
     },
     winterswijk: {
@@ -159,7 +159,7 @@ module.exports = {
         providersMenu: true,
         fundsMenu: false,
 
-        //voucher settings
+        // voucher settings
         shareProducts: true,
     },
     berkelland: {
@@ -183,7 +183,7 @@ module.exports = {
         providersMenu: true,
         fundsMenu: false,
 
-        //voucher settings
+        // voucher settings
         shareProducts: true,
     },
     noordoostpolder: {
@@ -206,7 +206,7 @@ module.exports = {
         providersMenu: true,
         fundsMenu: false,
 
-        //voucher settings
+        // voucher settings
         shareProducts: true,
     }
 };

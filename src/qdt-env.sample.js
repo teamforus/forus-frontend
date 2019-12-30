@@ -17,6 +17,9 @@ module.exports = (core) => {
             client_key: 'general',
             panel_type: 'sponsor',
             chat_id: false,
+            flags: {
+                // overwrite implementation flags
+            }
             // html5ModeEnabled: true,
             // html5Mode: {
             //    basePath: '/'
