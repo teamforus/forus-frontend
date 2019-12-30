@@ -4,7 +4,7 @@
 
         &.wide-70 {
             width: 50%;
-            margin-left:12%; 
+            margin-left: 12%;
         }
 
         .section-sprite {
@@ -36,6 +36,7 @@
         }
 
     }
+
     &.section-flow {
         margin-bottom: 100px;
 
@@ -102,7 +103,7 @@
                     width: 55.5%;
                     padding: 40px;
                     border-radius: 1000px;
-                    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,.4) 100%);
+                    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .4) 100%);
                 }
 
                 &:nth-child(2) {
@@ -142,12 +143,14 @@
             }
         }
     }
+
     @media screen and (max-width: 1500px) {
         &.section-flow {
             &.wide-70 {
                 width: 100%;
                 margin: 0;
             }
+
             .wrapper {
                 .section-sprite {
                     display: none;
@@ -155,12 +158,14 @@
             }
         }
     }
+
     @media screen and (max-width: 1200px) {
         &.section-flow {
             &.wide-70 {
                 width: 100%;
                 margin: 0;
             }
+
             .wrapper {
                 .section-sprite {
                     display: none;
@@ -168,10 +173,11 @@
             }
         }
     }
+
     @media screen and (max-width: 1000px) {
         &.section-flow {
             margin: 0 0 30px;
-            
+
             .section-title {
                 padding: 0;
                 font: 700 18px/32px $bf;
@@ -187,17 +193,20 @@
                 margin: 0;
             }
         }
+
         &.section-flow {
             &.wide-70 {
                 width: 100%;
                 margin: 0;
             }
+
             .wrapper {
                 .section-sprite {
                     display: none;
                 }
             }
         }
+
         &.section-flow {
             margin: 0 0 30px;
 

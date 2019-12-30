@@ -17,10 +17,6 @@
             font: 600 13px/24px $bf;
             outline: none;
 
-            &:not([disabled]):not(.disabled) {
-                box-shadow: 0 2px 5px rgba(#000000, 0.1);
-            }
-
             &:not(:last-of-type) {
                 margin-right: 5px;
             }
