@@ -53,14 +53,14 @@ block content
                     
                     .block.block-organizations(ng-if="!$ctrl.showMap")
                         .organization-item(ng-repeat="provider in $ctrl.providers.data")
-                            .organization-pane(ng-click="$ctrl.goToProvider(provider)")
-                                .organization-logo: img(
+                            .organization-pane(ng-click="$ctrl.toggleOffices($event, provider)")
+                                .organization-logo(ng-click="$ctrl.goToProvider(provider)"): img(
                                     ng-src="{{ provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}"
                                     ).organization-logo-img
                                 .organization-title
-                                    .organization-title-value(ng-bind="provider.name")
-                                    .organization-title-count(ng-bind="provider.offices.length")
-                                .organization-chevron(ng-click="$ctrl.toggleOffices($event, provider)")
+                                    .organization-title-value(ng-click="$ctrl.goToProvider($event, provider)" ng-bind="provider.name")
+                                    .organization-title-count(ng-click="$ctrl.goToProvider($event, provider)" ng-bind="provider.offices.length")
+                                .organization-chevron
                                     .mdi(ng-class="'mdi-chevron-' + (($ctrl.officesShown.indexOf(provider.id) != -1) ? 'up' : 'right')")
 
                             .organization-offices(ng-if="$ctrl.officesShown.indexOf(provider.id) != -1"): .block.block-offices

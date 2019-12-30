@@ -40,15 +40,15 @@ block content
             
             .block.block-pane.last-child
                 .pane-head Organisatie
-                .pane-section(ng-click="$ctrl.goToProvider($ctrl.provider)")
-                    .office-organization
-                        .organization-photo: img(src="/assets/img/placeholders/organization-thumbnail.png").organization-photo-img
+                .pane-section
+                    .office-organization(ng-click="$ctrl.toggleOffices($event, $ctrl.provider)")
+                        .organization-photo(ng-click="$ctrl.goToProvider($event, $ctrl.provider)")
+                            img(src="/assets/img/placeholders/organization-thumbnail.png").organization-photo-img
                         .organization-title
-                            .organization-title-value(ng-bind="$ctrl.provider.name")
-                            .organization-title-count(ng-bind="$ctrl.provider.offices.length")
+                            .organization-title-value(ng-click="$ctrl.goToProvider($event, $ctrl.provider)" ng-bind="$ctrl.provider.name")
+                            .organization-title-count(ng-click="$ctrl.goToProvider($event, $ctrl.provider)" ng-bind="$ctrl.provider.offices.length")
                         
-                        .organization-chevron(ng-click="$ctrl.toggleOffices($event, $ctrl.provider)")
-                            .mdi(ng-class="'mdi-chevron-' + ($ctrl.provider.showOffices ? 'up' : 'right')")
+                        .organization-chevron: .mdi(ng-class="'mdi-chevron-' + ($ctrl.provider.showOffices ? 'up' : 'right')")
             
             .block.block-organizations
                 .organization-item

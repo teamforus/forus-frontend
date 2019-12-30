@@ -66,7 +66,10 @@ let ProvidersComponent = function(
         });
     };
 
-    $ctrl.goToProvider = (provider) => {
+    $ctrl.goToProvider = ($event, provider) => {
+        $event.preventDefault();
+        $event.stopPropagation();
+
         $state.go('provider', {
             provider_id: provider.id
         });
