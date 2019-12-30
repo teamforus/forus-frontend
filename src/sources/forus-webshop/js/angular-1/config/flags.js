@@ -16,9 +16,6 @@ module.exports = {
     homeSteps: true,
     homeFaq: true,
     homeButton: true,
-    providersMenu: false, // Show providers option on the top menu
+    providersMenu: true, // Show providers option on the top menu
     fundsMenu: false, // Show funds option on the top menu
-
-    // voucher settings
-    shareProducts: true,
 };

@@ -1,8 +1,17 @@
 .label {
-    font: 700 12px/24px $bf;
+    font: 600 11px/20px $bf;
     display: inline-block;
-    padding: 0 15px;
-    border-radius: 24px;
+    padding: 0 7.5px;
+    border-radius: $border_radius / 2;
+    cursor: default;
+
+    .label-close {
+        color: #fff;
+        float: left;
+        font-size: 14px;
+        margin: 0 2.5px 0 -2.5px;
+        cursor: pointer;
+    }
 
     &.label-success {
         background: #2cc6ab;
@@ -14,9 +23,30 @@
         color: #fff;
     }
 
+    &.label-danger {
+        background: #de1442;
+        color: #fff;
+    }
+
     &.label-default {
         background: #8ca3a6;
         color: #fff;
+    }
+
+    &.label-primary {
+        background: $color_primary;
+        color: #fff;
+    }
+
+    &.label-sm {
+        padding: 0 5px;
+        line-height: 18px;
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+    &:not(:last-child):not(:last-of-type) {
+        margin: 0 5px 5px 0;
     }
 }
 @media screen and (max-width: 1000px) {

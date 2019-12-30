@@ -44,7 +44,8 @@ header.section.section-header.section-header-landing
             .block-content
                 .block-title(i18n="home.map.title")
                 .block-description(i18n="home.map.subtitle")
-                button(ng-click="$ctrl.showPopupOffices()" i18n="buttons.show_map").button.button-primary.button-wide
+                button(ui-sref="providers" i18n="buttons.show_map").button.button-primary.button-wide
+                //- button(ng-click="$ctrl.showPopupOffices()" i18n="buttons.show_map").button.button-primary.button-wide
 
     section.section.section-steps#steps(ng-if="$root.appConfigs.flags.homeSteps"): .wrapper
         .section-splash

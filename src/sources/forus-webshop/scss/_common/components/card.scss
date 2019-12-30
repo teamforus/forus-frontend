@@ -220,4 +220,14 @@
             background: lighten($color: #f3f4f5, $amount: 2);
         }
     }
+
+    @media screen and (max-width: 1000px) {
+        .card-head {
+            padding: 15px 20px;
+        }
+
+        .card-section {
+            padding: 20px;
+        }
+    }
 }
