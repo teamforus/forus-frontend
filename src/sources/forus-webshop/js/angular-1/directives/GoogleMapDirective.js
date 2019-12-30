@@ -86,7 +86,7 @@ let GoogleMapDirective = function(
                     $timeout(() => {
                         infowindow.setContent(htmlTemplate.html());
                         infowindow.open(map, marker);
-                    }, 100);
+                    }, 250);
                 }
             })(marker, mapPointer));
 

@@ -3,6 +3,11 @@ let ProviderComponent = function(
 ) {
     let $ctrl = this;
 
+    $ctrl.mapOptions = {
+        zoom: 11,
+        centerType: 'avg',
+    };
+
     $ctrl.goToOffice = (office) => {
         $state.go('provider-office', {
             provider_id: office.organization_id,
@@ -10,13 +15,7 @@ let ProviderComponent = function(
         });
     };
 
-    $ctrl.$onInit = () => {
-        $ctrl.mapOptions = {
-            zoom: 11,
-            centerType: 'avg',
-        };
-    };
-
+    $ctrl.$onInit = () => {};
     $ctrl.$onDestroy = () => {};
 };
 

@@ -13,6 +13,9 @@ let ProvidersComponent = function(
 
     $ctrl.mapOptions = {
         centerType: 'avg',
+        fullscreenControlOptions: {
+            position: google.maps.ControlPosition.LEFT_BOTTOM
+        },
     };
 
     $ctrl.toggleOffices = ($event, provider) => {
