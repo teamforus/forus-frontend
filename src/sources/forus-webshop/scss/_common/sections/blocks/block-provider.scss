@@ -1,0 +1,90 @@
+&.block-provider {
+    width: 100%;
+    margin: 0 0 30px;
+
+    .provider-map {
+        height: 420px;
+        background: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+
+        .block-google-map {
+            @include fill_parent();
+            position: absolute;
+
+            iframe {
+                @include fill_parent();
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                border: 0;
+            }
+
+            .block-google-map-backdrop {
+                @include fill_parent();
+                position: absolute;
+                background: rgba($color: #000000, $alpha: .1);
+                z-index: 1;
+            }
+        }
+
+        &>.block-map-office-card {
+            box-shadow: $base_shadow;
+        }
+    }
+
+    .provider-content {
+        width: 900px;
+        padding: 0 20px;
+        max-width: 100%;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+
+        .provider-details {
+            display: flex;
+            flex-direction: column;
+
+            .provider-description {
+                font: 400 13px/20px $bf;
+                border-bottom: 1px dashed $border_color;
+                margin-bottom: 15px;
+                padding-bottom: 15px;
+                display: flex;
+                flex-direction: row;
+
+                .provider-logo {
+                    width: 50px;
+                    margin-right: 15px;
+                    border-radius: 5px;
+                }
+
+                .provider-title {
+                    font: 700 14px/20px $bf;
+                    padding: 15px 0
+                }
+
+                &:last-child {
+                    border-bottom: 0;
+                    margin-bottom: 0;
+                    padding-bottom: 0;
+                }
+            }
+        }
+
+        .block-pane:first-child {
+            margin-top: -70px;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .provider-content {
+            .block-pane:first-child {
+                margin-top: -15px;
+            }
+        }
+    }
+}

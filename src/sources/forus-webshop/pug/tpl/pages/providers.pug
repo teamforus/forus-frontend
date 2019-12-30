@@ -53,14 +53,15 @@ block content
                     
                     .block.block-organizations(ng-if="!$ctrl.showMap")
                         .organization-item(ng-repeat="provider in $ctrl.providers.data")
-                            .organization-pane(ng-click="$ctrl.toggleOffices(provider)")
+                            .organization-pane(ng-click="$ctrl.goToProvider(provider)")
                                 .organization-logo: img(
                                     ng-src="{{ provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}"
                                     ).organization-logo-img
                                 .organization-title
                                     .organization-title-value(ng-bind="provider.name")
                                     .organization-title-count(ng-bind="provider.offices.length")
-                                .organization-chevron: .mdi(ng-class="'mdi-chevron-' + (($ctrl.officesShown.indexOf(provider.id) != -1) ? 'up' : 'right')")
+                                .organization-chevron(ng-click="$ctrl.toggleOffices($event, provider)")
+                                    .mdi(ng-class="'mdi-chevron-' + (($ctrl.officesShown.indexOf(provider.id) != -1) ? 'up' : 'right')")
 
                             .organization-offices(ng-if="$ctrl.officesShown.indexOf(provider.id) != -1"): .block.block-offices
                                 a(ng-repeat="office in provider.offices" ng-click="$ctrl.goToOffice(office)").office-item
@@ -99,4 +100,4 @@ block content
                         on-page-change="$ctrl.onPageChange(query)")
 
                     .block.block-google-map(ng-show="$ctrl.showMap")
-                        google-map(map-pointers="$ctrl.offices" map-pointer-template="providers-office")
+                        google-map(map-pointers="$ctrl.offices" map-pointer-template="providers-office" map-gesture-handling="'greedy'")

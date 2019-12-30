@@ -1,7 +1,5 @@
 let ProviderOfficeComponent = function(
-    $scope,
     $state,
-    $element,
     OfficeService
 ) {
     let $ctrl = this;
@@ -11,6 +9,19 @@ let ProviderOfficeComponent = function(
             provider_id: office.organization_id,
             office_id: office.id
         });
+    };
+
+    $ctrl.goToProvider = (provider) => {
+        $state.go('provider', {
+            provider_id: provider.id
+        });
+    };
+
+    $ctrl.toggleOffices = ($event, provider) => {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        provider.showOffices = !provider.showOffices;
     };
     
     $ctrl.$onInit = () => {
@@ -30,9 +41,7 @@ module.exports = {
         office: '<'
     },
     controller: [
-        '$scope',
         '$state',
-        '$element',
         'OfficeService',
         ProviderOfficeComponent
     ],

@@ -11,7 +11,10 @@ let ProvidersComponent = function(
     $ctrl.showmap = false;
     $ctrl.officesShown = [];
 
-    $ctrl.toggleOffices = (provider) => {
+    $ctrl.toggleOffices = ($event, provider) => {
+        $event.preventDefault();
+        $event.stopPropagation();
+
         if ($ctrl.officesShown.indexOf(provider.id) == -1) {
             $ctrl.officesShown.push(provider.id);
         } else {
@@ -56,6 +59,12 @@ let ProvidersComponent = function(
         $state.go('provider-office', {
             provider_id: office.organization_id,
             office_id: office.id
+        });
+    };
+
+    $ctrl.goToProvider = (provider) => {
+        $state.go('provider', {
+            provider_id: provider.id
         });
     };
 

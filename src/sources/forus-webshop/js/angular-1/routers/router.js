@@ -194,6 +194,19 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: "provider",
+        url: "/providers/{provider_id}",
+        component: "providerComponent",
+        resolve: {
+            provider: ['$transition$', 'ProvidersService', (
+                $transition$, ProvidersService
+            ) => repackResponse(ProvidersService.read(
+                $transition$.params().provider_id
+            ))],
+        }
+    });
+
+    $stateProvider.state({
         name: "products-apply",
         url: "/products/{id}/apply",
         component: "productApplyComponent",

@@ -23,6 +23,7 @@ app.component('productComponent', require('./components/ProductComponent'));
 app.component('productApplyComponent', require('./components/ProductApplyComponent'));
 app.component('providersComponent', require('./components/ProvidersComponent'));
 app.component('providerOfficeComponent', require('./components/ProviderOfficeComponent'));
+app.component('providerComponent', require('./components/ProviderComponent'));
 app.component('voucherComponent', require('./components/VoucherComponent'));
 app.component('fundApplyComponent', require('./components/FundApplyComponent'));
 app.component('fundRequestComponent', require('./components/FundRequestComponent'));

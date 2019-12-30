@@ -7,19 +7,15 @@ let GoogleMapDirective = function(
     appConfigs
 ) {
     $scope.style = [];
-    // locations = [];
     $scope.markers = [];
 
     $scope.initialize = function(obj, mapPointers) {
         mapPointers = mapPointers || [];
 
         let $elementCanvas = $element.find('.map-canvas');
-        let map, marker, infowindow;
+        let map, infowindow;
         let image = $elementCanvas.attr("data-marker");
         let zoomLevel = 12;
-        let styledMap = new google.maps.StyledMapType($scope.style, {
-            name: "Styled Map"
-        });
 
         let styles = [{
             featureType: 'poi.business',
@@ -37,20 +33,21 @@ let GoogleMapDirective = function(
         let centerLat = mapPointers.length ? mapPointers[0].lat : appConfigs.features.map.lat;
         let centerLon = mapPointers.length ? mapPointers[0].lon : appConfigs.features.map.lon;
 
-        var mapOptions = {
+        var mapOptions = Object.assign({
             zoom: zoomLevel,
             disableDefaultUI: false,
             center: new google.maps.LatLng(
-                centerLat,
-                centerLon
+                $scope.mapOptions ? $scope.mapOptions.lat || centerLat : centerLat,
+                $scope.mapOptions ? $scope.mapOptions.lon || centerLon : centerLon,
             ),
             scrollwheel: true,
-            fullscreenControl: false,
+            fullscreenControl: true,
             styles: styles,
             mapTypeControlOptions: {
                 mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
-            }
-        }
+            },
+            gestureHandling: $scope.mapGestureHandling || undefined,
+        }, $scope.mapOptions || {})
 
         map = new google.maps.Map(document.getElementById(obj), mapOptions);
         infowindow = new google.maps.InfoWindow();
@@ -103,7 +100,9 @@ module.exports = () => {
         scope: {
             offices: '=',
             mapPointers: '=',
-            mapPointerTemplate: '@'
+            mapPointerTemplate: '@',
+            mapOptions: '=',
+            mapGestureHandling: '='
         },
         replace: true,
         controller: [
