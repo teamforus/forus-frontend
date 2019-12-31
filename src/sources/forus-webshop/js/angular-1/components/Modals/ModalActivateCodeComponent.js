@@ -1,6 +1,9 @@
+let sprintf = require('sprintf-js').sprintf;
+
 let ModalAuthComponent = function(
     $q,
     $state,
+    $timeout,
     ModalService,
     FormBuilderService,
     PrevalidationService,
@@ -9,7 +12,8 @@ let ModalAuthComponent = function(
     AuthService,
     VoucherService,
     RecordTypeService,
-    RecordService
+    RecordService,
+    LocalStorageService
 ) {
 
     if(AuthService.hasCredentials()) {
@@ -20,6 +24,7 @@ let ModalAuthComponent = function(
             $ctrl.vouchers = [];
         }
     let $ctrl = this;
+    let lockTimer = false;
 
     $ctrl.getApplicableFunds = () => {
         let deferred = $q.defer(),
@@ -70,6 +75,66 @@ let ModalAuthComponent = function(
         return deferred.promise;
     }
 
+    $ctrl.getLockTimeSecondsLeft = () => {
+        let lockTimeMinutes  = LocalStorageService.getCollectionItem('voucher_redeem', 'lock_time_minutes', null),
+            lockStartTime    = LocalStorageService.getCollectionItem('voucher_redeem', 'lock_start_time', moment()),
+            lockSecondsLeft  = lockTimeMinutes * 60 - moment().diff(lockStartTime, "seconds");
+        
+        return lockSecondsLeft > 0 ? lockSecondsLeft : 0;
+    };
+
+    $ctrl.isActivateCodeFormLocked = () => {
+        return $ctrl.getLockTimeSecondsLeft() >= 0;    
+    };
+
+    $ctrl.activateCodeFormLock = () => {
+        $ctrl.activateCodeForm.lock();
+
+        lockTimer = $timeout(function() {
+            $ctrl.activateCodeForm.unlock();
+            $ctrl.activateCodeForm.reset();
+
+            $timeout.cancel(lockTimer);
+        }, $ctrl.getLockTimeSecondsLeft() * 1000);
+    }
+
+    $ctrl.getFailedAttemptLockTimeMinutes = (failedAttemptNr) => {
+        return {
+            1: 1,
+            2: 2,
+            3: 180
+        }[failedAttemptNr];
+    }
+
+    $ctrl.addErrorLockMsg = () => {
+        let failedAttemptNr = LocalStorageService.getCollectionItem(
+            'voucher_redeem', 'attempts_nr', 1);
+        let lockTimeMinutes = $ctrl.getFailedAttemptLockTimeMinutes(failedAttemptNr);
+        let errorMsg = 'Wrong code. This is your %s attempt out of three attempts. ' +
+            'You are now blocked for %s minutes';
+
+        $ctrl.activateCodeForm.errors.code = true;
+        let attemptNrStr = {
+            1: 'first',
+            2: 'second',
+            3: 'third',
+        }[failedAttemptNr];
+
+        $ctrl.activateCodeForm.errors.message = sprintf(errorMsg, attemptNrStr, lockTimeMinutes);
+    }
+
+    $ctrl.resetVoucherRedeemStorage = () => {
+        LocalStorageService.resetCollection('voucher_redeem');
+    }
+
+    $ctrl.setVoucherRedeemStorage = (failedAttemptsNr) => {
+        let lockTimeMinutes = $ctrl.getFailedAttemptLockTimeMinutes(failedAttemptsNr);
+
+        LocalStorageService.setCollectionItem('voucher_redeem', 'lock_time_minutes', lockTimeMinutes);
+        LocalStorageService.setCollectionItem('voucher_redeem', 'attempts_nr', failedAttemptsNr);
+        LocalStorageService.setCollectionItem('voucher_redeem', 'lock_start_time', moment());
+    }
+
     $ctrl.$onInit = () => {
 
         $ctrl.activateCodeForm = FormBuilderService.build({
@@ -101,6 +166,8 @@ let ModalAuthComponent = function(
                     
                     if (!$ctrl.present){
                         PrevalidationService.redeem(code).then((res) => {
+                            $ctrl.resetVoucherRedeemStorage();
+
                             $ctrl.close();
         
                             ConfigService.get().then((res) => {
@@ -127,9 +194,10 @@ let ModalAuthComponent = function(
                                 }
                             });
                         }, (res) => {
-                            if (res.status == 403) {
-                                form.errors.code = true;
-                            } else if (res.status == 429) {
+                            let failedAttemptsNr = LocalStorageService.getCollectionItem('voucher_redeem', 'attempts_nr', 0);
+                            ++failedAttemptsNr;
+
+                            if (res.status == 429) {
                                 $ctrl.close();
                                 ModalService.open('modalNotification', {
                                     type: 'info',
@@ -137,8 +205,10 @@ let ModalAuthComponent = function(
                                     description: 'U heeft driemaal een verkeerde activatiecode ingevuld. Probeer het over drie uur opnieuw.'
                                 });
                             }
-        
-                            form.unlock();
+
+                            $ctrl.setVoucherRedeemStorage(failedAttemptsNr);
+                            $ctrl.activateCodeFormLock();
+                            $ctrl.addErrorLockMsg();
                         });
                     }        
                     else{
@@ -153,6 +223,11 @@ let ModalAuthComponent = function(
                 });
             })
         });
+
+        if ($ctrl.isActivateCodeFormLocked()) {
+            $ctrl.activateCodeFormLock();
+            $ctrl.addErrorLockMsg();
+        }
     };
 };
 
@@ -164,6 +239,7 @@ module.exports = {
     controller: [
         '$q',
         '$state',
+        '$timeout',
         'ModalService',
         'FormBuilderService',
         'PrevalidationService',
@@ -173,6 +249,7 @@ module.exports = {
         'VoucherService',
         'RecordTypeService',
         'RecordService',
+        'LocalStorageService',
         ModalAuthComponent
     ],
     templateUrl: () => {

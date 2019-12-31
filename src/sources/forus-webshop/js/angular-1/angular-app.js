@@ -68,6 +68,7 @@ app.service('EmailPreferencesService', require('./services/EmailPreferencesServi
 app.service('FileService', require('./services/FileService'));
 app.service('DigIdService', require('./services/DigIdService'));
 app.service('PushNotificationsService', require('./services/PushNotificationsService'));
+app.service('LocalStorageService', require('./services/LocalStorageService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
