@@ -27,6 +27,10 @@
                         .entity-overview-label KVK:
                         .entity-overview-value(ng-bind="$ctrl.fundProvider.organization.kvk")
                     
+                    .entity-overview-row(ng-if="$ctrl.fundProvider.organization.iban")
+                        .entity-overview-label IBAN:
+                        .entity-overview-value(ng-bind="$ctrl.fundProvider.organization.iban")
+                    
                     .entity-overview-row(ng-if="$ctrl.fundProvider.organization.btw")
                         .entity-overview-label BTW:
                         .entity-overview-value(ng-bind="$ctrl.fundProvider.organization.btw")
