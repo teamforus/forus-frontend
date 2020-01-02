@@ -4,7 +4,7 @@ require('./modules/page-loading-bar/PageLoadingBarModule');
 
 let appConfigs = JSON.parse(JSON.stringify(env_data));
 let app = angular.module('forusApp', [
-    'pascalprecht.translate', 'ui.router', 'ngCookies', 
+    'pascalprecht.translate', 'ui.router', 'ngCookies',
     'forus.selectControl', 'forus.uiControls', 'forus.pageLoadingBarModule',
 ]);
 
@@ -153,10 +153,10 @@ app.config(require('./config/i18n'));
 app.run(require('./routers/router-transitions'));
 
 app.run(['appConfigs', (appConfigs) => {
-    let appFlags = require('./config/flags.js');
-    let implementationflags = appFlags[env_data.client_key] || appFlags.general
-
-    appConfigs.flags = Object.assign(implementationflags, env_data.flags || {})
+    appConfigs.flags = Object.assign(
+        require('./config/flags.js'),
+        env_data.flags || {}
+    );
 }]);
 
 // Bootstrap the app
