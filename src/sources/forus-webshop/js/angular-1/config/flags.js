@@ -1,6 +1,6 @@
 module.exports = {
     logoExtension: '.svg',
-    showSdoaLogo: false,
+    secondLogo: false,
     showAccountSidebar: true,
 
     // menu settings
@@ -18,4 +18,7 @@ module.exports = {
     homeButton: true,
     providersMenu: true, // Show providers option on the top menu
     fundsMenu: false, // Show funds option on the top menu
+
+    // voucher settings
+    shareProducts: true,
 };

@@ -1,6 +1,6 @@
 .block.block-navbar: .navbar-inner.wrapper
     a(ui-sref="home" ng-if="$root.appConfigs.client_key != 'general'").navbar-logo
-        img(ng-src="{{ './assets/img/sdoa-logo.svg' }}" ng-if="$root.appConfigs.flags.showSdoaLogo").second-logo
+        img(ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" ng-if="$root.appConfigs.flags.secondLogo").second-logo
         img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
         img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover
     

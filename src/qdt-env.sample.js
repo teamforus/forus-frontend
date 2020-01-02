@@ -9,6 +9,7 @@ let minify = false;
 let sourcemap = false;
 let baseImplementationKey = 'general';
 let autoLogOutTime = 15;
+let chatId = false;
 
 module.exports = (core) => {
     // Config markups
@@ -21,7 +22,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: baseImplementationKey,
             panel_type: 'sponsor',
-            chat_id: false,
+            chat_id: chatId,
             flags: {},
             // html5ModeEnabled: true,
             // html5Mode: {
@@ -47,7 +48,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: baseImplementationKey,
             panel_type: 'provider',
-            chat_id: false,
+            chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
         });
@@ -66,7 +67,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: baseImplementationKey,
             panel_type: 'validator',
-            chat_id: false,
+            chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
         });
@@ -85,7 +86,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'zuidhorn',
             panel_type: 'sponsor',
-            chat_id: false,
+            chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
         });
@@ -104,7 +105,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'zuidhorn',
             panel_type: 'provider',
-            chat_id: false,
+            chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
         });
@@ -123,7 +124,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'westerkwartier',
             panel_type: 'provider',
-            chat_id: false,
+            chat_id: chatId,
             hide_voucher_generators: false,
             flags: {
                 maxProductCount: 20,
@@ -144,7 +145,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'nijmegen',
             panel_type: 'sponsor',
-            chat_id: false,
+            chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
         });
@@ -163,7 +164,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'nijmegen',
             panel_type: 'provider',
-            chat_id: false,
+            chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
         });
@@ -182,7 +183,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'westerkwartier',
             panel_type: 'sponsor',
-            chat_id: false,
+            chat_id: chatId,
             hide_voucher_generators: false,
             flags: {
                 maxProductCount: 20,
@@ -203,7 +204,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'berkelland',
             panel_type: 'provider',
-            chat_id: false,
+            chat_id: chatId,
             hide_voucher_generators: false,
             flags: {
                 maxProductCount: 20,
@@ -224,7 +225,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'berkelland',
             panel_type: 'sponsor',
-            chat_id: false,
+            chat_id: chatId,
             hide_voucher_generators: false,
             flags: {
                 maxProductCount: 20,
@@ -245,7 +246,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'oostgelre',
             panel_type: 'provider',
-            chat_id: false,
+            chat_id: chatId,
             hide_voucher_generators: false,
             flags: {
                 maxProductCount: 20,
@@ -266,7 +267,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'oostgelre',
             panel_type: 'sponsor',
-            chat_id: false,
+            chat_id: chatId,
             hide_voucher_generators: false,
             flags: {
                 maxProductCount: 20,
@@ -287,7 +288,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'winterswijk',
             panel_type: 'provider',
-            chat_id: false,
+            chat_id: chatId,
             hide_voucher_generators: false,
             flags: {
                 maxProductCount: 20,
@@ -308,7 +309,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'winterswijk',
             panel_type: 'sponsor',
-            chat_id: false,
+            chat_id: chatId,
             hide_voucher_generators: false,
             flags: {
                 maxProductCount: 20,
@@ -329,7 +330,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'kerstpakket',
             panel_type: 'provider',
-            chat_id: false,
+            chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
         });
@@ -348,7 +349,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'kerstpakket',
             panel_type: 'sponsor',
-            chat_id: false,
+            chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
         });
@@ -367,7 +368,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'noordoostpolder',
             panel_type: 'provider',
-            chat_id: false,
+            chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
         });
@@ -386,7 +387,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'noordoostpolder',
             panel_type: 'sponsor',
-            chat_id: false,
+            chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
         });
@@ -534,7 +535,7 @@ module.exports = (core) => {
             log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {
-                showSdoaLogo: true,
+                secondLogo: 'sdoa-logo.svg',
             },
         });
 
@@ -555,7 +556,7 @@ module.exports = (core) => {
             log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {
-                showSdoaLogo: true,
+                secondLogo: 'sdoa-logo.svg',
                 showAccountSidebar: false,
 
                 // menu settings
@@ -583,7 +584,7 @@ module.exports = (core) => {
             log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {
-                showSdoaLogo: true,
+                secondLogo: 'sdoa-logo.svg',
                 showAccountSidebar: false,
 
                 // menu settings
