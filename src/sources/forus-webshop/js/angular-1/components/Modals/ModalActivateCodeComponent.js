@@ -110,14 +110,14 @@ let ModalAuthComponent = function(
         let failedAttemptNr = LocalStorageService.getCollectionItem(
             'voucher_redeem', 'attempts_nr', 1);
         let lockTimeMinutes = $ctrl.getFailedAttemptLockTimeMinutes(failedAttemptNr);
-        let errorMsg = 'Wrong code. This is your %s attempt out of three attempts. ' +
-            'You are now blocked for %s minutes';
+        let errorMsg = 'U heeft een verkeerde of gebruikte activatiecode ingevuld. Dit is uw %s poging uit drie waarna u voor 180 minuten geblokeerd wordt.' +
+            'U bent geblokkeerd voor %s minuten';
 
         $ctrl.activateCodeForm.errors.code = true;
         let attemptNrStr = {
-            1: 'first',
-            2: 'second',
-            3: 'third',
+            1: 'eerste',
+            2: 'tweede',
+            3: 'derde',
         }[failedAttemptNr];
 
         $ctrl.activateCodeForm.errors.message = sprintf(errorMsg, attemptNrStr, lockTimeMinutes);
