@@ -20,6 +20,10 @@
                 width: 100%;
                 margin: -20px 0;
             }
+            img {
+                display: block;
+                width: 90%;
+            }
         }
         
         .product-content {
@@ -34,7 +38,11 @@
 
             .product-name {
                 font: 700 16px/30px $bf;
-                margin: 0 0 5px;
+                margin: 0;
+            }
+            .product-organization {
+                font: 400 14px/30px $bf;
+                margin-bottom: 5px;
             }
         }
 
@@ -42,10 +50,20 @@
             padding: 15px;
             width: 270px;
             border-left: 1px solid $border_color;
-            justify-self: end;
-            
+            display:flex;
+            align-items: flex-start;
+            justify-content: end;
+            flex-wrap: wrap;
+            flex-direction: row-reverse;
             .product-price {
                 font: 700 17px/30px $bf;   
+                position: relative;
+                width: 135px;
+                text-align: right;
+            }
+            .product-discount {
+                position: relative;
+                width: 85px;
             }
         }
     }
@@ -57,9 +75,12 @@
             border-radius: $border_radius / 2;
 
             .product-photo {
-                width: 100px;
+                width:250px;
                 min-width: 100px;
                 border-right: 1px solid $border_color;
+                img {
+                    width:100%;
+                }
             }
 
             .product-content {
@@ -78,13 +99,11 @@
                     font: 700 13px/18px $bf;
                     margin: 0;
                 }
-
-                .product-discount {
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    border-radius: $border_radius / 2 0 0 0;
+                .product-organization {
+                    font: 400 12px/18px $bf;
+                    margin: 0;
                 }
+
             }
 
             .product-actions {
@@ -100,7 +119,14 @@
                 }
     
                 .product-price {
-                    font: 700 13px/18px $bf;   
+                    font: 700 13px/18px $bf; 
+                    width: auto;  
+                }
+                .product-discount {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    border-radius: $border_radius / 2 0 0 0;
                 }
             }
         }
