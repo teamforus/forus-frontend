@@ -92,6 +92,7 @@ let FundRequestComponentDefault = function(
     $ctrl.errorReason = false;
     $ctrl.finishError = false;
     $ctrl.bsnIsKnown = true;
+    $ctrl.appConfigs = appConfigs;
 
     let timeout = null;
     let stopTimeout = null;

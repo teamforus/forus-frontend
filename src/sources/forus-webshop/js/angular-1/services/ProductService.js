@@ -8,8 +8,8 @@ let ProductService = function(
             return ApiRequest.get(uriPrefix, data);
         };
 
-        this.sample = function() {
-            return ApiRequest.get(uriPrefix + '/sample');
+        this.sample = function(data) {
+            return ApiRequest.get(uriPrefix + '/sample', data);
         };
 
         this.read = function(id) {

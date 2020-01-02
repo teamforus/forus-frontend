@@ -22,6 +22,7 @@
 @import 'components/_breadcrumbs.scss',
 'components/_buttons.scss',
 'components/flex-grid.scss',
+'components/rate.scss',
 'components/_carrousel.scss',
 'components/_dropdown.scss',
 'components/_form.scss',
@@ -34,6 +35,7 @@
 'components/_printables.scss',
 'components/card.scss',
 'components/table.scss';
+@import 'components/table-pagination';
 
 // SECTIONS
 @import 'sections/blogs.scss',
@@ -79,3 +81,18 @@
 'sections/blocks/block-auth-widget.scss',
 'sections/blocks/block-push-notifications.scss',
 'sections/blocks/block-page-loading-bar.scss';
+
+.block {
+    @import 'sections/blocks/block-showcase.scss';
+    @import 'sections/blocks/block-products-list.scss';
+    @import 'sections/blocks/block-label-tabs.scss';
+    @import 'sections/blocks/block-organizations.scss';
+    @import 'sections/blocks/block-offices.scss';
+    @import 'sections/blocks/block-office.scss';
+    @import 'sections/blocks/block-provider.scss';
+    @import 'sections/blocks/block-pane.scss';
+    @import 'sections/blocks/block-data-list.scss';
+    @import 'sections/blocks/block-schedule-list.scss';
+
+    @import 'sections/blocks/block-map-office-card.scss';
+}

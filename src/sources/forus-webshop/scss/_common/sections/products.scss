@@ -19,7 +19,8 @@
                 background-size: 60px 60px;
             }
         }
-    }    
+    }
+
     @media screen and (max-width: 1700px) {
         &.section-faq,
         &.section-products {
@@ -37,8 +38,9 @@
             }
         }
     }
+
     @media screen and (max-width: 1000px) {
-        &.section-products, 
+        &.section-products,
         &.section-faq {
             .section-title {
                 text-align: center;
@@ -55,22 +57,20 @@
 
                 .row {
                     margin: 0;
-                    
+
                     .col {
                         padding: 0;
                         float: left;
 
                         .form-group {
                             .form-control {
-                                &:first-child {
-
-                                }
+                                &:first-child {}
                             }
                         }
 
                         &:first-child {
                             width: 40%;
-                            
+
                             .form-group {
                                 margin: 0;
 

@@ -11,10 +11,10 @@
             .auth-subtitle {{ "popup_auth.labels.link" | translate }}
 
             form.form.auth-form(ng-submit="$ctrl.signInEmailForm.submit()"): .flex-row.flex-grow
-                .flex-col.IE-FlexAuto.flex-grow: .form-group
+                .flex-col.flex-grow.ie-flex-auto: .form-group
                     input(ng-model="$ctrl.signInEmailForm.values.primary_email" type="email" placeholder="E-mail").form-control.email-auth
                     .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.primary_email" ng-bind="error")
-                .flex-col.IE-FlexAuto: button(type="submit").button.button-primary Login
+                .flex-col.ie-flex-auto: button(type="submit").button.button-primary Login
 
             //- Disabled for now
             //- .auth-digid(ng-if="$ctrl.digidAvailable"): a(ng-click="$ctrl.useDigId()").auth-digid-link

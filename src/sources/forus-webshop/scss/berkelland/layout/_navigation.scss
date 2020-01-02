@@ -6,51 +6,41 @@
         padding: 0;
         background-color: #fff;
         max-width: 100%;
-        z-index: 2;
         box-shadow: 1px -5px 10px rgb(187, 187, 187);
+
         .navbar-inner {
             padding: 0px 15px;
             align-items: center;
             background-color: transparent;
         }
+
         .block-auth {
             border-left: 1px solid #dbdcdb;
         }
-        .navbar-logo {
-            display:flex;
-            align-items: center;
 
-            @media screen and (min-width: 1024px) {
-                padding: 10px 20px 10px 0px;
-                border-right: 1px solid #dbdcdb;
-            }
+        .navbar-logo {
+            display: flex;
+            align-items: center;
 
             img {
                 width: 170px;
                 height: auto;
-
-                @media screen and (max-width: 1000px) {
-                    width: auto;
-                }
             }
 
             .second-logo {
                 height: 55px;
-                width: auto;
+                width: 54px;
                 margin-right: 10px;
-
-                @media screen and (max-width: 1000px) {
-                    display: none;
-                }
             }
         }
-        
+
         .navbar-list {
             text-align: left;
-            
+
             .navbar-item-wrapper {
                 .navbar-item {
                     font-size: 1em;
+
                     &:hover {
                         color: $tc;
 
@@ -82,16 +72,52 @@
                     .auth-user-avatar {
                         border-color: $color_default;
                         border-radius: 4px;
-                        
+
                         img {
                             filter: grayscale(.8);
                         }
                     }
                 }
             }
+
             .button {
                 &:hover {
                     box-shadow: 0
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 1000px) {
+        &.block-navbar {
+            .navbar-logo {
+                padding: 10px 20px 10px 0px;
+                border-right: 1px solid #dbdcdb;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        &.block-navbar {
+            .navbar-logo {
+                img {
+                    width: auto;
+                }
+
+                .second-logo {
+                    display: none;
+                }
+            }
+            
+            .navbar-inner {
+                padding: 0px 0;
+            }
+
+            .navbar-list {
+                .navbar-item-wrapper {
+                    .navbar-item {
+                        padding: 10px 20px;
+                    }
                 }
             }
         }

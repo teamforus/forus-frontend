@@ -170,7 +170,7 @@
     &.modal-auth {
         .modal-title {
             color: #282b39;
-            font: 700 40px $bf;
+            font: 700 26px $bf;
             text-align: center;
             margin: 0 0 10px;
         }
@@ -195,10 +195,37 @@
         }
 
         .modal-content {
+            width: 1000px;
+
             .form {
                 width: 480px;
                 margin: 0 auto;
                 padding: 10px 0;
+            }
+
+            .step-item {
+                padding-top: 20px;
+                padding-bottom: 20px;
+
+                .step-title {
+                    font: 400 26px/30px $bf;
+                    margin-bottom: 7px;
+                }
+
+                .step-description {
+                    font: 400 16px/22px $bf;
+                    margin-bottom: 15px;
+
+                    a {
+                        font: 400 16px/22px $bf;
+                        text-decoration: underline;
+                        color: #007DF0;
+                    }
+                }
+            }
+
+            .block-pincode {
+                margin-bottom: 10px;
             }
 
             &.button {
@@ -337,7 +364,23 @@
 
         &.modal-auth {
             .modal-title {
-                font: 700 24px $bf;
+                font: 700 22px $bf;
+            }
+
+            .modal-content {
+                .step-item {
+                    .step-title {
+                        font: 400 20px/18px $bf;
+                    }
+    
+                    .step-description {
+                        font: 400 14px/18px $bf;
+    
+                        a {
+                            font: 400 14px/18px $bf;
+                        }
+                    }
+                }
             }
 
             .modal-subtitle {
@@ -387,8 +430,24 @@
                 padding: 50px 25px 25px;
 
                 .modal-title {
-                    font: 700 22px/32px $bf;
+                    font: 700 20px/32px $bf;
                     margin: 0 0 10px;
+                }
+
+                .modal-content {
+                    .step-item {
+                        .step-title {
+                            font: 400 18px/20px $bf;
+                        }
+        
+                        .step-description {
+                            font: 400 12px/16px $bf;
+        
+                            a {
+                                font: 400 12px/16px $bf;
+                            }
+                        }
+                    }
                 }
 
                 .modal-subtitle {

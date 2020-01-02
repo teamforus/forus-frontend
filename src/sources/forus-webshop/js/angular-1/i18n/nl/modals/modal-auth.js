@@ -94,8 +94,9 @@ module.exports = {
         },
         pin_code: {
             confirmation: {
-                title: "Is de mobiele app gekoppeld aan uw persoonlijk e-mailadres?",
-                description: "Ga naar het tabblad <b>Profiel</b> in de app. Ziet u hier uw e-mailadres staan? Dan is de app succesvol gekoppeld. Als u het tabblad <b>Profiel</b> niet ziet staan, probeer het dan opnieuw.",
+                title: "De app wordt gekoppeld aan uw profiel",
+                description: "Na 5 tot 10 seconden wordt de app gekoppeld. Is het gelukt? Klik dan op volgende.",
+                notice: "Ziet u na 30 seconden nog steeds de 6 cijfers in de app? Probeer het dan opnieuw.",
                 buttons: {
                     try_again: "Opnieuw proberen",
                     confirm: "Volgende"

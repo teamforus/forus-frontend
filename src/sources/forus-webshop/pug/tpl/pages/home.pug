@@ -59,7 +59,8 @@ header.section.section-header.section-header-landing
             .block-content
                 .block-title(i18n="home.map.title")
                 .block-description(i18n="home.map.subtitle")
-                button(ng-click="$ctrl.showPopupOffices()" i18n="buttons.show_map").button.button-primary.button-wide
+                button(ui-sref="providers" i18n="buttons.show_map").button.button-primary.button-wide
+                //- button(ng-click="$ctrl.showPopupOffices()" i18n="buttons.show_map").button.button-primary.button-wide
 
     section.section.section-steps#steps(ng-if="$ctrl.appConfigs.flags.homeSteps"): .wrapper
         .section-splash
@@ -177,3 +178,10 @@ header.section.section-header.section-header-landing
                 'home.faq.{{ $root.client_key }}.fourteen',
                 '{{ "home.faq.faq_fourteen" | translate:{ fund: $ctrl.funds[0].name } }}',
                 '{{ "home.faq.fourteen" | translate }}')
+
+            if (['winterswijk', 'oostgelre', 'berkelland'].indexOf(qdt_c.platform.env_data.client_key) != -1)
+                +faq_item(
+                    'home.faq.{{ $root.client_key }}.faq_fifteen',
+                    'home.faq.{{ $root.client_key }}.fifteen',
+                    '{{ "home.faq.faq_fifteen" | translate:{ fund: $ctrl.funds[0].name } }}',
+                    '{{ "home.faq.fifteen" | translate }}')    

@@ -40,6 +40,7 @@ module.exports = {
         modal_voucher_create: require('./nl/modals/modal-voucher-create.pug.i18n'),
         modal_product_voucher_create: require('./nl/modals/modal-product-voucher-create.pug.i18n'),
         modal_voucher_qr_code: require('./nl/modals/modal-voucher-qr_code.pug.i18n'),
+        modal_funds_offers: require('./nl/modals/modal-fund-offers.pug.i18n'),
     },
     // PAGES
     vouchers: require('./nl/pages/vouchers.pug.i18n'),
@@ -425,15 +426,19 @@ module.exports = {
             mail: "E-mail",
             phone: "Telefoonnummer",
             website: "Website",
+            kvk: "KVK",
             categories: "Categorieën",
             business_type: "Organisatie type",
             nocategories: "Geen categorieën",
             no_business_type: "Geen organisatie type",
             join: "Aanmelding voor fonds",
+            accept_budget: "Accepteer budget",
+            accept_all_offers: "Accepteer alle aanbiedingen"
         },
         buttons: {
             reject: "Weigeren",
             accept: "Accepteren",
+            view_request: "Bekijk aanvraag"
         },
     },
 
@@ -912,13 +917,40 @@ module.exports = {
             accepted: "Geaccepteerd",
             reject: "Geweigerd",
             stopped: "Gestopt",
+            accepted_only_products: "Geaccepteerd: alleen aanbiedingen",
+            accepted_only_specific_products: "Geaccepteerd: specifieke aanbiedingen",
+            pending: "Uitgenodigd",
+            expired: "Verlopen"
         },
         labels: {
             categories: "Categorieën",
             nocategories: "Geen Categorieën",
             date: "Begindatum / Einddatum",
-            max_amount: "Maximale bedrag per voucher",
-            closed: "Gesloten"
+            max_amount: "Maximaal tegoed per voucher",
+            closed: "Gesloten",
+            accept_invitation: "Accepteren",
+            allow_budget: "Scan tegoed op voucher",
+            allow_products: "Scan geplaatste aanbiedingen",
+            allow_some_products: "Scan specifieke aanbiedingen",
+            view_products: "Bekijk aanbiedingen"
+        },
+        empty_block: {
+            available: "Er zijn geen beschikbare fondsen waar u zich voor kunt aanmelden.",
+            active: "Er zijn geen fondsen waar u actief voor bent.",
+            invitations: "Er zijn geen openstaande uitnodigingen die u kunt accepteren.",
+            invitations_expired: "Er zijn geen verlopen uitnodigingen of gesloten fondsen waar u zich voor hebt aangemeld.",
+        },
+        tabs: {
+            active: 'Actief',
+            invitations: 'Uitnodigingen',
+            available: 'Beschikbaar',
+            expired: 'Archief',
+        },
+        title: {
+            available: "Beschikbare fondsen",
+            active: "Actieve fondsen",
+            invitations: "Uitnodigingen",
+            invitations_expired: "Archief",
         }
     },
 

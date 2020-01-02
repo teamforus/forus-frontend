@@ -578,8 +578,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "provider-funds",
-        url: "/organizations/{organization_id}/provider/funds",
+        url: "/organizations/{organization_id}/provider/funds?fundsType",
         component: "providerFundsComponent",
+        params: {
+            fundsType: {
+                squash: true,
+                value: null
+            },
+        },
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('provider-funds-list', 'manage_provider_funds'),
@@ -591,6 +597,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             funds: ['$transition$', 'ProviderFundService', (
                 $transition$, ProviderFundService
             ) => repackResponse(ProviderFundService.listFunds(
+                $transition$.params().organization_id
+            ))],
+            fundInvitations: ['$transition$', 'FundProviderInvitationsService', (
+                $transition$, FundProviderInvitationsService
+            ) => repackResponse(FundProviderInvitationsService.listInvitations(
                 $transition$.params().organization_id
             ))],
             fundLevel: () => 'fundsAvailable'

@@ -108,6 +108,13 @@ module.exports = {
             thirteen: "Nee, de voucher is strikt persoonlijk. U mag de voucher niet aan iemand anders geven. Maakt iemand anders wel gebruik van uw voucher, dan gaat dit van uw eigen bedrag af.",
             faq_fourteen: "Ik zie aanbiedingen op de webshop staan, hoe kan ik een aanbieding kopen?",
             fourteen: "Log in op de webshop en klik op 'Aanbiedingen'. Kies vervolgens de aanbieding die u wilt en klik op 'Koop'. Kies vervolgens een Kindregeling-voucher om de aanbieding mee te kopen. Het bedrag van de aanbieding wordt van uw Kindregeling-voucher afgehaald en er wordt een nieuwe voucher aangemaakt. De nieuwe voucher kan alleen gebruikt worden voor de aanbieding die u heeft gekocht.",
+            faq_fifteen: "Welke organisaties kunnen mij ook ondersteuning bieden?",
+            fifteen: "De kledingbank kan u ondersteunen u door het verstrekken van kleding, schoenen en textiel. Tweemaal per jaar kunt u bij hen terecht, hiervoor heeft u een doorverwijzing nodig. De informatie hierover vindt u op <a target='_blank' href='http://www.kledingbankwinterswijk.nl/home.aspx'>http://www.kledingbankwinterswijk.nl/home.aspx</a><br/><br/>" + 
+                "Stichting leergeld kan u ondersteunen op het vlak van schoolkosten of kosten voor sport, wanneer deze kosten niet vergoed worden door Sociale Dienst Oost Achterhoek, meer informatie hierover vindt u op <a target='_blank' href='https://leergeldoostachterhoek.nl/welkom'>https://leergeldoostachterhoek.nl/welkom</a><br/><br/>" +
+                "Bij de speelgoedbank kunt u speelgoed lenen, hiervoor heeft u een doorverwijzing nodig. Meer informatie vindt u op <a target='_blank' href='http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen/'>http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen</a><br/><br/>" +
+                "De voedselbank kan u ondersteunen wanneer u niet voldoende inkomen hebt om boodschappen te doen, voor de voedselbank heeft u een doorverwijzing nodig. Meer informatie vindt u op <a target='_blank' href='https://voedselbankachterhoek.nl/'>https://voedselbankachterhoek.nl</a><br/><br/>" +
+                "Voor extra financiële ondersteuning kunt u contact opnemen met het jeugdsportfonds voor de gemeente Berkelland en de gemeente Winterswijk. De voorwaarden vindt u op <a target='_blank' href='https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders/'>https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders</a><br/><br/>" +
+                "De stichting Jarige Job kan u ondersteunen op het vlak van kinderfeestjes. Kijkt u voor meer informatie op <a target='_blank' href='https://www.stichtingjarigejob.nl'>https://www.stichtingjarigejob.nl</a>"
         },
 
         oostgelre: {
@@ -140,6 +147,13 @@ module.exports = {
             thirteen: "Nee, de voucher is strikt persoonlijk. U mag de voucher niet aan iemand anders geven. Maakt iemand anders wel gebruik van uw voucher, dan gaat dit van uw eigen bedrag af.",
             faq_fourteen: "Ik zie aanbiedingen op de webshop staan, hoe kan ik een aanbieding kopen?",
             fourteen: "Log in op de webshop en klik op 'Aanbiedingen'. Kies vervolgens de aanbieding die u wilt en klik op 'Koop'. Kies vervolgens een Kindregeling-voucher om de aanbieding mee te kopen. Het bedrag van de aanbieding wordt van uw Kindregeling-voucher afgehaald en er wordt een nieuwe voucher aangemaakt. De nieuwe voucher kan alleen gebruikt worden voor de aanbieding die u heeft gekocht.",
+            faq_fifteen: "Welke organisaties kunnen mij ook ondersteuning bieden?",
+            fifteen: "De kledingbank kan u ondersteunen u door het verstrekken van kleding, schoenen en textiel. Tweemaal per jaar kunt u bij hen terecht, hiervoor heeft u een doorverwijzing nodig. De informatie hierover vindt u op <a target='_blank' href='http://www.kledingbankwinterswijk.nl/home.aspx'>http://www.kledingbankwinterswijk.nl/home.aspx</a><br/><br/>" + 
+                "Stichting leergeld kan u ondersteunen op het vlak van schoolkosten of kosten voor sport, wanneer deze kosten niet vergoed worden door Sociale Dienst Oost Achterhoek, meer informatie hierover vindt u op <a target='_blank' href='https://leergeldoostachterhoek.nl/welkom'>https://leergeldoostachterhoek.nl/welkom</a><br/><br/>" +
+                "Bij de speelgoedbank kunt u speelgoed lenen, hiervoor heeft u een doorverwijzing nodig. Meer informatie vindt u op <a target='_blank' href='http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen/'>http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen</a><br/><br/>" +
+                "De voedselbank kan u ondersteunen wanneer u niet voldoende inkomen hebt om boodschappen te doen, voor de voedselbank heeft u een doorverwijzing nodig. Meer informatie vindt u op <a target='_blank' href='https://voedselbankachterhoek.nl/'>https://voedselbankachterhoek.nl</a><br/><br/>" +
+                "Voor extra financiële ondersteuning kunt u contact opnemen met het jeugdsportfonds voor de gemeente Berkelland en de gemeente Winterswijk. De voorwaarden vindt u op <a target='_blank' href='https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders/'>https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders</a><br/><br/>" +
+                "De stichting Jarige Job kan u ondersteunen op het vlak van kinderfeestjes. Kijkt u voor meer informatie op <a target='_blank' href='https://www.stichtingjarigejob.nl'>https://www.stichtingjarigejob.nl</a>"
         },
 
         berkelland: {
@@ -172,6 +186,13 @@ module.exports = {
             thirteen: "Nee, de voucher is strikt persoonlijk. U mag de voucher niet aan iemand anders geven. Maakt iemand anders wel gebruik van uw voucher, dan gaat dit van uw eigen bedrag af.",
             faq_fourteen: "Ik zie aanbiedingen op de webshop staan, hoe kan ik een aanbieding kopen?",
             fourteen: "Log in op de webshop en klik op 'Aanbiedingen'. Kies vervolgens de aanbieding die u wilt en klik op 'Koop'. Kies vervolgens een Kindregeling-voucher om de aanbieding mee te kopen. Het bedrag van de aanbieding wordt van uw Kindregeling-voucher afgehaald en er wordt een nieuwe voucher aangemaakt. De nieuwe voucher kan alleen gebruikt worden voor de aanbieding die u heeft gekocht.",
+            faq_fifteen: "Welke organisaties kunnen mij ook ondersteuning bieden?",
+            fifteen: "De kledingbank kan u ondersteunen u door het verstrekken van kleding, schoenen en textiel. Tweemaal per jaar kunt u bij hen terecht, hiervoor heeft u een doorverwijzing nodig. De informatie hierover vindt u op <a target='_blank' href='http://www.kledingbankwinterswijk.nl/home.aspx'>http://www.kledingbankwinterswijk.nl/home.aspx</a><br/><br/>" + 
+                "Stichting leergeld kan u ondersteunen op het vlak van schoolkosten of kosten voor sport, wanneer deze kosten niet vergoed worden door Sociale Dienst Oost Achterhoek, meer informatie hierover vindt u op <a target='_blank' href='https://leergeldoostachterhoek.nl/welkom'>https://leergeldoostachterhoek.nl/welkom</a><br/><br/>" +
+                "Bij de speelgoedbank kunt u speelgoed lenen, hiervoor heeft u een doorverwijzing nodig. Meer informatie vindt u op <a target='_blank' href='http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen/'>http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen</a><br/><br/>" +
+                "De voedselbank kan u ondersteunen wanneer u niet voldoende inkomen hebt om boodschappen te doen, voor de voedselbank heeft u een doorverwijzing nodig. Meer informatie vindt u op <a target='_blank' href='https://voedselbankachterhoek.nl/'>https://voedselbankachterhoek.nl</a><br/><br/>" +
+                "Voor extra financiële ondersteuning kunt u contact opnemen met het jeugdsportfonds voor de gemeente Berkelland en de gemeente Winterswijk. De voorwaarden vindt u op <a target='_blank' href='https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders/'>https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders</a><br/><br/>" +
+                "De stichting Jarige Job kan u ondersteunen op het vlak van kinderfeestjes. Kijkt u voor meer informatie op <a target='_blank' href='https://www.stichtingjarigejob.nl'>https://www.stichtingjarigejob.nl</a>"
         },
 
     },

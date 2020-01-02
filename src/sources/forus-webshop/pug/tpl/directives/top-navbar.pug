@@ -1,8 +1,9 @@
-.block.block-navbar.wrapper: .navbar-inner.wrapper
-    a(ui-sref="home").navbar-logo
-        img(ng-src="{{ './assets/img/SDOA.svg' }}" ng-if="$root.appConfigs.flags.SDOA").second-logo
+.block.block-navbar: .navbar-inner.wrapper
+    a(ui-sref="home" ng-if="$root.appConfigs.client_key != 'general'").navbar-logo
+        img(ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" ng-if="$root.appConfigs.flags.secondLogo").second-logo
         img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
         img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover
+    
     nav.navbar-list(ng-class="mobileMenu?'navbar-list-show':''")
         ul.navbar-list-auth.show-sm(ng-if="$root.auth_user")
             //- Auth menu
@@ -22,7 +23,13 @@
                 ng-click="$root.signOut()" translate="topnavbar.buttons.logout")
 
         //- Menu
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.client_key == 'general'" ng-click="mobileMenu = false")
+            a.navbar-item(
+                ui-sref="home" 
+                ui-sref-active="home"
+                ng-bind="'Home'")
+
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.fundsMenu && $root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
             a.navbar-item(
                 ui-sref="funds" 
                 ui-sref-active="active"
@@ -34,8 +41,9 @@
                 ui-sref-active="active"
                 ng-bind="'topnavbar.items.products' | translate")
         
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.providersMenu" ng-click="showPopupOffices()")
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.providersMenu" ng-click="mobileMenu = false")
             a.navbar-item(
+                ui-sref="providers"
                 ng-bind="'topnavbar.items.providers' | translate")
                                                                                                                                
     .block.block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
@@ -56,15 +64,15 @@
                     .auth-user-email(ng-bind="$root.auth_user.primary_email" ng-if="!$root.appConfigs.features.records.list") 
                     .auth-user-type(translate="topnavbar.items.identity" ng-if="!$root.appConfigs.features.records.list")
 
-
                 .auth-user-avatar
                     .em.mdi.mdi-settings(ng-if="$root.appConfigs.features.records.list") 
                     img(src="./assets/img/identity-avatar.svg" ng-if="!$root.appConfigs.features.records.list")
                 
-                .auth-user-caret    
+                .auth-user-caret
                     em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
 
                 nav.auth-user-menu.hide-sm(
+                    ng-class="{active: $ctrl.userMenuOpened}"
                     ng-if="$ctrl.userMenuOpened"
                     click-outside="$ctrl.hideUserMenu()")
                     .triangle
@@ -97,6 +105,13 @@
                             em.mdi.mdi-store
                             span(translate="topnavbar.buttons.products")
                         
+                        .auth-user-menu-item.show-sm(
+                            ui-sref="providers" 
+                            ui-sref-active="active"
+                            ng-if="$root.appConfigs.flags.providersMenu")
+                            em.mdi.mdi-store
+                            span(translate="topnavbar.items.providers")
+                            
                         .auth-user-menu-separator.show-sm
                         
                         .auth-user-menu-item.show-sm(ui-sref="vouchers")

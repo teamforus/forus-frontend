@@ -17,6 +17,7 @@ let ModalNotificationComponent = function(
         $ctrl.modalClass = $ctrl.modal.scope.modalClass || '';
 
         $ctrl.title = $ctrl.modal.scope.title;
+        $ctrl.notice = $ctrl.modal.scope.notice;
         $ctrl.description = $ctrl.modal.scope.description;
         $ctrl.subdescription = $ctrl.modal.scope.subdescription;
 

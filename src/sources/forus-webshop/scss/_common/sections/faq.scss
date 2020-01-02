@@ -65,6 +65,12 @@
                     color: #646f79;
                     display: none;
                     cursor: default;
+
+                    a {
+                        color: #004a9d;
+                        font-size: 16px;
+                        line-height: normal;
+                    }
                 }
 
                 &.active {
