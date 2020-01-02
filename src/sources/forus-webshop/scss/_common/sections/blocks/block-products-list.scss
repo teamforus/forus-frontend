@@ -7,13 +7,13 @@
         display: flex;
         flex-direction: row;
         min-height: 100px;
-
         .product-photo {
             width: 150px;
             min-width: 150px;
             overflow: hidden;
             background-size: cover;
             background-position: 50% 50%;
+            position: relative;
 
             .product-photo-img {
                 display: block;
@@ -22,10 +22,25 @@
             }
             img {
                 display: block;
-                width: 90%;
+                width: 100%;
+            }
+            &:after {
+                content: '';
+                background: #394260;
+                opacity: 0;
+                @include fill_parent();
+                transition: opacity .4s;
+                width: 100%;
             }
         }
-        
+        &:hover {
+            box-shadow: $base_shadow !important;
+            .product-photo {
+                &:after {
+                    opacity: 0.25;
+                }
+            }
+        }
         .product-content {
             display: flex;
             flex-direction: row;
