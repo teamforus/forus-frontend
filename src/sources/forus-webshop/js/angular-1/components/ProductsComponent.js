@@ -27,16 +27,16 @@ let ProductsComponent = function(
     };
 
     $ctrl.toggleMobileMenu = () => {
-        $ctrl.showModalFileters ? $ctrl.hideMobileMenu() : $ctrl.showMobileMenu()
+        $ctrl.showModalFilters ? $ctrl.hideMobileMenu() : $ctrl.showMobileMenu()
     };
 
     $ctrl.showMobileMenu = () => {
-        $ctrl.showModalFileters = true;
+        $ctrl.showModalFilters = true;
         $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
     };
 
     $ctrl.hideMobileMenu = () => {
-        $ctrl.showModalFileters = false;
+        $ctrl.showModalFilters = false;
         $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
     };
 
@@ -87,7 +87,7 @@ let ProductsComponent = function(
         });
 
         $ctrl.updateState(query, location);
-        $ctrl.updateFiltersUsedCound();
+        $ctrl.updateFiltersUsedCount();
     };
 
     $ctrl.updateState = (query, location = 'replace') => {
@@ -98,13 +98,13 @@ let ProductsComponent = function(
             fund_id: query.fund_id,
             product_category_id: query.product_category_id,
             show_map: $ctrl.showMap,
-            show_menu: $ctrl.showModalFileters,
+            show_menu: $ctrl.showModalFilters,
         }, {
             location: location,
         });
     };
 
-    $ctrl.updateFiltersUsedCound = () => {
+    $ctrl.updateFiltersUsedCount = () => {
         $ctrl.countFiltersApplied = Object.values(
             $ctrl.objectOnly($ctrl.form.values, $ctrl.filtersList)
         ).reduce((count, filter) => count + (filter ? (
@@ -135,14 +135,14 @@ let ProductsComponent = function(
             fund: fund,
         });
 
-        $ctrl.showModalFileters = $stateParams.show_menu;
+        $ctrl.showModalFilters = $stateParams.show_menu;
         $ctrl.display_type = $stateParams.display_type
         $ctrl.productCategories.unshift({
             name: 'Selecteer categorie...',
             id: null
         });
 
-        $ctrl.updateFiltersUsedCound();
+        $ctrl.updateFiltersUsedCount();
     };
 
     $ctrl.$onDestroy = function() {};

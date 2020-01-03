@@ -28,16 +28,16 @@ let ProvidersComponent = function(
     };
 
     $ctrl.toggleMobileMenu = () => {
-        $ctrl.showModalFileters ? $ctrl.hideMobileMenu() : $ctrl.showMobileMenu()
+        $ctrl.showModalFilters ? $ctrl.hideMobileMenu() : $ctrl.showMobileMenu()
     };
 
     $ctrl.showMobileMenu = () => {
-        $ctrl.showModalFileters = true;
+        $ctrl.showModalFilters = true;
         $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
     };
 
     $ctrl.hideMobileMenu = () => {
-        $ctrl.showModalFileters = false;
+        $ctrl.showModalFilters = false;
         $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
     };
 
@@ -126,7 +126,7 @@ let ProvidersComponent = function(
         });
 
         $ctrl.updateState(query, location);
-        $ctrl.updateFiltersUsedCound();
+        $ctrl.updateFiltersUsedCount();
     };
 
     $ctrl.loadProvidersMap = (query, location = 'replace') => {
@@ -140,7 +140,7 @@ let ProvidersComponent = function(
         });
 
         $ctrl.updateState(query, location);
-        $ctrl.updateFiltersUsedCound();
+        $ctrl.updateFiltersUsedCount();
     };
 
     $ctrl.updateState = (query, location = 'replace') => {
@@ -150,13 +150,13 @@ let ProvidersComponent = function(
             fund_id: query.fund_id,
             business_type_id: query.business_type_id,
             show_map: $ctrl.showMap,
-            show_menu: $ctrl.showModalFileters,
+            show_menu: $ctrl.showModalFilters,
         }, {
             location: location,
         });
     };
 
-    $ctrl.updateFiltersUsedCound = () => {
+    $ctrl.updateFiltersUsedCount = () => {
         $ctrl.countFiltersApplied = Object.values(
             $ctrl.objectOnly($ctrl.form.values, $ctrl.filtersList)
         ).reduce((count, filter) => count + (filter ? (
@@ -184,7 +184,7 @@ let ProvidersComponent = function(
             return businessType.id == $stateParams.business_type_id;
         })[0] || $ctrl.businessTypes[0];
 
-        $ctrl.showModalFileters = $stateParams.show_menu;
+        $ctrl.showModalFilters = $stateParams.show_menu;
         $ctrl.form = FormBuilderService.build({
             q: $stateParams.q || '',
             fund: fund,
@@ -195,7 +195,7 @@ let ProvidersComponent = function(
             $ctrl.loadProvidersMap($ctrl.buildQuery($ctrl.form.values));
         }
 
-        $ctrl.updateFiltersUsedCound();
+        $ctrl.updateFiltersUsedCount();
     };
 
     $ctrl.$onDestroy = function() {};
