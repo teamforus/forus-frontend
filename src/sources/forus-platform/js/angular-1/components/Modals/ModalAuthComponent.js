@@ -67,19 +67,24 @@ let ModalAuthComponent = function(
             if (res.data.message == 'active') {
                 CredentialsService.set(access_token);
                 
-                $rootScope.loadAuthUser().then(auth_user => {
-                    if (auth_user.organizations.length != 1) {
+                if (['provider'].indexOf(appConfigs.panel_type) != -1) {    
+                    $rootScope.loadAuthUser().then(auth_user => {
                         $ctrl.close();
-                        $state.go($redirectAuthorizedState);
-                    }
-
-                    if (!auth_user.organizations[0].business_type_id) {
-                        ModalService.open('businessSelect', {});
-                    } else {
-                        $ctrl.close();
-                        $state.go($redirectAuthorizedState);
-                    }
-                });
+    
+                        if (auth_user.organizations.length != -1 ||
+                            auth_user.organizations[0].business_type_id
+                        ) {
+                            $state.go($redirectAuthorizedState);
+                        } else {
+                            ModalService.open('businessSelect', {
+                                organization: auth_user.organizations[0]
+                            });
+                        }
+                    });
+                } else {
+                    $rootScope.loadAuthUser();
+                    $ctrl.close();
+                }
             } else if (res.data.message == 'pending') {
                 timeout = $timeout(function() {
                     $ctrl.checkAccessTokenStatus(type, access_token);

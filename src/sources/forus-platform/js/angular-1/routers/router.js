@@ -680,14 +680,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 CredentialsService.set(res.data.access_token);
                 if (['provider'].indexOf(appConfigs.panel_type) != -1) {
                     $rootScope.loadAuthUser().then(auth_user => {
-                        if (auth_user.organizations.length != 1) {
+                        if (auth_user.organizations.length != -1 ||
+                            auth_user.organizations[0].business_type_id
+                        ) {
                             $state.go('home');
-                        }
-
-                        if (!auth_user.organizations[0].business_type_id) {
-                            ModalService.open('businessSelect', {});
                         } else {
-                            $state.go('home');
+                            ModalService.open('businessSelect', {
+                                organization: auth_user.organizations[0]
+                            });
                         }
                     });
                 } else {
