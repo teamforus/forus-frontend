@@ -4,7 +4,7 @@ let LocalStorageService = function() {
             return (typeof obj == 'object') && !Array.isArray(obj) && !!obj;
         };
 
-        this.setCollectionItem = function(collection_name, key, value) {
+        this.setCollectionItem = (collection_name, key, value) => {
             let collection = JSON.parse(localStorage.getItem(collection_name));
 
             if (!isPlainObject(collection)) {
@@ -16,7 +16,7 @@ let LocalStorageService = function() {
             localStorage.setItem(collection_name, JSON.stringify(collection));
         };
 
-        this.getCollectionItem = function(collection_name, key, _default = null) {
+        this.getCollectionItem = (collection_name, key, _default = null) => {
             let collection = JSON.parse(localStorage.getItem(collection_name));
             
             if (!isPlainObject(collection)) {
@@ -26,7 +26,25 @@ let LocalStorageService = function() {
             return collection[key] || _default;
         };
 
-        this.resetCollection = function(collection_name) {
+        this.getCollectionAll = (collection_name) => {
+            let collection = JSON.parse(localStorage.getItem(collection_name));
+            
+            if (!isPlainObject(collection)) {
+                collection = {};
+            }
+
+            return collection;
+        };
+
+        this.setCollectionAll = (collection_name, values) => {
+            if (!isPlainObject(values)) {
+                values = {};
+            }
+
+            localStorage.setItem(collection_name, JSON.stringify(values));
+        };
+
+        this.resetCollection = (collection_name) => {
             localStorage.setItem(collection_name, JSON.stringify({}));
         };
     });

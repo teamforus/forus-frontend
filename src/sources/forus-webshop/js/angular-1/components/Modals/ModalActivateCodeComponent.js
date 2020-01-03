@@ -1,6 +1,6 @@
 let sprintf = require('sprintf-js').sprintf;
 
-let ModalAuthComponent = function(
+let ModalAuthComponent = function (
     $q,
     $state,
     $timeout,
@@ -13,18 +13,18 @@ let ModalAuthComponent = function(
     VoucherService,
     RecordTypeService,
     RecordService,
-    LocalStorageService
+    VoucherRedeemStorageService
 ) {
-
-    if(AuthService.hasCredentials()) {
-        VoucherService.list().then(res => {
-            $ctrl.vouchers = res.data.data; 
-        });
-        } else {
-            $ctrl.vouchers = [];
-        }
     let $ctrl = this;
     let lockTimer = false;
+
+    if (AuthService.hasCredentials()) {
+        VoucherService.list().then(res => {
+            $ctrl.vouchers = res.data.data;
+        });
+    } else {
+        $ctrl.vouchers = [];
+    }
 
     $ctrl.getApplicableFunds = () => {
         let deferred = $q.defer(),
@@ -38,25 +38,25 @@ let ModalAuthComponent = function(
                 let recordTypes = res.data;
 
                 if (Array.isArray(records)) {
-                    records.forEach(function(record) {
+                    records.forEach(function (record) {
                         if (!recordsByKey[record.key]) {
                             recordsByKey[record.key] = [];
                         }
-            
+
                         recordsByKey[record.key].push(record);
                     });
                 }
 
-                recordTypes.forEach(function(recordType) {
+                recordTypes.forEach(function (recordType) {
                     recordsByTypesKey[recordType.key] = recordType;
                 });
-    
+
                 FundService.list().then(res => {
                     let funds = res.data.data.filter(fund => {
-                        let validators = fund.validators.map(function(validator) {
+                        let validators = fund.validators.map(function (validator) {
                             return validator.identity_address;
                         });
-            
+
                         return fund.criteria.filter(criterion => {
                             return FundService.checkEligibility(
                                 recordsByKey[criterion.record_type_key] || [],
@@ -76,21 +76,19 @@ let ModalAuthComponent = function(
     }
 
     $ctrl.getLockTimeSecondsLeft = () => {
-        let lockTimeMinutes  = LocalStorageService.getCollectionItem('voucher_redeem', 'lock_time_minutes', null),
-            lockStartTime    = LocalStorageService.getCollectionItem('voucher_redeem', 'lock_start_time', moment()),
-            lockSecondsLeft  = lockTimeMinutes * 60 - moment().diff(lockStartTime, "seconds");
-        
+        let lockTimeMinutes = VoucherRedeemStorageService.get('lock_time_minutes');
+        let lockStartTime = VoucherRedeemStorageService.get('lock_start_time', moment());
+        let lockSecondsLeft = lockTimeMinutes * 60 - moment().diff(lockStartTime, "seconds");
+
         return lockSecondsLeft > 0 ? lockSecondsLeft : 0;
     };
 
-    $ctrl.isActivateCodeFormLocked = () => {
-        return $ctrl.getLockTimeSecondsLeft() >= 0;    
-    };
+    $ctrl.isActivateCodeFormLocked = () => $ctrl.getLockTimeSecondsLeft() >= 0;
 
     $ctrl.activateCodeFormLock = () => {
         $ctrl.activateCodeForm.lock();
 
-        lockTimer = $timeout(function() {
+        lockTimer = $timeout(function () {
             $ctrl.activateCodeForm.unlock();
             $ctrl.activateCodeForm.reset();
 
@@ -107,69 +105,70 @@ let ModalAuthComponent = function(
     }
 
     $ctrl.addErrorLockMsg = () => {
-        let failedAttemptNr = LocalStorageService.getCollectionItem(
-            'voucher_redeem', 'attempts_nr', 1);
+        let failedAttemptNr = VoucherRedeemStorageService.get('attempts_nr', 1);
         let lockTimeMinutes = $ctrl.getFailedAttemptLockTimeMinutes(failedAttemptNr);
-        let errorMsg = 'U heeft een verkeerde of gebruikte activatiecode ingevuld. Dit is uw %s poging uit drie waarna u voor 180 minuten geblokeerd wordt.' +
+        let errorMsg = 'U heeft een verkeerde of gebruikte activatiecode ingevuld. ' +
+            'Dit is uw %s poging uit drie waarna u voor 180 minuten geblokeerd wordt.' +
             'U bent geblokkeerd voor %s minuten';
-
-        $ctrl.activateCodeForm.errors.code = true;
         let attemptNrStr = {
             1: 'eerste',
             2: 'tweede',
             3: 'derde',
         }[failedAttemptNr];
 
+        $ctrl.activateCodeForm.errors.code = true;
         $ctrl.activateCodeForm.errors.message = sprintf(errorMsg, attemptNrStr, lockTimeMinutes);
     }
 
     $ctrl.resetVoucherRedeemStorage = () => {
-        LocalStorageService.resetCollection('voucher_redeem');
+        VoucherRedeemStorageService.reset();
     }
 
     $ctrl.setVoucherRedeemStorage = (failedAttemptsNr) => {
         let lockTimeMinutes = $ctrl.getFailedAttemptLockTimeMinutes(failedAttemptsNr);
 
-        LocalStorageService.setCollectionItem('voucher_redeem', 'lock_time_minutes', lockTimeMinutes);
-        LocalStorageService.setCollectionItem('voucher_redeem', 'attempts_nr', failedAttemptsNr);
-        LocalStorageService.setCollectionItem('voucher_redeem', 'lock_start_time', moment());
+        VoucherRedeemStorageService.setAll({
+            'lock_time_minutes': lockTimeMinutes,
+            'attempts_nr': failedAttemptsNr,
+            'lock_start_time': moment(),
+        });
     }
 
     $ctrl.$onInit = () => {
 
         $ctrl.activateCodeForm = FormBuilderService.build({
             code: "",
-        }, function(form) {
+        }, function (form) {
             if (!form.values.code) {
                 form.errors.code = true;
                 return;
             }
 
             let code = form.values.code;
-            
+
             if (typeof code == 'string') {
                 code = code.replace(/o|O/g, "0");
-                code = code.substring(0, 4) + '-' +  code.substring(4);
+                code = code.substring(0, 4) + '-' + code.substring(4);
             }
 
             form.lock();
             FundService.read_fundid(code).then((res) => {
                 let prevalidations = res.data.data;
-                
+
                 VoucherService.list().then(result => {
                     let vouchers = result.data.data;
-                    let arrayWithIds = vouchers.map(function(x){
+                    let arrayWithIds = vouchers.map(function (x) {
                         return x.fund_id
-                    }); 
+                    });
 
                     $ctrl.present = arrayWithIds.indexOf(prevalidations.fund_id) != -1
-                    
-                    if (!$ctrl.present){
+
+                    if (!$ctrl.present) {
                         PrevalidationService.redeem(code).then((res) => {
                             $ctrl.resetVoucherRedeemStorage();
 
                             $ctrl.close();
-        
+
                             ConfigService.get().then((res) => {
                                 if (!res.data.funds.list) {
                                     FundService.applyToFundPrevalidationCode(code).then(res => {
@@ -182,11 +181,11 @@ let ModalAuthComponent = function(
                                 } else {
                                     $ctrl.getApplicableFunds().then((funds) => {
                                         let promises = [];
-                                        
+
                                         funds.forEach(fund => {
-                                            promises.push(FundService.apply(fund.id).then(res => {}, console.error));
+                                            promises.push(FundService.apply(fund.id).then(res => { }, console.error));
                                         });
-    
+
                                         $q.all(promises).then(() => {
                                             $state.go('vouchers');
                                         });
@@ -194,9 +193,6 @@ let ModalAuthComponent = function(
                                 }
                             });
                         }, (res) => {
-                            let failedAttemptsNr = LocalStorageService.getCollectionItem('voucher_redeem', 'attempts_nr', 0);
-                            ++failedAttemptsNr;
-
                             if (res.status == 429) {
                                 $ctrl.close();
                                 ModalService.open('modalNotification', {
@@ -206,12 +202,11 @@ let ModalAuthComponent = function(
                                 });
                             }
 
-                            $ctrl.setVoucherRedeemStorage(failedAttemptsNr);
+                            $ctrl.setVoucherRedeemStorage(VoucherRedeemStorageService.get('attempts_nr', 0) + 1);
                             $ctrl.activateCodeFormLock();
                             $ctrl.addErrorLockMsg();
                         });
-                    }        
-                    else{
+                    } else {
                         $ctrl.close();
                         ModalService.open('modalNotification', {
                             type: 'info',
@@ -219,7 +214,7 @@ let ModalAuthComponent = function(
                             title: 'U heeft een voucher voor deze regeling!',
                             description: 'Gebruik voor iedere individuele aanvraag een apart account. Wilt u een tweede code activeren, gebruik hiervoor een nieuw e-mailadres.'
                         });
-                    } 
+                    }
                 });
             })
         });
@@ -249,7 +244,7 @@ module.exports = {
         'VoucherService',
         'RecordTypeService',
         'RecordService',
-        'LocalStorageService',
+        'VoucherRedeemStorageService',
         ModalAuthComponent
     ],
     templateUrl: () => {
