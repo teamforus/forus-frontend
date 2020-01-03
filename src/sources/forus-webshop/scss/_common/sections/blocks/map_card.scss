@@ -1,5 +1,4 @@
 .block {
-
     &.block-map_card {
         border-radius: 5px;
         box-shadow: 0 10px 25px rgba(#000, .2);
@@ -57,41 +56,6 @@
                 width: 100%;
                 height: 100%;
             }
-        }
-    }
-}
-@media screen and (max-width: 1000px) {
-    .block {
-        &.block-map_card {
-            .map_card-header,
-            .map_card-footer {
-                padding: 15px 20px;
-
-                .map_card-title {
-                    font: 700 18px $bf;
-                }
-
-                .map_card-subtitle {
-                    font: 400 12px $bf;
-                }
-            }
-        }
-    }
-    .map-card {
-        padding: 0;
-        background: #fff;
-
-        .map-card-img {
-            width: 100%;
-            position: initial;
-        }
-
-        .map-card-title {
-            padding: 15px 15px 5px;
-        }
-        
-        .map-card-description {
-            padding: 5px 15px 15px;
         }
     }
 }
