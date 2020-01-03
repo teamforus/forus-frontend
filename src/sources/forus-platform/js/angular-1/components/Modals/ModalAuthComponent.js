@@ -84,6 +84,7 @@ let ModalAuthComponent = function(
                 } else {
                     $rootScope.loadAuthUser();
                     $ctrl.close();
+                    $state.go($redirectAuthorizedState);
                 }
             } else if (res.data.message == 'pending') {
                 timeout = $timeout(function() {
