@@ -10,6 +10,36 @@ let ProductsComponent = function(
     let $ctrl = this;
     let timeout = false;
 
+    $ctrl.filtersList = [
+        'q', 'product_category_id', 'fund',
+    ];
+
+    $ctrl.objectOnly = (obj, props = []) => {
+        let out = {};
+
+        for (const prop in obj) {
+            if (obj.hasOwnProperty(prop) && props.indexOf(prop) != -1) {
+                out[prop] = obj[prop];
+            }
+        }
+
+        return out;
+    };
+
+    $ctrl.toggleMobileMenu = () => {
+        $ctrl.showModalFilters ? $ctrl.hideMobileMenu() : $ctrl.showMobileMenu()
+    };
+
+    $ctrl.showMobileMenu = () => {
+        $ctrl.showModalFilters = true;
+        $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
+    };
+
+    $ctrl.hideMobileMenu = () => {
+        $ctrl.showModalFilters = false;
+        $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
+    };
+
     $ctrl.cancel = () => {
         if (typeof($ctrl.modal.scope.cancel) === 'function') {
             $ctrl.modal.scope.cancel();
@@ -57,6 +87,7 @@ let ProductsComponent = function(
         });
 
         $ctrl.updateState(query, location);
+        $ctrl.updateFiltersUsedCount();
     };
 
     $ctrl.updateState = (query, location = 'replace') => {
@@ -67,9 +98,18 @@ let ProductsComponent = function(
             fund_id: query.fund_id,
             product_category_id: query.product_category_id,
             show_map: $ctrl.showMap,
+            show_menu: $ctrl.showModalFilters,
         }, {
             location: location,
         });
+    };
+
+    $ctrl.updateFiltersUsedCount = () => {
+        $ctrl.countFiltersApplied = Object.values(
+            $ctrl.objectOnly($ctrl.form.values, $ctrl.filtersList)
+        ).reduce((count, filter) => count + (filter ? (
+            typeof filter == 'object' ? (filter.id ? 1 : 0) : 1
+        ) : 0), 0);
     };
 
     $ctrl.$onInit = () => {
@@ -95,11 +135,14 @@ let ProductsComponent = function(
             fund: fund,
         });
 
+        $ctrl.showModalFilters = $stateParams.show_menu;
         $ctrl.display_type = $stateParams.display_type
         $ctrl.productCategories.unshift({
             name: 'Selecteer categorie...',
             id: null
         });
+
+        $ctrl.updateFiltersUsedCount();
     };
 
     $ctrl.$onDestroy = function() {};

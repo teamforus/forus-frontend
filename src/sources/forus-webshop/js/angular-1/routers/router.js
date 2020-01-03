@@ -57,7 +57,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "products",
-        url: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}",
+        url: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}",
         component: "productsComponent",
         params: {
             q: {
@@ -81,6 +81,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             display_type: {
                 dynamic: true,
                 value: 'list',
+                squash: true
+            },
+            show_menu: {
+                dynamic: true,
+                value: false,
                 squash: true
             },
         },
@@ -128,7 +133,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "providers",
-        url: "/providers?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{show_map:bool}",
+        url: "/providers?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{show_map:bool}&{show_menu:bool}",
         component: "providersComponent",
         params: {
             q: {
@@ -150,7 +155,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 squash: true
             },
             show_map: {
-                value: null,
+                value: false,
+                squash: true
+            },
+            show_menu: {
+                dynamic: true,
+                value: false,
                 squash: true
             },
         },

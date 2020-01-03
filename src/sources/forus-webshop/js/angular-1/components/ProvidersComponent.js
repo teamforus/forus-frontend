@@ -11,6 +11,36 @@ let ProvidersComponent = function(
     $ctrl.showmap = false;
     $ctrl.officesShown = [];
 
+    $ctrl.filtersList = [
+        'q', 'fund', 'businessType', 
+    ];
+
+    $ctrl.objectOnly = (obj, props = []) => {
+        let out = {};
+
+        for (const prop in obj) {
+            if (obj.hasOwnProperty(prop) && props.indexOf(prop) != -1) {
+                out[prop] = obj[prop];
+            }
+        }
+
+        return out;
+    };
+
+    $ctrl.toggleMobileMenu = () => {
+        $ctrl.showModalFilters ? $ctrl.hideMobileMenu() : $ctrl.showMobileMenu()
+    };
+
+    $ctrl.showMobileMenu = () => {
+        $ctrl.showModalFilters = true;
+        $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
+    };
+
+    $ctrl.hideMobileMenu = () => {
+        $ctrl.showModalFilters = false;
+        $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
+    };
+
     $ctrl.mapOptions = {
         centerType: 'avg',
         fullscreenControlOptions: {
@@ -96,6 +126,7 @@ let ProvidersComponent = function(
         });
 
         $ctrl.updateState(query, location);
+        $ctrl.updateFiltersUsedCount();
     };
 
     $ctrl.loadProvidersMap = (query, location = 'replace') => {
@@ -109,6 +140,7 @@ let ProvidersComponent = function(
         });
 
         $ctrl.updateState(query, location);
+        $ctrl.updateFiltersUsedCount();
     };
 
     $ctrl.updateState = (query, location = 'replace') => {
@@ -118,9 +150,18 @@ let ProvidersComponent = function(
             fund_id: query.fund_id,
             business_type_id: query.business_type_id,
             show_map: $ctrl.showMap,
+            show_menu: $ctrl.showModalFilters,
         }, {
             location: location,
         });
+    };
+
+    $ctrl.updateFiltersUsedCount = () => {
+        $ctrl.countFiltersApplied = Object.values(
+            $ctrl.objectOnly($ctrl.form.values, $ctrl.filtersList)
+        ).reduce((count, filter) => count + (filter ? (
+            typeof filter == 'object' ? (filter.id ? 1 : 0) : 1
+        ) : 0), 0);
     };
 
     $ctrl.$onInit = () => {
@@ -143,6 +184,7 @@ let ProvidersComponent = function(
             return businessType.id == $stateParams.business_type_id;
         })[0] || $ctrl.businessTypes[0];
 
+        $ctrl.showModalFilters = $stateParams.show_menu;
         $ctrl.form = FormBuilderService.build({
             q: $stateParams.q || '',
             fund: fund,
@@ -152,6 +194,8 @@ let ProvidersComponent = function(
         if ($ctrl.showMap) {
             $ctrl.loadProvidersMap($ctrl.buildQuery($ctrl.form.values));
         }
+
+        $ctrl.updateFiltersUsedCount();
     };
 
     $ctrl.$onDestroy = function() {};
