@@ -23,6 +23,12 @@
         max-width: 100%;
         margin: 0 auto;
         display: block;
+        padding: 10px 0 0;
+        min-height: calc(100vh - 100px);
+    }
+
+    .showcase-mobile-filters {
+        display: none;
     }
 
     .showcase-layout {
@@ -197,7 +203,7 @@
         display: flex;
         flex-direction: column;
         z-index: 2;
-        
+
         .block-navbar {
             margin: 0;
         }
@@ -229,7 +235,7 @@
             }
 
             .showcase-content {
-                padding: 30px;
+                padding: 10px;
                 position: relative;
 
                 .showcase-content-header {
@@ -256,7 +262,7 @@
     @media screen and (max-width: 1300px) {
         .showcase-wrapper {
             width: 1100px;
-            padding: 0 25px;
+            padding: 10px 25px 0;
         }
 
         .showcase-layout {
@@ -269,6 +275,10 @@
     }
 
     @media screen and (max-width: 1000px) {
+        .block-navbar {
+            margin: 0 0 0;
+        }
+
         .showcase-title {
             font: 700 16px/26px $bf;
             margin: 0 0 0;
@@ -280,6 +290,66 @@
 
         .showcase-wrapper {
             padding: 0 20px;
+            position: relative;
+        }
+
+        .showcase-mobile-filters {
+            background: #fff;
+            margin: 0 -20px;
+            display: flex;
+            flex-direction: row;
+            border-top: 1px solid $border_color;
+            border-bottom: 1px solid $border_color;
+            margin-bottom: 5px;
+            z-index: 3;
+            position: relative;
+
+            .mobile-filters-count {
+                width: 30px;
+                height: 30px;
+                margin: 10px 15px;
+
+                .mobile-filters-count-value {
+                    width: 30px;
+                    height: 30px;
+                    border: 1px solid $border_color;
+                    text-align: center;
+                    font: 700 14px/28px $bf;
+                    border-radius: 30px;
+                    color: #2b333b;
+                }
+            }
+
+            .mobile-filters-title {
+                font: 700 14px/30px $bf;
+                color: #2b333b;
+                flex-grow: 1;
+                padding: 10px 0;
+            }
+
+            .mobile-filters-icon {
+                width: 50px;
+                height: 50px;
+                text-align: center;
+                line-height: 48px;
+                background-color: #7b8893;
+                color: #fff;
+                font-size: 20px;
+            }
+
+            &.active {
+                .mobile-filters-count {
+                    .mobile-filters-count-value {
+                        border-color: $color_primary;
+                        background-color: $color_primary;
+                        color: #fff;
+                    }
+                }
+
+                .mobile-filters-icon {
+                    background-color: $color_primary;
+                }
+            }
         }
 
         .showcase-layout {
@@ -290,6 +360,24 @@
                 min-width: 100%;
                 max-width: 100%;
                 margin: 0 0 20px;
+                position: absolute;
+                top: 50px;
+                padding: 0;
+                left: 0;
+                border-top: 1px solid $border_color;
+                border-bottom: 1px solid $border_color;
+                z-index: 2;
+                border-radius: 0;
+                height: 250px;
+                height: fit-content;
+                overflow: auto;
+                box-shadow: 2px 20px 20px 2px rgba($color: #000000, $alpha: .15);
+                max-height: calc(100vh - 150px);
+                display: none;
+
+                &.show-mobile {
+                    display: block;
+                }
             }
 
             .showcase-content {
@@ -299,9 +387,15 @@
 
         &.block-showcase-fullscreen {
             .showcase-layout {
+                height: calc(100% - 50px);
+                
                 .showcase-aside {
                     height: auto;
                     margin: 0;
+                }
+
+                .showcase-content {
+                    top: 50px;
                 }
             }
         }

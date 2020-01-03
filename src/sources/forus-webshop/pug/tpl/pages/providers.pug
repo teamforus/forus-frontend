@@ -4,11 +4,16 @@ block content
         top-navbar
         
         .showcase-wrapper
+            .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
+                .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
+                .mobile-filters-title Zoek op categorieen en fondsen
+                .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
+
             .showcase-title Er zijn {{ $ctrl.providers.meta.total }} aanbieders gevonden
             .showcase-subtitle Selecteer een organisatie voor meer informatie
             
             .showcase-layout
-                .showcase-aside.form.form-compact
+                .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFileters}")
                     .showcase-aside-block
                         .form-group
                             input.form-control(
@@ -90,6 +95,12 @@ block content
                             filters="$ctrl.form.values" 
                             count-buttons="5" 
                             on-page-change="$ctrl.onPageChange(query)")
+
+                    empty-block(
+                        title= "{{ 'block_providers.empty.title' | translate }}"
+                        description="{{ 'block_providers.empty.subtitle' | translate }}"
+                        hide-link="true" 
+                        ng-if="$ctrl.providers.data.length == 0")
                         
                     paginator(
                         ng-if="$ctrl.showMap"
