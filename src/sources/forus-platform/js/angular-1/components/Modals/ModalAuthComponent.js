@@ -62,17 +62,24 @@ let ModalAuthComponent = function(
         $ctrl.requestAuthQrToken();
     };
 
-    $ctrl.applyAccessToken = function(access_token) {
-        CredentialsService.set(access_token);
-        $rootScope.loadAuthUser();
-        $ctrl.close();
-    };
-
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
         IdentityService.checkAccessToken(access_token).then((res) => {
             if (res.data.message == 'active') {
-                $ctrl.applyAccessToken(access_token);
-                $state.go($redirectAuthorizedState);
+                CredentialsService.set(access_token);
+                
+                $rootScope.loadAuthUser().then(auth_user => {
+                    if (auth_user.organizations.length != 1) {
+                        $ctrl.close();
+                        $state.go($redirectAuthorizedState);
+                    }
+
+                    if (!auth_user.organizations[0].business_type_id) {
+                        ModalService.open('businessSelect', {});
+                    } else {
+                        $ctrl.close();
+                        $state.go($redirectAuthorizedState);
+                    }
+                });
             } else if (res.data.message == 'pending') {
                 timeout = $timeout(function() {
                     $ctrl.checkAccessTokenStatus(type, access_token);

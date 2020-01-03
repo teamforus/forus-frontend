@@ -670,16 +670,30 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         data: {
             token: null
         },
-        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'appConfigs', (
-            $rootScope, $state, IdentityService, CredentialsService, appConfigs
+        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'ModalService', 'appConfigs', (
+            $rootScope, $state, IdentityService, CredentialsService, ModalService, appConfigs
         ) => {
             IdentityService.authorizeAuthEmailToken(
                 appConfigs.client_key + '_' + appConfigs.panel_type,
                 $state.params.token
             ).then(function(res) {
                 CredentialsService.set(res.data.access_token);
-                $rootScope.loadAuthUser();
-                $state.go('home');
+                if (['provider'].indexOf(appConfigs.panel_type) != -1) {
+                    $rootScope.loadAuthUser().then(auth_user => {
+                        if (auth_user.organizations.length != 1) {
+                            $state.go('home');
+                        }
+
+                        if (!auth_user.organizations[0].business_type_id) {
+                            ModalService.open('businessSelect', {});
+                        } else {
+                            $state.go('home');
+                        }
+                    });
+                } else {
+                    $rootScope.loadAuthUser();
+                    $state.go('home');
+                }
             }, () => {
                 alert([
                     "Helaas, het is niet gelukt om in te loggen. " +

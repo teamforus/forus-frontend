@@ -1,0 +1,21 @@
+.modal
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-window: form.form(ng-submit="$ctrl.form.submit()")
+        a(ng-click="$ctrl.close()").mdi.mdi-close.modal-close
+        .modal-header(translate="modals.modal_business_add.title")
+        .modal-body.form
+            .modal-section: .row: .col.col-lg-8.col-lg-offset-2.col-lg-12
+                .form-group
+                    .form-label(translate="modals.modal_business_add.labels.business_type")
+                    .form-offset: select-control(
+                        ng-model="$ctrl.businessType" 
+                        ng-change="$ctrl.changeBusinessType(value)"
+                        options="$ctrl.businessTypes"
+                        placeholder="Selecteer organisatie type...")
+                    .form-error(
+                        ng-repeat="error in $ctrl.form.errors.business_type_id" 
+                        ng-bind="error")
+
+        .modal-footer.text-center
+            button.button.button-default(type="button" translate="Sluiten" ng-click="$ctrl.close()")
+            button.button.button-primary(type="submit" translate="Bevestig")

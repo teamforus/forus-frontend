@@ -70,4 +70,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('fundOffers', {
         component: 'modalFundOffersComponent'
     });
+    
+    ModalRouteProvider.modal('businessSelect', {
+        component: 'modalBusinessSelectComponent'
+    });
 }];

@@ -59,6 +59,7 @@ app.component('modalFundRequestRecordDeclineComponent', require('./components/Mo
 app.component('modalFundCriteriaDescriptionEditComponent', require('./components/Modals/ModalFundCriteriaDescriptionEditComponent'));
 app.component('modalFundInviteProvidersComponent', require('./components/Modals/ModalFundInviteProvidersComponent'));
 app.component('modalFundOffersComponent', require('./components/Modals/ModalFundOffersComponent'));
+app.component('modalBusinessSelectComponent', require('./components/Modals/ModalBusinessSelectComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
