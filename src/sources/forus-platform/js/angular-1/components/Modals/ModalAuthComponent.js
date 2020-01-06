@@ -8,6 +8,7 @@ let ModalAuthComponent = function(
     CredentialsService,
     DigIdService,
     ModalService,
+    PermissionsService,
     appConfigs
 ) {
     let $ctrl = this;
@@ -70,15 +71,19 @@ let ModalAuthComponent = function(
                 if (['provider'].indexOf(appConfigs.panel_type) != -1) {    
                     $rootScope.loadAuthUser().then(auth_user => {
                         $ctrl.close();
-    
-                        if (auth_user.organizations.length != -1 ||
-                            auth_user.organizations[0].business_type_id
-                        ) {
-                            $state.go($redirectAuthorizedState);
-                        } else {
+
+                        let organizations = auth_user.organizations.filter(organization => 
+                            !organization.business_type_id &&
+                            PermissionsService.hasPermission(organization, 'manage_organization')
+                        );
+
+                        if (organizations.length > 0) {
                             ModalService.open('businessSelect', {
-                                organization: auth_user.organizations[0]
+                                organizations: organizations,
+                                onReady: () => $state.go($redirectAuthorizedState)
                             });
+                        } else {
+                            $state.go($redirectAuthorizedState);
                         }
                     });
                 } else {
@@ -159,6 +164,7 @@ module.exports = {
         'CredentialsService',
         'DigIdService',
         'ModalService',
+        'PermissionsService',
         'appConfigs',
         ModalAuthComponent
     ],

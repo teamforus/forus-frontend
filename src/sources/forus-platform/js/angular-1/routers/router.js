@@ -670,8 +670,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         data: {
             token: null
         },
-        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'ModalService', 'appConfigs', (
-            $rootScope, $state, IdentityService, CredentialsService, ModalService, appConfigs
+        controller: ['$rootScope', '$state', 'PermissionsService', 'IdentityService', 'CredentialsService', 'ModalService', 'appConfigs', (
+            $rootScope, $state, PermissionsService, IdentityService, CredentialsService, ModalService, appConfigs
         ) => {
             IdentityService.authorizeAuthEmailToken(
                 appConfigs.client_key + '_' + appConfigs.panel_type,
@@ -680,14 +680,18 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 CredentialsService.set(res.data.access_token);
                 if (['provider'].indexOf(appConfigs.panel_type) != -1) {
                     $rootScope.loadAuthUser().then(auth_user => {
-                        if (auth_user.organizations.length != -1 ||
-                            auth_user.organizations[0].business_type_id
-                        ) {
-                            $state.go('home');
-                        } else {
+                        let organizations = auth_user.organizations.filter(organization => 
+                            !organization.business_type_id &&
+                            PermissionsService.hasPermission(organization, 'manage_organization')
+                        );
+
+                        if (organizations.length > 0) {
                             ModalService.open('businessSelect', {
-                                organization: auth_user.organizations[0]
+                                organizations: organizations,
+                                onReady: () => $state.go('home')
                             });
+                        } else {
+                            $state.go('home');
                         }
                     });
                 } else {

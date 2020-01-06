@@ -4,11 +4,13 @@ let ModalBusinessSelectComponent = function(
     FormBuilderService,
     BusinessTypeService,
     OrganizationService,
+    ModalService
 ) {
     let $ctrl = this;
 
     $ctrl.$onInit = () => {
-        let organization = $ctrl.modal.scope.organization;
+        let organizations = $ctrl.modal.scope.organizations;
+        $ctrl.organization = organizations[0];
 
         $ctrl.businessTypes = BusinessTypeService.list({
             per_page: 9999
@@ -24,12 +26,21 @@ let ModalBusinessSelectComponent = function(
             form.lock();
 
             OrganizationService.updateBusinessType(
-                organization.id, form.values.business_type_id
+                $ctrl.organization.id, form.values.business_type_id
             ).then(res => {
-                $timeout(() => {
-                    $ctrl.close();
-                    $state.go('home');
-                }, 250);
+                $ctrl.close();
+                organizations = organizations.slice(1);
+
+                if (!organizations.length) {
+                    $ctrl.modal.scope.onReady();
+                } else {
+                    $timeout(() => {
+                        ModalService.open('businessSelect', {
+                            organizations: organizations,
+                            onReady: () => $ctrl.modal.scope.onReady()
+                        });
+                    }, 250);
+                } 
             });
         });
         
@@ -50,6 +61,7 @@ module.exports = {
         'FormBuilderService',
         'BusinessTypeService',
         'OrganizationService',
+        'ModalService',
         ModalBusinessSelectComponent
     ],
     templateUrl: () => {

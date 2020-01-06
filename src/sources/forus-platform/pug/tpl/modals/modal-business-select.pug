@@ -1,8 +1,9 @@
 .modal
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window: form.form(ng-submit="$ctrl.form.submit()")
-        a(ng-click="$ctrl.close()").mdi.mdi-close.modal-close
-        .modal-header(translate="modals.modal_business_add.title")
+        .modal-header(
+            translate="modals.modal_business_add.title" 
+            translate-values='{organization_name: $ctrl.organization.name}')
         .modal-body.form
             .modal-section: .row: .col.col-lg-8.col-lg-offset-2.col-lg-12
                 .form-group
@@ -17,5 +18,4 @@
                         ng-bind="error")
 
         .modal-footer.text-center
-            button.button.button-default(type="button" translate="Sluiten" ng-click="$ctrl.close()")
             button.button.button-primary(type="submit" translate="Bevestig")
