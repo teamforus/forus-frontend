@@ -46,6 +46,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
+    if (appConfigs.flags && appConfigs.flags.accessibilityPage) {
+        $stateProvider.state({
+            name: "accessibility",
+            url: "/accessibility",
+            component: "accessibilityComponent",
+        });
+    }
+
     $stateProvider.state({
         name: "me-app",
         url: "/me",

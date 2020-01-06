@@ -458,6 +458,7 @@ module.exports = (core) => {
             matomo_site_id: false,
             flags: {
                 showAccountSidebar: false,
+                accessibilityPage: true,
 
                 // menu settings
                 meAppMenu: false,
@@ -506,6 +507,7 @@ module.exports = (core) => {
             flags: {
                 logoExtension: '.png',
                 showAccountSidebar: false,
+                accessibilityPage: true,
 
                 // menu settings
                 meAppMenu: false,
