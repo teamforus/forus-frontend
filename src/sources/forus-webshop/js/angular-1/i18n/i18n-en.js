@@ -68,6 +68,7 @@ module.exports = {
 
     // DIRECTIVES
     block_products: require("./en/directives/block-products"),
+    block_providers: require("./en/directives/block-providers"),
     contact: require("./en/directives/contact"),
     empty_block: require("./en/directives/empty-block"),
     fund_criterion: require("./en/directives/fund-criterion"),
