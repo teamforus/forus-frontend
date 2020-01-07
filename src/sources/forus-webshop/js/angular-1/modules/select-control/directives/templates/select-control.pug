@@ -11,7 +11,6 @@
             type="search"
             placeholder="{{ placeholder }}"
             ng-click="$dir.onInputClick()"
-            ng-focus="$dir.searchOption()"
             ng-keydown="$dir.searchKeydown($event)"
             ng-show="$dir.mode == 'search' || ($dir.mode == 'strict' && $dir.showOptions)"
             ng-change="$dir.searchInputChanged()"
