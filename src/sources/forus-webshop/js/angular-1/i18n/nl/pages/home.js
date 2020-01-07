@@ -80,7 +80,7 @@ module.exports = {
 
         winterswijk: {
             title: "Veelgestelde vragen",
-            faq_one: "Hoe kan ik een {{fund}} activeren?",
+            faq_one: "Hoe kan ik een Kindregeling activeren?",
             one: "Klik rechts bovenaan op 'Start'. Vul uw e-mailadres en de activatiecode in die u per brief heeft ontvangen. Klik vervolgens op 'Versturen'. Uw profiel is aangemaakt en uw Kindregeling-voucher is geactiveerd!",
             faq_two: "Hoe kan ik inloggen op de webshop?",
             two: "Dit kan op meerdere manieren, de makkelijkste is per e-mail. Klik rechts bovenaan op 'Inloggen'. Kies voor 'Log in via e-mail'. Vul het e-mailadres in die u ook tijdens de activatie hebt gebruikt en klik op 'Versturen'. Open de e-mail en klik op de link die u heeft ontvangen om in te loggen.",
