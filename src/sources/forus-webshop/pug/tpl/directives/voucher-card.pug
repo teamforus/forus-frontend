@@ -12,15 +12,20 @@
             em.mdi.mdi-arrow-right
     
     // regular voucher
-    .voucher-overview(ng-if="voucherCard.type == 'regular'")
+    .voucher-overview(
+        ng-if="voucherCard.type == 'regular'"
+        ng-class="{'voucher-overview-no-border':voucher.expired, 'text-center':voucher.expired}")
         .voucher-overview-item.voucher-open
             button.button(
                 ng-if="!voucherCard.disabled"
                 ng-class="voucherCard.disabled ? 'button-gray' : 'button-primary'"
                 i18n="{{ voucher.expired ? 'vouchers.labels.show_transactions' : 'vouchers.labels.open_voucher' }}")
+            .label.label-danger(ng-if="voucher.expired" i18n="voucher.voucher_card.expired")
 
     // product voucher
-    .voucher-overview(ng-if="voucherCard.type == 'product'")
+    .voucher-overview(
+        ng-if="voucherCard.type == 'product'"
+        ng-class="{'voucher-overview-no-border':voucher.expired, 'text-center':voucher.expired}")
         //-.voucher-overview-item
             .voucher-overview-label(i18n="vouchers.labels.used")
             .voucher-overview-value(ng-bind="voucherCard.transactions.length == 0 ? 'Nee' : 'Ja'")
@@ -37,3 +42,4 @@
             button.button(
                 ng-class="voucherCard.disabled ? 'button-gray' : 'button-primary'"
                 i18n="{{ voucher.expired ? 'vouchers.labels.show_transactions' : 'vouchers.labels.open_voucher' }}")
+            .label.label-danger(ng-if="voucher.expired" i18n="voucher.voucher_card.expired")

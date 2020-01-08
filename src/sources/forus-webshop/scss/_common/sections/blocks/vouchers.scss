@@ -144,6 +144,10 @@
                     padding-left: 50px;
                     padding-right: 50px;
                 }
+                
+                &.voucher-overview-no-border {
+                    border-left: none;
+                }
             }
 
             &:hover {
