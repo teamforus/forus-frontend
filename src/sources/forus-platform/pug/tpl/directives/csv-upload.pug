@@ -8,6 +8,20 @@
                 | {{ "csv_upload.labels.upload" | translate  }}
                 br
                 span {{ "csv_upload.labels.swipe" | translate  }}
+        
+        button(
+            ng-show="csvParser.progress <= 1" 
+            ng-click="downloadSample()").button.button-default
+            
+            em.mdi.mdi-file-table-outline.icon-start 
+            span(i18n="Download upload voorbeeld")    
+        
+        button(
+            ng-show="csvParser.progress <= 1" 
+            ng-click="csvParser.selectFile()").button.button-primary
+            
+            em.mdi.mdi-upload.icon-start 
+            span(i18n="csv_upload.labels.upload")        
 
         .csv-upload-progress(
             ng-show="csvParser.progress >= 2" 
