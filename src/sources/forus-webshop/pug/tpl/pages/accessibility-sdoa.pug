@@ -8,20 +8,22 @@ section.section.section-details: .wrapper
 
     .block.block-accessibility
         .block-text
-            p.description Gemeente {{ $ctrl.vars.organization_name }} streeft naar het toegankelijk maken van de eigen online informatie en dienstverlening, in overeenstemming met Tijdelijk besluit digitale toegankelijkheid overheid.
-            p.description Deze toegankelijkheidsverklaring is van toepassing op de inhoud van de website Meedoen-regeling {{ $ctrl.vars.organization_name }} die valt binnen de werkingssfeer van Tijdelijk besluit digitale toegankelijkheid overheid.
-            p.description De links waarop de inhoud van de website Meedoen-regeling {{ $ctrl.vars.organization_name }} te vinden is:
+            p.description Sociale Dienst Oost Achterhoek streeft naar het toegankelijk maken van de eigen online informatie en dienstverlening, in overeenstemming met Tijdelijk besluit digitale toegankelijkheid overheid.
+            p.description Deze toegankelijkheidsverklaring is van toepassing op de inhoud van de websites Meedoenapplicatie die valt binnen de werkingssfeer van Tijdelijk besluit digitale toegankelijkheid overheid.
+            p.description De links waarop de inhoud van de websites Meedoenapplicatie te vinden zijn:
                 ul
-                    li het hoofddomein:
+                    li Hoofddomeinen:
                     ul
                         li 
-                            a(href="{{ $ctrl.vars.website }}" target="_blank") {{ $ctrl.vars.website }}
-            p.description Een actueel en volledig overzicht van de toegankelijkheidsverklaringen die vallen onder de verantwoordelijkheid van Gemeente {{ $ctrl.vars.organization_name }} is beschikbaar via de volgende link:
-                a(href="{{ $ctrl.vars.accessibility_link }}" target="_blank") {{ $ctrl.vars.accessibility_link }} 
+                            a(href="https://berkelland.forus.io" target="_blank") https://berkelland.forus.io
+                        li 
+                            a(href="https://oostgelre.forus.io" target="_blank") https://oostgelre.forus.io
+                        li 
+                            a(href="https://winterswijk.forus.io" target="_blank") https://winterswijk.forus.io
 
         .block-text
             .title Nalevingsstatus
-            .description Gemeente {{ $ctrl.vars.organization_name }} verklaart dat de website Meedoen-regeling {{ $ctrl.vars.organization_name }} gedeeltelijk voldoet aan Tijdelijk besluit digitale toegankelijkheid overheid.
+            .description Sociale Dienst Oost Achterhoek verklaart dat de Kindregeling websites gedeeltelijk voldoen aan Tijdelijk besluit digitale toegankelijkheid overheid.
             .description Uit toegankelijkheidsonderzoek is gebleken dat nog niet aan alle eisen wordt voldaan. Voor elke afzonderlijke afwijking van de eisen is de oorzaak bekend en is het gevolg beschreven, zijn maatregelen genomen om de afwijking te kunnen opheffen en is een concrete planning gemaakt waarop de maatregelen zullen zijn uitgevoerd.
             .description Zie onder het kopje 
                 a(
@@ -31,15 +33,16 @@ section.section.section-details: .wrapper
 
         .block-text
             .title Opstelling van deze verklaring
-            .description Deze verklaring is opgesteld op 18-12-2019 met instemming van de verantwoordelijke bestuurder van Gemeente {{ $ctrl.vars.organization_name }}, Renske Helmer-Englebert, wethouder werk, inkomen en armoedebestrijding, ICT en faciliteiten.
-            .description De actualiteit, volledigheid en juistheid van deze verklaring zijn voor het laatst herzien op 18-12-2019.
+            .description Deze verklaring is opgesteld op 18-12-2019 met instemming van de verantwoordelijke bestuurder van Gemeente Nijmegen, Renske Helmer-Englebert, wethouder werk, inkomen en armoedebestrijding, ICT en faciliteiten.
+            .description Dienst Oost Achterhoek, T.A. Beijer, directeur.
+            p.description De actualiteit, volledigheid en juistheid van deze verklaring zijn voor het laatst herzien op 18-12-2019.
 
         .block-text
             .title Feedback en contactgegevens
             .description Loopt u tegen een toegankelijkheidsprobleem aan? Of heeft u een vraag of opmerking over toegankelijkheid?
-            .description Neem dan contact op via 
-                a(href="mailto:{{ $ctrl.vars.contact_email }}") {{ $ctrl.vars.organization_name }} 
-                | of 14024
+            p.description Neem dan contact op via 
+                a(href="info@socialedienstoostachterhoek.nl") info@socialedienstoostachterhoek.nl 
+                | of (0544) 474 200, op werkdagen van 08.30-16.00 uur.
 
         .block-text
             .title Wat kunt u van ons verwachten?
@@ -57,7 +60,7 @@ section.section.section-details: .wrapper
         .block-text
             .title Toelichting op de naleving status  
             .description In deze paragraaf wordt de claim dat gedeeltelijk aan de in Tijdelijk besluit digitale toegankelijkheid overheid gestelde eisen is voldaan nader onderbouwd.
-            .description De website Meedoen-regeling Nijmegen is onderzocht op toegankelijkheid en uit de rapportage blijkt volgens Gemeente Nijmegen dat aan alle onderstaande kenmerken is voldaan:
+            .description De Kindregeling websites zijn onderzocht op toegankelijkheid en uit de rapportage blijkt volgens Sociale Dienst Oost Achterhoek dat aan alle onderstaande kenmerken is voldaan:
             ol
                 li het onderzoek omvat alle inhoud die volgens Tijdelijk besluit digitale toegankelijkheid overheid toegankelijk moet worden gemaakt;
                 li het onderzoek is gebaseerd op meet- en onderzoeksgegevens die niet ouder zijn dan 12 maanden;
@@ -96,31 +99,47 @@ section.section.section-details: .wrapper
             ol
                 li SC 1.1.1 - Niet-tekstuele content [niveau A]
                     ul
-                        li Beschrijving: Een img-element mist een alt-attribuut. (alternatieve tekst voor de afbeelding)
-                        li Oorzaak: Geen alternatieve tekst toegevoegd bij de referentie van de afbeelding.
-                        li Gevolg: Het missen van een alternatieve tekst kan invloed hebben op de functionaliteit van spraak naar tekst hulpmiddelen.
-                        li Alternatief: Er is geen alternatieve oplossing voor dit probleem.
-                        li Maatregel: De webmasters zullen een alternatieve tekst plaatsen bij de afbeelding.
-                        li brengt de uitvoering van de maatregel een onevenredige last met zich mee? Nee
-                        li planning: 01-01-2020
-                        li SC 4.1.2 - Naam, rol, waarde [niveau A]
-                        li Beschrijving: Anker Element gevonden met een geldig href-attribuut, maar er is geen link inhoud is opgegeven.
-                        li Oorzaak: Geen consequent gebruik van anker elementen
-                        li Gevolg: Er is geen direct nadelig gevolg voor de gebruiker.
-                        li Alternatief: Er is geen alternatieve oplossing voor dit probleem.
-                        li Maatregel: De webmaster zullen het anker element opnieuw beoordelen en deze verwijderen of de benodigde informatie opgeven
-                        li brengt de uitvoering van de maatregel een onevenredige last met zich mee? Nee
+                        li 
+                            strong Beschrijving: 
+                            span Een img-element mist een alt-attribuut. (alternatieve tekst voor de afbeelding)
+                        li 
+                            strong Oorzaak: 
+                            span Geen alternatieve tekst toegevoegd bij de referentie van de afbeelding.
+                        li 
+                            strong Gevolg: 
+                            span Het missen van een alternatieve tekst kan invloed hebben op de functionaliteit van spraak naar tekst hulpmiddelen.
+                        li 
+                            strong Alternatief: 
+                            span Er is geen alternatieve oplossing voor dit probleem.
+                        li 
+                            strong Maatregel: 
+                            span De webmaster zullen het anker element opnieuw beoordelen en deze verwijderen of de benodigde informatie opgeven
+                            ul
+                                li brengt de uitvoering van de maatregel een onevenredige last met zich mee? Nee
                         li planning: 01-01-2020
                 
                 li SC 4.1.2 - Naam, rol, waarde [niveau A]
                     ul
-                        li Beschrijving: Anker Element gevonden met een geldig href-attribuut, maar er is geen link inhoud is opgegeven.
-                        li Oorzaak: Geen consequent gebruik van anker elementen
-                        li Gevolg: Er is geen direct nadelig gevolg voor de gebruiker.
-                        li Alternatief: Er is geen alternatieve oplossing voor dit probleem.
-                        li Maatregel: De webmaster zullen het anker element opnieuw beoordelen en deze verwijderen of de benodigde informatie opgeven
-                            | brengt de uitvoering van de maatregel een onevenredige last met zich mee? Nee
-                        li planning: 01-01-2020
+                        li 
+                            strong Beschrijving: 
+                            span Ankerelement gevonden met een geldig href-attribuut, maar er is geen linkinhoud is opgegeven.
+                        li 
+                            strong Oorzaak: 
+                            span Geen consequent gebruik van ankerelementen
+                        li 
+                            strong Gevolg: 
+                            span Er is geen direct nadelig gevolg voor de gebruiker.
+                        li 
+                            strong Alternatief: 
+                            span Er is geen alternatieve oplossing voor dit probleem.
+                        li 
+                            strong Maatregel: 
+                            span De webmaster zullen het anker element opnieuw beoordelen en deze verwijderen of de benodigde informatie opgeven
+                            ul
+                                li brengt de uitvoering van de maatregel een onevenredige last met zich mee? Nee
+                        li 
+                            strong planning: 
+                            span 01-01-2020
 
         .block-text
             .title Evaluatie- en onderzoekresultaten
@@ -133,7 +152,8 @@ section.section.section-details: .wrapper
                         li de beschikbare informatie is gebaseerd op meet- en onderzoeksgegevens die niet ouder zijn dan 12 maanden
                         li de handmatige evaluatie is uitgevoerd overeenkomstig een adequaat gedocumenteerde evaluatiemethode; 
                             a(href="https://w3.org/TR/WCAG-EM/") WCAG-EM 
-                            | of gelijkwaardig: Onbekend
+                            | of gelijkwaardig: 
+                            strong Onbekend
         
         .block-text
             .title Inhoud die buiten de werkingssfeer valt van Tijdelijk besluit digitale toegankelijkheid overheid

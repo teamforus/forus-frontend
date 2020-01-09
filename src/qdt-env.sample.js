@@ -538,6 +538,7 @@ module.exports = (core) => {
             matomo_site_id: false,
             flags: {
                 secondLogo: 'sdoa-logo.svg',
+                accessibilityPage: true,
             },
         });
 
@@ -559,6 +560,7 @@ module.exports = (core) => {
             matomo_site_id: false,
             flags: {
                 secondLogo: 'sdoa-logo.svg',
+                accessibilityPage: true,
                 showAccountSidebar: false,
 
                 // menu settings
@@ -587,6 +589,7 @@ module.exports = (core) => {
             matomo_site_id: false,
             flags: {
                 secondLogo: 'sdoa-logo.svg',
+                accessibilityPage: true,
                 showAccountSidebar: false,
 
                 // menu settings
@@ -612,7 +615,9 @@ module.exports = (core) => {
             client_key: 'noordoostpolder',
             client_type: 'webshop',
             log_out_time: false,
-            flags: {}
+            flags: {
+                accessibilityPage: true,
+            }
         });
 
         platform.editTask('js', (task) => {
