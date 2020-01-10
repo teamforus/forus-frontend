@@ -355,8 +355,8 @@
 
                 .navbar-item-wrapper {
                     .navbar-item {
-                        padding: 20px 20px;
-                        font: 700 12px/30px $bf;
+                        padding: 15px;
+                        font: 700 12px/30px $bf !important;
 
                         &:before {
                             left: 15px;
@@ -382,7 +382,7 @@
                 }
 
                 .button {
-                    font: 700 16px/24px $bf;
+                    font: 700 14px/24px $bf;
 
                     &:hover {
                         box-shadow: 0 3px 6px rgba($color: #000000, $alpha: 0.1);
