@@ -42,7 +42,7 @@ let ProvidersComponent = function(
     };
 
     $ctrl.mapOptions = {
-        centerType: 'avg',
+        //-centerType: 'avg',
         fullscreenControlOptions: {
             position: google.maps.ControlPosition.LEFT_BOTTOM
         },
