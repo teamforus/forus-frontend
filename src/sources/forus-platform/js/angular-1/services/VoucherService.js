@@ -60,6 +60,17 @@ module.exports = [
                 });
             };
 
+            this.getQRCodes = function(organization_id, type, from, to) {
+                return ApiRequest.get([
+                    '/platform/organizations/' + organization_id,
+                    '/sponsor/vouchers/get-unassigned',
+                ].join(''), {
+                    type: type,
+                    from: from,
+                    to: to,
+                });
+            };
+
             this.downloadQRCodes = function(organization_id, type, from, to) {
                 return ApiRequest.get([
                     '/platform/organizations/' + organization_id,

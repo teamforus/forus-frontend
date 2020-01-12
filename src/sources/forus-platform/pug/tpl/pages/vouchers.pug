@@ -34,7 +34,10 @@
                     .button.button-primary(ng-click="$ctrl.downloadExampleCsv()")
                         em.mdi.mdi-download.icon-start
                         span(i18n="product_vouchers.buttons.download_csv")
-                    .button.button-primary(ng-click="$ctrl.exportUnassignedQRCodes()")
+                    .button.button-primary(
+                        ng-if="$ctrl.exportableQRCodes.length" 
+                        ng-click="$ctrl.exportUnassignedQRCodes()")
+                        
                         em.mdi.mdi-file-export.icon-start
                         | {{ "vouchers.buttons.export" | translate }}
                     .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")

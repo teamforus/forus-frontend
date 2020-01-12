@@ -88,6 +88,20 @@ let VouchersComponent = function(
         );
     };
 
+    $ctrl.getUnassignedQRCodes = () => {
+        let from = $ctrl.filters.values.from,
+            to = $ctrl.filters.values.to;
+            
+        VoucherService.getQRCodes(
+            $ctrl.organization.id,
+            $ctrl.filters.values.type,
+            from ? DateService._frontToBack(from) : null,
+            to ? DateService._frontToBack(to) : null,
+        ).then(res => {
+            $ctrl.exportableQRCodes = res.data.data;
+        });
+    };
+
     $ctrl.exportUnassignedQRCodes = () => {
         let from = $ctrl.filters.values.from,
             to = $ctrl.filters.values.to;
@@ -127,6 +141,8 @@ let VouchersComponent = function(
             _query
         ).then((res => {
             $ctrl.vouchers = res.data;
+
+            $ctrl.getUnassignedQRCodes();
         }));
     };
 
@@ -170,6 +186,7 @@ module.exports = {
     bindings: {
         fund: '<',
         funds: '<',
+        exportableQRCodes: '<',
         organization: '<',
     },
     controller: [
