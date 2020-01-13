@@ -47,20 +47,20 @@ let BaseController = function(
                 auth_user.primary_email = res.data.filter((record) => {
                     return record.key == 'primary_email';
                 })[0].value;
-            });
 
-            OrganizationService.list({
-                dependency: "permissions,logo"
-            }).then((res) => {
-                auth_user.organizations = res.data.data;
-                auth_user.organizationsMap = {};
-                auth_user.organizationsIds = Object.values(res.data.data).map(function(organization) {
-                    auth_user.organizationsMap[organization.id] = organization;
-                    return organization.id;
+                OrganizationService.list({
+                    dependency: "permissions,logo"
+                }).then((res) => {
+                    auth_user.organizations = res.data.data;
+                    auth_user.organizationsMap = {};
+                    auth_user.organizationsIds = Object.values(res.data.data).map(function(organization) {
+                        auth_user.organizationsMap[organization.id] = organization;
+                        return organization.id;
+                    });
+
+                    deferred.resolve($rootScope.auth_user = auth_user);
                 });
             });
-
-            deferred.resolve($rootScope.auth_user = auth_user);
         }, deferred.reject);
 
         return deferred.promise;
