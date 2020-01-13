@@ -5,8 +5,9 @@
             margin-bottom: 20px;
             cursor: default;
         }
-        
+
         .voucher-item {
+            display: flex;
             background-color: #fff;
             border-radius: 7.5px;
             margin-bottom: 30px;
@@ -14,7 +15,6 @@
             @include cf();
             position: relative;
             transition: .4s;
-            display: block;
             min-height: 150px;
             cursor: pointer;
 
@@ -23,14 +23,16 @@
                 float: left;
                 background-size: cover;
                 background-position: 50%;
+                min-width: 150px;
                 width: 150px;
                 min-height: inherit;
-            } 
+            }
 
             .voucher-details {
                 float: left;
                 padding: 20px 30px;
                 width: calc(100% - 380px);
+                flex-grow: 1;
 
                 .label {
                     margin-bottom: 10px;
@@ -50,7 +52,7 @@
                     color: #282b39;
                     margin-bottom: 10px;
                 }
-                
+
                 .voucher-value {
                     font: 700 24px $bf;
                     color: #315efd;
@@ -84,8 +86,14 @@
                         }
                     }
                 }
+
+                .voucher-label {
+                    position: absolute;
+                    top: 20px;
+                    right: 20px;
+                }
             }
-            
+
             .voucher-overview {
                 float: right;
                 width: 230px;
@@ -138,11 +146,15 @@
                         margin-bottom: 0;
                     }
                 }
-                
+
                 &>.button {
-                    @include float_center();
                     padding-left: 50px;
                     padding-right: 50px;
+                    @include float_center();
+                }
+
+                &.voucher-overview-no-border {
+                    border-left: none;
                 }
             }
 
@@ -170,9 +182,11 @@
             }
         }
     }
+
     @media screen and (max-width: 1000px) {
         &.block-vouchers {
             margin-bottom: 30px;
+
             .block-title {
                 font: 700 40px $bf;
                 margin-bottom: 20px;
@@ -199,6 +213,8 @@
                     top: 50%;
                     transform: translate(0, -50%);
                     border: none;
+                    min-width: 70px;
+                    max-width: 70px;
                 }
 
                 .voucher-details {
@@ -228,6 +244,14 @@
 
                     .label {
                         margin-bottom: 7px;
+                    }
+
+                    .voucher-label {
+                        position: initial;
+
+                        .label {
+                            margin: 0px;
+                        }
                     }
                 }
 

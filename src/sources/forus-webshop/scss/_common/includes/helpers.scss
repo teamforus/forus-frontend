@@ -37,8 +37,6 @@
     text-overflow: ellipsis;
 }
 
-
-
 @mixin webkit_scrollbar($color: $color_primary_light) {
     &::-webkit-scrollbar {
         width: 4px;
