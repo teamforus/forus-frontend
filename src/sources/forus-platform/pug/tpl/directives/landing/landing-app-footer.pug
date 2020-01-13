@@ -38,7 +38,7 @@ if (qdt_c.platform.env_data.client_key == 'general')
                         .footer-nav-item: a(href="/provider/") Bent u een aanbieder en wilt u meer informatie?
                         .footer-nav-item: a(href="/sponsor/") Bent u een medewerker van een Gemeente en wilt u meer informatie?
 
-if (qdt_c.platform.env_data.client_key == 'nijmegen')
+else if (qdt_c.platform.env_data.client_key == 'nijmegen')
     section.section.section-footer
         .wrapper
             .block.block-footer: .row
@@ -233,13 +233,6 @@ else if (qdt_c.platform.env_data.client_key == 'noordoostpolder')
                     .footer-schedule
                         .schedule-label Adres:		
                         .schedule-value Harmen Visserplein 1 8302 BW Emmeloord
-                //-.col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
-                    //img(src="./assets/img/forus-logo-bw.svg").footer-logo
-                    .block.block-app_download: .footer-label Downloads
-                        .download-button: a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
-                            .download-icon: img(src="./assets/img/icon-app/play-store-badge.png")
-                        .download-button: a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
-                            .download-icon: img(src="./assets/img/icon-app/app-store-badge.svg")
                             
                 .col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-3'")
                     .footer-label Openingstijden
@@ -291,7 +284,7 @@ else if (qdt_c.platform.env_data.client_key == 'noordoostpolder')
                 a(href="" target="_blank") Privacy Statement
             .developed
                 | 
-                a(href="#")                
+                a(href="#")
 
 else
     section.section.section-footer

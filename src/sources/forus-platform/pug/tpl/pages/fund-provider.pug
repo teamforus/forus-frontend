@@ -26,6 +26,14 @@
                     .entity-overview-row(ng-if="$ctrl.fundProvider.organization.kvk")
                         .entity-overview-label KVK:
                         .entity-overview-value(ng-bind="$ctrl.fundProvider.organization.kvk")
+                    
+                    .entity-overview-row(ng-if="$ctrl.fundProvider.organization.iban")
+                        .entity-overview-label IBAN:
+                        .entity-overview-value(ng-bind="$ctrl.fundProvider.organization.iban")
+                    
+                    .entity-overview-row(ng-if="$ctrl.fundProvider.organization.btw")
+                        .entity-overview-label BTW:
+                        .entity-overview-value(ng-bind="$ctrl.fundProvider.organization.btw")
 
             .card-section.card-section-primary.card-section-narrow.form: .row: .col.col-lg-8: .flex-row
                 .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
@@ -64,7 +72,7 @@
                 .flex-col: .card-header-drown: .block.block-inline-filters
                     .form(ng-if="!$ctrl.filters.show"): .form-group: input(
                         ng-model="$ctrl.filters.values.q"
-                        placeholder="Search").form-control
+                        placeholder="Zoeken").form-control
 
             div(ng-if="$ctrl.fundProvider.allow_products && $ctrl.products.meta.total > 0").card-section.card-section-success.card-section-narrow: em
                 | U kunt niet individuele producten uitzetten terwijl een globale instelling aan staat. 

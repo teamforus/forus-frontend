@@ -94,6 +94,11 @@ let SelectControlDirective = function($scope, $timeout) {
         }
     };
 
+    $dir.onInputClick = () => {
+        $dir.filter.name = "";
+        $dir.searchInputChanged();
+    }
+
     $scope.$watch('options', (options) => {
         if (!Array.isArray(options)) {
             return;
@@ -135,6 +140,7 @@ module.exports = () => {
             multiple: "=",
             search: "=",
             options: "=",
+            autoclear: "=",
             ngModel: '=',
             ngChange: '&',
             ngChangeQuery: '&',

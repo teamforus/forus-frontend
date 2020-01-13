@@ -71,6 +71,7 @@ module.exports = {
 
     // DIRECTIVES
     block_products: require("./nl/directives/block-products"),
+    block_providers: require("./nl/directives/block-providers"),
     contact: require("./nl/directives/contact"),
     empty_block: require("./nl/directives/empty-block"),
     fund_criterion: require("./nl/directives/fund-criterion"),

@@ -1,37 +1,28 @@
-let GoogleMapDirective = function (
+let GoogleMapDirective = function(
     $scope,
     $element,
     $timeout,
-    $filter,
+    $compile,
     GoogleMapService,
-    AuthService,
     appConfigs
 ) {
     $scope.style = [];
-    // locations = [];
     $scope.markers = [];
 
-    let $translate = $filter('translate');
+    $scope.initialize = function(obj, mapPointers) {
+        mapPointers = mapPointers || [];
 
-    let trans = (key) => $translate('maps.' + key);
+        let $elementCanvas = $element.find('.map-canvas');
+        let map, infowindow;
+        let image = $elementCanvas.attr("data-marker");
+        let zoomLevel = 12;
 
-    var initialize = function (obj, offices) {
-        offices = offices || [];
-
-        var $elementCanvas = $element.find('.map-canvas');
-        var map, marker, infowindow;
-        var image = $elementCanvas.attr("data-marker");
-        var zoomLevel = 12;
-        // var styledMap = new google.maps.StyledMapType($scope.style, {
-        //    name: "Styled Map"
-        // });
         let styles = [{
             featureType: 'poi.business',
             stylers: [{
                 visibility: 'off'
             }]
-        },
-        {
+        }, {
             featureType: 'transit',
             elementType: 'labels.icon',
             stylers: [{
@@ -39,105 +30,83 @@ let GoogleMapDirective = function (
             }]
         }];
 
-        let centerLat = offices.length ? offices[0].lat : appConfigs.features.map.lat;
-        let centerLon = offices.length ? offices[0].lon : appConfigs.features.map.lon;
+        let avg = (values) => {
+            return values.reduce((avg, value) => value + avg, 0) / values.length;
+        }
 
-        var mapOptions = {
+        let centerLat = mapPointers.length > 0 ? mapPointers[0].lat : appConfigs.features.map.lat;
+        let centerLon = mapPointers.length > 0 ? mapPointers[0].lon : appConfigs.features.map.lon;
+
+        if ($scope.mapOptions && $scope.mapOptions.centerType == 'avg' && mapPointers.length > 0) {
+            centerLat = avg(mapPointers.map(pointer => {
+                return typeof pointer.lat == 'string' ? parseFloat(pointer.lat) : pointer.lat
+            }));
+            
+            centerLon = avg(mapPointers.map(pointer => {
+                return typeof pointer.lon == 'string' ? parseFloat(pointer.lon) : pointer.lon
+            }));
+        }
+
+        var mapOptions = Object.assign({
             zoom: zoomLevel,
             disableDefaultUI: false,
-            center: new google.maps.LatLng(
-                centerLat,
-                centerLon
-            ),
+            center: new google.maps.LatLng(centerLat, centerLon),
             scrollwheel: true,
-            fullscreenControl: false,
+            fullscreenControl: true,
             styles: styles,
             mapTypeControlOptions: {
                 mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
-            }
-        }
+            },
+            gestureHandling: $scope.mapGestureHandling || undefined,
+        }, $scope.mapOptions || {})
 
         map = new google.maps.Map(document.getElementById(obj), mapOptions);
-
-        // map.mapTypes.set('map_style', styledMap);
-        // map.setMapTypeId('map_style');
-
         infowindow = new google.maps.InfoWindow();
 
-        offices.forEach(function (office, index) {
+        mapPointers.forEach(function(mapPointer, index) {
             let marker = new google.maps.Marker({
-                position: new google.maps.LatLng(office.lat, office.lon),
+                position: new google.maps.LatLng(mapPointer.lat, mapPointer.lon),
                 map: map,
                 icon: image,
-                office: office
+                mapPointer: mapPointer
             });
 
             $scope.markers.push(marker);
 
-            google.maps.event.addListener(marker, 'click', (function (marker, office) {
-                var description = [
-                    trans('labels.address') + ': ' + (office.address || trans('no_data')),
-                    trans('labels.organization_type') + ': ' + (office.organization.business_type ?
-                        office.organization.business_type.name : trans('no_data'))
-                ];
+            google.maps.event.addListener(marker, 'click', (function(marker, mapPointer) {
+                return function() {
+                    let $newScope = Object.assign($scope.$new(true), {
+                        pointer: mapPointer
+                    });
 
-                if (office.organization.website) {
-                    description.push([
-                        trans('labels.website') + ': ' + '<a target="_blank" href="',
-                        office.organization.website,
-                        '">',
-                        office.organization.website + '</a>'
-                    ].join(''));
+                    let htmlTemplate = $compile(`
+                        <map-pointer-${$scope.mapPointerTemplate} pointer="pointer">
+                    `)($newScope);
+
+                    $timeout(() => {
+                        infowindow.setContent(htmlTemplate.html());
+                        infowindow.open(map, marker);
+                    }, 250);
                 }
+            })(marker, mapPointer));
 
-                if (AuthService.hasCredentials()) {
-                    description.push(trans('labels.phone') + ': ' + (
-                        office.phone || office.organization.phone || trans('no_data')
-                    ));
-
-                    description.push(trans('labels.email') + ': ' + (
-                        office.email || office.organization.email || trans('no_data')
-                    ));
-                }
-
-                description = description.filter(item => item);
-
-                return function () {
-                    $timeout(function () {
-                        $scope.selectedOffice = office.id;
-                    }, 100);
-
-                    infowindow.setContent(
-                        '<div class="map-card">\
-                                <img class="map-card-img" src="' + (office.photo ? office.photo.sizes.thumbnail : (office.organization.logo ? office.organization.logo.sizes.thumbnail : 'assets/img/placeholders/office-thumbnail.png')) + '" alt=""/>\
-                                <div class="map-card-title">' + (office.organization.name || 'Geen data') + '</div>\
-                                <div class="map-card-description">' + description.join('<br />') + '</div>\
-                                </div>');
-                    infowindow.open(map, marker);
-                }
-            })(marker, office));
-
-            if (index == 0) {
+            if (mapPointers.length == 1 && index == 0) {
                 google.maps.event.trigger(marker, 'click');
             }
         });
     }
 
-    $scope.$watch('selectedOffice', function (selectedOffice) {
-        $scope.markers.forEach(marker => {
-            if (marker.office.id == selectedOffice) {
-                google.maps.event.trigger(marker, 'click')
-            }
-        });
+    $scope.$watch('mapPointers', function(mapPointers) {
+        $scope.initialize('map-canvas-contact', mapPointers);
     });
 
-    $scope.$watch('offices', function (offices) {
-        initialize('map-canvas-contact', offices);
+    $scope.$watch('mapOptions', function() {
+        $scope.initialize('map-canvas-contact', $scope.mapPointers);
     });
 
-    GoogleMapService.getStyle().then(function (style) {
+    GoogleMapService.getStyle().then(function(style) {
         $scope.style = style.style;
-        initialize('map-canvas-contact');
+        $scope.initialize('map-canvas-contact');
     });
 };
 
@@ -145,17 +114,18 @@ module.exports = () => {
     return {
         scope: {
             offices: '=',
-            selectedOffice: '=?'
+            mapPointers: '=',
+            mapPointerTemplate: '@',
+            mapOptions: '=',
+            mapGestureHandling: '='
         },
         replace: true,
-        transclude: true,
         controller: [
             '$scope',
             '$element',
             '$timeout',
-            '$filter',
+            '$compile',
             'GoogleMapService',
-            'AuthService',
             'appConfigs',
             GoogleMapDirective
         ],

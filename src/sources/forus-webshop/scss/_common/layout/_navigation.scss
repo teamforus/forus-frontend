@@ -1,25 +1,10 @@
 .block {
     &.block-navbar {
         z-index: 5;
-
-        @media screen and (min-width: 1024px) {
-            position: relative;
-            left: 0;
-            right: 0;
-            padding: 3vw 25px;
-        }
-
-        @media screen and (min-width: 1200px) {
-            padding: 3vw 0;
-        }
-
-        @media screen and (min-width: 1440px) {
-            padding: 3vw 0;
-        }
+        background-color: #ffffff;
+        position: relative;
 
         .navbar-inner {
-            border-radius: $border_radius;
-            background-color: #ffffff;
             @include cf();
             max-width: 100%;
             margin: 0 auto;
@@ -28,7 +13,7 @@
 
         .navbar-logo {
             justify-self: flex-start;
-            padding: 30px 40px;
+            padding: 30px 40px 30px 0;
             border-right: 1px solid $border_color;
 
             img {
@@ -159,6 +144,11 @@
             .navbar-list-auth {
                 margin-bottom: 30px;
             }
+
+            &:first-child {
+                padding-left: 0;
+                border-left: 1px solid #e6ecf0;
+            }
         }
 
         .navbar-mobile-menu {
@@ -166,7 +156,7 @@
             text-align: center;
             border-left: 1px solid #e6ecf0;
 
-            em {
+            .mdi {
                 display: block;
                 height: 60px;
                 line-height: 60px;
@@ -178,7 +168,7 @@
 
         .block-auth {
             border-left: 1px solid #e6ecf0;
-            padding: 25px 10px 25px 30px;
+            padding: 25px 25px 25px 25px;
             justify-self: flex-end;
             display: flex;
             @include cf();
@@ -203,11 +193,11 @@
             }
 
             .auth-in {
-
                 .auth-user {
                     position: relative;
                     display: flex;
                     flex-direction: row;
+                    margin-right: -15px;
                     cursor: pointer;
 
                     .mdi-settings {
@@ -266,7 +256,7 @@
                         color: $color_primary;
                         padding-left: 5px;
             
-                        em {
+                        .mdi {
                             font-size: 20px;
                             font-weight: 600;
                             margin-top: 3px;
@@ -287,6 +277,7 @@
                         border: 1px solid #f3f4f5;
                         border-radius: 5px;
                         padding: 5px 0;
+                        display: none;
 
                         .triangle {
                             position: absolute;
@@ -330,6 +321,14 @@
                             height: 5px;
                             margin: 0 0 5px
                         }
+
+                        &.active {
+                            display: block;
+                        }
+                    }
+
+                    &.auth-user-hover:hover .auth-user-menu {
+                        display: block;
                     }
                 }
             }
@@ -393,7 +392,7 @@
         }
     }
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: 1000px) {
         &.block-navbar {
             padding: 0 0;
             border-radius: 0;
@@ -419,6 +418,8 @@
             .block-auth {
                 padding: 10px 10px 10px 0;
                 border: none;
+                display: block;
+                width: 100%;
 
                 .button {
                     margin-right: 10px;
@@ -432,6 +433,9 @@
 
                 .auth-in {
                     .auth-user {
+                        margin-right: 0;
+                        justify-content: flex-end;
+
                         .auth-user-email {
                             font: 700 12px/22px $bf;
                         }

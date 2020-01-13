@@ -10,7 +10,7 @@
             id="{{ $dir.controlId }}"
             type="search"
             placeholder="{{ placeholder }}"
-            ng-focus="$dir.searchOption()"
+            ng-click="$dir.onInputClick()"
             ng-keydown="$dir.searchKeydown($event)"
             ng-show="$dir.mode == 'search' || ($dir.mode == 'strict' && $dir.showOptions)"
             ng-change="$dir.searchInputChanged()"

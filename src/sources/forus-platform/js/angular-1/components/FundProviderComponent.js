@@ -25,7 +25,7 @@ let FundProviderComponent = function(
                 allow_budget: fundProvider.allow_budget
             }
         ).then((res) => {
-            PushNotificationsService.success('Saved!');
+            PushNotificationsService.success('Opgeslagen!');
             $ctrl.fundProvider = res.data.data;
         }, console.error);
     };
@@ -43,7 +43,7 @@ let FundProviderComponent = function(
                 ] : []
             }
         ).then((res) => {
-            PushNotificationsService.success('Saved!');
+            PushNotificationsService.success('Opgeslagen!');
             $ctrl.fundProvider = res.data.data;
         }, console.error);
     };
@@ -56,7 +56,7 @@ let FundProviderComponent = function(
                 allow_products: fundProvider.allow_products
             }
         ).then((res) => {
-            PushNotificationsService.success('Saved!');
+            PushNotificationsService.success('Opgeslagen!');
             $ctrl.fundProvider = res.data.data;
         }, console.error);
     };
