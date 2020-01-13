@@ -12,6 +12,10 @@
             em.mdi.mdi-arrow-right
         .voucher-label
             .label.label-danger(ng-if="voucher.expired" i18n="voucher.voucher_card.expired")
+        .card-label: a(
+            ng-if="voucher.expired && voucherCard.transactions.length == 0 && voucherCard.type == 'product' && voucherCard.returnable"
+            ng-click="deleteVoucher($event, voucher)" 
+            i18n="voucher.voucher_card.delete")
     
     // regular voucher
     .voucher-overview(ng-if="!voucher.expired && voucherCard.type == 'regular'")

@@ -92,6 +92,18 @@
                     top: 20px;
                     right: 20px;
                 }
+
+                .card-label {
+                    color: #646f79;
+                    font: 400 14px/16px $bf;
+                    margin-top: 5px;
+    
+                    a {
+                        color: #646f79;
+                        text-decoration: underline;
+                        pointer-events: all;
+                    }
+                }
             }
 
             .voucher-overview {
