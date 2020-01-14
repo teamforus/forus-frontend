@@ -127,6 +127,8 @@ let ProductVouchersComponent = function(
     };
 
     $ctrl.init = async () => {
+        $ctrl.fundClosed = $ctrl.fund.state == 'closed';
+
         $ctrl.resetFilters();
         $ctrl.onPageChange($ctrl.filters.values);
     };
