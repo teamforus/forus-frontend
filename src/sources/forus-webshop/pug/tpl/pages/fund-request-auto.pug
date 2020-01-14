@@ -60,12 +60,12 @@ section.section.section-product: .wrapper
             +progress()
             
             .sign_up-pane
-                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
+                .sign_up-pane-header Inloggen
                 .sign_up-pane-body
                     .sign_up-pane-text Log in met DigiD om verder te gaan 
                     
                     .sign_up-pane-digid-form(ng-if="!$ctrl.bsnIsKnown")
-                        .button.button-primary(ng-click="$ctrl.startDigId()") Login met DigID
+                        .button.button-primary(ng-click="$ctrl.startDigId()") Login
                         .button.sign_up-pane-button-digid-icon &nbsp;
                 
                 .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
@@ -79,7 +79,7 @@ section.section.section-product: .wrapper
             +progress()
             
             .sign_up-pane
-                .sign_up-pane-header Bevestig uw inkomen en vermogen 
+                .sign_up-pane-header Bevestig uw inkomen
                 .sign_up-pane-body: .form
                     p.sign_up-pane-text U staat op het punt om een meedoenregeling aan te vragen. U dient te verklaren dat u aan de voorwaarden voldoet:
                     
