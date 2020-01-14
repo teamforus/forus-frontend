@@ -88,29 +88,31 @@ let VouchersComponent = function(
         );
     };
 
-    $ctrl.getUnassignedQRCodes = () => {
-        let from = $ctrl.filters.values.from,
-            to = $ctrl.filters.values.to;
+    $ctrl.getUnassignedQRCodes = (query) => {
+        let _query = JSON.parse(JSON.stringify(query));
+
+        _query.from = _query.from ? DateService._frontToBack(_query.from) : null;
+        _query.to = _query.to ? DateService._frontToBack(_query.to) : null;
+        _query.unassigned = true;
             
-        VoucherService.getQRCodes(
+        VoucherService.index(
             $ctrl.organization.id,
-            $ctrl.filters.values.type,
-            from ? DateService._frontToBack(from) : null,
-            to ? DateService._frontToBack(to) : null,
+            _query
         ).then(res => {
             $ctrl.exportableQRCodes = res.data.data;
         });
     };
 
     $ctrl.exportUnassignedQRCodes = () => {
-        let from = $ctrl.filters.values.from,
-            to = $ctrl.filters.values.to;
+        let _query = JSON.parse(JSON.stringify($ctrl.filters.values));
+
+        _query.from = _query.from ? DateService._frontToBack(_query.from) : null;
+        _query.to = _query.to ? DateService._frontToBack(_query.to) : null;
+        _query.unassigned = true;
             
         VoucherService.downloadQRCodes(
             $ctrl.organization.id,
-            $ctrl.filters.values.type,
-            from ? DateService._frontToBack(from) : null,
-            to ? DateService._frontToBack(to) : null,
+            _query,
         ).then(res => {
             FileService.downloadFile(
                 'vouchers_' + moment().format(
@@ -142,7 +144,7 @@ let VouchersComponent = function(
         ).then((res => {
             $ctrl.vouchers = res.data;
 
-            $ctrl.getUnassignedQRCodes();
+            $ctrl.getUnassignedQRCodes(query);
         }));
     };
 

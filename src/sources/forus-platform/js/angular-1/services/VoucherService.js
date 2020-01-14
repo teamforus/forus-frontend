@@ -60,26 +60,11 @@ module.exports = [
                 });
             };
 
-            this.getQRCodes = function(organization_id, type, from, to) {
-                return ApiRequest.get([
-                    '/platform/organizations/' + organization_id,
-                    '/sponsor/vouchers/get-unassigned',
-                ].join(''), {
-                    type: type,
-                    from: from,
-                    to: to,
-                });
-            };
-
-            this.downloadQRCodes = function(organization_id, type, from, to) {
+            this.downloadQRCodes = function(organization_id, query) {
                 return ApiRequest.get([
                     '/platform/organizations/' + organization_id,
                     '/sponsor/vouchers/export-unassigned',
-                ].join(''), {
-                    type: type,
-                    from: from,
-                    to: to,
-                }, {}, true, (params) => {
+                ].join(''), query, {}, true, (params) => {
                     params.responseType = 'blob';
                     return params;
                 });

@@ -425,16 +425,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                         )[0] || false : null;
                     }
                 ],
-                exportableQRCodes: [
-                    'fund', '$transition$', 'VoucherService',
-                    function(fund, $transition$, VoucherService) {
-                        return repackResponse(
-                            VoucherService.getQRCodes(
-                                $transition$.params().organization_id, 'fund_voucher' 
-                            )
-                        );
-                    }
-                ],
             }
         });
 
