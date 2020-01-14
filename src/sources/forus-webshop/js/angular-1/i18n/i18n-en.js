@@ -63,7 +63,6 @@ module.exports = {
     popup_auth: require("./en/modals/modal-auth"),
     popup_offices: require("./en/modals/modal-offices"),
     open_in_me: require("./en/modals/modal-open-in-me"),
-    sign_up: require("./en/modals/modal-sign-up"),
     modal: require("./en/modals/modal"),
 
     // DIRECTIVES
