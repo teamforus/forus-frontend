@@ -105,19 +105,13 @@ let SignUpComponent = function(
             phone: "06"
         }, function(form) {
             form.lock();
-
-            let phone = "+31" + form.values.phone.substr(1);
-            let values = {
-                phone: phone,
-                title: $filter('translate')('sign_up.sms.body')
-            };
-
             waitingSms = true;
 
-            return SmsService.send(
-                values
-            );
-        });
+            return SmsService.send({
+                phone: "+31" + form.values.phone.substr(1),
+                type: 'me_app_download_link'
+            });
+        }, true);
 
         progressStorage.init();
 
