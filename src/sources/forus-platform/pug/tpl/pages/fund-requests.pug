@@ -1,6 +1,11 @@
 .app.app-container
     menu
     section.app.app-content(ng-if='$ctrl.validatorRequests')
+        .card-heading: .row
+            .col.col-lg-6.col-xs-12 Aanmeldingen
+            .col.col-lg-6.col-xs-12.text-right: button(ng-click="$ctrl.exportRequests()").button.button-primary
+                .mdi.mdi-download.icon-start
+                | Exporteren
         .card.card-collapsable(
             ng-class="{'card-collapsed' : !validatorRequest.collapsed}"
             ng-repeat='validatorRequest in $ctrl.validatorRequests.data')
@@ -116,7 +121,7 @@
                                     .attachment-size(ng-bind='file.size')
                                 .attachment-name(ng-bind='file.original_name')
                                 .attachment-preview( 
-                                    title="Preview pdf file" 
+                                    title="Bekijk PDF-bestand" 
                                     ng-if="file.ext == 'pdf'"
                                     ng-click="$ctrl.previewFile($event, file)")
                                     .mdi.mdi-eye
@@ -145,7 +150,7 @@
                                                         .attachment-size(ng-bind='file.size')
                                                     .attachment-name(ng-bind='file.original_name')
                                                     .attachment-preview( 
-                                                        title="Preview pdf file" 
+                                                        title="Bekijk PDF-bestand" 
                                                         ng-if="file.ext == 'pdf'"
                                                         ng-click="$ctrl.previewFile($event, file)")
                                                         .mdi.mdi-eye
@@ -163,4 +168,4 @@
         
         block-empty(
             ng-if='$ctrl.validatorRequests.data.length == 0' 
-            text='No validation requests.')
+            text='Geen aanmeldingen.')
