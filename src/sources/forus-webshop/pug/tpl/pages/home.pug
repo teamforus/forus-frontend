@@ -10,7 +10,7 @@ header.section.section-header.section-header-landing
             
             .header-title(ng-if="$ctrl.funds.length > 1" translate="home.header.{{ $root.client_key }}.title_multi" translate-default="{{'home.header.title_multi' | translate:{ org_name: $ctrl.funds[0].organization.name  } }}" translate-vars="{ fund: $ctrl.funds[0].name, org_name: $ctrl.funds[0].organization.name }")
             
-            .header-description#desc
+            .header-description#desc(ng-if="!$ctrl.appConfigs.features.auto_validation")
                 p(ng-if="$ctrl.funds.length <= 1" translate="home.header.{{ $root.client_key }}.subtitle" translate-default="{{'home.header.subtitle' | translate:{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale } }}" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
                 
                 p(ng-if="$ctrl.funds.length > 1" translate="home.header.{{ $root.client_key }}.subtitle_multi" translate-default="{{'home.header.subtitle_multi' | translate:{ org_name: $ctrl.funds[0].organization.name  } }}" i18n-vars="{ org_name: $ctrl.funds[0].organization.name  }")
@@ -22,7 +22,15 @@ header.section.section-header.section-header-landing
                 //- beheer uw voucher in me tekst
                 
                 p(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" i18n="home.header.auth_cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
-            
+
+            .header-description#desc(ng-if="$ctrl.appConfigs.features.auto_validation")
+                p(ng-if="$ctrl.funds.length <= 1" translate="home.header.{{ $root.client_key }}.subtitle_av" translate-default="{{'home.header.subtitle_av' | translate:{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale } }}" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                
+                //- gebruik activatiecode tekst
+                p(ng-if="!$root.auth_user && $ctrl.funds.length <= 1" i18n="home.header.cta_av" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                
+                p(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" i18n="home.header.auth_cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                       
             div(ng-if="!$ctrl.appConfigs.features.auto_validation")
                 //- uitgelogd en activatiecode invullen
                 a(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthCodePopup()" i18n="home.header.button").button.button-primary 
@@ -35,7 +43,7 @@ header.section.section-header.section-header-landing
             
             div(ng-if="$ctrl.appConfigs.features.auto_validation")
                 //- uitgelogd en activatiecode invullen
-                a(ng-click="$ctrl.startFundRequest()" i18n="home.header.button").button.button-primary 
+                a(ng-click="$ctrl.startFundRequest()" i18n="home.header.button_av").button.button-primary 
             
             br
             br

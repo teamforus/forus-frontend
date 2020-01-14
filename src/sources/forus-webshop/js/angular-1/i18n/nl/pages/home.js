@@ -3,6 +3,7 @@ module.exports = {
     header: {
         title: "{{fund}} ",
         subtitle: "Welkom op de website van {{fund}}. Heeft u van de gemeente een toekenning voor {{fund}}? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
+        subtitle_av: "Welkom op de website van {{fund}}. U kan hier uw tegoed aanvragen, het aanbod zien en het geld dat u kunt besteden.",
         title_multi: "Webshop {{org_name}}",
         subtitle_multi: "Welkom op de webshop van {{org_name}} Heeft u via {{org_name}} een toekenning gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
         header_note: "",
@@ -30,9 +31,11 @@ module.exports = {
         },
         cta: "Klik op start en vul uw activatiecode in. Deze code staat in de brief over {{fund}} die u heeft ontvangen",
         cta_multi: "Klik op start en vul uw activatiecode in. Deze code staat in de brief die u heeft ontvangen",
+        cta_av: "Voldoet u aan de voorwaarden van {{fund}}?",
         auth_cta: "Beheer uw vouchers en neem ze overal mee door de Me-app te downloaden.",
         auth_button: "Download Me",
         button: 'START', 
+        button_av: 'START AANVRAAG', 
     },
     blog: {
         title: "Onze blog",
@@ -77,7 +80,10 @@ module.exports = {
         thirteen: "Nee, de voucher is strikt persoonlijk. Je mag de voucher niet aan iemand anders geven. Maakt iemand anders wel gebruik van jouw voucher dan wordt je eigen bedrag lager.",
         faq_fourteen: "Ik zie aanbiedingen op de webshop staan, hoe kan ik een aanbieding kopen?",
         fourteen: "Log in op de webshop en klik op 'Aanbiedingen'. Kies vervolgens de aanbieding die je wilt en klik op 'Koop'. Kies vervolgens {{fund}}-voucher om de aanbieding mee te kopen. Het bedrag van de aanbieding wordt van je {{fund}}-voucher afgehaald en er wordt een nieuwe voucher aangemaakt. De nieuwe voucher kan alleen gebruikt worden voor de aanbieding die je hebt gekocht.",
-
+        nijmegen: {
+            faq_one: "Hoe kan ik een Meedoenregeling aanvragen?",
+            one: "Klik bovenaan op 'Start aanvraag'. Vul uw e-mailadres in en gebruik de login link in uw eigen vertrouwde emailbox. Vervolgens logt u in met uw eigen DigiD. Controleer of u voldoet aan de voorwaarde en klik daarna op 'Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden' en ga naar de volgende stap. Uw Meedoenregeling-voucher is gelijk geactiveerd!",
+        },
         winterswijk: {
             title: "Veelgestelde vragen",
             faq_one: "Hoe kan ik een {{fund}} activeren?",
@@ -212,7 +218,13 @@ module.exports = {
             three: "Klik daarna op ‘Aanbiedingen’ om het aanbod op de webshop te zien. Ook kunt u uw tegoed zien. De voucher met het tegoed vindt u terug door bovenaan op ‘Mijn vouchers’ te klikken.",
             four: "Bij ‘Mijn vouchers’ staat ook een persoonlijke QR-code. Daarmee betaalt u de organisatie waar u een aankoop wilt doen. De QR-code kunt u uitprinten, naar uzelf mailen of op uw telefoon hebben door in te loggen op de app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a> kunt u downloaden via de Google Playstore en de App Store.",
         },
+        nijmegen: {
+            stepone: "Stap #1",
+            one: "Controleer of u voldoet aan de voorwaarden van de meedoen regeling.",
+            steptwo: "Stap #2",
+            two: "Klik op de start knop om uw aanvraag te starten. Gebruik uw eigen e-mailadres.",
 
+        },
         winterswijk: {
             title: "Hoe het werkt",
             stepone: "Stap #1",
