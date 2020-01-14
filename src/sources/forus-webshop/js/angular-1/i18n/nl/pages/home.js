@@ -31,7 +31,7 @@ module.exports = {
         },
         cta: "Klik op start en vul uw activatiecode in. Deze code staat in de brief over {{fund}} die u heeft ontvangen",
         cta_multi: "Klik op start en vul uw activatiecode in. Deze code staat in de brief die u heeft ontvangen",
-        cta_av: "Voldoet u aan de <a href='#'>voorwaarden</a> van de {{fund}}?",
+        cta_av: "Voldoet u aan de voorwaarden van de {{fund}}?",
         auth_cta: "Beheer uw vouchers en neem ze overal mee door de Me-app te downloaden.",
         auth_button: "Download Me",
         button: 'START', 
