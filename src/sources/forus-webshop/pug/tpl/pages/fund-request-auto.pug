@@ -39,7 +39,7 @@ section.section.section-product: .wrapper
                 .sign_up-pane-body
                     .sign_up-email_sent
                         .sign_up-email_sent-icon
-                            img(src=src_prefix + "./assets/img/sign_up-email.png").sign_up-email_sent-icon-img
+                            img(src=src_prefix + "./assets/img/sign_up-email.svg").sign_up-email_sent-icon-img
                         .sign_up-email_sent-title(i18n="popup_auth.labels.join")
                         .sign_up-email_sent-text(i18n="popup_auth.notifications.link")
             
@@ -49,7 +49,7 @@ section.section.section-product: .wrapper
                 .sign_up-pane-body
                     .sign_up-email_sent
                         .sign_up-email_sent-icon
-                            img(src=src_prefix + "./assets/img/sign_up-email.png").sign_up-email_sent-icon-img
+                            img(src=src_prefix + "./assets/img/sign_up-email.svg").sign_up-email_sent-icon-img
                         .sign_up-email_sent-title Bevestig dat u toegang heeft tot dit e-mailadres.
                         .sign_up-email_sent-text
                             | U heeft een e-mail ontvangen op "#[span(ng-bind="$ctrl.authForm.values.records.primary_email").text-primary]". Ga naar uw inbox en open de e-mail met het onderwerp "E-mail activering" en klik in de e-mail op de blauwe knop.
@@ -97,19 +97,28 @@ section.section.section-product: .wrapper
                             th Indicatie Zorg met verblijf (vanaf 18 jaar)
                         tr
                             td Alleenstaand
-                            td € 1.085,-
-                            td € 1.240,-
-                            td € 335,-
+                            td € 1.166,-
+                            td € 1.305,-
+                            td € 375,-
                         tr
                             td Alleenstaande ouder
-                            td € 1.390,-
-                            td € 1.510,-
-                            td € 470,-
+                            td € 1.496,-
+                            td € 1.584,-
+                            td € 505,-
                         tr
                             td Getrouwd/samenwonend
-                            td € 1.540,-
-                            td € 1.695,-
-                            td € 545,-
+                            td € 1.661,-
+                            td € 1.760,-
+                            td € 590,-
+                    
+                    p.sign_up-pane-text 
+                        | #[strong Wat hoort bij het inkomen?] 
+                        | #[br]
+                        | Alle inkomsten uit werk, uitkering, pensioen, alimentatie, kamerhuur, kostgeld, heffingskorting belastingdienst. 
+                        | Wilt u weten op welke heffingskortingen u recht heeft? Kijk dan op de website van de Belastingdienst: #[a(href="http://www.belastingdienst.nl/") www.belastingdienst.nl]. #[br]
+                        | #[br]
+                        | #[strong Wat hoort niet bij het inkomen?] #[br]
+                        | Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen).
                     
                     p.sign_up-pane-text 
                         | Door te verklaren dat u aan de voorwaarden voldoet, 
