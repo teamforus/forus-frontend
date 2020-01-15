@@ -544,9 +544,9 @@ module.exports = {
         'appConfigs',
         FundRequestComponent
     ],
-    templateUrl: (appConfigs) => {
+    templateUrl: ['appConfigs', (appConfigs) => {
         return 'assets/tpl/pages/fund-request' + (
             appConfigs.features.auto_validation ? '-auto' : ''
         ) + '.html';
-    }
+    }]
 };
