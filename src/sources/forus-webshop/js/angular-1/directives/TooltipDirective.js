@@ -1,6 +1,5 @@
 let TooltipDirective = function(
     $scope,
-    $element,
     $filter
 ) {
     $scope.text = $filter('i18n')($scope.text);
@@ -9,13 +8,13 @@ let TooltipDirective = function(
 module.exports = () => {
     return {
         scope: {
-            'text': '<'
+            'text': '<',
+            'tooltipType': '@'
         },
         restrict: "EA",
         replace: true,
         controller: [
             '$scope',
-            '$element',
             '$filter',
             TooltipDirective
         ],

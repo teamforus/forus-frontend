@@ -1,4 +1,3 @@
 .tooltip-block
     .tooltip-icon
-    .tooltip
-        | {{ text }}
+    .tooltip(ng-bind="text" ng-class="tooltipType")
