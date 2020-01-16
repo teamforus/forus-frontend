@@ -249,7 +249,8 @@ let FundRequestComponentAuto = function(
                     }
                 } else if ($stateParams.digid_error == 'unknown_error') {
                     PushNotificationsService.danger(
-                        "Error error",
+                        "Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals.",
+                        "Indien deze fout blijft aanhouden, kijk dan op de website https://www.digid.nl/ voor de laatste informatie.",
                     );
                     $ctrl.cleanReload();
                 } else if ($stateParams.digid_error == 'uid_used') {
@@ -260,20 +261,20 @@ let FundRequestComponentAuto = function(
                     $ctrl.cleanReload();
                 } else if ($stateParams.digid_error == 'uid_dont_match') {
                     PushNotificationsService.danger(
-                        "BSN verschilt",
-                        "U kunt maar één BSN-nummer hebben per account, maak een nieuw account aan en probeer opnieuw."
+                        "Er is al een BSN-nummer bekend bij dit profiel",
+                        "Het BSN nummer dat u opgehaald heeft met DigiD verschilt met het BSN-nummer gekoppelt staat aan dit profiel. Start een nieuwe aanvraag."
                     );
                     $ctrl.cleanReload();
                 } else if ($stateParams.digid_error == 'error_0040') {
                     PushNotificationsService.danger(
-                        "Geannuleerd",
+                        "Inlogpoging geannuleerd.",
                         "U hebt deze inlogpoging geannuleerd. Probeer eventueel opnieuw om verder te gaan."
                     );
                     $ctrl.cleanReload();
                 } else if ($stateParams.digid_error && $stateParams.digid_error.indexOf('error_') === 0) {
                     PushNotificationsService.danger(
-                        "Fout!",
-                        "Foutcode " + $stateParams.digid_error + ". Zoek hulp bij de webshopbeheerder om verder te gaan."
+                        "Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals.",
+                        "Indien deze fout blijft aanhouden, kijk dan op de website https://www.digid.nl/ voor de laatste informatie."
                     );
                     $ctrl.cleanReload();
                 } else {
