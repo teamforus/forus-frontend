@@ -7,9 +7,7 @@
         .voucher-organization(ng-bind="voucherCard.subtitle")
         //-.voucher-read_more Uw tegoed is:
         .voucher-value(ng-if="voucherCard.type == 'regular'" ng-bind="voucherCard.amount | currency_format")
-        .voucher-read_more(ng-if="voucherCard.type == 'product'" ui-sref="products-show(voucherCard.product)" prevent-propagation)
-            | Bekijk details
-            em.mdi.mdi-arrow-right
+        .voucher-organization(ng-if="voucherCard.type == 'product'" ng-bind="voucherCard.product.organization.name")
         .voucher-label
             .label.label-danger(ng-if="voucher.expired" i18n="voucher.voucher_card.expired")
         .card-label: a(
