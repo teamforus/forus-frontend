@@ -47,14 +47,14 @@ let HomeComponent = function(
     $ctrl.$onInit = () => {
         if ($stateParams.digid_error == 'uid_not_found') {
             PushNotificationsService.danger(
-                "Onbekend BSN-nummer.",
+                "Dit BSN-nummer is onbekend in het systeem. Start uw aanvraag om een account aan te maken.",
             );
 
             $ctrl.cleanReload();
         } else if ($stateParams.digid_error != null) {
             PushNotificationsService.danger(
-                "Er ging iets mis.",
-                "Er kon niet ingelogd worden met DigiD door een onbekend probleem.",
+                "Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals.",
+                "Indien deze fout blijft aanhouden, kijk dan op de website https://www.digid.nl/ voor de laatste informatie",
             );
 
             $ctrl.cleanReload();
