@@ -88,31 +88,33 @@ let VouchersComponent = function(
         );
     };
 
-    $ctrl.getUnassignedQRCodes = (query) => {
+    $ctrl.getQueryParams = (query) => {
         let _query = JSON.parse(JSON.stringify(query));
 
         _query.from = _query.from ? DateService._frontToBack(_query.from) : null;
         _query.to = _query.to ? DateService._frontToBack(_query.to) : null;
-        _query.unassigned = true;
-            
+
+        return _query;
+    }
+
+    $ctrl.getUnassignedQRCodes = (query) => {
         VoucherService.index(
             $ctrl.organization.id,
-            _query
+            Object.assign($ctrl.getQueryParams(query), {
+                per_page: 1,
+                unassigned: 1
+            })
         ).then(res => {
-            $ctrl.exportableQRCodes = res.data.data;
+            $ctrl.hasExportableQRCodes = res.data.data.length;
         });
     };
 
     $ctrl.exportUnassignedQRCodes = () => {
-        let _query = JSON.parse(JSON.stringify($ctrl.filters.values));
-
-        _query.from = _query.from ? DateService._frontToBack(_query.from) : null;
-        _query.to = _query.to ? DateService._frontToBack(_query.to) : null;
-        _query.unassigned = true;
-            
         VoucherService.downloadQRCodes(
             $ctrl.organization.id,
-            _query,
+            Object.assign($ctrl.getQueryParams($ctrl.filters.values), {
+                unassigned: 1
+            })
         ).then(res => {
             FileService.downloadFile(
                 'vouchers_' + moment().format(
@@ -133,14 +135,9 @@ let VouchersComponent = function(
     };
 
     $ctrl.onPageChange = (query) => {
-        let _query = JSON.parse(JSON.stringify(query));
-
-        _query.from = _query.from ? DateService._frontToBack(_query.from) : null;
-        _query.to = _query.to ? DateService._frontToBack(_query.to) : null;
-
         VoucherService.index(
             $ctrl.organization.id,
-            _query
+            $ctrl.getQueryParams(query)
         ).then((res => {
             $ctrl.vouchers = res.data;
 
@@ -188,7 +185,6 @@ module.exports = {
     bindings: {
         fund: '<',
         funds: '<',
-        exportableQRCodes: '<',
         organization: '<',
     },
     controller: [

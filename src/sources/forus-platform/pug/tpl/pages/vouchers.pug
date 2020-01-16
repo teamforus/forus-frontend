@@ -35,7 +35,7 @@
                         em.mdi.mdi-download.icon-start
                         span(i18n="product_vouchers.buttons.download_csv")
                     .button.button-primary(
-                        ng-if="$ctrl.exportableQRCodes.length" 
+                        ng-if="$ctrl.hasExportableQRCodes" 
                         ng-click="$ctrl.exportUnassignedQRCodes()")
                         
                         em.mdi.mdi-file-export.icon-start
