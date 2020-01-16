@@ -87,13 +87,13 @@
                     }
                 }
 
-                .voucher-label {
+                .voucher-status-label {
                     position: absolute;
                     top: 20px;
                     right: 20px;
                 }
 
-                .card-label {
+                .voucher-cancel-label {
                     color: #646f79;
                     font: 400 14px/16px $bf;
                     margin-top: 5px;
@@ -258,7 +258,7 @@
                         margin-bottom: 7px;
                     }
 
-                    .voucher-label {
+                    .voucher-status-label {
                         position: initial;
 
                         .label {
