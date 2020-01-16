@@ -2,7 +2,7 @@
     .voucher-image(style="background-image: url('{{ voucherCard.thumbnail }}')")
     
     .voucher-details
-        .label(ng-class="{true: 'label-success', false: 'label-warning'}[voucherCard.transactions.length == 0]" ng-if="voucherCard.type == 'product'" ng-bind="voucherCard.transactions.length == 0 ? 'Ongebruikt' : 'Gebruikt'")
+        .label(ng-class="{true: 'label-success', false: 'label-warning'}[voucherCard.transactions.length == 0]" ng-if="voucherCard.type == 'product' && !voucher.expired" ng-bind="voucherCard.transactions.length == 0 ? 'Ongebruikt' : 'Gebruikt'")
         .voucher-name(ng-bind="voucherCard.title")
         .voucher-organization(ng-bind="voucherCard.subtitle")
         //-.voucher-read_more Uw tegoed is:
