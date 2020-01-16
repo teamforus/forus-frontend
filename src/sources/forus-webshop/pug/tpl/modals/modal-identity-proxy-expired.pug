@@ -1,0 +1,11 @@
+.modal.modal-identity-proxy-expired(ng-class="$ctrl.modalClass")
+    .modal-backdrop(ng-click="$ctrl.cancel()")
+    .modal-content
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()")
+        .modal-section
+            .text-center
+                .title(translate="expired_identity.title")
+                .description(translate="expired_identity.description")
+
+        .modal-footer.text-center.no-border
+            button.button.button-primary(ng-click="$ctrl.openLoginModal()" translate="Bevestig")

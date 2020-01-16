@@ -124,6 +124,7 @@ app.component('modalAuthCodeComponent', require('./components/Modals/ModalAuthCo
 app.component('modalShareVoucherComponent', require('./components/Modals/ModalShareVoucherComponent'));
 app.component('modalOpenInMeComponent', require('./components/Modals/ModalOpenInMeComponent'));
 app.component('modalProductApplyComponent', require('./components/Modals/ModalProductApplyComponent'));
+app.component('modalIdentityProxyExpiredComponent', require('./components/Modals/ModalIdentityProxyExpiredComponent'));
 
 // Printable Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
