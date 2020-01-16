@@ -280,7 +280,7 @@ let FundRequestComponentAuto = function(
                 } else {
                     FundRequestService.index($ctrl.fund.id).then((res) => {
                         if (res.data.data.length > 0) {
-                            alert('You already requested this fund');
+                            alert('U heeft al een tegoed voor deze regeling.');
                             $state.go('funds');
                         } else if ($ctrl.invalidCriteria.length == 0) {
                             $ctrl.applyFund($ctrl.fund);
