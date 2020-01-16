@@ -82,22 +82,6 @@ let ProductVouchersComponent = function(
         });
     };
 
-    $ctrl.downloadExampleCsv = () => {
-        ProductService.listAll({
-            fund_id: $ctrl.fund.id
-        }).then((res) => {
-            let products = res.data.data;
-            let productsIds = products.map(
-                product => parseInt(product.id)
-            );
-        
-            FileService.downloadFile(
-                'voucher_upload_sample.csv',
-                VoucherService.sampleCSV('product_voucher', productsIds[0])
-            );
-        });
-    };
-
     $ctrl.onPageChange = (query) => {
         let _query = JSON.parse(JSON.stringify(query));
 

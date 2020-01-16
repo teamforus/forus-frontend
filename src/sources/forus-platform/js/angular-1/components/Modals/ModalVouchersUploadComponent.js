@@ -4,6 +4,7 @@ let ModalVouchersUploadComponent = function(
     $timeout,
     $filter,
     $element,
+    FileService,
     VoucherService,
     ProductService,
     PushNotificationsService
@@ -55,6 +56,29 @@ let ModalVouchersUploadComponent = function(
 
     $ctrl.reset = function() {
         $ctrl.init();
+    };
+
+    $ctrl.downloadExampleCsv = () => {
+        if ($ctrl.type == 'voucher') {
+            FileService.downloadFile(
+                'voucher_upload_sample.csv',
+                VoucherService.sampleCSV('voucher')
+            );
+        } else {
+            ProductService.listAll({
+                fund_id: $ctrl.fund.id
+            }).then((res) => {
+                let products = res.data.data;
+                let productsIds = products.map(
+                    product => parseInt(product.id)
+                );
+            
+                FileService.downloadFile(
+                    'voucher_upload_sample.csv',
+                    VoucherService.sampleCSV('product_voucher', productsIds[0])
+                );
+            });
+        }
     };
 
     $ctrl.init = (csvRequiredKeys = []) => {
@@ -294,6 +318,7 @@ module.exports = {
         '$timeout',
         '$filter',
         '$element',
+        'FileService',
         'VoucherService',
         'ProductService',
         'PushNotificationsService',
