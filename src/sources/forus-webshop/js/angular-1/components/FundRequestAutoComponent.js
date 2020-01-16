@@ -249,13 +249,13 @@ let FundRequestComponentAuto = function(
                     }
                 } else if ($stateParams.digid_error == 'unknown_error') {
                     PushNotificationsService.danger(
-                        "Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals.",
-                        "Indien deze fout blijft aanhouden, kijk dan op de website https://www.digid.nl/ voor de laatste informatie.",
+                        "Er is een fout opgetreden in de communicatie met DigiD.",
+                        "Probeert u het later nogmaals. Indien deze fout blijft aanhouden, kijk dan op de website https://www.digid.nl/ voor de laatste informatie.",
                     );
                     $ctrl.cleanReload();
                 } else if ($stateParams.digid_error == 'uid_used') {
                     PushNotificationsService.danger(
-                        "BSN-nummer al gebruikt",
+                        "BSN-nummer al gebruikt.",
                         "Het BSN-nummer is al ingebruik op een ander account. Herstel uw account op het inlog venster om verder te gaan."
                     );
                     $ctrl.cleanReload();
@@ -273,8 +273,8 @@ let FundRequestComponentAuto = function(
                     $ctrl.cleanReload();
                 } else if ($stateParams.digid_error && $stateParams.digid_error.indexOf('error_') === 0) {
                     PushNotificationsService.danger(
-                        "Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals.",
-                        "Indien deze fout blijft aanhouden, kijk dan op de website https://www.digid.nl/ voor de laatste informatie."
+                        "Er is een fout opgetreden in de communicatie met DigiD.",
+                        "Probeert u het later nogmaals. Indien deze fout blijft aanhouden, kijk dan op de website https://www.digid.nl/ voor de laatste informatie."
                     );
                     $ctrl.cleanReload();
                 } else {
