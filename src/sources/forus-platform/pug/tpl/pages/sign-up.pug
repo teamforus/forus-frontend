@@ -465,6 +465,21 @@
 
                             .sign_up-pane-text.header.with-border(translate="sign_up.header.subtitle_step_6")
 
+                            .row.form.filters(ng-if="$ctrl.showFilters")   
+                                .col.col-lg-6
+                                    .form-label(translate="sign_up.filters.labels.organizations")
+                                    select(
+                                        ng-options="fundOrganization.id_str as fundOrganization.name for fundOrganization in $ctrl.fundOrganizations" 
+                                        ng-model="$ctrl.fundOrganization"
+                                        ng-change="$ctrl.filterFunds()").form-control 
+        
+                                .col.col-lg-6
+                                    .form-label(translate="sign_up.filters.labels.tags")
+                                    select(
+                                        ng-options="fundLabel.key as fundLabel.name for fundLabel in $ctrl.fundLabels" 
+                                        ng-model="$ctrl.fundLabel"
+                                        ng-change="$ctrl.filterFunds()").form-control
+
                             .card(
                                 ng-if="$ctrl.fundsAvailable.length > 0"
                                 ng-repeat="fund in $ctrl.fundsAvailable")
@@ -479,6 +494,10 @@
                                         block-empty(
                                             ng-if="$ctrl.funds.length == 0"
                                             text="Er zijn momenteel geen actieve fondsen.")
+
+                            block-empty(
+                                ng-if="$ctrl.fundsAvailable.length == 0" 
+                                text="Er zijn momenteel geen actieve fondsen.")                
 
                         .sign_up-pane-footer: .row
                             .col.col-lg-6.text-left

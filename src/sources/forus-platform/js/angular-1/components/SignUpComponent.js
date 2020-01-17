@@ -589,12 +589,76 @@ let SignUpComponent = function(
         });
     };
 
-    let loadAvailableFunds = (organization) => {
-        ProviderFundService.listAvailableFunds(
-            organization.id, $stateParams.fundId ? {
-                fund_id: $stateParams.fundId
-            } : {}
-        ).then((res) => {
+    $ctrl.getFundFilters = () => {
+        $ctrl.fundOrganizations = [];
+        $ctrl.fundLabels = [];
+
+        let processedOrganizations = [];
+        let processedLabels = [];
+        
+        $ctrl.fundsAvailable.forEach(fund => {
+            if (processedOrganizations.indexOf(fund.organization.id) == -1) {
+                $ctrl.fundOrganizations.push({
+                    id: fund.organization.id,
+                    name: fund.organization.name
+                });
+
+                processedOrganizations.push(fund.organization.id);
+            }
+
+            fund.tags.forEach(tag => {
+                if (processedLabels.indexOf(tag.id) == -1) {
+                    $ctrl.fundLabels.push({
+                        id: tag.id,
+                        key: tag.key,
+                        name: tag.name
+                    });
+
+                    processedLabels.push(tag.id);
+                }
+            });
+        });
+
+        $ctrl.fundOrganizations = $ctrl.fundOrganizations.map(fundOrganization => {
+            fundOrganization.id_str = fundOrganization.id += '';
+
+            return fundOrganization;
+        });
+
+        $ctrl.fundOrganizations.unshift({ 
+            id_str: 'null',
+            name: $filter('translate')('sign_up.filters.options.all_organizations') 
+        });
+        $ctrl.fundOrganization = $ctrl.fundOrganization ? $ctrl.fundOrganization : 'null';
+
+        $ctrl.fundLabels.unshift({ 
+            key: 'null',
+            name: $filter('translate')('sign_up.filters.options.all_labels') 
+        });
+        $ctrl.fundLabel = $ctrl.fundLabel ? $ctrl.fundLabel : 'null';
+    }
+
+    $ctrl.filterFunds = (organization = $ctrl.organization) => {
+        let organization_id = $ctrl.fundOrganization && $ctrl.fundOrganization != 'null' ?
+                $ctrl.fundOrganization : $stateParams.organization_id;
+        let label = $ctrl.fundLabel && $ctrl.fundLabel != 'null' ?
+                $ctrl.fundLabel : $stateParams.tag;
+        let fund_id = $stateParams.fund_id,
+            search_params = {};
+
+        if (organization_id) {
+            search_params.organization_id = organization_id;
+        }    
+        if (label) {
+            search_params.tag = label;
+        }    
+        if (fund_id) {
+            search_params.fund_id = fund_id;
+        }
+
+        return ProviderFundService.listAvailableFunds(
+            organization.id, search_params
+        ).then(res => {
             let fundsAvailable = res.data.data;
 
             if ($stateParams.fundId && fundsAvailable.length > 0) {
@@ -604,19 +668,21 @@ let SignUpComponent = function(
 
                 if (targetFund) {
                     return ProviderFundService.applyForFund(
-                        $ctrl.organization.id,
+                        organization.id,
                         targetFund.id
                     ).then($ctrl.next);
                 }
             }
 
             $ctrl.fundsAvailable = fundsAvailable;
+        });
+    }
 
-            $scope.$watch(() => $ctrl.fundsAvailable, function(funds) {
-                $ctrl.fundsLeft = (funds || []).filter(fund => {
-                    return !fund.applied;
-                });
-            }, true);
+    let loadAvailableFunds = (organization) => {
+        $ctrl.filterFunds(organization).then(() => {
+            if ($ctrl.showFilters = !$stateParams.organization_id && !$stateParams.tag) {
+                $ctrl.getFundFilters();
+            }
         });
     };
 
