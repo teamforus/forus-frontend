@@ -6,10 +6,18 @@ let FundRequestValidatorService = function(ApiRequest) {
 
     return new(function() {
         this.indexAll = function(organziation_id, data = {}) {
-            return ApiRequest.get(
-                sprintf(uriPrefixAll, organziation_id),
-                data
-            );
+            return ApiRequest.get(sprintf(uriPrefixAll, organziation_id), data);
+        };
+
+        this.exportAll = function(organziation_id, filters = {}) {
+            return ApiRequest.get(sprintf(
+                uriPrefixAll + '/export', organziation_id
+            ), filters, {}, true, (_cfg) => {
+                _cfg.responseType = 'arraybuffer';
+                _cfg.cache = false;
+
+                return _cfg;
+            });
         };
 
         this.index = function(organziation_id, fund_id, data = {}) {
