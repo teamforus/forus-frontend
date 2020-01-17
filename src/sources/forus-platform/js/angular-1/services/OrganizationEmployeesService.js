@@ -2,9 +2,9 @@ let OrganizationEmployeesService = function(ApiRequest) {
     let uriPrefix = '/platform/organizations/';
 
     return new(function() {
-        this.list = function(organization_id) {
+        this.list = function(organization_id, query = {}) {
             return ApiRequest.get(
-                uriPrefix + organization_id + '/employees'
+                uriPrefix + organization_id + '/employees', query
             );
         };
 

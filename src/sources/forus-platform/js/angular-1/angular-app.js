@@ -61,6 +61,7 @@ app.component('modalFundCriteriaDescriptionEditComponent', require('./components
 app.component('modalFundInviteProvidersComponent', require('./components/Modals/ModalFundInviteProvidersComponent'));
 app.component('modalEmployeeAddConfirmationComponent', require('./components/Modals/ModalEmployeeAddConfirmationComponent'));
 app.component('modalFundOffersComponent', require('./components/Modals/ModalFundOffersComponent'));
+app.component('modalBusinessSelectComponent', require('./components/Modals/ModalBusinessSelectComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -209,8 +210,10 @@ app.config(['$compileProvider', function($compileProvider) {
 app.run(require('./routers/router-transitions'));
 
 app.run(['appConfigs', (appConfigs) => {
-    let appFlags = require('./config/flags.js');
-    appConfigs.flags = appFlags[env_data.client_key] || appFlags.general
+    appConfigs.flags = Object.assign(
+        require('./config/flags.js'),
+        env_data.flags || {}
+    );
 }]);
 
 // Bootstrap the app

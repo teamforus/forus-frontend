@@ -4,7 +4,7 @@ require('./modules/page-loading-bar/PageLoadingBarModule');
 
 let appConfigs = JSON.parse(JSON.stringify(env_data));
 let app = angular.module('forusApp', [
-    'pascalprecht.translate', 'ui.router', 'ngCookies', 
+    'pascalprecht.translate', 'ui.router', 'ngCookies',
     'forus.selectControl', 'forus.uiControls', 'forus.pageLoadingBarModule',
 ]);
 
@@ -21,6 +21,9 @@ app.component('recordsComponent', require('./components/RecordsComponent'));
 app.component('productsComponent', require('./components/ProductsComponent'));
 app.component('productComponent', require('./components/ProductComponent'));
 app.component('productApplyComponent', require('./components/ProductApplyComponent'));
+app.component('providersComponent', require('./components/ProvidersComponent'));
+app.component('providerOfficeComponent', require('./components/ProviderOfficeComponent'));
+app.component('providerComponent', require('./components/ProviderComponent'));
 app.component('voucherComponent', require('./components/VoucherComponent'));
 app.component('fundApplyComponent', require('./components/FundApplyComponent'));
 app.component('fundRequestComponent', require('./components/FundRequestComponent'));
@@ -68,6 +71,9 @@ app.service('EmailPreferencesService', require('./services/EmailPreferencesServi
 app.service('FileService', require('./services/FileService'));
 app.service('DigIdService', require('./services/DigIdService'));
 app.service('PushNotificationsService', require('./services/PushNotificationsService'));
+app.service('LocalStorageService', require('./services/LocalStorageService'));
+app.service('VoucherRedeemStorageService', require('./services/VoucherRedeemStorageService'));
+app.service('ProvidersService', require('./services/ProvidersService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
@@ -103,6 +109,10 @@ app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoade
 app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
 app.directive('modalItem', require('./directives/modals/ModalItemDirective'));
 app.directive('modalScrollBraker', require('./directives/modals/ModalScrollBrakerDirective'));
+
+// Map pointers
+app.directive('mapPointerProvidersOffice', require('./directives/map-pointers/MapPointerProvidersOfficeDirective'));
+app.directive('mapPointerProvidersOfficeView', require('./directives/map-pointers/MapPointerProvidersOfficeViewDirective'));
 
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
@@ -145,8 +155,10 @@ app.config(require('./config/i18n'));
 app.run(require('./routers/router-transitions'));
 
 app.run(['appConfigs', (appConfigs) => {
-    let appFlags = require('./config/flags.js');
-    appConfigs.flags = appFlags[env_data.client_key] || appFlags.general
+    appConfigs.flags = Object.assign(
+        require('./config/flags.js'),
+        env_data.flags || {}
+    );
 }]);
 
 // Bootstrap the app

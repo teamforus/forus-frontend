@@ -5482,6 +5482,14 @@ $colorPrimaryLight: $color_primary_light;
         }
     }
 
+    &.modal-business-update {
+        .modal-description {
+            font: 500 16px $bf;
+            margin-top: 20px;
+            text-align: center;
+        }
+    }
+
     @media screen and (max-width: 1500px) {
         .modal-content {
             width: 1000px;

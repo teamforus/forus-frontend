@@ -23,23 +23,8 @@ let OrganizationProvidersComponent = function(
         },
     };
 
-    $ctrl.states = [{
-        key: null,
-        name: 'Alle'
-    }, {
-        key: 'approved',
-        name: 'Geaccepteerd'
-    }, {
-        key: 'declined',
-        name: 'Geweigerd'
-    }, {
-        key: 'pending',
-        name: 'Wachtend'
-    }];
-
     $ctrl.resetFilters = () => {
         $ctrl.filters.values.q = '';
-        $ctrl.filters.values.state = $ctrl.states[0].key;
     };
 
     $ctrl.replaceProviderItems = (fundProvider, rawFundProvider) => {
@@ -125,7 +110,8 @@ let OrganizationProvidersComponent = function(
 
     $ctrl.updateProvidersList = function() {
         $scope.onPageChange({
-            fund_id: $stateParams.fund_id
+            fund_id: $stateParams.fund_id,
+            page: $ctrl.fundProviders.meta.current_page
         });
     };
 
