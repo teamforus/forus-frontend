@@ -64,7 +64,6 @@ block content
                                     ).organization-logo-img
                                 .organization-title
                                     .organization-title-value(ng-click="$ctrl.goToProvider($event, provider)" ng-bind="provider.name")
-                                    .organization-title-count(ng-click="$ctrl.goToProvider($event, provider)" ng-bind="provider.offices.length")
                                 .organization-chevron
                                     .mdi(ng-class="'mdi-chevron-' + (($ctrl.officesShown.indexOf(provider.id) != -1) ? 'up' : 'right')")
 

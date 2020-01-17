@@ -380,6 +380,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $transition$.params().organization_id,
                 $transition$.params().id
             ))],
+            validators: ['permission', '$transition$', 'OrganizationEmployeesService', (
+                permission, $transition$, OrganizationEmployeesService
+            ) => repackResponse(OrganizationEmployeesService.list(
+                $transition$.params().organization_id, {
+                    role: 'validation'
+                }
+            ))],
             productCategories: ['ProductCategoryService', (
                 ProductCategoryService
             ) => repackResponse(ProductCategoryService.listAll())],
@@ -670,16 +677,34 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         data: {
             token: null
         },
-        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'appConfigs', (
-            $rootScope, $state, IdentityService, CredentialsService, appConfigs
+        controller: ['$rootScope', '$state', 'PermissionsService', 'IdentityService', 'CredentialsService', 'ModalService', 'appConfigs', (
+            $rootScope, $state, PermissionsService, IdentityService, CredentialsService, ModalService, appConfigs
         ) => {
             IdentityService.authorizeAuthEmailToken(
                 appConfigs.client_key + '_' + appConfigs.panel_type,
                 $state.params.token
             ).then(function(res) {
                 CredentialsService.set(res.data.access_token);
-                $rootScope.loadAuthUser();
-                $state.go('home');
+                if (['provider'].indexOf(appConfigs.panel_type) != -1) {
+                    $rootScope.loadAuthUser().then(auth_user => {
+                        let organizations = auth_user.organizations.filter(organization => 
+                            !organization.business_type_id &&
+                            PermissionsService.hasPermission(organization, 'manage_organization')
+                        );
+
+                        if (organizations.length > 0) {
+                            ModalService.open('businessSelect', {
+                                organizations: organizations,
+                                onReady: () => $state.go('home')
+                            });
+                        } else {
+                            $state.go('home');
+                        }
+                    });
+                } else {
+                    $rootScope.loadAuthUser();
+                    $state.go('home');
+                }
             }, () => {
                 alert([
                     "Helaas, het is niet gelukt om in te loggen. " +

@@ -17,7 +17,7 @@
                 .flex-col.ie-flex-auto: button(type="submit").button.button-primary Login
 
             .auth-digid(ng-if="$ctrl.digidAvailable"): a(ng-click="$ctrl.useDigId()").auth-digid-link
-                | Account herstellen door in te loggen met DigiD
+                | Vergeten welk emailadres u heeft gebruikt?
                 em.mdi.mdi-chevron-right
 
             .auth-qr_code.hidden-xs
@@ -42,15 +42,14 @@
         .block.block-auth-widget(ng-if="$ctrl.restoreWithDigId")
             .auth-digid-form
                 .auth-title 
-                    | Account herstellen met DigiD
+                    | Vergeten welk emailadres u heeft gebruikt?
                     br
                 .auth-subtitle 
-                    | Wanneer u eerder heeft ingelogd met DigiD kunt u uw account 
-                    | herstellen door opnieuw hiermee in te loggen.
+                    | Herstel uw account door opnieuw in te loggen met DigiD
                     br
                 .auth-subtitle 
-                    .button.modal-button-digid-icon &nbsp;
-                    .button.button-primary(ng-click="$ctrl.startDigId()") Login met DigID
+                    .button.modal-button-digid-icon(style="height: 48px; width: 48px") &nbsp;
+                    .button.button-primary(ng-click="$ctrl.startDigId()") Login
 
         .block.block-auth-widget(ng-if="$ctrl.restoreWithDigId && $ctrl.restoreWithDigIdFailed")
             .auth-digid-message

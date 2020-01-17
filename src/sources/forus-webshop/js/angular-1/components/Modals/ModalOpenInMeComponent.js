@@ -10,7 +10,6 @@ let ModalOpenInMeComponent = function(
     $ctrl.sentSms = false;
 
     $ctrl.$onInit = () => {
-
         $ctrl.phoneForm = FormBuilderService.build({
             phone: "06"
         }, function(form) {
@@ -36,6 +35,7 @@ let ModalOpenInMeComponent = function(
                 }
             });
         });
+        
         $ctrl.authorizePincodeForm = FormBuilderService.build({
             auth_code: "",
         }, function(form) {
