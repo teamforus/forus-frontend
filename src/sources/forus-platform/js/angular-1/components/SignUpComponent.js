@@ -17,6 +17,7 @@ let SignUpComponent = function(
     SmsService,
     DemoTransactionService,
     ProviderFundService,
+    AuthService,
     ModalService
 ) {
     let $ctrl = this;
@@ -30,7 +31,7 @@ let SignUpComponent = function(
      */
     $ctrl.step = 1;
     $ctrl.organizationStep = false;
-    $ctrl.signedIn = !!$rootScope.auth_user;
+    $ctrl.signedIn = AuthService.hasCredentials();
     $ctrl.showLoginBlock = false;
     $ctrl.organization = null;
     $ctrl.offices = [];
@@ -854,6 +855,7 @@ module.exports = {
         'SmsService',
         'DemoTransactionService',
         'ProviderFundService',
+        'AuthService',
         'ModalService',
         SignUpComponent
     ],
