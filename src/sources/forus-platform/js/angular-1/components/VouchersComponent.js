@@ -81,15 +81,40 @@ let VouchersComponent = function(
         });
     };
 
+    $ctrl.downloadExampleCsv = () => {
+        FileService.downloadFile(
+            'voucher_upload_sample.csv',
+            VoucherService.sampleCSV('voucher')
+        );
+    };
+
+    $ctrl.getQueryParams = (query) => {
+        let _query = JSON.parse(JSON.stringify(query));
+
+        _query.from = _query.from ? DateService._frontToBack(_query.from) : null;
+        _query.to = _query.to ? DateService._frontToBack(_query.to) : null;
+
+        return _query;
+    }
+
+    $ctrl.getUnassignedQRCodes = (query) => {
+        VoucherService.index(
+            $ctrl.organization.id,
+            Object.assign($ctrl.getQueryParams(query), {
+                per_page: 1,
+                unassigned: 1
+            })
+        ).then(res => {
+            $ctrl.hasExportableQRCodes = res.data.data.length;
+        });
+    };
+
     $ctrl.exportUnassignedQRCodes = () => {
-        let from = $ctrl.filters.values.from,
-            to = $ctrl.filters.values.to;
-            
         VoucherService.downloadQRCodes(
             $ctrl.organization.id,
-            $ctrl.filters.values.type,
-            from ? DateService._frontToBack(from) : null,
-            to ? DateService._frontToBack(to) : null,
+            Object.assign($ctrl.getQueryParams($ctrl.filters.values), {
+                unassigned: 1
+            })
         ).then(res => {
             FileService.downloadFile(
                 'vouchers_' + moment().format(
@@ -110,16 +135,13 @@ let VouchersComponent = function(
     };
 
     $ctrl.onPageChange = (query) => {
-        let _query = JSON.parse(JSON.stringify(query));
-
-        _query.from = _query.from ? DateService._frontToBack(_query.from) : null;
-        _query.to = _query.to ? DateService._frontToBack(_query.to) : null;
-
         VoucherService.index(
             $ctrl.organization.id,
-            _query
+            $ctrl.getQueryParams(query)
         ).then((res => {
             $ctrl.vouchers = res.data;
+
+            $ctrl.getUnassignedQRCodes(query);
         }));
     };
 

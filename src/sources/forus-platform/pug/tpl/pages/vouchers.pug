@@ -36,9 +36,9 @@
                         em.mdi.mdi-upload.icon-start 
                         span(i18n="vouchers.buttons.upload_csv")
                     .button.button-primary(
-                        ng-if="!$ctrl.fundClosed"
+                        ng-if="!$ctrl.fundClosed && $ctrl.hasExportableQRCodes"
                         ng-click="$ctrl.exportUnassignedQRCodes()")
-                    .button.button-primary(ng-click="$ctrl.exportUnassignedQRCodes()")
+
                         em.mdi.mdi-file-export.icon-start
                         | {{ "vouchers.buttons.export" | translate }}
                     .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
