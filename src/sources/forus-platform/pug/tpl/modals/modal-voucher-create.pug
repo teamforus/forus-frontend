@@ -14,11 +14,11 @@
                 .voucher-type-row
                     .voucher-type-item(ng-click="$ctrl.voucherType = 'giftcard'" ng-class="{active: $ctrl.voucherType == 'giftcard'}")
                         .voucher-type-item-check: em.mdi.mdi-check-bold
-                        .voucher-type-item-icon: img(src=src_prefix + "/assets/img/voucher-type-giftcard.svg").voucher-type-item-icon-img
+                        .voucher-type-item-icon: img(src=src_prefix + "./assets/img/voucher-type-giftcard.svg").voucher-type-item-icon-img
                         | {{ 'modals.modal_product_voucher_create.modal_section.voucher_type_item.giftcard' | i18n }}
                     .voucher-type-item(ng-click="$ctrl.voucherType = 'activation_code'" ng-class="{active: $ctrl.voucherType == 'activation_code'}")
                         .voucher-type-item-check: em.mdi.mdi-check-bold
-                        .voucher-type-item-icon: img(src=src_prefix + "/assets/img/voucher-type-code.svg").voucher-type-item-icon-img
+                        .voucher-type-item-icon: img(src=src_prefix + "./assets/img/voucher-type-code.svg").voucher-type-item-icon-img
                         | {{ 'modals.modal_product_voucher_create.modal_section.voucher_type_item.activation_code' | i18n }}
 
         .modal-footer.text-center
