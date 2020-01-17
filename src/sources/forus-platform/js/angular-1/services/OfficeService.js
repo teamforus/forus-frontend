@@ -49,7 +49,7 @@ let OfficeService = function(ApiRequest) {
 
         this.apiFormToResource = function(formData) {
             let values = JSON.parse(JSON.stringify(formData));
-            let schedule = Object.values(values.schedule) || [];
+            let schedule = values.schedule ? Object.values(values.schedule) : [];
 
             schedule.forEach((schedule_item, week_day) => {
                 schedule[week_day] = {
