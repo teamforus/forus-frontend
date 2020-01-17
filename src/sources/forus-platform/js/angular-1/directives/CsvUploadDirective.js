@@ -4,7 +4,9 @@ let CsvUploadDirective = function(
     $rootScope,
     $element,
     $timeout,
-    PrevalidationService
+    PrevalidationService,
+    FundService,
+    FileService
 ) {
     let csvParser = {};
     let input = false;
@@ -171,6 +173,13 @@ let CsvUploadDirective = function(
         });
     };
 
+    $scope.downloadSample = () => {
+        FileService.downloadFile(
+            ($scope.fund.key || 'fund') + '_sample.csv',
+            FundService.sampleCSV($scope.fund)
+        );
+    };
+
     let init = function() {
         input = false;
         csvParser = {};
@@ -206,6 +215,8 @@ module.exports = () => {
             '$element',
             '$timeout',
             'PrevalidationService',
+            'FundService',
+            'FileService',
             CsvUploadDirective
         ],
         templateUrl: 'assets/tpl/directives/csv-upload.html'

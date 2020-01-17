@@ -76,9 +76,6 @@ div
             paginator-loader(meta="prevalidations.meta" filters="filter" on-reset="onReset(query)" on-load-more="onLoadMore(query)")
 
         .card-section: .table-pagination.text-right
-            button(ng-click="downloadSample()").button.button-default
-                em.mdi.mdi-file-table-outline.icon-start 
-                span(i18n="Download upload voorbeeld")
             button(ng-click="export()").button.button-primary
                 em.mdi.mdi-download.icon-start 
                 span(i18n="prevalidated_table.buttons.export")
