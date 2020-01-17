@@ -41,8 +41,9 @@
                         em.mdi.mdi-download.icon-start
                         span(i18n="product_vouchers.buttons.download_csv")
                     .button.button-primary(
-                        ng-if="!$ctrl.fundClosed"
+                        ng-if="!$ctrl.fundClosed && $ctrl.hasExportableQRCodes"
                         ng-click="$ctrl.exportUnassignedQRCodes()")
+
                         em.mdi.mdi-file-export.icon-start
                         | {{ "vouchers.buttons.export" | translate }}
                     .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
@@ -143,7 +144,7 @@
                                         | {{ "product_vouchers.labels.no" | translate }}
                                 td
                                     button.button.button-primary.button-icon.pull-right(
-                                        ng-if="!$ctrl.fundClosed && !voucher.is_granted" 
+                                        ng-if="!$ctrl.fundClosed && !voucher.is_granted"
                                         ng-click="$ctrl.showQrCode(voucher)")
                                         em.mdi.mdi-qrcode 
 
