@@ -38,8 +38,8 @@ let ErrorComponent = function($filter, $stateParams) {
 
     let messages = {
         'unknown_error': [
-            'Onbekende foutmelding. Probeert u het later nogmaals. ',
-            'Indien deze fout blijft aanhouden, kijk dan op de website https://www.digid.nl/ voor de laatste informatie.',
+            'Onbekende foutmelding. Probeert u het later nogmaals',
+            ' indien deze fout blijft aanhouden, kijk dan op de website https://www.digid.nl/ voor de laatste informatie.',
         ].join(),
         // digid
         'digid_api_0000': [
@@ -47,16 +47,16 @@ let ErrorComponent = function($filter, $stateParams) {
             'Indien deze fout blijft aanhouden, kijk dan op de website https://www.digid.nl/ voor de laatste informatie.',
         ].join(),
         'digid_uid_used': [
-            'Het BSN-nummer is al ingebruik op een ander account. ', 
-            'Herstel uw account op het inlog venster om verder te gaan.'
+            'Het BSN-nummer is al ingebruik op een ander account', 
+            ' herstel uw account op het inlog venster om verder te gaan.'
         ].join(),
         'digid_uid_dont_match': [
-            'Het BSN nummer dat u opgehaald heeft met DigiD verschilt met het BSN-nummer     ', 
-            'gekoppelt staat aan dit profiel. Start een nieuwe aanvraag.'
+            'Het BSN nummer dat u opgehaald heeft met DigiD verschilt met het BSN-nummer gekoppelt staat aan dit profiel', 
+            ' start een nieuwe aanvraag.'
         ].join(),
         'digid_uid_not_found': [
             'Dit BSN-nummer is onbekend in het systeem', 
-            'Start uw aanvraag om een account aan te maken.'
+            ' start uw aanvraag om een account aan te maken.'
         ].join(),
 
         // digid errors
