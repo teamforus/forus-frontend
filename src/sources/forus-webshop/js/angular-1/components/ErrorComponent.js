@@ -5,7 +5,7 @@ let ErrorComponent = function($filter, $stateParams) {
     let $translate = $filter('translate');
 
     let titles = {
-        'unknown_error': 'Unknown error',
+        'unknown_error': 'Onbekende foutmelding',
         
         // digid
         'digid_api_0000': 'Er is een fout opgetreden tijdens het aanvragen.',
@@ -15,28 +15,28 @@ let ErrorComponent = function($filter, $stateParams) {
 
         // digid errors
         'digid_unknown_error': 'Er is een fout opgetreden in de communicatie met DigiD.',
-        'digid_0001': 'Inlogpoging geannuleerd.', // 'DigiD - Unavailable',
-        'digid_0002': 'Inlogpoging geannuleerd.', // 'DigiD - temporarily unavailable',
-        'digid_0003': 'Inlogpoging geannuleerd.', // 'DigiD - verification failed',
-        'digid_0004': 'Inlogpoging geannuleerd.', // 'DigiD - verification failed',
-        'digid_0030': 'Inlogpoging geannuleerd.', // 'DigiD - illegal_request',
-        'digid_0032': 'Inlogpoging geannuleerd.', // 'DigiD - error app id',
-        'digid_0033': 'Inlogpoging geannuleerd.', // 'DigiD - error a select',
+        'digid_0001': 'Foutmelding', // 'DigiD - Unavailable',
+        'digid_0002': 'Foutmelding', // 'DigiD - temporarily unavailable',
+        'digid_0003': 'Foutmelding', // 'DigiD - verification failed',
+        'digid_0004': 'Foutmelding', // 'DigiD - verification failed',
+        'digid_0030': 'Foutmelding', // 'DigiD - illegal_request',
+        'digid_0032': 'Foutmelding', // 'DigiD - error app id',
+        'digid_0033': 'Foutmelding', // 'DigiD - error a select',
         'digid_0040': 'DigiD - Inlogpoging geannuleerd.',
-        'digid_0050': 'Inlogpoging geannuleerd.', // 'DigiD - busy',
-        'digid_0070': 'Inlogpoging geannuleerd.', // 'DigiD - Invalid session',
-        'digid_0080': 'Inlogpoging geannuleerd.', // 'DigiD - Web service not active',
-        'digid_0099': 'Inlogpoging geannuleerd.', // 'DigiD - Web service not authorized',
-        'digid_010c': 'Inlogpoging geannuleerd.', // 'DigiD - temporarily unavailable',
+        'digid_0050': 'Foutmelding', // 'DigiD - busy',
+        'digid_0070': 'Foutmelding', // 'DigiD - Invalid session',
+        'digid_0080': 'Foutmelding', // 'DigiD - Web service not active',
+        'digid_0099': 'Foutmelding', // 'DigiD - Web service not authorized',
+        'digid_010c': 'Foutmelding', // 'DigiD - temporarily unavailable',
     };
 
     let digiDefaultMessage = [
-        'Probeert u het later nogmaals. Indien deze fout blijft aanhouden, kijk', 
+        'Probeert u het later nogmaals. Indien deze fout blijft aanhouden, kijk ', 
         'dan op de website https://www.digid.nl/ voor de laatste informatie.'
     ].join('');
 
     let messages = {
-        'unknown_error': 'Unknown error occurred',
+        'unknown_error': 'Onbekende foutmelding. Probeert u het later nogmaals. Indien deze fout blijft aanhouden, kijk dan op de website https://www.digid.nl/ voor de laatste informatie.',
 
         // digid
         'digid_api_0000': [
@@ -78,7 +78,7 @@ let ErrorComponent = function($filter, $stateParams) {
     };
 
     $ctrl.$onInit = () => {
-        $ctrl.title = titles[$stateParams.errorCode] || 'Unknown error';
+        $ctrl.title = titles[$stateParams.errorCode] || 'Onbekende foutmelding';
         $ctrl.message = messages[$stateParams.errorCode] || '';
     };
 }

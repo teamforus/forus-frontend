@@ -81,9 +81,9 @@ let BaseController = function(
         if (needConfirmation) {
             return ModalService.open('modalNotification', {
                 type: "confirm",
-                title: "Do you really want to log out?",
-                confirmBtnText: "Yes",
-                cancelBtnText: "No",
+                title: "Weet u zeker dat u wilt uitloggen?",
+                confirmBtnText: "Ja",
+                cancelBtnText: "Nee",
                 confirm: () => {
                     $rootScope.signOut();
                 },
