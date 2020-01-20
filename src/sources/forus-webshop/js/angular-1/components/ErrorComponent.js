@@ -23,6 +23,7 @@ let ErrorComponent = function($filter, $stateParams) {
         'digid_0032': 'Foutmelding', // 'DigiD - error app id',
         'digid_0033': 'Foutmelding', // 'DigiD - error a select',
         'digid_0040': 'DigiD - Inlogpoging geannuleerd.',
+        'digid_error_0040': 'DigiD - Inlogpoging geannuleerd.',
         'digid_0050': 'Foutmelding', // 'DigiD - busy',
         'digid_0070': 'Foutmelding', // 'DigiD - Invalid session',
         'digid_0080': 'Foutmelding', // 'DigiD - Web service not active',
@@ -50,7 +51,7 @@ let ErrorComponent = function($filter, $stateParams) {
             'Herstel uw account op het inlog venster om verder te gaan.'
         ].join(),
         'digid_uid_dont_match': [
-            'Het BSN nummer dat u opgehaald heeft met DigiD verschilt met het BSN-nummer ', 
+            'Het BSN nummer dat u opgehaald heeft met DigiD verschilt met het BSN-nummer     ', 
             'gekoppelt staat aan dit profiel. Start een nieuwe aanvraag.'
         ].join(),
         'digid_uid_not_found': [
@@ -71,6 +72,7 @@ let ErrorComponent = function($filter, $stateParams) {
         'digid_0032': digiDefaultMessage, // 'DigiD - error app id',
         'digid_0033': digiDefaultMessage, // 'DigiD - error a select',
         'digid_0040': 'U hebt deze inlogpoging geannuleerd. Probeer eventueel opnieuw om verder te gaan.',
+        'digid_error_0040': 'U hebt deze inlogpoging geannuleerd. Probeer eventueel opnieuw om verder te gaan.',
         'digid_0050': digiDefaultMessage, // 'DigiD - busy',
         'digid_0070': digiDefaultMessage, // 'DigiD - Invalid session',
         'digid_0080': digiDefaultMessage, // 'DigiD - Web service not active',

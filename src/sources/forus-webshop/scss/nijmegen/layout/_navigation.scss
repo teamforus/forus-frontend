@@ -143,8 +143,8 @@
                             color: #fff;
                         }
                         .mdi-logout {
-                            color: #fff;
-                            float: auto;
+                            color: #fff !important;
+                            float: auto !important;
                         }
                         .auth-user-logout,
                         .auth-user-type {
