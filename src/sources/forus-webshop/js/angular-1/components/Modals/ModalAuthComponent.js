@@ -1,4 +1,5 @@
 let ModalAuthComponent = function(
+    $state,
     $timeout,
     $rootScope,
     AuthService,
@@ -39,6 +40,12 @@ let ModalAuthComponent = function(
     $ctrl.startDigId = () => {
         DigIdService.startAuthRestore().then((res) => {
             document.location = res.data.redirect_url;
+        }, res => {
+            $ctrl.close();
+
+            $state.go('error', {
+                errorCode: res.headers('Error-Code')
+            });
         });
     }
 
@@ -130,6 +137,7 @@ module.exports = {
         modal: '='
     },
     controller: [
+        '$state',
         '$timeout',
         '$rootScope',
         'AuthService',

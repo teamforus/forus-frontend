@@ -509,6 +509,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: 'error',
+        url: '/error/{errorCode}',
+        component: 'errorComponent',
+        data: {
+            errorCode: 'unknown_error',
+        }
+    });
+
+    $stateProvider.state({
         name: "auth-link",
         url: "/auth-link?token",
         data: {
