@@ -26,7 +26,6 @@ let BaseController = function(
                 // sign out after :timer of inactivity (default: 15min)
                 BrowserService.detectInactivity(timer).then(() => {
                     if (AuthService.hasCredentials()) {
-                        IdentityService.deleteToken();
                         $rootScope.signOut();
     
                         ModalService.open('modalNotification', {
@@ -73,8 +72,28 @@ let BaseController = function(
 
     $rootScope.activeOrganization = OrganizationService.active();
 
-    $rootScope.signOut = () => {
+    $rootScope.signOut = ($event = null, needConfirmation = false) => {
+        if ($event && typeof $event.preventDefault != 'undefined') {
+            $event.preventDefault();
+            $event.stopPropagation();
+        };
+
+        if (needConfirmation) {
+            return ModalService.open('modalNotification', {
+                type: "confirm",
+                title: "Do you really want to log out?",
+                confirmBtnText: "Yes",
+                cancelBtnText: "No",
+                confirm: () => {
+                    $rootScope.signOut();
+                },
+                cancel: () => {}
+            });
+        }
+
+        IdentityService.deleteToken();
         AuthService.signOut();
+
         $state.go('home');
         $rootScope.auth_user = false;
     };

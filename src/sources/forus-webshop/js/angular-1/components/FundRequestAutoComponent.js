@@ -71,7 +71,11 @@ let FundRequestComponentAuto = function(
     $ctrl.startDigId = () => {
         DigIdService.startFundRequst($ctrl.fund.id).then(res => {
             document.location = res.data.redirect_url;
-        }, console.error);
+        }, res => {
+            $state.go('error', {
+                errorCode: res.headers('Error-Code')
+            });
+        });
     };
 
     $ctrl.submitConfirmCriteria = (criteria) => {
@@ -247,36 +251,10 @@ let FundRequestComponentAuto = function(
                     } else {
                         $ctrl.cleanReload();
                     }
-                } else if ($stateParams.digid_error == 'unknown_error') {
-                    PushNotificationsService.danger(
-                        "Er is een fout opgetreden in de communicatie met DigiD.",
-                        "Probeert u het later nogmaals. Indien deze fout blijft aanhouden, kijk dan op de website https://www.digid.nl/ voor de laatste informatie.",
-                    );
-                    $ctrl.cleanReload();
-                } else if ($stateParams.digid_error == 'uid_used') {
-                    PushNotificationsService.danger(
-                        "BSN-nummer al gebruikt.",
-                        "Het BSN-nummer is al ingebruik op een ander account. Herstel uw account op het inlog venster om verder te gaan."
-                    );
-                    $ctrl.cleanReload();
-                } else if ($stateParams.digid_error == 'uid_dont_match') {
-                    PushNotificationsService.danger(
-                        "Er is al een BSN-nummer bekend bij dit profiel",
-                        "Het BSN nummer dat u opgehaald heeft met DigiD verschilt met het BSN-nummer gekoppelt staat aan dit profiel. Start een nieuwe aanvraag."
-                    );
-                    $ctrl.cleanReload();
-                } else if ($stateParams.digid_error == 'error_0040') {
-                    PushNotificationsService.danger(
-                        "Inlogpoging geannuleerd.",
-                        "U hebt deze inlogpoging geannuleerd. Probeer eventueel opnieuw om verder te gaan."
-                    );
-                    $ctrl.cleanReload();
-                } else if ($stateParams.digid_error && $stateParams.digid_error.indexOf('error_') === 0) {
-                    PushNotificationsService.danger(
-                        "Er is een fout opgetreden in de communicatie met DigiD.",
-                        "Probeert u het later nogmaals. Indien deze fout blijft aanhouden, kijk dan op de website https://www.digid.nl/ voor de laatste informatie."
-                    );
-                    $ctrl.cleanReload();
+                } else if ($stateParams.digid_error) {
+                    return $state.go('error', {
+                        errorCode: 'digid_' + $stateParams.digid_error
+                    });
                 } else {
                     FundRequestService.index($ctrl.fund.id).then((res) => {
                         if (res.data.data.length > 0) {

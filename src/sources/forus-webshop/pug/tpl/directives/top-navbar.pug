@@ -62,7 +62,10 @@
             .auth-user(ng-click="$ctrl.openUserMenu($event)")
                 .auth-user-details  
                     .auth-user-email(ng-bind="$root.auth_user.primary_email" ng-if="!$root.appConfigs.features.records.list") 
-                    .auth-user-type(translate="topnavbar.items.identity" ng-if="!$root.appConfigs.features.records.list")
+                    //- .auth-user-type(translate="topnavbar.items.identity" ng-if="!$root.appConfigs.features.records.list")
+                    .auth-user-logout(ng-if="!$root.appConfigs.features.records.list" ng-click="$root.signOut($event, true)" )
+                        em.mdi.mdi-logout
+                        span(translate="topnavbar.buttons.logout")
 
                 .auth-user-avatar
                     .em.mdi.mdi-settings(ng-if="$root.appConfigs.features.records.list") 

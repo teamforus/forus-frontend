@@ -1,12 +1,10 @@
 let HomeComponent = function(
-    $scope,
     $state,
     $stateParams,
     appConfigs,
     ModalService,
     AuthService,
-    VoucherService,
-    PushNotificationsService
+    VoucherService
 ) {
     let $ctrl = this;
 
@@ -45,19 +43,10 @@ let HomeComponent = function(
     };
 
     $ctrl.$onInit = () => {
-        if ($stateParams.digid_error == 'uid_not_found') {
-            PushNotificationsService.danger(
-                "Dit BSN-nummer is onbekend in het systeem. Start uw aanvraag om een account aan te maken.",
-            );
-
-            $ctrl.cleanReload();
-        } else if ($stateParams.digid_error != null) {
-            PushNotificationsService.danger(
-                "Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals.",
-                "Indien deze fout blijft aanhouden, kijk dan op de website https://www.digid.nl/ voor de laatste informatie",
-            );
-
-            $ctrl.cleanReload();
+        if ($stateParams.digid_error != null) {
+            $state.go('error', {
+                errorCode: 'digid_' + $stateParams.digid_error
+            });
         }
     };
 };
@@ -71,14 +60,12 @@ module.exports = {
         button: '=',
     },
     controller: [
-        '$scope',
         '$state',
         '$stateParams',
         'appConfigs',
         'ModalService',
         'AuthService',
         'VoucherService',
-        'PushNotificationsService',
         HomeComponent,
     ],
     templateUrl: 'assets/tpl/pages/home.html'
