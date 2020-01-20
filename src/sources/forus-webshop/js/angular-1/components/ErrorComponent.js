@@ -36,8 +36,10 @@ let ErrorComponent = function($filter, $stateParams) {
     ].join('');
 
     let messages = {
-        'unknown_error': 'Onbekende foutmelding. Probeert u het later nogmaals. Indien deze fout blijft aanhouden, kijk dan op de website https://www.digid.nl/ voor de laatste informatie.',
-
+        'unknown_error': [
+            'Onbekende foutmelding. Probeert u het later nogmaals. ',
+            'Indien deze fout blijft aanhouden, kijk dan op de website https://www.digid.nl/ voor de laatste informatie.',
+        ].join(),
         // digid
         'digid_api_0000': [
             'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae incidunt, ', 
