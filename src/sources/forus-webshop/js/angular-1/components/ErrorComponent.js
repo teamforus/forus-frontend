@@ -54,7 +54,7 @@ let ErrorComponent = function($filter, $stateParams) {
             'gekoppelt staat aan dit profiel. Start een nieuwe aanvraag.'
         ].join(),
         'digid_uid_not_found': [
-            'Dit BSN-nummer is onbekend in het systeem. ', 
+            'Dit BSN-nummer is onbekend in het systeem', 
             'Start uw aanvraag om een account aan te maken.'
         ].join(),
 
