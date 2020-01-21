@@ -32,18 +32,18 @@ let ErrorComponent = function($filter, $stateParams) {
     };
 
     let digiDefaultMessage = [
-        'Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden',
+        'Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden,',
         ' kijk dan op de website https://www.digid.nl/ voor de laatste informatie.',
     ].join('');
 
     let messages = {
         'unknown_error': [
-            'Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden',
+            'Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden,',
             ' kijk dan op de website https://www.digid.nl/ voor de laatste informatie.',
         ].join(),
         // digid
         'digid_api_0000': [
-            'Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden',
+            'Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden,',
             ' kijk dan op de website https://www.digid.nl/ voor de laatste informatie.',
         ].join(),
         'digid_uid_used': [
@@ -61,7 +61,7 @@ let ErrorComponent = function($filter, $stateParams) {
 
         // digid errors
         'digid_unknown_error': [
-            'Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden, ', 
+            'Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden,', 
             ' kijk dan op de website https://www.digid.nl/ voor de laatste informatie.'
         ].join(),
         'digid_0001': digiDefaultMessage, // 'DigiD - Unavailable',
