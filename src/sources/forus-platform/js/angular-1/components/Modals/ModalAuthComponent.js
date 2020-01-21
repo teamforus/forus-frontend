@@ -8,6 +8,7 @@ let ModalAuthComponent = function(
     CredentialsService,
     DigIdService,
     ModalService,
+    PermissionsService,
     appConfigs
 ) {
     let $ctrl = this;
@@ -62,17 +63,34 @@ let ModalAuthComponent = function(
         $ctrl.requestAuthQrToken();
     };
 
-    $ctrl.applyAccessToken = function(access_token) {
-        CredentialsService.set(access_token);
-        $rootScope.loadAuthUser();
-        $ctrl.close();
-    };
-
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
         IdentityService.checkAccessToken(access_token).then((res) => {
             if (res.data.message == 'active') {
-                $ctrl.applyAccessToken(access_token);
-                $state.go($redirectAuthorizedState);
+                CredentialsService.set(access_token);
+                
+                if (['provider'].indexOf(appConfigs.panel_type) != -1) {    
+                    $rootScope.loadAuthUser().then(auth_user => {
+                        $ctrl.close();
+
+                        let organizations = auth_user.organizations.filter(organization => 
+                            !organization.business_type_id &&
+                            PermissionsService.hasPermission(organization, 'manage_organization')
+                        );
+
+                        if (organizations.length > 0) {
+                            ModalService.open('businessSelect', {
+                                organizations: organizations,
+                                onReady: () => $state.go($redirectAuthorizedState)
+                            });
+                        } else {
+                            $state.go($redirectAuthorizedState);
+                        }
+                    });
+                } else {
+                    $rootScope.loadAuthUser();
+                    $ctrl.close();
+                    $state.go($redirectAuthorizedState);
+                }
             } else if (res.data.message == 'pending') {
                 timeout = $timeout(function() {
                     $ctrl.checkAccessTokenStatus(type, access_token);
@@ -146,6 +164,7 @@ module.exports = {
         'CredentialsService',
         'DigIdService',
         'ModalService',
+        'PermissionsService',
         'appConfigs',
         ModalAuthComponent
     ],

@@ -214,7 +214,7 @@ var js_compiler = function(platform, src, task) {
             // Browserify & Babelify
             var _browserify = browserify({
                 basedir: '.',
-                debug: true,
+                debug: false,
                 entries: sources,
                 cache: {},
                 packageCache: {}

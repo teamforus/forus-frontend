@@ -225,12 +225,36 @@
                             grid-column: 1 / 3;
                         }
     
+                        .auth-user-logout,
                         .auth-user-type {
                             font: 400 13px/20px $bf;
                             color: #151b26;
                             grid-row: 2;
                             grid-column: 2 / 3;
                             text-align: right;
+                        }
+
+                        .auth-user-logout {
+                            font: 600 12px/20px $bf;
+                            display: flex;
+                            justify-items: flex-end;
+                            justify-content: flex-end;
+
+                            .mdi {
+                                line-height: 20px;
+                                color: lighten($color: $tc, $amount: 15%);
+                                font-size: 14px;
+                                
+                                &:first-child {
+                                    margin: 0 2px 0 -2px;
+                                    float: auto;
+                                }
+                                
+                                &:last-child {
+                                    margin: 0 0 0 2px;
+                                    float: right;
+                                }
+                            }
                         }
                     }
 
@@ -355,7 +379,7 @@
 
                 .navbar-item-wrapper {
                     .navbar-item {
-                        padding: 20px 20px;
+                        padding: 15px;
                         font: 700 12px/30px $bf;
 
                         &:before {
@@ -375,6 +399,7 @@
                             font: 700 12px/20px $bf;
                         }
 
+                        .auth-user-logout,
                         .auth-user-type {
                             font: 400 11px/20px $bf;
                         }
@@ -382,7 +407,7 @@
                 }
 
                 .button {
-                    font: 700 16px/24px $bf;
+                    font: 700 14px/24px $bf;
 
                     &:hover {
                         box-shadow: 0 3px 6px rgba($color: #000000, $alpha: 0.1);
@@ -440,6 +465,7 @@
                             font: 700 12px/22px $bf;
                         }
 
+                        .auth-user-logout,
                         .auth-user-type {
                             font: 500 12px/14px $bf;
                         }

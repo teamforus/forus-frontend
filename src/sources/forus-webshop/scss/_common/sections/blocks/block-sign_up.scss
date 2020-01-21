@@ -77,13 +77,42 @@
             }
 
             .sign_up-pane-text {
-                font: 400 18px/27px $bf;
-                margin: 0 0 20px;
+                font: 400 16px/26px $bf;
+                margin: 0 0 15px;
 
                 a {
                     font: inherit;
                     color: #3561FF;
                     font-weight: 500;
+                }
+            }
+
+            .sign_up-pane-link,
+            .sign_up-pane-text .sign_up-pane-link {
+                font: 400 16px/26px $bf;
+                margin: 0 0 15px;
+                text-decoration: underline;
+                color: lighten($color: $tc, $amount: 25);
+                transition: .4s;
+
+                &:hover {
+                    color: $tc;
+                }
+            }
+
+            .sign_up-pane-digid-form {
+                padding: 10px;
+
+                .sign_up-pane-button-digid-icon {
+                    background-color: #000;
+                    background-image: url('../img/icon-digid.svg');
+                    background-size: contain;
+                    background-repeat: none;
+                    background-position: 50% 50%;
+                    height: 48px; width: 48px;
+                    border-color: #000;
+                    cursor: default;
+                    border-radius: 5px;
                 }
             }
 

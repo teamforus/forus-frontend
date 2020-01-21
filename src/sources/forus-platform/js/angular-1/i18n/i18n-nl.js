@@ -41,6 +41,7 @@ module.exports = {
         modal_product_voucher_create: require('./nl/modals/modal-product-voucher-create.pug.i18n'),
         modal_voucher_qr_code: require('./nl/modals/modal-voucher-qr_code.pug.i18n'),
         modal_funds_offers: require('./nl/modals/modal-fund-offers.pug.i18n'),
+        modal_business_add: require('./nl/modals/modal-business-add.pug.i18n'),
     },
     // PAGES
     vouchers: require('./nl/pages/vouchers.pug.i18n'),
@@ -714,7 +715,6 @@ module.exports = {
             description: 'Aanmelden voor een fonds is alleen mogelijk via onze website op een vaste computer.'
         },
         sms:{
-            body: 'Download Me makkelijk via de link: https://www.forus.io/DL',
             title: 'Download <i>Me</i> op uw mobiele telefoon',
             description: 'Vul uw telefoonnummer in het onderstaande invoerveld om een sms te ontvangen met de download link.',
             subdescription: 'Krijgt u geen sms dan kunt u <i>Me</i> downloaden via de link <b>www.forus.io/DL</b> op uw mobiele telefoon.',

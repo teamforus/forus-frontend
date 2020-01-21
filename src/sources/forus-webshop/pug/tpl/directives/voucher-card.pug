@@ -2,25 +2,28 @@
     .voucher-image(style="background-image: url('{{ voucherCard.thumbnail }}')")
     
     .voucher-details
-        .label(ng-class="{true: 'label-success', false: 'label-warning'}[voucherCard.transactions.length == 0]" ng-if="voucherCard.type == 'product'" ng-bind="voucherCard.transactions.length == 0 ? 'Ongebruikt' : 'Gebruikt'")
+        .label(ng-class="{true: 'label-success', false: 'label-warning'}[voucherCard.transactions.length == 0]" ng-if="voucherCard.type == 'product' && !voucher.expired" ng-bind="voucherCard.transactions.length == 0 ? 'Ongebruikt' : 'Gebruikt'")
         .voucher-name(ng-bind="voucherCard.title")
-        .voucher-organization(ng-bind="voucherCard.subtitle")
         //-.voucher-read_more Uw tegoed is:
+        .voucher-organization(ng-bind="voucherCard.subtitle")
         .voucher-value(ng-if="voucherCard.type == 'regular'" ng-bind="voucherCard.amount | currency_format")
-        .voucher-read_more(ng-if="voucherCard.type == 'product'" ui-sref="products-show(voucherCard.product)" prevent-propagation)
-            | Bekijk details
-            em.mdi.mdi-arrow-right
+        .voucher-status-label
+            .label.label-danger(ng-if="voucher.expired" i18n="voucher.voucher_card.expired")
+        .voucher-cancel-label: a(
+            ng-if="voucher.expired && voucherCard.transactions.length == 0 && voucherCard.type == 'product' && voucherCard.returnable"
+            ng-click="deleteVoucher($event, voucher)" 
+            i18n="voucher.voucher_card.delete")
     
-    // regular voucher
-    .voucher-overview(ng-if="voucherCard.type == 'regular'")
+    //- regular voucher
+    .voucher-overview(ng-if="!voucher.expired && voucherCard.type == 'regular'")
         .voucher-overview-item.voucher-open
             button.button(
                 ng-if="!voucherCard.disabled"
                 ng-class="voucherCard.disabled ? 'button-gray' : 'button-primary'"
                 i18n="{{ voucher.expired ? 'vouchers.labels.show_transactions' : 'vouchers.labels.open_voucher' }}")
 
-    // product voucher
-    .voucher-overview(ng-if="voucherCard.type == 'product'")
+    //- product voucher
+    .voucher-overview(ng-if="!voucher.expired && voucherCard.type == 'product'")
         //-.voucher-overview-item
             .voucher-overview-label(i18n="vouchers.labels.used")
             .voucher-overview-value(ng-bind="voucherCard.transactions.length == 0 ? 'Nee' : 'Ja'")
