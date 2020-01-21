@@ -13,6 +13,21 @@
                         | {{ "csv_upload.labels.upload" | translate  }}
                         br
                         span {{ "csv_upload.labels.swipe" | translate  }}
+        
+                .button-group.flex-center
+                    button(
+                        ng-show="$ctrl.csvParser.progress <= 1" 
+                        ng-click="$ctrl.downloadExampleCsv()").button.button-default
+                        
+                        em.mdi.mdi-file-table-outline.icon-start 
+                        span(i18n="product_vouchers.buttons.download_csv")    
+            
+                    button(
+                        ng-show="$ctrl.csvParser.progress <= 1" 
+                        ng-click="$ctrl.csvParser.selectFile()").button.button-primary
+                        
+                        em.mdi.mdi-upload.icon-start 
+                        span(i18n="vouchers.buttons.upload_csv") 
 
                 .csv-upload-progress(
                     ng-show="$ctrl.csvParser.progress >= 2" 

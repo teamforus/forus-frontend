@@ -2425,7 +2425,6 @@ $colorPrimaryLight: $color_primary_light;
         }
 
         .csv-upload-btn {
-            display: inline-block;
             cursor: pointer;
             margin-bottom: 20px;
 
@@ -4647,6 +4646,14 @@ $colorPrimaryLight: $color_primary_light;
                     }
                 }
             }
+        }
+    }
+
+    &.modal-business-update {
+        .modal-description {
+            font: 500 16px $bf;
+            margin-top: 20px;
+            text-align: center;
         }
     }
 

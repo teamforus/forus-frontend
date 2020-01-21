@@ -652,7 +652,7 @@ module.exports = (core) => {
 
     ]); */
 
-    //- Enable all but given platforms
+    //- Enable all but given platforms (will ignore: 'core.enableOnly' when used)
     core.disableOnly([
         'dashboard_markup',
         'webshop_markup'
