@@ -71,7 +71,11 @@ let FundRequestComponentAuto = function(
     $ctrl.startDigId = () => {
         DigIdService.startFundRequst($ctrl.fund.id).then(res => {
             document.location = res.data.redirect_url;
-        }, console.error);
+        }, res => {
+            $state.go('error', {
+                errorCode: res.headers('Error-Code')
+            });
+        });
     };
 
     $ctrl.submitConfirmCriteria = (criteria) => {
@@ -247,39 +251,14 @@ let FundRequestComponentAuto = function(
                     } else {
                         $ctrl.cleanReload();
                     }
-                } else if ($stateParams.digid_error == 'unknown_error') {
-                    PushNotificationsService.danger(
-                        "Error error",
-                    );
-                    $ctrl.cleanReload();
-                } else if ($stateParams.digid_error == 'uid_used') {
-                    PushNotificationsService.danger(
-                        "BSN-nummer al gebruikt",
-                        "Het BSN-nummer is al ingebruik op een ander account. Herstel uw account op het inlog venster om verder te gaan."
-                    );
-                    $ctrl.cleanReload();
-                } else if ($stateParams.digid_error == 'uid_dont_match') {
-                    PushNotificationsService.danger(
-                        "BSN verschilt",
-                        "U kunt maar één BSN-nummer hebben per account, maak een nieuw account aan en probeer opnieuw."
-                    );
-                    $ctrl.cleanReload();
-                } else if ($stateParams.digid_error == 'error_0040') {
-                    PushNotificationsService.danger(
-                        "Geannuleerd",
-                        "U hebt deze inlogpoging geannuleerd. Probeer eventueel opnieuw om verder te gaan."
-                    );
-                    $ctrl.cleanReload();
-                } else if ($stateParams.digid_error && $stateParams.digid_error.indexOf('error_') === 0) {
-                    PushNotificationsService.danger(
-                        "Fout!",
-                        "Foutcode " + $stateParams.digid_error + ". Zoek hulp bij de webshopbeheerder om verder te gaan."
-                    );
-                    $ctrl.cleanReload();
+                } else if ($stateParams.digid_error) {
+                    return $state.go('error', {
+                        errorCode: 'digid_' + $stateParams.digid_error
+                    });
                 } else {
                     FundRequestService.index($ctrl.fund.id).then((res) => {
                         if (res.data.data.length > 0) {
-                            alert('You already requested this fund');
+                            alert('U heeft al een tegoed voor deze regeling.');
                             $state.go('funds');
                         } else if ($ctrl.invalidCriteria.length == 0) {
                             $ctrl.applyFund($ctrl.fund);

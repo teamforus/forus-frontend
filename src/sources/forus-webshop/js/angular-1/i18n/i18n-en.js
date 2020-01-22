@@ -63,11 +63,11 @@ module.exports = {
     popup_auth: require("./en/modals/modal-auth"),
     popup_offices: require("./en/modals/modal-offices"),
     open_in_me: require("./en/modals/modal-open-in-me"),
-    sign_up: require("./en/modals/modal-sign-up"),
     modal: require("./en/modals/modal"),
 
     // DIRECTIVES
     block_products: require("./en/directives/block-products"),
+    block_providers: require("./en/directives/block-providers"),
     contact: require("./en/directives/contact"),
     empty_block: require("./en/directives/empty-block"),
     fund_criterion: require("./en/directives/fund-criterion"),

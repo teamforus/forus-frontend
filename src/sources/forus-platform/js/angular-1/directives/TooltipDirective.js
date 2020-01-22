@@ -8,7 +8,8 @@ let TooltipDirective = function(
 module.exports = () => {
     return {
         scope: {
-            'text': '<'
+            'text': '<',
+            'tooltipType': '@'
         },
         restrict: "EA",
         replace: true,

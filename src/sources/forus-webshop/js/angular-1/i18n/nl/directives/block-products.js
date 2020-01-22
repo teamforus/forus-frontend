@@ -9,8 +9,8 @@ module.exports = {
             discount: "KORTING",
             old: "VAN",
             new: "VOOR",
-            title: "Er zijn geen aanbiedingen",
-            subtitle: "Op dit moment zijn er geen aanbiedingen beschikbaar",
+            title: "Geen zoekresultaat",
+            subtitle: "Helaas! Wij vonden geen aanbiedingen voor uw zoekopdracht.",
         },
         buttons: {
             more: "BEKIJK MEER",
