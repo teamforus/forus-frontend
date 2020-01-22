@@ -20,7 +20,7 @@ module.exports = {
             office: "Locaties waar u deze aanbieding voucher kan verzilveren.",
             shopdetail: "INFORMATIE OVER DE AANBIEDER",
             productdetail: "INFORMATIE OVER DE AANBIEDING",
-            offers: "Ga voor het volledige aanbod langs bij de aanbieder.",
+            offers: "Wilt u graag informatie over het volledige aanbod? Neem dan contact op met de aanbieder.",
         },
         voucher_card: {
             header: {

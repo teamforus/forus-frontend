@@ -1,18 +1,26 @@
 .card
     .card-section
-        .card-section-actions
-            button(ng-click="providerApplyFund(fund)").button.button-primary 
-                em.mdi.mdi-plus-circle.icon-start 
-                span(translate="fund_card_available_provider.buttons.join")
-
-        .card-block.card-block-fund
+        .card-block.card-block-fund.card-block-fund-margin-bottom
             .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}", alt="")
             .fund-title(ng-if="fund.organization | hasPerm:['manage_funds']" ng-bind="fund.name")
             .fund-title(ng-if="!(fund.organization | hasPerm:['manage_funds'])" ng-bind="fund.name")
             br
             div(ng-bind="fund.organization.name").fund-organization
 
-        //- .card-block.card-block-listing
-            .card-block-listing-label(translate="fund_card_available_provider.labels.categories")
-            span(ng-bind="fundCategories.join(', ')")
-            small(ng-show="fundCategories.length == 0" translate="fund_card_available_provider.labels.nocategories").text-muted.small
+        .card-block.card-block-listing
+            .row.card-block-listing-row
+                .col.col-md-5
+                    .card-block-listing-item
+                        .card-block-listing-label(translate="fund_card_provider.labels.date")
+                        span(ng-bind="fund.start_date_locale + ' / ' + fund.end_date_locale")
+
+                .col.col-md-4
+                    .card-block-listing-item
+                        .card-block-listing-label(translate="fund_card_provider.labels.max_amount" ng-if="fund.fund_amount")
+                        span(ng-bind="fund.fund_amount | currency_format" ng-if="fund.fund_amount") 
+
+                .col.col-md-3
+                    .button.button-default.pull-right(
+                        ng-if="fund.state != 'closed'"
+                        translate="fund_card_available_provider.buttons.join"
+                        ng-click="providerApplyFund(fund)")

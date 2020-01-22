@@ -1,19 +1,48 @@
 .app.app-container
     menu
     section.app.app-content
-        .card-heading 
-            span(translate="provider_funds_available.title")
-            span(ng-bind="' (' + ($ctrl.funds.length + $ctrl.fundsAvailable.length) + ')'")
+        .card-heading.card-heading-funds.flex-row
+            .flex-col
+                span(translate="fund_card_provider.title.{{ $ctrl.shownFundsType }}")
+                span(ng-bind="' (' + ($ctrl.getActiveFundsCount($ctrl.shownFundsType)) + ')'")
+
+            .flex-col: .block.block-label-tabs.nowrap.pull-right: .label-tab-set
+                .label-tab.label-tab-sm(
+                    ng-class="{'active' : $ctrl.shownFundsType == 'active'}" 
+                    ng-click="$ctrl.filterByFundStatus('active')")
+                    | {{ "fund_card_provider.tabs.active" | translate }} ({{ $ctrl.funds.length }})
+                .label-tab.label-tab-sm(
+                    ng-class="{'active' : $ctrl.shownFundsType == 'available'}" 
+                    ng-click="$ctrl.filterByFundStatus('available')")
+                    | {{ "fund_card_provider.tabs.available" | translate }} ({{ $ctrl.fundsAvailable.length }}) 
+                .label-tab.label-tab-sm(
+                    ng-class="{'active' : $ctrl.shownFundsType == 'invitations'}" 
+                    ng-click="$ctrl.filterByFundStatus('invitations')") 
+                    | {{ "fund_card_provider.tabs.invitations" | translate }} ({{ $ctrl.fundAvailableInvitations.length }})
+                .label-tab.label-tab-sm(
+                    ng-class="{'active' : $ctrl.shownFundsType == 'invitations_expired'}" 
+                    ng-click="$ctrl.filterByFundStatus('invitations_expired')")
+                    | {{ "fund_card_provider.tabs.expired" | translate }} ({{ $ctrl.fundExpiredInvitations.length }}) 
         fund-card-available-provider(
-            ng-if="$ctrl.fundsAvailable.length > 0" 
+            ng-if="$ctrl.shownFundsType == 'available' && $ctrl.fundsAvailable.length > 0" 
             ng-repeat="fund in $ctrl.fundsAvailable"  
             fund="fund" 
             organization="$ctrl.organization")
         fund-card-provider( 
-            ng-if="$ctrl.funds.length > 0" 
+            ng-if="$ctrl.shownFundsType == 'active' && $ctrl.funds.length > 0" 
             ng-repeat="fund in $ctrl.funds" 
             provider-fund="fund" 
             organization="$ctrl.organization")
+        fund-card-invitation-provider( 
+            ng-if="$ctrl.shownFundsType == 'invitations' && $ctrl.fundAvailableInvitations.length > 0" 
+            ng-repeat="fundInvitation in $ctrl.fundAvailableInvitations" 
+            provider-invitation="fundInvitation"  
+            organization="$ctrl.organization")
+        fund-card-invitation-provider( 
+            ng-if="$ctrl.shownFundsType == 'invitations_expired' && $ctrl.fundExpiredInvitations.length > 0" 
+            ng-repeat="fundInvitation in $ctrl.fundExpiredInvitations" 
+            provider-invitation="fundInvitation"  
+            organization="$ctrl.organization")
         block-empty(
-            ng-if="$ctrl.funds.length + $ctrl.fundsAvailable.length == 0"
-            text="Er zijn momenteel geen actieve fondsen.")
+            ng-if="$ctrl.showEmptyBlock"
+            text="{{ $ctrl.emptyBlockMsg }}")

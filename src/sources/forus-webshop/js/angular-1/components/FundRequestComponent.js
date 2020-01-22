@@ -1,4 +1,5 @@
 let sprintf = require('sprintf-js').sprintf;
+
 let FundRequestComponent = function(
     $q,
     $state,
@@ -16,8 +17,67 @@ let FundRequestComponent = function(
     FileService,
     appConfigs
 ) {
-    let $ctrl = this;
+    try {
+        if (appConfigs.features.funds.fund_requests === false) {
+            $state.go('home');
+        }
+    } catch (error) {}
 
+    !appConfigs.features.auto_validation ? FundRequestComponentDefault(
+        this,
+        $q,
+        $state,
+        $stateParams,
+        $timeout,
+        RecordService,
+        FundService,
+        AuthService,
+        IdentityService,
+        FundRequestService,
+        FormBuilderService,
+        CredentialsService,
+        PushNotificationsService,
+        DigIdService,
+        FileService,
+        appConfigs
+    ) : FundRequestComponentAuto(
+        this,
+        $q,
+        $state,
+        $stateParams,
+        $timeout,
+        RecordService,
+        FundService,
+        AuthService,
+        IdentityService,
+        FundRequestService,
+        FormBuilderService,
+        CredentialsService,
+        PushNotificationsService,
+        DigIdService,
+        FileService,
+        appConfigs
+    );
+};
+
+let FundRequestComponentDefault = function(
+    $ctrl,
+    $q,
+    $state,
+    $stateParams,
+    $timeout,
+    RecordService,
+    FundService,
+    AuthService,
+    IdentityService,
+    FundRequestService,
+    FormBuilderService,
+    CredentialsService,
+    PushNotificationsService,
+    DigIdService,
+    FileService,
+    appConfigs
+) {
     $ctrl.step = 1;
     $ctrl.state = '';
     $ctrl.totalSteps = 1;
@@ -32,6 +92,7 @@ let FundRequestComponent = function(
     $ctrl.errorReason = false;
     $ctrl.finishError = false;
     $ctrl.bsnIsKnown = true;
+    $ctrl.appConfigs = appConfigs;
 
     let timeout = null;
     let stopTimeout = null;
@@ -44,7 +105,11 @@ let FundRequestComponent = function(
     $ctrl.startDigId = () => {
         DigIdService.startFundRequst($ctrl.fund.id).then(res => {
             document.location = res.data.redirect_url;
-        }, console.error);
+        }, res => {
+            $state.go('error', {
+                errorCode: res.headers('Error-Code')
+            });
+        });
     };
 
     // Initialize authorization form
@@ -384,18 +449,11 @@ let FundRequestComponent = function(
             }, res => {
                 reject(res);
                 PushNotificationsService.danger(res.data.message);
-                console.error(res);
             })
         });
     };
 
     $ctrl.$onInit = function() {
-        try {
-            if (appConfigs.features.funds.fund_requests === false) {
-                $state.go('home');
-            }
-        } catch (error) {}
-
         $ctrl.signedIn = AuthService.hasCredentials();
         $ctrl.initAuthForm();
         $ctrl.prepareRecordTypes();
@@ -411,35 +469,10 @@ let FundRequestComponent = function(
                     } else {
                         $ctrl.cleanReload();
                     }
-                } else if ($stateParams.digid_error == 'unknown_error') {
-                    PushNotificationsService.danger(
-                        "Error error",
-                    );
-                    $ctrl.cleanReload();
-                } else if ($stateParams.digid_error == 'uid_used') {
-                    PushNotificationsService.danger(
-                        "BSN number used",
-                        "The BSN number returned by DigID was already claimend by another identity."
-                    );
-                    $ctrl.cleanReload();
-                } else if ($stateParams.digid_error == 'uid_dont_match') {
-                    PushNotificationsService.danger(
-                        "BSN differ",
-                        "The BSN number returned by DigID doesn't match BSN number registered by your identity."
-                    );
-                    $ctrl.cleanReload();
-                } else if ($stateParams.digid_error == 'error_0040') {
-                    PushNotificationsService.danger(
-                        "Canceled",
-                        "You canceled DigID authentication."
-                    );
-                    $ctrl.cleanReload();
-                } else if ($stateParams.digid_error && $stateParams.digid_error.indexOf('error_') === 0) {
-                    PushNotificationsService.danger(
-                        "Failed",
-                        "Error code " + $stateParams.digid_error + " encountered."
-                    );
-                    // $ctrl.cleanReload();
+                } else if ($stateParams.digid_error) {
+                    return $state.go('error', {
+                        errorCode: 'digid_' + $stateParams.digid_error
+                    });
                 } else {
                     FundRequestService.index($ctrl.fund.id).then((res) => {
                         if (res.data.data.length > 0) {
@@ -463,6 +496,8 @@ let FundRequestComponent = function(
         $ctrl.updateState();
     };
 };
+
+let FundRequestComponentAuto = require('./FundRequestAutoComponent');
 
 module.exports = {
     bindings: {
@@ -488,5 +523,9 @@ module.exports = {
         'appConfigs',
         FundRequestComponent
     ],
-    templateUrl: 'assets/tpl/pages/fund-request.html'
+    templateUrl: ['appConfigs', (appConfigs) => {
+        return 'assets/tpl/pages/fund-request' + (
+            appConfigs.features.auto_validation ? '-auto' : ''
+        ) + '.html';
+    }]
 };

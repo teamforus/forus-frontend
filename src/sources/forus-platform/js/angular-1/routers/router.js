@@ -142,7 +142,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     $stateProvider.state({
         name: "organization-funds",
         url: "/organizations/{organization_id}/funds",
-        component: "fundsMyComponent",
+        component: "organizationFundsComponent",
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('organization-funds', [
@@ -380,6 +380,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $transition$.params().organization_id,
                 $transition$.params().id
             ))],
+            validators: ['permission', '$transition$', 'OrganizationEmployeesService', (
+                permission, $transition$, OrganizationEmployeesService
+            ) => repackResponse(OrganizationEmployeesService.list(
+                $transition$.params().organization_id, {
+                    role: 'validation'
+                }
+            ))],
             productCategories: ['ProductCategoryService', (
                 ProductCategoryService
             ) => repackResponse(ProductCategoryService.listAll())],
@@ -571,8 +578,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "provider-funds",
-        url: "/organizations/{organization_id}/provider/funds",
+        url: "/organizations/{organization_id}/provider/funds?fundsType",
         component: "providerFundsComponent",
+        params: {
+            fundsType: {
+                squash: true,
+                value: null
+            },
+        },
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('provider-funds-list', 'manage_provider_funds'),
@@ -584,6 +597,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             funds: ['$transition$', 'ProviderFundService', (
                 $transition$, ProviderFundService
             ) => repackResponse(ProviderFundService.listFunds(
+                $transition$.params().organization_id
+            ))],
+            fundInvitations: ['$transition$', 'FundProviderInvitationsService', (
+                $transition$, FundProviderInvitationsService
+            ) => repackResponse(FundProviderInvitationsService.listInvitations(
                 $transition$.params().organization_id
             ))],
             fundLevel: () => 'fundsAvailable'
@@ -659,16 +677,34 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         data: {
             token: null
         },
-        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'appConfigs', (
-            $rootScope, $state, IdentityService, CredentialsService, appConfigs
+        controller: ['$rootScope', '$state', 'PermissionsService', 'IdentityService', 'CredentialsService', 'ModalService', 'appConfigs', (
+            $rootScope, $state, PermissionsService, IdentityService, CredentialsService, ModalService, appConfigs
         ) => {
             IdentityService.authorizeAuthEmailToken(
                 appConfigs.client_key + '_' + appConfigs.panel_type,
                 $state.params.token
             ).then(function(res) {
                 CredentialsService.set(res.data.access_token);
-                $rootScope.loadAuthUser();
-                $state.go('home');
+                if (['provider'].indexOf(appConfigs.panel_type) != -1) {
+                    $rootScope.loadAuthUser().then(auth_user => {
+                        let organizations = auth_user.organizations.filter(organization => 
+                            !organization.business_type_id &&
+                            PermissionsService.hasPermission(organization, 'manage_organization')
+                        );
+
+                        if (organizations.length > 0) {
+                            ModalService.open('businessSelect', {
+                                organizations: organizations,
+                                onReady: () => $state.go('home')
+                            });
+                        } else {
+                            $state.go('home');
+                        }
+                    });
+                } else {
+                    $rootScope.loadAuthUser();
+                    $state.go('home');
+                }
             }, () => {
                 alert([
                     "Helaas, het is niet gelukt om in te loggen. " +
@@ -751,6 +787,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 ) => repackResponse(BusinessTypeService.list({
                     per_page: 9999
                 }))]
+            }
+        });
+    }
+
+    if (['provider'].indexOf(appConfigs.panel_type) != -1) {
+        $stateProvider.state({
+            name: "provider-invitation-link",
+            url: "/provider-invitations/{token}",
+            component: 'fundProviderInviteComponent',
+            data: {
+                token: null
             }
         });
     }

@@ -4,8 +4,10 @@ let ModalVouchersUploadComponent = function(
     $timeout,
     $filter,
     $element,
+    FileService,
     VoucherService,
-    ProductService
+    ProductService,
+    PushNotificationsService
 ) {
     let $ctrl = this;
 
@@ -28,9 +30,9 @@ let ModalVouchersUploadComponent = function(
         $ctrl.progressBar = progress;
 
         if (progress < 100) {
-            $ctrl.progressStatus = "Uploading...";
+            $ctrl.progressStatus = "Aan het uploaden...";
         } else {
-            $ctrl.progressStatus = "Completed";
+            $ctrl.progressStatus = "Klaar!";
         }
     };
 
@@ -54,6 +56,29 @@ let ModalVouchersUploadComponent = function(
 
     $ctrl.reset = function() {
         $ctrl.init();
+    };
+
+    $ctrl.downloadExampleCsv = () => {
+        if ($ctrl.type == 'voucher') {
+            FileService.downloadFile(
+                'voucher_upload_sample.csv',
+                VoucherService.sampleCSV('voucher')
+            );
+        } else {
+            ProductService.listAll({
+                fund_id: $ctrl.fund.id
+            }).then((res) => {
+                let products = res.data.data;
+                let productsIds = products.map(
+                    product => parseInt(product.id)
+                );
+            
+                FileService.downloadFile(
+                    'voucher_upload_sample.csv',
+                    VoucherService.sampleCSV('product_voucher', productsIds[0])
+                );
+            });
+        }
     };
 
     $ctrl.init = (csvRequiredKeys = []) => {
@@ -213,11 +238,15 @@ let ModalVouchersUploadComponent = function(
                         uploadChunk(submitData[currentChunkNth]);
                     }
                 }, (res) => {
-                    if (res.status == 422 && res.data.errors.data) {
-                        return alert(res.data.errors.data[0]);
+                    if (res.status == 422 && res.data.errors) {
+                        return PushNotificationsService.danger('Het is niet gelukt om het gekozen bestand te verwerken.', Object.values(
+                            res.data.errors
+                        ).reduce((msg, arr) => {
+                            return msg + arr.join('');
+                        }, ""));
                     }
 
-                    alert('Unknown error.');
+                    alert('Onbekende error.');
                 });
             };
 
@@ -289,8 +318,10 @@ module.exports = {
         '$timeout',
         '$filter',
         '$element',
+        'FileService',
         'VoucherService',
         'ProductService',
+        'PushNotificationsService',
         ModalVouchersUploadComponent
     ],
     templateUrl: () => {

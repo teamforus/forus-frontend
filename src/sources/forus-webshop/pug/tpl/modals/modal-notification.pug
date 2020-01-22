@@ -8,6 +8,7 @@
                     img(ng-src="{{ $ctrl.icon }}")
                 .title(translate="{{ $ctrl.title }}")
                 .description(ng-if="$ctrl.description" translate="{{ $ctrl.description }}")
+                .description-small(ng-if="$ctrl.notice" translate="{{ $ctrl.notice }}")
                 .text-center(ng-if="$ctrl.subdescription"): .subdescription(translate="{{ $ctrl.subdescription }}")
 
         .modal-footer.text-center.no-border

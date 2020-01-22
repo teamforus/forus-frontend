@@ -52,8 +52,15 @@ module.exports = [
                 );
             };
 
-            this.read = function(id) {
-                return ApiRequest.get('/platform/organizations/' + id);
+            this.updateBusinessType = function(id, business_type_id) {
+                return ApiRequest.patch(
+                    '/platform/organizations/' + id + '/update-business',
+                    { business_type_id: business_type_id }
+                );
+            };
+
+            this.read = function(id, query = {}) {
+                return ApiRequest.get('/platform/organizations/' + id, query);
             }
 
             this.use = function(id) {

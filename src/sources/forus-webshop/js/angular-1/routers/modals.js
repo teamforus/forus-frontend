@@ -36,5 +36,9 @@ module.exports = ['ModalRouteProvider', function(
     ModalRouteProvider.modal('modalProductApply', {
         component: 'modalProductApplyComponent'
     });
+    
+    ModalRouteProvider.modal('identityProxyExpired', {
+        component: 'modalIdentityProxyExpiredComponent'
+    });
 
 }];

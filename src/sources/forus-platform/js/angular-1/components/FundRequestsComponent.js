@@ -5,6 +5,7 @@ let FundRequestsComponent = function(
     FileService,
     FundService,
     ModalService,
+    OrganizationService,
     OrganizationEmployeesService,
     FundRequestValidatorService,
     appConfigs
@@ -17,6 +18,8 @@ let FundRequestsComponent = function(
         description: message,
         modalClass: 'modal-md',
     });
+
+    let org = OrganizationService.active();
 
     $ctrl.funds = [];
     $ctrl.fundsById = {};
@@ -288,12 +291,27 @@ let FundRequestsComponent = function(
         }, console.error);
     };
 
+    $ctrl.exportRequests = () => {
+        FundRequestValidatorService.exportAll(
+            $ctrl.organization.id,
+            $ctrl.filters.values
+        ).then((res => {
+            FileService.downloadFile(
+                appConfigs.panel_type + '_' + org + '_' + moment().format(
+                    'YYYY-MM-DD HH:mm:ss'
+                ) + '.xls',
+                res.data,
+                res.headers('Content-Type') + ';charset=utf-8;'
+            );
+        }), console.error);
+    };
+
     $ctrl.previewFile = ($event, file) => {
         $event.originalEvent.preventDefault();
         $event.originalEvent.stopPropagation();
 
         FileService.download(file).then(res => {
-            ModalService.open('modalPdfPreview', {
+            ModalService.open('pdfPreview', {
                 rawPdfFile: res.data
             });
         }, console.error);
@@ -316,6 +334,7 @@ module.exports = {
         'FileService',
         'FundService',
         'ModalService',
+        'OrganizationService',
         'OrganizationEmployeesService',
         'FundRequestValidatorService',
         'appConfigs',

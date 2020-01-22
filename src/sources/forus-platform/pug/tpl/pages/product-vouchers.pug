@@ -25,15 +25,16 @@
                     span(ng-bind="$ctrl.vouchers.meta.total").span-count
             
                 .block.block-inline-filters.col.col-lg-8.col-xs-12.text-right
-                    .button.button-primary(ng-click="$ctrl.createProductVoucher()")
+                    .button.button-primary(
+                        ng-if="!$ctrl.fundClosed"
+                        ng-click="$ctrl.createProductVoucher()")
                         em.mdi.mdi-plus-circle.icon-start
                         span(i18n="product_vouchers.buttons.add_new")
-                    .button.button-primary(ng-click="$ctrl.uploadProductVouchersCsv()")
+                    .button.button-primary(
+                        ng-if="!$ctrl.fundClosed"
+                        ng-click="$ctrl.uploadProductVouchersCsv()")
                         em.mdi.mdi-upload.icon-start
                         span(i18n="product_vouchers.buttons.upload_csv")
-                    .button.button-primary(ng-click="$ctrl.downloadExampleCsv()")
-                        em.mdi.mdi-download.icon-start
-                        span(i18n="product_vouchers.buttons.download_csv")
                     .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                         em.mdi.mdi-close.icon-start
                         span(i18n="product_vouchers.buttons.clear_filter")
@@ -92,10 +93,10 @@
                                 th(i18n="product_vouchers.labels.note")
                                 th(i18n="product_vouchers.labels.product")
                                 th(i18n="product_vouchers.labels.created_date").nowrap
-                                th(i18n="product_vouchers.labels.expire_date").nowrap
+                                th(ng-if="!$ctrl.fundClosed" i18n="product_vouchers.labels.expire_date").nowrap
                                 th(i18n="product_vouchers.labels.fund")
-                                th(i18n="product_vouchers.labels.granted")
-                                th(i18n="product_vouchers.labels.used")
+                                th(ng-if="!$ctrl.fundClosed" i18n="product_vouchers.labels.granted")
+                                th(ng-if="!$ctrl.fundClosed" i18n="product_vouchers.labels.used")
                                 th(i18n="product_vouchers.labels.qr_code").nowrap.text-right
                             tr(ng-repeat="voucher in $ctrl.vouchers.data")
                                 td: em.td-icon.mdi.mdi-information.block.block-tooltip-details.pull-left(
@@ -106,29 +107,39 @@
                                         .tooltip-text(ng-bind="(voucher.note || '-') | str_limit:128" title="{{ voucher.note }}")
                                 td(ng-bind="voucher.product.name")
                                 td(ng-bind="voucher.created_at_locale")
-                                td(ng-bind="voucher.expire_at_locale")
+                                td(ng-if="!$ctrl.fundClosed" ng-bind="voucher.expire_at_locale")
                                 td(ng-bind="voucher.fund.name")
-                                td(ng-if="voucher.is_granted")
+                                td(ng-if="!$ctrl.fundClosed && voucher.is_granted")
                                     .td-boolean
                                         em.mdi.mdi-check-circle
                                         | {{ "product_vouchers.labels.yes" | translate }}
-                                td(ng-if="!voucher.is_granted")
+                                td(ng-if="!$ctrl.fundClosed && !voucher.is_granted")
                                     .td-boolean
                                         em.mdi.mdi-close
                                         | {{ "product_vouchers.labels.no" | translate }}
-                                td(ng-if="voucher.has_transactions")
+                                td(ng-if="!$ctrl.fundClosed && voucher.has_transactions")
                                     .td-boolean
                                         em.mdi.mdi-check-circle
                                         | {{ "product_vouchers.labels.yes" | translate }}
-                                td(ng-if="!voucher.has_transactions")
+                                td(ng-if="!$ctrl.fundClosed && !voucher.has_transactions")
                                     .td-boolean
                                         em.mdi.mdi-close
                                         | {{ "product_vouchers.labels.no" | translate }}
                                 td
                                     button.button.button-primary.button-icon.pull-right(
-                                        ng-if="!voucher.is_granted"
+                                        ng-if="!$ctrl.fundClosed && !voucher.is_granted"
                                         ng-click="$ctrl.showQrCode(voucher)")
                                         em.mdi.mdi-qrcode
+
+                                    .td-boolean.pull-right(ng-if="$ctrl.fundClosed && !voucher.is_granted")
+                                        em.mdi.mdi-close
+
+                                    .button.button-text.button-icon.pull-right(ng-if="voucher.is_granted")
+                                        .mdi.block.block-tooltip-details.block-tooltip-hover(
+                                            ng-class="voucher.has_transactions ? 'mdi-check-all' : 'mdi-check'")
+                                            .tooltip-content.tooltip-content-left.tooltip-content-fit
+                                                .tooltip-text(ng-bind="voucher.identity_email" title="{{ voucher.identity_email }}")  
+
 
             .card-section(ng-if="$ctrl.vouchers" ng-show="$ctrl.vouchers.meta.last_page > 1")
                 paginator(meta="$ctrl.vouchers.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")

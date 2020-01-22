@@ -17,8 +17,8 @@ section.section.section-products#products
 
     .block.block-products(ng-if="products.data.length > 0")
         .product-item(ng-repeat="product in products.data" ng-class="{discounted:product.old_price}")
-            a(ui-sref="products-show(product)" target="_blank").product-item-inner
-                .product-image
+            a(ui-sref="products-show(product)").product-item-inner
+                .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
                     img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
                 .product-details
                     .product-organization

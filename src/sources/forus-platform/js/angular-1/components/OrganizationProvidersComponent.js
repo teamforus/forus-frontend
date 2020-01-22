@@ -23,61 +23,66 @@ let OrganizationProvidersComponent = function(
         },
     };
 
-    $ctrl.states = [{
-        key: null,
-        name: 'Alle'
-    }, {
-        key: 'approved',
-        name: 'Geaccepteerd'
-    }, {
-        key: 'declined',
-        name: 'Geweigerd'
-    }, {
-        key: 'pending',
-        name: 'Wachtend'
-    }];
-
     $ctrl.resetFilters = () => {
         $ctrl.filters.values.q = '';
-        $ctrl.filters.values.state = $ctrl.states[0].key;
+    };
+
+    $ctrl.replaceProviderItems = (fundProvider, rawFundProvider) => {
+        $ctrl.fundProviders.data[
+            $ctrl.fundProviders.data.indexOf(fundProvider)
+        ] = $ctrl.transformProvider(rawFundProvider);
+    };
+
+    $ctrl.updateProvider = (fundProvider, query) => {
+        return FundService.updateProvider(
+            fundProvider.fund.organization_id,
+            fundProvider.fund.id,
+            fundProvider.id,
+            query
+        );
     };
 
     $ctrl.updateAllowBudget = function(fundProvider) {
-        FundService.updateProvider(
-            fundProvider.fund.organization_id,
-            fundProvider.fund.id,
-            fundProvider.id, {
-                allow_budget: fundProvider.allow_budget
-            }
-        ).then((res) => {
-            PushNotificationsService.success('Saved!');
+        $ctrl.updateProvider(fundProvider, {
+            allow_budget: fundProvider.allow_budget
+        }).then((res) => {
+            PushNotificationsService.success('Opgeslagen!');
 
             if (!$ctrl.filters.values.dismissed) {
                 $ctrl.updateProvidersList();
             } else {
-                $ctrl.fundProviders.data[
-                    $ctrl.fundProviders.data.indexOf(fundProvider)
-                ] = $ctrl.transformProvider(res.data.data);
+                $ctrl.replaceProviderItems(fundProvider, res.data.data);
             }
         }, console.error);
     };
 
     $ctrl.updateAllowProducts = function(fundProvider) {
-        FundService.updateProvider(
-            fundProvider.fund.organization_id,
-            fundProvider.fund.id,
-            fundProvider.id, {
-                allow_products: fundProvider.allow_products
-            }
-        ).then((res) => {
-            PushNotificationsService.success('Saved!');
+        $ctrl.updateProvider(fundProvider, {
+            allow_products: fundProvider.allow_products
+        }).then((res) => {
+            PushNotificationsService.success('Opgeslagen!');
 
             if (!$ctrl.filters.values.dismissed) {
                 $ctrl.updateProvidersList();
             } else {
-                $ctrl.fundProviders.data[
-                    $ctrl.fundProviders.data.indexOf(fundProvider)
-                ] = $ctrl.transformProvider(res.data.data);
+                $ctrl.replaceProviderItems(fundProvider, res.data.data);
+            }
+        }, console.error);
+    };
+
+    $ctrl.updateAllowAll = function(fundProvider) {
+        fundProvider.allow_budget = fundProvider.allow_products = true;
+
+        $ctrl.updateProvider(fundProvider, {
+            allow_budget: fundProvider.allow_budget,
+            allow_products: fundProvider.allow_products
+        }).then((res) => {
+            PushNotificationsService.success('Opgeslagen!');
+
+            if (!$ctrl.filters.values.dismissed) {
+                $ctrl.updateProvidersList();
+            } else {
+                $ctrl.replaceProviderItems(fundProvider, res.data.data);
             }
         }, console.error);
     };
@@ -89,8 +94,8 @@ let OrganizationProvidersComponent = function(
             fundProvider.id
         ).then((res) => {
             PushNotificationsService.success(
-                'Dismissed!',
-                "Adjust the filters to find the request it again."
+                'Verborgen!',
+                "Pas de filters aan om verborgen aanbieders terug te vinden."
             );
 
             if (!$ctrl.filters.values.dismissed) {
@@ -105,7 +110,8 @@ let OrganizationProvidersComponent = function(
 
     $ctrl.updateProvidersList = function() {
         $scope.onPageChange({
-            fund_id: $stateParams.fund_id
+            fund_id: $stateParams.fund_id,
+            page: $ctrl.fundProviders.meta.current_page
         });
     };
 
@@ -131,7 +137,9 @@ let OrganizationProvidersComponent = function(
     $ctrl.exportList = () => {
         OrganizationService.listProvidersExport(
             $ctrl.organization.id,
-            $ctrl.filters.values
+            Object.assign({}, $ctrl.filters.values, {
+                dismissed: $ctrl.filters.values.dismissed ? 1 : 0
+            })
         ).then((res => {
             FileService.downloadFile(
                 'providers_' + org + '_' + moment().format(

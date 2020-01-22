@@ -25,7 +25,8 @@
                 .form-group.form-group-inline
                     label(translate="funds_edit.labels.description").form-label
                     textarea(
-                        placeholder="Description"
+                        maxlength="140"
+                        placeholder="Omschrijving"
                         ng-model="$ctrl.form.values.description").form-control.r-n
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
             
@@ -62,7 +63,7 @@
                             .flex-coll.flex-grow: select-control(
                                 ng-model="$ctrl.form.products[$index]" 
                                 options="$ctrl.productOptions[$index]"
-                                placeholder="Selecteer product...").flex-grow
+                                placeholder="Selecteer aanbieding...").flex-grow
                             .flex-coll: .button.button-primary.button-icon(
                                 ng-click="$ctrl.removeProduct($ctrl.form.products[$index])"
                                 ): em.mdi.mdi-close
@@ -71,7 +72,25 @@
                         label(translate="{{ !$ctrl.form.products.length ? 'funds_edit.labels.products' : '' }}").form-label
                         .button.button-primary(ng-click="$ctrl.addProduct()")
                             em.mdi.mdi-plus-circle.icon-start
-                            translate Product toevoegen
+                            translate Aanbieding toevoegen
+            
+            .card-section.card-section-primary: .row
+                .form-group.form-group-inline.col.col-lg-9.col-md-12
+                    label.form-label Standaard validator
+                    select(
+                        ng-model="$ctrl.form.values.default_validator_employee_id" 
+                        ng-options="validator.id as validator.email for validator in $ctrl.validators").form-control
+                    
+                    .form-error(ng-repeat="error in $ctrl.form.errors.default_validator_employee_id" ng-bind="error")
+                
+                .form-group.form-group-inline.col.col-lg-9.col-md-12(ng-if="$ctrl.form.values.default_validator_employee_id")
+                    label.form-label Aanmeldingen
+                    input-checkbox-control(
+                        name="show_attachment_{{ $index }}" 
+                        ng-model="$ctrl.form.values.auto_requests_validation" 
+                        label="Automatisch goedkeuren wanneer er een BSN-nummer vast staat.")
+                    
+                    .form-error(ng-repeat="error in $ctrl.form.errors.auto_requests_validation" ng-bind="error")
 
             .card-section.card-section-primary(ng-if="$root.appConfigs.features.organizations.funds.criteria")
                 .row(ng-repeat="criteria in $ctrl.form.values.criteria")
@@ -118,7 +137,7 @@
                     br(ng-if="$ctrl.form.values.criteria.length > 0")
                     .row: .button.button-primary(ng-click="$ctrl.addCriteria()")
                         em.mdi.mdi-plus-circle.icon-start
-                        translate(translate="{{ $ctrl.form.values.criteria.length == 0 ? 'Add criteria' : 'Add new criteria' }}")
+                        translate(translate="{{ $ctrl.form.values.criteria.length == 0 ? 'Voeg criteria toe' : 'Nieuwe criteria toevoegen' }}")
                     .row: .col.col-lg-12.form-group.text-center
                     .form-error(ng-repeat="error in $ctrl.form.errors.criteria" ng-bind="error")
 

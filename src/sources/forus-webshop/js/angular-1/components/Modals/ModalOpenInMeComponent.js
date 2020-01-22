@@ -10,20 +10,15 @@ let ModalOpenInMeComponent = function(
     $ctrl.sentSms = false;
 
     $ctrl.$onInit = () => {
-
         $ctrl.phoneForm = FormBuilderService.build({
             phone: "06"
         }, function(form) {
             form.lock();
-            let phone = "+31" + form.values.phone.substr(1);
-            let values = {
-                phone: phone,
-                title: $filter('i18n')('sign_up.sms.body')
-            };
 
-            SmsService.send(
-                values
-            ).then((res) => {
+            SmsService.send({
+                phone: "+31" + form.values.phone.substr(1),
+                type: 'me_app_download_link'
+            }).then((res) => {
                 $ctrl.sentSms = true;
             }, (res) => {
                 $ctrl.phoneForm.unlock();
@@ -36,6 +31,7 @@ let ModalOpenInMeComponent = function(
                 }
             });
         });
+        
         $ctrl.authorizePincodeForm = FormBuilderService.build({
             auth_code: "",
         }, function(form) {

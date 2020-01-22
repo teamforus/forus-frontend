@@ -25,3 +25,7 @@ $media_xs: 1000;
     max-width: 100%;
     padding: 0 $pad;
 }
+
+_:-ms-fullscreen, :root .ie-flex-auto {
+    flex-basis: auto;
+}

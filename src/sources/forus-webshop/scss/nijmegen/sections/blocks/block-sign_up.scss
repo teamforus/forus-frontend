@@ -1,0 +1,25 @@
+.block.block-sign_up {
+    .sign_up-progress {
+        .sign_up-step {
+            border-top: 6px solid #EBEDF0;
+            color: #DADADA;
+
+            &.sign_up-step-active {
+                border-top-color: #9BDDD0;
+                color: #197E6A;
+            }
+
+            &.sign_up-step-done {
+                border-top-color: #197E6A;
+                color: #197E6A;
+            }
+        }
+    }
+
+
+    .sign_up-pane {
+        .sign_up-pane-header {
+            color: #197E6A;
+        }
+    }
+}

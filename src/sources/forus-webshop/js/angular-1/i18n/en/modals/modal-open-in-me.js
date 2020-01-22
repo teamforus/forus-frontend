@@ -1,6 +1,5 @@
 module.exports = {
         sms: {
-            body: 'Download the Me-app by visiting: https://www.forus.io/DL',
             title: 'Download <i>Me</i> on your smartphone.',
             description: 'Enter your phone number to receive a downloadlink.',
             subdescription: "Visit https://www.forus.io/DL to download <i>Me<i> if you didn't receive the sms.",

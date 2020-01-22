@@ -20,6 +20,6 @@ module.exports = {
     create: "Eigenschap aanmaken",
     send: "E-Mail naar mij",
     details: "Bekjk details",
-    show_map: "BEKIJK DE KAART",
+    show_map: "BEKIJK",
     start: 'start', 
 }

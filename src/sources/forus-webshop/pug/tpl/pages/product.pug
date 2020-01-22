@@ -10,9 +10,10 @@ section.section.section-product: .wrapper
 
     .block.block-product
         .product-card
+            .product-photo(ng-style="{'background-image':'url({{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }})'}")
+                img(ng-src="{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}")
+            
             .product-details
-                .product-photo(ng-style="{'background-image':'url({{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }})'}")
-                    img(ng-src="{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}")
                 .product-name
                     span(ng-bind="$ctrl.product.name")
                     span.label.label-success(ng-if="!$ctrl.product.deleted" i18n="product.status.active")
@@ -29,8 +30,9 @@ section.section.section-product: .wrapper
                     .product-price-new
                         .new-label(i18n="block_products.labels.new")
                         .new-value(ng-bind="$ctrl.product.price | currency_format")
-                    .product-price-insufficient.tooltip-block(ng-show="$ctrl.isApplicable == false" ng-if="$root.auth_user" i18n="product.insufficient")
-                    tooltip(text="'product.tooltip'" ng-show="$ctrl.isApplicable == false" ng-if="$root.auth_user")
+                    .product-price-insufficient.tooltip-block(ng-show="$ctrl.isApplicable == false" ng-if="$root.auth_user")
+                        span(translate="product.insufficient")
+                        tooltip(text="'product.tooltip'" tooltip-type="tooltip-bottom")
 
                 .product-expire(ng-if="$ctrl.product.expire_at")
                     .expire-label(i18n="voucher.labels.expire")
@@ -66,4 +68,4 @@ section.section.section-product: .wrapper
                 .map_card-title(i18n="product.labels.find")
                 .map_card-subtitle 
 
-            .map_card-iframe: google-map(offices="$ctrl.product.offices")
+            .map_card-iframe: google-map(offices="$ctrl.product.offices" map-gesture-handling="'greedy'")

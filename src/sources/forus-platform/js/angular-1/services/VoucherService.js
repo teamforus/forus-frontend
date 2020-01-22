@@ -60,28 +60,28 @@ module.exports = [
                 });
             };
 
-            this.downloadQRCodes = function(organization_id, type, from, to) {
+            this.downloadQRCodes = function(organization_id, query) {
                 return ApiRequest.get([
                     '/platform/organizations/' + organization_id,
                     '/sponsor/vouchers/export-unassigned',
-                ].join(''), {
-                    type: type,
-                    from: from,
-                    to: to,
-                }, {}, true, (params) => {
+                ].join(''), query, {}, true, (params) => {
                     params.responseType = 'blob';
                     return params;
                 });
             };
 
-            this.sampleCSV = (voucher_type) => {
-                let fields = ['amount', 'expires_at', 'note', 'email'];
+            this.sampleCSV = (voucher_type, product_id = null) => {
+                let headers = ['amount', 'expires_at', 'note', 'email'];
+                let values = [10, '2020-02-20', 'voorbeeld notitie', 'test@example.com'];
 
-                if (voucher_type == 'product_voucher') {
-                    fields.splice(1, 0, 'product_id');
+                if (voucher_type != 'product_voucher') {
+                    return Papa.unparse([headers, values]);
                 }
 
-                return Papa.unparse([fields]);
+                headers.splice(1, 0, 'product_id');
+                values.splice(1, 0, product_id);
+
+                return Papa.unparse([headers, values]);
             };
         });
     }

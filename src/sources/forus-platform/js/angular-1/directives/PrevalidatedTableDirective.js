@@ -1,7 +1,6 @@
 let PrevalidatedTableDirective = async function(
     $scope,
     $timeout,
-    FundService,
     FileService,
     PrevalidationService
 ) {
@@ -79,14 +78,6 @@ let PrevalidatedTableDirective = async function(
         }));
     };
 
-
-    $scope.downloadSample = () => {
-        FileService.downloadFile(
-            ($scope.fund.key || 'fund') + '_sample.csv',
-            FundService.sampleCSV($scope.fund)
-        );
-    };
-
     // Export to XLS file
     $scope.export = (filters = {}) => {
         PrevalidationService.export(filters).then((res => {
@@ -119,7 +110,6 @@ module.exports = () => {
         controller: [
             '$scope',
             '$timeout',
-            'FundService',
             'FileService',
             'PrevalidationService',
             PrevalidatedTableDirective

@@ -5,6 +5,7 @@ let ProductVouchersComponent = function(
     DateService,
     ModalService,
     VoucherService,
+    ProductService,
     FileService
 ) {
     let $ctrl = this;
@@ -81,13 +82,6 @@ let ProductVouchersComponent = function(
         });
     };
 
-    $ctrl.downloadExampleCsv = () => {
-        FileService.downloadFile(
-            'voucher_upload_sample.csv',
-            VoucherService.sampleCSV('product_voucher')
-        );
-    };
-
     $ctrl.onPageChange = (query) => {
         let _query = JSON.parse(JSON.stringify(query));
 
@@ -117,6 +111,8 @@ let ProductVouchersComponent = function(
     };
 
     $ctrl.init = async () => {
+        $ctrl.fundClosed = $ctrl.fund.state == 'closed';
+
         $ctrl.resetFilters();
         $ctrl.onPageChange($ctrl.filters.values);
     };
@@ -151,6 +147,7 @@ module.exports = {
         'DateService',
         'ModalService',
         'VoucherService',
+        'ProductService',
         'FileService',
         ProductVouchersComponent
     ],

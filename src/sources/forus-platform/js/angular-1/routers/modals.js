@@ -59,7 +59,19 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalFundCriteriaDescriptionEditComponent'
     });
     
-    ModalRouteProvider.modal('modalPdfPreview', {
+    ModalRouteProvider.modal('pdfPreview', {
         component: 'modalPdfPreviewComponent'
+    });
+    
+    ModalRouteProvider.modal('fundInviteProviders', {
+        component: 'modalFundInviteProvidersComponent'
+    });
+    
+    ModalRouteProvider.modal('fundOffers', {
+        component: 'modalFundOffersComponent'
+    });
+    
+    ModalRouteProvider.modal('businessSelect', {
+        component: 'modalBusinessSelectComponent'
     });
 }];

@@ -3,6 +3,7 @@
 /phonegap/www
 /php/public/assets/*
 /src/qdt-env.js
+/.vscode
 
 # Compiled source #
 ###################

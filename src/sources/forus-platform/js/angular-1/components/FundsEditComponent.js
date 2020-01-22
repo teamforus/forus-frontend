@@ -95,15 +95,23 @@ let FundsEditComponent = function(
         });
     };
 
+
+
     $ctrl.$onInit = function() {
         let values = $ctrl.fund ? FundService.apiResourceToForm(
             $ctrl.fund
         ) : {
+            auto_requests_validation: false,
             formula_products: [],
             criteria: [],
             product_categories: [],
             state: $ctrl.fundStates[0].value
         };
+
+        $ctrl.validators.unshift({
+            id: null,
+            email: "None"
+        });
 
         if (!$rootScope.appConfigs.features.organizations.funds.criteria) {
             delete values.criteria;
@@ -162,15 +170,17 @@ let FundsEditComponent = function(
             per_page: 1000,
             unlimited_stock: 1,
         }).then(res => {
-            $ctrl.products = res.data.data.map(product => ({
+            $ctrl.form.products = $ctrl.products = res.data.data.map(product => ({
                 id: product.id,
                 price: product.price,
                 name: `${product.name} - €${product.price} (${product.organization.name})`,
             }));
 
-            $ctrl.form.products = $ctrl.products.filter(
-                product => $ctrl.form.values.formula_products.indexOf(product.id) != -1
-            );
+            if ($rootScope.appConfigs.features.organizations.funds.formula_products) {
+                $ctrl.form.products = $ctrl.form.products.filter(
+                    product => $ctrl.form.values.formula_products.indexOf(product.id) != -1
+                );
+            }
 
             $ctrl.updateProductOptions();
         }, console.error);
@@ -194,6 +204,7 @@ let FundsEditComponent = function(
 module.exports = {
     bindings: {
         fund: '<',
+        validators: '<',
         organization: '<',
         fundStates: '<',
         productCategories: '<'
