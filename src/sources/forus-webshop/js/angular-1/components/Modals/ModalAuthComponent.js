@@ -101,6 +101,9 @@ let ModalAuthComponent = function(
         IdentityService.checkAccessToken(access_token).then((res) => {
             if (res.data.message == 'active') {
                 $ctrl.applyAccessToken(access_token);
+                $timeout(function(){
+                    $state.go('vouchers');
+                }, 2500);
             } else if (res.data.message == 'pending') {
                 timeout = $timeout(function() {
                     $ctrl.checkAccessTokenStatus(type, access_token);
