@@ -165,6 +165,8 @@ let ModalAuthComponent = function (
 
                     if (!$ctrl.present) {
                         PrevalidationService.redeem(code).then((res) => {
+                            $ctrl.resetVoucherRedeemStorage();
+
                             $ctrl.close();
 
                             ConfigService.get().then((res) => {
@@ -191,18 +193,18 @@ let ModalAuthComponent = function (
                                 }
                             });
                         }, (res) => {
-                            if (res.status == 403) {
-                                form.errors.code = true;	
-                            } else if (res.status == 429) {
+                            if (res.status == 429) {
                                 $ctrl.close();
                                 ModalService.open('modalNotification', {
                                     type: 'info',
                                     title: 'Te veel pogingen!',
                                     description: 'U heeft driemaal een verkeerde activatiecode ingevuld. Probeer het over drie uur opnieuw.'
                                 });
-                            }  
+                            }
 
-                            form.unlock();
+                            $ctrl.setVoucherRedeemStorage(VoucherRedeemStorageService.get('attempts_nr', 0) + 1);
+                            $ctrl.activateCodeFormLock();
+                            $ctrl.addErrorLockMsg();
                         });
                     } else {
                         $ctrl.close();
@@ -216,6 +218,11 @@ let ModalAuthComponent = function (
                 });
             })
         });
+
+        if ($ctrl.isActivateCodeFormLocked()) {
+            $ctrl.activateCodeFormLock();
+            $ctrl.addErrorLockMsg();
+        }
     };
 };
 
