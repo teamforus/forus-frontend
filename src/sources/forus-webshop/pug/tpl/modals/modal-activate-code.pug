@@ -16,7 +16,7 @@
                     block-size="4" 
                     block-count="2" 
                     block-input-type="alphanum").block-pincode-compact
-                .form-error(ng-if="$ctrl.activateCodeForm.errors.code" ng-bind="$ctrl.activateCodeForm.errors.message")
+                .form-error(ng-if="$ctrl.activateCodeForm.errors.code" i18n="popup_auth.notifications.invalid")
             .form-group
             .form-group.text-center
                 button(type="submit" i18n="popup_auth.buttons.submit").button.button-primary
