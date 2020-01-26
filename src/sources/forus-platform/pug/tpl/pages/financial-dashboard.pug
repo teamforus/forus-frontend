@@ -51,7 +51,7 @@
                                 ng-options="productCategory.id as productCategory.name for productCategory in $ctrl.productCategories"
                                 ng-model="$ctrl.chartData.request.product_category").form-control
 
-                            span(ng-if="$ctrl.chartData.request.type!='all'").flex-col
+                            span.flex-col
                                 .button.button-default(
                                     ng-click="$ctrl.chartData.decrease()"
                                     ng-bind="'financial_dashboard.buttons.previous' | translate")
