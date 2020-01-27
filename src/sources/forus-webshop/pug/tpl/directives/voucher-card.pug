@@ -15,7 +15,7 @@
             i18n="voucher.voucher_card.delete")
     
     //- regular voucher
-    .voucher-overview(ng-if="!voucher.expired && voucherCard.type == 'regular'")
+    .voucher-overview(ng-if="!voucherCard.disabled && voucherCard.type == 'regular'")
         .voucher-overview-item.voucher-open
             button.button(
                 ng-if="!voucherCard.disabled"
