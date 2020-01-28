@@ -14,6 +14,8 @@ describe('signup of the customer', function() {
 
   it('enters activation code', function(){
     signupCustomerPage.enterActivationCode();
+    signupCustomerPage.getVoucherpage();
+    expect(signupCustomerPage.getVoucher().isPresent()).toBeTruthy();
   });
 
 });

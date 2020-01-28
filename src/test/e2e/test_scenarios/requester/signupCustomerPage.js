@@ -28,6 +28,14 @@ var signupCustomerPage = function(){
         element(by.buttonText('BEVESTIG')).click();
     }
 
+    this.getVoucherpage =  function(){
+        browser.get(environment.customerURL.concat('/#!/vouchers'))
+    }
+
+    this.getVoucher = function(){
+        return element(by.binding('voucherCard.amount | currency_format'));
+    }
+
 
 }
 function getLastEmail() {

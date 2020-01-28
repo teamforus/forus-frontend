@@ -3,15 +3,30 @@ const environment = require("./protractor-env.js");
 
 exports.config = {
 
+<<<<<<< HEAD
     
     specs: ['testcases/*-spec.js'],
 
+=======
+>>>>>>> added-protractor-dependency
     capabilities: {
         'browserName': 'firefox',
         'name': 'Bstack-[Protractor] Local Test',
         
     },
 
+<<<<<<< HEAD
+=======
+    suites: {
+        
+        requester : ['testcases/requester/*-spec.js'],
+        sponsor : ['testcases/sponsor/*-spec.js'],
+        provider : ['testcases/provider/*-spec.js'],
+    },
+
+    allScriptsTimeout: 15000,
+
+>>>>>>> added-protractor-dependency
     beforeLaunch: function(){
 
 
@@ -50,5 +65,9 @@ exports.config = {
         global.environment = environment;
     },
 
+<<<<<<< HEAD
     onPrepare : "testcases/signupProvider-spec.js"
+=======
+    //onPrepare : "testcases/provider/signupProvider-spec.js"
+>>>>>>> added-protractor-dependency
   };

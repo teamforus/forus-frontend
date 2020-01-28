@@ -697,7 +697,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             $rootScope, $state, PermissionsService, IdentityService, CredentialsService, ModalService, appConfigs
         ) => {
             IdentityService.authorizeAuthEmailToken(
-                appConfigs.client_key + '_' + appConfigs.panel_type,
                 $state.params.token
             ).then(function(res) {
                 CredentialsService.set(res.data.access_token);

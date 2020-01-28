@@ -39,6 +39,7 @@
         background: $color_primary;
         border-color: $color_primary;
         color: #fff;
+        display: inline-block;
 
         &>.mdi {
             color: inherit;

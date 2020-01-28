@@ -1,4 +1,3 @@
-
 var signupProviderPage = require('./signupProviderPage');
 
 describe('testing signup flow of provider:', function() {

@@ -10,6 +10,10 @@ exports.config = {
     capabilities: {
         'browserstack.user': environment.browserstack_user,
         'browserstack.key': environment.browserstack_key,
+<<<<<<< HEAD
+=======
+        'browser_version' :'11.0',
+>>>>>>> added-protractor-dependency
         'browserstack.local': true,
         'browserName': environment.browserName,
         'name': 'Bstack-[Protractor] Local Test',
@@ -17,6 +21,17 @@ exports.config = {
 
     },
 
+<<<<<<< HEAD
+=======
+    onPrepare : "testcases/provider/signupProvider-spec.js",
+
+    suites: {
+        requester : ['testcases/requester/*-spec.js'],
+        sponsor : ['testcases/sponsor/*-spec.js'],
+        provider : ['testcases/provider/*-spec.js'],
+    },
+
+>>>>>>> added-protractor-dependency
     
     // Code to start browserstack and maillistener local before start of test
     beforeLaunch: function(){
