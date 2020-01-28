@@ -225,12 +225,36 @@
                             grid-column: 1 / 3;
                         }
     
+                        .auth-user-logout,
                         .auth-user-type {
                             font: 400 13px/20px $bf;
                             color: #151b26;
                             grid-row: 2;
                             grid-column: 2 / 3;
                             text-align: right;
+                        }
+
+                        .auth-user-logout {
+                            font: 600 12px/20px $bf;
+                            display: flex;
+                            justify-items: flex-end;
+                            justify-content: flex-end;
+
+                            .mdi {
+                                line-height: 20px;
+                                color: lighten($color: $tc, $amount: 15%);
+                                font-size: 14px;
+                                
+                                &:first-child {
+                                    margin: 0 2px 0 -2px;
+                                    float: auto;
+                                }
+                                
+                                &:last-child {
+                                    margin: 0 0 0 2px;
+                                    float: right;
+                                }
+                            }
                         }
                     }
 
@@ -356,7 +380,6 @@
                 .navbar-item-wrapper {
                     .navbar-item {
                         padding: 15px;
-
                         &:before {
                             left: 15px;
                             right: 15px;
@@ -374,6 +397,7 @@
                             font: 700 12px/20px $bf;
                         }
 
+                        .auth-user-logout,
                         .auth-user-type {
                             font: 400 11px/20px $bf;
                         }
@@ -439,6 +463,7 @@
                             font: 700 12px/22px $bf;
                         }
 
+                        .auth-user-logout,
                         .auth-user-type {
                             font: 500 12px/14px $bf;
                         }

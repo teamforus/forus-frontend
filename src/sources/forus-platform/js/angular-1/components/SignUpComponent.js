@@ -37,7 +37,6 @@ let SignUpComponent = function(
 
     let has_app = false;
     let orgMediaFile = false;
-    let waitingSms = false;
     let timeout;
 
     let invalidPermissions = {
@@ -197,20 +196,11 @@ let SignUpComponent = function(
         $scope.phoneForm = FormBuilderService.build({
             phone: "06"
         }, function(form) {
-            form.lock();
-
-            let phone = "+31" + form.values.phone.substr(1);
-            let values = {
-                phone: phone,
-                title: $filter('translate')('sign_up.sms.body')
-            };
-
-            waitingSms = true;
-
-            return SmsService.send(
-                values
-            );
-        });
+            return SmsService.send({
+                phone: "+31" + form.values.phone.substr(1),
+                type: 'me_app_download_link'
+            });
+        }, true);
 
         $ctrl.businessType = $ctrl.businessTypes.filter(
             option => option.id == $ctrl.organizationForm.values.business_type_id
@@ -397,20 +387,18 @@ let SignUpComponent = function(
 
         if ($ctrl.step == 1) {
 
-            if (!waitingSms) {
-                $scope.phoneForm.submit().then((res) => {
-                    $ctrl.sentSms = true;
-                }, (res) => {
-                    $scope.phoneForm.unlock();
-                    $scope.phoneForm.errors = res.data.errors;
+            $scope.phoneForm.submit().then((res) => {
+                $ctrl.sentSms = true;
+            }, (res) => {
+                $scope.phoneForm.unlock();
+                $scope.phoneForm.errors = res.data.errors;
 
-                    if (res.status == 429) {
-                        $scope.phoneForm.errors = {
-                            phone: [$filter('translate')('sign_up.sms.error.try_later')]
-                        };
-                    }
-                });
-            }
+                if (res.status == 429) {
+                    $scope.phoneForm.errors = {
+                        phone: [$filter('translate')('sign_up.sms.error.try_later')]
+                    };
+                }
+            });
 
         } else if ($ctrl.step == 2) {
 

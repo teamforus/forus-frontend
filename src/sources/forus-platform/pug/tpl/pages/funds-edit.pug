@@ -83,7 +83,6 @@
                     
                     .form-error(ng-repeat="error in $ctrl.form.errors.default_validator_employee_id" ng-bind="error")
                 
-                | {{ $ctrl.form.values.default_validator_employee_id }}
                 .form-group.form-group-inline.col.col-lg-9.col-md-12(ng-if="$ctrl.form.values.default_validator_employee_id")
                     label.form-label Aanmeldingen
                     input-checkbox-control(

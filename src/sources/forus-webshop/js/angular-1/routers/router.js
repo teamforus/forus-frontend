@@ -444,8 +444,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: "restore-email",
         url: "/identity-restore?token&target",
-        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'appConfigs', (
-            $rootScope, $state, IdentityService, CredentialsService, appConfigs
+        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'ModalService', 'appConfigs', (
+            $rootScope, $state, IdentityService, CredentialsService, ModalService, appConfigs
         ) => {
             let target = $state.params.target || '';
 
@@ -458,12 +458,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
                 if (typeof target == 'string') {
                     if (!handleAuthTarget($state, target.split('-'))) {
-                        $state.go('home');
+                        $state.go('vouchers');
                     }
                 }
             }, () => {
-                alert("Deze link is reeds gebruikt of ongeldig.");
                 $state.go('home');
+                ModalService.open('identityProxyExpired', {});
             });
         }],
         data: {
@@ -506,6 +506,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: 'email-preferences',
         url: '/email/preferences',
         component: 'emailPreferencesComponent'
+    });
+
+    $stateProvider.state({
+        name: 'error',
+        url: '/error/{errorCode}',
+        component: 'errorComponent',
+        data: {
+            errorCode: 'unknown_error',
+        }
     });
 
     $stateProvider.state({

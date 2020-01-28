@@ -66,11 +66,12 @@ module.exports = {
     popup_auth: require("./nl/modals/modal-auth"),
     popup_offices: require("./nl/modals/modal-offices"),
     open_in_me: require("./nl/modals/modal-open-in-me"),
-    sign_up: require("./nl/modals/modal-sign-up"),
+    expired_identity: require("./nl/modals/modal-expired-identity-proxy"),
     modal: require("./nl/modals/modal"),
 
     // DIRECTIVES
     block_products: require("./nl/directives/block-products"),
+    block_providers: require("./nl/directives/block-providers"),
     contact: require("./nl/directives/contact"),
     empty_block: require("./nl/directives/empty-block"),
     fund_criterion: require("./nl/directives/fund-criterion"),
