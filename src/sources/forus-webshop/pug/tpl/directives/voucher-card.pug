@@ -17,9 +17,7 @@
     //- regular voucher
     .voucher-overview(ng-if="!voucherCard.disabled && voucherCard.type == 'regular'")
         .voucher-overview-item.voucher-open
-            button.button(
-                ng-if="!voucherCard.disabled"
-                ng-class="voucherCard.disabled ? 'button-gray' : 'button-primary'"
+            button.button.button-primary(
                 i18n="{{ voucher.expired ? 'vouchers.labels.show_transactions' : 'vouchers.labels.open_voucher' }}")
 
     //- product voucher
