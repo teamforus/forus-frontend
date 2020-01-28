@@ -39,6 +39,9 @@
 
         .navbar-logo {
             border-right: none;
+            img {
+                height: 60px;
+            }
             @media screen and (min-width: 1024px) {
                 padding: 10px 10px;
             }
