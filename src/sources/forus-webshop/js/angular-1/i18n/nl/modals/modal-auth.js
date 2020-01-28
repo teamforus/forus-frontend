@@ -70,6 +70,9 @@ module.exports = {
             westerkwartier: {
                 mail: "Maak een account aan voordat u verder kan met de activatie."
             },
+            noordoostpolder: {
+                mail: "Maak een account aan voordat u verder kan met de activatie."
+            },
             timelimit: "U wordt automatisch uitgelogd na 15 minuten inactiviteit.",
             warning: "Sluit dit venster en klik op 'Login' als u de activatiecode al eens heeft gebruikt.",
             join: "Aanmelden",
