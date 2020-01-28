@@ -2,7 +2,7 @@
     menu(ng-if="!!$root.activeOrganization")
 
     section(ng-class="!!$root.activeOrganization ? 'app app-content' : 'wrapper wrapper-sm'"): .card
-        .card-header: .card-title Your sessions
+        .card-header: .card-title Huidige gebruikersessies
         .card-section.card-section-padless
             .block.block-sessions
                 .session-item(ng-repeat="session in $ctrl.sessions")
@@ -11,11 +11,11 @@
                     .session-details
                         .session-title
                             span(ng-if="session.last_request.client_type == 'general'")
-                                | Unknown location 
+                                | Onbekend
                             span(ng-if="session.last_request.client_type == 'sponsor'")
                                 | Sponsor dashboard 
                             span(ng-if="session.last_request.client_type == 'provider'")
-                                | Provider dashboard 
+                                | Aanbieders dashboard 
                             span(ng-if="session.last_request.client_type == 'validator'")
                                 | Validator dashboard 
                             span(ng-if="session.last_request.client_type == 'webshop'")
@@ -25,7 +25,7 @@
                         
                         .session-properties
                             .session-property
-                                .session-property-label Last activity: 
+                                .session-property-label Laatste activiteit 
                                 .session-property-value
                                     | {{ session.last_request.time_passed | duration_last_time }}  
                                     span(ng-if="session.last_request.location").text-primary •  
@@ -34,28 +34,28 @@
                                         ng-bind="session.last_request.location.ip + ' • ' +  session.last_request.location.string ")
                             
                             .session-property
-                                .session-property-label Session started: 
+                                .session-property-label Sessie gestart:
                                 .session-property-value(ng-bind="session.started_at_locale")
                             
                         .session-actions.flex
                             a(ng-click="session.showLocations = !session.showLocations" ng-if="session.locations.length > 1").session-action
-                                | Show all locations
+                                | Bekijk alle locaties
 
                                 em(ng-if="session.showLocations").mdi.mdi-menu-up
                                 em(ng-if="!session.showLocations").mdi.mdi-menu-right
                             
                             a(ng-click="$ctrl.terminateSession(session)").session-action
-                                | Terminate session
+                                | Beëindig sessie
                                 em.mdi.mdi-close
                         
                         .session-locations(ng-if="session.locations.length > 1 && session.showLocations")
                             .session-location(ng-repeat="location in session.locations" ng-bind="location.ip + ' • ' + location.string")
 
 
-                    .session-label(ng-if="session.current"): .label.label-round.label-primary-light Current
+                    .session-label(ng-if="session.current"): .label.label-round.label-primary-light Huidig
                     
                     .session-label(ng-if="session.active && !session.current"): .label.label-round.label-success Online
     
         .card-section.text-right: .button.button-primary(ng-click="$ctrl.terminateAllSessions()") 
-            | Terminate all sessions
+            | Beëindig alle sessies
             em.mdi.mdi-close.icon-end
