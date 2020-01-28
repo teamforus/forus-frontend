@@ -27,10 +27,7 @@ let BlockProductsDirective = async function(
     if ($scope.sample) {
         ProductService.sample($scope.fund ? {
             fund_id: $scope.fund.id
-        } : {}).then((res => {
-            $scope.products = res.data;
-            $scope.products_nth = $scope.products.length;
-        }));
+        } : {}).then((res) => $scope.products = res.data);
     } else {
         ProductService.list().then((res => {
             $scope.products = res.data.data;
