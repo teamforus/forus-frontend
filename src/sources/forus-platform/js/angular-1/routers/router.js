@@ -666,9 +666,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     $stateProvider.state({
-        name: 'email-preferences',
-        url: '/email/preferences',
+        name: 'preferences-notifications',
+        url: '/preferences/notifications',
         component: 'emailPreferencesComponent'
+    });
+
+    $stateProvider.state({
+        name: 'security-sessions',
+        url: '/security/sessions',
+        component: 'securitySessionsComponent'
     });
 
     $stateProvider.state({

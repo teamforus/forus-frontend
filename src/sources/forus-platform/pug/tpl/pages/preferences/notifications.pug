@@ -1,6 +1,7 @@
 .app.app-container(ng-if="$ctrl.loaded")
     menu(ng-if="!!$root.activeOrganization")
-    section(ng-class="!!$root.activeOrganization ? 'app app-content' : ''")
+
+    section(ng-class="!!$root.activeOrganization ? 'app app-content' : 'wrapper wrapper-sm'")
         p(ng-if="$ctrl.message" ng-bind="$ctrl.message | translate").form-error
         
         .card(ng-if="$ctrl.email_unsubscribed")

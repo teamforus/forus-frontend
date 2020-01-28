@@ -39,6 +39,7 @@ app.component('transactionComponent', require('./components/TransactionComponent
 app.component('fundProviderComponent', require('./components/FundProviderComponent'));
 app.component('noPermissionComponent', require('./components/NoPermissionComponent'));
 app.component('emailPreferencesComponent', require('./components/EmailPreferencesComponent'));
+app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
 app.component('fundProviderInviteComponent', require('./components/FundProviderInviteComponent'));
 
 // Modal Components
@@ -103,6 +104,7 @@ app.service('FundProviderInvitationsService', require('./services/FundProviderIn
 app.service('EmailPreferencesService', require('./services/EmailPreferencesService'));
 app.service('PushNotificationsService', require('./services/PushNotificationsService'));
 app.service('DigIdService', require('./services/DigIdService'));
+app.service('SessionService', require('./services/SessionService'));
 
 // Directives
 switch (env_data.panel_type) {
@@ -192,6 +194,8 @@ app.filter('file_size', require('./filters/FileSizeFilter'));
 app.filter('hasPerm', require('./filters/HasPerm'));
 app.filter('i18n', require('./filters/I18nFilter'));
 app.filter('str_limit', require('./filters/StrLimitFilter'));
+app.filter('duration', require('./filters/DurationFilter'));
+app.filter('duration_last_time', require('./filters/DurationLastTimeFilter'));
 
 // Config
 app.config(require('./routers/printables'));

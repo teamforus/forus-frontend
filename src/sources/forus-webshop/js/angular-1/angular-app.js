@@ -34,6 +34,7 @@ app.component('recordCreateComponent', require('./components/RecordCreateCompone
 app.component('meComponent', require('./components/MeComponent'));
 app.component('emailPreferencesComponent', require('./components/EmailPreferencesComponent'));
 app.component('errorComponent', require('./components/ErrorComponent'));
+app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -75,6 +76,7 @@ app.service('PushNotificationsService', require('./services/PushNotificationsSer
 app.service('LocalStorageService', require('./services/LocalStorageService'));
 app.service('VoucherRedeemStorageService', require('./services/VoucherRedeemStorageService'));
 app.service('ProvidersService', require('./services/ProvidersService'));
+app.service('SessionService', require('./services/SessionService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
@@ -146,6 +148,8 @@ app.filter('currency_format', require('./filters/CurrencyFormatFilter'));
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('i18n', require('./filters/I18nFilter'));
+app.filter('duration', require('./filters/DurationFilter'));
+app.filter('duration_last_time', require('./filters/DurationLastTimeFilter'));
 
 // Config
 app.config(require('./routers/printables'));

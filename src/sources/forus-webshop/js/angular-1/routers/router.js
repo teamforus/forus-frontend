@@ -503,9 +503,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
-        name: 'email-preferences',
-        url: '/email/preferences',
+        name: 'preferences-notifications',
+        url: '/preferences/notifications',
         component: 'emailPreferencesComponent'
+    });
+
+    $stateProvider.state({
+        name: 'security-sessions',
+        url: '/security/sessions',
+        component: 'securitySessionsComponent'
     });
 
     $stateProvider.state({
