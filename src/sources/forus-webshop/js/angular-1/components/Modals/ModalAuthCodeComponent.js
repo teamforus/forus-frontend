@@ -21,7 +21,7 @@ let ModalAuthComponent = function(
             if (records && (records.primary_email != records.primary_email_confirmation)) {
                 return form.errors = {
                     'records.primary_email_confirmation': [
-                        $filter('translate')('validation.email_confirmation')
+                        $filter('translate')('De e-mailadressen komen niet overeen')
                     ]
                 };
             }
