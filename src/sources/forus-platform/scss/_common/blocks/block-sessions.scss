@@ -57,11 +57,11 @@
     
                     .session-property-value {
                         color: #151b26;
-    
-                        span {
-                            padding-left: 5px;
-                            padding-right: 5px;
-                        }
+                    }
+
+                    .session-property-sep {
+                        color: $color_primary;
+                        padding: 0 5px;
                     }
                 }
             }
