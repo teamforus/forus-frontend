@@ -2,12 +2,12 @@ top-navbar
 section.section.section-voucher-details: .wrapper
     .block.block-breadcrumbs.hide-sm
         a(ui-sref="home").breadcrumb-item Home
-        .breadcrumb-item.active(translate="sessions.title")
+        .breadcrumb-item.active Security
 
-    .section-title(translate="sessions.title")
+    .section-title Security
 
     section: .card
-        .card-header: .card-title Your sessions
+        .card-header: .card-title Huidige sessies:
         .card-section.card-section-padless
             .block.block-sessions
                 .session-item(ng-repeat="session in $ctrl.sessions")
@@ -20,15 +20,15 @@ section.section.section-voucher-details: .wrapper
                             span(ng-if="session.last_request.client_type == 'provider'") Aanbieders dashboard 
                             span(ng-if="session.last_request.client_type == 'validator'") Validator dashboard 
                             span(ng-if="session.last_request.client_type == 'webshop'") Webshop 
-                            span(ng-if="session.last_request.client_type == 'app-me_app'") MeApp 
-                            span(ng-if="session.last_request.client_type == 'app-me_app-android'") MeApp 
-                            span(ng-if="session.last_request.client_type == 'app-me_app-ios'") MeApp 
+                            span(ng-if="session.last_request.client_type == 'app-me_app'") Me-app
+                            span(ng-if="session.last_request.client_type == 'app-me_app-android'") Me-app
+                            span(ng-if="session.last_request.client_type == 'app-me_app-ios'") Me-app
                             span(ng-if="session.last_request.device_string").text-primary • 
                             span(ng-if="session.last_request.device_string" ng-bind="session.last_request.device_string")
                         
                         .session-properties
                             .session-property
-                                .session-property-label Last activity: 
+                                .session-property-label Laatste activiteit
                                 .session-property-value
                                     | {{ session.last_request.time_passed | duration_last_time }}  
                                     span(ng-if="session.last_request.location").session-property-sep.text-primary • 
@@ -37,7 +37,7 @@ section.section.section-voucher-details: .wrapper
                                         ng-bind="session.last_request.location.ip + ' • ' +  session.last_request.location.string ")
                             
                             .session-property
-                                .session-property-label Session started: 
+                                .session-property-label Sessie gestart
                                 .session-property-value(ng-bind="session.started_at_locale")
                             
                         .session-actions.flex
