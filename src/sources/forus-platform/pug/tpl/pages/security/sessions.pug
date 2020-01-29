@@ -2,7 +2,7 @@
     menu(ng-if="!!$root.activeOrganization")
 
     section(ng-class="!!$root.activeOrganization ? 'app app-content' : 'wrapper wrapper-sm'"): .card
-        .card-header: .card-title Huidige gebruikersessies
+        .card-header: .card-title Huidige sessies
         .card-section.card-section-padless
             .block.block-sessions
                 .session-item(ng-repeat="session in $ctrl.sessions")
@@ -15,9 +15,9 @@
                             span(ng-if="session.last_request.client_type == 'provider'") Aanbieders dashboard 
                             span(ng-if="session.last_request.client_type == 'validator'") Validator dashboard 
                             span(ng-if="session.last_request.client_type == 'webshop'") Webshop 
-                            span(ng-if="session.last_request.client_type == 'app-me_app'") MeApp 
-                            span(ng-if="session.last_request.client_type == 'app-me_app-android'") MeApp 
-                            span(ng-if="session.last_request.client_type == 'app-me_app-ios'") MeApp 
+                            span(ng-if="session.last_request.client_type == 'app-me_app'") Me-app 
+                            span(ng-if="session.last_request.client_type == 'app-me_app-android'") Me-app
+                            span(ng-if="session.last_request.client_type == 'app-me_app-ios'") Me-app 
                             span(ng-if="session.last_request.device_string").text-primary • 
                             span(ng-if="session.last_request.device_string" ng-bind="session.last_request.device_string")
                         
