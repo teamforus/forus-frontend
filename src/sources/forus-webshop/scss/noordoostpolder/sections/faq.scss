@@ -4,11 +4,19 @@
             .faq-item {
                 &:hover:not(.active) {
                     .faq-item-header {
-                        color: #b9ca2f;
+                        color: #de286a;
+                        box-shadow: 5px 15px 45px rgba(0,0,0,0.15);
 
                         .faq-item-chevron-up,
                         .faq-item-chevron-down {
-                            color: #b9ca2f;
+                            color: #de286a;
+                        }
+                    }
+                }
+                &.active {
+                    .faq-item-header {
+                        .faq-item-chevron-up {
+                            color: #de286a;
                         }
                     }
                 }
