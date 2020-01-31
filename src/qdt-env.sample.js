@@ -504,7 +504,7 @@ module.exports = (core) => {
             client_key: 'westerkwartier',
             client_type: 'webshop',
             flags: {
-                logoExtension: '.png',
+                logoExtension: '.svg',
                 showAccountSidebar: false,
 
                 // menu settings
