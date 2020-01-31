@@ -1,7 +1,7 @@
 header.app.app-header
     .wrapper
         a(ui-sref="home").header-logo
-            img(ng-src="./assets/img/logo.png").header-logo-img
+            img(ng-src="./assets/img/logo.svg").header-logo-img
 
         .header-auth(ng-if="$root.auth_user")
             .auth-user(ng-click="$ctrl.openUserMenu($event)")
