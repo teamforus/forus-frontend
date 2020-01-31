@@ -7,6 +7,7 @@ let ModalAuthComponent = function(
     ModalService
 ) {
     let $ctrl = this;
+    let $trans = $filter('translate');
 
     $ctrl.$onInit = () => {
         if (AuthService.hasCredentials()) {
@@ -21,7 +22,7 @@ let ModalAuthComponent = function(
             if (records && (records.primary_email != records.primary_email_confirmation)) {
                 return form.errors = {
                     'records.primary_email_confirmation': [
-                        $filter('translate')('validation.email_confirmation')
+                        $trans('popup_auth.validation.email_confirmation')
                     ]
                 };
             }
