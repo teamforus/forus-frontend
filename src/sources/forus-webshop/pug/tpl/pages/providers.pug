@@ -17,9 +17,9 @@ block content
             
             .showcase-layout
                 .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
-                    +search_results('$ctrl.providers.meta.total', '$ctrl.showMap')
-
                     .showcase-aside-block
+                        +search_results('$ctrl.providers.meta.total', '$ctrl.showMap')
+                        
                         .form-group
                             input.form-control(
                                 ng-model="$ctrl.form.values.q"
