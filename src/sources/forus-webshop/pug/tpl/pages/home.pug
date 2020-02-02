@@ -149,7 +149,7 @@ header.section.section-header.section-header-landing
                 'home.faq.{{ $root.client_key }}.faq_eight',
                 'home.faq.{{ $root.client_key }}.eight',
                 '{{ "home.faq.faq_eight" | translate:{ fund: $ctrl.funds[0].name } }}',
-                '{{ "home.faq.eight" | translate }}')
+                '{{ "home.faq.eight" | translate:{ start_date: $ctrl.funds[0].start_date_locale } }}')
 
             +faq_item(
                 'home.faq.{{ $root.client_key }}.faq_nine',
@@ -173,7 +173,7 @@ header.section.section-header.section-header-landing
                 'home.faq.{{ $root.client_key }}.faq_twelve',
                 'home.faq.{{ $root.client_key }}.twelve',
                 '{{ "home.faq.faq_twelve" | translate:{ fund: $ctrl.funds[0].name } }}',
-                '{{ "home.faq.twelve" | translate }}')
+                '{{ "home.faq.twelve" | translate:{ fund: $ctrl.funds[0].name } }}')
 
             +faq_item(
                 'home.faq.{{ $root.client_key }}.faq_thirteen',
