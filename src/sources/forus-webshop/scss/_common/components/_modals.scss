@@ -101,11 +101,12 @@
             color: #282b39;
             font: 700 40px $bf;
             text-align: center;
-            margin: 0 0 10px;
+            margin: 0 0 20px;
         }
 
         .description{
-            padding: 10px 80px;
+            padding: 0 80px;
+            margin: 0 0 10px;
             font: 400 22px/34px $bf;
             color: #646f79;
 
@@ -114,7 +115,7 @@
                 font-weight: bold;
             }
 
-            .popup-title-styled{
+            .popup-title-styled {
                 color: $color_primary;
                 font-weight: 600;
                 white-space: nowrap;
