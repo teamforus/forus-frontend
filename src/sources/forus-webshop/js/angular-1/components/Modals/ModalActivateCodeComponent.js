@@ -1,6 +1,7 @@
 let ModalAuthComponent = function(
     $q,
     $state,
+    $timeout,
     ModalService,
     FormBuilderService,
     PrevalidationService,
@@ -73,6 +74,7 @@ let ModalAuthComponent = function(
 
     $ctrl.redeemCode = (form, code) => {
         form.lock();
+        form.enabled = false;
 
         PrevalidationService.redeem(code).then((res) => {
             $ctrl.close();
@@ -92,6 +94,9 @@ let ModalAuthComponent = function(
                 });
             });
         }, (res) => {
+            $timeout(() => form.enabled = true, 1000);
+            form.unlock();
+
             if (res.status == 404) {
                 form.errors.code = [
                     res.data.meta.message
@@ -113,9 +118,6 @@ let ModalAuthComponent = function(
 
                 $ctrl.close();
             }
-
-            form.unlock();
-
         });
     };
 
@@ -137,6 +139,8 @@ let ModalAuthComponent = function(
 
             $ctrl.redeemCode(form, code);
         });
+
+        $ctrl.activateCodeForm.enabled = true;
     };
 };
 
@@ -148,6 +152,7 @@ module.exports = {
     controller: [
         '$q',
         '$state',
+        '$timeout',
         'ModalService',
         'FormBuilderService',
         'PrevalidationService',

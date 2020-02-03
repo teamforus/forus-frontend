@@ -18,5 +18,7 @@
                     block-input-type="alphanum").block-pincode-compact
                 .form-error(ng-repeat="error in $ctrl.activateCodeForm.errors.code" ng-bind="error")
             .form-group
-            .form-group.text-center
-                button(type="submit" i18n="popup_auth.buttons.submit" ng-class="$ctrl.activateCodeForm.values.code.length != 8 ? 'button-disabled' : ''").button.button-primary
+            .form-group.text-center: button(
+                type="submit" 
+                i18n="popup_auth.buttons.submit" 
+                ng-class="($ctrl.activateCodeForm.values.code.length != 8 || !$ctrl.activateCodeForm.enabled) ? 'button-disabled' : ''").button.button-primary
