@@ -31,8 +31,7 @@ section.section.section-product: .wrapper
                         .new-label(i18n="block_products.labels.new")
                         .new-value(ng-bind="$ctrl.product.price | currency_format")
                     .product-price-insufficient.tooltip-block(ng-show="$ctrl.isApplicable == false" ng-if="$root.auth_user")
-                        span(translate="product.insufficient")
-                        tooltip(text="'product.tooltip'" tooltip-type="tooltip-bottom")
+                        span {{ ($ctrl.lowAmountVouchers.length ? 'product.low_amount' : 'product.no_vouchers') | translate }}
 
                 .product-expire(ng-if="$ctrl.product.expire_at")
                     .expire-label(i18n="voucher.labels.expire")

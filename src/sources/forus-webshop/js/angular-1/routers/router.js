@@ -458,7 +458,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
                 if (typeof target == 'string') {
                     if (!handleAuthTarget($state, target.split('-'))) {
-                        $state.go('home');
+                        $state.go('vouchers');
                     }
                 }
             }, () => {

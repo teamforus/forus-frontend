@@ -1,14 +1,16 @@
 header.app.app-header
     .wrapper
         a(ui-sref="home").header-logo
-            img(ng-src="./assets/img/logo.png").header-logo-img
+            img(ng-src="./assets/img/logo.svg").header-logo-img
 
         .header-auth(ng-if="$root.auth_user")
             .auth-user(ng-click="$ctrl.openUserMenu($event)")
                 .auth-user-details
                     .auth-user-name {{ $root.auth_user.primary_email }}
-                    .auth-user-role(
-                        ng-bind="{provider: 'Aanbieder', sponsor: 'Sponsor', validator: 'Validator'}[appConfigs.panel_type]")
+                    .auth-user-role
+                        span(ng-bind="$root.activeOrganization.name")
+                        span.auth-user-role-separator(ng-if="$root.activeOrganization.name") •
+                        span(ng-bind="{provider: 'Aanbieder', sponsor: 'Sponsor', validator: 'Validator'}[appConfigs.panel_type]")
                 
                 img(ng-src="{{ $root.activeOrganization ? ($root.activeOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png') : './assets/img/placeholders/organization-thumbnail.png'}} ").auth-user-img
                                 

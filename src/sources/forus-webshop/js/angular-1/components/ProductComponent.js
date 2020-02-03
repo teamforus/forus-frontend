@@ -7,7 +7,6 @@ let ProductComponent = function (
     VoucherService
 ) {
     let $ctrl = this;
-    let vouchers = [];
 
     if (!appConfigs.features.products.show) {
         return $state.go('home');
@@ -19,22 +18,31 @@ let ProductComponent = function (
 
     $ctrl.isApplicable = false;
 
+    let isValidProductVoucher = (voucher, fundIds) => {
+        return (fundIds.indexOf(voucher.fund_id) != -1) && !voucher.parent && !voucher.expired;
+    };
+
     $ctrl.$onInit = function() {
         let fundIds = $ctrl.product.funds.map(fund => fund.id);
-        vouchers = $ctrl.vouchers.filter(voucher => {
-            return (fundIds.indexOf(voucher.fund_id) != -1) && (
-                parseFloat($ctrl.product.price) <= parseFloat(voucher.amount)
-            ) && !voucher.parent && !voucher.expired;
+
+        $ctrl.applicableVouchers = $ctrl.vouchers.filter(voucher => {
+            return isValidProductVoucher(voucher, fundIds) && 
+                parseFloat($ctrl.product.price) <= parseFloat(voucher.amount);
+        });
+
+        $ctrl.lowAmountVouchers = $ctrl.vouchers.filter(voucher => {
+            return isValidProductVoucher(voucher, fundIds) && 
+                parseFloat($ctrl.product.price) >= parseFloat(voucher.amount);
         });
 
         $ctrl.fundNames = $ctrl.product.funds.map(fund => fund.name).join(', ');
-        $ctrl.isApplicable = vouchers.length > 0;
+        $ctrl.isApplicable = $ctrl.applicableVouchers.length > 0;
         $ctrl.product.description_html = $sce.trustAsHtml($ctrl.product.description_html);
     };
 
     $ctrl.applyProduct = () => {
-        if(vouchers.length == 1){
-            let voucher = vouchers[0];
+        if($ctrl.applicableVouchers.length == 1){
+            let voucher = $ctrl.applicableVouchers[0];
 
             let fund_expire_at = moment(voucher.fund.end_date);
             let product_expire_at = moment($ctrl.product.expire_at);

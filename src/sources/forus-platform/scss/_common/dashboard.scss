@@ -283,6 +283,14 @@ $colorPrimaryLight: $color_primary_light;
                         font: 400 12px/20px $bf;
                         color: #151b26;
                         text-align: right;
+
+                        .auth-user-role-separator {
+                            font-size: 22px;
+                            line-height: inherit;
+                            vertical-align: top;
+                            color: #a1a1a1;
+                            padding: 0 3px;
+                        }
                     }
 
                 }
