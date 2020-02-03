@@ -895,7 +895,7 @@ module.exports = {
             week: "Week",
             all: "Alles",
             usage: "omzet",
-            average: "Totaal uitgegeven bedrag",
+            average: "Gemiddelde transactiegrootte",
             transaction: "transacties",
             price: "BEDRAG",
             date: "DATUM",
