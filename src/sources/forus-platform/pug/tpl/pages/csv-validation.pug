@@ -18,7 +18,7 @@
                     .organization-name(ng-bind="'csv_validation.buttons.choose' | translate")
     
         csv-upload(
-            ng-if="$ctrl.fund" 
+            ng-if="$ctrl.fund && $ctrl.fund.state != 'closed'" 
             fund="$ctrl.fund" 
             record-types="$ctrl.recordTypes")
         
