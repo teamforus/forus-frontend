@@ -1,6 +1,7 @@
 .app.app-container(ng-if="$ctrl.loaded")
     menu(ng-if="!!$root.activeOrganization")
-    section(ng-class="!!$root.activeOrganization ? 'app app-content' : ''")
+
+    section(ng-class="!!$root.activeOrganization ? 'app app-content' : 'wrapper wrapper-sm'")
         p(ng-if="$ctrl.message" ng-bind="$ctrl.message | translate").form-error
         
         .card(ng-if="$ctrl.email_unsubscribed")
@@ -43,14 +44,14 @@
             .card-header: .card-title(translate="notification_preferences.title_push_preferences")
             .form.block.block-preferences: label(
                 ng-repeat="type in $ctrl.pushPreferences" 
-                for="option_{{ type.key }}").preference-option
+                for="push_option_{{ type.key }}").preference-option
                 .preference-option-details
                     .card-heading.card-heading-padless(translate="{{ 'notification_preferences.types.' + type.key + '.title' }}")
                     .card-text(translate="{{ 'notification_preferences.types.' + type.key + '.description' }}")
                 .preference-option-input: .form-toggle
                     input(
                         type="checkbox" 
-                        id="option_{{ type.key }}" 
+                        id="push_option_{{ type.key }}" 
                         ng-change="$ctrl.togglePreferenceOption()" 
                         ng-checked="type.subscribed" 
                         ng-model="type.subscribed")

@@ -18,6 +18,7 @@ let ModalNotificationComponent = function(
 
         $ctrl.title = $ctrl.modal.scope.title;
         $ctrl.description = $ctrl.modal.scope.description;
+        $ctrl.descriptionIsArray = Array.isArray($ctrl.description);
         $ctrl.subdescription = $ctrl.modal.scope.subdescription;
 
         $ctrl.icon = $ctrl.modal.scope.icon ? getIcon($ctrl.modal.scope.icon) : null;

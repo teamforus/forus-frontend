@@ -27,7 +27,7 @@ let BaseController = function(
                 BrowserService.detectInactivity(timer).then(() => {
                     if (AuthService.hasCredentials()) {
                         $rootScope.signOut();
-    
+
                         ModalService.open('modalNotification', {
                             type: 'info',
                             description: 'modal.logout.description'
@@ -72,7 +72,11 @@ let BaseController = function(
 
     $rootScope.activeOrganization = OrganizationService.active();
 
-    $rootScope.signOut = ($event = null, needConfirmation = false) => {
+    $rootScope.signOut = (
+        $event = null,
+        needConfirmation = false,
+        deleteToken = true
+    ) => {
         if ($event && typeof $event.preventDefault != 'undefined') {
             $event.preventDefault();
             $event.stopPropagation();
@@ -91,7 +95,10 @@ let BaseController = function(
             });
         }
 
-        IdentityService.deleteToken();
+        if (deleteToken) {
+            IdentityService.deleteToken();
+        }
+
         AuthService.signOut();
 
         $state.go('home');
@@ -111,7 +118,7 @@ let BaseController = function(
     $rootScope.pageTitle = $filter('translate')('page_title');
     $rootScope.client_key = appConfigs.client_key;
 
-    $window.onbeforeunload = function (event) {
+    $window.onbeforeunload = function(event) {
         BrowserService.unsetInactivity();
     };
 

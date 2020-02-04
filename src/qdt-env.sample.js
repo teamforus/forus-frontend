@@ -10,6 +10,7 @@ let sourcemap = false;
 let baseImplementationKey = 'general';
 let autoLogOutTime = 15;
 let chatId = false;
+let sessions = false;
 
 module.exports = (core) => {
     // Config markups
@@ -24,6 +25,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             flags: {},
+            sessions: sessions,
             // html5ModeEnabled: true,
             // html5Mode: {
             //    basePath: '/'
@@ -51,6 +53,7 @@ module.exports = (core) => {
             chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -70,6 +73,7 @@ module.exports = (core) => {
             chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -89,6 +93,7 @@ module.exports = (core) => {
             chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -108,6 +113,7 @@ module.exports = (core) => {
             chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -129,6 +135,7 @@ module.exports = (core) => {
             flags: {
                 maxProductCount: 20,
             },
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -148,6 +155,7 @@ module.exports = (core) => {
             chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -167,6 +175,7 @@ module.exports = (core) => {
             chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -188,6 +197,7 @@ module.exports = (core) => {
             flags: {
                 maxProductCount: 20,
             },
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -209,6 +219,7 @@ module.exports = (core) => {
             flags: {
                 maxProductCount: 20,
             },
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -230,6 +241,7 @@ module.exports = (core) => {
             flags: {
                 maxProductCount: 20,
             },
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -251,6 +263,7 @@ module.exports = (core) => {
             flags: {
                 maxProductCount: 20,
             },
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -272,6 +285,7 @@ module.exports = (core) => {
             flags: {
                 maxProductCount: 20,
             },
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -293,6 +307,7 @@ module.exports = (core) => {
             flags: {
                 maxProductCount: 20,
             },
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -314,6 +329,7 @@ module.exports = (core) => {
             flags: {
                 maxProductCount: 20,
             },
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -333,6 +349,7 @@ module.exports = (core) => {
             chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -352,6 +369,7 @@ module.exports = (core) => {
             chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -371,6 +389,7 @@ module.exports = (core) => {
             chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -390,6 +409,7 @@ module.exports = (core) => {
             chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -411,6 +431,7 @@ module.exports = (core) => {
             log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {},
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -438,6 +459,7 @@ module.exports = (core) => {
                 portfolioMenu: false,
                 aboutSiteMenu: false,
             },
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -468,6 +490,7 @@ module.exports = (core) => {
                 // voucher settings
                 shareProducts: false,
             },
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -487,6 +510,7 @@ module.exports = (core) => {
             log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {},
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -504,7 +528,7 @@ module.exports = (core) => {
             client_key: 'westerkwartier',
             client_type: 'webshop',
             flags: {
-                logoExtension: '.png',
+                logoExtension: '.svg',
                 showAccountSidebar: false,
 
                 // menu settings
@@ -516,6 +540,7 @@ module.exports = (core) => {
                 // home
                 providersMenu: true,
             },
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -537,6 +562,7 @@ module.exports = (core) => {
             flags: {
                 secondLogo: 'sdoa-logo.svg',
             },
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -565,6 +591,7 @@ module.exports = (core) => {
                 portfolioMenu: false,
                 aboutSiteMenu: false,
             },
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -593,6 +620,7 @@ module.exports = (core) => {
                 portfolioMenu: false,
                 aboutSiteMenu: false,  
             },
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -610,7 +638,8 @@ module.exports = (core) => {
             client_key: 'noordoostpolder',
             client_type: 'webshop',
             log_out_time: false,
-            flags: {}
+            flags: {},
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
@@ -629,6 +658,7 @@ module.exports = (core) => {
             client_key: baseImplementationKey,
             panel_type: 'website',
             flags: {},
+            sessions: sessions,
         });
 
         platform.editTask('js', (task) => {
