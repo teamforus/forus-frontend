@@ -4,9 +4,9 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
 
         .modal-title(translate="popup_auth.labels.activate_code" )
-        //.modal-title(translate="popup_auth.labels.isactivated" ng-if="$ctrl.vouchers.length > 0")
+        //- .modal-title(translate="popup_auth.labels.isactivated" ng-if="$ctrl.vouchers.length > 0")
         .modal-subtitle(translate="popup_auth.labels.code")
-        //.modal-subtitle(translate="popup_auth.labels.codeactivated" ng-if="$ctrl.vouchers.length > 0")
+        //- .modal-subtitle(translate="popup_auth.labels.codeactivated" ng-if="$ctrl.vouchers.length > 0")
 
         form.form(ng-submit="$ctrl.activateCodeForm.submit()")
             .form-group.text-center
@@ -16,7 +16,9 @@
                     block-size="4" 
                     block-count="2" 
                     block-input-type="alphanum").block-pincode-compact
-                .form-error(ng-if="$ctrl.activateCodeForm.errors.code" ng-bind="$ctrl.activateCodeForm.errors.message")
+                .form-error(ng-repeat="error in $ctrl.activateCodeForm.errors.code" ng-bind="error")
             .form-group
-            .form-group.text-center
-                button(type="submit" i18n="popup_auth.buttons.submit").button.button-primary
+            .form-group.text-center: button(
+                type="submit" 
+                i18n="popup_auth.buttons.submit" 
+                ng-class="($ctrl.activateCodeForm.values.code.length != 8 || !$ctrl.activateCodeForm.enabled) ? 'button-disabled' : ''").button.button-primary

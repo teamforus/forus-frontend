@@ -627,7 +627,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) : new Promise((res) => res(null))],
             funds: ['FundService', (
                 FundService
-            ) => repackResponse(FundService.list())],
+            ) => repackResponse(FundService.list(null, {
+                state: 'active_and_closed'
+            }))],
             prevalidations: ['$transition$', 'PrevalidationService', (
                 $transition$, PrevalidationService
             ) => repackPagination(PrevalidationService.list(objectOnlyKeys($transition$.params(), [
