@@ -73,7 +73,6 @@ app.service('FileService', require('./services/FileService'));
 app.service('DigIdService', require('./services/DigIdService'));
 app.service('PushNotificationsService', require('./services/PushNotificationsService'));
 app.service('LocalStorageService', require('./services/LocalStorageService'));
-app.service('VoucherRedeemStorageService', require('./services/VoucherRedeemStorageService'));
 app.service('ProvidersService', require('./services/ProvidersService'));
 
 // Directives

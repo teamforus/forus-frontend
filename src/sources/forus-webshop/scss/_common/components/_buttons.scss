@@ -188,10 +188,18 @@
         margin-right: 0;
     }
 
-    &[disabled], &.disabled {
+    &[disabled], &.disabled, &.button-disabled {
         cursor: default;
         user-select: none;
         pointer-events: none;
+        background: #8b959e;
+        border-color: #8b959e;
+        color: #fff;
+
+        &:hover {
+            background: #8b959e;
+            border-color: #8b959e;
+        }
     }
 }
 
