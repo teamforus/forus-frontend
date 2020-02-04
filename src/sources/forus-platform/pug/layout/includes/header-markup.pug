@@ -4,10 +4,11 @@ header.app.app-header
 
         .header-auth
             .auth-user
-                .auth-user-name info@rminds.nl
-                .auth-user-role Sponsor
+                .auth-user-details
+                    .auth-user-name info@rminds.nl
+                    .auth-user-role Sponsor
                 img(src="./assets/img/organization-logo.jpg").auth-user-img
-                .auth-user-menu
+                //- .auth-user-menu
                     a(href="#").auth-user-menu-item
                         em.mdi.mdi-account
                         | My profile
@@ -27,6 +28,7 @@ header.app.app-header
                     .notifications-menu-header-link 
                         | View all
                         em.mdi.mdi-arrow-right 
+                
                 .notifications-menu-body.nano
                     .nano-content
                         mixin notification_item(icon, text, date)

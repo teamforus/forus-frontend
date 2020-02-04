@@ -5,6 +5,7 @@ let BaseController = function(
     $state,
     $translate,
     AuthService,
+    IdentityService,
     RecordService,
     OrganizationService,
     ConfigService,
@@ -39,7 +40,7 @@ let BaseController = function(
     $rootScope.loadAuthUser = function() {
         let deferred = $q.defer();
         
-        AuthService.identity().then((res) => {
+        IdentityService.identity().then((res) => {
             let auth_user = res.data;
 
             RecordService.list().then((res) => {
@@ -84,7 +85,7 @@ let BaseController = function(
         if (!isNaN(parseInt(id))) {
             loadActiveOrganization();
         } else {
-            $rootScope.activeOrganization = {};
+            $rootScope.activeOrganization = null;
             $state.go('organziations');
         }
     });
@@ -150,6 +151,7 @@ module.exports = [
     '$state',
     '$translate',
     'AuthService',
+    'IdentityService',
     'RecordService',
     'OrganizationService',
     'ConfigService',
