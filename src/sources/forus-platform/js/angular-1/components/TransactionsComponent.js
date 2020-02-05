@@ -98,6 +98,17 @@ let TransactionsComponent = function(
             if ($ctrl.empty === null) {
                 $ctrl.empty = res.data.meta.total == 0;
             }
+            
+            TransactionService.list(
+                appConfigs.panel_type,
+                $ctrl.organization.id,
+                Object.assign({}, query, {
+                    page: 1,
+                    per_page: 9999
+                })
+            ).then(res => {
+                $ctrl.transactionsTotal = res.data.data.reduce((acc, val) => acc + parseInt(val.amount), 0);
+            });
         }));
     };
 
