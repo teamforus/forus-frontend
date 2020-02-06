@@ -772,7 +772,7 @@ module.exports = {
             amount: "Bedrag",
             amount_min: "0",
             amount_max: "Alles",
-            total_amount: "Transactions total amount",
+            total_amount: "Omzet",
         },
         buttons: {
             previous: "Vorige",
