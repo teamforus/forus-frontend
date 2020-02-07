@@ -61,6 +61,7 @@ module.exports = {
     vouchers: require("./nl/pages/vouchers"),
     notification_preferences: require("./nl/pages/notification-preferences"),
     voucher_printable: require('./nl/pages/voucher-printable'),
+    accessibility: require('./nl/pages/accessibility'),
 
     // MODALS
     popup_auth: require("./nl/modals/modal-auth"),

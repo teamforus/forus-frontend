@@ -4,7 +4,7 @@ section.section.section-details: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
         .breadcrumb-item.active(i18n="Toegankelijkheidsverklaring")
-    .section-title(translate="Toegankelijkheidsverklaring")
+    .section-title.text-left(translate="Toegankelijkheidsverklaring")
 
     .block.block-accessibility
         .block-text
@@ -16,7 +16,7 @@ section.section.section-details: .wrapper
                     ul
                         li 
                             a(href="{{ $ctrl.vars.website }}" target="_blank") {{ $ctrl.vars.website }}
-            p.description Een actueel en volledig overzicht van de toegankelijkheidsverklaringen die vallen onder de verantwoordelijkheid van Gemeente {{ $ctrl.vars.organization_name }} is beschikbaar via de volgende link:
+            p.description Een actueel en volledig overzicht van de toegankelijkheidsverklaringen die vallen onder de verantwoordelijkheid van Gemeente {{ $ctrl.vars.organization_name }} is beschikbaar via de volgende link: 
                 a(href="{{ $ctrl.vars.accessibility_link }}" target="_blank") {{ $ctrl.vars.accessibility_link }} 
 
         .block-text
@@ -31,8 +31,8 @@ section.section.section-details: .wrapper
 
         .block-text
             .title Opstelling van deze verklaring
-            .description Deze verklaring is opgesteld op 18-12-2019 met instemming van de verantwoordelijke bestuurder van Gemeente {{ $ctrl.vars.organization_name }}, Renske Helmer-Englebert, wethouder werk, inkomen en armoedebestrijding, ICT en faciliteiten.
-            .description De actualiteit, volledigheid en juistheid van deze verklaring zijn voor het laatst herzien op 18-12-2019.
+            .description Deze verklaring is opgesteld op 07-02-2020 met instemming van de verantwoordelijke bestuurder van Gemeente {{ $ctrl.vars.organization_name }}, #[span(translate="accessibility.{{ $root.client_key }}.employee")]
+            .description De actualiteit, volledigheid en juistheid van deze verklaring zijn voor het laatst herzien op 01-01-2020.
 
         .block-text
             .title Feedback en contactgegevens
@@ -102,7 +102,7 @@ section.section.section-details: .wrapper
                         li Alternatief: Er is geen alternatieve oplossing voor dit probleem.
                         li Maatregel: De webmasters zullen een alternatieve tekst plaatsen bij de afbeelding.
                         li brengt de uitvoering van de maatregel een onevenredige last met zich mee? Nee
-                        li planning: 01-01-2020
+                        li planning: 01-06-2020
                         li SC 4.1.2 - Naam, rol, waarde [niveau A]
                         li Beschrijving: Anker Element gevonden met een geldig href-attribuut, maar er is geen link inhoud is opgegeven.
                         li Oorzaak: Geen consequent gebruik van anker elementen
@@ -110,7 +110,7 @@ section.section.section-details: .wrapper
                         li Alternatief: Er is geen alternatieve oplossing voor dit probleem.
                         li Maatregel: De webmaster zullen het anker element opnieuw beoordelen en deze verwijderen of de benodigde informatie opgeven
                         li brengt de uitvoering van de maatregel een onevenredige last met zich mee? Nee
-                        li planning: 01-01-2020
+                        li planning: 01-06-2020
                 
                 li SC 4.1.2 - Naam, rol, waarde [niveau A]
                     ul
@@ -120,9 +120,9 @@ section.section.section-details: .wrapper
                         li Alternatief: Er is geen alternatieve oplossing voor dit probleem.
                         li Maatregel: De webmaster zullen het anker element opnieuw beoordelen en deze verwijderen of de benodigde informatie opgeven
                             | brengt de uitvoering van de maatregel een onevenredige last met zich mee? Nee
-                        li planning: 01-01-2020
+                        li planning: 01-06-2020
 
-        .block-text
+        //-.block-text
             .title Evaluatie- en onderzoekresultaten
             ul
                 li 

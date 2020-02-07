@@ -616,7 +616,7 @@ module.exports = (core) => {
             client_type: 'webshop',
             log_out_time: false,
             flags: {
-                accessibilityPage: true,
+                accessibilityPage: false,
             }
         });
 
