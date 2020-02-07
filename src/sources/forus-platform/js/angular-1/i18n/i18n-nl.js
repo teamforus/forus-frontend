@@ -771,7 +771,8 @@ module.exports = {
             fund_state: "Status fonds",
             amount: "Bedrag",
             amount_min: "0",
-            amount_max: "Alles"
+            amount_max: "Alles",
+            total_amount: "Omzet",
         },
         buttons: {
             previous: "Vorige",
