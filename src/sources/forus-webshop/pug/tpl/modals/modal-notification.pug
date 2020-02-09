@@ -7,7 +7,11 @@
                 .modal-icon(ng-if="$ctrl.icon")
                     img(ng-src="{{ $ctrl.icon }}")
                 .title(translate="{{ $ctrl.title }}")
-                .description(ng-if="$ctrl.description" translate="{{ $ctrl.description }}")
+                
+                .description(ng-if="$ctrl.description && !$ctrl.descriptionIsArray" translate="{{ $ctrl.description }}")
+                .description(ng-if="$ctrl.description && $ctrl.descriptionIsArray")
+                    div(ng-repeat="description in $ctrl.description" translate="{{ description }}")
+                
                 .description-small(ng-if="$ctrl.notice" translate="{{ $ctrl.notice }}")
                 .text-center(ng-if="$ctrl.subdescription"): .subdescription(translate="{{ $ctrl.subdescription }}")
 

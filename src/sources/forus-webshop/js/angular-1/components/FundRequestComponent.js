@@ -105,7 +105,11 @@ let FundRequestComponentDefault = function(
     $ctrl.startDigId = () => {
         DigIdService.startFundRequst($ctrl.fund.id).then(res => {
             document.location = res.data.redirect_url;
-        }, console.error);
+        }, res => {
+            $state.go('error', {
+                errorCode: res.headers('Error-Code')
+            });
+        });
     };
 
     // Initialize authorization form
@@ -465,35 +469,10 @@ let FundRequestComponentDefault = function(
                     } else {
                         $ctrl.cleanReload();
                     }
-                } else if ($stateParams.digid_error == 'unknown_error') {
-                    PushNotificationsService.danger(
-                        "Error error",
-                    );
-                    $ctrl.cleanReload();
-                } else if ($stateParams.digid_error == 'uid_used') {
-                    PushNotificationsService.danger(
-                        "BSN number used",
-                        "The BSN number returned by DigID was already claimend by another identity."
-                    );
-                    $ctrl.cleanReload();
-                } else if ($stateParams.digid_error == 'uid_dont_match') {
-                    PushNotificationsService.danger(
-                        "BSN differ",
-                        "The BSN number returned by DigID doesn't match BSN number registered by your identity."
-                    );
-                    $ctrl.cleanReload();
-                } else if ($stateParams.digid_error == 'error_0040') {
-                    PushNotificationsService.danger(
-                        "Canceled",
-                        "You canceled DigID authentication."
-                    );
-                    $ctrl.cleanReload();
-                } else if ($stateParams.digid_error && $stateParams.digid_error.indexOf('error_') === 0) {
-                    PushNotificationsService.danger(
-                        "Failed",
-                        "Error code " + $stateParams.digid_error + " encountered."
-                    );
-                    $ctrl.cleanReload();
+                } else if ($stateParams.digid_error) {
+                    return $state.go('error', {
+                        errorCode: 'digid_' + $stateParams.digid_error
+                    });
                 } else {
                     FundRequestService.index($ctrl.fund.id).then((res) => {
                         if (res.data.data.length > 0) {
@@ -544,9 +523,9 @@ module.exports = {
         'appConfigs',
         FundRequestComponent
     ],
-    templateUrl: (appConfigs) => {
+    templateUrl: ['appConfigs', (appConfigs) => {
         return 'assets/tpl/pages/fund-request' + (
             appConfigs.features.auto_validation ? '-auto' : ''
         ) + '.html';
-    }
+    }]
 };

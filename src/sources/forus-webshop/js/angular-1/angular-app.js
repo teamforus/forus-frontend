@@ -34,6 +34,8 @@ app.component('recordCreateComponent', require('./components/RecordCreateCompone
 app.component('meComponent', require('./components/MeComponent'));
 app.component('emailPreferencesComponent', require('./components/EmailPreferencesComponent'));
 app.component('accessibilityComponent', require('./components/AccessibilityComponent'));
+app.component('errorComponent', require('./components/ErrorComponent'));
+app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -73,8 +75,8 @@ app.service('FileService', require('./services/FileService'));
 app.service('DigIdService', require('./services/DigIdService'));
 app.service('PushNotificationsService', require('./services/PushNotificationsService'));
 app.service('LocalStorageService', require('./services/LocalStorageService'));
-app.service('VoucherRedeemStorageService', require('./services/VoucherRedeemStorageService'));
 app.service('ProvidersService', require('./services/ProvidersService'));
+app.service('SessionService', require('./services/SessionService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
@@ -125,6 +127,7 @@ app.component('modalAuthCodeComponent', require('./components/Modals/ModalAuthCo
 app.component('modalShareVoucherComponent', require('./components/Modals/ModalShareVoucherComponent'));
 app.component('modalOpenInMeComponent', require('./components/Modals/ModalOpenInMeComponent'));
 app.component('modalProductApplyComponent', require('./components/Modals/ModalProductApplyComponent'));
+app.component('modalIdentityProxyExpiredComponent', require('./components/Modals/ModalIdentityProxyExpiredComponent'));
 
 // Printable Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -145,6 +148,8 @@ app.filter('currency_format', require('./filters/CurrencyFormatFilter'));
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('i18n', require('./filters/I18nFilter'));
+app.filter('duration', require('./filters/DurationFilter'));
+app.filter('duration_last_time', require('./filters/DurationLastTimeFilter'));
 
 // Config
 app.config(require('./routers/printables'));

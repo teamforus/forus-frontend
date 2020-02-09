@@ -1,15 +1,50 @@
 let OrganizationEmployeesComponent = function(
-    $state,
+    $q,
+    $scope,
+    $timeout,
     ModalService,
     OrganizationEmployeesService
 ) {
     let $ctrl = this;
 
+    $ctrl.loaded = false;
+    $ctrl.filters = {
+        values: {},
+    };
+
+    $ctrl.transformEmployee = (employee) => {
+        employee.rolesList = employee.roles.map(role => role.name).sort(
+            (a, b) => a == b ? 0 : (a < b ? -1 : 1)
+        ).join(', ');
+
+        return employee;
+    };
+
+    $ctrl.transformEmployeesList = (employees) => {
+        return employees.map(employee => $ctrl.transformEmployee(employee));
+    };
+
+    $scope.onPageChange = async (query) => {
+        return $q((resolve, reject) => {
+            OrganizationEmployeesService.list(
+                $ctrl.organization.id, 
+                Object.assign({}, query, $ctrl.filters.values)
+            ).then((res => {
+                $ctrl.employees = {
+                    meta: res.data.meta,
+                    data: $ctrl.transformEmployeesList(res.data.data),
+                };
+
+                resolve($ctrl.employees);
+            }), reject);
+        });
+    };
+
     $ctrl.$onInit = function() {
-        $ctrl.employees.forEach(employee => {
-            employee.rolesList = employee.roles.map(role => role.name).sort(
-                (a, b) => a == b ? 0 : (a < b ? -1 : 1)
-            ).join(', ');
+        $scope.onPageChange().then(() => {
+            $timeout(() => {
+                $ctrl.loaded = true;
+            }, 0);
         });
     };
 
@@ -23,7 +58,11 @@ let OrganizationEmployeesComponent = function(
             roles: $ctrl.roles,
             employee: employee,
             submit: () => {
-                $state.reload();
+                $scope.onPageChange({
+                    page: employee ? 
+                        $ctrl.employees.meta.current_page : 
+                        $ctrl.employees.meta.last_page
+                });
             }
         });
     };
@@ -33,7 +72,9 @@ let OrganizationEmployeesComponent = function(
             employee.organization_id,
             employee.id
         ).then((res) => {
-            $state.reload();
+            $scope.onPageChange({
+                page: $ctrl.employees.meta.current_page
+            });
         }, console.error);
     }
 };
@@ -45,7 +86,9 @@ module.exports = {
         employees: '<'
     },
     controller: [
-        '$state',
+        '$q',
+        '$scope',
+        '$timeout',
         'ModalService',
         'OrganizationEmployeesService',
         OrganizationEmployeesComponent

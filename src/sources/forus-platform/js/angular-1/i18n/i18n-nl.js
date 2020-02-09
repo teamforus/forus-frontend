@@ -715,7 +715,6 @@ module.exports = {
             description: 'Aanmelden voor een fonds is alleen mogelijk via onze website op een vaste computer.'
         },
         sms:{
-            body: 'Download Me makkelijk via de link: https://www.forus.io/DL',
             title: 'Download <i>Me</i> op uw mobiele telefoon',
             description: 'Vul uw telefoonnummer in het onderstaande invoerveld om een sms te ontvangen met de download link.',
             subdescription: 'Krijgt u geen sms dan kunt u <i>Me</i> downloaden via de link <b>www.forus.io/DL</b> op uw mobiele telefoon.',
@@ -772,7 +771,8 @@ module.exports = {
             fund_state: "Status fonds",
             amount: "Bedrag",
             amount_min: "0",
-            amount_max: "Alles"
+            amount_max: "Alles",
+            total_amount: "Omzet",
         },
         buttons: {
             previous: "Vorige",
@@ -896,7 +896,7 @@ module.exports = {
             week: "Week",
             all: "Alles",
             usage: "omzet",
-            average: "Totaal uitgegeven bedrag",
+            average: "Gemiddelde transactiegrootte",
             transaction: "transacties",
             price: "BEDRAG",
             date: "DATUM",

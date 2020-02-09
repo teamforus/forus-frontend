@@ -36,8 +36,8 @@ if (qdt_c.platform.env_data.client_key == 'general')
                 .col.col-md-2
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="/sponsor/" target="_self") SPONSOR
-                        .footer-nav-item: a(href="/provider/" target="_self") PROVIDER
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_sponsor }}" target="_self") SPONSOR
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}" target="_self") PROVIDER
                         //-.footer-nav-item: a(href="/validator/") VALIDATOR
                 
                 //-.col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
@@ -95,8 +95,8 @@ else if (qdt_c.platform.env_data.client_key == 'forus')
                 .col.col-md-2
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="/sponsor/" target="_self") SPONSOR
-                        .footer-nav-item: a(href="/provider/" target="_self") PROVIDER
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_sponsor }}" target="_self") SPONSOR
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}" target="_self") PROVIDER
                         //-.footer-nav-item: a(href="/validator/") VALIDATOR
                 
                 //-.col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
@@ -168,8 +168,8 @@ else if (qdt_c.platform.env_data.client_key == 'zuidhorn')
                 .col.col-md-3
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="/provider/" target="_self") Bent u een winkelier in Zuidhorn en wilt u meer informatie?
-                        .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van een gemeente en wilt u meer informatie?
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}" target="_self") Bent u een winkelier in Zuidhorn en wilt u meer informatie?
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_sponsor }}" target="_self") Bent u een medewerker van een gemeente en wilt u meer informatie?
                 
         .block.block-copyrights: .wrapper
             .copyrights © 2018 Forus.io
@@ -230,8 +230,8 @@ else if (qdt_c.platform.env_data.client_key == 'nijmegen')
                 .col.col-md-4
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van de gemeente Nijmegen en wilt u meer informatie?
-                        .footer-nav-item: a(href="/provider/" target="_self") Bent u een aanbieder en wilt u meer informatie?
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_sponsor }}" target="_self") Bent u een medewerker van de gemeente Nijmegen en wilt u meer informatie?
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}" target="_self") Bent u een aanbieder en wilt u meer informatie?
                     .block.block-app_download(style="margin-top:15px;"): .footer-label(style="margin-bottom:0px;") Download Me-app
                         .wrapper
                             a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
@@ -263,10 +263,10 @@ else if (qdt_c.platform.env_data.client_key == 'berkelland')
                     //-img(src="./assets/img/logo-bw.png").footer-logo
                     .footer-schedule
                         .schedule-label E-mailadres:		
-                        .schedule-value minima@socialedienstoostachterhoek.nl
+                        .schedule-value info@socialedienstoostachterhoek.nl
                     .footer-schedule
                         .schedule-label Telefoonnummer:		
-                        .schedule-value 0554-474200
+                        .schedule-value 0544-474200
                     .footer-schedule
                         .schedule-label Adres:		
                         .schedule-value 
@@ -302,8 +302,8 @@ else if (qdt_c.platform.env_data.client_key == 'berkelland')
                 .col.col-md-4
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van de gemeente Berkelland en wilt u meer informatie?
-                        .footer-nav-item: a(href="/provider/" target="_self") Bent u een aanbieder en wilt u meer informatie?
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_sponsor }}" target="_self") Bent u een medewerker van de gemeente Berkelland en wilt u meer informatie?
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}" target="_self") Bent u een aanbieder en wilt u meer informatie?
                     .block.block-app_download(style="margin-top:15px;"): .footer-label(style="margin-bottom:0px;") Download Me-app
                         .wrapper
                             a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
@@ -316,7 +316,7 @@ else if (qdt_c.platform.env_data.client_key == 'berkelland')
         .block.block-copyrights: .wrapper
             .copyrights 
             .links
-                a(href="https://www.socialedienstoostachterhoek.nl/uitkering/bijzondere-bijstand-minimabeleid/regelingen-bijzondere-bijstand-en-minimabeleid/" target="_blank") Algemene Voorwaarden
+                a(href="https://www.socialedienstoostachterhoek.nl/uitkering/Bijzondere-bijstandminimabeleid/Regelingen-bijzondere-bijstand-en-minimabeleid/" target="_blank") Algemene Voorwaarden
                 .link-separator
                 a(href="https://www.socialedienstoostachterhoek.nl/privacy-verklaring/" target="_blank") Privacy Statement
                 .link-separator
@@ -335,10 +335,10 @@ else if (qdt_c.platform.env_data.client_key == 'winterswijk')
                     //-img(src="./assets/img/logo-bw.png").footer-logo
                     .footer-schedule
                         .schedule-label E-mailadres:		
-                        .schedule-value minima@socialedienstoostachterhoek.nl
+                        .schedule-value info@socialedienstoostachterhoek.nl
                     .footer-schedule
                         .schedule-label Telefoonnummer:		
-                        .schedule-value 0554-474200
+                        .schedule-value 0544-474200
                     .footer-schedule
                         .schedule-label Adres:		
                         .schedule-value 
@@ -375,8 +375,8 @@ else if (qdt_c.platform.env_data.client_key == 'winterswijk')
                 .col.col-md-4
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van de gemeente Winterswijk en wilt u meer informatie?
-                        .footer-nav-item: a(href="/provider/" target="_self") Bent u een aanbieder en wilt u meer informatie?
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_sponsor }}" target="_self") Bent u een medewerker van de gemeente Winterswijk en wilt u meer informatie?
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}" target="_self") Bent u een aanbieder en wilt u meer informatie?
                     .block.block-app_download(style="margin-top:15px;"): .footer-label(style="margin-bottom:0px;") Download Me-app
                         .wrapper
                             a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
@@ -389,7 +389,7 @@ else if (qdt_c.platform.env_data.client_key == 'winterswijk')
         .block.block-copyrights: .wrapper
             .copyrights 
             .links
-                a(href="https://www.socialedienstoostachterhoek.nl/uitkering/bijzondere-bijstand-minimabeleid/regelingen-bijzondere-bijstand-en-minimabeleid/" target="_blank") Algemene Voorwaarden
+                a(href="https://www.socialedienstoostachterhoek.nl/uitkering/Bijzondere-bijstandminimabeleid/Regelingen-bijzondere-bijstand-en-minimabeleid/" target="_blank") Algemene Voorwaarden
                 .link-separator
                 a(href="https://www.socialedienstoostachterhoek.nl/privacy-verklaring/" target="_blank") Privacy Statement
                 .link-separator
@@ -408,10 +408,10 @@ else if (qdt_c.platform.env_data.client_key == 'oostgelre')
                     //-img(src="./assets/img/logo-bw.png").footer-logo
                     .footer-schedule
                         .schedule-label E-mailadres:		
-                        .schedule-value minima@socialedienstoostachterhoek.nl
+                        .schedule-value info@socialedienstoostachterhoek.nl
                     .footer-schedule
                         .schedule-label Telefoonnummer:		
-                        .schedule-value 0554-474200
+                        .schedule-value 0544-474200
                     .footer-schedule
                         .schedule-label Adres:		
                         .schedule-value 
@@ -448,8 +448,8 @@ else if (qdt_c.platform.env_data.client_key == 'oostgelre')
                 .col.col-md-4
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van de gemeente Oost gelre en wilt u meer informatie?
-                        .footer-nav-item: a(href="/provider/" target="_self") Bent u een aanbieder en wilt u meer informatie?
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_sponsor }}" target="_self") Bent u een medewerker van de gemeente Oost gelre en wilt u meer informatie?
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}" target="_self") Bent u een aanbieder en wilt u meer informatie?
                     .block.block-app_download(style="margin-top:15px;"): .footer-label(style="margin-bottom:0px;") Download Me-app
                         .wrapper
                             a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
@@ -462,7 +462,7 @@ else if (qdt_c.platform.env_data.client_key == 'oostgelre')
         .block.block-copyrights: .wrapper
             .copyrights 
             .links
-                a(href="https://www.socialedienstoostachterhoek.nl/uitkering/bijzondere-bijstand-minimabeleid/regelingen-bijzondere-bijstand-en-minimabeleid/" target="_blank") Algemene Voorwaarden
+                a(href="https://www.socialedienstoostachterhoek.nl/uitkering/Bijzondere-bijstandminimabeleid/Regelingen-bijzondere-bijstand-en-minimabeleid/" target="_blank") Algemene Voorwaarden
                 .link-separator
                 a(href="https://www.socialedienstoostachterhoek.nl/privacy-verklaring/" target="_blank") Privacy Statement
                 .link-separator
@@ -537,8 +537,8 @@ else if (qdt_c.platform.env_data.client_key == 'westerkwartier')
                 .col.col-md-3
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="/provider/" target="_self") Bent u een winkelier of vereniging en wilt u meer informatie?
-                        .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van de gemeente en wilt u meer informatie?
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}" target="_self") Bent u een winkelier of vereniging en wilt u meer informatie?
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_sponsor }}" target="_self") Bent u een medewerker van de gemeente en wilt u meer informatie?
                 
         .block.block-copyrights: .wrapper
             .copyrights 
@@ -601,8 +601,8 @@ else if (qdt_c.platform.env_data.client_key == 'kerstpakket')
                 .col.col-md-4
                     .footer-label 
                     nav.footer-nav
-                        .footer-nav-item: a(href="/sponsor/" target="_self") 
-                        .footer-nav-item: a(href="/provider/" target="_self")
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_sponsor }}" target="_self") 
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}" target="_self")
                     nav.footer-nav(style="margin-top:0; padding:0;")
                         .footer-nav-item: a(ui-sref="me-app")
                 
@@ -671,16 +671,16 @@ else if (qdt_c.platform.env_data.client_key == 'noordoostpolder')
                 .col.col-md-4
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="/sponsor/" target="_self") Bent u een medewerker van de gemeente Noordoostpolder en wilt u meer informatie?
-                        .footer-nav-item: a(href="/provider/" target="_self") Bent u een aanbieder en wilt u meer informatie?
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_sponsor }}" target="_self") Bent u een medewerker van de gemeente Noordoostpolder en wilt u meer informatie?
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}" target="_self") Bent u een aanbieder en wilt u meer informatie?
                     .block.block-app_download(style="margin-top:15px;"): .footer-label(style="margin-bottom:0px;") Download Me-app
-                        .wrapper
+                        .block
                             a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
-                                img(src="./assets/img/icon-app/play-store-badge.png")
+                                img(src="./assets/img/icon-app/icon-app-android.svg")
                             a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
-                                img(src="./assets/img/icon-app/app-store-badge.svg")
+                                img(src="./assets/img/icon-app/icon-app-ios.svg")
                     nav.footer-nav(style="margin-top:0; padding:0;")
-                        .footer-nav-item: a(ui-sref="me-app") Wilt u meer informatie over de Me-app?		
+                        .footer-nav-item: a(ui-sref="me-app") Wilt u meer informatie over de Me-app?	
                 .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
                     .footer-label Ontvang onze nieuwsbrief
                     .form

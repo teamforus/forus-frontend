@@ -91,7 +91,9 @@
                                 td(ng-bind="$ctrl.statesKeyValue[transaction.state]")
                     
             .card-section: .table-pagination
-                button(ng-click="$ctrl.exportList()").button.button-primary.pull-right
+                .table-pagination-counter(ng-if="$ctrl.transactions.data.length") {{ "transactions.labels.total_amount" | translate }} {{ $ctrl.transactionsTotal | currency_format }}
+                
+                .table-pagination-navigation: button(ng-click="$ctrl.exportList()").button.button-primary.pull-right
                     em.mdi.mdi-download.icon-start  
                     span(i18n="transactions.buttons.export")
 
