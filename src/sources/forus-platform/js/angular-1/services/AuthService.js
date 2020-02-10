@@ -1,11 +1,9 @@
 module.exports = [
-    'ApiRequest',
     'CredentialsService',
-    'IdentityService',
+    // 'IdentityService',
     function(
-        ApiRequest,
         CredentialsService,
-        IdentityService
+        // IdentityService
     ) {
         let subscriptions = {};
 
@@ -22,32 +20,21 @@ module.exports = [
                 subscriptions[action].push(callback);
             };
 
-
-            this.signIn = function(values) {
-                return new Promise(function(resolve, reject) {
-                    ApiRequest.post('/shop-keepers/devices', values).then((res) => {
-                        if (subscriptions.signIn && Array.isArray(subscriptions.signIn)) {
-                            subscriptions.signIn.forEach((callback) => {
-                                callback();
-                            });
-                        }
-
-                        resolve(res);
-                    }, reject);
-                });
-            };
-
             this.signOut = function() {
-                CredentialsService.set(null);
+                return new Promise((done) => {
+                    CredentialsService.set(null);
 
-                if (subscriptions.signIn && Array.isArray(subscriptions.signOut)) {
-                    subscriptions.signOut.forEach((callback) => {
-                        callback();
-                    });
-                }
+                    if (subscriptions.signIn && Array.isArray(subscriptions.signOut)) {
+                        subscriptions.signOut.forEach((callback) => {
+                            callback();
+                        });
+                    }
+
+                    done();
+                })
             };
 
-            this.identity = function(credentails) {
+            /* this.identity = function(credentails) {
                 if (CredentialsService.get()) {
                     return IdentityService.identity();
                 }
@@ -55,7 +42,7 @@ module.exports = [
                 return new Promise(function(resolve, reject) {
                     resolve(null);
                 });
-            };
+            }; */
         });
     }
 ];

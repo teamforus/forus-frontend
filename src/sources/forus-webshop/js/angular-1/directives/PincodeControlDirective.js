@@ -42,9 +42,9 @@ let PincodeControlDirective = function(
     };
 
     $scope.$watch('ngModel', function() {
-        $scope.filler = new Array(totalSize - (
+        $scope.filler = new Array(Math.max(totalSize - (
             $scope.ngModel ? ($scope.ngModel.toString().length) : 0
-        ));
+        ), 0));
 
         $scope.updateInput();
     });
@@ -56,11 +56,15 @@ let PincodeControlDirective = function(
 
         return ((key >= 48 && key <= 57) || (key >= 96 && key <= 105) || (key >= 65 && key <= 90)) &&
             $scope.ngModel.length < totalSize;
-    });
+    }).bind('paste', (e) => e.preventDefault() && e.stopPropagation());
 
     $('body').bind('keydown', (e) => {
         $timeout(function() {
             var key = e.charCode || e.keyCode || 0;
+
+            if (e.originalEvent.ctrlKey || e.originalEvent.shiftKey || e.altKey || e.metaKey) {
+                return false;
+            }
 
             if (key == 8 || key == 46) {
                 $scope.ngModel = $scope.ngModel.slice(0, $scope.ngModel.length - 1);

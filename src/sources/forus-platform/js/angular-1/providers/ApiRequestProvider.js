@@ -12,13 +12,13 @@ module.exports = function() {
         this.$get = [
             '$q',
             '$http',
-            '$state',
+            '$rootScope',
             'appConfigs',
             'CredentialsService',
             function(
                 $q,
                 $http,
-                $state,
+                $rootScope,
                 appConfigs,
                 CredentialsService
             ) {
@@ -105,10 +105,7 @@ module.exports = function() {
                             done(response);
                         }, function(response) {
                             if (response.status == 401) {
-                                CredentialsService.delete(CredentialsService.get());
-                                CredentialsService.set(null);
-
-                                $state.go('home');
+                                $rootScope.signOut();
                             }
 
                             reject(response);

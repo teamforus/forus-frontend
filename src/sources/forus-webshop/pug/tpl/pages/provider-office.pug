@@ -43,7 +43,7 @@ block content
                 .pane-section
                     .office-organization(ng-click="$ctrl.toggleOffices($event, $ctrl.provider)")
                         .organization-photo(ng-click="$ctrl.goToProvider($event, $ctrl.provider)")
-                            img(src="/assets/img/placeholders/organization-thumbnail.png").organization-photo-img
+                            img(ng-src="{{ $ctrl.imageUrl }}").organization-photo-img
                         .organization-title
                             .organization-title-value(ng-click="$ctrl.goToProvider($event, $ctrl.provider)" ng-bind="$ctrl.provider.name")
                             .organization-title-count(ng-click="$ctrl.goToProvider($event, $ctrl.provider)" ng-bind="$ctrl.provider.offices.length")
