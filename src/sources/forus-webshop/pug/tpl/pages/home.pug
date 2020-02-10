@@ -58,10 +58,7 @@ header.section.section-header.section-header-landing
 .page.page-home
     .wrapper.block-products: block-products(
         ng-if="$ctrl.appConfigs.flags.homeProducts"
-        sample="true" 
-        products="$ctrl.products" 
-        product-categories="$ctrl.productCategories")
-
+        sample="true")
     section.section.section-map(ng-if="$ctrl.appConfigs.flags.homeMap"): .wrapper
         .block.block-map
             .block-content
