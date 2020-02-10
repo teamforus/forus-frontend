@@ -4,17 +4,22 @@ block content
         top-navbar
         
         .showcase-wrapper
+            mixin search_results(total, show = "true")
+                .showcase-title(ng-if=show)= "Er zijn " + "{{" + total + "}}" + " aanbieders gevonden"
+                .showcase-subtitle(ng-if=show) Selecteer een organisatie voor meer informatie
+
             .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
                 .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
                 .mobile-filters-title Zoek op categorieen en fondsen
                 .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
 
-            .showcase-title Er zijn {{ $ctrl.providers.meta.total }} aanbieders gevonden
-            .showcase-subtitle Selecteer een organisatie voor meer informatie
+            +search_results('$ctrl.providers.meta.total')
             
             .showcase-layout
                 .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
                     .showcase-aside-block
+                        +search_results('$ctrl.providers.meta.total', '$ctrl.showMap')
+                        
                         .form-group
                             input.form-control(
                                 ng-model="$ctrl.form.values.q"
@@ -64,7 +69,6 @@ block content
                                     ).organization-logo-img
                                 .organization-title
                                     .organization-title-value(ng-click="$ctrl.goToProvider($event, provider)" ng-bind="provider.name")
-                                    .organization-title-count(ng-click="$ctrl.goToProvider($event, provider)" ng-bind="provider.offices.length")
                                 .organization-chevron
                                     .mdi(ng-class="'mdi-chevron-' + (($ctrl.officesShown.indexOf(provider.id) != -1) ? 'up' : 'right')")
 

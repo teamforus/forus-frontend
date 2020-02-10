@@ -49,7 +49,7 @@ header.section.section-header.section-header-landing
             br
             
             a(ng-if="!$root.auth_user" scroll-to="#steps" i18n="Hoe werkt het?").header-how-it-works
-            a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" href="#!/me-app" target="_blank").header-how-it-works
+            a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" href="#!/me" target="_blank").header-how-it-works
             //- usage example: 
             //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
             //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
@@ -146,7 +146,7 @@ header.section.section-header.section-header-landing
                 'home.faq.{{ $root.client_key }}.faq_eight',
                 'home.faq.{{ $root.client_key }}.eight',
                 '{{ "home.faq.faq_eight" | translate:{ fund: $ctrl.funds[0].name } }}',
-                '{{ "home.faq.eight" | translate }}')
+                '{{ "home.faq.eight" | translate:{ start_date: $ctrl.funds[0].start_date_locale } }}')
 
             +faq_item(
                 'home.faq.{{ $root.client_key }}.faq_nine',
@@ -170,7 +170,7 @@ header.section.section-header.section-header-landing
                 'home.faq.{{ $root.client_key }}.faq_twelve',
                 'home.faq.{{ $root.client_key }}.twelve',
                 '{{ "home.faq.faq_twelve" | translate:{ fund: $ctrl.funds[0].name } }}',
-                '{{ "home.faq.twelve" | translate }}')
+                '{{ "home.faq.twelve" | translate:{ fund: $ctrl.funds[0].name } }}')
 
             +faq_item(
                 'home.faq.{{ $root.client_key }}.faq_thirteen',

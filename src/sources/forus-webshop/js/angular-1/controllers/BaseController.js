@@ -26,9 +26,8 @@ let BaseController = function(
                 // sign out after :timer of inactivity (default: 15min)
                 BrowserService.detectInactivity(timer).then(() => {
                     if (AuthService.hasCredentials()) {
-                        IdentityService.deleteToken();
                         $rootScope.signOut();
-    
+
                         ModalService.open('modalNotification', {
                             type: 'info',
                             description: 'modal.logout.description'
@@ -73,8 +72,35 @@ let BaseController = function(
 
     $rootScope.activeOrganization = OrganizationService.active();
 
-    $rootScope.signOut = () => {
+    $rootScope.signOut = (
+        $event = null,
+        needConfirmation = false,
+        deleteToken = true
+    ) => {
+        if ($event && typeof $event.preventDefault != 'undefined') {
+            $event.preventDefault();
+            $event.stopPropagation();
+        };
+
+        if (needConfirmation) {
+            return ModalService.open('modalNotification', {
+                type: "confirm",
+                title: "Weet u zeker dat u wilt uitloggen?",
+                confirmBtnText: "Ja",
+                cancelBtnText: "Nee",
+                confirm: () => {
+                    $rootScope.signOut();
+                },
+                cancel: () => {}
+            });
+        }
+
+        if (deleteToken) {
+            IdentityService.deleteToken();
+        }
+
         AuthService.signOut();
+
         $state.go('home');
         $rootScope.auth_user = false;
     };
@@ -92,7 +118,7 @@ let BaseController = function(
     $rootScope.pageTitle = $filter('translate')('page_title');
     $rootScope.client_key = appConfigs.client_key;
 
-    $window.onbeforeunload = function (event) {
+    $window.onbeforeunload = function(event) {
         BrowserService.unsetInactivity();
     };
 

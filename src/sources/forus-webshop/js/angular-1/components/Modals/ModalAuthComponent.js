@@ -1,4 +1,5 @@
 let ModalAuthComponent = function(
+    $state,
     $timeout,
     $rootScope,
     AuthService,
@@ -39,6 +40,12 @@ let ModalAuthComponent = function(
     $ctrl.startDigId = () => {
         DigIdService.startAuthRestore().then((res) => {
             document.location = res.data.redirect_url;
+        }, res => {
+            $ctrl.close();
+
+            $state.go('error', {
+                errorCode: res.headers('Error-Code')
+            });
         });
     }
 
@@ -94,6 +101,9 @@ let ModalAuthComponent = function(
         IdentityService.checkAccessToken(access_token).then((res) => {
             if (res.data.message == 'active') {
                 $ctrl.applyAccessToken(access_token);
+                $timeout(function(){
+                    $state.go('vouchers');
+                }, 2500);
             } else if (res.data.message == 'pending') {
                 timeout = $timeout(function() {
                     $ctrl.checkAccessTokenStatus(type, access_token);
@@ -130,6 +140,7 @@ module.exports = {
         modal: '='
     },
     controller: [
+        '$state',
         '$timeout',
         '$rootScope',
         'AuthService',

@@ -70,7 +70,7 @@ block content
                                         | {{ "block_products.labels.new" | translate }} {{ product.price | currency_format }}
                     
                     .block.block-products-list(ng-if="$ctrl.products.data.length > 0 && $ctrl.display_type == 'list'")
-                        .product-item(
+                        a.product-item(
                             ng-repeat="product in $ctrl.products.data" 
                             ng-class="{discounted:product.old_price}"
                             ui-sref="products-show(product)")

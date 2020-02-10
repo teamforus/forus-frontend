@@ -78,5 +78,5 @@ module.exports = {
         'PushNotificationsService',
         EmailPreferencesComponent
     ],
-    templateUrl: 'assets/tpl/pages/email-preferences.html'
+    templateUrl: 'assets/tpl/pages/preferences/notifications.html'
 };

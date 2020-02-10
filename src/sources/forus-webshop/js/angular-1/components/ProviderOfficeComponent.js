@@ -33,6 +33,14 @@ let ProviderOfficeComponent = function(
             schedules[schedule.week_day] = schedule;
             return schedules;
         }, {});
+
+        if ($ctrl.office.photo) {
+            $ctrl.imageUrl = $ctrl.office.photo.sizes.thumbnail;
+        } else if ($ctrl.office.organization.logo) {
+            $ctrl.imageUrl = $ctrl.office.organization.logo.sizes.thumbnail;
+        } else {
+            $ctrl.imageUrl = 'assets/img/placeholders/office-thumbnail.png';
+        }
     };
     
     $ctrl.$onDestroy = () => {};

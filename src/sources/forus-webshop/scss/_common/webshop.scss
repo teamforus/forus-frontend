@@ -38,9 +38,7 @@
 @import 'components/table-pagination';
 
 // SECTIONS
-@import 'sections/blogs.scss',
-'sections/contact_form.scss',
-'sections/faq.scss',
+@import 'sections/faq.scss',
 'sections/flow.scss',
 'sections/funds.scss',
 'sections/map.scss',
@@ -50,7 +48,6 @@
 
 // BLOCKS
 @import 'sections/blocks/apply_fund.scss',
-'sections/blocks/blogs.scss',
 'sections/blocks/cards.scss',
 'sections/blocks/empty.scss',
 'sections/blocks/fund_criteria.scss',
@@ -93,6 +90,8 @@
     @import 'sections/blocks/block-pane.scss';
     @import 'sections/blocks/block-data-list.scss';
     @import 'sections/blocks/block-schedule-list.scss';
+    @import 'sections/blocks/block-accessibility.scss';
 
     @import 'sections/blocks/block-map-office-card.scss';
+    @import 'sections/blocks/block-sessions.scss';
 }

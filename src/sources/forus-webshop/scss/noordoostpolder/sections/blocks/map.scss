@@ -1,0 +1,7 @@
+.block {
+    @media screen and (max-width: 1700px) {
+        &.block-map {
+            padding: 120px 0 240px;
+        }
+    }
+}

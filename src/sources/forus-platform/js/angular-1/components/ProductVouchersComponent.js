@@ -82,27 +82,15 @@ let ProductVouchersComponent = function(
         });
     };
 
-    $ctrl.downloadExampleCsv = () => {
-        ProductService.listAll({
-            fund_id: $ctrl.fund.id
-        }).then((res) => {
-            let products = res.data.data;
-            let productsIds = products.map(
-                product => parseInt(product.id)
-            );
-        
-            FileService.downloadFile(
-                'voucher_upload_sample.csv',
-                VoucherService.sampleCSV('product_voucher', productsIds[0])
-            );
-        });
-    };
-
     $ctrl.onPageChange = (query) => {
         let _query = JSON.parse(JSON.stringify(query));
 
-        _query.from = _query.from ? DateService._frontToBack(_query.from) : null;
-        _query.to = _query.to ? DateService._frontToBack(_query.to) : null;
+        _query = Object.assign(_query, {
+            'from': _query.from ? DateService._frontToBack(_query.from) : null,
+            'to': _query.to ? DateService._frontToBack(_query.to) : null,
+            'sort_by': 'created_at',
+            'sort_order': 'desc'
+        });
 
         VoucherService.index(
             $ctrl.organization.id,

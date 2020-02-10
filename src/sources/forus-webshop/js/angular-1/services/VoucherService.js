@@ -71,7 +71,7 @@ let VoucherService = function(
                 }
             } else if (voucher.type == 'product') {
                 title = voucher.product.name;
-                subtitle = null;
+                subtitle = voucher.product.organization.name;
 
                 if (voucher.product.photo) {
                     thumbnail = voucher.product.photo.sizes.thumbnail;
