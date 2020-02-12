@@ -8,15 +8,18 @@
                 em.mdi.mdi-plus-circle 
                 | {{ "products.add" | translate }}
                 |
-                span(ng-if="$ctrl.maxProductCount > 0") ({{ $ctrl.products.length }}/{{ $ctrl.maxProductCount }})
+                span(ng-if="$ctrl.maxProductCount > 0") ({{ $ctrl.products.data.length }}/{{ $ctrl.products.meta.total }})
 
         product-card(
-            ng-if="$ctrl.products.length > 0" 
-            ng-repeat="product in $ctrl.products" 
+            ng-if="$ctrl.products.data.length > 0" 
+            ng-repeat="product in $ctrl.products.data" 
             product="product" 
             level="list")
+
+        .card-section(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")
+            paginator(meta="$ctrl.products.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="onPageChange(query)")
         
         block-empty(
-            ng-if="$ctrl.products.length == 0" 
+            ng-if="$ctrl.products.data.length == 0" 
             text="Er zijn momenteel geen aanbiedingen." 
             button="{text: 'Aanbieding toevoegen', href: $ctrl.emptyBlockLink}")
