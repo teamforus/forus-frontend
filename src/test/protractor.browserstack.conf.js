@@ -1,33 +1,26 @@
-exports.config = {
-    //seleniumAddress: 'http://localhost:4444/wd/hub',
-    specs: ['testcase_1.js'],
+var browserstack = require('browserstack-local');
+var MailListerner = require('mail-listener2');
 
-    //seleniumServerJar: './node_modules/selenium/lib/runner/selenium-server-standalone-2.20.0.jar',
+
+exports.config = {
+    'seleniumAddress': 'http://hub-cloud.browserstack.com/wd/hub',
+
+    //specs: ['testcase_1.js'],
 
     capabilities: {
         'browserstack.user': 'sjoerdhilhorst1',
         'browserstack.key': 'AZgvLqjzR78nsGTF3Av7',
         'browserstack.local': true,
-        'browserName': 'firefox',
+        'browserName': 'chrome',
         'name': 'Bstack-[Protractor] Local Test'
     },
 
 
 
+    
+    // Code to start browserstack and maillistener local before start of test
     beforeLaunch: function(){
-
-        //generate random string for email
-        let r = Math.random().toString(36).substring(7);
-
-        //fill in environment variables before testing
-        var environment = {
-            url : "https://berkelland.staging.forus.io",
-            email : "forusemail123+".concat(r,"@gmail.com"),
-            activationcode : "833983c9"
-        }
-        
         var MailListener = require("mail-listener2");
-        
 
         // here goes your email connection configuration
         var mailListener = new MailListener({
@@ -61,8 +54,37 @@ exports.config = {
         
         global.url = url;
         global.mailListener = mailListener;
-        global.environment = environment;
+        
+        console.log("Connecting local");
+        return new Promise(function(resolve, reject){
+        
+            exports.bs_local = new browserstack.Local();
+        
+            exports.bs_local.start({'key': exports.config.capabilities['browserstack.key'] }, function(error) {
+                if (error){
+                    exports.bs_local.stop(resolve);
+                    return reject(error);
+                } 
+            console.log('Connected. Now testing...');
+            resolve();
+            });
+        });
+
+    },
+
+    // Code to stop browserstack local after end of test
+    afterLaunch: function(){
+        mailListener.stop();
+
+        return new Promise(function(resolve, reject){
+            exports.bs_local.stop(resolve);
+       });
+       
     }
 
+};
 
-  };
+
+
+
+

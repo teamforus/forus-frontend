@@ -766,10 +766,20 @@ gulp.task('default', gulp.series([
 
 
 // Setting up the test task
+gulp.task('browserstack', function(cb) {
+	gulp.src(['test/testcases/*.js']).pipe(protractor({
+		configFile: 'test/protractor.browserstack.conf.js'
+	})).on('error', function(e) {
+		console.log(e);
+	}).on('end', cb);
+});
+
+// Setting up the test task
 gulp.task('protractor', function(cb) {
-	gulp.src(['test/testcase_1.js']).pipe(protractor({
+	gulp.src(['test/testcases/*.js']).pipe(protractor({
 		configFile: 'test/protractor.conf.js'
 	})).on('error', function(e) {
 		console.log(e);
 	}).on('end', cb);
 });
+

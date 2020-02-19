@@ -4,8 +4,8 @@
   "description": "quick-dev-template",
   "main": "index.js",
   "scripts": {
-    "webdriver-update": "webdriver-manager update" 
-       ,"test": "echo \"Error: no test specified\" && exit 1"
+    "webdriver-update": "webdriver-manager update",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "HardCoderNET",
   "license": "MIT",
@@ -35,6 +35,7 @@
     "gulp-typescript": "6.0.0-alpha.1",
     "gulp-uglify": "3.0.2",
     "jadeify": "4.7.0",
+    "mail-listener2": "^0.3.1",
     "pugify": "2.2.0",
     "stream-combiner": "0.2.2",
     "tsify": "4.0.1",
@@ -54,9 +55,11 @@
     "angular-translate-storage-local": "^2.18.1",
     "angularjs-datepicker": "^2.1.23",
     "bootstrap": "^3.4.1",
+    "browserstack-local": "^1.4.5",
     "chart.js": "^2.9.3",
     "file-saver": "^2.0.2",
     "gulp-protractor": "^4.1.1",
+    "imap": "^0.8.19",
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
     "nanoscroller": "^0.8.7",
