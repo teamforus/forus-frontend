@@ -21,7 +21,14 @@
 @import 'components/buttons';
 @import 'components/button-groups';
 @import 'components/grid';
+@import 'components/labels';
 @import 'components/flex-grid';
+
+// blocks
+.block {
+    @import 'blocks/block-sessions';
+}
+
 
 $borderRadius: $border_radius;
 $colorPrimary: $color_primary;
@@ -260,7 +267,6 @@ $colorPrimaryLight: $color_primary_light;
 
             .auth-user {
                 position: relative;
-                padding-top: 5px;
                 padding-bottom: 15px;
                 margin-bottom: -10px;
                 @include cf();
@@ -271,7 +277,7 @@ $colorPrimaryLight: $color_primary_light;
                 .auth-user-details {
                     display: flex;
                     flex-direction: column;
-                    padding-right: 10px;
+                    padding: 5px 10px 5px 0;
 
                     .auth-user-name {
                         font: 500 14px/20px $bf;
@@ -376,6 +382,7 @@ $colorPrimaryLight: $color_primary_light;
 
     &.app-sidebar {
         width: 320px;
+        min-height: 200px;
         float: left;
         padding-right: 60px;
 

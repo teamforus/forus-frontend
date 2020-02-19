@@ -2,13 +2,14 @@ let FundService = function(ApiRequest) {
     let uriPrefix = '/platform/organizations/';
 
     return new (function() {
-        this.list = function(organization_id) {
+        this.list = function(organization_id, data = {}) {
             if (organization_id) {
                 return ApiRequest.get(
-                    uriPrefix + organization_id + '/funds'
+                    uriPrefix + organization_id + '/funds',
+                    data || {}
                 );
             }
-            return ApiRequest.get('/platform/funds');
+            return ApiRequest.get('/platform/funds', data || {});
         };
 
         this.store = function(organization_id, values) {

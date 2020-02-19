@@ -56,7 +56,7 @@ let ProductsEditComponent = function(
         };
 
         $ctrl.form = FormBuilderService.build(values, async (form) => {
-            if ($ctrl.product && form.values.stock_amount < 0) {
+            if ($ctrl.product && !$ctrl.product.unlimited_stock && form.values.stock_amount < 0) {
                 return $ctrl.form.errors.stock_amount = [
                     'Nog te koop moet minimaal 0 zijn.'
                 ];

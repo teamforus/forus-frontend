@@ -85,8 +85,12 @@ let ProductVouchersComponent = function(
     $ctrl.onPageChange = (query) => {
         let _query = JSON.parse(JSON.stringify(query));
 
-        _query.from = _query.from ? DateService._frontToBack(_query.from) : null;
-        _query.to = _query.to ? DateService._frontToBack(_query.to) : null;
+        _query = Object.assign(_query, {
+            'from': _query.from ? DateService._frontToBack(_query.from) : null,
+            'to': _query.to ? DateService._frontToBack(_query.to) : null,
+            'sort_by': 'created_at',
+            'sort_order': 'desc'
+        });
 
         VoucherService.index(
             $ctrl.organization.id,

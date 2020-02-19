@@ -771,7 +771,8 @@ module.exports = {
             fund_state: "Status fonds",
             amount: "Bedrag",
             amount_min: "0",
-            amount_max: "Alles"
+            amount_max: "Alles",
+            total_amount: "Som van transacties",
         },
         buttons: {
             previous: "Vorige",
@@ -895,7 +896,7 @@ module.exports = {
             week: "Week",
             all: "Alles",
             usage: "omzet",
-            average: "Totaal uitgegeven bedrag",
+            average: "Gemiddelde transactiegrootte",
             transaction: "transacties",
             price: "BEDRAG",
             date: "DATUM",

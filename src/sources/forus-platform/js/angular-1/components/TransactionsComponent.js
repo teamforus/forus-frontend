@@ -98,6 +98,8 @@ let TransactionsComponent = function(
             if ($ctrl.empty === null) {
                 $ctrl.empty = res.data.meta.total == 0;
             }
+            
+            $ctrl.transactionsTotal = res.data.meta.total_amount;
         }));
     };
 

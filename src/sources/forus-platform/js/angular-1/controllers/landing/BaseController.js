@@ -5,7 +5,6 @@ let BaseController = function(
     $translate,
     appConfigs,
     ConfigService,
-    CredentialsService, 
     IdentityService,
     AuthService,
     RecordService,
@@ -45,7 +44,7 @@ let BaseController = function(
     };
 
     $rootScope.loadAuthUser = function() {
-        AuthService.identity().then((res) => {
+        IdentityService.identity().then((res) => {
             let auth_user = res.data;
 
             RecordService.list().then((res) => {
@@ -123,7 +122,6 @@ module.exports = [
     '$translate',
     'appConfigs',
     'ConfigService',
-    'CredentialsService', 
     'IdentityService',
     'AuthService',
     'RecordService',

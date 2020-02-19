@@ -46,6 +46,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
+    if (appConfigs.flags && appConfigs.flags.accessibilityPage) {
+        $stateProvider.state({
+            name: "accessibility",
+            url: "/accessibility",
+            component: "accessibilityComponent",
+        });
+    }
+
     $stateProvider.state({
         name: "me-app",
         url: "/me",
@@ -503,9 +511,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
-        name: 'email-preferences',
-        url: '/email/preferences',
+        name: 'preferences-notifications',
+        url: '/preferences/notifications',
         component: 'emailPreferencesComponent'
+    });
+
+    $stateProvider.state({
+        name: 'security-sessions',
+        url: '/security/sessions',
+        component: 'securitySessionsComponent'
     });
 
     $stateProvider.state({

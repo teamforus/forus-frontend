@@ -1,7 +1,7 @@
 header.app.app-header
     .wrapper
         a(ui-sref="home").header-logo
-            img(ng-src="./assets/img/logo.png").header-logo-img
+            img(ng-src="./assets/img/logo.svg").header-logo-img
 
         .header-auth(ng-if="$root.auth_user")
             .auth-user(ng-click="$ctrl.openUserMenu($event)")
@@ -17,27 +17,37 @@ header.app.app-header
                 .auth-user-caret    
                     em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
                 
-                .auth-user-menu(
-                    ng-if="$ctrl.userMenuOpened"
-                    click-outside="$ctrl.hideUserMenu()")
+                .auth-user-menu(ng-if="$ctrl.userMenuOpened" click-outside="$ctrl.hideUserMenu()")
                     //- a(href="#").auth-user-menu-item
                         em.mdi.mdi-account
                         | My profile
+
                     a(ui-sref="organizations-edit($root.activeOrganization)" ng-if="$root.activeOrganization | hasPerm:'manage_organization'").auth-user-menu-item
                         em.mdi.mdi-settings
                         | Organisatie
+
                     a(ui-sref="organizations-create").auth-user-menu-item
                         em.mdi.mdi-plus
                         translate(translate="organizations.buttons.add")
-                    a(ui-sref="email-preferences").auth-user-menu-item
+
+                    a(ui-sref="preferences-notifications").auth-user-menu-item
                         em.mdi.mdi-settings-outline
                         translate(translate="organizations.buttons.notifications_preferences")
+                    
+                    a(ng-if="appConfigs.sessions" ui-sref="security-sessions").auth-user-menu-item
+                        em.mdi.mdi-shield-account
+                        //- translate(translate="topnavbar.buttons.sessions")
+                        | Security
+
                     .auth-user-menu-item(ng-click="$root.openPinCodePopup()")
                         em.mdi.mdi-cellphone
                         span(translate="topnavbar.buttons.authorize")
+                    
                     .auth-user-menu-sep(ng-if="$root.activeOrganization.id")
+                    
                     a(ng-click="$root.signOut()").auth-user-menu-item
                         em.mdi.mdi-logout
+                        //- translate(translate="topnavbar.buttons.logour")
                         | Uitloggen
 
         //- .notifications(ng-if="$root.auth_user")
