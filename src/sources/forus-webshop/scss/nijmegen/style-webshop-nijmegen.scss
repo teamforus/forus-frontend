@@ -16,13 +16,11 @@
 'components/_modals.scss';
 
 // SECTIONS
-@import 'sections/contact_form.scss',
-'sections/faq.scss',
+@import 'sections/faq.scss',
 'sections/steps.scss';
 
 // BLOCKS
 @import 'sections/blocks/apply_fund.scss',
- 'sections/blocks/blogs.scss',
  'sections/blocks/cards.scss',
  'sections/blocks/empty.scss',
  'sections/blocks/fund_criteria.scss',
