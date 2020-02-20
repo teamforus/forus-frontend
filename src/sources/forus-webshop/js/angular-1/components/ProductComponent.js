@@ -38,6 +38,11 @@ let ProductComponent = function (
         $ctrl.fundNames = $ctrl.product.funds.map(fund => fund.name).join(', ');
         $ctrl.isApplicable = $ctrl.applicableVouchers.length > 0;
         $ctrl.product.description_html = $sce.trustAsHtml($ctrl.product.description_html);
+
+        $ctrl.mapPointers = [];
+        $ctrl.product.offices.forEach(office => {
+            $ctrl.mapPointers.push({lat: office.lat, lon: office.lon});
+        });
     };
 
     $ctrl.applyProduct = () => {
