@@ -1,10 +1,11 @@
 require('./modules/select-control/SelectControlModule');
 require('./modules/page-loading-bar/PageLoadingBarModule');
+require('../../../forus-webshop/js/angular-1/modules/ui-controls/UIControlsModule');
 
 let app = angular.module('forusApp', [
     'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 
     'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize', 
-    'forus.pageLoadingBarModule',
+    'forus.uiControls', 'forus.pageLoadingBarModule',
 ]);
 
 app.constant('appConfigs', env_data);
@@ -34,6 +35,7 @@ app.component('csvValidationComponent', require('./components/CsvValidationCompo
 app.component('fundRequestsComponent', require('./components/FundRequestsComponent'));
 app.component('validationRequestComponent', require('./components/ValidationRequestComponent'));
 app.component('signUpComponent', require('./components/SignUpComponent'));
+app.component('newSignUpComponent', require('./components/NewSignUpComponent'));
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
 app.component('transactionComponent', require('./components/TransactionComponent'));
 app.component('fundProviderComponent', require('./components/FundProviderComponent'));
@@ -59,6 +61,7 @@ app.component('modalFundRequestRecordClarifyComponent', require('./components/Mo
 app.component('modalFundRequestRecordDeclineComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordDeclineComponent'));
 app.component('modalFundCriteriaDescriptionEditComponent', require('./components/Modals/ModalFundCriteriaDescriptionEditComponent'));
 app.component('modalFundInviteProvidersComponent', require('./components/Modals/ModalFundInviteProvidersComponent'));
+app.component('modalEmployeeAddConfirmationComponent', require('./components/Modals/ModalEmployeeAddConfirmationComponent'));
 app.component('modalFundOffersComponent', require('./components/Modals/ModalFundOffersComponent'));
 app.component('modalBusinessSelectComponent', require('./components/Modals/ModalBusinessSelectComponent'));
 
@@ -105,6 +108,8 @@ app.service('EmailPreferencesService', require('./services/EmailPreferencesServi
 app.service('PushNotificationsService', require('./services/PushNotificationsService'));
 app.service('DigIdService', require('./services/DigIdService'));
 app.service('SessionService', require('./services/SessionService'));
+app.service('DemoTransactionService', require('./services/DemoTransactionService'));
+app.service('GoogleMapService', require('./services/GoogleMapService'));
 
 // Directives
 switch (env_data.panel_type) {

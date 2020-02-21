@@ -129,7 +129,7 @@ let BaseController = function(
     }, function(newVal, oldVal) {
         if ($state.current.name == 'home' && appConfigs.panel_type != 'validator') {
             $rootScope.viewLayout = 'landing';
-        } else if ($state.current.name == 'sign-up' || $state.current.name == 'provider-invitation-link') {
+        } else if (['sign-up', 'sign-up-new', 'provider-invitation-link'].indexOf($state.current.name) != -1) {
             $rootScope.viewLayout = 'signup';
         } else {
             $rootScope.viewLayout = 'panel';

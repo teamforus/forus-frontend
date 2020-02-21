@@ -472,10 +472,27 @@ module.exports = {
             tax: "BTW-nummer (Optioneel)",
             website: "Website",
             business_type: "Organisatie type",
+            optional: "Optional",
+            make_public: "Maak publiek",
+            photo_description: 'De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px.<br/>Toegestaande  formaten: JPG, PNG',
+            schedule: "Openingstijden",
+            weekdays_same_hours: "Alle doordeweekse dagen hebben dezelfde tijden",
+            weekends_same_hours: "Zaterdag en zondag hebben dezelfde tijden",
+            closed: "gesloten",
+            day: "Dag",
+            open: "OPEN",
+            start: "START",
+            end: "EIND",
+            break: "Pauze"
         },
         buttons: {
             cancel: "Annuleren",
             create: "Bevestig",
+            save_location: "Vestiging opslaan",
+            add_location: "Voeg nog een vestiging toe",
+            edit_location: "Wijzigen",
+            delete_location: "Verwijderen",
+            add_employee: "Toevoegen"
         }
     },
 
@@ -715,6 +732,147 @@ module.exports = {
             description: 'Aanmelden voor een fonds is alleen mogelijk via onze website op een vaste computer.'
         },
         sms:{
+            title: 'Download <i>Me</i> op uw mobiele telefoon',
+            description: 'Vul uw telefoonnummer in het onderstaande invoerveld om een sms te ontvangen met de download link.',
+            subdescription: 'Krijgt u geen sms dan kunt u <i>Me</i> downloaden via de link <b>www.forus.io/DL</b> op uw mobiele telefoon.',
+            sent: 'Een sms-bericht is verstuurd.',
+            sent_description: 'Heeft u geen bericht ontvangen? Download <i>Me</i> via de link <b>www.forus.io/DL</b> op uw mobiele telefoon.',
+            button: {
+                send: 'Versturen'
+            },
+            error: {
+                try_later: 'Probeer later nog eens.'
+            }
+        }
+    },
+    // SIGN UP FORM FOR PROVIDERS = new-sign-up.pug
+    sign_up_new: {
+        header: {
+            main_header: "Aanmelden als aanbieder",
+            go_back: "Terug",
+            title_step_1: "Algemene informatie",
+            subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als leverancier. " + 
+                "De volledige aanmeldprocedure duurt ongeveer 5 minuten. Is uw organisatie aangemeld, dan kunnen klanten een plaatje (QR-code) tonen om een betaling te doen (vergelijkbaar met toegangskaartjes en vliegtickets). " + 
+                "De QR-code van de klant scant u met de Me app. In de volgende stap kunt u de app installeren. <br/><br/>" + 
+                "Zorg dat u de volgende zaken bij de hand heeft:",
+            title_step_2: "De kassa app installeren",
+            subtitle_step_2: "In deze stap gaat u de app installeren waarmee u betalingen kunt verrichten. In de app maakt u een persoonlijk profiel aan. Hierna voegt u uw organisatie toe en kunt u indien gewenst medewerkers toevoegen die namens u betalingen kunnen uitvoeren.",
+            title_step_3: "Organisatie aanmaken",
+            subtitle_step_3: "Om deel te kunnen nemen gaat u een organisatie aanmaken. Vul hieronder de gegevens van uw organisatie in. Na aanmelding ontvangt u de betalingen automatisch op uw rekening, hier hoeft u verder niets voor te doen.",
+            title_step_4: "Organisatie aanmaken",
+            subtitle_step_4: "Voeg uw vestiging(en) toe. Heeft uw organisatie meerdere vestigingen, dan kunt u deze toevoegen. De vestigingen worden op de kaart in de webwinkel getoond.",
+            title_step_5: "Kassa medewerkers toevoegen",
+            subtitle_step_5: "In deze stap kunt u kassa medewerkers toevoegen. Deze medewerkers kunnen vervolgens ook QR-codes scannen met de kassa app en betalingen verwerken." + 
+                "<br/>Er wordt een uitnodiging met instructies verstuurd naar de e-mailadressen die u hieronder invult. Als u geen medewerkers wilt toevoegen kunt u deze stap overslaan.",
+            title_step_6: "Meld u aan voor de regelingen",
+            subtitle_step_6: "Meld u aan voor de regelingen. Uw aanvraag wordt binnen twee weken behandeld.",
+            title_step_7: "Aanvraag ontvangen",
+            top_title_step_7: "Uw aanmelding is ontvangen",
+            subtitle_step_7: "Uw aanmelding is in behandeling. Dit kan maximaal twee weken duren. Zodra uw aanvraag is behandeld ontvangt u een e-mail. U kunt de status van uw aanmelding ook op het dashboard volgen.",
+            title_step_8: "Test betaling",
+            subtitle_step_8: "Wanneer u bent geaccepteerd als aanbieder, kunt u betalingen doen. Klanten kunnen u een plaatje (QR code) tonen (vergelijkbaar met toegangskaartjes en vliegtickets). De QR-code scant u met de app die u zojuist heeft geïnstalleerd. Vervolgens kunt u de betaling verrichten. Scan de afbeelding hieronder om een test betaling te doen.",
+            title_step_9: "De test betaling is gelukt!",
+            top_title_step_9: "De test betaling is gelukt!",
+            subtitle_step_9: "Op dezelfde manier kunt u betalingen van klanten verrichten. Met deze app kunt u ook de QR-codes van klanten scannen.<br/><br/>" +
+                "Het bedrag wordt door middel van een programmeerbare bankrekening direct naar u overgemaakt. Het bedrag staat binnen drie werkdagen op uw rekening. ",
+        },
+        meapp_header: {
+            title_step_1: "Installeer Me",
+            subtitle_step_1: "Om betalingen te ontvangen heeft u een app nodig. Een transactie doet u door een QR-code te scannen en een bedrag in te vullen.",
+            title_step_2: "Profiel aanmaken",
+            subtitle_step_2: "Een persoonlijk profiel is nodig om betalingen te ontvangen. Later is het mogelijk om meerdere medewerkers toe te voegen.",
+            title_step_3: "Stel de app <i>Me</i> in op uw telefoon",
+            subtitle_step_3: "U heeft zojuist een profiel aangemaakt, daarom kunt u klikken op: ‘Ik heb een profiel’. Het instellen van uw profiel op de mobiele applicatie gebeurt door het invullen van een autorisatie code.",
+            top_title_step_3: "Gebruik Me",
+            top_subtitle_step_3: "Rond de installatie af door gebruik te maken van <i>Me</i>",
+            title_step_4: "Het is gelukt! Het profiel van de organisatie is gekoppeld aan <i>Me</i>.",
+            subtitle_step_4: "",
+            top_title_step_4: "Gebruik Me",
+            top_subtitle_step_4: "Rond de installatie af door gebruik te maken van <i>Me</i>",
+            title_step_5: "Het is gelukt om een profiel aan te maken",
+            subtitle_step_5: "Als u deel uit maakt van een organisatie, vraag de beheerder van uw organisatie om u toe te voegen als medewerker.",
+        },
+        labels: {
+            mail: "Persoonlijk E-mailadres",
+            mail_confirmation: 'Herhaal persoonlijk E-mailadres',
+            name: "Voornaam",
+            lastname: "Achternaam",
+            bank_confirmation: "Herhaal IBAN-nummer",
+            bank: "IBAN-nummber",
+            smartphone: "Smartphone met camera",
+            phone_number: "Uw Telefoonnummer",
+            email: "Uw e-mailadres",
+            organization_email: "E-mailadres van uw organisatie",
+            organization_iban: "IBAN nummer van uw organisatie",
+            room: "Kamer van Koophandel nummer",
+            vat: "BTW-Nummer (optioneel)",
+            employee_emails: "E-mailadressen van uw kassa medewerkers (optioneel)",
+            mobile_number: "Vul uw mobiele nummer in",
+        },
+        buttons: {
+            go_step_2: "Ga verder naar stap 2",
+            back: "Vorige stap",
+            next: "Volgende stap",
+            reload_qr: 'Herlaad de code.',
+            login: 'Login',
+            skip: "Overslaan",
+            skip_to_dashboard: 'Sla over en ga naar dashboard >',
+            go_test_screen: "Doe een test betaling!",
+            go_to_dashboard: "Ga naar uw dashboard",
+        },
+        step: {
+            step_1: 'Stap 1',
+            step_2: 'Stap 2',
+            step_3: 'Stap 3',
+            step_4: 'Stap 4',
+            step_5: 'Stap 5',
+            step_6: 'Stap 6',
+            step_7: 'Stap 7'
+        },
+        download: {
+            ios: 'Download Me voor iOS',
+            android: 'Download Me voor Android',
+            already_have_app: 'DE APP IS NU AAN HET DOWNLOADEN. / DE APP IS GEINSTALLEERD.',
+            url_text: "Download de app <i>Me</i> op uw mobiele telefoon via de link:",
+            url_address: "www.forus.io/DL",
+            title: "De app installeren",
+            description: "De app is beschikbaar voor iOS en Android telefoons. Vul uw telefoonnummer in om een download link via SMS te ontvangen of ga op uw telefoon naar <a href='www.forus.io/DL' target='_blank'>www.forus.io/DL</a>",
+            download_link: "Verstuur download link",
+        },
+        filters: {
+            labels: {
+                organizations: 'Organisaties',
+                tags: 'Labels'
+            },
+            options: {
+                all_organizations: 'Alle organisaties',
+                all_labels: 'Alle labels'
+            }
+        },
+        qr_code: {
+            title: "Scan de QR-code om verder te gaan",
+            description: "Maak in de app een persoonlijk profiel aan. Scan vervolgens de QR-code die naast deze tekst staat met de 'QR' scanner in de app."
+        },
+        app_instruction: {
+            step_1: 'Open <i>Me</i>',
+            step_2: 'Ik heb al een profiel',
+            step_3: 'Inloggen met Autorisatie code',
+        },
+        app_header: {
+            title: 'Vul de code in op het invoerveld',
+            subtitle: 'De code is te vinden in de mobiele applicatie, volg de bovenstaande stappen op om de code te kunnen aflezen.'
+        },
+        login: {
+            title: 'Heeft u al een profiel aan gemaakt in <i>Me</i>?',
+            description: 'Waneer u al een profiel heeft aangemaakt, biedt de onderstaande knop de mogelijkheid om direct in te loggen op dit profiel.',
+            qr_description: 'Scan deze QR-code met de app <i>Me</i> als u al een profiel heeft aangemaakt.'
+        },
+        open_pc: {
+            title: 'Deze pagina is niet mobiel te benaderen.',
+            description: 'Aanmelden voor een fonds is alleen mogelijk via onze website op een vaste computer.'
+        },
+        sms:{
+            body: 'Download Me makkelijk via de link: https://www.forus.io/DL',
             title: 'Download <i>Me</i> op uw mobiele telefoon',
             description: 'Vul uw telefoonnummer in het onderstaande invoerveld om een sms te ontvangen met de download link.',
             subdescription: 'Krijgt u geen sms dan kunt u <i>Me</i> downloaden via de link <b>www.forus.io/DL</b> op uw mobiele telefoon.',

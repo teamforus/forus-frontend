@@ -74,4 +74,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('businessSelect', {
         component: 'modalBusinessSelectComponent'
     });
+    
+    ModalRouteProvider.modal('employeeAddConfirmation', {
+        component: 'modalEmployeeAddConfirmationComponent'
+    });
 }];
