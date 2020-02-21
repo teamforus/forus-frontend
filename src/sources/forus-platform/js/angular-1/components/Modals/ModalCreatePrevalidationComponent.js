@@ -45,10 +45,11 @@ let ModalCreatePrevalidationComponent = function(
         });
 
         $ctrl.form = FormBuilderService.build(values, function(form) {
-            PrevalidationService.submit(
-                form.values,
-                $ctrl.fund.id
-            ).then((res) => {
+            let values = JSON.parse(JSON.stringify(form.values));
+
+            values[$ctrl.fund.key + '_eligible'] = 'Ja';
+
+            PrevalidationService.submit(values, $ctrl.fund.id).then((res) => {
                 $ctrl.prevalidation = res.data.data;
             }, (res) => {
                 form.unlock();
