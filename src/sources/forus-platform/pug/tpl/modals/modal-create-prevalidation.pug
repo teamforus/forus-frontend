@@ -1,0 +1,29 @@
+.modal.modal-md
+    .modal-backdrop(ng-click="$ctrl.closeModal()")
+    .modal-window: form.form(ng-submit="$ctrl.form.submit()")
+        a(ng-click="$ctrl.closeModal()").mdi.mdi-close.modal-close
+        .modal-header Create prevalidation
+        .modal-body
+            .modal-section(ng-if="$ctrl.prevalidation"): .modal-heading 
+                | Prevalidation code: 
+                span.text-primary "{{ $ctrl.prevalidation.uid }}"
+            .modal-section(ng-if="!$ctrl.prevalidation").form: .row: .col.col-lg-8.col-lg-offset-2.col-lg-12
+                .form-group(ng-repeat="fundRecord in $ctrl.fundRecords")
+                    label.form-label
+                        | {{ $ctrl.recordTypesByKey[fundRecord].name }} 
+                        span.text-muted(ng-if="$ctrl.criteriaRuleByKey[fundRecord]") 
+                            | ({{ $ctrl.criteriaRuleByKey[fundRecord] }})
+                    
+                    input(
+                        ng-if="$ctrl.recordTypesByKey[fundRecord].type == 'string'"
+                        type="text" ng-model="$ctrl.form.values[fundRecord]").form-control
+                    
+                    input(
+                        ng-if="$ctrl.recordTypesByKey[fundRecord].type == 'number'"
+                        type="number" ng-model="$ctrl.form.values[fundRecord]").form-control
+
+                    .form-error(ng-repeat="error in $ctrl.form.errors['data.' + fundRecord]" ng-bind="error")
+
+        .modal-footer.text-center
+            button.button.button-default(type="button" ng-click="$ctrl.closeModal()") Close
+            button.button.button-primary(type="submit" ng-if="!$ctrl.prevalidation") Bevestig

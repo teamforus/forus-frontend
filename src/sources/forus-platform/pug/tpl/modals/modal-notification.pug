@@ -13,7 +13,7 @@
                     p.description(ng-if="$ctrl.description && !$ctrl.descriptionIsArray" translate="{{ $ctrl.description }}")
                     p.description(
                         ng-if="$ctrl.description && $ctrl.descriptionIsArray" 
-                        ng-repeat="description in $ctrl.description" 
+                        ng-repeat="description in $ctrl.description track by $index" 
                         translate="{{ description }}")
 
         .modal-footer.text-center

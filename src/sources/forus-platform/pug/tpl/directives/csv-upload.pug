@@ -8,21 +8,29 @@
                 | {{ "csv_upload.labels.upload" | translate  }}
                 br
                 span {{ "csv_upload.labels.swipe" | translate  }}
-        
+
         .button-group.flex-center
             button(
                 ng-show="csvParser.progress <= 1" 
-                ng-click="downloadSample()").button.button-default
+                ng-click="addSinglePrevalidation()").button.button-default
                 
-                em.mdi.mdi-file-table-outline.icon-start 
-                span(i18n="Download upload voorbeeld")    
+                em.mdi.mdi-plus.icon-start 
+                span(i18n="Add single record")
             
             button(
                 ng-show="csvParser.progress <= 1" 
                 ng-click="csvParser.selectFile()").button.button-primary
                 
                 em.mdi.mdi-upload.icon-start 
-                span(i18n="csv_upload.labels.upload")        
+                span(i18n="csv_upload.labels.upload")
+        
+        .button-group.flex-center
+            button(
+                ng-show="csvParser.progress <= 1" 
+                ng-click="downloadSample()").button.button-text.button-text-muted
+                
+                em.mdi.mdi-file-table-outline.icon-start 
+                span(i18n="Download upload voorbeeld")  
 
         .csv-upload-progress(
             ng-show="csvParser.progress >= 2" 
@@ -32,15 +40,31 @@
             progress-bar(progress="progressBar" status="progressStatus")
 
         .csv-upload-actions
-            .csv-file(ng-if="csvParser.csvFile && csvParser.progress < 2")
-                .block.block-file(ng-class="csvParser.isValid?'':'has-error'")
+            .csv-file(ng-if="(csvParser.csvFile && csvParser.progress < 2) || csvParser.error || csvParser.warning")
+                .block.block-file(
+                    ng-if="csvParser.csvFile && csvParser.progress < 2"
+                    ng-class="csvParser.isValid?'':'has-error'")
                     .file-error.mdi.mdi-close-circle
                     .file-name(ng-bind="csvParser.csvFile.name")
                     .file-size(ng-bind="csvParser.csvFile.size | file_size")
                     .file-remove.mdi.mdi-close(ng-click="reset()")
+                
+                .csv-file-warning(
+                    ng-if="csvParser.warning && !csvParser.error" 
+                    ng-repeat="warning in csvParser.warning" 
+                    ng-bind="warning")
+                
+                .csv-file-error(
+                    ng-if="csvParser.error" 
+                    ng-repeat="error in csvParser.error" 
+                    ng-bind="error")
 
             .text-center(ng-show="csvParser.progress == 1 && csvParser.isValid")
-                button(ng-click="csvParser.uploadToServer()").button.button-primary {{ "csv_upload.buttons.upload" | translate  }}
+                button(
+                    ng-click="csvParser.uploadToServer()"
+                    translate="csv_upload.buttons.upload").button.button-primary
 
             .text-center(ng-show="csvParser.progress == 3")
-                button(ng-click="reset()").button.button-primary {{ "csv_upload.labels.done" | translate  }}
+                button(
+                    ng-click="reset()"
+                    translate="csv_upload.labels.done").button.button-primary
