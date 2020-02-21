@@ -6,17 +6,24 @@ let ModalCreatePrevalidationComponent = function(
 ) {
     let $ctrl = this;
 
+    $ctrl.recordTypesAvailable = [];
+
     $ctrl.$onInit = () => {
         let values = {};
 
-        $ctrl.recordTypes = $ctrl.modal.scope.recordTypes;
+        $ctrl.recordTypes = $ctrl.modal.scope.recordTypes.filter(
+            recordType => recordType.key.indexOf('_eligible') == -1 && recordType.key != 'primary_email'
+        );
+
         $ctrl.recordTypesByKey = {};
         $ctrl.criteriaRuleByKey = {};
 
         $ctrl.fund = $ctrl.modal.scope.fund;
-        $ctrl.fundRecords = $ctrl.fund.csv_required_keys.filter(
+        $ctrl.prevalidationRecords = $ctrl.fund.csv_required_keys.filter(
             key => key.indexOf('_eligible') == -1
         );
+
+        $ctrl.updateRecordTypesAvailable();
 
         $ctrl.recordTypes.forEach((recordType) => {
             $ctrl.recordTypesByKey[recordType.key] = recordType;
@@ -48,6 +55,24 @@ let ModalCreatePrevalidationComponent = function(
                 $ctrl.form.errors = res.data.errors;
             });
         }, true);
+    };
+
+    $ctrl.updateRecordTypesAvailable = () => {
+        $ctrl.recordTypesAvailable = $ctrl.recordTypes.filter(
+            recordType => $ctrl.prevalidationRecords.indexOf(recordType.key) === -1
+        );
+    };
+
+    $ctrl.addNewRecord = () => {
+        $ctrl.formNewRecord = FormBuilderService.build({
+            record_type_key: $ctrl.recordTypesAvailable[0].key,
+        }, () => {})
+    };
+
+    $ctrl.submitNewRecord = () => {
+        $ctrl.prevalidationRecords.push($ctrl.formNewRecord.values.record_type_key);
+        $ctrl.formNewRecord = false;
+        $ctrl.updateRecordTypesAvailable();
     };
 
     $ctrl.closeModal = () => {

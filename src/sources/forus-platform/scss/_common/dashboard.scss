@@ -3997,6 +3997,12 @@ $colorPrimaryLight: $color_primary_light;
 
         .modal-section {
             padding: 30px;
+
+            &.modal-section-max-400 {
+                max-height: 400px;
+                overflow: auto;
+                @include webkit_scrollbar_gray();
+            }
         }
 
         .modal-close {
