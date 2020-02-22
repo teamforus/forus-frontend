@@ -1551,22 +1551,57 @@ $colorPrimaryLight: $color_primary_light;
     &.block-sign_up {
         .pre-step1 {
             width: 40px;
-            border-top: 6px solid #BDCBFF;
             text-align: center;
             margin-right: 1px;
 
-            .icon {
-                margin-top: 3px;
+            .pre-step-border {
+                border-top: 6px solid #BDCBFF;
+                border-top-left-radius: 6px;
+                border-bottom-left-radius: 6px;
+
+                &.active {
+                    border-top: 6px solid #3561FF;
+                }
             }
 
-            &.active {
-                border-top: 6px solid #3561FF;
+            .icon {
+                margin-top: 3px;
             }
         }
 
         .sign_up-step {
             margin-left: 1px;
             width: calc((100% - 46px)/4);
+        }
+
+        .sign_up-progress {
+            .sign_up-step {
+                border: none;
+
+                .sign_up-step-border {
+                    border-top: 6px solid #EBEDF0;
+                }
+
+                &:last-child {
+                    .sign_up-step-border {
+                        border-top-right-radius: 6px;
+                        border-bottom-right-radius: 6px;
+                    }
+                }
+
+                &.sign_up-step-active {
+                    .sign_up-step-border {
+                        border-top-color: #BDCBFF;
+                    }
+                }
+
+                &.sign_up-step-done {
+                    .sign_up-step-border {
+                        border-top-color: #3561FF;
+                    }
+                }
+                
+            }
         }
 
         .sign_up-pane {

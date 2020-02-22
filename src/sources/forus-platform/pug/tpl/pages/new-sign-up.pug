@@ -12,13 +12,16 @@
             mixin progress()
                 .sign_up-progress
                     .pre-step1(ng-class="$ctrl.step >= 2 ? 'active' : ''")
+                        .pre-step-border
                         .icon
                             include ../../../resources/platform-general/assets/img/svg/pre-step.svg
 
                     .sign_up-step(
                         ng-repeat="step in $ctrl.shownSteps"
-                        ng-class="$ctrl.step == step ? 'sign_up-step-active' : ($ctrl.step > step ? 'sign_up-step-done' : '')"
-                        ng-bind="'Stap ' + (step - 1)")
+                        ng-class="$ctrl.step == step ? 'sign_up-step-active' : ($ctrl.step > step ? 'sign_up-step-done' : '')")
+                        
+                        .sign_up-step-border
+                        .sign-up-step-block(ng-bind="'Stap ' + (step - 1)")
 
             .block.block-sign_up: .block-wrapper
                 //- General information
