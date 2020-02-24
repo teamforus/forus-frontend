@@ -95,12 +95,11 @@ let FundsEditComponent = function(
         });
     };
 
-
-
     $ctrl.$onInit = function() {
         let values = $ctrl.fund ? FundService.apiResourceToForm(
             $ctrl.fund
         ) : {
+            default_validator_employee_id: null,
             auto_requests_validation: false,
             formula_products: [],
             criteria: [],
