@@ -333,12 +333,19 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('funds-create', 'manage_funds'),
-            fundStates: ['permission', 'FundService', (
-                permission, FundService
-            ) => FundService.states()],
+            validators: ['permission', '$transition$', 'OrganizationEmployeesService', (
+                permission, $transition$, OrganizationEmployeesService
+            ) => repackResponse(OrganizationEmployeesService.list(
+                $transition$.params().organization_id, {
+                    role: 'validation'
+                }
+            ))],
             productCategories: ['permission', 'ProductCategoryService', (
                 permission, ProductCategoryService
-            ) => repackResponse(ProductCategoryService.listAll())]
+            ) => repackResponse(ProductCategoryService.listAll())],
+            fundStates: ['permission', 'FundService', (
+                permission, FundService
+            ) => FundService.states()]
         }
     });
 
