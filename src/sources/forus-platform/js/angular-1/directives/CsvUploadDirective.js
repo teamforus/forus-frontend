@@ -85,8 +85,18 @@ let CsvUploadDirective = function(
             }).then(function(results) {
                 let csvData = results.data = results.data.filter(item => !!item);
                 let header = csvData.length > 0 ? csvData[0] : [];
-                let body = csvData.length > 0 ? csvData.slice(1) : [];
-                let fundRecordKey = $scope.fund.key + '_eligible';
+
+                let body = (csvData.length > 0 ? csvData.slice(1) : []).filter(row => {
+                    return Array.isArray(row) && row.filter(item => !!item).length > 0;
+                });
+
+                let fundRecordKey = $scope.fund.csv_required_keys.filter(key => {
+                    return key.indexOf('_eligible') === key.length - 9;
+                })[0] || false;
+
+                let fundRecordKeyValue = ($scope.fund.criteria.filter(
+                    criteria => criteria.record_type_key == fundRecordKey && criteria.operator == '='
+                )[0] || false).value || false;
 
                 if (header.length == 0) {
                     return csvParser.setError("Your .csv file is empty, please check your csv file.", file);
@@ -96,11 +106,12 @@ let CsvUploadDirective = function(
                     return csvParser.setError("Your .csv file has an empty body, please check your csv file.", file);
                 }
 
-                if ($scope.fund && (header.indexOf(fundRecordKey) !== -1)) {
+                if ($scope.fund && fundRecordKey && fundRecordKeyValue &&
+                    (header.indexOf(fundRecordKey) === -1)) {
                     header.unshift(fundRecordKey);
 
                     body.forEach(row => {
-                        row.unshift('Ja');
+                        row.unshift(fundRecordKeyValue);
                     });
                 }
 
@@ -273,8 +284,8 @@ let CsvUploadDirective = function(
         ModalService.open('createPrevalidation', {
             fund: $scope.fund,
             recordTypes: $scope.recordTypes,
-            onClose: () => {
-                $state.reload();
+            onPrevalidationCreated: () => {
+                $rootScope.$broadcast('csv:uploaded', true);
             }
         });
     };

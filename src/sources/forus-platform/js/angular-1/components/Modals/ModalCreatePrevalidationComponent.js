@@ -12,16 +12,29 @@ let ModalCreatePrevalidationComponent = function(
         let values = {};
 
         $ctrl.recordTypes = $ctrl.modal.scope.recordTypes.filter(
-            recordType => recordType.key.indexOf('_eligible') == -1 && recordType.key != 'primary_email'
+            recordType => recordType.key != 'primary_email'
         );
 
         $ctrl.recordTypesByKey = {};
         $ctrl.criteriaRuleByKey = {};
 
         $ctrl.fund = $ctrl.modal.scope.fund;
-        $ctrl.prevalidationRecords = $ctrl.fund.csv_required_keys.filter(
-            key => key.indexOf('_eligible') == -1
-        );
+        
+        let fundRecordKey = $ctrl.fund.csv_required_keys.filter(key => {
+            return key.indexOf('_eligible') === key.length - 9;
+        })[0] || false;
+
+        let fundRecordKeyValue = ($ctrl.fund.criteria.filter(
+            criteria => criteria.record_type_key == fundRecordKey && criteria.operator == '='
+        )[0] || false).value || false;
+
+        $ctrl.prevalidationRecords = $ctrl.fund.csv_required_keys;
+        
+        if (fundRecordKey && fundRecordKeyValue) {
+            $ctrl.prevalidationRecords = $ctrl.prevalidationRecords.filter(prevalidationRecord => {
+                return prevalidationRecord !== fundRecordKey
+            });
+        }
 
         $ctrl.updateRecordTypesAvailable();
 
@@ -47,7 +60,9 @@ let ModalCreatePrevalidationComponent = function(
         $ctrl.form = FormBuilderService.build(values, function(form) {
             let values = JSON.parse(JSON.stringify(form.values));
 
-            values[$ctrl.fund.key + '_eligible'] = 'Ja';
+            if (fundRecordKey && fundRecordKeyValue) {
+                values[fundRecordKey] = fundRecordKeyValue;
+            }
 
             PrevalidationService.submit(values, $ctrl.fund.id).then((res) => {
                 $ctrl.prevalidation = res.data.data;
@@ -75,9 +90,11 @@ let ModalCreatePrevalidationComponent = function(
         $ctrl.formNewRecord = false;
         $ctrl.updateRecordTypesAvailable();
     };
-
     $ctrl.closeModal = () => {
-        $ctrl.modal.scope.onClose();
+        if ($ctrl.prevalidation) {
+            $ctrl.modal.scope.onPrevalidationCreated($ctrl.prevalidation)
+        }
+
         $ctrl.close();
     };
 

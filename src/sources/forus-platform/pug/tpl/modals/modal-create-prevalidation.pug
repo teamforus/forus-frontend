@@ -4,9 +4,6 @@
         a(ng-click="$ctrl.closeModal()").mdi.mdi-close.modal-close
         .modal-header Create prevalidation
         .modal-body
-            .modal-section(ng-if="$ctrl.prevalidation"): .modal-heading 
-                | Prevalidation code: 
-                span.text-primary "{{ $ctrl.prevalidation.uid }}"
             .modal-section.modal-section-max-400(ng-if="!$ctrl.prevalidation").form: .row: .col.col-lg-8.col-lg-offset-2.col-lg-12
                 .form-group(ng-repeat="fundRecord in $ctrl.prevalidationRecords")
                     label.form-label
@@ -23,7 +20,8 @@
                         type="number" ng-model="$ctrl.form.values[fundRecord]").form-control
 
                     .form-error(ng-repeat="error in $ctrl.form.errors['data.' + fundRecord]" ng-bind="error")
-            .modal-section(ng-if="$ctrl.recordTypesAvailable.length > 0").form: .row: .col.col-lg-8.col-lg-offset-2.col-lg-12
+            
+            .modal-section(ng-if="!$ctrl.prevalidation && $ctrl.recordTypesAvailable.length > 0").form: .row: .col.col-lg-8.col-lg-offset-2.col-lg-12
                 .form-group(ng-if="$ctrl.formNewRecord")
                     label.form-label Select record type
                     select(
@@ -38,6 +36,10 @@
                 div.text-center: button(type="button" ng-click="$ctrl.addNewRecord()" ng-if="!$ctrl.formNewRecord").button.button-primary
                     em.mdi.mdi-plus.icon-start
                     | Add record
+            
+            .modal-section(ng-if="$ctrl.prevalidation"): .modal-heading.text-center 
+                | Prevalidation code: 
+                div.text-primary(ng-bind="$ctrl.prevalidation.uid")
 
         .modal-footer.text-center
             button.button.button-default(type="button" ng-click="$ctrl.closeModal()") Close
