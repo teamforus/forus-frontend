@@ -645,7 +645,7 @@ module.exports = (core) => {
             log_out_time: false,
             flags: {
                 accessibilityPage: false,
-            }
+            },
             sessions: sessions,
         });
 
