@@ -2,7 +2,7 @@
     .modal-backdrop(ng-click="$ctrl.closeModal()")
     .modal-window: form.form(ng-submit="$ctrl.form.submit()")
         a(ng-click="$ctrl.closeModal()").mdi.mdi-close.modal-close
-        .modal-header Create prevalidation
+        .modal-header Activatiecode aanmaken
         .modal-body
             .modal-section.modal-section-max-400(ng-if="!$ctrl.prevalidation").form: .row: .col.col-lg-8.col-lg-offset-2.col-lg-12
                 .form-group(ng-repeat="fundRecord in $ctrl.prevalidationRecords")
@@ -23,7 +23,7 @@
             
             .modal-section(ng-if="!$ctrl.prevalidation && $ctrl.recordTypesAvailable.length > 0").form: .row: .col.col-lg-8.col-lg-offset-2.col-lg-12
                 .form-group(ng-if="$ctrl.formNewRecord")
-                    label.form-label Select record type
+                    label.form-label Selecteer eigenschap
                     select(
                         ng-options="recordType.key as recordType.name for recordType in $ctrl.recordTypesAvailable" 
                         ng-model="$ctrl.formNewRecord.values.record_type_key").form-control
@@ -31,16 +31,16 @@
                 .form-group(ng-if="$ctrl.formNewRecord")
                     button(
                         type="button" 
-                        ng-click="$ctrl.submitNewRecord()").button.button-primary Add
+                        ng-click="$ctrl.submitNewRecord()").button.button-primary Toevoegen
                     
                 div.text-center: button(type="button" ng-click="$ctrl.addNewRecord()" ng-if="!$ctrl.formNewRecord").button.button-primary
                     em.mdi.mdi-plus.icon-start
-                    | Add record
+                    | Eigenschap toevoegen
             
             .modal-section(ng-if="$ctrl.prevalidation"): .modal-heading.text-center 
-                | Prevalidation code: 
+                | Activatiecode: 
                 div.text-primary(ng-bind="$ctrl.prevalidation.uid")
 
         .modal-footer.text-center
-            button.button.button-default(type="button" ng-click="$ctrl.closeModal()") Close
-            button.button.button-primary(type="submit" ng-if="!$ctrl.prevalidation") Bevestig
+            button.button.button-default(type="button" ng-click="$ctrl.closeModal()") Sluiten
+            button.button.button-primary(type="submit" ng-if="!$ctrl.prevalidation") Bevestigen

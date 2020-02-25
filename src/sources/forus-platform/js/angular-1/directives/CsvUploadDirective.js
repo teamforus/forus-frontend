@@ -75,7 +75,7 @@ let CsvUploadDirective = function(
 
         csvParser.uploadFile = (file) => {
             if (file.name.indexOf('.csv') != file.name.length - 4) {
-                return csvParser.setError("Please select a .csv file.");
+                return csvParser.setError("Kies eerst een .csv bestand.");
             }
 
             new $q(function(resolve, reject) {
@@ -99,11 +99,11 @@ let CsvUploadDirective = function(
                 )[0] || false).value || false;
 
                 if (header.length == 0) {
-                    return csvParser.setError("Your .csv file is empty, please check your csv file.", file);
+                    return csvParser.setError("Het .csv bestand is leeg, controleer het bestand.", file);
                 }
 
                 if (body.length == 0) {
-                    return csvParser.setError("Your .csv file has an empty body, please check your csv file.", file);
+                    return csvParser.setError("Het .csv bestand heeft kolomnamen maar geen inhoud, controleer de inhoud.", file);
                 }
 
                 if ($scope.fund && fundRecordKey && fundRecordKeyValue &&
@@ -129,14 +129,14 @@ let CsvUploadDirective = function(
 
                 if (invalidRecordTypes.length > 0) {
                     return csvParser.setError(sprintf(
-                        "Your .csv file has following invalid record types: '%s'",
+                        "Het .csv bestand heeft de volgende ongeldige eigenschappen: '%s'",
                         invalidRecordTypes.join("', '")
                     ), file);
                 }
 
                 if (missingRecordTypes.length > 0) {
                     return csvParser.setError(sprintf(
-                        "Your .csv file is missing following records which are mandatory for the fund '%s': '%s'",
+                        "In het .csv bestand ontbreken eigenschappen die verplicht zijn voor dit fonds '%s': '%s'",
                         $scope.fund.name,
                         missingRecordTypes.join("', '")
                     ), file);
@@ -145,13 +145,13 @@ let CsvUploadDirective = function(
                 if (optionalRecordTypes.length > 0) {
                     csvParser.setWarning([
                         sprintf(
-                            "Your .csv file seems to by just fine, but it also contains " +
-                            "records of types not required nor used by \"%s\" fund.",
+                            "In het .csv bestand zijn eigenschappen toegevoegd die " +
+                            "optioneel zijn voor \"%s\" fonds.",
                             $scope.fund.name,
                         ),
-                        "It's advised to check if you actually need them.",
+                        "Controleer of deze eigenschappen echt nodig zijn voor het aanvragen van dit fonds.",
                         sprintf(
-                            "This is the list of the redundant records from the file: \"%s\".",
+                            "Dit is de lisjt van eigenschappen die optioneel zijn: \"%s\".",
                             optionalRecordTypes.join("', '")
                         ),
                     ]);
@@ -178,7 +178,7 @@ let CsvUploadDirective = function(
 
                 if (invalidRows.length > 0) {
                     return csvParser.setError([
-                        "Following errors where found in your csv file:"
+                        "Volgende problemen zijn opgetreden bij dit .csv bestand:"
                     ].concat(invalidRows), file);
                 }
 
@@ -198,7 +198,7 @@ let CsvUploadDirective = function(
 
                 if (missingRecordTypes.length > 0) {
                     return sprintf(
-                        'Line %s: has missing mandatory records: "%s"',
+                        'Lijn %s: heet ontbrekende verplichte eigenschappen: "%s"',
                         row_key + 1,
                         missingRecordTypes.join('", "')
                     );
@@ -246,7 +246,7 @@ let CsvUploadDirective = function(
                         return alert(res.data.errors.data[0]);
                     }
 
-                    alert('Unknown error.');
+                    alert('Onbekende error.');
                 });
             };
 
