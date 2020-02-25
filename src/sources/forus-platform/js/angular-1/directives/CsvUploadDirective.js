@@ -149,9 +149,9 @@ let CsvUploadDirective = function(
                             "optioneel zijn voor \"%s\" fonds.",
                             $scope.fund.name,
                         ),
-                        "Controleer of deze eigenschappen echt nodig zijn voor het aanvragen van dit fonds.",
+                        "Controleer of deze eigenschappen echt nodig zijn voor de toekenning.",
                         sprintf(
-                            "Dit is de lisjt van eigenschappen die optioneel zijn: \"%s\".",
+                            "De volgende eigenschappen zijn optioneel: \"%s\".",
                             optionalRecordTypes.join("', '")
                         ),
                     ]);
