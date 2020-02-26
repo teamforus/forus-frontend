@@ -38,7 +38,7 @@
 
 @mixin webkit_scrollbar($color: $color_primary_light) {
     &::-webkit-scrollbar {
-        width: 4px;
+        width: 8px;
     }
 
     &::-webkit-scrollbar-track {
@@ -47,8 +47,12 @@
     }
 
     &::-webkit-scrollbar-thumb {
-        background: $color;
-        border-radius: 4px;
+        border-radius: 8px;
+        height: 6px;
+        border: 2px solid rgba(0, 0, 0, 0);
+        background-clip: padding-box;
+        background-color: $color;
+        box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.05), inset 1px 1px 0px rgba(0, 0, 0, 0.05);
     }
 }
 

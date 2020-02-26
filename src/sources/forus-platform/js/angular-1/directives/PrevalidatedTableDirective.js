@@ -4,6 +4,8 @@ let PrevalidatedTableDirective = async function(
     FileService,
     PrevalidationService
 ) {
+    $scope.headers = [];
+
     $scope.filters = {
         show: false,
         values: {},
@@ -48,18 +50,19 @@ let PrevalidatedTableDirective = async function(
 
     $scope.$on('csv:uploaded', function() {
         $scope.filters.values.page = 1;
-        // $scope.onPageChange($scope.filters);
     })
 
     $scope.onPageChange = async (query) => {
         PrevalidationService.list(query).then((res => {
             $scope.prevalidations = res.data;
+            $scope.buildTable($scope.prevalidations.data);
         }));
     };
 
     $scope.onReset = async (query) => {
         PrevalidationService.list(query).then((res => {
             $scope.prevalidations = res.data;
+            $scope.buildTable($scope.prevalidations.data);
         }));
     };
 
@@ -67,6 +70,7 @@ let PrevalidatedTableDirective = async function(
         PrevalidationService.list(query).then((res => {
             $scope.prevalidations.data = $scope.prevalidations.data.concat(res.data.data);
             $scope.prevalidations.meta = res.data.meta;
+            $scope.buildTable($scope.prevalidations.data);
         }));
     };
 
@@ -75,7 +79,42 @@ let PrevalidatedTableDirective = async function(
 
         PrevalidationService.list($scope.filters.values).then((res => {
             $scope.prevalidations = res.data;
+            $scope.buildTable($scope.prevalidations.data);
         }));
+    };
+
+    $scope.buildTable = (prevalidations) => {
+        $scope.headers = $scope.makeHeaders(prevalidations);
+        $scope.rows = $scope.makeRows(prevalidations, $scope.headers);
+    };
+
+    $scope.makeHeaders = (prevalidations) => {
+        let headers = prevalidations.reduce((headers, prevalidation) => {
+            return prevalidation.records.filter(
+                record => headers.indexOf(record.key) === -1
+            ).map(record => record.key).concat(headers);
+        }, []).sort();
+
+        let primaryKey = headers.indexOf($scope.fund.csv_primary_key);
+
+        if (primaryKey !== -1) {
+            headers.splice(primaryKey, 1);
+            headers.unshift($scope.fund.csv_primary_key);
+        }
+
+        return headers;
+    };
+
+    $scope.makeRows = (prevalidations, headers) => {
+        return prevalidations.map(prevalidation => $scope.makeRow(prevalidation, headers));
+    };
+
+    $scope.makeRow = (prevalidation, headers) => {
+        return Object.assign(prevalidation, {
+            records: headers.map(header => prevalidation.records.filter(
+                record => record.key == header
+            )[0] || false)
+        });
     };
 
     // Export to XLS file

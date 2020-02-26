@@ -3968,6 +3968,33 @@ $colorPrimaryLight: $color_primary_light;
             }
         }
     }
+
+    &.block-compact-datalist {
+        .datalist-row {
+            @include cf();
+            border-bottom: 1px dashed #ccc;
+            display: flex;
+            flex-direction: row;
+            
+            .datalist-key {
+                @extend .text-wrap;
+                font: 500 14px/20px $bf;
+                color: #646f79;
+                width: 50%;
+                max-width: 200px;
+                padding: 7.5px 15px 7.5px 0px;
+            }
+
+            .datalist-value {
+                @extend .text-wrap;
+                font: 500 14px/20px $bf;
+                color: #646f79;
+                flex-grow: 1;
+                padding: 7.5px 0px;
+                max-width: calc(100% - 200px);
+            }
+        }
+    }
 }
 
 .modal {
@@ -3997,12 +4024,6 @@ $colorPrimaryLight: $color_primary_light;
 
         .modal-section {
             padding: 30px;
-
-            &.modal-section-max-400 {
-                max-height: 400px;
-                overflow: auto;
-                @include webkit_scrollbar_gray();
-            }
         }
 
         .modal-close {
@@ -4028,6 +4049,9 @@ $colorPrimaryLight: $color_primary_light;
 
         .modal-body {
             min-height: 65px;
+            max-height: calc(100vh - 260px);
+            overflow: auto;
+            @include webkit_scrollbar();
 
             .signup-layout {
                 padding-top: 0px;

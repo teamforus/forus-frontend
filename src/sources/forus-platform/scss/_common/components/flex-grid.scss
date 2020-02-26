@@ -23,6 +23,18 @@ $media_xs: 1000;
     flex-grow: 1;
     max-width: 100%;
     padding: 0 $pad;
+
+    &.flex-col-padless-right {
+        padding-right: 0;
+    }
+
+    &.flex-col-padless-left {
+        padding-left: 0;
+    }
+
+    &.flex-col-padless {
+        padding: 0;
+    }
 }
 
 _:-ms-fullscreen, :root .ie-flex-auto {
