@@ -81,15 +81,6 @@ let ModalCreatePrevalidationComponent = function(
         }, true);
     };
 
-    $ctrl.removeExtraRecord = (recordKey) => {
-        let index = $ctrl.prevalidationRecords.indexOf(recordKey);
-
-        if (index !== -1) {
-            $ctrl.prevalidationRecords.splice(index, 1);
-            delete $ctrl.form.values[recordKey]
-        }
-    };
-
     $ctrl.requestVerification = () => {
         $ctrl.verificationRequested = true;
     };
@@ -123,6 +114,17 @@ let ModalCreatePrevalidationComponent = function(
     $ctrl.submitNewRecord = () => {
         $ctrl.prevalidationRecords.push($ctrl.formNewRecord.values.record_type_key);
         $ctrl.formNewRecord = false;
+        $ctrl.updateRecordTypesAvailable();
+    };
+
+    $ctrl.removeExtraRecord = (recordKey) => {
+        let index = $ctrl.prevalidationRecords.indexOf(recordKey);
+
+        if (index !== -1) {
+            $ctrl.prevalidationRecords.splice(index, 1);
+            delete $ctrl.form.values[recordKey]
+        }
+        
         $ctrl.updateRecordTypesAvailable();
     };
 
