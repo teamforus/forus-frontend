@@ -43,8 +43,8 @@ let ModalCreatePrevalidationComponent = function(
         $ctrl.fund.criteria.forEach((criteria) => {
             $ctrl.criteriaRuleByKey[criteria.record_type_key] = sprintf(
                 "%s %s", {
-                    '>': 'more than',
-                    '<': 'less than',
+                    '>': 'meer dan',
+                    '<': 'minder dan',
                     '=': 'is'
                 } [criteria.operator],
                 criteria.value
