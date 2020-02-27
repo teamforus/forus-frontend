@@ -3,10 +3,10 @@
     .modal-window: form.form(ng-submit="$ctrl.form.submit()")
         a(ng-click="$ctrl.closeModal()").mdi.mdi-close.modal-close
         .modal-header(ng-if="!$ctrl.verificationRequested") Activatiecode aanmaken
-        .modal-header(ng-if="$ctrl.verificationRequested") Verify data
+        .modal-header(ng-if="$ctrl.verificationRequested") Gegevens controleren
         .modal-body
             .modal-section(ng-if="$ctrl.verificationRequested && !$ctrl.prevalidation")
-                .modal-text.text-center Pleas check if you have entered the correct data before submitting
+                .modal-text.text-center Controleer of u de juiste gegevens hebt ingevuld voordat u deze bevestigd.
                 .row: .col.col-lg-8.col-lg-offset-2
                     .block.block-compact-datalist: .datalist-row(ng-repeat="fundRecord in $ctrl.prevalidationRecords" style="")
                         .datalist-key: strong(ng-bind="$ctrl.recordTypesByKey[fundRecord].name")
