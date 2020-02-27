@@ -1,5 +1,4 @@
 
-
 describe('testing signup flow of provider:', function() {
     //browser.driver.manage().window().maximize();
 
@@ -30,7 +29,22 @@ describe('testing signup flow of provider:', function() {
 
     it('step 6', function() {
         applyForFund();
+        //expect(browser.getCurrentUrl()).toEqual("kaas");
+        
     });
+    it('add product now', function(){
+        //browser.sleep(3000)
+        browser.get(environment.providerURL.concat("/#!/organizations/29/products"));
+        browser.sleep(3000)
+
+        element(by.id('addProduct')).click();
+        addProductDetails();
+    });
+
+    afterAll(function(){
+        console.log(browser.getCurrentUrl());
+    });
+    
 });
 
 //step 2
@@ -89,4 +103,15 @@ function addApp(){
 //step 6 
 function applyForFund(){
     element(by.css('[translate="sign_up.buttons.skip_to_dashboard"]')).click();
+}
+
+function addProductDetails(){
+    element(by.model("$ctrl.form.values.name")).sendKeys("New product");
+    element(by.model("$ngModel")).sendKeys("New product");
+    element(by.model("$ctrl.form.values.price")).sendKeys("50");
+    element(by.model("$ctrl.form.values.old.price")).sendKeys("50");
+    element(by.model("$ctrl.form.values.total_amount")).sendKeys("50");
+    element(by.model("$ctrl.form.values.expire_at")).sendKeys("31-12-2020");
+    element(by.model("$ctrl.categoriesValues[index]")).click();
+    element(by.css('[translate="product_edit.buttons.confirm"]')).click();
 }
