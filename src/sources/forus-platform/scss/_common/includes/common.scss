@@ -65,6 +65,14 @@ img {
     color: #a1a1a1 !important;
 }
 
+.text-muted-dim {
+    color: #919191 !important;
+}
+
+.text-muted-dark {
+    color: #818181 !important;
+}
+
 .text-primary {
     color: #134478 !important;
 }
@@ -87,6 +95,12 @@ img {
 
 .text-strong-half {
     font-weight: 500;
+}
+
+.text-wrap {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
 }
 
 .hidden {

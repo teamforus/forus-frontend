@@ -402,6 +402,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => FundService.states()]
         }
     });
+
     if (!appConfigs.hide_voucher_generators) {
         /**
          * Vouchers
@@ -702,7 +703,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 CredentialsService.set(res.data.access_token);
                 if (['provider'].indexOf(appConfigs.panel_type) != -1) {
                     $rootScope.loadAuthUser().then(auth_user => {
-                        let organizations = auth_user.organizations.filter(organization => 
+                        let organizations = auth_user.organizations.filter(organization =>
                             !organization.business_type_id &&
                             PermissionsService.hasPermission(organization, 'manage_organization')
                         );
