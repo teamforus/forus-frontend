@@ -4,6 +4,7 @@
 /php/public/assets/*
 /src/qdt-env.js
 /.vscode
+/src/test/*-env.js
 
 # Compiled source #
 ###################

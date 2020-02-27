@@ -1,38 +1,26 @@
-exports.config = {
-    //seleniumAddress: 'http://localhost:4444/wd/hub',
-    specs: ['testcase_1.js'],
+const environment = require("./protractor-env.js");
 
-    //seleniumServerJar: './node_modules/selenium/lib/runner/selenium-server-standalone-2.20.0.jar',
+exports.config = {
+
+    
+    specs: ['testcases/signupProvider.js'],
 
     capabilities: {
-        'browserstack.user': 'sjoerdhilhorst1',
-        'browserstack.key': 'AZgvLqjzR78nsGTF3Av7',
-        'browserstack.local': true,
         'browserName': 'firefox',
-        'name': 'Bstack-[Protractor] Local Test'
+        'name': 'Bstack-[Protractor] Local Test',
+        
     },
-
-
 
     beforeLaunch: function(){
 
-        //generate random string for email
-        let r = Math.random().toString(36).substring(7);
 
-        //fill in environment variables before testing
-        var environment = {
-            url : "https://berkelland.staging.forus.io",
-            email : "forusemail123+".concat(r,"@gmail.com"),
-            activationcode : "833983c9"
-        }
-        
         var MailListener = require("mail-listener2");
-        
+        console.log(environment.email, environment.password)
 
         // here goes your email connection configuration
         var mailListener = new MailListener({
-            username: "forusemail123@gmail.com",
-            password: "Password@123!",
+            username: environment.email,
+            password: environment.password,
             host: "imap.gmail.com",
             //requireSSL: true,
             port: 993, // imap port 
@@ -56,13 +44,8 @@ exports.config = {
         mailListener.on("error", function(err){
             console.log(err);
           });
-        //url = "http://localhost:5560/#!/"
-        url = "https://berkelland.staging.forus.io/";
-        
-        global.url = url;
+
         global.mailListener = mailListener;
         global.environment = environment;
     }
-
-
   };

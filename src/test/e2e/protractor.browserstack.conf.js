@@ -1,31 +1,32 @@
 var browserstack = require('browserstack-local');
 var MailListerner = require('mail-listener2');
+const environment = require("./protractor-env.js");
+
 
 
 exports.config = {
     'seleniumAddress': 'http://hub-cloud.browserstack.com/wd/hub',
 
-    //specs: ['testcase_1.js'],
-
     capabilities: {
-        'browserstack.user': 'sjoerdhilhorst1',
-        'browserstack.key': 'AZgvLqjzR78nsGTF3Av7',
+        'browserstack.user': environment.browserstack_user,
+        'browserstack.key': environment.browserstack_key,
         'browserstack.local': true,
-        'browserName': 'chrome',
-        'name': 'Bstack-[Protractor] Local Test'
+        'browserName': environment.browserName,
+        'name': 'Bstack-[Protractor] Local Test',
+        "resolution" : "1920x1080"
+
     },
-
-
 
     
     // Code to start browserstack and maillistener local before start of test
     beforeLaunch: function(){
-        var MailListener = require("mail-listener2");
 
+        var MailListener = require("mail-listener2");
+        
         // here goes your email connection configuration
         var mailListener = new MailListener({
-            username: "forusemail123@gmail.com",
-            password: "Password@123!",
+            username: environment.email,
+            password: environment.password,
             host: "imap.gmail.com",
             //requireSSL: true,
             port: 993, // imap port 
@@ -49,15 +50,12 @@ exports.config = {
         mailListener.on("error", function(err){
             console.log(err);
           });
-        //url = "http://localhost:5560/#!/"
-        url = "https://berkelland.staging.forus.io/";
         
-        global.url = url;
+        global.environment = environment;
         global.mailListener = mailListener;
         
-        console.log("Connecting local");
         return new Promise(function(resolve, reject){
-        
+    
             exports.bs_local = new browserstack.Local();
         
             exports.bs_local.start({'key': exports.config.capabilities['browserstack.key'] }, function(error) {
@@ -69,6 +67,7 @@ exports.config = {
             resolve();
             });
         });
+    
 
     },
 
@@ -80,9 +79,13 @@ exports.config = {
             exports.bs_local.stop(resolve);
        });
        
-    }
+    },
+
 
 };
+
+
+
 
 
 
