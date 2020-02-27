@@ -1,7 +1,10 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
 //- google maps
-script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnxHUfMITcOpEZBqjz2iLS1wZNvf_bCzo&language=nl")
+script(
+    type="text/javascript" 
+    src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&language=nl&key=AIzaSyDnxHUfMITcOpEZBqjz2iLS1wZNvf_bCzo"
+    async defer)
 
 //- libs bundle
 script(src=src_prefix + "./assets/dist/bundle/js/bundle.min.js")

@@ -884,6 +884,14 @@ module.exports = {
             error: {
                 try_later: 'Probeer later nog eens.'
             }
+        },
+        employee: {
+            labels: {
+                employee_add_header: "Bevestig uitnodiging",
+                employee_add_message: "Wil u de medewerker {{email}} uitnodigen? Deze medewerker zal hier over een email ontvangen.",
+                accept: "Bevestig",
+                cancel: "Annuleer"
+            }
         }
     },
 

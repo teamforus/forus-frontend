@@ -2,7 +2,10 @@ doctype
 html(ng-controller="BaseController" ng-cloak)
     include ../layout/includes/head
 
-    body(ng-class="$root.viewLayout == 'signup' ? 'signup-layout' : ''" modal-scroll-braker printable-enabler)
+    body(
+        ng-class="{ 'signup-layout': $root.viewLayout == 'signup', 'signup-layout-new': $root.isNewSignUp }" 
+        modal-scroll-braker printable-enabler)
+        
         page-loading-bar
         
         div(ng-class="$root.viewLayout == 'landing' ? 'landing-root' : ''")

@@ -342,6 +342,10 @@ let newSignUpComponent = function(
         $ctrl.enableSaveOfficeBtn = true;
         $ctrl.showAddOfficeBtn  = false;
         $ctrl.showCancelBtn  = true;
+
+        $timeout(() => {
+            $ctrl.addMapAutocomplete();
+        }, 0);
     };
 
     $ctrl.addOffice = () => {
@@ -354,6 +358,10 @@ let newSignUpComponent = function(
         $ctrl.enableSaveOfficeBtn = true;
         $ctrl.showAddOfficeBtn  = false;
         $ctrl.showCancelBtn  = true;
+
+        $timeout(() => {
+            $ctrl.addMapAutocomplete();
+        }, 0);
     };
 
     $ctrl.cancelOfficeEdit = () => {
@@ -444,8 +452,45 @@ let newSignUpComponent = function(
         });
     };
 
+    $ctrl.isDateModified = (date) => {
+        return date.start_time || date.end_time || date.break_start_time || date.break_end_time;
+    }
+
+    $ctrl.syncTimePreferences = () => {
+        let schedule_days = $ctrl.officeForm.values.schedule;
+        let schedule_options = $ctrl.officeForm.values.scheduleDetails;
+        let has_days_set = schedule_days.filter((day, index) => {
+                return $ctrl.isDateModified(day) && index < 5;
+            }).length == 0;    
+        let has_weekend_days_set = schedule_days.filter((day, index) => {
+                return $ctrl.isDateModified(day) && index >= 5;
+            }).length == 0;
+        
+        if (!$ctrl.officeForm.values.same_hours && has_days_set) {
+            // uncheck all normal days
+            schedule_options = schedule_options.map((scheduleDetail, index) => {
+                if (index < 5) {
+                    scheduleDetail.is_opened = false;
+                }
+                return scheduleDetail;
+            });
+        }
+
+        if (!$ctrl.officeForm.values.weekend_same_hours && has_weekend_days_set) {
+            // uncheck all weekend days
+            schedule_options = schedule_options.map((scheduleDetail, index) => {
+                if (index >= 5) {
+                    scheduleDetail.is_opened = false;
+                }
+
+                return scheduleDetail;
+            });
+        }
+    }
+
     $ctrl.setSameHours = (week_days = true) => {
         $timeout(() => {
+            $ctrl.syncTimePreferences();
             $ctrl.setSameWeekDayHours(week_days);
             $ctrl.syncWithFirstRecord(week_days);
         }, 0);
@@ -842,6 +887,20 @@ let newSignUpComponent = function(
             }
         });
     };
+    
+    $ctrl.addMapAutocomplete = () => {
+        let input = document.getElementById('office_address');
+        let autocompleteOptions =  {
+            componentRestrictions: {country: "nl"},
+        };
+
+        let autocompleteFrom = new google.maps.places.Autocomplete(input, autocompleteOptions);
+        google.maps.event.addListener(autocompleteFrom, 'place_changed', function() {
+            var place = autocompleteFrom.getPlace();
+    
+            $ctrl.officeForm.values.address = place.formatted_address;
+        });
+    }
 
     $ctrl.finish = () => {
         $state.go('organizations');

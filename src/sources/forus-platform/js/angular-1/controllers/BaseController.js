@@ -131,6 +131,10 @@ let BaseController = function(
             $rootScope.viewLayout = 'landing';
         } else if (['sign-up', 'sign-up-new', 'provider-invitation-link'].indexOf($state.current.name) != -1) {
             $rootScope.viewLayout = 'signup';
+            
+            if ($state.current.name == 'sign-up-new') {
+                $rootScope.isNewSignUp = true;
+            }
         } else {
             $rootScope.viewLayout = 'panel';
         }

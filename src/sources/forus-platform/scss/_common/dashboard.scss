@@ -5971,6 +5971,10 @@ $colorPrimaryLight: $color_primary_light;
             font: 500 12px/18px $bf;
         }
     }
+
+    &.signup-layout-new {
+        background-color: #fff;
+    }
 }
 
 @media screen and (max-width: 1000px) {
