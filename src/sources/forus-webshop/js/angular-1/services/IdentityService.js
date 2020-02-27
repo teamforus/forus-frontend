@@ -36,8 +36,8 @@ let IdentityService = function(
 
         this.checkAccessToken = (access_token) => {
             return ApiRequest.get(
-                '/identity/proxy/check-token', {
-                    access_token: access_token
+                '/identity/proxy/check-token', null, {
+                    'Access-Token': access_token
                 }
             );
         };

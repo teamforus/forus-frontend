@@ -35,3 +35,27 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+@mixin webkit_scrollbar($color: $color_primary_light) {
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f3f4f5;
+        border: 1px solid transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        height: 6px;
+        border: 2px solid rgba(0, 0, 0, 0);
+        background-clip: padding-box;
+        background-color: $color;
+        box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.05), inset 1px 1px 0px rgba(0, 0, 0, 0.05);
+    }
+}
+
+@mixin webkit_scrollbar_gray($color: #9E9FA1) {
+    @include webkit_scrollbar($color);
+}

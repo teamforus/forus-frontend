@@ -7,8 +7,10 @@ let FinancialDashboardComponent = function(
 ) {
     let $ctrl = this;
 
-    $ctrl.$onInit = function () {
-        $ctrl.startYear = DateService._dateParseYmd($ctrl.fund.start_date).year();
+    $ctrl.$onInit = function() {
+        $ctrl.startYear = $ctrl.fund ? DateService._dateParseYmd(
+            $ctrl.fund.start_date
+        ).year() : null;
 
         $ctrl.chartData = {
             request: {
@@ -22,7 +24,7 @@ let FinancialDashboardComponent = function(
             stringTitle: "",
             changeType: function(type) {
                 this.request.type = type;
-    
+
                 if (this.request.type == 'week') {
                     this.request.nth = moment().week();
                 } else if (this.request.type == 'month') {
@@ -32,7 +34,7 @@ let FinancialDashboardComponent = function(
                 } else if (this.request.type == 'all') {
                     this.request.nth = null;
                 }
-    
+
                 this.update();
             },
             increase: function() {
@@ -60,10 +62,10 @@ let FinancialDashboardComponent = function(
                         this.request.nth++;
                     }
                 }
-    
+
                 this.update();
             },
-            decrease: function () {
+            decrease: function() {
                 if (this.request.type == 'all') {
                     this.request.year--;
                 } else if (this.request.type == 'week') {
@@ -88,12 +90,12 @@ let FinancialDashboardComponent = function(
                         this.request.nth--;
                     }
                 }
-    
+
                 this.update();
             },
             updateTitle: function() {
                 let stringTitle = "";
-    
+
                 if (this.request.type == 'week') {
                     stringTitle = this.request.nth + ' Week ' + this.request.year;
                 } else if (this.request.type == 'month') {
@@ -103,21 +105,21 @@ let FinancialDashboardComponent = function(
                 } else if (this.request.type == 'all') {
                     stringTitle = 'Year ' + this.request.year;
                 }
-    
+
                 this.stringTitle = stringTitle;
             },
-            update: function () {
+            update: function() {
                 this.updateTitle();
-    
+
                 if (!$ctrl.fund) {
                     return;
                 }
-    
+
                 FundService.readFinances(
                     $ctrl.fund.organization_id,
                     $ctrl.fund.id,
                     $ctrl.chartData.request
-                ).then(function (res) {
+                ).then(function(res) {
                     $ctrl.chartData.response = res.data;
                 });
             }
@@ -129,7 +131,7 @@ let FinancialDashboardComponent = function(
             });
 
             if ($ctrl.funds.length == 1 && !$ctrl.fund) {
-                $state.go('financial-dashboard', {
+                return $state.go('financial-dashboard', {
                     organization_id: $ctrl.funds[0].organization_id,
                     fund_id: $ctrl.funds[0].id
                 });
@@ -153,7 +155,7 @@ let FinancialDashboardComponent = function(
                 return fundProvider;
             });
         }
-        
+
         $ctrl.productCategories.unshift({
             name: 'Alle',
             id: null
