@@ -11,8 +11,4 @@
         .fund-title(ng-bind="fund.name")
         br
         div(ng-bind="fund.organization.name").fund-organization
-    
-    //- .card-block.card-block-listing
-        .card-block-listing-label {{ "fund_card_available_provider.labels.categories" | translate }}
-        | {{ fundCategories.join(', ') }}
-        small(ng-show="fundCategories.length == 0").text-muted.small {{ "fund_card_available_provider.labels.nocategories" | translate }}
+
