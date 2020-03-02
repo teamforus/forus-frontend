@@ -1,16 +1,40 @@
 let ProductsComponent = function(
+    $q,
+    $scope,
     $state, 
     $stateParams,
     appConfigs,
+    ProductService,
     ModalService
 ) {
     let $ctrl = this;
+    $ctrl.filters = {
+        values: {},
+    };
 
     $ctrl.maxProductCount = appConfigs.flags.maxProductCount ? appConfigs.flags.maxProductCount : null;
+    
+    $scope.onPageChange = async (query) => {
+        return $q((resolve, reject) => {
+            ProductService.list(
+                $ctrl.organization.id, 
+                Object.assign({}, query, $ctrl.filters.values)
+            ).then((res => {
+                $ctrl.products = {
+                    meta: res.data.meta,
+                    data: res.data.data,
+                };
+
+                resolve($ctrl.products);
+            }), reject);
+        });
+    };
 
     $ctrl.$onInit = function() {
-        $ctrl.emptyBlockLink = $state.href('products-create', $stateParams);
-        $ctrl.cardLevel = "list";
+        $scope.onPageChange().then(() => {
+            $ctrl.emptyBlockLink = $state.href('products-create', $stateParams);
+            $ctrl.cardLevel = "list";
+        });
     };
 
     $ctrl.addProduct = function () {
@@ -35,9 +59,12 @@ module.exports = {
         products: '<'
     },
     controller: [
+        '$q',
+        '$scope',
         '$state', 
         '$stateParams',
         'appConfigs',
+        'ProductService',
         'ModalService',
         ProductsComponent
     ],

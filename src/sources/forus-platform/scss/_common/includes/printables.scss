@@ -81,6 +81,11 @@ body {
                 margin-bottom: 40px;
                 text-align: center;
 
+                .printable-condition {
+                    font: 400 13px/17px $bf;
+                    margin-bottom: 10px;
+                }
+
                 .notice {
                     font: 400 13px/17px $bf;
                     margin-bottom: 20px;

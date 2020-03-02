@@ -32,6 +32,6 @@ module.exports = {
         PrintableVoucherQrCodeComponent
     ],
     templateUrl: () => {
-        return '/assets/tpl/printables/printable-voucher-qr_code.html';
+        return 'assets/tpl/printables/printable-voucher-qr_code.html';
     }
 };
