@@ -767,7 +767,7 @@ gulp.task('default', gulp.series([
 
 // Setting up the test task
 gulp.task('browserstack', function(cb) {
-	gulp.src(['test/e2e/testcases/*ider.js']).pipe(protractor({
+	gulp.src(['test/e2e/testcases/*-spec.js']).pipe(protractor({
 		configFile: 'test/e2e/protractor.browserstack.conf.js'
 	})).on('error', function(e) {
 		console.log(e);
@@ -776,7 +776,7 @@ gulp.task('browserstack', function(cb) {
 
 // Setting up the test task
 gulp.task('protractor', function(cb) {
-	gulp.src(['test/e2e/testcases/*.js']).pipe(protractor({
+	gulp.src(['test/e2e/testcases/*-spec.js']).pipe(protractor({
 		configFile: 'test/e2e/protractor.conf.js'
 	})).on('error', function(e) {
 		console.log(e);

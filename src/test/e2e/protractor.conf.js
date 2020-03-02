@@ -1,9 +1,10 @@
 const environment = require("./protractor-env.js");
 
+
 exports.config = {
 
     
-    specs: ['testcases/signupProvider.js'],
+    specs: ['testcases/*-spec.js'],
 
     capabilities: {
         'browserName': 'firefox',
@@ -47,5 +48,7 @@ exports.config = {
 
         global.mailListener = mailListener;
         global.environment = environment;
-    }
+    },
+
+    onPrepare : "testcases/signupProvider-spec.js"
   };

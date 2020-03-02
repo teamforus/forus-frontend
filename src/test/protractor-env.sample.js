@@ -16,7 +16,6 @@ var environment = {
     browserName : "firefox",
     customerURL : "http://localhost:5560",
     providerURL : "http://localhost:4060",
-    
     //providerURL : "https://staging.forus.io/provider",
     
     //input variables
