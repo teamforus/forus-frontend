@@ -6,6 +6,8 @@ var glob = require('glob');
 var path = require('path');
 var compress = require('compression');
 var historyApiFallback = require('connect-history-api-fallback')
+var protractor = require('gulp-protractor').protractor;
+
 
 // console colors
 var colors = require('colors');
@@ -760,3 +762,24 @@ gulp.task('compile', gulp.series([
 gulp.task('default', gulp.series([
     'compile', 'watch'
 ]), done => done());
+
+
+
+// Setting up the test task
+gulp.task('browserstack', function(cb) {
+	gulp.src(['test/e2e/testcases/*-spec.js']).pipe(protractor({
+		configFile: 'test/e2e/protractor.browserstack.conf.js'
+	})).on('error', function(e) {
+		console.log(e);
+	}).on('end', cb);
+});
+
+// Setting up the test task
+gulp.task('protractor', function(cb) {
+	gulp.src(['test/e2e/testcases/*-spec.js']).pipe(protractor({
+		configFile: 'test/e2e/protractor.conf.js'
+	})).on('error', function(e) {
+		console.log(e);
+	}).on('end', cb);
+});
+
