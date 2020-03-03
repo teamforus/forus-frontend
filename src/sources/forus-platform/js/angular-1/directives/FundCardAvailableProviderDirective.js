@@ -6,10 +6,6 @@ let FundCardAvailableProviderDirective = function (
     ModalService,
     OfficeService
 ) {
-    $scope.fundCategories = $scope.fund.product_categories.map((val) => {
-        return val.name;
-    });
-
     $scope.providerApplyFund = function (fund) {
         OfficeService.list(
             $scope.organization.id
