@@ -3,13 +3,16 @@ const environment = require("./protractor-env.js");
 
 exports.config = {
 
-    
-    specs: ['testcases/*-spec.js'],
-
     capabilities: {
         'browserName': 'firefox',
         'name': 'Bstack-[Protractor] Local Test',
         
+    },
+
+    suites: {
+        requester : ['testcases/requester/*-spec.js'],
+        sponsor : ['testcases/sponsor/*-spec.js'],
+        provider : ['testcases/provider/*-spec.js'],
     },
 
     beforeLaunch: function(){
@@ -50,5 +53,5 @@ exports.config = {
         global.environment = environment;
     },
 
-    onPrepare : "testcases/signupProvider-spec.js"
+    //onPrepare : "testcases/provider/signupProvider-spec.js"
   };

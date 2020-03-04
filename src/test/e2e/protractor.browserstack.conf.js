@@ -10,11 +10,20 @@ exports.config = {
     capabilities: {
         'browserstack.user': environment.browserstack_user,
         'browserstack.key': environment.browserstack_key,
+        'browser_version' :'11.0',
         'browserstack.local': true,
         'browserName': environment.browserName,
         'name': 'Bstack-[Protractor] Local Test',
         "resolution" : "1920x1080"
 
+    },
+
+    onPrepare : "testcases/provider/signupProvider-spec.js",
+
+    suites: {
+        requester : ['testcases/requester/*-spec.js'],
+        sponsor : ['testcases/sponsor/*-spec.js'],
+        provider : ['testcases/provider/*-spec.js'],
     },
 
     
