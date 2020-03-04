@@ -29,10 +29,6 @@ let FundsComponent2 = function(
         });
 
         $ctrl.funds = $ctrl.funds.map(function(fund) {
-            fund.categories = fund.product_categories.map(function(category) {
-                return category.name;
-            }).join(', ');
-
             let validators = fund.validators.map(function(validator) {
                 return validator.identity_address;
             });

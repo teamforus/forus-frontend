@@ -12,11 +12,6 @@
             br
             div(ng-bind="fund.organization.name").fund-organization
 
-        //- .card-block.card-block-listing
-            .card-block-listing-label(translate="fund_card_provider.labels.categories")
-            span(ng-bind="fundCategories.join(', ')")
-            small(ng-show="fundCategories.length == 0" ng-bind="fund_card_provider.labels.nocategories").text-muted.small
-
         .card-block.card-block-listing
             .row.card-block-listing-row
                 .col.col-md-5

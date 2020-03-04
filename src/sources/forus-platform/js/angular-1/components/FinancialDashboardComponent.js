@@ -136,10 +136,6 @@ let FinancialDashboardComponent = function(
                     fund_id: $ctrl.funds[0].id
                 });
             }
-
-            $ctrl.funds.forEach((fund, index, funds) => {
-                fund.fundCategories = _.pluck(fund.product_categories, 'name').join(', ');
-            });
         }
 
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
@@ -147,13 +143,7 @@ let FinancialDashboardComponent = function(
         $ctrl.chartData.update();
 
         if (Array.isArray($ctrl.fundProviders)) {
-            $ctrl.fundProviders = $ctrl.fundProviders.map(fundProvider => {
-                fundProvider.organization.fundCategories = fundProvider.organization.product_categories.map(category => {
-                    return category.name;
-                });
-
-                return fundProvider;
-            });
+            $ctrl.fundProviders = $ctrl.fundProviders;
         }
 
         $ctrl.productCategories.unshift({
