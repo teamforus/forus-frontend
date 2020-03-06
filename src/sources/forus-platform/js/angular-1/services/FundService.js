@@ -145,11 +145,6 @@ let FundService = function(ApiRequest) {
 
         this.apiResourceToForm = function(apiResource) {
             return {
-                product_categories: apiResource.product_categories.map(
-                    function(product_category) {
-                        return product_category.id;
-                    }
-                ),
                 criteria: apiResource.criteria,
                 formula_products: apiResource.formula_products || [],
                 name: apiResource.name,

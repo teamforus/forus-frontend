@@ -32,7 +32,6 @@ let OrganizationsEditComponent = function(
         if (!$ctrl.organization) {
             OrganizationService.clearActive();
             values = {
-                "product_categories": [],
                 "website": 'https://',
             };
         } else {
