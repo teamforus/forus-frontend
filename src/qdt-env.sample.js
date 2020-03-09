@@ -297,6 +297,27 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('dashboard_groningen_sponsor', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_key: 'groningen',
+            panel_type: 'sponsor',
+            chat_id: chatId,
+            hide_voucher_generators: false,
+            flags: {
+                maxProductCount: 20,
+            },
+            sessions: sessions,
+         });
+      
+        platform.editTask('js', (task) => {
+            task.minify = minify;
+            task.sourcemap = sourcemap;
+            return task;
+        });
+        return platform;
+    });
+
     core.editPlatform('dashboard_winterswijk_provider', (platform) => {
         platform.setEnvData({
             api_url: apiUrl,
@@ -341,6 +362,25 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('dashboard_groningen_provider', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_key: 'groningen',
+            panel_type: 'provider',
+            chat_id: chatId,
+            hide_voucher_generators: false,
+            flags: {},
+            sessions: sessions,
+         });      
+      
+         platform.editTask('js', (task) => {
+            task.minify = minify;
+            task.sourcemap = sourcemap;
+            return task;
+        });
+      
+        return platform;
+    });
     core.editPlatform('dashboard_kerstpakket_provider', (platform) => {
         platform.setEnvData({
             api_url: apiUrl,
@@ -641,6 +681,27 @@ module.exports = (core) => {
         platform.setEnvData({
             api_url: apiUrl,
             client_key: 'noordoostpolder',
+            client_type: 'webshop',
+            log_out_time: false,
+            flags: {
+                accessibilityPage: false,
+            },
+            sessions: sessions,
+        });
+
+        platform.editTask('js', (task) => {
+            task.minify = minify;
+            task.sourcemap = sourcemap;
+            return task;
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_groningen', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_key: 'groningen',
             client_type: 'webshop',
             log_out_time: false,
             flags: {
