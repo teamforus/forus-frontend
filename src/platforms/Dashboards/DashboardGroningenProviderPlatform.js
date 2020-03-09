@@ -13,7 +13,7 @@ platform.copyAsset("resources/platform-groningen/**/*", "./");
 
 // tweak scss configs
 platform.editTask('scss', (task) => {
-    task.src = "gronigen/style-dashboard-groningen.scss";
+    task.src = "groningen/style-dashboard-groningen.scss";
     task.watch = [
         "_common/**/*.scss",
         "groningen/**/*.scss"
