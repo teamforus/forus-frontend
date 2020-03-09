@@ -11,20 +11,21 @@
         .wrapper
             mixin progress()
                 .sign_up-progress
-                    .pre-step1(ng-class="$ctrl.step >= 2 ? 'active' : ''")
+                    .pre-step1(ng-class="$ctrl.step >= 3 ? 'active' : ''")
                         .pre-step-border
                         .icon
                             include ../../../resources/platform-general/assets/img/svg/pre-step.svg
 
                     .sign_up-step(
-                        ng-repeat="step in $ctrl.shownSteps"
+                        ng-repeat="step in $ctrl.shownSteps track by $index"
+                        data="{{ step }}"
                         ng-class="$ctrl.step == step ? 'sign_up-step-active' : ($ctrl.step > step ? 'sign_up-step-done' : '')")
                         
                         .sign_up-step-border
-                        .sign-up-step-block(ng-bind="'Stap ' + (step - 1)")
+                        .sign-up-step-block Stap {{ ' ' + ($index + 1) }}
 
             .block.block-sign_up: .block-wrapper
-                //- General information
+                //- General sign up information
                 div(ng-if="$ctrl.step == 1")
                     h2.block-title
 
@@ -36,9 +37,8 @@
                         .sign_up-pane-body
                             .sign_up-pane-text(translate="sign_up_new.header.subtitle_step_1")
 
-                            br
-                            ul.sign_up-pane-list
-                                li(ng-repeat="field in $ctrl.readMoreFields") {{ field }}
+                            .sign_up-preview-step
+                                img(ng-src="./assets/img/sign_up_first_step.png")    
 
                         .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-right): .row
                             .col.col-lg-6.text-left: .button.button-text.button-text-padless
@@ -47,7 +47,7 @@
                                 | {{ 'sign_up_new.buttons.next' | translate }}
                                 em.mdi.mdi-chevron-right.icon-right
 
-                //- Scan QR Code
+                //- Me-app information
                 div(ng-if="$ctrl.step == 2")
                     h2.block-title
 
@@ -57,11 +57,29 @@
                         .sign_up-pane-header(translate="sign_up_new.header.title_step_2")
 
                         .sign_up-pane-body
-                            .sign_up-pane-text(translate="sign_up_new.header.subtitle_step_2")
+                            .text-center.sign-up-step-icon
+                                img(ng-src="./assets/img/me-app-icon.svg")    
+                            
+                            .sign_up-pane-text(translate="sign_up_new.header.subtitle_step_2")    
 
-                            .sign_up-pane-heading(translate="sign_up_new.download.title")
-                            .sign_up-pane-text(translate="sign_up_new.download.description")
+                        .sign_up-pane-footer: .row
+                            .col.col-lg-6.text-left
+                                
+                            .col.col-lg-6.text-right
+                                .button.button-text.button-text-padless(ng-click="$ctrl.next()")
+                                    | {{ 'sign_up_new.buttons.next' | translate }}
+                                    em.mdi.mdi-chevron-right.icon-right   
 
+                //- Scan QR Code
+                div(ng-if="$ctrl.step == 3")
+                    h2.block-title
+
+                    +progress()
+
+                    .sign_up-pane
+                        .sign_up-pane-header(translate="sign_up_new.header.title_step_3")
+
+                        .sign_up-pane-body
                             .sign_up-pane-heading
                                 | {{ 'sign_up_new.labels.mobile_number' | translate }}
                                 phone-control(ng-model="phoneForm.values.phone" cant-delete-length="2")
@@ -75,31 +93,63 @@
 
                                     span(translate="sign_up_new.qr_code.description")
 
-                                    .sign_up-pane-auth-apps
-                                        a(href="#").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
-                                        a(href="#").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
+                                    a.notice-small(translate="sign_up_new.app_instruction.no_app")
 
                                 .sign_up-pane-auth-qr_code
                                     qr-code(
                                         ng-if="$ctrl.authToken"
                                         qr-value="$ctrl.authToken"
                                         qr-type="auth_token"
-                                        qr-logo=src_prefix + "./assets/img/me-logo.png")
+                                        qr-logo=src_prefix + "./assets/img/me-logo.png")       
 
-                    .step-footer(ng-if="$ctrl.has_app")
-                        a.button.button-primary(translate="sign_up_new.buttons.go_step_2" ng-click="$ctrl.skipToStep(2)")
+                        //- .step-footer(ng-if="$ctrl.has_app")
+                        //-     a.button.button-primary(translate="sign_up_new.buttons.next" ng-click="$ctrl.skipToStep(3)")
+
+                //- Select organization step
+                div(ng-if="$ctrl.step == 4")
+                    h2.block-title
+
+                    +progress()
+
+                    .sign_up-pane
+                        .sign_up-pane-header(translate="sign_up_new.header.title_step_4")
+
+                        .sign_up-pane-body
+                            .card.card-image-left(
+                                ng-class="{ 'active': organization.id == $ctrl.selectedOrganization.id }"
+                                ng-repeat="organization in $ctrl.organizationList"
+                                ng-click="$ctrl.selectOrganization(organization)")
+
+                                .card-section
+                                    .card-section-preview 
+                                        img(
+                                            ng-src="{{ organization.logo.sizes.thumbnail ? organization.logo.sizes.thumbnail : './assets/img/organization-no-logo.svg' }}")
+                                    .card-section-description(ng-bind="organization.name")
+
+                            .button.button-primary.button-circle-icon(
+                                ng-click="$ctrl.confirmOrganization()"
+                                ng-show="$ctrl.showAddOfficeBtn")
+                                | {{ 'organization_edit.buttons.add_location' | translate }}             
+
+                        .sign_up-pane-footer: .row
+                            .col.col-lg-6.text-left
+                                .button.button-text.button-text-padless(ng-click="$ctrl.back()")
+                                    | {{ 'sign_up_new.buttons.back' | translate }}
+                                    em.mdi.mdi-chevron-left.icon-lefts
+                                
+                            .col.col-lg-6.text-right
 
                 //- Manage organization details
-                div(ng-if="$ctrl.step == 3")
+                div(ng-if="$ctrl.step == 5")
                     h2.block-title
 
                     +progress()
                     
                     .sign_up-pane
-                        .sign_up-pane-header(translate="sign_up_new.header.title_step_3")
+                        .sign_up-pane-header(translate="sign_up_new.header.title_step_5")
 
                         .sign_up-pane-body
-                            .sign_up-pane-text.with-border(translate="sign_up_new.header.subtitle_step_3")
+                            .sign_up-pane-text.with-border(translate="sign_up_new.header.subtitle_step_5")
 
                             .sign_up-pane-text: form(ng-submit="$ctrl.next()").form: .row
                                 .card-section: .pseudo-wrapper
@@ -227,25 +277,25 @@
                                                             span.info-field(translate="organization_edit.labels.optional")
                         .sign_up-pane-footer: .row
                             .col.col-lg-6.text-left
-                                .button.button-text.button-text-padless(ng-click="$ctrl.back()")
-                                    | {{ 'sign_up_new.buttons.back' | translate }}
-                                    em.mdi.mdi-chevron-left.icon-lefts
+                                //- .button.button-text.button-text-padless(ng-click="$ctrl.back()")
+                                //-     | {{ 'sign_up_new.buttons.back' | translate }}
+                                //-     em.mdi.mdi-chevron-left.icon-lefts
                             .col.col-lg-6.text-right
                                 .button.button-text.button-text-padless(ng-click="$ctrl.next()")
                                     | {{ 'sign_up_new.buttons.next' | translate }}
                                     em.mdi.mdi-chevron-right.icon-right
 
                 //- Manage offices
-                div(ng-if="$ctrl.step == 4")
+                div(ng-if="$ctrl.step == 6")
                     h2.block-title
 
                     +progress()
 
                     .sign_up-pane.offices
-                        .sign_up-pane-header(translate="sign_up_new.header.title_step_4")
+                        .sign_up-pane-header(translate="sign_up_new.header.title_step_6")
 
                         .sign_up-pane-body
-                            .sign_up-pane-text.header.with-border(translate="sign_up_new.header.subtitle_step_4")
+                            .sign_up-pane-text.header.with-border(translate="sign_up_new.header.subtitle_step_6")
 
                             .sign_up-pane-text(ng-if="$ctrl.offices.length"): .row
                                 .card-section: .pseudo-wrapper
@@ -269,7 +319,6 @@
                                         .actions
                                             .office-map-content
                                                 google-map(offices="$ctrl.offices" selected-office="office.id" hide-info-window="true")
-                                                //iframe(frameborder="0" width="268" height="179" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=Groningen, Netherlands&key=AIzaSyAGtyIwa3fytSaFTzIqDWdxZqdkLUzlYzM" allowfullscreen)
                                             em.edit.mdi.mdi-pencil-outline(ng-click="$ctrl.editOffice(office)")
                                                 span(translate="organization_edit.buttons.edit_location")
                                             em.delete.mdi.mdi-delete(ng-click="$ctrl.deleteOffice(office)")
@@ -396,21 +445,23 @@
                             .col.col-lg-6.text-left: .button.button-text.button-text-padless
 
                             .col.col-lg-6.text-right
-                                .button.button-text.button-text-padless(ng-click="$ctrl.next()")
+                                .button.button-text.button-text-padless(
+                                    ng-click="$ctrl.next()"
+                                    ng-class="{ 'disabled' : !$ctrl.offices.length }")
                                     | {{ 'sign_up_new.buttons.next' | translate }}
                                     em.mdi.mdi-chevron-right.icon-right
 
                 //- Manage employees
-                div(ng-if="$ctrl.step == 5")
+                div(ng-if="$ctrl.step == 7")
                     h2.block-title
 
                     +progress()
 
                     .sign_up-pane
-                        .sign_up-pane-header(translate="sign_up_new.header.title_step_5")
+                        .sign_up-pane-header(translate="sign_up_new.header.title_step_7")
 
                         .sign_up-pane-body
-                            .sign_up-pane-text.header.with-border(translate="sign_up_new.header.subtitle_step_5")
+                            .sign_up-pane-text.header.with-border(translate="sign_up_new.header.subtitle_step_7")
 
                             .sign_up-pane-text: form(ng-submit="$ctrl.next()").form: .row
                                 .card-section: .pseudo-wrapper
@@ -452,17 +503,17 @@
                                     em.mdi.mdi-chevron-right.icon-right
 
                 //- Step 6: Funds available
-                .step-item.fund-apply(ng-if="$ctrl.step == 6")
+                .step-item.fund-apply(ng-if="$ctrl.step == 8")
                     h2.block-title
 
                     +progress()
 
                     .sign_up-pane
-                        .sign_up-pane-header(translate="sign_up_new.header.title_step_6")
+                        .sign_up-pane-header(translate="sign_up_new.header.title_step_8")
 
                         .sign_up-pane-body
 
-                            .sign_up-pane-text.header.with-border(translate="sign_up_new.header.subtitle_step_6")
+                            .sign_up-pane-text.header.with-border(translate="sign_up_new.header.subtitle_step_8")
 
                             .row.form.filters(ng-if="$ctrl.showFilters")   
                                 .col.col-lg-6
@@ -509,19 +560,19 @@
                                     em.mdi.mdi-chevron-right.icon-right
 
                 //- Apply fund success screen
-                .finish-screen(ng-if="$ctrl.step == 7")
+                .finish-screen(ng-if="$ctrl.step == 9")
                     h2.block-title
 
                     +progress()
 
                     .sign_up-pane
-                        .sign_up-pane-header(translate="sign_up_new.header.title_step_7")
+                        .sign_up-pane-header(translate="sign_up_new.header.title_step_9")
 
                         .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
                             .form-group.col.col-lg-12
                                 .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
-                                .sign_up-pane-heading.text-center(translate="sign_up_new.header.top_title_step_7")
-                                p.sign_up-pane-text.text-center(translate="sign_up_new.header.subtitle_step_7")
+                                .sign_up-pane-heading.text-center(translate="sign_up_new.header.top_title_step_9")
+                                p.sign_up-pane-text.text-center(translate="sign_up_new.header.subtitle_step_9")
 
                                 .text-center: .button.button-finish(
                                     ng-click="$ctrl.next()"
@@ -529,16 +580,16 @@
                             .form-group.col.col-lg-12: br
 
                 //- Scan QR Code (test)
-                div(ng-if="$ctrl.step == 8")
+                div(ng-if="$ctrl.step == 10")
                     h2.block-title
 
                     +progress()
 
                     .sign_up-pane
-                        .sign_up-pane-header(translate="sign_up_new.header.title_step_8")
+                        .sign_up-pane-header(translate="sign_up_new.header.title_step_10")
 
                         .sign_up-pane-body
-                            .sign_up-pane-text.header(translate="sign_up_new.header.subtitle_step_8")
+                            .sign_up-pane-text.header(translate="sign_up_new.header.subtitle_step_10")
 
                             .sign_up-pane-auth.test-qr
                                 .sign_up-pane-auth-qr_code
@@ -552,13 +603,13 @@
                         a(translate="sign_up_new.buttons.go_step_2" ng-click="$ctrl.skipToStep(2)").button.button-primary
 
                 //- Done
-                .finish-screen(ng-if="$ctrl.step == 9")
+                .finish-screen(ng-if="$ctrl.step == 11")
                     h2.block-title
 
                     +progress()
 
                     .sign_up-pane
-                        .sign_up-pane-header(translate="sign_up_new.header.title_step_9")
+                        .sign_up-pane-header(translate="sign_up_new.header.title_step_10")
 
                         .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
                             .form-group.col.col-lg-12

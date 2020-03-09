@@ -795,6 +795,40 @@ $colorPrimaryLight: $color_primary_light;
             background: lighten($color: #f3f4f5, $amount: 2);
         }
     }
+
+    &.card-image-left {
+        box-shadow: none !important;
+
+        .card-section {
+            padding: 15px;
+            
+            .card-section-preview {
+                float: left;
+
+                img {
+                    width: 54px;
+                }
+            }
+    
+            .card-section-description {
+                text-align: center;
+                width: calc(100% - 54px);
+                font: 400 16px/54px $bf;
+            }
+        }
+
+        &.active, &:hover {
+            background: #FFFFFF;
+            border: 1px solid #3561FF;
+            box-sizing: border-box;
+            border-radius: 6px;
+            cursor: pointer;
+
+            .card-section-description {
+                color: #3561FF;
+            }
+        }
+    }
 }
 
 .card-block {
@@ -1558,20 +1592,46 @@ $colorPrimaryLight: $color_primary_light;
                 border-top: 6px solid #BDCBFF;
                 border-top-left-radius: 6px;
                 border-bottom-left-radius: 6px;
-
-                &.active {
-                    border-top: 6px solid #3561FF;
-                }
             }
 
             .icon {
                 margin-top: 3px;
+            }
+
+            &.active {
+                .pre-step-border {
+                    border-top: 6px solid #3561FF;
+                }
             }
         }
 
         .sign_up-step {
             margin-left: 1px;
             width: calc((100% - 46px)/4);
+        }
+
+        .button {
+            &.button-circle-icon {
+                &:before {
+                    position: absolute;
+                    content: '+';
+                    height: 24px;
+                    width: 24px;
+                    border-radius: 24px;
+                    top: 14px;
+                    left: 15px;
+                    line-height: 23px;
+                    border: 1px solid #FFFFFF;
+                    font-weight: 400;
+                    text-align: center;
+                }
+            }
+
+            &.disabled {
+                .mdi {
+                    color: #bbc1c6 !important;
+                }
+            }
         }
 
         .sign_up-progress {
@@ -1634,6 +1694,15 @@ $colorPrimaryLight: $color_primary_light;
                         padding-bottom: 30px;
                         border-bottom: 1px solid #EDEEF0;
                     }
+                }
+
+                .sign_up-preview-step {
+                    margin-top: 40px;
+                    margin-bottom: -30px;
+                }
+
+                .sign-up-step-icon {
+                    padding-bottom: 20px;
                 }
 
                 .block-icon {
@@ -1746,6 +1815,12 @@ $colorPrimaryLight: $color_primary_light;
 
                     .sign_up-pane-auth-apps {
                         margin-top: 26px;
+                    }
+
+                    .notice-small {
+                        font: 400 13/27px $bf;
+                        color: #989898;
+                        margin-top: 25px;
                     }
                 }
 

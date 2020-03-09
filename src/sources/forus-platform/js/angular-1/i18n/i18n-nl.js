@@ -750,30 +750,32 @@ module.exports = {
         header: {
             main_header: "Aanmelden als aanbieder",
             go_back: "Terug",
-            title_step_1: "Algemene informatie",
-            subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als leverancier. " + 
-                "De volledige aanmeldprocedure duurt ongeveer 5 minuten. Is uw organisatie aangemeld, dan kunnen klanten een plaatje (QR-code) tonen om een betaling te doen (vergelijkbaar met toegangskaartjes en vliegtickets). " + 
-                "De QR-code van de klant scant u met de Me app. In de volgende stap kunt u de app installeren. <br/><br/>" + 
-                "Zorg dat u de volgende zaken bij de hand heeft:",
-            title_step_2: "De kassa app installeren",
-            subtitle_step_2: "In deze stap gaat u de app installeren waarmee u betalingen kunt verrichten. In de app maakt u een persoonlijk profiel aan. Hierna voegt u uw organisatie toe en kunt u indien gewenst medewerkers toevoegen die namens u betalingen kunnen uitvoeren.",
-            title_step_3: "Organisatie aanmaken",
-            subtitle_step_3: "Om deel te kunnen nemen gaat u een organisatie aanmaken. Vul hieronder de gegevens van uw organisatie in. Na aanmelding ontvangt u de betalingen automatisch op uw rekening, hier hoeft u verder niets voor te doen.",
-            title_step_4: "Organisatie aanmaken",
-            subtitle_step_4: "Voeg uw vestiging(en) toe. Heeft uw organisatie meerdere vestigingen, dan kunt u deze toevoegen. De vestigingen worden op de kaart in de webwinkel getoond.",
-            title_step_5: "Kassa medewerkers toevoegen",
-            subtitle_step_5: "In deze stap kunt u kassa medewerkers toevoegen. Deze medewerkers kunnen vervolgens ook QR-codes scannen met de kassa app en betalingen verwerken." + 
-                "<br/>Er wordt een uitnodiging met instructies verstuurd naar de e-mailadressen die u hieronder invult. Als u geen medewerkers wilt toevoegen kunt u deze stap overslaan.",
-            title_step_6: "Meld u aan voor de regelingen",
-            subtitle_step_6: "Meld u aan voor de regelingen. Uw aanvraag wordt binnen twee weken behandeld.",
-            title_step_7: "Aanvraag ontvangen",
-            top_title_step_7: "Uw aanmelding is ontvangen",
-            subtitle_step_7: "Uw aanmelding is in behandeling. Dit kan maximaal twee weken duren. Zodra uw aanvraag is behandeld ontvangt u een e-mail. U kunt de status van uw aanmelding ook op het dashboard volgen.",
-            title_step_8: "Test betaling",
-            subtitle_step_8: "Wanneer u bent geaccepteerd als aanbieder, kunt u betalingen doen. Klanten kunnen u een plaatje (QR code) tonen (vergelijkbaar met toegangskaartjes en vliegtickets). De QR-code scant u met de app die u zojuist heeft geïnstalleerd. Vervolgens kunt u de betaling verrichten. Scan de afbeelding hieronder om een test betaling te doen.",
-            title_step_9: "De test betaling is gelukt!",
-            top_title_step_9: "De test betaling is gelukt!",
-            subtitle_step_9: "Op dezelfde manier kunt u betalingen van klanten verrichten. Met deze app kunt u ook de QR-codes van klanten scannen.<br/><br/>" +
+            title_step_1: "Welkom", 
+            subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als aanbieder. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
+            title_step_2: "Benodigdheden",
+            subtitle_step_2: "U hoeft geen speciale apparatuur aan te schaffen om betalingen te ontvangen. Het installeren van een gratis app is voldoende.<br/><br/>" +
+                "De app kan op vrijwel elke moderne Apple of Android telefoon worden geinstalleerd. U en uw medewerkers kunnen de app veilig op eigen telefoon gebruiken. Het is ook mogelijk om speciaal een telefoon aan te schaffen voor het gebruik in uw winkel. ",
+            title_step_3: "De kassa app installeren",
+            subtitle_step_3: "",
+            title_step_4: "Vestiging toevoegen",
+            subtitle_step_4: "",
+            title_step_5: "Organisatie aanmaken",
+            subtitle_step_5: "Om deel te kunnen nemen gaat u een organisatie aanmaken. Vul hieronder de gegevens van uw organisatie in. Na aanmelding ontvangt u de betalingen automatisch op uw rekening, hier hoeft u verder niets voor te doen.",
+            title_step_6: "Vestiging toevoegen",
+            subtitle_step_6: "Voeg uw vestiging(en) toe. Heeft uw organisatie meerdere vestigingen, dan kunt u deze toevoegen. De vestigingen worden op de kaart in de webwinkel getoond.",
+            title_step_7: "Kassa medewerkers toevoegen",
+            subtitle_step_7: "In deze stap kunt u kassa medewerkers toevoegen. Deze medewerkers kunnen vervolgens ook QR-codes scannen met de kassa app en betalingen verwerken." + "<br/>" +
+                "Er wordt een uitnodiging met instructies verstuurd naar de e-mailadressen die u hieronder invult. Als u geen medewerkers wilt toevoegen kunt u deze stap overslaan.",
+            title_step_8: "Meld u aan voor de regelingen",
+            subtitle_step_8: "Meld u aan voor de regelingen. Uw aanvraag wordt binnen twee weken behandeld.",
+            title_step_9: "Aanvraag ontvangen",
+            top_title_step_9: "Uw aanmelding is ontvangen",
+            subtitle_step_9: "Uw aanmelding is in behandeling. Dit kan maximaal twee weken duren. Zodra uw aanvraag is behandeld ontvangt u een e-mail. U kunt de status van uw aanmelding ook op het dashboard volgen.",
+            title_step_10: "Test betaling",
+            subtitle_step_10: "Wanneer u bent geaccepteerd als aanbieder, kunt u betalingen doen. Klanten kunnen u een plaatje (QR code) tonen (vergelijkbaar met toegangskaartjes en vliegtickets). De QR-code scant u met de app die u zojuist heeft geïnstalleerd. Vervolgens kunt u de betaling verrichten. Scan de afbeelding hieronder om een test betaling te doen.",
+            title_step_11: "De test betaling is gelukt!",
+            top_title_step_11: "De test betaling is gelukt!",
+            subtitle_step_11: "Op dezelfde manier kunt u betalingen van klanten verrichten. Met deze app kunt u ook de QR-codes van klanten scannen.<br/><br/>" +
                 "Het bedrag wordt door middel van een programmeerbare bankrekening direct naar u overgemaakt. Het bedrag staat binnen drie werkdagen op uw rekening. ",
         },
         meapp_header: {
@@ -857,6 +859,7 @@ module.exports = {
             step_1: 'Open <i>Me</i>',
             step_2: 'Ik heb al een profiel',
             step_3: 'Inloggen met Autorisatie code',
+            no_app: 'Ik kan nu nog geen app gebruiken >',
         },
         app_header: {
             title: 'Vul de code in op het invoerveld',

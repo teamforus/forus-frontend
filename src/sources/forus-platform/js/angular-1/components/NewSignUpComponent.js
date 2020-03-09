@@ -21,15 +21,36 @@ let newSignUpComponent = function(
     ModalService
 ) {
     let $ctrl = this;
+ 
+    const STEP_INFO_GENERAL = 1;
+    const STEP_ME_APP = 2;
+    const STEP_SCAN_QR = 3;
+    const STEP_SELECT_ORGANIZATION = 4;
+    const STEP_ORGANIZATION_ADD = 5;
+    const STEP_OFFICE_ADD = 6;
+    const STEP_EMPLOYEE_ADD = 7;
+    const STEP_FUND_APPLY = 8;
+    const STEP_PROCESS_NOTICE = 9;
+    const STEP_DEMO_TRANSACTION = 10;
+    const STEP_SIGNUP_FINISHED = 11;
 
-    /*
-     step 1 - General information
-     step 2 - Scan QR Code
-     step 3 - Manage organization details
-     step 4 - Manage offices
-     step 5 - Manage employees
-     */
-    $ctrl.step = 1;
+    const STEPS_ORGANIZATION_SELECT = [
+        STEP_SCAN_QR, 
+        STEP_SELECT_ORGANIZATION, 
+        STEP_OFFICE_ADD, 
+        STEP_EMPLOYEE_ADD, 
+        STEP_FUND_APPLY
+    ];
+
+    const STEPS_ORGANIZATION_ADD = [
+        STEP_SCAN_QR, 
+        STEP_ORGANIZATION_ADD, 
+        STEP_OFFICE_ADD, 
+        STEP_EMPLOYEE_ADD, 
+        STEP_FUND_APPLY
+    ];
+
+    $ctrl.step = STEP_INFO_GENERAL;
     $ctrl.organizationStep = false;
     $ctrl.signedIn = AuthService.hasCredentials();
     $ctrl.showLoginBlock = false;
@@ -55,17 +76,19 @@ let newSignUpComponent = function(
                 if (step) {
                     this.setStep(step);
                 } else {
-                    this.setStep(3);
+                    this.setStep(STEP_ORGANIZATION_ADD);
                 }
             } else {
-                this.setStep(1);
+                this.setStep(STEP_INFO_GENERAL);
             }
         };
 
         this.setStep = (step) => {
             localStorage.setItem('sign_up_form.step', step);
 
-            if (step == 8) {
+            if (step == STEP_SCAN_QR) {
+                $ctrl.requestAuthQrToken();
+            } else if (step == STEP_DEMO_TRANSACTION) {
                 DemoTransactionService.store().then(res => {
                     $ctrl.demoToken = res.data.data.token;
 
@@ -75,7 +98,7 @@ let newSignUpComponent = function(
                             if (res.data.data.state != 'pending') {
                                 $interval.cancel(interval);
 
-                                $ctrl.setStep(9);
+                                $ctrl.setStep(STEP_SIGNUP_FINISHED);
                             }
                         });
                     }, 1000);
@@ -88,7 +111,11 @@ let newSignUpComponent = function(
         this.getStep = () => {
             let step = parseInt(localStorage.getItem('sign_up_form.step'));
 
-            if (step >= 3) {
+            if (step == STEP_SCAN_QR) {
+                $ctrl.requestAuthQrToken();
+            }
+
+            if (step >= STEP_SELECT_ORGANIZATION) {
                 let organisation_data = {};
 
                 if (localStorage.getItem('sign_up_form.organizationForm') != null) {
@@ -97,7 +124,11 @@ let newSignUpComponent = function(
                     );
                 }
 
-                if (step == 3) {
+                if (step == STEP_SELECT_ORGANIZATION) {
+                    $ctrl.shownSteps = STEPS_ORGANIZATION_SELECT;
+
+                    loadOrganizations();
+                } else if (step == STEP_ORGANIZATION_ADD) {
                     $ctrl.organizationForm.values = organisation_data;
                 } else {
                     $ctrl.organization = organisation_data;
@@ -156,16 +187,6 @@ let newSignUpComponent = function(
                 if (!form.values.id) {
                     $ctrl.offices.push(res.data.data);
                 } else {
-                    // let office = $ctrl.offices.filter(
-                    //     (office, index) => office.id == form.values.id
-                    // )[0];
-
-                    // for(let value in form.values) {
-                    //     office[value] = form.values[value];
-                    // }
-
-                    //let offices = angular.copy($ctrl.offices);
-
                     $ctrl.offices.forEach(
                         (office, index) => {
                             if (office.id == form.values.id) {
@@ -194,9 +215,10 @@ let newSignUpComponent = function(
             form.lock();
 
             let promise;
+            let operation_officer = 5;
 
             // Role operation_officer
-            form.values.roles = [5];
+            form.values.roles = [operation_officer];
 
             if (form.values.id) {
                 promise = OrganizationEmployeesService.update(
@@ -211,7 +233,7 @@ let newSignUpComponent = function(
                 )
             }
 
-            promise.then((res) => {
+            promise.then(res => {
                 if (!form.values.id) {
                     $ctrl.employees.push(res.data.data);
                 } else {
@@ -237,7 +259,7 @@ let newSignUpComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        $ctrl.requestAuthQrToken();
+        //$ctrl.requestAuthQrToken();
 
         $ctrl.signUpForm = FormBuilderService.build({
             pin_code: "1111",
@@ -376,6 +398,15 @@ let newSignUpComponent = function(
         $ctrl.officeForm.submit();
     };
 
+    $ctrl.selectOrganization = (organization) => {
+        $ctrl.selectedOrganization = organization;
+    };
+
+    $ctrl.confirmOrganization = () => {
+        $ctrl.setStep(STEP_OFFICE_ADD);
+        $ctrl.setOrganization($ctrl.selectedOrganization);
+    };
+
     $ctrl.syncTwoDatesHours = (date1, date2) => {
         date1.start_time = date2.start_time;
         date1.end_time   = date2.end_time;
@@ -457,8 +488,10 @@ let newSignUpComponent = function(
     }
 
     $ctrl.syncTimePreferences = () => {
-        let schedule_days = $ctrl.officeForm.values.schedule;
-        let schedule_options = $ctrl.officeForm.values.scheduleDetails;
+        let schedule_days = $ctrl.officeForm.values.schedule ? 
+            $ctrl.officeForm.values.schedule : [];
+        let schedule_options = $ctrl.officeForm.values.scheduleDetails ? 
+            $ctrl.officeForm.values.scheduleDetails : [];
         let has_days_set = schedule_days.filter((day, index) => {
                 return $ctrl.isDateModified(day) && index < 5;
             }).length == 0;    
@@ -622,6 +655,16 @@ let newSignUpComponent = function(
         });
     };
 
+    let organizationListPromise = () => OrganizationService.list();
+
+    let loadOrganizations = () => {
+        organizationListPromise.then(res => {
+            if (res.data.data.length) {
+                $ctrl.organizationList = res.data.data;
+            }
+        });
+    };
+
     let loadEmployees = (organization) => {
         OrganizationEmployeesService.list(
             organization.id
@@ -685,9 +728,9 @@ let newSignUpComponent = function(
 
     $ctrl.filterFunds = (organization = $ctrl.organization) => {
         let organization_id = $ctrl.fundOrganization && $ctrl.fundOrganization != 'null' ?
-                $ctrl.fundOrganization : $stateParams.organization_id;
+            $ctrl.fundOrganization : $stateParams.organization_id;
         let label = $ctrl.fundLabel && $ctrl.fundLabel != 'null' ?
-                $ctrl.fundLabel : $stateParams.tag;
+            $ctrl.fundLabel : $stateParams.tag;
         let fund_id = $stateParams.fund_id,
             search_params = {};
 
@@ -741,6 +784,9 @@ let newSignUpComponent = function(
 
     $ctrl.setOrganization = (organization) => {
         $ctrl.organization = organization;
+        localStorage.setItem('sign_up_form.organizationForm', JSON.stringify(
+            organization
+        ));
 
         loadOrganizationOffices(organization);
         loadEmployees(organization);
@@ -750,7 +796,7 @@ let newSignUpComponent = function(
     $ctrl.showAddOfficeBtn = true;
 
     $ctrl.next = async function() {
-        if ($ctrl.organizationStep && !$ctrl.signedIn && $ctrl.step > 1) {
+        if ($ctrl.organizationStep && !$ctrl.signedIn && $ctrl.step > STEP_INFO_GENERAL) {
             $ctrl.signUpForm.submit().then((res) => {
                 CredentialsService.set(res.data.access_token);
                 $ctrl.setStep($ctrl.step + 1);
@@ -764,9 +810,9 @@ let newSignUpComponent = function(
             return;
         }
 
-        if ($ctrl.step == 1) {
+        if ($ctrl.step < STEP_SCAN_QR) {
             $ctrl.setStep($ctrl.step + 1);
-        } else if ($ctrl.step == 2) {
+        } else if ($ctrl.step == STEP_SCAN_QR) {
 
             if (!waitingSms) {
                 $scope.phoneForm.submit().then((res) => {
@@ -782,7 +828,7 @@ let newSignUpComponent = function(
                     }
                 });
             }
-        } else if ($ctrl.step == 3) {
+        } else if ($ctrl.step == STEP_ORGANIZATION_ADD) {
             let authRes;
 
             if (!$ctrl.signedIn) {
@@ -791,7 +837,7 @@ let newSignUpComponent = function(
                     $ctrl.signUpForm.errors = res.data.errors;
                     $ctrl.organizationStep = true;
 
-                    $ctrl.setStep(2);
+                    $ctrl.setStep(STEP_ORGANIZATION_ADD);
                 });
 
                 if (typeof(authRes) !== 'undefined') {
@@ -814,33 +860,37 @@ let newSignUpComponent = function(
                 $rootScope.$broadcast('auth:update');
 
                 $ctrl.setOrganization(res.data.data);
-                if ($ctrl.step == 3 && $ctrl.organizationForm.values) {
-                    localStorage.setItem('sign_up_form.organizationForm', JSON.stringify(
-                        res.data.data
-                    ));
-                }
-
-                $ctrl.setStep(4);
+                $ctrl.setStep(STEP_OFFICE_ADD);
             }, (res) => {
                 $ctrl.organizationForm.errors = res.data.errors;
                 $ctrl.organizationForm.unlock();
             });
 
-        } else if ($ctrl.step >= 4) {
-            $ctrl.setStep($ctrl.step + 1);
-
-            if ($ctrl.step == 6) {
+        } else if ($ctrl.step >= STEP_OFFICE_ADD) {
+            if ($ctrl.step == STEP_OFFICE_ADD) {
+                if ($ctrl.offices.length) {
+                    $ctrl.setStep($ctrl.step + 1);
+                }
+            } else if ($ctrl.step == STEP_EMPLOYEE_ADD) {
                 loadAvailableFunds($ctrl.organization);
+                
+                $ctrl.setStep($ctrl.step + 1);
+            } else {
+                $ctrl.setStep($ctrl.step + 1);
             }
         }
     };
 
     $ctrl.back = function() {
-        if ($ctrl.signedIn && $ctrl.step <= 4) {
+        if ($ctrl.signedIn && $ctrl.step < STEP_SELECT_ORGANIZATION) {
             return;
         }
 
-        $ctrl.setStep($ctrl.step - 1);
+        if ($ctrl.step == STEP_ORGANIZATION_ADD) {
+            $ctrl.setStep($ctrl.step - 2);
+        } else {
+            $ctrl.setStep($ctrl.step - 1);
+        }
 
         loginQrBlock.hide();
     };
@@ -865,8 +915,17 @@ let newSignUpComponent = function(
         CredentialsService.set(access_token);
         $rootScope.$broadcast('auth:update');
 
-        if ($ctrl.step == 2) {
-            $ctrl.setStep(3);
+        if ($ctrl.step == STEP_SCAN_QR) {
+            organizationListPromise().then(res => {
+                if (res.data.data.length) {
+                    $ctrl.organizationList = res.data.data;
+                    $ctrl.shownSteps = STEPS_ORGANIZATION_SELECT;
+
+                    $ctrl.setStep(STEP_SELECT_ORGANIZATION);
+                } else {
+                    $ctrl.setStep(STEP_ORGANIZATION_ADD);
+                }
+            });
         } else {
             $ctrl.next();
         }
@@ -949,8 +1008,8 @@ let newSignUpComponent = function(
 
     $ctrl.weekDays = Object.values(OfficeService.scheduleWeekDaysExplicit());
 
-    $ctrl.totalSteps = Array.from({length: 9}, (v, k) => k + 1);
-    $ctrl.shownSteps = $ctrl.totalSteps.filter(step => step > 1 && step <= 6);
+    $ctrl.totalSteps = Array.from({length: 11}, (v, k) => k + 1);
+    $ctrl.shownSteps = STEPS_ORGANIZATION_ADD;
 
     $ctrl.goToMain = () => {
         $state.go('home');

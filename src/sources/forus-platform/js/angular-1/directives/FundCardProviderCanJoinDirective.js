@@ -3,9 +3,9 @@ let FundCardProviderCanJoinDirective = function(
     ProviderFundService,
     ModalService
 ) {
-    $scope.fundCategories = $scope.fund.product_categories.map((val) => {
-        return val.name;
-    });
+    // $scope.fundCategories = $scope.fund.product_categories.map((val) => {
+    //     return val.name;
+    // });
 
     $scope.providerApplyFund = function(fund) {
 
