@@ -17,12 +17,6 @@
                     span.text-primary-light(ng-bind="fundProvider.organization.email")
         
         //-.card-block.card-block-listing
-            .card-block-listing-label {{ "fund_card_provider_finances.labels.categories" | translate }}
-            | {{ fundProvider.organization.fundCategories.join(', ') }}
-            small(ng-show="fundCategories.length == 0").text-muted.small {{ "fund_card_provider_finances.labels.nocategories" | translate }}
-        //-br
-        
-        //-.card-block.card-block-listing
             .card-block-listing-label {{ "fund_card_provider_finances.labels.join" | translate }}
             span(
                 ui-sref="funds-show(fundProvider.fund)"
@@ -63,7 +57,7 @@
                         translate="fund_card_provider_finances.labels.all")
                 
                 .chart-header-title(ng-bind="chartData.stringTitle")
-                .chart-header-actions.form: .flex-row
+                .chart-header-actions.form: .flex-row 
                     .flex-col: .form-group: select(
                         ng-change="chartData.update()"
                         ng-options="productCategory.id as productCategory.name for productCategory in productCategories"

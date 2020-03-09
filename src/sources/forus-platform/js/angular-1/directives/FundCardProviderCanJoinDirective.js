@@ -3,17 +3,11 @@ let FundCardProviderCanJoinDirective = function(
     ProviderFundService,
     ModalService
 ) {
-    $scope.fundCategories = $scope.fund.product_categories.map((val) => {
-        return val.name;
-    });
-
     $scope.providerApplyFund = function(fund) {
-
         ProviderFundService.applyForFund(
             $scope.organization.id, 
             $scope.fund.id
         ).then(function(res) {
-
             ModalService.open('modalNotification', {
                 type: 'info',
                 title: 'provider_funds_available.applied_for_fund.title',
