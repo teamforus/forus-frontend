@@ -66,8 +66,7 @@ module.exports = {
             },
             popup_sent: {
                 title: 'Uw voucher is verstuurd naar de aanbieder.',
-                description: 'De aanbieder heeft de aanbieding voucher en uw bericht ontvangen. Neem contact op met de aanbieder of ga bij de organisatie langs om het aanbod af te nemen.' +
-                    '<br/>Bijv. voor schoolkosten, dit aanbod kan de inwoner niet afnemen. Ontvangt de inwoner een mail zodra het bedrag is afgeschreven van de aanbiedingvoucher?'
+                description: 'De aanbieder heeft de voucher en uw bericht ontvangen. Neem contact op met de aanbieder of ga bij de organisatie langs om het aanbod af te nemen.'
             },
             labels: {
                 send_copy: "Stuur e-mail als bewijs ook naar uzelf"

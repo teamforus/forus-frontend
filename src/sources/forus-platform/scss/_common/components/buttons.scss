@@ -39,6 +39,7 @@
         background: $color_primary;
         border-color: $color_primary;
         color: #fff;
+        display: inline-block;
 
         &>.mdi {
             color: inherit;
@@ -152,6 +153,7 @@
             color: #646f79;
             font-weight: 600;
         }
+        
         &[disabled],
         &.disabled {
             box-shadow: none !important;
