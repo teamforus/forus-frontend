@@ -12,8 +12,10 @@ exports.config = {
     suites: {
         requester : ['testcases/requester/*-spec.js'],
         sponsor : ['testcases/sponsor/*-spec.js'],
-        provider : ['testcases/provider/*-spec.js'],
+        provider : ['testcases/provider/signupProvider-spec.js'],
     },
+
+    allScriptsTimeout: 15000,
 
     beforeLaunch: function(){
 

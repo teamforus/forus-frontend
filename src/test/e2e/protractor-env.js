@@ -20,11 +20,11 @@ var environment = {
     
     //test environment
     browserName : "IE",
-    customerURL : "http://localhost:5560",
-    providerURL : "http://localhost:4060",
-    sponsorURL :  "http://localhost:3560",
-    active_account : "dde98161e073a58efb240f5f50182964bd34232836cc1c0eaee410aa0887d4318f987a0d9eb18f366d29549cd25bcf49dc46afb47cc6a7cb7b0d6d5a575ec4e7563c1b7b29db17db8a06284ac1d77257cbd035d21d3d98fcf8b41b0f0b0eea144b12bb82",
-    
+    customerURL : "http://localhost:5500",
+    providerURL : "http://localhost:4000",
+    sponsorURL :  "http://localhost:3500",
+    active_account : "051d837d376b3943e84b01552517723e5fc0cf5cc69fe63cd402a693fd214132c9031eb1ec981b2bff5d66d8393832d5924fb3597fdaec32f449eeac5abae28cf09a5763ed8808f5e6f18bc1cae8285c2a4eb054f98534d65925e1522cf8af88702b709f",
+
     //providerURL : "https://staging.forus.io/provider",
     
     //input variables

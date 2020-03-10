@@ -17,6 +17,8 @@ var environment = {
     customerURL : "http://localhost:5560",
     providerURL : "http://localhost:4060",
     //providerURL : "https://staging.forus.io/provider",
+   
+
     
     //input variables
     emailSibling : "your-email-client+".concat(r, "@gmail.com"),
