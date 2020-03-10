@@ -59,14 +59,13 @@ let newSignUpComponent = function(
     $ctrl.employees = [];
     $ctrl.sentSms = false;
     $ctrl.fundsAvailable = [];
+    $ctrl.hasApp = true;
 
-    let has_app = false;
     let orgMediaFile = false;
     let waitingSms = false;
     let timeout;
     let officeMediaFile = false;
-
-    $ctrl.afterInit = () => {};
+    let organizationListPromise = () => OrganizationService.list();
 
     let progressStorage = new(function() {
         this.init = () => {
@@ -148,6 +147,12 @@ let newSignUpComponent = function(
             localStorage.removeItem('sign_up_form.organizationForm');
         };
     })();
+
+    $ctrl.afterInit = () => {};
+
+    $ctrl.setHasAppProp = (value) => {
+        $ctrl.hasApp = value;
+    };
 
     $ctrl.chageBusinessType = (value) => {
         $ctrl.organizationForm.values.business_type_id = value.id;
@@ -306,20 +311,11 @@ let newSignUpComponent = function(
         $scope.phoneForm = FormBuilderService.build({
             phone: "06"
         }, function(form) {
-            form.lock();
-
-            let phone = "+31" + form.values.phone.substr(1);
-            let values = {
-                phone: phone,
-                title: $filter('translate')('sign_up_new.sms.body')
-            };
-
-            waitingSms = true;
-
-            return SmsService.send(
-                values
-            );
-        });
+            return SmsService.send({
+                phone: "+31" + form.values.phone.substr(1),
+                type: 'me_app_download_link'
+            });
+        }, true);
 
         $ctrl.officeForm = $ctrl.buildOfficeForm({});
 
@@ -339,6 +335,28 @@ let newSignUpComponent = function(
 
         $ctrl.afterInit();
     };
+
+    $ctrl.createAppProfile = () => {
+        $ctrl.signUpForm.submit().then((res) => {
+            CredentialsService.set(res.data.access_token);
+            $ctrl.signedIn = true;
+
+            // organizationListPromise().then(res => {
+            //     if (res.data.data.length) {
+            //         $ctrl.shownSteps = STEPS_ORGANIZATION_SELECT;
+    
+            //         $ctrl.setStep(STEP_SELECT_ORGANIZATION);
+            //     } else {
+            //         $ctrl.setStep(STEP_ORGANIZATION_ADD);
+            //     }
+            // });
+
+            $ctrl.setStep(STEP_ORGANIZATION_ADD);
+        }, (res) => {
+            $ctrl.signUpForm.unlock();
+            $ctrl.signUpForm.errors = res.data.errors;
+        });
+    }
 
     $ctrl.deleteOffice = (office) => {
         OfficeService.destroy(office.organization_id, office.id).then((res) => {
@@ -639,10 +657,6 @@ let newSignUpComponent = function(
         });
     };
 
-    $ctrl.changeHasApp = function() {
-        has_app = !has_app;
-    };
-
     let loadOrganizationOffices = (organization) => {
         OfficeService.list(
             organization.id
@@ -654,8 +668,6 @@ let newSignUpComponent = function(
             }
         });
     };
-
-    let organizationListPromise = () => OrganizationService.list();
 
     let loadOrganizations = () => {
         organizationListPromise.then(res => {
@@ -795,39 +807,30 @@ let newSignUpComponent = function(
     $ctrl.enableSaveOfficeBtn = false;
     $ctrl.showAddOfficeBtn = true;
 
-    $ctrl.next = async function() {
-        if ($ctrl.organizationStep && !$ctrl.signedIn && $ctrl.step > STEP_INFO_GENERAL) {
-            $ctrl.signUpForm.submit().then((res) => {
-                CredentialsService.set(res.data.access_token);
-                $ctrl.setStep($ctrl.step + 1);
+    $scope.$watch('phoneForm.values.phone', (newValue, oldValue, scope) => {
+        $ctrl.phoneNumberFilled = newValue.length == 10;
+    });
 
-                $ctrl.signedIn = true;
+    $ctrl.sendSms = () => {
+        if (!waitingSms) {
+            $scope.phoneForm.submit().then((res) => {
+                $ctrl.sentSms = true;
             }, (res) => {
-                $ctrl.signUpForm.unlock();
-                $ctrl.signUpForm.errors = res.data.errors;
+                $scope.phoneForm.unlock();
+                $scope.phoneForm.errors = res.data.errors;
+    
+                if (res.status == 429) {
+                    $scope.phoneForm.errors = {
+                        phone: [$filter('translate')('sign_up.sms.error.try_later')]
+                    };
+                }
             });
-
-            return;
         }
+    };
 
+    $ctrl.next = async function() {
         if ($ctrl.step < STEP_SCAN_QR) {
             $ctrl.setStep($ctrl.step + 1);
-        } else if ($ctrl.step == STEP_SCAN_QR) {
-
-            if (!waitingSms) {
-                $scope.phoneForm.submit().then((res) => {
-                    $ctrl.sentSms = true;
-                }, (res) => {
-                    $scope.phoneForm.unlock();
-                    $scope.phoneForm.errors = res.data.errors;
-
-                    if (res.status == 429) {
-                        $scope.phoneForm.errors = {
-                            phone: [$filter('translate')('sign_up_new.sms.error.try_later')]
-                        };
-                    }
-                });
-            }
         } else if ($ctrl.step == STEP_ORGANIZATION_ADD) {
             let authRes;
 
@@ -934,7 +937,7 @@ let newSignUpComponent = function(
     };
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
-        IdentityService.checkAccessToken(access_token).then((res) => {
+        IdentityService.checkAccessToken(access_token).then(res => {
             if (res.data.message == 'active') {
                 $ctrl.applyAccessToken(access_token);
             } else if (res.data.message == 'pending') {
@@ -966,7 +969,7 @@ let newSignUpComponent = function(
     }
 
     $ctrl.requestAuthQrToken = () => {
-        IdentityService.makeAuthToken().then((res) => {
+        IdentityService.makeAuthToken().then(res => {
             $ctrl.authToken = res.data.auth_token;
 
             $ctrl.checkAccessTokenStatus('token', res.data.access_token);
@@ -994,17 +997,6 @@ let newSignUpComponent = function(
     $ctrl.$onDestroy = function() {
         $timeout.cancel(timeout);
     };
-
-    $ctrl.readMoreFields = [
-        $filter('translate')('sign_up_new.labels.smartphone'),
-        $filter('translate')('sign_up_new.labels.phone_number'),
-        $filter('translate')('sign_up_new.labels.email'),
-        $filter('translate')('sign_up_new.labels.organization_email'),
-        $filter('translate')('sign_up_new.labels.organization_iban'),
-        $filter('translate')('sign_up_new.labels.room'),
-        $filter('translate')('sign_up_new.labels.vat'),
-        $filter('translate')('sign_up_new.labels.employee_emails'),
-    ];
 
     $ctrl.weekDays = Object.values(OfficeService.scheduleWeekDaysExplicit());
 

@@ -79,13 +79,19 @@
                     .sign_up-pane
                         .sign_up-pane-header(translate="sign_up_new.header.title_step_3")
 
-                        .sign_up-pane-body
+                        .sign_up-pane-body(ng-if="$ctrl.hasApp")
                             .sign_up-pane-heading
                                 | {{ 'sign_up_new.labels.mobile_number' | translate }}
                                 phone-control(ng-model="phoneForm.values.phone" cant-delete-length="2")
                                 .pincode-errors.text-center: .form-error(ng-repeat="error in phoneForm.errors.phone" ng-bind="error")
 
-                            .button.download-link(translate="sign_up_new.download.download_link")
+                            .button.download-link(
+                                ng-class="{ 'active' : $ctrl.phoneNumberFilled && !$ctrl.sentSms }" 
+                                ng-click="$ctrl.sendSms()"
+                                translate="sign_up_new.download.download_link")
+                            .app-download-notice(ng-show="$ctrl.phoneNumberFilled") 
+                                | {{ "sign_up_new.download.no_link_received" | translate }} 
+                                a(href="https://www.forus.io/DL" target="_blank") www.forus.io/DL
 
                             .sign_up-pane-auth
                                 .sign_up-pane-auth-content
@@ -93,14 +99,38 @@
 
                                     span(translate="sign_up_new.qr_code.description")
 
-                                    a.notice-small(translate="sign_up_new.app_instruction.no_app")
+                                    a.notice-small(ng-click="$ctrl.setHasAppProp(false)" translate="sign_up_new.app_instruction.no_app")
 
                                 .sign_up-pane-auth-qr_code
                                     qr-code(
                                         ng-if="$ctrl.authToken"
                                         qr-value="$ctrl.authToken"
                                         qr-type="auth_token"
-                                        qr-logo=src_prefix + "./assets/img/me-logo.png")       
+                                        qr-logo=src_prefix + "./assets/img/me-logo.png")     
+
+                        .sign_up-pane-body(ng-if="!$ctrl.hasApp")
+                            .sign_up-pane-heading(translate='sign_up_new.no_app.enter_email') 
+                            .sign_up-pane-text(translate="sign_up_new.no_app.instructions") 
+
+                            a.continue-app-msg(ng-click="$ctrl.setHasAppProp(true)" translate="sign_up_new.no_app.continue_app")
+
+                            form.form: .row
+                                .col.col-md-7
+                                    .form-group
+                                        label.form-label(translate="E-MAILadres")
+                                        ui-control-text(
+                                            data-id="employee"
+                                            ng-model="$ctrl.signUpForm.values.records.primary_email"
+                                            data-placeholder="ex. info@info.io").large
+                                        .form-error(ng-repeat="error in $ctrl.signUpForm.errors.name" ng-bind="error")
+
+                                .col.col-md-5
+                                    .form-group
+                                    label.form-label &nbsp;
+                                    button.button.button-primary.button-fill(
+                                        type="button"
+                                        ng-click="$ctrl.createAppProfile()"
+                                        translate="sign_up_new.app_instruction.create_profile")                    
 
                         //- .step-footer(ng-if="$ctrl.has_app")
                         //-     a.button.button-primary(translate="sign_up_new.buttons.next" ng-click="$ctrl.skipToStep(3)")

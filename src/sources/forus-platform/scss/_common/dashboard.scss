@@ -1788,6 +1788,18 @@ $colorPrimaryLight: $color_primary_light;
                 }
             }
 
+            .app-download-notice {
+                font: 400 13px/27px $bf;
+                color: #222530;
+                margin-top: 15px;
+
+                a {
+                    color: blue;
+                    text-decoration: underline;
+                    font-weight: 500;
+                }
+            }
+
             .button {
                 &.download-link {
                     display: inline-block;
@@ -1798,6 +1810,13 @@ $colorPrimaryLight: $color_primary_light;
                     text-align: center;
                     color: #3561FF;
                     padding: 15px 40px;
+                    box-shadow: none;
+                    transform: none;
+
+                    &.active {
+                        background: #3561FF;
+                        color: #FFFFFF;
+                    }
                 }
             }
 
@@ -1818,7 +1837,7 @@ $colorPrimaryLight: $color_primary_light;
                     }
 
                     .notice-small {
-                        font: 400 13/27px $bf;
+                        font: 400 13px/27px $bf;
                         color: #989898;
                         margin-top: 25px;
                     }
@@ -1831,6 +1850,14 @@ $colorPrimaryLight: $color_primary_light;
                         height: 228px !important;
                     }
                 }
+            }
+
+            .continue-app-msg {
+                display: block;
+                font: 400 13px/27px $bf;
+                color: #3561FF;
+                margin-top: 25px;
+                margin-bottom: 50px;
             }
         }
 

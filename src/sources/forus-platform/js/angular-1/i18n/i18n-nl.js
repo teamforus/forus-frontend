@@ -840,6 +840,7 @@ module.exports = {
             title: "De app installeren",
             description: "De app is beschikbaar voor iOS en Android telefoons. Vul uw telefoonnummer in om een download link via SMS te ontvangen of ga op uw telefoon naar <a href='www.forus.io/DL' target='_blank'>www.forus.io/DL</a>",
             download_link: "Verstuur download link",
+            no_link_received: 'Heeft u geen link ontvangen? Ga dan op uw telefoon naar',
         },
         filters: {
             labels: {
@@ -860,6 +861,12 @@ module.exports = {
             step_2: 'Ik heb al een profiel',
             step_3: 'Inloggen met Autorisatie code',
             no_app: 'Ik kan nu nog geen app gebruiken >',
+            create_profile: 'Bevestig',
+        },
+        no_app: {
+            enter_email: 'Vul uw email adres in om verder te gaan',
+            instructions: 'Als u nu nog niet in staat bent om verder te gaan met de app. Is het ook mogelijk om met uw email adres verder te gaan en later in te loggen op de app. Het is echter handiger om direct met de app verder te gaan.',
+            continue_app: 'Ga toch verder met de app >'
         },
         app_header: {
             title: 'Vul de code in op het invoerveld',
