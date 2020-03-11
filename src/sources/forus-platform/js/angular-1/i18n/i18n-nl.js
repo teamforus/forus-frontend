@@ -819,6 +819,7 @@ module.exports = {
             login: 'Login',
             skip: "Overslaan",
             skip_to_dashboard: 'Sla over en ga naar dashboard >',
+            organization_add: 'Organisatie toevoegen',
             go_test_screen: "Doe een test betaling!",
             go_to_dashboard: "Ga naar uw dashboard",
         },

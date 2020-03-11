@@ -156,10 +156,8 @@
                                             ng-src="{{ organization.logo.sizes.thumbnail ? organization.logo.sizes.thumbnail : './assets/img/organization-no-logo.svg' }}")
                                     .card-section-description(ng-bind="organization.name")
 
-                            .button.button-primary.button-circle-icon(
-                                ng-click="$ctrl.confirmOrganization()"
-                                ng-show="$ctrl.showAddOfficeBtn")
-                                | {{ 'organization_edit.buttons.add_location' | translate }}             
+                            .button.button-primary.button-circle-icon(ng-click="$ctrl.addOrganization()")
+                                | {{ 'sign_up_new.buttons.organization_add' | translate }}             
 
                         .sign_up-pane-footer: .row
                             .col.col-lg-6.text-left

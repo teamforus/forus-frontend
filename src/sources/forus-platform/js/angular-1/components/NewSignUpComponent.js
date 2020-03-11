@@ -418,11 +418,12 @@ let newSignUpComponent = function(
 
     $ctrl.selectOrganization = (organization) => {
         $ctrl.selectedOrganization = organization;
+        $ctrl.setOrganization($ctrl.selectedOrganization);
+        $ctrl.setStep(STEP_OFFICE_ADD);
     };
 
-    $ctrl.confirmOrganization = () => {
-        $ctrl.setStep(STEP_OFFICE_ADD);
-        $ctrl.setOrganization($ctrl.selectedOrganization);
+    $ctrl.addOrganization = () => {
+        $ctrl.setStep(STEP_ORGANIZATION_ADD);
     };
 
     $ctrl.syncTwoDatesHours = (date1, date2) => {
