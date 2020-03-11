@@ -7,16 +7,15 @@ describe('testing provider signup functionality:', function(){
     }) 
 
     it('step 1', function(){
-        expect(provider.getGoToStep2Button().isPresent()).toBe(true)
-        //browser.sleep(30000)
+       // browser.sleep(10000)
+        provider.appIsInstalled();
+        expect(provider.getGoToStep2Button().isDisplayed()).toBe(true)
+        
     })
 
-    it('opens and closes login modal', function(){
-        browser.waitForAngular();
-        provider.openLogin()
-        browser.ignoreSynchronization = true;
-        provider.closeModal()
-        browser.ignoreSynchronization = false;
-    });
+    it('step 2, check if qr code shows', function(){
+
+    })
+
 
 });

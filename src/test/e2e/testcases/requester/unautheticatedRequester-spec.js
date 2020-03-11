@@ -7,10 +7,10 @@ describe('testing basic functionality:', function(){
     })
 
     it('checks if components are loaded', function(){
-        expect(webshop.getProductsBlock().isPresent()).toBe(true)
-        expect(webshop.getMapBlock().isPresent()).toBe(true)
-        expect(webshop.getStepsBlock().isPresent()).toBe(true)
-        expect(webshop.getFaqBlock().isPresent()).toBe(true)
+        expect(webshop.getProductsBlock().isDisplayed()).toBe(true)
+        expect(webshop.getMapBlock().isDisplayed()).toBe(true)
+        expect(webshop.getStepsBlock().isDisplayed()).toBe(true)
+        expect(webshop.getFaqBlock().isDisplayed()).toBe(true)
 
     })
 
@@ -29,17 +29,17 @@ describe('testing basic functionality:', function(){
 
     it('navigates to products page', function(){
         webshop.getProductsPage()
-        expect(webshop.getProductsComponent().isPresent()).toBe(true)
+        expect(webshop.getProductsComponent().isDisplayed()).toBe(true)
     });
 
     it('navigates to providers page', function(){
         webshop.getProvidersPage()
-        expect(webshop.getProvidersComponent().isPresent()).toBe(true)
+        expect(webshop.getProvidersComponent().isDisplayed()).toBe(true)
     });
 
     it('checks if page references are working', function(){
         webshop.showOrganisations()
-        expect(webshop.getProvidersComponent().isPresent()).toBe(true)
+        expect(webshop.getProvidersComponent().isDisplayed()).toBe(true)
 
     });
 });

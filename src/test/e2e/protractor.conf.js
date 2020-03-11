@@ -10,9 +10,9 @@ exports.config = {
     },
 
     suites: {
-        requester : ['testcases/requester/*-spec.js'],
+        requester : ['testcases/requester/a*-spec.js'],
         sponsor : ['testcases/sponsor/*-spec.js'],
-        provider : ['testcases/provider/signupProvider-spec.js'],
+        provider : ['testcases/provider/*-spec.js'],
     },
 
     allScriptsTimeout: 15000,

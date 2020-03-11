@@ -16,6 +16,19 @@ var providerPage = function(){
         });
     }
 
+    this.appIsInstalled = function(){
+        element(by.className('checkbox checkbox-confirm')).click();
+    }
+
+    this.LoginWithMeButton = function(){
+        element(by.css('[ng-click="$ctrl.showLoginQrCode()"]')).click();
+    }
+
+    this.getLoginQrCode = function(){
+        return element(by.css('[qr-value="$ctrl.authToken"]'));
+    }
+
+
     this.getGoToStep2Button = function(){
         return element(by.css('[ng-click="$ctrl.skipToStep(2)"]'))
     }

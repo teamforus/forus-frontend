@@ -49,5 +49,53 @@ var webshopPage = function(){
     this.showOrganisations = function(){
         element(by.css('[i18n="buttons.show_map"]')).click();
     }
+
+    this.setActiveAccount = function(){
+        browser.executeScript("window.localStorage.setItem('active_account','" + environment.active_account + "');").
+        then(function(){
+            browser.refresh();
+        });
+    };
+
+    this.openUserMenu = function(){
+        element(by.className("auth-user-avatar")).click()
+    }
+
+    this.userMenuSignOut = function(){
+        element(by.className('auth-user-menu hide-sm ng-scope ng-isolate-scope active'))
+            .element(by.css('[ng-click="$root.signOut()"]')).click()
+    }
+    this.userMenuLoginApp = function(){
+        element(by.className('auth-user-menu hide-sm ng-scope ng-isolate-scope active'))
+            .element(by.css('[ng-click="openPinCodePopup()"]')).click()
+    }
+
+    this.userMenuActivationCode = function(){
+        element(by.className('auth-user-menu hide-sm ng-scope ng-isolate-scope active'))
+            .element(by.css('[ng-click="openActivateCodePopup()"]')).click()
+    }
+
+    this.userMenuNotificationPreferences = function(){
+        element(by.className('auth-user-menu hide-sm ng-scope ng-isolate-scope active'))
+            .element(by.css('[ui-sref="preferences-notifications"]')).click()
+    }
+
+    this.disableMailSubscription = function(){
+        return element(by.css('[ng-click="$ctrl.disableSubscription()"]'))
+    }
+
+    this.enableMailSubscription = function(){
+        return element(by.css('[ng-click="$ctrl.enableSubscription()"]'))
+    }
+
+
+    this.getVouchersPage = function(){
+        element(by.className('auth-code')).click()
+    }
+
+    this.getVouchersComponent = function(){
+        return element(by.className('budget-vouchers'))
+    }
+
 }
 module.exports = new webshopPage();

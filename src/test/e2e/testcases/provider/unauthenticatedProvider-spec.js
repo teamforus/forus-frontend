@@ -3,12 +3,12 @@ var provider = require('./providerPage');
 describe('testing unauthenticated provider functionality:', function(){
     
     beforeEach(function(){
-        webshop.get()
+        provider.get()
     }) 
 
     it('checks if components are loaded', function(){
-        expect(provider.getFaqBlock().isPresent()).toBe(true)
-        expect(provider.getFlowBlock().isPresent()).toBe(true)
+        expect(provider.getFaqBlock().isDisplayed()).toBe(true)
+        expect(provider.getFlowBlock().isDisplayed()).toBe(true)
 
     })
 
