@@ -76,7 +76,7 @@
                     .sign_up-pane
                         .sign_up-pane-header(translate="sign_up_validator.header.title_step_3") 
 
-                        .sign_up-pane-body(ng-if="!$ctrl.profileCreated")
+                        .sign_up-pane-body(ng-if="!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent")
                             .sign_up-pane-description(translate="sign_up_validator.header.subtitle_step_3")
 
                             form.form: .row
@@ -84,7 +84,6 @@
                                     .form-group
                                         label.form-label(translate="E-MAILadres")
                                         ui-control-text(
-                                            data-id="employee"
                                             ng-model="$ctrl.signUpForm.values.records.primary_email"
                                             data-placeholder="ex. info@info.io").large
                                         .form-error(ng-repeat="error in $ctrl.signUpForm.errors['records.primary_email']" ng-bind="error")
@@ -94,24 +93,17 @@
                                     button.button.button-primary.button-fill(
                                         type="button"
                                         ng-click="$ctrl.createAppProfile()"
-                                        translate="sign_up_validator.app_instruction.create_profile")  
+                                        translate="sign_up_validator.app_instruction.create_profile")
 
-                        .sign_up-pane-body(ng-if="$ctrl.profileCreated")
+                        .sign_up-pane-body(ng-if="$ctrl.authEmailSent || $ctrl.authEmailRestoreSent")
                             .sign_up-confirm-email.sign_up-confirm-preview.text-center
                                 img(ng-src="./assets/img/email_confirmed.svg")  
 
-                            .sign_up-confirm-email.sign_up-confirm-description(translate="sign_up_validator.labels.confirm_email")       
+                            .sign_up-confirm-email.sign_up-confirm-description(translate="sign_up_sponsor.labels.confirm_email")       
 
                             .sign_up-pane-text
-                                | {{ "sign_up_validator.labels.confirm_email_description" | translate }} 
+                                | {{ "sign_up_sponsor.labels.confirm_email_description" | translate }} 
                                 a.link-underlined(href="javascript:void(0)") {{ $ctrl.confirmationEmail }}
-                        
-                        .sign_up-pane-footer(ng-if="$ctrl.profileCreated"): .row
-                            .col.col-lg-6.text-left
-                            .col.col-lg-6.text-right
-                                .button.button-text.button-text-padless(ng-click="$ctrl.next()")
-                                    | {{ 'sign_up_validator.buttons.next' | translate }}
-                                    em.mdi.mdi-chevron-right.icon-right
 
                 //- Select organization step
                 div(ng-if="$ctrl.step == 4")

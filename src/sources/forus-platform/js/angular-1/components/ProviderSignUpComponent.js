@@ -62,6 +62,8 @@ let ProviderSignUpComponent = function(
     $ctrl.sentSms = false;
     $ctrl.fundsAvailable = [];
     $ctrl.hasApp = true;
+    $ctrl.authEmailSent = false;
+    $ctrl.authEmailRestoreSent = false;
 
     let orgMediaFile = false;
     let waitingSms = false;
@@ -74,7 +76,7 @@ let ProviderSignUpComponent = function(
                 let step = this.getStep();
 
                 if (step) {
-                    if (step < STEP_SELECT_ORGANIZATION) {
+                    if (step <= STEP_ORGANIZATION_ADD) {
                         OrganizationService.list().then(res => {
                             if (res.data.data.length) {
                                 $ctrl.organizationList = res.data.data;
@@ -278,20 +280,13 @@ let ProviderSignUpComponent = function(
 
     $ctrl.$onInit = function() {
         //$ctrl.requestAuthQrToken();
+        let target = 'newSignup';
 
         $ctrl.signUpForm = FormBuilderService.build({
+            email: '',
             pin_code: "1111",
+            target: target,
         }, function(form) {
-            // let formValues = angular.copy(form.values);
-
-            // if (formValues.records) {
-            //     delete formValues.records.primary_email_confirmation;
-            // }
-
-            // form.lock();
-
-            // return IdentityService.make(formValues);
-
             let resolveErrors = (res) => {
                 form.unlock();
                 form.errors = res.data.errors;
@@ -301,17 +296,19 @@ let ProviderSignUpComponent = function(
                 email: form.values.records.primary_email,
             }).then(res => {
                 if (res.data.email.unique) {
-                    IdentityService.make(form.values).then(() => {
+                    IdentityService.make(form.values).then(res => {
                         stopTimeout = true;
                         $ctrl.authEmailSent = true;
 
+                        CredentialsService.set(res.data.access_token);
+                        $ctrl.signedIn = true;
                         $ctrl.setStep(STEP_ORGANIZATION_ADD);
                     }, resolveErrors);
                 } else {
                     IdentityService.makeAuthEmailToken(
                         appConfigs.client_key + '_' + appConfigs.panel_type,
                         form.values.records.primary_email,
-                        'newSignup'
+                        target
                     ).then(res => {
                         stopTimeout = true;
                         $ctrl.authEmailRestoreSent = true;

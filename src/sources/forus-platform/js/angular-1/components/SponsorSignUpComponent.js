@@ -13,9 +13,11 @@ let SponsorSignUpComponent = function(
     FormBuilderService,
     MediaService,
     AuthService,
-    ModalService
+    ModalService,
+    appConfigs
 ) {
     let $ctrl = this;
+    let stopTimeout = null;
  
     const STEP_INFO_GENERAL = 1;
     const STEP_CREATE_PROFILE = 2;
@@ -36,6 +38,8 @@ let SponsorSignUpComponent = function(
     $ctrl.signedIn = AuthService.hasCredentials();
     $ctrl.organization = null;
     $ctrl.profileCreated = false;
+    $ctrl.authEmailSent = false;
+    $ctrl.authEmailRestoreSent = false;
 
     let orgMediaFile = false;
     let timeout;
@@ -47,6 +51,18 @@ let SponsorSignUpComponent = function(
                 let step = this.getStep();
 
                 if (step) {
+                    if (step <= STEP_ORGANIZATION_ADD) {
+                        OrganizationService.list().then(res => {
+                            if (res.data.data.length) {
+                                $ctrl.organizationList = res.data.data;
+
+                                this.setStep(STEP_SELECT_ORGANIZATION);
+                                this.shownSteps = STEPS_ORGANIZATION_SELECT;
+                            } else {
+                                this.setStep(STEP_ORGANIZATION_ADD);
+                            }
+                        });
+                    }
                     this.setStep(step);
                 } else {
                     this.setStep(STEP_ORGANIZATION_ADD);
@@ -102,20 +118,40 @@ let SponsorSignUpComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        //$ctrl.requestAuthQrToken();
+        let target = 'newSignup';
 
         $ctrl.signUpForm = FormBuilderService.build({
+            email: '',
             pin_code: "1111",
+            target: target,
         }, function(form) {
-            let formValues = angular.copy(form.values);
+            let resolveErrors = (res) => {
+                form.unlock();
+                form.errors = res.data.errors;
+            };
+            
+            return IdentityService.validateEmail({
+                email: form.values.records.primary_email,
+            }).then(res => {
+                if (res.data.email.unique) {
+                    IdentityService.make(form.values).then(res => {
+                        $ctrl.authEmailSent = true;
 
-            if (formValues.records) {
-                delete formValues.records.primary_email_confirmation;
-            }
+                        CredentialsService.set(res.data.access_token);
+                        $ctrl.signedIn = true;
+                        $ctrl.setStep(STEP_ORGANIZATION_ADD);
+                    }, resolveErrors);
+                } else {
+                    IdentityService.makeAuthEmailToken(
+                        appConfigs.client_key + '_' + appConfigs.panel_type,
+                        form.values.records.primary_email,
+                        target
+                    ).then(res => {
+                        $ctrl.authEmailRestoreSent = true;
+                    }, resolveErrors(res));
+                }
 
-            form.lock();
-
-            return IdentityService.make(formValues);
+            }, resolveErrors);
         });
 
         $ctrl.organizationForm = FormBuilderService.build({
@@ -158,25 +194,7 @@ let SponsorSignUpComponent = function(
     };
 
     $ctrl.createAppProfile = () => {
-        $ctrl.signUpForm.submit().then((res) => {
-            CredentialsService.set(res.data.access_token);
-            $ctrl.signedIn = true;
-
-            $ctrl.profileCreated = true;
-            $ctrl.confirmationEmail = $ctrl.signUpForm.values.records.primary_email;
-
-            OrganizationService.list().then(res => {
-                $ctrl.organizationList = [];
-                
-                if (res.data.data.length) {
-                    $ctrl.organizationList = res.data.data;
-                    $ctrl.shownSteps = STEPS_ORGANIZATION_SELECT;
-                }
-            });
-        }, (res) => {
-            $ctrl.signUpForm.unlock();
-            $ctrl.signUpForm.errors = res.data.errors;
-        });
+        $ctrl.signUpForm.submit();
     }
 
     $ctrl.selectOrganization = (organization) => {
@@ -331,6 +349,7 @@ module.exports = {
         'MediaService',
         'AuthService',
         'ModalService',
+        'appConfigs',
         SponsorSignUpComponent
     ],
     templateUrl: 'assets/tpl/pages/sponsor-sign-up.html'

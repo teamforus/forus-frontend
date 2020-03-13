@@ -55,7 +55,7 @@
                     .sign_up-pane
                         .sign_up-pane-header(translate="sign_up_sponsor.header.title_step_2") 
 
-                        .sign_up-pane-body(ng-if="!$ctrl.profileCreated")
+                        .sign_up-pane-body(ng-if="!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent")
                             form.form: .row
                                 .col.col-md-7
                                     .form-group
@@ -71,9 +71,9 @@
                                     button.button.button-primary.button-fill(
                                         type="button"
                                         ng-click="$ctrl.createAppProfile()"
-                                        translate="sign_up_sponsor.app_instruction.create_profile")  
+                                        translate="sign_up_sponsor.app_instruction.create_profile")
 
-                        .sign_up-pane-body(ng-if="$ctrl.profileCreated")
+                        .sign_up-pane-body(ng-if="$ctrl.authEmailSent || $ctrl.authEmailRestoreSent")
                             .sign_up-confirm-email.sign_up-confirm-preview.text-center
                                 img(ng-src="./assets/img/email_confirmed.svg")  
 
@@ -82,13 +82,6 @@
                             .sign_up-pane-text
                                 | {{ "sign_up_sponsor.labels.confirm_email_description" | translate }} 
                                 a.link-underlined(href="javascript:void(0)") {{ $ctrl.confirmationEmail }}
-                        
-                        .sign_up-pane-footer(ng-if="$ctrl.profileCreated"): .row
-                            .col.col-lg-6.text-left
-                            .col.col-lg-6.text-right
-                                .button.button-text.button-text-padless(ng-click="$ctrl.next()")
-                                    | {{ 'sign_up_sponsor.buttons.next' | translate }}
-                                    em.mdi.mdi-chevron-right.icon-right
 
                 //- Select organization step
                 div(ng-if="$ctrl.step == 3")

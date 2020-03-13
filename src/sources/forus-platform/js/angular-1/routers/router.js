@@ -730,8 +730,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                         }
                     });
                 } else {
-                    $rootScope.loadAuthUser();
-                    $state.go('home');
+                    $rootScope.loadAuthUser().then(auth_user => {
+                        if (typeof target == 'string') {
+                            if (!handleAuthTarget($state, target.split('-'), appConfigs)) {
+                                $state.go('home');
+                            }
+                        }
+                    });
                 }
             }, () => {
                 alert([
@@ -752,25 +757,27 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         },
         controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', (
             $rootScope, $state, IdentityService, CredentialsService
-        ) => IdentityService.exchangeConfirmationToken(
-            $state.params.token
-        ).then(function(res) {
+        ) => {
             let target = $state.params.target || '';
 
-            CredentialsService.set(res.data.access_token);
-            $rootScope.loadAuthUser();
-
-            if (typeof target == 'string') {
-                if (!handleAuthTarget($state, target.split('-'), appConfigs)) {
-                    $state.go('home', {
-                        confirmed: 1
-                    });
+            IdentityService.exchangeConfirmationToken(
+                $state.params.token
+            ).then(function(res) {
+                CredentialsService.set(res.data.access_token);
+                $rootScope.loadAuthUser();
+    
+                if (typeof target == 'string') {
+                    if (!handleAuthTarget($state, target.split('-'), appConfigs)) {
+                        $state.go('home', {
+                            confirmed: 1
+                        });
+                    }
                 }
-            }
-        }, () => {
-            alert("Token expired or unknown.");
-            $state.go('home');
-        })]
+            }, () => {
+                alert("Token expired or unknown.");
+                $state.go('home');
+            })
+        }]
     });
 
     $stateProvider.state({
