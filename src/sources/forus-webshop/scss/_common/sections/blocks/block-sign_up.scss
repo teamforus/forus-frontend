@@ -39,24 +39,36 @@
         .sign_up-step {
             flex-grow: 1;
             text-align: right;
-            border-top: 6px solid #EBEDF0;
             font: 500 14px/30px $bf;
             color: #DADADA;
+            border: none;
+            margin-left: 1px;
+            width: calc((100% - 46px)/4);
 
-            &.sign_up-step-active {
-                border-top-color: #BDCBFF;
-                color: #315EFD;
-            }
-
-            &.sign_up-step-done {
-                border-top-color: #3561FF;
-                color: #3561FF;
+            .sign_up-step-border {
+                border-top: 6px solid #EBEDF0;
             }
 
             &:last-child {
                 .sign_up-step-border {
                     border-top-right-radius: 6px;
                     border-bottom-right-radius: 6px;
+                }
+            }
+
+            &.sign_up-step-active {
+                color: #BDCBFF;
+
+                .sign_up-step-border {
+                    border-top-color: #BDCBFF;
+                }
+            }
+
+            &.sign_up-step-done {
+                color: #3561FF;
+                
+                .sign_up-step-border {
+                    border-top-color: #3561FF;
                 }
             }
         }
@@ -81,11 +93,6 @@
                     border-top: 6px solid #3561FF;
                 }
             }
-        }
-
-        .sign_up-step {
-            margin-left: 1px;
-            width: calc((100% - 46px)/4);
         }
     }
 
