@@ -12,12 +12,7 @@ section.section.section-product.section-requester: .wrapper
 
     mixin progress()
         .sign_up-progress
-            //- .sign_up-step(
-            //-     ng-repeat="step in $ctrl.totalSteps"
-            //-     ng-class="$ctrl.step == step ? 'sign_up-step-active' : ($ctrl.step > step ? 'sign_up-step-done' : '')"
-            //-     ng-bind="'Stap ' + step")
-            
-            .pre-step1(ng-class="$ctrl.step >= 2 ? 'active' : ''")
+            .pre-step(ng-class="$ctrl.step >= 2 ? 'active' : ''")
                 .pre-step-border
                 .icon
                     include ../../../resources/_webshop-common/assets/img/pre-step.svg
@@ -100,68 +95,12 @@ section.section.section-product.section-requester: .wrapper
                                 qr-logo=src_prefix + "./assets/img/me-logo.png") 
 
                     a.notice-small(ng-click="$ctrl.setHasAppProp(false)" translate="fund_request.sign_up.labels.no_app")
-
-        //- Log in
-        //- div(ng-if="$ctrl.state == 'criterias'")
-        //-     //- h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
-        //-     +progress()
-            
-        //-     .sign_up-pane
-        //-         .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
-        //-         .sign_up-pane-body
-        //-             .sign_up-pane-text
-        //-                 span(i18n="fund_request.sign_up.pane.text" i18n-vars="{fundname: $ctrl.fund.name }")
-        //-             ul.sign_up-pane-list 
-        //-                 li(ng-repeat="critera in $ctrl.fund.criteria"): span(
-        //-                     i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}" 
-        //-                     i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}") 
-                    
-        //-             //- .sign_up-pane-heading Vul uw email adres in om verder te gaan
-        //-             //- .sign_up-pane-text 
-        //-             //-     | Er wordt gecontroleeerd aan welke voorwaarden u al voldoet, 
-        //-             //-     | en u kan tussentijds afbreken en op een ander moment verder gaan.
-
-        //-             //- .sign_up-pane-text: form(ng-submit="$ctrl.authForm.submit()").form: .row
-        //-             //-     .form-group.col.col-lg-9
-        //-             //-         label.form-label(i18n="popup_auth.input.mail")
-        //-             //-         ui-control-email(ng-model="$ctrl.authForm.values.records.primary_email" data-placeholder="bijv. info@info.nl")
-        //-             //-         .form-error(ng-repeat="error in $ctrl.authForm.errors['records.primary_email']" ng-bind="error")
-        //-             //-     .form-group.col.col-lg-3
-        //-             //-         label.form-label &nbsp;
-        //-             //-         button(
-        //-             //-             ng-class="{'button-disabled': !$ctrl.authForm.values.records.primary_email}"
-        //-             //-             type="submit").button.button-primary.button-fill {{ "popup_auth.buttons.submit" | translate }}
-                    
-        //-             //- .sign_up-pane-heading Heeft u de Me App al?
-        //-             //- .sign_up-pane-text 
-        //-             //-     | De me app is een optionele manier om eenvoudig, 
-        //-             //-     | veilig en snel in te loggen.                    
-
-        //-             //- .sign_up-pane-auth
-        //-             //-     .sign_up-pane-auth-content
-        //-             //-         | Scan de QR code aan de rechterzijde met de 
-        //-             //-         br
-        //-             //-         | QR-scanner in de Me App.
-        //-             //-         br
-        //-             //-         br
-        //-             //-         | De Me App wordt gebruikt omm makkelijk en veilig in 
-        //-             //-         br
-        //-             //-         | te loggen, betalingen te doen en vouchers te beheren.
-        //-             //-         br
-        //-             //-         br
-        //-             //-         .sign_up-pane-auth-apps
-        //-             //-             a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
-        //-             //-             a(href="https://play.google.com/store/apps/details?id=io.forus.me").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
-                        
-        //-             //-     .sign_up-pane-auth-qr_code
-        //-             //-         qr-code(
-        //-             //-             ng-if="$ctrl.authToken" 
-        //-             //-             qr-value="$ctrl.authToken" 
-        //-             //-             qr-type="auth_token" 
-        //-             //-             qr-logo=src_prefix + "./assets/img/me-logo.png")
-        
+       
         //- Log in email sent
         div(ng-if="$ctrl.state == 'auth_email_sent'")
+            
+            +progress()
+
             //- For new users
             .sign_up-pane(ng-if="$ctrl.authEmailRestoreSent")
                 .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
@@ -185,7 +124,6 @@ section.section.section-product.section-requester: .wrapper
 
         //- List the criteria
         div(ng-if="$ctrl.state == 'criteria'")
-            //- h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
             +progress()
             
             .sign_up-pane
@@ -219,7 +157,6 @@ section.section.section-product.section-requester: .wrapper
         
         //- Confirm net worth
         div(ng-if="$ctrl.state == 'net_worth'")
-            //- h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
             +progress()
             
             .sign_up-pane
@@ -258,7 +195,6 @@ section.section.section-product.section-requester: .wrapper
         div(
             ng-repeat="invalidCriteria in $ctrl.invalidCriteria track by $index"
             ng-if="$ctrl.state == 'criteria_' + $index")
-            //- h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
             +progress()
             
             .sign_up-pane
@@ -323,7 +259,6 @@ section.section.section-product.section-requester: .wrapper
         div(ng-if="$ctrl.state == 'done'")
             //- Success
             div(ng-if="!$ctrl.finishError")
-                //- h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
                 +progress()
                 
                 .sign_up-pane
@@ -339,7 +274,6 @@ section.section.section-product.section-requester: .wrapper
                 
             //- Error
             div(ng-if="$ctrl.finishError")
-                //- h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
                 +progress()
 
                 .sign_up-pane
