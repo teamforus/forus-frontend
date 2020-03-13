@@ -93,6 +93,9 @@ let FundRequestComponentDefault = function(
     $ctrl.finishError = false;
     $ctrl.bsnIsKnown = true;
     $ctrl.appConfigs = appConfigs;
+    $ctrl.hasApp = false;
+
+    $ctrl.shownSteps = [];
 
     let timeout = null;
     let stopTimeout = null;
@@ -133,7 +136,7 @@ let FundRequestComponentDefault = function(
                     IdentityService.make(form.values).then(() => {
                         stopTimeout = true;
                         $ctrl.authEmailSent = true;
-                        $ctrl.nextStep();
+                        $ctrl.state = $ctrl.step2state(3);
                     }, resolveErrors);
                 } else {
                     IdentityService.makeAuthEmailToken(
@@ -143,7 +146,7 @@ let FundRequestComponentDefault = function(
                     ).then(() => {
                         stopTimeout = true;
                         $ctrl.authEmailRestoreSent = true;
-                        $ctrl.nextStep();
+                        $ctrl.state = $ctrl.step2state(3);
                     }, resolveErrors);
                 }
 
@@ -154,6 +157,10 @@ let FundRequestComponentDefault = function(
     // Submit criteria record
     $ctrl.submitStepCriteria = (criteria) => {
         return $ctrl.validateCriteria(criteria).then($ctrl.nextStep, () => {});
+    };
+
+    $ctrl.setHasAppProp = (value) => {
+        $ctrl.hasApp = value;
     };
 
     // Submit or Validate record criteria
@@ -236,8 +243,8 @@ let FundRequestComponentDefault = function(
         stopTimeout = true;
         CredentialsService.set(access_token);
         $ctrl.buildTypes();
-        $ctrl.nextStep();
-        document.location.reload();
+        $ctrl.state = $ctrl.step2state(4);
+        //document.location.reload();
     };
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
@@ -349,16 +356,24 @@ let FundRequestComponentDefault = function(
 
     $ctrl.step2state = (step) => {
         if (step == 1 && !$ctrl.signedIn) {
+            return 'welcome';
+        }
+
+        if (step == 2 && !$ctrl.signedIn) {
             return 'auth';
         }
 
-        if (step == 2 && !$ctrl.signedIn && (
+        if (step == 3 && !$ctrl.signedIn && (
                 $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
             )) {
             return 'auth_email_sent';
         }
 
-        if ((step == 2 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
+        // if ((step == 4 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
+        //     return 'criterias';
+        // }
+
+        if ((step == 4 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
             return 'criteria';
         }
 
@@ -453,10 +468,15 @@ let FundRequestComponentDefault = function(
         });
     };
 
+    $ctrl.createAppProfile = () => {
+        $ctrl.authForm.submit();
+    }
+
     $ctrl.$onInit = function() {
         $ctrl.signedIn = AuthService.hasCredentials();
         $ctrl.initAuthForm();
         $ctrl.prepareRecordTypes();
+        $ctrl.requestAuthQrToken();
 
         if ($ctrl.signedIn) {
             $ctrl.buildTypes().then(() => {
@@ -495,6 +515,10 @@ let FundRequestComponentDefault = function(
 
         $ctrl.updateState();
     };
+
+    $ctrl.goToMain = () => {
+        $state.go('home');
+    }
 };
 
 let FundRequestComponentAuto = require('./FundRequestAutoComponent');

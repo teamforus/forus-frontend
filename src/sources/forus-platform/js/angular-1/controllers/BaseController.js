@@ -129,10 +129,12 @@ let BaseController = function(
     }, function(newVal, oldVal) {
         if ($state.current.name == 'home' && appConfigs.panel_type != 'validator') {
             $rootScope.viewLayout = 'landing';
-        } else if (['sign-up', 'sign-up-new', 'provider-invitation-link'].indexOf($state.current.name) != -1) {
+        } else if ([
+            'sign-up', 'sign-up-provider', 'sign-up-sponsor', 'sign-up-validator', 'provider-invitation-link'
+        ].indexOf($state.current.name) != -1) {
             $rootScope.viewLayout = 'signup';
             
-            if ($state.current.name == 'sign-up-new') {
+            if (['sign-up-provider', 'sign-up-sponsor', 'sign-up-validator'].indexOf($state.current.name) != -1) {
                 $rootScope.isNewSignUp = true;
             }
         } else {

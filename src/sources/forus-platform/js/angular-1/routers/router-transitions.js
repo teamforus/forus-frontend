@@ -26,7 +26,9 @@ module.exports = ['$transitions', '$filter', '$rootScope', 'OrganizationService'
         if ([
                 'home', 'organiztions', 'funds', 'funds-show',
                 'organizations-create', 'csv-validation', 'validation-requests',
-                'validation-request', 'sign-up', 'sign-up-new', 'restore-email', 'email-unsubscribe',
+                'validation-request', 'sign-up', 'sign-up-provider', 
+                'sign-up-sponsor', 'sign-up-validator',
+                'restore-email', 'email-unsubscribe',
                 'preferences-notifications', 'security-sessions', 
                 'provider-invitation-link', 'auth-link',
             ].indexOf(transition.to().name) == -1) {

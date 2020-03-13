@@ -1,0 +1,333 @@
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
+.app.app-container: .block.block-sign-up-steps
+    section.section.section-product
+        .header
+            .back
+                include ../../../resources/platform-general/assets/img/svg/icon-back.svg
+                a(ng-click="$ctrl.goToMain()")
+                    span Terug
+            .heading(translate="sign_up_validator.header.main_header")
+
+        .wrapper
+            mixin progress()
+                .sign_up-progress
+                    .pre-step1(ng-class="$ctrl.step >= 2 ? 'active' : ''")
+                        .pre-step-border
+                        .icon
+                            include ../../../resources/platform-general/assets/img/svg/pre-step.svg
+
+                    .sign_up-step(
+                        ng-repeat="step in $ctrl.shownSteps track by $index"
+                        ng-class="$ctrl.step == step ? 'sign_up-step-active' : ($ctrl.step > step ? 'sign_up-step-done' : '')")
+                        
+                        .sign_up-step-border
+                        .sign-up-step-block Stap {{ ' ' + ($index + 1) }}
+
+            .block.block-sign_up: .block-wrapper
+                //- General sign up information
+                div(ng-if="$ctrl.step == 1")
+                    h2.block-title
+
+                    +progress()
+
+                    .sign_up-pane
+                        .sign_up-pane-header(translate="sign_up_validator.header.title_step_1")
+
+                        .sign_up-pane-body
+                            .sign_up-pane-text(translate="sign_up_provider.header.subtitle_step_1")
+
+                            .sign_up-preview-step
+                                img(ng-src="./assets/img/sign_up_first_step.png") 
+
+                        .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-right): .row
+                            .col.col-lg-6.text-left: .button.button-text.button-text-padless
+
+                            .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.next()")
+                                | {{ 'sign_up_validator.buttons.next' | translate }}
+                                em.mdi.mdi-chevron-right.icon-right 
+
+                //- Sign up information
+                div(ng-if="$ctrl.step == 2")
+                    h2.block-title
+
+                    +progress()
+
+                    .sign_up-pane
+                        .sign_up-pane-header(translate="sign_up_validator.header.title_step_2")
+
+                        .sign_up-pane-body
+                            .block-icon: img(src=src_prefix + "./assets/img/icon-smarthone-sign_up.svg")
+                            p.sign_up-pane-text(translate="sign_up_validator.header.subtitle_step_2")
+
+                        .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-right): .row
+                            .col.col-lg-6.text-left: .button.button-text.button-text-padless
+
+                            .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.next()")
+                                | {{ 'sign_up_validator.buttons.next' | translate }}
+                                em.mdi.mdi-chevron-right.icon-right 
+
+
+                //- Create me-app profile
+                div(ng-if="$ctrl.step == 3")
+                    h2.block-title
+
+                    +progress()
+
+                    .sign_up-pane
+                        .sign_up-pane-header(translate="sign_up_validator.header.title_step_3") 
+
+                        .sign_up-pane-body(ng-if="!$ctrl.profileCreated")
+                            .sign_up-pane-description(translate="sign_up_validator.header.subtitle_step_3")
+
+                            form.form: .row
+                                .col.col-md-7
+                                    .form-group
+                                        label.form-label(translate="E-MAILadres")
+                                        ui-control-text(
+                                            data-id="employee"
+                                            ng-model="$ctrl.signUpForm.values.records.primary_email"
+                                            data-placeholder="ex. info@info.io").large
+                                        .form-error(ng-repeat="error in $ctrl.signUpForm.errors['records.primary_email']" ng-bind="error")
+                                .col.col-md-5
+                                    .form-group
+                                    label.form-label &nbsp;
+                                    button.button.button-primary.button-fill(
+                                        type="button"
+                                        ng-click="$ctrl.createAppProfile()"
+                                        translate="sign_up_validator.app_instruction.create_profile")  
+
+                        .sign_up-pane-body(ng-if="$ctrl.profileCreated")
+                            .sign_up-confirm-email.sign_up-confirm-preview.text-center
+                                img(ng-src="./assets/img/email_confirmed.svg")  
+
+                            .sign_up-confirm-email.sign_up-confirm-description(translate="sign_up_validator.labels.confirm_email")       
+
+                            .sign_up-pane-text
+                                | {{ "sign_up_validator.labels.confirm_email_description" | translate }} 
+                                a.link-underlined(href="javascript:void(0)") {{ $ctrl.confirmationEmail }}
+                        
+                        .sign_up-pane-footer(ng-if="$ctrl.profileCreated"): .row
+                            .col.col-lg-6.text-left
+                            .col.col-lg-6.text-right
+                                .button.button-text.button-text-padless(ng-click="$ctrl.next()")
+                                    | {{ 'sign_up_validator.buttons.next' | translate }}
+                                    em.mdi.mdi-chevron-right.icon-right
+
+                //- Select organization step
+                div(ng-if="$ctrl.step == 4")
+                    h2.block-title
+
+                    +progress()
+
+                    .sign_up-pane
+                        .sign_up-pane-header(translate="sign_up_validator.header.title_step_4")
+
+                        .sign_up-pane-body
+                            .card.card-image-left(
+                                ng-class="{ 'active': organization.id == $ctrl.selectedOrganization.id }"
+                                ng-repeat="organization in $ctrl.organizationList"
+                                ng-click="$ctrl.selectOrganization(organization)")
+
+                                .card-section
+                                    .card-section-preview 
+                                        img(
+                                            ng-src="{{ organization.logo.sizes.thumbnail ? organization.logo.sizes.thumbnail : './assets/img/organization-no-logo.svg' }}")
+                                    .card-section-description(ng-bind="organization.name")
+
+                            .button.button-primary.button-circle-icon(ng-click="$ctrl.addOrganization()")
+                                | {{ 'sign_up_validator.buttons.organization_add' | translate }}             
+
+                        .sign_up-pane-footer: .row
+                            .col.col-lg-6.text-left
+                                .button.button-text.button-text-padless(ng-click="$ctrl.back()")
+                                    | {{ 'sign_up_validator.buttons.back' | translate }}
+                                    em.mdi.mdi-chevron-left.icon-lefts
+                                
+                            .col.col-lg-6.text-right
+
+                //- Manage organization details
+                div(ng-if="$ctrl.step == 5")
+                    h2.block-title
+
+                    +progress()
+                    
+                    .sign_up-pane
+                        .sign_up-pane-header(translate="sign_up_validator.header.title_step_5")
+
+                        .sign_up-pane-body
+                            .sign_up-pane-text.with-border(translate="sign_up_validator.header.subtitle_step_5")
+
+                            .sign_up-pane-text: form(ng-submit="$ctrl.next()").form: .row
+                                .card-section: .pseudo-wrapper
+                                    .row.group-block.with-border
+                                        .col.col-md-8
+                                            .form-group.col
+                                                label.form-label(translate="organization_edit.labels.name")
+                                                ui-control-text(
+                                                    ng-model="$ctrl.organizationForm.values.name"
+                                                    data-id="criterion_{{ invalidCriteria.id }}"
+                                                    data-placeholder="Bedrijfsnaam")
+                                                .form-error(ng-repeat="error in $ctrl.organizationForm.errors.name" ng-bind="error")
+
+                                            .form-group.col
+                                                label.form-label
+                                                    translate(translate="organization_edit.labels.bank")
+                                                    tooltip(text="'Vul hier het rekeningnummer in waar u de betalingen op wilt ontvangen'")
+                                                ui-control-text(
+                                                    ng-model="$ctrl.organizationForm.values.iban"
+                                                    data-placeholder="IBAN-nummer")
+                                                .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban" ng-bind="error")
+
+                                            .form-group.col
+                                                label.form-label
+                                                    translate(translate="HERHAAL IBAN–NUMMER")
+                                                    tooltip(text="'Vul hier het rekeningnummer in waar u de betalingen op wilt ontvangen'")
+                                                ui-control-text(
+                                                    ng-model="$ctrl.organizationForm.values.iban_confirmation"
+                                                    data-placeholder="Example: NL123456789B01")
+                                                .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban_confirmation" ng-bind="error")
+
+                                        .col.col-md-4
+                                            .image-preview
+                                                photo-selector.col(
+                                                    template="photo-selector-sign_up"
+                                                    type="organization_logo"
+                                                    thumbnail="$ctrl.media.sizes.thumbnail"
+                                                    select-photo="$ctrl.selectPhoto(file)")
+                                                .info-block.info-block-primary(translate="organization_edit.labels.photo_description")
+
+                                    .row.group-block.with-border
+                                        .col
+                                            .form-group.col
+                                                label(translate="organization_edit.labels.mail").form-label
+                                                .row
+                                                    .col.col-md-8: ui-control-text(
+                                                        ng-model="$ctrl.organizationForm.values.email"
+                                                        placeholder="E-mailadres")
+
+                                                    .col.col-md-4: ui-control-checkbox.make-public(
+                                                        name="email_public"
+                                                        data-id="email_public_input"
+                                                        data-label="{{ 'organization_edit.labels.make_public' | translate }}"
+                                                        ng-model="$ctrl.organizationForm.values.email_public")
+                                                .form-error(ng-repeat="error in $ctrl.organizationForm.errors.email" ng-bind="error")
+
+                                            .form-group.col
+                                                label(translate="organization_edit.labels.phone").form-label
+
+                                                .row
+                                                    .col.col-md-8: ui-control-text(
+                                                        ng-model="$ctrl.organizationForm.values.phone"
+                                                        placeholder="Telefoonnummer")
+                                                    .col.col-md-4: ui-control-checkbox.make-public(
+                                                        name="phone_public"
+                                                        data-id="phone_public_input"
+                                                        data-label="{{ 'organization_edit.labels.make_public' | translate }}"
+                                                        ng-model="$ctrl.organizationForm.values.phone_public")
+                                                .form-error(ng-repeat="error in $ctrl.organizationForm.errors.phone" ng-bind="error")
+
+                                            .form-group.col
+                                                label(translate="organization_edit.labels.website").form-label
+
+                                                .row
+                                                    .col.col-md-8: ui-control-text(
+                                                        ng-model="$ctrl.organizationForm.values.website"
+                                                        placeholder="Website")
+                                                    .col.col-md-4: ui-control-checkbox.make-public(
+                                                        name="website_public"
+                                                        data-id="website_public_input"
+                                                        data-label="{{ 'organization_edit.labels.make_public' | translate }}"
+                                                        ng-model="$ctrl.organizationForm.values.website_public")
+                                                .form-error(ng-repeat="error in $ctrl.organizationForm.errors.website" ng-bind="error")
+
+                                    .row.group-block.last
+                                        .col
+                                            .form-group.col
+                                                .row
+                                                    .col.col-md-8
+                                                        .form-label(translate="organization_edit.labels.business_type")
+
+                                                        .form-offset: select-control(
+                                                            ng-model="$ctrl.businessType"
+                                                            ng-change="$ctrl.chageBusinessType(value)"
+                                                            options="$ctrl.businessTypes"
+                                                            placeholder="Selecteer organisatie type...")
+
+                                                        .form-error(
+                                                            ng-repeat="error in $ctrl.organizationForm.errors.business_type_id"
+                                                            ng-bind="error")
+
+                                            .form-group.col
+                                                .row
+                                                    .col.col-md-8
+                                                        label(translate="organization_edit.labels.kvk").form-label
+
+                                                        ui-control-text(
+                                                            ng-model="$ctrl.organizationForm.values.kvk"
+                                                            data-placeholder="KvK-nummer")
+                                                        .form-error(ng-repeat="error in $ctrl.organizationForm.errors.kvk" ng-bind="error")
+
+                                            .form-group.col
+                                                .row
+                                                    .col.col-md-8
+                                                        label(translate="organization_edit.labels.tax").form-label
+
+                                                        ui-control-text(
+                                                            ng-model="$ctrl.organizationForm.values.btw"
+                                                            data-placeholder="BTW-nummer")
+
+                                                        .form-error(ng-repeat="error in $ctrl.organizationForm.errors.btw" ng-bind="error")
+
+                                                        .info-fields
+                                                            span.info-field.red *
+                                                            span.info-field(translate="organization_edit.labels.optional")
+                        .sign_up-pane-footer: .row
+                            .col.col-lg-6.text-left
+                                //- .button.button-text.button-text-padless(ng-click="$ctrl.back()")
+                                //-     | {{ 'sign_up_validator.buttons.back' | translate }}
+                                //-     em.mdi.mdi-chevron-left.icon-lefts
+                            .col.col-lg-6.text-right
+                                .button.button-text.button-text-padless(ng-click="$ctrl.next()")
+                                    | {{ 'sign_up_validator.buttons.next' | translate }}
+                                    em.mdi.mdi-chevron-right.icon-right
+
+                //- Done
+                .finish-screen(ng-if="$ctrl.step == 6")
+                    h2.block-title
+
+                    +progress()
+
+                    .sign_up-pane
+                        .sign_up-pane-header(translate="sign_up_validator.header.title_step_6")
+
+                        .sign_up-pane-body
+                            .text-center
+                                img(ng-src="./assets/img/sign_up_finished.svg")    
+
+                            .sign_up-pane-subtitle(translate="sign_up_validator.header.subtitle_step_6")
+
+                            .text-center: .button.button-finish(
+                                ng-click="$ctrl.finish()"
+                                translate="sign_up_validator.buttons.go_to_dashboard")
+
+                //- Error
+                div(ng-if="$ctrl.state == 'error'")
+                    h2.block-title Zomerzwemregeling aanvraag
+
+                    .sign_up-pane
+                        .sign_up-pane-header Error during sign up request submission.
+                        .sign_up-pane-body: .row
+                            .form-group.col.col-lg-12
+                                .block-icon: .mdi.mdi-close
+                                p.sign_up-pane-text.text-center
+                                    | Reason:
+                                    span(ng-bind="$ctrl.errorReason")
+
+                                .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar het dashboard
+                            .form-group.col.col-lg-12: br
+
+                //- Mobile device warning
+                .hidden-lg.hidden-md.open-pc-section: .section-inner
+                    .img-block: img(src="./assets/img/sign-up/user-mobile.png")
+                    .title(translate="sign_up_validator.open_pc.title")
+                    .open-pc-description(translate="sign_up_validator.open_pc.description")

@@ -35,7 +35,9 @@ app.component('csvValidationComponent', require('./components/CsvValidationCompo
 app.component('fundRequestsComponent', require('./components/FundRequestsComponent'));
 app.component('validationRequestComponent', require('./components/ValidationRequestComponent'));
 app.component('signUpComponent', require('./components/SignUpComponent'));
-app.component('newSignUpComponent', require('./components/NewSignUpComponent'));
+app.component('providerSignUpComponent', require('./components/ProviderSignUpComponent'));
+app.component('sponsorSignUpComponent', require('./components/SponsorSignUpComponent'));
+app.component('validatorSignUpComponent', require('./components/ValidatorSignUpComponent'));
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
 app.component('transactionComponent', require('./components/TransactionComponent'));
 app.component('fundProviderComponent', require('./components/FundProviderComponent'));

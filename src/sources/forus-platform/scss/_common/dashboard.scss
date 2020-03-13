@@ -1699,6 +1699,42 @@ $colorPrimaryLight: $color_primary_light;
                 .sign_up-preview-step {
                     margin-top: 40px;
                     margin-bottom: -30px;
+
+                    &.sign_up-preview-step-top {
+                        margin-top: 0px;
+                        margin-bottom: 30px;
+                    }
+                }
+
+                .sign_up-confirm-email {
+                    margin-top: 40px;
+                    margin-bottom: -30px;
+
+                    &.sign_up-confirm-preview {
+                        margin-top: 0px;
+                        margin-bottom: 5px;
+                    }
+
+                    &.sign_up-confirm-description {
+                        font: 400 28px/38px $bf;
+                        text-align: center;
+                        color: #3561FF;
+                        margin-top: 0px;
+                        margin-bottom: 12px;
+                    }
+                }
+
+                .sign_up-pane-subtitle {
+                    text-align: center;
+                    font: 400 26px/36px $bf;
+                    color: #3561FF;
+                    margin-top: 25px;
+                }
+
+                .sign_up-pane-description {
+                    font: 500 21px/22px $bf;
+                    color: #222530;
+                    margin-bottom: 50px;
                 }
 
                 .sign-up-step-icon {
@@ -1711,6 +1747,10 @@ $colorPrimaryLight: $color_primary_light;
 
                 .filters {
                     margin-bottom: 20px;
+                }
+
+                .link-underlined {
+                    text-decoration: underline;
                 }
             }
 

@@ -1,4 +1,4 @@
-let newSignUpComponent = function(
+let ProviderSignUpComponent = function(
     $q,
     $state,
     $stateParams,
@@ -18,9 +18,11 @@ let newSignUpComponent = function(
     DemoTransactionService,
     ProviderFundService,
     AuthService,
-    ModalService
+    ModalService,
+    appConfigs
 ) {
     let $ctrl = this;
+    let stopTimeout = null;
  
     const STEP_INFO_GENERAL = 1;
     const STEP_ME_APP = 2;
@@ -65,7 +67,6 @@ let newSignUpComponent = function(
     let waitingSms = false;
     let timeout;
     let officeMediaFile = false;
-    let organizationListPromise = () => OrganizationService.list();
 
     let progressStorage = new(function() {
         this.init = () => {
@@ -73,6 +74,18 @@ let newSignUpComponent = function(
                 let step = this.getStep();
 
                 if (step) {
+                    if (step < STEP_SELECT_ORGANIZATION) {
+                        OrganizationService.list().then(res => {
+                            if (res.data.data.length) {
+                                $ctrl.organizationList = res.data.data;
+
+                                this.setStep(STEP_SELECT_ORGANIZATION);
+                                this.shownSteps = STEPS_ORGANIZATION_SELECT;
+                            } else {
+                                this.setStep(STEP_ORGANIZATION_ADD);
+                            }
+                        });
+                    }
                     this.setStep(step);
                 } else {
                     this.setStep(STEP_ORGANIZATION_ADD);
@@ -269,15 +282,43 @@ let newSignUpComponent = function(
         $ctrl.signUpForm = FormBuilderService.build({
             pin_code: "1111",
         }, function(form) {
-            let formValues = angular.copy(form.values);
+            // let formValues = angular.copy(form.values);
 
-            if (formValues.records) {
-                delete formValues.records.primary_email_confirmation;
-            }
+            // if (formValues.records) {
+            //     delete formValues.records.primary_email_confirmation;
+            // }
 
-            form.lock();
+            // form.lock();
 
-            return IdentityService.make(formValues);
+            // return IdentityService.make(formValues);
+
+            let resolveErrors = (res) => {
+                form.unlock();
+                form.errors = res.data.errors;
+            };
+            
+            return IdentityService.validateEmail({
+                email: form.values.records.primary_email,
+            }).then(res => {
+                if (res.data.email.unique) {
+                    IdentityService.make(form.values).then(() => {
+                        stopTimeout = true;
+                        $ctrl.authEmailSent = true;
+
+                        $ctrl.setStep(STEP_ORGANIZATION_ADD);
+                    }, resolveErrors);
+                } else {
+                    IdentityService.makeAuthEmailToken(
+                        appConfigs.client_key + '_' + appConfigs.panel_type,
+                        form.values.records.primary_email,
+                        'newSignup'
+                    ).then(res => {
+                        stopTimeout = true;
+                        $ctrl.authEmailRestoreSent = true;
+                    }, resolveErrors(res));
+                }
+
+            }, resolveErrors);
         });
 
         $ctrl.organizationForm = FormBuilderService.build({
@@ -337,25 +378,27 @@ let newSignUpComponent = function(
     };
 
     $ctrl.createAppProfile = () => {
-        $ctrl.signUpForm.submit().then((res) => {
-            CredentialsService.set(res.data.access_token);
-            $ctrl.signedIn = true;
+        // $ctrl.signUpForm.submit().then((res) => {
+        //     CredentialsService.set(res.data.access_token);
+        //     $ctrl.signedIn = true;
 
-            // organizationListPromise().then(res => {
-            //     if (res.data.data.length) {
-            //         $ctrl.shownSteps = STEPS_ORGANIZATION_SELECT;
+        //     // organizationListPromise().then(res => {
+        //     //     if (res.data.data.length) {
+        //     //         $ctrl.shownSteps = STEPS_ORGANIZATION_SELECT;
     
-            //         $ctrl.setStep(STEP_SELECT_ORGANIZATION);
-            //     } else {
-            //         $ctrl.setStep(STEP_ORGANIZATION_ADD);
-            //     }
-            // });
+        //     //         $ctrl.setStep(STEP_SELECT_ORGANIZATION);
+        //     //     } else {
+        //     //         $ctrl.setStep(STEP_ORGANIZATION_ADD);
+        //     //     }
+        //     // });
 
-            $ctrl.setStep(STEP_ORGANIZATION_ADD);
-        }, (res) => {
-            $ctrl.signUpForm.unlock();
-            $ctrl.signUpForm.errors = res.data.errors;
-        });
+        //     $ctrl.setStep(STEP_ORGANIZATION_ADD);
+        // }, (res) => {
+        //     $ctrl.signUpForm.unlock();
+        //     $ctrl.signUpForm.errors = res.data.errors;
+        // });
+
+        $ctrl.signUpForm.submit();
     }
 
     $ctrl.deleteOffice = (office) => {
@@ -671,7 +714,7 @@ let newSignUpComponent = function(
     };
 
     let loadOrganizations = () => {
-        organizationListPromise.then(res => {
+        OrganizationService.list().then(res => {
             if (res.data.data.length) {
                 $ctrl.organizationList = res.data.data;
             }
@@ -916,11 +959,13 @@ let newSignUpComponent = function(
     });
 
     $ctrl.applyAccessToken = function(access_token) {
+        stopTimeout = true;
+
         CredentialsService.set(access_token);
         $rootScope.$broadcast('auth:update');
 
         if ($ctrl.step == STEP_SCAN_QR) {
-            organizationListPromise().then(res => {
+            OrganizationService.list().then(res => {
                 if (res.data.data.length) {
                     $ctrl.organizationList = res.data.data;
                     $ctrl.shownSteps = STEPS_ORGANIZATION_SELECT;
@@ -938,6 +983,10 @@ let newSignUpComponent = function(
     };
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
+        if (stopTimeout) {
+            return stopTimeout = null;
+        }
+
         IdentityService.checkAccessToken(access_token).then(res => {
             if (res.data.message == 'active') {
                 $ctrl.applyAccessToken(access_token);
@@ -1034,7 +1083,8 @@ module.exports = {
         'ProviderFundService',
         'AuthService',
         'ModalService',
-        newSignUpComponent
+        'appConfigs',
+        ProviderSignUpComponent
     ],
-    templateUrl: 'assets/tpl/pages/new-sign-up.html'
+    templateUrl: 'assets/tpl/pages/provider-sign-up.html'
 };

@@ -1,7 +1,7 @@
 doctype
 html(lang="nl" ng-controller="BaseController" ng-cloak)
     include ../layout/includes/head
-    body(modal-scroll-braker printable-enabler)
+    body(ng-class="{ 'signup-layout': $root.viewLayout == 'signup' }" modal-scroll-braker printable-enabler)
         page-loading-bar
         ui-view
         div(forus-chat chat-id="appConfigs.chat_id" ng-if="appConfigs.chat_id && $root.auth_user")
