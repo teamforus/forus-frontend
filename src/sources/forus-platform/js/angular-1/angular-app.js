@@ -66,6 +66,7 @@ app.component('modalFundInviteProvidersComponent', require('./components/Modals/
 app.component('modalEmployeeAddConfirmationComponent', require('./components/Modals/ModalEmployeeAddConfirmationComponent'));
 app.component('modalFundOffersComponent', require('./components/Modals/ModalFundOffersComponent'));
 app.component('modalBusinessSelectComponent', require('./components/Modals/ModalBusinessSelectComponent'));
+app.component('modalCreatePrevalidationComponent', require('./components/Modals/ModalCreatePrevalidationComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));

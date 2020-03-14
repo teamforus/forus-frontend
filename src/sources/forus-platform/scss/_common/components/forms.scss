@@ -226,6 +226,11 @@
         }
     }
 
+    .form-actions {
+        padding-top: 10px;
+        margin-bottom: -5px;
+    }
+
     .form-group {
         margin-bottom: 10px;
         @include cf();

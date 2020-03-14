@@ -347,12 +347,19 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('funds-create', 'manage_funds'),
-            fundStates: ['permission', 'FundService', (
-                permission, FundService
-            ) => FundService.states()],
+            validators: ['permission', '$transition$', 'OrganizationEmployeesService', (
+                permission, $transition$, OrganizationEmployeesService
+            ) => repackResponse(OrganizationEmployeesService.list(
+                $transition$.params().organization_id, {
+                    role: 'validation'
+                }
+            ))],
             productCategories: ['permission', 'ProductCategoryService', (
                 permission, ProductCategoryService
-            ) => repackResponse(ProductCategoryService.listAll())]
+            ) => repackResponse(ProductCategoryService.listAll())],
+            fundStates: ['permission', 'FundService', (
+                permission, FundService
+            ) => FundService.states()]
         }
     });
 
@@ -409,6 +416,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => FundService.states()]
         }
     });
+
     if (!appConfigs.hide_voucher_generators) {
         /**
          * Vouchers
@@ -703,7 +711,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             $rootScope, $state, PermissionsService, IdentityService, CredentialsService, ModalService, appConfigs
         ) => {
             IdentityService.authorizeAuthEmailToken(
-                appConfigs.client_key + '_' + appConfigs.panel_type,
                 $state.params.token
             ).then(function(res) {
                 let target = $state.params.target || '';
@@ -711,7 +718,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
                 if (['provider'].indexOf(appConfigs.panel_type) != -1) {
                     $rootScope.loadAuthUser().then(auth_user => {
-                        let organizations = auth_user.organizations.filter(organization => 
+                        let organizations = auth_user.organizations.filter(organization =>
                             !organization.business_type_id &&
                             PermissionsService.hasPermission(organization, 'manage_organization')
                         );

@@ -3466,6 +3466,10 @@ $colorPrimaryLight: $color_primary_light;
             margin: 0 auto;
             text-align: center;
             background: url('../img/upload-bg.png') no-repeat 50% 50px;
+
+            .button-group {
+                margin: 0 0 5px;
+            }
         }
 
         .csv-upload-icon {
@@ -3521,6 +3525,24 @@ $colorPrimaryLight: $color_primary_light;
 
         .csv-upload-actions {
             padding-top: 15px;
+
+            .csv-file {
+                .block-file:not(:last-child) {
+                    margin-bottom: 10px;
+                }
+            }
+        }
+
+        .csv-file-error {
+            font: 500 13px/20px $bf;
+            color: $bec;
+            margin: 0;
+        }
+        
+        .csv-file-warning {
+            font: 500 13px/20px $bf;
+            color: #e7740a;
+            margin: 0;
         }
 
         .csv-upload-progress {
@@ -4958,6 +4980,33 @@ $colorPrimaryLight: $color_primary_light;
             }
         }
     }
+
+    &.block-compact-datalist {
+        .datalist-row {
+            @include cf();
+            border-bottom: 1px dashed #ccc;
+            display: flex;
+            flex-direction: row;
+            
+            .datalist-key {
+                @extend .text-wrap;
+                font: 500 14px/20px $bf;
+                color: #646f79;
+                width: 50%;
+                max-width: 200px;
+                padding: 7.5px 15px 7.5px 0px;
+            }
+
+            .datalist-value {
+                @extend .text-wrap;
+                font: 500 14px/20px $bf;
+                color: #646f79;
+                flex-grow: 1;
+                padding: 7.5px 0px;
+                max-width: calc(100% - 200px);
+            }
+        }
+    }
 }
 
 .modal {
@@ -5012,6 +5061,9 @@ $colorPrimaryLight: $color_primary_light;
 
         .modal-body {
             min-height: 65px;
+            max-height: calc(100vh - 260px);
+            overflow: auto;
+            @include webkit_scrollbar();
 
             .signup-layout {
                 padding-top: 0px;

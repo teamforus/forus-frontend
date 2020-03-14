@@ -78,4 +78,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('employeeAddConfirmation', {
         component: 'modalEmployeeAddConfirmationComponent'
     });
+
+    ModalRouteProvider.modal('createPrevalidation', {
+        component: 'modalCreatePrevalidationComponent'
+    });
 }];
