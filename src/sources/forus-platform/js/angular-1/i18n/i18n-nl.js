@@ -1001,7 +1001,15 @@ module.exports = {
         no_app: {
             enter_email: 'Vul uw email adres in om verder te gaan',
             instructions: 'Als u nu nog niet in staat bent om verder te gaan met de app. Is het ook mogelijk om met uw email adres verder te gaan en later in te loggen op de app. Het is echter handiger om direct met de app verder te gaan.',
-            continue_app: 'Ga toch verder met de app >'
+            continue_app: 'Ga toch verder met de app >',
+            to_app: 'Ik wil inloggen met de me app >',
+        },
+        app: {
+            title: "Heeft u de Me App al?",
+            description: "De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren." + "<br/><br/>" +
+                "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App." + "<br/><br/>" +
+                "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren",
+            no_app: "Ik wil inloggen met mijn emailadres >"    
         },
         app_header: {
             title: 'Vul de code in op het invoerveld',
@@ -1017,7 +1025,7 @@ module.exports = {
             description: 'Aanmelden voor een fonds is alleen mogelijk via onze website op een vaste computer.'
         },
     },
-    // SIGN UP FORM FOR SPONSORS = validator-sign-up.pug
+    // SIGN UP FORM FOR VALIDATORS = validator-sign-up.pug
     sign_up_validator: {
         header: {
             main_header: "Aanmelden als validator",
@@ -1115,7 +1123,15 @@ module.exports = {
         no_app: {
             enter_email: 'Vul uw email adres in om verder te gaan',
             instructions: 'Als u nu nog niet in staat bent om verder te gaan met de app. Is het ook mogelijk om met uw email adres verder te gaan en later in te loggen op de app. Het is echter handiger om direct met de app verder te gaan.',
-            continue_app: 'Ga toch verder met de app >'
+            continue_app: 'Ga toch verder met de app >',
+            to_app: 'Ik wil inloggen met de me app >',
+        },
+        app: {
+            title: "Heeft u de Me App al?",
+            description: "De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren." + "<br/><br/>" +
+                "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App." + "<br/><br/>" +
+                "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren",
+            no_app: "Ik wil inloggen met mijn emailadres >"    
         },
         app_header: {
             title: 'Vul de code in op het invoerveld',

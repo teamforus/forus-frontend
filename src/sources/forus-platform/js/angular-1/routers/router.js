@@ -767,19 +767,21 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         ) => {
             let target = $state.params.target || '';
 
+            console.log(target);
+
             IdentityService.exchangeConfirmationToken(
                 $state.params.token
             ).then(function(res) {
                 CredentialsService.set(res.data.access_token);
-                $rootScope.loadAuthUser();
-    
-                if (typeof target == 'string') {
-                    if (!handleAuthTarget($state, target.split('-'), appConfigs)) {
-                        $state.go('home', {
-                            confirmed: 1
-                        });
+                $rootScope.loadAuthUser().then(auth_user => {
+                    if (typeof target == 'string') {
+                        if (!handleAuthTarget($state, target.split('-'), appConfigs)) {
+                            $state.go('home', {
+                                confirmed: 1
+                            });
+                        }
                     }
-                }
+                });
             }, () => {
                 alert("Token expired or unknown.");
                 $state.go('home');

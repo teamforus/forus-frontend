@@ -55,7 +55,7 @@
                     .sign_up-pane
                         .sign_up-pane-header(translate="sign_up_sponsor.header.title_step_2") 
 
-                        .sign_up-pane-body(ng-if="!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent")
+                        .sign_up-pane-body(ng-if="!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent && !$ctrl.hasApp")
                             form.form: .row
                                 .col.col-md-7
                                     .form-group
@@ -71,7 +71,29 @@
                                     button.button.button-primary.button-fill(
                                         type="button"
                                         ng-click="$ctrl.createAppProfile()"
-                                        translate="sign_up_sponsor.app_instruction.create_profile")
+                                        translate="sign_up_sponsor.app_instruction.create_profile")   
+
+                            a.notice-small(ng-click="$ctrl.setHasAppProp(true)" translate="sign_up_sponsor.no_app.to_app")     
+
+                        .sign_up-pane-body(ng-if="!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent && $ctrl.hasApp")
+                            .sign_up-pane-heading(translate='sign_up_sponsor.app.title')
+
+                            .sign_up-pane-auth
+                                .sign_up-pane-auth-content
+                                    .sign_up-pane-text(translate="sign_up_sponsor.app.description")
+
+                                    .sign_up-pane-auth-apps
+                                        a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
+                                        a(href="https://play.google.com/store/apps/details?id=io.forus.me").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
+                                
+                                .sign_up-pane-auth-qr_code
+                                    qr-code(
+                                        ng-if="$ctrl.authToken" 
+                                        qr-value="$ctrl.authToken" 
+                                        qr-type="auth_token" 
+                                        qr-logo=src_prefix + "./assets/img/me-logo.png")   
+
+                            a.notice-small(ng-click="$ctrl.setHasAppProp(false)" translate="sign_up_sponsor.app.no_app")   
 
                         .sign_up-pane-body(ng-if="$ctrl.authEmailSent || $ctrl.authEmailRestoreSent")
                             .sign_up-confirm-email.sign_up-confirm-preview.text-center

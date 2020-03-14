@@ -300,9 +300,9 @@ let ProviderSignUpComponent = function(
                         stopTimeout = true;
                         $ctrl.authEmailSent = true;
 
-                        CredentialsService.set(res.data.access_token);
-                        $ctrl.signedIn = true;
-                        $ctrl.setStep(STEP_ORGANIZATION_ADD);
+                        // CredentialsService.set(res.data.access_token);
+                        // $ctrl.signedIn = true;
+                        // $ctrl.setStep(STEP_ORGANIZATION_ADD);
                     }, resolveErrors);
                 } else {
                     IdentityService.makeAuthEmailToken(
@@ -375,26 +375,6 @@ let ProviderSignUpComponent = function(
     };
 
     $ctrl.createAppProfile = () => {
-        // $ctrl.signUpForm.submit().then((res) => {
-        //     CredentialsService.set(res.data.access_token);
-        //     $ctrl.signedIn = true;
-
-        //     // organizationListPromise().then(res => {
-        //     //     if (res.data.data.length) {
-        //     //         $ctrl.shownSteps = STEPS_ORGANIZATION_SELECT;
-    
-        //     //         $ctrl.setStep(STEP_SELECT_ORGANIZATION);
-        //     //     } else {
-        //     //         $ctrl.setStep(STEP_ORGANIZATION_ADD);
-        //     //     }
-        //     // });
-
-        //     $ctrl.setStep(STEP_ORGANIZATION_ADD);
-        // }, (res) => {
-        //     $ctrl.signUpForm.unlock();
-        //     $ctrl.signUpForm.errors = res.data.errors;
-        // });
-
         $ctrl.signUpForm.submit();
     }
 

@@ -16,8 +16,6 @@ let ValidatorSignUpComponent = function(
     ModalService,
     appConfigs
 ) {
-    let $ctrl = this;
- 
     const STEP_INFO_GENERAL = 1;
     const STEP_INFO_DETAILS = 2;
     const STEP_CREATE_PROFILE = 3;
@@ -33,10 +31,14 @@ let ValidatorSignUpComponent = function(
         STEP_CREATE_PROFILE, STEP_ORGANIZATION_ADD, STEP_SIGNUP_FINISHED
     ];
 
+    let $ctrl = this;
+    let stopTimeout = null;
+
     $ctrl.step = STEP_INFO_GENERAL;
     $ctrl.organizationStep = false;
     $ctrl.signedIn = AuthService.hasCredentials();
     $ctrl.organization = null;
+    $ctrl.hasApp = false;
     $ctrl.profileCreated = false;
     $ctrl.authEmailSent = false;
     $ctrl.authEmailRestoreSent = false;
@@ -72,6 +74,9 @@ let ValidatorSignUpComponent = function(
         };
 
         this.setStep = (step) => {
+            if (step == STEP_CREATE_PROFILE) {
+                $ctrl.requestAuthQrToken();
+            }
             localStorage.setItem('sign_up_form.step', step);
 
             $ctrl.step = step;
@@ -79,8 +84,10 @@ let ValidatorSignUpComponent = function(
 
         this.getStep = () => {
             let step = parseInt(localStorage.getItem('sign_up_form.step'));
-
-            if (step >= STEP_SELECT_ORGANIZATION) {
+            
+            if (step == STEP_CREATE_PROFILE) {
+                $ctrl.requestAuthQrToken();
+            } else if (step >= STEP_SELECT_ORGANIZATION) {
                 let organisation_data = {};
 
                 if (localStorage.getItem('sign_up_form.organizationForm') != null) {
@@ -116,6 +123,10 @@ let ValidatorSignUpComponent = function(
 
     $ctrl.afterInit = () => {};
 
+    $ctrl.setHasAppProp = (value) => {
+        $ctrl.hasApp = value;
+    };
+
     $ctrl.chageBusinessType = (value) => {
         $ctrl.organizationForm.values.business_type_id = value.id;
     };
@@ -138,11 +149,12 @@ let ValidatorSignUpComponent = function(
             }).then(res => {
                 if (res.data.email.unique) {
                     IdentityService.make(form.values).then(res => {
+                        stopTimeout = true;
                         $ctrl.authEmailSent = true;
 
-                        CredentialsService.set(res.data.access_token);
-                        $ctrl.signedIn = true;
-                        $ctrl.setStep(STEP_ORGANIZATION_ADD);
+                        // CredentialsService.set(res.data.access_token);
+                        // $ctrl.signedIn = true;
+                        // $ctrl.setStep(STEP_ORGANIZATION_ADD);
                     }, resolveErrors);
                 } else {
                     IdentityService.makeAuthEmailToken(
@@ -150,6 +162,7 @@ let ValidatorSignUpComponent = function(
                         form.values.records.primary_email,
                         target
                     ).then(res => {
+                        stopTimeout = true;
                         $ctrl.authEmailRestoreSent = true;
                     }, resolveErrors(res));
                 }
@@ -198,7 +211,57 @@ let ValidatorSignUpComponent = function(
 
     $ctrl.createAppProfile = () => {
         $ctrl.signUpForm.submit();
-    }
+    };
+
+    $ctrl.applyAccessToken = function(access_token) {
+        stopTimeout = true;
+
+        CredentialsService.set(access_token);
+        $rootScope.$broadcast('auth:update');
+
+        if ($ctrl.step == STEP_CREATE_PROFILE) {
+            OrganizationService.list().then(res => {
+                if (res.data.data.length) {
+                    $ctrl.organizationList = res.data.data;
+                    $ctrl.shownSteps = STEPS_ORGANIZATION_SELECT;
+
+                    $ctrl.setStep(STEP_SELECT_ORGANIZATION);
+                } else {
+                    $ctrl.setStep(STEP_ORGANIZATION_ADD);
+                }
+            });
+        } else {
+            $ctrl.next();
+        }
+
+        $ctrl.signedIn = true;
+    };
+
+    $ctrl.checkAccessTokenStatus = (type, access_token) => {
+        if (stopTimeout) {
+            return stopTimeout = null;
+        }
+
+        IdentityService.checkAccessToken(access_token).then(res => {
+            if (res.data.message == 'active') {
+                $ctrl.applyAccessToken(access_token);
+            } else if (res.data.message == 'pending') {
+                timeout = $timeout(function() {
+                    $ctrl.checkAccessTokenStatus(type, access_token);
+                }, 2500);
+            } else {
+                document.location.reload();
+            }
+        });
+    };
+
+    $ctrl.requestAuthQrToken = () => {
+        IdentityService.makeAuthToken().then(res => {
+            $ctrl.authToken = res.data.auth_token;
+
+            $ctrl.checkAccessTokenStatus('token', res.data.access_token);
+        }, console.log);
+    };
 
     $ctrl.selectOrganization = (organization) => {
         $ctrl.selectedOrganization = organization;
