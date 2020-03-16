@@ -387,6 +387,9 @@ $colorPrimaryLight: $color_primary_light;
         padding-right: 60px;
 
         .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+
             .sidebar-nav-item {
                 position: relative;
                 padding: 10px 0 10px 45px;
@@ -470,6 +473,14 @@ $colorPrimaryLight: $color_primary_light;
                         }
                     }
                 }
+            }
+
+            .sidebar-nav-devider {
+                border-bottom: 1px solid #D4D9DD;
+                width: 100%;
+                height: 1px;
+                padding: 15px 0 0;
+                margin: 0 0 20px;
             }
         }
     }
@@ -3992,6 +4003,87 @@ $colorPrimaryLight: $color_primary_light;
                 flex-grow: 1;
                 padding: 7.5px 0px;
                 max-width: calc(100% - 200px);
+            }
+        }
+    }
+
+    &.block-user_emails {
+        display: flex;
+        flex-direction: column;
+
+        .user_email-item {
+            display: flex;
+            flex-direction: row;
+            border-bottom: 1px solid #d4d9dd;
+
+            .user_email-icon {
+                padding: 20px 0 20px 20px;
+
+                .mdi {
+                    font-size: 26px;
+                    margin-left: 5px;
+                    margin-right: -5px;
+                    color: #8ca3a6;
+                }
+            }
+
+            .user_email-details {
+                padding: 20px;
+                flex-grow: 1;
+
+                .user_email-address,
+                .user_email-options {
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                .user_email-address {
+                    font: 500 14px/24px $bf;
+                    color: $tc;
+                    margin: 0 0 5px;
+                }
+
+                .user_email-options {
+                    margin: 0 0 10px;
+
+                    .user_email-option {
+                        font: 500 13px/20px $bf;
+                        color: $tc;
+                        margin: 0 0 5px;
+                        padding-left: 15px;
+                        position: relative;
+
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            display: block;
+                            width: 4px;
+                            height: 4px;
+                            border-radius: 5px;
+                            background: $color_primary_light;
+                            left: 0;
+                            top: 50%;
+                            transform: translate(0, -50%);
+                        }
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+            }
+
+            .user_email-actions {
+                padding: 20px;
+
+                .button, .label {
+                    margin-left: 10px;
+                }
+            }
+
+            &:last-child {
+                border-bottom: none;  
             }
         }
     }

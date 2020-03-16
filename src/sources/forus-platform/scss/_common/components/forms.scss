@@ -74,31 +74,6 @@
                     color: #fefefe;
                     transition: all .4s ease-in-out;
                     position: relative;
-
-                    .icon-disabled {
-                        @include fill_parent();
-
-                        &:before,
-                        &:after {
-                            content: '';
-                            display: block;
-                            background-color: #b4b9c9;
-                            height: 15px;
-                            width: 3px;
-                            position: absolute;
-                            left: 50%;
-                            top: 50%;
-                            border-radius: 3px;
-                        }
-
-                        &:before {
-                            transform: translate(-50%, -50%) rotate(45deg);
-                        }
-
-                        &:after {
-                            transform: translate(-50%, -50%) rotate(-45deg);
-                        }
-                    }
                 }
             }
 

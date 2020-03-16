@@ -38,8 +38,6 @@
                         ng-checked="type.subscribed" 
                         ng-model="type.subscribed")
                     .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
-                        em.mdi.mdi-check-bold(ng-if="type.subscribed")
-                        .icon-disabled(ng-if="!type.subscribed")
         .card
             .card-header: .card-title(translate="notification_preferences.title_push_preferences")
             .form.block.block-preferences: label(
@@ -56,5 +54,3 @@
                         ng-checked="type.subscribed" 
                         ng-model="type.subscribed")
                     .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
-                        em.mdi.mdi-check-bold(ng-if="type.subscribed")
-                        .icon-disabled(ng-if="!type.subscribed")                
