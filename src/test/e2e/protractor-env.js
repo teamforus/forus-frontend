@@ -23,7 +23,7 @@ var environment = {
     customerURL : "http://localhost:5500",
     providerURL : "http://localhost:4000",
     sponsorURL :  "http://localhost:3500",
-    active_account : "682620763695dbaf7ded91baf5b88837dfe0dca4bc8e0e501bcc09f0956c52208d86b2477f1ec2269fd089ec50ba5137e6457c15a4db003b1970f1b84b526a3ed0a22c226e9d6250230d850a36dadc7b030e23b3dc1ef383442069624888b92bed61bc3d",
+    active_account : "3edd42f46d274b6eac10a6226eba7f4cd531b63fe85b3bd0ad545516e9c65be92f9b461cb4b0fe058afd830a897452e768bc7684ddd02ca49c914056c1c8e9e6085ba2ab26e35bdf8b9c782a3a7163bce2ff1ac78a684df06c905aee4792f9ad5ee6afd2",
 
     //providerURL : "https://staging.forus.io/provider",
     

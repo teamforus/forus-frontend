@@ -1,8 +1,14 @@
 var webshop = require('./webshopPage');
 var EC = protractor.ExpectedConditions;
+var customMatchers = {
+    or : function(){
+        return {
+            
+        }
+    }
+}
 
-
-describe('testing basic functionality:', function(){
+describe('testing basic authenticated functionality of requester:', function(){
     beforeAll(function(){
         webshop.get()
         webshop.setActiveAccount();
@@ -11,8 +17,6 @@ describe('testing basic functionality:', function(){
     beforeEach(function(){
         webshop.get()
     })
-
-    /*
 
     it('opens and closes activation code modal', function(){
         webshop.openUserMenu()
@@ -31,14 +35,21 @@ describe('testing basic functionality:', function(){
         //browser.sleep(3000)
         expect(webshop.getVouchersComponent().isDisplayed()).toBe(true)  
     })
-    */
+    
     it('navigates to notification preferences, and checks if enable and disable buttons work', function(){
         webshop.openUserMenu()
         webshop.userMenuNotificationPreferences()
-        //webshop.disableMailSubscription().click()
-        //console.log(webshop.enableMailSubscription().isPresent())
-        //console.log(webshop.disableMailSubscription().isPresent())
-        expect(EC.or(webshop.disableMailSubscription().isPresent(), webshop.enableMailSubscription().isPresent())).toBe(true)
+        
+        //check which button is present
+        webshop.enableMailSubscription().isPresent().then(function(result) {
+            if ( result ) { //check if other button is present when clicking
+                webshop.enableMailSubscription().click()
+                expect(webshop.disableMailSubscription().isDisplayed()).toBe(true)
+            } else {
+                webshop.disableMailSubscription().click()
+                expect(webshop.enableMailSubscription().isDisplayed()).toBe(true)
+            }
+        });
     })
 
     it('logs out', function(){
