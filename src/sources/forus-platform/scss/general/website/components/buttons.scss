@@ -56,8 +56,8 @@
     }
 }
 
-.btn.main_button {@include button($forus-pink, #ffffff, #FFF, $forus-pink);}
-.main_button {@include button($forus-pink, #ffffff, #FFF, $forus-pink);}
+.btn.main_button {@include button($forus-blue, #ffffff, #FFF, $forus-blue);}
+.main_button {@include button($forus-blue, #ffffff, #FFF, $forus-blue);}
 .button-primary{@include button($forus-demi-blue, #ffffff, #FFF, $forus-demi-blue);}
 .login_btn{
     @include button($forus-dark-blue, $forus-sky-blue, #ffffff, $forus-demi-blue);
