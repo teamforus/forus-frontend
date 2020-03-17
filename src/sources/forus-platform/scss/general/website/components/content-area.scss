@@ -23,7 +23,7 @@
 }
 .wrap_cs {
     &__1 {
-        padding: 50px 100px;
+        padding: 20px 0;
         @media screen and (min-width: 1024px) {
             padding: 100px;
         }
@@ -32,7 +32,6 @@
         padding: 100px 100px;
     }
     &__2 {
-        padding: 20px 20px 20px;
         @media screen and (min-width: 1024px) {
             padding: 75px 20px 75px;
         }

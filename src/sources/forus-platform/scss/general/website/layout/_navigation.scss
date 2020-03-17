@@ -20,8 +20,6 @@ html {
             background-color: #ffffff;
             .container-fluid {
                 @media screen and (min-width: 768px) {
-                    display: flex;
-                    justify-content: center;
                     align-items: center;
                 }
                 .navbar-header{

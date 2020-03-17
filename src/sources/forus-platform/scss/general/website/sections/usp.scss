@@ -1,12 +1,14 @@
 .usp {
-    padding: 7.5% 0;
+    padding: 20px 0px;
     height: 100%;
     @media screen and (min-width: 1024px) {
+        padding: 7.5% 30px;
+        min-height: 200px;
         &:before {
             content: "";
             position: absolute;
             margin-top: -10px;
-            left: -40px;
+            left: -10px;
             height: 40px;
             width: 100px;
             background-repeat: no-repeat;
@@ -23,7 +25,7 @@
         }
         &__sp-3 {
             &:before {
-                        background-image: url($img_path + "/icon-toegankelijkheid.svg");
+              background-image: url($img_path + "/icon-toegankelijkheid.svg");
             }       
         }
         &__sp-4 {
