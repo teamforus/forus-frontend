@@ -1,8 +1,13 @@
-var sponsor = require('./sponsorPage');
+var sponsor = require('../pages/sponsorPage');
 
 describe('testing unauthenticated sponsor functionality', function(){
     
-    it('navigates to page', function(){
+    beforeAll(function(){
+        sponsor.get()
+        sponsor.clearLocalStorage()
+    })
+
+    beforeEach(function(){
         sponsor.get()
     });
 

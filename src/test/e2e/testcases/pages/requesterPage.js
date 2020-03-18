@@ -50,6 +50,13 @@ var webshopPage = function(){
         element(by.css('[i18n="buttons.show_map"]')).click();
     }
 
+    this.clearLocalStorage = function(){
+        browser.executeScript("window.localStorage.clear()")
+        .then(function(){
+            browser.refresh();
+        });
+    }
+
     this.setActiveAccount = function(){
         browser.executeScript("window.localStorage.setItem('active_account','" + environment.active_account + "');").
         then(function(){

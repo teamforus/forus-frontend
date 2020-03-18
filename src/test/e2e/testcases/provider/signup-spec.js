@@ -1,21 +1,20 @@
-var provider = require('./providerPage');
+var provider = require('../pages/providerPage');
 
 describe('testing provider signup functionality:', function(){
     
+    beforeAll(function(){
+        provider.getSignupProvider()
+        provider.clearLocalStorage()
+    })
+
     beforeEach(function(){
         provider.getSignupProvider()
     }) 
 
     it('step 1', function(){
-       // browser.sleep(10000)
         provider.appIsInstalled();
-        expect(provider.getGoToStep2Button().isDisplayed()).toBe(true)
+        expect(provider.getGoToStep2Button().isPresent()).toBe(true)
         
     })
-
-    it('step 2, check if qr code shows', function(){
-
-    })
-
 
 });

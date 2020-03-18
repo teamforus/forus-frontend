@@ -10,7 +10,8 @@ exports.config = {
     },
 
     suites: {
-        requester : ['testcases/requester/a*-spec.js'],
+        
+        requester : ['testcases/requester/*-spec.js'],
         sponsor : ['testcases/sponsor/*-spec.js'],
         provider : ['testcases/provider/*-spec.js'],
     },

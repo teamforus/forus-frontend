@@ -1,7 +1,21 @@
 
-var webshopPage = function(){
+var sponsorPage = function(){
     this.get = function(){
         browser.get(environment.sponsorURL)
+    }
+
+    this.setActiveAccount = function(){
+        browser.executeScript("window.localStorage.setItem('active_account','" + environment.active_account + "');").
+        then(function(){
+            browser.refresh();
+        });
+    };
+
+    this.clearLocalStorage = function(){
+        browser.executeScript("window.localStorage.clear()")
+        .then(function(){
+            browser.refresh();
+        });
     }
 
     this.openLogin = function(){
@@ -20,4 +34,4 @@ var webshopPage = function(){
         return element(by.className('section section-faq'))
     }
 }
-module.exports = new webshopPage();
+module.exports = new sponsorPage();
