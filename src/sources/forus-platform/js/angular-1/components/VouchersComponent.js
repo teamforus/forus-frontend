@@ -112,27 +112,32 @@ let VouchersComponent = function(
     };
 
     $ctrl.exportUnassignedQRCodes = () => {
-        VoucherService.downloadQRCodes(
-            $ctrl.organization.id,
-            Object.assign($ctrl.getQueryParams($ctrl.filters.values), {
-                unassigned: 1
-            })
-        ).then(res => {
-            FileService.downloadFile(
-                'vouchers_' + moment().format(
-                    'YYYY-MM-DD HH:mm:ss'
-                ) + '.zip',
-                res.data,
-                res.headers('Content-Type') + ';charset=utf-8;'
-            );
-        }, res => {
-            res.data.text().then((data) => {
-                data = JSON.parse(data);
-
-                if (data.message) {
-                    PushNotificationsService.danger(data.message);
-                }
-            });
+        ModalService.open('voucherExportType', {
+            success: (data) => {
+                VoucherService.downloadQRCodes(
+                    $ctrl.organization.id,
+                    Object.assign($ctrl.getQueryParams($ctrl.filters.values), {
+                        unassigned: 1,
+                        export_type: data.exportType
+                    })
+                ).then(res => {
+                    FileService.downloadFile(
+                        'vouchers_' + moment().format(
+                            'YYYY-MM-DD HH:mm:ss'
+                        ) + '.zip',
+                        res.data,
+                        res.headers('Content-Type') + ';charset=utf-8;'
+                    );
+                }, res => {
+                    res.data.text().then((data) => {
+                        data = JSON.parse(data);
+        
+                        if (data.message) {
+                            PushNotificationsService.danger(data.message);
+                        }
+                    });
+                });
+            }
         });
     };
 
