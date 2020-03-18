@@ -44,13 +44,8 @@
     "vinyl-source-stream": "2.0.0"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@mdi/font": "^4.9.95",
-    "@uirouter/angularjs": "^1.0.25",
-=======
     "@mdi/font": "^5.0.0",
     "@uirouter/angularjs": "^1.0.23",
->>>>>>> origin/develop
     "angular": "^1.7.9",
     "angular-cookie": "^4.1.0",
     "angular-i18n": "^1.7.9",
