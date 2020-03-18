@@ -4,7 +4,11 @@
 /php/public/assets/*
 /src/qdt-env.js
 /.vscode
+<<<<<<< HEAD
 /src/test/e2e/*-env.js
+=======
+/src/e2e/test/*-env.js
+>>>>>>> added-protractor-dependency
 
 # Compiled source #
 ###################
