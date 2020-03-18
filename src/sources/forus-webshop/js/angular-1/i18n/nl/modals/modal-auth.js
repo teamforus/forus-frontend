@@ -67,8 +67,47 @@ module.exports = {
         winterswijk: {
             mail: "Maak een account aan voordat u verder kan met de activatie."
         },
+<<<<<<< HEAD
         westerkwartier: {
             mail: "Maak een account aan voordat u verder kan met de activatie."
+=======
+        labels: {
+            nijmegen: {
+                mail: "<strong>Let op</strong>: gebruik uw eigen e-mailadres.<br /> U kunt voor de Meedoen-regeling per jaar maximaal één activatiecode per e-mailadres gebruiken.",
+            },
+            zuidhorn: {
+                mail: "<strong>Let op</strong>: gebruik uw eigen e-mailadres.<br /> U kunt voor het Kindpakket per jaar maximaal één activatiecode per e-mailadres gebruiken.",
+            },
+            berkelland: {
+                mail: "Maak een account aan voordat u verder kan met de activatie."
+            },
+            oostgelre: {
+                mail: "Maak een account aan voordat u verder kan met de activatie."
+            },
+            winterswijk: {
+                mail: "Maak een account aan voordat u verder kan met de activatie."
+            },
+            westerkwartier: {
+                mail: "Maak een account aan voordat u verder kan met de activatie."
+            },
+            noordoostpolder: {
+                mail: "Maak een account aan voordat u verder kan met de activatie."
+            },
+            timelimit: "U wordt automatisch uitgelogd na 15 minuten inactiviteit.",
+            warning: "Sluit dit venster en klik op 'Login' als u de activatiecode al eens heeft gebruikt.",
+            join: "Aanmelden",
+            activate: "Stap 1 van 3: Webshop account aanmaken.",
+            activate_code: "Stap 3 van 3: Activeer uw tegoed.",
+            scancode: "Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent.",
+            mobilecode: "Vul uw toegangscode van de Me-app in.",
+            mail: "<strong>Let op</strong>: gebruik uw eigen e-mailadres.<br /> U kunt voor {{fund}} per jaar maximaal één activatiecode per e-mailadres gebruiken.",
+            link: "Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen.",
+            code: "Vul de activatiecode in die u per brief hebt ontvangen.<br /><strong>Let op:</strong> U kunt één activatiecode per e-mailadres gebruiken. Sluit dit venster als u al een activatiecode heeft gebruikt.",
+            voucher_email: "Het is gelukt!",
+            isactivated: "Uw voucher is al geactiveerd.",
+            codeactivated: "U heeft al een activatiecode gebruikt. Het is niet mogelijk nog één te gebruiken.",
+            dont_have_account: "Heeft u geen account en wilt u één aanmaken door een activatiecode te gebruiken?",
+>>>>>>> update noordoostpolder webshop
         },
         noordoostpolder: {
             mail: "Maak een account aan voordat u verder kan met de activatie."
