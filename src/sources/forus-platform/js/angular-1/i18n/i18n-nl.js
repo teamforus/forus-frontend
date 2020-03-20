@@ -472,7 +472,7 @@ module.exports = {
             tax: "BTW-nummer (Optioneel)",
             website: "Website",
             business_type: "Organisatie type",
-            optional: "Optional",
+            optional: "Optioneel",
             make_public: "Maak publiek",
             photo_description: 'De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px.<br/>Toegestaande  formaten: JPG, PNG',
             schedule: "Openingstijden",

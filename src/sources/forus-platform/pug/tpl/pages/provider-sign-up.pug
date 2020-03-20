@@ -331,7 +331,7 @@
                         ng-if="office.edit" 
                         office="office" 
                         organization="$ctrl.organization" 
-                        cancel="cancelOfficeEdit(office)" 
+                        cancel="$ctrl.cancelOfficeEdit(office)" 
                         updated="$ctrl.officeUpdated(office)")
                 
                 .sign_up-pane-body.sign_up-pane-body-padless(ng-if="$ctrl.isAddingNewOffice"): .sign_up-offices
@@ -339,7 +339,7 @@
                         ng-if="$ctrl.isAddingNewOffice" 
                         office="{}" 
                         organization="$ctrl.organization" 
-                        cancel="cancelOfficeAdd(office)" 
+                        cancel="$ctrl.cancelOfficeAdd()" 
                         created="$ctrl.officeCreated(office)")
                 
                 .sign_up-pane-body.sign_up-pane-body-padless-bottom: .flex-row: .flex-col(ng-if="$ctrl.showAddOfficeBtn")
@@ -474,7 +474,7 @@
                     .form-group.col.col-lg-12: br
 
         //- Scan QR Code (test)
-        div(ng-if="$ctrl.step == $ctrl.STEP_SIGNUP_FINISHED")
+        div(ng-if="$ctrl.step == $ctrl.STEP_DEMO_TRANSACTION")
             +progress()
 
             .sign_up-pane
@@ -489,7 +489,7 @@
                         qr-logo=src_prefix + "./assets/img/me-logo.png")
 
         //- Done
-        .finish-screen(ng-if="$ctrl.step == $ctrl.STEP_DEMO_TRANSACTION")
+        .finish-screen(ng-if="$ctrl.step == $ctrl.STEP_SIGNUP_FINISHED")
             +progress()
 
             .sign_up-pane

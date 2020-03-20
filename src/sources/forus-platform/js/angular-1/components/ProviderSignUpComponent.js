@@ -418,12 +418,12 @@ let ProviderSignUpComponent = function(
 
         $ctrl.fundLabels.unshift({
             key: 'null',
-            name: $translate('sign_up_new.filters.options.all_labels')
+            name: $translate('sign_up_provider.filters.options.all_labels')
         });
 
         $ctrl.fundOrganizations.unshift({
             id_str: 'null',
-            name: $translate('sign_up_new.filters.options.all_organizations')
+            name: $translate('sign_up_provider.filters.options.all_organizations')
         });
 
         $ctrl.fundLabel = $ctrl.fundLabel ? $ctrl.fundLabel : 'null';
@@ -525,7 +525,7 @@ let ProviderSignUpComponent = function(
 
                             if (res.data.data.state != 'pending') {
                                 $interval.cancel(interval);
-                                $ctrl.setStep($ctrl.STEP_SIGNUP_FINISHED);
+                                $ctrl.step = $ctrl.STEP_SIGNUP_FINISHED;
                             }
                         });
                     }, 2000);
@@ -575,7 +575,7 @@ let ProviderSignUpComponent = function(
         if ($ctrl.step == $ctrl.STEP_ORGANIZATION_ADD) {
             let submit = () => $ctrl.organizationForm.submit().then((res) => {
                 $ctrl.setOrganization(res.data.data);
-                $ctrl.setStep($ctrl.STEP_SELECT_ORGANIZATION);
+                $ctrl.setStep($ctrl.STEP_OFFICES);
             }, (res) => {
                 $ctrl.organizationForm.errors = res.data.errors;
                 $ctrl.organizationForm.unlock();

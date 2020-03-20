@@ -238,6 +238,12 @@ let SignUpOfficeEditDirective = function(
                     }
                 }, (res) => {
                     form.errors = res.data.errors;
+                    // Temporary fix
+                    for (let errorKey in form.errors) {
+                        if (errorKey.indexOf('schedule') != -1) {
+                            form.errors.schedule = 'Format should be h:m, ex 09:00';
+                        }
+                    }
                     form.unlock();
                 });
             };
