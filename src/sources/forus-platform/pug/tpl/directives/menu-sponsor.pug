@@ -56,3 +56,10 @@ aside.app.app-sidebar
         +nav_item(
             "Aanvragers", "file_csv", 'csv-validation', false,
             '$root.activeOrganization | hasPerm:["validate_records"]')
+        
+        .sidebar-nav-devider
+
+
+        +nav_item('Email configurations', 'emails', 'identity-emails')
+        +nav_item('Sessions', 'sessions', 'security-sessions')
+        +nav_item('Notifications', 'notifications', 'preferences-notifications')
