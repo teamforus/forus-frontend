@@ -38,9 +38,9 @@ let BaseController = function(
 
             RecordService.list().then((res) => {
                 auth_user.records = res.data;
-                auth_user.primary_email = res.data.filter((record) => {
+                /* auth_user.primary_email = res.data.filter((record) => {
                     return record.key == 'primary_email';
-                })[0].value;
+                })[0].value; */
 
                 ++count == 2 ? null : deferred.resolve();
             }, deferred.reject);
