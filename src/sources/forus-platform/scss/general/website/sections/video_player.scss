@@ -1,3 +1,27 @@
+.role {
+    width: 25%;
+    cursor: pointer;
+    p {
+        flex: auto;
+        font-size: 14px;
+    }
+    .play_btn_link {
+        p { flex: 0 1 auto;}
+    }
+}
+.roles {
+    display: table;
+    box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.09);
+}
+
+.role_content {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 210px;
+    padding: 20px 25px;
+}
+
 .nav{
     text-align: center;
     border: 0;
@@ -73,6 +97,7 @@
         .role{
             position: relative;
             padding: 40px 30px;
+            width: 25%;
             .role_content{
                 text-align: left;
                 .title{

@@ -2,19 +2,22 @@
     position: relative;
     margin: 0 auto;
     color: $tc;
-    @media screen and (min-width: 1024px) {
+    @media screen and (min-width:768px) {
         background-color: rgba(255, 255, 255, 0.94);
         box-shadow: 12px 8px 30px rgba(0, 0, 0, 0.19);
         padding: 20px 10%;
     }
     .tl-list {
-        display: flex;
+        @media screen and (min-width: 768px) {
+            display: flex;
+        }
         ul {
             padding: 20px;
             flex: 1 1 0;
-            @media screen and (min-width: 1024px) {
+            @media screen and (min-width:992px) {
                 float: left;
             }
+            li {padding: 20px 10px;}
             p {
                 font-style: cursive;
             }
@@ -23,17 +26,34 @@
 }
 .wrap_cs {
     &__1 {
-        padding: 20px 0;
-        @media screen and (min-width: 1024px) {
-            padding: 100px;
+        padding: 20px 0px;
+        @media screen and (min-width:768px) {
+            padding: 80px 40px;
+        }
+        @media screen and (min-width:992px) {
+            padding: 130px 100px;
         }
     }
     &__1a {
         padding: 100px 100px;
     }
     &__2 {
-        @media screen and (min-width: 1024px) {
-            padding: 75px 20px 75px;
+        .holder {
+            svg {
+                height: 250px;
+                @media screen and (min-width:992px) {
+                    height: 400px
+                }
+            }
+            img {
+                width: 150px;
+                @media screen and (min-width:992px) {
+                    width: 250px;
+                }
+            }
+        }
+        @media screen and (min-width:992px) {
+            padding: 60px 20px 75px;
         }
         .work-st {
             li {
@@ -93,14 +113,31 @@
     &__3 {
         padding: 0px 20px 75px;
     }
+    &__4 {
+        @media screen and (min-width: 768px) {
+            padding: 0px 20px 260px;
+        }
+        @media screen and (min-width: 992px) {
+            padding: 0px 20px 200px;
+        }
+    }
+    &_4a {
+        padding: 0 20px 0px;
+    }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (min-width:992px) {
     .padded {
         margin: -140px auto 0px;
     }
 }
+
+@media screen and (min-width: 768px) {
+    .subpadded {
+        margin: -250px auto 0px;
+    }
+}
 .cont_txt {
-    @media screen and (min-width: 1024px) {
+    @media screen and (min-width:992px) {
         &__a {
             padding: 0 135px 0;
             img {
@@ -108,6 +145,14 @@
                 width: 100%;
                 margin: 0 auto;
             }
+            svg {
+                height: 80px;
+                width: 80px;
+                padding: 20px;
+            }
+        }
+        &__b {
+            padding: 0 100px 0;
         }
     }
 }

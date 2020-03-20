@@ -5,9 +5,9 @@ section.header.header__contact
 section
     .container
         .row.wrap_cs__2.flexed
-            .col-7.col-md-7.flexed
+            .col-6.col-md-6.e-fb.flexed
                 iframe(class="g_maps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2388.316186660783!2d6.5303644159414205!3d53.23010817995487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c9cd23aff36831%3A0xcb68c04fa209b3f0!2sFriesestraatweg+211%2C+9743+AD+Groningen!5e0!3m2!1sen!2snl!4v1557435904937!5m2!1sen!2snl")
-            .col-5.col-md-5.flexed
+            .col-6.col-sm-6.flexed.sm-p
                 ul: h2 Contactgegevens
                     li: b Telefoon
                         p +31 (0) 85 004 39 52
@@ -17,27 +17,28 @@ section
                         p Kraneweg 13<br />9718 JC Groningen<br />Nederland
                     li: b Postadres
                         p Osloweg 131<br />9723 BK Groningen<br />Nederland
-section.header.header__stats-a    
+section.bg_gr.mr-tp   
     .container.text-center
-        h2 Support
-        p Je kan support aanvragen via chat, telefoon of door ons een e-mail sturen.
-        .row.flexed
-            .col-6.col-md-4.e-fb
-                .upper-a
-                    include ../../../../resources/platform-general/assets/img/icon-telephone.svg
-                    p <b>Telefoon:</b>
-                    p +31 (0) 85 004 33 87‬
-            .col-6.col-md-4.e-fb
-                .upper-a
-                    include ../../../../resources/platform-general/assets/img/icon-mail.svg
-                    p <b>E-mail:</b>
-                    p support@forus.io
-            .col-6.col-md-4.e-fb
-                .upper-a
-                    include ../../../../resources/platform-general/assets/img/icon-mobile.svg
-                    p <b>WhatsApp</b>
-                    p +31 (0)6 36 26 12 31  
-section
+        .wrap_cs__2
+            h2 Support
+            p Heb je een support vraag? Je kan support aanvragen via chat, telefoon of door ons een e-mail sturen. Onze openingstijden zijn: maandag t/m vrijdag: 9.00 uur tot 17.00 uur.
+            .row.flexed
+                .col-6.col-md-4.e-fb
+                    .upper-a
+                        include ../../../../resources/platform-general/assets/img/icon-phone.svg
+                        p <b>Telefoon:</b>
+                        p +31 (0) 85 004 33 87‬
+                .col-6.col-md-4.e-fb
+                    .upper-a
+                        include ../../../../resources/platform-general/assets/img/icon-mail.svg
+                        p <b>E-mail:</b>
+                        p support@forus.io
+                .col-6.col-md-4.e-fb
+                    .upper-a
+                        include ../../../../resources/platform-general/assets/img/icon-mobile.svg
+                        p <b>Helpcentrum</b>
+                        p support.forus.io 
+section.mr-tp 
     .container
         form#formContact.text-center(action="https://xlak8w5706.execute-api.eu-west-1.amazonaws.com/Prod" method="POST")
                 h2 Contactformulier
@@ -45,35 +46,35 @@ section
                 .cont_txt__a
                     .col-xs-12.col-md-6
                         .form-group.required
-                            label.control-label NAAM
+                            label.control-label Naam
                             .input-group
                                 input#nameInput.form-control(placeholder="Naam" name="name"  value="" onkeyup="this.setAttribute('value', this.value);" )
                                 a(href="#").clear_field
                                 span.help-block
                     .col-xs-12.col-md-6
                         .form-group.required
-                            label.control-label EMAIL
+                            label.control-label E-mail
                             .input-group
                                 input#emailInput.form-control(placeholder="Email" name="email" value="" onkeyup="this.setAttribute('value', this.value);" )
                                 a(href="#").clear_field
                                 span.help-block
                     .col-xs-12.col-md-6
                         .form-group
-                            label.control-label ORGANISATIE
+                            label.control-label Organisatie
                             .input-group
                                 input#companyInput.form-control(placeholder="Organisatie" name="organization" value="" onkeyup="this.setAttribute('value', this.value);" )
                                 a(href="#").clear_field
                                 span.help-block
                     .col-xs-12.col-md-6
                         .form-group
-                            label.control-label TELEFOONNUMMER
+                            label.control-label Telefoonnumer
                             .input-group
                                 input#telInput.form-control(placeholder="Telefoonnummer" name="phone" value="" onkeyup="this.setAttribute('value', this.value);" )
                                 a(href="#").clear_field
                                 span.help-block
                     .col-xs-12
                         .form-group.required
-                            label.control-label BERICHT
+                            label.control-label Bericht
                             .input-group
                                 textarea#messageInput.form-control(placeholder="Bericht" name="message")
 

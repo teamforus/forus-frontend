@@ -10,8 +10,11 @@
         margin-top: 20px;
     }
     h4 {
-        margin-bottom: 20px;
-        font-weight: bold;
+        font-weight: 600;
+        @media only screen and (min-width: 768px) {
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
     }
     p {
         font-size: 14px;
@@ -27,6 +30,7 @@
 .sub-foot {
     background-color: #F6F8F9;
     width: 100%;
+    margin-top: 50px;
     .container {
         display: flex;
     }

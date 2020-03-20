@@ -44,9 +44,9 @@ section
                     a(data-toggle="tab" data-target="#panel1-video" id="#panel1")
                         .role_content
                             h4 Aanvrager
-                            p die in aanmerking komt voor een uitkering
-                            .play_btn_link(href="#" id="#panel1-video")
-                                p.txt-link Bekijk de film
+                            p Beroept zich op een budget of product. Bijvoorbeeld een inwoner.
+                            .play_btn_link.flexed(href="#" id="#panel1-video")
+                                p.btn_link.txt_link.content-left Bekijk de film
                                 .play_btn
                                     include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
                                     include ../../../../resources/platform-general/assets/img/svg/pause.svg
@@ -54,9 +54,9 @@ section
                     a(data-toggle="tab" data-target="#panel2-video" id="#panel2")
                         span.role_content
                             h4 Aanbieder
-                            p waar het geld kan worden uitgegeven
-                            .play_btn_link(href="#" id="#panel2-video")
-                                p Bekijk de film
+                            p Levert het bestelde product en/of dienst Bijvoorbeeld een winkelier, organisatie of vereniging.
+                            .play_btn_link.flexed(href="#" id="#panel2-video")
+                                p.btn_link.txt_link.content-left Bekijk de film
                                 .play_btn
                                     include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
                                     include ../../../../resources/platform-general/assets/img/svg/pause.svg
@@ -64,9 +64,9 @@ section
                     a(data-toggle="tab" data-target="#panel3-video" id="#panel3")
                         span.role_content
                             h4 Sponsor
-                            p die het geld heeft en/of beheert
-                            .play_btn_link(href="#" id="#panel3-video")
-                                p Bekijk de film
+                            p Zet de regeling (het fonds) op en stelt een budget beschikbaar. Bijvoorbeeld een gemeente. Bekijk film
+                            .play_btn_link.flexed(href="#" id="#panel3-video")
+                                p.btn_link.txt_link.content-left Bekijk de film
                                 .play_btn
                                     include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
                                     include ../../../../resources/platform-general/assets/img/svg/pause.svg
@@ -74,9 +74,9 @@ section
                     a(data-toggle="tab" data-target="#panel4-video" id="#panel4")
                         span.role_content
                             h4 Validator
-                            p die aanbieders en aanvragers goedkeurt
-                            .play_btn_link(href="#" id="#panel4-video")
-                                p Bekijk de film
+                            p Toetst de criteria waaraan de aanvraag moet voldoen. Bijvoorbeeld een gemeente of ketenpartner.
+                            .play_btn_link.flexed(href="#" id="#panel4-video")
+                                p.btn_link.txt_link.content-left Bekijk de film
                                 .play_btn
                                     include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
                                     include ../../../../resources/platform-general/assets/img/svg/pause.svg
@@ -94,26 +94,27 @@ section
                         | Lees meer over de Me-app
                         include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg 
 
-section.header.header__stats-a
-    .container
-        .wrap_cs__1a
+section.bg_gr.mr-tp 
+    .container.text-center
             h2 Statistieken
             .row.flexed
                 .col-6.col-md-4.e-fb
                     .upper
-                        include ../../../../resources/platform-general/assets/img/icon-citizen_w.svg
-                        h4 Aanvragers
-                        h1.boldest 3009
+                        include ../../../../resources/platform-general/assets/img/icon-inwoners.svg
+                        h2.boldest 3000                        
+                        h4  Aanvragers
                 .col-6.col-md-4.e-fb
                     .upper
-                        include ../../../../resources/platform-general/assets/img/icon-winkelier_w.svg
+                        include ../../../../resources/platform-general/assets/img/icon-me.svg
+                        h2.boldest 3000                        
                         h4 Totaal
-                        h1.boldest 3090
                 .col-6.col-md-4.e-fb
                     .upper
-                        include ../../../../resources/platform-general/assets/img/icon-winkelier_w.svg
+                        include ../../../../resources/platform-general/assets/img/icon-winkeliers.svg
+                        h2.boldest 3000
                         h4 Leveranciers
-                        h1.boldest 259
+
+
 
 section
     .container.text-center
@@ -122,4 +123,6 @@ section
                 h2 Ontwikkeling
                 p Ben je benieuwd naar de ontwikkeling van het platform, heb je een vraag of wil je bijdrage leveren? Volg ons op #[a.txt_link.var Rocket.Chat] of #[a.txt_link.var Github].
                 <br />
+                include ../../../../resources/platform-general/assets/img/svg/rocketchat.svg
+                include ../../../../resources/platform-general/assets/img/svg/bitmap.svg
                 //-p Bekijk voor de lange termijn planning onze #[a.txt_link.var Roadmap].

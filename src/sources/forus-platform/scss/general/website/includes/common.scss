@@ -2,7 +2,7 @@
 .pull-left { float: left; }
 .pull-down {
 	margin-top: 25px;
-	@media screen and (min-width: 1024px) {
+	@media screen and (min-width:992px) {
 		margin-top: 50px;
 	}
 }
@@ -18,21 +18,48 @@
 .e-fb {
     justify-content: space-between;
     flex-direction: column;
-    display: flex;
+	display: flex;
+	.ch_h {
+		background-size: contain;
+        width: 500px;
+	}
 }
 
 .upper {
+	h2 {
+		color: $forus-blue;
+		font-weight: 600;
+	}
     svg {
-        height: 80px;
-        width: 80px;
-    }
+        height: 75px;
+        width: 75px;
+	}
+	img {
+		height: 150px;
+		width: 150px;
+	}
+	@media screen and (min-width:992px) { 
+		svg {
+			height: 125px;
+			width: 125px;
+		}
+		img {
+			height: 200px;
+			width: 200px;
+		}
+	}
 }
 
 .upper-a {
+	margin: 20px 0 20px 0;
     svg {
-        height: 40px;
-        width: 40px;
-    }
+        height: 125px;
+		width: 125px;
+	}
+	p:nth-of-type(2) {
+		color: $forus-blue;
+		font-weight: 600;
+	}
 }
 
 .grad-var {
@@ -101,14 +128,19 @@ input[type="checkbox"]:checked {
 .hidden { display: none; }
 .gradient {background: $forus-gradient; color: $forus-white;}
 .blue {color: $forus-demi-blue;}
+.bg_gr {background: $forus-grey; color: $forus-black}
 
 .cf { @include cf(); }
 
 .slideRight { @include slideRight()}
 
 .g_maps {
-    border: none;
-    width: 100%;
-    height: 400px;
-    align-self: center;
+	border: none;
+    margin-top: 20px;
+    height: 150px;
+	@media (min-width: 768px) {
+		width: 100%;
+		height: 300px;
+		align-self: center;
+	}
 }

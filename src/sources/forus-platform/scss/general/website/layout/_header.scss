@@ -26,17 +26,23 @@ section {
             -moz-background-size: cover;
             -o-background-size: cover;
         }
-        @media screen and (min-width: 1024px) { 
+        @media screen and (min-width:992px) { 
             &:after {
             }
         }
-        &__home {        
+        &__home {
+            background: none;
+            color: #333;       
             &:after {
-                background-image: url($img_path + "/header-home.jpg");
+                background-size: contain;
+                -webkit-background-size: contain;
+                -moz-background-size: contain;
+                -o-background-size: contain;
+                background-image: url($img_path + "/header-home2.png");
             }
-            @media screen and (min-width: 1024px) { 
+            @media screen and (min-width:992px) { 
                 &:after {
-                    background-image: url($img_path + "/header-home.jpg");
+                    background-image: url($img_path + "/header-home2.png");
                 }
             }
         }

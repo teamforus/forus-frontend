@@ -6,19 +6,19 @@
 html {
     body {
         .flexed {
-            @media screen and (min-width: 1024px) {
+            @media screen and (min-width: 992x) {
                 display: flex;
             }
         }
         .flex-align {
-            @media screen and (min-width: 1024px) {
+            @media screen and (min-width: 992px) {
                 display: flex;
                 align-items: center;
             }
         }
         .container {
             max-width: 100%;
-            @media screen and (min-width: 1024px) { 
+            @media screen and (min-width: 992px) { 
                 max-width: 1024px;
             }
             .col-vr {

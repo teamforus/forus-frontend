@@ -2,6 +2,7 @@
     display: none !important;
 }
 
+
 html {
     body {
         margin: auto;
@@ -13,11 +14,32 @@ html {
             }
         }
         .navbar {
-            padding: 18px 0;
+            padding: 10px 0;
             border: 0;
             margin: 0 auto;
+            margin-top: 4px;
             max-width: 1200px;
             background-color: #ffffff;
+            .navbar-header {
+                text-align: center;
+            }
+            .glyphicon {
+                top: 4px;
+                left: -5px;
+                display: none;
+            }
+            .navbar-toggle {
+                background-color: transparent;
+                border: none;
+                &:hover {
+                    background-color: transparent;
+                }
+                .icon-bar {
+                    background: black;
+                    &:hover {
+                        background-color: grey;                    }
+                }
+            }
             .container-fluid {
                 @media screen and (min-width: 768px) {
                     align-items: center;
@@ -25,7 +47,7 @@ html {
                 .navbar-header{
                     .navbar-brand {
                         svg{
-                            height: 20px!important;
+                            height: 25px!important;
                             path{
                                 fill: #000;
                             }

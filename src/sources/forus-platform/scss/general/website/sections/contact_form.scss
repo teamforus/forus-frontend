@@ -77,12 +77,8 @@ html {
             .form-group{
                 label{
                     font-weight: 500;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: normal;
-                    letter-spacing: 1px;
-                    margin-bottom: 5px;
-                    padding-left: 20px;
+                    text-align: left;
+                    margin-left: 10px;
                 }
                 &.required{
                     label{

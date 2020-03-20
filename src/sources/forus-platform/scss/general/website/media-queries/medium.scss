@@ -1,7 +1,7 @@
 html {
     @media (max-width: 767px) {
         body{
-            .navbar{
+            /*.navbar{
                 border-bottom: 1px solid #e5e6ec;
                 padding: 12px 0 0px;
             
@@ -11,6 +11,10 @@ html {
                         float: left;
                         padding: 6px 0 0 15px;
                         margin: 0;
+                        background-color: none;
+                        &:hover {
+                            background-color: none;
+                        }
                         .icon-bar{
                             background: #9eaad7;
                             margin-bottom: 0;
@@ -155,7 +159,7 @@ html {
                         }
                     }
                 }
-            }
+            }*/
             .wrapper{
                 &_story {
                     height: 25vh;
@@ -430,6 +434,7 @@ html {
                             flex: auto;
                             margin: auto;
                             width: calc(100% + 30px);
+                            margin-right: -30px;
                         }
                         .small {
                             float:unset;

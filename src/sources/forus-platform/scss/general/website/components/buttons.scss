@@ -75,18 +75,19 @@ label {
 }
 
 .txt_link{
+    width: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     bottom: 0;
     color: $forus-pink;
-    font-weight: 700;
-    width: 100%;
+    font-weight: 600;
+    font-size: 14px;
     &.var { display: inline }
     svg{
         fill: $forus-pink;
-        height: 20px;
-        width: 20px;
+        height: 15px;
+        width: 15px;
     }
 }
 

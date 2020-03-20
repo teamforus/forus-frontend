@@ -1,21 +1,22 @@
 .usp {
     padding: 20px 0px;
     height: 100%;
-    @media screen and (min-width: 1024px) {
+    @media screen and (min-width: 992px) {
         padding: 7.5% 30px;
         min-height: 200px;
         &:before {
             content: "";
             position: absolute;
-            margin-top: -10px;
-            left: -10px;
-            height: 40px;
-            width: 100px;
+            margin-top: -32px;
+            left: -30px;
+            height: 70px;
+            width: 70px;
             background-repeat: no-repeat;
+            background-image: url($img_path + "/icon-usp.svg");
         }
-        &__sp-1 {
+        /*&__sp-1 {
             &:before {
-                background-image: url($img_path + "/icon-facturatie.svg");
+                background-image: url($img_path + "/icon-usp.svg");
             }       
         }
         &__sp-2 {
@@ -52,7 +53,7 @@
             &:before {
                 background-image: url($img_path + "/icon-samenwerking.svg");
             }       
-        }   
+        }*/   
     }
 }
 .phone-m {
@@ -61,7 +62,7 @@
     margin: 0 auto;
     display: block;
 }
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 992px) {
     .cont-p {
         padding: 35px 25px 100px;
     }
