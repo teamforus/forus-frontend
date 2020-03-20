@@ -29,7 +29,7 @@
                 .sign_up-pane-header(translate="sign_up_validator.header.title_step_1")
 
                 .sign_up-pane-body
-                    .sign_up-pane-text(translate="sign_up_provider.header.subtitle_step_1")
+                    .sign_up-pane-text(translate="sign_up_validator.header.subtitle_step_1")
                     .sign_up-pane-media: img(ng-src="./assets/img/sign_up_first_step.png") 
 
                 .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-right): .row
@@ -146,8 +146,8 @@
                 .sign_up-pane-footer: .row
                     .col.col-lg-6.text-left
                         .button.button-text.button-text-padless(ng-click="$ctrl.back()")
-                            | {{ 'sign_up_validator.buttons.back' | translate }}
                             em.mdi.mdi-chevron-left.icon-lefts
+                            | {{ 'sign_up_validator.buttons.back' | translate }}
                         
                     .col.col-lg-6.text-right
 
@@ -176,7 +176,7 @@
                                     tooltip(text="'Vul hier het rekeningnummer in waar u de betalingen op wilt ontvangen'")
                                 ui-control-text(
                                     ng-model="$ctrl.organizationForm.values.iban"
-                                    data-placeholder="IBAN-nummer")
+                                    data-placeholder="Voorbeeld: NL123456789B01")
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban" ng-bind="error")
 
                             .form-group
@@ -185,7 +185,7 @@
                                     tooltip(text="'Vul hier het rekeningnummer in waar u de betalingen op wilt ontvangen'")
                                 ui-control-text(
                                     ng-model="$ctrl.organizationForm.values.iban_confirmation"
-                                    data-placeholder="Example: NL123456789B01")
+                                    data-placeholder="Voorbeeld: NL123456789B01")
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban_confirmation" ng-bind="error")
                         
                         .sign_up-pane-col.sign_up-pane-col-1
@@ -297,7 +297,9 @@
 
                     .sign_up-pane-subtitle(translate="sign_up_validator.header.subtitle_step_6")
 
-                    .text-center: .button.button-finish(
+                    br
+                    br
+                    .text-center: .button.button-primary-variant(
                         ng-click="$ctrl.finish()"
                         translate="sign_up_validator.buttons.go_to_dashboard")
 

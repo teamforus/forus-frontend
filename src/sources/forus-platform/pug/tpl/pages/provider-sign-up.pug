@@ -185,7 +185,7 @@
                                     tooltip(text="'Vul hier het rekeningnummer in waar u de betalingen op wilt ontvangen'")
                                 ui-control-text(
                                     ng-model="$ctrl.organizationForm.values.iban"
-                                    data-placeholder="IBAN-nummer")
+                                    data-placeholder="Voorbeeld: NL123456789B01")
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban" ng-bind="error")
 
                             .form-group
@@ -194,7 +194,7 @@
                                     tooltip(text="'Vul hier het rekeningnummer in waar u de betalingen op wilt ontvangen'")
                                 ui-control-text(
                                     ng-model="$ctrl.organizationForm.values.iban_confirmation"
-                                    data-placeholder="Example: NL123456789B01")
+                                    data-placeholder="Voorbeeld: NL123456789B01")
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban_confirmation" ng-bind="error")
                         
                         .sign_up-pane-col.sign_up-pane-col-1

@@ -155,7 +155,7 @@
                                     tooltip(text="'Vul hier het rekeningnummer in waar u de betalingen op wilt ontvangen'")
                                 ui-control-text(
                                     ng-model="$ctrl.organizationForm.values.iban"
-                                    data-placeholder="IBAN-nummer")
+                                    data-placeholder="Voorbeeld: NL123456789B01r")
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban" ng-bind="error")
 
                             .form-group
@@ -164,7 +164,7 @@
                                     tooltip(text="'Vul hier het rekeningnummer in waar u de betalingen op wilt ontvangen'")
                                 ui-control-text(
                                     ng-model="$ctrl.organizationForm.values.iban_confirmation"
-                                    data-placeholder="Example: NL123456789B01")
+                                    data-placeholder="Voorbeeld: NL123456789B01")
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.iban_confirmation" ng-bind="error")
                         
                         .sign_up-pane-col.sign_up-pane-col-1
@@ -275,15 +275,11 @@
 
                     .sign_up-pane-subtitle(translate="sign_up_sponsor.header.subtitle_step_5")
 
-                    .text-center: .button.button-finish(
+                    br
+                    br
+                    .text-center: .button.button-primary-variant(
                         ng-click="$ctrl.finish()"
                         translate="sign_up_sponsor.buttons.go_to_dashboard")
-                
-                .sign_up-pane-footer: .row
-                    .col.col-lg-6.text-left
-                        .button.button-text.button-text-padless(ng-click="$ctrl.back()")
-                            em.mdi.mdi-chevron-left.icon-left
-                            | {{ 'sign_up_sponsor.buttons.back' | translate }}
 
         //- Error
         div(ng-if="$ctrl.state == 'error'")

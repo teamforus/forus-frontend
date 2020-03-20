@@ -58,7 +58,7 @@ let ProviderSignUpComponent = function(
     $ctrl.step = $ctrl.STEP_INFO_GENERAL;
     $ctrl.signedIn = AuthService.hasCredentials();
     $ctrl.organization = null;
-    $ctrl.hasApp = false;
+    $ctrl.hasApp = true;
     $ctrl.authEmailSent = false;
     $ctrl.authEmailRestoreSent = false;
 
@@ -486,6 +486,10 @@ let ProviderSignUpComponent = function(
         if (step <= stepsTotal) {
             $ctrl.step = step;
             progressStorage.set('step', step);
+
+            if ($ctrl.step == $ctrl.STEP_SCAN_QR) {
+                $ctrl.requestAuthQrToken();
+            }
 
             if ($ctrl.step == $ctrl.STEP_SELECT_ORGANIZATION) {
                 $ctrl.loadOrganizations().then((organizations) => {
