@@ -50,6 +50,9 @@ module.exports = () => {
         scope: {
             'selectPhoto': '&',
             'thumbnail': '=',
+            'label': '@',
+            'descriptionTranslate': '@',
+            'description': '@',
             'type': '@',
         },
         restrict: "EA",

@@ -3,6 +3,7 @@ let BaseController = function(
     $rootScope,
     $scope,
     $state,
+    $filter,
     $translate,
     AuthService,
     IdentityService,
@@ -142,6 +143,18 @@ let BaseController = function(
         }
     })
 
+    $rootScope.onPageChanged = (transition) => {
+        let pageTitleKey = 'page_state_titles.' + transition.to().name;
+        let pageTitleText = $filter('translate')(pageTitleKey);
+        let pageTitleDefault = $filter('translate')('page_title');
+
+        $rootScope.layout = [];
+        $rootScope.pageTitle = pageTitleText != pageTitleKey ? pageTitleText : pageTitleDefault;
+        $rootScope.showAppHeader = true;
+
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    };
+
     ConfigService.get('dashboard').then((res) => {
         $rootScope.appConfigs.features = res.data;
         $rootScope.appConfigs.frontends = res.data.fronts;
@@ -155,6 +168,7 @@ module.exports = [
     '$rootScope',
     '$scope',
     '$state',
+    '$filter',
     '$translate',
     'AuthService',
     'IdentityService',

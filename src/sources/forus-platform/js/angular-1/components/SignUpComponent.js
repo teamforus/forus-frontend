@@ -19,6 +19,11 @@ let SignUpComponent = function(
 ) {
     let $ctrl = this;
 
+    $rootScope.showAppHeader = false;
+    $rootScope.layout = [
+        'signup-layout',
+    ];
+
     /*
      step 1 - app links
      step 2 - email and name form

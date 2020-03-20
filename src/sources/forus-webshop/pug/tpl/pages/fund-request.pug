@@ -2,86 +2,80 @@
 
 //- top-navbar
 
-section.section.section-product.section-requester: .wrapper
-    .header
-        .back
-            include ../../../resources/_webshop-common/assets/img/icon-back.svg
-            a(ng-click="$ctrl.goToMain()")
-                span Terug
-        .heading(translate="fund_request.sign_up.header.main")
+mixin progress()
+    .sign_up-progress
+        .sign_up-step.sign_up-step-info(ng-class="$ctrl.step == 1 ? 'sign_up-step-active' : 'sign_up-step-done'")
+            .sign_up-step-border
+            .mdi.mdi-information-outline
 
-    mixin progress()
-        .sign_up-progress
-            .pre-step(ng-class="$ctrl.step >= 2 ? 'active' : ''")
-                .pre-step-border
-                .icon
-                    include ../../../resources/_webshop-common/assets/img/pre-step.svg
+        .sign_up-step(
+            ng-repeat="step in $ctrl.totalSteps track by $index"
+            ng-class="($ctrl.step - 1) == step ? 'sign_up-step-active' : (($ctrl.step - 1) > step ? 'sign_up-step-done' : '')")
+            
+            .sign_up-step-border
+            .sign-up-step-block Stap {{ ' ' + ($index + 1) }}   
 
-            .sign_up-step(
-                ng-repeat="step in $ctrl.totalSteps track by $index"
-                ng-class="$ctrl.step == step ? 'sign_up-step-active' : ($ctrl.step > step ? 'sign_up-step-done' : '')")
-                
-                .sign_up-step-border
-                .sign-up-step-block Stap {{ ' ' + ($index + 1) }}    
-        
+//- top-navbar
+section: .wrapper 
     .block.block-sign_up: .block-wrapper
+        .sign_up-header: a(ng-click="$ctrl.goToMain()").sign_up-header-back
+            em.mdi.mdi-chevron-left
+            | Terug
+        
+        .block-title(translate="fund_request.sign_up.header.main")
+
         //- Welcome screen
         div(ng-if="$ctrl.state == 'welcome'")
-
             +progress()
 
             .sign_up-pane    
                 .sign_up-pane-header(translate="fund_request.sign_up.header.title_step_1")
 
                 .sign_up-pane-body
-                    .sign_up-pane-text(translate="fund_request.sign_up.subtitles.step_1")
+                    .sign_up-pane-media: img(ng-src="./assets/img/fund-request-welcome.png") 
+                    .sign_up-pane-text.text-center(translate="fund_request.sign_up.subtitles.step_1")
 
-                    .sign_up-preview-step.sign_up-preview-step-top.text-center
-                        img(ng-src="./assets/img/fund-request-welcome.png")     
-
-                .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-right): .row
+                .sign_up-pane-footer: .row
                     .col.col-lg-6.text-left: .button.button-text.button-text-padless
-
                     .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
                         | {{ 'fund_request.sign_up.pane.footer.next' | translate }}
                         em.mdi.mdi-chevron-right.icon-right 
 
         //- Fund request information
         div(ng-if="$ctrl.state == 'auth'")
-
             +progress()
 
             .sign_up-pane
                 .sign_up-pane-header(translate="fund_request.sign_up.header.title_step_2")
 
                 .sign_up-pane-body(ng-if="!$ctrl.hasApp")
-                    .sign_up-pane-description(translate="Vul uw email adres in om verder te gaan")
+                    .sign_up-pane-heading(translate="Vul uw email adres in om verder te gaan")
                     .sign_up-pane-text(translate="fund_request.sign_up.subtitles.step_2")
 
-                    form.form: .row
+                    form(ng-submit="$ctrl.authForm.submit()").form: .row
                         .col.col-md-7
                             .form-group
                                 label.form-label(translate="EMAIL")
                                 ui-control-text(
                                     ng-model="$ctrl.authForm.values.records.primary_email"
                                     data-placeholder="ex. info@info.io").large
-                                .form-error(ng-repeat="error in $ctrl.authForm.errors['records.primary_email']" ng-bind="error")
+                                .form-error(ng-repeat="error in ($ctrl.authForm.errors.email || $ctrl.authForm.errors['records.primary_email'])" ng-bind="error")
                         .col.col-md-5
                             .form-group
                                 label.form-label &nbsp;
-                                button.button.button-primary.button-fill(
-                                    type="button"
-                                    ng-click="$ctrl.createAppProfile()"
-                                    translate="Bevestig")   
+                                button.button.button-primary.button-fill(type="button" translate="Bevestig")   
 
-                    a.notice-small(ng-click="$ctrl.setHasAppProp(true)" translate="fund_request.sign_up.labels.has_app")     
+                    br
+                    .sign_up-pane-text: small(ng-click="$ctrl.setHasAppProp(true)" translate="fund_request.sign_up.labels.has_app").text-muted
 
                 .sign_up-pane-body(ng-if="$ctrl.hasApp")
                     .sign_up-pane-heading(translate='fund_request.sign_up.app.title')
 
                     .sign_up-pane-auth
                         .sign_up-pane-auth-content
-                            .sign_up-pane-text(translate="fund_request.sign_up.app.description")
+                            .sign_up-pane-text(
+                                ng-repeat="line in ('fund_request.sign_up.app.description' | translate | lines_to_array)"
+                                ng-bind="line")
 
                             .sign_up-pane-auth-apps
                                 a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
@@ -94,11 +88,11 @@ section.section.section-product.section-requester: .wrapper
                                 qr-type="auth_token" 
                                 qr-logo=src_prefix + "./assets/img/me-logo.png") 
 
-                    a.notice-small(ng-click="$ctrl.setHasAppProp(false)" translate="fund_request.sign_up.labels.no_app")
+                    br
+                    .sign_up-pane-text: small(ng-click="$ctrl.setHasAppProp(false)" translate="fund_request.sign_up.labels.no_app").text-muted     
        
         //- Log in email sent
         div(ng-if="$ctrl.state == 'auth_email_sent'")
-            
             +progress()
 
             //- For new users

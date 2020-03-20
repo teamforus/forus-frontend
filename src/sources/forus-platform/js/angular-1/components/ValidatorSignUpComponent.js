@@ -1,193 +1,152 @@
 let ValidatorSignUpComponent = function(
     $q,
     $state,
-    $stateParams,
-    $scope,
     $rootScope,
-    $timeout,
     $filter,
-    $interval,
-    OrganizationService,
     IdentityService,
-    CredentialsService,
     FormBuilderService,
     MediaService,
     AuthService,
-    ModalService,
+    SignUpService,
     appConfigs
 ) {
-    const STEP_INFO_GENERAL = 1;
-    const STEP_INFO_DETAILS = 2;
-    const STEP_CREATE_PROFILE = 3;
-    const STEP_SELECT_ORGANIZATION = 4;
-    const STEP_ORGANIZATION_ADD = 5;
-    const STEP_SIGNUP_FINISHED = 6;
-
-    const STEPS_ORGANIZATION_SELECT = [
-        STEP_CREATE_PROFILE, STEP_SELECT_ORGANIZATION, STEP_SIGNUP_FINISHED
-    ];
-
-    const STEPS_ORGANIZATION_ADD = [
-        STEP_CREATE_PROFILE, STEP_ORGANIZATION_ADD, STEP_SIGNUP_FINISHED
-    ];
-
     let $ctrl = this;
-    let stopTimeout = null;
+    let orgMediaFile = false;
+    let authTokenSubscriber = AuthService.accessTokenSubscriber();
+    let progressStorage = SignUpService.makeProgressStorage('validator-sign_up');
+    let $translate = $filter('translate');
 
-    $ctrl.step = STEP_INFO_GENERAL;
-    $ctrl.organizationStep = false;
+    $ctrl.STEP_INFO_GENERAL = 1;
+    $ctrl.STEP_INFO_DETAILS = 2;
+    $ctrl.STEP_CREATE_PROFILE = 3;
+    $ctrl.STEP_SELECT_ORGANIZATION = 4;
+    $ctrl.STEP_ORGANIZATION_ADD = 5;
+    $ctrl.STEP_SIGNUP_FINISHED = 6;
+
+    $ctrl.INFO_STEPS = 2;
+
+    // hide header and add layout classes
+    $rootScope.showAppHeader = false;
+    $rootScope.layout = [
+        'signup-layout',
+        'signup-layout-new'
+    ];
+
+    $ctrl.step = $ctrl.STEP_INFO_GENERAL;
     $ctrl.signedIn = AuthService.hasCredentials();
     $ctrl.organization = null;
     $ctrl.hasApp = false;
-    $ctrl.profileCreated = false;
     $ctrl.authEmailSent = false;
     $ctrl.authEmailRestoreSent = false;
 
-    let orgMediaFile = false;
-    let timeout;
+    $ctrl.calcSteps = () => {
+        $ctrl.STEP_INFO_GENERAL = 1;
+        $ctrl.STEP_INFO_DETAILS = 2;
 
-    let progressStorage = new(function() {
-        this.init = () => {
-            if ($ctrl.signedIn) {
-                let step = this.getStep();
-
-                if (step) {
-                    if (step <= STEP_ORGANIZATION_ADD) {
-                        OrganizationService.list().then(res => {
-                            if (res.data.data.length) {
-                                $ctrl.organizationList = res.data.data;
-
-                                this.setStep(STEP_SELECT_ORGANIZATION);
-                                this.shownSteps = STEPS_ORGANIZATION_SELECT;
-                            } else {
-                                this.setStep(STEP_ORGANIZATION_ADD);
-                            }
-                        });
-                    }
-                    this.setStep(step);
-                } else {
-                    this.setStep(STEP_ORGANIZATION_ADD);
-                }
-            } else {
-                this.setStep(STEP_INFO_GENERAL);
-            }
-        };
-
-        this.setStep = (step) => {
-            if (step == STEP_CREATE_PROFILE) {
-                $ctrl.requestAuthQrToken();
-            }
-            localStorage.setItem('sign_up_form.step', step);
-
-            $ctrl.step = step;
-        };
-
-        this.getStep = () => {
-            let step = parseInt(localStorage.getItem('sign_up_form.step'));
-            
-            if (step == STEP_CREATE_PROFILE) {
-                $ctrl.requestAuthQrToken();
-            } else if (step >= STEP_SELECT_ORGANIZATION) {
-                let organisation_data = {};
-
-                if (localStorage.getItem('sign_up_form.organizationForm') != null) {
-                    organisation_data = JSON.parse(
-                        localStorage.getItem('sign_up_form.organizationForm')
-                    );
-                }
-
-                if (step == STEP_SELECT_ORGANIZATION) {
-                    $ctrl.shownSteps = STEPS_ORGANIZATION_SELECT;
-
-                    OrganizationService.list().then(res => {
-                        if (res.data.data.length) {
-                            $ctrl.organizationList = res.data.data;
-                        }
-                    });
-                } else if (step == STEP_ORGANIZATION_ADD) {
-                    $ctrl.organizationForm.values = organisation_data;
-                } else {
-                    $ctrl.organization = organisation_data;
-                }
-            }
-
-            return isNaN(step) ? null : step;
-        };
-
-        this.clear = () => {
-            localStorage.removeItem('sign_up_form.step');
-            localStorage.removeItem('sign_up_form.signUpForm');
-            localStorage.removeItem('sign_up_form.organizationForm');
-        };
-    })();
-
-    $ctrl.afterInit = () => {};
-
-    $ctrl.setHasAppProp = (value) => {
-        $ctrl.hasApp = value;
+        if ($ctrl.signedIn) {
+            $ctrl.STEP_CREATE_PROFILE = null;
+            $ctrl.STEP_SELECT_ORGANIZATION = 3;
+            $ctrl.STEP_ORGANIZATION_ADD = 4;
+            $ctrl.STEP_SIGNUP_FINISHED = 5;
+            $ctrl.shownSteps = [1, 2, 3];
+        } else {
+            $ctrl.STEP_CREATE_PROFILE = 3;
+            $ctrl.STEP_SELECT_ORGANIZATION = 4;
+            $ctrl.STEP_ORGANIZATION_ADD = 5;
+            $ctrl.STEP_SIGNUP_FINISHED = 6;
+            $ctrl.shownSteps = [1, 2, 3, 4];
+        }
     };
 
-    $ctrl.chageBusinessType = (value) => {
-        $ctrl.organizationForm.values.business_type_id = value.id;
+    $ctrl.restoreProgress = () => {
+        let step = parseInt(progressStorage.get('step'));
+        let stepsAvailable = $ctrl.signedIn ? [
+            $ctrl.STEP_INFO_GENERAL,
+            $ctrl.STEP_INFO_DETAILS,
+            $ctrl.STEP_SELECT_ORGANIZATION,
+            $ctrl.STEP_ORGANIZATION_ADD,
+            $ctrl.STEP_SIGNUP_FINISHED,
+        ] : [
+            $ctrl.STEP_INFO_GENERAL,
+            $ctrl.STEP_INFO_DETAILS,
+            $ctrl.STEP_CREATE_PROFILE,
+            $ctrl.STEP_SELECT_ORGANIZATION,
+            $ctrl.STEP_ORGANIZATION_ADD,
+            $ctrl.STEP_SIGNUP_FINISHED,
+        ];
+
+        if (stepsAvailable.indexOf(step) === -1) {
+            return $ctrl.setStep($ctrl.STEP_INFO_GENERAL);
+        }
+
+        $ctrl.setStep(step);
     };
 
-    $ctrl.$onInit = function() {
-        let target = 'newSignup';
+    $ctrl.setHasAppProp = (hasApp) => {
+        if ($ctrl.hasApp = hasApp) {
+            $ctrl.requestAuthQrToken();
+        } else {
+            authTokenSubscriber.stopCheckAccessTokenStatus();
+        }
 
-        $ctrl.signUpForm = FormBuilderService.build({
-            email: '',
-            pin_code: "1111",
-            target: target,
+        progressStorage.set('hasApp', $ctrl.hasApp);
+    };
+
+    $ctrl.chageBusinessType = (businessType) => {
+        $ctrl.organizationForm.values.business_type_id = businessType.id;
+    };
+
+    $ctrl.makeSignUpForm = () => {
+        let authTarget = 'newSignup';
+
+        return FormBuilderService.build({
+            records: {
+                primary_email: ''
+            },
+            target: authTarget,
         }, function(form) {
             let resolveErrors = (res) => {
                 form.unlock();
                 form.errors = res.data.errors;
             };
-            
+
             return IdentityService.validateEmail({
                 email: form.values.records.primary_email,
             }).then(res => {
                 if (res.data.email.unique) {
                     IdentityService.make(form.values).then(res => {
-                        stopTimeout = true;
                         $ctrl.authEmailSent = true;
-
-                        // CredentialsService.set(res.data.access_token);
-                        // $ctrl.signedIn = true;
-                        // $ctrl.setStep(STEP_ORGANIZATION_ADD);
+                        $ctrl.confirmationEmail = form.values.records.primary_email;
                     }, resolveErrors);
                 } else {
                     IdentityService.makeAuthEmailToken(
                         appConfigs.client_key + '_' + appConfigs.panel_type,
                         form.values.records.primary_email,
-                        target
+                        authTarget
                     ).then(res => {
-                        stopTimeout = true;
                         $ctrl.authEmailRestoreSent = true;
                     }, resolveErrors(res));
                 }
 
             }, resolveErrors);
         });
+    }
 
-        $ctrl.organizationForm = FormBuilderService.build({
+    $ctrl.makeOrganizationForm = () => {
+        return FormBuilderService.build({
             "website": 'https://',
         }, (form) => {
-            if (form.values) {
-                if (form.values.iban != form.values.iban_confirmation) {
-                    return $q((resolve, reject) => {
-                        reject({
-                            data: {
-                                errors: {
-                                    'iban_confirmation': [$filter('translate')('validation.iban_confirmation')]
-                                }
-                            }
-                        });
-                    });
-                }
-            }
+            if (form.values && (form.values.iban != form.values.iban_confirmation)) {
+                form.unlock();
 
-            form.lock();
+                return $q((resolve, reject) => reject({
+                    data: {
+                        errors: {
+                            'iban_confirmation': [$translate('validation.iban_confirmation')]
+                        }
+                    }
+                }));
+            }
 
             let values = JSON.parse(JSON.stringify(form.values));
 
@@ -195,162 +154,136 @@ let ValidatorSignUpComponent = function(
                 values.iban = values.iban.replace(/\s/g, '');
             }
 
-            return OrganizationService.store(values);
-        });
+            return SignUpService.organizationStore(values);
+        }, true);
+    }
+
+    $ctrl.$onInit = function() {
+        $ctrl.signUpForm = $ctrl.makeSignUpForm();
+        $ctrl.organizationForm = $ctrl.makeOrganizationForm();
+
+        $ctrl.calcSteps();
+        $ctrl.restoreProgress();
 
         $ctrl.businessType = $ctrl.businessTypes.filter(
             option => option.id == $ctrl.organizationForm.values.business_type_id
         )[0] || null;
-
-        progressStorage.init();
-
-        $scope.$on('$destroy', progressStorage.destroy);
-
-        $ctrl.afterInit();
-    };
-
-    $ctrl.createAppProfile = () => {
-        $ctrl.signUpForm.submit();
-    };
-
-    $ctrl.applyAccessToken = function(access_token) {
-        stopTimeout = true;
-
-        CredentialsService.set(access_token);
-        $rootScope.$broadcast('auth:update');
-
-        if ($ctrl.step == STEP_CREATE_PROFILE) {
-            OrganizationService.list().then(res => {
-                if (res.data.data.length) {
-                    $ctrl.organizationList = res.data.data;
-                    $ctrl.shownSteps = STEPS_ORGANIZATION_SELECT;
-
-                    $ctrl.setStep(STEP_SELECT_ORGANIZATION);
-                } else {
-                    $ctrl.setStep(STEP_ORGANIZATION_ADD);
-                }
-            });
-        } else {
-            $ctrl.next();
-        }
-
-        $ctrl.signedIn = true;
-    };
-
-    $ctrl.checkAccessTokenStatus = (type, access_token) => {
-        if (stopTimeout) {
-            return stopTimeout = null;
-        }
-
-        IdentityService.checkAccessToken(access_token).then(res => {
-            if (res.data.message == 'active') {
-                $ctrl.applyAccessToken(access_token);
-            } else if (res.data.message == 'pending') {
-                timeout = $timeout(function() {
-                    $ctrl.checkAccessTokenStatus(type, access_token);
-                }, 2500);
-            } else {
-                document.location.reload();
-            }
-        });
     };
 
     $ctrl.requestAuthQrToken = () => {
         IdentityService.makeAuthToken().then(res => {
             $ctrl.authToken = res.data.auth_token;
 
-            $ctrl.checkAccessTokenStatus('token', res.data.access_token);
+            authTokenSubscriber.checkAccessTokenStatus(res.data.access_token, () => {
+                $ctrl.calcSteps();
+                $ctrl.signedIn = true;
+
+                if ($ctrl.step == $ctrl.STEP_CREATE_PROFILE) {
+                    $ctrl.setStep($ctrl.STEP_SELECT_ORGANIZATION);
+                } else {
+                    $ctrl.next();
+                }
+            });
         }, console.log);
     };
 
     $ctrl.selectOrganization = (organization) => {
         $ctrl.selectedOrganization = organization;
         $ctrl.setOrganization($ctrl.selectedOrganization);
-
-        $ctrl.setStep(STEP_SIGNUP_FINISHED);
+        $ctrl.setStep($ctrl.STEP_SIGNUP_FINISHED);
     };
 
     $ctrl.addOrganization = () => {
-        $ctrl.setStep(STEP_ORGANIZATION_ADD);
+        $ctrl.setStep($ctrl.STEP_ORGANIZATION_ADD);
+    };
+
+    $ctrl.cancelAddOrganization = () => {
+        $ctrl.setStep($ctrl.STEP_SELECT_ORGANIZATION);
+    };
+
+    $ctrl.loadOrganizations = () => {
+        return $q((resolve, reject) => SignUpService.organizations().then(
+            res => resolve($ctrl.organizationList = res.data.data), reject
+        ));
     };
 
     $ctrl.setStep = (step) => {
-        if (step <= $ctrl.totalSteps.length) {
-            progressStorage.setStep(step);
-        } else {
+        let stepsTotal = $ctrl.shownSteps.length + $ctrl.INFO_STEPS;
+
+        if (step <= stepsTotal) {
+            $ctrl.step = step;
+            progressStorage.set('step', step);
+
+            if ($ctrl.step == $ctrl.STEP_SELECT_ORGANIZATION) {
+                $ctrl.loadOrganizations().then((organizations) => {
+                    if (organizations.length == 0) {
+                        $ctrl.setStep($ctrl.STEP_ORGANIZATION_ADD);
+                    }
+                });
+            }
+
+            if ($ctrl.step == $ctrl.STEP_ORGANIZATION_ADD) {
+                if (progressStorage.has('organizationForm')) {
+                    $ctrl.organizationForm.values = JSON.parse(progressStorage.get('organizationForm'));
+                } else {
+                    $ctrl.organizationForm.values = {};
+                }
+            }
+
+            if ($ctrl.step == $ctrl.STEP_CREATE_PROFILE) {
+                $ctrl.setHasAppProp(JSON.parse(progressStorage.get('hasApp', 'false')));
+            }
+        }
+
+        // last step, time for progress cleanup
+        if (step >= stepsTotal) {
             progressStorage.clear();
         }
     };
 
     $ctrl.setOrganization = (organization) => {
         $ctrl.organization = organization;
-        localStorage.setItem('sign_up_form.organizationForm', JSON.stringify(
-            organization
-        ));
+        progressStorage.set('organizationForm', JSON.stringify(organization));
     };
 
-    $ctrl.next = async function() {
-        if ($ctrl.step == STEP_CREATE_PROFILE) {
-            if ($ctrl.organizationList.length) {
-                $ctrl.setStep(STEP_SELECT_ORGANIZATION);
-            } else {
-                $ctrl.setStep(STEP_ORGANIZATION_ADD);
-            }
-        } else if ($ctrl.step < STEP_SELECT_ORGANIZATION) {
-            $ctrl.setStep($ctrl.step + 1);
-        } else if ($ctrl.step == STEP_ORGANIZATION_ADD) {
-            let authRes;
-
+    $ctrl.next = function() {
+        if ($ctrl.step == $ctrl.STEP_INFO_GENERAL) {
+            $ctrl.setStep($ctrl.STEP_INFO_DETAILS);
+        } else if ($ctrl.step == $ctrl.STEP_INFO_DETAILS) {
             if (!$ctrl.signedIn) {
-                authRes = await $ctrl.signUpForm.submit().catch((res) => {
-                    $ctrl.signUpForm.unlock();
-                    $ctrl.signUpForm.errors = res.data.errors;
-                    $ctrl.organizationStep = true;
-
-                    $ctrl.setStep(STEP_ORGANIZATION_ADD);
-                });
-
-                if (typeof(authRes) !== 'undefined') {
-                    CredentialsService.set(authRes.data.access_token);
-                    $ctrl.signedIn = true;
-                } else {
-                    return;
-                }
+                $ctrl.setStep($ctrl.STEP_CREATE_PROFILE);
+            } else {
+                $ctrl.setStep($ctrl.STEP_SELECT_ORGANIZATION);
             }
-
-            if (orgMediaFile) {
-                $ctrl.organizationForm.values.media_uid = (
-                    await MediaService.store('organization_logo', orgMediaFile)
-                ).data.data.uid;
-
-                orgMediaFile = false;
-            }
-
-            $ctrl.organizationForm.submit().then((res) => {
-                $rootScope.$broadcast('auth:update');
-
+        } else if ($ctrl.step == $ctrl.STEP_ORGANIZATION_ADD) {
+            let submit = () => $ctrl.organizationForm.submit().then((res) => {
                 $ctrl.setOrganization(res.data.data);
-                $ctrl.setStep(STEP_SIGNUP_FINISHED);
+                $ctrl.setStep($ctrl.STEP_SIGNUP_FINISHED);
             }, (res) => {
                 $ctrl.organizationForm.errors = res.data.errors;
                 $ctrl.organizationForm.unlock();
             });
 
+            if (orgMediaFile) {
+                return MediaService.store('organization_logo', orgMediaFile).then((res) => {
+                    $ctrl.organizationForm.values.media_uid = res.data.data.uid;
+                    orgMediaFile = false;
+                    submit();
+                });
+            }
+
+            submit();
         } else {
             $ctrl.setStep($ctrl.step + 1);
         }
     };
 
     $ctrl.back = function() {
-        if ($ctrl.signedIn && $ctrl.step < STEP_SELECT_ORGANIZATION) {
+        if ($ctrl.signedIn && $ctrl.step < $ctrl.STEP_SELECT_ORGANIZATION) {
             return;
         }
 
-        if ($ctrl.step == STEP_ORGANIZATION_ADD) {
-            $ctrl.setStep($ctrl.step - 2);
-        } else {
-            $ctrl.setStep($ctrl.step - 1);
-        }
+        $ctrl.setStep($ctrl.step - 1);
     };
 
     $ctrl.finish = () => {
@@ -365,26 +298,14 @@ let ValidatorSignUpComponent = function(
         officeMediaFile = file;
     };
 
-    $scope.authorizePincodeForm = FormBuilderService.build({
-        auth_code: "",
-    }, function(form) {
-        form.lock();
-
-        return IdentityService.authorizeAuthCode(
-            form.values.auth_code
-        );
-    });
-
-    $ctrl.$onDestroy = function() {
-        $timeout.cancel(timeout);
-    };
-
-    $ctrl.totalSteps = Array.from({length: 6}, (v, k) => k + 1);
-    $ctrl.shownSteps = STEPS_ORGANIZATION_ADD;
-
     $ctrl.goToMain = () => {
         $state.go('home');
     }
+
+    $ctrl.$onDestroy = function() {
+        progressStorage.clear();
+        authTokenSubscriber.stopCheckAccessTokenStatus();
+    };
 };
 
 module.exports = {
@@ -394,19 +315,13 @@ module.exports = {
     controller: [
         '$q',
         '$state',
-        '$stateParams',
-        '$scope',
         '$rootScope',
-        '$timeout',
         '$filter',
-        '$interval',
-        'OrganizationService',
         'IdentityService',
-        'CredentialsService',
         'FormBuilderService',
         'MediaService',
         'AuthService',
-        'ModalService',
+        'SignUpService',
         'appConfigs',
         ValidatorSignUpComponent
     ],

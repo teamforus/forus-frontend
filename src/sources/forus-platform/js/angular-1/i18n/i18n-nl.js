@@ -911,7 +911,7 @@ module.exports = {
             main_header: "Aanmelden als sponsor",
             go_back: "Terug",
             title_step_1: "Welkom", 
-            subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als aanbieder. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
+            subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als sponsor. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
             title_step_2: "Maak een account",
             title_step_3: "Vestiging kiezen",
             subtitle_step_3: "",
@@ -1006,9 +1006,11 @@ module.exports = {
         },
         app: {
             title: "Heeft u de Me App al?",
-            description: "De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren." + "<br/><br/>" +
-                "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App." + "<br/><br/>" +
-                "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren",
+            description: [
+                "De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
+                "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.",
+                "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
+            ].join("\n"),
             no_app: "Ik wil inloggen met mijn emailadres >"    
         },
         app_header: {
@@ -1128,10 +1130,12 @@ module.exports = {
         },
         app: {
             title: "Heeft u de Me App al?",
-            description: "De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren." + "<br/><br/>" +
-                "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App." + "<br/><br/>" +
-                "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren",
-            no_app: "Ik wil inloggen met mijn emailadres >"    
+            description: [
+                "De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
+                "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.", 
+                "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
+            ].join("\n"),
+            no_app: "< Ik wil inloggen met mijn emailadres >"    
         },
         app_header: {
             title: 'Vul de code in op het invoerveld',

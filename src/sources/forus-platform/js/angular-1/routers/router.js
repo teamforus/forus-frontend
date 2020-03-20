@@ -22,7 +22,7 @@ let handleAuthTarget = ($state, target, appConfigs) => {
     }
 
     if (target[0] == 'newSignup') {
-        return !!$state.go('sign-up-' + appConfigs.panel_type);
+        return !!$state.go('sign-up-v2');
     }
 
     return false;
@@ -813,6 +813,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }]
     });
 
+    // Old signup flow
     if (['provider', 'sponsor'].indexOf(appConfigs.panel_type) != -1) {
         $stateProvider.state({
             name: "sign-up",
@@ -842,92 +843,32 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         });
     }
 
-    if (['provider'].indexOf(appConfigs.panel_type) != -1) {
-        $stateProvider.state({
-            name: "sign-up-provider",
-            url: "/sign-up-v2?fund_id&organization_id&tag",
-            component: "providerSignUpComponent",
-            params: {
-                fund_id: {
-                    squash: true,
-                    value: null,
-                },
-                tag: {
-                    squash: true,
-                    value: null,
-                },
-                organization_id: {
-                    squash: true,
-                    value: null
-                },
+    $stateProvider.state({
+        name: "sign-up-v2",
+        url: "/sign-up-v2?fund_id&organization_id&tag",
+        component: appConfigs.panel_type + "SignUpComponent",
+        params: {
+            fund_id: {
+                squash: true,
+                value: null,
             },
-            resolve: {
-                businessTypes: ['BusinessTypeService', (
-                    BusinessTypeService
-                ) => repackResponse(BusinessTypeService.list({
-                    per_page: 9999
-                }))]
-            }
-        });
-    }
-
-    if (['sponsor'].indexOf(appConfigs.panel_type) != -1) {
-        $stateProvider.state({
-            name: "sign-up-sponsor",
-            url: "/sign-up-v2?fund_id&organization_id&tag",
-            component: "sponsorSignUpComponent",
-            params: {
-                fund_id: {
-                    squash: true,
-                    value: null,
-                },
-                tag: {
-                    squash: true,
-                    value: null,
-                },
-                organization_id: {
-                    squash: true,
-                    value: null
-                },
+            tag: {
+                squash: true,
+                value: null,
             },
-            resolve: {
-                businessTypes: ['BusinessTypeService', (
-                    BusinessTypeService
-                ) => repackResponse(BusinessTypeService.list({
-                    per_page: 9999
-                }))]
-            }
-        });
-    }
-
-    if (['validator'].indexOf(appConfigs.panel_type) != -1) {
-        $stateProvider.state({
-            name: "sign-up-validator",
-            url: "/sign-up-v2?fund_id&organization_id&tag",
-            component: "validatorSignUpComponent",
-            params: {
-                fund_id: {
-                    squash: true,
-                    value: null,
-                },
-                tag: {
-                    squash: true,
-                    value: null,
-                },
-                organization_id: {
-                    squash: true,
-                    value: null
-                },
+            organization_id: {
+                squash: true,
+                value: null
             },
-            resolve: {
-                businessTypes: ['BusinessTypeService', (
-                    BusinessTypeService
-                ) => repackResponse(BusinessTypeService.list({
-                    per_page: 9999
-                }))]
-            }
-        });
-    }
+        },
+        resolve: {
+            businessTypes: ['BusinessTypeService', (
+                BusinessTypeService
+            ) => repackResponse(BusinessTypeService.list({
+                per_page: 9999
+            }))]
+        }
+    });
 
     if (['provider'].indexOf(appConfigs.panel_type) != -1) {
         $stateProvider.state({

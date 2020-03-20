@@ -98,7 +98,6 @@ let FundRequestComponentDefault = function(
     $ctrl.shownSteps = [];
 
     let timeout = null;
-    let stopTimeout = null;
 
     $ctrl.criterionValuePrefix = {
         net_worth: '€',
@@ -120,11 +119,12 @@ let FundRequestComponentDefault = function(
         let target = 'fundRequest-' + $ctrl.fund.id;
 
         $ctrl.authForm = FormBuilderService.build({
-            email: '',
-            pin_code: 1111,
+            records: {
+                primary_email: ''
+            },
             target: target,
         }, function(form) {
-            let resolveErrors = () => {
+            let resolveErrors = (res) => {
                 form.unlock();
                 form.errors = res.data.errors;
             };
@@ -134,7 +134,7 @@ let FundRequestComponentDefault = function(
             }).then(res => {
                 if (res.data.email.unique) {
                     IdentityService.make(form.values).then(() => {
-                        stopTimeout = true;
+                        $ctrl.stopCheckAccessTokenStatus();
                         $ctrl.authEmailSent = true;
                         $ctrl.state = $ctrl.step2state(3);
                     }, resolveErrors);
@@ -144,7 +144,7 @@ let FundRequestComponentDefault = function(
                         form.values.records.primary_email,
                         target
                     ).then(() => {
-                        stopTimeout = true;
+                        $ctrl.stopCheckAccessTokenStatus();
                         $ctrl.authEmailRestoreSent = true;
                         $ctrl.state = $ctrl.step2state(3);
                     }, resolveErrors);
@@ -159,8 +159,14 @@ let FundRequestComponentDefault = function(
         return $ctrl.validateCriteria(criteria).then($ctrl.nextStep, () => {});
     };
 
-    $ctrl.setHasAppProp = (value) => {
-        $ctrl.hasApp = value;
+    $ctrl.setHasAppProp = (hasApp) => {
+        $ctrl.hasApp = hasApp;
+
+        if ($ctrl.hasApp) {
+            $ctrl.requestAuthQrToken();
+        } else {
+            $ctrl.stopCheckAccessTokenStatus();
+        }
     };
 
     // Submit or Validate record criteria
@@ -240,18 +246,13 @@ let FundRequestComponentDefault = function(
     };
 
     $ctrl.applyAccessToken = function(access_token) {
-        stopTimeout = true;
+        $ctrl.stopCheckAccessTokenStatus();
         CredentialsService.set(access_token);
         $ctrl.buildTypes();
         $ctrl.state = $ctrl.step2state(4);
-        //document.location.reload();
     };
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
-        if (stopTimeout) {
-            return stopTimeout = null;
-        }
-
         IdentityService.checkAccessToken(access_token).then((res) => {
             if (res.data.message == 'active') {
                 $ctrl.applyAccessToken(access_token);
@@ -263,6 +264,12 @@ let FundRequestComponentDefault = function(
                 document.location.reload();
             }
         });
+    };
+
+    $ctrl.stopCheckAccessTokenStatus = () => {
+        if (timeout) {
+            $timeout.cancel(timeout);
+        }
     };
 
     $ctrl.requestAuthQrToken = () => {
@@ -424,10 +431,6 @@ let FundRequestComponentDefault = function(
 
     $ctrl.updateState = () => {
         $ctrl.state = $ctrl.step2state($ctrl.step);
-
-        if ($ctrl.state == 'auth') {
-            $ctrl.requestAuthQrToken();
-        }
     };
 
     $ctrl.prepareRecordTypes = () => {
@@ -468,15 +471,11 @@ let FundRequestComponentDefault = function(
         });
     };
 
-    $ctrl.createAppProfile = () => {
-        $ctrl.authForm.submit();
-    }
-
     $ctrl.$onInit = function() {
         $ctrl.signedIn = AuthService.hasCredentials();
         $ctrl.initAuthForm();
         $ctrl.prepareRecordTypes();
-        $ctrl.requestAuthQrToken();
+        // $ctrl.requestAuthQrToken();
 
         if ($ctrl.signedIn) {
             $ctrl.buildTypes().then(() => {
@@ -519,6 +518,10 @@ let FundRequestComponentDefault = function(
     $ctrl.goToMain = () => {
         $state.go('home');
     }
+
+    $ctrl.$onDestroy = function() {
+        $ctrl.stopCheckAccessTokenStatus();
+    };
 };
 
 let FundRequestComponentAuto = require('./FundRequestAutoComponent');

@@ -113,6 +113,7 @@ app.service('DigIdService', require('./services/DigIdService'));
 app.service('SessionService', require('./services/SessionService'));
 app.service('DemoTransactionService', require('./services/DemoTransactionService'));
 app.service('GoogleMapService', require('./services/GoogleMapService'));
+app.service('SignUpService', require('./services/SignUpService'));
 
 // Directives
 switch (env_data.panel_type) {
@@ -171,6 +172,9 @@ app.directive('qrCode', require('./directives/QrCodeDirective'));
 app.directive('pdfPreview', require('./directives/PdfPreviewDirective'));
 app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
 app.directive('fundCardInvitationProvider', require('./directives/FundCardInvitationProviderDirective'));
+app.directive('googleMap', require('./directives/GoogleMapDirective'));
+
+app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
@@ -204,6 +208,7 @@ app.filter('i18n', require('./filters/I18nFilter'));
 app.filter('str_limit', require('./filters/StrLimitFilter'));
 app.filter('duration', require('./filters/DurationFilter'));
 app.filter('duration_last_time', require('./filters/DurationLastTimeFilter'));
+app.filter('lines_to_array', require('./filters/LinesToArrayFilter'));
 
 // Config
 app.config(require('./routers/printables'));

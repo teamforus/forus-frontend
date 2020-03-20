@@ -7,14 +7,12 @@ let GoogleMapDirective = function(
     appConfigs
 ) {
     $scope.style = [];
-    $scope.markers = [];
+    
+    let markers = [];
+    let map = null
+    let infowindow = null;
 
-    $scope.initialize = function(obj, mapPointers) {
-        mapPointers = mapPointers || [];
-
-        let $elementCanvas = $element.find('.map-canvas');
-        let map, infowindow;
-        let image = $elementCanvas.attr("data-marker");
+    $scope.initialize = function(mapPointers = []) {
         let zoomLevel = 12;
 
         let styles = [{
@@ -47,6 +45,10 @@ let GoogleMapDirective = function(
             }));
         }
 
+        markers.forEach(marker => {
+            marker.setMap(null);
+        });
+
         var mapOptions = Object.assign({
             zoom: zoomLevel,
             disableDefaultUI: false,
@@ -60,18 +62,26 @@ let GoogleMapDirective = function(
             gestureHandling: $scope.mapGestureHandling || undefined,
         }, $scope.mapOptions || {})
 
-        map = new google.maps.Map(document.getElementById(obj), mapOptions);
-        infowindow = new google.maps.InfoWindow();
+        if (!map || !infowindow) {
+            map = new google.maps.Map($scope.getMapElement(), mapOptions);
+            infowindow = new google.maps.InfoWindow();
+        } else {
+            map.setCenter(new google.maps.LatLng(centerLat, centerLon));
+        }
 
         mapPointers.forEach(function(mapPointer, index) {
             let marker = new google.maps.Marker({
                 position: new google.maps.LatLng(mapPointer.lat, mapPointer.lon),
                 map: map,
-                icon: image,
+                icon: $scope.mapPointerIcon || null,
                 mapPointer: mapPointer
             });
 
-            $scope.markers.push(marker);
+            markers.push(marker);
+
+            if (!$scope.mapPointerTemplate) {
+                return;
+            }
 
             google.maps.event.addListener(marker, 'click', (function(marker, mapPointer) {
                 return function() {
@@ -96,26 +106,30 @@ let GoogleMapDirective = function(
         });
     }
 
+    $scope.getMapElement = () => {
+        return $element.find('.map-canvas')[0];
+    };
+
     $scope.$watch('mapPointers', function(mapPointers) {
-        $scope.initialize('map-canvas-contact', mapPointers);
+        $scope.initialize(mapPointers);
     });
 
     $scope.$watch('mapOptions', function() {
-        $scope.initialize('map-canvas-contact', $scope.mapPointers);
+        $scope.initialize($scope.mapPointers);
     });
 
     GoogleMapService.getStyle().then(function(style) {
         $scope.style = style.style;
-        $scope.initialize('map-canvas-contact');
+        $scope.initialize($scope.mapPointers || []);
     });
 };
 
 module.exports = () => {
     return {
         scope: {
-            offices: '=',
             mapPointers: '=',
             mapPointerTemplate: '@',
+            mapPointerIcon: '@',
             mapOptions: '=',
             mapGestureHandling: '='
         },
