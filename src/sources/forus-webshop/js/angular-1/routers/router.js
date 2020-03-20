@@ -458,7 +458,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             let target = $state.params.target || '';
 
             IdentityService.authorizeAuthEmailToken(
-                appConfigs.client_key + '_webshop',
                 $state.params.token
             ).then(function(res) {
                 CredentialsService.set(res.data.access_token);

@@ -58,8 +58,8 @@ let IdentityService = function(
             });
         };
 
-        this.authorizeAuthEmailToken = (source, email_token) => {
-            return ApiRequest.get('/identity/proxy/authorize/email/' + source + '/' + email_token);
+        this.authorizeAuthEmailToken = (email_token) => {
+            return ApiRequest.get('/identity/proxy/email/exchange/' + email_token);
         };
 
         this.exchangeConfirmationToken = (exchangeToken) => {
