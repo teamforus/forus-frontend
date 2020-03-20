@@ -26,11 +26,11 @@
 
 @import '../../../forus-webshop/scss/_common/includes/common';
 @import '../../../forus-webshop/scss/_common/components/ui-controls';
-@import '../../../forus-webshop/scss/_common/sections/blocks/block-sign_up';
 
 // blocks
 .block {
     @import 'blocks/block-sessions';
+    @import '../../../forus-webshop/scss/_common/sections/blocks/block-sign_up';
 }
 
 
