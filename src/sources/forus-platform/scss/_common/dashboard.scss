@@ -4696,6 +4696,15 @@ $colorPrimaryLight: $color_primary_light;
                                 margin: 0 auto 0;
                                 width: 100%;
                             }
+
+                            .mdi {
+                                font-size: 64px;
+                                text-align: center;
+                                line-height: 60px;
+                                padding: 10px 0 0 0;
+                                display: block;
+                                color: $colorPrimary;
+                            }
                         }
 
                         &:hover {
