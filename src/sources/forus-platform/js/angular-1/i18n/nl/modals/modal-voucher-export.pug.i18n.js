@@ -1,13 +1,13 @@
 module.exports = {
-    title: "Voucher export type",
+    title: "Selecteer export type",
     labels: {},
     modal_section: {
-        export_type_png: "Export as png",
-        export_type_pdf: "Export as pdf",
+        export_type_png: "Exporteer als afbeelding",
+        export_type_pdf: "Exporteer als één pdf-bestand",
     },
     errors: {},
     buttons: {
         cancel: "Annuleren",
-        submit: "Confirm",
+        submit: "Bevestig",
     }
 };
