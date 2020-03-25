@@ -29,7 +29,7 @@ let IdentityService = function(
 
         this.makeAuthEmailToken = (email, target = undefined) => {
             return ApiRequest.post('/identity/proxy/email', {
-                source: appConfigs.client_key + '_' + appConfigs.client_type,
+                source: appConfigs.client_key + '_' + appConfigs.panel_type,
                 email: email,
                 target: target,
             });
