@@ -21,7 +21,4 @@ describe('testing unauthenticated sponsor functionality', function(){
     it('checks if blocks are present', function(){
         expect(sponsor.getFaqBlock().isDisplayed()).toBe(true)
     });
-
-
-
 });

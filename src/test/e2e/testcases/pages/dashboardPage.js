@@ -9,8 +9,7 @@ var dashboardPage = function(){
     }
 
     this.addOffice = function(){
-        element(by.css('[ui-sref="offices-create({organization_id: $ctrl.organization.id})"]')).click()
-            
+        element(by.css('[ui-sref="offices-create({organization_id: $ctrl.organization.id})"]')).click()       
     }
 
     this.editOrganisation = function(buttonNum){
@@ -101,7 +100,6 @@ var dashboardPage = function(){
 
     this.generateActivationCode = function(){
         element(by.css('[ng-click="addSinglePrevalidation()"]')).click()
-    }
-    
+    }   
 }
 module.exports = new dashboardPage();

@@ -57,9 +57,11 @@ describe('testing sponsor dashboard', function(){
         dashboard.addEmployee()
         dashboard.close()
     })
+
     it('checks providers modal', function(){
         dashboard.getProviders()
     })
+    
     it('opens and closes add activation code', function(){
         dashboard.getRequesters()
         dashboard.generateActivationCode()

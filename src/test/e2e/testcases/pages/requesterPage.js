@@ -103,6 +103,5 @@ var webshopPage = function(){
     this.getVouchersComponent = function(){
         return element(by.className('budget-vouchers'))
     }
-
 }
 module.exports = new webshopPage();

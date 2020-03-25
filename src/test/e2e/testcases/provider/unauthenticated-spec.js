@@ -14,7 +14,6 @@ describe('testing unauthenticated provider functionality:', function(){
     it('checks if components are loaded', function(){
         expect(provider.getFaqBlock().isDisplayed()).toBe(true)
         expect(provider.getFlowBlock().isDisplayed()).toBe(true)
-
     })
 
     it('opens and closes login modal', function(){
@@ -24,5 +23,4 @@ describe('testing unauthenticated provider functionality:', function(){
         provider.closeModal()
         browser.ignoreSynchronization = false;
     });
-
 });

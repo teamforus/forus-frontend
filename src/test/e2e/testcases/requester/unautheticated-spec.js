@@ -12,15 +12,14 @@ describe('testing basic requester functionality:', function(){
     })
 
     it('checks if components are loaded', function(){
-        expect(requester.getProductsBlock().isDisplayed()).toBe(true)
-        expect(requester.getMapBlock().isDisplayed()).toBe(true)
-        expect(requester.getStepsBlock().isDisplayed()).toBe(true)
-        expect(requester.getFaqBlock().isDisplayed()).toBe(true)
-
+        expect(requester.getProductsBlock().isPresent()).toBe(true)
+        expect(requester.getMapBlock().isPresent()).toBe(true)
+        expect(requester.getStepsBlock().isPresent()).toBe(true)
+        expect(requester.getFaqBlock().isPresent()).toBe(true)
     })
 
     it('opens and closes login modal', function(){
-        browser.waitForAngular();
+        browser.waitForAngular()
         requester.openLogin()
         browser.ignoreSynchronization = true;
         requester.closeModal()
@@ -34,17 +33,16 @@ describe('testing basic requester functionality:', function(){
 
     it('navigates to products page', function(){
         requester.getProductsPage()
-        expect(requester.getProductsComponent().isDisplayed()).toBe(true)
+        expect(requester.getProductsComponent().isPresent().toBe(true))
     });
 
     it('navigates to providers page', function(){
         requester.getProvidersPage()
-        expect(requester.getProvidersComponent().isDisplayed()).toBe(true)
+        expect(requester.getProvidersComponent().isPresent()).toBe(true)
     });
 
     it('checks if page references are working', function(){
         requester.showOrganisations()
-        expect(requester.getProvidersComponent().isDisplayed()).toBe(true)
-
+        expect(requester.getProvidersComponent().isPresent()).toBe(true)
     });
 });

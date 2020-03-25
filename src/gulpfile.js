@@ -763,8 +763,6 @@ gulp.task('default', gulp.series([
     'compile', 'watch'
 ]), done => done());
 
-
-
 // Setting up the test task
 gulp.task('browserstack', function(cb) {
 	gulp.src(['test/e2e/testcases/*-spec.js']).pipe(protractor({
@@ -782,4 +780,3 @@ gulp.task('protractor', function(cb) {
 		console.log(e);
 	}).on('end', cb);
 });
-

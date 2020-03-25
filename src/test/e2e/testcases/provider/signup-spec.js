@@ -13,8 +13,6 @@ describe('testing provider signup functionality:', function(){
 
     it('step 1', function(){
         provider.appIsInstalled();
-        expect(provider.getGoToStep2Button().isPresent()).toBe(true)
-        
+        expect(provider.getGoToStep2Button().isPresent()).toBe(true) 
     })
-
 });
