@@ -29,15 +29,20 @@ header.app.app-header
                     a(ui-sref="organizations-create").auth-user-menu-item
                         em.mdi.mdi-plus
                         translate(translate="organizations.buttons.add")
-
-                    a(ui-sref="preferences-notifications").auth-user-menu-item
-                        em.mdi.mdi-settings-outline
-                        translate(translate="organizations.buttons.notifications_preferences")
+                    
+                    a(ui-sref="identity-emails").auth-user-menu-item
+                        em.mdi.mdi-at
+                        //- translate(translate="topnavbar.buttons.sessions")
+                        | Email instellingen
                     
                     a(ng-if="appConfigs.sessions" ui-sref="security-sessions").auth-user-menu-item
                         em.mdi.mdi-shield-account
                         //- translate(translate="topnavbar.buttons.sessions")
                         | Security
+
+                    a(ui-sref="preferences-notifications").auth-user-menu-item
+                        em.mdi.mdi-settings-outline
+                        translate(translate="organizations.buttons.notifications_preferences")
 
                     .auth-user-menu-item(ng-click="$root.openPinCodePopup()")
                         em.mdi.mdi-cellphone

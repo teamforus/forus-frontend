@@ -1,7 +1,7 @@
 .app.app-container(ng-if="$ctrl.loaded")
-    menu(ng-if="!!$root.activeOrganization")
+    menu
 
-    section(ng-class="!!$root.activeOrganization ? 'app app-content' : 'wrapper wrapper-sm'")
+    section.app.app-content
         .card
             .card-header: .card-title Email settings
             .card-section.card-section-padless
@@ -17,15 +17,15 @@
                         
                             .button.button-default(ng-disabled="email.disabled" ng-if="!email.primary && email.verified" ng-click="$ctrl.makePrimary(email)")
                                 em.mdi.mdi-check-circle.icon-start
-                                | Make primary
+                                | Maak primair
 
                             .button.button-default(ng-disabled="email.disabled" ng-if="!email.primary && !email.verified" ng-click="$ctrl.resendVerification(email)")
                                 em.mdi.mdi-reload.icon-start
-                                | Resend verification email
+                                | Herstuur verificatie email
                         
                         .user_email-actions
                             label(ng-if="email.primary").label.label-success.label-round.label-lg.pull-left Primary
-                            label(ng-if="!email.verified && !email.primary").label.label-default.label-round.label-lg.pull-left Not verified
+                            label(ng-if="!email.verified && !email.primary").label.label-default.label-round.label-lg.pull-left Ongeverifieerd
 
                             button(ng-disabled="email.disabled" ng-if="!email.primary" ng-click="$ctrl.deleteEmail(email)").button.button-default.button-icon: em.mdi.mdi-trash-can-outline
         
@@ -33,20 +33,22 @@
             .card-section.card-section-primary(ng-if="!$ctrl.form")
                 .button.button-primary(ng-click="$ctrl.createNewEmailForm()") 
                     em.mdi.mdi-plus-circle.icon-start
-                    | E-mail toevogen
+                    | E-mail Toevoegen
             
             .card-section.card-section-primary(ng-if="$ctrl.form && !$ctrl.formSuccess")
-                .card-heading Please add a new e-mail to your identity
+                .card-heading Voeg een e-mailadres toe
                 form(ng-submit="$ctrl.form.submit()").form.row: .col.col-lg-6.form-group
                     .form-label E-mail adres
                     .flex-row
                         .flex-col.flex-grow
-                            input(type="email" placeholder="E-mail address" ng-model="$ctrl.form.values.email").form-control
+                            input(type="email" placeholder="bijv. info@example.org" ng-model="$ctrl.form.values.email").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
                         .flex-col: button(type="submit").button.button-primary Toevoegen
         
             .card-section.card-section-primary(ng-if="$ctrl.form && $ctrl.formSuccess")
-                .card-heading.card-heading-padless Please confirm your new email 
-                .card-text Please open the e-mail we sent to your new email and confirm it in order to make it available in the system
-                .button.button-primary(ng-click="$ctrl.createNewEmailForm()")  Add another email
+                .card-heading.card-heading-padless Verifieer uw e-mailadres 
+                .card-text 
+                    | U hebt een verificatiebericht ontvangen op het e-mailadres dat u zojuist hebt doorgegeven. 
+                    | Klik op de verificatielink in dit bericht om de wijziging te voltooien.
+                .button.button-primary(ng-click="$ctrl.createNewEmailForm()") Voeg nog een e-mail toe
     
