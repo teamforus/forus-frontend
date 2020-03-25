@@ -6,7 +6,7 @@ header.app.app-header
         .header-auth(ng-if="$root.auth_user")
             .auth-user(ng-click="$ctrl.openUserMenu($event)")
                 .auth-user-details
-                    .auth-user-name {{ $root.auth_user.primary_email }}
+                    .auth-user-name {{ $root.auth_user.email }}
                     .auth-user-role
                         span(ng-bind="$root.activeOrganization.name")
                         span.auth-user-role-separator(ng-if="$root.activeOrganization.name") •
