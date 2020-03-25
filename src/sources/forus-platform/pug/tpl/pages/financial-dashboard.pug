@@ -99,6 +99,9 @@
             .card: .card-section(ng-show="$ctrl.fundProviders.meta.last_page > 1")
                 paginator(meta="$ctrl.fundProviders.meta" filters="filter" count-buttons="5" on-page-change="onPageChange(query)")
 
+        block-empty(
+            ng-if='$ctrl.fundProviders.data.length == 0' 
+            text='Er zijn geen financiele statistieken om weer te geven.')
     section.app.app-content(ng-if="$ctrl.funds.length == 0")
         block-empty(
             ng-if="$ctrl.fund == null && $ctrl.funds.length == 0 && ($root.activeOrganization | hasPerm:'manage_funds')"
