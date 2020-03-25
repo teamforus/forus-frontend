@@ -119,7 +119,7 @@
 
             .step-footer
                 a(translate="sign_up.buttons.cancel" ng-click="$ctrl.back()").button.button-default
-                button(type="submit" translate="sign_up.buttons.next" id="next-2").button.button-primary
+                button(type="submit" translate="sign_up.buttons.next" id="signup_next-2").button.button-primary
 
         //- Step 3: Organization info
         .step-item(ng-show="$ctrl.step == 3"): form(ng-submit="$ctrl.next()").form
@@ -197,7 +197,7 @@
 
             .step-footer
                 a(translate="sign_up.buttons.cancel" ng-click="$ctrl.back()" ng-if="!$ctrl.signedIn").button.button-default
-                button(translate="sign_up.buttons.next" id="next-3").button.button-primary
+                button(translate="sign_up.buttons.next" id="signup_next_3").button.button-primary
 
         // Step 4: Organization offices
         .step-item(ng-show="$ctrl.step == 4")
@@ -212,7 +212,7 @@
 
             .step-footer
                 a(translate="sign_up.buttons.cancel" ng-click="$ctrl.back()" ng-if="!$ctrl.signedIn").button.button-default
-                a(translate="sign_up.buttons.next" ng-click="$ctrl.next()" id='next-4').button.button-primary
+                a(translate="sign_up.buttons.next" ng-click="$ctrl.next()" id='signup_next_4').button.button-primary
 
         //- Step 5: Authenticate device
         .step-item(ng-show="$ctrl.step == 5")

@@ -1,6 +1,5 @@
 var requester = require('../pages/requesterPage');
 
-
 describe('testing basic authenticated functionality of requester:', function(){
     beforeAll(function(){
         requester.get()
@@ -25,7 +24,7 @@ describe('testing basic authenticated functionality of requester:', function(){
 
     it('navigates to my vouchers', function(){
         requester.getVouchersPage()
-        expect(requester.getVouchersComponent().isDisplayed()).toBe(true)  
+        expect(requester.getVouchersComponent().isPresent()).toBe(true)  
     })
     
     it('navigates to notification preferences, and checks if enable and disable buttons work', function(){

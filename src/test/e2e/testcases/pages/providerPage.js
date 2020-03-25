@@ -65,7 +65,6 @@ var providerPage = function(){
 
     this.getFaqBlock = function(){
         return element(by.className('section section-faq'))
-    }
-    
+    } 
 }
 module.exports = new providerPage();

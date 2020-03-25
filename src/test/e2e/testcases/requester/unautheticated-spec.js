@@ -33,7 +33,7 @@ describe('testing basic requester functionality:', function(){
 
     it('navigates to products page', function(){
         requester.getProductsPage()
-        expect(requester.getProductsComponent().isPresent().toBe(true))
+        expect(requester.getProductsComponent().isPresent()).toBe(true)
     });
 
     it('navigates to providers page', function(){
