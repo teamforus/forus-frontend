@@ -10,11 +10,14 @@ section
                     img(src="assets/img/demo-meedoen.png").stretched
                 .col-6.col-md-6.e-fb
                     h2 Forus & Me
-                    p Het systeem bestaat uit een combinatie tussen platform Forus en de mobiele applicatie Me. Het doel van het systeem is het (veilig) uitwisselen van waarde onder bepaalde voorwaarden. Het systeem is generiek opgezet en wordt in eerste instantie gebruikt om gemeentelijke diensten en regelingen te vereenvoudigen.
+                    p Het systeem bestaat uit een combinatie van platform Forus en de app Me. Met het betaalplatform kan je een pakket uitgeven  onder bepaalde voorwaarden. Het systeem wordt onder andere gebruikt om gemeentelijke diensten en regelingen te vereenvoudigen.
+                    a.txt_link.content-left(ui-sref="me") 
+                        | Lees meer over Me
+                        include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg
         .container.text-center    
             .cont_txt__b
-                h2 Hoe het werk
-                p Het systeem is gebaseerd op het idee dat een gebruiker vier generieke rollen kan innemen. Dit model maakt het mogelijk om gemakkelijk nieuwe toepassingen voor het systeem te bedenken. De rollen helpen bij het uitwerken van nieuwe pakketten, regelingen en use-cases. Het systeem is qua techniek en achterliggende concepten ingericht op schaalbaarheid. Elke gebruiker: aanvrager, aanbieder, sponsor en validator werkt met een eigen omgeving.
+                h2 Hoe het werkt
+                p Het betaalplatform is ingericht vanuit vier rollen:  sponsor, validator, aanvrager en aanbieder. De sponsor stelt via het platform een pakket beschikbaar en verstrekt een voucher aan de aanvrager. De aanvrager kan de voucher uitgeven bij een deelnemende aanbieder.<br>Wil je zien hoe het werkt? Kies een rol en klik op Bekijk video.
 section
     .container
         .tab-content
@@ -43,8 +46,8 @@ section
                 li.role
                     a(data-toggle="tab" data-target="#panel1-video" id="#panel1")
                         .role_content
-                            h4 Aanvrager
-                            p Beroept zich op een budget of product. Bijvoorbeeld een inwoner.
+                            h4 Sponsor
+                            p Werk je voor een gemeente? Bepaal de voorwaarden van een pakket, stel een budget beschikbaar en valideer geschikte aanbieders.
                             .play_btn_link.flexed(href="#" id="#panel1-video")
                                 p.btn_link.txt_link.content-left Bekijk de film
                                 .play_btn
@@ -53,8 +56,8 @@ section
                 li.role
                     a(data-toggle="tab" data-target="#panel2-video" id="#panel2")
                         span.role_content
-                            h4 Aanbieder
-                            p Levert het bestelde product en/of dienst Bijvoorbeeld een winkelier, organisatie of vereniging.
+                            h4 Validator
+                            p Werk je voor een gemeente of een ketenpartner? Toets de criteria waaraan de aanvraag moet voldoen.
                             .play_btn_link.flexed(href="#" id="#panel2-video")
                                 p.btn_link.txt_link.content-left Bekijk de film
                                 .play_btn
@@ -63,8 +66,8 @@ section
                 li.role
                     a(data-toggle="tab" data-target="#panel3-video" id="#panel3")
                         span.role_content
-                            h4 Sponsor
-                            p Zet de regeling (het fonds) op en stelt een budget beschikbaar. Bijvoorbeeld een gemeente. Bekijk film
+                            h4 Aanvrager
+                            p Ben je een inwoner en heb je recht op een pakket? Ontvang een voucher en geef het uit bij deelnemende aanbieders.
                             .play_btn_link.flexed(href="#" id="#panel3-video")
                                 p.btn_link.txt_link.content-left Bekijk de film
                                 .play_btn
@@ -73,8 +76,8 @@ section
                 li.role
                     a(data-toggle="tab" data-target="#panel4-video" id="#panel4")
                         span.role_content
-                            h4 Validator
-                            p Toetst de criteria waaraan de aanvraag moet voldoen. Bijvoorbeeld een gemeente of ketenpartner.
+                            h4 Aanbieder
+                            p Werk je voor een winkel, organisatie of vereniging? Bied een product en/of dienst aan in de webshop.
                             .play_btn_link.flexed(href="#" id="#panel4-video")
                                 p.btn_link.txt_link.content-left Bekijk de film
                                 .play_btn
@@ -96,7 +99,7 @@ section
 
 section.bg_gr.mr-tp 
     .container.text-center
-            h2 Statistieken
+            h2 Gebruikersaantallen
             .row.flexed
                 .col-6.col-md-4.e-fb
                     .upper
