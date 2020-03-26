@@ -26,6 +26,7 @@ module.exports = (core) => {
             chat_id: chatId,
             flags: {},
             sessions: sessions,
+            hide_vouchers_csv: false,
             // html5ModeEnabled: true,
             // html5Mode: {
             //    basePath: '/'
@@ -92,6 +93,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
         });
@@ -154,6 +156,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
         });
@@ -194,6 +197,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {
                 maxProductCount: 20,
             },
@@ -238,6 +242,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {
                 maxProductCount: 20,
             },
@@ -282,6 +287,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {
                 maxProductCount: 20,
             },
@@ -326,6 +332,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {
                 maxProductCount: 20,
             },
@@ -368,6 +375,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
         });
@@ -408,6 +416,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
         });
