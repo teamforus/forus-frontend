@@ -23,13 +23,13 @@ header.app.app-header
                         | My profile
 
                     a(ui-sref="organizations-edit($root.activeOrganization)" ng-if="$root.activeOrganization | hasPerm:'manage_organization'").auth-user-menu-item
-                        em.mdi.mdi-settings
+                        em.mdi.mdi-cog
                         | Organisatie
 
                     a(ui-sref="organizations-create").auth-user-menu-item
                         em.mdi.mdi-plus
                         translate(translate="organizations.buttons.add")
-                    
+
                     a(ui-sref="identity-emails").auth-user-menu-item
                         em.mdi.mdi-at
                         //- translate(translate="topnavbar.buttons.sessions")
@@ -41,7 +41,7 @@ header.app.app-header
                         | Security
 
                     a(ui-sref="preferences-notifications").auth-user-menu-item
-                        em.mdi.mdi-settings-outline
+                        em.mdi.mdi-cog-outline
                         translate(translate="organizations.buttons.notifications_preferences")
 
                     .auth-user-menu-item(ng-click="$root.openPinCodePopup()")
