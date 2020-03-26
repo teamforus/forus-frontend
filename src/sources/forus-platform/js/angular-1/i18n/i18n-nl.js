@@ -1019,6 +1019,12 @@ module.exports = {
         }
     },
 
+    modal_pdf_preview: {
+        header: {
+            title: "PDF-voorbeeld"
+        }
+    },
+
     // SELECT MULTIPLE CATEGORIES = multi-select.pug
     multi_select: {
         title: "Aanbieding categorieën",
