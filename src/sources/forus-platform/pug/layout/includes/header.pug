@@ -23,7 +23,7 @@ header.app.app-header
                         | My profile
 
                     a(ui-sref="organizations-edit($root.activeOrganization)" ng-if="$root.activeOrganization | hasPerm:'manage_organization'").auth-user-menu-item
-                        em.mdi.mdi-settings
+                        em.mdi.mdi-cog
                         | Organisatie
 
                     a(ui-sref="organizations-create").auth-user-menu-item
@@ -31,7 +31,7 @@ header.app.app-header
                         translate(translate="organizations.buttons.add")
 
                     a(ui-sref="preferences-notifications").auth-user-menu-item
-                        em.mdi.mdi-settings-outline
+                        em.mdi.mdi-cog-outline
                         translate(translate="organizations.buttons.notifications_preferences")
                     
                     a(ng-if="appConfigs.sessions" ui-sref="security-sessions").auth-user-menu-item
