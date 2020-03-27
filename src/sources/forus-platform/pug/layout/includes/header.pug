@@ -30,19 +30,17 @@ header.app.app-header
                         em.mdi.mdi-plus
                         translate(translate="organizations.buttons.add")
 
-                    a(ui-sref="identity-emails").auth-user-menu-item
+                    a(ui-sref="identity-emails" ng-if="!$root.activeOrganization").auth-user-menu-item
                         em.mdi.mdi-at
-                        //- translate(translate="topnavbar.buttons.sessions")
                         | Email instellingen
                     
-                    a(ng-if="appConfigs.sessions" ui-sref="security-sessions").auth-user-menu-item
+                    a(ui-sref="security-sessions" ng-if="appConfigs.sessions && !$root.activeOrganization" ).auth-user-menu-item
                         em.mdi.mdi-shield-account
-                        //- translate(translate="topnavbar.buttons.sessions")
-                        | Security
+                        | Sessies
 
-                    a(ui-sref="preferences-notifications").auth-user-menu-item
+                    a(ui-sref="preferences-notifications" ng-if="!$root.activeOrganization").auth-user-menu-item
                         em.mdi.mdi-cog-outline
-                        translate(translate="organizations.buttons.notifications_preferences")
+                        | Notificaties
 
                     .auth-user-menu-item(ng-click="$root.openPinCodePopup()")
                         em.mdi.mdi-cellphone
