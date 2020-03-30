@@ -41,6 +41,7 @@ app.component('noPermissionComponent', require('./components/NoPermissionCompone
 app.component('emailPreferencesComponent', require('./components/EmailPreferencesComponent'));
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
 app.component('fundProviderInviteComponent', require('./components/FundProviderInviteComponent'));
+app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -107,6 +108,7 @@ app.service('EmailPreferencesService', require('./services/EmailPreferencesServi
 app.service('PushNotificationsService', require('./services/PushNotificationsService'));
 app.service('DigIdService', require('./services/DigIdService'));
 app.service('SessionService', require('./services/SessionService'));
+app.service('IdentityEmailsService', require('./services/IdentityEmailsService'));
 
 // Directives
 switch (env_data.panel_type) {

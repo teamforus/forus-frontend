@@ -8,7 +8,7 @@ let FundProviderInviteComponent = function(
     PushNotificationsService,
     FundProviderInvitationsService,
     OrganizationService,
-    appConfigs,
+    ModalService
 ) {
     let $ctrl = this;
     let timeout;
@@ -121,19 +121,10 @@ let FundProviderInviteComponent = function(
         $ctrl.showChoose = false;
 
         $ctrl.signInEmailForm = FormBuilderService.build({
-            source: appConfigs.client_key + '_' + appConfigs.panel_type,
-            primary_email: "",
-        }, function(form) {
-            form.lock();
-
-            IdentityService.makeAuthEmailToken(
-                form.values.source,
-                form.values.primary_email
-            ).then((res) => {
-                localStorage.setItem('pending_email_token', res.data.access_token);
+            email: "",
+        }, (form) => {
+            IdentityService.makeAuthEmailToken(form.values.email).then(() => {
                 $ctrl.screen = 'sign_in-email-sent';
-
-                $ctrl.close();
 
                 ModalService.open('modalNotification', {
                     type: 'action-result',
@@ -143,11 +134,13 @@ let FundProviderInviteComponent = function(
                     confirmBtnText: 'popup_auth.buttons.confirm',
                 });
 
+                $ctrl.showAuth = false;
+                $timeout.cancel(timeout);
             }, (res) => {
                 form.unlock();
                 form.errors = res.data.errors;
             });
-        });
+        }, true);
 
     };
 
@@ -167,7 +160,7 @@ module.exports = {
         'PushNotificationsService',
         'FundProviderInvitationsService',
         'OrganizationService',
-        'appConfigs',
+        'ModalService',
         FundProviderInviteComponent
     ],
     templateUrl: 'assets/tpl/pages/fund-provider-invite.html'

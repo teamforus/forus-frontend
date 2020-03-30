@@ -6,12 +6,12 @@
             include ../../../resources/platform-general/assets/img/svg/close.svg
 
         h4.modal-title Login met e-mail
-        .modal-subtitle {{ "popup_auth.labels.link" | translate }}
+        .modal-subtitle(translate="popup_auth.labels.link")
 
         form.form(ng-submit="$ctrl.signInEmailForm.submit()")
             .form-group
-                input(ng-model="$ctrl.signInEmailForm.values.primary_email" type="email" placeholder="E-mail").form-control.email-auth
-                .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.primary_email" ng-bind="error")
+                input(ng-model="$ctrl.signInEmailForm.values.email" type="email" placeholder="E-mail").form-control.email-auth
+                .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.email" ng-bind="error")
             .form-group
             .form-group: button(type="submit").btn.main_button.modal-login-btn Login
 

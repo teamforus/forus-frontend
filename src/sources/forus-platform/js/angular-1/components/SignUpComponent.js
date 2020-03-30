@@ -18,6 +18,7 @@ let SignUpComponent = function(
     appConfigs
 ) {
     let $ctrl = this;
+    let $translate = $filter('translate');
 
     /*
      step 1 - app links
@@ -152,18 +153,11 @@ let SignUpComponent = function(
         $ctrl.beforeInit();
 
         $ctrl.signUpForm = FormBuilderService.build({
-            pin_code: "1111",
+            emal: "",
+            email_confirmation: "",
         }, function(form) {
-            let formValues = angular.copy(form.values);
-
-            if (formValues.records) {
-                delete formValues.records.primary_email_confirmation;
-            }
-
-            form.lock();
-
-            return IdentityService.make(formValues);
-        });
+            return IdentityService.make(angular.copy(form.values));
+        }, true);
 
         $ctrl.organizationForm = FormBuilderService.build({
             "website": 'https://',
@@ -174,7 +168,9 @@ let SignUpComponent = function(
                         reject({
                             data: {
                                 errors: {
-                                    'iban_confirmation': [$filter('translate')('validation.iban_confirmation')]
+                                    iban_confirmation: [
+                                        $translate('validation.iban_confirmation')
+                                    ]
                                 }
                             }
                         });
@@ -246,7 +242,7 @@ let SignUpComponent = function(
 
         let processedOrganizations = [];
         let processedLabels = [];
-        
+
         $ctrl.fundsAvailable.forEach(fund => {
             if (processedOrganizations.indexOf(fund.organization.id) == -1) {
                 $ctrl.fundOrganizations.push({
@@ -276,15 +272,15 @@ let SignUpComponent = function(
             return fundOrganization;
         });
 
-        $ctrl.fundOrganizations.unshift({ 
+        $ctrl.fundOrganizations.unshift({
             id_str: 'null',
-            name: $filter('translate')('sign_up.filters.options.all_organizations') 
+            name: $translate('sign_up.filters.options.all_organizations')
         });
         $ctrl.fundOrganization = $ctrl.fundOrganization ? $ctrl.fundOrganization : 'null';
 
-        $ctrl.fundLabels.unshift({ 
+        $ctrl.fundLabels.unshift({
             key: 'null',
-            name: $filter('translate')('sign_up.filters.options.all_labels') 
+            name: $translate('sign_up.filters.options.all_labels')
         });
         $ctrl.fundLabel = $ctrl.fundLabel ? $ctrl.fundLabel : 'null';
     }
@@ -333,18 +329,18 @@ let SignUpComponent = function(
 
     $ctrl.filterFunds = (organization = $ctrl.organization) => {
         let organization_id = $ctrl.fundOrganization && $ctrl.fundOrganization != 'null' ?
-                $ctrl.fundOrganization : $stateParams.organization_id;
+            $ctrl.fundOrganization : $stateParams.organization_id;
         let label = $ctrl.fundLabel && $ctrl.fundLabel != 'null' ?
-                $ctrl.fundLabel : $stateParams.tag;
+            $ctrl.fundLabel : $stateParams.tag;
         let fund_id = $stateParams.fund_id,
             search_params = {};
 
         if (organization_id) {
             search_params.organization_id = organization_id;
-        }    
+        }
         if (label) {
             search_params.tag = label;
-        }    
+        }
         if (fund_id) {
             search_params.fund_id = fund_id;
         }
@@ -395,28 +391,28 @@ let SignUpComponent = function(
 
                 if (res.status == 429) {
                     $scope.phoneForm.errors = {
-                        phone: [$filter('translate')('sign_up.sms.error.try_later')]
+                        phone: [
+                            $translate('sign_up.sms.error.try_later')
+                        ]
                     };
                 }
             });
 
         } else if ($ctrl.step == 2) {
-
-            if ($ctrl.signUpForm.values.records && (
-                    $ctrl.signUpForm.values.records.primary_email !=
-                    $ctrl.signUpForm.values.records.primary_email_confirmation)) {
-                $ctrl.signUpForm.errors = {};
-                $ctrl.signUpForm.errors['records.primary_email_confirmation'] = [$filter('translate')('validation.email_confirmation')];
+            if ($ctrl.signUpForm.values.email != $ctrl.signUpForm.values.email_confirmation) {
+                $ctrl.signUpForm.errors = {
+                    email_confirmation: [
+                        $translate('validation.email_confirmation')
+                    ]
+                };
             } else {
-
-                IdentityService.make({
-                    records: {
-                        primary_email: $ctrl.signUpForm.values.records ? $ctrl.signUpForm.values.records.primary_email : ''
-                    }
-                }).then((res) => {}, (res) => {
-                    $ctrl.signUpForm.errors = {};
-                    if (res.data.errors['records.primary_email'] && res.data.errors['records.primary_email'].length) {
-                        $ctrl.signUpForm.errors['records.primary_email'] = res.data.errors['records.primary_email'];
+                IdentityService.validateEmail({
+                    email: $ctrl.signUpForm.values.email
+                }).then(res => {
+                    if (res.data.email.used) {
+                        IdentityService.make($ctrl.signUpForm.values).then((res) => {}, (res) => {
+                            $ctrl.signUpForm.errors = res.data.errors;
+                        });
                     } else {
                         $ctrl.setStep(3);
                     }

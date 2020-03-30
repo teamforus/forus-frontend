@@ -54,14 +54,14 @@
 
             a(ng-if="$root.appConfigs.features.records.list" ui-sref="vouchers").button.button-default.button-two-spans.button-profile
                 .icon-me
-                span(ng-bind="$root.auth_user.primary_email").first-line-button
+                span(ng-bind="$root.auth_user.email").first-line-button
                 //-span(translate="topnavbar.buttons.profile").second-line-button
     
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
             .auth-user(ng-click="$ctrl.openUserMenu($event)")
                 .auth-user-details  
-                    .auth-user-email(ng-bind="$root.auth_user.primary_email" ng-if="!$root.appConfigs.features.records.list") 
+                    .auth-user-email(ng-bind="$root.auth_user.email" ng-if="!$root.appConfigs.features.records.list") 
                     //- .auth-user-type(translate="topnavbar.items.identity" ng-if="!$root.appConfigs.features.records.list")
                     .auth-user-logout(ng-if="!$root.appConfigs.features.records.list" ng-click="$root.signOut($event, true)" )
                         em.mdi.mdi-logout

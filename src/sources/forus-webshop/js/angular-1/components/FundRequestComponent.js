@@ -118,31 +118,22 @@ let FundRequestComponentDefault = function(
 
         $ctrl.authForm = FormBuilderService.build({
             email: '',
-            pin_code: 1111,
             target: target,
         }, function(form) {
-            let resolveErrors = () => {
+            let resolveErrors = (res) => {
                 form.unlock();
                 form.errors = res.data.errors;
             };
 
-            IdentityService.validateEmail({
-                email: form.values.records.primary_email,
-            }).then(res => {
-                if (res.data.email.unique) {
-                    IdentityService.make(form.values).then(() => {
-                        stopTimeout = true;
-                        $ctrl.authEmailSent = true;
+            IdentityService.validateEmail(form.values).then(res => {
+                if (res.data.email.used) {
+                    IdentityService.makeAuthEmailToken(form.values.email, target).then(() => {
+                        $ctrl.authEmailRestoreSent = true;
                         $ctrl.nextStep();
                     }, resolveErrors);
                 } else {
-                    IdentityService.makeAuthEmailToken(
-                        appConfigs.client_key + '_webshop',
-                        form.values.records.primary_email,
-                        target
-                    ).then(() => {
-                        stopTimeout = true;
-                        $ctrl.authEmailRestoreSent = true;
+                    IdentityService.make(form.values).then(() => {
+                        $ctrl.authEmailSent = true;
                         $ctrl.nextStep();
                     }, resolveErrors);
                 }
