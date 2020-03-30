@@ -12,6 +12,31 @@ html {
                     background: rgba(#192734, .5);
                     z-index: 0;
                 }
+                .modal-window {
+                    position: relative;
+                    z-index: 2;
+                    width: 1200px;
+                    max-width: 100%;
+                    display: inline-block;
+                    min-height: 100px;
+                    margin: 0 auto;
+            
+                    .modal-section {
+                        padding: 30px;
+                    }
+            
+                    .modal-close {
+                        position: absolute;
+                        font-size: 24px;
+                        right: 20px;
+                        top: 20px;
+                        display: block;
+                        cursor: pointer;
+                        color: #222;
+                        transition: color .4s;
+                        z-index: 1;
+                    }
+                }
                 .modal-content {
                     position: relative;
                     padding: 30px;
@@ -153,6 +178,28 @@ html {
                         }
                     }
                 }
+            }
+        }
+    }
+}
+.block {
+    &.block-qr-code {
+        float: right;
+        margin: 0;
+        
+        .qr_code {
+            width: 175px;
+            height: 175px;
+            padding: 15px 15px;
+            background: #fff;
+            margin: auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 35px rgba(0, 0, 0, 0.075);
+            border: 2px dashed #000;
+
+            img {
+                display: block;
+                width: 100%;
             }
         }
     }
