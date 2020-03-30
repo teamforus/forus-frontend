@@ -10,62 +10,65 @@ describe('testing sponsor dashboard', function(){
 
     beforeEach(function(){
         sponsor.get()
+        dashboard.chooseOrganisation()
     })
 
     it('opens and closes fund settings', function(){
-        dashboard.getOrganisationFunds()
-        dashboard.getFundSetting(0)
-        dashboard.cancel()
+        dashboard.getFundsPage()
+        dashboard.getFundSetting()
+        dashboard.cancelFundSettings()
     })
 
     it('opens and closes add fund', function(){
-        dashboard.getOrganisationFunds()
+        dashboard.getFundsPage()
         dashboard.addFund()
-        dashboard.cancel()
+        dashboard.cancelAddFund()
     })
 
     it('voucher page; opens and closes create voucher', function(){
-        dashboard.getVouchers()
+        dashboard.getVouchersPage()
         dashboard.createVoucher()
-        dashboard.close()
+        dashboard.cancelCreateVoucher()
     })
 
     it('voucher page; opens and closes upload CSV', function(){
-        dashboard.getVouchers()
+        dashboard.getVouchersPage()
         dashboard.uploadCSV()
-        dashboard.closeModal()
+        dashboard.closeUploadCSV()
     })
-    it('voucher page; opens and closes create voucher', function(){
-        dashboard.getProductVouchers()
+    it('Product voucher page; opens and closes create voucher', function(){
+        dashboard.getProductVouchersPage()
         dashboard.createProductVoucher()
-        dashboard.close()
+        dashboard.cancelCreateProductVoucher()
     })
 
-    it('voucher page; opens and closes upload CSV', function(){
-        dashboard.getProductVouchers()
+    it('Product voucher page; opens and closes upload CSV', function(){
+        dashboard.getProductVouchersPage()
         dashboard.uploadProductCSV()
-        dashboard.closeModal()
+        dashboard.closeUploadCSV()
     })
 
     it('checks transactions modal', function(){
-        dashboard.getTransactions()
+        dashboard.getTransactionsPage()
     })
+
     it('checks finances modal', function(){
-        dashboard.getFinances()
+        dashboard.getFinancialDashboard()
     })
+
     it('opens and closes add employees modal', function(){
-        dashboard.getEmployees()
+        dashboard.getEmployeePage()
         dashboard.addEmployee()
-        dashboard.close()
+        dashboard.closeAddEmployee()
     })
 
     it('checks providers modal', function(){
-        dashboard.getProviders()
+        dashboard.getProviderPage()
     })
 
     it('opens and closes add activation code', function(){
-        dashboard.getRequesters()
+        dashboard.getRequesterPage()
         dashboard.generateActivationCode()
-        dashboard.closeModal()  
+        dashboard.closeGenerateActivationCode()  
     })
 });

@@ -4,10 +4,10 @@
         .card
             .card-section
                 .card-section-actions
-                    a(ng-if="$ctrl.organization | hasPerm:'manage_organization'" ui-sref="organizations-edit($ctrl.organization)").button.button-default
+                    a(ng-if="$ctrl.organization | hasPerm:'manage_organization'" ui-sref="organizations-edit($ctrl.organization)" id="edit_office").button.button-default
                         em.mdi.mdi-pen.icon-start
                         span(translate="offices.buttons.adjust")
-                    a(ng-if="$ctrl.organization | hasPerm:'manage_offices'" ui-sref="offices-create({organization_id: $ctrl.organization.id})" ng-id = "edit_organization").button.button-primary
+                    a(ng-if="$ctrl.organization | hasPerm:'manage_offices'" ui-sref="offices-create({organization_id: $ctrl.organization.id})" id = "create_office").button.button-primary
                         em.mdi.mdi-plus-circle.icon-start 
                         span(translate="offices.buttons.add")
                         

@@ -7,82 +7,104 @@ var dashboardPage = function(){
         })
     }
 
-    this.getTransactions = function(){
-        element(by.css('[ui-sref="transactions({organization_id: $root.activeOrganization.id})"]')).click()
+    this.chooseOrganisation = function(){
+        element.all(by.css('[ng-click="$ctrl.chooseOrganization(organization)"]')).first().click()
     }
 
-    this.addProduct = function(){
-        element(by.id('addProduct')).click()
+    this.getTransactionsPage = function(){
+        element(by.id('transactions')).click()
     }
 
-    this.getEmployees = function(){
-        element(by.css('[ui-sref="employees({organization_id: $root.activeOrganization.id})"]')).click()
+    this.getEmployeePage = function(){
+        element(by.id('employees')).click()
     }
 
     this.addEmployee = function(){
-        element(by.css('[ng-click="$ctrl.createEmployee()"]')).click()
+        element(by.id('add_employee')).click()
     }
 
-    this.getOrganisationFunds = function(){
-        element(by.css('[ui-sref="organization-funds({organization_id: $root.activeOrganization.id})"]')).click()
+    this.getFundsPage = function(){
+        element(by.id('funds')).click()
     }
 
-    this.getFundSetting = function(buttonNum){
-        element.all(by.css('[ui-sref="funds-edit(fund)"]')).get(buttonNum).click()  
+    this.getFundSetting = function(){
+        element.all(by.id('edit_fund')).first().click()
     }
 
     this.addFund = function(){
-        element(by.css('[ui-sref="funds-create({organization_id: $root.activeOrganization.id})"]')).click()  
+        element(by.id('create_fund')).click()
+    }
+
+    this.cancelFundSettings = function(){
+        element(by.id('cancel')).click()
+    }
+
+    this.cancelAddFund = function(){
+        element(by.id('cancel')).click()
     }
 
     this.cancel = function(){
-        element(by.css('[ng-click="$ctrl.cancel()"]')).click()
+        element(by.id('cancel')).click()
     }
 
-    this.close = function(){
-        element.all(by.css('[ng-click="$ctrl.close()"]')).last().click()
-    }
-    this.closeModal = function(){
-        element.all(by.css('[ng-click="$ctrl.closeModal()"]')).last().click()
+    this.cancelCreateVoucher = function(){
+        element(by.id('cancel')).click()
     }
 
-    this.getVouchers = function(){
-        element(by.css('[ui-sref="vouchers({organization_id: $root.activeOrganization.id})"]')).click()
+    this.cancelCreateProductVoucher = function(){
+        element(by.id('cancel')).click()
+    }
+
+    this.closeUploadCSV = function(){
+        element(by.id('close')).click()
+    }
+
+    this.closeAddEmployee = function(){
+        element(by.id('close')).click()
+    }
+
+    this.getVouchersPage = function(){
+        element(by.id('vouchers')).click()
     }
 
     this.createVoucher = function(){
-        element(by.css('[ng-click="$ctrl.createVoucher()"]')).click()
+        element(by.id('create_voucher')).click()
     }
 
     this.uploadCSV = function(){
-        element(by.css('[ng-click="$ctrl.uploadVouchersCsv()"]')).click()
+        element(by.id('voucher_upload_csv')).click()
     }
 
     this.createProductVoucher = function(){
-        element(by.css('[ng-click="$ctrl.createProductVoucher()"]')).click()
+        element(by.id('create_product_voucher')).click()
     }
 
     this.uploadProductCSV = function(){
-        element(by.css('[ng-click="$ctrl.uploadProductVouchersCsv()"]')).click()
+        element(by.id('product_voucher_upload_csv')).click()
     }
 
-    this.getProductVouchers = function(){
-        element(by.css('[ui-sref="product-vouchers({organization_id: $root.activeOrganization.id})"]')).click()
+    this.getProductVouchersPage = function(){
+        element(by.id('product_vouchers')).click()
     }
 
-    this.getFinances = function(){
-        element(by.css('[ui-sref="financial-dashboard({organization_id: $root.activeOrganization.id})"]')).click()
+    this.getFinancialDashboard = function(){
+        element(by.id('financial_dashboard')).click()
     }
     
-    this.getProviders = function(){
-        element(by.css('[ui-sref="organization-providers({organization_id: $root.activeOrganization.id, fund_id: null})"]')).click()
+    this.getProviderPage = function(){
+        element(by.id('providers')).click()
     }
-    this.getRequesters = function(){
-        element(by.css('[ui-sref="csv-validation"]')).click()
+    this.getRequesterPage = function(){
+        element(by.id('requesters')).click()
     }
 
     this.generateActivationCode = function(){
-        element(by.css('[ng-click="addSinglePrevalidation()"]')).click()
-    }   
+        element(by.id('add_single_prevalidation')).click()
+    }
+
+    this.closeGenerateActivationCode = function(){
+        element(by.id('close')).click()
+    }
+       
 }
 module.exports = new dashboardPage();

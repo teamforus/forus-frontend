@@ -9,20 +9,19 @@ describe('testing provider dashboard:', function(){
 
     beforeEach(function(){
         provider.get()
+        dashboard.chooseOrganisation()
     })
    
     it('opens and closes add-office modal', function(){
         dashboard.getOffices()
         dashboard.addOffice()
-        dashboard.cancel()
-    });
+        dashboard.cancelAddOffice()
+    }); 
 
-    it('opens and closes the edit-organisation modal by both buttons', function(){
+    it('opens and closes the edit-organisation modal', function(){
         dashboard.getOffices()
-        dashboard.editOrganisation(0)
-        dashboard.cancel()
-        dashboard.editOrganisation(1)
-        dashboard.cancel()
+        dashboard.editOffice()
+        dashboard.cancelEditOffice()
     })
 
     it('checks transactions modal', function(){
@@ -36,7 +35,7 @@ describe('testing provider dashboard:', function(){
     it('opens and closes add-products modal', function(){
         dashboard.getProducts()
         dashboard.addProduct()
-        dashboard.cancel()
+        dashboard.cancelAddProduct()
     });
 
     it('opens and closes add employee modal', function(){

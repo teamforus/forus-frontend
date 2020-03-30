@@ -5,37 +5,41 @@ var dashboardProviderPage = function(){
             browser.refresh();
         })
     }
+    this.chooseOrganisation = function(){
+        element.all(by.css('[ng-click="$ctrl.chooseOrganization(organization)"]')).first().click()
+    }
 
     this.getOffices = function(){
-        element(by.css('[ui-sref="offices({organization_id: $root.activeOrganization.id})"]')).click()
+        element(by.id("offices")).click()
     }
 
     this.addOffice = function(){
-        element(by.css('[ui-sref="offices-create({organization_id: $ctrl.organization.id})"]')).click()       
+        element(by.id("create_office")).click()
+
     }
 
-    this.editOrganisation = function(buttonNum){
-        element.all(by.css('[ui-sref="organizations-edit($ctrl.organization)"]')).get(buttonNum).click()
+    this.editOffice = function(){
+        element(by.id("edit_office")).click()
     }
 
     this.getTransactions = function(){
-        element(by.css('[ui-sref="transactions({organization_id: $root.activeOrganization.id})"]')).click()
+        element(by.id("transactions")).click()
     }
 
     this.getProducts = function(){
-        element(by.css('[ui-sref="products({organization_id: $root.activeOrganization.id})"]')).click()
+        element(by.id("products")).click()
     }
 
     this.getEmployees = function(){
-        element(by.css('[ui-sref="employees({organization_id: $root.activeOrganization.id})"]')).click()
+        element(by.id("employees")).click()
     }
 
     this.getProviderFunds = function(){
-        element(by.css('[ui-sref="provider-funds({organization_id: $root.activeOrganization.id})"]')).click()
+        element(by.id("funds")).click()
     }
 
     this.addEmployee = function(){
-        element(by.css('[ng-click="$ctrl.createEmployee()"]')).click()
+        element(by.id("add_employee")).click()
     }
 
     this.addProduct = function(){
@@ -43,11 +47,19 @@ var dashboardProviderPage = function(){
     }
 
     this.close = function(){
-        element.all(by.css('[ng-click="$ctrl.close()"]')).last().click()
+        element(by.id("close")).click()
     }
 
-    this.cancel = function(){
-        element(by.css('[ng-click="$ctrl.cancel()"]')).click()
+    this.cancelEditOffice = function(){
+        element(by.id("cancel")).click()
+    }
+
+    this.cancelAddOffice = function(){
+        element(by.id("cancel")).click()
+    }
+
+    this.cancelAddProduct = function(){
+        element(by.id("cancel")).click()
     }
 }
 module.exports = new dashboardProviderPage();

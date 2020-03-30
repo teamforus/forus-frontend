@@ -23,6 +23,6 @@
                     paginator(meta="$ctrl.employees.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="onPageChange(query)")
             
             .card-section.text-center
-                button(ng-click="$ctrl.createEmployee()").button.button-default
+                button(ng-click="$ctrl.createEmployee()" id="add_employee").button.button-default
                     em.mdi.mdi-plus-circle.icon-start 
                     span(translate="organization_employees.buttons.add")
