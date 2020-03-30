@@ -1,0 +1,41 @@
+$pad: 10px;
+$columns: 12;
+$media_md: 1600px;
+$media_sm: 1300px;
+$media_xs: 1000px;
+
+.row {
+    margin-left: -$pad;
+    margin-right: -$pad;
+    display: block;
+    @include cf();
+}
+
+@mixin make-col($i, $columns) {
+    width: (100% / $columns) * $i;
+    float: left;
+    padding-left: $pad;
+    padding-right: $pad;
+}
+
+@mixin col($media) {
+    @for $i from 1 through $columns {
+        .col-#{$media}-#{$i} {
+            @include make-col($i, $columns);
+        }
+    }
+}
+
+@include col('lg');
+
+@media screen and (max-width: $media_md) {
+    @include col('md');
+}
+
+@media screen and (max-width: $media_sm) {
+    @include col('sm');
+}
+
+@media screen and (max-width: $media_xs) {
+    @include col('xs');
+}
