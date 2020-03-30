@@ -7,7 +7,7 @@
             strong {{ $ctrl.voucher.expire_at_locale }}
 
         .printable-logo
-            img(ng-src="./assets/img/implementation-logo.png")    
+            img(ng-src="./assets/img/implementation-logo-{{$ctrl.fund.implementation.key}}.png")    
     
         qr-code(qr-value="$ctrl.qrCodeValue" qr-type="voucher")
         .printable-title {{ $ctrl.printableTitle }}
@@ -18,7 +18,7 @@
     .printable-additional-info
         .printable-condition(
             ng-if="$ctrl.voucherType != 'product'" 
-            translate="voucher_printable.budget_voucher.labels.{{ $root.appConfigs.client_key }}.condition" 
+            translate="{{ 'voucher_printable.budget_voucher.labels.' + $ctrl.fund.implementation.key + '.condition' }}" 
             translate-default="{{ 'voucher_printable.budget_voucher.labels.condition' | translate }}")
         .notice(i18n="voucher_printable.default.labels.purchases_notice")
         
