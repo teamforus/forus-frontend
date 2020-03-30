@@ -11,8 +11,8 @@ exports.config = {
 
     suites: {
         requester : ['testcases/requester/*-spec.js'],
-        sponsor : ['testcases/sponsor/*-spec.js'],
-        provider : ['testcases/provider/*-spec.js'],
+        sponsor : ['testcases/sponsor/d*-spec.js'],
+        provider : ['testcases/provider/d*-spec.js'],
     },
 
     beforeLaunch: function(){

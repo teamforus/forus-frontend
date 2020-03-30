@@ -1,10 +1,11 @@
 var sponsor = require('../pages/sponsorPage');
-var dashboard = require('../pages/dashboardPage');
+var dashboard = require('../pages/dashboardSponsorPage');
 
 describe('testing sponsor dashboard', function(){
     beforeAll(function(){
         sponsor.get()
         sponsor.setActiveAccount()
+        dashboard.setActiveOrganization()
     })   
 
     beforeEach(function(){
@@ -61,7 +62,7 @@ describe('testing sponsor dashboard', function(){
     it('checks providers modal', function(){
         dashboard.getProviders()
     })
-    
+
     it('opens and closes add activation code', function(){
         dashboard.getRequesters()
         dashboard.generateActivationCode()

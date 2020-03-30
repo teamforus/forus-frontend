@@ -1,10 +1,10 @@
 var provider = require('../pages/providerPage');
-var dashboard = require('../pages/dashboardPage');
+var dashboard = require('../pages/dashboardProviderPage');
 
 describe('testing provider dashboard:', function(){
     beforeAll(function(){
         provider.get()
-        provider.setActiveAccount();
+        provider.setActiveAccount()
     });
 
     beforeEach(function(){
