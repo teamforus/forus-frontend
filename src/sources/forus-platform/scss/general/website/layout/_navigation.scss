@@ -14,10 +14,9 @@ html {
             }
         }
         .navbar {
-            padding: 10px 0;
             border: 0;
             margin: 0 auto;
-            margin-top: 4px;
+            min-height: auto;
             max-width: 1200px;
             background-color: #ffffff;
             .navbar-header {
@@ -43,9 +42,11 @@ html {
             .container-fluid {
                 @media screen and (min-width: 768px) {
                     align-items: center;
+                    background: antiquewhite;
                 }
                 .navbar-header{
                     .navbar-brand {
+                        line-height: 0;
                         svg{
                             height: 25px!important;
                             path{
@@ -136,16 +137,12 @@ html {
                             }
                         }
                         & > li {
-                            .login_btn {
-                                padding: 14px 24px;
-                                font-size: 15px;
-                            }
-                            & > a {
+                            & a {
                                 //padding: 18px 33px!important;
-                                padding: 1.25vw 2.15vw;
+                                padding: 16px 24px;
                                 font-weight: 600;
                                 display: flex;
-                                line-height: 24px;
+                                line-height: auto;
                                 color: #191a1c;
                                 -webkit-transform: rotate(0);
                                 -ms-transform: rotate(0);
@@ -182,6 +179,10 @@ html {
                                         }
                                     }
                                 }
+                            }
+                            .login_btn {
+                                padding: 15px 24px;
+                                font-size: 15px;
                             }
                             span.dropdown {
                                 position:absolute;
