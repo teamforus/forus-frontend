@@ -103,7 +103,6 @@ let FundsEditComponent = function(
             auto_requests_validation: false,
             formula_products: [],
             criteria: [],
-            product_categories: [],
             state: $ctrl.fundStates[0].value
         };
 
