@@ -692,7 +692,7 @@ module.exports = (core) => {
         platform.setEnvData({
             api_url: apiUrl,
             client_key: 'general',
-            panel_type: 'pin_code-auth',
+            client_type: 'pin_code-auth',
         });
 
         platform.editTask('js', (task) => {
