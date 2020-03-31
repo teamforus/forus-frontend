@@ -35,7 +35,13 @@
         }
     }
     &__1a {
-        padding: 100px 100px;
+        padding: 50px 50px;
+        @media screen and (min-width:768px) {
+            padding: 100px 100px;
+        }
+        @media screen and (min-width:992px) {
+            padding: 130px 100px;
+        }
     }
     &__2 {
         .holder {
