@@ -303,6 +303,9 @@ module.exports = {
             transactions: "transacties",
             service_costs: "Servicekosten",
             transaction_costs: "Transactiekosten",
+            no_statistics: "Er zijn geen financiele statistieken om weer te geven.",
+            no_funds_available: "Helaas, geen fondsen beschikbaar",
+            select_fond: "Selecteer een fonds",
         },
         buttons: {
             choose: "Kies een andere regeling",
