@@ -65,8 +65,7 @@ aside.app.app-sidebar
         +nav_item(
             "Aanvragers", "file_csv", 'csv-validation', false,
             '$root.activeOrganization | hasPerm:["validate_records"]',
-            'requesters'
-            '$root.activeOrganization | hasPerm:["validate_records"]')
+            'requesters')
         
         .sidebar-nav-devider(ng-if="$root.activeOrganization")
 
