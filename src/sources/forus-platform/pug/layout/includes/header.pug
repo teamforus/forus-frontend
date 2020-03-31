@@ -6,7 +6,7 @@ header.app.app-header
         .header-auth(ng-if="$root.auth_user")
             .auth-user(ng-click="$ctrl.openUserMenu($event)")
                 .auth-user-details
-                    .auth-user-name {{ $root.auth_user.primary_email }}
+                    .auth-user-name {{ $root.auth_user.email }}
                     .auth-user-role
                         span(ng-bind="$root.activeOrganization.name")
                         span.auth-user-role-separator(ng-if="$root.activeOrganization.name") •
@@ -23,21 +23,24 @@ header.app.app-header
                         | My profile
 
                     a(ui-sref="organizations-edit($root.activeOrganization)" ng-if="$root.activeOrganization | hasPerm:'manage_organization'").auth-user-menu-item
-                        em.mdi.mdi-settings
+                        em.mdi.mdi-cog
                         | Organisatie
 
                     a(ui-sref="organizations-create").auth-user-menu-item
                         em.mdi.mdi-plus
                         translate(translate="organizations.buttons.add")
 
-                    a(ui-sref="preferences-notifications").auth-user-menu-item
-                        em.mdi.mdi-settings-outline
-                        translate(translate="organizations.buttons.notifications_preferences")
+                    a(ui-sref="identity-emails" ng-if="!$root.activeOrganization").auth-user-menu-item
+                        em.mdi.mdi-at
+                        | Email instellingen
                     
-                    a(ng-if="appConfigs.sessions" ui-sref="security-sessions").auth-user-menu-item
+                    a(ui-sref="security-sessions" ng-if="appConfigs.sessions && !$root.activeOrganization" ).auth-user-menu-item
                         em.mdi.mdi-shield-account
-                        //- translate(translate="topnavbar.buttons.sessions")
-                        | Security
+                        | Sessies
+
+                    a(ui-sref="preferences-notifications" ng-if="!$root.activeOrganization").auth-user-menu-item
+                        em.mdi.mdi-cog-outline
+                        | Notificaties
 
                     .auth-user-menu-item(ng-click="$root.openPinCodePopup()")
                         em.mdi.mdi-cellphone

@@ -53,7 +53,7 @@
                                 label.form-label(translate="E-MAILadres")
                                 ui-control-text(
                                     data-id="employee"
-                                    ng-model="$ctrl.signUpForm.values.records.primary_email"
+                                    ng-model="$ctrl.signUpForm.values.email"
                                     data-placeholder="ex. info@info.io").large
                                 .form-error(ng-repeat="error in ($ctrl.signUpForm.errors.email || $ctrl.signUpForm.errors['records.primary_email'])" ng-bind="error")
                         .col.col-md-5
@@ -62,12 +62,12 @@
                             button.button.button-primary.button-fill(
                                 type="submit" 
                                 translate="sign_up_sponsor.app_instruction.create_profile"
-                                ng-class="{'button-disabled':!$ctrl.signUpForm.values.records.primary_email}")
+                                ng-class="{'button-disabled':!$ctrl.signUpForm.values.email}")
 
                     br
                     .sign_up-pane-text: small(ng-click="$ctrl.setHasAppProp(true)" translate="sign_up_sponsor.no_app.to_app").text-muted
 
-                .sign_up-pane-body.sign_up-pane-body-padless-bottom(
+                .sign_up-pane-body(
                     ng-if="!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent && $ctrl.hasApp")
                     .sign_up-pane-heading(translate='sign_up_sponsor.app.title')
 
@@ -97,12 +97,7 @@
                     
                     .sign_up-pane-text
                         | {{ "sign_up_sponsor.labels.confirm_email_description" | translate }} 
-                        span.sign_up-pane-link.text-underline(ng-bind="$ctrl.signUpForm.values.records.primary_email")
-
-                .sign_up-pane-footer(ng-if="!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent" em.mdi.mdi-chevron-right.icon-right): .row
-                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.back()")
-                        em.mdi.mdi-chevron-left.icon-left
-                        | {{ 'sign_up_validator.buttons.back' | translate }}
+                        span.sign_up-pane-link.text-underline(ng-bind="$ctrl.signUpForm.values.email")
 
         //- Select organization step
         div(ng-if="$ctrl.step == $ctrl.STEP_SELECT_ORGANIZATION")

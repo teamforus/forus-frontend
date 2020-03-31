@@ -82,4 +82,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('createPrevalidation', {
         component: 'modalCreatePrevalidationComponent'
     });
+    
+    ModalRouteProvider.modal('voucherExportType', {
+        component: 'modalVoucherExportTypeComponent'
+    });
 }];

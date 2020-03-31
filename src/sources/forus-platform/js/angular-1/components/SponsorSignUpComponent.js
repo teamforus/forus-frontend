@@ -96,9 +96,7 @@ let SponsorSignUpComponent = function(
         let authTarget = 'newSignup';
 
         return FormBuilderService.build({
-            records: {
-                primary_email: ''
-            },
+            email: '',
             target: authTarget,
         }, function(form) {
             let resolveErrors = (res) => {
@@ -106,20 +104,17 @@ let SponsorSignUpComponent = function(
                 form.errors = res.data.errors;
             };
 
-            return IdentityService.validateEmail({
-                email: form.values.records.primary_email,
-            }).then(res => {
-                if (res.data.email.unique) {
+            return IdentityService.validateEmail(form.values).then(res => {
+                if (!res.data.email.used) {
                     IdentityService.make(form.values).then(res => {
                         $ctrl.authEmailSent = true;
-                        $ctrl.confirmationEmail = form.values.records.primary_email;
+                        $ctrl.confirmationEmail = form.values.email;
                     }, resolveErrors);
                 } else {
                     IdentityService.makeAuthEmailToken(
-                        appConfigs.client_key + '_' + appConfigs.panel_type,
-                        form.values.records.primary_email,
+                        form.values.email,
                         authTarget
-                    ).then(res => {
+                    ).then(() => {
                         $ctrl.authEmailRestoreSent = true;
                     }, resolveErrors(res));
                 }

@@ -29,7 +29,7 @@ let PdfPreviewDirective = function($scope, $element) {
                     });
 
                     let canvas = document.createElement('canvas');
-                
+
                     $element.append(canvas);
 
                     // Prepare canvas using PDF page dimensions
@@ -43,7 +43,7 @@ let PdfPreviewDirective = function($scope, $element) {
                         viewport: viewport
                     };
                     var renderTask = page.render(renderContext);
-                    
+
                     renderTask.promise.then(function() {
                         if (++currPage < numPages) {
                             fetchPage(currPage)

@@ -151,9 +151,7 @@ let ProviderSignUpComponent = function(
         let authTarget = 'newSignup';
 
         return FormBuilderService.build({
-            records: {
-                primary_email: ''
-            },
+            email: '',
             target: authTarget,
         }, function(form) {
             let resolveErrors = (res) => {
@@ -161,20 +159,17 @@ let ProviderSignUpComponent = function(
                 form.errors = res.data.errors;
             };
 
-            return IdentityService.validateEmail({
-                email: form.values.records.primary_email,
-            }).then(res => {
-                if (res.data.email.unique) {
+            return IdentityService.validateEmail(form.values).then(res => {
+                if (!res.data.email.used) {
                     IdentityService.make(form.values).then(res => {
                         $ctrl.authEmailSent = true;
-                        $ctrl.confirmationEmail = form.values.records.primary_email;
+                        $ctrl.confirmationEmail = form.values.email;
                     }, resolveErrors);
                 } else {
                     IdentityService.makeAuthEmailToken(
-                        appConfigs.client_key + '_' + appConfigs.panel_type,
-                        form.values.records.primary_email,
+                        form.values.email,
                         authTarget
-                    ).then(res => {
+                    ).then(() => {
                         $ctrl.authEmailRestoreSent = true;
                     }, resolveErrors(res));
                 }
@@ -561,18 +556,26 @@ let ProviderSignUpComponent = function(
             return;
         }
 
-        $scope.phoneForm.submit().then((res) => {
-            $ctrl.sentSms = true;
-        }, (res) => {
-            $scope.phoneForm.unlock();
-            $scope.phoneForm.errors = res.data.errors;
+        let promise = $scope.phoneForm.submit();
+        
+        if (promise) {
+            waitingSms = true;
 
-            if (res.status == 429) {
-                $scope.phoneForm.errors = {
-                    phone: [$filter('translate')('sign_up.sms.error.try_later')]
-                };
-            }
-        });
+            promise.then((res) => {
+                $ctrl.sentSms = true;
+                waitingSms = false;
+            }, (res) => {
+                waitingSms = false;
+                $scope.phoneForm.unlock();
+                $scope.phoneForm.errors = res.data.errors;
+    
+                if (res.status == 429) {
+                    $scope.phoneForm.errors = {
+                        phone: [$filter('translate')('sign_up.sms.error.try_later')]
+                    };
+                }
+            });
+        }
     };
 
     $ctrl.next = function() {

@@ -54,21 +54,21 @@
 
             a(ng-if="$root.appConfigs.features.records.list" ui-sref="vouchers").button.button-default.button-two-spans.button-profile
                 .icon-me
-                span(ng-bind="$root.auth_user.primary_email").first-line-button
+                span(ng-bind="$root.auth_user.email").first-line-button
                 //-span(translate="topnavbar.buttons.profile").second-line-button
     
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
             .auth-user(ng-click="$ctrl.openUserMenu($event)")
                 .auth-user-details  
-                    .auth-user-email(ng-bind="$root.auth_user.primary_email" ng-if="!$root.appConfigs.features.records.list") 
+                    .auth-user-email(ng-bind="$root.auth_user.email" ng-if="!$root.appConfigs.features.records.list") 
                     //- .auth-user-type(translate="topnavbar.items.identity" ng-if="!$root.appConfigs.features.records.list")
                     .auth-user-logout(ng-if="!$root.appConfigs.features.records.list" ng-click="$root.signOut($event, true)" )
                         em.mdi.mdi-logout
                         span(translate="topnavbar.buttons.logout")
 
                 .auth-user-avatar
-                    .em.mdi.mdi-settings(ng-if="$root.appConfigs.features.records.list") 
+                    .em.mdi.mdi-cog(ng-if="$root.appConfigs.features.records.list") 
                     img(src="./assets/img/identity-avatar.svg" ng-if="!$root.appConfigs.features.records.list")
                 
                 .auth-user-caret
@@ -94,7 +94,7 @@
                             | Security
                             
                         .auth-user-menu-item(ui-sref="preferences-notifications")
-                            em.mdi.mdi-settings-outline
+                            em.mdi.mdi-cog-outline
                             translate(translate="notification_preferences.title_preferences")
 
                         .auth-user-menu-separator.show-sm

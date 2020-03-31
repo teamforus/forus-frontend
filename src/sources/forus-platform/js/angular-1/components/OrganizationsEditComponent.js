@@ -49,7 +49,7 @@ let OrganizationsEditComponent = function(
             }
 
             if (mediaFile) {
-                let res = await MediaService.store('organization_logo', mediaFile);
+                let res = await MediaService.store('organization_logo', mediaFile, []);
 
                 $ctrl.media = res.data.data;
                 values.media_uid = $ctrl.media.uid;

@@ -119,9 +119,7 @@ let FundRequestComponentDefault = function(
         let target = 'fundRequest-' + $ctrl.fund.id;
 
         $ctrl.authForm = FormBuilderService.build({
-            records: {
-                primary_email: ''
-            },
+            email: '',
             target: target,
         }, function(form) {
             let resolveErrors = (res) => {
@@ -129,24 +127,16 @@ let FundRequestComponentDefault = function(
                 form.errors = res.data.errors;
             };
 
-            IdentityService.validateEmail({
-                email: form.values.records.primary_email,
-            }).then(res => {
-                if (res.data.email.unique) {
-                    IdentityService.make(form.values).then(() => {
-                        $ctrl.stopCheckAccessTokenStatus();
-                        $ctrl.authEmailSent = true;
-                        $ctrl.state = $ctrl.step2state(3);
+            IdentityService.validateEmail(form.values).then(res => {
+                if (res.data.email.used) {
+                    IdentityService.makeAuthEmailToken(form.values.email, target).then(() => {
+                        $ctrl.authEmailRestoreSent = true;
+                        $ctrl.nextStep();
                     }, resolveErrors);
                 } else {
-                    IdentityService.makeAuthEmailToken(
-                        appConfigs.client_key + '_webshop',
-                        form.values.records.primary_email,
-                        target
-                    ).then(() => {
-                        $ctrl.stopCheckAccessTokenStatus();
-                        $ctrl.authEmailRestoreSent = true;
-                        $ctrl.state = $ctrl.step2state(3);
+                    IdentityService.make(form.values).then(() => {
+                        $ctrl.authEmailSent = true;
+                        $ctrl.nextStep();
                     }, resolveErrors);
                 }
 

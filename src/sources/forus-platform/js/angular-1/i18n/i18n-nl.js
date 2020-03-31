@@ -1,7 +1,7 @@
 module.exports = {
     test: "{{name}} {{foo}}",
     permissions: require("./en/permissions"),
-    page_title: 'Forus platform',
+    page_title: 'Webshop',
     page_state_titles: {
         home: 'Forus platform home',
         organizations: 'Organisaties',
@@ -42,6 +42,7 @@ module.exports = {
         modal_voucher_qr_code: require('./nl/modals/modal-voucher-qr_code.pug.i18n'),
         modal_funds_offers: require('./nl/modals/modal-fund-offers.pug.i18n'),
         modal_business_add: require('./nl/modals/modal-business-add.pug.i18n'),
+        modal_voucher_export: require('./nl/modals/modal-voucher-export.pug.i18n'),
     },
     // PAGES
     vouchers: require('./nl/pages/vouchers.pug.i18n'),
@@ -1438,6 +1439,12 @@ module.exports = {
             addcode: "voeg code  ",
             description: "  toe aan de beschrijving",
             copy: "Kopieer naar klembord"
+        }
+    },
+
+    modal_pdf_preview: {
+        header: {
+            title: "PDF-voorbeeld"
         }
     },
 

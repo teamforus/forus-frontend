@@ -28,7 +28,7 @@
             .sign_up-pane
                 .sign_up-pane-header(translate="sign_up_validator.header.title_step_1")
 
-                .sign_up-pane-body
+                .sign_up-pane-body.sign_up-pane-body-padless-bottom
                     .sign_up-pane-text(translate="sign_up_validator.header.subtitle_step_1")
                     .sign_up-pane-media: img(ng-src="./assets/img/sign_up_first_step.png") 
 
@@ -74,7 +74,7 @@
                             .form-group
                                 label.form-label(translate="E-MAILadres")
                                 ui-control-text(
-                                    ng-model="$ctrl.signUpForm.values.records.primary_email"
+                                    ng-model="$ctrl.signUpForm.values.email"
                                     data-placeholder="ex. info@info.io").large
                                 .form-error(ng-repeat="error in ($ctrl.signUpForm.errors.email || $ctrl.signUpForm.errors['records.primary_email'])" ng-bind="error")
                         .col.col-md-5
@@ -83,7 +83,7 @@
                             button.button.button-primary.button-fill(
                                 type="submit"
                                 translate="sign_up_validator.app_instruction.create_profile"
-                                ng-class="{'button-disabled':!$ctrl.signUpForm.values.records.primary_email}")
+                                ng-class="{'button-disabled':!$ctrl.signUpForm.values.email}")
                     
                     br
                     .sign_up-pane-text: small(ng-click="$ctrl.setHasAppProp(true)" translate="sign_up_sponsor.no_app.to_app").text-muted
@@ -117,7 +117,7 @@
                     .sign_up-pane-heading.sign_up-pane-heading-lg.text-primary-mid(translate="sign_up_sponsor.labels.confirm_email") 
                     .sign_up-pane-text
                         | {{ "sign_up_sponsor.labels.confirm_email_description" | translate }} 
-                        span.sign_up-pane-link.text-underline(ng-bind="$ctrl.signUpForm.values.records.primary_email")
+                        span.sign_up-pane-link.text-underline(ng-bind="$ctrl.signUpForm.values.email")
                 
                 .sign_up-pane-footer(ng-if="!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent" em.mdi.mdi-chevron-right.icon-right): .row
                     .col.col-lg-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.back()")

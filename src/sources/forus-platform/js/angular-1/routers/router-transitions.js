@@ -22,7 +22,7 @@ module.exports = ['$transitions', '$rootScope', 'OrganizationService', 'PageLoad
                 'validation-request', 'sign-up', 'sign-up-v2',
                 'restore-email', 'email-unsubscribe',
                 'preferences-notifications', 'security-sessions', 
-                'provider-invitation-link', 'auth-link',
+                'provider-invitation-link', 'auth-link', 'identity-emails',
             ].indexOf(transition.to().name) == -1) {
             if (!OrganizationService.active()) {
                 transition.router.stateService.transitionTo('organizations');

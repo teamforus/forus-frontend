@@ -31,7 +31,7 @@
                         em.mdi.mdi-plus-circle.icon-start 
                         span(i18n="vouchers.buttons.add_new")
                     .button.button-primary(
-                        ng-if="!$ctrl.fundClosed"
+                        ng-if="!$root.appConfigs.hide_vouchers_csv && !$ctrl.fundClosed"
                         ng-click="$ctrl.uploadVouchersCsv()")
                         em.mdi.mdi-upload.icon-start 
                         span(i18n="vouchers.buttons.upload_csv")

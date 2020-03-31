@@ -45,6 +45,7 @@ app.component('noPermissionComponent', require('./components/NoPermissionCompone
 app.component('emailPreferencesComponent', require('./components/EmailPreferencesComponent'));
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
 app.component('fundProviderInviteComponent', require('./components/FundProviderInviteComponent'));
+app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -67,6 +68,7 @@ app.component('modalEmployeeAddConfirmationComponent', require('./components/Mod
 app.component('modalFundOffersComponent', require('./components/Modals/ModalFundOffersComponent'));
 app.component('modalBusinessSelectComponent', require('./components/Modals/ModalBusinessSelectComponent'));
 app.component('modalCreatePrevalidationComponent', require('./components/Modals/ModalCreatePrevalidationComponent'));
+app.component('modalVoucherExportTypeComponent', require('./components/Modals/ModalVoucherExportTypeComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -114,6 +116,7 @@ app.service('SessionService', require('./services/SessionService'));
 app.service('DemoTransactionService', require('./services/DemoTransactionService'));
 app.service('GoogleMapService', require('./services/GoogleMapService'));
 app.service('SignUpService', require('./services/SignUpService'));
+app.service('IdentityEmailsService', require('./services/IdentityEmailsService'));
 
 // Directives
 switch (env_data.panel_type) {
