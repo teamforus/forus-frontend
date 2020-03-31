@@ -6,12 +6,10 @@ var glob = require('glob');
 var path = require('path');
 var compress = require('compression');
 var historyApiFallback = require('connect-history-api-fallback')
-<<<<<<< HEAD
 var protractor = require('gulp-protractor').protractor;
-=======
 var child_process = require('child_process');
 let sprintf = require('sprintf-js').sprintf;
->>>>>>> develop
+
 
 
 // console colors
