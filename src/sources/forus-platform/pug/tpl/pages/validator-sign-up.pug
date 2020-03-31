@@ -65,7 +65,7 @@
             .sign_up-pane
                 .sign_up-pane-header(translate="sign_up_validator.header.title_step_3") 
 
-                .sign_up-pane-body.sign_up-pane-body-padless-bottom(
+                .sign_up-pane-body(
                     ng-if="!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent && !$ctrl.hasApp")
                     .sign_up-pane-description(translate="sign_up_validator.header.subtitle_step_3")
 
@@ -88,7 +88,7 @@
                     br
                     .sign_up-pane-text: small(ng-click="$ctrl.setHasAppProp(true)" translate="sign_up_sponsor.no_app.to_app").text-muted
 
-                .sign_up-pane-body.sign_up-pane-body-padless-bottom(
+                .sign_up-pane-body(
                     ng-if="!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent && $ctrl.hasApp")
                     .sign_up-pane-heading(translate='sign_up_validator.app.title')
 
@@ -118,11 +118,6 @@
                     .sign_up-pane-text
                         | {{ "sign_up_sponsor.labels.confirm_email_description" | translate }} 
                         span.sign_up-pane-link.text-underline(ng-bind="$ctrl.signUpForm.values.email")
-                
-                .sign_up-pane-footer(ng-if="!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent" em.mdi.mdi-chevron-right.icon-right): .row
-                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.back()")
-                        em.mdi.mdi-chevron-left.icon-left
-                        | {{ 'sign_up_validator.buttons.back' | translate }}
 
         //- Select organization step
         div(ng-if="$ctrl.step == $ctrl.STEP_SELECT_ORGANIZATION")

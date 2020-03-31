@@ -45,7 +45,7 @@
             .sign_up-pane
                 .sign_up-pane-header(translate="sign_up_sponsor.header.title_step_2") 
 
-                .sign_up-pane-body.sign_up-pane-body-padless-bottom(
+                .sign_up-pane-body(
                     ng-if="!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent && !$ctrl.hasApp")
                     form(ng-submit="$ctrl.signUpForm.submit()").form: .row
                         .col.col-md-7
