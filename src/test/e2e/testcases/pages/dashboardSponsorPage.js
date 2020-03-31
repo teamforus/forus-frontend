@@ -7,6 +7,7 @@ var dashboardPage = function(){
         })
     }
 
+    //temporary solution until seeder works
     this.chooseOrganisation = function(){
         element.all(by.css('[ng-click="$ctrl.chooseOrganization(organization)"]')).first().click()
     }

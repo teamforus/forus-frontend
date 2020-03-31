@@ -19,19 +19,19 @@ var sponsorPage = function(){
     }
 
     this.openLogin = function(){
-        element(by.css('[ng-click="openAuthPopup()"]')).click();
+        element(by.id("login")).click();
     }
 
     this.openStart = function(){
         element(by.css('[ng-click="$ctrl.openAuthCodePopup()"]')).click();
     }
 
-    this.closeModal = function(){
-        element(by.className('modal-close mdi mdi-close')).click();
+    this.closeLoginModal = function(){
+        element(by.id("close")).click();
     }
 
     this.getFaqBlock = function(){
-        return element(by.className('section section-faq'))
+        return element(by.id("faq"))
     }
 }
 module.exports = new sponsorPage();

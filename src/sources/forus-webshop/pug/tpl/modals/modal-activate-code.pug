@@ -1,7 +1,7 @@
 .modal.modal-auth
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-content: .modal-section
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close")
 
         .modal-title(translate="popup_auth.labels.activate_code" )
         //- .modal-title(translate="popup_auth.labels.isactivated" ng-if="$ctrl.vouchers.length > 0")

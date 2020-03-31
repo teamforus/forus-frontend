@@ -6,7 +6,7 @@ describe('testing basic requester functionality:', function(){
         requester.get()
         requester.clearLocalStorage()
     })
-    
+     
     beforeEach(function(){
         requester.get()
     })
@@ -22,13 +22,13 @@ describe('testing basic requester functionality:', function(){
         browser.waitForAngular()
         requester.openLogin()
         browser.ignoreSynchronization = true;
-        requester.closeModal()
+        requester.closeLoginModal()
         browser.ignoreSynchronization = false;
     });
 
     it('opens and closes start activation modal', function(){
         requester.openStart()
-        requester.closeModal()
+        requester.closeStartModal()
     });
 
     it('navigates to products page', function(){

@@ -52,7 +52,7 @@
                     .card-subtitle(translate="sign_up.sms.sent_description")
                     
                 .card-section.card-section-primary
-                    .card-block.card-block-download-app
+                    .card-block.card-block-download-app(id="has_app")
                         //- .download-links
                             a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").download-link
                                 .download-link-icon(style="background-image: url('./assets/img/sign-up/app-store.png');")
@@ -74,7 +74,7 @@
                                 div(translate="sign_up.download.already_have_app")
 
             .step-footer(ng-if="$ctrl.has_app")
-                a(translate="sign_up.buttons.go_step_2" ng-click="$ctrl.skipToStep(2)").button.button-primary
+                a(translate="sign_up.buttons.go_step_2" ng-click="$ctrl.skipToStep(2)" id="go_step_2").button.button-primary
 
         //- Step 2: Personal info
         .step-item(ng-show="$ctrl.step == 2"): form(ng-submit="$ctrl.next()").form

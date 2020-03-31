@@ -13,13 +13,13 @@ describe('testing basic authenticated functionality of requester:', function(){
     it('opens and closes activation code modal', function(){
         requester.openUserMenu()
         requester.userMenuActivationCode()
-        requester.closeModal()
+        requester.closeActivationCodeModal()
     });
 
     it('opens and closes me-app login modal', function(){
         requester.openUserMenu()
         requester.userMenuLoginApp()
-        requester.closeModal()
+        requester.closePinCodeModal()
     })
 
     it('navigates to my vouchers', function(){
@@ -45,8 +45,8 @@ describe('testing basic authenticated functionality of requester:', function(){
         }
     })
 
-    it('logs out', function(){
+    it('checks if log out item is present', function(){
         requester.openUserMenu()
-        //requester.userMenuSignOut() // active_account token expires !!!
+        expect(requester.getUserMenuSignOut().isPresent()).toBe(true)
     });
 });

@@ -5,6 +5,8 @@ var dashboardProviderPage = function(){
             browser.refresh();
         })
     }
+
+    //temporary solution until seeder works
     this.chooseOrganisation = function(){
         element.all(by.css('[ng-click="$ctrl.chooseOrganization(organization)"]')).first().click()
     }
@@ -43,7 +45,7 @@ var dashboardProviderPage = function(){
     }
 
     this.addProduct = function(){
-        element(by.id('addProduct')).click()
+        element(by.id('add_product')).click()
     }
 
     this.close = function(){

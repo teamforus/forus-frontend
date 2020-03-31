@@ -43,7 +43,7 @@
                                 span(translate="topnavbar.buttons.logout")
         
         .auth-out(ng-if="!$root.auth_user")
-            .button.button-default(ng-click="openAuthPopup()")
+            .button.button-default(ng-click="openAuthPopup()" id="login")
                 em.mdi.mdi-account.icon-start
                 //- img(src="./assets/img/icon-btn/icon-btn-user.svg")
                 | Login

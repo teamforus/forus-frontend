@@ -14,7 +14,7 @@ describe('testing unauthenticated sponsor functionality', function(){
     it('opens and closes login modal', function(){
         sponsor.openLogin()
         browser.ignoreSynchronization = true;
-        sponsor.closeModal()
+        sponsor.closeLoginModal()
         browser.ignoreSynchronization = false;
     });
 

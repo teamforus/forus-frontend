@@ -5,31 +5,35 @@ var webshopPage = function(){
     }
 
     this.openLogin = function(){
-        element(by.css('[ng-click="openAuthPopup()"]')).click();
+        element(by.id("login")).click();
     }
 
     this.openStart = function(){
-        element(by.css('[ng-click="$ctrl.openAuthCodePopup()"]')).click();
+        element(by.id("start")).click();
     }
 
-    this.closeModal = function(){
-        element(by.className('modal-close mdi mdi-close')).click();
+    this.closeStartModal = function(){
+        element(by.id("close")).click();
+    }
+
+    this.closeLoginModal = function(){
+        element(by.id("close")).click();
     }
 
     this.getProductsPage = function(){
-        element(by.binding("'topnavbar.items.products' | translate")).click()
+        element(by.id("products_page")).click()
     }
 
     this.getProductsComponent = function(){
-        return element(by.css('[products="::$resolve.products"]'))
+        return element(by.id("products_list"))
     }
 
     this.getProvidersPage = function(){
-        element(by.binding("'topnavbar.items.providers' | translate")).click()
+        element(by.id("providers_page")).click()
     }
 
     this.getProvidersComponent = function(){
-        return element(by.css('[providers="::$resolve.providers"]'))
+        return element(by.id("providers_list"))
     }
 
     this.getProductsBlock = function(){
@@ -40,14 +44,14 @@ var webshopPage = function(){
         return element(by.id('steps'));
     }
     this.getMapBlock = function(){
-        return element(by.className('block block-map'))
+        return element(by.id("map_block"))
     }
     this.getFaqBlock = function(){
-        return element(by.css('[ng-if="$ctrl.appConfigs.flags.homeFaq"]'))
+        return element(by.id('faq_block'))
     }
 
     this.showOrganisations = function(){
-        element(by.css('[i18n="buttons.show_map"]')).click();
+        element(by.id('show_map')).click();
     }
 
     this.clearLocalStorage = function(){
@@ -65,43 +69,46 @@ var webshopPage = function(){
     };
 
     this.openUserMenu = function(){
-        element(by.className("auth-user-avatar")).click()
+        element(by.id("user_menu")).click()
     }
 
-    this.userMenuSignOut = function(){
-        element(by.className('auth-user-menu hide-sm ng-scope ng-isolate-scope active'))
-            .element(by.css('[ng-click="$root.signOut()"]')).click()
+    this.getUserMenuSignOut = function(){
+        return element(by.id("sign_out"))
     }
     this.userMenuLoginApp = function(){
-        element(by.className('auth-user-menu hide-sm ng-scope ng-isolate-scope active'))
-            .element(by.css('[ng-click="openPinCodePopup()"]')).click()
+        element(by.id("open_pincode_popup")).click()
     }
 
     this.userMenuActivationCode = function(){
-        element(by.className('auth-user-menu hide-sm ng-scope ng-isolate-scope active'))
-            .element(by.css('[ng-click="openActivateCodePopup()"]')).click()
+        element(by.id("open_activation_code_popup")).click()
     }
 
     this.userMenuNotificationPreferences = function(){
-        element(by.className('auth-user-menu hide-sm ng-scope ng-isolate-scope active'))
-            .element(by.css('[ui-sref="preferences-notifications"]')).click()
+        element(by.id("notification_preferences")).click()
     }
 
     this.disableMailSubscription = function(){
-        return element(by.css('[ng-click="$ctrl.disableSubscription()"]'))
+        return element(by.id("disable_subscription"))
     }
 
     this.enableMailSubscription = function(){
-        return element(by.css('[ng-click="$ctrl.enableSubscription()"]'))
+        return element(by.id("enable_subscription"))
     }
 
-
     this.getVouchersPage = function(){
-        element(by.className('auth-code')).click()
+        element(by.id("vouchers")).click()
     }
 
     this.getVouchersComponent = function(){
-        return element(by.className('budget-vouchers'))
+        return element(by.id("budget_vouchers"))
+    }
+
+    this.closeActivationCodeModal = function(){
+        element(by.id("close")).click();
+    }
+
+    this.closePinCodeModal = function(){
+        element(by.id("close")).click();
     }
 }
 module.exports = new webshopPage();

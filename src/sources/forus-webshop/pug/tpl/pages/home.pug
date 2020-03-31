@@ -33,7 +33,7 @@ header.section.section-header.section-header-landing
                        
             div(ng-if="!$ctrl.appConfigs.features.auto_validation")
                 //- uitgelogd en activatiecode invullen
-                a(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthCodePopup()" i18n="home.header.button").button.button-primary 
+                a(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthCodePopup()" i18n="home.header.button" id="start").button.button-primary 
                 
                 //- ingelogd geen vouchers activatie code invullen
                 a(ng-if="$root.auth_user && $ctrl.vouchers.length == 0" ng-click="$ctrl.openActivateCodePopup()" i18n="home.header.button").button.button-primary
@@ -59,12 +59,12 @@ header.section.section-header.section-header-landing
     .wrapper.block-products: block-products(
         ng-if="$ctrl.appConfigs.flags.homeProducts"
         sample="true")
-    section.section.section-map(ng-if="$ctrl.appConfigs.flags.homeMap"): .wrapper
+    section.section.section-map(ng-if="$ctrl.appConfigs.flags.homeMap" id="map_block"): .wrapper
         .block.block-map
             .block-content
                 .block-title(i18n="home.map.title")
                 .block-description(i18n="home.map.subtitle")
-                button(ui-sref="providers" i18n="buttons.show_map").button.button-primary.button-wide
+                button(ui-sref="providers" i18n="buttons.show_map" id="show_map").button.button-primary.button-wide
                 //- button(ng-click="$ctrl.showPopupOffices()" i18n="buttons.show_map").button.button-primary.button-wide
 
     section.section.section-steps#steps(ng-if="$ctrl.appConfigs.flags.homeSteps"): .wrapper
@@ -88,7 +88,7 @@ header.section.section-header.section-header-landing
                 h4(i18n="home.guide.stepfive")
                 p(translate="home.guide.{{ $root.client_key }}.five" translate-default="{{'home.guide.five' | translate }}")
 
-    section.section.section-faq(ng-if="$ctrl.appConfigs.flags.homeFaq"): .wrapper
+    section.section.section-faq(ng-if="$ctrl.appConfigs.flags.homeFaq" id = "faq_block"): .wrapper
         .section-splash
         .section-title(i18n="home.faq.title")
         .faq(collapse)

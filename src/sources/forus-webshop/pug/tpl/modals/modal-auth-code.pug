@@ -1,7 +1,7 @@
 .modal.modal-auth
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-content: .modal-section
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close")
 
         .modal-title {{ "popup_auth.labels.activate" | translate }}
         .modal-subtitle(translate="popup_auth.labels.{{ $root.client_key }}.mail")

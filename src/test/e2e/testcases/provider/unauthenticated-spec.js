@@ -12,15 +12,15 @@ describe('testing unauthenticated provider functionality:', function(){
     }) 
 
     it('checks if components are loaded', function(){
-        expect(provider.getFaqBlock().isDisplayed()).toBe(true)
-        expect(provider.getFlowBlock().isDisplayed()).toBe(true)
+        expect(provider.getFaqBlock().isPresent()).toBe(true)
+        expect(provider.getFlowBlock().isPresent()).toBe(true)
     })
 
     it('opens and closes login modal', function(){
         browser.waitForAngular();
         provider.openLogin()
         browser.ignoreSynchronization = true;
-        provider.closeModal()
+        provider.closeLoginModal()
         browser.ignoreSynchronization = false;
     });
 });
