@@ -5,8 +5,7 @@ let ModalAuth2Component = function(
     IdentityService,
     FormBuilderService,
     CredentialsService,
-    ModalService,
-    appConfigs
+    ModalService
 ) {
     let $ctrl = this;
 
@@ -81,15 +80,10 @@ let ModalAuth2Component = function(
         $ctrl.showEmailBlock = true;
         $ctrl.showChoose = false;
         $ctrl.signInEmailForm = FormBuilderService.build({
-            source: appConfigs.client_key + '_' + appConfigs.panel_type,
-            primary_email: "",
+            email: "",
         }, function(form) {
             form.lock();
-            IdentityService.makeAuthEmailToken(
-                form.values.source,
-                form.values.primary_email
-            ).then((res) => {
-                localStorage.setItem('pending_email_token', res.data.access_token);
+            IdentityService.makeAuthEmailToken(form.values.email).then((res) => {
                 $ctrl.screen = 'sign_in-email-sent';
 
                 $ctrl.close();
@@ -129,7 +123,6 @@ module.exports = {
         'FormBuilderService',
         'CredentialsService',
         'ModalService',
-        'appConfigs',
         ModalAuth2Component
     ],
     templateUrl: () => {

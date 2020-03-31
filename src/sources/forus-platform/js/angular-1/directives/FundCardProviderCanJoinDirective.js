@@ -8,15 +8,19 @@ let FundCardProviderCanJoinDirective = function(
             $scope.organization.id, 
             $scope.fund.id
         ).then(function(res) {
-            ModalService.open('modalNotification', {
-                type: 'info',
-                title: 'provider_funds_available.applied_for_fund.title',
-                description: 'provider_funds_available.applied_for_fund.description',
-                icon: 'fund_applied',
-                closeBtnText: 'modal.buttons.confirm',
-            }, {
-                onClose: () => $scope.fund.applied = true
-            });
+            if (!$scope.hideModal) {
+                ModalService.open('modalNotification', {
+                    type: 'info',
+                    title: 'provider_funds_available.applied_for_fund.title',
+                    description: 'provider_funds_available.applied_for_fund.description',
+                    icon: 'fund_applied',
+                    closeBtnText: 'modal.buttons.confirm',
+                }, {
+                    onClose: () => $scope.fund.applied = true
+                });
+            } else {
+                $scope.fund.applied = true;
+            }
         });
     };
 };
@@ -25,7 +29,8 @@ module.exports = () => {
     return {
         scope: {
             organization: '=',
-            fund: '='
+            fund: '=',
+            hideModal: '='
         },
         restrict: "EA",
         replace: true,
@@ -35,6 +40,9 @@ module.exports = () => {
             'ModalService',
             FundCardProviderCanJoinDirective
         ],
-        templateUrl: 'assets/tpl/directives/fund-card-provider-can-join.html'
+        templateUrl:  ($el, $attr) => {
+            let template = $attr.template || 'fund-card-provider-can-join';
+            return 'assets/tpl/directives/' + template + '.html'
+        }
     };
 };

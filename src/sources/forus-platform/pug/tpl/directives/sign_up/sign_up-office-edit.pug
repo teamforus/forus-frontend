@@ -1,0 +1,105 @@
+.sign_up-office-edit: form(ng-submit="$dir.form.submit()").form
+    .sign_up-pane-section
+        .sign_up-pane-col.sign_up-pane-col-2
+            .form-group
+                label.form-label(translate="Adres")
+                ui-control-text(
+                    ng-model="$dir.form.values.address"
+                    data-id="office_address"
+                    data-placeholder="Adres")
+                .form-error(ng-repeat="error in $dir.form.errors.address" ng-bind="error")
+
+            .form-group
+                label.form-label(translate="Telefoonnummer")
+                ui-control-text(
+                    ng-model="$dir.form.values.phone"
+                    data-placeholder="Telefoonnummer")
+                .form-error(ng-repeat="error in $dir.form.errors.phone" ng-bind="error")
+
+        .sign_up-pane-col.sign_up-pane-col-1
+            photo-selector(
+                template="photo-selector-sign_up"
+                type="organization_logo"
+                thumbnail="$dir.media.sizes.thumbnail"
+                description-translate="organization_edit.labels.photo_description"
+                select-photo="$dir.selectOfficePhoto(file)")
+
+    .sign_up-pane-section: .sign_up-pane-col
+        .sign_up-pane-heading(translate="organization_edit.labels.schedule")
+
+        div: ui-control-checkbox.sync(
+            name="office_same_hours"
+            data-id="office_same_hours"
+            data-label="{{ 'organization_edit.labels.weekdays_same_hours' | translate }}"
+            ng-change="$dir.setSameHours(true)"
+            ng-model="$dir.form.values.same_hours")
+
+        div: ui-control-checkbox.sync(
+            name="weekend_same_hours"
+            data-id="weekend_same_hours"
+            data-label="{{ 'organization_edit.labels.weekends_same_hours' | translate }}"
+            ng-change="$dir.setSameHours(false)"
+            ng-model="$dir.form.values.weekend_same_hours")
+
+    .sign_up-pane-section
+        .sign_up-pane-col
+            table.schedule
+                tr
+                    th(translate="organization_edit.labels.day")
+                    th(translate="organization_edit.labels.open")
+                    th(translate="organization_edit.labels.start")
+                    th(translate="organization_edit.labels.end")
+                    th.breaks(translate="organization_edit.labels.break")
+
+                tr(ng-repeat="(weekDayKey, weekDay) in $dir.weekDays track by $index")
+                    td(ng-class="$index >= 5 ? 'weekend' : ''" ng-bind="weekDay")
+
+                    td
+                        ui-control-checkbox(
+                            name="is_opened{{$index}}"
+                            data-id="schedule_is_opened{{$index}}"
+                            ng-change="$dir.toggleOpened($index)"
+                            ng-model="$dir.scheduleDetails[weekDayKey].is_opened")
+                    
+                    td
+                        ui-control-text.time.start(
+                            ng-model="$dir.form.values.schedule[weekDayKey].start_time"
+                            ng-if="$dir.scheduleDetails[weekDayKey].is_opened"
+                            ng-change="$dir.syncHours($index, 'start_time')"
+                            data-placeholder="Van")
+                        span(
+                            ng-if="!$dir.scheduleDetails[weekDayKey].is_opened"
+                            translate="organization_edit.labels.closed")
+                    
+                    td
+                        ui-control-text.time.end(
+                            ng-model="$dir.form.values.schedule[weekDayKey].end_time"
+                            ng-if="$dir.scheduleDetails[weekDayKey].is_opened"
+                            ng-change="$dir.syncHours($index, 'end_time')"
+                            data-placeholder="Tot")
+
+                    td.breaks
+                        ui-control-text.time.breaks.start(
+                            ng-model="$dir.form.values.schedule[weekDayKey].break_start_time"
+                            ng-if="$dir.scheduleDetails[weekDayKey].is_opened"
+                            ng-change="$dir.syncHours($index, 'start_time')"
+                            data-placeholder="Van")
+
+                        ui-control-text.time.breaks.end(
+                            ng-model="$dir.form.values.schedule[weekDayKey].break_end_time"
+                            ng-if="$dir.scheduleDetails[weekDayKey].is_opened"
+                            ng-change="$dir.syncHours($index, 'end_time')"
+                            data-placeholder="Tot")
+
+            br
+            .form-error(ng-bind="$dir.form.errors.schedule")
+    
+    .sign_up-pane-section: .sign_up-pane-col: .flex-row
+        .flex-col: .flex-col: button.button.button-primary.button-fill.button-sm(
+            type="button"
+            ng-click="cancel()"
+            translate="organization_edit.buttons.cancel")
+
+        .flex-col: .flex-col: button.button.button-primary-variant.button-fill.button-sm(
+            type="submit"
+            translate="organization_edit.buttons.save_location")

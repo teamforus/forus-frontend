@@ -6,7 +6,12 @@ var glob = require('glob');
 var path = require('path');
 var compress = require('compression');
 var historyApiFallback = require('connect-history-api-fallback')
+<<<<<<< HEAD
 var protractor = require('gulp-protractor').protractor;
+=======
+var child_process = require('child_process');
+let sprintf = require('sprintf-js').sprintf;
+>>>>>>> develop
 
 
 // console colors
@@ -23,7 +28,39 @@ var envFile = params.envFile ? params.envFile : './qdt-env.js';
 
 require('./qdt-config').getConfig();
 
-let pretty_print = (obj) => console.log(JSON.stringify(obj, null, '    '));
+function pretty_print(obj) {
+    console.log(JSON.stringify(obj, null, '    '));
+};
+
+function compose_dest_path(_path, append) {
+    _path = path.parse(_path);
+    return path.join(_path.dir, _path.name + append + _path.ext);
+}
+
+let timestamp = Date.now();
+let includeTimestamp = !!params.timestamp;
+let assetsSuffix = includeTimestamp ? '-' + timestamp : '';
+
+
+var gitLog = false;
+var gitLogHeader = false;
+
+if (params.gitHash || params.gitLog) {
+    try {
+        gitLog = child_process.execSync('git log').toString();
+    } catch (error) {
+        console.error('Could not fetch git log!');
+    }
+}
+
+if (params.gitHash && gitLog) {
+    let branch = child_process.execSync("git rev-parse --abbrev-ref HEAD").toString().trim();
+    gitLogHeader = sprintf("%s:%s", branch, gitLog.split("\n")[0].split(" ")[1].trim());
+}
+
+if (params.gitLog && gitLog) {
+    fs.writeFileSync(path.resolve(__dirname, params.gitLog), gitLog);
+}
 
 // check env existence
 if (fs.existsSync(envFile)) {
@@ -155,10 +192,8 @@ var scss_compiler = async function(platform, src, task) {
         indentWidth: 4
     }))
     streams.push(plugins.autoprefixer(pluginSettings.autoPrefixer));
-    streams.push(plugins.rename(task.name));
-    streams.push(gulp.dest(
-        platform.paths.assets + '/css/' + task.dest
-    ));
+    streams.push(plugins.rename(compose_dest_path(task.name, assetsSuffix)));
+    streams.push(gulp.dest(platform.paths.assets + '/css/' + task.dest));
 
     if (platform.server) {
         streams.push(browserSync[platform.name].reload(
@@ -182,7 +217,7 @@ var js_compiler = function(platform, src, task) {
     let promise = new Promise(_resolve => resolve = _resolve);
 
     var dest = task.dest;
-    var name = task.name;
+    var name = compose_dest_path(task.name, assetsSuffix);
     var sources = [];
 
     // notifiers
@@ -230,7 +265,7 @@ var js_compiler = function(platform, src, task) {
                 presets: ["@babel/preset-env"],
                 extensions: ['.js']
             }).bundle());
-            
+
             stream.push(_browserify.transform('pugify', {
                 extensions: ['.pug'],
                 compileDebug: false,
@@ -345,6 +380,9 @@ var pug_compiler = function(source, platform, src, dest, task) {
         plugins.pug({
             data: {
                 qdt_c: {
+                    git_log: gitLog || false,
+                    git_log_header: gitLogHeader || false,
+                    append_assets: includeTimestamp ? '-' + timestamp : '',
                     platform: platform
                 }
             },

@@ -11,6 +11,7 @@ let SignUpComponent = function(
     SmsService
 ) {
     let $ctrl = this;
+    let $translate = $filter('translate');
 
     /*
      step 1 - app links
@@ -31,7 +32,7 @@ let SignUpComponent = function(
 
     $ctrl.afterInit = () => {};
 
-    let progressStorage = new (function() {
+    let progressStorage = new(function() {
         let interval;
 
         this.init = () => {
@@ -96,15 +97,12 @@ let SignUpComponent = function(
                 delete formValues.records.primary_email_confirmation;
             }
 
-            form.lock();
-
             return IdentityService.make(formValues);
-        });
+        }, true);
 
         $scope.phoneForm = FormBuilderService.build({
             phone: "06"
         }, function(form) {
-            form.lock();
             waitingSms = true;
 
             return SmsService.send({
@@ -142,10 +140,8 @@ let SignUpComponent = function(
         }
     };
 
-    $ctrl.next = async function() {
-
+    $ctrl.next = function() {
         if ($ctrl.step == 1) {
-
             if (!waitingSms) {
                 $scope.phoneForm.submit().then((res) => {
                     $ctrl.sentSms = true;
@@ -155,19 +151,22 @@ let SignUpComponent = function(
 
                     if (res.status == 429) {
                         $scope.phoneForm.errors = {
-                            phone: [$filter('translate')('sign_up.sms.error.try_later')]
+                            phone: [
+                                $translate('sign_up.sms.error.try_later')
+                            ]
                         };
                     }
                 });
             }
 
         } else if ($ctrl.step == 2) {
-
-            if ($ctrl.signUpForm.values.records && $ctrl.signUpForm.values.records.primary_email != $ctrl.signUpForm.values.records.primary_email_confirmation) {
-                $ctrl.signUpForm.errors = {};
-                $ctrl.signUpForm.errors['records.primary_email_confirmation'] = [$filter('translate')('validation.email_confirmation')];
+            if ($ctrl.signUpForm.values.email != $ctrl.signUpForm.values.email_confirmation) {
+                $ctrl.signUpForm.errors = {
+                    email_confirmation: [
+                        $translate('validation.email_confirmation')
+                    ]
+                };
             } else {
-
                 $ctrl.signUpForm.submit().then((res) => {
                     CredentialsService.set(res.data.access_token);
                     $ctrl.setStep($ctrl.step + 1);
@@ -177,9 +176,7 @@ let SignUpComponent = function(
                     $ctrl.signUpForm.errors = res.data.errors;
                 });
             }
-
         } else if ($ctrl.step == 3) {
-
             $scope.authorizePincodeForm.submit().then((res) => {
                 CredentialsService.set(null);
 
@@ -197,9 +194,7 @@ let SignUpComponent = function(
                 }
             });
         } else if ($ctrl.step == 4) {
-
             $ctrl.setStep(5);
-
         } else if ($ctrl.step == 5) {
             $state.go('home');
         }
@@ -217,7 +212,7 @@ let SignUpComponent = function(
         loginQrBlock.show();
     };
 
-    let loginQrBlock = new (function() {
+    let loginQrBlock = new(function() {
         this.show = () => {
             $ctrl.showLoginBlock = true;
         };

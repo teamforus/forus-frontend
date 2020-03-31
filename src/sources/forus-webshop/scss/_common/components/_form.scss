@@ -1,4 +1,4 @@
-$formFont: 600 16px/24px $bf;
+$formFont: 500 16px/24px $bf;
 $formPadding: 14px 15px;
 
 .form {
@@ -11,7 +11,7 @@ $formPadding: 14px 15px;
     .form-label {
         display: block;
         cursor: default;
-        font: 700 12px/20px $bf;
+        font: 500 12px/20px $bf;
         margin-bottom: 4px;
         color: $tc;
         padding: 0;

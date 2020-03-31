@@ -12,8 +12,8 @@
 
             form.form.auth-form(ng-submit="$ctrl.signInEmailForm.submit()"): .flex-row.flex-grow
                 .flex-col.flex-grow.ie-flex-auto: .form-group
-                    input(ng-model="$ctrl.signInEmailForm.values.primary_email" type="email" placeholder="E-mail").form-control.email-auth
-                    .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.primary_email" ng-bind="error")
+                    input(ng-model="$ctrl.signInEmailForm.values.email" type="email" placeholder="E-mail").form-control.email-auth
+                    .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.email" ng-bind="error")
                 .flex-col.ie-flex-auto: button(type="submit").button.button-primary Login
 
             //- Disabled for now
