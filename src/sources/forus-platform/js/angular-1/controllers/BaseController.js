@@ -3,6 +3,7 @@ let BaseController = function(
     $rootScope,
     $scope,
     $state,
+    $filter,
     $translate,
     AuthService,
     IdentityService,
@@ -129,12 +130,30 @@ let BaseController = function(
     }, function(newVal, oldVal) {
         if ($state.current.name == 'home' && appConfigs.panel_type != 'validator') {
             $rootScope.viewLayout = 'landing';
-        } else if ($state.current.name == 'sign-up' || $state.current.name == 'provider-invitation-link') {
+        } else if ([
+            'sign-up', 'sign-up-provider', 'sign-up-sponsor', 'sign-up-validator', 'provider-invitation-link'
+        ].indexOf($state.current.name) != -1) {
             $rootScope.viewLayout = 'signup';
+            
+            if (['sign-up-provider', 'sign-up-sponsor', 'sign-up-validator'].indexOf($state.current.name) != -1) {
+                $rootScope.isNewSignUp = true;
+            }
         } else {
             $rootScope.viewLayout = 'panel';
         }
     })
+
+    $rootScope.onPageChanged = (transition) => {
+        let pageTitleKey = 'page_state_titles.' + transition.to().name;
+        let pageTitleText = $filter('translate')(pageTitleKey);
+        let pageTitleDefault = $filter('translate')('page_title');
+
+        $rootScope.layout = [];
+        $rootScope.pageTitle = pageTitleText != pageTitleKey ? pageTitleText : pageTitleDefault;
+        $rootScope.showAppHeader = true;
+
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    };
 
     ConfigService.get('dashboard').then((res) => {
         $rootScope.appConfigs.features = res.data;
@@ -149,6 +168,7 @@ module.exports = [
     '$rootScope',
     '$scope',
     '$state',
+    '$filter',
     '$translate',
     'AuthService',
     'IdentityService',

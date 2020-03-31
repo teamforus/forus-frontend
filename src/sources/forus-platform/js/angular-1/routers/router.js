@@ -14,6 +14,20 @@ let objectOnlyKeys = (obj, keys) => {
     return out;
 };
 
+let handleAuthTarget = ($state, target, appConfigs) => {
+    if (target[0] == 'homeStart') {
+        return !!$state.go('home', {
+            confirmed: true
+        });
+    }
+
+    if (target[0] == 'newSignup') {
+        return !!$state.go('sign-up-v2');
+    }
+
+    return false;
+};
+
 /**
  * Permission middleware
  *
@@ -695,7 +709,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "restore-email",
-        url: "/identity-restore?token",
+        url: "/identity-restore?token&target",
         data: {
             token: null
         },
@@ -705,7 +719,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             IdentityService.authorizeAuthEmailToken(
                 $state.params.token
             ).then(function(res) {
+                let target = $state.params.target || '';
                 CredentialsService.set(res.data.access_token);
+
                 if (['provider'].indexOf(appConfigs.panel_type) != -1) {
                     $rootScope.loadAuthUser().then(auth_user => {
                         let organizations = auth_user.organizations.filter(organization =>
@@ -719,12 +735,21 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                                 onReady: () => $state.go('home')
                             });
                         } else {
-                            $state.go('home');
+                            if (typeof target == 'string') {
+                                if (!handleAuthTarget($state, target.split('-'), appConfigs)) {
+                                    $state.go('home');
+                                }
+                            }
                         }
                     });
                 } else {
-                    $rootScope.loadAuthUser();
-                    $state.go('home');
+                    $rootScope.loadAuthUser().then(auth_user => {
+                        if (typeof target == 'string') {
+                            if (!handleAuthTarget($state, target.split('-'), appConfigs)) {
+                                $state.go('home');
+                            }
+                        }
+                    });
                 }
             }, () => {
                 alert([
@@ -739,24 +764,35 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "confirmation-email",
-        url: "/confirmation/email/{token}",
+        url: "/confirmation/email/{token}?target",
         data: {
             token: null
         },
         controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', (
             $rootScope, $state, IdentityService, CredentialsService
-        ) => IdentityService.exchangeConfirmationToken(
-            $state.params.token
-        ).then(function(res) {
-            CredentialsService.set(res.data.access_token);
-            $rootScope.loadAuthUser();
-            $state.go('home', {
-                confirmed: 1
-            });
-        }, () => {
-            alert("Token expired or unknown.");
-            $state.go('home');
-        })]
+        ) => {
+            let target = $state.params.target || '';
+
+            console.log(target);
+
+            IdentityService.exchangeConfirmationToken(
+                $state.params.token
+            ).then(function(res) {
+                CredentialsService.set(res.data.access_token);
+                $rootScope.loadAuthUser().then(auth_user => {
+                    if (typeof target == 'string') {
+                        if (!handleAuthTarget($state, target.split('-'), appConfigs)) {
+                            $state.go('home', {
+                                confirmed: 1
+                            });
+                        }
+                    }
+                });
+            }, () => {
+                alert("Token expired or unknown.");
+                $state.go('home');
+            })
+        }]
     });
 
     $stateProvider.state({
@@ -783,6 +819,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }]
     });
 
+    // Old signup flow
     if (['provider', 'sponsor'].indexOf(appConfigs.panel_type) != -1) {
         $stateProvider.state({
             name: "sign-up",
@@ -811,6 +848,33 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             }
         });
     }
+
+    $stateProvider.state({
+        name: "sign-up-v2",
+        url: "/sign-up-v2?fund_id&organization_id&tag",
+        component: appConfigs.panel_type + "SignUpComponent",
+        params: {
+            fund_id: {
+                squash: true,
+                value: null,
+            },
+            tag: {
+                squash: true,
+                value: null,
+            },
+            organization_id: {
+                squash: true,
+                value: null
+            },
+        },
+        resolve: {
+            businessTypes: ['BusinessTypeService', (
+                BusinessTypeService
+            ) => repackResponse(BusinessTypeService.list({
+                per_page: 9999
+            }))]
+        }
+    });
 
     if (['provider'].indexOf(appConfigs.panel_type) != -1) {
         $stateProvider.state({

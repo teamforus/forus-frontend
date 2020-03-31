@@ -4,6 +4,7 @@
         id="{{ $dir.id }}" 
         name="{{ $dir.name }}" 
         ng-change="$dir.onChange()"
-        placeholder="{{ $dir.placeholder }}" 
+        placeholder="{{ $dir.placeholder }}"
+        ng-disabled="{{ $dir.disabled }}"
         ng-model="ngModel").form-control
     label(for="{{ $dir.id }}" ng-click="$dir.clear()").ui-control-clear: .mdi.mdi-close-circle

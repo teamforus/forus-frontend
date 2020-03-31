@@ -1,10 +1,11 @@
 require('./modules/select-control/SelectControlModule');
 require('./modules/page-loading-bar/PageLoadingBarModule');
+require('../../../forus-webshop/js/angular-1/modules/ui-controls/UIControlsModule');
 
 let app = angular.module('forusApp', [
     'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 
     'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize', 
-    'forus.pageLoadingBarModule',
+    'forus.uiControls', 'forus.pageLoadingBarModule',
 ]);
 
 app.constant('appConfigs', env_data);
@@ -34,6 +35,9 @@ app.component('csvValidationComponent', require('./components/CsvValidationCompo
 app.component('fundRequestsComponent', require('./components/FundRequestsComponent'));
 app.component('validationRequestComponent', require('./components/ValidationRequestComponent'));
 app.component('signUpComponent', require('./components/SignUpComponent'));
+app.component('providerSignUpComponent', require('./components/ProviderSignUpComponent'));
+app.component('sponsorSignUpComponent', require('./components/SponsorSignUpComponent'));
+app.component('validatorSignUpComponent', require('./components/ValidatorSignUpComponent'));
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
 app.component('transactionComponent', require('./components/TransactionComponent'));
 app.component('fundProviderComponent', require('./components/FundProviderComponent'));
@@ -60,6 +64,7 @@ app.component('modalFundRequestRecordClarifyComponent', require('./components/Mo
 app.component('modalFundRequestRecordDeclineComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordDeclineComponent'));
 app.component('modalFundCriteriaDescriptionEditComponent', require('./components/Modals/ModalFundCriteriaDescriptionEditComponent'));
 app.component('modalFundInviteProvidersComponent', require('./components/Modals/ModalFundInviteProvidersComponent'));
+app.component('modalEmployeeAddConfirmationComponent', require('./components/Modals/ModalEmployeeAddConfirmationComponent'));
 app.component('modalFundOffersComponent', require('./components/Modals/ModalFundOffersComponent'));
 app.component('modalBusinessSelectComponent', require('./components/Modals/ModalBusinessSelectComponent'));
 app.component('modalCreatePrevalidationComponent', require('./components/Modals/ModalCreatePrevalidationComponent'));
@@ -108,6 +113,9 @@ app.service('EmailPreferencesService', require('./services/EmailPreferencesServi
 app.service('PushNotificationsService', require('./services/PushNotificationsService'));
 app.service('DigIdService', require('./services/DigIdService'));
 app.service('SessionService', require('./services/SessionService'));
+app.service('DemoTransactionService', require('./services/DemoTransactionService'));
+app.service('GoogleMapService', require('./services/GoogleMapService'));
+app.service('SignUpService', require('./services/SignUpService'));
 app.service('IdentityEmailsService', require('./services/IdentityEmailsService'));
 
 // Directives
@@ -167,6 +175,9 @@ app.directive('qrCode', require('./directives/QrCodeDirective'));
 app.directive('pdfPreview', require('./directives/PdfPreviewDirective'));
 app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
 app.directive('fundCardInvitationProvider', require('./directives/FundCardInvitationProviderDirective'));
+app.directive('googleMap', require('./directives/GoogleMapDirective'));
+
+app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
@@ -200,6 +211,7 @@ app.filter('i18n', require('./filters/I18nFilter'));
 app.filter('str_limit', require('./filters/StrLimitFilter'));
 app.filter('duration', require('./filters/DurationFilter'));
 app.filter('duration_last_time', require('./filters/DurationLastTimeFilter'));
+app.filter('lines_to_array', require('./filters/LinesToArrayFilter'));
 
 // Config
 app.config(require('./routers/printables'));

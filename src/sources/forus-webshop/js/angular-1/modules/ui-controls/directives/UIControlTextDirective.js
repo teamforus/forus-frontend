@@ -5,6 +5,7 @@ let UIControlTextDirective = function(
         id: $scope.id || '',
         name: $scope.name || '',
         placeholder: $scope.placeholder || '',
+        disabled: $scope.ngDisabled || false,
         onChange: () => $scope.ngChange(),
     };
 
@@ -28,6 +29,7 @@ module.exports = () => {
             name: "@",
             placeholder: "@",
             ngModel: '=',
+            ngDisabled: '=',
             controlStyle: '@',
             ngChange: '&',
         },

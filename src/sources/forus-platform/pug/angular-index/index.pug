@@ -2,11 +2,14 @@ doctype
 html(ng-controller="BaseController" ng-cloak)
     include ../layout/includes/head
 
-    body(ng-class="$root.viewLayout == 'signup' ? 'signup-layout' : ''" modal-scroll-braker printable-enabler)
+    body(
+        ng-class="$root.layout" 
+        modal-scroll-braker printable-enabler)
+        
         page-loading-bar
         
         div(ng-class="$root.viewLayout == 'landing' ? 'landing-root' : ''")
-            .ie-hide: div(ng-if="$root.viewLayout != 'landing'"): include ../layout/includes/header
+            .ie-hide: div(ng-if="$root.showAppHeader"): include ../layout/includes/header
 
             ui-view
 
