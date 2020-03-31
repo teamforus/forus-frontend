@@ -64,10 +64,8 @@ aside.app.app-sidebar
 
         +nav_item(
             "Aanvragers", "file_csv", 'csv-validation', false,
-<<<<<<< HEAD
             '$root.activeOrganization | hasPerm:["validate_records"]',
             'requesters')
-=======
             '$root.activeOrganization | hasPerm:["validate_records"]')
         
         .sidebar-nav-devider(ng-if="$root.activeOrganization")
@@ -75,4 +73,3 @@ aside.app.app-sidebar
         +nav_item('Email instellingen', 'emails', 'identity-emails')
         +nav_item('Sessies', 'sessions', 'security-sessions', '{}', '$root.appConfigs.sessions')
         +nav_item('Notificaties', 'notifications', 'preferences-notifications')
->>>>>>> develop

@@ -1,7 +1,6 @@
 const environment = require("./protractor-env.js");
 const MailListener = require("./util/mailListener")
 
-
 exports.config = {
 
     capabilities: {
