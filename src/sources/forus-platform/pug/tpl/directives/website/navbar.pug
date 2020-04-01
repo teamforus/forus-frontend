@@ -28,7 +28,7 @@ nav.navbar.navbar-inverse
           a(ui-sref="contact") Contact
       ul.nav.navbar-nav.navbar-right
         li
-          a.login_btn(ng-click="openAuthPopup()")(ng-if="!$root.auth_user")
+          a.login_btn(ng-click="openAuthPopup()" ng-if="!$root.auth_user")
             span.glyphicon.glyphicon-log-in
             |  Inloggen
       ul.nav.navbar-nav.navbar-right.auth-out(ng-if="$root.auth_user")
