@@ -17,7 +17,7 @@ $(window).on('load', function () {
 });
 
 var previousScroll = 0,
-    headerOrgOffset = $('.navbar').height();
+    headerOrgOffset = $('.cf-wr').height();
 
 $('.navbar').height($('.navbar').height());
 

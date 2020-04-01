@@ -5,19 +5,39 @@
     @media screen and (min-width:768px) {
         background-color: rgba(255, 255, 255, 0.94);
         box-shadow: 12px 8px 30px rgba(0, 0, 0, 0.19);
-        padding: 20px 10%;
     }
     .tl-list {
+        @media screen and (max-width: 766px) {
+            ul {
+                li {
+                    width: 50%;
+                    float: left;
+                    padding: 10px 0px;
+                    h5 {
+                        font-size: 14px;
+                        font-weight: 600;
+                    }
+                    p {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
         @media screen and (min-width: 768px) {
             display: flex;
+            ul {
+                padding: 20px;
+                li {
+                    padding: 20px 10px;
+                }
+            }
         }
         ul {
-            padding: 20px;
             flex: 1 1 0;
             @media screen and (min-width:992px) {
                 float: left;
+                li {padding: 20px 10px;}
             }
-            li {padding: 20px 10px;}
             p {
                 font-style: cursive;
             }
@@ -26,12 +46,15 @@
 }
 .wrap_cs {
     &__1 {
-        padding: 20px 0px;
+        padding: 50px 20px;
         @media screen and (min-width:768px) {
             padding: 80px 40px;
         }
         @media screen and (min-width:992px) {
-            padding: 130px 100px;
+            padding: 150px 100px;
+        }
+        @media screen and (min-width:1280px) {
+            padding: 150px 200px;
         }
     }
     &__1a {
@@ -44,36 +67,16 @@
         }
     }
     &__2 {
-        .holder {
-            .bg_hn-1 {
-                background-size: contain;
-                float: right;
-                height: 600px;
-                width: auto;
-                padding: 50px 0 0 0;
-            }
-            .bg_hn-2 {
-                background-size: contain;
-                width: 850px;
-                padding: 50px 0 0 0;
-            }
-            .bg_hn-3 {
-                background-size: contain;
-                height: 500px;
-                width: auto;
-                padding: 50px 0 0 0; 
-            }
-            svg {
-                height: 250px;
-                @media screen and (min-width:992px) {
-                    height: 400px
+        padding: 40px 20px 40px;
+        @media screen and (max-width: 991px) {
+            &.no-pad-t {padding-top: 0px}
+            .holder {
+                svg {
+                    margin-top: 50px;
                 }
             }
-            img {
-                width: 150px;
-                @media screen and (min-width:992px) {
-                    width: 250px;
-                }
+            .ww-pt {
+                margin-top: 30px;
             }
         }
         @media screen and (min-width:992px) {
@@ -134,19 +137,101 @@
             }
         }
     }
+    &__2a {
+        @media screen and (min-width:768px) { 
+            padding: 60px 20px 0px; 
+        }
+        .holder {
+            .bg_hn-1 {
+                @media screen and (min-width: 992px) {
+                    height: 600px;
+                    padding: 50px 0 0 0;
+                    width: auto;
+                }
+                background-size: contain;
+            }
+            .bg_hn-2 {
+                background-size: contain;
+                width: auto;
+                margin-right: -40px;
+                overflow: hidden;
+                float: right;
+                @media screen and (min-width: 768px) { 
+                    height: 400px;
+                }
+                @media screen and (min-width: 992px) {
+                    background-size: contain;
+                    margin-right: -90px;
+                    float: none;
+                    height: 500px;
+                }
+                @media screen and (min-width: 1280px) { 
+                    height: 600px;
+                }
+            }
+            .bg_hn-3 {
+                width: auto;
+                @media screen and (min-width: 992px) {
+                    background-size: contain;
+                    height: 600px;
+                    padding: 50px 0 0 0; 
+                }
+            }
+            svg {
+                height: 250px;
+                @media screen and (min-width:992px) {
+                    height: 400px
+                }
+            }
+            img {
+                width: 150px;
+                display: block;
+                margin: 0 auto;
+                @media screen and (min-width:768px) {
+                    width: 200px;
+                }
+                @media screen and (min-width:992px) {
+                    width: 250px;
+                }
+            }
+        }
+    }
     &__3 {
         padding: 0px 20px 75px;
     }
     &__4 {
+        @media screen and (max-width: 768px) {
+            padding: 30px 30px 20px;
+            h2 {
+                margin-top: 0;
+            }
+        }
         @media screen and (min-width: 768px) {
-            padding: 0px 20px 260px;
+            padding: 30px 30px 260px;
         }
         @media screen and (min-width: 992px) {
             padding: 0px 20px 200px;
         }
     }
-    &_4a {
-        padding: 0 20px 0px;
+    &__4a {
+        @media screen and (max-width: 767px) {
+            margin-top: 50px;
+        }
+        @media screen and (min-width: 768px) {
+            .content-area {
+                padding: 20px 20px;
+            }
+        }
+        @media screen and (min-width: 992px) {
+            .content-area {
+                padding: 50px 125px;
+            }
+        }
+    }
+}
+@media screen and (min-width:768px) {
+    .padded {
+        margin: -110px auto 0px;
     }
 }
 @media screen and (min-width:992px) {
@@ -161,6 +246,13 @@
     }
 }
 .cont_txt {
+    &__a {
+        svg {
+            height: 80px;
+            width: 80px;
+            padding: 20px;
+        }
+    }
     @media screen and (min-width:992px) {
         &__a {
             padding: 0 135px 0;

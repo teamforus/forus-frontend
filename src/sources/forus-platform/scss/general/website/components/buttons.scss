@@ -5,9 +5,8 @@
     background-color: $forus-pink;
     color: $color !important;
     font-weight: 600;
-    border-radius: 6px;
+    border-radius: 4px;
     position: relative;
-    padding: 14px 24px;
     font-family: inherit;
     text-align: center;
     font-size: 15px;
@@ -60,7 +59,21 @@
 .main_button {@include button($forus-blue, #ffffff, #FFF, $forus-blue);}
 .button-primary{@include button($forus-demi-blue, #ffffff, #FFF, $forus-demi-blue);}
 .login_btn{
-    @include button($forus-dark-blue, $forus-sky-blue, #ffffff, $forus-demi-blue);
+    display: inline-block;
+    border: 1px solid transparent;
+    background-color: rgba(12, 102, 255, 0.1);
+    font-weight: 600;
+    border-radius: 4px;
+    position: relative;
+    padding: 12px 22px;
+    font-family: inherit;
+    text-align: center;
+    font-size: 15px;
+    color: #0c66ff !important;
+    &:hover {
+        background: $forus-pink;
+        color: #fff !important;
+    }
 }
 
 
@@ -183,10 +196,15 @@ label {
     margin: 0 auto;
     display: inline-block;
     margin-top: 20px;
+    border-radius: 4px;
+    padding: 12px 22px;
 }
 
 .dl_buttons {
     width: 130px;
     height: 40px;
-    margin: 0 2.5% 0 0;
+    margin: 10px;
+    @media screen and (min-width: 992px) {
+        margin: 10px 10px 0 0;
+    }
 }

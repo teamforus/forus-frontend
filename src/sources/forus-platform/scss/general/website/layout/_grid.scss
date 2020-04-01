@@ -5,16 +5,27 @@
 
 html {
     body {
+        .of_hd {
+            max-width: 100%;
+            overflow: hidden;
+        }
         .flexed {
             @media screen and (min-width: 992x) {
                 display: flex;
             }
         }
         .flex-align {
+            @media screen and (max-width: 991px) {
+                &.mb-ro {
+                    display: flex;
+                    flex-direction: column-reverse
+                }
+            }
             @media screen and (min-width: 992px) {
                 display: flex;
                 align-items: center;
             }
+            
         }
         .container {
             max-width: 100%;
@@ -24,12 +35,14 @@ html {
             @media screen and (min-width: 992px) { 
                 width: 1024px;
             }
+            @media screen and (min-width: 1280px) { 
+                width: 1200px;
+            }
             .col-vr {
                 position: relative;
                 margin: 0 auto;
                 max-width: 700px;
             }
         }
-        
     }
 }

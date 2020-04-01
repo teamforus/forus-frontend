@@ -4,28 +4,32 @@ html {
     body {
         margin: auto;
         .nav {
-            display: flex;
-            flex-direction: column;
-            @media screen and (min-width: 768px) { 
+            @media screen and (min-width: 992px) { 
                 display: table;
             }
         }
         .navbar {
             border: 0;
             border-radius: 0;
-            margin: 0 auto;
             visibility: visible;
+            margin-bottom: 0px;
+            min-height: auto;
             opacity: 1;
             width: 100%;
             z-index: 3;
             position: sticky;
             top: 0;
             background-color: #ffffff;
-            transition:visibility 0.1s linear,opacity 0.1s linear;
+            @media screen and (min-width: 992px) {
+                transition:visibility 0.1s linear,opacity 0.1s linear;
+                -webkit-box-shadow: -6px 4px 5px -6px rgba(0, 0, 0, 0.33);
+                -moz-box-shadow: -6px 4px 5px -6px rgba(0, 0, 0, 0.33);
+                box-shadow: -6px 4px 5px -6px rgba(0, 0, 0, 0.33);
+            }
             &.nav-hide {
                 visibility: hidden;
                 transition:visibility 0.1s linear,opacity 0.1s linear;
-                opacity: 0.5;
+                opacity: 0.4;
             }
             .navbar-header {
                 text-align: center;
@@ -36,35 +40,83 @@ html {
                 display: none;
             }
             .navbar-toggle {
+                @media screen and (max-width: 991px) { 
+                    display: block;
+                    margin-right: 0;
+                }
                 background-color: transparent;
                 border: none;
-                &:hover {
+                &:hover, &:active, &:focus {
                     background-color: transparent;
                 }
                 .icon-bar {
                     background: black;
-                    &:hover {
-                        background-color: grey;                    }
                 }
             }
             .container-fluid {
-                max-width: 1200px;
+                align-items: center;
+                background: #fff;
+                width: 100%;
+                @media screen and (max-width: 767px) {
+                    align-items: center;
+                    padding: 5px 20px;
+                }
+                @media screen and (max-width: 991px) { 
+                    -webkit-box-shadow: -6px 4px 5px -6px rgba(0, 0, 0, 0.33);
+                    -moz-box-shadow: -6px 4px 5px -6px rgba(0, 0, 0, 0.33);
+                    box-shadow:-6px 4px 5px -6px rgba(0, 0, 0, 0.33);
+                }
                 @media screen and (min-width: 768px) {
                     align-items: center;
+                    padding: 9px 20px;
                 }
                 .navbar-header{
+                    float: inherit;
+                    @media screen and (min-width: 992px) { 
+                        float: left;
+                    }
                     .navbar-brand {
+                        padding: 15px 0px;
                         line-height: 0;
                         svg{
-                            height: 25px!important;
+                            height: 20px!important;
                             path{
                                 fill: #000;
                             }
                         }
                     }
+                    @media screen and (min-width: 992px) {
+                        .navbar-brand {
+                            padding: 9px 15px;
+                            svg {
+                                height: 25px !important;
+                            }
+                        }
+                    }
+                }
+                &.cf-wr {
+                    @media screen and (min-width: 768px) {
+                        max-width: 100%;
+                    }
+                    @media screen and (min-width: 992px) {
+                        width: 1024px;   
+                    }
+                    @media screen and (min-width: 1280px) {
+                        width: 1200px;   
+                    }
                 }
                 .navbar-collapse {
                     background-color: #ffffff;
+                    border-top: solid 1px #dcdcdc;
+                    @media screen and (min-width:992px) { 
+                        background-color: transparent;
+                        border-top: none;
+                        height: auto!important;
+                        padding-bottom: 0;
+                        &.collapse {
+                            display: block !important;
+                        }
+                    }
                     .navbar-nav{
                         .header-auth {
                             float: right;
@@ -147,9 +199,15 @@ html {
                         }
                         & > li {
                             & a {
+                                @media screen and (min-width: 992px) {
+                                    padding: 16px 22px;
+                                    font-weight: 600;
+                                    font-size: 16px; 
+                                }
                                 //padding: 18px 33px!important;
-                                padding: 16px 24px;
+                                padding: 16px 22px;
                                 font-weight: 600;
+                                font-size: 14px;
                                 display: flex;
                                 line-height: auto;
                                 color: #191a1c;
@@ -157,15 +215,8 @@ html {
                                 -ms-transform: rotate(0);
                                 transform: rotate(0);
                                 cursor: pointer !important;
-                                @include transition();
-                                    svg{
-                                        -webkit-transform: rotate(0);
-                                        -ms-transform: rotate(0);
-                                        transform: rotate(0);
-                                        @include transition();
-                                    }
                                 &:hover, &:active, &:focus, &.active{
-                                    background-color: transparent;
+                                    color: $forus-sky-blue;
                                 }
                                 &[aria-expanded="true"]{
                                     svg{
@@ -192,6 +243,16 @@ html {
                             .login_btn {
                                 padding: 15px 24px;
                                 font-size: 15px;
+                                transition: all 0.3s linear;
+                                transition: opacity 0.1s linear;
+                                &:hover {
+                                    transition: all 0.3s linear;
+                                    background-color: $forus-sky-blue;
+                                    &a {
+                                        color: #fff;
+                                        transition: all 0.3s linear;
+                                    }
+                                }
                             }
                             span.dropdown {
                                 position:absolute;
@@ -201,7 +262,7 @@ html {
                                 background-color: #FFFFFF;
                                 width: 550px;    
                                 z-index: 5;
-                                @include transition();
+                                transition:visibility 0.1s linear,opacity 0.1s linear;
                                 .column-title {
                                     text-transform: uppercase;
                                     font-size: 15px;
@@ -258,3 +319,39 @@ html {
         }
     }
 }
+@media (max-width: 991px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-left,.navbar-right {
+        float: none !important;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin-top: 7.5px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .collapse.in{
+        display:block !important;
+    }
+  }
