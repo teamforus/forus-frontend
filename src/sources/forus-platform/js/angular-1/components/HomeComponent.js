@@ -8,7 +8,6 @@ let HomeComponent = function(
 ) {
     let $ctrl = this;
     let qrCodeEl = document.getElementById('qrcode');
-    let $redirectAuthorizedState = 'organizations';
 
     $ctrl.showModal = false;
 
@@ -17,7 +16,7 @@ let HomeComponent = function(
     };
 
     if (!!CredentialsService.get()) {
-        IdentityService.identity().then(() => {}, $state.go($redirectAuthorizedState));
+        IdentityService.identity();
     }
 
     $ctrl.closeModal = function() {

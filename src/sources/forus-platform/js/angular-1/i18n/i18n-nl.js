@@ -493,6 +493,7 @@ module.exports = {
         },
         buttons: {
             add: "Organisatie toevoegen",
+            edit: "Organisatie instellingen",
             notifications_preferences: "Notificatievoorkeuren",
         }
     },

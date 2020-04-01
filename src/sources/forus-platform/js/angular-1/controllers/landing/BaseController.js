@@ -100,6 +100,7 @@ let BaseController = function(
     $rootScope.signOut = () => {
         AuthService.signOut();
         $rootScope.auth_user = false;
+        $rootScope.activeOrganization = null;
     };
 
     $scope.$watch(function() {

@@ -1,7 +1,43 @@
 header.app.app-header
     .wrapper
-        a(ui-sref="home").header-logo
+        a(ui-sref="home" ng-if="!$root.activeOrganization").header-logo
             img(ng-src="./assets/img/logo.svg").header-logo-img
+
+        .organization-switcher(ng-if="$root.activeOrganization")
+            .organization-switcher-preview(
+                ng-if="!$ctrl.showOrganizationsMenu"
+                ng-click="$ctrl.openOrganizationsMenu($event)")
+
+                img.organization-switcher-organization-logo(
+                    ng-src="{{ $root.activeOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
+                .organization-switcher-organization-name(ng-bind="$root.activeOrganization.name")
+                .organization-switcher-arrow
+
+            .organization-switcher-menu(
+                ng-if="$ctrl.showOrganizationsMenu"
+                click-outside="$ctrl.hideOrganizationsMenu()")
+                
+                .organization-switcher-menu-organizations
+                    .organization-switcher-menu-organization(
+                        ng-repeat="organization in organizations"
+                        ng-click="chooseOrganization(organization)"
+                        ng-class="{'active' : organization.id == $root.activeOrganization.id}")
+                        img.organization-switcher-organization-logo(
+                            ng-src="{{ organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
+                        .organization-switcher-organization-name(ng-bind="organization.name")
+                    
+                .organization-switcher-separator
+
+                .organization-switcher-settings
+                    .organization-switcher-setting(
+                        ng-if="$root.activeOrganization | hasPerm:'manage_organization'"
+                        ng-click="organizationEdit($root.activeOrganization)")
+                        .em.mdi.mdi-cogs.organization-switcher-setting-icon
+                        .organization-switcher-setting-name(translate="organizations.buttons.edit")
+                    
+                    .organization-switcher-setting(ng-click="organizationCreate()")
+                        .em.mdi.mdi-plus-circle.organization-switcher-setting-icon
+                        .organization-switcher-setting-name(translate="organizations.buttons.add")
 
         .header-auth(ng-if="$root.auth_user")
             .auth-user(ng-click="$ctrl.openUserMenu($event)")
@@ -21,14 +57,6 @@ header.app.app-header
                     //- a(href="#").auth-user-menu-item
                         em.mdi.mdi-account
                         | My profile
-
-                    a(ui-sref="organizations-edit($root.activeOrganization)" ng-if="$root.activeOrganization | hasPerm:'manage_organization'").auth-user-menu-item
-                        em.mdi.mdi-cog
-                        | Organisatie
-
-                    a(ui-sref="organizations-create").auth-user-menu-item
-                        em.mdi.mdi-plus
-                        translate(translate="organizations.buttons.add")
 
                     a(ui-sref="identity-emails" ng-if="!$root.activeOrganization").auth-user-menu-item
                         em.mdi.mdi-at

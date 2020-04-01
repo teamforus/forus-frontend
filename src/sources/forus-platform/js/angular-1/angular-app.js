@@ -14,7 +14,6 @@ app.controller('BaseController', require('./controllers/BaseController'));
 
 // Components
 app.component('homeComponent', require('./components/HomeComponent'));
-app.component('organizationsComponent', require('./components/OrganizationsComponent'));
 app.component('organizationsEditComponent', require('./components/OrganizationsEditComponent'));
 app.component('organizationFundsComponent', require('./components/OrganizationFundsComponent'));
 app.component('providerFundsComponent', require('./components/ProviderFundsComponent'));

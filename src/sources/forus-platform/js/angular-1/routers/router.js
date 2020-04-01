@@ -102,15 +102,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
-    /**
-     * Organizations
-     */
-    $stateProvider.state({
-        name: "organizations",
-        url: "/organizations",
-        component: "organizationsComponent"
-    });
-
     $stateProvider.state({
         name: "organizations-create",
         url: "/organizations/create",
@@ -719,12 +710,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                                 onReady: () => $state.go('home')
                             });
                         } else {
-                            $state.go('home');
+                            $rootScope.autoSelectOrganization();
                         }
                     });
                 } else {
-                    $rootScope.loadAuthUser();
-                    $state.go('home');
+                    $rootScope.loadAuthUser().then(() => {
+                        $rootScope.autoSelectOrganization();
+                    });
                 }
             }, () => {
                 alert([
@@ -749,9 +741,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             $state.params.token
         ).then(function(res) {
             CredentialsService.set(res.data.access_token);
-            $rootScope.loadAuthUser();
-            $state.go('home', {
-                confirmed: 1
+            $rootScope.loadAuthUser().then(() => {
+                $rootScope.autoSelectOrganization();
             });
         }, () => {
             alert("Token expired or unknown.");
@@ -773,7 +764,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ).then(res => {
                 CredentialsService.set(res.data.access_token);
                 $rootScope.loadAuthUser().then(() => {
-                    $state.go('home');
+                    $rootScope.autoSelectOrganization();
                 });
             }, () => {
                 PushNotificationsService.danger(
