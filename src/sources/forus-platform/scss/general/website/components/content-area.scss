@@ -45,6 +45,24 @@
     }
     &__2 {
         .holder {
+            .bg_hn-1 {
+                background-size: contain;
+                float: right;
+                height: 600px;
+                width: auto;
+                padding: 50px 0 0 0;
+            }
+            .bg_hn-2 {
+                background-size: contain;
+                width: 850px;
+                padding: 50px 0 0 0;
+            }
+            .bg_hn-3 {
+                background-size: contain;
+                height: 500px;
+                width: auto;
+                padding: 50px 0 0 0; 
+            }
             svg {
                 height: 250px;
                 @media screen and (min-width:992px) {
