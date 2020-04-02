@@ -163,9 +163,15 @@ html {
         #modalContact{
             .modal-dialog{
                 max-width: 780px;
-                width: 100%;
+                width: auto;
+                @media screen and (min-width: 992px) { 
+                    width: 100%;
+                }
                 .modal-content{
-                    padding: 45px 80px;
+                    padding: 45px 10px;
+                    @media screen and (min-width: 992px) {
+                        padding: 45px 80px;
+                    }
                     .modal-header {
                         border: 0;
                         .close{
