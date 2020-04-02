@@ -13,59 +13,14 @@ let BaseController = function(
     appConfigs,
     ModalService
 ) {
-    $rootScope.$state = $state;
+    let selected_organization_key = 'selected_organization_id';
 
-    $rootScope.popups = {
-        auth: {
-            show: false,
-            screen: false,
-            close: function() {
-                this.show = false;
-                this.screen = false;
-            },
-            open: function(screen) {
-                this.show = true;
-                this.screen = screen;
-            }
-        }
-    };
-    
-    $scope.$ctrl = {
-        userMenuOpened: false
-    };
-
-    $rootScope.openPinCodePopup = function() {
-        ModalService.open('modalPinCode', {});
-    };
-
-    $rootScope.loadAuthUser = function() {
-        let deferred = $q.defer();
-        
-        IdentityService.identity().then((res) => {
-            let auth_user = res.data;
-
-            RecordService.list().then((res) => {
-                auth_user.records = res.data;
-                /* auth_user.primary_email = res.data.filter((record) => {
-                    return record.key == 'primary_email';
-                })[0].value; */
-
-                OrganizationService.list({
-                    dependency: "permissions,logo"
-                }).then((res) => {
-                    auth_user.organizations = res.data.data;
-                    auth_user.organizationsMap = {};
-                    auth_user.organizationsIds = Object.values(res.data.data).map(function(organization) {
-                        auth_user.organizationsMap[organization.id] = organization;
-                        return organization.id;
-                    });
-
-                    deferred.resolve($rootScope.auth_user = auth_user);
-                });
-            });
-        }, deferred.reject);
-
-        return deferred.promise;
+    let loadOrganizations = () => {
+        return $q((resolve, reject) => {
+            OrganizationService.list().then(res => {
+                resolve($scope.organizations = res.data.data);
+            }, reject);
+        });
     };
 
     let loadActiveOrganization = () => {
@@ -82,6 +37,131 @@ let BaseController = function(
         }
     };
 
+    $rootScope.popups = {
+        auth: {
+            show: false,
+            screen: false,
+            close: function() {
+                this.show = false;
+                this.screen = false;
+            },
+            open: function(screen) {
+                this.show = true;
+                this.screen = screen;
+            }
+        }
+    };
+
+    $rootScope.$state = $state;
+    $rootScope.appConfigs = appConfigs;
+    $rootScope.activeOrganization = OrganizationService.active();
+    $rootScope.showOrganizationsMenu = false;
+
+    $rootScope.chooseOrganization = (organization) => {
+        $rootScope.showOrganizationsMenu = false;
+        OrganizationService.use(organization.id);
+
+        localStorage.setItem(selected_organization_key, organization.id);
+
+        $state.go($state.current.name, {
+            organization_id: organization.id
+        });
+    };
+
+    $rootScope.organizationEdit = (organization) => {
+        $rootScope.showOrganizationsMenu = false;
+
+        $state.go('organizations-edit', {
+            id: organization.id
+        });
+    };
+
+    $rootScope.organizationCreate = () => {
+        $rootScope.showOrganizationsMenu = false;
+
+        $state.go('organizations-create');
+    };
+
+    $rootScope.openOrganizationsMenu = (e) => {
+        e.originalEvent.stopPropagation();
+        e.originalEvent.preventDefault();
+
+        $rootScope.showOrganizationsMenu = !$rootScope.showOrganizationsMenu;
+    }
+
+    $rootScope.hideOrganizationsMenu = () => {
+        $scope.$apply(() => {
+            $rootScope.showOrganizationsMenu = false;
+        });
+    }
+
+    $rootScope.openPinCodePopup = function() {
+        ModalService.open('modalPinCode', {});
+    };
+
+    $rootScope.getLastUsedOrganization = () => {
+        return $q((resolve, reject) => {
+            let selectedOrganizationId = localStorage.getItem(
+                selected_organization_key
+            );
+
+            loadOrganizations().then(organizations => {
+                let organization = organizations.filter(organization => {
+                    return organization.id == selectedOrganizationId;
+                })[0] || organizations[0] || false;
+
+                resolve(organization ? organization.id : organization);
+            }, reject);
+        });
+    };
+
+    $rootScope.autoSelectOrganization = function($redirectAuthorizedState = false) {
+        $rootScope.getLastUsedOrganization().then(selectedOrganizationId => {
+            if (selectedOrganizationId) {
+                OrganizationService.use(selectedOrganizationId);
+
+                $state.go($redirectAuthorizedState ? $redirectAuthorizedState : {
+                    sponsor: 'organization-funds',
+                    provider: 'offices',
+                    validator: 'fund-requests',
+                } [appConfigs.panel_type], {
+                    organization_id: selectedOrganizationId
+                });
+            } else {
+                $state.go('organizations-create');
+            }
+        });
+    };
+
+    $rootScope.loadAuthUser = function() {
+        let deferred = $q.defer();
+
+        IdentityService.identity().then((res) => {
+            let auth_user = res.data;
+
+            RecordService.list().then((res) => {
+                auth_user.records = res.data;
+
+                OrganizationService.list({
+                    dependency: "permissions,logo"
+                }).then((res) => {
+                    auth_user.organizations = res.data.data;
+                    auth_user.organizationsMap = {};
+                    auth_user.organizationsIds = Object.values(res.data.data).map(function(organization) {
+                        auth_user.organizationsMap[organization.id] = organization;
+                        return organization.id;
+                    });
+
+                    deferred.resolve($rootScope.auth_user = auth_user);
+                });
+            });
+
+            loadOrganizations().then(() => loadActiveOrganization());
+        }, deferred.reject);
+
+        return deferred.promise;
+    };
+
     $rootScope.$on('organization-changed', (e, id) => {
         if (!isNaN(parseInt(id))) {
             loadActiveOrganization();
@@ -95,33 +175,23 @@ let BaseController = function(
         $rootScope.loadAuthUser();
     });
 
-    loadActiveOrganization();
-
-    $rootScope.activeOrganization = OrganizationService.active();
-
     $rootScope.signOut = () => {
         AuthService.signOut();
         $state.go('home');
+        $rootScope.activeOrganization = null;
         $rootScope.auth_user = false;
     };
 
-    $rootScope.appConfigs = appConfigs;
-    $scope.appConfigs = appConfigs;
-
-    if (AuthService.hasCredentials()) {
-        $rootScope.loadAuthUser();
-    }
-
-    $scope.$ctrl.openUserMenu = (e) => {
+    $rootScope.openUserMenu = (e) => {
         e.originalEvent.stopPropagation();
         e.originalEvent.preventDefault();
-        
-        $scope.$ctrl.userMenuOpened = !$scope.$ctrl.userMenuOpened;
+
+        $rootScope.userMenuOpened = !$rootScope.userMenuOpened;
     }
 
-    $scope.$ctrl.hideUserMenu = () => {
+    $rootScope.hideUserMenu = () => {
         $scope.$apply(() => {
-            $scope.$ctrl.userMenuOpened = false;
+            $rootScope.userMenuOpened = false;
         });
     }
 
@@ -142,7 +212,7 @@ let BaseController = function(
             $rootScope.viewLayout = 'panel';
         }
     })
-
+    
     $rootScope.onPageChanged = (transition) => {
         let pageTitleKey = 'page_state_titles.' + transition.to().name;
         let pageTitleText = $filter('translate')(pageTitleKey);
@@ -155,12 +225,18 @@ let BaseController = function(
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     };
 
+    $translate.use('nl');
+
+    if (AuthService.hasCredentials()) {
+        $rootScope.loadAuthUser();
+    } else {
+        $rootScope.auth_user = false;
+    }
+
     ConfigService.get('dashboard').then((res) => {
         $rootScope.appConfigs.features = res.data;
         $rootScope.appConfigs.frontends = res.data.fronts;
     });
-
-    $translate.use('nl');
 };
 
 module.exports = [

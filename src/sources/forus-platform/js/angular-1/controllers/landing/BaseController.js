@@ -7,7 +7,6 @@ let BaseController = function(
     ConfigService,
     IdentityService,
     AuthService,
-    RecordService,
     OrganizationService,
     ModalService
 ) {
@@ -46,13 +45,6 @@ let BaseController = function(
     $rootScope.loadAuthUser = function() {
         IdentityService.identity().then((res) => {
             let auth_user = res.data;
-
-            RecordService.list().then((res) => {
-                auth_user.records = res.data;
-                auth_user.primary_email = res.data.filter((record) => {
-                    return record.key == 'primary_email';
-                })[0].value;
-            });
 
             OrganizationService.list().then((res) => {
                 $ctrl.organizations = res.data.data.filter(organization => {
@@ -100,6 +92,7 @@ let BaseController = function(
     $rootScope.signOut = () => {
         AuthService.signOut();
         $rootScope.auth_user = false;
+        $rootScope.activeOrganization = null;
     };
 
     $scope.$watch(function() {
@@ -127,7 +120,6 @@ module.exports = [
     'ConfigService',
     'IdentityService',
     'AuthService',
-    'RecordService',
     'OrganizationService',
     'ModalService',
     BaseController

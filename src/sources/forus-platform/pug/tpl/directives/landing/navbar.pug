@@ -23,7 +23,7 @@
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
             .auth-user
-                .auth-user-email(ng-bind="$root.auth_user.primary_email")
+                .auth-user-email(ng-bind="$root.auth_user.email")
                 .auth-user-type(translate="topnavbar.items.identity")
                 .auth-user-avatar
                     img(src="./assets/img/landing/identity-avatar.svg")
@@ -42,7 +42,7 @@
                                 img(src="./assets/img/landing/icon-menu/icon-menu-sign-out.svg")
                                 span(translate="topnavbar.buttons.logout")
         
-        .auth-out(ng-if="!$root.auth_user")
+        .auth-out(ng-if="$root.auth_user === false")
             .button.button-default(ng-click="openAuthPopup()" id="login")
                 em.mdi.mdi-account.icon-start
                 //- img(src="./assets/img/icon-btn/icon-btn-user.svg")

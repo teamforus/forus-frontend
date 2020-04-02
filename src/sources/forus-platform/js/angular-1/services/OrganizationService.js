@@ -5,7 +5,7 @@ module.exports = [
         ApiRequest,
         $rootScope
     ) {
-        return new (function() {
+        return new(function() {
             this.list = function(query = {}) {
                 return ApiRequest.get('/platform/organizations', query);
             };
@@ -54,8 +54,9 @@ module.exports = [
 
             this.updateBusinessType = function(id, business_type_id) {
                 return ApiRequest.patch(
-                    '/platform/organizations/' + id + '/update-business',
-                    { business_type_id: business_type_id }
+                    '/platform/organizations/' + id + '/update-business', {
+                        business_type_id: business_type_id
+                    }
                 );
             };
 
