@@ -2,6 +2,7 @@ let BaseController = function(
     $q,
     $state,
     $rootScope,
+    $scope,
     $window,
     $translate,
     IdentityService,
@@ -115,6 +116,14 @@ let BaseController = function(
         $rootScope.appConfigs.features = res.data;
     });
 
+    $scope.$watch(function() {
+        return $state.$current.name
+    }, function(newVal, oldVal) {
+        if ($state.current.name == 'fund-request') {
+            $rootScope.viewLayout = 'signup';
+        }
+    });
+
     $rootScope.pageTitle = $filter('translate')('page_title');
     $rootScope.client_key = appConfigs.client_key;
 
@@ -129,6 +138,7 @@ module.exports = [
     '$q',
     '$state',
     '$rootScope',
+    '$scope',
     '$window',
     '$translate',
     'IdentityService',

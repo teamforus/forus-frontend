@@ -98,7 +98,10 @@ let BaseController = function(
     $scope.$watch(function() {
         return $state.$current.name
     }, function(newVal, oldVal) {
-        if ($state.current.name == 'sign-up') {
+        if ([
+            'sign-up', 'sign-up-provider', 
+            'sign-up-sponsor', 'sign-up-validator'
+        ].indexOf($state.current.name) != -1) {
             $rootScope.viewLayout = 'signup';
         } else {
             $rootScope.viewLayout = 'landing';

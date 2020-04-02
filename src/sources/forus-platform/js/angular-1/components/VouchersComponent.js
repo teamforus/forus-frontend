@@ -51,6 +51,7 @@ let VouchersComponent = function(
     $ctrl.showQrCode = (voucher) => {
         ModalService.open('voucher_qr_code', {
             voucher: voucher,
+            fund: $ctrl.fund,
             organization: $ctrl.organization,
             onSent: () => {
                 $ctrl.onPageChange($ctrl.filters.values);

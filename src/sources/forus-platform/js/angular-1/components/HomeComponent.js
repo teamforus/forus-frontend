@@ -1,11 +1,14 @@
 let HomeComponent = function(
     $state,
+    $rootScope,
     $stateParams,
     ModalService,
     PushNotificationsService
 ) {
     let $ctrl = this;
     let qrCodeEl = document.getElementById('qrcode');
+
+    $rootScope.showAppHeader = false;
 
     $ctrl.showModal = false;
 
@@ -42,6 +45,7 @@ let HomeComponent = function(
 module.exports = {
     controller: [
         '$state',
+        '$rootScope',
         '$stateParams',
         'ModalService',
         'PushNotificationsService',

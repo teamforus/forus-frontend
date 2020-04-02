@@ -1,5 +1,5 @@
-module.exports = ['$transitions', '$filter', '$rootScope', 'OrganizationService', 'PageLoadingBarService', (
-    $transitions, $filter, $rootScope, OrganizationService, PageLoadingBarService
+module.exports = ['$transitions', '$rootScope', 'OrganizationService', 'PageLoadingBarService', (
+    $transitions, $rootScope, OrganizationService, PageLoadingBarService
 ) => {
     $transitions.onStart({}, function() {
         PageLoadingBarService.setProgress(0);
@@ -11,22 +11,16 @@ module.exports = ['$transitions', '$filter', '$rootScope', 'OrganizationService'
 
     $transitions.onSuccess({}, function(transition) {
         PageLoadingBarService.setProgress(100);
-
-        let pageTitleKey = 'page_state_titles.' + transition.to().name;
-        let pageTitleText = $filter('translate')(pageTitleKey);
-
-        if (pageTitleKey == pageTitleText) {
-            pageTitleText = $filter('translate')('page_title');
+        
+        if (typeof $rootScope.onPageChanged == 'function') {
+            $rootScope.onPageChanged(transition);
         }
-
-        $rootScope.pageTitle = pageTitleText;
-
-        document.body.scrollTop = document.documentElement.scrollTop = 0;
 
         if ([
                 'home', 'organiztions', 'funds', 'funds-show',
                 'organizations-create', 'csv-validation', 'validation-requests',
-                'validation-request', 'sign-up', 'restore-email', 'email-unsubscribe',
+                'validation-request', 'sign-up', 'sign-up-v2',
+                'restore-email', 'email-unsubscribe',
                 'preferences-notifications', 'security-sessions', 
                 'provider-invitation-link', 'auth-link', 'identity-emails',
             ].indexOf(transition.to().name) == -1) {

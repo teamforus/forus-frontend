@@ -47,4 +47,7 @@ core.addPlatform(require('./platforms/Webshops/WebshopNoordoostpolderPlatform'))
 // Register meapp landings
 core.addPlatform(require('./platforms/Website/Website'));
 
+// Register backend platform
+core.addPlatform(require('./platforms/Backend/BackendGeneralPlatform'));
+
 module.exports = core;

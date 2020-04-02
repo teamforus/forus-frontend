@@ -20,6 +20,11 @@ let SignUpComponent = function(
     let $ctrl = this;
     let $translate = $filter('translate');
 
+    $rootScope.showAppHeader = false;
+    $rootScope.layout = [
+        'signup-layout',
+    ];
+
     /*
      step 1 - app links
      step 2 - email and name form
@@ -153,7 +158,7 @@ let SignUpComponent = function(
         $ctrl.beforeInit();
 
         $ctrl.signUpForm = FormBuilderService.build({
-            emal: "",
+            email: "",
             email_confirmation: "",
         }, function(form) {
             return IdentityService.make(angular.copy(form.values));
@@ -374,6 +379,7 @@ let SignUpComponent = function(
                 $ctrl.setStep($ctrl.step + 1);
                 $ctrl.signedIn = true;
             }, (res) => {
+                console.log(res.data.errors);
                 $ctrl.signUpForm.unlock();
                 $ctrl.signUpForm.errors = res.data.errors;
             });
@@ -416,7 +422,7 @@ let SignUpComponent = function(
                     } else {
                         $ctrl.setStep(3);
                     }
-                });
+                }, res => $ctrl.signUpForm.errors = res.data.errors);
             }
 
         } else if ($ctrl.step == 3) {

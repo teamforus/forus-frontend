@@ -73,7 +73,6 @@
 'sections/blocks/vouchers.scss',
 'sections/blocks/fund-add-records.scss',
 'sections/blocks/block-preferences.scss',
-'sections/blocks/block-sign_up.scss',
 'sections/blocks/block-file-uploader.scss',
 'sections/blocks/block-auth-widget.scss',
 'sections/blocks/block-push-notifications.scss',
@@ -94,4 +93,5 @@
 
     @import 'sections/blocks/block-map-office-card.scss';
     @import 'sections/blocks/block-sessions.scss';
+    @import 'sections/blocks/block-sign_up.scss';
 }
