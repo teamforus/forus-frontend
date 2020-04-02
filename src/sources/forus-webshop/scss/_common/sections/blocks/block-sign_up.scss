@@ -52,6 +52,14 @@ $bf: 'Montserrat', arial, sans-serif;
                 color: $color_primary;
             }
         }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            margin: 0 -30px 25px;
+        }
+    
+        @media (min-width: 992px) and (max-width: 1199px) {
+            margin: 0 -90px 25px;
+        }
     }
 
     .sign_up-progress {
