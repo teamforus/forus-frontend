@@ -59,16 +59,23 @@ html {
                             color: #282b39;
                         }
                     }
-                    .text-center {
+                    .btn {
+                        &.main_button {
+                            margin-top: 0;
+                        }
+                    }
+                        .text-center {
                         text-align: center;
                     }
                     input {
+                        position: relative;
                         height: 46px;
                         border-radius: 8px;
                         background-color: #eff2f4;
                         float:left;
                         width:365px;
                         margin-right:20px;
+                        left: 0;
                     }
                     .form-error {
                         clear: both;
