@@ -1,11 +1,27 @@
 let FinancialDashboardComponent = function(
     $state,
     $scope,
+    $q,
     $stateParams,
     FundService,
     DateService
 ) {
     let $ctrl = this;
+
+    $ctrl.getProviders = (query) => {
+        let deferred = $q.defer();
+        
+        FundService.listProviders(
+            $ctrl.fund.organization_id,
+            $ctrl.fund.id,
+            'approved',
+            query
+        ).then(res => {
+            deferred.resolve($ctrl.fundProviders = res.data);
+        }, deferred.reject);
+
+        return deferred.promise;
+    }
 
     $ctrl.$onInit = function() {
         $ctrl.startYear = $ctrl.fund ? DateService._dateParseYmd(
@@ -155,17 +171,23 @@ let FinancialDashboardComponent = function(
             name: 'Anders',
             id: -1
         });
+
+        $ctrl.onFundSelect = (fund) => {
+            $ctrl.fund = fund;
+
+            $ctrl.startYear = DateService._dateParseYmd(
+                $ctrl.fund.start_date
+            ).year();
+            $ctrl.chartData.request.year = $ctrl.startYear;
+
+            $ctrl.getProviders().then(() => {
+                $ctrl.chartData.update();
+            });
+        }; 
     };
 
     $scope.onPageChange = async (query) => {
-        FundService.listProviders(
-            $ctrl.fund.organization_id,
-            $ctrl.fund.id,
-            'approved',
-            query
-        ).then((res => {
-            $ctrl.fundProviders = res.data;
-        }));
+        $ctrl.getProviders(query);
     };
 };
 
@@ -179,6 +201,7 @@ module.exports = {
     controller: [
         '$state',
         '$scope',
+        '$q',
         '$stateParams',
         'FundService',
         'DateService',

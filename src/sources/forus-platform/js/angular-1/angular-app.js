@@ -137,6 +137,7 @@ switch (env_data.panel_type) {
         break;
 }
 
+app.directive('fundSelector', require('./directives/FundSelectorDirective'));
 app.directive('fundCardSponsor', require('./directives/FundCardSponsorDirective'));
 app.directive('fundCardProvider', require('./directives/FundCardProviderDirective'));
 app.directive('fundCardProviderFinances', require('./directives/FundCardProviderFinancesDirective'));
