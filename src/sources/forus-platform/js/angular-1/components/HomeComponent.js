@@ -2,8 +2,6 @@ let HomeComponent = function(
     $state,
     $stateParams,
     ModalService,
-    IdentityService,
-    CredentialsService,
     PushNotificationsService
 ) {
     let $ctrl = this;
@@ -14,10 +12,6 @@ let HomeComponent = function(
     $ctrl.openAuthPopup = function() {
         ModalService.open('modalAuth', {});
     };
-
-    if (!!CredentialsService.get()) {
-        IdentityService.identity();
-    }
 
     $ctrl.closeModal = function() {
         $ctrl.showModal = false;
@@ -50,8 +44,6 @@ module.exports = {
         '$state',
         '$stateParams',
         'ModalService',
-        'IdentityService',
-        'CredentialsService',
         'PushNotificationsService',
         HomeComponent
     ],

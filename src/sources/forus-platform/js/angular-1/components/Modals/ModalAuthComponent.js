@@ -80,17 +80,15 @@ let ModalAuthComponent = function(
                         if (organizations.length > 0) {
                             ModalService.open('businessSelect', {
                                 organizations: organizations,
-                                onReady: () => $rootScope.autoSelectOrganization($redirectAuthorizedState)
+                                onReady: () => $state.go('organizations'),
                             });
                         } else {
-                            $rootScope.autoSelectOrganization($redirectAuthorizedState);
+                            $state.go('organizations');
                         }
                     });
                 } else {
                     $ctrl.close();
-                    $rootScope.loadAuthUser().then(auth_user => {
-                        $rootScope.autoSelectOrganization($redirectAuthorizedState);
-                    });
+                    $rootScope.loadAuthUser().then(() => $state.go('organizations'));
                 }
             } else if (res.data.message == 'pending') {
                 timeout = $timeout(function() {

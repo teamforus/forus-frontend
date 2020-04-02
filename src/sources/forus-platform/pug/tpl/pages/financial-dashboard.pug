@@ -1,8 +1,8 @@
-.app.app-container
+.app.app-container(ng-if="$root.activeOrganization && $root.auth_user && $ctrl.funds")
     menu
     section.app.app-content
         .card-heading(ng-bind="'financial_dashboard.header.title' | translate")
-        .block.block-choose-organization
+        .block.block-choose-organization(ng-if="$ctrl.funds.length")
             div(
                 ng-repeat="fund in $ctrl.fund ? [$ctrl.fund] : $ctrl.funds"
                 ui-sref="financial-dashboard({fund_id: fund.id})").organization-item

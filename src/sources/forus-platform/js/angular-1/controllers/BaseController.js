@@ -12,179 +12,14 @@ let BaseController = function(
     appConfigs,
     ModalService
 ) {
-    let invalidOrganizationPermissions = {
-        sponsor: [
-            "manage_provider_funds", "manage_products", "manage_offices",
-            "scan_vouchers"
-        ],
-        provider: [
-            "manage_funds", "manage_providers", "manage_validators",
-            "validate_records", "scan_vouchers"
-        ],
-        validator: []
-    } [appConfigs.panel_type];
-
-    let requiredOrganizationPermissions = {
-        sponsor: [
-
-        ],
-        provider: [
-
-        ],
-        validator: [
-            "scan_vouchers"
-        ]
-    };
+    let selected_organization_key = 'selected_organization_id';
 
     let loadOrganizations = () => {
-        let deferred = $q.defer();
-
-        OrganizationService.list({
-            dependency: "permissions,logo"
-        }).then(res => {
-            $scope.organizations = res.data.data.filter(organization => {
-                return organization.permissions.filter((permission => {
-                    return invalidOrganizationPermissions.indexOf(permission) == -1;
-                })).length > 0;
-            });
-    
-            $scope.organizations.filter(organization => {
-                return requiredOrganizationPermissions.validator.filter(permission => {
-                    return organization.permissions.indexOf(permission) != -1;
-                }).length == requiredOrganizationPermissions.validator.length;
-            });
-
-            deferred.resolve($scope.organizations);
-        }, deferred.reject);
-
-        return deferred.promise;
-    };
-    
-    $scope.$ctrl = {
-        userMenuOpened: false,
-        showOrganizationsMenu: false
-    };
-
-    $scope.chooseOrganization = (organization) => {
-        $scope.$ctrl.showOrganizationsMenu = false;
-        OrganizationService.use(organization.id);
-
-        localStorage.setItem('last_selected_organization_id', organization.id);
-
-        $state.go($state.current.name, {
-            organization_id: organization.id
+        return $q((resolve, reject) => {
+            OrganizationService.list().then(res => {
+                resolve($scope.organizations = res.data.data);
+            }, reject);
         });
-    };
-
-    $scope.organizationEdit = (organization) => {
-        $scope.$ctrl.showOrganizationsMenu = false;
-
-        $state.go('organizations-edit', {
-            id: organization.id
-        });
-    };
-
-    $scope.organizationCreate = () => {
-        $scope.$ctrl.showOrganizationsMenu = false;
-        
-        $state.go('organizations-create');
-    };
-
-    $scope.$ctrl.openOrganizationsMenu = (e) => {
-        e.originalEvent.stopPropagation();
-        e.originalEvent.preventDefault();
-        
-        $scope.$ctrl.showOrganizationsMenu = !$scope.$ctrl.showOrganizationsMenu;
-    }
-
-    $scope.$ctrl.hideOrganizationsMenu = () => {
-        $scope.$apply(() => {
-            $scope.$ctrl.showOrganizationsMenu = false;
-        });
-    }
-
-    $rootScope.$state = $state;
-
-    $rootScope.popups = {
-        auth: {
-            show: false,
-            screen: false,
-            close: function() {
-                this.show = false;
-                this.screen = false;
-            },
-            open: function(screen) {
-                this.show = true;
-                this.screen = screen;
-            }
-        }
-    };
-
-    $rootScope.openPinCodePopup = function() {
-        ModalService.open('modalPinCode', {});
-    };
-
-    $scope.getLastUsedOrganization = () => {
-        let deferred = $q.defer();
-        let lastOrganizationId = localStorage.getItem('last_selected_organization_id');
-
-        loadOrganizations().then(organizations => {
-            if (lastOrganizationId) {
-                deferred.resolve(lastOrganizationId);
-            } else {
-                deferred.resolve(organizations.length ? $scope.organizations[0].id : null);
-            }
-        });
-
-        return deferred.promise;
-    };
-
-    $rootScope.autoSelectOrganization = function($redirectAuthorizedState = null) {
-        $scope.getLastUsedOrganization().then(lastOrganizationId => {
-            if (lastOrganizationId) {
-                OrganizationService.use(lastOrganizationId);
-        
-                $state.go($redirectAuthorizedState ? $redirectAuthorizedState : {
-                    sponsor: 'organization-funds',
-                    provider: 'offices',
-                    validator: 'fund-requests',
-                }[appConfigs.panel_type], {
-                    organization_id: lastOrganizationId
-                });
-            } else {
-                $state.go('organizations-create');
-            }
-        });
-    };
-
-    $rootScope.loadAuthUser = function() {
-        let deferred = $q.defer();
-        
-        IdentityService.identity().then((res) => {
-            let auth_user = res.data;
-
-            RecordService.list().then((res) => {
-                auth_user.records = res.data;
-                /* auth_user.primary_email = res.data.filter((record) => {
-                    return record.key == 'primary_email';
-                })[0].value; */
-
-                OrganizationService.list({
-                    dependency: "permissions,logo"
-                }).then((res) => {
-                    auth_user.organizations = res.data.data;
-                    auth_user.organizationsMap = {};
-                    auth_user.organizationsIds = Object.values(res.data.data).map(function(organization) {
-                        auth_user.organizationsMap[organization.id] = organization;
-                        return organization.id;
-                    });
-
-                    deferred.resolve($rootScope.auth_user = auth_user);
-                });
-            });
-        }, deferred.reject);
-
-        return deferred.promise;
     };
 
     let loadActiveOrganization = () => {
@@ -201,6 +36,131 @@ let BaseController = function(
         }
     };
 
+    $rootScope.popups = {
+        auth: {
+            show: false,
+            screen: false,
+            close: function() {
+                this.show = false;
+                this.screen = false;
+            },
+            open: function(screen) {
+                this.show = true;
+                this.screen = screen;
+            }
+        }
+    };
+
+    $rootScope.$state = $state;
+    $rootScope.appConfigs = appConfigs;
+    $rootScope.activeOrganization = OrganizationService.active();
+    $rootScope.showOrganizationsMenu = false;
+
+    $rootScope.chooseOrganization = (organization) => {
+        $rootScope.showOrganizationsMenu = false;
+        OrganizationService.use(organization.id);
+
+        localStorage.setItem(selected_organization_key, organization.id);
+
+        $state.go($state.current.name, {
+            organization_id: organization.id
+        });
+    };
+
+    $rootScope.organizationEdit = (organization) => {
+        $rootScope.showOrganizationsMenu = false;
+
+        $state.go('organizations-edit', {
+            id: organization.id
+        });
+    };
+
+    $rootScope.organizationCreate = () => {
+        $rootScope.showOrganizationsMenu = false;
+
+        $state.go('organizations-create');
+    };
+
+    $rootScope.openOrganizationsMenu = (e) => {
+        e.originalEvent.stopPropagation();
+        e.originalEvent.preventDefault();
+
+        $rootScope.showOrganizationsMenu = !$rootScope.showOrganizationsMenu;
+    }
+
+    $rootScope.hideOrganizationsMenu = () => {
+        $scope.$apply(() => {
+            $rootScope.showOrganizationsMenu = false;
+        });
+    }
+
+    $rootScope.openPinCodePopup = function() {
+        ModalService.open('modalPinCode', {});
+    };
+
+    $rootScope.getLastUsedOrganization = () => {
+        return $q((resolve, reject) => {
+            let selectedOrganizationId = localStorage.getItem(
+                selected_organization_key
+            );
+
+            loadOrganizations().then(organizations => {
+                let organization = organizations.filter(organization => {
+                    return organization.id == selectedOrganizationId;
+                })[0] || organizations[0] || false;
+
+                resolve(organization ? organization.id : organization);
+            }, reject);
+        });
+    };
+
+    $rootScope.autoSelectOrganization = function($redirectAuthorizedState = false) {
+        $rootScope.getLastUsedOrganization().then(selectedOrganizationId => {
+            if (selectedOrganizationId) {
+                OrganizationService.use(selectedOrganizationId);
+
+                $state.go($redirectAuthorizedState ? $redirectAuthorizedState : {
+                    sponsor: 'organization-funds',
+                    provider: 'offices',
+                    validator: 'fund-requests',
+                } [appConfigs.panel_type], {
+                    organization_id: selectedOrganizationId
+                });
+            } else {
+                $state.go('organizations-create');
+            }
+        });
+    };
+
+    $rootScope.loadAuthUser = function() {
+        let deferred = $q.defer();
+
+        IdentityService.identity().then((res) => {
+            let auth_user = res.data;
+
+            RecordService.list().then((res) => {
+                auth_user.records = res.data;
+
+                OrganizationService.list({
+                    dependency: "permissions,logo"
+                }).then((res) => {
+                    auth_user.organizations = res.data.data;
+                    auth_user.organizationsMap = {};
+                    auth_user.organizationsIds = Object.values(res.data.data).map(function(organization) {
+                        auth_user.organizationsMap[organization.id] = organization;
+                        return organization.id;
+                    });
+
+                    deferred.resolve($rootScope.auth_user = auth_user);
+                });
+            });
+
+            loadOrganizations().then(() => loadActiveOrganization());
+        }, deferred.reject);
+
+        return deferred.promise;
+    };
+
     $rootScope.$on('organization-changed', (e, id) => {
         if (!isNaN(parseInt(id))) {
             loadActiveOrganization();
@@ -214,11 +174,6 @@ let BaseController = function(
         $rootScope.loadAuthUser();
     });
 
-    loadOrganizations();
-    loadActiveOrganization();
-
-    $rootScope.activeOrganization = OrganizationService.active();
-
     $rootScope.signOut = () => {
         AuthService.signOut();
         $state.go('home');
@@ -226,23 +181,16 @@ let BaseController = function(
         $rootScope.auth_user = false;
     };
 
-    $rootScope.appConfigs = appConfigs;
-    $scope.appConfigs = appConfigs;
-
-    if (AuthService.hasCredentials()) {
-        $rootScope.loadAuthUser();
-    }
-
-    $scope.$ctrl.openUserMenu = (e) => {
+    $rootScope.openUserMenu = (e) => {
         e.originalEvent.stopPropagation();
         e.originalEvent.preventDefault();
-        
-        $scope.$ctrl.userMenuOpened = !$scope.$ctrl.userMenuOpened;
+
+        $rootScope.userMenuOpened = !$rootScope.userMenuOpened;
     }
 
-    $scope.$ctrl.hideUserMenu = () => {
+    $rootScope.hideUserMenu = () => {
         $scope.$apply(() => {
-            $scope.$ctrl.userMenuOpened = false;
+            $rootScope.userMenuOpened = false;
         });
     }
 
@@ -258,12 +206,18 @@ let BaseController = function(
         }
     })
 
+    $translate.use('nl');
+
+    if (AuthService.hasCredentials()) {
+        $rootScope.loadAuthUser();
+    } else {
+        $rootScope.auth_user = false;
+    }
+
     ConfigService.get('dashboard').then((res) => {
         $rootScope.appConfigs.features = res.data;
         $rootScope.appConfigs.frontends = res.data.fronts;
     });
-
-    $translate.use('nl');
 };
 
 module.exports = [

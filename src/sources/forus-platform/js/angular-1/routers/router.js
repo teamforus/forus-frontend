@@ -102,6 +102,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+    /**
+     * Organizations
+     */
+    $stateProvider.state({
+        name: "organizations",
+        url: "/organizations",
+        controller: ['$rootScope', ($rootScope) => $rootScope.autoSelectOrganization()]
+    });
+
     $stateProvider.state({
         name: "organizations-create",
         url: "/organizations/create",
@@ -697,6 +706,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $state.params.token
             ).then(function(res) {
                 CredentialsService.set(res.data.access_token);
+
                 if (['provider'].indexOf(appConfigs.panel_type) != -1) {
                     $rootScope.loadAuthUser().then(auth_user => {
                         let organizations = auth_user.organizations.filter(organization =>
@@ -710,12 +720,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                                 onReady: () => $state.go('home')
                             });
                         } else {
-                            $rootScope.autoSelectOrganization();
+                            $state.go('organizations');
                         }
                     });
                 } else {
                     $rootScope.loadAuthUser().then(() => {
-                        $rootScope.autoSelectOrganization();
+                        $state.go('organizations');
                     });
                 }
             }, () => {
@@ -741,9 +751,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             $state.params.token
         ).then(function(res) {
             CredentialsService.set(res.data.access_token);
-            $rootScope.loadAuthUser().then(() => {
-                $rootScope.autoSelectOrganization();
-            });
+            $rootScope.loadAuthUser().then(() => $state.go('organizations'));
         }, () => {
             alert("Token expired or unknown.");
             $state.go('home');
@@ -763,9 +771,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $state.params.token
             ).then(res => {
                 CredentialsService.set(res.data.access_token);
-                $rootScope.loadAuthUser().then(() => {
-                    $rootScope.autoSelectOrganization();
-                });
+                $rootScope.loadAuthUser().then(() => $state.go('organizations'));
             }, () => {
                 PushNotificationsService.danger(
                     "Deze link is reeds gebruikt of ongeldig."

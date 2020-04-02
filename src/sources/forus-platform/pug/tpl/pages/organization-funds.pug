@@ -1,11 +1,11 @@
-.app.app-container
+.app.app-container(ng-if="$root.activeOrganization && $root.auth_user && $ctrl.funds")
     menu
     section.app.app-content
         .card-heading 
             span(translate="funds_my.title")
             a(
-            ui-sref="funds-create({organization_id: $root.activeOrganization.id})"
-            ng-if='$root.activeOrganization | hasPerm:["manage_funds"]').link
+                ui-sref="funds-create({organization_id: $root.activeOrganization.id})"
+                ng-if='$root.activeOrganization | hasPerm:["manage_funds"]').link
                 em.mdi.mdi-plus-circle
                 | {{ "funds_my.add" | i18n }}
                 span(ng-bind="' (' + $ctrl.funds.length + ')'")
