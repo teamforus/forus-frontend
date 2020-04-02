@@ -1,22 +1,22 @@
 const platform = require('./_WebshopBasePlatform').clone();
-const destPath = '../dist/forus-webshop-zuidhorn.panel';
+const destPath = '../dist/forus-webshop-potjeswijzer.panel';
 
 // change platform name
-platform.setName('webshop_zuidhorn');
+platform.setName('webshop_potjeswijzer');
 
 // change building root path
 platform.setDestRootPath(destPath);
 
 // assets configs
 platform.copyAsset("resources/_webshop-common/**/*", "./");
-platform.copyAsset("resources/webshop-zuidhorn/**/*", "./");
+platform.copyAsset("resources/webshop-potjeswijzer/**/*", "./");
 
 // tweak scss configs
 platform.editTask('scss', (task) => {
-    task.src = "zuidhorn/style-webshop-zuidhorn.scss";
+    task.src = "potjeswijzer/style-webshop-potjeswijzer.scss";
     task.watch = [
         "_common/**/*.scss",
-        "zuidhorn/**/*.scss"
+        "potjeswijzer/**/*.scss"
     ];
 
     return task

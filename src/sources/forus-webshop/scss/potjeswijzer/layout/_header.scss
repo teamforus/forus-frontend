@@ -1,0 +1,32 @@
+.section {
+    &.section-header {
+        @media screen and (min-width: 1024px) {
+            background-size: cover;
+            background-position: center center;
+            .header-content {
+                min-height:575px;
+                color: #FFF;
+                text-align: center;
+                margin-top: 50px;
+                max-width: 600px;
+                float:right;
+                .header-title {
+                    text-align: center;
+                    font: 700 40px/1.5em #FFF;
+                    text-transform:capitalize;
+                }
+                .header-description {
+                    text-align: center;
+                    p {
+                        font: 400 18px/1.5em #FFF;
+                    }
+                }
+                .header-how-it-works {
+                    margin-top: 25px;
+                    color: #FFF;
+                    font-style: normal;
+                }
+            }
+        }
+    }
+}

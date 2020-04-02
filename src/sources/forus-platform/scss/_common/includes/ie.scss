@@ -67,7 +67,7 @@
           -webkit-box-shadow: 0 10px 25px rgba(0,0,0,0.15);
           box-shadow: 0 10px 25px rgba(0,0,0,0.15);
           padding: 7px 25px;
-          text-transform: uppercase;
+          text-transform: $tf;
 
           &:not(:last-of-type) {
             margin-right: 25px;
