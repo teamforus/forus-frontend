@@ -16,11 +16,28 @@
             font-weight: 500;
         }
     }
+    h5 {
+        margin-top: 10px;
+    }
     p {
         font-size: 14px;
         margin: 0;
     }
-    .ts-p{margin-top: 15px;}
+    span {
+        a {
+            text-decoration: underline;
+            color: $forus-pink;
+        }
+    }
+    .sm {
+        li {
+            cursor: pointer;
+            &:hover {
+                color: $forus-pink;
+                text-decoration: underline;
+            }
+        }
+    }
 }
 .footer .col {
     width: 100%;
