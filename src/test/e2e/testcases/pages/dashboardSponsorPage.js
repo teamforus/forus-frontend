@@ -5,7 +5,7 @@ var dashboardPage = function(){
     }
 
     this.get = function(){
-        browser.get(environment.sponsorURL.concat('/#!/organizations'))
+        browser.get(environment.sponsorURL + '/#!/organizations')
     }
 
     this.getTransactionsPage = function(){
@@ -105,10 +105,6 @@ var dashboardPage = function(){
     
     this.getCSVFunds = function(){
         return element.all(by.id('csv_validation_fund'))
-    }
-
-    this.getCSVFund = function(){      
-        element(by.cssContainingText('fund.name', 'Zuidhorn')).click()
     }
 }
 module.exports = new dashboardPage();

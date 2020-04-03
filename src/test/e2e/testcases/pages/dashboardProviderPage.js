@@ -8,7 +8,7 @@ var dashboardProviderPage = function(){
     }
 
     this.get = function(){
-        browser.get(environment.providerURL.concat('/#!/organizations'))
+        browser.get(environment.providerURL + '/#!/organizations')
     }
 
     this.getOffices = function(){

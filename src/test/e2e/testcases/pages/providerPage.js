@@ -12,7 +12,7 @@ var providerPage = function(){
     }
 
     this.getSignupProvider = function(){
-        browser.get(environment.providerURL.concat('#!/sign-up'))
+        browser.get(environment.providerURL + '#!/sign-up')
     }
 
     this.goToStep = function(step){
