@@ -122,7 +122,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     $stateProvider.state({
         name: "organizations",
         url: "/organizations",
-        component: "organizationsComponent"
+        controller: ['$rootScope', ($rootScope) => $rootScope.autoSelectOrganization()]
     });
 
     $stateProvider.state({
@@ -720,43 +720,35 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $state.params.token
             ).then(function(res) {
                 let target = $state.params.target || '';
+
                 CredentialsService.set(res.data.access_token);
 
-                if (['provider'].indexOf(appConfigs.panel_type) != -1) {
-                    $rootScope.loadAuthUser().then(auth_user => {
-                        let organizations = auth_user.organizations.filter(organization =>
-                            !organization.business_type_id &&
-                            PermissionsService.hasPermission(organization, 'manage_organization')
-                        );
+                $rootScope.loadAuthUser().then(auth_user => {
+                    let organizations = auth_user.organizations.filter(organization =>
+                        !organization.business_type_id &&
+                        PermissionsService.hasPermission(organization, 'manage_organization')
+                    );
 
-                        if (organizations.length > 0) {
-                            ModalService.open('businessSelect', {
-                                organizations: organizations,
-                                onReady: () => $state.go('home')
-                            });
-                        } else {
-                            if (typeof target == 'string') {
-                                if (!handleAuthTarget($state, target.split('-'), appConfigs)) {
-                                    $state.go('home');
-                                }
-                            }
+                    console.log(organizations);
+
+                    if (appConfigs.panel_type != 'provider' || organizations.length == 0) {
+                        if (typeof target != 'string' || !handleAuthTarget($state, target.split('-'), appConfigs)) {
+                            return $state.go('organizations');
                         }
+                    }
+
+                    ModalService.open('businessSelect', {
+                        organizations: organizations,
+                        onReady: () => $state.go('organizations')
                     });
-                } else {
-                    $rootScope.loadAuthUser().then(auth_user => {
-                        if (typeof target == 'string') {
-                            if (!handleAuthTarget($state, target.split('-'), appConfigs)) {
-                                $state.go('home');
-                            }
-                        }
-                    });
-                }
+                });
             }, () => {
                 alert([
                     "Helaas, het is niet gelukt om in te loggen. " +
                     "De link is reeds gebruikt of niet meer geldig. " +
                     "Probeer het opnieuw met een andere link."
                 ].join());
+
                 $state.go('home');
             });
         }]
@@ -773,19 +765,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         ) => {
             let target = $state.params.target || '';
 
-            console.log(target);
-
             IdentityService.exchangeConfirmationToken(
                 $state.params.token
             ).then(function(res) {
                 CredentialsService.set(res.data.access_token);
-                $rootScope.loadAuthUser().then(auth_user => {
-                    if (typeof target == 'string') {
-                        if (!handleAuthTarget($state, target.split('-'), appConfigs)) {
-                            $state.go('home', {
-                                confirmed: 1
-                            });
-                        }
+                $rootScope.loadAuthUser().then(() => {
+                    if (typeof target != 'string' || !handleAuthTarget($state, target.split('-'), appConfigs)) {
+                        $state.go('home', {
+                            confirmed: 1
+                        });
                     }
                 });
             }, () => {
@@ -808,9 +796,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $state.params.token
             ).then(res => {
                 CredentialsService.set(res.data.access_token);
-                $rootScope.loadAuthUser().then(() => {
-                    $state.go('home');
-                });
+                $rootScope.loadAuthUser().then(() => $state.go('organizations'));
             }, () => {
                 PushNotificationsService.danger(
                     "Deze link is reeds gebruikt of ongeldig."

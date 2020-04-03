@@ -1,4 +1,4 @@
-.app.app-container
+.app.app-container(ng-if="$root.activeOrganization && $root.auth_user && $ctrl.funds")
     menu
     section.app.app-content
         .card-heading(ng-bind="'financial_dashboard.header.title' | translate")
