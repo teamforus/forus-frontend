@@ -8,11 +8,13 @@
     }
     .tl-list {
         @media screen and (max-width: 766px) {
+            margin-top: 20px;
             ul {
                 li {
-                    width: 50%;
+                    width: 100%;
                     float: left;
-                    padding: 10px 0px;
+                    padding: 5px 0px;
+                    border: solid 1px #F6F8F9;
                     h5 {
                         font-size: 14px;
                         font-weight: 600;
@@ -24,19 +26,24 @@
             }
         }
         @media screen and (min-width: 768px) {
-            display: flex;
+            justify-content: space-evenly;
+            display: inline-flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 20px 0px;
             ul {
-                padding: 20px;
+                display: inline-flex;
+                justify-content: space-evenly;
+                padding: 20px 0px;
                 li {
-                    padding: 20px 10px;
+                    padding: 0px 10px;
+                    min-width: 200px;
                 }
             }
         }
         ul {
-            flex: 1 1 0;
             @media screen and (min-width:992px) {
                 float: left;
-                li {padding: 20px 10px;}
             }
             p {
                 font-style: cursive;
@@ -76,7 +83,7 @@
                 }
             }
             .ww-pt {
-                margin-top: 30px;
+                margin-top: 20px;
             }
         }
         @media screen and (min-width:992px) {
