@@ -72,8 +72,14 @@
 		width: 115px;
 	}
 	p:nth-of-type(2) {
-		color: $forus-blue;
-		font-weight: 600;
+			a {
+			color: $forus-blue;
+			font-weight: 600;
+			&:hover {
+				text-decoration: underline;
+				cursor: pointer;
+			}
+		}
 	}
 }
 
