@@ -13,7 +13,7 @@ let ModalAuthComponent = function(
 ) {
     let $ctrl = this;
     let timeout;
-    let $redirectAuthorizedState = 'organizations';
+    let $redirectAuthorizedState = null;
 
     if (appConfigs.panel_type == 'validator') {
         $redirectAuthorizedState = 'csv-validation';
@@ -80,16 +80,15 @@ let ModalAuthComponent = function(
                         if (organizations.length > 0) {
                             ModalService.open('businessSelect', {
                                 organizations: organizations,
-                                onReady: () => $state.go($redirectAuthorizedState)
+                                onReady: () => $state.go('organizations'),
                             });
                         } else {
-                            $state.go($redirectAuthorizedState);
+                            $state.go('organizations');
                         }
                     });
                 } else {
-                    $rootScope.loadAuthUser();
                     $ctrl.close();
-                    $state.go($redirectAuthorizedState);
+                    $rootScope.loadAuthUser().then(() => $state.go('organizations'));
                 }
             } else if (res.data.message == 'pending') {
                 timeout = $timeout(function() {
