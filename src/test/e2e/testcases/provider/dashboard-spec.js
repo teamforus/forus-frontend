@@ -5,12 +5,20 @@ describe('testing provider dashboard:', function(){
     beforeAll(function(){
         provider.get()
         provider.setActiveAccount()
+        dashboard.setSelectedOrganizationId()
     });
 
     beforeEach(function(){
-        provider.get()
-        dashboard.chooseOrganisation()
+        dashboard.get()
     })
+
+    it('opens and closes add-products modal', function(){
+        dashboard.getProducts()
+
+        dashboard.addProduct()
+        dashboard.cancelAddProduct()
+
+    });
    
     it('opens and closes add-office modal', function(){
         dashboard.getOffices()
@@ -32,11 +40,7 @@ describe('testing provider dashboard:', function(){
         dashboard.getProviderFunds()
     });
 
-    it('opens and closes add-products modal', function(){
-        dashboard.getProducts()
-        dashboard.addProduct()
-        dashboard.cancelAddProduct()
-    });
+
 
     it('opens and closes add employee modal', function(){
         dashboard.getEmployees()

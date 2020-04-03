@@ -5,17 +5,11 @@ var sponsorPage = function(){
     }
 
     this.setActiveAccount = function(){
-        browser.executeScript("window.localStorage.setItem('active_account','" + environment.active_account + "');").
-        then(function(){
-            browser.refresh();
-        });
+        browser.executeScript("window.localStorage.setItem('active_account','" + environment.active_account + "');")
     };
 
     this.clearLocalStorage = function(){
         browser.executeScript("window.localStorage.clear()")
-        .then(function(){
-            browser.refresh();
-        });
     }
 
     this.openLogin = function(){

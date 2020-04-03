@@ -1,15 +1,11 @@
 var dashboardPage = function(){
 
     this.setActiveOrganization = function(){
-        browser.executeScript("window.localStorage.setItem('active_organization','" + environment.active_account + "');").
-        then(function(){
-            browser.refresh();
-        })
+        browser.executeScript("window.localStorage.setItem('active_organization','" + environment.active_organization + "');")
     }
 
-    //temporary solution until seeder works
-    this.chooseOrganisation = function(){
-        element.all(by.css('[ng-click="$ctrl.chooseOrganization(organization)"]')).first().click()
+    this.get = function(){
+        browser.get(environment.sponsorURL.concat('/#!/organizations'))
     }
 
     this.getTransactionsPage = function(){
@@ -106,6 +102,13 @@ var dashboardPage = function(){
     this.closeGenerateActivationCode = function(){
         element(by.id('close')).click()
     }
-       
+    
+    this.getCSVFunds = function(){
+        return element.all(by.id('csv_validation_fund'))
+    }
+
+    this.getCSVFund = function(){      
+        element(by.cssContainingText('fund.name', 'Zuidhorn')).click()
+    }
 }
 module.exports = new dashboardPage();

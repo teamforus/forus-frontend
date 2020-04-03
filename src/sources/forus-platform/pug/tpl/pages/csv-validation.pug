@@ -5,7 +5,8 @@
         .block.block-choose-organization(ng-if="$ctrl.funds.length > 1")
             div(
                 ng-repeat="fund in $ctrl.fund ? [$ctrl.fund] : $ctrl.funds" 
-                ui-sref="csv-validation({fund_id: fund.id})").organization-item
+                ui-sref="csv-validation({fund_id: fund.id})"
+                id="csv_validation_fund").organization-item
                 .organization-item-inner
                     .organization-logo: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
                     .organization-name(ng-bind="fund.name")

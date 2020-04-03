@@ -4,17 +4,11 @@ var providerPage = function(){
     }
 
     this.setActiveAccount = function(){
-        browser.executeScript("window.localStorage.setItem('active_account','" + environment.active_account + "');").
-        then(function(){
-            browser.refresh();
-        });
+        browser.executeScript("window.localStorage.setItem('active_account','" + environment.active_account + "');")
     };
 
     this.clearLocalStorage = function(){
         browser.executeScript("window.localStorage.clear()")
-        .then(function(){
-            browser.refresh();
-        });
     }
 
     this.getSignupProvider = function(){
@@ -23,9 +17,6 @@ var providerPage = function(){
 
     this.goToStep = function(step){
         browser.executeScript("window.localStorage.setItem('sign_up_form.step','" + step + "');")
-        .then((result) => {
-            browser.refresh();
-        })
     }
 
     this.appIsInstalled = function(){

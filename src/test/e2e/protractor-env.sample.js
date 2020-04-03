@@ -15,6 +15,6 @@ const environment = {
     providerURL : "http://localhost:4000",
     sponsorURL :  "http://localhost:3500",
     active_account : "<your session token>",
-    active_organization : "<active_account>"
+    active_organization : "<active_organization>"
 }
 module.exports = environment;

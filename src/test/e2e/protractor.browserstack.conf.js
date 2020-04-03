@@ -2,8 +2,6 @@ var browserstack = require('browserstack-local');
 const MailListener = require("./util/mailListener")
 const environment = require("./protractor-env.js");
 
-
-
 exports.config = {
     'seleniumAddress': 'http://hub-cloud.browserstack.com/wd/hub',
 
@@ -15,7 +13,6 @@ exports.config = {
         'browserName': environment.browserName,
         'name': 'Bstack-[Protractor] Local Test',
         "resolution" : "1920x1080"
-
     },
 
     suites: {
@@ -23,7 +20,6 @@ exports.config = {
         sponsor : ['testcases/sponsor/*-spec.js'],
         provider : ['testcases/provider/*-spec.js'],
     },
-
     
     beforeLaunch: function(){
         global.environment = environment;

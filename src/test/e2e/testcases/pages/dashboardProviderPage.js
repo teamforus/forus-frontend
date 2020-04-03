@@ -1,14 +1,14 @@
 var dashboardProviderPage = function(){
-    this.setActiveOrganization = function(){
-        browser.executeScript("window.localStorage.setItem('active_organization','" + environment.active_account + "');").
-        then(function(){
-            browser.refresh();
-        })
+    this.setSelectedOrganizationId = function(){
+        browser.executeScript("window.localStorage.setItem('selected_organization_id','" + environment.active_organization + "');")
     }
 
-    //temporary solution until seeder works
-    this.chooseOrganisation = function(){
-        element.all(by.css('[ng-click="$ctrl.chooseOrganization(organization)"]')).first().click()
+    this.setActiveOrganization = function(){
+        browser.executeScript("window.localStorage.setItem('active_organization','" + environment.active_organization + "');")
+    }
+
+    this.get = function(){
+        browser.get(environment.providerURL.concat('/#!/organizations'))
     }
 
     this.getOffices = function(){
@@ -17,7 +17,6 @@ var dashboardProviderPage = function(){
 
     this.addOffice = function(){
         element(by.id("create_office")).click()
-
     }
 
     this.editOffice = function(){
@@ -61,7 +60,7 @@ var dashboardProviderPage = function(){
     }
 
     this.cancelAddProduct = function(){
-        element(by.id("cancel")).click()
+        element(by.id("cancel_create_product")).click()
     }
 }
 module.exports = new dashboardProviderPage();

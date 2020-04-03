@@ -9,8 +9,7 @@ describe('testing sponsor dashboard', function(){
     })   
 
     beforeEach(function(){
-        sponsor.get()
-        dashboard.chooseOrganisation()
+        dashboard.get()
     })
 
     it('opens and closes fund settings', function(){
@@ -66,9 +65,15 @@ describe('testing sponsor dashboard', function(){
         dashboard.getProviderPage()
     })
 
-    it('opens and closes add activation code', function(){
+    it('opens requester page and checks if fund is present', function(){
         dashboard.getRequesterPage()
+        expect(dashboard.getCSVFunds().getText()).toContain("Zuidhorn") 
+    })
+
+    it('opens requester page and opens and closes add single activation code', function(){
+        dashboard.getRequesterPage()
+        dashboard.getCSVFunds().first().click() //Zuidhorn in LoremDbSeeder 
         dashboard.generateActivationCode()
-        dashboard.closeGenerateActivationCode()  
+        dashboard.closeGenerateActivationCode()
     })
 });
