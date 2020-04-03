@@ -113,7 +113,7 @@ let ProductVouchersComponent = function(
         $timeout(() => target.showTooltip = false, 0);
     };
 
-    $ctrl.init = async () => {
+    $ctrl.init = () => {
         $ctrl.fundClosed = $ctrl.fund.state == 'closed';
 
         $ctrl.resetFilters();

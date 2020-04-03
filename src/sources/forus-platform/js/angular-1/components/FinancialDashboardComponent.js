@@ -186,7 +186,7 @@ let FinancialDashboardComponent = function(
         }; 
     };
 
-    $scope.onPageChange = async (query) => {
+    $scope.onPageChange = (query) => {
         $ctrl.getProviders(query);
     };
 };

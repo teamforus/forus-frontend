@@ -117,7 +117,7 @@ let OrganizationProvidersComponent = function(
         });
     };
 
-    $scope.onPageChange = async (query) => {
+    $scope.onPageChange = (query) => {
         return $q((resolve, reject) => {
             OrganizationService.listProviders(
                 $stateParams.organization_id,
@@ -173,7 +173,7 @@ let OrganizationProvidersComponent = function(
         return providers.map(provider => $ctrl.transformProvider(provider));
     };
 
-    $ctrl.init = async () => {
+    $ctrl.init = () => {
         $ctrl.resetFilters();
 
         $scope.onPageChange($ctrl.filters.values);

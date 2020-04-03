@@ -3466,7 +3466,7 @@ $colorPrimaryLight: $color_primary_light;
 
     &.block-choose-organization {
         @include cf();
-        margin: 0 -12px 30px;
+        margin: 0 -7.5px 0;
 
         .organization-heading {
             font: 500 18px $bf;
@@ -3486,7 +3486,7 @@ $colorPrimaryLight: $color_primary_light;
         .organization-item {
             width: 20%;
             text-align: center;
-            padding: 0 12px;
+            padding: 0 7.5px;
             margin-bottom: 15px;
             cursor: pointer;
             float: left;
@@ -3497,21 +3497,20 @@ $colorPrimaryLight: $color_primary_light;
             }
 
             .organization-item-inner {
-                padding: 15px;
+                padding: 15px 10px 10px;
                 display: block;
                 background: #fff;
                 border-radius: 5px;
-                margin-bottom: 15px;
                 box-shadow: 0 5px 10px rgba($color: #000000, $alpha: 0.1);
                 transform: translate(0, 0);
                 transition: 0.4s;
 
                 .organization-logo {
-                    width: 30px;
-                    height: 30px;
+                    width: 32px;
+                    height: 32px;
                     border-radius: 70px;
                     background: #e2e8e9;
-                    border: 2px solid #e2e8e9;
+                    border: 1px solid #e2e8e9;
                     margin: 0 auto;
                     overflow: hidden;
                     margin-bottom: 5px;
@@ -3535,6 +3534,11 @@ $colorPrimaryLight: $color_primary_light;
                     }
                 }
 
+                .organization-name {
+                    font: 500 13px/18px $bf;
+                    color: #282b39;
+                }
+
                 &.active, &:hover {
                     background-color: #2166af;
 
@@ -3546,11 +3550,6 @@ $colorPrimaryLight: $color_primary_light;
                 &.active {
                     background-color: #134478;
                 }
-            }
-
-            .organization-name {
-                font: 500 15px/24px $bf;
-                color: #282b39;
             }
         }
     }
