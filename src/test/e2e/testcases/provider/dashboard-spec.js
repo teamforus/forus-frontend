@@ -5,7 +5,6 @@ var offices = require('../pages/dashboard/provider/officesPage')
 var products = require('../pages/dashboard/provider/productsPage')
 var employees = require('../pages/dashboard/employeesPage')
 
-
 /**
  * testing dashboard functionality
  * first testing if fund/vouchers/employee/etc 
@@ -81,7 +80,6 @@ describe('provider dashboard', function(){
         dashboard.getEmployeesPage()
     });
     
-
     describe('employees', function(){
         beforeEach(function(){
             dashboard.getEmployeesPage()
