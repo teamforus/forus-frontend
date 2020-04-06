@@ -4,23 +4,23 @@ var dashboardProviderPage = function(){
         browser.get(environment.providerURL + '/#!/organizations')
     }
     
-    this.getOffices = function(){
+    this.getOfficesPage = function(){
         element(by.id("offices")).click()
     }
 
-    this.getTransactions = function(){
+    this.getTransactionsPage = function(){
         element(by.id("transactions")).click()
     }
 
-    this.getProducts = function(){
+    this.getProductsPage = function(){
         element(by.id("products")).click()
     }
 
-    this.getEmployees = function(){
+    this.getEmployeesPage = function(){
         element(by.id("employees")).click()
     }
 
-    this.getProviderFunds = function(){
+    this.getProviderFundsPage = function(){
         element(by.id("funds")).click()
     }
 }

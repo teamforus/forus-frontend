@@ -1,7 +1,7 @@
 var EmployeesPage = function(){
     
     this.emailInput = element(by.id('email_value'))
-    this.employeesEmail = element.all(by.id('employee_email')).last()
+    this.employeesEmail = element.all(by.id('employee_email'))
 
 
     this.addEmployee = function(){

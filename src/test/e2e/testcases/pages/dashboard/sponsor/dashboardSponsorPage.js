@@ -8,7 +8,7 @@ var dashboardSponsorPage = function(){
         element(by.id('transactions')).click()
     }
 
-    this.getEmployeePage = function(){
+    this.getEmployeesPage = function(){
         element(by.id('employees')).click()
     }
 

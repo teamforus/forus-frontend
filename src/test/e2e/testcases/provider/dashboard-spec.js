@@ -21,14 +21,14 @@ describe('provider dashboard', function(){
     beforeEach(function(){
         dashboard.get()
     })
-    /*
+    
     it('goes to offices page', function(){
-        dashboard.getOffices();
+        dashboard.getOfficesPage();
     });
 
     describe('offices page', function(){
         beforeEach(function(){
-            dashboard.getOffices()
+            dashboard.getOfficesPage()
         })
 
         it('opens and closes the edit-organisation modal', function(){
@@ -43,32 +43,32 @@ describe('provider dashboard', function(){
     })
 
     it('goes to transactions page', function(){
-        dashboard.getTransactions();
+        dashboard.getTransactionsPage();
     });
 
     describe('transactions page', function(){
         beforeEach(function(){
-            dashboard.getTransactions();
+            dashboard.getTransactionsPage();
         })
     })
 
     it('goes to funds page', function(){
-        dashboard.getProviderFunds()
+        dashboard.getProviderFundsPage()
     });
 
     describe('funds page', function(){
         beforeEach(function(){
-            dashboard.getProviderFunds()
+            dashboard.getProviderFundsPage()
         })
     })
 
     it('goes to products page', function(){
-        dashboard.getProducts()
+        dashboard.getProductsPage()
     });
 
     describe('products page', function(){
         beforeEach(function(){
-            dashboard.getProducts()
+            dashboard.getProductsPage()
         })
 
         it('opens and closes add-products modal', function(){   
@@ -78,13 +78,13 @@ describe('provider dashboard', function(){
     })
 
     it('goes to employees page', function(){
-        dashboard.getEmployees()
+        dashboard.getEmployeesPage()
     });
-    */
+    
 
     describe('employees', function(){
         beforeEach(function(){
-            dashboard.getEmployees()
+            dashboard.getEmployeesPage()
         })
 
         it('opens and closes add employee modal', function(){
@@ -99,21 +99,6 @@ describe('provider dashboard', function(){
             expect(employees.employeesEmail.last().getText()).toBe('email@email.com')
             employees.deleteEmployee()
             expect(employees.employeesEmail.getText()).not.toContain('email@email.com')
-        })
-
-
-        describe('after employee is created', function(){
-            beforeEach(function(){
-                employees.addEmployee()
-                employees.emailInput.sendKeys('mail@mail.com');
-                employees.confirmAddEmployee()
-            })
-
-            it('should be deleted', function(){
-                employees.deleteEmployee()
-                expect(employees.employeesEmail.getText()).not.toContain('mail@mail.com')
-            })         
-
-       })
+        })         
     })
 })

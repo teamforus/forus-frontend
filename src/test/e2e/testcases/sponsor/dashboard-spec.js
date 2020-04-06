@@ -5,7 +5,7 @@ var funds = require('../pages/dashboard/sponsor/fundsPage');
 var productVouchers = require('../pages/dashboard/sponsor/productVouchersPage')
 var vouchers = require('../pages/dashboard/sponsor/vouchersPage')
 var employees = require('../pages/dashboard/employeesPage')
-var requesters = require('../pages/dashboard/sponsor/requestersPage')
+var requesters = require('../pages/dashboard/requestersPage')
 
 
 /**
@@ -105,17 +105,27 @@ describe('sponsor dashboard', function(){
     })
 
     it('goes to employees page', function(){
-        dashboard.getProductVouchersPage()
+        dashboard.getEmployeesPage()
     })
 
-    describe('employees page', function(){
+    describe('employees', function(){
         beforeEach(function(){
-            dashboard.getEmployeePage()
+            dashboard.getEmployeesPage()
         })
-        it('opens and closes add employees modal', function(){
+
+        it('opens and closes add employee modal', function(){
             employees.addEmployee()
             employees.closeAddEmployee()
-        })
+        });
+
+        it('should add and delete an employee', function(){
+            employees.addEmployee()
+            employees.emailInput.sendKeys('email@email.com');
+            employees.confirmAddEmployee()
+            expect(employees.employeesEmail.last().getText()).toBe('email@email.com')
+            employees.deleteEmployee()
+            expect(employees.employeesEmail.getText()).not.toContain('email@email.com')
+        })         
     })
     
     it('goes to providers page', function(){

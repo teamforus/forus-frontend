@@ -18,7 +18,7 @@ describe('testing unauthenticated provider functionality:', function(){
         expect(provider.getFlowBlock().isPresent()).toBe(true)
     })
 
-    it('opens and closes login modal', function(){
+    it('should open and close login modal', function(){
         browser.waitForAngular();
         provider.openLogin()
         browser.ignoreSynchronization = true;

@@ -1,4 +1,3 @@
-
 var sponsorPage = function(){
     this.get = function(){
         browser.get(environment.sponsorURL)
@@ -9,7 +8,7 @@ var sponsorPage = function(){
     }
 
     this.openStart = function(){
-        element(by.css('[ng-click="$ctrl.openAuthCodePopup()"]')).click();
+        element(by.id("start")).click();
     }
 
     this.closeLoginModal = function(){

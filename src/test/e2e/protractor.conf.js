@@ -12,6 +12,7 @@ exports.config = {
         requester : ['testcases/requester/*-spec.js'],
         sponsor : ['testcases/sponsor/*-spec.js'],
         provider : ['testcases/provider/*-spec.js'],
+        validator : ['testcases/validator/*-spec.js']
     },
 
     beforeLaunch: function(){
