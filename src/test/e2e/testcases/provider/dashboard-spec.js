@@ -1,27 +1,27 @@
-var provider = require('../pages/provider/providerPage');
-var dashboard = require('../pages/provider/dashboard/dashboardPage');
-
-var offices = require('../pages/provider/dashboard/officesPage')
-var products = require('../pages/provider/dashboard/productsPage')
-var employees = require('../pages/provider/dashboard/employeesPage')
+var utils = require('../pages/utils');
+var dashboard = require('../pages/dashboard/provider/dashboardProviderPage')
+var provider = require('../pages/provider/providerPage')
+var offices = require('../pages/dashboard/provider/officesPage')
+var products = require('../pages/dashboard/provider/productsPage')
+var employees = require('../pages/dashboard/employeesPage')
 
 
 /**
  * testing dashboard functionality
- * first testing if fund/vouchers/employee/etc...
+ * first testing if fund/vouchers/employee/etc 
  * still works and then perform tests on that page
  */
 describe('provider dashboard', function(){
     beforeAll(function(){
         provider.get()
-        provider.setActiveAccount()
-        dashboard.setSelectedOrganizationId()
+        utils.setActiveAccount()
+        utils.setSelectedOrganizationId()
     }); 
-
+    
     beforeEach(function(){
         dashboard.get()
     })
-
+    /*
     it('goes to offices page', function(){
         dashboard.getOffices();
     });
@@ -80,6 +80,7 @@ describe('provider dashboard', function(){
     it('goes to employees page', function(){
         dashboard.getEmployees()
     });
+    */
 
     describe('employees', function(){
         beforeEach(function(){
@@ -90,5 +91,29 @@ describe('provider dashboard', function(){
             employees.addEmployee()
             employees.closeAddEmployee()
         });
+
+        it('should add and delete an employee', function(){
+            employees.addEmployee()
+            employees.emailInput.sendKeys('email@email.com');
+            employees.confirmAddEmployee()
+            expect(employees.employeesEmail.last().getText()).toBe('email@email.com')
+            employees.deleteEmployee()
+            expect(employees.employeesEmail.getText()).not.toContain('email@email.com')
+        })
+
+
+        describe('after employee is created', function(){
+            beforeEach(function(){
+                employees.addEmployee()
+                employees.emailInput.sendKeys('mail@mail.com');
+                employees.confirmAddEmployee()
+            })
+
+            it('should be deleted', function(){
+                employees.deleteEmployee()
+                expect(employees.employeesEmail.getText()).not.toContain('mail@mail.com')
+            })         
+
+       })
     })
-});
+})

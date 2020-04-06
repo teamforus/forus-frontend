@@ -1,9 +1,11 @@
 var requester = require('../pages/requester/requesterPage');
+var utils = require('../pages/utils')
+
 
 describe('testing basic authenticated functionality of requester:', function(){
     beforeAll(function(){
         requester.get()
-        requester.setActiveAccount();
+        utils.setActiveAccount();
     });
 
     beforeEach(function(){

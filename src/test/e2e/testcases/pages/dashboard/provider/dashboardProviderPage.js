@@ -1,16 +1,9 @@
 var dashboardProviderPage = function(){
-    this.setSelectedOrganizationId = function(){
-        browser.executeScript("window.localStorage.setItem('selected_organization_id','" + environment.active_organization + "');")
-    }
-
-    this.setActiveOrganization = function(){
-        browser.executeScript("window.localStorage.setItem('active_organization','" + environment.active_organization + "');")
-    }
 
     this.get = function(){
         browser.get(environment.providerURL + '/#!/organizations')
     }
-
+    
     this.getOffices = function(){
         element(by.id("offices")).click()
     }

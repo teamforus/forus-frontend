@@ -4,14 +4,6 @@ var sponsorPage = function(){
         browser.get(environment.sponsorURL)
     }
 
-    this.setActiveAccount = function(){
-        browser.executeScript("window.localStorage.setItem('active_account','" + environment.active_account + "');")
-    };
-
-    this.clearLocalStorage = function(){
-        browser.executeScript("window.localStorage.clear()")
-    }
-
     this.openLogin = function(){
         element(by.id("login")).click();
     }

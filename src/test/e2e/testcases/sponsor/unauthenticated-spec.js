@@ -1,10 +1,11 @@
 var sponsor = require('../pages/sponsor/sponsorPage');
+var utils = require('../pages/utils')
 
 describe('testing unauthenticated sponsor functionality', function(){
     
     beforeAll(function(){
         sponsor.get()
-        sponsor.clearLocalStorage()
+        utils.clearLocalStorage()
     })
 
     beforeEach(function(){

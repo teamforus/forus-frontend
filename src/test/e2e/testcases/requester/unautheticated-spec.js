@@ -1,10 +1,12 @@
-var requester = require('../pages/requesterPage');
+var requester = require('../pages/requester/requesterPage');
+var utils = require('../pages/utils')
+
 
 describe('testing basic requester functionality:', function(){
 
     beforeAll(function(){
         requester.get()
-        requester.clearLocalStorage()
+        utils.clearLocalStorage()
     })
      
     beforeEach(function(){

@@ -3,20 +3,8 @@ var providerPage = function(){
         browser.get(environment.providerURL)
     }
 
-    this.setActiveAccount = function(){
-        browser.executeScript("window.localStorage.setItem('active_account','" + environment.active_account + "');")
-    };
-
-    this.clearLocalStorage = function(){
-        browser.executeScript("window.localStorage.clear()")
-    }
-
     this.getSignupProvider = function(){
         browser.get(environment.providerURL + '#!/sign-up')
-    }
-
-    this.goToStep = function(step){
-        browser.executeScript("window.localStorage.setItem('sign_up_form.step','" + step + "');")
     }
 
     this.appIsInstalled = function(){

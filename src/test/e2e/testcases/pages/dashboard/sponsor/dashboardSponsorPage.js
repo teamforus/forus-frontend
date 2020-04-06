@@ -1,8 +1,4 @@
-var dashboardPage = function(){
-
-    this.setActiveOrganization = function(){
-        browser.executeScript("window.localStorage.setItem('active_organization','" + environment.active_organization + "');")
-    }
+var dashboardSponsorPage = function(){
 
     this.get = function(){
         browser.get(environment.sponsorURL + '/#!/organizations')
@@ -39,4 +35,4 @@ var dashboardPage = function(){
         element(by.id('requesters')).click()
     }
 }
-module.exports = new dashboardPage();
+module.exports = new dashboardSponsorPage();

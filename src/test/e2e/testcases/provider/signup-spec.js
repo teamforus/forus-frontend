@@ -1,10 +1,11 @@
 var provider = require('../pages/provider/providerPage');
+var utils = require('../pages/utils')
 
 describe('testing provider signup functionality:', function(){
     
     beforeAll(function(){
         provider.getSignupProvider()
-        provider.clearLocalStorage()
+        utils.clearLocalStorage()
     })
 
     beforeEach(function(){

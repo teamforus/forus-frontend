@@ -1,12 +1,11 @@
-var sponsor = require('../pages/sponsor/sponsorPage');
-var dashboard = require('../pages/sponsor/dashboard/dashboardPage');
-
-var funds = require('../pages/sponsor/dashboard/fundsPage');
-var vouchers = require('../pages/sponsor/dashboard/vouchersPage')
-var productVouchers = require('../pages/sponsor/dashboard/productVouchersPage')
-var vouchers = require('../pages/sponsor/dashboard/vouchersPage')
-var employees = require('../pages/sponsor/dashboard/employeesPage')
-var requesters = require('../pages/sponsor/dashboard/requestersPage')
+var dashboard = require('../pages/dashboard/sponsor/dashboardSponsorPage');
+var utils = require('../pages/utils')
+var sponsor = require('../pages/sponsor/sponsorPage')
+var funds = require('../pages/dashboard/sponsor/fundsPage');
+var productVouchers = require('../pages/dashboard/sponsor/productVouchersPage')
+var vouchers = require('../pages/dashboard/sponsor/vouchersPage')
+var employees = require('../pages/dashboard/employeesPage')
+var requesters = require('../pages/dashboard/sponsor/requestersPage')
 
 
 /**
@@ -17,8 +16,8 @@ var requesters = require('../pages/sponsor/dashboard/requestersPage')
 describe('sponsor dashboard', function(){
     beforeAll(function(){
         sponsor.get()
-        sponsor.setActiveAccount()
-        dashboard.setActiveOrganization()
+        utils.setSelectedOrganizationId()
+        utils.setActiveAccount()
     })  
 
     beforeEach(function(){
@@ -26,6 +25,7 @@ describe('sponsor dashboard', function(){
     })
     
     it('goes to funds page', function(){
+        browser.sleep()
         dashboard.getFundsPage()
     })
 
@@ -136,6 +136,7 @@ describe('sponsor dashboard', function(){
         beforeEach(function(){
             dashboard.getRequesterPage()
         })
+
         it('opens and closes add single activation code', function(){
             requesters.generateActivationCode()
             requesters.closeGenerateActivationCode()

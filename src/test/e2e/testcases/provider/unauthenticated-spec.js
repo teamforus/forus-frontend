@@ -1,10 +1,12 @@
 var provider = require('../pages/provider/providerPage');
+var utils = require('../pages/utils')
+
 
 describe('testing unauthenticated provider functionality:', function(){
     
     beforeAll(function(){
         provider.get()
-        provider.clearLocalStorage()
+        utils.clearLocalStorage()
     })
 
     beforeEach(function(){

@@ -54,14 +54,6 @@ var webshopPage = function(){
         element(by.id('show_map')).click();
     }
 
-    this.clearLocalStorage = function(){
-        browser.executeScript("window.localStorage.clear()")
-    }
-
-    this.setActiveAccount = function(){
-        browser.executeScript("window.localStorage.setItem('active_account','" + environment.active_account + "');")
-    };
-
     this.openUserMenu = function(){
         element(by.id("user_menu")).click()
     }
