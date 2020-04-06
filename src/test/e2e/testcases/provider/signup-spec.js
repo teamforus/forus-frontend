@@ -1,4 +1,4 @@
-var provider = require('../pages/providerPage');
+var provider = require('../pages/provider/providerPage');
 
 describe('testing provider signup functionality:', function(){
     
@@ -13,7 +13,6 @@ describe('testing provider signup functionality:', function(){
 
     it('step 1', function(){
         provider.appIsInstalled();
-        browser.sleep(3000)
         expect(provider.getGoToStep2Button().isPresent()).toBe(true) 
     })
 });

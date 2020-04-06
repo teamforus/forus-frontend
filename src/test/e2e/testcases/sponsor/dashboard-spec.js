@@ -1,79 +1,144 @@
-var sponsor = require('../pages/sponsorPage');
-var dashboard = require('../pages/dashboardSponsorPage');
+var sponsor = require('../pages/sponsor/sponsorPage');
+var dashboard = require('../pages/sponsor/dashboard/dashboardPage');
 
-describe('testing sponsor dashboard', function(){
+var funds = require('../pages/sponsor/dashboard/fundsPage');
+var vouchers = require('../pages/sponsor/dashboard/vouchersPage')
+var productVouchers = require('../pages/sponsor/dashboard/productVouchersPage')
+var vouchers = require('../pages/sponsor/dashboard/vouchersPage')
+var employees = require('../pages/sponsor/dashboard/employeesPage')
+var requesters = require('../pages/sponsor/dashboard/requestersPage')
+
+
+/**
+ * testing dashboard functionality
+ * first testing if fund/vouchers/employee/etc...
+ * still works and then perform tests on that page
+ */ 
+describe('sponsor dashboard', function(){
     beforeAll(function(){
         sponsor.get()
         sponsor.setActiveAccount()
         dashboard.setActiveOrganization()
-    })   
+    })  
 
     beforeEach(function(){
         dashboard.get()
     })
-
-    it('opens and closes fund settings', function(){
+    
+    it('goes to funds page', function(){
         dashboard.getFundsPage()
-        dashboard.getFundSetting()
-        dashboard.cancelFundSettings()
     })
 
-    it('opens and closes add fund', function(){
-        dashboard.getFundsPage()
-        dashboard.addFund()
-        dashboard.cancelAddFund()
+    describe('funds page', function(){
+        beforeEach(function(){
+            dashboard.getFundsPage()
+        })
+        
+        it('opens and closes fund settings', function(){
+            funds.getFundSetting()
+            funds.cancelFundSettings()
+        })
+    
+        it('opens and closes add fund', function(){
+            funds.addFund()
+            funds.cancelAddFund()
+        })
     })
 
-    it('voucher page; opens and closes create voucher', function(){
+    it('goes to vouchers page', function(){
         dashboard.getVouchersPage()
-        dashboard.createVoucher()
-        dashboard.cancelCreateVoucher()
     })
 
-    it('voucher page; opens and closes upload CSV', function(){
-        dashboard.getVouchersPage()
-        dashboard.uploadCSV()
-        dashboard.closeUploadCSV()
+    describe('vouchers page', function(){
+        beforeEach(function(){
+            dashboard.getVouchersPage()
+        })
+
+        it('opens and closes create voucher', function(){
+            vouchers.createVoucher()
+            vouchers.cancelCreateVoucher()
+        })
+    
+        it('opens and closes upload CSV', function(){
+            vouchers.uploadCSV()
+            vouchers.closeUploadCSV()
+        })
     })
-    it('Product voucher page; opens and closes create voucher', function(){
+
+    it('goes to product vouchers page', function(){
         dashboard.getProductVouchersPage()
-        dashboard.createProductVoucher()
-        dashboard.cancelCreateProductVoucher()
     })
 
-    it('Product voucher page; opens and closes upload CSV', function(){
+    describe('product vouchers page', function(){
+        beforeEach(function(){
+            dashboard.getProductVouchersPage()
+        })
+        it('opens and closes create voucher', function(){
+            productVouchers.createProductVoucher()
+            productVouchers.cancelCreateProductVoucher()
+        })
+    
+        it('opens and closes upload CSV', function(){
+            productVouchers.uploadProductCSV()
+            productVouchers.closeUploadCSV()
+        })
+    })
+
+    it('goes to transactions page', function(){
         dashboard.getProductVouchersPage()
-        dashboard.uploadProductCSV()
-        dashboard.closeUploadCSV()
     })
 
-    it('checks transactions modal', function(){
-        dashboard.getTransactionsPage()
+    describe('transactions page', function(){
+        beforeEach(function(){
+            dashboard.getTransactionsPage()
+        })
     })
 
-    it('checks finances modal', function(){
-        dashboard.getFinancialDashboard()
+    it('goes to finances page', function(){
+        dashboard.getProductVouchersPage()
     })
 
-    it('opens and closes add employees modal', function(){
-        dashboard.getEmployeePage()
-        dashboard.addEmployee()
-        dashboard.closeAddEmployee()
+    describe('finances page', function(){
+        beforeEach(function(){
+            dashboard.getFinancialDashboard()
+        })
     })
 
-    it('checks providers modal', function(){
+    it('goes to employees page', function(){
+        dashboard.getProductVouchersPage()
+    })
+
+    describe('employees page', function(){
+        beforeEach(function(){
+            dashboard.getEmployeePage()
+        })
+        it('opens and closes add employees modal', function(){
+            employees.addEmployee()
+            employees.closeAddEmployee()
+        })
+    })
+    
+    it('goes to providers page', function(){
         dashboard.getProviderPage()
     })
-
-    it('opens requester page and checks if fund is present', function(){
-        dashboard.getRequesterPage()
-        expect(dashboard.getCSVFunds().getText()).toContain("Zuidhorn") 
+    
+    describe('providers page', function(){
+        beforeEach(function(){
+            dashboard.getProviderPage()
+        })
     })
 
-    it('opens requester page and opens and closes add single activation code', function(){
+    it('goes to requesters page', function(){
         dashboard.getRequesterPage()
-        dashboard.getCSVFunds().first().click() //Zuidhorn in LoremDbSeeder 
-        dashboard.generateActivationCode()
-        dashboard.closeGenerateActivationCode()
+    })
+
+    describe('requesters page', function(){
+        beforeEach(function(){
+            dashboard.getRequesterPage()
+        })
+        it('opens and closes add single activation code', function(){
+            requesters.generateActivationCode()
+            requesters.closeGenerateActivationCode()
+        })
     })
 });

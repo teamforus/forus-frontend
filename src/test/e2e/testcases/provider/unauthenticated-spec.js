@@ -1,4 +1,4 @@
-var provider = require('../pages/providerPage');
+var provider = require('../pages/provider/providerPage');
 
 describe('testing unauthenticated provider functionality:', function(){
     

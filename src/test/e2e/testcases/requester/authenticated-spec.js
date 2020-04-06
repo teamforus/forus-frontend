@@ -1,4 +1,4 @@
-var requester = require('../pages/requesterPage');
+var requester = require('../pages/requester/requesterPage');
 
 describe('testing basic authenticated functionality of requester:', function(){
     beforeAll(function(){

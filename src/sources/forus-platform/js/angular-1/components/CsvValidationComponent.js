@@ -7,6 +7,10 @@ let CsvValidationComponent = function(
 
     $ctrl.panel_type = appConfigs.panel_type;
 
+    $ctrl.onFundSelect = (fund) => {
+        $ctrl.fund = fund;
+    }; 
+
     $ctrl.$onInit = () => {
         if (Array.isArray($ctrl.funds)) {
             $ctrl.funds = $ctrl.funds.filter(fund => {

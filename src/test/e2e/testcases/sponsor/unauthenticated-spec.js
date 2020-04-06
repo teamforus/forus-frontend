@@ -1,4 +1,4 @@
-var sponsor = require('../pages/sponsorPage');
+var sponsor = require('../pages/sponsor/sponsorPage');
 
 describe('testing unauthenticated sponsor functionality', function(){
     

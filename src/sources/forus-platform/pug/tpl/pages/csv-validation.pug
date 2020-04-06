@@ -2,21 +2,7 @@
     menu
     section.app.app-content
         .card-heading(ng-bind="'csv_validation.header.title' | translate")
-        .block.block-choose-organization(ng-if="$ctrl.funds.length > 1")
-            div(
-                ng-repeat="fund in $ctrl.fund ? [$ctrl.fund] : $ctrl.funds" 
-                ui-sref="csv-validation({fund_id: fund.id})"
-                id="csv_validation_fund").organization-item
-                .organization-item-inner
-                    .organization-logo: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
-                    .organization-name(ng-bind="fund.name")
-
-            div(
-                ng-if="$ctrl.fund && $ctrl.funds.length > 1"
-                ui-sref="csv-validation({fund_id: null})").organization-item
-                .organization-item-inner
-                    .organization-logo.organization-logo-mdi: .mdi.mdi-chevron-up
-                    .organization-name(ng-bind="'csv_validation.buttons.choose' | translate")
+        fund-selector(funds="$ctrl.funds" on-fund-select="$ctrl.onFundSelect")  
     
         csv-upload(
             ng-if="$ctrl.fund && $ctrl.fund.state != 'closed'" 
