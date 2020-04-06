@@ -189,16 +189,15 @@
     }
 
     &[disabled], &.disabled, &.button-disabled {
-        cursor: default;
-        user-select: none;
+        background: #eff2f4;
+        border-color: #eff2f4;
+        color: #ccd0e0;
+        box-shadow: none;
         pointer-events: none;
-        background: #8b959e;
-        border-color: #8b959e;
-        color: #fff;
-
+        cursor: default;
+        
         &:hover {
-            background: #8b959e;
-            border-color: #8b959e;
+            box-shadow: none;
         }
     }
 }

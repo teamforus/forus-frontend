@@ -25,7 +25,7 @@ head
     link(rel="stylesheet" href=src_prefix + "assets/dist/bundle/css/bundle.min.css")
 
     //- custom style
-    link(rel="stylesheet" href=src_prefix + "assets/css/style.min.css")
+    link(rel="stylesheet" href=src_prefix + "assets/css/style.min" + qdt_c.append_assets + ".css")
 
     if (qdt_c.platform.env_data.matomo_site_id)
         include matomo

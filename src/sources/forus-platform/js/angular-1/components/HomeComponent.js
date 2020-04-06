@@ -1,24 +1,20 @@
 let HomeComponent = function(
     $state,
+    $rootScope,
     $stateParams,
     ModalService,
-    IdentityService,
-    CredentialsService,
     PushNotificationsService
 ) {
     let $ctrl = this;
     let qrCodeEl = document.getElementById('qrcode');
-    let $redirectAuthorizedState = 'organizations';
+
+    $rootScope.showAppHeader = false;
 
     $ctrl.showModal = false;
 
     $ctrl.openAuthPopup = function() {
         ModalService.open('modalAuth', {});
     };
-
-    if (!!CredentialsService.get()) {
-        IdentityService.identity().then(() => {}, $state.go($redirectAuthorizedState));
-    }
 
     $ctrl.closeModal = function() {
         $ctrl.showModal = false;
@@ -49,10 +45,9 @@ let HomeComponent = function(
 module.exports = {
     controller: [
         '$state',
+        '$rootScope',
         '$stateParams',
         'ModalService',
-        'IdentityService',
-        'CredentialsService',
         'PushNotificationsService',
         HomeComponent
     ],
