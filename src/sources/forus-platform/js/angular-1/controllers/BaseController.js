@@ -141,7 +141,7 @@ let BaseController = function(
         $rootScope.appConfigs.frontends = res.data.fronts;
     });
 
-    $translate.use('nl');
+    $translate.use(localStorage.getItem('lang') || 'nl');
 };
 
 module.exports = [
