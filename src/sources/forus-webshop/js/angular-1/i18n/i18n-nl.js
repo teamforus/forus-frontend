@@ -47,6 +47,7 @@ module.exports = {
     topnavbar: require("./nl/layout/navbar"),
 
     // PAGES
+    signup_options: require("./nl/pages/signup-options"),
     fund_apply: require("./nl/pages/fund-apply"),
     fund_request: require("./nl/pages/fund-request"),
     fund_request_clarification: require("./nl/pages/fund-request-clarification"),
