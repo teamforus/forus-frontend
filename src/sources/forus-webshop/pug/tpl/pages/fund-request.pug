@@ -234,6 +234,8 @@ section: .wrapper
                         p.sign_up-pane-text: span(
                             i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[invalidCriteria.operator]}}" 
                             i18n-vars="{name: invalidCriteria.record_type_name, value: ($ctrl.criterionValuePrefix[invalidCriteria.record_type_key]) + invalidCriteria.value}") 
+                    .form-group.col.col-lg-12: .sign_up-pane-info(ng-if="invalidCriteria.description")
+                        p.sign_up-pane-text: span(ng-bind="invalidCriteria.description")
                     .form-group.col.col-lg-12: file-uploader(ng-if="invalidCriteria.show_attachment" files="invalidCriteria.files")
                 
                 .sign_up-pane-footer: .row
