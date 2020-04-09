@@ -2,8 +2,9 @@
     &.block-navbar {
         position: sticky;
         padding: 0;
-        background: #56B4E9;
+        background: #fff;
         width: 100%;
+
         .navbar-logo {
             padding: 0;
             border-right: 0;
@@ -22,22 +23,28 @@
         .navbar-list {
             .navbar-item-wrapper {
                 margin-left: 15px;
+
                 .navbar-item {
                     padding-right: 35px;
                     padding-left: 35px;
                     padding-bottom: 20px;
                     padding-top: 20px;
-                    color: #FFF;
+                    color: #565151;
+
                     &:hover {
-                        color: #FFF;
+                        color: #565151;
 
                         &:before {
-                            background: #FFF;
+                            background: #40C0F1;
                         }
                     }
 
                     &.active {
-                        color: #FFF;
+                        color: #565151;
+
+                        &:before {
+                            background-color: #40C0F1;
+                        }
                     }
                 }
             }
@@ -45,6 +52,7 @@
 
         .block-auth {
             padding: 15px;
+
             .auth-in {
                 .auth-user {
                     .auth-user-email {

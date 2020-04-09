@@ -45,12 +45,8 @@
         nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.providersMenu" ng-click="mobileMenu = false")
             a.navbar-item(
                 ui-sref="providers"
+                ui-sref-active="active"
                 ng-bind="'topnavbar.items.providers' | translate")
-        
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.signUpMenu" ng-click="mobileMenu = false")
-            a.navbar-item(
-                ui-sref="sign-up"
-                ng-bind="'topnavbar.items.sign_up' | translate")
                                                                                                                                
     .block.block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
         .auth-code
