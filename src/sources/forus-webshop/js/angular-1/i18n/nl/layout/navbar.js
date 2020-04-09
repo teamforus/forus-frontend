@@ -3,6 +3,7 @@ module.exports = {
         funds:"FONDSEN",
         products:"AANBIEDINGEN",
         providers:"AANBIEDERS",
+        sign_up:"POTJES",
         identity:"Profiel",
     },
     buttons: {
