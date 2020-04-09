@@ -145,6 +145,7 @@ app.directive('landingNavbar', require('./directives/landing/NavbarDirective'));
 app.directive('landingContactForm', require('./directives/landing/ContactFormDirective'));
 app.directive('landingAppFooter', require('./directives/landing/LandingAppFooterDirective'));
 app.directive('forusChat', require('./directives/ForusChatDirective'));
+app.directive('forusSupport', require('./directives/ForusSupportDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
 app.directive('numberControl', require('./directives/NumberControlDirective'));
 app.directive('productCategoriesControl', require('./directives/ProductCategoriesControlDirective'));
