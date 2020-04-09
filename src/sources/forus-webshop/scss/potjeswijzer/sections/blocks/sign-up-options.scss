@@ -12,6 +12,7 @@
             color: #fff;
             position: relative;
             cursor: pointer;
+            transition: margin 0.3s ease-out;
 
             .block-sign-up-option-title {
                 padding: 30px;
@@ -27,6 +28,12 @@
                 width: 100%;
                 background-color: #BEC53F;
                 text-transform: capitalize;
+
+                &:hover {
+                    background-color: #40C0F1;
+                    color: #fff;
+                    text-decoration: none;
+                }
             }
 
             .block-sign-up-option-footer {
@@ -38,7 +45,14 @@
 
             &:hover {
                 // background-color: rgba(36, 119, 167, 0.7); 
-                background-image: linear-gradient(to bottom, rgba(36, 119, 167, 0.7), rgba(36, 119, 167, 0.7)), url('../img/sign-up-option.png');
+                margin-top: -15px;
+                background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), url('../img/sign-up-option.png');
+
+                .button {
+                    background-color: #40C0F1;
+                    color: #fff;
+                    text-decoration: none;
+                }
             }
         }
     }
