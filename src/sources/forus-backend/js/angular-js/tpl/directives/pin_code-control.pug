@@ -1,0 +1,4 @@
+.pin_code-input: .pin_code-input-digit(
+    ng-class="{empty: code == '_', active: ngModel.length == key}"
+    ng-repeat='(key, code) in chars track by $index'
+    ng-bind='code')

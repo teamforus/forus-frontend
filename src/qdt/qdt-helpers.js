@@ -26,7 +26,10 @@ let fetchLibAsset = (libs, key) => {
 };
 
 let concatFiles = (paths) => {
-    return paths.map(path => fs.readFileSync(path).toString()).join("\n");
+    return paths.map(path => fs.readFileSync(path).toString().split("\n").filter(line => {
+        return !line.startsWith("//# sourceMappingURL=") &&
+            !line.startsWith("/*# sourceMappingURL=");
+    }).join("\n")).join("\n");
 };
 
 let buildLibsBundle = (requiredLibs) => {
@@ -219,7 +222,7 @@ var compileConfig = function(configs) {
         if (typeof platforms[k].tasks.js.length == 'undefined')
             platforms[k].tasks.js = [platforms[k].tasks.js];
 
-        platforms[k].tasks.scss =platforms[k].tasks.scss.map(settings_map_scss);
+        platforms[k].tasks.scss = platforms[k].tasks.scss.map(settings_map_scss);
         platforms[k].tasks.pug = platforms[k].tasks.pug.map(settings_map_pug);
         platforms[k].tasks.js = platforms[k].tasks.js.map(settings_map_js);
     }

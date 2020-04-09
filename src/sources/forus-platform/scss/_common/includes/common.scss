@@ -77,6 +77,10 @@ img {
     color: #134478 !important;
 }
 
+.text-primary-mid {
+    color: $bc !important;
+}
+
 .text-primary-light {
     color: #009ef4 !important;
 }
@@ -85,8 +89,16 @@ img {
     color: #e63b3b;
 }
 
+.text-underline {
+    text-decoration: underline !important;
+}
+
 .text-success {
     color: #226f24;
+}
+
+.text-success-light {
+    color: #2cc678;
 }
 
 .text-strong {
@@ -243,7 +255,7 @@ img {
 }
 
 
-
+/* 
 @media (min-width: 992px) {
     .col.col-md-1,
     .col.col-md-2,
@@ -684,4 +696,4 @@ img {
     .col.col-lg-offset-0 {
         margin-left: 0%;
     }
-}
+} */

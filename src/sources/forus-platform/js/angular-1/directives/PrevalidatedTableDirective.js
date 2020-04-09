@@ -117,6 +117,10 @@ let PrevalidatedTableDirective = async function(
         });
     };
 
+    $scope.$watch('fund', (fund) => {
+        $scope.init();
+    }, true);
+
     // Export to XLS file
     $scope.export = (filters = {}) => {
         PrevalidationService.export(filters).then((res => {

@@ -37,7 +37,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                         .row
                             .col.col-md-6.card-label(i18n="voucher.voucher_card.expire") 
                             .col.col-md-6.card-label.text-right: a(ng-if="$ctrl.voucherCard.transactions.length == 0 && $ctrl.voucherCard.product && $ctrl.voucherCard.returnable" ng-click="$ctrl.deleteVoucher($ctrl.voucher)" i18n="voucher.voucher_card.delete")
-                        .card-value(ng-bind="$ctrl.voucherCard.expire_at_locale")
+                        .card-value(ng-bind="$ctrl.voucherCard.last_active_day_locale")
                         .label.label-default(ng-if="moment().isAfter(moment($ctrl.voucherCard.expire_at.date))" i18n="voucher.voucher_card.expired" )
                         
                     .card-section(ng-if="$ctrl.voucherCard.transactions && $ctrl.voucherCard.product" ng-repeat="transaction in $ctrl.voucherCard.transactions")
