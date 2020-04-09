@@ -3,7 +3,7 @@ module.exports = {
     header: {
         title: "{{implementation}}",
         subtitle: "Welkom op de website van {{fund}}. Heeft u van de gemeente een toekenning voor {{fund}}? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
-        subtitle_av: "Welkom op de website van de {{fund}}. U kan hier de regeling aanvragen, het aanbod inzien en het tegoed dat u kunt besteden.",
+        subtitle_av: "Welkom op de website van de {{fund}}. U kan hier de regeling aanvragen en het aanbod bekijken. Na de aanvraag kunt u ook zien hoeveel geld u kunt besteden.",
         title_multi: "Webshop {{org_name}}",
         subtitle_multi: "Welkom op de webshop van {{org_name}} Heeft u via {{org_name}} een toekenning gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
         header_note: "",
