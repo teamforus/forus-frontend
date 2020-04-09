@@ -426,7 +426,7 @@ module.exports = (core) => {
                 forusPlatformMenu: false,
                 portfolioMenu: false,
                 aboutSiteMenu: false,
-                signUpMenu: true,
+                signUpMenu: false,
             },
             sessions: sessions,
         });
