@@ -4,6 +4,7 @@ section.section.section-funds: .wrapper
         a(ui-sref="home").breadcrumb-item Home
         .breadcrumb-item.active(translate="funds.header.{{ $root.appConfigs.client_key }}.title" translate-default="{{ 'funds.header.title' | translate }}")
     .section-title(translate="funds.header.{{ $root.appConfigs.client_key }}.title" translate-default="{{ 'funds.header.title' | translate }}")
+    .section-subtitle(translate="funds.header.{{ $root.appConfigs.client_key }}.subtitle" translate-default="{{ 'funds.header.subtitle' | translate }}")
     
     .block.block-funds
         .fund-item(ng-repeat="fund in $ctrl.funds")
