@@ -51,6 +51,7 @@ let ProductVouchersComponent = function(
     $ctrl.showQrCode = (voucher) => {
         ModalService.open('voucher_qr_code', {
             voucher: voucher,
+            fund: $ctrl.fund,
             organization: $ctrl.organization,
             onSent: () => {
                 $ctrl.onPageChange($ctrl.filters.values);
@@ -122,6 +123,8 @@ let ProductVouchersComponent = function(
     };
 
     $ctrl.$onInit = () => {
+        $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
+
         if (!$ctrl.fund) {
             if ($ctrl.funds.length == 1) {
                 $state.go('product-vouchers', {
@@ -129,8 +132,8 @@ let ProductVouchersComponent = function(
                     fund_id: $ctrl.funds[0].id,
                 });
             } else if ($ctrl.funds.length == 0) {
-                alert('Sorry, but no funds were found to add vouchers.');
-                $state.go('home');
+                /* alert('Sorry, but no funds were found to add vouchers.');
+                $state.go('home'); */
             }
         } else {
             $ctrl.init();

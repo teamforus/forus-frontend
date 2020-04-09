@@ -15,13 +15,11 @@ let ModalAuthComponent = function(
         }
 
         $ctrl.signUpForm = FormBuilderService.build({
-            pin_code: "1111",
+            email: "",
         }, function(form) {
-            let records = form.values.records;
-
-            if (records && (records.primary_email != records.primary_email_confirmation)) {
+            if (form.values.email != form.values.email_confirmation) {
                 return form.errors = {
-                    'records.primary_email_confirmation': [
+                    email_confirmation: [
                         $trans('popup_auth.validation.email_confirmation')
                     ]
                 };
@@ -29,34 +27,29 @@ let ModalAuthComponent = function(
 
             form.lock();
 
-            IdentityService.make({
-                pin_code: form.values.pin_code,
-                records: {
-                    primary_email: records ? records.primary_email : ''
-                },
-            }).then((res) => {
-                $ctrl.close();
+            IdentityService.validateEmail({
+                email: form.values.email
+            }).then(res => {
+                let primary_email = form.values.email;
 
-                ModalService.open('modalNotification', {
-                    type: 'info',
-                    icon: 'email',
-                    title: 'Stap 2 van 3: Bevestig dat u toegang heeft tot dit e-mailadres.',
-                    description: 'U heeft een e-mail ontvangen op het e-mailadres dat u zojuist hebt ingevuld. Ga naar uw inbox en open de e-mail met het onderwerp "E-mail activering" en klik in de e-mail op de blauwe knop.',
-                });
-            }, (res) => {
-                form.unlock();
+                if (!res.data.email.used) {
+                    IdentityService.make({
+                        email: primary_email
+                    }).then((res) => {
+                        $ctrl.close();
 
-                if(res.data.errors['records.primary_email'] && res.data.errors['records.primary_email'].length){
-                    // if email is already registered (it can be registered or invalid if there are errors in primary_email) -
-                    // try to login this email
-                    let source = appConfigs.client_key + '_webshop';
-
-                    IdentityService.makeAuthEmailToken(
-                        source,
-                        records ? records.primary_email : '',
-                        'homeStart'
-                    ).then((res) => {
-                        localStorage.setItem('pending_email_token', res.data.access_token);
+                        ModalService.open('modalNotification', {
+                            type: 'info',
+                            icon: 'email',
+                            title: 'Stap 2 van 3: Bevestig dat u toegang heeft tot dit e-mailadres.',
+                            description: 'U heeft een e-mail ontvangen op het e-mailadres dat u zojuist hebt ingevuld. Ga naar uw inbox en open de e-mail met het onderwerp "E-mail activering" en klik in de e-mail op de blauwe knop.',
+                        });
+                    }, (res) => {
+                        form.unlock();
+                        form.errors = res.data.errors;
+                    });
+                } else {
+                    IdentityService.makeAuthEmailToken(primary_email, 'homeStart').then(() => {
                         $ctrl.close();
 
                         ModalService.open('modalNotification', {
@@ -69,16 +62,12 @@ let ModalAuthComponent = function(
 
                     }, (res) => {
                         form.unlock();
-
-                        if(res.data.errors['primary_email'] && res.data.errors['primary_email'].length){
-                            form.errors['records.primary_email'] = res.data.errors['primary_email'];
-                        }
+                        form.errors = res.data.errors;
                     });
-
-                }else{
-                    form.errors = res.data.errors;
                 }
-            });
+            }, () => form.unlock());
+
+            return;
         });
     };
 };

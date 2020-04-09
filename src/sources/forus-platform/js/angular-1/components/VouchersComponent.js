@@ -51,6 +51,7 @@ let VouchersComponent = function(
     $ctrl.showQrCode = (voucher) => {
         ModalService.open('voucher_qr_code', {
             voucher: voucher,
+            fund: $ctrl.fund,
             organization: $ctrl.organization,
             onSent: () => {
                 $ctrl.onPageChange($ctrl.filters.values);
@@ -112,27 +113,32 @@ let VouchersComponent = function(
     };
 
     $ctrl.exportUnassignedQRCodes = () => {
-        VoucherService.downloadQRCodes(
-            $ctrl.organization.id,
-            Object.assign($ctrl.getQueryParams($ctrl.filters.values), {
-                unassigned: 1
-            })
-        ).then(res => {
-            FileService.downloadFile(
-                'vouchers_' + moment().format(
-                    'YYYY-MM-DD HH:mm:ss'
-                ) + '.zip',
-                res.data,
-                res.headers('Content-Type') + ';charset=utf-8;'
-            );
-        }, res => {
-            res.data.text().then((data) => {
-                data = JSON.parse(data);
-
-                if (data.message) {
-                    PushNotificationsService.danger(data.message);
-                }
-            });
+        ModalService.open('voucherExportType', {
+            success: (data) => {
+                VoucherService.downloadQRCodes(
+                    $ctrl.organization.id,
+                    Object.assign($ctrl.getQueryParams($ctrl.filters.values), {
+                        unassigned: 1,
+                        export_type: data.exportType
+                    })
+                ).then(res => {
+                    FileService.downloadFile(
+                        'vouchers_' + moment().format(
+                            'YYYY-MM-DD HH:mm:ss'
+                        ) + '.zip',
+                        res.data,
+                        res.headers('Content-Type') + ';charset=utf-8;'
+                    );
+                }, res => {
+                    res.data.text().then((data) => {
+                        data = JSON.parse(data);
+        
+                        if (data.message) {
+                            PushNotificationsService.danger(data.message);
+                        }
+                    });
+                });
+            }
         });
     };
 
@@ -169,6 +175,8 @@ let VouchersComponent = function(
     };
 
     $ctrl.$onInit = () => {
+        $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
+        
         if (!$ctrl.fund) {
             if ($ctrl.funds.length == 1) {
                 $state.go('vouchers', {
@@ -176,8 +184,8 @@ let VouchersComponent = function(
                     fund_id: $ctrl.funds[0].id,
                 });
             } else if ($ctrl.funds.length == 0) {
-                alert('Sorry, but no funds were found to add vouchers.');
-                $state.go('home');
+                // alert('Sorry, but no funds were found to add vouchers.');
+                // $state.go('funds');
             }
         } else {
             $ctrl.init();

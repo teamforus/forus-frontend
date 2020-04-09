@@ -1,3 +1,7 @@
+$formFont: 600 16px/24px $bf;
+$formPadding: 14px 15px;
+$tf: uppercase;
+
 .ui-control {
     display: flex;
     position: relative;
@@ -137,7 +141,7 @@
             text-align: center;
             padding: 0;
             font: inherit;
-            padding: $formPadding;
+            padding: 30px;
             min-width: 152px;
             padding-left: 40px;
             padding-right: 40px;

@@ -11,7 +11,7 @@ module.exports = {
             transactions: "Uitgaven",
             subtract: "Af",
             fund: "Fonds",
-            expire: "Gebruik voor:",
+            expire: "Gebruik tot en met:",
             requirements: "Voor voorwaarden van deze aanbieding neem contact op met de aanbieder.",
             vouchers: "Staat uw gewenste aanbod niet in de webshop? Ga dan langs bij de aanbieder.",
             info: "<span style='font-style: italic;'>Zoek je een organisatie die niet op de kaart staat? Je kunt een organisatie vragen om deel te nemen. Een organisatie kan zich het hele jaar door aanmelden.</span>",

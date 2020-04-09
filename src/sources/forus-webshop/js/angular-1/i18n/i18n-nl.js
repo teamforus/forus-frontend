@@ -10,6 +10,7 @@ module.exports = {
         portfolio: 'Portfolio',
         kindpakket: 'Portofolio - Kindpakket',
         products: 'Aanbiedingen',
+        providers: 'Aanbieders',
         "products-show": 'Aanbieding',
         "products-apply": "Aanbieding kopen",
         vouchers: 'Mijn vouchers',
@@ -20,10 +21,11 @@ module.exports = {
         "record-create": 'Eigenschap toevoegen',
         "funds-apply": 'Meld u aan voor de fondsen',
         "restore-email": 'Inloggen via e-mail',
+        "preferences-notifications": 'Notificatie voorkeuren',
     },
     implementation_name: {
         general: 'General',
-        zuidhorn: 'Zuidhorn',
+        potjeswijzer: 'Potjeswijzer',
         nijmegen: 'Nijmegen',
         westerkwartier: 'Westerkwartier',
         forus: 'Forus platform & ',
@@ -45,6 +47,7 @@ module.exports = {
     topnavbar: require("./nl/layout/navbar"),
 
     // PAGES
+    signup_options: require("./nl/pages/signup-options"),
     fund_apply: require("./nl/pages/fund-apply"),
     fund_request: require("./nl/pages/fund-request"),
     fund_request_clarification: require("./nl/pages/fund-request-clarification"),

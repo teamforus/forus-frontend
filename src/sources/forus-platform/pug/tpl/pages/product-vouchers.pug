@@ -1,4 +1,4 @@
-.app.app-container
+.app.app-container(ng-if="$root.activeOrganization && $root.auth_user && $ctrl.funds")
     menu
     section.app.app-content
         .card-heading(ng-if="$ctrl.funds.length > 1" ng-bind="'csv_validation.header.title' | translate")
@@ -143,3 +143,13 @@
 
             .card-section(ng-if="$ctrl.vouchers" ng-show="$ctrl.vouchers.meta.last_page > 1")
                 paginator(meta="$ctrl.vouchers.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
+    
+        div(ng-if="$ctrl.funds.length == 0")
+                block-empty(
+                    ng-if="($root.activeOrganization | hasPerm:'manage_funds')"
+                    text="Je hebt momenteel geen fondsen." 
+                    button="{text: 'Fonds toevoegen', href: $ctrl.emptyBlockLink}")
+                
+                block-empty(
+                    ng-if="!($root.activeOrganization | hasPerm:'manage_funds')"
+                    text="Je hebt momenteel geen fondsen." )

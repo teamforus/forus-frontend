@@ -1,0 +1,45 @@
+.button {
+    font: 600 14px/20px $bf;
+    padding: 15px 20px;
+    display: inline-flex;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all .4s;
+    cursor: pointer;
+
+    &.button-primary {
+        background-color: $color_primary;
+        border-color: $color_primary;
+        box-shadow: 0 2px 5px rgba(#000000, 0.1);
+        color: #fff;
+        
+        &:hover {
+            background: rgb(41, 170, 234);
+            border-color: rgb(41, 170, 234);
+            box-shadow: 2px 4px 10px rgba(0,0,0,.1);
+        }
+    }
+
+    &[disabled],
+    &.disabled,
+    &.button-disabled {
+        cursor: default !important;
+        background: #f6f8f9 !important;
+        border-color: #f6f8f9 !important;
+        box-shadow: 0 2px 5px rgba(#000000, 0.1) !important;
+        color: #bbc1c6 !important;
+
+        &:hover {
+            background: #f6f8f9 !important;
+            border-color: #f6f8f9 !important;
+            color: #bbc1c6 !important;
+            box-shadow: 0 2px 5px rgba(#000000, 0.1) !important;
+            transform: none !important;
+            top: 0 !important;
+        }
+    }
+
+    &.button-wide {
+        padding: 15px 30px;
+    }
+}

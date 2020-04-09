@@ -15,6 +15,7 @@ app.controller('BaseController', require('./controllers/BaseController'));
 
 // Components
 app.component('homeComponent', require('./components/HomeComponent'));
+app.component('signUpSelectionComponent', require('./components/SignUpSelectionComponent'));
 app.component('fundsComponent', require('./components/FundsComponent'));
 app.component('vouchersComponent', require('./components/VouchersComponent'));
 app.component('recordsComponent', require('./components/RecordsComponent'));
@@ -150,6 +151,7 @@ app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('i18n', require('./filters/I18nFilter'));
 app.filter('duration', require('./filters/DurationFilter'));
 app.filter('duration_last_time', require('./filters/DurationLastTimeFilter'));
+app.filter('lines_to_array', require('./filters/LinesToArrayFilter'));
 
 // Config
 app.config(require('./routers/printables'));
