@@ -5,6 +5,9 @@ module.exports = {
         providers:"AANBIEDERS",
         sign_up:"POTJES",
         identity:"Profiel",
+        potjeswijzer: {
+            funds:"POTJES",
+        }
     },
     buttons: {
         activate:"Activatiecode",

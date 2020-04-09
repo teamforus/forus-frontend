@@ -9,7 +9,8 @@ let HomeComponent = function(
     let $ctrl = this;
 
     $ctrl.appConfigs = appConfigs;
-
+    
+    $ctrl.digidAvailable = appConfigs.features.digid;
     if ($stateParams.confirmed) {
         ModalService.open('modalActivateCode', {});
     }

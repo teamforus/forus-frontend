@@ -2,6 +2,9 @@ module.exports = {
     // FUNDS = funds.pug
     header: {
         title: "Fondsen",
+        potjeswijzer: {
+            title: "Potjes"
+        }
     },
     labels: {
         categorie: "CATEGORIEËN",

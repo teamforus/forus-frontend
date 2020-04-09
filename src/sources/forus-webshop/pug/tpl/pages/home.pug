@@ -7,13 +7,9 @@ header.section.section-header.section-header-landing
         //- .header-content(ng-if="$ctrl.funds.length <= 1")
         .header-content
 
-            .header-title(ng-if="$ctrl.funds < 1" translate="home.header.{{ $root.client_key }}.title_implementation" translate-default="{{ 'home.header.title_implementation' | translate:{ implementation: $root.client_key } }}")
-
-            .header-title(ng-if="$ctrl.funds.length == 1" translate="home.header.{{ $root.client_key }}.title" translate-default="{{ 'home.header.title' | translate:{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale } }}")
+            .header-title(translate="home.header.{{ $root.client_key }}.title" translate-default="{{ 'home.header.title' | translate:{ implementation: $root.client_key } }}")
             
-            .header-title(ng-if="$ctrl.funds.length > 1" translate="home.header.{{ $root.client_key }}.title_multi" translate-default="{{'home.header.title_multi' | translate:{ org_name: $ctrl.funds[0].organization.name  } }}" translate-vars="{ fund: $ctrl.funds[0].name, org_name: $ctrl.funds[0].organization.name }")
-            
-            .header-description#desc(ng-if="!$ctrl.appConfigs.features.auto_validation")
+            .header-description#desc(ng-if="!$ctrl.digidAvailable")
                 p(ng-if="$ctrl.funds.length <= 1" translate="home.header.{{ $root.client_key }}.subtitle" translate-default="{{'home.header.subtitle' | translate:{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale } }}" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
                 
                 p(ng-if="$ctrl.funds.length > 1" translate="home.header.{{ $root.client_key }}.subtitle_multi" translate-default="{{'home.header.subtitle_multi' | translate:{ org_name: $ctrl.funds[0].organization.name  } }}" i18n-vars="{ org_name: $ctrl.funds[0].organization.name  }")
@@ -26,15 +22,15 @@ header.section.section-header.section-header-landing
                 
                 p(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" i18n="home.header.auth_cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
 
-            .header-description#desc(ng-if="$ctrl.appConfigs.features.auto_validation")
-                p(ng-if="$ctrl.funds.length <= 1" translate="home.header.{{ $root.client_key }}.subtitle_av" translate-default="{{'home.header.subtitle_av' | translate:{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale } }}" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+            .header-description#desc(ng-if="$ctrl.digidAvailable")
+                p(translate="home.header.{{ $root.client_key }}.subtitle_av" translate-default="{{'home.header.subtitle_av' | translate:{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale } }}" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
                 
                 //- gebruik activatiecode tekst
-                p(ng-if="!$root.auth_user && $ctrl.funds.length <= 1" translate="home.header.{{ $root.client_key }}.cta_av" translate-default="{{ 'home.header.cta_av' | translate:{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale } }}")
+                p(ng-if="!$root.auth_user" translate="home.header.{{ $root.client_key }}.cta_av" translate-default="{{ 'home.header.cta_av' | translate:{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale } }}")
                 
                 p(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" i18n="home.header.auth_cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
                        
-            div(ng-if="!$ctrl.appConfigs.features.auto_validation")
+            div(ng-if="!$ctrl.digidAvailable")
                 //- uitgelogd en activatiecode invullen
                 a(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthCodePopup()" i18n="home.header.button").button.button-primary 
                 
@@ -44,15 +40,21 @@ header.section.section-header.section-header-landing
                 //- download me button
                 a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" ng-click="$ctrl.openInMeModal()" i18n="home.header.auth_button").button.button-primary
             
-            div(ng-if="$ctrl.appConfigs.features.auto_validation")
+            div(ng-if="$ctrl.digidAvailable")
                 //- uitgelogd en activatiecode invullen
-                a(ng-click="$ctrl.startFundRequest()" i18n="home.header.button_av").button.button-primary 
+                a(ng-click="$ctrl.startFundRequest()" translate="home.header.{{ $root.client_key }}.button_av" translate-default="home.header.button_av").button.button-primary 
             
             br
             br
             
             a(ng-if="!$root.auth_user" scroll-to="#steps" i18n="Hoe werkt het?").header-how-it-works
             a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" href="#!/me" target="_blank").header-how-it-works
+            br
+            br
+            br
+            br
+            br
+            span.signup_cta Als organisatie aansluiten bij potjes? #[a(ng-if="!root.auth_user" ui-sref="sign-up" translate="home.header.{{ $root.client_key }}.signup_cta" translate-default="{{ 'home.header.signup_cta' | translate }}").header-how-it-works]
             //- usage example: 
             //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
             //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
