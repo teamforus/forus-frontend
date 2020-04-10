@@ -2,21 +2,26 @@ let FundCardInvitationProviderDirective = function(
     $scope,
     $state,
     FundProviderInvitationsService,
+    FormBuilderService,
     PushNotificationsService
 ) {
     $scope.fund = $scope.providerInvitation.fund;
-    
-    $scope.acceptInvitation = () => {
+
+    $scope.providerInvitationForm = FormBuilderService.build({}, function(form) {
         FundProviderInvitationsService.acceptInvitationById(
             $scope.providerInvitation.provider_organization.id, 
             $scope.providerInvitation.id
-        ).then(res => {
+        ).then(() => {
             PushNotificationsService.success('Uitnodiging succesvol geaccepteerd!');
 
             $state.go($state.current, {
                 fundsType: 'invitations'
             }, {reload: true});
         }, console.error);
+    }, true);
+    
+    $scope.acceptInvitation = () => {
+        $scope.providerInvitationForm.submit();
     };
 };
 
@@ -33,6 +38,7 @@ module.exports = () => {
             '$scope',
             '$state',
             'FundProviderInvitationsService',
+            'FormBuilderService',
             'PushNotificationsService',
             FundCardInvitationProviderDirective
         ],
