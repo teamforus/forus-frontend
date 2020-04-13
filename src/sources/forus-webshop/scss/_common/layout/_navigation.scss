@@ -200,12 +200,12 @@
                     margin-right: -15px;
                     cursor: pointer;
 
-                    .mdi-settings {
+                    .mdi-cog {
                         margin-top: 5px;
                         display: flex;
                     }
 
-                    .mdi-settings:before {
+                    .mdi-cog:before {
                         content: "\F493";
                         font-size: 26px;
                         color: #017f96;
@@ -450,7 +450,7 @@
                     padding: 7px 10px;
                 }
 
-                .mdi-settings {
+                .mdi-cog {
                     display: none;
                 }
 

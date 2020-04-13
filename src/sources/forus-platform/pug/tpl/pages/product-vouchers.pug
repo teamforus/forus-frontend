@@ -1,22 +1,8 @@
-.app.app-container
+.app.app-container(ng-if="$root.activeOrganization && $root.auth_user && $ctrl.funds")
     menu
     section.app.app-content
         .card-heading(ng-if="$ctrl.funds.length > 1" ng-bind="'csv_validation.header.title' | translate")
-        
-        .block.block-choose-organization(ng-if="$ctrl.funds.length > 1")
-            div(
-                ng-repeat="fund in $ctrl.fund ? [$ctrl.fund] : $ctrl.funds" 
-                ui-sref="product-vouchers({fund_id: fund.id, organization_id: $ctrl.organization.id})").organization-item
-                .organization-item-inner
-                    .organization-logo: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
-                    .organization-name(ng-bind="fund.name")
-
-            div(
-                ng-if="$ctrl.fund && $ctrl.funds.length > 1"
-                ui-sref="product-vouchers({fund_id: null, organization_id: $ctrl.organization.id})").organization-item
-                .organization-item-inner
-                    .organization-logo.organization-logo-mdi: .mdi.mdi-chevron-up
-                    .organization-name(translate="csv_validation.buttons.choose")
+        fund-selector(funds="$ctrl.funds" on-fund-select="$ctrl.onFundSelect")
 
         .card(ng-if="$ctrl.vouchers")
             .card-header: .row
@@ -143,3 +129,13 @@
 
             .card-section(ng-if="$ctrl.vouchers" ng-show="$ctrl.vouchers.meta.last_page > 1")
                 paginator(meta="$ctrl.vouchers.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
+    
+        div(ng-if="$ctrl.funds.length == 0")
+                block-empty(
+                    ng-if="($root.activeOrganization | hasPerm:'manage_funds')"
+                    text="Je hebt momenteel geen fondsen." 
+                    button="{text: 'Fonds toevoegen', href: $ctrl.emptyBlockLink}")
+                
+                block-empty(
+                    ng-if="!($root.activeOrganization | hasPerm:'manage_funds')"
+                    text="Je hebt momenteel geen fondsen." )

@@ -4,7 +4,7 @@
         .printable-usage-info 
             span(i18n="voucher_printable.{{$ctrl.voucherType}}_voucher.labels.use_for")
             br
-            strong {{ $ctrl.voucher.expire_at_locale }}
+            strong {{ $ctrl.voucher.last_active_day_locale }}
 
         .printable-logo
             img(ng-src="./assets/img/implementation-logo.png")    

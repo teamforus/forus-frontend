@@ -22,7 +22,7 @@ let ModalAuthComponent = function(
     $ctrl.restoreWithDigId = false;
 
     if (AuthService.hasCredentials()) {
-        IdentityService.identity().then(() => { }, $ctrl.close);
+        IdentityService.identity().then(() => {}, $ctrl.close);
     }
 
     $ctrl.showQrForm = function() {
@@ -59,20 +59,14 @@ let ModalAuthComponent = function(
                 }
             }, 0);
         });
+
         $ctrl.showQrForm();
+
         $ctrl.signInEmailForm = FormBuilderService.build({
-            source: appConfigs.client_key + '_webshop',
-            primary_email: "",
-        }, function(form) {
-            form.lock();
-
-            IdentityService.makeAuthEmailToken(
-                form.values.source,
-                form.values.primary_email
-            ).then((res) => {
-                localStorage.setItem('pending_email_token', res.data.access_token);
+            email: ""
+        }, (form) => {
+            IdentityService.makeAuthEmailToken(form.values.email).then(() => {
                 $ctrl.screen = 'sign_in-email-sent';
-
                 $ctrl.close();
 
                 ModalService.open('modalNotification', {
@@ -87,7 +81,7 @@ let ModalAuthComponent = function(
                 form.unlock();
                 form.errors = res.data.errors;
             });
-        });
+        }, true);
     };
 
 
@@ -101,7 +95,7 @@ let ModalAuthComponent = function(
         IdentityService.checkAccessToken(access_token).then((res) => {
             if (res.data.message == 'active') {
                 $ctrl.applyAccessToken(access_token);
-                $timeout(function(){
+                $timeout(function() {
                     $state.go('vouchers');
                 }, 2500);
             } else if (res.data.message == 'pending') {
@@ -127,7 +121,7 @@ let ModalAuthComponent = function(
     $ctrl.stopQrCodeVerification = () => $timeout.cancel(timeout);
     $ctrl.$onDestroy = () => $ctrl.stopQrCodeVerification();
 
-    $ctrl.openAuthCodePopup = function () {
+    $ctrl.openAuthCodePopup = function() {
         $ctrl.close();
 
         ModalService.open('modalAuthCode', {});

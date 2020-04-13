@@ -5,6 +5,7 @@ let PrintableVoucherQrCodeComponent = function($timeout) {
 
     $ctrl.$onInit = () => {
         $ctrl.voucher = $ctrl.printable.scope.voucher;
+        $ctrl.fund = $ctrl.printable.scope.fund;
         $ctrl.voucherType = $ctrl.voucher.product ? 'product' : 'budget';
         
         $ctrl.printableTitle = $ctrl.voucher.product ? 
@@ -12,6 +13,8 @@ let PrintableVoucherQrCodeComponent = function($timeout) {
 
         $ctrl.organization = $ctrl.printable.scope.organization;
         $ctrl.qrCodeValue = $ctrl.voucher.address;
+
+        $ctrl.webshopUrl = $ctrl.fund.implementation.url_webshop;
 
         $timeout(() => {
             window.print();

@@ -6,11 +6,10 @@ section.section.section-voucher-details: .wrapper
 
     .section-title Security
 
-    section: .card
-        .card-header: .card-title Huidige sessies:
+    section: .card(ng-repeat="session in $ctrl.sessions")
         .card-section.card-section-padless
             .block.block-sessions
-                .session-item(ng-repeat="session in $ctrl.sessions")
+                .session-item
                     .session-icon: .mdi(ng-class="'mdi-' + session.type_class")
                     
                     .session-details
@@ -54,11 +53,11 @@ section.section.section-voucher-details: .wrapper
                         .session-locations(ng-if="session.locations.length > 1 && session.showLocations")
                             .session-location(ng-repeat="location in session.locations" ng-bind="location.ip + ' • ' + location.string")
 
-
-                    .session-label(ng-if="session.current"): .label.label-round.label-primary-light Huidig
+                    .session-label(ng-if="session.current"): .label.label-lg.label-primary-light Huidig
                     
-                    .session-label(ng-if="session.active && !session.current"): .label.label-round.label-success Online
+                    .session-label(ng-if="session.active && !session.current"): .label.label-lg.label-success Online
     
+    section: .card
         .card-section.text-right: .button.button-primary(ng-click="$ctrl.terminateAllSessions()") 
             | Beëindig alle sessies
             em.mdi.mdi-close.icon-end

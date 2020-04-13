@@ -36,6 +36,7 @@ app.component('emailPreferencesComponent', require('./components/EmailPreference
 app.component('accessibilityComponent', require('./components/AccessibilityComponent'));
 app.component('errorComponent', require('./components/ErrorComponent'));
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
+app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -77,6 +78,7 @@ app.service('PushNotificationsService', require('./services/PushNotificationsSer
 app.service('LocalStorageService', require('./services/LocalStorageService'));
 app.service('ProvidersService', require('./services/ProvidersService'));
 app.service('SessionService', require('./services/SessionService'));
+app.service('IdentityEmailsService', require('./services/IdentityEmailsService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
@@ -95,6 +97,7 @@ app.directive('voucherCard', require('./directives/VoucherCardDirective'));
 app.directive('productCard', require('./directives/ProductCardDirective'));
 app.directive('appFooter', require('./directives/AppFooterDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
+app.directive('forusSupport', require('./directives/ForusSupportDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));
 app.directive('phoneControl', require('./directives/PhoneControlDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
@@ -149,6 +152,7 @@ app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('i18n', require('./filters/I18nFilter'));
 app.filter('duration', require('./filters/DurationFilter'));
 app.filter('duration_last_time', require('./filters/DurationLastTimeFilter'));
+app.filter('lines_to_array', require('./filters/LinesToArrayFilter'));
 
 // Config
 app.config(require('./routers/printables'));

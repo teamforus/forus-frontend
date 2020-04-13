@@ -11,19 +11,19 @@
                 .form-label {{ "popup_auth.input.mail" | translate }}
                 input(
                 type="email"
-                ng-model="$ctrl.signUpForm.values.records.primary_email"
+                ng-model="$ctrl.signUpForm.values.email"
                 placeholder="{{ 'popup_auth.input.mail' | translate }}").form-control.form-control
-                .form-error(ng-repeat="error in $ctrl.signUpForm.errors['records.primary_email']" ng-bind="error")
+                .form-error(ng-repeat="error in $ctrl.signUpForm.errors.email" ng-bind="error")
             .form-group
                 .form-label(translate="popup_auth.input.confirmation")
                 input(
                 type="email"
-                ng-model="$ctrl.signUpForm.values.records.primary_email_confirmation"
+                ng-model="$ctrl.signUpForm.values.email_confirmation"
                 placeholder="{{ 'popup_auth.input.confirmation' | translate }}").form-control.form-control
-                .form-error(ng-repeat="error in $ctrl.signUpForm.errors['records.primary_email_confirmation']" ng-bind="error")
+                .form-error(ng-repeat="error in $ctrl.signUpForm.errors.email_confirmation" ng-bind="error")
             .form-group
             .form-group.text-center
                 button(type="submit").button.button-primary {{ "popup_auth.buttons.submit" | translate }}
 
-        //-.modal-footer
-            //-.footer-text {{ "popup_auth.labels.warning" | translate }}
+        //- .modal-footer
+            //- .footer-text {{ "popup_auth.labels.warning" | translate }}
