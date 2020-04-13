@@ -516,6 +516,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: 'identity-emails',
+        url: '/preferences/emails',
+        component: 'identityEmailsComponent'
+    });
+
+    $stateProvider.state({
         name: 'security-sessions',
         url: '/security/sessions',
         component: 'securitySessionsComponent'

@@ -193,6 +193,10 @@
         color: #282b39;
         margin: 0 0 15px;
 
+        &.card-heading-lg {
+            font: 600 18px/27px $bf;
+        }
+
         &:last-child, 
         &.card-heading-padless {
             margin-bottom: 0;

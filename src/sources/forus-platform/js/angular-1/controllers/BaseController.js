@@ -228,7 +228,9 @@ let BaseController = function(
     $translate.use('nl');
 
     if (AuthService.hasCredentials()) {
-        $rootScope.loadAuthUser();
+        $rootScope.loadAuthUser().then(auth_user => {
+            $rootScope.autoSelectOrganization();
+        });
     } else {
         $rootScope.auth_user = false;
     }
