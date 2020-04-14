@@ -34,7 +34,7 @@ nav.navbar.navbar-inverse
       ul.nav.navbar-nav.navbar-right.auth-out(ng-if="$root.auth_user")
           .header-auth(ng-if="$root.auth_user")
               .auth-user
-                  .auth-user-name {{ $root.auth_user.primary_email }}
+                  .auth-user-name(ng-bind="$root.auth_user.email")
                   .auth-user-role Uw profiel
                   img(ng-src="{{ $root.activeOrganization ? ($root.activeOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png') : './assets/img/placeholders/organization-thumbnail.png'}} ").auth-user-img
                   .auth-user-menu
