@@ -4,9 +4,6 @@ let FundCardProviderDirective = function(
     ProductService
 ) {
     $scope.fund = $scope.providerFund.fund;
-    $scope.fundCategories = $scope.fund.product_categories.map((val) => {
-        return val.name;
-    });
 
     $scope.shownProductType = $scope.providerFund.allow_some_products && 
         !$scope.providerFund.allow_products ?

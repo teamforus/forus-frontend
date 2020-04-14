@@ -43,11 +43,6 @@ let OrganizationService = function(
 
         this.apiResourceToForm = function(apiResource) {
             return {
-                product_categories: apiResource.product_categories.map(
-                    function(product_category) {
-                        return product_category.id;
-                    }
-                ),
                 name: apiResource.name,
                 iban: apiResource.iban,
                 email: apiResource.email,

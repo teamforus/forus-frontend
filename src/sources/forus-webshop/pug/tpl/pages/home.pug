@@ -27,7 +27,7 @@ header.section.section-header.section-header-landing
                 p(ng-if="$ctrl.funds.length <= 1" translate="home.header.{{ $root.client_key }}.subtitle_av" translate-default="{{'home.header.subtitle_av' | translate:{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale } }}" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
                 
                 //- gebruik activatiecode tekst
-                p(ng-if="!$root.auth_user && $ctrl.funds.length <= 1" i18n="home.header.cta_av" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                p(ng-if="!$root.auth_user && $ctrl.funds.length <= 1" translate="home.header.{{ $root.client_key }}.cta_av" translate-default="{{ 'home.header.cta_av' | translate:{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale } }}")
                 
                 p(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" i18n="home.header.auth_cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
                        
@@ -58,10 +58,7 @@ header.section.section-header.section-header-landing
 .page.page-home
     .wrapper.block-products: block-products(
         ng-if="$ctrl.appConfigs.flags.homeProducts"
-        sample="true" 
-        products="$ctrl.products" 
-        product-categories="$ctrl.productCategories")
-
+        sample="true")
     section.section.section-map(ng-if="$ctrl.appConfigs.flags.homeMap"): .wrapper
         .block.block-map
             .block-content

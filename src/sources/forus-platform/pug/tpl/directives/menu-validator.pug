@@ -17,10 +17,17 @@ aside.app.app-sidebar
                 | #{name} 
         
         +nav_item(
-            "Aanvragers valideren", "file_csv", 'csv-validation',  
+            "Aanvragers", "file_csv", 'csv-validation',  
             '{organization_id: $root.activeOrganization.id}',
             'true')
+
         +nav_item(
-            "Openstaande aanvragen", "clock", 'fund-requests', 
+            "Aanmeldingen", "clock", 'fund-requests', 
             '{organization_id: $root.activeOrganization.id}', 
             '$root.appConfigs.features.organizations.funds.fund_requests')
+
+        .sidebar-nav-devider(ng-if="$root.activeOrganization")
+
+        +nav_item('Email instellingen', 'emails', 'identity-emails')
+        +nav_item('Sessies', 'sessions', 'security-sessions', '{}', '$root.appConfigs.sessions')
+        +nav_item('Notificaties', 'notifications', 'preferences-notifications')

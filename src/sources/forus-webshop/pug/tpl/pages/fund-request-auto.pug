@@ -23,12 +23,12 @@ section.section.section-product: .wrapper
                     .sign_up-pane-text: form(ng-submit="$ctrl.authForm.submit()").form: .row
                         .form-group.col.col-lg-9
                             label.form-label(i18n="popup_auth.input.mail")
-                            ui-control-email(ng-model="$ctrl.authForm.values.records.primary_email" data-placeholder="bijv. info@info.nl")
-                            .form-error(ng-repeat="error in $ctrl.authForm.errors['records.primary_email']" ng-bind="error")
+                            ui-control-email(ng-model="$ctrl.authForm.values.email" data-placeholder="bijv. info@info.nl")
+                            .form-error(ng-repeat="error in $ctrl.authForm.errors.email" ng-bind="error")
                         .form-group.col.col-lg-3
                             label.form-label &nbsp;
                             button(
-                                ng-class="{'button-disabled': !$ctrl.authForm.values.records.primary_email}"
+                                ng-class="{'button-disabled': !$ctrl.authForm.values.email}"
                                 type="submit").button.button-primary.button-fill {{ "popup_auth.buttons.submit" | translate }}
         
         //- Log in email sent
@@ -52,7 +52,7 @@ section.section.section-product: .wrapper
                             img(src=src_prefix + "./assets/img/sign_up-email.svg").sign_up-email_sent-icon-img
                         .sign_up-email_sent-title Bevestig dat u toegang heeft tot dit e-mailadres.
                         .sign_up-email_sent-text
-                            | U heeft een e-mail ontvangen op "#[span(ng-bind="$ctrl.authForm.values.records.primary_email").text-primary]". Ga naar uw inbox en open de e-mail met het onderwerp "E-mail activering" en klik in de e-mail op de blauwe knop.
+                            | U heeft een e-mail ontvangen op "#[span(ng-bind="$ctrl.authForm.values.email").text-primary]". Ga naar uw inbox en open de e-mail met het onderwerp "E-mail activering" en klik in de e-mail op de blauwe knop.
 
         //- Log in by digid
         div(ng-if="$ctrl.state == 'digid'")

@@ -1,7 +1,8 @@
 section.section.section-products#products
     a.section-title(
         translate="block_products.header.title"
-        ui-sref="products")
+        ui-sref="products"
+        ng-if="products.data.length != 0 && sample")
     .section-filters(ng-if="!sample && productCategories")
         .row.form
             .col.col-md-4: .form-group
@@ -36,7 +37,7 @@ section.section.section-products#products
         title= "{{ 'block_products.labels.title' | translate }}"
         description="{{ 'block_products.labels.subtitle' | translate }}"
         hide-link="true" 
-        ng-if="products.data.length == 0")
+        ng-if="products.data.length == 0 && !sample")
 
     paginator-loader(
         ng-if="products.meta" 
@@ -46,4 +47,4 @@ section.section.section-products#products
         on-load-more="onLoadMore(query)" 
         on-reset="onReset(query)")
 
-    .block.block-show-more(ng-if="sample"): a(ui-sref="products" translate="block_products.buttons.more").button.button-primary.button-wide
+    .block.block-show-more(ng-if="sample && products.data.length != 0" ): a(ui-sref="products" translate="block_products.buttons.more").button.button-primary.button-wide

@@ -1,64 +1,80 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
-top-navbar
+//- top-navbar
 
-section.section.section-product: .wrapper
-    mixin progress()
-        .sign_up-progress
-            .sign_up-step(
-                ng-repeat="step in $ctrl.totalSteps"
-                ng-class="$ctrl.step == step ? 'sign_up-step-active' : ($ctrl.step > step ? 'sign_up-step-done' : '')"
-                ng-bind="'Stap ' + step")
-        
-    .block.block-sign_up: .block-wrapper
-        //- Log in
-        div(ng-if="$ctrl.state == 'auth'")
-            h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
-            +progress()
+mixin progress()
+    .sign_up-progress
+        .sign_up-step.sign_up-step-info(ng-class="$ctrl.step == 1 ? 'sign_up-step-active' : 'sign_up-step-done'")
+            .sign_up-step-border
+            .mdi.mdi-information-outline
+
+        .sign_up-step(
+            ng-repeat="step in $ctrl.totalSteps track by $index"
+            ng-class="($ctrl.step - 1) == step ? 'sign_up-step-active' : (($ctrl.step - 1) > step ? 'sign_up-step-done' : '')")
             
-            .sign_up-pane
-                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
-                .sign_up-pane-body
-                    .sign_up-pane-text
-                        span(i18n="fund_request.sign_up.pane.text" i18n-vars="{fundname: $ctrl.fund.name }")
-                    ul.sign_up-pane-list 
-                        li(ng-repeat="critera in $ctrl.fund.criteria"): span(
-                            i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}" 
-                            i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}") 
-                    
-                    .sign_up-pane-heading Vul uw email adres in om verder te gaan
-                    .sign_up-pane-text 
-                        | Er wordt gecontroleeerd aan welke voorwaarden u al voldoet, 
-                        | en u kan tussentijds afbreken en op een ander moment verder gaan.
+            .sign_up-step-border
+            .sign-up-step-block Stap {{ ' ' + ($index + 1) }}   
 
-                    .sign_up-pane-text: form(ng-submit="$ctrl.authForm.submit()").form: .row
+//- top-navbar
+section: .wrapper 
+    .block.block-sign_up: .block-wrapper
+        .sign_up-header: a(ng-click="$ctrl.goToMain()").sign_up-header-back
+            em.mdi.mdi-chevron-left
+            | Terug
+        
+        .block-title(translate="fund_request.sign_up.header.main")
+
+        //- Welcome screen
+        div(ng-if="$ctrl.state == 'welcome'")
+            +progress()
+
+            .sign_up-pane    
+                .sign_up-pane-header(translate="fund_request.sign_up.header.title_step_1")
+
+                .sign_up-pane-body
+                    .sign_up-pane-media: img(ng-src="./assets/img/fund-request-welcome.png") 
+                    .sign_up-pane-text.text-center(translate="fund_request.sign_up.subtitles.step_1")
+
+                .sign_up-pane-footer: .row
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless
+                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
+                        | {{ 'fund_request.sign_up.pane.footer.next' | translate }}
+                        em.mdi.mdi-chevron-right.icon-right 
+
+        //- Fund request information
+        div(ng-if="$ctrl.state == 'auth'")
+            +progress()
+
+            .sign_up-pane
+                .sign_up-pane-header(translate="fund_request.sign_up.header.title_step_2")
+
+                .sign_up-pane-body(ng-if="!$ctrl.hasApp")
+                    .sign_up-pane-heading(translate="Vul uw email adres in om verder te gaan")
+                    .sign_up-pane-text(translate="fund_request.sign_up.subtitles.step_2")
+
+                    form(ng-submit="$ctrl.authForm.submit()").form: .row
                         .form-group.col.col-lg-9
                             label.form-label(i18n="popup_auth.input.mail")
-                            ui-control-email(ng-model="$ctrl.authForm.values.records.primary_email" data-placeholder="bijv. info@info.nl")
-                            .form-error(ng-repeat="error in $ctrl.authForm.errors['records.primary_email']" ng-bind="error")
+                            ui-control-email(ng-model="$ctrl.authForm.values.email" data-placeholder="bijv. info@info.nl")
+                            .form-error(ng-repeat="error in $ctrl.authForm.errors.email" ng-bind="error")
                         .form-group.col.col-lg-3
                             label.form-label &nbsp;
                             button(
-                                ng-class="{'button-disabled': !$ctrl.authForm.values.records.primary_email}"
+                                ng-class="{'button-disabled': !$ctrl.authForm.values.email}"
                                 type="submit").button.button-primary.button-fill {{ "popup_auth.buttons.submit" | translate }}
-                    
-                    .sign_up-pane-heading Heeft u de Me App al?
-                    .sign_up-pane-text 
-                        | De me app is een optionele manier om eenvoudig, 
-                        | veilig en snel in te loggen.                    
+
+                    br
+                    .sign_up-pane-text: small(ng-click="$ctrl.setHasAppProp(true)" translate="fund_request.sign_up.labels.has_app").text-muted
+
+                .sign_up-pane-body(ng-if="$ctrl.hasApp")
+                    .sign_up-pane-heading(translate='fund_request.sign_up.app.title')
 
                     .sign_up-pane-auth
                         .sign_up-pane-auth-content
-                            | Scan de QR code aan de rechterzijde met de 
-                            br
-                            | QR-scanner in de Me App.
-                            br
-                            br
-                            | De Me App wordt gebruikt omm makkelijk en veilig in 
-                            br
-                            | te loggen, betalingen te doen en vouchers te beheren.
-                            br
-                            br
+                            .sign_up-pane-text(
+                                ng-repeat="line in ('fund_request.sign_up.app.description' | translate | lines_to_array)"
+                                ng-bind="line")
+
                             .sign_up-pane-auth-apps
                                 a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
                                 a(href="https://play.google.com/store/apps/details?id=io.forus.me").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
@@ -68,10 +84,15 @@ section.section.section-product: .wrapper
                                 ng-if="$ctrl.authToken" 
                                 qr-value="$ctrl.authToken" 
                                 qr-type="auth_token" 
-                                qr-logo=src_prefix + "./assets/img/me-logo.png")
-        
+                                qr-logo=src_prefix + "./assets/img/me-logo.png") 
+
+                    br
+                    .sign_up-pane-text: small(ng-click="$ctrl.setHasAppProp(false)" translate="fund_request.sign_up.labels.no_app").text-muted     
+       
         //- Log in email sent
         div(ng-if="$ctrl.state == 'auth_email_sent'")
+            +progress()
+
             //- For new users
             .sign_up-pane(ng-if="$ctrl.authEmailRestoreSent")
                 .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
@@ -91,11 +112,10 @@ section.section.section-product: .wrapper
                             img(src=src_prefix + "./assets/img/sign_up-email.svg").sign_up-email_sent-icon-img
                         .sign_up-email_sent-title Bevestig dat u toegang heeft tot dit e-mailadres.
                         .sign_up-email_sent-text
-                            | U heeft een e-mail ontvangen op "#[span(ng-bind="$ctrl.authForm.values.records.primary_email").text-primary]". Ga naar uw inbox en open de e-mail met het onderwerp "E-mail activering" en klik in de e-mail op de blauwe knop.
+                            | U heeft een e-mail ontvangen op "#[span(ng-bind="$ctrl.authForm.values.email").text-primary]". Ga naar uw inbox en open de e-mail met het onderwerp "E-mail activering" en klik in de e-mail op de blauwe knop.
 
         //- List the criteria
         div(ng-if="$ctrl.state == 'criteria'")
-            h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
             +progress()
             
             .sign_up-pane
@@ -117,19 +137,15 @@ section.section.section-product: .wrapper
                             | Log in met DigiD
                 
                 .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
-                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(
-                        ng-if="!$ctrl.signedIn"
-                        ng-click="$ctrl.prevStep()"
-                        i18n="fund_request.sign_up.pane.footer.prev")
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(ng-if="!$ctrl.signedIn" ng-click="$ctrl.prevStep()")
                         em.mdi.mdi-chevron-left.icon-left
-                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(
-                        ng-click="$ctrl.nextStep()"
-                        i18n="fund_request.sign_up.pane.footer.next")
+                        | {{ 'fund_request.sign_up.pane.footer.prev' | translate }}
+                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
                         em.mdi.mdi-chevron-right.icon-right
+                        | {{ 'fund_request.sign_up.pane.footer.next' | translate }}  
         
         //- Confirm net worth
         div(ng-if="$ctrl.state == 'net_worth'")
-            h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
             +progress()
             
             .sign_up-pane
@@ -155,20 +171,16 @@ section.section.section-product: .wrapper
                     .form-error(ng-repeat="err in $ctrl.netCriteria.errors.file" ng-bind="err")
                 
                 .sign_up-pane-footer: .row
-                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(
-                        ng-click="$ctrl.prevStep()"
-                        i18n="fund_request.sign_up.pane.footer.prev")
-                        em.mdi.mdi-chevron-left.icon-lefts
-                    .col.col-lg-6.text-right
-                        .button.button-text.button-text-padless(
-                            ng-click="$ctrl.submitNetWorth()"
-                            i18n="fund_request.sign_up.pane.footer.next")
-                            em.mdi.mdi-chevron-right.icon-right
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()")
+                        em.mdi.mdi-chevron-left.icon-left
+                        | {{ 'fund_request.sign_up.pane.footer.prev' | translate }}
+                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.submitNetWorth()")
+                        em.mdi.mdi-chevron-right.icon-right
+                        | {{ 'fund_request.sign_up.pane.footer.next' | translate }}          
         
         div(
             ng-repeat="invalidCriteria in $ctrl.invalidCriteria track by $index"
             ng-if="$ctrl.state == 'criteria_' + $index")
-            h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
             +progress()
             
             .sign_up-pane
@@ -216,24 +228,22 @@ section.section.section-product: .wrapper
                         p.sign_up-pane-text: span(
                             i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[invalidCriteria.operator]}}" 
                             i18n-vars="{name: invalidCriteria.record_type_name, value: ($ctrl.criterionValuePrefix[invalidCriteria.record_type_key]) + invalidCriteria.value}") 
+                    .form-group.col.col-lg-12: .sign_up-pane-info(ng-if="invalidCriteria.description_html")
+                        .sign_up-pane-text(ng-bind-html="invalidCriteria.description_html")
                     .form-group.col.col-lg-12: file-uploader(ng-if="invalidCriteria.show_attachment" files="invalidCriteria.files")
                 
                 .sign_up-pane-footer: .row
-                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(
-                        ng-click="$ctrl.prevStep()"
-                        i18n="fund_request.sign_up.pane.footer.prev")
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()")
                         em.mdi.mdi-chevron-left.icon-left
-                    .col.col-lg-6.text-right
-                        .button.button-text.button-text-padless(
-                            ng-click="$ctrl.submitStepCriteria(invalidCriteria)"
-                            i18n="fund_request.sign_up.pane.footer.next")
-                            em.mdi.mdi-chevron-right.icon-right
+                        | {{ 'fund_request.sign_up.pane.footer.prev' | translate }}
+                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.submitStepCriteria(invalidCriteria)")
+                        em.mdi.mdi-chevron-right.icon-right
+                        | {{ 'fund_request.sign_up.pane.footer.next' | translate }}          
         
         //- Done
         div(ng-if="$ctrl.state == 'done'")
             //- Success
             div(ng-if="!$ctrl.finishError")
-                h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
                 +progress()
                 
                 .sign_up-pane
@@ -249,7 +259,6 @@ section.section.section-product: .wrapper
                 
             //- Error
             div(ng-if="$ctrl.finishError")
-                h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
                 +progress()
 
                 .sign_up-pane

@@ -38,6 +38,11 @@ let ProductComponent = function (
         $ctrl.fundNames = $ctrl.product.funds.map(fund => fund.name).join(', ');
         $ctrl.isApplicable = $ctrl.applicableVouchers.length > 0;
         $ctrl.product.description_html = $sce.trustAsHtml($ctrl.product.description_html);
+
+        $ctrl.mapPointers = [];
+        $ctrl.product.offices.forEach(office => {
+            $ctrl.mapPointers.push({lat: office.lat, lon: office.lon});
+        });
     };
 
     $ctrl.applyProduct = () => {
@@ -47,7 +52,7 @@ let ProductComponent = function (
             let fund_expire_at = moment(voucher.fund.end_date);
             let product_expire_at = moment($ctrl.product.expire_at);
 
-            let expire_at = fund_expire_at.isAfter(product_expire_at) ? $ctrl.product.expire_at_locale : voucher.fund.end_date_locale;
+            let expire_at = fund_expire_at.isAfter(product_expire_at) ? $ctrl.product.expire_at_locale : voucher.last_active_day_locale;
 
             return ModalService.open('modalProductApply', {
                 expire_at: expire_at,
