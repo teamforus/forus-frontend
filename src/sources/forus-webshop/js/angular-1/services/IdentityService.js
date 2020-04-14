@@ -44,9 +44,10 @@ let IdentityService = function(
         };
 
         this.exchangeShortToken = (exchange_token) => {
-            return ApiRequest.get('/identity/proxy/short-token/' + exchange_token);
+            return ApiRequest.get('/identity/proxy/short-token/exchange/' + exchange_token);
         }
 
+        
         this.authorizeAuthToken = (auth_token) => {
             return ApiRequest.post('/identity/proxy/authorize/token', {
                 auth_token: auth_token
