@@ -38,7 +38,7 @@
     }
     &[disabled], &.disabled{
         @include transition();
-        border-radius: 8px;
+        border-radius: 4px;
         background-color: rgba(158, 177, 215, 0.2);
         color: #9eaad7 !important;
         &:hover, &:active, &:focus{

@@ -129,6 +129,7 @@ html {
                         line-height: 1.43;
                         letter-spacing: normal;
                         color: #222530;
+                        left: 0 !important;
                         &:focus{
                             box-shadow: none;
                             border-color: $forus-demi-blue!important;
