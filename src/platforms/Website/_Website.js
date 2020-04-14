@@ -54,7 +54,7 @@ platform.addTask('js', {
 platform.addTask('scss', {
     src: "general/website/style.scss",
     watch: [
-        "general/website/includes/**/*.scss",
+        "general/website/**/*.scss",
     ],
     path: "/",
     name: "style.min.css",

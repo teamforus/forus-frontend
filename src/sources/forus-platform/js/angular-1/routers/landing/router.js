@@ -32,6 +32,30 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: "kerstpakket",
+        url: "/kerstpakket",
+        component: "kerstpakketComponent"
+    });
+
+    $stateProvider.state({
+        name: "meedoen",
+        url: "/meedoen",
+        component: "meedoenComponent"
+    });
+
+    $stateProvider.state({
+        name: "platform",
+        url: "/systeem",
+        component: "platformComponent"
+    });
+
+    $stateProvider.state({
+        name: "support",
+        url: "/vragen",
+        component: "supportComponent"
+    });
+
+    $stateProvider.state({
         name: "hall-of-fame",
         url: "/hall-of-fame",
         component: "hallOfFameComponent"
@@ -53,6 +77,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: "story",
         url: "/cs-zuidhorn",
         component: "storyComponent"
+    });
+
+    $stateProvider.state({
+        name: "cs-nijmegen",
+        url: "/cs-nijmegen",
+        component: "csNijmegenComponent"
     });
 
     $stateProvider.state({

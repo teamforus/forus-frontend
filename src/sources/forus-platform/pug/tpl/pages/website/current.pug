@@ -1,111 +1,62 @@
-.wrapper.wrapper_aboutus
+section.header.header__about
     .container
-        h1.wrapper_title.text-center Over ons
-        .wrapper_desc.text-center
-            ul
-                li.tab-inactive.enabled(ui-sref="history") Geschiedenis
-                li.tab-active Nu
-                li.tab-inactive.enabled(ui-sref="future") Toekomst
-
-.wrapper.wrapper_current
+        .wrap_cs__1a
+            h1 Over ons
+section
     .container
-        include ../../../../resources/platform-general/assets/img/svg/teamwork.svg 
-        h3.wrapper_title.text-center Organisatie
-        .wrapper_desc 
-            p Technologie speelt een steeds grotere rol in ons dagelijks leven. Wij streven naar een generatie van open software die ons belang dient, zonder concessies. Software "For us".
-            br
-            p We bestaan uit een onafhankelijke Stichting en een netwerk van organisaties en individuen die op allerlei manieren aan deze ontwikkeling bijdragen. Van het ontwikkelen van code tot aan het delen van onze waarden, producten en diensten. We ontwikkelen open, dat betekent dat iedereen welkom is in onze #[a.link(href="https://chat.forus.io/" target="_blank") chatbox] en op onze #[a.someClass(href="https://github.com/teamforus/" target="_blank") Github] pagina.
-            br
-            p De Stichting is opgericht in 2017 en gevestigd in Groningen.
-        .wrapper_numbers
-            .col-33
-                h2 11
-                h4 Stichting
-            .col-33
-                h2 3
-                h4 Partners
-            .col-33
-                h2(ng-bind="$ctrl.list")
-                h4(ui-sref="hall-of-fame").number_link Bijdragers >
-
-.wrapper.wrapper_current
+        .row.wrap_cs__2.no-pad-t.flex-align
+            .col-6.col-md-6
+                h2 Stichting Forus
+                p Forus is een stichting met een maatschappelijke doel. Wij geloven dat technologie kan helpen om vraagstukken in het publieke domein doelmatig, rechtmatig en efficiënt aan te pakken.<br><br>Door innovatieve technologie te onderzoeken, open te ontwikkelen en te implementeren creëren we waarde in de maatschappij. Transparantie is hierbij het uitgangspunt. De ontwikkelde code is daarom openbaar en voor iedereen inzichtelijk.<br><br>Het systeem ontwerpen we vanuit de behoefte van de eindgebruiker. Een belangrijk principe hierbij is dat een  eindgebruiker kan beschikken over haar eigen data.
+            .col-6.col-md-6
+                img(src="assets/img/content-werkwijze.jpg" class="ww-pt")
+section.bg_gr
+    .wrap_cs__4
+        .container.text-center
+            .cont-b
+                h2 Team
+                p Forus bestaat uit een jong en enthousiast team bestaande uit creatieve denkers, programmeurs, ontwerpers, managers en software-architecten. Samenwerken is voor ons een belangrijke kernwaarde. Wij geloven in de kracht en diversiteit van mensen en werken graag met hen samen om het platform te blijven ontwikkelen.
+section
     .container
-        hr
-        img.me-logo(src="./assets/img/svg/me-logo.svg")
-        h3.wrapper_title.text-center Me
-        .wrapper_desc 
-            p Onze persoonlijke informatie op het internet is gefragmenteerd en ontransparant. Met “me” ontwikkelen we een app die jou de controle terug geeft over jouw (digitale) eigendommen, eigenschappen en identiteit.
-            //-p Leer meer over de huidige versie en over onze toekomstplannen.
-        .wrapper_numbers
-            .col-33
-                h2 3200
-                h4 Identiteiten
-                
-.wrapper.wrapper_current
-    .container
-        hr
-        include ../../../../resources/platform-general/assets/img/svg/platform-flat.svg 
-        h3.wrapper_title.text-center Forus
-        .wrapper_desc 
-            p Waardeuitkering is traag, bureaucratisch, fraude- en corruptiegevoelig, moeizaam en ontransparant. Met Forus ontwikkelen en bieden we een platform waarop het mogelijk wordt om waarde snel en transparant uit te keren met instandhouding van privacy.
-        .wrapper_numbers
-            .col-33
-                h2 200
-                h4 Aanbieders
-            .col-33
-                h2 20
-                h4 Sponsors
-            .col-33
-                h2 190
-                h4 Validators
-            .col-33
-                h2 2450
-                h4 Aanvragers
-.wrapper.wrapper_current
-    .container
-        hr
-        include ../../../../resources/platform-general/assets/img/svg/development.svg 
-        h3.wrapper_title.text-center Development
-        .wrapper_desc 
-            p Onze producten zijn continue in ontwikkeling. Hieronder zie je de verbeteringen die we gepland hebben, waar we mee bezig zijn, en wat we af hebben gemaakt.
-            //-p Bekijk voor de lange termijn planning onze roadmap
-.wrapper.wrapper_dev
-    .container
-        input(id="slide1" type="radio" name="slider" title="slide1" checked="checked" class="slider__nav")
-        input(id="slide2" type="radio" name="slider" title="slide2" class="slider__nav")
-        input(id="slide3" type="radio" name="slider" title="slide3" class="slider__nav")
-        a.previous(class="slide1" ng-click="$ctrl.check('1')") < Backlog 
-        a.previous(class="slide2" ng-click="$ctrl.check('2')") < Nu bezig 
-        a.next(class="slide2" ng-click="$ctrl.check('2')") Nu bezig >
-        a.next(class="slide3" ng-click="$ctrl.check('3')") Klaar >
-        .backlog
-            .column-33
-                .column-title   
-                    h3 Backlog
-                .card.red
-                    img(src="https://www.wphandleiding.nl/wp-content/uploads/2015/12/Google-Maps-toevoegen-aan-WordPress-met-je-eigen-shortcode.png")
-                    .content
-                        h5 Uitgebreide kaart
-                        .card_desc Een lijst met aanbieders waardoor d.m.v. filters, zoekfunctie gezocht kan worden.
-            .column-33
-                .column-title   
-                    h3 Nu mee bezig
-                .card.yellow
-                    img(src="https://s3.eu-west-1.amazonaws.com/media.forus.link/ac11f89f39e3a736c606064712d057b86a101a2ef427b0e3811682838bf0e4.png")
-                    .content
-                        h5 Kerstpakket
-                        .card_desc Forus gaat kerstpakket uitgeven binnen gemeenten, dit zorgt voor minder stigma.
-                .card.yellow
-                    img(src="https://forus.io/assets/img/general-logo.svg")
-                    .content 
-                        h5 Nieuwe Forus.io website
-                        .card_desc Video's, klantverhalen en productpagina's gaan een goed beeld geven van de applicatie.
-                        
-            .column-33
-                .column-title   
-                    h3 Klaar
-                .card.green
-                    img(src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdWxXiodlGOegImphBan6lYVTE92yz-29ybwLjv6_4OTUhyNkO")
-                    .content
-                        h5 Meedoen-regeling
-                        .card_desc Gebouwt en geimplementeerd in de gemeente Nijmegen.        
+        .content-area.text-center.subpadded
+            .tl-list
+                ul
+                    li
+                        h5 Maarten Velthuys
+                        p Bestuursvoorzitter
+                    li
+                        h5 Jamal Vleij
+                        p Lead developer<br>Bestuur
+                    li
+                        h5 Tom van Leijsen
+                        p Financeel<br>Bestuur
+                ul
+                    li
+                        h5 Max Visser
+                        p Beheer<br>Development
+                    li
+                        h5 Gerben Bosschieter
+                        p Support<br>Development
+                    li
+                        h5 Daniel Tcacenco
+                        p iOS developer
+                ul
+                    li
+                        h5 Linda Hielkema
+                        p Organisatie<br>Implementatie
+                    li
+                        h5 Medina Gasjimova
+                        p Juridisch adviseur
+                    li
+                        h5 Sjoerd Hilhorst
+                        p Developer<br>Software tester
+                //-ul
+                    li
+                        h5 Daan soeters
+                        p Stagiair
+                    li
+                        h5 Thomas ten Cate
+                        p Stagiair
+                    li
+                        h5 Robin Meles
+                        p Stagiair
