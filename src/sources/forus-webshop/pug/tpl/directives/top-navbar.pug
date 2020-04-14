@@ -27,7 +27,8 @@
             a.navbar-item(
                 ui-sref="home" 
                 ui-sref-active="home"
-                ng-bind="'Home'")
+                ng-bind="'Home'"
+                id="home")
 
         nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.fundsMenu && $root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
             a.navbar-item(

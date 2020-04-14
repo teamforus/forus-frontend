@@ -1,48 +1,69 @@
-var requester = require('../pages/requester/requesterPage');
+var homePage = require('../pages/requester/homePage');
+var header = require('../pages/requester/header')
+var products = require('../pages/requester/productsPage')
+var providers = require('../pages/requester/providersPage')
 var utils = require('../pages/utils')
 
-describe('testing basic requester functionality:', function(){
+
+describe('testing basic requester functionality', function(){ 
     beforeAll(function(){
-        requester.get()
+        homePage.get()
         utils.clearLocalStorage()
     })
      
     beforeEach(function(){
-        requester.get()
+        homePage.get()
+    })
+    
+    it('components should be present', function(){
+        expect(homePage.productsBlock.isPresent()).toBe(true)
+        expect(homePage.mapBlock.isPresent()).toBe(true)
+        expect(homePage.stepsBlock.isPresent()).toBe(true)
+        expect(homePage.faqBlock.isPresent()).toBe(true)
     })
 
-    it('checks if components are loaded', function(){
-        expect(requester.getProductsBlock().isPresent()).toBe(true)
-        expect(requester.getMapBlock().isPresent()).toBe(true)
-        expect(requester.getStepsBlock().isPresent()).toBe(true)
-        expect(requester.getFaqBlock().isPresent()).toBe(true)
-    })
-
-    it('opens and closes login modal', function(){
+    it('should opens and close login modal', function(){
         browser.waitForAngular()
-        requester.openLogin()
+        header.loginButton.click()
         browser.ignoreSynchronization = true;
-        requester.closeLoginModal()
+        homePage.closeLoginModal()
         browser.ignoreSynchronization = false;
     });
 
     it('opens and closes start activation modal', function(){
-        requester.openStart()
-        requester.closeStartModal()
+        homePage.openStart()
+        homePage.closeStartModal()
     });
 
     it('navigates to products page', function(){
-        requester.getProductsPage()
-        expect(requester.getProductsComponent().isPresent()).toBe(true)
+        header.productsPageButton.click()
     });
+
+    describe('products page', function(){
+        beforeEach(function(){
+            products.get()
+        })
+
+        it('products component should be present', function(){
+            expect(products.productsComponent.isPresent()).toBe(true)
+        })
+    })
 
     it('navigates to providers page', function(){
-        requester.getProvidersPage()
-        expect(requester.getProvidersComponent().isPresent()).toBe(true)
+        header.providersPageButton.click()
     });
 
-    it('checks if page references are working', function(){
-        requester.showOrganisations()
-        expect(requester.getProvidersComponent().isPresent()).toBe(true)
+    describe('products page', function(){
+        beforeEach(function(){
+            providers.get()
+        })
+
+        it('products component should be present', function(){
+            expect(providers.providersComponent.isPresent()).toBe(true)
+        })
+    })
+    
+    it('show organization button should be working', function(){
+        homePage.showOrganisations()
     });
 });

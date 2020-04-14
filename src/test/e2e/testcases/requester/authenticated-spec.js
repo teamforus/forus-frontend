@@ -16,13 +16,14 @@ describe('testing basic authenticated functionality of requester:', function(){
         requester.userMenuActivationCode()
         requester.closeActivationCodeModal()
     });
+    
 
     it('opens and closes me-app login modal', function(){
         requester.openUserMenu()
         requester.userMenuLoginApp()
         requester.closePinCodeModal()
     })
-
+    
     it('navigates to my vouchers', function(){
         requester.getVouchersPage()
         expect(requester.getVouchersComponent().isPresent()).toBe(true)  
@@ -50,4 +51,5 @@ describe('testing basic authenticated functionality of requester:', function(){
         requester.openUserMenu()
         expect(requester.getUserMenuSignOut().isPresent()).toBe(true)
     });
+    
 });

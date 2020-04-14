@@ -1,57 +1,7 @@
-
 var webshopPage = function(){
+    
     this.get = function(){
         browser.get(environment.customerURL)
-    }
-
-    this.openLogin = function(){
-        element(by.id("login")).click();
-    }
-
-    this.openStart = function(){
-        element(by.id("start")).click();
-    }
-
-    this.closeStartModal = function(){
-        element(by.id("close")).click();
-    }
-
-    this.closeLoginModal = function(){
-        element(by.id("close")).click();
-    }
-
-    this.getProductsPage = function(){
-        element(by.id("products_page")).click()
-    }
-
-    this.getProductsComponent = function(){
-        return element(by.id("products_list"))
-    }
-
-    this.getProvidersPage = function(){
-        element(by.id("providers_page")).click()
-    }
-
-    this.getProvidersComponent = function(){
-        return element(by.id("providers_list"))
-    }
-
-    this.getProductsBlock = function(){
-        return element(by.id('products'))
-    }
-
-    this.getStepsBlock = function(){
-        return element(by.id('steps'));
-    }
-    this.getMapBlock = function(){
-        return element(by.id("map_block"))
-    }
-    this.getFaqBlock = function(){
-        return element(by.id('faq_block'))
-    }
-
-    this.showOrganisations = function(){
-        element(by.id('show_map')).click();
     }
 
     this.openUserMenu = function(){

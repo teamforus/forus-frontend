@@ -1,4 +1,5 @@
 var sponsorPage = function(){
+    
     this.get = function(){
         browser.get(environment.sponsorURL)
     }

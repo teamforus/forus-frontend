@@ -1,4 +1,5 @@
 var providerPage = function(){
+    
     this.get = function(){
         browser.get(environment.providerURL)
     }

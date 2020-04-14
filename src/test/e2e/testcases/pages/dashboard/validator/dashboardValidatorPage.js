@@ -13,7 +13,7 @@ var DashboardValidatorPage = function(){
     }
 
     this.getRequestsPage = function(){
-        element(by.id('fund_requests'))
+        element(by.id('fund_requests')).click()
     }
 }
 module.exports = new DashboardValidatorPage();
