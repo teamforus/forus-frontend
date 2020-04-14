@@ -1,28 +1,28 @@
-var provider = require('../pages/provider/providerPage');
+var homePage = require('../pages/provider/homePage');
 var utils = require('../pages/utils')
 
 
 describe('testing unauthenticated provider functionality:', function(){
     
     beforeAll(function(){
-        provider.get()
+        homePage.get()
         utils.clearLocalStorage()
     })
 
     beforeEach(function(){
-        provider.get()
+        homePage.get()
     }) 
 
     it('checks if components are loaded', function(){
-        expect(provider.getFaqBlock().isPresent()).toBe(true)
-        expect(provider.getFlowBlock().isPresent()).toBe(true)
+        expect(homePage.getFaqBlock().isPresent()).toBe(true)
+        expect(homePage.getFlowBlock().isPresent()).toBe(true)
     })
 
     it('should open and close login modal', function(){
         browser.waitForAngular();
-        provider.openLogin()
+        homePage.openLogin()
         browser.ignoreSynchronization = true;
-        provider.closeLoginModal()
+        homePage.closeLoginModal()
         browser.ignoreSynchronization = false;
     });
 });

@@ -1,7 +1,7 @@
 var webshopPage = function(){
     
     this.get = function(){
-        browser.get(environment.customerURL)
+        browser.get(environment.requesterURL)
     }
 
     this.openUserMenu = function(){

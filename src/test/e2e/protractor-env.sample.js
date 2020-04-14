@@ -11,9 +11,11 @@ const environment = {
     
     //test environment
     browser_name : "chrome",
-    customerURL : "http://localhost:5500",
+    requesterURL : "http://localhost:5500",
     providerURL : "http://localhost:4000",
+    validatorURL : "http://localhost:4500",
     sponsorURL :  "http://localhost:3500",
+
     active_account : "<your session token>",
     active_organization : "<active_organization>"
 }

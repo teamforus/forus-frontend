@@ -1,6 +1,6 @@
 var utils = require('../pages/utils');
 var dashboard = require('../pages/dashboard/provider/dashboardProviderPage')
-var provider = require('../pages/provider/providerPage')
+var homePage = require('../pages/provider/homePage')
 var offices = require('../pages/dashboard/provider/officesPage')
 var products = require('../pages/dashboard/provider/productsPage')
 var employees = require('../pages/dashboard/employeesPage')
@@ -12,7 +12,7 @@ var employees = require('../pages/dashboard/employeesPage')
  */
 describe('provider dashboard', function(){
     beforeAll(function(){
-        provider.get()
+        homePage.get()
         utils.setActiveAccount()
         utils.setSelectedOrganizationId()
     }); 

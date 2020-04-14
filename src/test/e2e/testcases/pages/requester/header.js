@@ -1,4 +1,5 @@
 var Header = function(){
+    
     this.homePageButton = element(by.id("home"))
     this.productsPageButton = element(by.id("products_page"))
     this.providersPageButton = element(by.id("providers_page"))

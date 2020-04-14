@@ -6,7 +6,7 @@ var HomePage = function(){
     this.faqBlock = element(by.id('faq_block'))
     
     this.get = function(){
-        browser.get(environment.customerURL)
+        browser.get(environment.requesterURL)
     }
 
     this.closeLoginModal = function(){

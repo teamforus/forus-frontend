@@ -1,19 +1,19 @@
-var provider = require('../pages/provider/providerPage');
+var signup = require('../pages/provider/signupPage');
 var utils = require('../pages/utils')
 
 describe('testing provider signup functionality:', function(){
     
     beforeAll(function(){
-        provider.getSignupProvider()
+        signup.get()
         utils.clearLocalStorage()
     })
 
     beforeEach(function(){
-        provider.getSignupProvider()
+        signup.get()
     }) 
 
     it('step 1', function(){
-        provider.appIsInstalled();
-        expect(provider.getGoToStep2Button().isPresent()).toBe(true) 
+        signup.appIsInstalled();
+        expect(signup.getGoToStep2Button().isPresent()).toBe(true) 
     })
 });
