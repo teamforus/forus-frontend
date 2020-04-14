@@ -3,10 +3,10 @@
     width: fit-content;
     border-radius: 3px;
     font: 500 13px/20px $bf;
-    padding: 6px 10px;
+    padding: 7px 10px;
     box-shadow: 0 5px 10px rgba(#000000, 0.1);
     border: 1px solid transparent;
-    transition: color 0.3s, background 0.3s, box-shadow 0.3s;
+    transition: color 0.3s, border-color .3s, background 0.3s, box-shadow 0.3s;
     text-align: center;
     justify-content: center;
     cursor: pointer;
@@ -39,6 +39,7 @@
         background: $color_primary;
         border-color: $color_primary;
         color: #fff;
+        display: inline-block;
 
         &>.mdi {
             color: inherit;
@@ -50,6 +51,40 @@
             &>.mdi {
                 color: inherit;
             }
+        }
+
+        &.button-disabled, [disabled] {
+            background: #eff2f4;
+            color: #ccd0e0;
+        }
+    }
+
+
+    &.button-primary-variant {
+        color: #2f5bf6;
+        border: 1px solid #e1e7fe;
+        background: #e1e7fe;
+        box-shadow: none;
+
+        &:hover {
+            color: #2f5bf6;
+            border: 1px solid #e1e7fe;
+            background: #e1e7fe;
+        }
+    }
+
+
+    &.button-primary-outline {
+        color: #2f5bf6;
+        border: 1px solid #2f5bf6;
+        border-radius: 50px;
+        box-shadow: none;
+
+        &:hover {
+            color: #2f5bf6;
+            border: 1px solid #2f5bf6;
+            border-radius: 50px;
+            box-shadow: none;
         }
     }
 
@@ -152,6 +187,7 @@
             color: #646f79;
             font-weight: 600;
         }
+        
         &[disabled],
         &.disabled {
             box-shadow: none !important;

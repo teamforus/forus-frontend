@@ -65,8 +65,20 @@ img {
     color: #a1a1a1 !important;
 }
 
+.text-muted-dim {
+    color: #919191 !important;
+}
+
+.text-muted-dark {
+    color: #818181 !important;
+}
+
 .text-primary {
     color: #134478 !important;
+}
+
+.text-primary-mid {
+    color: $bc !important;
 }
 
 .text-primary-light {
@@ -77,8 +89,16 @@ img {
     color: #e63b3b;
 }
 
+.text-underline {
+    text-decoration: underline !important;
+}
+
 .text-success {
     color: #226f24;
+}
+
+.text-success-light {
+    color: #2cc678;
 }
 
 .text-strong {
@@ -87,6 +107,12 @@ img {
 
 .text-strong-half {
     font-weight: 500;
+}
+
+.text-wrap {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
 }
 
 .hidden {
@@ -229,7 +255,7 @@ img {
 }
 
 
-
+/* 
 @media (min-width: 992px) {
     .col.col-md-1,
     .col.col-md-2,
@@ -670,4 +696,4 @@ img {
     .col.col-lg-offset-0 {
         margin-left: 0%;
     }
-}
+} */

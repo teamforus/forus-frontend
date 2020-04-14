@@ -1,5 +1,6 @@
 let IdentityService = function(
-    ApiRequest
+    appConfigs,
+    ApiRequest,
 ) {
     return new(function() {
         this.identity = () => {
@@ -26,18 +27,18 @@ let IdentityService = function(
             return ApiRequest.post('/identity/proxy/code');
         };
 
-        this.makeAuthEmailToken = (source, primary_email, target = undefined) => {
+        this.makeAuthEmailToken = (email, target = undefined) => {
             return ApiRequest.post('/identity/proxy/email', {
-                source: source,
-                primary_email: primary_email,
+                source: appConfigs.client_key + '_' + appConfigs.panel_type,
+                email: email,
                 target: target,
             });
         };
 
         this.checkAccessToken = (access_token) => {
             return ApiRequest.get(
-                '/identity/proxy/check-token', {
-                    access_token: access_token
+                '/identity/proxy/check-token', null, {
+                    'Access-Token': access_token
                 }
             );
         };
@@ -58,8 +59,8 @@ let IdentityService = function(
             });
         };
 
-        this.authorizeAuthEmailToken = (source, email_token) => {
-            return ApiRequest.get('/identity/proxy/authorize/email/' + source + '/' + email_token);
+        this.authorizeAuthEmailToken = (email_token) => {
+            return ApiRequest.get('/identity/proxy/email/exchange/' + email_token);
         };
 
         this.exchangeConfirmationToken = (exchangeToken) => {
@@ -69,6 +70,7 @@ let IdentityService = function(
 };
 
 module.exports = [
+    'appConfigs',
     'ApiRequest',
     IdentityService
 ];

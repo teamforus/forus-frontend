@@ -27,9 +27,7 @@ let VouchersComponent = function(
         reset: function() {
             this.values.q = '';
             this.values.granted = null;
-            this.values.fund_id = $stateParams.fund_id ?
-                $stateParams.fund_id : 
-                ($ctrl.funds[0] ? $ctrl.funds[0].id : null);
+            this.values.fund_id = $ctrl.fund.id;
             this.values.amount_min = null;
             this.values.amount_max = null;
             this.values.from = null;
@@ -51,6 +49,7 @@ let VouchersComponent = function(
     $ctrl.showQrCode = (voucher) => {
         ModalService.open('voucher_qr_code', {
             voucher: voucher,
+            fund: $ctrl.fund,
             organization: $ctrl.organization,
             onSent: () => {
                 $ctrl.onPageChange($ctrl.filters.values);
@@ -91,10 +90,12 @@ let VouchersComponent = function(
     $ctrl.getQueryParams = (query) => {
         let _query = JSON.parse(JSON.stringify(query));
 
-        _query.from = _query.from ? DateService._frontToBack(_query.from) : null;
-        _query.to = _query.to ? DateService._frontToBack(_query.to) : null;
-
-        return _query;
+        return Object.assign(_query, {
+            'from': _query.from ? DateService._frontToBack(_query.from) : null,
+            'to': _query.to ? DateService._frontToBack(_query.to) : null,
+            'sort_by': 'created_at',
+            'sort_order': 'desc'
+        });
     }
 
     $ctrl.getUnassignedQRCodes = (query) => {
@@ -110,27 +111,32 @@ let VouchersComponent = function(
     };
 
     $ctrl.exportUnassignedQRCodes = () => {
-        VoucherService.downloadQRCodes(
-            $ctrl.organization.id,
-            Object.assign($ctrl.getQueryParams($ctrl.filters.values), {
-                unassigned: 1
-            })
-        ).then(res => {
-            FileService.downloadFile(
-                'vouchers_' + moment().format(
-                    'YYYY-MM-DD HH:mm:ss'
-                ) + '.zip',
-                res.data,
-                res.headers('Content-Type') + ';charset=utf-8;'
-            );
-        }, res => {
-            res.data.text().then((data) => {
-                data = JSON.parse(data);
-
-                if (data.message) {
-                    PushNotificationsService.danger(data.message);
-                }
-            });
+        ModalService.open('voucherExportType', {
+            success: (data) => {
+                VoucherService.downloadQRCodes(
+                    $ctrl.organization.id,
+                    Object.assign($ctrl.getQueryParams($ctrl.filters.values), {
+                        unassigned: 1,
+                        export_type: data.exportType
+                    })
+                ).then(res => {
+                    FileService.downloadFile(
+                        'vouchers_' + moment().format(
+                            'YYYY-MM-DD HH:mm:ss'
+                        ) + '.zip',
+                        res.data,
+                        res.headers('Content-Type') + ';charset=utf-8;'
+                    );
+                }, res => {
+                    res.data.text().then((data) => {
+                        data = JSON.parse(data);
+        
+                        if (data.message) {
+                            PushNotificationsService.danger(data.message);
+                        }
+                    });
+                });
+            }
         });
     };
 
@@ -159,14 +165,21 @@ let VouchersComponent = function(
         $timeout(() => target.showTooltip = false, 0);
     };
 
-    $ctrl.init = async () => {
+    $ctrl.init = () => {
         $ctrl.fundClosed = $ctrl.fund.state == 'closed';
 
         $ctrl.resetFilters();
         $ctrl.onPageChange($ctrl.filters.values);
     };
 
+    $ctrl.onFundSelect = (fund) => {
+        $ctrl.fund = fund;
+        $ctrl.init();
+    }; 
+
     $ctrl.$onInit = () => {
+        $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
+        
         if (!$ctrl.fund) {
             if ($ctrl.funds.length == 1) {
                 $state.go('vouchers', {
@@ -174,8 +187,8 @@ let VouchersComponent = function(
                     fund_id: $ctrl.funds[0].id,
                 });
             } else if ($ctrl.funds.length == 0) {
-                alert('Sorry, but no funds were found to add vouchers.');
-                $state.go('home');
+                // alert('Sorry, but no funds were found to add vouchers.');
+                // $state.go('funds');
             }
         } else {
             $ctrl.init();

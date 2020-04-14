@@ -11,7 +11,7 @@ module.exports = {
             transactions: "Uitgaven",
             subtract: "Af",
             fund: "Fonds",
-            expire: "Gebruik voor:",
+            expire: "Gebruik tot en met:",
             requirements: "Voor voorwaarden van deze aanbieding neem contact op met de aanbieder.",
             vouchers: "Staat uw gewenste aanbod niet in de webshop? Ga dan langs bij de aanbieder.",
             info: "<span style='font-style: italic;'>Zoek je een organisatie die niet op de kaart staat? Je kunt een organisatie vragen om deel te nemen. Een organisatie kan zich het hele jaar door aanmelden.</span>",
@@ -66,8 +66,7 @@ module.exports = {
             },
             popup_sent: {
                 title: 'Uw voucher is verstuurd naar de aanbieder.',
-                description: 'De aanbieder heeft de aanbieding voucher en uw bericht ontvangen. Neem contact op met de aanbieder of ga bij de organisatie langs om het aanbod af te nemen.' +
-                    '<br/>Bijv. voor schoolkosten, dit aanbod kan de inwoner niet afnemen. Ontvangt de inwoner een mail zodra het bedrag is afgeschreven van de aanbiedingvoucher?'
+                description: 'De aanbieder heeft de voucher en uw bericht ontvangen. Neem contact op met de aanbieder of ga bij de organisatie langs om het aanbod af te nemen.'
             },
             labels: {
                 send_copy: "Stuur e-mail als bewijs ook naar uzelf"

@@ -1,5 +1,6 @@
 const apiUrl = "https://dev.api.forus.io/api/v1";
 const outputRoot = "../dist";
+const outputRootBackendPublic = outputRoot + '/forus-backend.general';
 
 // Run gulp with custom qdt-env.js file:
 // gulp --env-file=./qdt-env.js 
@@ -26,6 +27,7 @@ module.exports = (core) => {
             chat_id: chatId,
             flags: {},
             sessions: sessions,
+            hide_vouchers_csv: false,
             // html5ModeEnabled: true,
             // html5Mode: {
             //    basePath: '/'
@@ -92,6 +94,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
         });
@@ -154,6 +157,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
         });
@@ -194,6 +198,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {
                 maxProductCount: 20,
             },
@@ -238,6 +243,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {
                 maxProductCount: 20,
             },
@@ -282,6 +288,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {
                 maxProductCount: 20,
             },
@@ -326,6 +333,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {
                 maxProductCount: 20,
             },
@@ -368,6 +376,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
         });
@@ -408,6 +417,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
         });
@@ -480,6 +490,7 @@ module.exports = (core) => {
             matomo_site_id: false,
             flags: {
                 showAccountSidebar: false,
+                accessibilityPage: true,
 
                 // menu settings
                 meAppMenu: false,
@@ -530,6 +541,7 @@ module.exports = (core) => {
             flags: {
                 logoExtension: '.svg',
                 showAccountSidebar: false,
+                accessibilityPage: true,
 
                 // menu settings
                 meAppMenu: false,
@@ -561,6 +573,7 @@ module.exports = (core) => {
             matomo_site_id: false,
             flags: {
                 secondLogo: 'sdoa-logo.svg',
+                accessibilityPage: true,
             },
             sessions: sessions,
         });
@@ -583,6 +596,7 @@ module.exports = (core) => {
             matomo_site_id: false,
             flags: {
                 secondLogo: 'sdoa-logo.svg',
+                accessibilityPage: true,
                 showAccountSidebar: false,
 
                 // menu settings
@@ -612,6 +626,7 @@ module.exports = (core) => {
             matomo_site_id: false,
             flags: {
                 secondLogo: 'sdoa-logo.svg',
+                accessibilityPage: true,
                 showAccountSidebar: false,
 
                 // menu settings
@@ -638,7 +653,9 @@ module.exports = (core) => {
             client_key: 'noordoostpolder',
             client_type: 'webshop',
             log_out_time: false,
-            flags: {},
+            flags: {
+                accessibilityPage: false,
+            },
             sessions: sessions,
         });
 
@@ -666,6 +683,26 @@ module.exports = (core) => {
             task.sourcemap = sourcemap;
             return task;
         });
+
+        return platform;
+    });
+
+    // Config backend platform
+    core.editPlatform('backend_general', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_key: 'general',
+            client_type: 'pin_code-auth',
+        });
+
+        platform.editTask('js', (task) => {
+            task.minify = minify;
+            task.sourcemap = sourcemap;
+            return task;
+        });
+
+        // Change building path
+        platform.setDestRootPath(outputRootBackendPublic);
 
         return platform;
     });

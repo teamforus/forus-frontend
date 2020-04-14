@@ -10,6 +10,7 @@ module.exports = {
         portfolio: 'Portfolio',
         kindpakket: 'Portofolio - Kindpakket',
         products: 'Aanbiedingen',
+        providers: 'Aanbieders',
         "products-show": 'Aanbieding',
         "products-apply": "Aanbieding kopen",
         vouchers: 'Mijn vouchers',
@@ -20,6 +21,7 @@ module.exports = {
         "record-create": 'Eigenschap toevoegen',
         "funds-apply": 'Meld u aan voor de fondsen',
         "restore-email": 'Inloggen via e-mail',
+        "preferences-notifications": 'Notificatie voorkeuren',
     },
     implementation_name: {
         general: 'General',
@@ -60,7 +62,9 @@ module.exports = {
     voucher: require("./nl/pages/voucher"),
     vouchers: require("./nl/pages/vouchers"),
     notification_preferences: require("./nl/pages/notification-preferences"),
+    email_preferences: require("./nl/pages/email-preferences"),
     voucher_printable: require('./nl/pages/voucher-printable'),
+    accessibility: require('./nl/pages/accessibility'),
 
     // MODALS
     popup_auth: require("./nl/modals/modal-auth"),

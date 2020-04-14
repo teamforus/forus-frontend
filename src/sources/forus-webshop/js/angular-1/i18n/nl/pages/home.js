@@ -3,7 +3,7 @@ module.exports = {
     header: {
         title: "{{fund}} ",
         subtitle: "Welkom op de website van {{fund}}. Heeft u van de gemeente een toekenning voor {{fund}}? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
-        subtitle_av: "Welkom op de website van de {{fund}}. U kan hier de regeling aanvragen, het aanbod inzien en het tegoed dat u kunt besteden.",
+        subtitle_av: "Welkom op de website van de {{fund}}. U kan hier de regeling aanvragen en het aanbod bekijken. Na de aanvraag kunt u ook zien hoeveel geld u kunt besteden.",
         title_multi: "Webshop {{org_name}}",
         subtitle_multi: "Welkom op de webshop van {{org_name}} Heeft u via {{org_name}} een toekenning gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
         header_note: "",
@@ -28,6 +28,9 @@ module.exports = {
             title: "Meedoenpakket",
             subtitle: "Welkom op de website van de Kindregeling van de gemeente Noordoostpolder. Heeft u via de gemeente een toekenning voor de Kindregeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden." +
                 "Klik op ‘Start’ en vul uw activatiecode in. Deze code staat in de brief over de Kindregeling die u heeft ontvangen.",
+        },
+        nijmegen: {
+            cta_av: "",
         },
         cta: "Klik op start en vul uw activatiecode in. Deze code staat in de brief over {{fund}} die u heeft ontvangen",
         cta_multi: "Klik op start en vul uw activatiecode in. Deze code staat in de brief die u heeft ontvangen",
@@ -83,6 +86,7 @@ module.exports = {
         nijmegen: {
             faq_one: "Hoe kan ik een Meedoenregeling aanvragen?",
             one: "Klik bovenaan op 'Start aanvraag'. Vul uw e-mailadres in en gebruik de login link in uw eigen vertrouwde emailbox. Vervolgens logt u in met uw eigen DigiD. Controleer of u voldoet aan de voorwaarde en klik daarna op 'Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden' en ga naar de volgende stap. Uw Meedoenregeling-voucher is gelijk geactiveerd!",
+            eleven: "Nee. Kinderen komen niet in aanmerking voor de meedoen-regeling."
         },
         noordoostpolder: {
             faq_one: "Hoe kan ik het Meedoenpakket aanvragen?",

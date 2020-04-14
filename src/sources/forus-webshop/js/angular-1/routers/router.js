@@ -46,6 +46,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
+    if (appConfigs.flags && appConfigs.flags.accessibilityPage) {
+        $stateProvider.state({
+            name: "accessibility",
+            url: "/accessibility",
+            component: "accessibilityComponent",
+        });
+    }
+
     $stateProvider.state({
         name: "me-app",
         url: "/me",
@@ -450,7 +458,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             let target = $state.params.target || '';
 
             IdentityService.authorizeAuthEmailToken(
-                appConfigs.client_key + '_webshop',
                 $state.params.token
             ).then(function(res) {
                 CredentialsService.set(res.data.access_token);
@@ -506,6 +513,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: 'preferences-notifications',
         url: '/preferences/notifications',
         component: 'emailPreferencesComponent'
+    });
+
+    $stateProvider.state({
+        name: 'identity-emails',
+        url: '/preferences/emails',
+        component: 'identityEmailsComponent'
     });
 
     $stateProvider.state({

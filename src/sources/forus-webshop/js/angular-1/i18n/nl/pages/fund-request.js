@@ -12,6 +12,27 @@ module.exports = {
                 prev: "Vorige stap",
                 next: "Volgende stap"
             }
+        },
+        header: {
+            main: "Aanvraag",
+            title_step_1: "Welkom",
+            title_step_2: "Meld u aan",
+        },
+        subtitles: {
+            step_1: "Via dit online formulier kunt u zich aanmelden voor beschikbare fondsen. ",
+            step_2: "Er wordt gekeken of u al aan voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan.",
+        },
+        labels: {
+            has_app: "Ik wil inloggen met de me app >",
+            no_app: "< Ik wil inloggen met mijn emailadres",
+        },
+        app: {
+            title: "Heeft u de Me App al?",
+            description: [
+                'De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.',
+                'Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.',
+                'De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.',
+            ].join("\n")
         }
     }
 }

@@ -1,7 +1,7 @@
 .app.app-container(ng-if="$ctrl.loaded")
-    menu(ng-if="!!$root.activeOrganization")
+    menu
 
-    section(ng-class="!!$root.activeOrganization ? 'app app-content' : 'wrapper wrapper-sm'")
+    section.app.app-content
         p(ng-if="$ctrl.message" ng-bind="$ctrl.message | translate").form-error
         
         .card(ng-if="$ctrl.email_unsubscribed")
@@ -38,8 +38,6 @@
                         ng-checked="type.subscribed" 
                         ng-model="type.subscribed")
                     .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
-                        em.mdi.mdi-check-bold(ng-if="type.subscribed")
-                        .icon-disabled(ng-if="!type.subscribed")
         .card
             .card-header: .card-title(translate="notification_preferences.title_push_preferences")
             .form.block.block-preferences: label(
@@ -56,5 +54,3 @@
                         ng-checked="type.subscribed" 
                         ng-model="type.subscribed")
                     .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
-                        em.mdi.mdi-check-bold(ng-if="type.subscribed")
-                        .icon-disabled(ng-if="!type.subscribed")                

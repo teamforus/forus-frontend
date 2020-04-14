@@ -7,12 +7,13 @@ let CsvValidationComponent = function(
 
     $ctrl.panel_type = appConfigs.panel_type;
 
+    $ctrl.onFundSelect = (fund) => {
+        $ctrl.fund = fund;
+    }; 
+
     $ctrl.$onInit = () => {
         if (Array.isArray($ctrl.funds)) {
-            $ctrl.funds = $ctrl.funds.map(fund => {
-                fund.fundCategories = _.pluck(fund.product_categories, 'name').join(', ');
-                return fund;
-            }).filter(fund => {
+            $ctrl.funds = $ctrl.funds.filter(fund => {
                 return PermissionsService.hasPermission(fund.organization, 'validate_records')
             });
 
@@ -21,10 +22,6 @@ let CsvValidationComponent = function(
                     fund_id: $ctrl.funds[0].id
                 });
             }
-        }
-
-        if ($ctrl.fund) {
-            $ctrl.fund.fundCategories = _.pluck($ctrl.fund.product_categories, 'name').join(', ');
         }
     };
 };

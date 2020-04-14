@@ -10,13 +10,15 @@ let OfficeService = function(ApiRequest) {
 
         this.store = function(organization_id, values) {
             return ApiRequest.post(
-                uriPrefix + organization_id + '/offices', values
+                uriPrefix + organization_id + '/offices', 
+                this.apiFormToResource(values)
             );
         };
 
         this.update = function(organization_id, id, values) {
             return ApiRequest.patch(
-                uriPrefix + organization_id + '/offices/' + id, values
+                uriPrefix + organization_id + '/offices/' + id, 
+                this.apiFormToResource(values)
             );
         };
 
@@ -45,14 +47,32 @@ let OfficeService = function(ApiRequest) {
             }];
         }
 
+        this.apiFormToResource = function(formData) {
+            let values = JSON.parse(JSON.stringify(formData));
+            let schedule = values.schedule ? Object.values(values.schedule) : [];
+
+            schedule.forEach((schedule_item, week_day) => {
+                schedule[week_day] = {
+                    start_time: schedule_item.start_time || 'null',
+                    end_time: schedule_item.end_time || 'null',
+                    break_start_time: schedule_item.break_start_time || 'null',
+                    break_end_time: schedule_item.break_end_time || 'null',
+                };
+            });
+
+            values.schedule = schedule;
+
+            return values;
+        };
+
         this.apiResourceToForm = function(apiResource) {
             let schedule = {};
             let weekDays = this.scheduleWeekDays();
 
             apiResource.schedule = apiResource.schedule || [];
 
-            apiResource.schedule.forEach((schedule_item) => {
-                schedule[schedule_item.week_day] = {
+            apiResource.schedule.forEach((schedule_item, week_day) => {
+                schedule[week_day] = {
                     start_time: schedule_item.start_time,
                     end_time: schedule_item.end_time,
                     break_start_time: schedule_item.break_start_time,
@@ -103,6 +123,18 @@ let OfficeService = function(ApiRequest) {
                 4: "Vr",
                 5: "Za",
                 6: "Zo"
+            };
+        };
+        
+        this.scheduleWeekDaysExplicit = () => {
+            return {
+                0: "Maandag",
+                1: "Dinsdag",
+                2: "Woensdag",
+                3: "Donderdag",
+                4: "Vrijdag",
+                5: "Zaterdag",
+                6: "Zondag"
             };
         };
 

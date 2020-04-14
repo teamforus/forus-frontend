@@ -10,7 +10,7 @@
                 
                 .description(ng-if="$ctrl.description && !$ctrl.descriptionIsArray" translate="{{ $ctrl.description }}")
                 .description(ng-if="$ctrl.description && $ctrl.descriptionIsArray")
-                    div(ng-repeat="description in $ctrl.description" translate="{{ description }}")
+                    div(ng-repeat="description in $ctrl.description  track by $index" translate="{{ description }}")
                 
                 .description-small(ng-if="$ctrl.notice" translate="{{ $ctrl.notice }}")
                 .text-center(ng-if="$ctrl.subdescription"): .subdescription(translate="{{ $ctrl.subdescription }}")

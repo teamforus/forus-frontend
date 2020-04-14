@@ -33,8 +33,10 @@ app.component('recordValidationsComponent', require('./components/RecordValidati
 app.component('recordCreateComponent', require('./components/RecordCreateComponent'));
 app.component('meComponent', require('./components/MeComponent'));
 app.component('emailPreferencesComponent', require('./components/EmailPreferencesComponent'));
+app.component('accessibilityComponent', require('./components/AccessibilityComponent'));
 app.component('errorComponent', require('./components/ErrorComponent'));
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
+app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -76,11 +78,11 @@ app.service('PushNotificationsService', require('./services/PushNotificationsSer
 app.service('LocalStorageService', require('./services/LocalStorageService'));
 app.service('ProvidersService', require('./services/ProvidersService'));
 app.service('SessionService', require('./services/SessionService'));
+app.service('IdentityEmailsService', require('./services/IdentityEmailsService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
 app.directive('topNavbar', require('./directives/TopNavbarDirective'));
-app.directive('contactForm', require('./directives/ContactFormDirective'));
 app.directive('webshops', require('./directives/WebshopsDirective'));
 app.directive('implementation', require('./directives/ImplementationDirective'));
 app.directive('fundCriterion', require('./directives/FundCriterionDirective'));
@@ -149,6 +151,7 @@ app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('i18n', require('./filters/I18nFilter'));
 app.filter('duration', require('./filters/DurationFilter'));
 app.filter('duration_last_time', require('./filters/DurationLastTimeFilter'));
+app.filter('lines_to_array', require('./filters/LinesToArrayFilter'));
 
 // Config
 app.config(require('./routers/printables'));
