@@ -4,8 +4,8 @@
       .col-6.col-md-4
         h5 Contactgegevens
         ul
-          li: p E-mailadres: <span><a href="mailto:info@forus.io">info@forus.io</a></span>
-          li: p Telefoon: <span><a href="tel:+31850043952">+31 (0) 85 004 39 52</a></span>
+          li: p E-mailadres: #[a(href="mailto:info@forus.io") info@forus.io]
+          li: p Telefoon: #[a(href="tel:+31850043952") +31 (0) 85 004 39 52]
         h5 Bezoekadres
         ul
           li: p Emmaplein 6,
@@ -16,15 +16,15 @@
           li: p 9723 BK, Groningen
         h5 Support
         ul
-          li: p E-mailadres: <span><a href="mailto:support@forus.io">support@forus.io</a></span>
-          li: p Telefoon: <span><a href="tel:+31850043387‬">+31 (0)85 004 33 87‬</a></span>
+          li: p E-mailadres: #[a(href="mailto:support@forus.io") support@forus.io]
+          li: p Telefoon: #[a(href="tel:+31850043387‬") +31 (0)85 004 33 87‬]
 
       .col-6.col-md-4
         h5 Menu
         ul.sm
           li: p(ui-sref="current") Over ons
           li: p(ui-sref="platform") Platform Forus
-          li: p(ui-sref="me") Me App
+          li: p(ui-sref="me") Me
           li: p(ui-sref="contact") Contact
       .col-6.col-md-4.contact
         h5 Vragen of samenwerken ?
@@ -41,7 +41,7 @@
       a(href="https://chat.forus.io" target="_blank")
         li
           include ../../../../resources/platform-general/assets/img/svg/rocketchat.svg
-      a(href="https://github.com/teamforus" Z)
+      a(href="https://github.com/teamforus" target="_blank")
         li
           include ../../../../resources/platform-general/assets/img/svg/bitmap.svg
 
