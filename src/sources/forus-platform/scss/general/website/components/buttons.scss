@@ -101,7 +101,11 @@ label {
         fill: $forus-pink;
         height: 15px;
         width: 15px;
+        &:hover {
+            text-decoration: underline;
+        }
     }
+
 }
 
 .btn_link{
