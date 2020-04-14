@@ -44,7 +44,7 @@ section.mr-tp
     .container.text-center
         h2 Contactformulier
         p Vul onderstaand contactformulier in en we nemen<br />zo snel mogelijk contact met je op.<br /><br />     
-        form#formContact(action="https://xlak8w5706.execute-api.eu-west-1.amazonaws.com/Prod" method="POST")
+        form#formContact(action="https://xlak8w5706.execute-api.eu-west-1.amazonaws.com/Prod" method="POST" style="width: 80%; margin: 0 auto;")
             .row
                 .col-xs-12.col-lg-6
                     .form-group.required
@@ -52,6 +52,7 @@ section.mr-tp
                         .input-group
                             input#nameInput.form-control(placeholder="Naam" name="name"  value="" onkeyup="this.setAttribute('value', this.value);" )
                             a(href="#").clear_field
+                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
                             span.help-block
                 .col-xs-12.col-lg-6
                     .form-group.required
@@ -59,6 +60,7 @@ section.mr-tp
                         .input-group
                             input#emailInput.form-control(placeholder="Email" name="email" value="" onkeyup="this.setAttribute('value', this.value);" )
                             a(href="#").clear_field
+                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
                             span.help-block
                 .col-xs-12.col-lg-6
                     .form-group
@@ -66,6 +68,7 @@ section.mr-tp
                         .input-group
                             input#companyInput.form-control(placeholder="Organisatie" name="organization" value="" onkeyup="this.setAttribute('value', this.value);" )
                             a(href="#").clear_field
+                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
                             span.help-block
                 .col-xs-12.col-lg-6
                     .form-group
@@ -73,6 +76,7 @@ section.mr-tp
                         .input-group
                             input#telInput.form-control(placeholder="Telefoonnummer" name="phone" value="" onkeyup="this.setAttribute('value', this.value);" )
                             a(href="#").clear_field
+                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
                             span.help-block
                 .col-xs-12
                     .form-group.required
@@ -81,6 +85,7 @@ section.mr-tp
                             textarea#messageInput.form-control(placeholder="Bericht" name="message")
 
                             a(href="#").clear_field
+                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
                             span.help-block
                 .col-xs-12.info
                     span(style="color: red") *
