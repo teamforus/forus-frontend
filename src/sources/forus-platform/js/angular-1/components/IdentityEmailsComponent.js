@@ -38,7 +38,7 @@ let IdentityEmailsComponent = function(
         }
 
         IdentityEmailsService.delete(email.id).then(() => {
-            PushNotificationsService.success('Deleted!');
+            PushNotificationsService.success('Verwijderd!');
             $ctrl.loadIdentityEmails();
         });
     };
