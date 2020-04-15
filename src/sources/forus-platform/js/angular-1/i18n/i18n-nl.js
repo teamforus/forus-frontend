@@ -1,7 +1,7 @@
 module.exports = {
     test: "{{name}} {{foo}}",
     permissions: require("./en/permissions"),
-    page_title: 'Webshop',
+    page_title: 'Platform Forus',
     page_state_titles: {
         home: 'Forus platform home',
         organizations: 'Organisaties',
