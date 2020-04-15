@@ -16,7 +16,8 @@ html(ng-controller="BaseController" ng-cloak)
             .ie-hide
                 div(ng-if="$root.viewLayout != 'landing'"): include ../layout/includes/footer
                 div(ng-if="$root.viewLayout == 'landing'"): include ../layout/includes/footer-landing
-            div(forus-chat chat-id="{{ $root.appConfigs.chat_id }}" ng-if="$root.appConfigs.chat_id")
+            div(forus-chat chat-id="{{ appConfigs.chat_id }}" ng-if="appConfigs.chat_id")
+            div(forus-support support-id="{{ appConfigs.support_id}}" ng-if="appConfigs.support_id")
 
         printables-root
         push-notifications

@@ -5,6 +5,7 @@ html(lang="nl" ng-controller="BaseController" ng-cloak)
         page-loading-bar
         ui-view
         div(forus-chat chat-id="appConfigs.chat_id" ng-if="appConfigs.chat_id && $root.auth_user")
+        div(forus-support support-id="{{ appConfigs.support_id}}" ng-if="appConfigs.support_id")
         include ../layout/includes/footer
         
         printables-root

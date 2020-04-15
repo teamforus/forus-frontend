@@ -25,6 +25,7 @@ module.exports = (core) => {
             client_key: baseImplementationKey,
             panel_type: 'sponsor',
             chat_id: chatId,
+            support_id: "15870000001861118?orgId=20065804523",
             flags: {},
             sessions: sessions,
             hide_vouchers_csv: false,
@@ -52,6 +53,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: baseImplementationKey,
             panel_type: 'provider',
+            support_id: "15870000001861118?orgId=20065804523",
             chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
@@ -73,6 +75,7 @@ module.exports = (core) => {
             client_key: baseImplementationKey,
             panel_type: 'validator',
             chat_id: chatId,
+            support_id: "15870000001861118?orgId=20065804523",
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
@@ -438,6 +441,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: baseImplementationKey,
             client_type: 'webshop',
+            support_id: "15870000001861118?orgId=20065804523",
             log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {},
@@ -708,15 +712,18 @@ module.exports = (core) => {
     });
 
     //- Enable only given platforms
-    /* core.enableOnly([
-
-    ]); */
+    core.enableOnly([
+        'dashboard_general_sponsor',
+        'dashboard_general_provider',
+        'dashboard_general_validator',
+        'webshop_general'
+    ]);
 
     //- Enable all but given platforms (will ignore: 'core.enableOnly' when used)
-    core.disableOnly([
+    /*core.disableOnly([
         'dashboard_markup',
         'webshop_markup'
-    ]);
+    ]);*/
 
     return core;
 };
