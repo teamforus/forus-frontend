@@ -115,18 +115,20 @@ let BaseController = function(
         });
     };
 
-    $rootScope.autoSelectOrganization = function($redirectAuthorizedState = false) {
+    $rootScope.autoSelectOrganization = function(redirect = true) {
         $rootScope.getLastUsedOrganization().then(selectedOrganizationId => {
             if (selectedOrganizationId) {
                 OrganizationService.use(selectedOrganizationId);
 
-                $state.go($redirectAuthorizedState ? $redirectAuthorizedState : {
-                    sponsor: 'organization-funds',
-                    provider: 'offices',
-                    validator: 'fund-requests',
-                } [appConfigs.panel_type], {
-                    organization_id: selectedOrganizationId
-                });
+                if (redirect) {
+                    $state.go({
+                        sponsor: 'organization-funds',
+                        provider: 'offices',
+                        validator: 'fund-requests',
+                    } [appConfigs.panel_type], {
+                        organization_id: selectedOrganizationId
+                    });
+                }
             } else {
                 $state.go('organizations-create');
             }
@@ -229,7 +231,7 @@ let BaseController = function(
 
     if (AuthService.hasCredentials()) {
         $rootScope.loadAuthUser().then(auth_user => {
-            $rootScope.autoSelectOrganization();
+            $rootScope.autoSelectOrganization($state.current.name == 'home');
         });
     } else {
         $rootScope.auth_user = false;
