@@ -102,6 +102,7 @@ let ValidatorSignUpComponent = function(
         return FormBuilderService.build({
             email: '',
             target: authTarget,
+            confirm: true
         }, function(form) {
             let resolveErrors = (res) => {
                 form.unlock();
@@ -110,9 +111,7 @@ let ValidatorSignUpComponent = function(
 
             return IdentityService.validateEmail(form.values).then(res => {
                 if (!res.data.email.used) {
-                    IdentityService.make(Object.assign(form.values, {
-                        confirm: true
-                    })).then(res => {
+                    IdentityService.make(form.values).then(res => {
                         $ctrl.authEmailSent = true;
                         $ctrl.confirmationEmail = form.values.email;
                     }, resolveErrors);
