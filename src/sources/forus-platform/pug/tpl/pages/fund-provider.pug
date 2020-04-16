@@ -130,5 +130,5 @@
                 tr
                     th E-Mailadres
                 
-                tr(ng-repeat="validator in $ctrl.fundProvider.validators")
-                    td(ng-bind="validator.email")         
+                tr(ng-repeat="employee in $ctrl.fundProvider.employees")
+                    td(ng-bind="employee.email")         
