@@ -389,6 +389,9 @@ module.exports = {
             add_office: "Voeg een nieuwe vestiging toe",
             cancel: "Annuleren",
             confirm: "Bevestigen",
+        },
+        errors: {
+            schedule: 'Format should be h:m, ex 09:00',
         }
     },
 

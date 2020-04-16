@@ -1,3 +1,6 @@
+let targetHome = 'homeStart';
+let targetNewSignup = 'newSignup';
+
 let repackResponse = (promise) => new Promise((resolve, reject) => {
     promise.then((res) => resolve(
         res.data.data ? res.data.data : res.data
@@ -15,13 +18,13 @@ let objectOnlyKeys = (obj, keys) => {
 };
 
 let handleAuthTarget = ($state, target, appConfigs) => {
-    if (target[0] == 'homeStart') {
+    if (target[0] == targetHome) {
         return !!$state.go('home', {
             confirmed: true
         });
     }
 
-    if (target[0] == 'newSignup') {
+    if (target[0] == targetNewSignup) {
         return !!$state.go('sign-up-v2');
     }
 
@@ -729,18 +732,18 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                         PermissionsService.hasPermission(organization, 'manage_organization')
                     );
 
-                    console.log(organizations);
-
                     if (appConfigs.panel_type != 'provider' || organizations.length == 0) {
                         if (typeof target != 'string' || !handleAuthTarget($state, target.split('-'), appConfigs)) {
                             return $state.go('organizations');
                         }
                     }
 
-                    ModalService.open('businessSelect', {
-                        organizations: organizations,
-                        onReady: () => $state.go('organizations')
-                    });
+                    if (target.split('-') != targetNewSignup) {
+                        ModalService.open('businessSelect', {
+                            organizations: organizations,
+                            onReady: () => $state.go('organizations')
+                        });
+                    }
                 });
             }, () => {
                 alert([
