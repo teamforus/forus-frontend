@@ -106,7 +106,9 @@ let SponsorSignUpComponent = function(
 
             return IdentityService.validateEmail(form.values).then(res => {
                 if (!res.data.email.used) {
-                    IdentityService.make(form.values).then(res => {
+                    IdentityService.make(Object.assign(form.values, {
+                        confirm: true
+                    })).then(res => {
                         $ctrl.authEmailSent = true;
                         $ctrl.confirmationEmail = form.values.email;
                     }, resolveErrors);
