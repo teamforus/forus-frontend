@@ -15,7 +15,7 @@ platform.copyAsset("resources/platform-general/**/*", "./");
 platform.editTask('scss', (task) => {
     task.src = "general/website/style.scss";
     task.watch = [
-        "general/website/includes/**/*.scss",
+        "general/website/**/**/*.scss",
     ];
 
     return task

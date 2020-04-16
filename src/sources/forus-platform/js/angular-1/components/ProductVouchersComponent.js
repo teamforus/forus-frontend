@@ -27,9 +27,7 @@ let ProductVouchersComponent = function(
         reset: function () {
             this.values.q = '';
             this.values.granted = null;
-            this.values.fund_id = $stateParams.fund_id ?
-                $stateParams.fund_id : 
-                ($ctrl.funds[0] ? $ctrl.funds[0].id : null);
+            this.values.fund_id = $ctrl.fund.id;
             this.values.amount_min = null;
             this.values.amount_max = null;
             this.values.from = null;
@@ -51,6 +49,7 @@ let ProductVouchersComponent = function(
     $ctrl.showQrCode = (voucher) => {
         ModalService.open('voucher_qr_code', {
             voucher: voucher,
+            fund: $ctrl.fund,
             organization: $ctrl.organization,
             onSent: () => {
                 $ctrl.onPageChange($ctrl.filters.values);
@@ -114,14 +113,21 @@ let ProductVouchersComponent = function(
         $timeout(() => target.showTooltip = false, 0);
     };
 
-    $ctrl.init = async () => {
+    $ctrl.init = () => {
         $ctrl.fundClosed = $ctrl.fund.state == 'closed';
 
         $ctrl.resetFilters();
         $ctrl.onPageChange($ctrl.filters.values);
     };
 
+    $ctrl.onFundSelect = (fund) => {
+        $ctrl.fund = fund;
+        $ctrl.init();
+    }; 
+
     $ctrl.$onInit = () => {
+        $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
+
         if (!$ctrl.fund) {
             if ($ctrl.funds.length == 1) {
                 $state.go('product-vouchers', {
@@ -129,8 +135,8 @@ let ProductVouchersComponent = function(
                     fund_id: $ctrl.funds[0].id,
                 });
             } else if ($ctrl.funds.length == 0) {
-                alert('Sorry, but no funds were found to add vouchers.');
-                $state.go('home');
+                /* alert('Sorry, but no funds were found to add vouchers.');
+                $state.go('home'); */
             }
         } else {
             $ctrl.init();

@@ -18,6 +18,30 @@ html {
     .section-title {
         text-align: left !important;
     }
+
+    .back {
+        padding-bottom: 15px;
+        margin: 0px 50px;
+        font: 500 18px/22px $bf;
+        color: #9E9E9E;
+
+        span {
+            display: inline-block;
+            margin-top: 2px;
+            font-size: 18px;
+            color: #9E9E9E;
+        }
+    }
+
+    .heading {
+        font: 500 36px/36px $bf;
+        color: #191A1C;
+        text-align: center;
+    }
+
+    &.section-requester {
+        margin-top: 50px;
+    }
 }
 
 [ng-click],
@@ -41,6 +65,10 @@ body {
     &.modal-shown {
         overflow: hidden;
     }
+
+    &.signup-layout {
+        background: #fff;
+    }
 }
 
 .span-count {
@@ -57,10 +85,17 @@ body {
 
 @media screen and (min-width: 1024px) {
 
-    .section-voucher-details,
     .section-profile {
         .section-title {
             text-align: left !important;
+        }
+    }
+
+    .section-voucher-details {
+        .section-title {
+            text-align: center !important;
+            font: 500 21px/30px $bf !important;
+            color: #222530;
         }
     }
 

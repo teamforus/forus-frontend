@@ -32,6 +32,30 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: "kerstpakket",
+        url: "/kerstpakket",
+        component: "kerstpakketComponent"
+    });
+
+    $stateProvider.state({
+        name: "meedoen",
+        url: "/meedoen",
+        component: "meedoenComponent"
+    });
+
+    $stateProvider.state({
+        name: "platform",
+        url: "/systeem",
+        component: "platformComponent"
+    });
+
+    $stateProvider.state({
+        name: "support",
+        url: "/vragen",
+        component: "supportComponent"
+    });
+
+    $stateProvider.state({
         name: "hall-of-fame",
         url: "/hall-of-fame",
         component: "hallOfFameComponent"
@@ -56,6 +80,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: "cs-nijmegen",
+        url: "/cs-nijmegen",
+        component: "csNijmegenComponent"
+    });
+
+    $stateProvider.state({
         name: "sign-up",
         url: "/sign-up",
         component: "signUpComponent"
@@ -69,16 +99,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             '$state',
             'IdentityService',
             'CredentialsService',
-            'appConfigs',
             function(
                 $rootScope,
                 $state,
                 IdentityService,
-                CredentialsService,
-                appConfigs
+                CredentialsService
             ) {
                 IdentityService.authorizeAuthEmailToken(
-                    appConfigs.client_key + '_' + appConfigs.panel_type,
                     $state.params.token
                 ).then(function(res) {
                     CredentialsService.set(res.data.access_token);

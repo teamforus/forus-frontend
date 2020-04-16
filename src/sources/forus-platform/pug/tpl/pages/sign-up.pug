@@ -87,12 +87,12 @@
                             label.form-label
                                 translate(translate="sign_up.labels.mail")
                                 tooltip(text="'Een persoonlijk e-mailadres is nodig om gebruik te kunnen maken van Me.'")
-                            input(ng-model="$ctrl.signUpForm.values.records.primary_email" type="text" placeholder="E-mail").form-control
-                            .form-error(ng-repeat="error in $ctrl.signUpForm.errors['records.primary_email']" ng-bind="error")
+                            input(ng-model="$ctrl.signUpForm.values.email" type="text" placeholder="E-mail").form-control
+                            .form-error(ng-repeat="error in $ctrl.signUpForm.errors.email" ng-bind="error")
                         .form-group
                             label(translate="sign_up.labels.mail_confirmation").form-label
-                            input(ng-model="$ctrl.signUpForm.values.records.primary_email_confirmation" type="text" placeholder="E-mail").form-control
-                            .form-error(ng-repeat="error in $ctrl.signUpForm.errors['records.primary_email_confirmation']" ng-bind="error")
+                            input(ng-model="$ctrl.signUpForm.values.email_confirmation" type="text" placeholder="E-mail").form-control
+                            .form-error(ng-repeat="error in $ctrl.signUpForm.errors.email_confirmation" ng-bind="error")
                         .form-group
                             label(translate="sign_up.labels.name").form-label
                             input(ng-model="$ctrl.signUpForm.values.records.given_name" type="text" placeholder="Voornaam").form-control

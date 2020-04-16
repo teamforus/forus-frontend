@@ -8,11 +8,21 @@ let MediaService = function(ApiRequest) {
             );
         };
 
-        this.store = function(type, file) {
-            var formData = new FormData();
+        this.store = function(type, file, sync_presets = null) {
+            let formData = new FormData();
 
-            formData.append('file', file);
+            formData.append('file', file, file['name']);
             formData.append('type', type);
+
+            if (Array.isArray(sync_presets)) {
+                if (sync_presets.length > 0) {
+                    sync_presets.forEach(sync_preset => {
+                        formData.append('sync_presets[]', sync_preset);
+                    });
+                } else {
+                    formData.append('sync_presets[]', '');
+                }
+            }
 
             return ApiRequest.post(uriPrefix, formData, {
                 'Content-Type': undefined

@@ -13,7 +13,7 @@ let ModalAuthComponent = function(
 ) {
     let $ctrl = this;
     let timeout;
-    let $redirectAuthorizedState = 'organizations';
+    let $redirectAuthorizedState = null;
 
     if (appConfigs.panel_type == 'validator') {
         $redirectAuthorizedState = 'csv-validation';
@@ -23,12 +23,12 @@ let ModalAuthComponent = function(
     $ctrl.showChoose = true;
     $ctrl.showQrCodeBlock = false;
     $ctrl.showEmailBlock = false;
-    
+
     $ctrl.digidAvailable = appConfigs.features.digid;
     $ctrl.restoreWithDigId = false;
 
     if (AuthService.hasCredentials()) {
-        IdentityService.identity().then(() => { }, $ctrl.close);
+        IdentityService.identity().then(() => {}, $ctrl.close);
     }
 
     $ctrl.useDigId = () => {
@@ -67,12 +67,12 @@ let ModalAuthComponent = function(
         IdentityService.checkAccessToken(access_token).then((res) => {
             if (res.data.message == 'active') {
                 CredentialsService.set(access_token);
-                
-                if (['provider'].indexOf(appConfigs.panel_type) != -1) {    
+
+                if (['provider'].indexOf(appConfigs.panel_type) != -1) {
                     $rootScope.loadAuthUser().then(auth_user => {
                         $ctrl.close();
 
-                        let organizations = auth_user.organizations.filter(organization => 
+                        let organizations = auth_user.organizations.filter(organization =>
                             !organization.business_type_id &&
                             PermissionsService.hasPermission(organization, 'manage_organization')
                         );
@@ -80,16 +80,15 @@ let ModalAuthComponent = function(
                         if (organizations.length > 0) {
                             ModalService.open('businessSelect', {
                                 organizations: organizations,
-                                onReady: () => $state.go($redirectAuthorizedState)
+                                onReady: () => $state.go('organizations'),
                             });
                         } else {
-                            $state.go($redirectAuthorizedState);
+                            $state.go('organizations');
                         }
                     });
                 } else {
-                    $rootScope.loadAuthUser();
                     $ctrl.close();
-                    $state.go($redirectAuthorizedState);
+                    $rootScope.loadAuthUser().then(() => $state.go('organizations'));
                 }
             } else if (res.data.message == 'pending') {
                 timeout = $timeout(function() {
@@ -114,19 +113,9 @@ let ModalAuthComponent = function(
         $ctrl.showEmailBlock = true;
         $ctrl.showChoose = false;
 
-        $ctrl.signInEmailForm = FormBuilderService.build({
-            source: appConfigs.client_key + '_' + appConfigs.panel_type,
-            primary_email: "",
-        }, function(form) {
-            form.lock();
-
-            IdentityService.makeAuthEmailToken(
-                form.values.source,
-                form.values.primary_email
-            ).then((res) => {
-                localStorage.setItem('pending_email_token', res.data.access_token);
+        $ctrl.signInEmailForm = FormBuilderService.build({}, (form) => {
+            IdentityService.makeAuthEmailToken(form.values.email).then(() => {
                 $ctrl.screen = 'sign_in-email-sent';
-
                 $ctrl.close();
 
                 ModalService.open('modalNotification', {
@@ -141,7 +130,7 @@ let ModalAuthComponent = function(
                 form.unlock();
                 form.errors = res.data.errors;
             });
-        });
+        }, true);
 
     };
 

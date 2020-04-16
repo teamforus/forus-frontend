@@ -2,6 +2,7 @@ let BaseController = function(
     $q,
     $state,
     $rootScope,
+    $scope,
     $window,
     $translate,
     IdentityService,
@@ -38,9 +39,9 @@ let BaseController = function(
 
             RecordService.list().then((res) => {
                 auth_user.records = res.data;
-                auth_user.primary_email = res.data.filter((record) => {
+                /* auth_user.primary_email = res.data.filter((record) => {
                     return record.key == 'primary_email';
-                })[0].value;
+                })[0].value; */
 
                 ++count == 2 ? null : deferred.resolve();
             }, deferred.reject);
@@ -115,6 +116,14 @@ let BaseController = function(
         $rootScope.appConfigs.features = res.data;
     });
 
+    $scope.$watch(function() {
+        return $state.$current.name
+    }, function(newVal, oldVal) {
+        if ($state.current.name == 'fund-request') {
+            $rootScope.viewLayout = 'signup';
+        }
+    });
+
     $rootScope.pageTitle = $filter('translate')('page_title');
     $rootScope.client_key = appConfigs.client_key;
 
@@ -122,13 +131,14 @@ let BaseController = function(
         BrowserService.unsetInactivity();
     };
 
-    $translate.use('nl');
+    $translate.use(localStorage.getItem('lang') || 'nl');
 };
 
 module.exports = [
     '$q',
     '$state',
     '$rootScope',
+    '$scope',
     '$window',
     '$translate',
     'IdentityService',

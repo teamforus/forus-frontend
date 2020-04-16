@@ -1,11 +1,52 @@
 module.exports = [
+    '$timeout',
+    '$rootScope',
+    'IdentityService',
     'CredentialsService',
-    // 'IdentityService',
     function(
+        $timeout,
+        $rootScope,
+        IdentityService,
         CredentialsService,
-        // IdentityService
     ) {
         let subscriptions = {};
+
+        class AccessTokenSubscriber {
+            constructor(checkInterval = 2500) {
+                this.timeout = null;
+                this.checkInterval = checkInterval;
+            }
+
+            stopCheckAccessTokenStatus() {
+                if (this.timeout) {
+                    $timeout.cancel(this.timeout);
+                }
+            }
+
+            checkAccessTokenStatus(access_token, success) {
+                this.success = success;
+
+                IdentityService.checkAccessToken(access_token).then(res => {
+                    if (res.data.message == 'active') {
+                        this.applyAccessToken(access_token);
+                    } else if (res.data.message == 'pending') {
+                        this.timeout = $timeout(() => {
+                            this.checkAccessTokenStatus(access_token, success);
+                        }, this.checkInterval);
+                    } else {
+                        document.location.reload();
+                    }
+                });
+            }
+
+            applyAccessToken(access_token) {
+                CredentialsService.set(access_token);
+                $rootScope.$broadcast('auth:update');
+
+                this.stopCheckAccessTokenStatus();
+                this.success(access_token);
+            };
+        }
 
         return new(function() {
             this.hasCredentials = () => {
@@ -34,15 +75,9 @@ module.exports = [
                 })
             };
 
-            /* this.identity = function(credentails) {
-                if (CredentialsService.get()) {
-                    return IdentityService.identity();
-                }
-                
-                return new Promise(function(resolve, reject) {
-                    resolve(null);
-                });
-            }; */
+            this.accessTokenSubscriber = () => {
+                return new AccessTokenSubscriber();
+            }
         });
     }
 ];

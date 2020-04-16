@@ -38,6 +38,7 @@ module.exports = function() {
                 var makeHeaders = function() {
                     let headers = {
                         'Accept': 'application/json',
+                        'Accept-Language': localStorage.getItem('lang') || 'nl',
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + CredentialsService.get(),
                     };

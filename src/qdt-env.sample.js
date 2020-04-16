@@ -1,5 +1,6 @@
 const apiUrl = "https://dev.api.forus.io/api/v1";
 const outputRoot = "../dist";
+const outputRootBackendPublic = outputRoot + '/forus-backend.general';
 
 // Run gulp with custom qdt-env.js file:
 // gulp --env-file=./qdt-env.js 
@@ -24,8 +25,10 @@ module.exports = (core) => {
             client_key: baseImplementationKey,
             panel_type: 'sponsor',
             chat_id: chatId,
+            support_id: "15870000001861118?orgId=20065804523",
             flags: {},
             sessions: sessions,
+            hide_vouchers_csv: false,
             // html5ModeEnabled: true,
             // html5Mode: {
             //    basePath: '/'
@@ -50,6 +53,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: baseImplementationKey,
             panel_type: 'provider',
+            support_id: "15870000001861118?orgId=20065804523",
             chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
@@ -71,6 +75,7 @@ module.exports = (core) => {
             client_key: baseImplementationKey,
             panel_type: 'validator',
             chat_id: chatId,
+            support_id: "15870000001861118?orgId=20065804523",
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
@@ -92,6 +97,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
         });
@@ -154,6 +160,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
         });
@@ -194,6 +201,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {
                 maxProductCount: 20,
             },
@@ -238,6 +246,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {
                 maxProductCount: 20,
             },
@@ -282,6 +291,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {
                 maxProductCount: 20,
             },
@@ -347,6 +357,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {
                 maxProductCount: 20,
             },
@@ -408,6 +419,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
         });
@@ -448,6 +460,7 @@ module.exports = (core) => {
             panel_type: 'sponsor',
             chat_id: chatId,
             hide_voucher_generators: false,
+            hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
         });
@@ -468,6 +481,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: baseImplementationKey,
             client_type: 'webshop',
+            support_id: "15870000001861118?orgId=20065804523",
             log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {},
@@ -738,16 +752,39 @@ module.exports = (core) => {
         return platform;
     });
 
-    //- Enable only given platforms
-    /* core.enableOnly([
+    // Config backend platform
+    core.editPlatform('backend_general', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_key: 'general',
+            client_type: 'pin_code-auth',
+        });
 
-    ]); */
+        platform.editTask('js', (task) => {
+            task.minify = minify;
+            task.sourcemap = sourcemap;
+            return task;
+        });
+
+        // Change building path
+        platform.setDestRootPath(outputRootBackendPublic);
+
+        return platform;
+    });
+
+    //- Enable only given platforms
+    core.enableOnly([
+        'dashboard_general_sponsor',
+        'dashboard_general_provider',
+        'dashboard_general_validator',
+        'webshop_general'
+    ]);
 
     //- Enable all but given platforms (will ignore: 'core.enableOnly' when used)
-    core.disableOnly([
+    /*core.disableOnly([
         'dashboard_markup',
         'webshop_markup'
-    ]);
+    ]);*/
 
     return core;
 };

@@ -1,0 +1,148 @@
+body {
+    background: #fff;
+    min-height: 100vh;
+}
+
+.wrapper {
+    margin: auto;
+    width: 960px;
+    max-width: 100%;
+    padding: 0 40px 0;
+    @include cf();
+
+    .wrapper-sm {
+        width: 800px;
+    }
+}
+
+// angularjsand ui-router directives
+[ui-sref], [ng-click] {
+    cursor: pointer;
+}
+
+// angularjs translate elements
+translate, .translate {
+    display: inline;
+}
+
+img {
+    border: none;
+}
+
+.nowrap {
+    white-space: nowrap !important;
+}
+
+.pull-right {
+    float: right;
+}
+
+.pull-left {
+    float: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-strike {
+    text-decoration: line-through;
+}
+
+.flex-grow {
+    flex-grow: 1 !important;
+}
+
+.flex-start {
+    justify-self: flex-start;
+    align-self: flex-start;
+}
+
+.flex-center {
+    justify-self: center;
+    align-self: center;
+}
+
+.flex-end {
+    justify-self: flex-end;
+    align-self: flex-end;
+}
+
+.text-muted {
+    color: #a1a1a1 !important;
+}
+
+.text-muted-dim {
+    color: #919191 !important;
+}
+
+.text-muted-dark {
+    color: #818181 !important;
+}
+
+.text-primary {
+    color: #134478 !important;
+}
+
+.text-primary-light {
+    color: #009ef4 !important;
+}
+
+.text-danger {
+    color: #e63b3b;
+}
+
+.text-success {
+    color: #226f24;
+}
+
+.text-strong {
+    font-weight: 600;
+}
+
+.text-strong-half {
+    font-weight: 500;
+}
+
+.text-wrap {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+.hidden {
+    display: none;
+}
+
+.cf {
+    @include cf();
+}
+
+.flex-end {
+    justify-content: flex-end;
+    justify-items: flex-end;
+}
+
+.flex-center {
+    justify-content: center;
+    justify-items: center;
+}
+
+.flex {
+    display: flex;
+}
+
+.hard-disabled {
+    filter: grayscale(1);
+    user-select: none;
+    pointer-events: none;
+    opacity: .75;
+}
