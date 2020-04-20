@@ -15,9 +15,9 @@ header.section.section-header.section-header-landing
                 p(ng-if="$ctrl.funds.length > 1" translate="home.header.{{ $root.client_key }}.subtitle_multi" translate-default="{{'home.header.subtitle_multi' | translate:{ org_name: $ctrl.funds[0].organization.name  } }}" i18n-vars="{ org_name: $ctrl.funds[0].organization.name  }")
 
                 //- gebruik activatiecode tekst
-                p(ng-if="!$root.auth_user && $ctrl.funds.length <= 1" i18n="home.header.{{ $root.client_key }}.cta" translate-default="{{ 'home.header.cta' | translate }}"  i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                p(ng-if="!$root.auth_user && $ctrl.funds.length <= 1" translate="home.header.{{ $root.client_key }}.cta" translate-default="{{ 'home.header.cta' | translate }}"  i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
                 
-                p(ng-if="!$root.auth_user && $ctrl.funds.length > 1" i18n="home.header.{{ $root.client_key }}.cta" translate-default="{{ 'home.header.cta_multi' | translate }}"  i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
+                p(ng-if="!$root.auth_user && $ctrl.funds.length > 1" translate="home.header.{{ $root.client_key }}.cta" translate-default="{{ 'home.header.cta_multi' | translate }}"  i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
                 //- beheer uw voucher in me tekst
                 
                 p(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" i18n="home.header.auth_cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")

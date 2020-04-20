@@ -1,0 +1,62 @@
+.section {
+    &.section-footer {
+        background-color: $lb;
+        position: relative;
+        border-top: 1px solid #dbdcdb;
+    }
+    @media screen and (max-width: 1000px) {
+        &.section.section-footer {
+            padding: 40px 0 0;
+
+            &:before,
+            &:after {
+                display: none;
+            }
+        }
+    }
+}
+.block {
+    &.block-footer {
+        margin-top: 40px;
+        .footer-label {
+            color: $color_default;
+        }
+        
+        .footer-schedule {
+            .schedule-label,
+            .schedule-value {
+                color: $tc;
+            }
+        }
+
+        .footer-nav {
+            .footer-nav-item {
+                a {
+                    color: $tc;
+
+                    &:hover {
+                        color: $color-default;
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+    &.block-copyrights {
+        border-top: 1px solid #dbdcdb;
+        
+        .copyrights {
+            color: $color_primary;
+        }
+
+        .links {
+            a {
+                color: $color_primary;
+
+                &:hover {
+                    color: $tc;
+                }
+            }
+        }
+    }
+}

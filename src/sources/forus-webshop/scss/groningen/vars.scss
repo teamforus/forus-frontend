@@ -1,12 +1,13 @@
 /*==========  Style Sheet - Vars  ==========*/
 
-$bg-values:          none;
+$bg-values:           url("../img/jumbotron.png") no-repeat 100% 0;
 
 // base font
 $bf:                Verdana, arial;
 
 // text color
 $tc:                #1a1919;
+$tc-var:            #fff;
 
 // base color
 $bc:                #e60003;
@@ -42,7 +43,7 @@ $color_primary_light:   #8fd888;
 $color_default:         #017f96;
 $color_default_light:   #017f96;
 
+// Login button
 
-
-$borderColor:       #ddd;
+$lb:                #fff;
 
