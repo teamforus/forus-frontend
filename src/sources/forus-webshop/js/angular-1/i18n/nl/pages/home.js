@@ -7,6 +7,7 @@ module.exports = {
         title_multi: "Webshop {{org_name}}",
         subtitle_multi: "Welkom op de webshop van {{org_name}} Heeft u via {{org_name}} een toekenning gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
         header_note: "",
+        button_av: 'START', 
 
         potjeswijzer: {
             subtitle_av: "Er bestaan veel verschillende potjes binnen het Westerkwartier, vaak meer dan je denkt. Met deze website kan je potjes aanvragen, beheren en uitgeven.",

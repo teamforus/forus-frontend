@@ -9,6 +9,7 @@ let HomeComponent = function(
     let $ctrl = this;
 
     $ctrl.appConfigs = appConfigs;
+    $ctrl.implementation_name = appConfigs.features.implementation_name;
     
     $ctrl.digidAvailable = appConfigs.features.digid;
     if ($stateParams.confirmed) {
