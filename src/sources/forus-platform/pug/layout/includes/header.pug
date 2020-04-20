@@ -52,7 +52,7 @@ header.app.app-header(ng-if="$root.auth_user")
                 .auth-user-caret: em(ng-class="$root.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
                 
                 .auth-user-menu(ng-if="$root.userMenuOpened" click-outside="$root.hideUserMenu()")
-                    a(ui-sref="identity-emails" ng-if="!$root.activeOrganization").auth-user-menu-item
+                    a(ui-sref="identity-emails" ng-if="$root.appConfigs.sessions && !$root.activeOrganization").auth-user-menu-item
                         em.mdi.mdi-at
                         | Email instellingen
                     

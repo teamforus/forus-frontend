@@ -97,7 +97,7 @@
                             em.mdi.mdi-cog-outline
                             translate(translate="notification_preferences.title_preferences")
 
-                        .auth-user-menu-item(ui-sref="identity-emails")
+                        .auth-user-menu-item(ng-if="$root.appConfigs.sessions" ui-sref="identity-emails")
                             em.mdi.mdi-at 
                             translate(translate="email_preferences.title_preferences")
 
