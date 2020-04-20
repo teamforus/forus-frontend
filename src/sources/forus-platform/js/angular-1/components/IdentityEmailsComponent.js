@@ -15,7 +15,7 @@ let IdentityEmailsComponent = function(
         }
         
         IdentityEmailsService.resendVerification(email.id).then(() => {
-            PushNotificationsService.success('Verification email resent!');
+            PushNotificationsService.success('Verificatie email opnieuw verstuurd!');
             email.disabled = true;
             timeout = $timeout(() => email.disabled = false, 1000);
         });
@@ -38,7 +38,7 @@ let IdentityEmailsComponent = function(
         }
 
         IdentityEmailsService.delete(email.id).then(() => {
-            PushNotificationsService.success('Deleted!');
+            PushNotificationsService.success('Verwijderd!');
             $ctrl.loadIdentityEmails();
         });
     };

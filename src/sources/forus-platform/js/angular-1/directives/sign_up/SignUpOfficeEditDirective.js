@@ -2,28 +2,26 @@ let SignUpOfficeEditDirective = function(
     $scope,
     $element,
     $timeout,
+    $filter,
     MediaService,
     OfficeService,
     FormBuilderService
 ) {
+    let $translate = $filter('translate');
     let officeMediaFile = false;
     let $dir = $scope.$dir = {};
 
     let transformHours = (hours) => {
-        if ((hours + '').length == 1 && hours > 2) {
-            hours = 2;
+        if (hours < 0) {
+            hours = 0;
+        } else if (hours > 23) {
+            hours = 23;
         }
 
-        if (hours < 0) {
-            hours = 0} else if (hours > 23) ours = 23;
         return hours;
     }
 
     let transformMinutes = (minutes) => {
-        if ((minutes + '').length == 1 && minutes > 5) {
-            minutes = 5;
-        }
-
         if (minutes < 0) {
             minutes = 0;
         } else if (minutes > 59) {
@@ -33,11 +31,19 @@ let SignUpOfficeEditDirective = function(
         return minutes;
     }
 
+    let addLeadingZero = (value) => {
+        if (value.length == 0) {
+            return '';
+        }
+
+        return value.length > 1 ? value : '0' + value;
+    };
+
     let transformTime = (time) => {
         let time_arr = time.split(':');
 
         if (time_arr.length > 1) {
-            let hours = transformHours(time_arr[0]);
+            let hours = addLeadingZero(transformHours(time_arr[0]));
             let minutes = transformMinutes(time_arr[1]);
 
             return [hours, minutes].join(':');
@@ -45,7 +51,7 @@ let SignUpOfficeEditDirective = function(
             if (time.length <= 2) {
                 return transformHours(time);
             } else {
-                return transformHours(time.substr(0, 2)) + ':' +
+                return addLeadingZero(transformHours(time.substr(0, 2))) + ':' +
                     transformMinutes(time.substr(2, time.length - 2));
             }
         }
@@ -205,16 +211,47 @@ let SignUpOfficeEditDirective = function(
         }
     }
 
-
     $scope.isDateModified = (date) => {
         return date.start_time || date.end_time || date.break_start_time || date.break_end_time;
     }
+
+    $scope.getHours = (time) => {
+        return time.split(':')[0];
+    };
+
+    $scope.getMinutes = (time) => {
+        let minutes = time.split(':')[1];
+
+        return typeof minutes != 'undefined' ? minutes : '';
+    };
+
+    $scope.addLeadingZeroToTime = (time) => {
+        if (!time.length) {
+            return '';
+        }
+
+        return addLeadingZero($scope.getHours(time)) + ':' +
+            addLeadingZero($scope.getMinutes(time));
+    };
+
+    $scope.transformDayTime = (day) => {
+        day.break_start_time = $scope.addLeadingZeroToTime(day.break_start_time);
+        day.break_end_time   = $scope.addLeadingZeroToTime(day.break_end_time);
+        day.start_time       = $scope.addLeadingZeroToTime(day.start_time);
+        day.end_time         = $scope.addLeadingZeroToTime(day.end_time);
+
+        return day;
+    };
 
     $scope.buildForm = (values) => {
         return FormBuilderService.build(values, (form) => {
             let submit = function() {
                 let promise;
                 let created = false;
+
+                form.values.schedule.forEach((day, index) => {
+                    form.values.schedule[index] = $scope.transformDayTime(day);
+                });
 
                 if (form.values.id) {
                     promise = OfficeService.update(
@@ -241,7 +278,7 @@ let SignUpOfficeEditDirective = function(
                     // Temporary fix
                     for (let errorKey in form.errors) {
                         if (errorKey.indexOf('schedule') != -1) {
-                            form.errors.schedule = 'Format should be h:m, ex 09:00';
+                            form.errors.schedule = $translate('offices_edit.errors.schedule');
                         }
                     }
                     form.unlock();
@@ -319,6 +356,7 @@ module.exports = () => {
             '$scope',
             '$element',
             '$timeout',
+            '$filter',
             'MediaService',
             'OfficeService',
             'FormBuilderService',

@@ -102,6 +102,7 @@ let ValidatorSignUpComponent = function(
         return FormBuilderService.build({
             email: '',
             target: authTarget,
+            confirm: true
         }, function(form) {
             let resolveErrors = (res) => {
                 form.unlock();
