@@ -28,6 +28,6 @@ aside.app.app-sidebar
 
         .sidebar-nav-devider(ng-if="$root.activeOrganization")
 
-        +nav_item('Email instellingen', 'emails', 'identity-emails')
+        +nav_item('Email instellingen', 'emails', 'identity-emails', null, '$root.appConfigs.sessions')
         +nav_item('Sessies', 'sessions', 'security-sessions', '{}', '$root.appConfigs.sessions')
         +nav_item('Notificaties', 'notifications', 'preferences-notifications')
