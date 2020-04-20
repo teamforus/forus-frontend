@@ -16,6 +16,10 @@ html(ng-controller="BaseController" ng-cloak)
             .ie-hide
                 div(ng-if="$root.viewLayout != 'landing'"): include ../layout/includes/footer
                 div(ng-if="$root.viewLayout == 'landing'"): include ../layout/includes/footer-landing
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/feature.potjeswijzer
             div(forus-chat chat-id="{{ appConfigs.chat_id }}" ng-if="appConfigs.chat_id")
             div(forus-support support-id="{{ appConfigs.support_id}}" ng-if="appConfigs.support_id")
 

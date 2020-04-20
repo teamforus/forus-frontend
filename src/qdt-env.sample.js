@@ -89,48 +89,6 @@ module.exports = (core) => {
 
         return platform;
     });
-
-    core.editPlatform('dashboard_zuidhorn_sponsor', (platform) => {
-        platform.setEnvData({
-            api_url: apiUrl,
-            client_key: 'zuidhorn',
-            panel_type: 'sponsor',
-            chat_id: chatId,
-            hide_voucher_generators: false,
-            hide_vouchers_csv: false,
-            flags: {},
-            sessions: sessions,
-        });
-
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
-
-        return platform;
-    });
-
-    core.editPlatform('dashboard_zuidhorn_provider', (platform) => {
-        platform.setEnvData({
-            api_url: apiUrl,
-            client_key: 'zuidhorn',
-            panel_type: 'provider',
-            chat_id: chatId,
-            hide_voucher_generators: false,
-            flags: {},
-            sessions: sessions,
-        });
-
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
-
-        return platform;
-    });
-
     core.editPlatform('dashboard_westerkwartier_provider', (platform) => {
         platform.setEnvData({
             api_url: apiUrl,
@@ -457,10 +415,10 @@ module.exports = (core) => {
         return platform;
     });
 
-    core.editPlatform('webshop_zuidhorn', (platform) => {
+    core.editPlatform('webshop_potjeswijzer', (platform) => {
         platform.setEnvData({
             api_url: apiUrl,
-            client_key: 'zuidhorn',
+            client_key: 'potjeswijzer',
             client_type: 'webshop',
             log_out_time: autoLogOutTime,
             matomo_site_id: false,
@@ -472,6 +430,7 @@ module.exports = (core) => {
                 forusPlatformMenu: false,
                 portfolioMenu: false,
                 aboutSiteMenu: false,
+                signUpMenu: false,
             },
             sessions: sessions,
         });
