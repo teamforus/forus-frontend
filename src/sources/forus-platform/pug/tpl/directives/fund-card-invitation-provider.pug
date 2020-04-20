@@ -26,6 +26,6 @@
 
                     .button.button-primary.pull-right(
                         ng-if="fund.state != 'closed' && providerInvitation.state == 'pending' && !providerInvitation.expired"
-                        ng-click="acceptInvitation()") 
+                        ng-click="acceptInvitation($event)") 
                             em.mdi.mdi-check-circle.icon-start
                             span(translate="fund_card_provider.labels.accept_invitation")

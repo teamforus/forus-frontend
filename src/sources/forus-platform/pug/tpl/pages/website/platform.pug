@@ -1,0 +1,118 @@
+section.header.header__platform
+    .container
+        .wrap_cs__1a
+            h1 Platform Forus
+section
+    .container
+        .wrap_cs__2
+            .row.flex-align.mb-ro
+                .col-6.col-md-6.e-fb
+                    img(src="assets/img/demo-meedoen.png" class="mr-fx").stretched
+                .col-6.col-md-6.e-fb
+                    h2 Forus & Me
+                    p Het systeem bestaat uit een combinatie van platform Forus en de app Me. Met het betaalplatform kan je een pakket uitgeven  onder bepaalde voorwaarden. Het systeem wordt onder andere gebruikt om gemeentelijke diensten en regelingen te vereenvoudigen.
+                    a.txt_link.content-left(ui-sref="me") 
+                        | Lees meer over Me
+                        include ../../../../resources/platform-general/assets/img/svg/baseline-arrow.svg
+        .container.text-center    
+            .cont_txt__b
+                h2 Hoe het werkt
+                p Het betaalplatform is ingericht vanuit vier rollen:  sponsor, validator, aanvrager en aanbieder. De sponsor stelt via het platform een pakket beschikbaar en verstrekt een voucher aan de aanvrager. De aanvrager kan de voucher uitgeven bij een deelnemende aanbieder.<br>Wil je zien hoe het werkt? Kies een rol en klik op Bekijk video.
+section
+    .container
+        .tab-content
+            #panel1-video.tab-pane.fade.in.active
+                .tab_video
+                    video(id="player_tab_1" poster="assets/img/poster/aanvrager.gif")
+                        source(src="assets/video/Sponsor.mov" type="video/mp4")
+                a.play_btn_link(href="#" )
+            #panel2-video.tab-pane.fade
+                .tab_video
+                    video(id="player_tab_2" )
+                        source(src="assets/video/Validator.mov" type="video/mp4")
+                a.btn_link(href="#" )
+            #panel3-video.tab-pane.fade
+                .tab_video
+                    video(id="player_tab_3" )
+                        source(src="assets/video/Aanvrager.mov" type="video/mp4")
+                a.play_btn_link(href="#" )
+            #panel4-video.tab-pane.fade
+                .tab_video
+                    video(id="player_tab_4" )
+                        source(src="assets/video/Aanbieder.mov" type="video/mp4")
+                a.play_btn_link(href="#" )
+        .play_roles
+            ul.nav.nav-tabs.roles.text-left
+                li.role
+                    a(data-toggle="tab" data-target="#panel1-video" id="#panel1")
+                        .role_content
+                            h4 Sponsor
+                            p Werk je voor een gemeente? Bepaal de voorwaarden van een pakket, stel een budget beschikbaar en valideer geschikte aanbieders.
+                            .play_btn_link.flexed(href="#" id="#panel1-video")
+                                p.btn_link.txt_link.content-left Bekijk de video
+                                .play_btn
+                                    include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
+                                    include ../../../../resources/platform-general/assets/img/svg/pause.svg
+                li.role
+                    a(data-toggle="tab" data-target="#panel2-video" id="#panel2")
+                        span.role_content
+                            h4 Validator
+                            p Werk je voor een gemeente of een ketenpartner? Toets de criteria waaraan de aanvraag moet voldoen.
+                            .play_btn_link.flexed(href="#" id="#panel2-video")
+                                p.btn_link.txt_link.content-left Bekijk de video
+                                .play_btn
+                                    include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
+                                    include ../../../../resources/platform-general/assets/img/svg/pause.svg
+                li.role
+                    a(data-toggle="tab" data-target="#panel3-video" id="#panel3")
+                        span.role_content
+                            h4 Aanvrager
+                            p Ben je een inwoner en heb je recht op een pakket? Ontvang een voucher en geef het uit bij deelnemende aanbieders.
+                            .play_btn_link.flexed(href="#" id="#panel3-video")
+                                p.btn_link.txt_link.content-left Bekijk de video
+                                .play_btn
+                                    include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
+                                    include ../../../../resources/platform-general/assets/img/svg/pause.svg
+                li.role
+                    a(data-toggle="tab" data-target="#panel4-video" id="#panel4")
+                        span.role_content
+                            h4 Aanbieder
+                            p Werk je voor een winkel, organisatie of vereniging? Bied een product en/of dienst aan in de webshop.
+                            .play_btn_link(href="#" id="#panel4-video")
+                                p.btn_link.txt_link.content-left Bekijk de video
+                                .play_btn
+                                    include ../../../../resources/platform-general/assets/img/svg/play-arrow.svg
+                                    include ../../../../resources/platform-general/assets/img/svg/pause.svg
+
+section.bg_gr.mr-tp 
+    .container.text-center
+        .wrap_cs__2
+            h2 Gebruikersaantallen
+            .row.flexed
+                .col-6.col-md-4.e-fb
+                    .upper
+                        include ../../../../resources/platform-general/assets/img/icon-inwoners.svg
+                        h2.boldest 6210                        
+                        h4  Aanvragers
+                .col-6.col-md-4.e-fb
+                    .upper
+                        include ../../../../resources/platform-general/assets/img/icon-me.svg
+                        h2.boldest 6663                        
+                        h4 Totaal
+                .col-6.col-md-4.e-fb
+                    .upper
+                        include ../../../../resources/platform-general/assets/img/icon-winkeliers.svg
+                        h2.boldest 453
+                        h4 Leveranciers
+
+
+
+section
+    .container.text-center
+        .wrap_cs__2
+            .cont_txt__a
+                h2 Ontwikkeling
+                p Ben je benieuwd naar de ontwikkeling van het platform, heb je een vraag of wil je bijdrage leveren? Volg ons op #[a.txt_link.var Rocket.Chat] of #[a.txt_link.var Github].
+                <br />
+                include ../../../../resources/platform-general/assets/img/svg/rocketchat.svg
+                include ../../../../resources/platform-general/assets/img/svg/bitmap.svg

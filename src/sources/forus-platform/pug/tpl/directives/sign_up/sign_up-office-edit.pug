@@ -82,13 +82,13 @@
                         ui-control-text.time.breaks.start(
                             ng-model="$dir.form.values.schedule[weekDayKey].break_start_time"
                             ng-if="$dir.scheduleDetails[weekDayKey].is_opened"
-                            ng-change="$dir.syncHours($index, 'start_time')"
+                            ng-change="$dir.syncHours($index, 'break_start_time')"
                             data-placeholder="Van")
 
                         ui-control-text.time.breaks.end(
                             ng-model="$dir.form.values.schedule[weekDayKey].break_end_time"
                             ng-if="$dir.scheduleDetails[weekDayKey].is_opened"
-                            ng-change="$dir.syncHours($index, 'end_time')"
+                            ng-change="$dir.syncHours($index, 'break_end_time')"
                             data-placeholder="Tot")
 
             br

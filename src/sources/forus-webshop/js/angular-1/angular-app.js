@@ -37,6 +37,7 @@ app.component('emailPreferencesComponent', require('./components/EmailPreference
 app.component('accessibilityComponent', require('./components/AccessibilityComponent'));
 app.component('errorComponent', require('./components/ErrorComponent'));
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
+app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -78,6 +79,7 @@ app.service('PushNotificationsService', require('./services/PushNotificationsSer
 app.service('LocalStorageService', require('./services/LocalStorageService'));
 app.service('ProvidersService', require('./services/ProvidersService'));
 app.service('SessionService', require('./services/SessionService'));
+app.service('IdentityEmailsService', require('./services/IdentityEmailsService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));

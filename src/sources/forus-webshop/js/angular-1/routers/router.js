@@ -25,6 +25,12 @@ let handleAuthTarget = ($state, target) => {
         });
     }
 
+    if (target[0] == 'voucher') {
+        return !!$state.go('voucher', {
+            address: target[1]
+        });
+    }
+
     return false;
 };
 
@@ -531,6 +537,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: 'identity-emails',
+        url: '/preferences/emails',
+        component: 'identityEmailsComponent'
+    });
+
+    $stateProvider.state({
         name: 'security-sessions',
         url: '/security/sessions',
         component: 'securitySessionsComponent'
@@ -547,24 +559,28 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "auth-link",
-        url: "/auth-link?token",
+        url: "/auth-link?token&target",
         data: {
             token: null
         },
-        controller: ['$state', '$rootScope', '$timeout', 'IdentityService', 'CredentialsService', (
-            $state, $rootScope, $timeout, IdentityService, CredentialsService
+        controller: ['$state', '$rootScope', 'IdentityService', 'CredentialsService', 'PushNotificationsService', (
+            $state, $rootScope, IdentityService, CredentialsService, PushNotificationsService
         ) => {
-            IdentityService.exchangeShortToken(
-                $state.params.token
-            ).then(res => {
+            let target = $state.params.target || '';
+
+            IdentityService.exchangeShortToken($state.params.token).then(res => {
                 CredentialsService.set(res.data.access_token);
+
                 $rootScope.loadAuthUser().then(() => {
-                    $state.go('home');
+                    if (typeof target == 'string') {
+                        if (!handleAuthTarget($state, target.split('-'))) {
+                            $state.go('home');
+                        }
+                    }
                 });
             }, () => {
-                PushNotificationsService.danger(
-                    "Deze link is reeds gebruikt of ongeldig."
-                ) & $state.go('home');
+                PushNotificationsService.danger("Deze link is reeds gebruikt of ongeldig.");
+                $state.go('home');
             });
         }]
     });

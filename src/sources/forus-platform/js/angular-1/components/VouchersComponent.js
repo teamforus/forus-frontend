@@ -27,9 +27,7 @@ let VouchersComponent = function(
         reset: function() {
             this.values.q = '';
             this.values.granted = null;
-            this.values.fund_id = $stateParams.fund_id ?
-                $stateParams.fund_id : 
-                ($ctrl.funds[0] ? $ctrl.funds[0].id : null);
+            this.values.fund_id = $ctrl.fund.id;
             this.values.amount_min = null;
             this.values.amount_max = null;
             this.values.from = null;
@@ -167,12 +165,17 @@ let VouchersComponent = function(
         $timeout(() => target.showTooltip = false, 0);
     };
 
-    $ctrl.init = async () => {
+    $ctrl.init = () => {
         $ctrl.fundClosed = $ctrl.fund.state == 'closed';
 
         $ctrl.resetFilters();
         $ctrl.onPageChange($ctrl.filters.values);
     };
+
+    $ctrl.onFundSelect = (fund) => {
+        $ctrl.fund = fund;
+        $ctrl.init();
+    }; 
 
     $ctrl.$onInit = () => {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
