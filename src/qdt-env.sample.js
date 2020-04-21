@@ -12,6 +12,7 @@ let baseImplementationKey = 'general';
 let autoLogOutTime = 15;
 let chatId = false;
 let sessions = false;
+let google_maps_api_key = '';
 
 module.exports = (core) => {
     // Config markups
@@ -29,6 +30,7 @@ module.exports = (core) => {
             flags: {},
             sessions: sessions,
             hide_vouchers_csv: false,
+            google_maps_api_key: google_maps_api_key,
             // html5ModeEnabled: true,
             // html5Mode: {
             //    basePath: '/'
@@ -58,6 +60,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -79,6 +82,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -100,6 +104,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -121,6 +126,7 @@ module.exports = (core) => {
             hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -141,6 +147,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -164,6 +171,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -186,6 +194,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -209,6 +218,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -231,6 +241,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -254,6 +265,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -276,6 +288,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -299,6 +312,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -319,6 +333,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -340,6 +355,7 @@ module.exports = (core) => {
             hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -360,6 +376,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -381,6 +398,7 @@ module.exports = (core) => {
             hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -404,6 +422,7 @@ module.exports = (core) => {
             matomo_site_id: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -433,6 +452,7 @@ module.exports = (core) => {
                 signUpMenu: false,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -465,6 +485,7 @@ module.exports = (core) => {
                 shareProducts: false,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -485,6 +506,7 @@ module.exports = (core) => {
             matomo_site_id: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -516,6 +538,7 @@ module.exports = (core) => {
                 providersMenu: true,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -539,6 +562,7 @@ module.exports = (core) => {
                 accessibilityPage: true,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -569,6 +593,7 @@ module.exports = (core) => {
                 aboutSiteMenu: false,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -599,6 +624,7 @@ module.exports = (core) => {
                 aboutSiteMenu: false,  
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -620,6 +646,7 @@ module.exports = (core) => {
                 accessibilityPage: false,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -639,6 +666,7 @@ module.exports = (core) => {
             panel_type: 'website',
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
