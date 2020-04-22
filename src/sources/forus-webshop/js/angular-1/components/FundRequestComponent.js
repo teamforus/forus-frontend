@@ -1,7 +1,8 @@
 let sprintf = require('sprintf-js').sprintf;
 
-let FundRequestComponent = function(
+let FundRequestComponent = function (
     $q,
+    $sce,
     $state,
     $stateParams,
     $timeout,
@@ -26,6 +27,7 @@ let FundRequestComponent = function(
     !appConfigs.features.auto_validation ? FundRequestComponentDefault(
         this,
         $q,
+        $sce,
         $state,
         $stateParams,
         $timeout,
@@ -60,9 +62,10 @@ let FundRequestComponent = function(
     );
 };
 
-let FundRequestComponentDefault = function(
+let FundRequestComponentDefault = function (
     $ctrl,
     $q,
+    $sce,
     $state,
     $stateParams,
     $timeout,
@@ -121,7 +124,7 @@ let FundRequestComponentDefault = function(
         $ctrl.authForm = FormBuilderService.build({
             email: '',
             target: target,
-        }, function(form) {
+        }, function (form) {
             let resolveErrors = (res) => {
                 form.unlock();
                 form.errors = res.data.errors;
@@ -235,7 +238,7 @@ let FundRequestComponentDefault = function(
         });
     };
 
-    $ctrl.applyAccessToken = function(access_token) {
+    $ctrl.applyAccessToken = function (access_token) {
         $ctrl.stopCheckAccessTokenStatus();
         CredentialsService.set(access_token);
         $ctrl.buildTypes();
@@ -247,7 +250,7 @@ let FundRequestComponentDefault = function(
             if (res.data.message == 'active') {
                 $ctrl.applyAccessToken(access_token);
             } else if (res.data.message == 'pending') {
-                timeout = $timeout(function() {
+                timeout = $timeout(function () {
                     $ctrl.checkAccessTokenStatus(type, access_token);
                 }, 2500);
             } else {
@@ -270,7 +273,7 @@ let FundRequestComponentDefault = function(
     };
 
     $ctrl.updateEligibility = () => {
-        let validators = $ctrl.fund.validators.map(function(validator) {
+        let validators = $ctrl.fund.validators.map(function (validator) {
             return validator.identity_address;
         });
 
@@ -297,9 +300,12 @@ let FundRequestComponentDefault = function(
 
         $ctrl.invalidCriteria = JSON.parse(JSON.stringify(
             invalidCriteria
-        )).map(criteria => {
-            criteria.files = [];
-            return criteria;
+        )).map(criterion => {
+            criterion.files = [];
+            criterion.description_html = $sce.trustAsHtml(
+                criterion.description_html
+            );
+            return criterion;
         });
 
         $ctrl.invalidCriteria = $ctrl.invalidCriteria.map(criterion => {
@@ -387,7 +393,7 @@ let FundRequestComponentDefault = function(
         return $q((resolve, reject) => {
             RecordService.list().then(res => {
                 $ctrl.records = res.data;
-                $ctrl.records.forEach(function(record) {
+                $ctrl.records.forEach(function (record) {
                     if (!$ctrl.recordsByKey[record.key]) {
                         $ctrl.recordsByKey[record.key] = [];
                     }
@@ -445,9 +451,9 @@ let FundRequestComponentDefault = function(
         });
     };
 
-    $ctrl.applyFund = function(fund) {
+    $ctrl.applyFund = function (fund) {
         return $q((resolve, reject) => {
-            FundService.apply(fund.id).then(function(res) {
+            FundService.apply(fund.id).then(function (res) {
                 PushNotificationsService.success(sprintf(
                     'Fund "%s" voucher received.',
                     $ctrl.fund.name
@@ -461,7 +467,7 @@ let FundRequestComponentDefault = function(
         });
     };
 
-    $ctrl.$onInit = function() {
+    $ctrl.$onInit = function () {
         $ctrl.signedIn = AuthService.hasCredentials();
         $ctrl.initAuthForm();
         $ctrl.prepareRecordTypes();
@@ -509,7 +515,7 @@ let FundRequestComponentDefault = function(
         $state.go('home');
     }
 
-    $ctrl.$onDestroy = function() {
+    $ctrl.$onDestroy = function () {
         $ctrl.stopCheckAccessTokenStatus();
     };
 };
@@ -524,6 +530,7 @@ module.exports = {
     },
     controller: [
         '$q',
+        '$sce',
         '$state',
         '$stateParams',
         '$timeout',

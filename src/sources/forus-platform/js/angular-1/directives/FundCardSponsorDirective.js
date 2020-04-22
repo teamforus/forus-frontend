@@ -3,6 +3,7 @@ let sprintf = require('sprintf-js').sprintf;
 let FundCardDirective = function(
     $scope,
     $state,
+    $filter,
     FundService,
     ModalService,
     ProviderFundService,
@@ -11,6 +12,7 @@ let FundCardDirective = function(
 ) {
     let $dir = $scope.$dir = {};
     let topUpInProgress = false;
+    let $translate = $filter('translate');
 
     $dir.fund = $scope.fund;
     $dir.inviteProviders = $scope.inviteProviders || false;
@@ -25,6 +27,13 @@ let FundCardDirective = function(
             $scope.fund = res.data.data;
         });
     };
+
+    $dir.providersDescription = sprintf(
+        "%s (%s %s)",
+        $scope.fund.provider_organizations_count,
+        $scope.fund.provider_employees_count,
+        $translate('fund_card_sponsor.labels.employees'),
+    );
 
     $dir.providerApplyFund = function(fund) {
         ProviderFundService.applyForFund(
@@ -100,6 +109,7 @@ module.exports = () => {
         controller: [
             '$scope',
             '$state',
+            '$filter',
             'FundService',
             'ModalService',
             'ProviderFundService',

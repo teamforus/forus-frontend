@@ -1,7 +1,7 @@
 module.exports = {
     test: "{{name}} {{foo}}",
     permissions: require("./en/permissions"),
-    page_title: 'Webshop',
+    page_title: 'Platform Forus',
     page_state_titles: {
         home: 'Forus platform home',
         organizations: 'Organisaties',
@@ -389,6 +389,9 @@ module.exports = {
             add_office: "Voeg een nieuwe vestiging toe",
             cancel: "Annuleren",
             confirm: "Bevestigen",
+        },
+        errors: {
+            schedule: 'Format should be h:m, ex 09:00',
         }
     },
 
@@ -1415,7 +1418,10 @@ module.exports = {
             details: "Bekijk transactiedetails",
             results: "x resultaten",
             payment: "Betaling -",
-
+            providers: "Aanbieders",
+            your_employees: "Uw medewerkers",
+            applicants: "Aanvragers",
+            employees: "medewerkers"
         },
         confirm_delete:{
             title: 'Weet u zeker dat u dit fonds wilt verwijderen?',

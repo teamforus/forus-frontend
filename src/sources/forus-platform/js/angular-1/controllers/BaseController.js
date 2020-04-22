@@ -115,18 +115,20 @@ let BaseController = function(
         });
     };
 
-    $rootScope.autoSelectOrganization = function($redirectAuthorizedState = false) {
+    $rootScope.autoSelectOrganization = function(redirect = true) {
         $rootScope.getLastUsedOrganization().then(selectedOrganizationId => {
             if (selectedOrganizationId) {
                 OrganizationService.use(selectedOrganizationId);
 
-                $state.go($redirectAuthorizedState ? $redirectAuthorizedState : {
-                    sponsor: 'organization-funds',
-                    provider: 'offices',
-                    validator: 'fund-requests',
-                } [appConfigs.panel_type], {
-                    organization_id: selectedOrganizationId
-                });
+                if (redirect) {
+                    $state.go({
+                        sponsor: 'organization-funds',
+                        provider: 'offices',
+                        validator: 'fund-requests',
+                    } [appConfigs.panel_type], {
+                        organization_id: selectedOrganizationId
+                    });
+                }
             } else {
                 $state.go('organizations-create');
             }
@@ -228,7 +230,9 @@ let BaseController = function(
     $translate.use('nl');
 
     if (AuthService.hasCredentials()) {
-        $rootScope.loadAuthUser();
+        $rootScope.loadAuthUser().then(auth_user => {
+            $rootScope.autoSelectOrganization($state.current.name == 'home');
+        });
     } else {
         $rootScope.auth_user = false;
     }
@@ -237,6 +241,8 @@ let BaseController = function(
         $rootScope.appConfigs.features = res.data;
         $rootScope.appConfigs.frontends = res.data.fronts;
     });
+
+    $translate.use(localStorage.getItem('lang') || 'nl');
 };
 
 module.exports = [

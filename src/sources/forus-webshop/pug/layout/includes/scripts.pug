@@ -4,7 +4,7 @@
 script(src=src_prefix + "./assets/dist/bundle/js/bundle.min.js")
 
 //- google maps
-script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnxHUfMITcOpEZBqjz2iLS1wZNvf_bCzo&language=nl")
+script(src="https://maps.googleapis.com/maps/api/js?key=" + qdt_c.platform.env_data.google_maps_api_key + "&language=nl")
 
 //- custom script
 script(src=src_prefix + "./assets/js/app.min" + qdt_c.append_assets + ".js")

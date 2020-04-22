@@ -131,7 +131,7 @@ let BaseController = function(
         BrowserService.unsetInactivity();
     };
 
-    $translate.use('nl');
+    $translate.use(localStorage.getItem('lang') || 'nl');
 };
 
 module.exports = [

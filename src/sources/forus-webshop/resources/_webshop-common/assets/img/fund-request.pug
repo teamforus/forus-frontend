@@ -211,15 +211,12 @@ section.section.section-product.section-requester: .wrapper
                             | Log in met DigiD
                 
                 .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
-                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(
-                        ng-if="!$ctrl.signedIn"
-                        ng-click="$ctrl.prevStep()"
-                        i18n="fund_request.sign_up.pane.footer.prev")
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(ng-if="!$ctrl.signedIn" ng-click="$ctrl.prevStep()")
                         em.mdi.mdi-chevron-left.icon-left
-                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(
-                        ng-click="$ctrl.nextStep()"
-                        i18n="fund_request.sign_up.pane.footer.next")
+                        | {{ 'fund_request.sign_up.pane.footer.prev' | translate }}
+                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
                         em.mdi.mdi-chevron-right.icon-right
+                        | {{ 'fund_request.sign_up.pane.footer.next' | translate }}      
         
         //- Confirm net worth
         div(ng-if="$ctrl.state == 'net_worth'")
@@ -249,15 +246,12 @@ section.section.section-product.section-requester: .wrapper
                     .form-error(ng-repeat="err in $ctrl.netCriteria.errors.file" ng-bind="err")
                 
                 .sign_up-pane-footer: .row
-                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(
-                        ng-click="$ctrl.prevStep()"
-                        i18n="fund_request.sign_up.pane.footer.prev")
-                        em.mdi.mdi-chevron-left.icon-lefts
-                    .col.col-lg-6.text-right
-                        .button.button-text.button-text-padless(
-                            ng-click="$ctrl.submitNetWorth()"
-                            i18n="fund_request.sign_up.pane.footer.next")
-                            em.mdi.mdi-chevron-right.icon-right
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()")
+                        em.mdi.mdi-chevron-left.icon-left
+                        | {{ 'fund_request.sign_up.pane.footer.prev' | translate }}
+                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.submitNetWorth()")
+                        em.mdi.mdi-chevron-right.icon-right
+                        | {{ 'fund_request.sign_up.pane.footer.next' | translate }}            
         
         div(
             ng-repeat="invalidCriteria in $ctrl.invalidCriteria track by $index"
@@ -310,18 +304,17 @@ section.section.section-product.section-requester: .wrapper
                         p.sign_up-pane-text: span(
                             i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[invalidCriteria.operator]}}" 
                             i18n-vars="{name: invalidCriteria.record_type_name, value: ($ctrl.criterionValuePrefix[invalidCriteria.record_type_key]) + invalidCriteria.value}") 
+                    .form-group.col.col-lg-12: .sign_up-pane-info(ng-if="invalidCriteria.description_html")
+                        .sign_up-pane-text(ng-bind-html="invalidCriteria.description_html")
                     .form-group.col.col-lg-12: file-uploader(ng-if="invalidCriteria.show_attachment" files="invalidCriteria.files")
                 
                 .sign_up-pane-footer: .row
-                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(
-                        ng-click="$ctrl.prevStep()"
-                        i18n="fund_request.sign_up.pane.footer.prev")
+                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()")
                         em.mdi.mdi-chevron-left.icon-left
-                    .col.col-lg-6.text-right
-                        .button.button-text.button-text-padless(
-                            ng-click="$ctrl.submitStepCriteria(invalidCriteria)"
-                            i18n="fund_request.sign_up.pane.footer.next")
-                            em.mdi.mdi-chevron-right.icon-right
+                        | {{ 'fund_request.sign_up.pane.footer.prev' | translate }}
+                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.submitStepCriteria(invalidCriteria)")
+                        em.mdi.mdi-chevron-right.icon-right
+                        | {{ 'fund_request.sign_up.pane.footer.next' | translate }}           
         
         //- Done
         div(ng-if="$ctrl.state == 'done'")

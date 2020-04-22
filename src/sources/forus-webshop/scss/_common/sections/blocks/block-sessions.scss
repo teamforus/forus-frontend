@@ -13,13 +13,18 @@ $borderColor: $border_color;
         position: relative;
 
         .session-icon {
-            padding-right: 20px;
+            background: #EFF2F4;
+            width: 44px;
+            height: 41px;
+            margin-right: 20px;
+            border-radius: 6px;
 
             .mdi {
-                color: $color_primary;
+                color: #848B96;
                 font-size: 26px;
-                width: 30px;
+                width: 44px;
                 text-align: center;
+                line-height: 41px;
             }
         }
 

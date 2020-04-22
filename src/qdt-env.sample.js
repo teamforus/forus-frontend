@@ -12,6 +12,7 @@ let baseImplementationKey = 'general';
 let autoLogOutTime = 15;
 let chatId = false;
 let sessions = false;
+let google_maps_api_key = '';
 
 module.exports = (core) => {
     // Config markups
@@ -25,9 +26,11 @@ module.exports = (core) => {
             client_key: baseImplementationKey,
             panel_type: 'sponsor',
             chat_id: chatId,
+            support_id: "15870000001861118?orgId=20065804523",
             flags: {},
             sessions: sessions,
             hide_vouchers_csv: false,
+            google_maps_api_key: google_maps_api_key,
             // html5ModeEnabled: true,
             // html5Mode: {
             //    basePath: '/'
@@ -52,10 +55,12 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: baseImplementationKey,
             panel_type: 'provider',
+            support_id: "15870000001861118?orgId=20065804523",
             chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -73,9 +78,11 @@ module.exports = (core) => {
             client_key: baseImplementationKey,
             panel_type: 'validator',
             chat_id: chatId,
+            support_id: "15870000001861118?orgId=20065804523",
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -86,48 +93,6 @@ module.exports = (core) => {
 
         return platform;
     });
-
-    core.editPlatform('dashboard_zuidhorn_sponsor', (platform) => {
-        platform.setEnvData({
-            api_url: apiUrl,
-            client_key: 'zuidhorn',
-            panel_type: 'sponsor',
-            chat_id: chatId,
-            hide_voucher_generators: false,
-            hide_vouchers_csv: false,
-            flags: {},
-            sessions: sessions,
-        });
-
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
-
-        return platform;
-    });
-
-    core.editPlatform('dashboard_zuidhorn_provider', (platform) => {
-        platform.setEnvData({
-            api_url: apiUrl,
-            client_key: 'zuidhorn',
-            panel_type: 'provider',
-            chat_id: chatId,
-            hide_voucher_generators: false,
-            flags: {},
-            sessions: sessions,
-        });
-
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
-
-        return platform;
-    });
-
     core.editPlatform('dashboard_westerkwartier_provider', (platform) => {
         platform.setEnvData({
             api_url: apiUrl,
@@ -139,6 +104,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -160,6 +126,7 @@ module.exports = (core) => {
             hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -180,6 +147,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -203,6 +171,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -225,6 +194,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -248,6 +218,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -270,6 +241,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -293,6 +265,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -315,6 +288,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -338,6 +312,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -358,6 +333,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -379,6 +355,7 @@ module.exports = (core) => {
             hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -399,6 +376,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -420,6 +398,7 @@ module.exports = (core) => {
             hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -438,10 +417,12 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: baseImplementationKey,
             client_type: 'webshop',
+            support_id: "15870000001861118?orgId=20065804523",
             log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -453,10 +434,10 @@ module.exports = (core) => {
         return platform;
     });
 
-    core.editPlatform('webshop_zuidhorn', (platform) => {
+    core.editPlatform('webshop_potjeswijzer', (platform) => {
         platform.setEnvData({
             api_url: apiUrl,
-            client_key: 'zuidhorn',
+            client_key: 'potjeswijzer',
             client_type: 'webshop',
             log_out_time: autoLogOutTime,
             matomo_site_id: false,
@@ -468,8 +449,10 @@ module.exports = (core) => {
                 forusPlatformMenu: false,
                 portfolioMenu: false,
                 aboutSiteMenu: false,
+                signUpMenu: false,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -502,6 +485,7 @@ module.exports = (core) => {
                 shareProducts: false,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -522,6 +506,7 @@ module.exports = (core) => {
             matomo_site_id: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -553,6 +538,7 @@ module.exports = (core) => {
                 providersMenu: true,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -576,6 +562,7 @@ module.exports = (core) => {
                 accessibilityPage: true,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -606,6 +593,7 @@ module.exports = (core) => {
                 aboutSiteMenu: false,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -636,6 +624,7 @@ module.exports = (core) => {
                 aboutSiteMenu: false,  
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -657,6 +646,7 @@ module.exports = (core) => {
                 accessibilityPage: false,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -676,6 +666,7 @@ module.exports = (core) => {
             panel_type: 'website',
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -708,15 +699,18 @@ module.exports = (core) => {
     });
 
     //- Enable only given platforms
-    /* core.enableOnly([
-
-    ]); */
+    core.enableOnly([
+        'dashboard_general_sponsor',
+        'dashboard_general_provider',
+        'dashboard_general_validator',
+        'webshop_general'
+    ]);
 
     //- Enable all but given platforms (will ignore: 'core.enableOnly' when used)
-    core.disableOnly([
+    /*core.disableOnly([
         'dashboard_markup',
         'webshop_markup'
-    ]);
+    ]);*/
 
     return core;
 };
