@@ -45,7 +45,6 @@ let FundRequestComponent = function (
     ) : FundRequestComponentAuto(
         this,
         $q,
-        $sce,
         $state,
         $stateParams,
         $timeout,

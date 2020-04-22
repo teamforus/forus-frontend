@@ -50,7 +50,7 @@
             .keyvalue-key #{key}
             .keyvalue-value(ng-bind=value)
 
-    .card-section.card-section-warning(ng-if="$dir.fund.organization | hasPerm:'view_finances'")
+    .card-section.card-section-warning(ng-if="fund.state != 'waiting' && fund.state != 'closed' && $dir.fund.organization | hasPerm:'view_finances'")
         .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
             .keyvalue-item(ng-click="$dir.goToEmployeePage()")
                 .keyvalue-key Uw medewerkers
@@ -89,8 +89,8 @@
             em.mdi.mdi-plus-circle.icon-start  
             translate(translate='fund_card_sponsor.buttons.add')
 
-    mixin stats()
-        .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
+    mixin stats(display=true)
+        .card-block.card-block-keyvalue.card-block-keyvalue-horizontal(ng-if=display)
             .keyvalue-item.keyvalue-item-narrow
                 .keyvalue-key Gestort
                 .keyvalue-value
@@ -109,7 +109,7 @@
     .hidden-md.card-section.card-section-primary(
         ng-show="level != 'fundsAvailable' && ($dir.fund.organization | hasPerm:['view_finances','manage_funds']:false)"): .row
         .col.col-lg-7.md-12(
-            ng-if="$dir.fund.organization | hasPerm:'view_finances'"): +stats()
+            ng-if="$dir.fund.organization | hasPerm:'view_finances'"): +stats("fund.state != 'waiting' && fund.state != 'closed'")
         .col.md-12(
             ng-if="$dir.fund.organization | hasPerm:'manage_funds'" 
             ng-class="($dir.fund.organization | hasPerm:'view_finances') ? 'col-lg-5' : 'col-lg-12'").text-right: +edit_buttons()
