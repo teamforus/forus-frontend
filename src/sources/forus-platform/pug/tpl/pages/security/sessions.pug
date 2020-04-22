@@ -1,7 +1,7 @@
 .app.app-container(ng-if="$ctrl.loaded")
-    menu(ng-if="!!$root.activeOrganization")
+    menu
 
-    section(ng-class="!!$root.activeOrganization ? 'app app-content' : 'wrapper wrapper-sm'"): .card
+    section.app.app-content: .card
         .card-header: .card-title Huidige sessies
         .card-section.card-section-padless
             .block.block-sessions

@@ -4,4 +4,10 @@
 script(src=src_prefix + "./assets/dist/bundle/js/bundle.min.js")
 
 //- custom script
-script(src=src_prefix + "./assets/js/app.min.js")
+script(src=src_prefix + "./assets/js/app.min" + qdt_c.append_assets + ".js")
+
+//- google maps
+script(
+    type="text/javascript" 
+    src="https://maps.googleapis.com/maps/api/js?libraries=places&language=nl&key=AIzaSyDnxHUfMITcOpEZBqjz2iLS1wZNvf_bCzo"
+    async defer)

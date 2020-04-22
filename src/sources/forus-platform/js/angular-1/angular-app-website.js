@@ -6,22 +6,17 @@ app.constant('appConfigs', env_data);
 
 // Controllers
 app.controller('BaseController', require('./controllers/landing/BaseController'));
-
+app.controller('ToggleController', require('./controllers/landing/ToggleController.js'));
 // Components
 app.component('homeComponent', require('./components/website/HomeComponent'));
-app.component('kindpakketComponent', require('./components/website/KindpakketComponent'));
+app.component('platformComponent', require('./components/website/PlatformComponent'));
 app.component('meComponent', require('./components/website/MeComponent'));
 app.component('contactComponent', require('./components/website/ContactComponent'));
-app.component('storyComponent', require('./components/website/StoryComponent'));
-app.component('futureComponent', require('./components/website/FutureComponent'));
-app.component('historyComponent', require('./components/website/HistoryComponent'));
 app.component('currentComponent', require('./components/website/CurrentComponent'));
-app.component('hallOfFameComponent', require('./components/website/HallOfFameComponent'));
 app.component('signUpComponent', require('./components/landing/SignUpComponent'));
 
 // Services
 app.service('CredentialsService', require('./services/CredentialsService'));
-app.service('hofService', require('./services/website/hofService'));
 app.service('ConfigService', require('./services/ConfigService'));
 app.service('SmsService', require('./services/SmsService'));
 app.service('AuthService', require('./services/AuthService'));

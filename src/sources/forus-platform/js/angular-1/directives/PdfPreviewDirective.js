@@ -16,7 +16,6 @@ let PdfPreviewDirective = function($scope, $element) {
         });
 
         loadingTask.promise.then(function(pdf) {
-            // console.log('PDF loaded');
             thePDF = pdf;
 
             // Fetch the first page
@@ -24,14 +23,13 @@ let PdfPreviewDirective = function($scope, $element) {
 
             let fetchPage = function(fetchPageNumber) {
                 thePDF.getPage(fetchPageNumber).then(page => {
-                    // console.log('Page loaded');
                     let scale = 1.5;
                     let viewport = page.getViewport({
                         scale: scale
                     });
 
                     let canvas = document.createElement('canvas');
-                
+
                     $element.append(canvas);
 
                     // Prepare canvas using PDF page dimensions
@@ -45,9 +43,8 @@ let PdfPreviewDirective = function($scope, $element) {
                         viewport: viewport
                     };
                     var renderTask = page.render(renderContext);
-                    
+
                     renderTask.promise.then(function() {
-                        // console.log('Page rendered');
                         if (++currPage < numPages) {
                             fetchPage(currPage)
                         }

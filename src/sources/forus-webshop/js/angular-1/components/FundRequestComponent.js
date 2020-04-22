@@ -1,7 +1,8 @@
 let sprintf = require('sprintf-js').sprintf;
 
-let FundRequestComponent = function(
+let FundRequestComponent = function (
     $q,
+    $sce,
     $state,
     $stateParams,
     $timeout,
@@ -26,6 +27,7 @@ let FundRequestComponent = function(
     !appConfigs.features.auto_validation ? FundRequestComponentDefault(
         this,
         $q,
+        $sce,
         $state,
         $stateParams,
         $timeout,
@@ -60,9 +62,10 @@ let FundRequestComponent = function(
     );
 };
 
-let FundRequestComponentDefault = function(
+let FundRequestComponentDefault = function (
     $ctrl,
     $q,
+    $sce,
     $state,
     $stateParams,
     $timeout,
@@ -93,9 +96,11 @@ let FundRequestComponentDefault = function(
     $ctrl.finishError = false;
     $ctrl.bsnIsKnown = true;
     $ctrl.appConfigs = appConfigs;
+    $ctrl.hasApp = false;
+
+    $ctrl.shownSteps = [];
 
     let timeout = null;
-    let stopTimeout = null;
 
     $ctrl.criterionValuePrefix = {
         net_worth: '€',
@@ -118,31 +123,22 @@ let FundRequestComponentDefault = function(
 
         $ctrl.authForm = FormBuilderService.build({
             email: '',
-            pin_code: 1111,
             target: target,
-        }, function(form) {
-            let resolveErrors = () => {
+        }, function (form) {
+            let resolveErrors = (res) => {
                 form.unlock();
                 form.errors = res.data.errors;
             };
 
-            IdentityService.validateEmail({
-                email: form.values.records.primary_email,
-            }).then(res => {
-                if (res.data.email.unique) {
-                    IdentityService.make(form.values).then(() => {
-                        stopTimeout = true;
-                        $ctrl.authEmailSent = true;
+            IdentityService.validateEmail(form.values).then(res => {
+                if (res.data.email.used) {
+                    IdentityService.makeAuthEmailToken(form.values.email, target).then(() => {
+                        $ctrl.authEmailRestoreSent = true;
                         $ctrl.nextStep();
                     }, resolveErrors);
                 } else {
-                    IdentityService.makeAuthEmailToken(
-                        appConfigs.client_key + '_webshop',
-                        form.values.records.primary_email,
-                        target
-                    ).then(() => {
-                        stopTimeout = true;
-                        $ctrl.authEmailRestoreSent = true;
+                    IdentityService.make(form.values).then(() => {
+                        $ctrl.authEmailSent = true;
                         $ctrl.nextStep();
                     }, resolveErrors);
                 }
@@ -154,6 +150,16 @@ let FundRequestComponentDefault = function(
     // Submit criteria record
     $ctrl.submitStepCriteria = (criteria) => {
         return $ctrl.validateCriteria(criteria).then($ctrl.nextStep, () => {});
+    };
+
+    $ctrl.setHasAppProp = (hasApp) => {
+        $ctrl.hasApp = hasApp;
+
+        if ($ctrl.hasApp) {
+            $ctrl.requestAuthQrToken();
+        } else {
+            $ctrl.stopCheckAccessTokenStatus();
+        }
     };
 
     // Submit or Validate record criteria
@@ -232,30 +238,31 @@ let FundRequestComponentDefault = function(
         });
     };
 
-    $ctrl.applyAccessToken = function(access_token) {
-        stopTimeout = true;
+    $ctrl.applyAccessToken = function (access_token) {
+        $ctrl.stopCheckAccessTokenStatus();
         CredentialsService.set(access_token);
         $ctrl.buildTypes();
-        $ctrl.nextStep();
-        document.location.reload();
+        $ctrl.state = $ctrl.step2state(4);
     };
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
-        if (stopTimeout) {
-            return stopTimeout = null;
-        }
-
         IdentityService.checkAccessToken(access_token).then((res) => {
             if (res.data.message == 'active') {
                 $ctrl.applyAccessToken(access_token);
             } else if (res.data.message == 'pending') {
-                timeout = $timeout(function() {
+                timeout = $timeout(function () {
                     $ctrl.checkAccessTokenStatus(type, access_token);
                 }, 2500);
             } else {
                 document.location.reload();
             }
         });
+    };
+
+    $ctrl.stopCheckAccessTokenStatus = () => {
+        if (timeout) {
+            $timeout.cancel(timeout);
+        }
     };
 
     $ctrl.requestAuthQrToken = () => {
@@ -266,7 +273,7 @@ let FundRequestComponentDefault = function(
     };
 
     $ctrl.updateEligibility = () => {
-        let validators = $ctrl.fund.validators.map(function(validator) {
+        let validators = $ctrl.fund.validators.map(function (validator) {
             return validator.identity_address;
         });
 
@@ -293,9 +300,12 @@ let FundRequestComponentDefault = function(
 
         $ctrl.invalidCriteria = JSON.parse(JSON.stringify(
             invalidCriteria
-        )).map(criteria => {
-            criteria.files = [];
-            return criteria;
+        )).map(criterion => {
+            criterion.files = [];
+            criterion.description_html = $sce.trustAsHtml(
+                criterion.description_html
+            );
+            return criterion;
         });
 
         $ctrl.invalidCriteria = $ctrl.invalidCriteria.map(criterion => {
@@ -349,16 +359,24 @@ let FundRequestComponentDefault = function(
 
     $ctrl.step2state = (step) => {
         if (step == 1 && !$ctrl.signedIn) {
+            return 'welcome';
+        }
+
+        if (step == 2 && !$ctrl.signedIn) {
             return 'auth';
         }
 
-        if (step == 2 && !$ctrl.signedIn && (
+        if (step == 3 && !$ctrl.signedIn && (
                 $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
             )) {
             return 'auth_email_sent';
         }
 
-        if ((step == 2 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
+        // if ((step == 4 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
+        //     return 'criterias';
+        // }
+
+        if ((step == 4 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
             return 'criteria';
         }
 
@@ -375,7 +393,7 @@ let FundRequestComponentDefault = function(
         return $q((resolve, reject) => {
             RecordService.list().then(res => {
                 $ctrl.records = res.data;
-                $ctrl.records.forEach(function(record) {
+                $ctrl.records.forEach(function (record) {
                     if (!$ctrl.recordsByKey[record.key]) {
                         $ctrl.recordsByKey[record.key] = [];
                     }
@@ -409,10 +427,6 @@ let FundRequestComponentDefault = function(
 
     $ctrl.updateState = () => {
         $ctrl.state = $ctrl.step2state($ctrl.step);
-
-        if ($ctrl.state == 'auth') {
-            $ctrl.requestAuthQrToken();
-        }
     };
 
     $ctrl.prepareRecordTypes = () => {
@@ -437,9 +451,9 @@ let FundRequestComponentDefault = function(
         });
     };
 
-    $ctrl.applyFund = function(fund) {
+    $ctrl.applyFund = function (fund) {
         return $q((resolve, reject) => {
-            FundService.apply(fund.id).then(function(res) {
+            FundService.apply(fund.id).then(function (res) {
                 PushNotificationsService.success(sprintf(
                     'Fund "%s" voucher received.',
                     $ctrl.fund.name
@@ -453,10 +467,11 @@ let FundRequestComponentDefault = function(
         });
     };
 
-    $ctrl.$onInit = function() {
+    $ctrl.$onInit = function () {
         $ctrl.signedIn = AuthService.hasCredentials();
         $ctrl.initAuthForm();
         $ctrl.prepareRecordTypes();
+        // $ctrl.requestAuthQrToken();
 
         if ($ctrl.signedIn) {
             $ctrl.buildTypes().then(() => {
@@ -495,6 +510,14 @@ let FundRequestComponentDefault = function(
 
         $ctrl.updateState();
     };
+
+    $ctrl.goToMain = () => {
+        $state.go('home');
+    }
+
+    $ctrl.$onDestroy = function () {
+        $ctrl.stopCheckAccessTokenStatus();
+    };
 };
 
 let FundRequestComponentAuto = require('./FundRequestAutoComponent');
@@ -507,6 +530,7 @@ module.exports = {
     },
     controller: [
         '$q',
+        '$sce',
         '$state',
         '$stateParams',
         '$timeout',

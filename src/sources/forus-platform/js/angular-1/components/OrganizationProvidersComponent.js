@@ -15,16 +15,18 @@ let OrganizationProvidersComponent = function(
     $ctrl.loaded = false;
     $ctrl.filters = {
         show: false,
-        values: {
-            fund_id: $stateParams.fund_id || null,
-            allow_products: '',
-            allow_budget: '',
-            dismissed: false,
-        },
+        values: {},
+        reset: function () {
+            this.values.allow_products = '';
+            this.values.allow_budget = '';
+            this.values.dismissed = false;
+            this.values.q = '';
+            this.values.fund_id = $ctrl.fund.id;
+        }
     };
 
     $ctrl.resetFilters = () => {
-        $ctrl.filters.values.q = '';
+        $ctrl.filters.reset();
     };
 
     $ctrl.replaceProviderItems = (fundProvider, rawFundProvider) => {
@@ -110,12 +112,12 @@ let OrganizationProvidersComponent = function(
 
     $ctrl.updateProvidersList = function() {
         $scope.onPageChange({
-            fund_id: $stateParams.fund_id,
+            fund_id: $ctrl.fund.id,
             page: $ctrl.fundProviders.meta.current_page
         });
     };
 
-    $scope.onPageChange = async (query) => {
+    $scope.onPageChange = (query) => {
         return $q((resolve, reject) => {
             OrganizationService.listProviders(
                 $stateParams.organization_id,
@@ -171,21 +173,21 @@ let OrganizationProvidersComponent = function(
         return providers.map(provider => $ctrl.transformProvider(provider));
     };
 
-    $ctrl.$onInit = function() {
+    $ctrl.init = () => {
         $ctrl.resetFilters();
 
-        $scope.onPageChange().then(() => {
-            $timeout(() => {
-                $ctrl.loaded = true;
-            }, 0);
+        $scope.onPageChange($ctrl.filters.values);
+    };
 
-            if ($ctrl.funds.length == 1) {
-                $state.go('organization-providers', {
-                    organization_id: $stateParams.organization_id,
-                    fund_id: $ctrl.funds[0].id
-                });
-            }
-        });
+    $ctrl.onFundSelect = (fund) => {
+        $ctrl.fund = fund;
+        $ctrl.init();
+    }; 
+
+    $ctrl.$onInit = function() {
+        if ($ctrl.fund) {
+            $ctrl.init();
+        }
     };
 };
 

@@ -1,43 +1,68 @@
-header.app.app-header
+header.app.app-header(ng-if="$root.auth_user")
     .wrapper
-        a(ui-sref="home").header-logo
+        a(ui-sref="home" ng-if="!$root.activeOrganization").header-logo
             img(ng-src="./assets/img/logo.svg").header-logo-img
 
+        .header-organization-switcher(ng-if="$root.activeOrganization" ng-class="{active:$root.showOrganizationsMenu}")
+            .organization-preview(ng-click="$root.openOrganizationsMenu($event)")
+
+                img.organization-logo(
+                    ng-src="{{ $root.activeOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
+                .organization-name(ng-bind="$root.activeOrganization.name")
+                .organization-switcher-arrow
+
+            .organization-switcher-menu(
+                ng-if="$root.showOrganizationsMenu"
+                click-outside="$root.hideOrganizationsMenu()")
+                
+                .organization-switcher-menu-group: .organization-switcher-menu-organizations
+                    .organization-switcher-menu-organization(
+                        ng-repeat="organization in organizations"
+                        ng-if="organization.id != $root.activeOrganization.id"
+                        ng-click="$root.chooseOrganization(organization)"
+                        ng-class="{'active' : organization.id == $root.activeOrganization.id}")
+                        img.organization-logo(
+                            ng-src="{{ organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
+                        .organization-name(ng-bind="organization.name")
+                    
+                .organization-switcher-separator
+
+                .organization-switcher-menu-group: .organization-switcher-settings
+                    .organization-switcher-setting(
+                        ng-if="$root.activeOrganization | hasPerm:'manage_organization'"
+                        ng-click="$root.organizationEdit($root.activeOrganization)")
+                        .em.mdi.mdi-cogs.organization-switcher-setting-icon
+                        .organization-switcher-setting-name(translate="organizations.buttons.edit")
+                    
+                    .organization-switcher-setting(ng-click="$root.organizationCreate()")
+                        .em.mdi.mdi-plus-circle.organization-switcher-setting-icon
+                        .organization-switcher-setting-name(translate="organizations.buttons.add")
+
         .header-auth(ng-if="$root.auth_user")
-            .auth-user(ng-click="$ctrl.openUserMenu($event)")
+            .auth-user(ng-click="$root.openUserMenu($event)")
                 .auth-user-details
-                    .auth-user-name {{ $root.auth_user.primary_email }}
+                    .auth-user-name {{ $root.auth_user.email }}
                     .auth-user-role
-                        span(ng-bind="$root.activeOrganization.name")
-                        span.auth-user-role-separator(ng-if="$root.activeOrganization.name") •
-                        span(ng-bind="{provider: 'Aanbieder', sponsor: 'Sponsor', validator: 'Validator'}[appConfigs.panel_type]")
+                        //- span(ng-bind="$root.activeOrganization.name")
+                        //- span.auth-user-role-separator(ng-if="$root.activeOrganization.name") •
+                        span(ng-bind="{provider: 'Aanbieder', sponsor: 'Sponsor', validator: 'Validator'}[$root.appConfigs.panel_type]")
                 
                 img(ng-src="{{ $root.activeOrganization ? ($root.activeOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png') : './assets/img/placeholders/organization-thumbnail.png'}} ").auth-user-img
                                 
-                .auth-user-caret    
-                    em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
+                .auth-user-caret: em(ng-class="$root.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
                 
-                .auth-user-menu(ng-if="$ctrl.userMenuOpened" click-outside="$ctrl.hideUserMenu()")
-                    //- a(href="#").auth-user-menu-item
-                        em.mdi.mdi-account
-                        | My profile
-
-                    a(ui-sref="organizations-edit($root.activeOrganization)" ng-if="$root.activeOrganization | hasPerm:'manage_organization'").auth-user-menu-item
-                        em.mdi.mdi-settings
-                        | Organisatie
-
-                    a(ui-sref="organizations-create").auth-user-menu-item
-                        em.mdi.mdi-plus
-                        translate(translate="organizations.buttons.add")
-
-                    a(ui-sref="preferences-notifications").auth-user-menu-item
-                        em.mdi.mdi-settings-outline
-                        translate(translate="organizations.buttons.notifications_preferences")
+                .auth-user-menu(ng-if="$root.userMenuOpened" click-outside="$root.hideUserMenu()")
+                    a(ui-sref="identity-emails" ng-if="$root.appConfigs.sessions && !$root.activeOrganization").auth-user-menu-item
+                        em.mdi.mdi-at
+                        | Email instellingen
                     
-                    a(ng-if="appConfigs.sessions" ui-sref="security-sessions").auth-user-menu-item
+                    a(ui-sref="security-sessions" ng-if="$root.appConfigs.sessions && !$root.activeOrganization" ).auth-user-menu-item
                         em.mdi.mdi-shield-account
-                        //- translate(translate="topnavbar.buttons.sessions")
-                        | Security
+                        | Sessies
+
+                    a(ui-sref="preferences-notifications" ng-if="!$root.activeOrganization").auth-user-menu-item
+                        em.mdi.mdi-cog-outline
+                        | Notificaties
 
                     .auth-user-menu-item(ng-click="$root.openPinCodePopup()")
                         em.mdi.mdi-cellphone
@@ -49,26 +74,3 @@ header.app.app-header
                         em.mdi.mdi-logout
                         //- translate(translate="topnavbar.buttons.logour")
                         | Uitloggen
-
-        //- .notifications(ng-if="$root.auth_user")
-            .notifications-icon.mdi.mdi-bell
-            .notifications-menu: .notifications-menu-inner
-                .arrow-box: .arrow
-                .notifications-menu-header
-                    | Notifications
-                    .notifications-menu-header-link
-                        | View all
-                        em.mdi.mdi-arrow-right
-                .notifications-menu-body.nano
-                    .nano-content
-                        mixin notification_item(icon, text, date)
-                            .notifications-menu-item
-                                img(src="./assets/img/note-icons/note-icon-" + icon + ".jpg").notifications-menu-item-icon
-                                .notifications-menu-item-text=text
-                                .notifications-menu-item-date=date
-
-                        +notification_item('quote', 'Payment succeeded', 'Jan 23, 12:26 AM')
-                        +notification_item('quote', 'Payment declined by customer\'s bank The bank returned the decline code do...', 'Jan 23, 12:26 AM')
-                        +notification_item('quote', 'Stripe risk evaluation: normal', 'Jan 23, 12:26 AM')
-                        +notification_item('quote', 'Lorem ipsum dolor sit amet, consectet...', 'Jan 23, 12:26 AM')
-                        +notification_item('quote', 'Lorem ipsum dolor sit amet, consectet...', 'Jan 23, 12:26 AM')
