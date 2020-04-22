@@ -1418,7 +1418,10 @@ module.exports = {
             details: "Bekijk transactiedetails",
             results: "x resultaten",
             payment: "Betaling -",
-
+            providers: "Aanbieders",
+            your_employees: "Uw medewerkers",
+            applicants: "Aanvragers",
+            employees: "medewerkers"
         },
         confirm_delete:{
             title: 'Weet u zeker dat u dit fonds wilt verwijderen?',
