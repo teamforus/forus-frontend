@@ -6,22 +6,23 @@
     border-radius: 0;
     text-transform: lowercase;
     &.button-default {
-        background-color: $color_primary;
+        background-color: #FFF;
         border: 1px solid transparent;
-        color: $tc-var;
+        border-color: #000;
+        color: #000;
 
         .mdi {
-            color: $tc-var;
+            color: #000;
         }
 
         &:hover {
-            background-color: #fff;
-            border: 1px solid $color_primary;
-            color:  $tc;
+            background-color: #FF0031;
+            border: 1px solid #470000;
+            color:  #FFF;
             text-decoration: underline;
             box-shadow: none;
             .mdi {
-                color: $tc;
+                color: #FFF;
             }
         }
     }
@@ -37,6 +38,11 @@
             box-shadow: none;
             border: 1px solid $color-default;
         }
+    }
+    &.button-wide {
+        background-color: #FFF;
+        color: #000;
+        border-color: #000;
     }
     &.button-two-spans{
         display: flex !important;
