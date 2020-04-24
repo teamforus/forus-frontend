@@ -5827,6 +5827,114 @@ $colorPrimaryLight: $color_primary_light;
         }
     }
 
+    &.modal-photo-upload {
+        .modal-title {
+            font: 500 21px/29px $bf;
+            text-align: center;
+            color: #191A1C;
+            margin-bottom: 10px;
+        }
+
+        .modal-description {
+            font: 500 15px/22px $bf;
+            text-align: center;
+            color: #454545;
+        }
+
+        .modal-window {
+            .modal-body {
+                border-radius: 12px;
+
+                .modal-photo-upload {
+                    display: flex;
+                    flex-direction: column;
+                    background-color: #fff;
+
+                    .modal-content {
+                        background: none;
+                        box-shadow: none;
+                        padding: 30px 30px 0px;
+
+                        .photo-upload-crop {
+                            width: 100%;
+                            padding: 18px;
+                            border: none;
+                            background: none;
+                            
+                            .crop-control {
+                                width: 70%;
+
+                                .crop-control-ratio {
+                                    max-height: 400px;
+                                }
+                            }
+    
+                            .crop-control-preview {
+                                width: 30%;
+                            }
+                        }
+                    }
+
+                    .photo-upload-details {
+                        width: 100%;
+
+                        .photo-upload-body-details {
+                            font: 500 13px/19px $bf;
+                            align-items: center;
+                            text-align: center;
+                            color: #5E636B;
+                        }
+
+                        .photo-upload-footer {
+                            .button {
+                                &.button-cancel {
+                                    color: #3561FF;
+                                }
+
+                                &.button-upload {
+                                    color: #3561FF;
+                                    background: none;
+                                    border-color: #3561FF;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.modal-employee-add {
+        .modal-window {
+            border-radius: 12px;
+            padding: 34px;
+
+            .modal-title {
+                font: 500 21px/29px $bf;
+                text-align: center;
+                color: #191A1C;
+                margin-bottom: 10px;
+            }
+
+            .modal-description {
+                font: 400 15px/22px $bf;
+                text-align: center;
+                color: #454545;
+                margin-bottom: 22px;
+            }
+
+            .modal-actions {
+                text-align: center;
+
+                .button-cancel {
+                    color: #3561FF;
+                    background: none;
+                    border-color: #3561FF;
+                }
+            }
+        }
+    }
+
     @media screen and (max-width: 1500px) {
         .modal-content {
             width: 1000px;
