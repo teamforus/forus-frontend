@@ -9,7 +9,7 @@ let PdfPreviewDirective = function($scope, $element) {
     let numPages = 0;
     let thePDF = null;
 
-    $scope.rawPdfFile.arrayBuffer().then(buffer => {
+    new Response($scope.rawPdfFile).arrayBuffer().then(buffer => {
         // Asynchronous download of PDF
         var loadingTask = pdfjsLib.getDocument({
             data: buffer
