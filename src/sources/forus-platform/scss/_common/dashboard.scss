@@ -29,7 +29,12 @@
 
 // blocks
 .block {
+    @import 'blocks/block-funds';
     @import 'blocks/block-sessions';
+    @import 'blocks/block-critera-editor';
+    @import 'blocks/block-card-toggleable';
+    @import 'blocks/block-external-validators';
+    @import 'blocks/block-danger_zone';
     @import '../../../forus-webshop/scss/_common/sections/blocks/block-sign_up';
 }
 
@@ -226,20 +231,26 @@ $colorPrimaryLight: $color_primary_light;
                 .organization-switcher-menu-organization {
                     display: flex;
                     padding: 7.5px 10px;
-
-                    &:hover, &.active {
-                        .organization-name {
-                            color: #004195;
-                        }
-                    }
-
-                    &:hover {
-                        background-color: #f1f4f7;
+                    transition: color .4s, background .4s;
+                        
+                    .organization-name {
+                        transition: color .4s, background .4s;
                     }
 
                     &.active {
+                        background: $color_primary_light;
+                        
                         .organization-name {
                             font-weight: 600;
+                            color: #fff;
+                        }
+                    }
+
+                    &:hover:not(.active) {
+                        background-color: #f1f4f7;
+
+                        .organization-name {
+                            color: #004195;
                         }
                     }
                 }

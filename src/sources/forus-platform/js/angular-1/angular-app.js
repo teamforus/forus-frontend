@@ -3,8 +3,8 @@ require('./modules/page-loading-bar/PageLoadingBarModule');
 require('../../../forus-webshop/js/angular-1/modules/ui-controls/UIControlsModule');
 
 let app = angular.module('forusApp', [
-    'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 
-    'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize', 
+    'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper',
+    'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize',
     'forus.uiControls', 'forus.pageLoadingBarModule',
 ]);
 
@@ -45,6 +45,8 @@ app.component('emailPreferencesComponent', require('./components/EmailPreference
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
 app.component('fundProviderInviteComponent', require('./components/FundProviderInviteComponent'));
 app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
+app.component('externalValidatorsComponent', require('./components/ExternalValidatorsComponent'));
+app.component('externalFundsComponent', require('./components/ExternalFundsComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -68,6 +70,7 @@ app.component('modalFundOffersComponent', require('./components/Modals/ModalFund
 app.component('modalBusinessSelectComponent', require('./components/Modals/ModalBusinessSelectComponent'));
 app.component('modalCreatePrevalidationComponent', require('./components/Modals/ModalCreatePrevalidationComponent'));
 app.component('modalVoucherExportTypeComponent', require('./components/Modals/ModalVoucherExportTypeComponent'));
+app.component('modalDangerZoneComponent', require('./components/Modals/ModalDangerZoneComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -118,23 +121,11 @@ app.service('SignUpService', require('./services/SignUpService'));
 app.service('IdentityEmailsService', require('./services/IdentityEmailsService'));
 
 // Directives
-switch (env_data.panel_type) {
-    case 'sponsor':
-        {
-            app.directive('menu', require('./directives/MenuSponsorDirective'));
-        };
-        break;
-    case 'provider':
-        {
-            app.directive('menu', require('./directives/MenuProviderDirective'));
-        };
-        break;
-    case 'validator':
-        {
-            app.directive('menu', require('./directives/MenuValidatorDirective'));
-        };
-        break;
-}
+app.directive('menu', {
+    sponsor: require('./directives/MenuSponsorDirective'),
+    provider: require('./directives/MenuProviderDirective'),
+    validator: require('./directives/MenuValidatorDirective'),
+} [env_data.panel_type]);
 
 app.directive('fundSelector', require('./directives/FundSelectorDirective'));
 app.directive('fundCardSponsor', require('./directives/FundCardSponsorDirective'));
@@ -177,6 +168,8 @@ app.directive('pdfPreview', require('./directives/PdfPreviewDirective'));
 app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
 app.directive('fundCardInvitationProvider', require('./directives/FundCardInvitationProviderDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
+app.directive('fundCriteriaEditor', require('./directives/FundCriteriaEditorDirective'));
+app.directive('fundCriteriaEditorItem', require('./directives/FundCriteriaEditorItemDirective'));
 
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 
@@ -222,7 +215,7 @@ app.config(require('./config/api-service'));
 app.config(require('./config/i18n'));
 app.config(['$compileProvider', function($compileProvider) {
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript):/);
-}])
+}]);
 
 app.run(require('./routers/router-transitions'));
 

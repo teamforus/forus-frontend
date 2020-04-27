@@ -1,0 +1,43 @@
+.app.app-container(ng-if="$root.activeOrganization && $root.auth_user && $ctrl.validatorOrganizations")
+    menu
+    section.app.app-content
+        .card-heading Shortlisted validators
+
+        .block.block-external-validators
+            .validator-item(ng-repeat="organization in $ctrl.validatorOrganizations.data")
+                .validator-logo: img(
+                    ng-src="{{ organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}"
+                    ).validator-logo-img
+                .validator-details
+                    .validator-title(ng-click="organization.show_details = !organization.show_details")
+                        .validator-title-toggle.mdi(ng-class="organization.show_details ? 'mdi-menu-up' : 'mdi-menu-down'")
+                        span(ng-bind="organization.name")
+                    .validator-properties(ng-if="organization.show_details")
+                        .validator-property(ng-if="organization.email_public")
+                            .validator-property-label E-mail
+                            .validator-property-value.text-primary-light(ng-bind="organization.email")
+                        .validator-property(ng-if="organization.phone_public")
+                            .validator-property-label Telefonnummer
+                            .validator-property-value(ng-bind="organization.phone")
+                        .validator-property(ng-if="organization.website_public")
+                            .validator-property-label Website
+                            .validator-property-value.text-primary-light(ng-bind="organization.website")
+
+                .validator-actions(ng-if="organization.id != $ctrl.organization.id")
+                    .button.button-primary(
+                        ng-if="!organization.approved"
+                        ng-click="$ctrl.addExternalValidator(organization)")
+                        em.mdi.mdi-check-circle.icon-start
+                        | Toevoegen
+                    
+                    .button.button-default(
+                        ng-if="organization.approved"
+                        ng-click="$ctrl.removeExternalValidator(organization)")
+                        em.mdi.mdi-close.icon-start
+                        | Verwijderen
+
+        .card(ng-if="$ctrl.validatorOrganizations.meta.total > 0" ng-show="$ctrl.validatorOrganizations.meta.last_page > 1"): .card-section
+                paginator(meta="$ctrl.validatorOrganizations.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
+
+        div(ng-if="$ctrl.validatorOrganizations.meta.total == 0")
+            block-empty(text="No validators available." )

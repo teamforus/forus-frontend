@@ -25,6 +25,11 @@ aside.app.app-sidebar
             "Aanmeldingen", "clock", 'fund-requests', 
             '{organization_id: $root.activeOrganization.id}', 
             '$root.appConfigs.features.organizations.funds.fund_requests')
+        
+        +nav_item(
+            "Funds validations", "fund_validations", 'external-funds', 
+            '{organization_id: $root.activeOrganization.id}',
+            '$root.activeOrganization | hasPerm:["manage_organization"]')
 
         .sidebar-nav-devider(ng-if="$root.activeOrganization")
 

@@ -70,7 +70,8 @@ let FundProviderComponent = function(
                 $ctrl.products = {
                     meta: res.data.meta,
                     data: $ctrl.transformProductsList(res.data.data),
-                }
+                };
+                
                 resolve($ctrl.products = res.data);
             }, reject);
         });

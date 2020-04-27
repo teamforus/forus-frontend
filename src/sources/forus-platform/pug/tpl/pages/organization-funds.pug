@@ -2,19 +2,123 @@
     menu
     section.app.app-content
         .card-heading 
-            span(translate="funds_my.title")
+            translate(translate="components.organization_funds.title")
             a(
                 ui-sref="funds-create({organization_id: $root.activeOrganization.id})"
                 ng-if='$root.activeOrganization | hasPerm:["manage_funds"]').link
                 em.mdi.mdi-plus-circle
-                | {{ "funds_my.add" | i18n }}
+                translate(translate="components.organization_funds.buttons.add")
                 span(ng-bind="' (' + $ctrl.funds.length + ')'")
-        
-        fund-card-sponsor(
-            ng-if="$ctrl.funds.length > 0" 
-            ng-repeat="fund in $ctrl.funds" 
-            fund="fund" invite-providers="$ctrl.funds.length > 1" organization="$ctrl.organization" level="$ctrl.fundLevel")
-        
+
+        .block.block-funds
+            .fund-item(ng-repeat="fund in $ctrl.funds")
+                .fund-item-section: .flex-col
+                    .flex-row
+                        .fund-logo: img(
+                            ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}"
+                            ).fund-logo-img
+                        .fund-details
+                            .fund-title
+                                span(ng-bind="fund.name")
+                                
+                                .tag.tag-success.tag-sm(
+                                    ng-if="fund.state == 'active'" 
+                                    translate="components.organization_funds.states.active")
+                                
+                                .tag.tag-warning.tag-sm(
+                                    ng-if="fund.state == 'paused'" 
+                                    translate="components.organization_funds.states.paused")
+                                
+                                .tag.tag-default.tag-sm(
+                                    ng-if="fund.state == 'closed'" 
+                                    translate="components.organization_funds.states.closed")
+
+                        .fund-actions
+                            .button.button-default(
+                                ng-if="(fund.organization | hasPerm:'manage_funds')"
+                                ui-sref="funds-edit(fund)")
+                                em.mdi.mdi-cog.icon-start
+                                translate(translate="components.organization_funds.buttons.edit")
+                    
+                            .button.button-danger(
+                                ng-if="(fund.organization | hasPerm:'manage_funds') && fund.state == 'waiting'" 
+                                ng-click="$ctrl.deleteFund(fund)").button.button-danger
+                                em.mdi.mdi-delete.icon-start
+                                translate(translate="components.organization_funds.buttons.delete")
+
+                    .flex-row.flex-end: .fund-remaining
+                        .fund-remaining-label(translate="components.organization_funds.labels.remaining") 
+                        .fund-remaining-value(ng-bind="fund.budget.total - fund.budget.used | currency_format")
+                    
+                    .flex-row
+                        .flex-col: .flex-row.flex-start
+                            .button.button-default(ng-click="$ctrl.toggleFundCriteria(fund)")
+                                em.mdi.mdi-toggle-switch.icon-start
+                                translate(translate="components.organization_funds.buttons.criteria")
+                            
+                            .button.button-default(ng-click="$ctrl.toggleFundStats(fund)")
+                                em.mdi.mdi-poll.icon-start
+                                translate(translate="components.organization_funds.buttons.statistics")
+                        
+                        .flex-col: .flex-row.flex-end
+                            .button.button-primary(
+                                ng-if="fund.key && fund.state != 'closed'" 
+                                ng-click="$ctrl.topUpModal(fund)")
+                                em.mdi.mdi-plus-circle.icon-start
+                                translate(translate="components.organization_funds.buttons.top_up")
+                
+                .fund-item-section.fund-item-section-primary.fund-item-section-with-arrow.form(ng-if="fund.show_criteria")
+                    fund-criteria-editor(
+                        fund="fund" 
+                        organization="fund.organization" 
+                        criteria="fund.form.criteria" 
+                        record-types="$ctrl.recordTypes" 
+                        save-button='true'
+                        on-save-criteria='$ctrl.onSaveCriteria(fund)'
+                        validator-organizations="$ctrl.validatorOrganizations.data")
+                
+                .fund-item-section.fund-item-section-warning.fund-item-section-with-arrow(ng-if="fund.show_stats")
+                    .card-block.card-block-keyvalue.card-block-keyvalue-horizontal.row
+                        .keyvalue-item.col.col-lg-2(
+                            ng-click="$ctrl.goToEmployeePage(fund)")
+                            .keyvalue-key Uw medewerkers
+                            .keyvalue-value
+                                span(ng-bind="fund.sponsor_count")
+                                span.icon.mdi.mdi-account-multiple-plus
+
+                        .keyvalue-item.col.col-lg-2(
+                            ng-class="{'keyvalue-item-disabled': !fund.canInviteProviders}" 
+                            ng-click="$ctrl.inviteProvider(fund)")
+                            .keyvalue-key Aanbieders
+                            .keyvalue-value
+                                span(ng-bind="fund.provider_employees_count")
+                                span.icon.mdi.mdi-account-multiple-plus(ng-if="fund.canInviteProviders")
+
+                        .keyvalue-item.col.col-lg-2(
+                            ng-class="{'keyvalue-item-disabled': !fund.canAccessFund}" 
+                            ng-click="$ctrl.goToCSVValiationPage(fund)")
+                            .keyvalue-key Aanvragers
+                            .keyvalue-value
+                                span(ng-bind="fund.requester_count")
+                                span.icon.mdi.mdi-account-multiple-plus(ng-if="fund.canAccessFund") 
+            
+                .fund-item-section.fund-item-section-primary(ng-if="fund.show_stats")
+                    .card-block.card-block-keyvalue.card-block-keyvalue-horizontal.row
+                        .keyvalue-item.col.col-lg-2
+                            .keyvalue-key Gestort
+                            .keyvalue-value
+                                span(ng-bind="fund.budget.total | currency_format")
+                        
+                        .keyvalue-item.col.col-lg-2
+                            .keyvalue-key Gebruikt
+                            .keyvalue-value
+                                span(ng-bind="fund.budget.used | currency_format")
+                        
+                        .keyvalue-item.col.col-lg-2
+                            .keyvalue-key Resterend
+                            .keyvalue-value
+                                span(ng-bind="fund.budget.total - fund.budget.used | currency_format")
+
         div(ng-if="$ctrl.funds.length == 0")
             block-empty(
                 ng-if="($root.activeOrganization | hasPerm:'manage_funds')"

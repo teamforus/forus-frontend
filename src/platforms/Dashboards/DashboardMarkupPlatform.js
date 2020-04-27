@@ -16,10 +16,11 @@ platform.editTask('pug', (task) => {
     task.src = "markup/*.pug";
     task.path = "/markup";
     task.watch = [
-        "layout/**/*.pug"
+        "layout/**/*.pug",
+        "markup/**/*.pug"
     ];
 
-    return task
+    return task;
 });
 
 // tweak js configs
@@ -42,7 +43,7 @@ platform.editTask('scss', (task) => {
         "general/**/*.scss"
     ];
 
-    return task
+    return task;
 });
 
 // change server port

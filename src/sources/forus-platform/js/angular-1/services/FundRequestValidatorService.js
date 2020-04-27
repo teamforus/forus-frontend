@@ -4,7 +4,7 @@ let FundRequestValidatorService = function(ApiRequest) {
     let uriPrefix = '/platform/organizations/%s/funds/%s/requests';
     let uriPrefixAll = '/platform/organizations/%s/requests';
 
-    return new(function() {
+    let FundRequestValidatorService = function() {
         this.indexAll = function(organziation_id, data = {}) {
             return ApiRequest.get(sprintf(uriPrefixAll, organziation_id), data);
         };
@@ -31,20 +31,36 @@ let FundRequestValidatorService = function(ApiRequest) {
             return ApiRequest.get(
                 sprintf(uriPrefix + '/%s', organziation_id, fund_id, request_id)
             );
-        }
+        };
 
-        this.approve = function(organziation_id, fund_id, request_id) {
+        this.assign = function(organziation_id, fund_id, request_id, employee_id) {
             return ApiRequest.patch(
-                sprintf(uriPrefix + '/%s', organziation_id, fund_id, request_id), {
-                    state: 'approved'
+                sprintf(uriPrefix + '/%s/assign', organziation_id, fund_id, request_id), {
+                    employee_id: employee_id
                 }
             );
         };
 
-        this.decline = function(organziation_id, fund_id, request_id) {
+        this.resign = function(organziation_id, fund_id, request_id, employee_id) {
             return ApiRequest.patch(
-                sprintf(uriPrefix + '/%s', organziation_id, fund_id, request_id), {
-                    state: 'declined'
+                sprintf(uriPrefix + '/%s/resign', organziation_id, fund_id, request_id), {
+                    employee_id: employee_id
+                }
+            );
+        };
+
+        this.approve = function(organziation_id, fund_id, request_id, employee_id) {
+            return ApiRequest.patch(
+                sprintf(uriPrefix + '/%s/approve', organziation_id, fund_id, request_id), {
+                    employee_id: employee_id
+                }
+            );
+        };
+
+        this.decline = function(organziation_id, fund_id, request_id, employee_id) {
+            return ApiRequest.patch(
+                sprintf(uriPrefix + '/%s/decline', organziation_id, fund_id, request_id), {
+                    employee_id: employee_id
                 }
             );
         };
@@ -82,23 +98,9 @@ let FundRequestValidatorService = function(ApiRequest) {
                 }
             );
         };
+    };
 
-        this.assign = function(organziation_id, fund_id, request_id, employee_id) {
-            return ApiRequest.patch(
-                sprintf(uriPrefix + '/%s', organziation_id, fund_id, request_id), {
-                    employee_id: employee_id
-                }
-            );
-        };
-
-        this.resign = function(organziation_id, fund_id, request_id) {
-            return ApiRequest.patch(
-                sprintf(uriPrefix + '/%s', organziation_id, fund_id, request_id), {
-                    employee_id: null
-                }
-            );
-        };
-    });
+    return new FundRequestValidatorService();
 };
 
 module.exports = [

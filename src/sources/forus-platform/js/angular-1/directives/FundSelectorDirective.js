@@ -8,7 +8,7 @@ let FundSelectorDirective = function (
         $scope.selectFund($scope.funds.filter(
             fund => fund.id == fundId
         )[0] || $scope.funds[0] || null);
-    }
+    };
 
     $scope.selectFund = fund => {
         localStorage.setItem(storageKey, fund ? fund.id : null);

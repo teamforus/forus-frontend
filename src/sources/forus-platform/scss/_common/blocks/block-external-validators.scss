@@ -1,0 +1,87 @@
+&.block-external-validators {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    .validator-item {
+        background: #ffffff;
+        box-shadow: 0px 0px 5px rgba(25, 39, 52, 0.22);
+        border-radius: $border_radius / 2;
+        margin-bottom: 20px;
+        padding: 15px 20px;
+        display: flex;
+        flex-direction: row;
+
+        .validator-logo {
+            @include ellipsis();
+
+            .validator-logo-img {
+                display: block;
+                width: 60px;
+                height: 60px;
+                border-radius: 60px;
+                border: 1px solid $borderColor;
+            }
+        }
+
+        .validator-details {
+            @include ellipsis();
+            padding: 15px;
+            flex-grow: 1;
+
+            .validator-title {
+                font: 600 16px/30px $bf;
+                margin: 0 0 15px;
+                display: flex;
+                cursor: pointer;
+
+                .validator-title-toggle {
+                    font-size: 25px;
+                    margin-right: 5px;
+                    line-height: 30px;
+                    color: #646F79;
+                    transition: color .4s;
+                }
+
+                &:hover {
+                    .validator-title-toggle {
+                        color: $color_primary;
+                    }
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            .validator-properties {
+                display: block;
+                @include cf();
+                
+                .validator-property {
+                    width: 30%;
+                    float: left;
+
+                    .validator-property-label {
+                        margin: 0 0 5px;
+                        font: 600 11px $bf;
+                        color: $color_primary;
+                    }
+
+                    .validator-property-value {
+                        margin: 0 0;
+                        font: 600 14px $bf;
+                    }
+                }
+            }
+        }
+
+        .validator-actions {
+            padding: 12px 0 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

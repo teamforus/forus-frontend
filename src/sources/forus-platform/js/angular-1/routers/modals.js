@@ -86,4 +86,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('voucherExportType', {
         component: 'modalVoucherExportTypeComponent'
     });
+
+    ModalRouteProvider.modal('dangerZone', {
+        component: 'modalDangerZoneComponent'
+    });
 }];

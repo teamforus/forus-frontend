@@ -1,0 +1,32 @@
+&.block-danger_zone {
+    display: flex;
+    flex-direction: column;
+
+    .danger_zone-title {
+        font: 600 16px/30px $bf;
+        padding: 5px 15px;
+        color: #282B39;
+        margin: 0 0 25px;
+        border: 1px solid $bec;
+        border-radius: $border_radius;
+        background: #fff;
+
+        .mdi {
+            float: left;
+            color: $bec;
+            font-size: 20px;
+            line-height: 30px;
+            margin: 0 5px 0 0;
+        }
+    }
+
+    .danger_zone-description {
+        font: 500 14px/20px $bf;
+        color: #646F79;
+        margin: 0 0 20px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

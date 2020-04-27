@@ -1,0 +1,58 @@
+.app.app-container(ng-if="$root.activeOrganization && $root.auth_user && $ctrl.funds")
+    menu
+    section.app.app-content
+        .card-heading: .flex-row
+            .flex-col Validators
+            .flex-col.text-right.form: .flex-row
+                .flex-col.flex-grow: label.form-label(for="auto_validate") Auto accept
+                .flex-col: label.form-toggle(for="auto_validate").flex-end
+                    input(
+                        type="checkbox" 
+                        id="auto_validate"
+                        ng-model="$ctrl.auto_validate_form.values.validator_auto_accept_funds" 
+                        ng-change="$ctrl.auto_validate_form.submit()" )
+                    .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+
+        .card(ng-repeat="fund in $ctrl.funds.data")
+            .card-section
+                .card-section-actions: .tag.tag-success Active
+
+                .card-block.card-block-fund
+                    .fund-img: img(src="./assets/img/zuidhorn-logo.jpg", alt="")
+                    a(href="#" ng-bind="fund.name").fund-title
+                    br
+                    a(href="#" ng-bind="fund.organization").fund-organization
+            
+            .card-section: .form
+                .block.block-card-toggleable
+                    .block-title List of criterias
+
+                    .card-toggleable(ng-repeat="criterion in fund.criteria")
+                        label(for="option_{{ criterion.id }}" ng-bind="criterion.name").card-toggleable-label
+                        
+                        .button.button-primary(
+                            ng-if="!criterion.accepted"
+                            ng-click="$ctrl.acceptFundCriterion(fund, criterion)")
+                            em.mdi.mdi-check-circle.icon-start
+                            | Accept
+                        
+                        .button.button-default(
+                            ng-if="criterion.accepted"
+                            ng-click="$ctrl.declineFundCriterion(fund, criterion)")
+                            em.mdi.mdi-close.icon-start
+                            | Decline
+
+            .card-section.card-section-primary.text-right
+                a(ng-click="$ctrl.declineAll(fund)" ng-if="fund.showDeclineAll").button.button-default
+                    em.mdi.mdi-close.icon-start 
+                    | Decline all
+
+                a(ng-click="$ctrl.acceptAll(fund)" ng-if="fund.showAcceptAll").button.button-primary
+                    em.mdi.mdi-plus-circle.icon-start 
+                    | Accept all
+        
+        .card(ng-if="$ctrl.funds.meta.total > 0" ng-show="$ctrl.funds.meta.last_page > 1"): .card-section
+                paginator(meta="$ctrl.funds.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
+
+        div(ng-if="$ctrl.funds.meta.total == 0")
+            block-empty(text="No external funds available." )

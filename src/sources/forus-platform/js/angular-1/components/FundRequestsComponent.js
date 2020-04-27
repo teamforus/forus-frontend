@@ -128,13 +128,13 @@ let FundRequestsComponent = function(
             description: 'Een validatie kan niet ongedaan gemaakt worden. Kijk goed of u deze actie wilt verrichten.',
             confirm: (res) => {
                 FundRequestValidatorService.approveRecord(
-                    $ctrl.fundsById[request.fund_id].organization_id,
+                    request.fund.organization_id,
                     request.fund_id,
                     request.id,
                     requestRecord.id
                 ).then(() => {
                     $ctrl.reloadRequest(request);
-                    showInfoModal('Eigenschap gevalideert')
+                    showInfoModal('Eigenschap gevalideert');
                 }, res => showInfoModal('Fout: U kunt deze eigenschap op dit moment niet valideren', res.data.message));
             }
         });
@@ -142,7 +142,7 @@ let FundRequestsComponent = function(
 
     $ctrl.declineRecord = (request, requestRecord) => {
         ModalService.open('fundRequestRecordDecline', {
-            fund: $ctrl.fundsById[request.fund_id],
+            fund: request.fund,
             requestRecord: requestRecord,
             submit: (err) => {
                 if (err) {
@@ -153,14 +153,14 @@ let FundRequestsComponent = function(
                 }
 
                 $ctrl.reloadRequest(request);
-                showInfoModal('Eigenschap geweigerd.')
+                showInfoModal('Eigenschap geweigerd.');
             }
         });
     };
 
     $ctrl.clarifyRecord = (request, requestRecord) => {
         ModalService.open('fundRequestRecordClarify', {
-            fund: $ctrl.fundsById[request.fund_id],
+            fund: request.fund,
             requestRecord: requestRecord,
             submit: (err) => {
                 if (err) {
@@ -171,16 +171,17 @@ let FundRequestsComponent = function(
                 }
 
                 $ctrl.reloadRequest(request);
-                showInfoModal('Gelukt! Aanvullingsverzoek op aanvraag verstuurd.')
+                showInfoModal('Gelukt! Aanvullingsverzoek op aanvraag verstuurd.');
             }
         });
     };
 
     $ctrl.requestApprove = (request) => {
         FundRequestValidatorService.approve(
-            $ctrl.fundsById[request.fund_id].organization_id,
+            request.fund.organization_id,
             request.fund_id,
-            request.id
+            request.id,
+            $ctrl.employee.id
         ).then(() => {
             $ctrl.reloadRequest(request);
         }, (res) => {
@@ -189,13 +190,14 @@ let FundRequestsComponent = function(
                 'Reden: ' + res.data.message
             );
         });
-    }
+    };
 
     $ctrl.requestDecline = (request) => {
         FundRequestValidatorService.decline(
-            $ctrl.fundsById[request.fund_id].organization_id,
+            request.fund.organization_id,
             request.fund_id,
-            request.id
+            request.id,
+            $ctrl.employee.id
         ).then(() => {
             $ctrl.reloadRequest(request);
         }, (res) => {
@@ -204,16 +206,16 @@ let FundRequestsComponent = function(
                 'Reden:' + res.data.message
             );
         });
-    }
+    };
 
     $ctrl.requestAssign = (request) => {
         FundRequestValidatorService.assign(
-            $ctrl.fundsById[request.fund_id].organization_id,
+            request.fund.organization_id,
             request.fund_id,
             request.id,
             $ctrl.employee.id
         ).then(() => {
-            showInfoModal("Gelukt!", "U bent nu toegewezen aan deze aanvraag.")
+            showInfoModal("Gelukt!", "U bent nu toegewezen aan deze aanvraag.");
             $ctrl.reloadRequest(request);
         }, res => showInfoModal(
             "U kunt op dit moment geen aanvullingsverzoek doen.",
@@ -223,11 +225,12 @@ let FundRequestsComponent = function(
 
     $ctrl.requestResign = (request) => {
         FundRequestValidatorService.resign(
-            $ctrl.fundsById[request.fund_id].organization_id,
+            request.fund.organization_id,
             request.fund_id,
-            request.id
+            request.id,
+            $ctrl.employee.id
         ).then(() => {
-            showInfoModal("Gelukt!", "U heeft zich afgemeld van deze aanvraag, iemand anders kan deze aanvraag nu oppakken.")
+            showInfoModal("Gelukt!", "U heeft zich afgemeld van deze aanvraag, iemand anders kan deze aanvraag nu oppakken.");
             $ctrl.reloadRequest(request);
         }, res => showInfoModal(
             "Mislukt! U kunt u zelf niet van deze aanvraag afhalen.",
@@ -241,7 +244,17 @@ let FundRequestsComponent = function(
         }
 
         $ctrl.validatorRequests.data.forEach(request => {
-            request.self_assigned = request.employee_id == $ctrl.employee.id;
+            request.records.forEach(record => {
+                record.self_assigned = record.employee_id == $ctrl.employee.id;
+            });
+
+            request.has_assigned = request.records.filter(
+                record => record.self_assigned
+            ).length > 0;
+
+            request.has_available = request.records.filter(
+                record => record.available && !record.self_assigned
+            ).length > 0;
         });
     };
 

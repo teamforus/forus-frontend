@@ -1,4 +1,4 @@
-let FundsComponent2 = function(
+let FundsComponent = function(
     $state,
     appConfigs,
     FundService
@@ -80,7 +80,7 @@ module.exports = {
         '$state',
         'appConfigs',
         'FundService',
-        FundsComponent2
+        FundsComponent
     ],
     templateUrl: 'assets/tpl/pages/funds.html'
 };
