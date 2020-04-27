@@ -1,6 +1,13 @@
 module.exports = {
+
+
+
     test: "{{name}} {{foo}}",
-    permissions: require("./en/permissions"),
+    permissions: {
+        title: "Geen rechten",
+        description: "U heeft geen rechten om deze actie uit te voeren."
+    },
+    //permissions: require("./en/permissions"),
     page_title: 'Platform Forus',
     page_state_titles: {
         home: 'Forus platform home',
