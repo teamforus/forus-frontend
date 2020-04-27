@@ -1,7 +1,4 @@
 module.exports = {
-
-
-
     test: "{{name}} {{foo}}",
     permissions: {
         title: "Geen rechten",
