@@ -3999,7 +3999,6 @@ $colorPrimaryLight: $color_primary_light;
             img {
                 &:not(.line-item) {
                     width: 100%;
-                    border: 2px dashed #d2e6ff;
                     border-radius: 5px;
                     box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1);
                     position: relative;
@@ -5425,6 +5424,24 @@ $colorPrimaryLight: $color_primary_light;
         }
 
         .modal-content {
+            .step-item {
+                .step-title {
+                    font: 700 20px/18px $bf;
+                    font-weight: 500;
+                }
+
+                .step-description {
+                    margin: 0 0 10px;
+                    font: 400 13px/18px $bf;
+
+                    a {
+                        font: 400 16px/22px $bf;
+                        text-decoration: underline;
+                        color: #007DF0;
+                    }
+                }
+            }
+
             .form {
                 width: 480px;
                 margin: 0 auto;
