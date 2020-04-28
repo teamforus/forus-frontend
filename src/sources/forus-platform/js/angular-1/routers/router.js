@@ -108,12 +108,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         url: "/no-permission/{message}",
         component: "noPermissionComponent",
         resolve: {
-            message: ['$filter', '$transition$', ($filter, $transition$) => ({
+            message: ['$filter', ($filter) => ({
                 title: $filter('translate')(
-                    'permissions.' + $transition$.params().message + '.title'
+                    'permissions.title'
                 ),
                 description: $filter('translate')(
-                    'permissions.' + $transition$.params().message + '.description'
+                    'permissions.description'
                 )
             })]
         }
