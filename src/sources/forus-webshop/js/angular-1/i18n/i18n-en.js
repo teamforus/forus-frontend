@@ -31,6 +31,7 @@ module.exports = {
         berkelland: 'Berkelland',
         oostgelre: 'Oostgelre',
         winterswijk: 'Winterswijk',
+        groningen: 'Groningen',
         noordoostpolder: 'Meedoenpakket webshop'
     },
     languages: {

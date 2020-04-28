@@ -7,8 +7,15 @@ module.exports = {
         title_multi: "Webshop {{org_name}}",
         subtitle_multi: "Welkom op de webshop van {{org_name}} Heeft u via {{org_name}} een toekenning gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
         header_note: "",
-        button_av: 'START', 
-
+        cta: "Klik op start en vul uw activatiecode in. Deze code staat in de brief over {{fund}} die u heeft ontvangen",
+        cta_multi: "Klik op start en vul uw activatiecode in. Deze code staat in de brief die u heeft ontvangen",
+        cta_av: "Voldoet u aan de voorwaarden van de {{fund}}?",
+        auth_cta: "Beheer uw vouchers en neem ze overal mee door de Me-app te downloaden.",
+        auth_button: "Download Me",
+        signup_cta: "Lees meer >",
+        button: 'START', 
+        button_av: 'START AANVRAAG', 
+        
         potjeswijzer: {
             subtitle_av: "Er bestaan veel verschillende potjes binnen het Westerkwartier, vaak meer dan je denkt. Met deze website kan je potjes aanvragen, beheren en uitgeven.",
             cta_av: "",
@@ -39,14 +46,6 @@ module.exports = {
         nijmegen: {
             cta_av: "",
         },
-        cta: "Klik op start en vul uw activatiecode in. Deze code staat in de brief over {{fund}} die u heeft ontvangen",
-        cta_multi: "Klik op start en vul uw activatiecode in. Deze code staat in de brief die u heeft ontvangen",
-        cta_av: "Voldoet u aan de voorwaarden van de {{fund}}?",
-        auth_cta: "Beheer uw vouchers en neem ze overal mee door de Me-app te downloaden.",
-        auth_button: "Download Me",
-        signup_cta: "Lees meer >",
-        button: 'START', 
-        button_av: 'START AANVRAAG', 
     },
     blog: {
         title: "Onze blog",
