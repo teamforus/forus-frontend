@@ -723,7 +723,7 @@ module.exports = {
         },
         app_instruction: {
             step_1: 'Open <i>Me</i>',
-            step_2: 'Ik heb al een profiel',
+            step_2: 'Kies "koppelen"',
             step_3: 'Inloggen met Autorisatie code',
         },
         app_header: {
