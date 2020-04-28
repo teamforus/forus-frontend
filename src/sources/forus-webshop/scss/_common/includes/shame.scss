@@ -134,7 +134,6 @@ ui-view {
         img {
             &:not(.line-item) {
                 width: 100%;
-                border: 2px dashed #d2e6ff;
                 border-radius: 5px;
                 box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1);
                 position: relative;
