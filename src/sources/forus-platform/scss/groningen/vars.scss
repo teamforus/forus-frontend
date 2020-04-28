@@ -26,7 +26,11 @@ $color_primary_light: #8fd888;
 $color_default: #017f96;
 $color_default_light: #017f96;
 
+$borderColor: $border_color;
 
 // base error color
 $bec: #e63b3b;
-$borderColor: $border_color;
+
+// wrapper size
+$wrapperWidth: 1400px;
+$wrapperPadding: 30px;
