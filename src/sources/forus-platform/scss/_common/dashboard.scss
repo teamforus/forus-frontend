@@ -4016,14 +4016,9 @@ $colorPrimaryLight: $color_primary_light;
             }
     
             .app-title {
-                margin: 0 0 10px;
-                font: 400 14px/18px $bf;
-
-                a {
-                    font: 400 14px/22px $bf;
-                    text-decoration: underline;
-                    color: #007DF0;
-                }
+                font: 500 13px/24px $bf;
+                padding: 5px 0 15px 0;
+                text-align: center;
             }
         }
     
@@ -5432,18 +5427,11 @@ $colorPrimaryLight: $color_primary_light;
             .step-item {
                 .step-title {
                     font: 700 20px/18px $bf;
-                    font-weight: 500;
                 }
 
                 .step-description {
                     margin: 0 0 10px;
                     font: 400 14px/18px $bf;
-
-                    a {
-                        font: 400 14px/22px $bf;
-                        text-decoration: underline;
-                        color: #007DF0;
-                    }
                 }
             }
 
