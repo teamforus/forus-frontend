@@ -10,6 +10,7 @@ let BaseController = function(
     RecordService,
     OrganizationService,
     ConfigService,
+    PermissionsService,
     appConfigs,
     ModalService
 ) {
@@ -115,19 +116,65 @@ let BaseController = function(
         });
     };
 
+    let mapPermissionsToRoute = (permissionMap, organizationId) => {
+        let organization = $rootScope.auth_user.organizationsMap[organizationId];
+        let allowedRoutes = permissionMap.filter(permission => {
+            return PermissionsService.hasPermission(organization, permission['permissionList'], false);
+        });
+
+        return allowedRoutes[0] ? allowedRoutes[0].route : 'home';
+    };
+
+    let redirectToDashboard = (selectedOrganizationId) => {
+        $state.go(mapPermissionsToRoute({
+            'sponsor': [
+                {
+                    'permissionList': ['manage_funds', 'view_finances', 'view_funds'],
+                    'route': 'organization-funds',
+                }, {
+                    'permissionList': ['manage_vouchers', 'vouchers-list'],
+                    'route': 'vouchers',
+                }, {
+                    'permissionList': ['view_finances', 'transactions-list'],
+                    'route': 'transactions',
+                }, {
+                    'permissionList': ['validate_records'],
+                    'route': 'csv-validation',
+                }
+            ],
+            'provider': [
+                {
+                    'permissionList': ['manage_offices'],
+                    'route': 'offices',
+                }, {
+                    'permissionList': ['manage_products', 'products-list'],
+                    'route': 'products',
+                }, {
+                    'permissionList': ['view_finances', 'transactions-list'],
+                    'route': 'transactions',
+                }, {
+                    'permissionList': ['validate_records'],
+                    'route': 'csv-validation',
+                }
+            ],
+            'validator': [
+                {
+                    'permissionList': ['validate_records'],
+                    'route': 'fund-requests',
+                }
+            ]
+        }[appConfigs.panel_type], selectedOrganizationId), {
+            organization_id: selectedOrganizationId
+        });
+    };
+
     $rootScope.autoSelectOrganization = function(redirect = true) {
         $rootScope.getLastUsedOrganization().then(selectedOrganizationId => {
             if (selectedOrganizationId) {
                 OrganizationService.use(selectedOrganizationId);
 
                 if (redirect) {
-                    $state.go({
-                        sponsor: 'organization-funds',
-                        provider: 'offices',
-                        validator: 'fund-requests',
-                    } [appConfigs.panel_type], {
-                        organization_id: selectedOrganizationId
-                    });
+                    redirectToDashboard(selectedOrganizationId);
                 }
             } else {
                 $state.go('organizations-create');
@@ -257,6 +304,7 @@ module.exports = [
     'RecordService',
     'OrganizationService',
     'ConfigService',
+    'PermissionsService',
     'appConfigs',
     'ModalService',
     BaseController
