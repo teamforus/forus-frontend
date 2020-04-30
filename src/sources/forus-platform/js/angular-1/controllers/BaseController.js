@@ -116,19 +116,13 @@ let BaseController = function (
         });
     };
 
-    let getAvailableRoute = (permissionMap, organizationId) => {
-        let organization  = $rootScope.auth_user.organizationsMap[organizationId];
-        let allowedRoutes = permissionMap.filter(permission => {
-            return PermissionsService.hasPermission(organization, permission['permissions'], false);
-        });
-
-        return allowedRoutes[0] ? allowedRoutes[0].route : 'home';
-    };
-
     let redirectToDashboard = (selectedOrganizationId) => {
-        let routeMap = PermissionsService.getRoutes()[appConfigs.panel_type];
+        let route = PermissionsService.getAvailableRoutes(
+            appConfigs.panel_type,
+            $rootScope.auth_user.organizationsMap[selectedOrganizationId]
+        ).map(route => route.name)[0] || 'home';
         
-        $state.go(getAvailableRoute(routeMap, selectedOrganizationId), {
+        $state.go(route, {
             organization_id: selectedOrganizationId
         });
     };

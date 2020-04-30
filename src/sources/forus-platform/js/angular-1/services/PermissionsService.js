@@ -21,39 +21,45 @@ module.exports = [() => {
             }).length > 0;
         };
 
-        this.getRoutes = () => {
+        this.getRoutePermissionsMap = (type='sponsor') => {
             return {
-                'sponsor': [{
-                    'permissions': ['manage_funds', 'view_finances', 'view_funds'],
-                    'route': 'organization-funds',
+                sponsor: [{
+                    permissions: ['manage_funds', 'view_finances', 'view_funds'],
+                    name: 'organization-funds',
                 }, {
-                    'permissions': ['manage_vouchers'],
-                    'route': 'vouchers',
+                    permissions: ['manage_vouchers'],
+                    name: 'vouchers',
                 }, {
-                    'permissions': ['view_finances'],
-                    'route': 'transactions',
+                    permissions: ['view_finances'],
+                    name: 'transactions',
                 }, {
-                    'permissions': ['validate_records'],
-                    'route': 'csv-validation',
+                    permissions: ['validate_records'],
+                    name: 'csv-validation',
                 }],
-                'provider': [{
-                    'permissions': ['manage_offices'],
-                    'route': 'offices',
+                provider: [{
+                    permissions: ['manage_offices'],
+                    name: 'offices',
                 }, {
-                    'permissions': ['manage_products'],
-                    'route': 'products',
+                    permissions: ['manage_products'],
+                    name: 'products',
                 }, {
-                    'permissions': ['view_finances'],
-                    'route': 'transactions',
+                    permissions: ['view_finances'],
+                    name: 'transactions',
                 }, {
-                    'permissions': ['validate_records'],
-                    'route': 'csv-validation',
+                    permissions: ['validate_records'],
+                    name: 'csv-validation',
                 }],
-                'validator': [{
-                    'permissions': ['validate_records'],
-                    'route': 'fund-requests',
+                validator: [{
+                    permissions: ['validate_records'],
+                    name: 'fund-requests',
                 }]
-            };
-        }
+            }[type];
+        };
+
+        this.getAvailableRoutes = (type, organization) => {
+            return this.getRoutePermissionsMap(type).filter(permission => {
+                return this.hasPermission(organization, permission.permissions, false);
+            });
+        };
     });
 }];
