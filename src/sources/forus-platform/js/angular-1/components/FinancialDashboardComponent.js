@@ -8,6 +8,13 @@ let FinancialDashboardComponent = function(
 ) {
     let $ctrl = this;
 
+    $ctrl.filters = {
+        values: {
+            q: "",
+            per_page: 15
+        },
+    };
+
     $ctrl.getProviders = (query) => {
         let deferred = $q.defer();
         
