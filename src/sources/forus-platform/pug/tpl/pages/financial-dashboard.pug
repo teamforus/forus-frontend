@@ -4,79 +4,78 @@
         .card-heading(ng-bind="'financial_dashboard.header.title' | translate")
         fund-selector(funds="$ctrl.funds" on-fund-select="$ctrl.onFundSelect")
 
-        div(ng-if="$ctrl.fundProviders.data.length > 0")
-            .block.block-charts
-                .row: .col.col-lg-12: .card: .card-section
-                    .chart-header
-                        .chart-header-range
-                            .chart-header-item(
-                                ng-click="$ctrl.chartData.changeType('all')"
-                                ng-class="$ctrl.chartData.request.type=='all'?'active':''"
-                                ng-bind="'financial_dashboard.labels.all' | translate")
+        .block.block-charts
+            .row: .col.col-lg-12: .card: .card-section
+                .chart-header
+                    .chart-header-range
+                        .chart-header-item(
+                            ng-click="$ctrl.chartData.changeType('all')"
+                            ng-class="$ctrl.chartData.request.type=='all'?'active':''"
+                            ng-bind="'financial_dashboard.labels.all' | translate")
 
-                            .chart-header-item(
-                                ng-click="$ctrl.chartData.changeType('quarter')"
-                                ng-class="$ctrl.chartData.request.type=='quarter'?'active':''"
-                                ng-bind="'financial_dashboard.labels.quarter' | translate")
+                        .chart-header-item(
+                            ng-click="$ctrl.chartData.changeType('quarter')"
+                            ng-class="$ctrl.chartData.request.type=='quarter'?'active':''"
+                            ng-bind="'financial_dashboard.labels.quarter' | translate")
 
-                            .chart-header-item(
-                                ng-click="$ctrl.chartData.changeType('month')"
-                                ng-class="$ctrl.chartData.request.type=='month'?'active':''"
-                                ng-bind="'financial_dashboard.labels.month' | translate")
+                        .chart-header-item(
+                            ng-click="$ctrl.chartData.changeType('month')"
+                            ng-class="$ctrl.chartData.request.type=='month'?'active':''"
+                            ng-bind="'financial_dashboard.labels.month' | translate")
 
-                            .chart-header-item(
-                                ng-click="$ctrl.chartData.changeType('week')"
-                                ng-class="$ctrl.chartData.request.type=='week'?'active':''"
-                                ng-bind="'financial_dashboard.labels.week' | translate")
+                        .chart-header-item(
+                            ng-click="$ctrl.chartData.changeType('week')"
+                            ng-class="$ctrl.chartData.request.type=='week'?'active':''"
+                            ng-bind="'financial_dashboard.labels.week' | translate")
 
-                        .chart-header-title(ng-bind="$ctrl.chartData.stringTitle")
-                        .chart-header-actions.form: .flex-row
-                            .form-group.flex-col: select(
-                                ng-change="$ctrl.chartData.update()"
-                                ng-options="productCategory.id as productCategory.name for productCategory in $ctrl.productCategories"
-                                ng-model="$ctrl.chartData.request.product_category").form-control
+                    .chart-header-title(ng-bind="$ctrl.chartData.stringTitle")
+                    .chart-header-actions.form: .flex-row
+                        .form-group.flex-col: select(
+                            ng-change="$ctrl.chartData.update()"
+                            ng-options="productCategory.id as productCategory.name for productCategory in $ctrl.productCategories"
+                            ng-model="$ctrl.chartData.request.product_category").form-control
 
-                            span.flex-col
-                                .button.button-default(
-                                    ng-click="$ctrl.chartData.decrease()"
-                                    ng-bind="'financial_dashboard.buttons.previous' | translate")
-                                .button.button-default(
-                                    ng-click="$ctrl.chartData.increase()"
-                                    ng-bind="'financial_dashboard.buttons.next' | translate")
-                    .chart-body: bar-chart(data="$ctrl.chartData.response.dates")
+                        span.flex-col
+                            .button.button-default(
+                                ng-click="$ctrl.chartData.decrease()"
+                                ng-bind="'financial_dashboard.buttons.previous' | translate")
+                            .button.button-default(
+                                ng-click="$ctrl.chartData.increase()"
+                                ng-bind="'financial_dashboard.buttons.next' | translate")
+                .chart-body: bar-chart(data="$ctrl.chartData.response.dates")
 
-                .chart-row
-                    .card: .card-section: .chart-control
-                        .chart-label(ng-bind="'financial_dashboard.labels.total' | translate")
-                        .chart-value
-                            .chart-value_value(ng-bind="($ctrl.fund.budget.left - $ctrl.chartData.response.service_costs.total) | currency_format")
-                            .chart-value_label(i18n="financial_dashboard.labels.spend")
-                            .chart-value_value_b(ng-bind="$ctrl.fund.budget.total | currency_format")
+            .chart-row
+                .card: .card-section: .chart-control
+                    .chart-label(ng-bind="'financial_dashboard.labels.total' | translate")
+                    .chart-value
+                        .chart-value_value(ng-bind="($ctrl.fund.budget.left - $ctrl.chartData.response.service_costs.total) | currency_format")
+                        .chart-value_label(i18n="financial_dashboard.labels.spend")
+                        .chart-value_value_b(ng-bind="$ctrl.fund.budget.total | currency_format")
 
-                    .card: .card-section: .chart-control
-                        .chart-label(i18n="financial_dashboard.labels.service_costs")
-                        .chart-value
-                            .chart-value_value(ng-bind="$ctrl.chartData.response.service_costs.total | currency_format")
-                            .chart-value_label(i18n="financial_dashboard.labels.transaction_costs")
-                            .chart-value_value_b(ng-bind="$ctrl.chartData.response.service_costs.transaction_costs | currency_format")
+                .card: .card-section: .chart-control
+                    .chart-label(i18n="financial_dashboard.labels.service_costs")
+                    .chart-value
+                        .chart-value_value(ng-bind="$ctrl.chartData.response.service_costs.total | currency_format")
+                        .chart-value_label(i18n="financial_dashboard.labels.transaction_costs")
+                        .chart-value_value_b(ng-bind="$ctrl.chartData.response.service_costs.transaction_costs | currency_format")
 
-                    .card: .card-section: .chart-control
-                        .chart-label {{ $ctrl.chartData.stringTitle }} {{ "financial_dashboard.labels.usage" | translate }}
-                        .chart-value
-                            .chart-value_value(ng-bind="$ctrl.chartData.response.usage | currency_format")
-                            .chart-value_label 
-                                | {{ "financial_dashboard.labels.payed" | translate }} 
-                                | {{ $ctrl.chartData.response.providers }} 
-                                | {{ "financial_dashboard.labels.provider" | translate | lowercase }}
+                .card: .card-section: .chart-control
+                    .chart-label {{ $ctrl.chartData.stringTitle }} {{ "financial_dashboard.labels.usage" | translate }}
+                    .chart-value
+                        .chart-value_value(ng-bind="$ctrl.chartData.response.usage | currency_format")
+                        .chart-value_label 
+                            | {{ "financial_dashboard.labels.payed" | translate }} 
+                            | {{ $ctrl.chartData.response.providers }} 
+                            | {{ "financial_dashboard.labels.provider" | translate | lowercase }}
 
-                    .card: .card-section: .chart-control
-                        .chart-label {{ "financial_dashboard.labels.activation" | translate }}
-                        .chart-value
-                            .chart-value_value(ng-bind="$ctrl.chartData.response.activations")
-                            .chart-value_label
-                                translate(translate="financial_dashboard.labels.citizen")
-                                br
-                                span(ng-bind="$ctrl.chartData.stringTitle")
+                .card: .card-section: .chart-control
+                    .chart-label {{ "financial_dashboard.labels.activation" | translate }}
+                    .chart-value
+                        .chart-value_value(ng-bind="$ctrl.chartData.response.activations")
+                        .chart-value_label
+                            translate(translate="financial_dashboard.labels.citizen")
+                            br
+                            span(ng-bind="$ctrl.chartData.stringTitle")
 
         .card-heading: .row
             .col.col-lg-6.col-xs-12 
