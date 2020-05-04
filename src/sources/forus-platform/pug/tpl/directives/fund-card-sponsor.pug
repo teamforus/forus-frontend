@@ -59,7 +59,7 @@
                     span.icon.mdi.mdi-account-multiple-plus
 
             .col.col-lg-3.keyvalue-item.flex-col(ng-class="{'keyvalue-item-disabled': !$dir.canInviteProviders}" ng-click="$dir.inviteProvider(fund)")
-                .keyvalue-key(translate="fund_card_sponsor.labels.your_employees")
+                .keyvalue-key(translate="fund_card_sponsor.labels.providers")
                 .keyvalue-value
                     span(ng-bind="$dir.providersDescription")
                     span.icon.mdi.mdi-account-multiple-plus(ng-if="$dir.canInviteProviders")
