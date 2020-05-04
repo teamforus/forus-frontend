@@ -178,8 +178,8 @@ let SignUpOfficeEditDirective = function(
     };
 
     $scope.syncTimePreferences = () => {
-        let schedule_days = $dir.form.values.schedule ? $dir.form.values.schedule : []; 
-        let schedule_options = $dir.form.values.scheduleDetails ? $dir.form.values.scheduleDetails : [];
+        let schedule_days = $dir.form.values.schedule ? Object.values($dir.form.values.schedule) : []; 
+        let schedule_options = $dir.form.values.scheduleDetails ? Object.values($dir.form.values.scheduleDetails) : [];
 
         let has_days_set = schedule_days.filter(
             (day, index) => $scope.isDateModified(day) && index < 5
@@ -249,7 +249,7 @@ let SignUpOfficeEditDirective = function(
                 let promise;
                 let created = false;
 
-                form.values.schedule.forEach((day, index) => {
+                Object.values(form.values.schedule).forEach((day, index) => {
                     form.values.schedule[index] = $scope.transformDayTime(day);
                 });
 
@@ -324,7 +324,7 @@ let SignUpOfficeEditDirective = function(
         $dir.scheduleDetails = [];
 
         if ($scope.office.schedule) {
-            $scope.office.schedule.forEach((weekDay, index) => {
+            Object.values($scope.office.schedule).forEach((weekDay, index) => {
                 $dir.scheduleDetails.push({
                     is_opened: true
                 });

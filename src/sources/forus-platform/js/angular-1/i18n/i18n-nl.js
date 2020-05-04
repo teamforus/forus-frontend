@@ -1,6 +1,10 @@
 module.exports = {
     test: "{{name}} {{foo}}",
-    permissions: require("./en/permissions"),
+    permissions: {
+        title: "Geen rechten",
+        description: "U heeft geen rechten om deze actie uit te voeren."
+    },
+    //permissions: require("./en/permissions"),
     page_title: 'Platform Forus',
     page_state_titles: {
         home: 'Forus platform home',
@@ -723,7 +727,7 @@ module.exports = {
         },
         app_instruction: {
             step_1: 'Open <i>Me</i>',
-            step_2: 'Ik heb al een profiel',
+            step_2: 'Kies "koppelen"',
             step_3: 'Inloggen met Autorisatie code',
         },
         app_header: {
@@ -1418,7 +1422,10 @@ module.exports = {
             details: "Bekijk transactiedetails",
             results: "x resultaten",
             payment: "Betaling -",
-
+            providers: "Aanbieders",
+            your_employees: "Uw medewerkers",
+            applicants: "Aanvragers",
+            employees: "medewerkers"
         },
         confirm_delete:{
             title: 'Weet u zeker dat u dit fonds wilt verwijderen?',
@@ -1632,17 +1639,17 @@ module.exports = {
 
     open_in_me: {
         app_header: {
-            title: 'Vul de code in op het invoerveld',
-            subtitle: 'De code is te vinden in de mobiele applicatie, volg de bovenstaande stappen op om de code te kunnen aflezen.'
+            title: 'Stap 3: Vul de code in',
+            subtitle: 'Vul de 6 cijfers die in uw app verschijnen hieronder in'
         },
         app_instruction: {
             step_1: 'Open <i>Me</i>',
-            step_2: 'Ik heb al een profiel',
+            step_2: 'Kies koppelen',
             step_3: 'Inloggen met Autorisatie code',
         },
         authorize: {
             close: 'Annuleren',
-            submit: 'Autoriseer apparaat',
+            submit: 'Koppel de app',
         }
     },
     notification_preferences: {

@@ -12,7 +12,7 @@
     
     .uploader-files(ng-if="files.length > 0")
         .file-item.file-item-with-progress(ng-repeat="file in files")
-            .file-item-icon: img(ng-src=src_prefix+"/assets/img/file-icon-{{ (file.name.split('.')[file.name.split('.').length - 1]) }}.svg")
+            .file-item-icon: img(ng-src=src_prefix + "./assets/img/file-icon-{{ (file.name.split('.')[file.name.split('.').length - 1]) }}.svg")
             .file-item-name
                 | {{ file.name }}
                 a(ng-click="$dir.removeFile(file)").file-item-remove: em.mdi.mdi-close
