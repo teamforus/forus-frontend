@@ -352,7 +352,9 @@ let ProviderSignUpComponent = function(
     };
 
     let loadOrganizationOffices = (organization) => {
-        OfficeService.list(organization.id).then((res) => {
+        OfficeService.list(organization.id, {
+            per_page: 100
+        }).then((res) => {
             if (!res.data.data.length) {
                 return $ctrl.addOffice();
             }

@@ -4,7 +4,7 @@
     border-radius: 3px;
     font: 500 13px/20px $bf;
     padding: 7px 10px;
-    box-shadow: 0 5px 10px rgba(#000000, 0.1);
+    box-shadow: $box_shadow;
     border: 1px solid transparent;
     transition: color 0.3s, border-color .3s, background 0.3s, box-shadow 0.3s;
     text-align: center;
@@ -89,8 +89,8 @@
     }
 
     &.button-primary-light {
-        background: $color_primary_light;
-        border-color: $color_primary_light;
+        background: $color_default_light;
+        border-color: $color_default_light;
         color: #fff;
 
         &>.mdi {
@@ -189,7 +189,8 @@
         }
         
         &[disabled],
-        &.disabled {
+        &.disabled,
+        &.button-disabled {
             box-shadow: none !important;
             background: transparent !important;
             border-color: transparent !important;
@@ -246,13 +247,21 @@
         margin-right: 10px;
     }
 
+    &.button-sm {
+        font: 500 13px/20px $bf;
+        padding: 4px 7px;
+    }
+
     &[disabled],
-    &.disabled {
+    &.disabled,
+    &.button-disabled {
         cursor: default !important;
         background: #f6f8f9 !important;
         border-color: #f6f8f9 !important;
         box-shadow: 0 2px 5px rgba(#000000, 0.1) !important;
         color: #bbc1c6 !important;
+        user-select: none !important;
+        pointer-events: none !important;
 
         &:hover {
             background: #f6f8f9 !important;

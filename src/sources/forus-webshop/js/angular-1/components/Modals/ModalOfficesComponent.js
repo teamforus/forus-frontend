@@ -31,7 +31,7 @@ let ModalOfficesComponent = function(
     $ctrl.loadOffices = (q = "") => {
         OfficeService.list({
             q: q,
-            approved: 1,
+            approved: 1
         }).then(res => {
             $ctrl.offices = res.data.data;
             $ctrl.shownOffices = $ctrl.offices;

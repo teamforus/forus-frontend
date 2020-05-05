@@ -1505,6 +1505,7 @@ module.exports = {
         buttons: {
             delete: "Verwijderen",
             edit: "Bewerken",
+            view: "Kijk",
         }
     },
 

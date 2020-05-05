@@ -23,7 +23,7 @@ let AuthPinCodeComponent = function(
             IdentityService.deleteToken();
         }, err => {
             if (err.status !== 403) {
-                return $ctrl.pinCodeError = err.data.message;
+                return ($ctrl.pinCodeError = err.data.message);
             }
 
             $ctrl.state = $ctrl.STATE_ERROR;
@@ -38,15 +38,15 @@ let AuthPinCodeComponent = function(
         let promise = null;
 
         if (!$ctrl.type || !$ctrl.token) {
-            return $ctrl.state = $ctrl.STATE_ERROR;
+            return ($ctrl.state = $ctrl.STATE_ERROR);
         }
 
         if ($ctrl.type === 'email_sign_in') {
-            promise = IdentityService.authorizeAuthEmailToken($ctrl.token)
+            promise = IdentityService.authorizeAuthEmailToken($ctrl.token);
         } else if ($ctrl.type === 'email_confirmation') {
-            promise = IdentityService.exchangeConfirmationToken($ctrl.token)
+            promise = IdentityService.exchangeConfirmationToken($ctrl.token);
         } else {
-            return $ctrl.state = $ctrl.STATE_ERROR;
+            return ($ctrl.state = $ctrl.STATE_ERROR);
         }
 
         promise.then(res => {
@@ -54,7 +54,7 @@ let AuthPinCodeComponent = function(
             $ctrl.initPinCode();
         }, () => {
             if (!AuthService.hasCredentials()) {
-                return $ctrl.state = $ctrl.STATE_ERROR;
+                return ($ctrl.state = $ctrl.STATE_ERROR);
             }
 
             return IdentityService.checkAccessToken(CredentialsService.get()).then(res => {
@@ -62,7 +62,7 @@ let AuthPinCodeComponent = function(
                     return $ctrl.initPinCode();
                 }
 
-                return $ctrl.state = $ctrl.STATE_ERROR;
+                return ($ctrl.state = $ctrl.STATE_ERROR);
             });
         });
     };
