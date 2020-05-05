@@ -2387,6 +2387,280 @@ $colorPrimaryLight: $color_primary_light;
                 margin-bottom: 0;
             }
         }
+
+        @media (max-width: 991px) {
+            .block-title {
+                margin: 0 0 20px;
+                font: 500 28px/34px $bf;
+            }
+
+            .block-pincode {
+                text-align: left;
+                width: 100% !important;
+
+                .pincode-number {
+                    align-items: start !important;
+                    height: 31px !important;
+                    width: 38px !important;
+                    margin-right: 3px !important;
+                    font: 400 22px/31px $bf !important;
+                }
+            }
+
+            .sign_up-header {
+                margin: 0 -10px 25px;
+            }
+    
+            .sign_up-pane {
+                .block-title {
+                    margin: 0 0 20px;
+                }
+    
+                .sign_up-pane-header {
+                    font: 500 18px/26px $bf;
+                }
+
+                .sign_up-offices {
+                    .sign_up-office {
+                        flex-wrap: wrap;
+                        padding: 20px 0px 30px;
+
+                        .office-media {
+                            order: 1;
+                            padding-right: 15px;
+
+                            &.office-media-placeholder {
+                                img {
+                                    height: 70px;
+                                    width: 70px;
+                                }
+                            }
+                        }
+
+                        .office-contacts {
+                            width: 60%;
+
+                            .office-contact {
+                                margin: 0 0 5px;
+                                font: 400 15px/20px $bf;
+                            }
+                        }
+
+                        .office-map {
+                            order: 2;
+                            margin-top: 20px;
+                            width: 100%;
+
+                            .office-map-content {
+                                width: 100%;
+                            }
+
+                            .office-actions {
+                                padding-left: 50px;
+                            }
+                        }
+                    }
+
+                    &:last-child {
+                        border-bottom: 1px solid #edeef0;
+                    }
+                }
+    
+                .sign_up-pane-body {
+                    padding: 20px;
+    
+                    .sign_up-pane-text {
+                        text-align: left !important;
+                        font: 400 16px/24px $bf;
+                    }
+    
+                    .sign_up-pane-auth {
+                        flex-direction: column;
+    
+                        .sign_up-pane-auth-content, .sign_up-pane-auth-qr_code {
+                            width: 100%;
+                        }
+    
+                        .sign_up-pane-auth-content {
+                            order: 2;
+
+                            margin-top: 20px;
+                            margin-left: auto;
+                            margin-right: auto;
+                            padding-right: 0 !important;
+                        }
+    
+                        .sign_up-pane-auth-apps {
+                            display: flex;
+                            text-align: center;
+                        }
+
+                        .sign_up-pane-auth-qr_code {
+                            margin-top: 0px;
+
+                            .block-qr-code {
+                                margin-left: auto;
+                                margin-right: auto;
+                            }
+                        }
+                    }
+
+                    .sign_up-office-edit {
+                        border-bottom: none;
+
+                        .sign_up-pane-section {
+                            border-bottom: none;
+                        }
+
+                        .schedule {
+                            border-collapse: collapse;
+
+                            td {
+                                display: inline-block;
+                                padding-right: 10px;
+    
+                                &.breaks {
+                                    padding-left: 0px;
+                                }
+                            }
+    
+                            tr {
+                                margin-bottom: 10px;
+
+                                &:first-child {
+                                    border-top: none;
+                                }
+                            }
+    
+                            .schedule-day-name {
+                                width: 100px;
+                                margin-top: 10px;
+                                padding-top: 5px;
+                            }
+
+                            .schedule-day-available {
+                                width: 60%;
+                            }
+    
+                            .time {
+                                input {
+                                    font: 400 14px/20px $bf;
+                                }
+                            }
+    
+                            .ui-control {
+                                &.ui-control-checkbox {
+                                    padding-right: 5px;
+                                }
+        
+                                &.ui-control-text {
+                                    width: 62px !important;
+                                    height: 30px !important;
+        
+                                    input {
+                                        padding: 4px 10px;
+                                    }
+                                }
+    
+                                &.breaks {
+                                    input {
+                                        margin-right: 10px;
+                                        width: 60px;
+                                    }
+                                }
+                            }
+                        }
+
+                        .office-edit-actions {
+                            .sign_up-pane-col {
+                                border-top: none;
+                            }
+    
+                            .flex-row {
+                                flex-direction: column;
+    
+                                .flex-col {
+                                    margin-top: 12px;
+    
+                                    &:first-child {
+                                        margin-top: 0px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .card-section-fund {
+                        flex-direction: column-reverse;
+                        align-items: start !important;
+                        padding: 20px 18px 28px;
+
+                        .card-block {
+                            &.card-block-fund {
+                                padding-bottom: 20px;
+    
+                                .fund-title {
+                                    font: 400 16px/22px $bf !important;
+                                    margin-bottom: 6px !important;
+                                }
+    
+                                .fund-organization {
+                                    font: 400 13px/16px $bf !important;
+                                }
+                            }
+                        }
+
+                        .card-section-actions {
+                            position: initial;
+                            width: 100%;
+    
+                            button {
+                                width: 100% !important;
+                            }
+                        }
+                    }
+                }
+    
+                .sign_up-pane-footer {
+                    padding: 10px 15px;
+    
+                    .button {
+                        font: 500 14px/16px $bf !important;
+
+                        .mdi {
+                            width: auto !important;
+                            font-size: 20px !important;
+
+                            &.icon-right, &.icon-left {
+                                margin-right: 0px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .sign_up-organizations {
+                .sign_up-organization {
+                    padding: 10px;
+                    margin-bottom: 15px;
+
+                    .sign_up-organization-logo {
+                        width: 36px;
+                        height: 36px;
+
+                        img {
+                            height: 100%;
+                        }
+                    }
+
+                    .sign_up-organization-title {
+                        font: 500 16px/20px $bf;
+                        padding-left: 15px;
+                        text-align: left;
+                    }
+                }
+            }
+        }
     }
 
     &.block-pdf-preview {
@@ -4339,10 +4613,6 @@ $colorPrimaryLight: $color_primary_light;
         .entity-photo {
             width: 50px;
 
-            .entity-photo-abbr {
-
-            }
-
             .entity-photo-img {
                 display: block;
                 max-width: 100%;
@@ -6239,6 +6509,127 @@ $colorPrimaryLight: $color_primary_light;
                 
                 &:hover {
                     box-shadow: none;
+                }
+            }
+        }
+
+        @media (max-width: 991px) {
+            .modal {
+                .button {
+                    font-size: 14px;
+                    padding: 7px 35px;
+                }
+            }
+
+            .block-sign_up {
+                margin: 0 -40px;
+
+                .fund-apply {
+                    .card {
+                        margin: 16px 0px 0px !important;
+                    }
+                }
+            }
+            
+            .sign_up-pane-body {
+                .button {
+                    font: 500 14px/34px $bf;
+                    width: 100%;
+                    text-align: center;
+
+                    .mdi {
+                        &:before, &:after {
+                            line-height: 34px;
+                        }
+                    }
+
+                    &.large {
+                        height: 54px;
+                    }
+
+                    &.button-sm {
+                        padding: 7px 15px;
+                    }
+                }
+
+                .block-photo-selector {
+                    display: flex;
+                    max-width: none;
+
+                    .photo-img {
+                        margin-left: none;
+                        margin-right: none;
+                        width: 80px;
+                        height: 80px;
+                        margin: 0 20px 0 0 !important;
+                    }
+
+                    .photo-details {
+                        max-width: calc(100% - 100px);
+
+                        .photo-label, .photo-description {
+                            text-align: left;
+                        }
+                    }
+                }
+
+                .sign_up-pane-section {
+                    flex-direction: column !important;
+                    padding-right: 0px !important;
+
+                    .sign_up-pane-col {
+                        width: 100% !important;
+                        padding: 14px !important;
+                        border-top: 1px solid #edeef0;
+
+                        &.sign_up-pane-col-2 {
+                            order: 1;
+                        }
+                    }
+                }
+
+                .sign_up-pane-description {
+                    margin-bottom: 20px !important;
+                }
+
+                .sign-up-form {
+                    margin-top: -20px;
+                }
+
+                &+.sign_up-pane-body {
+                    border-top: none !important;
+                }
+
+                .ui-control {
+                    &.ui-control-checkbox {
+                        padding-top: 5px;
+                        padding-bottom: 5px;
+                    }
+                }
+            }
+
+            .finish-screen {
+                .sign_up-pane-body {
+                    .sign_up-pane-text {
+                        padding-left: 10px;
+                        padding-right: 10px;
+                        text-align: center !important;
+                    }
+
+                    .button {
+                        background-color: #E1E8FF;
+                        border-radius: 5px;
+                    }
+                }
+            }
+            
+            .sign_up-pane-footer {
+                .button {
+                    .mdi {
+                        &:before, &:after {
+                            line-height: inherit;
+                        }
+                    }
                 }
             }
         }

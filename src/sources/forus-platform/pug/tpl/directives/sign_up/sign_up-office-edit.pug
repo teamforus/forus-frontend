@@ -44,7 +44,7 @@
     .sign_up-pane-section
         .sign_up-pane-col
             table.schedule
-                tr
+                tr.hidden-xs
                     th(translate="organization_edit.labels.day")
                     th(translate="organization_edit.labels.open")
                     th(translate="organization_edit.labels.start")
@@ -52,15 +52,16 @@
                     th.breaks(translate="organization_edit.labels.break")
 
                 tr(ng-repeat="(weekDayKey, weekDay) in $dir.weekDays track by $index")
-                    td(ng-class="$index >= 5 ? 'weekend' : ''" ng-bind="weekDay")
+                    td.schedule-day-name(ng-class="$index >= 5 ? 'weekend' : ''" ng-bind="weekDay")
 
-                    td
+                    td.schedule-day-available
                         ui-control-checkbox(
                             name="is_opened{{$index}}"
                             data-id="schedule_is_opened{{$index}}"
                             ng-change="$dir.toggleOpened($index)"
                             ng-model="$dir.scheduleDetails[weekDayKey].is_opened")
                     
+                    br.hidden-sm.hidden-lg
                     td
                         ui-control-text.time.start(
                             ng-model="$dir.form.values.schedule[weekDayKey].start_time"
@@ -91,10 +92,10 @@
                             ng-change="$dir.syncHours($index, 'break_end_time')"
                             data-placeholder="Tot")
 
-            br
+            br.hidden-xs
             .form-error(ng-bind="$dir.form.errors.schedule")
     
-    .sign_up-pane-section: .sign_up-pane-col: .flex-row
+    .sign_up-pane-section.office-edit-actions: .sign_up-pane-col: .flex-row
         .flex-col: .flex-col: button.button.button-primary.button-fill.button-sm(
             type="button"
             ng-click="cancel()"

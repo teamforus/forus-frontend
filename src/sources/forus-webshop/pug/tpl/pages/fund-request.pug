@@ -36,8 +36,8 @@ section: .wrapper
                     .sign_up-pane-text.text-center(translate="fund_request.sign_up.subtitles.step_1")
 
                 .sign_up-pane-footer: .row
-                    .col.col-lg-6.text-left: .button.button-text.button-text-padless
-                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
+                    .col.col-lg-6.col-xs-6.text-left: .button.button-text.button-text-padless
+                    .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
                         | {{ 'fund_request.sign_up.pane.footer.next' | translate }}
                         em.mdi.mdi-chevron-right.icon-right 
 
@@ -137,10 +137,10 @@ section: .wrapper
                             | Log in met DigiD
                 
                 .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-righ): .row
-                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(ng-if="!$ctrl.signedIn" ng-click="$ctrl.prevStep()")
+                    .col.col-lg-6.col-xs-6.text-left: .button.button-text.button-text-padless(ng-if="!$ctrl.signedIn" ng-click="$ctrl.prevStep()")
                         em.mdi.mdi-chevron-left.icon-left
                         | {{ 'fund_request.sign_up.pane.footer.prev' | translate }}
-                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
+                    .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
                         em.mdi.mdi-chevron-right.icon-right
                         | {{ 'fund_request.sign_up.pane.footer.next' | translate }}  
         
@@ -171,10 +171,10 @@ section: .wrapper
                     .form-error(ng-repeat="err in $ctrl.netCriteria.errors.file" ng-bind="err")
                 
                 .sign_up-pane-footer: .row
-                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()")
+                    .col.col-lg-6.col-xs-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()")
                         em.mdi.mdi-chevron-left.icon-left
                         | {{ 'fund_request.sign_up.pane.footer.prev' | translate }}
-                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.submitNetWorth()")
+                    .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.submitNetWorth()")
                         em.mdi.mdi-chevron-right.icon-right
                         | {{ 'fund_request.sign_up.pane.footer.next' | translate }}          
         
@@ -233,10 +233,10 @@ section: .wrapper
                     .form-group.col.col-lg-12: file-uploader(ng-if="invalidCriteria.show_attachment" files="invalidCriteria.files")
                 
                 .sign_up-pane-footer: .row
-                    .col.col-lg-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()")
+                    .col.col-lg-6.col-xs-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()")
                         em.mdi.mdi-chevron-left.icon-left
                         | {{ 'fund_request.sign_up.pane.footer.prev' | translate }}
-                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.submitStepCriteria(invalidCriteria)")
+                    .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.submitStepCriteria(invalidCriteria)")
                         em.mdi.mdi-chevron-right.icon-right
                         | {{ 'fund_request.sign_up.pane.footer.next' | translate }}          
         
@@ -255,7 +255,7 @@ section: .wrapper
                                 | Uw aanvraag is voltooid, u krijgt een email wanneer deze is goedgekeurd.
                     
                             .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
-                        .form-group.col.col-lg-12: br
+                        .form-group.col.col-lg-12.hidden-xs: br
                 
             //- Error
             div(ng-if="$ctrl.finishError")

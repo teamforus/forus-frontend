@@ -481,8 +481,65 @@ $bf: 'Montserrat', arial, sans-serif;
     }
 
     @media (max-width: 991px) {
+        margin: 0px -10px;
+
         .sign_up-header {
-            margin: 0 -30px 25px;
+            margin: 0 -10px 25px;
+        }
+
+        .sign_up-pane {
+            .block-title {
+                margin: 0 0 20px;
+            }
+
+            .sign_up-pane-header {
+                font: 500 18px/26px $bf;
+            }
+
+            .sign_up-pane-body {
+                padding: 20px;
+
+                .sign_up-pane-text {
+                    text-align: left !important;
+                    font: 400 16px/24px $bf;
+                }
+
+                .sign_up-pane-auth {
+                    flex-direction: column;
+
+                    .sign_up-pane-auth-content, .sign_up-pane-auth-qr_code {
+                        width: 100%;
+                    }
+
+                    .sign_up-pane-auth-content {
+                        order: 2;
+                    }
+
+                    .sign_up-pane-auth-apps {
+                        display: flex;
+                        text-align: center;
+                    }
+                }
+            }
+
+            .sign_up-pane-footer {
+                padding: 0px 15px 0px;
+
+                .button {
+                    font: 500 13px/16px $bf !important;
+                    padding: 15px 0px;
+
+                    .mdi {
+                        width: 20px !important;
+                        margin-left: 5px !important;
+                        font-size: 18px !important;
+
+                        &.icon-right, &.icon-left {
+                            margin-right: 0px;
+                        }
+                    }
+                }
+            }
         }
     }
 }

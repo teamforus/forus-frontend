@@ -70,14 +70,14 @@
                     .sign_up-pane-description(translate="sign_up_validator.header.subtitle_step_3")
 
                     form(ng-submit="$ctrl.signUpForm.submit()").form: .row
-                        .col.col-md-7
+                        .col.col-md-7.col-xs-12
                             .form-group
                                 label.form-label(translate="E-MAILadres")
                                 ui-control-text(
                                     ng-model="$ctrl.signUpForm.values.email"
                                     data-placeholder="ex. info@info.io").large
                                 .form-error(ng-repeat="error in ($ctrl.signUpForm.errors.email || $ctrl.signUpForm.errors['records.primary_email'])" ng-bind="error")
-                        .col.col-md-5
+                        .col.col-md-5.col-xs-12
                             .form-group
                             label.form-label &nbsp;
                             button.button.button-primary.button-fill(
@@ -196,11 +196,11 @@
                             .form-group
                                 label(translate="organization_edit.labels.mail").form-label
                                 .row
-                                    .col.col-md-8: ui-control-text(
+                                    .col.col-md-8.col-xs-12: ui-control-text(
                                         ng-model="$ctrl.organizationForm.values.email"
                                         placeholder="E-mailadres")
 
-                                    .col.col-md-4: ui-control-checkbox.make-public(
+                                    .col.col-md-4.col-xs-12: ui-control-checkbox.make-public(
                                         name="email_public"
                                         data-id="email_public_input"
                                         data-label="{{ 'organization_edit.labels.make_public' | translate }}"
@@ -211,10 +211,10 @@
                                 label(translate="organization_edit.labels.phone").form-label
 
                                 .row
-                                    .col.col-md-8: ui-control-text(
+                                    .col.col-md-8.col-xs-12: ui-control-text(
                                         ng-model="$ctrl.organizationForm.values.phone"
                                         placeholder="Telefoonnummer")
-                                    .col.col-md-4: ui-control-checkbox.make-public(
+                                    .col.col-md-4.col-xs-12: ui-control-checkbox.make-public(
                                         name="phone_public"
                                         data-id="phone_public_input"
                                         data-label="{{ 'organization_edit.labels.make_public' | translate }}"
@@ -225,10 +225,10 @@
                                 label(translate="organization_edit.labels.website").form-label
 
                                 .row
-                                    .col.col-md-8: ui-control-text(
+                                    .col.col-md-8.col-xs-12: ui-control-text(
                                         ng-model="$ctrl.organizationForm.values.website"
                                         placeholder="Website")
-                                    .col.col-md-4: ui-control-checkbox.make-public(
+                                    .col.col-md-4.col-xs-12: ui-control-checkbox.make-public(
                                         name="website_public"
                                         data-id="website_public_input"
                                         data-label="{{ 'organization_edit.labels.make_public' | translate }}"
@@ -237,7 +237,7 @@
 
                     .sign_up-pane-body.sign_up-pane-body-padless: .sign_up-pane-section(style="padding-right: 30px;")
                         .sign_up-pane-col
-                            .form-group.row: .col.col-md-8
+                            .form-group.row: .col.col-md-8.col-xs-12
                                 label(translate="organization_edit.labels.business_type").form-label
 
                                 .form-offset: select-control(
@@ -250,7 +250,7 @@
                                     ng-repeat="error in $ctrl.organizationForm.errors.business_type_id"
                                     ng-bind="error")
 
-                            .form-group.row: .col.col-md-8
+                            .form-group.row: .col.col-md-8.col-xs-12
                                 label(translate="organization_edit.labels.kvk").form-label
 
                                 ui-control-text(
@@ -258,7 +258,7 @@
                                     data-placeholder="KvK-nummer")
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.kvk" ng-bind="error")
 
-                            .form-group.row: .col.col-md-8
+                            .form-group.row: .col.col-md-8.col-xs-12
                                 label(translate="organization_edit.labels.tax").form-label
 
                                 ui-control-text(
@@ -315,7 +315,7 @@
                     .form-group.col.col-lg-12: br
 
         //- Mobile device warning
-        .block.block-desktop-only.visible-xs: .block-inner
-            .block-media: img(src="./assets/img/sign-up/user-mobile.png")
-            .block-title(translate="sign_up_validator.open_pc.title")
-            .block-description(translate="sign_up_validator.open_pc.description")
+        //- .block.block-desktop-only.visible-xs: .block-inner
+        //-     .block-media: img(src="./assets/img/sign-up/user-mobile.png")
+        //-     .block-title(translate="sign_up_validator.open_pc.title")
+        //-     .block-description(translate="sign_up_validator.open_pc.description")
