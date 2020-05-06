@@ -11,6 +11,7 @@
             .product-overview
                 .product-media: img.product-media-img(
                     ng-src="{{ $ctrl.product.photo ? $ctrl.product.photo.sizes.small : './assets/img/placeholders/product-small.png' }}")
+                
                 .product-details
                     .product-name(ng-bind="$ctrl.product.name")
                     .product-properties
@@ -23,6 +24,7 @@
                         .product-property
                             .product-property-label(translate="product_edit.labels.reserved")
                             .product-property-value(ng-bind="$ctrl.product.reserved_amount")
+                
                 .product-actions.form
                     .product-price
                         | {{ $ctrl.product.price | currency_format }}

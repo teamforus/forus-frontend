@@ -3,11 +3,22 @@
     section.app.app-content
         .card-heading Algemene informatie
         .card
-            .card-section.card-section-narrow: .block.block-entity-overview
-                .entity-photo
-                    img(ng-src="{{ $ctrl.fundProvider.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}").entity-photo-img
-                    .entity-photo-abbr
-                .entity-details: .entity-title(ng-bind="$ctrl.fundProvider.organization.name")
+            .card-section.card-section-narrow
+                .block.block-entity-overview
+                    .entity-photo
+                        img(ng-src="{{ $ctrl.fundProvider.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}").entity-photo-img
+                        .entity-photo-abbr
+                    .entity-details: .entity-title(ng-bind="$ctrl.fundProvider.organization.name")
+
+                .card-section-actions
+                    button(
+                        ng-if="!$ctrl.fundProvider.dismissed && !$ctrl.fundProvider.allow_budget && !$ctrl.fundProvider.allow_products" 
+                        ng-click="$ctrl.dismissProvider($ctrl.fundProvider)").button.button-default.button-sm
+                        | Verberg
+                        em.mdi.mdi-close.icon-end
+                    .button.button-text.button-text.button-text-muted.button-narrow.button-sm(disabled 
+                        ng-if="$ctrl.fundProvider.dismissed")
+                        | Verborgen
             
             .card-section.card-section-primary.card-section-narrow(ng-repeat="properties in $ctrl.properties" ng-if="properties.length > 0")
                 .flex-row.flex-grow

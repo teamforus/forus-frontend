@@ -93,6 +93,21 @@ let FundProviderComponent = function(
         });
     };
 
+    $ctrl.dismissProvider = function(fundProvider) {
+        FundService.dismissProvider(
+            fundProvider.fund.organization_id,
+            fundProvider.fund.id,
+            fundProvider.id
+        ).then((res) => {
+            PushNotificationsService.success(
+                'Verborgen!',
+                "Pas de filters aan om verborgen aanbieders terug te vinden."
+            );
+
+            $ctrl.fundProvider = res.data.data;
+        });
+    };
+
     $ctrl.prepareProperties = () => {
         let organization =  $ctrl.fundProvider.organization;
         let properties = [];
