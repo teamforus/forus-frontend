@@ -15,6 +15,20 @@ let FinancialDashboardComponent = function(
         },
     };
 
+    $ctrl.onFundSelect = (fund) => {
+        $ctrl.fund = fund;
+
+        $ctrl.startYear = DateService._dateParseYmd(
+            $ctrl.fund.start_date
+        ).year();
+        $ctrl.chartData.request.year = $ctrl.startYear;
+
+        $ctrl.getProviders().then(providers => {
+            $ctrl.allFundProviders = providers;
+            $ctrl.chartData.update();
+        });
+    }; 
+
     $ctrl.getProviders = (query) => {
         let deferred = $q.defer();
         
@@ -178,19 +192,6 @@ let FinancialDashboardComponent = function(
             name: 'Anders',
             id: -1
         });
-
-        $ctrl.onFundSelect = (fund) => {
-            $ctrl.fund = fund;
-
-            $ctrl.startYear = DateService._dateParseYmd(
-                $ctrl.fund.start_date
-            ).year();
-            $ctrl.chartData.request.year = $ctrl.startYear;
-
-            $ctrl.getProviders().then(() => {
-                $ctrl.chartData.update();
-            });
-        }; 
     };
 
     $scope.onPageChange = (query) => {
