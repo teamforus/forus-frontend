@@ -34,6 +34,10 @@
                 padding-bottom: 6px;
                 font: 500 12px/18px $bf;
 
+                &.th-narrow {
+                    width: 1%;
+                }
+
                 &:first-child {
                     padding-left: 25px;
                     min-width: 150px;
@@ -80,6 +84,12 @@
                     &:hover {
                         color: $color_primary_light;
                     }
+                }
+
+                .td-media {
+                    display: block;
+                    width: 70px;
+                    border-radius: $border_radius;
                 }
 
                 .td-boolean {

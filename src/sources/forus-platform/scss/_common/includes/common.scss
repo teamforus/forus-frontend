@@ -57,6 +57,10 @@ img {
     text-decoration: line-through;
 }
 
+.text-sm, .text-small {
+    font-size: .8em;
+}
+
 .flex-grow {
     flex-grow: 100 !important;
 }

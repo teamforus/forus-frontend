@@ -1,5 +1,5 @@
 .modal.modal-fund-offers
-    .modal-backdrop(ng-click="$ctrl.cancel()")
+    .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window
         a(ng-click="$ctrl.close()").mdi.mdi-close.modal-close
         .modal-header(translate="modals.modal_funds_offers.title")
@@ -13,7 +13,7 @@
                                 th(translate="modals.modal_funds_offers.labels.name")
                                 th(translate="modals.modal_funds_offers.labels.stock")
                                 th(translate="modals.modal_funds_offers.labels.price")
-                                th(translate="modals.modal_funds_offers.labels.status")
+                                th(translate="modals.modal_funds_offers.labels.status").text-right
 
                                 tr(ng-repeat="offer in $ctrl.offers.data")
                                     td(ng-bind="offer.name") 
@@ -21,7 +21,7 @@
                                     td
                                         span.offer-price(ng-bind="offer.price | currency_format")
                                         span.offer-old-price(ng-bind="offer.old_price | currency_format")
-                                    td
+                                    td.text-right
                                         .tag(
                                             ng-class="offer.allowed ? 'tag-success' : 'tag-default'"
                                             translate="{{ 'modals.modal_funds_offers.labels.' + (offer.allowed ? 'available' : 'rejected') }}")

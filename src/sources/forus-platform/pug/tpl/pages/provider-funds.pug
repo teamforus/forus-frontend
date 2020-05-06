@@ -23,26 +23,31 @@
                     ng-class="{'active' : $ctrl.shownFundsType == 'invitations_expired'}" 
                     ng-click="$ctrl.filterByFundStatus('invitations_expired')")
                     | {{ "fund_card_provider.tabs.expired" | translate }} ({{ $ctrl.fundExpiredInvitations.length }}) 
+        
         fund-card-available-provider(
             ng-if="$ctrl.shownFundsType == 'available' && $ctrl.fundsAvailable.length > 0" 
             ng-repeat="fund in $ctrl.fundsAvailable"  
             fund="fund" 
             organization="$ctrl.organization")
+        
         fund-card-provider( 
             ng-if="$ctrl.shownFundsType == 'active' && $ctrl.funds.length > 0" 
             ng-repeat="fund in $ctrl.funds" 
             provider-fund="fund" 
             organization="$ctrl.organization")
+        
         fund-card-invitation-provider( 
             ng-if="$ctrl.shownFundsType == 'invitations' && $ctrl.fundAvailableInvitations.length > 0" 
             ng-repeat="fundInvitation in $ctrl.fundAvailableInvitations" 
             provider-invitation="fundInvitation"  
             organization="$ctrl.organization")
+        
         fund-card-invitation-provider( 
             ng-if="$ctrl.shownFundsType == 'invitations_expired' && $ctrl.fundExpiredInvitations.length > 0" 
             ng-repeat="fundInvitation in $ctrl.fundExpiredInvitations" 
             provider-invitation="fundInvitation"  
             organization="$ctrl.organization")
+        
         block-empty(
             ng-if="$ctrl.showEmptyBlock"
             text="{{ $ctrl.emptyBlockMsg }}")

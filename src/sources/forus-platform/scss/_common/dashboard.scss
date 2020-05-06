@@ -29,7 +29,12 @@
 
 // blocks
 .block {
+    @import 'blocks/block-chat';
     @import 'blocks/block-sessions';
+    @import 'blocks/block-products';
+    @import 'blocks/block-providers';
+    @import 'blocks/block-breadcrumbs.scss';
+    @import 'blocks/block-provider-product.scss';
     @import '../../../forus-webshop/scss/_common/sections/blocks/block-sign_up';
 }
 
@@ -4359,42 +4364,8 @@ $colorPrimaryLight: $color_primary_light;
             justify-content: center;
             justify-items: center;
         }
-
-        .entity-overview {
-            display: flex;
-            flex-direction: column;
-
-            .entity-overview-row {
-                display: flex;
-                flex-direction: row;
-                margin: 0 0 10px;
-
-                &:last-child {
-                    margin-bottom: 0;
-                }
-            }
-
-            .entity-overview-label {
-                width: 215px;
-                min-width: 215px;
-                max-width: 215px;
-                font: 500 13px/20px $bf;
-                color: #333333;
-            }
-
-            .entity-overview-value {
-                flex-grow: 1;
-                font: 500 13px/20px $bf;
-                color: #000;
-
-                &>.mdi {
-                    margin-right: 5px;
-                    font-size: 1.2em;
-                    line-height: 18px;
-                    vertical-align: middle;
-                }
-            }
-        }
+    
+        
     }
 
     &.block-label-tabs {
@@ -4515,7 +4486,7 @@ $colorPrimaryLight: $color_primary_light;
             margin-right: 10px;
             display: flex;
             border-radius: inherit;
-            box-shadow: 1px 2px 4px 2px rgba(0,0,0,.075);
+            box-shadow: $box_shadow;
     
             &:last-child {
                 margin-right: 0;
@@ -5058,8 +5029,16 @@ $colorPrimaryLight: $color_primary_light;
                     border-bottom: 0;
                 }
 
+                &.modal-section-light {
+                    background-color: #fff;
+                }
+
                 &.modal-section-pad {
                     padding: 25px 40px;
+                }
+
+                &.modal-section-sm {
+                    padding: 20px;
                 }
             }
 
@@ -5809,7 +5788,6 @@ $colorPrimaryLight: $color_primary_light;
             }
 
             .modal-footer {
-                background-color: #fff;
                 justify-content: unset;
 
                 .pagination-offers {

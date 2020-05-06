@@ -41,5 +41,6 @@
                             ng-bind="providerFund[shownProductType] ? 'Ja' : 'Nee'")  
 
                 .col.col-md-3(ng-if="fund.state != 'closed' && providerFund.allow_some_products") 
-                    .button.button-default.pull-right(ng-click="viewOffers()"
-                    translate="fund_card_provider.labels.view_products")
+                    .button.button-default.pull-right(ng-click="viewOffers()")
+                        em.mdi.mdi-eye-outline.icon-start
+                        translate(translate="fund_card_provider.labels.view_products")

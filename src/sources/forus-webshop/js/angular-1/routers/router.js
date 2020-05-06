@@ -1,7 +1,7 @@
 let repackResponse = (promise) => new Promise((resolve, reject) => {
     promise.then((res) => resolve(
         res.data.data ? res.data.data : res.data
-    ), reject)
+    ), reject);
 });
 
 let repackPagination = (promise) => new Promise((resolve, reject) => {
@@ -9,7 +9,7 @@ let repackPagination = (promise) => new Promise((resolve, reject) => {
 });
 
 let promiseResolve = (res) => {
-    return new Promise(resolve => resolve(res))
+    return new Promise(resolve => resolve(res));
 };
 
 let handleAuthTarget = ($state, target) => {
