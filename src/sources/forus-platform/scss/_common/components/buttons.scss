@@ -77,13 +77,13 @@
     &.button-primary-outline {
         color: #2f5bf6;
         border: 1px solid #2f5bf6;
-        border-radius: 50px;
         box-shadow: none;
+        background: transparent;
 
         &:hover {
             color: #2f5bf6;
-            border: 1px solid #2f5bf6;
-            border-radius: 50px;
+            border: 1px solid #e1e7fe;
+            background: #e1e7fe;
             box-shadow: none;
         }
     }

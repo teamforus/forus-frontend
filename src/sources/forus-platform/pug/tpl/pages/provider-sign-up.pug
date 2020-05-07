@@ -1,8 +1,8 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
-.app.app-container: .wrapper
+.app.app-container
     mixin progress()
-        .sign_up-progress
+        .sign_up-progress(ng-class="{'sign_up-progress-compact':$ctrl.shownSteps.length >= 5}")
             .sign_up-step.sign_up-step-info(ng-class="$ctrl.step <= $ctrl.INFO_STEPS ? 'sign_up-step-active' : 'sign_up-step-done'")
                 .sign_up-step-border
                 .mdi.mdi-information-outline
@@ -13,6 +13,8 @@
                 
                 .sign_up-step-border
                 .sign-up-step-block Stap {{ ' ' + ($index + 1) }}
+
+            .sign_up-progress-overview Stap {{ $ctrl.step }} from {{ $ctrl.shownSteps.length }}
 
     .block.block-sign_up: .block-wrapper
         .sign_up-header: a(ng-click="$ctrl.goToMain()").sign_up-header-back
@@ -67,46 +69,52 @@
 
             .sign_up-pane
                 .sign_up-pane-header(translate="sign_up_provider.header.title_step_3")
-                .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && $ctrl.hasApp")
+                .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && $ctrl.hasApp"): .form
                     .sign_up-pane-heading {{ 'sign_up_provider.labels.mobile_number' | translate }}
-                    phone-control(ng-model="phoneForm.values.phone" cant-delete-length="2")
+                    phone-control(ng-model="phoneForm.values.phone" cant-delete-length="2").hide-sm
+                    
+                    .form-group: input(type="text"
+                        ng-model="phoneForm.values.phone"
+                        placeholder="TELEFOONNUMMER").large.form-control.show-sm
 
-                    .button.button-primary(
+                    .row: .col-lg-12.col-md-12.col-sm-12: .button.button-primary-outline.col-xs-12(
                         ng-class="{ 'button-disabled' : !$ctrl.phoneNumberFilled }" 
                         ng-click="$ctrl.sendSms()"
                         translate="sign_up_provider.download.download_link")
-                    .form: .pincode-errors: .form-error(ng-repeat="error in phoneForm.errors.phone" ng-bind="error")
+                    
+                    .pincode-errors: .form-error(ng-repeat="error in phoneForm.errors.phone" ng-bind="error")
                     
                     .sign_up-pane-text: small(ng-show="$ctrl.sentSms") 
                         br
                         | {{ "sign_up_provider.download.no_link_received" | translate }} 
                         a(href="https://www.forus.io/DL" target="_blank") www.forus.io/DL
 
-                    br
-                    br
+                .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && $ctrl.hasApp")
                     .sign_up-pane-auth
                         .sign_up-pane-auth-content
-                            .sign_up-pane-heading(translate="sign_up_provider.qr_code.title")
+                            .sign_up-pane-text(
+                                ng-repeat="line in ('sign_up_provider.qr_code.description' | translate | lines_to_array)"
+                                ng-bind="line")
+                            
+                            .sign_up-pane-auth-qr_code.show-sm
+                                qr-code(
+                                    ng-if="$ctrl.authToken" 
+                                    qr-value="$ctrl.authToken" 
+                                    qr-type="auth_token" 
+                                    qr-logo=src_prefix + "./assets/img/me-logo.png") 
 
-                            span(translate="sign_up_provider.qr_code.description")
+                            .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(false)" translate="sign_up_sponsor.app.no_app")
 
-                            a.notice-small(ng-click="$ctrl.setHasAppProp(false)" translate="sign_up_provider.app_instruction.no_app")
-
-                        .sign_up-pane-auth-qr_code
+                        .sign_up-pane-auth-qr_code.hide-sm
                             qr-code(
-                                ng-if="$ctrl.authToken"
-                                qr-value="$ctrl.authToken"
-                                qr-type="auth_token"
-                                qr-logo=src_prefix + "./assets/img/me-logo.png")     
+                                ng-if="$ctrl.authToken" 
+                                qr-value="$ctrl.authToken" 
+                                qr-type="auth_token" 
+                                qr-logo=src_prefix + "./assets/img/me-logo.png")   
 
                 .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && !$ctrl.hasApp")
                     .sign_up-pane-heading(translate='sign_up_provider.no_app.enter_email') 
                     .sign_up-pane-text(translate="sign_up_provider.no_app.instructions") 
-
-                    .sign_up-pane-link: small(ng-click="$ctrl.setHasAppProp(true)" translate="sign_up_provider.no_app.continue_app")
-                    br
-                    br
-                    br
 
                     form.sign-up-form(ng-submit="$ctrl.signUpForm.submit()").form: .row
                         .col.col-md-7.col-xs-12
@@ -125,6 +133,8 @@
                                 type="submit"
                                 translate="sign_up_provider.app_instruction.create_profile"
                                 ng-class="{'button-disabled':!$ctrl.signUpForm.values.email}")
+
+                    .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="sign_up_provider.no_app.continue_app")
 
                 .sign_up-pane-body(ng-if="$ctrl.authEmailSent || $ctrl.authEmailRestoreSent").text-center
                     .sign_up-pane-media: img(ng-src="./assets/img/email_confirmed.svg")  
@@ -146,10 +156,17 @@
                         ng-click="$ctrl.selectOrganization(organization)")
                         .sign_up-organization-logo: img(ng-src="{{ organization.logo.sizes.thumbnail || './assets/img/organization-no-logo.svg' }}")
                         .sign_up-organization-title(ng-bind="organization.name")
-
-                    .button.button-primary(ng-click="$ctrl.addOrganization()")
+                    
+                    //- mobile
+                    .button.button-primary-outline.button-fill.show-sm(ng-click="$ctrl.addOrganization()")
                         .mdi.mdi-plus-circle-outline.icon-start
-                        | {{ 'sign_up_provider.buttons.organization_add' | translate }}             
+                        | {{ 'sign_up_sponsor.buttons.organization_add' | translate }}
+
+                //- desktop
+                .sign_up-pane-body.hide-sm
+                    .button.button-primary-outline(ng-click="$ctrl.addOrganization()")
+                        .mdi.mdi-plus-circle-outline.icon-start
+                        | {{ 'sign_up_sponsor.buttons.organization_add' | translate }}         
 
                 .sign_up-pane-footer: .row
                     .col.col-lg-6.text-left

@@ -254,6 +254,19 @@ img {
     animation-timing-function: linear;
 }
 
+.show-sm {
+    display: none !important;
+}
+
+@media screen and (max-width: 1000px) {
+    .hide-sm {
+        display: none !important;
+    }
+
+    .show-sm {
+        display: block !important;
+    }
+}
 
 /* 
 @media (min-width: 992px) {

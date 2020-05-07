@@ -1726,12 +1726,6 @@ $colorPrimaryLight: $color_primary_light;
                     margin-top: 25px;
                 }
 
-                .sign_up-pane-description {
-                    font: 500 21px/22px $bf;
-                    color: #222530;
-                    margin-bottom: 50px;
-                }
-
                 &+.sign_up-pane-body {
                     border-top: 1px solid #edeef0;
                 }
@@ -1792,9 +1786,6 @@ $colorPrimaryLight: $color_primary_light;
                 }
 
                 .sign_up-pane-auth-content {
-                    font: 400 18px/27px $bf !important;
-                    padding-right: 70px !important;
-
                     .sign_up-pane-auth-apps {
                         margin-top: 26px;
                     }
@@ -2107,7 +2098,7 @@ $colorPrimaryLight: $color_primary_light;
 
             .card {
                 box-shadow: none;
-                margin-bottom: 16px;
+                margin-bottom: 15px;
                 border: 1px solid #E5E6EC;
                 border-radius: 5px;
 
@@ -2203,6 +2194,11 @@ $colorPrimaryLight: $color_primary_light;
                         }
                     }
                 }
+
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
         }
 
@@ -2210,7 +2206,6 @@ $colorPrimaryLight: $color_primary_light;
             .ui-control .form-control:not([type="radio"]):not([type="checkbox"]) {
                 background-color: #EFF2F4;
                 border-color: #EFF2F4;
-                line-height: 50px;
 
                 ::placeholder {
                     color: #9b9b9b;
@@ -2219,17 +2214,6 @@ $colorPrimaryLight: $color_primary_light;
             }
 
             .ui-control {
-                input {
-                    height: 50px;
-                    font: 400 16px/20px $bf;
-                }
-
-                &.large {
-                    input {
-                        height: 54px;
-                    }
-                }
-
                 &.ui-control-checkbox {
                     .ui-checkbox-label {
                         color: #222530;
@@ -2407,6 +2391,17 @@ $colorPrimaryLight: $color_primary_light;
                 }
             }
 
+            .sign_up-employees {
+                .sign_up-employee {
+                    width: 100%;
+
+                    span {
+                        display: flex;
+                        flex-grow: 1;
+                    }
+                }
+            }
+
             .sign_up-header {
                 margin: 0 -10px 25px;
             }
@@ -2468,42 +2463,6 @@ $colorPrimaryLight: $color_primary_light;
     
                 .sign_up-pane-body {
                     padding: 20px;
-    
-                    .sign_up-pane-text {
-                        text-align: left !important;
-                        font: 400 16px/24px $bf;
-                    }
-    
-                    .sign_up-pane-auth {
-                        flex-direction: column;
-    
-                        .sign_up-pane-auth-content, .sign_up-pane-auth-qr_code {
-                            width: 100%;
-                        }
-    
-                        .sign_up-pane-auth-content {
-                            order: 2;
-
-                            margin-top: 20px;
-                            margin-left: auto;
-                            margin-right: auto;
-                            padding-right: 0 !important;
-                        }
-    
-                        .sign_up-pane-auth-apps {
-                            display: flex;
-                            text-align: center;
-                        }
-
-                        .sign_up-pane-auth-qr_code {
-                            margin-top: 0px;
-
-                            .block-qr-code {
-                                margin-left: auto;
-                                margin-right: auto;
-                            }
-                        }
-                    }
 
                     .sign_up-office-edit {
                         border-bottom: none;
@@ -2591,31 +2550,21 @@ $colorPrimaryLight: $color_primary_light;
                     }
 
                     .card-section-fund {
-                        flex-direction: column-reverse;
-                        align-items: start !important;
-                        padding: 20px 18px 28px;
+                        padding: 20px 20px 30px;
 
                         .card-block {
                             &.card-block-fund {
                                 padding-bottom: 20px;
     
                                 .fund-title {
-                                    font: 400 16px/22px $bf !important;
-                                    margin-bottom: 6px !important;
+                                    font: 500 16px/26px $bf;
+                                    margin: 0 0 0;
                                 }
     
                                 .fund-organization {
-                                    font: 400 13px/16px $bf !important;
+                                    font: 400 13px/16px $bf;
+                                    margin: 0 0 10px;
                                 }
-                            }
-                        }
-
-                        .card-section-actions {
-                            position: initial;
-                            width: 100%;
-    
-                            button {
-                                width: 100% !important;
                             }
                         }
                     }
@@ -2715,7 +2664,6 @@ $colorPrimaryLight: $color_primary_light;
                         line-height: 20px;
                         color: $color_primary;
                         float: left;
-                        line-height: 20px;
                         margin: 0;
                         margin-right: 5px;
                     }
@@ -6399,10 +6347,6 @@ $colorPrimaryLight: $color_primary_light;
             }
         }
 
-        &:hover:not(.button-text) {
-            transform: translate(0, -3px);
-        }
-
         &.button-text {
             &:hover {
                 color: #305dfb;
@@ -6470,12 +6414,12 @@ $colorPrimaryLight: $color_primary_light;
         background-color: #fff;
 
         .button {
-            line-height: 32px;
+            line-height: 20px;
             font-size: 16px;
             font-weight: 500;
             border-radius: $borderRadius / 2;
 
-            &.button-sm {
+            /* &.button-sm {
                 font: 500 14px/24px $bf;
                 padding: 10px 15px;
 
@@ -6486,18 +6430,7 @@ $colorPrimaryLight: $color_primary_light;
                         margin-right: 15px;
                     }
                 }
-            }
-
-            &:not(.button-text) {
-                .mdi {
-                    font-size: 28px;
-                    margin-left: -50px;
-                }
-
-                &:hover {
-                    transform: translate(0, 0);
-                }
-            }
+            } */
 
             &.button-disabled, [disabled] {
                 background: #eff2f4;
@@ -6511,6 +6444,20 @@ $colorPrimaryLight: $color_primary_light;
                     box-shadow: none;
                 }
             }
+
+            .mdi {
+                font-size: 26px;
+
+                &.icon-start {
+                    margin-left: -10px;
+                    margin-right: 10px;
+                }
+
+                &.icon-end {
+                    margin-left: 10px;
+                    margin-right: -10px;
+                }
+            }
         }
 
         @media (max-width: 991px) {
@@ -6521,37 +6468,38 @@ $colorPrimaryLight: $color_primary_light;
                 }
             }
 
-            .block-sign_up {
-                margin: 0 -40px;
+            .fund-apply {
+                .card {
+                    .card-section {
+                        &.card-section-fund {
+                            flex-direction: column;
+                            align-items: flex-start;
+                            justify-content: flex-start;
+                            padding: 20px 20px;
 
-                .fund-apply {
-                    .card {
-                        margin: 16px 0px 0px !important;
+                            .card-section-actions {
+                                order: 2;
+                                position: initial;
+                                margin: 0 0 0;
+                                width: 100%;
+                                
+                                .button {
+                                    width: 100%;
+                                }
+                            }
+
+                            .card-block {
+                                &.card-block-fund {
+                                    order: 1;
+                                    padding: 0 0 0;
+                                }
+                            }
+                        }
                     }
                 }
             }
             
             .sign_up-pane-body {
-                .button {
-                    font: 500 14px/34px $bf;
-                    width: 100%;
-                    text-align: center;
-
-                    .mdi {
-                        &:before, &:after {
-                            line-height: 34px;
-                        }
-                    }
-
-                    &.large {
-                        height: 54px;
-                    }
-
-                    &.button-sm {
-                        padding: 7px 15px;
-                    }
-                }
-
                 .block-photo-selector {
                     display: flex;
                     max-width: none;
@@ -6569,6 +6517,15 @@ $colorPrimaryLight: $color_primary_light;
 
                         .photo-label, .photo-description {
                             text-align: left;
+                            line-height: 20px;
+                        }
+                    }
+                }
+
+                .sign_up-pane-auth {
+                    .sign_up-pane-auth-qr_code {
+                        .block.block-qr-code {
+                            margin: 0 auto;
                         }
                     }
                 }
@@ -6586,18 +6543,6 @@ $colorPrimaryLight: $color_primary_light;
                             order: 1;
                         }
                     }
-                }
-
-                .sign_up-pane-description {
-                    margin-bottom: 20px !important;
-                }
-
-                .sign-up-form {
-                    margin-top: -20px;
-                }
-
-                &+.sign_up-pane-body {
-                    border-top: none !important;
                 }
 
                 .ui-control {
