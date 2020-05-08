@@ -226,7 +226,7 @@ let SignUpOfficeEditDirective = function(
     };
 
     $scope.addLeadingZeroToTime = (time) => {
-        if (!time.length) {
+        if (!time || !time.length) {
             return '';
         }
 
