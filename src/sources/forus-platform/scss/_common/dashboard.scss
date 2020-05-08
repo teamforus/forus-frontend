@@ -3575,6 +3575,81 @@ $colorPrimaryLight: $color_primary_light;
                 padding-right: 0;
             }
         }
+
+        .schedule-editor-heading {
+            font: 500 21px/27px $bf;   
+            margin: 0 0 15px;
+
+            &.schedule-editor-heading-lg {
+                font: 500 28px/36px $bf;   
+            }
+        }
+
+        table {
+            th {
+                font: 600 13px/16px $bf;
+                letter-spacing: 0.08px;
+                text-transform: uppercase;
+                color: #222530;
+                text-align: left;
+            }
+    
+            td {
+                padding-right: 22px;
+                height: 30px;
+                font: 400 16px/20px $bf;
+                color: #222530;
+    
+                span {
+                    font: 400 16px/20px $bf;
+                }
+    
+                &.weekend {
+                    color: #F15642;
+                }
+
+                &.breaks {
+                    padding-left: 40px;
+                }
+            }
+    
+            th, td {
+                &.breaks {
+                    text-align: center;
+                }
+            }
+    
+            .ui-control {
+                &.ui-control-text {
+                    width: 80px;
+                    height: 30px;
+    
+                    input {
+                        height: 30px;
+                        border-radius: 6px;
+                    }
+                }
+            
+                &.breaks {
+                    display: table-cell;
+    
+                    &.end {
+                        input {
+                            margin-right: 0px;
+                        }
+                    }
+    
+                    input {
+                        width: 80px;
+                        margin-right: 22px;
+                    }
+                }
+    
+                .ui-control-clear {
+                    display: none;
+                }
+            }
+        }
     }
 
     &.block-photo-selector {
