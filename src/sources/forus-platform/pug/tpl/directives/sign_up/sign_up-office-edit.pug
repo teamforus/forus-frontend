@@ -26,6 +26,7 @@
 
     .sign_up-pane-section: .sign_up-pane-col
         schedule-control(ng-model="$dir.form.values.schedule")
+        .form-error(ng-bind="$dir.form.errors.schedule") 
     
     .sign_up-pane-section: .sign_up-pane-col: .flex-row
         .flex-col: .flex-col: button.button.button-primary.button-fill.button-sm(

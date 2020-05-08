@@ -33,6 +33,7 @@
                             label.form-label &nbsp;
                             .form-offset
                                 schedule-control(ng-model="$ctrl.form.values.schedule")
+                                .form-error(ng-bind="$ctrl.form.errors.schedule") 
 
             .card-section.card-section-primary
                 .text-center

@@ -223,7 +223,7 @@ let ScheduleControlDirective = function(
     };
 
     $scope.addLeadingZeroToTime = (time) => {
-        if (!time.length) {
+        if (!time || !time.length) {
             return '';
         }
 
@@ -252,8 +252,8 @@ let ScheduleControlDirective = function(
     };
 
     $scope.init = () => {
-        $dir.scheduleDetails = [];
         $dir.schedule = $scope.ngModel;
+        $dir.scheduleDetails = [];
 
         Object.values($dir.schedule).forEach((weekDay, index) => {
             $dir.scheduleDetails.push({
