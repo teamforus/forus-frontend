@@ -1929,6 +1929,17 @@ $colorPrimaryLight: $color_primary_light;
                 }
             }
 
+            .block-schedule-editor {
+                .schedule-editor-heading {
+                    font: 500 21px/27px $bf;   
+                    margin: 0 0 15px;
+
+                    &.schedule-editor-heading-lg {
+                        font: 500 28px/36px $bf;   
+                    }
+                }
+            }
+
             .form {
                 .form-group {
                     &.col {
@@ -3562,26 +3573,21 @@ $colorPrimaryLight: $color_primary_light;
     &.block-schedule-editor {
         @include cf();
 
-        .schedule-item {
-            padding: 0 5px;
-            float: left;
-            width: 14.2857%;
-
-            &:first-child {
-                padding-left: 0;
-            }
-
-            &:last-child {
-                padding-right: 0;
-            }
-        }
-
         .schedule-editor-heading {
-            font: 500 21px/27px $bf;   
+            font: 500 16px/20px $bf;   
             margin: 0 0 15px;
+            color: #282B39;
 
             &.schedule-editor-heading-lg {
                 font: 500 28px/36px $bf;   
+            }
+        }
+
+        .ui-control {
+            &.ui-control-checkbox {
+                .ui-checkbox-label {
+                    font: 500 13px/16px $bf;
+                }
             }
         }
 
@@ -3597,11 +3603,11 @@ $colorPrimaryLight: $color_primary_light;
             td {
                 padding-right: 22px;
                 height: 30px;
-                font: 400 16px/20px $bf;
+                font: 400 13px/16px $bf;
                 color: #222530;
     
                 span {
-                    font: 400 16px/20px $bf;
+                    font: 400 13px/24px $bf;
                 }
     
                 &.weekend {
