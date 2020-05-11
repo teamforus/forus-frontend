@@ -89,27 +89,6 @@ let OrganizationProvidersComponent = function(
         }, console.error);
     };
 
-    $ctrl.dismissProvider = function(fundProvider) {
-        FundService.dismissProvider(
-            fundProvider.fund.organization_id,
-            fundProvider.fund.id,
-            fundProvider.id
-        ).then((res) => {
-            PushNotificationsService.success(
-                'Verborgen!',
-                "Pas de filters aan om verborgen aanbieders terug te vinden."
-            );
-
-            if (!$ctrl.filters.values.dismissed) {
-                $ctrl.updateProvidersList();
-            } else {
-                $ctrl.fundProviders.data[
-                    $ctrl.fundProviders.data.indexOf(fundProvider)
-                ] = $ctrl.transformProvider(res.data.data);
-            }
-        });
-    };
-
     $ctrl.updateProvidersList = function() {
         $scope.onPageChange({
             fund_id: $ctrl.fund.id,

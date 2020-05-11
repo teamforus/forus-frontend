@@ -8,7 +8,7 @@ let ProviderFundsComponent = function(
 
     let trans_fund_provider = (key) => {
         return $translate('fund_card_provider.empty_block.' + key);
-    }
+    };
 
     $ctrl.shownFundsType = $stateParams.fundsType || 'active';
     $ctrl.showEmptyBlock = false;

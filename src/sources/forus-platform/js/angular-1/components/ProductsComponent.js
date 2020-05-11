@@ -8,13 +8,14 @@ let ProductsComponent = function(
     ModalService
 ) {
     let $ctrl = this;
+    
     $ctrl.filters = {
         values: {},
     };
 
     $ctrl.maxProductCount = appConfigs.flags.maxProductCount ? appConfigs.flags.maxProductCount : null;
     
-    $scope.onPageChange = async (query) => {
+    $ctrl.onPageChange = async (query) => {
         return $q((resolve, reject) => {
             ProductService.list(
                 $ctrl.organization.id, 
@@ -31,7 +32,7 @@ let ProductsComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        $scope.onPageChange().then(() => {
+        $ctrl.onPageChange().then(() => {
             $ctrl.emptyBlockLink = $state.href('products-create', $stateParams);
             $ctrl.cardLevel = "list";
         });

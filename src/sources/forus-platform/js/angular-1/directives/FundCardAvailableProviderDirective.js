@@ -7,9 +7,9 @@ let FundCardAvailableProviderDirective = function (
     OfficeService
 ) {
     $scope.providerApplyFund = function (fund) {
-        OfficeService.list(
-            $scope.organization.id
-        ).then(function (res) {
+        OfficeService.list($scope.organization.id, {
+            per_page: 100
+        }).then(function (res) {
             if (res.data.data.length) {
                 ProviderFundService.applyForFund(
                     $scope.organization.id,

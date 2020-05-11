@@ -1326,6 +1326,7 @@ module.exports = {
             categories: "Categorieën",
             nocategories: "Geen categorieën",
             join: "Aanmelding voor fonds",
+            year: "Jaar",
             quarter: "Kwartaal",
             month: "Maand",
             week: "Week",
@@ -1509,6 +1510,7 @@ module.exports = {
         buttons: {
             delete: "Verwijderen",
             edit: "Bewerken",
+            view: "Kijk",
         }
     },
 
