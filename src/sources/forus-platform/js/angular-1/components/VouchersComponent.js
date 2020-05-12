@@ -120,10 +120,11 @@ let VouchersComponent = function(
                         export_type: data.exportType
                     })
                 ).then(res => {
+                    let timestamp = appConfigs.disable_file_name_timestamps ? 
+                        '_' + moment().format('YYYY-MM-DD HH:mm:ss') : '';
+
                     FileService.downloadFile(
-                        'vouchers_' + moment().format(
-                            'YYYY-MM-DD HH:mm:ss'
-                        ) + '.zip',
+                        sprintf("vouchers_%s.zip", timestamp),
                         res.data,
                         res.headers('Content-Type') + ';charset=utf-8;'
                     );

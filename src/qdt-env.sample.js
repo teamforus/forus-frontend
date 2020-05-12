@@ -43,6 +43,7 @@ module.exports = (core) => {
             flags: {},
             sessions: sessions,
             hide_vouchers_csv: false,
+            disable_file_name_timestamps: false,
             google_maps_api_key: google_maps_api_key,
             // html5ModeEnabled: true,
             // html5Mode: {
@@ -73,6 +74,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            disable_file_name_timestamps: false,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -95,6 +97,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            disable_file_name_timestamps: false,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -117,6 +120,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            disable_file_name_timestamps: false,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -139,6 +143,7 @@ module.exports = (core) => {
             hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
+            disable_file_name_timestamps: false,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -160,6 +165,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            disable_file_name_timestamps: false,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -184,6 +190,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            disable_file_name_timestamps: false,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -207,6 +214,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            disable_file_name_timestamps: false,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -231,6 +239,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            disable_file_name_timestamps: false,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -254,6 +263,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            disable_file_name_timestamps: false,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -278,6 +288,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            disable_file_name_timestamps: false,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -301,6 +312,8 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            disable_file_name_timestamps: false,
+            google_maps_api_key: google_maps_api_key,
          });
       
         platform.editTask('js', (task) => {
@@ -322,6 +335,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            disable_file_name_timestamps: false,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -346,6 +360,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            disable_file_name_timestamps: false,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -367,6 +382,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            disable_file_name_timestamps: false,
          });      
       
          platform.editTask('js', (task) => {
@@ -386,6 +402,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            disable_file_name_timestamps: false,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -408,6 +425,7 @@ module.exports = (core) => {
             hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
+            disable_file_name_timestamps: false,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -429,6 +447,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            disable_file_name_timestamps: false,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -451,6 +470,7 @@ module.exports = (core) => {
             hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
+            disable_file_name_timestamps: false,
             google_maps_api_key: google_maps_api_key,
         });
 

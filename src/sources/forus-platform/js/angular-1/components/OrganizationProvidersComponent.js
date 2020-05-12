@@ -122,10 +122,11 @@ let OrganizationProvidersComponent = function(
                 dismissed: $ctrl.filters.values.dismissed ? 1 : 0
             })
         ).then((res => {
+            let timestamp = appConfigs.disable_file_name_timestamps ? 
+                '_' + moment().format('YYYY-MM-DD HH:mm:ss') : '';
+
             FileService.downloadFile(
-                'providers_' + org + '_' + moment().format(
-                    'YYYY-MM-DD HH:mm:ss'
-                ) + '.xls',
+                sprintf("providers_%s%s.xls", org, timestamp),
                 res.data,
                 res.headers('Content-Type') + ';charset=utf-8;'
             );

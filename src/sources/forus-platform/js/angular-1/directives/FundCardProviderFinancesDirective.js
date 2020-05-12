@@ -190,10 +190,11 @@ let FundCardProviderFinancesDirective = function(
             $scope.fundProvider.id,
             $scope.filters.values
         ).then((res => {
+            let timestamp = appConfigs.disable_file_name_timestamps ? 
+                '_' + moment().format('YYYY-MM-DD HH:mm:ss') : '';
+
             FileService.downloadFile(
-                'financial-dashboard_' + org + '_' + moment().format(
-                    'YYYY-MM-DD HH:mm:ss'
-                ) + '.xls',
+                sprintf("financial-dashboard_%s_%s.xls", org, timestamp),
                 res.data,
                 res.headers('Content-Type') + ';charset=utf-8;'
             );

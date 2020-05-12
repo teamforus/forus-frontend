@@ -1,3 +1,5 @@
+let sprintf = require('sprintf-js').sprintf;
+
 let TransactionsComponent = function(
     $state,
     $timeout,
@@ -70,10 +72,11 @@ let TransactionsComponent = function(
             $ctrl.organization.id,
             $ctrl.filters.values
         ).then((res => {
+            let timestamp = appConfigs.disable_file_name_timestamps ? 
+                '_' + moment().format('YYYY-MM-DD HH:mm:ss') : '';
+
             FileService.downloadFile(
-                appConfigs.panel_type + '_' + org + '_' + moment().format(
-                    'YYYY-MM-DD HH:mm:ss'
-                ) + '.xls',
+                sprintf("%s_%s%s.xls", appConfigs.panel_type, org, timestamp),
                 res.data,
                 res.headers('Content-Type') + ';charset=utf-8;'
             );
