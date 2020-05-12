@@ -966,6 +966,7 @@ module.exports = {
             mobile_number: "Vul uw mobiele nummer in",
             confirm_email: "Bevestig uw emailadres",
             confirm_email_description: "Bevestig voordat we verder gaan uw email adres. Klik op de link in de email die is verzonden naar",
+            terms: "Er wordt gekeken of u al aan de voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan",
         },
         buttons: {
             go_step_2: "Ga verder naar stap 2",
@@ -1092,6 +1093,7 @@ module.exports = {
             mobile_number: "Vul uw mobiele nummer in",
             confirm_email: "Bevestig uw emailadres",
             confirm_email_description: "Bevestig voordat we verder gaan uw email adres. Klik op de link in de email die is verzonden naar",
+            terms: "Er wordt gekeken of u al aan de voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan",
         },
         buttons: {
             go_step_2: "Ga verder naar stap 2",

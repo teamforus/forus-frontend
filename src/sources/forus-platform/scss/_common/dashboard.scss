@@ -2256,7 +2256,7 @@ $colorPrimaryLight: $color_primary_light;
                     background-color: #EFF2F4;
                     border-color: #EFF2F4;
                     height: 50px;
-                    font: 400 16px/40px $bf !important;
+                    font: 400 13px/24px $bf !important;
                 }
     
                 .select-control-option {
@@ -2463,6 +2463,10 @@ $colorPrimaryLight: $color_primary_light;
     
                 .sign_up-pane-body {
                     padding: 20px;
+
+                    .sign_up-pane-subtitle {
+                        font: 400 24px/30px $bf;
+                    }
 
                     .sign_up-office-edit {
                         border-bottom: none;
