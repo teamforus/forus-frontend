@@ -39,8 +39,6 @@ let PhotoSelectorDirective = function(
                         file: file
                     });
                 }
-            }, {
-                animated: true
             });
         });
 

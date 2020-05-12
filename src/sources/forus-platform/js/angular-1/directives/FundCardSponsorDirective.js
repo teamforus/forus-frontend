@@ -65,8 +65,6 @@ let FundCardDirective = function(
                 fund.organization_id,
                 fund.id
             ).then(() => $state.reload())
-        }, {
-            animated: true
         });
     };
 
@@ -80,8 +78,6 @@ let FundCardDirective = function(
                         sprintf("%s uitnodigingen verstuurt naar aanbieders!", res.length),
                     ) & $state.reload();
                 }
-            }, {
-                animated: true
             });
         }
     };
