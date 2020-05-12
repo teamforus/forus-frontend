@@ -5,15 +5,17 @@ let PageLoadingBarService = function() {
         listeners.forEach(listener => listener(progress));
     };
 
-    return new (function() {
+    let PageLoadingBarService = function() {
         this.setProgress = (progress) => {
             setProgress(progress);
-        }
+        };
         
         this.addListener = function(listener) {
             listeners.push(listener);
         };
-    });
+    };
+
+    return new PageLoadingBarService();
 };
 
 module.exports = [

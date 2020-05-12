@@ -1,4 +1,4 @@
-.modal.modal-voucher_qr(ng-class="$ctrl.success ? 'modal-sm' : ''")
+.modal.modal-voucher_qr.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.success ? 'modal-sm' : '', $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     
     .modal-window(ng-show="!$ctrl.assigning && !$ctrl.success"): form(ng-submit="$ctrl.form.submit()")

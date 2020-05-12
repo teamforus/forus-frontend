@@ -8,7 +8,10 @@ let PhotoSelectorDirective = function(
     let input = false;
 
     $scope.selectFile = (e) => {
-        e && e.preventDefault() && e.stopPropagation();
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
 
         if (input && input.remove) {
             input.remove();
@@ -36,6 +39,8 @@ let PhotoSelectorDirective = function(
                         file: file
                     });
                 }
+            }, {
+                animated: true
             });
         });
 

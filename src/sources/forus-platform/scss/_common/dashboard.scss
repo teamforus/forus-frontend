@@ -43,30 +43,6 @@ $borderRadius: $border_radius;
 $colorPrimary: $color_primary;
 $colorPrimaryLight: $color_primary_light;
 
-.blur {
-    // filter: blur(0px);
-    opacity: 1;
-    transform: scale(1, 1) ; // translate3d(0, 0, 0)
-    transition: .25s ease-in;
-
-    &.blur-active {
-        opacity: 0;
-        transform: scale(0, 0) ;// translate3d(0, calc(50vh * 3), 0)
-        // filter: blur(100px);
-        transition: .25s ease-out;
-    }
-}
-
-.blur-lite {
-    opacity: 1;
-    transition: .25s ease-in;
-
-    &.blur-active {
-        opacity: 0;
-        transition: .25s ease-out;
-    }
-}
-
 .hover-actions {
     position: relative;
 
@@ -5815,6 +5791,28 @@ $colorPrimaryLight: $color_primary_light;
         }
     }
 
+    &.modal-animated {
+        .modal-backdrop, .modal-window {
+            opacity: 1;
+            transition: .25s ease-in;
+        }
+
+        .modal-window {
+            transform: scale(1, 1);
+        }
+
+        &.modal-loading {
+            .modal-backdrop, .modal-window {
+                opacity: 0;
+                transition: .25s ease-out;
+            }
+    
+            .modal-window {
+                transform: scale(0, 0);
+            }
+        }
+    }
+
     @media screen and (max-width: 1500px) {
         .modal-content {
             width: 1000px;
@@ -5993,7 +5991,6 @@ $colorPrimaryLight: $color_primary_light;
             }
         }
     }
-
 }
 
 .signup-layout {
