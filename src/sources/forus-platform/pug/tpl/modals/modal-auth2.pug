@@ -1,4 +1,4 @@
-.modal.modal-auth2
+.modal.modal-auth2.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     //- Sign In by qr-code
     .modal-window: .modal-content

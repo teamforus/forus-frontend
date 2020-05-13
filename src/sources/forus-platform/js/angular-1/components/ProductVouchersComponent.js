@@ -41,9 +41,7 @@ let ProductVouchersComponent = function(
     };
 
     $ctrl.hideFilters = () => {
-        $timeout(() => {
-            $ctrl.filters.show = false
-        }, 0);
+        $timeout(() => $ctrl.filters.show = false, 0);
     };
 
     $ctrl.showQrCode = (voucher) => {
@@ -68,7 +66,7 @@ let ProductVouchersComponent = function(
                 $ctrl.onPageChange($ctrl.filters.values);
             }
         });
-    }
+    };
 
     $ctrl.uploadProductVouchersCsv = () => {
         ModalService.open('vouchersUpload', {

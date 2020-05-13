@@ -77,14 +77,12 @@ let ModalFundProviderChatProviderComponent = function(
 
     $ctrl.closeModal = () => {
         $ctrl.close();
-        $ctrl.onClose();
     };
 
     $ctrl.$onInit = () => {
         $ctrl.organization_id = $ctrl.modal.scope.organization_id;
         $ctrl.product_id = $ctrl.modal.scope.product_id;
         $ctrl.chat_id = $ctrl.modal.scope.chat_id;
-        $ctrl.onClose = $ctrl.modal.scope.onClose;
         
         interval = $interval(() => $ctrl.loadMessages(false, 200), updateInterval);
 

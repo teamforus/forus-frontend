@@ -88,13 +88,13 @@ let BaseController = function (
         e.originalEvent.preventDefault();
 
         $rootScope.showOrganizationsMenu = !$rootScope.showOrganizationsMenu;
-    }
+    };
 
     $rootScope.hideOrganizationsMenu = () => {
         $scope.$apply(() => {
             $rootScope.showOrganizationsMenu = false;
         });
-    }
+    };
 
     $rootScope.openPinCodePopup = function () {
         ModalService.open('modalPinCode', {});

@@ -228,9 +228,10 @@ app.config(require('./config/api-service'));
 app.config(require('./config/i18n'));
 app.config(['$compileProvider', function($compileProvider) {
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript):/);
-}])
+}]);
 
 app.run(require('./routers/router-transitions'));
+app.run(require('./routers/modals-transitions'));
 
 app.run(['appConfigs', (appConfigs) => {
     appConfigs.flags = Object.assign(
