@@ -34,9 +34,6 @@ let FundProviderProductComponent = function(
                 $ctrl.fundProviderProductChat = fundProviderProductChat;
                 PushNotificationsService.success('Opgeslagen!');
                 $ctrl.showTheChat();
-            },
-            onClose: () => {
-
             }
         });
     };

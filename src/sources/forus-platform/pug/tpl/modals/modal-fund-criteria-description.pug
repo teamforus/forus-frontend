@@ -1,4 +1,4 @@
-.modal
+.modal.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window: form.form(ng-submit="$ctrl.form.submit()")
         a(ng-click="$ctrl.close()").mdi.mdi-close.modal-close

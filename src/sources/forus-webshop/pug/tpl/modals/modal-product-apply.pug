@@ -1,4 +1,4 @@
-.modal.modal-notification
+.modal.modal-notification.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.cancel()")
     .modal-content
         .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()")
