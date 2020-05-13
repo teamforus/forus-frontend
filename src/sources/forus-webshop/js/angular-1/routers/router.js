@@ -52,6 +52,21 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
+    $stateProvider.state({
+        name: "sign-up",
+        url: "/sign-up",
+        component: "signUpSelectionComponent",
+        params: {
+            confirmed: null,
+            digid_error: null
+        },
+        resolve: {
+            funds: ['FundService', (
+                FundService
+            ) => repackResponse(FundService.list())]
+        }
+    });
+
     if (appConfigs.flags && appConfigs.flags.accessibilityPage) {
         $stateProvider.state({
             name: "accessibility",

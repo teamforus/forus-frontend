@@ -1,12 +1,26 @@
 module.exports = {
     // HOME = home.pug
     header: {
-        title: "{{fund}} ",
+        title: "{{implementation}}",
         subtitle: "Welkom op de website van {{fund}}. Heeft u van de gemeente een toekenning voor {{fund}}? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
         subtitle_av: "Welkom op de website van de {{fund}}. U kan hier de regeling aanvragen en het aanbod bekijken. Na de aanvraag kunt u ook zien hoeveel geld u kunt besteden.",
         title_multi: "Webshop {{org_name}}",
         subtitle_multi: "Welkom op de webshop van {{org_name}} Heeft u via {{org_name}} een toekenning gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
         header_note: "",
+        cta: "Klik op start en vul uw activatiecode in. Deze code staat in de brief over {{fund}} die u heeft ontvangen",
+        cta_multi: "Klik op start en vul uw activatiecode in. Deze code staat in de brief die u heeft ontvangen",
+        cta_av: "Voldoet u aan de voorwaarden van de {{fund}}?",
+        auth_cta: "Beheer uw vouchers en neem ze overal mee door de Me-app te downloaden.",
+        auth_button: "Download Me",
+        signup_cta: "Lees meer >",
+        button: 'START', 
+        button_av: 'START AANVRAAG', 
+        
+        potjeswijzer: {
+            subtitle_av: "Er bestaan veel verschillende potjes binnen het Westerkwartier, vaak meer dan je denkt. Met deze website kan je potjes aanvragen, beheren en uitgeven.",
+            cta_av: "",
+            button_av: 'START', 
+        },
         berkelland: {
             title_multi: "Kindregeling gemeente Berkelland",
             subtitle_multi: "Welkom op de website van de Kindregeling van de gemeente Berkelland. Heeft u via de Sociale Dienst Oost Achterhoek een toekenning voor de Kindregeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
@@ -32,13 +46,6 @@ module.exports = {
         nijmegen: {
             cta_av: "",
         },
-        cta: "Klik op start en vul uw activatiecode in. Deze code staat in de brief over {{fund}} die u heeft ontvangen",
-        cta_multi: "Klik op start en vul uw activatiecode in. Deze code staat in de brief die u heeft ontvangen",
-        cta_av: "Voldoet u aan de voorwaarden van de {{fund}}?",
-        auth_cta: "Beheer uw vouchers en neem ze overal mee door de Me-app te downloaden.",
-        auth_button: "Download Me",
-        button: 'START', 
-        button_av: 'START AANVRAAG', 
     },
     blog: {
         title: "Onze blog",
@@ -87,6 +94,10 @@ module.exports = {
             faq_one: "Hoe kan ik een Meedoenregeling aanvragen?",
             one: "Klik bovenaan op 'Start aanvraag'. Vul uw e-mailadres in en gebruik de login link in uw eigen vertrouwde emailbox. Vervolgens logt u in met uw eigen DigiD. Controleer of u voldoet aan de voorwaarde en klik daarna op 'Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden' en ga naar de volgende stap. Uw Meedoenregeling-voucher is gelijk geactiveerd!",
             eleven: "Nee. Kinderen komen niet in aanmerking voor de meedoen-regeling."
+        },
+        potjeswijzer: {
+            faq_one: "Hoe kan ik een Potje aanvragen?",
+            one: "Klik bovenaan op 'Start aanvraag'. Vul uw e-mailadres in en gebruik de login link in uw eigen vertrouwde emailbox. Vervolgens logt u in met uw eigen DigiD. Controleer of u voldoet aan de voorwaarde!",
         },
         noordoostpolder: {
             faq_one: "Hoe kan ik het Meedoenpakket aanvragen?",
@@ -250,6 +261,13 @@ module.exports = {
             steptwo: "Stap #2",
             two: "Klik op de start knop om uw aanvraag te starten. Gebruik uw eigen e-mailadres.",
 
+        },
+        potjeswijzer: {
+            one: "Klik op de knop 'Start' om uw aanvraag te beginnen.",
+            two: "Meld u aan met uw eigen e-mailadres.",
+            three: "U ziet een overzicht van beschikbare potjes. Ziet u een potje die u wil? Klik op 'aanvragen' en vul uw gegevens in. Uw aanvraag wordt behandeld.",
+            four: "Is uw aanvraag goedgekeurt? Dan ontvangt u toegang tot het tegoed. Met de QR-code kan u naar de organisatie om de betaling te verichten.",
+            five: "Ga naar 'Aanbiedingen' of het overzicht van alle organisaties om te zien waar u uw tegoed kunt besteden of om een aanbieding te kopen. Ga naar de organisatie en laat de bijbehorende QR-code zien om uw aanbieding in ontvangst te nemen."
         },
         winterswijk: {
             title: "Hoe het werkt",

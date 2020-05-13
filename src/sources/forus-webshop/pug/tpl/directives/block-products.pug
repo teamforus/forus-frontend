@@ -25,7 +25,7 @@ section.section.section-products#products
                     .product-organization
                         span(ng-bind="product.organization.name")
                     .product-name.truncated(ng-bind="product.name")
-                    .product-discount
+                    .product-discount(ng-if="product.price != product.old_price")
                         | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}%
                         br
                         | {{ "block_products.labels.discount" | translate }}

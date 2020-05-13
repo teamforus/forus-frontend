@@ -61,7 +61,7 @@ block content
                                 .product-details
                                     .product-organization(ng-bind="product.organization.name")
                                     .product-name.truncated(ng-bind="product.name")
-                                    .product-discount
+                                    .product-discount(ng-if="product.price != product.old_price")
                                         | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}% 
                                         br
                                         | {{ "block_products.labels.discount" | translate }}
@@ -81,7 +81,7 @@ block content
                                     .product-name(ng-bind="product.name")
                                     .product-organization(ng-bind="product.organization.name")
                                 .product-actions
-                                    .product-discount.label.label-danger.label-sm(ng-if="product.old_price")
+                                    .product-discount.label.label-danger.label-sm(ng-if="product.old_price && product.price != product.old_price")
                                         | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}%
                                         | {{ "block_products.labels.discount" | translate }}
                                     .label.label-default.label-sm(ng-if="product.old_price") 

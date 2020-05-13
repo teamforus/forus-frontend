@@ -1,14 +1,21 @@
 .section {
     &.section-funds {
         margin-bottom: 30px;
-        .section-title {
+        
+        .section-title, .section-subtitle {
             text-align: left;
+        }
+        
+        .section-subtitle {
+            font: 400 17px/20px $bf;
         }
     }
+
     &.section-apply_fund {
+        position: relative;
+
         .section-title {
             text-align: left;
         }
-        position: relative;
     }
 }

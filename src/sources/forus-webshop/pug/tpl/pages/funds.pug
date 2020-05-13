@@ -2,8 +2,9 @@ top-navbar
 section.section.section-funds: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
-        .breadcrumb-item.active(i18n="page_state_titles.funds")
-    .section-title(translate="funds.header.title")
+        .breadcrumb-item.active(translate="funds.header.{{ $root.appConfigs.client_key }}.title" translate-default="{{ 'funds.header.title' | translate }}")
+    .section-title(translate="funds.header.{{ $root.appConfigs.client_key }}.title" translate-default="{{ 'funds.header.title' | translate }}")
+    .section-subtitle(translate="funds.header.{{ $root.appConfigs.client_key }}.subtitle" translate-default="{{ 'funds.header.subtitle' | translate }}")
     
     .block.block-funds
         .fund-item(ng-repeat="fund in $ctrl.funds")
