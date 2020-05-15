@@ -331,6 +331,22 @@ module.exports = {
         },
     },
 
+    // EDIT IMPLEMENTATION = implementation-edit.pug
+    implementation_edit: {
+        header: {
+            title: "Implementatie instellingen",
+        },
+        labels: {
+            title: "Titel",
+            description: "Omschrijving",
+            more_info: "Meer info URL"
+        },
+        buttons: {
+            cancel: "Annuleren",
+            confirm: "Bevestigen",
+        }
+    },
+
     // EDIT FUNDS = funds-edit.pug
     funds_edit: {
         header: {

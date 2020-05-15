@@ -47,6 +47,13 @@
                 ui-sref="providers"
                 ui-sref-active="active"
                 ng-bind="'topnavbar.items.providers' | translate")
+        
+        nav.navbar-item-wrapper(ng-click="mobileMenu = false")
+            a.navbar-item(
+                ng-if="$root.appConfigs.features.settings.has_more_info_url"
+                ui-sref="explanation"
+                ui-sref-active="active"
+                ng-bind="'topnavbar.items.explanation' | translate")
                                                                                                                                
     .block.block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
         .auth-code

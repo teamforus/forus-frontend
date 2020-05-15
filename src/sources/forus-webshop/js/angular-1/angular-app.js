@@ -38,6 +38,7 @@ app.component('accessibilityComponent', require('./components/AccessibilityCompo
 app.component('errorComponent', require('./components/ErrorComponent'));
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
 app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
+app.component('explanationComponent', require('./components/ExplanationComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));

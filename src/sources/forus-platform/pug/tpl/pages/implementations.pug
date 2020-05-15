@@ -1,0 +1,43 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .card.card-collapsable
+            
+            .card-header: .flex-row
+                .flex-col: .card-title Implementaties
+                .flex-col: .card-header-drown: .block.block-inline-filters
+                    .form(ng-if="!$ctrl.filters.show"): .form-group
+                        input(ng-model="$ctrl.filters.values.q" placeholder="Zoeken").form-control
+            .card-section(
+                ng-if="$ctrl.implementations.meta.total > 0"
+                ng-repeat="implementation in $ctrl.implementations.data" 
+                ng-click="$ctrl.editImplementation(implementation.id)")
+                
+                .card-block.card-block-implementation
+                    .card-block-implementation-logo
+                        img(ng-src="{{ implementation.logo || './assets/img/placeholders/organization-thumbnail.png' }}")
+                    .card-block-implementation-details
+                        .card-block-implementation-name(ng-bind="implementation.name")
+                        .card-block-implementation-desc Website
+                        .card-block-implementation-website
+                            a(href="{{ implementation.url_webshop }}" target="_blank") {{ implementation.url_webshop }}
+                .card-section-actions 
+                    button(ui-sref="implementation-email({organization_id: $root.activeOrganization.id, id: implementation.id})").button.button-default 
+                        em.mdi.mdi-cog.icon-start 
+                        translate(translate="Email")
+                    button(ui-sref="implementation-digid({organization_id: $root.activeOrganization.id, id: implementation.id})").button.button-default 
+                        em.mdi.mdi-cog.icon-start
+                        translate(translate="DigiD")
+                    button(ui-sref="implementation-cms({organization_id: $root.activeOrganization.id, id: implementation.id})").button.button-primary 
+                        em.mdi.mdi-text-box.icon-start
+                        translate(translate="CMS")
+
+            .card-section: .table-pagination
+                .table-pagination-counter {{ $ctrl.implementations.meta.total }} resultaten
+
+            .card-section(ng-show="$ctrl.implementations.meta.last_page > 1")
+                paginator(meta="$ctrl.implementations.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
+
+        block-empty(
+            ng-if="$ctrl.implementations.meta.total == 0" 
+            text="Geen implementaties beschikbaar." )

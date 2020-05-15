@@ -1561,6 +1561,55 @@ $colorPrimaryLight: $color_primary_light;
             }
         }
     }
+
+    &.card-block-implementation {
+        display: flex;
+
+        .card-block-implementation-logo {
+            img {
+                width: 70px;
+                height: 70px;
+                border: 1px solid #e7e7e7;
+                border-radius: 70px;
+                overflow: hidden;
+                background-color: #f1f4f7;
+            }
+        }
+
+        .card-block-implementation-details {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding-left: 20px;
+            align-self: center;
+            font: 500 18px/22px $bf;
+
+            .card-block-implementation-desc {
+                font: 600 11px/13px $bf;
+                color: #134478;
+                padding-top: 15px;
+            }
+
+            .card-block-implementation-status {
+                font: 600 12px/15px $bf;
+                padding-left: 20px;
+            }
+
+            .card-block-implementation-website {
+                a {
+                    font: 600 13px/16px $bf;
+                    text-decoration: underline;
+                    color: #009EF4;
+                }
+            }
+        }
+    }
+
+    &.card-implementation-edit {
+        .card-block-details {
+            font: 500 16px/20px $bf;
+        }
+    }
 }
 
 .block {
