@@ -9,7 +9,13 @@
             box-shadow: 0 0 20px rgba(#000, .075);
         }
 
+        img {
+            display: block;
+            margin: 0 auto;
+        }
         li {
+            //list-style-type: none;
+            text-align: center;
             display: inline-block;
             padding: 1% 5% 1%;
             border-right: 1px solid $border_color;

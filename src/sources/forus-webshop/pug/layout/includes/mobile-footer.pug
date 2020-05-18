@@ -1,30 +1,24 @@
 .block.block-sticky-footer
     ul.sticky-footer-list
-        li.sticky-footer-item-wrapper: .sticky-footer-item(
-            
-
-            ui-sref="providers"
-        ) Aanbieders
+        li.sticky-footer-item
             img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
+            span Aanbieders
 
 
-        li.sticky-footer-item-wrapper: .sticky-footer-item(
-            ui-sref="products"
-        ) Aanbiedingen
-        "./assets/menu/icon-menu"
+        li.sticky-footer-item(ui-sref="products")
             img(src="./assets/img/icon-menu/icon-menu-products.svg")
+            span Aanbiedingen
 
-        li.sticky-footer-item-wrapper(ng-if="!$root.auth_user"): .sticky-footer-item(
-            ui-sref="request" 
-        ) Start Aanvraag
+        li.sticky-footer-item(ng-if="!$root.auth_user" ui-sref="request") 
+            img(src="./assets/img/icon-menu/icon-menu-products.svg")
+            span Start Aanvraag
 
-        li.sticky-footer-item-wrapper(ng-if="$root.auth_user"): .sticky-footer-item(
-            ui-sref="vouchers"
-        ) Vouchers
+        li.sticky-footer-item-wrapper(ng-if="$root.auth_user" ui-sref="vouchers")
+            img(src="./assets/img/icon-menu/icon-menu-products.svg")
+            span Vouchers
 
-        li.sticky-footer-item-wrapper(ng-if="$root.auth_user"): .sticky-footer-item(
-            
-            ui-sref="profile"
-        ) Profiel
+        li.sticky-footer-item-wrapper(ng-if="$root.auth_user" ui-sref="profile")
+            img(src="./assets/img/icon-menu/icon-menu-products.svg")
+            span Profiel
 
     
