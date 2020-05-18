@@ -1,0 +1,30 @@
+.block.block-sticky-footer
+    ul.sticky-footer-list
+        li.sticky-footer-item-wrapper: .sticky-footer-item(
+            
+
+            ui-sref="providers"
+        ) Aanbieders
+            img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
+
+
+        li.sticky-footer-item-wrapper: .sticky-footer-item(
+            ui-sref="products"
+        ) Aanbiedingen
+        "./assets/menu/icon-menu"
+            img(src="./assets/img/icon-menu/icon-menu-products.svg")
+
+        li.sticky-footer-item-wrapper(ng-if="!$root.auth_user"): .sticky-footer-item(
+            ui-sref="request" 
+        ) Start Aanvraag
+
+        li.sticky-footer-item-wrapper(ng-if="$root.auth_user"): .sticky-footer-item(
+            ui-sref="vouchers"
+        ) Vouchers
+
+        li.sticky-footer-item-wrapper(ng-if="$root.auth_user"): .sticky-footer-item(
+            
+            ui-sref="profile"
+        ) Profiel
+
+    

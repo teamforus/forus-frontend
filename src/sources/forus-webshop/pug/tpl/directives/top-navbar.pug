@@ -1,9 +1,10 @@
 .block.block-navbar: .navbar-inner.wrapper
-    a(ui-sref="home" ng-if="$root.appConfigs.client_key != 'general'").navbar-logo
+    a(ui-sref="home" ng-if="$root.appConfigs.client_key != 'general'").navbar-logo.hide-sm
         img(ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" ng-if="$root.appConfigs.flags.secondLogo").second-logo
         img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
         img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover
     
+
     nav.navbar-list(ng-class="mobileMenu?'navbar-list-show':''")
         ul.navbar-list-auth.show-sm(ng-if="$root.auth_user")
             //- Auth menu
@@ -28,6 +29,14 @@
                 ui-sref="home" 
                 ui-sref-active="home"
                 ng-bind="'Home'")
+        
+        nav.navbar-item-wrapper(ng-if="$root.appConfigs.client_key == 'general'" ng-click="mobileMenu = false")
+            a.navbar-item(
+                ui-sref="kaas" 
+                ui-sref-active="kaas"
+                ng-bind="'Kaas'")
+        
+
 
         nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.fundsMenu && $root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
             a.navbar-item(
@@ -138,7 +147,7 @@
                             img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
                             span(translate="topnavbar.buttons.logout")
 
-        .auth-out(ng-if="!$root.auth_user")
+        .auth-out.hide-sm(ng-if="!$root.auth_user")
             //-.button.button-default(ng-if="$root.appConfigs.flags.aboutSiteMenu" ng-click="openAuthCodePopup()")
                 em.mdi.mdi-ticket-confirmation 
                 span(translate="topnavbar.buttons.activate")
@@ -146,7 +155,28 @@
                 em.mdi.mdi-account
                 span(translate="topnavbar.buttons.login")
     
-    .navbar-mobile-menu.show-sm
+    .navbar-mobile-menu.show-sm: .navbar-inner.wrapper
+        a(ui-sref="home" ng-if="$root.appConfigs.client_key != 'general'").navbar-logo
+            img(ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" ng-if="$root.appConfigs.flags.secondLogo").second-logo
+            img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
+            img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover
+        
+        .block.block-auth: .navbar-inner.wrapper
+            .auth-out(ng-if="!$root.auth_user")
+                //-.button.button-default(ng-if="$root.appConfigs.flags.aboutSiteMenu" ng-click="openAuthCodePopup()")
+                    em.mdi.mdi-ticket-confirmation 
+                    span(translate="topnavbar.buttons.activate")
+                .button.button-default(ng-click="openAuthPopup()")
+                    em.mdi.mdi-account
+                    span(translate="topnavbar.buttons.login")
+        a(ui-sref="home" ng-if="$root.appConfigs.client_key != 'general'").navbar-logo
+            img(ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" ng-if="$root.appConfigs.flags.secondLogo").second-logo
+            img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
+            img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover
+
+
+
+    //- .navbar-mobile-menu.show-sm 
         em.mdi(ng-class="mobileMenu?'mdi-close':'mdi-menu'" ng-click="mobileMenu = !mobileMenu")
 
     //- .block.block-auth.sm-pull-left
@@ -161,3 +191,4 @@
                     ng-bind="'languages.' + lang | translate"
                     ng-click="setLang(lang)")
     
+
