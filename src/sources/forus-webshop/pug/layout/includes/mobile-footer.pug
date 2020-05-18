@@ -1,13 +1,13 @@
 .block.block-sticky-footer
     ul.sticky-footer-list
-        li.sticky-footer-item
+        li.sticky-footer-item(ui-sref="providers")
             img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
             span Aanbieders
 
-
         li.sticky-footer-item(ui-sref="products")
-            img(src="./assets/img/icon-menu/icon-menu-products.svg")
-            span Aanbiedingen
+            .sticky-footer-item(ui-sref="products")
+                img(src="./assets/img/icon-menu/icon-menu-products.svg")
+                span Aanbiedingen
 
         li.sticky-footer-item(ng-if="!$root.auth_user" ui-sref="request") 
             img(src="./assets/img/icon-menu/icon-menu-products.svg")
@@ -20,5 +20,5 @@
         li.sticky-footer-item-wrapper(ng-if="$root.auth_user" ui-sref="profile")
             img(src="./assets/img/icon-menu/icon-menu-products.svg")
             span Profiel
-
+    
     

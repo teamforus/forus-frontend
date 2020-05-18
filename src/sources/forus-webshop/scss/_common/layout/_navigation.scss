@@ -41,13 +41,29 @@
 
             img {
                 display: block;
-                margin: 0 0;
+                margin: 0 auto;
 
                 &.hover {
                     display: none;
                 }
             }
         }
+
+        .navbar-list-mobile {
+            //float: right;
+            padding-left: 60px;
+            flex-grow: 1;
+            display: inline-block;
+            text-align: left;
+
+            .navbar-item-wrapper {
+                display: inline-block;
+                float: left;
+                padding: 1% 5% 1%;
+
+            }
+        }
+
 
         .navbar-list {
             float: left;
@@ -179,7 +195,7 @@
             text-align: right;
             border-left: 1px solid #e6ecf0;
 
-            /*.mdi {
+            .mdi {
                 align-self: right;
                 display: block;
                 height: 60px;
@@ -187,7 +203,7 @@
                 width: 60px;
                 font-size: 30px;
                 color: #9ca6af;
-            }*/
+            }
         }
 
         .block-auth {
@@ -394,7 +410,7 @@
 
                 img {
                     height: 30px;
-                    margin: 0;
+                    margin: 0 auto;
                 }
             }
 
@@ -466,12 +482,19 @@
                 padding: 10px 10px 10px 0;
                 border: none;
                 display: block;
-                width: 100%;
 
                 .button {
                     margin-right: 10px;
                     font-size: 11px;
                     padding: 7px 10px;
+                    border: none;
+                    box-shadow: none;
+
+                    .mdi {
+                        margin: 0;
+                        text-align: center;
+                        float: none;
+                    }
                 }
 
                 .mdi-cog {
