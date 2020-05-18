@@ -58,6 +58,13 @@ let FundService = function(ApiRequest) {
             );
         };
 
+        this.readProviderChats = function(organization_id, fund_id, provider_id, query={}) {
+            return ApiRequest.get(
+                uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + provider_id + '/chats',
+                query
+            );
+        };
+
         this.readProvidersTransactions = function(
             organization_id,
             fund_id,

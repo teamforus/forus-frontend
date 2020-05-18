@@ -18,10 +18,9 @@ let OfficesComponent = function(
             title: 'offices.confirm_delete.title',
             description: 'offices.confirm_delete.description',
             confirm: () => {
-                OfficeService.destroy(office.organization_id, office.id)
-                    .then((res) => {
-                        $state.reload();
-                    });
+                OfficeService.destroy(
+                    office.organization_id, office.id
+                ).then(() => $state.reload());
             }
         });
     };

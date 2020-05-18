@@ -230,9 +230,9 @@ let SignUpComponent = function(
     };
 
     let loadOrganizationOffices = (organization) => {
-        OfficeService.list(
-            organization.id
-        ).then((res) => {
+        OfficeService.list(organization.id, {
+            per_page: 100
+        }).then((res) => {
             if (res.data.data.length) {
                 $ctrl.offices = res.data.data;
             } else {

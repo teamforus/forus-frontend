@@ -41,9 +41,7 @@ let VouchersComponent = function(
     };
 
     $ctrl.hideFilters = () => {
-        $timeout(() => {
-            $ctrl.filters.show = false
-        }, 0);
+        $timeout(() => $ctrl.filters.show = false, 0);
     };
 
     $ctrl.showQrCode = (voucher) => {

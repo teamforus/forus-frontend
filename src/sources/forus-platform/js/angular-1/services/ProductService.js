@@ -1,5 +1,8 @@
+let sprintf = require('sprintf-js').sprintf;
+
 let ProductService = function(ApiRequest) {
     let uriPrefix = '/platform/organizations/';
+    let uriPublicPrefix = '/platform/products/';
 
     return new(function() {
         this.list = function(organization_id, query = {}) {
@@ -12,9 +15,16 @@ let ProductService = function(ApiRequest) {
             return ApiRequest.get('/platform/products', query);
         };
 
+        this.listProductFunds = function(organization_id, fund_id, query = {}) {
+            return ApiRequest.get(
+                sprintf('%s%s/products/%s/funds', uriPrefix, organization_id, fund_id),
+                query
+            );
+        };
+
         this.store = function(organization_id, values) {
             return ApiRequest.post(
-                uriPrefix + organization_id + '/products', 
+                uriPrefix + organization_id + '/products',
                 this.apiFormToResource(values)
             );
         };
@@ -30,7 +40,14 @@ let ProductService = function(ApiRequest) {
             return ApiRequest.get(
                 uriPrefix + organization_id + '/products/' + id
             );
-        }
+        };
+
+        this.readPublic = function(id, query = {}) {
+            return ApiRequest.get(sprintf(
+                sprintf('%s%s', uriPublicPrefix, id),
+                query
+            ));
+        };
 
         this.destroy = function(organization_id, id) {
             return ApiRequest.delete(
