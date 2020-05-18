@@ -41,7 +41,7 @@
             ng-change="$dir.setSameHours(false)"
             ng-model="$dir.form.values.weekend_same_hours")
 
-    .sign_up-pane-section
+    .sign_up-pane-section.hide-sm
         .sign_up-pane-col
             table.schedule
                 tr
@@ -52,15 +52,16 @@
                     th.breaks(translate="organization_edit.labels.break")
 
                 tr(ng-repeat="(weekDayKey, weekDay) in $dir.weekDays track by $index")
-                    td(ng-class="$index >= 5 ? 'weekend' : ''" ng-bind="weekDay")
+                    td.schedule-day-name(ng-class="$index >= 5 ? 'weekend' : ''" ng-bind="weekDay")
 
-                    td
+                    td.schedule-day-available
                         ui-control-checkbox(
                             name="is_opened{{$index}}"
                             data-id="schedule_is_opened{{$index}}"
                             ng-change="$dir.toggleOpened($index)"
                             ng-model="$dir.scheduleDetails[weekDayKey].is_opened")
                     
+                    br.hide-lg
                     td
                         ui-control-text.time.start(
                             ng-model="$dir.form.values.schedule[weekDayKey].start_time"
@@ -93,8 +94,62 @@
 
             br
             .form-error(ng-bind="$dir.form.errors.schedule")
+
+    .sign_up-pane-section.show-sm
+        .sign_up-pane-col
+            .block-schedule-mobile
+                .block-schedule-day(ng-repeat="(weekDayKey, weekDay) in $dir.weekDays track by $index")
+                    .block-schedule-day-name: .flex-row
+                        .flex-col(ng-class="$index >= 5 ? 'text-danger' : ''" ng-bind="weekDay")
+                        .flex-col.text-right(
+                            ng-if="!$dir.scheduleDetails[weekDayKey].is_opened"
+                            translate="organization_edit.labels.closed")
+                    
+                    .block-schedule-day-open: ui-control-checkbox(
+                        name="is_opened{{$index}}"
+                        label="Open"
+                        data-id="schedule_is_opened{{$index}}"
+                        ng-change="$dir.toggleOpened($index)"
+                        ng-model="$dir.scheduleDetails[weekDayKey].is_opened")
+                    
+                    .block-schedule-day-open(ng-if="$dir.scheduleDetails[weekDayKey].is_opened")
+                        .form-group
+                            .form-label Open time
+                            ui-control-text(
+                                ng-model="$dir.form.values.schedule[weekDayKey].start_time"
+                                ng-if="$dir.scheduleDetails[weekDayKey].is_opened"
+                                ng-change="$dir.syncHours($index, 'start_time')"
+                                data-placeholder="Van")
+                    
+                        .form-group
+                            .form-label Close time
+                            ui-control-text(
+                                ng-model="$dir.form.values.schedule[weekDayKey].end_time"
+                                ng-if="$dir.scheduleDetails[weekDayKey].is_opened"
+                                ng-change="$dir.syncHours($index, 'end_time')"
+                                data-placeholder="Tot")
+                        
+                        .form-group
+                            .form-label Pause start time
+                            ui-control-text(
+                                ng-model="$dir.form.values.schedule[weekDayKey].break_start_time"
+                                ng-if="$dir.scheduleDetails[weekDayKey].is_opened"
+                                ng-change="$dir.syncHours($index, 'break_start_time')"
+                                data-placeholder="Van")
+                        
+                        .form-group
+                            .form-label Pause end time
+                            ui-control-text(
+                                ng-model="$dir.form.values.schedule[weekDayKey].break_end_time"
+                                ng-if="$dir.scheduleDetails[weekDayKey].is_opened"
+                                ng-change="$dir.syncHours($index, 'break_end_time')"
+                                data-placeholder="Tot")
+                        br
+
+            br
+            .form-error(ng-bind="$dir.form.errors.schedule")
     
-    .sign_up-pane-section: .sign_up-pane-col: .flex-row
+    .sign_up-pane-section.office-edit-actions: .sign_up-pane-col: .flex-row
         .flex-col: .flex-col: button.button.button-primary.button-fill.button-sm(
             type="button"
             ng-click="cancel()"
