@@ -10,7 +10,7 @@ let ImplementationCmsEditComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.form = FormBuilderService.build($ctrl.implementation, (form) => {
-            ImplementationService.update(
+            ImplementationService.updateCms(
                 $rootScope.activeOrganization.id, 
                 $ctrl.implementation.id,
                 form.values
