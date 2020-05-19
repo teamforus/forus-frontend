@@ -64,7 +64,6 @@
             }
         }
 
-
         .navbar-list {
             float: left;
             padding-left: 30px;
@@ -464,6 +463,7 @@
             .navbar-inner {
                 padding: 0 0;
                 border-radius: 0;
+                justify-content: flex-end;
             }
 
             .navbar-logo {
@@ -490,8 +490,8 @@
                     border: none;
                     box-shadow: none;
 
-                    .mdi {
-                        margin: 0;
+                    .mdi, img {
+                        margin: 0 auto;
                         text-align: center;
                         float: none;
                     }

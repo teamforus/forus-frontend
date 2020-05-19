@@ -61,7 +61,7 @@
                 //-span(translate="topnavbar.buttons.profile").second-line-button
     
     .block.block-auth
-        .auth-in(ng-if="$root.auth_user")
+        .auth-in(ng-if="$root.auth_user").hide-sm
             .auth-user(ng-click="$ctrl.openUserMenu($event)")
                 .auth-user-details  
                     .auth-user-email(ng-bind="$root.auth_user.email" ng-if="!$root.appConfigs.features.records.list") 
@@ -138,16 +138,23 @@
                         .auth-user-menu-item(ng-click="$root.signOut()")
                             img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
                             span(translate="topnavbar.buttons.logout")
+        
+        .auth-in(ng-if="$root.auth_user").show-sm
+                .button.button-mobile(ng-click="$root.signOut()")
+                    img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
+                    div(translate="topnavbar.buttons.logout")
 
         .auth-out(ng-if="!$root.auth_user")
             //-.button.button-default(ng-if="$root.appConfigs.flags.aboutSiteMenu" ng-click="openAuthCodePopup()")
                 em.mdi.mdi-ticket-confirmation 
                 span(translate="topnavbar.buttons.activate")
             
-            .button.button-default(ng-click="openAuthPopup()") 
+            .button.button-default(ng-click="openAuthPopup()").hide-sm
                 em.mdi.mdi-account
-                div(translate="topnavbar.buttons.login").show-sm
-                span(translate="topnavbar.buttons.login").hide-sm
+                span(translate="topnavbar.buttons.login")
+            .button.button-mobile(ng-click="openAuthPopup()").show-sm
+                em.mdi.mdi-account
+                div(translate="topnavbar.buttons.login")
 
             
     
