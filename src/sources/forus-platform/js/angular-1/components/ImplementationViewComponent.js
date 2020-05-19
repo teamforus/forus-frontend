@@ -3,7 +3,6 @@ let ImplementationViewComponent = function(
     $state,
     $scope,
     $rootScope,
-    $stateParams,
     FundService,
 ) {
     let $ctrl = this;
@@ -48,7 +47,6 @@ module.exports = {
         '$state',
         '$scope',
         '$rootScope',
-        '$stateParams',
         'FundService',
         ImplementationViewComponent
     ],

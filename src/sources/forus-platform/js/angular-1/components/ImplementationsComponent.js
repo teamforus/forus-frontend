@@ -2,7 +2,6 @@ let ImplementationsComponent = function(
     $state,
     $q,
     $rootScope,
-    $stateParams,
     ImplementationService,
 ) {
     let $ctrl = this;
@@ -47,7 +46,6 @@ module.exports = {
         '$state',
         '$q',
         '$rootScope',
-        '$stateParams',
         'ImplementationService',
         ImplementationsComponent
     ],

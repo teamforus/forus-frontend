@@ -25,7 +25,7 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
         +nav_item(
             "Implementation", "implementation", 'implementations', 
             '{organization_id: $root.activeOrganization.id}', 
-            '$root.activeOrganization | hasPerm:["view_finances"]')
+            '$root.activeOrganization | hasPerm:["manage_implementation", "view_funds"]')
 
         if (!qdt_c.platform.env_data.hide_voucher_generators)
             +nav_item(

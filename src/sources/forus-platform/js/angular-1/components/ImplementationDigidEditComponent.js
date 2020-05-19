@@ -17,6 +17,9 @@ let ImplementationDigidEditComponent = function(
             ).then(res => {
                 form.unlock();
                 PushNotificationsService.success('Opgeslagen!');
+            }, (res) => {
+                form.unlock();
+                form.errors = res.data.errors;
             });
         }, true);
     };

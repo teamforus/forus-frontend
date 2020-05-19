@@ -554,7 +554,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "implementationsComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('transactions-list', 'view_finances'),
+            permission: permissionMiddleware('implementation-manage', 'manage_implementation'),
             funds: ['permission', '$transition$', 'FundService', (
                 permission, $transition$, FundService
             ) => repackResponse(FundService.list(
@@ -578,7 +578,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "implementationViewComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('transactions-list', 'view_finances'),
+            permission: permissionMiddleware('implementation-manage', 'manage_implementation'),
             implementation: ['permission', '$transition$', 'ImplementationService', (
                 permission, $transition$, ImplementationService
             ) => repackResponse(ImplementationService.read(
@@ -604,7 +604,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "implementationCmsEditComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('transactions-list', 'view_finances'),
+            permission: permissionMiddleware('implementation-manage', 'manage_implementation'),
             implementation: ['permission', '$transition$', 'ImplementationService', (
                 permission, $transition$, ImplementationService
             ) => repackResponse(ImplementationService.read(
@@ -630,7 +630,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "implementationEmailEditComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('transactions-list', 'view_finances'),
+            permission: permissionMiddleware('implementation-manage', 'manage_implementation'),
             implementation: ['permission', '$transition$', 'ImplementationService', (
                 permission, $transition$, ImplementationService
             ) => repackResponse(ImplementationService.read(
@@ -656,7 +656,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "implementationDigidEditComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('transactions-list', 'view_finances'),
+            permission: permissionMiddleware('implementation-manage', 'manage_implementation'),
             implementation: ['permission', '$transition$', 'ImplementationService', (
                 permission, $transition$, ImplementationService
             ) => repackResponse(ImplementationService.read(
