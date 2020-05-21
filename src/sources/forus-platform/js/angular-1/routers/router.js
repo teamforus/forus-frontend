@@ -485,7 +485,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                         return repackResponse(
                             FundService.list(
                                 $transition$.params().organization_id, {
-                                    per_page: 1000
+                                    per_page: 100
                                 }
                             )
                         );
@@ -524,7 +524,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                         return repackResponse(
                             FundService.list(
                                 $transition$.params().organization_id, {
-                                    per_page: 1000
+                                    per_page: 100
                                 }
                             )
                         );
