@@ -1363,7 +1363,8 @@ module.exports = {
             accepted_only_products: "Geaccepteerd: alleen aanbiedingen",
             accepted_only_specific_products: "Geaccepteerd: specifieke aanbiedingen",
             pending: "Uitgenodigd",
-            expired: "Verlopen"
+            expired: "Verlopen",
+            rejected: "Geweigerd"
         },
         labels: {
             categories: "Categorieën",
@@ -1381,19 +1382,22 @@ module.exports = {
             available: "Er zijn geen beschikbare fondsen waar u zich voor kunt aanmelden.",
             active: "Er zijn geen fondsen waar u actief voor bent.",
             invitations: "Er zijn geen openstaande uitnodigingen die u kunt accepteren.",
-            invitations_expired: "Er zijn geen verlopen uitnodigingen of gesloten fondsen waar u zich voor hebt aangemeld.",
+            expired_closed: "Er zijn geen verlopen uitnodigingen of gesloten fondsen waar u zich voor hebt aangemeld.",
+            pending_rejected: "Er zijn geen fondsen waar u aanmeldingen voor bent.",
         },
         tabs: {
             active: 'Actief',
             invitations: 'Uitnodigingen',
+            pending_rejected: "Aanmeldingen",
             available: 'Beschikbaar',
             expired: 'Archief',
         },
         title: {
             available: "Beschikbare fondsen",
+            pending_rejected: "Aanmeldingen fondsen",
             active: "Actieve fondsen",
             invitations: "Uitnodigingen",
-            invitations_expired: "Archief",
+            expired_closed: "Archief",
         }
     },
 
