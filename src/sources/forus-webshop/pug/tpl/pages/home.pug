@@ -11,7 +11,7 @@ header.section.section-header.section-header-landing
             .header-title(ng-if="!$ctrl.appConfigs.features.settings.title" translate="home.header.{{ $root.client_key }}.title" translate-default="{{ 'home.header.title' | translate:{ implementation: $ctrl.implementation_name } }}")
             
             .header-description#desc(ng-if="$ctrl.appConfigs.features.settings.description")
-                p(ng-bind="$ctrl.appConfigs.features.settings.description")
+                p(ng-repeat="description_line in $ctrl.description_lines track by $index" ng-bind="description_line")
 
             .header-description#desc(ng-if="!$ctrl.appConfigs.features.settings.description && !$ctrl.digidAvailable")
                 p(ng-if="$ctrl.funds.length <= 1" translate="home.header.{{ $root.client_key }}.subtitle" translate-default="{{'home.header.subtitle' | translate:{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale } }}" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
@@ -51,8 +51,8 @@ header.section.section-header.section-header-landing
             br
             br
             
-            a(ng-if="!$root.auth_user && !$ctrl.appConfigs.features.settings.more_info_url" scroll-to="#steps" i18n="Hoe werkt het?" ui-sref="explanation").header-how-it-works
-            a(ng-if="!$root.auth_user && $ctrl.appConfigs.features.settings.more_info_url" target="_blank" scroll-to="#steps" i18n="Hoe werkt het?" href="{{ $ctrl.appConfigs.features.settings.more_info_url }}").header-how-it-works
+            a(ng-if="!$root.auth_user && !$ctrl.appConfigs.features.settings.has_more_info_url" i18n="Hoe werkt het?" ui-sref="explanation").header-how-it-works
+            a(ng-if="!$root.auth_user && $ctrl.appConfigs.features.settings.has_more_info_url" target="_blank" i18n="Hoe werkt het?" href="{{ $ctrl.appConfigs.features.settings.more_info_url }}").header-how-it-works
             a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" href="#!/me" target="_blank").header-how-it-works
 
             //- usage example: 
@@ -72,7 +72,7 @@ header.section.section-header.section-header-landing
                 button(ui-sref="providers" i18n="buttons.show_map").button.button-primary.button-wide
                 //- button(ng-click="$ctrl.showPopupOffices()" i18n="buttons.show_map").button.button-primary.button-wide
 
-    section.section.section-steps#steps(ng-if="$ctrl.appConfigs.flags.homeSteps && !$ctrl.appConfigs.features.settings.has_more_info_url"): .wrapper
+    //- section.section.section-steps#steps(ng-if="$ctrl.appConfigs.flags.homeSteps && !$ctrl.appConfigs.features.settings.has_more_info_url"): .wrapper
         .section-splash
         .section-sprite
         .section-title(i18n="home.guide.title")
@@ -93,7 +93,7 @@ header.section.section-header.section-header-landing
                 h4(i18n="home.guide.stepfive")
                 p(translate="home.guide.{{ $root.client_key }}.five" translate-default="{{'home.guide.five' | translate }}")
 
-    section.section.section-faq(ng-if="$ctrl.appConfigs.flags.homeFaq && !$ctrl.appConfigs.features.settings.has_more_info_url"): .wrapper
+    //- section.section.section-faq(ng-if="$ctrl.appConfigs.flags.homeFaq && !$ctrl.appConfigs.features.settings.has_more_info_url"): .wrapper
         .section-splash
         .section-title(i18n="home.faq.title")
         .faq(collapse)

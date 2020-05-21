@@ -50,6 +50,8 @@ let HomeComponent = function(
                 errorCode: 'digid_' + $stateParams.digid_error
             });
         }
+
+        $ctrl.description_lines = appConfigs.features.settings.description.split("\n").filter(line => line.length > 0);
     };
 };
 

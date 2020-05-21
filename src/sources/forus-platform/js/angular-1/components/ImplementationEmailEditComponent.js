@@ -10,12 +10,13 @@ let ImplementationEmailEditComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.form = FormBuilderService.build($ctrl.implementation, (form) => {
-            ImplementationService.updateEmail(
+            ImplementationService.update(
                 $rootScope.activeOrganization.id, 
                 $ctrl.implementation.id,
                 form.values
             ).then(res => {
                 form.unlock();
+                form.errors = [];
                 PushNotificationsService.success('Opgeslagen!');
             }, (res) => {
                 form.unlock();

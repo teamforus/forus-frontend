@@ -600,7 +600,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
      */
     $stateProvider.state({
         name: "implementation-cms",
-        url: "/organizations/{organization_id}/implementation-cms/{id}",
+        url: "/organizations/{organization_id}/implementation/{id}/cms",
         component: "implementationCmsEditComponent",
         resolve: {
             organization: organziationResolver(),
@@ -626,7 +626,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
      */
     $stateProvider.state({
         name: "implementation-email",
-        url: "/organizations/{organization_id}/implementation-email/{id}",
+        url: "/organizations/{organization_id}/implementation/{id}/email",
         component: "implementationEmailEditComponent",
         resolve: {
             organization: organziationResolver(),
@@ -652,7 +652,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
      */
     $stateProvider.state({
         name: "implementation-digid",
-        url: "/organizations/{organization_id}/implementation-digid/{id}",
+        url: "/organizations/{organization_id}/implementation/{id}/digid",
         component: "implementationDigidEditComponent",
         resolve: {
             organization: organziationResolver(),

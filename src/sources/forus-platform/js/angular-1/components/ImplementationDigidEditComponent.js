@@ -10,12 +10,13 @@ let ImplementationDigidEditComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.form = FormBuilderService.build($ctrl.implementation, (form) => {
-            ImplementationService.updateDigiD(
+            ImplementationService.update(
                 $rootScope.activeOrganization.id, 
                 $ctrl.implementation.id,
                 form.values
             ).then(res => {
                 form.unlock();
+                form.errors = [];
                 PushNotificationsService.success('Opgeslagen!');
             }, (res) => {
                 form.unlock();

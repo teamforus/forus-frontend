@@ -10,12 +10,13 @@ let ImplementationCmsEditComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.form = FormBuilderService.build($ctrl.implementation, (form) => {
-            ImplementationService.updateCms(
+            ImplementationService.update(
                 $rootScope.activeOrganization.id, 
                 $ctrl.implementation.id,
                 form.values
             ).then(res => {
                 form.unlock();
+                form.errors = [];
                 PushNotificationsService.success('Opgeslagen!');
             }, (res) => {
                 form.unlock();
