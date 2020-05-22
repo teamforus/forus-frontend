@@ -57,23 +57,18 @@ let ProviderFundFiltersDirective = function(
     }
 
     $scope.filterFunds = (organization = $scope.organization) => {
-        let organization_id = $scope.fundOrganization && $scope.fundOrganization != 'null' ?
-            $scope.fundOrganization : ($scope.useStatParams ? $stateParams.organization_id : null);
-        let label = $scope.fundLabel && $scope.fundLabel != 'null' ?
-            $scope.fundLabel : ($scope.useStatParams ? $stateParams.tag : null);
-        let fund_id = $stateParams.fund_id,
-            search_params = {};
+        let search_params = {};
 
-        if (organization_id) {
-            search_params.organization_id = organization_id;
+        if ($scope.fundOrganization && $scope.fundOrganization != 'null') {
+            search_params.organization_id = $scope.fundOrganization;
         }
 
-        if (label) {
-            search_params.tag = label;
+        if ($scope.fundLabel && $scope.fundLabel != 'null') {
+            search_params.tag = $scope.fundLabel;
         }
 
-        if (fund_id) {
-            search_params.fund_id = fund_id;
+        if ($stateParams.fund_id) {
+            search_params.fund_id = $stateParams.fund_id;
         }
 
         if (!Object.keys(search_params).length) {
@@ -99,7 +94,6 @@ module.exports = () => {
         scope: {
             fundsAvailable: '=',
             organization: '=',
-            useStatParams: '<'
         },
         restrict: "EA",
         replace: true,
