@@ -82,7 +82,6 @@ let ModalFundProviderChatSponsorComponent = function(
         $ctrl.fund_provider_id = $ctrl.modal.scope.fund_provider_id;
         $ctrl.organization_id = $ctrl.modal.scope.organization_id;
         $ctrl.fund_provider_chat_id = $ctrl.modal.scope.fund_provider_chat_id;
-        $ctrl.onClose = $ctrl.modal.scope.onClose;
 
         interval = $interval(() => $ctrl.loadMessages(false, 200), updateInterval);
 
@@ -91,7 +90,6 @@ let ModalFundProviderChatSponsorComponent = function(
 
     $ctrl.closeModal = () => {
         $ctrl.close();
-        $ctrl.onClose();
     };
 
     $ctrl.$onDestroy = function() {

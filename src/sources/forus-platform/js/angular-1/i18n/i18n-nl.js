@@ -966,6 +966,7 @@ module.exports = {
             mobile_number: "Vul uw mobiele nummer in",
             confirm_email: "Bevestig uw emailadres",
             confirm_email_description: "Bevestig voordat we verder gaan uw email adres. Klik op de link in de email die is verzonden naar",
+            terms: "Er wordt gekeken of u al aan de voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan",
         },
         buttons: {
             go_step_2: "Ga verder naar stap 2",
@@ -1018,8 +1019,10 @@ module.exports = {
         },
         app: {
             title: "Heeft u de Me App al?",
-            description: [
+            description_top: [
                 "De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
+            ].join("\n"),
+            description_bottom: [
                 "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.",
                 "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
             ].join("\n"),
@@ -1090,6 +1093,7 @@ module.exports = {
             mobile_number: "Vul uw mobiele nummer in",
             confirm_email: "Bevestig uw emailadres",
             confirm_email_description: "Bevestig voordat we verder gaan uw email adres. Klik op de link in de email die is verzonden naar",
+            terms: "Er wordt gekeken of u al aan de voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan",
         },
         buttons: {
             go_step_2: "Ga verder naar stap 2",
@@ -1142,8 +1146,10 @@ module.exports = {
         },
         app: {
             title: "Heeft u de Me App al?",
-            description: [
+            description_top: [
                 "De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
+            ].join("\n"),
+            description_bottom: [
                 "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.", 
                 "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
             ].join("\n"),
@@ -1326,6 +1332,7 @@ module.exports = {
             categories: "Categorieën",
             nocategories: "Geen categorieën",
             join: "Aanmelding voor fonds",
+            year: "Jaar",
             quarter: "Kwartaal",
             month: "Maand",
             week: "Week",

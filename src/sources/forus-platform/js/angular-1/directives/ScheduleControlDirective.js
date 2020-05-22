@@ -100,7 +100,7 @@ let ScheduleControlDirective = function(
         date1.end_time = date2.end_time;
         date1.break_start_time = date2.break_start_time;
         date1.break_end_time = date2.break_end_time;
-    }
+    };
 
     $scope.syncTime = (modifiedFieldIndex) => {
         let time = $dir.schedule[modifiedFieldIndex],

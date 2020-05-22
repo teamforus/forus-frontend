@@ -3,8 +3,8 @@
     section.app.app-content
         .card-heading(ng-bind="'financial_dashboard.header.title' | translate")
         fund-selector(funds="$ctrl.funds" on-fund-select="$ctrl.onFundSelect")
-
-        div(ng-if="$ctrl.fundProviders.data.length > 0")
+        
+        div(ng-if="$ctrl.allFundProviders.data.length > 0")
             .block.block-charts
                 .row: .col.col-lg-12: .card: .card-section
                     .chart-header
@@ -78,11 +78,21 @@
                                 br
                                 span(ng-bind="$ctrl.chartData.stringTitle")
 
-            .card-heading {{ "financial_dashboard.labels.provider" | translate }} ({{ $ctrl.fundProviders.meta.total }})
-            fund-card-provider-finances(ng-repeat="fundProvider in $ctrl.fundProviders.data" fund-provider="fundProvider")
+        .card-heading: .row
+            .col.col-lg-6.col-xs-12 
+                span(translate="financial_dashboard.labels.provider")
+                span(ng-bind="$ctrl.fundProviders.meta.total").span-count
+            .block.block-inline-filters.col.col-lg-6.col-xs-12
+                .form(ng-if="!$ctrl.filters.show")
+                    .form-group: input(
+                        ng-model="$ctrl.filters.values.q" 
+                        type="text" 
+                        placeholder="{{ 'vouchers.labels.search' | i18n }}").form-control
+             
+        fund-card-provider-finances(ng-repeat="fundProvider in $ctrl.fundProviders.data" fund-provider="fundProvider")
 
-            .card: .card-section(ng-show="$ctrl.fundProviders.meta.last_page > 1")
-                paginator(meta="$ctrl.fundProviders.meta" filters="filter" count-buttons="5" on-page-change="onPageChange(query)")
+        .card: .card-section(ng-show="$ctrl.fundProviders.meta.last_page > 1")
+            paginator(meta="$ctrl.fundProviders.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="onPageChange(query)")
 
         block-empty(
             ng-if='$ctrl.fundProviders.data.length == 0' 
