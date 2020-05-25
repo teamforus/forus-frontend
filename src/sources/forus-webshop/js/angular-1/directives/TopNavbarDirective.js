@@ -60,13 +60,14 @@ let TopNavbarDirective = function(
 };
 
 module.exports = () => {
+    console.log("loading topnavbar ...")
     return {
         scope: {
             text: '=',
             button: '=',
         },
         restrict: "EA",
-        replace: true,
+        replace: false,
         controller: [
             '$scope',
             '$translate',

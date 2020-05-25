@@ -9,9 +9,9 @@
                 img(src="./assets/img/icon-menu/icon-menu-products2.svg")
                 span Aanbiedingen
 
-        li.sticky-footer-item(ng-if="!$root.auth_user" ui-sref="request") 
+        li.sticky-footer-item(ng-if="!$root.auth_user" ng-click="openAuthCodePopup()") 
             img(src="./assets/img/icon-menu/icon-menu-start-request.svg")
-            span Start Aanvraag
+            span Start Aanvraag, joejoe
 
         li.sticky-footer-item-wrapper(ng-if="$root.auth_user" ui-sref="vouchers")
             img(src="./assets/img/icon-menu/icon-menu-my-vouchers2.svg")
