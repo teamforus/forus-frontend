@@ -21,7 +21,7 @@ let ProviderFundsComponent = function(
         };
 
         let is_pending_or_rejected = (fund) => {
-            return !fund.allow_budget || fund.dismissed;
+            return (!fund.allow_budget && !fund.allow_products && !fund.allow_some_products) || fund.dismissed;
         }
 
         let is_closed = (fund) => {
