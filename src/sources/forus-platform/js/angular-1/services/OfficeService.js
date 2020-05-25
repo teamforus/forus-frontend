@@ -84,26 +84,26 @@ let OfficeService = function(ApiRequest) {
             for (let prop in weekDays) {
                 if (!schedule[prop]) {
                     schedule[prop] = {
-                        'start_time': 'null',
-                        'end_time': 'null',
-                        'break_start_time': 'null',
-                        'break_end_time': 'null',
+                        'start_time': '',
+                        'end_time': '',
+                        'break_start_time': '',
+                        'break_end_time': '',
                     }
                 } else {
                     if (!schedule[prop].start_time) {
-                        schedule[prop].start_time = 'null';
+                        schedule[prop].start_time = '';
                     }
 
                     if (!schedule[prop].end_time) {
-                        schedule[prop].end_time = 'null';
+                        schedule[prop].end_time = '';
                     }
 
                     if (!schedule[prop].break_start_time) {
-                        schedule[prop].break_start_time = 'null';
+                        schedule[prop].break_start_time = '';
                     }
 
                     if (!schedule[prop].break_end_time) {
-                        schedule[prop].break_end_time = 'null';
+                        schedule[prop].break_end_time = '';
                     }
                 }
             }

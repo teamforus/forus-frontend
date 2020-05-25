@@ -1896,6 +1896,17 @@ $colorPrimaryLight: $color_primary_light;
                 }
             }
 
+            .block-schedule-editor {
+                .schedule-editor-heading {
+                    font: 500 21px/27px $bf;   
+                    margin: 0 0 15px;
+
+                    &.schedule-editor-heading-lg {
+                        font: 500 28px/36px $bf;   
+                    }
+                }
+            }
+
             .form {
                 .form-group {
                     &.col {
@@ -2187,6 +2198,10 @@ $colorPrimaryLight: $color_primary_light;
             .ui-control .form-control:not([type="radio"]):not([type="checkbox"]) {
                 background-color: #EFF2F4;
                 border-color: #EFF2F4;
+
+                &:not([type='checkbox']) {
+                    padding: 4px 15px;
+                }
 
                 ::placeholder {
                     color: #9b9b9b;
@@ -3764,17 +3779,87 @@ $colorPrimaryLight: $color_primary_light;
     &.block-schedule-editor {
         @include cf();
 
-        .schedule-item {
-            padding: 0 5px;
-            float: left;
-            width: 14.2857%;
+        .schedule-editor-heading {
+            font: 500 16px/20px $bf;   
+            margin: 0 0 15px;
+            color: #282B39;
 
-            &:first-child {
-                padding-left: 0;
+            &.schedule-editor-heading-lg {
+                font: 500 28px/36px $bf;   
             }
+        }
 
-            &:last-child {
-                padding-right: 0;
+        .ui-control {
+            &.ui-control-checkbox {
+                .ui-checkbox-label {
+                    font: 500 13px/16px $bf;
+                }
+            }
+        }
+
+        table {
+            th {
+                font: 600 13px/16px $bf;
+                letter-spacing: 0.08px;
+                text-transform: uppercase;
+                color: #222530;
+                text-align: left;
+            }
+    
+            td {
+                padding-right: 22px;
+                height: 30px;
+                font: 400 13px/16px $bf;
+                color: #222530;
+    
+                span {
+                    font: 400 13px/24px $bf;
+                }
+    
+                &.weekend {
+                    color: #F15642;
+                }
+
+                &.breaks {
+                    padding-left: 40px;
+                }
+            }
+    
+            th, td {
+                &.breaks {
+                    text-align: center;
+                }
+            }
+    
+            .ui-control {
+                &.ui-control-text {
+                    width: 80px;
+                    height: 30px;
+    
+                    input {
+                        height: 30px;
+                        border-radius: 6px;
+                    }
+                }
+            
+                &.breaks {
+                    display: table-cell;
+    
+                    &.end {
+                        input {
+                            margin-right: 0px;
+                        }
+                    }
+    
+                    input {
+                        width: 80px;
+                        margin-right: 22px;
+                    }
+                }
+    
+                .ui-control-clear {
+                    display: none;
+                }
             }
         }
     }
