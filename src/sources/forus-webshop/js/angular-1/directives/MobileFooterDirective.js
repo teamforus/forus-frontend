@@ -1,14 +1,9 @@
-let TopNavbarDirective = function(
+let MobileFooterDirective  = function(
     $scope,
     $translate,
     ModalService,
     ConfigService
 ) {
-    $scope.mobileMenu = false;
-    $scope.$ctrl = {
-        userMenuOpened: false
-    };
-    
     $scope.openAuthPopup = function () {
         ModalService.open('modalAuth', {});
     };
@@ -44,19 +39,6 @@ let TopNavbarDirective = function(
         $translate.use(lang);
         $scope.i18nActive = $translate.use();
     };
-
-    $scope.$ctrl.openUserMenu = (e) => {
-        e.originalEvent.stopPropagation();
-        e.originalEvent.preventDefault();
-        
-        $scope.$ctrl.userMenuOpened = !$scope.$ctrl.userMenuOpened;
-    }
-
-    $scope.$ctrl.hideUserMenu = () => {
-        $scope.$apply(() => {
-            $scope.$ctrl.userMenuOpened = false;
-        });
-    }
 };
 
 module.exports = () => {
@@ -72,8 +54,8 @@ module.exports = () => {
             '$translate',
             'ModalService',
             'ConfigService',
-            TopNavbarDirective
+            MobileFooterDirective
         ],
-        templateUrl: 'assets/tpl/directives/top-navbar.html' 
+        templateUrl: 'assets/tpl/directives/mobile-footer.html' 
     };
 };
