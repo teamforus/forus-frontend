@@ -1,8 +1,10 @@
 .block {
     &.block-sticky-footer {
-        bottom: 0;
-        position: sticky;
-
+        bottom: 0px;
+        margin-top: 100px;
+        position: fixed;
+        z-index: 10;
+        width: 100%;
 
         ul {
             display: table;
@@ -12,12 +14,14 @@
         }
 
         img {
+            width: 20px;
             display: block;
             margin: 0 auto;
         }
         li {
+            font-size: 14px;
             width: 25%;
-            padding-top: 10px;
+            padding: 10px 0;
 
             display: table-cell;
             text-align: center;
@@ -412,7 +416,7 @@
 
                 img {
                     height: 30px;
-                    margin: 0 auto;
+                    margin: 0 0;
                 }
             }
 
