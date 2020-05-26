@@ -1,24 +1,23 @@
 .block.block-sticky-footer.show-sm
     ul.sticky-footer-list
-        li.sticky-footer-item(ui-sref="providers")
-            img(src="./assets/img/icon-menu/icon-menu-providers.svg")
+        li.sticky-footer-item(ui-sref="providers" ui-sref-active="active")
+            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-providers.svg
             span Aanbieders
 
-        li.sticky-footer-item(ui-sref="products")
-            .sticky-footer-item(ui-sref="products")
-                img(src="./assets/img/icon-menu/icon-menu-products2.svg")
-                span Aanbiedingen
+        li.sticky-footer-item(ui-sref="products" ui-sref-active="active")
+            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-products2.svg
+            span Aanbiedingen
 
-        li.sticky-footer-item(ng-if="!$root.auth_user" ng-click="openAuthCodePopup()") 
-            img(src="./assets/img/icon-menu/icon-menu-start-request.svg")
+        li.sticky-footer-item(ng-if="!$root.auth_user" ng-click="openAuthCodePopup()" ui-sref-active="active")                     
+            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start-request.svg
             span Start Aanvraag
 
-        li.sticky-footer-item-wrapper(ng-if="$root.auth_user" ui-sref="vouchers")
-            img(src="./assets/img/icon-menu/icon-menu-my-vouchers2.svg")
+        li.sticky-footer-item-wrapper(ng-if="$root.auth_user" ui-sref="vouchers" ui-sref-active="active")
+            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-vouchers2.svg
             span Vouchers
 
-        li.sticky-footer-item-wrapper(ng-if="$root.auth_user" ui-sref="profile")
-            img(src="./assets/img/icon-menu/icon-menu-my-profile2.svg")
+        li.sticky-footer-item-wrapper(ng-if="$root.auth_user" ui-sref="preferences-notifications" ui-sref-active="active")
+            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
             span Profiel
     
     
