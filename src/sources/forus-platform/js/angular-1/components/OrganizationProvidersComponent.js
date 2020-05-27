@@ -21,7 +21,6 @@ let OrganizationProvidersComponent = function(
             this.values.allow_budget = '';
             this.values.dismissed = false;
             this.values.q = '';
-            this.values.fund_id = $ctrl.fund.id;
         }
     };
 
@@ -101,7 +100,8 @@ let OrganizationProvidersComponent = function(
             OrganizationService.listProviders(
                 $stateParams.organization_id,
                 Object.assign({}, query, $ctrl.filters.values, {
-                    dismissed: $ctrl.filters.values.dismissed ? 1 : 0
+                    dismissed: $ctrl.filters.values.dismissed ? 1 : 0,
+                    fund_id: $ctrl.fund.id
                 })
             ).then((res => {
                 $ctrl.fundProviders = {
