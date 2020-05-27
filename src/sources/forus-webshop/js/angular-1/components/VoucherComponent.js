@@ -39,7 +39,8 @@ let VoucherComponent = function(
         }
 
         $ctrl.printQrCode = () => {
-            $ctrl.organization = $ctrl.voucher.fund.organization;
+            $ctrl.organization = !$ctrl.voucher.product ? 
+                $ctrl.voucher.fund.organization : $ctrl.voucher.product.organization;
 
             PrintableService.open('voucherQrCode', {
                 voucher: $ctrl.voucher,
