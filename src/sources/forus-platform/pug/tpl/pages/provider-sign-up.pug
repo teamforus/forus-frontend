@@ -327,7 +327,7 @@
 
                             .office-contact
                                 em.mdi.mdi-phone
-                                span(ng-bind="office.phone ? office.phone : 'Not specified'")
+                                span(ng-bind="office.phone ? office.phone : ('organization_edit.labels.not_specified' | translate)")
                             
                             //- .office-contact(ng-if="office.schedule.length")
                             //-     em.mdi.mdi-clock-outline

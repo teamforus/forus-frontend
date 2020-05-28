@@ -494,7 +494,8 @@ module.exports = {
             open: "OPEN",
             start: "START",
             end: "EIND",
-            break: "Pauze"
+            break: "Pauze",
+            not_specified: "Niet ingevuld",
         },
         buttons: {
             cancel: "Annuleren",

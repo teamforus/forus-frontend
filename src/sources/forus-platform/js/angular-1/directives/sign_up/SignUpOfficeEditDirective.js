@@ -89,6 +89,9 @@ let SignUpOfficeEditDirective = function(
         if ($scope.office) {
             $dir.form.values = angular.copy($scope.office);
         }
+
+        $dir.form.values.schedule = $dir.form.values.schedule || {};
+
         $timeout(() => $scope.addMapAutocomplete(), 0);
     };
 
