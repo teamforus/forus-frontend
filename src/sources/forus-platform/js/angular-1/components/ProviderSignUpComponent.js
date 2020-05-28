@@ -72,6 +72,8 @@ let ProviderSignUpComponent = function(
     $ctrl.showAddOfficeBtn = true;
     $ctrl.isAddingNewOffice = false;
 
+    $ctrl.loggedWithApp = progressStorage.has('logged-with-app');
+
     $ctrl.calcSteps = () => {
         $ctrl.STEP_INFO_GENERAL = 1;
         $ctrl.STEP_INFO_ME_APP = 2;
@@ -418,9 +420,7 @@ let ProviderSignUpComponent = function(
     };
 
     $ctrl.setStep = (step) => {
-        let stepsTotal = $ctrl.shownSteps.length + $ctrl.INFO_STEPS + $ctrl.DEMO_STEPS;
-
-        if (step <= stepsTotal) {
+        if (step <= $ctrl.STEP_SIGNUP_FINISHED) {
             $ctrl.step = step;
             progressStorage.set('step', step);
 
@@ -479,7 +479,7 @@ let ProviderSignUpComponent = function(
         }
 
         // last step, time for progress cleanup
-        if (step >= stepsTotal) {
+        if (step >= $ctrl.STEP_SIGNUP_FINISHED) {
             progressStorage.clear();
         }
     };
@@ -539,6 +539,8 @@ let ProviderSignUpComponent = function(
             }
 
             submit();
+        } else if ($ctrl.step == $ctrl.STEP_PROCESS_NOTICE && !progressStorage.has('logged-with-app')) {
+            //$ctrl.setStep($ctrl.STEP_SIGNUP_FINISHED);
         } else {
             $ctrl.setStep($ctrl.step + 1);
         }
@@ -572,7 +574,8 @@ let ProviderSignUpComponent = function(
 
             authTokenSubscriber.checkAccessTokenStatus(res.data.access_token, () => {
                 $ctrl.calcSteps();
-                $ctrl.signedIn = true;
+                $ctrl.signedIn = $ctrl.loggedWithApp = true;
+                progressStorage.set('logged-with-app', $ctrl.loggedWithApp);
 
                 if ($ctrl.step == $ctrl.STEP_SCAN_QR) {
                     $ctrl.setStep($ctrl.STEP_SELECT_ORGANIZATION);

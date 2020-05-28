@@ -2198,10 +2198,7 @@ $colorPrimaryLight: $color_primary_light;
             .ui-control .form-control:not([type="radio"]):not([type="checkbox"]) {
                 background-color: #EFF2F4;
                 border-color: #EFF2F4;
-
-                &:not([type='checkbox']) {
-                    padding: 4px 15px;
-                }
+                padding: 4px 15px;
 
                 ::placeholder {
                     color: #9b9b9b;

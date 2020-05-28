@@ -475,8 +475,14 @@
                         p.sign_up-pane-text.text-center(translate="sign_up_provider.header.subtitle_step_9")
 
                         .text-center: .button.button-primary-variant(
+                            ng-if="$ctrl.loggedWithApp"
                             ng-click="$ctrl.next()"
                             translate="sign_up_provider.buttons.go_test_screen")
+
+                        .text-center: .button.button-primary-variant(
+                            ng-if="!$ctrl.loggedWithApp"
+                            ng-click="$ctrl.finish()"
+                            translate="sign_up_provider.buttons.go_to_dashboard")    
                     .form-group.col.col-lg-12: br
 
         //- Scan QR Code (test)
@@ -493,6 +499,11 @@
                         qr-value="$ctrl.demoToken"
                         qr-type="demo_voucher"
                         qr-logo=src_prefix + "./assets/img/me-logo.png")
+
+                    .text-center: .button.button-primary-variant(
+                        ng-if="!$ctrl.loggedWithApp"
+                        ng-click="$ctrl.finish()"
+                        translate="sign_up_provider.buttons.go_to_dashboard")  
 
         //- Done
         .finish-screen(ng-if="$ctrl.step == $ctrl.STEP_SIGNUP_FINISHED")
