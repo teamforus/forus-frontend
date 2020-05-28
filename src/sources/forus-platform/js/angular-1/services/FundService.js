@@ -111,7 +111,10 @@ let FundService = function(ApiRequest) {
 
         this.dismissProvider = function(organization_id, fund_id, id) {
             return this.updateProvider(organization_id, fund_id, id, {
-                dismissed: true
+                dismissed: true,
+                allow_budget: false,
+                allow_products: false,
+                allow_some_products: false,
             });
         };
 
