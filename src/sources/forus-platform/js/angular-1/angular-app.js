@@ -183,6 +183,7 @@ app.directive('pdfPreview', require('./directives/PdfPreviewDirective'));
 app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
 app.directive('fundCardInvitationProvider', require('./directives/FundCardInvitationProviderDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
+app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDirective'));
 
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 

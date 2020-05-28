@@ -427,20 +427,10 @@
 
                 .sign_up-pane-body: .sign_up-pane-text(translate="sign_up_provider.header.subtitle_step_8")
                 .sign_up-pane-body
-                    .form(ng-if="$ctrl.showFilters"): .row
-                        .form-group.col.col-lg-6.col-xs-12
-                            label.form-label(translate="sign_up_provider.filters.labels.organizations")
-                            select(
-                                ng-options="fundOrganization.id_str as fundOrganization.name for fundOrganization in $ctrl.fundOrganizations" 
-                                ng-model="$ctrl.fundOrganization"
-                                ng-change="$ctrl.filterFunds()").form-control 
-
-                        .form-group.col.col-lg-6.col-xs-12
-                            label.form-label(translate="sign_up_provider.filters.labels.tags")
-                            select(
-                                ng-options="fundLabel.key as fundLabel.name for fundLabel in $ctrl.fundLabels" 
-                                ng-model="$ctrl.fundLabel"
-                                ng-change="$ctrl.filterFunds()").form-control
+                    provider-fund-filters(
+                        ng-if="$ctrl.showFilters"
+                        funds-available="$ctrl.fundsAvailable" 
+                        organization="$ctrl.organization")
 
                     .card(
                         ng-if="$ctrl.fundsAvailable.length > 0"
