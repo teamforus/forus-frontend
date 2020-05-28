@@ -854,7 +854,7 @@ module.exports = {
             title: "De app installeren",
             description: "De app is beschikbaar voor iOS en Android telefoons. Vul uw telefoonnummer in om een download link via SMS te ontvangen of ga op uw telefoon naar <a href='www.forus.io/DL' target='_blank'>www.forus.io/DL</a>",
             download_link: "Verstuur download link",
-            no_link_received: 'Heeft u geen link ontvangen? Ga dan op uw telefoon naar',
+            no_link_received: 'We hebben u een sms gestuurd! Heeft u geen link ontvangen? Ga dan op uw telefoon naar',
         },
         filters: {
             labels: {
