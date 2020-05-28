@@ -11,7 +11,7 @@
                     .entity-details: .entity-title(ng-bind="$ctrl.fundProvider.organization.name")
 
                 .card-section-actions
-                    button(ng-click="$ctrl.dismissProvider($ctrl.fundProvider)").button.button-default.button-sm
+                    button(ng-if="!$ctrl.fundProvider.dismissed" ng-click="$ctrl.dismissProvider($ctrl.fundProvider)").button.button-default.button-sm
                         | Weigeren en verberg
                         em.mdi.mdi-close.icon-end
                     .button.button-text.button-text.button-text-muted.button-narrow.button-sm(disabled 
