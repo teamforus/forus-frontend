@@ -105,6 +105,7 @@ let FundProviderComponent = function(
             );
 
             $ctrl.fundProvider = res.data.data;
+            $ctrl.transformProductsList($ctrl.products.data);
         });
     };
 

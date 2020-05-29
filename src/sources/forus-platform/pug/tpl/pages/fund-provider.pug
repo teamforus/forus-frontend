@@ -11,10 +11,8 @@
                     .entity-details: .entity-title(ng-bind="$ctrl.fundProvider.organization.name")
 
                 .card-section-actions
-                    button(
-                        ng-if="!$ctrl.fundProvider.dismissed && !$ctrl.fundProvider.allow_budget && !$ctrl.fundProvider.allow_products" 
-                        ng-click="$ctrl.dismissProvider($ctrl.fundProvider)").button.button-default.button-sm
-                        | Verberg
+                    button(ng-if="!$ctrl.fundProvider.dismissed" ng-click="$ctrl.dismissProvider($ctrl.fundProvider)").button.button-default.button-sm
+                        | Weigeren en verberg
                         em.mdi.mdi-close.icon-end
                     .button.button-text.button-text.button-text-muted.button-narrow.button-sm(disabled 
                         ng-if="$ctrl.fundProvider.dismissed")
