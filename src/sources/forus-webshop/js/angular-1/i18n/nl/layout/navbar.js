@@ -18,5 +18,12 @@ module.exports = {
         logout:"Uitloggen",
         products:"Aanbiedingen",
         funds: "Fondsen",
+        providers: "Aanbieders",
+
+        mobile: {
+            voucher: "Vouchers",
+            request: "Start Aanvraag",
+            profile: "Profiel"
+        }
     },
 }

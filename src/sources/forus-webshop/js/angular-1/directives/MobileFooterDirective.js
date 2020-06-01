@@ -4,6 +4,20 @@ let MobileFooterDirective  = function(
     ModalService,
     ConfigService
 ) {
+    $scope.scrolled = false;
+    var prevScrollpos = window.pageYOffset;
+    
+    window.onscroll = function() {
+        var currentScrollPos = window.pageYOffset;
+        if (prevScrollpos > currentScrollPos) {
+            $scope.scrolled = false;
+        } else {
+           $scope.scrolled = true;
+    }
+
+    prevScrollpos = currentScrollPos;
+    }
+
     $scope.openAuthPopup = function () {
         ModalService.open('modalAuth', {});
     };
