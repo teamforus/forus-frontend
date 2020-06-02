@@ -3,7 +3,7 @@
     section.app.app-content
         .block.block-breadcrumbs
             .breadcrumb-item(ui-sref="offices({organization_id:$ctrl.organization.id})" ng-bind="$ctrl.organization.name")
-            .breadcrumb-item(ui-sref="organization-providers({organization_id:$ctrl.organization.id, fund_id: $ctrl.fund.id})" ng-bind="'Providers'")
+            .breadcrumb-item(ui-sref="organization-providers({organization_id:$ctrl.organization.id, fund_id: $ctrl.fund.id})" translate="page_state_titles.organization-providers")
             .breadcrumb-item(ui-sref="fund-provider({organization_id:$ctrl.organization.id, fund_id: $ctrl.fund.id, fund_provider_id: $ctrl.fundProvider.id})" ng-bind="$ctrl.fundProvider.organization.name")
             .breadcrumb-item.active(ng-bind="$ctrl.product.name")
 
