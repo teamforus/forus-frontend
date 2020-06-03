@@ -1,0 +1,13 @@
+component_depth: 1
+languages:
+- javascript
+exclude:
+- /dist/.*
+- /src/node_modules/.*
+- /src/libs/.*
+- /src/qdt/.*
+- /src/platforms/.*
+- /src/gulpfile.js
+- /src/qdt-config.js
+- /src/qdt-env.js
+- /src/qdt-env.sample.js
