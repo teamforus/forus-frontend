@@ -3,6 +3,7 @@ let OrganizationEmployeesComponent = function(
     $scope,
     $timeout,
     ModalService,
+    PushNotificationsService,
     OrganizationEmployeesService
 ) {
     let $ctrl = this;
@@ -75,7 +76,10 @@ let OrganizationEmployeesComponent = function(
             $scope.onPageChange({
                 page: $ctrl.employees.meta.current_page
             });
-        }, console.error);
+        }, (res) => {
+            console.error(res);
+            PushNotificationsService.danger(res.data.message);
+        });
     }
 };
 
@@ -90,6 +94,7 @@ module.exports = {
         '$scope',
         '$timeout',
         'ModalService',
+        'PushNotificationsService',
         'OrganizationEmployeesService',
         OrganizationEmployeesComponent
     ],
