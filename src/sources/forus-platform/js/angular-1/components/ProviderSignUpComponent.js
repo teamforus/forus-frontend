@@ -539,8 +539,6 @@ let ProviderSignUpComponent = function(
             }
 
             submit();
-        } else if ($ctrl.step == $ctrl.STEP_PROCESS_NOTICE && !progressStorage.has('logged-with-app')) {
-            //$ctrl.setStep($ctrl.STEP_SIGNUP_FINISHED);
         } else {
             $ctrl.setStep($ctrl.step + 1);
         }

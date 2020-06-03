@@ -477,13 +477,14 @@
                         .text-center: .button.button-primary-variant(
                             ng-if="$ctrl.loggedWithApp"
                             ng-click="$ctrl.next()"
-                            translate="sign_up_provider.buttons.go_test_screen")
+                            translate="sign_up_provider.buttons.go_test_screen")              
 
-                        .text-center: .button.button-primary-variant(
-                            ng-if="!$ctrl.loggedWithApp"
-                            ng-click="$ctrl.finish()"
-                            translate="sign_up_provider.buttons.go_to_dashboard")    
-                    .form-group.col.col-lg-12: br
+                .sign_up-pane-footer(ng-if="!$ctrl.loggedWithApp"): .row
+                    .col.col-lg-6.text-left
+                    .col.col-lg-6.text-right
+                        .button.button-text.button-text-padless(ng-click="$ctrl.finish()")
+                            | {{ 'sign_up_provider.buttons.go_to_dashboard' | translate }}
+                            em.mdi.mdi-chevron-right.icon-right
 
         //- Scan QR Code (test)
         div(ng-if="$ctrl.step == $ctrl.STEP_DEMO_TRANSACTION")
@@ -500,10 +501,12 @@
                         qr-type="demo_voucher"
                         qr-logo=src_prefix + "./assets/img/me-logo.png")
 
-                    .text-center: .button.button-primary-variant(
-                        ng-if="!$ctrl.loggedWithApp"
-                        ng-click="$ctrl.finish()"
-                        translate="sign_up_provider.buttons.go_to_dashboard")  
+                .sign_up-pane-footer(ng-if="!$ctrl.loggedWithApp"): .row
+                    .col.col-lg-6.text-left
+                    .col.col-lg-6.text-right
+                        .button.button-text.button-text-padless(ng-click="$ctrl.finish()")
+                            | {{ 'sign_up_provider.buttons.go_to_dashboard' | translate }}
+                            em.mdi.mdi-chevron-right.icon-right
 
         //- Done
         .finish-screen(ng-if="$ctrl.step == $ctrl.STEP_SIGNUP_FINISHED")
