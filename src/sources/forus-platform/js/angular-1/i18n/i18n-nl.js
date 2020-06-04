@@ -767,7 +767,7 @@ module.exports = {
             subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als aanbieder. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
             title_step_2: "Benodigdheden",
             subtitle_step_2: "Aan het aanmelden zijn geen kosten verbonden. Het installeren van een gratis <a href='https://forus.io/me'>app</a> is voldoende." + 
-                "De Me app kan op vrijwel elke moderne Apple of Android telefoon worden geïnstalleerd.<br/><br/>" + 
+                "De Me-app kan op vrijwel elke moderne Apple of Android telefoon worden geïnstalleerd.<br/><br/>" + 
                 "Bij de aanmelding heeft u nodig:<br/><br/>" + 
                 "<ul>" + 
                 "<li>Mobiele telefoon of tablet met camera en internet</li>" +
