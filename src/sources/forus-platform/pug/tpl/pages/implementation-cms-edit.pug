@@ -23,23 +23,23 @@
                         ng-model="$ctrl.form.values.description").form-control.r-n
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
             
-                .form-group.form-group-inline
-                    label(for="info_url").form-toggle.form-label.flex-end 
-                        .form-label Meer info URL
-                        input(type="checkbox" id="info_url" ng-model="$ctrl.form.values.has_more_info_url").form-label
-                        .form-toggle-inner.flex-end(style="padding-left:10px"): .toggle-input: .toggle-input-dot
-            
-                    input(ng-disabled="!$ctrl.form.values.has_more_info_url" ng-model="$ctrl.form.values.more_info_url" type="text" placeholder="bijv. http://uwgemeente.nl/uitleg-regeling").form-control
-                    .form-error(ng-repeat="error in $ctrl.form.errors.more_info_url" ng-bind="error")
-            
             .card-section.card-section-primary
                 .row: .col.col-lg-9
-                    .form-group.form-group-inline.tooltipped
+                    .form-group.form-group-inline.tooltipped(ng-show="!$ctrl.form.values.has_more_info_url")
                         label.form-label(translate="product_edit.labels.description")
                         .form-offset: markdown(ng-model="$ctrl.form.values.description_steps")
 
                         tooltip(text="'Deze omschrijving staat op een aparte uitleg pagina op de webshop.'")
                         .form-error(ng-repeat="error in $ctrl.form.errors.description_steps" ng-bind="error")
+            
+                    .form-group.form-group-inline
+                        label(for="info_url").form-toggle.form-label.flex-end 
+                            .form-label Meer info URL
+                            input(type="checkbox" id="info_url" ng-model="$ctrl.form.values.has_more_info_url").form-label
+                            .form-toggle-inner.flex-end(style="padding-left:10px"): .toggle-input: .toggle-input-dot
+                
+                        input(ng-disabled="!$ctrl.form.values.has_more_info_url" ng-model="$ctrl.form.values.more_info_url" type="text" placeholder="bijv. http://uwgemeente.nl/uitleg-regeling").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.more_info_url" ng-bind="error")
 
             .card-section.card-section-primary: .text-center
                 button(type="button" ui-sref="implementation-view({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})" translate="funds_edit.buttons.cancel").button.button-default

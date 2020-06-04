@@ -1,10 +1,10 @@
 top-navbar.nav-var
 
 .page.page-home
-    .block.block-steps: .wrapper
+    .block.block-steps(ng-if="$ctrl.description_steps_html"): .wrapper
         .block-steps-description(ng-bind-html="$ctrl.description_steps_html")
 
-    section.section.section-faq(ng-if="$ctrl.appConfigs.flags.homeFaq"): .wrapper
+    section.section.section-faq(ng-if="$ctrl.appConfigs.flags.homeFaq && !$ctrl.description_steps_html"): .wrapper
         .section-splash
         .section-title(i18n="home.faq.title")
         .faq(collapse)
