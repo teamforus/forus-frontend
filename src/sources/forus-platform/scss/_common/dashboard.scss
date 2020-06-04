@@ -1786,6 +1786,15 @@ $colorPrimaryLight: $color_primary_light;
                     }
                 }
             }
+
+            ul {
+                padding: 0px 20px;
+                list-style: circle;
+
+                li {
+                    font-weight: 400;
+                }
+            }
         }
 
         .sign_up-offices {
