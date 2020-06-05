@@ -2,7 +2,7 @@
     menu
     section.app.app-content
         .block.block-breadcrumbs
-            .breadcrumb-item(ui-sref="implementations({organization_id: $root.activeOrganization.id})") Implementaties 
+            .breadcrumb-item(ui-sref="implementations({organization_id: $root.activeOrganization.id})") Webshops 
             .breadcrumb-item.active(ng-bind="$ctrl.implementation.name")
 
         .card.card-collapsable
@@ -89,4 +89,4 @@
 
         block-empty(
             ng-if="$ctrl.funds.length == 0" 
-            text="Geen fondsen beschikbaar." )        
+            text="Geen fondsen gekoppeld aan deze implementatie." )        
