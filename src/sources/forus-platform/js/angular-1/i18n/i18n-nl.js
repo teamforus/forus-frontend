@@ -334,12 +334,14 @@ module.exports = {
     // EDIT IMPLEMENTATION = implementation-edit.pug
     implementation_edit: {
         header: {
-            title: "Implementatie instellingen",
+            title: "Webshop instellingen",
         },
         labels: {
+            header_title: "Header titel",
+            header_description: "Header omschrijving",
             title: "Titel",
-            description: "Omschrijving",
-            more_info: "Meer info URL"
+            description: "Uitlegpagina content",
+            more_info: "Externe uitleg URL"
         },
         buttons: {
             cancel: "Annuleren",
