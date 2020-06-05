@@ -66,6 +66,6 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
         .sidebar-nav-devider(ng-if="$root.activeOrganization")
         
         +nav_item(
-            "Implementaties", "implementation", 'implementations', 
+            "Webshops", "implementation", 'implementations', 
             '{organization_id: $root.activeOrganization.id}', 
             '$root.activeOrganization | hasPerm:["manage_implementation", "view_funds"]')
