@@ -2,7 +2,7 @@
     menu
     section.app.app-content
         .block.block-breadcrumbs
-            .breadcrumb-item(ui-sref="implementations({organization_id: $root.activeOrganization.id})") Implementaties 
+            .breadcrumb-item(ui-sref="implementations({organization_id: $root.activeOrganization.id})") Webshops 
             .breadcrumb-item(ui-sref="implementation-view({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})" ng-bind="$ctrl.implementation.name")
             .breadcrumb-item.active Email instellingen
 
@@ -25,7 +25,7 @@
                 .form-group.form-group-inline
                     label.form-label
                         em.mdi.mdi-information(style="font-size: 18px;")
-                    span Forus zal uw e-mailadres verifieren en uw systeembeheer vragen om Forus zijn mailservice als veilige afzender toe tevoegen aan uw domein.
+                    span Forus zal uw e-mailadres verifieren en uw systeembeheer vragen om Forus zijn mailservice als veilige afzender toe te voegen aan uw domein.
 
             .card-section.card-section-primary: .text-center
                 button(type="button" ui-sref="implementation-view({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})" translate="funds_edit.buttons.cancel").button.button-default
