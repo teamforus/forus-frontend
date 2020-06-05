@@ -8,7 +8,7 @@ module.exports = {
         description: 'U heeft geen rechten om deze actie uit te voeren.'
     },
     'implementation-manage': {
-        title: 'Geen implementaties',
-        description: 'U heeft geen implementaties om deze actie uit te voeren.'
+        title: 'Geen webshops',
+        description: 'U heeft geen webshops om deze actie uit te voeren.'
     }
 };
