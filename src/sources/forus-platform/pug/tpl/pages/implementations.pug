@@ -4,7 +4,7 @@
         .card.card-collapsable
             
             .card-header: .flex-row
-                .flex-col: .card-title Implementaties
+                .flex-col: .card-title Webshops
                 .flex-col: .card-header-drown: .block.block-inline-filters
                     .form(ng-if="!$ctrl.filters.show"): .form-group
                         input(ng-model="$ctrl.filters.values.q" placeholder="Zoeken").form-control
@@ -40,4 +40,4 @@
 
         block-empty(
             ng-if="$ctrl.implementations.meta.total == 0" 
-            text="Geen implementaties beschikbaar." )
+            text="Geen webshops beschikbaar." )
