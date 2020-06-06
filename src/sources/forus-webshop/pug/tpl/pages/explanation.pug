@@ -4,6 +4,27 @@ top-navbar.nav-var
     .block.block-steps(ng-if="$ctrl.description_steps_html"): .wrapper
         .block-steps-description(ng-bind-html="$ctrl.description_steps_html")
 
+    section.section.section-steps#steps(ng-if="$ctrl.appConfigs.flags.homeSteps && !$ctrl.description_steps_html"): .wrapper
+        .section-splash
+        .section-sprite
+        .section-title(i18n="home.guide.title")
+        .steps
+            .step-item: .step-item-content
+                h4(translate="home.guide.stepone")
+                p(translate="home.guide.{{ $root.client_key }}.one" translate-default="{{'home.guide.one' | translate }}")
+            .step-item: .step-item-content
+                h4(translate="home.guide.steptwo")
+                p(translate="home.guide.{{ $root.client_key }}.two" translate-default="{{'home.guide.two' | translate }}" scroll-to="#desc")
+            .step-item: .step-item-content
+                h4(translate="home.guide.stepthree")
+                p(translate="home.guide.{{ $root.client_key }}.three" translate-default="{{'home.guide.three' | translate }}")
+            .step-item: .step-item-content
+                h4(translate="home.guide.stepfour")
+                p(translate="home.guide.{{ $root.client_key }}.four" translate-default="{{'home.guide.four' | translate }}")
+            .step-item: .step-item-content
+                h4(i18n="home.guide.stepfive")
+                p(translate="home.guide.{{ $root.client_key }}.five" translate-default="{{'home.guide.five' | translate }}")
+
     section.section.section-faq(ng-if="$ctrl.appConfigs.flags.homeFaq && !$ctrl.description_steps_html"): .wrapper
         .section-splash
         .section-title(i18n="home.faq.title")

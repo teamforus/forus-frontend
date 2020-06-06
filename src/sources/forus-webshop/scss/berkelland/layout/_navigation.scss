@@ -88,6 +88,19 @@
         }
     }
 
+    @media screen and (max-width: 1700px) {
+        &.block-navbar {
+            .navbar-list {
+                .navbar-item-wrapper {
+                    .navbar-item {
+                        padding: 11px;
+                        font-size: 0.75em;
+                    }
+                }
+            }
+        }
+    }
+
     @media screen and (min-width: 1000px) {
         &.block-navbar {
             .navbar-logo {
