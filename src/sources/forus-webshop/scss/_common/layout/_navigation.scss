@@ -480,6 +480,11 @@
             padding: 0 0;
             border-radius: 0;
             position: relative;
+            transition: transform 0.2s;
+
+            &.scrolled {
+                transform: translateY(-100%);
+            }
 
             .navbar-inner {
                 padding: 0 0;
