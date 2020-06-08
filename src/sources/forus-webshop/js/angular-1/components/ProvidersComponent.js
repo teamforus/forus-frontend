@@ -198,6 +198,22 @@ let ProvidersComponent = function(
         $ctrl.updateFiltersUsedCount();
     };
 
+    $ctrl.scrolled = true;
+    var prevScrollpos = window.pageYOffset;
+
+    $ctrl.setScrolled = function() {
+        var currentScrollPos = window.pageYOffset;
+        if (prevScrollpos > currentScrollPos) {
+            $ctrl.scrolled = false;
+        } else {
+           $ctrl.scrolled = true;
+           console.log("scroll3")
+        }
+        prevScrollpos = currentScrollPos;
+
+    }
+    window.addEventListener('scroll', $ctrl.setScrolled)
+
     $ctrl.$onDestroy = function() {};
 };
 

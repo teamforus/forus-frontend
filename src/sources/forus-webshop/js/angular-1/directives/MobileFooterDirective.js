@@ -6,17 +6,18 @@ let MobileFooterDirective  = function(
 ) {
     $scope.scrolled = false;
     var prevScrollpos = window.pageYOffset;
-    
-    window.onscroll = function() {
+
+    $scope.setScrolled = function() {
         var currentScrollPos = window.pageYOffset;
         if (prevScrollpos > currentScrollPos) {
             $scope.scrolled = false;
         } else {
            $scope.scrolled = true;
+        }
+        prevScrollpos = currentScrollPos;
     }
 
-    prevScrollpos = currentScrollPos;
-    }
+    window.addEventListener('scroll', $scope.setScrolled)
 
     $scope.openAuthPopup = function () {
         ModalService.open('modalAuth', {});
