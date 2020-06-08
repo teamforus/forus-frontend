@@ -164,6 +164,7 @@ app.config(require('./config/api-service'));
 app.config(require('./config/i18n'));
 
 app.run(require('./routers/router-transitions'));
+app.run(require('./routers/modals-transitions'));
 
 app.run(['appConfigs', (appConfigs) => {
     appConfigs.flags = Object.assign(

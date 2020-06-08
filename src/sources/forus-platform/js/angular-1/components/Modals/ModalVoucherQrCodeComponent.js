@@ -42,7 +42,7 @@ let ModalVoucherQrCodeComponent = function(
             fund: $ctrl.fund,
             organization: $ctrl.organization,
         });
-    }
+    };
 
     $ctrl.$onInit = () => {
         $ctrl.voucher = $ctrl.modal.scope.voucher;
@@ -51,7 +51,7 @@ let ModalVoucherQrCodeComponent = function(
         $ctrl.onSent = $ctrl.modal.scope.onSent;
         $ctrl.onAssigned = $ctrl.modal.scope.onAssigned;
 
-        $ctrl.qrCodeValue = $ctrl.voucher.address
+        $ctrl.qrCodeValue = $ctrl.voucher.address;
 
         $ctrl.form = FormBuilderService.build({}, (form) => {
             form.lock();

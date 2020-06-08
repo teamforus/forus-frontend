@@ -8,7 +8,7 @@ let ProviderFundsComponent = function(
 
     let trans_fund_provider = (key) => {
         return $translate('fund_card_provider.empty_block.' + key);
-    }
+    };
 
     $ctrl.shownFundsType = $stateParams.fundsType || 'active';
     $ctrl.showEmptyBlock = false;
@@ -20,6 +20,14 @@ let ProviderFundsComponent = function(
             'declined': 2,
         };
 
+        let is_pending_or_rejected = (fund) => {
+            return (!fund.allow_budget && !fund.allow_products && !fund.allow_some_products) || fund.dismissed;
+        }
+
+        let is_closed = (fund) => {
+            return fund.fund.state == 'closed';
+        }
+
         $ctrl.shownFundsType = $stateParams.fundsType || 
             ($ctrl.funds.length ? 'active' : 'available');
 
@@ -27,10 +35,19 @@ let ProviderFundsComponent = function(
             fundInvitation => !fundInvitation.expired
         );
 
-        $ctrl.fundExpiredInvitations = $ctrl.fundInvitations.filter(
+        $ctrl.archiveFunds = $ctrl.fundInvitations.filter(
             fundInvitation => fundInvitation.expired
-        );
+        ).concat($ctrl.funds.filter(fund => {
+            return is_closed(fund);
+        }));
 
+        $ctrl.pendingRejectedFunds = $ctrl.funds.filter(fund => {
+            return is_pending_or_rejected(fund);
+        });
+
+        $ctrl.funds = $ctrl.funds.filter(fund => {
+            return !is_pending_or_rejected(fund) && !is_closed(fund);
+        });
         $ctrl.funds = $ctrl.funds.sort((a, b) => sort[a.state] - sort[b.state]);
 
         $ctrl.showEmptyBlock = $ctrl.checkForEmptyList($ctrl.shownFundsType);
@@ -49,7 +66,8 @@ let ProviderFundsComponent = function(
         available: $ctrl.fundsAvailable.length,
         active: $ctrl.funds.length,
         invitations: $ctrl.fundAvailableInvitations.length,
-        invitations_expired: $ctrl.fundExpiredInvitations.length,
+        pending_rejected: $ctrl.pendingRejectedFunds.length,
+        expired_closed: $ctrl.archiveFunds.length,
     }[type]);
 
     $ctrl.getEmptyBlockMessage = (type) => {

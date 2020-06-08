@@ -14,7 +14,6 @@ let ProductCardDirective = function(
     };
 
     $scope.deleteProduct = function(product) {
-
         ModalService.open('modalNotification', {
             type: 'confirm',
             title: 'products.confirm_delete.title',

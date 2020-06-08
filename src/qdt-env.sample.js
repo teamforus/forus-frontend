@@ -16,8 +16,21 @@ let google_maps_api_key = '';
 
 module.exports = (core) => {
     // Config markups
-    core.editPlatform('dashboard_markup', (platform) => platform);
-    core.editPlatform('webshop_markup', (platform) => platform);
+    core.editPlatform('dashboard_markup', (platform) => {
+        platform.setEnvData({
+            google_maps_api_key: google_maps_api_key,
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_markup', (platform) => {
+        platform.setEnvData({
+            google_maps_api_key: google_maps_api_key,
+        });
+
+        return platform;
+    });
     
     // Config dashboards
     core.editPlatform('dashboard_general_sponsor', (platform) => {

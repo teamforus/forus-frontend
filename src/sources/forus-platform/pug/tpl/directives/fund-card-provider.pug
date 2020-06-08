@@ -1,7 +1,9 @@
 .card(ng-class="{'card-outline' : fund.state == 'closed'}")
     .card-section
         .card-section-actions(ng-if="fund.state != 'closed'")
-            div(ng-show="!providerFund.allow_budget && !providerFund.allow_products && !providerFund.allow_some_products")
+            div(ng-show="providerFund.dismissed")
+                .tag.tag-default(translate="fund_card_provider.status.rejected")
+            div(ng-show="!providerFund.allow_budget && !providerFund.allow_products && !providerFund.allow_some_products && !providerFund.dismissed")
                 .tag.tag-warning(translate="fund_card_provider.status.hold")
 
         .card-block.card-block-fund.card-block-fund-margin-bottom
@@ -41,5 +43,6 @@
                             ng-bind="providerFund[shownProductType] ? 'Ja' : 'Nee'")  
 
                 .col.col-md-3(ng-if="fund.state != 'closed' && providerFund.allow_some_products") 
-                    .button.button-default.pull-right(ng-click="viewOffers()"
-                    translate="fund_card_provider.labels.view_products")
+                    .button.button-default.pull-right(ng-click="viewOffers()")
+                        em.mdi.mdi-eye-outline.icon-start
+                        translate(translate="fund_card_provider.labels.view_products")

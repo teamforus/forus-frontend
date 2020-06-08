@@ -12,15 +12,16 @@ let FundCardProviderFinancesDirective = function(
     $scope.one = 1;
     $scope.chartData = {
         request: {
-            type: "month",
+            type: "year",
             nth: moment().month() + 1,
             year: moment().year(),
-            product_category: null
+            product_category: null,
         },
         response: {},
         stringTitle: "",
         changeType: function (type) {
             this.request.type = type;
+            $scope.allowDataIncrement = true;
 
             if (this.request.type == 'week') {
                 this.request.nth = moment().week();
@@ -28,14 +29,16 @@ let FundCardProviderFinancesDirective = function(
                 this.request.nth = moment().month() + 1;
             } else if (this.request.type == 'quarter') {
                 this.request.nth = moment().quarter();
-            } else if (this.request.type == 'all') {
+            } else if (this.request.type == 'year') {
                 this.request.nth = null;
             }
 
             this.update();
         },
         increase: function () {
-            if (this.request.type == 'week') {
+            if (this.request.type == 'year') {
+                this.request.year++;
+            } else if (this.request.type == 'week') {
                 if (this.request.nth == moment().year(this.request.year).weeksInYear()) {
                     this.request.nth = 1;
                     this.request.year++;
@@ -61,7 +64,9 @@ let FundCardProviderFinancesDirective = function(
             this.update();
         },
         decrease: function () {
-            if (this.request.type == 'week') {
+            if (this.request.type == 'year') {
+                this.request.year--;
+            } else if (this.request.type == 'week') {
                 if (this.request.nth == 1) {
                     this.request.year--;
                     this.request.nth = moment().year(this.request.year).weeksInYear();
@@ -95,14 +100,15 @@ let FundCardProviderFinancesDirective = function(
                 stringTitle = moment.months(this.request.nth - 1) + ' ' + this.request.year;
             } else if (this.request.type == 'quarter') {
                 stringTitle = 'Kwartaal: Q' + this.request.nth + ' ' + this.request.year;
-            } else if (this.request.type == 'all') {
-                stringTitle = 'Totaal';
+            } else if (this.request.type == 'year') {
+                stringTitle = 'Jaar ' + this.request.year;
             }
 
             this.stringTitle = stringTitle;
         },
         update: function () {
             this.updateTitle();
+            $scope.allowDataIncrement = $scope.allowChartDataIncrement();
 
             FundService.readProvidersFinances(
                 $scope.fundProvider.fund.organization_id,
@@ -111,9 +117,23 @@ let FundCardProviderFinancesDirective = function(
                 $scope.chartData.request
             ).then(function (res) {
                 $scope.chartData.response = res.data;
+
+                if ($scope.chartData.request.type == 'year') {
+                    $scope.chartData.response.dates.map((date, index) => {
+                        date.key = 'Kwartaal ' + (index + 1);
+                        return date;
+                    });
+                }
             });
         }
     };
+
+    $scope.allowChartDataIncrement = () => {
+        return $scope.chartData.request.type != 'year' || 
+            $scope.chartData.request.year != moment().year() ;
+    }
+
+    $scope.allowDataIncrement = $scope.allowChartDataIncrement();
 
     $scope.states = [{
         key: null,

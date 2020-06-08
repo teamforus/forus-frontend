@@ -58,6 +58,13 @@ let FundService = function(ApiRequest) {
             );
         };
 
+        this.readProviderChats = function(organization_id, fund_id, provider_id, query={}) {
+            return ApiRequest.get(
+                uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + provider_id + '/chats',
+                query
+            );
+        };
+
         this.readProvidersTransactions = function(
             organization_id,
             fund_id,
@@ -104,7 +111,10 @@ let FundService = function(ApiRequest) {
 
         this.dismissProvider = function(organization_id, fund_id, id) {
             return this.updateProvider(organization_id, fund_id, id, {
-                dismissed: true
+                dismissed: true,
+                allow_budget: false,
+                allow_products: false,
+                allow_some_products: false,
             });
         };
 

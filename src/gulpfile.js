@@ -1,32 +1,27 @@
 // file system
-var fs = require('fs');
-var fse = require('fs-extra');
-var del = require('del');
-var glob = require('glob');
-var path = require('path');
-var compress = require('compression');
-var historyApiFallback = require('connect-history-api-fallback')
-var child_process = require('child_process');
-let sprintf = require('sprintf-js').sprintf;
-
+const fs = require('fs');
+const fse = require('fs-extra');
+const del = require('del');
+const glob = require('glob');
+const path = require('path');
+const compress = require('compression');
+const historyApiFallback = require('connect-history-api-fallback');
+const child_process = require('child_process');
+const sprintf = require('sprintf-js').sprintf;
 
 // console colors
-var colors = require('colors');
+const colors = require('colors');
 
 // qdt helper
-var qdt_core = require("./qdt/qdt-helpers");
-var qdt_verbose = require("./qdt/qdt-verbose");
+const qdt_core = require("./qdt/qdt-helpers");
+const qdt_verbose = require("./qdt/qdt-verbose");
 
 // gulp itself
-var gulp = require('gulp');
-var params = qdt_core.getParams() || {};
-var envFile = params.envFile ? params.envFile : './qdt-env.js';
+const gulp = require('gulp');
+const params = qdt_core.getParams() || {};
+const envFile = params.envFile ? params.envFile : './qdt-env.js';
 
 require('./qdt-config').getConfig();
-
-function pretty_print(obj) {
-    console.log(JSON.stringify(obj, null, '    '));
-};
 
 function compose_dest_path(_path, append) {
     _path = path.parse(_path);
@@ -37,9 +32,8 @@ let timestamp = Date.now();
 let includeTimestamp = !!params.timestamp;
 let assetsSuffix = includeTimestamp ? '-' + timestamp : '';
 
-
-var gitLog = false;
-var gitLogHeader = false;
+let gitLog = false;
+let gitLogHeader = false;
 
 if (params.gitHash || params.gitLog) {
     try {
@@ -186,7 +180,8 @@ var scss_compiler = async function(platform, src, task) {
     streams.push(plugins.sass({
         outputStyle: task.minify ? "compressed" : "expanded",
         indentWidth: 4
-    }))
+    }));
+
     streams.push(plugins.autoprefixer(pluginSettings.autoPrefixer));
     streams.push(plugins.rename(compose_dest_path(task.name, assetsSuffix)));
     streams.push(gulp.dest(platform.paths.assets + '/css/' + task.dest));
@@ -345,7 +340,7 @@ var assets_compiler = async function(source) {
                         _doNotify(val);
                     }).on('end', resolve);
                 });
-            })
+            });
         }
     });
 
@@ -578,7 +573,6 @@ let watchTask = () => {
         var _path = 'sources/' + _k_js + '/js/';
         var _raw_src = [];
         var _watch_src = [];
-        var _watch_src = [];
 
         if (typeof task.src == "string") {
             task.src = [task.src];
@@ -638,7 +632,7 @@ let watchTask = () => {
         gulp.watch(_watch_src).on('change', async () => {
             await pug_compiler(__dirname + '/' + _path + '/' + group.path, platform, _raw_src, group.dest, group);
         });
-    }
+    };
 
     // scss
     for (var k_scss in grouped_platforms) {
@@ -719,7 +713,7 @@ let initTask = (done) => {
             './qdt-env.js'
         ));
 
-        if (params != 'undefined' && typeof params['source'] != 'undefined') {
+        if (params != 'undefined' && typeof params.source != 'undefined') {
             sourceAddTask('source');
         }
     });

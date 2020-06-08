@@ -10,7 +10,6 @@ script(src=src_prefix + "./assets/js/app.min" + qdt_c.append_assets + ".js")
 script(src="https://www.google.com/recaptcha/api.js?hl=nl" async defer)
 
 script.
-    console.log($src_prefix)
     function onSubmit(el) {
         var form = $(el).closest('form');
         $.post($(form).attr('action'), JSON.stringify({
