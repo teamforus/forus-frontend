@@ -119,7 +119,8 @@ module.exports = () => {
         scope: {
             ngModel: '=',
             modal: '=',
-            pages: '='
+            pages: '=',
+            extendedOptions: '='
         },
         replace: true,
         controller: [

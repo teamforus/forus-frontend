@@ -14,7 +14,7 @@
             button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="1. " data-end="" data-mark-type="list" data-placement="top" title="Voeg nummerlijst toe")
                 em.mdi.mdi-format-list-numbered
 
-        .toolbar-group
+        .toolbar-group(ng-if="extendedOptions")
             button.toolbar-item.tooltipped(type="button" tabindex="-1" data-start="(" data-end=")" data-mark-type="custom-link" data-placement="top" title="Add link")
                 em.mdi.mdi-link
 

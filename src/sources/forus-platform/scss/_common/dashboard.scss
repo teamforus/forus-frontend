@@ -1564,6 +1564,9 @@ $colorPrimaryLight: $color_primary_light;
 
     &.card-block-implementation {
         display: flex;
+        padding: 25px;
+        margin: -25px;
+        cursor: pointer;
 
         .card-block-implementation-logo {
             img {
@@ -1602,6 +1605,15 @@ $colorPrimaryLight: $color_primary_light;
                     color: #009EF4;
                 }
             }
+        }
+
+        &:hover {
+            background: lighten($color: #f3f4f5, $amount: 2);
+        }
+
+        &.card-block-implementation-collapsed {
+            cursor: inherit;
+            background: none;
         }
     }
 

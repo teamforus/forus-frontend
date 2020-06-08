@@ -1,6 +1,7 @@
 let HomeComponent = function(
     $state,
     $stateParams,
+    $sce,
     appConfigs,
     ModalService,
     AuthService,
@@ -51,7 +52,9 @@ let HomeComponent = function(
             });
         }
 
-        $ctrl.description_lines = appConfigs.features.settings.description.split("\n").filter(line => line.length > 0);
+        $ctrl.description_html = $sce.trustAsHtml(
+            appConfigs.features.settings.description_html
+        );
     };
 };
 
@@ -66,6 +69,7 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
+        '$sce',
         'appConfigs',
         'ModalService',
         'AuthService',

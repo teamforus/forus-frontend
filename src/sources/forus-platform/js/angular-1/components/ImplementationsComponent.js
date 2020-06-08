@@ -27,7 +27,11 @@ let ImplementationsComponent = function(
         });
     };
 
-    $ctrl.$onInit = () => {};
+    $ctrl.$onInit = () => {
+        if ($ctrl.implementations.meta.total == 1) {
+            $ctrl.editImplementation($ctrl.implementations.data[0].id);
+        }
+    };
 
     $ctrl.editImplementation = (implementation_id) => {
         $state.go('implementation-view', {
