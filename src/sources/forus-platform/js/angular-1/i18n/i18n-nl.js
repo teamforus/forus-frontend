@@ -542,6 +542,7 @@ module.exports = {
             stock_unlimited: "Onbeperkt aanbod",
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
+            available_offers: "Resterend aanbod"
         },
         buttons: {
             cancel: "Annuleren",
