@@ -218,12 +218,8 @@ let ValidatorSignUpComponent = function(
                 });
             }
 
-            if ($ctrl.step == $ctrl.STEP_ORGANIZATION_ADD) {
-                if (progressStorage.has('organizationForm')) {
-                    $ctrl.organizationForm.values = JSON.parse(progressStorage.get('organizationForm'));
-                } else {
-                    $ctrl.organizationForm.values = {};
-                }
+            if ($ctrl.step == $ctrl.STEP_ORGANIZATION_ADD && progressStorage.has('organizationForm')) {
+                $ctrl.organizationForm.values = JSON.parse(progressStorage.get('organizationForm'));
             }
 
             if ($ctrl.step == $ctrl.STEP_CREATE_PROFILE) {
