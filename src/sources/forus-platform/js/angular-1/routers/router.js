@@ -675,8 +675,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             permission: permissionMiddleware('provider-funds-list', 'manage_provider_funds'),
             fundsAvailable: ['$transition$', 'ProviderFundService', (
                 $transition$, ProviderFundService
-            ) => repackResponse(ProviderFundService.listAvailableFunds(
-                $transition$.params().organization_id
+            ) => repackPagination(ProviderFundService.listAvailableFunds(
+                $transition$.params().organization_id, { per_page: 10 }
             ))],
             funds: ['$transition$', 'ProviderFundService', (
                 $transition$, ProviderFundService

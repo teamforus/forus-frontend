@@ -381,9 +381,44 @@ let ProviderSignUpComponent = function(
         });
     };
 
+    $ctrl.filters = {
+        values: {
+            q: "",
+            per_page: 10
+        },
+    };
+
+    $ctrl.onPageChange = (query) => {
+        getAvailableFunds($ctrl.organization, query);
+    };
+
+    let getAvailableFunds = (organization, query) => {
+        ProviderFundService.listAvailableFunds(
+            organization.id, query
+        ).then(res => {
+            let fundsAvailable = $ctrl.fundsAvailable = {
+                meta: res.data.meta,
+                data: res.data.data
+            };
+
+            if ($stateParams.fundId && fundsAvailable.meta.total > 0) {
+                let targetFund = fundsAvailable.data.filter(
+                    fund => fund.id == $stateParams.fundId
+                )[0] || null;
+
+                if (targetFund) {
+                    return ProviderFundService.applyForFund(
+                        organization.id,
+                        targetFund.id
+                    ).then($ctrl.next);
+                }
+            }
+        });
+    };
+
     let loadAvailableFunds = (organization) => {
         $ctrl.showFilters = !$stateParams.organization_id && !$stateParams.tag;
-        let search_params = {};
+        let search_params = $ctrl.filters.values;
 
         if (!$ctrl.showFilters) {
             if ($stateParams.organization_id) {
@@ -399,24 +434,7 @@ let ProviderSignUpComponent = function(
             }
         }
 
-        ProviderFundService.listAvailableFunds(
-            organization.id, search_params
-        ).then(res => {
-            $ctrl.fundsAvailable = res.data.data;
-
-            if ($stateParams.fundId && fundsAvailable.length > 0) {
-                let targetFund = fundsAvailable.filter(
-                    fund => fund.id == $stateParams.fundId
-                )[0] || null;
-
-                if (targetFund) {
-                    return ProviderFundService.applyForFund(
-                        organization.id,
-                        targetFund.id
-                    ).then($ctrl.next);
-                }
-            }
-        });
+        getAvailableFunds(organization, search_params);
     };
 
     $ctrl.setStep = (step) => {

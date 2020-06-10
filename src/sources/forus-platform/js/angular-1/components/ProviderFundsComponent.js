@@ -2,6 +2,7 @@ let ProviderFundsComponent = function(
     $state,
     $stateParams,
     $filter,
+    ProviderFundService,
 ) {
     let $ctrl = this;
     let $translate = $filter('translate');
@@ -54,6 +55,31 @@ let ProviderFundsComponent = function(
         $ctrl.emptyBlockMsg  = $ctrl.getEmptyBlockMessage($ctrl.shownFundsType);
     };
 
+    $ctrl.filters = {
+        values: {
+            q: "",
+            per_page: 10
+        },
+    };
+
+    let getAvailableFunds = (organization, query) => {
+        ProviderFundService.listAvailableFunds(
+            organization.id, query
+        ).then(res => {
+            $ctrl.fundsAvailable = {
+                meta: res.data.meta,
+                data: res.data.data
+            };
+        });
+    };
+
+    $ctrl.onPageChange = (query) => {
+        getAvailableFunds($ctrl.organization, {
+            per_page: query.per_page,
+            page: query.page,
+        });
+    };
+
     $ctrl.filterByFundStatus = (type) => {
         $ctrl.shownFundsType = type;
         $ctrl.showEmptyBlock = $ctrl.checkForEmptyList(type);
@@ -63,7 +89,7 @@ let ProviderFundsComponent = function(
     $ctrl.checkForEmptyList = (type) => $ctrl.getActiveFundsCount(type) == 0;
 
     $ctrl.getActiveFundsCount = (type) => ({
-        available: $ctrl.fundsAvailable.length,
+        available: $ctrl.fundsAvailable.meta.total,
         active: $ctrl.funds.length,
         invitations: $ctrl.fundAvailableInvitations.length,
         pending_rejected: $ctrl.pendingRejectedFunds.length,
@@ -87,6 +113,7 @@ module.exports = {
         '$state',
         '$stateParams',
         '$filter',
+        'ProviderFundService',
         ProviderFundsComponent
     ],
     templateUrl: 'assets/tpl/pages/provider-funds.html'
