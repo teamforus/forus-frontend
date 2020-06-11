@@ -19,7 +19,7 @@ platform.editTask('scss', (task) => {
         "nijmegen/**/*.scss"
     ];
 
-    return task
+    return task;
 });
 
 // change server port

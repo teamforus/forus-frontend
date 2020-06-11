@@ -19,10 +19,10 @@ platform.editTask('scss', (task) => {
         "groningen/**/*.scss"
     ];
 
-    return task
+    return task;
 });
 
 // change server port
-platform.serve(4050, '/');
+platform.serve(4100, '/');
 
 module.exports = platform;

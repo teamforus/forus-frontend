@@ -1,5 +1,5 @@
 let EmailPreferencesService = (ApiRequest) => {
-    let uriPrefix = '/platform/notifications';
+    let uriPrefix = '/platform/notifications/settings';
 
     return new(function() {
         this.get = () => {

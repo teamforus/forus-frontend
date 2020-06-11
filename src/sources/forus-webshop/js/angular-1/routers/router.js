@@ -531,6 +531,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: 'notifications',
+        url: '/notifications?{page:int}',
+        component: 'notificationsComponent',
+    });
+
+    $stateProvider.state({
         name: 'preferences-notifications',
         url: '/preferences/notifications',
         component: 'emailPreferencesComponent'
