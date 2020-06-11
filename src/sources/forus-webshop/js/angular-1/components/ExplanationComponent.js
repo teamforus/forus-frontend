@@ -1,17 +1,21 @@
 let ExplanationComponent = function(
     $sce,
-    $timeout,
+    $scope,
     appConfigs
 ) {
     let $ctrl = this;
 
     $ctrl.$onInit = () => {
-        $timeout(() => {
-            $ctrl.appConfigs = appConfigs;
-            $ctrl.description_steps_html = $sce.trustAsHtml(
-                appConfigs.features.settings.description_steps_html
-            );
-        }, 100);
+        $scope.appConfigs = appConfigs;
+        $scope.$watch('appConfigs', (_appConfigs) => {
+            if (_appConfigs.features && _appConfigs.features.settings) {
+                $ctrl.appConfigs = _appConfigs;
+
+                $ctrl.description_steps_html = $sce.trustAsHtml(
+                    $ctrl.appConfigs.features.settings.description_steps_html
+                );
+            }
+        }, true);
     };
 };
 
@@ -21,7 +25,7 @@ module.exports = {
     },
     controller: [
         '$sce',
-        '$timeout',
+        '$scope',
         'appConfigs',
         ExplanationComponent
     ],
