@@ -248,7 +248,7 @@ let SignUpComponent = function(
         },
     };
 
-    $ctrl.onPageChange = (query) => {
+    $ctrl.onFundsAvailablePageChange = (query) => {
         getAvailableFunds($ctrl.organization, query);
     };
 

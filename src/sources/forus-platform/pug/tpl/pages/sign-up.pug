@@ -277,7 +277,7 @@
                         text="Er zijn momenteel geen actieve fondsen.")
 
                     .card-section(ng-if="$ctrl.fundsAvailable.meta" ng-show="$ctrl.fundsAvailable.meta.last_page > 1")
-                        paginator(meta="$ctrl.fundsAvailable.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")     
+                        paginator(meta="$ctrl.fundsAvailable.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onFundsAvailablePageChange(query)")     
 
             .step-footer
                 a.button.button-text.button-text-muted(
