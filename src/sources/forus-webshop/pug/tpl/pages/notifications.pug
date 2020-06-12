@@ -2,17 +2,17 @@ top-navbar
 section.section.section-voucher-details: .wrapper
     .block.block-breadcrumbs.hide-sm
         a(ui-sref="home").breadcrumb-item Home
-        .breadcrumb-item.active Notifications
+        .breadcrumb-item.active Notificaties
 
     .card.block.block-notifications-table(ng-if="$ctrl.notifications.data.length > 0")
-        .card-header: .card-title Notifications
+        .card-header: .card-title Notificaties
             span(ng-if="$ctrl.notifications.meta.total_unseen > 0") 
-                | ({{$ctrl.notifications.meta.total_unseen}} new)
+                | ({{$ctrl.notifications.meta.total_unseen}} nieuw)
         
         .card-section.card-section-padless: table.table
             tr
-                th DATE
-                th Notification
+                th Datum
+                th Notificatie
             
             tr(ng-repeat="notification in $ctrl.notifications.data" ng-class="{dim: !notification.seen}")
                 td.notification-date
