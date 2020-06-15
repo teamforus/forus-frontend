@@ -374,7 +374,9 @@ let ProviderSignUpComponent = function(
     let loadEmployees = (organization) => {
         OrganizationEmployeesService.list(organization.id).then((res) => {
             if (res.data.data.length) {
-                $ctrl.employees = res.data.data;
+                $ctrl.employees = res.data.data.filter(employee => {
+                    return employee.identity_address != $scope.$root.auth_user.address;
+                });
             } else {
                 $ctrl.addEmployee();
             }
