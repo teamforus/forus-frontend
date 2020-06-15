@@ -435,8 +435,8 @@
                         organization="$ctrl.organization")
 
                     .card(
-                        ng-if="$ctrl.fundsAvailable.length > 0"
-                        ng-repeat="fund in $ctrl.fundsAvailable")
+                        ng-if="$ctrl.fundsAvailable.meta.total > 0"
+                        ng-repeat="fund in $ctrl.fundsAvailable.data")
                             .card-section.card-section-primary
                                 div(
                                     template="provider-signup-fund-card"
@@ -448,10 +448,14 @@
                                 block-empty(
                                     ng-if="$ctrl.funds.length == 0"
                                     text="Er zijn momenteel geen actieve fondsen.")
+                                    
 
                     block-empty(
-                        ng-if="$ctrl.fundsAvailable.length == 0" 
-                        text="Er zijn momenteel geen actieve fondsen.")                
+                        ng-if="$ctrl.fundsAvailable.meta.total == 0" 
+                        text="Er zijn momenteel geen actieve fondsen.")
+
+                    .card-section(ng-if="$ctrl.fundsAvailable.meta" ng-show="$ctrl.fundsAvailable.meta.last_page > 1")
+                        paginator(meta="$ctrl.fundsAvailable.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onFundsAvailablePageChange(query)")                    
 
                 .sign_up-pane-footer: .row
                     .col.col-lg-6.text-left

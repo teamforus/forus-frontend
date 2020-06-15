@@ -14,7 +14,7 @@
                 .label-tab.label-tab-sm(
                     ng-class="{'active' : $ctrl.shownFundsType == 'available'}" 
                     ng-click="$ctrl.filterByFundStatus('available')")
-                    | {{ "fund_card_provider.tabs.available" | translate }} ({{ $ctrl.fundsAvailable.length }}) 
+                    | {{ "fund_card_provider.tabs.available" | translate }} ({{ $ctrl.fundsAvailable.meta.total }}) 
                 .label-tab.label-tab-sm(
                     ng-class="{'active' : $ctrl.shownFundsType == 'pending_rejected'}"
                     ng-click="$ctrl.filterByFundStatus('pending_rejected')")
@@ -34,8 +34,8 @@
             organization="$ctrl.organization")
 
         fund-card-available-provider(
-            ng-if="$ctrl.shownFundsType == 'available' && $ctrl.fundsAvailable.length > 0" 
-            ng-repeat="fund in $ctrl.fundsAvailable"  
+            ng-if="$ctrl.shownFundsType == 'available' && $ctrl.fundsAvailable.meta.total > 0" 
+            ng-repeat="fund in $ctrl.fundsAvailable.data"  
             fund="fund" 
             organization="$ctrl.organization")
         
@@ -62,6 +62,10 @@
             ng-repeat="fundInvitation in $ctrl.archiveFunds"
             provider-invitation="fundInvitation"  
             organization="$ctrl.organization")
+        
+        .card
+            .card-section(ng-if="$ctrl.shownFundsType == 'available' && $ctrl.fundsAvailable.meta.total > 0" ng-show="$ctrl.fundsAvailable.meta.last_page > 1")
+                paginator(meta="$ctrl.fundsAvailable.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)") 
         
         block-empty(
             ng-if="$ctrl.showEmptyBlock"

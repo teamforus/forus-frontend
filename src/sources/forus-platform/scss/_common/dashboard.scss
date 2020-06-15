@@ -2435,6 +2435,30 @@ $colorPrimaryLight: $color_primary_light;
             }
         }
 
+        .table-pagination {
+            display: flex;
+            align-items: center;
+
+            .table-pagination-counter {
+                flex-grow: 1;
+            }
+
+            .table-pagination-navigation {
+                .button {
+                    font: 500 12px/14px $bf;
+                    padding: 10px 15px;
+                    min-width: 40px;
+
+                    &.button-default {
+                        color: #151b26;
+                        background: #ffffff;
+                        border-color: #d4d9dd;
+                    }
+                }
+                
+            }
+        }
+
         @media (max-width: 991px) {
             .block-title {
                 margin: 0 0 20px;
