@@ -331,6 +331,24 @@ module.exports = {
         },
     },
 
+    // EDIT IMPLEMENTATION = implementation-edit.pug
+    implementation_edit: {
+        header: {
+            title: "Webshop instellingen",
+        },
+        labels: {
+            header_title: "Header titel",
+            header_description: "Header omschrijving",
+            title: "Titel",
+            description: "Uitlegpagina content",
+            more_info: "Externe uitleg URL"
+        },
+        buttons: {
+            cancel: "Annuleren",
+            confirm: "Bevestigen",
+        }
+    },
+
     // EDIT FUNDS = funds-edit.pug
     funds_edit: {
         header: {

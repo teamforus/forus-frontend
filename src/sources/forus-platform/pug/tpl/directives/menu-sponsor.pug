@@ -62,3 +62,10 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
         +nav_item('Email instellingen', 'emails', 'identity-emails', null, '$root.appConfigs.sessions')
         +nav_item('Sessies', 'sessions', 'security-sessions', '{}', '$root.appConfigs.sessions')
         +nav_item('Notificaties', 'notifications', 'preferences-notifications')
+        
+        .sidebar-nav-devider(ng-if="$root.activeOrganization")
+        
+        +nav_item(
+            "Webshops", "implementation", 'implementations', 
+            '{organization_id: $root.activeOrganization.id}', 
+            '$root.activeOrganization | hasPerm:["manage_implementation", "view_funds"]')

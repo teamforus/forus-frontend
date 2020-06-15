@@ -4,7 +4,10 @@ let ModalMarkdownCustomLinkComponent = function(
     let $ctrl = this;
 
     $ctrl.$onInit = () => {
-        $ctrl.description = $ctrl.modal.scope.selection;
+        $ctrl.params = {
+            type: $ctrl.modal.scope.type,
+            description: $ctrl.modal.scope.selection
+        };
 
         $ctrl.form = FormBuilderService.build({}, (form) => {
             $ctrl.modal.scope.success(form.values);
@@ -20,6 +23,7 @@ module.exports = {
     bindings: {
         close: '=',
         modal: '=',
+        type: '='
     },
     controller: [
         'FormBuilderService',
