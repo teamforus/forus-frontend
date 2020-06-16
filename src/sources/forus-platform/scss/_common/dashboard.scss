@@ -1537,6 +1537,67 @@ $colorPrimaryLight: $color_primary_light;
             }
         }
     }
+
+    &.card-block-implementation {
+        display: flex;
+        padding: 25px;
+        margin: -25px;
+        cursor: pointer;
+
+        .card-block-implementation-logo {
+            img {
+                width: 70px;
+                height: 70px;
+                border: 1px solid #e7e7e7;
+                border-radius: 70px;
+                overflow: hidden;
+                background-color: #f1f4f7;
+            }
+        }
+
+        .card-block-implementation-details {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding-left: 20px;
+            align-self: center;
+            font: 500 18px/22px $bf;
+
+            .card-block-implementation-desc {
+                font: 600 11px/13px $bf;
+                color: #134478;
+                padding-top: 15px;
+            }
+
+            .card-block-implementation-status {
+                font: 600 12px/15px $bf;
+                padding-left: 20px;
+            }
+
+            .card-block-implementation-website {
+                a {
+                    font: 600 13px/16px $bf;
+                    text-decoration: underline;
+                    color: #009EF4;
+                }
+            }
+        }
+
+        &:hover {
+            background: lighten($color: #f3f4f5, $amount: 2);
+        }
+
+        &.card-block-implementation-collapsed {
+            cursor: inherit;
+            background: none;
+        }
+    }
+
+    &.card-implementation-edit {
+        .card-block-details {
+            font: 500 16px/20px $bf;
+        }
+    }
 }
 
 .block {
@@ -1707,12 +1768,6 @@ $colorPrimaryLight: $color_primary_light;
                     margin-top: 25px;
                 }
 
-                .sign_up-pane-description {
-                    font: 500 21px/22px $bf;
-                    color: #222530;
-                    margin-bottom: 50px;
-                }
-
                 &+.sign_up-pane-body {
                     border-top: 1px solid #edeef0;
                 }
@@ -1773,9 +1828,6 @@ $colorPrimaryLight: $color_primary_light;
                 }
 
                 .sign_up-pane-auth-content {
-                    font: 400 18px/27px $bf !important;
-                    padding-right: 70px !important;
-
                     .sign_up-pane-auth-apps {
                         margin-top: 26px;
                     }
@@ -1793,6 +1845,15 @@ $colorPrimaryLight: $color_primary_light;
                         width: 228px !important;
                         height: 228px !important;
                     }
+                }
+            }
+
+            ul {
+                padding: 0px 20px;
+                list-style: circle;
+
+                li {
+                    font-weight: 400;
                 }
             }
         }
@@ -1902,6 +1963,17 @@ $colorPrimaryLight: $color_primary_light;
 
                 &:last-child {
                     border-bottom: none;
+                }
+            }
+
+            .block-schedule-editor {
+                .schedule-editor-heading {
+                    font: 500 21px/27px $bf;   
+                    margin: 0 0 15px;
+
+                    &.schedule-editor-heading-lg {
+                        font: 500 28px/36px $bf;   
+                    }
                 }
             }
 
@@ -2088,7 +2160,7 @@ $colorPrimaryLight: $color_primary_light;
 
             .card {
                 box-shadow: none;
-                margin-bottom: 16px;
+                margin-bottom: 15px;
                 border: 1px solid #E5E6EC;
                 border-radius: 5px;
 
@@ -2184,6 +2256,11 @@ $colorPrimaryLight: $color_primary_light;
                         }
                     }
                 }
+
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
         }
 
@@ -2191,7 +2268,7 @@ $colorPrimaryLight: $color_primary_light;
             .ui-control .form-control:not([type="radio"]):not([type="checkbox"]) {
                 background-color: #EFF2F4;
                 border-color: #EFF2F4;
-                line-height: 50px;
+                padding: 4px 15px;
 
                 ::placeholder {
                     color: #9b9b9b;
@@ -2200,17 +2277,6 @@ $colorPrimaryLight: $color_primary_light;
             }
 
             .ui-control {
-                input {
-                    height: 50px;
-                    font: 400 16px/20px $bf;
-                }
-
-                &.large {
-                    input {
-                        height: 54px;
-                    }
-                }
-
                 &.ui-control-checkbox {
                     .ui-checkbox-label {
                         color: #222530;
@@ -2253,7 +2319,7 @@ $colorPrimaryLight: $color_primary_light;
                     background-color: #EFF2F4;
                     border-color: #EFF2F4;
                     height: 50px;
-                    font: 400 16px/40px $bf !important;
+                    font: 400 13px/24px $bf !important;
                 }
     
                 .select-control-option {
@@ -2368,6 +2434,273 @@ $colorPrimaryLight: $color_primary_light;
                 margin-bottom: 0;
             }
         }
+
+        .table-pagination {
+            display: flex;
+            align-items: center;
+
+            .table-pagination-counter {
+                flex-grow: 1;
+            }
+
+            .table-pagination-navigation {
+                .button {
+                    font: 500 12px/14px $bf;
+                    padding: 10px 15px;
+                    min-width: 40px;
+
+                    &.button-default {
+                        color: #151b26;
+                        background: #ffffff;
+                        border-color: #d4d9dd;
+                    }
+                }
+                
+            }
+        }
+
+        @media (max-width: 991px) {
+            .block-title {
+                margin: 0 0 20px;
+                font: 500 28px/34px $bf;
+            }
+
+            .block-pincode {
+                text-align: left;
+                width: 100% !important;
+
+                .pincode-number {
+                    align-items: start !important;
+                    height: 31px !important;
+                    width: 38px !important;
+                    margin-right: 3px !important;
+                    font: 400 22px/31px $bf !important;
+                }
+            }
+
+            .sign_up-employees {
+                .sign_up-employee {
+                    width: 100%;
+
+                    span {
+                        display: flex;
+                        flex-grow: 1;
+                    }
+                }
+            }
+
+            .sign_up-header {
+                margin: 0 -10px 25px;
+            }
+    
+            .sign_up-pane {
+                .block-title {
+                    margin: 0 0 20px;
+                }
+    
+                .sign_up-pane-header {
+                    font: 500 18px/26px $bf;
+                }
+
+                .sign_up-offices {
+                    .sign_up-office {
+                        flex-wrap: wrap;
+                        padding: 20px 0px 30px;
+
+                        .office-media {
+                            order: 1;
+                            padding-right: 15px;
+
+                            &.office-media-placeholder {
+                                img {
+                                    height: 70px;
+                                    width: 70px;
+                                }
+                            }
+                        }
+
+                        .office-contacts {
+                            width: 60%;
+
+                            .office-contact {
+                                margin: 0 0 5px;
+                                font: 400 15px/20px $bf;
+                            }
+                        }
+
+                        .office-map {
+                            order: 2;
+                            margin-top: 20px;
+                            width: 100%;
+
+                            .office-map-content {
+                                width: 100%;
+                            }
+
+                            .office-actions {
+                                padding-left: 50px;
+                            }
+                        }
+                    }
+
+                    &:last-child {
+                        border-bottom: 1px solid #edeef0;
+                    }
+                }
+    
+                .sign_up-pane-body {
+                    padding: 20px;
+
+                    .sign_up-pane-subtitle {
+                        font: 400 24px/30px $bf;
+                    }
+
+                    .sign_up-office-edit {
+                        border-bottom: none;
+
+                        .sign_up-pane-section {
+                            border-bottom: none;
+                        }
+
+                        .schedule {
+                            border-collapse: collapse;
+
+                            td {
+                                display: inline-block;
+                                padding-right: 10px;
+    
+                                &.breaks {
+                                    padding-left: 0px;
+                                }
+                            }
+    
+                            tr {
+                                margin-bottom: 10px;
+
+                                &:first-child {
+                                    border-top: none;
+                                }
+                            }
+    
+                            .schedule-day-name {
+                                width: 100px;
+                                margin-top: 10px;
+                                padding-top: 5px;
+                            }
+
+                            .schedule-day-available {
+                                width: 60%;
+                            }
+    
+                            .time {
+                                input {
+                                    font: 400 14px/20px $bf;
+                                }
+                            }
+    
+                            .ui-control {
+                                &.ui-control-checkbox {
+                                    padding-right: 5px;
+                                }
+        
+                                &.ui-control-text {
+                                    width: 62px !important;
+                                    height: 30px !important;
+        
+                                    input {
+                                        padding: 4px 10px;
+                                    }
+                                }
+    
+                                &.breaks {
+                                    input {
+                                        margin-right: 10px;
+                                        width: 60px;
+                                    }
+                                }
+                            }
+                        }
+
+                        .office-edit-actions {
+                            .sign_up-pane-col {
+                                border-top: none;
+                            }
+    
+                            .flex-row {
+                                flex-direction: column;
+    
+                                .flex-col {
+                                    margin-top: 12px;
+    
+                                    &:first-child {
+                                        margin-top: 0px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .card-section-fund {
+                        padding: 20px 20px 30px;
+
+                        .card-block {
+                            &.card-block-fund {
+                                padding-bottom: 20px;
+    
+                                .fund-title {
+                                    font: 500 16px/26px $bf;
+                                    margin: 0 0 0;
+                                }
+    
+                                .fund-organization {
+                                    font: 400 13px/16px $bf;
+                                    margin: 0 0 10px;
+                                }
+                            }
+                        }
+                    }
+                }
+    
+                .sign_up-pane-footer {
+                    padding: 10px 15px;
+    
+                    .button {
+                        font: 500 14px/16px $bf !important;
+
+                        .mdi {
+                            width: auto !important;
+                            font-size: 20px !important;
+
+                            &.icon-right, &.icon-left {
+                                margin-right: 0px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .sign_up-organizations {
+                .sign_up-organization {
+                    padding: 10px;
+                    margin-bottom: 15px;
+
+                    .sign_up-organization-logo {
+                        width: 36px;
+                        height: 36px;
+
+                        img {
+                            height: 100%;
+                        }
+                    }
+
+                    .sign_up-organization-title {
+                        font: 500 16px/20px $bf;
+                        padding-left: 15px;
+                        text-align: left;
+                    }
+                }
+            }
+        }
     }
 
     &.block-pdf-preview {
@@ -2422,7 +2755,6 @@ $colorPrimaryLight: $color_primary_light;
                         line-height: 20px;
                         color: $color_primary;
                         float: left;
-                        line-height: 20px;
                         margin: 0;
                         margin-right: 5px;
                     }
@@ -3538,17 +3870,87 @@ $colorPrimaryLight: $color_primary_light;
     &.block-schedule-editor {
         @include cf();
 
-        .schedule-item {
-            padding: 0 5px;
-            float: left;
-            width: 14.2857%;
+        .schedule-editor-heading {
+            font: 500 16px/20px $bf;   
+            margin: 0 0 15px;
+            color: #282B39;
 
-            &:first-child {
-                padding-left: 0;
+            &.schedule-editor-heading-lg {
+                font: 500 28px/36px $bf;   
             }
+        }
 
-            &:last-child {
-                padding-right: 0;
+        .ui-control {
+            &.ui-control-checkbox {
+                .ui-checkbox-label {
+                    font: 500 13px/16px $bf;
+                }
+            }
+        }
+
+        table {
+            th {
+                font: 600 13px/16px $bf;
+                letter-spacing: 0.08px;
+                text-transform: uppercase;
+                color: #222530;
+                text-align: left;
+            }
+    
+            td {
+                padding-right: 22px;
+                height: 30px;
+                font: 400 13px/16px $bf;
+                color: #222530;
+    
+                span {
+                    font: 400 13px/24px $bf;
+                }
+    
+                &.weekend {
+                    color: #F15642;
+                }
+
+                &.breaks {
+                    padding-left: 40px;
+                }
+            }
+    
+            th, td {
+                &.breaks {
+                    text-align: center;
+                }
+            }
+    
+            .ui-control {
+                &.ui-control-text {
+                    width: 80px;
+                    height: 30px;
+    
+                    input {
+                        height: 30px;
+                        border-radius: 6px;
+                    }
+                }
+            
+                &.breaks {
+                    display: table-cell;
+    
+                    &.end {
+                        input {
+                            margin-right: 0px;
+                        }
+                    }
+    
+                    input {
+                        width: 80px;
+                        margin-right: 22px;
+                    }
+                }
+    
+                .ui-control-clear {
+                    display: none;
+                }
             }
         }
     }
@@ -4319,10 +4721,6 @@ $colorPrimaryLight: $color_primary_light;
 
         .entity-photo {
             width: 50px;
-
-            .entity-photo-abbr {
-
-            }
 
             .entity-photo-img {
                 display: block;
@@ -6104,10 +6502,6 @@ $colorPrimaryLight: $color_primary_light;
             }
         }
 
-        &:hover:not(.button-text) {
-            transform: translate(0, -3px);
-        }
-
         &.button-text {
             &:hover {
                 color: #305dfb;
@@ -6175,12 +6569,12 @@ $colorPrimaryLight: $color_primary_light;
         background-color: #fff;
 
         .button {
-            line-height: 32px;
+            line-height: 20px;
             font-size: 16px;
             font-weight: 500;
             border-radius: $borderRadius / 2;
 
-            &.button-sm {
+            /* &.button-sm {
                 font: 500 14px/24px $bf;
                 padding: 10px 15px;
 
@@ -6191,18 +6585,7 @@ $colorPrimaryLight: $color_primary_light;
                         margin-right: 15px;
                     }
                 }
-            }
-
-            &:not(.button-text) {
-                .mdi {
-                    font-size: 28px;
-                    margin-left: -50px;
-                }
-
-                &:hover {
-                    transform: translate(0, 0);
-                }
-            }
+            } */
 
             &.button-disabled, [disabled] {
                 background: #eff2f4;
@@ -6214,6 +6597,139 @@ $colorPrimaryLight: $color_primary_light;
                 
                 &:hover {
                     box-shadow: none;
+                }
+            }
+
+            .mdi {
+                font-size: 26px;
+
+                &.icon-start {
+                    margin-left: -10px;
+                    margin-right: 10px;
+                }
+
+                &.icon-end {
+                    margin-left: 10px;
+                    margin-right: -10px;
+                }
+            }
+        }
+
+        @media (max-width: 991px) {
+            .modal {
+                .button {
+                    font-size: 14px;
+                    padding: 7px 35px;
+                }
+            }
+
+            .fund-apply {
+                .card {
+                    .card-section {
+                        &.card-section-fund {
+                            flex-direction: column;
+                            align-items: flex-start;
+                            justify-content: flex-start;
+                            padding: 20px 20px;
+
+                            .card-section-actions {
+                                order: 2;
+                                position: initial;
+                                margin: 0 0 0;
+                                width: 100%;
+                                
+                                .button {
+                                    width: 100%;
+                                }
+                            }
+
+                            .card-block {
+                                &.card-block-fund {
+                                    order: 1;
+                                    padding: 0 0 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            .sign_up-pane-body {
+                .block-photo-selector {
+                    display: flex;
+                    max-width: none;
+
+                    .photo-img {
+                        margin-left: none;
+                        margin-right: none;
+                        width: 80px;
+                        height: 80px;
+                        margin: 0 20px 0 0 !important;
+                    }
+
+                    .photo-details {
+                        max-width: calc(100% - 100px);
+
+                        .photo-label, .photo-description {
+                            text-align: left;
+                            line-height: 20px;
+                        }
+                    }
+                }
+
+                .sign_up-pane-auth {
+                    .sign_up-pane-auth-qr_code {
+                        .block.block-qr-code {
+                            margin: 0 auto;
+                        }
+                    }
+                }
+
+                .sign_up-pane-section {
+                    flex-direction: column !important;
+                    padding-right: 0px !important;
+
+                    .sign_up-pane-col {
+                        width: 100% !important;
+                        padding: 14px !important;
+                        border-top: 1px solid #edeef0;
+
+                        &.sign_up-pane-col-2 {
+                            order: 1;
+                        }
+                    }
+                }
+
+                .ui-control {
+                    &.ui-control-checkbox {
+                        padding-top: 5px;
+                        padding-bottom: 5px;
+                    }
+                }
+            }
+
+            .finish-screen {
+                .sign_up-pane-body {
+                    .sign_up-pane-text {
+                        padding-left: 10px;
+                        padding-right: 10px;
+                        text-align: center !important;
+                    }
+
+                    .button {
+                        background-color: #E1E8FF;
+                        border-radius: 5px;
+                    }
+                }
+            }
+            
+            .sign_up-pane-footer {
+                .button {
+                    .mdi {
+                        &:before, &:after {
+                            line-height: inherit;
+                        }
+                    }
                 }
             }
         }

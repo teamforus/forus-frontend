@@ -331,6 +331,24 @@ module.exports = {
         },
     },
 
+    // EDIT IMPLEMENTATION = implementation-edit.pug
+    implementation_edit: {
+        header: {
+            title: "Webshop instellingen",
+        },
+        labels: {
+            header_title: "Header titel",
+            header_description: "Header omschrijving",
+            title: "Titel",
+            description: "Uitlegpagina content",
+            more_info: "Externe uitleg URL"
+        },
+        buttons: {
+            cancel: "Annuleren",
+            confirm: "Bevestigen",
+        }
+    },
+
     // EDIT FUNDS = funds-edit.pug
     funds_edit: {
         header: {
@@ -494,7 +512,8 @@ module.exports = {
             open: "OPEN",
             start: "START",
             end: "EIND",
-            break: "Pauze"
+            break: "Pauze",
+            not_specified: "Niet ingevuld",
         },
         buttons: {
             cancel: "Annuleren",
@@ -541,6 +560,7 @@ module.exports = {
             stock_unlimited: "Onbeperkt aanbod",
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
+            available_offers: "Resterend aanbod"
         },
         buttons: {
             cancel: "Annuleren",
@@ -765,12 +785,17 @@ module.exports = {
             title_step_1: "Welkom", 
             subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als aanbieder. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
             title_step_2: "Benodigdheden",
-            subtitle_step_2: "U hoeft geen speciale apparatuur aan te schaffen om betalingen te ontvangen. Het installeren van een gratis app is voldoende.<br/><br/>" +
-                "De app kan op vrijwel elke moderne Apple of Android telefoon worden geinstalleerd. U en uw medewerkers kunnen de app veilig op eigen telefoon gebruiken. Het is ook mogelijk om speciaal een telefoon aan te schaffen voor het gebruik in uw winkel. ",
+            subtitle_step_2: "Aan het aanmelden zijn geen kosten verbonden. Het installeren van een gratis <a href='https://forus.io/me'>app</a> is voldoende. " + 
+                "De Me-app kan op vrijwel elke moderne Apple of Android telefoon worden geïnstalleerd.<br/><br/>" + 
+                "Bij de aanmelding heeft u nodig:<br/><br/>" + 
+                "<ul>" + 
+                "<li>Mobiele telefoon of tablet met camera en internet</li>" +
+                "<li>Bedrijfsgegevens van uw organisatie (contactgegevens, KvK en IBAN nummer)</li>" +
+                "</ul>",
             title_step_3: "De kassa app installeren",
             subtitle_step_3: "",
             title_step_4: "Vestiging toevoegen",
-            subtitle_step_4: "",
+            subtitle_step_4: "Kies een bestaande organisatie of voeg een nieuwe organisatie toe.",
             title_step_5: "Organisatie aanmaken",
             subtitle_step_5: "Om deel te kunnen nemen gaat u een organisatie aanmaken. Vul hieronder de gegevens van uw organisatie in. Na aanmelding ontvangt u de betalingen automatisch op uw rekening, hier hoeft u verder niets voor te doen.",
             title_step_6: "Vestiging toevoegen",
@@ -853,7 +878,7 @@ module.exports = {
             title: "De app installeren",
             description: "De app is beschikbaar voor iOS en Android telefoons. Vul uw telefoonnummer in om een download link via SMS te ontvangen of ga op uw telefoon naar <a href='www.forus.io/DL' target='_blank'>www.forus.io/DL</a>",
             download_link: "Verstuur download link",
-            no_link_received: 'Heeft u geen link ontvangen? Ga dan op uw telefoon naar',
+            no_link_received: 'We hebben u een sms gestuurd! Heeft u geen link ontvangen? Ga dan op uw telefoon naar',
         },
         filters: {
             labels: {
@@ -926,7 +951,7 @@ module.exports = {
             subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als sponsor. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
             title_step_2: "Maak een account",
             title_step_3: "Vestiging kiezen",
-            subtitle_step_3: "",
+            subtitle_step_3: "Kies een bestaande organisatie of voeg een nieuwe organisatie toe.",
             title_step_4: "Organisatie aanmaken",
             subtitle_step_4: "Om deel te kunnen nemen gaat u een organisatie aanmaken. Vul hieronder de gegevens van uw organisatie in. Na aanmelding ontvangt u de betalingen automatisch op uw rekening, hier hoeft u verder niets voor te doen.",
             title_step_5: "Aanmelding voltooid",
@@ -966,6 +991,7 @@ module.exports = {
             mobile_number: "Vul uw mobiele nummer in",
             confirm_email: "Bevestig uw emailadres",
             confirm_email_description: "Bevestig voordat we verder gaan uw email adres. Klik op de link in de email die is verzonden naar",
+            terms: "Er wordt gekeken of u al aan de voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan",
         },
         buttons: {
             go_step_2: "Ga verder naar stap 2",
@@ -1018,8 +1044,10 @@ module.exports = {
         },
         app: {
             title: "Heeft u de Me App al?",
-            description: [
+            description_top: [
                 "De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
+            ].join("\n"),
+            description_bottom: [
                 "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.",
                 "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
             ].join("\n"),
@@ -1051,6 +1079,7 @@ module.exports = {
             title_step_3: "Maak een account",
             subtitle_step_3: "Vul uw email adres in om verder te gaan",
             title_step_4: "Vestiging kiezen",
+            subtitle_step_4: "Kies een bestaande organisatie of voeg een nieuwe organisatie toe.",
             title_step_5: "Organisatie aanmaken",
             subtitle_step_5: "Om deel te kunnen nemen gaat u een organisatie aanmaken. Vul hieronder de gegevens van uw organisatie in. Na aanmelding ontvangt u de betalingen automatisch op uw rekening, hier hoeft u verder niets voor te doen.",
             title_step_6: "Aanmelding voltooid",
@@ -1090,6 +1119,7 @@ module.exports = {
             mobile_number: "Vul uw mobiele nummer in",
             confirm_email: "Bevestig uw emailadres",
             confirm_email_description: "Bevestig voordat we verder gaan uw email adres. Klik op de link in de email die is verzonden naar",
+            terms: "Er wordt gekeken of u al aan de voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan",
         },
         buttons: {
             go_step_2: "Ga verder naar stap 2",
@@ -1142,8 +1172,10 @@ module.exports = {
         },
         app: {
             title: "Heeft u de Me App al?",
-            description: [
+            description_top: [
                 "De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
+            ].join("\n"),
+            description_bottom: [
                 "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.", 
                 "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
             ].join("\n"),
@@ -1319,7 +1351,7 @@ module.exports = {
         status: {
             accepted: "Geaccepteerd",
             rejected: "Geweigerd",
-            hold: "Wachten",
+            hold: "In behandeling",
         },
         labels: {
             mail: "E-mail",
@@ -1357,7 +1389,8 @@ module.exports = {
             accepted_only_products: "Geaccepteerd: alleen aanbiedingen",
             accepted_only_specific_products: "Geaccepteerd: specifieke aanbiedingen",
             pending: "Uitgenodigd",
-            expired: "Verlopen"
+            expired: "Verlopen",
+            rejected: "Geweigerd"
         },
         labels: {
             categories: "Categorieën",
@@ -1375,19 +1408,22 @@ module.exports = {
             available: "Er zijn geen beschikbare fondsen waar u zich voor kunt aanmelden.",
             active: "Er zijn geen fondsen waar u actief voor bent.",
             invitations: "Er zijn geen openstaande uitnodigingen die u kunt accepteren.",
-            invitations_expired: "Er zijn geen verlopen uitnodigingen of gesloten fondsen waar u zich voor hebt aangemeld.",
+            expired_closed: "Er zijn geen verlopen uitnodigingen of gesloten fondsen waar u zich voor hebt aangemeld.",
+            pending_rejected: "Er zijn geen fondsen waar u aanmeldingen voor bent.",
         },
         tabs: {
             active: 'Actief',
             invitations: 'Uitnodigingen',
+            pending_rejected: "Aanmeldingen",
             available: 'Beschikbaar',
             expired: 'Archief',
         },
         title: {
             available: "Beschikbare fondsen",
+            pending_rejected: "Aanmeldingen fondsen",
             active: "Actieve fondsen",
             invitations: "Uitnodigingen",
-            invitations_expired: "Archief",
+            expired_closed: "Archief",
         }
     },
 
