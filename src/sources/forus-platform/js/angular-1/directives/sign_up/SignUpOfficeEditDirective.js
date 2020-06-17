@@ -226,7 +226,7 @@ let SignUpOfficeEditDirective = function(
     };
 
     $scope.addLeadingZeroToTime = (time) => {
-        if (!time.length) {
+        if (!time || !time.length) {
             return '';
         }
 
@@ -319,7 +319,8 @@ let SignUpOfficeEditDirective = function(
 
     $scope.init = () => {
         $dir.form = $scope.buildForm({ 
-            phone: $scope.organization.phone 
+            phone: $scope.organization.phone,
+            schedule: {} 
         });
         $dir.scheduleDetails = [];
 
