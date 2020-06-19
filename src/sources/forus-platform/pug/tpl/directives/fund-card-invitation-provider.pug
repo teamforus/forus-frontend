@@ -2,8 +2,12 @@
     .card-section
         .card-section-actions 
             .tag(
+                ng-if="providerInvitation.state"
                 ng-class="providerInvitation.state == 'pending' && !providerInvitation.expired ? 'tag-warning' : providerInvitation.expired ? 'tag-default' : 'tag-success'"
                 translate="{{ 'fund_card_provider.status.' + (providerInvitation.expired ? 'expired' : providerInvitation.state) }}")
+            .tag.tag-default(
+                ng-if="!providerInvitation.state"
+                translate="fund_card_provider.labels.closed")
 
         .card-block.card-block-fund.card-block-fund-margin-bottom
             .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}", alt="")

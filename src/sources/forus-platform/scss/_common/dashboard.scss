@@ -1625,6 +1625,67 @@ $colorPrimaryLight: $color_primary_light;
             }
         }
     }
+
+    &.card-block-implementation {
+        display: flex;
+        padding: 25px;
+        margin: -25px;
+        cursor: pointer;
+
+        .card-block-implementation-logo {
+            img {
+                width: 70px;
+                height: 70px;
+                border: 1px solid #e7e7e7;
+                border-radius: 70px;
+                overflow: hidden;
+                background-color: #f1f4f7;
+            }
+        }
+
+        .card-block-implementation-details {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding-left: 20px;
+            align-self: center;
+            font: 500 18px/22px $bf;
+
+            .card-block-implementation-desc {
+                font: 600 11px/13px $bf;
+                color: #134478;
+                padding-top: 15px;
+            }
+
+            .card-block-implementation-status {
+                font: 600 12px/15px $bf;
+                padding-left: 20px;
+            }
+
+            .card-block-implementation-website {
+                a {
+                    font: 600 13px/16px $bf;
+                    text-decoration: underline;
+                    color: #009EF4;
+                }
+            }
+        }
+
+        &:hover {
+            background: lighten($color: #f3f4f5, $amount: 2);
+        }
+
+        &.card-block-implementation-collapsed {
+            cursor: inherit;
+            background: none;
+        }
+    }
+
+    &.card-implementation-edit {
+        .card-block-details {
+            font: 500 16px/20px $bf;
+        }
+    }
 }
 
 .block {
@@ -1874,6 +1935,15 @@ $colorPrimaryLight: $color_primary_light;
                     }
                 }
             }
+
+            ul {
+                padding: 0px 20px;
+                list-style: circle;
+
+                li {
+                    font-weight: 400;
+                }
+            }
         }
 
         .sign_up-offices {
@@ -1981,6 +2051,17 @@ $colorPrimaryLight: $color_primary_light;
 
                 &:last-child {
                     border-bottom: none;
+                }
+            }
+
+            .block-schedule-editor {
+                .schedule-editor-heading {
+                    font: 500 21px/27px $bf;   
+                    margin: 0 0 15px;
+
+                    &.schedule-editor-heading-lg {
+                        font: 500 28px/36px $bf;   
+                    }
                 }
             }
 
@@ -2275,6 +2356,7 @@ $colorPrimaryLight: $color_primary_light;
             .ui-control .form-control:not([type="radio"]):not([type="checkbox"]) {
                 background-color: #EFF2F4;
                 border-color: #EFF2F4;
+                padding: 4px 15px;
 
                 ::placeholder {
                     color: #9b9b9b;
@@ -2438,6 +2520,30 @@ $colorPrimaryLight: $color_primary_light;
 
             &:last-child {
                 margin-bottom: 0;
+            }
+        }
+
+        .table-pagination {
+            display: flex;
+            align-items: center;
+
+            .table-pagination-counter {
+                flex-grow: 1;
+            }
+
+            .table-pagination-navigation {
+                .button {
+                    font: 500 12px/14px $bf;
+                    padding: 10px 15px;
+                    min-width: 40px;
+
+                    &.button-default {
+                        color: #151b26;
+                        background: #ffffff;
+                        border-color: #d4d9dd;
+                    }
+                }
+                
             }
         }
 
@@ -3852,17 +3958,87 @@ $colorPrimaryLight: $color_primary_light;
     &.block-schedule-editor {
         @include cf();
 
-        .schedule-item {
-            padding: 0 5px;
-            float: left;
-            width: 14.2857%;
+        .schedule-editor-heading {
+            font: 500 16px/20px $bf;   
+            margin: 0 0 15px;
+            color: #282B39;
 
-            &:first-child {
-                padding-left: 0;
+            &.schedule-editor-heading-lg {
+                font: 500 28px/36px $bf;   
             }
+        }
 
-            &:last-child {
-                padding-right: 0;
+        .ui-control {
+            &.ui-control-checkbox {
+                .ui-checkbox-label {
+                    font: 500 13px/16px $bf;
+                }
+            }
+        }
+
+        table {
+            th {
+                font: 600 13px/16px $bf;
+                letter-spacing: 0.08px;
+                text-transform: uppercase;
+                color: #222530;
+                text-align: left;
+            }
+    
+            td {
+                padding-right: 22px;
+                height: 30px;
+                font: 400 13px/16px $bf;
+                color: #222530;
+    
+                span {
+                    font: 400 13px/24px $bf;
+                }
+    
+                &.weekend {
+                    color: #F15642;
+                }
+
+                &.breaks {
+                    padding-left: 40px;
+                }
+            }
+    
+            th, td {
+                &.breaks {
+                    text-align: center;
+                }
+            }
+    
+            .ui-control {
+                &.ui-control-text {
+                    width: 80px;
+                    height: 30px;
+    
+                    input {
+                        height: 30px;
+                        border-radius: 6px;
+                    }
+                }
+            
+                &.breaks {
+                    display: table-cell;
+    
+                    &.end {
+                        input {
+                            margin-right: 0px;
+                        }
+                    }
+    
+                    input {
+                        width: 80px;
+                        margin-right: 22px;
+                    }
+                }
+    
+                .ui-control-clear {
+                    display: none;
+                }
             }
         }
     }
