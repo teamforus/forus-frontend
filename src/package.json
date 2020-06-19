@@ -36,7 +36,7 @@
     "jadeify": "4.7.0",
     "pugify": "2.2.0",
     "stream-combiner": "0.2.2",
-    "tsify": "4.0.1",
+    "tsify": "4.0.2",
     "typescript": "3.9.5",
     "vinyl-buffer": "1.0.1",
     "vinyl-source-stream": "2.0.0"
