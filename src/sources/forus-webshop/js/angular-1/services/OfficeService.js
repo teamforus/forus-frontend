@@ -10,7 +10,7 @@ let OfficeService = function(ApiRequest) {
             return ApiRequest.get(
                 uriPrefix + '/offices/' + id
             );
-        }
+        };
 
         this.states = function() {
             return [{
@@ -23,7 +23,7 @@ let OfficeService = function(ApiRequest) {
                 name: "Closed",
                 value: 'closed',
             }];
-        }
+        };
 
         this.apiResourceToForm = function(apiResource) {
             let schedule = {};
@@ -43,7 +43,7 @@ let OfficeService = function(ApiRequest) {
                     schedule[prop] = {
                         'start_time': 'null',
                         'end_time': 'null',
-                    }
+                    };
                 } else {
                     if (!schedule[prop].start_time) {
                         schedule[prop].start_time = 'null';

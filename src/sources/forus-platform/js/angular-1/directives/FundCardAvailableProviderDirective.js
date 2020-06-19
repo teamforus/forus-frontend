@@ -1,4 +1,4 @@
-let FundCardAvailableProviderDirective = function (
+let FundCardAvailableProviderDirective = function(
     $scope,
     $state,
     $filter,
@@ -6,15 +6,15 @@ let FundCardAvailableProviderDirective = function (
     ModalService,
     OfficeService
 ) {
-    $scope.providerApplyFund = function (fund) {
-        OfficeService.list(
-            $scope.organization.id
-        ).then(function (res) {
+    $scope.providerApplyFund = function(fund) {
+        OfficeService.list($scope.organization.id, {
+            per_page: 100
+        }).then(function(res) {
             if (res.data.data.length) {
                 ProviderFundService.applyForFund(
                     $scope.organization.id,
                     $scope.fund.id
-                ).then(function (res) {
+                ).then(function(res) {
                     ModalService.open('modalNotification', {
                         type: 'info',
                         title: 'provider_funds_available.applied_for_fund.title',
@@ -24,7 +24,9 @@ let FundCardAvailableProviderDirective = function (
                     }, {
                         onClose: () => $state.go($state.current, {
                             fundsType: 'available'
-                        }, { reload: true })
+                        }, {
+                            reload: true
+                        })
                     });
 
                 });

@@ -38,6 +38,7 @@ app.component('accessibilityComponent', require('./components/AccessibilityCompo
 app.component('errorComponent', require('./components/ErrorComponent'));
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
 app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
+app.component('explanationComponent', require('./components/ExplanationComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -163,6 +164,7 @@ app.config(require('./config/api-service'));
 app.config(require('./config/i18n'));
 
 app.run(require('./routers/router-transitions'));
+app.run(require('./routers/modals-transitions'));
 
 app.run(['appConfigs', (appConfigs) => {
     appConfigs.flags = Object.assign(

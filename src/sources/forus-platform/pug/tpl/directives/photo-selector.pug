@@ -1,5 +1,6 @@
 .block.block-photo-selector
     .photo-img: img(ng-src="{{ thumbnail || './assets/img/placeholders/image-thumbnail.png' }}", alt="")
+    .photo-details
     .photo-label(ng-if="!label" translate="photo_selector.labels.image")
     .photo-label(ng-if="label" ng-bind="label" )
     .photo-description(ng-if="description" ng-bind="description")

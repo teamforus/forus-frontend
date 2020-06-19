@@ -30,6 +30,7 @@
 
 // ellipsis text
 @mixin ellipsis {
+    flex: 1;
     display: block;
     overflow: hidden;
     white-space: nowrap;

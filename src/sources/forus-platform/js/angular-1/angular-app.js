@@ -40,11 +40,17 @@ app.component('validatorSignUpComponent', require('./components/ValidatorSignUpC
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
 app.component('transactionComponent', require('./components/TransactionComponent'));
 app.component('fundProviderComponent', require('./components/FundProviderComponent'));
+app.component('fundProviderProductComponent', require('./components/FundProviderProductComponent'));
 app.component('noPermissionComponent', require('./components/NoPermissionComponent'));
 app.component('emailPreferencesComponent', require('./components/EmailPreferencesComponent'));
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
 app.component('fundProviderInviteComponent', require('./components/FundProviderInviteComponent'));
 app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
+app.component('implementationsComponent', require('./components/ImplementationsComponent'));
+app.component('implementationViewComponent', require('./components/ImplementationViewComponent'));
+app.component('implementationCmsEditComponent', require('./components/ImplementationCmsEditComponent'));
+app.component('implementationEmailEditComponent', require('./components/ImplementationEmailEditComponent'));
+app.component('implementationDigidEditComponent', require('./components/ImplementationDigidEditComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -68,6 +74,9 @@ app.component('modalFundOffersComponent', require('./components/Modals/ModalFund
 app.component('modalBusinessSelectComponent', require('./components/Modals/ModalBusinessSelectComponent'));
 app.component('modalCreatePrevalidationComponent', require('./components/Modals/ModalCreatePrevalidationComponent'));
 app.component('modalVoucherExportTypeComponent', require('./components/Modals/ModalVoucherExportTypeComponent'));
+app.component('modalFundProviderChatSponsorComponent', require('./components/Modals/ModalFundProviderChatSponsorComponent'));
+app.component('modalFundProviderChatProviderComponent', require('./components/Modals/ModalFundProviderChatProviderComponent'));
+app.component('modalFundProviderChatMessageComponent', require('./components/Modals/ModalFundProviderChatMessageComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -116,6 +125,9 @@ app.service('DemoTransactionService', require('./services/DemoTransactionService
 app.service('GoogleMapService', require('./services/GoogleMapService'));
 app.service('SignUpService', require('./services/SignUpService'));
 app.service('IdentityEmailsService', require('./services/IdentityEmailsService'));
+app.service('ProductChatService', require('./services/ProductChatService'));
+app.service('FundProviderChatService', require('./services/FundProviderChatService'));
+app.service('ImplementationService', require('./services/ImplementationService'));
 
 // Directives
 switch (env_data.panel_type) {
@@ -177,6 +189,7 @@ app.directive('pdfPreview', require('./directives/PdfPreviewDirective'));
 app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
 app.directive('fundCardInvitationProvider', require('./directives/FundCardInvitationProviderDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
+app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDirective'));
 
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 
@@ -222,9 +235,10 @@ app.config(require('./config/api-service'));
 app.config(require('./config/i18n'));
 app.config(['$compileProvider', function($compileProvider) {
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript):/);
-}])
+}]);
 
 app.run(require('./routers/router-transitions'));
+app.run(require('./routers/modals-transitions'));
 
 app.run(['appConfigs', (appConfigs) => {
     appConfigs.flags = Object.assign(

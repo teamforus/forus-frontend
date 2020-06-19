@@ -223,12 +223,12 @@
 
                 .card-section.card-section-primary: .block.block-app-instruction
                     .step-item
-                        img(src="./assets/img/sign-up/screen1.png")
                         .app-title(translate="sign_up.app_instruction.step_1")
-                        img.line-item(src="./assets/img/sign-up/line1.png")
+                        img(src="./assets/img/sign-up/screen1.png")
                     .step-item
-                        img(src="./assets/img/sign-up/screen2.png")
                         .app-title(translate="sign_up.app_instruction.step_2")
+                        img(src="./assets/img/sign-up/screen2.png")
+                        
 
                 .divider-img: img(src="./assets/img/sign-up/Base7.png")
 
@@ -260,24 +260,14 @@
                 +card_header(7)
 
                 .card-section.card-section-primary
-                    .row.form.filters(ng-if="$ctrl.showFilters")   
-                        .col.col-lg-6
-                            .form-label(translate="sign_up.filters.labels.organizations")
-                            select(
-                                ng-options="fundOrganization.id_str as fundOrganization.name for fundOrganization in $ctrl.fundOrganizations" 
-                                ng-model="$ctrl.fundOrganization"
-                                ng-change="$ctrl.filterFunds()").form-control 
- 
-                        .col.col-lg-6
-                            .form-label(translate="sign_up.filters.labels.tags")
-                            select(
-                                ng-options="fundLabel.key as fundLabel.name for fundLabel in $ctrl.fundLabels" 
-                                ng-model="$ctrl.fundLabel"
-                                ng-change="$ctrl.filterFunds()").form-control
+                    provider-fund-filters(
+                        ng-if="$ctrl.showFilters"
+                        funds-available="$ctrl.fundsAvailable" 
+                        organization="$ctrl.organization")
 
                     div(
-                        ng-if="$ctrl.fundsAvailable.length > 0"
-                        ng-repeat="fund in $ctrl.fundsAvailable"
+                        ng-if="$ctrl.fundsAvailable.meta.total > 0"
+                        ng-repeat="fund in $ctrl.fundsAvailable.data"
                         fund-card-provider-can-join
                         fund="fund"
                         organization="$ctrl.organization")
@@ -285,6 +275,9 @@
                     block-empty(
                         ng-if="$ctrl.funds.length == 0" 
                         text="Er zijn momenteel geen actieve fondsen.")
+
+                    .card-section(ng-if="$ctrl.fundsAvailable.meta" ng-show="$ctrl.fundsAvailable.meta.last_page > 1")
+                        paginator(meta="$ctrl.fundsAvailable.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onFundsAvailablePageChange(query)")     
 
             .step-footer
                 a.button.button-text.button-text-muted(
@@ -298,7 +291,7 @@
                     translate="sign_up.buttons.next")
 
         //- Mobile device warning
-        .hidden-lg.hidden-md.open-pc-section: .section-inner
-            .img-block: img(src="./assets/img/sign-up/user-mobile.png")
-            .title(translate="sign_up.open_pc.title")
-            .open-pc-description(translate="sign_up.open_pc.description")
+        .block.block-desktop-only.visible-xs: .block-inner
+            .block-media: img(src="./assets/img/sign-up/user-mobile.png")
+            .block-title(translate="sign_up.open_pc.title")
+            .block-description(translate="sign_up.open_pc.description")    

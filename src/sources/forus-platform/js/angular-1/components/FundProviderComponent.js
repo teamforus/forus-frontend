@@ -1,8 +1,8 @@
 let FundProviderComponent = function(
     $q,
+    $state,
     FundService,
     OfficeService,
-    OrganizationEmployeesService,
     ProductService,
     PushNotificationsService
 ) {
@@ -15,7 +15,7 @@ let FundProviderComponent = function(
         },
     };
 
-    $ctrl.tab = "products";
+    $ctrl.tab = "employees";
 
     $ctrl.updateAllowBudget = function(fundProvider) {
         FundService.updateProvider(
@@ -67,11 +67,10 @@ let FundProviderComponent = function(
                 $ctrl.fundProvider.organization_id,
                 Object.assign({}, query)
             ).then((res) => {
-                $ctrl.products = {
+                resolve($ctrl.products = {
                     meta: res.data.meta,
                     data: $ctrl.transformProductsList(res.data.data),
-                }
-                resolve($ctrl.products = res.data);
+                });
             }, reject);
         });
     };
@@ -85,12 +84,98 @@ let FundProviderComponent = function(
         return products.map(product => $ctrl.transformProduct(product));
     };
 
+    $ctrl.openProductDetails = (product) => {
+        $state.go('fund-provider-product', {
+            organization_id: $ctrl.organization.id,
+            fund_provider_id: $ctrl.fundProvider.id,
+            fund_id: $ctrl.fund.id,
+            product_id: product.id,
+        });
+    };
+
+    $ctrl.dismissProvider = function(fundProvider) {
+        FundService.dismissProvider(
+            fundProvider.fund.organization_id,
+            fundProvider.fund.id,
+            fundProvider.id
+        ).then((res) => {
+            PushNotificationsService.success(
+                'Verborgen!',
+                "Pas de filters aan om verborgen aanbieders terug te vinden."
+            );
+
+            $ctrl.fundProvider = res.data.data;
+            $ctrl.transformProductsList($ctrl.products.data);
+        });
+    };
+
+    $ctrl.prepareProperties = () => {
+        let organization =  $ctrl.fundProvider.organization;
+        let properties = [];
+
+        if (organization.email) {
+            properties.push({
+                label: "E-mail",
+                value: organization.email,
+                primary: true,
+            });
+        }
+
+        if (organization.website) {
+            properties.push({
+                label: "Website",
+                value: organization.website,
+                primary: true,
+            });
+        }
+
+        if (organization.phone) {
+            properties.push({
+                label: "Telefoonnummer",
+                value: organization.phone,
+                primary: true,
+            });
+        }
+
+        if (organization.kvk) {
+            properties.push({
+                label: "KVK",
+                value: organization.kvk,
+            });
+        }
+
+        if (organization.iban) {
+            properties.push({
+                label: "IBAN",
+                value: organization.iban,
+            });
+        }
+
+        if (organization.btw) {
+            properties.push({
+                label: "BTW",
+                value: organization.btw,
+            });
+        }
+
+        let count = properties.length;
+
+        $ctrl.properties = [
+            properties.splice(0, count == 4 ? 4 : 3),
+            properties.splice(0, count == 4 ? 4 : 3)
+        ];
+    };
+
     $ctrl.$onInit = function() {
         $ctrl.onPageChange($ctrl.filters.values).then(() => {
-            OfficeService.list($ctrl.fundProvider.organization_id).then(res => {
+            OfficeService.list($ctrl.fundProvider.organization_id, {
+                per_page: 100
+            }).then(res => {
                 $ctrl.offices = res.data;
             });
         });
+
+        $ctrl.prepareProperties();
     };
 };
 
@@ -102,9 +187,9 @@ module.exports = {
     },
     controller: [
         '$q',
+        '$state',
         'FundService',
         'OfficeService',
-        'OrganizationEmployeesService',
         'ProductService',
         'PushNotificationsService',
         FundProviderComponent

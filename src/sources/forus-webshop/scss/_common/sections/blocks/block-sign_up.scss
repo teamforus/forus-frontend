@@ -58,6 +58,7 @@ $bf: 'Montserrat', arial, sans-serif;
         width: 100%;
         display: flex;
         margin: 0 0 30px;
+        position: relative;
 
         .sign_up-step {
             flex-grow: 1;
@@ -69,7 +70,7 @@ $bf: 'Montserrat', arial, sans-serif;
 
             .sign_up-step-border {
                 background: #ebedf0;
-                height: 6px;
+                height: 8px;
                 position: relative;
                 overflow: hidden;
     
@@ -122,6 +123,15 @@ $bf: 'Montserrat', arial, sans-serif;
                 }
             }
         }
+
+        .sign_up-progress-overview {
+            font: 500 14px/30px $bf;
+            color: #dadada;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            display: none;
+        }
     }
 
     .sign_up-pane {
@@ -159,6 +169,11 @@ $bf: 'Montserrat', arial, sans-serif;
                     color: #3561FF;
                     font-weight: 500;
                 }
+
+                .sign_up-pane-link {
+                    font-size: inherit;
+                    line-height: inherit;
+                }
             }
 
             .sign_up-pane-media {
@@ -171,17 +186,31 @@ $bf: 'Montserrat', arial, sans-serif;
                 }
             }
 
-            .sign_up-pane-link,
-            .sign_up-pane-text .sign_up-pane-link {
-                font: 400 16px/26px $bf;
+            .sign_up-pane-link {
+                font: 500 14px/27px $bf;
                 margin: 0 0 15px;
                 color: #3561FF;
                 transition: .4s;
                 display: inline;
+                text-decoration: underline;
+
+                &:hover {
+                    text-decoration: none;
+                    color: $tc;
+                }
             }
 
-            a.sign_up-pane-link:hover {
-                color: $tc;
+            .form {
+                margin-bottom: 15px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+
+            .button {
+                padding: 14px 25px;
             }
 
             .sign_up-pane-section {
@@ -310,7 +339,7 @@ $bf: 'Montserrat', arial, sans-serif;
             .sign_up-pane-info {
                 border: 1px solid #ebedf0;
                 padding: 15px 20px;
-                border-radius: 8px;
+                border-radius: 6px;
                 background: #f4f5f7;
 
                 .sign_up-pane-text {
@@ -330,6 +359,7 @@ $bf: 'Montserrat', arial, sans-serif;
             .sign_up-pane-auth {
                 display: flex;
                 flex-direction: row;
+                margin: 0 0 15px;
 
                 .sign_up-pane-auth-content {
                     display: flex;
@@ -364,6 +394,10 @@ $bf: 'Montserrat', arial, sans-serif;
                             box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
                         }
                     }
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
                 }
             }
 
@@ -454,6 +488,14 @@ $bf: 'Montserrat', arial, sans-serif;
         }
 
         .form {
+            .form-control:not([type="radio"]):not([type="checkbox"]) {
+                height: auto;
+
+                &:not(textarea) {
+                    padding: 12px 15px;
+                }
+            }
+            
             .form-group {
                 .form-label {
                     font-size: 13px;
@@ -480,9 +522,179 @@ $bf: 'Montserrat', arial, sans-serif;
         }
     }
 
+    @media (max-width: 400px) {
+        .sign_up-progress {
+            &.sign_up-progress-compact {
+                .sign_up-step {
+                    .sign-up-step-block {
+                        display: none;
+                    }
+                }
+
+                .sign_up-progress-overview {
+                    display: block;
+                }
+            }
+        }
+    }
     @media (max-width: 991px) {
+        margin: 0px -10px;
+        padding: 10px 0 50px;
+        
+        .block-title {
+            margin: 0 0 20px;
+        }
+
         .sign_up-header {
-            margin: 0 -30px 25px;
+            margin: 0 -10px 25px;
+            padding: 5px 0;
+        }
+
+        .sign_up-progress {
+            margin: 0 0 20px;
+        }
+
+        .sign_up-pane {
+            .sign_up-pane-header {
+                font: 500 18px/26px $bf;
+            }
+
+            .sign_up-pane-body {
+                padding: 20px;
+
+                .sign_up-pane-heading,
+                .sign_up-pane-text,
+                .sign_up-pane-media,
+                .sign_up-pane-link {
+                    margin: 0 0 15px;
+                }
+
+                .sign_up-pane-heading {
+                    font: 500 21px/36px $bf;
+                }
+
+                .sign_up-pane-text {
+                    font: 400 16px/26px $bf;
+                }
+
+                .sign_up-pane-list {
+                    li {
+                        font: 500 16px/26px $bf;
+
+                        .item-icon {
+                            margin-top: 3px;
+                        }
+                    }
+                }
+
+                .form {
+                    .form-group {
+                        margin: 0 0 15px;
+
+                        .button {
+                            box-shadow: none;
+                        }
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+
+                .ui-control {
+                    &.ui-control-step {
+                        width: 100%;
+                        display: flex;
+                        
+                        .ui-control-step-value {
+                            padding: 13px 12px;
+                        }
+                    }
+
+                    &.ui-control-currency {
+                        .form-control:not([type="radio"]):not([type="checkbox"]) {
+                            padding-left: 35px;
+                        }
+                    }
+                }
+
+                .sign_up-email_sent {
+                    .sign_up-email_sent-icon {
+                        width: 220px;
+                    }
+                }
+
+                .sign_up-pane-auth {
+                    flex-direction: column;
+                    margin: 0 0 0;
+
+                    .sign_up-pane-auth-content, .sign_up-pane-auth-qr_code {
+                        width: 100%;
+                    }
+
+                    .sign_up-pane-auth-content {
+                        order: 2;
+                        padding: 0 0 0;
+
+                        .sign_up-pane-auth-apps {
+                            display: flex;
+                            text-align: center;
+                            max-width: 100%;
+                            margin: auto;
+                            width: 360px;
+    
+                            .sign_up-pane-auth-app-item {
+                                margin-right: 10px;
+                                width: 53%;
+                                padding: 0 5px;
+                                margin: 0;
+
+                                img {
+                                    display: block;
+                                    width: 100%;
+                                }
+
+                                &:first-child {
+                                    width: 47%;
+                                }
+                            }
+                        }
+                    }
+
+                    .sign_up-pane-auth-qr_code {
+                        margin: 0 0 20px;;
+
+                        .block.block-qr-code {
+                            .qr_code {
+                                width: 220px;
+                                height: 220px;
+                                box-shadow: 0px 4px 10px rgba(0,0,0,0.10);
+                            }
+                        }
+                    }
+                }
+            }
+
+            .sign_up-pane-footer {
+                padding: 0px 10px 5px;
+
+                .button {
+                    &.button-text {
+                        font-size: 13px;
+                        line-height: 16px;
+                        padding: 15px 0px;
+    
+                        .mdi {
+                            width: 20px;    
+                            font-size: 18px;
+    
+                            &.icon-right, &.icon-left {
+                                margin-right: 0px;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

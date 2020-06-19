@@ -1,6 +1,4 @@
-let ModalFundTopUpComponent = function(
-    FundService
-) {
+let ModalFundTopUpComponent = function(FundService) {
     let $ctrl = this;
 
     $ctrl.$onInit = () => {
@@ -9,7 +7,8 @@ let ModalFundTopUpComponent = function(
         FundService.makeTopUp(fund.organization_id, fund.id).then((res) => {
             $ctrl.topUpCode = res.data.data.code;
             $ctrl.topUpIban = res.data.data.iban;
-            $ctrl.isReady = true;
+
+            $ctrl.modal.setLoaded();
         }, res => {
             alert(res.data.message);
             $ctrl.close();

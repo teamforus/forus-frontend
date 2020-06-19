@@ -21,7 +21,6 @@ let OrganizationProvidersComponent = function(
             this.values.allow_budget = '';
             this.values.dismissed = false;
             this.values.q = '';
-            this.values.fund_id = $ctrl.fund.id;
         }
     };
 
@@ -89,27 +88,6 @@ let OrganizationProvidersComponent = function(
         }, console.error);
     };
 
-    $ctrl.dismissProvider = function(fundProvider) {
-        FundService.dismissProvider(
-            fundProvider.fund.organization_id,
-            fundProvider.fund.id,
-            fundProvider.id
-        ).then((res) => {
-            PushNotificationsService.success(
-                'Verborgen!',
-                "Pas de filters aan om verborgen aanbieders terug te vinden."
-            );
-
-            if (!$ctrl.filters.values.dismissed) {
-                $ctrl.updateProvidersList();
-            } else {
-                $ctrl.fundProviders.data[
-                    $ctrl.fundProviders.data.indexOf(fundProvider)
-                ] = $ctrl.transformProvider(res.data.data);
-            }
-        });
-    };
-
     $ctrl.updateProvidersList = function() {
         $scope.onPageChange({
             fund_id: $ctrl.fund.id,
@@ -122,7 +100,8 @@ let OrganizationProvidersComponent = function(
             OrganizationService.listProviders(
                 $stateParams.organization_id,
                 Object.assign({}, query, $ctrl.filters.values, {
-                    dismissed: $ctrl.filters.values.dismissed ? 1 : 0
+                    dismissed: $ctrl.filters.values.dismissed ? 1 : 0,
+                    fund_id: $ctrl.fund.id
                 })
             ).then((res => {
                 $ctrl.fundProviders = {
