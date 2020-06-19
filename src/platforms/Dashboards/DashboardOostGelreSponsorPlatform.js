@@ -20,7 +20,7 @@ platform.editTask('scss', (task) => {
         "oostgelre/**/*.scss"
     ];
 
-    return task
+    return task;
 });
 
 // change server port

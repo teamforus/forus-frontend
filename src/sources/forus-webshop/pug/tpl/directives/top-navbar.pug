@@ -107,6 +107,12 @@
                             em.mdi.mdi-shield-account
                             //- translate(translate="topnavbar.buttons.sessions")
                             | Security
+                        
+                        .auth-user-menu-item(
+                            ui-sref="notifications" 
+                            ui-sref-active="active")
+                            em.mdi.mdi-bell-outline
+                            span Notificaties
                             
                         .auth-user-menu-item(ui-sref="preferences-notifications")
                             em.mdi.mdi-cog-outline

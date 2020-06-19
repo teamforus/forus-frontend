@@ -1705,6 +1705,20 @@ module.exports = {
             'not-pending': 'De notificatie instellingen zijn al aangepast via deze link'
         },
         types: {
+            digest: {
+                daily_sponsor: {
+                    title: "Dagelijkse digest notificaties aanmeldingen aanbieders",
+                    description: "Notificaties omtrent aanmeldingen van aanbieders worden gegroepeerd toegestuurd."
+                },
+                daily_provider: {
+                    title: "Dagelijkse digest notificaties omtrent producten en aanmeldingen",
+                    description: "Notificaties omtrent aanmeldingen en producten worden gegroepeerd toegestuurd."
+                },
+                daily_validator: {
+                    title: "Dagelijkse digest notificaties omtrent aanvragen voor fondsen",
+                    description: "Notificaties omtrent aanvragen worden gegroepeerd toegestuurd."
+                },
+            },
             funds: {
                 new_fund_started: {
                     title: 'Fonds is van start gegaan',
