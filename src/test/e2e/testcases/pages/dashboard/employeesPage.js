@@ -1,3 +1,5 @@
+var EC = protractor.ExpectedConditions;
+
 var EmployeesPage = function(){
     
     this.emailInput = element(by.id('email_value'))
@@ -8,6 +10,7 @@ var EmployeesPage = function(){
     }
 
     this.closeAddEmployee = function(){
+        browser.wait(EC.elementToBeClickable(element(by.id("close"), 3000)))
         element(by.id('close')).click()
     }
 
@@ -16,6 +19,7 @@ var EmployeesPage = function(){
     }
 
     this.deleteEmployee = function(){
+        browser.wait(EC.elementToBeClickable(element.all(by.id("delete_employee"), 3000)))
         element.all(by.id('delete_employee')).last().click()
     }
 }

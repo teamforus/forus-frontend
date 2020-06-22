@@ -1,3 +1,5 @@
+var EC = protractor.ExpectedConditions;
+
 var RequestersPage = function(){
     
     this.generateActivationCode = function(){
@@ -5,6 +7,7 @@ var RequestersPage = function(){
     }
 
     this.closeGenerateActivationCode = function(){
+        browser.wait(EC.elementToBeClickable(element(by.id("close"), 3000)))
         element(by.id('close')).click()
     }
 }
