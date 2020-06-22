@@ -36,7 +36,7 @@
                     | Beschrijving
                     .description-header-action
                         .button-group
-                            a(ng-click="$ctrl.deleteProduct(product)").button.button-primary
+                            a(ng-click="$ctrl.deleteProduct($ctrl.product)").button.button-primary
                                 em.mdi.mdi-delete.icon-start  
                                 | {{ "product_card.buttons.delete" | translate }}
                             a(ui-sref="products-edit($ctrl.product)").button.button-default

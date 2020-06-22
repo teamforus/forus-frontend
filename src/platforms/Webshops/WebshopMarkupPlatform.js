@@ -19,7 +19,7 @@ platform.editTask('scss', (task) => {
         "general/**/*.scss"
     ];
 
-    return task
+    return task;
 });
 
 // tweak pug configs
@@ -30,7 +30,7 @@ platform.editTask('pug', (task) => {
         "layout/**/*.pug"
     ];
 
-    return task
+    return task;
 });
 
 // tweak js configs

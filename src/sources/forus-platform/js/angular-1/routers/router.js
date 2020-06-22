@@ -294,6 +294,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+    // Organization employees
+    $stateProvider.state({
+        name: "notifications",
+        url: "/organizations/{organization_id}/notifications",
+        component: "organizationNotificationsComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('employees-list', 'manage_employees'),
+        }
+    });
+
     $stateProvider.state({
         name: "financial-dashboard",
         url: "/organizations/{organization_id}/financial-dashboard/funds?fund_id",

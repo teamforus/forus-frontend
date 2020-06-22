@@ -3,8 +3,8 @@ const MailListener = require("./util/mailListener")
 
 exports.config = {
     capabilities: {
-        'browserName': environment.browser.name,
-        'name': 'Bstack-[Protractor] Local Test',
+        browserName: environment.browser.name,
+        name: 'Bstack-[Protractor] Local Test',
     },
 
     suites: {

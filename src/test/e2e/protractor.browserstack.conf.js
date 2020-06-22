@@ -3,7 +3,7 @@ const MailListener = require("./util/mailListener")
 const environment = require("./protractor-env.js");
 
 exports.config = {
-    'seleniumAddress': 'http://hub-cloud.browserstack.com/wd/hub',
+    seleniumAddress: 'http://hub-cloud.browserstack.com/wd/hub',
 
     capabilities: {
         'browserstack.user': environment.browserstack.user,

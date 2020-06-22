@@ -1,5 +1,4 @@
 var OfficesPage = function(){
-    
     this.addOffice = function(){
         element(by.id("create_office")).click()
     }

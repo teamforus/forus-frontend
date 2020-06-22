@@ -1,16 +1,13 @@
 var signupProviderPage = require('./signupProviderPage');
 
 describe('testing signup flow of provider:', function() {
-    
     it('navigates to signup page', function(){
         signupProviderPage.get();
-
     });
     
     it('step 1', function() {
         signupProviderPage.alreadyHaveApp();
     });
-
 
     it('step 2', function() {
         signupProviderPage.enterPersonalDetails();
@@ -34,12 +31,10 @@ describe('testing signup flow of provider:', function() {
         expect(signupProviderPage.getEmail().getText()).toEqual(environment.emailSibling);
     });
 
-
     afterAll(function(){
         browser.executeScript("return window.localStorage.getItem('active_account');").
             then(function(active_account){
                 environment.active_account = active_account;
             });
     });
-   
 });

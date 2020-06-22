@@ -38,6 +38,7 @@ app.component('accessibilityComponent', require('./components/AccessibilityCompo
 app.component('errorComponent', require('./components/ErrorComponent'));
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
 app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
+app.component('notificationsComponent', require('./components/NotificationsComponent'));
 app.component('explanationComponent', require('./components/ExplanationComponent'));
 
 // Services
@@ -81,6 +82,7 @@ app.service('LocalStorageService', require('./services/LocalStorageService'));
 app.service('ProvidersService', require('./services/ProvidersService'));
 app.service('SessionService', require('./services/SessionService'));
 app.service('IdentityEmailsService', require('./services/IdentityEmailsService'));
+app.service('NotificationsService', require('./services/NotificationsService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));

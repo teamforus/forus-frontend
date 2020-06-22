@@ -46,6 +46,7 @@ app.component('emailPreferencesComponent', require('./components/EmailPreference
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
 app.component('fundProviderInviteComponent', require('./components/FundProviderInviteComponent'));
 app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
+app.component('organizationNotificationsComponent', require('./components/OrganizationNotificationsComponent'));
 app.component('implementationsComponent', require('./components/ImplementationsComponent'));
 app.component('implementationViewComponent', require('./components/ImplementationViewComponent'));
 app.component('implementationCmsEditComponent', require('./components/ImplementationCmsEditComponent'));
@@ -127,6 +128,7 @@ app.service('SignUpService', require('./services/SignUpService'));
 app.service('IdentityEmailsService', require('./services/IdentityEmailsService'));
 app.service('ProductChatService', require('./services/ProductChatService'));
 app.service('FundProviderChatService', require('./services/FundProviderChatService'));
+app.service('NotificationsService', require('./services/NotificationsService'));
 app.service('ImplementationService', require('./services/ImplementationService'));
 
 // Directives
@@ -189,6 +191,7 @@ app.directive('pdfPreview', require('./directives/PdfPreviewDirective'));
 app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
 app.directive('fundCardInvitationProvider', require('./directives/FundCardInvitationProviderDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
+app.directive('headerNotifications', require('./directives/HeaderNotificationsDirective'));
 app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDirective'));
 
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
