@@ -5,7 +5,7 @@ header.section.section-header
             .header-title(translate="home_sponsor.header.{{ $root.appConfigs.client_key }}.title" translate-default="{{ 'home_sponsor.header.title' | translate }}")
             .header-description(translate="home_sponsor.header.{{ $root.appConfigs.client_key }}.subtitle" translate-default="{{ 'home_sponsor.header.subtitle' | translate }}")
 
-section.section.section-faq: .wrapper
+section.section.section-faq(id="faq"): .wrapper
     .section-title {{ "home_sponsor.faq.title" | i18n }}
     .faq(collapse)
         mixin faq_item(title, content, title_default, content_default, active)

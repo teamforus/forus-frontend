@@ -36,7 +36,7 @@ header.section.section-header.section-header-landing
                        
             div(ng-if="!$ctrl.digidAvailable")
                 //- uitgelogd en activatiecode invullen
-                a(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthCodePopup()" i18n="home.header.button").button.button-primary 
+                a(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthCodePopup()" i18n="home.header.button" id="start_modal").button.button-primary 
                 
                 //- ingelogd geen vouchers activatie code invullen
                 a(ng-if="$root.auth_user && $ctrl.vouchers.length == 0" ng-click="$ctrl.openActivateCodePopup()" i18n="home.header.button").button.button-primary
@@ -64,12 +64,12 @@ header.section.section-header.section-header-landing
     .wrapper.block-products: block-products(
         ng-if="$ctrl.appConfigs.flags.homeProducts"
         sample="true")
-    section.section.section-map(ng-if="$ctrl.appConfigs.flags.homeMap"): .wrapper
+    section.section.section-map(ng-if="$ctrl.appConfigs.flags.homeMap" id="map_block"): .wrapper
         .block.block-map
             .block-content
                 .block-title(i18n="home.map.title")
                 .block-description(i18n="home.map.subtitle")
-                button(ui-sref="providers" i18n="buttons.show_map").button.button-primary.button-wide
+                button(ui-sref="providers" i18n="buttons.show_map" id="show_map").button.button-primary.button-wide
                 //- button(ng-click="$ctrl.showPopupOffices()" i18n="buttons.show_map").button.button-primary.button-wide
 
     //- section.section.section-steps#steps(ng-if="$ctrl.appConfigs.flags.homeSteps && !$ctrl.appConfigs.features.settings.has_more_info_url"): .wrapper
