@@ -1212,8 +1212,8 @@ ui-view {
 
             img {
                 display: block;
-                height: 20px;
-                margin: 15px 0px auto auto;
+                height: 30px;
+                margin: 15px 0px;
 
                 &.hover {
                     display: none;
@@ -2166,7 +2166,7 @@ ui-view {
     @media screen and (max-width: 1700px) {
         &.block-navbar {
             .navbar-logo {
-                padding: 20px 25px 20px 0;
+                padding: 20px 20px;
             }
 
             .navbar-list {
