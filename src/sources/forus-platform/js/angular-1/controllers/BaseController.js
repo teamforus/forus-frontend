@@ -117,6 +117,10 @@ let BaseController = function (
     };
 
     let redirectToDashboard = (selectedOrganizationId) => {
+        if (!$rootScope.auth_user) {
+            return;
+        }
+
         let route = PermissionsService.getAvailableRoutes(
             appConfigs.panel_type,
             $rootScope.auth_user.organizationsMap[selectedOrganizationId]

@@ -743,6 +743,22 @@ let clearTask = (done) => {
     }).then(() => done());
 };
 
+let browserstackTask = function(cb) {
+    gulp.src(['test/e2e/testcases/*-spec.js']).pipe(protractor({
+        configFile: 'test/e2e/protractor.browserstack.conf.js'
+    })).on('error', function(e) {
+        console.log(e);
+    }).on('end', cb);
+};
+
+let protractorTask = function(cb) {
+    gulp.src(['test/e2e/testcases/*-spec.js']).pipe(protractor({
+        configFile: 'test/e2e/protractor.conf.js'
+    })).on('error', function(e) {
+        console.log(e);
+    }).on('end', cb);
+};
+
 // clear task
 gulp.task('clear', clearTask);
 
@@ -773,6 +789,12 @@ gulp.task('serve', serverTask);
 // initialize qdt on fresh install
 gulp.task('init', initTask);
 
+// Setting up the test task
+gulp.task('browserstack', browserstackTask);
+
+// Setting up the test task
+gulp.task('protractor', protractorTask);
+
 // watch changes
 gulp.task('watch', gulp.parallel([
     serverTask, watchTask
@@ -788,25 +810,13 @@ gulp.task('compile', gulp.series([
     'build'
 ]), done => done());
 
+// default test
+gulp.task('test', gulp.series([
+    'browserstack', 'protractor'
+]), done => done());
+
 // default task
 gulp.task('default', gulp.series([
     'compile', 'watch'
 ]), done => done());
 
-// Setting up the test task
-gulp.task('browserstack', function(cb) {
-	gulp.src(['test/e2e/testcases/*-spec.js']).pipe(protractor({
-		configFile: 'test/e2e/protractor.browserstack.conf.js'
-	})).on('error', function(e) {
-		console.log(e);
-	}).on('end', cb);
-});
-
-// Setting up the test task
-gulp.task('protractor', function(cb) {
-	gulp.src(['test/e2e/testcases/*-spec.js']).pipe(protractor({
-		configFile: 'test/e2e/protractor.conf.js'
-	})).on('error', function(e) {
-		console.log(e);
-	}).on('end', cb);
-});

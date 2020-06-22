@@ -1,11 +1,11 @@
 var DashboardValidatorPage = function(){
     
     this.getHomePage = function(){
-        browser.get(environment.validatorURL)
+        browser.get(environment.urls.validator)
     }
 
     this.get = function(){
-        browser.get(environment.validatorURL + '/#!/organizations')
+        browser.get(environment.urls.validator + '/#!/organizations')
     }
 
     this.getRequesterPage = function(){

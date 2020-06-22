@@ -77,7 +77,7 @@
     
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
-            .auth-user(ng-click="$ctrl.openUserMenu($event)" id="user_menu")
+            .auth-user(ng-click="$ctrl.openUserMenu($event)")
                 .auth-user-details  
                     .auth-user-email(ng-bind="$root.auth_user.email" ng-if="!$root.appConfigs.features.records.list") 
                     //- .auth-user-type(translate="topnavbar.items.identity" ng-if="!$root.appConfigs.features.records.list")
@@ -89,7 +89,7 @@
                     .em.mdi.mdi-cog(ng-if="$root.appConfigs.features.records.list") 
                     img(src="./assets/img/identity-avatar.svg" ng-if="!$root.appConfigs.features.records.list")
                 
-                .auth-user-caret
+                .auth-user-caret(id="user_menu")
                     em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
 
                 nav.auth-user-menu.hide-sm(

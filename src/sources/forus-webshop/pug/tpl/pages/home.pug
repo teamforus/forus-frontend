@@ -36,7 +36,7 @@ header.section.section-header.section-header-landing
                        
             div(ng-if="!$ctrl.digidAvailable")
                 //- uitgelogd en activatiecode invullen
-                a(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthCodePopup()" i18n="home.header.button" id="start").button.button-primary 
+                a(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthCodePopup()" i18n="home.header.button" id="start_modal").button.button-primary 
                 
                 //- ingelogd geen vouchers activatie code invullen
                 a(ng-if="$root.auth_user && $ctrl.vouchers.length == 0" ng-click="$ctrl.openActivateCodePopup()" i18n="home.header.button").button.button-primary

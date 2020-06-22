@@ -1,7 +1,7 @@
 var fundPage = function(){
     
     this.get = function(){
-        browser.get(environment.sponsorURL);
+        browser.get(environment.urls.sponsor);
         browser.executeScript("window.localStorage.setItem('active_account','" + environment.active_account + "');").
             then(function(){
                 browser.refresh();

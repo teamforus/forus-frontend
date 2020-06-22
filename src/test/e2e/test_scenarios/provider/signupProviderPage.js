@@ -2,7 +2,7 @@ var signupProviderPage  = function(){
 
     this.get = function(){
         browser.driver.manage().window().maximize();
-        browser.get(environment.providerURL.concat("/#!/sign-up")); //temporary solution
+        browser.get(environment.urls.provider.concat("/#!/sign-up")); //temporary solution
         //browser.get("https://staging.forus.io/provider/sign-up?tag=sdoa"); //temporary solution
     }
 
