@@ -24,7 +24,6 @@ describe('sponsor dashboard', function() {
     });
 
     it('goes to funds page', function() {
-        browser.sleep()
         dashboard.getFundsPage()
     });
 

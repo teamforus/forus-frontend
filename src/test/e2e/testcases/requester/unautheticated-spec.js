@@ -33,7 +33,6 @@ describe('testing basic requester functionality', function() {
     it('opens and closes start activation modal', function() {
         homePage.hasElement('start_modal').then(present => {
             if (present) {
-                console.log('yes');
                 homePage.openStart()
                 homePage.closeStartModal()
             }

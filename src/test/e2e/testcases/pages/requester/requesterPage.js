@@ -1,3 +1,5 @@
+var EC = protractor.ExpectedConditions;
+
 var webshopPage = function() {
     this.get = function() {
         browser.get(environment.urls.requester)
@@ -22,7 +24,7 @@ var webshopPage = function() {
         element(by.id("notification_preferences")).click()
     }
 
-    this.disableMailSubscription = function() {
+    this.disableMailSubscription = function() {    
         return element(by.id("disable_subscription"))
     }
 
@@ -39,11 +41,13 @@ var webshopPage = function() {
     }
 
     this.closeActivationCodeModal = function() {
-        element(by.id("close")).click();
+        browser.wait(EC.elementToBeClickable(element(by.id("close"), 3000)))
+        element(by.id("close")).click()
     }
 
     this.closePinCodeModal = function() {
-        element(by.id("close")).click();
+        browser.wait(EC.elementToBeClickable(element(by.id("close"), 3000)))
+        element(by.id("close")).click()
     }
 }
 
