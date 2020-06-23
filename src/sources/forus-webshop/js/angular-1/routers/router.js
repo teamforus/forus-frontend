@@ -215,6 +215,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: "explanation",
+        url: "/explanation",
+        component: "explanationComponent",
+        params: {},
+        resolve: {}
+    });
+
+    $stateProvider.state({
         name: "provider-office",
         url: "/providers/{provider_id}/offices/{office_id}",
         component: "providerOfficeComponent",
@@ -528,6 +536,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 $state.go('home');
             });
         }]
+    });
+
+    $stateProvider.state({
+        name: 'notifications',
+        url: '/notifications?{page:int}',
+        component: 'notificationsComponent',
     });
 
     $stateProvider.state({

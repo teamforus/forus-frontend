@@ -1,0 +1,37 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .block.block-breadcrumbs
+            .breadcrumb-item(ui-sref="implementations({organization_id: $root.activeOrganization.id})") Webshops  
+            .breadcrumb-item(ui-sref="implementation-view({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})" ng-bind="$ctrl.implementation.name")
+            .breadcrumb-item.active DigiD instellingen
+
+        .card: form(ng-submit="$ctrl.form.submit()").form
+            .card-header
+                .card-title(i18n="DigiD instellingen")
+            
+            .card-section.card-section-primary: .row: .col.col-lg-9
+                .form-group.form-group-inline
+                    label(translate="App identificatienummer").form-label
+                    input(ng-disabled="$ctrl.form.values.digid_enabled" ng-model="$ctrl.form.values.digid_app_id" type="text" placeholder="Bijv. Gemeente01").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.digid_app_id" ng-bind="error")
+            
+                .form-group.form-group-inline
+                    label(translate="Sleutelcode").form-label
+                    input(ng-disabled="$ctrl.form.values.digid_enabled" ng-model="$ctrl.form.values.digid_shared_secret" type="password" placeholder="Bijv. 56CC-0EDF-E57C-960D-K524-LWFZ").form-control.r-n
+                    .form-error(ng-repeat="error in $ctrl.form.errors.digid_shared_secret" ng-bind="error")
+            
+                .form-group.form-group-inline
+                    label(translate="DigiD Server").form-label
+                    input(ng-disabled="$ctrl.form.values.digid_enabled" ng-model="$ctrl.form.values.digid_a_select_server" type="text" placeholder="Bijv.  digidasdemo1").form-control.r-n
+                    .form-error(ng-repeat="error in $ctrl.form.errors.digid_a_select_server" ng-bind="error")
+
+                .form-group.form-group-inline
+                    label(translate="Status").form-label
+                    label(for="status").form-toggle.form-label
+                        input(type="checkbox" id="status" ng-model="$ctrl.form.values.digid_enabled").form-label
+                        .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+
+            .card-section.card-section-primary: .text-center
+                button(type="button" ui-sref="implementation-view({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})" translate="funds_edit.buttons.cancel").button.button-default
+                button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary

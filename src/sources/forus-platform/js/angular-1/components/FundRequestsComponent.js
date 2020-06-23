@@ -247,7 +247,7 @@ let FundRequestsComponent = function(
 
     $ctrl.$onInit = function() {
         FundService.list($ctrl.organization.id, {
-            per_page: 10000
+            per_page: 100
         }).then(res => {
             $ctrl.funds = res.data.data;
             $ctrl.funds.forEach(fund => $ctrl.fundsById[fund.id] = fund);

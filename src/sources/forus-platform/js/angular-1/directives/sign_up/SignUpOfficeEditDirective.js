@@ -83,7 +83,8 @@ let SignUpOfficeEditDirective = function(
 
     $scope.init = () => {
         $dir.form = $scope.buildForm({ 
-            phone: $scope.organization.phone 
+            phone: $scope.organization.phone,
+            schedule: {} 
         });
 
         if ($scope.office) {

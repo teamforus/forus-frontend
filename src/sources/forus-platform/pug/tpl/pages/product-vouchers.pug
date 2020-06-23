@@ -13,12 +13,14 @@
                 .block.block-inline-filters.col.col-lg-8.col-xs-12.text-right
                     .button.button-primary(
                         ng-if="!$ctrl.fundClosed"
-                        ng-click="$ctrl.createProductVoucher()")
+                        ng-click="$ctrl.createProductVoucher()"
+                        id="create_product_voucher")
                         em.mdi.mdi-plus-circle.icon-start
                         span(i18n="product_vouchers.buttons.add_new")
                     .button.button-primary(
                         ng-if="!$ctrl.fundClosed"
-                        ng-click="$ctrl.uploadProductVouchersCsv()")
+                        ng-click="$ctrl.uploadProductVouchersCsv()"
+                        id="product_voucher_upload_csv")
                         em.mdi.mdi-upload.icon-start
                         span(i18n="product_vouchers.buttons.upload_csv")
                     .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")

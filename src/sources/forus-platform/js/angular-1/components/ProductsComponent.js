@@ -38,7 +38,6 @@ let ProductsComponent = function(
     };
 
     $ctrl.addProduct = function() {
-
         if ($ctrl.maxProductCount && $ctrl.products.length >= $ctrl.maxProductCount) {
             ModalService.open('modalNotification', {
                 type: 'danger',

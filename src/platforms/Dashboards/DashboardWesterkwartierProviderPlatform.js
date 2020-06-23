@@ -19,7 +19,7 @@ platform.editTask('scss', (task) => {
         "westerkwartier/**/*.scss"
     ];
 
-    return task
+    return task;
 });
 
 // change server port

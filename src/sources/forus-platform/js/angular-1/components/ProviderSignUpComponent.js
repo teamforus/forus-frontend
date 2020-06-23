@@ -72,6 +72,8 @@ let ProviderSignUpComponent = function(
     $ctrl.showAddOfficeBtn = true;
     $ctrl.isAddingNewOffice = false;
 
+    $ctrl.loggedWithApp = progressStorage.has('logged-with-app');
+
     $ctrl.calcSteps = () => {
         $ctrl.STEP_INFO_GENERAL = 1;
         $ctrl.STEP_INFO_ME_APP = 2;
@@ -372,16 +374,53 @@ let ProviderSignUpComponent = function(
     let loadEmployees = (organization) => {
         OrganizationEmployeesService.list(organization.id).then((res) => {
             if (res.data.data.length) {
-                $ctrl.employees = res.data.data;
+                $ctrl.employees = res.data.data.filter(employee => {
+                    return employee.identity_address != $scope.$root.auth_user.address;
+                });
             } else {
                 $ctrl.addEmployee();
             }
         });
     };
 
+    $ctrl.filters = {
+        values: {
+            q: "",
+            per_page: 10
+        },
+    };
+
+    $ctrl.onFundsAvailablePageChange = (query) => {
+        getAvailableFunds($ctrl.organization, query);
+    };
+
+    let getAvailableFunds = (organization, query) => {
+        ProviderFundService.listAvailableFunds(
+            organization.id, query
+        ).then(res => {
+            let fundsAvailable = $ctrl.fundsAvailable = {
+                meta: res.data.meta,
+                data: res.data.data
+            };
+
+            if ($stateParams.fundId && fundsAvailable.meta.total > 0) {
+                let targetFund = fundsAvailable.data.filter(
+                    fund => fund.id == $stateParams.fundId
+                )[0] || null;
+
+                if (targetFund) {
+                    return ProviderFundService.applyForFund(
+                        organization.id,
+                        targetFund.id
+                    ).then($ctrl.next);
+                }
+            }
+        });
+    };
+
     let loadAvailableFunds = (organization) => {
         $ctrl.showFilters = !$stateParams.organization_id && !$stateParams.tag;
-        let search_params = {};
+        let search_params = $ctrl.filters.values;
 
         if (!$ctrl.showFilters) {
             if ($stateParams.organization_id) {
@@ -397,30 +436,11 @@ let ProviderSignUpComponent = function(
             }
         }
 
-        ProviderFundService.listAvailableFunds(
-            organization.id, search_params
-        ).then(res => {
-            $ctrl.fundsAvailable = res.data.data;
-
-            if ($stateParams.fundId && fundsAvailable.length > 0) {
-                let targetFund = fundsAvailable.filter(
-                    fund => fund.id == $stateParams.fundId
-                )[0] || null;
-
-                if (targetFund) {
-                    return ProviderFundService.applyForFund(
-                        organization.id,
-                        targetFund.id
-                    ).then($ctrl.next);
-                }
-            }
-        });
+        getAvailableFunds(organization, search_params);
     };
 
     $ctrl.setStep = (step) => {
-        let stepsTotal = $ctrl.shownSteps.length + $ctrl.INFO_STEPS + $ctrl.DEMO_STEPS;
-
-        if (step <= stepsTotal) {
+        if (step <= $ctrl.STEP_SIGNUP_FINISHED) {
             $ctrl.step = step;
             progressStorage.set('step', step);
 
@@ -436,13 +456,9 @@ let ProviderSignUpComponent = function(
                 });
             }
 
-            if ($ctrl.step >= $ctrl.STEP_ORGANIZATION_ADD) {
-                if (progressStorage.has('organizationForm')) {
-                    $ctrl.organizationForm.values = JSON.parse(progressStorage.get('organizationForm'));
-                    $ctrl.setOrganization($ctrl.organizationForm.values);
-                } else {
-                    $ctrl.organizationForm.values = {};
-                }
+            if ($ctrl.step >= $ctrl.STEP_ORGANIZATION_ADD && progressStorage.has('organizationForm')) {
+                $ctrl.organizationForm.values = JSON.parse(progressStorage.get('organizationForm'));
+                $ctrl.setOrganization($ctrl.organizationForm.values);
             }
 
             if (step == $ctrl.STEP_OFFICES && $ctrl.organization) {
@@ -479,7 +495,7 @@ let ProviderSignUpComponent = function(
         }
 
         // last step, time for progress cleanup
-        if (step >= stepsTotal) {
+        if (step >= $ctrl.STEP_SIGNUP_FINISHED) {
             progressStorage.clear();
         }
     };
@@ -572,7 +588,8 @@ let ProviderSignUpComponent = function(
 
             authTokenSubscriber.checkAccessTokenStatus(res.data.access_token, () => {
                 $ctrl.calcSteps();
-                $ctrl.signedIn = true;
+                $ctrl.signedIn = $ctrl.loggedWithApp = true;
+                progressStorage.set('logged-with-app', $ctrl.loggedWithApp);
 
                 if ($ctrl.step == $ctrl.STEP_SCAN_QR) {
                     $ctrl.setStep($ctrl.STEP_SELECT_ORGANIZATION);

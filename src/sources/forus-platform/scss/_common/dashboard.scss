@@ -33,8 +33,9 @@
     @import 'blocks/block-sessions';
     @import 'blocks/block-products';
     @import 'blocks/block-providers';
-    @import 'blocks/block-breadcrumbs.scss';
-    @import 'blocks/block-provider-product.scss';
+    @import 'blocks/block-breadcrumbs';
+    @import 'blocks/block-provider-product';
+    @import 'blocks/block-notifications';
     @import '../../../forus-webshop/scss/_common/sections/blocks/block-sign_up';
 }
 
@@ -120,6 +121,8 @@ $colorPrimaryLight: $color_primary_light;
         padding: 30px 0;
         position: relative;
         z-index: 2;
+        display: flex;
+        justify-content: center;
 
         .header-logo {
             float: left;
@@ -268,32 +271,51 @@ $colorPrimaryLight: $color_primary_light;
         }
 
         .notifications {
-            float: right;
-            margin-right: 50px;
+            margin-right: 40px;
             padding-bottom: 0px;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
 
             .notifications-icon {
-                color: #d91d46;
-                background: #fff;
+                color: $tc;
+                background-color: #fff;
                 box-shadow: 0 5px 15px rgba($color: #000000, $alpha: 0.1);
                 border-radius: 50px;
-                width: 50px;
-                height: 50px;
+                width: 36px;
+                height: 36px;
                 text-align: center;
-                line-height: 50px;
-                font-size: 25px;
+                line-height: 36px;
+                font-size: 18px;
                 cursor: pointer;
+                transition: .4s;
+
+                .mdi {
+                    transition: transform .4s;
+                }
+
+                &:hover {
+                    background-color: #fafafa;
+                }
+
+                &.notifications-icon-updates {
+                    display: none;
+                    color: #d91d46;
+
+                    .mdi {
+                        transform: rotate(30deg);
+                    }
+                }
             }
 
             .notifications-menu {
                 display: none;
-                padding-top: 20px;
                 position: absolute;
                 width: 360px;
-                transform: translate(-50%);
+                top: 100%;
                 z-index: 1;
-                left: 50%;
+                right: -15px;
 
                 .notifications-menu-inner {
                     background: #ffffff;
@@ -301,16 +323,22 @@ $colorPrimaryLight: $color_primary_light;
                     box-shadow: 0 10px 25px rgba(#000, 0.15);
                     position: relative;
 
+                    .arrow-box {
+                        right: 32.5px;
+                        left: auto;
+                        transform: scale(.75);
+                    }
+
                     .notifications-menu-header {
                         border-bottom: 1px solid #d4d9dd;
-                        padding: 20px;
-                        font: 500 14px $bf;
+                        padding: 10px 20px;
+                        font: 500 13px/20px $bf;
                         color: #282b39;
                         position: relative;
                         cursor: default;
 
                         .notifications-menu-header-link {
-                            font: 500 13px $bf;
+                            font: 500 13px/20px $bf;
                             position: absolute;
                             right: 20px;
                             top: 50%;
@@ -321,7 +349,8 @@ $colorPrimaryLight: $color_primary_light;
                             .mdi {
                                 padding-left: 5px;
                                 font-size: 1.15em;
-                                color: #a1abb3;
+                                line-height: 20px;
+                                color: inherit;
                                 transition: color 0.4s;
                             }
 
@@ -336,44 +365,103 @@ $colorPrimaryLight: $color_primary_light;
                     }
 
                     .notifications-menu-body {
-                        height: 300px;
+                        max-height: 300px;
+                        overflow-y: auto;
+                        @include webkit_scrollbar();
 
                         .notifications-menu-item {
-                            padding: 15px 30px 15px 50px;
+                            padding: 15px 20px;
                             border-bottom: 1px solid #d4d9dd;
                             position: relative;
                             transition: background-color 0.4s;
-                            cursor: pointer;
+                            cursor: default;
+                            display: flex;
+                            flex-direction: row;
 
                             .notifications-menu-item-icon {
-                                position: absolute;
-                                left: 25px;
-                                top: 17px;
+                                margin-right: 10px;
+                                padding: 2.5px 0;
+
+                                img {
+                                    display: block;
+                                }
+                            }
+
+                            .notifications-menu-item-details {
+                                display: flex;
+                                flex-direction: column;
+                            }
+
+                            .notifications-menu-item-title {
+                                font: 700 13px/16px $bf;
+                                margin: 0 0 5px;
+                                color: #282b39;
                             }
 
                             .notifications-menu-item-text {
-                                font: 500 13px/18px $bf;
+                                font: 500 13px/16px $bf;
+                                margin: 0 0 10px;
                                 color: #282b39;
                             }
 
                             .notifications-menu-item-date {
-                                font: 500 12px/16px $bf;
+                                font: 500 12px/14px $bf;
                                 color: #646f79;
+
+                                .mdi {
+                                    line-height: inherit;
+                                    margin-right: 3px;
+                                }
+                            }
+
+                            &.notifications-menu-item-new {
+                                background-color: #f5f8fa70;
                             }
 
                             &:last-child {
                                 border-bottom: 0;
                             }
 
-                            &:hover {
+                            /* &:hover {
                                 background: #f6f8f9;
-                            }
+                            } */
+                        }
+
+                        .notifications-menu-empty {
+                            cursor: default;
+                            padding: 20px 20px;
+                            font: 500 13px/16px $bf;
+                            color: #282b39;
+                            text-align: center;
                         }
                     }
                 }
             }
 
-            &:hover {
+            &.update {
+                .notifications-icon {
+                    display: none;
+
+                    &.notifications-icon-updates {
+                        display: block;
+                    }
+                }
+            }
+
+            &:hover:not(.active) {
+                .notifications-icon {
+                    &.notifications-icon-updates {
+                        color: #fafafa;
+                        background-color: #d91d46;
+    
+                        .mdi {
+                            transform: rotate(50deg);
+                        }
+                    }
+                }
+            }
+
+            &.active {
                 .notifications-menu {
                     display: block;
                 }
@@ -692,7 +780,7 @@ $colorPrimaryLight: $color_primary_light;
     }
 
     .card-title {
-        font: 500 16px/28px $bf;
+        font: 500 16px/29px $bf;
         color: #282b39;
         cursor: inherit;
 
@@ -1537,6 +1625,67 @@ $colorPrimaryLight: $color_primary_light;
             }
         }
     }
+
+    &.card-block-implementation {
+        display: flex;
+        padding: 25px;
+        margin: -25px;
+        cursor: pointer;
+
+        .card-block-implementation-logo {
+            img {
+                width: 70px;
+                height: 70px;
+                border: 1px solid #e7e7e7;
+                border-radius: 70px;
+                overflow: hidden;
+                background-color: #f1f4f7;
+            }
+        }
+
+        .card-block-implementation-details {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding-left: 20px;
+            align-self: center;
+            font: 500 18px/22px $bf;
+
+            .card-block-implementation-desc {
+                font: 600 11px/13px $bf;
+                color: #134478;
+                padding-top: 15px;
+            }
+
+            .card-block-implementation-status {
+                font: 600 12px/15px $bf;
+                padding-left: 20px;
+            }
+
+            .card-block-implementation-website {
+                a {
+                    font: 600 13px/16px $bf;
+                    text-decoration: underline;
+                    color: #009EF4;
+                }
+            }
+        }
+
+        &:hover {
+            background: lighten($color: #f3f4f5, $amount: 2);
+        }
+
+        &.card-block-implementation-collapsed {
+            cursor: inherit;
+            background: none;
+        }
+    }
+
+    &.card-implementation-edit {
+        .card-block-details {
+            font: 500 16px/20px $bf;
+        }
+    }
 }
 
 .block {
@@ -2207,10 +2356,7 @@ $colorPrimaryLight: $color_primary_light;
             .ui-control .form-control:not([type="radio"]):not([type="checkbox"]) {
                 background-color: #EFF2F4;
                 border-color: #EFF2F4;
-
-                &:not([type='checkbox']) {
-                    padding: 4px 15px;
-                }
+                padding: 4px 15px;
 
                 ::placeholder {
                     color: #9b9b9b;
@@ -2374,6 +2520,30 @@ $colorPrimaryLight: $color_primary_light;
 
             &:last-child {
                 margin-bottom: 0;
+            }
+        }
+
+        .table-pagination {
+            display: flex;
+            align-items: center;
+
+            .table-pagination-counter {
+                flex-grow: 1;
+            }
+
+            .table-pagination-navigation {
+                .button {
+                    font: 500 12px/14px $bf;
+                    padding: 10px 15px;
+                    min-width: 40px;
+
+                    &.button-default {
+                        color: #151b26;
+                        background: #ffffff;
+                        border-color: #d4d9dd;
+                    }
+                }
+                
             }
         }
 

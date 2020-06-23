@@ -331,6 +331,24 @@ module.exports = {
         },
     },
 
+    // EDIT IMPLEMENTATION = implementation-edit.pug
+    implementation_edit: {
+        header: {
+            title: "Webshop instellingen",
+        },
+        labels: {
+            header_title: "Header titel",
+            header_description: "Header omschrijving",
+            title: "Titel",
+            description: "Uitlegpagina content",
+            more_info: "Externe uitleg URL"
+        },
+        buttons: {
+            cancel: "Annuleren",
+            confirm: "Bevestigen",
+        }
+    },
+
     // EDIT FUNDS = funds-edit.pug
     funds_edit: {
         header: {
@@ -542,6 +560,7 @@ module.exports = {
             stock_unlimited: "Onbeperkt aanbod",
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
+            available_offers: "Resterend aanbod"
         },
         buttons: {
             cancel: "Annuleren",
@@ -766,7 +785,7 @@ module.exports = {
             title_step_1: "Welkom", 
             subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als aanbieder. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
             title_step_2: "Benodigdheden",
-            subtitle_step_2: "Aan het aanmelden zijn geen kosten verbonden. Het installeren van een gratis <a href='https://forus.io/me'>app</a> is voldoende." + 
+            subtitle_step_2: "Aan het aanmelden zijn geen kosten verbonden. Het installeren van een gratis <a href='https://forus.io/me'>app</a> is voldoende. " + 
                 "De Me-app kan op vrijwel elke moderne Apple of Android telefoon worden geïnstalleerd.<br/><br/>" + 
                 "Bij de aanmelding heeft u nodig:<br/><br/>" + 
                 "<ul>" + 
@@ -776,7 +795,7 @@ module.exports = {
             title_step_3: "De kassa app installeren",
             subtitle_step_3: "",
             title_step_4: "Vestiging toevoegen",
-            subtitle_step_4: "",
+            subtitle_step_4: "Kies een bestaande organisatie of voeg een nieuwe organisatie toe.",
             title_step_5: "Organisatie aanmaken",
             subtitle_step_5: "Om deel te kunnen nemen gaat u een organisatie aanmaken. Vul hieronder de gegevens van uw organisatie in. Na aanmelding ontvangt u de betalingen automatisch op uw rekening, hier hoeft u verder niets voor te doen.",
             title_step_6: "Vestiging toevoegen",
@@ -932,7 +951,7 @@ module.exports = {
             subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als sponsor. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
             title_step_2: "Maak een account",
             title_step_3: "Vestiging kiezen",
-            subtitle_step_3: "",
+            subtitle_step_3: "Kies een bestaande organisatie of voeg een nieuwe organisatie toe.",
             title_step_4: "Organisatie aanmaken",
             subtitle_step_4: "Om deel te kunnen nemen gaat u een organisatie aanmaken. Vul hieronder de gegevens van uw organisatie in. Na aanmelding ontvangt u de betalingen automatisch op uw rekening, hier hoeft u verder niets voor te doen.",
             title_step_5: "Aanmelding voltooid",
@@ -1060,6 +1079,7 @@ module.exports = {
             title_step_3: "Maak een account",
             subtitle_step_3: "Vul uw email adres in om verder te gaan",
             title_step_4: "Vestiging kiezen",
+            subtitle_step_4: "Kies een bestaande organisatie of voeg een nieuwe organisatie toe.",
             title_step_5: "Organisatie aanmaken",
             subtitle_step_5: "Om deel te kunnen nemen gaat u een organisatie aanmaken. Vul hieronder de gegevens van uw organisatie in. Na aanmelding ontvangt u de betalingen automatisch op uw rekening, hier hoeft u verder niets voor te doen.",
             title_step_6: "Aanmelding voltooid",
@@ -1331,7 +1351,7 @@ module.exports = {
         status: {
             accepted: "Geaccepteerd",
             rejected: "Geweigerd",
-            hold: "Wachten",
+            hold: "In behandeling",
         },
         labels: {
             mail: "E-mail",
@@ -1685,6 +1705,20 @@ module.exports = {
             'not-pending': 'De notificatie instellingen zijn al aangepast via deze link'
         },
         types: {
+            digest: {
+                daily_sponsor: {
+                    title: "Dagelijkse digest notificaties aanmeldingen aanbieders",
+                    description: "Notificaties omtrent aanmeldingen van aanbieders worden gegroepeerd toegestuurd."
+                },
+                daily_provider: {
+                    title: "Dagelijkse digest notificaties omtrent producten en aanmeldingen",
+                    description: "Notificaties omtrent aanmeldingen en producten worden gegroepeerd toegestuurd."
+                },
+                daily_validator: {
+                    title: "Dagelijkse digest notificaties omtrent aanvragen voor fondsen",
+                    description: "Notificaties omtrent aanvragen worden gegroepeerd toegestuurd."
+                },
+            },
             funds: {
                 new_fund_started: {
                     title: 'Fonds is van start gegaan',

@@ -55,7 +55,7 @@
 
         //- form submit
         .modal-footer.text-center(ng-if="!$ctrl.verificationRequested")
-            button.button.button-default(type="button" ng-click="$ctrl.closeModal()") Sluiten
+            button.button.button-default(type="button" ng-click="$ctrl.closeModal()" id="close") Sluiten
             button.button.button-primary(type="submit" ng-if="!$ctrl.prevalidation") Bevestigen
         
         //- confirmation

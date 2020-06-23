@@ -30,7 +30,7 @@ let FundService = function(ApiRequest) {
             return ApiRequest.get(
                 uriPrefix + organization_id + '/funds/' + id
             );
-        }
+        };
 
         this.readPublic = function(fund_id) {
             return ApiRequest.get('/platform/funds/' + fund_id);
@@ -41,7 +41,7 @@ let FundService = function(ApiRequest) {
                 uriPrefix + organization_id + '/funds/' + id + '/finances',
                 data || {}
             );
-        }
+        };
 
         this.listProviders = function(organization_id, fund_id, state, query) {
             query = query ? query : {};
@@ -137,7 +137,7 @@ let FundService = function(ApiRequest) {
                 name: "Gesloten",
                 value: 'closed',
             }];
-        }
+        };
 
         this.makeTopUp = function(organization_id, fund_id) {
             return ApiRequest.post(
@@ -184,7 +184,7 @@ let FundService = function(ApiRequest) {
             return ApiRequest.delete(
                 uriPrefix + organization_id + '/funds/' + fund_id
             );
-        }
+        };
 
         this.sampleCSV = (fund) => {
             return Papa.unparse([

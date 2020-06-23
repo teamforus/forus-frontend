@@ -40,7 +40,8 @@
                 .product-property {
                     display: flex;
                     flex-direction: column;
-                    padding-right: 25px;
+                    padding: 0 25px;
+                    border-right: 1px solid $borderColor;
 
                     .product-property-label {
                         font: 500 13px/14px $bf;
@@ -54,8 +55,13 @@
                         color: #151B26;
                     }
 
+                    &:first-child {
+                        padding-left: 0;
+                    }
+
                     &:last-child {
                         padding-right: 0;
+                        border-right: none;
                     }
                 }
             }

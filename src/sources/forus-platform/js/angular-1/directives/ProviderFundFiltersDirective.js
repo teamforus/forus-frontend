@@ -4,7 +4,7 @@ let ProviderFundFiltersDirective = function(
     $filter,
     ProviderFundService
 ) {
-    let $translate = $filter('translate');
+    let $translate  = $filter('translate');
     $scope.allFunds = $scope.fundsAvailable;
 
     $scope.getFundFilters = () => {
@@ -14,7 +14,11 @@ let ProviderFundFiltersDirective = function(
         let processedOrganizations = [];
         let processedLabels = [];
 
-        $scope.fundsAvailable.forEach(fund => {
+        if (!$scope.fundsAvailable || !$scope.fundsAvailable.data) {
+            return;
+        }
+
+        $scope.fundsAvailable.data.forEach(fund => {
             if (processedOrganizations.indexOf(fund.organization.id) == -1) {
                 $scope.fundOrganizations.push({
                     id: fund.organization.id,
@@ -57,7 +61,9 @@ let ProviderFundFiltersDirective = function(
     }
 
     $scope.filterFunds = (organization = $scope.organization) => {
-        let search_params = {};
+        let search_params = { 
+            per_page: $scope.fundsAvailable.meta.per_page 
+        };
 
         if ($scope.fundOrganization && $scope.fundOrganization != 'null') {
             search_params.organization_id = $scope.fundOrganization;
@@ -78,13 +84,18 @@ let ProviderFundFiltersDirective = function(
         return ProviderFundService.listAvailableFunds(
             organization.id, search_params
         ).then(res => {
-            $scope.fundsAvailable = res.data.data;
+            $scope.fundsAvailable = {
+                meta: res.data.meta,
+                data: res.data.data
+            };
         });
     }
 
     this.$onInit = function() {
         $scope.$watch('fundsAvailable', function(value) {
-            $scope.getFundFilters();
+            if (!$scope.fundOrganizations || !$scope.fundOrganizations.length) {
+                $scope.getFundFilters();
+            }
         });
     }
 };

@@ -8,7 +8,7 @@
             .modal-section: .row: .col.col-lg-8.col-lg-offset-2.col-lg-12
                 .form-group(ng-if="!$ctrl.modal.scope.employee")
                     label.form-label E-mailadres
-                    input(type="text" ng-model="$ctrl.form.values.email").form-control
+                    input(type="text" ng-model="$ctrl.form.values.email" id="email_value").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
                 .form-group(ng-if="!$ctrl.employee")
                     label.form-label Rollen
@@ -23,5 +23,5 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.roles" ng-bind="error")
 
         .modal-footer.text-center
-            button.button.button-default(type="button" translate="modal_funds_add.buttons.close" ng-click="$ctrl.close()")
-            button.button.button-primary(type="submit" translate="Bevestig")
+            button.button.button-default(type="button" translate="modal_funds_add.buttons.close" ng-click="$ctrl.close()" id="close")
+            button.button.button-primary(type="submit" translate="Bevestig" id="confirm")

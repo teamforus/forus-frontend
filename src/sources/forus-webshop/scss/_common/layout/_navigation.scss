@@ -439,7 +439,9 @@
 
                 .navbar-item-wrapper {
                     .navbar-item {
-                        padding: 15px;
+                        padding: 12px;
+                        font-size: 0.75em;
+
                         &:before {
                             left: 15px;
                             right: 15px;
@@ -469,6 +471,19 @@
 
                     &:hover {
                         box-shadow: 0 3px 6px rgba($color: #000000, $alpha: 0.1);
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 1000px) and (max-width: 1700px) {
+        &.block-navbar {
+            .navbar-list {
+                .navbar-item-wrapper {
+                    .navbar-item {
+                        padding: 11px;
+                        font-size: 0.75em;
                     }
                 }
             }
@@ -569,6 +584,9 @@
                         display: block;
                         border-left: 5px solid transparent;
                         transition: .4s;
+
+                        padding: 11px;
+                        font-size: 0.75em;
 
                         &:first-of-type {
                             border-top: 1px solid #e6ecf0;
