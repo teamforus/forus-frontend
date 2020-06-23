@@ -9,7 +9,7 @@ let MobileFooterDirective  = function(
 
     $scope.setScrolled = function() {
         var currentScrollPos = window.pageYOffset;
-        if (prevScrollpos > currentScrollPos) {
+        if (prevScrollpos > currentScrollPos || currentScrollPos <= 0) {
             $scope.scrolled = false;
         } else {
            $scope.scrolled = true;
