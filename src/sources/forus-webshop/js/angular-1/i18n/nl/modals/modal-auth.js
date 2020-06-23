@@ -98,8 +98,8 @@ module.exports = {
     pin_code: {
         confirmation: {
             title: "De app wordt gekoppeld aan uw profiel",
-            description: "Na 5 tot 10 seconden wordt de app gekoppeld. Is het gelukt? Klik dan op volgende.",
-            notice: "Ziet u na 30 seconden nog steeds de 6 cijfers in de app? Probeer het dan opnieuw.",
+            description: "Na vijf tot tien seconden wordt de app gekoppeld. Is het gelukt? Klik dan op volgende.",
+            notice: "Ziet u na dertig seconden nog steeds de zes cijfers in de app? Probeer het dan opnieuw.",
             buttons: {
                 try_again: "Opnieuw proberen",
                 confirm: "Volgende"
