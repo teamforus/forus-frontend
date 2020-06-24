@@ -25,7 +25,7 @@ module.exports = {
     },
     implementation_name: {
         general: 'General',
-        zuidhorn: 'Zuidhorn',
+        potjeswijzer: 'Potjeswijzer',
         nijmegen: 'Nijmegen',
         westerkwartier: 'Westerkwartier',
         forus: 'Forus platform & ',
@@ -33,7 +33,8 @@ module.exports = {
         berkelland: 'Berkelland',
         oostgelre: 'Oostgelre',
         winterswijk: 'Winterswijk',
-        noordoostpolder: 'Meedoenpakket'
+        noordoostpolder: 'Meedoenpakket',
+        groningen: 'Groningen'
     },
     languages: {
         en: 'English',
@@ -47,6 +48,7 @@ module.exports = {
     topnavbar: require("./nl/layout/navbar"),
 
     // PAGES
+    signup_options: require("./nl/pages/signup-options"),
     fund_apply: require("./nl/pages/fund-apply"),
     fund_request: require("./nl/pages/fund-request"),
     fund_request_clarification: require("./nl/pages/fund-request-clarification"),

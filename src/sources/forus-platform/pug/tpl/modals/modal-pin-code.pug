@@ -1,15 +1,16 @@
-.modal.modal-auth
+.modal.modal-auth.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-content: .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
         .block.block-app-instruction
             .step-item
+                .modal-title Stap 1
+                .step-description(translate="open_in_me.app_instruction.step_1")
                 img(src="./assets/img/screen1.png")
-                .app-title(translate="open_in_me.app_instruction.step_1")
-                img.line-item(src="./assets/img/line1.png")
             .step-item
+                .modal-title Stap 2
+                .step-description(translate="open_in_me.app_instruction.step_2")
                 img(src="./assets/img/screen2.png")
-                .app-title(translate="open_in_me.app_instruction.step_2")
 
             .divider-img: img(src="./assets/img/Base7.png")
 

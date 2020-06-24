@@ -3,6 +3,7 @@ let sprintf = require('sprintf-js').sprintf;
 let FundCardDirective = function(
     $scope,
     $state,
+    $filter,
     FundService,
     ModalService,
     ProviderFundService,
@@ -11,20 +12,27 @@ let FundCardDirective = function(
 ) {
     let $dir = $scope.$dir = {};
     let topUpInProgress = false;
+    let $translate = $filter('translate');
 
     $dir.fund = $scope.fund;
     $dir.inviteProviders = $scope.inviteProviders || false;
     $dir.canTopUpFund = $dir.fund.key && $dir.fund.state != 'closed';
     $dir.canAccessFund = $scope.fund.state != 'closed';
     $dir.canInviteProviders = ($dir.fund.organization && PermissionsService.hasPermission(
-            $dir.fund.organization, 'manage_funds')
-        ) && $scope.fund.state != 'closed' && $dir.inviteProviders;
+        $dir.fund.organization, 'manage_funds')) && $scope.fund.state != 'closed' && $dir.inviteProviders;
 
     $dir.changeState = function(state) {
         FundService.changeState($scope.fund, state).then((res) => {
             $scope.fund = res.data.data;
         });
     };
+
+    $dir.providersDescription = sprintf(
+        "%s (%s %s)",
+        $scope.fund.provider_organizations_count,
+        $scope.fund.provider_employees_count,
+        $translate('fund_card_sponsor.labels.employees'),
+    );
 
     $dir.providerApplyFund = function(fund) {
         ProviderFundService.applyForFund(
@@ -40,6 +48,8 @@ let FundCardDirective = function(
             ModalService.open('fundTopUp', {
                 fund: $scope.fund
             }, {
+                animated: true,
+                max_load_time: 5000,
                 onClose: () => topUpInProgress = false
             });
         }
@@ -100,6 +110,7 @@ module.exports = () => {
         controller: [
             '$scope',
             '$state',
+            '$filter',
             'FundService',
             'ModalService',
             'ProviderFundService',

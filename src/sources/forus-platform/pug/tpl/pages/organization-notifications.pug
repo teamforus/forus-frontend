@@ -1,0 +1,25 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .card(ng-if="$ctrl.notifications.data.length")
+            .card-header: .card-title 
+                | Notificaties 
+                span(ng-if="$ctrl.notifications.meta.total_unseen > 0") 
+                    | ({{$ctrl.notifications.meta.total_unseen}} nieuw)
+            .card-section.card-section.card-section-padless
+                .block.block-notifications: .notification-item(
+                    ng-repeat="notification in $ctrl.notifications.data"
+                    ng-class="{'notification-item-new': !notification.seen}")
+                    .notification-details
+                        .notification-title(ng-bind="notification.title")
+                        .notification-description(ng-bind="notification.description")
+                    .notification-actions: .notification-date 
+                        .mdi.mdi-clock-outline
+                        | {{ notification.created_at_locale }}
+
+            .card-section(ng-if="$ctrl.notifications.meta" ng-show="$ctrl.notifications.meta.last_page > 1")
+                    paginator(meta="$ctrl.notifications.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="onPageChange(query)")
+            
+        block-empty(
+            ng-if="!$ctrl.notifications.data.length"
+            text="Geen nieuwe notificaties." )

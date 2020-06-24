@@ -32,10 +32,10 @@
                         .form-group.form-group-inline
                             label.form-label &nbsp;
                             .form-offset
-                                .card-title {{ "offices_edit.labels.hours" | translate }}
                                 schedule-control(ng-model="$ctrl.form.values.schedule")
+                                .form-error(ng-bind="$ctrl.form.errors.schedule") 
 
             .card-section.card-section-primary
                 .text-center
-                    button(type="button" ng-click="$ctrl.cancel()").button.button-default {{ "offices_edit.buttons.cancel" | translate }}
+                    button(type="button" ng-click="$ctrl.cancel()" id="cancel").button.button-default {{ "offices_edit.buttons.cancel" | translate }}
                     button(type="submit").button.button-primary {{ "offices_edit.buttons.confirm" | translate }}

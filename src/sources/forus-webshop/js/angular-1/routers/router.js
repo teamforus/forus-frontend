@@ -1,7 +1,7 @@
 let repackResponse = (promise) => new Promise((resolve, reject) => {
     promise.then((res) => resolve(
         res.data.data ? res.data.data : res.data
-    ), reject)
+    ), reject);
 });
 
 let repackPagination = (promise) => new Promise((resolve, reject) => {
@@ -9,7 +9,7 @@ let repackPagination = (promise) => new Promise((resolve, reject) => {
 });
 
 let promiseResolve = (res) => {
-    return new Promise(resolve => resolve(res))
+    return new Promise(resolve => resolve(res));
 };
 
 let handleAuthTarget = ($state, target) => {
@@ -41,6 +41,21 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: "home",
         url: "/?digid_error",
         component: "homeComponent",
+        params: {
+            confirmed: null,
+            digid_error: null
+        },
+        resolve: {
+            funds: ['FundService', (
+                FundService
+            ) => repackResponse(FundService.list())]
+        }
+    });
+
+    $stateProvider.state({
+        name: "sign-up",
+        url: "/sign-up",
+        component: "signUpSelectionComponent",
         params: {
             confirmed: null,
             digid_error: null
@@ -197,6 +212,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 business_type_id: $transition$.params().business_type_id,
             }))]
         }
+    });
+
+    $stateProvider.state({
+        name: "explanation",
+        url: "/explanation",
+        component: "explanationComponent",
+        params: {},
+        resolve: {}
     });
 
     $stateProvider.state({
@@ -513,6 +536,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 $state.go('home');
             });
         }]
+    });
+
+    $stateProvider.state({
+        name: 'notifications',
+        url: '/notifications?{page:int}',
+        component: 'notificationsComponent',
     });
 
     $stateProvider.state({

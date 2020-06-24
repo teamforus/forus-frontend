@@ -50,25 +50,25 @@
             .keyvalue-key #{key}
             .keyvalue-value(ng-bind=value)
 
-    .card-section.card-section-warning(ng-if="$dir.fund.organization | hasPerm:'view_finances'")
-        .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
-            .keyvalue-item(ng-click="$dir.goToEmployeePage()")
-                .keyvalue-key Uw medewerkers
+    .card-section.card-section-warning(ng-if="fund.state != 'waiting' && $dir.fund.organization | hasPerm:'view_finances'")
+        .card-block.card-block-keyvalue.card-block-keyvalue-horizontal.row
+            .col.col-lg-2.keyvalue-item(ng-click="$dir.goToEmployeePage()")
+                .keyvalue-key(translate="fund_card_sponsor.labels.your_employees")
                 .keyvalue-value
                     span(ng-bind="fund.sponsor_count")
                     span.icon.mdi.mdi-account-multiple-plus
 
-            .keyvalue-item(ng-class="{'keyvalue-item-disabled': !$dir.canInviteProviders}" ng-click="$dir.inviteProvider(fund)")
-                .keyvalue-key Aanbieders
+            .col.col-lg-3.keyvalue-item.flex-col(ng-class="{'keyvalue-item-disabled': !$dir.canInviteProviders}" ng-click="$dir.inviteProvider(fund)")
+                .keyvalue-key(translate="fund_card_sponsor.labels.providers")
                 .keyvalue-value
-                    span(ng-bind="fund.provider_employees_count")
+                    span(ng-bind="$dir.providersDescription")
                     span.icon.mdi.mdi-account-multiple-plus(ng-if="$dir.canInviteProviders")
 
-            .keyvalue-item(ng-class="{'keyvalue-item-disabled': !$dir.canAccessFund}" ng-click="$dir.goToCSVValiationPage()")
-                .keyvalue-key Aanvragers
+            .col.col-lg-2.keyvalue-item.flex-col(ng-class="{'keyvalue-item-disabled': !$dir.canAccessFund}" ng-click="$dir.goToCSVValiationPage()")
+                .keyvalue-key(translate="fund_card_sponsor.labels.applicants")
                 .keyvalue-value
                     span(ng-bind="fund.requester_count")
-                    span.icon.mdi.mdi-account-multiple-plus(ng-if="$dir.canAccessFund")             
+                    span.icon.mdi.mdi-account-multiple-plus(ng-if="$dir.canAccessFund")   
 
     mixin edit_buttons()
         button(
@@ -77,10 +77,11 @@
             em.mdi.mdi-delete
             translate(translate="fund_card_sponsor.buttons.delete")
 
-        button(
+        button( 
             ng-if="($dir.fund.organization | hasPerm:'manage_funds')"
-            ui-sref="funds-edit(fund)").button.button-default
-            em.mdi.mdi-cog.icon-start
+            ui-sref="funds-edit(fund)"
+            id="edit_fund").button.button-default
+            em.mdi.mdi-settings.icon-start
             translate(translate='fund_card_sponsor.labels.setting')
 
         button(
@@ -89,30 +90,31 @@
             em.mdi.mdi-plus-circle.icon-start  
             translate(translate='fund_card_sponsor.buttons.add')
 
-    mixin stats()
-        .card-block.card-block-keyvalue.card-block-keyvalue-horizontal
-            .keyvalue-item.keyvalue-item-narrow
+    mixin stats(display=true)
+        .card-block.card-block-keyvalue.card-block-keyvalue-horizontal(ng-if=display).row
+            .col.col-lg-4.keyvalue-item.keyvalue-item-narrow
                 .keyvalue-key Gestort
                 .keyvalue-value
                     span(ng-bind="fund.budget.total | currency_format")
 
-            .keyvalue-item.keyvalue-item-narrow
+            .col.col-lg-4.keyvalue-item.keyvalue-item-narrow
                 .keyvalue-key Gebruikt
                 .keyvalue-value
                     span(ng-bind="fund.budget.used | currency_format")
 
-            .keyvalue-item.keyvalue-item-narrow
+            .col.col-lg-4.keyvalue-item.keyvalue-item-narrow
                 .keyvalue-key Resterend
                 .keyvalue-value
                     span(ng-bind="fund.budget.total - fund.budget.used | currency_format")
 
     .hidden-md.card-section.card-section-primary(
         ng-show="level != 'fundsAvailable' && ($dir.fund.organization | hasPerm:['view_finances','manage_funds']:false)"): .row
-        .col.col-lg-7.md-12(
-            ng-if="$dir.fund.organization | hasPerm:'view_finances'"): +stats()
+        .col.col-lg-6.md-12(ng-if="$dir.fund.organization | hasPerm:'view_finances'")
+            +stats("fund.state != 'waiting'")
+        
         .col.md-12(
             ng-if="$dir.fund.organization | hasPerm:'manage_funds'" 
-            ng-class="($dir.fund.organization | hasPerm:'view_finances') ? 'col-lg-5' : 'col-lg-12'").text-right: +edit_buttons()
+            ng-class="($dir.fund.organization | hasPerm:'view_finances') ? 'col-lg-6' : 'col-lg-12'").text-right: +edit_buttons()
 
     .visible-md
         .card-section.card-section-primary(ng-show="level != 'fundsAvailable' && ($dir.fund.organization | hasPerm:'view_finances')"): +stats()

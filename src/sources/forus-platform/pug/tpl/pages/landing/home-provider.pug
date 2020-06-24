@@ -1,5 +1,5 @@
 landing-navbar
-header.section.section-header
+header.section.section-header(id="header")
     .wrapper
         .header-content
             .header-title(
@@ -8,7 +8,7 @@ header.section.section-header
             .header-description(
                 translate="home_provider.header.{{ $root.appConfigs.client_key }}.subtitle"
                 translate-default="{{'home_provider.header.default.subtitle' | translate }}")
-section.section.section-flow: .wrapper
+section.section.section-flow(id="flow"): .wrapper
     .section-title(
     translate="home_provider.guide.{{ $root.appConfigs.client_key }}.title"
     translate-default="{{'home_provider.guide.default.title' | translate }}")
@@ -21,7 +21,7 @@ section.section.section-flow: .wrapper
     translate="home_provider.guide.{{ $root.appConfigs.client_key }}.button"
     translate-default="{{'home_provider.guide.default.button' | translate }}").button.button-primary
 
-section.section.section-faq: .wrapper
+section.section.section-faq(id="faq"): .wrapper
     .section-title {{ "home_provider.faq.title" | i18n }}
     .faq(collapse)
         mixin faq_item(title, content, title_default, content_default, active)

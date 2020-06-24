@@ -5,7 +5,8 @@
             translate(translate="components.organization_funds.title")
             a(
                 ui-sref="funds-create({organization_id: $root.activeOrganization.id})"
-                ng-if='$root.activeOrganization | hasPerm:["manage_funds"]').link
+                ng-if='$root.activeOrganization | hasPerm:["manage_funds"]'
+                id="create_fund").link
                 em.mdi.mdi-plus-circle
                 translate(translate="components.organization_funds.buttons.add")
                 span(ng-bind="' (' + $ctrl.funds.length + ')'")

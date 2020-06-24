@@ -15,6 +15,7 @@ app.controller('BaseController', require('./controllers/BaseController'));
 
 // Components
 app.component('homeComponent', require('./components/HomeComponent'));
+app.component('signUpSelectionComponent', require('./components/SignUpSelectionComponent'));
 app.component('fundsComponent', require('./components/FundsComponent'));
 app.component('vouchersComponent', require('./components/VouchersComponent'));
 app.component('recordsComponent', require('./components/RecordsComponent'));
@@ -37,6 +38,8 @@ app.component('accessibilityComponent', require('./components/AccessibilityCompo
 app.component('errorComponent', require('./components/ErrorComponent'));
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
 app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
+app.component('notificationsComponent', require('./components/NotificationsComponent'));
+app.component('explanationComponent', require('./components/ExplanationComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -79,6 +82,7 @@ app.service('LocalStorageService', require('./services/LocalStorageService'));
 app.service('ProvidersService', require('./services/ProvidersService'));
 app.service('SessionService', require('./services/SessionService'));
 app.service('IdentityEmailsService', require('./services/IdentityEmailsService'));
+app.service('NotificationsService', require('./services/NotificationsService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
@@ -162,6 +166,7 @@ app.config(require('./config/api-service'));
 app.config(require('./config/i18n'));
 
 app.run(require('./routers/router-transitions'));
+app.run(require('./routers/modals-transitions'));
 
 app.run(['appConfigs', (appConfigs) => {
     appConfigs.flags = Object.assign(

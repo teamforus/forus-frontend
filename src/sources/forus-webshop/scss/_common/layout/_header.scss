@@ -43,7 +43,7 @@
                 }
 
                 @media screen and (min-width: 1440px) {
-                    font: 700 48px/1.5em $bf;
+                    font: 700 48px/1.3em $bf;
                 }
             }
 
@@ -65,6 +65,7 @@
             }
 
             .header-how-it-works {
+                margin-top: 25px;
                 font-style: italic;
                 text-decoration: underline;
                 cursor: pointer;

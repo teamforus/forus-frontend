@@ -57,6 +57,10 @@ img {
     text-decoration: line-through;
 }
 
+.text-sm, .text-small {
+    font-size: .8em;
+}
+
 .flex-grow {
     flex-grow: 100 !important;
 }
@@ -243,6 +247,19 @@ img {
     animation-timing-function: linear;
 }
 
+.show-sm {
+    display: none !important;
+}
+
+@media screen and (max-width: 1000px) {
+    .hide-sm {
+        display: none !important;
+    }
+
+    .show-sm {
+        display: block !important;
+    }
+}
 
 /* 
 @media (min-width: 992px) {

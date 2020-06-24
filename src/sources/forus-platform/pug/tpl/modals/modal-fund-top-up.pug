@@ -1,4 +1,4 @@
-.modal
+.modal.modal-md.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window
         a(ng-click="$ctrl.close()").mdi.mdi-close.modal-close
@@ -6,8 +6,8 @@
         .modal-body.form
             .modal-section
                 .modal-funds-added
-                    p(ng-if="!$ctrl.isReady" translate="Even geduld a.u.b.").text-center.text-muted
-                    p(ng-if="$ctrl.isReady")
+                    p(ng-if="!$ctrl.modal.loaded" translate="Even geduld a.u.b.").text-center.text-muted
+                    p(ng-if="$ctrl.modal.loaded")
                         translate(translate="modal_funds_add.labels.payment") 
                         a.text-primary(
                             ng-bind="$ctrl.topUpIban"

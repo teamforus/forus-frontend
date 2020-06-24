@@ -12,11 +12,25 @@ let baseImplementationKey = 'general';
 let autoLogOutTime = 15;
 let chatId = false;
 let sessions = false;
+let google_maps_api_key = '';
 
 module.exports = (core) => {
     // Config markups
-    core.editPlatform('dashboard_markup', (platform) => platform);
-    core.editPlatform('webshop_markup', (platform) => platform);
+    core.editPlatform('dashboard_markup', (platform) => {
+        platform.setEnvData({
+            google_maps_api_key: google_maps_api_key,
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_markup', (platform) => {
+        platform.setEnvData({
+            google_maps_api_key: google_maps_api_key,
+        });
+
+        return platform;
+    });
     
     // Config dashboards
     core.editPlatform('dashboard_general_sponsor', (platform) => {
@@ -29,6 +43,7 @@ module.exports = (core) => {
             flags: {},
             sessions: sessions,
             hide_vouchers_csv: false,
+            google_maps_api_key: google_maps_api_key,
             // html5ModeEnabled: true,
             // html5Mode: {
             //    basePath: '/'
@@ -58,6 +73,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -79,6 +95,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -89,48 +106,6 @@ module.exports = (core) => {
 
         return platform;
     });
-
-    core.editPlatform('dashboard_zuidhorn_sponsor', (platform) => {
-        platform.setEnvData({
-            api_url: apiUrl,
-            client_key: 'zuidhorn',
-            panel_type: 'sponsor',
-            chat_id: chatId,
-            hide_voucher_generators: false,
-            hide_vouchers_csv: false,
-            flags: {},
-            sessions: sessions,
-        });
-
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
-
-        return platform;
-    });
-
-    core.editPlatform('dashboard_zuidhorn_provider', (platform) => {
-        platform.setEnvData({
-            api_url: apiUrl,
-            client_key: 'zuidhorn',
-            panel_type: 'provider',
-            chat_id: chatId,
-            hide_voucher_generators: false,
-            flags: {},
-            sessions: sessions,
-        });
-
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
-
-        return platform;
-    });
-
     core.editPlatform('dashboard_westerkwartier_provider', (platform) => {
         platform.setEnvData({
             api_url: apiUrl,
@@ -142,6 +117,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -163,6 +139,7 @@ module.exports = (core) => {
             hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -183,6 +160,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -206,6 +184,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -228,6 +207,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -251,6 +231,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -273,6 +254,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -296,6 +278,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -304,6 +287,27 @@ module.exports = (core) => {
             return task;
         });
 
+        return platform;
+    });
+
+    core.editPlatform('dashboard_groningen_sponsor', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_key: 'groningen',
+            panel_type: 'sponsor',
+            chat_id: chatId,
+            hide_voucher_generators: false,
+            flags: {
+                maxProductCount: 20,
+            },
+            sessions: sessions,
+         });
+      
+        platform.editTask('js', (task) => {
+            task.minify = minify;
+            task.sourcemap = sourcemap;
+            return task;
+        });
         return platform;
     });
 
@@ -318,6 +322,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -341,6 +346,7 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -352,6 +358,25 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('dashboard_groningen_provider', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_key: 'groningen',
+            panel_type: 'provider',
+            chat_id: chatId,
+            hide_voucher_generators: false,
+            flags: {},
+            sessions: sessions,
+         });      
+      
+         platform.editTask('js', (task) => {
+            task.minify = minify;
+            task.sourcemap = sourcemap;
+            return task;
+        });
+      
+        return platform;
+    });
     core.editPlatform('dashboard_kerstpakket_provider', (platform) => {
         platform.setEnvData({
             api_url: apiUrl,
@@ -361,6 +386,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -382,6 +408,7 @@ module.exports = (core) => {
             hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -402,6 +429,7 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -423,6 +451,7 @@ module.exports = (core) => {
             hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -446,6 +475,7 @@ module.exports = (core) => {
             matomo_site_id: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -457,10 +487,10 @@ module.exports = (core) => {
         return platform;
     });
 
-    core.editPlatform('webshop_zuidhorn', (platform) => {
+    core.editPlatform('webshop_potjeswijzer', (platform) => {
         platform.setEnvData({
             api_url: apiUrl,
-            client_key: 'zuidhorn',
+            client_key: 'potjeswijzer',
             client_type: 'webshop',
             log_out_time: autoLogOutTime,
             matomo_site_id: false,
@@ -472,8 +502,10 @@ module.exports = (core) => {
                 forusPlatformMenu: false,
                 portfolioMenu: false,
                 aboutSiteMenu: false,
+                signUpMenu: false,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -506,6 +538,7 @@ module.exports = (core) => {
                 shareProducts: false,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -526,6 +559,7 @@ module.exports = (core) => {
             matomo_site_id: false,
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -557,6 +591,7 @@ module.exports = (core) => {
                 providersMenu: true,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -580,6 +615,7 @@ module.exports = (core) => {
                 accessibilityPage: true,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -610,6 +646,7 @@ module.exports = (core) => {
                 aboutSiteMenu: false,
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -640,6 +677,7 @@ module.exports = (core) => {
                 aboutSiteMenu: false,  
             },
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {
@@ -655,6 +693,28 @@ module.exports = (core) => {
         platform.setEnvData({
             api_url: apiUrl,
             client_key: 'noordoostpolder',
+            client_type: 'webshop',
+            log_out_time: false,
+            flags: {
+                accessibilityPage: false,
+            },
+            sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
+        });
+
+        platform.editTask('js', (task) => {
+            task.minify = minify;
+            task.sourcemap = sourcemap;
+            return task;
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_groningen', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_key: 'groningen',
             client_type: 'webshop',
             log_out_time: false,
             flags: {
@@ -680,6 +740,7 @@ module.exports = (core) => {
             panel_type: 'website',
             flags: {},
             sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => {

@@ -3,7 +3,11 @@ module.exports = {
         funds:"FONDSEN",
         products:"AANBIEDINGEN",
         providers:"AANBIEDERS",
+        explanation:"UITLEG",
         identity:"Profiel",
+        potjeswijzer: {
+            funds:"POTJES",
+        }
     },
     buttons: {
         activate:"Activatiecode",

@@ -1,5 +1,5 @@
 header.app.app-header(ng-if="$root.auth_user")
-    .wrapper
+    .wrapper.flex-row
         a(ui-sref="home" ng-if="!$root.activeOrganization").header-logo
             img(ng-src="./assets/img/logo.svg").header-logo-img
 
@@ -36,6 +36,10 @@ header.app.app-header(ng-if="$root.auth_user")
                     .organization-switcher-setting(ng-click="$root.organizationCreate()")
                         .em.mdi.mdi-plus-circle.organization-switcher-setting-icon
                         .organization-switcher-setting-name(translate="organizations.buttons.add")
+        
+        .flex-grow &nbsp;
+        
+        header-notifications(ng-if="$root.activeOrganization.id" organization-id="{{$root.activeOrganization.id}}")
 
         .header-auth(ng-if="$root.auth_user")
             .auth-user(ng-click="$root.openUserMenu($event)")
@@ -51,7 +55,7 @@ header.app.app-header(ng-if="$root.auth_user")
                 .auth-user-caret: em(ng-class="$root.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
                 
                 .auth-user-menu(ng-if="$root.userMenuOpened" click-outside="$root.hideUserMenu()")
-                    a(ui-sref="identity-emails" ng-if="!$root.activeOrganization").auth-user-menu-item
+                    a(ui-sref="identity-emails" ng-if="$root.appConfigs.sessions && !$root.activeOrganization").auth-user-menu-item
                         em.mdi.mdi-at
                         | Email instellingen
                     

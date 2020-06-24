@@ -6,11 +6,12 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
                 img(src="./assets/img/menu/icon-" + icon + "-hover.svg").hover
                 img(src="./assets/img/menu/icon-" + icon + "-active.svg").active
 
-        mixin nav_item(name, icon, sref, srefParams, ngif)
-            a(
+        mixin nav_item(name, icon, sref, srefParams, ngif, id)
+            a(  
                 ui-sref=(sref + (srefParams ? ("(" + srefParams + ")") : '')) 
                 ui-sref-active="active"
                 ng-if=ngif
+                id=id
                 ).sidebar-nav-item
                 .sidebar-nav-item-arrow: .mdi.mdi-menu-right
                 +nav_item_icon(icon)
@@ -20,42 +21,51 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
         +nav_item(
             "Fondsen", "my_funds", 'organization-funds', 
             '{organization_id: $root.activeOrganization.id}', 
-            '$root.activeOrganization | hasPerm:["manage_funds","view_finances","view_funds"]:false')
+            '$root.activeOrganization | hasPerm:["manage_funds","view_finances","view_funds"]:false',
+            'funds')
+            
 
         if (!qdt_c.platform.env_data.hide_voucher_generators)
             +nav_item(
                 "Vouchers", "vouchers", 'vouchers', 
                 '{organization_id: $root.activeOrganization.id}',
-                '$root.activeOrganization | hasPerm:["manage_vouchers"]')
+                '$root.activeOrganization | hasPerm:["manage_vouchers"]',
+                'vouchers')
 
             +nav_item(
                 "Aanbiedingsvouchers", "productvoucher", 'product-vouchers', 
                 '{organization_id: $root.activeOrganization.id}',
-                '$root.activeOrganization | hasPerm:["manage_vouchers"]')
+                '$root.activeOrganization | hasPerm:["manage_vouchers"]',
+                'product_vouchers')
 
         +nav_item(
             "Transacties", "transactions", 'transactions', 
             '{organization_id: $root.activeOrganization.id}', 
-            '$root.activeOrganization | hasPerm:["view_finances"]')
+            '$root.activeOrganization | hasPerm:["view_finances"]',
+            'transactions')
 
         +nav_item(
             "Financiën", "financial_dashboard", 'financial-dashboard', 
             '{organization_id: $root.activeOrganization.id}',
-            '$root.activeOrganization | hasPerm:["view_finances"]')
+            '$root.activeOrganization | hasPerm:["view_finances"]',
+            'financial_dashboard')
 
         +nav_item(
             "Medewerkers", "list", 'employees', 
             '{organization_id: $root.activeOrganization.id}',
-            '$root.activeOrganization | hasPerm:["manage_employees"]')
+            '$root.activeOrganization | hasPerm:["manage_employees"]',
+            'employees')
 
         +nav_item(
             "Aanbieders", "people", 'organization-providers', 
             '{organization_id: $root.activeOrganization.id, fund_id: null}',
-            '$root.activeOrganization | hasPerm:["manage_providers"]')
+            '$root.activeOrganization | hasPerm:["manage_providers"]',
+            'providers')
 
         +nav_item(
             "Aanvragers", "file_csv", 'csv-validation', false,
-            '$root.activeOrganization | hasPerm:["validate_records"]')
+            '$root.activeOrganization | hasPerm:["validate_records"]',
+            'requesters')
         
         +nav_item(
             "Shortlisted validators", "validators_shortlist", 'external-validators', 
@@ -64,6 +74,13 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
         
         .sidebar-nav-devider(ng-if="$root.activeOrganization")
 
-        +nav_item('Email instellingen', 'emails', 'identity-emails')
+        +nav_item('Email instellingen', 'emails', 'identity-emails', null, '$root.appConfigs.sessions')
         +nav_item('Sessies', 'sessions', 'security-sessions', '{}', '$root.appConfigs.sessions')
         +nav_item('Notificaties', 'notifications', 'preferences-notifications')
+        
+        .sidebar-nav-devider(ng-if="$root.activeOrganization")
+        
+        +nav_item(
+            "Webshops", "implementation", 'implementations', 
+            '{organization_id: $root.activeOrganization.id}', 
+            '$root.activeOrganization | hasPerm:["manage_implementation", "view_funds"]')

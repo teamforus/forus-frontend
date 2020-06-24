@@ -64,7 +64,7 @@ let ModalPhotoUploaderComponent = function(
     
     $ctrl.cancel = () => {
         $ctrl.close();
-    }
+    };
 
     $ctrl.apply = () => {
         let file = ImageConvertorService.dataURItoBlob($ctrl.cropedPhoto);

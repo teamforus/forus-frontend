@@ -1,4 +1,4 @@
-let BaseController = function(
+let BaseController = function (
     $q,
     $rootScope,
     $scope,
@@ -10,6 +10,7 @@ let BaseController = function(
     RecordService,
     OrganizationService,
     ConfigService,
+    PermissionsService,
     appConfigs,
     ModalService
 ) {
@@ -43,11 +44,11 @@ let BaseController = function(
         auth: {
             show: false,
             screen: false,
-            close: function() {
+            close: function () {
                 this.show = false;
                 this.screen = false;
             },
-            open: function(screen) {
+            open: function (screen) {
                 this.show = true;
                 this.screen = screen;
             }
@@ -89,15 +90,15 @@ let BaseController = function(
         e.originalEvent.preventDefault();
 
         $rootScope.showOrganizationsMenu = !$rootScope.showOrganizationsMenu;
-    }
+    };
 
     $rootScope.hideOrganizationsMenu = () => {
         $scope.$apply(() => {
             $rootScope.showOrganizationsMenu = false;
         });
-    }
+    };
 
-    $rootScope.openPinCodePopup = function() {
+    $rootScope.openPinCodePopup = function () {
         ModalService.open('modalPinCode', {});
     };
 
@@ -117,19 +118,28 @@ let BaseController = function(
         });
     };
 
-    $rootScope.autoSelectOrganization = function(redirect = true) {
+    let redirectToDashboard = (selectedOrganizationId) => {
+        if (!$rootScope.auth_user) {
+            return;
+        }
+
+        let route = PermissionsService.getAvailableRoutes(
+            appConfigs.panel_type,
+            $rootScope.auth_user.organizationsMap[selectedOrganizationId]
+        ).map(route => route.name)[0] || 'home';
+        
+        $state.go(route, {
+            organization_id: selectedOrganizationId
+        });
+    };
+
+    $rootScope.autoSelectOrganization = function (redirect = true) {
         $rootScope.getLastUsedOrganization().then(selectedOrganizationId => {
             if (selectedOrganizationId) {
                 OrganizationService.use(selectedOrganizationId);
 
                 if (redirect) {
-                    $state.go({
-                        sponsor: 'organization-funds',
-                        provider: 'offices',
-                        validator: 'fund-requests',
-                    } [appConfigs.panel_type], {
-                        organization_id: selectedOrganizationId
-                    });
+                    redirectToDashboard(selectedOrganizationId);
                 }
             } else {
                 $state.go('organizations-create');
@@ -137,7 +147,7 @@ let BaseController = function(
         });
     };
 
-    $rootScope.loadAuthUser = function() {
+    $rootScope.loadAuthUser = function () {
         let deferred = $q.defer();
 
         IdentityService.identity().then((res) => {
@@ -152,7 +162,7 @@ let BaseController = function(
                 }).then((res) => {
                     auth_user.organizations = res.data.data;
                     auth_user.organizationsMap = {};
-                    auth_user.organizationsIds = Object.values(res.data.data).map(function(organization) {
+                    auth_user.organizationsIds = Object.values(res.data.data).map(function (organization) {
                         auth_user.organizationsMap[organization.id] = organization;
                         return organization.id;
                     });
@@ -200,16 +210,16 @@ let BaseController = function(
         });
     }
 
-    $scope.$watch(function() {
+    $scope.$watch(function () {
         return $state.$current.name
-    }, function(newVal, oldVal) {
+    }, function (newVal, oldVal) {
         if ($state.current.name == 'home' && appConfigs.panel_type != 'validator') {
             $rootScope.viewLayout = 'landing';
         } else if ([
-            'sign-up', 'sign-up-provider', 'sign-up-sponsor', 'sign-up-validator', 'provider-invitation-link'
-        ].indexOf($state.current.name) != -1) {
+                'sign-up', 'sign-up-provider', 'sign-up-sponsor', 'sign-up-validator', 'provider-invitation-link'
+            ].indexOf($state.current.name) != -1) {
             $rootScope.viewLayout = 'signup';
-            
+
             if (['sign-up-provider', 'sign-up-sponsor', 'sign-up-validator'].indexOf($state.current.name) != -1) {
                 $rootScope.isNewSignUp = true;
             }
@@ -217,7 +227,7 @@ let BaseController = function(
             $rootScope.viewLayout = 'panel';
         }
     })
-    
+
     $rootScope.onPageChanged = (transition) => {
         let pageTitleKey = 'page_state_titles.' + transition.to().name;
         let pageTitleText = $filter('translate')(pageTitleKey);
@@ -260,6 +270,7 @@ module.exports = [
     'RecordService',
     'OrganizationService',
     'ConfigService',
+    'PermissionsService',
     'appConfigs',
     'ModalService',
     BaseController

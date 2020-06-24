@@ -98,6 +98,7 @@ let SponsorSignUpComponent = function(
         return FormBuilderService.build({
             email: '',
             target: authTarget,
+            confirm: true
         }, function(form) {
             let resolveErrors = (res) => {
                 form.unlock();
@@ -213,12 +214,8 @@ let SponsorSignUpComponent = function(
                 });
             }
 
-            if ($ctrl.step == $ctrl.STEP_ORGANIZATION_ADD) {
-                if (progressStorage.has('organizationForm')) {
-                    $ctrl.organizationForm.values = JSON.parse(progressStorage.get('organizationForm'));
-                } else {
-                    $ctrl.organizationForm.values = {};
-                }
+            if ($ctrl.step == $ctrl.STEP_ORGANIZATION_ADD && progressStorage.has('organizationForm')) {
+                $ctrl.organizationForm.values = JSON.parse(progressStorage.get('organizationForm'));
             }
 
             if ($ctrl.step == $ctrl.STEP_CREATE_PROFILE) {

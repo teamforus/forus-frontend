@@ -1,6 +1,7 @@
 let HomeComponent = function(
     $state,
     $stateParams,
+    $sce,
     appConfigs,
     ModalService,
     AuthService,
@@ -9,7 +10,9 @@ let HomeComponent = function(
     let $ctrl = this;
 
     $ctrl.appConfigs = appConfigs;
-
+    $ctrl.implementation_name = appConfigs.features.implementation_name;
+    
+    $ctrl.digidAvailable = appConfigs.features.digid;
     if ($stateParams.confirmed) {
         ModalService.open('modalActivateCode', {});
     }
@@ -48,6 +51,10 @@ let HomeComponent = function(
                 errorCode: 'digid_' + $stateParams.digid_error
             });
         }
+
+        $ctrl.description_html = $sce.trustAsHtml(
+            appConfigs.features.settings.description_html
+        );
     };
 };
 
@@ -62,6 +69,7 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
+        '$sce',
         'appConfigs',
         'ModalService',
         'AuthService',

@@ -50,16 +50,20 @@ let MarkdownDirective = function($scope, $element, ModalService) {
             moveSelection = sel.end + arrayOfSelected.length * (
                 start.length + end.length
             );
-        } else if (type == 'custom-link') {
+        } else if (type == 'custom-link' || type == 'image-link') {
             ModalService.open('markdownCustomLink', {
                 pages: $scope.pages,
                 selection: sel.selected,
+                type: type,
                 success: (data) => {
                     let url = data.url;
                     let text = sel.selected ? sel.selected : data.description;
                     let components = ['[', text, '](', url, ')'];
 
                     finalRes = components.join('');
+                    if (type == 'image-link') {
+                        finalRes = '!' + finalRes;
+                    }
 
                     if (sel.selected == '') {
                         needSelectAll = false;
@@ -115,7 +119,8 @@ module.exports = () => {
         scope: {
             ngModel: '=',
             modal: '=',
-            pages: '='
+            pages: '=',
+            extendedOptions: '='
         },
         replace: true,
         controller: [
