@@ -1,7 +1,7 @@
 module.exports = {
     // APPLY FOR PRODUCT = product-apply.pug
         header: {
-            title: "Kies voucher",
+            title: "Kies de voucher waarmee u de aanbieding wil reserveren",
         },
         labels: {
             transactions: "Transacties",
