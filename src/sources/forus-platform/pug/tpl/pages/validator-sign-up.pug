@@ -13,6 +13,8 @@
                 
                 .sign_up-step-border
                 .sign-up-step-block Stap {{ ' ' + ($index + 1) }}
+            
+            .sign_up-progress-overview Stap {{ $ctrl.step }} from {{ $ctrl.shownSteps.length + 2 }}
 
     .block.block-sign_up: .block-wrapper
         .sign_up-header: a(ng-click="$ctrl.goToMain()").sign_up-header-back
@@ -85,7 +87,7 @@
                                 translate="sign_up_validator.app_instruction.create_profile"
                                 ng-class="{'button-disabled':!$ctrl.signUpForm.values.email}")
 
-                    .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="sign_up_sponsor.no_app.to_app")
+                    .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="sign_up_sponsor.no_app.to_app").hide-sm
 
                 .sign_up-pane-body(
                     ng-if="!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent && $ctrl.hasApp")

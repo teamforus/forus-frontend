@@ -53,27 +53,28 @@ let OfficeService = function(ApiRequest) {
             let schedule = values.schedule ? Object.values(values.schedule) : [];
 
             schedule.forEach((schedule_item, week_day) => {
-                schedule[week_day] = {
+                schedule[week_day] = schedule_item ? {
                     start_time: schedule_item.start_time || 'null',
                     end_time: schedule_item.end_time || 'null',
                     break_start_time: schedule_item.break_start_time || 'null',
                     break_end_time: schedule_item.break_end_time || 'null',
-                };
+                } : null;
             });
 
-            values.schedule = schedule;
+            values.schedule = schedule.filter(schedule_item => schedule_item);
 
             return values;
         };
 
         this.apiResourceToForm = function(apiResource) {
-            let schedule = {};
+            let schedule = [];
             let weekDays = this.scheduleWeekDays();
 
             apiResource.schedule = apiResource.schedule || [];
 
             apiResource.schedule.forEach((schedule_item, week_day) => {
                 schedule[week_day] = {
+                    week_day: schedule_item.week_day + '',
                     start_time: schedule_item.start_time,
                     end_time: schedule_item.end_time,
                     break_start_time: schedule_item.break_start_time,

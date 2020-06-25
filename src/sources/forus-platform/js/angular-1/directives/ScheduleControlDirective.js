@@ -1,6 +1,5 @@
 let ScheduleControlDirective = function(
-    $scope, 
-    $element,
+    $scope,
     $timeout,
     OfficeService
 ) {
@@ -52,47 +51,46 @@ let ScheduleControlDirective = function(
         }
     }
 
-    $scope.scheduleDetails = [];
-    $dir.weekDays = Object.values(OfficeService.scheduleWeekDaysExplicit());
-
-    $dir.syncHours = (modifiedFieldIndex, key) => {
+    $dir.syncHours = (modifiedFieldIndex, key, value) => {
         $timeout(() => {
-            let schedule = $dir.schedule;
+            let schedule = $dir.scheduleDetails;
             let time = schedule[modifiedFieldIndex][key];
 
             schedule[modifiedFieldIndex][key] = transformTime(time || '');
 
             $scope.syncTime(modifiedFieldIndex);
-        }, 0);
+            $scope.syncModel();
+        }, 10);
     };
 
     $dir.setSameHours = (week_days = true) => {
         $timeout(() => {
-            $scope.syncTimePreferences();
-            $scope.setSameWeekDayHours(week_days);
             $scope.syncWithFirstRecord(week_days);
-        }, 0);
+        }, 10);
     };
 
+    $scope.syncTime = (modifiedFieldIndex) => {
+        let time = $dir.scheduleDetails[modifiedFieldIndex],
+            week_days = modifiedFieldIndex <= 4;
 
-    $scope.setSameWeekDayHours = (week_days) => {
-        if ((week_days && $dir.same_hours) ||
-            (!week_days && $dir.weekend_same_hours)
-        ) {
-            $dir.weekDays.forEach((weekDayKey, index) => {
-                if ((week_days && index <= 4) || (!week_days && index >= 5)) {
-                    if (typeof $dir.scheduleDetails == 'undefined') {
-                        $dir.scheduleDetails = {};
-                    }
-
-                    if (typeof $dir.scheduleDetails[index] == 'undefined') {
-                        $dir.scheduleDetails[index] = {};
-                    }
-
-                    $dir.scheduleDetails[index].is_opened = true;
+        Object.keys($dir.weekDays).forEach((index) => {
+            if (typeof $dir.scheduleDetails != 'undefined' &&
+                typeof $dir.scheduleDetails[index] != 'undefined' &&
+                (week_days && index <= 4) || (!week_days && index >= 5)
+            ) {
+                if ((week_days && !$dir.same_hours) ||
+                    (!week_days && !$dir.weekend_same_hours)
+                ) {
+                    return;
                 }
-            });
-        }
+
+                if (typeof $dir.scheduleDetails[index] == 'undefined') {
+                    $dir.scheduleDetails[index] = {};
+                }
+
+                $scope.syncTwoDatesHours($dir.scheduleDetails[index], time);
+            }
+        });
     };
 
     $scope.syncTwoDatesHours = (date1, date2) => {
@@ -102,111 +100,29 @@ let ScheduleControlDirective = function(
         date1.break_end_time = date2.break_end_time;
     };
 
-    $scope.syncTime = (modifiedFieldIndex) => {
-        let time = $dir.schedule[modifiedFieldIndex],
-            week_days = modifiedFieldIndex <= 4;
-
-        $dir.weekDays.forEach((weekDayKey, index) => {
-            if (typeof $dir.scheduleDetails != 'undefined' &&
-                typeof $dir.scheduleDetails[index] != 'undefined' &&
-                $dir.scheduleDetails[index].is_opened &&
-                (week_days && index <= 4) || (!week_days && index >= 5)
-            ) {
-                if ((week_days && !$dir.same_hours) ||
-                    (!week_days && !$dir.weekend_same_hours)
-                ) {
-                    return;
-                }
-
-                if (typeof $dir.schedule[index] == 'undefined') {
-                    $dir.schedule[index] = {};
-                }
-
-                $scope.syncTwoDatesHours($dir.schedule[index], time);
-            }
-        });
-    };
-
     $scope.syncWithFirstRecord = (week_days) => {
-        if (((week_days && $dir.same_hours) ||
-                (!week_days && $dir.weekend_same_hours)) &&
-            typeof $dir.schedule != 'undefined' &&
-            typeof $dir.schedule[week_days ? 0 : 5] != 'undefined'
-        ) {
-            let time = $dir.schedule[week_days ? 0 : 5];
+        let activeWeekDays = $dir.scheduleDetails.slice(0, 5).filter(scheduleDetail => !scheduleDetail.is_closed);
+        let activeWeekEndDays = $dir.scheduleDetails.slice(5, 7).filter(scheduleDetail => !scheduleDetail.is_closed);
+        let days = (week_days ? activeWeekDays : activeWeekEndDays);
 
-            $dir.weekDays.forEach((weekDayKey, index) => {
-                if (typeof $dir.scheduleDetails != 'undefined' &&
-                    typeof $dir.scheduleDetails[index] != 'undefined' &&
-                    $dir.scheduleDetails[index].is_opened &&
-                    (week_days && index <= 4) || (!week_days && index >= 5)
-                ) {
-                    if (typeof $dir.schedule[index] == 'undefined') {
-                        $dir.schedule[index] = {};
-                    }
+        if (days.length === 0) {
+            return;
+        }
 
-                    $scope.syncTwoDatesHours($dir.schedule[index], time);
-                }
+        if ((week_days && $dir.same_hours) || (!week_days && $dir.weekend_same_hours)) {
+            days.forEach(day => {
+                $scope.syncTwoDatesHours(day, days[0]);
             });
+
+            $scope.syncModel();
         }
     };
 
     $dir.toggleOpened = (index) => {
         $timeout(() => {
-            let schedule = $dir.scheduleDetails;
-
-            if (typeof schedule[index] == 'undefined') {
-                schedule[index] = {};
-            }
-
-            $dir.scheduleDetails[index].is_opened != schedule[index].is_opened;
-
-            if (!schedule[index].is_opened ||
-                typeof $dir.schedule == 'undefined' ||
-                typeof $dir.schedule[index] == 'undefined'
-            ) {
-                return;
-            }
-
-            delete $dir.schedule[index];
-        }, 0);
+            $scope.syncModel();
+        }, 10);
     };
-
-    $scope.syncTimePreferences = () => {
-        let schedule_days = $dir.schedule ? 
-            Object.values($dir.schedule) : []; 
-        let schedule_options = $dir.scheduleDetails ? 
-            Object.values($dir.scheduleDetails) : [];
-
-        let has_days_set = schedule_days.filter(
-            (day, index) => $scope.isDateModified(day) && index < 5
-        ).length == 0;
-
-        let has_weekend_days_set = schedule_days.filter(
-            (day, index) => $scope.isDateModified(day) && index >= 5
-        ).length == 0;
-
-        if (!$dir.same_hours && has_days_set) {
-            // uncheck all normal days
-            schedule_options = schedule_options.map((scheduleDetail, index) => {
-                if (index < 5) {
-                    scheduleDetail.is_opened = false;
-                }
-                return scheduleDetail;
-            });
-        }
-
-        if (!$dir.weekend_same_hours && has_weekend_days_set) {
-            // uncheck all weekend days
-            schedule_options = schedule_options.map((scheduleDetail, index) => {
-                if (index >= 5) {
-                    scheduleDetail.is_opened = false;
-                }
-
-                return scheduleDetail;
-            });
-        }
-    }
 
     $scope.isDateModified = (date) => {
         return date.start_time || date.end_time || date.break_start_time || date.break_end_time;
@@ -233,9 +149,9 @@ let ScheduleControlDirective = function(
 
     $scope.transformDayTime = (day) => {
         day.break_start_time = $scope.addLeadingZeroToTime(day.break_start_time);
-        day.break_end_time   = $scope.addLeadingZeroToTime(day.break_end_time);
-        day.start_time       = $scope.addLeadingZeroToTime(day.start_time);
-        day.end_time         = $scope.addLeadingZeroToTime(day.end_time);
+        day.break_end_time = $scope.addLeadingZeroToTime(day.break_end_time);
+        day.start_time = $scope.addLeadingZeroToTime(day.start_time);
+        day.end_time = $scope.addLeadingZeroToTime(day.end_time);
 
         return day;
     };
@@ -245,21 +161,113 @@ let ScheduleControlDirective = function(
     };
 
     $scope.hasAnyTimeValue = (date) => {
-        return $scope.isTimeDefined(date.start_time) || 
+        return $scope.isTimeDefined(date.start_time) ||
             $scope.isTimeDefined(date.end_time) ||
             $scope.isTimeDefined(date.break_start_time) ||
             $scope.isTimeDefined(date.break_end_time);
     };
 
+    $scope.syncModel = () => {
+        $dir.schedule = $dir.scheduleDetails.map((scheduleDetail) => {
+            return (!scheduleDetail || scheduleDetail.is_closed) ? null : scheduleDetail;
+        }).map((scheduleDetail) => {
+            return scheduleDetail && $scope.hasAnyTimeValue(scheduleDetail) ? scheduleDetail : null;
+        });
+
+        $scope.ngModel = $dir.schedule;
+    };
+
+    $scope.isSameSchedule = (day1, day2) => {
+        return day1.start_time == day2.start_time &&
+            day1.end_time == day2.end_time &&
+            day1.break_start_time == day2.break_start_time &&
+            day1.break_end_time == day2.break_end_time;
+    };
+
+    $scope.buildTimeOptions = () => {
+        let timeOptions = [];
+        let minutes = ['00', '15', '30', '45'];
+
+        [...Array(24).keys()].forEach(hour => {
+            let hourValue = (hour) > 9 ? (hour).toString() : '0' + (hour);
+
+            minutes.forEach(minute => {
+                timeOptions.push({
+                    key: hourValue + ':' + minute,
+                    value: hourValue + ':' + minute,
+                });
+            });
+        });
+
+        $dir.startTimeOptions = [{
+            key: '',
+            value: 'Van'
+        }, ...timeOptions];
+
+        $dir.endTimeOptions = [{
+            key: '',
+            value: 'Tot'
+        }, ...timeOptions];
+    };
+
     $scope.init = () => {
+        $dir.weekDays = Object.values(OfficeService.scheduleWeekDaysExplicit());
         $dir.schedule = $scope.ngModel;
         $dir.scheduleDetails = [];
 
-        Object.values($dir.schedule).forEach((weekDay, index) => {
-            $dir.scheduleDetails.push({
-                is_opened: $scope.hasAnyTimeValue(weekDay)
-            });
+        let schedulesWithValue = $dir.schedule.filter($scope.hasAnyTimeValue);
+
+        $scope.buildTimeOptions();
+
+        $dir.scheduleDetails = Object.keys($dir.weekDays).map(function(week_day) {
+            return {
+                week_day: week_day,
+                is_closed: schedulesWithValue.length > 0 ? true : week_day > 4,
+                start_time: '',
+                end_time: '',
+                break_start_time: '',
+                break_end_time: '',
+            };
         });
+
+        if (schedulesWithValue.length > 0) {
+            $dir.scheduleDetails.forEach(scheduleDetail => {
+                let value = schedulesWithValue.filter(
+                    schedule => schedule.week_day == scheduleDetail.week_day
+                )[0] || null;
+
+                
+                if (value) {
+                    value.is_closed = !$scope.hasAnyTimeValue(value);
+                    scheduleDetail = Object.assign(scheduleDetail, value);
+                }
+            });
+        }
+
+        let activeWeekDays = $dir.scheduleDetails.slice(0, 5).filter(scheduleDetail => !scheduleDetail.is_closed);
+        let activeWeekEndDays = $dir.scheduleDetails.slice(5, 6).filter(scheduleDetail => !scheduleDetail.is_closed);
+
+        $dir.same_hours = activeWeekDays.filter(scheduleDetail => {
+            return $scope.isSameSchedule(activeWeekDays[0], scheduleDetail);
+        }).length === activeWeekDays.length;
+
+        $dir.weekend_same_hours = activeWeekEndDays.filter(scheduleDetail => {
+            return $scope.isSameSchedule(activeWeekEndDays[5], scheduleDetail);
+        }).length === activeWeekEndDays.length;
+
+        if ($dir.same_hours && activeWeekDays.length > 0) {
+            $dir.scheduleDetails.slice(0, 5).forEach(scheduleDetail => {
+                $scope.syncTwoDatesHours(scheduleDetail, activeWeekDays[0]);
+            });
+        }
+
+        if ($dir.same_hours && activeWeekEndDays.length > 0) {
+            $dir.scheduleDetails.slice(5, 6).forEach(scheduleDetail => {
+                $scope.syncTwoDatesHours(scheduleDetail, activeWeekEndDays[0]);
+            });
+        }
+
+        $scope.syncModel();
     };
 
     $scope.init();
@@ -274,12 +282,11 @@ module.exports = () => {
         restrict: "EA",
         replace: true,
         controller: [
-            '$scope', 
-            '$element',
+            '$scope',
             '$timeout',
             'OfficeService',
             ScheduleControlDirective
         ],
-        templateUrl: 'assets/tpl/directives/schedule-control.html' 
+        templateUrl: 'assets/tpl/directives/schedule-control.html'
     };
 };
