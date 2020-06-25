@@ -10,5 +10,9 @@ module.exports = {
     'implementation-manage': {
         title: 'Geen webshops',
         description: 'U heeft geen webshops om deze actie uit te voeren.'
+    },
+    'implementation-manage-cms': {
+        title: 'Geen webshop CMS',
+        description: 'U heeft geen webshops om deze actie uit te voeren.'
     }
 };

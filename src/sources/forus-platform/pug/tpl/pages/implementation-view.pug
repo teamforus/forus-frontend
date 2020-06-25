@@ -16,13 +16,19 @@
                         .card-block-implementation-website
                             a(href="{{ $ctrl.implementation.url_webshop }}" target="_blank") {{ $ctrl.implementation.url_webshop }}
                 .card-section-actions  
-                    button(ui-sref="implementation-email({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})").button.button-default 
+                    button(
+                        ng-if="$root.activeOrganization | hasPerm:['manage_implementation']"
+                        ui-sref="implementation-email({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})").button.button-default 
                         em.mdi.mdi-cog.icon-start 
                         translate(translate="Email")
-                    button(ui-sref="implementation-digid({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})").button.button-default 
+                    button(
+                        ng-if="$root.activeOrganization | hasPerm:['manage_implementation']"
+                        ui-sref="implementation-digid({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})").button.button-default 
                         em.mdi.mdi-cog.icon-start
                         translate(translate="DigiD")
-                    button(ui-sref="implementation-cms({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})").button.button-primary 
+                    button(
+                        ng-if="$root.activeOrganization | hasPerm:['manage_implementation', 'manage_implementation_cms']:false"
+                        ui-sref="implementation-cms({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})").button.button-primary 
                         em.mdi.mdi-text-box.icon-start
                         translate(translate="CMS")
 
