@@ -51,16 +51,15 @@ let ScheduleControlDirective = function(
         }
     }
 
-    $dir.syncHours = (modifiedFieldIndex, key, value) => {
-        $timeout(() => {
-            let schedule = $dir.scheduleDetails;
-            let time = schedule[modifiedFieldIndex][key];
+    $dir.syncHours = (index, key) => {
+        let schedule = $dir.scheduleDetails;
+        let time = schedule[index][key];
 
-            schedule[modifiedFieldIndex][key] = transformTime(time || '');
+        schedule[index][key] = transformTime(time || '');
 
-            $scope.syncTime(modifiedFieldIndex);
-            $scope.syncModel();
-        }, 10);
+        $scope.syncTime(index);
+        $scope.syncModel();
+        $scope.buildTimeOptions();
     };
 
     $dir.setSameHours = (week_days = true) => {
@@ -69,9 +68,9 @@ let ScheduleControlDirective = function(
         }, 10);
     };
 
-    $scope.syncTime = (modifiedFieldIndex) => {
-        let time = $dir.scheduleDetails[modifiedFieldIndex],
-            week_days = modifiedFieldIndex <= 4;
+    $scope.syncTime = (index) => {
+        let time = $dir.scheduleDetails[index],
+            week_days = index <= 4;
 
         Object.keys($dir.weekDays).forEach((index) => {
             if (typeof $dir.scheduleDetails != 'undefined' &&
@@ -118,7 +117,7 @@ let ScheduleControlDirective = function(
         }
     };
 
-    $dir.toggleOpened = (index) => {
+    $dir.toggleOpened = () => {
         $timeout(() => {
             $scope.syncModel();
         }, 10);
@@ -184,7 +183,70 @@ let ScheduleControlDirective = function(
             day1.break_end_time == day2.break_end_time;
     };
 
+    $scope.parseTime = (time) => {
+        time = time.split(':');
+        return (time[0] * 60) + (time[1] * 1);
+    };
+
     $scope.buildTimeOptions = () => {
+        let timeOptions = [];
+
+        $dir.scheduleDetails.forEach((scheduleDetail, index) => {
+            timeOptions[index] = {};
+            timeOptions[index].time = $scope.buildTimeOptionsPair(
+                scheduleDetail.start_time,
+                scheduleDetail.end_time
+            );
+
+            let breakPair = $scope.buildTimeOptionsPair(
+                scheduleDetail.break_start_time,
+                scheduleDetail.break_end_time
+            );
+
+            if (typeof scheduleDetail.start_time == 'string' && scheduleDetail.start_time.indexOf(':') !== -1) {
+                breakPair.from = breakPair.from.filter(time => {
+                    return time.key == '' || (
+                        $scope.parseTime(time.key) > $scope.parseTime(scheduleDetail.start_time));
+                });
+
+                breakPair.to = breakPair.to.filter(time => {
+                    return time.key == '' || (
+                        $scope.parseTime(time.key) > $scope.parseTime(scheduleDetail.start_time));
+                });
+            }
+
+
+            if (typeof scheduleDetail.end_time == 'string' && scheduleDetail.end_time.indexOf(':') !== -1) {
+                breakPair.from = breakPair.from.filter(time => {
+                    return time.key == '' || (
+                        $scope.parseTime(time.key) < $scope.parseTime(scheduleDetail.end_time));
+                });
+                
+                breakPair.to = breakPair.to.filter(time => {
+                    return time.key == '' || (
+                        $scope.parseTime(time.key) < $scope.parseTime(scheduleDetail.end_time));
+                });
+            }
+
+            timeOptions[index].break = breakPair;
+        });
+
+        $dir.timeOptions = timeOptions;
+    };
+
+    $scope.buildTimeOptionsPair = (from, to) => {
+        if (typeof from == 'string' && from.indexOf(':') !== -1) {
+            from = $scope.parseTime(from);
+        } else {
+            from = false;
+        };
+
+        if (typeof to == 'string' && to.indexOf(':') !== -1) {
+            to = $scope.parseTime(to);
+        } else {
+            to = false;
+        };
+
         let timeOptions = [];
         let minutes = ['00', '15', '30', '45'];
 
@@ -199,15 +261,30 @@ let ScheduleControlDirective = function(
             });
         });
 
-        $dir.startTimeOptions = [{
-            key: '',
-            value: 'Van'
-        }, ...timeOptions];
+        let pair = {
+            from: [{
+                key: '',
+                value: 'Van'
+            }, ...timeOptions],
+            to: [{
+                key: '',
+                value: 'Tot'
+            }, ...timeOptions],
+        }
 
-        $dir.endTimeOptions = [{
-            key: '',
-            value: 'Tot'
-        }, ...timeOptions];
+        if (from) {
+            pair.to = pair.to.filter(time => {
+                return (time.key === '' || ($scope.parseTime(time.value) > from));
+            });
+        }
+
+        if (to) {
+            pair.from = pair.from.filter(time => {
+                return (time.key === '' || ($scope.parseTime(time.value) < to));
+            });
+        }
+
+        return pair;
     };
 
     $scope.init = () => {
@@ -216,8 +293,6 @@ let ScheduleControlDirective = function(
         $dir.scheduleDetails = [];
 
         let schedulesWithValue = $dir.schedule.filter($scope.hasAnyTimeValue);
-
-        $scope.buildTimeOptions();
 
         $dir.scheduleDetails = Object.keys($dir.weekDays).map(function(week_day) {
             return {
@@ -236,7 +311,7 @@ let ScheduleControlDirective = function(
                     schedule => schedule.week_day == scheduleDetail.week_day
                 )[0] || null;
 
-                
+
                 if (value) {
                     value.is_closed = !$scope.hasAnyTimeValue(value);
                     scheduleDetail = Object.assign(scheduleDetail, value);
@@ -267,8 +342,26 @@ let ScheduleControlDirective = function(
             });
         }
 
+        $scope.buildTimeOptions();
         $scope.syncModel();
     };
+
+    $scope.$watch('errors', (n, o) => {
+        let errors = {};
+
+        if (n != o && typeof n == 'object') {
+            [...Array(7).keys()].forEach(week_day => {
+                errors[week_day] = Object.keys(n).filter(
+                    key => key.startsWith('schedule.' + week_day + '.')
+                ).map((key) => {
+                    return n[key];
+                });
+            });
+        }
+
+
+        $dir.errors = errors;
+    });
 
     $scope.init();
 };
@@ -276,6 +369,7 @@ let ScheduleControlDirective = function(
 module.exports = () => {
     return {
         scope: {
+            errors: '=',
             ngModel: '=',
             options: '='
         },

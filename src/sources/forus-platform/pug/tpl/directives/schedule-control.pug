@@ -17,56 +17,60 @@
 
     //- desktop version
     table(width="100%").hide-sm
-        tr
+        tHead: tr
             th(translate="organization_edit.labels.day")
             th(translate="organization_edit.labels.closed")
             th(translate="organization_edit.labels.start")
             th(translate="organization_edit.labels.end")
             th.breaks(translate="organization_edit.labels.break")
 
-        tr(ng-repeat="(weekDayKey, weekDay) in $dir.weekDays track by $index")
-            td.schedule-day-name(ng-class="$index >= 5 ? 'weekend' : ''" ng-bind="weekDay")
+        tBody(ng-repeat="(weekDayKey, weekDay) in $dir.weekDays track by $index")
+            tr
+                td.schedule-day-name(ng-class="$index >= 5 ? 'weekend' : ''" ng-bind="weekDay")
 
-            td.schedule-day-available
-                ui-control-checkbox(
-                    name="is_closed{{$index}}"
-                    data-id="schedule_is_closed{{$index}}"
-                    ng-change="$dir.toggleOpened($index)"
-                    ng-model="$dir.scheduleDetails[weekDayKey].is_closed")
-            
-            br.hide-lg
-            td
-                select(
-                    ng-model="$dir.scheduleDetails[weekDayKey].start_time"
-                    ng-change="$dir.syncHours($index, 'start_time')"
-                    ng-if="!$dir.scheduleDetails[weekDayKey].is_closed"
-                    ng-options="item.key as item.value for item in $dir.startTimeOptions").form-control.form-control-sm
-
-                span(
-                    ng-if="$dir.scheduleDetails[weekDayKey].is_closed"
-                    translate="organization_edit.labels.closed")
-            
-            td
-                select(
-                    ng-model="$dir.scheduleDetails[weekDayKey].end_time"
-                    ng-change="$dir.syncHours($index, 'end_time')"
-                    ng-if="!$dir.scheduleDetails[weekDayKey].is_closed"
-                    ng-options="item.key as item.value for item in $dir.endTimeOptions").form-control.form-control-sm
-
-            td.breaks
-                .flex-row
-                    .flex-col: select(
-                        ng-model="$dir.scheduleDetails[weekDayKey].break_start_time"
-                        ng-change="$dir.syncHours($index, 'break_start_time')"
+                td.schedule-day-available
+                    ui-control-checkbox(
+                        name="is_closed{{$index}}"
+                        data-id="schedule_is_closed{{$index}}"
+                        ng-change="$dir.toggleOpened($index)"
+                        ng-model="$dir.scheduleDetails[weekDayKey].is_closed")
+                
+                br.hide-lg
+                td
+                    select(
+                        ng-model="$dir.scheduleDetails[weekDayKey].start_time"
+                        ng-change="$dir.syncHours($index, 'start_time')"
                         ng-if="!$dir.scheduleDetails[weekDayKey].is_closed"
-                        ng-options="item.key as item.value for item in $dir.startTimeOptions").form-control.form-control-sm
+                        ng-options="item.key as item.value for item in $dir.timeOptions[weekDayKey].time.from").form-control.form-control-sm
 
-                    .flex-col: select(
-                        ng-model="$dir.scheduleDetails[weekDayKey].break_end_time"
-                        ng-change="$dir.syncHours($index, 'break_end_time')"
+                    span(
+                        ng-if="$dir.scheduleDetails[weekDayKey].is_closed"
+                        translate="organization_edit.labels.closed")
+                
+                td
+                    select(
+                        ng-model="$dir.scheduleDetails[weekDayKey].end_time"
+                        ng-change="$dir.syncHours($index, 'end_time')"
                         ng-if="!$dir.scheduleDetails[weekDayKey].is_closed"
-                        ng-options="item.key as item.value for item in $dir.endTimeOptions").form-control.form-control-sm
+                        ng-options="item.key as item.value for item in $dir.timeOptions[weekDayKey].time.to").form-control.form-control-sm
 
+                td.breaks
+                    .flex-row
+                        .flex-col: select(
+                            ng-model="$dir.scheduleDetails[weekDayKey].break_start_time"
+                            ng-change="$dir.syncHours($index, 'break_start_time')"
+                            ng-if="!$dir.scheduleDetails[weekDayKey].is_closed"
+                            ng-options="item.key as item.value for item in $dir.timeOptions[weekDayKey].break.from").form-control.form-control-sm
+
+                        .flex-col: select(
+                            ng-model="$dir.scheduleDetails[weekDayKey].break_end_time"
+                            ng-change="$dir.syncHours($index, 'break_end_time')"
+                            ng-if="!$dir.scheduleDetails[weekDayKey].is_closed"
+                            ng-options="item.key as item.value for item in $dir.timeOptions[weekDayKey].break.to").form-control.form-control-sm
+            
+            tr(ng-if="$dir.errors[weekDayKey].length > 0"): td(colspan="5")
+                div(ng-repeat="errors in $dir.errors[weekDayKey]")
+                    .form-error(ng-repeat="error in errors" ng-bind="error")
         br
 
     //- mobile version
@@ -93,7 +97,9 @@
                         ng-model="$dir.scheduleDetails[weekDayKey].start_time"
                         ng-change="$dir.syncHours($index, 'start_time')"
                         ng-if="!$dir.scheduleDetails[weekDayKey].is_closed"
-                        ng-options="item.key as item.value for item in $dir.startTimeOptions").form-control.form-control-sm
+                        ng-options="item.key as item.value for item in $dir.timeOptions[weekDayKey].time.from").form-control.form-control-sm
+                
+                    .form-error(ng-repeat="error in errors['schedule.' + weekDayKey + '.start_time']" ng-bind='error')
             
                 .form-group
                     .form-label Close time
@@ -102,7 +108,9 @@
                         ng-model="$dir.scheduleDetails[weekDayKey].end_time"
                         ng-change="$dir.syncHours($index, 'end_time')"
                         ng-if="!$dir.scheduleDetails[weekDayKey].is_closed"
-                        ng-options="item.key as item.value for item in $dir.endTimeOptions").form-control.form-control-sm
+                        ng-options="item.key as item.value for item in $dir.timeOptions[weekDayKey].time.to").form-control.form-control-sm
+
+                    .form-error(ng-repeat="error in errors['schedule.' + weekDayKey + '.end_time']" ng-bind='error')
                 
                 .form-group
                     .form-label Pause start time
@@ -111,14 +119,18 @@
                         ng-model="$dir.scheduleDetails[weekDayKey].break_start_time"
                         ng-change="$dir.syncHours($index, 'break_start_time')"
                         ng-if="!$dir.scheduleDetails[weekDayKey].is_closed"
-                        ng-options="item.key as item.value for item in $dir.startTimeOptions").form-control.form-control-sm
+                        ng-options="item.key as item.value for item in $dir.timeOptions[weekDayKey].break.from").form-control.form-control-sm
+
+                    .form-error(ng-repeat="error in errors['schedule.' + weekDayKey + '.break_start_time']" ng-bind='error')
                 
                 .form-group
                     .form-label Pause end time
                     
                     select(
-                        ng-model="$dir.scheduleDetails[weekDayKey].break_start_time"
-                        ng-change="$dir.syncHours($index, 'break_start_time')"
+                        ng-model="$dir.scheduleDetails[weekDayKey].break_end_time"
+                        ng-change="$dir.syncHours($index, 'break_end_time')"
                         ng-if="!$dir.scheduleDetails[weekDayKey].is_closed"
-                        ng-options="item.key as item.value for item in $dir.endTimeOptions").form-control.form-control-sm
+                        ng-options="item.key as item.value for item in $dir.timeOptions[weekDayKey].break.to").form-control.form-control-sm
+
+                    .form-error(ng-repeat="error in errors['schedule.' + weekDayKey + '.break_end_time']" ng-bind='error')
                 br
