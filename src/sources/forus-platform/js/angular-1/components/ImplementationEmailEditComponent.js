@@ -10,7 +10,7 @@ let ImplementationEmailEditComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.form = FormBuilderService.build($ctrl.implementation, (form) => {
-            ImplementationService.update(
+            ImplementationService.updateEmail(
                 $rootScope.activeOrganization.id, 
                 $ctrl.implementation.id,
                 form.values
