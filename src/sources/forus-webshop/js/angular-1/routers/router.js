@@ -481,8 +481,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: "restore-email",
         url: "/identity-restore?token&target",
-        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'ModalService', 'appConfigs', (
-            $rootScope, $state, IdentityService, CredentialsService, ModalService, appConfigs
+        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'ModalService', 'AuthService', 'appConfigs', (
+            $rootScope, $state, IdentityService, CredentialsService, ModalService, AuthService, appConfigs
         ) => {
             let target = $state.params.target || '';
 
@@ -499,7 +499,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 }
             }, () => {
                 $state.go('home');
-                ModalService.open('identityProxyExpired', {});
+
+                if (!AuthService.hasCredentials()) {
+                    ModalService.open('identityProxyExpired', {});
+                }
             });
         }],
         data: {
