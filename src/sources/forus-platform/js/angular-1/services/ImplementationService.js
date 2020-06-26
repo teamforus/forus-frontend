@@ -17,23 +17,23 @@ let ImplementationService = function(
         };
 
         this.updateCMS = (organization_id, implementation_id, data) => {
-            return ApiRequest.post(
+            return ApiRequest.patch(
                 uriPrefix + organization_id + '/implementations/' + 
-                implementation_id + '/update-cms', data
+                implementation_id + '/cms', data
             );
         };
 
         this.updateDigiD = (organization_id, implementation_id, data) => {
-            return ApiRequest.post(
+            return ApiRequest.patch(
                 uriPrefix + organization_id + '/implementations/' + 
-                implementation_id + '/update-digid', data
+                implementation_id + '/digid', data
             );
         };
 
         this.updateEmail = (organization_id, implementation_id, data) => {
-            return ApiRequest.post(
+            return ApiRequest.patch(
                 uriPrefix + organization_id + '/implementations/' + 
-                implementation_id + '/update-email', data
+                implementation_id + '/email', data
             );
         };
     });

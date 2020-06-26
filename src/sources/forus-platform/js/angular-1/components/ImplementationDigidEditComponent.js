@@ -1,6 +1,4 @@
 let ImplementationDigidEditComponent = function(
-    $state,
-    $stateParams,
     $rootScope,
     FormBuilderService,
     ImplementationService,
@@ -31,8 +29,6 @@ module.exports = {
         implementation: '<',
     },
     controller: [
-        '$state',
-        '$stateParams',
         '$rootScope',
         'FormBuilderService',
         'ImplementationService',

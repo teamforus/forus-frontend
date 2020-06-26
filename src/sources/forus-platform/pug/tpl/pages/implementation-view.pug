@@ -27,7 +27,7 @@
                         em.mdi.mdi-cog.icon-start
                         translate(translate="DigiD")
                     button(
-                        ng-if="$root.activeOrganization | hasPerm:['manage_implementation', 'manage_implementation_cms']:false"
+                        ng-if="$root.activeOrganization | hasPerm:['manage_implementation_cms']:false"
                         ui-sref="implementation-cms({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})").button.button-primary 
                         em.mdi.mdi-text-box.icon-start
                         translate(translate="CMS")
