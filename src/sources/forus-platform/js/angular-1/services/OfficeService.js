@@ -2,7 +2,7 @@ let OfficeService = function(ApiRequest) {
     let uriPrefix = '/platform/organizations/';
 
     return new(function() {
-        this.list = function(organization_id, query={}) {
+        this.list = function(organization_id, query = {}) {
             return ApiRequest.get(
                 uriPrefix + organization_id + '/offices',
                 query
@@ -11,14 +11,14 @@ let OfficeService = function(ApiRequest) {
 
         this.store = function(organization_id, values) {
             return ApiRequest.post(
-                uriPrefix + organization_id + '/offices', 
+                uriPrefix + organization_id + '/offices',
                 this.apiFormToResource(values)
             );
         };
 
         this.update = function(organization_id, id, values) {
             return ApiRequest.patch(
-                uriPrefix + organization_id + '/offices/' + id, 
+                uriPrefix + organization_id + '/offices/' + id,
                 this.apiFormToResource(values)
             );
         };
@@ -51,29 +51,40 @@ let OfficeService = function(ApiRequest) {
         this.apiFormToResource = function(formData) {
             let values = JSON.parse(JSON.stringify(formData));
             let schedule = values.schedule ? Object.values(values.schedule) : [];
+            let fields = [
+                'week_day', 'start_time', 'end_time', 'break_start_time', 'break_end_time'
+            ];
 
-            schedule.forEach((schedule_item, week_day) => {
-                schedule[week_day] = {
-                    start_time: schedule_item.start_time || 'null',
-                    end_time: schedule_item.end_time || 'null',
-                    break_start_time: schedule_item.break_start_time || 'null',
-                    break_end_time: schedule_item.break_end_time || 'null',
-                };
+            schedule = schedule.filter(schedule_item => schedule_item).map(schedule_item => {
+                let _schedule_item = {};
+                
+                fields.forEach(field => {
+                    if (schedule_item[field]) {
+                        _schedule_item[field] = schedule_item[field]; 
+                    }
+                });
+
+                return _schedule_item;
             });
 
-            values.schedule = schedule;
+            values.schedule = {};
+
+            schedule.forEach(scheduleItem => {
+                values.schedule[scheduleItem.week_day] = scheduleItem;
+            });
 
             return values;
         };
 
         this.apiResourceToForm = function(apiResource) {
-            let schedule = {};
+            let schedule = [];
             let weekDays = this.scheduleWeekDays();
 
             apiResource.schedule = apiResource.schedule || [];
 
             apiResource.schedule.forEach((schedule_item, week_day) => {
                 schedule[week_day] = {
+                    week_day: schedule_item.week_day + '',
                     start_time: schedule_item.start_time,
                     end_time: schedule_item.end_time,
                     break_start_time: schedule_item.break_start_time,
@@ -126,7 +137,7 @@ let OfficeService = function(ApiRequest) {
                 6: "Zo"
             };
         };
-        
+
         this.scheduleWeekDaysExplicit = () => {
             return {
                 0: "Maandag",

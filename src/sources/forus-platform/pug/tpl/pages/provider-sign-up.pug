@@ -14,7 +14,7 @@
                 .sign_up-step-border
                 .sign-up-step-block Stap {{ ' ' + ($index + 1) }}
 
-            .sign_up-progress-overview Stap {{ $ctrl.step }} van {{ $ctrl.shownSteps.length }}
+            .sign_up-progress-overview Stap {{ $ctrl.step }} van {{ $ctrl.shownSteps.length + 2 }}
 
     .block.block-sign_up: .block-wrapper
         .sign_up-header: a(ng-click="$ctrl.goToMain()").sign_up-header-back
@@ -134,7 +134,7 @@
                                 translate="sign_up_provider.app_instruction.create_profile"
                                 ng-class="{'button-disabled':!$ctrl.signUpForm.values.email}")
 
-                    .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="sign_up_provider.no_app.continue_app")
+                    .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="sign_up_provider.no_app.continue_app").hide-sm
 
                 .sign_up-pane-body(ng-if="$ctrl.authEmailSent || $ctrl.authEmailRestoreSent").text-center
                     .sign_up-pane-media: img(ng-src="./assets/img/email_confirmed.svg")  
@@ -467,8 +467,8 @@
                             | {{ 'sign_up_provider.buttons.next' | translate }}
                             em.mdi.mdi-chevron-right.icon-right
 
-        //- Apply fund success screen
-        .finish-screen(ng-if="$ctrl.step == $ctrl.STEP_PROCESS_NOTICE")
+        //- Apply fund success screen (Desktop)
+        .finish-screen(ng-if="$ctrl.step == $ctrl.STEP_PROCESS_NOTICE").hide-sm
             +progress()
 
             .sign_up-pane
@@ -491,6 +491,29 @@
                         .button.button-text.button-text-padless(ng-click="$ctrl.finish()")
                             | {{ 'sign_up_provider.buttons.go_to_dashboard' | translate }}
                             em.mdi.mdi-chevron-right.icon-right
+        
+        //- Apply fund success screen (Mobile)
+        .finish-screen(ng-if="$ctrl.step == $ctrl.STEP_PROCESS_NOTICE").show-sm
+            +progress()
+
+            .sign_up-pane
+                .sign_up-pane-header(translate="sign_up_provider.header.title_step_9_mobile")
+
+                .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
+                    .form-group.col.col-lg-12
+                        .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
+                        .sign_up-pane-heading.text-center(translate="sign_up_provider.header.top_title_step_9_mobile")
+                        p.sign_up-pane-text.text-left(translate="sign_up_provider.header.subtitle_step_9_mobile")
+
+                        .text-center: .button.button-primary-variant(
+                            ng-if="$ctrl.loggedWithApp"
+                            ng-click="$ctrl.next()"
+                            translate="sign_up_provider.buttons.go_test_screen")
+                    
+                    .row: .col-lg-12.col-md-12.col-sm-12
+                        a.button.button-primary-outline.col-xs-12(
+                            href="https://www.forus.io/DL" 
+                            translate="sign_up_provider.header.download_step_9_mobile")
 
         //- Scan QR Code (test)
         div(ng-if="$ctrl.step == $ctrl.STEP_DEMO_TRANSACTION")

@@ -26,14 +26,14 @@
                             label.form-label {{ "offices_edit.labels.phone" | translate }}
                             input(ng-model="$ctrl.form.values.phone" type="text" placeholder="{{ 'offices_edit.labels.phone' | translate }}").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.phone" ng-bind="error")
+
             .card-section.card-section-primary
-                .row 
-                    .col.col-xs-12
-                        .form-group.form-group-inline
-                            label.form-label &nbsp;
-                            .form-offset
-                                schedule-control(ng-model="$ctrl.form.values.schedule")
-                                .form-error(ng-bind="$ctrl.form.errors.schedule") 
+                .row: .col.col-xs-12
+                    .form-group.form-group-inline
+                        label.form-label &nbsp;
+                        .form-offset
+                            schedule-control(ng-model="$ctrl.form.values.schedule" errors="$ctrl.form.errors")
+                            .form-error(ng-repeat="error in $ctrl.form.errors.schedule" ng-bind="error") 
 
             .card-section.card-section-primary
                 .text-center
