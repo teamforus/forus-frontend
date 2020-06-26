@@ -21,7 +21,8 @@ let ExplanationComponent = function(
 
 module.exports = {
     bindings: {
-        provider: '<'
+        provider: '<',
+        funds: '<',
     },
     controller: [
         '$sce',

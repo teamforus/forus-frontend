@@ -219,7 +219,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         url: "/explanation",
         component: "explanationComponent",
         params: {},
-        resolve: {}
+        resolve: {
+            funds: ['FundService', (
+                FundService
+            ) => repackResponse(FundService.list())]
+        }
     });
 
     $stateProvider.state({
