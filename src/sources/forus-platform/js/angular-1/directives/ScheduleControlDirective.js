@@ -4,6 +4,7 @@ let ScheduleControlDirective = function(
     OfficeService
 ) {
     let $dir = $scope.$dir = {};
+    let timeCache = {};
 
     let transformHours = (hours) => {
         if (hours < 0) {
@@ -184,8 +185,12 @@ let ScheduleControlDirective = function(
     };
 
     $scope.parseTime = (time) => {
-        time = time.split(':');
-        return (time[0] * 60) + (time[1] * 1);
+        if (timeCache[time] === undefined) {
+            let timeValue = time.split(':');
+            timeCache[time] = (timeValue[0] * 60) + (timeValue[1] * 1);
+        }
+
+        return timeCache[time];
     };
 
     $scope.buildTimeOptions = () => {
