@@ -15,6 +15,7 @@
                                     type="office_photo"
                                     thumbnail="$ctrl.media.sizes.thumbnail"
                                     select-photo="$ctrl.selectPhoto(file)")
+            
             .card-section.card-section-primary
                 .row 
                     .col.col-lg-9.col-lg-12
@@ -31,9 +32,7 @@
                 .row: .col.col-xs-12
                     .form-group.form-group-inline
                         label.form-label &nbsp;
-                        .form-offset
-                            schedule-control(ng-model="$ctrl.form.values.schedule" errors="$ctrl.form.errors")
-                            .form-error(ng-repeat="error in $ctrl.form.errors.schedule" ng-bind="error") 
+                        .form-offset: schedule-control(ng-model="$ctrl.form.values.schedule" errors="$ctrl.form.errors")
 
             .card-section.card-section-primary
                 .text-center

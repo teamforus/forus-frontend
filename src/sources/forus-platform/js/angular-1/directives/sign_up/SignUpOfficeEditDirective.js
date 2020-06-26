@@ -39,12 +39,6 @@ let SignUpOfficeEditDirective = function(
                     }
                 }, (res) => {
                     form.errors = res.data.errors;
-                    // Temporary fix
-                    for (let errorKey in form.errors) {
-                        if (errorKey.indexOf('schedule') != -1) {
-                            form.errors.schedule = $translate('offices_edit.errors.schedule');
-                        }
-                    }
                     form.unlock();
                 });
             };

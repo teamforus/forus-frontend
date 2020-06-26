@@ -59,7 +59,7 @@ let OfficeService = function(ApiRequest) {
                 let _schedule_item = {};
                 
                 fields.forEach(field => {
-                    if (schedule_item[field]) {
+                    if (schedule_item[field] !== undefined && schedule_item[field] !== '') {
                         _schedule_item[field] = schedule_item[field]; 
                     }
                 });
