@@ -554,7 +554,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "implementationsComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('implementation-manage', 'manage_implementation'),
+            permission: permissionMiddleware('implementation-manage', [
+                'manage_implementation', 'manage_implementation_cms'
+            ], false),
             funds: ['permission', '$transition$', 'FundService', (
                 permission, $transition$, FundService
             ) => repackResponse(FundService.list(
@@ -578,7 +580,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "implementationViewComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('implementation-manage', 'manage_implementation'),
+            permission: permissionMiddleware('implementation-manage', [
+                'manage_implementation', 'manage_implementation_cms'
+            ], false),
             implementation: ['permission', '$transition$', 'ImplementationService', (
                 permission, $transition$, ImplementationService
             ) => repackResponse(ImplementationService.read(
@@ -604,7 +608,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "implementationCmsEditComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('implementation-manage', 'manage_implementation'),
+            permission: permissionMiddleware('implementation-manage', [
+                'manage_implementation', 'manage_implementation_cms'
+            ], false),
             implementation: ['permission', '$transition$', 'ImplementationService', (
                 permission, $transition$, ImplementationService
             ) => repackResponse(ImplementationService.read(

@@ -16,9 +16,24 @@ let ImplementationService = function(
             );
         };
 
-        this.update = (organization_id, implementation_id, data) => {
+        this.updateCMS = (organization_id, implementation_id, data) => {
             return ApiRequest.patch(
-                uriPrefix + organization_id + '/implementations/' + implementation_id, data
+                uriPrefix + organization_id + '/implementations/' + 
+                implementation_id + '/cms', data
+            );
+        };
+
+        this.updateDigiD = (organization_id, implementation_id, data) => {
+            return ApiRequest.patch(
+                uriPrefix + organization_id + '/implementations/' + 
+                implementation_id + '/digid', data
+            );
+        };
+
+        this.updateEmail = (organization_id, implementation_id, data) => {
+            return ApiRequest.patch(
+                uriPrefix + organization_id + '/implementations/' + 
+                implementation_id + '/email', data
             );
         };
     });

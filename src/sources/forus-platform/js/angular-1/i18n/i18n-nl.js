@@ -1670,7 +1670,9 @@ module.exports = {
             validation: 'Aanvragers toevoegen (inwoners toevoegen via CSV bestand)',
             operation_officer: 'Verrichten van betalingen via Me app (voor aanbieders)',
             finance: 'Overzicht van statistieken, transacties en het financieel dashboard',
-            policy_officer: 'Aanbieders goedkeuren en instellingen van het fonds aanpassen'
+            policy_officer: 'Aanbieders goedkeuren en instellingen van het fonds aanpassen',
+            implementation_manager: 'Implementatie manager',
+            implementation_cms_manager: 'Implementatie CMS manager'
         }
     },
 
