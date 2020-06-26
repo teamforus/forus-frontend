@@ -412,9 +412,6 @@ module.exports = {
             cancel: "Annuleren",
             confirm: "Bevestigen",
         },
-        errors: {
-            schedule: 'Format should be h:m, ex 09:00',
-        }
     },
 
     // OFFICES = offices.pug
