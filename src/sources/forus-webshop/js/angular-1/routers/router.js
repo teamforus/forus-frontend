@@ -215,6 +215,18 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: "explanation",
+        url: "/explanation",
+        component: "explanationComponent",
+        params: {},
+        resolve: {
+            funds: ['FundService', (
+                FundService
+            ) => repackResponse(FundService.list())]
+        }
+    });
+
+    $stateProvider.state({
         name: "provider-office",
         url: "/providers/{provider_id}/offices/{office_id}",
         component: "providerOfficeComponent",

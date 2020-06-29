@@ -26,6 +26,7 @@ let ProviderSignUpComponent = function(
     let $translate = $filter('translate');
 
     let waitingSms = false;
+    let isMobile = () => $(window).width() < 1000;
 
     $rootScope.showAppHeader = false;
     $rootScope.layout = [
@@ -72,6 +73,8 @@ let ProviderSignUpComponent = function(
     $ctrl.showAddOfficeBtn = true;
     $ctrl.isAddingNewOffice = false;
 
+    $ctrl.loggedWithApp = progressStorage.has('logged-with-app');
+
     $ctrl.calcSteps = () => {
         $ctrl.STEP_INFO_GENERAL = 1;
         $ctrl.STEP_INFO_ME_APP = 2;
@@ -84,9 +87,15 @@ let ProviderSignUpComponent = function(
             $ctrl.STEP_EMPLOYEES = 6;
             $ctrl.STEP_FUND_APPLY = 7;
             $ctrl.STEP_PROCESS_NOTICE = 8;
-            $ctrl.STEP_DEMO_TRANSACTION = 9;
-            $ctrl.STEP_SIGNUP_FINISHED = 10;
-            $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, 7, /**8 */ ];
+
+            if (isMobile()) {
+                $ctrl.STEP_SIGNUP_FINISHED = 9;
+                $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, /* 7, 8 */ ];
+            } else {
+                $ctrl.STEP_DEMO_TRANSACTION = 9;
+                $ctrl.STEP_SIGNUP_FINISHED = 10;
+                $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, 7, /* 8 */ ];
+            }
         } else {
             $ctrl.STEP_SCAN_QR = 3;
             $ctrl.STEP_SELECT_ORGANIZATION = 4;
@@ -95,9 +104,15 @@ let ProviderSignUpComponent = function(
             $ctrl.STEP_EMPLOYEES = 7;
             $ctrl.STEP_FUND_APPLY = 8;
             $ctrl.STEP_PROCESS_NOTICE = 9;
-            $ctrl.STEP_DEMO_TRANSACTION = 10;
-            $ctrl.STEP_SIGNUP_FINISHED = 11;
-            $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, 7, 8, /*9 */ ];
+
+            if (isMobile()) {
+                $ctrl.STEP_SIGNUP_FINISHED = 10;
+                $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, 7, /* 8, 9 */ ];
+            } else {
+                $ctrl.STEP_DEMO_TRANSACTION = 10;
+                $ctrl.STEP_SIGNUP_FINISHED = 11;
+                $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, 7, 8, /* 9 */ ];
+            }
         }
     };
 
@@ -372,89 +387,37 @@ let ProviderSignUpComponent = function(
     let loadEmployees = (organization) => {
         OrganizationEmployeesService.list(organization.id).then((res) => {
             if (res.data.data.length) {
-                $ctrl.employees = res.data.data;
+                $ctrl.employees = res.data.data.filter(employee => {
+                    return employee.identity_address != $scope.$root.auth_user.address;
+                });
             } else {
                 $ctrl.addEmployee();
             }
         });
     };
 
-    $ctrl.getFundFilters = () => {
-        $ctrl.fundOrganizations = [];
-        $ctrl.fundLabels = [];
+    $ctrl.filters = {
+        values: {
+            q: "",
+            per_page: 10
+        },
+    };
 
-        let processedOrganizations = [];
-        let processedLabels = [];
+    $ctrl.onFundsAvailablePageChange = (query) => {
+        getAvailableFunds($ctrl.organization, query);
+    };
 
-        $ctrl.fundsAvailable.forEach(fund => {
-            if (processedOrganizations.indexOf(fund.organization.id) == -1) {
-                $ctrl.fundOrganizations.push({
-                    id: fund.organization.id,
-                    name: fund.organization.name
-                });
-
-                processedOrganizations.push(fund.organization.id);
-            }
-
-            fund.tags.forEach(tag => {
-                if (processedLabels.indexOf(tag.id) == -1) {
-                    $ctrl.fundLabels.push({
-                        id: tag.id,
-                        key: tag.key,
-                        name: tag.name
-                    });
-
-                    processedLabels.push(tag.id);
-                }
-            });
-        });
-
-        $ctrl.fundOrganizations = $ctrl.fundOrganizations.map(fundOrganization => {
-            fundOrganization.id_str = fundOrganization.id += '';
-            return fundOrganization;
-        });
-
-        $ctrl.fundLabels.unshift({
-            key: 'null',
-            name: $translate('sign_up_provider.filters.options.all_labels')
-        });
-
-        $ctrl.fundOrganizations.unshift({
-            id_str: 'null',
-            name: $translate('sign_up_provider.filters.options.all_organizations')
-        });
-
-        $ctrl.fundLabel = $ctrl.fundLabel ? $ctrl.fundLabel : 'null';
-        $ctrl.fundOrganization = $ctrl.fundOrganization ? $ctrl.fundOrganization : 'null';
-    }
-
-    $ctrl.filterFunds = (organization = $ctrl.organization) => {
-        let organization_id = $ctrl.fundOrganization && $ctrl.fundOrganization != 'null' ?
-            $ctrl.fundOrganization : $stateParams.organization_id;
-        let label = $ctrl.fundLabel && $ctrl.fundLabel != 'null' ?
-            $ctrl.fundLabel : $stateParams.tag;
-        let fund_id = $stateParams.fund_id,
-            search_params = {};
-
-        if (organization_id) {
-            search_params.organization_id = organization_id;
-        }
-
-        if (label) {
-            search_params.tag = label;
-        }
-
-        if (fund_id) {
-            search_params.fund_id = fund_id;
-        }
-
-        return ProviderFundService.listAvailableFunds(
-            organization.id, search_params
+    let getAvailableFunds = (organization, query) => {
+        ProviderFundService.listAvailableFunds(
+            organization.id, query
         ).then(res => {
-            let fundsAvailable = res.data.data;
+            let fundsAvailable = $ctrl.fundsAvailable = {
+                meta: res.data.meta,
+                data: res.data.data
+            };
 
-            if ($stateParams.fundId && fundsAvailable.length > 0) {
-                let targetFund = fundsAvailable.filter(
+            if ($stateParams.fundId && fundsAvailable.meta.total > 0) {
+                let targetFund = fundsAvailable.data.filter(
                     fund => fund.id == $stateParams.fundId
                 )[0] || null;
 
@@ -465,28 +428,41 @@ let ProviderSignUpComponent = function(
                     ).then($ctrl.next);
                 }
             }
-
-            $ctrl.fundsAvailable = fundsAvailable;
-        });
-    }
-
-    let loadAvailableFunds = (organization) => {
-        $ctrl.filterFunds(organization).then(() => {
-            if ($ctrl.showFilters = !$stateParams.organization_id && !$stateParams.tag) {
-                $ctrl.getFundFilters();
-            }
         });
     };
 
-    $ctrl.setStep = (step) => {
-        let stepsTotal = $ctrl.shownSteps.length + $ctrl.INFO_STEPS + $ctrl.DEMO_STEPS;
+    let loadAvailableFunds = (organization) => {
+        $ctrl.showFilters = !$stateParams.organization_id && !$stateParams.tag;
+        let search_params = $ctrl.filters.values;
 
-        if (step <= stepsTotal) {
+        if (!$ctrl.showFilters) {
+            if ($stateParams.organization_id) {
+                search_params.organization_id = $stateParams.organization_id;
+            }
+    
+            if ($stateParams.tag) {
+                search_params.tag = $stateParams.tag;
+            }
+    
+            if ($stateParams.fund_id) {
+                search_params.fund_id = $stateParams.fund_id;
+            }
+        }
+
+        getAvailableFunds(organization, search_params);
+    };
+
+    $ctrl.setStep = (step) => {
+        if (step <= $ctrl.STEP_SIGNUP_FINISHED) {
             $ctrl.step = step;
             progressStorage.set('step', step);
 
             if ($ctrl.step == $ctrl.STEP_SCAN_QR) {
-                $ctrl.requestAuthQrToken();
+                if (isMobile()) {
+                    $ctrl.setHasAppProp(false);
+                } else {
+                    $ctrl.requestAuthQrToken();
+                }
             }
 
             if ($ctrl.step == $ctrl.STEP_SELECT_ORGANIZATION) {
@@ -497,13 +473,9 @@ let ProviderSignUpComponent = function(
                 });
             }
 
-            if ($ctrl.step >= $ctrl.STEP_ORGANIZATION_ADD) {
-                if (progressStorage.has('organizationForm')) {
-                    $ctrl.organizationForm.values = JSON.parse(progressStorage.get('organizationForm'));
-                    $ctrl.setOrganization($ctrl.organizationForm.values);
-                } else {
-                    $ctrl.organizationForm.values = {};
-                }
+            if ($ctrl.step >= $ctrl.STEP_ORGANIZATION_ADD && progressStorage.has('organizationForm')) {
+                $ctrl.organizationForm.values = JSON.parse(progressStorage.get('organizationForm'));
+                $ctrl.setOrganization($ctrl.organizationForm.values);
             }
 
             if (step == $ctrl.STEP_OFFICES && $ctrl.organization) {
@@ -540,7 +512,7 @@ let ProviderSignUpComponent = function(
         }
 
         // last step, time for progress cleanup
-        if (step >= stepsTotal) {
+        if (step >= $ctrl.STEP_SIGNUP_FINISHED) {
             progressStorage.clear();
         }
     };
@@ -633,7 +605,8 @@ let ProviderSignUpComponent = function(
 
             authTokenSubscriber.checkAccessTokenStatus(res.data.access_token, () => {
                 $ctrl.calcSteps();
-                $ctrl.signedIn = true;
+                $ctrl.signedIn = $ctrl.loggedWithApp = true;
+                progressStorage.set('logged-with-app', $ctrl.loggedWithApp);
 
                 if ($ctrl.step == $ctrl.STEP_SCAN_QR) {
                     $ctrl.setStep($ctrl.STEP_SELECT_ORGANIZATION);

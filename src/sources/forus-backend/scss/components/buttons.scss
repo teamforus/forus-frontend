@@ -23,19 +23,23 @@
     &[disabled],
     &.disabled,
     &.button-disabled {
-        cursor: default !important;
-        background: #f6f8f9 !important;
-        border-color: #f6f8f9 !important;
-        box-shadow: 0 2px 5px rgba(#000000, 0.1) !important;
-        color: #bbc1c6 !important;
+        cursor: default;
+        background: #f6f8f9;
+        border-color: #f6f8f9;
+        box-shadow: 0 2px 5px rgba(#000000, 0.1);
+        color: #bbc1c6;
 
         &:hover {
-            background: #f6f8f9 !important;
-            border-color: #f6f8f9 !important;
-            color: #bbc1c6 !important;
-            box-shadow: 0 2px 5px rgba(#000000, 0.1) !important;
-            transform: none !important;
-            top: 0 !important;
+            background: #f6f8f9;
+            border-color: #f6f8f9;
+            color: #bbc1c6;
+            box-shadow: 0 2px 5px rgba(#000000, 0.1);
+            transform: none;
+            top: 0;
+        }
+
+        &:focus {
+            outline: none;
         }
     }
 

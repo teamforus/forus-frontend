@@ -1,0 +1,32 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .block.block-breadcrumbs
+            .breadcrumb-item(ui-sref="implementations({organization_id: $root.activeOrganization.id})") Webshops 
+            .breadcrumb-item(ui-sref="implementation-view({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})" ng-bind="$ctrl.implementation.name")
+            .breadcrumb-item.active Email instellingen
+
+        .card: form(ng-submit="$ctrl.form.submit()").form
+            .card-header
+                .card-title(i18n="Email instellingen")
+            
+            .card-section.card-section-primary: .row: .col.col-lg-9
+                .form-group.form-group-inline
+                    label.form-label Afzender emailadres
+                    input(ng-model="$ctrl.form.values.email_from_address" type="text" placeholder="Afzender emailadres").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.email_from_address" ng-bind="error")
+            
+                .form-group.form-group-inline
+                    label.form-label Afzender naam
+                    input(ng-model="$ctrl.form.values.email_from_name" type="text" placeholder="Afzender naam").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.email_from_name" ng-bind="error")
+            
+            .card-section.card-section-primary: .row: .col.col-lg-9
+                .form-group.form-group-inline
+                    label.form-label
+                        em.mdi.mdi-information(style="font-size: 18px;")
+                    span Forus zal uw e-mailadres verifieren en uw systeembeheer vragen om Forus zijn mailservice als veilige afzender toe te voegen aan uw domein.
+
+            .card-section.card-section-primary: .text-center
+                button(type="button" ui-sref="implementation-view({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})" translate="funds_edit.buttons.cancel").button.button-default
+                button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary

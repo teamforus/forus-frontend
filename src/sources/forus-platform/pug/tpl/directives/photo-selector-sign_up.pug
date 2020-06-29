@@ -1,7 +1,9 @@
 .block.block-photo-selector
     .photo-img: img(ng-click="selectFile($event)" ng-src="{{ thumbnail || './assets/img/placeholders/photo-selector.svg' }}", alt="")
-    .photo-label(ng-if="!label" translate="photo_selector.labels.image")
-    .photo-label(ng-if="label" ng-bind="label" )
-    .photo-label(ng-if="labelTranslate" translate="{{ labelTranslate }}")
-    .photo-description(ng-if="description" ng-bind="description")
-    .photo-description(ng-if="descriptionTranslate" translate="{{ descriptionTranslate }}")
+    .photo-details
+        .photo-label(ng-if="!label" translate="photo_selector.labels.image")
+        .photo-label(ng-if="label" ng-bind="label" )
+        .photo-label(ng-if="labelTranslate" translate="{{ labelTranslate }}")
+        .button.button-primary-outline.button-sm(ng-click="selectFile($event)") Afbeelding uploaden
+        .photo-description(ng-if="description" ng-bind="description")
+        .photo-description(ng-if="descriptionTranslate" translate="{{ descriptionTranslate }}")

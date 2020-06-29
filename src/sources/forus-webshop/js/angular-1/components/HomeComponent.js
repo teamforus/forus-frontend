@@ -1,6 +1,7 @@
 let HomeComponent = function(
     $state,
     $stateParams,
+    $sce,
     appConfigs,
     ModalService,
     AuthService,
@@ -50,6 +51,10 @@ let HomeComponent = function(
                 errorCode: 'digid_' + $stateParams.digid_error
             });
         }
+
+        $ctrl.description_html = $sce.trustAsHtml(
+            appConfigs.features.settings.description_html
+        );
     };
 };
 
@@ -64,6 +69,7 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
+        '$sce',
         'appConfigs',
         'ModalService',
         'AuthService',

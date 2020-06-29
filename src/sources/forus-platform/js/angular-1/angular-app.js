@@ -46,6 +46,11 @@ app.component('emailPreferencesComponent', require('./components/EmailPreference
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
 app.component('fundProviderInviteComponent', require('./components/FundProviderInviteComponent'));
 app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
+app.component('implementationsComponent', require('./components/ImplementationsComponent'));
+app.component('implementationViewComponent', require('./components/ImplementationViewComponent'));
+app.component('implementationCmsEditComponent', require('./components/ImplementationCmsEditComponent'));
+app.component('implementationEmailEditComponent', require('./components/ImplementationEmailEditComponent'));
+app.component('implementationDigidEditComponent', require('./components/ImplementationDigidEditComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -122,6 +127,7 @@ app.service('SignUpService', require('./services/SignUpService'));
 app.service('IdentityEmailsService', require('./services/IdentityEmailsService'));
 app.service('ProductChatService', require('./services/ProductChatService'));
 app.service('FundProviderChatService', require('./services/FundProviderChatService'));
+app.service('ImplementationService', require('./services/ImplementationService'));
 
 // Directives
 switch (env_data.panel_type) {
@@ -183,6 +189,7 @@ app.directive('pdfPreview', require('./directives/PdfPreviewDirective'));
 app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
 app.directive('fundCardInvitationProvider', require('./directives/FundCardInvitationProviderDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
+app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDirective'));
 
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 
