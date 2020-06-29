@@ -1233,7 +1233,7 @@ module.exports = {
             provider: "AANBIEDER",
             search: "Zoeken",
             from: "Vanaf",
-            to: "Tot",
+            to: "Tot en met",
             state: "Status",
             fund_state: "Status fonds",
             amount: "Bedrag",
