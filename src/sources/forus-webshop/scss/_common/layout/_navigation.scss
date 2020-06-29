@@ -424,13 +424,19 @@
     }
 
     @media screen and (max-width: 1700px) {
+        .button{
+            font-size: 11px;
+            img{
+                margin: 3px 9px;
+            }
+        }
+        
         &.block-navbar {
             .navbar-logo {
                 padding: 20px 20px;
 
                 img {
                     height: 30px;
-                    margin: 0 0;
                 }
             }
 
@@ -504,7 +510,7 @@
             .navbar-inner {
                 padding: 0 0;
                 border-radius: 0;
-                justify-content: flex-end;
+                justify-content: flex-start;
             }
 
             .navbar-logo {

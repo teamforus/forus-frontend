@@ -1,4 +1,11 @@
 .block.block-navbar: .navbar-inner.wrapper
+    a.button(
+        ng-if="!$root.appConfigs.features.settings.has_more_info_url"
+        ui-sref="explanation"
+        ui-sref-active="active").show-sm
+            img(src="./assets/img/icon-menu/icon-menu-info.svg")
+            div(translate="topnavbar.items.explanation")
+
     a(ui-sref="home" ng-if="$root.appConfigs.client_key != 'general'").navbar-logo
         img(ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" ng-if="$root.appConfigs.flags.secondLogo").second-logo
         img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
