@@ -328,21 +328,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => repackResponse(FundService.list(
                 $transition$.params().organization_id
             ))],
-            fundProviders: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => {
-                if ($transition$.params().fund_id == null) {
-                    return new Promise((res) => res(null));
-                }
-
-                return repackPagination(
-                    FundService.listProviders(
-                        $transition$.params().organization_id,
-                        $transition$.params().fund_id,
-                        'approved'
-                    )
-                );
-            }],
             productCategories: ['ProductCategoryService', (
                 ProductCategoryService
             ) => repackResponse(ProductCategoryService.list({
