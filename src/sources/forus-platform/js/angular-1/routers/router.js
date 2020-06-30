@@ -583,12 +583,22 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             permission: permissionMiddleware('implementation-manage', [
                 'manage_implementation', 'manage_implementation_cms'
             ], false),
-            implementation: ['permission', '$transition$', 'ImplementationService', (
-                permission, $transition$, ImplementationService
-            ) => repackResponse(ImplementationService.read(
-                $transition$.params().organization_id,
-                $transition$.params().id,
-            ))],
+            implementation: ['permission', '$transition$', '$q', '$state', 'ImplementationService', (
+                permission, $transition$, $q, $state, ImplementationService
+            ) => { 
+                return ImplementationService.read(
+                    $transition$.params().organization_id,
+                    $transition$.params().id,
+                ).then(res => { 
+                    return $q.resolve(res.data.data); 
+                }, res => { 
+                    $state.go('implementations', {
+                        organization_id: $transition$.params().organization_id
+                    });
+                    
+                    return $q.reject();
+                })
+            }],
             funds: ['permission', '$transition$', 'FundService', (
                 permission, $transition$, FundService
             ) => repackResponse(FundService.list(
@@ -611,12 +621,22 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             permission: permissionMiddleware('implementation-manage', [
                 'manage_implementation', 'manage_implementation_cms'
             ], false),
-            implementation: ['permission', '$transition$', 'ImplementationService', (
-                permission, $transition$, ImplementationService
-            ) => repackResponse(ImplementationService.read(
-                $transition$.params().organization_id,
-                $transition$.params().id,
-            ))],
+            implementation: ['permission', '$transition$', '$q', '$state', 'ImplementationService', (
+                permission, $transition$, $q, $state, ImplementationService
+            ) => { 
+                return ImplementationService.read(
+                    $transition$.params().organization_id,
+                    $transition$.params().id,
+                ).then(res => { 
+                    return $q.resolve(res.data.data); 
+                }, res => { 
+                    $state.go('implementations', {
+                        organization_id: $transition$.params().organization_id
+                    });
+                    
+                    return $q.reject();
+                })
+            }],
             funds: ['permission', '$transition$', 'FundService', (
                 permission, $transition$, FundService
             ) => repackResponse(FundService.list(
@@ -637,12 +657,22 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('implementation-manage', 'manage_implementation'),
-            implementation: ['permission', '$transition$', 'ImplementationService', (
-                permission, $transition$, ImplementationService
-            ) => repackResponse(ImplementationService.read(
-                $transition$.params().organization_id,
-                $transition$.params().id,
-            ))],
+            implementation: ['permission', '$transition$', '$q', '$state', 'ImplementationService', (
+                permission, $transition$, $q, $state, ImplementationService
+            ) => { 
+                return ImplementationService.read(
+                    $transition$.params().organization_id,
+                    $transition$.params().id,
+                ).then(res => { 
+                    return $q.resolve(res.data.data); 
+                }, res => { 
+                    $state.go('implementations', {
+                        organization_id: $transition$.params().organization_id
+                    });
+                    
+                    return $q.reject();
+                })
+            }],
             funds: ['permission', '$transition$', 'FundService', (
                 permission, $transition$, FundService
             ) => repackResponse(FundService.list(
@@ -663,12 +693,22 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('implementation-manage', 'manage_implementation'),
-            implementation: ['permission', '$transition$', 'ImplementationService', (
-                permission, $transition$, ImplementationService
-            ) => repackResponse(ImplementationService.read(
-                $transition$.params().organization_id,
-                $transition$.params().id,
-            ))],
+            implementation: ['permission', '$transition$', '$q', '$state', 'ImplementationService', (
+                permission, $transition$, $q, $state, ImplementationService
+            ) => { 
+                return ImplementationService.read(
+                    $transition$.params().organization_id,
+                    $transition$.params().id,
+                ).then(res => { 
+                    return $q.resolve(res.data.data); 
+                }, res => { 
+                    $state.go('implementations', {
+                        organization_id: $transition$.params().organization_id
+                    });
+                    
+                    return $q.reject();
+                })
+            }],
             funds: ['permission', '$transition$', 'FundService', (
                 permission, $transition$, FundService
             ) => repackResponse(FundService.list(
