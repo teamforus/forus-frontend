@@ -12,13 +12,13 @@
             
             .card-section.card-section-primary: .row: .col.col-lg-9
                 .form-group.form-group-inline
-                    label(translate="Afzender emailadres").form-label
-                    input(ng-model="$ctrl.form.values.email_from_address" type="text" placeholder="Text").form-control
+                    label.form-label Afzender emailadres
+                    input(ng-model="$ctrl.form.values.email_from_address" type="text" placeholder="Afzender emailadres").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.email_from_address" ng-bind="error")
             
                 .form-group.form-group-inline
-                    label(translate="Afzender naam").form-label
-                    input(ng-model="$ctrl.form.values.email_from_name" type="text" placeholder="Text").form-control
+                    label.form-label Afzender naam
+                    input(ng-model="$ctrl.form.values.email_from_name" type="text" placeholder="Afzender naam").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.email_from_name" ng-bind="error")
             
             .card-section.card-section-primary: .row: .col.col-lg-9

@@ -65,7 +65,7 @@ section: .wrapper
                                 ng-class="{'button-disabled': !$ctrl.authForm.values.email}"
                                 type="submit").button.button-primary.button-fill {{ "popup_auth.buttons.submit" | translate }}
 
-                    .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="fund_request.sign_up.labels.has_app")
+                    .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="fund_request.sign_up.labels.has_app").hide-sm
 
                 .sign_up-pane-body(ng-if="$ctrl.hasApp")
                     .sign_up-pane-heading(translate='fund_request.sign_up.app.title')
