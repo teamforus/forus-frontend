@@ -226,6 +226,7 @@ app.filter('str_limit', require('./filters/StrLimitFilter'));
 app.filter('duration', require('./filters/DurationFilter'));
 app.filter('duration_last_time', require('./filters/DurationLastTimeFilter'));
 app.filter('lines_to_array', require('./filters/LinesToArrayFilter'));
+app.filter('phone_number_format', require('./filters/PhoneNumberFormatFilter'));
 
 // Config
 app.config(require('./routers/printables'));

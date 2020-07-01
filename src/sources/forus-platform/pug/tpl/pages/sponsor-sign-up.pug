@@ -68,8 +68,7 @@
 
                     .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="sign_up_sponsor.no_app.to_app").hide-sm
 
-                .sign_up-pane-body(
-                    ng-if="!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent && $ctrl.hasApp")
+                .sign_up-pane-body(ng-if="!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent && $ctrl.hasApp")
                     .sign_up-pane-heading(translate='sign_up_sponsor.app.title')
 
                     .sign_up-pane-auth
@@ -88,8 +87,6 @@
                             .sign_up-pane-text(
                                 ng-repeat="line in ('sign_up_sponsor.app.description_bottom' | translate | lines_to_array)"
                                 ng-bind="line")
-                            
-                            .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(false)" translate="sign_up_sponsor.app.no_app").show-sm
 
                             .sign_up-pane-auth-apps
                                 a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
@@ -100,7 +97,7 @@
                                 ng-if="$ctrl.authToken" 
                                 qr-value="$ctrl.authToken" 
                                 qr-type="auth_token" 
-                                qr-logo=src_prefix + "./assets/img/me-logo.png")   
+                                qr-logo=src_prefix + "./assets/img/me-logo.png")
 
                     .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(false)" translate="sign_up_sponsor.app.no_app").hide-sm
 
