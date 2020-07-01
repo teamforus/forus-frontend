@@ -33,7 +33,6 @@ app.component('organizationEmployeesComponent', require('./components/Organizati
 app.component('csvValidationComponent', require('./components/CsvValidationComponent'));
 app.component('fundRequestsComponent', require('./components/FundRequestsComponent'));
 app.component('validationRequestComponent', require('./components/ValidationRequestComponent'));
-app.component('signUpComponent', require('./components/SignUpComponent'));
 app.component('providerSignUpComponent', require('./components/ProviderSignUpComponent'));
 app.component('sponsorSignUpComponent', require('./components/SponsorSignUpComponent'));
 app.component('validatorSignUpComponent', require('./components/ValidatorSignUpComponent'));
