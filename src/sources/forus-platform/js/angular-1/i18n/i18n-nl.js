@@ -495,12 +495,12 @@ module.exports = {
             mail: "E-mailadres van organisatie",
             phone: "Telefoonnummer",
             kvk: "KvK-nummer",
-            tax: "BTW-nummer (Optioneel)",
+            tax: "BTW-nummer",
             website: "Website",
             business_type: "Organisatie type",
             optional: "Optioneel",
             make_public: "Maak publiek",
-            photo_description: 'De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px.<br/>Toegestaande  formaten: JPG, PNG',
+            photo_description: 'De afbeelding dient vierkant te zijn met een afmeting van bijvoorbeeld 400x400px.<br/>Toegestaande  formaten: JPG, PNG',
             schedule: "Openingstijden",
             weekdays_same_hours: "Alle doordeweekse dagen hebben dezelfde tijden",
             weekends_same_hours: "Zaterdag en zondag hebben dezelfde tijden",
@@ -664,32 +664,35 @@ module.exports = {
             main_header: "Aanmelden als aanbieder",
             go_back: "Terug",
             title_step_1: "Welkom", 
-            subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als aanbieder. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
+            subtitle_step_1: "Door dit online formulier in te vullen kunt u uw organisatie aanmelden als aanbieder. Het invullen duurt ongeveer 5 minuten. <br/><br/>" + 
+                "U krijgt na het invullen toegang tot uw eigen aanbieders webomgeving. Nadat uw aanmelding is goedgekeurd kunt u producten en/of diensten aanbieden en betalingen verrichten.<br/><br/>" +
+                "Hulp nodig? Tijdens het doorlopen van het formulier vindt u rechts onderin het blauwe vraagteken. Hiermee opent u de helpdesk.<br/><br/>",
             title_step_2: "Benodigdheden",
-            subtitle_step_2: "Aan het aanmelden zijn geen kosten verbonden. Het installeren van een gratis <a href='https://forus.io/me'>app</a> is voldoende. " + 
-                "De Me-app kan op vrijwel elke moderne Apple of Android telefoon worden geïnstalleerd.<br/><br/>" + 
+            subtitle_step_2: "Om straks betalingen te kunnen verichten maakt u gebruik van een mobiele applicatie.  U download in de volgende stap de <a href='https://forus.io/me'>Me-app</a>. Aan het gebruik van de app zijn geen kosten verbonden.<br/><br/>" + 
+                "De <a href='https://forus.io/me'>Me-app</a> kan op vrijwel elke moderne Apple of Android telefoon worden geïnstalleerd.<br/><br/>" + 
                 "Bij de aanmelding heeft u nodig:<br/><br/>" + 
                 "<ul>" + 
                 "<li>Mobiele telefoon of tablet met camera en internet</li>" +
                 "<li>Bedrijfsgegevens van uw organisatie (contactgegevens, KvK en IBAN nummer)</li>" +
                 "</ul>",
-            title_step_3: "De kassa app installeren",
+            title_step_3: "Ontvang de download link naar de Me-app",
             subtitle_step_3: "",
-            title_step_4: "Vestiging toevoegen",
-            subtitle_step_4: "Kies een bestaande organisatie of voeg een nieuwe organisatie toe.",
-            title_step_5: "Organisatie aanmaken",
+            title_step_3_mail: "Op een later moment de Me-app installeren",
+            title_step_4: "Kies of maak een organisatie",
+            subtitle_step_4: "Aan uw e-mailadres zijn de volgende organisaties gekoppeld. Kies een bestaande organisatie of voeg een nieuwe organisatie toe.",
+            title_step_5: "Maak een organisatie aan",
             subtitle_step_5: "Om deel te kunnen nemen gaat u een organisatie aanmaken. Vul hieronder de gegevens van uw organisatie in. Na aanmelding ontvangt u de betalingen automatisch op uw rekening, hier hoeft u verder niets voor te doen.",
-            title_step_6: "Vestiging toevoegen",
+            title_step_6: "Voeg uw vestiging(en) toe",
             subtitle_step_6: "Voeg uw vestiging(en) toe. Heeft uw organisatie meerdere vestigingen, dan kunt u deze toevoegen. De vestigingen worden op de kaart in de webwinkel getoond.",
-            title_step_7: "Kassa medewerkers toevoegen",
-            subtitle_step_7: "In deze stap kunt u kassa medewerkers toevoegen. Deze medewerkers kunnen vervolgens ook QR-codes scannen met de kassa app en betalingen verwerken." + "<br/>" +
+            title_step_7: "Voeg medewerkers toe",
+            subtitle_step_7: "Heeft u medewerkers in dienst? U kunt deze medewerkers toevoegen zodat u niet afhankelijk bent van één kassa app. De medewerkers kunnen vervolgens ook betalingen verrichten met de Me-app. U heeft een overzicht van alle transacties op uw aanbieders webomgeving." + "<br/><br/>" +
                 "Er wordt een uitnodiging met instructies verstuurd naar de e-mailadressen die u hieronder invult. Als u geen medewerkers wilt toevoegen kunt u deze stap overslaan.",
             title_step_8: "Meld u aan voor de regelingen",
-            subtitle_step_8: "Meld u aan voor de regelingen. Uw aanvraag wordt binnen twee weken behandeld.",
+            subtitle_step_8: "Meld u aan voor de regelingen. Uw aanvraag wordt zo spoedig mogelijk behandeld. U ontvangt hierover per mail een bevestiging.",
             
             title_step_9: "Aanvraag ontvangen",
             top_title_step_9: "Uw aanmelding is ontvangen",
-            subtitle_step_9: "Uw aanmelding is in behandeling. Dit kan maximaal twee weken duren. Zodra uw aanvraag is behandeld ontvangt u een e-mail. U kunt de status van uw aanmelding ook op het dashboard volgen.",
+            subtitle_step_9: "Uw aanmelding is in behandeling. Zodra uw aanvraag is behandeld ontvangt u een e-mail. U kunt de status van uw aanmelding ook op uw aanbieders webomgeving volgen.",
 
             title_step_9_mobile: "Aanmelding voltooid",
             top_title_step_9_mobile: "Uw aanmelding is ontvangen",
@@ -697,11 +700,11 @@ module.exports = {
             download_step_9_mobile: "Applicatie downloaden",
             
             title_step_10: "Test betaling",
-            subtitle_step_10: "Wanneer u bent geaccepteerd als aanbieder, kunt u betalingen doen. Klanten kunnen u een plaatje (QR code) tonen (vergelijkbaar met toegangskaartjes en vliegtickets). De QR-code scant u met de app die u zojuist heeft geïnstalleerd. Vervolgens kunt u de betaling verrichten. Scan de afbeelding hieronder om een test betaling te doen.",
+            subtitle_step_10: "Wanneer u bent geaccepteerd als aanbieder, kunt u betalingen ontvangen. Klanten kunnen u een plaatje (QR code) tonen (vergelijkbaar met toegangskaartjes en vliegtickets). De QR-code scant u met de Me-app die u zojuist heeft geïnstalleerd. Vervolgens kunt u de betaling verrichten. Scan de afbeelding hieronder om een test betaling te doen.",
             title_step_11: "De test betaling is gelukt!",
             top_title_step_11: "De test betaling is gelukt!",
-            subtitle_step_11: "Op dezelfde manier kunt u betalingen van klanten verrichten. Met deze app kunt u ook de QR-codes van klanten scannen.<br/><br/>" +
-                "Het bedrag wordt door middel van een programmeerbare bankrekening direct naar u overgemaakt. Het bedrag staat binnen drie werkdagen op uw rekening. ",
+            subtitle_step_11: "Op dezelfde manier kunt u betalingen van klanten verrichten. Met deze app scant u de QR-code van de klant.<br/><br/>" +
+                "Het bedrag wordt direct naar u overgemaakt en staat binnen drie werkdagen op uw rekening.",
         },
         meapp_header: {
             title_step_1: "Installeer Me",
@@ -732,7 +735,7 @@ module.exports = {
             organization_email: "E-mailadres van uw organisatie",
             organization_iban: "IBAN nummer van uw organisatie",
             room: "Kamer van Koophandel nummer",
-            vat: "BTW-Nummer (optioneel)",
+            vat: "BTW-Nummer",
             employee_emails: "E-mailadressen van uw kassa medewerkers (optioneel)",
             mobile_number: "Vul uw mobiele nummer in",
         },
@@ -765,8 +768,8 @@ module.exports = {
             url_address: "www.forus.io/DL",
             title: "De app installeren",
             description: "De app is beschikbaar voor iOS en Android telefoons. Vul uw telefoonnummer in om een download link via SMS te ontvangen of ga op uw telefoon naar <a href='www.forus.io/DL' target='_blank'>www.forus.io/DL</a>",
-            download_link: "Verstuur download link",
-            no_link_received: 'We hebben u een sms gestuurd! Heeft u geen link ontvangen? Ga dan op uw telefoon naar',
+            download_link: "Verstuur sms",
+            no_link_received: 'Geen SMS ontvangen? Controleer het ingevulde telefoonnummer of ga via uw telefoon naar',
         },
         filters: {
             labels: {
@@ -795,8 +798,8 @@ module.exports = {
             create_profile: 'Bevestig',
         },
         no_app: {
-            enter_email: 'Vul uw email adres in om verder te gaan',
-            instructions: 'Als u nu nog niet in staat bent om verder te gaan met de app. Is het ook mogelijk om met uw email adres verder te gaan en later in te loggen op de app. Het is echter handiger om direct met de app verder te gaan.',
+            enter_email: 'U heeft de Me-app nodig om betalingen te verrichten.',
+            instructions: 'Op dit moment niet de app installeren? Het is mogelijk om met uw e-mailadres een account aan te maken. U installeert de Me-app op een later moment om betalingen te verrichten.',
             continue_app: 'Ga toch verder met de app >'
         },
         app_header: {
@@ -879,9 +882,9 @@ module.exports = {
             organization_email: "E-mailadres van uw organisatie",
             organization_iban: "IBAN nummer van uw organisatie",
             room: "Kamer van Koophandel nummer",
-            vat: "BTW-Nummer (optioneel)",
+            vat: "BTW-Nummer",
             employee_emails: "E-mailadressen van uw kassa medewerkers (optioneel)",
-            mobile_number: "Vul uw mobiele nummer in",
+            mobile_number: "Vul uw mobiele telefoonnummer in",
             confirm_email: "Bevestig uw emailadres",
             confirm_email_description: "Bevestig voordat we verder gaan uw email adres. Klik op de link in de email die is verzonden naar",
             terms: "Er wordt gekeken of u al aan de voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan",
@@ -1007,7 +1010,7 @@ module.exports = {
             organization_email: "E-mailadres van uw organisatie",
             organization_iban: "IBAN nummer van uw organisatie",
             room: "Kamer van Koophandel nummer",
-            vat: "BTW-Nummer (optioneel)",
+            vat: "BTW-Nummer",
             employee_emails: "E-mailadressen van uw kassa medewerkers (optioneel)",
             mobile_number: "Vul uw mobiele nummer in",
             confirm_email: "Bevestig uw emailadres",
