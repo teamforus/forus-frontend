@@ -780,7 +780,12 @@ module.exports = {
         },
         qr_code: {
             title: "Scan de QR-code om verder te gaan",
-            description: "Maak in de app een persoonlijk profiel aan. Scan vervolgens de QR-code die naast deze tekst staat met de 'QR' scanner in de app."
+            description: [
+                '1. Open de link in de sms',
+                '2. Installeer en open de app',
+                '3. Meld u aan',
+                '4. Scan de code met de scanner'
+            ].join('<br>')
         },
         app_instruction: {
             step_1: 'Open <i>Me</i>',
@@ -1067,7 +1072,7 @@ module.exports = {
                 "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.", 
                 "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
             ].join("\n"),
-            no_app: "< Ik wil inloggen met mijn emailadres >"    
+            no_app: "Ik wil inloggen met mijn emailadres >"    
         },
         app_header: {
             title: 'Vul de code in op het invoerveld',

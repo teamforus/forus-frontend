@@ -539,6 +539,7 @@ let ProviderSignUpComponent = function(
             promise.then((res) => {
                 $ctrl.sentSms = true;
                 waitingSms = false;
+                $scope.phoneForm.unlock();
             }, (res) => {
                 waitingSms = false;
                 $scope.phoneForm.unlock();
