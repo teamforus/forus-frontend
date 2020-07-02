@@ -25,7 +25,7 @@ let handleAuthTarget = ($state, target, appConfigs) => {
     }
 
     if (target[0] == targetNewSignup) {
-        return !!$state.go('sign-up-v2');
+        return !!$state.go('sign-up');
     }
 
     return false;
@@ -985,39 +985,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }]
     });
 
-    // Old signup flow
-    if (['provider', 'sponsor'].indexOf(appConfigs.panel_type) != -1) {
-        $stateProvider.state({
-            name: "sign-up",
-            url: "/sign-up?fund_id&organization_id&tag",
-            component: "signUpComponent",
-            params: {
-                fund_id: {
-                    squash: true,
-                    value: null,
-                },
-                tag: {
-                    squash: true,
-                    value: null,
-                },
-                organization_id: {
-                    squash: true,
-                    value: null
-                },
-            },
-            resolve: {
-                businessTypes: ['BusinessTypeService', (
-                    BusinessTypeService
-                ) => repackResponse(BusinessTypeService.list({
-                    per_page: 9999
-                }))]
-            }
-        });
-    }
-
     $stateProvider.state({
-        name: "sign-up-v2",
-        url: "/sign-up-v2?fund_id&organization_id&tag",
+        name: "sign-up",
+        url: "/sign-up?fund_id&organization_id&tag",
         component: appConfigs.panel_type + "SignUpComponent",
         params: {
             fund_id: {
