@@ -188,7 +188,7 @@ var scss_compiler = async function(platform, src, task) {
 
     streams.push(plugins.rename(compose_dest_path(
         task.name,
-        platform.env_data.timestamps ? assetsSuffix : ''
+        !platform.env_data.disable_timestamps ? assetsSuffix : ''
     )));
 
     streams.push(gulp.dest(platform.paths.assets + '/css/' + task.dest));
@@ -215,7 +215,7 @@ var js_compiler = function(platform, src, task) {
     let promise = new Promise(_resolve => resolve = _resolve);
 
     var dest = task.dest;
-    var name = compose_dest_path(task.name, platform.env_data.timestamps ? assetsSuffix : '');
+    var name = compose_dest_path(task.name, !platform.env_data.disable_timestamps ? assetsSuffix : '');
     var sources = [];
 
     // notifiers
@@ -380,7 +380,7 @@ var pug_compiler = function(source, platform, src, dest, task) {
                 qdt_c: {
                     git_log: gitLog || false,
                     git_log_header: gitLogHeader || false,
-                    append_assets: platform.env_data.timestamps ? '-' + timestamp : '',
+                    append_assets: !platform.env_data.disable_timestamps ? '-' + timestamp : '',
                     platform: platform
                 }
             },

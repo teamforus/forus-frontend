@@ -12,7 +12,6 @@ let baseImplementationKey = 'general';
 let autoLogOutTime = 15;
 let chatId = false;
 let sessions = false;
-let timestamps = true;
 let google_maps_api_key = '';
 
 module.exports = (core) => {
@@ -43,7 +42,6 @@ module.exports = (core) => {
             support_id: "15870000001861118?orgId=20065804523",
             flags: {},
             sessions: sessions,
-            timestamps: timestamps,
             hide_vouchers_csv: false,
             google_maps_api_key: google_maps_api_key,
             // html5ModeEnabled: true,
@@ -75,7 +73,6 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -98,7 +95,6 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -121,7 +117,6 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -144,7 +139,6 @@ module.exports = (core) => {
             hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -166,7 +160,6 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -191,7 +184,6 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -215,7 +207,6 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -240,7 +231,6 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -264,7 +254,6 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -289,7 +278,6 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -313,7 +301,6 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
-            timestamps: timestamps,
          });
       
         platform.editTask('js', (task) => {
@@ -335,7 +322,6 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -360,7 +346,6 @@ module.exports = (core) => {
                 maxProductCount: 20,
             },
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -382,7 +367,6 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
-            timestamps: timestamps,
          });      
       
          platform.editTask('js', (task) => {
@@ -402,7 +386,6 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -425,7 +408,6 @@ module.exports = (core) => {
             hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -447,7 +429,6 @@ module.exports = (core) => {
             hide_voucher_generators: false,
             flags: {},
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -470,7 +451,6 @@ module.exports = (core) => {
             hide_vouchers_csv: false,
             flags: {},
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -495,7 +475,6 @@ module.exports = (core) => {
             matomo_site_id: false,
             flags: {},
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -526,7 +505,6 @@ module.exports = (core) => {
                 signUpMenu: false,
             },
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -560,7 +538,6 @@ module.exports = (core) => {
                 shareProducts: false,
             },
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -582,7 +559,6 @@ module.exports = (core) => {
             matomo_site_id: false,
             flags: {},
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -615,7 +591,6 @@ module.exports = (core) => {
                 providersMenu: true,
             },
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -640,7 +615,6 @@ module.exports = (core) => {
                 accessibilityPage: true,
             },
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -672,7 +646,6 @@ module.exports = (core) => {
                 aboutSiteMenu: false,
             },
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -704,7 +677,6 @@ module.exports = (core) => {
                 aboutSiteMenu: false,  
             },
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -727,7 +699,6 @@ module.exports = (core) => {
                 accessibilityPage: false,
             },
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -750,7 +721,6 @@ module.exports = (core) => {
                 accessibilityPage: false,
             },
             sessions: sessions,
-            timestamps: timestamps,
         });
 
         platform.editTask('js', (task) => {
@@ -770,7 +740,6 @@ module.exports = (core) => {
             panel_type: 'website',
             flags: {},
             sessions: sessions,
-            timestamps: timestamps,
             google_maps_api_key: google_maps_api_key,
         });
 
@@ -789,6 +758,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'general',
             client_type: 'pin_code-auth',
+            disable_timestamps: true
         });
 
         platform.editTask('js', (task) => {
