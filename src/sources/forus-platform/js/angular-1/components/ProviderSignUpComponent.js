@@ -633,7 +633,9 @@ let ProviderSignUpComponent = function(
         authTokenSubscriber.stopCheckAccessTokenStatus();
     };
 
-    $ctrl.finish = () => $state.go('organizations');
+    $ctrl.finish = () => $state.go('organizations').then(() => {
+        $rootScope.autoSelectOrganization(true, $ctrl.organization);
+    });
     $ctrl.goToMain = () => $state.go('home');
 };
 

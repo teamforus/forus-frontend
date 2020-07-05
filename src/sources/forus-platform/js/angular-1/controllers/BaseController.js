@@ -127,7 +127,11 @@ let BaseController = function (
         });
     };
 
-    $rootScope.autoSelectOrganization = function (redirect = true) {
+    $rootScope.autoSelectOrganization = function (redirect = true, organization = null) {
+        if (organization) {
+            $rootScope.chooseOrganization(organization);
+        }
+        
         $rootScope.getLastUsedOrganization().then(selectedOrganizationId => {
             if (selectedOrganizationId) {
                 OrganizationService.use(selectedOrganizationId);
