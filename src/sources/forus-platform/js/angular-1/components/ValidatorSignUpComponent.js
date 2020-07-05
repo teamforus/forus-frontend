@@ -277,9 +277,9 @@ let ValidatorSignUpComponent = function(
 
         $ctrl.setStep($ctrl.step - 1);
     };
-
-    $ctrl.finish = () => $state.go('organizations').then(() => {
-        $rootScope.autoSelectOrganization(true, $ctrl.organization);
+    
+    $ctrl.finish = () => $state.go('organizations-view', {
+        id: $ctrl.organization.id
     });
 
     $ctrl.selectPhoto = (file) => {

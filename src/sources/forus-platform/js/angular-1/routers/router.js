@@ -129,6 +129,19 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     $stateProvider.state({
+        name: "organizations-view",
+        url: "/organization/{id}",
+        controller: ['$rootScope', '$transition$', 'OrganizationService', (
+            $rootScope, $transition$, OrganizationService
+        ) => {
+            $rootScope.loadAuthUser().then(() => {
+                OrganizationService.use($transition$.params().id);
+                $rootScope.redirectToDashboard($transition$.params().id);
+            });
+        }]
+    });
+
+    $stateProvider.state({
         name: "organizations-create",
         url: "/organizations/create",
         component: "organizationsEditComponent",
