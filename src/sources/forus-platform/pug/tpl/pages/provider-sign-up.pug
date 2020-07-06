@@ -68,8 +68,10 @@
             +progress()
 
             .sign_up-pane
-                .sign_up-pane-header(translate="sign_up_provider.header.title_step_3")
-                .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && $ctrl.hasApp"): .form
+                .sign_up-pane-header(translate="sign_up_provider.header.title_step_3" ng-if="$ctrl.hasApp")
+                .sign_up-pane-header(translate="sign_up_provider.header.title_step_3_mail" ng-if="!$ctrl.hasApp")
+
+                .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && $ctrl.hasApp && !$ctrl.sentSms"): .form
                     .sign_up-pane-heading {{ 'sign_up_provider.labels.mobile_number' | translate }}
                     phone-control(ng-model="phoneForm.values.phone" cant-delete-length="2").hide-sm
                     
@@ -77,33 +79,28 @@
                         ng-model="phoneForm.values.phone"
                         placeholder="TELEFOONNUMMER").large.form-control.show-sm
 
-                    .row: .col-lg-12.col-md-12.col-sm-12: .button.button-primary-outline.col-xs-12(
+                    .row: .col-lg-12.col-md-12.col-sm-12: button.button.button-primary-outline.col-xs-12(
                         ng-class="{ 'button-disabled' : !$ctrl.phoneNumberFilled }" 
                         ng-click="$ctrl.sendSms()"
                         translate="sign_up_provider.download.download_link")
                     
                     .pincode-errors: .form-error(ng-repeat="error in phoneForm.errors.phone" ng-bind="error")
                     
-                    .sign_up-pane-text: small(ng-show="$ctrl.sentSms") 
-                        br
-                        | {{ "sign_up_provider.download.no_link_received" | translate }} 
-                        a(href="https://www.forus.io/DL" target="_blank") www.forus.io/DL
+                    br
+                    .sign_up-pane-text.sign_up-pane-text-sm 
+                        | Op dit moment geen mogelijkheid om de app te installeren? 
+                        .sign_up-pane-link.text-muted(ng-click="$ctrl.setHasAppProp(false)") Ga verder met email >
 
-                .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && $ctrl.hasApp")
+                .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent)  && $ctrl.sentSms") 
+                    .sign_up-pane-heading U heeft een SMS ontvangen op {{ phoneForm.values.phone | phone_number_format }}
+                    
                     .sign_up-pane-auth
                         .sign_up-pane-auth-content
-                            .sign_up-pane-text(
-                                ng-repeat="line in ('sign_up_provider.qr_code.description' | translate | lines_to_array)"
-                                ng-bind="line")
-                            
-                            .sign_up-pane-auth-qr_code.show-sm
-                                qr-code(
-                                    ng-if="$ctrl.authToken" 
-                                    qr-value="$ctrl.authToken" 
-                                    qr-type="auth_token" 
-                                    qr-logo=src_prefix + "./assets/img/me-logo.png") 
-
-                            .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(false)" translate="sign_up_sponsor.app.no_app")
+                            .sign_up-pane-text(translate="sign_up_provider.qr_code.description")
+                            br
+                            .sign_up-pane-text: small
+                                | {{ "sign_up_provider.download.no_link_received" | translate }} 
+                                a(href="https://www.forus.io/DL" target="_blank") www.forus.io/DL
 
                         .sign_up-pane-auth-qr_code.hide-sm
                             qr-code(
@@ -123,7 +120,7 @@
                                 ui-control-text(
                                     data-id="employee"
                                     ng-model="$ctrl.signUpForm.values.email"
-                                    data-placeholder="ex. info@info.io").large
+                                    data-placeholder="Bijv. info@info.nl").large
                                 .form-error(ng-repeat="error in ($ctrl.signUpForm.errors.email || $ctrl.signUpForm.errors['records.primary_email'])" ng-bind="error")
 
                         .col.col-md-5.col-xs-12
@@ -142,6 +139,14 @@
                     .sign_up-pane-text
                         | {{ "sign_up_sponsor.labels.confirm_email_description" | translate }} 
                         span.sign_up-pane-link(ng-bind="$ctrl.signUpForm.values.email")
+                
+                .sign_up-pane-footer(ng-if="$ctrl.sentSms"): .row
+                    .col.col-lg-6.text-left
+                        .button.button-text.button-text-padless(ng-click="$ctrl.sentSms = false")
+                            em.mdi.mdi-chevron-left.icon-lefts
+                            | {{ 'sign_up_provider.buttons.back' | translate }}
+                        
+                    .col.col-lg-6.text-right
 
         //- Select organization step
         div(ng-if="$ctrl.step == $ctrl.STEP_SELECT_ORGANIZATION")
@@ -230,7 +235,7 @@
                                 .row
                                     .col.col-md-8.col-xs-12: ui-control-text(
                                         ng-model="$ctrl.organizationForm.values.email"
-                                        placeholder="E-mailadres")
+                                        placeholder="Voorbeeld: info@bedrijfsnaam.nl")
 
                                     .col.col-md-4.col-xs-12: ui-control-checkbox.make-public(
                                         name="email_public"
@@ -245,7 +250,7 @@
                                 .row
                                     .col.col-md-8.col-xs-12: ui-control-text(
                                         ng-model="$ctrl.organizationForm.values.phone"
-                                        placeholder="Telefoonnummer")
+                                        placeholder="Voorbeeld: 06 123 45 678")
                                     .col.col-md-4.col-xs-12: ui-control-checkbox.make-public(
                                         name="phone_public"
                                         data-id="phone_public_input"
@@ -259,7 +264,7 @@
                                 .row
                                     .col.col-md-8.col-xs-12: ui-control-text(
                                         ng-model="$ctrl.organizationForm.values.website"
-                                        placeholder="Website")
+                                        placeholder="Voorbeeld: https://bedrijfsnaam.nl")
                                     .col.col-md-4.col-xs-12: ui-control-checkbox.make-public(
                                         name="website_public"
                                         data-id="website_public_input"
@@ -287,7 +292,7 @@
 
                                 ui-control-text(
                                     ng-model="$ctrl.organizationForm.values.kvk"
-                                    data-placeholder="KvK-nummer")
+                                    data-placeholder="Voorbeeld: 12345678")
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.kvk" ng-bind="error")
 
                             .form-group.row: .col.col-md-8.col-xs-12
@@ -295,7 +300,7 @@
 
                                 ui-control-text(
                                     ng-model="$ctrl.organizationForm.values.btw"
-                                    data-placeholder="BTW-nummer")
+                                    data-placeholder="Voorbeeld: NL123456789B01")
 
                                 .form-hint.text-right(translate="organization_edit.labels.optional")
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.btw" ng-bind="error")
