@@ -47,22 +47,36 @@
         z-index: 5;
         background-color: #ffffff;
         position: relative;
-
+        top: 0;
+        max-width: 100%;
         .navbar-inner {
             @include cf();
             max-width: 100%;
             margin: 0 auto;
             display: flex;
+            align-items: center;
+            &.button {
+                font: 400 16px/1.5em Arial,Helvetica,sans-serif;
+                color: #646f79;
+                cursor: pointer;
+                border: 1px solid transparent;
+                -webkit-transition: color .4s, background .4s, box-shadow .4s, border .4s;
+                transition: color .4s, background .4s, box-shadow .4s, border .4s;
+                border-radius: 6px;
+                display: inline-block;
+                text-align: center;
+            }
         }
 
         .navbar-logo {
             justify-self: flex-start;
-            padding: 30px 40px 30px 0;
-            border-right: 1px solid $border_color;
-
+            .second-logo {
+                margin-right: 10px;
+            }
             img {
                 display: block;
                 margin: 0 auto;
+                height: 50px;
 
                 &.hover {
                     display: none;
@@ -99,14 +113,11 @@
                 .navbar-item {
                     color: #646f79;
                     display: inline-block;
-                    font: 700 15px/30px $bf;
+                    //-font: 700 15px/30px $bf;
                     padding: 30px 25px;
                     position: relative;
                     transition: .4s;
                     cursor: pointer;
-                    font-weight: bold;
-                    text-transform: uppercase;
-
                     &:before {
                         content: '';
                         top: 0;
@@ -227,18 +238,20 @@
         }
 
         .block-auth {
-            border-left: 1px solid #e6ecf0;
-            padding: 25px 25px 25px 25px;
+            //-border-left: 1px solid #e6ecf0;
+            //-padding: 25px 25px 25px 25px;
             justify-self: flex-end;
             display: flex;
             @include cf();
 
             .button {
-                padding: 7px 15px;
-                float: left;
+                //-float: left;
                 margin-right: 20px;
-                font: 700 14px/24px $bf;
-
+                margin: 0 auto;
+                //-font: 700 14px/24px $bf;
+                @media screen and (min-width: 1000px){
+                    padding: 7px 15px;
+                }
                 &:last-of-type {
                     margin-right: 0px;
                 }
@@ -424,30 +437,19 @@
     }
 
     @media screen and (max-width: 1700px) {
-        .button{
-            font-size: 11px;
-            img{
-                margin: 3px 9px;
-            }
-        }
+        //*.button{
+        //    font-size: 11px;
+        //    img{
+        //        margin: 3px 9px;
+        //    }
+        //}
         
         &.block-navbar {
-            .navbar-logo {
-                padding: 20px 20px;
-
-                img {
-                    height: 30px;
-                }
-            }
-
             .navbar-list {
                 padding: 0;
 
                 .navbar-item-wrapper {
                     .navbar-item {
-                        padding: 12px;
-                        font-size: 0.75em;
-
                         &:before {
                             left: 15px;
                             right: 15px;
@@ -457,7 +459,7 @@
             }
 
             .block-auth {
-                padding: 15px 20px;
+                //-padding: 15px 20px;
 
                 .auth-in {
                     .auth-user {
@@ -473,24 +475,7 @@
                 }
 
                 .button {
-                    font: 700 14px/24px $bf;
-
-                    &:hover {
-                        box-shadow: 0 3px 6px rgba($color: #000000, $alpha: 0.1);
-                    }
-                }
-            }
-        }
-    }
-
-    @media screen and (min-width: 1000px) and (max-width: 1700px) {
-        &.block-navbar {
-            .navbar-list {
-                .navbar-item-wrapper {
-                    .navbar-item {
-                        padding: 11px;
-                        font-size: 0.75em;
-                    }
+                    //-font: 700 14px/24px $bf;
                 }
             }
         }
@@ -498,9 +483,8 @@
 
     @media screen and (max-width: 1000px) {
         &.block-navbar {
-            padding: 0 0;
+            position: sticky;
             border-radius: 0;
-            position: relative;
             transition: transform 0.2s !important;
 
             &.scrolled {
@@ -508,32 +492,31 @@
             }
 
             .navbar-inner {
-                padding: 0 0;
+                padding: 0;
                 border-radius: 0;
                 justify-content: flex-start;
             }
 
             .navbar-logo {
-                padding: 15px 0px;
-                padding-left: 20px;
+                //-padding: 15px 0px;
+                //-padding-left: 20px;
                 padding-right: -40px;
                 border-right: none;
                 flex-grow: 1;
 
                 img {
-                    height: 30px !important;
+                    //-height: 30px !important;
                 }
             }
 
             .block-auth {
-                padding: 10px 10px 10px 0;
+                //-padding: 10px 10px 10px 0;
                 border: none;
                 display: block;
 
                 .button {
                     margin-right: 10px;
-                    font-size: 11px;
-                    padding: 7px 10px;
+                    //-padding: 7px 10px;
                     border: none;
                     box-shadow: none;
 
@@ -590,9 +573,6 @@
                         display: block;
                         border-left: 5px solid transparent;
                         transition: .4s;
-
-                        padding: 11px;
-                        font-size: 0.75em;
 
                         &:first-of-type {
                             border-top: 1px solid #e6ecf0;

@@ -2,9 +2,9 @@
     &:hover {
         box-shadow: none;
     }
-    font: 700 16px/1.5em $bf;
+    font: 400 16px/1.5em $bf;
     border-radius: 0;
-    text-transform: lowercase;
+    //-text-transform: lowercase;
     &.button-default {
         background-color: $color_primary;
         border: 1px solid transparent;

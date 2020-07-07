@@ -1,37 +1,21 @@
 .block {
     &.block-navbar {
-        position: sticky;
-        top: 0;
         width: 100%;
         padding: 0;
         background-color: #fff;
-        max-width: 100%;
         box-shadow: 1px -5px 10px rgb(187, 187, 187);
 
         .navbar-inner {
-            padding: 0px 15px;
-            align-items: center;
             background-color: transparent;
         }
 
         .block-auth {
-            border-left: 1px solid #dbdcdb;
+            //-border-left: 1px solid #dbdcdb;
         }
 
         .navbar-logo {
             display: flex;
             align-items: center;
-
-            img {
-                width: 170px;
-                height: auto;
-            }
-
-            .second-logo {
-                height: 55px;
-                width: 54px;
-                margin-right: 10px;
-            }
         }
 
         .navbar-list {
@@ -39,8 +23,6 @@
 
             .navbar-item-wrapper {
                 .navbar-item {
-                    font-size: 1em;
-
                     &:hover {
                         color: $tc;
 
@@ -91,8 +73,7 @@
     @media screen and (min-width: 1000px) {
         &.block-navbar {
             .navbar-logo {
-                padding: 10px 20px 10px 0px;
-                border-right: 1px solid #dbdcdb;
+                //-border-right: 1px solid #dbdcdb;
             }
         }
     }
@@ -108,11 +89,6 @@
                     display: none;
                 }
             }
-            
-            .navbar-inner {
-                padding: 0px 0;
-            }
-
             .navbar-list {
                 .navbar-item-wrapper {
                     .navbar-item {

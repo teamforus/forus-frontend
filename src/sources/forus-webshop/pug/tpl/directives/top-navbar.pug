@@ -1,4 +1,4 @@
-.block.block-navbar: .navbar-inner.wrapper
+.block.block-navbar: .navbar-inner.wrapper   
     a.button(
         ng-if="!$root.appConfigs.features.settings.has_more_info_url"
         ui-sref="explanation"
@@ -6,7 +6,7 @@
             img(src="./assets/img/icon-menu/icon-menu-info.svg")
             div(translate="topnavbar.items.explanation")
 
-    a(ui-sref="home" ng-if="$root.appConfigs.client_key != 'general'").navbar-logo
+    a(ui-sref="home").navbar-logo
         img(ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" ng-if="$root.appConfigs.flags.secondLogo").second-logo
         img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
         img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover
@@ -31,7 +31,7 @@
                 ng-click="$root.signOut()" translate="topnavbar.buttons.logout")
 
         //- Menu
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.client_key == 'general'" ng-click="mobileMenu = false")
+        //-nav.navbar-item-wrapper(ng-if="$root.appConfigs.client_key == 'general'" ng-click="mobileMenu = false")
             a.navbar-item(
                 ui-sref="home" 
                 ui-sref-active="home"
