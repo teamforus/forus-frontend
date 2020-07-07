@@ -13,8 +13,6 @@
         flex-direction: row;
 
         .validator-logo {
-            @include ellipsis();
-
             .validator-logo-img {
                 display: block;
                 width: 60px;

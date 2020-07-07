@@ -16,17 +16,11 @@ aside.app.app-sidebar
                 .sidebar-nav-item-arrow: .mdi.mdi-menu-right
                 +nav_item_icon(icon)
                 | #{name} 
-        
-        +nav_item(
-            "Aanvragers", "file_csv", 'csv-validation',  
-            '{organization_id: $root.activeOrganization.id}',
-            'true',
-            'requesters')
 
         +nav_item(
             "Aanmeldingen", "clock", 'fund-requests', 
             '{organization_id: $root.activeOrganization.id}', 
-            '$root.appConfigs.features.organizations.funds.fund_requests'
+            '$root.appConfigs.features.organizations.funds.fund_requests',
             'fund_requests')
         
         +nav_item(
@@ -34,6 +28,18 @@ aside.app.app-sidebar
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization | hasPerm:["manage_organization"]',
             'external_funds')
+        
+        +nav_item(
+            "Medewerkers", "list", 'employees', 
+            '{organization_id: $root.activeOrganization.id}',
+            '$root.activeOrganization | hasPerm:["manage_employees"]',
+            'employees')
+        
+        +nav_item(
+            "Aanvragers", "file_csv", 'csv-validation',  
+            '{organization_id: $root.activeOrganization.id}',
+            'true',
+            'requesters')
 
         .sidebar-nav-devider(ng-if="$root.activeOrganization")
 

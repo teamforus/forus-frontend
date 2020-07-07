@@ -26,12 +26,6 @@ let FundRequestsComponent = function(
     $ctrl.validatorRequests = null;
     $ctrl.employee = false;
 
-    let statePriority = {
-        pending: 1,
-        approved: 0,
-        declined: -1
-    };
-
     $ctrl.shownUsers = {};
 
     $ctrl.states = [{
@@ -68,7 +62,6 @@ let FundRequestsComponent = function(
     $ctrl.reloadRequest = (request) => {
         FundRequestValidatorService.read(
             $ctrl.organization.id,
-            request.fund_id,
             request.id
         ).then((res) => {
             res.data.data.hasContent = request.hasContent;
@@ -128,8 +121,7 @@ let FundRequestsComponent = function(
             description: 'Een validatie kan niet ongedaan gemaakt worden. Kijk goed of u deze actie wilt verrichten.',
             confirm: (res) => {
                 FundRequestValidatorService.approveRecord(
-                    request.fund.organization_id,
-                    request.fund_id,
+                    $ctrl.organization.id,
                     request.id,
                     requestRecord.id
                 ).then(() => {
@@ -142,7 +134,7 @@ let FundRequestsComponent = function(
 
     $ctrl.declineRecord = (request, requestRecord) => {
         ModalService.open('fundRequestRecordDecline', {
-            fund: request.fund,
+            organization: $ctrl.organization,
             requestRecord: requestRecord,
             submit: (err) => {
                 if (err) {
@@ -160,7 +152,7 @@ let FundRequestsComponent = function(
 
     $ctrl.clarifyRecord = (request, requestRecord) => {
         ModalService.open('fundRequestRecordClarify', {
-            fund: request.fund,
+            organization: $ctrl.organization,
             requestRecord: requestRecord,
             submit: (err) => {
                 if (err) {
@@ -178,10 +170,8 @@ let FundRequestsComponent = function(
 
     $ctrl.requestApprove = (request) => {
         FundRequestValidatorService.approve(
-            request.fund.organization_id,
-            request.fund_id,
-            request.id,
-            $ctrl.employee.id
+            $ctrl.organization.id,
+            request.id
         ).then(() => {
             $ctrl.reloadRequest(request);
         }, (res) => {
@@ -194,10 +184,8 @@ let FundRequestsComponent = function(
 
     $ctrl.requestDecline = (request) => {
         FundRequestValidatorService.decline(
-            request.fund.organization_id,
-            request.fund_id,
-            request.id,
-            $ctrl.employee.id
+            $ctrl.organization.id,
+            request.id
         ).then(() => {
             $ctrl.reloadRequest(request);
         }, (res) => {
@@ -210,10 +198,8 @@ let FundRequestsComponent = function(
 
     $ctrl.requestAssign = (request) => {
         FundRequestValidatorService.assign(
-            request.fund.organization_id,
-            request.fund_id,
-            request.id,
-            $ctrl.employee.id
+            $ctrl.organization.id,
+            request.id
         ).then(() => {
             showInfoModal("Gelukt!", "U bent nu toegewezen aan deze aanvraag.");
             $ctrl.reloadRequest(request);
@@ -225,10 +211,8 @@ let FundRequestsComponent = function(
 
     $ctrl.requestResign = (request) => {
         FundRequestValidatorService.resign(
-            request.fund.organization_id,
-            request.fund_id,
-            request.id,
-            $ctrl.employee.id
+            $ctrl.organization.id,
+            request.id
         ).then(() => {
             showInfoModal("Gelukt!", "U heeft zich afgemeld van deze aanvraag, iemand anders kan deze aanvraag nu oppakken.");
             $ctrl.reloadRequest(request);
@@ -244,16 +228,12 @@ let FundRequestsComponent = function(
         }
 
         $ctrl.validatorRequests.data.forEach(request => {
-            request.records.forEach(record => {
-                record.self_assigned = record.employee_id == $ctrl.employee.id;
-            });
-
-            request.has_assigned = request.records.filter(
-                record => record.self_assigned
+            request.is_assignable = request.records.filter(
+                record => record.is_assignable
             ).length > 0;
 
-            request.has_available = request.records.filter(
-                record => record.available && !record.self_assigned
+            request.is_assigned = request.records.filter(
+                record => record.is_assigned && record.state === 'pending'
             ).length > 0;
         });
     };

@@ -14,8 +14,6 @@
         cursor: default;
 
         .fund-logo {
-            @include ellipsis();
-
             .fund-logo-img {
                 display: block;
                 width: 60px;

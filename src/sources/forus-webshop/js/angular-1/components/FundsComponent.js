@@ -29,22 +29,13 @@ let FundsComponent = function(
         });
 
         $ctrl.funds = $ctrl.funds.map(function(fund) {
-            let validators = fund.validators.map(function(validator) {
-                return validator.identity_address;
-            });
-
             fund.vouchers = $ctrl.vouchers.filter(voucher => {
                 return voucher.fund_id == fund.id;
             });
 
-            fund.isApplicable = fund.criteria.filter(criterion => {
-                return FundService.checkEligibility(
-                    $ctrl.recordsByKey[criterion.record_type_key] || [],
-                    criterion,
-                    validators,
-                    fund.organization_id
-                );
-            }).length == fund.criteria.length;
+            fund.isApplicable = fund.criteria.filter(
+                criterion => criterion.is_valid
+            ).length == fund.criteria.length;
 
             fund.alreadyReceived = fund.vouchers.length !== 0;
 

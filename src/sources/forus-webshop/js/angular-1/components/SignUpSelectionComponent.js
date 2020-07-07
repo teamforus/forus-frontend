@@ -1,9 +1,7 @@
 let SignUpSelectionComponent = function(
-    $state,
     appConfigs,
 ) {
     let $ctrl = this;
-    console.log(appConfigs);
 
     $ctrl.goToSignUpPage = (clientType) => {
         let fronts = appConfigs.features.fronts;
@@ -21,7 +19,6 @@ let SignUpSelectionComponent = function(
 module.exports = {
     bindings: {},
     controller: [
-        '$state',
         'appConfigs',
         SignUpSelectionComponent
     ],

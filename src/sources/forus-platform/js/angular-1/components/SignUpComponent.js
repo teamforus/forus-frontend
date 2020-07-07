@@ -378,7 +378,6 @@ let SignUpComponent = function(
                 $ctrl.setStep($ctrl.step + 1);
                 $ctrl.signedIn = true;
             }, (res) => {
-                console.log(res.data.errors);
                 $ctrl.signUpForm.unlock();
                 $ctrl.signUpForm.errors = res.data.errors;
             });
