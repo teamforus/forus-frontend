@@ -26,6 +26,7 @@ let ProviderSignUpComponent = function(
     let $translate = $filter('translate');
 
     let waitingSms = false;
+    let isMobile = () => $(window).width() < 1000;
 
     $rootScope.showAppHeader = false;
     $rootScope.layout = [
@@ -86,9 +87,15 @@ let ProviderSignUpComponent = function(
             $ctrl.STEP_EMPLOYEES = 6;
             $ctrl.STEP_FUND_APPLY = 7;
             $ctrl.STEP_PROCESS_NOTICE = 8;
-            $ctrl.STEP_DEMO_TRANSACTION = 9;
-            $ctrl.STEP_SIGNUP_FINISHED = 10;
-            $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, 7, /**8 */ ];
+
+            if (isMobile()) {
+                $ctrl.STEP_SIGNUP_FINISHED = 9;
+                $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, /* 7, 8 */ ];
+            } else {
+                $ctrl.STEP_DEMO_TRANSACTION = 9;
+                $ctrl.STEP_SIGNUP_FINISHED = 10;
+                $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, 7, /* 8 */ ];
+            }
         } else {
             $ctrl.STEP_SCAN_QR = 3;
             $ctrl.STEP_SELECT_ORGANIZATION = 4;
@@ -97,9 +104,15 @@ let ProviderSignUpComponent = function(
             $ctrl.STEP_EMPLOYEES = 7;
             $ctrl.STEP_FUND_APPLY = 8;
             $ctrl.STEP_PROCESS_NOTICE = 9;
-            $ctrl.STEP_DEMO_TRANSACTION = 10;
-            $ctrl.STEP_SIGNUP_FINISHED = 11;
-            $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, 7, 8, /*9 */ ];
+
+            if (isMobile()) {
+                $ctrl.STEP_SIGNUP_FINISHED = 10;
+                $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, 7, /* 8, 9 */ ];
+            } else {
+                $ctrl.STEP_DEMO_TRANSACTION = 10;
+                $ctrl.STEP_SIGNUP_FINISHED = 11;
+                $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, 7, 8, /* 9 */ ];
+            }
         }
     };
 
@@ -445,7 +458,11 @@ let ProviderSignUpComponent = function(
             progressStorage.set('step', step);
 
             if ($ctrl.step == $ctrl.STEP_SCAN_QR) {
-                $ctrl.requestAuthQrToken();
+                if (isMobile()) {
+                    $ctrl.setHasAppProp(false);
+                } else {
+                    $ctrl.requestAuthQrToken();
+                }
             }
 
             if ($ctrl.step == $ctrl.STEP_SELECT_ORGANIZATION) {

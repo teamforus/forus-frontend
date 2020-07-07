@@ -1,6 +1,4 @@
 let ImplementationCmsEditComponent = function(
-    $state,
-    $stateParams,
     $rootScope,
     FormBuilderService,
     ImplementationService,
@@ -10,7 +8,7 @@ let ImplementationCmsEditComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.form = FormBuilderService.build($ctrl.implementation, (form) => {
-            ImplementationService.update(
+            ImplementationService.updateCMS(
                 $rootScope.activeOrganization.id, 
                 $ctrl.implementation.id,
                 form.values
@@ -31,8 +29,6 @@ module.exports = {
         implementation: '<',
     },
     controller: [
-        '$state',
-        '$stateParams',
         '$rootScope',
         'FormBuilderService',
         'ImplementationService',

@@ -362,7 +362,6 @@ $bf: 'Montserrat', arial, sans-serif;
                 margin: 0 0 15px;
 
                 .sign_up-pane-auth-content {
-                    display: flex;
                     flex-direction: column;
                     font: 400 15px/22px $bf;
                     padding-right: 30px;
@@ -381,8 +380,6 @@ $bf: 'Montserrat', arial, sans-serif;
                 }
 
                 .sign_up-pane-auth-qr_code {
-                    display: flex;
-
                     .block.block-qr-code {
                         padding: 0;
 
@@ -493,6 +490,11 @@ $bf: 'Montserrat', arial, sans-serif;
 
                 &:not(textarea) {
                     padding: 12px 15px;
+
+                    &.form-control-sm {
+                        padding: 10px 15px;
+                        padding-right: 30px;
+                    }
                 }
             }
             

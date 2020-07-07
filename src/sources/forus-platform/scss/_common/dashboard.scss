@@ -1839,6 +1839,13 @@ $colorPrimaryLight: $color_primary_light;
         .sign_up-pane {
             .block-photo-selector {
                 max-width: 200px;
+
+                .button {
+                    font-size: 12px;
+                    width: 100%;
+                    padding: 10px 5px;
+                    margin: 0 0 15px;
+                }
             }
 
             .sign_up-pane-header {

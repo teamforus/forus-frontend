@@ -83,4 +83,4 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
         +nav_item(
             "Webshops", "implementation", 'implementations', 
             '{organization_id: $root.activeOrganization.id}', 
-            '$root.activeOrganization | hasPerm:["manage_implementation", "view_funds"]')
+            '$root.activeOrganization | hasPerm:["manage_implementation", "manage_implementation_cms"]:false')
