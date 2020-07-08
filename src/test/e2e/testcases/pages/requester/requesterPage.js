@@ -41,12 +41,12 @@ var webshopPage = function() {
     }
 
     this.closeActivationCodeModal = function() {
-        browser.wait(EC.elementToBeClickable(element(by.id("close"), 3000)))
+        browser.wait(EC.elementToBeClickable(element(by.id("close"))), 3000)
         element(by.id("close")).click()
     }
 
     this.closePinCodeModal = function() {
-        browser.wait(EC.elementToBeClickable(element(by.id("close"), 3000)))
+        browser.wait(EC.elementToBeClickable(element(by.id("close"))), 3000)
         element(by.id("close")).click()
     }
 }

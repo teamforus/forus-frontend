@@ -14,6 +14,7 @@ describe('testing basic requester functionality', function() {
 
     beforeEach(function() {
         homePage.get()
+        browser.ignoreSynchronization = false;
     });
 
     it('components should be present', function() {
@@ -25,10 +26,8 @@ describe('testing basic requester functionality', function() {
         browser.waitForAngular()
         header.loginButton.click()
         browser.ignoreSynchronization = true;
-        browser.sleep(1000);
         homePage.closeLoginModal()
-        browser.ignoreSynchronization = false;
-    });
+    })
 
     it('opens and closes start activation modal', function() {
         homePage.hasElement('start_modal').then(present => {
@@ -48,23 +47,23 @@ describe('testing basic requester functionality', function() {
             products.get()
         });
 
-        it('products component should be present', function() {
+        it('checks products component', function(){
             expect(products.productsComponent.isPresent()).toBe(true)
-        });
+        })
     });
 
     it('navigates to providers page', function() {
         header.providersPageButton.click()
     });
 
-    describe('products page', function() {
+    describe('providers page', function() {
         beforeEach(function() {
             providers.get()
         });
 
-        it('products component should be present', function() {
+        it('checks providers component', function(){
             expect(providers.providersComponent.isPresent()).toBe(true)
-        });
+        })
     });
 
     it('show organization button should be working', function() {

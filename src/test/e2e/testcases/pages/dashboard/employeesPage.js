@@ -10,7 +10,7 @@ var EmployeesPage = function(){
     }
 
     this.closeAddEmployee = function(){
-        browser.wait(EC.elementToBeClickable(element(by.id("close"), 3000)))
+        browser.wait(EC.elementToBeClickable(element(by.id("close"))), 3000)
         element(by.id('close')).click()
     }
 
@@ -19,7 +19,6 @@ var EmployeesPage = function(){
     }
 
     this.deleteEmployee = function(){
-        browser.wait(EC.elementToBeClickable(element.all(by.id("delete_employee"), 3000)))
         element.all(by.id('delete_employee')).last().click()
     }
 }
