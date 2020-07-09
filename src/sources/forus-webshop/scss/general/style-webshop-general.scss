@@ -1,2 +1,24 @@
 @import './vars';
 @import '../_common/webshop';
+
+.button {
+    font-weight: 700;
+    @media screen and (min-width: 1000px) {
+        font-weight: 700;
+        font-size: 14px;
+        &.button-wide {
+            font-weight: 700;
+             padding: 10px 25px;
+        }
+    }
+}
+.block {
+    &.block-navbar {
+         .button {
+             font-weight: 400;
+             @media screen and (min-width: 1000px) {
+                 font-weight: 700;
+             }
+         }
+    }
+}

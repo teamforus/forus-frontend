@@ -1,11 +1,12 @@
 .block {
     &.block-map {
-        padding: 120px 0 240px;
         @include cf();
         background: url('../img/sprite-map.png') no-repeat;
         background-position: 100% 50%;
         background-size: auto 80%;
-
+        @media screen and (min-width: 1000px) {
+            padding: 120px 0 240px;
+        }
         .block-content {
             padding: 130px 0;
             width: 50%;
@@ -25,20 +26,13 @@
     @media screen and (max-width: 1700px) {
 
         &.block-map {
-            padding: 100px 0;
-            background-size: auto 100%;
-
             .block-content {
-                padding: 0;
 
                 .block-title {
-                    font: 700 26px/40px $bf;
                     margin: 0 0 15px;
                 }
 
                 .block-description {
-
-                    font: 400 16px/28px $bf;
                     margin: 0 0 30px;
                 }
             }

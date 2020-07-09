@@ -3,8 +3,8 @@
         ng-if="!$root.appConfigs.features.settings.has_more_info_url"
         ui-sref="explanation"
         ui-sref-active="active").show-sm
-            img(src="./assets/img/icon-menu/icon-menu-info.svg")
-            div(translate="topnavbar.items.explanation")
+            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-info.svg
+            span(translate="topnavbar.items.explanation")
 
     a(ui-sref="home").navbar-logo
         img(ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" ng-if="$root.appConfigs.flags.secondLogo").second-logo
@@ -94,7 +94,7 @@
                         span(translate="topnavbar.buttons.logout")
 
                 .auth-user-avatar
-                    .em.mdi.mdi-cog(ng-if="$root.appConfigs.features.records.list") 
+                    .em.mdi.mdi-cog(ng-if="$root.appConfigs.features.records.list")
                     img(src="./assets/img/identity-avatar.svg" ng-if="!$root.appConfigs.features.records.list")
                 
                 .auth-user-caret(id="user_menu")
@@ -182,7 +182,7 @@
                 em.mdi.mdi-account
                 span(translate="topnavbar.buttons.login")
             .button.button-mobile(ng-click="openAuthPopup()").show-sm
-                img(src="./assets/img/icon-menu/icon-menu-my-profile2.svg")
+                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
                 div(translate="topnavbar.buttons.login")
 
             

@@ -1,3 +1,6 @@
+.hoihoi {
+    background: yellow;
+}
 .block {
     &.block-sticky-footer {
         bottom: 0px;
@@ -76,8 +79,10 @@
             img {
                 display: block;
                 margin: 0 auto;
-                height: 50px;
-
+                height: 40px;
+                @media screen and (min-width: 1000px){ 
+                    height: 50px;
+                }
                 &.hover {
                     display: none;
                 }
@@ -114,7 +119,7 @@
                     color: #646f79;
                     display: inline-block;
                     //-font: 700 15px/30px $bf;
-                    padding: 30px 25px;
+                    padding: 25px 25px;
                     position: relative;
                     transition: .4s;
                     cursor: pointer;
@@ -250,7 +255,7 @@
                 margin: 0 auto;
                 //-font: 700 14px/24px $bf;
                 @media screen and (min-width: 1000px){
-                    padding: 7px 15px;
+                    padding: 8px 20px;
                 }
                 &:last-of-type {
                     margin-right: 0px;
@@ -446,8 +451,6 @@
         
         &.block-navbar {
             .navbar-list {
-                padding: 0;
-
                 .navbar-item-wrapper {
                     .navbar-item {
                         &:before {
