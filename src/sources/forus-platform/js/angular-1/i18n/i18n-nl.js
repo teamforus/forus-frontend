@@ -665,12 +665,12 @@ module.exports = {
             go_back: "Terug",
             title_step_1: "Welkom", 
             subtitle_step_1: "Door dit online formulier in te vullen kunt u uw organisatie aanmelden als aanbieder. Het invullen duurt ongeveer 5 minuten. <br/><br/>" + 
-                "U krijgt na het invullen toegang tot uw eigen aanbieders webomgeving. Nadat uw aanmelding is goedgekeurd kunt u producten en/of diensten aanbieden en betalingen verrichten.<br/><br/>" +
+                "U krijgt na het invullen toegang tot uw eigen aanbieders webomgeving. Nadat uw aanmelding is goedgekeurd kunt u producten en/of diensten aanbieden en betalingen ontvangen.<br/><br/>" +
                 "Hulp nodig? Tijdens het doorlopen van het formulier vindt u rechts onderin het blauwe vraagteken. Hiermee opent u de helpdesk.<br/><br/>",
             title_step_2: "Benodigdheden",
-            subtitle_step_2: "Om straks betalingen te kunnen verichten maakt u gebruik van een mobiele applicatie.  U download in de volgende stap de <a href='https://forus.io/me'>Me-app</a>. Aan het gebruik van de app zijn geen kosten verbonden.<br/><br/>" + 
-                "De <a href='https://forus.io/me'>Me-app</a> kan op vrijwel elke moderne Apple of Android telefoon worden geïnstalleerd.<br/><br/>" + 
-                "Bij de aanmelding heeft u nodig:<br/><br/>" + 
+            subtitle_step_2: "De Me-app gaat u gebruiken oom betalingen te ontvangen. In de volgende stap downloadt u de app. Aan het gebruik van de app zijnn geen kosten verbonden. <br/><br/>" + 
+                "De <a href='https://forus.io/me'>Me-app</a> is beschikbaar voor Android en iOS telefoons of tablets.<br/><br/>" + 
+                "U hebt nodig:<br/><br/>" + 
                 "<ul>" + 
                 "<li>Mobiele telefoon of tablet met camera en internet</li>" +
                 "<li>Bedrijfsgegevens van uw organisatie (contactgegevens, KvK en IBAN nummer)</li>" +
@@ -683,12 +683,12 @@ module.exports = {
             title_step_5: "Maak een organisatie aan",
             subtitle_step_5: "Om deel te kunnen nemen gaat u een organisatie aanmaken. Vul hieronder de gegevens van uw organisatie in. Na aanmelding ontvangt u de betalingen automatisch op uw rekening, hier hoeft u verder niets voor te doen.",
             title_step_6: "Voeg uw vestiging(en) toe",
-            subtitle_step_6: "Voeg uw vestiging(en) toe. Heeft uw organisatie meerdere vestigingen, dan kunt u deze toevoegen. De vestigingen worden op de kaart in de webwinkel getoond.",
+            subtitle_step_6: "Heeft uw organisatie meerdere vestigingen? Dan kunt u deze toevoegen. De vestigingen worden op een kaart op de webwinkel getoond.",
             title_step_7: "Voeg medewerkers toe",
             subtitle_step_7: "Heeft u medewerkers in dienst? U kunt deze medewerkers toevoegen zodat u niet afhankelijk bent van één kassa app. De medewerkers kunnen vervolgens ook betalingen verrichten met de Me-app. U heeft een overzicht van alle transacties op uw aanbieders webomgeving." + "<br/><br/>" +
                 "Er wordt een uitnodiging met instructies verstuurd naar de e-mailadressen die u hieronder invult. Als u geen medewerkers wilt toevoegen kunt u deze stap overslaan.",
             title_step_8: "Meld u aan voor de regelingen",
-            subtitle_step_8: "Meld u aan voor de regelingen. Uw aanvraag wordt zo spoedig mogelijk behandeld. U ontvangt hierover per mail een bevestiging.",
+            subtitle_step_8: "Meld u aan voor de regelingen. Uw aanvraag wordt zo spoedig mogelijk behandeld. U ontvangt hierover per e-mail een bevestiging.",
             
             title_step_9: "Aanvraag ontvangen",
             top_title_step_9: "Uw aanmelding is ontvangen",
@@ -703,7 +703,7 @@ module.exports = {
             subtitle_step_10: "Wanneer u bent geaccepteerd als aanbieder, kunt u betalingen ontvangen. Klanten kunnen u een plaatje (QR code) tonen (vergelijkbaar met toegangskaartjes en vliegtickets). De QR-code scant u met de Me-app die u zojuist heeft geïnstalleerd. Vervolgens kunt u de betaling verrichten. Scan de afbeelding hieronder om een test betaling te doen.",
             title_step_11: "De test betaling is gelukt!",
             top_title_step_11: "De test betaling is gelukt!",
-            subtitle_step_11: "Op dezelfde manier kunt u betalingen van klanten verrichten. Met deze app scant u de QR-code van de klant.<br/><br/>" +
+            subtitle_step_11: "Op dezelfde manier kunt u betalingen van klanten ontvangen. Met deze app scant u de QR-code van de klant.<br/><br/>" +
                 "Het bedrag wordt direct naar u overgemaakt en staat binnen drie werkdagen op uw rekening.",
         },
         meapp_header: {
@@ -785,9 +785,10 @@ module.exports = {
             title: "Scan de QR-code om verder te gaan",
             description: [
                 '1. Open de link in de sms',
-                '2. Installeer en open de app',
-                '3. Meld u aan',
-                '4. Scan de code met de scanner'
+                '2. Installeer de app',
+                '3. Open de app en meld u aan',
+                '4. Druk op QR om de de scanner te openen',
+                '5. Scan de QR-code die rechts wordt weergegeven'
             ].join('<br>')
         },
         app_instruction: {
@@ -798,8 +799,8 @@ module.exports = {
             create_profile: 'Bevestig',
         },
         no_app: {
-            enter_email: 'U heeft de Me-app nodig om betalingen te verrichten.',
-            instructions: 'Op dit moment niet de app installeren? Het is mogelijk om met uw e-mailadres een account aan te maken. U installeert de Me-app op een later moment om betalingen te verrichten.',
+            enter_email: 'U heeft de Me-app nodig om betalingen te ontvangen.',
+            instructions: 'Op dit moment niet de app installeren? Het is mogelijk om met uw e-mailadres een account aan te maken. U installeert de Me-app op een later moment zodat u betalingen kunt ontvangen.',
             continue_app: 'Ga toch verder met de app >'
         },
         app_header: {
@@ -849,7 +850,7 @@ module.exports = {
             title_step_3: "Vestiging kiezen",
             subtitle_step_3: "Kies een bestaande organisatie of voeg een nieuwe organisatie toe.",
             title_step_4: "Organisatie aanmaken",
-            subtitle_step_4: "Om deel te kunnen nemen gaat u een organisatie aanmaken. Vul hieronder de gegevens van uw organisatie in. Na aanmelding ontvangt u de betalingen automatisch op uw rekening, hier hoeft u verder niets voor te doen.",
+            subtitle_step_4: "Vul hieronder de gegevens van 2suw organisatie in. De gegevens worden gebruikt om uw aanmelding te beoordelen en om gebruik te kunnen maken van het systeem. De gegevens kunt u na aanmelding aanpassen in de persoonlijke aanbieders webomgeving.",
             title_step_5: "Aanmelding voltooid",
             subtitle_step_5: "Uw aanmelding is voltooid",
         },
