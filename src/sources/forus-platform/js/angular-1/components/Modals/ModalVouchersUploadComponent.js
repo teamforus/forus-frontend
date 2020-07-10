@@ -5,6 +5,8 @@ let ModalVouchersUploadComponent = function(
     $filter,
     $element,
     FileService,
+    ModalService,
+    HelperService,
     VoucherService,
     ProductService,
     PushNotificationsService
@@ -59,7 +61,7 @@ let ModalVouchersUploadComponent = function(
     };
 
     $ctrl.downloadExampleCsv = () => {
-        if ($ctrl.type == 'voucher') {
+        if ($ctrl.type == 'fund_voucher') {
             FileService.downloadFile(
                 'voucher_upload_sample.csv',
                 VoucherService.sampleCSV('voucher')
@@ -72,7 +74,7 @@ let ModalVouchersUploadComponent = function(
                 let productsIds = products.map(
                     product => parseInt(product.id)
                 );
-            
+
                 FileService.downloadFile(
                     'voucher_upload_sample.csv',
                     VoucherService.sampleCSV('product_voucher', productsIds[0])
@@ -110,7 +112,7 @@ let ModalVouchersUploadComponent = function(
         $ctrl.csvParser.validateCsvData = (data) => {
             $ctrl.csvParser.csvIsValid = $ctrl.csvParser.validateData(data);
 
-            if ($ctrl.type == 'voucher') {
+            if ($ctrl.type == 'fund_voucher') {
                 $ctrl.csvParser.amountIsValid = $ctrl.csvParser.validateAmount(data);
                 return $ctrl.csvParser.csvIsValid && $ctrl.csvParser.amountIsValid;
             } else if ($ctrl.type == 'product_voucher') {
@@ -122,9 +124,10 @@ let ModalVouchersUploadComponent = function(
         };
 
         $ctrl.csvParser.uploadFile = (file) => {
-            if (file.name.indexOf('.csv') != file.name.length - 4) {
+            if (!file.name.endsWith('.csv')) {
                 return;
             }
+
             let defaultNote = row => {
                 return $translate(
                     'vouchers.csv.default_note' + (
@@ -205,6 +208,56 @@ let ModalVouchersUploadComponent = function(
                 return false;
             }
 
+            HelperService.recursiveLeacher((page) => {
+                return VoucherService.index($ctrl.organization.id, {
+                    fund_id: $ctrl.fund.id,
+                    type: $ctrl.type,
+                    per_page: 100,
+                    page: page
+                });
+            }).then(data => {
+                let emails = data.map(voucher => voucher.identity_email);
+                let existingEmails = $ctrl.csvParser.data.filter(csvRow => {
+                    return emails.indexOf(csvRow.email) != -1;
+                }).map(csvRow => csvRow.email);
+
+                if (existingEmails.length === 0) {
+                    $ctrl.startUploading();
+                } else {
+                    let items = existingEmails.map(email => ({
+                        value: email,
+                        label_on: "Create voucher",
+                        label_off: "Skip",
+                    }));
+
+                    ModalService.open('duplicatesPicker', {
+                        hero_title: "Duplicate email adresses detected.",
+                        hero_subtitle: [
+                            `Are you sure you want to create extra vouchers for these ${items.length} email addresse(s)`,
+                            "that already have a voucher?"
+                        ],
+                        items: items,
+                        onConfirm: (items) => {
+                            let allowedEmails = items.filter(item => item.model).map(item => item.value);
+
+                            $ctrl.csvParser.data = $ctrl.csvParser.data.filter(csvRow => {
+                                return existingEmails.indexOf(csvRow.email) === -1 ||
+                                    allowedEmails.indexOf(csvRow.email) !== -1;
+                            });
+
+                            if ($ctrl.csvParser.data.length > 0) {
+                                $ctrl.startUploading();
+                            } else {
+                                $ctrl.close();
+                            }
+                        },
+                        onCancel: () => $ctrl.close(),
+                    });
+                }
+            });
+        }
+
+        $ctrl.startUploading = () => {
             $ctrl.csvParser.progress = 2;
 
             var submitData = chunk(JSON.parse(JSON.stringify(
@@ -251,7 +304,7 @@ let ModalVouchersUploadComponent = function(
             };
 
             uploadChunk(submitData[currentChunkNth]);
-        }
+        };
 
         $element.unbind('dragleave').bind('dragleave', function(e) {
             e.preventDefault()
@@ -276,7 +329,7 @@ let ModalVouchersUploadComponent = function(
     $ctrl.$onInit = () => {
         $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.fund = $ctrl.modal.scope.fund || null;
-        $ctrl.type = $ctrl.modal.scope.type || 'voucher';
+        $ctrl.type = $ctrl.modal.scope.type || 'fund_voucher';
 
         if ($ctrl.type == 'product_voucher') {
             ProductService.listAll({
@@ -319,6 +372,8 @@ module.exports = {
         '$filter',
         '$element',
         'FileService',
+        'ModalService',
+        'HelperService',
         'VoucherService',
         'ProductService',
         'PushNotificationsService',

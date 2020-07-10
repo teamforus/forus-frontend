@@ -2,7 +2,6 @@ let sprintf = require('sprintf-js').sprintf;
 
 let CsvUploadDirective = function(
     $q,
-    $state,
     $scope,
     $rootScope,
     $element,
@@ -10,6 +9,7 @@ let CsvUploadDirective = function(
     PrevalidationService,
     FundService,
     ModalService,
+    HelperService,
     FileService
 ) {
     let csvParser = {};
@@ -215,6 +215,68 @@ let CsvUploadDirective = function(
                 return false;
             }
 
+            HelperService.recursiveLeacher((page) => {
+                return PrevalidationService.list({
+                    per_page: 1000,
+                    page: page,
+                    fund_id: $scope.fund.id
+                });
+            }).then(data => {
+                let primary_key = $scope.fund.csv_primary_key;
+                
+                let uids = data.map(prevalidation => (
+                    prevalidation.state === 'pending' &&
+                    prevalidation.records.filter(record => record.key == primary_key)[0] || null
+                )).filter(prevalidation => prevalidation).map(
+                    prevalidation => prevalidation.value
+                );
+
+                let existingUids = csvParser.data.filter(csvRow => {
+                    return uids.indexOf(csvRow[primary_key]) != -1;
+                }).map(csvRow => csvRow[primary_key]);
+
+                if (existingUids.length === 0) {
+                    csvParser.startUploadingToServer();
+                } else {
+                    let items = existingUids.map(uid => ({
+                        value: uid,
+                        label_on: "Update",
+                        label_off: "Skip",
+                        button_all: "Update all",
+                    }));
+
+                    ModalService.open('duplicatesPicker', {
+                        hero_title: "Duplicate prevalidations detected.",
+                        hero_subtitle: [
+                            `Are you sure you want to create extra prevalidations for these ${items.length} uid(s)`,
+                            "that already have a prevalidation?"
+                        ],
+                        items: items,
+                        onConfirm: (items) => {
+                            let skipUids = items.filter(item => !item.model).map(item => item.value);
+                            let updateUids = items.filter(item => item.model).map(item => item.value);
+
+                            csvParser.data = csvParser.data.filter(csvRow => {
+                                return skipUids.indexOf(csvRow[primary_key]) === -1;
+                            });
+
+                            if (csvParser.data.length > 0) {
+                                return csvParser.startUploadingToServer(updateUids);
+                            }
+
+                            $timeout(() => {
+                                csvParser.progressBar = 100;
+                                csvParser.progress = 3;
+                                $rootScope.$broadcast('csv:uploaded', true);
+                            }, 0);
+                        },
+                        onCancel: () => $rootScope.$broadcast('csv:uploaded', true),
+                    });
+                }
+            });
+        }
+
+        csvParser.startUploadingToServer = (overwriteUids = []) => {
             csvParser.progress = 2;
 
             var submitData = chunk(JSON.parse(JSON.stringify(
@@ -227,7 +289,7 @@ let CsvUploadDirective = function(
             setProgress(0);
 
             let uploadChunk = function(data) {
-                PrevalidationService.submitCollection(data, $scope.fund.id).then(function() {
+                PrevalidationService.submitCollection(data, $scope.fund.id, overwriteUids).then(() => {
                     currentChunkNth++;
                     setProgress((currentChunkNth / chunksCount) * 100);
 
@@ -235,7 +297,6 @@ let CsvUploadDirective = function(
                         $timeout(function() {
                             csvParser.progressBar = 100;
                             csvParser.progress = 3;
-
                             $rootScope.$broadcast('csv:uploaded', true);
                         }, 0);
                     } else {
@@ -251,7 +312,7 @@ let CsvUploadDirective = function(
             };
 
             uploadChunk(submitData[currentChunkNth]);
-        }
+        };
 
         $element.on('dragenter dragover', function(e) {
             e.preventDefault()
@@ -320,7 +381,6 @@ module.exports = () => {
         replace: true,
         controller: [
             '$q',
-            '$state',
             '$scope',
             '$rootScope',
             '$element',
@@ -328,6 +388,7 @@ module.exports = () => {
             'PrevalidationService',
             'FundService',
             'ModalService',
+            'HelperService',
             'FileService',
             CsvUploadDirective
         ],

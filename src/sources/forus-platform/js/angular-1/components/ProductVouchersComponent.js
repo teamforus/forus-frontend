@@ -4,9 +4,7 @@ let ProductVouchersComponent = function(
     $timeout,
     DateService,
     ModalService,
-    VoucherService,
-    ProductService,
-    FileService
+    VoucherService
 ) {
     let $ctrl = this;
 
@@ -72,7 +70,7 @@ let ProductVouchersComponent = function(
         ModalService.open('vouchersUpload', {
             fund: $ctrl.fund,
             organization: $ctrl.organization,
-            type: 'product_voucher',
+            type: $ctrl.filters.values.type,
             done: () => {
                 $state.reload();
             }
@@ -155,8 +153,6 @@ module.exports = {
         'DateService',
         'ModalService',
         'VoucherService',
-        'ProductService',
-        'FileService',
         ProductVouchersComponent
     ],
     templateUrl: 'assets/tpl/pages/product-vouchers.html'
