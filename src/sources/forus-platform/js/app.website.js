@@ -16,23 +16,6 @@ $(window).on('load', function () {
       })();
 });
 
-var previousScroll = 0,
-    headerOrgOffset = $('.cf-wr').height();
-
-$('.navbar').height($('.navbar').height());
-
-$(window).scroll(function () {
-    var currentScroll = $(this).scrollTop();
-    if (currentScroll > headerOrgOffset) {
-        if (currentScroll > previousScroll) {
-            $('.navbar').addClass('nav-hide');
-        } else {
-            $('.navbar').removeClass('nav-hide');
-        }
-    } 
-    previousScroll = currentScroll;
-});
-
 $('.navbar-collapse ul li a').click(function() {
 $('.navbar-toggle:visible').click();
 });
