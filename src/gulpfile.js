@@ -380,7 +380,7 @@ var pug_compiler = function(source, platform, src, dest, task) {
                 qdt_c: {
                     git_log: gitLog || false,
                     git_log_header: gitLogHeader || false,
-                    append_assets: !platform.env_data.disable_timestamps ? '-' + timestamp : '',
+                    append_assets: !platform.env_data.disable_timestamps ? assetsSuffix : '',
                     platform: platform
                 }
             },
