@@ -668,7 +668,7 @@ module.exports = {
                 "U krijgt na het invullen toegang tot uw eigen aanbieders webomgeving. Nadat uw aanmelding is goedgekeurd kunt u producten en/of diensten aanbieden en betalingen ontvangen.<br/><br/>" +
                 "Hulp nodig? Tijdens het doorlopen van het formulier vindt u rechts onderin het blauwe vraagteken. Hiermee opent u de helpdesk.<br/><br/>",
             title_step_2: "Benodigdheden",
-            subtitle_step_2: "De Me-app gaat u gebruiken oom betalingen te ontvangen. In de volgende stap downloadt u de app. Aan het gebruik van de app zijnn geen kosten verbonden. <br/><br/>" + 
+            subtitle_step_2: "De Me-app gaat u gebruiken om betalingen te ontvangen. In de volgende stap downloadt u de app. Aan het gebruik van de app zijn geen kosten verbonden. <br/><br/>" + 
                 "De <a href='https://forus.io/me'>Me-app</a> is beschikbaar voor Android en iOS telefoons of tablets.<br/><br/>" + 
                 "U hebt nodig:<br/><br/>" + 
                 "<ul>" + 
