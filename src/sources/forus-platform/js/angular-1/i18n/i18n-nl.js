@@ -850,7 +850,7 @@ module.exports = {
             title_step_3: "Vestiging kiezen",
             subtitle_step_3: "Kies een bestaande organisatie of voeg een nieuwe organisatie toe.",
             title_step_4: "Organisatie aanmaken",
-            subtitle_step_4: "Vul hieronder de gegevens van 2suw organisatie in. De gegevens worden gebruikt om uw aanmelding te beoordelen en om gebruik te kunnen maken van het systeem. De gegevens kunt u na aanmelding aanpassen in de persoonlijke aanbieders webomgeving.",
+            subtitle_step_4: "Vul hieronder de gegevens van uw organisatie in. De gegevens worden gebruikt om uw aanmelding te beoordelen en om gebruik te kunnen maken van het systeem. De gegevens kunt u na aanmelding aanpassen in de persoonlijke aanbieders webomgeving.",
             title_step_5: "Aanmelding voltooid",
             subtitle_step_5: "Uw aanmelding is voltooid",
         },
