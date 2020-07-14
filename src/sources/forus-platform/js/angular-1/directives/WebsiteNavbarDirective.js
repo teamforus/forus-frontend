@@ -1,17 +1,10 @@
 let WebsiteNavbarDirective = function(
     $scope,
     ModalService,
-    ConfigService
 ) {
-    $scope.mobileMenu = false;
-    
-    $scope.openPinCodePopup = function () {
-        ModalService.open('modalPinCode', {});
-    };
 
     $scope.openAuthPopup = function () {
-        console.log("hey")
-        ModalService.open('modalAuth', {});
+        ModalService.open('modalAuth2', {});
     };
 
     $scope.scrolled = false;
@@ -29,9 +22,6 @@ let WebsiteNavbarDirective = function(
     }
     window.addEventListener('scroll', $scope.setScrolled)
 
-    $scope.cfg = {
-        logoExtension: ConfigService.getFlag('logoExtension'),
-    };
 };
 
 module.exports = () => {
