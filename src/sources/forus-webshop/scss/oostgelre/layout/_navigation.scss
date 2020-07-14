@@ -8,28 +8,10 @@
         .navbar-inner {
             background-color: transparent;
         }
-
-        .block-auth {
-            //-border-left: 1px solid #dbdcdb;
-        }
-
         .navbar-logo {
             display: flex;
             align-items: center;
-
-            @media screen and (min-width: 1024px) {
-                //-border-right: 1px solid #dbdcdb;
-            }
-
-            img {
-                //height: 55px;
-            }
-
             .second-logo {
-                //height: 55px;
-                //width: 54px;
-                //margin-right: 10px;
-
                 @media screen and (max-width: 1000px) {
                     display: none;
                 }

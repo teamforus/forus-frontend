@@ -4,7 +4,7 @@
         ui-sref="explanation"
         ui-sref-active="active").show-sm
             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-info.svg
-            span(translate="topnavbar.items.explanation")
+            div(translate="topnavbar.items.explanation")
 
     a(ui-sref="home").navbar-logo
         img(ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" ng-if="$root.appConfigs.flags.secondLogo").second-logo
@@ -170,7 +170,7 @@
         
         .auth-in(ng-if="$root.auth_user").show-sm
                 .button.button-mobile(ng-click="$root.signOut()")
-                    img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
+                    include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-sign-out.svg
                     div(translate="topnavbar.buttons.logout")
 
         .auth-out(ng-if="!$root.auth_user" id="login")
@@ -182,7 +182,7 @@
                 em.mdi.mdi-account
                 span(translate="topnavbar.buttons.login")
             .button.button-mobile(ng-click="openAuthPopup()").show-sm
-                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
+                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile3.svg
                 div(translate="topnavbar.buttons.login")
 
             

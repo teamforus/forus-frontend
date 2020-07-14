@@ -7,7 +7,6 @@
     transition: color .4s, background .4s, box-shadow .4s, border .4s;
     border-radius: 6px;
     display: inline-block;
-    //-margin-right: 15px;
     text-align: center;
 
     .mdi {
@@ -26,9 +25,7 @@
     }
 
     img {
-        //-float: left;
         display: block;
-        //-margin: -1px 5px -1px 0;
         transition: .4s;
         margin: 0 auto;
     }

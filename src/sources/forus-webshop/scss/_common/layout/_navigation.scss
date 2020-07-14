@@ -1,12 +1,10 @@
-.hoihoi {
-    background: yellow;
-}
 .block {
     &.block-sticky-footer {
         bottom: 0px;
         position: fixed;
         z-index: 10;
         width: 100%;
+        max-width: 1000%;
         transition: transform 0.2s;
         
         &.scrolled {
@@ -14,44 +12,78 @@
         }
 
         ul {
-            display: table;
+            display: flex;
             width: 100%;
             background-color: #ffffff;
-            box-shadow: 0 0 20px rgba(#000, .075);
+            box-shadow: 0 0 20px rgba(0,0,0,0.075);
+            align-items: center;
+            justify-content: center;
+            height: 60px;
         }
 
         svg {
-
+            height: 18px;
             width: 18px;
             display: block;
-            margin: -5px auto;
+            margin: 0 auto;
         }
 
         li {
             font-size: 14px;
-            width: 25%;
-            padding: 10px 0;
-
-            display: table-cell;
+            padding: 10px 20px;
             text-align: center;
-            border-right: 1px solid $border_color;
-
-            &.active {
-                background-color: #939698;
-                color: white;
+            width: 100%;
+            font-weight: 400;
+            border-right: 1px solid #dbdcdb;
+            height: 100%;
+            @media screen and (max-width: 768px){ 
+                font-size: 12px;
+                padding: 10px 5px;
+            }
+            &.active, &:focus {
+                color: $color_default;
 
                 path {
-                    fill: white;
+                    fill: $color_default;
                 }
             }
         }
     }
     &.block-navbar {
+        border-bottom: 1px solid #dbdcdb;
         z-index: 5;
         background-color: #ffffff;
         position: relative;
         top: 0;
         max-width: 100%;
+        .button {
+            svg {
+                width: 18px;
+                height: 18px;
+                display: block;
+                margin: 0 auto;
+            } 
+            &.active {
+                color: $color_default;
+                svg {
+                    path {
+                        fill: $color_default;
+                    }
+                }
+            }
+        }
+        @media screen and (max-width: 1000px){
+            .button {
+                font-size: 14x;
+                padding: 10px 20px;
+            }
+        }
+        @media screen and (max-width: 768px){
+            .button {
+                font-size: 12px;
+                padding: 10px 10px;
+            }
+        }
         .navbar-inner {
             @include cf();
             max-width: 100%;
@@ -80,6 +112,9 @@
                 display: block;
                 margin: 0 auto;
                 height: 40px;
+                @media screen and (min-width: 768px){ 
+                    height: 40px;
+                }
                 @media screen and (min-width: 1000px){ 
                     height: 50px;
                 }
@@ -90,8 +125,7 @@
         }
 
         .navbar-list-mobile {
-            //float: right;
-            padding-left: 60px;
+            padding-left: 30px;
             flex-grow: 1;
             display: inline-block;
             text-align: left;
@@ -118,8 +152,7 @@
                 .navbar-item {
                     color: #646f79;
                     display: inline-block;
-                    //-font: 700 15px/30px $bf;
-                    padding: 25px 25px;
+                    padding: 25px 20px;
                     position: relative;
                     transition: .4s;
                     cursor: pointer;
@@ -243,17 +276,15 @@
         }
 
         .block-auth {
-            //-border-left: 1px solid #e6ecf0;
-            //-padding: 25px 25px 25px 25px;
             justify-self: flex-end;
             display: flex;
             @include cf();
-
+            @media screen and (min-width: 1000px){ 
+                padding: 15px 15px;
+            }
             .button {
-                //-float: left;
                 margin-right: 20px;
                 margin: 0 auto;
-                //-font: 700 14px/24px $bf;
                 @media screen and (min-width: 1000px){
                     padding: 8px 20px;
                 }
@@ -441,14 +472,7 @@
         }
     }
 
-    @media screen and (max-width: 1700px) {
-        //*.button{
-        //    font-size: 11px;
-        //    img{
-        //        margin: 3px 9px;
-        //    }
-        //}
-        
+    @media screen and (max-width: 1700px) {    
         &.block-navbar {
             .navbar-list {
                 .navbar-item-wrapper {
@@ -462,7 +486,6 @@
             }
 
             .block-auth {
-                //-padding: 15px 20px;
 
                 .auth-in {
                     .auth-user {
@@ -475,10 +498,6 @@
                             font: 400 11px/20px $bf;
                         }
                     }
-                }
-
-                .button {
-                    //-font: 700 14px/24px $bf;
                 }
             }
         }
@@ -501,25 +520,17 @@
             }
 
             .navbar-logo {
-                //-padding: 15px 0px;
-                //-padding-left: 20px;
                 padding-right: -40px;
                 border-right: none;
                 flex-grow: 1;
-
-                img {
-                    //-height: 30px !important;
-                }
             }
 
             .block-auth {
-                //-padding: 10px 10px 10px 0;
                 border: none;
                 display: block;
 
                 .button {
                     margin-right: 10px;
-                    //-padding: 7px 10px;
                     border: none;
                     box-shadow: none;
 

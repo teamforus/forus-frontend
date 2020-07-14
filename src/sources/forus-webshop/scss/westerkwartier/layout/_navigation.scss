@@ -5,16 +5,6 @@
         background-color: #fff;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.075);
 
-        .navbar-logo {
-            @media screen and (min-width: 1024px) {
-                //-adding: 0px 20px 0px 0px;
-            }
-
-            img {
-                //-height: 55px;
-            }
-        }
-
         .navbar-list {
             text-align: left;
 

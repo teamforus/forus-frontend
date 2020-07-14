@@ -9,10 +9,6 @@
             background-color: transparent;
         }
 
-        .block-auth {
-            //-border-left: 1px solid #dbdcdb;
-        }
-
         .navbar-logo {
             display: flex;
             align-items: center;
@@ -66,14 +62,6 @@
                 &:hover {
                     box-shadow: 0
                 }
-            }
-        }
-    }
-
-    @media screen and (min-width: 1000px) {
-        &.block-navbar {
-            .navbar-logo {
-                //-border-right: 1px solid #dbdcdb;
             }
         }
     }

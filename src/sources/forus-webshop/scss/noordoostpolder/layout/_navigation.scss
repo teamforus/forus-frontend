@@ -3,16 +3,10 @@
         &.block-navbar {
             box-shadow: none;
             .navbar-logo {
-                img {
-                    //-height: 55px !important;
-                }                
                 @media screen and (min-width: 1000px) {
                     padding: 10px 50px 10px 80px;
                     border-right: none;
                     margin-bottom: -45px;
-                    img {
-                        //-height: 90px !important;
-                    }
                 }
             }
         }

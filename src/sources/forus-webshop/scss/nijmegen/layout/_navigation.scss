@@ -1,4 +1,15 @@
 .block {
+    &.blokc-sticky-footer {
+        li {
+            &.active, &:focus {
+                color: #fff;
+
+                path {
+                    fill: #fff;
+                }
+            }
+        }
+    }
     &.block-navbar {
         background-color: #a80a2d;
         position: sticky;
@@ -13,32 +24,40 @@
         box-shadow: 0 2px 5px 0 rgba(224, 204, 204, 0.16),
             0 2px 10px 0 rgba(0, 0, 0, 0.12);
         width: 100%;
+        .button {
+            svg {
+                path {
+                    fill: #fff !important;
+                }
+            }
+            &.active {
+                color: #fff;
+                svg {
+                    path {
+                        fill: #fff;
+                    }
+                }
+            }
+        }
         @media screen and (min-width: 1000px) {
              transition: background $navbar_transition, padding $navbar_transition;
              
         }
         @media screen and (max-width: 1000px) {
             .button {
-                font-size: 16px;
                 font-weight: 400;
             }
         }
         .navbar-inner {
             background: transparent;
-            //-padding: 10px 15px;
-            //-transition: all $navbar_transition;
             box-shadow: none;
             @media screen and (min-width: 1000px) { 
-            //-padding: 10px 15px;
             transition: all $navbar_transition;
             }
         }
 
         .navbar-logo {
-            //-margin-right: 0;
             position: relative;
-            //-padding: 0;
-            //-float: left;
             overflow: hidden;
             width: 150px;
             border: none;
@@ -63,7 +82,6 @@
                         display: none;
                     }
                 }
-                //-height: 50px;
             }
     
         }
@@ -76,11 +94,9 @@
 
             .navbar-item-wrapper {
                 .navbar-item {
-                    //-margin: 0 10px;
                     color: #fff;
                     transition: padding $navbar_transition;
                     font-size: 1.25rem;
-                    //-padding: 10px 5px;
                     font-weight: 300;
                     line-height: 30px;
 
@@ -112,7 +128,6 @@
                     border: 1px solid $border_color;
                     color: #157c68;
                     font-size: 18px;
-                    //-padding: 10px 15px;
                     transition: all $navbar_transition;
                 }
                 
@@ -122,7 +137,9 @@
 
                 &:hover {
                     border-color: #ababab;
-                    color: #17564a;
+                    @media screen and (min-width: 1000px) {
+                        color: #17564a;    
+                    }
 
                     .mdi {
                         color: #17564a;
@@ -132,7 +149,6 @@
 
             .auth-in {
                 padding: 0;
-                //-transition: padding .5s ease-in-out;
 
                 .auth-user {
                     grid-template-columns: auto auto;
@@ -197,7 +213,6 @@
         @media screen and (min-width: 1000px) {
             &.top-nav-collapse {
                 .navbar-inner {
-                    //-padding: 5px 15px;
                     box-shadow: none;
                 }
     
@@ -270,23 +285,6 @@
                     .product-image {
                         box-shadow: none;
                         transform: none;
-                    }
-                }
-            }
-        }
-    }
-
-    @media screen and (max-width: 1200px) {
-        &.block-navbar {
-            .navbar-logo {
-                //-margin-right: 20px;
-            }
-
-            .navbar-list {
-                .navbar-item-wrapper {
-                    .navbar-item {
-                        //-margin: 12px;
-                        //padding: 0px;
                     }
                 }
             }
