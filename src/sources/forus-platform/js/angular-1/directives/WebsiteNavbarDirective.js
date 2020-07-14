@@ -35,7 +35,6 @@ module.exports = () => {
         controller: [
             '$scope',
             'ModalService',
-            'ConfigService',
             WebsiteNavbarDirective
         ],
 
