@@ -73,6 +73,7 @@
                         fund="fund" 
                         organization="fund.organization" 
                         criteria="fund.form.criteria" 
+                        is-editable="fund.criteria_editable" 
                         record-types="$ctrl.recordTypes" 
                         save-button='true'
                         on-save-criteria='$ctrl.onSaveCriteria(fund)'
@@ -80,42 +81,42 @@
                 
                 .fund-item-section.fund-item-section-warning.fund-item-section-with-arrow(ng-if="fund.show_stats")
                     .card-block.card-block-keyvalue.card-block-keyvalue-horizontal.row
-                        .keyvalue-item.col.col-lg-2(
+                        .keyvalue-item.col.col-lg-3(
                             ng-click="$ctrl.goToEmployeePage(fund)")
-                            .keyvalue-key Uw medewerkers
+                            .keyvalue-key(translate="fund_card_sponsor.labels.your_employees")
                             .keyvalue-value
                                 span(ng-bind="fund.sponsor_count")
                                 span.icon.mdi.mdi-account-multiple-plus
 
-                        .keyvalue-item.col.col-lg-2(
+                        .keyvalue-item.col.col-lg-3(
                             ng-class="{'keyvalue-item-disabled': !fund.canInviteProviders}" 
                             ng-click="$ctrl.inviteProvider(fund)")
-                            .keyvalue-key Aanbieders
+                            .keyvalue-key(translate="fund_card_sponsor.labels.providers")
                             .keyvalue-value
-                                span(ng-bind="fund.provider_employees_count")
+                                span(ng-bind="fund.providersDescription")
                                 span.icon.mdi.mdi-account-multiple-plus(ng-if="fund.canInviteProviders")
 
-                        .keyvalue-item.col.col-lg-2(
+                        .keyvalue-item.col.col-lg-3(
                             ng-class="{'keyvalue-item-disabled': !fund.canAccessFund}" 
                             ng-click="$ctrl.goToCSVValiationPage(fund)")
-                            .keyvalue-key Aanvragers
+                            .keyvalue-key(translate="fund_card_sponsor.labels.applicants")
                             .keyvalue-value
                                 span(ng-bind="fund.requester_count")
                                 span.icon.mdi.mdi-account-multiple-plus(ng-if="fund.canAccessFund") 
             
                 .fund-item-section.fund-item-section-primary(ng-if="fund.show_stats")
                     .card-block.card-block-keyvalue.card-block-keyvalue-horizontal.row
-                        .keyvalue-item.col.col-lg-2
+                        .keyvalue-item.col.col-lg-3
                             .keyvalue-key Gestort
                             .keyvalue-value
                                 span(ng-bind="fund.budget.total | currency_format")
                         
-                        .keyvalue-item.col.col-lg-2
+                        .keyvalue-item.col.col-lg-3
                             .keyvalue-key Gebruikt
                             .keyvalue-value
                                 span(ng-bind="fund.budget.used | currency_format")
                         
-                        .keyvalue-item.col.col-lg-2
+                        .keyvalue-item.col.col-lg-3
                             .keyvalue-key Resterend
                             .keyvalue-value
                                 span(ng-bind="fund.budget.total - fund.budget.used | currency_format")

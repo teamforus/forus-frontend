@@ -42,6 +42,7 @@ let FundCriteriaEditorDirective = function($scope) {
     $dir.init = function() {
         $dir.fund = $scope.fund;
         $dir.criteria = $scope.criteria;
+        $dir.isEditable = !!$scope.isEditable;
         $dir.saveButton = !!$scope.saveButton;
 
         $dir.organization = $scope.organization;
@@ -65,9 +66,10 @@ module.exports = () => {
         scope: {
             fund: '=',
             criteria: '=',
+            saveButton: '=',
+            isEditable: '=',
             recordTypes: '=',
             organization: '=',
-            saveButton: '=',
             onSaveCriteria: '&',
             validatorOrganizations: '=',
         },

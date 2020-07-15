@@ -64,7 +64,7 @@ let FundService = function(ApiRequest) {
             );
         };
 
-        this.readProviderChats = function(organization_id, fund_id, provider_id, query={}) {
+        this.readProviderChats = function(organization_id, fund_id, provider_id, query = {}) {
             return ApiRequest.get(
                 uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + provider_id + '/chats',
                 query
@@ -198,8 +198,12 @@ let FundService = function(ApiRequest) {
             ]);
         };
 
-        this.criterionValidate = (organization_id, criteria) => {
-            return ApiRequest.patch(uriPrefix + organization_id + '/funds/criteria/validate', {
+        this.criterionValidate = (organization_id, fund_id, criteria) => {
+            return ApiRequest.patch(sprintf(
+                uriPrefix + '%s/funds/%s/criteria/validate',
+                organization_id,
+                fund_id
+            ), {
                 criteria
             });
         };

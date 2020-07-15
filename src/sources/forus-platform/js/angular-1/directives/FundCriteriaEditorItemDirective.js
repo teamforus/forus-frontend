@@ -114,7 +114,7 @@ let FundCriteriaEditorItemDirective = function(
             validator => validator.organization_validator_id
         );
 
-        FundService.criterionValidate($scope.organization.id, [
+        FundService.criterionValidate($scope.fund.organization_id, $scope.fund.id, [
             Object.assign(JSON.parse(JSON.stringify(criterion)), {
                 validators: validatorsField
             })
@@ -217,8 +217,8 @@ let FundCriteriaEditorItemDirective = function(
     };
 
     $dir.init = function() {
+        $dir.isEditable = $scope.isEditable;
         $dir.recordTypes = $scope.recordTypes;
-
         $dir.criterion = JSON.parse(JSON.stringify($scope.criterion));
         $dir.criterionBackup = JSON.parse(JSON.stringify($scope.criterion));
 
@@ -237,6 +237,7 @@ module.exports = () => {
             onDelete: '&',
             fund: '=',
             organization: '=',
+            isEditable: '=',
             criterion: '=',
             recordTypes: '=',
             onRemoveCriterion: '&',

@@ -3,6 +3,7 @@
         ng-repeat="criterion in $dir.criteria"
         record-types="$dir.recordTypes" 
         fund="$dir.fund" 
+        is-editable="$dir.isEditable"
         organization="$dir.organization" 
         criterion="criterion" 
         on-save="$dir.updateOnEditFlag()"
@@ -12,7 +13,7 @@
         validator-organizations="$dir.validatorOrganizations")
 
     .criteria-editor-actions
-        .button.button-primary(ng-click="$dir.addCriteria()")
+        .button.button-primary(ng-if="$dir.isEditable" ng-click="$dir.addCriteria()")
             em.mdi.mdi-plus-circle.icon-start
             | {{ 'components.fund_criteria_editor.buttons.add_criteria' | translate }}
         

@@ -1,5 +1,6 @@
 let OrganizationFundsComponent = function(
     $state,
+    $filter,
     $stateParams,
     FundService,
     ModalService,
@@ -7,6 +8,7 @@ let OrganizationFundsComponent = function(
     PushNotificationsService
 ) {
     let $ctrl = this;
+    let $translate = $filter('translate');
 
     $ctrl.topUpModal = (fund) => {
         if (!fund.topUpInProgress) {
@@ -95,6 +97,12 @@ let OrganizationFundsComponent = function(
             fund.form = {
                 criteria: fund.criteria
             };
+            fund.providersDescription = sprintf(
+                "%s (%s %s)",
+                fund.provider_organizations_count,
+                fund.provider_employees_count,
+                $translate('fund_card_sponsor.labels.employees'),
+            );
         });
     };
 };
@@ -109,6 +117,7 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$filter',
         '$stateParams',
         'FundService',
         'ModalService',

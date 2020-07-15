@@ -26,6 +26,7 @@
             .flex-col.flex-col-2.form-group
                 label.form-label Eigenschap
                 select(
+                    ng-disabled="!$dir.isEditable"
                     ng-model="$dir.criterion.record_type_key" 
                     ng-options="operator.key as operator.name for operator in $dir.recordTypes").form-control
                 .form-error(ng-repeat="error in $dir.errors['criteria.0.record_type_key']" ng-bind="error")
@@ -33,13 +34,14 @@
             .flex-col.flex-col-2.form-group
                 label.form-label Verhouding
                 select(
+                    ng-disabled="!$dir.isEditable"
                     ng-model="$dir.criterion.operator" 
                     ng-options="operator.key as operator.name for operator in $dir.operators").form-control
                 .form-error(ng-repeat="error in $dir.errors['criteria.0.operator']" ng-bind="error")
             
             .flex-col.flex-col-2.form-group
                 label.form-label Waarde
-                input(type="text" ng-model="$dir.criterion.value").form-control
+                input(type="text" ng-model="$dir.criterion.value" ng-disabled="!$dir.isEditable").form-control
                 .form-error(ng-repeat="error in $dir.errors['criteria.0.value']" ng-bind="error")
             
             .flex-col.form-group
@@ -50,6 +52,7 @@
                     ): em.mdi.mdi-comment-text.icon-start
                 
                 .button.button-default.button-icon.pull-left(
+                    ng-if="$dir.isEditable"
                     ng-click="$dir.removeCriterion()"
                     ): em.mdi.mdi-close.icon-start
 
