@@ -83,6 +83,7 @@ app.service('ProvidersService', require('./services/ProvidersService'));
 app.service('SessionService', require('./services/SessionService'));
 app.service('IdentityEmailsService', require('./services/IdentityEmailsService'));
 app.service('NotificationsService', require('./services/NotificationsService'));
+app.service('PhysicalCardsService', require('./services/PhysicalCardsService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
@@ -134,9 +135,11 @@ app.component('modalShareVoucherComponent', require('./components/Modals/ModalSh
 app.component('modalOpenInMeComponent', require('./components/Modals/ModalOpenInMeComponent'));
 app.component('modalProductApplyComponent', require('./components/Modals/ModalProductApplyComponent'));
 app.component('modalIdentityProxyExpiredComponent', require('./components/Modals/ModalIdentityProxyExpiredComponent'));
+app.component('modalPhysicalCardTypeComponent', require('./components/Modals/ModalPhysicalCardTypeComponent'));
 
 // Printable Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
+app.component('physicalCardCodeComponent', require('./components/Printables/PhysicalCardCodeComponent'));
 
 // Providers
 app.provider('PrintableRoute', require('./providers/PrintableRouteProvider'));

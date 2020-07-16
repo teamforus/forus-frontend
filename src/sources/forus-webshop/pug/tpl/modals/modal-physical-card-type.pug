@@ -1,0 +1,143 @@
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
+
+.modal.modal-physical-cards.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()")
+    
+    //- Select type
+    .modal-window(ng-if="$ctrl.state == 'select_type'"): form.form(ng-submit="$ctrl.form.submit()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+
+        .modal-body: .modal-section
+            .physical-card
+                .physical-card-title(translate="physical_card.modal_section.type_selection.title")
+                .physical-card-subtitle(translate="physical_card.modal_section.type_selection.subtitle")
+
+                .physical-card-row
+                    .physical-card-item
+                        .physical-card-item-title(translate="physical_card.modal_section.type_selection.card_old.title")
+                        .physical-card-item-inner(ng-click="$ctrl.choosePhysicalCardType('old')" ng-class="{active: $ctrl.physicalCardType == 'old'}")
+                            .physical-card-item-check: em.mdi.mdi-check-bold
+                            .physical-card-item-icon: img(src=src_prefix + "./assets/img/old-pshysical-card.svg").physical-card-item-icon-img
+                        .physical-card-item-description(translate="physical_card.modal_section.type_selection.card_old.description")
+                    
+                    .physical-card-item
+                        .physical-card-item-title(translate="physical_card.modal_section.type_selection.card_new.title")
+                        .physical-card-item-inner(ng-click="$ctrl.choosePhysicalCardType('new')" ng-class="{active: $ctrl.physicalCardType == 'new'}")
+                            .physical-card-item-check: em.mdi.mdi-check-bold
+                            .physical-card-item-icon: img(src=src_prefix + "./assets/img/new-pshysical-card.svg").physical-card-item-icon-img
+                        .physical-card-item-description(translate="physical_card.modal_section.type_selection.card_new.description")
+
+    //- Activation code form
+    .modal-window(ng-if="$ctrl.state == 'card_code'")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-body: .modal-section
+            form.form
+                .activation-card
+                    .physical-card-title(translate="physical_card.modal_section.link_card.title")
+                    .physical-card-subtitle(translate="physical_card.modal_section.link_card.subtitle")
+                    
+                    pincode-control(
+                        ng-model="$ctrl.activateCodeForm.values.code" 
+                        block-size="4" 
+                        block-count="4" 
+                        block-input-type="alphanum").block-pincode-compact
+                    .form-error(ng-repeat="error in $ctrl.activateCodeForm.errors.code" ng-bind="error")
+
+                    .title.text-center(translate="physical_card.modal_section.link_card.description")
+                    br
+                    br
+
+                    button.button.button-dark(
+                        ng-class="{active: $ctrl.activateCodeForm.values.code.length == 16}"
+                        type="button" 
+                        i18n="physical_card.buttons.link_card.submit_code" 
+                        ng-click="$ctrl.submitActivationCode()")
+    
+    //- Digital password
+    .modal-window(ng-if="$ctrl.state == 'digital_pass'"): form.form
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-body 
+            .modal-section
+                .order-card
+                    .physical-card-title(translate="physical_card.modal_section.request_new_card.title")
+                    .physical-card-subtitle(translate="physical_card.modal_section.request_new_card.subtitle")
+
+                    .order-card-options
+                        .order-card-option(ng-click="$ctrl.emailToMe()")
+                            .order-card-icon: img(src=src_prefix + "./assets/img/physical-card-email.svg").physical-card-item-icon-img
+                            .order-card-title(translate="physical_card.modal_section.request_new_card.email_to_me")
+                        .order-card-option(ng-click="$ctrl.printCard()")
+                            .order-card-icon: img(src=src_prefix + "./assets/img/physical-card-print.svg").physical-card-item-icon-img
+                            .order-card-title(translate="physical_card.modal_section.request_new_card.print_pass")
+                        .order-card-option(ng-click="$ctrl.openInApp()")
+                            .order-card-icon: img(src=src_prefix + "./assets/img/physical-card-open-app.svg").physical-card-item-icon-img
+                            .order-card-title(translate="physical_card.modal_section.request_new_card.open_in_app")
+
+                    .order-block(ng-if="!$ctrl.preffersPlasticCard")
+                        .order-block-title(translate="physical_card.modal_section.request_new_card.preffer_plastic_card")
+                        button.button.button-dark.order-block-button(
+                            type="button" 
+                            translate="physical_card.buttons.request_new_card.order_by_email" 
+                            ng-click="$ctrl.prefferPlasticCard()")
+
+                        br
+                        br
+                        br
+
+                        button.button.button-dark(type="button" ng-click="$ctrl.close()" translate="physical_card.buttons.close")        
+                        br
+
+                    .order-block(ng-if="$ctrl.preffersPlasticCard")
+                        form.form
+                            .order-block-title(translate="physical_card.modal_section.request_new_card.order")
+                            br
+                            br
+
+                            .form-group.form-group-inline.form-group-inline-sm
+                                label.form-label(translate="physical_card.modal_section.request_new_card.postcode")
+                                input(
+                                    type="text" 
+                                    placeholder="Bijv. 9712RG"
+                                    ng-model="$ctrl.requestPhysicalCardForm.values.postcode" step=".01" min="0.01").form-control
+                                .form-error(ng-repeat="error in $ctrl.orderCardForm.errors.postcode" ng-bind="error")
+
+                            .form-group.form-group-inline.form-group-inline-sm
+                                label.form-label(translate="physical_card.modal_section.request_new_card.house_number")
+                                input(
+                                    type="text" 
+                                    placeholder="Bijv. 47a"
+                                    ng-model="$ctrl.requestPhysicalCardForm.values.house_number" step=".01" min="0.01").form-control
+                                .form-error(ng-repeat="error in $ctrl.orderCardForm.errors.house_number" ng-bind="error")
+
+                            br
+                            img(src=src_prefix + "./assets/img/card.png") 
+                            br
+                            br
+
+                            button.button.button-dark(type="button" translate="physical_card.buttons.request_new_card.confirm" ng-click="$ctrl.requestCard()")    
+
+    //- Success old card
+    .modal-window(ng-if="$ctrl.state == 'success_old_card'")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-body
+            .modal-section
+                .physical-card-title(translate="physical_card.modal_section.link_card_success.title")
+                img(src=src_prefix + "./assets/img/physical-card-old-success.svg")
+                .text-center(i18n="physical_card.modal_section.link_card_success.description" i18n-vars="{ fundName: $ctrl.voucher.fund.name }")        
+                br
+                br
+
+                button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="physical_card.buttons.close")   
+
+    //- Success new card
+    .modal-window(ng-if="$ctrl.state == 'success_new_card'")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-body
+            .modal-section
+                .physical-card-title(translate="physical_card.modal_section.link_card_success.title")
+                img(src=src_prefix + "./assets/img/physical-card-old-success.svg")
+                .text-center(translate="physical_card.modal_section.link_card_success.description")        
+                br
+                br
+
+                button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="physical_card.buttons.close")

@@ -76,6 +76,12 @@ let VoucherComponent = function(
                 voucher: voucher
             });
         };
+
+        $ctrl.usePhysicalCard = (voucher) => {
+            ModalService.open('modalPhysicalCardType', {
+                voucher: voucher,
+            });
+        };
     };
 };
 

@@ -1,0 +1,49 @@
+//- Printable class is required 
+.printable.printable-voucher-qr_code
+    .printable-main-info
+        .printable-usage-info 
+            span(i18n="voucher_printable.{{$ctrl.voucherType}}_voucher.labels.use_for")
+            br
+            strong {{ $ctrl.voucher.expire_at_locale }}
+
+        .printable-logo
+            img(ng-src="./assets/img/implementation-logo-{{$ctrl.fund.implementation.key}}.png")    
+    
+        qr-code(qr-value="$ctrl.qrCodeValue" qr-type="voucher")
+        .printable-title {{ $ctrl.printableTitle }}
+        .printable-description(
+            i18n="voucher_printable.{{$ctrl.voucherType}}_voucher.labels.description" 
+            i18n-vars="{ printableTitle: $ctrl.printableTitle }")
+
+    .printable-additional-info
+        .printable-condition(
+            ng-if="$ctrl.voucherType != 'product'" 
+            translate="{{ 'voucher_printable.budget_voucher.labels.' + $ctrl.fund.implementation.key + '.condition' }}" 
+            translate-default="{{ 'voucher_printable.budget_voucher.labels.condition' | translate }}")
+        .notice(i18n="voucher_printable.default.labels.purchases_notice")
+        
+        .description(i18n="voucher_printable.{{$ctrl.voucherType}}_voucher.labels.show_to")  
+        .reference {{ $ctrl.voucherType != 'product' ? $ctrl.webshopUrl : $ctrl.organization.name }} 
+
+    .printable-organization-info
+        .contact 
+            span(
+                i18n="voucher_printable.default.labels.contact.have_questions" 
+                i18n-vars="{ printableTitle: $ctrl.printableTitle }")
+            br
+            span(i18n="voucher_printable.{{$ctrl.voucherType}}_voucher.labels.contact_us") 
+
+        span {{ "voucher_printable.default.labels.contact.phone" | translate }}: 
+        strong {{ $ctrl.organization.phone }}  
+        br
+        span {{ "voucher_printable.default.labels.contact.email" | translate }}: 
+        strong {{ $ctrl.organization.email }}   
+
+        .general-logo
+            img(ng-src="./assets/img/general-logo.svg") 
+    
+    //- Voucher details
+    //-pre(ng-bind="$ctrl.voucher | pretty_json")
+    
+    //- Organization details
+    //- pre(ng-bind="$ctrl.organization | pretty_json")
