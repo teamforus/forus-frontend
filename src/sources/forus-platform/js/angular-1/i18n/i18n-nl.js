@@ -412,9 +412,6 @@ module.exports = {
             cancel: "Annuleren",
             confirm: "Bevestigen",
         },
-        errors: {
-            schedule: 'Format should be h:m, ex 09:00',
-        }
     },
 
     // OFFICES = offices.pug
@@ -805,9 +802,16 @@ module.exports = {
                 "Er wordt een uitnodiging met instructies verstuurd naar de e-mailadressen die u hieronder invult. Als u geen medewerkers wilt toevoegen kunt u deze stap overslaan.",
             title_step_8: "Meld u aan voor de regelingen",
             subtitle_step_8: "Meld u aan voor de regelingen. Uw aanvraag wordt binnen twee weken behandeld.",
+            
             title_step_9: "Aanvraag ontvangen",
             top_title_step_9: "Uw aanmelding is ontvangen",
             subtitle_step_9: "Uw aanmelding is in behandeling. Dit kan maximaal twee weken duren. Zodra uw aanvraag is behandeld ontvangt u een e-mail. U kunt de status van uw aanmelding ook op het dashboard volgen.",
+
+            title_step_9_mobile: "Aanmelding voltooid",
+            top_title_step_9_mobile: "Uw aanmelding is ontvangen",
+            subtitle_step_9_mobile: "Uw aanmelding is in behandeling. Dit kan maximaal twee weken duren. Zodra uw aanvraag is behandeld ontvangt u een e-mail. U kunt de status van uw aanmelding ook op het dashboard volgen.<br><br>Om betalingen te verichten heeft u de Me-app nodig. Download de app en meld u aan met uw emailadres:\n",
+            download_step_9_mobile: "Applicatie downloaden",
+            
             title_step_10: "Test betaling",
             subtitle_step_10: "Wanneer u bent geaccepteerd als aanbieder, kunt u betalingen doen. Klanten kunnen u een plaatje (QR code) tonen (vergelijkbaar met toegangskaartjes en vliegtickets). De QR-code scant u met de app die u zojuist heeft geïnstalleerd. Vervolgens kunt u de betaling verrichten. Scan de afbeelding hieronder om een test betaling te doen.",
             title_step_11: "De test betaling is gelukt!",
@@ -1233,7 +1237,7 @@ module.exports = {
             provider: "AANBIEDER",
             search: "Zoeken",
             from: "Vanaf",
-            to: "Tot",
+            to: "Tot en met",
             state: "Status",
             fund_state: "Status fonds",
             amount: "Bedrag",
@@ -1663,7 +1667,9 @@ module.exports = {
             validation: 'Aanvragers toevoegen (inwoners toevoegen via CSV bestand)',
             operation_officer: 'Verrichten van betalingen via Me app (voor aanbieders)',
             finance: 'Overzicht van statistieken, transacties en het financieel dashboard',
-            policy_officer: 'Aanbieders goedkeuren en instellingen van het fonds aanpassen'
+            policy_officer: 'Aanbieders goedkeuren en instellingen van het fonds aanpassen',
+            implementation_manager: 'Implementatie manager',
+            implementation_cms_manager: 'Implementatie CMS manager'
         }
     },
 

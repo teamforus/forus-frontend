@@ -758,6 +758,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'general',
             client_type: 'pin_code-auth',
+            disable_timestamps: true
         });
 
         platform.editTask('js', (task) => {

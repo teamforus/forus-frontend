@@ -16,6 +16,5 @@ exports.config = {
 
     beforeLaunch: function() {
         global.environment = environment;
-        global.mailListener = MailListener();
     },
 };

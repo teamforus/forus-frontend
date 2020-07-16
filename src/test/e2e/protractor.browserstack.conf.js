@@ -26,7 +26,6 @@ exports.config = {
 
     beforeLaunch: function() {
         global.environment = environment;
-        global.mailListener = MailListener();
 
         return new Promise(function(resolve, reject) {
             exports.bs_local = new browserstack.Local();

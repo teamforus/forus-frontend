@@ -4,5 +4,6 @@
         .photo-label(ng-if="!label" translate="photo_selector.labels.image")
         .photo-label(ng-if="label" ng-bind="label" )
         .photo-label(ng-if="labelTranslate" translate="{{ labelTranslate }}")
+        .button.button-primary-outline.button-sm(ng-click="selectFile($event)") Afbeelding uploaden
         .photo-description(ng-if="description" ng-bind="description")
         .photo-description(ng-if="descriptionTranslate" translate="{{ descriptionTranslate }}")

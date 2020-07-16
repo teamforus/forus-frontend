@@ -22,4 +22,4 @@ form(ng-submit="$ctrl.form.submit()").block.block-office-edit-card
                     | Toegestaande formaten: .JPG, .PNG
             .card-section
                 .card-title Openingstijden
-                schedule-control(ng-model="$ctrl.form.values.schedule")
+                schedule-control(ng-model="$ctrl.form.values.schedule" errors="$ctrl.form.errors")
