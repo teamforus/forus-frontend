@@ -1,12 +1,12 @@
 module.exports = {
     items: {
-        funds:"FONDSEN",
-        products:"AANBIEDINGEN",
-        providers:"AANBIEDERS",
-        explanation:"UITLEG",
+        funds:"Fondsen",
+        products:"Aanbiedingen",
+        providers:"Aanbieders",
+        explanation:"Uitleg",
         identity:"Profiel",
         potjeswijzer: {
-            funds:"POTJES",
+            funds:"Potjes",
         }
     },
     buttons: {
