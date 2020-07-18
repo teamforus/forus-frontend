@@ -10,7 +10,8 @@ let CsvUploadDirective = function(
     FundService,
     ModalService,
     HelperService,
-    FileService
+    FileService,
+    PushNotificationsService
 ) {
     let csvParser = {};
     let input = false;
@@ -40,6 +41,30 @@ let CsvUploadDirective = function(
 
     $scope.progressBar = 0;
     $scope.progressStatus = "";
+
+    let compareRecordRowRecordsSort = (a, b) => {
+        return a.key > b.key ? 1 : (a.key < b.key ? -1 : 0);
+    };
+
+    let compareRecordRowRecords = (first_records, second_records) => {
+        // first_records.sort(compareRecordRowRecordsSort);
+        // second_records.sort(compareRecordRowRecordsSort);
+
+        if (first_records.length !== second_records.length) {
+            return false;
+        }
+
+        return first_records.filter((record, key) => {
+            return (record.key === second_records[key].key) &&
+                (record.value == second_records[key].value);
+        }).length === first_records.length;
+    };
+
+    let compareRecordRows = (first_row, second_row) => {
+        return (first_row.primaryKey === second_row.primaryKey) &&
+            (first_row.primaryKeyValue === second_row.primaryKeyValue) &&
+            (compareRecordRowRecords(first_row.records, second_row.records));
+    };
 
     let bind = function() {
         csvParser.selectFile = function(e) {
@@ -215,103 +240,195 @@ let CsvUploadDirective = function(
                 return false;
             }
 
-            HelperService.recursiveLeacher((page) => {
+            PushNotificationsService.success('Loading...', 'Loading existing pre validations to check for duplicates!', 'download-outline');
+            $scope.csvParser.comparing = true;
+
+            HelperService.recursiveLeacher((page/* , last_page, concurrency */) => {
                 return PrevalidationService.list({
                     per_page: 1000,
                     page: page,
+                    state: 'pending',
                     fund_id: $scope.fund.id
                 });
-            }).then(data => {
-                let primary_key = $scope.fund.csv_primary_key;
-                
-                let uids = data.map(prevalidation => (
-                    prevalidation.state === 'pending' &&
-                    prevalidation.records.filter(record => record.key == primary_key)[0] || null
-                )).filter(prevalidation => prevalidation).map(
-                    prevalidation => prevalidation.value
-                );
+            }, 5).then(data => {
+                $timeout(() => {
+                    PushNotificationsService.success('Comparing...', 'Pre validations loaded! Comparing with .csv...', 'timer-sand');
+                }, 1);
 
-                let existingUids = csvParser.data.filter(csvRow => {
-                    return uids.indexOf(csvRow[primary_key]) != -1;
-                }).map(csvRow => csvRow[primary_key]);
-
-                if (existingUids.length === 0) {
-                    csvParser.startUploadingToServer();
-                } else {
-                    let items = existingUids.map(uid => ({
-                        value: uid,
-                        label_on: "Update",
-                        label_off: "Skip",
-                        button_all: "Update all",
-                    }));
-
-                    ModalService.open('duplicatesPicker', {
-                        hero_title: "Duplicate prevalidations detected.",
-                        hero_subtitle: [
-                            `Are you sure you want to create extra prevalidations for these ${items.length} uid(s)`,
-                            "that already have a prevalidation?"
-                        ],
-                        items: items,
-                        onConfirm: (items) => {
-                            let skipUids = items.filter(item => !item.model).map(item => item.value);
-                            let updateUids = items.filter(item => item.model).map(item => item.value);
-
-                            csvParser.data = csvParser.data.filter(csvRow => {
-                                return skipUids.indexOf(csvRow[primary_key]) === -1;
-                            });
-
-                            if (csvParser.data.length > 0) {
-                                return csvParser.startUploadingToServer(updateUids);
-                            }
-
-                            $timeout(() => {
-                                csvParser.progressBar = 100;
-                                csvParser.progress = 3;
-                                $rootScope.$broadcast('csv:uploaded', true);
-                            }, 0);
-                        },
-                        onCancel: () => $rootScope.$broadcast('csv:uploaded', true),
-                    });
-                }
+                // required for the notification to work
+                $timeout(() => csvParser.compareCsvAndDb(data), 1000);
             });
         }
 
-        csvParser.startUploadingToServer = (overwriteUids = []) => {
-            csvParser.progress = 2;
+        csvParser.compareCsvAndDb = (data) => {
+            let primaryKey = $scope.fund.csv_primary_key;
 
-            var submitData = chunk(JSON.parse(JSON.stringify(
-                csvParser.data
-            )), dataChunkSize);
+            let csvRecords = csvParser.data.map(row => ({
+                primaryKey: primaryKey,
+                primaryKeyValue: row[primaryKey],
+                records: Object.keys(row).map(key => ({
+                    key: key,
+                    value: row[key],
+                }))
+            }));
 
-            var chunksCount = submitData.length;
-            var currentChunkNth = 0;
+            let dbRecords = data.filter(row => row.state == 'pending').map(row => ({
+                primaryKey: primaryKey,
+                primaryKeyValue: row.records.filter(
+                    record => record.key === primaryKey
+                )[0].value || null,
+                records: row.records.map(record => ({
+                    key: record.key,
+                    value: record.value,
+                }))
+            }));
 
-            setProgress(0);
+            csvRecords.forEach((row) => {
+                row.records.sort(compareRecordRowRecordsSort);
+            });
 
-            let uploadChunk = function(data) {
-                PrevalidationService.submitCollection(data, $scope.fund.id, overwriteUids).then(() => {
-                    currentChunkNth++;
-                    setProgress((currentChunkNth / chunksCount) * 100);
+            dbRecords.forEach((row) => {
+                row.records.sort(compareRecordRowRecordsSort);
+            });
 
-                    if (currentChunkNth == chunksCount) {
-                        $timeout(function() {
+            let dbPrimaryKeys = dbRecords.map(row => row.primaryKeyValue);
+            let fullyMathingRecords = [];
+            let updatedRecords = [];
+
+
+            // csv records with primary key present in db
+            let overlappingRecords = csvRecords.filter(row => {
+                return dbPrimaryKeys.indexOf(row.primaryKeyValue) !== -1;
+            });
+
+            let newRecords = csvRecords.filter(row => {
+                return dbPrimaryKeys.indexOf(row.primaryKeyValue) === -1;
+            });
+
+            overlappingRecords.forEach(row => {
+                if (dbRecords.filter(dbRow => compareRecordRows(row, dbRow)).length >= 1) {
+                    fullyMathingRecords.push(row);
+                } else {
+                    updatedRecords.push(row);
+                }
+            });
+
+            let fullOverlappingRecordKeys = fullyMathingRecords.map(record => record.primaryKeyValue);
+            let newAndOverlappingRecords = csvParser.data.filter(row => {
+                return fullOverlappingRecordKeys.indexOf(row[primaryKey]) === -1;
+            });
+
+            $scope.csvParser.comparing = false;
+
+            if (updatedRecords.length === 0) {
+                if (newRecords.length > 0) {
+                    PushNotificationsService.success('Uploading!', 'No duplicates found, uploading ' + newRecords.length + ' new pre validations(s)...');
+                    csvParser.startUploadingToServer(newAndOverlappingRecords);
+                } else {
+                    PushNotificationsService.success('Nothing to upload!', 'No new prevalidations or updates found in your .csv file...');
+                    csvParser.progressBar = 100;
+                    csvParser.progress = 3;
+                    setProgress(100);
+                    $rootScope.$broadcast('csv:uploaded', true);
+                }
+            } else {
+                let items = updatedRecords.map(row => ({
+                    value: row.primaryKeyValue,
+                    label_on: "Update",
+                    label_off: "Skip",
+                    button_all: "Update all",
+                }));
+
+                ModalService.open('duplicatesPicker', {
+                    hero_title: "Duplicate prevalidations detected.",
+                    hero_subtitle: [
+                        `Are you sure you want to create extra prevalidations for these ${items.length} uid(s)`,
+                        "that already have a prevalidation?"
+                    ],
+                    items: items,
+                    onConfirm: (items) => {
+                        let skipUids = items.filter(item => !item.model).map(item => item.value);
+                        let updateUids = items.filter(item => item.model).map(item => item.value);
+
+                        newAndOverlappingRecords = newAndOverlappingRecords.filter(csvRow => {
+                            return skipUids.indexOf(csvRow[primaryKey]) === -1;
+                        });
+
+                        if (newAndOverlappingRecords.length > 0) {
+                            return csvParser.startUploadingToServer(newAndOverlappingRecords.filter(row => {
+                                return skipUids.indexOf(row.primaryKeyValue) === -1;
+                            }), updateUids).then(() => {
+                                if (skipUids.length > 0) {
+                                    PushNotificationsService.success('Done!', skipUids.length + ' pre validation(s) skipped!');
+                                }
+
+                                PushNotificationsService.success(
+                                    'Done!',
+                                    (updatedRecords.length - skipUids.length) + ' pre validation(s) updated!'
+                                );
+
+                                PushNotificationsService.success(
+                                    'Done!',
+                                    newRecords.length + ' new pre validation(s) created!'
+                                );
+                            }, console.error);
+                        }
+
+                        $timeout(() => {
                             csvParser.progressBar = 100;
                             csvParser.progress = 3;
+                            setProgress(100);
                             $rootScope.$broadcast('csv:uploaded', true);
+
+                            PushNotificationsService.success(
+                                'Done!',
+                                skipUids.length + ' pre validation(s) skpped, no new pre validations were added!'
+                            );
                         }, 0);
-                    } else {
-                        uploadChunk(submitData[currentChunkNth]);
-                    }
-                }, (res) => {
-                    if (res.status == 422 && res.data.errors.data) {
-                        return alert(res.data.errors.data[0]);
-                    }
-
-                    alert('Onbekende error.');
+                    },
+                    onCancel: () => $rootScope.$broadcast('csv:uploaded', true),
                 });
-            };
+            }
+        };
 
-            uploadChunk(submitData[currentChunkNth]);
+        csvParser.startUploadingToServer = (data, overwriteUids = []) => {
+            return $q((resolve, reject) => {
+                csvParser.progress = 2;
+
+                var submitData = chunk(JSON.parse(JSON.stringify(data)), dataChunkSize);
+                var chunksCount = submitData.length;
+                var currentChunkNth = 0;
+
+                setProgress(0);
+
+                let uploadChunk = function(data) {
+                    PrevalidationService.submitCollection(data, $scope.fund.id, overwriteUids).then(() => {
+                        currentChunkNth++;
+                        setProgress((currentChunkNth / chunksCount) * 100);
+
+                        if (currentChunkNth == chunksCount) {
+                            $timeout(function() {
+                                csvParser.progressBar = 100;
+                                csvParser.progress = 3;
+                                $rootScope.$broadcast('csv:uploaded', true);
+
+                                resolve();
+                            }, 0);
+                        } else {
+                            uploadChunk(submitData[currentChunkNth]);
+                        }
+                    }, (res) => {
+                        if (res.status == 422 && res.data.errors.data) {
+                            return alert(res.data.errors.data[0]);
+                        }
+
+                        alert('Onbekende error.');
+                        reject();
+                    });
+                };
+
+                uploadChunk(submitData[currentChunkNth]);
+            });
         };
 
         $element.on('dragenter dragover', function(e) {
@@ -390,6 +507,7 @@ module.exports = () => {
             'ModalService',
             'HelperService',
             'FileService',
+            'PushNotificationsService',
             CsvUploadDirective
         ],
         templateUrl: 'assets/tpl/directives/csv-upload.html'

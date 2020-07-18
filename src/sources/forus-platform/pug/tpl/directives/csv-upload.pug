@@ -62,6 +62,7 @@
 
             .text-center(ng-show="csvParser.progress == 1 && csvParser.isValid")
                 button(
+                    ng-if="!csvParser.comparing"
                     ng-click="csvParser.uploadToServer()"
                     translate="csv_upload.buttons.upload").button.button-primary
 

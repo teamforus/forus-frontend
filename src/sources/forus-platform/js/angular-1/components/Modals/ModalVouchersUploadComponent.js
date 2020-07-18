@@ -63,23 +63,17 @@ let ModalVouchersUploadComponent = function(
     $ctrl.downloadExampleCsv = () => {
         if ($ctrl.type == 'fund_voucher') {
             FileService.downloadFile(
-                'voucher_upload_sample.csv',
-                VoucherService.sampleCSV('voucher')
+                'budget_voucher_upload_sample.csv',
+                VoucherService.sampleCSVBudgetVoucher($ctrl.fund.end_date)
             );
         } else {
-            ProductService.listAll({
-                fund_id: $ctrl.fund.id
-            }).then((res) => {
-                let products = res.data.data;
-                let productsIds = products.map(
-                    product => parseInt(product.id)
-                );
-
-                FileService.downloadFile(
-                    'voucher_upload_sample.csv',
-                    VoucherService.sampleCSV('product_voucher', productsIds[0])
-                );
-            });
+            FileService.downloadFile(
+                'product_voucher_upload_sample.csv',
+                VoucherService.sampleCSVProuctVoucher(
+                    $ctrl.productsIds[0] || null,
+                    $ctrl.fund.end_date
+                )
+            );
         }
     };
 
@@ -114,10 +108,26 @@ let ModalVouchersUploadComponent = function(
 
             if ($ctrl.type == 'fund_voucher') {
                 $ctrl.csvParser.amountIsValid = $ctrl.csvParser.validateAmount(data);
-                return $ctrl.csvParser.csvIsValid && $ctrl.csvParser.amountIsValid;
+
+                // fund vouchers csv shouldn't have product_id field
+                $ctrl.csvParser.csvTypeValid = data.filter(
+                    row => row.product_id != undefined
+                ).length === 0;
+
+                return $ctrl.csvParser.csvIsValid &&
+                    $ctrl.csvParser.amountIsValid &&
+                    $ctrl.csvParser.csvTypeValid;
             } else if ($ctrl.type == 'product_voucher') {
                 $ctrl.csvParser.csvProductIdValid = $ctrl.csvParser.validateProductId(data);
-                return $ctrl.csvParser.csvIsValid && $ctrl.csvParser.csvProductIdValid;
+
+                // fund vouchers csv shouldn't have amount field
+                $ctrl.csvParser.csvTypeValid = data.filter(
+                    row => row.amount != undefined
+                ).length === 0;
+
+                return $ctrl.csvParser.csvIsValid &&
+                    $ctrl.csvParser.csvProductIdValid &&
+                    $ctrl.csvParser.csvTypeValid;
             }
 
             return false;
@@ -133,10 +143,10 @@ let ModalVouchersUploadComponent = function(
                     'vouchers.csv.default_note' + (
                         row.email ? '' : '_no_email'
                     ), {
-                        upload_date: moment().format('YYYY-MM-DD'),
-                        uploader_email: $rootScope.auth_user.primary_email,
-                        target_email: row.email || null,
-                    }
+                    upload_date: moment().format('YYYY-MM-DD'),
+                    uploader_email: $rootScope.auth_user.primary_email,
+                    target_email: row.email || null,
+                }
                 );
             };
 
@@ -332,13 +342,16 @@ let ModalVouchersUploadComponent = function(
         $ctrl.type = $ctrl.modal.scope.type || 'fund_voucher';
 
         if ($ctrl.type == 'product_voucher') {
-            ProductService.listAll({
-                fund_id: $ctrl.fund.id
-            }).then((res) => {
-                $ctrl.products = res.data.data;
-                $ctrl.productsIds = $ctrl.products.map(
-                    product => parseInt(product.id)
-                );
+            HelperService.recursiveLeacher((page) => {
+                return ProductService.listAll({
+                    fund_id: $ctrl.fund.id,
+                    page: page,
+                    per_page: 1000,
+                });
+            }, 5).then((data) => {
+                $ctrl.products = data;
+                $ctrl.productsIds = $ctrl.products.map(product => parseInt(product.id));
+
                 $ctrl.init([
                     'product_id'
                 ]);
@@ -350,7 +363,7 @@ let ModalVouchersUploadComponent = function(
         }
     };
 
-    $ctrl.$onDestroy = () => {};
+    $ctrl.$onDestroy = () => { };
     $ctrl.closeModal = () => {
         if ($ctrl.changed) {
             $ctrl.modal.scope.done();
