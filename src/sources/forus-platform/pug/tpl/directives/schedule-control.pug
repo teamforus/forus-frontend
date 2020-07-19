@@ -56,13 +56,13 @@
 
                 td.breaks
                     .flex-row
-                        .flex-col: select(
+                        .flex-col.ie-flex-auto: select(
                             ng-model="$dir.scheduleDetails[weekDayKey].break_start_time"
                             ng-change="$dir.syncHours($index, 'break_start_time')"
                             ng-if="!$dir.scheduleDetails[weekDayKey].is_closed"
                             ng-options="item.key as item.value for item in $dir.timeOptions[weekDayKey].break.from").form-control.form-control-sm
 
-                        .flex-col: select(
+                        .flex-col.ie-flex-auto: select(
                             ng-model="$dir.scheduleDetails[weekDayKey].break_end_time"
                             ng-change="$dir.syncHours($index, 'break_end_time')"
                             ng-if="!$dir.scheduleDetails[weekDayKey].is_closed"
