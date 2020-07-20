@@ -31,6 +31,8 @@ let FundRequestComponentAuto = function(
     $ctrl.finishError = false;
     $ctrl.bsnIsKnown = false;
 
+    $ctrl.submitInProgress = false;
+
     // Initialize authorization form
     $ctrl.initAuthForm = () => {
         let target = 'fundRequest-' + $ctrl.fund.id;
@@ -76,6 +78,12 @@ let FundRequestComponentAuto = function(
     };
     
     $ctrl.submitRequest = () => {
+        if ($ctrl.submitInProgress) {
+            return; 
+        } else {
+            $ctrl.submitInProgress = true;
+        }
+
         FundRequestService.store($ctrl.fund.id, {
             records: $ctrl.invalidCriteria.map(criterion => ({
                 value: criterion.value,
@@ -86,6 +94,7 @@ let FundRequestComponentAuto = function(
             $ctrl.updateState();
             $ctrl.applyFund($ctrl.fund);
         }, (res) => {
+            $ctrl.submitInProgress = false;
             $ctrl.step++;
             $ctrl.updateState();
             $ctrl.finishError = true;

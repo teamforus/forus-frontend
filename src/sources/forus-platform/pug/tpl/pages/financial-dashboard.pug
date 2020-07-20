@@ -91,7 +91,7 @@
              
         fund-card-provider-finances(ng-repeat="fundProvider in $ctrl.fundProviders.data" fund-provider="fundProvider")
 
-        .card: .card-section(ng-show="$ctrl.fundProviders.meta.last_page > 1")
+        .card: .card-section(ng-if="$ctrl.fundProviders" ng-show="$ctrl.fundProviders.meta.last_page > 1")
             paginator(meta="$ctrl.fundProviders.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="onPageChange(query)")
 
         block-empty(

@@ -23,7 +23,7 @@ let FinancialDashboardComponent = function(
         ).year();
         $ctrl.chartData.request.year = $ctrl.startYear;
 
-        $ctrl.getProviders().then(providers => {
+        $ctrl.getProviders($ctrl.filters.values).then(providers => {
             $ctrl.allFundProviders = providers;
             $ctrl.chartData.update();
         });
