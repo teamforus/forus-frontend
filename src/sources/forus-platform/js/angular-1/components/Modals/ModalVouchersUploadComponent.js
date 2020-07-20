@@ -233,7 +233,7 @@ let ModalVouchersUploadComponent = function(
                     ModalService.open('duplicatesPicker', {
                         hero_title: "Dubbele e-mailadressen gedetecteerd.",
                         hero_subtitle: [
-                            `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra voucher wilt aan maken?`,
+                            `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra voucher wilt aanmaken?`,
                             "Deze e-mailadressen bezitten al een voucher van dit fonds."
                         ],
                         items: items,
