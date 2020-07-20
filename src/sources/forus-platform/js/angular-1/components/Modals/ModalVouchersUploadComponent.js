@@ -226,15 +226,15 @@ let ModalVouchersUploadComponent = function(
                 } else {
                     let items = existingEmails.map(email => ({
                         value: email,
-                        label_on: "Create voucher",
-                        label_off: "Skip",
+                        label_on: "Aanmaken voucher",
+                        label_off: "Overslaan",
                     }));
 
                     ModalService.open('duplicatesPicker', {
-                        hero_title: "Duplicate email adresses detected.",
+                        hero_title: "Dubbele e-mailadressen gedetecteerd.",
                         hero_subtitle: [
-                            `Are you sure you want to create extra vouchers for these ${items.length} email addresse(s)`,
-                            "that already have a voucher?"
+                            `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra voucher wilt aan maken?`,
+                            "Deze e-mailadressen bezitten al een voucher van dit fonds."
                         ],
                         items: items,
                         onConfirm: (items) => {

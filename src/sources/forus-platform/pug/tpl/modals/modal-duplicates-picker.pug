@@ -35,9 +35,9 @@
                         button(disabled).button.button-default.button-sm Next
 
         .modal-footer.text-center
-            .button-group: button.button.button-default.button-sm(ng-click="$ctrl.cancel()" ng-bind="$ctrl.modal.scope.button_cancel || 'Cancel'")
+            .button-group: button.button.button-default.button-sm(ng-click="$ctrl.cancel()" ng-bind="$ctrl.modal.scope.button_cancel || 'Annuleer'")
             .button-group.flex-grow
             .button-group
-                button.button.button-default.button-sm(ng-click="$ctrl.toggleAllOff()" ng-bind="$ctrl.modal.scope.button_none || 'Skip all'")
-                button.button.button-default.button-sm(ng-click="$ctrl.toggleAllOn()" ng-bind="$ctrl.modal.scope.button_all || 'Yes to all'")
-                button.button.button-primary.button-sm(ng-click="$ctrl.confirm()" ng-bind="$ctrl.modal.scope.button_confirm || 'Confirm'")
+                button.button.button-default.button-sm(ng-click="$ctrl.toggleAllOff()" ng-bind="$ctrl.modal.scope.button_none || 'Alles overslaan'")
+                button.button.button-default.button-sm(ng-click="$ctrl.toggleAllOn()" ng-bind="$ctrl.modal.scope.button_all || 'Ja op alles'")
+                button.button.button-primary.button-sm(ng-click="$ctrl.confirm()" ng-bind="$ctrl.modal.scope.button_confirm || 'Bevestig'")

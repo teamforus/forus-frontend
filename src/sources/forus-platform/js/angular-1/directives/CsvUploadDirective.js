@@ -240,16 +240,16 @@ let CsvUploadDirective = function(
                 } else {
                     let items = existingUids.map(uid => ({
                         value: uid,
-                        label_on: "Update",
-                        label_off: "Skip",
-                        button_all: "Update all",
+                        label_on: "Aanpassen",
+                        label_off: "Overslaan",
+                        button_all: "Pas alles aan",
                     }));
 
                     ModalService.open('duplicatesPicker', {
-                        hero_title: "Duplicate prevalidations detected.",
+                        hero_title: "Dubbele activaties gedetecteerd.",
                         hero_subtitle: [
-                            `Are you sure you want to create extra prevalidations for these ${items.length} uid(s)`,
-                            "that already have a prevalidation?"
+                            `Weet u zeker dat u voor ${items.length} uniek(e) nummer(s) activatiecodes wilt aanpassen?`,
+                            "Deze nummers hebben al een activatiecode."
                         ],
                         items: items,
                         onConfirm: (items) => {
