@@ -89,7 +89,7 @@
                     br
                     .sign_up-pane-text.sign_up-pane-text-sm 
                         | Op dit moment geen mogelijkheid om de app te installeren? 
-                        .sign_up-pane-link.text-muted(ng-click="$ctrl.setHasAppProp(false)") Ga verder met email >
+                        .sign_up-pane-link.text-muted(ng-click="$ctrl.setHasAppProp(false)") Ga verder met uw e-mailadres >
 
                 .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent)  && $ctrl.sentSms") 
                     .sign_up-pane-heading U heeft een SMS ontvangen op {{ phoneForm.values.phone | phone_number_format }}
