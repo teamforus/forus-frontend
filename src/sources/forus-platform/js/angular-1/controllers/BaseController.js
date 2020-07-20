@@ -116,11 +116,15 @@ let BaseController = function (
         });
     };
 
+<<<<<<< HEAD
     let redirectToDashboard = (selectedOrganizationId) => {
         if (!$rootScope.auth_user) {
             return;
         }
 
+=======
+    $rootScope.redirectToDashboard = (selectedOrganizationId) => {
+>>>>>>> origin/master
         let route = PermissionsService.getAvailableRoutes(
             appConfigs.panel_type,
             $rootScope.auth_user.organizationsMap[selectedOrganizationId]
@@ -137,7 +141,7 @@ let BaseController = function (
                 OrganizationService.use(selectedOrganizationId);
 
                 if (redirect) {
-                    redirectToDashboard(selectedOrganizationId);
+                    $rootScope.redirectToDashboard(selectedOrganizationId);
                 }
             } else {
                 $state.go('organizations-create');
