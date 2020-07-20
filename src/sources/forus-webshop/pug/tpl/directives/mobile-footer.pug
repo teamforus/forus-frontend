@@ -1,0 +1,21 @@
+.block.block-sticky-footer.show-sm(ng-class='{ "scrolled" : scrolled }')
+    ul.sticky-footer-list
+        li.sticky-footer-item(ui-sref="providers" ui-sref-active="active")
+            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-providers.svg
+            span(translate="topnavbar.buttons.providers")
+
+        li.sticky-footer-item(ui-sref="products" ui-sref-active="active")
+            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-products2.svg
+            span(translate="topnavbar.buttons.products")
+
+        li.sticky-footer-item(ng-if="!$root.auth_user" ng-click="openAuthCodePopup()" ui-sref-active="active")                     
+            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start-request.svg
+            span(translate="topnavbar.buttons.mobile.request") 
+
+        li.sticky-footer-item-wrapper(ng-if="$root.auth_user" ui-sref="vouchers" ui-sref-active="active")
+            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-vouchers2.svg
+            span(translate="topnavbar.buttons.mobile.voucher") 
+
+        li.sticky-footer-item-wrapper(ng-if="$root.auth_user" ui-sref="preferences-notifications" ui-sref-active="active")
+            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
+            span(translate="topnavbar.buttons.mobile.profile")

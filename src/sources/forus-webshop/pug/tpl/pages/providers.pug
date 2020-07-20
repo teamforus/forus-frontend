@@ -1,7 +1,7 @@
 block content
     .header-splash: .splash.splash-c
     .block.block-showcase(ng-class="{'block-showcase-fullscreen': $ctrl.showMap}")
-        top-navbar
+        top-navbar(ng-class='{ "scrolled" : $ctrl.scrolled }')
         
         .showcase-wrapper
             mixin search_results(total, show = "true")

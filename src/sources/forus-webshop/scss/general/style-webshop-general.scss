@@ -1,2 +1,8 @@
 @import './vars';
 @import '../_common/webshop';
+
+// LAYOUTS
+@import 'layout/_navigation.scss';
+
+// COMPONENTS
+@import 'components/_buttons.scss';
