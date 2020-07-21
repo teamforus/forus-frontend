@@ -10,8 +10,8 @@
         .modal-close.mdi.mdi-close
         
         .modal-body.modal-body-padless.form
-            .block.block-switch-table
-                label(for=("option_{{ $index }}_enabled") ng-repeat="item in $ctrl.items").switch-row
+            .block.block-switch-table(scroll-end="$ctrl.loadMore()")
+                label(for=("option_{{ $index }}_enabled") ng-repeat="item in $ctrl.itemsShown").switch-row
                     .switch-label
                         em.mdi.mdi-alert-outline.text-warning.switch-key-icon
                         | {{ item.value }}
@@ -19,25 +19,16 @@
                     .switch-input: .flex-row
                         .flex-col.switch-input-label(
                             ng-class="{'switch-input-label-blink' : item.blink}"
-                            ng-bind="item.label")
+                            ng-bind="item.model ? $ctrl.labels.label_on : $ctrl.labels.label_off")
                         .flex-col: .form-group.form-group-inline: .form-toggle
                             input(type="checkbox" id=("option_{{ $index }}_enabled") ng-model="item.model" ng-change="$ctrl.blink(item)")
                             .form-toggle-inner: .toggle-input: .toggle-input-dot
             
 
-                //- .switch-row: .switch-label: .table-pagination.flex-grow
-                    .table-pagination-counter.table-pagination-counter-sm 8 results
-                    .table-pagination-navigation
-                        button(disabled).button.button-default.button-sm Prev
-                        button.button.button-default.button-sm 1
-                        button.button.button-default.button-sm 2
-                        button.button.button-primary.button-sm 3
-                        button(disabled).button.button-default.button-sm Next
-
         .modal-footer.text-center
-            .button-group: button.button.button-default.button-sm(ng-click="$ctrl.cancel()" ng-bind="$ctrl.modal.scope.button_cancel || 'Cancel'")
+            .button-group: button.button.button-default.button-sm(ng-click="$ctrl.cancel()" ng-bind="$ctrl.labels.button_cancel || 'Annuleren'")
             .button-group.flex-grow
             .button-group
-                button.button.button-default.button-sm(ng-click="$ctrl.toggleAllOff()" ng-bind="$ctrl.modal.scope.button_none || 'Skip all'")
-                button.button.button-default.button-sm(ng-click="$ctrl.toggleAllOn()" ng-bind="$ctrl.modal.scope.button_all || 'Yes to all'")
-                button.button.button-primary.button-sm(ng-click="$ctrl.confirm()" ng-bind="$ctrl.modal.scope.button_confirm || 'Confirm'")
+                button.button.button-default.button-sm(ng-click="$ctrl.toggleAllOff()" ng-bind="$ctrl.labels.button_none || 'Skip all'")
+                button.button.button-default.button-sm(ng-click="$ctrl.toggleAllOn()" ng-bind="$ctrl.labels.button_all || 'Yes to all'")
+                button.button.button-primary.button-sm(ng-click="$ctrl.confirm()" ng-bind="$ctrl.labels.button_confirm || 'Bevestig'")

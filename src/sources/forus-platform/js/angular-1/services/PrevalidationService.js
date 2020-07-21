@@ -17,6 +17,14 @@ let PrevalidationService = function(ApiRequest) {
             });
         };
 
+        this.submitCollectionCheck = function(data, fund_id = null, overwrite = []) {
+            return ApiRequest.post(uriPrefix + '/prevalidations/collection/hash', {
+                data: data,
+                fund_id: fund_id,
+                overwrite: overwrite
+            });
+        };
+
         this.list = function(filters) {
             return ApiRequest.get(
                 uriPrefix + '/prevalidations',

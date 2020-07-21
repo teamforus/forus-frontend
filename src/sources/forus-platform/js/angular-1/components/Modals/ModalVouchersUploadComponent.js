@@ -204,10 +204,18 @@ let ModalVouchersUploadComponent = function(
         };
 
         $ctrl.csvParser.validateProductId = (data = []) => {
+            let allProductIds = data.reduce((counter, row) => {
+                counter[row.product_id] = counter[row.product_id] ? counter[row.product_id] + 1 : 1;
+                return counter;
+            }, {});
+
             return data.map(row => {
-                return row.product_id && ($ctrl.productsIds.indexOf(
-                    parseInt(row.product_id)
-                ) != -1);
+                if (!$ctrl.productsByIds[row.product_id]) {
+                    return false;
+                };
+
+                return $ctrl.productsByIds[row.product_id] &&
+                    $ctrl.productsByIds[row.product_id].stock_amount >= allProductIds[row.product_id];
             }).filter(row => !row).length == 0;
         };
 
@@ -218,6 +226,14 @@ let ModalVouchersUploadComponent = function(
                 return false;
             }
 
+            $ctrl.loading = true;
+
+            PushNotificationsService.success(
+                'Loading...',
+                'Loading existing vouchers to check for duplicates!',
+                'download-outline'
+            );
+
             HelperService.recursiveLeacher((page) => {
                 return VoucherService.index($ctrl.organization.id, {
                     fund_id: $ctrl.fund.id,
@@ -225,27 +241,37 @@ let ModalVouchersUploadComponent = function(
                     per_page: 100,
                     page: page
                 });
-            }).then(data => {
+            }, 4).then(data => {
+                PushNotificationsService.success(
+                    'Comparing...',
+                    'Vouchers loaded! Comparing with .csv...',
+                    'timer-sand'
+                );
+
                 let emails = data.map(voucher => voucher.identity_email);
                 let existingEmails = $ctrl.csvParser.data.filter(csvRow => {
                     return emails.indexOf(csvRow.email) != -1;
                 }).map(csvRow => csvRow.email);
+                
+                $ctrl.loading = false;
 
                 if (existingEmails.length === 0) {
                     $ctrl.startUploading();
                 } else {
                     let items = existingEmails.map(email => ({
                         value: email,
-                        label_on: "Create voucher",
-                        label_off: "Skip",
                     }));
 
                     ModalService.open('duplicatesPicker', {
-                        hero_title: "Duplicate email adresses detected.",
+                        hero_title: "Er zijn dubbele e-mailadressen gedetecteerd.",
                         hero_subtitle: [
-                            `Are you sure you want to create extra vouchers for these ${items.length} email addresse(s)`,
-                            "that already have a voucher?"
+                            `Weet u zeker dat u extra vouchers wilt aanmaken voor deze ${items.length}`, 
+                            `e-mailadressen?`
                         ],
+                        button_none: "Alle vouchers overslaan",
+                        button_all: "Alle vouchers aanmaken",
+                        label_on: "Aanmaken",
+                        label_off: "Overslaan",
                         items: items,
                         onConfirm: (items) => {
                             let allowedEmails = items.filter(item => item.model).map(item => item.value);
@@ -264,7 +290,7 @@ let ModalVouchersUploadComponent = function(
                         onCancel: () => $ctrl.close(),
                     });
                 }
-            });
+            }, () => $ctrl.loading = false);
         }
 
         $ctrl.startUploading = () => {
@@ -348,9 +374,13 @@ let ModalVouchersUploadComponent = function(
                     page: page,
                     per_page: 1000,
                 });
-            }, 5).then((data) => {
+            }, 4).then((data) => {
                 $ctrl.products = data;
                 $ctrl.productsIds = $ctrl.products.map(product => parseInt(product.id));
+                $ctrl.productsByIds = $ctrl.products.reduce((obj, product) => {
+                    obj[product.id] = product;
+                    return obj;
+                }, {});
 
                 $ctrl.init([
                     'product_id'
