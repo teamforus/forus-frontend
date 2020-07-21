@@ -298,6 +298,7 @@ let CsvUploadDirective = function(
                     hero_title: "Dubbele activaties gedetecteerd.",
                     hero_subtitle: [
                         `Weet u zeker dat u voor ${items.length} uniek(e) nummer(s) activatiecodes wilt aanpassen?`,
+                        "Deze nummers hebben al een activatiecode."
                     ],
                     button_none: "Alles overslaan",
                     button_all: "Pas alles aan",

@@ -10,7 +10,7 @@ let ProductVouchersComponent = function(
 
     $ctrl.states = [{
         value: null,
-        name: 'Select...'
+        name: 'Selecteer...'
     }, {
         value: 1,
         name: 'Ja'

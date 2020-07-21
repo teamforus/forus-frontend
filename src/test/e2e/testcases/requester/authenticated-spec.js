@@ -37,11 +37,13 @@ describe('testing basic authenticated functionality of requester:', function() {
             // check which button is present
             requester.enableMailSubscription().isPresent().then(function(result) {
                 if (result) { // check if other button is present when clicking
-                    requester.enableMailSubscription().click()
-                    expect(requester.disableMailSubscription().isPresent()).toBe(true)
+                    requester.enableMailSubscription().click().then(function(){
+                        expect(requester.enableMailSubscription().isDisplayed()).toBe(true)
+                    })
                 } else {
-                    requester.disableMailSubscription().click()
-                    expect(requester.enableMailSubscription().isPresent()).toBe(true)
+                    requester.disableMailSubscription().click().then(function(){
+                        expect(requester.disableMailSubscription().isDisplayed()).toBe(true)
+                    })
                 }
             });
         }
@@ -51,6 +53,4 @@ describe('testing basic authenticated functionality of requester:', function() {
         requester.openUserMenu()
         expect(requester.getUserMenuSignOut().isPresent()).toBe(true)
     });
-
-    console.log("\ndone!\n");
 });
