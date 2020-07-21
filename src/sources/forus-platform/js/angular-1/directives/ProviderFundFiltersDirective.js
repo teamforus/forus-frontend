@@ -8,40 +8,13 @@ let ProviderFundFiltersDirective = function(
     $scope.allFunds = $scope.fundsAvailable;
 
     $scope.getFundFilters = () => {
-        $scope.fundOrganizations = [];
-        $scope.fundLabels = [];
-
-        let processedOrganizations = [];
-        let processedLabels = [];
-
         if (!$scope.fundsAvailable || !$scope.fundsAvailable.data) {
             return;
         }
 
-        $scope.fundsAvailable.data.forEach(fund => {
-            if (processedOrganizations.indexOf(fund.organization.id) == -1) {
-                $scope.fundOrganizations.push({
-                    id: fund.organization.id,
-                    name: fund.organization.name
-                });
+        $scope.fundLabels = $scope.fundsAvailable.meta.tags;
 
-                processedOrganizations.push(fund.organization.id);
-            }
-
-            fund.tags.forEach(tag => {
-                if (processedLabels.indexOf(tag.id) == -1) {
-                    $scope.fundLabels.push({
-                        id: tag.id,
-                        key: tag.key,
-                        name: tag.name
-                    });
-
-                    processedLabels.push(tag.id);
-                }
-            });
-        });
-
-        $scope.fundOrganizations = $scope.fundOrganizations.map(fundOrganization => {
+        $scope.fundOrganizations = $scope.fundsAvailable.meta.organizations.map(fundOrganization => {
             fundOrganization.id_str = fundOrganization.id += '';
             return fundOrganization;
         });
