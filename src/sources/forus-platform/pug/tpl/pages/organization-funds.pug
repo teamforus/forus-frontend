@@ -5,7 +5,8 @@
             span(translate="funds_my.title")
             a(
                 ui-sref="funds-create({organization_id: $root.activeOrganization.id})"
-                ng-if='$root.activeOrganization | hasPerm:["manage_funds"]').link
+                ng-if='$root.activeOrganization | hasPerm:["manage_funds"]'
+                id="create_fund").link
                 em.mdi.mdi-plus-circle
                 | {{ "funds_my.add" | i18n }}
                 span(ng-bind="' (' + $ctrl.funds.length + ')'")

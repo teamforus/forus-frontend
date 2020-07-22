@@ -1,13 +1,15 @@
 // file system
-const fs = require('fs');
-const fse = require('fs-extra');
-const del = require('del');
-const glob = require('glob');
-const path = require('path');
-const compress = require('compression');
-const historyApiFallback = require('connect-history-api-fallback');
-const child_process = require('child_process');
-const sprintf = require('sprintf-js').sprintf;
+var fs = require('fs');
+var fse = require('fs-extra');
+var del = require('del');
+var glob = require('glob');
+var path = require('path');
+var compress = require('compression');
+var historyApiFallback = require('connect-history-api-fallback')
+var protractor = require('gulp-protractor').protractor;
+var child_process = require('child_process');
+let sprintf = require('sprintf-js').sprintf;
+
 
 // console colors
 const colors = require('colors');
@@ -183,7 +185,12 @@ var scss_compiler = async function(platform, src, task) {
     }));
 
     streams.push(plugins.autoprefixer(pluginSettings.autoPrefixer));
-    streams.push(plugins.rename(compose_dest_path(task.name, assetsSuffix)));
+
+    streams.push(plugins.rename(compose_dest_path(
+        task.name,
+        !platform.env_data.disable_timestamps ? assetsSuffix : ''
+    )));
+
     streams.push(gulp.dest(platform.paths.assets + '/css/' + task.dest));
 
     if (platform.server) {
@@ -208,7 +215,7 @@ var js_compiler = function(platform, src, task) {
     let promise = new Promise(_resolve => resolve = _resolve);
 
     var dest = task.dest;
-    var name = compose_dest_path(task.name, assetsSuffix);
+    var name = compose_dest_path(task.name, !platform.env_data.disable_timestamps ? assetsSuffix : '');
     var sources = [];
 
     // notifiers
@@ -373,7 +380,7 @@ var pug_compiler = function(source, platform, src, dest, task) {
                 qdt_c: {
                     git_log: gitLog || false,
                     git_log_header: gitLogHeader || false,
-                    append_assets: includeTimestamp ? '-' + timestamp : '',
+                    append_assets: !platform.env_data.disable_timestamps ? assetsSuffix : '',
                     platform: platform
                 }
             },
@@ -741,6 +748,22 @@ let clearTask = (done) => {
     }).then(() => done());
 };
 
+let browserstackTask = function(cb) {
+    gulp.src(['test/e2e/testcases/*-spec.js']).pipe(protractor({
+        configFile: 'test/e2e/protractor.browserstack.conf.js'
+    })).on('error', function(e) {
+        console.log(e);
+    }).on('end', cb);
+};
+
+let protractorTask = function(cb) {
+    gulp.src(['test/e2e/testcases/*-spec.js']).pipe(protractor({
+        configFile: 'test/e2e/protractor.conf.js'
+    })).on('error', function(e) {
+        console.log(e);
+    }).on('end', cb);
+};
+
 // clear task
 gulp.task('clear', clearTask);
 
@@ -771,6 +794,12 @@ gulp.task('serve', serverTask);
 // initialize qdt on fresh install
 gulp.task('init', initTask);
 
+// Setting up the test task
+gulp.task('browserstack', browserstackTask);
+
+// Setting up the test task
+gulp.task('protractor', protractorTask);
+
 // watch changes
 gulp.task('watch', gulp.parallel([
     serverTask, watchTask
@@ -784,6 +813,11 @@ gulp.task('build', gulp.series([
 // build task alias
 gulp.task('compile', gulp.series([
     'build'
+]), done => done());
+
+// default test
+gulp.task('test', gulp.series([
+    'browserstack', 'protractor'
 ]), done => done());
 
 // default task

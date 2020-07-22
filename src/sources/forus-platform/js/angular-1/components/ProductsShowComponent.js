@@ -49,9 +49,8 @@ let ProductsShowComponent = function(
         ProductChatService.list(
             $ctrl.product.organization_id,
             $ctrl.product.id, {
-                per_page: 100
-            }
-        ).then(res => {
+            per_page: 100
+        }).then(res => {
             $ctrl.chats = res.data;
             $ctrl.mapFundsWithChats();
         });
@@ -75,10 +74,14 @@ let ProductsShowComponent = function(
             title: 'products.confirm_delete.title',
             description: 'products.confirm_delete.description',
             icon: 'product-create',
-            confirm: () => ProductService.destroy(
-                product.organization_id,
-                product.id
-            ).then(() => $state.reload())
+            confirm: () => {
+                ProductService.destroy(
+                    product.organization_id,
+                    product.id
+                ).then(() => $state.go('products', {
+                    organization_id: product.organization_id,
+                }));
+            }
         });
     };
 };

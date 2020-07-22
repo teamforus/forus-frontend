@@ -9,7 +9,7 @@ section.section.section-profile: .wrapper
         .span-count(ng-bind="$ctrl.regularVouchers.length")
     .section-description(translate="vouchers.header.regular.description")
 
-    .budget-vouchers
+    .budget-vouchers(id="budget_vouchers")
         .block.block-profile
             .profile-content
                 .block.block-vouchers(ng-if="$ctrl.regularVouchers.length > 0")

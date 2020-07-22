@@ -17,10 +17,10 @@ let EmailPreferencesComponent = function(
             'funds.balance_warning', 
             'funds.product_added',
             'employee.created',
-            'employee.deleted'
+            'employee.deleted',
+            'digest.daily_sponsor',
         ];
-    }
-    if (appConfigs.panel_type == 'provider'){
+    } else if (appConfigs.panel_type == 'provider'){
         keysEditableOnDashboard = [
             'funds.new_fund_started', 
             'funds.new_fund_applicable', 
@@ -30,15 +30,17 @@ let EmailPreferencesComponent = function(
             'funds.product_sold_out',
             'bunq.transaction_success',
             'employee.created',
-            'employee.deleted'
+            'employee.deleted',
+            'digest.daily_provider_funds',
+            'digest.daily_provider_products',
         ];
-    }
-    if (appConfigs.panel_type == 'validator'){
+    } else if (appConfigs.panel_type == 'validator'){
         keysEditableOnDashboard = [
             'validations.new_validation_request',
             'validations.you_added_as_validator',
             'employee.created',
-            'employee.deleted'
+            'employee.deleted',
+            'digest.daily_validator',
         ];
     }
 

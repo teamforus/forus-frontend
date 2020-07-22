@@ -61,7 +61,7 @@ block content
                                     em.mdi.mdi-map-marker-radius.icon-start
                                     | Kaart
                     
-                    .block.block-organizations(ng-if="!$ctrl.showMap")
+                    .block.block-organizations(ng-if="!$ctrl.showMap" id="providers_list")
                         .organization-item(ng-repeat="provider in $ctrl.providers.data")
                             .organization-pane(ng-click="$ctrl.toggleOffices($event, provider)")
                                 .organization-logo(ng-click="$ctrl.goToProvider(provider)"): img(

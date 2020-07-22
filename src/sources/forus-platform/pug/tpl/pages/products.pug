@@ -4,7 +4,7 @@
         //- information-block(text="'products.cannot_delete'" type="'danger'")
         .card-heading
             | {{ "products.offers" | translate }}
-            a(ng-click="$ctrl.addProduct()").link
+            a(ng-click="$ctrl.addProduct()" id="add_product").link
                 em.mdi.mdi-plus-circle 
                 | {{ "products.add" | translate }}
                 |

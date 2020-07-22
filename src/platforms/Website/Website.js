@@ -18,7 +18,7 @@ platform.editTask('scss', (task) => {
         "general/website/**/**/*.scss",
     ];
 
-    return task
+    return task;
 });
 
 // change server port

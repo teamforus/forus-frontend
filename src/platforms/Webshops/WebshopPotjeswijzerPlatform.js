@@ -19,7 +19,7 @@ platform.editTask('scss', (task) => {
         "potjeswijzer/**/*.scss"
     ];
 
-    return task
+    return task;
 });
 
 // change server port

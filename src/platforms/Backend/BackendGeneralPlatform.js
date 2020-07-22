@@ -17,7 +17,7 @@ platform.editTask('scss', (task) => {
         "**/*.scss"
     ];
 
-    return task
+    return task;
 });
 
 module.exports = platform;
