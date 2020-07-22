@@ -1476,8 +1476,8 @@ module.exports = {
     // MENU = langing/navbar.pug
     topnavbar: {
         items: {
-            funds: "FONDSEN",
-            products: "AANBIEDINGEN",
+            funds: "Fondsen",
+            products: "Aanbiedingen",
             identity: "Profiel",
         },
         buttons: {
@@ -1590,31 +1590,31 @@ module.exports = {
         }
     },
     notification_preferences: {
-        title_preferences: 'Notificatie voorkeuren',
+        title_preferences: 'Notificatievoorkeuren',
         title_email_preferences: 'E-mail notificaties',
         title_push_preferences: 'Push notificaties',
-        subscribe_desc: 'Met dit e-mailadres "{{email}}" bent u momenteel voor alle notificaties uitgeschreven. Wanneer u notificaties wilt ontvangen, kunt u dit hieronder per notificatie instellen.',
+        subscribe_desc: 'Met dit e-mailadres "{{email}}" bent u momenteel voor alle e-mail notificaties uitgeschreven. Wanneer u e-mail notificaties wilt ontvangen, kunt u dit hieronder per notificatie instellen.',
         unsubscribe: 'Uitschrijven voor alle e-mail notificaties',
-        unsubscribe_desc:  'Ik wil me uitschrijven van alle notificaties.',
+        unsubscribe_desc:  'Ik wil me uitschrijven van alle e-mail notificaties.',
         unsubscribe_button: 'Uitschrijven',
         subscribe: 'Ja, ik wil e-mail notificaties ontvangen.',
         errors: {
             'not_found': 'Deze token is ongeldig',
             'expired': 'Deze token is verlopen',
-            'not-pending': 'De notificatie instellingen zijn al aangepast via deze link'
+            'not-pending': 'De notificatievoorkeuren zijn al aangepast via deze link'
         },
         types: {
             digest: {
                 daily_sponsor: {
-                    title: "Dagelijkse digest notificaties aanmeldingen aanbieders",
+                    title: "Dagelijkse samenvatting omtrent aanmeldingen aanbieders",
                     description: "Notificaties omtrent aanmeldingen van aanbieders worden gegroepeerd toegestuurd."
                 },
                 daily_provider: {
-                    title: "Dagelijkse digest notificaties omtrent producten en aanmeldingen",
+                    title: "Dagelijkse samenvatting omtrent producten en aanmeldingen",
                     description: "Notificaties omtrent aanmeldingen en producten worden gegroepeerd toegestuurd."
                 },
                 daily_validator: {
-                    title: "Dagelijkse digest notificaties omtrent aanvragen voor fondsen",
+                    title: "Dagelijkse samenvatting omtrent aanvragen voor fondsen",
                     description: "Notificaties omtrent aanvragen worden gegroepeerd toegestuurd."
                 },
             },
