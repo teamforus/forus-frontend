@@ -12,12 +12,8 @@ let ProviderFundFiltersDirective = function(
             return;
         }
 
-        $scope.fundLabels = $scope.fundsAvailable.meta.tags;
-
-        $scope.fundOrganizations = $scope.fundsAvailable.meta.organizations.map(fundOrganization => {
-            fundOrganization.id_str = fundOrganization.id += '';
-            return fundOrganization;
-        });
+        $scope.fundLabels = $scope.fundsAvailable.meta.tags.slice();
+        $scope.fundOrganizations = $scope.fundsAvailable.meta.organizations.slice();
 
         $scope.fundLabels.unshift({
             key: 'null',
@@ -25,7 +21,7 @@ let ProviderFundFiltersDirective = function(
         });
 
         $scope.fundOrganizations.unshift({
-            id_str: 'null',
+            id: 'null',
             name: $translate('sign_up_provider.filters.options.all_organizations')
         });
 
