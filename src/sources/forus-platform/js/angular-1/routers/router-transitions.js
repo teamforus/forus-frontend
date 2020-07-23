@@ -19,7 +19,7 @@ module.exports = ['$transitions', '$rootScope', 'OrganizationService', 'PageLoad
         if ([
                 'home', 'organiztions', 'funds', 'funds-show',
                 'organizations-create', 'csv-validation', 'validation-requests',
-                'validation-request', 'sign-up', 'sign-up-v2',
+                'validation-request', 'sign-up',
                 'restore-email', 'email-unsubscribe',
                 'preferences-notifications', 'security-sessions', 
                 'provider-invitation-link', 'auth-link', 'identity-emails',
