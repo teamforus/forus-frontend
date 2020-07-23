@@ -1,3 +1,5 @@
+var EC = protractor.ExpectedConditions;
+
 var VouchersPage = function(){
 
     this.createVoucher = function(){
@@ -9,10 +11,12 @@ var VouchersPage = function(){
     }
 
     this.cancelCreateVoucher = function(){
+        browser.wait(EC.elementToBeClickable(element(by.id("cancel"))), 3000)
         element(by.id('cancel')).click()
     }
     
     this.closeUploadCSV = function(){
+        browser.wait(EC.elementToBeClickable(element(by.id("close"))), 3000)
         element(by.id('close')).click()
     }
 }

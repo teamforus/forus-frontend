@@ -118,7 +118,7 @@ let BaseController = function (
         });
     };
 
-    let redirectToDashboard = (selectedOrganizationId) => {
+    $rootScope.redirectToDashboard = (selectedOrganizationId) => {
         if (!$rootScope.auth_user) {
             return;
         }
@@ -139,7 +139,7 @@ let BaseController = function (
                 OrganizationService.use(selectedOrganizationId);
 
                 if (redirect) {
-                    redirectToDashboard(selectedOrganizationId);
+                    $rootScope.redirectToDashboard(selectedOrganizationId);
                 }
             } else {
                 $state.go('organizations-create');

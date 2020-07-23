@@ -1,3 +1,5 @@
+var EC = protractor.ExpectedConditions;
+
 var HomePage = function() {
     this.productsBlock = element(by.id('products'))
     this.stepsBlock = element(by.id('steps'));
@@ -9,6 +11,7 @@ var HomePage = function() {
     }
 
     this.closeLoginModal = function() {
+        browser.wait(EC.elementToBeClickable(element(by.id("close"))), 3000);
         element(by.id("close")).click();
     }
 
@@ -17,6 +20,7 @@ var HomePage = function() {
     }
 
     this.closeStartModal = function() {
+        browser.wait(EC.elementToBeClickable(element(by.id("close"))), 3000)
         element(by.id("close")).click();
     }
 

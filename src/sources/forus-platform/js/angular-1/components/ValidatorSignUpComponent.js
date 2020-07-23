@@ -288,10 +288,10 @@ let ValidatorSignUpComponent = function(
 
         $ctrl.setStep($ctrl.step - 1);
     };
-
-    $ctrl.finish = () => {
-        $state.go('organizations');
-    };
+    
+    $ctrl.finish = () => $state.go('organizations-view', {
+        id: $ctrl.organization.id
+    });
 
     $ctrl.selectPhoto = (file) => {
         orgMediaFile = file;
