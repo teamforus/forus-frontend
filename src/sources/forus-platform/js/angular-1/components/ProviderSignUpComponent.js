@@ -555,6 +555,11 @@ let ProviderSignUpComponent = function(
     };
 
     $ctrl.next = function() {
+        if (isMobile() && $ctrl.step == $ctrl.STEP_INFO_GENERAL) {
+            $ctrl.setStep($ctrl.STEP_SCAN_QR);
+            return;
+        }
+        
         if ($ctrl.step == $ctrl.STEP_ORGANIZATION_ADD) {
             let submit = () => $ctrl.organizationForm.submit().then((res) => {
                 $ctrl.setOrganization(res.data.data);
