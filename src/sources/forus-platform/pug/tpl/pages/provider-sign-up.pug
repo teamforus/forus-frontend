@@ -88,7 +88,10 @@
                     
                     br
                     .sign_up-pane-text.sign_up-pane-text-sm 
-                        | Op dit moment geen mogelijkheid om de app te installeren? 
+                        | {{ "sign_up_provider.download.cannot_receive_sms" | translate }} 
+                        a(href="https://www.forus.io/DL" target="_blank") www.forus.io/DL
+                        br
+                        | {{ "sign_up_provider.download.cannot_install_app" | translate }} 
                         .sign_up-pane-link.text-muted(ng-click="$ctrl.setHasAppProp(false)") Ga verder met uw e-mailadres >
 
                 .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent)  && $ctrl.sentSms") 
