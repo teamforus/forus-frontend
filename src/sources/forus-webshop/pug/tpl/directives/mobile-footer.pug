@@ -1,4 +1,4 @@
-.block.block-sticky-footer.show-sm(ng-class='{ "scrolled" : scrolled }')
+.block.block-sticky-footer.show-sm(ng-class='{ "scrolled" : !visible }')
     ul.sticky-footer-list
         li.sticky-footer-item(ui-sref="providers" ui-sref-active="active")
             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-providers.svg

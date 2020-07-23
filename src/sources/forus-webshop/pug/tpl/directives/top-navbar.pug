@@ -1,4 +1,4 @@
-.block.block-navbar: .navbar-inner.wrapper   
+.block.block-navbar(ng-class='{"scrolled" : $ctrl.hideOnScroll && !$ctrl.visible}'): .navbar-inner.wrapper   
     a.button(
         ng-if="!$root.appConfigs.features.settings.has_more_info_url"
         ui-sref="explanation"
