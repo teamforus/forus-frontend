@@ -453,6 +453,11 @@ let ProviderSignUpComponent = function(
     };
 
     $ctrl.setStep = (step) => {
+        if (isMobile() && step == $ctrl.STEP_INFO_ME_APP) {
+            $ctrl.step = step;
+            return step >= $ctrl.step ? $ctrl.next() : $ctrl.back();
+        }
+
         if (step <= $ctrl.STEP_SIGNUP_FINISHED) {
             $ctrl.step = step;
             progressStorage.set('step', step);
@@ -555,11 +560,6 @@ let ProviderSignUpComponent = function(
     };
 
     $ctrl.next = function() {
-        if (isMobile() && $ctrl.step == $ctrl.STEP_INFO_GENERAL) {
-            $ctrl.setStep($ctrl.STEP_SCAN_QR);
-            return;
-        }
-        
         if ($ctrl.step == $ctrl.STEP_ORGANIZATION_ADD) {
             let submit = () => $ctrl.organizationForm.submit().then((res) => {
                 $ctrl.setOrganization(res.data.data);
