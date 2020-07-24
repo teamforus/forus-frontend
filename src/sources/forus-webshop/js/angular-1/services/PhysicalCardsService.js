@@ -9,7 +9,7 @@ let PhysicalCardService = function(
         };
 
         this.requestPhysicalCard = function(address, values) {
-            return ApiRequest.post(apiPrefix + '/' + address + '/physical-card-requests', values);
+            return ApiRequest.post(apiPrefix + '/' + address + '/physical-cards/request', values);
         };
     });
 };

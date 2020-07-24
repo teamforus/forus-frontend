@@ -139,7 +139,6 @@ app.component('modalPhysicalCardTypeComponent', require('./components/Modals/Mod
 
 // Printable Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
-app.component('physicalCardCodeComponent', require('./components/Printables/PhysicalCardCodeComponent'));
 
 // Providers
 app.provider('PrintableRoute', require('./providers/PrintableRouteProvider'));

@@ -1,9 +1,6 @@
 let ModalPhysicalCardTypeComponent = function(
-    IdentityService,
     FormBuilderService,
-    PrintableService,
     PhysicalCardsService,
-    ModalService,
 ) {
     let $ctrl = this;
     
@@ -15,6 +12,21 @@ let ModalPhysicalCardTypeComponent = function(
         $ctrl.fund = $ctrl.modal.scope.fund || null;
         $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.voucher = $ctrl.modal.scope.voucher;
+
+        $ctrl.sendVoucherEmail = () => {
+            $ctrl.close();
+            $ctrl.modal.scope.sendVoucherEmail();
+        };
+
+        $ctrl.openInMeModal = () => {
+            $ctrl.close();
+            $ctrl.modal.scope.openInMeModal();
+        };
+
+        $ctrl.printQrCode = () => {
+            $ctrl.close();
+            $ctrl.modal.scope.printQrCode();
+        };
 
         $ctrl.state = 'select_type';
         $ctrl.physicalCardType = 'old';
@@ -65,25 +77,6 @@ let ModalPhysicalCardTypeComponent = function(
     $ctrl.requestCard = () => {
         $ctrl.requestPhysicalCardForm.submit();
     };
-
-    $ctrl.emailToMe = () => {};
-
-    $ctrl.printCard = () => {
-        console.log('voucher: ', {
-            voucher: $ctrl.voucher,
-            fund: $ctrl.voucher.fund,
-            organization: $ctrl.voucher.fund.organization,
-        });
-        PrintableService.open('physicalCardCode', {
-            voucher: $ctrl.voucher,
-            fund: $ctrl.voucher.fund,
-            organization: $ctrl.voucher.fund.organization,
-        });
-    };
-
-    $ctrl.openInApp = () => { ModalService.open('modalOpenInMe'); };
-
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {
@@ -93,11 +86,8 @@ module.exports = {
         voucher: '<',
     },
     controller: [
-        'IdentityService',
         'FormBuilderService',
-        'PrintableService',
         'PhysicalCardsService',
-        'ModalService',
         ModalPhysicalCardTypeComponent
     ],
     templateUrl: () => {

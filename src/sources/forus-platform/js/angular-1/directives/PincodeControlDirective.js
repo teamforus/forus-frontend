@@ -7,6 +7,8 @@ let PincodeControlDirective = function(
     let blockCount = $scope.blockCount || 1;
     let totalSize = blockSize * blockCount;
 
+    $scope.cantDeleteLength = $scope.cantDeleteLength ? $scope.cantDeleteLength : 0;
+
     $scope.updateInput = () => {
         let chars = [];
         let charCount = 0;
@@ -16,9 +18,7 @@ let PincodeControlDirective = function(
                 chars.push(char);
                 charCount++;
 
-                if (charCount > 0 && (
-                        charCount % blockSize == 0
-                    ) && charCount < totalSize) {
+                if (charCount > 0 && (charCount % blockSize == 0) && charCount < totalSize) {
                     chars.push('split');
                 }
             });
@@ -29,14 +29,11 @@ let PincodeControlDirective = function(
                 chars.push('_');
                 charCount++;
 
-                if (charCount > 0 && (
-                        charCount % blockSize == 0
-                    ) && charCount < totalSize) {
+                if (charCount > 0 && (charCount % blockSize == 0) && charCount < totalSize) {
                     chars.push('split');
                 }
             }
         }
-
 
         $scope.chars = chars;
     };
@@ -67,7 +64,9 @@ let PincodeControlDirective = function(
             }
 
             if (key == 8 || key == 46) {
-                $scope.ngModel = $scope.ngModel.slice(0, $scope.ngModel.length - 1);
+                if ($scope.ngModel.length - $scope.cantDeleteLength > 0) {
+                    $scope.ngModel = $scope.ngModel.slice(0, $scope.ngModel.length - 1);
+                }
             }
 
             if (blockInputType == 'alphanum' || blockInputType == 'num') {
@@ -120,7 +119,8 @@ module.exports = () => {
             ngModel: '=',
             blockSize: '@',
             blockCount: '@',
-            blockInputType: '@'
+            blockInputType: '@',
+            cantDeleteLength: '=?',
         },
         restrict: "EA",
         replace: true,

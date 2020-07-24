@@ -6,16 +6,17 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
         .breadcrumb-item.active(ng-if="!$ctrl.voucherCard.product") Uw {{ $ctrl.voucherCard.title }} voucher 
         .breadcrumb-item.active(ng-if="$ctrl.voucherCard.product") Uw aanbieding voucher
 
-    .block.block-physical-cards(ng-if="$ctrl.voucherCard.fund.has_physical_cards")
-        .block-card-logo
-            img(src="./assets/img/card.png")
-        .block-card-section    
+    .block.block-physical-cards(ng-if="$ctrl.showPhysicalCardsOption")
+        .block-card-logo: img(src="./assets/img/card.png")
+        .block-card-details 
             .block-card-title(i18n="voucher.physical_card.title")
             .block-card-description(i18n="voucher.physical_card.description")
-            button.button.button-default.block-card-button(i18n="voucher.physical_card.buttons.reactivate" ng-click="$ctrl.usePhysicalCard()") 
-        .block-card-close.mdi.mdi-close
+            .block-card-actions: .button.button-primary(
+                i18n="voucher.physical_card.buttons.reactivate" 
+                ng-click="$ctrl.usePhysicalCard($ctrl.voucher)") 
+        .block-card-close.mdi.mdi-close(ng-click="$ctrl.dismissPhysicalCard()")
 
-    .section-title.hide-sm(ng-if="!$ctrl.voucherCard.product") Uw {{ $ctrl.voucherCard.title }} voucher
+    .section-title.hide-sm(ng-if="!$ctrl.voucherCard.product && !$ctrl.showPhysicalCardsOption") Uw {{ $ctrl.voucherCard.title }} voucher
     .section-title.hide-sm(ng-if="$ctrl.voucherCard.product") Uw aanbieding voucher
 
     .block.block-voucher(ng-if="$ctrl.voucherCanUse")
@@ -74,7 +75,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                                 //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
                             .action-item-name(i18n="voucher.voucher_card.footer.actions.share")
                         .action-item(
-                            ng-if="$ctrl.voucherCard.fund.has_physical_cards" 
+                            ng-if="$ctrl.isPhysicalCardLinkable" 
                             vouchercard="{{ $ctrl.voucherCard }}" 
                             ng-click="$ctrl.usePhysicalCard($ctrl.voucher)")
                             .action-item-icon

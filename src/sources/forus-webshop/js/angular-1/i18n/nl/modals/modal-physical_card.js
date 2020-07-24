@@ -4,19 +4,23 @@ module.exports = {
             title: 'Plastic pas',
             subtitle: 'Maak een keuze.',
             card_old: {
-                title: 'Pas koppelen',
-                description: 'Heeft u al een pas?' + '<br/>' + 'Koppel uw pas.',
+                title: 'Oude pas opnieuw activeren',
+                description: 'Heeft u al een pas?<br/>Activeer uw pas opnieuw.',
                 success: 'Pas gekoppeld!'
             },
             card_new: {
                 title: 'Nieuwe pas aanvragen',
-                description: 'Heeft u nog geen pas?' + '<br/>' + 'Bestel een nieuwe pas.',
+                description: 'Heeft u nog geen pas?<br/>Bestel een nieuwe pas.',
             },
         },
         link_card: {
-            title: 'Koppel uw pas.',
-            subtitle: 'Uw pasnummer',
-            description: 'Op uw pasje staat een QR-code, hieronder staat uw persoonlijke code.'
+            title: 'Activeer uw oude pas',
+            subtitle: 'Voer uw pas persoonlijke code in',
+            description: [
+                'Op uw pasje staat een QR-code, hieronder staat uw persoonlijke code.',
+                'Als u de oude pas opnieuw activeert kunt u deze blijven gebruiken.',
+                'Hulp nodig?  Bel 14 050 maandag t/m vrijdag 9.00 tot 12.00.',
+            ].join('<br/>'),
         },
         request_new_card: {
             title: 'Plastic pas',
@@ -39,7 +43,7 @@ module.exports = {
         }
     },
     buttons: {
-        close: 'sluit',
+        close: 'Sluiten',
         link_card: {
             submit_code: 'Bevestig',
         },

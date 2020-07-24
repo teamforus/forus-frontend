@@ -53,6 +53,31 @@
         }
     }
 
+    .modal-header {
+        background: #fff;
+        border-bottom: 1px solid $border_color;
+        border-top-left-radius: $border_radius;
+        border-top-right-radius: $border_radius;
+        padding: 15px 30px;
+        cursor: default;
+
+        .modal-title {
+            font: 700 22px/30px $bf;
+            margin: 0 0 10;
+            color: $tc;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .modal-subtitle {
+            font: 700 14px/20px $bf;
+            margin: 0 0 0;
+            color: #646F79;
+        }
+    }
+
     .modal-content {
         position: relative;
         width: 1200px;
@@ -261,12 +286,52 @@
 
     &.modal-physical-cards {
         .modal-window {
-            width: 680px;
+            width: 770px;
+
+            .modal-section {
+                border-bottom: 1px solid $border_color;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
 
             .modal-body {
-                text-align: center;
-                cursor: default;
-                padding: 10px 0;
+                background-color: #f3f3f3;
+
+                .physical-card-title {
+                    font: 700 18px/26px $bf;
+                    text-align: center;
+                    margin-bottom: 15px;
+                    color: $tc;
+                }
+
+                .physical-card-description {
+                    font: 700 14px/21px $bf;
+                    text-align: center;
+                    margin-bottom: 25px;
+                    color: #646F79;
+                }
+
+                .physical-card-media {
+                    img, svg {
+                        display: block;
+                        height: 200px;
+                        margin: 0 auto 20px;
+                    }
+
+                    svg {
+                        height: auto;
+                    }
+
+                    &.physical-card-media-sm {
+                        img {
+                            height: 130px;
+                            padding: 20px;
+                            margin: 0 auto;
+                        }
+                    }
+                }
 
                 .physical-card-icon {
                     background: #134478;
@@ -282,186 +347,90 @@
                     box-shadow: 2px 4px 10px rgba($color: #000000, $alpha: .1);
                 }
 
-                .physical-card-title {
-                    font: 600 24px/28px $bf;
-                    color: #282b39;
-                    margin: 0 0 5px;
-                }
-
-                .physical-card-subtitle {
-                    font: 500 13px/16px $bf;
-                    color: #000000;
-                    margin: 0 0 15px;
-
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
-                }
-
                 .physical-card-row {
                     display: flex;
+                    flex-direction: row;
                     justify-content: center;
-                    justify-items: center;
+                    margin: 0 0 20px;
                 }
 
                 .physical-card-item {
                     position: relative;
-                    margin-right: 30px;
-                    flex-grow: 1;
+                    margin-right: 60px;
                     padding: 15px 20px;
-                    max-width: 220px;
+                    width: 180px;
+                    padding: 0 20px;
+                    display: flex;
+                    flex-direction: column;
+                    text-align: center;
+                    cursor: default;
 
                     .physical-card-item-title {
-                        padding-bottom: 10px;
-                        font: 600 16px/20px $bf;
-                        color: #134478;
+                        font: 700 16px/20px $bf;
+                        margin: 0 -10px 15px;
+                        color: $tc;
                     }
 
-                    .physical-card-item-description {
-                        margin-top: 10px;
-                        font: 500 13px/16px $bf;
-                        text-align: center;
-                        letter-spacing: -0.4px;
-                        color: #000000;
-                    }
-
-                    .physical-card-item-inner {
-                        font: 500 14px $bf;
-                        color: #282b39;
-                        border: 1px solid #d4d9dd;
-                        border-radius: $border_radius / 2;
+                    .physical-card-item-icon {
+                        width: 140px;
+                        border: 2px solid #767676;
+                        background-color: transparent;
+                        border-radius: 8px;
+                        margin: 0 auto 10px;
                         transition: .4s;
-                        background: transparent;
-                        cursor: pointer;
-                        padding: 25px 0px;
 
-                        .physical-card-item-check {
-                            position: absolute;
-                            top: 10px;
-                            right: 10px;
-                            border-radius: 22px;
-                            width: 22px;
-                            height: 22px;
-                            line-height: 22px;
-                            text-align: center;
-                            background: #2cc678;
-                            color: #fff;
-                            opacity: 0;
-                            transition: .4s;
-                        }
-
-                        .physical-card-item-icon {
-                            margin-bottom: 15px;
-                            width: 100%;
-
-                            .physical-card-item-icon-img {
-                                display: block;
-                                margin: 0 auto 0;
-                            }
-                        }
-
-                        &.active {
-                            background: #fff;
-                            color: #282b39;
-                            border: 1px solid #d4d9dd;
-                            box-shadow: 1px 5px 7.5px rgba($color: #000000, $alpha: .075);
-
-                            .voucher-type-item-check {
-                                opacity: 1;
+                        svg {
+                            path {
+                                fill: #000;
+                                transition: .4s;
                             }
                         }
 
                         &:hover {
-                            color: #009ef4;
-                            background: #fff;
-                            border-color: #fff;
-                            box-shadow: 2px 10px 15px rgba($color: #000000, $alpha: .075);
+                            border-color: #303030;
+                            background-color: #303030;
+
+                            svg {
+                                path {
+                                    fill: #fff;
+                                }
+                            }
                         }
+                    }
+
+                    .physical-card-item-description {
+                        margin: 0 -10px 0;
+                        font: 400 12px/16px $bf;
+                        text-align: center;
+                        color: $tc;
+                        padding-top: 15px;
                     }
 
                     &:last-child {
                         margin-right: 0;
                     }
-                }
 
-                .activation-card {
-                    .physical-card-subtitle {
-                        margin-top: 22px;
-                        font: 600 12px/20px $bf;
-                        color: #134478;
-                    }
+                    &.physical-card-item-sm {
+                        margin-right: 0px;
 
-                    .title {
-                        font: 500 13px/16px $bf;
-                        color: #000000;
-                        text-align: center;
-                        letter-spacing: -0.4px;
-                    }
+                        .physical-card-item-icon {
+                            border: 1px dashed #767676;
+                            width: 100px;
 
-                    button {
-                        background: #ACACAC;
-                        box-shadow: 1px 1px 1px #ffffff;
-                        border: none;
-
-                        &.active {
-                            color: #fff;
-                            background: #646f79;
-                            // background-color: rgb(100, 111, 121);
-                            border-color: #646f79;
-                            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-                        }
-                    }
-                }
-
-                .order-card {
-                    .physical-card-subtitle {
-                        margin-top: 22px;
-                    }
-
-                    .order-card-options {
-                        display: flex;
-                        align-items: flex-end;
-                        justify-content: center;
-
-                        .order-card-option {
-                            padding: 20px;
-
-                            .order-card-icon {
-                                height: 52px;
+                            svg {
+                                path {
+                                    fill: #626161;
+                                }
                             }
 
-                            &:hover, &.active {
-                                color: #474747;
-                                background: #fafafa;
-                                border-color: #fafafa;
-                                box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-                            }
-                        }
-                    }
+                            &:hover {
+                                border: 1px solid #000;
 
-                    .order-block {
-                        margin-top: 30px;
-
-                        .order-block-title {
-                            font: 600 12px/14px $bf;
-                            align-items: center;
-                            text-align: center;
-                            color: #595959;
-                        }
-
-                        .order-block-button {
-                            margin-top: 14px;
-                            background: #7B8893;
-                            border: none;
-                            padding: 12px 70px;
-                        }
-
-                        .form-group {
-                            margin-right: auto;
-                            margin-left: auto;
-
-                            label {
-                                width: 120px;
+                                svg {
+                                    path {
+                                        fill: #fff;
+                                    }
+                                }
                             }
                         }
                     }
