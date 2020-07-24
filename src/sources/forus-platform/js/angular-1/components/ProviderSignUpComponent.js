@@ -453,9 +453,11 @@ let ProviderSignUpComponent = function(
     };
 
     $ctrl.setStep = (step) => {
+        let movingForward = step >= $ctrl.step;
+
         if (isMobile() && step == $ctrl.STEP_INFO_ME_APP) {
             $ctrl.step = step;
-            return step >= $ctrl.step ? $ctrl.next() : $ctrl.back();
+            return movingForward ? $ctrl.next() : $ctrl.back();
         }
 
         if (step <= $ctrl.STEP_SIGNUP_FINISHED) {
