@@ -1,0 +1,25 @@
+//- .active.update
+.notifications(ng-class="{active: $dir.shown, update: $dir.notifications.meta.total_unseen > 0}")
+    div(click-outside="$dir.onClickOutside()")
+        .notifications-icon(ng-click="$dir.toggle()"): .mdi.mdi-bell-outline
+        .notifications-icon.notifications-icon-updates(ng-click="$dir.toggle()"): .mdi.mdi-bell
+        
+        .notifications-menu(ng-if="$dir.shown"): .notifications-menu-inner
+            .arrow-box: .arrow
+            .notifications-menu-header 
+                | Nieuwe notificaties
+                span(ng-if="$dir.notifications.meta.total_unseen > 0") 
+                    | ({{$dir.notifications.meta.total_unseen}} nieuw)
+                .notifications-menu-header-link(ng-click="$dir.showAll()") 
+                    | Bekijk alles
+                    em.mdi.mdi-arrow-right 
+            
+            .notifications-menu-body
+                .notifications-menu-item(ng-repeat="notification in $dir.notifications.data" ng-class="{'notifications-menu-item-new': !notification.seen}")
+                    .notifications-menu-item-details
+                        .notifications-menu-item-title(ng-bind="notification.title")
+                        .notifications-menu-item-text(ng-bind="notification.description")
+                        .notifications-menu-item-date
+                            em.mdi.mdi-clock-outline
+                            | {{ notification.created_at_locale }}
+                .notifications-menu-empty(ng-if="$dir.notifications.data.length == 0") Geen nieuwe notificaties

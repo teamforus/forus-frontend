@@ -770,6 +770,8 @@ module.exports = {
             description: "De app is beschikbaar voor iOS en Android telefoons. Vul uw telefoonnummer in om een download link via SMS te ontvangen of ga op uw telefoon naar <a href='www.forus.io/DL' target='_blank'>www.forus.io/DL</a>",
             download_link: "Verstuur sms",
             no_link_received: 'Geen SMS ontvangen? Controleer het ingevulde telefoonnummer of ga via uw telefoon naar',
+            cannot_receive_sms: 'Kunt u geen SMS ontvangen? Ga op uw telefoon of tablet naar:',
+            cannot_install_app: 'Op dit moment geen mogelijkheid om de app te installeren?'
         },
         filters: {
             labels: {
@@ -1130,7 +1132,7 @@ module.exports = {
             provider: "AANBIEDER",
             search: "Zoeken",
             from: "Vanaf",
-            to: "Tot",
+            to: "Tot en met",
             state: "Status",
             fund_state: "Status fonds",
             amount: "Bedrag",
@@ -1476,8 +1478,8 @@ module.exports = {
     // MENU = langing/navbar.pug
     topnavbar: {
         items: {
-            funds: "FONDSEN",
-            products: "AANBIEDINGEN",
+            funds: "Fondsen",
+            products: "Aanbiedingen",
             identity: "Profiel",
         },
         buttons: {
@@ -1590,20 +1592,34 @@ module.exports = {
         }
     },
     notification_preferences: {
-        title_preferences: 'Notificatie voorkeuren',
+        title_preferences: 'Notificatievoorkeuren',
         title_email_preferences: 'E-mail notificaties',
         title_push_preferences: 'Push notificaties',
-        subscribe_desc: 'Met dit e-mailadres "{{email}}" bent u momenteel voor alle notificaties uitgeschreven. Wanneer u notificaties wilt ontvangen, kunt u dit hieronder per notificatie instellen.',
+        subscribe_desc: 'Met dit e-mailadres "{{email}}" bent u momenteel voor alle e-mail notificaties uitgeschreven. Wanneer u e-mail notificaties wilt ontvangen, kunt u dit hieronder per notificatie instellen.',
         unsubscribe: 'Uitschrijven voor alle e-mail notificaties',
-        unsubscribe_desc:  'Ik wil me uitschrijven van alle notificaties.',
+        unsubscribe_desc:  'Ik wil me uitschrijven van alle e-mail notificaties.',
         unsubscribe_button: 'Uitschrijven',
         subscribe: 'Ja, ik wil e-mail notificaties ontvangen.',
         errors: {
             'not_found': 'Deze token is ongeldig',
             'expired': 'Deze token is verlopen',
-            'not-pending': 'De notificatie instellingen zijn al aangepast via deze link'
+            'not-pending': 'De notificatievoorkeuren zijn al aangepast via deze link'
         },
         types: {
+            digest: {
+                daily_sponsor: {
+                    title: "Dagelijkse samenvatting omtrent aanmeldingen aanbieders",
+                    description: "Notificaties omtrent aanmeldingen van aanbieders worden gegroepeerd toegestuurd."
+                },
+                daily_provider: {
+                    title: "Dagelijkse samenvatting omtrent producten en aanmeldingen",
+                    description: "Notificaties omtrent aanmeldingen en producten worden gegroepeerd toegestuurd."
+                },
+                daily_validator: {
+                    title: "Dagelijkse samenvatting omtrent aanvragen voor fondsen",
+                    description: "Notificaties omtrent aanvragen worden gegroepeerd toegestuurd."
+                },
+            },
             funds: {
                 new_fund_started: {
                     title: 'Fonds is van start gegaan',

@@ -12,7 +12,8 @@
         .button-group.flex-center
             button(
                 ng-show="csvParser.progress <= 1" 
-                ng-click="addSinglePrevalidation()").button.button-default
+                ng-click="addSinglePrevalidation()"
+                id="add_single_prevalidation").button.button-default
                 
                 em.mdi.mdi-plus.icon-start 
                 span(i18n="Activatiecode aanmaken")
