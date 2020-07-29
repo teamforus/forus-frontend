@@ -47,7 +47,7 @@
                                 click-outside="$ctrl.hideFundCriteria($event, validatorRequest)"): ul.tooltip-list
                                 li(ng-repeat="critera in validatorRequest.fund.criteria").tooltip-list-item
                                     em.mdi.mdi-check
-                                    | {{ critera.record_type_name }} moet
+                                    | {{ critera.record_type_name }} moet 
                                     span(ng-if="critera.operator == '>'") meer dan 
                                     span(ng-if="critera.operator == '='") 
                                     span(ng-if="critera.operator == '<'") minder dan 
@@ -89,7 +89,7 @@
                             ng-class="{'mdi-menu-down': !record.shown, 'mdi-menu-up': record.shown}"
                             ng-click="record.shown = !record.shown")
                         td(ng-bind='record.record_type.name')
-                        td(ng-bind='record.is_visible ? record.value : "Not available"' ng-class="{'text-muted': !record.is_visible}")
+                        td(ng-bind='record.is_visible ? record.value : "Niet beschikbaar"' ng-class="{'text-muted': !record.is_visible}")
                         td(ng-bind='record.created_at_locale')
                         td: .tag(
                             ng-class="{pending: 'tag-primary-light', declined: 'tag-danger', approved: 'tag-success'}[record.state]" 
@@ -104,7 +104,7 @@
                             .text-muted(ng-if="!validatorRequest.employee_id && record.is_assignable")
                                 | Zelf toewijzen
                             .text-muted(ng-if="!validatorRequest.employee_id && !record.is_assignable")
-                                | Not available
+                                | Niet beschikbaar
                         
                         td.text-right(ng-if="record.state == 'pending' && record.is_assigned")
                             .button-group.flex-end
