@@ -6,15 +6,21 @@
         position: relative;
         top: 0;
         max-width: 100%;
+
+
+        // CHECK IF BUTTON REFACTOR IS NEEDED
+
         .button {
             svg {
                 width: 18px;
                 height: 18px;
                 display: block;
                 margin: 0 auto;
-            } 
+            }
+
             &.active {
                 color: $color_default;
+
                 svg {
                     path {
                         fill: $color_default;
@@ -45,19 +51,16 @@
 
         .navbar-logo {
             justify-self: flex-start;
+
             .second-logo {
                 margin-right: 10px;
             }
+
             img {
                 display: block;
                 margin: 0 auto;
                 height: 40px;
-                @media screen and (min-width: 768px){ 
-                    height: 40px;
-                }
-                @media screen and (min-width: 1000px){ 
-                    height: 50px;
-                }
+
                 &.hover {
                     display: none;
                 }
@@ -74,7 +77,6 @@
                 display: inline-block;
                 float: left;
                 padding: 1% 5% 1%;
-
             }
         }
 
@@ -186,7 +188,6 @@
                         margin: 0 0 5px
                     }
                 }
-
             }
 
             .navbar-list-auth {
@@ -219,15 +220,11 @@
             justify-self: flex-end;
             display: flex;
             @include cf();
-            @media screen and (min-width: 1000px){ 
-                padding: 15px 15px;
-            }
+
             .button {
                 margin-right: 20px;
                 margin: 0 auto;
-                @media screen and (min-width: 1000px){
-                    padding: 8px 20px;
-                }
+
                 &:last-of-type {
                     margin-right: 0px;
                 }
@@ -334,10 +331,6 @@
                             font-weight: 600;
                             margin-top: 3px;
                         }
-
-                        @media screen and (max-width: 1000px){
-                            display: none;
-                        }
                     }
 
                     .auth-user-menu {
@@ -412,6 +405,18 @@
         }
     }
 
+    @media screen and (min-width: 1000px) {
+        &.block-navbar {
+            .block-auth {
+                padding: 15px 15px;
+
+                .button {
+                    padding: 8px 20px;
+                }
+            }
+        }
+    }
+
     @media screen and (max-width: 1700px) {    
         &.block-navbar {
             .navbar-list {
@@ -426,7 +431,6 @@
             }
 
             .block-auth {
-
                 .auth-in {
                     .auth-user {
                         .auth-user-email {
@@ -468,6 +472,10 @@
                 padding-right: -40px;
                 border-right: none;
                 flex-grow: 1;
+
+                img {
+                    height: 40px;
+                }
             }
 
             .block-auth {
@@ -494,6 +502,10 @@
                     .auth-user {
                         margin-right: 0;
                         justify-content: flex-end;
+
+                        .auth-user-caret {
+                            display: none;
+                        }
 
                         .auth-user-email {
                             font: 700 12px/22px $bf;
@@ -555,8 +567,15 @@
             }
         }
     }
+
     @media screen and (max-width: 768px) { 
         &.block-navbar {
+            .navbar-logo {
+                img {
+                    height: 40px;
+                }
+            }
+
             .button {
                 font: 400 14px/1.5em $bf;
                 padding: 10px 20px;
