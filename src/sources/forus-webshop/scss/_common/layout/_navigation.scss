@@ -22,26 +22,16 @@
                 }
             }
         }
-        @media screen and (max-width: 1000px){
-            .button {
-                font-size: 14x;
-                padding: 10px 20px;
-            }
-        }
-        @media screen and (max-width: 768px){
-            .button {
-                font-size: 12px;
-                padding: 10px 10px;
-            }
-        }
+
         .navbar-inner {
             @include cf();
             max-width: 100%;
             margin: 0 auto;
             display: flex;
             align-items: center;
+
             &.button {
-                font: 400 16px/1.5em Arial,Helvetica,sans-serif;
+                font: 400 16px/1.5em $bf;
                 color: #646f79;
                 cursor: pointer;
                 border: 1px solid transparent;
@@ -467,6 +457,11 @@
                 padding: 0;
                 border-radius: 0;
                 justify-content: flex-start;
+
+                &.button {
+                    font: 400 14px/1.5em $bf;
+                    padding: 10px 20px;
+                }
             }
 
             .navbar-logo {
@@ -557,6 +552,14 @@
                 &.navbar-list-show {
                     display: block;
                 }
+            }
+        }
+    }
+    @media screen and (max-width: 768px) { 
+        &.block-navbar {
+            .button {
+                font: 400 14px/1.5em $bf;
+                padding: 10px 20px;
             }
         }
     }
