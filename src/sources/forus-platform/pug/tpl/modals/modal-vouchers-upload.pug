@@ -48,7 +48,7 @@
                             .form-error(ng-if="!$ctrl.csvParser.csvIsValid")
                                 | Het veld 'amount' mist in het bestand.
                             .form-error(ng-if="!$ctrl.csvParser.csvTypeValid")
-                                | Fund vouchers csv should not have `product_id` field.
+                                | Het veld `product_id` mist in het bestand.
                             .form-error(ng-if="!$ctrl.csvParser.amountIsValid")
                                 | Het totaal aantal budget van het gewenste aantal vouchers overschrijd het gestorte bedrag op het fonds.
                         
@@ -56,7 +56,7 @@
                             .form-error(ng-if="!$ctrl.csvParser.csvIsValid")
                                 | Het veld `product_id` mist in het bestand.
                             .form-error(ng-if="!$ctrl.csvParser.csvTypeValid")
-                                | Fund vouchers csv should not have `amount` field.
+                                | Het veld `amount` mist in het bestand.
                             .form-error(ng-if="!$ctrl.csvParser.csvProductIdValid")
                                 | Één of meer `product_id` velden hebben een ongeldige waarde.
 
