@@ -219,8 +219,8 @@ let CsvUploadDirective = function(
             $scope.csvParser.comparing = true;
 
             PushNotificationsService.success(
-                'Loading...',
-                'Loading existing pre validations to check for duplicates!',
+                'Inladen...',
+                'Inladen van gegevens voor controle op dubbele waarden!',
                 'download-outline'
             );
 
@@ -228,8 +228,8 @@ let CsvUploadDirective = function(
                 csvParser.data, $scope.fund.id, []
             ).then((res) => {
                 PushNotificationsService.success(
-                    'Comparing...',
-                    'Pre validations loaded! Comparing with .csv...',
+                    'Vergelijken...',
+                    'Gegevens ingeladen! Vergelijken met .csv...',
                     'timer-sand'
                 );
 
@@ -273,15 +273,15 @@ let CsvUploadDirective = function(
             if (updatedRecords.length === 0) {
                 if (newRecords.length > 0) {
                     PushNotificationsService.success(
-                        'Uploading!',
-                        'No duplicates found, uploading ' + newRecords.length + ' new pre validations(s)...'
+                        'Uploaden!',
+                        'Geen dubbele waarden gevonden, uploaden ' + newRecords.length + ' nieuwe gegeven(s)...'
                     );
 
                     csvParser.startUploadingToServer(newRecords);
                 } else {
                     PushNotificationsService.success(
-                        'Nothing to upload!',
-                        'No new prevalidations or updates found in your .csv file...'
+                        'Niks veranderd!',
+                        'Geen nieuwe gegevens gevonden in uw .csv bestand...'
                     );
 
                     csvParser.progressBar = 100;
@@ -295,9 +295,9 @@ let CsvUploadDirective = function(
                 }));
 
                 ModalService.open('duplicatesPicker', {
-                    hero_title: "Dubbele activaties gedetecteerd.",
+                    hero_title: "Dubbele gegevens gedetecteerd.",
                     hero_subtitle: [
-                        `Weet u zeker dat u voor ${items.length} uniek(e) nummer(s) activatiecodes wilt aanpassen?`,
+                        `Weet u zeker dat u voor ${items.length} rijen gegevens wilt aanpassen?`,
                         "Deze nummers hebben al een activatiecode."
                     ],
                     button_none: "Alles overslaan",
@@ -314,8 +314,8 @@ let CsvUploadDirective = function(
                         }).concat(newRecords);
 
                         PushNotificationsService.success('Uploading!', [
-                            (updatedRecords.length - skipUids.length) + ' pre validation(s) will be updated and ',
-                            (newRecords.length) + ' pre validation(s) will be created!',
+                            (updatedRecords.length - skipUids.length) + ' gegeven(s) worden vervangen en ',
+                            (newRecords.length) + ' gegeven(s) worden aangemaakt!',
                         ].join(''), 'file-upload-outline', {
                             timeout: 10000
                         });
@@ -326,17 +326,17 @@ let CsvUploadDirective = function(
                                 updateUids
                             ).then(() => {
                                 if (skipUids.length > 0) {
-                                    PushNotificationsService.success('Done!', skipUids.length + ' pre validation(s) skipped!');
+                                    PushNotificationsService.success('Klaar!', skipUids.length + ' gegeven(s) overgeslagen!');
                                 }
 
                                 PushNotificationsService.success(
-                                    'Done!',
-                                    (updatedRecords.length - skipUids.length) + ' pre validation(s) updated!'
+                                    'Klaar!',
+                                    (updatedRecords.length - skipUids.length) + ' gegevens vervangen!'
                                 );
 
                                 PushNotificationsService.success(
-                                    'Done!',
-                                    newRecords.length + ' new pre validation(s) created!'
+                                    'Klaar!',
+                                    newRecords.length + 'nieuwe gegeven(s) aangemaakt!'
                                 );
                             }, console.error);
                         }
@@ -348,8 +348,8 @@ let CsvUploadDirective = function(
                             $rootScope.$broadcast('csv:uploaded', true);
 
                             PushNotificationsService.success(
-                                'Done!',
-                                skipUids.length + ' pre validation(s) skpped, no new pre validations were added!'
+                                'Klaar!',
+                                skipUids.length + ' gegevens overgeslagen, geen nieuwe aangemaakt!'
                             );
                         }, 0);
                     },
