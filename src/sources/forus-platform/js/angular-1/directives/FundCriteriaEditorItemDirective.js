@@ -35,7 +35,7 @@ let FundCriteriaEditorItemDirective = function(
     });
 
     $dir.makeTitle = (criterion) => {
-        return criterion.is_new ? 'New criterion' : sprintf(
+        return criterion.is_new ? 'Nieuw criterium' : sprintf(
             "%s %s %s",
             criterion.record_type_name,
             $dir.operatorKeys[criterion.operator],
@@ -69,7 +69,7 @@ let FundCriteriaEditorItemDirective = function(
         criterion.validators_available = [{
             id: 0,
             validator_organization: {
-                name: "Select"
+                name: "Selecteer"
             },
         }].concat($scope.validatorOrganizations.filter(
             validatorOrganization => criterion.external_validators.map(external_validator => {

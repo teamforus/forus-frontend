@@ -481,7 +481,7 @@ let FundRequestComponentDefault = function(
                         );
                         
                         if (pendingRequests.length > 0) {
-                            alert('You already have a pending request on this fund');
+                            alert('U heeft al een aanvraag in behandeling.');
                             $state.go('funds');
                         } else if ($ctrl.invalidCriteria.length == 0) {
                             $ctrl.applyFund($ctrl.fund);
