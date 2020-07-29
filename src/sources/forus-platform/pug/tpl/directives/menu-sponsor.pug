@@ -68,7 +68,7 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
             'requesters')
         
         +nav_item(
-            "Shortlisted validators", "validators_shortlist", 'external-validators', 
+            "Beoordelaars", "validators_shortlist", 'external-validators', 
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization | hasPerm:["manage_organization"]')
         
