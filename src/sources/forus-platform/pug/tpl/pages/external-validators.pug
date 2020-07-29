@@ -1,7 +1,7 @@
 .app.app-container(ng-if="$root.activeOrganization && $root.auth_user && $ctrl.validatorOrganizations")
     menu
     section.app.app-content
-        .card-heading Shortlisted validators
+        .card-heading Beoordelaars
 
         .block.block-external-validators
             .validator-item(ng-repeat="organization in $ctrl.validatorOrganizations.data")
@@ -40,4 +40,4 @@
                 paginator(meta="$ctrl.validatorOrganizations.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
 
         div(ng-if="$ctrl.validatorOrganizations.meta.total == 0")
-            block-empty(text="No validators available." )
+            block-empty(text="Geen beoordelaars beschikbaar." )

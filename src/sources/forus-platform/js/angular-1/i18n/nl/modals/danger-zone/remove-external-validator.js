@@ -1,9 +1,9 @@
 module.exports = {
-    title: "Unexpected bad things will happen if you don’t read this!",
-    description: `This action cannot be undone. This will permanently delete the rminds/dj-sunny-fish repository, wiki, issues, and comments, and remove all.
-    This will not change your billing plan. If you want to downgrade, you can do so in your Billing Settings.`,
+    title: "Pas op met beoordelaars verwijderen!",
+    description: `Het verwijderen van een beoordelende organisatie zorgt ervoor dat deze niet uw aanvragen kan beoordelen. Bestaande aanvragen worden ontkoppeld en al beoordeelde gegevens worden niet meer vertrouwd.
+    Wanneer u deze organisatie hebt in gesteld als beoordelende organisatie bij de criteria van uw fondsen zal deze ook daar verwijderd worden.`,
     buttons: {
-        cancel: 'Cancel',
-        confirm: 'Verwijderen',
+        cancel: 'Annuleren',
+        confirm: 'Bevestigen',
     },
 };

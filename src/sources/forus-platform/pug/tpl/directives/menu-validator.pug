@@ -18,13 +18,13 @@ aside.app.app-sidebar
                 | #{name} 
 
         +nav_item(
-            "Aanmeldingen", "clock", 'fund-requests', 
+            "Aanvragen", "clock", 'fund-requests', 
             '{organization_id: $root.activeOrganization.id}', 
             '$root.appConfigs.features.organizations.funds.fund_requests',
             'fund_requests')
         
         +nav_item(
-            "Funds validations", "fund_validations", 'external-funds', 
+            "Fondsen", "fund_validations", 'external-funds', 
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization | hasPerm:["manage_organization"]',
             'external_funds')
