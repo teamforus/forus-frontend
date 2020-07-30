@@ -18,10 +18,10 @@
                 .card-section-actions: .tag.tag-success Actief
 
                 .card-block.card-block-fund
-                    .fund-img: img(src="./assets/img/zuidhorn-logo.jpg", alt="")
-                    a(href="#" ng-bind="fund.name").fund-title
+                    .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}", alt="")
+                    a(ng-bind="fund.name").fund-title
                     br
-                    a(href="#" ng-bind="fund.organization").fund-organization
+                    a(ng-bind="fund.organization").fund-organization
             
             .card-section: .form
                 .block.block-card-toggleable
