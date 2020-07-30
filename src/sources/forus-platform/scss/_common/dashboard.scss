@@ -6288,6 +6288,10 @@ $colorPrimaryLight: $color_primary_light;
             margin-top: 20px;
             text-align: center;
         }
+
+        .modal-body {
+            overflow: initial;
+        }
     }
 
     &.modal-animated {
