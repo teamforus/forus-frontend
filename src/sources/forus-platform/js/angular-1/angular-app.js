@@ -3,8 +3,8 @@ require('./modules/page-loading-bar/PageLoadingBarModule');
 require('../../../forus-webshop/js/angular-1/modules/ui-controls/UIControlsModule');
 
 let app = angular.module('forusApp', [
-    'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper', 
-    'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize', 
+    'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper',
+    'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize',
     'forus.uiControls', 'forus.pageLoadingBarModule',
 ]);
 
@@ -45,6 +45,8 @@ app.component('emailPreferencesComponent', require('./components/EmailPreference
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
 app.component('fundProviderInviteComponent', require('./components/FundProviderInviteComponent'));
 app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
+app.component('externalValidatorsComponent', require('./components/ExternalValidatorsComponent'));
+app.component('externalFundsComponent', require('./components/ExternalFundsComponent'));
 app.component('organizationNotificationsComponent', require('./components/OrganizationNotificationsComponent'));
 app.component('implementationsComponent', require('./components/ImplementationsComponent'));
 app.component('implementationViewComponent', require('./components/ImplementationViewComponent'));
@@ -74,6 +76,7 @@ app.component('modalFundOffersComponent', require('./components/Modals/ModalFund
 app.component('modalBusinessSelectComponent', require('./components/Modals/ModalBusinessSelectComponent'));
 app.component('modalCreatePrevalidationComponent', require('./components/Modals/ModalCreatePrevalidationComponent'));
 app.component('modalVoucherExportTypeComponent', require('./components/Modals/ModalVoucherExportTypeComponent'));
+app.component('modalDangerZoneComponent', require('./components/Modals/ModalDangerZoneComponent'));
 app.component('modalFundProviderChatSponsorComponent', require('./components/Modals/ModalFundProviderChatSponsorComponent'));
 app.component('modalFundProviderChatProviderComponent', require('./components/Modals/ModalFundProviderChatProviderComponent'));
 app.component('modalFundProviderChatMessageComponent', require('./components/Modals/ModalFundProviderChatMessageComponent'));
@@ -131,23 +134,11 @@ app.service('NotificationsService', require('./services/NotificationsService'));
 app.service('ImplementationService', require('./services/ImplementationService'));
 
 // Directives
-switch (env_data.panel_type) {
-    case 'sponsor':
-        {
-            app.directive('menu', require('./directives/MenuSponsorDirective'));
-        };
-        break;
-    case 'provider':
-        {
-            app.directive('menu', require('./directives/MenuProviderDirective'));
-        };
-        break;
-    case 'validator':
-        {
-            app.directive('menu', require('./directives/MenuValidatorDirective'));
-        };
-        break;
-}
+app.directive('menu', {
+    sponsor: require('./directives/MenuSponsorDirective'),
+    provider: require('./directives/MenuProviderDirective'),
+    validator: require('./directives/MenuValidatorDirective'),
+} [env_data.panel_type]);
 
 app.directive('fundSelector', require('./directives/FundSelectorDirective'));
 app.directive('fundCardSponsor', require('./directives/FundCardSponsorDirective'));
@@ -190,6 +181,8 @@ app.directive('pdfPreview', require('./directives/PdfPreviewDirective'));
 app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
 app.directive('fundCardInvitationProvider', require('./directives/FundCardInvitationProviderDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
+app.directive('fundCriteriaEditor', require('./directives/FundCriteriaEditorDirective'));
+app.directive('fundCriteriaEditorItem', require('./directives/FundCriteriaEditorItemDirective'));
 app.directive('headerNotifications', require('./directives/HeaderNotificationsDirective'));
 app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDirective'));
 
