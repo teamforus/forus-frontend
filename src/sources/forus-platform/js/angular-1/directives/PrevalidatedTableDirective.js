@@ -123,7 +123,9 @@ let PrevalidatedTableDirective = async function(
 
     // Export to XLS file
     $scope.export = (filters = {}) => {
-        PrevalidationService.export(filters).then((res => {
+        PrevalidationService.export(Object.assign(filters, {
+            fund_id: $scope.fund.id
+        })).then((res => {
             FileService.downloadFile(
                 ($scope.fund.key || 'fund') + '_' + moment().format(
                     'YYYY-MM-DD HH:mm:ss'
