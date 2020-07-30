@@ -137,17 +137,6 @@ img {
     justify-items: center;
 }
 
-.flex-row {
-    display: flex;
-    flex-direction: row;
-    margin: 0 -10px;
-
-    .flex-coll {
-        padding: 0 10px;
-        display: flex;
-    }
-}
-
 .flex-grow {
     flex-grow: 100 !important;
 }
