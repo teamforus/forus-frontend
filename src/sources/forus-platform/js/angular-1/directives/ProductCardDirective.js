@@ -1,11 +1,21 @@
 let ProductCardDirective = function(
     $scope, 
     $state,
+    $filter,
     FundService,
     ProductService,
     ModalService
 ) {
+    let $translate = $filter('translate');
+
+    let trans_product_edit = (key) => {
+        return $translate('product_edit.labels.' + key);
+    };
+    
     $scope.productFunds = $scope.product.funds;
+
+    $scope.product.description_amount = $scope.product.unlimited_stock ? 
+        trans_product_edit('unlimited') : $scope.product.stock_amount;
 
     $scope.changeState = function(state) {
         FundService.changeState($scope.fund, state).then((res) => {
@@ -42,6 +52,7 @@ module.exports = () => {
         controller: [
             '$scope',
             '$state',
+            '$filter',
             'FundService',
             'ProductService',
             'ModalService',
