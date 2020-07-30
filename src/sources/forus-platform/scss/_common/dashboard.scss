@@ -5918,6 +5918,12 @@ $colorPrimaryLight: $color_primary_light;
             padding: 0;
         }
     }
+    
+    &.modal-employees_edit {
+        .modal-body {
+            overflow: initial;
+        }
+    }
 
     &.modal-voucher_qr {
         .modal-window {
