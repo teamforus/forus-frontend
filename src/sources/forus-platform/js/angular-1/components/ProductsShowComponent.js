@@ -1,17 +1,11 @@
 let ProductsShowComponent = function(
     $sce,
     $state,
-    $filter,
     ModalService,
     ProductService,
     ProductChatService
 ) {
     let $ctrl = this;
-    let $translate = $filter('translate');
-
-    let trans_product_edit = (key) => {
-        return $translate('product_edit.labels.' + key);
-    };
 
     $ctrl.filters = {
         values: {},
@@ -22,9 +16,6 @@ let ProductsShowComponent = function(
         $ctrl.product.description_html = $sce.trustAsHtml(
             $ctrl.product.description_html
         );
-
-        $ctrl.product.description_amount = $ctrl.product.unlimited_stock ? 
-            trans_product_edit('unlimited') : $ctrl.product.stock_amount;
 
         $ctrl.mapFundsWithChats();
         $ctrl.emptyFundsLink = $state.href('provider-funds', {
@@ -104,7 +95,6 @@ module.exports = {
     controller: [
         '$sce',
         '$state',
-        '$filter',
         'ModalService',
         'ProductService',
         'ProductChatService',
