@@ -57,7 +57,7 @@
                 .arrow-box.border.bg-dim: .arrow
                 .card-title: .row
                     .col.col-lg-6(translate='validation_requests.labels.records')
-                    .col.col-lg-6.text-right(ng-show="validatorRequest.state == 'pending' && validatorRequest.is_assignable")
+                    .col.col-lg-6.text-right(ng-show="validatorRequest.state == 'pending' && validatorRequest.is_assignable && !validatorRequest.is_assigned")
                         button.button.button-primary(ng-click='$ctrl.requestAssign(validatorRequest)')
                             em.mdi.mdi-account-plus.icon-start
                             | Toewijzen aan mij
