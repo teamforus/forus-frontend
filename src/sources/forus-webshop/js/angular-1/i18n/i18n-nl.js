@@ -77,6 +77,13 @@ module.exports = {
 
     // DIRECTIVES
     block_products: require("./nl/directives/block-products"),
+    //todo move to seperate file
+    block_notifications: {
+        labels: {
+            title: "Notificaties",
+            subtitle: "Wanneer iemand een actie doet, die jou betreft op deze website, wordt er een notificatie daarvan hier getoond.",
+        },
+    },
     block_providers: require("./nl/directives/block-providers"),
     contact: require("./nl/directives/contact"),
     empty_block: require("./nl/directives/empty-block"),

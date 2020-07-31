@@ -47,11 +47,16 @@ module.exports = {
         modal_funds_offers: require('./nl/modals/modal-fund-offers.pug.i18n'),
         modal_business_add: require('./nl/modals/modal-business-add.pug.i18n'),
         modal_voucher_export: require('./nl/modals/modal-voucher-export.pug.i18n'),
+        danger_zone: {
+            remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator')
+        },
     },
     // PAGES
     vouchers: require('./nl/pages/vouchers.pug.i18n'),
     product_vouchers: require('./nl/pages/product-vouchers.pug.i18n'),
     voucher_printable: require('./nl/pages/voucher-printable.pug.i18n'),
+
+    components: require("./nl/i18n-components"),
 
     // MEAPP LANDINGSPAGE = index.pug
     meapp_index: {
@@ -368,12 +373,6 @@ module.exports = {
             cancel: "Annuleren",
             confirm: "Bevestigen",
         }
-    },
-
-    // PERSONAL FUNDS = funds-my.pug
-    funds_my: {
-        title: "Fondsen",
-        add: 'Fonds toevoegen'
     },
 
     // SHOW FUNDS = funds-show.pug
@@ -770,6 +769,8 @@ module.exports = {
             description: "De app is beschikbaar voor iOS en Android telefoons. Vul uw telefoonnummer in om een download link via SMS te ontvangen of ga op uw telefoon naar <a href='www.forus.io/DL' target='_blank'>www.forus.io/DL</a>",
             download_link: "Verstuur sms",
             no_link_received: 'Geen SMS ontvangen? Controleer het ingevulde telefoonnummer of ga via uw telefoon naar',
+            cannot_receive_sms: 'Kunt u geen SMS ontvangen? Ga op uw telefoon of tablet naar:',
+            cannot_install_app: 'Op dit moment geen mogelijkheid om de app te installeren?'
         },
         filters: {
             labels: {
@@ -816,7 +817,7 @@ module.exports = {
             title: 'Deze pagina is niet mobiel te benaderen.',
             description: 'Aanmelden voor een fonds is alleen mogelijk via onze website op een vaste computer.'
         },
-        sms:{
+        sms: {
             body: 'Download Me makkelijk via de link: https://www.forus.io/DL',
             title: 'Download <i>Me</i> op uw mobiele telefoon',
             description: 'Vul uw telefoonnummer in het onderstaande invoerveld om een sms te ontvangen met de download link.',
@@ -844,7 +845,7 @@ module.exports = {
         header: {
             main_header: "Aanmelden als sponsor",
             go_back: "Terug",
-            title_step_1: "Welkom", 
+            title_step_1: "Welkom",
             subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als sponsor. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
             title_step_2: "Maak een account",
             title_step_3: "Vestiging kiezen",
@@ -948,7 +949,7 @@ module.exports = {
                 "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.",
                 "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
             ].join("\n"),
-            no_app: "Ik wil inloggen met mijn emailadres >"    
+            no_app: "Ik wil inloggen met mijn emailadres >"
         },
         app_header: {
             title: 'Vul de code in op het invoerveld',
@@ -969,7 +970,7 @@ module.exports = {
         header: {
             main_header: "Aanmelden als validator",
             go_back: "Terug",
-            title_step_1: "Welkom", 
+            title_step_1: "Welkom",
             subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als validator. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
             title_step_2: "Hoe werkt het?",
             subtitle_step_2: "Als validator gaat u controleren of aanvragers aan de voorwaarden voldoen die worden gesteld door de sponsor. ",
@@ -1071,6 +1072,7 @@ module.exports = {
             title: "Heeft u de Me App al?",
             description_top: [
                 "De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
+                "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.",
             ].join("\n"),
             description_bottom: [
                 "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.", 
@@ -1191,8 +1193,8 @@ module.exports = {
         },
         status: {
             hold: "Wachten",
-            pending: 'Wachtend', 
-            declined: 'Geweigerd', 
+            pending: 'Wachtend',
+            declined: 'Geweigerd',
             approved: 'Geaccepteerd'
         },
         buttons: {
@@ -1361,7 +1363,7 @@ module.exports = {
             applicants: "Aanvragers",
             employees: "medewerkers"
         },
-        confirm_delete:{
+        confirm_delete: {
             title: 'Weet u zeker dat u dit fonds wilt verwijderen?',
             description: 'Het verwijderen van een fonds is definitief. U kunt dit niet ongedaan maken.'
         }
@@ -1476,8 +1478,8 @@ module.exports = {
     // MENU = langing/navbar.pug
     topnavbar: {
         items: {
-            funds: "FONDSEN",
-            products: "AANBIEDINGEN",
+            funds: "Fondsen",
+            products: "Aanbiedingen",
             identity: "Profiel",
         },
         buttons: {
@@ -1590,38 +1592,38 @@ module.exports = {
         }
     },
     notification_preferences: {
-        title_preferences: 'Notificatie voorkeuren',
+        title_preferences: 'Notificatievoorkeuren',
         title_email_preferences: 'E-mail notificaties',
         title_push_preferences: 'Push notificaties',
-        subscribe_desc: 'Met dit e-mailadres "{{email}}" bent u momenteel voor alle notificaties uitgeschreven. Wanneer u notificaties wilt ontvangen, kunt u dit hieronder per notificatie instellen.',
+        subscribe_desc: 'Met dit e-mailadres "{{email}}" bent u momenteel voor alle e-mail notificaties uitgeschreven. Wanneer u e-mail notificaties wilt ontvangen, kunt u dit hieronder per notificatie instellen.',
         unsubscribe: 'Uitschrijven voor alle e-mail notificaties',
-        unsubscribe_desc:  'Ik wil me uitschrijven van alle notificaties.',
+        unsubscribe_desc:  'Ik wil me uitschrijven van alle e-mail notificaties.',
         unsubscribe_button: 'Uitschrijven',
         subscribe: 'Ja, ik wil e-mail notificaties ontvangen.',
         errors: {
             'not_found': 'Deze token is ongeldig',
             'expired': 'Deze token is verlopen',
-            'not-pending': 'De notificatie instellingen zijn al aangepast via deze link'
+            'not-pending': 'De notificatievoorkeuren zijn al aangepast via deze link'
         },
         types: {
             digest: {
                 daily_sponsor: {
-                    title: "Dagelijkse digest notificaties aanmeldingen aanbieders",
+                    title: "Dagelijkse samenvatting omtrent aanmeldingen aanbieders",
                     description: "Notificaties omtrent aanmeldingen van aanbieders worden gegroepeerd toegestuurd."
                 },
                 daily_provider: {
-                    title: "Dagelijkse digest notificaties omtrent producten en aanmeldingen",
+                    title: "Dagelijkse samenvatting omtrent producten en aanmeldingen",
                     description: "Notificaties omtrent aanmeldingen en producten worden gegroepeerd toegestuurd."
                 },
                 daily_validator: {
-                    title: "Dagelijkse digest notificaties omtrent aanvragen voor fondsen",
+                    title: "Dagelijkse samenvatting omtrent aanvragen voor fondsen",
                     description: "Notificaties omtrent aanvragen worden gegroepeerd toegestuurd."
                 },
             },
             funds: {
                 new_fund_started: {
                     title: 'Fonds is van start gegaan',
-                    description: 'Ontvang een notificatie wanneer er een fonds waar u voor bent aangemeld is gestart en u klanten kunt verwachten.' 
+                    description: 'Ontvang een notificatie wanneer er een fonds waar u voor bent aangemeld is gestart en u klanten kunt verwachten.'
                 },
                 new_fund_applicable: {
                     title: 'Nieuw fonds waar u zich voor kunt aanmelden',
@@ -1705,7 +1707,6 @@ module.exports = {
                 }
             }
         }
-    
+
     }
 }
-

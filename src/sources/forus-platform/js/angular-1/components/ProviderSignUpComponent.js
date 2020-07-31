@@ -453,6 +453,13 @@ let ProviderSignUpComponent = function(
     };
 
     $ctrl.setStep = (step) => {
+        let movingForward = step >= $ctrl.step;
+
+        if (isMobile() && step == $ctrl.STEP_INFO_ME_APP) {
+            $ctrl.step = step;
+            return movingForward ? $ctrl.next() : $ctrl.back();
+        }
+
         if (step <= $ctrl.STEP_SIGNUP_FINISHED) {
             $ctrl.step = step;
             progressStorage.set('step', step);

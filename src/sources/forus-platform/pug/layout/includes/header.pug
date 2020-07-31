@@ -18,7 +18,6 @@ header.app.app-header(ng-if="$root.auth_user")
                 .organization-switcher-menu-group: .organization-switcher-menu-organizations
                     .organization-switcher-menu-organization(
                         ng-repeat="organization in organizations"
-                        ng-if="organization.id != $root.activeOrganization.id"
                         ng-click="$root.chooseOrganization(organization)"
                         ng-class="{'active' : organization.id == $root.activeOrganization.id}")
                         img.organization-logo(
