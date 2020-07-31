@@ -80,6 +80,7 @@ app.component('modalDangerZoneComponent', require('./components/Modals/ModalDang
 app.component('modalFundProviderChatSponsorComponent', require('./components/Modals/ModalFundProviderChatSponsorComponent'));
 app.component('modalFundProviderChatProviderComponent', require('./components/Modals/ModalFundProviderChatProviderComponent'));
 app.component('modalFundProviderChatMessageComponent', require('./components/Modals/ModalFundProviderChatMessageComponent'));
+app.component('modalDuplicatesPickerComponent', require('./components/Modals/ModalDuplicatesPickerComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -132,6 +133,7 @@ app.service('ProductChatService', require('./services/ProductChatService'));
 app.service('FundProviderChatService', require('./services/FundProviderChatService'));
 app.service('NotificationsService', require('./services/NotificationsService'));
 app.service('ImplementationService', require('./services/ImplementationService'));
+app.service('HelperService', require('./services/HelperService'));
 
 // Directives
 app.directive('menu', {

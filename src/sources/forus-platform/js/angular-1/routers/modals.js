@@ -102,4 +102,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('fundProviderChatMessage', {
         component: 'modalFundProviderChatMessageComponent'
     });
+
+    ModalRouteProvider.modal('duplicatesPicker', {
+        component: 'modalDuplicatesPickerComponent'
+    });
 }];
