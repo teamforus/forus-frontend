@@ -2344,18 +2344,26 @@ $colorPrimaryLight: $color_primary_light;
                         &.card-block-fund {
                             padding-top: 0px;
 
-                            .fund-organization {
-                                display: block;
-                                margin-bottom: 0px;
-                                font: 400 16px/20px $bf;
-                                color: #222530;
+                            .fund-img {
+                                margin: auto 10px;
+                                padding: 0px;
+                                width: 50px;
+                                height: 50px;
                             }
 
-                            .fund-title {
-                                display: block;
-                                font: 500 18px/22px $bf;
-                                color: #191A1C;
-                                margin-bottom: 8px;
+                            .fund-details {
+                                .fund-organization {
+                                    display: block;
+                                    margin: 5px 0px 0px;
+                                    font: 400 16px/20px $bf;
+                                    color: #222530;
+                                }
+    
+                                .fund-title {
+                                    display: block;
+                                    font: 500 18px/22px $bf;
+                                    color: #191A1C;
+                                }
                             }
                         }
                     }
