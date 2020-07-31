@@ -6018,6 +6018,12 @@ $colorPrimaryLight: $color_primary_light;
             padding: 0;
         }
     }
+    
+    &.modal-employees_edit {
+        .modal-body {
+            overflow: initial;
+        }
+    }
 
     &.modal-voucher_qr {
         .modal-window {
@@ -6391,6 +6397,10 @@ $colorPrimaryLight: $color_primary_light;
             font: 500 16px $bf;
             margin-top: 20px;
             text-align: center;
+        }
+
+        .modal-body {
+            overflow: initial;
         }
     }
 

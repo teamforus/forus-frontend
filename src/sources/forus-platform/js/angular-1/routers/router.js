@@ -20,15 +20,18 @@ let objectOnlyKeys = (obj, keys) => {
     return out;
 };
 
-let handleAuthTarget = ($state, target, appConfigs) => {
+let handleAuthTarget = ($state, target) => {
     if (target[0] == targetHome) {
-        return !!$state.go('home', {
+        $state.go('home', {
             confirmed: true
         });
+
+        return true;
     }
 
     if (target[0] == targetNewSignup) {
-        return !!$state.go('sign-up');
+        $state.go('sign-up');
+        return true;
     }
 
     return false;
@@ -1054,17 +1057,19 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                         PermissionsService.hasPermission(organization, 'manage_organization')
                     );
 
-                    if (appConfigs.panel_type != 'provider' || organizations.length == 0) {
-                        if (typeof target != 'string' || !handleAuthTarget($state, target.split('-'), appConfigs)) {
+                    let onReady = () => {
+                        if (typeof target != 'string' || !handleAuthTarget($state, target.split('-'))) {
                             return $state.go('organizations');
                         }
-                    }
+                    };
 
-                    if (target.split('-') != targetNewSignup) {
+                    if (organizations.length > 0) {
                         ModalService.open('businessSelect', {
                             organizations: organizations,
-                            onReady: () => $state.go('organizations')
+                            onReady: () => onReady(),
                         });
+                    } else {
+                        onReady();
                     }
                 });
             }, () => {
@@ -1095,7 +1100,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ).then(function(res) {
                 CredentialsService.set(res.data.access_token);
                 $rootScope.loadAuthUser().then(() => {
-                    if (typeof target != 'string' || !handleAuthTarget($state, target.split('-'), appConfigs)) {
+                    if (typeof target != 'string' || !handleAuthTarget($state, target.split('-'))) {
                         $state.go('home', {
                             confirmed: 1
                         });
