@@ -510,6 +510,7 @@ module.exports = {
             end: "EIND",
             break: "Pauze",
             not_specified: "Niet ingevuld",
+            description: "Omschrijving"
         },
         buttons: {
             cancel: "Annuleren",
