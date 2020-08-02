@@ -46,7 +46,7 @@ let FundCriteriaEditorItemDirective = function(
     };
 
     $dir.prepareCriteria = (criterion) => {
-        criterion.title = $dir.makeTitle(criterion);
+        criterion.title = criterion.title || $dir.makeTitle(criterion);
 
         criterion.validators_models = criterion.external_validators.map(validator => {
             return Object.assign({
@@ -80,9 +80,11 @@ let FundCriteriaEditorItemDirective = function(
 
     $dir.editDescription = (criterion) => {
         ModalService.open('fundCriteriaDescriptionEdit', {
+            title: criterion.title,
             description: criterion.description,
             success: (data) => {
                 criterion.description = data.description;
+                criterion.title = data.title;
             }
         });
     };
@@ -92,7 +94,6 @@ let FundCriteriaEditorItemDirective = function(
 
         criterion.is_editing = false;
 
-        delete criterion.title;
         delete criterion.new_validator;
         delete criterion.validators_list;
         delete criterion.validators_models;
