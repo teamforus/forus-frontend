@@ -606,6 +606,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }]
     });
 
+    $stateProvider.state({
+        name: 'not-found',
+        url: '/*params',
+        component: 'pageNotFoundComponent'
+    });
+
     if (appConfigs.html5ModeEnabled) {
         $locationProvider.html5Mode({
             enabled: true,

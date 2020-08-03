@@ -1,0 +1,28 @@
+&.block-page-not-found {
+    .page-not-found-wrapper {
+        display: block;
+        width: 1280px;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 60px 0 0;
+        min-height: calc(100vh - 100px);
+
+        button {
+            display: block;
+            margin: 40px auto 0px;
+            text-align: center;
+        }
+
+        .page-not-found-title {
+            font: 600 164px/189px arial, "Open Sans", sans-serif;
+            text-align: center;
+            color: #D0D0D0;
+        }
+
+        .page-not-found-subtitle {
+            font: 600 26px/30px arial, "Open Sans", sans-serif;
+            text-align: center;
+            color: #303030;
+        }
+    }
+}

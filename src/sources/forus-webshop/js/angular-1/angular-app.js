@@ -40,6 +40,7 @@ app.component('securitySessionsComponent', require('./components/SecuritySession
 app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
 app.component('notificationsComponent', require('./components/NotificationsComponent'));
 app.component('explanationComponent', require('./components/ExplanationComponent'));
+app.component('pageNotFoundComponent', require('./components/PageNotFoundComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
