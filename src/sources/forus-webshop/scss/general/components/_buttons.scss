@@ -1,13 +1,9 @@
 .button {
-    font-weight: 700;
-}
+    font: 700 16px/1.5em $bf;
 
-@media screen and (min-width: 1000px) {
-    .button {
-        font: 400 14px/1.5em $bf;
-
+    @media screen and (min-width: 1000px) {
         &.button-wide {
-            font-weight: 700;
+            font: 700 16px/1.5em $bf;
             padding: 10px 25px;
         }
     }

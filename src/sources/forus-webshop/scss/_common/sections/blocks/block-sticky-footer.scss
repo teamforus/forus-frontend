@@ -29,22 +29,37 @@
     }
 
     li {
-        font-size: 14px;
-        padding: 10px 20px;
+        font: 400 14px/1.5em $bf;
         text-align: center;
+        padding: 10px 20px;
         width: 100%;
-        font-weight: 400;
         border-right: 1px solid #dbdcdb;
         height: 100%;
-        @media screen and (max-width: 768px){ 
-            font-size: 12px;
-            padding: 10px 5px;
+
+        &.button {
+            font: 400 14px/1.5em $bf;
         }
+
         &.active, &:focus {
             color: $color_default;
 
+            a {
+                color: $color_default;
+            }
+
             path {
                 fill: $color_default;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    &.block-sticky-footer {
+        ul {
+            li { 
+                font: 400 12px/26px $bf;
+                padding: 10px 5px;
             }
         }
     }
