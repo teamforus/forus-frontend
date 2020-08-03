@@ -11,22 +11,12 @@
             background-color: transparent;
         }
 
-        .block-auth {
-            //-border-left: 1px solid #dbdcdb;
-        }
-
         .navbar-logo {
             display: flex;
             align-items: center;
 
             img {
                 height: 40px;
-            }
-
-            .second-logo {
-                //height: 55px;
-                //width: 54px;
-                //margin-right: 10px;
             }
         }
 
@@ -80,23 +70,6 @@
                 &:hover {
                     box-shadow: 0
                 }
-            }
-        }
-    }
-
-    @media screen and (max-width: 1700px) {
-        &.block-navbar {
-            .navbar-list {
-                .navbar-item-wrapper {
-                }
-            }
-        }
-    }
-
-    @media screen and (min-width: 1000px) {
-        &.block-navbar {
-            .navbar-logo {
-                //-border-right: 1px solid #dbdcdb;
             }
         }
     }
