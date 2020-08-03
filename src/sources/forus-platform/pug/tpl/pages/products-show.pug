@@ -24,7 +24,8 @@
                             .product-property-value(ng-bind="$ctrl.product.reserved_amount")
                         .product-property
                             .product-property-label(translate="product_edit.labels.available_offers")
-                            .product-property-value(ng-bind="$ctrl.product.stock_amount")
+                            .product-property-value(ng-if="!$ctrl.product.unlimited_stock" ng-bind="$ctrl.product.stock_amount")
+                            .product-property-value(ng-if="$ctrl.product.unlimited_stock" translate="product_edit.labels.unlimited")
                 
                 .product-actions.form
                     .product-price

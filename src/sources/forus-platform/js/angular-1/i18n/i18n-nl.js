@@ -557,7 +557,8 @@ module.exports = {
             stock_unlimited: "Onbeperkt aanbod",
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
-            available_offers: "Resterend aanbod"
+            available_offers: "Resterend aanbod",
+            unlimited: "Onbeperkt"
         },
         buttons: {
             cancel: "Annuleren",
@@ -1611,9 +1612,13 @@ module.exports = {
                     title: "Dagelijkse samenvatting omtrent aanmeldingen aanbieders",
                     description: "Notificaties omtrent aanmeldingen van aanbieders worden gegroepeerd toegestuurd."
                 },
-                daily_provider: {
-                    title: "Dagelijkse samenvatting omtrent producten en aanmeldingen",
-                    description: "Notificaties omtrent aanmeldingen en producten worden gegroepeerd toegestuurd."
+                daily_provider_funds: {
+                    title: "Dagelijkse samenvatting omtrent uw aanmeldingen bij fondsen",
+                    description: "Een dagelijkse samenvatting omtrent uw aanmeldingen bij fondsen."
+                },
+                daily_provider_products: {
+                    title: "Dagelijkse samenvatting omtrent gereserveerde aanbiedingen",
+                    description: "Een dagelijkse samenvatting van alle notificaties omtrent aanbiedingen die zijn gereserveerd."
                 },
                 daily_validator: {
                     title: "Dagelijkse samenvatting omtrent aanvragen voor fondsen",
