@@ -4,5 +4,5 @@ block content
         top-navbar
         .wrapper
             .page-not-found-title(ng-bind="$ctrl.error")
-            .page-not-found-subtitle(translate="error_page.404.title")
-            div: button.button.button-primary(translate="error_page.404.button")
+            .page-not-found-subtitle(ng-bind="('error_page.' + $ctrl.error + '.title') | translate")
+            div: button.button.button-primary(ng-bind="('error_page.' + $ctrl.error + '.button') | translate")
