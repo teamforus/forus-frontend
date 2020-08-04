@@ -46,7 +46,7 @@ let FundCriteriaEditorItemDirective = function(
     };
 
     $dir.prepareCriteria = (criterion) => {
-        criterion.title = criterion.title || $dir.makeTitle(criterion);
+        criterion.header = $dir.makeTitle(criterion);
 
         criterion.validators_models = criterion.external_validators.map(validator => {
             return Object.assign({
@@ -94,6 +94,7 @@ let FundCriteriaEditorItemDirective = function(
 
         criterion.is_editing = false;
 
+        delete criterion.header;
         delete criterion.new_validator;
         delete criterion.validators_list;
         delete criterion.validators_models;
