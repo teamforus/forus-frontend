@@ -2343,6 +2343,7 @@ $colorPrimaryLight: $color_primary_light;
                     .card-block {
                         &.card-block-fund {
                             padding-top: 0px;
+                            display: flex;
 
                             .fund-img {
                                 margin: auto 10px;
@@ -2352,17 +2353,17 @@ $colorPrimaryLight: $color_primary_light;
                             }
 
                             .fund-details {
-                                .fund-organization {
-                                    display: block;
-                                    margin: 5px 0px 0px;
-                                    font: 400 16px/20px $bf;
-                                    color: #222530;
-                                }
-    
                                 .fund-title {
                                     display: block;
-                                    font: 500 18px/22px $bf;
+                                    font: 500 18px/28px $bf;
                                     color: #191A1C;
+                                }
+
+                                .fund-organization {
+                                    display: block;
+                                    font: 400 14px/18px $bf;
+                                    color: #222530;
+                                    margin: 0px 0px;
                                 }
                             }
                         }
