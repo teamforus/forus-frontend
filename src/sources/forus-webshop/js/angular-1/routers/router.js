@@ -607,9 +607,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
-        name: 'not-found',
+        name: 'error-404',
         url: '/*params',
-        component: 'pageNotFoundComponent'
+        component: 'errorPageComponent',
+        resolve: {
+            error: () => 404,
+        }
     });
 
     if (appConfigs.html5ModeEnabled) {
