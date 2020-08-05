@@ -97,6 +97,7 @@ let FundRequestComponentDefault = function(
     $ctrl.bsnIsKnown = true;
     $ctrl.appConfigs = appConfigs;
     $ctrl.hasApp = false;
+    $ctrl.fundAlreadyApplied = false;
 
     $ctrl.shownSteps = [];
 
@@ -363,7 +364,7 @@ let FundRequestComponentDefault = function(
         // }
 
         if ((step == 4 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
-            return 'criteria';
+            return !$ctrl.fundAlreadyApplied ? 'criteria' : 'fund_already_applied';
         }
 
         if (step == $ctrl.totalSteps.length + 1) {
@@ -481,8 +482,8 @@ let FundRequestComponentDefault = function(
                         );
                         
                         if (pendingRequests.length > 0) {
-                            alert('U heeft al een aanvraag in behandeling.');
-                            $state.go('funds');
+                            $ctrl.fundAlreadyApplied = true;
+                            $ctrl.updateState();
                         } else if ($ctrl.invalidCriteria.length == 0) {
                             $ctrl.applyFund($ctrl.fund);
                         }

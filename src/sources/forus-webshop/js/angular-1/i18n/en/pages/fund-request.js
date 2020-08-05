@@ -8,7 +8,7 @@ module.exports = {
             criterion_more: "'{{ name }}' moet meer dan {{ value }} zijn.",
             criterion_less: "'{{ name }}' moet minder dan {{ value }} zijn.",
             criterion_same: "'{{ name }}' moet {{ value }} zijn.",
-            fund_already_applied: "U kunt niet nogmaals een aanvraag indienen.",
+            fund_already_applied: "You can not submit a new application until this one is not finished.",
             footer: {
                 prev: "Vorige stap",
                 next: "Volgende stap"
@@ -23,7 +23,7 @@ module.exports = {
         subtitles: {
             step_1: "Via dit online formulier kunt u zich aanmelden voor beschikbare fondsen. ",
             step_2: "Er wordt gekeken of u al aan voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan.",
-            fund_already_applied: "U heeft al een aanvraag die in behandeling is. Bekijk de status:",
+            fund_already_applied: "You already applied and have an active application process. Please find below the status of your request.",
         },
         labels: {
             has_app: "Ik wil inloggen met de me app >",
