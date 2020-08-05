@@ -1,7 +1,7 @@
 module.exports = {
     // error-page.pug
     404: {
-        title: 'Page not found',
+        title: 'Pagina niet gevonden',
         button: 'Terug naar home',
     },
 }
