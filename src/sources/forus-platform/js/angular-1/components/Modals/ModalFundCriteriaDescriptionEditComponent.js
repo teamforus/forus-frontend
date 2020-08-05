@@ -5,7 +5,8 @@ let ModalFundCriteriaDescriptionEditComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.form = FormBuilderService.build({
-            description: $ctrl.modal.scope.description
+            description: $ctrl.modal.scope.description,
+            title: $ctrl.modal.scope.title
         }, (form) => {
             $ctrl.modal.scope.success(form.values);
 
