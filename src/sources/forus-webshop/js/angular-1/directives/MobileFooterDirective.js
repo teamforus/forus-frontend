@@ -1,9 +1,14 @@
 let MobileFooterDirective = function(
     $scope,
+    $state,
     $translate,
     ModalService
 ) {
     let prevOffsetY = window.pageYOffset;
+
+    $scope.startFundRequest = () => {
+            $state.go('funds');
+    };
 
     $scope.visible = true;
     $scope.i18nLangs = $translate.getAvailableLanguageKeys();
@@ -55,6 +60,7 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
+            '$state',
             '$translate',
             'ModalService',
             MobileFooterDirective
