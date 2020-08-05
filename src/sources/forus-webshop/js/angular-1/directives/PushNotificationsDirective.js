@@ -15,11 +15,13 @@ let PushNotificationsDirective = function(
 
         $scope.notifications.unshift(note);
 
-        $timeout(() => {
-            if ($scope.notifications.indexOf(note) !== -1) {
-                $scope.deleteNotification(note);
-            }
-        }, note.timeout || 4000);
+        if (note.timeout !== false) {
+            $timeout(() => {
+                if ($scope.notifications.indexOf(note) !== -1) {
+                    $scope.deleteNotification(note);
+                }
+            }, note.timeout || 4000);
+        }
     });
 
     $scope.pushNotification = (notification) => {

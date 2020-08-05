@@ -107,12 +107,7 @@ let FundsComponent = function(
             $ctrl.recordsByTypesKey
         );
 
-        $ctrl.invalidCriteria = $ctrl.fund.criteria.filter(criterion => !FundService.checkEligibility(
-            $ctrl.records || [],
-            criterion,
-            $ctrl.fund.validators,
-            $ctrl.fund.organization_id
-        ));
+        $ctrl.invalidCriteria = $ctrl.fund.criteria.filter(criterion => !criterion.is_valid);
 
         $ctrl.formulaList = {
             fixed: $ctrl.fund.formulas.filter(formula => {

@@ -1,4 +1,6 @@
-let SignUpSelectionComponent = function(appConfigs) {
+let SignUpSelectionComponent = function(
+    appConfigs,
+) {
     let $ctrl = this;
 
     $ctrl.goToSignUpPage = (clientType) => {

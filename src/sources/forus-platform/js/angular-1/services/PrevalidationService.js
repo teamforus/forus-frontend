@@ -1,7 +1,7 @@
 let PrevalidationService = function(ApiRequest) {
     let uriPrefix = '/platform';
 
-    return new (function() {
+    return new(function() {
         this.submit = function(data, fund_id = null) {
             return ApiRequest.post(uriPrefix + '/prevalidations', {
                 data: data,
@@ -9,10 +9,19 @@ let PrevalidationService = function(ApiRequest) {
             });
         };
 
-        this.submitCollection = function(data, fund_id = null) {
+        this.submitCollection = function(data, fund_id = null, overwrite = []) {
             return ApiRequest.post(uriPrefix + '/prevalidations/collection', {
                 data: data,
-                fund_id: fund_id
+                fund_id: fund_id,
+                overwrite: overwrite
+            });
+        };
+
+        this.submitCollectionCheck = function(data, fund_id = null, overwrite = []) {
+            return ApiRequest.post(uriPrefix + '/prevalidations/collection/hash', {
+                data: data,
+                fund_id: fund_id,
+                overwrite: overwrite
             });
         };
 
@@ -24,16 +33,14 @@ let PrevalidationService = function(ApiRequest) {
         }
 
         this.export = function(filters) {
-            return ApiRequest.get(
-                uriPrefix + '/prevalidations/export',
-                this.transformFilters(filters), {}, true,
-                (_cfg) => {
-                    _cfg.responseType = 'arraybuffer';
-                    _cfg.cache = false;
+            return ApiRequest.get(uriPrefix + '/prevalidations/export', this.transformFilters(
+                filters
+            ), {}, true, (_cfg) => {
+                _cfg.responseType = 'arraybuffer';
+                _cfg.cache = false;
 
-                    return _cfg;
-                }
-            );
+                return _cfg;
+            });
         };
 
         this.read = function(code) {

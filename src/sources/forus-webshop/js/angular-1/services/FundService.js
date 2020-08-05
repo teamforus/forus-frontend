@@ -5,13 +5,19 @@ let FundService = function(
     let uriPrefix = '/platform/organizations/';
 
     return new(function() {
-        this.list = function(organization_id) {
+        this.list = function(organization_id, values = {}) {
             if (organization_id) {
                 return ApiRequest.get(
                     uriPrefix + organization_id + '/funds'
                 );
             }
-            return ApiRequest.get('/platform/funds');
+
+            return ApiRequest.get('/platform/funds', {
+                ...{
+                    check_criteria: 1
+                },
+                ...values
+            });
         };
 
         this.store = function(organization_id, values) {
@@ -56,10 +62,13 @@ let FundService = function(
             });
         };
 
-        this.readById = function(id) {
-            return ApiRequest.get(
-                '/platform/funds/' + id
-            );
+        this.readById = function(id, values = {}) {
+            return ApiRequest.get('/platform/funds/' + id, {
+                ...{
+                    check_criteria: 1
+                },
+                ...values
+            });
         };
 
         this.approveProvider = function(organization_id, fund_id, id) {
