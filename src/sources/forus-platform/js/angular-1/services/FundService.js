@@ -1,7 +1,7 @@
 let FundService = function(ApiRequest) {
     let uriPrefix = '/platform/organizations/';
 
-    return new(function() {
+    return new (function() {
         this.list = function(organization_id, data = {}) {
             if (organization_id) {
                 return ApiRequest.get(
@@ -199,12 +199,19 @@ let FundService = function(ApiRequest) {
         };
 
         this.criterionValidate = (organization_id, fund_id, criteria) => {
-            return ApiRequest.patch(sprintf(
+            let path = fund_id ? sprintf(
                 uriPrefix + '%s/funds/%s/criteria/validate',
                 organization_id,
                 fund_id
-            ), {
-                criteria
+            ) : sprintf(
+                uriPrefix + '%s/funds/criteria/validate',
+                organization_id
+            );
+
+            return fund_id ? ApiRequest.patch(path, {
+                criteria: criteria
+            }) : ApiRequest.post(path, {
+                criteria: criteria
             });
         };
     });

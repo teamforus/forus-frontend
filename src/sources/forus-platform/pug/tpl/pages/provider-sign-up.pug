@@ -73,11 +73,11 @@
 
                 .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && $ctrl.hasApp && !$ctrl.sentSms"): .form
                     .sign_up-pane-heading {{ 'sign_up_provider.labels.mobile_number' | translate }}
-                    phone-control(ng-model="phoneForm.values.phone" cant-delete-length="2").hide-sm
+                    phone-control(ng-model="phoneForm.values.phone" cant-delete-length="2").visible-md.visible-lg
                     
                     .form-group: input(type="text"
                         ng-model="phoneForm.values.phone"
-                        placeholder="TELEFOONNUMMER").large.form-control.show-sm
+                        placeholder="TELEFOONNUMMER").large.form-control.visible-sm.visible-xs
 
                     .row: .col-lg-12.col-md-12.col-sm-12: button.button.button-primary-outline.col-xs-12(
                         ng-class="{ 'button-disabled' : !$ctrl.phoneNumberFilled }" 
@@ -105,7 +105,7 @@
                                 | {{ "sign_up_provider.download.no_link_received" | translate }} 
                                 a(href="https://www.forus.io/DL" target="_blank") www.forus.io/DL
 
-                        .sign_up-pane-auth-qr_code.hide-sm
+                        .sign_up-pane-auth-qr_code.visible-md.visible-lg
                             qr-code(
                                 ng-if="$ctrl.authToken" 
                                 qr-value="$ctrl.authToken" 
@@ -113,8 +113,8 @@
                                 qr-logo=src_prefix + "./assets/img/me-logo.png")   
 
                 .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && !$ctrl.hasApp")
-                    .sign_up-pane-heading(translate='sign_up_provider.no_app.enter_email') 
-                    .sign_up-pane-text(translate="sign_up_provider.no_app.instructions") 
+                    .sign_up-pane-heading.visible-md.visible-lg(translate='sign_up_provider.no_app.enter_email') 
+                    .sign_up-pane-text.visible-md.visible-lg(translate="sign_up_provider.no_app.instructions") 
 
                     form.sign-up-form(ng-submit="$ctrl.signUpForm.submit()").form: .row
                         .col.col-md-7.col-xs-12
@@ -134,7 +134,7 @@
                                 translate="sign_up_provider.app_instruction.create_profile"
                                 ng-class="{'button-disabled':!$ctrl.signUpForm.values.email}")
 
-                    .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="sign_up_provider.no_app.continue_app").hide-sm
+                    .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="sign_up_provider.no_app.continue_app").visible-md.visible-lg
 
                 .sign_up-pane-body(ng-if="$ctrl.authEmailSent || $ctrl.authEmailRestoreSent").text-center
                     .sign_up-pane-media: img(ng-src="./assets/img/email_confirmed.svg")  
@@ -168,12 +168,12 @@
                         .sign_up-organization-title(ng-bind="organization.name")
                     
                     //- mobile
-                    .button.button-primary-outline.button-fill.show-sm(ng-click="$ctrl.addOrganization()")
+                    .button.button-primary-outline.button-fill.visible-sm.visible-xs(ng-click="$ctrl.addOrganization()")
                         .mdi.mdi-plus-circle-outline.icon-start
                         | {{ 'sign_up_sponsor.buttons.organization_add' | translate }}
 
                 //- desktop
-                .sign_up-pane-body.hide-sm
+                .sign_up-pane-body.visible-md.visible-lg
                     .button.button-primary-outline(ng-click="$ctrl.addOrganization()")
                         .mdi.mdi-plus-circle-outline.icon-start
                         | {{ 'sign_up_sponsor.buttons.organization_add' | translate }}         
@@ -476,7 +476,7 @@
                             em.mdi.mdi-chevron-right.icon-right
 
         //- Apply fund success screen (Desktop)
-        .finish-screen(ng-if="$ctrl.step == $ctrl.STEP_PROCESS_NOTICE").hide-sm
+        .finish-screen(ng-if="$ctrl.step == $ctrl.STEP_PROCESS_NOTICE").visible-md.visible-lg
             +progress()
 
             .sign_up-pane
@@ -501,7 +501,7 @@
                             em.mdi.mdi-chevron-right.icon-right
         
         //- Apply fund success screen (Mobile)
-        .finish-screen(ng-if="$ctrl.step == $ctrl.STEP_PROCESS_NOTICE").show-sm
+        .finish-screen(ng-if="$ctrl.step == $ctrl.STEP_PROCESS_NOTICE").visible-sm.visible-xs
             +progress()
 
             .sign_up-pane

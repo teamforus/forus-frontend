@@ -7,9 +7,11 @@
             .form-group
                 label.form-label(i18n="modals.modal_fund_criteria_description.labels.title")
                 input(ng-model="$ctrl.form.values.title" type="text" placeholder="Titel").form-control
+                .form-error(ng-repeat="error in $ctrl.form.errors['criteria.0.title']" ng-bind="error")
             .form-group
                 label.form-label(i18n="modals.modal_fund_criteria_description.labels.description")
                 markdown(ng-model="$ctrl.form.values.description")
+                .form-error(ng-repeat="error in $ctrl.form.errors['criteria.0.description']" ng-bind="error")
 
         .modal-footer.text-center
             button.button.button-primary(type="submit" i18n="modals.modal_fund_criteria_description.buttons.save")
