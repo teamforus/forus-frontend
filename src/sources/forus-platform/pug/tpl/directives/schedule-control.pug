@@ -16,7 +16,7 @@
         ng-model="$dir.weekend_same_hours")
 
     //- desktop version
-    table(width="100%").hide-sm
+    table(width="100%").visible-md.visible-lg
         tHead: tr
             th(translate="organization_edit.labels.day")
             th(translate="organization_edit.labels.closed")
@@ -35,7 +35,7 @@
                         ng-change="$dir.toggleOpened($index)"
                         ng-model="$dir.scheduleDetails[weekDayKey].is_closed")
                 
-                br.hide-lg
+                br.visible-md.visible-sm.visible-xs
                 td
                     select(
                         ng-model="$dir.scheduleDetails[weekDayKey].start_time"
@@ -74,7 +74,7 @@
         br
 
     //- mobile version
-    .block-schedule-mobile.show-sm
+    .block-schedule-mobile.visible-sm.visible-xs
         .block-schedule-day(ng-repeat="(weekDayKey, weekDay) in $dir.weekDays track by $index")
             .block-schedule-day-name: .flex-row
                 .flex-col(ng-class="$index >= 5 ? 'text-danger' : ''" ng-bind="weekDay")
