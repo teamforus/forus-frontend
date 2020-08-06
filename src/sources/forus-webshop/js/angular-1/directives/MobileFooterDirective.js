@@ -1,76 +1,79 @@
-let MobileFooterDirective  = function(
+let MobileFooterDirective = function(
     $scope,
+    $state,
     $translate,
     ModalService,
-    ConfigService
+    FundService
 ) {
-    $scope.scrolled = false;
-    var prevScrollpos = window.pageYOffset;
-
-    $scope.setScrolled = function() {
-        var currentScrollPos = window.pageYOffset;
-        if (prevScrollpos > currentScrollPos || currentScrollPos <= 0) {
-            $scope.scrolled = false;
-        } else {
-           $scope.scrolled = true;
+    let $ctrl = this;
+    let prevOffsetY = window.pageYOffset;
+    FundService.list().then(res => {
+        $ctrl.funds = res.data.data;
+    })
+    $scope.startFundRequest = () => {
+        if ($ctrl.funds.length > 0) {
+            $state.go('fund-request', {
+                fund_id: $ctrl.funds[0].id
+            });
         }
-        prevScrollpos = currentScrollPos;
-    }
+    };
 
-    window.addEventListener('scroll', $scope.setScrolled)
+    $scope.visible = true;
+    $scope.i18nLangs = $translate.getAvailableLanguageKeys();
+    $scope.i18nActive = $translate.use();
 
-    $scope.openAuthPopup = function () {
+    $scope.openAuthPopup = function() {
         ModalService.open('modalAuth', {});
     };
 
-    $scope.openPinCodePopup = function () {
+    $scope.openPinCodePopup = function() {
         ModalService.open('modalPinCode', {});
     };
 
-    $scope.openActivateCodePopup = function () {
+    $scope.openActivateCodePopup = function() {
         ModalService.open('modalActivateCode', {});
     };
 
-    $scope.openAuthCodePopup = function () {
+    $scope.openAuthCodePopup = function() {
         ModalService.open('modalAuthCode', {});
     };
-    
-    $scope.showPopupOffices = function() {
-        ModalService.open('modalOffices', {});
-    };
 
     $scope.showPopupOffices = function() {
         ModalService.open('modalOffices', {});
     };
-
-    $scope.cfg = {
-        logoExtension: ConfigService.getFlag('logoExtension'),
-    };
-    
-    $scope.i18nActive = $translate.use();
-    $scope.i18nLangs = $translate.getAvailableLanguageKeys();
 
     $scope.setLang = (lang) => {
         $translate.use(lang);
         $scope.i18nActive = $translate.use();
     };
+
+    $scope.updateScrolled = function() {
+        let currentOffsetY = window.pageYOffset;
+
+        $scope.visible = (prevOffsetY > currentOffsetY) || (currentOffsetY <= 0);
+        prevOffsetY = currentOffsetY;
+    };
+
+    window.addEventListener('scroll', $scope.updateScrolled);
+
+    $scope.$on('$destroy', function() {
+        window.removeEventListener('scroll', $scope.updateScrolled);
+    });
 };
 
 module.exports = () => {
     return {
-        scope: {
-            text: '=',
-            button: '=',
-        },
+        scope: {},
         restrict: "EA",
         replace: true,
         controller: [
             '$scope',
+            '$state',
             '$translate',
             'ModalService',
-            'ConfigService',
+            'FundService',
             MobileFooterDirective
         ],
-        templateUrl: 'assets/tpl/directives/mobile-footer.html' 
+        templateUrl: 'assets/tpl/directives/mobile-footer.html'
     };
 };

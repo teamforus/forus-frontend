@@ -4,9 +4,7 @@
         background: url('../img/sprite-map.png') no-repeat;
         background-position: 100% 50%;
         background-size: auto 80%;
-        @media screen and (min-width: 1000px) {
-            padding: 120px 0 240px;
-        }
+
         .block-content {
             padding: 130px 0;
             width: 50%;
@@ -23,11 +21,16 @@
             }
         }
     }
-    @media screen and (max-width: 1700px) {
 
+    @media screen and (min-width: 1000px) {
+        &.block-map { 
+            padding: 120px 0 240px;
+        }
+    }
+
+    @media screen and (max-width: 1700px) {
         &.block-map {
             .block-content {
-
                 .block-title {
                     margin: 0 0 15px;
                 }
@@ -38,6 +41,7 @@
             }
         }
     }
+    
     @media screen and (max-width: 1000px) {
         &.block-map {
             padding: 0px 0 30px;

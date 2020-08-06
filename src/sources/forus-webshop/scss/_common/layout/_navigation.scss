@@ -1,54 +1,4 @@
 .block {
-    &.block-sticky-footer {
-        bottom: 0px;
-        position: fixed;
-        z-index: 10;
-        width: 100%;
-        max-width: 100%;
-        transition: transform 0.2s;
-        
-        &.scrolled {
-            transform: translateY(100%);
-        }
-
-        ul {
-            display: flex;
-            width: 100%;
-            background-color: #ffffff;
-            box-shadow: 0 0 20px rgba(0,0,0,0.075);
-            align-items: center;
-            justify-content: center;
-            height: 60px;
-        }
-
-        svg {
-            height: 18px;
-            width: 18px;
-            display: block;
-            margin: 0 auto;
-        }
-
-        li {
-            font-size: 14px;
-            padding: 10px 20px;
-            text-align: center;
-            width: 100%;
-            font-weight: 400;
-            border-right: 1px solid #dbdcdb;
-            height: 100%;
-            @media screen and (max-width: 768px){ 
-                font-size: 12px;
-                padding: 10px 5px;
-            }
-            &.active, &:focus {
-                color: $color_default;
-
-                path {
-                    fill: $color_default;
-                }
-            }
-        }
-    }
     &.block-navbar {
         border-bottom: 1px solid #dbdcdb;
         z-index: 5;
@@ -56,15 +6,18 @@
         position: relative;
         top: 0;
         max-width: 100%;
+        
         .button {
             svg {
                 width: 18px;
                 height: 18px;
                 display: block;
                 margin: 0 auto;
-            } 
+            }
+
             &.active {
                 color: $color_default;
+
                 svg {
                     path {
                         fill: $color_default;
@@ -72,26 +25,16 @@
                 }
             }
         }
-        @media screen and (max-width: 1000px){
-            .button {
-                font-size: 14x;
-                padding: 10px 20px;
-            }
-        }
-        @media screen and (max-width: 768px){
-            .button {
-                font-size: 12px;
-                padding: 10px 10px;
-            }
-        }
+
         .navbar-inner {
             @include cf();
             max-width: 100%;
             margin: 0 auto;
             display: flex;
             align-items: center;
+
             &.button {
-                font: 400 16px/1.5em Arial,Helvetica,sans-serif;
+                font: 400 16px/1.5em $bf;
                 color: #646f79;
                 cursor: pointer;
                 border: 1px solid transparent;
@@ -105,19 +48,16 @@
 
         .navbar-logo {
             justify-self: flex-start;
+
             .second-logo {
                 margin-right: 10px;
             }
+
             img {
                 display: block;
                 margin: 0 auto;
                 height: 40px;
-                @media screen and (min-width: 768px){ 
-                    height: 40px;
-                }
-                @media screen and (min-width: 1000px){ 
-                    height: 50px;
-                }
+
                 &.hover {
                     display: none;
                 }
@@ -134,7 +74,6 @@
                 display: inline-block;
                 float: left;
                 padding: 1% 5% 1%;
-
             }
         }
 
@@ -246,7 +185,6 @@
                         margin: 0 0 5px
                     }
                 }
-
             }
 
             .navbar-list-auth {
@@ -279,15 +217,11 @@
             justify-self: flex-end;
             display: flex;
             @include cf();
-            @media screen and (min-width: 1000px){ 
-                padding: 15px 15px;
-            }
+
             .button {
                 margin-right: 20px;
                 margin: 0 auto;
-                @media screen and (min-width: 1000px){
-                    padding: 8px 20px;
-                }
+
                 &:last-of-type {
                     margin-right: 0px;
                 }
@@ -394,10 +328,6 @@
                             font-weight: 600;
                             margin-top: 3px;
                         }
-
-                        @media screen and (max-width: 1000px){
-                            display: none;
-                        }
                     }
 
                     .auth-user-menu {
@@ -472,6 +402,18 @@
         }
     }
 
+    @media screen and (min-width: 1000px) {
+        &.block-navbar {
+            .block-auth {
+                padding: 15px 15px;
+
+                .button {
+                    padding: 8px 20px;
+                }
+            }
+        }
+    }
+
     @media screen and (max-width: 1700px) {    
         &.block-navbar {
             .navbar-list {
@@ -486,7 +428,6 @@
             }
 
             .block-auth {
-
                 .auth-in {
                     .auth-user {
                         .auth-user-email {
@@ -517,12 +458,21 @@
                 padding: 0;
                 border-radius: 0;
                 justify-content: flex-start;
+
+                &.button {
+                    font: 400 14px/1.5em $bf;
+                    padding: 10px 20px;
+                }
             }
 
             .navbar-logo {
                 padding-right: -40px;
                 border-right: none;
                 flex-grow: 1;
+
+                img {
+                    height: 40px;
+                }
             }
 
             .block-auth {
@@ -549,6 +499,10 @@
                     .auth-user {
                         margin-right: 0;
                         justify-content: flex-end;
+
+                        .auth-user-caret {
+                            display: none;
+                        }
 
                         .auth-user-email {
                             font: 700 12px/22px $bf;
@@ -607,6 +561,21 @@
                 &.navbar-list-show {
                     display: block;
                 }
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) { 
+        &.block-navbar {
+            .navbar-logo {
+                img {
+                    height: 40px;
+                }
+            }
+
+            .button {
+                font: 400 14px/1.5em $bf;
+                padding: 10px 20px;
             }
         }
     }

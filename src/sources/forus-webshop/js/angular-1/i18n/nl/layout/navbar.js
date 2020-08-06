@@ -23,7 +23,7 @@ module.exports = {
 
         mobile: {
             voucher: "Vouchers",
-            request: "Start Aanvraag",
+            request: "Aanvragen",
             profile: "Profiel"
         }
     },

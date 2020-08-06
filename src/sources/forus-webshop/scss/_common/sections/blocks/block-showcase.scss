@@ -20,6 +20,7 @@
 
     .showcase-wrapper {
         width: 1280px;
+        max-width: 100%;
         margin: 0 auto;
         display: block;
         padding: 10px 0 0;
@@ -264,7 +265,6 @@
 
     @media screen and (max-width: 1300px) {
         .showcase-wrapper {
-            //-width: 1100px;
             padding: 10px 25px 0;
         }
 

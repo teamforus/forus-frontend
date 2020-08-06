@@ -12,11 +12,6 @@
             display: flex;
             align-items: center;
 
-            .second-logo {
-                @media screen and (max-width: 1000px) {
-                    display: none;
-                }
-            }
         }
 
         .navbar-list {
@@ -73,8 +68,14 @@
         }
     }
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: 1000px) {
         &.block-navbar {
+            .navbar-logo {
+                .second-logo {
+                    display: none;
+                }
+            }
+
             .navbar-list {
                 .navbar-item-wrapper {
                     .navbar-item {

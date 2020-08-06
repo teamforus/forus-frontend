@@ -197,22 +197,6 @@ let ProvidersComponent = function(
 
         $ctrl.updateFiltersUsedCount();
     };
-
-    $ctrl.scrolled = false;
-    var prevScrollpos = window.pageYOffset;
-
-    $ctrl.setScrolled = function() {
-        var currentScrollPos = window.pageYOffset;
-        if (prevScrollpos > currentScrollPos || currentScrollPos <= 0) {
-            $ctrl.scrolled = false;
-        } else {
-           $ctrl.scrolled = true;
-        }
-        prevScrollpos = currentScrollPos;
-    }
-    window.addEventListener('scroll', $ctrl.setScrolled)
-
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {

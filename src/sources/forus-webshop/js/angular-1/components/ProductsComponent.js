@@ -144,22 +144,6 @@ let ProductsComponent = function(
 
         $ctrl.updateFiltersUsedCount();
     };
-
-    $scope.scrolled = false;
-    var prevScrollpos = window.pageYOffset;
-
-    $scope.setScrolled = function() {
-        var currentScrollPos = window.pageYOffset;
-        if (prevScrollpos > currentScrollPos || currentScrollPos <= 0) {
-            $scope.scrolled = false;
-        } else {
-           $scope.scrolled = true;
-        }
-        prevScrollpos = currentScrollPos;
-    }
-    window.addEventListener('scroll', $scope.setScrolled)
-
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {
