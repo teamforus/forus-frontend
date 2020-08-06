@@ -2,12 +2,20 @@ let MobileFooterDirective = function(
     $scope,
     $state,
     $translate,
-    ModalService
+    ModalService,
+    FundService
 ) {
+    let $ctrl = this;
     let prevOffsetY = window.pageYOffset;
-
+    FundService.list().then(res => {
+        $ctrl.funds = res.data.data;
+    })
     $scope.startFundRequest = () => {
-            $state.go('funds');
+        if ($ctrl.funds.length > 0) {
+            $state.go('fund-request', {
+                fund_id: $ctrl.funds[0].id
+            });
+        }
     };
 
     $scope.visible = true;
@@ -63,6 +71,7 @@ module.exports = () => {
             '$state',
             '$translate',
             'ModalService',
+            'FundService',
             MobileFooterDirective
         ],
         templateUrl: 'assets/tpl/directives/mobile-footer.html'
