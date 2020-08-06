@@ -1,41 +1,18 @@
 .block {
     &.block-navbar {
-        position: sticky;
-        top: 0;
         width: 100%;
-        padding: 0;
         background-color: #fff;
-        max-width: 100%;
         box-shadow: 1px -5px 10px rgb(187, 187, 187);
 
         .navbar-inner {
-            padding: 0px 15px;
-            align-items: center;
             background-color: transparent;
-        }
-
-        .block-auth {
-            border-left: 1px solid #dbdcdb;
         }
 
         .navbar-logo {
             display: flex;
             align-items: center;
 
-            @media screen and (min-width: 1024px) {
-                padding: 10px 20px 10px 0px;
-                border-right: 1px solid #dbdcdb;
-            }
-
-            img {
-                height: 55px;
-            }
-
             .second-logo {
-                height: 55px;
-                width: 54px;
-                margin-right: 10px;
-
                 @media screen and (max-width: 1000px) {
                     display: none;
                 }
@@ -96,12 +73,8 @@
         }
     }
 
-    @media screen and (max-width: 1000px) {
+    @media screen and (max-width: 1024px) {
         &.block-navbar {
-            .navbar-inner {
-                padding: 0px 0;
-            }
-
             .navbar-list {
                 .navbar-item-wrapper {
                     .navbar-item {

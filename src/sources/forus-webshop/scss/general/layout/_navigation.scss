@@ -1,0 +1,10 @@
+.block {
+    &.block-navbar {
+         .button {
+             font-weight: 400;
+             @media screen and (min-width: 1000px) {
+                 font-weight: 700;
+             }
+         }
+    }
+}
