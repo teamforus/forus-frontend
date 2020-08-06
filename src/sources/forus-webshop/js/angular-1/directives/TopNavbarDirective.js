@@ -1,6 +1,7 @@
 let TopNavbarDirective = function(
     $scope,
     $translate,
+    $state,
     ModalService,
     ConfigService
 ) {
@@ -12,6 +13,14 @@ let TopNavbarDirective = function(
         hideOnScroll: !!$scope.hideOnScroll,
     };
     
+    $scope.startFundRequest = () => {
+        if ($ctrl.funds.length > 0) {
+            $state.go('fund-request', {
+                fund_id: $ctrl.funds[0].id
+            });
+        }
+    };
+
     $scope.openAuthPopup = function () {
         ModalService.open('modalAuth', {});
     };
@@ -85,6 +94,7 @@ module.exports = () => {
         controller: [
             '$scope',
             '$translate',
+            '$state',
             'ModalService',
             'ConfigService',
             TopNavbarDirective
