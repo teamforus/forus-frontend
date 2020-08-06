@@ -80,17 +80,38 @@ let VoucherComponent = function(
     };
 
     $ctrl.usePhysicalCard = (voucher) => {
-        ModalService.open('modalPhysicalCardType', {
-            voucher: voucher,
-            sendVoucherEmail: () => $ctrl.sendVoucherEmail(voucher),
-            openInMeModal: $ctrl.openInMeModal,
-            printQrCode: $ctrl.printQrCode,
-        });
+        if (!voucher.physical_card) {
+            ModalService.open('modalPhysicalCardType', {
+                voucher: voucher,
+                sendVoucherEmail: () => $ctrl.sendVoucherEmail(voucher),
+                openInMeModal: $ctrl.openInMeModal,
+                printQrCode: $ctrl.printQrCode,
+                onAttached: () => {
+                    VoucherService.get($ctrl.voucher.address).then(res => {
+                        $ctrl.voucher = res.data.data;
+                        $ctrl.$onInit();
+                    });
+                }
+            });
+        } else {
+            ModalService.open('modalPhysicalCardUnlink', {
+                voucher: voucher,
+                onClose: (requestNew) => {
+                    VoucherService.get($ctrl.voucher.address).then(res => {
+                        $ctrl.voucher = res.data.data;
+                        $ctrl.$onInit();
+
+                        if (requestNew) {
+                            $ctrl.usePhysicalCard($ctrl.voucher);
+                        }
+                    });
+                },
+            });
+        }
     };
 
     $ctrl.physicalCardIsLinkable = () => {
         return $ctrl.voucher.fund.allow_physical_cards &&
-            !$ctrl.voucher.physical_card_linked &&
             ($ctrl.voucher.type === 'regular');
     }
 
@@ -101,8 +122,10 @@ let VoucherComponent = function(
         $ctrl.voucherCanUse = !$ctrl.voucher.expired;
 
         $ctrl.isPhysicalCardLinkable = $ctrl.physicalCardIsLinkable();
-        $ctrl.showPhysicalCardsOption = 
-            $ctrl.physicalCardIsLinkable() && !$ctrl.isPhysicalCardDismissed();
+        $ctrl.showPhysicalCardsOption =
+            $ctrl.physicalCardIsLinkable() &&
+            !$ctrl.voucher.physical_card &&
+            !$ctrl.isPhysicalCardDismissed();
     };
 };
 

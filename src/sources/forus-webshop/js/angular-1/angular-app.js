@@ -84,6 +84,7 @@ app.service('SessionService', require('./services/SessionService'));
 app.service('IdentityEmailsService', require('./services/IdentityEmailsService'));
 app.service('NotificationsService', require('./services/NotificationsService'));
 app.service('PhysicalCardsService', require('./services/PhysicalCardsService'));
+app.service('PhysicalCardsRequestService', require('./services/PhysicalCardsRequestService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
@@ -136,6 +137,7 @@ app.component('modalOpenInMeComponent', require('./components/Modals/ModalOpenIn
 app.component('modalProductApplyComponent', require('./components/Modals/ModalProductApplyComponent'));
 app.component('modalIdentityProxyExpiredComponent', require('./components/Modals/ModalIdentityProxyExpiredComponent'));
 app.component('modalPhysicalCardTypeComponent', require('./components/Modals/ModalPhysicalCardTypeComponent'));
+app.component('modalPhysicalCardUnlinkComponent', require('./components/Modals/ModalPhysicalCardUnlinkComponent'));
 
 // Printable Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));

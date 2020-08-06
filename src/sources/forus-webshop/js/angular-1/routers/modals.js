@@ -45,12 +45,7 @@ module.exports = ['ModalRouteProvider', function(
         component: 'modalPhysicalCardTypeComponent'
     });
     
-    ModalRouteProvider.modal('modalPhysicalCardNew', {
-        component: 'modalPhysicalCardNewComponent'
+    ModalRouteProvider.modal('modalPhysicalCardUnlink', {
+        component: 'modalPhysicalCardUnlinkComponent'
     });
-    
-    ModalRouteProvider.modal('modalPhysicalCardOld', {
-        component: 'modalPhysicalCardOldComponent'
-    });
-
 }];

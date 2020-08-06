@@ -76,7 +76,6 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                             .action-item-name(i18n="voucher.voucher_card.footer.actions.share")
                         .action-item(
                             ng-if="$ctrl.isPhysicalCardLinkable" 
-                            vouchercard="{{ $ctrl.voucherCard }}" 
                             ng-click="$ctrl.usePhysicalCard($ctrl.voucher)")
                             .action-item-icon
                                 em.mdi.mdi-card-bulleted-outline
