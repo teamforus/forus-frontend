@@ -14,6 +14,48 @@
             }
         }
 
+        .block-auth {
+            .button {
+                margin: 0px 10px;
+
+                &.button-primary {
+                    border: none;
+                    background-color: #e60103;
+
+                    &:hover {
+                        background-color: #e60103;
+                    }
+                }
+            }
+
+            .auth-in {
+                .auth-user {
+                    .auth-user-email {
+                        color: $color_default_light;
+                    }
+
+                    .auth-user-avatar {
+                        border-color: $color_default;
+                        border-radius: 4px;
+
+                        img {
+                            background-color: #e60103;
+                        }
+                    }
+                }
+            }
+
+            .auth-out {
+                margin-right: 15px;
+            }
+
+            .button {
+                &:hover {
+                    box-shadow: 0
+                }
+            }
+        }
+
         .button {
             &.button-default {
                 color: #282B39;
