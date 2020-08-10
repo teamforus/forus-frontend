@@ -142,7 +142,9 @@ let VouchersComponent = function(
     $ctrl.onPageChange = (query) => {
         VoucherService.index(
             $ctrl.organization.id,
-            $ctrl.getQueryParams(query)
+            $ctrl.getQueryParams(Object.assign(query, {
+                fund_id: $ctrl.fund.id,
+            }))
         ).then((res => {
             $ctrl.vouchers = res.data;
 
