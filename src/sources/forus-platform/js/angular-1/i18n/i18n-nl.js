@@ -557,7 +557,8 @@ module.exports = {
             stock_unlimited: "Onbeperkt aanbod",
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
-            available_offers: "Resterend aanbod"
+            available_offers: "Resterend aanbod",
+            unlimited: "Onbeperkt"
         },
         buttons: {
             cancel: "Annuleren",
@@ -678,6 +679,7 @@ module.exports = {
             title_step_3: "Ontvang de download link naar de Me-app",
             subtitle_step_3: "",
             title_step_3_mail: "Op een later moment de Me-app installeren",
+            title_step_3_mail_mobile: "Maak een account aan",
             title_step_4: "Kies of maak een organisatie",
             subtitle_step_4: "Aan uw e-mailadres zijn de volgende organisaties gekoppeld. Kies een bestaande organisatie of voeg een nieuwe organisatie toe.",
             title_step_5: "Maak een organisatie aan",

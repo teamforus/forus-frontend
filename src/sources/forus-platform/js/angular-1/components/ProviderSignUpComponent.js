@@ -518,6 +518,10 @@ let ProviderSignUpComponent = function(
             }
         }
 
+        if (isMobile() && step == $ctrl.STEP_PROCESS_NOTICE) {
+            progressStorage.clear();
+        }
+
         // last step, time for progress cleanup
         if (step >= $ctrl.STEP_SIGNUP_FINISHED) {
             progressStorage.clear();

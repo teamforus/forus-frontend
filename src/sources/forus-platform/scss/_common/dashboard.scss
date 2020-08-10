@@ -3300,6 +3300,7 @@ $colorPrimaryLight: $color_primary_light;
             top: 0px;
             border: none;
             background: none;
+            z-index: -100;
         }
 
         .pincode-number {
@@ -4654,6 +4655,13 @@ $colorPrimaryLight: $color_primary_light;
     
         .auth-form {
             margin: 0 0 30px;
+            display: flex;
+            flex-direction: row;
+
+            .auth-form-input {
+                flex-grow: 1;
+                padding-right: 20px;
+            }
     
             .button {
                 box-shadow: none;

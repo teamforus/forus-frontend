@@ -164,7 +164,6 @@ app.directive('landingAppFooter', require('./directives/landing/LandingAppFooter
 app.directive('forusChat', require('./directives/ForusChatDirective'));
 app.directive('forusSupport', require('./directives/ForusSupportDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
-app.directive('numberControl', require('./directives/NumberControlDirective'));
 app.directive('productCategoriesControl', require('./directives/ProductCategoriesControlDirective'));
 app.directive('officeEditInline', require('./directives/OfficeEditInlineDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
