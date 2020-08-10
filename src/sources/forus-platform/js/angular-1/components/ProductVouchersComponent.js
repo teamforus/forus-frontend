@@ -89,7 +89,7 @@ let ProductVouchersComponent = function(
 
         VoucherService.index(
             $ctrl.organization.id,
-            Object.assign(query, {
+            Object.assign(_query, {
                 fund_id: $ctrl.fund.id,
             })
         ).then((res => {
