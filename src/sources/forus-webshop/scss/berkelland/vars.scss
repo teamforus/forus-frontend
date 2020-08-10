@@ -2,6 +2,13 @@
 
 // navbar
 $bg-nav:            #F5F5F5;
+$btn-nav:           #004D93;
+$btn-nav-rev:       #fff;
+$tc-nav-hov:        #004D93;
+$tc-nav:            #282B39;
+$tc-btn-nav:        #004D93;
+$tc-btn-nav-rev:    #fff;
+
 
 // header attributes
 $bg-values:          url("../img/splash-top-b.jpg") no-repeat 100% 0;
@@ -22,7 +29,7 @@ $bg:                #ececec;
 $bg_2:              none;
 
 // text formatting
-$tf:                lowercase;
+$tf:                inherit;
 
 // footer color
 $fc:                #4e4d40;
@@ -36,7 +43,7 @@ $pi:                10px 0 0 10px;
 // placeholder text color
 $ptc:               #c4c4c4;
 
-$border_color:      #dbdcdb;
+$border_color:      #EBEDF0;
 
 $border_radius:     0px;
 $base_shadow:       0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);

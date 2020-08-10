@@ -1,7 +1,14 @@
 /*==========  Style Sheet - Vars  ==========*/
 
 // navbar
-$bg-nav:            #F5F5F5;
+$bg-nav:            #191818;
+$btn-nav:           #E60004;
+$btn-nav-rev:       #fff;
+$tc-nav-hov:        #ececec;
+$tc-nav:            #B3B3B3;
+$tc-btn-nav:        #E60004;
+$tc-btn-nav-rev:    #fff;
+
 
 $bg-values:         none;
 
@@ -21,7 +28,7 @@ $bg:                #fff;
 $bg_2:              none;
 
 // text formatting
-$tf:                lowercase;
+$tf:                inherit;
 
 // footer color
 $fc:                #e60004;

@@ -1,5 +1,43 @@
 .block {
     &.block-navbar {
+        .button {
+            &.button-default {
+                color: #666646;
+
+                svg {
+                    path {
+                        fill: #666666;
+                    }
+                }
+
+                &:hover {
+                    svg {
+                        path {
+                            fill: #666666;  
+                        }
+                    }
+                }
+            }
+
+            &.button-primary {
+                color: #666646;
+
+                svg {
+                    path {
+                        fill: #666666;
+                    }
+                }
+            }
+
+            a {
+                color: #666666;
+            }
+        }
+    }
+}
+
+/*.block {
+    &.block-navbar {
         width: 100%;
         padding: 0;
         background-color: #fff;
@@ -63,3 +101,4 @@
         }
     }
 }
+*/

@@ -19,38 +19,43 @@
             }
 
             &.button-default {
+                background-color: $btn-nav-rev;
+                border: solid 1px $border_color;
+                color: $btn-nav;
+
                 svg {
                     path {
-                        fill: #305dfb;
+                        fill: $btn-nav;
+                    }
+                }
+
+                &:hover {
+                    svg {
+                        path {
+                            fill: $btn-nav;  
+                        }
                     }
                 }
             }
 
             &.button-primary {
+                background-color: $btn-nav;
+                color: $btn-nav-rev;
+
                 svg {
                     path {
-                        fill: #fff;
+                        fill: $btn-nav-rev; 
                     }
                 }
             }
     
             a {
+                font: 700 16px/1.5em $bf;
                 color: $tc-var;
-            }
-    
-            &.active {
-                color: $color_default;
-    
-                svg {
-                    path {
-                        fill: #fff;
-                    }
-                }
             }
         }
         
         .block-subnav {
-            background: url(../img/city-skyline.svg) no-repeat bottom center;
             background-color: #fff;
             display: block;
     
@@ -62,6 +67,8 @@
                 align-items: center;
     
                 .navbar-logo {
+                    display: flex;
+
                     img {
                         height: 50px;
                     }
@@ -73,21 +80,7 @@
                 }
             }
         }
-    
-        @media screen and (max-width: 1000px){
-            .button {
-                font-size: 14x;
-                padding: 10px 20px;
-            }
-        }
-    
-        @media screen and (max-width: 768px){
-            .button {
-                font-size: 12px;
-                padding: 10px 10px;
-            }
-        }
-    
+
         .navbar-inner {
             @include cf();
             max-width: 100%;
@@ -118,12 +111,7 @@
                 display: block;
                 margin: 0 auto;
                 height: 40px;
-                @media screen and (min-width: 768px){ 
-                    height: 40px;
-                }
-                @media screen and (min-width: 1000px){ 
-                    height: 90px;
-                }
+
                 &.hover {
                     display: none;
                 }
@@ -145,7 +133,6 @@
     
         .navbar-list {
             float: left;
-            //-padding-left: 30px;
             flex-grow: 1;
             display: block;
             text-align: left;
@@ -158,27 +145,26 @@
                     content: '•';
                     position: absolute;
                     top: 50%;
-                    color: #646f79;
+                    color: $tc-nav;
                     bottom: 0;
                     left: 60%;
                     right: 0;
                     transform: translateY(-50%);
                     display: block;
-                    margin-top: 2px;
+                    margin-top: 4px;
                     text-align: center;
                 }
     
                 &:last-of-type {
-    
                     &:before {
                         display: none;
                     }
                 }
     
                 .navbar-item {
-                    color: #646f79;
+                    color: $tc-nav;
                     display: inline-block;
-                    padding: 10px 0px;
+                    padding: 15px 0px;
                     position: relative;
                     transition: .4s;
                     margin-right: 50px;
@@ -187,28 +173,27 @@
                     &:before {
                         content: '';
                         top: 0;
-                        left: 25px;
-                        right: 25px;
                         height: 3px;
                         display: block;
                         position: absolute;
                         background: transparent;
                         transition: .4s;
+                        width: 100%;;
                     }
     
                     &:hover {
-                        color: #2987fd;
+                        color: $tc-nav-hov;
     
                         &:before {
-                            background: #d2e6ff;
+                            background: $tc-nav-hov;
                         }
                     }
     
                     &.active {
-                        color: #2987fd;
+                        color: $tc-nav-hov;
     
                         &:before {
-                            background: #134478;
+                            background: $tc-nav-hov;
                         }
                     }
                 }
@@ -307,21 +292,11 @@
             justify-self: flex-end;
             display: flex;
             @include cf();
-            @media screen and (min-width: 1000px) { 
-                //-padding: 15px 15px;
-            }
     
             .button {
                 margin-right: 20px;
                 margin: 0 auto;
                 display: flex;
-    
-                @media screen and (min-width: 1000px){
-                    //-padding: 8px 20px;
-                }
-                &:last-of-type {
-                    margin-right: 0px;
-                }
             }
     
             .auth-code {
@@ -331,6 +306,7 @@
     
             .auth-out {
                 float: right;
+                margin-right: 30px;
             }
     
             .auth-in {
@@ -426,10 +402,6 @@
                             font-weight: 600;
                             margin-top: 3px;
                         }
-    
-                        @media screen and (max-width: 1000px){
-                            display: none;
-                        }
                     }
     
                     .auth-user-menu {
@@ -506,6 +478,13 @@
     
     @media screen and (min-width: 1000px) { 
         &.block-navbar {
+            .navbar-logo {
+                
+                img {
+                    height: 90px;
+                }
+            }
+
             .button {
                 svg {
                     margin-right: 10px;
@@ -537,7 +516,6 @@
             }
     
             .block-auth {
-    
                 .auth-in {
                     .auth-user {
                         .auth-user-email {
@@ -581,8 +559,12 @@
                 padding-right: -40px;
                 border-right: none;
                 flex-grow: 1;
+
+                .second-logo {
+                    display: none;
+                }
             }
-    
+
             .block-auth {
                 border: none;
                 display: block;
@@ -618,6 +600,10 @@
                             font: 500 12px/14px $bf;
                         }
                     }
+                }
+
+                .auth-out {
+                    margin-right: 0;
                 }
             }
     
@@ -668,6 +654,13 @@
                 }
             }
         }
+
+        &.block-subnav {
+            .button {
+                font-size: 14x;
+                padding: 10px 20px;
+            }
+        }
     }
     
     @media screen and (max-width: 768px) {
@@ -675,6 +668,13 @@
             .button {
                 padding: 10px 0px;
                 min-width: 60px;
+            }
+        }
+
+        &.block-subnav {
+            .button {
+                font-size: 12px;
+                padding: 10px 10px;
             }
         }
     }

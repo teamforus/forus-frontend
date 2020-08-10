@@ -1,9 +1,7 @@
 .section {
 
     &.section-header {
-
         @media screen and (min-width: 1024px) {
-
             .wrapper {
                     background-image: url(../img/header-bg-element.svg);
                     background-repeat: no-repeat;
@@ -11,6 +9,7 @@
             }
 
             .header-content {
+                padding: 0;
 
                 .header-title {
                     font: 700 32px/1.5em $bf;
