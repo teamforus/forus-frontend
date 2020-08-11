@@ -476,20 +476,17 @@ let FundRequestComponentDefault = function(
                     });
                 } else {
                     FundRequestService.index($ctrl.fund.id).then((res) => {
-                        $ctrl.pendingRequests = res.data.data.filter(
-                            request => request.state === 'pending'
-                        );
+                        let pendingRequests = res.data.data.filter(request => request.state === 'pending');
+                        let pendingRequest = pendingRequests[0] || false;
                         
-                        if ($ctrl.pendingRequests.length > 0) {
-                            $ctrl.pendingRequest = $ctrl.pendingRequests[0];
-                            
+                        if (pendingRequest) {
                             $ctrl.fund.criteria.map(criteria => {
-                                let record = $ctrl.pendingRequest.records.filter(record => {
+                                let record = pendingRequest.records.filter(record => {
                                     return record.record_type_key == criteria.record_type_key;
                                 })[0];
 
-                                if (record && record.state == 'pending') {
-                                    criteria.isPending = true;
+                                if (record) {
+                                    criteria.request_state = record.state;
                                 }
 
                                 return criteria;

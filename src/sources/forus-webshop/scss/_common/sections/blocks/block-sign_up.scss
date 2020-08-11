@@ -271,7 +271,7 @@ $bf: 'Montserrat', arial, sans-serif;
                 margin: 0 0 20px;
 
                 li {
-                    font: 400 18px/22px $bf;
+                    font: 400 16px/22px $bf;
                     vertical-align: middle;
                     position: relative;
                     padding-left: 30px;
@@ -297,10 +297,6 @@ $bf: 'Montserrat', arial, sans-serif;
 
                 &.sign_up-pane-list-criteria {
                     li {
-                        &:before {
-                            display: none;
-                        }
-
                         .item-icon {
                             display: inline-block;
                             width: 20px;
@@ -314,6 +310,17 @@ $bf: 'Montserrat', arial, sans-serif;
                             top: 1px;
                             font-size: 16px;
                             text-align: center;
+                            text-align: center;
+
+                            .mdi {
+                                color: inherit;
+                                line-height: 16px;
+                                font-size: 14px;
+                            }
+                        }
+
+                        &:before {
+                            display: none;
                         }
 
                         &.item-valid {
@@ -333,6 +340,13 @@ $bf: 'Montserrat', arial, sans-serif;
                             .item-icon {
                                 border-color: #FFA500;
                                 color: #FFA500;
+                            }
+                        }
+
+                        &.item-declined {
+                            .item-icon {
+                                border-color: #e63b3b;
+                                color: #e63b3b;
                             }
                         }
                     }

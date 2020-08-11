@@ -38,8 +38,9 @@ section: .wrapper
                     
                     ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
                         ng-repeat="critera in $ctrl.fund.criteria" 
-                        ng-class="{'item-progress': critera.isPending, 'item-valid': critera.isValid, 'item-invalid' : !critera.isValid}")
-                        .item-icon: em.mdi.mdi-check-bold(ng-if="critera.isValid")
+                        ng-class="{pending: 'item-progress', approved: 'item-valid', 'declined' : 'item-declined'}[critera.request_state]")
+                        .item-icon: em.mdi(
+                            ng-class="{pending: 'mdi-help', approved: 'mdi-check-bold', 'declined' : 'mdi-close-thick'}[critera.request_state]")
                         span(
                             i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}" 
                             i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")

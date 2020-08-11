@@ -18,7 +18,7 @@ module.exports = {
             main: "Aanvraag",
             title_step_1: "Welkom",
             title_step_2: "Meld u aan",
-            title_fund_already_applied: "Application in progress"
+            title_fund_already_applied: "Aanvraag in behandeling"
         },
         subtitles: {
             step_1: "Via dit online formulier kunt u zich aanmelden voor beschikbare fondsen. ",
