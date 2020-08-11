@@ -6,6 +6,7 @@ module.exports = {
     },
     status: {
         active: "Actief",
+        out_of_stock: "Geen voorraad meer",
     },
     buttons: {
         buy: "KOOP",

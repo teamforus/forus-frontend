@@ -31,6 +31,25 @@
             width: 460px;
             max-width: 460px;
             cursor: default;
+            position: relative;
+
+            .hidden-input {
+                opacity: 0;
+                height: 100%;
+                width: 100%;
+                position: absolute;
+                top: 0px;
+                left: 0;
+                border: none;
+                outline: none;
+                background: none;
+                z-index: -1;
+            }
+
+            .pin_code-input-digits {
+                display: flex;
+                flex-direction: row;
+            }
 
             .pin_code-input-digit {
                 display: inline-flex;

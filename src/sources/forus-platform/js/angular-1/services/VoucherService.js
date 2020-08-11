@@ -70,16 +70,16 @@ module.exports = [
                 });
             };
 
-            this.sampleCSV = (voucher_type, product_id = null) => {
+            this.sampleCSVBudgetVoucher = (expires_at = "2020-02-20") => {
                 let headers = ['amount', 'expires_at', 'note', 'email'];
-                let values = [10, '2020-02-20', 'voorbeeld notitie', 'test@example.com'];
+                let values = [10, expires_at, 'voorbeeld notitie', 'test@example.com'];
 
-                if (voucher_type != 'product_voucher') {
-                    return Papa.unparse([headers, values]);
-                }
+                return Papa.unparse([headers, values]);
+            };
 
-                headers.splice(1, 0, 'product_id');
-                values.splice(1, 0, product_id);
+            this.sampleCSVProuctVoucher = (product_id = null, expires_at = "2020-02-20") => {
+                let headers = ['product_id', 'expires_at', 'note', 'email'];
+                let values = [product_id, expires_at, 'voorbeeld notitie', 'test@example.com'];
 
                 return Papa.unparse([headers, values]);
             };

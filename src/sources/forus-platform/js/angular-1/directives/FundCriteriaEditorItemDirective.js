@@ -46,7 +46,7 @@ let FundCriteriaEditorItemDirective = function(
     };
 
     $dir.prepareCriteria = (criterion) => {
-        criterion.title = $dir.makeTitle(criterion);
+        criterion.header = $dir.makeTitle(criterion);
 
         criterion.validators_models = criterion.external_validators.map(validator => {
             return Object.assign({
@@ -80,9 +80,13 @@ let FundCriteriaEditorItemDirective = function(
 
     $dir.editDescription = (criterion) => {
         ModalService.open('fundCriteriaDescriptionEdit', {
+            criterion: criterion,
+            title: criterion.title,
             description: criterion.description,
+            validateCriteria: $dir.validateCriteria,
             success: (data) => {
                 criterion.description = data.description;
+                criterion.title = data.title;
             }
         });
     };
@@ -92,7 +96,7 @@ let FundCriteriaEditorItemDirective = function(
 
         criterion.is_editing = false;
 
-        delete criterion.title;
+        delete criterion.header;
         delete criterion.new_validator;
         delete criterion.validators_list;
         delete criterion.validators_models;
@@ -114,11 +118,9 @@ let FundCriteriaEditorItemDirective = function(
             validator => validator.organization_validator_id
         );
 
-        FundService.criterionValidate($scope.fund.organization_id, $scope.fund.id, [
-            Object.assign(JSON.parse(JSON.stringify(criterion)), {
-                validators: validatorsField
-            })
-        ]).then(() => {
+        $dir.errors = {};
+
+        $dir.validateCriteria(criterion).then(() => {
             criterion.is_new = false;
             criterion.validators = validatorsField;
 
@@ -130,6 +132,16 @@ let FundCriteriaEditorItemDirective = function(
             $dir.errors = res.data.errors;
         });
     };
+
+    $dir.validateCriteria = (criterion) => {
+        return FundService.criterionValidate($scope.organization.id, $scope.fund ? $scope.fund.id : null, [
+            Object.assign(JSON.parse(JSON.stringify(criterion)), {
+                validators: criterion.external_validators.map(
+                    validator => validator.organization_validator_id
+                )
+            })
+        ]);
+    }
 
     $dir.cancelCriterion = (criterion) => {
         if ($scope.criterion.is_new) {
