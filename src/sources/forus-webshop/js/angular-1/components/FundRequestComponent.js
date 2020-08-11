@@ -97,7 +97,6 @@ let FundRequestComponentDefault = function(
     $ctrl.bsnIsKnown = true;
     $ctrl.appConfigs = appConfigs;
     $ctrl.hasApp = false;
-    $ctrl.fundAlreadyApplied = false;
 
     $ctrl.shownSteps = [];
 
@@ -364,7 +363,7 @@ let FundRequestComponentDefault = function(
         // }
 
         if ((step == 4 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
-            return !$ctrl.fundAlreadyApplied ? 'criteria' : 'fund_already_applied';
+            return 'criteria';
         }
 
         if (step == $ctrl.totalSteps.length + 1) {
@@ -477,13 +476,26 @@ let FundRequestComponentDefault = function(
                     });
                 } else {
                     FundRequestService.index($ctrl.fund.id).then((res) => {
-                        let pendingRequests = res.data.data.filter(
+                        $ctrl.pendingRequests = res.data.data.filter(
                             request => request.state === 'pending'
                         );
                         
-                        if (pendingRequests.length > 0) {
-                            $ctrl.fundAlreadyApplied = true;
-                            $ctrl.updateState();
+                        if ($ctrl.pendingRequests.length > 0) {
+                            $ctrl.pendingRequest = $ctrl.pendingRequests[0];
+                            
+                            $ctrl.fund.criteria.map(criteria => {
+                                let record = $ctrl.pendingRequest.records.filter(record => {
+                                    return record.record_type_key == criteria.record_type_key;
+                                })[0];
+
+                                if (record && record.state == 'pending') {
+                                    criteria.isPending = true;
+                                }
+
+                                return criteria;
+                            });
+
+                            $ctrl.state = 'fund_already_applied';
                         } else if ($ctrl.invalidCriteria.length == 0) {
                             $ctrl.applyFund($ctrl.fund);
                         }

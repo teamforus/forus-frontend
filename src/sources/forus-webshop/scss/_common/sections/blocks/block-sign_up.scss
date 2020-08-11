@@ -328,6 +328,13 @@ $bf: 'Montserrat', arial, sans-serif;
                                 border-color: $color_primary;
                             }
                         }
+
+                        &.item-progress {
+                            .item-icon {
+                                border-color: #FFA500;
+                                color: #FFA500;
+                            }
+                        }
                     }
                 }
             }

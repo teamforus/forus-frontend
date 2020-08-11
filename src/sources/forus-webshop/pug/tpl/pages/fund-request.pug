@@ -33,13 +33,12 @@ section: .wrapper
                 .sign_up-pane-header(translate="fund_request.sign_up.header.title_fund_already_applied")
 
                 .sign_up-pane-body
-                    .text-center: img(src="./assets/img/fund-request-error.png")
-                    br
+                    .sign_up-pane-media: img(src="./assets/img/fund-request-error.png")
                     p.sign_up-pane-text(translate="fund_request.sign_up.subtitles.fund_already_applied")
                     
                     ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
                         ng-repeat="critera in $ctrl.fund.criteria" 
-                        ng-class="{'item-valid': critera.isValid, 'item-invalid' : !critera.isValid}")
+                        ng-class="{'item-progress': critera.isPending, 'item-valid': critera.isValid, 'item-invalid' : !critera.isValid}")
                         .item-icon: em.mdi.mdi-check-bold(ng-if="critera.isValid")
                         span(
                             i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}" 
