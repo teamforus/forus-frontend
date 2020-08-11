@@ -16,7 +16,8 @@ section.section.section-product: .wrapper
             .product-details
                 .product-name
                     span(ng-bind="$ctrl.product.name")
-                    span.label.label-success(ng-if="!$ctrl.product.deleted" i18n="product.status.active")
+                    span.label.label-success(ng-if="!$ctrl.product.deleted && !$ctrl.product.sold_out" i18n="product.status.active")
+                    span.label.label-danger(ng-if="!$ctrl.product.deleted && $ctrl.product.sold_out" i18n="product.status.out_of_stock")
                 .product-categories(ng-bind="$ctrl.product.product_category.name")
                 
                 .product-funds
@@ -38,11 +39,11 @@ section.section.section-product: .wrapper
                     .expire-value(ng-bind="$ctrl.product.expire_at_locale")
 
                 .button.button-primary(
-                    ng-if="$ctrl.isApplicable && !$ctrl.product.deleted"
+                    ng-if="$ctrl.isApplicable && !$ctrl.product.deleted && !$ctrl.product.sold_out"
                     ng-click="$ctrl.applyProduct()") RESERVEER
                 
                 .button.button-primary(
-                    ng-if="!$root.auth_user" 
+                    ng-if="!$root.auth_user && !$ctrl.product.deleted && !$ctrl.product.sold_out" 
                     ng-click="openAuthPopup()") LOG IN OM TE RESERVEREN
 
         .block.block-info-card

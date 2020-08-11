@@ -140,7 +140,7 @@ let FinancialDashboardComponent = function(
                 } else if (this.request.type == 'quarter') {
                     stringTitle = 'Kwartaal: Q' + this.request.nth + ' ' + this.request.year;
                 } else if (this.request.type == 'all') {
-                    stringTitle = 'Year ' + this.request.year;
+                    stringTitle = 'Jaar ' + this.request.year;
                 }
 
                 this.stringTitle = stringTitle;

@@ -2,7 +2,7 @@
     .criterion-section
         .criterion-title(
             ng-class="{'criterion-title-large' : !$dir.criterion.is_editing && $dir.criterion.external_validators.length == 0}"
-            ng-bind="$dir.criterion.title")
+            ng-bind="criterion.title || $dir.criterion.header")
         .criterion-actions
             .button.button-default(
                 ng-if="!$dir.criterion.is_editing"
