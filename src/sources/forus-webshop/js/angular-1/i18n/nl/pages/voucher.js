@@ -60,7 +60,7 @@ module.exports = {
             description: 'Als u de oude plastic pas opnieuw activeert kunt u deze blijven gebruiken. Hulp nodig? ' + 
                 'Bel 14 050 maandag t/m vrijdag 9.00 tot 12.00',
             buttons: {
-                reactivate: 'Oude pass opnieuw activeren'
+                reactivate: 'Oude pas opnieuw activeren'
             }
         },
         share_voucher: {
