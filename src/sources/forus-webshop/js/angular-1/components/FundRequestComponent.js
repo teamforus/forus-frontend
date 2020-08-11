@@ -6,6 +6,7 @@ let FundRequestComponent = function(
     $state,
     $stateParams,
     $timeout,
+    $filter,
     RecordService,
     FundService,
     AuthService,
@@ -31,6 +32,7 @@ let FundRequestComponent = function(
         $state,
         $stateParams,
         $timeout,
+        $filter,
         RecordService,
         FundService,
         AuthService,
@@ -69,6 +71,7 @@ let FundRequestComponentDefault = function(
     $state,
     $stateParams,
     $timeout,
+    $filter,
     RecordService,
     FundService,
     AuthService,
@@ -105,6 +108,19 @@ let FundRequestComponentDefault = function(
     $ctrl.criterionValuePrefix = {
         net_worth: '€',
         base_salary: '€'
+    };
+
+    let trans_record_labels = (record_type_key, record_type_value) => {
+        let trans_key = 'fund_request.sign_up.records.labels.' + record_type_key;
+        let translated = $filter('translate')(trans_key, {
+            value: record_type_value
+        });
+
+        if (translated == trans_key) {
+            return false;
+        }
+
+        return translated;
     };
 
     $ctrl.startDigId = () => {
@@ -295,7 +311,7 @@ let FundRequestComponentDefault = function(
         });
 
         $ctrl.invalidCriteria = $ctrl.invalidCriteria.map(criterion => {
-            let control_type = {
+            let control_type = criterion.operator == '=' ? 'ui_control_checkbox' : {
                 // checkboxes
                 'children': 'ui_control_checkbox',
                 'kindpakket_eligible': 'ui_control_checkbox',
@@ -312,10 +328,14 @@ let FundRequestComponentDefault = function(
                 'base_salary': 'ui_control_currency',
             } [criterion.record_type_key] || 'ui_control_text';
 
+            let label = trans_record_labels(criterion.record_type_key, criterion.value) || 
+                'Ik verklaar aan de onderstaande voorwaarden te voldoen';
+
             return Object.assign(criterion, {
                 control_type: control_type,
+                label: label,
                 input_value: {
-                    ui_control_checkbox: false,
+                    ui_control_checkbox: null,
                     ui_control_date: moment().format('DD-MM-YYYY'),
                     ui_control_step: 0,
                     ui_control_number: undefined,
@@ -323,6 +343,13 @@ let FundRequestComponentDefault = function(
                 } [control_type]
             });
         });
+
+        $ctrl.setRecordValue = (invalidCriteria) => {
+            timeout = $timeout(function() {
+                invalidCriteria.input_value = invalidCriteria.is_checked ? 
+                    invalidCriteria.value : null;
+            }, 500);
+        };
 
         $ctrl.buildSteps();
     };
@@ -524,6 +551,7 @@ module.exports = {
         '$state',
         '$stateParams',
         '$timeout',
+        '$filter',
         'RecordService',
         'FundService',
         'AuthService',
