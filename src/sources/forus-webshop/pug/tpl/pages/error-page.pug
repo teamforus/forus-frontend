@@ -5,4 +5,4 @@ block content
         .wrapper
             .page-not-found-title(ng-bind="$ctrl.error")
             .page-not-found-subtitle(ng-bind="('error_page.' + $ctrl.error + '.title') | translate")
-            div: button.button.button-primary(ng-bind="('error_page.' + $ctrl.error + '.button') | translate")
+            div: button.button.button-primary(ui-sref="home" ng-bind="('error_page.' + $ctrl.error + '.button') | translate")
