@@ -8,11 +8,11 @@
             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-products2.svg
             a.buttton(translate="topnavbar.buttons.products")
 
-        li.sticky-footer-item(ng-if="!$root.auth_user && !$root.appConfigs.features.digid" ng-click="openAuthCodePopup()" ui-sref-active="active")                     
+        li.sticky-footer-item(ng-if="!$root.auth_user && !$root.appConfigs.features.digid" ng-click="openAuthCodePopup()" ui-sref-active="active")
             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start-request.svg
             a.buttton(translate="topnavbar.buttons.mobile.request") 
 
-        li.sticky-footer-item(ng-if="!$root.auth_user && $root.appConfigs.features.digid" ng-click="startFundRequest()" ui-sref-active="active")                     
+        li.sticky-footer-item(ng-if="!$root.auth_user && $root.appConfigs.features.digid" ng-click="startFundRequest()" ui-sref-active="active")
             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start-request.svg
             a.buttton(translate="topnavbar.buttons.mobile.request") 
 
