@@ -50,6 +50,7 @@ let FundRequestComponent = function(
         $state,
         $stateParams,
         $timeout,
+        $filter,
         RecordService,
         FundService,
         AuthService,
@@ -104,23 +105,23 @@ let FundRequestComponentDefault = function(
     $ctrl.shownSteps = [];
 
     let timeout = null;
+    let $trans = $filter('translate');
 
     $ctrl.criterionValuePrefix = {
         net_worth: '€',
         base_salary: '€'
     };
 
-    let trans_record_labels = (record_type_key, record_type_value) => {
-        let trans_key = 'fund_request.sign_up.records.labels.' + record_type_key;
-        let translated = $filter('translate')(trans_key, {
-            value: record_type_value
+    let trans_record_checkbox = (criteria_record_key, criteria_value) => {
+        let trans_key = 'fund_request.sign_up.record_checkbox.' + criteria_record_key;
+        let trans_fallback_key = 'fund_request.sign_up.record_checkbox.default';
+        let translated = $trans(trans_key, {
+            value: criteria_value
         });
 
-        if (translated == trans_key) {
-            return false;
-        }
-
-        return translated;
+        return translated === trans_key ? $trans(trans_fallback_key, {
+            value: criteria_value
+        }) : translated;
     };
 
     $ctrl.startDigId = () => {
@@ -326,27 +327,24 @@ let FundRequestComponentDefault = function(
                 // currency
                 'net_worth': 'ui_control_currency',
                 'base_salary': 'ui_control_currency',
-            } [criterion.record_type_key] || 'ui_control_text';
-
-            let label = trans_record_labels(criterion.record_type_key, criterion.value) || 
-                'Ik verklaar aan de onderstaande voorwaarden te voldoen';
+            }[criterion.record_type_key] || 'ui_control_text';
 
             return Object.assign(criterion, {
                 control_type: control_type,
-                label: label,
+                label: trans_record_checkbox(criterion.record_type_key, criterion.value),
                 input_value: {
                     ui_control_checkbox: null,
                     ui_control_date: moment().format('DD-MM-YYYY'),
                     ui_control_step: 0,
                     ui_control_number: undefined,
                     ui_control_currency: undefined,
-                } [control_type]
+                }[control_type]
             });
         });
 
         $ctrl.setRecordValue = (invalidCriteria) => {
             timeout = $timeout(function() {
-                invalidCriteria.input_value = invalidCriteria.is_checked ? 
+                invalidCriteria.input_value = invalidCriteria.is_checked ?
                     invalidCriteria.value : null;
             }, 500);
         };
@@ -380,8 +378,8 @@ let FundRequestComponentDefault = function(
         }
 
         if (step == 3 && !$ctrl.signedIn && (
-                $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
-            )) {
+            $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
+        )) {
             return 'auth_email_sent';
         }
 
@@ -506,7 +504,7 @@ let FundRequestComponentDefault = function(
                         let pendingRequests = res.data.data.filter(
                             request => request.state === 'pending'
                         );
-                        
+
                         if (pendingRequests.length > 0) {
                             alert('U heeft al een aanvraag in behandeling.');
                             $state.go('funds');
