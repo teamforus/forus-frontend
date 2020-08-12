@@ -50,18 +50,9 @@ let ModalAuthComponent = function(
 
                 FundService.list().then(res => {
                     let funds = res.data.data.filter(fund => {
-                        let validators = fund.validators.map(function(validator) {
-                            return validator.identity_address;
-                        });
-
-                        return fund.criteria.filter(criterion => {
-                            return FundService.checkEligibility(
-                                recordsByKey[criterion.record_type_key] || [],
-                                criterion,
-                                validators,
-                                fund.organization_id
-                            );
-                        }).length == fund.criteria.length;
+                        return fund.criteria.filter(
+                            criterion => criterion.is_valid
+                        ).length == fund.criteria.length;
                     });
 
                     deferred.resolve(funds);

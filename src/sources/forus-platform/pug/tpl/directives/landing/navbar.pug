@@ -3,7 +3,7 @@
         img(ng-src="{{ './assets/img/landing/logo-normal' + cfg.logoExtension }}")
         img(ng-src="{{ './assets/img/landing/logo-normal' + cfg.logoExtension }}").hover
     nav.navbar-list(ng-class="mobileMenu?'navbar-list-show':''")
-        .navbar-list-auth.show-sm
+        .navbar-list-auth.visible-sm.visible-xs
             //- Auth menu
             nav.navbar-item-wrapper: .navbar-item(ui-sref="organizations") Open dashboard
             nav.navbar-item-wrapper: .navbar-item(ng-click="$root.openPinCodePopup()" translate="topnavbar.buttons.authorize")
@@ -27,7 +27,7 @@
                 .auth-user-type(translate="topnavbar.items.identity")
                 .auth-user-avatar
                     img(src="./assets/img/landing/identity-avatar.svg")
-                    nav.auth-user-menu.hide-sm
+                    nav.auth-user-menu.visible-md.visible-lg
                         .triangle
                         .inner
                             .auth-user-menu-item(ui-sref="organizations")
@@ -37,7 +37,7 @@
                                 em.mdi.mdi-cellphone
                                 span(translate="topnavbar.buttons.authorize")
 
-                            .auth-user-menu-separator.show-sm
+                            .auth-user-menu-separator.visible-sm.visible-xs
                             div(ng-click="$root.signOut()").auth-user-menu-item
                                 img(src="./assets/img/landing/icon-menu/icon-menu-sign-out.svg")
                                 span(translate="topnavbar.buttons.logout")
@@ -48,5 +48,5 @@
                 //- img(src="./assets/img/icon-btn/icon-btn-user.svg")
                 | Login
 
-    .navbar-mobile-menu.show-sm
+    .navbar-mobile-menu.visible-sm.visible-xs
         em.mdi(ng-class="mobileMenu?'mdi-close':'mdi-menu'" ng-click="mobileMenu = !mobileMenu")

@@ -4,12 +4,32 @@ let ModalFundCriteriaDescriptionEditComponent = function(
     let $ctrl = this;
 
     $ctrl.$onInit = () => {
-        $ctrl.form = FormBuilderService.build({
-            description: $ctrl.modal.scope.description
-        }, (form) => {
-            $ctrl.modal.scope.success(form.values);
+        $ctrl.criterion = $ctrl.modal.scope.criterion;
+        $ctrl.validateCriteria = $ctrl.modal.scope.validateCriteria;
 
-            $ctrl.close();
+        $ctrl.form = FormBuilderService.build({
+            description: $ctrl.modal.scope.description,
+            title: $ctrl.modal.scope.title
+        }, (form) => {
+            form.errors = {};
+            $ctrl.validateCriteria(Object.assign(JSON.parse(JSON.stringify(
+                $ctrl.criterion
+            )), {
+                title: form.values.title,
+                description: form.values.description,
+            })).then(() => {
+                $ctrl.modal.scope.success(form.values);
+                $ctrl.close();
+            }, res => {
+                if (Object.keys(res.data.errors).filter(key => {
+                    return key.endsWith('.title') || key.endsWith('.description');
+                }).length > 0) {
+                    form.errors = res.data.errors;
+                } else {
+                    $ctrl.modal.scope.success(form.values);
+                    $ctrl.close();
+                }
+            });
         });
     };
 

@@ -13,6 +13,12 @@ module.exports = {
         'not-pending': 'De notificatie instellingen zijn al aangepast via deze link'
     },
     types: {
+        digest: {
+            daily_requester: {
+                title: 'Samenvatting van nieuw aanbod op de webshop',
+                description: 'Ontvang een e-mail samenvatting met welke aanbiedingen en aanbieders zijn toegevoegd aan de webshop.',
+            },
+        },
         funds: {
             new_fund_started: {
                 title: 'Fonds is van start gegaan',

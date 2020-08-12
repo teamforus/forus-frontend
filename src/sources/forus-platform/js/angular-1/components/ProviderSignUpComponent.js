@@ -453,6 +453,13 @@ let ProviderSignUpComponent = function(
     };
 
     $ctrl.setStep = (step) => {
+        let movingForward = step >= $ctrl.step;
+
+        if (isMobile() && step == $ctrl.STEP_INFO_ME_APP) {
+            $ctrl.step = step;
+            return movingForward ? $ctrl.next() : $ctrl.back();
+        }
+
         if (step <= $ctrl.STEP_SIGNUP_FINISHED) {
             $ctrl.step = step;
             progressStorage.set('step', step);
@@ -509,6 +516,10 @@ let ProviderSignUpComponent = function(
             if ($ctrl.step == $ctrl.STEP_CREATE_PROFILE) {
                 $ctrl.setHasAppProp(JSON.parse(progressStorage.get('hasApp', 'false')));
             }
+        }
+
+        if (isMobile() && step == $ctrl.STEP_PROCESS_NOTICE) {
+            progressStorage.clear();
         }
 
         // last step, time for progress cleanup

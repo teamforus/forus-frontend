@@ -1,0 +1,14 @@
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
+
+.modal.modal-md
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-window
+        .modal-body: .modal-section
+            .block.block-danger_zone
+                .danger_zone-title
+                    em.mdi.mdi-alert
+                    span(ng-bind="$ctrl.title")
+                .danger_zone-description(ng-repeat="description in ($ctrl.description | lines_to_array)" ng-bind="description")
+        .modal-footer
+            .button.button-default(ng-click="$ctrl.close()" ng-bind="$ctrl.cancelButton")
+            .button.button-danger(ng-click="$ctrl.confirm()" ng-bind="$ctrl.confirmButton")
