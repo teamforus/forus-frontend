@@ -1,6 +1,6 @@
 module.exports = {
     header: {
-        title: "Tegoed in natura",
+        title: "Reserveringen",
     },
     labels: {
         amount: "Bedrag",
