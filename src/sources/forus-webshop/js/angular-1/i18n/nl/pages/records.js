@@ -4,10 +4,10 @@ module.exports = {
         title: "Eigenschappen",
     },
     labels: {
-        count: "validaties",
+        count: "Beoordelingen",
     },
     buttons: {
-        validate: "Valideer",
+        validate: "Goedkeuren",
         create: "Eigenschap aanmaken",
     }
 }
