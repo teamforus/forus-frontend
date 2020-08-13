@@ -501,13 +501,23 @@ let FundRequestComponentDefault = function(
                     });
                 } else {
                     FundRequestService.index($ctrl.fund.id).then((res) => {
-                        let pendingRequests = res.data.data.filter(
-                            request => request.state === 'pending'
-                        );
+                        let pendingRequests = res.data.data.filter(request => request.state === 'pending');
+                        let pendingRequest = pendingRequests[0] || false;
 
-                        if (pendingRequests.length > 0) {
-                            alert('U heeft al een aanvraag in behandeling.');
-                            $state.go('funds');
+                        if (pendingRequest) {
+                            $ctrl.fund.criteria.map(criteria => {
+                                let record = pendingRequest.records.filter(record => {
+                                    return record.record_type_key == criteria.record_type_key;
+                                })[0];
+
+                                if (record) {
+                                    criteria.request_state = record.state;
+                                }
+
+                                return criteria;
+                            });
+
+                            $ctrl.state = 'fund_already_applied';
                         } else if ($ctrl.invalidCriteria.length == 0) {
                             $ctrl.applyFund($ctrl.fund);
                         }
