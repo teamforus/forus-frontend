@@ -225,15 +225,11 @@ section: .wrapper
                     .form-group.col.col-lg-12
                         .form-label(ng-bind="$ctrl.recordTypes[invalidCriteria.record_type_key].name")
                         ui-control-checkbox(
-                            ng-if="invalidCriteria.control_type == 'ui_control_checkbox' && invalidCriteria.record_type_key == 'children'"
-                            ng-model="invalidCriteria.input_value"
+                            ng-if="invalidCriteria.control_type == 'ui_control_checkbox'"
+                            ng-model="invalidCriteria.is_checked"
                             data-id="criterion_{{ invalidCriteria.id }}"
-                            data-label="Ik heb geen kinderen")
-                        ui-control-checkbox(
-                            ng-if="invalidCriteria.control_type == 'ui_control_checkbox' && (invalidCriteria.record_type_key == 'kindpakket_eligible' || invalidCriteria.record_type_key =='kindpakket_2018_eligible')"
-                            ng-model="invalidCriteria.input_value"
-                            data-id="criterion_{{ invalidCriteria.id }}"
-                            data-label="Ja, ik verklaar dat ik recht heb op kindpakket.")
+                            data-label="{{ invalidCriteria.label }}"
+                            ng-change="$ctrl.setRecordValue(invalidCriteria)")
                         ui-control-step(
                             ng-if="invalidCriteria.control_type == 'ui_control_step'"
                             ng-model="invalidCriteria.input_value"
@@ -261,7 +257,7 @@ section: .wrapper
                             data-placeholder="Uw {{ invalidCriteria.record_type_name }}")
                         .form-error(ng-repeat="error in invalidCriteria.errors.value" ng-bind="error")
                         
-                    .form-group.col.col-lg-12: .sign_up-pane-info
+                    .form-group.col.col-lg-12(ng-if="invalidCriteria.control_type != 'ui_control_checkbox'"): .sign_up-pane-info
                         p.sign_up-pane-text: span(
                             i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[invalidCriteria.operator]}}" 
                             i18n-vars="{name: invalidCriteria.record_type_name, value: ($ctrl.criterionValuePrefix[invalidCriteria.record_type_key]) + invalidCriteria.value}") 
