@@ -1,4 +1,6 @@
 let ModalPhysicalCardTypeComponent = function(
+    $element,
+    $timeout,
     FormBuilderService,
     PhysicalCardsService,
     PhysicalCardsRequestService,
@@ -95,6 +97,8 @@ let ModalPhysicalCardTypeComponent = function(
             });
             
             $ctrl.preffersPlasticCard = true;
+
+            $timeout(() => $element.find('#physical_card_address').focus(), 250);
         });
     };
 
@@ -114,6 +118,8 @@ module.exports = {
         voucher: '<',
     },
     controller: [
+        '$element',
+        '$timeout',
         'FormBuilderService',
         'PhysicalCardsService',
         'PhysicalCardsRequestService',

@@ -99,3 +99,7 @@
     @import 'sections/blocks/block-notifications-table.scss';
     @import 'sections/blocks/block-physical-card.scss';
 }
+
+.modal {
+    @import 'modals/modal-physical-cards.scss';
+}

@@ -4,8 +4,8 @@ let PincodeControlDirective = function(
     $element
 ) {
     let blockInputType = $scope.blockInputType = ($scope.blockInputType || 'num');
-    let blockSize = $scope.blockSize || 6;
-    let blockCount = $scope.blockCount || 1;
+    let blockSize = $scope.blockSize = $scope.blockSize || 6;
+    let blockCount = $scope.blockCount = $scope.blockCount || 1;
     let totalSize = blockSize * blockCount;
     let $input = $element.find('.hidden-input');
     let len = 0;
@@ -45,6 +45,7 @@ let PincodeControlDirective = function(
     $scope.updateInput = () => {
         let chars = [];
         let charCount = 0;
+        let flag = false;
 
         if ($scope.ngModel && typeof $scope.ngModel == 'string') {
             $scope.ngModel.split('').forEach((char) => {
@@ -59,7 +60,13 @@ let PincodeControlDirective = function(
 
         if ($scope.filler && $scope.filler.length > 0) {
             for (let index = 0; index < $scope.filler.length; index++) {
-                chars.push('_');
+                if (!flag) {
+                    flag = true;
+                    chars.push('active');
+                } else {
+                    chars.push('_');
+                }
+
                 charCount++;
 
                 if (charCount > 0 && (charCount % blockSize == 0) && charCount < totalSize) {
@@ -87,9 +94,9 @@ let PincodeControlDirective = function(
                 if (inputTypes.indexOf(e.originalEvent.inputType) === -1) {
                     return;
                 }
-    
+
                 $timeout(() => $scope.addCharCode(null, typeof data == 'string' ? data.slice(-1) : '', e));
-    
+
                 return false;
             });
         }
@@ -175,7 +182,7 @@ let PincodeControlDirective = function(
 
         if (!handled) {
             e.preventDefault();
-            
+
             if ($input.val()) {
                 $input.val($input.val().slice(0, -1));
             }
