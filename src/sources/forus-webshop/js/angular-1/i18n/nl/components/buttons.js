@@ -1,7 +1,7 @@
 module.exports = {
     show_more: "Bekijk meer",
     send: "Verzenden",
-    validate: "Valideren",
+    validate: "Goedkeuren",
     add: "Toevoegen",
     cancel: "Annuleren",
     share: "Delen",

@@ -5,7 +5,7 @@ module.exports = {
             title: "Mijn eigenschappen",
         },
         labels: {
-            validators: "Validators",
+            validators: "Beoordelaars",
         },
         status: {
             hold: "Wachten",

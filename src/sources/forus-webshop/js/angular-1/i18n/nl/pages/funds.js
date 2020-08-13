@@ -1,7 +1,7 @@
 module.exports = {
     // FUNDS = funds.pug
     header: {
-        title: "Fondsen",
+        title: "Aanvragen",
         subtitle: "",
         potjeswijzer: {
             title: "Potjes",
@@ -28,7 +28,7 @@ module.exports = {
         more: "BEKIJK MEER",
         start_request: "Aanvragen",
         is_applicable: "Activeer",
-        already_received: "Open voucher",
+        already_received: "Open tegoed",
     },
     status: {
         active: "Actief",

@@ -27,13 +27,13 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
 
         if (!qdt_c.platform.env_data.hide_voucher_generators)
             +nav_item(
-                "Vouchers", "vouchers", 'vouchers', 
+                "Tegoeden", "vouchers", 'vouchers', 
                 '{organization_id: $root.activeOrganization.id}',
                 '$root.activeOrganization | hasPerm:["manage_vouchers"]',
                 'vouchers')
 
             +nav_item(
-                "Aanbiedingsvouchers", "productvoucher", 'product-vouchers', 
+                "Reserveringen", "productvoucher", 'product-vouchers', 
                 '{organization_id: $root.activeOrganization.id}',
                 '$root.activeOrganization | hasPerm:["manage_vouchers"]',
                 'product_vouchers')

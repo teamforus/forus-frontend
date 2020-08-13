@@ -1,7 +1,7 @@
 module.exports = {
     items: {
         funds:"FONDSEN",
-        products:"AANBIEDINGEN",
+        products:"Aanbod",
         providers:"AANBIEDERS",
         explanation:"UITLEG",
         identity:"Profiel",
@@ -12,12 +12,12 @@ module.exports = {
     buttons: {
         activate:"Activatiecode",
         login:"Login",
-        voucher:"Mijn vouchers",
+        voucher:"Mijn tegoeden",
         profile:"Profiel >",
         records: "Mijn eigenschappen",
         authorize:"Log in op de app",
         logout:"Uitloggen",
-        products:"Aanbiedingen",
-        funds: "Fondsen",
+        products:"Aanbod",
+        funds: "Aanvragen",
     },
 }

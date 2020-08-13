@@ -2,7 +2,7 @@ top-navbar
 section.section.section-profile: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
-        .breadcrumb-item.active Mijn vouchers
+        .breadcrumb-item.active Mijn tegoeden
 
     .section-title
         span(translate="vouchers.header.regular.title")
@@ -18,7 +18,7 @@ section.section.section-profile: .wrapper
                 empty-block(
                     ng-if="$ctrl.regularVouchers.length == 0"
                     title="Geen budgetten"
-                    description="Momenteel heeft u geen budgetvouchers"
+                    description="Momenteel heeft u geen tegoeden"
                     text="Gebruik een activatiecode"
                     hide-link="false")
 
@@ -35,7 +35,7 @@ section.section.section-profile: .wrapper
 
                 empty-block(
                     ng-if="$ctrl.productVouchers.length == 0"
-                    title="Geen vouchers"
-                    description="Momenteel heeft u geen vouchers"
+                    title="Geen tegoeden"
+                    description="Momenteel heeft u geen tegoeden"
                     text="Gebruik een activatiecode"
                     hide-link="false")
