@@ -77,6 +77,7 @@
                                 translate(translate="financial_dashboard.labels.citizen")
                                 br
                                 span(ng-bind="$ctrl.chartData.stringTitle")
+                            .chart-value_value_b(ng-bind="$ctrl.fund.budget.reserved | currency_format")
 
         .card-heading: .row
             .col.col-lg-6.col-xs-12 
