@@ -42,6 +42,23 @@ let BaseController = function(
         ModalService.open('modalPinCode', {});
     };
 
+    $scope.$ctrl = {
+        userMenuOpened: false
+    };
+
+    $scope.$ctrl.openUserMenu = (e) => {
+        e.originalEvent.stopPropagation();
+        e.originalEvent.preventDefault();
+        
+        $scope.$ctrl.userMenuOpened = !$scope.$ctrl.userMenuOpened;
+    }
+
+    $scope.$ctrl.hideUserMenu = () => {
+        $scope.$apply(() => {
+            $scope.$ctrl.userMenuOpened = false;
+        });
+    }
+
     $rootScope.loadAuthUser = function() {
         IdentityService.identity().then((res) => {
             let auth_user = res.data;
