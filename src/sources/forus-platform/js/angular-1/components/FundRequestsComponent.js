@@ -5,6 +5,7 @@ let FundRequestsComponent = function(
     FileService,
     FundService,
     ModalService,
+    DateService,
     OrganizationService,
     OrganizationEmployeesService,
     FundRequestValidatorService,
@@ -46,8 +47,11 @@ let FundRequestsComponent = function(
         show: false,
         values: {},
         reset: function() {
-            $ctrl.filters.values.q = '';
-            $ctrl.filters.values.state = $ctrl.states[0].key;
+            this.values.q = '';
+            this.values.state = $ctrl.states[0].key;
+            this.values.assigned_to = '';
+            this.values.from = '';
+            this.values.to = null;
         }
     };
 
@@ -83,10 +87,17 @@ let FundRequestsComponent = function(
         if (query) {
             $ctrl.filters.values = query;
         }
+        let _query = JSON.parse(JSON.stringify($ctrl.filters.values));
 
         FundRequestValidatorService.indexAll(
             $ctrl.organization.id,
-            $ctrl.filters.values
+            Object.assign(_query, {
+                per_page: 25,
+                from: _query.from ? DateService._frontToBack(_query.from) : null,
+                to: _query.to ? DateService._frontToBack(_query.to) : null,
+                sort_by: 'created_at',
+                sort_order: 'desc'
+            })
         ).then(function(res) {
             $ctrl.validatorRequests = res.data;
             $ctrl.validatorRequests.data.forEach(request => {
@@ -327,6 +338,7 @@ module.exports = {
         'FileService',
         'FundService',
         'ModalService',
+        'DateService',
         'OrganizationService',
         'OrganizationEmployeesService',
         'FundRequestValidatorService',
