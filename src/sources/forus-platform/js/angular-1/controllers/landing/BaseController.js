@@ -59,6 +59,10 @@ let BaseController = function(
         });
     }
 
+    $scope.$ctrl.goToHref = (href) => {
+        document.location.href = href;
+    }
+
     $rootScope.loadAuthUser = function() {
         IdentityService.identity().then((res) => {
             let auth_user = res.data;

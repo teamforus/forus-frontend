@@ -48,16 +48,13 @@ nav.navbar.navbar-inverse
 							click-outside="$ctrl.hideUserMenu()")
 							.triangle
 							.inner
-								.auth-user-menu-item
-									a(ui-sref="/sponsor" target="_self")
+								.auth-user-menu-item(ng-click="$ctrl.goToHref('/sponsor')")
 									| Sponsor
 
-								.auth-user-menu-item
-									a(ui-sref="/provider" target="_self")
+								.auth-user-menu-item(ng-click="$ctrl.goToHref('/provider')")
 									| Aanbieder
 									
-								.auth-user-menu-item
-									a(ui-sref="/validator" target="_self")
+								.auth-user-menu-item(ng-click="$ctrl.goToHref('/validator')")
 									| Beoordelaar
 
 								.auth-user-menu-sep
