@@ -19,6 +19,7 @@ let EmailPreferencesComponent = function(
             'employee.created',
             'employee.deleted',
             'digest.daily_sponsor',
+            'digest.daily_validator',
         ];
     } else if (appConfigs.panel_type == 'provider'){
         keysEditableOnDashboard = [

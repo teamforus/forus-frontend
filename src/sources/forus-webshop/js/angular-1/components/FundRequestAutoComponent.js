@@ -4,6 +4,7 @@ let FundRequestComponentAuto = function(
     $state,
     $stateParams,
     $timeout,
+    $filter,
     RecordService,
     FundService,
     AuthService,
@@ -30,6 +31,8 @@ let FundRequestComponentAuto = function(
     $ctrl.errorReason = false;
     $ctrl.finishError = false;
     $ctrl.bsnIsKnown = false;
+
+    $ctrl.submitInProgress = false;
 
     // Initialize authorization form
     $ctrl.initAuthForm = () => {
@@ -76,6 +79,12 @@ let FundRequestComponentAuto = function(
     };
     
     $ctrl.submitRequest = () => {
+        if ($ctrl.submitInProgress) {
+            return; 
+        } else {
+            $ctrl.submitInProgress = true;
+        }
+
         FundRequestService.store($ctrl.fund.id, {
             records: $ctrl.invalidCriteria.map(criterion => ({
                 value: criterion.value,
@@ -86,6 +95,7 @@ let FundRequestComponentAuto = function(
             $ctrl.updateState();
             $ctrl.applyFund($ctrl.fund);
         }, (res) => {
+            $ctrl.submitInProgress = false;
             $ctrl.step++;
             $ctrl.updateState();
             $ctrl.finishError = true;
@@ -94,26 +104,9 @@ let FundRequestComponentAuto = function(
     };
 
     $ctrl.updateEligibility = () => {
-        let validators = $ctrl.fund.validators.map(function(validator) {
-            return validator.identity_address;
-        });
+        let invalidCriteria = $ctrl.fund.criteria.filter(criterion => !criterion.is_valid);
 
-        let validCriteria = $ctrl.fund.criteria.filter(criterion => {
-            return FundService.checkEligibility(
-                $ctrl.recordsByKey[criterion.record_type_key] || [],
-                criterion,
-                validators,
-                $ctrl.fund.organization_id
-            );
-        });;
-
-        let invalidCriteria = $ctrl.fund.criteria.filter(criteria => {
-            return validCriteria.indexOf(criteria) === -1;
-        });
-
-        $ctrl.invalidCriteria = JSON.parse(JSON.stringify(
-            invalidCriteria
-        )).map(criteria => {
+        $ctrl.invalidCriteria = JSON.parse(JSON.stringify(invalidCriteria)).map(criteria => {
             criteria.files = [];
             return criteria;
         });

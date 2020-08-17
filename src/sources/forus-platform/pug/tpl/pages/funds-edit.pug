@@ -60,11 +60,11 @@
                     .form-group.form-group-inline(ng-repeat="product in $ctrl.form.products track by $index")
                         label(translate="{{ $index == 0 ? 'funds_edit.labels.products' : '' }}").form-label
                         .form-offset: .flex-row
-                            .flex-coll.flex-grow: select-control(
+                            .flex-col.flex-grow: select-control(
                                 ng-model="$ctrl.form.products[$index]" 
                                 options="$ctrl.productOptions[$index]"
                                 placeholder="Selecteer aanbieding...").flex-grow
-                            .flex-coll: .button.button-primary.button-icon(
+                            .flex-col: .button.button-primary.button-icon(
                                 ng-click="$ctrl.removeProduct($ctrl.form.products[$index])"
                                 ): em.mdi.mdi-close
                         .form-error(ng-repeat="error in $ctrl.form.errors['products.' + ($index - 1)]" ng-bind="error")
@@ -92,55 +92,17 @@
                     
                     .form-error(ng-repeat="error in $ctrl.form.errors.auto_requests_validation" ng-bind="error")
 
-            .card-section.card-section-primary(ng-if="$root.appConfigs.features.organizations.funds.criteria")
-                .row(ng-repeat="criteria in $ctrl.form.values.criteria")
-                    .col.col-lg-3.form-group
-                        label.form-label Eigenschap
-                        select(
-                            ng-model="criteria.record_type_key" 
-                            ng-options="operator.key as operator.name for operator in $ctrl.recordTypes").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors['criteria.' + $index + '.record_type_key']" ng-bind="error")
-                    
-                    .col.col-lg-2.form-group
-                        label.form-label Verhouding
-                        select(
-                            ng-model="criteria.operator" 
-                            ng-options="operator.key as operator.name for operator in $ctrl.operators").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors['criteria.' + $index + '.operator']" ng-bind="error")
-                    
-                    .col.col-lg-7: .row
-                        .col.col-lg-6.form-group
-                            label.form-label Waarde
-                            input(type="text" ng-model="criteria.value").form-control
-                            .form-error(ng-repeat="error in $ctrl.form.errors['criteria.' + $index + '.value']" ng-bind="error")
-                    
-                        .col.col-lg-4.form-group
-                            label.form-label &nbsp;
-                            input-checkbox-control(
-                                name="show_attachment_{{ $index }}" 
-                                ng-model="criteria.show_attachment"
-                                label="Bijlage uploaden")
-                            .form-error(ng-repeat="error in $ctrl.form.errors['criteria.' + $index + '.show_attachment']" ng-bind="error")
-
-                        .col.col-lg-2.form-group
-                            label.form-label &nbsp;
-
-                            .button-group.pull-right
-                                .button.button-primary.button-icon(
-                                    title="Beschrijving aanpassen"
-                                    ng-click="$ctrl.editDescription(criteria)"): .mdi.mdi-text-subject
-                                .button.button-default.button-icon(
-                                    title="Verwijder criteria"
-                                    ng-click="$ctrl.removeCriteria(criteria)"): .mdi.mdi-close
-                    
-                .row: .col.col-lg-12.form-group.text-center
-                    br(ng-if="$ctrl.form.values.criteria.length > 0")
-                    .row: .button.button-primary(ng-click="$ctrl.addCriteria()")
-                        em.mdi.mdi-plus-circle.icon-start
-                        translate(translate="{{ $ctrl.form.values.criteria.length == 0 ? 'Voeg criteria toe' : 'Nieuwe criteria toevoegen' }}")
-                    .row: .col.col-lg-12.form-group.text-center
-                    .form-error(ng-repeat="error in $ctrl.form.errors.criteria" ng-bind="error")
-
+            .card-section.card-section-primary
+                .form-group.form-group-inline
+                    label.form-label Criteria
+                    .form-offset: fund-criteria-editor(
+                        fund="$ctrl.fund" 
+                        organization="$ctrl.organization" 
+                        criteria="$ctrl.form.values.criteria" 
+                        is-editable="!$ctrl.fund || $ctrl.fund.criteria_editable" 
+                        record-types="$ctrl.recordTypes" 
+                        validator-organizations="$ctrl.validatorOrganizations.data")
+        
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     label.form-label(translate="funds_edit.labels.notification_amount")

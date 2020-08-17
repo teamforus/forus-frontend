@@ -453,6 +453,13 @@ let ProviderSignUpComponent = function(
     };
 
     $ctrl.setStep = (step) => {
+        let movingForward = step >= $ctrl.step;
+
+        if (isMobile() && step == $ctrl.STEP_INFO_ME_APP) {
+            $ctrl.step = step;
+            return movingForward ? $ctrl.next() : $ctrl.back();
+        }
+
         if (step <= $ctrl.STEP_SIGNUP_FINISHED) {
             $ctrl.step = step;
             progressStorage.set('step', step);
@@ -511,6 +518,10 @@ let ProviderSignUpComponent = function(
             }
         }
 
+        if (isMobile() && step == $ctrl.STEP_PROCESS_NOTICE) {
+            progressStorage.clear();
+        }
+
         // last step, time for progress cleanup
         if (step >= $ctrl.STEP_SIGNUP_FINISHED) {
             progressStorage.clear();
@@ -539,6 +550,7 @@ let ProviderSignUpComponent = function(
             promise.then((res) => {
                 $ctrl.sentSms = true;
                 waitingSms = false;
+                $scope.phoneForm.unlock();
             }, (res) => {
                 waitingSms = false;
                 $scope.phoneForm.unlock();
@@ -632,7 +644,10 @@ let ProviderSignUpComponent = function(
         authTokenSubscriber.stopCheckAccessTokenStatus();
     };
 
-    $ctrl.finish = () => $state.go('organizations');
+    $ctrl.finish = () => $state.go('organizations-view', {
+        id: $ctrl.organization.id
+    });
+    
     $ctrl.goToMain = () => $state.go('home');
 };
 

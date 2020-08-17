@@ -87,12 +87,10 @@
                                 translate="sign_up_validator.app_instruction.create_profile"
                                 ng-class="{'button-disabled':!$ctrl.signUpForm.values.email}")
 
-                    .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="sign_up_sponsor.no_app.to_app").hide-sm
+                    .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="sign_up_sponsor.no_app.to_app").visible-md.visible-lg
 
-                .sign_up-pane-body(
-                    ng-if="!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent && $ctrl.hasApp")
+                .sign_up-pane-body(ng-if="!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent && $ctrl.hasApp")
                     .sign_up-pane-heading(translate='sign_up_validator.app.title')                    
-
 
                     .sign_up-pane-auth
                         .sign_up-pane-auth-content
@@ -100,7 +98,7 @@
                                 ng-repeat="line in ('sign_up_validator.app.description_top' | translate | lines_to_array)"
                                 ng-bind="line")
                             
-                            .sign_up-pane-auth-qr_code.show-sm
+                            .sign_up-pane-auth-qr_code.visible-sm.visible-xs
                                 qr-code(
                                     ng-if="$ctrl.authToken" 
                                     qr-value="$ctrl.authToken" 
@@ -111,20 +109,19 @@
                                 ng-repeat="line in ('sign_up_validator.app.description_bottom' | translate | lines_to_array)"
                                 ng-bind="line")
                             
-                            .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(false)" translate="sign_up_validator.app.no_app").show-sm
-
                             .sign_up-pane-auth-apps
                                 a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
                                 a(href="https://play.google.com/store/apps/details?id=io.forus.me").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
+                            
                         
-                        .sign_up-pane-auth-qr_code.hide-sm
+                        .sign_up-pane-auth-qr_code.visible-md.visible-lg
                             qr-code(
                                 ng-if="$ctrl.authToken" 
                                 qr-value="$ctrl.authToken" 
                                 qr-type="auth_token" 
-                                qr-logo=src_prefix + "./assets/img/me-logo.png")   
-                        
-                        .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(false)" translate="sign_up_validator.app.no_app").hide-sm
+                                qr-logo=src_prefix + "./assets/img/me-logo.png")
+
+                    .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(false)" translate="sign_up_validator.app.no_app").visible-md.visible-lg
 
                 .sign_up-pane-body(ng-if="$ctrl.authEmailSent || $ctrl.authEmailRestoreSent").text-center
                     .sign_up-pane-media: img(ng-src="./assets/img/email_confirmed.svg")  
@@ -150,12 +147,12 @@
                         .sign_up-organization-title(ng-bind="organization.name")
 
                     //- mobile
-                    .button.button-primary-outline.button-fill.show-sm(ng-click="$ctrl.addOrganization()")
+                    .button.button-primary-outline.button-fill.visible-sm.visible-xs(ng-click="$ctrl.addOrganization()")
                         .mdi.mdi-plus-circle-outline.icon-start
                         | {{ 'sign_up_sponsor.buttons.organization_add' | translate }}
 
                 //- desktop
-                .sign_up-pane-body.hide-sm
+                .sign_up-pane-body.visible-md.visible-lg
                     .button.button-primary-outline(ng-click="$ctrl.addOrganization()")
                         .mdi.mdi-plus-circle-outline.icon-start
                         | {{ 'sign_up_sponsor.buttons.organization_add' | translate }}

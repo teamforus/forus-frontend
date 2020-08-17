@@ -26,6 +26,12 @@ let FundService = function(ApiRequest) {
             );
         };
 
+        this.updateCriteria = function(organization_id, id, criteria) {
+            return ApiRequest.patch(uriPrefix + organization_id + '/funds/' + id + '/criteria', {
+                criteria: criteria
+            });
+        };
+
         this.read = function(organization_id, id) {
             return ApiRequest.get(
                 uriPrefix + organization_id + '/funds/' + id
@@ -58,7 +64,7 @@ let FundService = function(ApiRequest) {
             );
         };
 
-        this.readProviderChats = function(organization_id, fund_id, provider_id, query={}) {
+        this.readProviderChats = function(organization_id, fund_id, provider_id, query = {}) {
             return ApiRequest.get(
                 uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + provider_id + '/chats',
                 query
@@ -72,7 +78,7 @@ let FundService = function(ApiRequest) {
             filters = {}
         ) {
             return ApiRequest.get(
-                uriPrefix + organization_id + '/funds/' + fund_id + 
+                uriPrefix + organization_id + '/funds/' + fund_id +
                 '/providers/' + provider_id + '/transactions',
                 filters
             );
@@ -85,7 +91,7 @@ let FundService = function(ApiRequest) {
             filters = {}
         ) {
             return ApiRequest.get(
-                uriPrefix + organization_id + '/funds/' + fund_id + 
+                uriPrefix + organization_id + '/funds/' + fund_id +
                 '/providers/' + provider_id + '/transactions/export',
                 filters, {}, true, (_cfg) => {
                     _cfg.responseType = 'arraybuffer';
@@ -190,6 +196,23 @@ let FundService = function(ApiRequest) {
             return Papa.unparse([
                 fund.csv_required_keys.filter(key => key.indexOf('_eligible') == -1)
             ]);
+        };
+
+        this.criterionValidate = (organization_id, fund_id, criteria) => {
+            let path = fund_id ? sprintf(
+                uriPrefix + '%s/funds/%s/criteria/validate',
+                organization_id,
+                fund_id
+            ) : sprintf(
+                uriPrefix + '%s/funds/criteria/validate',
+                organization_id
+            );
+
+            return fund_id ? ApiRequest.patch(path, {
+                criteria: criteria
+            }) : ApiRequest.post(path, {
+                criteria: criteria
+            });
         };
     });
 };

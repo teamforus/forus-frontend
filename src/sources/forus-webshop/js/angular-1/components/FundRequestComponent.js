@@ -1,11 +1,12 @@
 let sprintf = require('sprintf-js').sprintf;
 
-let FundRequestComponent = function (
+let FundRequestComponent = function(
     $q,
     $sce,
     $state,
     $stateParams,
     $timeout,
+    $filter,
     RecordService,
     FundService,
     AuthService,
@@ -31,6 +32,7 @@ let FundRequestComponent = function (
         $state,
         $stateParams,
         $timeout,
+        $filter,
         RecordService,
         FundService,
         AuthService,
@@ -48,6 +50,7 @@ let FundRequestComponent = function (
         $state,
         $stateParams,
         $timeout,
+        $filter,
         RecordService,
         FundService,
         AuthService,
@@ -62,13 +65,14 @@ let FundRequestComponent = function (
     );
 };
 
-let FundRequestComponentDefault = function (
+let FundRequestComponentDefault = function(
     $ctrl,
     $q,
     $sce,
     $state,
     $stateParams,
     $timeout,
+    $filter,
     RecordService,
     FundService,
     AuthService,
@@ -101,10 +105,23 @@ let FundRequestComponentDefault = function (
     $ctrl.shownSteps = [];
 
     let timeout = null;
+    let $trans = $filter('translate');
 
     $ctrl.criterionValuePrefix = {
         net_worth: '€',
         base_salary: '€'
+    };
+
+    let trans_record_checkbox = (criteria_record_key, criteria_value) => {
+        let trans_key = 'fund_request.sign_up.record_checkbox.' + criteria_record_key;
+        let trans_fallback_key = 'fund_request.sign_up.record_checkbox.default';
+        let translated = $trans(trans_key, {
+            value: criteria_value
+        });
+
+        return translated === trans_key ? $trans(trans_fallback_key, {
+            value: criteria_value
+        }) : translated;
     };
 
     $ctrl.startDigId = () => {
@@ -124,7 +141,7 @@ let FundRequestComponentDefault = function (
         $ctrl.authForm = FormBuilderService.build({
             email: '',
             target: target,
-        }, function (form) {
+        }, function(form) {
             let resolveErrors = (res) => {
                 form.unlock();
                 form.errors = res.data.errors;
@@ -238,7 +255,7 @@ let FundRequestComponentDefault = function (
         });
     };
 
-    $ctrl.applyAccessToken = function (access_token) {
+    $ctrl.applyAccessToken = function(access_token) {
         $ctrl.stopCheckAccessTokenStatus();
         CredentialsService.set(access_token);
         $ctrl.buildTypes();
@@ -250,7 +267,7 @@ let FundRequestComponentDefault = function (
             if (res.data.message == 'active') {
                 $ctrl.applyAccessToken(access_token);
             } else if (res.data.message == 'pending') {
-                timeout = $timeout(function () {
+                timeout = $timeout(function() {
                     $ctrl.checkAccessTokenStatus(type, access_token);
                 }, 2500);
             } else {
@@ -273,22 +290,8 @@ let FundRequestComponentDefault = function (
     };
 
     $ctrl.updateEligibility = () => {
-        let validators = $ctrl.fund.validators.map(function (validator) {
-            return validator.identity_address;
-        });
-
-        let validCriteria = $ctrl.fund.criteria.filter(criterion => {
-            return FundService.checkEligibility(
-                $ctrl.recordsByKey[criterion.record_type_key] || [],
-                criterion,
-                validators,
-                $ctrl.fund.organization_id
-            );
-        });;
-
-        let invalidCriteria = $ctrl.fund.criteria.filter(criteria => {
-            return validCriteria.indexOf(criteria) === -1;
-        });
+        let validCriteria = $ctrl.fund.criteria.filter(criterion => criterion.is_valid);
+        let invalidCriteria = $ctrl.fund.criteria.filter(criterion => !criterion.is_valid);
 
         validCriteria.forEach((criterion) => {
             criterion.isValid = true;
@@ -309,7 +312,7 @@ let FundRequestComponentDefault = function (
         });
 
         $ctrl.invalidCriteria = $ctrl.invalidCriteria.map(criterion => {
-            let control_type = {
+            let control_type = criterion.operator == '=' ? 'ui_control_checkbox' : {
                 // checkboxes
                 'children': 'ui_control_checkbox',
                 'kindpakket_eligible': 'ui_control_checkbox',
@@ -324,19 +327,27 @@ let FundRequestComponentDefault = function (
                 // currency
                 'net_worth': 'ui_control_currency',
                 'base_salary': 'ui_control_currency',
-            } [criterion.record_type_key] || 'ui_control_text';
+            }[criterion.record_type_key] || 'ui_control_text';
 
             return Object.assign(criterion, {
                 control_type: control_type,
+                label: trans_record_checkbox(criterion.record_type_key, criterion.value),
                 input_value: {
-                    ui_control_checkbox: false,
+                    ui_control_checkbox: null,
                     ui_control_date: moment().format('DD-MM-YYYY'),
                     ui_control_step: 0,
                     ui_control_number: undefined,
                     ui_control_currency: undefined,
-                } [control_type]
+                }[control_type]
             });
         });
+
+        $ctrl.setRecordValue = (invalidCriteria) => {
+            timeout = $timeout(function() {
+                invalidCriteria.input_value = invalidCriteria.is_checked ?
+                    invalidCriteria.value : null;
+            }, 500);
+        };
 
         $ctrl.buildSteps();
     };
@@ -367,8 +378,8 @@ let FundRequestComponentDefault = function (
         }
 
         if (step == 3 && !$ctrl.signedIn && (
-                $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
-            )) {
+            $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
+        )) {
             return 'auth_email_sent';
         }
 
@@ -393,7 +404,7 @@ let FundRequestComponentDefault = function (
         return $q((resolve, reject) => {
             RecordService.list().then(res => {
                 $ctrl.records = res.data;
-                $ctrl.records.forEach(function (record) {
+                $ctrl.records.forEach(function(record) {
                     if (!$ctrl.recordsByKey[record.key]) {
                         $ctrl.recordsByKey[record.key] = [];
                     }
@@ -451,9 +462,9 @@ let FundRequestComponentDefault = function (
         });
     };
 
-    $ctrl.applyFund = function (fund) {
+    $ctrl.applyFund = function(fund) {
         return $q((resolve, reject) => {
-            FundService.apply(fund.id).then(function (res) {
+            FundService.apply(fund.id).then(function(res) {
                 PushNotificationsService.success(sprintf(
                     'Fund "%s" voucher received.',
                     $ctrl.fund.name
@@ -467,7 +478,7 @@ let FundRequestComponentDefault = function (
         });
     };
 
-    $ctrl.$onInit = function () {
+    $ctrl.$onInit = function() {
         $ctrl.signedIn = AuthService.hasCredentials();
         $ctrl.initAuthForm();
         $ctrl.prepareRecordTypes();
@@ -490,9 +501,23 @@ let FundRequestComponentDefault = function (
                     });
                 } else {
                     FundRequestService.index($ctrl.fund.id).then((res) => {
-                        if (res.data.data.length > 0) {
-                            alert('You already requested this fund');
-                            $state.go('funds');
+                        let pendingRequests = res.data.data.filter(request => request.state === 'pending');
+                        let pendingRequest = pendingRequests[0] || false;
+
+                        if (pendingRequest) {
+                            $ctrl.fund.criteria.map(criteria => {
+                                let record = pendingRequest.records.filter(record => {
+                                    return record.record_type_key == criteria.record_type_key;
+                                })[0];
+
+                                if (record) {
+                                    criteria.request_state = record.state;
+                                }
+
+                                return criteria;
+                            });
+
+                            $ctrl.state = 'fund_already_applied';
                         } else if ($ctrl.invalidCriteria.length == 0) {
                             $ctrl.applyFund($ctrl.fund);
                         }
@@ -515,7 +540,7 @@ let FundRequestComponentDefault = function (
         $state.go('home');
     }
 
-    $ctrl.$onDestroy = function () {
+    $ctrl.$onDestroy = function() {
         $ctrl.stopCheckAccessTokenStatus();
     };
 };
@@ -534,6 +559,7 @@ module.exports = {
         '$state',
         '$stateParams',
         '$timeout',
+        '$filter',
         'RecordService',
         'FundService',
         'AuthService',

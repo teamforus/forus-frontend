@@ -1,6 +1,6 @@
 let sprintf = require('sprintf-js').sprintf;
 
-let FundCardDirective = function(
+let FundCardSponsorDirective = function(
     $scope,
     $state,
     $filter,
@@ -116,7 +116,7 @@ module.exports = () => {
             'ProviderFundService',
             'PushNotificationsService',
             'PermissionsService',
-            FundCardDirective
+            FundCardSponsorDirective
         ],
         templateUrl: 'assets/tpl/directives/fund-card-sponsor.html'
     };

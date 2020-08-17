@@ -6,7 +6,7 @@ let LinesToArrayFilter = function() {
             return arr;
         }
 
-        return arr.filter(row => row.length > 0)
+        return arr.filter(row => row.length > 0);
     };
 };
 

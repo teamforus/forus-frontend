@@ -16,6 +16,24 @@ aside.app.app-sidebar
                 .sidebar-nav-item-arrow: .mdi.mdi-menu-right
                 +nav_item_icon(icon)
                 | #{name} 
+
+        +nav_item(
+            "Aanvragen", "clock", 'fund-requests', 
+            '{organization_id: $root.activeOrganization.id}', 
+            '$root.appConfigs.features.organizations.funds.fund_requests',
+            'fund_requests')
+        
+        +nav_item(
+            "Fondsen", "fund_validations", 'external-funds', 
+            '{organization_id: $root.activeOrganization.id}',
+            '$root.activeOrganization | hasPerm:["manage_organization"]',
+            'external_funds')
+        
+        +nav_item(
+            "Medewerkers", "list", 'employees', 
+            '{organization_id: $root.activeOrganization.id}',
+            '$root.activeOrganization | hasPerm:["manage_employees"]',
+            'employees')
         
         +nav_item(
             "Aanvragers", "file_csv", 'csv-validation',  
@@ -23,14 +41,8 @@ aside.app.app-sidebar
             'true',
             'requesters')
 
-        +nav_item(
-            "Aanmeldingen", "clock", 'fund-requests', 
-            '{organization_id: $root.activeOrganization.id}', 
-            '$root.appConfigs.features.organizations.funds.fund_requests',
-            'fund_requests')
-
         .sidebar-nav-devider(ng-if="$root.activeOrganization")
 
         +nav_item('Email instellingen', 'emails', 'identity-emails', null, '$root.appConfigs.sessions')
         +nav_item('Sessies', 'sessions', 'security-sessions', '{}', '$root.appConfigs.sessions')
-        +nav_item('Notificaties', 'notifications', 'preferences-notifications')
+        +nav_item('Notificatievoorkeuren', 'notifications', 'preferences-notifications')
