@@ -21,13 +21,15 @@ html {
             top: 0;
             background-color: #ffffff;
             @media screen and (min-width: 992px) {
-                transition: transform 0.2s;
+                transition:visibility 0.1s linear,opacity 0.1s linear;
                 -webkit-box-shadow: -6px 4px 5px -6px rgba(0, 0, 0, 0.33);
                 -moz-box-shadow: -6px 4px 5px -6px rgba(0, 0, 0, 0.33);
                 box-shadow: -6px 4px 5px -6px rgba(0, 0, 0, 0.33);
             }
             &.nav-hide {
-                transform: translateY(-100%)
+                visibility: hidden;
+                transition:visibility 0.1s linear,opacity 0.1s linear;
+                opacity: 0.4;
             }
             .navbar-header {
                 text-align: center;
