@@ -118,16 +118,30 @@ let ModalVouchersUploadComponent = function(
                     $ctrl.csvParser.amountIsValid &&
                     $ctrl.csvParser.csvTypeValid;
             } else if ($ctrl.type == 'product_voucher') {
-                $ctrl.csvParser.csvProductIdValid = $ctrl.csvParser.validateProductId(data);
+                let validation = $ctrl.csvParser.validateProductId(data);
+
+                $ctrl.csvParser.csvHasMissingProductId = validation.hasMissingProductId;
+                $ctrl.csvParser.csvProductIdValid = validation.isValid;
+                $ctrl.csvParser.csvProductsInvalidStockIds = validation.invalidStockIds;
+                $ctrl.csvParser.csvProductsInvalidUnknownIds = validation.invalidProductIds;
+
+                $ctrl.csvParser.csvProductsInvalidStockIdsList = _.unique(_.pluck(
+                    $ctrl.csvParser.csvProductsInvalidStockIds, 'product_id'
+                )).join(', ');
+
+                $ctrl.csvParser.csvProductsInvalidUnknownIdsList = _.unique(_.pluck(
+                    $ctrl.csvParser.csvProductsInvalidUnknownIds, 'product_id'
+                )).join(', ');
 
                 // fund vouchers csv shouldn't have amount field
-                $ctrl.csvParser.csvTypeValid = data.filter(
+                $ctrl.csvParser.hasAmmountField = data.filter(
                     row => row.amount != undefined
-                ).length === 0;
+                ).length > 0;
 
                 return $ctrl.csvParser.csvIsValid &&
-                    $ctrl.csvParser.csvProductIdValid &&
-                    $ctrl.csvParser.csvTypeValid;
+                    !$ctrl.csvParser.hasAmmountField &&
+                    !$ctrl.csvParser.csvHasMissingProductId &&
+                    $ctrl.csvParser.csvProductIdValid;
             }
 
             return false;
@@ -204,19 +218,20 @@ let ModalVouchersUploadComponent = function(
         };
 
         $ctrl.csvParser.validateProductId = (data = []) => {
-            let allProductIds = data.reduce((counter, row) => {
-                counter[row.product_id] = counter[row.product_id] ? counter[row.product_id] + 1 : 1;
-                return counter;
-            }, {});
+            let allProductIds = _.countBy(data, 'product_id')
 
-            return data.map(row => {
-                if (!$ctrl.productsByIds[row.product_id]) {
-                    return false;
-                };
+            let hasMissingProductId = data.filter(row => row.product_id === undefined).length > 0;
+            let invalidProductIds = data.filter(row => !$ctrl.productsByIds[row.product_id]);
+            let invalidStockIds = data.filter(row => $ctrl.productsByIds[row.product_id]).filter(row => {
+                return $ctrl.productsByIds[row.product_id].stock_amount < allProductIds[row.product_id];
+            });
 
-                return $ctrl.productsByIds[row.product_id] &&
-                    $ctrl.productsByIds[row.product_id].stock_amount >= allProductIds[row.product_id];
-            }).filter(row => !row).length == 0;
+            return {
+                isValid: !invalidProductIds.length && !invalidStockIds.length,
+                hasMissingProductId: hasMissingProductId,
+                invalidStockIds: invalidStockIds,
+                invalidProductIds: invalidProductIds,
+            };
         };
 
         $ctrl.csvParser.uploadToServer = function(e) {
@@ -252,7 +267,7 @@ let ModalVouchersUploadComponent = function(
                 let existingEmails = $ctrl.csvParser.data.filter(csvRow => {
                     return emails.indexOf(csvRow.email) != -1;
                 }).map(csvRow => csvRow.email);
-                
+
                 $ctrl.loading = false;
 
                 if (existingEmails.length === 0) {
@@ -375,7 +390,7 @@ let ModalVouchersUploadComponent = function(
                     per_page: 1000,
                 });
             }, 4).then((data) => {
-                $ctrl.products = data;
+                $ctrl.products = _.sortBy(data, 'id');
                 $ctrl.productsIds = $ctrl.products.map(product => parseInt(product.id));
                 $ctrl.productsByIds = $ctrl.products.reduce((obj, product) => {
                     obj[product.id] = product;

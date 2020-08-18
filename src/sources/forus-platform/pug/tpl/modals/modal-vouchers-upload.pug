@@ -44,6 +44,7 @@
                             .file-size(ng-bind="$ctrl.csvParser.csvFile.size | file_size")
                             .file-remove.mdi.mdi-close(ng-click="$ctrl.reset()")
 
+                        //- budget voucher errors
                         .text-left(ng-if="!$ctrl.csvParser.isValid && $ctrl.type == 'fund_voucher'")
                             .form-error(ng-if="!$ctrl.csvParser.csvIsValid")
                                 | Het veld 'amount' mist in het bestand.
@@ -52,13 +53,16 @@
                             .form-error(ng-if="!$ctrl.csvParser.amountIsValid")
                                 | Het totaal aantal budget van het gewenste aantal vouchers overschrijd het gestorte bedrag op het fonds.
                         
+                        //- product voucher errors
                         .text-left(ng-if="!$ctrl.csvParser.isValid && $ctrl.type == 'product_voucher'")
-                            .form-error(ng-if="!$ctrl.csvParser.csvIsValid")
+                            .form-error(ng-if="$ctrl.csvParser.csvHasMissingProductId")
                                 | Het veld `product_id` mist in het bestand.
-                            .form-error(ng-if="!$ctrl.csvParser.csvTypeValid")
+                            .form-error(ng-if="$ctrl.csvParser.hasAmmountField")
                                 | Het veld `amount` mist in het bestand.
-                            .form-error(ng-if="!$ctrl.csvParser.csvProductIdValid")
-                                | Één of meer `product_id` velden hebben een ongeldige waarde.
+                            .form-error(ng-if="$ctrl.csvParser.csvProductsInvalidUnknownIds.length > 0")
+                                | Following `product_id` from .csv '{{ $ctrl.csvParser.csvProductsInvalidUnknownIdsList }}' are invalid or are out of stock.
+                            .form-error(ng-if="$ctrl.csvParser.csvProductsInvalidStockIds.length > 0")
+                                | Following `product_id` from .csv '{{ $ctrl.csvParser.csvProductsInvalidStockIdsList }}' surpass available stock.
 
                     .text-center(ng-show="$ctrl.csvParser.progress == 1 && $ctrl.csvParser.isValid")
                         button(
