@@ -1,6 +1,5 @@
 .block.block-navbar(ng-class='{"scrolled" : $ctrl.hideOnScroll && !$ctrl.visible}'): .navbar-inner.wrapper   
     a.button(
-        ng-if="!$root.appConfigs.features.settings.has_more_info_url"
         ui-sref="explanation"
         ui-sref-active="active").show-sm
             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-info.svg
@@ -184,24 +183,6 @@
             .button.button-mobile(ng-click="openAuthPopup()").show-sm
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
                 span(translate="topnavbar.buttons.login")
-
-            
-    
-    //-.navbar-mobile-menu.show-sm
-        em.mdi(ng-class="mobileMenu?'mdi-close':'mdi-menu'" ng-click="mobileMenu = !mobileMenu")
-
-    //- .block.block-auth.sm-pull-left
-        .lang-selector
-            .lang-label 
-                em.mdi.mdi-chevron-down
-                | Language
-            .lang-active(ng-bind="'languages.' + i18nActive | translate")
-            .lang-list
-                .lang-list-item(
-                    ng-repeat="lang in i18nLangs" 
-                    ng-bind="'languages.' + lang | translate"
-                    ng-click="setLang(lang)")
-
 
     
     
