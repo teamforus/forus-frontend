@@ -24,6 +24,13 @@ section.section.section-product: .wrapper
                     .product-fund-label(i18n="product.labels.fund")
                     .product-fund-list(ng-if="$ctrl.product.funds.length > 0" ng-bind="$ctrl.fundNames")
 
+                    .product-fund(ng-repeat="fund in $ctrl.product.funds")
+                        .product-fund-logo: img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}") 
+                        .product-fund-name {{ fund.name }}
+                        .product-fund-apply
+                            a(ui-sref="fund-request({fund_id: fund.id})") Aanvragen
+                    .span(ng-if="!$ctrl.product.funds.length") No funds    
+
                 .product-price
                     .product-price-old(ng-if="$ctrl.product.old_price")
                         .old-label(i18n="block_products.labels.old")

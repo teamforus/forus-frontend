@@ -13,7 +13,9 @@ block content
                 .mobile-filters-title Zoek op categorieen en fondsen
                 .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
 
-            +search_results('$ctrl.providers.meta.total')
+            .block.block-breadcrumbs
+                a(ui-sref="home").breadcrumb-item Home
+                .breadcrumb-item.active Aanbieders
             
             .showcase-layout
                 .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
