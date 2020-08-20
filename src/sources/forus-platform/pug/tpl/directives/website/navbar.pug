@@ -21,10 +21,10 @@ nav.navbar.navbar-inverse
 						li
 							a(href='#') Page 1-3
 				li
-					a(ui-sref="me") Me
+					a(ui-sref="me") Me-app
 				li
 					a(ui-sref="current") Over ons
-				li 
+				li
 					a(ui-sref="contact") Contact
 			ul.nav.navbar-nav.navbar-right
 				li
@@ -37,9 +37,9 @@ nav.navbar.navbar-inverse
 						.auth-user-details
 							.auth-user-name {{ $root.auth_user.email }}
 							.auth-user-role Uw profiel
-						
+
 						img(ng-src="{{ $root.activeOrganization ? ($root.activeOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png') : './assets/img/placeholders/organization-thumbnail.png'}} ").auth-user-img
-										
+
 						.auth-user-caret: em(ng-class="$root.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
 
 						nav.auth-user-menu.hide-sm(
@@ -53,12 +53,12 @@ nav.navbar.navbar-inverse
 
 								.auth-user-menu-item(ng-click="$ctrl.goToHref('/provider')")
 									| Aanbieder
-									
+
 								.auth-user-menu-item(ng-click="$ctrl.goToHref('/validator')")
 									| Beoordelaar
 
 								.auth-user-menu-sep
-								
+
 								.auth-user-menu-item(ng-click="$root.signOut()" id="sign_out")
 									em.mdi.mdi-logout
 									span(translate="topnavbar.buttons.logout")
