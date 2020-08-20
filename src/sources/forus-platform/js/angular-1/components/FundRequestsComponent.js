@@ -49,7 +49,7 @@ let FundRequestsComponent = function(
         reset: function() {
             this.values.q = '';
             this.values.state = $ctrl.states[0].key;
-            this.values.assigned_to = '';
+            this.values.employee_id = null;
             this.values.from = '';
             this.values.to = null;
         }
@@ -264,10 +264,21 @@ let FundRequestsComponent = function(
                 return;
             }
 
-            OrganizationEmployeesService.list($ctrl.organization.id).then(res => {
+            OrganizationEmployeesService.list($ctrl.organization.id, {
+                per_page: 100,
+                role: 'validation',
+            }).then(res => {
+                $ctrl.employees = res.data.data;
+
                 $ctrl.employee = res.data.data.filter((employee) => {
                     return employee.identity_address == $scope.$root.auth_user.address;
                 })[0];
+
+                $ctrl.employees.unshift({
+                    id: null,
+                    email: "Selecteer medewerker"
+                });
+                $ctrl.filters.values.employee_id = $ctrl.employees[0].id;
 
                 $ctrl.updateSelfAssignedFlags();
             });
