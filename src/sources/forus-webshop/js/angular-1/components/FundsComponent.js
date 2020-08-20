@@ -14,7 +14,6 @@ let FundsComponent = function(
     $ctrl.recordsByKey = {};
     $ctrl.recordsByTypesKey = {};
     $ctrl.appConfigs = appConfigs;
-    $ctrl.display_type = 'list';
 
     $ctrl.filtersList = [
         'q', 'organization_id'
@@ -30,6 +29,28 @@ let FundsComponent = function(
         }
 
         return out;
+    };
+
+    $ctrl.toggleMobileMenu = () => {
+        $ctrl.showModalFilters ? $ctrl.hideMobileMenu() : $ctrl.showMobileMenu()
+    };
+
+    $ctrl.showMobileMenu = () => {
+        $ctrl.showModalFilters = true;
+        $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
+    };
+
+    $ctrl.hideMobileMenu = () => {
+        $ctrl.showModalFilters = false;
+        $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
+    };
+
+    $ctrl.cancel = () => {
+        if (typeof($ctrl.modal.scope.cancel) === 'function') {
+            $ctrl.modal.scope.cancel();
+        }
+
+        $ctrl.close();
     };
 
     $ctrl.showAs = (display_type) => {
@@ -49,6 +70,7 @@ let FundsComponent = function(
             q: query.q || '',
             page: query.page,
             display_type: query.display_type,
+            organization_id: query.organization_id,
             show_menu: $ctrl.showModalFilters,
         });
     };
@@ -142,6 +164,10 @@ let FundsComponent = function(
                 $state.go('voucher', res.data.data);
             }, console.error);
         };
+
+        $ctrl.showModalFilters = $stateParams.show_menu;
+        $ctrl.display_type = $stateParams.display_type;
+        $ctrl.updateFiltersUsedCount();
     };
 };
 
