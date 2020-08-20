@@ -28,8 +28,7 @@ section.section.section-product: .wrapper
                         .product-fund-logo: img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}") 
                         .product-fund-name {{ fund.name }}
                         .product-fund-apply
-                            a(ui-sref="fund-request({fund_id: fund.id})") Aanvragen
-                    .span(ng-if="!$ctrl.product.funds.length") No funds    
+                            a(ui-sref="fund-request({fund_id: fund.id})") Aanvragen   
 
                 .product-price
                     .product-price-old(ng-if="$ctrl.product.old_price")
