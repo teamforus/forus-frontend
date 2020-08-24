@@ -142,7 +142,8 @@ let BaseController = function (
                     $rootScope.redirectToDashboard(selectedOrganizationId);
                 }
             } else {
-                $state.go('organizations-create');
+                localStorage.setItem("provider-sign_up.step", "4")
+                $state.go('sign-up');
             }
         });
     };

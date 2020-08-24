@@ -36,12 +36,17 @@ $bf: 'Montserrat', arial, sans-serif;
 
     .sign_up-header {
         margin: 0 -200px 25px;
+        padding-bottom: 20px;
 
-        .sign_up-header-back {
+        .sign_up-header-item {
+            padding: 5px 20px;
             color: #9e9e9e;
             font: 500 17px/24px $bf;
-            transition: color .4s;
+            transition: color .4s, background-color .4s;
+        }
 
+        .sign_up-header-back {
+            float: left;
             .mdi {
                 float: left;
                 line-height: 24px;
@@ -50,6 +55,17 @@ $bf: 'Montserrat', arial, sans-serif;
 
             &:hover {
                 color: $color_primary;
+            }
+        }
+
+        .sign_up-header-login {
+            float: right;
+            background: #F8F8F8;
+            border-radius: 5px;
+
+            &:hover {
+                color: white;
+                background: #3561FF;
             }
         }
     }

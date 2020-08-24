@@ -649,6 +649,10 @@ let ProviderSignUpComponent = function(
     });
     
     $ctrl.goToMain = () => $state.go('home');
+
+    $ctrl.openAuthPopup = function() {
+        ModalService.open('modalAuth', {});
+    };
 };
 
 module.exports = {
