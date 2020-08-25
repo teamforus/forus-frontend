@@ -665,12 +665,13 @@ module.exports = {
             main_header: "Aanmelden als aanbieder",
             go_back: "Terug",
             title_step_1: "Welkom", 
-            subtitle_step_1: "Door dit online formulier in te vullen kunt u uw organisatie aanmelden als aanbieder. Het invullen duurt ongeveer 5 minuten. <br/><br/>" + 
-                "U krijgt na het invullen toegang tot uw eigen aanbieders webomgeving. Nadat uw aanmelding is goedgekeurd kunt u producten en/of diensten aanbieden en betalingen ontvangen.<br/><br/>" +
-                "Hulp nodig? Tijdens het doorlopen van het formulier vindt u rechts onderin het blauwe vraagteken. Hiermee opent u de helpdesk.<br/><br/>",
+            subtitle_step_1: "Door dit online formulier in te vullen meldt u uw organisatie aan als aanbieder. Het invullen duurt ongeveer 5 minuten. <br/><br/>" +
+                "<b> Aanbiedingen plaatsen en betalingen ontvangen </b> <br/>" +
+                "Na het aanmelden krijgt u toegang tot uw aanbieders webomgeving. Nadat uw aamelding is geaccepteerd kunt u producten en/of diensten aanbieden en betalingen ontvangen. <br/><br/>" +
+                "<b> Hulp nodig? </b> <br/> Tijdens het doorlopen van het formulier vindt u rechts onderin het blauwe vraagteken. Hiermee opent u de helpdesk. <br/><br/>",
             title_step_2: "Benodigdheden",
-            subtitle_step_2: "De Me-app gaat u gebruiken om betalingen te ontvangen. In de volgende stap downloadt u de app. Aan het gebruik van de app zijn geen kosten verbonden. <br/><br/>" + 
-                "De <a href='https://forus.io/me'>Me-app</a> is beschikbaar voor Android en iOS telefoons of tablets.<br/><br/>" + 
+            subtitle_step_2: "U gaat de me app gebruiken om betalingen te ontvangen. In de volgende stap downloadt u de app. Aan het gebruik van de app zijn geen kosten verbonden. <br/><br/>" + 
+                "De Me app is beschikbaar voor Android en iOS telefoons en tablets.<br/><br/>" + 
                 "U hebt nodig:<br/><br/>" + 
                 "<ul>" + 
                 "<li>Mobiele telefoon of tablet met camera en internet</li>" +
