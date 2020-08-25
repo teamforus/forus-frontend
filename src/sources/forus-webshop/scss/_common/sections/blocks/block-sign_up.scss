@@ -58,14 +58,13 @@ $bf: 'Montserrat', arial, sans-serif;
             }
         }
 
-        .sign_up-header-login {
+        .button {
             float: right;
             background: #F8F8F8;
-            border-radius: 5px;
+            box-shadow: none;
 
             &:hover {
-                color: white;
-                background: #3561FF;
+                color: #3561FF;
             }
         }
     }

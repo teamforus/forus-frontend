@@ -8,7 +8,8 @@ let SponsorSignUpComponent = function(
     MediaService,
     AuthService,
     SignUpService,
-    appConfigs
+    appConfigs,
+    ModalService
 ) {
     let $ctrl = this;
     let orgMediaFile = false;
@@ -282,6 +283,10 @@ let SponsorSignUpComponent = function(
         $state.go('home');
     }
 
+    $ctrl.openAuthPopup = function() {
+        ModalService.open('modalAuth', {});
+    };
+
     $ctrl.$onDestroy = function() {
         progressStorage.clear();
         authTokenSubscriber.stopCheckAccessTokenStatus();
@@ -303,6 +308,7 @@ module.exports = {
         'AuthService',
         'SignUpService',
         'appConfigs',
+        'ModalService',
         SponsorSignUpComponent
     ],
     templateUrl: 'assets/tpl/pages/sponsor-sign-up.html'

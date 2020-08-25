@@ -17,9 +17,13 @@
             .sign_up-progress-overview Stap {{ $ctrl.step }} from {{ $ctrl.shownSteps.length + 2 }}
 
     .block.block-sign_up: .block-wrapper
-        .sign_up-header: a(ng-click="$ctrl.goToMain()").sign_up-header-back
-            em.mdi.mdi-chevron-left
-            | Terug
+        .sign_up-header
+            a.sign_up-header-item(ng-click="$ctrl.goToMain()").sign_up-header-back
+                em.mdi.mdi-chevron-left
+                | Verlaat het formulier
+
+            a.sign_up-header-item.button(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthPopup()")
+                | Inloggen
 
         h2.block-title(ng-if="$ctrl.state != 'error'" translate="sign_up_validator.header.main_header")
 
