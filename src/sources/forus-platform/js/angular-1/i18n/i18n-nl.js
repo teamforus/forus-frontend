@@ -671,8 +671,8 @@ module.exports = {
                 "<b> Hulp nodig? </b> <br/> Tijdens het doorlopen van het formulier vindt u rechts onderin het blauwe vraagteken. Hiermee opent u de helpdesk. <br/><br/>",
             title_step_2: "Benodigdheden",
             subtitle_step_2: "U gaat de me app gebruiken om betalingen te ontvangen. In de volgende stap downloadt u de app. Aan het gebruik van de app zijn geen kosten verbonden. <br/><br/>" + 
-                "De Me app is beschikbaar voor Android en iOS telefoons en tablets.<br/><br/>" + 
-                "U hebt nodig:<br/><br/>" + 
+                "De <i>Me</i> app is beschikbaar voor Android en iOS telefoons en tablets.<br/><br/>" + 
+                "U heeft nodig:<br/><br/>" + 
                 "<ul>" + 
                 "<li>Mobiele telefoon of tablet met camera en internet</li>" +
                 "<li>Bedrijfsgegevens van uw organisatie (contactgegevens, KvK en IBAN nummer)</li>" +
