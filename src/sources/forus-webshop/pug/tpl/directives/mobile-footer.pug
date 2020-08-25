@@ -2,24 +2,24 @@
     ul.sticky-footer-list
         li.sticky-footer-item(ui-sref="providers" ui-sref-active="active")
             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-providers.svg
-            a(translate="topnavbar.buttons.providers")
+            span(translate="topnavbar.buttons.providers")
 
         li.sticky-footer-item(ui-sref="products" ui-sref-active="active")
             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-products2.svg
-            a(translate="topnavbar.buttons.products")
+            span(translate="topnavbar.buttons.products")
 
         li.sticky-footer-item(ng-if="!$root.auth_user && !$root.appConfigs.features.digid" ng-click="openAuthCodePopup()" ui-sref-active="active")
             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start-request.svg
-            a(translate="topnavbar.buttons.mobile.request") 
+            span(translate="topnavbar.buttons.mobile.request") 
 
         li.sticky-footer-item(ng-if="!$root.auth_user && $root.appConfigs.features.digid" ng-click="startFundRequest()" ui-sref-active="active")
             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start-request.svg
-            a(translate="topnavbar.buttons.mobile.request") 
+            span(translate="topnavbar.buttons.mobile.request") 
 
         li.sticky-footer-item-wrapper(ng-if="$root.auth_user" ui-sref="vouchers" ui-sref-active="active")
             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-vouchers2.svg
-            a(translate="topnavbar.buttons.mobile.voucher") 
+            span(translate="topnavbar.buttons.mobile.voucher") 
 
         li.sticky-footer-item-wrapper(ng-if="$root.auth_user" ui-sref="preferences-notifications" ui-sref-active="active")
             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
-            a(translate="topnavbar.buttons.mobile.profile")
+            span(translate="topnavbar.buttons.mobile.profile")
