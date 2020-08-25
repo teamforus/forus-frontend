@@ -50,6 +50,7 @@ app.directive('pincodeControl', require('./directives/PincodeControlDirective'))
 app.directive('phoneControl', require('./directives/PhoneControlDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
+app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
 
 app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
 app.directive('modalItem', require('./directives/modals/ModalItemDirective'));
