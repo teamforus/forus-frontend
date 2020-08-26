@@ -307,7 +307,7 @@ module.exports = {
             usage: "uitgegeven",
             payed: "Uitgegeven bij",
             shops: "Aanbieders",
-            activation: "Aantal verstrekte tegoeden",
+            activation: "aantal verstrekte tegoeden",
             citizen: "Totaal in omloop",
             provider: "Aanbieders",
             transactions: "transacties",
