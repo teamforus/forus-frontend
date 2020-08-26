@@ -13,6 +13,6 @@ module.exports = {
         multiplied_amount: "Vermenigvuldiger:",
     },
     buttons: {
-        join: "DOE MEE",
+        join: "Doe mee",
     }  
 }
