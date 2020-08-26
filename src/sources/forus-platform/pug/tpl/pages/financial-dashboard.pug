@@ -70,7 +70,7 @@
                                 | {{ "financial_dashboard.labels.provider" | translate | lowercase }}
 
                     .card: .card-section: .chart-control
-                        .chart-label {{ "financial_dashboard.labels.activation" | translate }} {{ $ctrl.chartData.stringTitle }}
+                        .chart-label {{ $ctrl.chartData.stringTitle }}: {{ "financial_dashboard.labels.activation" | translate }}
                         .chart-value
                             .chart-value_value(ng-bind="$ctrl.chartData.response.activations")
                             .chart-value_label
