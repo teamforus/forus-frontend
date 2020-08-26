@@ -60,6 +60,7 @@ module.exports = {
     voucher: require("./en/pages/voucher"),
     vouchers: require("./en/pages/vouchers"),
     notification_preferences: require("./en/pages/notification-preferences"),
+    error_page: require("./en/pages/error-page"),
 
     // MODALS
     popup_auth: require("./en/modals/modal-auth"),
