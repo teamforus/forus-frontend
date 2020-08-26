@@ -1,0 +1,10 @@
+.button {
+    font: 700 16px/1.5em $bf;
+
+    @media screen and (min-width: 1000px) {
+        &.button-wide {
+            font: 700 16px/1.5em $bf;
+            padding: 10px 25px;
+        }
+    }
+}

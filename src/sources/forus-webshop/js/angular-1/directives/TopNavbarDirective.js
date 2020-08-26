@@ -6,7 +6,10 @@ let TopNavbarDirective = function(
 ) {
     $scope.mobileMenu = false;
     $scope.$ctrl = {
-        userMenuOpened: false
+        userMenuOpened: false,
+        prevOffsetY: null,
+        visible: true,
+        hideOnScroll: !!$scope.hideOnScroll,
     };
     
     $scope.openAuthPopup = function () {
@@ -57,13 +60,25 @@ let TopNavbarDirective = function(
             $scope.$ctrl.userMenuOpened = false;
         });
     }
+
+    $scope.updateScrolled = function() {
+        let currentOffsetY = window.pageYOffset;
+
+        $scope.$ctrl.visible = ($scope.$ctrl.prevOffsetY > currentOffsetY) || (currentOffsetY <= 0);
+        $scope.$ctrl.prevOffsetY = currentOffsetY;
+    };
+
+    window.addEventListener('scroll', $scope.updateScrolled);
+
+    $scope.$on('$destroy', function() {
+        window.removeEventListener('scroll', $scope.updateScrolled);
+    });
 };
 
 module.exports = () => {
     return {
         scope: {
-            text: '=',
-            button: '=',
+            hideOnScroll: '=',
         },
         restrict: "EA",
         replace: true,
