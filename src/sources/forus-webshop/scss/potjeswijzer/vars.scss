@@ -1,5 +1,15 @@
 /*==========  Style Sheet - Vars  ==========*/
 
+// navbar
+$bg-nav:            #F5F5F5;
+$btn-nav:           #40C0F1;
+$btn-nav-rev:       #EBEDF0;
+$tc-nav:            #282B39;
+$tc-nav-hov:        #282B39;
+$tc-btn-nav:        #B9CB18;
+$tc-btn-nav-rev:    #EBEDF0;
+
+
 // header attributes
 $bg-values:          url("../img/splash-top-b.png") no-repeat 100% 0;
 
@@ -19,7 +29,7 @@ $bg:                #f7f9fc;
 $bg_2:              linear-gradient(to bottom, #f7f9fc 0%, #fff 100%);
 
 // text formatting
-$tf:                capitalize;
+$tf:                inherit;
 
 // footer color
 $fc:                #fff;

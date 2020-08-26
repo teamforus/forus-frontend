@@ -12,12 +12,19 @@
         margin-bottom: 10px;
     }
 
+    
     .auth-form {
         margin: 0 0 30px;
+        display: flex;
+        flex-direction: row;
+
+        .auth-form-input {
+            flex-grow: 1;
+            padding-right: 20px;
+        }
 
         .button {
             box-shadow: none;
-            text-transform: $tf;
             width: 175px;
             text-align: center;
 

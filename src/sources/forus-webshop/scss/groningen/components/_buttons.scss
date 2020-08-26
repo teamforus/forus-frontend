@@ -1,8 +1,10 @@
 .button {
+    border-radius: 0;
+    font: 700 16px/1.5em $bf;
     &:hover {
         box-shadow: none;
     }
-    border-radius: 0;
+
     &.button-default {
         background-color: #FFF;
         border: 1px solid transparent;
@@ -29,6 +31,7 @@
         background: $color-default;
         text-shadow: none;
         border: 1px solid transparent;
+        box-shadow: none;
         &:hover {
             color: $color-default;
             text-decoration: underline;

@@ -8,8 +8,14 @@
 
 // LAYOUTS
 @import 'layout/_footer.scss',
+<<<<<<< HEAD
 'layout/_header.scss',
 'layout/_navigation.scss';
+=======
+'layout/_grid.scss',
+'layout/_header.scss';
+//-'layout/_navigation.scss';
+>>>>>>> origin/develop.webshop-improvements-navigation
 
 // COMPONENTS
 @import 'components/_breadcrumbs.scss',

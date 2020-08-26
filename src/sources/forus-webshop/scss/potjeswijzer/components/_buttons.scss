@@ -3,7 +3,6 @@
         box-shadow: none;
     }
     border-radius: 0;
-    text-transform: lowercase;
     &.button-default {
         background-color: $color_primary;
         border: 1px solid transparent;
@@ -26,12 +25,13 @@
             }
         }
     }
+    
     &.button-primary {
         color: #FFF;
         background: $color-default;
         text-shadow: none;
         border: 1px solid transparent;
-        text-transform: $tf;
+
         &:hover {
             color: $color-default;
             text-decoration: underline;
@@ -61,10 +61,6 @@
             height: 100%;
             text-align: right;
             flex: 1;
-            text-transform: lowercase;
-            &::first-letter{
-                text-transform: uppercase;
-            }
         }
         
         .second-line-button {
