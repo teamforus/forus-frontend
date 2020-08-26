@@ -4,7 +4,7 @@ module.exports = {
             title: "Uw voucher",
         },
         buttons: {
-            send: "E-MAIL NAAR MIJ",
+            send: "E-mail naar mij",
             details: "Bekijk details",
         },
         labels: {
@@ -61,8 +61,8 @@ module.exports = {
             },
             reason_placeholder: 'Bericht voor aanbieder',
             buttons: {
-                submit: 'VERSTUREN',
-                confirm: 'SLUIT'
+                submit: 'Vesturen',
+                confirm: 'Sluit'
             },
             popup_sent: {
                 title: 'Uw voucher is verstuurd naar de aanbieder.',
@@ -78,8 +78,8 @@ module.exports = {
                 description: 'U kunt uw reservering annuleren om af te zien van de aankoop. Wanneer u deze aankoop niet wenst te annuleren klikt u op "sluit".'
             },
             buttons: {
-                submit: 'BEVESTIG',
-                close: 'SLUIT'
+                submit: 'Bevestig',
+                close: 'Sluit'
             },
         }
 }

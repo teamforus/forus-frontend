@@ -11,7 +11,7 @@ module.exports = {
     },
     buttons: {
         activate:"Activatiecode",
-        login:"Login",
+        login:"Inloggen",
         voucher:"Mijn vouchers",
         profile:"Profiel >",
         records: "Mijn eigenschappen",
