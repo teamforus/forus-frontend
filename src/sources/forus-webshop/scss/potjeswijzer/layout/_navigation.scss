@@ -1,5 +1,22 @@
 .block {
     &.block-navbar {
+        .button {
+            &.button-default {
+                color: #666666;
+                border: transparent;
+
+                svg {
+                    path {
+                        fill: #666666;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*.block {
+    &.block-navbar {
         padding: 0;
         background: #fff;
         width: 100%;
@@ -143,3 +160,4 @@
         }
     }
 }
+*/

@@ -1,61 +1,68 @@
-.section {
-    &.section-footer {
-        background-color: $lb;
-        position: relative;
-        border-top: 1px solid #dbdcdb;
-    }
-    @media screen and (max-width: 1000px) {
-        &.section.section-footer {
-            padding: 40px 0 0;
-
-            &:before,
-            &:after {
-                display: none;
-            }
-        }
-    }
-}
 .block {
+
     &.block-footer {
-        margin-top: 40px;
+        padding: 20px 0;
+        
         .footer-label {
-            color: $color_default;
+            color: $tc-var;
+            margin-bottom: 15px;
+            
+            img {
+                height: 40px;
+            }
         }
         
         .footer-schedule {
+
+            a {
+                font: 400 16px/1.5em $bf;
+                color: $tc-var;
+                text-decoration: underline;
+
+                &:hover {
+                    text-decoration: none;
+                    color: $tc-var;
+                }
+            }
+        
             .schedule-label,
             .schedule-value {
-                width: 35%;
-                color: $tc;
+                font: 400 16px/1.5em $bf;
+                color: $tc-var;
+                width: auto;
             }
         }
 
         .footer-nav {
+
             .footer-nav-item {
+        
                 a {
-                    color: $tc;
+                    font: 400 16px/1.5em $bf;
+                    color: $tc-var;
+                    text-decoration: underline;
 
                     &:hover {
-                        color: $color-default;
-                        text-decoration: underline;
+                        text-decoration: none;
+                        color: $tc-var;
                     }
                 }
             }
         }
     }
+
     &.block-copyrights {
-        border-top: 1px solid #dbdcdb;
-        
+        background-color: #ffff;
+
         .copyrights {
-            color: $color_primary;
         }
 
         .links {
             a {
-                color: $color_primary;
-
+                color: #727d84;
                 &:hover {
-                    color: $tc;
+                    color: #000;
+                    text-decoration: underline;
                 }
             }
         }

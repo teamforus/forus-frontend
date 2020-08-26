@@ -1,5 +1,14 @@
 /*==========  Style Sheet - Vars  ==========*/
 
+// navbar
+$bg-nav:            #F5F5F5;
+$btn-nav:           #661066;
+$btn-nav-rev:       #fff;
+$tc-nav:            #282B39;
+$tc-nav-hov:        #661066;
+$tc-btn-nav:        #661066;
+$tc-btn-nav-rev:    #fff;
+
 // header attributes
 $bg-values:          url("../img/splash-top-b.jpg") no-repeat 100% 0;
 
@@ -19,7 +28,7 @@ $bg:                #ececec;
 $bg_2:              none;
 
 // text formatting
-$tf:                lowercase;
+$tf:                inherit;
 
 // footer color
 $fc:                #4e4d40;
