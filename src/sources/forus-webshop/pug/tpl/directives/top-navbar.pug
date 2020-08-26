@@ -192,28 +192,6 @@
                             em.mdi.mdi-ticket-confirmation 
                             span(translate="topnavbar.buttons.activate")
                         
-<<<<<<< HEAD
-                        .auth-user-menu-item(ng-click="$root.signOut()" id="sign_out")
-                            img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
-                            span(translate="topnavbar.buttons.logout")
-        
-        .auth-in(ng-if="$root.auth_user").show-sm
-                .button.button-mobile(ng-click="$root.signOut()")
-                    include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-sign-out.svg
-                    div(translate="topnavbar.buttons.logout")
-
-        .auth-out(ng-if="!$root.auth_user" id="login")
-            //-.button.button-default(ng-if="$root.appConfigs.flags.aboutSiteMenu" ng-click="openAuthCodePopup()")
-                em.mdi.mdi-ticket-confirmation 
-                span(translate="topnavbar.buttons.activate")
-            
-            .button.button-default(ng-click="openAuthPopup()").hide-sm
-                em.mdi.mdi-account
-                span(translate="topnavbar.buttons.login")
-            .button.button-mobile(ng-click="openAuthPopup()").show-sm
-                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
-                span(translate="topnavbar.buttons.login")
-=======
                         .button.button-default(ng-click="openAuthPopup()").hide-sm
                             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-profile.svg
                             span(translate="topnavbar.buttons.login")
@@ -234,7 +212,6 @@
                             a(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthCodePopup()" i18n="home.header.button" id="start_modal")
                             a(ng-if="$root.auth_user && $ctrl.vouchers.length == 0" ng-click="$ctrl.openActivateCodePopup()" i18n="home.header.button")
                             a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" ng-click="$ctrl.openInMeModal()" i18n="home.header.auth_button")
->>>>>>> origin/develop.webshop-improvements-navigation
 
     
     
