@@ -88,7 +88,7 @@
             .block
                 .block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
                     .auth-code
-                        a(ng-if="!$root.appConfigs.features.records.list" ui-sref="vouchers" id="vouchers").button.button-default
+                        a(ng-if="!$root.appConfigs.features.records.list" ui-sref="vouchers" id="vouchers").button.button-primary
                             em.mdi.mdi-ticket-confirmation
                             span(translate="topnavbar.buttons.voucher") 
 
