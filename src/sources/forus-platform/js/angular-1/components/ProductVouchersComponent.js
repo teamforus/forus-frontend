@@ -89,7 +89,9 @@ let ProductVouchersComponent = function(
 
         VoucherService.index(
             $ctrl.organization.id,
-            _query
+            Object.assign(_query, {
+                fund_id: $ctrl.fund.id,
+            })
         ).then((res => {
             $ctrl.vouchers = res.data;
         }));
