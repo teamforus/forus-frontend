@@ -1,37 +1,15 @@
 .block {
     &.block-navbar {
-        position: sticky;
-        top: 0;
         width: 100%;
         padding: 0;
         background-color: #fff;
-        max-width: 100%;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.075);
-
-        .navbar-inner {
-            width: 1140px;
-            padding: 0px 15px;
-            align-items: center;
-        }
-
-        .navbar-logo {
-            @media screen and (min-width: 1024px) {
-                padding: 0px 20px 0px 0px;
-            }
-
-            img {
-                height: 55px;
-            }
-        }
 
         .navbar-list {
             text-align: left;
 
             .navbar-item-wrapper {
                 .navbar-item {
-                    font-size: 1em;
-                    padding: 30px 20px;
-
                     &:hover {
                         color: $tc;
 
@@ -75,10 +53,6 @@
 
     @media screen and (max-width: 1000px) {
         &.block-navbar {
-            .navbar-inner {
-                padding: 0px 0;
-            }
-
             .navbar-list {
                 .navbar-item-wrapper {
                     .navbar-item {

@@ -1,17 +1,17 @@
 module.exports = {
     items: {
-        funds:"FONDSEN",
+        funds:"Fondsen",
         products:"Aanbod",
-        providers:"AANBIEDERS",
-        explanation:"UITLEG",
+        providers:"Aanbieders",
+        explanation:"Uitleg",
         identity:"Profiel",
         potjeswijzer: {
-            funds:"POTJES",
+            funds:"Potjes",
         }
     },
     buttons: {
         activate:"Activatiecode",
-        login:"Login",
+        login:"Inloggen",
         voucher:"Mijn tegoeden",
         profile:"Profiel >",
         records: "Mijn eigenschappen",
@@ -19,5 +19,12 @@ module.exports = {
         logout:"Uitloggen",
         products:"Aanbod",
         funds: "Aanvragen",
+        providers: "Aanbieders",
+
+        mobile: {
+            voucher: "Tegoeden",
+            request: "Aanvragen",
+            profile: "Profiel"
+        }
     },
 }

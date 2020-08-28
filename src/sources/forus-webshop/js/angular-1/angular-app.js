@@ -40,6 +40,7 @@ app.component('securitySessionsComponent', require('./components/SecuritySession
 app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
 app.component('notificationsComponent', require('./components/NotificationsComponent'));
 app.component('explanationComponent', require('./components/ExplanationComponent'));
+app.component('errorPageComponent', require('./components/ErrorPageComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -87,6 +88,7 @@ app.service('NotificationsService', require('./services/NotificationsService'));
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
 app.directive('topNavbar', require('./directives/TopNavbarDirective'));
+app.directive('mobileFooter', require('./directives/MobileFooterDirective'));
 app.directive('webshops', require('./directives/WebshopsDirective'));
 app.directive('implementation', require('./directives/ImplementationDirective'));
 app.directive('fundCriterion', require('./directives/FundCriterionDirective'));

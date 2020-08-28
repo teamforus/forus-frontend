@@ -1,9 +1,9 @@
 module.exports = {
     navbar: {
-        municipality: "GEMEENTE",
-        provider: "AANBIEDER",
-        me: "ME",
-        shop: "WEBSHOP",
+        municipality: "Gemeente",
+        provider: "Aanbieder",
+        me: "Me",
+        shop: "Webshop",
     },
     header: {
         title_general: "Een profiel voor het Forus Platform",

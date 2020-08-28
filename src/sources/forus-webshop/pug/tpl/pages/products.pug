@@ -1,7 +1,7 @@
 block content
     .header-splash: .splash.splash-c
     .block.block-showcase(ng-class="{'block-showcase-fullscreen': $ctrl.showMap}")
-        top-navbar
+        top-navbar(hide-on-scroll="true")
         
         .showcase-wrapper
             .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")

@@ -1,28 +1,79 @@
 .block {
     &.block-navbar {
+        border-bottom: 1px solid #dbdcdb;
         z-index: 5;
         background-color: #ffffff;
         position: relative;
+        top: 0;
+        max-width: 100%;
+        
+        .button {
+            svg {
+                width: 18px;
+                height: 18px;
+                display: block;
+                margin: 0 auto;
+            }
+
+            &.active {
+                color: $color_default;
+
+                svg {
+                    path {
+                        fill: $color_default;
+                    }
+                }
+            }
+        }
 
         .navbar-inner {
             @include cf();
             max-width: 100%;
             margin: 0 auto;
             display: flex;
+            align-items: center;
+
+            &.button {
+                font: 400 16px/1.5em $bf;
+                color: #646f79;
+                cursor: pointer;
+                border: 1px solid transparent;
+                -webkit-transition: color .4s, background .4s, box-shadow .4s, border .4s;
+                transition: color .4s, background .4s, box-shadow .4s, border .4s;
+                border-radius: 6px;
+                display: inline-block;
+                text-align: center;
+            }
         }
 
         .navbar-logo {
             justify-self: flex-start;
-            padding: 30px 40px 30px 0;
-            border-right: 1px solid $border_color;
+
+            .second-logo {
+                margin-right: 10px;
+            }
 
             img {
                 display: block;
-                margin: 0 0;
+                margin: 0 auto;
+                height: 40px;
 
                 &.hover {
                     display: none;
                 }
+            }
+        }
+
+        .navbar-list-mobile {
+            padding-left: 30px;
+            flex-grow: 1;
+            display: inline-block;
+            text-align: left;
+
+            .navbar-item-wrapper {
+                display: inline-block;
+                float: left;
+                padding: 1% 5% 1%;
             }
         }
 
@@ -40,14 +91,10 @@
                 .navbar-item {
                     color: #646f79;
                     display: inline-block;
-                    font: 700 15px/30px $bf;
-                    padding: 30px 25px;
+                    padding: 25px 20px;
                     position: relative;
                     transition: .4s;
                     cursor: pointer;
-                    font-weight: bold;
-                    text-transform: uppercase;
-
                     &:before {
                         content: '';
                         top: 0;
@@ -138,7 +185,6 @@
                         margin: 0 0 5px
                     }
                 }
-
             }
 
             .navbar-list-auth {
@@ -152,11 +198,12 @@
         }
 
         .navbar-mobile-menu {
-            float: right;
-            text-align: center;
+            float: none;
+            text-align: right;
             border-left: 1px solid #e6ecf0;
 
             .mdi {
+                align-self: right;
                 display: block;
                 height: 60px;
                 line-height: 60px;
@@ -167,17 +214,13 @@
         }
 
         .block-auth {
-            border-left: 1px solid #e6ecf0;
-            padding: 25px 25px 25px 25px;
             justify-self: flex-end;
             display: flex;
             @include cf();
 
             .button {
-                padding: 7px 15px;
-                float: left;
                 margin-right: 20px;
-                font: 700 14px/24px $bf;
+                margin: 0 auto;
 
                 &:last-of-type {
                     margin-right: 0px;
@@ -285,10 +328,6 @@
                             font-weight: 600;
                             margin-top: 3px;
                         }
-
-                        @media screen and (max-width: 1000px){
-                            display: none;
-                        }
                     }
 
                     .auth-user-menu {
@@ -363,25 +402,23 @@
         }
     }
 
-    @media screen and (max-width: 1700px) {
+    @media screen and (min-width: 1000px) {
         &.block-navbar {
-            .navbar-logo {
-                padding: 20px 20px;
+            .block-auth {
+                padding: 15px 15px;
 
-                img {
-                    height: 30px;
-                    margin: 0;
+                .button {
+                    padding: 8px 20px;
                 }
             }
+        }
+    }
 
+    @media screen and (max-width: 1700px) {    
+        &.block-navbar {
             .navbar-list {
-                padding: 0;
-
                 .navbar-item-wrapper {
                     .navbar-item {
-                        padding: 12px;
-                        font-size: 0.75em;
-
                         &:before {
                             left: 15px;
                             right: 15px;
@@ -391,8 +428,6 @@
             }
 
             .block-auth {
-                padding: 15px 20px;
-
                 .auth-in {
                     .auth-user {
                         .auth-user-email {
@@ -405,64 +440,55 @@
                         }
                     }
                 }
-
-                .button {
-                    font: 700 14px/24px $bf;
-
-                    &:hover {
-                        box-shadow: 0 3px 6px rgba($color: #000000, $alpha: 0.1);
-                    }
-                }
-            }
-        }
-    }
-
-    @media screen and (min-width: 1000px) and (max-width: 1700px) {
-        &.block-navbar {
-            .navbar-list {
-                .navbar-item-wrapper {
-                    .navbar-item {
-                        padding: 11px;
-                        font-size: 0.75em;
-                    }
-                }
             }
         }
     }
 
     @media screen and (max-width: 1000px) {
         &.block-navbar {
-            padding: 0 0;
+            position: sticky;
             border-radius: 0;
-            position: relative;
+            transition: transform 0.2s !important;
+
+            &.scrolled {
+                transform: translateY(-100%);
+            }
 
             .navbar-inner {
-                padding: 0 0;
+                padding: 0;
                 border-radius: 0;
+                justify-content: flex-start;
+
+                &.button {
+                    font: 400 14px/1.5em $bf;
+                    padding: 10px 20px;
+                }
             }
 
             .navbar-logo {
-                padding: 15px 0px;
-                padding-left: 20px;
                 padding-right: -40px;
                 border-right: none;
                 flex-grow: 1;
 
                 img {
-                    height: 30px !important;
+                    height: 40px;
                 }
             }
 
             .block-auth {
-                padding: 10px 10px 10px 0;
                 border: none;
                 display: block;
-                width: 100%;
 
                 .button {
                     margin-right: 10px;
-                    font-size: 11px;
-                    padding: 7px 10px;
+                    border: none;
+                    box-shadow: none;
+
+                    .mdi, img {
+                        margin: 0 auto;
+                        text-align: center;
+                        float: none;
+                    }
                 }
 
                 .mdi-cog {
@@ -473,6 +499,10 @@
                     .auth-user {
                         margin-right: 0;
                         justify-content: flex-end;
+
+                        .auth-user-caret {
+                            display: none;
+                        }
 
                         .auth-user-email {
                             font: 700 12px/22px $bf;
@@ -512,9 +542,6 @@
                         border-left: 5px solid transparent;
                         transition: .4s;
 
-                        padding: 11px;
-                        font-size: 0.75em;
-
                         &:first-of-type {
                             border-top: 1px solid #e6ecf0;
                         }
@@ -534,6 +561,21 @@
                 &.navbar-list-show {
                     display: block;
                 }
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) { 
+        &.block-navbar {
+            .navbar-logo {
+                img {
+                    height: 40px;
+                }
+            }
+
+            .button {
+                font: 400 14px/1.5em $bf;
+                padding: 10px 20px;
             }
         }
     }

@@ -6,13 +6,13 @@ module.exports = {
             placeholder: "Zoek naar producten of diensten",
         },
         labels: {
-            discount: "KORTING",
-            old: "VAN",
-            new: "VOOR",
+            discount: "Korting",
+            old: "Van",
+            new: "Voor",
             title: "Geen zoekresultaat",
             subtitle: "Helaas! Wij vonden geen resultaten voor uw zoekopdracht.",
         },
         buttons: {
-            more: "BEKIJK MEER",
+            more: "Bekijk meer",
         }
 }

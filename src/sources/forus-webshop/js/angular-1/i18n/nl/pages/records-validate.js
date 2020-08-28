@@ -11,6 +11,6 @@ module.exports = {
             hold: "Wachten",
         },
         buttons: {
-            send: "VERZENDEN",
+            send: "Verzenden",
         }
 }

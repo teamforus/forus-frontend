@@ -19,9 +19,9 @@ module.exports = {
         last: "Laatste uitgave",
         subtract: "(Af)",
         none: "Geen",
-        used: "GEBRUIKT",
-        generated: "AANGEMAAKT",
-        expire: "VERVALDATUM",
+        used: "Gebruikt",
+        generated: "Aangemaakt",
+        expire: "Vervaldatum",
         open_voucher: "Open",
         show_transactions: "Bekijk transacties",
     }

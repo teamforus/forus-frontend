@@ -4,6 +4,7 @@ let FundRequestComponentAuto = function(
     $state,
     $stateParams,
     $timeout,
+    $filter,
     RecordService,
     FundService,
     AuthService,
