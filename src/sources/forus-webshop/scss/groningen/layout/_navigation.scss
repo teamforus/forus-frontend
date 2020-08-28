@@ -20,20 +20,11 @@
 
                 &.button-primary {
                     border: none;
-                    background-color: #e60103;
-
-                    &:hover {
-                        background-color: #e60103;
-                    }
                 }
             }
 
             .auth-in {
                 .auth-user {
-                    .auth-user-email {
-                        color: $color_default_light;
-                    }
-
                     .auth-user-avatar {
                         border-color: $color_default;
                         border-radius: 4px;
