@@ -57,7 +57,7 @@
                         .text-left(ng-if="!$ctrl.csvParser.isValid && $ctrl.type == 'product_voucher'")
                             .form-error(ng-if="$ctrl.csvParser.csvHasMissingProductId")
                                 | Het veld `product_id` mist in het bestand.
-                            .form-error(ng-if="$ctrl.csvParser.hasAmmountField")
+                            .form-error(ng-if="$ctrl.csvParser.hasAmountField")
                                 | Het veld `amount` mist in het bestand.
                             .form-error(ng-if="$ctrl.csvParser.csvProductsInvalidUnknownIds.length > 0")
                                 | Following `product_id` from .csv '{{ $ctrl.csvParser.csvProductsInvalidUnknownIdsList }}' are invalid or are out of stock.

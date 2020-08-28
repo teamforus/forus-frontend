@@ -134,12 +134,12 @@ let ModalVouchersUploadComponent = function(
                 )).join(', ');
 
                 // fund vouchers csv shouldn't have amount field
-                $ctrl.csvParser.hasAmmountField = data.filter(
+                $ctrl.csvParser.hasAmountField = data.filter(
                     row => row.amount != undefined
                 ).length > 0;
 
                 return $ctrl.csvParser.csvIsValid &&
-                    !$ctrl.csvParser.hasAmmountField &&
+                    !$ctrl.csvParser.hasAmountField &&
                     !$ctrl.csvParser.csvHasMissingProductId &&
                     $ctrl.csvParser.csvProductIdValid;
             }
@@ -223,7 +223,9 @@ let ModalVouchersUploadComponent = function(
             let hasMissingProductId = data.filter(row => row.product_id === undefined).length > 0;
             let invalidProductIds = data.filter(row => !$ctrl.productsByIds[row.product_id]);
             let invalidStockIds = data.filter(row => $ctrl.productsByIds[row.product_id]).filter(row => {
-                return $ctrl.productsByIds[row.product_id].stock_amount < allProductIds[row.product_id];
+                return !$ctrl.productsByIds[row.product_id].unlimited_stock && (
+                    $ctrl.productsByIds[row.product_id].stock_amount < allProductIds[row.product_id]
+                );
             });
 
             return {
