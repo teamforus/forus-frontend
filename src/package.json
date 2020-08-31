@@ -68,7 +68,7 @@
     "papaparse": "^5.1.1",
     "pdfjs-dist": "^2.2.228",
     "progressbar.js": "^1.1.0",
-    "protractor": "^5.4.3",
+    "protractor": "^7.0.0",
     "qrcodejs": "^1.0.0",
     "selenium": "^2.20.0",
     "ui-cropper": "^1.0.9",
