@@ -1,5 +1,12 @@
 .block {
+
     &.block-map {
-        padding: 120px 0 240px;
+
+        .block-content {
+
+            .block-title {
+                font: 700 32px/1.5em $bf;
+            }
+        }
     }
 }

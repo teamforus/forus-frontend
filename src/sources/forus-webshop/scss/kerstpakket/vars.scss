@@ -1,5 +1,17 @@
 /*==========  Style Sheet - Vars  ==========*/
 
+// navbar
+$bg-nav:            #F5F5F5;
+$btn-nav:           #90191A;
+$btn-nav-rev:       #FFF;
+$tc-nav:            #282B39;
+$tc-nav-hov:        #90191A;
+$logo-height:       50px;
+// navbar (auth)
+$tc-auth-menu:      #90191A; 
+$tc-auth-btn:       #FFF; 
+$btn-auth-bg:       #90191A; 
+
 // header background            
 $bg-values:          url("../img/splash-top-b.png") no-repeat 100% 0;
 
@@ -20,7 +32,7 @@ $bg:                #fff;
 $bg_2:              none;
 
 // text formatting
-$tf:                lowercase;
+$tf:                inherit;
 
 // footer color
 $fc:                #fff;
@@ -34,7 +46,7 @@ $pi:                10px 0 0 10px;
 // placeholder text color
 $ptc:               #646f79;
 
-$border_color:      none;
+$border_color:      #EBEDF0;
 
 $border_radius:     8px;
 $base_shadow:       0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);

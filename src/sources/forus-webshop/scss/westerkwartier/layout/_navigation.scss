@@ -1,64 +1,36 @@
 .block {
     &.block-navbar {
-        width: 100%;
-        padding: 0;
-        background-color: #fff;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.075);
+        .button {
+            &.button-default {
+                color: #666646;
 
-        .navbar-list {
-            text-align: left;
-
-            .navbar-item-wrapper {
-                .navbar-item {
-                    &:hover {
-                        color: $tc;
-
-                        &:before {
-                            background-color: $color_default;
-                            opacity: .5;
-                        }
+                svg {
+                    path {
+                        fill: #666666;
                     }
+                }
 
-                    &.active {
-                        color: $tc;
-
-                        &:before {
-                            background-color: $color_default;
-                            opacity: 1;
+                &:hover {
+                    svg {
+                        path {
+                            fill: #666666;  
                         }
                     }
                 }
             }
-        }
 
-        .block-auth {
-            .auth-in {
-                .auth-user {
-                    .auth-user-email {
-                        color: $color_default_light;
-                    }
+            &.button-primary {
+                color: #666646;
 
-                    .auth-user-avatar {
-                        border-color: $color_default;
-                        border-radius: 4px;
-
-                        img {
-                            filter: grayscale(.8);
-                        }
+                svg {
+                    path {
+                        fill: #666666;
                     }
                 }
             }
-        }
-    }
 
-    @media screen and (max-width: 1000px) {
-        &.block-navbar {
-            .navbar-list {
-                .navbar-item-wrapper {
-                    .navbar-item {
-                        padding: 10px 20px;
-                    }
-                }
+            a {
+                color: #666666;
             }
         }
     }
