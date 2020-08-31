@@ -163,8 +163,6 @@ let ProductsComponent = function(
         $ctrl.updateFiltersUsedCount();
         $ctrl.updateRows();
     };
-
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {

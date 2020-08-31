@@ -5,6 +5,8 @@ let ModalVouchersUploadComponent = function(
     $filter,
     $element,
     FileService,
+    ModalService,
+    HelperService,
     VoucherService,
     ProductService,
     PushNotificationsService
@@ -59,25 +61,19 @@ let ModalVouchersUploadComponent = function(
     };
 
     $ctrl.downloadExampleCsv = () => {
-        if ($ctrl.type == 'voucher') {
+        if ($ctrl.type == 'fund_voucher') {
             FileService.downloadFile(
-                'voucher_upload_sample.csv',
-                VoucherService.sampleCSV('voucher')
+                'budget_voucher_upload_sample.csv',
+                VoucherService.sampleCSVBudgetVoucher($ctrl.fund.end_date)
             );
         } else {
-            ProductService.listAll({
-                fund_id: $ctrl.fund.id
-            }).then((res) => {
-                let products = res.data.data;
-                let productsIds = products.map(
-                    product => parseInt(product.id)
-                );
-            
-                FileService.downloadFile(
-                    'voucher_upload_sample.csv',
-                    VoucherService.sampleCSV('product_voucher', productsIds[0])
-                );
-            });
+            FileService.downloadFile(
+                'product_voucher_upload_sample.csv',
+                VoucherService.sampleCSVProuctVoucher(
+                    $ctrl.productsIds[0] || null,
+                    $ctrl.fund.end_date
+                )
+            );
         }
     };
 
@@ -110,30 +106,61 @@ let ModalVouchersUploadComponent = function(
         $ctrl.csvParser.validateCsvData = (data) => {
             $ctrl.csvParser.csvIsValid = $ctrl.csvParser.validateData(data);
 
-            if ($ctrl.type == 'voucher') {
+            if ($ctrl.type == 'fund_voucher') {
                 $ctrl.csvParser.amountIsValid = $ctrl.csvParser.validateAmount(data);
-                return $ctrl.csvParser.csvIsValid && $ctrl.csvParser.amountIsValid;
+
+                // fund vouchers csv shouldn't have product_id field
+                $ctrl.csvParser.csvTypeValid = data.filter(
+                    row => row.product_id != undefined
+                ).length === 0;
+
+                return $ctrl.csvParser.csvIsValid &&
+                    $ctrl.csvParser.amountIsValid &&
+                    $ctrl.csvParser.csvTypeValid;
             } else if ($ctrl.type == 'product_voucher') {
-                $ctrl.csvParser.csvProductIdValid = $ctrl.csvParser.validateProductId(data);
-                return $ctrl.csvParser.csvIsValid && $ctrl.csvParser.csvProductIdValid;
+                let validation = $ctrl.csvParser.validateProductId(data);
+
+                $ctrl.csvParser.csvHasMissingProductId = validation.hasMissingProductId;
+                $ctrl.csvParser.csvProductIdValid = validation.isValid;
+                $ctrl.csvParser.csvProductsInvalidStockIds = validation.invalidStockIds;
+                $ctrl.csvParser.csvProductsInvalidUnknownIds = validation.invalidProductIds;
+
+                $ctrl.csvParser.csvProductsInvalidStockIdsList = _.unique(_.pluck(
+                    $ctrl.csvParser.csvProductsInvalidStockIds, 'product_id'
+                )).join(', ');
+
+                $ctrl.csvParser.csvProductsInvalidUnknownIdsList = _.unique(_.pluck(
+                    $ctrl.csvParser.csvProductsInvalidUnknownIds, 'product_id'
+                )).join(', ');
+
+                // fund vouchers csv shouldn't have amount field
+                $ctrl.csvParser.hasAmountField = data.filter(
+                    row => row.amount != undefined
+                ).length > 0;
+
+                return $ctrl.csvParser.csvIsValid &&
+                    !$ctrl.csvParser.hasAmountField &&
+                    !$ctrl.csvParser.csvHasMissingProductId &&
+                    $ctrl.csvParser.csvProductIdValid;
             }
 
             return false;
         };
 
         $ctrl.csvParser.uploadFile = (file) => {
-            if (file.name.indexOf('.csv') != file.name.length - 4) {
+            if (!file.name.endsWith('.csv')) {
                 return;
             }
+
             let defaultNote = row => {
                 return $translate(
                     'vouchers.csv.default_note' + (
                         row.email ? '' : '_no_email'
                     ), {
-                        upload_date: moment().format('YYYY-MM-DD'),
-                        uploader_email: $rootScope.auth_user.primary_email,
-                        target_email: row.email || null,
-                    }
+                    upload_date: moment().format('YYYY-MM-DD'),
+                    uploader_email: $rootScope.auth_user.primary_email,
+                    target_email: row.email || null,
+                }
                 );
             };
 
@@ -191,11 +218,22 @@ let ModalVouchersUploadComponent = function(
         };
 
         $ctrl.csvParser.validateProductId = (data = []) => {
-            return data.map(row => {
-                return row.product_id && ($ctrl.productsIds.indexOf(
-                    parseInt(row.product_id)
-                ) != -1);
-            }).filter(row => !row).length == 0;
+            let allProductIds = _.countBy(data, 'product_id')
+
+            let hasMissingProductId = data.filter(row => row.product_id === undefined).length > 0;
+            let invalidProductIds = data.filter(row => !$ctrl.productsByIds[row.product_id]);
+            let invalidStockIds = data.filter(row => $ctrl.productsByIds[row.product_id]).filter(row => {
+                return !$ctrl.productsByIds[row.product_id].unlimited_stock && (
+                    $ctrl.productsByIds[row.product_id].stock_amount < allProductIds[row.product_id]
+                );
+            });
+
+            return {
+                isValid: !invalidProductIds.length && !invalidStockIds.length,
+                hasMissingProductId: hasMissingProductId,
+                invalidStockIds: invalidStockIds,
+                invalidProductIds: invalidProductIds,
+            };
         };
 
         $ctrl.csvParser.uploadToServer = function(e) {
@@ -205,6 +243,74 @@ let ModalVouchersUploadComponent = function(
                 return false;
             }
 
+            $ctrl.loading = true;
+
+            PushNotificationsService.success(
+                'Loading...',
+                'Loading existing vouchers to check for duplicates!',
+                'download-outline'
+            );
+
+            HelperService.recursiveLeacher((page) => {
+                return VoucherService.index($ctrl.organization.id, {
+                    fund_id: $ctrl.fund.id,
+                    type: $ctrl.type,
+                    per_page: 100,
+                    page: page
+                });
+            }, 4).then(data => {
+                PushNotificationsService.success(
+                    'Comparing...',
+                    'Vouchers loaded! Comparing with .csv...',
+                    'timer-sand'
+                );
+
+                let emails = data.map(voucher => voucher.identity_email);
+                let existingEmails = $ctrl.csvParser.data.filter(csvRow => {
+                    return emails.indexOf(csvRow.email) != -1;
+                }).map(csvRow => csvRow.email);
+
+                $ctrl.loading = false;
+
+                if (existingEmails.length === 0) {
+                    $ctrl.startUploading();
+                } else {
+                    let items = existingEmails.map(email => ({
+                        value: email,
+                    }));
+
+                    ModalService.open('duplicatesPicker', {
+                        hero_title: "Dubbele e-mailadressen gedetecteerd.",
+                        hero_subtitle: [
+                            `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra voucher wilt aanmaken?`,
+                            "Deze e-mailadressen bezitten al een voucher van dit fonds."
+                        ],
+                        button_none: "Alle vouchers overslaan",
+                        button_all: "Alle vouchers aanmaken",
+                        label_on: "Aanmaken voucher",
+                        label_off: "Overslaan",
+                        items: items,
+                        onConfirm: (items) => {
+                            let allowedEmails = items.filter(item => item.model).map(item => item.value);
+
+                            $ctrl.csvParser.data = $ctrl.csvParser.data.filter(csvRow => {
+                                return existingEmails.indexOf(csvRow.email) === -1 ||
+                                    allowedEmails.indexOf(csvRow.email) !== -1;
+                            });
+
+                            if ($ctrl.csvParser.data.length > 0) {
+                                $ctrl.startUploading();
+                            } else {
+                                $ctrl.close();
+                            }
+                        },
+                        onCancel: () => $ctrl.close(),
+                    });
+                }
+            }, () => $ctrl.loading = false);
+        }
+
+        $ctrl.startUploading = () => {
             $ctrl.csvParser.progress = 2;
 
             var submitData = chunk(JSON.parse(JSON.stringify(
@@ -251,7 +357,7 @@ let ModalVouchersUploadComponent = function(
             };
 
             uploadChunk(submitData[currentChunkNth]);
-        }
+        };
 
         $element.unbind('dragleave').bind('dragleave', function(e) {
             e.preventDefault()
@@ -276,16 +382,23 @@ let ModalVouchersUploadComponent = function(
     $ctrl.$onInit = () => {
         $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.fund = $ctrl.modal.scope.fund || null;
-        $ctrl.type = $ctrl.modal.scope.type || 'voucher';
+        $ctrl.type = $ctrl.modal.scope.type || 'fund_voucher';
 
         if ($ctrl.type == 'product_voucher') {
-            ProductService.listAll({
-                fund_id: $ctrl.fund.id
-            }).then((res) => {
-                $ctrl.products = res.data.data;
-                $ctrl.productsIds = $ctrl.products.map(
-                    product => parseInt(product.id)
-                );
+            HelperService.recursiveLeacher((page) => {
+                return ProductService.listAll({
+                    fund_id: $ctrl.fund.id,
+                    page: page,
+                    per_page: 1000,
+                });
+            }, 4).then((data) => {
+                $ctrl.products = _.sortBy(data, 'id');
+                $ctrl.productsIds = $ctrl.products.map(product => parseInt(product.id));
+                $ctrl.productsByIds = $ctrl.products.reduce((obj, product) => {
+                    obj[product.id] = product;
+                    return obj;
+                }, {});
+
                 $ctrl.init([
                     'product_id'
                 ]);
@@ -297,7 +410,7 @@ let ModalVouchersUploadComponent = function(
         }
     };
 
-    $ctrl.$onDestroy = () => {};
+    $ctrl.$onDestroy = () => { };
     $ctrl.closeModal = () => {
         if ($ctrl.changed) {
             $ctrl.modal.scope.done();
@@ -319,6 +432,8 @@ module.exports = {
         '$filter',
         '$element',
         'FileService',
+        'ModalService',
+        'HelperService',
         'VoucherService',
         'ProductService',
         'PushNotificationsService',

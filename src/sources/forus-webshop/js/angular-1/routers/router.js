@@ -673,6 +673,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }]
     });
 
+    $stateProvider.state({
+        name: 'error-404',
+        url: '/*params',
+        component: 'errorPageComponent',
+        resolve: {
+            error: () => 404,
+        }
+    });
+
     if (appConfigs.html5ModeEnabled) {
         $locationProvider.html5Mode({
             enabled: true,

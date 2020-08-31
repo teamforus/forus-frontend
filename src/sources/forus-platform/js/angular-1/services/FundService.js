@@ -289,12 +289,19 @@ const FundService = function(ApiRequest) {
         };
 
         this.criterionValidate = (organization_id, fund_id, criteria) => {
-            return ApiRequest.patch(sprintf(
+            let path = fund_id ? sprintf(
                 uriPrefix + '%s/funds/%s/criteria/validate',
                 organization_id,
                 fund_id
-            ), {
-                criteria
+            ) : sprintf(
+                uriPrefix + '%s/funds/criteria/validate',
+                organization_id
+            );
+
+            return fund_id ? ApiRequest.patch(path, {
+                criteria: criteria
+            }) : ApiRequest.post(path, {
+                criteria: criteria
             });
         };
     });

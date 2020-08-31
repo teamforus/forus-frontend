@@ -49,7 +49,12 @@ let PrevalidatedTableDirective = async function(
     };
 
     $scope.$on('csv:uploaded', function() {
-        $scope.filters.values.page = 1;
+        if ($scope.filters.values.page === 1) {
+            $scope.onPageChange($scope.filters.values);
+        } else {
+            $scope.filters.values.page = 1;
+        }
+
     })
 
     $scope.onPageChange = async (query) => {
@@ -123,7 +128,9 @@ let PrevalidatedTableDirective = async function(
 
     // Export to XLS file
     $scope.export = (filters = {}) => {
-        PrevalidationService.export(filters).then((res => {
+        PrevalidationService.export(Object.assign(filters, {
+            fund_id: $scope.fund.id
+        })).then((res => {
             FileService.downloadFile(
                 ($scope.fund.key || 'fund') + '_' + moment().format(
                     'YYYY-MM-DD HH:mm:ss'

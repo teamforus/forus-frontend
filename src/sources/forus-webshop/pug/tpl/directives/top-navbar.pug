@@ -1,10 +1,17 @@
-.block.block-navbar: .navbar-inner.wrapper
-    a(ui-sref="home" ng-if="$root.appConfigs.client_key != 'general'").navbar-logo
+.block.block-navbar(ng-class='{"scrolled" : $ctrl.hideOnScroll && !$ctrl.visible}'): .navbar-inner.wrapper   
+    a.button(
+        ui-sref="explanation"
+        ui-sref-active="active").show-sm
+            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-info.svg
+            div(translate="topnavbar.items.explanation")
+
+    a(ui-sref="home").navbar-logo
         img(ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" ng-if="$root.appConfigs.flags.secondLogo").second-logo
         img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
         img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover
+
     
-    nav.navbar-list(ng-class="mobileMenu?'navbar-list-show':''")
+    nav.navbar-list(ng-class="mobileMenu?'navbar-list-show':''").hide-sm
         ul.navbar-list-auth.show-sm(ng-if="$root.auth_user")
             //- Auth menu
             li.navbar-item-wrapper: .navbar-item(
@@ -23,7 +30,7 @@
                 ng-click="$root.signOut()" translate="topnavbar.buttons.logout")
 
         //- Menu
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.client_key == 'general'" ng-click="mobileMenu = false")
+        //-nav.navbar-item-wrapper(ng-if="$root.appConfigs.client_key == 'general'" ng-click="mobileMenu = false")
             a.navbar-item(
                 ui-sref="home" 
                 ui-sref-active="home"
@@ -91,7 +98,7 @@
                 //-span(translate="topnavbar.buttons.profile").second-line-button
     
     .block.block-auth
-        .auth-in(ng-if="$root.auth_user")
+        .auth-in(ng-if="$root.auth_user").hide-sm
             .auth-user(ng-click="$ctrl.openUserMenu($event)")
                 .auth-user-details  
                     .auth-user-email(ng-bind="$root.auth_user.email" ng-if="!$root.appConfigs.features.records.list") 
@@ -101,7 +108,7 @@
                         span(translate="topnavbar.buttons.logout")
 
                 .auth-user-avatar
-                    .em.mdi.mdi-cog(ng-if="$root.appConfigs.features.records.list") 
+                    .em.mdi.mdi-cog(ng-if="$root.appConfigs.features.records.list")
                     img(src="./assets/img/identity-avatar.svg" ng-if="!$root.appConfigs.features.records.list")
                 
                 .auth-user-caret(id="user_menu")
@@ -174,26 +181,24 @@
                         .auth-user-menu-item(ng-click="$root.signOut()" id="sign_out")
                             img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
                             span(translate="topnavbar.buttons.logout")
+        
+        .auth-in(ng-if="$root.auth_user").show-sm
+                .button.button-mobile(ng-click="$root.signOut()")
+                    include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-sign-out.svg
+                    div(translate="topnavbar.buttons.logout")
 
         .auth-out(ng-if="!$root.auth_user" id="login")
             //-.button.button-default(ng-if="$root.appConfigs.flags.aboutSiteMenu" ng-click="openAuthCodePopup()")
                 em.mdi.mdi-ticket-confirmation 
                 span(translate="topnavbar.buttons.activate")
-            .button.button-default(ng-click="openAuthPopup()")
+            
+            .button.button-default(ng-click="openAuthPopup()").hide-sm
                 em.mdi.mdi-account
                 span(translate="topnavbar.buttons.login")
-    
-    .navbar-mobile-menu.show-sm
-        em.mdi(ng-class="mobileMenu?'mdi-close':'mdi-menu'" ng-click="mobileMenu = !mobileMenu")
+            .button.button-mobile(ng-click="openAuthPopup()").show-sm
+                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
+                span(translate="topnavbar.buttons.login")
 
-    //- .block.block-auth.sm-pull-left
-        .lang-selector
-            .lang-label 
-                em.mdi.mdi-chevron-down
-                | Language
-            .lang-active(ng-bind="'languages.' + i18nActive | translate")
-            .lang-list
-                .lang-list-item(
-                    ng-repeat="lang in i18nLangs" 
-                    ng-bind="'languages.' + lang | translate"
-                    ng-click="setLang(lang)")
+    
+    
+    

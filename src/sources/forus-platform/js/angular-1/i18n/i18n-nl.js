@@ -47,6 +47,7 @@ module.exports = {
         modal_funds_offers: require('./nl/modals/modal-fund-offers.pug.i18n'),
         modal_business_add: require('./nl/modals/modal-business-add.pug.i18n'),
         modal_voucher_export: require('./nl/modals/modal-voucher-export.pug.i18n'),
+        modal_fund_criteria_description: require('./nl/modals/modal-fund-criteria-description.i18n'),
         danger_zone: {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator')
         },
@@ -510,6 +511,7 @@ module.exports = {
             end: "EIND",
             break: "Pauze",
             not_specified: "Niet ingevuld",
+            description: "Omschrijving"
         },
         buttons: {
             cancel: "Annuleren",
@@ -556,7 +558,8 @@ module.exports = {
             stock_unlimited: "Onbeperkt aanbod",
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
-            available_offers: "Resterend aanbod"
+            available_offers: "Resterend aanbod",
+            unlimited: "Onbeperkt"
         },
         buttons: {
             cancel: "Annuleren",
@@ -677,6 +680,7 @@ module.exports = {
             title_step_3: "Ontvang de download link naar de Me-app",
             subtitle_step_3: "",
             title_step_3_mail: "Op een later moment de Me-app installeren",
+            title_step_3_mail_mobile: "Maak een account aan",
             title_step_4: "Kies of maak een organisatie",
             subtitle_step_4: "Aan uw e-mailadres zijn de volgende organisaties gekoppeld. Kies een bestaande organisatie of voeg een nieuwe organisatie toe.",
             title_step_5: "Maak een organisatie aan",
@@ -1190,6 +1194,10 @@ module.exports = {
             status: "Status",
             records: "Eigenschappen",
             actions: "Acties",
+            search: "Zoeken",
+            assigned_to: "Toegewezen",
+            from: "Vanaf",
+            to: "Tot"
         },
         status: {
             hold: "Wachten",
@@ -1203,6 +1211,8 @@ module.exports = {
             alldecline: "Alles weigeren",
             accept: "Valideren",
             decline: "Weigeren",
+            export: "Exporteren",
+            clear_filter: "Wis filter"
         },
     },
 
@@ -1611,9 +1621,13 @@ module.exports = {
                     title: "Dagelijkse samenvatting omtrent aanmeldingen aanbieders",
                     description: "Notificaties omtrent aanmeldingen van aanbieders worden gegroepeerd toegestuurd."
                 },
-                daily_provider: {
-                    title: "Dagelijkse samenvatting omtrent producten en aanmeldingen",
-                    description: "Notificaties omtrent aanmeldingen en producten worden gegroepeerd toegestuurd."
+                daily_provider_funds: {
+                    title: "Dagelijkse samenvatting omtrent uw aanmeldingen bij fondsen",
+                    description: "Een dagelijkse samenvatting omtrent uw aanmeldingen bij fondsen."
+                },
+                daily_provider_products: {
+                    title: "Dagelijkse samenvatting omtrent gereserveerde aanbiedingen",
+                    description: "Een dagelijkse samenvatting van alle notificaties omtrent aanbiedingen die zijn gereserveerd."
                 },
                 daily_validator: {
                     title: "Dagelijkse samenvatting omtrent aanvragen voor fondsen",

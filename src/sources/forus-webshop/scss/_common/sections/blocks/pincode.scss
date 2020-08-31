@@ -18,6 +18,7 @@
             top: 0px;
             border: none;
             background: none;
+            z-index: -100;
         }
 
         .pincode-number {
@@ -31,9 +32,33 @@
             font: 600 26px/60px "Open Sans", arial, sans-serif;
             text-align: center;
             cursor: default;
+            position: relative;
+
+            &:before {
+                width: 2px;
+                height: 30px;
+                border-radius: 6px;
+                background: $color_primary;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%);
+                display: block;
+                transform: translate(0, -50%);
+                @include anim_blink();
+                transition: opacity .4s;
+            }
 
             &:last-of-type {
                 margin-right: 0;
+            }
+
+            &.active {
+                color: transparent;
+
+                &:before {
+                    content: ' ';
+                }
             }
 
             &.pincode-number-divider {
@@ -60,17 +85,6 @@
             margin-bottom: 0;
         }
 
-        @media screen and (max-width: 767px) {
-            margin: 30px auto 30px;
-            width: calc(50px * 6 + 10px * 5);
-
-            .pincode-number {
-                width: 50px;
-                height: 60px;
-                font: 600 26px/60px $bf;
-            }
-        }
-
         &.block-phone-number{
             width: calc(60px * 10 + 10px * 9);
             margin: 25px auto;
@@ -83,6 +97,10 @@
                 line-height: 38px;
                 font-size: 18px;
                 margin-right: 6px;
+
+                &:before {
+                    height: 20px;
+                }
 
                 &.pincode-number-divider {
                     width: 4px;
@@ -98,39 +116,82 @@
                 }
             }
         }
-    }
 
-    @media screen and (max-width: 1700px) {
-
-        &.block-pincode {
+        @media screen and (max-width: 1700px) {
             margin-bottom: 10px;
-
+    
             .pincode-number {
                 font: 600 22px/60px $bf
             }
         }
-    }
-    @media screen and (max-width: 1000px) {
-        &.block-pincode {
+    
+        @media screen and (max-width: 1000px) {
             width: calc(60px * 6 + 10px * 5);
-
-            @media screen and (max-width: 767px) {
-                &.block-pincode {
-                    margin: 30px auto 30px;
-                    width: calc(50px * 6 + 10px * 5);
-        
-                    .pincode-number {
-                        width: 50px;
-                        height: 60px;
-                        font: 600 26px/60px $bf;
-                    }
-                }
-        }
             
             .pincode-number {
                 height: 60px;
                 width: 60px;
                 font: 600 22px/70px $bf
+            }
+        }
+    
+        @media screen and (max-width: 767px) {
+            margin: 30px auto 30px;
+            width: calc(50px * 6 + 10px * 5);
+    
+            .pincode-number {
+                width: 50px;
+                height: 60px;
+                font: 600 26px/60px $bf;
+            }
+    
+            &.block-pincode-mobile-collapse {
+                width: auto;
+
+                .pincode-number {
+                    margin-right: -1px;
+                    border-radius: 0;
+                    width: auto;
+                    padding: 0 4px;
+                    font-size: 18px;
+
+                    &:before {
+                        height: 20px;
+                    }
+    
+                    &.pincode-number-divider {
+                        display: none;
+                    }
+
+                    &.pincode-number-block-start {
+                        border-top-left-radius: 4px;
+                        border-bottom-left-radius: 4px;
+                        padding-left: 15px;
+
+                        &:before {
+                            margin-left: 7.5px;
+                        }
+                    }
+
+                    &.pincode-number-block-end {
+                        margin-right: 10px;
+                        border-top-right-radius: 4px;
+                        border-bottom-right-radius: 4px;
+                        padding-right: 15px;
+
+                        &:before {
+                            margin-left: -7.5px;
+                        }
+                    }
+
+                    &:not(.pincode-number-block-start) {
+                        border-left: 0;;
+                    }
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
             }
         }
     }

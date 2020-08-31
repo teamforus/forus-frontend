@@ -75,10 +75,10 @@
                 .form-group.form-group-inline.form-group-inline-sm
                     label.form-label(i18n="modals.modal_voucher_create.labels.expire_at")
                     datepicker(
-                        date-format="dd-MM-yyyy" 
+                        date-format="yyyy-MM-dd" 
                         datepicker-mobile="" 
                         date-week-start-day="1").form-control
-                        input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="dd-MM-jjjj").form-control
+                        input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="jjjj-MM-dd").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.expire_at" ng-bind="error")
                 
                 .form-group.form-group-inline.form-group-inline-sm

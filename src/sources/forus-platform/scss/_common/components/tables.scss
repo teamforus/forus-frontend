@@ -154,6 +154,10 @@
         float: left;
         color: #282b39;
         font: 500 13px/36px $bf;
+        
+        &.table-pagination-counter-sm {
+            font: 500 13px/30px $bf;
+        }
     }
 
     .table-pagination-navigation {

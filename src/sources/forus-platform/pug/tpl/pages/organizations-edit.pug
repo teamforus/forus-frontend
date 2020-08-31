@@ -71,11 +71,16 @@
                         ng-change="$ctrl.chageBusinessType(value)"
                         options="$ctrl.businessTypes"
                         placeholder="Selecteer organisatie type...")
+            
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
+                .form-group.form-group-inline
+                    .form-label(i18n="organization_edit.labels.description")
+                    .form-offset: markdown(ng-model="$ctrl.form.values.description")
 
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     label.form-label(i18n="organization_edit.labels.kvk")
-                    input(ng-model="$ctrl.form.values.kvk" type="text" placeholder="KvK-nummer" number-control).form-control
+                    input(ng-model="$ctrl.form.values.kvk" type="text" placeholder="KvK-nummer").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.kvk" ng-bind="error")
                 
                 .form-group.form-group-inline

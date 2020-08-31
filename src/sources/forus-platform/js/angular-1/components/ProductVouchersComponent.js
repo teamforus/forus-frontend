@@ -4,15 +4,13 @@ let ProductVouchersComponent = function(
     $timeout,
     DateService,
     ModalService,
-    VoucherService,
-    ProductService,
-    FileService
+    VoucherService
 ) {
     let $ctrl = this;
 
     $ctrl.states = [{
         value: null,
-        name: 'Select...'
+        name: 'Selecteer...'
     }, {
         value: 1,
         name: 'Ja'
@@ -72,7 +70,7 @@ let ProductVouchersComponent = function(
         ModalService.open('vouchersUpload', {
             fund: $ctrl.fund,
             organization: $ctrl.organization,
-            type: 'product_voucher',
+            type: $ctrl.filters.values.type,
             done: () => {
                 $state.reload();
             }
@@ -91,7 +89,9 @@ let ProductVouchersComponent = function(
 
         VoucherService.index(
             $ctrl.organization.id,
-            _query
+            Object.assign(_query, {
+                fund_id: $ctrl.fund.id,
+            })
         ).then((res => {
             $ctrl.vouchers = res.data;
         }));
@@ -155,8 +155,6 @@ module.exports = {
         'DateService',
         'ModalService',
         'VoucherService',
-        'ProductService',
-        'FileService',
         ProductVouchersComponent
     ],
     templateUrl: 'assets/tpl/pages/product-vouchers.html'

@@ -24,7 +24,6 @@
 @import 'components/labels';
 @import 'components/flex-grid';
 
-@import '../../../forus-webshop/scss/_common/includes/common';
 @import '../../../forus-webshop/scss/_common/components/ui-controls';
 
 // blocks
@@ -2346,19 +2345,28 @@ $colorPrimaryLight: $color_primary_light;
                     .card-block {
                         &.card-block-fund {
                             padding-top: 0px;
+                            display: flex;
 
-                            .fund-organization {
-                                display: block;
-                                margin-bottom: 0px;
-                                font: 400 16px/20px $bf;
-                                color: #222530;
+                            .fund-img {
+                                margin: auto 10px;
+                                padding: 0px;
+                                width: 50px;
+                                height: 50px;
                             }
 
-                            .fund-title {
-                                display: block;
-                                font: 500 18px/22px $bf;
-                                color: #191A1C;
-                                margin-bottom: 8px;
+                            .fund-details {
+                                .fund-title {
+                                    display: block;
+                                    font: 500 18px/28px $bf;
+                                    color: #191A1C;
+                                }
+
+                                .fund-organization {
+                                    display: block;
+                                    font: 400 14px/18px $bf;
+                                    color: #222530;
+                                    margin: 0px 0px;
+                                }
                             }
                         }
                     }
@@ -3294,6 +3302,7 @@ $colorPrimaryLight: $color_primary_light;
             top: 0px;
             border: none;
             background: none;
+            z-index: -100;
         }
 
         .pincode-number {
@@ -3307,9 +3316,33 @@ $colorPrimaryLight: $color_primary_light;
             font: 600 26px/60px "Open Sans", arial, sans-serif;
             text-align: center;
             cursor: default;
+            position: relative;
+
+            &:before {
+                width: 2px;
+                height: 30px;
+                border-radius: 6px;
+                background: $color_primary;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%);
+                display: block;
+                transform: translate(0, -50%);
+                @include anim_blink();
+                transition: opacity .4s;
+            }
 
             &:last-of-type {
                 margin-right: 0;
+            }
+
+            &.active {
+                color: transparent;
+
+                &:before {
+                    content: ' ';
+                }
             }
 
             &.pincode-number-divider {
@@ -3336,17 +3369,6 @@ $colorPrimaryLight: $color_primary_light;
             margin-bottom: 0;
         }
 
-        @media screen and (max-width: 767px) {
-            margin: 30px auto 30px;
-            width: calc(50px * 6 + 10px * 5);
-
-            .pincode-number {
-                width: 50px;
-                height: 60px;
-                font: 600 26px/60px $bf;
-            }
-        }
-
         &.block-phone-number{
             width: calc(60px * 10 + 10px * 9);
             margin: 25px auto;
@@ -3360,13 +3382,86 @@ $colorPrimaryLight: $color_primary_light;
                 font-size: 18px;
                 margin-right: 6px;
 
+                &:before {
+                    height: 20px;
+                }
+
                 &.pincode-number-divider {
                     width: 4px;
 
                     &:after {
-                        width: 4px;
-                        height: 4px;
+                        width: 7px;
+                        height: 2px;
                     }
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        @media screen and (max-width: 1700px) {
+            margin-bottom: 10px;
+    
+            .pincode-number {
+                font: 600 22px/60px $bf
+            }
+        }
+    
+        @media screen and (max-width: 1000px) {
+            width: calc(60px * 6 + 10px * 5);
+            
+            .pincode-number {
+                height: 60px;
+                width: 60px;
+                font: 600 22px/70px $bf
+            }
+        }
+    
+        @media screen and (max-width: 767px) {
+            margin: 30px auto 30px;
+            width: calc(50px * 6 + 10px * 5);
+
+            .pincode-number {
+                margin-right: -1px;
+                border-radius: 0;
+                height: 60px;
+                width: auto;
+                padding: 0 4px;
+                font-size: 18px;
+
+                &:before {
+                    height: 20px;
+                }
+
+                &.pincode-number-divider {
+                    display: none;
+                }
+
+                &.pincode-number-block-start {
+                    border-top-left-radius: 4px;
+                    border-bottom-left-radius: 4px;
+                    padding-left: 15px;
+
+                    &:before {
+                        margin-left: 7.5px;
+                    }
+                }
+
+                &.pincode-number-block-end {
+                    margin-right: 10px;
+                    border-top-right-radius: 4px;
+                    border-bottom-right-radius: 4px;
+                    padding-right: 15px;
+
+                    &:before {
+                        margin-left: -7.5px;
+                    }
+                }
+
+                &:not(.pincode-number-block-start) {
+                    border-left: 0;;
                 }
 
                 &:last-child {
@@ -4648,6 +4743,13 @@ $colorPrimaryLight: $color_primary_light;
     
         .auth-form {
             margin: 0 0 30px;
+            display: flex;
+            flex-direction: row;
+
+            .auth-form-input {
+                flex-grow: 1;
+                padding-right: 20px;
+            }
     
             .button {
                 box-shadow: none;
@@ -5342,6 +5444,64 @@ $colorPrimaryLight: $color_primary_light;
         }
     }
 
+    &.block-switch-table {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        background: #fff;
+        cursor: default;
+        max-height: 300px;
+        overflow: auto;
+        @include webkit_scrollbar();
+
+        .switch-row {
+            border-bottom: 1px solid $borderColor;
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            cursor: pointer;
+            
+            .switch-label {
+                font: 600 13px/20px $bf;
+                color: $tc;
+                padding: 12.5px 20px 11.5px;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: row;
+                
+                .switch-key-icon {
+                    font-size: 1.2em;
+                    margin-right: 5px;
+                    line-height: 20px;
+                }
+            }
+            
+            .switch-input {
+                font: 600 13px/20px $bf;
+                color: $tc;
+                padding: 12.5px 20px 11.5px;
+                display: flex;
+                flex-direction: row;
+                white-space: nowrap;
+                overflow: hidden;
+
+                .switch-input-label {
+                    opacity: 1;
+                    transition: opacity .4s;
+                    cursor: pointer;
+
+                    &.switch-input-label-blink {
+                        opacity: 0;
+                    }
+                }
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+
     &.block-user_emails {
         display: flex;
         flex-direction: column;
@@ -5493,7 +5653,7 @@ $colorPrimaryLight: $color_primary_light;
         }
 
         .modal-body {
-            min-height: 65px;
+            min-height: 20px;
             max-height: calc(100vh - 260px);
             overflow: auto;
             @include webkit_scrollbar();
@@ -5701,6 +5861,39 @@ $colorPrimaryLight: $color_primary_light;
                 border-radius: 50%;
                 margin: 20px 0;
                 box-shadow: 0 7px 15px rgba(#000, 0.10);
+            }
+        }
+
+        .modal-hero {
+            text-align: center;
+            padding: 30px 0 20px;
+            cursor: default;
+
+            .hero-icon {
+                background-color: #134478;
+                width: 100px;
+                height: 100px;
+                border: 5px solid #fff;
+                border-radius: 100px;
+                line-height: 90px;
+                box-shadow: 2px 1px 10px 2px rgba($color: #000000, $alpha: .2);
+                margin: 0 auto 20px;
+                font-size: 40px;
+
+                .mdi {
+                    color: #fff;
+                }
+            }
+
+            .hero-title {
+                font: 600 16px/26px $bf;
+                margin: 0 0 10px;
+            }
+
+            .hero-subtitle {
+                font: 400 14px/20px $bf;
+                margin: 0 0 0;
+                color: #646F79;
             }
         }
     }
@@ -5928,6 +6121,12 @@ $colorPrimaryLight: $color_primary_light;
     &.modal-shops_map {
         .modal-content {
             padding: 0;
+        }
+    }
+    
+    &.modal-employees_edit {
+        .modal-body {
+            overflow: initial;
         }
     }
 
@@ -6200,6 +6399,16 @@ $colorPrimaryLight: $color_primary_light;
         }
     }
 
+    &.modal-lg {
+        .modal-window {
+            width: 820px;
+        }
+
+        .modal-footer {
+            padding: 20px 20px;
+        }
+    }
+
     &.modal-md {
         .modal-window {
             width: 680px;
@@ -6303,6 +6512,10 @@ $colorPrimaryLight: $color_primary_light;
             font: 500 16px $bf;
             margin-top: 20px;
             text-align: center;
+        }
+
+        .modal-body {
+            overflow: initial;
         }
     }
 
