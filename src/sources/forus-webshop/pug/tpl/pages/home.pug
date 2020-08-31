@@ -64,6 +64,11 @@ header.section.section-header.section-header-landing
     .wrapper.block-products: block-products(
         ng-if="$ctrl.appConfigs.flags.homeProducts"
         sample="true")
+    
+    .wrapper.block-products: block-subsidies(
+        ng-if="$ctrl.appConfigs.flags.homeProducts"
+        sample="true")
+
     section.section.section-map(ng-if="$ctrl.appConfigs.flags.homeMap" id="map_block"): .wrapper
         .block.block-map
             .block-content

@@ -37,7 +37,6 @@
             padding: 30px;
             width: 100%;
             position: relative;
-            border-bottom: 1px solid $border_color;
             background: #fff;
             border-radius: 0;
             border-top-right-radius: inherit;
@@ -169,33 +168,65 @@
             }
         }
 
-        .product-footer {
-            width: 100%;
-            background: #fcfcfc;
-            padding: 20px 25px;
+        .product-funds-list {
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
 
-            .product-provider {
-                margin-bottom: 20px;
+            .fund-item {
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 10px;
+                border: 1px solid $border_color;
+                border-radius: $border_radius;
+                overflow: hidden;
+
+                .fund-item-media {
+                    height: 48px;
+                    border-right: 1px solid $border_color;
+                    
+                    .fund-item-media-img {
+                        height: 100%;
+                    }
+                }
+
+                .fund-item-name {
+                    font: 700 14px/28px $bf;
+                    padding: 10px 20px;
+                    border-right: 1px solid $border_color;
+                    flex-grow: 1;
+                }
+
+                .fund-item-limit {
+                    padding: 12px 20px;
+                    display: flex;
+                    flex-direction: row;
+                    border-right: 1px solid $border_color;
+
+                    .fund-item-limit-label {
+                        color: #646F79;
+                        font: 700 12px/22px $bf;
+                        margin-right: 5px;
+                    }
+
+                    .fund-item-limit-value {
+                        font: 700 14px/20px $bf;
+                        height: 22px;
+                        width: 22px;
+                        border-radius: 22px;
+                        border: 1px solid $border_color;
+                        text-align: center;
+                    }
+                }
+
+                .fund-item-price {
+                    font: 700 22px/28px $bf;
+                    padding: 10px 20px;
+                }
 
                 &:last-child {
-                    margin-bottom: 0;
+                    margin-bottom: 0px;
                 }
-            }
-
-            .product-provider-label {
-                color: #646779;
-                font: 400 10px/18px $bf;
-            }
-
-            .product-provider-value {
-                font: 700 16px $bf;
-                color: #131418;
-                margin-bottom: 5px;
-            }
-
-            .product-provider-details {
-                font: 400 13px/20px $bf;
-                color: #131418;
             }
         }
     }

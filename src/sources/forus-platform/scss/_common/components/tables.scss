@@ -124,10 +124,10 @@
             }
 
             &[ng-click]:hover {
-
                 td,
                 th {
                     background: #f6f8f9;
+                    cursor: pointer;
                 }
             }
         }

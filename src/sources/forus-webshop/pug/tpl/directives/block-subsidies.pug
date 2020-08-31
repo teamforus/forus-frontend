@@ -1,0 +1,30 @@
+.section#subisidies
+    h1.section-title(
+        ui-sref="products"
+        ng-if="products.data.length != 0 && sample") Acties
+    
+    .block.block-subsidies(ng-if="products.data.length > 0")
+        .product-row(ng-repeat="products_row in product_rows")
+            .product-item(ng-repeat="product in products_row"): a(ui-sref="products-show(product)").product-item-inner
+                .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
+                    img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
+                    .product-price(ng-bind="product.price_min > 0 ? (product.price_min | currency_format) : 'Free'")
+                .product-details
+                    .product-provider(ng-bind="product.organization.name")
+                    .product-name(ng-bind="product.name")
+
+    empty-block(
+        title= "{{ 'block_products.labels.title' | translate }}"
+        description="{{ 'block_products.labels.subtitle' | translate }}"
+        hide-link="true" 
+        ng-if="products.data.length == 0 && !sample")
+
+    paginator-loader(
+        ng-if="products.meta" 
+        meta="products.meta" 
+        filters="filters" 
+        filters-timeout-attr="['product_category_id']" 
+        on-load-more="onLoadMore(query)" 
+        on-reset="onReset(query)")
+
+    .block.block-show-more(ng-if="sample && products.data.length != 0" ): a(ui-sref="actions" translate="block_products.buttons.more").button.button-primary.button-wide

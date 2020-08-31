@@ -30,21 +30,36 @@
                 ng-bind="'Home'"
                 id="home")
 
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.fundsMenu && $root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
+        nav.navbar-item-wrapper(
+            ng-click="mobileMenu = false"
+            ng-if="$root.appConfigs.flags.fundsMenu && $root.appConfigs.features.funds.list" )
             a.navbar-item(
                 ui-sref="funds" 
                 ui-sref-active="active"
                 translate="topnavbar.items.{{ $root.appConfigs.client_key }}.funds"
                 translate-default="{{ 'topnavbar.items.funds' | translate }}")
         
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.productsMenu || $root.auth_user" ng-click="mobileMenu = false")
+        nav.navbar-item-wrapper(
+            ng-click="mobileMenu = false"
+            ng-if="$root.appConfigs.features.has_budget_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)" )
             a.navbar-item(
                 ui-sref="products" 
                 ui-sref-active="active"
                 ng-bind="'topnavbar.items.products' | translate"
                 id="products_page")
         
-        nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.providersMenu" ng-click="mobileMenu = false")
+        nav.navbar-item-wrapper(
+            ng-click="mobileMenu = false"
+            ng-if="$root.appConfigs.features.has_subsidy_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)" )
+            a.navbar-item(
+                ui-sref="actions" 
+                ui-sref-active="active"
+                ng-bind="'topnavbar.items.subsidies' | translate"
+                id="products_page")
+        
+        nav.navbar-item-wrapper(
+            ng-click="mobileMenu = false"
+            ng-if="$root.appConfigs.flags.providersMenu")
             a.navbar-item(
                 id="providers_page"
                 ui-sref="providers"
@@ -182,4 +197,3 @@
                     ng-repeat="lang in i18nLangs" 
                     ng-bind="'languages.' + lang | translate"
                     ng-click="setLang(lang)")
-    

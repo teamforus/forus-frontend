@@ -38,12 +38,21 @@ section.section.section-product: .wrapper
                     .expire-value(ng-bind="$ctrl.product.expire_at_locale")
 
                 .button.button-primary(
-                    ng-if="$ctrl.isApplicable && !$ctrl.product.deleted"
+                    ng-if="$ctrl.useBudget && $ctrl.isApplicable && !$ctrl.product.deleted"
                     ng-click="$ctrl.applyProduct()") RESERVEER
                 
                 .button.button-primary(
-                    ng-if="!$root.auth_user" 
+                    ng-if="$ctrl.useBudget && !$root.auth_user" 
                     ng-click="openAuthPopup()") LOG IN OM TE RESERVEREN
+
+                .product-funds-list(ng-if="$ctrl.useSubsidies")
+                    .fund-item(ng-repeat="fund in $ctrl.subsidyFunds")
+                        .fund-item-media: img.fund-item-media-img(src="../assets/img/placeholders/fund-thumbnail.png")
+                        .fund-item-name(ng-bind="fund.name")
+                        .fund-item-limit
+                            .fund-item-limit-label Aantal beschikbaar:
+                            .fund-item-limit-value(ng-bind="fund.limit_per_identity")
+                        .fund-item-price(ng-bind="fund.price == 0 ? 'Free' : (fund.price | currency_format)")
 
         .block.block-info-card
             .block-header(i18n="voucher.labels.shopdetail")

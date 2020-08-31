@@ -32,6 +32,33 @@
             
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
+                    label.form-label Fund type
+                    .form-offset(ng-if="!$ctrl.fund"): .block.block-fund_types
+                        .fund_type-item(
+                            ng-click="$ctrl.setType('budget')"
+                            ng-class="{active: $ctrl.form.values.type == 'budget'}"): .fund_type-item-inner
+                            .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-actions.svg')
+                            .fund_type-name Financieel budget
+                            .fund_type-check: .mdi.mdi-check
+                        .fund_type-item(
+                            ng-click="$ctrl.setType('subsidies')"
+                            ng-class="{active: $ctrl.form.values.type == 'subsidies'}"): .fund_type-item-inner
+                            .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-budget.svg')
+                            .fund_type-name Acties
+                            .fund_type-check: .mdi.mdi-check
+                    
+                    .form-offset(ng-if="$ctrl.fund"): .block.block-fund_types
+                        .fund_type-item.fund_type-item-read(ng-if="$ctrl.form.values.type == 'budget'"): .fund_type-item-inner
+                            .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-actions-read.svg')
+                            .fund_type-name Financieel budget
+                            .fund_type-check: .mdi.mdi-check
+                        .fund_type-item.fund_type-item-read(ng-if="$ctrl.form.values.type == 'subsidies'"): .fund_type-item-inner
+                            .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-budget-read.svg')
+                            .fund_type-name Acties
+                            .fund_type-check: .mdi.mdi-check
+            
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
+                .form-group.form-group-inline
                     label(translate="funds_edit.labels.start").form-label
                     datepicker(date-format="dd-MM-yyyy" datepicker-mobile="" date-week-start-day="1").form-control
                         input(

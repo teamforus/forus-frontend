@@ -2,6 +2,7 @@ let FundProviderComponent = function(
     $q,
     $state,
     FundService,
+    ModalService,
     OfficeService,
     ProductService,
     PushNotificationsService
@@ -17,13 +18,31 @@ let FundProviderComponent = function(
 
     $ctrl.tab = "employees";
 
+    $ctrl.openSubsidyProductModal = function(fundProvider, product) {
+        ModalService.open('subsidyProductEdit', {
+            product: product,
+            fund: fundProvider.fund,
+            fundProvider: fundProvider,
+            onApproved: (fundProvider) => {
+                PushNotificationsService.success('Opgeslagen!');
+                $ctrl.fundProvider = fundProvider;
+                $ctrl.fetchProducts(fundProvider, $ctrl.filters.values);
+            }
+        });
+    };
+
+    $ctrl.disableProductItem = function(fundProvider, product) {
+        product.allowed = false;
+        $ctrl.updateAllowBudgetItem(fundProvider, product);
+    };
+
     $ctrl.updateAllowBudget = function(fundProvider) {
         FundService.updateProvider(
             fundProvider.fund.organization_id,
             fundProvider.fund.id,
             fundProvider.id, {
-                allow_budget: fundProvider.allow_budget
-            }
+            allow_budget: fundProvider.allow_budget
+        }
         ).then((res) => {
             PushNotificationsService.success('Opgeslagen!');
             $ctrl.fundProvider = res.data.data;
@@ -35,13 +54,11 @@ let FundProviderComponent = function(
             fundProvider.fund.organization_id,
             fundProvider.fund.id,
             fundProvider.id, {
-                enable_products: product.allowed ? [
-                    product.id
-                ] : [],
-                disable_products: !product.allowed ? [
-                    product.id
-                ] : []
-            }
+            enable_products: product.allowed ? [{
+                id: product.id
+            }] : [],
+            disable_products: !product.allowed ? [product.id] : [],
+        }
         ).then((res) => {
             PushNotificationsService.success('Opgeslagen!');
             $ctrl.fundProvider = res.data.data;
@@ -53,18 +70,20 @@ let FundProviderComponent = function(
             fundProvider.fund.organization_id,
             fundProvider.fund.id,
             fundProvider.id, {
-                allow_products: fundProvider.allow_products
-            }
+            allow_products: fundProvider.allow_products
+        }
         ).then((res) => {
             PushNotificationsService.success('Opgeslagen!');
             $ctrl.fundProvider = res.data.data;
         }, console.error);
     };
 
-    $ctrl.onPageChange = (query = {}) => {
+    $ctrl.fetchProducts = (fundProvider, query = {}) => {
         return $q((resolve, reject) => {
-            ProductService.list(
-                $ctrl.fundProvider.organization_id,
+            FundService.listProviderProducts(
+                fundProvider.fund.organization_id,
+                fundProvider.fund.id,
+                fundProvider.id,
                 Object.assign({}, query)
             ).then((res) => {
                 resolve($ctrl.products = {
@@ -73,6 +92,10 @@ let FundProviderComponent = function(
                 });
             }, reject);
         });
+    };
+
+    $ctrl.onPageChange = (query = {}) => {
+        return $ctrl.fetchProducts($ctrl.fundProvider, query);
     };
 
     $ctrl.transformProduct = (product) => {
@@ -110,53 +133,21 @@ let FundProviderComponent = function(
     };
 
     $ctrl.prepareProperties = () => {
-        let organization =  $ctrl.fundProvider.organization;
+        let organization = $ctrl.fundProvider.organization;
         let properties = [];
 
-        if (organization.email) {
-            properties.push({
-                label: "E-mail",
-                value: organization.email,
-                primary: true,
-            });
-        }
+        let makeProp = (label, value, primary = false) => ({
+            label: label,
+            value: value,
+            primary: primary,
+        });
 
-        if (organization.website) {
-            properties.push({
-                label: "Website",
-                value: organization.website,
-                primary: true,
-            });
-        }
-
-        if (organization.phone) {
-            properties.push({
-                label: "Telefoonnummer",
-                value: organization.phone,
-                primary: true,
-            });
-        }
-
-        if (organization.kvk) {
-            properties.push({
-                label: "KVK",
-                value: organization.kvk,
-            });
-        }
-
-        if (organization.iban) {
-            properties.push({
-                label: "IBAN",
-                value: organization.iban,
-            });
-        }
-
-        if (organization.btw) {
-            properties.push({
-                label: "BTW",
-                value: organization.btw,
-            });
-        }
+        organization.email && properties.push(makeProp("E-mail", organization.email, true));
+        organization.website && properties.push(makeProp("Website", organization.website, true));
+        organization.phone && properties.push(makeProp("Telefoonnummer", organization.phone, true));
+        organization.kvk && properties.push(makeProp("KVK", organization.kvk));
+        organization.iban && properties.push(makeProp("IBAN", organization.iban))
+        organization.btw && properties.push(makeProp("BTW", organization.btw));
 
         let count = properties.length;
 
@@ -189,6 +180,7 @@ module.exports = {
         '$q',
         '$state',
         'FundService',
+        'ModalService',
         'OfficeService',
         'ProductService',
         'PushNotificationsService',
