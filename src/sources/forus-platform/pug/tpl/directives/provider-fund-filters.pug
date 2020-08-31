@@ -2,7 +2,7 @@
     .form-group.col.col-lg-6.col-xs-12
         label.form-label(translate="sign_up_provider.filters.labels.organizations")
         select(
-            ng-options="fundOrganization.id_str as fundOrganization.name for fundOrganization in fundOrganizations" 
+            ng-options="fundOrganization.id as fundOrganization.name for fundOrganization in fundOrganizations" 
             ng-model="fundOrganization"
             ng-change="filterFunds()").form-control 
 

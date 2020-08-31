@@ -49,7 +49,12 @@ let PrevalidatedTableDirective = async function(
     };
 
     $scope.$on('csv:uploaded', function() {
-        $scope.filters.values.page = 1;
+        if ($scope.filters.values.page === 1) {
+            $scope.onPageChange($scope.filters.values);
+        } else {
+            $scope.filters.values.page = 1;
+        }
+
     })
 
     $scope.onPageChange = async (query) => {

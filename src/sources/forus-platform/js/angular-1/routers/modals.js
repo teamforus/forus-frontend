@@ -87,6 +87,10 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalVoucherExportTypeComponent'
     });
 
+    ModalRouteProvider.modal('dangerZone', {
+        component: 'modalDangerZoneComponent'
+    });
+    
     ModalRouteProvider.modal('fundProviderChatSponsor', {
         component: 'modalFundProviderChatSponsorComponent'
     });
@@ -97,5 +101,9 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
 
     ModalRouteProvider.modal('fundProviderChatMessage', {
         component: 'modalFundProviderChatMessageComponent'
+    });
+
+    ModalRouteProvider.modal('duplicatesPicker', {
+        component: 'modalDuplicatesPickerComponent'
     });
 }];

@@ -195,7 +195,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => repackResponse(FundService.list(
                 $transition$.params().organization_id
             ))],
-            fundLevel: [('permission'), (permission) => "organizationFunds"]
+            fundLevel: [('permission'), (permission) => "organizationFunds"],
+            recordTypes: ['permission', 'RecordTypeService', (
+                permission, RecordTypeService
+            ) => repackResponse(RecordTypeService.list())],
+            validatorOrganizations: ['permission', '$transition$', 'OrganizationService', (
+                permission, $transition$, OrganizationService
+            ) => repackPagination(OrganizationService.readListValidators(
+                $transition$.params().organization_id, {
+                    per_page: 100
+                }
+            ))],
         }
     });
 
@@ -220,6 +230,47 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => funds.filter(
                 fund => fund.id == $transition$.params().fund_id
             )[0] || null],
+        }
+    });
+    
+    $stateProvider.state({
+        name: "external-validators",
+        url: "/organizations/{organization_id}/external-validators",
+        component: "externalValidatorsComponent",
+        params: {
+            fund_id: null,
+        },
+        resolve: {
+            permission: permissionMiddleware('organization-providers', 'manage_organization'),
+            organization: organziationResolver(),
+            validatorOrganizations: ['permission', '$transition$', 'OrganizationService', (
+                permission, $transition$, OrganizationService
+            ) => repackPagination(OrganizationService.listValidatorsAvailable())],
+            validatorOrganizationsApproved: ['permission', '$transition$', 'OrganizationService', (
+                permission, $transition$, OrganizationService
+            ) => repackPagination(OrganizationService.readListValidators(
+                $transition$.params().organization_id, {
+                    per_page: 100
+                }
+            ))],
+        }
+    });
+    
+    $stateProvider.state({
+        name: "external-funds",
+        url: "/organizations/{organization_id}/external-funds",
+        component: "externalFundsComponent",
+        params: {
+            fund_id: null,
+        },
+        resolve: {
+            permission: permissionMiddleware('organization-providers', 'manage_organization'),
+            organization: organziationResolver(),
+            funds: ['permission', '$transition$', 'OrganizationService', (
+                permission, $transition$, OrganizationService
+            ) => repackPagination(OrganizationService.listExternalFunds(
+                $transition$.params().organization_id
+            ))],
         }
     });
 
@@ -428,7 +479,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => repackResponse(ProductCategoryService.listAll())],
             fundStates: ['permission', 'FundService', (
                 permission, FundService
-            ) => FundService.states()]
+            ) => FundService.states()],
+            recordTypes: ['permission', 'RecordTypeService', (
+                permission, RecordTypeService
+            ) => repackResponse(RecordTypeService.list())],
+            validatorOrganizations: ['permission', '$transition$', 'OrganizationService', (
+                permission, $transition$, OrganizationService
+            ) => repackPagination(OrganizationService.readListValidators(
+                $transition$.params().organization_id, {
+                    per_page: 100
+                }
+            ))],
         }
     });
 
@@ -464,8 +525,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('funds-edit', 'manage_funds'),
-            fund: ['$transition$', 'FundService', (
-                $transition$, FundService
+            fund: ['permission', '$transition$', 'FundService', (
+                permission, $transition$, FundService
             ) => repackResponse(FundService.read(
                 $transition$.params().organization_id,
                 $transition$.params().id
@@ -477,12 +538,22 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                     role: 'validation'
                 }
             ))],
-            productCategories: ['ProductCategoryService', (
-                ProductCategoryService
+            productCategories: ['permission', 'ProductCategoryService', (
+                permission, ProductCategoryService
             ) => repackResponse(ProductCategoryService.listAll())],
-            fundStates: ['FundService', (
-                FundService
-            ) => FundService.states()]
+            fundStates: ['permission', 'FundService', (
+                permission, FundService
+            ) => FundService.states()],
+            recordTypes: ['permission', 'RecordTypeService', (
+                permission, RecordTypeService
+            ) => repackResponse(RecordTypeService.list())],
+            validatorOrganizations: ['permission', '$transition$', 'OrganizationService', (
+                permission, $transition$, OrganizationService
+            ) => repackPagination(OrganizationService.readListValidators(
+                $transition$.params().organization_id, {
+                    per_page: 100
+                }
+            ))],
         }
     });
 
@@ -766,7 +837,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => repackResponse(TransactionService.show(
                 appConfigs.panel_type,
                 $transition$.params().organization_id,
-                $transition$.params().address,
+                $transition$.params().address
             ))]
         }
     });

@@ -72,6 +72,7 @@ let VouchersComponent = function(
         ModalService.open('vouchersUpload', {
             fund: $ctrl.fund,
             organization: $ctrl.organization,
+            type: $ctrl.filters.values.type,
             done: () => {
                 $state.reload();
             }

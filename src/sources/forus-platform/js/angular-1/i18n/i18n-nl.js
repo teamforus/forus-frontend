@@ -47,11 +47,17 @@ module.exports = {
         modal_funds_offers: require('./nl/modals/modal-fund-offers.pug.i18n'),
         modal_business_add: require('./nl/modals/modal-business-add.pug.i18n'),
         modal_voucher_export: require('./nl/modals/modal-voucher-export.pug.i18n'),
+        modal_fund_criteria_description: require('./nl/modals/modal-fund-criteria-description.i18n'),
+        danger_zone: {
+            remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator')
+        },
     },
     // PAGES
     vouchers: require('./nl/pages/vouchers.pug.i18n'),
     product_vouchers: require('./nl/pages/product-vouchers.pug.i18n'),
     voucher_printable: require('./nl/pages/voucher-printable.pug.i18n'),
+
+    components: require("./nl/i18n-components"),
 
     // MEAPP LANDINGSPAGE = index.pug
     meapp_index: {
@@ -301,8 +307,8 @@ module.exports = {
             usage: "uitgegeven",
             payed: "Uitgegeven bij",
             shops: "Aanbieders",
-            activation: "Aantal geactiveerd",
-            citizen: "Nieuwe inwoners",
+            activation: "aantal verstrekte tegoeden",
+            citizen: "Totaal in omloop",
             provider: "Aanbieders",
             transactions: "transacties",
             service_costs: "Servicekosten",
@@ -368,12 +374,6 @@ module.exports = {
             cancel: "Annuleren",
             confirm: "Bevestigen",
         }
-    },
-
-    // PERSONAL FUNDS = funds-my.pug
-    funds_my: {
-        title: "Fondsen",
-        add: 'Fonds toevoegen'
     },
 
     // SHOW FUNDS = funds-show.pug
@@ -679,6 +679,7 @@ module.exports = {
             title_step_3: "Ontvang de download link naar de Me-app",
             subtitle_step_3: "",
             title_step_3_mail: "Op een later moment de Me-app installeren",
+            title_step_3_mail_mobile: "Maak een account aan",
             title_step_4: "Kies of maak een organisatie",
             subtitle_step_4: "Aan uw e-mailadres zijn de volgende organisaties gekoppeld. Kies een bestaande organisatie of voeg een nieuwe organisatie toe.",
             title_step_5: "Maak een organisatie aan",
@@ -819,7 +820,7 @@ module.exports = {
             title: 'Deze pagina is niet mobiel te benaderen.',
             description: 'Aanmelden voor een fonds is alleen mogelijk via onze website op een vaste computer.'
         },
-        sms:{
+        sms: {
             body: 'Download Me makkelijk via de link: https://www.forus.io/DL',
             title: 'Download <i>Me</i> op uw mobiele telefoon',
             description: 'Vul uw telefoonnummer in het onderstaande invoerveld om een sms te ontvangen met de download link.',
@@ -847,7 +848,7 @@ module.exports = {
         header: {
             main_header: "Aanmelden als sponsor",
             go_back: "Terug",
-            title_step_1: "Welkom", 
+            title_step_1: "Welkom",
             subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als sponsor. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
             title_step_2: "Maak een account",
             title_step_3: "Vestiging kiezen",
@@ -951,7 +952,7 @@ module.exports = {
                 "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.",
                 "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
             ].join("\n"),
-            no_app: "Ik wil inloggen met mijn emailadres >"    
+            no_app: "Ik wil inloggen met mijn emailadres >"
         },
         app_header: {
             title: 'Vul de code in op het invoerveld',
@@ -972,7 +973,7 @@ module.exports = {
         header: {
             main_header: "Aanmelden als validator",
             go_back: "Terug",
-            title_step_1: "Welkom", 
+            title_step_1: "Welkom",
             subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als validator. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
             title_step_2: "Hoe werkt het?",
             subtitle_step_2: "Als validator gaat u controleren of aanvragers aan de voorwaarden voldoen die worden gesteld door de sponsor. ",
@@ -1074,6 +1075,7 @@ module.exports = {
             title: "Heeft u de Me App al?",
             description_top: [
                 "De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
+                "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.",
             ].join("\n"),
             description_bottom: [
                 "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.", 
@@ -1194,8 +1196,8 @@ module.exports = {
         },
         status: {
             hold: "Wachten",
-            pending: 'Wachtend', 
-            declined: 'Geweigerd', 
+            pending: 'Wachtend',
+            declined: 'Geweigerd',
             approved: 'Geaccepteerd'
         },
         buttons: {
@@ -1364,7 +1366,7 @@ module.exports = {
             applicants: "Aanvragers",
             employees: "medewerkers"
         },
-        confirm_delete:{
+        confirm_delete: {
             title: 'Weet u zeker dat u dit fonds wilt verwijderen?',
             description: 'Het verwijderen van een fonds is definitief. U kunt dit niet ongedaan maken.'
         }
@@ -1628,7 +1630,7 @@ module.exports = {
             funds: {
                 new_fund_started: {
                     title: 'Fonds is van start gegaan',
-                    description: 'Ontvang een notificatie wanneer er een fonds waar u voor bent aangemeld is gestart en u klanten kunt verwachten.' 
+                    description: 'Ontvang een notificatie wanneer er een fonds waar u voor bent aangemeld is gestart en u klanten kunt verwachten.'
                 },
                 new_fund_applicable: {
                     title: 'Nieuw fonds waar u zich voor kunt aanmelden',
@@ -1712,7 +1714,6 @@ module.exports = {
                 }
             }
         }
-    
+
     }
 }
-

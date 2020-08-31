@@ -16,7 +16,7 @@
         ng-model="$dir.weekend_same_hours")
 
     //- desktop version
-    table(width="100%").hide-sm
+    .visible-md.visible-lg: table(width="100%")
         tHead: tr
             th(translate="organization_edit.labels.day")
             th(translate="organization_edit.labels.closed")
@@ -35,7 +35,7 @@
                         ng-change="$dir.toggleOpened($index)"
                         ng-model="$dir.scheduleDetails[weekDayKey].is_closed")
                 
-                br.hide-lg
+                br.visible-md.visible-sm.visible-xs
                 td
                     select(
                         ng-model="$dir.scheduleDetails[weekDayKey].start_time"
@@ -55,14 +55,14 @@
                         ng-options="item.key as item.value for item in $dir.timeOptions[weekDayKey].time.to").form-control.form-control-sm
 
                 td.breaks
-                    .flex-row
-                        .flex-col: select(
+                    .row
+                        .col.col-sm-6: select(
                             ng-model="$dir.scheduleDetails[weekDayKey].break_start_time"
                             ng-change="$dir.syncHours($index, 'break_start_time')"
                             ng-if="!$dir.scheduleDetails[weekDayKey].is_closed"
                             ng-options="item.key as item.value for item in $dir.timeOptions[weekDayKey].break.from").form-control.form-control-sm
 
-                        .flex-col: select(
+                        .col.col-sm-6: select(
                             ng-model="$dir.scheduleDetails[weekDayKey].break_end_time"
                             ng-change="$dir.syncHours($index, 'break_end_time')"
                             ng-if="!$dir.scheduleDetails[weekDayKey].is_closed"
@@ -74,7 +74,7 @@
         br
 
     //- mobile version
-    .block-schedule-mobile.show-sm
+    .block-schedule-mobile.visible-sm.visible-xs
         .block-schedule-day(ng-repeat="(weekDayKey, weekDay) in $dir.weekDays track by $index")
             .block-schedule-day-name: .flex-row
                 .flex-col(ng-class="$index >= 5 ? 'text-danger' : ''" ng-bind="weekDay")

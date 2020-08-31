@@ -24,12 +24,16 @@
 @import 'components/labels';
 @import 'components/flex-grid';
 
-@import '../../../forus-webshop/scss/_common/includes/common';
 @import '../../../forus-webshop/scss/_common/components/ui-controls';
 
 // blocks
 .block {
     @import 'blocks/block-chat';
+    @import 'blocks/block-funds';
+    @import 'blocks/block-critera-editor';
+    @import 'blocks/block-card-toggleable';
+    @import 'blocks/block-external-validators';
+    @import 'blocks/block-danger_zone';
     @import 'blocks/block-sessions';
     @import 'blocks/block-products';
     @import 'blocks/block-providers';
@@ -38,7 +42,6 @@
     @import 'blocks/block-notifications';
     @import '../../../forus-webshop/scss/_common/sections/blocks/block-sign_up';
 }
-
 
 $borderRadius: $border_radius;
 $colorPrimary: $color_primary;
@@ -210,20 +213,26 @@ $colorPrimaryLight: $color_primary_light;
                 .organization-switcher-menu-organization {
                     display: flex;
                     padding: 7.5px 10px;
-
-                    &:hover, &.active {
-                        .organization-name {
-                            color: #004195;
-                        }
-                    }
-
-                    &:hover {
-                        background-color: #f1f4f7;
+                    transition: color .4s, background .4s;
+                        
+                    .organization-name {
+                        transition: color .4s, background .4s;
                     }
 
                     &.active {
+                        background: $color_primary_light;
+                        
                         .organization-name {
                             font-weight: 600;
+                            color: #fff;
+                        }
+                    }
+
+                    &:hover:not(.active) {
+                        background-color: #f1f4f7;
+
+                        .organization-name {
+                            color: #004195;
                         }
                     }
                 }
@@ -2334,19 +2343,28 @@ $colorPrimaryLight: $color_primary_light;
                     .card-block {
                         &.card-block-fund {
                             padding-top: 0px;
+                            display: flex;
 
-                            .fund-organization {
-                                display: block;
-                                margin-bottom: 0px;
-                                font: 400 16px/20px $bf;
-                                color: #222530;
+                            .fund-img {
+                                margin: auto 10px;
+                                padding: 0px;
+                                width: 50px;
+                                height: 50px;
                             }
 
-                            .fund-title {
-                                display: block;
-                                font: 500 18px/22px $bf;
-                                color: #191A1C;
-                                margin-bottom: 8px;
+                            .fund-details {
+                                .fund-title {
+                                    display: block;
+                                    font: 500 18px/28px $bf;
+                                    color: #191A1C;
+                                }
+
+                                .fund-organization {
+                                    display: block;
+                                    font: 400 14px/18px $bf;
+                                    color: #222530;
+                                    margin: 0px 0px;
+                                }
                             }
                         }
                     }
@@ -4637,6 +4655,13 @@ $colorPrimaryLight: $color_primary_light;
     
         .auth-form {
             margin: 0 0 30px;
+            display: flex;
+            flex-direction: row;
+
+            .auth-form-input {
+                flex-grow: 1;
+                padding-right: 20px;
+            }
     
             .button {
                 box-shadow: none;
@@ -5331,6 +5356,64 @@ $colorPrimaryLight: $color_primary_light;
         }
     }
 
+    &.block-switch-table {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        background: #fff;
+        cursor: default;
+        max-height: 300px;
+        overflow: auto;
+        @include webkit_scrollbar();
+
+        .switch-row {
+            border-bottom: 1px solid $borderColor;
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            cursor: pointer;
+            
+            .switch-label {
+                font: 600 13px/20px $bf;
+                color: $tc;
+                padding: 12.5px 20px 11.5px;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: row;
+                
+                .switch-key-icon {
+                    font-size: 1.2em;
+                    margin-right: 5px;
+                    line-height: 20px;
+                }
+            }
+            
+            .switch-input {
+                font: 600 13px/20px $bf;
+                color: $tc;
+                padding: 12.5px 20px 11.5px;
+                display: flex;
+                flex-direction: row;
+                white-space: nowrap;
+                overflow: hidden;
+
+                .switch-input-label {
+                    opacity: 1;
+                    transition: opacity .4s;
+                    cursor: pointer;
+
+                    &.switch-input-label-blink {
+                        opacity: 0;
+                    }
+                }
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+
     &.block-user_emails {
         display: flex;
         flex-direction: column;
@@ -5482,7 +5565,7 @@ $colorPrimaryLight: $color_primary_light;
         }
 
         .modal-body {
-            min-height: 65px;
+            min-height: 20px;
             max-height: calc(100vh - 260px);
             overflow: auto;
             @include webkit_scrollbar();
@@ -5690,6 +5773,39 @@ $colorPrimaryLight: $color_primary_light;
                 border-radius: 50%;
                 margin: 20px 0;
                 box-shadow: 0 7px 15px rgba(#000, 0.10);
+            }
+        }
+
+        .modal-hero {
+            text-align: center;
+            padding: 30px 0 20px;
+            cursor: default;
+
+            .hero-icon {
+                background-color: #134478;
+                width: 100px;
+                height: 100px;
+                border: 5px solid #fff;
+                border-radius: 100px;
+                line-height: 90px;
+                box-shadow: 2px 1px 10px 2px rgba($color: #000000, $alpha: .2);
+                margin: 0 auto 20px;
+                font-size: 40px;
+
+                .mdi {
+                    color: #fff;
+                }
+            }
+
+            .hero-title {
+                font: 600 16px/26px $bf;
+                margin: 0 0 10px;
+            }
+
+            .hero-subtitle {
+                font: 400 14px/20px $bf;
+                margin: 0 0 0;
+                color: #646F79;
             }
         }
     }
@@ -6192,6 +6308,16 @@ $colorPrimaryLight: $color_primary_light;
                 flex-grow: 1;
                 overflow: auto;
             } 
+        }
+    }
+
+    &.modal-lg {
+        .modal-window {
+            width: 820px;
+        }
+
+        .modal-footer {
+            padding: 20px 20px;
         }
     }
 

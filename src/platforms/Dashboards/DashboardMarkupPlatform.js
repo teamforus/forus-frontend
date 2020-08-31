@@ -16,7 +16,8 @@ platform.editTask('pug', (task) => {
     task.src = "markup/*.pug";
     task.path = "/markup";
     task.watch = [
-        "layout/**/*.pug"
+        "layout/**/*.pug",
+        "markup/**/*.pug"
     ];
 
     return task;

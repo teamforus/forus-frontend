@@ -1,4 +1,4 @@
-$pad: $wrapperPadding / 4;
+$pad: 10px;
 $columns: 12;
 $media_md: 1600px;
 $media_sm: 1300px;
@@ -23,7 +23,6 @@ $media_xs: 1000;
     flex-grow: 1;
     max-width: 100%;
     padding: 0 $pad;
-    flex-basis: auto;
 
     &.flex-col-padless-right {
         padding-right: 0;
