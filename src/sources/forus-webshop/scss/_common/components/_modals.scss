@@ -53,6 +53,31 @@
         }
     }
 
+    .modal-header {
+        background: #fff;
+        border-bottom: 1px solid $border_color;
+        border-top-left-radius: $border_radius;
+        border-top-right-radius: $border_radius;
+        padding: 15px 30px;
+        cursor: default;
+
+        .modal-title {
+            font: 700 22px/30px $bf;
+            margin: 0 0 10;
+            color: $tc;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .modal-subtitle {
+            font: 700 14px/20px $bf;
+            margin: 0 0 0;
+            color: #646F79;
+        }
+    }
+
     .modal-content {
         position: relative;
         width: 1200px;
@@ -258,6 +283,8 @@
             padding: 0;
         }
     }
+
+    
 
     &.modal-animated {
         .modal-backdrop,

@@ -73,6 +73,7 @@ module.exports = {
     popup_auth: require("./nl/modals/modal-auth"),
     popup_offices: require("./nl/modals/modal-offices"),
     open_in_me: require("./nl/modals/modal-open-in-me"),
+    physical_card: require("./nl/modals/modal-physical_card"),
     expired_identity: require("./nl/modals/modal-expired-identity-proxy"),
     modal: require("./nl/modals/modal"),
 

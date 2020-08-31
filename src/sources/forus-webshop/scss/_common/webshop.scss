@@ -98,5 +98,10 @@
     @import 'sections/blocks/block-sessions.scss';
     @import 'sections/blocks/block-sign_up.scss';
     @import 'sections/blocks/block-notifications-table.scss';
+    @import 'sections/blocks/block-physical-card.scss';
     @import 'sections/blocks/block-error-page.scss';
+}
+
+.modal {
+    @import 'modals/modal-physical-cards.scss';
 }

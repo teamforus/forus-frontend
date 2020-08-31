@@ -40,5 +40,12 @@ module.exports = ['ModalRouteProvider', function(
     ModalRouteProvider.modal('identityProxyExpired', {
         component: 'modalIdentityProxyExpiredComponent'
     });
-
+    
+    ModalRouteProvider.modal('modalPhysicalCardType', {
+        component: 'modalPhysicalCardTypeComponent'
+    });
+    
+    ModalRouteProvider.modal('modalPhysicalCardUnlink', {
+        component: 'modalPhysicalCardUnlinkComponent'
+    });
 }];
