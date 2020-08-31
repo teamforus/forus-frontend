@@ -128,8 +128,7 @@
                             label.form-label(translate="physical_card.modal_section.request_new_card.city")
                             input(
                                 placeholder="{{ 'physical_card.modal_section.request_new_card.city_placeholder' | translate }}" 
-                                ng-model="$ctrl.requestPhysicalCardForm.values.city"
-                                disabled).form-control
+                                ng-model="$ctrl.requestPhysicalCardForm.values.city").form-control
                             .form-error(ng-repeat="error in $ctrl.requestPhysicalCardForm.errors.city" ng-bind="error")
                             .form-group: .form-error(ng-repeat="error in $ctrl.requestPhysicalCardForm.errors.to_many_requests" ng-bind="error")
                     

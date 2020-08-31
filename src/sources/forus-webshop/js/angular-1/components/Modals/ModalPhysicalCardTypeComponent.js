@@ -57,9 +57,7 @@ let ModalPhysicalCardTypeComponent = function(
             });
         });
 
-        $ctrl.requestPhysicalCardForm = FormBuilderService.build({
-            city: 'Groningen'
-        }, (form) => {
+        $ctrl.requestPhysicalCardForm = FormBuilderService.build({}, (form) => {
             PhysicalCardsRequestService.store(
                 $ctrl.modal.scope.voucher.address, 
                 form.values
@@ -92,9 +90,7 @@ let ModalPhysicalCardTypeComponent = function(
 
     $ctrl.prefferPlasticCard = () => {
         PhysicalCardsRequestService.index($ctrl.modal.scope.voucher.address).then(res => {
-            $ctrl.requestPhysicalCardForm.values = Object.assign(res.data.data[0] || {}, {
-                city: 'Groningen'
-            });
+            $ctrl.requestPhysicalCardForm.values = res.data.data[0] || {};
             
             $ctrl.preffersPlasticCard = true;
 
