@@ -180,10 +180,15 @@ $bf: 'Montserrat', arial, sans-serif;
                 font: 400 16px/26px $bf;
                 margin: 0 0 15px;
 
+                &.sign_up-pane-text-title{
+                    font-weight: 600;
+                    margin: 0;
+                }
+
                 a {
                     font: inherit;
                     color: #3561FF;
-                    font-weight: 500;
+                    font-weight: 500;                   
                 }
 
                 .sign_up-pane-link {

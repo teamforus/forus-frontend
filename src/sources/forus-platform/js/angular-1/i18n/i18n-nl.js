@@ -665,13 +665,16 @@ module.exports = {
             main_header: "Aanmelden als aanbieder",
             go_back: "Terug",
             title_step_1: "Welkom", 
-            subtitle_step_1: "Door dit online formulier in te vullen meldt u uw organisatie aan als aanbieder. Het invullen duurt ongeveer 5 minuten. <br/><br/>" +
-                "<b> Aanbiedingen plaatsen en betalingen ontvangen </b> <br/>" +
-                "Na het aanmelden krijgt u toegang tot uw aanbieders webomgeving. Nadat uw aamelding is geaccepteerd kunt u producten en/of diensten aanbieden en betalingen ontvangen. <br/><br/>" +
-                "<b> Hulp nodig? </b> <br/> Tijdens het doorlopen van het formulier vindt u rechts onderin het blauwe vraagteken. Hiermee opent u de helpdesk. <br/><br/>",
+            subtitle_step_1: "Door dit online formulier in te vullen meldt u uw organisatie aan als aanbieder. Het invullen duurt ongeveer 5 minuten.",
+            title_step_1_paragrah_1: "Aanbiedingen plaatsen en betalingen ontvangen",
+            subtitle_step_1_paragrah_1: "Na het aanmelden krijgt u toegang tot uw aanbieders webomgeving. Nadat uw aamelding is geaccepteerd kunt u producten en/of diensten aanbieden en betalingen ontvangen.",
+            title_step_1_paragrah_2: "Heeft u al een account?",
+            subtitle_step_1_paragrah_2: "of rechts bovenin om in te loggen met een bestaand account. U hoeft het aanmeldformulier dan niet te doorlopen.",
+            title_step_1_paragrah_3: "Hulp nodig?",
+            subtitle_step_1_paragrah_3: "Tijdens het doorlopen van het formulier vindt u rechts onderin het blauwe vraagteken. Hiermee opent u de helpdesk.",
             title_step_2: "Benodigdheden",
             subtitle_step_2: "U gaat de me app gebruiken om betalingen te ontvangen. In de volgende stap downloadt u de app. Aan het gebruik van de app zijn geen kosten verbonden. <br/><br/>" + 
-                "De <i>Me</i> app is beschikbaar voor Android en iOS telefoons en tablets.<br/><br/>" + 
+                "De Me app is beschikbaar voor Android en iOS telefoons en tablets.<br/><br/>" + 
                 "U heeft nodig:<br/><br/>" + 
                 "<ul>" + 
                 "<li>Mobiele telefoon of tablet met camera en internet</li>" +
