@@ -5,6 +5,7 @@ let FundRequestsComponent = function(
     FileService,
     FundService,
     ModalService,
+    DateService,
     OrganizationService,
     OrganizationEmployeesService,
     FundRequestValidatorService,
@@ -46,8 +47,11 @@ let FundRequestsComponent = function(
         show: false,
         values: {},
         reset: function() {
-            $ctrl.filters.values.q = '';
-            $ctrl.filters.values.state = $ctrl.states[0].key;
+            this.values.q = '';
+            this.values.state = $ctrl.states[0].key;
+            this.values.employee_id = null;
+            this.values.from = '';
+            this.values.to = null;
         }
     };
 
@@ -83,10 +87,17 @@ let FundRequestsComponent = function(
         if (query) {
             $ctrl.filters.values = query;
         }
+        let _query = JSON.parse(JSON.stringify($ctrl.filters.values));
 
         FundRequestValidatorService.indexAll(
             $ctrl.organization.id,
-            $ctrl.filters.values
+            Object.assign(_query, {
+                per_page: 25,
+                from: _query.from ? DateService._frontToBack(_query.from) : null,
+                to: _query.to ? DateService._frontToBack(_query.to) : null,
+                sort_by: 'created_at',
+                sort_order: 'desc'
+            })
         ).then(function(res) {
             $ctrl.validatorRequests = res.data;
             $ctrl.validatorRequests.data.forEach(request => {
@@ -253,10 +264,21 @@ let FundRequestsComponent = function(
                 return;
             }
 
-            OrganizationEmployeesService.list($ctrl.organization.id).then(res => {
+            OrganizationEmployeesService.list($ctrl.organization.id, {
+                per_page: 100,
+                role: 'validation',
+            }).then(res => {
+                $ctrl.employees = res.data.data;
+
                 $ctrl.employee = res.data.data.filter((employee) => {
                     return employee.identity_address == $scope.$root.auth_user.address;
                 })[0];
+
+                $ctrl.employees.unshift({
+                    id: null,
+                    email: "Selecteer medewerker"
+                });
+                $ctrl.filters.values.employee_id = $ctrl.employees[0].id;
 
                 $ctrl.updateSelfAssignedFlags();
             });
@@ -327,6 +349,7 @@ module.exports = {
         'FileService',
         'FundService',
         'ModalService',
+        'DateService',
         'OrganizationService',
         'OrganizationEmployeesService',
         'FundRequestValidatorService',
