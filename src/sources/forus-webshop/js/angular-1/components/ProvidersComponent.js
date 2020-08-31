@@ -197,8 +197,6 @@ let ProvidersComponent = function(
 
         $ctrl.updateFiltersUsedCount();
     };
-
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {

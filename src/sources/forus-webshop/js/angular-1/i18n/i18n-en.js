@@ -47,6 +47,7 @@ module.exports = {
 
     // PAGES
     fund_apply: require("./en/pages/fund-apply"),
+    fund_request: require("./en/pages/fund-request"),
     funds: require("./en/pages/funds"),
     home: require("./en/pages/home"),
     meapp_index: require("./en/pages/me-index"),
@@ -59,6 +60,7 @@ module.exports = {
     voucher: require("./en/pages/voucher"),
     vouchers: require("./en/pages/vouchers"),
     notification_preferences: require("./en/pages/notification-preferences"),
+    error_page: require("./en/pages/error-page"),
 
     // MODALS
     popup_auth: require("./en/modals/modal-auth"),
