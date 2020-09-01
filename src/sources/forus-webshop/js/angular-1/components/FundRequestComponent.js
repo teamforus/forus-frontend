@@ -112,6 +112,8 @@ let FundRequestComponentDefault = function(
         base_salary: '€'
     };
 
+    $ctrl.digidAvailable = $ctrl.appConfigs.features.digid;
+
     let trans_record_checkbox = (criteria_record_key, criteria_value) => {
         let trans_key = 'fund_request.sign_up.record_checkbox.' + criteria_record_key;
         let trans_fallback_key = 'fund_request.sign_up.record_checkbox.default';
@@ -420,6 +422,11 @@ let FundRequestComponentDefault = function(
     };
 
     $ctrl.nextStep = () => {
+        if (!$ctrl.signedIn && $ctrl.digidAvailable) {
+            $ctrl.state = 'digid_login';
+            return;
+        }
+
         $ctrl.buildSteps();
 
         if ($ctrl.step == $ctrl.totalSteps.length) {
