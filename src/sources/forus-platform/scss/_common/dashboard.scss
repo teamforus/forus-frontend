@@ -6436,6 +6436,17 @@ $colorPrimaryLight: $color_primary_light;
         }
     }
 
+    &.modal-image-preview {
+        .img-block {
+            display: flex;
+            margin: 50px auto;
+
+            img {
+                height: 100%;
+            }
+        }   
+    }
+
     @media screen and (max-width: 1500px) {
         .modal-content {
             width: 1000px;

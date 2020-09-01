@@ -1,8 +1,8 @@
-let ModalPdfPreviewComponent = function() {
+let ModalImagePreviewComponent = function() {
     let $ctrl = this;
 
     $ctrl.$onInit = () => {
-        $ctrl.rawPdfFile = $ctrl.modal.scope.rawPdfFile;
+        $ctrl.imageSrc = $ctrl.modal.scope.imageSrc;
     };
     $ctrl.$onDestroy = function() {};
 };
@@ -13,9 +13,9 @@ module.exports = {
         modal: '='
     },
     controller: [
-        ModalPdfPreviewComponent
+        ModalImagePreviewComponent
     ],
     templateUrl: () => {
-        return 'assets/tpl/modals/modal-pdf-preview.html';
+        return 'assets/tpl/modals/file-previews/modal-image-preview.html';
     }
 };

@@ -303,11 +303,17 @@ let FundRequestsComponent = function(
         $event.originalEvent.preventDefault();
         $event.originalEvent.stopPropagation();
 
-        FileService.download(file).then(res => {
-            ModalService.open('pdfPreview', {
-                rawPdfFile: res.data
+        if (file.ext == 'pdf') {
+            FileService.download(file).then(res => {
+                ModalService.open('pdfPreview', {
+                    rawPdfFile: res.data
+                });
+            }, console.error);
+        } else if (file.ext in ['png', 'jpeg', 'jpg']) {
+            ModalService.open('imagePreview', {
+                imageSrc: file.url
             });
-        }, console.error);
+        }
     };
 
     $ctrl.onPageChange = (query) => {
