@@ -1,6 +1,5 @@
 .block {
     &.block-navbar {
-        position: sticky;
         top: 0;
         width: 100%;
         padding: 0;
@@ -9,13 +8,7 @@
         box-shadow: 1px -5px 10px rgb(187, 187, 187);
 
         .navbar-inner {
-            padding: 0px 15px;
-            align-items: center;
             background-color: transparent;
-        }
-
-        .block-auth {
-            border-left: 1px solid #dbdcdb;
         }
 
         .navbar-logo {
@@ -23,14 +16,7 @@
             align-items: center;
 
             img {
-                width: 170px;
-                height: auto;
-            }
-
-            .second-logo {
-                height: 55px;
-                width: 54px;
-                margin-right: 10px;
+                height: 40px;
             }
         }
 
@@ -88,28 +74,6 @@
         }
     }
 
-    @media screen and (max-width: 1700px) {
-        &.block-navbar {
-            .navbar-list {
-                .navbar-item-wrapper {
-                    .navbar-item {
-                        padding: 11px;
-                        font-size: 0.75em;
-                    }
-                }
-            }
-        }
-    }
-
-    @media screen and (min-width: 1000px) {
-        &.block-navbar {
-            .navbar-logo {
-                padding: 10px 20px 10px 0px;
-                border-right: 1px solid #dbdcdb;
-            }
-        }
-    }
-
     @media screen and (max-width: 1000px) {
         &.block-navbar {
             .navbar-logo {
@@ -121,11 +85,6 @@
                     display: none;
                 }
             }
-            
-            .navbar-inner {
-                padding: 0px 0;
-            }
-
             .navbar-list {
                 .navbar-item-wrapper {
                     .navbar-item {

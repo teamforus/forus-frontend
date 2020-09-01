@@ -307,8 +307,8 @@ module.exports = {
             usage: "uitgegeven",
             payed: "Uitgegeven bij",
             shops: "Aanbieders",
-            activation: "Aantal geactiveerd",
-            citizen: "Nieuwe inwoners",
+            activation: "aantal verstrekte tegoeden",
+            citizen: "Totaal in omloop",
             provider: "Aanbieders",
             transactions: "transacties",
             service_costs: "Servicekosten",
@@ -511,6 +511,7 @@ module.exports = {
             end: "EIND",
             break: "Pauze",
             not_specified: "Niet ingevuld",
+            description: "Omschrijving"
         },
         buttons: {
             cancel: "Annuleren",
@@ -679,6 +680,7 @@ module.exports = {
             title_step_3: "Ontvang de download link naar de Me-app",
             subtitle_step_3: "",
             title_step_3_mail: "Op een later moment de Me-app installeren",
+            title_step_3_mail_mobile: "Maak een account aan",
             title_step_4: "Kies of maak een organisatie",
             subtitle_step_4: "Aan uw e-mailadres zijn de volgende organisaties gekoppeld. Kies een bestaande organisatie of voeg een nieuwe organisatie toe.",
             title_step_5: "Maak een organisatie aan",
@@ -1192,6 +1194,10 @@ module.exports = {
             status: "Status",
             records: "Eigenschappen",
             actions: "Acties",
+            search: "Zoeken",
+            assigned_to: "Toegewezen",
+            from: "Vanaf",
+            to: "Tot"
         },
         status: {
             hold: "Wachten",
@@ -1205,6 +1211,8 @@ module.exports = {
             alldecline: "Alles weigeren",
             accept: "Valideren",
             decline: "Weigeren",
+            export: "Exporteren",
+            clear_filter: "Wis filter"
         },
     },
 

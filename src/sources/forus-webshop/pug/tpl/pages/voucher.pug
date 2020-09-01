@@ -6,7 +6,17 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
         .breadcrumb-item.active(ng-if="!$ctrl.voucherCard.product") Uw {{ $ctrl.voucherCard.title }} voucher 
         .breadcrumb-item.active(ng-if="$ctrl.voucherCard.product") Uw aanbieding voucher
 
-    .section-title.hide-sm(ng-if="!$ctrl.voucherCard.product") Uw {{ $ctrl.voucherCard.title }} voucher
+    .block.block-physical-cards(ng-if="$ctrl.showPhysicalCardsOption")
+        .block-card-logo: img(src="./assets/img/icon-physical-cards/icon-physical-cards-preview.svg")
+        .block-card-details 
+            .block-card-title(i18n="voucher.physical_card.title")
+            .block-card-description(i18n="voucher.physical_card.description")
+            .block-card-actions: .button.button-primary(
+                i18n="voucher.physical_card.buttons.reactivate" 
+                ng-click="$ctrl.usePhysicalCard($ctrl.voucher)") 
+        .block-card-close.mdi.mdi-close(ng-click="$ctrl.dismissPhysicalCard()")
+
+    .section-title.hide-sm(ng-if="!$ctrl.voucherCard.product && !$ctrl.showPhysicalCardsOption") Uw {{ $ctrl.voucherCard.title }} voucher
     .section-title.hide-sm(ng-if="$ctrl.voucherCard.product") Uw aanbieding voucher
 
     .block.block-voucher(ng-if="$ctrl.voucherCanUse")
@@ -64,6 +74,13 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                                 em.mdi.mdi-share-variant
                                 //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
                             .action-item-name(i18n="voucher.voucher_card.footer.actions.share")
+                        .action-item(
+                            ng-if="$ctrl.isPhysicalCardLinkable" 
+                            ng-click="$ctrl.usePhysicalCard($ctrl.voucher)")
+                            .action-item-icon
+                                em.mdi.mdi-card-bulleted-outline
+                                //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
+                            .action-item-name(i18n="voucher.voucher_card.footer.actions.physical_card_use")
 
             .card-qr_code.hide-sm
                 qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="voucher")
@@ -144,6 +161,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
 
         .map_card-iframe: google-map(
             map-pointers="$ctrl.voucherCard.offices" 
+            map-pointer-template="providers-office"
             map-gesture-handling="'greedy'"
             map-options="$ctrl.mapOptions")
         

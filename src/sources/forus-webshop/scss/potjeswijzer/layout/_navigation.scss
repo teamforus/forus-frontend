@@ -1,6 +1,5 @@
 .block {
     &.block-navbar {
-        position: sticky;
         padding: 0;
         background: #fff;
         width: 100%;
@@ -16,10 +15,6 @@
             }
         }
         
-        .navbar-inner {
-            padding: 0;
-        }
-
         .navbar-list {
             .navbar-item-wrapper {
                 margin-left: 15px;
@@ -90,7 +85,6 @@
 
             .navbar-inner {
                 display: flex;
-                align-items: center;
 
                 .navbar-logo {
                     padding-left: 20px;

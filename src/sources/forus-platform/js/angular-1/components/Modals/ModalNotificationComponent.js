@@ -1,5 +1,7 @@
 let ModalNotificationComponent = function(
-    $filter
+    $filter,
+    $element,
+    $timeout
 ) {
     let $ctrl = this;
 
@@ -13,7 +15,7 @@ let ModalNotificationComponent = function(
 
     $ctrl.$onInit = () => {
         let type = $ctrl.modal.scope.type;
-        
+
         $ctrl.modalClass = $ctrl.modal.scope.modalClass || '';
 
         $ctrl.title = $ctrl.modal.scope.title;
@@ -22,12 +24,12 @@ let ModalNotificationComponent = function(
         $ctrl.subdescription = $ctrl.modal.scope.subdescription;
 
         $ctrl.icon = $ctrl.modal.scope.icon ? getIcon($ctrl.modal.scope.icon) : null;
-        
+
         $ctrl.confirmBtnText = $ctrl.modal.scope.confirmBtnText ? $ctrl.modal.scope.confirmBtnText : $ctrl.confirmBtnText;
         $ctrl.closeBtnText = $ctrl.modal.scope.closeBtnText ? $ctrl.modal.scope.closeBtnText : $ctrl.closeBtnText;
         $ctrl.cancelBtnText = $ctrl.modal.scope.cancelBtnText ? $ctrl.modal.scope.cancelBtnText : $ctrl.cancelBtnText;
 
-        switch (type){
+        switch (type) {
             case 'info': {
                 $ctrl.showCloseBtn = true;
             }; break;
@@ -41,10 +43,22 @@ let ModalNotificationComponent = function(
             case 'action-result': {
                 $ctrl.showConfirmBtn = true;
             }; break;
-            default:{
+            default: {
                 $ctrl.showCloseBtn = true;
             }
         }
+
+        $timeout(() => {
+            switch (type) {
+                case 'info': {
+                    $element.find('[data-close]').focus();
+                }; break;
+                case 'confirm':
+                case 'action-result': {
+                    $element.find('[data-confirm]').focus();
+                }; break;
+            }
+        }, 0);
     };
 
     let getIcon = (icon) => {
@@ -52,7 +66,7 @@ let ModalNotificationComponent = function(
     };
 
     $ctrl.cancel = () => {
-        if (typeof($ctrl.modal.scope.cancel) === 'function') {
+        if (typeof ($ctrl.modal.scope.cancel) === 'function') {
             $ctrl.modal.scope.cancel();
         }
 
@@ -60,14 +74,14 @@ let ModalNotificationComponent = function(
     };
 
     $ctrl.confirm = () => {
-        if (typeof($ctrl.modal.scope.confirm) === 'function') {
+        if (typeof ($ctrl.modal.scope.confirm) === 'function') {
             $ctrl.modal.scope.confirm();
         }
 
         $ctrl.close();
     };
 
-    $ctrl.$onDestroy = function() {};
+    $ctrl.$onDestroy = function() { };
 };
 
 module.exports = {
@@ -77,6 +91,8 @@ module.exports = {
     },
     controller: [
         '$filter',
+        '$element',
+        '$timeout',
         ModalNotificationComponent
     ],
     templateUrl: () => {
