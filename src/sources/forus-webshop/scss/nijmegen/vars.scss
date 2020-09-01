@@ -2,15 +2,20 @@
 
 // navbar
 $bg-nav:            #a80a2d;
-$btn-nav:           #157C68;
-$btn-nav-rev:       #fff;
 $tc-nav:            #fff;
 $tc-nav-hov:        #fff;
 $logo-height:       50px;
 // navbar (auth)
-$tc-auth-menu:      #157C68; 
-$tc-auth-btn:       #fff; 
-$btn-auth-bg:       #157C68; 
+$tc-auth-menu:      #fff; 
+$tc-auth-btn:       #157C68; 
+$btn-auth-bg:       #fff; 
+$btn-auth-border:   #d2e6ff;
+
+// navbar (start modal primary)
+$tc-start-btn:       #fff; 
+$btn-start-bg:       #157C68; 
+$btn-start-btn:      #157C68;
+$btn-start-border:   transparent;
 
 // header background
 $bg-values:         url("../img/splash-top-b.png") no-repeat 100% 0;         

@@ -11,6 +11,13 @@
     box-shadow: none;
     outline: none;
 
+    &.button-primary {
+        &:hover {
+            background-color: #30a08b;
+            border-color: #30a08b;
+        }
+    }
+
     &.button-default {
         .mdi {
             color: #fff;

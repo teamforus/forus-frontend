@@ -109,8 +109,8 @@
 
                             .auth-user-avatar
                                 .em.mdi.mdi-cog(ng-if="$root.appConfigs.features.records.list")
-                                img(src="./assets/img/identity-avatar.svg" ng-if="!$root.appConfigs.features.records.list")
-                            
+                                div(ng-if="!$root.appConfigs.features.records.list")
+                                include ../../../resources/_webshop-common/assets/img/identity-avatar.svg
                             .auth-user-caret(id="user_menu")
                                 em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
 
