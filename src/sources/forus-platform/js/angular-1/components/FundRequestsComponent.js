@@ -321,6 +321,10 @@ let FundRequestsComponent = function(
         }), console.error);
     };
 
+    $ctrl.hasFilePreview = (file) => {
+        return ['pdf', 'png', 'jpeg', 'jpg'].includes(file.ext);
+    }
+
     $ctrl.previewFile = ($event, file) => {
         $event.originalEvent.preventDefault();
         $event.originalEvent.stopPropagation();
@@ -331,7 +335,7 @@ let FundRequestsComponent = function(
                     rawPdfFile: res.data
                 });
             }, console.error);
-        } else if (file.ext in ['png', 'jpeg', 'jpg']) {
+        } else if (['png', 'jpeg', 'jpg'].includes(file.ext)) {
             ModalService.open('imagePreview', {
                 imageSrc: file.url
             });

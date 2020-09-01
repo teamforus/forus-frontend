@@ -6532,7 +6532,8 @@ $colorPrimaryLight: $color_primary_light;
     &.modal-image-preview {
         .img-block {
             display: flex;
-            margin: 50px auto;
+            margin: 40px auto;
+            justify-content: center;
 
             img {
                 height: 100%;

@@ -167,7 +167,8 @@
                                     .mdi.mdi-file
                                     .attachment-size(ng-bind='file.size')
                                 .attachment-name(ng-bind='file.original_name')
-                                .attachment-preview( 
+                                .attachment-preview(
+                                    ng-if="$ctrl.hasFilePreview(file)" 
                                     title="Bekijk file"
                                     ng-click="$ctrl.previewFile($event, file)")
                                     .mdi.mdi-eye
