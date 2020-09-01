@@ -35,8 +35,8 @@
         background: #ffffff;
         text-transform: $tf;
         color: $color_default;
-        border: 1px solid $border_color;
-        box-shadow: 0 10px 25px rgba(#000, 0);
+        //border: 1px solid $border_color;
+        box-shadow: none;
 
         .mdi {
             color: $color_default_light;
@@ -58,6 +58,7 @@
         display: flex !important;
         padding: 7px !important;
         align-items: center !important;
+
         .icon-me {
             mask: url('../img/icon-me.svg');
             background: $color_default;
@@ -95,8 +96,7 @@
         color: #fff;
         background: $color_primary;
         border: 1px solid $color_primary;
-        text-transform: $tf;
-        box-shadow: 0 10px 25px rgba(#000, .15);
+        text-transform: none;
 
         &:hover {
             color: #fff;

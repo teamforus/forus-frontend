@@ -545,6 +545,7 @@
             
             .button {
                 font: 400 14px/1.5em $bf;
+                margin-right: 0;
             }
 
             .navbar-inner {
@@ -568,7 +569,6 @@
                 display: block;
                 
                 .button {
-                    margin-right: 10px;
                     border: none;
                     box-shadow: none;
                     flex-direction: column;
