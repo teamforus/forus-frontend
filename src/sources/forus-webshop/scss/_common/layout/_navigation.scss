@@ -47,12 +47,7 @@
                         fill: $btn-nav-rev; 
                     }
                 }
-            }
-    
-            a {
-                font: 700 16px/1.5em $bf;
-                color: $tc-var;
-            }
+            }       
         }
         
         .block-subnav {
@@ -306,7 +301,6 @@
                 .button {
                     background-color: $btn-auth-bg;
                     border: 1px solid $btn-auth-bg;
-                    font-weight: 500;
                 }
             }
     
@@ -548,17 +542,15 @@
             &.scrolled {
                 transform: translateY(-100%);
             }
-    
+            
+            .button {
+                font: 400 14px/1.5em $bf;
+            }
+
             .navbar-inner {
                 padding: 0;
                 border-radius: 0;
                 justify-content: flex-start;
-            }
-    
-            .button {
-                min-width: 110px;
-                padding: 10px 0px;
-    
             }
     
             .navbar-logo {
@@ -660,29 +652,15 @@
                 }
             }
         }
-
-        &.block-subnav {
-            .button {
-                font-size: 14x;
-                padding: 10px 20px;
-            }
-        }
     }
     
     @media screen and (max-width: 768px) {
         &.block-navbar {
             .button {
                 padding: 10px 0px;
-                min-width: 60px;
-            }
-        }
-
-        &.block-subnav {
-            .button {
-                font-size: 12px;
-                padding: 10px 10px;
+                min-width: 80px;
+                font: 400 12px/1.5em $bf;
             }
         }
     }
 }
-
