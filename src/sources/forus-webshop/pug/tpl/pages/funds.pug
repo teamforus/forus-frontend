@@ -11,7 +11,7 @@ block content
 
             .block.block-breadcrumbs
                 a(ui-sref="home").breadcrumb-item Home
-                .breadcrumb-item.active Aanbod
+                .breadcrumb-item.active Aanvragen
             
             .showcase-layout
                 .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
@@ -33,7 +33,7 @@ block content
                         .showcase-filters-title
                             div(ng-if="!$ctrl.showMap").pull-left
                                 .showcase-filters-title-count(ng-bind="$ctrl.funds.meta.total")
-                                | Aanvragen
+                                | Fondsen
                             .block.block-label-tabs.pull-right
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: $ctrl.display_type == 'list'}"
