@@ -6,6 +6,7 @@ let FundRequestComponent = function(
     $state,
     $stateParams,
     $timeout,
+    $filter,
     RecordService,
     FundService,
     AuthService,
@@ -31,6 +32,7 @@ let FundRequestComponent = function(
         $state,
         $stateParams,
         $timeout,
+        $filter,
         RecordService,
         FundService,
         AuthService,
@@ -48,6 +50,7 @@ let FundRequestComponent = function(
         $state,
         $stateParams,
         $timeout,
+        $filter,
         RecordService,
         FundService,
         AuthService,
@@ -69,6 +72,7 @@ let FundRequestComponentDefault = function(
     $state,
     $stateParams,
     $timeout,
+    $filter,
     RecordService,
     FundService,
     AuthService,
@@ -101,10 +105,23 @@ let FundRequestComponentDefault = function(
     $ctrl.shownSteps = [];
 
     let timeout = null;
+    let $trans = $filter('translate');
 
     $ctrl.criterionValuePrefix = {
         net_worth: '€',
         base_salary: '€'
+    };
+
+    let trans_record_checkbox = (criteria_record_key, criteria_value) => {
+        let trans_key = 'fund_request.sign_up.record_checkbox.' + criteria_record_key;
+        let trans_fallback_key = 'fund_request.sign_up.record_checkbox.default';
+        let translated = $trans(trans_key, {
+            value: criteria_value
+        });
+
+        return translated === trans_key ? $trans(trans_fallback_key, {
+            value: criteria_value
+        }) : translated;
     };
 
     $ctrl.startDigId = () => {
@@ -295,7 +312,7 @@ let FundRequestComponentDefault = function(
         });
 
         $ctrl.invalidCriteria = $ctrl.invalidCriteria.map(criterion => {
-            let control_type = {
+            let control_type = criterion.operator == '=' ? 'ui_control_checkbox' : {
                 // checkboxes
                 'children': 'ui_control_checkbox',
                 'kindpakket_eligible': 'ui_control_checkbox',
@@ -310,19 +327,27 @@ let FundRequestComponentDefault = function(
                 // currency
                 'net_worth': 'ui_control_currency',
                 'base_salary': 'ui_control_currency',
-            } [criterion.record_type_key] || 'ui_control_text';
+            }[criterion.record_type_key] || 'ui_control_text';
 
             return Object.assign(criterion, {
                 control_type: control_type,
+                label: trans_record_checkbox(criterion.record_type_key, criterion.value),
                 input_value: {
-                    ui_control_checkbox: false,
+                    ui_control_checkbox: null,
                     ui_control_date: moment().format('DD-MM-YYYY'),
                     ui_control_step: 0,
                     ui_control_number: undefined,
                     ui_control_currency: undefined,
-                } [control_type]
+                }[control_type]
             });
         });
+
+        $ctrl.setRecordValue = (invalidCriteria) => {
+            timeout = $timeout(function() {
+                invalidCriteria.input_value = invalidCriteria.is_checked ?
+                    invalidCriteria.value : null;
+            }, 500);
+        };
 
         $ctrl.buildSteps();
     };
@@ -353,8 +378,8 @@ let FundRequestComponentDefault = function(
         }
 
         if (step == 3 && !$ctrl.signedIn && (
-                $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
-            )) {
+            $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
+        )) {
             return 'auth_email_sent';
         }
 
@@ -476,13 +501,23 @@ let FundRequestComponentDefault = function(
                     });
                 } else {
                     FundRequestService.index($ctrl.fund.id).then((res) => {
-                        let pendingRequests = res.data.data.filter(
-                            request => request.state === 'pending'
-                        );
-                        
-                        if (pendingRequests.length > 0) {
-                            alert('U heeft al een aanvraag in behandeling.');
-                            $state.go('funds');
+                        let pendingRequests = res.data.data.filter(request => request.state === 'pending');
+                        let pendingRequest = pendingRequests[0] || false;
+
+                        if (pendingRequest) {
+                            $ctrl.fund.criteria.map(criteria => {
+                                let record = pendingRequest.records.filter(record => {
+                                    return record.record_type_key == criteria.record_type_key;
+                                })[0];
+
+                                if (record) {
+                                    criteria.request_state = record.state;
+                                }
+
+                                return criteria;
+                            });
+
+                            $ctrl.state = 'fund_already_applied';
                         } else if ($ctrl.invalidCriteria.length == 0) {
                             $ctrl.applyFund($ctrl.fund);
                         }
@@ -524,6 +559,7 @@ module.exports = {
         '$state',
         '$stateParams',
         '$timeout',
+        '$filter',
         'RecordService',
         'FundService',
         'AuthService',

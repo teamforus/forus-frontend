@@ -13,13 +13,13 @@ module.exports = {
         auth_cta: "Beheer uw vouchers en neem ze overal mee door de Me-app te downloaden.",
         auth_button: "Download Me",
         signup_cta: "Lees meer >",
-        button: 'START', 
-        button_av: 'START AANVRAAG', 
+        button: 'Aanvragen', 
+        button_av: 'Aanvragen', 
         
         potjeswijzer: {
             subtitle_av: "Er bestaan veel verschillende potjes binnen het Westerkwartier, vaak meer dan je denkt. Met deze website kan je potjes aanvragen, beheren en uitgeven.",
             cta_av: "",
-            button_av: 'START', 
+            button_av: 'Start', 
         },
         berkelland: {
             title_multi: "Kindregeling gemeente Berkelland",
@@ -40,8 +40,8 @@ module.exports = {
         },
         noordoostpolder: {
             title: "Meedoenpakket",
-            subtitle: "Welkom op de website van de Kindregeling van de gemeente Noordoostpolder. Heeft u via de gemeente een toekenning voor de Kindregeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden." +
-                "Klik op ‘Start’ en vul uw activatiecode in. Deze code staat in de brief over de Kindregeling die u heeft ontvangen.",
+            subtitle: "Welkom op de website voor het Meedoenpakket van gemeente Noordoostpolder. Heeft u de brief met uw activatiecode ontvangen? Op deze website kunt u zien hoeveel tegoed u heeft en waar u dit kunt besteden.",
+            cta: "Klik hieronder op 'Start' om u aan te melden. Hiervoor heeft u een e-mailadres nodig en de activatiecode uit de brief.",
         },
         nijmegen: {
             cta_av: "",
@@ -100,8 +100,9 @@ module.exports = {
             one: "Klik bovenaan op 'Start aanvraag'. Vul uw e-mailadres in en gebruik de login link in uw eigen vertrouwde emailbox. Vervolgens logt u in met uw eigen DigiD. Controleer of u voldoet aan de voorwaarde!",
         },
         noordoostpolder: {
-            faq_one: "Hoe kan ik het Meedoenpakket aanvragen?",
+            faq_one: "Hoe kan ik het Meedoenpakket activeren?",
             one: "Klik bovenaan op 'Start'. Vul uw e-mailadres en de activatiecode in die u per brief heeft ontvangen. Klik vervolgens op 'Versturen'. Uw profiel is aangemaakt en uw Meedoen-voucher is geactiveerd!",
+            faq_three: "Bij welke aanbieders kan ik het tegoed besteden?",
             three: "U kan een overzicht van alle aanbieders terugvinden op de webshop. Ga naar 'Overzicht van alle aanbieders'.",
             four: "U kan uw voucher altijd terugvinden door in te loggen op de webshop, de voucher kunt u uitprinten, naar uw e-mail toesturen of altijd bij hand hebben door gebruik te maken van de Me app.",
             five: "Na elke betaling wordt er een e-mail toegestuurd met het huidige tegoed, daarnaast kunt u het tegoed inzien door in te loggen op de webshop of door gebruik te maken van de Me app.",
@@ -109,7 +110,7 @@ module.exports = {
             six: "Nee, u kunt niet ruilen of retour brengen.",
             seven: "Nee, u hoeft het tegoed niet in een keer te besteden.",
             eight: "Door in te loggen op de webshop kunt u uw voucher inzien. Op de pagina van de voucher staat ook de geldigheid vermeld.",
-            nine: "Nee, de waarde van de voucher krijg u niet in contact geld uitbetaald.",
+            nine: "Nee, de waarde van de voucher krijgt u niet in contact geld uitbetaald.",
             ten: "Nee, het tegoed kan alleen uitgegeven worden bij organisaties die op de webshop staan. U kunt een organisatie vragen om zich aan te melden via de meedoenapplicatie of om contact op te nemen met de gemeente, (0527) 63 39 11.",
             eleven: "Het tegoed is bedoeld voor kinderen van 4 t/m 17 jaar. Is uw kind 4 jaar geworden? Dan kunt u het tegoed aanvragen, (0527) 63 39 11. Of download het aanvraagformulier: https://www.noordoostpolder.nl/file/6632/download",
             faq_twelve: "Komt mijn kind in aanmerking voor het tegoed?",
@@ -252,7 +253,7 @@ module.exports = {
             four: "Bij ‘Mijn vouchers’ staat ook een persoonlijke QR-code. Daarmee betaalt u de organisatie waar u een aankoop wilt doen. De QR-code kunt u uitprinten, naar uzelf mailen of op uw telefoon hebben door in te loggen op de app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a> kunt u downloaden via de Google Playstore en de App Store.",
         },
         noordoostpolder: {
-            one: "U hebt een brief ontvangen van de gemeente. In de brief staat een activatiecode voor het Meedoenpakket.",
+            one: "U heeft van de gemeente een brief ontvangen met een activatiecode voor het Meedoenpakket.",
             two: "Klik op <u>Start</u> om uw e-mailadres en activatiecode in te vullen.",
         },
         nijmegen: {

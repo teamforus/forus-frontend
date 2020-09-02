@@ -511,6 +511,7 @@ module.exports = {
             end: "EIND",
             break: "Pauze",
             not_specified: "Niet ingevuld",
+            description: "Omschrijving"
         },
         buttons: {
             cancel: "Annuleren",
@@ -1193,6 +1194,10 @@ module.exports = {
             status: "Status",
             records: "Eigenschappen",
             actions: "Acties",
+            search: "Zoeken",
+            assigned_to: "Toegewezen",
+            from: "Vanaf",
+            to: "Tot"
         },
         status: {
             hold: "Wachten",
@@ -1206,6 +1211,8 @@ module.exports = {
             alldecline: "Alles weigeren",
             accept: "Valideren",
             decline: "Weigeren",
+            export: "Exporteren",
+            clear_filter: "Wis filter"
         },
     },
 

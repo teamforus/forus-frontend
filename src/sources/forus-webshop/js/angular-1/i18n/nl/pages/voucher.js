@@ -4,7 +4,7 @@ module.exports = {
             title: "Uw voucher",
         },
         buttons: {
-            send: "E-MAIL NAAR MIJ",
+            send: "E-mail naar mij",
             details: "Bekijk details",
         },
         labels: {
@@ -37,7 +37,8 @@ module.exports = {
                     mail: "E-mail naar mij",
                     print: "Print",
                     share: "Deel met aanbieder",
-                    open_in_me: 'Open in app'
+                    open_in_me: 'Open in app',
+                    physical_card_use: 'Plastic pas'
                 },
                 tooltips: {
                     mail: "E-mail de voucher naar uzelf",
@@ -54,6 +55,14 @@ module.exports = {
             delete: "Annuleer reservering",
             expired: "Verlopen"
         },
+        physical_card: {
+            title: 'Heeft u een pas van vorige jaren?',
+            description: 'Als u de oude plastic pas opnieuw activeert kunt u deze blijven gebruiken. Hulp nodig? ' + 
+                'Bel 14 050 maandag t/m vrijdag 9.00 tot 12.00',
+            buttons: {
+                reactivate: 'Oude pas opnieuw activeren'
+            }
+        },
         share_voucher: {
             popup_form: {
                 title: 'Let op! Stuur een bericht naar de aanbieder voordat u de QR-code deelt.',
@@ -61,8 +70,8 @@ module.exports = {
             },
             reason_placeholder: 'Bericht voor aanbieder',
             buttons: {
-                submit: 'VERSTUREN',
-                confirm: 'SLUIT'
+                submit: 'Vesturen',
+                confirm: 'Sluit'
             },
             popup_sent: {
                 title: 'Uw voucher is verstuurd naar de aanbieder.',
@@ -78,8 +87,8 @@ module.exports = {
                 description: 'U kunt uw reservering annuleren om af te zien van de aankoop. Wanneer u deze aankoop niet wenst te annuleren klikt u op "sluit".'
             },
             buttons: {
-                submit: 'BEVESTIG',
-                close: 'SLUIT'
+                submit: 'Bevestig',
+                close: 'Sluit'
             },
         }
 }
