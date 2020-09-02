@@ -1,86 +1,44 @@
 .block {
     &.block-navbar {
-        width: 100%;
-        padding: 0;
-        background-color: #fff;
-        box-shadow: 1px -5px 10px rgb(187, 187, 187);
+        .block-subnav {
+            background: url(../img/city-skyline.svg) no-repeat bottom center;
+            background-size: 50% 50%;
+            background-color: #E4E4E4;
 
-        .navbar-inner {
-            background-color: transparent;
-        }
-
-        .navbar-logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar-list {
-            text-align: left;
-
-            .navbar-item-wrapper {
-                .navbar-item {
-                    &:hover {
-                        color: $tc;
-
-                        &:before {
-                            background-color: #000;
-                            opacity: .5;
-                        }
-                    }
-
-                    &.active {
-                        color: $tc;
-
-                        &:before {
-                            background-color: #000;
-                            opacity: 1;
-                        }
+            .subnav-inner {
+                .navbar-logo {
+                    img {
+                        height: 90px;
                     }
                 }
             }
         }
 
         .block-auth {
-            .auth-in {
-                .auth-user {
-                    .auth-user-email {
-                        color: $color_default_light;
-                    }
-
-                    .auth-user-avatar {
-                        border-color: $color_default;
-                        border-radius: 4px;
-
-                        img {
-                            filter: grayscale(.8);
-                        }
-                    }
-                }
-            }
-
             .button {
-                &:hover {
-                    box-shadow: 0
+                margin: 0px 10px;
+
+                &.button-primary {
+                    border: none;
                 }
             }
         }
-    }
 
-    @media screen and (max-width: 1000px) {
-        &.block-navbar {
-            .navbar-logo {
-                img {
-                    width: auto;
+        .button {
+            &.button-default {
+                color: #282B39;
+
+                svg {
+                    path {
+                        fill: #282B39;
+                    }
                 }
 
-                .second-logo {
-                    display: none;
-                }
-            }
-            .navbar-list {
-                .navbar-item-wrapper {
-                    .navbar-item {
-                        padding: 10px 20px;
+                &:hover {
+                    svg {
+                        path {
+                            fill: #282B39;  
+                        }
                     }
                 }
             }
