@@ -53,7 +53,6 @@ block content
                                     ng-click="$ctrl.showAs('grid')")
                                     em.mdi.mdi-view-grid-outline.icon-start
                                     | Foto's
-                    
                     .block.block-products(ng-if="$ctrl.products.data.length > 0 && $ctrl.display_type == 'grid'")
                         .product-item(ng-repeat="product in $ctrl.products.data" ng-class="{discounted:product.old_price}")
                             a(ui-sref="products-show(product)").product-item-inner
