@@ -40,9 +40,9 @@
                             type="number" 
                             placeholder="Totaal aanbod" 
                             min="1" 
-                            max="{{$ctrl.product.stock_amount}}").form-control
-                            
-                        .form-limit Limiet 1/{{$ctrl.product.stock_amount}}
+                            max="{{ $ctrl.product.unlimited_stock ? '' : $ctrl.product.stock_amount }}").form-control
+                        .form-limit(ng-if="!$ctrl.product.unlimited_stock") Limiet 1/{{ $ctrl.product.stock_amount }}
+                        .form-limit(ng-if="$ctrl.product.unlimited_stock") Ongelimiteerd
                         .form-error
                     .col.col-sm-3: .form-group
                         .form-label Limiet per aanvrager
@@ -52,8 +52,9 @@
                             type="number" 
                             placeholder="Limiet per aanvrager" 
                             min="1" 
-                            max="{{$ctrl.product.stock_amount}}").form-control
-                        .form-limit Limiet 1/{{$ctrl.product.stock_amount}}  
+                            max="{{ $ctrl.product.unlimited_stock ? '' : $ctrl.product.stock_amount }}").form-control
+                        .form-limit(ng-if="!$ctrl.product.unlimited_stock") Limiet 1/{{ $ctrl.product.stock_amount }}
+                        .form-limit(ng-if="$ctrl.product.unlimited_stock") Ongelimiteerd
                         .form-error
                     .col.col-sm-3: .form-group
                         .form-label Bijdrage
