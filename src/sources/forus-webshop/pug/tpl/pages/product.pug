@@ -24,7 +24,7 @@ section.section.section-product: .wrapper
                     .product-fund-label(i18n="product.labels.fund")
                     .product-fund-list(ng-if="$ctrl.product.funds.length > 0" ng-bind="$ctrl.fundNames")
 
-                .product-price
+                .product-price(ng-if="$ctrl.useBudget")
                     .product-price-old(ng-if="$ctrl.product.old_price")
                         .old-label(i18n="block_products.labels.old")
                         .old-value(ng-bind="$ctrl.product.old_price | currency_format")
@@ -43,17 +43,24 @@ section.section.section-product: .wrapper
                     ng-click="$ctrl.applyProduct()") RESERVEER
                 
                 .button.button-primary(
-                    ng-if="$ctrl.useBudget && !$root.auth_user && !$ctrl.product.deleted && !$ctrl.product.sold_out" 
-                    ng-click="openAuthPopup()") LOG IN OM TE RESERVEREN
+                    ng-if="!$root.auth_user && !$ctrl.product.deleted && !$ctrl.product.sold_out" 
+                    ng-click="openAuthPopup()") 
+                        span(ng-if="$ctrl.useBudget") LOG IN OM TE RESERVEREN
+                        span(ng-if="$ctrl.useSubsidies && !$ctrl.useBudget") Login
 
-                .product-funds-list(ng-if="$ctrl.useSubsidies")
+                .product-funds-list(ng-if="$ctrl.useSubsidies && $root.auth_user")
                     .fund-item(ng-repeat="fund in $ctrl.subsidyFunds")
                         .fund-item-media: img.fund-item-media-img(src="../assets/img/placeholders/fund-thumbnail.png")
                         .fund-item-name(ng-bind="fund.name")
                         .fund-item-limit
                             .fund-item-limit-label Aantal beschikbaar:
-                            .fund-item-limit-value(ng-bind="fund.limit_per_identity")
-                        .fund-item-price(ng-bind="fund.price == 0 ? 'Free' : (fund.price | currency_format)")
+                            .fund-item-limit-value(ng-bind="fund.limit_available")
+                        .fund-item-apply(
+                            ui-sref="fund-request({fund_id: fund.id})"
+                            ng-if="!$ctrl.isApplicable") Aanvragen
+                        .fund-item-price(
+                            ng-if="$ctrl.isApplicable"
+                            ng-bind="fund.price == 0 ? 'Free' : (fund.price | currency_format)")
 
         .block.block-info-card
             .block-header(i18n="voucher.labels.shopdetail")

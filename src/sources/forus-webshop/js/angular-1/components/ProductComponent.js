@@ -1,4 +1,4 @@
-let ProductComponent = function (
+let ProductComponent = function(
     $scope,
     $state,
     $sce,
@@ -12,7 +12,7 @@ let ProductComponent = function (
         return $state.go('home');
     }
 
-    $scope.openAuthPopup = function () {
+    $scope.openAuthPopup = function() {
         ModalService.open('modalAuth', {});
     };
 
@@ -30,12 +30,12 @@ let ProductComponent = function (
         $ctrl.useBudget = $ctrl.product.funds.filter(fund => fund.type === 'budget').length > 0
 
         $ctrl.applicableVouchers = $ctrl.vouchers.filter(voucher => {
-            return isValidProductVoucher(voucher, fundIds) && 
+            return isValidProductVoucher(voucher, fundIds) &&
                 parseFloat($ctrl.product.price) <= parseFloat(voucher.amount);
         });
 
         $ctrl.lowAmountVouchers = $ctrl.vouchers.filter(voucher => {
-            return isValidProductVoucher(voucher, fundIds) && 
+            return isValidProductVoucher(voucher, fundIds) &&
                 parseFloat($ctrl.product.price) >= parseFloat(voucher.amount);
         });
 
@@ -45,7 +45,7 @@ let ProductComponent = function (
     };
 
     $ctrl.applyProduct = () => {
-        if($ctrl.applicableVouchers.length == 1){
+        if ($ctrl.applicableVouchers.length == 1) {
             let voucher = $ctrl.applicableVouchers[0];
 
             let fund_expire_at = moment(voucher.fund.end_date);

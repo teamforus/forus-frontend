@@ -4,7 +4,6 @@ let FundProviderComponent = function(
     FundService,
     ModalService,
     OfficeService,
-    ProductService,
     PushNotificationsService
 ) {
     let $ctrl = this;
@@ -32,8 +31,16 @@ let FundProviderComponent = function(
     };
 
     $ctrl.disableProductItem = function(fundProvider, product) {
-        product.allowed = false;
-        $ctrl.updateAllowBudgetItem(fundProvider, product);
+        ModalService.open("dangerZone", {
+            title: "U verwijderd hiermee het aanbod permanent uit de webshop",
+            description: "U dient aanbieders en inwoners hierover te informeren.",
+            cancelButton: "Annuleer",
+            confirmButton: "Stop actie",
+            onConfirm: () => {
+                product.allowed = false;
+                $ctrl.updateAllowBudgetItem(fundProvider, product);
+            }
+        });
     };
 
     $ctrl.updateAllowBudget = function(fundProvider) {
@@ -182,7 +189,6 @@ module.exports = {
         'FundService',
         'ModalService',
         'OfficeService',
-        'ProductService',
         'PushNotificationsService',
         FundProviderComponent
     ],
