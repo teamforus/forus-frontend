@@ -6,7 +6,7 @@ module.exports = {
         message: "Bericht",
         attachment: "Bijlage",
     },
-    placeholder: "Your message...",
+    placeholder: "Jouw bericht...",
     buttons: {
         submit: "Bevestig",
         back: "Terug naar de webshop",
