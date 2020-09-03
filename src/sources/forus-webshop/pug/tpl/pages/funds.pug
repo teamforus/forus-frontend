@@ -11,7 +11,10 @@ block content
 
             .block.block-breadcrumbs
                 a(ui-sref="home").breadcrumb-item Home
-                .breadcrumb-item.active Aanvragen
+                .breadcrumb-item.active(
+                    translate="funds.funds.{{ $root.appConfigs.client_key }}.title"
+                    translate-default="{{'funds.header.title' | translate }}")
+
             
             .showcase-layout
                 .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
@@ -33,7 +36,9 @@ block content
                         .showcase-filters-title
                             div(ng-if="!$ctrl.showMap").pull-left
                                 .showcase-filters-title-count(ng-bind="$ctrl.funds.meta.total")
-                                | Fondsen
+                                span(
+                                    translate="funds.funds.{{ $root.appConfigs.client_key }}.title"
+                                    translate-default="{{'funds.header.title' | translate }}")
                             .block.block-label-tabs.pull-right
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: $ctrl.display_type == 'list'}"

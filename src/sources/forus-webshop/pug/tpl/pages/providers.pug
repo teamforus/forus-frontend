@@ -4,7 +4,7 @@ block content
         top-navbar(hide-on-scroll="true")
         
         .showcase-wrapper
-            mixin search_results(total, show = "true")
+            mixin search_results(total, show = "false")
                 .showcase-title(ng-if=show)= "Er zijn " + "{{" + total + "}}" + " aanbieders gevonden"
                 .showcase-subtitle(ng-if=show) Selecteer een organisatie voor meer informatie
 
