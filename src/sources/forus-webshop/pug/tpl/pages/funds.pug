@@ -71,7 +71,20 @@ block content
                                     .fund-name(ng-bind="fund.name")
                                     .fund-description(ng-bind="fund.description")
                                 .fund-actions
-                                    button.button.button-primary.button-wide(ui-sref="fund-request({fund_id: fund.id})") Aanvragen
+                                    a.button.button-primary(
+                                        ng-if="!fund.alreadyReceived && !fund.isApplicable && $ctrl.appConfigs.features.funds.fund_requests" 
+                                        ui-sref="fund-request({fund_id: fund.id})"
+                                        translate="funds.buttons.start_request")
+
+                                    a.button.button-primary(
+                                        ng-if="!fund.alreadyReceived && fund.isApplicable" 
+                                        ng-click="$ctrl.applyFund(fund)" 
+                                        translate="funds.buttons.is_applicable")
+    
+                                    a.button.button-primary(
+                                        ng-if="fund.alreadyReceived" 
+                                        ui-sref="{{ fund.voucherStateName }}" 
+                                        translate="funds.buttons.already_received")
 
                     empty-block(
                         title= "{{ 'block_funds.labels.title' | translate }}"

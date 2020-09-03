@@ -950,7 +950,7 @@ module.exports = {
                 "De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
             ].join("\n"),
             description_bottom: [
-                "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.",
+                "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
                 "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
             ].join("\n"),
             no_app: "Ik wil inloggen met mijn emailadres >"
@@ -1076,10 +1076,10 @@ module.exports = {
             title: "Heeft u de Me App al?",
             description_top: [
                 "De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
-                "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.",
+                "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
             ].join("\n"),
             description_bottom: [
-                "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.", 
+                "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.", 
                 "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
             ].join("\n"),
             no_app: "Ik wil inloggen met mijn emailadres >"    

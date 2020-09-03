@@ -68,6 +68,10 @@
             flex-wrap: wrap;
             flex-direction: row-reverse;
             align-items: center;
+
+            .button-primary {
+                min-width: 170px;
+            }
         }
 
         &:hover {
