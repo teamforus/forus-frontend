@@ -15,7 +15,6 @@ block content
                     translate="funds.funds.{{ $root.appConfigs.client_key }}.title"
                     translate-default="{{'funds.header.title' | translate }}")
 
-            
             .showcase-layout
                 .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
                     .showcase-aside-block
@@ -57,7 +56,7 @@ block content
                                 .fund-image(style="background-image: url('{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}')")
                                     img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
                                 .fund-details
-                                    .fund-organization Geemente {{ fund.organization.name }}
+                                    .fund-organization {{ fund.organization.name }}
                                     .fund-name(ng-bind="fund.name")
                                 .fund-actions
                                     .button.button-text.button-text-padless(ui-sref="fund-request({fund_id: fund.id})") Aanvragen
