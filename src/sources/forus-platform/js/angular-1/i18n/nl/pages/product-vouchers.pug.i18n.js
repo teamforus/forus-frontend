@@ -1,10 +1,10 @@
 module.exports = {
     header: {
-        title: "Aanbiedingsvouchers",
+        title: "Reserveringen",
     },
     labels: {
         amount: "Bedrag",
-        product: "Aanbieding",
+        product: "Aanbod",
         created_date: "Aangemaakt op",
         expire_date: "Geldig tot",
         fund: "Fonds",
@@ -18,8 +18,8 @@ module.exports = {
     },
     buttons: {
         add_new: "Aanmaken",
-        upload_csv: "Upload CSV",
-        download_csv: "Download voorbeeld CSV",
+        upload_csv: "Upload bulkbestand",
+        download_csv: "Download voorbeeld bulkbestand",
         clear_filter: "Wis filter"
     },
     csv: {

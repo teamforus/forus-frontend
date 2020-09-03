@@ -1,24 +1,24 @@
 module.exports = {
-    title: "Aanbiedingsvoucher aanmaken",
+    title: "Reservering aanmaken",
     labels: {
-        product: 'Aanbieding',
+        product: 'Aanbod',
         fund: 'Fonds',
         amount: 'Bedrag',
         note: 'Notitie',
         expire_at: 'Geldig tot',
     },
-    info: "Voucher eenmaal aangemaakt kan niet verwijderd worden. Met een voucher gemaakt via deze functie kan een gebruiker gebruik maken van een budget zonder account zolang niet toegekend.",
+    info: "Reservering eenmaal aangemaakt kan niet verwijderd worden. Met een reservering gemaakt via deze functie kan een gebruiker gebruik maken van de reservering zonder account zolang niet toegekend.",
     buttons: {
         cancel: "Annuleren",
         submit: "Aanmaken",
     },
     modal_section: {
-        choose_title: "Selecteer op welke manier u een aanbiedingsvoucher wilt aanmaken.",
-        choose_subtitle: "Als u een activatie code bij de hand hebt, gebruik dan de tweede optie.",
+        choose_title: "Selecteer op welke manier u een reservering voor een aanbod wilt aanmaken.",
+        choose_subtitle: "Als u een activatiecode bij de hand hebt, gebruik dan de tweede optie.",
         activation_code_title: "Vul een activatiecode in.",
-        activation_code_subtitle: "Het systeem zal controleren of de activatie code nog niet gebruikt is, \n wanneer hij niet gebruikt is zal hij worden gebruikt om een aanbiedingsvoucher te genereren.",
+        activation_code_subtitle: "Het systeem zal controleren of de activatie code nog niet gebruikt is, \n wanneer hij niet gebruikt is zal hij worden gebruikt om een reservering te genereren.",
         voucher_type_item: {
-            giftcard: "Als een niet-toegekende voucher",
+            giftcard: "Als een niet-toegekende reservering",
             activation_code: "via activatie-code"
         }
     },
@@ -27,7 +27,7 @@ module.exports = {
             activation_code_invalid: "Mislukt! Deze activatiecode is niet juist.",
             no_products: "Mislukt! Er zijn geen aanbiedingen om uit te selecteren.",
         },
-        activation_code_invalid: "U voerde een activatiecode in die gebruikt is of niet bestaat. \n Met deze code kunt u geen aanbiedingsvoucher genereren. ",
+        activation_code_invalid: "U voerde een activatiecode in die gebruikt is of niet bestaat. \n Met deze code kunt u geen reservering genereren. ",
         need_providers: "Mislukt, dit fonds heeft geen goedgekeurde aanbieders met aanbiedingen.",
         no_products: "U moet eerst aanbieders goedkeuren die aanbiedingen hebben geplaatst.",
     }
