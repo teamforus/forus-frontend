@@ -356,7 +356,7 @@ let FundRequestComponentDefault = function(
 
     $ctrl.buildSteps = () => {
         // Sign up step + criteria list
-        let totalSteps = ($ctrl.signedIn ? 1 : 2) + ((
+        let totalSteps = ($ctrl.signedIn ? 2 : 3) + ((
             $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
         ) ? 1 : 0);
 
@@ -390,6 +390,10 @@ let FundRequestComponentDefault = function(
         // }
 
         if ((step == 4 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
+            return 'digid_login';
+        }
+
+        if (step == 5 && $ctrl.signedIn) {
             return 'criteria';
         }
 
@@ -422,11 +426,6 @@ let FundRequestComponentDefault = function(
     };
 
     $ctrl.nextStep = () => {
-        if (!$ctrl.signedIn && $ctrl.digidAvailable) {
-            $ctrl.state = 'digid_login';
-            return;
-        }
-
         $ctrl.buildSteps();
 
         if ($ctrl.step == $ctrl.totalSteps.length) {
