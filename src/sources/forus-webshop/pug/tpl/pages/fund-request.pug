@@ -263,7 +263,7 @@ section: .wrapper
                             i18n-vars="{name: invalidCriteria.record_type_name, value: ($ctrl.criterionValuePrefix[invalidCriteria.record_type_key]) + invalidCriteria.value}") 
                     
                     .form-group.col.col-lg-12(ng-if="invalidCriteria.description_html")
-                        .sign_up-pane-text(ng-bind-html="invalidCriteria.description_html")
+                        .block.block-markdown: .sign_up-pane-text(ng-bind-html="invalidCriteria.description_html")
                     
                     .form-group.col.col-lg-12: file-uploader(ng-if="invalidCriteria.show_attachment" files="invalidCriteria.files")
                 
