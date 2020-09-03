@@ -12,6 +12,14 @@
             }
         }
         
+        .block-app_download {
+            img {
+                height: 40px;
+                width: 135px;
+                margin-top: 10px;
+            }
+        }
+
         .footer-schedule {
 
             a {
@@ -29,7 +37,6 @@
             .schedule-value {
                 font: 400 16px/1.5em $bf;
                 color: $tc-var;
-                width: auto;
             }
         }
 

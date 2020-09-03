@@ -50,7 +50,7 @@ header.section.section-header.section-header-landing
             
             a(ng-if="!$root.auth_user && !$ctrl.appConfigs.features.settings.has_more_info_url" i18n="Hoe werkt het?" ui-sref="explanation").header-how-it-works
             a(ng-if="!$root.auth_user && $ctrl.appConfigs.features.settings.has_more_info_url" target="_blank" i18n="Hoe werkt het?" href="{{ $ctrl.appConfigs.features.settings.more_info_url }}").header-how-it-works
-            a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" href="#!/me" target="_blank").header-how-it-works
+            a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" href="https://forus.io/me" target="_blank").header-how-it-works
 
             //- usage example: 
             //- .header-title {{ 'test' | i18n:{foo:'bar'} }}

@@ -30,13 +30,13 @@ module.exports = {
             no_app: "< Ik wil inloggen met mijn emailadres",
         },
         app: {
-            title: "Heeft u de Me App al?",
+            title: "Heeft u de Me-app al?",
             description_top: [
-                'De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.',
+                'De Me-app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw tegoeden te beheren.',
             ].join("\n"),
             description_bottom: [
-                'Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.',
-                'De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.',
+                'Scan de QR code aan de rechterzijde met de QR-scanner in de Me-app.',
+                'De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en tegoeden te beheren.',
             ].join("\n")
         },
         record_checkbox: {

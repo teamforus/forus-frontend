@@ -259,7 +259,7 @@ let FundRequestComponentDefault = function(
         $ctrl.stopCheckAccessTokenStatus();
         CredentialsService.set(access_token);
         $ctrl.buildTypes();
-        $ctrl.state = $ctrl.step2state(4);
+        $ctrl.state = $ctrl.step2state(3);
     };
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
@@ -370,24 +370,16 @@ let FundRequestComponentDefault = function(
 
     $ctrl.step2state = (step) => {
         if (step == 1 && !$ctrl.signedIn) {
-            return 'welcome';
-        }
-
-        if (step == 2 && !$ctrl.signedIn) {
             return 'auth';
         }
 
-        if (step == 3 && !$ctrl.signedIn && (
+        if (step == 2 && !$ctrl.signedIn && (
             $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
         )) {
             return 'auth_email_sent';
         }
 
-        // if ((step == 4 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
-        //     return 'criterias';
-        // }
-
-        if ((step == 4 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
+        if ((step == 3 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
             return 'criteria';
         }
 
@@ -451,7 +443,7 @@ let FundRequestComponentDefault = function(
     };
 
     $ctrl.finish = () => {
-        $state.go('home');
+        $state.go('funds');
     };
 
     $ctrl.cleanReload = () => {

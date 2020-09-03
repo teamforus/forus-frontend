@@ -61,8 +61,6 @@
             }
 
             .product-funds {
-                margin-bottom: 20px;
-
                 .product-fund-label {
                     font: 500 10px $bf;
                     color: #646f79;
@@ -74,12 +72,50 @@
                     color: #282b39;
                 }
 
-                &:last-child {
-                    margin-bottom: 0;
+                .product-fund {
+                    display: flex;
+                    height: 50px;
+                    margin-top: 8px;
+                    border: 1px solid #D4D9DD;
+                    border-radius: 4px;
+
+                    .product-fund-logo {
+                        width: 48px;
+                        border-right: 1px solid #D4D9DD;
+
+                        img {
+                            height: 100%;
+                            width: 100%;
+                        }
+                    }
+
+                    .product-fund-name {
+                        display: flex;
+                        align-items: center;
+                        flex-grow: 1;
+                        padding-left: 10px;
+                        border-right: 1px solid #D4D9DD;
+                        font: 500 15px/24px 'Helvetica';
+                    }
+
+                    .product-fund-apply {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 160px;
+                        background-color: #F7F9FB;
+                        cursor: pointer;
+
+                        a {
+                            font: 600 13px/24px 'Helvetica';
+                            color: #303030;
+                        }
+                    }
                 }
             }
 
             .product-price {
+                margin-top: 20px;
                 margin-bottom: 20px;
 
                 .product-price-new {

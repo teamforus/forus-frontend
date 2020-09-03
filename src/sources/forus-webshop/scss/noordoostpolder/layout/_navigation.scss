@@ -1,0 +1,24 @@
+.block {
+    @media screen and (max-width: 1000px) {
+        &.block-navbar {
+            .navbar-logo {
+                img {
+                    display: none;
+
+                    &.hover {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width: 1000px) {
+    .nav-var {
+        &.block-navbar {
+            border: none;
+        }
+    }
+}

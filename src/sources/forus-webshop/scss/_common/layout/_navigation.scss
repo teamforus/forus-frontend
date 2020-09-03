@@ -60,12 +60,11 @@
             .subnav-inner {
                 display: flex;
                 justify-content: space-between;
-                padding-top: 20px;
-                padding-bottom: 20px;
                 align-items: center;
     
                 .navbar-logo {
                     display: flex;
+                    padding: $logo-padding;
 
                     img {
                         height: $logo-height;

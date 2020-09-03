@@ -379,12 +379,43 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "funds",
-        url: "/funds",
+        url: "/funds?{page:int}&{q:string}&{display_type:string}&{organization_id:int}&{show_menu:bool}",
         component: "fundsComponent",
+        params: {
+            q: {
+                dynamic: true,
+                value: "",
+                squash: true,
+            },
+            page: {
+                dynamic: true,
+                value: 1,
+                squash: true,
+            },
+            organization_id: {
+                value: null,
+                squash: true
+            },
+            display_type: {
+                dynamic: true,
+                value: 'list',
+                squash: true
+            },
+            show_menu: {
+                dynamic: true,
+                value: false,
+                squash: true
+            },
+        },
         resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())],
+            funds: ['$transition$', 'FundService', (
+                $transition$, FundService
+            ) => repackPagination(FundService.list(null, {
+                q: $transition$.params().q,
+                page: $transition$.params().page,
+                organization_id: $transition$.params().organization_id,
+                per_page: 10,
+            }))],
             recordTypes: ['RecordTypeService', (
                 RecordTypeService
             ) => repackResponse(RecordTypeService.list())],

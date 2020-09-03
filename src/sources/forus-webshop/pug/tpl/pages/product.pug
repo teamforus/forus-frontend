@@ -3,7 +3,7 @@ section.section.section-product: .wrapper
 
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
-        a(ui-sref="products").breadcrumb-item Aanbiedingen
+        a(ui-sref="products").breadcrumb-item Aanbod
         .breadcrumb-item.active(ng-bind="$ctrl.product.name")
 
     .section-title(ng-bind="$ctrl.product.name")
@@ -23,6 +23,12 @@ section.section.section-product: .wrapper
                 .product-funds
                     .product-fund-label(i18n="product.labels.fund")
                     .product-fund-list(ng-if="$ctrl.product.funds.length > 0" ng-bind="$ctrl.fundNames")
+
+                    .product-fund(ng-repeat="fund in $ctrl.product.funds")
+                        .product-fund-logo: img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}") 
+                        .product-fund-name {{ fund.name }}
+                        .product-fund-apply
+                            a(ui-sref="fund-request({fund_id: fund.id})") Aanvragen   
 
                 .product-price
                     .product-price-old(ng-if="$ctrl.product.old_price")
