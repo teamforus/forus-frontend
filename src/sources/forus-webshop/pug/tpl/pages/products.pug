@@ -9,8 +9,9 @@ block content
                 .mobile-filters-title Filter op categorieën en budgetten
                 .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
 
-            .showcase-title Er zijn {{ $ctrl.products.meta.total }} aanbiedingen gevonden
-            .showcase-subtitle Selecteer een aanbieding voor meer informatie
+            .block.block-breadcrumbs
+                a(ui-sref="home").breadcrumb-item Home
+                .breadcrumb-item.active Aanbod
             
             .showcase-layout
                 .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
@@ -52,7 +53,6 @@ block content
                                     ng-click="$ctrl.showAs('grid')")
                                     em.mdi.mdi-view-grid-outline.icon-start
                                     | Foto's
-                    
                     .block.block-products(ng-if="$ctrl.products.data.length > 0 && $ctrl.display_type == 'grid'")
                         .product-item(ng-repeat="product in $ctrl.products.data" ng-class="{discounted:product.old_price}")
                             a(ui-sref="products-show(product)").product-item-inner
