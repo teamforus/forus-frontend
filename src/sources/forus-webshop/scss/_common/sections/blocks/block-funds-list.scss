@@ -62,13 +62,16 @@
 
         .fund-actions {
             padding: 15px;
-            width: 270px;
             border-left: 1px solid $border_color;
             display: flex;
             align-items: flex-start;
             flex-wrap: wrap;
             flex-direction: row-reverse;
             align-items: center;
+
+            .button-primary {
+                min-width: 170px;
+            }
         }
 
         &:hover {
