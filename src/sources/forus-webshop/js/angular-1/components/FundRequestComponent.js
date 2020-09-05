@@ -356,7 +356,7 @@ let FundRequestComponentDefault = function(
 
     $ctrl.buildSteps = () => {
         // Sign up step + criteria list
-        let totalSteps = ($ctrl.signedIn ? 2 : 3) + ((
+        let totalSteps = ($ctrl.signedIn ? 1 : 2) + ((
             $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
         ) ? 1 : 0);
 
@@ -391,10 +391,6 @@ let FundRequestComponentDefault = function(
 
         if ((step == 4 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
             return 'digid_login';
-        }
-
-        if (step == 5 && $ctrl.signedIn) {
-            return 'criteria';
         }
 
         if (step == $ctrl.totalSteps.length + 1) {
@@ -460,14 +456,6 @@ let FundRequestComponentDefault = function(
         $state.go('home');
     };
 
-    $ctrl.cleanReload = () => {
-        $state.go($state.current.name, {
-            fund_id: $ctrl.fund.id,
-            digid_success: null,
-            digid_error: null,
-        });
-    };
-
     $ctrl.applyFund = function(fund) {
         return $q((resolve, reject) => {
             FundService.apply(fund.id).then(function(res) {
@@ -499,7 +487,7 @@ let FundRequestComponentDefault = function(
                     if ($ctrl.invalidCriteria.length == 0) {
                         $ctrl.applyFund($ctrl.fund);
                     } else {
-                        $ctrl.cleanReload();
+                        $ctrl.state = 'criteria';
                     }
                 } else if ($stateParams.digid_error) {
                     return $state.go('error', {
