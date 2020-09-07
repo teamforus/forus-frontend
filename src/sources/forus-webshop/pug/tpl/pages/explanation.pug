@@ -2,6 +2,9 @@ top-navbar.nav-var
 
 .page.page-home
     .block.block-steps(ng-if="$ctrl.description_steps_html"): .wrapper
+        .block.block-breadcrumbs
+            a(ui-sref="home").breadcrumb-item Home
+            .breadcrumb-item.active Uitleg
         .block-steps-description(ng-bind-html="$ctrl.description_steps_html")
 
     section.section.section-steps#steps(ng-if="$ctrl.appConfigs.flags.homeSteps && !$ctrl.description_steps_html"): .wrapper

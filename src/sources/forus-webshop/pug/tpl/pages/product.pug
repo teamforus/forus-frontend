@@ -3,7 +3,7 @@ section.section.section-product: .wrapper
 
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
-        a(ui-sref="products").breadcrumb-item Aanbiedingen
+        a(ui-sref="products").breadcrumb-item Aanbod
         .breadcrumb-item.active(ng-bind="$ctrl.product.name")
 
     .section-title(ng-bind="$ctrl.product.name")
@@ -24,7 +24,7 @@ section.section.section-product: .wrapper
                     .product-fund-label(i18n="product.labels.fund")
                     .product-fund-list(ng-if="$ctrl.product.funds.length > 0" ng-bind="$ctrl.fundNames")
 
-                .product-price(ng-if="$ctrl.useBudget")
+                .product-price
                     .product-price-old(ng-if="$ctrl.product.old_price")
                         .old-label(i18n="block_products.labels.old")
                         .old-value(ng-bind="$ctrl.product.old_price | currency_format")
@@ -48,11 +48,11 @@ section.section.section-product: .wrapper
                         span(ng-if="$ctrl.useBudget") LOG IN OM TE RESERVEREN
                         span(ng-if="$ctrl.useSubsidies && !$ctrl.useBudget") Login
 
-                .product-funds-list(ng-if="$ctrl.useSubsidies && $root.auth_user")
-                    .fund-item(ng-repeat="fund in $ctrl.subsidyFunds")
+                .product-funds-list(ng-if="$ctrl.useSubsidies")
+                    .fund-item(ng-repeat="fund in $ctrl.product.funds")
                         .fund-item-media: img.fund-item-media-img(src="../assets/img/placeholders/fund-thumbnail.png")
                         .fund-item-name(ng-bind="fund.name")
-                        .fund-item-limit
+                        .fund-item-limit(ng-if="fund.type == 'subsidies'")
                             .fund-item-limit-label Aantal beschikbaar:
                             .fund-item-limit-value(ng-bind="fund.limit_available")
                         .fund-item-apply(
@@ -60,7 +60,7 @@ section.section.section-product: .wrapper
                             ng-if="!$ctrl.isApplicable") Aanvragen
                         .fund-item-price(
                             ng-if="$ctrl.isApplicable"
-                            ng-bind="fund.price == 0 ? 'Free' : (fund.price | currency_format)")
+                            ng-bind="fund.price == 0 ? 'Free' : ((fund.type == 'subsidies' ? fund.price : $ctrl.product.price) | currency_format)")
 
         .block.block-info-card
             .block-header(i18n="voucher.labels.shopdetail")

@@ -60,8 +60,6 @@
             }
 
             .product-funds {
-                margin-bottom: 20px;
-
                 .product-fund-label {
                     font: 500 10px $bf;
                     color: #646f79;
@@ -72,13 +70,10 @@
                     font: 700 16px $bf;
                     color: #282b39;
                 }
-
-                &:last-child {
-                    margin-bottom: 0;
-                }
             }
 
             .product-price {
+                margin-top: 20px;
                 margin-bottom: 20px;
 
                 .product-price-new {

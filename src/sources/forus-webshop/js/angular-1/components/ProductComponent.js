@@ -31,17 +31,25 @@ let ProductComponent = function(
 
         $ctrl.applicableVouchers = $ctrl.vouchers.filter(voucher => {
             return isValidProductVoucher(voucher, fundIds) &&
-                parseFloat($ctrl.product.price) <= parseFloat(voucher.amount);
+                parseFloat($ctrl.product.price) <= parseFloat(voucher.amount) ||
+                voucher.fund.type == 'subsidies';
         });
 
         $ctrl.lowAmountVouchers = $ctrl.vouchers.filter(voucher => {
             return isValidProductVoucher(voucher, fundIds) &&
-                parseFloat($ctrl.product.price) >= parseFloat(voucher.amount);
+                parseFloat($ctrl.product.price) >= parseFloat(voucher.amount) &&
+                voucher.fund.type == 'budget';
         });
+        
 
         $ctrl.fundNames = $ctrl.product.funds.map(fund => fund.name).join(', ');
         $ctrl.isApplicable = $ctrl.applicableVouchers.length > 0;
         $ctrl.product.description_html = $sce.trustAsHtml($ctrl.product.description_html);
+
+        // $ctrl.product.funds.map(fund => {
+        //     fund.alreadyReceived = fund.vouchers.length !== 0;
+        //     return fund;
+        // });
     };
 
     $ctrl.applyProduct = () => {

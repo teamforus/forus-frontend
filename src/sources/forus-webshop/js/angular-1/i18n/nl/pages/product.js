@@ -1,7 +1,7 @@
 module.exports = {
     // PRODUCT = product.pug
     labels: {
-        fund: "Fonds",
+        fund: "Aanvragen",
         find: "U kunt ons hier vinden",      
     },
     status: {
@@ -11,6 +11,6 @@ module.exports = {
     buttons: {
         buy: "Koop",
     },
-    low_amount: "U heeft geen voucher met voldoende tegoed.",
-    no_vouchers: "U heeft geen voucher om deze aanbieding mee te reserveren",
+    low_amount: "U heeft geen tegoed met voldoende saldo.",
+    no_vouchers: "U heeft geen tegoed om dit aanbod mee te reserveren",
 };
