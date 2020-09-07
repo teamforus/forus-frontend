@@ -9,8 +9,8 @@ let ModalSubsidyProductEditComponent = function(
     $ctrl.amountChange = () => {
         $timeout.cancel(timeout);
 
-        if (!$ctrl.form.values.amount) {
-            timeout = $timeout(() => $ctrl.form.values.amount = 1, 1000);
+        if (!$ctrl.form.values.amount && $ctrl.form.values.amount !== 0) {
+            timeout = $timeout(() => $ctrl.form.values.amount = 0, 1000);
         }
     };
 
@@ -25,7 +25,7 @@ let ModalSubsidyProductEditComponent = function(
         $ctrl.form = FormBuilderService.build($ctrl.readOnly ? $ctrl.readValues : {
             limit_total: 1,
             limit_per_identity: 1,
-            amount: $ctrl.readOnly ? $ctrl.product.price / 2 : 1,
+            amount: $ctrl.readOnly ? $ctrl.product.price / 2 : 0,
             gratis: false,
         }, (form) => {
             if ($ctrl.readOnly) {
