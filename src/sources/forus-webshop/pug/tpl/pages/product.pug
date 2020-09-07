@@ -24,7 +24,7 @@ section.section.section-product: .wrapper
                     .product-fund-label(i18n="product.labels.fund")
                     .product-fund-list(ng-if="$ctrl.product.funds.length > 0" ng-bind="$ctrl.fundNames")
 
-                .product-price
+                .product-price(ng-if="$ctrl.useBudget")
                     .product-price-old(ng-if="$ctrl.product.old_price")
                         .old-label(i18n="block_products.labels.old")
                         .old-value(ng-bind="$ctrl.product.old_price | currency_format")
