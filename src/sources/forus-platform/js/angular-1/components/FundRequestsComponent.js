@@ -9,6 +9,7 @@ let FundRequestsComponent = function(
     OrganizationService,
     OrganizationEmployeesService,
     FundRequestValidatorService,
+    PushNotificationsService,
     appConfigs
 ) {
     let $ctrl = this;
@@ -212,12 +213,12 @@ let FundRequestsComponent = function(
             $ctrl.organization.id,
             request.id
         ).then(() => {
-            showInfoModal("Gelukt!", "U bent nu toegewezen aan deze aanvraag.");
+            PushNotificationsService.success('Gelukt! U bent nu toegewezen aan deze aanvraag.');
             $ctrl.reloadRequest(request);
-        }, res => showInfoModal(
-            "U kunt op dit moment geen aanvullingsverzoek doen.",
-            res.data.error.message
-        ));
+        }, res => {
+            PushNotificationsService.danger('U kunt op dit moment geen aanvullingsverzoek doen.');
+            console.error(res);
+        });
     };
 
     $ctrl.requestResign = (request) => {
@@ -225,12 +226,12 @@ let FundRequestsComponent = function(
             $ctrl.organization.id,
             request.id
         ).then(() => {
-            showInfoModal("Gelukt!", "U heeft zich afgemeld van deze aanvraag, iemand anders kan deze aanvraag nu oppakken.");
+            PushNotificationsService.success('Gelukt! U heeft zich afgemeld van deze aanvraag.');
             $ctrl.reloadRequest(request);
-        }, res => showInfoModal(
-            "Mislukt! U kunt u zelf niet van deze aanvraag afhalen.",
-            res.data.error.message
-        ));
+        }, res => {
+            PushNotificationsService.danger('Mislukt! U kunt u zelf niet van deze aanvraag afhalen.');
+            console.error(res);
+        })
     };
 
     $ctrl.updateSelfAssignedFlags = () => {
@@ -353,6 +354,7 @@ module.exports = {
         'OrganizationService',
         'OrganizationEmployeesService',
         'FundRequestValidatorService',
+        'PushNotificationsService',
         'appConfigs',
         FundRequestsComponent
     ],
