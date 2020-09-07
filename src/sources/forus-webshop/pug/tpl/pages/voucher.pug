@@ -139,7 +139,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                     .transactions-item-counterpart(ng-if="transaction.type == 'product_voucher'") 
                         | {{ "Aanbieding:" | translate }} {{ transaction.product.name }}
                     .transactions-item-date {{ transaction.created_at_locale }}
-                .transactions-item-amount 
+                .transactions-item-amount(ng-if="$ctrl.voucherCard.fund.type == 'budget'")
                     .transactions-item-value - {{ transaction.amount | currency_format }}
                     .transactions-item-type {{ "voucher.labels.subtract" | translate }}
 
