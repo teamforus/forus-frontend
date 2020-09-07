@@ -261,7 +261,7 @@ let FundRequestComponentDefault = function(
         $ctrl.stopCheckAccessTokenStatus();
         CredentialsService.set(access_token);
         $ctrl.buildTypes();
-        $ctrl.state = $ctrl.step2state(4);
+        $ctrl.state = $ctrl.step2state(3);
     };
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
@@ -372,25 +372,17 @@ let FundRequestComponentDefault = function(
 
     $ctrl.step2state = (step) => {
         if (step == 1 && !$ctrl.signedIn) {
-            return 'welcome';
-        }
-
-        if (step == 2 && !$ctrl.signedIn) {
             return 'auth';
         }
 
-        if (step == 3 && !$ctrl.signedIn && (
+        if (step == 2 && !$ctrl.signedIn && (
             $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
         )) {
             return 'auth_email_sent';
         }
 
-        // if ((step == 4 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
-        //     return 'criterias';
-        // }
-
-        if ((step == 4 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
-            return !$ctrl.appConfigs.features.digid ? 'criteria' : 'digid_login';
+        if ((step == 3 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
+            return !$ctrl.digidAvailable ? 'criteria' : 'digid_login';
         }
 
         if (step == $ctrl.totalSteps.length + 1) {
@@ -453,7 +445,7 @@ let FundRequestComponentDefault = function(
     };
 
     $ctrl.finish = () => {
-        $state.go('home');
+        $state.go('funds');
     };
 
     $ctrl.applyFund = function(fund) {
@@ -484,7 +476,7 @@ let FundRequestComponentDefault = function(
                     if ($stateParams.digid_success == 'signed_up' ||
                         $stateParams.digid_success == 'signed_in') {
                         PushNotificationsService.success('DigId synchronization success.');
-    
+
                         if ($ctrl.invalidCriteria.length == 0) {
                             $ctrl.applyFund($ctrl.fund);
                         }
@@ -496,20 +488,20 @@ let FundRequestComponentDefault = function(
                         FundRequestService.index($ctrl.fund.id).then((res) => {
                             let pendingRequests = res.data.data.filter(request => request.state === 'pending');
                             let pendingRequest = pendingRequests[0] || false;
-    
+
                             if (pendingRequest) {
                                 $ctrl.fund.criteria.map(criteria => {
                                     let record = pendingRequest.records.filter(record => {
                                         return record.record_type_key == criteria.record_type_key;
                                     })[0];
-    
+
                                     if (record) {
                                         criteria.request_state = record.state;
                                     }
-    
+
                                     return criteria;
                                 });
-    
+
                                 $ctrl.state = 'fund_already_applied';
                             } else if ($ctrl.invalidCriteria.length == 0) {
                                 $ctrl.applyFund($ctrl.fund);

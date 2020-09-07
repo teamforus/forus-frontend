@@ -1,6 +1,6 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
-//- top-navbar
+top-navbar
 
 mixin progress()
     .sign_up-progress(ng-class="{'sign_up-progress-compact':$ctrl.totalSteps.length >= 5}")
@@ -17,7 +17,7 @@ mixin progress()
         
         .sign_up-progress-overview Stap {{ $ctrl.step }} from {{ $ctrl.totalSteps.length }}
 
-//- top-navbar
+//-top-navbar
 section: .wrapper 
     .block.block-sign_up: .block-wrapper
         .sign_up-header: a(ng-click="$ctrl.goToMain()").sign_up-header-back
@@ -71,8 +71,7 @@ section: .wrapper
                 .sign_up-pane-header(translate="fund_request.sign_up.header.title_step_2")
 
                 .sign_up-pane-body(ng-if="!$ctrl.hasApp")
-                    .sign_up-pane-heading(translate="Vul uw email adres in om verder te gaan")
-                    .sign_up-pane-text(translate="fund_request.sign_up.subtitles.step_2")
+                    .sign_up-pane-heading(translate="Vul uw e-mailadres in om verder te gaan")
 
                     form(ng-submit="$ctrl.authForm.submit()").form: .row
                         .form-group.col.col-lg-9
@@ -145,7 +144,7 @@ section: .wrapper
                             img(src=src_prefix + "./assets/img/sign_up-email.svg").sign_up-email_sent-icon-img
                         .sign_up-email_sent-title Bevestig dat u toegang heeft tot dit e-mailadres.
                         .sign_up-email_sent-text
-                            | U heeft een e-mail ontvangen op "#[span(ng-bind="$ctrl.authForm.values.email").text-primary]". Ga naar uw inbox en open de e-mail met het onderwerp "E-mail activering" en klik in de e-mail op de blauwe knop.
+                            | U heeft een e-mail ontvangen op "#[span(ng-bind="$ctrl.authForm.values.email").text-primary]". Ga naar uw inbox en open de e-mail met het onderwerp "E-mail bevestigen" en klik in de e-mail op de blauwe knop.
 
         //- DigiD login
         div(ng-if="$ctrl.state == 'digid_login'")
@@ -271,7 +270,7 @@ section: .wrapper
                             i18n-vars="{name: invalidCriteria.record_type_name, value: ($ctrl.criterionValuePrefix[invalidCriteria.record_type_key]) + invalidCriteria.value}") 
                     
                     .form-group.col.col-lg-12(ng-if="invalidCriteria.description_html")
-                        .sign_up-pane-text(ng-bind-html="invalidCriteria.description_html")
+                        .block.block-markdown: .sign_up-pane-text(ng-bind-html="invalidCriteria.description_html")
                     
                     .form-group.col.col-lg-12: file-uploader(ng-if="invalidCriteria.show_attachment" files="invalidCriteria.files")
                 
@@ -295,9 +294,9 @@ section: .wrapper
                         .form-group.col.col-lg-12
                             .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
                             p.sign_up-pane-text.text-center 
-                                | Uw aanvraag is voltooid, u krijgt een email wanneer deze is goedgekeurd.
+                                | Uw aanvraag is voltooid, u krijgt een e-mail wanneer deze is goedgekeurd.
                     
-                            .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
+                            .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug
                         .form-group.col.col-lg-12.hidden-xs: br
                 
             //- Error
@@ -313,5 +312,5 @@ section: .wrapper
                                 | Reden:
                                 span(ng-bind="$ctrl.errorReason")
                     
-                            .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar de webshop
+                            .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug
                         .form-group.col.col-lg-12: br 
