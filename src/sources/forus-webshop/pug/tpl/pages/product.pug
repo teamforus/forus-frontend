@@ -60,7 +60,7 @@ section.section.section-product: .wrapper
                             ng-if="!$ctrl.isApplicable") Aanvragen
                         .fund-item-price(
                             ng-if="$ctrl.isApplicable"
-                            ng-bind="fund.price == 0 ? 'Free' : ((fund.type == 'subsidies' ? fund.price : $ctrl.product.price) | currency_format)")
+                            ng-bind="fund.price == 0 ? 'Gratis' : ((fund.type == 'subsidies' ? fund.price : $ctrl.product.price) | currency_format)")
 
         .block.block-info-card
             .block-header(i18n="voucher.labels.shopdetail")

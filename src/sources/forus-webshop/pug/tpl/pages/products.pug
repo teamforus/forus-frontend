@@ -75,7 +75,7 @@ block content
                             .product-item(ng-repeat="product in products_row"): a(ui-sref="products-show(product)").product-item-inner
                                 .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
                                     img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
-                                    .product-price(ng-bind="product.price_min > 0 ? (product.price_min | currency_format) : 'Free'")
+                                    .product-price(ng-bind="product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis'")
                                 .product-details
                                     .product-provider(ng-bind="product.organization.name")
                                     .product-name(ng-bind="product.name")
@@ -113,13 +113,13 @@ block content
                                 .product-actions
                                     .product-price(
                                         ng-if="product.price_min == product.price_max" 
-                                        ng-bind="product.price_min > 0 ? (product.price_min | currency_format) : 'Free'")
+                                        ng-bind="product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis'")
                                     
                                     .product-price(ng-if="product.price_min != product.price_max")
-                                        | From: {{ product.price_min > 0 ? (product.price_min | currency_format) : 'Free' }}
+                                        | Van: {{ product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis' }}
                                     
                                     .product-price(ng-if="product.price_min != product.price_max")
-                                        | To: {{ product.price_max | currency_format }}
+                                        | Voor: {{ product.price_max | currency_format }}
 
                     empty-block(
                         title= "{{ 'block_products.labels.title' | translate }}"
