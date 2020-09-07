@@ -390,7 +390,7 @@ let FundRequestComponentDefault = function(
         // }
 
         if ((step == 4 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
-            return 'digid_login';
+            return !$ctrl.appConfigs.features.digid ? 'criteria' : 'digid_login';
         }
 
         if (step == $ctrl.totalSteps.length + 1) {
@@ -480,46 +480,46 @@ let FundRequestComponentDefault = function(
 
         if ($ctrl.signedIn) {
             $ctrl.buildTypes().then(() => {
-                if ($stateParams.digid_success == 'signed_up' ||
-                    $stateParams.digid_success == 'signed_in') {
-                    PushNotificationsService.success('DigId synchronization success.');
-
-                    if ($ctrl.invalidCriteria.length == 0) {
-                        $ctrl.applyFund($ctrl.fund);
-                    } else {
-                        $ctrl.state = 'criteria';
-                    }
-                } else if ($stateParams.digid_error) {
-                    return $state.go('error', {
-                        errorCode: 'digid_' + $stateParams.digid_error
-                    });
-                } else {
-                    FundRequestService.index($ctrl.fund.id).then((res) => {
-                        let pendingRequests = res.data.data.filter(request => request.state === 'pending');
-                        let pendingRequest = pendingRequests[0] || false;
-
-                        if (pendingRequest) {
-                            $ctrl.fund.criteria.map(criteria => {
-                                let record = pendingRequest.records.filter(record => {
-                                    return record.record_type_key == criteria.record_type_key;
-                                })[0];
-
-                                if (record) {
-                                    criteria.request_state = record.state;
-                                }
-
-                                return criteria;
-                            });
-
-                            $ctrl.state = 'fund_already_applied';
-                        } else if ($ctrl.invalidCriteria.length == 0) {
+                IdentityService.identity().then(res => {
+                    if ($stateParams.digid_success == 'signed_up' ||
+                        $stateParams.digid_success == 'signed_in') {
+                        PushNotificationsService.success('DigId synchronization success.');
+    
+                        if ($ctrl.invalidCriteria.length == 0) {
                             $ctrl.applyFund($ctrl.fund);
                         }
-                    });
-                }
+                    } else if ($stateParams.digid_error) {
+                        return $state.go('error', {
+                            errorCode: 'digid_' + $stateParams.digid_error
+                        });
+                    } else {
+                        FundRequestService.index($ctrl.fund.id).then((res) => {
+                            let pendingRequests = res.data.data.filter(request => request.state === 'pending');
+                            let pendingRequest = pendingRequests[0] || false;
+    
+                            if (pendingRequest) {
+                                $ctrl.fund.criteria.map(criteria => {
+                                    let record = pendingRequest.records.filter(record => {
+                                        return record.record_type_key == criteria.record_type_key;
+                                    })[0];
+    
+                                    if (record) {
+                                        criteria.request_state = record.state;
+                                    }
+    
+                                    return criteria;
+                                });
+    
+                                $ctrl.state = 'fund_already_applied';
+                            } else if ($ctrl.invalidCriteria.length == 0) {
+                                $ctrl.applyFund($ctrl.fund);
+                            }
+                        });
+                    }
 
-                IdentityService.identity().then(res => {
-                    $ctrl.bsnIsKnown = res.data.bsn;
+                    if ($ctrl.invalidCriteria.length != 0 && res.data.bsn) {
+                        $ctrl.state = 'criteria';
+                    }
                 });
             });
         } else {
