@@ -451,20 +451,20 @@ $bf: 'Montserrat', arial, sans-serif;
             }
 
             .sign_up-pane-digid {
-                padding: 20px 0;
                 display: flex;
+                padding: 20px 0;
                 width: 100%;
+                align-items: center;
 
                 .digid-button {
-                    padding: 8px;
-                    padding-right: 25px;
-                    border: 1px solid #222530;
-                    border-radius: 6px;
-                    margin: 0 auto;
-                    font: 600 14px/52px $bf;
-                    color: #222530;
+                    height: 54px;
+                    padding: 8px 30px;
+                    border: none;
+                    border-radius: 5px;
                     cursor: pointer;
-                    display: inline-flex;
+                    font: 600 14px/40px $bf;
+                    background-color: #E1E7FF;
+                    color: #4B71FF;
 
                     .digid-button-icon {
                         display: block;
@@ -472,6 +472,10 @@ $bf: 'Montserrat', arial, sans-serif;
                         margin-right: 25px;
                         float: left;
                     }
+                }
+
+                .digid-image {
+                    margin-left: 20px;
                 }
             }
 

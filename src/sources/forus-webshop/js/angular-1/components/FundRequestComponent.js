@@ -112,6 +112,8 @@ let FundRequestComponentDefault = function(
         base_salary: '€'
     };
 
+    $ctrl.digidAvailable = $ctrl.appConfigs.features.digid;
+
     let trans_record_checkbox = (criteria_record_key, criteria_value) => {
         let trans_key = 'fund_request.sign_up.record_checkbox.' + criteria_record_key;
         let trans_fallback_key = 'fund_request.sign_up.record_checkbox.default';
@@ -380,7 +382,7 @@ let FundRequestComponentDefault = function(
         }
 
         if ((step == 3 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
-            return 'criteria';
+            return !$ctrl.digidAvailable ? 'criteria' : 'digid_login';
         }
 
         if (step == $ctrl.totalSteps.length + 1) {
@@ -446,14 +448,6 @@ let FundRequestComponentDefault = function(
         $state.go('funds');
     };
 
-    $ctrl.cleanReload = () => {
-        $state.go($state.current.name, {
-            fund_id: $ctrl.fund.id,
-            digid_success: null,
-            digid_error: null,
-        });
-    };
-
     $ctrl.applyFund = function(fund) {
         return $q((resolve, reject) => {
             FundService.apply(fund.id).then(function(res) {
@@ -478,46 +472,46 @@ let FundRequestComponentDefault = function(
 
         if ($ctrl.signedIn) {
             $ctrl.buildTypes().then(() => {
-                if ($stateParams.digid_success == 'signed_up' ||
-                    $stateParams.digid_success == 'signed_in') {
-                    PushNotificationsService.success('DigId synchronization success.');
+                IdentityService.identity().then(res => {
+                    if ($stateParams.digid_success == 'signed_up' ||
+                        $stateParams.digid_success == 'signed_in') {
+                        PushNotificationsService.success('DigId synchronization success.');
 
-                    if ($ctrl.invalidCriteria.length == 0) {
-                        $ctrl.applyFund($ctrl.fund);
-                    } else {
-                        $ctrl.cleanReload();
-                    }
-                } else if ($stateParams.digid_error) {
-                    return $state.go('error', {
-                        errorCode: 'digid_' + $stateParams.digid_error
-                    });
-                } else {
-                    FundRequestService.index($ctrl.fund.id).then((res) => {
-                        let pendingRequests = res.data.data.filter(request => request.state === 'pending');
-                        let pendingRequest = pendingRequests[0] || false;
-
-                        if (pendingRequest) {
-                            $ctrl.fund.criteria.map(criteria => {
-                                let record = pendingRequest.records.filter(record => {
-                                    return record.record_type_key == criteria.record_type_key;
-                                })[0];
-
-                                if (record) {
-                                    criteria.request_state = record.state;
-                                }
-
-                                return criteria;
-                            });
-
-                            $ctrl.state = 'fund_already_applied';
-                        } else if ($ctrl.invalidCriteria.length == 0) {
+                        if ($ctrl.invalidCriteria.length == 0) {
                             $ctrl.applyFund($ctrl.fund);
                         }
-                    });
-                }
+                    } else if ($stateParams.digid_error) {
+                        return $state.go('error', {
+                            errorCode: 'digid_' + $stateParams.digid_error
+                        });
+                    } else {
+                        FundRequestService.index($ctrl.fund.id).then((res) => {
+                            let pendingRequests = res.data.data.filter(request => request.state === 'pending');
+                            let pendingRequest = pendingRequests[0] || false;
 
-                IdentityService.identity().then(res => {
-                    $ctrl.bsnIsKnown = res.data.bsn;
+                            if (pendingRequest) {
+                                $ctrl.fund.criteria.map(criteria => {
+                                    let record = pendingRequest.records.filter(record => {
+                                        return record.record_type_key == criteria.record_type_key;
+                                    })[0];
+
+                                    if (record) {
+                                        criteria.request_state = record.state;
+                                    }
+
+                                    return criteria;
+                                });
+
+                                $ctrl.state = 'fund_already_applied';
+                            } else if ($ctrl.invalidCriteria.length == 0) {
+                                $ctrl.applyFund($ctrl.fund);
+                            }
+                        });
+                    }
+
+                    if ($ctrl.invalidCriteria.length != 0 && res.data.bsn) {
+                        $ctrl.state = 'criteria';
+                    }
                 });
             });
         } else {
