@@ -23,10 +23,12 @@
         .footer-nav {
             .footer-nav-item {
                 a {
+                    text-decoration: underline;
                     color: $tc;
-
+    
                     &:hover {
-                        color: #b9ca2f;
+                        color: $bc;
+                        text-decoration: none;
                     }
                 }
             }
@@ -41,10 +43,12 @@
 
         .links {
             a {
+                text-decoration: underline;
                 color: $tc;
 
                 &:hover {
-                    color: #b9ca2f;
+                    color: $bc;
+                    text-decoration: none;
                 }
             }
         }
