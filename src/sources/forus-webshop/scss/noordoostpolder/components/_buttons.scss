@@ -10,18 +10,21 @@
         background-color: none;
         border: none;
         color: $bc;
+        border: 0 !important;
+        text-decoration: underline;
+        box-shadow: 0 3px 0 #483e6f;
 
         .mdi {
             color: $bc;
         }
 
         &:hover {
-            background-color: transparent;
+            background-color: #483e6f !important;
             border-color: transparent;
             border: 0;
             color: #535252;
-            text-decoration: underline;
-            box-shadow: none;
+            text-decoration: none;
+            box-shadow: 0 3px 0 #1e192e;
 
             .mdi {
                 color: #535252;;
@@ -32,12 +35,17 @@
     &.button-primary {
         background: $bg;
         text-shadow: none;
-        border: 1px solid transparent;
+        border: 0 !important;
+        text-decoration: underline;
+        box-shadow: 0 3px 0 #812446;
+
 
         &:hover {
-            background-color: #fff;
+            background-color: #b83264 !important;
+            text-decoration: none;
             border: 1px solid $bg;
             color: $bg;
+            box-shadow: 0 3px 0 #812446;
         }
     }
 }
