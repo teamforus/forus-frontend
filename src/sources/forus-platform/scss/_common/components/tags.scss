@@ -8,11 +8,20 @@
     cursor: default;
 
     .mdi {
-        margin-left: 5px;
-        margin-right: -5px;
         font-size: 1.5em;
         float: right;
         color: inherit;
+        line-height: 24px;
+
+        &.icon-start {
+            margin-left: -5px;
+            margin-right: 5px;
+        }
+
+        &.icon-end {
+            margin-left: 5px;
+            margin-right: -5px;
+        }
     }
 
     .tag-link {

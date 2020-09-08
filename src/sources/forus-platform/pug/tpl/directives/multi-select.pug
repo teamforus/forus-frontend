@@ -10,4 +10,4 @@ div
         .form-offset
             div(ng-repeat="id in ngModel").tag.tag-primary.tag-square.pull-left 
                 | {{ optionsById[id] }}
-                .tag-link.mdi.mdi-close(ng-click="removeItem(id)")
+                .tag-link.mdi.mdi-close.icon-end(ng-click="removeItem(id)")

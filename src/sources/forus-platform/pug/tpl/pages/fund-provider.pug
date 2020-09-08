@@ -132,7 +132,7 @@
                         div(ng-if="product.allowed")
                             .tag.tag-success.nowrap
                                 | Actie actief 
-                                .mdi.mdi-close(ng-click="$ctrl.disableProductItem($ctrl.fundProvider, product)")
+                                .mdi.mdi-close.icon-end(ng-click="$ctrl.disableProductItem($ctrl.fundProvider, product)")
                             .hidden
                         button(ng-click="$ctrl.openProductDetails(product)").button.button-default.button-sm: em.mdi.mdi-eye-outline
             
