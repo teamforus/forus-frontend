@@ -112,6 +112,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 value: 'list',
                 squash: true
             },
+            fund_type: {
+                dynamic: true,
+                value: 'budget',
+                squash: true
+            },
             show_menu: {
                 dynamic: true,
                 value: false,
@@ -128,6 +133,68 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 q: $transition$.params().q,
                 page: $transition$.params().page,
                 fund_id: $transition$.params().fund_id,
+                fund_type: $transition$.params().fund_type,
+                product_category_id: $transition$.params().product_category_id
+            }))],
+            productCategories: ['ProductCategoryService', (
+                ProductCategoryService
+            ) => repackResponse(ProductCategoryService.list({
+                parent_id: 'null',
+                used: 1,
+            }))]
+        }
+    });
+
+    $stateProvider.state({
+        name: "actions",
+        url: "/actions?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}",
+        component: "productsComponent",
+        params: {
+            q: {
+                dynamic: true,
+                value: "",
+                squash: true,
+            },
+            page: {
+                dynamic: true,
+                value: 1,
+                squash: true,
+            },
+            fund_id: {
+                value: null,
+                squash: true
+            },
+            product_category_id: {
+                value: null,
+                squash: true
+            },
+            display_type: {
+                dynamic: true,
+                value: 'list',
+                squash: true
+            },
+            fund_type: {
+                dynamic: true,
+                value: 'subsidies',
+                squash: true
+            },
+            show_menu: {
+                dynamic: true,
+                value: false,
+                squash: true
+            },
+        },
+        resolve: {
+            funds: ['FundService', (
+                FundService
+            ) => repackResponse(FundService.list())],
+            products: ['$transition$', 'ProductService', (
+                $transition$, ProductService
+            ) => repackPagination(ProductService.list({
+                q: $transition$.params().q,
+                page: $transition$.params().page,
+                fund_id: $transition$.params().fund_id,
+                fund_type: $transition$.params().fund_type,
                 product_category_id: $transition$.params().product_category_id
             }))],
             productCategories: ['ProductCategoryService', (

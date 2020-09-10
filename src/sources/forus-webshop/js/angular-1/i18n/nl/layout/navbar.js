@@ -2,6 +2,7 @@ module.exports = {
     items: {
         funds:"Fondsen",
         products:"Aanbod",
+        subsidies:"Acties",
         providers:"Aanbieders",
         explanation:"Uitleg",
         identity:"Profiel",

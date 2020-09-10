@@ -1,4 +1,4 @@
-let ProductComponent = function (
+let ProductComponent = function(
     $scope,
     $state,
     $sce,
@@ -12,7 +12,7 @@ let ProductComponent = function (
         return $state.go('home');
     }
 
-    $scope.openAuthPopup = function () {
+    $scope.openAuthPopup = function() {
         ModalService.open('modalAuth', {});
     };
 
@@ -25,15 +25,22 @@ let ProductComponent = function (
     $ctrl.$onInit = function() {
         let fundIds = $ctrl.product.funds.map(fund => fund.id);
 
+        $ctrl.subsidyFunds = $ctrl.product.funds.filter(fund => fund.type === 'subsidies');
+        $ctrl.useSubsidies = $ctrl.subsidyFunds.length > 0
+        $ctrl.useBudget = $ctrl.product.funds.filter(fund => fund.type === 'budget').length > 0
+
         $ctrl.applicableVouchers = $ctrl.vouchers.filter(voucher => {
-            return isValidProductVoucher(voucher, fundIds) && 
-                parseFloat($ctrl.product.price) <= parseFloat(voucher.amount);
+            return isValidProductVoucher(voucher, fundIds) &&
+                parseFloat($ctrl.product.price) <= parseFloat(voucher.amount) ||
+                voucher.fund.type == 'subsidies';
         });
 
         $ctrl.lowAmountVouchers = $ctrl.vouchers.filter(voucher => {
-            return isValidProductVoucher(voucher, fundIds) && 
-                parseFloat($ctrl.product.price) >= parseFloat(voucher.amount);
+            return isValidProductVoucher(voucher, fundIds) &&
+                parseFloat($ctrl.product.price) >= parseFloat(voucher.amount) &&
+                voucher.fund.type == 'budget';
         });
+        
 
         $ctrl.fundNames = $ctrl.product.funds.map(fund => fund.name).join(', ');
         $ctrl.isApplicable = $ctrl.applicableVouchers.length > 0;
@@ -46,7 +53,7 @@ let ProductComponent = function (
     };
 
     $ctrl.applyProduct = () => {
-        if($ctrl.applicableVouchers.length == 1){
+        if ($ctrl.applicableVouchers.length == 1) {
             let voucher = $ctrl.applicableVouchers[0];
 
             let fund_expire_at = moment(voucher.fund.end_date);
