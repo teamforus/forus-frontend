@@ -214,6 +214,10 @@
                         border: 1px solid $border_color;
                         text-align: center;
                     }
+
+                    &:last-child {
+                        border-right: 0;
+                    }
                 }
 
                 .fund-item-price {

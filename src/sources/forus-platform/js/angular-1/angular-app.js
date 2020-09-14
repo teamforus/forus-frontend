@@ -82,6 +82,7 @@ app.component('modalFundProviderChatProviderComponent', require('./components/Mo
 app.component('modalFundProviderChatMessageComponent', require('./components/Modals/ModalFundProviderChatMessageComponent'));
 app.component('modalSubsidyProductEditComponent', require('./components/Modals/ModalSubsidyProductEditComponent'));
 app.component('modalDuplicatesPickerComponent', require('./components/Modals/ModalDuplicatesPickerComponent'));
+app.component('modalFundAppendRequestRecordComponent', require('./components/Modals/ModalFundAppendRequestRecordComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));

@@ -72,8 +72,12 @@ let FundRequestsComponent = function(
             res.data.data.hasContent = request.hasContent;
             res.data.data.collapsed = request.collapsed;
 
-            request.records.forEach((record, index) => {
-                res.data.data.records[index].shown = record.shown;
+            request.records.forEach((record) => {
+                let newRecord = res.data.data.records.filter(_record => _record.id == record.id)[0];
+
+                if (newRecord) {
+                    newRecord.shown = record.shown
+                }
             });
 
             $ctrl.validatorRequests.data[
@@ -247,6 +251,17 @@ let FundRequestsComponent = function(
             request.is_assigned = request.records.filter(
                 record => record.is_assigned && record.state === 'pending'
             ).length > 0;
+        });
+    };
+
+    $ctrl.appendRecord = (fundRequest) => {
+        ModalService.open('fundAppendRequestRecord', {
+            fundRequest: fundRequest,
+            organization: $ctrl.organization,
+            onAppend: () => {
+                PushNotificationsService.success('Gelukt! New record attached and approved.');
+                reloadRequests();
+            }
         });
     };
 

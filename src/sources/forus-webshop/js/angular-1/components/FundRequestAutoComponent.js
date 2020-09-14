@@ -14,6 +14,7 @@ let FundRequestComponentAuto = function(
     CredentialsService,
     PushNotificationsService,
     DigIdService,
+    ModalService,
     FileService,
     appConfigs
 ) {

@@ -3,13 +3,16 @@ let ProductsShowComponent = function(
     $state,
     ModalService,
     ProductService,
-    ProductChatService
+    ProductChatService,
+    PushNotificationsService
 ) {
     let $ctrl = this;
 
     $ctrl.filters = {
         values: {},
     };
+
+    $ctrl.fund_toggles = {};
 
     $ctrl.$onInit = function() {
         $ctrl.cardLevel = "show";
@@ -18,6 +21,7 @@ let ProductsShowComponent = function(
         );
 
         $ctrl.mapFundsWithChats();
+        $ctrl.updateFundToggles($ctrl.funds);
         $ctrl.emptyFundsLink = $state.href('provider-funds', {
             organization_id: $ctrl.product.organization_id,
         });
@@ -65,7 +69,33 @@ let ProductsShowComponent = function(
             $ctrl.product.organization_id,
             $ctrl.product.id,
             _query
-        ).then(res => $ctrl.funds = res.data, console.error);
+        ).then(res => $ctrl.updateFundToggles($ctrl.funds = res.data), console.error);
+    };
+
+    $ctrl.updateFundToggles = (funds) => {
+        let excluded_funds = $ctrl.product.excluded_funds.map(fund => fund.id);
+
+        funds.data.forEach(function(fund) {
+            $ctrl.fund_toggles[fund.id] = excluded_funds.indexOf(fund.id) === -1;
+        });
+
+        console.log($ctrl.fund_toggles);
+    };
+
+    $ctrl.changeFundExclusion = (fund, is_available) => {
+        let values = is_available ? {
+            enable_funds: [fund.id]
+        } : { disable_funds: [fund.id] };
+
+        ProductService.updateExclusions(
+            $ctrl.product.organization_id,
+            $ctrl.product.id,
+            values
+        ).then(function() {
+            PushNotificationsService.success('Saved!');
+        }, function() {
+            PushNotificationsService.success('Error, something went wrong!');
+        });
     };
 
     $ctrl.deleteProduct = function(product) {
@@ -98,6 +128,7 @@ module.exports = {
         'ModalService',
         'ProductService',
         'ProductChatService',
+        'PushNotificationsService',
         ProductsShowComponent
     ],
     templateUrl: 'assets/tpl/pages/products-show.html'

@@ -21,13 +21,15 @@
                             .subsidy-property-label Beschikbaar: 
                             .subsidy-property-value(ng-bind="$ctrl.product.unlimited_stock ? 'Unlimited' : $ctrl.product.stock_amount")
                     .col.col-sm-6
-                        .subsidy-property.subsidy-property-monetary.subsidy-property-right
+                        .subsidy-property.subsidy-property-monetary.subsidy-property-right(ng-if="$ctrl.product.old_price")
                             .subsidy-property-label Originele prijs 
                             .subsidy-property-value.subsidy-property-value-muted(ng-bind='$ctrl.product.old_price | currency_format')
-                        .subsidy-property.subsidy-property-monetary.subsidy-property-right
+                        
+                        .subsidy-property.subsidy-property-monetary.subsidy-property-right(ng-if="!$ctrl.product.no_price")
                             .subsidy-property-label Prijs met bijdrage vanuit aanbieder
                             .subsidy-property-value(ng-bind='$ctrl.product.price | currency_format')
-                        .subsidy-property.subsidy-property-monetary.subsidy-property-right
+                        
+                        .subsidy-property.subsidy-property-monetary.subsidy-property-rightt(ng-if="!$ctrl.product.no_price")
                             .subsidy-property-label Prijs in webshop
                             .subsidy-property-value(ng-bind='($ctrl.form.values.gratis ? 0 : $ctrl.product.price - $ctrl.form.values.amount) | currency_format')
 
