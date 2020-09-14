@@ -2,7 +2,6 @@
     &.section-faq {
         .faq {
             .faq-item {
-
                 .faq-item-content{
                     a{
                         color: $bc;
@@ -14,8 +13,6 @@
                             text-decoration: none;
                         }
                     }
-
-
                 }
                 &:hover:not(.active) {
                     .faq-item-header {
