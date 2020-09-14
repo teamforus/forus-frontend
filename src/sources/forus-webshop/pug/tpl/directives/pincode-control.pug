@@ -1,6 +1,5 @@
-.block.block-pincode
+.block.block-pincode(ng-click="$scope.onTap()")
     input(
-        ng-if="!isIe"
         type="{{ type }}" 
         autocorrect="disabled" 
         autocomplete="off" 
