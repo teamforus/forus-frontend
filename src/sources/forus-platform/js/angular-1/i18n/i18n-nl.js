@@ -511,6 +511,7 @@ module.exports = {
             end: "EIND",
             break: "Pauze",
             not_specified: "Niet ingevuld",
+            description: "Omschrijving"
         },
         buttons: {
             cancel: "Annuleren",
@@ -949,7 +950,7 @@ module.exports = {
                 "De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
             ].join("\n"),
             description_bottom: [
-                "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.",
+                "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
                 "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
             ].join("\n"),
             no_app: "Ik wil inloggen met mijn emailadres >"
@@ -1075,10 +1076,10 @@ module.exports = {
             title: "Heeft u de Me App al?",
             description_top: [
                 "De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
-                "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.",
+                "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
             ].join("\n"),
             description_bottom: [
-                "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.", 
+                "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.", 
                 "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
             ].join("\n"),
             no_app: "Ik wil inloggen met mijn emailadres >"    
@@ -1193,6 +1194,10 @@ module.exports = {
             status: "Status",
             records: "Eigenschappen",
             actions: "Acties",
+            search: "Zoeken",
+            assigned_to: "Toegewezen",
+            from: "Vanaf",
+            to: "Tot"
         },
         status: {
             hold: "Wachten",
@@ -1206,6 +1211,8 @@ module.exports = {
             alldecline: "Alles weigeren",
             accept: "Valideren",
             decline: "Weigeren",
+            export: "Exporteren",
+            clear_filter: "Wis filter"
         },
     },
 

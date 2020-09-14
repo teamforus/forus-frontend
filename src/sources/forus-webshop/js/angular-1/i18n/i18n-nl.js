@@ -3,25 +3,25 @@ module.exports = {
     page_title: 'Forus platform',
     page_state_titles: {
         home: '{{implementation}} webshop',
-        funds: 'Fondsen',
+        funds: 'Aanvragen',
         platform: 'Forus Platform',
         me: 'Me',
         'me-app': 'Me-app',
         portfolio: 'Portfolio',
         kindpakket: 'Portofolio - Kindpakket',
-        products: 'Aanbiedingen',
+        products: 'Aanbod',
         providers: 'Aanbieders',
         "products-show": 'Aanbieding',
         "products-apply": "Aanbieding kopen",
-        vouchers: 'Mijn vouchers',
-        voucher: 'Uw voucher',
+        vouchers: 'Mijn tegoed',
+        voucher: 'Uw tegoed',
         records: 'Eigenschappen', 
-        "record-validate": 'Valideer eigenschap',
-        "record-validations": 'Validaties',
+        "record-validate": 'Eigenschap goedkeuren',
+        "record-validations": 'Goedkeuringen',
         "record-create": 'Eigenschap toevoegen',
-        "funds-apply": 'Meld u aan voor de fondsen',
+        "funds-apply": 'Aanvragen',
         "restore-email": 'Inloggen via e-mail',
-        "preferences-notifications": 'Notificatie voorkeuren',
+        "preferences-notifications": 'Notificatievoorkeuren',
     },
     implementation_name: {
         general: 'General',
@@ -34,7 +34,8 @@ module.exports = {
         oostgelre: 'Oostgelre',
         winterswijk: 'Winterswijk',
         noordoostpolder: 'Meedoenpakket',
-        groningen: 'Groningen'
+        groningen: 'Groningen',
+        geertruidenberg: 'Geertruidenberg'
     },
     languages: {
         en: 'English',
@@ -67,23 +68,19 @@ module.exports = {
     email_preferences: require("./nl/pages/email-preferences"),
     voucher_printable: require('./nl/pages/voucher-printable'),
     accessibility: require('./nl/pages/accessibility'),
+    error_page: require("./nl/pages/error-page"),
 
     // MODALS
     popup_auth: require("./nl/modals/modal-auth"),
     popup_offices: require("./nl/modals/modal-offices"),
     open_in_me: require("./nl/modals/modal-open-in-me"),
+    physical_card: require("./nl/modals/modal-physical_card"),
     expired_identity: require("./nl/modals/modal-expired-identity-proxy"),
     modal: require("./nl/modals/modal"),
 
     // DIRECTIVES
     block_products: require("./nl/directives/block-products"),
-    //todo move to seperate file
-    block_notifications: {
-        labels: {
-            title: "Notificaties",
-            subtitle: "Wanneer iemand een actie doet, die jou betreft op deze website, wordt er een notificatie daarvan hier getoond.",
-        },
-    },
+    block_notifications:  require("./nl/directives/block-notifications"),
     block_providers: require("./nl/directives/block-providers"),
     contact: require("./nl/directives/contact"),
     empty_block: require("./nl/directives/empty-block"),

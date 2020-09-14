@@ -53,7 +53,7 @@ let VoucherService = function(
             ).concat((voucher.product_vouchers || []).map(
                 product_voucher => addType('product_voucher', product_voucher)
             )).sort((a, b) => b.timestamp - a.timestamp);
-        }
+        };
 
         this.composeCardData = function(voucher) {
             let thumbnail, title, subtitle;
