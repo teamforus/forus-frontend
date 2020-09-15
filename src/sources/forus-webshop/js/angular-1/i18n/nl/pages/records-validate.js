@@ -5,12 +5,12 @@ module.exports = {
             title: "Mijn eigenschappen",
         },
         labels: {
-            validators: "Validators",
+            validators: "Beoordelaars",
         },
         status: {
             hold: "Wachten",
         },
         buttons: {
-            send: "VERZENDEN",
+            send: "Verzenden",
         }
 }

@@ -39,7 +39,7 @@
                                                 .checkbox-box: .mdi.mdi-check
                                                 | Toon verborgen aanbieders
                                 
-                                .form-group
+                                .form-group(ng-if="$ctrl.fund.type === 'budget'")
                                     form-label-toggle(label="Accepteer budget")
                                     .inline-filters-pane
                                         .radio
@@ -67,7 +67,7 @@
                                                 .radio-circle
                                                 | Alle
                                 
-                                .form-group
+                                .form-group(ng-if="$ctrl.fund.type === 'budget'")
                                     form-label-toggle(label="Accepteer aanbiedingen")
                                     .inline-filters-pane
                                         .radio
@@ -110,10 +110,18 @@
                         ng-src="{{ providerFund.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
                     .provider-details
                         .provider-title(ng-bind="providerFund.organization.name")
-                        .provider-subtitle(ng-bind="providerFund.products_count_all + ' aanbiedingen'")
+                        //- budget fund: count products
+                        .provider-subtitle(ng-if="providerFund.fund.type == 'budget'" ng-bind="providerFund.products_count_all + ' aanbiedingen'")
+                        //- subsidy fund: count products approved
+                        .provider-subtitle(ng-if="providerFund.fund.type == 'subsidies'") 
+                            | Actieve acties 
+                            .tag.tag-sm(
+                                class=(products == 0 ? 'tag-danger' : 'tag-default')
+                                ng-bind="providerFund.products_count_approved + '/' + providerFund.products_count_all")
 
                     .provider-actions.form
-                        .provider-action-item
+                        //- budget fund: allow budget vouchers
+                        .provider-action-item(ng-if="providerFund.fund.type == 'budget'")
                             label.form-label(translate="organization_providers.labels.accept_budget")
                             label(for="option_{{ providerFund.id }}_allow_budget").form-toggle
                                 input(
@@ -124,7 +132,8 @@
                                     ng-model="providerFund.allow_budget")
                                 .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
                         
-                        .provider-action-item
+                        //- budget fund: allow product vouchers
+                        .provider-action-item(ng-if="providerFund.fund.type == 'budget'")
                             label.form-label(translate="organization_providers.labels.accept_all_offers")
                             label(for="option_{{ providerFund.id }}_allow_products").form-toggle
                                 input(
@@ -135,6 +144,7 @@
                                     ng-model="providerFund.allow_products")
                                 .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
 
+                        //- details page
                         .provider-action-item
                             a(ui-sref="fund-provider(providerFund.uiViewParams)").button.button-default 
                                 em.mdi.mdi-eye-outline.icon-start

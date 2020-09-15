@@ -4,4 +4,8 @@ module.exports = ['PrintableRouteProvider', function(
     PrintableRouteProvider.printable('voucherQrCode', {
         component: 'printableVoucherQrCodeComponent'
     });
+
+    PrintableRouteProvider.printable('physicalCardCode', {
+        component: 'physicalCardCodeComponent'
+    });
 }];

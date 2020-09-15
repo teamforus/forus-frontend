@@ -1,14 +1,33 @@
 let TopNavbarDirective = function(
     $scope,
     $translate,
+    $state,
     ModalService,
-    ConfigService
+    ConfigService,
+    FundService
 ) {
     $scope.mobileMenu = false;
     $scope.$ctrl = {
-        userMenuOpened: false
+        userMenuOpened: false,
+        prevOffsetY: null,
+        visible: true,
+        hideOnScroll: !!$scope.hideOnScroll,
     };
+
+    let $ctrl = this;
     
+    FundService.list().then(res => {
+        $ctrl.funds = res.data.data;
+    })
+
+    $scope.startFundRequest = () => {
+        if ($ctrl.funds.length > 0) {
+            $state.go('fund-request', {
+                fund_id: $ctrl.funds[0].id
+            });
+        }
+    };
+
     $scope.openAuthPopup = function () {
         ModalService.open('modalAuth', {});
     };
@@ -57,21 +76,35 @@ let TopNavbarDirective = function(
             $scope.$ctrl.userMenuOpened = false;
         });
     }
+
+    $scope.updateScrolled = function() {
+        let currentOffsetY = window.pageYOffset;
+
+        $scope.$ctrl.visible = ($scope.$ctrl.prevOffsetY > currentOffsetY) || (currentOffsetY <= 0);
+        $scope.$ctrl.prevOffsetY = currentOffsetY;
+    };
+
+    window.addEventListener('scroll', $scope.updateScrolled);
+
+    $scope.$on('$destroy', function() {
+        window.removeEventListener('scroll', $scope.updateScrolled);
+    });
 };
 
 module.exports = () => {
     return {
         scope: {
-            text: '=',
-            button: '=',
+            hideOnScroll: '=',
         },
         restrict: "EA",
         replace: true,
         controller: [
             '$scope',
             '$translate',
+            '$state',
             'ModalService',
             'ConfigService',
+            'FundService',
             TopNavbarDirective
         ],
         templateUrl: 'assets/tpl/directives/top-navbar.html' 
