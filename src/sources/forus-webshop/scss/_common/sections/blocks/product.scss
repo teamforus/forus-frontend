@@ -192,6 +192,10 @@
                     padding: 10px 20px;
                     border-right: 1px solid $border_color;
                     flex-grow: 1;
+
+                    &:last-child {
+                        border-right: 0;
+                    }
                 }
 
                 .fund-item-limit {

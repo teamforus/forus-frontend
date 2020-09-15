@@ -64,7 +64,7 @@
         .modal-header(i18n="modals.modal_voucher_create.title")
         .modal-body
             .modal-section 
-                .form-group.form-group-inline.form-group-inline-sm
+                .form-group.form-group-inline.form-group-inline-sm(ng-if="$ctrl.fund.type === 'budget'")
                     label.form-label(i18n="modals.modal_voucher_create.labels.amount")
                     input(
                         type="number" 
