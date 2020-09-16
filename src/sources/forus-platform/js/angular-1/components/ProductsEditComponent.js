@@ -38,21 +38,44 @@ let ProductsEditComponent = function(
             });
         }
 
-        $ctrl.saveProduct = function() {
-            if (!$ctrl.product && !alreadyConfirmed) {
-                ModalService.open('modalNotification', {
-                    type: 'confirm',
-                    title: 'product_edit.confirm_create.title',
-                    description: 'product_edit.confirm_create.description',
-                    icon: 'product-create',
-                    confirm: () => {
-                        alreadyConfirmed = true;
-                        $ctrl.form.submit();
-                    }
-                });
-            } else {
-                $ctrl.form.submit();
+        $ctrl.confirmPriceChange = (confirmCallback) => {
+            let productHasActions = $ctrl.product.funds.filter(fund => {
+                return fund.approved && fund.type == 'subsidies';
+            }).length >= 1;
+
+            if (!productHasActions || (parseFloat($ctrl.product.price) === $ctrl.form.values.price)) {
+                confirmCallback();
+                return;
             }
+
+            ModalService.open('modalNotification', {
+                type: 'confirm',
+                title: 'product_edit.confirm_price_change.title',
+                description: 'product_edit.confirm_price_change.description',
+                icon: 'product-create',
+                confirm: () => {
+                    return confirmCallback();
+                }
+            });
+        };
+
+        $ctrl.saveProduct = function() {
+            $ctrl.confirmPriceChange(() => {
+                if (!$ctrl.product && !alreadyConfirmed) {
+                    ModalService.open('modalNotification', {
+                        type: 'confirm',
+                        title: 'product_edit.confirm_create.title',
+                        description: 'product_edit.confirm_create.description',
+                        icon: 'product-create',
+                        confirm: () => {
+                            alreadyConfirmed = true;
+                            $ctrl.form.submit();
+                        }
+                    });
+                } else {
+                    $ctrl.form.submit();
+                }
+            });
         };
 
         $ctrl.form = FormBuilderService.build(values, async (form) => {
