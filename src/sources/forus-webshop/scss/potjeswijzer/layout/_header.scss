@@ -3,6 +3,7 @@
         @media screen and (min-width: 1024px) {
             background-size: cover;
             background-position: center center;
+            padding: 0;
 
             .header-content {
                 color: #FFF;
@@ -13,7 +14,7 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                padding: 75px 0;
+                padding: 90px 0;
 
                 .header-title {
                     text-align: center;

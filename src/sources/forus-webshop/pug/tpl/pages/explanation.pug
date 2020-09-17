@@ -1,4 +1,4 @@
-top-navbar.nav-var
+top-navbar
 
 .page.page-home
     .block.block-steps(ng-if="$ctrl.description_steps_html"): .wrapper
@@ -8,6 +8,10 @@ top-navbar.nav-var
         .block-steps-description(ng-bind-html="$ctrl.description_steps_html")
 
     section.section.section-steps#steps(ng-if="$ctrl.appConfigs.flags.homeSteps && !$ctrl.description_steps_html"): .wrapper
+        .block.block-breadcrumbs
+            a(ui-sref="home").breadcrumb-item Home
+            .breadcrumb-item.active Uitleg
+        
         .section-splash
         .section-sprite
         .section-title(i18n="home.guide.title")
