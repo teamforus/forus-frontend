@@ -4,9 +4,7 @@ module.exports = () => {
     return {
         restrict: "EA",
         replace: true,
-        controller: [
-            MenuValidatorDirective
-        ],
+        controller: MenuValidatorDirective,
         templateUrl: 'assets/tpl/directives/menu-validator.html' 
     };
 };

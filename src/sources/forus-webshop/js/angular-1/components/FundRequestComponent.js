@@ -112,6 +112,8 @@ let FundRequestComponentDefault = function(
         base_salary: '€'
     };
 
+    $ctrl.digidAvailable = $ctrl.appConfigs.features.digid;
+
     let trans_record_checkbox = (criteria_record_key, criteria_value) => {
         let trans_key = 'fund_request.sign_up.record_checkbox.' + criteria_record_key;
         let trans_fallback_key = 'fund_request.sign_up.record_checkbox.default';
@@ -259,7 +261,7 @@ let FundRequestComponentDefault = function(
         $ctrl.stopCheckAccessTokenStatus();
         CredentialsService.set(access_token);
         $ctrl.buildTypes();
-        $ctrl.state = $ctrl.step2state(4);
+        $ctrl.state = $ctrl.step2state(3);
     };
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
@@ -370,25 +372,17 @@ let FundRequestComponentDefault = function(
 
     $ctrl.step2state = (step) => {
         if (step == 1 && !$ctrl.signedIn) {
-            return 'welcome';
-        }
-
-        if (step == 2 && !$ctrl.signedIn) {
             return 'auth';
         }
 
-        if (step == 3 && !$ctrl.signedIn && (
+        if (step == 2 && !$ctrl.signedIn && (
             $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
         )) {
             return 'auth_email_sent';
         }
 
-        // if ((step == 4 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
-        //     return 'criterias';
-        // }
-
-        if ((step == 4 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
-            return 'criteria';
+        if ((step == 3 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
+            return !$ctrl.digidAvailable ? 'criteria' : 'digid_login';
         }
 
         if (step == $ctrl.totalSteps.length + 1) {
@@ -451,15 +445,7 @@ let FundRequestComponentDefault = function(
     };
 
     $ctrl.finish = () => {
-        $state.go('home');
-    };
-
-    $ctrl.cleanReload = () => {
-        $state.go($state.current.name, {
-            fund_id: $ctrl.fund.id,
-            digid_success: null,
-            digid_error: null,
-        });
+        $state.go('funds');
     };
 
     $ctrl.applyFund = function(fund) {
@@ -486,46 +472,46 @@ let FundRequestComponentDefault = function(
 
         if ($ctrl.signedIn) {
             $ctrl.buildTypes().then(() => {
-                if ($stateParams.digid_success == 'signed_up' ||
-                    $stateParams.digid_success == 'signed_in') {
-                    PushNotificationsService.success('DigId synchronization success.');
+                IdentityService.identity().then(res => {
+                    if ($stateParams.digid_success == 'signed_up' ||
+                        $stateParams.digid_success == 'signed_in') {
+                        PushNotificationsService.success('DigId synchronization success.');
 
-                    if ($ctrl.invalidCriteria.length == 0) {
-                        $ctrl.applyFund($ctrl.fund);
-                    } else {
-                        $ctrl.cleanReload();
-                    }
-                } else if ($stateParams.digid_error) {
-                    return $state.go('error', {
-                        errorCode: 'digid_' + $stateParams.digid_error
-                    });
-                } else {
-                    FundRequestService.index($ctrl.fund.id).then((res) => {
-                        let pendingRequests = res.data.data.filter(request => request.state === 'pending');
-                        let pendingRequest = pendingRequests[0] || false;
-
-                        if (pendingRequest) {
-                            $ctrl.fund.criteria.map(criteria => {
-                                let record = pendingRequest.records.filter(record => {
-                                    return record.record_type_key == criteria.record_type_key;
-                                })[0];
-
-                                if (record) {
-                                    criteria.request_state = record.state;
-                                }
-
-                                return criteria;
-                            });
-
-                            $ctrl.state = 'fund_already_applied';
-                        } else if ($ctrl.invalidCriteria.length == 0) {
+                        if ($ctrl.invalidCriteria.length == 0) {
                             $ctrl.applyFund($ctrl.fund);
                         }
-                    });
-                }
+                    } else if ($stateParams.digid_error) {
+                        return $state.go('error', {
+                            errorCode: 'digid_' + $stateParams.digid_error
+                        });
+                    } else {
+                        FundRequestService.index($ctrl.fund.id).then((res) => {
+                            let pendingRequests = res.data.data.filter(request => request.state === 'pending');
+                            let pendingRequest = pendingRequests[0] || false;
 
-                IdentityService.identity().then(res => {
-                    $ctrl.bsnIsKnown = res.data.bsn;
+                            if (pendingRequest) {
+                                $ctrl.fund.criteria.map(criteria => {
+                                    let record = pendingRequest.records.filter(record => {
+                                        return record.record_type_key == criteria.record_type_key;
+                                    })[0];
+
+                                    if (record) {
+                                        criteria.request_state = record.state;
+                                    }
+
+                                    return criteria;
+                                });
+
+                                $ctrl.state = 'fund_already_applied';
+                            } else if ($ctrl.invalidCriteria.length == 0) {
+                                $ctrl.applyFund($ctrl.fund);
+                            }
+                        });
+                    }
+
+                    if ($ctrl.invalidCriteria.length != 0 && res.data.bsn) {
+                        $ctrl.state = 'criteria';
+                    }
                 });
             });
         } else {

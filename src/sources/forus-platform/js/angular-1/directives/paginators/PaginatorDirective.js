@@ -92,6 +92,7 @@ module.exports = () => {
             '$stateParams',
             PaginatorDirective
         ],
-        templateUrl: 'assets/tpl/directives/paginators/paginator.html'
+        // 'assets/tpl/directives/paginators/paginator.html'
+        template: require('../../../../pug/tpl/directives/paginators/paginator.pug')
     };
 };

@@ -34,7 +34,7 @@ header.section.section-header.section-header-landing
                 
                 p(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" i18n="home.header.auth_cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
                        
-            div(ng-if="!$ctrl.digidAvailable")
+            //-div(ng-if="!$ctrl.digidAvailable")
                 //- uitgelogd en activatiecode invullen
                 a(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthCodePopup()" i18n="home.header.button" id="start_modal").button.button-primary 
                 
@@ -44,16 +44,13 @@ header.section.section-header.section-header-landing
                 //- download me button
                 a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" ng-click="$ctrl.openInMeModal()" i18n="home.header.auth_button").button.button-primary
             
-            div(ng-if="$ctrl.digidAvailable")
+            //-div(ng-if="$ctrl.digidAvailable")
                 //- uitgelogd en activatiecode invullen
                 a(ng-click="$ctrl.startFundRequest()" translate="home.header.{{ $root.client_key }}.button_av" translate-default="{{ 'home.header.button_av' | translate }}").button.button-primary 
             
-            br
-            br
-            
             a(ng-if="!$root.auth_user && !$ctrl.appConfigs.features.settings.has_more_info_url" i18n="Hoe werkt het?" ui-sref="explanation").header-how-it-works
             a(ng-if="!$root.auth_user && $ctrl.appConfigs.features.settings.has_more_info_url" target="_blank" i18n="Hoe werkt het?" href="{{ $ctrl.appConfigs.features.settings.more_info_url }}").header-how-it-works
-            a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" href="#!/me" target="_blank").header-how-it-works
+            a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" href="https://forus.io/me" target="_blank").header-how-it-works
 
             //- usage example: 
             //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
@@ -64,6 +61,11 @@ header.section.section-header.section-header-landing
     .wrapper.block-products: block-products(
         ng-if="$ctrl.appConfigs.flags.homeProducts"
         sample="true")
+    
+    .wrapper.block-products: block-subsidies(
+        ng-if="$ctrl.appConfigs.flags.homeProducts"
+        sample="true")
+
     section.section.section-map(ng-if="$ctrl.appConfigs.flags.homeMap" id="map_block"): .wrapper
         .block.block-map
             .block-content

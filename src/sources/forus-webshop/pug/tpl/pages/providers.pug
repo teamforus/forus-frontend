@@ -4,7 +4,7 @@ block content
         top-navbar(hide-on-scroll="true")
         
         .showcase-wrapper
-            mixin search_results(total, show = "true")
+            mixin search_results(total, show = "false")
                 .showcase-title(ng-if=show)= "Er zijn " + "{{" + total + "}}" + " aanbieders gevonden"
                 .showcase-subtitle(ng-if=show) Selecteer een organisatie voor meer informatie
 
@@ -13,7 +13,9 @@ block content
                 .mobile-filters-title Zoek op categorieen en fondsen
                 .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
 
-            +search_results('$ctrl.providers.meta.total')
+            .block.block-breadcrumbs
+                a(ui-sref="home").breadcrumb-item Home
+                .breadcrumb-item.active Aanbieders
             
             .showcase-layout
                 .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")

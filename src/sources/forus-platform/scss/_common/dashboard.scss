@@ -41,6 +41,8 @@
     @import 'blocks/block-provider-product';
     @import 'blocks/block-notifications';
     @import '../../../forus-webshop/scss/_common/sections/blocks/block-sign_up';
+    @import 'blocks/block-fund_types';
+    @import 'blocks/block-subsidy-editor';
 }
 
 $borderRadius: $border_radius;
@@ -6410,6 +6412,16 @@ $colorPrimaryLight: $color_primary_light;
     &.modal-md {
         .modal-window {
             width: 680px;
+        }
+
+        .modal-footer {
+            padding: 20px 30px;
+        }
+    }
+
+    &.modal-lg {
+        .modal-window {
+            width: 1000px;
         }
 
         .modal-footer {

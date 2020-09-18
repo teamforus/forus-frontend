@@ -30,7 +30,8 @@
                         | {{ $ctrl.product.price | currency_format }}
                         .product-price-old(ng-if="$ctrl.product.old_price" ng-bind="$ctrl.product.old_price | currency_format")
                 
-                    .form-group.form-group-inline
+                    //- budget fund toggle
+                    .form-group.form-group-inline(ng-if="$ctrl.fundProvider.fund.type == 'budget'")
                         label(
                             for=("product_{{ $ctrl.product.id }}_enabled") 
                             ng-class="$ctrl.fundProvider.allow_products ? 'form-toggle-disabled form-toggle-active' : ''").form-toggle
@@ -40,6 +41,17 @@
                                 ng-model="$ctrl.product.allowed"
                                 ng-change="$ctrl.updateAllowBudgetItem($ctrl.fundProvider, $ctrl.product)")
                             .form-toggle-inner: .toggle-input: .toggle-input-dot
+
+                    //- subsidy fund button
+                    .button.button-primary.button-sm.nowrap(
+                        ng-if="!$ctrl.product.allowed"
+                        ng-click="$ctrl.openSubsidyProductModal($ctrl.fundProvider, $ctrl.product)")
+                        em.mdi.mdi-play.icon-start
+                        | Start actie
+                    
+                    .tag.tag-success.nowrap(ng-if="$ctrl.product.allowed")
+                        | Actie actief 
+                        .mdi.mdi-close.icon-end(ng-click="$ctrl.disableProductItem($ctrl.fundProvider, $ctrl.product)")
             
             .product-description
                 .description-header
@@ -67,3 +79,29 @@
                 .description-body(ng-if="!$ctrl.product.description_html") 
                     .arrow-box.border.bg-dim: .arrow
                     | Geen data
+
+        .card
+            .card-header: .flex-row
+                .flex-col: .card-title Lopende en verlopen acties op {{ $ctrl.product.name }}
+
+            .card-section.card-section-padless: .table-wrapper: table.table
+                tr
+                    th.td-narrow Gebruikt
+                    th Totaal aanbod
+                    th Limiet per aanvrager
+                    th Bijdrage
+                    th Status
+                    th
+                
+                tr(ng-repeat="item in $ctrl.product.deals_history")
+                    td(ng-bind="item.voucher_transactions_count")
+                    td(ng-bind="item.limit_total")
+                    td(ng-bind="item.limit_per_identity")
+                    td(ng-bind="item.amount | currency_format")
+                    td
+                        .tag.tag-success(ng-if="item.active") Actief
+                        .tag.tag-default(ng-if="!item.active") Afgelopen
+                    td.td-narrow
+                        .button.button-default.button-sm(ng-click="$ctrl.openSubsidyProductModal($ctrl.fundProvider, $ctrl.product, true, item)")
+                            em.mdi.mdi-eye-outline.icon-start
+                            | Kijk

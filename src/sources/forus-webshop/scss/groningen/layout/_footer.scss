@@ -1,61 +1,75 @@
-.section {
-    &.section-footer {
-        background-color: $lb;
-        position: relative;
-        border-top: 1px solid #dbdcdb;
-    }
-    @media screen and (max-width: 1000px) {
-        &.section.section-footer {
-            padding: 40px 0 0;
+.block {
 
-            &:before,
-            &:after {
-                display: none;
+    &.block-footer {
+        padding: 20px 0;
+        
+        .footer-label {
+            color: $tc-var;
+            margin-bottom: 15px;
+            
+            img {
+                height: 40px;
             }
         }
-    }
-}
-.block {
-    &.block-footer {
-        margin-top: 40px;
-        .footer-label {
-            color: $color_default;
-        }
         
+        .block-app_download {
+            img {
+                height: 40px;
+                width: 135px;
+                margin-top: 10px;
+            }
+        }
+
         .footer-schedule {
+
+            a {
+                font: 400 16px/1.5em $bf;
+                color: $tc-var;
+                text-decoration: underline;
+
+                &:hover {
+                    text-decoration: none;
+                    color: $tc-var;
+                }
+            }
+        
             .schedule-label,
             .schedule-value {
-                width: 35%;
-                color: $tc;
+                font: 400 16px/1.5em $bf;
+                color: $tc-var;
             }
         }
 
         .footer-nav {
+
             .footer-nav-item {
+        
                 a {
-                    color: $tc;
+                    font: 400 16px/1.5em $bf;
+                    color: $tc-var;
+                    text-decoration: underline;
 
                     &:hover {
-                        color: $color-default;
-                        text-decoration: underline;
+                        text-decoration: none;
+                        color: $tc-var;
                     }
                 }
             }
         }
     }
+
     &.block-copyrights {
-        border-top: 1px solid #dbdcdb;
-        
+        background-color: #ffff;
+
         .copyrights {
-            color: $color_primary;
         }
 
         .links {
             a {
-                color: $color_primary;
-
+                color: #727d84;
                 &:hover {
-                    color: $tc;
+                    color: #000;
+                    text-decoration: underline;
                 }
             }
         }

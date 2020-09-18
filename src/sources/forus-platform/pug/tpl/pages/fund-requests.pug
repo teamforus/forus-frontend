@@ -57,22 +57,22 @@
             .card-section(ng-click='validatorRequest.collapsed = !validatorRequest.collapsed')
                 .card-section-actions(ng-show="validatorRequest.state == 'pending'")
                     .tag.tag-primary-light
-                        em.mdi.mdi-circle-outline
+                        em.mdi.mdi-circle-outline.icon-start
                         span(translate='validation_requests.status.hold')
                 
                 .card-section-actions(ng-show="validatorRequest.state == 'approved'")
                     .tag.tag-success 
-                        em.mdi.mdi-circle-slice-8
+                        em.mdi.mdi-circle-slice-8.icon-start
                         | Geaccepteerd
                 
                 .card-section-actions(ng-show="validatorRequest.state == 'approved_partly'")
                     .tag.tag-success 
-                        em.mdi.mdi-circle-slice-4
+                        em.mdi.mdi-circle-slice-4.icon-start
                         | Aanvulling gevraagd
                 
                 .card-section-actions(ng-show="validatorRequest.state == 'declined'")
                     .tag.tag-danger 
-                        em.mdi.mdi-circle-off-outline
+                        em.mdi.mdi-circle-off-outline.icon-start
                         | Geweigerd
                 
                 .card-title(ng-class="{'text-muted':!validatorRequest.bsn}")
