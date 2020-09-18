@@ -1,5 +1,21 @@
 .section {
     &.section-products {
         padding-top: 30px;
+
+        .block {
+            &.block-products {
+                display: flex;
+
+                .product-item {
+                    .product-details {
+                        min-height: 155px;
+                    }
+
+                    .product-name {
+                        color: $tc;
+                    }
+                }
+            }
+        }
     }
 }
