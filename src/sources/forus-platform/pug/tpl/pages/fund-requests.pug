@@ -59,11 +59,19 @@
                     .tag.tag-primary-light
                         em.mdi.mdi-circle-outline.icon-start
                         span(translate='validation_requests.status.hold')
+                    .card-section-actions-details
+                        br
+                        .card-section-actions-description(translate="validation_requests.labels.pending_since")
+                        .card-section-actions-time(ng-bind="validatorRequest.created_at_locale")
                 
                 .card-section-actions(ng-show="validatorRequest.state == 'approved'")
                     .tag.tag-success 
                         em.mdi.mdi-circle-slice-8.icon-start
                         | Geaccepteerd
+                    .card-section-actions-details
+                        br
+                        br
+                        .card-section-actions-time(ng-bind="validatorRequest.updated_at_locale")
                 
                 .card-section-actions(ng-show="validatorRequest.state == 'approved_partly'")
                     .tag.tag-success 
@@ -167,9 +175,9 @@
                                     .mdi.mdi-file
                                     .attachment-size(ng-bind='file.size')
                                 .attachment-name(ng-bind='file.original_name')
+                                .attachment-date(ng-bind='record.created_at_locale')
                                 .attachment-preview( 
-                                    title="Bekijk PDF-bestand" 
-                                    ng-if="file.ext == 'pdf'"
+                                    title="Bekijk PDF-bestand"
                                     ng-click="$ctrl.previewFile($event, file)")
                                     .mdi.mdi-eye
                         

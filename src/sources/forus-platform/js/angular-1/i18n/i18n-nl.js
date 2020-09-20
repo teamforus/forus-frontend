@@ -1197,7 +1197,8 @@ module.exports = {
             search: "Zoeken",
             assigned_to: "Toegewezen",
             from: "Vanaf",
-            to: "Tot"
+            to: "Tot",
+            pending_since: "In behandeling sinds"
         },
         status: {
             hold: "Wachten",
