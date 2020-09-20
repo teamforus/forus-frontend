@@ -537,6 +537,14 @@ $bf: 'Montserrat', arial, sans-serif;
                     padding-left: 15px;
                 }
             }
+
+            .ui-control {
+                &.ui-control-currency {
+                    .form-control:not([type="radio"]):not([type="checkbox"]) {
+                        padding-left: 40px;
+                    }
+                }
+            }
         }
     }
 
