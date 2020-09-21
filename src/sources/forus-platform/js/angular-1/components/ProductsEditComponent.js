@@ -39,13 +39,16 @@ let ProductsEditComponent = function(
         }
 
         $ctrl.confirmPriceChange = (confirmCallback) => {
+            if (!$ctrl.product) {
+                return confirmCallback();
+            }
+
             let productHasActions = $ctrl.product.funds.filter(fund => {
                 return fund.approved && fund.type == 'subsidies';
             }).length >= 1;
 
             if (!productHasActions || (parseFloat($ctrl.product.price) === $ctrl.form.values.price)) {
-                confirmCallback();
-                return;
+                return confirmCallback();
             }
 
             ModalService.open('modalNotification', {
