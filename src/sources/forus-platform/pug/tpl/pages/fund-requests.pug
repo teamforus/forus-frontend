@@ -178,6 +178,7 @@
                                 .attachment-date(ng-bind='record.created_at_locale')
                                 .attachment-preview( 
                                     title="Bekijk PDF-bestand"
+                                    ng-if="file.ext == 'pdf'"
                                     ng-click="$ctrl.previewFile($event, file)")
                                     .mdi.mdi-eye
                         
