@@ -3,6 +3,7 @@ let FundsComponent = function(
     $stateParams,
     appConfigs,
     FundService,
+    ModalService,
     FormBuilderService
 ) {
     let $ctrl = this;
@@ -29,6 +30,29 @@ let FundsComponent = function(
         }
 
         return out;
+    };
+
+    $ctrl.requestFund = (fund) => {
+        if (fund.taken_by_partner) {
+            return $ctrl.showPartnerModal();
+        }
+        
+        $state.go('fund-request', {
+            fund_id: fund.id
+        });
+    };
+
+    $ctrl.showPartnerModal = () => {
+        ModalService.open('modalNotification', {
+            type: 'info',
+            title: 'Dit tegoed is al geactiveerd',
+            closeBtnText: 'Bevestig',
+            description: [
+                "U krijgt deze melding omdat het tegoed is geactiveerd door een ",
+                "famielid of voogd. De tegoeden zijn beschikbaar in het account ",
+                "van de persoon die deze als eerste heeft geactiveerd."
+            ].join(''),
+        });
     };
 
     $ctrl.toggleMobileMenu = () => {
@@ -108,6 +132,16 @@ let FundsComponent = function(
         $ctrl.loadFunds($ctrl.buildQuery(values));
     };
 
+    $ctrl.applyFund = function(fund) {
+        if (fund.taken_by_partner) {
+            return $ctrl.showPartnerModal();
+        }
+        
+        FundService.apply(fund.id).then(function(res) {
+            $state.go('voucher', res.data.data);
+        }, console.error);
+    };
+
     $ctrl.$onInit = function() {
         if (Array.isArray($ctrl.records)) {
             $ctrl.records.forEach(function(record) {
@@ -159,12 +193,6 @@ let FundsComponent = function(
             organization_id: $stateParams.organization_id || null
         });
 
-        $ctrl.applyFund = function(fund) {
-            FundService.apply(fund.id).then(function(res) {
-                $state.go('voucher', res.data.data);
-            }, console.error);
-        };
-
         $ctrl.showModalFilters = $stateParams.show_menu;
         $ctrl.display_type = $stateParams.display_type;
         $ctrl.updateFiltersUsedCount();
@@ -183,6 +211,7 @@ module.exports = {
         '$stateParams',
         'appConfigs',
         'FundService',
+        'ModalService',
         'FormBuilderService',
         FundsComponent
     ],

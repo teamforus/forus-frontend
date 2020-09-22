@@ -101,7 +101,11 @@
             .card-header(ng-hide='validatorRequest.collapsed')
                 .arrow-box.border.bg-dim: .arrow
                 .card-title: .row
-                    .col.col-lg-6(translate='validation_requests.labels.records')
+                    .col.col-lg-6(ng-if="!validatorRequest.is_assigned" translate='validation_requests.labels.records')
+                    .col.col-lg-6(ng-if="validatorRequest.is_assigned"): .button.button-text(ng-click="$ctrl.appendRecord(validatorRequest)")
+                        | {{ 'validation_requests.labels.records' | translate }}
+                        em.mdi.mdi-plus-circle.icon-end.text-primary
+                    
                     .col.col-lg-6.text-right(ng-show="validatorRequest.state == 'pending' && validatorRequest.is_assignable")
                         button.button.button-primary(ng-click='$ctrl.requestAssign(validatorRequest)')
                             em.mdi.mdi-account-plus.icon-start

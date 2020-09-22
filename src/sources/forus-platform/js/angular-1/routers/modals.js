@@ -110,4 +110,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('duplicatesPicker', {
         component: 'modalDuplicatesPickerComponent'
     });
+
+    ModalRouteProvider.modal('fundAppendRequestRecord', {
+        component: 'modalFundAppendRequestRecordComponent'
+    });
 }];

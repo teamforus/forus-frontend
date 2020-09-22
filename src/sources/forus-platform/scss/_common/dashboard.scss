@@ -5442,6 +5442,26 @@ $colorPrimaryLight: $color_primary_light;
                 max-width: calc(100% - 200px);
             }
         }
+
+        &.compact-datalist-outline {
+            padding: 5px 20px;
+            border: 1px dashed #ccc;
+            border-radius: $borderRadius;
+            
+            .datalist-row {
+                .datalist-key {
+                    color: $color_primary;
+                }
+                
+                .datalist-value {
+                    color: $tc;
+                }
+
+                &:last-child {
+                    border-bottom: 0;
+                }
+            }
+        }
     }
 
     &.block-switch-table {
