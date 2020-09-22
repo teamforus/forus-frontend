@@ -111,9 +111,7 @@ let FundRequestsComponent = function(
                     return record.files.length > 0 || record.clarifications.length > 0;
                 }).length > 0;
 
-                request.records.map(record => {
-                    return record.shown = true;
-                });
+                request.records.forEach(record => record.shown = true);
             });
         }, console.error);
     };
