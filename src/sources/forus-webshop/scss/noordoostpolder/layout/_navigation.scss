@@ -17,8 +17,30 @@
 
 @media screen and (min-width: 1000px) {
     .nav-var {
-        &.block-navbar {
-            border: none;
+        &.block {
+            &.block-navbar {
+                border: none;
+
+                .block-subnav {
+                    .subnav-inner {
+                        padding-top: 27.5px;
+                        padding-bottom: 27.5px;
+                    }
+
+                    .navbar-logo {
+                        img {
+                            height: 140px;
+                            position: absolute;
+                            left: 70px;
+                            margin-top: -50px;
+        
+                            &.hover {
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

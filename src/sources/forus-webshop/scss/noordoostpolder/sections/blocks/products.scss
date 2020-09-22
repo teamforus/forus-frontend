@@ -25,14 +25,3 @@
         }
     }
 }
-
-.section {
-    &.section-products {
-        @media screen and (max-width: 1700px) {
-            .section-title {
-                color: $tc-var;
-                font: 700 32px/1.5em $bf;
-            }
-        }
-    }
-}

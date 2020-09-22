@@ -179,5 +179,5 @@
                     th.text-right Telefoonnummer
                 
                 tr(ng-repeat="office in $ctrl.offices.data")
-                    td(ng-bind="office.address || 'n/a'" ng-class="{'text-muted': !office.address}")
-                    td(ng-bind="office.phone || 'n/a'" ng-class="{'text-muted': !office.phone}").text-right
+                    td(ng-bind="office.address || 'n.v.t.'" ng-class="{'text-muted': !office.address}")
+                    td(ng-bind="office.phone || 'n.v.t.'" ng-class="{'text-muted': !office.phone}").text-right

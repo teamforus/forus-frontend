@@ -92,9 +92,9 @@ let ProductsShowComponent = function(
             $ctrl.product.id,
             values
         ).then(function() {
-            PushNotificationsService.success('Saved!');
+            PushNotificationsService.success('Opgeslagen!');
         }, function() {
-            PushNotificationsService.success('Error, something went wrong!');
+            PushNotificationsService.success('Fout! Er ging iets mis.');
         });
     };
 

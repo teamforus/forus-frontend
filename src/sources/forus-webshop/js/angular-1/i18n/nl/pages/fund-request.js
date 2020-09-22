@@ -18,12 +18,14 @@ module.exports = {
             main: "Aanvraag",
             title_step_1: "Welkom",
             title_step_2: "Meld u aan",
-            title_log_digid: "Log in met DigiD"
+            title_log_digid: "Log in met DigiD",
+            title_fund_already_applied: "Aanvraag in behandeling"
         },
         subtitles: {
             step_1: "Via dit online formulier kunt u zich aanmelden voor beschikbare fondsen. ",
             step_2: "Er wordt gekeken of u al aan voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan.",
-            log_digid: "Log in met DigiD om te controleren of u recht heeft op de Stadjerspas."
+            log_digid: "Log in met DigiD om te controleren of u recht heeft.",
+            fund_already_applied: "Er is al een aanvraag in behandeling",
         },
         labels: {
             has_app: "Ik wil inloggen met de me-app >",
@@ -38,6 +40,12 @@ module.exports = {
                 'Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.',
                 'De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en tegoeden te beheren.',
             ].join("\n")
+        },
+        record_checkbox: {
+            default: 'Ik verklaar aan de onderstaande voorwaarden te voldoen',
+            children_nth: 'Ik verklaar dat ik {{value}} kinderen heb',
+            kindpakket_eligible: 'Ja, ik verklaar dat ik recht heb op kindpakket.',
+            kindpakket_2018_eligible: 'Ja, ik verklaar dat ik recht heb op kindpakket.',
         }
     }
 }
