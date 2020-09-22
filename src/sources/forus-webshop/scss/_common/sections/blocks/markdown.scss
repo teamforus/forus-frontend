@@ -43,10 +43,10 @@
             font-weight: 500;
             transition: .4s;
             font: inherit;
+            text-decoration: underline;
 
             &:hover {
                 color: $bc;
-                text-decoration: underline;
             }
         }
     }
