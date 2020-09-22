@@ -18,12 +18,14 @@ module.exports = {
             main: "Aanvraag",
             title_step_1: "Welkom",
             title_step_2: "Meld u aan",
-            title_log_digid: "Log in met DigiD"
+            title_log_digid: "Log in met DigiD",
+            title_fund_already_applied: "Aanvraag in behandeling"
         },
         subtitles: {
             step_1: "Via dit online formulier kunt u zich aanmelden voor beschikbare fondsen. ",
             step_2: "Er wordt gekeken of u al aan voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan.",
-            log_digid: "Log in met DigiD om te controleren of u recht heeft."
+            log_digid: "Log in met DigiD om te controleren of u recht heeft.",
+            fund_already_applied: "Er is al een aanvraag in behandeling",
         },
         labels: {
             has_app: "Ik wil inloggen met de me-app >",
