@@ -5,8 +5,7 @@ top-navbar.nav-var
         .block.block-breadcrumbs
             a(ui-sref="home").breadcrumb-item Home
             .breadcrumb-item.active Uitleg
-        .block-steps-description
-            .block.block-markdown: p(ng-bind-html="$ctrl.description_steps_html")
+        .block-steps-description: .block.block-markdown(ng-bind-html="$ctrl.description_steps_html")
 
     section.section.section-steps#steps(ng-if="$ctrl.appConfigs.flags.homeSteps && !$ctrl.description_steps_html"): .wrapper
         .section-splash

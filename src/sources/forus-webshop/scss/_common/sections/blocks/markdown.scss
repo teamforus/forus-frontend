@@ -1,7 +1,7 @@
 .block {
     &.block-markdown {
         text-align: justify;
-        font: 400 14px/24px $bf;
+        font: 400 14px/24px $bf !important;
 
         h1 {
             font: 500 2.5em $bf;
@@ -31,7 +31,6 @@
             list-style: disc;
             margin-bottom: 15px;
             padding-left: 18px;
-            font: inherit;
 
             li {
                 font: inherit;
@@ -41,7 +40,7 @@
         a {
             color: $bc;
             font-weight: 500;
-            transition: .4s;
+            transition: 0.4s;
             font: inherit;
             text-decoration: underline;
 
@@ -50,6 +49,7 @@
             }
         }
     }
+
     @media screen and (max-width: 1000px) {
         &.block-markdown {
             h1 {
