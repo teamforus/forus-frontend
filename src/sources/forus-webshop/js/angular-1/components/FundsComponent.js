@@ -1,7 +1,10 @@
 let FundsComponent = function(
     $state,
+    $stateParams,
     appConfigs,
-    FundService
+    FundService,
+    ModalService,
+    FormBuilderService
 ) {
     let $ctrl = this;
 
@@ -12,6 +15,132 @@ let FundsComponent = function(
     $ctrl.recordsByKey = {};
     $ctrl.recordsByTypesKey = {};
     $ctrl.appConfigs = appConfigs;
+
+    $ctrl.filtersList = [
+        'q', 'organization_id'
+    ];
+
+    $ctrl.objectOnly = (obj, props = []) => {
+        let out = {};
+
+        for (const prop in obj) {
+            if (obj.hasOwnProperty(prop) && props.indexOf(prop) != -1) {
+                out[prop] = obj[prop];
+            }
+        }
+
+        return out;
+    };
+
+    $ctrl.requestFund = (fund) => {
+        if (fund.taken_by_partner) {
+            return $ctrl.showPartnerModal();
+        }
+        
+        $state.go('fund-request', {
+            fund_id: fund.id
+        });
+    };
+
+    $ctrl.showPartnerModal = () => {
+        ModalService.open('modalNotification', {
+            type: 'info',
+            title: 'Dit tegoed is al geactiveerd',
+            closeBtnText: 'Bevestig',
+            description: [
+                "U krijgt deze melding omdat het tegoed is geactiveerd door een ",
+                "famielid of voogd. De tegoeden zijn beschikbaar in het account ",
+                "van de persoon die deze als eerste heeft geactiveerd."
+            ].join(''),
+        });
+    };
+
+    $ctrl.toggleMobileMenu = () => {
+        $ctrl.showModalFilters ? $ctrl.hideMobileMenu() : $ctrl.showMobileMenu()
+    };
+
+    $ctrl.showMobileMenu = () => {
+        $ctrl.showModalFilters = true;
+        $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
+    };
+
+    $ctrl.hideMobileMenu = () => {
+        $ctrl.showModalFilters = false;
+        $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
+    };
+
+    $ctrl.cancel = () => {
+        if (typeof($ctrl.modal.scope.cancel) === 'function') {
+            $ctrl.modal.scope.cancel();
+        }
+
+        $ctrl.close();
+    };
+
+    $ctrl.showAs = (display_type) => {
+        $ctrl.display_type = display_type;
+        $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
+    };
+
+    $ctrl.buildQuery = (values) => ({
+        q: values.q,
+        page: values.page,
+        organization_id: values.organization_id,
+        display_type: $ctrl.display_type,
+    });
+
+    $ctrl.updateState = (query, location = 'replace') => {
+        $state.go('funds', {
+            q: query.q || '',
+            page: query.page,
+            display_type: query.display_type,
+            organization_id: query.organization_id,
+            show_menu: $ctrl.showModalFilters,
+        });
+    };
+
+    $ctrl.onFormChange = (values) => {
+        if (timeout) {
+            $timeout.cancel(timeout);
+        }
+
+        timeout = $timeout(() => {
+            $ctrl.onPageChange(values);
+        }, 1000);
+    };
+
+    $ctrl.loadFunds = (query, location = 'replace') => {
+        FundService.list(null, Object.assign(query, {
+            per_page: 10
+        })).then(res => {
+            $ctrl.funds = res.data;
+        });
+
+        $ctrl.updateState(query, location);
+        $ctrl.updateFiltersUsedCount();
+    };
+
+    $ctrl.updateFiltersUsedCount = () => {
+        $ctrl.countFiltersApplied = Object.values(
+            $ctrl.objectOnly($ctrl.form.values, $ctrl.filtersList)
+        ).reduce((count, filter) => count + (filter ? (
+            typeof filter == 'object' ? (filter.id ? 1 : 0) : 1
+        ) : 0), 0);
+    };
+
+    $ctrl.onPageChange = (values) => {
+        $ctrl.loadFunds($ctrl.buildQuery(values));
+    };
+
+    $ctrl.applyFund = function(fund) {
+        if (fund.taken_by_partner) {
+            return $ctrl.showPartnerModal();
+        }
+        
+        FundService.apply(fund.id).then(function(res) {
+            $state.go('voucher', res.data.data);
+        }, console.error);
+    };
 
     $ctrl.$onInit = function() {
         if (Array.isArray($ctrl.records)) {
@@ -28,7 +157,7 @@ let FundsComponent = function(
             $ctrl.recordsByTypesKey[recordType.key] = recordType;
         });
 
-        $ctrl.funds = $ctrl.funds.map(function(fund) {
+        $ctrl.funds.data = $ctrl.funds.data.map(function(fund) {
             fund.vouchers = $ctrl.vouchers.filter(voucher => {
                 return voucher.fund_id == fund.id;
             });
@@ -52,11 +181,21 @@ let FundsComponent = function(
             return fund;
         });
 
-        $ctrl.applyFund = function(fund) {
-            FundService.apply(fund.id).then(function(res) {
-                $state.go('voucher', res.data.data);
-            }, console.error);
-        };
+        $ctrl.organizations = Object.values($ctrl.funds.meta.organizations);
+
+        $ctrl.organizations.unshift({
+            id: null,
+            name: 'Alle organisaties',
+        });
+
+        $ctrl.form = FormBuilderService.build({
+            q: $stateParams.q || '',
+            organization_id: $stateParams.organization_id || null
+        });
+
+        $ctrl.showModalFilters = $stateParams.show_menu;
+        $ctrl.display_type = $stateParams.display_type;
+        $ctrl.updateFiltersUsedCount();
     };
 };
 
@@ -69,8 +208,11 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$stateParams',
         'appConfigs',
         'FundService',
+        'ModalService',
+        'FormBuilderService',
         FundsComponent
     ],
     templateUrl: 'assets/tpl/pages/funds.html'

@@ -1,6 +1,5 @@
 .block.block-pincode
     input(
-        ng-if="!isIe"
         type="{{ type }}" 
         autocorrect="disabled" 
         autocomplete="off" 
@@ -10,5 +9,9 @@
 
     .pincode-number(
         ng-repeat="code in chars track by $index" 
-        ng-class="{'pincode-number-divider' : code=='split'}"
-        ng-bind="code != 'split' ? code : ''" )
+        ng-class=`{
+            'pincode-number-divider': code=='split', 
+            'pincode-number-block-end': (chars.length - 1 == $index) || chars[$index + 1] == 'split', 
+            'pincode-number-block-start': ($index == 0) || chars[$index - 1] == 'split',
+            'active': code=='active'}`
+        ng-bind="code != 'split' ? (code != 'active' ? code : '_') : ''" )

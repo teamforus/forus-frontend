@@ -1,17 +1,17 @@
 .button {
+    border-radius: 0;
+
     &:hover {
         box-shadow: none;
     }
-    font: 700 16px/1.5em $bf;
-    border-radius: 0;
-    text-transform: lowercase;
+
     &.button-default {
         background-color: $color_primary;
         border: 1px solid transparent;
         color: $tc-var;
 
         .mdi {
-            color: $tc-var;
+            color: $tc;
         }
 
         &:hover {
@@ -25,11 +25,13 @@
             }
         }
     }
+
     &.button-primary {
         color: $tc-var;
         background: $color-default;
         text-shadow: none;
         border: 1px solid transparent;
+        
         &:hover {
             color: $color-default;
             text-decoration: underline;
@@ -38,10 +40,12 @@
             border: 1px solid $color-default;
         }
     }
+
     &.button-two-spans{
         display: flex !important;
         padding: 7px !important;
         align-items: center !important;
+
         .icon-me {
             mask: url('../img/icon-me.svg');
             background: $color_default;
@@ -53,21 +57,19 @@
             margin: 0 7px 0px 0px;
             border: 1px;
         }
+
         .first-line-button {
             line-height: 10px;
             font-size: 16px;
             height: 100%;
             text-align: right;
             flex: 1;
-            text-transform: lowercase;
-            &::first-letter{
-                text-transform: uppercase;
-            }
         }
         
         .second-line-button {
             display: none;
         }
+
         &:hover {
             .icon-me {
                 mask: url('../img/icon-me.svg');

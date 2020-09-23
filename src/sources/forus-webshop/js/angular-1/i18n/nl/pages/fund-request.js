@@ -4,7 +4,7 @@ module.exports = {
         block_title: "{{ fundname }} aanvragen",
         pane: {
             header_title: "Overzicht",
-            text: "U staat op het punt om een {{ fundname }} aan te vragen. Om in aanmmerking te komen, dient u aan de voorwaarden te voldoen:",
+            text: "U staat op het punt om een {{ fundname }} aan te vragen. Om in aanmerking te komen, dient u aan de voorwaarden te voldoen:",
             criterion_more: "'{{ name }}' moet meer dan {{ value }} zijn.",
             criterion_less: "'{{ name }}' moet minder dan {{ value }} zijn.",
             criterion_same: "'{{ name }}' moet {{ value }} zijn.",
@@ -18,25 +18,27 @@ module.exports = {
             main: "Aanvraag",
             title_step_1: "Welkom",
             title_step_2: "Meld u aan",
+            title_log_digid: "Log in met DigiD",
             title_fund_already_applied: "Aanvraag in behandeling"
         },
         subtitles: {
             step_1: "Via dit online formulier kunt u zich aanmelden voor beschikbare fondsen. ",
             step_2: "Er wordt gekeken of u al aan voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan.",
-            fund_already_applied: "U heeft al een aanvraag die in behandeling is. Bekijk de status:",
+            log_digid: "Log in met DigiD om te controleren of u recht heeft.",
+            fund_already_applied: "Er is al een aanvraag in behandeling",
         },
         labels: {
-            has_app: "Ik wil inloggen met de me app >",
-            no_app: "< Ik wil inloggen met mijn emailadres",
+            has_app: "Ik wil inloggen met de me-app >",
+            no_app: "< Ik wil inloggen met mijn e-mailadres",
         },
         app: {
-            title: "Heeft u de Me App al?",
+            title: "Heeft u de Me-app al?",
             description_top: [
-                'De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.',
+                'De Me-app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw tegoeden te beheren.',
             ].join("\n"),
             description_bottom: [
-                'Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.',
-                'De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.',
+                'Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.',
+                'De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en tegoeden te beheren.',
             ].join("\n")
         },
         record_checkbox: {
@@ -44,6 +46,6 @@ module.exports = {
             children_nth: 'Ik verklaar dat ik {{value}} kinderen heb',
             kindpakket_eligible: 'Ja, ik verklaar dat ik recht heb op kindpakket.',
             kindpakket_2018_eligible: 'Ja, ik verklaar dat ik recht heb op kindpakket.',
-        },
+        }
     }
 }

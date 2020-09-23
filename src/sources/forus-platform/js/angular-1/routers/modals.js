@@ -58,23 +58,23 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('fundCriteriaDescriptionEdit', {
         component: 'modalFundCriteriaDescriptionEditComponent'
     });
-    
+
     ModalRouteProvider.modal('pdfPreview', {
         component: 'modalPdfPreviewComponent'
     });
-    
+
     ModalRouteProvider.modal('fundInviteProviders', {
         component: 'modalFundInviteProvidersComponent'
     });
-    
+
     ModalRouteProvider.modal('fundOffers', {
         component: 'modalFundOffersComponent'
     });
-    
+
     ModalRouteProvider.modal('businessSelect', {
         component: 'modalBusinessSelectComponent'
     });
-    
+
     ModalRouteProvider.modal('employeeAddConfirmation', {
         component: 'modalEmployeeAddConfirmationComponent'
     });
@@ -82,7 +82,7 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('createPrevalidation', {
         component: 'modalCreatePrevalidationComponent'
     });
-    
+
     ModalRouteProvider.modal('voucherExportType', {
         component: 'modalVoucherExportTypeComponent'
     });
@@ -90,11 +90,11 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('dangerZone', {
         component: 'modalDangerZoneComponent'
     });
-    
+
     ModalRouteProvider.modal('fundProviderChatSponsor', {
         component: 'modalFundProviderChatSponsorComponent'
     });
-    
+
     ModalRouteProvider.modal('fundProviderChatProvider', {
         component: 'modalFundProviderChatProviderComponent'
     });
@@ -103,7 +103,15 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalFundProviderChatMessageComponent'
     });
 
+    ModalRouteProvider.modal('subsidyProductEdit', {
+        component: 'modalSubsidyProductEditComponent'
+    });
+
     ModalRouteProvider.modal('duplicatesPicker', {
         component: 'modalDuplicatesPickerComponent'
+    });
+
+    ModalRouteProvider.modal('fundAppendRequestRecord', {
+        component: 'modalFundAppendRequestRecordComponent'
     });
 }];

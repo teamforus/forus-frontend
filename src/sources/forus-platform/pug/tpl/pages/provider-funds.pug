@@ -1,7 +1,7 @@
 .app.app-container
     menu
     section.app.app-content
-        .card-heading.card-heading-funds.flex-row
+        .card-heading.flex-row
             .flex-col
                 span(translate="fund_card_provider.title.{{ $ctrl.shownFundsType }}")
                 span(ng-bind="' (' + ($ctrl.getActiveFundsCount($ctrl.shownFundsType)) + ')'")

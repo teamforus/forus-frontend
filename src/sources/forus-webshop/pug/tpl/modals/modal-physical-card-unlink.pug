@@ -1,0 +1,50 @@
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
+
+.modal.modal-physical-cards.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.closeModal()")
+    
+    //- Select type
+    .modal-window(ng-if="$ctrl.state == 'start'")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.closeModal()")
+        .modal-header
+            .modal-title Plastic pas
+        .modal-content: .modal-section
+            .physical-card-description 
+                | Uw pas is gekoppeld met pasnummer: 
+                span.label.label-dark {{ $ctrl.voucher.physical_card.code }} 
+            .physical-card: .physical-card-row
+                .physical-card-item(ng-click="$ctrl.askConfirmation()")
+                    .physical-card-item-title Pas kwijt?
+                    .physical-card-item-inner(ng-click="$ctrl.choosePhysicalCardType('new')")
+                        .physical-card-item-icon: include ../../../resources/_webshop-common/assets/img/icon-physical-cards/icon-physical-card-unlink.svg
+                    .physical-card-item-details
+                        .physical-card-item-title Pas kwijt?
+                        .physical-card-item-description Blokkeer de oude pas en vraag een nieuwe aan.
+
+    //- Confirm unlinking
+    .modal-window(ng-if="$ctrl.state == 'confirmation'")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.closeModal()")
+        .modal-header: .modal-title(translate="physical_card.modal_section.link_card_success.title")
+        .modal-content: .modal-section: .physical-card-result
+            .physical-card-media: include ../../../resources/_webshop-common/assets/img/icon-physical-cards/icon-physical-card-exclamation.svg
+            .physical-card-description 
+                | Wilt u uw pas met pasnummer: 
+                span.label.label-dark {{ $ctrl.voucher.physical_card.code }} 
+                | &nbsp;blokkeren?
+            .text-center: .button-group
+                button.button.button-dark(type="button" ng-click="$ctrl.closeModal()") Annuleer
+                button.button.button-dark(type="button" ng-click="$ctrl.unlink()") Blokkeer
+
+    //- Card unlinked
+    .modal-window(ng-if="$ctrl.state == 'unlinked'")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.closeModal()")
+        .modal-header: .modal-title Done.
+        .modal-content: .modal-section: .physical-card-result
+            .physical-card-media: include ../../../resources/_webshop-common/assets/img/icon-physical-cards/icon-physical-cards-success.svg
+            .physical-card-description 
+                | Uw pas met pasnummer: 
+                span.label.label-dark {{ $ctrl.voucher.physical_card.code }} 
+                | &nbsp;is geblokkeerd!
+            .text-center: .button-group
+                button.button.button-dark(type="button" ng-click="$ctrl.closeModal()") Afsluiten
+                button.button.button-dark(type="button" ng-click="$ctrl.requestNewCard()") Bestel nieuwe pas

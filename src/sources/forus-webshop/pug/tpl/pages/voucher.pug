@@ -2,12 +2,22 @@ top-navbar
 section.section.section-voucher-details: .wrapper: .page.page-voucher
     .block.block-breadcrumbs.hide-sm
         a(ui-sref="home").breadcrumb-item Home
-        a(ui-sref="vouchers").breadcrumb-item Mijn vouchers
-        .breadcrumb-item.active(ng-if="!$ctrl.voucherCard.product") Uw {{ $ctrl.voucherCard.title }} voucher 
-        .breadcrumb-item.active(ng-if="$ctrl.voucherCard.product") Uw aanbieding voucher
+        a(ui-sref="vouchers").breadcrumb-item Mijn tegoeden
+        .breadcrumb-item.active(ng-if="!$ctrl.voucherCard.product") Uw {{ $ctrl.voucherCard.title }} tegoed 
+        .breadcrumb-item.active(ng-if="$ctrl.voucherCard.product") Uw reservering
 
-    .section-title.hide-sm(ng-if="!$ctrl.voucherCard.product") Uw {{ $ctrl.voucherCard.title }} voucher
-    .section-title.hide-sm(ng-if="$ctrl.voucherCard.product") Uw aanbieding voucher
+    .block.block-physical-cards(ng-if="$ctrl.showPhysicalCardsOption")
+        .block-card-logo: img(src="./assets/img/icon-physical-cards/icon-physical-cards-preview.svg")
+        .block-card-details 
+            .block-card-title(i18n="voucher.physical_card.title")
+            .block-card-description(i18n="voucher.physical_card.description")
+            .block-card-actions: .button.button-primary(
+                i18n="voucher.physical_card.buttons.reactivate" 
+                ng-click="$ctrl.usePhysicalCard($ctrl.voucher)") 
+        .block-card-close.mdi.mdi-close(ng-click="$ctrl.dismissPhysicalCard()")
+
+    .section-title.hide-sm(ng-if="!$ctrl.voucherCard.product && !$ctrl.showPhysicalCardsOption") Uw {{ $ctrl.voucherCard.title }} tegoed
+    .section-title.hide-sm(ng-if="$ctrl.voucherCard.product") Uw reservering
 
     .block.block-voucher(ng-if="$ctrl.voucherCanUse")
         //- voucher details
@@ -23,7 +33,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                         a(ng-if="$ctrl.voucherCard.product" ui-sref="products-show($ctrl.voucherCard.product)").card-read_more
                             | Bekijk details
                             em.mdi.mdi-arrow-right
-                        div(ng-if="!$ctrl.voucherCard.product")
+                        div(ng-if="$ctrl.voucherCard.fund.type == 'budget' && !$ctrl.voucherCard.product")
                             .card-label.euro Uw tegoed is:
                             .card-value.euro(ng-bind="'€ ' + ($ctrl.voucherCard.amount)")
 
@@ -64,6 +74,13 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                                 em.mdi.mdi-share-variant
                                 //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
                             .action-item-name(i18n="voucher.voucher_card.footer.actions.share")
+                        .action-item(
+                            ng-if="$ctrl.isPhysicalCardLinkable" 
+                            ng-click="$ctrl.usePhysicalCard($ctrl.voucher)")
+                            .action-item-icon
+                                em.mdi.mdi-card-bulleted-outline
+                                //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
+                            .action-item-name(i18n="voucher.voucher_card.footer.actions.physical_card_use")
 
             .card-qr_code.hide-sm
                 qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="voucher")
@@ -122,7 +139,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                     .transactions-item-counterpart(ng-if="transaction.type == 'product_voucher'") 
                         | {{ "Aanbieding:" | translate }} {{ transaction.product.name }}
                     .transactions-item-date {{ transaction.created_at_locale }}
-                .transactions-item-amount 
+                .transactions-item-amount(ng-if="$ctrl.voucherCard.fund.type == 'budget'")
                     .transactions-item-value - {{ transaction.amount | currency_format }}
                     .transactions-item-type {{ "voucher.labels.subtract" | translate }}
 
@@ -144,6 +161,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
 
         .map_card-iframe: google-map(
             map-pointers="$ctrl.voucherCard.offices" 
+            map-pointer-template="providers-office"
             map-gesture-handling="'greedy'"
             map-options="$ctrl.mapOptions")
         

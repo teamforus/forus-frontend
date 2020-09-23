@@ -1,5 +1,27 @@
 /*==========  Style Sheet - Vars  ==========*/
 
+// navbar
+$bg-nav:            #F5F5F5;
+$btn-nav:           #305dfb;
+$tc-nav-hov:        #305dfb;
+$tc-nav:            #282B39;
+$logo-padding:      20px 0px;
+$logo-height:       50px;
+
+// navbar (auth) (default button)
+$tc-auth-menu:      #305dfb; 
+$tc-auth-btn:       #305dfb; 
+$btn-auth-bg:       #fff; 
+$btn-auth-border:   #d2e6ff;
+$auth-avater-bg:    #305dfb;
+$auth-avater-svg:   #fff;
+
+// navbar (start modal primary)
+$tc-start-btn:       #fff; 
+$btn-start-bg:       #305dfb; 
+$btn-start-btn:      #305dfb;
+$btn-start-border:   transparent;
+
 // header background
 $bg-values:          url("../img/splash-top-b.png") no-repeat 100% 0;
 
@@ -19,7 +41,7 @@ $bg:                #f3f8fe;
 $bg_2:              linear-gradient(to bottom, #f3f8fe 0%, #feffff 100%);
 
 // text formatting
-$tf:                uppercase;
+$tf:               inherit;
 
 // footer color
 $fc:                #fff;

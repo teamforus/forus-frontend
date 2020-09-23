@@ -3,7 +3,7 @@ section.section.section-product: .wrapper
 
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
-        a(ui-sref="products").breadcrumb-item Aanbiedingen
+        a(ui-sref="products").breadcrumb-item Aanbod
         .breadcrumb-item.active(ng-bind="$ctrl.product.name")
 
     .section-title(ng-bind="$ctrl.product.name")
@@ -24,11 +24,11 @@ section.section.section-product: .wrapper
                     .product-fund-label(i18n="product.labels.fund")
                     .product-fund-list(ng-if="$ctrl.product.funds.length > 0" ng-bind="$ctrl.fundNames")
 
-                .product-price
-                    .product-price-old(ng-if="$ctrl.product.old_price")
+                .product-price(ng-if="$ctrl.useBudget")
+                    .product-price-old(ng-if="$ctrl.product.old_price && !$ctrl.product.no_price")
                         .old-label(i18n="block_products.labels.old")
                         .old-value(ng-bind="$ctrl.product.old_price | currency_format")
-                    .product-price-new
+                    .product-price-new(ng-if="!$ctrl.product.no_price")
                         .new-label(i18n="block_products.labels.new")
                         .new-value(ng-bind="$ctrl.product.price | currency_format")
                     .product-price-insufficient.tooltip-block(ng-show="$ctrl.isApplicable == false" ng-if="$root.auth_user")
@@ -37,14 +37,30 @@ section.section.section-product: .wrapper
                 .product-expire(ng-if="$ctrl.product.expire_at")
                     .expire-label(i18n="voucher.labels.expire")
                     .expire-value(ng-bind="$ctrl.product.expire_at_locale")
-
+                
                 .button.button-primary(
-                    ng-if="$ctrl.isApplicable && !$ctrl.product.deleted && !$ctrl.product.sold_out"
+                    ng-if="!$ctrl.product.no_price && $ctrl.useBudget && $ctrl.isApplicable && !$ctrl.product.deleted && !$ctrl.product.sold_out"
                     ng-click="$ctrl.applyProduct()") RESERVEER
                 
                 .button.button-primary(
                     ng-if="!$root.auth_user && !$ctrl.product.deleted && !$ctrl.product.sold_out" 
-                    ng-click="openAuthPopup()") LOG IN OM TE RESERVEREN
+                    ng-click="openAuthPopup()") 
+                        span(ng-if="$ctrl.useBudget") LOG IN OM TE RESERVEREN
+                        span(ng-if="$ctrl.useSubsidies && !$ctrl.useBudget") Login
+
+                .product-funds-list
+                    .fund-item(ng-repeat="fund in $ctrl.product.funds")
+                        .fund-item-media: img.fund-item-media-img(src="../assets/img/placeholders/fund-thumbnail.png")
+                        .fund-item-name(ng-bind="fund.name")
+                        .fund-item-limit(ng-if="fund.type == 'subsidies'")
+                            .fund-item-limit-label Aantal beschikbaar:
+                            .fund-item-limit-value(ng-bind="fund.limit_available")
+                        .fund-item-apply(
+                            ng-click="$ctrl.requestFund(fund)"
+                            ng-if="fund.type == 'subsidies' ? !$ctrl.isApplicableSubsidy : !$ctrl.isApplicable") Aanvragen
+                        .fund-item-price(
+                            ng-if="!$ctrl.product.no_price && (fund.type == 'subsidies' ? $ctrl.isApplicableSubsidy : $ctrl.isApplicable)"
+                            ng-bind="fund.price == 0 ? 'Gratis' : ((fund.type == 'subsidies' ? fund.price : $ctrl.product.price) | currency_format)")
 
         .block.block-info-card
             .block-header(i18n="voucher.labels.shopdetail")

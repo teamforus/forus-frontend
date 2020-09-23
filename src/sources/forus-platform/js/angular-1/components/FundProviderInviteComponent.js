@@ -45,7 +45,7 @@ let FundProviderInviteComponent = function(
                 $ctrl.showAuth = true;
             }
         }, res => {
-            PushNotificationsService.error(res.data.message);
+            PushNotificationsService.danger(res.data.message);
         });
     };
 
@@ -60,7 +60,7 @@ let FundProviderInviteComponent = function(
                 $ctrl.showAuth = true;
             }
         }, res => {
-            PushNotificationsService.error(res.data.message);
+            PushNotificationsService.danger(res.data.message);
         });
     };
 

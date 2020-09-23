@@ -143,8 +143,6 @@ let BaseController = function (
                 }
             } else {
                 $state.go('organizations-create');
-                // localStorage.setItem("provider-sign_up.step", "4")
-                // $state.go('sign-up');
             }
         });
     };
