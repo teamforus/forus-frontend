@@ -8,7 +8,6 @@ let SponsorSignUpComponent = function(
     MediaService,
     AuthService,
     SignUpService,
-    appConfigs,
     ModalService
 ) {
     let $ctrl = this;
@@ -307,7 +306,6 @@ module.exports = {
         'MediaService',
         'AuthService',
         'SignUpService',
-        'appConfigs',
         'ModalService',
         SponsorSignUpComponent
     ],

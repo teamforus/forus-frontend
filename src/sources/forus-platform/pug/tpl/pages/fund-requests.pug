@@ -6,6 +6,7 @@
             .col.col-lg-6.col-xs-12.text-right: button(ng-click="$ctrl.exportRequests()").button.button-primary
                 .mdi.mdi-download.icon-start
                 | Exporteren
+        
         .card.card-collapsable(
             ng-class="{'card-collapsed' : !validatorRequest.collapsed}"
             ng-repeat='validatorRequest in $ctrl.validatorRequests.data')

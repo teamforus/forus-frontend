@@ -18,12 +18,12 @@
 
     .block.block-sign_up: .block-wrapper
         .sign_up-header
-            a.sign_up-header-item(ng-click="$ctrl.goToMain()").sign_up-header-back
+            .sign_up-header-item.flex-grow: a.sign_up-header-item-back(ng-click="$ctrl.goToMain()")
                 em.mdi.mdi-chevron-left
                 | Verlaat het formulier
 
-            a.sign_up-header-item.button(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthPopup()")
-                | Inloggen
+            .sign_up-header-item(ng-if="!$root.auth_user")
+                a.button.button-light(ng-click="$ctrl.openAuthPopup()") Inloggen
 
         h2.block-title(translate="sign_up_sponsor.header.main_header")
         

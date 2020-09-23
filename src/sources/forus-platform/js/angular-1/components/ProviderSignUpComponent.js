@@ -16,8 +16,7 @@ let ProviderSignUpComponent = function(
     ProviderFundService,
     AuthService,
     ModalService,
-    SignUpService,
-    appConfigs
+    SignUpService
 ) {
     let $ctrl = this;
     let orgMediaFile = false;
@@ -678,7 +677,6 @@ module.exports = {
         'AuthService',
         'ModalService',
         'SignUpService',
-        'appConfigs',
         ProviderSignUpComponent
     ],
     templateUrl: 'assets/tpl/pages/provider-sign-up.html'
