@@ -9,7 +9,7 @@
             span(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
             span(ng-if="product.unlimited_stock" translate="product_edit.labels.unlimited")
     .product-actions
-        .product-action
+        .product-action(ng-if="!product.no_price")
             .product-price {{ product.price | currency_format }}
         .product-action: .button-group
             .button.button-defaul(ui-sref="products-show(product)")

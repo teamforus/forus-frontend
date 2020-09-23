@@ -447,6 +447,10 @@
             padding: 0;
             color: $color_primary;
             float: left;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
 
         input[type='checkbox'] {
