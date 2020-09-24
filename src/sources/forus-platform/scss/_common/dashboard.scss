@@ -939,6 +939,21 @@ $colorPrimaryLight: $color_primary_light;
                 }
             }
 
+            .card-section-actions-details {
+                .card-section-actions-description {
+                    font: 600 11px/13px $bf;
+                    text-align: right;
+                    color: #134478;
+                    margin-bottom: 12px;
+                }
+
+                .card-section-actions-time {
+                    font: 400 12px/14px $bf;
+                    text-align: right;
+                    color: #000000;
+                }
+            }
+
             &.card-section-actions-bottom {
                 top: auto;
                 bottom: 25px;
@@ -3099,11 +3114,17 @@ $colorPrimaryLight: $color_primary_light;
                 flex-grow: 1;
             }
 
+            .attachment-date {
+                font: 400 12px/25px $bf;
+                margin-right: 20px;
+            }
+
             .attachment-preview {
                 display: flex;
                 @include ellipsis();
                 color: #262626;
                 font: 500 12px/25px $bf;
+                flex: unset;
 
                 .mdi {
                     float: left;
