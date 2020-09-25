@@ -12,7 +12,7 @@
                     ng-class="{'notification-item-new': !notification.seen}")
                     .notification-details
                         .notification-title(ng-bind="notification.title")
-                        .notification-description(ng-bind="notification.description")
+                        .notification-description: div(ng-repeat="description in (notification.description | lines_to_array)" ng-bind="description")
                     .notification-actions: .notification-date 
                         .mdi.mdi-clock-outline
                         | {{ notification.created_at_locale }}

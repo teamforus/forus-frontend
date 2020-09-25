@@ -572,6 +572,10 @@ module.exports = {
         confirm_create: {
             title: 'Een aanbieding toevoegen.',
             description: 'U staat op het punt een aanbieding op de webshop toe te voegen. Uw aanbieding wordt van de webshop verwijderd als de vervaldatum bereikt is.'
+        },
+        confirm_price_change: {
+            title: 'Er is een lopende actie',
+            description: 'Er is een actie gemaakt van deze aanbieding. Een wijziging heeft invloed op deze actie en de prijs. De aanbieding dient daarom opnieuw te worden goedgekeurd voordat de actie weer op de website zichtbaar is.'
         }
     },
 
@@ -1197,7 +1201,8 @@ module.exports = {
             search: "Zoeken",
             assigned_to: "Toegewezen",
             from: "Vanaf",
-            to: "Tot"
+            to: "Tot",
+            pending_since: "In behandeling sinds"
         },
         status: {
             hold: "Wachten",
