@@ -23,9 +23,7 @@ let ProductsEditComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        let values = $ctrl.product ? ProductService.apiResourceToForm(
-            $ctrl.product
-        ) : {
+        let values = $ctrl.product ? ProductService.apiResourceToForm($ctrl.product) : {
             product_category_id: null
         };
 
@@ -45,15 +43,9 @@ let ProductsEditComponent = function(
         }
 
         $ctrl.confirmPriceChange = (confirmCallback) => {
-            if (!$ctrl.product) {
-                return confirmCallback();
-            }
-
-            let productHasActions = $ctrl.product.funds.filter(fund => {
-                return fund.approved && fund.type == 'subsidies';
-            }).length >= 1;
-
-            if (!productHasActions || (parseFloat($ctrl.product.price) === $ctrl.form.values.price)) {
+            if (!$ctrl.product || 
+                parseFloat($ctrl.product.price) === parseFloat($ctrl.form.values.price) || 
+                $ctrl.product.funds.filter(fund => fund.type == 'subsidies').length === 0) {
                 return confirmCallback();
             }
 
@@ -62,9 +54,7 @@ let ProductsEditComponent = function(
                 title: 'product_edit.confirm_price_change.title',
                 description: 'product_edit.confirm_price_change.description',
                 icon: 'product-create',
-                confirm: () => {
-                    return confirmCallback();
-                }
+                confirm: () => confirmCallback()
             });
         };
 
