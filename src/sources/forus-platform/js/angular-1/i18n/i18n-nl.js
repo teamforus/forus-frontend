@@ -364,7 +364,7 @@ module.exports = {
         labels: {
             name: "Naam",
             description: "Omschrijving",
-            products: "Products",
+            products: "Aanbod",
             status: "Status",
             start: "Startdatum",
             end: "Einddatum",
@@ -1201,7 +1201,8 @@ module.exports = {
             search: "Zoeken",
             assigned_to: "Toegewezen",
             from: "Vanaf",
-            to: "Tot"
+            to: "Tot",
+            pending_since: "In behandeling sinds"
         },
         status: {
             hold: "Wachten",

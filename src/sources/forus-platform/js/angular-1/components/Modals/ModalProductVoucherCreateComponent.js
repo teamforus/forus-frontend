@@ -83,7 +83,8 @@ let ModalProductVoucherCreateComponent = function(
         $ctrl.fund = $ctrl.modal.scope.fund || null;
 
         ProductService.listAll({
-            fund_id: $ctrl.fund.id
+            fund_id: $ctrl.fund.id,
+            no_price: 0,
         }).then((res) => {
             $ctrl.products = res.data.data.map(product => {
                 return {
