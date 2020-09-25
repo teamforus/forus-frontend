@@ -39,13 +39,7 @@ let ProductsComponent = function(
     };
 
     $ctrl.addProduct = function() {
-        if ($ctrl.maxProductCount && $ctrl.products.length >= $ctrl.maxProductCount) {
-            ModalService.open('modalNotification', {
-                type: 'danger',
-                title: 'product_edit.errors.already_added',
-                icon: 'product-error'
-            });
-        } else {
+        if (!$ctrl.maxProductCount || $ctrl.products.length < $ctrl.maxProductCount) {
             $state.go('products-create', {
                 organization_id: $stateParams.organization_id
             });
