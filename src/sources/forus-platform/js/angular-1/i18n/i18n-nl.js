@@ -567,7 +567,7 @@ module.exports = {
             close: "Sluit"
         },
         errors: {
-            already_added: 'U heeft al twee aanbiedingen toegevoegd. U kunt niet meer dan twee toevoegen.'
+            already_added: 'U kunt geen aanbiedingen meer toevoegen.'
         },
         confirm_create: {
             title: 'Een aanbieding toevoegen.',

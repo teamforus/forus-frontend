@@ -12,7 +12,8 @@ let ProductsComponent = function(
         values: {},
     };
 
-    $ctrl.maxProductCount = appConfigs.flags.maxProductCount ? appConfigs.flags.maxProductCount : null;
+    $ctrl.maxProductCount = parseInt(appConfigs.features.products_hard_limit);
+    $ctrl.maxProductSoftLimit = parseInt(appConfigs.features.products_soft_limit);
 
     $ctrl.onPageChange = async (query) => {
         return $q((resolve, reject) => {

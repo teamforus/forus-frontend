@@ -8,7 +8,7 @@
                 em.mdi.mdi-plus-circle 
                 | {{ "products.add" | translate }}
                 |
-                span(ng-if="$ctrl.maxProductCount > 0") ({{ $ctrl.products.data.length }}/{{ $ctrl.products.meta.total }})
+                span(ng-if="$ctrl.maxProductCount > 0 && $ctrl.products.meta.total >= $ctrl.maxProductSoftLimit") ({{ $ctrl.products.meta.total }}/{{ $ctrl.maxProductCount }})
 
         .block.block-products: product-card(
             ng-if="$ctrl.products.meta.total > 0" 
