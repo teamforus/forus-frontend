@@ -44,13 +44,6 @@
                 li.navbar-item-wrapper: .navbar-item(
                     ng-click="$root.signOut()" translate="topnavbar.buttons.logout")
 
-            nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.fundsMenu && $root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
-                a.navbar-item(
-                    ui-sref="funds" 
-                    ui-sref-active="active"
-                    translate="topnavbar.items.{{ $root.appConfigs.client_key }}.funds"
-                    translate-default="{{ 'topnavbar.items.funds' | translate }}")
-
             nav.navbar-item-wrapper(
                 ng-click="mobileMenu = false"
                 ng-if="$root.appConfigs.features.has_budget_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)" )
@@ -75,6 +68,13 @@
                     ui-sref="providers"
                     ui-sref-active="active"
                     ng-bind="'topnavbar.items.providers' | translate")
+
+            nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.fundsMenu && $root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
+                a.navbar-item(
+                    ui-sref="funds" 
+                    ui-sref-active="active"
+                    translate="topnavbar.items.{{ $root.appConfigs.client_key }}.funds"
+                    translate-default="{{ 'topnavbar.items.funds' | translate }}")
             
             nav.navbar-item-wrapper(ng-click="mobileMenu = false")
                 a.navbar-item(
