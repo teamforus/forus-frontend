@@ -940,17 +940,21 @@ $colorPrimaryLight: $color_primary_light;
             }
 
             .card-section-actions-details {
-                .card-section-actions-description {
-                    font: 600 11px/13px $bf;
+                .card-section-actions-label {
+                    font: 600 11px/18px $bf;
                     text-align: right;
                     color: #134478;
-                    margin-bottom: 12px;
+                    margin: 0 0 5px;
                 }
 
-                .card-section-actions-time {
-                    font: 400 12px/14px $bf;
+                .card-section-actions-value {
+                    font: 500 12px/20px $bf;
                     text-align: right;
                     color: #000000;
+                }
+
+                &:not(:first-child) {
+                    padding-top: 15px;
                 }
             }
 

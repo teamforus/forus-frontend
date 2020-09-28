@@ -56,22 +56,20 @@
             ng-repeat='validatorRequest in $ctrl.validatorRequests.data')
             .card-section(ng-click='validatorRequest.collapsed = !validatorRequest.collapsed')
                 .card-section-actions(ng-show="validatorRequest.state == 'pending'")
-                    .tag.tag-primary-light
+                    .flex.flex-end: .tag.tag-primary-light
                         em.mdi.mdi-circle-outline.icon-start
                         span(translate='validation_requests.status.hold')
                     .card-section-actions-details
-                        br
-                        .card-section-actions-description(translate="validation_requests.labels.pending_since")
-                        .card-section-actions-time(ng-bind="validatorRequest.created_at_locale")
+                        .card-section-actions-label(translate="validation_requests.labels.pending_since")
+                        .card-section-actions-value(ng-bind="validatorRequest.created_at_locale")
                 
                 .card-section-actions(ng-show="validatorRequest.state == 'approved'")
-                    .tag.tag-success 
+                    .flex.flex-end: .tag.tag-success 
                         em.mdi.mdi-circle-slice-8.icon-start
                         | Geaccepteerd
                     .card-section-actions-details
-                        br
-                        br
-                        .card-section-actions-time(ng-bind="validatorRequest.updated_at_locale")
+                        .card-section-actions-label &nbsp;
+                        .card-section-actions-value(ng-bind="validatorRequest.updated_at_locale")
                 
                 .card-section-actions(ng-show="validatorRequest.state == 'approved_partly'")
                     .tag.tag-success 
@@ -86,7 +84,6 @@
                 .card-title(ng-class="{'text-muted':!validatorRequest.bsn}")
                     | BSN: 
                     span(ng-bind="validatorRequest.bsn || 'Geen data'")
-                    .card-collapse.mdi(ng-class="'mdi-chevron-' + (validatorRequest.collapsed ? 'down' : 'up')")
                 
                 .card-block.card-block-listing.card-block-listing-inline
                     .card-block-listing-label Fonds
