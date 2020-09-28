@@ -1974,10 +1974,12 @@ $colorPrimaryLight: $color_primary_light;
             }
 
             ul {
-                padding: 0px 20px;
-                list-style: circle;
-
                 li {
+                    font: inherit;
+                    background-image: url('../img/icon-list.svg');
+                    background-repeat: no-repeat;
+                    line-height: 30px;
+                    padding-left: 50px;
                     font-weight: 400;
                 }
             }

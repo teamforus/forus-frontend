@@ -20,7 +20,7 @@ mixin progress()
 //-top-navbar
 section: .wrapper 
     .block.block-sign_up: .block-wrapper
-        .sign_up-header: a(ng-click="$ctrl.goToMain()").sign_up-header-back
+        .sign_up-header: .sign_up-header-item.flex-grow: a.sign_up-header-item-back(ng-click="$ctrl.goToMain()")
             em.mdi.mdi-chevron-left
             | Terug
         
