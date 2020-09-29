@@ -4,10 +4,15 @@ section.section.section-voucher-details: .wrapper
         a(ui-sref="home").breadcrumb-item Home
         .breadcrumb-item.active Security
 
-    section: .card(ng-repeat="session in $ctrl.sessions")
-        .block.block-profile
-            profile-card
-            .profile-content
+    .block.block-profile
+        profile-card
+        .profile-content
+            .profile-content-header.clearfix
+                .profile-content-title
+                    div.pull-left
+                        .profile-content-title-count(ng-bind="$ctrl.sessions.length")
+                        | Sessies
+            .card(ng-repeat="session in $ctrl.sessions")
                 .card-section.card-section-padless
                     .block.block-sessions
                         .session-item
