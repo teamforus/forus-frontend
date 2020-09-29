@@ -16,7 +16,7 @@ module.exports = {
         desc: "U heeft al een reactie ingestuurd.",
     },
     done: {
-        title: "Aanvulverzoek ingediend.",
-        desc: "Uw aanvulverzoek is ingediend, u krijgt een e-mail als uw aanvraag is afgehandeld."
+        title: "Aanvulverzoek verzonden.",
+        desc: "Uw aanvulverzoek is verzonden, u krijgt een e-mail als uw aanvraag is afgehandeld."
     }
 }
