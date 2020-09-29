@@ -27,7 +27,7 @@ module.exports = {
         },
         labels: {
             has_app: "Ik wil inloggen met de me app >",
-            no_app: "< Ik wil inloggen met mijn emailadres",
+            no_app: "< Ik wil inloggen met mijn e-mailadres",
         },
         app: {
             title: "Heeft u de Me-app al?",

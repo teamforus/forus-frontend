@@ -92,12 +92,12 @@ module.exports = {
         fourteen: "Log in op de webshop en klik op 'Aanbod'. Kies vervolgens het aanbod die je wilt en klik op 'Koop'. Kies vervolgens {{fund}}-tegoed om de product of dienst mee te kopen. Het bedrag van het aanbod wordt van je {{fund}}-tegoed afgehaald en er wordt een nieuwe tegoed aangemaakt. De nieuwe tegoed kan alleen gebruikt worden voor het aanbod die je hebt gekocht.",
         nijmegen: {
             faq_one: "Hoe kan ik een Meedoenregeling aanvragen?",
-            one: "Klik bovenaan op 'Start aanvraag'. Vul uw e-mailadres in en gebruik de login link in uw eigen vertrouwde emailbox. Vervolgens logt u in met uw eigen DigiD. Controleer of u voldoet aan de voorwaarde en klik daarna op 'Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden' en ga naar de volgende stap. Uw Meedoenregeling-tegoed is gelijk geactiveerd!",
+            one: "Klik bovenaan op 'Start aanvraag'. Vul uw e-mailadres in en gebruik de login link in uw eigen vertrouwde e-mailbox. Vervolgens logt u in met uw eigen DigiD. Controleer of u voldoet aan de voorwaarde en klik daarna op 'Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden' en ga naar de volgende stap. Uw Meedoenregeling-tegoed is gelijk geactiveerd!",
             eleven: "Nee. Kinderen komen niet in aanmerking voor de meedoen-regeling."
         },
         potjeswijzer: {
             faq_one: "Hoe kan ik een Potje aanvragen?",
-            one: "Klik bovenaan op 'Start aanvraag'. Vul uw e-mailadres in en gebruik de login link in uw eigen vertrouwde emailbox. Vervolgens logt u in met uw eigen DigiD. Controleer of u voldoet aan de voorwaarde!",
+            one: "Klik bovenaan op 'Start aanvraag'. Vul uw e-mailadres in en gebruik de login link in uw eigen vertrouwde e-mailbox. Vervolgens logt u in met uw eigen DigiD. Controleer of u voldoet aan de voorwaarde!",
         },
         noordoostpolder: {
             faq_one: "Hoe kan ik het Meedoenpakket activeren?",
