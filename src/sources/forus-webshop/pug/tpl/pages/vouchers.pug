@@ -22,7 +22,7 @@ section.section.section-profile: .wrapper
                     description="Momenteel heeft u geen tegoeden"
                     text="Gebruik een activatiecode"
                     hide-link="false")
-                    
+
                 .profile-content-header(ng-if="$ctrl.productVouchers.length").clearfix
                     .profile-content-title
                         div.pull-left
@@ -32,7 +32,7 @@ section.section.section-profile: .wrapper
                     voucher-card(ng-repeat="voucher in $ctrl.productVouchers" voucher="voucher")
 
                 empty-block(
-                    ng-if="$ctrl.productVouchers.length == 0"
+                    ng-if="$ctrl.productVouchers.length && $ctrl.productVouchers.length == 0"
                     title="Geen tegoeden"
                     description="Momenteel heeft u geen tegoeden"
                     text="Gebruik een activatiecode"
