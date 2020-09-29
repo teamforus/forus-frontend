@@ -201,16 +201,20 @@ let FundRequestsComponent = function(
     };
 
     $ctrl.requestDecline = (request) => {
-        FundRequestValidatorService.decline(
-            $ctrl.organization.id,
-            request.id
-        ).then(() => {
-            $ctrl.reloadRequest(request);
-        }, (res) => {
-            showInfoModal(
-                'Aanvraag weigeren mislukt.',
-                'Reden:' + res.data.message
-            );
+        ModalService.open('fundRequestRecordsDecline', {
+            organization: $ctrl.organization,
+            request: request,
+            submit: (err) => {
+                if (err) {
+                    return showInfoModal(
+                        'U kunt op dit moment deze aanvragen niet weigeren.',
+                        'Reden: ' + err.data.message
+                    );
+                }
+
+                $ctrl.reloadRequest(request);
+                showInfoModal('Aanvragen geweigerd.');
+            }
         });
     };
 
