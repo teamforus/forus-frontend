@@ -22,17 +22,13 @@ section.section.section-profile: .wrapper
                     description="Momenteel heeft u geen tegoeden"
                     text="Gebruik een activatiecode"
                     hide-link="false")
-
-    .product-vouchers(ng-if="$ctrl.productVouchers.length")
-        .block.block-profile
-            .profile-aside
-            .profile-content
-                .profile-content-header
+                    
+                .profile-content-header(ng-if="$ctrl.productVouchers.length").clearfix
                     .profile-content-title
                         div.pull-left
                             .profile-content-title-count(ng-bind="$ctrl.productVouchers.length")
                             | Reserveringen
-                .block.block-vouchers(ng-if="$ctrl.productVouchers.length > 0")
+                .block.block-vouchers(ng-if="$ctrl.productVouchers.length && $ctrl.productVouchers.length > 0")
                     voucher-card(ng-repeat="voucher in $ctrl.productVouchers" voucher="voucher")
 
                 empty-block(
