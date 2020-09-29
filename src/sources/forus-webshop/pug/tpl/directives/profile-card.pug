@@ -1,6 +1,6 @@
 .profile-aside
     .profile-menu(ng-if="appConfigs.features.records.list")
-        a(ui-sref="vouchers" ui-sref-active="active").profile-menu-item 
+        a(ui-sref="vouchers" ui-sref-active="active").profile-menu-item.hide-sm
             | {{ "profile_card.buttons.vouchers" | translate }}
             em.mdi.mdi-arrow-right
         a(
@@ -9,3 +9,13 @@
             ng-if="$root.appConfigs.features.records.list").profile-menu-item 
             | {{ "profile_card.buttons.records" | translate }}
             em.mdi.mdi-arrow-right
+            em.mdi.mdi-arrow-right    
+        a(ui-sref="notifications" ui-sref-active="active").profile-menu-item 
+            | Notificaties
+            em.mdi.mdi-arrow-right        
+        a(ui-sref="preferences-notifications" ui-sref-active="active").profile-menu-item 
+            | Uitschrijven van notificaties
+            em.mdi.mdi-arrow-right      
+        a(ui-sref="identity-emails" ui-sref-active="active").profile-menu-item 
+            | E-mailadres wijzigen
+            em.mdi.mdi-arrow-right   
