@@ -465,7 +465,7 @@ let FundRequestComponentDefault = function(
         return $q((resolve, reject) => {
             FundService.apply(fund.id).then(function(res) {
                 PushNotificationsService.success(sprintf(
-                    'Fund "%s" voucher received.',
+                    'Succes! %s tegoed geactiveerd!',
                     $ctrl.fund.name
                 ));
                 $state.go('voucher', res.data.data);
@@ -507,7 +507,7 @@ let FundRequestComponentDefault = function(
                     }
 
                     if ($stateParams.digid_success == 'signed_up' || $stateParams.digid_success == 'signed_in') {
-                        PushNotificationsService.success('DigId synchronization success.');
+                        PushNotificationsService.success('Succes! Ingelogd met DigiD.');
 
                         if ($ctrl.invalidCriteria.length == 0) {
                             $ctrl.applyFund($ctrl.fund);
