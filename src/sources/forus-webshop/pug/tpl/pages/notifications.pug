@@ -15,16 +15,19 @@ section.section.section-voucher-details: .wrapper
             .card.block.block-notifications-table(ng-if="$ctrl.notifications.data.length > 0")
                 .card-section.card-section-padless: table.table
                     tr
-                        th Datum
+                        th.hide-sm Datum
                         th Notificatie
                     
                     tr(ng-repeat="notification in $ctrl.notifications.data" ng-class="{dim: !notification.seen}")
-                        td.notification-date
+                        td.notification-date.hide-sm
                             em.mdi.mdi-clock-outline 
                             | {{ notification.created_at_locale }}
                         td
                             .notification-title(ng-bind="notification.title")
                             .notification-description(ng-bind="notification.description")
+                            .notification-date.show-sm
+                                em.mdi.mdi-clock-outline 
+                                | {{ notification.created_at_locale }}
                     
             empty-block(
                 title= "{{ 'block_notifications.labels.title' | translate }}"
