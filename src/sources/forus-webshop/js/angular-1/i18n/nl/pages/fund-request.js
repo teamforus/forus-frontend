@@ -15,7 +15,7 @@ module.exports = {
             }
         },
         header: {
-            main: "Aanvraag",
+            main: "{{ fundname }} aanvraag",
             title_step_1: "Welkom",
             title_step_2: "Meld u aan",
             title_log_digid: "Log in met DigiD",
