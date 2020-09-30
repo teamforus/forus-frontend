@@ -33,6 +33,7 @@ module.exports = {
         more: "Bekijk meer",
         start_request: "Aanvragen",
         is_applicable: "Activeer",
+        is_pending: "In behandeling",
         already_received: "Open tegoed",
     },
     status: {
