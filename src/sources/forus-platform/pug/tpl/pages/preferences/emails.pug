@@ -3,7 +3,7 @@
 
     section.app.app-content
         .card
-            .card-header: .card-title Email instellingen
+            .card-header: .card-title E-mail instellingen
             .card-section.card-section-padless
                 .block.block-user_emails
                     .user_email-item(ng-repeat="email in $ctrl.emails")
@@ -12,7 +12,7 @@
                             .user_email-address(ng-bind="email.email")
                             
                             .user_email-options(ng-if="email.primary")
-                                .user_email-option Ontvangt inlog email
+                                .user_email-option Ontvangt inlog e-mail
                                 .user_email-option Ontvangt notificaties
                         
                             .button.button-default(ng-disabled="email.disabled" ng-if="!email.primary && email.verified" ng-click="$ctrl.makePrimary(email)")
@@ -24,7 +24,7 @@
                                 | Herstuur verificatie email
                         
                         .user_email-actions
-                            label(ng-if="email.primary").label.label-success.label-round.label-lg.pull-left Primary
+                            label(ng-if="email.primary").label.label-success.label-round.label-lg.pull-left Primair
                             label(ng-if="!email.verified && !email.primary").label.label-default.label-round.label-lg.pull-left Ongeverifieerd
 
                             button(ng-disabled="email.disabled" ng-if="!email.primary" ng-click="$ctrl.deleteEmail(email)").button.button-default.button-icon: em.mdi.mdi-trash-can-outline
