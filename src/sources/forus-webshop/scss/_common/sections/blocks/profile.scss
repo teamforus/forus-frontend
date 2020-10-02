@@ -145,6 +145,7 @@
             z-index: 0;
             width: 75%;
             padding-left: 30px;
+
             .profile-content-header {
                 position: relative;
                 z-index: 1;
@@ -155,13 +156,16 @@
                     margin: 0 0 15px;
                     @include cf();
                 }
+
                 .profile-content-title {
                     font: 600 24px/28px $bf;
                     color: $tc;
                     width: 100%;
+
                     .pull-left {
                         margin-bottom: 5px;
                     }
+
                     .profile-content-title-count {
                         font: 700 16px/30px $bf;
                         background: $color_primary;
@@ -183,12 +187,14 @@
                     }
                 }
             }
+
             &:first-child {
                 margin-left: 0;
                 padding-left: 0;
             }
         }
     }
+
     @media screen and (max-width: 1000px) {
         &.block-profile {
             .profile-aside,

@@ -6,13 +6,15 @@ section.section.section-profile: .wrapper
 
     .budget-vouchers(id="budget_vouchers")
         .block.block-profile
-            profile-card.hide-sm
+            profile-menu.hide-sm
+
             .profile-content
                 .profile-content-header.clearfix
                     .profile-content-title
                         div.pull-left
                             .profile-content-title-count(ng-bind="$ctrl.regularVouchers.length")
                             | Tegoeden
+
                 .block.block-vouchers(ng-if="$ctrl.regularVouchers.length > 0")
                     voucher-card(ng-repeat="voucher in $ctrl.regularVouchers" voucher="voucher")
 
@@ -23,17 +25,18 @@ section.section.section-profile: .wrapper
                     text="Gebruik een activatiecode"
                     hide-link="false")
 
-                .profile-content-header(ng-if="$ctrl.productVouchers.length").clearfix
+                .profile-content-header.clearfix
                     .profile-content-title
                         div.pull-left
                             .profile-content-title-count(ng-bind="$ctrl.productVouchers.length")
                             | Reserveringen
-                .block.block-vouchers(ng-if="$ctrl.productVouchers.length && $ctrl.productVouchers.length > 0")
+                
+                .block.block-vouchers(ng-if="$ctrl.productVouchers.length > 0")
                     voucher-card(ng-repeat="voucher in $ctrl.productVouchers" voucher="voucher")
 
                 empty-block(
-                    ng-if="$ctrl.productVouchers.length && $ctrl.productVouchers.length == 0"
-                    title="Geen tegoeden"
-                    description="Momenteel heeft u geen tegoeden"
+                    ng-if="$ctrl.productVouchers.length == 0"
+                    title="Geen reserveringen"
+                    description="Momenteel heeft u geen reserveringen"
                     text="Gebruik een activatiecode"
                     hide-link="true")

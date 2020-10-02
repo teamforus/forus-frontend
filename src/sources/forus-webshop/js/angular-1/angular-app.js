@@ -94,7 +94,7 @@ app.directive('mobileFooter', require('./directives/MobileFooterDirective'));
 app.directive('webshops', require('./directives/WebshopsDirective'));
 app.directive('implementation', require('./directives/ImplementationDirective'));
 app.directive('fundCriterion', require('./directives/FundCriterionDirective'));
-app.directive('profileCard', require('./directives/ProfileCardDirective'));
+app.directive('profileMenu', require('./directives/ProfileMenuDirective'));
 app.directive('blockProducts', require('./directives/BlockProductsDirective'));
 app.directive('blockSubsidies', require('./directives/BlockSubsidiesDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
