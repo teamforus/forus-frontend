@@ -457,9 +457,7 @@ let FundRequestComponentDefault = function(
         $ctrl.recordTypes = recordTypes;
     };
 
-    $ctrl.finish = () => {
-        $state.go('funds');
-    };
+    $ctrl.finish = () => $state.go('funds');
 
     $ctrl.applyFund = function(fund) {
         return $q((resolve, reject) => {

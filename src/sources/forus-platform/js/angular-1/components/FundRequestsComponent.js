@@ -1,4 +1,5 @@
 let FundRequestsComponent = function(
+    $q,
     $scope,
     $state,
     $timeout,
@@ -80,11 +81,8 @@ let FundRequestsComponent = function(
                 }
             });
 
-            $ctrl.validatorRequests.data[
-                $ctrl.validatorRequests.data.indexOf(request)
-            ] = res.data.data;
-
-            $ctrl.updateSelfAssignedFlags();
+            $ctrl.validatorRequests.data[$ctrl.validatorRequests.data.indexOf(request)] = res.data.data;
+            $ctrl.validatorRequests = $ctrl.updateSelfAssignedFlags($ctrl.validatorRequests);
         }, console.error);
     };
 
@@ -94,29 +92,14 @@ let FundRequestsComponent = function(
         }
         let _query = JSON.parse(JSON.stringify($ctrl.filters.values));
 
-        FundRequestValidatorService.indexAll(
-            $ctrl.organization.id,
-            Object.assign(_query, {
-                per_page: 25,
-                from: _query.from ? DateService._frontToBack(_query.from) : null,
-                to: _query.to ? DateService._frontToBack(_query.to) : null,
-                sort_by: 'created_at',
-                sort_order: 'desc'
-            })
-        ).then(function(res) {
-            $ctrl.validatorRequests = res.data;
-            $ctrl.validatorRequests.data.forEach(request => {
-                request.collapsed = request.state != 'pending';
-            });
-            $ctrl.updateSelfAssignedFlags();
-
-            $ctrl.validatorRequests.data.forEach(request => {
-                request.hasContent = request.records.filter(record => {
-                    return record.files.length > 0 || record.clarifications.length > 0;
-                }).length > 0;
-
-                request.records.forEach(record => record.shown = true);
-            });
+        FundRequestValidatorService.indexAll($ctrl.organization.id, Object.assign(_query, {
+            per_page: 25,
+            from: _query.from ? DateService._frontToBack(_query.from) : null,
+            to: _query.to ? DateService._frontToBack(_query.to) : null,
+            sort_by: 'created_at',
+            sort_order: 'desc'
+        })).then(function(res) {
+            $ctrl.validatorRequests = $ctrl.updateSelfAssignedFlags(res.data);
         }, console.error);
     };
 
@@ -240,12 +223,20 @@ let FundRequestsComponent = function(
         })
     };
 
-    $ctrl.updateSelfAssignedFlags = () => {
-        if (!$ctrl.employee || !$ctrl.validatorRequests) {
+    $ctrl.updateSelfAssignedFlags = (validatorRequests) => {
+        if (!$ctrl.employee || !validatorRequests) {
             return;
         }
 
-        $ctrl.validatorRequests.data.forEach(request => {
+        validatorRequests.data.forEach(request => {
+            request.hasContent = request.records.filter(record => {
+                return record.files.length > 0 || record.clarifications.length > 0;
+            }).length > 0;
+
+            request.record_types = request.records.map(record => record.record_type_key);
+            request.records.forEach(record => record.shown = true);
+            request.collapsed = request.state != 'pending';
+
             request.is_assignable = request.records.filter(
                 record => record.is_assignable
             ).length > 0;
@@ -254,6 +245,8 @@ let FundRequestsComponent = function(
                 record => record.is_assigned && record.state === 'pending'
             ).length > 0;
         });
+
+        return validatorRequests;
     };
 
     $ctrl.appendRecord = (fundRequest) => {
@@ -268,26 +261,53 @@ let FundRequestsComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        FundService.list($ctrl.organization.id, {
-            per_page: 100
-        }).then(res => {
-            $ctrl.funds = res.data.data;
-            $ctrl.funds.forEach(fund => $ctrl.fundsById[fund.id] = fund);
-        });
+        $q((resolve) => {
+            let userReady = false;
+            let fundsReady = false;
+            let configsReady = false;
 
-        $scope.$watch(() => {
-            return $scope.$root.auth_user;
-        }, (res) => {
-            if (!res) {
-                return;
-            }
+            let update = () => {
+                if (userReady && fundsReady && configsReady) {
+                    resolve();
+                }
+            };
 
+            FundService.list($ctrl.organization.id, {
+                per_page: 100
+            }).then(res => {
+                $ctrl.funds = res.data.data;
+                $ctrl.funds.forEach(fund => $ctrl.fundsById[fund.id] = fund);
+                fundsReady = true;
+                update();
+            });
+
+            let authUnwatch = $scope.$watch(() => $scope.$root.auth_user, (auth_user) => {
+                if (auth_user) {
+                    userReady = true;
+                    authUnwatch();
+                    update();
+                }
+            });
+
+            let configUnwatch = $scope.$watch(() => appConfigs.features, (features) => {
+                if (features && !features.organizations.funds.fund_requests) {
+                    return $state.go('csv-validation');
+                }
+
+                if (features) {
+                    configsReady = true;
+                    configUnwatch();
+                    update();
+                }
+            });
+        }).then(() => {
+            $ctrl.filters.reset();
+            
             OrganizationEmployeesService.list($ctrl.organization.id, {
                 per_page: 100,
                 role: 'validation',
             }).then(res => {
                 $ctrl.employees = res.data.data;
-
                 $ctrl.employee = res.data.data.filter((employee) => {
                     return employee.identity_address == $scope.$root.auth_user.address;
                 })[0];
@@ -296,25 +316,10 @@ let FundRequestsComponent = function(
                     id: null,
                     email: "Selecteer medewerker"
                 });
+
                 $ctrl.filters.values.employee_id = $ctrl.employees[0].id;
-
-                $ctrl.updateSelfAssignedFlags();
+                reloadRequests();
             });
-        });
-
-        $scope.$watch(() => {
-            return appConfigs.features;
-        }, (res) => {
-            if (!res) {
-                return;
-            }
-
-            if (!appConfigs.features.organizations.funds.fund_requests) {
-                return $state.go('csv-validation');
-            }
-
-            $ctrl.filters.reset();
-            reloadRequests();
         });
     };
 
@@ -361,6 +366,7 @@ module.exports = {
         organization: '<',
     },
     controller: [
+        '$q',
         '$scope',
         '$state',
         '$timeout',
