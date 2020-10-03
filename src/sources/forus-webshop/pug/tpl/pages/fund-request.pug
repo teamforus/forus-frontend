@@ -272,11 +272,6 @@ section: .wrapper
                             data-id="criterion_{{ invalidCriteria.id }}"
                             data-placeholder="Uw {{ invalidCriteria.record_type_name }}")
                         .form-error(ng-repeat="error in invalidCriteria.errors.value" ng-bind="error")
-                        
-                    .form-group.col.col-lg-12(ng-if="invalidCriteria.control_type != 'ui_control_checkbox'"): .sign_up-pane-info
-                        p.sign_up-pane-text: span(
-                            i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[invalidCriteria.operator]}}" 
-                            i18n-vars="{name: invalidCriteria.record_type_name, value: ($ctrl.criterionValuePrefix[invalidCriteria.record_type_key]) + invalidCriteria.value}") 
                     
                     .form-group.col.col-lg-12(ng-if="invalidCriteria.description_html")
                         .block.block-markdown: .sign_up-pane-text(ng-bind-html="invalidCriteria.description_html")
