@@ -20,11 +20,11 @@ mixin progress()
 //-top-navbar
 section: .wrapper 
     .block.block-sign_up: .block-wrapper
-        .sign_up-header: a(ng-click="$ctrl.goToMain()").sign_up-header-back
+        .sign_up-header: .sign_up-header-item.flex-grow: a.sign_up-header-item-back(ng-click="$ctrl.goToMain()")
             em.mdi.mdi-chevron-left
             | Terug
         
-        .block-title(translate="fund_request.sign_up.header.main")
+        .block-title(i18n="fund_request.sign_up.header.main" i18n-vars="{fundname: ($ctrl.fund.name | capitalize)}")
 
         div(ng-if="$ctrl.state == 'fund_already_applied'")
             +progress()
@@ -177,9 +177,8 @@ section: .wrapper
                     p.sign_up-pane-text(i18n="fund_request.sign_up.pane.text" i18n-vars="{fundname: $ctrl.fund.name }")
                     
                     ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
-                        ng-repeat="critera in $ctrl.fund.criteria" 
-                        ng-class="{'item-valid': critera.isValid, 'item-invalid' : !critera.isValid}")
-                        .item-icon: em.mdi.mdi-check-bold(ng-if="critera.isValid")
+                        ng-repeat="critera in $ctrl.fund.criteria")
+                        .item-icon.item-icon-default
                         span(ng-if="critera.title" ng-bind="critera.title")
                         span(
                             ng-if="!critera.title"
@@ -239,6 +238,11 @@ section: .wrapper
                 .sign_up-pane-header(ng-if="!invalidCriteria.title" ng-bind="'Bevestig uw ' + $ctrl.recordTypes[invalidCriteria.record_type_key].name")
                 .sign_up-pane-body: form(ng-submit="$ctrl.submitStepCriteria(invalidCriteria)").form.row
                     .form-group.col.col-lg-12
+                        p.sign_up-pane-text: span(
+                            i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[invalidCriteria.operator]}}" 
+                            i18n-vars="{name: invalidCriteria.record_type_name, value: ($ctrl.criterionValuePrefix[invalidCriteria.record_type_key]) + invalidCriteria.value}") 
+                        .block.block-markdown: .sign_up-pane-text(ng-bind-html="invalidCriteria.description_html")
+                        
                         .form-label(ng-bind="$ctrl.recordTypes[invalidCriteria.record_type_key].name")
                         ui-control-checkbox(
                             ng-if="invalidCriteria.control_type == 'ui_control_checkbox'"
@@ -272,14 +276,6 @@ section: .wrapper
                             data-id="criterion_{{ invalidCriteria.id }}"
                             data-placeholder="Uw {{ invalidCriteria.record_type_name }}")
                         .form-error(ng-repeat="error in invalidCriteria.errors.value" ng-bind="error")
-                        
-                    .form-group.col.col-lg-12(ng-if="invalidCriteria.control_type != 'ui_control_checkbox'"): .sign_up-pane-info
-                        p.sign_up-pane-text: span(
-                            i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[invalidCriteria.operator]}}" 
-                            i18n-vars="{name: invalidCriteria.record_type_name, value: ($ctrl.criterionValuePrefix[invalidCriteria.record_type_key]) + invalidCriteria.value}") 
-                    
-                    .form-group.col.col-lg-12(ng-if="invalidCriteria.description_html")
-                        .block.block-markdown: .sign_up-pane-text(ng-bind-html="invalidCriteria.description_html")
                     
                     .form-group.col.col-lg-12: file-uploader(ng-if="invalidCriteria.show_attachment" files="invalidCriteria.files")
                 
@@ -298,14 +294,13 @@ section: .wrapper
                 +progress()
                 
                 .sign_up-pane
-                    .sign_up-pane-header Aanvraag voltooid
+                    .sign_up-pane-header Aanvraag ontvangen
                     .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
-                        .form-group.col.col-lg-12
-                            .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
-                            p.sign_up-pane-text.text-center 
-                                | Uw aanvraag is voltooid, u krijgt een e-mail wanneer deze is goedgekeurd.
-                    
-                            .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug
+                        h1.sign_up-pane-heading.text-center Verzonden!
+                        p.sign_up-pane-text.text-center 
+                            | Uw aanvraag is ontvangen.
+                        .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
+                        .text-center: .button.button-text.button-text-primary.button-text-padless(ng-click="$ctrl.finish()") Terug
                         .form-group.col.col-lg-12.hidden-xs: br
                 
             //- Error
@@ -321,5 +316,5 @@ section: .wrapper
                                 | Reden:
                                 span(ng-bind="$ctrl.errorReason")
                     
-                            .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug
+                            .text-center: .button.button-default(ng-click="$ctrl.finish()") Verlaat formulier
                         .form-group.col.col-lg-12: br 

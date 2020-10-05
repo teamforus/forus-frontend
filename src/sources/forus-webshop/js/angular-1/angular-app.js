@@ -94,7 +94,7 @@ app.directive('mobileFooter', require('./directives/MobileFooterDirective'));
 app.directive('webshops', require('./directives/WebshopsDirective'));
 app.directive('implementation', require('./directives/ImplementationDirective'));
 app.directive('fundCriterion', require('./directives/FundCriterionDirective'));
-app.directive('profileCard', require('./directives/ProfileCardDirective'));
+app.directive('profileMenu', require('./directives/ProfileMenuDirective'));
 app.directive('blockProducts', require('./directives/BlockProductsDirective'));
 app.directive('blockSubsidies', require('./directives/BlockSubsidiesDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
@@ -164,6 +164,7 @@ app.filter('i18n', require('./filters/I18nFilter'));
 app.filter('duration', require('./filters/DurationFilter'));
 app.filter('duration_last_time', require('./filters/DurationLastTimeFilter'));
 app.filter('lines_to_array', require('./filters/LinesToArrayFilter'));
+app.filter('capitalize', require('./filters/CapitalizeFilter'));
 
 // Config
 app.config(require('./routers/printables'));
