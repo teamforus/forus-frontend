@@ -24,7 +24,7 @@ section: .wrapper
             em.mdi.mdi-chevron-left
             | Terug
         
-        .block-title(translate="fund_request.sign_up.header.main")
+        .block-title(i18n="fund_request.sign_up.header.main" i18n-vars="{fundname: ($ctrl.fund.name | capitalize)}")
 
         div(ng-if="$ctrl.state == 'fund_already_applied'")
             +progress()

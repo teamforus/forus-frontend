@@ -164,6 +164,7 @@ app.filter('i18n', require('./filters/I18nFilter'));
 app.filter('duration', require('./filters/DurationFilter'));
 app.filter('duration_last_time', require('./filters/DurationLastTimeFilter'));
 app.filter('lines_to_array', require('./filters/LinesToArrayFilter'));
+app.filter('capitalize', require('./filters/CapitalizeFilter'));
 
 // Config
 app.config(require('./routers/printables'));
