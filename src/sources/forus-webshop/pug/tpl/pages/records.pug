@@ -4,10 +4,16 @@ section.section.section-profile: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
         .breadcrumb-item.active Eigenschappen
-    .section-title {{ "records.header.title" | translate }} ({{ $ctrl.records.length }})
-    
+
     .block.block-profile
+        profile-menu
+
         .profile-content
+            .profile-content-header.clearfix
+                .profile-content-title
+                    div.pull-left
+                        .profile-content-title-count(ng-bind="$ctrl.records.length")
+                        | Eigenschappen
             .block.block-records
                 .record-item(ng-repeat="record in $ctrl.records")
                     .record-details
@@ -25,7 +31,7 @@ section.section.section-profile: .wrapper
                             | {{ "records.buttons.validate" | translate }}
             
                 .text-right
-                    button.button.button-primary(ng-click="$ctrl.openActivateCodePopup()") Activatiecode
+                    //button.button.button-primary(ng-click="$ctrl.openActivateCodePopup()") Activatiecode
                     button(ng-if="$root.appConfigs.features.records.create" type="buttons" ui-sref="record-create").button.button-primary 
                         em.mdi.mdi-plus
                         | {{ "records.buttons.create" | translate }}
