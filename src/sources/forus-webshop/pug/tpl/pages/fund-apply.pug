@@ -2,7 +2,7 @@ top-navbar.nar-var
 
 section.section.section-apply_fund: .wrapper
     .block.block-breadcrumbs
-        a(ui-sref="home").breadcrumb-item Start
+        a(ui-sref="home").breadcrumb-item Home
         a(ui-sref="funds").breadcrumb-item Fondsen
         a.breadcrumb-item.active(translate="fund_apply.header.title" translate-values="{fund_name: $ctrl.fund.name}")
 
@@ -79,7 +79,7 @@ section.section.section-apply_fund: .wrapper
                 div(ng-if="$ctrl.stepState == 'criteria'")
                     h2.block-title Bevestig uw gemeente
                     p.block-description
-                        | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmerking komt, dient u uw 
+                        | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
                         strong woonplaats 
                         | en 
                         a(href="#") inkomen 
@@ -113,7 +113,7 @@ section.section.section-apply_fund: .wrapper
                     ng-if="$ctrl.stepState == 'criteria_' + $index")
                     h2.block-title Zomer zwem regeling aanvraag
                     p.block-description
-                        | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmerking komt, dient u uw 
+                        | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
                         strong woonplaats 
                         | en 
                         a(href="#") inkomen 
@@ -152,7 +152,7 @@ section.section.section-apply_fund: .wrapper
                 div(ng-if="$ctrl.stepState == 'done'")
                     h2.block-title Zomer zwem regeling aanvraag
                     p.block-description
-                        | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmerking komt, dient u uw 
+                        | U staat op het punt om een zomer zwemregeling aan te vragen. Om te kijken of u in aanmmerking komt, dient u uw 
                         strong woonplaats 
                         | en 
                         a(href="#") inkomen 
@@ -163,7 +163,7 @@ section.section.section-apply_fund: .wrapper
                             .form-group.col.col-lg-12
                                 .block-icon: .mdi.mdi-check-bold
                                 p.request-pane-text.text-center 
-                                    | Uw aanvraag is voltooid, u krijgt een e-mail wanneer deze is goedgekeurd.
+                                    | Uw aanvraag is voltooid, u krijgt een email wanneer deze is goedgekeurd.
                         
                                 .text-center: .button.button-default(ng-click="$ctrl.reload()") Ok
                             .form-group.col.col-lg-12: br

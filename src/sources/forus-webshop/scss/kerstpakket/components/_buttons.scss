@@ -2,24 +2,10 @@
     &.button-default {
         color: $color_default;
         border: 1px solid $color_default;
-
         .mdi {
             color: $color_default;
         }
-
-        &:hover {
-            background-color: #fff;
-            border: 1px solid $color_primary;
-            color:  $color_default;
-            text-decoration: underline;
-            box-shadow: none;
-
-            .mdi {
-                color: $color_default;
-            }
-        }
     }
-    
     &.button-primary {
         &:hover {
             background-color: $fc;

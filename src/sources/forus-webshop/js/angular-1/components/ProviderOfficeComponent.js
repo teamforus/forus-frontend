@@ -1,5 +1,4 @@
 let ProviderOfficeComponent = function(
-    $sce,
     $state,
     OfficeService
 ) {
@@ -42,8 +41,6 @@ let ProviderOfficeComponent = function(
         } else {
             $ctrl.imageUrl = 'assets/img/placeholders/office-thumbnail.png';
         }
-
-        $ctrl.provider.description_html = $sce.trustAsHtml($ctrl.provider.description_html);
     };
     
     $ctrl.$onDestroy = () => {};
@@ -55,7 +52,6 @@ module.exports = {
         office: '<'
     },
     controller: [
-        '$sce',
         '$state',
         'OfficeService',
         ProviderOfficeComponent

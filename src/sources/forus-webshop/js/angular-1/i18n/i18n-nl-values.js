@@ -15,14 +15,14 @@ module.exports = {
     nijmegen: {
         name: "Nijmegen",
         fund: "de Meedoen-regeling",
-        voucher: "Meedoen-tegoed",
+        voucher: "Meedoen-voucher",
         start_date: "1 Januari 2019",
         amount: "150",
     },
     zuidhorn: {
         name: "Zuidhorn",
         fund: "het Kindpakket",
-        voucher: "Kindpakket-tegoed",
+        voucher: "Kindpakket-voucher",
         start_date: "1 November 2018",
         amount: "300",
     }

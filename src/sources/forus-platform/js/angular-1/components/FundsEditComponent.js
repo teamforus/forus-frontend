@@ -14,9 +14,6 @@ let FundsEditComponent = function(
 
     $ctrl.products = [];
 
-    $ctrl.getProductOptions = (product) => ($ctrl.productOptions || []).concat(product);
-    $ctrl.setType = (type) => $ctrl.form.values.type = type;
-
     $ctrl.addProduct = () => {
         $ctrl.form.products.push(null);
         $ctrl.updateProductOptions();
@@ -55,6 +52,10 @@ let FundsEditComponent = function(
         }, 250);
     };
 
+    $ctrl.getProductOptions = (product) => {
+        return ($ctrl.productOptions || []).concat(product);
+    };
+
     $ctrl.$onInit = function() {
         let values = $ctrl.fund ? FundService.apiResourceToForm(
             $ctrl.fund
@@ -63,13 +64,12 @@ let FundsEditComponent = function(
             auto_requests_validation: false,
             formula_products: [],
             criteria: [],
-            state: $ctrl.fundStates[0].value,
-            type: 'budget',
+            state: $ctrl.fundStates[0].value
         };
 
         $ctrl.validators.unshift({
             id: null,
-            email: "Geen"
+            email: "None"
         });
 
         if (!$rootScope.appConfigs.features.organizations.funds.criteria) {

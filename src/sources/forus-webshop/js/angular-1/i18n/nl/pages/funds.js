@@ -1,20 +1,15 @@
 module.exports = {
     // FUNDS = funds.pug
     header: {
-        title: "Aanvragen",
+        title: "Fondsen",
         subtitle: "",
         potjeswijzer: {
             title: "Potjes",
             subtitle: "Hieronder ziet u een deel van de potjes die u kan aanvragen. Bent u benieuwd welke er nog meer zijn? Neem dan contact op met: xxxx"
         }
     },
-    funds: {
-        potjeswijzer: {
-            title: "Potjes",
-        }
-    },
     labels: {
-        categorie: "Categoriën",
+        categorie: "CATEGORIEËN",
         criteria: "Voorwaarden",
         location: "Locatie",
         office: "Zuidhorn Gemeente",
@@ -24,16 +19,16 @@ module.exports = {
         age: "< 18 jaar oud",
         income: "Inkomensgrens",
         amount: "< € 1118.46",
-        categories_label: "U kunnt uw voucher activeren tot:",
+        categories_label: "U KUNT UW VOUCHER ACTIVEREN TOT:",
     },
     criteria:{
         key: "{{key}}"
     },
     buttons: {
-        more: "Bekijk meer",
+        more: "BEKIJK MEER",
         start_request: "Aanvragen",
         is_applicable: "Activeer",
-        already_received: "Open tegoed",
+        already_received: "Open voucher",
     },
     status: {
         active: "Actief",

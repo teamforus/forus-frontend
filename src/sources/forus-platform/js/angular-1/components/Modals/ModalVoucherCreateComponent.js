@@ -52,7 +52,7 @@ let ModalVoucherCreateComponent = function(
                 $ctrl.organization.id,
                 form.values
             ).then(res => {
-                $ctrl.onCreated();
+                $ctrl.onCreated(res.data.data);
                 $ctrl.close();
             }, res => {
                 form.errors = res.data.errors;

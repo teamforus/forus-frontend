@@ -16,7 +16,8 @@ let ProviderSignUpComponent = function(
     ProviderFundService,
     AuthService,
     ModalService,
-    SignUpService
+    SignUpService,
+    appConfigs
 ) {
     let $ctrl = this;
     let orgMediaFile = false;
@@ -648,10 +649,6 @@ let ProviderSignUpComponent = function(
     });
     
     $ctrl.goToMain = () => $state.go('home');
-
-    $ctrl.openAuthPopup = function() {
-        ModalService.open('modalAuth', {});
-    };
 };
 
 module.exports = {
@@ -677,6 +674,7 @@ module.exports = {
         'AuthService',
         'ModalService',
         'SignUpService',
+        'appConfigs',
         ProviderSignUpComponent
     ],
     templateUrl: 'assets/tpl/pages/provider-sign-up.html'

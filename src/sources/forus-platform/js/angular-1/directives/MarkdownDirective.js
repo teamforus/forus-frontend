@@ -1,17 +1,12 @@
 let MarkdownDirective = function($scope, $element, ModalService) {
-    $element.find('.toolbar-item').on("click", function(e) {
+    $($element).find('.toolbar-item').unbind('click').bind('click', function(e) {
         e.preventDefault();
 
-        let $toolBarItem = angular.element(this);
-        let $textarea = $element.find('textarea');
+        let el = $(this);
+        let textarea = $($element).find('textarea');
 
-        if ($textarea.length) {
-            replaceSelectedText(
-                $textarea[0], 
-                $toolBarItem.data('start'), 
-                $toolBarItem.data('end'), 
-                $toolBarItem.data('markType')
-            );
+        if (textarea.length) {
+            replaceSelectedText(textarea[0], el.data('start'), el.data('end'), el.data('markType'));
         }
     });
 

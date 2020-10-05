@@ -1,4 +1,7 @@
 // these items have  section as parent class, while other implementatios have block as parent
+.nav-var {
+    position: sticky !important;
+}
 .section {
     .section-title {
         color: #4e4d40;

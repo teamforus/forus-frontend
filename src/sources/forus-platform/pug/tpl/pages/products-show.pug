@@ -1,12 +1,10 @@
 .app.app-container
     menu
     section.app.app-content
-        //- breadcrumb
         .block.block-breadcrumbs
             .breadcrumb-item(ui-sref="offices({organization_id:$ctrl.product.organization_id})" ng-bind="$ctrl.product.organization.name")
             .breadcrumb-item.active(ng-bind="$ctrl.product.name")
 
-        //- product details
         .block.block-provider-product
             .product-overview
                 .product-media: img.product-media-img(
@@ -29,7 +27,7 @@
                             .product-property-value(ng-if="!$ctrl.product.unlimited_stock" ng-bind="$ctrl.product.stock_amount")
                             .product-property-value(ng-if="$ctrl.product.unlimited_stock" translate="product_edit.labels.unlimited")
                 
-                .product-actions.form(ng-if="!$ctrl.product.no_price")
+                .product-actions.form
                     .product-price
                         | {{ $ctrl.product.price | currency_format }}
                         .product-price-old(ng-if="$ctrl.product.old_price" ng-bind="$ctrl.product.old_price | currency_format")
@@ -53,8 +51,7 @@
                 .description-body(ng-if="!$ctrl.product.description_html") 
                     .arrow-box.border.bg-dim: .arrow
                     | Geen data
-
-        //- funds list
+        
         .card(ng-if="$ctrl.funds.meta.total > 0")
             .card-header: .card-title: .flex-row
                 .flex-col Fondsen
@@ -69,7 +66,6 @@
                                 th.th-narrow Afbeelding
                                 th Naam
                                 th Geaccepteerd
-                                th Beschikbaar
                                 th.th-narrow Berichten
                                 th.th-narrow
                             
@@ -82,13 +78,6 @@
                                 td
                                     .label.label-success(ng-if="fund.approved") Geaccepteerd
                                     .label.label-default(ng-if="!fund.approved") Wachtend
-                                td.form: label(for="fund_exclusion_id_{{ fund.id }}").form-toggle
-                                    input(
-                                        type="checkbox" 
-                                        id="fund_exclusion_id_{{ fund.id }}"
-                                        ng-change="$ctrl.changeFundExclusion(fund, $ctrl.fund_toggles[fund.id])"
-                                        ng-model="$ctrl.fund_toggles[fund.id]")
-                                    .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot 
                                 td.nowrap 
                                     .button.button-icon(
                                         ng-class="fund.chat.provider_unseen_messages > 0 ? 'button-primary-light' : 'button-default'" 

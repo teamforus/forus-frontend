@@ -4,21 +4,18 @@
     transition: all 0.2s ease-in-out;
     border: 0;
     border-radius: 2px;
+    text-transform: uppercase;
     white-space: normal;
-    color: #fff;
     word-wrap: break-word;
     letter-spacing: 0.7px;
     box-shadow: none;
     outline: none;
 
-    &.button-primary {
-        &:hover {
-            background-color: #30a08b;
-            border-color: #30a08b;
-        }
-    }
-
     &.button-default {
+        background-color: #157c68;
+        border-color: #157c68;
+        color: #fff;
+
         .mdi {
             color: #fff;
         }
@@ -55,6 +52,10 @@
             height: 100%;
             text-align: right;
             flex: 1;
+            text-transform: lowercase;
+            &::first-letter{
+                text-transform: uppercase;
+            }
         }
         
         .second-line-button {
@@ -66,6 +67,18 @@
                 background: #157c68;
                 mask-size: cover;
             }
+        }
+    }
+    
+    &.button-primary {
+        background-color: #157c68;
+        border-color: #157c68;
+        color: #fff;
+
+        &:hover {
+            background-color: #30a08b;
+            border-color: #30a08b;
+            box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
         }
     }
 

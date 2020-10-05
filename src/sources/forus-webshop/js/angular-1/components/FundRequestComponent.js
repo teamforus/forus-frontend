@@ -6,7 +6,6 @@ let FundRequestComponent = function(
     $state,
     $stateParams,
     $timeout,
-    $filter,
     RecordService,
     FundService,
     AuthService,
@@ -16,7 +15,6 @@ let FundRequestComponent = function(
     CredentialsService,
     PushNotificationsService,
     DigIdService,
-    ModalService,
     FileService,
     appConfigs
 ) {
@@ -33,7 +31,6 @@ let FundRequestComponent = function(
         $state,
         $stateParams,
         $timeout,
-        $filter,
         RecordService,
         FundService,
         AuthService,
@@ -43,7 +40,6 @@ let FundRequestComponent = function(
         CredentialsService,
         PushNotificationsService,
         DigIdService,
-        ModalService,
         FileService,
         appConfigs
     ) : FundRequestComponentAuto(
@@ -52,7 +48,6 @@ let FundRequestComponent = function(
         $state,
         $stateParams,
         $timeout,
-        $filter,
         RecordService,
         FundService,
         AuthService,
@@ -62,7 +57,6 @@ let FundRequestComponent = function(
         CredentialsService,
         PushNotificationsService,
         DigIdService,
-        ModalService,
         FileService,
         appConfigs
     );
@@ -75,7 +69,6 @@ let FundRequestComponentDefault = function(
     $state,
     $stateParams,
     $timeout,
-    $filter,
     RecordService,
     FundService,
     AuthService,
@@ -85,7 +78,6 @@ let FundRequestComponentDefault = function(
     CredentialsService,
     PushNotificationsService,
     DigIdService,
-    ModalService,
     FileService,
     appConfigs
 ) {
@@ -109,26 +101,10 @@ let FundRequestComponentDefault = function(
     $ctrl.shownSteps = [];
 
     let timeout = null;
-    let $trans = $filter('translate');
 
     $ctrl.criterionValuePrefix = {
         net_worth: '€',
         base_salary: '€'
-    };
-
-    $ctrl.digidAvailable = $ctrl.appConfigs.features.digid;
-    $ctrl.digidMandatory = $ctrl.appConfigs.features.digid_mandatory;
-
-    let trans_record_checkbox = (criteria_record_key, criteria_value) => {
-        let trans_key = 'fund_request.sign_up.record_checkbox.' + criteria_record_key;
-        let trans_fallback_key = 'fund_request.sign_up.record_checkbox.default';
-        let translated = $trans(trans_key, {
-            value: criteria_value
-        });
-
-        return translated === trans_key ? $trans(trans_fallback_key, {
-            value: criteria_value
-        }) : translated;
     };
 
     $ctrl.startDigId = () => {
@@ -266,7 +242,7 @@ let FundRequestComponentDefault = function(
         $ctrl.stopCheckAccessTokenStatus();
         CredentialsService.set(access_token);
         $ctrl.buildTypes();
-        $ctrl.state = $ctrl.step2state(3);
+        $ctrl.state = $ctrl.step2state(4);
     };
 
     $ctrl.checkAccessTokenStatus = (type, access_token) => {
@@ -319,7 +295,7 @@ let FundRequestComponentDefault = function(
         });
 
         $ctrl.invalidCriteria = $ctrl.invalidCriteria.map(criterion => {
-            let control_type = criterion.operator == '=' ? 'ui_control_checkbox' : {
+            let control_type = {
                 // checkboxes
                 'children': 'ui_control_checkbox',
                 'kindpakket_eligible': 'ui_control_checkbox',
@@ -334,34 +310,26 @@ let FundRequestComponentDefault = function(
                 // currency
                 'net_worth': 'ui_control_currency',
                 'base_salary': 'ui_control_currency',
-            }[criterion.record_type_key] || 'ui_control_text';
+            } [criterion.record_type_key] || 'ui_control_text';
 
             return Object.assign(criterion, {
                 control_type: control_type,
-                label: trans_record_checkbox(criterion.record_type_key, criterion.value),
                 input_value: {
-                    ui_control_checkbox: null,
+                    ui_control_checkbox: false,
                     ui_control_date: moment().format('DD-MM-YYYY'),
                     ui_control_step: 0,
                     ui_control_number: undefined,
                     ui_control_currency: undefined,
-                }[control_type]
+                } [control_type]
             });
         });
-
-        $ctrl.setRecordValue = (invalidCriteria) => {
-            timeout = $timeout(function() {
-                invalidCriteria.input_value = invalidCriteria.is_checked ?
-                    invalidCriteria.value : null;
-            }, 500);
-        };
 
         $ctrl.buildSteps();
     };
 
     $ctrl.buildSteps = () => {
         // Sign up step + criteria list
-        let totalSteps = ($ctrl.signedIn ? 2 : 3) + ((
+        let totalSteps = ($ctrl.signedIn ? 1 : 2) + ((
             $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
         ) ? 1 : 0);
 
@@ -376,33 +344,33 @@ let FundRequestComponentDefault = function(
     };
 
     $ctrl.step2state = (step) => {
-        if (step == 100) {
-            return 'taken_by_partener';
+        if (step == 1 && !$ctrl.signedIn) {
+            return 'welcome';
         }
 
-        if (step == 1 && !$ctrl.signedIn) {
+        if (step == 2 && !$ctrl.signedIn) {
             return 'auth';
         }
 
-        if (step == 2 && !$ctrl.signedIn && (
-            $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
-        )) {
+        if (step == 3 && !$ctrl.signedIn && (
+                $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
+            )) {
             return 'auth_email_sent';
         }
 
-        if ($ctrl.signedIn && step == 2) {
-            return 'criteria';
-        }
+        // if ((step == 4 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
+        //     return 'criterias';
+        // }
 
-        if ((step == 3 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
-            return !$ctrl.digidAvailable ? 'criteria' : 'digid_login';
+        if ((step == 4 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
+            return 'criteria';
         }
 
         if (step == $ctrl.totalSteps.length + 1) {
             return 'done';
         }
 
-        let prevSteps = 1 + ($ctrl.signedIn ? 1 : 2);
+        let prevSteps = 1 + ($ctrl.signedIn ? 0 : 1);
 
         return 'criteria_' + ((step - prevSteps) - 1);
     };
@@ -458,14 +426,22 @@ let FundRequestComponentDefault = function(
     };
 
     $ctrl.finish = () => {
-        $state.go('funds');
+        $state.go('home');
+    };
+
+    $ctrl.cleanReload = () => {
+        $state.go($state.current.name, {
+            fund_id: $ctrl.fund.id,
+            digid_success: null,
+            digid_error: null,
+        });
     };
 
     $ctrl.applyFund = function(fund) {
         return $q((resolve, reject) => {
             FundService.apply(fund.id).then(function(res) {
                 PushNotificationsService.success(sprintf(
-                    'Succes! %s tegoed geactiveerd!',
+                    'Fund "%s" voucher received.',
                     $ctrl.fund.name
                 ));
                 $state.go('voucher', res.data.data);
@@ -485,66 +461,36 @@ let FundRequestComponentDefault = function(
 
         if ($ctrl.signedIn) {
             $ctrl.buildTypes().then(() => {
-                IdentityService.identity().then(res => {
-                    if ($ctrl.fund.taken_by_partner) {
-                        $ctrl.step = 100;
-                        $ctrl.updateState();
+                if ($stateParams.digid_success == 'signed_up' ||
+                    $stateParams.digid_success == 'signed_in') {
+                    PushNotificationsService.success('DigId synchronization success.');
 
-                        return ModalService.open('modalNotification', {
-                            type: 'info',
-                            title: 'Dit tegoed is al geactiveerd',
-                            closeBtnText: 'Bevestig',
-                            description: [
-                                "U krijgt deze melding omdat het tegoed is geactiveerd door een ",
-                                "famielid of voogd. De tegoeden zijn beschikbaar in het account ",
-                                "van de persoon die deze als eerste heeft geactiveerd."
-                            ].join(''),
-                        }, {
-                            onClose: () => {
-                                $state.go('home');
-                            }
-                        });
+                    if ($ctrl.invalidCriteria.length == 0) {
+                        $ctrl.applyFund($ctrl.fund);
+                    } else {
+                        $ctrl.cleanReload();
                     }
-
-                    if ($stateParams.digid_success == 'signed_up' || $stateParams.digid_success == 'signed_in') {
-                        PushNotificationsService.success('Succes! Ingelogd met DigiD.');
-
-                        if ($ctrl.invalidCriteria.length == 0) {
-                            $ctrl.applyFund($ctrl.fund);
-                        }
-                    } else if ($stateParams.digid_error) {
-                        return $state.go('error', {
-                            errorCode: 'digid_' + $stateParams.digid_error
-                        });
-                    }
-
+                } else if ($stateParams.digid_error) {
+                    return $state.go('error', {
+                        errorCode: 'digid_' + $stateParams.digid_error
+                    });
+                } else {
                     FundRequestService.index($ctrl.fund.id).then((res) => {
-                        let pendingRequests = res.data.data.filter(request => request.state === 'pending');
-                        let pendingRequest = pendingRequests[0] || false;
-
-                        if (pendingRequest) {
-                            $ctrl.fund.criteria.map(criteria => {
-                                let record = pendingRequest.records.filter(record => {
-                                    return record.record_type_key == criteria.record_type_key;
-                                })[0];
-
-                                if (record) {
-                                    criteria.request_state = record.state;
-                                }
-
-                                return criteria;
-                            });
-
-                            $ctrl.state = 'fund_already_applied';
+                        let pendingRequests = res.data.data.filter(
+                            request => request.state === 'pending'
+                        );
+                        
+                        if (pendingRequests.length > 0) {
+                            alert('U heeft al een aanvraag in behandeling.');
+                            $state.go('funds');
                         } else if ($ctrl.invalidCriteria.length == 0) {
                             $ctrl.applyFund($ctrl.fund);
                         }
                     });
+                }
 
-                    if (($ctrl.bsnIsKnown = res.data.bsn) || !$ctrl.digidAvailable) {
-                        $ctrl.step = 2;
-                        $ctrl.updateState();
-                    }
+                IdentityService.identity().then(res => {
+                    $ctrl.bsnIsKnown = res.data.bsn;
                 });
             });
         } else {
@@ -578,7 +524,6 @@ module.exports = {
         '$state',
         '$stateParams',
         '$timeout',
-        '$filter',
         'RecordService',
         'FundService',
         'AuthService',
@@ -588,7 +533,6 @@ module.exports = {
         'CredentialsService',
         'PushNotificationsService',
         'DigIdService',
-        'ModalService',
         'FileService',
         'appConfigs',
         FundRequestComponent

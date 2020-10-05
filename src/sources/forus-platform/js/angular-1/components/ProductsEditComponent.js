@@ -4,6 +4,7 @@ let ProductsEditComponent = function(
     $stateParams,
     appConfigs,
     ProductService,
+    ProductCategoryService,
     FormBuilderService,
     MediaService,
     ModalService
@@ -14,13 +15,6 @@ let ProductsEditComponent = function(
 
     $ctrl.media;
     $ctrl.mediaErrors = [];
-
-    $ctrl.clearPrices = (no_price) => {
-        if (no_price) {
-            delete $ctrl.form.values.price;
-            delete $ctrl.form.values.old_price;
-        }
-    };
 
     $ctrl.$onInit = function() {
         let values = $ctrl.product ? ProductService.apiResourceToForm(
@@ -144,6 +138,7 @@ module.exports = {
         '$stateParams',
         'appConfigs',
         'ProductService',
+        'ProductCategoryService',
         'FormBuilderService',
         'MediaService',
         'ModalService',

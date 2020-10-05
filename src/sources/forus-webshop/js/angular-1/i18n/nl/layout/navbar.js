@@ -1,32 +1,23 @@
 module.exports = {
     items: {
-        home: "Home",
-        funds:"Aanvragen",
-        products:"Aanbod",
-        subsidies:"Acties",
-        providers:"Aanbieders",
-        explanation:"Uitleg",
+        funds:"FONDSEN",
+        products:"AANBIEDINGEN",
+        providers:"AANBIEDERS",
+        explanation:"UITLEG",
         identity:"Profiel",
         potjeswijzer: {
-            funds:"Potjes",
+            funds:"POTJES",
         }
     },
     buttons: {
         activate:"Activatiecode",
-        login:"Inloggen",
-        voucher:"Mijn tegoeden",
+        login:"Login",
+        voucher:"Mijn vouchers",
         profile:"Profiel >",
         records: "Mijn eigenschappen",
         authorize:"Log in op de app",
         logout:"Uitloggen",
-        products:"Aanbod",
-        funds: "Aanvragen",
-        providers: "Aanbieders",
-
-        mobile: {
-            voucher: "Tegoeden",
-            request: "Aanvragen",
-            profile: "Profiel"
-        }
+        products:"Aanbiedingen",
+        funds: "Fondsen",
     },
 }

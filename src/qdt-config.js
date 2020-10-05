@@ -11,7 +11,6 @@ core.addPlatform(require('./platforms/Dashboards/DashboardGeneralValidatorPlatfo
 
 core.addPlatform(require('./platforms/Dashboards/DashboardNijmegenSponsorPlatform'));
 core.addPlatform(require('./platforms/Dashboards/DashboardNijmegenProviderPlatform'));
-core.addPlatform(require('./platforms/Dashboards/DashboardNijmegenValidatorPlatform'));
 
 core.addPlatform(require('./platforms/Dashboards/DashboardKerstpakketSponsorPlatform'));
 core.addPlatform(require('./platforms/Dashboards/DashboardKerstpakketProviderPlatform'));
@@ -46,7 +45,6 @@ core.addPlatform(require('./platforms/Webshops/WebshopBerkellandPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopOostGelrePlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopWinterswijkPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopNoordoostpolderPlatform'));
-core.addPlatform(require('./platforms/Webshops/WebshopGeertruidenbergPlatform'));
 
 // Register meapp landings
 core.addPlatform(require('./platforms/Website/Website'));

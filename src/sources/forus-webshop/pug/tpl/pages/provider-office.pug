@@ -27,12 +27,6 @@ block content
                             .data-list-key Organisatie type:
                             .data-list-value
                                 .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen organisatie type' }}
-
-            .block.block-pane(ng-if="$ctrl.provider.description_html")
-                .pane-head Omschrijving
-                .pane-section: .block.block-markdown
-                    div(ng-bind-html="$ctrl.provider.description_html")
-                    
             .block.block-pane
                 .pane-head Openingstijden
                 .pane-section.pane-section-compact-vertical(ng-if="$ctrl.office.schedule.length > 0")

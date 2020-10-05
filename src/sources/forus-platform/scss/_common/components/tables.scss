@@ -104,10 +104,6 @@
                     }
                 }
 
-                .button-group {
-                    margin: -2.5px 0;
-                }
-
                 &.td-narrow {
                     width: 1%;
                 }
@@ -128,10 +124,10 @@
             }
 
             &[ng-click]:hover {
+
                 td,
                 th {
                     background: #f6f8f9;
-                    cursor: pointer;
                 }
             }
         }

@@ -5,8 +5,7 @@ let BlockProductsDirective = async function(
 ) {
     $scope.filters = {
         product_category_id: null,
-        q: "",
-        fund_type: 'budget',
+        q: ""
     };
 
     $scope.onReset = async (query) => {
@@ -27,15 +26,11 @@ let BlockProductsDirective = async function(
     };
 
     if ($scope.sample) {
-        ProductService.sample(Object.assign(($scope.fund ? {
-            fund_id: $scope.fund.id,
-        } : {}), {
-            fund_type: 'budget',
-        })).then((res) => $scope.products = res.data);
+        ProductService.sample($scope.fund ? {
+            fund_id: $scope.fund.id
+        } : {}).then((res) => $scope.products = res.data);
     } else {
-        ProductService.list({
-            fund_type: 'budget',
-        }).then((res => {
+        ProductService.list().then((res => {
             $scope.products = res.data.data;
 
             ProductCategoryService.list({

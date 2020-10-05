@@ -4,8 +4,8 @@ let PincodeControlDirective = function(
     $element
 ) {
     let blockInputType = $scope.blockInputType = ($scope.blockInputType || 'num');
-    let blockSize = $scope.blockSize = $scope.blockSize || 6;
-    let blockCount = $scope.blockCount = $scope.blockCount || 1;
+    let blockSize = $scope.blockSize || 6;
+    let blockCount = $scope.blockCount || 1;
     let totalSize = blockSize * blockCount;
     let $input = $element.find('.hidden-input');
     let len = 0;
@@ -40,12 +40,9 @@ let PincodeControlDirective = function(
         });
     }
 
-    $scope.cantDeleteLength = $scope.cantDeleteLength ? $scope.cantDeleteLength : 0;
-
     $scope.updateInput = () => {
         let chars = [];
         let charCount = 0;
-        let flag = false;
 
         if ($scope.ngModel && typeof $scope.ngModel == 'string') {
             $scope.ngModel.split('').forEach((char) => {
@@ -60,13 +57,7 @@ let PincodeControlDirective = function(
 
         if ($scope.filler && $scope.filler.length > 0) {
             for (let index = 0; index < $scope.filler.length; index++) {
-                if (!flag) {
-                    flag = true;
-                    chars.push('active');
-                } else {
-                    chars.push('_');
-                }
-
+                chars.push('_');
                 charCount++;
 
                 if (charCount > 0 && (charCount % blockSize == 0) && charCount < totalSize) {
@@ -94,9 +85,9 @@ let PincodeControlDirective = function(
                 if (inputTypes.indexOf(e.originalEvent.inputType) === -1) {
                     return;
                 }
-
+    
                 $timeout(() => $scope.addCharCode(null, typeof data == 'string' ? data.slice(-1) : '', e));
-
+    
                 return false;
             });
         }
@@ -131,11 +122,9 @@ let PincodeControlDirective = function(
         }
 
         if (_delete || key == 8 || key == 46 || e.originalEvent.inputType == 'deleteContentBackward') {
-            if ($scope.ngModel.length > $scope.cantDeleteLength) {
-                $scope.ngModel = $scope.ngModel.slice(0, $scope.ngModel.length - 1);
-            }
-
-            return $element.val($scope.ngModel)
+            $scope.ngModel = $scope.ngModel.slice(0, $scope.ngModel.length - 1);
+            $element.val($scope.ngModel)
+            return;
         }
 
         if (blockInputType == 'alphanum' || blockInputType == 'num') {
@@ -182,7 +171,7 @@ let PincodeControlDirective = function(
 
         if (!handled) {
             e.preventDefault();
-
+            
             if ($input.val()) {
                 $input.val($input.val().slice(0, -1));
             }
@@ -206,8 +195,7 @@ module.exports = () => {
             ngModel: '=',
             blockSize: '@',
             blockCount: '@',
-            blockInputType: '@',
-            cantDeleteLength: '=?',
+            blockInputType: '@'
         },
         restrict: "EA",
         replace: true,
@@ -217,6 +205,6 @@ module.exports = () => {
             '$element',
             PincodeControlDirective
         ],
-        templateUrl: 'assets/tpl/directives/pincode-control.html'
+        templateUrl: 'assets/tpl/directives/pincode-control.html?foo=bar'
     };
 };

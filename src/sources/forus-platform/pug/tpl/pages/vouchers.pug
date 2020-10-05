@@ -91,7 +91,7 @@
                         table.table
                             tr
                                 th(i18n="vouchers.labels.note")
-                                th(ng-if="$ctrl.fund.type == 'budget'" i18n="vouchers.labels.amount")
+                                th(i18n="vouchers.labels.amount")
                                 th(i18n="vouchers.labels.created_date").nowrap
                                 th(ng-if="!$ctrl.fundClosed" i18n="vouchers.labels.expire_date").nowrap
                                 th(i18n="vouchers.labels.fund")
@@ -105,7 +105,7 @@
                                     ng-class="{active: voucher.showTooltip}")
                                     .tooltip-content(ng-if="voucher.showTooltip" click-outside="$ctrl.hideTooltip($event, voucher)")
                                         .tooltip-text(ng-bind="(voucher.note || '-') | str_limit:128" title="{{ voucher.note }}")
-                                td(ng-if="$ctrl.fund.type == 'budget'" ng-bind="voucher.amount | currency_format")
+                                td(ng-bind="voucher.amount | currency_format")
                                 td(ng-bind="voucher.created_at_locale")
                                 td(ng-if="!$ctrl.fundClosed" ng-bind="voucher.expire_at_locale")
                                 td(ng-bind="voucher.fund.name")

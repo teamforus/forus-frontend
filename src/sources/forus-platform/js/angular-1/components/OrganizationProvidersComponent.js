@@ -1,7 +1,9 @@
 let OrganizationProvidersComponent = function(
     $q,
     $scope,
+    $state,
     $stateParams,
+    $timeout,
     FundService,
     FileService,
     OrganizationService,
@@ -14,12 +16,9 @@ let OrganizationProvidersComponent = function(
     $ctrl.filters = {
         show: false,
         values: {},
-        reset: function() {
-            if ($ctrl.fund && $ctrl.fund.type == 'budget') {
-                this.values.allow_products = '';
-                this.values.allow_budget = '';
-            }
-
+        reset: function () {
+            this.values.allow_products = '';
+            this.values.allow_budget = '';
             this.values.dismissed = false;
             this.values.q = '';
         }
@@ -163,7 +162,7 @@ let OrganizationProvidersComponent = function(
     $ctrl.onFundSelect = (fund) => {
         $ctrl.fund = fund;
         $ctrl.init();
-    };
+    }; 
 
     $ctrl.$onInit = function() {
         if ($ctrl.fund) {
@@ -182,7 +181,9 @@ module.exports = {
     controller: [
         '$q',
         '$scope',
+        '$state',
         '$stateParams',
+        '$timeout',
         'FundService',
         'FileService',
         'OrganizationService',
