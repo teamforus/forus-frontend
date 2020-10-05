@@ -328,6 +328,13 @@ $bf: 'Montserrat', arial, sans-serif;
                                 line-height: 16px;
                                 font-size: 14px;
                             }
+
+                            &.item-icon-default {
+                                width: 10px;
+                                height: 10px;
+                                background-color: #C3D0D1;
+                                top: 5px;
+                            }
                         }
 
                         &:before {

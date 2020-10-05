@@ -177,9 +177,8 @@ section: .wrapper
                     p.sign_up-pane-text(i18n="fund_request.sign_up.pane.text" i18n-vars="{fundname: $ctrl.fund.name }")
                     
                     ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
-                        ng-repeat="critera in $ctrl.fund.criteria" 
-                        ng-class="{'item-valid': critera.isValid, 'item-invalid' : !critera.isValid}")
-                        .item-icon: em.mdi.mdi-check-bold(ng-if="critera.isValid")
+                        ng-repeat="critera in $ctrl.fund.criteria")
+                        .item-icon.item-icon-default
                         span(ng-if="critera.title" ng-bind="critera.title")
                         span(
                             ng-if="!critera.title"
