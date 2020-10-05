@@ -796,9 +796,9 @@ else if (qdt_c.platform.env_data.client_key == 'potjeswijzer')
                 .col.col-md-4
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="https://dev.forus.io/provider/#!/sign-up" target="_self") Aanmelden als aanbieder
-                        .footer-nav-item: a(href="https://dev.forus.io/sponsor/#!/sign-up" target="_self") Aanmelden als sponsor
-                        .footer-nav-item: a(href="https://dev.forus.io/validator/#!/sign-up" target="_self") Aanmelden als beoordelaar
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}sign-up" target="_self") Aanmelden als aanbieder
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_sponsor }}sign-up" target="_self") Aanmelden als sponsor
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_validator }}sign-up" target="_self") Aanmelden als beoordelaar
                     .block.block-app_download(style="margin-top:15px;"): .footer-label(style="margin-bottom:0px;") Download Me-app
                         .wrapper
                             a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank" aria-label="Download Me-app")
@@ -830,13 +830,13 @@ else if (qdt_c.platform.env_data.client_key == 'geertruidenberg')
                     //-img(src="./assets/img/logo-bw.png").footer-logo
                     .footer-schedule
                         .schedule-label E-mailadres:		
-                        .schedule-value support@potjeswijzer.nl
+                        .schedule-value info@geertruidenberg.nl
                     .footer-schedule
                         .schedule-label Telefoonnummer:		
-                        .schedule-value 085 0043387
+                        .schedule-value 14 0162
                     .footer-schedule
                         .schedule-label Adres:		
-                        .schedule-value Zuidhorn, Dorpsvenne 12
+                        .schedule-value Raamsdonksveer, Vrijheidstraat 2
                 //-.col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
                     //img(src="./assets/img/forus-logo-bw.svg").footer-logo
                     .block.block-app_download: .footer-label Downloads
@@ -848,9 +848,8 @@ else if (qdt_c.platform.env_data.client_key == 'geertruidenberg')
                 .col.col-md-4
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="https://dev.forus.io/provider/#!/sign-up" target="_self") Aanmelden als aanbieder
-                        .footer-nav-item: a(href="https://dev.forus.io/sponsor/#!/sign-up" target="_self") Aanmelden als sponsor
-                        .footer-nav-item: a(href="https://dev.forus.io/validator/#!/sign-up" target="_self") Aanmelden als beoordelaar
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}sign-up" target="_self") Aanmelden als aanbieder
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_sponsor }}sign-up" target="_self") Aanmelden als sponsor
                 
                 .col.col-md-4
                     .block.block-app_download: .footer-label(style="margin-bottom:0px;") Download Me-app
@@ -865,11 +864,11 @@ else if (qdt_c.platform.env_data.client_key == 'geertruidenberg')
         .block.block-copyrights
             .copyrights 
             .links
-                a(href="#" target="_blank") Algemene Voorwaarden
+                //-a(href="#" target="_blank") Algemene Voorwaarden
+                //-.link-separator
+                a(href="https://geertruidenberg.nl/privacy" target="_blank") Privacy Statement
                 .link-separator
-                a(href="#" target="_blank") Privacy Statement
-                .link-separator
-                a(ui-sref="#" target="_blank") Toegankelijkheid
+                a(ui-sref="https://geertruidenberg.nl/toegankelijkheidsverklaring" target="_blank") Toegankelijkheid
             .developed
                 | 
                 a(href="#")
