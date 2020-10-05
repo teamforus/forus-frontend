@@ -5,9 +5,11 @@ let FundRequestsComponent = function(
     FileService,
     FundService,
     ModalService,
+    DateService,
     OrganizationService,
     OrganizationEmployeesService,
     FundRequestValidatorService,
+    PushNotificationsService,
     appConfigs
 ) {
     let $ctrl = this;
@@ -46,8 +48,11 @@ let FundRequestsComponent = function(
         show: false,
         values: {},
         reset: function() {
-            $ctrl.filters.values.q = '';
-            $ctrl.filters.values.state = $ctrl.states[0].key;
+            this.values.q = '';
+            this.values.state = $ctrl.states[0].key;
+            this.values.employee_id = null;
+            this.values.from = '';
+            this.values.to = null;
         }
     };
 
@@ -67,8 +72,12 @@ let FundRequestsComponent = function(
             res.data.data.hasContent = request.hasContent;
             res.data.data.collapsed = request.collapsed;
 
-            request.records.forEach((record, index) => {
-                res.data.data.records[index].shown = record.shown;
+            request.records.forEach((record) => {
+                let newRecord = res.data.data.records.filter(_record => _record.id == record.id)[0];
+
+                if (newRecord) {
+                    newRecord.shown = record.shown
+                }
             });
 
             $ctrl.validatorRequests.data[
@@ -83,10 +92,17 @@ let FundRequestsComponent = function(
         if (query) {
             $ctrl.filters.values = query;
         }
+        let _query = JSON.parse(JSON.stringify($ctrl.filters.values));
 
         FundRequestValidatorService.indexAll(
             $ctrl.organization.id,
-            $ctrl.filters.values
+            Object.assign(_query, {
+                per_page: 25,
+                from: _query.from ? DateService._frontToBack(_query.from) : null,
+                to: _query.to ? DateService._frontToBack(_query.to) : null,
+                sort_by: 'created_at',
+                sort_order: 'desc'
+            })
         ).then(function(res) {
             $ctrl.validatorRequests = res.data;
             $ctrl.validatorRequests.data.forEach(request => {
@@ -98,6 +114,8 @@ let FundRequestsComponent = function(
                 request.hasContent = request.records.filter(record => {
                     return record.files.length > 0 || record.clarifications.length > 0;
                 }).length > 0;
+
+                request.records.forEach(record => record.shown = true);
             });
         }, console.error);
     };
@@ -183,16 +201,20 @@ let FundRequestsComponent = function(
     };
 
     $ctrl.requestDecline = (request) => {
-        FundRequestValidatorService.decline(
-            $ctrl.organization.id,
-            request.id
-        ).then(() => {
-            $ctrl.reloadRequest(request);
-        }, (res) => {
-            showInfoModal(
-                'Aanvraag weigeren mislukt.',
-                'Reden:' + res.data.message
-            );
+        ModalService.open('fundRequestRecordsDecline', {
+            organization: $ctrl.organization,
+            request: request,
+            submit: (err) => {
+                if (err) {
+                    return showInfoModal(
+                        'U kunt op dit moment deze aanvragen niet weigeren.',
+                        'Reden: ' + err.data.message
+                    );
+                }
+
+                $ctrl.reloadRequest(request);
+                showInfoModal('Aanvragen geweigerd.');
+            }
         });
     };
 
@@ -201,12 +223,12 @@ let FundRequestsComponent = function(
             $ctrl.organization.id,
             request.id
         ).then(() => {
-            showInfoModal("Gelukt!", "U bent nu toegewezen aan deze aanvraag.");
+            PushNotificationsService.success('Gelukt! U bent nu toegewezen aan deze aanvraag.');
             $ctrl.reloadRequest(request);
-        }, res => showInfoModal(
-            "U kunt op dit moment geen aanvullingsverzoek doen.",
-            res.data.error.message
-        ));
+        }, res => {
+            PushNotificationsService.danger('U kunt op dit moment geen aanvullingsverzoek doen.');
+            console.error(res);
+        });
     };
 
     $ctrl.requestResign = (request) => {
@@ -214,12 +236,12 @@ let FundRequestsComponent = function(
             $ctrl.organization.id,
             request.id
         ).then(() => {
-            showInfoModal("Gelukt!", "U heeft zich afgemeld van deze aanvraag, iemand anders kan deze aanvraag nu oppakken.");
+            PushNotificationsService.success('Gelukt! U heeft zich afgemeld van deze aanvraag.');
             $ctrl.reloadRequest(request);
-        }, res => showInfoModal(
-            "Mislukt! U kunt u zelf niet van deze aanvraag afhalen.",
-            res.data.error.message
-        ));
+        }, res => {
+            PushNotificationsService.danger('Mislukt! U kunt u zelf niet van deze aanvraag afhalen.');
+            console.error(res);
+        })
     };
 
     $ctrl.updateSelfAssignedFlags = () => {
@@ -238,6 +260,17 @@ let FundRequestsComponent = function(
         });
     };
 
+    $ctrl.appendRecord = (fundRequest) => {
+        ModalService.open('fundAppendRequestRecord', {
+            fundRequest: fundRequest,
+            organization: $ctrl.organization,
+            onAppend: () => {
+                PushNotificationsService.success('Gelukt! New record attached and approved.');
+                reloadRequests();
+            }
+        });
+    };
+
     $ctrl.$onInit = function() {
         FundService.list($ctrl.organization.id, {
             per_page: 100
@@ -253,10 +286,21 @@ let FundRequestsComponent = function(
                 return;
             }
 
-            OrganizationEmployeesService.list($ctrl.organization.id).then(res => {
+            OrganizationEmployeesService.list($ctrl.organization.id, {
+                per_page: 100,
+                role: 'validation',
+            }).then(res => {
+                $ctrl.employees = res.data.data;
+
                 $ctrl.employee = res.data.data.filter((employee) => {
                     return employee.identity_address == $scope.$root.auth_user.address;
                 })[0];
+
+                $ctrl.employees.unshift({
+                    id: null,
+                    email: "Selecteer medewerker"
+                });
+                $ctrl.filters.values.employee_id = $ctrl.employees[0].id;
 
                 $ctrl.updateSelfAssignedFlags();
             });
@@ -327,9 +371,11 @@ module.exports = {
         'FileService',
         'FundService',
         'ModalService',
+        'DateService',
         'OrganizationService',
         'OrganizationEmployeesService',
         'FundRequestValidatorService',
+        'PushNotificationsService',
         'appConfigs',
         FundRequestsComponent
     ],

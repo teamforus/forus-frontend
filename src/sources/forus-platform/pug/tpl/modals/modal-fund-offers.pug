@@ -17,7 +17,7 @@
 
                                 tr(ng-repeat="offer in $ctrl.offers.data")
                                     td(ng-bind="offer.name") 
-                                    td(ng-bind="offer.unlimited_stock ? 'Unlimited' : offer.total_amount")
+                                    td(ng-bind="offer.unlimited_stock ? 'Ongelimiteerd' : offer.total_amount")
                                     td
                                         span.offer-price(ng-bind="offer.price | currency_format")
                                         span.offer-old-price(ng-bind="offer.old_price | currency_format")

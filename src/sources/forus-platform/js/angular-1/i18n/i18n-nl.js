@@ -364,7 +364,7 @@ module.exports = {
         labels: {
             name: "Naam",
             description: "Omschrijving",
-            products: "Products",
+            products: "Aanbod",
             status: "Status",
             start: "Startdatum",
             end: "Einddatum",
@@ -511,6 +511,7 @@ module.exports = {
             end: "EIND",
             break: "Pauze",
             not_specified: "Niet ingevuld",
+            description: "Omschrijving"
         },
         buttons: {
             cancel: "Annuleren",
@@ -665,13 +666,17 @@ module.exports = {
             main_header: "Aanmelden als aanbieder",
             go_back: "Terug",
             title_step_1: "Welkom", 
-            subtitle_step_1: "Door dit online formulier in te vullen kunt u uw organisatie aanmelden als aanbieder. Het invullen duurt ongeveer 5 minuten. <br/><br/>" + 
-                "U krijgt na het invullen toegang tot uw eigen aanbieders webomgeving. Nadat uw aanmelding is goedgekeurd kunt u producten en/of diensten aanbieden en betalingen ontvangen.<br/><br/>" +
-                "Hulp nodig? Tijdens het doorlopen van het formulier vindt u rechts onderin het blauwe vraagteken. Hiermee opent u de helpdesk.<br/><br/>",
+            subtitle_step_1: "Door dit online formulier in te vullen meldt u uw organisatie aan als aanbieder. Het invullen duurt ongeveer 5 minuten.",
+            title_step_1_paragrah_1: "Aanbiedingen plaatsen en betalingen ontvangen",
+            subtitle_step_1_paragrah_1: "Na het aanmelden krijgt u toegang tot uw aanbieders webomgeving. Nadat uw aamelding is geaccepteerd kunt u producten en/of diensten aanbieden en betalingen ontvangen.",
+            title_step_1_paragrah_2: "Heeft u al een account?",
+            subtitle_step_1_paragrah_2: "of rechts bovenin om in te loggen met een bestaand account. U hoeft het aanmeldformulier dan niet te doorlopen.",
+            title_step_1_paragrah_3: "Hulp nodig?",
+            subtitle_step_1_paragrah_3: "Tijdens het doorlopen van het formulier vindt u rechts onderin het blauwe vraagteken. Hiermee opent u de helpdesk.",
             title_step_2: "Benodigdheden",
-            subtitle_step_2: "De Me-app gaat u gebruiken om betalingen te ontvangen. In de volgende stap downloadt u de app. Aan het gebruik van de app zijn geen kosten verbonden. <br/><br/>" + 
-                "De <a href='https://forus.io/me'>Me-app</a> is beschikbaar voor Android en iOS telefoons of tablets.<br/><br/>" + 
-                "U hebt nodig:<br/><br/>" + 
+            subtitle_step_2: "U gaat de me app gebruiken om betalingen te ontvangen. In de volgende stap downloadt u de app. Aan het gebruik van de app zijn geen kosten verbonden. <br/><br/>" + 
+                "De Me app is beschikbaar voor Android en iOS telefoons en tablets.<br/><br/>" + 
+                "U heeft nodig:<br/><br/>" + 
                 "<ul>" + 
                 "<li>Mobiele telefoon of tablet met camera en internet</li>" +
                 "<li>Bedrijfsgegevens van uw organisatie (contactgegevens, KvK en IBAN nummer)</li>" +
@@ -949,7 +954,7 @@ module.exports = {
                 "De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
             ].join("\n"),
             description_bottom: [
-                "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.",
+                "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
                 "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
             ].join("\n"),
             no_app: "Ik wil inloggen met mijn emailadres >"
@@ -1075,10 +1080,10 @@ module.exports = {
             title: "Heeft u de Me App al?",
             description_top: [
                 "De me app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
-                "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.",
+                "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
             ].join("\n"),
             description_bottom: [
-                "Scan de QR code aan de rechterzijde met de QR-scanner in de Me App.", 
+                "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.", 
                 "De Me App wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
             ].join("\n"),
             no_app: "Ik wil inloggen met mijn emailadres >"    
@@ -1193,6 +1198,11 @@ module.exports = {
             status: "Status",
             records: "Eigenschappen",
             actions: "Acties",
+            search: "Zoeken",
+            assigned_to: "Toegewezen",
+            from: "Vanaf",
+            to: "Tot",
+            pending_since: "In behandeling sinds"
         },
         status: {
             hold: "Wachten",
@@ -1206,6 +1216,8 @@ module.exports = {
             alldecline: "Alles weigeren",
             accept: "Valideren",
             decline: "Weigeren",
+            export: "Exporteren",
+            clear_filter: "Wis filter"
         },
     },
 

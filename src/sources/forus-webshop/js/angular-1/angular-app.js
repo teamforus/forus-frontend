@@ -40,6 +40,7 @@ app.component('securitySessionsComponent', require('./components/SecuritySession
 app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
 app.component('notificationsComponent', require('./components/NotificationsComponent'));
 app.component('explanationComponent', require('./components/ExplanationComponent'));
+app.component('errorPageComponent', require('./components/ErrorPageComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -83,15 +84,19 @@ app.service('ProvidersService', require('./services/ProvidersService'));
 app.service('SessionService', require('./services/SessionService'));
 app.service('IdentityEmailsService', require('./services/IdentityEmailsService'));
 app.service('NotificationsService', require('./services/NotificationsService'));
+app.service('PhysicalCardsService', require('./services/PhysicalCardsService'));
+app.service('PhysicalCardsRequestService', require('./services/PhysicalCardsRequestService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
 app.directive('topNavbar', require('./directives/TopNavbarDirective'));
+app.directive('mobileFooter', require('./directives/MobileFooterDirective'));
 app.directive('webshops', require('./directives/WebshopsDirective'));
 app.directive('implementation', require('./directives/ImplementationDirective'));
 app.directive('fundCriterion', require('./directives/FundCriterionDirective'));
-app.directive('profileCard', require('./directives/ProfileCardDirective'));
+app.directive('profileMenu', require('./directives/ProfileMenuDirective'));
 app.directive('blockProducts', require('./directives/BlockProductsDirective'));
+app.directive('blockSubsidies', require('./directives/BlockSubsidiesDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
 app.directive('dashInputControl', require('./directives/DashInputControlDirective'));
@@ -134,6 +139,8 @@ app.component('modalShareVoucherComponent', require('./components/Modals/ModalSh
 app.component('modalOpenInMeComponent', require('./components/Modals/ModalOpenInMeComponent'));
 app.component('modalProductApplyComponent', require('./components/Modals/ModalProductApplyComponent'));
 app.component('modalIdentityProxyExpiredComponent', require('./components/Modals/ModalIdentityProxyExpiredComponent'));
+app.component('modalPhysicalCardTypeComponent', require('./components/Modals/ModalPhysicalCardTypeComponent'));
+app.component('modalPhysicalCardUnlinkComponent', require('./components/Modals/ModalPhysicalCardUnlinkComponent'));
 
 // Printable Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -157,6 +164,7 @@ app.filter('i18n', require('./filters/I18nFilter'));
 app.filter('duration', require('./filters/DurationFilter'));
 app.filter('duration_last_time', require('./filters/DurationLastTimeFilter'));
 app.filter('lines_to_array', require('./filters/LinesToArrayFilter'));
+app.filter('capitalize', require('./filters/CapitalizeFilter'));
 
 // Config
 app.config(require('./routers/printables'));

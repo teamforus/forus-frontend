@@ -4,6 +4,7 @@ let FundRequestComponentAuto = function(
     $state,
     $stateParams,
     $timeout,
+    $filter,
     RecordService,
     FundService,
     AuthService,
@@ -13,6 +14,7 @@ let FundRequestComponentAuto = function(
     CredentialsService,
     PushNotificationsService,
     DigIdService,
+    ModalService,
     FileService,
     appConfigs
 ) {

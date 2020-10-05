@@ -1,16 +1,18 @@
 block content
     .header-splash: .splash.splash-c
     .block.block-showcase(ng-class="{'block-showcase-fullscreen': $ctrl.showMap}")
-        top-navbar
+        top-navbar(hide-on-scroll="true")
         
         .showcase-wrapper
             .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
                 .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
-                .mobile-filters-title Filter op categorieën en budgetten
+                .mobile-filters-title Filter op categorieën en tegoeden
                 .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
 
-            .showcase-title Er zijn {{ $ctrl.products.meta.total }} aanbiedingen gevonden
-            .showcase-subtitle Selecteer een aanbieding voor meer informatie
+            .block.block-breadcrumbs
+                a(ui-sref="home").breadcrumb-item Home
+                .breadcrumb-item(ng-if="$ctrl.fund_type == 'budget'").active Aanbod
+                .breadcrumb-item(ng-if="$ctrl.fund_type == 'subsidies'").active Acties
             
             .showcase-layout
                 .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
@@ -28,19 +30,19 @@ block content
                                 ng-model="$ctrl.form.values.product_category_id").form-control
 
                         .form-group
-                            label.form-label Budgetten
+                            label.form-label Tegoeden
                             select-control(
                                 autoclear="true"
                                 ng-model="$ctrl.form.values.fund" 
                                 options="$ctrl.funds"
-                                placeholder="Selecteer budget...")
+                                placeholder="Selecteer tegoed...")
                     
                 .showcase-content
                     .showcase-content-header
                         .showcase-filters-title
                             div(ng-if="!$ctrl.showMap").pull-left
                                 .showcase-filters-title-count(ng-bind="$ctrl.products.meta.total")
-                                | Aanbiedingen
+                                | {{ $ctrl.fund_type == 'budget' ? 'Aanbod' : 'Acties' }}
                             .block.block-label-tabs.pull-right
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: $ctrl.display_type == 'list'}"
@@ -53,7 +55,7 @@ block content
                                     em.mdi.mdi-view-grid-outline.icon-start
                                     | Foto's
                     
-                    .block.block-products(ng-if="$ctrl.products.data.length > 0 && $ctrl.display_type == 'grid'")
+                    .block.block-products(ng-if="$ctrl.fund_type == 'budget' && ($ctrl.products.data.length > 0 && $ctrl.display_type == 'grid')")
                         .product-item(ng-repeat="product in $ctrl.products.data" ng-class="{discounted:product.old_price}")
                             a(ui-sref="products-show(product)").product-item-inner
                                 .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
@@ -65,17 +67,27 @@ block content
                                         | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}% 
                                         br
                                         | {{ "block_products.labels.discount" | translate }}
-                                    .product-price
+                                    .product-price(ng-if="!product.no_price")
                                         small {{ "block_products.labels.old" | translate }} {{ product.old_price | currency_format }}
                                         | {{ "block_products.labels.new" | translate }} {{ product.price | currency_format }}
                     
-                    .block.block-products-list(ng-if="$ctrl.products.data.length > 0 && $ctrl.display_type == 'list'" id="products_list")
+                    .block.block-subsidies(ng-if="$ctrl.fund_type == 'subsidies' && ($ctrl.products.data.length > 0 && $ctrl.display_type == 'grid')")
+                        .product-row(ng-repeat="products_row in $ctrl.product_rows")
+                            .product-item(ng-repeat="product in products_row"): a(ui-sref="products-show(product)").product-item-inner
+                                .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
+                                    img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
+                                    .product-price(ng-if="!product.no_price" ng-bind="product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis'")
+                                .product-details
+                                    .product-provider(ng-bind="product.organization.name")
+                                    .product-name(ng-bind="product.name")
+                    
+                    .block.block-products-list(
+                        ng-if="$ctrl.fund_type == 'budget' && $ctrl.products.data.length > 0 && $ctrl.display_type == 'list'" id="products_list")
                         a.product-item(
                             ng-repeat="product in $ctrl.products.data" 
                             ng-class="{discounted:product.old_price}"
                             ui-sref="products-show(product)")
-                            .product-photo
-                                img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
+                            .product-photo: img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
                             .product-content
                                 .product-details
                                     .product-name(ng-bind="product.name")
@@ -87,6 +99,28 @@ block content
                                     .label.label-default.label-sm(ng-if="product.old_price") 
                                         | {{ "block_products.labels.old" | translate }} {{ product.old_price | currency_format }}
                                     .product-price {{ "block_products.labels.new" | translate }} {{ product.price | currency_format }}
+                    
+
+                    .block.block-subsidies-list(
+                        ng-if="$ctrl.fund_type == 'subsidies' && ($ctrl.products.data.length > 0 && $ctrl.display_type == 'list')" id="products_list")
+                        a.product-item(
+                            ng-repeat="product in $ctrl.products.data"
+                            ui-sref="products-show(product)")
+                            .product-photo: img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
+                            .product-content
+                                .product-details
+                                    .product-name(ng-bind="product.name")
+                                    .product-provider(ng-bind="product.organization.name")
+                                .product-actions(ng-if="!product.no_price")
+                                    .product-price(
+                                        ng-if="product.price_min == product.price_max" 
+                                        ng-bind="product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis'")
+                                    
+                                    .product-price(ng-if="product.price_min != product.price_max")
+                                        | Van: {{ product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis' }}
+                                    
+                                    .product-price(ng-if="product.price_min != product.price_max")
+                                        | Voor: {{ product.price_max | currency_format }}
 
                     empty-block(
                         title= "{{ 'block_products.labels.title' | translate }}"
