@@ -41,7 +41,7 @@ let OrganizationFundsComponent = function(
                 fund: fund,
                 confirm: (res) => {
                     PushNotificationsService.success(
-                        "Aanbiders uitgenodigd!",
+                        "Aanbieders uitgenodigd!",
                         sprintf("%s uitnodigingen verstuurt naar aanbieders!", res.length),
                     );
 

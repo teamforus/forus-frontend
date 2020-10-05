@@ -11,6 +11,7 @@ core.addPlatform(require('./platforms/Dashboards/DashboardGeneralValidatorPlatfo
 
 core.addPlatform(require('./platforms/Dashboards/DashboardNijmegenSponsorPlatform'));
 core.addPlatform(require('./platforms/Dashboards/DashboardNijmegenProviderPlatform'));
+core.addPlatform(require('./platforms/Dashboards/DashboardNijmegenValidatorPlatform'));
 
 core.addPlatform(require('./platforms/Dashboards/DashboardKerstpakketSponsorPlatform'));
 core.addPlatform(require('./platforms/Dashboards/DashboardKerstpakketProviderPlatform'));

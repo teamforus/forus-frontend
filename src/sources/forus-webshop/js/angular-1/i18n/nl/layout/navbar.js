@@ -1,6 +1,7 @@
 module.exports = {
     items: {
-        funds:"Fondsen",
+        home: "Home",
+        funds:"Aanvragen",
         products:"Aanbod",
         subsidies:"Acties",
         providers:"Aanbieders",

@@ -939,6 +939,25 @@ $colorPrimaryLight: $color_primary_light;
                 }
             }
 
+            .card-section-actions-details {
+                .card-section-actions-label {
+                    font: 600 11px/18px $bf;
+                    text-align: right;
+                    color: #134478;
+                    margin: 0 0 5px;
+                }
+
+                .card-section-actions-value {
+                    font: 500 12px/20px $bf;
+                    text-align: right;
+                    color: #000000;
+                }
+
+                &:not(:first-child) {
+                    padding-top: 15px;
+                }
+            }
+
             &.card-section-actions-bottom {
                 top: auto;
                 bottom: 25px;
@@ -1955,10 +1974,12 @@ $colorPrimaryLight: $color_primary_light;
             }
 
             ul {
-                padding: 0px 20px;
-                list-style: circle;
-
                 li {
+                    font: inherit;
+                    background-image: url('../img/icon-list.svg');
+                    background-repeat: no-repeat;
+                    line-height: 30px;
+                    padding-left: 50px;
                     font-weight: 400;
                 }
             }
@@ -3099,11 +3120,17 @@ $colorPrimaryLight: $color_primary_light;
                 flex-grow: 1;
             }
 
+            .attachment-date {
+                font: 400 12px/25px $bf;
+                margin-right: 20px;
+            }
+
             .attachment-preview {
                 display: flex;
                 @include ellipsis();
                 color: #262626;
                 font: 500 12px/25px $bf;
+                flex: unset;
 
                 .mdi {
                     float: left;
@@ -5440,6 +5467,26 @@ $colorPrimaryLight: $color_primary_light;
                 flex-grow: 1;
                 padding: 7.5px 0px;
                 max-width: calc(100% - 200px);
+            }
+        }
+
+        &.compact-datalist-outline {
+            padding: 5px 20px;
+            border: 1px dashed #ccc;
+            border-radius: $borderRadius;
+            
+            .datalist-row {
+                .datalist-key {
+                    color: $color_primary;
+                }
+                
+                .datalist-value {
+                    color: $tc;
+                }
+
+                &:last-child {
+                    border-bottom: 0;
+                }
             }
         }
     }
