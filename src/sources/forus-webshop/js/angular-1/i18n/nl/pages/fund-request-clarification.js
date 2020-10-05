@@ -1,22 +1,22 @@
 module.exports = {
     // FUND REQUEST VALIDATION CLARIFICATION = fund-request-clarification.pug
-    blocktitle: "{{ fundname }} aanvulverzoek",
+    block_title: "{{ fundname }} aanvraag",
     labels: {
         question: "Vraag",
         message: "Bericht",
         attachment: "Bijlage",
     },
-    placeholder: "Uw bericht...",
+    placeholder: "Your message...",
     buttons: {
         submit: "Bevestig",
-        back: "Terug",
+        back: "Terug naar de webshop",
     },
     not_pending: {
         title: "Aanvraag voltooid",
         desc: "U heeft al een reactie ingestuurd.",
     },
     done: {
-        title: "Aanvulverzoek verzonden.",
-        desc: "Uw aanvulverzoek is verzonden, u krijgt een e-mail als uw aanvraag is afgehandeld."
+        title: "Al geantwoord.",
+        desc: "Uw aanvraag is voltooid, u krijgt een email wanneer deze is goedgekeurd."
     }
 }

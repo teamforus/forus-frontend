@@ -2,41 +2,40 @@ top-navbar
 section.section.section-profile: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
-        .breadcrumb-item.active Mijn tegoeden
+        .breadcrumb-item.active Mijn vouchers
+
+    .section-title
+        span(translate="vouchers.header.regular.title")
+        .span-count(ng-bind="$ctrl.regularVouchers.length")
+    .section-description(translate="vouchers.header.regular.description")
 
     .budget-vouchers(id="budget_vouchers")
         .block.block-profile
-            profile-menu.hide-sm
-
             .profile-content
-                .profile-content-header.clearfix
-                    .profile-content-title
-                        div.pull-left
-                            .profile-content-title-count(ng-bind="$ctrl.regularVouchers.length")
-                            | Tegoeden
-
                 .block.block-vouchers(ng-if="$ctrl.regularVouchers.length > 0")
                     voucher-card(ng-repeat="voucher in $ctrl.regularVouchers" voucher="voucher")
 
                 empty-block(
                     ng-if="$ctrl.regularVouchers.length == 0"
-                    title="Geen tegoeden"
-                    description="Momenteel heeft u geen tegoeden"
+                    title="Geen budgetten"
+                    description="Momenteel heeft u geen budgetvouchers"
                     text="Gebruik een activatiecode"
                     hide-link="false")
 
-                .profile-content-header.clearfix
-                    .profile-content-title
-                        div.pull-left
-                            .profile-content-title-count(ng-bind="$ctrl.productVouchers.length")
-                            | Reserveringen
-                
+    .product-vouchers(ng-if="$ctrl.productVouchers.length")
+        .section-title
+            span(translate="vouchers.header.product.title")
+            .span-count(ng-bind="$ctrl.productVouchers.length")
+        .section-description(translate="vouchers.header.product.description")
+
+        .block.block-profile
+            .profile-content
                 .block.block-vouchers(ng-if="$ctrl.productVouchers.length > 0")
                     voucher-card(ng-repeat="voucher in $ctrl.productVouchers" voucher="voucher")
 
                 empty-block(
                     ng-if="$ctrl.productVouchers.length == 0"
-                    title="Geen reserveringen"
-                    description="Momenteel heeft u geen reserveringen"
+                    title="Geen vouchers"
+                    description="Momenteel heeft u geen vouchers"
                     text="Gebruik een activatiecode"
-                    hide-link="true")
+                    hide-link="false")

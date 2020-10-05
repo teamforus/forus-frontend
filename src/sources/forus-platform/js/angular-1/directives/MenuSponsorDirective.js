@@ -4,7 +4,9 @@ module.exports = () => {
     return {
         restrict: "EA",
         replace: true,
-        controller: MenuSponsorDirective,
+        controller: [
+            MenuSponsorDirective
+        ],
         templateUrl: 'assets/tpl/directives/menu-sponsor.html' 
     };
 };

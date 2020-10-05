@@ -172,27 +172,6 @@ module.exports = (core) => {
         return platform;
     });
 
-    core.editPlatform('dashboard_nijmegen_validator', (platform) => {
-        platform.setEnvData({
-            api_url: apiUrl,
-            client_key: baseImplementationKey,
-            panel_type: 'validator',
-            chat_id: chatId,
-            hide_voucher_generators: false,
-            flags: {},
-            sessions: sessions,
-            google_maps_api_key: google_maps_api_key,
-        });
-
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
-
-        return platform;
-    });
-
     core.editPlatform('dashboard_westerkwartier_sponsor', (platform) => {
         platform.setEnvData({
             api_url: apiUrl,

@@ -25,8 +25,7 @@
                             .card-block-listing-label(ng-bind="property.label")
                             .card-block-listing-value(ng-bind="property.value" ng-class="property.primary ? 'text-primary-light' : ''")
 
-            //- budget fund only
-            .card-section.card-section-primary.card-section-narrow.form(ng-show="$ctrl.fundProvider.fund.type == 'budget'"): .row: .col.col-lg-8: .flex-row
+            .card-section.card-section-primary.card-section-narrow.form: .row: .col.col-lg-8: .flex-row
                 .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
                     .card-block-listing-label Accepteer budget
                     .button.button-text.button-narrow: label(for="provider_allow_budget").form-toggle
@@ -47,8 +46,8 @@
                             ng-model="$ctrl.fundProvider.allow_products")
                         .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
         
-        //- Products for budget fund
-        .card(ng-show="$ctrl.fundProvider.fund.type == 'budget'")
+        //- Products
+        .card
             .card-header: .flex-row
                 .flex-col: .card-title Aanbiedingen
                 .flex-col: .card-header-drown: .block.block-inline-filters
@@ -77,10 +76,9 @@
                     td(ng-if="product.unlimited_stock") Ongelimiteerd
                     td(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
                     
-                    td(ng-if="product.no_price") Geen prijs 
-                    td(ng-if="!product.no_price")
+                    td
                         span(ng-bind="product.price | currency_format")
-                        .text-muted.text-sm(ng-if="product.old_price" ng-bind="product.old_price | currency_format")
+                        .text-muted.text-sm(ng-bind="product.old_price | currency_format")
                     
                     td.td-narrow: .form.pull-right: label(
                         for=("product_{{ product.id }}_enabled") 
@@ -100,50 +98,6 @@
             .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")
                 paginator(meta="$ctrl.products.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
-        
-        //- Products for subsidy fund
-        .card(ng-show="$ctrl.fundProvider.fund.type == 'subsidies'")
-            .card-header: .flex-row
-                .flex-col: .card-title Aanbiedingen
-                .flex-col: .card-header-drown: .block.block-inline-filters
-                    .form(ng-if="!$ctrl.filters.show"): .form-group: input(
-                        ng-model="$ctrl.filters.values.q"
-                        placeholder="Zoeken").form-control
-            
-            .card-section.card-section-padless: .table-wrapper: table.table
-                tr
-                    th.td-narrow Afbeelding
-                    th Naam
-                    th Aantal
-                    th Prijs
-                    th
-                
-                tr(ng-repeat="product in $ctrl.products.data")
-                    td.td-narrow: img(ng-src="{{ product.photo ? product.photo.sizes.small : './assets/img/placeholders/product-small.png' }}").td-media
-                    td(ng-bind="product.name")
-                    td(ng-if="product.unlimited_stock") Ongelimiteerd
-                    td(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
-                    td(ng-if="product.no_price") Geen prijs 
-                    td(ng-if="!product.no_price")
-                        span(ng-bind="product.price | currency_format")
-                        .text-muted.text-sm(ng-if="product.old_price" ng-bind="product.old_price | currency_format")
-                    td.td-narrow.text-right: .button-group.flex-end
-                        .button.button-primary.button-sm.nowrap(ng-if="product.is_available && !product.allowed" ng-click="$ctrl.openSubsidyProductModal($ctrl.fundProvider, product)")
-                            em.mdi.mdi-play.icon-start
-                            | Start actie
-                        div(ng-if="product.is_available && product.allowed")
-                            .tag.tag-success.nowrap
-                                | Actie actief 
-                                .mdi.mdi-close.icon-end(ng-click="$ctrl.disableProductItem($ctrl.fundProvider, product)")
-                            .hidden
-                        div(ng-if="!product.is_available")
-                            .tag.tag-text.nowrap Niet beschikbaar 
-                            .hidden
-                        button(ng-click="$ctrl.openProductDetails(product)").button.button-default.button-sm: em.mdi.mdi-eye-outline
-            
-            .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") Geen aanbiedingen
-            .card-section.card-section-narrow(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")
-                paginator(meta="$ctrl.products.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
 
         //- Employees
         .card(ng-if="$ctrl.tab == 'employees'")
@@ -158,8 +112,11 @@
             
             .card-section.text-center(ng-if="$ctrl.fundProvider.employees.total == 0") Geen vestigingen
             .card-section.card-section-padless: .table-wrapper: table.table
-                tr: th E-Mailadres
-                tr(ng-repeat="employee in $ctrl.fundProvider.employees"): td(ng-bind="employee.email")
+                tr
+                    th E-Mailadres
+                
+                tr(ng-repeat="employee in $ctrl.fundProvider.employees")
+                    td(ng-bind="employee.email")
 
         //- Offices
         .card(ng-if="$ctrl.tab == 'offices'")
@@ -179,5 +136,5 @@
                     th.text-right Telefoonnummer
                 
                 tr(ng-repeat="office in $ctrl.offices.data")
-                    td(ng-bind="office.address || 'n.v.t.'" ng-class="{'text-muted': !office.address}")
-                    td(ng-bind="office.phone || 'n.v.t.'" ng-class="{'text-muted': !office.phone}").text-right
+                    td(ng-bind="office.address || 'n/a'" ng-class="{'text-muted': !office.address}")
+                    td(ng-bind="office.phone || 'n/a'" ng-class="{'text-muted': !office.phone}").text-right

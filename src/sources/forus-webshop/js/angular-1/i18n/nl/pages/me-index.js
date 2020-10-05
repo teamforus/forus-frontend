@@ -1,9 +1,9 @@
 module.exports = {
     navbar: {
-        municipality: "Gemeente",
-        provider: "Aanbieder",
-        me: "Me",
-        shop: "Webshop",
+        municipality: "GEMEENTE",
+        provider: "AANBIEDER",
+        me: "ME",
+        shop: "WEBSHOP",
     },
     header: {
         title_general: "Een profiel voor het Forus Platform",
@@ -11,7 +11,7 @@ module.exports = {
         title_zuidhorn: "Een profiel voor het Kindpakket",
         title_westerkwartier: "Een profiel voor het Kindpakket",
         title_forus: "Een profiel voor het Kerstpakket",
-        description: "Een profiel om in te loggen, waarmee u tegoeden kan beheren en veilig kan betalen",
+        description: "Een profiel om in te loggen, waarmee u vouchers kan beheren en veilig kan betalen",
     },
     buttons: {
         join: "Aanmelden",
@@ -26,8 +26,8 @@ module.exports = {
         },
         profile: "Maak een profiel aan",
         pin: "U heeft de mogelijkheid om een profiel aan te maken en deze daarna te beveiligen met een pincode.",
-        vouchers: "Tegoeden",
-        criterion: "Als u aan gestelde criteria voldoet van een gemeente. Kunt u een tegoed aanvragen. Dit tegoed kunt u beheren in Me. Met Me kunt u veilig betalingen verrichten.",
+        vouchers: "Vouchers",
+        criterion: "Als u aan gestelde criteria voldoet van een gemeente. Kunt u een voucher aanvragen. Deze voucher kunt u beheren in Me. Met Me kunt u veilig betalingen verrichten.",
         apply: "Aanmelden",
         webshop: "Meld u aan op de webshop met Me. Dit doet u door de QR-code te scannen met Me die de webshop presenteert.",
         profileb: "Profiel",

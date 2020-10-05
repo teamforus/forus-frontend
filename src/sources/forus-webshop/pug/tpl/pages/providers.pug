@@ -1,21 +1,19 @@
 block content
     .header-splash: .splash.splash-c
     .block.block-showcase(ng-class="{'block-showcase-fullscreen': $ctrl.showMap}")
-        top-navbar(hide-on-scroll="true")
+        top-navbar
         
         .showcase-wrapper
-            mixin search_results(total, show = "false")
+            mixin search_results(total, show = "true")
                 .showcase-title(ng-if=show)= "Er zijn " + "{{" + total + "}}" + " aanbieders gevonden"
                 .showcase-subtitle(ng-if=show) Selecteer een organisatie voor meer informatie
 
             .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
                 .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
-                .mobile-filters-title Zoek op categorieen en tegoeden
+                .mobile-filters-title Zoek op categorieen en fondsen
                 .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
 
-            .block.block-breadcrumbs
-                a(ui-sref="home").breadcrumb-item Home
-                .breadcrumb-item.active Aanbieders
+            +search_results('$ctrl.providers.meta.total')
             
             .showcase-layout
                 .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
@@ -37,12 +35,12 @@ block content
                                 placeholder="Selecteer organisatie type...")
 
                         .form-group
-                            label.form-label Tegoeden
+                            label.form-label Budgetten
                             select-control(
                                 autoclear="true"
                                 ng-model="$ctrl.form.values.fund" 
                                 options="$ctrl.funds"
-                                placeholder="Selecteer tegoed...")
+                                placeholder="Selecteer budget...")
                     
                     
                 .showcase-content

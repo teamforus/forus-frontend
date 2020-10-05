@@ -16,14 +16,10 @@
 
             .sign_up-progress-overview Stap {{ $ctrl.step }} van {{ $ctrl.shownSteps.length + 2 }}
 
-    .block.block-sign_up: .block-wrapper        
-        .sign_up-header
-            .sign_up-header-item.flex-grow: a.sign_up-header-item-back(ng-click="$ctrl.goToMain()")
-                em.mdi.mdi-chevron-left
-                | Verlaat het formulier
-
-            .sign_up-header-item(ng-if="!$root.auth_user")
-                a.button.button-light(ng-click="$ctrl.openAuthPopup()") Inloggen
+    .block.block-sign_up: .block-wrapper
+        .sign_up-header: a(ng-click="$ctrl.goToMain()").sign_up-header-back
+            em.mdi.mdi-chevron-left
+            | Verlaat het formulier
 
         h2.block-title(translate="sign_up_provider.header.main_header")
 
@@ -36,17 +32,6 @@
 
                 .sign_up-pane-body.sign_up-pane-body-padless-bottom
                     .sign_up-pane-text(translate="sign_up_provider.header.subtitle_step_1")
-                    .sign_up-pane-text
-                        h5(translate="sign_up_provider.header.title_step_1_paragrah_1").sign_up-pane-heading
-                        span(translate="sign_up_provider.header.subtitle_step_1_paragrah_1")
-                    .sign_up-pane-text
-                        h5(translate="sign_up_provider.header.title_step_1_paragrah_2").sign_up-pane-heading
-                        a(ng-click="$ctrl.openAuthPopup()").sign_up-pane-link Klik hier
-                        |  {{ "sign_up_provider.header.subtitle_step_1_paragrah_2" | translate}}                       
-                    .sign_up-pane-text
-                        h5(translate="sign_up_provider.header.title_step_1_paragrah_3").sign_up-pane-heading
-                        span(translate="sign_up_provider.header.subtitle_step_1_paragrah_3")
-
                     .sign_up-pane-media: img(ng-src="./assets/img/sign_up_first_step.png")    
 
                 .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-right): .row
@@ -64,7 +49,7 @@
                 .sign_up-pane-header(translate="sign_up_provider.header.title_step_2")
 
                 .sign_up-pane-body
-                    .sign_up-pane-media: img(ng-src="./assets/img/sign_up_second_step.png").pull-right    
+                    .sign_up-pane-media: img(ng-src="./assets/img/me-app-icon.svg")    
                     .sign_up-pane-text(translate="sign_up_provider.header.subtitle_step_2")    
 
                 .sign_up-pane-footer: .row

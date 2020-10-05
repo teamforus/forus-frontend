@@ -1,26 +1,7 @@
 /*==========  Style Sheet - Vars  ==========*/
 
-// navbar
-$bg-nav:            #F5F5F5;
-$tc-nav:            #282B39;
-$tc-nav-hov:        #282B39;
-$logo-padding:      20px 0px;
-$logo-height:       75px;
-
-// navbar (auth)
-$tc-auth-menu:      #282B39; 
-$tc-auth-btn:       #666666; 
-$btn-auth-bg:       #EBEDF0;
-$btn-auth-border:   #0000;
-
-// navbar (start modal primary)
-$tc-start-btn:       #fff; 
-$btn-start-bg:       #40C0F1; 
-$btn-start-btn:      #305dfb;
-$btn-start-border:   transparent;
-
 // header attributes
-$bg-values:          url("../img/splash-top-b.jpg") no-repeat 100% 0;
+$bg-values:          url("../img/splash-top-b.png") no-repeat 100% 0;
 
 // base font
 $bf:                'Helvetica', 'Open Sans', 'Arial', sans-serif;
@@ -38,7 +19,7 @@ $bg:                #f7f9fc;
 $bg_2:              linear-gradient(to bottom, #f7f9fc 0%, #fff 100%);
 
 // text formatting
-$tf:                inherit;
+$tf:                capitalize;
 
 // footer color
 $fc:                #fff;

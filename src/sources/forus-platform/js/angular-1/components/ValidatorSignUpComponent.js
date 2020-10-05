@@ -8,8 +8,7 @@ let ValidatorSignUpComponent = function(
     MediaService,
     AuthService,
     SignUpService,
-    OrganizationService,
-    ModalService
+    OrganizationService
 ) {
     let $ctrl = this;
     let orgMediaFile = false;
@@ -306,10 +305,6 @@ let ValidatorSignUpComponent = function(
         $state.go('home');
     };
 
-    $ctrl.openAuthPopup = function() {
-        ModalService.open('modalAuth', {});
-    };
-
     $ctrl.$onDestroy = function() {
         progressStorage.clear();
         authTokenSubscriber.stopCheckAccessTokenStatus();
@@ -331,7 +326,6 @@ module.exports = {
         'AuthService',
         'SignUpService',
         'OrganizationService',
-        'ModalService',
         ValidatorSignUpComponent
     ],
     templateUrl: 'assets/tpl/pages/validator-sign-up.html'

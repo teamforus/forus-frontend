@@ -98,7 +98,7 @@ let PrevalidatedTableDirective = async function(
             return prevalidation.records.filter(
                 record => headers.indexOf(record.key) === -1
             ).map(record => record.key).concat(headers);
-        }, []).filter(header => !header.endsWith('_hash')).sort();
+        }, []).sort();
 
         let primaryKey = headers.indexOf($scope.fund.csv_primary_key);
 
@@ -122,7 +122,9 @@ let PrevalidatedTableDirective = async function(
         });
     };
 
-    $scope.$watch('fund', (fund) => $scope.init(), true);
+    $scope.$watch('fund', (fund) => {
+        $scope.init();
+    }, true);
 
     // Export to XLS file
     $scope.export = (filters = {}) => {
@@ -140,7 +142,9 @@ let PrevalidatedTableDirective = async function(
     };
 
     $scope.typesByKey = {};
-    $scope.recordTypes.forEach(element => $scope.typesByKey[element.key] = element.name);
+    $scope.recordTypes.forEach(element => {
+        $scope.typesByKey[element.key] = element.name;
+    });
 
     $scope.init();
 };

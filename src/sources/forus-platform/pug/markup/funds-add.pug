@@ -8,55 +8,29 @@ block content
                 .form-offset
                     .block.block-photo-selector()
                         .photo-img: img(src='./assets/img/placeholders/image-thumbnail.png')
-                        .photo-label Afbeelding
+                        .photo-label(translate='photo_selector.labels.image') Afbeelding
                         a.button.button-primary(href='#')
                             em.mdi.mdi-upload.icon-start
                             | Upload
 
         .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
             .form-group.form-group-inline
-                label.form-label Naam
+                label.form-label(translate='funds_edit.labels.name') Naam
                 input.form-control(type='text' placeholder='Naam')
                 input(type='hidden' autocomplete='off')
 
         .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
             .form-group.form-group-inline
-                label.form-label Omschrijving
+                label.form-label(translate='funds_edit.labels.description') Omschrijving
                 textarea.form-control(maxlength='140' placeholder='Omschrijving')
 
         .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
             .form-group.form-group-inline
-                label.form-label Fund type
-                .form-offset: .block.block-fund_types
-                    .fund_type-item: .fund_type-item-inner
-                        .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-actions.svg')
-                        .fund_type-name Financieel budget
-                        .fund_type-check: .mdi.mdi-check
-                    .fund_type-item.active: .fund_type-item-inner
-                        .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-budget.svg')
-                        .fund_type-name Acties
-                        .fund_type-check: .mdi.mdi-check
-
-        .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
-            .form-group.form-group-inline
-                label.form-label Fund type
-                .form-offset: .block.block-fund_types
-                    .fund_type-item.fund_type-item-read: .fund_type-item-inner
-                        .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-actions-read.svg')
-                        .fund_type-name Financieel budget
-                        .fund_type-check: .mdi.mdi-check
-                    .fund_type-item.fund_type-item-read: .fund_type-item-inner
-                        .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-budget-read.svg')
-                        .fund_type-name Acties
-                        .fund_type-check: .mdi.mdi-check
-
-        .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
-            .form-group.form-group-inline
-                label.form-label Startdatum
+                label.form-label(translate='funds_edit.labels.start') Startdatum
                 input.form-control(type='text' placeholder='dd-MM-jjjj' disabled='disabled')
 
             .form-group.form-group-inline
-                label.form-label Einddatum
+                label.form-label(translate='funds_edit.labels.end') Einddatum
                 input.form-control(type='text' placeholder='dd-MM-jjjj' disabled='disabled')
 
         .card-section.card-section-primary: .row: .col.col-lg-9.col-md-12
@@ -68,7 +42,7 @@ block content
                     .flex-col: .button.button-primary.button-icon: em.mdi.mdi-close
 
             .form-group.form-group-inline
-                label.form-label
+                label.form-label(translate='')
                 .form-offset: .flex-row
                     .flex-col.flex-grow: .flex-grow.select-control: .select-control-input
                         label.select-control-search.form-control Selecteer aanbieding...

@@ -4,9 +4,9 @@ module.exports = {
         subtitle: "Selecteer een om meer informatie te zien",
     },
     labels: {
-        mail: "E-mail",
-        address: "Aadres",
-        hours: "Openingstijden",
+        mail: "E-MAIL",
+        address: "ADRES",
+        hours: "OPENINGSTIJDEN",
         none: "Openingstijden onbekend, raadpleeg de aanbieder.",
     },
 }

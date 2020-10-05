@@ -53,6 +53,7 @@ let ModalProductVoucherCreateComponent = function(
     };
 
     $ctrl.initForm = () => {
+
         $ctrl.form = FormBuilderService.build({
             expire_at: $ctrl.fund.end_date,
             product_id: $ctrl.product.id,
@@ -64,13 +65,13 @@ let ModalProductVoucherCreateComponent = function(
                 $ctrl.organization.id,
                 form.values
             ).then(res => {
-                $ctrl.onCreated();
+                $ctrl.onCreated(res.data.data);
                 $ctrl.close();
             }, res => {
                 form.errors = res.data.errors;
                 form.unlock();
 
-                if (res.data.message && res.status !== 422) {
+                if (res.data.message) {
                     alert(res.data.message);
                 }
             });
@@ -83,8 +84,7 @@ let ModalProductVoucherCreateComponent = function(
         $ctrl.fund = $ctrl.modal.scope.fund || null;
 
         ProductService.listAll({
-            fund_id: $ctrl.fund.id,
-            no_price: 0,
+            fund_id: $ctrl.fund.id
         }).then((res) => {
             $ctrl.products = res.data.data.map(product => {
                 return {

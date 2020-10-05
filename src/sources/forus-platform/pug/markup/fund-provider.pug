@@ -2,15 +2,11 @@ extends ../layout/layout-markup
 block content
     .card-heading General information
     .card
-        .card-section.card-section-narrow
-            .block.block-entity-overview
-                .entity-photo
-                    img(src="./assets/img/zuidhorn-logo.jpg").entity-photo-img
-                    .entity-photo-abbr
-                .entity-details: .entity-title Lidl Nederland GmbH
-            .card-section-actions: .button.button-default.button-sm
-                | Weigeren en verberg 
-                em.mdi.mdi-close.icon-end
+        .card-section.card-section-narrow: .block.block-entity-overview
+            .entity-photo
+                img(src="./assets/img/zuidhorn-logo.jpg").entity-photo-img
+                .entity-photo-abbr
+            .entity-details: .entity-title Lidl Nederland GmbH
 
         .card-section.card-section-primary.card-section-narrow
             .flex-row.flex-grow

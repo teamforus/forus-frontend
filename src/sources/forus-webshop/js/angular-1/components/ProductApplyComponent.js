@@ -13,7 +13,7 @@ let ProductApplyComponent = function(
         $ctrl.applicableVouchers = $ctrl.vouchers.filter(voucher => {
             return (fundIds.indexOf(voucher.fund_id) != -1) && (
                 parseFloat($ctrl.product.price) <= parseFloat(voucher.amount)
-            ) && !voucher.parent && !voucher.expired && voucher.fund.type == 'budget';
+            ) && !voucher.parent && !voucher.expired;
         });
 
         $ctrl.isApplicable = $ctrl.applicableVouchers.length > 0;
@@ -36,6 +36,7 @@ let ProductApplyComponent = function(
             product: $ctrl.product,
             org_name: $ctrl.org_name,
             confirm: () => {
+
                 return VoucherService.makeProductVoucher(
                     voucher.address,
                     $ctrl.product.id

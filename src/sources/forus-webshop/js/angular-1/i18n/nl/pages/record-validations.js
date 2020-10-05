@@ -4,10 +4,10 @@ module.exports = {
             title: "Mijn eigenschappen",
         },
         labels: {
-            count: "Goedkeuringen",
-            validations: "Goedkeuringen",
+            count: "validaties",
+            validations: "Validaties",
         },
         buttons: {
-            send: "Verstuur een goedkeuringsverzoek",
+            send: "Verstuur een validatieverzoek",
         }
 }

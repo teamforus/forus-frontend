@@ -1,18 +1,18 @@
 module.exports = { 
         header: {
-            title: "Aanbod",
+            title: "Aanbiedingen",
         },
         input : {
-            placeholder: "Zoek naar producten of diensten",
+            placeholder: "Zoek naar een aanbieding",
         },
         labels: {
-            discount: "Korting",
-            old: "Van",
-            new: "Voor",
+            discount: "KORTING",
+            old: "VAN",
+            new: "VOOR",
             title: "Geen zoekresultaat",
-            subtitle: "Helaas! Wij vonden geen resultaten voor uw zoekopdracht.",
+            subtitle: "Helaas! Wij vonden geen aanbiedingen voor uw zoekopdracht.",
         },
         buttons: {
-            more: "Bekijk meer",
+            more: "BEKIJK MEER",
         }
 }

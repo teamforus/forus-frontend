@@ -16,7 +16,7 @@ module.exports = {
             value: "Eigenschap ontbreekt in uw profiel",
         },
         buttons: {
-            validate: "Goedkeuren",
+            validate: "Valideer",
             add: "Voeg toe",
         },
         status: {

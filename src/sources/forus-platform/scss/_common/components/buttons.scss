@@ -119,25 +119,6 @@
         }
     }
 
-    &.button-light {
-        background-color: #F8F8F8;
-        color: #9E9E9E;
-        border-color: #F8F8F8;
-
-        &>.mdi {
-            color: #9E9E9E;
-        }
-
-        &:hover {
-            background: $color_primary_light;
-            color: #fff;
-
-            &>.mdi {
-                color: #fff;
-            }
-        }
-    }
-
     &.button-default-dashed {
         background: transparent;
         color: #151b26;
