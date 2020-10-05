@@ -17,9 +17,7 @@ let ProductsEditComponent = function(
     $ctrl.mediaErrors = [];
 
     $ctrl.$onInit = function() {
-        let values = $ctrl.product ? ProductService.apiResourceToForm(
-            $ctrl.product
-        ) : {
+        let values = $ctrl.product ? ProductService.apiResourceToForm($ctrl.product) : {
             product_category_id: null
         };
 
@@ -38,21 +36,39 @@ let ProductsEditComponent = function(
             });
         }
 
-        $ctrl.saveProduct = function() {
-            if (!$ctrl.product && !alreadyConfirmed) {
-                ModalService.open('modalNotification', {
-                    type: 'confirm',
-                    title: 'product_edit.confirm_create.title',
-                    description: 'product_edit.confirm_create.description',
-                    icon: 'product-create',
-                    confirm: () => {
-                        alreadyConfirmed = true;
-                        $ctrl.form.submit();
-                    }
-                });
-            } else {
-                $ctrl.form.submit();
+        $ctrl.confirmPriceChange = (confirmCallback) => {
+            if (!$ctrl.product || 
+                parseFloat($ctrl.product.price) === parseFloat($ctrl.form.values.price) || 
+                $ctrl.product.funds.filter(fund => fund.type == 'subsidies').length === 0) {
+                return confirmCallback();
             }
+
+            ModalService.open('modalNotification', {
+                type: 'confirm',
+                title: 'product_edit.confirm_price_change.title',
+                description: 'product_edit.confirm_price_change.description',
+                icon: 'product-create',
+                confirm: () => confirmCallback()
+            });
+        };
+
+        $ctrl.saveProduct = function() {
+            $ctrl.confirmPriceChange(() => {
+                if (!$ctrl.product && !alreadyConfirmed) {
+                    ModalService.open('modalNotification', {
+                        type: 'confirm',
+                        title: 'product_edit.confirm_create.title',
+                        description: 'product_edit.confirm_create.description',
+                        icon: 'product-create',
+                        confirm: () => {
+                            alreadyConfirmed = true;
+                            $ctrl.form.submit();
+                        }
+                    });
+                } else {
+                    $ctrl.form.submit();
+                }
+            });
         };
 
         $ctrl.form = FormBuilderService.build(values, async (form) => {
