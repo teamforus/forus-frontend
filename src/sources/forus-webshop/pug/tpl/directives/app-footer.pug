@@ -820,5 +820,58 @@ else if (qdt_c.platform.env_data.client_key == 'potjeswijzer')
                 | 
                 a(href="#")
 
+//-Geertruidenberg
+else if (qdt_c.platform.env_data.client_key == 'geertruidenberg')
+    section.section.section-footer
+        .wrapper
+            .block.block-footer: .row
+                .col.col-md-4
+                    .footer-label Contactgegevens
+                    //-img(src="./assets/img/logo-bw.png").footer-logo
+                    .footer-schedule
+                        .schedule-label E-mailadres:		
+                        .schedule-value support@potjeswijzer.nl
+                    .footer-schedule
+                        .schedule-label Telefoonnummer:		
+                        .schedule-value 085 0043387
+                    .footer-schedule
+                        .schedule-label Adres:		
+                        .schedule-value Zuidhorn, Dorpsvenne 12
+                //-.col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
+                    //img(src="./assets/img/forus-logo-bw.svg").footer-logo
+                    .block.block-app_download: .footer-label Downloads
+                        .download-button: a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
+                            .download-icon: img(src="./assets/img/icon-app/icon-app-android.svg")
+                        .download-button: a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
+                            .download-icon: img(src="./assets/img/icon-app/icon-app-ios.svg")
+                            
+                .col.col-md-4
+                    .footer-label Navigatie
+                    nav.footer-nav
+                        .footer-nav-item: a(href="https://dev.forus.io/provider/#!/sign-up" target="_self") Aanmelden als aanbieder
+                        .footer-nav-item: a(href="https://dev.forus.io/sponsor/#!/sign-up" target="_self") Aanmelden als sponsor
+                        .footer-nav-item: a(href="https://dev.forus.io/validator/#!/sign-up" target="_self") Aanmelden als beoordelaar
+                
+                .col.col-md-4
+                    .block.block-app_download: .footer-label(style="margin-bottom:0px;") Download Me-app
+                        .wrapper
+                            a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
+                                img(src="./assets/img/icon-app/icon-app-android.svg" style="height: 40px; width: 120px; margin-top: 10px; margin-right: 5px")
+                            a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
+                                img(src="./assets/img/icon-app/app-store-badge.svg")
+                    nav.footer-nav(style="margin-top:0; padding:0;")
+                        .footer-nav-item: a(href="https://forus.io/me" target="_blank") Wilt u meer informatie over de Me-app?
+                
+        .block.block-copyrights
+            .copyrights 
+            .links
+                a(href="#" target="_blank") Algemene Voorwaarden
+                .link-separator
+                a(href="#" target="_blank") Privacy Statement
+                .link-separator
+                a(ui-sref="#" target="_blank") Toegankelijkheid
+            .developed
+                | 
+                a(href="#")
 else
     div
