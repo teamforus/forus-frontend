@@ -20,6 +20,10 @@
             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-vouchers2.svg
             span(translate="topnavbar.buttons.mobile.voucher") 
 
-        li.sticky-footer-item-wrapper(ng-if="$root.auth_user" ui-sref="preferences-notifications" ui-sref-active="active")
+        li.sticky-footer-item-wrapper(ng-if="$root.auth_user && !$root.appConfigs.features.records.list" ui-sref="preferences-notifications" ui-sref-active="active")
+            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
+            span(translate="topnavbar.buttons.mobile.profile")
+        
+        li.sticky-footer-item-wrapper(ng-if="$root.auth_user && $root.appConfigs.features.records.list" ui-sref="records" ui-sref-active="active")
             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
             span(translate="topnavbar.buttons.mobile.profile")

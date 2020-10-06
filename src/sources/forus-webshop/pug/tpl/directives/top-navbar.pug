@@ -44,6 +44,19 @@
                 li.navbar-item-wrapper: .navbar-item(
                     ng-click="$root.signOut()" translate="topnavbar.buttons.logout")
 
+            nav.navbar-item-wrapper
+                a.navbar-item(
+                    ui-sref="home"
+                    ui-sref-active="active"
+                    translate="topnavbar.items.home")
+
+            nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.fundsMenu && $root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
+                a.navbar-item(
+                    ui-sref="funds" 
+                    ui-sref-active="active"
+                    translate="topnavbar.items.{{ $root.appConfigs.client_key }}.funds"
+                    translate-default="{{ 'topnavbar.items.funds' | translate }}")
+
             nav.navbar-item-wrapper(
                 ng-click="mobileMenu = false"
                 ng-if="$root.appConfigs.features.has_budget_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)" )
@@ -69,13 +82,6 @@
                     ui-sref-active="active"
                     ng-bind="'topnavbar.items.providers' | translate")
 
-            nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.fundsMenu && $root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
-                a.navbar-item(
-                    ui-sref="funds" 
-                    ui-sref-active="active"
-                    translate="topnavbar.items.{{ $root.appConfigs.client_key }}.funds"
-                    translate-default="{{ 'topnavbar.items.funds' | translate }}")
-            
             nav.navbar-item-wrapper(ng-click="mobileMenu = false")
                 a.navbar-item(
                     ng-if="!$root.appConfigs.features.settings.has_more_info_url"
@@ -99,28 +105,21 @@
             .block
                 .block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
                     .auth-code
-                        a(ng-if="!$root.appConfigs.features.records.list" ui-sref="vouchers" id="vouchers").button.button-primary
+                        a(ui-sref="vouchers" id="vouchers").button.button-primary
                             em.mdi.mdi-ticket-confirmation
                             span(translate="topnavbar.buttons.voucher") 
-
-                        a(ng-if="$root.appConfigs.features.records.list" ui-sref="vouchers").button.button-default.button-two-spans.button-profile
-                            .icon-me
-                            span(ng-bind="$root.auth_user.email").first-line-button
-                            //-span(translate="topnavbar.buttons.profile").second-line-button
                 
                 .block.block-auth
                     .auth-in(ng-if="$root.auth_user").hide-sm
                         .auth-user(ng-click="$ctrl.openUserMenu($event)")
                             .auth-user-details  
-                                .auth-user-email(ng-bind="$root.auth_user.email" ng-if="!$root.appConfigs.features.records.list") 
-                                //- .auth-user-type(translate="topnavbar.items.identity" ng-if="!$root.appConfigs.features.records.list")
-                                .auth-user-logout(ng-if="!$root.appConfigs.features.records.list" ng-click="$root.signOut($event, true)" )
+                                .auth-user-email(ng-bind="$root.auth_user.email") 
+                                .auth-user-logout(ng-click="$root.signOut($event, true)" )
                                     em.mdi.mdi-logout
                                     span(translate="topnavbar.buttons.logout")
 
                             .auth-user-avatar
-                                .em.mdi.mdi-cog(ng-if="$root.appConfigs.features.records.list")
-                                div(ng-if="!$root.appConfigs.features.records.list")
+                                div
                                 include ../../../resources/_webshop-common/assets/img/identity-avatar.svg
                             .auth-user-caret(id="user_menu")
                                 em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
@@ -142,7 +141,7 @@
                                     .auth-user-menu-item(ng-if="$root.appConfigs.sessions" ui-sref="security-sessions")
                                         em.mdi.mdi-shield-account
                                         //- translate(translate="topnavbar.buttons.sessions")
-                                        | Security
+                                        | Sessies
                                     
                                     .auth-user-menu-item(
                                         ui-sref="notifications" 
