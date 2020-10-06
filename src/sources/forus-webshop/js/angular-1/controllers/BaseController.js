@@ -30,8 +30,12 @@ let BaseController = function(
                         $rootScope.signOut();
 
                         ModalService.open('modalNotification', {
-                            type: 'info',
-                            description: 'modal.logout.description'
+                            type: 'confirm',
+                            description: 'modal.logout.description',
+                            confirmBtnText: 'Inloggen',
+                            confirm: () => {
+                                ModalService.open('modalAuth', {});;
+                            }
                         });
                     }
                 }, () => {});
