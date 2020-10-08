@@ -28,8 +28,8 @@ module.exports = {
             fund_already_applied: "Er is al een aanvraag in behandeling",
         },
         labels: {
-            has_app: "Ik wil inloggen met de me-app >",
-            no_app: "< Ik wil inloggen met mijn e-mailadres",
+            has_app: "Ik wil inloggen met de Me-app >",
+            no_app: "Ik wil inloggen met mijn e-mailadres >",
         },
         app: {
             title: "Heeft u de Me-app al?",
@@ -42,8 +42,9 @@ module.exports = {
             ].join("\n")
         },
         record_checkbox: {
-            default: 'Ik verklaar aan de onderstaande voorwaarden te voldoen',
+            default: 'Ik verklaar aan de bovenstaande voorwaarden te voldoen',
             children_nth: 'Ik verklaar dat ik {{value}} kinderen heb',
+            social_assistance_standard: 'Ik ga ermee akkoord dat mijn inkomsten worden gecontroleerd. Dit gebeurt door het vergelijken van mijn gegevens in de gemeentelijke bestanden of door het opvragen van specificaties.',
             kindpakket_eligible: 'Ja, ik verklaar dat ik recht heb op kindpakket.',
             kindpakket_2018_eligible: 'Ja, ik verklaar dat ik recht heb op kindpakket.',
         }
