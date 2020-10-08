@@ -74,6 +74,7 @@ block content
                                     a.button.button-primary.button-disabled(
                                         ng-if="!fund.alreadyReceived && fund.hasPendingRequests"
                                         ui-sref="fund-request({fund_id: fund.id})"
+                                        ng-click="$ctrl.applyFund(fund)" 
                                         translate="funds.buttons.is_pending")
 
                                     a.button.button-primary(
