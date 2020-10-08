@@ -79,7 +79,9 @@ let ModalAuthComponent = function(
 
             }, (res) => {
                 form.unlock();
-                form.errors = res.data.errors;
+                form.errors = res.data.errors ? res.data.errors : {
+                    email: [res.data.message]
+                };
             });
         }, true);
     };

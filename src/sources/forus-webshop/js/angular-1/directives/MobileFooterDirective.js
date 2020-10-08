@@ -7,9 +7,11 @@ let MobileFooterDirective = function(
 ) {
     let $ctrl = this;
     let prevOffsetY = window.pageYOffset;
-    FundService.list().then(res => {
-        $ctrl.funds = res.data.data;
-    })
+
+    $scope.visible = true;
+    $scope.i18nLangs = $translate.getAvailableLanguageKeys();
+    $scope.i18nActive = $translate.use();
+
     $scope.startFundRequest = () => {
         if ($ctrl.funds.length > 0) {
             $state.go('fund-request', {
@@ -17,10 +19,6 @@ let MobileFooterDirective = function(
             });
         }
     };
-
-    $scope.visible = true;
-    $scope.i18nLangs = $translate.getAvailableLanguageKeys();
-    $scope.i18nActive = $translate.use();
 
     $scope.openAuthPopup = function() {
         ModalService.open('modalAuth', {});
@@ -53,7 +51,8 @@ let MobileFooterDirective = function(
         $scope.visible = (prevOffsetY > currentOffsetY) || (currentOffsetY <= 0);
         prevOffsetY = currentOffsetY;
     };
-
+    
+    FundService.list().then(res => $ctrl.funds = res.data.data);
     window.addEventListener('scroll', $scope.updateScrolled);
 
     $scope.$on('$destroy', function() {

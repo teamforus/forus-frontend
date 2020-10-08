@@ -78,8 +78,6 @@ let ProductsShowComponent = function(
         funds.data.forEach(function(fund) {
             $ctrl.fund_toggles[fund.id] = excluded_funds.indexOf(fund.id) === -1;
         });
-
-        console.log($ctrl.fund_toggles);
     };
 
     $ctrl.changeFundExclusion = (fund, is_available) => {

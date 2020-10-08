@@ -29,6 +29,12 @@ let PincodeControlDirective = function(
         alphanum: /^[0-9a-zA-Z]+$/,
     };
 
+    $scope.patternHtml = {
+        num: "[0-9]+",
+        alpha: "[a-zA-Z]",
+        alphanum: "[0-9a-zA-Z]",
+    };
+
     $scope.isIe = isIe();
 
     if (!$scope.isIe) {

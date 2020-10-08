@@ -162,7 +162,11 @@ let ProviderSignUpComponent = function(
     };
 
     $ctrl.makeSignUpForm = () => {
-        let authTarget = 'newSignup';
+        let authTarget = [
+            'newSignup',
+            $stateParams.organization_id,
+            $stateParams.tag,
+        ].join('-');
 
         return FormBuilderService.build({
             email: '',

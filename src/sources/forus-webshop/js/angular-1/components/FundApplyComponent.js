@@ -68,21 +68,6 @@ let FundsComponent = function(
         $ctrl.stepState = $ctrl.step2state($ctrl.step);
     };
 
-    $ctrl.submitCriteria = (criteria) => {
-        $ctrl.recordsSubmitting = true;
-
-        RecordService.store({
-            type: criteria.record_type_key,
-            value: criteria.input_value
-        }).then(res => {
-            $ctrl.recordsSubmitting = false;
-            $ctrl.nextStep();
-        }, res => {
-            $ctrl.recordsSubmitting = false;
-            criteria.errors = res.data.errors;
-        });
-    };
-
     $ctrl.$onInit = function() {
         /* if ($ctrl.vouchers.filter(voucher => {
             return voucher.fund_id == $ctrl.fund.id;
