@@ -41,7 +41,7 @@ let ProductsComponent = function(
     };
 
     $ctrl.cancel = () => {
-        if (typeof($ctrl.modal.scope.cancel) === 'function') {
+        if (typeof ($ctrl.modal.scope.cancel) === 'function') {
             $ctrl.modal.scope.cancel();
         }
 
@@ -117,7 +117,19 @@ let ProductsComponent = function(
 
     $ctrl.updateRows = () => {
         let product_rows = [];
-        let products = $ctrl.products.data.slice().reverse();
+        let products = $ctrl.products.data.map(product => {
+            if ($ctrl.form.values.fund && $ctrl.form.values.fund.id && Array.isArray(product.funds)) {
+                let prices = product.funds.filter(
+                    funds => funds.id == $ctrl.form.values.fund.id
+                ).map(fund => fund.price);
+
+                product.price_min = Math.min(prices);
+                product.price_max = Math.max(prices);
+            }
+
+            return product;
+        }).slice().reverse();
+
 
         while (products.length > 0) {
             let row = products.splice(-3);

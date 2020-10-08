@@ -30,7 +30,10 @@ let handleAuthTarget = ($state, target) => {
     }
 
     if (target[0] == targetNewSignup) {
-        $state.go('sign-up');
+        $state.go('sign-up', {
+            organization_id: target[1] || undefined,
+            tag: target[2] || undefined,
+        });
         return true;
     }
 

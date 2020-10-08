@@ -29,9 +29,16 @@ let ModalFundOffersComponent = function (
 
     $ctrl.mapOffersAllowedProperty = (offers) => {
         offers.data.forEach(offer => {
-            offer.allowed = $ctrl.enabledProducts.indexOf(
-                offer.id
-            ) !== -1 || $ctrl.providerFund.allow_products;
+            offer.allowed = $ctrl.enabledProducts.indexOf(offer.id) !== -1;
+            let fund = offer.funds.filter(fund => fund.id === $ctrl.fund.id)[0];
+
+            if (fund) {
+                offer.subsidy_amount = offer.price - fund.price;
+                offer.subsidy_user_amount = fund.price;
+                offer.subsidy_user_limit = fund.limit_per_identity;
+                offer.subsidy_limit_total = fund.limit_total
+            }
+
         });
 
         return offers;

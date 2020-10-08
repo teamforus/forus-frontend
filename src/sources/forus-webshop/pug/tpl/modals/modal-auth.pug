@@ -14,7 +14,7 @@
                 .auth-form-input
                     input(ng-model="$ctrl.signInEmailForm.values.email" type="email" placeholder="E-mail").form-control.email-auth
                     .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.email" ng-bind="error")
-                button(type="submit").button.button-primary Login
+                div: button(type="submit").button.button-primary Login
 
             .auth-digid(ng-if="$ctrl.digidAvailable"): a(ng-click="$ctrl.useDigId()").auth-digid-link
                 | Vergeten welk e-mailadres u heeft gebruikt?
