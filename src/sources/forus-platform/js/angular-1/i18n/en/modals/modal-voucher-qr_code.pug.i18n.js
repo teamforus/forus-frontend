@@ -6,7 +6,7 @@ module.exports = {
         assign_to_identity: 'Toekennen aan account:'
     },
     placeholders: {
-        email: 'E-mail adres'
+        email: 'E-mailadres'
     },
     info_assign: "Wanneer toegekend heeft de voucher een nieuwe eigenaar. De nieuwe eigenaar kan de voucher beheren via de webshop. Hierdoor verliest u eigenaarschap en daarmee de functies: via e-mail versturen en QR-code printen.",
     success: {

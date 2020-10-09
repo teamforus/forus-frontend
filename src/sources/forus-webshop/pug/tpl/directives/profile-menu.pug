@@ -9,12 +9,16 @@
     
     a(ui-sref="notifications" ui-sref-active="active").profile-menu-item 
         | Notificaties
-        em.mdi.mdi-arrow-right  
+        em.mdi.mdi-arrow-right
     
     a(ui-sref="preferences-notifications" ui-sref-active="active").profile-menu-item 
         | Notificatievoorkeuren
         em.mdi.mdi-arrow-right
+
+    a(ui-sref="security-sessions" ui-sref-active="active" ng-if="appConfigs.sessions").profile-menu-item  
+        | Sessies
+        em.mdi.mdi-arrow-right
     
-    a(ui-sref="identity-emails" ui-sref-active="active" ng-if="appConfigs.sessions").profile-menu-item 
+    a(ui-sref="identity-emails" ui-sref-active="active").profile-menu-item 
         | E-mail instellingen
         em.mdi.mdi-arrow-right

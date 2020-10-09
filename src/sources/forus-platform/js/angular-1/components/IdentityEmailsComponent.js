@@ -15,7 +15,7 @@ let IdentityEmailsComponent = function(
         }
         
         IdentityEmailsService.resendVerification(email.id).then(() => {
-            PushNotificationsService.success('Verificatie email opnieuw verstuurd!');
+            PushNotificationsService.success('Verificatie e-mail opnieuw verstuurd!');
             email.disabled = true;
             timeout = $timeout(() => email.disabled = false, 1000);
         });
