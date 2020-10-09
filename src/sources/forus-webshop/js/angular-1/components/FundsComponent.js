@@ -174,13 +174,10 @@ let FundsComponent = function(
             );
 
             fund.voucherStateName = 'vouchers';
+
             if (fund.vouchers[0] && fund.vouchers[0].address) {
                 fund.voucherStateName = 'voucher({ address: fund.vouchers[0].address })';
             }
-
-            fund.hasPendingRequests = fund.fund_requests.filter(fundRequest => 
-                fundRequest.state == 'pending'
-            ).length;
 
             return fund;
         });
