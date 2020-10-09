@@ -130,7 +130,7 @@
                                 click-outside="$ctrl.hideUserMenu()")
                                 .triangle
                                 .inner
-                                    .auth-user-menu-item(ng-click="openActivateCodePopup()" id="open_activation_code_popup")
+                                    .auth-user-menu-item(ng-click="openActivateCodePopup()" id="open_activation_code_popup" ng-if="!$root.appConfigs.features.digid")
                                         img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg")
                                         span(translate="topnavbar.buttons.activate")
 
