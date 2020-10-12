@@ -123,18 +123,19 @@ let FundRequestComponent = function(
         } else {
             $ctrl.submitInProgress = true;
         }
-        let records = appConfigs.features.auto_validation ? $ctrl.invalidCriteria.map(criterion => ({
-            value: criterion.value,
-            record_type_key: criterion.record_type_key,
-            fund_criterion_id: criterion.id,
-        })) : criteria.map(criterion => ({
-            value: criterion.input_value,
-            record_type_key: criterion.record_type_key,
-            fund_criterion_id: criterion.id,
-            files: criterion.filesUploaded.map(file => file.uid),
-        }));
 
         $q.all($ctrl.invalidCriteria.map($ctrl.uploadCriteriaFiles)).then(criteria => {
+            let records = appConfigs.features.auto_validation ? $ctrl.invalidCriteria.map(criterion => ({
+                value: criterion.value,
+                record_type_key: criterion.record_type_key,
+                fund_criterion_id: criterion.id,
+            })) : criteria.map(criterion => ({
+                value: criterion.input_value,
+                record_type_key: criterion.record_type_key,
+                fund_criterion_id: criterion.id,
+                files: criterion.filesUploaded.map(file => file.uid),
+            }));
+
             FundRequestService.store($ctrl.fund.id, {
                 records: records
             }).then(() => {

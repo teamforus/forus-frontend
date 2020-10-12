@@ -82,7 +82,8 @@ block content
                                         ui-sref="fund-activate({fund_id: fund.id})"
                                         translate="funds.buttons.start_request")
 
-                                    button(type="button").button.button-primary(
+                                    button.button.button-primary(
+                                        type="button"
                                         ng-if="!fund.alreadyReceived && fund.isApplicable" 
                                         ng-click="$ctrl.applyFund(fund)" 
                                         translate="funds.buttons.is_applicable")
