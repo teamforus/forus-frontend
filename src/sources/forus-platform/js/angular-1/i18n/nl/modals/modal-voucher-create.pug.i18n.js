@@ -3,6 +3,7 @@ module.exports = {
     labels: {
         fund: 'Fonds',
         amount: 'Bedrag',
+        assign_by_type: 'Assign by',
         note: 'Notitie',
         expire_at: 'Geldig tot',
     },

@@ -8,15 +8,37 @@ let ModalVoucherQrCodeComponent = function(
     $ctrl.assigning = false;
     $ctrl.success = false;
 
+    $ctrl.assignTypes = [{
+        key: 'email',
+        label: 'E-mail',
+    }, {
+        key: 'bsn',
+        label: 'BSN',
+    }];
+
+    $ctrl.assignType = $ctrl.assignTypes[0];
+
+    $ctrl.onAsignTypeChange = (assignType) => {
+        if (assignType.key === 'bsn') {
+            delete $ctrl.form.values.bsn;
+        }
+
+        if (assignType.key !== 'email') {
+            delete $ctrl.form.values.email;
+        }
+    };
+
     $ctrl.goAssigning = () => {
         $ctrl.assigning = true;
-        $ctrl.form.values.email = '';
+        delete $ctrl.form.values.email;
+        delete $ctrl.form.values.bsn;
         $ctrl.form.resetErrors();
     };
-    
+
     $ctrl.goSending = () => {
         $ctrl.assigning = false;
-        $ctrl.form.values.email = '';
+        delete $ctrl.form.values.email;
+        delete $ctrl.form.values.bsn;
         $ctrl.form.resetErrors();
     };
 
@@ -28,12 +50,8 @@ let ModalVoucherQrCodeComponent = function(
         );
     };
 
-    $ctrl.assignToIdentity = (email) => {
-        return VoucherService.assign(
-            $ctrl.organization.id,
-            $ctrl.voucher.id,
-            email
-        );
+    $ctrl.assignToIdentity = (query) => {
+        return VoucherService.assign($ctrl.organization.id, $ctrl.voucher.id, query);
     };
 
     $ctrl.printQrCode = () => {
@@ -53,11 +71,14 @@ let ModalVoucherQrCodeComponent = function(
 
         $ctrl.qrCodeValue = $ctrl.voucher.address;
 
-        $ctrl.form = FormBuilderService.build({}, (form) => {
+        $ctrl.form = FormBuilderService.build({
+            email: '',
+            bsn: '',
+        }, (form) => {
             form.lock();
 
             let promise = $ctrl.assigning ? $ctrl.assignToIdentity(
-                form.values.email
+                form.values
             ) : $ctrl.sendToEmail(form.values.email);
 
             promise.then(res => {
@@ -71,7 +92,7 @@ let ModalVoucherQrCodeComponent = function(
         });
     };
 
-    $ctrl.$onDestroy = function() {};
+    $ctrl.$onDestroy = function() { };
 };
 
 module.exports = {
