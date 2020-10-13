@@ -61,8 +61,8 @@ block content
                                 .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
                                     img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
                                 .product-details
-                                    .product-organization(ng-bind="product.organization.name")
                                     .product-name.truncated(ng-bind="product.name")
+                                    .product-organization(ng-bind="product.organization.name")
                                     .product-discount(ng-if="product.price != product.old_price")
                                         | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}% 
                                         br
@@ -78,8 +78,8 @@ block content
                                     img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
                                     .product-price(ng-if="!product.no_price" ng-bind="product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis'")
                                 .product-details
-                                    .product-provider(ng-bind="product.organization.name")
                                     .product-name(ng-bind="product.name")
+                                    .product-provider(ng-bind="product.organization.name")
                     
                     .block.block-products-list(
                         ng-if="$ctrl.fund_type == 'budget' && $ctrl.products.data.length > 0 && $ctrl.display_type == 'list'" id="products_list")
@@ -90,8 +90,8 @@ block content
                             .product-photo: img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
                             .product-content
                                 .product-details
-                                    .product-name(ng-bind="product.name")
                                     .product-organization(ng-bind="product.organization.name")
+                                    .product-name(ng-bind="product.name")
                                 .product-actions
                                     .product-discount.label.label-danger.label-sm(ng-if="product.old_price && product.price != product.old_price")
                                         | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}%
@@ -109,8 +109,8 @@ block content
                             .product-photo: img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
                             .product-content
                                 .product-details
-                                    .product-name(ng-bind="product.name")
                                     .product-provider(ng-bind="product.organization.name")
+                                    .product-name(ng-bind="product.name")
                                 .product-actions(ng-if="!product.no_price")
                                     .product-price(
                                         ng-if="product.price_min == product.price_max" 
