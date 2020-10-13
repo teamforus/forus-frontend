@@ -139,8 +139,10 @@
                         div(ng-if="!product.is_available")
                             .tag.tag-text.nowrap Niet beschikbaar 
                             .hidden
-                        button(ng-click="$ctrl.openProductDetails(product)").button.button-default.button-sm: em.mdi.mdi-eye-outline
-            
+                        button(ng-click="$ctrl.openProductDetails(product)").button.button-default.button-sm
+                            em.mdi.mdi-eye-outline.icon-start
+                            | Bekijken
+
             .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")
                 paginator(meta="$ctrl.products.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
