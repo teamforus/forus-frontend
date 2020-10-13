@@ -9,13 +9,13 @@ let ModalVoucherCreateComponent = function(
     $ctrl.activationCodeSubmitted = false;
     $ctrl.assignTypes = [{
         key: null,
-        label: 'Do not assign',
+        label: 'Niet toekennen',
     }, {
         key: 'email',
-        label: 'E-mail',
+        label: 'E-mailadres',
     }, {
         key: 'bsn',
-        label: 'BSN',
+        label: 'Burgerservicenummer',
     }];
 
     $ctrl.assignType = $ctrl.assignTypes[0];

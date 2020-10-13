@@ -10,10 +10,10 @@ let ModalVoucherQrCodeComponent = function(
 
     $ctrl.assignTypes = [{
         key: 'email',
-        label: 'E-mail',
+        label: 'E-mailadres',
     }, {
         key: 'bsn',
-        label: 'BSN',
+        label: 'Burgerservicenummer',
     }];
 
     $ctrl.assignType = $ctrl.assignTypes[0];
