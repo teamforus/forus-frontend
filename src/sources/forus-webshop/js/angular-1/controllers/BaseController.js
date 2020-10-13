@@ -34,7 +34,7 @@ let BaseController = function(
                             description: 'modal.logout.description',
                             confirmBtnText: 'Inloggen',
                             confirm: () => {
-                                ModalService.open('modalAuth', {});;
+                                ModalService.open('modalAuth', {});
                             }
                         });
                     }
