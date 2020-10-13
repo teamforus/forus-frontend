@@ -20,10 +20,6 @@ mixin progress()
 //-top-navbar
 section: .wrapper 
     .block.block-sign_up: .block-wrapper
-        //- .sign_up-header: .sign_up-header-item.flex-grow: a.sign_up-header-item-back(ng-click="$ctrl.goToMain()")
-            em.mdi.mdi-chevron-left
-            | Terug
-
         .block-title(i18n="fund_request.sign_up.header.main" i18n-vars="{fundname: ($ctrl.fund.name | capitalize)}")
 
         div(ng-if="$ctrl.state == 'fund_already_applied'")
@@ -47,23 +43,6 @@ section: .wrapper
                             i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}" 
                             i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")
                     span(translate="fund_request.sign_up.pane.fund_already_applied")    
-
-        //- Welcome screen
-        div(ng-if="$ctrl.state == 'welcome'")
-            +progress()
-
-            .sign_up-pane    
-                .sign_up-pane-header(translate="fund_request.sign_up.header.title_step_1")
-
-                .sign_up-pane-body
-                    .sign_up-pane-text.text-center(translate="fund_request.sign_up.subtitles.step_1")
-                    .sign_up-pane-media: img(ng-src="./assets/img/fund-request-welcome.png") 
-
-                .sign_up-pane-footer: .row
-                    .col.col-lg-6.col-xs-6.text-left: .button.button-text.button-text-padless
-                    .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
-                        | {{ 'fund_request.sign_up.pane.footer.next' | translate }}
-                        em.mdi.mdi-chevron-right.icon-right 
 
         //- List the criteria
         div(ng-if="$ctrl.state == 'criteria'")
@@ -157,10 +136,18 @@ section: .wrapper
         
         //- Confirm net worth
         div(ng-if="$ctrl.state == 'confirm_criteria'")
-            h2.block-title(i18n="fund_request.sign_up.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
             +progress()
+
+            mixin confirm_criteria_footer()
+                .sign_up-pane-footer: .row
+                    .col.col-lg-6.text-left &nbsp;
+                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(
+                        ng-if="$ctrl.confirm_criteria"
+                        ng-click="$ctrl.submitConfirmCriteria()")
+                        span(i18n="fund_request.sign_up.pane.footer.next")
+                        em.mdi.mdi-chevron-right.icon-right
             
-            .sign_up-pane
+            .sign_up-pane(ng-if="$ctrl.fund.key == 'meedoen_2020'")
                 .sign_up-pane-header Bevestig uw inkomen
                 .sign_up-pane-body: .form
                     p.sign_up-pane-text U staat op het punt om een meedoenregeling aan te vragen. U dient te verklaren dat u aan de voorwaarden voldoet:
@@ -212,13 +199,7 @@ section: .wrapper
                         data-id="confirm_criteria"
                         data-label="Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden")
 
-                .sign_up-pane-footer: .row
-                    .col.col-lg-6.text-left &nbsp;
-                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(
-                        ng-if="$ctrl.confirm_criteria"
-                        ng-click="$ctrl.submitConfirmCriteria()")
-                        span(i18n="fund_request.sign_up.pane.footer.next")
-                        em.mdi.mdi-chevron-right.icon-right
+                +confirm_criteria_footer()
 
         //- Done
         div(ng-if="$ctrl.state == 'done'")

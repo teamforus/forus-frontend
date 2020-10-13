@@ -4,7 +4,6 @@ let FundRequestComponent = function(
     $q,
     $sce,
     $state,
-    $stateParams,
     $timeout,
     $filter,
     RecordService,
@@ -12,16 +11,15 @@ let FundRequestComponent = function(
     AuthService,
     FundRequestService,
     PushNotificationsService,
-    ModalService,
     FileService,
     appConfigs
 ) {
     let $ctrl = this;
     let $trans = $filter('translate');
-    let welcomeSteps = 2;
+    let welcomeSteps = 1;
 
     $ctrl.step = 1;
-    $ctrl.state = 'welcome';
+    $ctrl.state = null;
     $ctrl.totalSteps = [];
     $ctrl.recordsByKey = {};
     $ctrl.invalidCriteria = [];
@@ -229,18 +227,14 @@ let FundRequestComponent = function(
 
     $ctrl.step2state = (step) => {
         if (step == 1) {
-            return 'welcome';
-        }
-
-        if (step == 2) {
             return appConfigs.features.auto_validation ? 'confirm_criteria' : 'criteria';
         }
 
-        if (appConfigs.features.auto_validation && step == 3) {
+        if (appConfigs.features.auto_validation && step == 2) {
             return 'done';
         }
 
-        if (step == $ctrl.totalSteps.length + welcomeSteps) {
+        if (step == ($ctrl.totalSteps.length + 1) + welcomeSteps) {
             return 'done';
         }
 
@@ -269,7 +263,7 @@ let FundRequestComponent = function(
     $ctrl.nextStep = () => {
         $ctrl.buildSteps();
 
-        if ($ctrl.step == ((welcomeSteps - 1) + $ctrl.totalSteps.length)) {
+        if ($ctrl.step == (welcomeSteps + $ctrl.totalSteps.length)) {
             return $ctrl.submitRequest();
         }
 
@@ -348,7 +342,6 @@ let FundRequestComponent = function(
         $ctrl.digidAvailable = $ctrl.appConfigs.features.digid;
         $ctrl.digidMandatory = $ctrl.appConfigs.features.digid_mandatory;
 
-
         // The user is not authenticated and have to go back to sign-up page
         if (!$ctrl.signedIn || !$ctrl.identity || (appConfigs.features.auto_validation && !$ctrl.bsnIsKnown)) {
             return $state.go('start');
@@ -367,57 +360,13 @@ let FundRequestComponent = function(
         $ctrl.prepareRecordTypes();
 
         $ctrl.buildTypes().then(() => {
-            if ($ctrl.fund.taken_by_partner) {
-                $ctrl.step = 100;
-                $ctrl.updateState();
-
-                return ModalService.open('modalNotification', {
-                    type: 'info',
-                    title: 'Dit tegoed is al geactiveerd',
-                    closeBtnText: 'Bevestig',
-                    description: [
-                        "U krijgt deze melding omdat het tegoed is geactiveerd door een ",
-                        "famielid of voogd. De tegoeden zijn beschikbaar in het account ",
-                        "van de persoon die deze als eerste heeft geactiveerd."
-                    ].join(''),
-                }, {
-                    onClose: () => {
-                        $state.go('home');
-                    }
-                });
-            }
-
-            if ($stateParams.digid_success == 'signed_up' || $stateParams.digid_success == 'signed_in') {
-                PushNotificationsService.success('Succes! Ingelogd met DigiD.');
+            FundRequestService.index($ctrl.fund.id).then((res) => {
+                // Fund request already in progress
+                if (pendingRequests[0] || false) {
+                    return $ctrl.goToActivationComponent();
+                }
 
                 if ($ctrl.invalidCriteria.length == 0) {
-                    return $ctrl.applyFund($ctrl.fund);
-                }
-            } else if ($stateParams.digid_error) {
-                return $state.go('error', {
-                    errorCode: 'digid_' + $stateParams.digid_error
-                });
-            }
-
-            FundRequestService.index($ctrl.fund.id).then((res) => {
-                let pendingRequests = res.data.data.filter(request => request.state === 'pending');
-                let pendingRequest = pendingRequests[0] || false;
-
-                if (pendingRequest) {
-                    $ctrl.fund.criteria.map(criteria => {
-                        let record = pendingRequest.records.filter(record => {
-                            return record.record_type_key == criteria.record_type_key;
-                        })[0];
-
-                        if (record) {
-                            criteria.request_state = record.state;
-                        }
-
-                        return criteria;
-                    });
-
-                    $ctrl.state = 'fund_already_applied';
-                } else if ($ctrl.invalidCriteria.length == 0) {
                     $ctrl.applyFund($ctrl.fund);
                 }
             });
@@ -445,7 +394,6 @@ module.exports = {
         '$q',
         '$sce',
         '$state',
-        '$stateParams',
         '$timeout',
         '$filter',
         'RecordService',
@@ -453,7 +401,6 @@ module.exports = {
         'AuthService',
         'FundRequestService',
         'PushNotificationsService',
-        'ModalService',
         'FileService',
         'appConfigs',
         FundRequestComponent

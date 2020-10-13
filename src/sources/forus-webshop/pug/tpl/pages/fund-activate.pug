@@ -30,7 +30,7 @@ section: .wrapper
         div(ng-if="$ctrl.state == 'digid_login'")
             .sign_up-pane
                 .sign_up-pane-header(i18n="fund_request.sign_up.header.title_log_digid") 
-                .sign_up-pane-body(ng-class="{'sign_up-pane-body-padless-bottom': !$ctrl.digidMandatory && $ctrl.fund.allow_fund_requests}")
+                .sign_up-pane-body(ng-class="{'sign_up-pane-body-padless-bottom': $ctrl.fundRequestAvailable}")
                     .sign_up-pane-text(translate="fund_request.sign_up.subtitles.log_digid")
                     
                     .sign_up-pane-digid
@@ -41,17 +41,17 @@ section: .wrapper
                         ng-if="$ctrl.fund.allow_prevalidations"
                         ng-click="$ctrl.state = 'pincode_activate'") I have an activation code
                 
-                .sign_up-pane-footer(ng-if="!$ctrl.digidMandatory && $ctrl.fund.allow_fund_requests"): .row
+                .sign_up-pane-footer(ng-if="$ctrl.fundRequestAvailable"): .row
                     .col.col-lg-6.col-xs-6.text-left &nbsp;
                     .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ui-sref="fund-request({fund_id: $ctrl.fund.id})")
                         em.mdi.mdi-chevron-right.icon-right
                         | Overslaan
 
-        //- DigiD login
+        //- Prevalidation pincode
         div(ng-if="$ctrl.state == 'pincode_activate'")
             .sign_up-pane
                 .sign_up-pane-header Vul uw activatiecode in
-                .sign_up-pane-body(ng-class="{'sign_up-pane-body-padless-bottom': !$ctrl.digidMandatory && $ctrl.fund.allow_fund_requests}")
+                .sign_up-pane-body(ng-class="{'sign_up-pane-body-padless-bottom': $ctrl.fundRequestAvailable}")
                     form.form(ng-submit="$ctrl.activateCodeForm.submit()")
                         .form-group.text-center
                             .form-label(i18n="popup_auth.input.code")
@@ -71,7 +71,7 @@ section: .wrapper
                         ng-if="$ctrl.digidAvailable"
                         ng-click="$ctrl.state = 'digid_login'") Log in met DigiD
                 
-                .sign_up-pane-footer(ng-if="!$ctrl.digidMandatory && $ctrl.fund.allow_fund_requests"): .row
+                .sign_up-pane-footer(ng-if="$ctrl.fundRequestAvailable"): .row
                     .col.col-lg-6.col-xs-6.text-left &nbsp;
                     .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ui-sref="fund-request({fund_id: $ctrl.fund.id})")
                         em.mdi.mdi-chevron-right.icon-right

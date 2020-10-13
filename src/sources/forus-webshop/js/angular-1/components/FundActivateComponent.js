@@ -20,9 +20,10 @@ let FundActivateComponent = function(
     $ctrl.totalSteps = 1;
     $ctrl.invalidCriteria = [];
     $ctrl.signedIn = false;
-    $ctrl.bsnIsKnown = true;
+    $ctrl.bsnIsKnown = false;
     $ctrl.appConfigs = appConfigs;
-
+    $ctrl.autoValidation = appConfigs.features.auto_validation;
+    
     $ctrl.startDigId = () => {
         DigIdService.startFundRequst($ctrl.fund.id).then(res => {
             document.location = res.data.redirect_url;
@@ -203,6 +204,12 @@ let FundActivateComponent = function(
         $ctrl.bsnIsKnown = $ctrl.identity && $ctrl.identity.bsn;
         $ctrl.digidAvailable = $ctrl.appConfigs.features.digid;
         $ctrl.digidMandatory = $ctrl.appConfigs.features.digid_mandatory;
+        
+        $ctrl.fundRequestAvailable = (!$ctrl.digidMandatory && $ctrl.fund.allow_fund_requests);
+    
+        if ($ctrl.autoValidation) {
+            $ctrl.fundRequestAvailable = $ctrl.fundRequestAvailable && $ctrl.bsnIsKnown;
+        }
 
         // The user is not authenticated and have to go back to sign-up page
         if (!$ctrl.signedIn || !$ctrl.identity) {
@@ -235,7 +242,6 @@ let FundActivateComponent = function(
                 onClose: () => $state.go('home')
             });
         }
-
 
         $ctrl.getApplicableFunds().then(funds => {
             // The request has digid auth success or error meta
