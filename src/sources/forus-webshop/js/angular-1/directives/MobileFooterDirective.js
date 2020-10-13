@@ -14,9 +14,7 @@ let MobileFooterDirective = function(
 
     $scope.startFundRequest = () => {
         if ($ctrl.funds.length > 0) {
-            $state.go('fund-request', {
-                fund_id: $ctrl.funds[0].id
-            });
+            $state.go('start');
         }
     };
 
@@ -29,7 +27,7 @@ let MobileFooterDirective = function(
     };
 
     $scope.openActivateCodePopup = function() {
-        ModalService.open('modalActivateCode', {});
+        $state.go('start');
     };
 
     $scope.openAuthCodePopup = function() {

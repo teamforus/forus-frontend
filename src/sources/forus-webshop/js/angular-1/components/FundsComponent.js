@@ -1,24 +1,21 @@
 let FundsComponent = function(
+    $q,
     $state,
     $stateParams,
     appConfigs,
     FundService,
     ModalService,
+    VoucherService,
     FormBuilderService
 ) {
     let $ctrl = this;
 
+    $ctrl.applyingFund = false;
+    $ctrl.appConfigs = appConfigs;
+
     if (!appConfigs.features || !appConfigs.features.funds.list) {
         return $state.go('home');
     }
-
-    $ctrl.recordsByKey = {};
-    $ctrl.recordsByTypesKey = {};
-    $ctrl.appConfigs = appConfigs;
-
-    $ctrl.filtersList = [
-        'q', 'organization_id'
-    ];
 
     $ctrl.objectOnly = (obj, props = []) => {
         let out = {};
@@ -36,8 +33,8 @@ let FundsComponent = function(
         if (fund.taken_by_partner) {
             return $ctrl.showPartnerModal();
         }
-        
-        $state.go('fund-request', {
+
+        $state.go('fund-apply', {
             fund_id: fund.id
         });
     };
@@ -61,35 +58,20 @@ let FundsComponent = function(
 
     $ctrl.showMobileMenu = () => {
         $ctrl.showModalFilters = true;
-        $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
+        $ctrl.updateState($ctrl.form.values);
     };
 
     $ctrl.hideMobileMenu = () => {
         $ctrl.showModalFilters = false;
-        $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
-    };
-
-    $ctrl.cancel = () => {
-        if (typeof($ctrl.modal.scope.cancel) === 'function') {
-            $ctrl.modal.scope.cancel();
-        }
-
-        $ctrl.close();
+        $ctrl.updateState($ctrl.form.values);
     };
 
     $ctrl.showAs = (display_type) => {
         $ctrl.display_type = display_type;
-        $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
+        $ctrl.updateState($ctrl.form.values);
     };
 
-    $ctrl.buildQuery = (values) => ({
-        q: values.q,
-        page: values.page,
-        organization_id: values.organization_id,
-        display_type: $ctrl.display_type,
-    });
-
-    $ctrl.updateState = (query, location = 'replace') => {
+    $ctrl.updateState = (query) => {
         $state.go('funds', {
             q: query.q || '',
             page: query.page,
@@ -110,69 +92,49 @@ let FundsComponent = function(
     };
 
     $ctrl.loadFunds = (query, location = 'replace') => {
-        FundService.list(null, Object.assign(query, {
-            per_page: 10
-        })).then(res => {
-            $ctrl.funds = res.data;
+        return $q((resolve, reject) => {
+            FundService.list(null, query).then(res => {
+                $ctrl.funds = res.data;
+                $ctrl.updateFundsMeta();
+                $ctrl.updateState(query, location);
+                resolve();
+            }, reject);
         });
-
-        $ctrl.updateState(query, location);
-        $ctrl.updateFiltersUsedCount();
     };
 
-    $ctrl.updateFiltersUsedCount = () => {
-        $ctrl.countFiltersApplied = Object.values(
-            $ctrl.objectOnly($ctrl.form.values, $ctrl.filtersList)
-        ).reduce((count, filter) => count + (filter ? (
-            typeof filter == 'object' ? (filter.id ? 1 : 0) : 1
-        ) : 0), 0);
-    };
-
-    $ctrl.onPageChange = (values) => {
-        $ctrl.loadFunds($ctrl.buildQuery(values));
-    };
+    $ctrl.onPageChange = (values) => $ctrl.loadFunds(values);
 
     $ctrl.applyFund = function(fund) {
         if (fund.taken_by_partner) {
             return $ctrl.showPartnerModal();
         }
-        
+
+        if ($ctrl.applyingFund) {
+            return;
+        } else {
+            $ctrl.applyingFund = true;
+        }
+
         FundService.apply(fund.id).then(function(res) {
-            $state.go('voucher', res.data.data);
+            $ctrl.fetchVouchers().then(() => {
+                $ctrl.loadFunds($ctrl.form.values).then(() => {
+                    $ctrl.applyingFund = false;
+
+                    if ($ctrl.funds.data.filter(fund => {
+                        return fund.isApplicable && !fund.alreadyReceived
+                    }).length === 0) {
+                        $state.go('voucher', res.data.data);
+                    }
+                }, () => $ctrl.applyingFund = false);
+            }, () => $ctrl.applyingFund = false);
         }, console.error);
     };
 
-    $ctrl.$onInit = function() {
-        if (Array.isArray($ctrl.records)) {
-            $ctrl.records.forEach(function(record) {
-                if (!$ctrl.recordsByKey[record.key]) {
-                    $ctrl.recordsByKey[record.key] = [];
-                }
-    
-                $ctrl.recordsByKey[record.key].push(record);
-            });
-        }
-
-        $ctrl.recordTypes.forEach(function(recordType) {
-            $ctrl.recordsByTypesKey[recordType.key] = recordType;
-        });
-
+    $ctrl.updateFundsMeta = () => {
         $ctrl.funds.data = $ctrl.funds.data.map(function(fund) {
-            fund.vouchers = $ctrl.vouchers.filter(voucher => {
-                return voucher.fund_id == fund.id;
-            });
-
-            fund.isApplicable = fund.criteria.filter(
-                criterion => criterion.is_valid
-            ).length == fund.criteria.length;
-
+            fund.vouchers = $ctrl.vouchers.filter(voucher => voucher.fund_id == fund.id);
+            fund.isApplicable = fund.criteria.filter(criterion => !criterion.is_valid).length == 0;
             fund.alreadyReceived = fund.vouchers.length !== 0;
-
-            fund.criterioaList = FundService.fundCriteriaList(
-                fund.criteria,
-                $ctrl.recordsByTypesKey
-            );
-
             fund.voucherStateName = 'vouchers';
 
             if (fund.vouchers[0] && fund.vouchers[0].address) {
@@ -181,8 +143,16 @@ let FundsComponent = function(
 
             return fund;
         });
+    };
 
-        $ctrl.organizations = Object.values($ctrl.funds.meta.organizations);
+    $ctrl.fetchVouchers = () => {
+        return $q((resolve, reject) => VoucherService.list().then((res) => {
+            resolve($ctrl.vouchers = res.data.data);
+        }, reject));
+    };
+
+    $ctrl.$onInit = function() {
+        $ctrl.updateFundsMeta();
 
         $ctrl.organizations.unshift({
             id: null,
@@ -191,12 +161,12 @@ let FundsComponent = function(
 
         $ctrl.form = FormBuilderService.build({
             q: $stateParams.q || '',
-            organization_id: $stateParams.organization_id || null
+            organization_id: $stateParams.organization_id || null,
+            per_page: $stateParams.per_page || 10,
         });
 
         $ctrl.showModalFilters = $stateParams.show_menu;
         $ctrl.display_type = $stateParams.display_type;
-        $ctrl.updateFiltersUsedCount();
     };
 };
 
@@ -205,14 +175,16 @@ module.exports = {
         funds: '<',
         records: '<',
         vouchers: '<',
-        recordTypes: '<',
+        organizations: '<',
     },
     controller: [
+        '$q',
         '$state',
         '$stateParams',
         'appConfigs',
         'FundService',
         'ModalService',
+        'VoucherService',
         'FormBuilderService',
         FundsComponent
     ],

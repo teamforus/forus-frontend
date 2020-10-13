@@ -20,10 +20,6 @@ mixin progress()
 //-top-navbar
 section: .wrapper 
     .block.block-sign_up: .block-wrapper
-        .sign_up-header: .sign_up-header-item.flex-grow: a.sign_up-header-item-back(ng-click="$ctrl.goToMain()")
-            em.mdi.mdi-chevron-left
-            | Terug
-        
         .block-title(i18n="fund_request.sign_up.header.main" i18n-vars="{fundname: ($ctrl.fund.name | capitalize)}")
 
         div(ng-if="$ctrl.state == 'fund_already_applied'")
@@ -193,41 +189,7 @@ section: .wrapper
                     .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
                         em.mdi.mdi-chevron-right.icon-right
                         | {{ 'fund_request.sign_up.pane.footer.next' | translate }}  
-        
-        //- Confirm net worth
-        div(ng-if="$ctrl.state == 'net_worth'")
-            +progress()
-            
-            .sign_up-pane
-                .sign_up-pane-header Bevestig uw inkomen en vermogen 
-                .sign_up-pane-body: .form
-                    p.sign_up-pane-text
-                        | Upload bewijsstukken om aan te tonen dat uw verzamelinkomen onder 
-                        a(href="#") de 110% norm
-                        |  valt en dat u aan de 
-                        a(href="#") vermogensvrijstelling
-                        | voldoet
-                    h4.sign_up-pane-heading Bevestig uw inkomen
-                    p.sign_up-pane-text
-                        | Upload bewijsstukken om aan te tonen dat u aan de gestelde inkomensgegevens voldoet.
-                    ul.sign_up-pane-list 
-                        li Bewijsstukken van uw vermogen (spaarrekening en bezittingen)
-                        li Overzicht van schulden
-                        li Bankafschriften van alle bank- en spaarrekeningen van de afgelopen 3 maanden
-                        li Loonstroken van uw werk en/of uitkering van de laatste drie maanden
-                        li Betaalbewijs zwemabonnement. Vermeld op het bewijs voor wie het abonnement is en hierbij de geboortedatum.
-                    
-                    file-uploader(files="$ctrl.netCriteria.files")
-                    .form-error(ng-repeat="err in $ctrl.netCriteria.errors.file" ng-bind="err")
-                
-                .sign_up-pane-footer: .row
-                    .col.col-lg-6.col-xs-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()")
-                        em.mdi.mdi-chevron-left.icon-left
-                        | {{ 'fund_request.sign_up.pane.footer.prev' | translate }}
-                    .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.submitNetWorth()")
-                        em.mdi.mdi-chevron-right.icon-right
-                        | {{ 'fund_request.sign_up.pane.footer.next' | translate }}          
-        
+
         div(
             ng-repeat="invalidCriteria in $ctrl.invalidCriteria track by $index"
             ng-if="$ctrl.state == 'criteria_' + $index")
@@ -291,6 +253,73 @@ section: .wrapper
                         em.mdi.mdi-chevron-right.icon-right
                         | {{ 'fund_request.sign_up.pane.footer.next' | translate }}          
         
+        //- Confirm net worth
+        div(ng-if="$ctrl.state == 'confirm_criteria'")
+            +progress()
+
+            mixin confirm_criteria_footer()
+                .sign_up-pane-footer: .row
+                    .col.col-lg-6.text-left &nbsp;
+                    .col.col-lg-6.text-right: .button.button-text.button-text-padless(
+                        ng-if="$ctrl.confirm_criteria"
+                        ng-click="$ctrl.submitConfirmCriteria()")
+                        span(i18n="fund_request.sign_up.pane.footer.next")
+                        em.mdi.mdi-chevron-right.icon-right
+            
+            .sign_up-pane(ng-if="$ctrl.fund.key == 'meedoen_2020'")
+                .sign_up-pane-header Bevestig uw inkomen
+                .sign_up-pane-body: .form
+                    p.sign_up-pane-text U staat op het punt om een meedoenregeling aan te vragen. U dient te verklaren dat u aan de voorwaarden voldoet:
+                    
+                    ul.sign_up-pane-list 
+                        li U bent 18 jaar of ouder
+                        li U bent geen student
+                        li U woont in Nijmegen
+                        li U voldoet aan de maximale inkomensgrens (netto) voor de Meedoen-regeling 2020:
+                    
+                    table.table.collapse-sides
+                        tr
+                            th Situatie
+                            th Vanaf 18 jaar tot uw pensioenleeftijd
+                            th Vanaf uw pensioenleeftijd
+                            th Indicatie Zorg met verblijf (vanaf 18 jaar)
+                        tr
+                            td Alleenstaand
+                            td € 1.166,-
+                            td € 1.305,-
+                            td € 375,-
+                        tr
+                            td Alleenstaande ouder
+                            td € 1.496,-
+                            td € 1.584,-
+                            td € 505,-
+                        tr
+                            td Getrouwd/samenwonend
+                            td € 1.661,-
+                            td € 1.760,-
+                            td € 590,-
+                    
+                    p.sign_up-pane-text 
+                        | #[strong Wat hoort bij het inkomen?] 
+                        | #[br]
+                        | Alle inkomsten uit werk, uitkering, pensioen, alimentatie, kamerhuur, kostgeld, heffingskorting belastingdienst. 
+                        | Wilt u weten op welke heffingskortingen u recht heeft? Kijk dan op de website van de Belastingdienst: #[a(href="http://www.belastingdienst.nl/") www.belastingdienst.nl]. #[br]
+                        | #[br]
+                        | #[strong Wat hoort niet bij het inkomen?] #[br]
+                        | Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen).
+                    
+                    p.sign_up-pane-text 
+                        | Door te verklaren dat u aan de voorwaarden voldoet, 
+                        | gaat u er mee akkoord dat uw aanvraag gecontroleerd zal worden, en dat het bedrag van €150,- 
+                        | zal worden teruggevorderd indien u achteraf niet blijkt te voldoen.
+
+                    p.sign_up-pane-text: ui-control-checkbox(
+                        ng-model="$ctrl.confirm_criteria"
+                        data-id="confirm_criteria"
+                        data-label="Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden")
+
+                +confirm_criteria_footer()
+
         //- Done
         div(ng-if="$ctrl.state == 'done'")
             //- Success
