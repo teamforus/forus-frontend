@@ -1,27 +1,18 @@
 let MeComponent = function(
+    $state,
     $scope,
     $stateParams,
     ModalService
 ) {
     let $ctrl = this;
 
-    $ctrl.showPopupOffices = function() {
-        ModalService.open('modalOffices', {});
-    };
+    $ctrl.showPopupOffices = () => ModalService.open('modalOffices', {});
+    $scope.openAuthCodePopup = () => ModalService.open('modalAuthCode', {});
+    $scope.openActivateCodePopup = () => $state.go('start');
 
     if ($stateParams.confirmed) {
-        ModalService.open('modalActivateCode', {});
+        $state.go('start');
     }
-
-    $scope.openAuthCodePopup = function () {
-        ModalService.open('modalAuthCode', {});
-    };
-
-    $scope.openActivateCodePopup = function () {
-        ModalService.open('modalActivateCode', {});
-    };
-
-
 };
 
 module.exports = {
@@ -31,6 +22,7 @@ module.exports = {
         button: '=',
     },
     controller: [
+        '$state',
         '$scope',
         '$stateParams',
         'ModalService',

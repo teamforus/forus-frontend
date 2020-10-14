@@ -34,7 +34,7 @@ let ProductComponent = function(
             if (fund.taken_by_partner) {
                 $ctrl.showPartnerModal();
             } else {
-                $state.go('fund-request', {
+                $state.go('fund-activate', {
                     fund_id: fund.id
                 });
             }

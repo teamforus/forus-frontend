@@ -1,3 +1,5 @@
+@import '../general/vars.scss';
+
 /*==========  Style Sheet - Vars  ==========*/
 
 // navbar
@@ -18,6 +20,10 @@ $tc-start-btn:       #fff;
 $btn-start-bg:       #157C68; 
 $btn-start-btn:      #157C68;
 $btn-start-border:   transparent;
+
+// sign up
+$sign_up_accent_color: #197e6a;
+$sign_up_accent_color_light: #9bddd0;
 
 // header background
 $bg-values:         url("../img/splash-top-b.png") no-repeat 100% 0;         

@@ -170,6 +170,13 @@
                 }
             }
 
+            .voucher-item-overlay {
+                position: absolute;
+                @include fill_parent();
+                display: none;
+                background: transparent;
+            }
+
             &:hover {
                 box-shadow: 0 10px 30px rgba(#000, .15);
             }
@@ -200,7 +207,7 @@
             margin-bottom: 30px;
 
             .block-title {
-                font: 700 40px $bf;
+                font: 700 20px $bf;
                 margin-bottom: 20px;
                 cursor: default;
             }
@@ -270,10 +277,16 @@
                 .voucher-overview {
                     display: none;
                 }
+                
+                .voucher-item-overlay {
+                    display: block;
+                }
 
                 &:last-child {
                     margin-bottom: 0;
                 }
+
+
             }
         }
     }
