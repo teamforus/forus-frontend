@@ -62,7 +62,7 @@ section.section.section-voucher-details: .wrapper
                                     .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
                                 .flex-col: button(type="submit").button.button-primary Toevoegen
                 
-                    .card-section.card-section-primary(ng-if="$ctrl.form && $ctrl.formSuccess")
+                    .card-section.card-section-primary(ng-if="!$ctrl.form && $ctrl.formSuccess")
                         .card-heading.card-heading-lg.card-heading-padless Bevestig uw e-mailadres 
                         .card-text 
                             | U hebt een bevestigingsbericht ontvangen op het e-mailadres dat u zojuist hebt doorgegeven. 
