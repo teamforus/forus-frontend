@@ -135,7 +135,6 @@ app.component('modalNotificationComponent', require('./components/Modals/ModalNo
 app.component('modalOfficesComponent', require('./components/Modals/ModalOfficesComponent'));
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
 app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCodeComponent'));
-app.component('modalActivateCodeComponent', require('./components/Modals/ModalActivateCodeComponent'));
 app.component('modalAuthCodeComponent', require('./components/Modals/ModalAuthCodeComponent'));
 app.component('modalShareVoucherComponent', require('./components/Modals/ModalShareVoucherComponent'));
 app.component('modalOpenInMeComponent', require('./components/Modals/ModalOpenInMeComponent'));

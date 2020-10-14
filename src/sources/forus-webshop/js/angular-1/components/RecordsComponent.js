@@ -1,7 +1,6 @@
 let RecordsComponent = function(
     $state,
-    appConfigs,
-    ModalService
+    appConfigs
 ) {
     let $ctrl = this;
 
@@ -10,12 +9,8 @@ let RecordsComponent = function(
     }
 
     $ctrl.appConfigs = appConfigs;
-
     $ctrl.recordsByTypesKey = {};
-
-    $ctrl.openActivateCodePopup = function () {
-        ModalService.open('modalActivateCode', {});
-    };
+    $ctrl.openActivateCodePopup = () => $state.go('start');
 
     $ctrl.$onInit = function() {
         $ctrl.recordTypes.forEach(function(recordType) {
@@ -32,7 +27,6 @@ module.exports = {
     controller: [
         '$state',
         'appConfigs',
-        'ModalService',
         RecordsComponent
     ],
     templateUrl: 'assets/tpl/pages/records.html'

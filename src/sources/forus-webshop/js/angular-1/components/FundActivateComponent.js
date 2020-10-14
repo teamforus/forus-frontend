@@ -22,8 +22,7 @@ let FundActivateComponent = function(
     $ctrl.signedIn = false;
     $ctrl.bsnIsKnown = false;
     $ctrl.appConfigs = appConfigs;
-    $ctrl.autoValidation = appConfigs.features.auto_validation;
-    
+
     $ctrl.startDigId = () => {
         DigIdService.startFundRequst($ctrl.fund.id).then(res => {
             document.location = res.data.redirect_url;
@@ -35,16 +34,18 @@ let FundActivateComponent = function(
     $ctrl.applyFund = function(fund) {
         return $q((resolve, reject) => {
             FundService.apply(fund.id).then(function(res) {
+                let voucher = res.data.data;
+
                 PushNotificationsService.success(sprintf(
                     'Succes! %s tegoed geactiveerd!',
-                    $ctrl.fund.name
+                    voucher.fund.name
                 ));
-                $state.go('voucher', res.data.data);
-                resolve(res.data);
+
+                resolve(voucher);
             }, res => {
                 PushNotificationsService.danger(res.data.message);
                 reject(res);
-            })
+            });
         });
     };
 
@@ -56,13 +57,19 @@ let FundActivateComponent = function(
         });
     }
 
+    $ctrl.getValidFunds = () => {
+        return $ctrl.getFunds(fund => ((fund.criteria.filter(
+            criterion => !criterion.is_valid
+        ).length == 0)));
+    };
+
     $ctrl.getApplicableFunds = () => {
         let alreadyAppliedFunds = $ctrl.vouchers.map(voucher => voucher.fund_id);
 
-        return $ctrl.getFunds(fund => ((fund.criteria.filter(
-            criterion => !criterion.is_valid
-        ).length == 0) && alreadyAppliedFunds.indexOf(fund.id) === -1));
-    }
+        return $ctrl.getValidFunds(fund => {
+            return alreadyAppliedFunds.indexOf(fund.id) === -1;
+        });
+    };
 
     $ctrl.redeemCode = (form, code) => {
         form.lock();
@@ -70,9 +77,22 @@ let FundActivateComponent = function(
 
         PrevalidationService.redeem(code).then(() => {
             $ctrl.getApplicableFunds().then((funds) => {
-                if (funds.length == 1) {
-                    return FundService.apply(fund.id).then((res) => {
-                        $state.go('voucher', res.data);
+                if (funds.length > 0) {
+                    let vouchers = [];
+
+                    Promise.all(funds.map((fund) => (new Promise((resolve, reject) => {
+                        $ctrl.applyFund(fund).then((voucher) => {
+                            vouchers.push(voucher);
+                            resolve(voucher);
+                        }, reject);
+                    })))).then(() => {
+                        if (vouchers.length == 0) {
+                            $state.go('funds');
+                        } else if (vouchers.length == 1) {
+                            $state.go('voucher', vouchers[0]);
+                        } else {
+                            $state.go('vouchers');
+                        }
                     });
                 } else {
                     $state.go('funds');
@@ -137,27 +157,70 @@ let FundActivateComponent = function(
             if ($stateParams.digid_success == 'signed_up' || $stateParams.digid_success == 'signed_in') {
                 PushNotificationsService.success('Succes! Ingelogd met DigiD.');
 
+                // user vouchers
                 let vouchers = $ctrl.vouchers;
+
+                // funds with valid criteria 
+                let availableFund = funds.filter(fund => ((fund.criteria.filter(
+                    criterion => !criterion.is_valid
+                ).length == 0)));
+
+                // list ids of funds with valid criteria 
+                let availableFundIds = availableFund.map(fund => fund.id);
+
+                // list ids of funds where user has vouchers
                 let takenFundIds = vouchers.map(voucher => voucher.fund_id);
-                let fundsNoVouchers = funds.filter(fund => takenFundIds.indexOf(fund.id) === -1);
+
+                // valid funds without vouchers
+                let fundsNoVouchers = availableFund.filter(fund => takenFundIds.indexOf(fund.id) === -1);
+
+                // list funds where user has vouchers (regardless of valid or invalid criteria)
                 let fundsWithVouchers = funds.filter(fund => takenFundIds.indexOf(fund.id) !== -1);
+
+                // list funds where user doesn't have vouchers, 
+                // not all criteria are valid and fund request is enabled/available
+                let fundsValidCriteria = funds.filter((fund) => {
+                    return $ctrl.fundRequestIsAvailable(funds) &&
+                        takenFundIds.indexOf(fund.id) === -1 &&
+                        availableFundIds.indexOf(fund.id) === -1;
+                });
+
+                // Requesting fund is disabled/not available, 
+                // Implementation doesn't have funds where identity has vouchers (didn't received one during sign-up)
+                if (!$ctrl.fundRequestIsAvailable($ctrl.fund) && fundsWithVouchers.length == 0) {
+                    $ctrl.state = 'error_digid_no_funds';
+                    return true;
+                }
 
                 if (fundsNoVouchers.length > 1 || (
                     (fundsNoVouchers.length === 1) && fundsNoVouchers[0].id != $ctrl.fund.id)) {
+                    // Multiple funds are valid and ready to request or only one, but not the current target
                     $state.go('funds');
                 } else if (fundsNoVouchers.length === 1) {
+                    // Only one fund is valid and it's the target fund, reload state to get redirected to fund request
                     $state.go('fund-activate', {
-                        fund_id: fundsNoVouchers[0].id
+                        fund_id: fundsNoVouchers[0].id,
+                        digid_success: undefined,
+                    }, {
+                        reload: true
                     });
                 } else if (fundsWithVouchers.length > 1) {
+                    // Identity has no valid funds, but has multiple vouchers (possible received during digid sign-up)
                     $state.go('vouchers');
                 } else if (fundsWithVouchers.length === 1) {
+                    // Identity has no valid funds, but has one voucher (possible received during digid sign-up)
                     $state.go('voucher', {
                         address: vouchers.filter(
                             voucher => voucher.fund_id === fundsWithVouchers[0].id
                         )[0].address,
                     });
+                } else if (fundsValidCriteria.map(fund => fund.id).indexOf($ctrl.fund.id).length != -1) {
+                    // The current fund is now available for request (possible because bsn is now available)
+                    $state.go('fund-request', {
+                        fund_id: $ctrl.fund.id
+                    });
                 } else {
+                    // None of above
                     $state.go('funds');
                 }
 
@@ -166,7 +229,7 @@ let FundActivateComponent = function(
         }
 
         return false;
-    }
+    };
 
     $ctrl.getFundVouchers = (fund, vouchers) => {
         return vouchers.filter(voucher => voucher.fund_id === fund.id);
@@ -180,7 +243,7 @@ let FundActivateComponent = function(
         }
 
         return false;
-    }
+    };
 
     $ctrl.prepareCriterionMeta = (pendingRequest, criteria) => {
         return criteria.map(criteria => {
@@ -196,30 +259,26 @@ let FundActivateComponent = function(
         });
     };
 
+    $ctrl.fundRequestIsAvailable = (fund) => {
+        return fund.allow_fund_requests && (!$ctrl.digidMandatory || ($ctrl.digidMandatory && $ctrl.bsnIsKnown));
+    };
+
     $ctrl.$onInit = function() {
         let voucher = $ctrl.getFirstFundVoucher($ctrl.fund, $ctrl.vouchers);
-        let pendingRequests = $ctrl.fundRequests.data.filter(request => request.state === 'pending');
+        let pendingRequests = $ctrl.fundRequests ? $ctrl.fundRequests.data.filter(request => {
+            return request.state === 'pending';
+        }) : [];
 
         $ctrl.signedIn = AuthService.hasCredentials();
         $ctrl.bsnIsKnown = $ctrl.identity && $ctrl.identity.bsn;
         $ctrl.digidAvailable = $ctrl.appConfigs.features.digid;
         $ctrl.digidMandatory = $ctrl.appConfigs.features.digid_mandatory;
-        
-        $ctrl.fundRequestAvailable = (!$ctrl.digidMandatory && $ctrl.fund.allow_fund_requests);
-    
-        if ($ctrl.autoValidation) {
-            $ctrl.fundRequestAvailable = $ctrl.fundRequestAvailable && $ctrl.bsnIsKnown;
-        }
+        $ctrl.autoValidation = $ctrl.fund.auto_validation;
+        $ctrl.fundRequestAvailable = $ctrl.fundRequestIsAvailable($ctrl.fund);
 
         // The user is not authenticated and have to go back to sign-up page
         if (!$ctrl.signedIn || !$ctrl.identity) {
             return $state.go('start');
-        }
-
-        if (appConfigs.features.auto_validation && $ctrl.bsnIsKnown) {
-            return $state.go('fund-request', {
-                fund_id: $ctrl.fund.id
-            });
         }
 
         // Voucher already received, go to the voucher
@@ -229,48 +288,39 @@ let FundActivateComponent = function(
 
         // The fund is already taken by identity partner
         if ($ctrl.fund.taken_by_partner) {
-            return ModalService.open('modalNotification', {
-                type: 'info',
-                title: 'Dit tegoed is al geactiveerd',
-                closeBtnText: 'Bevestig',
-                description: [
-                    "U krijgt deze melding omdat het tegoed is geactiveerd door een ",
-                    "famielid of voogd. De tegoeden zijn beschikbaar in het account ",
-                    "van de persoon die deze als eerste heeft geactiveerd."
-                ].join(''),
-            }, {
-                onClose: () => $state.go('home')
-            });
+            return $ctrl.state = 'taken_by_partner';
         }
 
-        $ctrl.getApplicableFunds().then(funds => {
+        $ctrl.getFunds(fund => fund).then(funds => {
             // The request has digid auth success or error meta
             if ($ctrl.hasDigiDResponse($stateParams) && $ctrl.handleDigiDResponse($stateParams, funds)) {
                 return;
             }
-    
-            // Initialize pre-validations pincode form control
+
+            // Initialize pre-validations pin-code form control
             if ($ctrl.fund.allow_prevalidations) {
                 $ctrl.initPrevalidationsForm();
             }
-    
+
             // Fund request already in progress
             if (pendingRequests[0] || false) {
                 $ctrl.fund.criteria = $ctrl.prepareCriterionMeta(pendingRequests[0], $ctrl.fund.criteria);
                 return $ctrl.state = 'fund_already_applied';
             }
-    
+
             // All the criteria are meet, request the voucher
             if ($ctrl.fund.criteria.filter(criterion => !criterion.is_valid).length == 0) {
-                return $ctrl.applyFund($ctrl.fund);
+                return $ctrl.applyFund($ctrl.fund).then(voucher => {
+                    $state.go('voucher', voucher);
+                });
             }
-    
+
             if ($ctrl.digidAvailable) {
                 $ctrl.state = 'digid_login';
             } else if ($ctrl.fund.allow_prevalidations) {
                 $ctrl.state = 'pincode_activate';
             } else if ($ctrl.fund.allow_fund_requests) {
-                return $state.go('fund-requests', {
+                return $state.go('fund-request', {
                     fund_id: $ctrl.fund.id
                 });
             } else {

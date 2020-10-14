@@ -13,10 +13,10 @@ top-navbar
             //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
 
             .header-download-apps
-                a(href="https://play.google.com/store/apps/details?id=io.forus.me").app-item.app-item-android
+                a(href="https://play.google.com/store/apps/details?id=io.forus.me" aria-label="Dowload Me-app").app-item.app-item-android
                     | {{ "meapp_index.download.android" | translate }}
                     em.mdi.mdi-arrow-right
-                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").app-item.app-item-ios
+                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" aria-label="Dowload Me-app").app-item.app-item-ios
                     | {{ "meapp_index.download.ios" | translate }}
                     em.mdi.mdi-arrow-right
 

@@ -20,7 +20,7 @@ mixin progress()
 //-top-navbar
 section: .wrapper 
     .block.block-sign_up: .block-wrapper
-        .block-title(i18n="fund_request.sign_up.header.main" i18n-vars="{fundname: ($ctrl.fund.name | capitalize)}")
+        .block-title(ng-if="$ctrl.state" i18n="fund_request.sign_up.header.main" i18n-vars="{fundname: ($ctrl.fund.name | capitalize)}")
 
         div(ng-if="$ctrl.state == 'fund_already_applied'")
             +progress()
@@ -44,6 +44,125 @@ section: .wrapper
                             i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")
                     span(translate="fund_request.sign_up.pane.fund_already_applied")    
 
+        //- Welcome screen
+        div(ng-if="$ctrl.state == 'welcome'")
+            +progress()
+
+            .sign_up-pane    
+                .sign_up-pane-header(translate="fund_request.sign_up.header.title_step_1")
+
+                .sign_up-pane-body
+                    .sign_up-pane-text.text-center(translate="fund_request.sign_up.subtitles.step_1")
+                    .sign_up-pane-media: img(ng-src="./assets/img/fund-request-welcome.png") 
+
+                .sign_up-pane-footer: .row
+                    .col.col-lg-6.col-xs-6.text-left: .button.button-text.button-text-padless
+                    .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
+                        | {{ 'fund_request.sign_up.pane.footer.next' | translate }}
+                        em.mdi.mdi-chevron-right.icon-right 
+
+        //- Fund request information
+        div(ng-if="$ctrl.state == 'auth'")
+            +progress()
+
+            .sign_up-pane
+                .sign_up-pane-header(translate="fund_request.sign_up.header.title_step_2")
+
+                .sign_up-pane-body(ng-if="!$ctrl.hasApp")
+                    .sign_up-pane-heading(translate="Vul uw e-mailadres in om verder te gaan")
+
+                    form(ng-submit="$ctrl.authForm.submit()").form: .row
+                        .form-group.col.col-lg-9
+                            label.form-label(i18n="popup_auth.input.mail")
+                            ui-control-email(ng-model="$ctrl.authForm.values.email" data-placeholder="bijv. info@info.nl")
+                            .form-error(ng-repeat="error in $ctrl.authForm.errors.email" ng-bind="error")
+                        .form-group.col.col-lg-3
+                            label.form-label.hide-sm &nbsp;
+                            button(
+                                ng-class="{'button-disabled': !$ctrl.authForm.values.email}"
+                                type="submit").button.button-primary.button-fill {{ "popup_auth.buttons.submit" | translate }}
+
+                    .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="fund_request.sign_up.labels.has_app").hide-sm
+
+                .sign_up-pane-body(ng-if="$ctrl.hasApp")
+                    .sign_up-pane-heading(translate='fund_request.sign_up.app.title')
+
+                    .sign_up-pane-auth
+                        .sign_up-pane-auth-content
+                            .sign_up-pane-text(
+                                ng-repeat="line in ('fund_request.sign_up.app.description_top' | translate | lines_to_array)"
+                                ng-bind="line")
+                            
+                            .sign_up-pane-auth-qr_code.show-sm
+                                qr-code(
+                                    ng-if="$ctrl.authToken" 
+                                    qr-value="$ctrl.authToken" 
+                                    qr-type="auth_token" 
+                                    qr-logo=src_prefix + "./assets/img/me-logo.png") 
+                            
+                            .sign_up-pane-text(
+                                ng-repeat="line in ('fund_request.sign_up.app.description_bottom' | translate | lines_to_array)"
+                                ng-bind="line")
+
+                            .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(false)" translate="fund_request.sign_up.labels.no_app").show-sm
+
+                            .sign_up-pane-auth-apps
+                                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" aria-label="Dowload Me-app").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
+                                a(href="https://play.google.com/store/apps/details?id=io.forus.me" aria-label="Dowload Me-app").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
+                        
+                        .sign_up-pane-auth-qr_code.hide-sm
+                            qr-code(
+                                ng-if="$ctrl.authToken" 
+                                qr-value="$ctrl.authToken" 
+                                qr-type="auth_token" 
+                                qr-logo=src_prefix + "./assets/img/me-logo.png") 
+
+                    .sign_up-pane-link.hide-sm(ng-click="$ctrl.setHasAppProp(false)" translate="fund_request.sign_up.labels.no_app")
+       
+        //- Log in email sent
+        div(ng-if="$ctrl.state == 'auth_email_sent'")
+            +progress()
+
+            //- For new users
+            .sign_up-pane(ng-if="$ctrl.authEmailRestoreSent")
+                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
+                .sign_up-pane-body
+                    .sign_up-email_sent
+                        .sign_up-email_sent-icon
+                            img(src=src_prefix + "./assets/img/sign_up-email.svg").sign_up-email_sent-icon-img
+                        .sign_up-email_sent-title(i18n="popup_auth.labels.join")
+                        .sign_up-email_sent-text(i18n="popup_auth.notifications.link")
+            
+            //- For existing users
+            .sign_up-pane(ng-if="$ctrl.authEmailSent")
+                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
+                .sign_up-pane-body
+                    .sign_up-email_sent
+                        .sign_up-email_sent-icon
+                            img(src=src_prefix + "./assets/img/sign_up-email.svg").sign_up-email_sent-icon-img
+                        .sign_up-email_sent-title Bevestig dat u toegang heeft tot dit e-mailadres.
+                        .sign_up-email_sent-text
+                            | U heeft een e-mail ontvangen op "#[span(ng-bind="$ctrl.authForm.values.email").text-primary]". Ga naar uw inbox en open de e-mail met het onderwerp "E-mail bevestigen" en klik in de e-mail op de blauwe knop.
+
+        //- DigiD login
+        div(ng-if="$ctrl.state == 'digid_login'")
+            +progress()
+            
+            .sign_up-pane
+                .sign_up-pane-header(i18n="fund_request.sign_up.header.title_log_digid") 
+                .sign_up-pane-body
+                    .sign_up-pane-text(translate="fund_request.sign_up.subtitles.log_digid")
+                    
+                    .sign_up-pane-digid
+                        button.digid-button(type="button" ng-click="$ctrl.startDigId()") Log in met DigiD
+                        img.digid-image(src=src_prefix + "./assets/img/icon-digid.svg")
+                
+                .sign_up-pane-footer(ng-if="!$ctrl.digidMandatory"): .row
+                    .col.col-lg-6.col-xs-6.text-left &nbsp;
+                    .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
+                        em.mdi.mdi-chevron-right.icon-right
+                        | {{ 'fund_request.sign_up.pane.footer.next' | translate }}  
+                        
         //- List the criteria
         div(ng-if="$ctrl.state == 'criteria'")
             +progress()
@@ -63,10 +182,7 @@ section: .wrapper
                             i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")
                 
                 .sign_up-pane-footer: .row
-                    .col.col-lg-6.col-xs-6.text-left(ng-if="!$ctrl.digidAvailable || $ctrl.bsnIsKnown") &nbsp; 
-                    .col.col-lg-6.col-xs-6.text-left(ng-if="$ctrl.digidAvailable && !$ctrl.bsnIsKnown"): .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()")
-                        em.mdi.mdi-chevron-left.icon-left
-                        | {{ 'fund_request.sign_up.pane.footer.prev' | translate }}
+                    .col.col-lg-6.col-xs-6.text-left &nbsp;
                     .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
                         em.mdi.mdi-chevron-right.icon-right
                         | {{ 'fund_request.sign_up.pane.footer.next' | translate }}  
