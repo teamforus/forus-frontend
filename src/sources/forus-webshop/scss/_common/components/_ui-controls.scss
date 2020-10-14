@@ -60,6 +60,7 @@ $tf: uppercase;
             text-align: center;
             transform: translate(0, -50%);
             pointer-events: none;
+            z-index: 2;
         }
 
         .form-control:not([type="radio"]):not([type="checkbox"]) {

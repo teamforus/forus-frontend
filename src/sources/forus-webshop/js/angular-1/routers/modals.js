@@ -17,10 +17,6 @@ module.exports = ['ModalRouteProvider', function(
         component: 'modalPinCodeComponent'
     });
 
-    ModalRouteProvider.modal('modalActivateCode', {
-        component: 'modalActivateCodeComponent'
-    });
-
     ModalRouteProvider.modal('modalAuthCode', {
         component: 'modalAuthCodeComponent'
     });
