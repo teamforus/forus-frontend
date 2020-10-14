@@ -3,7 +3,8 @@ let SignUpComponent = function(
     VoucherService,
     AuthService,
     IdentityService,
-    FormBuilderService
+    FormBuilderService,
+    appConfigs
 ) {
     let $ctrl = this;
     let authTokenSubscriber = AuthService.accessTokenSubscriber();
@@ -101,7 +102,7 @@ let SignUpComponent = function(
             let fundsNoVouchers = $ctrl.funds.filter(fund => takenFundIds.indexOf(fund.id) === -1);
             let fundsWithVouchers = $ctrl.funds.filter(fund => takenFundIds.indexOf(fund.id) !== -1);
 
-            if ($root.appConfigs.flags.activateFirstFund) {
+            if (appConfigs.flags.activateFirstFund && fundsNoVouchers.length > 1) {
                 $state.go('fund-activate', {
                     fund_id: fundsNoVouchers[0].id
                 });
@@ -150,6 +151,7 @@ module.exports = {
         'AuthService',
         'IdentityService',
         'FormBuilderService',
+        'appConfigs',
         SignUpComponent
     ],
     templateUrl: 'assets/tpl/pages/sign-up.html'
