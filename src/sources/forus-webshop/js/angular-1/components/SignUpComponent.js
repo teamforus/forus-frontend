@@ -101,7 +101,11 @@ let SignUpComponent = function(
             let fundsNoVouchers = $ctrl.funds.filter(fund => takenFundIds.indexOf(fund.id) === -1);
             let fundsWithVouchers = $ctrl.funds.filter(fund => takenFundIds.indexOf(fund.id) !== -1);
 
-            if (fundsNoVouchers.length > 1) {
+            if ($root.appConfigs.flags.activateFirstFund) {
+                $state.go('fund-activate', {
+                    fund_id: fundsNoVouchers[0].id
+                });
+            } else if (fundsNoVouchers.length > 1) {
                 $state.go('funds');
             } else if (fundsNoVouchers.length === 1) {
                 $state.go('fund-activate', {
