@@ -262,6 +262,61 @@ section: .wrapper
                         ng-click="$ctrl.submitConfirmCriteria()")
                         span(i18n="fund_request.sign_up.pane.footer.next")
                         em.mdi.mdi-chevron-right.icon-right
+
+            .sign_up-pane(ng-if="$ctrl.fund.key == 'bus_2020'")
+                .sign_up-pane-header Bevestig uw inkomen
+                .sign_up-pane-body: .form
+                    p.sign_up-pane-text U staat op het punt om een Busvoordeelpas aan te vragen. U dient te verklaren dat u aan de voorwaarden voldoet:
+                    
+                    ul.sign_up-pane-list 
+                        li U bent 18 jaar of ouder
+                        li U kunt geen gebruik maken van de OV-chipkaart voor studenten (het studentenreisproduct van de DUO)
+                        li U woont in Nijmegen
+                        li U bent geen inwoner van het AZC
+                        li In de tabel hieronder vindt u wat uw maximale inkomen mag zijn. Gebruik ter controle uw inkomen van de maand vóór de maand waarin u het abonnement aanvraagt. Voorbeeld: u vraagt op 3 december 2020 het abonnement aan. Dan vergelijkt u uw inkomen van november 2020 met het maximale inkomen dat voor u geldt
+                    
+                    table.table.collapse-sides
+                        tr
+                            th Situatie
+                            th Vanaf 18 jaar tot uw pensioenleeftijd
+                            th Vanaf uw pensioenleeftijd
+                            th Indicatie met verblijf (in zorginstelling of verpleeghuis tot pensioenleeftijd)
+                        tr
+                            td Alleenstaand
+                            td € 1.378,-
+                            td € 1.545,-
+                            td € 475,-
+                        tr
+                            td Alleenstaande ouder
+                            td € 1.768,-
+                            td € 1.872,-
+                            td € 690,-
+                        tr
+                            td Getrouwd of samenwonend
+                            td € 1.963,-
+                            td € 2.080,-
+                            td € 765,-
+                    
+                    p.sign_up-pane-text 
+                        | #[strong Wat hoort bij het inkomen?] 
+                        | #[br]
+                        | Alle inkomsten uit werk, uitkering, pensioen, alimentatie, kamerhuur, kostgeld, heffingskorting belastingdienst. 
+                        | Wilt u weten op welke heffingskortingen u recht heeft? Kijk dan op de website van de Belastingdienst: #[a(href="http://www.belastingdienst.nl/") www.belastingdienst.nl]. #[br]
+                        | #[br]
+                        | #[strong Wat hoort niet bij het inkomen?] #[br]
+                        | Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen).
+                    
+                    p.sign_up-pane-text 
+                        | Door te verklaren dat u aan de voorwaarden voldoet, 
+                        | gaat u er mee akkoord dat uw aanvraag gecontroleerd zal worden, en dat het bedrag van €15,- 
+                        | zal worden teruggevorderd indien u achteraf niet blijkt te voldoen.
+
+                    p.sign_up-pane-text: ui-control-checkbox(
+                        ng-model="$ctrl.confirm_criteria"
+                        data-id="confirm_criteria"
+                        data-label="Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden")
+
+                +confirm_criteria_footer()
             
             .sign_up-pane(ng-if="$ctrl.fund.key == 'meedoen_2020'")
                 .sign_up-pane-header Bevestig uw inkomen
@@ -344,7 +399,7 @@ section: .wrapper
                             .block-icon: .mdi.mdi-close
                             p.sign_up-pane-text.text-center 
                                 | Reden:
-                                span(ng-bind="$ctrl.errorReason")
+                            p.sign_up-pane-text.text-center(translate="$ctrl.errorReason")
                     
                             .text-center: .button.button-default(ng-click="$ctrl.finish()") Verlaat formulier
                         .form-group.col.col-lg-12: br 
