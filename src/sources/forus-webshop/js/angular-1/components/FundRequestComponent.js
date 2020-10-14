@@ -123,7 +123,7 @@ let FundRequestComponent = function(
         }
 
         $q.all($ctrl.invalidCriteria.map($ctrl.uploadCriteriaFiles)).then(criteria => {
-            let records = appConfigs.features.auto_validation ? $ctrl.invalidCriteria.map(criterion => ({
+            let records = $ctrl.fund.auto_validation ? $ctrl.invalidCriteria.map(criterion => ({
                 value: criterion.value,
                 record_type_key: criterion.record_type_key,
                 fund_criterion_id: criterion.id,
@@ -137,7 +137,7 @@ let FundRequestComponent = function(
             FundRequestService.store($ctrl.fund.id, {
                 records: records
             }).then(() => {
-                if (appConfigs.features.auto_validation) {
+                if ($ctrl.fund.auto_validation) {
                     $ctrl.applyFund($ctrl.fund);
                 } else {
                     $ctrl.step++;
@@ -218,19 +218,18 @@ let FundRequestComponent = function(
     $ctrl.buildSteps = () => {
         $ctrl.totalSteps = [];
 
-        for (let index = 0; index < ((welcomeSteps - 1) + (
-            appConfigs.features.auto_validation ? 1 : $ctrl.invalidCriteria.length
-        )); index++) {
+        for (let index = 0; index < ((welcomeSteps - 1) +
+            ($ctrl.fund.auto_validation ? 1 : $ctrl.invalidCriteria.length)); index++) {
             $ctrl.totalSteps.push(index + 1);
         }
     };
 
     $ctrl.step2state = (step) => {
         if (step == 1) {
-            return appConfigs.features.auto_validation ? 'confirm_criteria' : 'criteria';
+            return $ctrl.fund.auto_validation ? 'confirm_criteria' : 'criteria';
         }
 
-        if (appConfigs.features.auto_validation && step == 2) {
+        if ($ctrl.fund.auto_validation && step == 2) {
             return 'done';
         }
 
@@ -334,17 +333,28 @@ let FundRequestComponent = function(
         $ctrl.submitRequest();
     };
 
+    $ctrl.fundRequestIsAvailable = (fund) => {
+        return fund.allow_fund_requests && (!$ctrl.digidMandatory || ($ctrl.digidMandatory && $ctrl.bsnIsKnown));
+    };
+
     $ctrl.$onInit = function() {
-        let pendingRequests = $ctrl.fundRequests.data.filter(request => request.state === 'pending');
+        let pendingRequests = $ctrl.fundRequests ? $ctrl.fundRequests.data.filter(request => {
+            return request.state === 'pending';
+        }) : [];
 
         $ctrl.signedIn = AuthService.hasCredentials();
         $ctrl.bsnIsKnown = $ctrl.identity && $ctrl.identity.bsn;
         $ctrl.digidAvailable = $ctrl.appConfigs.features.digid;
         $ctrl.digidMandatory = $ctrl.appConfigs.features.digid_mandatory;
+        $ctrl.fundRequestAvailable = $ctrl.fundRequestIsAvailable($ctrl.fund);
 
         // The user is not authenticated and have to go back to sign-up page
-        if (!$ctrl.signedIn || !$ctrl.identity || (appConfigs.features.auto_validation && !$ctrl.bsnIsKnown)) {
+        if ((!$ctrl.signedIn || !$ctrl.identity) || ($ctrl.fund.auto_validation && !$ctrl.bsnIsKnown)) {
             return $state.go('start');
+        }
+
+        if (!$ctrl.fundRequestAvailable) {
+            return $ctrl.goToActivationComponent();
         }
 
         // The fund is already taken by identity partner
@@ -360,12 +370,7 @@ let FundRequestComponent = function(
         $ctrl.prepareRecordTypes();
 
         $ctrl.buildTypes().then(() => {
-            FundRequestService.index($ctrl.fund.id).then((res) => {
-                // Fund request already in progress
-                if (pendingRequests[0] || false) {
-                    return $ctrl.goToActivationComponent();
-                }
-
+            FundRequestService.index($ctrl.fund.id).then(() => {
                 if ($ctrl.invalidCriteria.length == 0) {
                     $ctrl.applyFund($ctrl.fund);
                 }
