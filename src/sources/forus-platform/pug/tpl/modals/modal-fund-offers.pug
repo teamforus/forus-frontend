@@ -13,14 +13,26 @@
                                 th(translate="modals.modal_funds_offers.labels.name")
                                 th(translate="modals.modal_funds_offers.labels.stock")
                                 th(translate="modals.modal_funds_offers.labels.price")
+                                
+                                th(translate="modals.modal_funds_offers.labels.subsidy_amount")
+                                th(translate="modals.modal_funds_offers.labels.subsidy_user_amount")
+                                th(translate="modals.modal_funds_offers.labels.subsidy_user_limit")
+                                th(translate="modals.modal_funds_offers.labels.subsidy_limit_total")
+
                                 th(translate="modals.modal_funds_offers.labels.status").text-right
 
                                 tr(ng-repeat="offer in $ctrl.offers.data")
                                     td(ng-bind="offer.name") 
-                                    td(ng-bind="offer.unlimited_stock ? 'Unlimited' : offer.total_amount")
+                                    td(ng-bind="offer.unlimited_stock ? 'Ongelimiteerd' : offer.stock_amount")
                                     td
                                         span.offer-price(ng-bind="offer.price | currency_format")
                                         span.offer-old-price(ng-bind="offer.old_price | currency_format")
+                                
+                                    td(ng-bind="offer.allowed ? (offer.subsidy_amount | currency_format) : '-'")
+                                    td(ng-bind="offer.allowed ? (offer.subsidy_user_amount | currency_format) : '-'")
+                                    td(ng-bind="offer.allowed ? offer.subsidy_user_limit : '-'")
+                                    td(ng-bind="offer.allowed ? offer.subsidy_limit_total : '-'")
+
                                     td.text-right
                                         .tag(
                                             ng-class="offer.allowed ? 'tag-success' : 'tag-default'"

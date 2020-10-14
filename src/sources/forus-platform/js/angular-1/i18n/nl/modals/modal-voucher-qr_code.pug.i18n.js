@@ -6,7 +6,8 @@ module.exports = {
         assign_to_identity: 'Toekennen aan account:'
     },
     placeholders: {
-        email: 'E-mail adres'
+        email: 'E-mailadres',
+        bsn: 'Burgerservicenummer',
     },
     info_assign: "Wanneer toegekend heeft het tegoed een nieuwe eigenaar. De nieuwe eigenaar kan het tegoed beheren via de webshop. Hierdoor verliest u eigenaarschap en daarmee de functies: via e-mail versturen en QR-code printen.",
     success: {

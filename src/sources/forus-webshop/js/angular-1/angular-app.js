@@ -15,6 +15,7 @@ app.controller('BaseController', require('./controllers/BaseController'));
 
 // Components
 app.component('homeComponent', require('./components/HomeComponent'));
+app.component('signUpComponent', require('./components/SignUpComponent'));
 app.component('signUpSelectionComponent', require('./components/SignUpSelectionComponent'));
 app.component('fundsComponent', require('./components/FundsComponent'));
 app.component('vouchersComponent', require('./components/VouchersComponent'));
@@ -28,6 +29,7 @@ app.component('providerComponent', require('./components/ProviderComponent'));
 app.component('voucherComponent', require('./components/VoucherComponent'));
 app.component('fundApplyComponent', require('./components/FundApplyComponent'));
 app.component('fundRequestComponent', require('./components/FundRequestComponent'));
+app.component('fundActivateComponent', require('./components/FundActivateComponent'));
 app.component('fundRequestClarificationComponent', require('./components/FundRequestClarificationComponent'));
 app.component('recordValidateComponent', require('./components/RecordValidateComponent'));
 app.component('recordValidationsComponent', require('./components/RecordValidationsComponent'));
@@ -94,8 +96,9 @@ app.directive('mobileFooter', require('./directives/MobileFooterDirective'));
 app.directive('webshops', require('./directives/WebshopsDirective'));
 app.directive('implementation', require('./directives/ImplementationDirective'));
 app.directive('fundCriterion', require('./directives/FundCriterionDirective'));
-app.directive('profileCard', require('./directives/ProfileCardDirective'));
+app.directive('profileMenu', require('./directives/ProfileMenuDirective'));
 app.directive('blockProducts', require('./directives/BlockProductsDirective'));
+app.directive('blockSubsidies', require('./directives/BlockSubsidiesDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
 app.directive('dashInputControl', require('./directives/DashInputControlDirective'));
@@ -163,6 +166,7 @@ app.filter('i18n', require('./filters/I18nFilter'));
 app.filter('duration', require('./filters/DurationFilter'));
 app.filter('duration_last_time', require('./filters/DurationLastTimeFilter'));
 app.filter('lines_to_array', require('./filters/LinesToArrayFilter'));
+app.filter('capitalize', require('./filters/CapitalizeFilter'));
 
 // Config
 app.config(require('./routers/printables'));

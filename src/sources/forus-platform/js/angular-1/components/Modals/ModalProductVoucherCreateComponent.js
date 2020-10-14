@@ -8,6 +8,28 @@ let ModalProductVoucherCreateComponent = function(
     $ctrl.voucherType = null;
     $ctrl.state = '';
     $ctrl.activationCodeSubmitted = false;
+    $ctrl.assignTypes = [{
+        key: null,
+        label: 'Niet toekennen',
+    }, {
+        key: 'email',
+        label: 'E-mailadres',
+    }, {
+        key: 'bsn',
+        label: 'Burgerservicenummer',
+    }];
+
+    $ctrl.assignType = $ctrl.assignTypes[0];
+
+    $ctrl.onAsignTypeChange = (assignType) => {
+        if (assignType.key === 'bsn') {
+            delete $ctrl.form.values.bsn;
+        }
+
+        if (assignType.key !== 'email') {
+            delete $ctrl.form.values.email;
+        }
+    };
 
     $ctrl.submitActivationCode = (activation_code) => {
         let code = activation_code ? activation_code : '';
@@ -59,6 +81,7 @@ let ModalProductVoucherCreateComponent = function(
             fund_id: $ctrl.fund.id,
         }, (form) => {
             form.lock();
+            form.values.assign_by_type = $ctrl.assignType.key;
 
             VoucherService.store(
                 $ctrl.organization.id,
@@ -83,7 +106,8 @@ let ModalProductVoucherCreateComponent = function(
         $ctrl.fund = $ctrl.modal.scope.fund || null;
 
         ProductService.listAll({
-            fund_id: $ctrl.fund.id
+            fund_id: $ctrl.fund.id,
+            no_price: 0,
         }).then((res) => {
             $ctrl.products = res.data.data.map(product => {
                 return {

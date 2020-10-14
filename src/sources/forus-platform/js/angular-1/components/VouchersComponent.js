@@ -147,7 +147,6 @@ let VouchersComponent = function(
             }))
         ).then((res => {
             $ctrl.vouchers = res.data;
-
             $ctrl.getUnassignedQRCodes(query);
         }));
     };

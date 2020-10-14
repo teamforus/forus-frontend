@@ -6,14 +6,14 @@
         .voucher-name(ng-bind="voucherCard.title")
         //-.voucher-read_more Uw tegoed is:
         .voucher-organization(ng-bind="voucherCard.subtitle")
-        .voucher-value(ng-if="voucherCard.type == 'regular'" ng-bind="voucherCard.amount | currency_format")
+        .voucher-value(ng-if="(voucherCard.fund.type == 'budget') && (voucherCard.type == 'regular')" ng-bind="voucherCard.amount | currency_format")
         .voucher-status-label
             .label.label-danger(ng-if="voucher.expired" i18n="voucher.voucher_card.expired")
         .voucher-cancel-label: a(
             ng-if="voucher.expired && voucherCard.transactions.length == 0 && voucherCard.type == 'product' && voucherCard.returnable"
             ng-click="deleteVoucher($event, voucher)" 
             i18n="voucher.voucher_card.delete")
-    
+
     //- regular voucher
     .voucher-overview(ng-if="!voucherCard.disabled && voucherCard.type == 'regular'")
         .voucher-overview-item.voucher-open

@@ -17,18 +17,20 @@
                         id="create_voucher")
                         em.mdi.mdi-plus-circle.icon-start 
                         span(i18n="vouchers.buttons.add_new")
+                    
                     .button.button-primary(
                         ng-click="$ctrl.uploadVouchersCsv()"
                         id="voucher_upload_csv"
                         ng-if="!$root.appConfigs.hide_vouchers_csv && !$ctrl.fundClosed")
                         em.mdi.mdi-upload.icon-start 
                         span(i18n="vouchers.buttons.upload_csv")
+                    
                     .button.button-primary(
                         ng-if="!$ctrl.fundClosed && $ctrl.hasExportableQRCodes"
                         ng-click="$ctrl.exportUnassignedQRCodes()")
-
                         em.mdi.mdi-file-export.icon-start
                         | {{ "vouchers.buttons.export" | translate }}
+                    
                     .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                         em.mdi.mdi-close.icon-start 
                         span(i18n="vouchers.buttons.clear_filter")
@@ -91,7 +93,7 @@
                         table.table
                             tr
                                 th(i18n="vouchers.labels.note")
-                                th(i18n="vouchers.labels.amount")
+                                th(ng-if="$ctrl.fund.type == 'budget'" i18n="vouchers.labels.amount")
                                 th(i18n="vouchers.labels.created_date").nowrap
                                 th(ng-if="!$ctrl.fundClosed" i18n="vouchers.labels.expire_date").nowrap
                                 th(i18n="vouchers.labels.fund")
@@ -105,7 +107,7 @@
                                     ng-class="{active: voucher.showTooltip}")
                                     .tooltip-content(ng-if="voucher.showTooltip" click-outside="$ctrl.hideTooltip($event, voucher)")
                                         .tooltip-text(ng-bind="(voucher.note || '-') | str_limit:128" title="{{ voucher.note }}")
-                                td(ng-bind="voucher.amount | currency_format")
+                                td(ng-if="$ctrl.fund.type == 'budget'" ng-bind="voucher.amount | currency_format")
                                 td(ng-bind="voucher.created_at_locale")
                                 td(ng-if="!$ctrl.fundClosed" ng-bind="voucher.expire_at_locale")
                                 td(ng-bind="voucher.fund.name")

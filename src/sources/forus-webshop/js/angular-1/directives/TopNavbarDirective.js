@@ -22,11 +22,17 @@ let TopNavbarDirective = function(
 
     $scope.startFundRequest = () => {
         if ($ctrl.funds.length > 0) {
+            $state.go('start');
+        }
+    };
+
+    /* $scope.startFundRequest = () => {
+        if ($ctrl.funds.length > 0) {
             $state.go('fund-request', {
                 fund_id: $ctrl.funds[0].id
             });
         }
-    };
+    }; */
 
     $scope.openAuthPopup = function () {
         ModalService.open('modalAuth', {});

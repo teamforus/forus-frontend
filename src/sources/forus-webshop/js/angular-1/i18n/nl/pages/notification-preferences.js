@@ -1,5 +1,5 @@
 module.exports = {
-    title_preferences: 'Notificatie voorkeuren',
+    title_preferences: 'Notificatievoorkeuren',
     title_email_preferences: 'E-mail notificaties',
     title_push_preferences: 'Push notificaties via app',
     subscribe_desc: 'Met dit e-mailadres "{{email}}" bent u momenteel voor alle notificaties uitgeschreven. Wanneer u notificaties wilt ontvangen, kunt u dit hieronder per notificatie instellen.',
@@ -33,8 +33,8 @@ module.exports = {
                 description: 'Ontvang een e-mail notificatie wanneer het saldo voor een fonds lager is dan de vooraf ingestelde grens.'
             },
             fund_expires: {
-                title: 'Herinnering einddatum voucher',
-                description: 'Ontvang een e-mail notificatie 1 maand voor de einddatum van uw voucher.'
+                title: 'Herinnering einddatum tegoed',
+                description: 'Ontvang een e-mail notificatie 1 maand voor de einddatum van uw tegoed.'
             },
             product_added: {
                 title: 'Nieuwe aanbieding toegevoegd',
@@ -81,8 +81,8 @@ module.exports = {
                 description: 'Ontvang een e-mail notificatie wanneer een betaling is gelukt.'
             },
             send_voucher: {
-                title: 'Stuur een voucher naar uzelf',
-                description: 'Ontvang een e-mail notificatie wanneer u een voucher naar uzelf verstuurt.'
+                title: 'Stuur een tegoed naar uzelf',
+                description: 'Ontvang een e-mail notificatie wanneer u een tegoed naar uzelf verstuurt.'
             },
             share_product: {
                 title: 'Reservering aanbieding gedeeld',
@@ -91,8 +91,8 @@ module.exports = {
         },
         voucher: {
             assigned: {
-                title: 'U nieuwe voucher geactiveerd of toegekend.',
-                description: 'Ontvang een push notificatie wanneer u een voucher activeert of toegekend krijgt.'
+                title: 'U nieuwe tegoed geactiveerd of toegekend.',
+                description: 'Ontvang een push notificatie wanneer u een tegoed activeert of toegekend krijgt.'
             },
             transaction: {
                 title: 'Betaling gelukt',

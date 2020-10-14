@@ -3,15 +3,15 @@ module.exports = {
     header: {
         product: {
             title: "Reserveringen",
-            description: "Verzilver de aanbiedingsvoucher bij de bijbehorende aanbieder. Open de voucher om te zien bij welke aanbieder u de voucher kan verzilveren.",
+            description: "Verzilver de reservering bij de bijbehorende aanbieder. Open het tegoed om te zien bij welke aanbieder u de reservering kan verzilveren.",
         },
         regular: {
-            title: "Budgetten",
-            description: "Met deze budget vouchers kan u naar de aangesloten aanbieders. Open de voucher om te zien bij welke aanbieders u het budget op de voucher kan uitgeven.",
+            title: "Tegoeden",
+            description: "Met deze tegoeden kan u naar de aangesloten aanbieders. Open het tegoed om te zien bij welke aanbieders u het saldo op het tegoed kan uitgeven.",
         },
         expired: {
-            title: "Verlopen vouchers",
-            description: "Deze vouchers zijn verlopen en kunnen niet meer gebruikt worden. Open de voucher om meer details in te zien.",
+            title: "Verlopen tegoeden",
+            description: "Deze tegoeden zijn verlopen en kunnen niet meer gebruikt worden. Open de voucher om meer details in te zien.",
         }
     },
     labels: {

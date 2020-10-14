@@ -1,29 +1,34 @@
-let FundService = function(ApiRequest) {
+const sprintf = require('sprintf-js').sprintf;
+
+const FundService = function(ApiRequest) {
     let uriPrefix = '/platform/organizations/';
 
     return new (function() {
-        this.list = function(organization_id, data = {}) {
-            if (organization_id) {
-                return ApiRequest.get(
-                    uriPrefix + organization_id + '/funds',
-                    data || {}
-                );
+        this.list = function(organization_id, query = {}) {
+            if (!organization_id) {
+                return this.listPublic(query);
             }
-            return ApiRequest.get('/platform/funds', data || {});
+
+            return ApiRequest.get(sprintf(uriPrefix + '%s/funds', organization_id), query);
+        };
+        
+        this.listPublic = function(query = {}) {
+            return ApiRequest.get(sprintf('/platform/funds'), query);
         };
 
-        this.store = function(organization_id, values) {
+        this.store = function(organization_id, data) {
             return ApiRequest.post(
-                uriPrefix + organization_id + '/funds',
-                this.apiFormToResource(values)
+                sprintf(uriPrefix + '%s/funds', organization_id),
+                this.apiFormToResource(data)
             );
         };
 
-        this.update = function(organization_id, id, values) {
-            return ApiRequest.patch(
-                uriPrefix + organization_id + '/funds/' + id,
-                this.apiFormToResource(values)
-            );
+        this.update = function(organization_id, fund_id, data) {
+            return ApiRequest.patch(sprintf(
+                uriPrefix + '%s/funds/%s',
+                organization_id,
+                fund_id
+            ), this.apiFormToResource(data));
         };
 
         this.updateCriteria = function(organization_id, id, criteria) {
@@ -32,87 +37,171 @@ let FundService = function(ApiRequest) {
             });
         };
 
-        this.read = function(organization_id, id) {
-            return ApiRequest.get(
-                uriPrefix + organization_id + '/funds/' + id
-            );
+        this.read = function(organization_id, fund_id, query = {}) {
+            return ApiRequest.get(sprintf(
+                uriPrefix + '%s/funds/%s',
+                organization_id,
+                fund_id
+            ), query);
         };
 
-        this.readPublic = function(fund_id) {
-            return ApiRequest.get('/platform/funds/' + fund_id);
+        this.readPublic = function(fund_id, query = {}) {
+            return ApiRequest.get(sprintf('/platform/funds/%s', fund_id), query);
         };
 
-        this.readFinances = function(organization_id, id, data) {
-            return ApiRequest.get(
-                uriPrefix + organization_id + '/funds/' + id + '/finances',
-                data || {}
-            );
+        this.readFinances = function(organization_id, fund_id, query = {}) {
+            return ApiRequest.get(sprintf(
+                uriPrefix + '%s/funds/%s/finances',
+                organization_id,
+                fund_id
+            ), query);
         };
 
-        this.listProviders = function(organization_id, fund_id, state, query) {
-            query = query ? query : {};
+        this.listProviders = function(organization_id, fund_id, state, query = {}) {
             query.state = state;
 
-            return ApiRequest.get(
-                uriPrefix + organization_id + '/funds/' + fund_id + '/providers', query
-            );
+            return ApiRequest.get(sprintf(
+                uriPrefix + '%s/funds/%s/providers',
+                organization_id,
+                fund_id
+            ), query);
         };
 
-        this.readProvider = function(organization_id, fund_id, provider_id) {
-            return ApiRequest.get(
-                uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + provider_id
-            );
+        this.readProvider = function(organization_id, fund_id, provider_id, query) {
+            return ApiRequest.get(sprintf(
+                uriPrefix + '%s/funds/%s/providers/%s',
+                organization_id,
+                fund_id,
+                provider_id
+            ), query);
+        };
+
+        this.listProviderProducts = function(organization_id, fund_id, provider_id, query = {}) {
+            return ApiRequest.get(sprintf(
+                uriPrefix + '%s/funds/%s/providers/%s/products',
+                organization_id,
+                fund_id,
+                provider_id
+            ), query);
+        };
+
+        this.getroviderProduct = function(organization_id, fund_id, provider_id, product_id, query = {}) {
+            return ApiRequest.get(sprintf(
+                uriPrefix + '%s/funds/%s/providers/%s/products/%s',
+                organization_id,
+                fund_id,
+                provider_id,
+                product_id,
+            ), query);
         };
 
         this.readProviderChats = function(organization_id, fund_id, provider_id, query = {}) {
-            return ApiRequest.get(
-                uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + provider_id + '/chats',
-                query
-            );
+            return ApiRequest.get(sprintf(
+                uriPrefix + '%s/funds/%s/providers/%s/products',
+                organization_id,
+                fund_id,
+                provider_id
+            ), query);
         };
 
+        /**
+         * Get provider transactions lsit
+         * 
+         * @param {number} organization_id 
+         * @param {number} fund_id 
+         * @param {number} provider_id 
+         * @param {object} query 
+         * @returns {Promise}
+         */
         this.readProvidersTransactions = function(
             organization_id,
             fund_id,
             provider_id,
-            filters = {}
+            query = {}
         ) {
-            return ApiRequest.get(
-                uriPrefix + organization_id + '/funds/' + fund_id +
-                '/providers/' + provider_id + '/transactions',
-                filters
-            );
+            return ApiRequest.get(sprintf(
+                uriPrefix + '%s/funds/%s/providers/%s/transactions',
+                organization_id,
+                fund_id,
+                provider_id
+            ), query);
         };
 
+        /**
+         * Get provider transaction
+         * 
+         * @param {number} organization_id 
+         * @param {number} fund_id 
+         * @param {number} provider_id 
+         * @param {number} transaction_id 
+         * @param {object} query 
+         * @returns {Promise}
+         */
+        this.readProvidersTransaction = function(
+            organization_id,
+            fund_id,
+            provider_id,
+            transaction_id,
+            query = {}
+        ) {
+            return ApiRequest.get(sprintf(
+                uriPrefix + '%s/funds/%s/providers/%s/transactions/%s',
+                organization_id,
+                fund_id,
+                provider_id,
+                transaction_id
+            ), query);
+        };
+
+        /**
+         * Export provider transactions lsit
+         * 
+         * @param {number} organization_id 
+         * @param {number} fund_id 
+         * @param {number} provider_id 
+         * @param {object} query 
+         * @returns {Promise}
+         */
         this.exportProvidersTransactions = function(
             organization_id,
             fund_id,
             provider_id,
-            filters = {}
+            query = {}
         ) {
-            return ApiRequest.get(
-                uriPrefix + organization_id + '/funds/' + fund_id +
-                '/providers/' + provider_id + '/transactions/export',
-                filters, {}, true, (_cfg) => {
-                    _cfg.responseType = 'arraybuffer';
-                    _cfg.cache = false;
+            return ApiRequest.get(sprintf(
+                uriPrefix + '%s/funds/%s/providers/%s/transactions/export',
+                organization_id,
+                fund_id,
+                provider_id
+            ), query, {}, true, (_cfg) => {
+                _cfg.responseType = 'arraybuffer';
+                _cfg.cache = false;
 
-                    return _cfg;
-                }
-            );
+                return _cfg;
+            });
         };
 
-        this.readProvidersTransaction = function(organization_id, fund_id, provider_id, transaction_id) {
-            return ApiRequest.get(
-                uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + provider_id + '/transactions/' + transaction_id
-            );
-        };
-
-        this.readProvidersFinances = function(organization_id, fund_id, provider_id, data) {
-            return ApiRequest.get(
-                uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + provider_id + '/finances',
-                data
-            );
+        /**
+         * Get provider finances overview
+         * 
+         * @param {number} organization_id 
+         * @param {number} fund_id 
+         * @param {number} provider_id 
+         * @param {object} query 
+         * @returns {Promise}
+         */
+        this.readProvidersFinances = function(
+            organization_id,
+            fund_id,
+            provider_id,
+            query = {}
+        ) {
+            return ApiRequest.get(sprintf(
+                uriPrefix + '%s/funds/%s/providers/%s/finances',
+                organization_id,
+                fund_id,
+                provider_id
+            ), query);
         };
 
         this.dismissProvider = function(organization_id, fund_id, id) {
@@ -161,6 +250,7 @@ let FundService = function(ApiRequest) {
 
         this.apiResourceToForm = function(apiResource) {
             return {
+                type: apiResource.type,
                 criteria: apiResource.criteria,
                 formula_products: apiResource.formula_products || [],
                 name: apiResource.name,

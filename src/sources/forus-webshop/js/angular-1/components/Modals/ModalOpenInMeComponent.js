@@ -20,7 +20,7 @@ let ModalOpenInMeComponent = function(
                 type: 'me_app_download_link'
             }).then((res) => {
                 $ctrl.sentSms = true;
-            }, (res) => {
+            }, (res) => {          
                 $ctrl.phoneForm.unlock();
                 $ctrl.phoneForm.errors = res.data.errors;
 
@@ -44,10 +44,11 @@ let ModalOpenInMeComponent = function(
                 $ctrl.close();
 
                 ModalService.open('modalNotification', {
-                    type: 'action-result',
-                    title: 'popup_auth.labels.join',
-                    description: 'popup_auth.notifications.confirmation',
-                    confirmBtnText: 'popup_auth.notifications.confirmation'
+                    type: 'confirm',
+                    title: 'popup_auth.pin_code.confirmation.title',
+                    description: 'popup_auth.pin_code.confirmation.description',
+                    cancelBtnText: 'popup_auth.pin_code.confirmation.buttons.try_again',
+                    confirmBtnText: 'popup_auth.pin_code.confirmation.buttons.confirm'
                 });
 
             }, (res) => {
@@ -56,7 +57,7 @@ let ModalOpenInMeComponent = function(
 
                 if (res.status == 404) {
                     form.errors = {
-                        auth_code: ["Unknown code."]
+                        auth_code: ["Onbekende code."]
                     };
                 }
             });

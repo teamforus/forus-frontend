@@ -14,26 +14,26 @@
                 .auth-form-input
                     input(ng-model="$ctrl.signInEmailForm.values.email" type="email" placeholder="E-mail").form-control.email-auth
                     .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.email" ng-bind="error")
-                button(type="submit").button.button-primary Login
+                div: button(type="submit").button.button-primary Login
 
             .auth-digid(ng-if="$ctrl.digidAvailable"): a(ng-click="$ctrl.useDigId()").auth-digid-link
-                | Vergeten welk emailadres u heeft gebruikt?
+                | Vergeten welk e-mailadres u heeft gebruikt?
                 em.mdi.mdi-chevron-right
 
             .auth-qr_code.hidden-xs
                 .qr_code-container
                     .qr_code-description
                         .auth-title Login met Me-app
-                        | Scan de QR code aan de rechterzijde met de QR-scanner in de me app. 
+                        | Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app. 
                         | #[br] #[br]
-                        | De me app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.
+                        | De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.
                         | #[br] #[br]
 
                         .qr_code-download-app
-                            a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").download-link
+                            a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank" aria-label="Dowload Me-app").download-link
                                 img(src="./assets/img/icon-app-ios.svg")
                             a(href="https://play.google.com/store/apps/details?id=io.forus.me")
-                                img(src="./assets/img/icon-app-android.svg").download-link
+                                img(src="./assets/img/icon-app-android.svg" aria-label="Dowload Me-app").download-link
                     .qr_code-block: qr-code(
                         ng-if="$ctrl.qrValue" 
                         qr-value="$ctrl.qrValue" 
@@ -42,7 +42,7 @@
         .block.block-auth-widget(ng-if="$ctrl.restoreWithDigId")
             .auth-digid-form
                 .auth-title 
-                    | Vergeten welk emailadres u heeft gebruikt?
+                    | Vergeten welk e-mailadres u heeft gebruikt?
                     br
                 .auth-subtitle 
                     | Herstel uw account door opnieuw in te loggen met DigiD

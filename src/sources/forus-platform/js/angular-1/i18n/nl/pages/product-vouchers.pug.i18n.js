@@ -20,6 +20,7 @@ module.exports = {
         add_new: "Aanmaken",
         upload_csv: "Upload bulkbestand",
         download_csv: "Download voorbeeld bulkbestand",
+        export: "Export",
         clear_filter: "Wis filter"
     },
     csv: {
