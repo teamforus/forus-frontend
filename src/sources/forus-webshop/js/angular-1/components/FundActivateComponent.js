@@ -187,7 +187,7 @@ let FundActivateComponent = function(
 
                 // Requesting fund is disabled/not available, 
                 // Implementation doesn't have funds where identity has vouchers (didn't received one during sign-up)
-                if (!$ctrl.fundRequestIsAvailable($ctrl.fund) && fundsWithVouchers.length == 0) {
+                if (!$ctrl.fundRequestIsAvailable($ctrl.fund) && fundsWithVouchers.length == 0 && fundsNoVouchers.length == 0) {
                     $ctrl.state = 'error_digid_no_funds';
                     return true;
                 }
