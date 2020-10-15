@@ -113,7 +113,7 @@
                                 th(translate="vouchers.labels.qr_code").nowrap.text-right
 
                             tr(ng-repeat="voucher in $ctrl.vouchers.data")
-                                td(ng-bind="voucher.identity_bsn")
+                                td(ng-bind="voucher.identity_bsn || voucher.relation_bsn")
                                 td(ng-bind="'vouchers.labels.source_' + voucher.source | translate")
                                 td(ng-if="$ctrl.fund.type == 'budget'" ng-bind="voucher.amount | currency_format").nowrap
                                 td: em.td-icon.mdi.mdi-information.block.block-tooltip-details.pull-left(
