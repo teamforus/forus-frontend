@@ -4,7 +4,7 @@ module.exports = {
     },
     labels: {
         amount: "Bedrag",
-        identity_bsn: "Assigned to",
+        identity_bsn: "Toegekend aan",
         source: "Aangemaakt door",
         created_date: "Aangemaakt op",
         expire_date: "Geldig tot",
