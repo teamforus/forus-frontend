@@ -108,7 +108,7 @@
                                 th(translate="product_vouchers.labels.qr_code").nowrap.text-right
 
                             tr(ng-repeat="voucher in $ctrl.vouchers.data")
-                                td(ng-bind="voucher.identity_bsn")
+                                td(ng-bind="voucher.identity_bsn || voucher.relation_bsn")
                                 td(ng-bind="'vouchers.labels.source_' + voucher.source | translate")
                                 td(ng-bind="voucher.product.name")
                                 td: em.td-icon.mdi.mdi-information.block.block-tooltip-details.pull-left(
