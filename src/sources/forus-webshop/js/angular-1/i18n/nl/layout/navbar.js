@@ -20,6 +20,7 @@ module.exports = {
         authorize:"Log in op de app",
         logout:"Uitloggen",
         products:"Aanbod",
+        subsidies:"Acties",
         funds: "Aanvragen",
         providers: "Aanbieders",
 
