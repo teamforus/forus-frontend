@@ -22,7 +22,7 @@ let ProductVouchersComponent = function(
 
     $ctrl.sources = [{
         value: 'all',
-        name: 'All'
+        name: 'Alle'
     }, {
         value: 'user',
         name: 'Gebruiker'
