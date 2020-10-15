@@ -57,9 +57,9 @@ section.section.section-product: .wrapper
                             .fund-item-limit-value(ng-bind="fund.limit_available")
                         .fund-item-apply(
                             ng-click="$ctrl.requestFund(fund)"
-                            ng-if="fund.type == 'subsidies' ? !$ctrl.isApplicableSubsidy : !$ctrl.isApplicable") Aanvragen
+                            ng-if="fund.type == 'subsidies' ? !fund.meta.isApplicableSubsidy : !fund.meta.isApplicable") Aanvragen
                         .fund-item-price(
-                            ng-if="!$ctrl.product.no_price && (fund.type == 'subsidies' ? $ctrl.isApplicableSubsidy : $ctrl.isApplicable)"
+                            ng-if="!$ctrl.product.no_price && (fund.type == 'subsidies' ? fund.meta.isApplicableSubsidy : fund.meta.isApplicable)"
                             ng-bind="fund.price == 0 ? 'Gratis' : ((fund.type == 'subsidies' ? fund.price : $ctrl.product.price) | currency_format)")
 
         .block.block-info-card

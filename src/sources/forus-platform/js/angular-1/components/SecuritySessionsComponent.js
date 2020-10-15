@@ -1,5 +1,6 @@
 let SecuritySessionsComponent = function(
     $state,
+    ModalService,
     SessionService,
 ) {
     let $ctrl = this;
@@ -44,18 +45,26 @@ let SecuritySessionsComponent = function(
     };
 
     $ctrl.terminateSession = (session) => {
-        SessionService.terminate(session.uid).then(res => {
-            $ctrl.loadSessions();
-        }, () => {
-            $state.reload();
+        ModalService.open('modalNotification', {
+            type: 'confirm',
+            title: 'Beëindig sessie',
+            description: 'De sessie beëindigen kan er voor zorgen dat u uitgelogd raakt, wilt u doorgaan?',
+            confirm: () => SessionService.terminate(session.uid).then(
+                () => $ctrl.loadSessions(),
+                () => $state.reload()
+            ),
         });
     };
 
     $ctrl.terminateAllSessions = () => {
-        SessionService.terminateAll().then(() => {
-            $ctrl.loadSessions();
-        }, () => {
-            $state.reload();
+        ModalService.open('modalNotification', {
+            type: 'confirm',
+            title: 'Beëindig alle sessies',
+            description: 'U wordt nu uitgelogd op alle apparaten, wilt u doorgaan?',
+            confirm: () => SessionService.terminateAll().then(
+                () => $ctrl.loadSessions(),
+                () => $state.reload()
+            ),
         });
     };
 
@@ -67,6 +76,7 @@ let SecuritySessionsComponent = function(
 module.exports = {
     controller: [
         '$state',
+        'ModalService',
         'SessionService',
         SecuritySessionsComponent
     ],

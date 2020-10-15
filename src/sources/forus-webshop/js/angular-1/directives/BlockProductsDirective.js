@@ -31,12 +31,18 @@ let BlockProductsDirective = async function(
             fund_id: $scope.fund.id,
         } : {}), {
             fund_type: 'budget',
-        })).then((res) => $scope.products = res.data);
+        })).then((res) => $scope.products = {
+            data: res.data.data.map(product => ({...product, ...{
+                isDiscounted: product.old_price && (product.price != product.old_price)
+            }}))
+        });
     } else {
         ProductService.list({
             fund_type: 'budget',
         }).then((res => {
-            $scope.products = res.data.data;
+            $scope.products = res.data.data.map(product => ({...product, ...{
+                isDiscounted: product.old_price && (product.price != product.old_price)
+            }}));
 
             ProductCategoryService.list({
                 parent_id: 'null',
@@ -44,10 +50,8 @@ let BlockProductsDirective = async function(
             }).then(res => {
                 $scope.productCategories = res.data.data;
                 $scope.onReset($scope.filters);
-    
-                if ($scope.productCategories.filter(category => {
-                        return category.id == null;
-                    }).length == 0) {
+
+                if ($scope.productCategories.filter(category => category.id == null).length == 0) {
                     $scope.productCategories.unshift({
                         name: 'Selecteer categorie...',
                         id: null
