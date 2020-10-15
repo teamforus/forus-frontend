@@ -116,8 +116,7 @@ let ProductsComponent = function(
     };
 
     $ctrl.updateRows = () => {
-        let product_rows = [];
-        let products = $ctrl.products.data.map(product => {
+        $ctrl.products.data = $ctrl.products.data.map(product => {
             if ($ctrl.form.values.fund && $ctrl.form.values.fund.id && Array.isArray(product.funds)) {
                 let prices = product.funds.filter(
                     funds => funds.id == $ctrl.form.values.fund.id
@@ -127,9 +126,13 @@ let ProductsComponent = function(
                 product.price_max = Math.max(prices);
             }
 
-            return product;
-        }).slice().reverse();
+            return {...product, ...{
+                isDiscounted: product.old_price && (product.price != product.old_price)
+            }};
+        });
 
+        let product_rows = [];
+        let products = $ctrl.products.data.slice().reverse();
 
         while (products.length > 0) {
             let row = products.splice(-3);
