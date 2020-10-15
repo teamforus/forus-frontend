@@ -1,6 +1,7 @@
 let SecuritySessionsComponent = function(
     $state,
     SessionService,
+    ModalService,
 ) {
     let $ctrl = this;
 
@@ -52,10 +53,17 @@ let SecuritySessionsComponent = function(
     };
 
     $ctrl.terminateAllSessions = () => {
-        SessionService.terminateAll().then(() => {
-            $ctrl.loadSessions();
-        }, () => {
-            $state.reload();
+        ModalService.open('modalNotification', {
+            type: 'confirm',
+            title: 'Beëindig alle sessies',
+            description: 'U wordt nu uitgelogd op alle apparaten, wilt u doorgaan?',
+            confirm: () => {
+                return SessionService.terminateAll().then(() => {
+                    $ctrl.loadSessions();
+                }, () => {
+                    $state.reload();
+                });
+            }
         });
     };
 
@@ -68,6 +76,7 @@ module.exports = {
     controller: [
         '$state',
         'SessionService',
+        'ModalService',
         SecuritySessionsComponent
     ],
     templateUrl: 'assets/tpl/pages/security/sessions.html'
