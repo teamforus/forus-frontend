@@ -12,18 +12,18 @@ let VouchersComponent = function(
 
     $ctrl.states = [{
         value: null,
-        name: 'Select...'
+        name: 'Selecteer...'
     }, {
         value: 1,
         name: 'Ja'
     }, {
         value: 0,
-        name: 'Nee...'
+        name: 'Nee'
     }];
 
     $ctrl.sources = [{
         value: 'all',
-        name: 'All'
+        name: 'Alle'
     }, {
         value: 'user',
         name: 'Gebruiker'
