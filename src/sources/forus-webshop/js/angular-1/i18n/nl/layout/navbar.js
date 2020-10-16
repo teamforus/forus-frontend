@@ -18,9 +18,16 @@ module.exports = {
         }
     },
     buttons: {
-        activate:"Activeren",
-        activate_nijmegen:"Aanvragen",
-        activate_groningen:"Aanvragen",
+        activate: "Activeren",
+        potjeswijzer: {
+            activate: "Aanvragen",
+        },
+        groningen: {
+            activate: "Aanvragen",
+        },
+        nijmegen: {
+            activate: "Aanvragen",
+        },
         login:"Inloggen",
         voucher:"Mijn tegoeden",
         profile:"Profiel >",
