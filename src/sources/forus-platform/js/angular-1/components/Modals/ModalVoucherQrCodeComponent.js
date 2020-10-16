@@ -13,7 +13,7 @@ let ModalVoucherQrCodeComponent = function(
         label: 'E-mailadres',
     }, {
         key: 'bsn',
-        label: 'Burgerservicenummer',
+        label: 'BSN',
     }];
 
     $ctrl.assignType = $ctrl.assignTypes[0];

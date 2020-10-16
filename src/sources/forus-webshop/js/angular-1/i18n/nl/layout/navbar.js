@@ -13,7 +13,7 @@ module.exports = {
         groningen: {
             funds:"Aanvragen",
         },
-        Nijmegen: {
+        nijmegen: {
             funds:"Aanvragen",
         }
     },

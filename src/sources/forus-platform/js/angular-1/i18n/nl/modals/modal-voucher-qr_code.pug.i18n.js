@@ -7,7 +7,7 @@ module.exports = {
     },
     placeholders: {
         email: 'E-mailadres',
-        bsn: 'Burgerservicenummer',
+        bsn: 'BSN',
     },
     info_assign: "Wanneer toegekend heeft de voucher een nieuwe eigenaar. De nieuwe eigenaar kan de voucher beheren via de webshop. Hierdoor verliest u eigenaarschap en daarmee de functies: via e-mail versturen en QR-code printen.",
     success: {

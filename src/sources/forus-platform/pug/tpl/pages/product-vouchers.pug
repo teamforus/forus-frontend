@@ -103,12 +103,12 @@
                                 th(translate="product_vouchers.labels.note")
                                 th(translate="product_vouchers.labels.created_date").nowrap
                                 th(ng-if="!$ctrl.fundClosed" translate="product_vouchers.labels.expire_date").nowrap
-                                th(ng-if="!$ctrl.fundClosed" translate="product_vouchers.labels.granted")
+                                //-th(ng-if="!$ctrl.fundClosed" translate="product_vouchers.labels.granted")
                                 th(ng-if="!$ctrl.fundClosed" translate="product_vouchers.labels.used")
                                 th(translate="product_vouchers.labels.qr_code").nowrap.text-right
 
                             tr(ng-repeat="voucher in $ctrl.vouchers.data")
-                                td(ng-bind="voucher.identity_bsn || voucher.relation_bsn")
+                                td(ng-bind="((voucher.identity_bsn || voucher.relation_bsn) || (voucher.identity_email | str_limit:25)) || 'Niet toegekend'" title="{{ ((voucher.identity_bsn || voucher.relation_bsn) || voucher.identity_email ) || 'Niet toegekend' }}")
                                 td(ng-bind="'vouchers.labels.source_' + voucher.source | translate")
                                 td(ng-bind="voucher.product.name")
                                 td: em.td-icon.mdi.mdi-information.block.block-tooltip-details.pull-left(
@@ -119,10 +119,10 @@
                                         .tooltip-text(ng-bind="(voucher.note || '-') | str_limit:128" title="{{ voucher.note }}")
                                 td(ng-bind="voucher.created_at_locale")
                                 td(ng-if="!$ctrl.fundClosed" ng-bind="voucher.expire_at_locale")
-                                td(ng-if="!$ctrl.fundClosed && voucher.is_granted"): .td-boolean
+                                //-td(ng-if="!$ctrl.fundClosed && voucher.is_granted"): .td-boolean
                                     em.mdi.mdi-check-circle
                                     | {{ "product_vouchers.labels.yes" | translate }}
-                                td(ng-if="!$ctrl.fundClosed && !voucher.is_granted"): .td-boolean
+                                //-td(ng-if="!$ctrl.fundClosed && !voucher.is_granted"): .td-boolean
                                     em.mdi.mdi-close
                                     | {{ "product_vouchers.labels.no" | translate }}
                                 td(ng-if="!$ctrl.fundClosed && voucher.has_transactions"): .td-boolean
