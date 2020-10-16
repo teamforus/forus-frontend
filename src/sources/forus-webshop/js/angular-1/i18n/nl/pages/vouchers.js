@@ -1,6 +1,7 @@
 module.exports = {
     // VOUCHERs = vouchers.pug
     header: {
+        title: "Mijn tegoeden",
         product: {
             title: "Reserveringen",
             description: "Verzilver de reservering bij de bijbehorende aanbieder. Open het tegoed om te zien bij welke aanbieder u de reservering kan verzilveren.",
@@ -13,6 +14,11 @@ module.exports = {
             title: "Verlopen tegoeden",
             description: "Deze tegoeden zijn verlopen en kunnen niet meer gebruikt worden. Open de voucher om meer details in te zien.",
         }
+    },
+    empty_block: {
+        title: "Geen tegoeden",
+        subtitle: "Momenteel heeft u geen tegoeden",
+        cta: "Ga naar een tegoed activeren of aanvragen."
     },
     labels: {
         transactions: "Uitgaven",

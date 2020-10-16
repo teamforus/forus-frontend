@@ -210,9 +210,9 @@
                     
                     .button.button-primary(ng-if="!$root.auth_user" ng-click="startFundRequest()")
                         include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
-                        span(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthCodePopup()" i18n="home.header.button" id="start_modal")
-                        span(ng-if="$root.auth_user && $ctrl.vouchers.length == 0" i18n="home.header.button")
-                        span(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" i18n="home.header.auth_button")
+                        span(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthCodePopup()" translate="home.header.{{ $root.client_key }}.button" translate-default="{{ 'home.header.button' | translate }}" id="start_modal")
+                        span(ng-if="$root.auth_user && $ctrl.vouchers.length == 0" translate="home.header.{{ $root.client_key }}.button" translate-default="{{ 'home.header.button' | translate }}")
+                        span(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" translate="home.header.{{ $root.client_key }}.button" translate-default="{{ 'home.header.button' | translate }}")
 
     
     

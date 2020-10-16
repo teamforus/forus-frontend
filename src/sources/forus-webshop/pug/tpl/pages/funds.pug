@@ -80,7 +80,8 @@ block content
                                     a.button.button-primary(
                                         ng-if="!fund.alreadyReceived && !fund.has_pending_fund_requests && !fund.isApplicable && $ctrl.appConfigs.features.funds.fund_requests" 
                                         ui-sref="fund-activate({fund_id: fund.id})"
-                                        translate="funds.buttons.start_request")
+                                        translate="funds.buttons.{{ $root.client_key }}.start_request" 
+                                        translate-default="{{ 'funds.buttons.start_request' | translate }}")
 
                                     button.button.button-primary(
                                         type="button"

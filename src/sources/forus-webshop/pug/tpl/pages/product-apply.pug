@@ -4,7 +4,7 @@ section.section.section-product: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
         a(ui-sref="products").breadcrumb-item Aanbod
-        a(ui-sref="products-show($ctrl.product)").breadcrumb-item(ng-bind="$ctrl.product.name")
+        a(ui-sref="products-show($ctrl.product)" ng-bind="$ctrl.product.name").breadcrumb-item
         .breadcrumb-item.active Reserveren
     
     product-card(product="$ctrl.product")
