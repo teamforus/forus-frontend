@@ -133,7 +133,7 @@
                                     .auth-user-menu-item(ng-click="startFundRequest()" id="open_activation_code_popup")
                                         //-  ng-if="!$root.appConfigs.features.digid")
                                         img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg")
-                                        span(translate="topnavbar.buttons.activate")
+                                        span(translate="topnavbar.buttons.activate_{{ $root.client_key }}" translate-default="{{ 'topnavbar.buttons.activate' | translate }}")
 
                                     .auth-user-menu-item(ng-click="openPinCodePopup()" id="open_pincode_popup")
                                         em.mdi.mdi-cellphone

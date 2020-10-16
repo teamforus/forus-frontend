@@ -12,7 +12,9 @@ module.exports = {
         }
     },
     buttons: {
-        activate:"Activatiecode",
+        activate:"Activeren",
+        activate_nijmegen:"Aanvragen",
+        activate_groningen:"Aanvragen",
         login:"Inloggen",
         voucher:"Mijn tegoeden",
         profile:"Profiel >",
