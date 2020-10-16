@@ -1,6 +1,6 @@
 module.exports = {
     test: "{{name}} {{foo}}",
-    page_title: 'Forus platform',
+    page_title: 'Webshop',
     page_state_titles: {
         home: '{{implementation}} webshop',
         funds: 'Fondsen',

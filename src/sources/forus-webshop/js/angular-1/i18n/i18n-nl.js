@@ -80,6 +80,7 @@ module.exports = {
 
     // DIRECTIVES
     block_products: require("./nl/directives/block-products"),
+    block_funds: require("./nl/directives/block-funds"),
     block_notifications:  require("./nl/directives/block-notifications"),
     block_providers: require("./nl/directives/block-providers"),
     contact: require("./nl/directives/contact"),
