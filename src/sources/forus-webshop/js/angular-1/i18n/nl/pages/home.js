@@ -13,7 +13,16 @@ module.exports = {
         auth_cta: "Beheer uw tegoeden en neem ze overal mee door de Me-app te downloaden.",
         auth_button: "Download Me",
         signup_cta: "Lees meer >",
-        button: 'Start aanvraag', 
+        button: 'Start', 
+        potjeswijzer: {
+            button: 'Start aanvraag', 
+        },
+        groningen: {
+            button: 'Start aanvraag', 
+        },
+        nijmegen: {
+            button: 'Start aanvraag', 
+        },
         button_av: 'Aanvragen', 
         
         potjeswijzer: {

@@ -14,7 +14,7 @@
 
         li.sticky-footer-item(ng-if="!$root.auth_user && $root.appConfigs.features.digid" ng-click="startFundRequest()" ui-sref-active="active")
             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start-request.svg
-            span(translate="topnavbar.buttons.mobile.request") 
+            span(translate="topnavbar.buttons.activate_{{ $root.client_key }}" translate-default="{{ topnavbar.buttons.mobile.request | translate }}") 
 
         li.sticky-footer-item-wrapper(ng-if="$root.auth_user" ui-sref="vouchers" ui-sref-active="active")
             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-vouchers2.svg
