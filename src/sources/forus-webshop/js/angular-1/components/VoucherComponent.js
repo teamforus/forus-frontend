@@ -1,5 +1,6 @@
 let VoucherComponent = function(
     $state,
+    $sce,
     VoucherService,
     PrintableService,
     ModalService
@@ -118,6 +119,8 @@ let VoucherComponent = function(
     $ctrl.$onInit = function() {
         $ctrl.qrValue = $ctrl.voucher.address;
         $ctrl.voucherCard = VoucherService.composeCardData($ctrl.voucher);
+        $ctrl.voucherCard.description = $sce.trustAsHtml($ctrl.voucherCard.description);
+        console.log($ctrl.voucherCard.description);
         $ctrl.qrCodeValue = $ctrl.voucher.address;
         $ctrl.voucherCanUse = !$ctrl.voucher.expired;
 
@@ -135,6 +138,7 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$sce',
         'VoucherService',
         'PrintableService',
         'ModalService',
