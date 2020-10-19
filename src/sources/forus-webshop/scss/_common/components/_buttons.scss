@@ -1,5 +1,5 @@
 .button {
-    font: 700 14px/24px $bf;
+    font: 700 16px/1.5em $bf;
     color: #646f79;
     cursor: pointer;
     border: 1px solid transparent;
@@ -7,8 +7,8 @@
     transition: color .4s, background .4s, box-shadow .4s, border .4s;
     border-radius: 6px;
     display: inline-block;
-    margin-right: 15px;
     text-align: center;
+    margin-right: 15px;
 
     .mdi {
         font-size: 1.4em;
@@ -26,17 +26,17 @@
     }
 
     img {
-        float: left;
         display: block;
-        margin: -1px 5px -1px 0;
         transition: .4s;
+        margin: 0 auto;
     }
 
     &.button-default {
         background: #ffffff;
+        text-transform: $tf;
         color: $color_default;
-        border: 1px solid $border_color;
-        box-shadow: 0 10px 25px rgba(#000, 0);
+        //border: 1px solid $border_color;
+        box-shadow: none;
 
         .mdi {
             color: $color_default_light;
@@ -58,6 +58,7 @@
         display: flex !important;
         padding: 7px !important;
         align-items: center !important;
+
         .icon-me {
             mask: url('../img/icon-me.svg');
             background: $color_default;
@@ -76,10 +77,6 @@
             height: 100%;
             text-align: right;
             flex: 1;
-            text-transform: lowercase;
-            &::first-letter{
-                text-transform: uppercase;
-            }
         }
         
         .second-line-button {
@@ -97,14 +94,9 @@
     
     &.button-primary {
         color: #fff;
-        text-transform: $tf;
         background: $color_primary;
         border: 1px solid $color_primary;
-        box-shadow: 0 10px 25px rgba(#000, .15);
-
-        &:first-letter {
-            text-transform: capitalize;
-        }
+        text-transform: $tf;
 
         &:hover {
             color: #fff;
@@ -235,13 +227,6 @@
 
 .button-profile {
     padding-left:0px !important;
-}
-
-@media screen and (max-width: 1700px) {
-    .button {
-        font: 700 12px/20px $bf;
-        padding: 10px 25px;
-    }
 }
 
 @media screen and (max-width: 1000px) {

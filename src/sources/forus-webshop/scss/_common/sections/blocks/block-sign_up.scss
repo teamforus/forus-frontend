@@ -1,5 +1,3 @@
-$bf: 'Montserrat', arial, sans-serif;
-
 &.block-sign_up {
     padding: 50px 0;
     cursor: default;
@@ -29,27 +27,36 @@ $bf: 'Montserrat', arial, sans-serif;
         }
 
         a {
-            color: #3561FF;
+            color: $sign_up_accent_color;
             text-decoration: underline;
         }
     }
 
     .sign_up-header {
         margin: 0 -200px 25px;
+        padding-bottom: 20px;
+        display: flex;
 
-        .sign_up-header-back {
-            color: #9e9e9e;
-            font: 500 17px/24px $bf;
-            transition: color .4s;
+        .sign_up-header-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
 
-            .mdi {
-                float: left;
-                line-height: 24px;
-                font-size: 30px;
-            }
+            .sign_up-header-item-back {
+                color: #9e9e9e;
+                padding: 5px 20px;
+                font: 500 17px/24px $bf;
+                transition: color .4s, background-color .4s;
 
-            &:hover {
-                color: $color_primary;
+                .mdi {
+                    float: left;
+                    line-height: 24px;
+                    font-size: 30px;
+                }
+
+                &:hover {
+                    color: $color_primary;
+                }
             }
         }
     }
@@ -100,26 +107,26 @@ $bf: 'Montserrat', arial, sans-serif;
                 font-size: 24px;
                 
                 .mdi {
-                    color: #305dfb;
+                    color: $sign_up_accent_color;
                 }
             }
 
             &.sign_up-step-active {
-                color: #BDCBFF;
+                color: $sign_up_accent_color_light;
 
                 .sign_up-step-border:before {
                     content: '';
                     display: block;
                     @include fill_parent();
-                    background-color: #BDCBFF;
+                    background-color: $sign_up_accent_color_light;
                 }
             }
 
             &.sign_up-step-done {
-                color: #3561FF;
+                color: $sign_up_accent_color;
 
                 .sign_up-step-border:before {
-                    background-color: #3561FF;
+                    background-color: $sign_up_accent_color;
                 }
             }
         }
@@ -151,6 +158,12 @@ $bf: 'Montserrat', arial, sans-serif;
             padding: 40px 40px;
             font: 400 16px/26px $bf; 
 
+            .button {
+                &.button-text { 
+                    color: $sign_up_accent_color;
+                }
+            }
+
             .sign_up-pane-heading {
                 font: 500 21px/27px $bf;   
                 margin: 0 0 15px;
@@ -164,15 +177,17 @@ $bf: 'Montserrat', arial, sans-serif;
                 font: 400 16px/26px $bf;
                 margin: 0 0 15px;
 
-                a {
+                .sign_up-pane-heading {
                     font: inherit;
-                    color: #3561FF;
-                    font-weight: 500;
+                    font-weight: 600;
+                    margin: 0;
                 }
 
                 .sign_up-pane-link {
                     font-size: inherit;
                     line-height: inherit;
+                    color: $sign_up_accent_color;
+                    font-weight: 500;
                 }
 
                 &.sign_up-pane-text-sm {
@@ -193,7 +208,7 @@ $bf: 'Montserrat', arial, sans-serif;
             .sign_up-pane-link {
                 font: 500 14px/27px $bf;
                 margin: 0 0 15px;
-                color: #3561FF;
+                color: $sign_up_accent_color;
                 transition: .4s;
                 display: inline;
                 text-decoration: underline;
@@ -210,11 +225,6 @@ $bf: 'Montserrat', arial, sans-serif;
                 &:last-child {
                     margin-bottom: 0;
                 }
-            }
-
-
-            .button {
-                padding: 14px 25px;
             }
 
             .sign_up-pane-section {
@@ -271,7 +281,7 @@ $bf: 'Montserrat', arial, sans-serif;
                 margin: 0 0 20px;
 
                 li {
-                    font: 400 18px/22px $bf;
+                    font: 400 16px/22px $bf;
                     vertical-align: middle;
                     position: relative;
                     padding-left: 30px;
@@ -297,10 +307,6 @@ $bf: 'Montserrat', arial, sans-serif;
 
                 &.sign_up-pane-list-criteria {
                     li {
-                        &:before {
-                            display: none;
-                        }
-
                         .item-icon {
                             display: inline-block;
                             width: 20px;
@@ -314,6 +320,24 @@ $bf: 'Montserrat', arial, sans-serif;
                             top: 1px;
                             font-size: 16px;
                             text-align: center;
+                            text-align: center;
+
+                            .mdi {
+                                color: inherit;
+                                line-height: 16px;
+                                font-size: 14px;
+                            }
+
+                            &.item-icon-default {
+                                width: 10px;
+                                height: 10px;
+                                background-color: #C3D0D1;
+                                top: 5px;
+                            }
+                        }
+
+                        &:before {
+                            display: none;
                         }
 
                         &.item-valid {
@@ -326,6 +350,20 @@ $bf: 'Montserrat', arial, sans-serif;
                         &.item-invalid {
                             .item-icon {
                                 border-color: $color_primary;
+                            }
+                        }
+
+                        &.item-progress {
+                            .item-icon {
+                                border-color: #FFA500;
+                                color: #FFA500;
+                            }
+                        }
+
+                        &.item-declined {
+                            .item-icon {
+                                border-color: #e63b3b;
+                                color: #e63b3b;
                             }
                         }
                     }
@@ -430,20 +468,20 @@ $bf: 'Montserrat', arial, sans-serif;
             }
 
             .sign_up-pane-digid {
-                padding: 20px 0;
                 display: flex;
+                padding: 20px 0;
                 width: 100%;
+                align-items: center;
 
                 .digid-button {
-                    padding: 8px;
-                    padding-right: 25px;
-                    border: 1px solid #222530;
-                    border-radius: 6px;
-                    margin: 0 auto;
-                    font: 600 14px/52px $bf;
-                    color: #222530;
+                    height: 54px;
+                    padding: 8px 30px;
+                    border: none;
+                    border-radius: 5px;
                     cursor: pointer;
-                    display: inline-flex;
+                    font: 600 14px/40px $bf;
+                    background-color: #E1E7FF;
+                    color: #4B71FF;
 
                     .digid-button-icon {
                         display: block;
@@ -451,6 +489,10 @@ $bf: 'Montserrat', arial, sans-serif;
                         margin-right: 25px;
                         float: left;
                     }
+                }
+
+                .digid-image {
+                    margin-left: 20px;
                 }
             }
 
@@ -475,12 +517,12 @@ $bf: 'Montserrat', arial, sans-serif;
                     font-weight: 500;
                     font-size: 16px;
                     line-height: 20px;
-                    color: #3561FF;
+                    color: $sign_up_accent_color;
 
                     line-height: 30px;
 
                     .mdi {
-                        color: #3561FF;    
+                        color: $sign_up_accent_color;    
                         width: 36px;
                         font-size: 34px;    
                     }
@@ -510,6 +552,14 @@ $bf: 'Montserrat', arial, sans-serif;
                     text-transform: uppercase;
                     color: #7e818c;
                     padding-left: 15px;
+                }
+            }
+
+            .ui-control {
+                &.ui-control-currency {
+                    .form-control:not([type="radio"]):not([type="checkbox"]) {
+                        padding-left: 40px;
+                    }
                 }
             }
         }
@@ -543,6 +593,7 @@ $bf: 'Montserrat', arial, sans-serif;
             }
         }
     }
+
     @media (max-width: 991px) {
         margin: 0px -10px;
         padding: 10px 0 50px;

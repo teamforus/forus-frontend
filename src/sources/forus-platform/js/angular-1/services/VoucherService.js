@@ -42,13 +42,11 @@ module.exports = [
                 ].join(''));
             };
 
-            this.assign = (organization_id, voucher_id, email) => {
+            this.assign = (organization_id, voucher_id, query) => {
                 return ApiRequest.patch([
                     '/platform/organizations/' + organization_id,
                     '/sponsor/vouchers/' + voucher_id + '/assign',
-                ].join(''), {
-                    email: email
-                });
+                ].join(''), query);
             };
 
             this.sendToEmail = (organization_id, voucher_id, email) => {

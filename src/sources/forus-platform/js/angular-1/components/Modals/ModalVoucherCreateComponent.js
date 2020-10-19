@@ -7,6 +7,28 @@ let ModalVoucherCreateComponent = function(
     $ctrl.voucherType = null;
     $ctrl.state = '';
     $ctrl.activationCodeSubmitted = false;
+    $ctrl.assignTypes = [{
+        key: null,
+        label: 'Niet toekennen',
+    }, {
+        key: 'email',
+        label: 'E-mailadres',
+    }, {
+        key: 'bsn',
+        label: 'BSN',
+    }];
+
+    $ctrl.assignType = $ctrl.assignTypes[0];
+
+    $ctrl.onAsignTypeChange = (assignType) => {
+        if (assignType.key === 'bsn') {
+            delete $ctrl.form.values.bsn;
+        }
+
+        if (assignType.key !== 'email') {
+            delete $ctrl.form.values.email;
+        }
+    };
 
     $ctrl.submitActivationCode = (activation_code) => {
         let code = activation_code ? activation_code : '';
@@ -52,7 +74,7 @@ let ModalVoucherCreateComponent = function(
                 $ctrl.organization.id,
                 form.values
             ).then(res => {
-                $ctrl.onCreated(res.data.data);
+                $ctrl.onCreated();
                 $ctrl.close();
             }, res => {
                 form.errors = res.data.errors;

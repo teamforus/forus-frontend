@@ -1,17 +1,12 @@
-.nav-var {
-    &.block {
+.block {
+    @media screen and (max-width: 1000px) {
         &.block-navbar {
-            box-shadow: none;
             .navbar-logo {
                 img {
-                    height: 55px !important;
-                }                
-                @media screen and (min-width: 1024px) {
-                    padding: 10px 50px 10px 80px;
-                    border-right: none;
-                    margin-bottom: -45px;
-                    img {
-                        height: 90px !important;
+                    display: none;
+
+                    &.hover {
+                        display: block;
                     }
                 }
             }
@@ -19,113 +14,30 @@
     }
 }
 
-.block {
-    &.block-navbar {
-        position: relative;
-        top: 0;
-        width: 100%;
-        padding: 0;
-        background-color: transparent;
-        max-width: 100%;
-        box-shadow: 1px -5px 10px #bbb;
 
-        .navbar-inner {
-            width: 100%;
-            max-width: 100%;
-            padding: 0px 15px;
-            align-items: center;
-            background-color: transparent;
-        }
+@media screen and (min-width: 1000px) {
+    .nav-var {
+        &.block {
+            &.block-navbar {
+                border: none;
 
-        .navbar-logo {
-            border-right: none;
-            img {
-                height: 60px;
-            }
-            @media screen and (min-width: 1024px) {
-                padding: 10px 10px;
-            }
-        }
-
-        .block-auth {
-            border-left: none;
-        }
-
-        .navbar-list {
-            text-align: left;
-
-            .navbar-item-wrapper {
-                .navbar-item {
-                    font-size: 1em;
-                    font-weight: normal;
-                    &:hover {
-                        color: #535252;
-                        text-decoration: underline;
-
-                        &:before {
-                            background: none;
-                            opacity: .5;
-                        }
+                .block-subnav {
+                    .subnav-inner {
+                        padding-top: 27.5px;
+                        padding-bottom: 27.5px;
                     }
 
-                    &.active {
-                        color: #535252;
-                        &:before {
-                            background: none;
-                            opacity: 1;
-                        }
-                    }
-                }
-            }
-        }
-
-        .block-auth {
-            .auth-in {
-                .auth-user {
-                    .auth-user-menu {
-                        .auth-user-menu-item {
-                            color: $tc;
-
-                            :hover {
-                                color: $bc;
+                    .navbar-logo {
+                        img {
+                            height: 140px;
+                            position: absolute;
+                            left: 70px;
+                            margin-top: -50px;
+        
+                            &.hover {
+                                display: block;
                             }
                         }
-                    }
-
-                    .auth-user-email {
-                        color: $color_primary;
-                    }
-
-                    .auth-user-avatar {
-                        border-color: $bc;
-                        border-radius: 4px;
-
-                        img {
-                            filter: grayscale(.8);
-                        }
-                    }
-                }
-            }
-            @media screen and (max-width: 1700px) {
-                .button {
-                    &:hover {
-                        box-shadow: none;
-                    }
-                }
-            }
-        }
-    }
-
-    @media screen and (max-width: 1000px) {
-        &.block-navbar {
-            .navbar-inner {
-                padding: 0px 0;
-            }
-
-            .navbar-list {
-                .navbar-item-wrapper {
-                    .navbar-item {
-                        padding: 10px 20px;
                     }
                 }
             }

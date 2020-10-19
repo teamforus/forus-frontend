@@ -17,10 +17,6 @@ module.exports = ['ModalRouteProvider', function(
         component: 'modalPinCodeComponent'
     });
 
-    ModalRouteProvider.modal('modalActivateCode', {
-        component: 'modalActivateCodeComponent'
-    });
-
     ModalRouteProvider.modal('modalAuthCode', {
         component: 'modalAuthCodeComponent'
     });
@@ -40,5 +36,12 @@ module.exports = ['ModalRouteProvider', function(
     ModalRouteProvider.modal('identityProxyExpired', {
         component: 'modalIdentityProxyExpiredComponent'
     });
-
+    
+    ModalRouteProvider.modal('modalPhysicalCardType', {
+        component: 'modalPhysicalCardTypeComponent'
+    });
+    
+    ModalRouteProvider.modal('modalPhysicalCardUnlink', {
+        component: 'modalPhysicalCardUnlinkComponent'
+    });
 }];

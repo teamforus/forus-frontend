@@ -173,7 +173,7 @@ let ProvidersComponent = function(
 
         $ctrl.funds.unshift({
             id: null,
-            name: 'Alle budgetten',
+            name: 'Alle tegoeden',
         });
 
         let fund = $ctrl.funds.filter(fund => {
@@ -197,8 +197,6 @@ let ProvidersComponent = function(
 
         $ctrl.updateFiltersUsedCount();
     };
-
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {

@@ -1,6 +1,26 @@
+@import '../general/vars.scss';
+
 /*==========  Style Sheet - Vars  ==========*/
 
-$bg-values:           url("../img/jumbotron.png") no-repeat 100% 0;
+// navbar
+$bg-nav:            #191818;
+$tc-nav-hov:        #ECECEC;
+$tc-nav:            #B3B3B3;
+$logo-padding:      20px 0px;
+$logo-height:       50px;
+// navbar (auth)
+$tc-auth-menu:      #fff; 
+$tc-auth-btn:       #282B39; 
+$btn-auth-bg:       #fff; 
+$btn-auth-border:   transparent;
+
+// navbar (start modal primary)
+$tc-start-btn:       #fff; 
+$btn-start-bg:       #E60103; 
+$btn-start-btn:      #E60103;
+$btn-start-border:   transparent;
+
+$bg-values:         none;
 
 // base font
 $bf:                Verdana, arial;
@@ -18,7 +38,7 @@ $bg:                #fff;
 $bg_2:              none;
 
 // text formatting
-$tf:                lowercase;
+$tf:                inherit;
 
 // footer color
 $fc:                #e60004;
@@ -38,10 +58,10 @@ $border_radius:     0px;
 $base_shadow:       0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 
 $color_primary:         #000;
-$color_primary_light:   #e60004;
+$color_primary_light:   #e60204;
 
-$color_default:         #FF0031;
-$color_default_light:   #017f96;
+$color_default:         #e60204;
+$color_default_light:   #FF0031;
 
 // Login button
 

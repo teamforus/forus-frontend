@@ -5,9 +5,8 @@
 
 // LAYOUTS
 @import 'layout/_footer.scss',
-'layout/_grid.scss',
-'layout/_header.scss',
-'layout/_navigation.scss';
+'layout/_navigation.scss',
+'layout/_header.scss';
 
 // COMPONENTS
 @import 'components/_breadcrumbs.scss',
@@ -32,7 +31,6 @@
  'sections/blocks/records_create.scss',
  'sections/blocks/records.scss',
  'sections/blocks/shops_map.scss',
- 'sections/blocks/block-sign_up.scss',
  'sections/blocks/transactions.scss',
  'sections/blocks/validations.scss',
  'sections/blocks/validators.scss',

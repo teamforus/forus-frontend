@@ -1,0 +1,107 @@
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
+
+.modal.modal-lg.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()")
+    //- Select type
+    form(ng-submit="$ctrl.form.submit()").modal-window
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-header Actie toevoegen
+
+        .modal-body: .block.block-subsidy-editor
+            .subsidy-media(style="background-image: url({{ $ctrl.product.photo ? $ctrl.product.photo.sizes.small : './assets/img/placeholders/product-small.png' }})")
+            .subsidy-details
+                .row.subsidy-details-overview
+                    .col.col-sm-6
+                        .subsidy-provider(ng-bind="$ctrl.product.organization.name")
+                        .subsidy-product(ng-bind="$ctrl.product.name")
+                        .subsidy-property
+                            .subsidy-property-label Vervaldatum van aanbod: 
+                            .subsidy-property-value(ng-bind="$ctrl.product.expire_at_locale")
+                        .subsidy-property
+                            .subsidy-property-label Beschikbaar: 
+                            .subsidy-property-value(ng-bind="$ctrl.product.unlimited_stock ? 'Ongelimiteerd' : $ctrl.product.stock_amount")
+                    .col.col-sm-6
+                        .subsidy-property.subsidy-property-monetary.subsidy-property-right(ng-if="$ctrl.product.old_price")
+                            .subsidy-property-label Originele prijs 
+                            .subsidy-property-value.subsidy-property-value-muted(ng-bind='$ctrl.product.old_price | currency_format')
+                        
+                        .subsidy-property.subsidy-property-monetary.subsidy-property-right(ng-if="!$ctrl.product.no_price")
+                            .subsidy-property-label Prijs met bijdrage vanuit aanbieder
+                            .subsidy-property-value(ng-bind='$ctrl.product.price | currency_format')
+                        
+                        .subsidy-property.subsidy-property-monetary.subsidy-property-rightt(ng-if="!$ctrl.product.no_price")
+                            .subsidy-property-label Prijs in webshop
+                            .subsidy-property-value(ng-bind='($ctrl.form.values.gratis ? 0 : $ctrl.product.price - $ctrl.form.values.amount) | currency_format')
+
+                .row.form(ng-if="!$ctrl.readOnly")
+                    .col.col-sm-3: .form-group
+                        .form-label Totaal aanbod
+                        input(
+                            ng-model="$ctrl.form.values.limit_total" 
+                            type="number" 
+                            placeholder="Totaal aanbod" 
+                            min="1" 
+                            max="{{ $ctrl.product.unlimited_stock ? '' : $ctrl.product.stock_amount }}").form-control
+                        .form-limit(ng-if="!$ctrl.product.unlimited_stock") Limiet 1/{{ $ctrl.product.stock_amount }}
+                        .form-limit(ng-if="$ctrl.product.unlimited_stock") Ongelimiteerd
+                        .form-error
+                    .col.col-sm-3: .form-group
+                        .form-label Limiet per aanvrager
+                        input(
+                            ng-model="$ctrl.form.values.limit_per_identity" 
+                            type="number" 
+                            placeholder="Limiet per aanvrager" 
+                            min="1" 
+                            max="{{ $ctrl.product.unlimited_stock ? '' : $ctrl.product.stock_amount }}").form-control
+                        .form-limit(ng-if="!$ctrl.product.unlimited_stock") Limiet 1/{{ $ctrl.product.stock_amount }}
+                        .form-limit(ng-if="$ctrl.product.unlimited_stock") Ongelimiteerd
+                        .form-error
+                    .col.col-sm-3: .form-group
+                        .form-label Bijdrage
+                        input(
+                            ng-if="!$ctrl.form.values.gratis"
+                            ng-disabled="$ctrl.form.values.gratis"
+                            ng-model="$ctrl.form.values.amount" 
+                            type="number" 
+                            placeholder="Bijdrage" 
+                            step=".1" 
+                            min="0" 
+                            ng-change="$ctrl.amountChange()"
+                            max="{{$ctrl.product.price}}").form-control
+                        input(
+                            disabled
+                            ng-if="$ctrl.form.values.gratis"
+                            ng-model="$ctrl.product.price").form-control
+                        .form-limit Limiet {{ $ctrl.product.price | currency_format }}
+                        .form-error
+                    .col.col-sm-3: .form-group
+                        .form-label &nbsp;
+                        label(for='subsidie').checkbox.checkbox-narrow
+                            input(type="checkbox" ng-model="$ctrl.form.values.gratis" id='subsidie')
+                            .checkbox-label 
+                                .checkbox-box: .mdi.mdi-check
+                                | Maak gratis
+                    .col.col-sm-12
+                        .form-error(ng-repeat="error in $ctrl.form.errors['enable_products.0.amount']" ng-bind="error")
+                        .form-error(ng-repeat="error in $ctrl.form.errors['enable_products.0.limit_total']" ng-bind="error")
+                        .form-error(ng-repeat="error in $ctrl.form.errors['enable_products.0.limit_per_identity']" ng-bind="error")
+                        .form-error(ng-repeat="error in $ctrl.form.errors['enable_products.0']" ng-bind="error")
+            
+                
+                .row.form(ng-if="$ctrl.readOnly")
+                    .col.col-sm-3: .form-group
+                        .form-label Totaal aanbod
+                        .form-value-placeholder.form-value-placeholder-sm(ng-bind="$ctrl.form.values.limit_total")
+                    .col.col-sm-3: .form-group
+                        .form-label Limiet per aanvrager
+                        .form-value-placeholder.form-value-placeholder-sm(ng-bind="$ctrl.form.values.limit_per_identity")
+                    .col.col-sm-3: .form-group
+                        .form-label Bijdrage
+                        .form-value-placeholder.form-value-placeholder-sm(ng-bind="$ctrl.form.values.amount | currency_format")
+                    .col.col-sm-3: .form-group
+                        .form-label Gebruikt
+                        .form-value-placeholder.form-value-placeholder-sm(ng-bind="$ctrl.form.values.voucher_transactions_count")
+
+        .modal-footer
+            .button.button-default(ng-click="$ctrl.close()") Annuleer
+            button(ng-if="!$ctrl.readOnly" type="submit").button.button-primary Bevestig

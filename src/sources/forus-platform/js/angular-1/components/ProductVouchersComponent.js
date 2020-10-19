@@ -3,6 +3,7 @@ let ProductVouchersComponent = function(
     $stateParams,
     $timeout,
     DateService,
+    FileService,
     ModalService,
     VoucherService
 ) {
@@ -19,18 +20,34 @@ let ProductVouchersComponent = function(
         name: 'Nee...'
     }];
 
+    $ctrl.sources = [{
+        value: 'all',
+        name: 'Alle'
+    }, {
+        value: 'user',
+        name: 'Gebruiker'
+    }, {
+        value: 'employee',
+        name: 'Medewerker'
+    }];
+
     $ctrl.filters = {
         show: false,
+        defaultValues: {
+            q: '',
+            granted: null,
+            amount_min: null,
+            amount_max: null,
+            from: null,
+            to: null,
+            type: 'product_voucher',
+            source: 'all',
+            sort_by: 'created_at',
+            sort_order: 'desc',
+        },
         values: {},
-        reset: function () {
-            this.values.q = '';
-            this.values.granted = null;
-            this.values.fund_id = $ctrl.fund.id;
-            this.values.amount_min = null;
-            this.values.amount_max = null;
-            this.values.from = null;
-            this.values.to = null;
-            this.values.type = 'product_voucher';
+        reset: function() {
+            this.values = {...this.defaultValues};
         }
     };
 
@@ -77,22 +94,49 @@ let ProductVouchersComponent = function(
         });
     };
 
-    $ctrl.onPageChange = (query) => {
+    $ctrl.getQueryParams = (query) => {
         let _query = JSON.parse(JSON.stringify(query));
 
-        _query = Object.assign(_query, {
-            'from': _query.from ? DateService._frontToBack(_query.from) : null,
-            'to': _query.to ? DateService._frontToBack(_query.to) : null,
-            'sort_by': 'created_at',
-            'sort_order': 'desc'
-        });
+        return {..._query, ...{
+            from: _query.from ? DateService._frontToBack(_query.from) : null,
+            to: _query.to ? DateService._frontToBack(_query.to) : null,
+            fund_id: $ctrl.fund.id,
+        }};
+    };
 
+    $ctrl.exportQRCodes = () => {
+        ModalService.open('voucherExportType', {
+            success: (data) => {
+                VoucherService.downloadQRCodes($ctrl.organization.id, {
+                    ...$ctrl.getQueryParams($ctrl.filters.values), ...{
+                        export_type: data.exportType
+                    }
+                }).then(res => {
+                    FileService.downloadFile(
+                        'vouchers_' + moment().format(
+                            'YYYY-MM-DD HH:mm:ss'
+                        ) + '.zip',
+                        res.data,
+                        res.headers('Content-Type') + ';charset=utf-8;'
+                    );
+                }, res => {
+                    res.data.text().then((data) => {
+                        data = JSON.parse(data);
+
+                        if (data.message) {
+                            PushNotificationsService.danger(data.message);
+                        }
+                    });
+                });
+            }
+        });
+    };
+
+    $ctrl.onPageChange = (query) => {
         VoucherService.index(
             $ctrl.organization.id,
-            _query
-        ).then((res => {
-            $ctrl.vouchers = res.data;
-        }));
+            $ctrl.getQueryParams(query),
+        ).then((res => $ctrl.vouchers = res.data));
     };
 
     $ctrl.showTooltip = (e, target) => {
@@ -110,10 +154,9 @@ let ProductVouchersComponent = function(
     };
 
     $ctrl.init = () => {
-        $ctrl.fundClosed = $ctrl.fund.state == 'closed';
-
         $ctrl.resetFilters();
         $ctrl.onPageChange($ctrl.filters.values);
+        $ctrl.fundClosed = $ctrl.fund.state == 'closed';
     };
 
     $ctrl.onFundSelect = (fund) => {
@@ -151,6 +194,7 @@ module.exports = {
         '$stateParams',
         '$timeout',
         'DateService',
+        'FileService',
         'ModalService',
         'VoucherService',
         ProductVouchersComponent

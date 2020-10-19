@@ -1,11 +1,10 @@
-$bf: 'Montserrat', arial, sans-serif;
-
 &.block-steps {
     .block-steps-description {
         font: 400 16px/28px $bf;
         text-align: center;
         color: #191A1C;
         width: 820px;
+        max-width: 100%;
         margin-top: 40px;
         margin-left: auto;
         margin-right: auto;
