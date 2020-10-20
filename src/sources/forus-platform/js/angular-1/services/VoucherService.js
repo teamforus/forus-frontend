@@ -3,7 +3,7 @@ module.exports = [
     function(
         ApiRequest
     ) {
-        return new(function() {
+        return new (function() {
             this.index = (organization_id, query) => {
                 return ApiRequest.get([
                     '/platform/organizations/' + organization_id,
@@ -24,11 +24,11 @@ module.exports = [
                     '/sponsor/vouchers/validate'
                 ].join(''), data);
             };
-            
+
             this.storeCollection = function(organization_id, fund_id, vouchers) {
                 return ApiRequest.post([
                     '/platform/organizations/' + organization_id,
-                    '/sponsor/vouchers/batch' 
+                    '/sponsor/vouchers/batch'
                 ].join(''), {
                     fund_id: fund_id,
                     vouchers: vouchers
@@ -61,11 +61,18 @@ module.exports = [
             this.downloadQRCodes = function(organization_id, query) {
                 return ApiRequest.get([
                     '/platform/organizations/' + organization_id,
-                    '/sponsor/vouchers/export-unassigned',
+                    '/sponsor/vouchers/export',
                 ].join(''), query, {}, true, (params) => {
                     params.responseType = 'blob';
                     return params;
                 });
+            };
+
+            this.downloadQRCodesData = function(organization_id, query) {
+                return ApiRequest.get([
+                    '/platform/organizations/' + organization_id,
+                    '/sponsor/vouchers/export-data',
+                ].join(''), query);
             };
 
             this.sampleCSVBudgetVoucher = (expires_at = "2020-02-20") => {
