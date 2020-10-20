@@ -1,3 +1,5 @@
+let AwesomeQR = require('../libs/AwesomeQrCode');
+
 let dataURItoBlob = (dataURI) => {
     // convert base64 to raw binary data held in a string
     // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
@@ -30,7 +32,7 @@ function ImageConvertor(file) {
     let imageObj = new Image();
     let canvas = document.createElement('canvas');
     let context = canvas.getContext('2d');
-    
+
     converter.isReady = false;
 
     converter.createObjectURL = createObjectURL;
@@ -98,7 +100,7 @@ function ImageConvertor(file) {
     return new Promise(done => {
         imageObj.onload = () => {
             converter.isReady = true;
-            
+
             setTimeout(() => {
                 done(converter);
             }, 100);
@@ -109,13 +111,28 @@ function ImageConvertor(file) {
 };
 
 module.exports = ['$q', function($q) {
-    return new(function() {
+    return new (function(value) {
         this.dataURItoBlob = dataURItoBlob;
         this.createObjectURL = createObjectURL;
-        this.instance = (image) => {
-            return $q(done => {
-                ImageConvertor(image).then(done);
+        this.instance = (image) => $q(done => ImageConvertor(image).then(done));
+        this.makeQrImage = (value, type = 'voucher') => {
+            return new Promise((resolve, reject) => {
+                AwesomeQR.create({
+                    text: JSON.stringify({ type, value }),
+                    size: 400,
+                    margin: 15,
+                    dotScale: 0.8,
+                    autoColor: true,
+                    callback: (data) => {
+                        if (data === undefined) {
+                            console.error("failed to generate the QR code");
+                            reject("failed to generate the QR code");
+                        } else {
+                            resolve(data);
+                        }
+                    },
+                })
             });
-        }
+        };
     });
 }];
