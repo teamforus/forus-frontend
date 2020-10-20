@@ -122,10 +122,10 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                 .card-label {{ "voucher.voucher_card.labels.contact_provider" | translate }}
                 .card-value(ng-bind="$ctrl.voucherCard.product.organization.name")
                 .card-value.card-value-sm
-                    | E-mailadres:
+                    | E-mailadres: 
                     strong(ng-bind="$ctrl.voucherCard.product.organization.email")
                     br
-                    | Telefoonnummer:
+                    | Telefoonnummer: 
                     strong(ng-bind="$ctrl.voucherCard.product.organization.phone")
 
     .block.block-transactions(ng-if="$ctrl.voucherCard.transactions.length > 0 && !$ctrl.voucherCard.product")
@@ -168,3 +168,8 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
         //- regular voucher
         .map_card-footer
             .map_card-subtitle(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.info")
+
+    .block.block-info-card(ng-if="$ctrl.voucherCard.product")
+        .block-header(i18n="voucher.labels.productdetail")
+        .block-content: .block.block-markdown
+            div(ng-bind-html="$ctrl.voucherCard.description")
