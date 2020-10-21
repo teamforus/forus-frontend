@@ -61,7 +61,7 @@ let VoucherService = function(
             if (voucher.type == 'regular') {
                 title = voucher.fund.name;
                 subtitle = voucher.fund.organization.name;
-                title = voucher.fund.description;
+                description = voucher.fund.description;
 
                 if (voucher.fund.logo) {
                     thumbnail = voucher.fund.logo.sizes.thumbnail;
