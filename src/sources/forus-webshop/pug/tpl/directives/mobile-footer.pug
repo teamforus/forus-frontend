@@ -4,7 +4,7 @@
             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-providers.svg
             span(translate="topnavbar.buttons.providers")
 
-        li.sticky-footer-item(ui-sref="actions" ui-sref-active="active")
+        li.sticky-footer-item(ng-if="$root.appConfigs.features.has_subsidy_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)" ui-sref="actions" ui-sref-active="active")
             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-products2.svg
             span(translate="topnavbar.buttons.subsidies")
 
