@@ -205,6 +205,6 @@ module.exports = () => {
             '$timeout',
             AuthPinCode
         ],
-        template: require('../tpl/directives/pin_code-control.pug')()
+        template: require('../tpl/directives/pincode-control.pug')()
     };
 };
