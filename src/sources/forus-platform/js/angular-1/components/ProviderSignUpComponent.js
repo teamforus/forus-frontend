@@ -165,6 +165,7 @@ let ProviderSignUpComponent = function(
         let authTarget = [
             'newSignup',
             $stateParams.organization_id,
+            $stateParams.fund_id,
             $stateParams.tag,
         ].join('-');
 

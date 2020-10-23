@@ -12,8 +12,11 @@ let BaseController = function (
     ConfigService,
     PermissionsService,
     appConfigs,
-    ModalService
+    ModalService,
+    ImageConvertorService
 ) {
+    document.imageConverter = ImageConvertorService;
+    
     let selected_organization_key = 'selected_organization_id';
 
     let loadOrganizations = () => {
@@ -273,5 +276,6 @@ module.exports = [
     'PermissionsService',
     'appConfigs',
     'ModalService',
+    'ImageConvertorService',
     BaseController
 ];
