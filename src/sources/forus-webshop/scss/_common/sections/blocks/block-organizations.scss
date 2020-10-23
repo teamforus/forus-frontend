@@ -80,9 +80,6 @@
                 .office-item {
                     margin-bottom: 0;
                     position: relative;
-                    border-top-left-radius: inherit;
-                    border-bottom-left-radius: inherit;
-                    box-shadow: $base_shadow;
 
                     .office-item-map-icon {
                         background: $color_primary;
@@ -101,8 +98,6 @@
                     .office-pane {
                         background: #fff;
                         box-shadow: none;
-                        border-top-left-radius: inherit;
-                        border-bottom-left-radius: inherit;
                         border-bottom: 1px solid $border_color;
                     }
 

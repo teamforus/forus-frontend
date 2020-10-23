@@ -91,19 +91,23 @@
 
                 }
             }
+
             hr {
                 border: 0;
                 height: 0;
                 border-top: 1px solid rgba(0, 0, 0, 0.1);
                 border-bottom: 1px solid rgba(255, 255, 255, 0.3);
             }
+
             .block-header {
                 font: 600 14px $bf;
             }
+
             .block-content {
                 color: #000;
                 font: 400 14px $bf;
             }
+
             .product-details-link {
                 font: 600 13px/20px $bf;
                 color: #083f49;
@@ -195,11 +199,13 @@
             }
         }
     }
+
     .organization-pane .office-organization {
         background: #ffffff;
         display: flex;
         flex-direction: row;
         padding: 25px 15px;
+
         .organization-photo {
             margin: -10px 15px -10px 0;
 
@@ -271,6 +277,7 @@
 
                 img {
                     display: block;
+                    border-radius: $border_radius;
                     border-top-left-radius: inherit;
                     border-top-right-radius: inherit;
                 }
@@ -278,6 +285,7 @@
 
             .product-details {
                 padding: 25px;
+                border-radius: $border_radius;
                 border-bottom-left-radius: inherit;
                 border-bottom-right-radius: inherit;
 

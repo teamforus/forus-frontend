@@ -31,10 +31,6 @@ module.exports = {
             request: "Aanvragen"
         },
     },
-    map: {
-        title: "Locaties op kaart",
-        subtitle: "",
-    },
     low_amount: "U heeft geen tegoed met voldoende saldo.",
     no_vouchers: "U heeft geen tegoed om dit aanbod mee te reserveren",
 };
