@@ -59,7 +59,7 @@ section.section.section-product: .wrapper
             .organization-pane
                 .office-organization(ng-click="$ctrl.toggleOffices($event, $ctrl.product.organization)")
                     .organization-photo(ng-click="$ctrl.goToProvider($event, $ctrl.product.organization)")
-                        img(ng-src="{{ $ctrl.product.organization.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.pngc'  }}").organization-photo-img
+                        img(ng-src="{{ $ctrl.product.organization.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png'  }}").organization-photo-img
                     .organization-title
                         .organization-title-value(ng-click="$ctrl.goToProvider($event, $ctrl.product.organization)" ng-bind="$ctrl.product.organization.name")
                         .organization-title-count(ng-click="$ctrl.goToProvider($event, $ctrl.product.organization)" ng-bind="$ctrl.product.offices.length")
