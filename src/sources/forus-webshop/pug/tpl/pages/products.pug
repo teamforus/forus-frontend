@@ -56,19 +56,24 @@ block content
                                     | Foto's
                     
                     .block.block-products(ng-if="$ctrl.fund_type == 'budget' && ($ctrl.products.data.length > 0 && $ctrl.display_type == 'grid')")
-                        .product-item(ng-repeat="product in $ctrl.products.data" ng-class="{discounted:product.old_price}")
+                        .product-item(ng-repeat="product in $ctrl.products.data").discounted
                             a(ui-sref="products-show(product)").product-item-inner
                                 .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
                                     img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
                                 .product-details
                                     .product-name.truncated(ng-bind="product.name")
                                     .product-organization(ng-bind="product.organization.name")
-                                    .product-discount(ng-if="product.price != product.old_price")
+                                    .product-discount(ng-if="product.isDiscounted")
                                         | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}% 
                                         br
                                         | {{ "block_products.labels.discount" | translate }}
+                                    .product-discount(ng-if="!product.isDiscounted").hide-sm
+                                        | &nbsp;
+                                        br
+                                        | &nbsp;
                                     .product-price(ng-if="!product.no_price")
-                                        small {{ "block_products.labels.old" | translate }} {{ product.old_price | currency_format }}
+                                        small(ng-if="product.isDiscounted") {{ "block_products.labels.old" | translate }} {{ product.old_price | currency_format }}
+                                        small(ng-if="!product.isDiscounted").hide-sm &nbsp;
                                         | {{ "block_products.labels.new" | translate }} {{ product.price | currency_format }}
                     
                     .block.block-subsidies(ng-if="$ctrl.fund_type == 'subsidies' && ($ctrl.products.data.length > 0 && $ctrl.display_type == 'grid')")
@@ -80,7 +85,7 @@ block content
                                 .product-details
                                     .product-name(ng-bind="product.name")
                                     .product-provider(ng-bind="product.organization.name")
-                    
+
                     .block.block-products-list(
                         ng-if="$ctrl.fund_type == 'budget' && $ctrl.products.data.length > 0 && $ctrl.display_type == 'list'" id="products_list")
                         a.product-item(

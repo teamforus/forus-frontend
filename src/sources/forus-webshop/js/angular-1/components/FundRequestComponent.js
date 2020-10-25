@@ -4,94 +4,23 @@ let FundRequestComponent = function(
     $q,
     $sce,
     $state,
-    $stateParams,
     $timeout,
     $filter,
     RecordService,
     FundService,
     AuthService,
-    IdentityService,
     FundRequestService,
-    FormBuilderService,
-    CredentialsService,
     PushNotificationsService,
-    DigIdService,
-    ModalService,
     FileService,
     appConfigs
 ) {
-    try {
-        if (appConfigs.features.funds.fund_requests === false) {
-            $state.go('home');
-        }
-    } catch (error) {}
+    let $ctrl = this;
+    let $trans = $filter('translate');
+    let welcomeSteps = 1;
 
-    !appConfigs.features.auto_validation ? FundRequestComponentDefault(
-        this,
-        $q,
-        $sce,
-        $state,
-        $stateParams,
-        $timeout,
-        $filter,
-        RecordService,
-        FundService,
-        AuthService,
-        IdentityService,
-        FundRequestService,
-        FormBuilderService,
-        CredentialsService,
-        PushNotificationsService,
-        DigIdService,
-        ModalService,
-        FileService,
-        appConfigs
-    ) : FundRequestComponentAuto(
-        this,
-        $q,
-        $state,
-        $stateParams,
-        $timeout,
-        $filter,
-        RecordService,
-        FundService,
-        AuthService,
-        IdentityService,
-        FundRequestService,
-        FormBuilderService,
-        CredentialsService,
-        PushNotificationsService,
-        DigIdService,
-        ModalService,
-        FileService,
-        appConfigs
-    );
-};
-
-let FundRequestComponentDefault = function(
-    $ctrl,
-    $q,
-    $sce,
-    $state,
-    $stateParams,
-    $timeout,
-    $filter,
-    RecordService,
-    FundService,
-    AuthService,
-    IdentityService,
-    FundRequestService,
-    FormBuilderService,
-    CredentialsService,
-    PushNotificationsService,
-    DigIdService,
-    ModalService,
-    FileService,
-    appConfigs
-) {
     $ctrl.step = 1;
-    $ctrl.state = '';
-    $ctrl.totalSteps = 1;
+    $ctrl.state = null;
+    $ctrl.totalSteps = [];
     $ctrl.recordsByKey = {};
     $ctrl.invalidCriteria = [];
     $ctrl.authToken = false;
@@ -107,9 +36,6 @@ let FundRequestComponentDefault = function(
     $ctrl.hasApp = false;
 
     $ctrl.shownSteps = [];
-
-    let timeout = null;
-    let $trans = $filter('translate');
 
     $ctrl.criterionValuePrefix = {
         net_worth: '€',
@@ -131,59 +57,9 @@ let FundRequestComponentDefault = function(
         }) : translated;
     };
 
-    $ctrl.startDigId = () => {
-        DigIdService.startFundRequst($ctrl.fund.id).then(res => {
-            document.location = res.data.redirect_url;
-        }, res => {
-            $state.go('error', {
-                errorCode: res.headers('Error-Code')
-            });
-        });
-    };
-
-    // Initialize authorization form
-    $ctrl.initAuthForm = () => {
-        let target = 'fundRequest-' + $ctrl.fund.id;
-
-        $ctrl.authForm = FormBuilderService.build({
-            email: '',
-            target: target,
-        }, function(form) {
-            let resolveErrors = (res) => {
-                form.unlock();
-                form.errors = res.data.errors;
-            };
-
-            IdentityService.validateEmail(form.values).then(res => {
-                if (res.data.email.used) {
-                    IdentityService.makeAuthEmailToken(form.values.email, target).then(() => {
-                        $ctrl.authEmailRestoreSent = true;
-                        $ctrl.nextStep();
-                    }, resolveErrors);
-                } else {
-                    IdentityService.make(form.values).then(() => {
-                        $ctrl.authEmailSent = true;
-                        $ctrl.nextStep();
-                    }, resolveErrors);
-                }
-
-            }, resolveErrors);
-        }, true);
-    };
-
     // Submit criteria record
     $ctrl.submitStepCriteria = (criteria) => {
-        return $ctrl.validateCriteria(criteria).then($ctrl.nextStep, () => {});
-    };
-
-    $ctrl.setHasAppProp = (hasApp) => {
-        $ctrl.hasApp = hasApp;
-
-        if ($ctrl.hasApp) {
-            $ctrl.requestAuthQrToken();
-        } else {
-            $ctrl.stopCheckAccessTokenStatus();
-        }
+        return $ctrl.validateCriteria(criteria).then($ctrl.nextStep, () => { });
     };
 
     // Submit or Validate record criteria
@@ -240,60 +116,47 @@ let FundRequestComponentDefault = function(
     };
 
     $ctrl.submitRequest = () => {
-        $q.all(
-            $ctrl.invalidCriteria.map($ctrl.uploadCriteriaFiles)
-        ).then(criteria => {
+        if ($ctrl.submitInProgress) {
+            return;
+        } else {
+            $ctrl.submitInProgress = true;
+        }
+
+        $q.all($ctrl.invalidCriteria.map($ctrl.uploadCriteriaFiles)).then(criteria => {
+            let records = $ctrl.fund.auto_validation ? $ctrl.invalidCriteria.map(criterion => ({
+                value: criterion.value,
+                record_type_key: criterion.record_type_key,
+                fund_criterion_id: criterion.id,
+            })) : criteria.map(criterion => ({
+                value: criterion.input_value,
+                record_type_key: criterion.record_type_key,
+                fund_criterion_id: criterion.id,
+                files: criterion.filesUploaded.map(file => file.uid),
+            }));
+
             FundRequestService.store($ctrl.fund.id, {
-                records: criteria.map(criterion => ({
-                    value: criterion.input_value,
-                    record_type_key: criterion.record_type_key,
-                    fund_criterion_id: criterion.id,
-                    files: criterion.filesUploaded.map(file => file.uid),
-                })),
-            }).then((res) => {
-                $ctrl.step++;
-                $ctrl.updateState();
+                records: records
+            }).then(() => {
+                if ($ctrl.fund.auto_validation) {
+                    $ctrl.applyFund($ctrl.fund);
+                } else {
+                    $ctrl.step++;
+                    $ctrl.updateState();
+                }
             }, (res) => {
                 $ctrl.step++;
                 $ctrl.updateState();
                 $ctrl.finishError = true;
                 $ctrl.errorReason = res.data.message;
+                $ctrl.submitInProgress = false;
             });
         });
     };
 
-    $ctrl.applyAccessToken = function(access_token) {
-        $ctrl.stopCheckAccessTokenStatus();
-        CredentialsService.set(access_token);
-        $ctrl.buildTypes();
-        $ctrl.state = $ctrl.step2state(3);
-    };
-
-    $ctrl.checkAccessTokenStatus = (type, access_token) => {
-        IdentityService.checkAccessToken(access_token).then((res) => {
-            if (res.data.message == 'active') {
-                $ctrl.applyAccessToken(access_token);
-            } else if (res.data.message == 'pending') {
-                timeout = $timeout(function() {
-                    $ctrl.checkAccessTokenStatus(type, access_token);
-                }, 2500);
-            } else {
-                document.location.reload();
-            }
-        });
-    };
-
-    $ctrl.stopCheckAccessTokenStatus = () => {
-        if (timeout) {
-            $timeout.cancel(timeout);
-        }
-    };
-
-    $ctrl.requestAuthQrToken = () => {
-        IdentityService.makeAuthToken().then((res) => {
-            $ctrl.authToken = res.data.auth_token;
-            $ctrl.checkAccessTokenStatus('token', res.data.access_token);
-        }, console.log);
+    $ctrl.setRecordValue = (invalidCriteria) => {
+        $timeout(() => {
+            invalidCriteria.input_value = invalidCriteria.is_checked ? invalidCriteria.value : null;
+        }, 250)
     };
 
     $ctrl.updateEligibility = () => {
@@ -349,62 +212,32 @@ let FundRequestComponentDefault = function(
             });
         });
 
-        $ctrl.setRecordValue = (invalidCriteria) => {
-            timeout = $timeout(function() {
-                invalidCriteria.input_value = invalidCriteria.is_checked ?
-                    invalidCriteria.value : null;
-            }, 500);
-        };
-
         $ctrl.buildSteps();
     };
 
     $ctrl.buildSteps = () => {
-        // Sign up step + criteria list
-        let totalSteps = ($ctrl.signedIn ? 2 : 3) + ((
-            $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
-        ) ? 1 : 0);
-
-        // Other criteria
-        totalSteps += $ctrl.invalidCriteria.length;
-
         $ctrl.totalSteps = [];
 
-        for (let index = 0; index < totalSteps; index++) {
+        for (let index = 0; index < ((welcomeSteps - 1) +
+            ($ctrl.fund.auto_validation ? 1 : $ctrl.invalidCriteria.length)); index++) {
             $ctrl.totalSteps.push(index + 1);
         }
     };
 
     $ctrl.step2state = (step) => {
-        if (step == 100) {
-            return 'taken_by_partener';
+        if (step == 1) {
+            return $ctrl.fund.auto_validation ? 'confirm_criteria' : 'criteria';
         }
 
-        if (step == 1 && !$ctrl.signedIn) {
-            return 'auth';
-        }
-
-        if (step == 2 && !$ctrl.signedIn && (
-            $ctrl.authEmailSent || $ctrl.authEmailRestoreSent
-        )) {
-            return 'auth_email_sent';
-        }
-
-        if ($ctrl.signedIn && step == 2) {
-            return 'criteria';
-        }
-
-        if ((step == 3 && !$ctrl.signedIn) || (step == 1 && $ctrl.signedIn)) {
-            return !$ctrl.digidAvailable ? 'criteria' : 'digid_login';
-        }
-
-        if (step == $ctrl.totalSteps.length + 1) {
+        if ($ctrl.fund.auto_validation && step == 2) {
             return 'done';
         }
 
-        let prevSteps = 1 + ($ctrl.signedIn ? 1 : 2);
+        if (step == ($ctrl.totalSteps.length + 1) + welcomeSteps) {
+            return 'done';
+        }
 
-        return 'criteria_' + ((step - prevSteps) - 1);
+        return 'criteria_' + ((step - welcomeSteps) - 1);
     };
 
     $ctrl.buildTypes = () => {
@@ -429,7 +262,7 @@ let FundRequestComponentDefault = function(
     $ctrl.nextStep = () => {
         $ctrl.buildSteps();
 
-        if ($ctrl.step == $ctrl.totalSteps.length) {
+        if ($ctrl.step == (welcomeSteps + $ctrl.totalSteps.length)) {
             return $ctrl.submitRequest();
         }
 
@@ -457,8 +290,6 @@ let FundRequestComponentDefault = function(
         $ctrl.recordTypes = recordTypes;
     };
 
-    $ctrl.finish = () => $state.go('funds');
-
     $ctrl.applyFund = function(fund) {
         return $q((resolve, reject) => {
             FundService.apply(fund.id).then(function(res) {
@@ -475,125 +306,109 @@ let FundRequestComponentDefault = function(
         });
     };
 
-    $ctrl.$onInit = function() {
-        $ctrl.signedIn = AuthService.hasCredentials();
-        $ctrl.initAuthForm();
-        $ctrl.prepareRecordTypes();
-        // $ctrl.requestAuthQrToken();
+    $ctrl.getFundVouchers = (fund, vouchers) => {
+        return vouchers.filter(voucher => voucher.fund_id === fund.id);
+    };
 
-        if ($ctrl.signedIn) {
-            $ctrl.buildTypes().then(() => {
-                IdentityService.identity().then(res => {
-                    if ($ctrl.fund.taken_by_partner) {
-                        $ctrl.step = 100;
-                        $ctrl.updateState();
+    $ctrl.getFirstFundVoucher = (fund, vouchers) => {
+        let fundVouchers = $ctrl.getFundVouchers(fund, vouchers);
 
-                        return ModalService.open('modalNotification', {
-                            type: 'info',
-                            title: 'Dit tegoed is al geactiveerd',
-                            closeBtnText: 'Bevestig',
-                            description: [
-                                "U krijgt deze melding omdat het tegoed is geactiveerd door een ",
-                                "famielid of voogd. De tegoeden zijn beschikbaar in het account ",
-                                "van de persoon die deze als eerste heeft geactiveerd."
-                            ].join(''),
-                        }, {
-                            onClose: () => {
-                                $state.go('home');
-                            }
-                        });
-                    }
-
-                    if ($stateParams.digid_success == 'signed_up' || $stateParams.digid_success == 'signed_in') {
-                        PushNotificationsService.success('Succes! Ingelogd met DigiD.');
-
-                        if ($ctrl.invalidCriteria.length == 0) {
-                            $ctrl.applyFund($ctrl.fund);
-                        }
-                    } else if ($stateParams.digid_error) {
-                        return $state.go('error', {
-                            errorCode: 'digid_' + $stateParams.digid_error
-                        });
-                    }
-
-                    FundRequestService.index($ctrl.fund.id).then((res) => {
-                        let pendingRequests = res.data.data.filter(request => request.state === 'pending');
-                        let pendingRequest = pendingRequests[0] || false;
-
-                        if (pendingRequest) {
-                            $ctrl.fund.criteria.map(criteria => {
-                                let record = pendingRequest.records.filter(record => {
-                                    return record.record_type_key == criteria.record_type_key;
-                                })[0];
-
-                                if (record) {
-                                    criteria.request_state = record.state;
-                                }
-
-                                return criteria;
-                            });
-
-                            $ctrl.state = 'fund_already_applied';
-                        } else if ($ctrl.invalidCriteria.length == 0) {
-                            $ctrl.applyFund($ctrl.fund);
-                        }
-                    });
-
-                    if (($ctrl.bsnIsKnown = res.data.bsn) || !$ctrl.digidAvailable) {
-                        $ctrl.step = 2;
-                        $ctrl.updateState();
-                    }
-                });
-            });
-        } else {
-            $ctrl.buildSteps();
-            $ctrl.updateEligibility();
+        if (fundVouchers.length > 0) {
+            return fundVouchers[0];
         }
+
+        return false;
+    }
+
+    $ctrl.finish = () => $state.go('funds');
+    $ctrl.goToMain = () => $state.go('home');
+
+    $ctrl.goToActivationComponent = () => {
+        return $state.go('fund-activate', {
+            fund_id: $ctrl.fund.id
+        });
+    };
+
+    $ctrl.submitConfirmCriteria = () => {
+        $ctrl.submitRequest();
+    };
+
+    $ctrl.fundRequestIsAvailable = (fund) => {
+        return fund.allow_fund_requests && (!$ctrl.digidMandatory || ($ctrl.digidMandatory && $ctrl.bsnIsKnown));
+    };
+
+    $ctrl.$onInit = function() {
+        let pendingRequests = $ctrl.fundRequests ? $ctrl.fundRequests.data.filter(request => {
+            return request.state === 'pending';
+        }) : [];
+
+        $ctrl.signedIn = AuthService.hasCredentials();
+        $ctrl.bsnIsKnown = $ctrl.identity && $ctrl.identity.bsn;
+        $ctrl.digidAvailable = $ctrl.appConfigs.features.digid;
+        $ctrl.digidMandatory = $ctrl.appConfigs.features.digid_mandatory;
+        $ctrl.fundRequestAvailable = $ctrl.fundRequestIsAvailable($ctrl.fund);
+
+        // The user is not authenticated and have to go back to sign-up page
+        if ((!$ctrl.signedIn || !$ctrl.identity) || ($ctrl.fund.auto_validation && !$ctrl.bsnIsKnown)) {
+            return $state.go('start');
+        }
+
+        if (!$ctrl.fundRequestAvailable) {
+            return $ctrl.goToActivationComponent();
+        }
+
+        // The fund is already taken by identity partner
+        if ($ctrl.fund.taken_by_partner || (pendingRequests[0] || false)) {
+            return $ctrl.goToActivationComponent();
+        }
+
+        // All the criteria are meet, request the voucher
+        if ($ctrl.fund.criteria.filter(criterion => !criterion.is_valid).length == 0) {
+            return $ctrl.goToActivationComponent();
+        }
+
+        $ctrl.prepareRecordTypes();
+
+        $ctrl.buildTypes().then(() => {
+            FundRequestService.index($ctrl.fund.id).then(() => {
+                if ($ctrl.invalidCriteria.length == 0) {
+                    $ctrl.applyFund($ctrl.fund);
+                }
+            });
+
+            if (($ctrl.bsnIsKnown = $ctrl.identity.bsn) || !$ctrl.digidAvailable) {
+                $ctrl.step = 1;
+                $ctrl.updateState();
+            }
+        });
 
         $ctrl.updateState();
     };
-
-    $ctrl.goToMain = () => {
-        $state.go('home');
-    }
-
-    $ctrl.$onDestroy = function() {
-        $ctrl.stopCheckAccessTokenStatus();
-    };
 };
-
-let FundRequestComponentAuto = require('./FundRequestAutoComponent');
 
 module.exports = {
     bindings: {
-        records: '<',
-        recordTypes: '<',
         fund: '<',
+        records: '<',
+        identity: '<',
+        vouchers: '<',
+        recordTypes: '<',
+        fundRequests: '<',
     },
     controller: [
         '$q',
         '$sce',
         '$state',
-        '$stateParams',
         '$timeout',
         '$filter',
         'RecordService',
         'FundService',
         'AuthService',
-        'IdentityService',
         'FundRequestService',
-        'FormBuilderService',
-        'CredentialsService',
         'PushNotificationsService',
-        'DigIdService',
-        'ModalService',
         'FileService',
         'appConfigs',
         FundRequestComponent
     ],
-    templateUrl: ['appConfigs', (appConfigs) => {
-        return 'assets/tpl/pages/fund-request' + (
-            appConfigs.features.auto_validation ? '-auto' : ''
-        ) + '.html';
-    }]
+    templateUrl: 'assets/tpl/pages/fund-request.html',
 };

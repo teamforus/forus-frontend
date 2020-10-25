@@ -34,7 +34,7 @@ let ProductComponent = function(
             if (fund.taken_by_partner) {
                 $ctrl.showPartnerModal();
             } else {
-                $state.go('fund-request', {
+                $state.go('fund-activate', {
                     fund_id: fund.id
                 });
             }
@@ -62,28 +62,39 @@ let ProductComponent = function(
         $ctrl.subsidyFunds = $ctrl.product.funds.filter(fund => fund.type === 'subsidies');
         $ctrl.useSubsidies = $ctrl.subsidyFunds.length > 0
         $ctrl.useBudget = $ctrl.product.funds.filter(fund => fund.type === 'budget').length > 0
-
-        $ctrl.applicableSubsidyVouchers = $ctrl.vouchers.filter(voucher => {
-            return isValidProductVoucher(voucher, fundIds) && voucher.fund.type == 'subsidies';
-        });
-
-        $ctrl.applicableBudgetVouchers = $ctrl.vouchers.filter(voucher => {
-            return isValidProductVoucher(voucher, fundIds) &&
-                parseFloat($ctrl.product.price) <= parseFloat(voucher.amount) &&
-                voucher.fund.type == 'budget';
-        });
-
+        $ctrl.fundNames = $ctrl.product.funds.map(fund => fund.name).join(', ');
+        $ctrl.product.description_html = $sce.trustAsHtml($ctrl.product.description_html);
         $ctrl.lowAmountVouchers = $ctrl.vouchers.filter(voucher => {
             return isValidProductVoucher(voucher, fundIds) &&
                 parseFloat($ctrl.product.price) >= parseFloat(voucher.amount) &&
                 voucher.fund.type == 'budget';
         });
 
+        $ctrl.product.funds.forEach(fund => {
+            fund.meta = {};
 
-        $ctrl.fundNames = $ctrl.product.funds.map(fund => fund.name).join(', ');
-        $ctrl.isApplicable = $ctrl.applicableBudgetVouchers.length > 0;
-        $ctrl.isApplicableSubsidy = $ctrl.applicableSubsidyVouchers.length > 0;
-        $ctrl.product.description_html = $sce.trustAsHtml($ctrl.product.description_html);
+            fund.meta.applicableSubsidyVouchers = $ctrl.vouchers.filter(voucher => {
+                return isValidProductVoucher(voucher, [fund.id]) && voucher.fund.type == 'subsidies';
+            });
+
+            fund.meta.applicableBudgetVouchers = $ctrl.vouchers.filter(voucher => {
+                return isValidProductVoucher(voucher, [fund.id]) &&
+                    parseFloat($ctrl.product.price) <= parseFloat(voucher.amount) &&
+                    voucher.fund.type == 'budget';
+            });
+
+
+            fund.meta.isApplicable = fund.meta.applicableBudgetVouchers.length > 0;
+            fund.meta.isApplicableSubsidy = fund.meta.applicableSubsidyVouchers.length > 0;
+        })
+
+        $ctrl.isApplicable = $ctrl.product.funds.filter(
+            fund => fund.meta.isApplicable
+        ).length > 0;
+
+        $ctrl.applicableBudgetVouchers = $ctrl.product.funds.filter(
+            fund => fund.meta.applicableBudgetVouchers
+        ).length > 0;
     };
 
     $ctrl.applyProduct = () => {

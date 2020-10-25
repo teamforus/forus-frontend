@@ -1,7 +1,7 @@
 module.exports = {
     items: {
         home: "Home",
-        funds:"Aanvragen",
+        funds:"Activeren",
         products:"Aanbod",
         subsidies:"Acties",
         providers:"Aanbieders",
@@ -9,10 +9,25 @@ module.exports = {
         identity:"Profiel",
         potjeswijzer: {
             funds:"Potjes",
+        },
+        groningen: {
+            funds:"Aanvragen",
+        },
+        nijmegen: {
+            funds:"Aanvragen",
         }
     },
     buttons: {
-        activate:"Activatiecode",
+        activate: "Activeren",
+        potjeswijzer: {
+            activate: "Aanvragen",
+        },
+        groningen: {
+            activate: "Aanvragen",
+        },
+        nijmegen: {
+            activate: "Aanvragen",
+        },
         login:"Inloggen",
         voucher:"Mijn tegoeden",
         profile:"Profiel >",

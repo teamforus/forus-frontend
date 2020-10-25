@@ -64,9 +64,22 @@
         .modal-header(i18n="modals.modal_voucher_create.title")
         .modal-body
             .modal-section 
+                .form-group.form-group-inline.form-group-inline-sm
+                    label.form-label(i18n="modals.modal_voucher_create.labels.assign_by_type")
+                    select(
+                        ng-change="$ctrl.onAsignTypeChange($ctrl.assignType)"
+                        ng-options="assignType as assignType.label for assignType in $ctrl.assignTypes"
+                        ng-model="$ctrl.assignType").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.assign_by_type" ng-bind="error")
+
+                .form-group.form-group-inline.form-group-inline-sm(ng-if="$ctrl.assignType.key")
+                    label.form-label(ng-bind="$ctrl.assignType.label")
+                    input(ng-model="$ctrl.form.values[$ctrl.assignType.key]" placeholder="{{ $ctrl.assignType.label }}").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors[$ctrl.assignType.key]" ng-bind="error")
+
                 .form-group.form-group-inline.form-group-inline-sm(ng-if="$ctrl.fund.type === 'budget'")
                     label.form-label(i18n="modals.modal_voucher_create.labels.amount")
-                    input(
+                    input(  
                         type="number" 
                         placeholder="{{ 'modals.modal_voucher_create.labels.amount' | i18n }}"
                         ng-model="$ctrl.form.values.amount" step=".01" min="0.01").form-control

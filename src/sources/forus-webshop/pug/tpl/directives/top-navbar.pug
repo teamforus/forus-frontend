@@ -30,7 +30,7 @@
             ul.navbar-list-auth.show-sm(ng-if="$root.auth_user")
                 //- Auth menu
                 li.navbar-item-wrapper: .navbar-item(
-                    ng-click="openActivateCodePopup()" translate="topnavbar.buttons.activate")
+                    ng-click="startFundRequest()" translate="topnavbar.buttons.activate")
                 
                 li.navbar-item-wrapper(ng-if="$root.appConfigs.features.records.list"): .navbar-item(
                     ui-sref="records") Mijn eigenschappen
@@ -130,9 +130,10 @@
                                 click-outside="$ctrl.hideUserMenu()")
                                 .triangle
                                 .inner
-                                    .auth-user-menu-item(ng-click="openActivateCodePopup()" id="open_activation_code_popup" ng-if="!$root.appConfigs.features.digid")
+                                    .auth-user-menu-item(ng-click="startFundRequest()" id="open_activation_code_popup")
+                                        //-  ng-if="!$root.appConfigs.features.digid")
                                         img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg")
-                                        span(translate="topnavbar.buttons.activate")
+                                        span(translate="topnavbar.buttons.activate_{{ $root.client_key }}" translate-default="{{ 'topnavbar.buttons.activate' | translate }}")
 
                                     .auth-user-menu-item(ng-click="openPinCodePopup()" id="open_pincode_popup")
                                         em.mdi.mdi-cellphone
@@ -198,30 +199,18 @@
                                 div(translate="topnavbar.buttons.logout")
 
                     .auth-out(ng-if="!$root.auth_user" id="login")
-                        //-.button.button-default(ng-if="$root.appConfigs.flags.aboutSiteMenu" ng-click="openAuthCodePopup()")
-                            em.mdi.mdi-ticket-confirmation 
-                            span(translate="topnavbar.buttons.activate")
-                        
                         .button.button-default(ng-click="openAuthPopup()").hide-sm
                             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-profile.svg
                             span(translate="topnavbar.buttons.login")
+                        
                         .button.button-mobile(ng-click="openAuthPopup()").show-sm
                             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
                             div(translate="topnavbar.buttons.login")
-
-                    div(ng-if="!$root.auth_user && !$root.appConfigs.features.digid" ng-click="openAuthCodePopup()").hide-sm
-                        .button.button-primary
-                            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
-                            span(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthCodePopup()" i18n="home.header.button" id="start_modal")
-                            span(ng-if="$root.auth_user && $ctrl.vouchers.length == 0" ng-click="$ctrl.openActivateCodePopup()" i18n="home.header.button")
-                            span(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" ng-click="$ctrl.openInMeModal()" i18n="home.header.auth_button")
-
-                    div(ng-if="!$root.auth_user && $root.appConfigs.features.digid" ng-click="startFundRequest()").hide-sm
-                        .button.button-primary
-                            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
-                            span(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthCodePopup()" i18n="home.header.button" id="start_modal")
-                            span(ng-if="$root.auth_user && $ctrl.vouchers.length == 0" ng-click="$ctrl.openActivateCodePopup()" i18n="home.header.button")
-                            span(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" ng-click="$ctrl.openInMeModal()" i18n="home.header.auth_button")
+                        
+                    
+                    .button.button-primary(ng-if="!$root.auth_user" ng-click="startFundRequest()")
+                        include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
+                        span(translate="home.header.{{ $root.client_key }}.button" translate-default="{{ 'home.header.button' | translate }}" id="start_modal")
 
     
     

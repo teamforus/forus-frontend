@@ -1,4 +1,4 @@
-.block.block-auth-pin_code
+form.block.block-auth-pin_code(ng-submit="$ctrl.submit($ctrl.pinCode)")
     //- PinCode
     .pin_code-content(ng-if='$ctrl.state == $ctrl.STATE_PIN_CODE')
         .pin_code-title Aanmelden
@@ -9,7 +9,9 @@
         pin-code-control(block-size="6" block-count="1" block-input-type="num" ng-model='$ctrl.pinCode')
         .pin_code-input-error(ng-if='$ctrl.pinCodeError' ng-bind='$ctrl.pinCodeError')
         button.button.button-primary.button-wide.flex-start(
-            ng-click='$ctrl.submit($ctrl.pinCode)' ng-disabled="$ctrl.pinCode.length < 6") Koppel
+            type="submit"
+            ng-click='$ctrl.submit($ctrl.pinCode)' 
+            ng-disabled="$ctrl.pinCode.length < 6") Koppel
     
     //- Success
     .pin_code-content.text-center(ng-if='$ctrl.state == $ctrl.STATE_SUCCESS')

@@ -15,6 +15,7 @@ app.controller('BaseController', require('./controllers/BaseController'));
 
 // Components
 app.component('homeComponent', require('./components/HomeComponent'));
+app.component('signUpComponent', require('./components/SignUpComponent'));
 app.component('signUpSelectionComponent', require('./components/SignUpSelectionComponent'));
 app.component('fundsComponent', require('./components/FundsComponent'));
 app.component('vouchersComponent', require('./components/VouchersComponent'));
@@ -28,6 +29,7 @@ app.component('providerComponent', require('./components/ProviderComponent'));
 app.component('voucherComponent', require('./components/VoucherComponent'));
 app.component('fundApplyComponent', require('./components/FundApplyComponent'));
 app.component('fundRequestComponent', require('./components/FundRequestComponent'));
+app.component('fundActivateComponent', require('./components/FundActivateComponent'));
 app.component('fundRequestClarificationComponent', require('./components/FundRequestClarificationComponent'));
 app.component('recordValidateComponent', require('./components/RecordValidateComponent'));
 app.component('recordValidationsComponent', require('./components/RecordValidationsComponent'));
@@ -133,7 +135,6 @@ app.component('modalNotificationComponent', require('./components/Modals/ModalNo
 app.component('modalOfficesComponent', require('./components/Modals/ModalOfficesComponent'));
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
 app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCodeComponent'));
-app.component('modalActivateCodeComponent', require('./components/Modals/ModalActivateCodeComponent'));
 app.component('modalAuthCodeComponent', require('./components/Modals/ModalAuthCodeComponent'));
 app.component('modalShareVoucherComponent', require('./components/Modals/ModalShareVoucherComponent'));
 app.component('modalOpenInMeComponent', require('./components/Modals/ModalOpenInMeComponent'));

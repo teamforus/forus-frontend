@@ -87,6 +87,7 @@ let FundsComponent = function(
             $ctrl.recordsByTypesKey[recordType.key] = recordType;
         });
 
+        // todo: remove
         $ctrl.criterioaList = FundService.fundCriteriaList(
             $ctrl.fund.criteria,
             $ctrl.recordsByTypesKey

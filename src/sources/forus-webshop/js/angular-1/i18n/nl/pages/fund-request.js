@@ -1,5 +1,6 @@
 module.exports = {
     // VALIDATION REQUEST FOR FUNDS = fund_request.pug
+    approved_request_exists: "Er bestaat al een goedgekeurde aanvraag. Neem contact op met de beheerder.",
     sign_up: {
         block_title: "{{ fundname }} aanvragen",
         pane: {

@@ -1,5 +1,3 @@
-$bf: 'Montserrat', arial, sans-serif;
-
 &.block-sign_up {
     padding: 50px 0;
     cursor: default;
@@ -29,7 +27,7 @@ $bf: 'Montserrat', arial, sans-serif;
         }
 
         a {
-            color: #3561FF;
+            color: $sign_up_accent_color;
             text-decoration: underline;
         }
     }
@@ -109,26 +107,26 @@ $bf: 'Montserrat', arial, sans-serif;
                 font-size: 24px;
                 
                 .mdi {
-                    color: #305dfb;
+                    color: $sign_up_accent_color;
                 }
             }
 
             &.sign_up-step-active {
-                color: #BDCBFF;
+                color: $sign_up_accent_color_light;
 
                 .sign_up-step-border:before {
                     content: '';
                     display: block;
                     @include fill_parent();
-                    background-color: #BDCBFF;
+                    background-color: $sign_up_accent_color_light;
                 }
             }
 
             &.sign_up-step-done {
-                color: #3561FF;
+                color: $sign_up_accent_color;
 
                 .sign_up-step-border:before {
-                    background-color: #3561FF;
+                    background-color: $sign_up_accent_color;
                 }
             }
         }
@@ -160,6 +158,12 @@ $bf: 'Montserrat', arial, sans-serif;
             padding: 40px 40px;
             font: 400 16px/26px $bf; 
 
+            .button {
+                &.button-text { 
+                    color: $sign_up_accent_color;
+                }
+            }
+
             .sign_up-pane-heading {
                 font: 500 21px/27px $bf;   
                 margin: 0 0 15px;
@@ -182,7 +186,7 @@ $bf: 'Montserrat', arial, sans-serif;
                 .sign_up-pane-link {
                     font-size: inherit;
                     line-height: inherit;
-                    color: #3561FF;
+                    color: $sign_up_accent_color;
                     font-weight: 500;
                 }
 
@@ -204,7 +208,7 @@ $bf: 'Montserrat', arial, sans-serif;
             .sign_up-pane-link {
                 font: 500 14px/27px $bf;
                 margin: 0 0 15px;
-                color: #3561FF;
+                color: $sign_up_accent_color;
                 transition: .4s;
                 display: inline;
                 text-decoration: underline;
@@ -221,11 +225,6 @@ $bf: 'Montserrat', arial, sans-serif;
                 &:last-child {
                     margin-bottom: 0;
                 }
-            }
-
-
-            .button {
-                padding: 14px 25px;
             }
 
             .sign_up-pane-section {
@@ -518,12 +517,12 @@ $bf: 'Montserrat', arial, sans-serif;
                     font-weight: 500;
                     font-size: 16px;
                     line-height: 20px;
-                    color: #3561FF;
+                    color: $sign_up_accent_color;
 
                     line-height: 30px;
 
                     .mdi {
-                        color: #3561FF;    
+                        color: $sign_up_accent_color;    
                         width: 36px;
                         font-size: 34px;    
                     }

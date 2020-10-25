@@ -20,9 +20,9 @@ let handleAuthTarget = ($state, target) => {
     }
 
     if (target[0] == 'fundRequest') {
-        return !!$state.go('fund-request', {
+        return target[1] ? !!$state.go('fund-request', {
             fund_id: target[1]
-        });
+        }) : !!$state.go('start', {});
     }
 
     if (target[0] == 'voucher') {
@@ -64,6 +64,21 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             funds: ['FundService', (
                 FundService
             ) => repackResponse(FundService.list())]
+        }
+    });
+
+    $stateProvider.state({
+        name: "start",
+        url: "/start",
+        component: "signUpComponent",
+        params: {
+            confirmed: null,
+            digid_error: null
+        },
+        resolve: {
+            funds: ['FundService', (
+                FundService
+            ) => repackResponse(FundService.list())],
         }
     });
 
@@ -483,9 +498,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 organization_id: $transition$.params().organization_id,
                 per_page: 10,
             }))],
-            recordTypes: ['RecordTypeService', (
-                RecordTypeService
-            ) => repackResponse(RecordTypeService.list())],
             records: ['AuthService', 'RecordService', (
                 AuthService, RecordService
             ) => AuthService.hasCredentials() ? repackResponse(
@@ -496,6 +508,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             ) => AuthService.hasCredentials() ? repackResponse(
                 VoucherService.list()
             ) : promiseResolve([])],
+            organizations: ['OrganizationService', (
+                OrganizationService
+            ) => repackResponse(OrganizationService.list({
+                implementation: 1,
+                is_employee: 0
+            }))],
         }
     });
 
@@ -524,6 +542,36 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
+    // Activate fund
+    $stateProvider.state({
+        name: "fund-activate",
+        url: "/funds/{fund_id}/activate?digid_success&digid_error",
+        component: "fundActivateComponent",
+        data: {
+            fund_id: null,
+            digid_success: false,
+            digid_error: false,
+        },
+        resolve: {
+            identity: ['AuthService', (
+                AuthService
+            ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
+            fund: ['$transition$', 'FundService', (
+                $transition$, FundService
+            ) => repackResponse(FundService.readById($transition$.params().fund_id))],
+            fundRequests: ['$transition$', 'FundRequestService', 'AuthService', (
+                $transition$, FundRequestService, AuthService
+            ) => AuthService.hasCredentials() ? repackPagination(
+                FundRequestService.index($transition$.params().fund_id)
+            ) : null],
+            vouchers: ['AuthService', 'VoucherService', (
+                AuthService, VoucherService
+            ) => AuthService.hasCredentials() ? repackResponse(
+                VoucherService.list()
+            ) : []],
+        }
+    });
+
     // Apply to fund by submitting fund request
     $stateProvider.state({
         name: "fund-request",
@@ -535,14 +583,32 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             digid_error: false,
         },
         resolve: {
+            identity: ['AuthService', (
+                AuthService
+            ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
             fund: ['$transition$', 'FundService', (
                 $transition$, FundService
             ) => repackResponse(FundService.readById(
                 $transition$.params().fund_id
             ))],
+            fundRequests: ['$transition$', 'FundRequestService', 'AuthService', (
+                $transition$, FundRequestService, AuthService
+            ) => AuthService.hasCredentials() ? repackPagination(
+                FundRequestService.index($transition$.params().fund_id)
+            ) : new Promise((resolve) => resolve(null))],
             recordTypes: ['RecordTypeService', (
                 RecordTypeService
             ) => repackResponse(RecordTypeService.list())],
+            vouchers: ['AuthService', 'VoucherService', (
+                AuthService, VoucherService
+            ) => AuthService.hasCredentials() ? repackResponse(
+                VoucherService.list()
+            ) : []],
+            records: ['AuthService', 'RecordService', (
+                AuthService, RecordService
+            ) => AuthService.hasCredentials() ? repackResponse(
+                RecordService.list()
+            ) : promiseResolve(null)],
         }
     });
 
