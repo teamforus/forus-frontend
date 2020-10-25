@@ -5,7 +5,8 @@ let FundRequestClarificationComponent = function(
     AuthService,
     FormBuilderService,
     FundRequestClarificationService,
-    FileService
+    FileService,
+    ModalService
 ) {
     let $ctrl = this;
 
@@ -69,8 +70,19 @@ let FundRequestClarificationComponent = function(
 
     $ctrl.$onInit = function() {
         if (!AuthService.hasCredentials()) {
-            alert('Please log in first.');
-            $state.go('home');
+            let params = angular.copy($stateParams);
+
+            $state.go('home').then(() => {
+                ModalService.open('identityProxyExpired', {
+                    has_redirect : true,
+                    target_name   : 'requestClarification',
+                    target_params : {
+                        fund_id          : params.fund_id,
+                        request_id       : params.request_id,
+                        clarification_id : params.clarification_id,
+                    }
+                });
+            });
         }
 
         if ($ctrl.clarification.state != 'pending') {
@@ -96,6 +108,7 @@ module.exports = {
         'FormBuilderService',
         'FundRequestClarificationService',
         'FileService',
+        'ModalService',
         FundRequestClarificationComponent
     ],
     templateUrl: 'assets/tpl/pages/fund-request-clarification.html'

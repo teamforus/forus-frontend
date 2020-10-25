@@ -8,7 +8,7 @@ let ModalIdentityProxyExpiredComponent = function(
     $ctrl.openLoginModal = () => {
         $ctrl.close();
         
-        ModalService.open('modalAuth', {});
+        ModalService.open('modalAuth', $ctrl.modal.scope);
     };
 };
 
