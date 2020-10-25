@@ -50,7 +50,7 @@ section.section.section-product: .wrapper
 
                 .product-funds-list
                     .fund-item(ng-repeat="fund in $ctrl.product.funds")
-                        .fund-item-media: img.fund-item-media-img(src="../assets/img/placeholders/fund-thumbnail.png")
+                        .fund-item-media: img.fund-item-media-img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
                         .fund-item-name(ng-bind="fund.name")
                         .fund-item-limit(ng-if="fund.type == 'subsidies'")
                             .fund-item-limit-label Aantal beschikbaar:
