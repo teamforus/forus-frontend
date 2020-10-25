@@ -65,7 +65,7 @@ let ModalAuthComponent = function(
         $ctrl.signInEmailForm = FormBuilderService.build({
             email: ""
         }, (form) => {
-            let authTarget = {};
+            let authTarget = undefined;
 
             if ($ctrl.modal.scope.has_redirect) {
                 authTarget = [$ctrl.modal.scope.target_name].concat(
