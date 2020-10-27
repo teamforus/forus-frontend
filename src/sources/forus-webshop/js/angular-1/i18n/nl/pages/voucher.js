@@ -56,11 +56,11 @@ module.exports = {
             expired: "Verlopen"
         },
         physical_card: {
-            title: 'Heeft u een pas van vorige jaren?',
-            description: 'Als u de oude plastic pas opnieuw activeert kunt u deze blijven gebruiken. Hulp nodig? ' + 
+            title: 'Pas activeren',
+            description: 'Als u de Stadjerpas (opnieuw) activeert kun u deze blijven gebruiken. Hulp nodig? ' + 
                 'Bel 14 050 maandag t/m vrijdag 9.00 tot 12.00',
             buttons: {
-                reactivate: 'Oude pas opnieuw activeren'
+                reactivate: 'Activeren'
             }
         },
         share_voucher: {

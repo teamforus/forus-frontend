@@ -80,13 +80,15 @@ let VoucherComponent = function(
         });
     };
 
-    $ctrl.usePhysicalCard = (voucher) => {
-        if (!voucher.physical_card) {
+    $ctrl.usePhysicalCard = (voucher, state) => {
+        if (state == 'select_type' || state == 'card_code') {
             ModalService.open('modalPhysicalCardType', {
                 voucher: voucher,
+                state: state,
                 sendVoucherEmail: () => $ctrl.sendVoucherEmail(voucher),
                 openInMeModal: $ctrl.openInMeModal,
                 printQrCode: $ctrl.printQrCode,
+                physicalCardIsLinkable: () => $ctrl.physicalCardIsLinkable(),
                 onAttached: () => {
                     VoucherService.get($ctrl.voucher.address).then(res => {
                         $ctrl.voucher = res.data.data;
@@ -103,7 +105,7 @@ let VoucherComponent = function(
                         $ctrl.$onInit();
 
                         if (requestNew) {
-                            $ctrl.usePhysicalCard($ctrl.voucher);
+                            $ctrl.usePhysicalCard($ctrl.voucher, 'select_type');
                         }
                     });
                 },

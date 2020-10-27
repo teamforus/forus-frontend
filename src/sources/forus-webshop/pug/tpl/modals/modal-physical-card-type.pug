@@ -4,7 +4,7 @@
     .modal-backdrop(ng-click="$ctrl.close()")
     
     //- Select type
-    .modal-window(ng-if="$ctrl.state == 'select_type'")
+    //-.modal-window(ng-if="$ctrl.state == 'select_type'")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
         .modal-header
             .modal-title(translate="physical_card.modal_section.type_selection.title")
@@ -55,11 +55,10 @@
                     ng-click="$ctrl.submitActivationCode()")
     
     //- Digital password
-    .modal-window(ng-if="$ctrl.state == 'digital_pass'")
+    .modal-window(ng-if="$ctrl.state == 'select_type'")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
         .modal-header
-            .modal-title(translate="physical_card.modal_section.request_new_card.title")
-            .modal-subtitle(translate="physical_card.modal_section.request_new_card.subtitle")
+            .modal-title(translate="physical_card.modal_section.request_new_card.title" translate-values="{ fund_name: $ctrl.voucher.fund.name } ") 
         .modal-content 
             .modal-section(ng-if="!$ctrl.preffersPlasticCard")
                 .physical-card: .physical-card-row
@@ -84,7 +83,7 @@
                         .physical-card-item-details
                             .physical-card-item-title(translate="physical_card.modal_section.request_new_card.open_in_app")
 
-                .order-block(ng-if="!$ctrl.preffersPlasticCard")
+                .order-block(ng-if="!$ctrl.preffersPlasticCard && $ctrl.voucher.fund.allow_physical_cards && ($ctrl.voucher.type === 'regular') && !$ctrl.voucher.physical_card")
                     .physical-card-description(translate="physical_card.modal_section.request_new_card.preffer_plastic_card")
                     .text-center: button.button.button-dark(
                         type="button" 
@@ -155,5 +154,5 @@
         .modal-content: .modal-section
             .physical-card-result
                 .physical-card-media: include ../../../resources/_webshop-common/assets/img/icon-physical-cards/icon-physical-cards-success.svg
-                .physical-card-description(i18n="physical_card.modal_section.request_card_success.description" i18n-vars="{ fundName: $ctrl.voucher.fund.name }")
+                .physical-card-description(translate="physical_card.modal_section.request_card_success.description" translate-values="{ fundName: $ctrl.voucher.fund.name, address: $ctrl.requestPhysicalCardForm.values.address, house: $ctrl.requestPhysicalCardForm.values.house, house_addition: $ctrl.requestPhysicalCardForm.values.house_addition, postcode: $ctrl.requestPhysicalCardForm.values.postcode, city: $ctrl.requestPhysicalCardForm.values.city  }")
                 .text-center: button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="physical_card.buttons.close")

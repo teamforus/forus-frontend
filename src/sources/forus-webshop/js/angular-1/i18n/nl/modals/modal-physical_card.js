@@ -23,7 +23,7 @@ module.exports = {
             ].join('<br/>'),
         },
         request_new_card: {
-            title: 'Plastic pas',
+            title: 'Neem uw {{fund_name}} mee',
             subtitle: 'Uw digitale pas:',
             preffer_plastic_card: 'Liever een plastic pas?',
             order: 'Bestellen',
@@ -38,7 +38,7 @@ module.exports = {
             house_addition: 'Huisnummer toevoeging',
             house_addition_placeholder: 'Huisnummer toevoeging',
             email_to_me: 'E-mail naar mij',
-            print_pass: 'Uw pas printen',
+            print_pass: 'QR-code printen',
             open_in_app: 'Open in app',
         },
         link_card_success: {
@@ -47,7 +47,13 @@ module.exports = {
         },
         request_card_success: {
             title: 'Uw pas is besteld!',
-            description: 'De pas wordt verstuurd naar het adres dat u heeft ingevuld.',
+            description: [
+                '<h2>Uw pas is besteld!</h2>',
+                'De pas wordt verstuurd naar het adres: <br />',
+                '{{address}} {{house}} {{house_addition}}',
+                '{{postcode}} {{city}} <br />',
+                'U heeft een e-mail ontvangen met de details van uw bestelling.',
+            ].join('<br/>'),
         }
     },
     buttons: {
