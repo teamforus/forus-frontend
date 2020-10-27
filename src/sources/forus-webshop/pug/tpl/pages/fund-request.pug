@@ -399,7 +399,7 @@ section: .wrapper
                             .block-icon: .mdi.mdi-close
                             p.sign_up-pane-text.text-center 
                                 | Reden:
-                            p.sign_up-pane-text.text-center(translate="$ctrl.errorReason")
+                            p.sign_up-pane-text.text-center(translate-default="{{ $ctrl.errorReason }}")
                     
                             .text-center: .button.button-default(ng-click="$ctrl.finish()") Verlaat formulier
                         .form-group.col.col-lg-12: br 
