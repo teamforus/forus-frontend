@@ -204,6 +204,11 @@ let FundActivateComponent = function(
                     }, {
                         reload: true
                     });
+                } else if (fundsValidCriteria.map(fund => fund.id).indexOf($ctrl.fund.id).length != -1) {
+                    // The current fund is now available for request (possible because bsn is now available)
+                    $state.go('fund-request', {
+                        fund_id: $ctrl.fund.id
+                    });
                 } else if (fundsWithVouchers.length > 1) {
                     // Identity has no valid funds, but has multiple vouchers (possible received during digid sign-up)
                     $state.go('vouchers');
@@ -214,12 +219,7 @@ let FundActivateComponent = function(
                             voucher => voucher.fund_id === fundsWithVouchers[0].id
                         )[0].address,
                     });
-                } else if (fundsValidCriteria.map(fund => fund.id).indexOf($ctrl.fund.id).length != -1) {
-                    // The current fund is now available for request (possible because bsn is now available)
-                    $state.go('fund-request', {
-                        fund_id: $ctrl.fund.id
-                    });
-                } else {
+                }  else {
                     // None of above
                     $state.go('funds');
                 }
