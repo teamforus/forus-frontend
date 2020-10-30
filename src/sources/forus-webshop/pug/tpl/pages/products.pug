@@ -20,8 +20,14 @@ block content
                         .form-group
                             input.form-control(
                                 ng-model="$ctrl.form.values.q"
-                                placeholder="Zoeken..." 
+                                placeholder="Zoek een actie" 
                                 type="search")
+
+                        .form-group
+                            label.form-label Aanbieders
+                            select(
+                                ng-options="organization.id as organization.name for organization in $ctrl.organizations" 
+                                ng-model="$ctrl.form.values.organization_id").form-control
 
                         .form-group
                             label.form-label Categorie
