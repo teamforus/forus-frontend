@@ -13,7 +13,7 @@ module.exports = {
         activation_code_title: "Vul een activatiecode in.",
         activation_code_subtitle: "Het systeem zal controleren of de activatie code nog niet gebruikt is, \n wanneer hij niet gebruikt is zal hij worden gebruikt om een tegoed te genereren.",
         voucher_type_item: {
-            giftcard: "Als een niet-toegekend tegoed",
+            giftcard: "Normaal",
             activation_code: "via activatie-code"
         }
     },
