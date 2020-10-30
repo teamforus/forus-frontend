@@ -31,6 +31,14 @@ let handleAuthTarget = ($state, target) => {
         });
     }
 
+    if (target[0] == 'requestClarification') {
+        return target[1] ? !!$state.go('fund-request-clarification', {
+            fund_id: target[1],
+            request_id: target[2],
+            clarification_id: target[3]
+        }) : !!$state.go('start', {});
+    }
+
     return false;
 };
 
