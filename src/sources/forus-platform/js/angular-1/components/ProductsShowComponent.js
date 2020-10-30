@@ -45,6 +45,7 @@ let ProductsShowComponent = function(
             product_id: $ctrl.product.id,
             chat_id: fund.chat.id,
             product: $ctrl.product,
+            sponsor_name: fund.organization.name,
             onClose: $ctrl.loadChats
         });
     };
