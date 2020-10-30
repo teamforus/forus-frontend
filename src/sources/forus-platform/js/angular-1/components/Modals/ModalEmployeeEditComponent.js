@@ -38,11 +38,18 @@ let ModalEmployeeEditComponent = function(
                 );
             }
 
-            promise.then((res) => {
+            promise.then(() => {
                 $ctrl.modal.scope.submit();
                 $ctrl.close();
             }, (res) => {
-                form.errors = res.data.errors;
+                if (res.status == '429') {
+                    form.errors = {
+                        email: new Array(res.data.message)
+                    };
+                } else {
+                    form.errors = res.data.errors;
+                }
+
                 form.unlock();
             })
         })
