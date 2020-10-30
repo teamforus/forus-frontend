@@ -3,8 +3,8 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
     .block.block-breadcrumbs.hide-sm
         a(ui-sref="home").breadcrumb-item Home
         a(ui-sref="vouchers").breadcrumb-item Mijn tegoeden
-        .breadcrumb-item.active(ng-if="!$ctrl.voucherCard.product") Uw {{ $ctrl.voucherCard.title }} tegoed 
-        .breadcrumb-item.active(ng-if="$ctrl.voucherCard.product") Uw reservering
+        .breadcrumb-item.active(ng-if="!$ctrl.voucherCard.product") {{ $ctrl.voucherCard.title }}
+        .breadcrumb-item.active(ng-if="$ctrl.voucherCard.product") Reservering
 
     .section-title.hide-sm(ng-if="!$ctrl.voucherCard.product && !$ctrl.showPhysicalCardsOption") Uw {{ $ctrl.voucherCard.title }} tegoed
     .section-title.hide-sm(ng-if="$ctrl.voucherCard.product") Uw reservering
@@ -48,7 +48,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                             .action-item-icon
                                 em.mdi.mdi-account-circle
                                 //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.open_in_me")
-                            .action-item-name Neem uw {{ $ctrl.voucherCard.title }} mee
+                            .action-item-name Gebruik uw QR-code
                         //.action-item(ng-if="$ctrl.voucherCanUse" ng-click="$ctrl.sendVoucherEmail($ctrl.voucher)")
                             .action-item-icon
                                 em.mdi.mdi-email-outline
@@ -95,10 +95,10 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                 .card-label(i18n="voucher.voucher_card.labels.contact_sponsor" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
                 .card-value(ng-bind="$ctrl.voucherCard.fund.organization.name")
                 .card-value.card-value-sm
-                    | E-mailadres:
+                    | E-mailadres: 
                     strong(ng-bind="$ctrl.voucherCard.fund.organization.email")
                     br
-                    | Telefoonnummer:
+                    | Telefoonnummer: 
                     strong(ng-bind="$ctrl.voucherCard.fund.organization.phone")
 
         //- product voucher
@@ -119,14 +119,14 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                     strong(ng-bind="$ctrl.voucherCard.product.organization.phone")
                     
     .block.block-physical-cards(ng-if="$ctrl.showPhysicalCardsOption")
-        .block-card-logo: img(src="./assets/img/icon-physical-cards/icon-physical-cards-preview.svg")
+        .block-card-logo: img(src="./assets/img/icon-physical-cards/icon-physical-cards-preview-vertical.png")
         .block-card-details 
             .block-card-title(i18n="voucher.physical_card.title")
             .block-card-description(i18n="voucher.physical_card.description")
-            .block-card-actions: .button.button-primary(
-                i18n="voucher.physical_card.buttons.reactivate" 
-                ng-click="$ctrl.usePhysicalCard($ctrl.voucher, 'card_code')") 
-        .block-card-close.mdi.mdi-close(ng-click="$ctrl.dismissPhysicalCard()")
+        .block-card-actions: .button.button-primary(
+            i18n="voucher.physical_card.buttons.reactivate" 
+            ng-click="$ctrl.usePhysicalCard($ctrl.voucher, 'card_code')") 
+        //-.block-card-close.mdi.mdi-close(ng-click="$ctrl.dismissPhysicalCard()")
 
     .block.block-transactions(ng-if="$ctrl.voucherCard.transactions.length > 0 && !$ctrl.voucherCard.product")
         .transactions-header: .transactions-title {{ "voucher.labels.transactions" | translate }}

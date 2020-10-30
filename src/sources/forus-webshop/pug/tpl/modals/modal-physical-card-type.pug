@@ -61,29 +61,36 @@
             .modal-title(translate="physical_card.modal_section.request_new_card.title" translate-values="{ fund_name: $ctrl.voucher.fund.name } ") 
         .modal-content 
             .modal-section(ng-if="!$ctrl.preffersPlasticCard")
+                .physical-card-description(translate="physical_card.modal_section.type_selection.subtitle")
                 .physical-card: .physical-card-row
                     .physical-card-item.physical-card-item-sm(ng-click="$ctrl.sendVoucherEmail()")
                         .physical-card-item-inner
-                            .physical-card-item-title(translate="physical_card.modal_section.request_new_card.email_to_me")
                             .physical-card-item-icon: include ../../../resources/_webshop-common/assets/img/physical-card-email.svg
+                            .physical-card-item-title(translate="physical_card.modal_section.request_new_card.email_to_me")
                         .physical-card-item-details
                             .physical-card-item-title(translate="physical_card.modal_section.request_new_card.email_to_me")
                     
                     .physical-card-item.physical-card-item-sm(ng-click="$ctrl.printQrCode()")
                         .physical-card-item-inner
-                            .physical-card-item-title(translate="physical_card.modal_section.request_new_card.print_pass")
                             .physical-card-item-icon: include ../../../resources/_webshop-common/assets/img/physical-card-print.svg
+                            .physical-card-item-title(translate="physical_card.modal_section.request_new_card.print_pass")
                         .physical-card-item-details
                             .physical-card-item-title(translate="physical_card.modal_section.request_new_card.print_pass")
                     
                     .physical-card-item.physical-card-item-sm(ng-click="$ctrl.openInMeModal()")
                         .physical-card-item-inner
-                            .physical-card-item-title(translate="physical_card.modal_section.request_new_card.open_in_app")
                             .physical-card-item-icon: include ../../../resources/_webshop-common/assets/img/physical-card-open-app.svg
+                            .physical-card-item-title(translate="physical_card.modal_section.request_new_card.open_in_app")
                         .physical-card-item-details
                             .physical-card-item-title(translate="physical_card.modal_section.request_new_card.open_in_app")
-
-                .order-block(ng-if="!$ctrl.preffersPlasticCard && $ctrl.voucher.fund.allow_physical_cards && ($ctrl.voucher.type === 'regular') && !$ctrl.voucher.physical_card")
+                            
+                    .physical-card-item.physical-card-item-sm(ng-click="$ctrl.prefferPlasticCard()" ng-if="!$ctrl.preffersPlasticCard && $ctrl.voucher.fund.allow_physical_cards && ($ctrl.voucher.type === 'regular') && !$ctrl.voucher.physical_card")
+                        .physical-card-item-inner
+                            .physical-card-item-icon: include ../../../resources/_webshop-common/assets/img/icon-physical-cards/icon-physical-card-envelope.svg
+                            .physical-card-item-title(translate="physical_card.modal_section.type_selection.card_new.title")
+                        .physical-card-item-details
+                            .physical-card-item-title(translate="physical_card.modal_section.type_selection.card_new.title")
+                //-.order-block(ng-if="!$ctrl.preffersPlasticCard && $ctrl.voucher.fund.allow_physical_cards && ($ctrl.voucher.type === 'regular') && !$ctrl.voucher.physical_card")
                     .physical-card-description(translate="physical_card.modal_section.request_new_card.preffer_plastic_card")
                     .text-center: button.button.button-dark(
                         type="button" 

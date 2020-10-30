@@ -54,8 +54,8 @@ let VoucherComponent = function(
     $ctrl.sendVoucherEmail = function(voucher) {
         return ModalService.open('modalNotification', {
             type: 'confirm',
-            title: "E-Mail voucher naar uzelf",
-            description: "U kunt uw voucher naar uzelf mailen. Laat de voucher, in de vorm van een QR-code, aan de aanbieder zien vanuit uw vertrouwde e-mailbox.",
+            title: "E-mail tegoed naar uzelf",
+            description: "U kunt uw tegoed naar uzelf mailen. Laat de tegoed, in de vorm van een QR-code, aan de aanbieder zien vanuit uw vertrouwde e-mailbox.",
             confirm: () => {
                 VoucherService.sendToEmail(voucher.address).then(res => {
                     ModalService.open('modalNotification', {

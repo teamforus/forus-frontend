@@ -1,18 +1,19 @@
 &.block-physical-cards {
     display: flex;
-    background: #ececec;
+    background: #F8F8F8;
     padding: 32px;
-    margin-bottom: 30px;
+    //margin-bottom: 30px;
     position: relative;
-    border: 2px solid $color_primary;
+    //-border: 2px solid $color_primary;
     border-radius: $border_radius;
+    box-shadow: 0 10px 35px rgba(#000, .05);
 
     .block-card-logo {
         margin: 0 10px 0 0;
         
         img {
-            max-width: 130px;
-            transform: rotate(90deg);
+            max-width: 230px;
+            //transform: rotate(90deg);
             margin-left: -20px;
         }
     }
@@ -33,12 +34,16 @@
             color: $tc;
             margin: 0 0 10px;
         }
-
-        .block-card-actions {
-            display: block;
-        }
     }
 
+    .block-card-actions {
+        display: flex;
+        align-items: center;
+        div {
+            font-size: 14px;
+        }
+    }
+    
     .block-card-close {
         position: absolute;
         top: 20px;
@@ -71,6 +76,14 @@
             .block-card-description {
                 font: 600 11px/18px $bf;
                 margin: 0 0 20px;
+            }
+        }
+        .block-card-actions {
+            display: flex;
+            justify-content: center;
+            div {
+                padding: 8px 14px;
+                font-size: 12px;
             }
         }
     }

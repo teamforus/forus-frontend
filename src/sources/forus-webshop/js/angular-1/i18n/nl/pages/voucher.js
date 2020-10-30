@@ -11,11 +11,11 @@ module.exports = {
             transactions: "Uitgaven",
             subtract: "Af",
             fund: "Fonds",
-            expire: "Gebruik tot en met:",
+            expire: "Geldig tot en met:",
             requirements: "Voor voorwaarden van dit aanbod neem contact op met de aanbieder.",
             vouchers: "Staat uw gewenste aanbod niet in de webshop? Ga dan langs bij de aanbieder.",
             info: "<span style='font-style: italic;'>Zoek je een organisatie die niet op de kaart staat? Je kunt een organisatie vragen om deel te nemen. Een organisatie kan zich het hele jaar door aanmelden.</span>",
-            offices: "U kunt uw tegoed besteden bij de aanbieders op deze locaties",
+            offices: "Aanbieders",
             voucher: "Print uw tegoed uit of mail hem naar uzelf toe. Ga met de QR-code naar de aanbieder en laat hem scannen.",
             office: "Locaties waar u deze reservering kan verzilveren.",
             shopdetail: "INFORMATIE OVER DE AANBIEDER",
@@ -29,7 +29,7 @@ module.exports = {
             labels: {
                 description: "Uw {{fund_name}} tegoed kunt u bij de aanbieder laten zien. De aanbieder scant de QR-code om u het aanbod te leveren",
                 desc: "Een tegoed kunt u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u het aanbod te leveren.",
-                contact_sponsor: "Heeft u vragen over '{{fund_name}}'? Neem dan contact met ons op.",
+                contact_sponsor: "Heeft u vragen? Neem dan contact met ons op.",
                 contact_provider: "Heeft u vragen over dit aanbod? Neem dan contact met ons op.",
             },
             footer: {
@@ -48,19 +48,18 @@ module.exports = {
                 }
             },
             qrcode: {
-                description: "Dit is uw {{fund_name}} tegoed met een QR-code.",
+                description: "Dit is uw     {{fund_name}} tegoed met een QR-code.",
                 productdescription: "Dit is uw reservering met een QR-code."
             },
-            expire: "Gebruik dit tegoed voor:",
+            expire: "Geldig tot en met:",
             delete: "Annuleer reservering",
             expired: "Verlopen"
         },
         physical_card: {
-            title: 'Pas activeren',
-            description: 'Als u de Stadjerpas (opnieuw) activeert kun u deze blijven gebruiken. Hulp nodig? ' + 
-                'Bel 14 050 maandag t/m vrijdag 9.00 tot 12.00',
+            title: 'Pas',
+            description: 'Als u de Stadjerpas (opnieuw) activeert kun u deze blijven gebruiken.',
             buttons: {
-                reactivate: 'Activeren'
+                reactivate: 'Activeer'
             }
         },
         share_voucher: {
