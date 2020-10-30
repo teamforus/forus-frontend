@@ -45,6 +45,13 @@ module.exports = {
             title: 'Pas gekoppeld!',
             description: 'Uw pas is gekoppeld aan uw {{fundName}}-tegoed!',
         },
+        link_card_unlink: {
+            title: 'Blokkeer uw pas',
+            buttons: {
+                submit: "Blokkeer",
+                cancel: "Annuleer"
+            }
+        },
         request_card_success: {
             title: 'Uw pas is besteld!',
             description: [

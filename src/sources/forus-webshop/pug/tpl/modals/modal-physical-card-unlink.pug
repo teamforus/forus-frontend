@@ -24,16 +24,16 @@
     //- Confirm unlinking
     .modal-window(ng-if="$ctrl.state == 'confirmation'")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.closeModal()")
-        .modal-header: .modal-title(translate="physical_card.modal_section.link_card_success.title")
+        .modal-header: .modal-title(translate="physical_card.modal_section.link_card_unlink.title")
         .modal-content: .modal-section: .physical-card-result
             .physical-card-media: include ../../../resources/_webshop-common/assets/img/icon-physical-cards/icon-physical-card-exclamation.svg
             .physical-card-description 
-                | Wilt u uw pas met pasnummer: 
+                | Wilt u uw pas met pasnummer 
                 span.label.label-dark {{ $ctrl.voucher.physical_card.code }} 
                 | &nbsp;blokkeren?
             .text-center: .button-group
-                button.button.button-dark(type="button" ng-click="$ctrl.closeModal()") Annuleer
-                button.button.button-dark(type="button" ng-click="$ctrl.unlink()") Blokkeer
+                button.button.button-dark(type="button" ng-click="$ctrl.closeModal()" translate="physical_card.modal_section.link_card_unlink.buttons.cancel")
+                button.button.button-dark(type="button" ng-click="$ctrl.unlink()" translate="physical_card.modal_section.link_card_unlink.buttons.submit")
 
     //- Card unlinked
     .modal-window(ng-if="$ctrl.state == 'unlinked'")

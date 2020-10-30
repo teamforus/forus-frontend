@@ -6,7 +6,6 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
         .breadcrumb-item.active(ng-if="!$ctrl.voucherCard.product") {{ $ctrl.voucherCard.title }}
         .breadcrumb-item.active(ng-if="$ctrl.voucherCard.product") Reservering
 
-    .section-title.hide-sm(ng-if="!$ctrl.voucherCard.product && !$ctrl.showPhysicalCardsOption") Uw {{ $ctrl.voucherCard.title }} tegoed
     .section-title.hide-sm(ng-if="$ctrl.voucherCard.product") Uw reservering
 
     .block.block-voucher(ng-if="$ctrl.voucherCanUse")
