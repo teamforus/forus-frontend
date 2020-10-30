@@ -1542,7 +1542,7 @@ module.exports = {
             mail: "Dit scherm is alleen bedoeld voor inwoners die een brief van de gemeente hebben ontvangen met daarin een activatiecode en deze nog niet hebben gebruikt.",
             link: "Vul uw e-mail adres in om een link te ontvangen waarmee u kunt inloggen",
             code: "Vul de activatiecode in die u per brief heeft ontvangen",
-            voucher_email: "Verstuur de tegoed per e-mail",
+            voucher_email: "Verstuur het tegoed per e-mail",
         },
         input: {
             mail: "Vul uw e-mail adres in",
