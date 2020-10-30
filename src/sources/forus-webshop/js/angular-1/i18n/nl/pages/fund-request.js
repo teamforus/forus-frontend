@@ -1,6 +1,10 @@
 module.exports = {
     // VALIDATION REQUEST FOR FUNDS = fund_request.pug
     approved_request_exists: "Er bestaat al een goedgekeurde aanvraag. Neem contact op met de beheerder.",
+    fund_not_active: "Het fonds waar u voor zich probeert aan te melden is niet actief.",
+    bsn_record_is_mandatory: "Een BSN is verplicht voor het doen van een aanvraag.",
+    invalid_endpoint: "Geen toegang tot deze aanvraag",
+    not_requester: "U bent niet de eigenaar van deze aanvraag.",
     sign_up: {
         block_title: "{{ fundname }} aanvragen",
         pane: {
