@@ -63,13 +63,13 @@
                 }
             }
 
-            .product-provider {
+            .product-name {
                 color: $color_primary;
                 font: 700 16px/28px $bf;
                 @include ellipsis();
             }
 
-            .product-name {
+            .product-provider {
                 font: 700 16px/24px $bf;
                 color: #626161;
             }
