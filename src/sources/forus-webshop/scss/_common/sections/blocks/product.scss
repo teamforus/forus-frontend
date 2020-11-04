@@ -60,19 +60,20 @@
             .product-details-horizontal {
                 display: flex;
                 align-items: center;
-                margin: 10px 0px 10px 0px;
+                margin: 20px 0px 20px 0px;
 
                 .product-expire {
                     margin: 0 20px 0 20px;
 
                     .expire-label {
-                        font: 600 14px $bf;
-                        color: #000;
+                        font: 600 12px $bf;
+                        color: #646F79;
+                        margin-bottom: 10px;
                     }
 
                     .expire-value {
                         color: #282b39;
-                        font: 500 16px $bf;
+                        font: 600 16px $bf;
                     }
                 }
 
@@ -80,13 +81,14 @@
                     margin: 0 20px 0 0;
 
                     .category-label {
-                        font: 600 14px $bf;
-                        color: #000;
+                        font: 600 12px $bf;
+                        color: #646F79;
+                        margin-bottom: 10px;    
                     }
 
                     .category-value {
                         color: #282b39;
-                        font: 500 16px $bf;
+                        font: 600 16px $bf;
                     }
 
                 }
@@ -100,7 +102,9 @@
             }
 
             .block-header {
-                font: 600 14px $bf;
+                margin-top: 20px;
+                font: 600 12px $bf;
+                color: #646F79;
             }
 
             .block-content {

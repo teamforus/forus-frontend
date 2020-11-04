@@ -9,7 +9,7 @@ module.exports = {
         fund: "Aanvragen",
         limit: "Aantal keer dat u gebruik kan maken:",
         find: "U kunt ons hier vinden",  
-        description: "Omschrijving",
+        description: "Omschrijving:",
         category: "Categorie:",
         expire: "Geldigheid van aanbod:",
         expire_prefix: "Geldig t/m"

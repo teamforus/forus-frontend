@@ -66,50 +66,67 @@
             .fund-item {
                 display: flex;
                 flex-direction: row;
-                margin-bottom: 10px;
-                border: 1px solid $border_color;
+                border-bottom: 1px solid $border_color;
                 border-radius: $border_radius;
                 overflow: hidden;
 
-                .fund-item-media {
-                    height: 48px;
-                    border-right: 1px solid $border_color;
-                    
-                    .fund-item-media-img {
-                        height: 100%;
-                    }
-                }
-
-                .fund-item-name {
-                    font: 700 14px/28px $bf;
-                    padding: 10px 20px;
-                    border-right: 1px solid $border_color;
+                .fund-item-info {
+                    display: flex;
+                    flex-direction: row;
                     flex-grow: 1;
 
-                    &:last-child {
-                        border-right: 0;
+                    .fund-item-media {
+                        margin: 15px;
+
+                        .fund-item-media-value {
+                            height: 48px;
+
+                            .fund-item-media-img {
+                                height: 100%;
+                                border-radius: $border_radius;
+                            }
+                        }
+                    }
+
+                    .fund-item-name {
+                        border-left: 1px solid $border_color;
+                        border-right: 1px solid $border_color;
+                        flex-grow: 1;
+                        display: flex;
+                        align-items: center;
+
+                        .fund-item-name-value {
+                            font: 700 18px/28px $bf;
+                            color: #303030;
+                            margin-left: 15px;
+                        }
+
+                        &:last-child {
+                            border-right: 0;
+                        }
                     }
                 }
 
                 .fund-item-limit {
                     padding: 12px 20px;
                     display: flex;
-                    flex-direction: row;
+                    flex-direction: column;
                     border-right: 1px solid $border_color;
 
                     .fund-item-limit-label {
                         color: #646F79;
                         font: 700 12px/22px $bf;
                         margin-right: 5px;
+                        width: 100%;
+                        text-align: right;
                     }
 
                     .fund-item-limit-value {
                         font: 700 14px/20px $bf;
                         height: 22px;
-                        width: 22px;
+                        width: 100%;
                         border-radius: 22px;
-                        border: 1px solid $border_color;
-                        text-align: center;
+                        text-align: right;
                     }
 
                     &:last-child {
@@ -118,18 +135,29 @@
                 }
 
                 .fund-item-price {
-                    font: 700 22px/28px $bf;
+                    display: flex;
+                    align-items:center;
                     padding: 10px 20px;
+
+                    .fund-item-price-value {
+                        font: 700 22px/28px $bf;
+                    }
                 }
 
                 .fund-item-apply {
                     background-color: #F7F9FB;
                     font: 700 18px/32px $bf;
-                    padding: 10px 20px;
+                    padding: 7px 50px;
+                    border: 1px solid #D4D9DD;
+                    height: 50px;
+                    margin: 15px;
                 }
 
                 &:last-child {
                     margin-bottom: 0px;
+                    border-top:0px;
+                    border-bottom: 0px;
+                    border-bottom: 0px;
                 }
             }
         }
@@ -158,6 +186,64 @@
 
                     .sub-description {
                         margin: 0 0 0;
+                    }
+                }
+            }
+            .product-funds-list {
+
+                 .fund-item {    
+                    flex-direction: column;
+
+                    .fund-item-info {
+                        display:flex;
+                        flex-direction: row;
+                        border-bottom: 1px solid $border_color;
+                        
+                        .fund-item-name {
+                            border:0;
+                            text-overflow: ellipsis;   /* IE, Safari (WebKit) */           /* don't show excess chars */  
+                        }
+                    }    
+                    .fund-item-limit {
+                        border: 0;
+                        padding: 15px 15px 15px 15px;
+                        display: flex;
+                        flex-direction: row;
+    
+                        .fund-item-limit-label {
+                            color: #646F79;
+                            font: 700 12px/22px $bf;
+                            margin-right: 5px;
+                            width: 100%;
+                            text-align: left;
+                        }
+    
+                        .fund-item-limit-value {
+                            font: 700 14px/20px $bf;
+                            height: 22px;
+                            width: 100%;
+                            text-align: right;
+                        }
+    
+                        &:last-child {
+                            border-right: 0;
+                        }
+                    }
+
+                    .fund-item-price {
+                        font: 700 14px/22px $bf;
+                        padding: 10px 20px;
+                    }
+    
+                    .fund-item-apply {
+                        font: 700 14px/22px $bf;
+                        text-align:center;
+                        padding: 12px 50px;
+                        vertical-align: middle;
+                        border: unset;
+                        border-top: 1px solid #D4D9DD;
+                        height: 50px;
+                        margin: 0px;
                     }
                 }
             }

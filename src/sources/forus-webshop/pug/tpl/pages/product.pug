@@ -31,13 +31,16 @@ section.section.section-product: .wrapper
                     .block.block-markdown
                         div(ng-bind-html="$ctrl.product.description_html")
 
-        .block.block-info-card
+        .block.block-info-card(ng-if="$ctrl.product.funds.length > 0")
             .block-header(i18n="product.headers.funds")  
             .block-products-content
                 .product-funds-list
                     .fund-item(ng-repeat="fund in $ctrl.product.funds")
-                        .fund-item-media: img.fund-item-media-img(ng-src="{{ fund.logo.sizes.thumbnail || '/assets/img/placeholders/fund-thumbnail.png' }}")
-                        .fund-item-name(ng-bind="fund.name")
+                        .fund-item-info
+                            .fund-item-media
+                                .fund-item-media-value: img.fund-item-media-img(ng-src="{{ fund.logo.sizes.thumbnail || '/assets/img/placeholders/fund-thumbnail.png' }}")
+                            .fund-item-name
+                                .fund-item-name-value(ng-bind="fund.name")
                         .fund-item-limit(ng-if="fund.type == 'subsidies'")
                             .fund-item-limit-label(i18n="product.labels.limit")
                             .fund-item-limit-value(ng-bind="fund.limit_available")
@@ -46,9 +49,9 @@ section.section.section-product: .wrapper
                             translate-default="{{ 'product.buttons.request' | translate }}"
                             ng-click="$ctrl.requestFund(fund)"
                             ng-if="fund.type == 'subsidies' ? !fund.meta.isApplicableSubsidy : !fund.meta.isApplicable")
-                        .fund-item-price(
-                            ng-if="!$ctrl.product.no_price && (fund.type == 'subsidies' ? fund.meta.isApplicableSubsidy : fund.meta.isApplicable)"
-                            ng-bind="fund.price == 0 ? 'Gratis' : ((fund.type == 'subsidies' ? fund.price : $ctrl.product.price) | currency_format)")
+                        .fund-item-price(ng-if="!$ctrl.product.no_price && (fund.type == 'subsidies' ? fund.meta.isApplicableSubsidy : fund.meta.isApplicable)")
+                            .fund-item-price-value(
+                                ng-bind="fund.price == 0 ? 'Gratis' : ((fund.type == 'subsidies' ? fund.price : $ctrl.product.price) | currency_format)")
                         .fund-item-apply(
                             i18n="product.buttons.buy"
                             ng-if="!fund.meta.isApplicableSubsidy && !$ctrl.product.no_price && $ctrl.useBudget && fund.meta.isApplicable && !$ctrl.product.deleted && !$ctrl.product.sold_out"
