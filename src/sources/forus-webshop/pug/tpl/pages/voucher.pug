@@ -45,9 +45,9 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                     .card-actions
                         .action-item(ng-click="$ctrl.usePhysicalCard($ctrl.voucher, 'select_type')")
                             .action-item-icon
-                                em.mdi.mdi-account-circle
+                                em.mdi.mdi-qrcode-scan
                                 //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.open_in_me")
-                            .action-item-name Gebruik uw QR-code
+                            .action-item-name Gebruik mijn QR-code
                         //.action-item(ng-if="$ctrl.voucherCanUse" ng-click="$ctrl.sendVoucherEmail($ctrl.voucher)")
                             .action-item-icon
                                 em.mdi.mdi-email-outline
@@ -121,7 +121,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
         .block-card-logo: img(src="./assets/img/icon-physical-cards/icon-physical-cards-preview-vertical.png")
         .block-card-details 
             .block-card-title(i18n="voucher.physical_card.title")
-            .block-card-description(i18n="voucher.physical_card.description")
+            //-.block-card-description(i18n="voucher.physical_card.description")
         .block-card-actions: .button.button-primary(
             i18n="voucher.physical_card.buttons.reactivate" 
             ng-click="$ctrl.usePhysicalCard($ctrl.voucher, 'card_code')") 

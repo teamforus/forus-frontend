@@ -1,7 +1,7 @@
 module.exports = {
     modal_section: {
         type_selection: {
-            title: 'Plastic pas',
+            title: 'Gebruik mijn QR-code',
             subtitle: 'Dit zijn de opties om uw QR-code mee te nemen naar de aanbieder:',
             card_old: {
                 title: 'Oude pas opnieuw activeren',
@@ -9,7 +9,7 @@ module.exports = {
                 success: 'Pas gekoppeld!'
             },
             card_new: {
-                title: 'QR-code op pas bestellen',
+                title: 'Bestel een pas',
                 description: 'Heeft u nog geen pas?<br/>Bestel een nieuwe pas.',
             },
         },
@@ -23,7 +23,7 @@ module.exports = {
             ].join('<br/>'),
         },
         request_new_card: {
-            title: 'Gebruik uw QR-code',
+            title: 'Bestel een pas',
             subtitle: 'Uw digitale pas:',
             preffer_plastic_card: 'Liever een plastic pas?',
             order: 'Bestellen',
@@ -59,7 +59,7 @@ module.exports = {
                 'De pas wordt verstuurd naar het adres: <br />',
                 '{{address}} {{house}} {{house_addition}}',
                 '{{postcode}} {{city}} <br />',
-                'U heeft een e-mail ontvangen met de details van uw bestelling.',
+                'U heeft een e-mail ontvangen met de bevestiging van uw bestelling.',
             ].join('<br/>'),
         }
     },

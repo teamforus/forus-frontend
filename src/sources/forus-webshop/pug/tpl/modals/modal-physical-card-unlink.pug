@@ -2,27 +2,9 @@
 
 .modal.modal-physical-cards.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.closeModal()")
-    
-    //- Select type
-    .modal-window(ng-if="$ctrl.state == 'start'")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.closeModal()")
-        .modal-header
-            .modal-title Plastic pas
-        .modal-content: .modal-section
-            .physical-card-description 
-                | Uw pas is gekoppeld met pasnummer: 
-                span.label.label-dark {{ $ctrl.voucher.physical_card.code }} 
-            .physical-card: .physical-card-row
-                .physical-card-item(ng-click="$ctrl.askConfirmation()")
-                    .physical-card-item-title Pas kwijt?
-                    .physical-card-item-inner(ng-click="$ctrl.choosePhysicalCardType('new')")
-                        .physical-card-item-icon: include ../../../resources/_webshop-common/assets/img/icon-physical-cards/icon-physical-card-unlink.svg
-                    .physical-card-item-details
-                        .physical-card-item-title Pas kwijt?
-                        .physical-card-item-description Blokkeer de oude pas en vraag een nieuwe aan.
 
     //- Confirm unlinking
-    .modal-window(ng-if="$ctrl.state == 'confirmation'")
+    .modal-window(ng-if="$ctrl.state == 'start'")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.closeModal()")
         .modal-header: .modal-title(translate="physical_card.modal_section.link_card_unlink.title")
         .modal-content: .modal-section: .physical-card-result

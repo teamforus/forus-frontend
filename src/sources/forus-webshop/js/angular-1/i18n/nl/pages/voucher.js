@@ -56,7 +56,7 @@ module.exports = {
             expired: "Verlopen"
         },
         physical_card: {
-            title: 'Pas',
+            title: 'Activeer mijn pas',
             description: 'Als u de Stadjerpas (opnieuw) activeert kun u deze blijven gebruiken.',
             buttons: {
                 reactivate: 'Activeer'
