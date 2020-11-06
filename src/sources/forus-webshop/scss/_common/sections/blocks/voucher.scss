@@ -44,6 +44,7 @@
                     display: flex;
                     /*flex-direction: column;*/
                     align-items: center;
+                    flex-grow: 1;
 
                     &.hide-action-lg {
                         display: none;
@@ -406,7 +407,6 @@
             flex-direction: column;
             margin: auto;
             width: 100%;
-            padding-top: 20px;
 
             .base-card {
                 overflow: visible;

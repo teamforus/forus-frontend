@@ -8,7 +8,6 @@ let ModalFundOffersComponent = function (
         $ctrl.fund = $ctrl.modal.scope.fund;
         $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.providerFund = $ctrl.modal.scope.providerFund;
-        $ctrl.offers = $ctrl.modal.scope.offers;
 
         FundService.readProvider(
             $ctrl.fund.organization.id,
@@ -16,7 +15,7 @@ let ModalFundOffersComponent = function (
             $ctrl.providerFund.id
         ).then(res => {
             $ctrl.enabledProducts = res.data.data.products;
-            $ctrl.mapOffersAllowedProperty();
+            $ctrl.offers = $ctrl.mapOffersAllowedProperty($ctrl.modal.scope.offers);
         });
     };
 
@@ -24,18 +23,26 @@ let ModalFundOffersComponent = function (
         let _query = JSON.parse(JSON.stringify(query));
 
         ProductService.list($ctrl.organization.id, _query).then(res => {
-            $ctrl.offers = res.data;
-            $ctrl.mapOffersAllowedProperty();
+            $ctrl.offers = $ctrl.mapOffersAllowedProperty(res.data);
         });
     };
 
-    $ctrl.mapOffersAllowedProperty = () => {
-        $ctrl.offers.data.forEach(offer => {
-            offer.allowed = $ctrl.enabledProducts.indexOf(
-                offer.id
-            ) !== -1 || $ctrl.providerFund.allow_products
+    $ctrl.mapOffersAllowedProperty = (offers) => {
+        offers.data.forEach(offer => {
+            offer.allowed = $ctrl.enabledProducts.indexOf(offer.id) !== -1;
+            let fund = offer.funds.filter(fund => fund.id === $ctrl.fund.id)[0];
+
+            if (fund) {
+                offer.subsidy_amount = offer.price - fund.price;
+                offer.subsidy_user_amount = fund.price;
+                offer.subsidy_user_limit = fund.limit_per_identity;
+                offer.subsidy_limit_total = fund.limit_total
+            }
+
         });
-    }
+
+        return offers;
+    };
 };
 
 module.exports = {

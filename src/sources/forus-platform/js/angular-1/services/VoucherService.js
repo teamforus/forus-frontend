@@ -3,7 +3,7 @@ module.exports = [
     function(
         ApiRequest
     ) {
-        return new(function() {
+        return new (function() {
             this.index = (organization_id, query) => {
                 return ApiRequest.get([
                     '/platform/organizations/' + organization_id,
@@ -24,11 +24,11 @@ module.exports = [
                     '/sponsor/vouchers/validate'
                 ].join(''), data);
             };
-            
+
             this.storeCollection = function(organization_id, fund_id, vouchers) {
                 return ApiRequest.post([
                     '/platform/organizations/' + organization_id,
-                    '/sponsor/vouchers/batch' 
+                    '/sponsor/vouchers/batch'
                 ].join(''), {
                     fund_id: fund_id,
                     vouchers: vouchers
@@ -42,13 +42,11 @@ module.exports = [
                 ].join(''));
             };
 
-            this.assign = (organization_id, voucher_id, email) => {
+            this.assign = (organization_id, voucher_id, query) => {
                 return ApiRequest.patch([
                     '/platform/organizations/' + organization_id,
                     '/sponsor/vouchers/' + voucher_id + '/assign',
-                ].join(''), {
-                    email: email
-                });
+                ].join(''), query);
             };
 
             this.sendToEmail = (organization_id, voucher_id, email) => {
@@ -63,23 +61,30 @@ module.exports = [
             this.downloadQRCodes = function(organization_id, query) {
                 return ApiRequest.get([
                     '/platform/organizations/' + organization_id,
-                    '/sponsor/vouchers/export-unassigned',
+                    '/sponsor/vouchers/export',
                 ].join(''), query, {}, true, (params) => {
                     params.responseType = 'blob';
                     return params;
                 });
             };
 
-            this.sampleCSV = (voucher_type, product_id = null) => {
+            this.downloadQRCodesData = function(organization_id, query) {
+                return ApiRequest.get([
+                    '/platform/organizations/' + organization_id,
+                    '/sponsor/vouchers/export-data',
+                ].join(''), query);
+            };
+
+            this.sampleCSVBudgetVoucher = (expires_at = "2020-02-20") => {
                 let headers = ['amount', 'expires_at', 'note', 'email'];
-                let values = [10, '2020-02-20', 'voorbeeld notitie', 'test@example.com'];
+                let values = [10, expires_at, 'voorbeeld notitie', 'test@example.com'];
 
-                if (voucher_type != 'product_voucher') {
-                    return Papa.unparse([headers, values]);
-                }
+                return Papa.unparse([headers, values]);
+            };
 
-                headers.splice(1, 0, 'product_id');
-                values.splice(1, 0, product_id);
+            this.sampleCSVProuctVoucher = (product_id = null, expires_at = "2020-02-20") => {
+                let headers = ['product_id', 'expires_at', 'note', 'email'];
+                let values = [product_id, expires_at, 'voorbeeld notitie', 'test@example.com'];
 
                 return Papa.unparse([headers, values]);
             };

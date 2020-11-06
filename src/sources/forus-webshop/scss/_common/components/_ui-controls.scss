@@ -60,6 +60,7 @@ $tf: uppercase;
             text-align: center;
             transform: translate(0, -50%);
             pointer-events: none;
+            z-index: 2;
         }
 
         .form-control:not([type="radio"]):not([type="checkbox"]) {
@@ -100,11 +101,14 @@ $tf: uppercase;
 
     &.ui-control-step {
         @extend .ui-control;
-        display: inline-block;
+        display: flex;
         background-color: #EFF2F4;
         border-radius: 8px;
         font-size: 0;
         position: relative;
+        flex-direction: row;
+        max-width: 100%;
+        width: 240px;
 
         .ui-control-step-icon {
             padding: $formPadding;
@@ -114,24 +118,19 @@ $tf: uppercase;
             cursor: pointer;
             opacity: .7;
             font-size: 24px;
+            line-height: 20px;
             @include cf();
-            float: left;
             transition: opacity .4s;
-            position: absolute;
-            top: 50%;
-            transform: translate(0, -50%);
 
             &:hover {
                 opacity: 1;
             }
 
             &:first-of-type {
-                left: 0;
                 padding-right: 5px;
             }
 
             &:last-of-type {
-                right: 0;
                 padding-left: 5px;
             }
         }
@@ -139,14 +138,13 @@ $tf: uppercase;
         .ui-control-step-value {
             border: 1px solid transparent;
             text-align: center;
-            padding: 0;
             font: inherit;
-            padding: 15px;
+            padding: 12px;
             min-width: 125px;
             padding-left: 20px;
             padding-right: 20px;
             font: $formFont;
-            float: left;
+            flex-grow: 1;
         }
 
         &:not(.ui-control-step-fill)+.ui-control-step {

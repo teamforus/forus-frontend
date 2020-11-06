@@ -8,7 +8,7 @@ let SponsorSignUpComponent = function(
     MediaService,
     AuthService,
     SignUpService,
-    appConfigs
+    ModalService
 ) {
     let $ctrl = this;
     let orgMediaFile = false;
@@ -214,12 +214,8 @@ let SponsorSignUpComponent = function(
                 });
             }
 
-            if ($ctrl.step == $ctrl.STEP_ORGANIZATION_ADD) {
-                if (progressStorage.has('organizationForm')) {
-                    $ctrl.organizationForm.values = JSON.parse(progressStorage.get('organizationForm'));
-                } else {
-                    $ctrl.organizationForm.values = {};
-                }
+            if ($ctrl.step == $ctrl.STEP_ORGANIZATION_ADD && progressStorage.has('organizationForm')) {
+                $ctrl.organizationForm.values = JSON.parse(progressStorage.get('organizationForm'));
             }
 
             if ($ctrl.step == $ctrl.STEP_CREATE_PROFILE) {
@@ -270,9 +266,9 @@ let SponsorSignUpComponent = function(
         $ctrl.setStep($ctrl.step - 1);
     };
 
-    $ctrl.finish = () => {
-        $state.go('organizations');
-    }
+    $ctrl.finish = () => $state.go('organizations-view', {
+        id: $ctrl.organization.id
+    });
 
     $ctrl.selectPhoto = (file) => {
         orgMediaFile = file;
@@ -285,6 +281,10 @@ let SponsorSignUpComponent = function(
     $ctrl.goToMain = () => {
         $state.go('home');
     }
+
+    $ctrl.openAuthPopup = function() {
+        ModalService.open('modalAuth', {});
+    };
 
     $ctrl.$onDestroy = function() {
         progressStorage.clear();
@@ -306,7 +306,7 @@ module.exports = {
         'MediaService',
         'AuthService',
         'SignUpService',
-        'appConfigs',
+        'ModalService',
         SponsorSignUpComponent
     ],
     templateUrl: 'assets/tpl/pages/sponsor-sign-up.html'

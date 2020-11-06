@@ -5,7 +5,8 @@ let BlockProductsDirective = async function(
 ) {
     $scope.filters = {
         product_category_id: null,
-        q: ""
+        q: "",
+        fund_type: 'budget',
     };
 
     $scope.onReset = async (query) => {
@@ -26,12 +27,22 @@ let BlockProductsDirective = async function(
     };
 
     if ($scope.sample) {
-        ProductService.sample($scope.fund ? {
-            fund_id: $scope.fund.id
-        } : {}).then((res) => $scope.products = res.data);
+        ProductService.sample(Object.assign(($scope.fund ? {
+            fund_id: $scope.fund.id,
+        } : {}), {
+            fund_type: 'budget',
+        })).then((res) => $scope.products = {
+            data: res.data.data.map(product => ({...product, ...{
+                isDiscounted: product.old_price && (product.price != product.old_price)
+            }}))
+        });
     } else {
-        ProductService.list().then((res => {
-            $scope.products = res.data.data;
+        ProductService.list({
+            fund_type: 'budget',
+        }).then((res => {
+            $scope.products = res.data.data.map(product => ({...product, ...{
+                isDiscounted: product.old_price && (product.price != product.old_price)
+            }}));
 
             ProductCategoryService.list({
                 parent_id: 'null',
@@ -39,10 +50,8 @@ let BlockProductsDirective = async function(
             }).then(res => {
                 $scope.productCategories = res.data.data;
                 $scope.onReset($scope.filters);
-    
-                if ($scope.productCategories.filter(category => {
-                        return category.id == null;
-                    }).length == 0) {
+
+                if ($scope.productCategories.filter(category => category.id == null).length == 0) {
                     $scope.productCategories.unshift({
                         name: 'Selecteer categorie...',
                         id: null

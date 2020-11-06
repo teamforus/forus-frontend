@@ -1,9 +1,6 @@
-let ModalVoucherExportTypeComponent = function(
-    FormBuilderService,
-    VoucherService
-) {
+let ModalVoucherExportTypeComponent = function(FormBuilderService) {
     let $ctrl = this;
-    
+
     $ctrl.$onInit = () => {
         $ctrl.form = FormBuilderService.build({
             exportType: 'png'
@@ -13,8 +10,6 @@ let ModalVoucherExportTypeComponent = function(
             $ctrl.close();
         });
     };
-
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {
@@ -24,7 +19,6 @@ module.exports = {
     },
     controller: [
         'FormBuilderService',
-        'VoucherService',
         ModalVoucherExportTypeComponent
     ],
     templateUrl: () => {

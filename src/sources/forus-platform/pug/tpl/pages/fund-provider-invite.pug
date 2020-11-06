@@ -47,19 +47,19 @@
             .auth-title Login met e-mail
             .auth-subtitle(translate="popup_auth.labels.link")
 
-            form.form.auth-form(ng-submit="$ctrl.signInEmailForm.submit()"): .flex-row.flex-grow
-                .flex-col.ie-flex-auto.flex-grow: .form-group
+            form.form.auth-form(ng-submit="$ctrl.signInEmailForm.submit()")
+                .auth-form-input
                     input(ng-model="$ctrl.signInEmailForm.values.email" type="email" placeholder="E-mail").form-control.email-auth
                     .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.email" ng-bind="error")
-                .flex-col.ie-flex-auto: button(type="submit").button.button-primary Login
+                button(type="submit").button.button-primary Login
 
             .auth-qr_code.hidden-xs
                 .qr_code-container
                     .qr_code-description
                         .auth-title Login met Me-app
-                        | Scan de QR code aan de rechterzijde met de QR-scanner in de me app. 
+                        | Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app. 
                         | #[br] #[br]
-                        | De me app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.
+                        | De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.
                         | #[br] #[br]
 
                         .qr_code-download-app

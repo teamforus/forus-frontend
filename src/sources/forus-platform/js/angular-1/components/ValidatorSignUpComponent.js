@@ -8,7 +8,8 @@ let ValidatorSignUpComponent = function(
     MediaService,
     AuthService,
     SignUpService,
-    appConfigs
+    OrganizationService,
+    ModalService
 ) {
     let $ctrl = this;
     let orgMediaFile = false;
@@ -83,7 +84,9 @@ let ValidatorSignUpComponent = function(
     };
 
     $ctrl.setHasAppProp = (hasApp) => {
-        if ($ctrl.hasApp = hasApp) {
+        $ctrl.hasApp = hasApp;
+
+        if ($ctrl.hasApp) {
             $ctrl.requestAuthQrToken();
         } else {
             authTokenSubscriber.stopCheckAccessTokenStatus();
@@ -126,7 +129,7 @@ let ValidatorSignUpComponent = function(
 
             }, resolveErrors);
         });
-    }
+    };
 
     $ctrl.makeOrganizationForm = () => {
         return FormBuilderService.build({
@@ -152,7 +155,7 @@ let ValidatorSignUpComponent = function(
 
             return SignUpService.organizationStore(values);
         }, true);
-    }
+    };
 
     $ctrl.$onInit = function() {
         $ctrl.signUpForm = $ctrl.makeSignUpForm();
@@ -183,10 +186,18 @@ let ValidatorSignUpComponent = function(
         }, console.log);
     };
 
+
+    $ctrl.makeOrganizationValidator = (organization) => {
+        OrganizationService.updateRole(organization.id, {
+            is_validator: true
+        });
+    };
+
     $ctrl.selectOrganization = (organization) => {
         $ctrl.selectedOrganization = organization;
         $ctrl.setOrganization($ctrl.selectedOrganization);
         $ctrl.setStep($ctrl.STEP_SIGNUP_FINISHED);
+        $ctrl.makeOrganizationValidator(organization);
     };
 
     $ctrl.addOrganization = () => {
@@ -218,12 +229,8 @@ let ValidatorSignUpComponent = function(
                 });
             }
 
-            if ($ctrl.step == $ctrl.STEP_ORGANIZATION_ADD) {
-                if (progressStorage.has('organizationForm')) {
-                    $ctrl.organizationForm.values = JSON.parse(progressStorage.get('organizationForm'));
-                } else {
-                    $ctrl.organizationForm.values = {};
-                }
+            if ($ctrl.step == $ctrl.STEP_ORGANIZATION_ADD && progressStorage.has('organizationForm')) {
+                $ctrl.organizationForm.values = JSON.parse(progressStorage.get('organizationForm'));
             }
 
             if ($ctrl.step == $ctrl.STEP_CREATE_PROFILE) {
@@ -255,6 +262,7 @@ let ValidatorSignUpComponent = function(
             let submit = () => $ctrl.organizationForm.submit().then((res) => {
                 $ctrl.setOrganization(res.data.data);
                 $ctrl.setStep($ctrl.STEP_SIGNUP_FINISHED);
+                $ctrl.makeOrganizationValidator(res.data.data);
             }, (res) => {
                 $ctrl.organizationForm.errors = res.data.errors;
                 $ctrl.organizationForm.unlock();
@@ -281,10 +289,10 @@ let ValidatorSignUpComponent = function(
 
         $ctrl.setStep($ctrl.step - 1);
     };
-
-    $ctrl.finish = () => {
-        $state.go('organizations');
-    }
+    
+    $ctrl.finish = () => $state.go('organizations-view', {
+        id: $ctrl.organization.id
+    });
 
     $ctrl.selectPhoto = (file) => {
         orgMediaFile = file;
@@ -296,7 +304,11 @@ let ValidatorSignUpComponent = function(
 
     $ctrl.goToMain = () => {
         $state.go('home');
-    }
+    };
+
+    $ctrl.openAuthPopup = function() {
+        ModalService.open('modalAuth', {});
+    };
 
     $ctrl.$onDestroy = function() {
         progressStorage.clear();
@@ -318,7 +330,8 @@ module.exports = {
         'MediaService',
         'AuthService',
         'SignUpService',
-        'appConfigs',
+        'OrganizationService',
+        'ModalService',
         ValidatorSignUpComponent
     ],
     templateUrl: 'assets/tpl/pages/validator-sign-up.html'

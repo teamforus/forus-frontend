@@ -8,6 +8,28 @@ let ModalProductVoucherCreateComponent = function(
     $ctrl.voucherType = null;
     $ctrl.state = '';
     $ctrl.activationCodeSubmitted = false;
+    $ctrl.assignTypes = [{
+        key: null,
+        label: 'Niet toekennen',
+    }, {
+        key: 'email',
+        label: 'E-mailadres',
+    }, {
+        key: 'bsn',
+        label: 'BSN',
+    }];
+
+    $ctrl.assignType = $ctrl.assignTypes[0];
+
+    $ctrl.onAsignTypeChange = (assignType) => {
+        if (assignType.key === 'bsn') {
+            delete $ctrl.form.values.bsn;
+        }
+
+        if (assignType.key !== 'email') {
+            delete $ctrl.form.values.email;
+        }
+    };
 
     $ctrl.submitActivationCode = (activation_code) => {
         let code = activation_code ? activation_code : '';
@@ -53,25 +75,25 @@ let ModalProductVoucherCreateComponent = function(
     };
 
     $ctrl.initForm = () => {
-
         $ctrl.form = FormBuilderService.build({
             expire_at: $ctrl.fund.end_date,
             product_id: $ctrl.product.id,
             fund_id: $ctrl.fund.id,
         }, (form) => {
             form.lock();
+            form.values.assign_by_type = $ctrl.assignType.key;
 
             VoucherService.store(
                 $ctrl.organization.id,
                 form.values
             ).then(res => {
-                $ctrl.onCreated(res.data.data);
+                $ctrl.onCreated();
                 $ctrl.close();
             }, res => {
                 form.errors = res.data.errors;
                 form.unlock();
 
-                if (res.data.message) {
+                if (res.data.message && res.status !== 422) {
                     alert(res.data.message);
                 }
             });
@@ -84,7 +106,9 @@ let ModalProductVoucherCreateComponent = function(
         $ctrl.fund = $ctrl.modal.scope.fund || null;
 
         ProductService.listAll({
-            fund_id: $ctrl.fund.id
+            fund_id: $ctrl.fund.id,
+            no_price: 0,
+            show_all: 1,
         }).then((res) => {
             $ctrl.products = res.data.data.map(product => {
                 return {

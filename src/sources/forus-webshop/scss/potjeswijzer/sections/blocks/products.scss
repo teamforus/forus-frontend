@@ -1,5 +1,17 @@
 .section {
     &.section-products {
         padding-top: 30px;
+
+        .block {
+            &.block-products {
+                display: flex;
+
+                .product-item {
+                    .product-name {
+                        color: $tc;
+                    }
+                }
+            }
+        }
     }
 }

@@ -84,7 +84,6 @@ body {
 }
 
 @media screen and (min-width: 1024px) {
-
     .section-profile {
         .section-title {
             text-align: left !important;
@@ -111,7 +110,7 @@ body {
     }
 
     .section-voucher-details {
-        margin-top: 50px;
+        margin-top: 25px;
     }
 
 }
@@ -134,7 +133,6 @@ ui-view {
         img {
             &:not(.line-item) {
                 width: 100%;
-                border: 2px dashed #d2e6ff;
                 border-radius: 5px;
                 box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1);
                 position: relative;

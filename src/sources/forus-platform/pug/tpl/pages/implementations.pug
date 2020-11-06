@@ -1,0 +1,43 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .card.card-collapsed
+            
+            .card-header: .flex-row
+                .flex-col: .card-title Webshops
+                .flex-col: .card-header-drown: .block.block-inline-filters
+                    .form(ng-if="!$ctrl.filters.show"): .form-group
+                        input(ng-model="$ctrl.filters.values.q" placeholder="Zoeken").form-control
+            .card-section(
+                ng-if="$ctrl.implementations.meta.total > 0"
+                ng-repeat="implementation in $ctrl.implementations.data" 
+                ng-click="$ctrl.editImplementation(implementation.id)")
+                
+                .card-block.card-block-implementation
+                    .card-block-implementation-logo
+                        img(ng-src="{{ implementation.logo || './assets/img/placeholders/organization-thumbnail.png' }}")
+                    .card-block-implementation-details
+                        .card-block-implementation-name(ng-bind="implementation.name")
+                        .card-block-implementation-desc Website
+                        .card-block-implementation-website
+                            a(href="{{ implementation.url_webshop }}" target="_blank") {{ implementation.url_webshop }}
+                .card-section-actions 
+                    button(
+                        ng-if="$root.activeOrganization | hasPerm:['manage_implementation']"
+                        ui-sref="implementation-email({organization_id: $root.activeOrganization.id, id: implementation.id})").button.button-default 
+                        em.mdi.mdi-cog.icon-start 
+                        translate(translate="Email")
+                    button(
+                        ng-if="$root.activeOrganization | hasPerm:['manage_implementation']"
+                        ui-sref="implementation-digid({organization_id: $root.activeOrganization.id, id: implementation.id})").button.button-default 
+                        em.mdi.mdi-cog.icon-start
+                        translate(translate="DigiD")
+                    button(
+                        ng-if="$root.activeOrganization | hasPerm:['manage_implementation', 'manage_implementation_cms']:false"
+                        ui-sref="implementation-cms({organization_id: $root.activeOrganization.id, id: implementation.id})").button.button-primary 
+                        em.mdi.mdi-text-box.icon-start
+                        translate(translate="CMS")
+
+            .card-section: .table-pagination
+                .table-pagination-counter(ng-if="$ctrl.implementations.meta.total != 0") {{ $ctrl.implementations.meta.total }} resultaten
+                .text-center(ng-if="$ctrl.implementations.meta.total == 0") Geen webshops beschikbaar.

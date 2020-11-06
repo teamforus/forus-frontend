@@ -6,15 +6,14 @@ let ModalFundRequestRecordDeclineComponent = function(
 
     $ctrl.$onInit = () => {
         let submit = $ctrl.modal.scope.submit;
-        let fund = $ctrl.modal.scope.fund;
+        let organization = $ctrl.modal.scope.organization;
         let requestRecord = $ctrl.modal.scope.requestRecord;
 
         $ctrl.form = FormBuilderService.build({
             note: ''
         }, (form) => {
             FundRequestValidatorService.declineRecord(
-                fund.organization_id,
-                fund.id,
+                organization.id,
                 requestRecord.fund_request_id,
                 requestRecord.id,
                 form.values.note

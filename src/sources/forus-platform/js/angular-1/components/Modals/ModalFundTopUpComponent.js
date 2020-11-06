@@ -1,5 +1,6 @@
 let ModalFundTopUpComponent = function(
-    FundService
+    FundService,
+    PushNotificationsService
 ) {
     let $ctrl = this;
 
@@ -9,13 +10,14 @@ let ModalFundTopUpComponent = function(
         FundService.makeTopUp(fund.organization_id, fund.id).then((res) => {
             $ctrl.topUpCode = res.data.data.code;
             $ctrl.topUpIban = res.data.data.iban;
-            $ctrl.isReady = true;
+
+            $ctrl.modal.setLoaded();
         }, res => {
             alert(res.data.message);
             $ctrl.close();
         });
     };
-    $ctrl.$onDestroy = function() {};
+    $ctrl.$onDestroy = function() { };
 
     $ctrl.copyToClipboard = (str) => {
         const el = document.createElement('textarea');
@@ -27,6 +29,7 @@ let ModalFundTopUpComponent = function(
         el.select();
         document.execCommand('copy');
         document.body.removeChild(el);
+        PushNotificationsService.success("Copied to clipboard.");
     };
 };
 
@@ -37,6 +40,7 @@ module.exports = {
     },
     controller: [
         'FundService',
+        'PushNotificationsService',
         ModalFundTopUpComponent
     ],
     templateUrl: () => {

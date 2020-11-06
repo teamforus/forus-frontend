@@ -32,13 +32,17 @@
         button(
             ng-click="toggleDetails('transactions')"
             ).button.button-primary.icon-start
-            em.mdi.mdi-coins 
+            em.mdi.mdi-circle-multiple-outline.icon-start 
             | {{ "fund_card_provider_finances.buttons.transactions" | translate }}
 
     .block.block-charts(ng-show="fundProvider.showStatistics")
         .card-section
             .chart-header
                 .chart-header-range
+                    .chart-header-item(
+                        ng-click="chartData.changeType('year')" 
+                        ng-class="chartData.request.type=='year'?'active':''"
+                        translate="fund_card_provider_finances.labels.year")
                     .chart-header-item(
                         ng-click="chartData.changeType('quarter')" 
                         ng-class="chartData.request.type=='quarter'?'active':''"
@@ -51,10 +55,6 @@
                         ng-click="chartData.changeType('week')" 
                         ng-class="chartData.request.type=='week'?'active':''"
                         translate="fund_card_provider_finances.labels.week")
-                    .chart-header-item(
-                        ng-click="chartData.changeType('all')" 
-                        ng-class="chartData.request.type=='all'?'active':''"
-                        translate="fund_card_provider_finances.labels.all")
                 
                 .chart-header-title(ng-bind="chartData.stringTitle")
                 .chart-header-actions.form: .flex-row 
@@ -63,9 +63,9 @@
                         ng-options="productCategory.id as productCategory.name for productCategory in productCategories"
                         ng-model="chartData.request.product_category").form-control
 
-                    .flex-col: span(ng-if="chartData.request.type!='all'").button-group
+                    .flex-col: span.button-group
                         .button.button-default(ng-click="chartData.decrease()" translate="fund_card_provider_finances.buttons.previous")
-                        .button.button-default(ng-click="chartData.increase()" translate="fund_card_provider_finances.buttons.next")
+                        .button.button-default(ng-if="allowDataIncrement" ng-click="chartData.increase()" translate="fund_card_provider_finances.buttons.next")
             
             .chart-body: bar-chart(data="chartData.response.dates")
         

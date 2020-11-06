@@ -1,13 +1,14 @@
 doctype
-html(lang="nl" ng-controller="BaseController" ng-cloak)
+html(lang="nl" ng-controller="BaseController" role="main" ng-cloak)
     include ../layout/includes/head
     body(ng-class="{ 'signup-layout': $root.viewLayout == 'signup' }" modal-scroll-braker printable-enabler)
         page-loading-bar
         ui-view
-        div(forus-chat chat-id="appConfigs.chat_id" ng-if="appConfigs.chat_id && $root.auth_user")
-        div(forus-support support-id="{{ appConfigs.support_id}}" ng-if="appConfigs.support_id")
         include ../layout/includes/footer
         
+        forus-chat(ng-if="appConfigs.chat_id && $root.auth_user" chat-id="appConfigs.chat_id")
+        forus-support(ng-if="appConfigs.support_id" support-id="{{ appConfigs.support_id}}")
+
         printables-root
         push-notifications
         

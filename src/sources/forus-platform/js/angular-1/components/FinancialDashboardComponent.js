@@ -8,6 +8,27 @@ let FinancialDashboardComponent = function(
 ) {
     let $ctrl = this;
 
+    $ctrl.filters = {
+        values: {
+            q: "",
+            per_page: 15
+        },
+    };
+
+    $ctrl.onFundSelect = (fund) => {
+        $ctrl.fund = fund;
+
+        $ctrl.startYear = DateService._dateParseYmd(
+            $ctrl.fund.start_date
+        ).year();
+        $ctrl.chartData.request.year = $ctrl.startYear;
+
+        $ctrl.getProviders($ctrl.filters.values).then(providers => {
+            $ctrl.allFundProviders = providers;
+            $ctrl.chartData.update();
+        });
+    }; 
+
     $ctrl.getProviders = (query) => {
         let deferred = $q.defer();
         
@@ -119,7 +140,7 @@ let FinancialDashboardComponent = function(
                 } else if (this.request.type == 'quarter') {
                     stringTitle = 'Kwartaal: Q' + this.request.nth + ' ' + this.request.year;
                 } else if (this.request.type == 'all') {
-                    stringTitle = 'Year ' + this.request.year;
+                    stringTitle = 'Jaar ' + this.request.year;
                 }
 
                 this.stringTitle = stringTitle;
@@ -171,19 +192,6 @@ let FinancialDashboardComponent = function(
             name: 'Anders',
             id: -1
         });
-
-        $ctrl.onFundSelect = (fund) => {
-            $ctrl.fund = fund;
-
-            $ctrl.startYear = DateService._dateParseYmd(
-                $ctrl.fund.start_date
-            ).year();
-            $ctrl.chartData.request.year = $ctrl.startYear;
-
-            $ctrl.getProviders().then(() => {
-                $ctrl.chartData.update();
-            });
-        }; 
     };
 
     $scope.onPageChange = (query) => {

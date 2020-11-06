@@ -16,8 +16,21 @@ let google_maps_api_key = '';
 
 module.exports = (core) => {
     // Config markups
-    core.editPlatform('dashboard_markup', (platform) => platform);
-    core.editPlatform('webshop_markup', (platform) => platform);
+    core.editPlatform('dashboard_markup', (platform) => {
+        platform.setEnvData({
+            google_maps_api_key: google_maps_api_key,
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_markup', (platform) => {
+        platform.setEnvData({
+            google_maps_api_key: google_maps_api_key,
+        });
+
+        return platform;
+    });
     
     // Config dashboards
     core.editPlatform('dashboard_general_sponsor', (platform) => {
@@ -159,6 +172,27 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('dashboard_nijmegen_validator', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_key: baseImplementationKey,
+            panel_type: 'validator',
+            chat_id: chatId,
+            hide_voucher_generators: false,
+            flags: {},
+            sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
+        });
+
+        platform.editTask('js', (task) => {
+            task.minify = minify;
+            task.sourcemap = sourcemap;
+            return task;
+        });
+
+        return platform;
+    });
+
     core.editPlatform('dashboard_westerkwartier_sponsor', (platform) => {
         platform.setEnvData({
             api_url: apiUrl,
@@ -277,6 +311,27 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('dashboard_groningen_sponsor', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_key: 'groningen',
+            panel_type: 'sponsor',
+            chat_id: chatId,
+            hide_voucher_generators: false,
+            flags: {
+                maxProductCount: 20,
+            },
+            sessions: sessions,
+         });
+      
+        platform.editTask('js', (task) => {
+            task.minify = minify;
+            task.sourcemap = sourcemap;
+            return task;
+        });
+        return platform;
+    });
+
     core.editPlatform('dashboard_winterswijk_provider', (platform) => {
         platform.setEnvData({
             api_url: apiUrl,
@@ -324,6 +379,25 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('dashboard_groningen_provider', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_key: 'groningen',
+            panel_type: 'provider',
+            chat_id: chatId,
+            hide_voucher_generators: false,
+            flags: {},
+            sessions: sessions,
+         });      
+      
+         platform.editTask('js', (task) => {
+            task.minify = minify;
+            task.sourcemap = sourcemap;
+            return task;
+        });
+      
+        return platform;
+    });
     core.editPlatform('dashboard_kerstpakket_provider', (platform) => {
         platform.setEnvData({
             api_url: apiUrl,
@@ -658,6 +732,27 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('webshop_groningen', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_key: 'groningen',
+            client_type: 'webshop',
+            log_out_time: false,
+            flags: {
+                accessibilityPage: false,
+            },
+            sessions: sessions,
+        });
+
+        platform.editTask('js', (task) => {
+            task.minify = minify;
+            task.sourcemap = sourcemap;
+            return task;
+        });
+
+        return platform;
+    });
+
     // Config meapp landings
     core.editPlatform('website', (platform) => {
         platform.setEnvData({
@@ -684,6 +779,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'general',
             client_type: 'pin_code-auth',
+            disable_timestamps: true
         });
 
         platform.editTask('js', (task) => {

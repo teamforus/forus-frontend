@@ -1,4 +1,4 @@
-.modal
+.modal.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.closeModal()")
     .modal-window
         a(ng-click="$ctrl.closeModal()").mdi.mdi-close.modal-close
@@ -43,22 +43,32 @@
                             .file-name(ng-bind="$ctrl.csvParser.csvFile.name")
                             .file-size(ng-bind="$ctrl.csvParser.csvFile.size | file_size")
                             .file-remove.mdi.mdi-close(ng-click="$ctrl.reset()")
-                        .text-left(ng-if="!$ctrl.csvParser.isValid && $ctrl.type == 'voucher'")
+
+                        //- budget voucher errors
+                        .text-left(ng-if="!$ctrl.csvParser.isValid && $ctrl.type == 'fund_voucher'")
                             .form-error(ng-if="!$ctrl.csvParser.csvIsValid")
                                 | Het veld 'amount' mist in het bestand.
+                            .form-error(ng-if="!$ctrl.csvParser.csvTypeValid")
+                                | Het veld `product_id` mist in het bestand.
                             .form-error(ng-if="!$ctrl.csvParser.amountIsValid")
                                 | Het totaal aantal budget van het gewenste aantal vouchers overschrijd het gestorte bedrag op het fonds.
                         
+                        //- product voucher errors
                         .text-left(ng-if="!$ctrl.csvParser.isValid && $ctrl.type == 'product_voucher'")
-                            .form-error(ng-if="!$ctrl.csvParser.csvIsValid")
+                            .form-error(ng-if="$ctrl.csvParser.csvHasMissingProductId")
                                 | Het veld `product_id` mist in het bestand.
-                            .form-error(ng-if="!$ctrl.csvParser.csvProductIdValid")
-                                | Één of meer `product_id` velden hebben een ongeldige waarde.
+                            .form-error(ng-if="$ctrl.csvParser.hasAmountField")
+                                | Het veld `amount` mist in het bestand.
+                            .form-error(ng-if="$ctrl.csvParser.csvProductsInvalidUnknownIds.length > 0")
+                                | Following `product_id` from .csv '{{ $ctrl.csvParser.csvProductsInvalidUnknownIdsList }}' are invalid or are out of stock.
+                            .form-error(ng-if="$ctrl.csvParser.csvProductsInvalidStockIds.length > 0")
+                                | Following `product_id` from .csv '{{ $ctrl.csvParser.csvProductsInvalidStockIdsList }}' surpass available stock.
 
                     .text-center(ng-show="$ctrl.csvParser.progress == 1 && $ctrl.csvParser.isValid")
                         button(
+                            ng-if="!$ctrl.loading"
                             ng-click="$ctrl.csvParser.uploadToServer()"
                             translate="csv_upload.buttons.upload").button.button-primary
         
         .modal-footer.text-center
-            button.button.button-primary(ng-click="$ctrl.closeModal()" translate="modal_funds_add.buttons.close")
+            button.button.button-primary(ng-click="$ctrl.closeModal()" translate="modal_funds_add.buttons.close" id="close")

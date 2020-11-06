@@ -31,20 +31,42 @@
                         .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
             .card-section.card-section-primary
                 .row: .col.col.col-lg-9
-                    .form-group.form-group-inline
+                    .form-group.form-group-inline.tooltipped
                         label.form-label(translate="product_edit.labels.new")
-                        input(ng-model="$ctrl.form.values.price" type="number" placeholder="Prijs" step="0.01" number-control).form-control
+                        .form-offset: .row
+                            .col.col-lg-9: input(
+                                ng-model="$ctrl.form.values.price" 
+                                type="number" 
+                                placeholder="Prijs" 
+                                step="0.01"
+                                ng-disabled="$ctrl.form.values.no_price").form-control
+                            .col.col-lg-3
+                                .checkbox(ng-disabled="$ctrl.product")
+                                    input(
+                                        ng-disabled="$ctrl.product"
+                                        type="checkbox" 
+                                        id="no_price" 
+                                        ng-change="$ctrl.clearPrices($ctrl.form.values.no_price)"
+                                        ng-model="$ctrl.form.values.no_price")
+                                    label(for="no_price").checkbox-label
+                                        .checkbox-box: em.mdi.mdi-check
+                                        | Geen prijs 
+                        tooltip(text="'Bijvoorbeeld als u een aanbieding wil doen zoals het geven van een korting. Voeg dit dan toe in de titel, omschrijving of afbeelding.'")
                         .form-error(ng-repeat="error in $ctrl.form.errors.price" ng-bind="error")
                     
                     .form-group.form-group-inline
                         label.form-label(translate="product_edit.labels.old")
-                        input(ng-model="$ctrl.form.values.old_price" type="number" placeholder="Oude prijs" step="0.01" number-control).form-control
+                        input(
+                            ng-model="$ctrl.form.values.old_price" 
+                            type="number" 
+                            placeholder="Oude prijs" 
+                            step="0.01"
+                            ng-disabled="$ctrl.form.values.no_price").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.old_price" ng-bind="error")
                     
                     .form-group.form-group-inline(ng-if="$ctrl.product")
                         label.form-label(translate="product_edit.labels.sold")
                         input(ng-model="$ctrl.form.values.sold_amount" type="number" placeholder="Verkocht" disabled).form-control
-                    
                     
                     .form-group.form-group-inline.tooltipped
                         label.form-label(translate="product_edit.labels.total")
@@ -87,5 +109,5 @@
                     errors="$ctrl.form.errors.product_category_id")
 
             .card-section.card-section-primary: .text-center
-                button(type="button" ng-click="$ctrl.cancel()" translate="product_edit.buttons.cancel").button.button-default
+                button(type="button" ng-click="$ctrl.cancel()" translate="product_edit.buttons.cancel" id="cancel_create_product").button.button-default
                 button(type="submit" translate="product_edit.buttons.confirm").button.button-primary

@@ -41,7 +41,7 @@ let ProductsComponent = function(
     };
 
     $ctrl.cancel = () => {
-        if (typeof($ctrl.modal.scope.cancel) === 'function') {
+        if (typeof ($ctrl.modal.scope.cancel) === 'function') {
             $ctrl.modal.scope.cancel();
         }
 
@@ -55,6 +55,7 @@ let ProductsComponent = function(
 
     $ctrl.buildQuery = (values) => ({
         q: values.q,
+        organization_id: values.organization_id,
         page: values.page,
         product_category_id: values.product_category_id,
         fund_id: values.fund ? values.fund.id : null,
@@ -82,8 +83,11 @@ let ProductsComponent = function(
     };
 
     $ctrl.loadProducts = (query, location = 'replace') => {
-        ProductService.list(Object.assign({}, query)).then(res => {
+        ProductService.list(Object.assign({
+            fund_type: $ctrl.type
+        }, query)).then(res => {
             $ctrl.products = res.data;
+            $ctrl.updateRows();
         });
 
         $ctrl.updateState(query, location);
@@ -91,11 +95,12 @@ let ProductsComponent = function(
     };
 
     $ctrl.updateState = (query, location = 'replace') => {
-        $state.go('products', {
+        $state.go($ctrl.fund_type == 'budget' ? 'products' : 'actions', {
             q: query.q || '',
             page: query.page,
             display_type: query.display_type,
             fund_id: query.fund_id,
+            organization_id: query.organization_id,
             product_category_id: query.product_category_id,
             show_map: $ctrl.showMap,
             show_menu: $ctrl.showModalFilters,
@@ -112,7 +117,37 @@ let ProductsComponent = function(
         ) : 0), 0);
     };
 
+    $ctrl.updateRows = () => {
+        $ctrl.products.data = $ctrl.products.data.map(product => {
+            if ($ctrl.form.values.fund && $ctrl.form.values.fund.id && Array.isArray(product.funds)) {
+                let prices = product.funds.filter(
+                    funds => funds.id == $ctrl.form.values.fund.id
+                ).map(fund => fund.price);
+
+                product.price_min = Math.min(prices);
+                product.price_max = Math.max(prices);
+            }
+
+            return {...product, ...{
+                isDiscounted: product.old_price && (product.price != product.old_price)
+            }};
+        });
+
+        let product_rows = [];
+        let products = $ctrl.products.data.slice().reverse();
+
+        while (products.length > 0) {
+            let row = products.splice(-3);
+            row.reverse();
+
+            product_rows.push(row);
+        }
+
+        $ctrl.product_rows = product_rows;
+    };
+
     $ctrl.$onInit = () => {
+        $ctrl.fund_type = $stateParams.fund_type;
         $scope.appConfigs = appConfigs;
         $scope.$watch('appConfigs', (_appConfigs) => {
             if (_appConfigs.features && !_appConfigs.features.products.list) {
@@ -122,7 +157,7 @@ let ProductsComponent = function(
 
         $ctrl.funds.unshift({
             id: null,
-            name: 'Alle budgetten',
+            name: 'Alle tegoeden',
         });
 
         let fund = $ctrl.funds.filter(fund => {
@@ -131,28 +166,34 @@ let ProductsComponent = function(
 
         $ctrl.form = FormBuilderService.build({
             q: $stateParams.q || '',
+            organization_id: $stateParams.organization_id || null,
             product_category_id: $stateParams.product_category_id || null,
             fund: fund,
         });
 
         $ctrl.showModalFilters = $stateParams.show_menu;
-        $ctrl.display_type = $stateParams.display_type
+        $ctrl.display_type = $stateParams.display_type;
         $ctrl.productCategories.unshift({
             name: 'Selecteer categorie...',
             id: null
         });
+        $ctrl.organizations.unshift({
+            name: 'Selecteer aanbieder...',
+            id: null
+        });
 
         $ctrl.updateFiltersUsedCount();
+        $ctrl.updateRows();
     };
-
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {
     bindings: {
+        fund_type: '<',
         funds: '<',
         products: '<',
         productCategories: '<',
+        organizations: '<',
     },
     controller: [
         '$scope',

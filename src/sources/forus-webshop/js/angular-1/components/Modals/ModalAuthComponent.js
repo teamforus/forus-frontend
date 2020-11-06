@@ -65,7 +65,17 @@ let ModalAuthComponent = function(
         $ctrl.signInEmailForm = FormBuilderService.build({
             email: ""
         }, (form) => {
-            IdentityService.makeAuthEmailToken(form.values.email).then(() => {
+            let authTarget = undefined;
+
+            if ($ctrl.modal.scope.has_redirect) {
+                authTarget = [$ctrl.modal.scope.target_name].concat(
+                    Object.values($ctrl.modal.scope.target_params)
+                );
+
+                authTarget = authTarget.join('-');
+            }
+            
+            IdentityService.makeAuthEmailToken(form.values.email, authTarget).then(() => {
                 $ctrl.screen = 'sign_in-email-sent';
                 $ctrl.close();
 
@@ -79,7 +89,9 @@ let ModalAuthComponent = function(
 
             }, (res) => {
                 form.unlock();
-                form.errors = res.data.errors;
+                form.errors = res.data.errors ? res.data.errors : {
+                    email: [res.data.message]
+                };
             });
         }, true);
     };
@@ -96,7 +108,11 @@ let ModalAuthComponent = function(
             if (res.data.message == 'active') {
                 $ctrl.applyAccessToken(access_token);
                 $timeout(function() {
-                    $state.go('vouchers');
+                    if ($ctrl.modal.scope.has_redirect) {
+                        $state.go($ctrl.modal.scope.target_name, $ctrl.modal.scope.target_params);
+                    } else {
+                        $state.go('vouchers');
+                    }
                 }, 2500);
             } else if (res.data.message == 'pending') {
                 timeout = $timeout(function() {

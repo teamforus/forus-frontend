@@ -1,46 +1,43 @@
 extends ../layout/layout-markup
 block content
-    .card-heading Providers (5)
+    .card-heading Aanbieders per fonds (2)
 
-    mixin card(title)
-        .card
-            .card-section
-                .card-section-actions
-                .card-block.card-block-provider
-                    .provider-img: img(src="./assets/img/zuidhorn-logo.jpg", alt="")
-                    .provider-details
-                        .provider-title(href="./fund.html") #{title}
-                        .provider-details
-                            .row: .col.col-lg-8: .flex-row
-                                .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                                    .card-block-listing-label Email
-                                    .card-block-listing-value.text-primary-light ulgersmaweg@rminds.nl
-                                .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                                    .card-block-listing-label Business Address
-                                    .card-block-listing-value.text-primary-light Groningen, Ulgersmaweg 35
+    .block.block-providers
+        mixin provider_item(title, type="budget", products=15)
+            .provider-item
+                .provider-media: img.provider-media-img(src="./assets/img/zuidhorn-logo.jpg")
+                .provider-details
+                    .provider-title ING Groep N.V. Dolor sit amet
+                    if (type == 'budget')
+                        .provider-subtitle #{products} aanbiedingen
+                    if (type == 'subsidie')
+                        .provider-subtitle 
+                            | Actieve acties 
+                            .tag.tag-sm(class=(products == 0 ? 'tag-danger' : 'tag-default')) #{products}/15
 
-            .card-section.card-section-primary.card-section-narrow: .card-block.card-block-provider.form
-                .provider-offset &nbsp;
-                .provider-details: .row: .col.col-lg-8: .flex-row
-                    .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                        .card-block-listing-label 15 aanbiedingen
-                        button(type="button" ui-sref="fund-provider(providerFund.uiViewParams)").button.button-default.button-flat
+                .provider-actions.form
+                    if (type == 'budget')
+                        .provider-action-item
+                            label.form-label Allow budget
+                            label(for=("option_" + title + '_regular')).form-toggle
+                                input(type="checkbox" id=("option_" + title + '_regular'))
+                                .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+                        
+                        .provider-action-item
+                            label.form-label Allow budget
+                            label(for=("option_" + title + '_products')).form-toggle
+                                input(type="checkbox" id=("option_" + title + '_products'))
+                                .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+
+                    .provider-action-item
+                        a(href=(type == 'budget' ? "fund-provider.html" : "fund-provider-subsidie.html")).button.button-default 
                             em.mdi.mdi-eye-outline.icon-start
                             | Kijk
 
-                    .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                        .card-block-listing-label Allow budget
-                        .button.button-text: label(for=("option_" + title + '_regular')).form-toggle
-                            input(type="checkbox" id=("option_" + title + '_regular'))
-                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
-                        
-                    .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                        .card-block-listing-label Allow products
-                        .button.button-text: label(for=("option_" + title + '_products')).form-toggle
-                            input(type="checkbox" id=("option_" + title + '_products'))
-                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+        +provider_item("Hewlett-Packard")
+        +provider_item("Kindpakket 2017")
+        +provider_item("Kindpakket 2016")
 
-
-    +card("Hewlett-Packard")
-    +card("Kindpakket 2017")
-    +card("Kindpakket 2016")
+        +provider_item("Hewlett-Packard", 'subsidie', 0)
+        +provider_item("Kindpakket 2017", 'subsidie', 5)
+        +provider_item("Kindpakket 2016", 'subsidie', 12)

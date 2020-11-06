@@ -1,6 +1,7 @@
 let HomeComponent = function(
     $state,
     $stateParams,
+    $sce,
     appConfigs,
     ModalService,
     AuthService,
@@ -12,8 +13,9 @@ let HomeComponent = function(
     $ctrl.implementation_name = appConfigs.features.implementation_name;
     
     $ctrl.digidAvailable = appConfigs.features.digid;
+
     if ($stateParams.confirmed) {
-        ModalService.open('modalActivateCode', {});
+        return  $state.go('start');
     }
 
     $ctrl.startFundRequest = () => {
@@ -27,7 +29,7 @@ let HomeComponent = function(
     $ctrl.openInMeModal = () => ModalService.open('modalOpenInMe');
     $ctrl.showPopupOffices = () => ModalService.open('modalOffices');
     $ctrl.openAuthCodePopup = () => ModalService.open('modalAuthCode');
-    $ctrl.openActivateCodePopup = () => ModalService.open('modalActivateCode');
+    $ctrl.openActivateCodePopup = () => $state.go('start');
 
     if (AuthService.hasCredentials()) {
         VoucherService.list().then(res => {
@@ -50,6 +52,10 @@ let HomeComponent = function(
                 errorCode: 'digid_' + $stateParams.digid_error
             });
         }
+
+        $ctrl.description_html = $sce.trustAsHtml(
+            appConfigs.features.settings.description_html
+        );
     };
 };
 
@@ -64,6 +70,7 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
+        '$sce',
         'appConfigs',
         'ModalService',
         'AuthService',

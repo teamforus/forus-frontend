@@ -1,4 +1,4 @@
-.modal.modal-voucher_qr(ng-class="$ctrl.success ? 'modal-sm' : ''")
+.modal.modal-voucher_qr.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.success ? 'modal-sm' : '', $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     
     .modal-window(ng-show="!$ctrl.assigning && !$ctrl.success"): form(ng-submit="$ctrl.form.submit()")
@@ -22,9 +22,7 @@
 
         .modal-body: .modal-section: .form
             .form-group
-                .row: .col.col-lg-12
-                    //- Verstuur naar e-mail adres:
-                    label.form-label(i18n="modals.modal_voucher_qr_code.labels.sent_to_email")
+                .row: .col.col-lg-12: label.form-label(i18n="modals.modal_voucher_qr_code.labels.sent_to_email")
                 .row
                     .col.col-lg-9
                         input(
@@ -40,18 +38,26 @@
         .modal-footer.text-center
             button.button.button-default(type="button" ng-click="$ctrl.close()" i18n="modals.modal_voucher_qr_code.buttons.close")
 
+    //- assign voucher to user
     .modal-window(ng-show="$ctrl.assigning && !$ctrl.success"): form(ng-submit="$ctrl.form.submit()")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
         .modal-header: .voucher_qr-title(i18n="modals.modal_voucher_qr_code.title_assign")
         .modal-body: .modal-section: .form
             .form-group
+                label.form-label(i18n="modals.modal_voucher_create.labels.assign_by_type")
+                select(
+                    ng-change="$ctrl.onAsignTypeChange($ctrl.assignType)"
+                    ng-options="assignType as assignType.label for assignType in $ctrl.assignTypes"
+                    ng-model="$ctrl.assignType").form-control
+                .form-error(ng-repeat="error in $ctrl.form.errors.assign_by_type" ng-bind="error")
+            
+            .form-group
                 //- Verstuur naar e-mail adres:
                 label.form-label(i18n="modals.modal_voucher_qr_code.labels.assign_to_identity")
                 input(
-                    type="email" 
-                    placeholder="{{ 'modals.modal_voucher_qr_code.placeholders.email' | i18n }}"
-                    ng-model="$ctrl.form.values.email").form-control
-                .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
+                    placeholder="{{ ('modals.modal_voucher_qr_code.placeholders.' + $ctrl.assignType.key) | translate }}"
+                    ng-model="$ctrl.form.values[$ctrl.assignType.key]" ).form-control
+                .form-error(ng-repeat="error in $ctrl.form.errors[$ctrl.assignType.key]" ng-bind="error")
         
         .modal-body: .modal-section: .form: .block.block-info
             em.mdi.mdi-information.block-info-icon

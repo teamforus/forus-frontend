@@ -5,7 +5,7 @@
 .modal {
     @include fill_parent();
     position: fixed;
-    z-index: 5;
+    z-index: 10;
     display: flex;
     align-items: center;
 
@@ -50,6 +50,31 @@
             color: #222;
             transition: color .4s;
             z-index: 1;
+        }
+    }
+
+    .modal-header {
+        background: #fff;
+        border-bottom: 1px solid $border_color;
+        border-top-left-radius: $border_radius;
+        border-top-right-radius: $border_radius;
+        padding: 15px 30px;
+        cursor: default;
+
+        .modal-title {
+            font: 700 22px/30px $bf;
+            margin: 0 0 10;
+            color: $tc;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .modal-subtitle {
+            font: 700 14px/20px $bf;
+            margin: 0 0 0;
+            color: #646F79;
         }
     }
 
@@ -252,98 +277,40 @@
             }
         }
     }
-    /* &.modal-auth2 {
 
-        .modal-content {
-            padding: 20px;
-            width: 100%;
-            max-width: 650px;
-            border-radius: 5px;
-            min-height: 100px;
-            .form {
-                display: flex;
-                margin: 10px 0;
-                input {
-                    width:385px !important;
-                    margin-right:20px;
-                    height: 46px;
-                    border-radius: 8px;
-                    background-color: #eff2f4;
-    
-                    float: left !important;
-                }
-                button {
-                    width: 180px;
-                    position: relative;
-                    display: block;
-                }
-            }
-            font: 400 13px $bf;
-            .modal-title {
-                margin-bottom: 5px;
-                font: 600 1.4em $bf;
-                width: 375px;
-            }
-            .download-badges {
-                text-align:left;
-            }
-            .modal-subtitle {
-                font-size: 15px;
-                u {
-                    cursor: pointer;
-                }
-                span {
-                    cursor: auto;
-                }
-    
-                a {
-                    font: 400 12px $bf;
-                    color:rgb(100, 111, 121);
-                }
-                img {
-                    height: 40px;
-                    margin-right: 10px;
-                }
-            }
-            .subtitle-left {
-                width: 375px;
-                float:left;
-            }
-            .block-qr-code {
-                width: 225px;
-                padding-bottom: unset;
-                .qr_code {
-                    width: 175px !important;
-                    height: 175px !important;
-                    padding: 10px !important;
-                }
-            }
-        }
-    } */
-
-    /* .block-qr-code {
-        float:right;
-        margin:0;
-        .qr_code {
-            width: 175px;
-            height: 175px;
-            padding: 15px 15px;
-            background: #fff;
-            margin: auto;
-            border-radius: 15px;
-            -webkit-box-shadow: 0 5px 35px rgba(0, 0, 0, 0.075);
-            box-shadow: 0 5px 35px rgba(0, 0, 0, 0.075);
-            border: 2px dashed #000;
-
-            img {
-                display: block;
-                width: 100%;
-            }
-        }
-    } */
     &.modal-shops_map {
         .modal-content{
             padding: 0;
+        }
+    }
+
+    
+
+    &.modal-animated {
+        .modal-backdrop,
+        .modal-content,
+        .modal-window {
+            opacity: 1;
+            transition: .25s ease-in;
+        }
+
+        .modal-content,
+        .modal-window {
+            transform: scale(1, 1);
+        }
+
+        &.modal-loading {
+            .modal-backdrop,
+            .modal-content,
+            .modal-window {
+                opacity: 0;
+                transition: .25s ease-out;
+            }
+
+            .modal-content,
+            .modal-window {
+                transform: scale(0, 0);
+            }
         }
     }
 
@@ -371,7 +338,7 @@
             .modal-content {
                 .step-item {
                     .step-title {
-                        font: 400 20px/18px $bf;
+                        font: 700 20px/18px $bf;
                     }
     
                     .step-description {

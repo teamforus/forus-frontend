@@ -1,10 +1,9 @@
 let sprintf = require('sprintf-js').sprintf;
 
 let FundRequestValidatorService = function(ApiRequest) {
-    let uriPrefix = '/platform/organizations/%s/funds/%s/requests';
-    let uriPrefixAll = '/platform/organizations/%s/requests';
+    let uriPrefixAll = '/platform/organizations/%s/fund-requests';
 
-    return new(function() {
+    let FundRequestValidatorService = function() {
         this.indexAll = function(organziation_id, data = {}) {
             return ApiRequest.get(sprintf(uriPrefixAll, organziation_id), data);
         };
@@ -20,85 +19,98 @@ let FundRequestValidatorService = function(ApiRequest) {
             });
         };
 
-        this.index = function(organziation_id, fund_id, data = {}) {
+        this.index = function(organziation_id, data = {}) {
             return ApiRequest.get(
-                sprintf(uriPrefix, organziation_id, fund_id),
+                sprintf(uriPrefixAll, organziation_id),
                 data
             );
         };
 
-        this.read = function(organziation_id, fund_id, request_id) {
+        this.read = function(organziation_id, request_id) {
             return ApiRequest.get(
-                sprintf(uriPrefix + '/%s', organziation_id, fund_id, request_id)
+                sprintf(uriPrefixAll + '/%s', organziation_id, request_id)
             );
-        }
+        };
 
-        this.approve = function(organziation_id, fund_id, request_id) {
+        this.assign = function(organziation_id, request_id, employee_id) {
             return ApiRequest.patch(
-                sprintf(uriPrefix + '/%s', organziation_id, fund_id, request_id), {
-                    state: 'approved'
+                sprintf(uriPrefixAll + '/%s/assign', organziation_id, request_id), {
+                    employee_id: employee_id
                 }
             );
         };
 
-        this.decline = function(organziation_id, fund_id, request_id) {
+        this.resign = function(organziation_id, request_id, employee_id) {
             return ApiRequest.patch(
-                sprintf(uriPrefix + '/%s', organziation_id, fund_id, request_id), {
-                    state: 'declined'
+                sprintf(uriPrefixAll + '/%s/resign', organziation_id, request_id), {
+                    employee_id: employee_id
                 }
             );
         };
 
-        this.approveRecord = function(organziation_id, fund_id, request_id, record_id) {
+        this.approve = function(organziation_id, request_id, employee_id) {
             return ApiRequest.patch(
-                sprintf(uriPrefix + '/%s/records/%s', organziation_id, fund_id, request_id, record_id), {
-                    state: 'approved'
+                sprintf(uriPrefixAll + '/%s/approve', organziation_id, request_id), {
+                    employee_id: employee_id
                 }
             );
         };
 
-        this.declineRecord = function(organziation_id, fund_id, request_id, record_id, note = '') {
+        this.decline = function(organziation_id, request_id, employee_id) {
             return ApiRequest.patch(
-                sprintf(uriPrefix + '/%s/records/%s', organziation_id, fund_id, request_id, record_id), {
-                    state: 'declined',
-                    note: note
+                sprintf(uriPrefixAll + '/%s/decline', organziation_id, request_id), {
+                    employee_id: employee_id
                 }
             );
         };
 
-        this.requestRecordClarification = function(organziation_id, fund_id, request_id, record_id, question) {
+        this.appendRecord = function(organziation_id, request_id, values = {}) {
+            return ApiRequest.post(sprintf(
+                uriPrefixAll + '/%s/records', 
+                organziation_id, 
+                request_id
+            ), values);
+        };
+
+        this.approveRecord = function(organziation_id, request_id, record_id) {
+            return ApiRequest.patch(sprintf(
+                uriPrefixAll + '/%s/records/%s/approve',
+                organziation_id,
+                request_id,
+                record_id
+            ));
+        };
+
+        this.declineRecord = function(organziation_id, request_id, record_id, note = '') {
+            return ApiRequest.patch(sprintf(
+                uriPrefixAll + '/%s/records/%s/decline',
+                organziation_id,
+                request_id,
+                record_id
+            ), {
+                note: note
+            });
+        };
+
+        this.requestRecordClarification = function(organziation_id, request_id, record_id, question) {
             return ApiRequest.post(
-                sprintf(uriPrefix + '/%s/clarifications', organziation_id, fund_id, request_id), {
+                sprintf(uriPrefixAll + '/%s/clarifications', organziation_id, request_id), {
                     fund_request_record_id: record_id,
                     question: question
                 }
             );
         };
 
-        this.recordClarifications = function(organziation_id, fund_id, request_id, record_id) {
+        this.recordClarifications = function(organziation_id, request_id, record_id) {
             return ApiRequest.get(
-                sprintf(uriPrefix + '/%s/clarifications', organziation_id, fund_id, request_id), {
+                sprintf(uriPrefixAll + '/%s/clarifications', organziation_id, request_id), {
                     fund_request_record_id: record_id,
                 }
             );
         };
+    };
 
-        this.assign = function(organziation_id, fund_id, request_id, employee_id) {
-            return ApiRequest.patch(
-                sprintf(uriPrefix + '/%s', organziation_id, fund_id, request_id), {
-                    employee_id: employee_id
-                }
-            );
-        };
-
-        this.resign = function(organziation_id, fund_id, request_id) {
-            return ApiRequest.patch(
-                sprintf(uriPrefix + '/%s', organziation_id, fund_id, request_id), {
-                    employee_id: null
-                }
-            );
-        };
-    });
+    return new FundRequestValidatorService();
 };
 
 module.exports = [

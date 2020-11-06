@@ -68,21 +68,6 @@ let FundsComponent = function(
         $ctrl.stepState = $ctrl.step2state($ctrl.step);
     };
 
-    $ctrl.submitCriteria = (criteria) => {
-        $ctrl.recordsSubmitting = true;
-
-        RecordService.store({
-            type: criteria.record_type_key,
-            value: criteria.input_value
-        }).then(res => {
-            $ctrl.recordsSubmitting = false;
-            $ctrl.nextStep();
-        }, res => {
-            $ctrl.recordsSubmitting = false;
-            criteria.errors = res.data.errors;
-        });
-    };
-
     $ctrl.$onInit = function() {
         /* if ($ctrl.vouchers.filter(voucher => {
             return voucher.fund_id == $ctrl.fund.id;
@@ -102,17 +87,13 @@ let FundsComponent = function(
             $ctrl.recordsByTypesKey[recordType.key] = recordType;
         });
 
+        // todo: remove
         $ctrl.criterioaList = FundService.fundCriteriaList(
             $ctrl.fund.criteria,
             $ctrl.recordsByTypesKey
         );
 
-        $ctrl.invalidCriteria = $ctrl.fund.criteria.filter(criterion => !FundService.checkEligibility(
-            $ctrl.records || [],
-            criterion,
-            $ctrl.fund.validators,
-            $ctrl.fund.organization_id
-        ));
+        $ctrl.invalidCriteria = $ctrl.fund.criteria.filter(criterion => !criterion.is_valid);
 
         $ctrl.formulaList = {
             fixed: $ctrl.fund.formulas.filter(formula => {

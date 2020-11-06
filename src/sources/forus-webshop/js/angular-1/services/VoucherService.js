@@ -53,14 +53,15 @@ let VoucherService = function(
             ).concat((voucher.product_vouchers || []).map(
                 product_voucher => addType('product_voucher', product_voucher)
             )).sort((a, b) => b.timestamp - a.timestamp);
-        }
+        };
 
         this.composeCardData = function(voucher) {
-            let thumbnail, title, subtitle;
+            let thumbnail, title, subtitle, description;
 
             if (voucher.type == 'regular') {
                 title = voucher.fund.name;
                 subtitle = voucher.fund.organization.name;
+                description = voucher.fund.description;
 
                 if (voucher.fund.logo) {
                     thumbnail = voucher.fund.logo.sizes.thumbnail;
@@ -72,6 +73,7 @@ let VoucherService = function(
             } else if (voucher.type == 'product') {
                 title = voucher.product.name;
                 subtitle = voucher.product.organization.name;
+                description = voucher.product.description_html;
 
                 if (voucher.product.photo) {
                     thumbnail = voucher.product.photo.sizes.thumbnail;
@@ -84,6 +86,7 @@ let VoucherService = function(
             return {
                 title: title,
                 subtitle: subtitle,
+                description: description,
                 amount: voucher.amount,
                 type: voucher.type,
                 returnable: voucher.returnable,

@@ -6,43 +6,16 @@ let FundsEditComponent = function(
     $rootScope,
     FundService,
     ProductService,
-    RecordTypeService,
     FormBuilderService,
     MediaService,
-    ModalService,
 ) {
     let $ctrl = this;
     let mediaFile = false;
 
     $ctrl.products = [];
-    $ctrl.media;
-    $ctrl.recordTypes = [];
-    $ctrl.operators = [{
-        key: "=",
-        name: "gelijk aan",
-    }, {
-        key: "<",
-        name: "is kleiner dan",
-    }, {
-        key: ">",
-        name: "is groter dan",
-    }];
 
-    $ctrl.addCriteria = () => {
-        $ctrl.form.values.criteria.push({
-            record_type_key: $ctrl.recordTypes[0].key,
-            operator: "=",
-            value: "",
-        });
-    };
-
-    $ctrl.removeCriteria = (criteria) => {
-        let index;
-
-        if ((index = $ctrl.form.values.criteria.indexOf(criteria)) != -1) {
-            $ctrl.form.values.criteria.splice(index, 1)
-        }
-    };
+    $ctrl.getProductOptions = (product) => ($ctrl.productOptions || []).concat(product);
+    $ctrl.setType = (type) => $ctrl.form.values.type = type;
 
     $ctrl.addProduct = () => {
         $ctrl.form.products.push(null);
@@ -53,7 +26,7 @@ let FundsEditComponent = function(
         let index;
 
         if ((index = $ctrl.form.products.indexOf(product)) != -1) {
-            $ctrl.form.products.splice(index, 1)
+            $ctrl.form.products.splice(index, 1);
         }
 
         $ctrl.updateProductOptions();
@@ -82,19 +55,6 @@ let FundsEditComponent = function(
         }, 250);
     };
 
-    $ctrl.getProductOptions = (product) => {
-        return ($ctrl.productOptions || []).concat(product);
-    };
-
-    $ctrl.editDescription = (criteria) => {
-        ModalService.open('fundCriteriaDescriptionEdit', {
-            description: criteria.description,
-            success: (data) => {
-                criteria.description = data.description;
-            }
-        });
-    };
-
     $ctrl.$onInit = function() {
         let values = $ctrl.fund ? FundService.apiResourceToForm(
             $ctrl.fund
@@ -103,12 +63,13 @@ let FundsEditComponent = function(
             auto_requests_validation: false,
             formula_products: [],
             criteria: [],
-            state: $ctrl.fundStates[0].value
+            state: $ctrl.fundStates[0].value,
+            type: 'budget',
         };
 
         $ctrl.validators.unshift({
             id: null,
-            email: "None"
+            email: "Geen"
         });
 
         if (!$rootScope.appConfigs.features.organizations.funds.criteria) {
@@ -138,12 +99,12 @@ let FundsEditComponent = function(
                     $stateParams.organization_id,
                     $stateParams.id,
                     form.values
-                )
+                );
             } else {
                 promise = FundService.store(
                     $stateParams.organization_id,
                     form.values
-                )
+                );
             }
 
             promise.then((res) => {
@@ -182,10 +143,6 @@ let FundsEditComponent = function(
 
             $ctrl.updateProductOptions();
         }, console.error);
-
-        RecordTypeService.list().then(res => {
-            $ctrl.recordTypes = res.data;
-        });
     };
 
     $ctrl.selectPhoto = (file) => {
@@ -203,9 +160,11 @@ module.exports = {
     bindings: {
         fund: '<',
         validators: '<',
+        recordTypes: '<',
         organization: '<',
         fundStates: '<',
-        productCategories: '<'
+        productCategories: '<',
+        validatorOrganizations: '<',
     },
     controller: [
         '$state',
@@ -215,10 +174,8 @@ module.exports = {
         '$rootScope',
         'FundService',
         'ProductService',
-        'RecordTypeService',
         'FormBuilderService',
         'MediaService',
-        'ModalService',
         FundsEditComponent
     ],
     templateUrl: 'assets/tpl/pages/funds-edit.html'

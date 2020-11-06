@@ -1,0 +1,25 @@
+.modal.modal-md.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.closeModal()")
+    .modal-window
+        a(ng-click="$ctrl.closeModal()").mdi.mdi-close.modal-close
+        .modal-header Chat met {{ $ctrl.organization_name }}
+        
+        .modal-body.form
+            .modal-section.modal-section-light.modal-section-sm
+                .block.block-chat: .chat-wrapper#chat_root
+                    .chat-interval(ng-repeat="messages in $ctrl.messages" )
+                        .chat-timeline: .chat-timeline-value(ng-bind="messages[0].date")
+                        
+                        .chat-message(
+                            ng-repeat="message in messages" 
+                            ng-class="'chat-message-' + (message.counterpart == 'system' ? 'system' : ($ctrl.panelType != message.counterpart ? 'in' : 'out'))")
+                            .chat-message-time(ng-bind="message.time")
+                            .chat-message-text(ng-bind="message.message")
+            
+            .modal-section.modal-section-light.modal-section-sm
+                textarea.r-n.form-control(placeholder="Bericht" ng-model="$ctrl.form.values.message")
+                .form-error(ng-repeat="error in $ctrl.form.errors.message" ng-bind="error")
+            
+        .modal-footer.text-center
+            button.button.button-default.button-sm(ng-click="$ctrl.closeModal()") Annuleer
+            button.button.button-primary.button-sm(ng-click="$ctrl.form.submit()") Bevestig

@@ -1,7 +1,7 @@
 .app.app-container
     menu
     section.app.app-content
-        .card-heading.card-heading-funds.flex-row
+        .card-heading.flex-row
             .flex-col
                 span(translate="fund_card_provider.title.{{ $ctrl.shownFundsType }}")
                 span(ng-bind="' (' + ($ctrl.getActiveFundsCount($ctrl.shownFundsType)) + ')'")
@@ -14,35 +14,59 @@
                 .label-tab.label-tab-sm(
                     ng-class="{'active' : $ctrl.shownFundsType == 'available'}" 
                     ng-click="$ctrl.filterByFundStatus('available')")
-                    | {{ "fund_card_provider.tabs.available" | translate }} ({{ $ctrl.fundsAvailable.length }}) 
+                    | {{ "fund_card_provider.tabs.available" | translate }} ({{ $ctrl.fundsAvailable.meta.total }}) 
                 .label-tab.label-tab-sm(
-                    ng-class="{'active' : $ctrl.shownFundsType == 'invitations'}" 
+                    ng-class="{'active' : $ctrl.shownFundsType == 'pending_rejected'}"
+                    ng-click="$ctrl.filterByFundStatus('pending_rejected')")
+                    | {{ "fund_card_provider.tabs.pending_rejected" | translate }} ({{ $ctrl.pendingRejectedFunds.length }})
+                .label-tab.label-tab-sm(
+                    ng-class="{'active' : $ctrl.shownFundsType == 'invitations'}"
                     ng-click="$ctrl.filterByFundStatus('invitations')") 
                     | {{ "fund_card_provider.tabs.invitations" | translate }} ({{ $ctrl.fundAvailableInvitations.length }})
                 .label-tab.label-tab-sm(
-                    ng-class="{'active' : $ctrl.shownFundsType == 'invitations_expired'}" 
-                    ng-click="$ctrl.filterByFundStatus('invitations_expired')")
-                    | {{ "fund_card_provider.tabs.expired" | translate }} ({{ $ctrl.fundExpiredInvitations.length }}) 
+                    ng-class="{'active' : $ctrl.shownFundsType == 'expired_closed'}"
+                    ng-click="$ctrl.filterByFundStatus('expired_closed')")
+                    | {{ "fund_card_provider.tabs.expired" | translate }} ({{ $ctrl.archiveFunds.length }})
+
+        provider-fund-filters(
+            ng-if="$ctrl.shownFundsType == 'available'"
+            funds-available="$ctrl.fundsAvailable"
+            organization="$ctrl.organization")
+
         fund-card-available-provider(
-            ng-if="$ctrl.shownFundsType == 'available' && $ctrl.fundsAvailable.length > 0" 
-            ng-repeat="fund in $ctrl.fundsAvailable"  
+            ng-if="$ctrl.shownFundsType == 'available' && $ctrl.fundsAvailable.meta.total > 0" 
+            ng-repeat="fund in $ctrl.fundsAvailable.data"  
             fund="fund" 
             organization="$ctrl.organization")
+        
         fund-card-provider( 
             ng-if="$ctrl.shownFundsType == 'active' && $ctrl.funds.length > 0" 
             ng-repeat="fund in $ctrl.funds" 
             provider-fund="fund" 
             organization="$ctrl.organization")
+
+        fund-card-provider(
+            ng-if="$ctrl.shownFundsType == 'pending_rejected' && $ctrl.pendingRejectedFunds.length > 0"
+            ng-repeat="fund in $ctrl.pendingRejectedFunds"
+            provider-fund="fund"
+            organization="$ctrl.organization")
+
         fund-card-invitation-provider( 
             ng-if="$ctrl.shownFundsType == 'invitations' && $ctrl.fundAvailableInvitations.length > 0" 
             ng-repeat="fundInvitation in $ctrl.fundAvailableInvitations" 
             provider-invitation="fundInvitation"  
             organization="$ctrl.organization")
+        
         fund-card-invitation-provider( 
-            ng-if="$ctrl.shownFundsType == 'invitations_expired' && $ctrl.fundExpiredInvitations.length > 0" 
-            ng-repeat="fundInvitation in $ctrl.fundExpiredInvitations" 
+            ng-if="$ctrl.shownFundsType == 'expired_closed' && $ctrl.archiveFunds.length > 0"
+            ng-repeat="fundInvitation in $ctrl.archiveFunds"
             provider-invitation="fundInvitation"  
             organization="$ctrl.organization")
+        
+        .card
+            .card-section(ng-if="$ctrl.shownFundsType == 'available' && $ctrl.fundsAvailable.meta.total > 0" ng-show="$ctrl.fundsAvailable.meta.last_page > 1")
+                paginator(meta="$ctrl.fundsAvailable.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)") 
+        
         block-empty(
             ng-if="$ctrl.showEmptyBlock"
             text="{{ $ctrl.emptyBlockMsg }}")

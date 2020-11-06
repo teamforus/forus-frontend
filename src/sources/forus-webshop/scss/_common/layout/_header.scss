@@ -5,63 +5,27 @@
         z-index: 2;
         @include cf();
 
-        @media screen and (min-width: 1024px) {
-            background: $bg-values;
-            background-size: auto 80%;
-            .header-content {
-                max-width: 650px;
-            }
-        }
-
-        @media screen and (min-width: 1700px) {
-            background-size: auto 90%;
-        }
-
         .header-body {
             @include cf();
             position: relative;
         }
 
         .header-content {
-            padding: 80px 0;
+            padding: 50px 0;
+            
             .button {
                 width: 100%;
             }
 
-            @media screen and (min-width: 1024px) {
-                position: relative;
-                margin: 0;
-            }
-
             .header-title {
+                font: 700 32px/1.5em $bf;
                 margin: 0 0 20px;
                 text-align: center;
-                font: 700 32px/1.5em $bf;
-
-                @media screen and (min-width: 1024px) {
-                    text-align: left;
-                }
-
-                @media screen and (min-width: 1440px) {
-                    font: 700 48px/1.5em $bf;
-                }
             }
 
             .header-description {
-                font: 400 16px/32px $bf;
+                font: 400 21px/32px $bf;
                 text-align: center;
-
-                @media screen and (min-width: 1024px) {
-                    text-align: left;
-                }
-
-                p {
-                    font: 400 16px/32px $bf;
-
-                    @media screen and (min-width: 1440px) {
-                        font: 400 21px/1.5em $bf;
-                    }
-                }
             }
 
             .header-how-it-works {
@@ -114,7 +78,6 @@
                     &.app-item-ios {
                         &:before {
                             background-color: #f2fafd;
-                            // background-image: url('../img/me/icon-app-ios.png');
                         }
                     }
 
@@ -163,7 +126,28 @@
         }
 
         &.section-header {
+            background: $bg-values;
+            background-size: auto 80%;
+            position: relative;
+            margin: 0;
+            padding: 80px 0;
+
             .header-content {
+                max-width: 650px;
+
+                .header-title {
+                    text-align: left;
+                    font: 700 48px/1.3em $bf;
+                }
+
+                .header-description {
+                    text-align: left;
+
+                    p, ul, ol {
+                        font: 400 21px/1.5em $bf;
+                    }
+                }
+
                 .button {
                     width: auto;
                 }

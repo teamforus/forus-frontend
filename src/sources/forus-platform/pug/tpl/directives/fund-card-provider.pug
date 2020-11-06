@@ -1,7 +1,9 @@
 .card(ng-class="{'card-outline' : fund.state == 'closed'}")
     .card-section
         .card-section-actions(ng-if="fund.state != 'closed'")
-            div(ng-show="!providerFund.allow_budget && !providerFund.allow_products && !providerFund.allow_some_products")
+            div(ng-show="providerFund.dismissed")
+                .tag.tag-default(translate="fund_card_provider.status.rejected")
+            div(ng-show="!providerFund.allow_budget && !providerFund.allow_products && !providerFund.allow_some_products && !providerFund.dismissed")
                 .tag.tag-warning(translate="fund_card_provider.status.hold")
 
         .card-block.card-block-fund.card-block-fund-margin-bottom
@@ -14,26 +16,31 @@
 
         .card-block.card-block-listing
             .row.card-block-listing-row
-                .col.col-md-5
-                    .card-block-listing-item
+                .col.col-md-9: .row
+                    .col.col-md-6: .card-block-listing-item
                         .card-block-listing-label(translate="fund_card_provider.labels.date")
                         span(ng-bind="fund.start_date_locale + ' / ' + fund.end_date_locale")
 
-                .col.col-md-5
-                    .card-block-listing-item
+                    .col.col-md-6: .card-block-listing-item(ng-if="fund.type == 'budget'")
                         .card-block-listing-label(translate="fund_card_provider.labels.max_amount" ng-if="fund.fund_amount")
                         span(ng-bind="fund.fund_amount | currency_format" ng-if="fund.fund_amount")
+            
+                //- subsidy fund
+                .col.col-md-3(ng-if="fund.type == 'subsidies'") 
+                    .button.button-default.pull-right(ng-click="viewOffers()")
+                        em.mdi.mdi-eye-outline.icon-start
+                        translate(translate="fund_card_provider.labels.view_products")
 
-            .row.card-block-listing-row
-                .col.col-md-5
-                    .card-block-listing-item
+            //- budget fund
+            .row.card-block-listing-row(ng-if="fund.type == 'budget'")
+                .col.col-md-9: .row
+                    .col.col-md-6: .card-block-listing-item
                         .card-block-listing-label(translate="fund_card_provider.labels.allow_budget")
                         .tag.tag-sm(
                             ng-class="'tag-' + (providerFund.allow_budget ? 'success' : 'warning')" 
                             ng-bind="providerFund.allow_budget ? 'Ja' : 'Nee'")      
-
-                .col.col-md-4
-                    .card-block-listing-item
+                
+                    .col.col-md-6: .card-block-listing-item
                         .card-block-listing-label(
                             translate="fund_card_provider.labels.{{ shownProductType }}")
                         .tag.tag-sm(
@@ -41,5 +48,6 @@
                             ng-bind="providerFund[shownProductType] ? 'Ja' : 'Nee'")  
 
                 .col.col-md-3(ng-if="fund.state != 'closed' && providerFund.allow_some_products") 
-                    .button.button-default.pull-right(ng-click="viewOffers()"
-                    translate="fund_card_provider.labels.view_products")
+                    .button.button-default.pull-right(ng-click="viewOffers()")
+                        em.mdi.mdi-eye-outline.icon-start
+                        translate(translate="fund_card_provider.labels.view_products")

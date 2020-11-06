@@ -1,9 +1,11 @@
 module.exports = {
     header: {
-        title: "Vouchers",
+        title: "Tegoeden",
     },
     labels: {
         amount: "Bedrag",
+        identity_bsn: "Toegekend aan",
+        source: "Aangemaakt door",
         created_date: "Aangemaakt op",
         expire_date: "Geldig tot",
         fund: "Fonds",
@@ -14,10 +16,13 @@ module.exports = {
         qr_code: "QR-Code",
         yes: "Ja",
         no: "Nee",
+        yes: "Ja",
+        source_employee: "Medewerker",
+        source_user: "Gebruiker",
     },
     buttons: {
         add_new: "Aanmaken",
-        upload_csv: "Upload CSV",
+        upload_csv: "Upload bulkbestand",
         export: "Export",
         clear_filter: "Wis filter"
     },

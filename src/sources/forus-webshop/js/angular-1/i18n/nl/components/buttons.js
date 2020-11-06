@@ -1,7 +1,7 @@
 module.exports = {
     show_more: "Bekijk meer",
     send: "Verzenden",
-    validate: "Valideren",
+    validate: "Goedkeuren",
     add: "Toevoegen",
     cancel: "Annuleren",
     share: "Delen",
@@ -20,6 +20,6 @@ module.exports = {
     create: "Eigenschap aanmaken",
     send: "E-Mail naar mij",
     details: "Bekjk details",
-    show_map: "BEKIJK",
+    show_map: "Bekijk de kaart",
     start: 'start', 
 }

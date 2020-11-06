@@ -1,6 +1,6 @@
 let sprintf = require('sprintf-js').sprintf;
 
-let FundCardDirective = function(
+let FundCardSponsorDirective = function(
     $scope,
     $state,
     $filter,
@@ -19,8 +19,7 @@ let FundCardDirective = function(
     $dir.canTopUpFund = $dir.fund.key && $dir.fund.state != 'closed';
     $dir.canAccessFund = $scope.fund.state != 'closed';
     $dir.canInviteProviders = ($dir.fund.organization && PermissionsService.hasPermission(
-            $dir.fund.organization, 'manage_funds')
-        ) && $scope.fund.state != 'closed' && $dir.inviteProviders;
+        $dir.fund.organization, 'manage_funds')) && $scope.fund.state != 'closed' && $dir.inviteProviders;
 
     $dir.changeState = function(state) {
         FundService.changeState($scope.fund, state).then((res) => {
@@ -49,6 +48,8 @@ let FundCardDirective = function(
             ModalService.open('fundTopUp', {
                 fund: $scope.fund
             }, {
+                animated: true,
+                max_load_time: 5000,
                 onClose: () => topUpInProgress = false
             });
         }
@@ -115,7 +116,7 @@ module.exports = () => {
             'ProviderFundService',
             'PushNotificationsService',
             'PermissionsService',
-            FundCardDirective
+            FundCardSponsorDirective
         ],
         templateUrl: 'assets/tpl/directives/fund-card-sponsor.html'
     };

@@ -1,4 +1,4 @@
-.modal.modal-notification(ng-class="$ctrl.modalClass")
+.modal.modal-notification.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.cancel()")
     .modal-content
         .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()")
@@ -16,6 +16,6 @@
                 .text-center(ng-if="$ctrl.subdescription"): .subdescription(translate="{{ $ctrl.subdescription }}")
 
         .modal-footer.text-center.no-border
-            button.button.button-dark(ng-if="$ctrl.showCloseBtn" ng-click="$ctrl.close()" translate="{{ $ctrl.closeBtnText }}")
-            button.button.button-dark(ng-if="$ctrl.showCancelBtn" ng-click="$ctrl.cancel()" translate="{{ $ctrl.cancelBtnText }}")
-            button.button.button-primary(ng-if="$ctrl.showConfirmBtn" ng-click="$ctrl.confirm()" translate="{{ $ctrl.confirmBtnText }}")
+            button.button.button-dark(ng-if="$ctrl.showCloseBtn" data-close ng-click="$ctrl.close()" translate="{{ $ctrl.closeBtnText }}")
+            button.button.button-dark(ng-if="$ctrl.showCancelBtn" data-cancel ng-click="$ctrl.cancel()" translate="{{ $ctrl.cancelBtnText }}")
+            button.button.button-primary(ng-if="$ctrl.showConfirmBtn" data-confirm ng-click="$ctrl.confirm()" translate="{{ $ctrl.confirmBtnText }}")

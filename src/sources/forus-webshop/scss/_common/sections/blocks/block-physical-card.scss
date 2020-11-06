@@ -1,0 +1,77 @@
+&.block-physical-cards {
+    display: flex;
+    background: #ececec;
+    padding: 32px;
+    margin-bottom: 30px;
+    position: relative;
+    border: 2px solid $color_primary;
+    border-radius: $border_radius;
+
+    .block-card-logo {
+        margin: 0 10px 0 0;
+        
+        img {
+            max-width: 130px;
+            transform: rotate(90deg);
+            margin-left: -20px;
+        }
+    }
+
+    .block-card-details {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+
+        .block-card-title {
+            font: 600 22px/25px $bf;
+            color: $tc;
+            margin: 0 0 10px;
+        }
+
+        .block-card-description {
+            font: 600 14px/25px $bf;
+            color: $tc;
+            margin: 0 0 10px;
+        }
+
+        .block-card-actions {
+            display: block;
+        }
+    }
+
+    .block-card-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 20px;
+    }
+
+    @media screen and (max-width: 1024px) {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        
+        .block-card-logo {
+            margin: 0 0 0;
+            
+            img {
+                max-width: 200px;
+                transform: rotate(0deg);
+                margin-left: 0;
+            }
+        }
+
+        .block-card-details {
+
+            .block-card-title {
+                font: 600 14px/20px $bf;
+                margin: 0 0 15px;
+            }
+
+            .block-card-description {
+                font: 600 11px/18px $bf;
+                margin: 0 0 20px;
+            }
+        }
+    }
+}

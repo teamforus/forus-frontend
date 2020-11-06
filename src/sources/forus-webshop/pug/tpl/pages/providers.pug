@@ -1,19 +1,21 @@
 block content
     .header-splash: .splash.splash-c
     .block.block-showcase(ng-class="{'block-showcase-fullscreen': $ctrl.showMap}")
-        top-navbar
+        top-navbar(hide-on-scroll="true")
         
         .showcase-wrapper
-            mixin search_results(total, show = "true")
+            mixin search_results(total, show = "false")
                 .showcase-title(ng-if=show)= "Er zijn " + "{{" + total + "}}" + " aanbieders gevonden"
                 .showcase-subtitle(ng-if=show) Selecteer een organisatie voor meer informatie
 
             .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
                 .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
-                .mobile-filters-title Zoek op categorieen en fondsen
+                .mobile-filters-title Zoek op categorieen en tegoeden
                 .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
 
-            +search_results('$ctrl.providers.meta.total')
+            .block.block-breadcrumbs
+                a(ui-sref="home").breadcrumb-item Home
+                .breadcrumb-item.active Aanbieders
             
             .showcase-layout
                 .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
@@ -35,12 +37,12 @@ block content
                                 placeholder="Selecteer organisatie type...")
 
                         .form-group
-                            label.form-label Budgetten
+                            label.form-label Tegoeden
                             select-control(
                                 autoclear="true"
                                 ng-model="$ctrl.form.values.fund" 
                                 options="$ctrl.funds"
-                                placeholder="Selecteer budget...")
+                                placeholder="Selecteer tegoed...")
                     
                     
                 .showcase-content
@@ -61,7 +63,7 @@ block content
                                     em.mdi.mdi-map-marker-radius.icon-start
                                     | Kaart
                     
-                    .block.block-organizations(ng-if="!$ctrl.showMap")
+                    .block.block-organizations(ng-if="!$ctrl.showMap" id="providers_list")
                         .organization-item(ng-repeat="provider in $ctrl.providers.data")
                             .organization-pane(ng-click="$ctrl.toggleOffices($event, provider)")
                                 .organization-logo(ng-click="$ctrl.goToProvider(provider)"): img(

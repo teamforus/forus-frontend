@@ -1,34 +1,22 @@
-.card
-    .card-section
-        .card-section-actions
-            .card-section-action-price
-                span(ng-bind="product.price | currency_format")
-                .old-price(ng-if="product.old_price" ng-bind="product.old_price | currency_format")
-
-            if (state == 'active')
-                .tag.tag-success {{ "product_card.status.active" | translate }}
-            if (state == 'paused')
-                .tag.tag-warning {{ "product_card.status.paused" | translate }}
-            if (state == 'closed')
-                .tag.tag-default {{ "product_card.status.closed" | translate }}
-
-        .card-block.card-block-product
-            .product-img: img(ng-src="{{ product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}")
-            .product-details
-                a(
-                    ui-sref="products-show(product)" 
-                    ng-bind="product.name").product-title
-                span(ng-bind="product.product_category.name").product-subtitle
-                .label-item {{ "product_edit.labels.expire" | translate }}: {{ product.expire_at }}
-                .label-item {{ "product_edit.labels.sold" | translate }}: {{ (product.sold_amount) }}
-                .label-item {{ "product_edit.labels.reserved" | translate }}: {{ product.reserved_amount }}
-
-    .card-section.card-section-primary
-        .text-right
-            a(ng-click="deleteProduct(product)").button.button-primary
-                em.mdi.mdi-delete.icon-start  
-                | {{ "product_card.buttons.delete" | translate }}
-
-            a(ui-sref="products-edit(product)").button.button-default
-                em.mdi.mdi-pen.icon-start  
-                | {{ "product_card.buttons.edit" | translate }}
+.product-item
+    .product-media: img.product-media-img(ng-src="{{ product.photo.sizes.thumbnail || './assets/img/placeholders/product-thumbnail.png' }}")
+    .product-details
+        .product-title
+            | {{ product.name }}
+            .label.label-round.label-lg.label-success(ng-if="!product.expired" translate="product_card.status.active")
+        .product-subtitle 
+            | Resterend aanbod: 
+            span(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
+            span(ng-if="product.unlimited_stock" translate="product_edit.labels.unlimited")
+    .product-actions
+        .product-action(ng-if="!product.no_price")
+            .product-price {{ product.price | currency_format }}
+        .product-action: .button-group
+            .button.button-defaul(ui-sref="products-show(product)")
+                em.mdi.mdi-eye-outline.icon-start
+                | {{ "product_card.buttons.view" | translate }}
+            
+            .button.button-primary-light.button-icon(
+                ui-sref="products-show(product)"
+                ng-disabled="!(product.unseen_messages > 0)")
+                em.mdi.mdi-message-text

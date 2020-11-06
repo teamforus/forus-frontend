@@ -2,7 +2,6 @@ let sprintf = require('sprintf-js').sprintf;
 
 let CsvUploadDirective = function(
     $q,
-    $state,
     $scope,
     $rootScope,
     $element,
@@ -10,11 +9,13 @@ let CsvUploadDirective = function(
     PrevalidationService,
     FundService,
     ModalService,
-    FileService
+    FileService,
+    PushNotificationsService
 ) {
     let csvParser = {};
     let input = false;
     let dataChunkSize = 100;
+    let abort = false;
 
     let setProgress = function(progress) {
         $scope.progressBar = progress;
@@ -215,43 +216,189 @@ let CsvUploadDirective = function(
                 return false;
             }
 
-            csvParser.progress = 2;
+            $scope.csvParser.comparing = true;
 
-            var submitData = chunk(JSON.parse(JSON.stringify(
-                csvParser.data
-            )), dataChunkSize);
+            PushNotificationsService.success(
+                'Inladen...',
+                'Inladen van gegevens voor controle op dubbele waarden!',
+                'download-outline'
+            );
 
-            var chunksCount = submitData.length;
-            var currentChunkNth = 0;
+            PrevalidationService.submitCollectionCheck(
+                csvParser.data, $scope.fund.id, []
+            ).then((res) => {
+                PushNotificationsService.success(
+                    'Vergelijken...',
+                    'Gegevens ingeladen! Vergelijken met .csv...',
+                    'timer-sand'
+                );
 
-            setProgress(0);
+                $timeout(() => {
+                    csvParser.compareCsvAndDb(res.data.collection, res.data.db)
+                }, 500);
+            });
+        }
 
-            let uploadChunk = function(data) {
-                PrevalidationService.submitCollection(data, $scope.fund.id).then(function() {
-                    currentChunkNth++;
-                    setProgress((currentChunkNth / chunksCount) * 100);
+        csvParser.compareCsvAndDb = (csvRecords, dbRecords) => {
+            let primaryKey = $scope.fund.csv_primary_key;
 
-                    if (currentChunkNth == chunksCount) {
-                        $timeout(function() {
+            let dbPrimaryKeys = dbRecords.reduce((obj, row) => {
+                obj[row.uid_hash] = true;
+                return obj;
+            }, {});
+
+            let dbPrimaryFullKeys = dbRecords.reduce((obj, row) => {
+                obj[row.uid_hash + '_' + row.records_hash] = true;
+                return obj;
+            }, {});
+
+            let newRecords = [];
+            let updatedRecords = [];
+            let existingRecords = [];
+
+            for (let index = 0; index < csvRecords.length; index++) {
+                if (dbPrimaryKeys[csvRecords[index].uid_hash] || false) {
+                    if (dbPrimaryFullKeys[
+                        csvRecords[index].uid_hash + '_' + csvRecords[index].records_hash
+                    ] || false) {
+                        existingRecords.push(csvRecords[index].data);
+                    } else {
+                        updatedRecords.push(csvRecords[index].data);
+                    }
+                } else {
+                    newRecords.push(csvRecords[index].data);
+                }
+            }
+
+            if (updatedRecords.length === 0) {
+                if (newRecords.length > 0) {
+                    PushNotificationsService.success(
+                        'Uploaden!',
+                        'Geen dubbele waarden gevonden, uploaden ' + newRecords.length + ' nieuwe gegeven(s)...'
+                    );
+
+                    csvParser.startUploadingToServer(newRecords);
+                } else {
+                    PushNotificationsService.success(
+                        'Niks veranderd!',
+                        'Geen nieuwe gegevens gevonden in uw .csv bestand...'
+                    );
+
+                    csvParser.progressBar = 100;
+                    csvParser.progress = 3;
+                    setProgress(100);
+                    $rootScope.$broadcast('csv:uploaded', true);
+                }
+            } else {
+                let items = updatedRecords.map(row => ({
+                    value: row[primaryKey],
+                }));
+
+                ModalService.open('duplicatesPicker', {
+                    hero_title: "Dubbele gegevens gedetecteerd.",
+                    hero_subtitle: [
+                        `Weet u zeker dat u voor ${items.length} rijen gegevens wilt aanpassen?`,
+                        "Deze nummers hebben al een activatiecode."
+                    ],
+                    button_none: "Alles overslaan",
+                    button_all: "Pas alles aan",
+                    label_on: "Aanpassen",
+                    label_off: "Overslaan",
+                    items: items,
+                    onConfirm: (items) => {
+                        let skipUids = items.filter(item => !item.model).map(item => item.value);
+                        let updateUids = items.filter(item => item.model).map(item => item.value);
+
+                        let newAndUpdatedRecords = updatedRecords.filter(csvRow => {
+                            return skipUids.indexOf(csvRow[primaryKey]) === -1;
+                        }).concat(newRecords);
+
+                        PushNotificationsService.success('Uploading!', [
+                            (updatedRecords.length - skipUids.length) + ' gegeven(s) worden vervangen en ',
+                            (newRecords.length) + ' gegeven(s) worden aangemaakt!',
+                        ].join(''), 'file-upload-outline', {
+                            timeout: 10000
+                        });
+
+                        if (newAndUpdatedRecords.length > 0) {
+                            return csvParser.startUploadingToServer(
+                                newAndUpdatedRecords,
+                                updateUids
+                            ).then(() => {
+                                if (skipUids.length > 0) {
+                                    PushNotificationsService.success('Klaar!', skipUids.length + ' gegeven(s) overgeslagen!');
+                                }
+
+                                PushNotificationsService.success(
+                                    'Klaar!',
+                                    (updatedRecords.length - skipUids.length) + ' gegevens vervangen!'
+                                );
+
+                                PushNotificationsService.success(
+                                    'Klaar!',
+                                    newRecords.length + 'nieuwe gegeven(s) aangemaakt!'
+                                );
+                            }, console.error);
+                        }
+
+                        $timeout(() => {
                             csvParser.progressBar = 100;
                             csvParser.progress = 3;
-
+                            setProgress(100);
                             $rootScope.$broadcast('csv:uploaded', true);
+
+                            PushNotificationsService.success(
+                                'Klaar!',
+                                skipUids.length + ' gegevens overgeslagen, geen nieuwe aangemaakt!'
+                            );
                         }, 0);
-                    } else {
-                        uploadChunk(submitData[currentChunkNth]);
-                    }
-                }, (res) => {
-                    if (res.status == 422 && res.data.errors.data) {
-                        return alert(res.data.errors.data[0]);
-                    }
-
-                    alert('Onbekende error.');
+                    },
+                    onCancel: () => $rootScope.$broadcast('csv:uploaded', true),
                 });
-            };
+            }
+        };
 
-            uploadChunk(submitData[currentChunkNth]);
-        }
+        csvParser.startUploadingToServer = (data, overwriteUids = []) => {
+            return $q((resolve, reject) => {
+                csvParser.progress = 2;
+
+                var submitData = chunk(JSON.parse(JSON.stringify(data)), dataChunkSize);
+                var chunksCount = submitData.length;
+                var currentChunkNth = 0;
+
+                setProgress(0);
+
+                let uploadChunk = function(data) {
+                    PrevalidationService.submitCollection(data, $scope.fund.id, overwriteUids).then(() => {
+                        currentChunkNth++;
+                        setProgress((currentChunkNth / chunksCount) * 100);
+
+                        if (currentChunkNth == chunksCount) {
+                            $timeout(function() {
+                                csvParser.progressBar = 100;
+                                csvParser.progress = 3;
+                                $rootScope.$broadcast('csv:uploaded', true);
+
+                                resolve();
+                            }, 0);
+                        } else {
+                            if (!abort) {
+                                uploadChunk(submitData[currentChunkNth]);
+                            }
+                        }
+                    }, (res) => {
+                        if (res.status == 422 && res.data.errors.data) {
+                            return alert(res.data.errors.data[0]);
+                        }
+
+                        alert('Onbekende error.');
+                        reject();
+                    });
+                };
+
+                uploadChunk(submitData[currentChunkNth]);
+            });
+        };
 
         $element.on('dragenter dragover', function(e) {
             e.preventDefault()
@@ -301,11 +448,19 @@ let CsvUploadDirective = function(
         $scope.csvParser = csvParser;
     };
 
-    init();
+    let cleanup = function() {
+        abort = true;
+    };
 
     $scope.reset = function() {
         init();
     };
+
+    $scope.$on('$destroy', function() {
+        cleanup();
+    });
+
+    init();
 };
 
 module.exports = () => {
@@ -320,7 +475,6 @@ module.exports = () => {
         replace: true,
         controller: [
             '$q',
-            '$state',
             '$scope',
             '$rootScope',
             '$element',
@@ -329,6 +483,7 @@ module.exports = () => {
             'FundService',
             'ModalService',
             'FileService',
+            'PushNotificationsService',
             CsvUploadDirective
         ],
         templateUrl: 'assets/tpl/directives/csv-upload.html'

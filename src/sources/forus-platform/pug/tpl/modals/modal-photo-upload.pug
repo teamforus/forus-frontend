@@ -1,4 +1,4 @@
-.modal.modal-photo-upload
+.modal.modal-photo-upload.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
@@ -41,8 +41,6 @@
                 .flex-col: button(
                     ng-click="$ctrl.cancel()" translate="Annuleren").button.button-text.button-text-primary.button-wide
                 .flex-col: button(
-                    ng-click="$ctrl.cancel()" translate="Upload afbeelding").button.button-primary-outline.button-wide.nowrap
+                    ng-click="$ctrl.cancel()" translate="Kies andere afbeelding").button.button-primary-outline.button-wide.nowrap
                 .flex-col: button(
                     ng-click="$ctrl.apply()" translate="Bevestigen").button.button-primary.button-wide
-
-

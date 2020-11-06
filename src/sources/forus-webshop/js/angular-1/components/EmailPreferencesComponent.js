@@ -10,7 +10,8 @@ let EmailPreferencesComponent = function(
         'vouchers.payment_success', 
         'funds.fund_expires',
         'voucher.assigned',
-        'voucher.transaction'
+        'voucher.transaction',
+        'digest.daily_requester',
     ];
 
     $ctrl.loaded = false;
@@ -78,5 +79,5 @@ module.exports = {
         'PushNotificationsService',
         EmailPreferencesComponent
     ],
-    templateUrl: 'assets/tpl/pages/preferences/notifications.html'
+    templateUrl: 'assets/tpl/pages/preferences/notification-preferences.html'
 };

@@ -1,37 +1,31 @@
 let TopNavbarDirective = function(
+    $state,
     $scope,
     $translate,
     ModalService,
-    ConfigService
+    ConfigService,
+    FundService
 ) {
     $scope.mobileMenu = false;
     $scope.$ctrl = {
-        userMenuOpened: false
+        userMenuOpened: false,
+        prevOffsetY: null,
+        visible: true,
+        hideOnScroll: !!$scope.hideOnScroll,
     };
+
+    let $ctrl = this;
     
-    $scope.openAuthPopup = function () {
-        ModalService.open('modalAuth', {});
-    };
+    FundService.list().then(res => {
+        $ctrl.funds = res.data.data;
+    })
 
-    $scope.openPinCodePopup = function () {
-        ModalService.open('modalPinCode', {});
-    };
-
-    $scope.openActivateCodePopup = function () {
-        ModalService.open('modalActivateCode', {});
-    };
-
-    $scope.openAuthCodePopup = function () {
-        ModalService.open('modalAuthCode', {});
-    };
-    
-    $scope.showPopupOffices = function() {
-        ModalService.open('modalOffices', {});
-    };
-
-    $scope.showPopupOffices = function() {
-        ModalService.open('modalOffices', {});
-    };
+    $scope.startFundRequest = () => $state.go('start');
+    $scope.openAuthPopup = () => ModalService.open('modalAuth', {});
+    $scope.openPinCodePopup = () => ModalService.open('modalPinCode', {});
+    $scope.openAuthCodePopup = () => ModalService.open('modalAuthCode', {});
+    $scope.showPopupOffices = () => ModalService.open('modalOffices', {});
+    $scope.openActivateCodePopup = () => $state.go('start');
 
     $scope.cfg = {
         logoExtension: ConfigService.getFlag('logoExtension'),
@@ -53,25 +47,37 @@ let TopNavbarDirective = function(
     }
 
     $scope.$ctrl.hideUserMenu = () => {
-        $scope.$apply(() => {
-            $scope.$ctrl.userMenuOpened = false;
-        });
+        $scope.$apply(() => $scope.$ctrl.userMenuOpened = false);
     }
+
+    $scope.updateScrolled = function() {
+        let currentOffsetY = window.pageYOffset;
+
+        $scope.$ctrl.visible = ($scope.$ctrl.prevOffsetY > currentOffsetY) || (currentOffsetY <= 0);
+        $scope.$ctrl.prevOffsetY = currentOffsetY;
+    };
+
+    window.addEventListener('scroll', $scope.updateScrolled);
+
+    $scope.$on('$destroy', function() {
+        window.removeEventListener('scroll', $scope.updateScrolled);
+    });
 };
 
 module.exports = () => {
     return {
         scope: {
-            text: '=',
-            button: '=',
+            hideOnScroll: '=',
         },
         restrict: "EA",
         replace: true,
         controller: [
+            '$state',
             '$scope',
             '$translate',
             'ModalService',
             'ConfigService',
+            'FundService',
             TopNavbarDirective
         ],
         templateUrl: 'assets/tpl/directives/top-navbar.html' 

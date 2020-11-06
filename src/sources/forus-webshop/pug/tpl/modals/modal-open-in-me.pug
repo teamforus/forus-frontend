@@ -1,13 +1,14 @@
-.modal.modal-auth
+.modal.modal-auth.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
 
     .modal-content(ng-if="!$ctrl.sentSms"): .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
 
         .modal-title(translate="open_in_me.sms.title")
-        .modal-subtitle(translate="open_in_me.sms.description")
-
-        form.form.f-w(ng-submit="$ctrl.phoneForm.submit()")
+        .modal-subtitle.hide-sm(translate="open_in_me.sms.description")
+        .modal-subtitle.show-sm De app kan gebruikt worden om vouchers te beheren en makkelijk in te loggen.
+         
+        form.hide-sm.form.f-w(ng-submit="$ctrl.phoneForm.submit()")
             phone-control(ng-model="$ctrl.phoneForm.values.phone" cant-delete-length="2")
             .pincode-errors.text-center: .form-error(ng-repeat="error in $ctrl.phoneForm.errors.phone" ng-bind="error")
             .text-center
@@ -15,7 +16,12 @@
             .modal-footer.text-center.no-border
                 button.button.button-primary(type="submit") {{ "open_in_me.sms.button.send" | translate }}
                 button.button.button-dark(type="button" ng-click="$ctrl.skip()") {{ "open_in_me.sms.button.skip" | translate }}
-
+        .text-center.show-sm
+            .block.block-app_download
+                .download-button: a(href="https://play.google.com/store/apps/details?id=io.forus.me" id="android_button")
+                    .download-icon: img(src="./assets/img/icon-app/icon-app-android.svg")
+                .download-button: a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" id="ios_button")
+                    .download-icon: img(src="./assets/img/icon-app/icon-app-ios.svg")
     .modal-content(ng-if="$ctrl.sentSms"): .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
         .app-instruction

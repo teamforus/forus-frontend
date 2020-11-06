@@ -191,8 +191,34 @@
         }
     }
 
+    .form-limit {
+        font: 400 11px/20px $bf;
+        font-style: italic;
+        color: #889199;
+        padding-top: 5px;
+        margin: 0;
+
+        &:first-letter {
+            text-transform: uppercase
+        }
+    }
+
+    .form-value-placeholder {
+        width: 100%;
+        padding: 4px 0;
+        height: 36px;
+        color: $tc;
+        font: 600 16px/24px $bf;
+        border-radius: 3px;
+        
+        &.form-value-placeholder-sm {
+            padding: 0 0;
+            height: 26px;
+        }
+    }
+
     .form-error {
-        font: 400 13px/24px $bf;
+        font: 400 13px/20px $bf;
         color: $bec;
         margin: 0;
 
@@ -421,6 +447,10 @@
             padding: 0;
             color: $color_primary;
             float: left;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
 
         input[type='checkbox'] {

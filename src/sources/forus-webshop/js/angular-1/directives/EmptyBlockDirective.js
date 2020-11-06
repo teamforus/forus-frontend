@@ -1,9 +1,8 @@
-let EmptyBlockDirective = function($scope, ModalService) {
+let EmptyBlockDirective = function($state, $scope) {
     $scope.hideLink = !!$scope.hideLink;
-    $scope.openActivateCodePopup = function () {
-        ModalService.open('modalActivateCode', {});
-    };
+    $scope.openActivateCodePopup = () => $state.go('start');
 };
+
 module.exports = () => {
     return {
         scope: {
@@ -15,8 +14,8 @@ module.exports = () => {
         restrict: "EA",
         replace: true,
         controller: [
+            '$state',
             '$scope',
-            'ModalService',
             EmptyBlockDirective
         ],
         templateUrl: 'assets/tpl/directives/empty-block.html' 

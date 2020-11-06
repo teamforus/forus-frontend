@@ -1,11 +1,18 @@
-.modal
+.modal.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window: form.form(ng-submit="$ctrl.form.submit()")
         a(ng-click="$ctrl.close()").mdi.mdi-close.modal-close
-        .modal-header Beschrijving
+        .modal-header(i18n="modals.modal_fund_criteria_description.title")
         .modal-body: .modal-section
-            .form-group: markdown(ng-model="$ctrl.form.values.description")
+            .form-group
+                label.form-label(i18n="modals.modal_fund_criteria_description.labels.title")
+                input(ng-model="$ctrl.form.values.title" type="text" placeholder="Titel").form-control
+                .form-error(ng-repeat="error in $ctrl.form.errors['criteria.0.title']" ng-bind="error")
+            .form-group
+                label.form-label(i18n="modals.modal_fund_criteria_description.labels.description")
+                markdown(ng-model="$ctrl.form.values.description")
+                .form-error(ng-repeat="error in $ctrl.form.errors['criteria.0.description']" ng-bind="error")
 
         .modal-footer.text-center
-            button.button.button-primary(type="submit") Opslaan
-            button.button.button-dark(type="button" ng-click="$ctrl.close()") Sluiten
+            button.button.button-primary(type="submit" i18n="modals.modal_fund_criteria_description.buttons.save")
+            button.button.button-dark(type="button" i18n="modals.modal_fund_criteria_description.buttons.close" ng-click="$ctrl.close()") Sluiten

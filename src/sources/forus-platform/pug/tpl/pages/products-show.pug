@@ -1,54 +1,119 @@
 .app.app-container
     menu
     section.app.app-content
-        product-card(product="$ctrl.product" level="show")
-        
-        //- .card
-            .card-header: .card-title {{ "product_show.header.title" | translate }}
+        //- breadcrumb
+        .block.block-breadcrumbs
+            .breadcrumb-item(ui-sref="offices({organization_id:$ctrl.product.organization_id})" ng-bind="$ctrl.product.organization.name")
+            .breadcrumb-item.active(ng-bind="$ctrl.product.name")
+
+        //- product details
+        .block.block-provider-product
+            .product-overview
+                .product-media: img.product-media-img(
+                    ng-src="{{ $ctrl.product.photo ? $ctrl.product.photo.sizes.small : './assets/img/placeholders/product-small.png' }}")
+                
+                .product-details
+                    .product-name(ng-bind="$ctrl.product.name")
+                    .product-properties
+                        .product-property
+                            .product-property-label(translate="product_edit.labels.expire")
+                            .product-property-value(ng-bind="$ctrl.product.expire_at")
+                        .product-property
+                            .product-property-label(translate="product_edit.labels.sold")
+                            .product-property-value(ng-bind="$ctrl.product.sold_amount")
+                        .product-property
+                            .product-property-label(translate="product_edit.labels.reserved")
+                            .product-property-value(ng-bind="$ctrl.product.reserved_amount")
+                        .product-property
+                            .product-property-label(translate="product_edit.labels.available_offers")
+                            .product-property-value(ng-if="!$ctrl.product.unlimited_stock" ng-bind="$ctrl.product.stock_amount")
+                            .product-property-value(ng-if="$ctrl.product.unlimited_stock" translate="product_edit.labels.unlimited")
+                
+                .product-actions.form(ng-if="!$ctrl.product.no_price")
+                    .product-price
+                        | {{ $ctrl.product.price | currency_format }}
+                        .product-price-old(ng-if="$ctrl.product.old_price" ng-bind="$ctrl.product.old_price | currency_format")
+            
+            .product-description
+                .description-header
+                    | Beschrijving
+                    .description-header-action
+                        .button-group
+                            a(ng-click="$ctrl.deleteProduct($ctrl.product)").button.button-primary
+                                em.mdi.mdi-delete.icon-start  
+                                | {{ "product_card.buttons.delete" | translate }}
+                            a(ui-sref="products-edit($ctrl.product)").button.button-default
+                                em.mdi.mdi-pen.icon-start  
+                                | {{ "product_card.buttons.edit" | translate }}
+                
+                .description-body(ng-if="$ctrl.product.description_html")
+                    .arrow-box.border.bg-dim: .arrow
+                    div(ng-bind-html="$ctrl.product.description_html")
+                
+                .description-body(ng-if="!$ctrl.product.description_html") 
+                    .arrow-box.border.bg-dim: .arrow
+                    | Geen data
+
+        //- funds list
+        .card(ng-if="$ctrl.funds.meta.total > 0")
+            .card-header: .card-title: .flex-row
+                .flex-col Fondsen
+                .flex-col.block.block-inline-filters
+                    .form: .form-group: input(type="text" placeholder="Zoeken" ng-model="$ctrl.filters.values.q").form-control
+            
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
                         table.table
                             tr
-                                th {{ "product_show.labels.price" | translate }}
-                                th {{ "product_show.labels.description" | translate }}
-                                th {{ "product_show.labels.customer" | translate }}
-                                th {{ "product_show.labels.date" | translate }}
-                                th 
-                            mixin row()
-                                tr
-                                    td: a(href="./transaction.html").text-primary-light €19000.00
-                                    td: a(href="./transaction.html") 
-                                        | Auction Payment -  
-                                        br
-                                        | ch_1BpcoqBQO0R3BKRwYEyl1jd9
-                                    td: a(href="#").text-primary-light Harris s Vernick
-                                    td 2018/01/29 14:37:08
-                                    td: .hover-actions
-                                        em.mdi.mdi-dots-horizontal
-                                        .hover-actions-menu
-                                            .hover-actions-label {{ "product_show.labels.action" | translate }}
-                                            .hover-actions-item {{ "product_show.labels.refund" | translate }}
-                                            .hover-actions-item {{ "product_show.labels.chargeid" | translate }}
-                                            .hover-actions-sep
-                                            .hover-actions-label {{ "product_show.labels.connections" | translate }}
-                                            .hover-actions-item {{ "product_show.labels.details" | translate }}
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-                            +row()
-            .card-section
-                .table-pagination
-                    .table-pagination-counter {{ "product_show.labels.results" | translate }}
-                    .table-pagination-navigation
-                        button(disabled).button.button-default {{ "product_show.buttons.previous" | translate }}
-                        button.button.button-default {{ "product_show.paginator.one" | translate }}
-                        button.button.button-default {{ "product_show.paginator.two" | translate }}
-                        button.button.button-primary {{ "product_show.paginator.three" | translate }}
-                        button(disabled).button.button-default {{ "product_show.buttons.next" | translate }}
+                                th.th-narrow Afbeelding
+                                th Naam
+                                th Geaccepteerd
+                                th Beschikbaar
+                                th.th-narrow Berichten
+                                th.th-narrow
+                            
+                            tr(ng-repeat="fund in $ctrl.funds.data")
+                                td: img(
+                                    src='./assets/img/placeholders/product-thumbnail.png'
+                                    ng-src="{{ fund.logo ? fund.logo.sizes.thumbnail : './assets/img/placeholders/product-thumbnail.png' }}"
+                                    ).td-media
+                                td(ng-bind="fund.name")
+                                td
+                                    .label.label-success(ng-if="fund.approved") Geaccepteerd
+                                    .label.label-default(ng-if="!fund.approved") Wachtend
+                                td.form: label(for="fund_exclusion_id_{{ fund.id }}").form-toggle
+                                    input(
+                                        type="checkbox" 
+                                        id="fund_exclusion_id_{{ fund.id }}"
+                                        ng-change="$ctrl.changeFundExclusion(fund, $ctrl.fund_toggles[fund.id])"
+                                        ng-model="$ctrl.fund_toggles[fund.id]")
+                                    .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot 
+                                td.nowrap 
+                                    .button.button-icon(
+                                        ng-class="fund.chat.provider_unseen_messages > 0 ? 'button-primary-light' : 'button-default'" 
+                                        ng-disabled="!fund.chat" 
+                                        ng-click="$ctrl.showTheChat(fund)"
+                                        ): em.mdi.mdi-message-text(ng-class="{'text-primary':fund.chat && !fund.chat.provider_unseen_messages}")
+                                    
+                                    span(ng-if="!fund.chat")
+                                        | &nbsp;&nbsp;
+                                        | Geen berichten
+                                    
+                                    span(ng-if="fund.chat.provider_unseen_messages")
+                                        | &nbsp;&nbsp;
+                                        | {{ fund.chat.provider_unseen_messages }} nieuwe
+                                td.nowrap
+                                    a.button.button-default(
+                                        ng-disabled="!fund.approved"
+                                        href="{{ fund.implementation.url_webshop + 'products/' + $ctrl.product.id }}" target="_blank")
+                                        em.mdi.mdi-eye-outline.icon-start 
+                                        | Bekijk op webshop
+
+            .card-section(ng-if="$ctrl.funds.meta" ng-show="$ctrl.funds.meta.last_page > 1")
+                paginator(meta="$ctrl.funds.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
+        
+        block-empty(
+            ng-if="$ctrl.funds.meta.total == 0" 
+            text="You have not applied to any funds yet." 
+            button="{text: 'View available funds', href: $ctrl.emptyFundsLink}")

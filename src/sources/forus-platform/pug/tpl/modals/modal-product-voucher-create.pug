@@ -1,6 +1,6 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
-.modal.modal-voucher-create
+.modal.modal-voucher-create.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     //- Select type
     .modal-window(ng-if="$ctrl.state == 'select_type'"): form.form(ng-submit="$ctrl.form.submit()")
@@ -22,7 +22,7 @@
                         | {{ 'modals.modal_product_voucher_create.modal_section.voucher_type_item.activation_code' | i18n }}
 
         .modal-footer.text-center
-            button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="modals.modal_product_voucher_create.buttons.cancel")
+            button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="modals.modal_product_voucher_create.buttons.cancel" id="cancel")
             button.button.button-primary(type="button" ng-if="$ctrl.voucherType" ng-click="$ctrl.submitVoucherType()" i18n="modals.modal_product_voucher_create.buttons.submit")
 
     //- Activation code form
@@ -77,6 +77,19 @@
         .modal-body
             .modal-section 
                 .form-group.form-group-inline.form-group-inline-sm
+                    label.form-label(i18n="modals.modal_voucher_create.labels.assign_by_type")
+                    select(
+                        ng-change="$ctrl.onAsignTypeChange($ctrl.assignType)"
+                        ng-options="assignType as assignType.label for assignType in $ctrl.assignTypes"
+                        ng-model="$ctrl.assignType").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.assign_by_type" ng-bind="error")
+
+                .form-group.form-group-inline.form-group-inline-sm(ng-if="$ctrl.assignType.key")
+                    label.form-label(ng-bind="$ctrl.assignType.label")
+                    input(ng-model="$ctrl.form.values[$ctrl.assignType.key]" placeholder="{{ $ctrl.assignType.label }}").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors[$ctrl.assignType.key]" ng-bind="error")
+
+                .form-group.form-group-inline.form-group-inline-sm
                     label.form-label(i18n="modals.modal_product_voucher_create.labels.product")
                     select(
                         ng-options="product.id as product.name for product in $ctrl.products" 
@@ -88,10 +101,10 @@
                 .form-group.form-group-inline.form-group-inline-sm
                     label.form-label(i18n="modals.modal_voucher_create.labels.expire_at")
                     datepicker(
-                        date-format="dd-MM-yyyy" 
+                        date-format="yyyy-MM-dd" 
                         datepicker-mobile="" 
                         date-week-start-day="1").form-control
-                        input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="dd-MM-jjjj").form-control
+                        input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="jjjj-MM-dd").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.expire_at" ng-bind="error")
                 
                 .form-group.form-group-inline.form-group-inline-sm

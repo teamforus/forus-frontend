@@ -35,7 +35,7 @@ $formPadding: 14px 15px;
         /* height: 50px; */
         color: rgba(#00122a, .9);
         font: $formFont;
-        line-height: 20px !important;
+        line-height: 20px;
         transition: background-color .4s ease, border .4s ease;
         border-radius: 6px;
         appearance: none;
@@ -122,10 +122,10 @@ $formPadding: 14px 15px;
     }
 
     select.form-control {
-        background-image: url('../img/select-bg.png');
+        background-image: url('../img/select-bg.svg');
         background-position: 99%;
         background-repeat: no-repeat;
-        background-size: 35px;
+        background-size: 25px;
         appearance: none;
         text-indent: 1px;
         text-overflow: '';

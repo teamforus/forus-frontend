@@ -34,6 +34,10 @@
                 padding-bottom: 6px;
                 font: 500 12px/18px $bf;
 
+                &.th-narrow {
+                    width: 1%;
+                }
+
                 &:first-child {
                     padding-left: 25px;
                     min-width: 150px;
@@ -82,6 +86,12 @@
                     }
                 }
 
+                .td-media {
+                    display: block;
+                    width: 70px;
+                    border-radius: $border_radius;
+                }
+
                 .td-boolean {
                     color: #646f79;
                     font: 500 13px/20px $bf;
@@ -92,6 +102,10 @@
                         margin-right: 5px;
                         float: left;
                     }
+                }
+
+                .button-group {
+                    margin: -2.5px 0;
                 }
 
                 &.td-narrow {
@@ -114,10 +128,10 @@
             }
 
             &[ng-click]:hover {
-
                 td,
                 th {
                     background: #f6f8f9;
+                    cursor: pointer;
                 }
             }
         }
@@ -144,6 +158,10 @@
         float: left;
         color: #282b39;
         font: 500 13px/36px $bf;
+        
+        &.table-pagination-counter-sm {
+            font: 500 13px/30px $bf;
+        }
     }
 
     .table-pagination-navigation {

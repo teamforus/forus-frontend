@@ -1,0 +1,58 @@
+.app.app-container(ng-if="$root.activeOrganization && $root.auth_user && $ctrl.funds")
+    menu
+    section.app.app-content
+        .card-heading: .flex-row
+            .flex-col Fondsen
+            .flex-col.text-right.form: .flex-row
+                .flex-col.flex-grow: label.form-label(for="auto_validate") Accepteer automatisch
+                .flex-col: label.form-toggle(for="auto_validate").flex-end
+                    input(
+                        type="checkbox" 
+                        id="auto_validate"
+                        ng-model="$ctrl.auto_validate_form.values.validator_auto_accept_funds" 
+                        ng-change="$ctrl.auto_validate_form.submit()" )
+                    .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+
+        .card(ng-repeat="fund in $ctrl.funds.data")
+            .card-section
+                .card-section-actions: .tag.tag-success Actief
+
+                .card-block.card-block-fund
+                    .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}", alt="")
+                    a(ng-bind="fund.name").fund-title
+                    br
+                    a(ng-bind="fund.organization").fund-organization
+            
+            .card-section: .form
+                .block.block-card-toggleable
+                    .block-title Fonds zijn criteria
+
+                    .card-toggleable(ng-repeat="criterion in fund.criteria")
+                        label(for="option_{{ criterion.id }}" ng-bind="criterion.name").card-toggleable-label
+                        
+                        .button.button-primary(
+                            ng-if="!criterion.accepted"
+                            ng-click="$ctrl.acceptFundCriterion(fund, criterion)")
+                            em.mdi.mdi-check-circle.icon-start
+                            | Accepteer
+                        
+                        .button.button-default(
+                            ng-if="criterion.accepted"
+                            ng-click="$ctrl.declineFundCriterion(fund, criterion)")
+                            em.mdi.mdi-close.icon-start
+                            | Weiger
+
+            .card-section.card-section-primary.text-right
+                a(ng-click="$ctrl.declineAll(fund)" ng-if="fund.showDeclineAll").button.button-default
+                    em.mdi.mdi-close.icon-start 
+                    | Weiger alles
+
+                a(ng-click="$ctrl.acceptAll(fund)" ng-if="fund.showAcceptAll").button.button-primary
+                    em.mdi.mdi-plus-circle.icon-start 
+                    | Accepteer alles
+        
+        .card(ng-if="$ctrl.funds.meta.total > 0" ng-show="$ctrl.funds.meta.last_page > 1"): .card-section
+                paginator(meta="$ctrl.funds.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
+
+        div(ng-if="$ctrl.funds.meta.total == 0")
+            block-empty(text="Geen fondsen beschikbaar")

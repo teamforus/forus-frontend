@@ -1,18 +1,17 @@
-.modal
+.modal.modal-animated.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window: form.form(ng-submit="$ctrl.form.submit()")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-        .modal-header 
-            | Add Custom Link
+        .modal-header(ng-bind="$ctrl.params.type == 'image-link' ? 'Afbeelding link toevoegen' : 'Link toevoegen'")
         .modal-body
             .modal-section
                 .form-group
-                    label.form-label URL
+                    label.form-label(ng-bind="$ctrl.params.type == 'image-link' ? 'URL Afbeelding' : 'URL'")
                     input(type="text" ng-model="$ctrl.form.values.url").form-control
                 .form-group
-                    label.form-label Description
-                    input(type="text" ng-init="$ctrl.form.values.description=$ctrl.description" ng-model="$ctrl.form.values.description").form-control
+                    label.form-label Beschrijving
+                    input(type="text" ng-init="$ctrl.form.values.description=$ctrl.params.description" ng-model="$ctrl.form.values.description").form-control
 
         .modal-footer.text-center
-            button.button.button-primary(type="submit") Add
-            button.button.button-dark(type="button" ng-click="$ctrl.close()") Close
+            button.button.button-primary(type="submit") Bevestig
+            button.button.button-dark(type="button" ng-click="$ctrl.close()") Sluit
