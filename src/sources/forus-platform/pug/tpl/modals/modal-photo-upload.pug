@@ -32,9 +32,11 @@
                             .crop-control-thumbnail(ng-if="$ctrl.thumbnailUri"): img(ng-src="{{ $ctrl.thumbnailUri }}")
                         
                 .photo-crop-info 
-                    translate(translate="Minimale afbeeldingsgrootte moet 400x400px zijn") 
+                    translate(translate="Gebruik rechtenvrije afbeeldingen of afbeeldingen waartoe u de rechten heeft.")
                     br
-                    translate(translate="Passende formaten: .JPG, .PNG")
+                    translate(translate="De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px") 
+                    br
+                    translate(translate="Toegestaande formaten: .JPG, .PNG")
 
         .modal-footer
             .flex-row
