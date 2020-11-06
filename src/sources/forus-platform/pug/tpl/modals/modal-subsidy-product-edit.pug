@@ -9,20 +9,19 @@
         .modal-header(ng-if="$ctrl.readOnly") Actie bekijken
 
         .modal-body: .block.block-subsidy-editor
-            .subsidy-product-details
+            .subsidy-product
                 .subsidy-product-overview
                     .subsidy-title Organisatie
                     .subsidy-provider(ng-bind="$ctrl.product.organization.name")
-                    .subsidy-product(ng-bind="$ctrl.product.name")
+                    .subsidy-title(ng-bind="$ctrl.product.name")
                     .subsidy-property
                         .subsidy-property-label Vervaldatum van aanbod: 
                         .subsidy-property-value(ng-bind="$ctrl.product.expire_at_locale")
                     .subsidy-property
                         .subsidy-property-label Beschikbaar: 
                         .subsidy-property-value(ng-bind="$ctrl.product.unlimited_stock ? 'Ongelimiteerd' : $ctrl.product.stock_amount")
-                .subsidy-media(style="background-image: url({{ $ctrl.product.photo ? $ctrl.product.photo.sizes.small : './assets/img/placeholders/product-small.png' }})")
-            .subsidy-details
-                .subsidy-details-overview
+
+                .subsidy-product-overview
                     .subsidy-title Prijsafspraak
                     .subsidy-property.subsidy-property-monetary(ng-if="$ctrl.product.old_price")
                         .subsidy-property-label Originele prijs 
@@ -36,7 +35,11 @@
                         .subsidy-property-label Prijs in webshop
                         .subsidy-property-value(ng-bind='($ctrl.form.values.gratis ? 0 : $ctrl.product.price - $ctrl.form.values.amount) | currency_format')
 
-                .form(ng-if="!$ctrl.readOnly")
+            .subsidy-form
+                .subsidy-form-media: .subsidy-media(
+                    style="background-image: url({{ $ctrl.product.photo ? $ctrl.product.photo.sizes.small : './assets/img/placeholders/product-small.png' }})")
+                
+                .subsidy-form-content: .form(ng-if="!$ctrl.readOnly")
                     .form-group
                         .form-label Totaal aantal acties dat vanuit {{ $ctrl.fund.name  }} gebruikt mag worden.
                         input(
@@ -103,6 +106,6 @@
                         .form-label Gebruikt
                         .form-value-placeholder.form-value-placeholder-sm(ng-bind="$ctrl.form.values.voucher_transactions_count")
 
-        .modal-footer
+        .modal-footer.modal-footer-light
             .button.button-default(ng-click="$ctrl.close()") Annuleer
             button(ng-if="!$ctrl.readOnly" type="submit").button.button-primary Bevestig

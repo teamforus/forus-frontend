@@ -49,7 +49,7 @@
                         em.mdi.mdi-play.icon-start
                         | Start actie
                     
-                    .tag.tag-success.nowrap(ng-if="&& $ctrl.product.is_available && $ctrl.product.allowed")
+                    .tag.tag-success.nowrap(ng-if="$ctrl.product.is_available && $ctrl.product.allowed")
                         | Actie actief 
                         .mdi.mdi-close.icon-end(ng-click="$ctrl.disableProductItem($ctrl.fundProvider, $ctrl.product)")
             

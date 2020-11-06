@@ -6070,17 +6070,11 @@ $colorPrimaryLight: $color_primary_light;
         display: flex;
         justify-content: center;
 
-        &.no-border {
-            border: 0 !important;
-        }
-
         .footer-text {
             font: 500 18px $bf;
             color: #151b26;
             margin-bottom: 20px;
         }
-
-        // .modal-footer-links {}
 
         .modal-footer-link {
             display: block;
@@ -6092,6 +6086,16 @@ $colorPrimaryLight: $color_primary_light;
                 width: 40px;
                 float: left;
             }
+        }
+
+        &.modal-footer-light {
+            background-color: #fff;
+            border-bottom-left-radius: inherit;
+            border-bottom-right-radius: inherit;
+        }
+
+        &.no-border {
+            border: 0 !important;
         }
     }
 
