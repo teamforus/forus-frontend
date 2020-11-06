@@ -52,6 +52,8 @@
 
     @media screen and (max-width: 1000px) {
         &.block-markdown {
+            font: 400 14px/20px $bf !important;
+
             h1 {
                 font: 500 1.8em $bf;
                 margin-bottom: 1em;

@@ -9,7 +9,6 @@
         cursor: default;
         @include cf();
         position: relative;
-        // overflow: hidden;
         min-height: 300px;
         display: flex;
 
@@ -53,100 +52,125 @@
             }
 
             .organization-name {
-                color: #646F79;
-                font: 700 14px $bf;
+                color: #646f79;
+                font: 700 14px/24px $bf;
+                margin: 0px 0px 20px;
             }
 
-            .product-details-horizontal {
+            .product-properties {
                 display: flex;
+                flex-direction: row;
                 align-items: center;
-                margin: 20px 0px 20px 0px;
+                padding: 0px 0px 20px;
+                margin: 0px 0px 20px;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
-                .product-expire {
-                    margin: 0 20px 0 20px;
+                .product-property {
+                    min-width: 250px;
 
-                    .expire-label {
-                        font: 600 12px $bf;
-                        color: #646F79;
+                    .product-property-label {
+                        display: flex;
+                        font: 600 12px/16px $bf;
+                        color: #646f79;
                         margin-bottom: 10px;
                     }
 
-                    .expire-value {
+                    .product-property-value {
                         color: #282b39;
-                        font: 600 16px $bf;
+                        font: 600 16px/18px $bf;
+                    }
+
+                    &.product-property-full {
+                        width: 100%;
+                        max-width: 100%;
                     }
                 }
 
-                .product-categories {   
-                    margin: 0 20px 0 0;
-
-                    .category-label {
-                        font: 600 12px $bf;
-                        color: #646F79;
-                        margin-bottom: 10px;    
-                    }
-
-                    .category-value {
-                        color: #282b39;
-                        font: 600 16px $bf;
-                    }
-
+                &:last-child {
+                    border-bottom: none;
+                    margin: 0;
+                    padding: 0;
                 }
-            }
-
-            hr {
-                border: 0;
-                height: 0;
-                border-top: 1px solid rgba(0, 0, 0, 0.1);
-                border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            }
-
-            .block-header {
-                margin-top: 20px;
-                font: 600 12px $bf;
-                color: #646F79;
-            }
-
-            .block-content {
-                color: #000;
-                font: 400 14px $bf;
-            }
-
-            .product-details-link {
-                font: 600 13px/20px $bf;
-                color: #083f49;
-                width: 100%;
-                cursor: pointer;
-                display: block;
-
-                .mdi {
-                    color: #3396a7;
-                    display: inline-block;
-                    font-size: 1.5em;
-                    line-height: 20px;
-                    vertical-align: bottom;
-                    position: relative;
-                    transform: translate(0px);
-                    transition: .4s;
-                }
-
-                &:hover {
-                    .mdi {
-                        transform: translate(5px);
-                    }
-                }
-            }
-            
-            .button {
-                padding-left: 100px;
-                padding-right: 100px;
             }
         }
-
     }
 
-    .flex-row {
-        margin: 0;
+    .product-funds-list {
+        display: flex;
+        flex-direction: column;
+        cursor: default;
+
+        .fund-item {
+            display: flex;
+            flex-direction: row;
+            border-bottom: 1px solid $border_color;
+            border-radius: $border_radius;
+            overflow: hidden;
+
+            .fund-item-section {
+                border-right: 1px solid $border_color;
+                padding: 15px 25px;
+                min-width: 175px;
+                display: flex;
+                flex-direction: column;
+
+                .fund-item-section-label {
+                    display: flex;
+                    font: 700 12px/20px $bf;
+                    color: #646F79;
+                    justify-content: flex-end;
+                }
+
+                .fund-item-section-value {
+                    display: flex;
+                    font: 700 22px/30px $bf;
+                    justify-content: flex-end;
+                }
+
+                &.fund-item-section-details {
+                    padding-left: 0;
+                    display: flex;
+                    flex-direction: row;
+                    flex-grow: 1;
+                    border-right: 1px solid $border_color;
+                    border-right: 0;
+
+                    .fund-item-media {
+                        width: 80px;
+                        padding: 0 15px;
+        
+                        .fund-item-media-img {
+                            width: 100%;
+                            display: block;
+                            border-radius: $border_radius;
+                        }
+                    }
+
+                    .fund-item-content {
+                        display: flex;
+                        flex-direction: column;
+
+                        .fund-item-title {
+                            font: 700 18px/25px $bf;
+                            color: #303030;
+                        }
+            
+                        .fund-item-subtitle {
+                            font: 400 14px/25px $bf;
+                            color: #303030;
+                        }
+                    }
+                }
+            
+                &:last-child {
+                    border-right: 0;
+                }
+            }
+
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
     }
 
     &.block-product-sm {
@@ -204,70 +228,6 @@
         }
     }
 
-    .organization-pane .office-organization {
-        background: #ffffff;
-        display: flex;
-        flex-direction: row;
-        padding: 25px 15px;
-
-        .organization-photo {
-            margin: -10px 15px -10px 0;
-
-            .organization-photo-img {
-                display: block;
-                width: 50px;
-                border-radius: $border_radius;
-            }
-        }
-        
-        .organization-title {
-            display: flex;
-            flex-direction: row;
-            flex-grow: 1;
-            font: 700 14px/20px $bf;
-            text-align: left;
-
-            .organization-title-value {
-                vertical-align: middle;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-            }
-
-            .organization-title-count {
-                min-width: 30px;
-                text-align: center;
-                padding: 0 5px;
-                height: 30px;
-                text-align: center;
-                font: inherit;
-                line-height: 30px;
-                color: #fff;
-                background: $color_primary;
-                border-radius: $border_radius / 2;
-                margin-left: 10px;
-            }
-        }
-
-        .organization-chevron {
-            line-height: 30px;
-            height: 30px;
-            font-size: 30px;
-            color: #646f79;
-            cursor: pointer;
-            transform: .4s;
-
-            .mdi {
-                font-size: inherit;
-                color: inherit;
-            }
-
-            &:hover {
-                color: $color_primary;
-            }
-        }
-    }
-
     @media screen and (max-width: 1000px) {
         .product-card {
             flex-direction: column;
@@ -293,10 +253,99 @@
                 border-bottom-left-radius: inherit;
                 border-bottom-right-radius: inherit;
 
-                .button {
-                    padding-left: 20px;
-                    padding-right: 20px;
-                    width: 100%;
+                .product-properties {
+                    flex-direction: column;
+
+                    .product-property {
+                        width: 100%;
+                        display: flex;
+                        flex-direction: row;
+                        margin-bottom: 5px;
+
+                        .product-property-label,
+                        .product-property-value {
+                            width: 50%;
+                            flex-direction: column;
+                            justify-content: center;
+                        }
+    
+                        .product-property-label {
+                            text-align: left;
+                            align-items: flex-start;
+                            padding-right: 10px;
+                        }
+    
+                        .product-property-value {
+                            text-align: left;
+                            align-items: flex-end;
+                            padding-left: 10px;
+                            font-size: 14px;
+                        }
+
+                        &.product-property-full {
+                            width: 100%;
+                            flex-direction: column;
+
+                            .product-property-label,
+                            .product-property-value {
+                                width: 100%;
+                                padding: 0;
+                            }
+                        }
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .product-funds-list {
+            .fund-item {
+                flex-direction: column;
+
+                .fund-item-section {
+                    padding: 15px;
+                    border: none;
+                    display: flex;
+                    flex-direction: row;
+                    border-bottom: 1px solid $border_color;
+
+                    .button {
+                        width: 100%;
+                    }
+
+                    .fund-item-section-label,
+                    .fund-item-section-value {
+                        width: 50%;
+                        flex-direction: column;
+                        justify-content: center;
+                    }
+
+                    .fund-item-section-label {
+                        text-align: left;
+                        align-items: flex-start;
+                    }
+
+                    .fund-item-section-value {
+                        text-align: right;
+                        align-items: flex-end;
+                        font-size: 13px;
+                    }
+
+                    &.fund-item-section-details {
+                        padding: 15px;
+
+                        .fund-item-media {
+                            padding-left: 0;
+                            width: 65px;
+                        }
+                    }
+
+                    &:last-child {
+                        border-bottom: 0;
+                    }
                 }
             }
         }
