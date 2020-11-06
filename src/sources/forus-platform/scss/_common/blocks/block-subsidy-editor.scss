@@ -1,19 +1,10 @@
 &.block-subsidy-editor {
     display: flex;
     flex-direction: row;
-
-    .subsidy-media {
-        width: 270px;
-        border-right: 1px solid $border_color;
-        background-position: 50%;
-        background-size: cover;
-        flex-basis: auto;
-    }
-
-    .subsidy-details {
-        flex-basis: 0;
-        flex-grow: 1;
+    .subsidy-product-details {
         padding: 15px 25px;
+        display: flex;
+        flex-direction: column;
         
         .subsidy-provider {
             color: $color_primary;
@@ -23,8 +14,17 @@
 
         .subsidy-product {
             color: #000;
-            margin: 0 0 10px;
+            margin: 0 0;
             font: 600 16px/25px $bf;
+        }
+
+        .subsidy-media {
+            width: 270px;
+            height: 90%;
+            margin-top: 10px;
+            border-right: 1px solid $border_color;
+            background-position: 50%;
+            background-size: cover;
         }
 
         .subsidy-property {
@@ -46,7 +46,28 @@
                     color: #626F79;
                 }
             }
+        }
+    }
 
+    .subsidy-title {
+        color: #000;
+        margin: 0 0 10px;
+        font: 600 21px/22px $bf;    
+    }
+
+    .subsidy-details {
+        flex-basis: 0;
+        flex-grow: 1;
+        padding: 15px 25px;
+
+        .subsidy-property {
+            display: flex;
+            flex-direction: row;
+            .subsidy-property-label {
+                color: #646F79;
+                font: 500 12px/20px $bf;
+                margin-right: 5px;
+            }
             &.subsidy-property-monetary {
                 margin: 0 0 10px;
 
