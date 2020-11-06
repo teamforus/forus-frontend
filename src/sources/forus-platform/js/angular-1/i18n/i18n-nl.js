@@ -846,7 +846,7 @@ module.exports = {
         employee: {
             labels: {
                 employee_add_header: "Bevestig uitnodiging",
-                employee_add_message: "Wil u de medewerker {{email}} uitnodigen? Deze medewerker zal hier over een e-mail ontvangen.",
+                employee_add_message: "Wil u de medewerker <strong class='text-primary'>{{email}}</strong> uitnodigen? <br>Deze medewerker zal hier over een email ontvangen.",
                 accept: "Bevestig",
                 cancel: "Annuleer"
             }
