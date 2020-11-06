@@ -32,11 +32,15 @@
                             .crop-control-thumbnail(ng-if="$ctrl.thumbnailUri"): img(ng-src="{{ $ctrl.thumbnailUri }}")
                         
                 .photo-crop-info 
-                    translate(translate="Gebruik rechtenvrije afbeeldingen of afbeeldingen waartoe u de rechten heeft.")
+                    span De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px
                     br
-                    translate(translate="De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px") 
+                    span Toegestaande formaten: .JPG, .PNG
                     br
-                    translate(translate="Toegestaande formaten: .JPG, .PNG")
+                .form.text-center: label.checkbox
+                    input(type='checkbox' ng-model='$ctrl.confirmed')
+                    .checkbox-label
+                        .checkbox-box: .mdi.mdi-check
+                        | Ik beschik over de rechten van de afbeelding.
 
         .modal-footer
             .flex-row
@@ -45,4 +49,5 @@
                 .flex-col: button(
                     ng-click="$ctrl.changePhoto()" translate="Kies andere afbeelding").button.button-primary-outline.button-wide.nowrap.hidden-xs
                 .flex-col: button(
+                    ng-disabled="!$ctrl.confirmed"
                     ng-click="$ctrl.apply()" translate="Bevestigen").button.button-primary.button-wide

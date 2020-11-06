@@ -6469,6 +6469,8 @@ $colorPrimaryLight: $color_primary_light;
     }
 
     &.modal-photo-upload {
+        cursor: default;
+
         .modal-title {
             font: 500 21px/29px $bf;
             text-align: center;
@@ -6491,6 +6493,7 @@ $colorPrimaryLight: $color_primary_light;
                 .photo-crop {
                     display: flex;
                     flex-direction: column;
+                    margin-bottom: -10px;
 
                     .photo-crop-image {
                         width: 650px;
@@ -6569,6 +6572,17 @@ $colorPrimaryLight: $color_primary_light;
                         text-align: center;
                         color: #5e636b;
                         font: 400 13px/20px $bf;
+                        margin: 0 0 5px;
+                    }
+
+                    .form {
+                        .checkbox {
+                            .checkbox-label {
+                                text-align: center;
+                                color: #5e636b;
+                                font: 400 13px/20px $bf;
+                            }
+                        }
                     }
                 }
             }
