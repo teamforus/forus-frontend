@@ -14,5 +14,6 @@ module.exports = {
         },
         buttons: {
             more: "Bekijk meer",
+            less: "Bekijk minder",
         }
 }

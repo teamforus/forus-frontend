@@ -27,6 +27,20 @@ let ProviderOfficeComponent = function(
 
         provider.showOffices = !provider.showOffices;
     };
+
+    $ctrl.showMoreProducts = () => {
+        $ctrl.shownProductsCount += 9;
+        $ctrl.sliceProducts();
+    };
+
+    $ctrl.showLessProducts = () => {
+        $ctrl.shownProductsCount -= 9;
+        $ctrl.sliceProducts();
+    };
+
+    $ctrl.sliceProducts = () => {
+        $ctrl.shownProducts = $ctrl.provider.products.slice(0, $ctrl.shownProductsCount);
+    };
     
     $ctrl.$onInit = () => {
         $ctrl.weekDays = OfficeService.scheduleWeekFullDays();
@@ -41,6 +55,11 @@ let ProviderOfficeComponent = function(
             $ctrl.imageUrl = $ctrl.office.organization.logo.sizes.thumbnail;
         } else {
             $ctrl.imageUrl = 'assets/img/placeholders/office-thumbnail.png';
+        }
+
+        if ($ctrl.provider.products) {
+            $ctrl.shownProductsCount = 3;
+            $ctrl.shownProducts = $ctrl.provider.products.slice(0, $ctrl.shownProductsCount);
         }
 
         $ctrl.provider.description_html = $sce.trustAsHtml($ctrl.provider.description_html);

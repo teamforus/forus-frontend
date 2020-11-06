@@ -15,7 +15,27 @@ let ProviderComponent = function(
         });
     };
 
-    $ctrl.$onInit = () => {};
+    $ctrl.showMoreProducts = () => {
+        $ctrl.shownProductsCount += 9;
+        $ctrl.sliceProducts();
+    };
+
+    $ctrl.showLessProducts = () => {
+        $ctrl.shownProductsCount -= 9;
+        $ctrl.sliceProducts();
+    };
+
+    $ctrl.sliceProducts = () => {
+        $ctrl.shownProducts = $ctrl.provider.products.slice(0, $ctrl.shownProductsCount);
+    };
+
+    $ctrl.$onInit = () => {
+        if ($ctrl.provider.products) {
+            $ctrl.shownProductsCount = 3;
+            $ctrl.shownProducts = $ctrl.provider.products.slice(0, $ctrl.shownProductsCount);
+        }
+    };
+
     $ctrl.$onDestroy = () => {};
 };
 
