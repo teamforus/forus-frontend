@@ -4,14 +4,13 @@
         ng-if="products.data.length != 0 && sample") Acties
     
     .block.block-subsidies(ng-if="products.data.length > 0")
-        .product-row(ng-repeat="products_row in product_rows")
-            .product-item(ng-repeat="product in products_row"): a(ui-sref="products-show(product)").product-item-inner
-                .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
-                    img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
-                    .product-price(ng-bind="product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis'")
-                .product-details
-                    .product-provider(ng-bind="product.organization.name")
-                    .product-name(ng-bind="product.name")
+        .product-item(ng-repeat="product in products.data"): a(ui-sref="products-show(product)").product-item-inner
+            .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
+                img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
+                .product-price(ng-bind="product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis'")
+            .product-details
+                .product-provider(ng-bind="product.organization.name")
+                .product-name(ng-bind="product.name")
 
     empty-block(
         title= "{{ 'block_products.labels.title' | translate }}"
