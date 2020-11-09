@@ -14,6 +14,29 @@ let ProductComponent = function(
         return $state.go('home');
     }
 
+    $ctrl.goToOffice = (office) => {
+        $state.go('provider-office', {
+            provider_id: office.organization_id,
+            office_id: office.id
+        });
+    };
+
+    $ctrl.goToProvider = ($event, provider) => {
+        $event.preventDefault();
+        $event.stopPropagation();
+        console.log(provider);
+        $state.go('provider', {
+            provider_id: provider.id
+        });
+    };
+    
+    $ctrl.toggleOffices = ($event, provider) => {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        provider.showOffices = !provider.showOffices;
+    };
+
     $scope.openAuthPopup = function() {
         ModalService.open('modalAuth', {});
     };
