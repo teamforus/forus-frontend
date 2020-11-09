@@ -55,6 +55,10 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalFundRequestRecordDeclineComponent'
     });
 
+    ModalRouteProvider.modal('fundRequestRecordsDecline', {
+        component: 'modalFundRequestRecordsDeclineComponent'
+    });
+
     ModalRouteProvider.modal('fundCriteriaDescriptionEdit', {
         component: 'modalFundCriteriaDescriptionEditComponent'
     });
@@ -109,5 +113,9 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
 
     ModalRouteProvider.modal('duplicatesPicker', {
         component: 'modalDuplicatesPickerComponent'
+    });
+
+    ModalRouteProvider.modal('fundAppendRequestRecord', {
+        component: 'modalFundAppendRequestRecordComponent'
     });
 }];

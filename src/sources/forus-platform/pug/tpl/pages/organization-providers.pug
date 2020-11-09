@@ -117,7 +117,7 @@
                             | Actieve acties 
                             .tag.tag-sm(
                                 class=(products == 0 ? 'tag-danger' : 'tag-default')
-                                ng-bind="providerFund.products_count_approved + '/' + providerFund.products_count_all")
+                                ng-bind="providerFund.products_count_approved + '/' + providerFund.products_count_available")
 
                     .provider-actions.form
                         //- budget fund: allow budget vouchers
@@ -148,7 +148,7 @@
                         .provider-action-item
                             a(ui-sref="fund-provider(providerFund.uiViewParams)").button.button-default 
                                 em.mdi.mdi-eye-outline.icon-start
-                                | Kijk
+                                | Bekijken
 
             .card
                 .card-section(ng-if="$ctrl.fundProviders.meta" ng-show="$ctrl.fundProviders.meta.last_page > 0")

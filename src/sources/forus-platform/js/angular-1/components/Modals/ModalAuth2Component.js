@@ -35,6 +35,7 @@ let ModalAuth2Component = function(
                 }
             }, 0);
         });
+
         $ctrl.showQrForm();
         $ctrl.showEmailForm();
     };

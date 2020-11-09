@@ -56,14 +56,20 @@
             ng-repeat='validatorRequest in $ctrl.validatorRequests.data')
             .card-section(ng-click='validatorRequest.collapsed = !validatorRequest.collapsed')
                 .card-section-actions(ng-show="validatorRequest.state == 'pending'")
-                    .tag.tag-primary-light
+                    .flex.flex-end: .tag.tag-primary-light
                         em.mdi.mdi-circle-outline.icon-start
                         span(translate='validation_requests.status.hold')
+                    .card-section-actions-details
+                        .card-section-actions-label(translate="validation_requests.labels.pending_since")
+                        .card-section-actions-value(ng-bind="validatorRequest.created_at_locale")
                 
                 .card-section-actions(ng-show="validatorRequest.state == 'approved'")
-                    .tag.tag-success 
+                    .flex.flex-end: .tag.tag-success 
                         em.mdi.mdi-circle-slice-8.icon-start
                         | Geaccepteerd
+                    .card-section-actions-details
+                        .card-section-actions-label &nbsp;
+                        .card-section-actions-value(ng-bind="validatorRequest.updated_at_locale")
                 
                 .card-section-actions(ng-show="validatorRequest.state == 'approved_partly'")
                     .tag.tag-success 
@@ -78,7 +84,6 @@
                 .card-title(ng-class="{'text-muted':!validatorRequest.bsn}")
                     | BSN: 
                     span(ng-bind="validatorRequest.bsn || 'Geen data'")
-                    .card-collapse.mdi(ng-class="'mdi-chevron-' + (validatorRequest.collapsed ? 'down' : 'up')")
                 
                 .card-block.card-block-listing.card-block-listing-inline
                     .card-block-listing-label Fonds
@@ -101,7 +106,12 @@
             .card-header(ng-hide='validatorRequest.collapsed')
                 .arrow-box.border.bg-dim: .arrow
                 .card-title: .row
-                    .col.col-lg-6(translate='validation_requests.labels.records')
+                    .col.col-lg-6(ng-if="!validatorRequest.is_assigned" translate='validation_requests.labels.records')
+                    .col.col-lg-6(ng-if="validatorRequest.is_assigned")
+                        .button.button-text(ng-if="validatorRequest.record_types.indexOf('partner_bsn') === -1" ng-click="$ctrl.appendRecord(validatorRequest)")
+                            | {{ 'validation_requests.labels.records' | translate }}
+                            em.mdi.mdi-plus-circle.icon-end.text-primary
+                    
                     .col.col-lg-6.text-right(ng-show="validatorRequest.state == 'pending' && validatorRequest.is_assignable")
                         button.button.button-primary(ng-click='$ctrl.requestAssign(validatorRequest)')
                             em.mdi.mdi-account-plus.icon-start
@@ -167,8 +177,9 @@
                                     .mdi.mdi-file
                                     .attachment-size(ng-bind='file.size')
                                 .attachment-name(ng-bind='file.original_name')
+                                .attachment-date(ng-bind='record.created_at_locale')
                                 .attachment-preview( 
-                                    title="Bekijk PDF-bestand" 
+                                    title="Bekijk PDF-bestand"
                                     ng-if="file.ext == 'pdf'"
                                     ng-click="$ctrl.previewFile($event, file)")
                                     .mdi.mdi-eye
@@ -185,7 +196,7 @@
                                         .clarification-item-icon.mdi.mdi-message-text.text-primary-light
                                         span(
                                             ng-class="clarification.answered_at ? '' : 'text-muted'"
-                                            ng-bind="clarification.answered_at ? clarification.answer : 'No reply...'")
+                                            ng-bind="clarification.answered_at ? clarification.answer : 'Geen antwoord...'")
                                     .clarification-item-attachments(ng-if="clarification.files.length > 0")
                                         .block.block-attachments-list
                                             .block-attachments-inner

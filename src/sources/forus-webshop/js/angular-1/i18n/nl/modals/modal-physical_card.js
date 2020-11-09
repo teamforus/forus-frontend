@@ -37,7 +37,7 @@ module.exports = {
             house_placeholder: 'Huisnummer',
             house_addition: 'Huisnummer toevoeging',
             house_addition_placeholder: 'Huisnummer toevoeging',
-            email_to_me: 'Email naar mij',
+            email_to_me: 'E-mail naar mij',
             print_pass: 'Uw pas printen',
             open_in_app: 'Open in app',
         },

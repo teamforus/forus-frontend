@@ -76,8 +76,7 @@
 
         &:hover {
             color: #2f5bf6;
-            border: 1px solid #e1e7fe;
-            background: #e1e7fe;
+            border: 1px solid #2f5bf6;
             box-shadow: none;
         }
     }
@@ -115,6 +114,25 @@
 
             &>.mdi {
                 color: inherit;
+            }
+        }
+    }
+
+    &.button-light {
+        background-color: #F8F8F8;
+        color: #9E9E9E;
+        border-color: #F8F8F8;
+
+        &>.mdi {
+            color: #9E9E9E;
+        }
+
+        &:hover {
+            background: $color_primary_light;
+            color: #fff;
+
+            &>.mdi {
+                color: #fff;
             }
         }
     }
@@ -181,6 +199,10 @@
             color: #646f79;
             font-weight: 600;
         }
+
+        &.button-text-primary {
+            color: $color_primary;
+        }
         
         &[disabled],
         &.disabled,
@@ -213,6 +235,14 @@
 
         &>.mdi {
             margin: 0 -5px;
+        }
+    }
+
+    &.button-lg {
+        padding: 10px 65px;
+
+        &.button-icon {
+            padding: 10px 25px;
         }
     }
 

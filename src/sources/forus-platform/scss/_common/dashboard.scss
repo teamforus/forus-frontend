@@ -939,6 +939,25 @@ $colorPrimaryLight: $color_primary_light;
                 }
             }
 
+            .card-section-actions-details {
+                .card-section-actions-label {
+                    font: 600 11px/18px $bf;
+                    text-align: right;
+                    color: #134478;
+                    margin: 0 0 5px;
+                }
+
+                .card-section-actions-value {
+                    font: 500 12px/20px $bf;
+                    text-align: right;
+                    color: #000000;
+                }
+
+                &:not(:first-child) {
+                    padding-top: 15px;
+                }
+            }
+
             &.card-section-actions-bottom {
                 top: auto;
                 bottom: 25px;
@@ -1955,10 +1974,12 @@ $colorPrimaryLight: $color_primary_light;
             }
 
             ul {
-                padding: 0px 20px;
-                list-style: circle;
-
                 li {
+                    font: inherit;
+                    background-image: url('../img/icon-list.svg');
+                    background-repeat: no-repeat;
+                    line-height: 30px;
+                    padding-left: 50px;
                     font-weight: 400;
                 }
             }
@@ -3099,11 +3120,17 @@ $colorPrimaryLight: $color_primary_light;
                 flex-grow: 1;
             }
 
+            .attachment-date {
+                font: 400 12px/25px $bf;
+                margin-right: 20px;
+            }
+
             .attachment-preview {
                 display: flex;
                 @include ellipsis();
                 color: #262626;
                 font: 500 12px/25px $bf;
+                flex: unset;
 
                 .mdi {
                     float: left;
@@ -5442,6 +5469,26 @@ $colorPrimaryLight: $color_primary_light;
                 max-width: calc(100% - 200px);
             }
         }
+
+        &.compact-datalist-outline {
+            padding: 5px 20px;
+            border: 1px dashed #ccc;
+            border-radius: $borderRadius;
+            
+            .datalist-row {
+                .datalist-key {
+                    color: $color_primary;
+                }
+                
+                .datalist-value {
+                    color: $tc;
+                }
+
+                &:last-child {
+                    border-bottom: 0;
+                }
+            }
+        }
     }
 
     &.block-switch-table {
@@ -5734,126 +5781,6 @@ $colorPrimaryLight: $color_primary_light;
                 }
             }
 
-            .modal-photo-upload {
-                width: 1200px;
-                display: flex;
-                border-radius: inherit;
-                max-width: 100%;
-
-                .button {
-                    padding-left: 25px;
-                    padding-right: 25px;
-                    @include ellipsis();
-                }
-
-                .photo-upload-crop {
-                    width: 60%;
-                    padding: 50px;
-                    background: #f7f9fc;
-                    border-right: 1px solid #d2e6ff;
-
-                    .crop-control {
-                        position: relative;
-                        width: 60%;
-                        float: left;
-                        border-radius: 8px;
-                        overflow: hidden;
-
-                        .crop-control-ratio {
-                            width: 100%;
-                            height: auto;
-                            display: block;
-                            opacity: 0;
-                        }
-
-                        ui-cropper {
-                            @include fill_parent();
-                        }
-                    }
-
-                    .crop-control-preview {
-                        width: 40%;
-                        padding-left: 20px;
-                        display: flex;
-                        flex-direction: column;
-                        float: left;
-
-                        img {
-                            display: block;
-                            width: 100%;
-                            border-radius: 8px;
-                            border: 1px solid #dadada;
-                            box-shadow: 2px 5px 20px rgba(0, 0, 0, .075);
-                        }
-
-                        .crop-control-orignal {
-                            margin-bottom: 20px;
-                            height: 100%;
-                        }
-
-                        .crop-control-thumbnails {
-                            width: 100%;
-                            height: 100%;
-                            display: flex;
-                        }
-
-                        .crop-control-thumbnail {
-                            width: 50%;
-                            margin-right: 10px;
-
-                            &:last-child {
-                                margin-right: 0;
-                                margin-left: 10px;
-
-                                img {
-                                    border-radius: 1000px;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                .photo-upload-details {
-                    width: 40%;
-                    background: #fff;
-
-                    .photo-upload-header {
-                        padding: 50px 50px 25px;
-                        border-bottom: 1px solid #d2e6ff;
-
-                        .photo-upload-title {
-                            font: 700 22px/32px $bf;
-                            color: #151b26;
-                            margin: 0 0 10px;
-                        }
-
-                        .photo-upload-subtitle {
-                            font: 400 16px/22px $bf;
-                            color: #646f79;
-                        }
-                    }
-
-                    .photo-upload-body {
-                        padding: 25px 50px;
-                        border-bottom: 1px solid #d2e6ff;
-
-                        .photo-upload-heading {
-                            font: 700 18px/26px $bf;
-                            color: #282b39;
-                            margin: 0 0 15px;
-                        }
-
-                        .button {
-                            margin-bottom: 20px;
-                        }
-                    }
-
-                    .photo-upload-footer {
-                        padding: 25px 50px;
-                    }
-                }
-            }
-
             .modal-icon-rounded {
                 background: #fff;
                 display: inline-block;
@@ -6023,17 +5950,11 @@ $colorPrimaryLight: $color_primary_light;
         display: flex;
         justify-content: center;
 
-        &.no-border {
-            border: 0 !important;
-        }
-
         .footer-text {
             font: 500 18px $bf;
             color: #151b26;
             margin-bottom: 20px;
         }
-
-        // .modal-footer-links {}
 
         .modal-footer-link {
             display: block;
@@ -6045,6 +5966,16 @@ $colorPrimaryLight: $color_primary_light;
                 width: 40px;
                 float: left;
             }
+        }
+
+        &.modal-footer-light {
+            background-color: #fff;
+            border-bottom-left-radius: inherit;
+            border-bottom-right-radius: inherit;
+        }
+
+        &.no-border {
+            border: 0 !important;
         }
     }
 
@@ -6541,6 +6472,157 @@ $colorPrimaryLight: $color_primary_light;
         }
     }
 
+    &.modal-photo-upload {
+        cursor: default;
+
+        .modal-title {
+            font: 500 21px/29px $bf;
+            text-align: center;
+            color: #191A1C;
+            margin-bottom: 10px;
+        }
+
+        .modal-description {
+            font: 400 15px/22px $bf;
+            text-align: center;
+            color: #454545;
+            margin: 0 0 18px;
+        }
+
+        .modal-window {
+            width: 820px;
+            border-radius: 12px;
+
+            .modal-body {
+                .photo-crop {
+                    display: flex;
+                    flex-direction: column;
+                    margin-bottom: -10px;
+
+                    .photo-crop-image {
+                        width: 650px;
+                        max-width: 100%;
+                        display: flex;
+                        border-radius: inherit;
+                        flex-direction: row;
+                        margin: 0 auto 18px;
+    
+                        .photo-crop-control {
+                            position: relative;
+                            width: 62%;
+                            float: left;
+                            border-radius: 0;
+                            overflow: hidden;
+                            flex-direction: column;
+                            align-self: start;
+    
+                            .crop-control-ratio {
+                                width: 100%;
+                                height: auto;
+                                display: block;
+                                opacity: 0;
+                            }
+    
+                            ui-cropper {
+                                @include fill_parent();
+                            }
+                        }
+    
+                        .photo-crop-preview {
+                            width: 38%;
+                            padding-left: 20px;
+                            display: flex;
+                            flex-direction: column;
+                            float: left;
+    
+                            img {
+                                display: block;
+                                width: 100%;
+                                border-radius: 0;
+                                border: 1px solid #dadada;
+                                box-shadow: 2px 5px 20px rgba(0, 0, 0, .075);
+                            }
+    
+                            .crop-control-orignal {
+                                margin-bottom: 20px;
+                                height: 100%;
+                            }
+    
+                            .crop-control-thumbnails {
+                                width: 100%;
+                                height: 100%;
+                                display: flex;
+                            }
+    
+                            .crop-control-thumbnail {
+                                width: 50%;
+    
+                                &:first-child {
+                                    padding-right: 5px;
+                                }
+    
+                                &:last-child {
+                                    padding-left: 5px;
+    
+                                    img {
+                                        border-radius: 1000px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .photo-crop-info {
+                        text-align: center;
+                        color: #5e636b;
+                        font: 400 13px/20px $bf;
+                        margin: 0 0 5px;
+                    }
+
+                    .form {
+                        .checkbox {
+                            .checkbox-label {
+                                text-align: center;
+                                color: #5e636b;
+                                font: 400 13px/20px $bf;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        .modal-footer {
+            .button {
+                padding: 10px 50px;
+            }
+        }
+    }
+
+    &.modal-employee-add {
+        .modal-window {
+            width: 820px;
+            border-radius: 12px;
+
+            .modal-title {
+                font: 500 21px/29px $bf;
+                text-align: center;
+                color: #191A1C;
+                margin-bottom: 10px;
+            }
+
+            .modal-description {
+                font: 400 15px/22px $bf;
+                text-align: center;
+                color: #454545;
+            }
+
+            .modal-actions {
+                text-align: center;
+            }
+        }
+    }
+
     @media screen and (max-width: 1500px) {
         .modal-content {
             width: 1000px;
@@ -6740,6 +6822,10 @@ $colorPrimaryLight: $color_primary_light;
         padding: 0;
     }
 
+    .text-primary {
+        color: #305dfb !important;
+    }
+
     .card {
         border: 1px solid #d2e6ff;
         box-shadow: 5px 25px 35px rgba($color: #000000, $alpha: 0.075);
@@ -6821,6 +6907,12 @@ $colorPrimaryLight: $color_primary_light;
             }
         }
 
+        &.button-text {
+            &.button-text-primary {
+                color: #305dfb;
+            }
+        }
+
         &.button-default {
             background: #282b39;
             border-color: #282b39;
@@ -6895,27 +6987,20 @@ $colorPrimaryLight: $color_primary_light;
         }
     }
 
+    .modal {
+        .modal-window {
+            background: #fff;
+        }
+    }
+
     &.signup-layout-new {
         background-color: #fff;
 
         .button {
-            line-height: 20px;
+            line-height: 28px;
             font-size: 16px;
             font-weight: 500;
             border-radius: $borderRadius / 2;
-
-            /* &.button-sm {
-                font: 500 14px/24px $bf;
-                padding: 10px 15px;
-
-                &:not(.button-text) {
-                    .mdi {
-                        font-size: 24px;
-                        margin-left: -30px;
-                        margin-right: 15px;
-                    }
-                }
-            } */
 
             &.button-disabled, [disabled] {
                 background: #eff2f4;

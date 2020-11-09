@@ -1,19 +1,20 @@
 module.exports = {
-    title: "Voucher QR-Code",
+    title: "Tegoed QR-Code",
     title_assign: "Toekennen aan account",
     labels: {
-        sent_to_email: 'Verstuur naar e-mail adres:',
+        sent_to_email: 'Verstuur naar e-mailadres:',
         assign_to_identity: 'Toekennen aan account:'
     },
     placeholders: {
-        email: 'E-mail adres'
+        email: 'E-mailadres',
+        bsn: 'BSN',
     },
-    info_assign: "Wanneer toegekend heeft de voucher een nieuwe eigenaar. De nieuwe eigenaar kan de voucher beheren via de webshop. Hierdoor verliest u eigenaarschap en daarmee de functies: via e-mail versturen en QR-code printen.",
+    info_assign: "Wanneer toegekend heeft het tegoed een nieuwe eigenaar. De nieuwe eigenaar kan het tegoed beheren via de webshop. Hierdoor verliest u eigenaarschap en daarmee de functies: via e-mail versturen en QR-code printen.",
     success: {
         sending_title: "Succes",
-        sending_details: "Voucher verstuurd",
+        sending_details: "Tegoed verstuurd",
         assigned_title: "Succes",
-        assigned_details: "Voucher toegekend",
+        assigned_details: "Tegoed toegekend",
     },
     buttons: {
         close: "Sluiten",

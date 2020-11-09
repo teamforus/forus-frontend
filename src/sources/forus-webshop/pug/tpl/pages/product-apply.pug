@@ -3,7 +3,10 @@ top-navbar
 section.section.section-product: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
-        .breadcrumb-item.active Fondsen
+        a(ui-sref="products").breadcrumb-item Aanbod
+        a(ui-sref="products-show($ctrl.product)" ng-bind="$ctrl.product.name").breadcrumb-item
+        .breadcrumb-item.active Reserveren
+    
     product-card(product="$ctrl.product")
         
     .block.block-vouchers(ng-if="$ctrl.applicableVouchers.length > 0")
@@ -16,10 +19,12 @@ section.section.section-product: .wrapper
                 .voucher-name(ng-bind="voucher.fund.name")
                 .voucher-organization(ng-bind="voucher.fund.organization.name")
                 .voucher-value(ng-bind="voucher.amount | currency_format")
-            .voucher-overview:  button.button.button-primary(ng-click="$ctrl.applyForProduct(voucher)") {{ "product_apply.buttons.use" | translate }}
+            .voucher-overview:  button.button.button-primary(
+                ng-click="$ctrl.applyForProduct(voucher)"
+                ng-bind="'product_apply.buttons.use' | translate")
             .voucher-overview
                 .voucher-overview-item
-                    .voucher-overview-label {{ "product_apply.labels.transactions" | translate }}
+                    .voucher-overview-label(ng-bind="'product_apply.labels.transactions' | translate")
                     .voucher-overview-value(ng-bind="voucher.transactions.length")
                 .voucher-overview-item
                     .voucher-overview-label {{ "product_apply.labels.last" | translate }}
@@ -28,3 +33,4 @@ section.section.section-product: .wrapper
                         small {{ "product_apply.labels.subtract" | translate }}
                     .voucher-overview-value(ng-if="voucher.transactions.length == 0")
                         span.text-muted {{ "product_apply.labels.none" | translate }}
+            .voucher-item-overlay(ng-click="$ctrl.applyForProduct(voucher)")

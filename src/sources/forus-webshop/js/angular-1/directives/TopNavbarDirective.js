@@ -1,7 +1,7 @@
 let TopNavbarDirective = function(
+    $state,
     $scope,
     $translate,
-    $state,
     ModalService,
     ConfigService,
     FundService
@@ -20,37 +20,12 @@ let TopNavbarDirective = function(
         $ctrl.funds = res.data.data;
     })
 
-    $scope.startFundRequest = () => {
-        if ($ctrl.funds.length > 0) {
-            $state.go('fund-request', {
-                fund_id: $ctrl.funds[0].id
-            });
-        }
-    };
-
-    $scope.openAuthPopup = function () {
-        ModalService.open('modalAuth', {});
-    };
-
-    $scope.openPinCodePopup = function () {
-        ModalService.open('modalPinCode', {});
-    };
-
-    $scope.openActivateCodePopup = function () {
-        ModalService.open('modalActivateCode', {});
-    };
-
-    $scope.openAuthCodePopup = function () {
-        ModalService.open('modalAuthCode', {});
-    };
-    
-    $scope.showPopupOffices = function() {
-        ModalService.open('modalOffices', {});
-    };
-
-    $scope.showPopupOffices = function() {
-        ModalService.open('modalOffices', {});
-    };
+    $scope.startFundRequest = () => $state.go('start');
+    $scope.openAuthPopup = () => ModalService.open('modalAuth', {});
+    $scope.openPinCodePopup = () => ModalService.open('modalPinCode', {});
+    $scope.openAuthCodePopup = () => ModalService.open('modalAuthCode', {});
+    $scope.showPopupOffices = () => ModalService.open('modalOffices', {});
+    $scope.openActivateCodePopup = () => $state.go('start');
 
     $scope.cfg = {
         logoExtension: ConfigService.getFlag('logoExtension'),
@@ -72,9 +47,7 @@ let TopNavbarDirective = function(
     }
 
     $scope.$ctrl.hideUserMenu = () => {
-        $scope.$apply(() => {
-            $scope.$ctrl.userMenuOpened = false;
-        });
+        $scope.$apply(() => $scope.$ctrl.userMenuOpened = false);
     }
 
     $scope.updateScrolled = function() {
@@ -99,9 +72,9 @@ module.exports = () => {
         restrict: "EA",
         replace: true,
         controller: [
+            '$state',
             '$scope',
             '$translate',
-            '$state',
             'ModalService',
             'ConfigService',
             'FundService',

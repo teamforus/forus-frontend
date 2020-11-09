@@ -1,3 +1,5 @@
+@import '../general/vars.scss';
+
 /*==========  Style Sheet - Vars  ==========*/
 
 // navbar
@@ -17,6 +19,16 @@ $tc-start-btn:       #fff;
 $btn-start-bg:       #E60103; 
 $btn-start-btn:      #E60103;
 $btn-start-border:   transparent;
+
+// sign up
+$sign_up_accent_color: #191A1C;
+$sign_up_accent_color_light: #7E818C;
+$sign_up_link_color: #E60004;
+$sign_up_step_btns_color: #E60004;
+$sign_up_digid_btn_bkg: #fff;
+$sign_up_digid_btn_text: #191818;
+$sign_up_digid_btn_border: 1px solid #191818;
+$sign_up_digid_btn_border_radius: 0;
 
 $bg-values:         none;
 

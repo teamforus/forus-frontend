@@ -4,12 +4,12 @@
     .product-card {
         background-color: #fff;
         border-radius: $border_radius;
-        margin-bottom: 50px;
-        box-shadow: 0 10px 25px rgba(#000, .2);
+        margin-bottom: 30px;
+        box-shadow: $base_shadow;
         cursor: default;
         @include cf();
         position: relative;
-        // overflow: hidden;
+        min-height: 300px;
         display: flex;
 
         .product-photo {
@@ -21,9 +21,7 @@
             background-size: cover;
             background-position: 50%;
             background-repeat: no-repeat;
-            border-radius: 0;
-            border-top-left-radius: inherit;
-            border-bottom-left-radius: inherit;
+            border-radius: $border_radius;
 
             img {
                 width: 100%;
@@ -38,13 +36,13 @@
             width: 100%;
             position: relative;
             background: #fff;
-            border-radius: 0;
+            border-radius: $border_radius;
             border-top-right-radius: inherit;
             border-bottom-right-radius: inherit;
 
             .product-name {
                 color: #00122a;
-                font: 700 26px $bf;
+                font: 700 22px $bf;
 
                 .label {
                     margin-top: 6px;
@@ -53,183 +51,124 @@
                 }
             }
 
-            .product-categories {
-                color: #282b39;
-                font: 600 16px $bf;
-                margin-bottom: 20px;
+            .organization-name {
+                color: #646f79;
+                font: 700 14px/24px $bf;
+                margin: 0px 0px 20px;
             }
 
-            .product-funds {
-                margin-bottom: 10px;
-                
-                .product-fund-label {
-                    font: 500 10px $bf;
-                    color: #646f79;
-                    margin-bottom: 5px;
-                }
-
-                .product-fund-list {
-                    font: 700 16px $bf;
-                    color: #282b39;
-                }
-            }
-
-            .product-price {
-                margin-top: 20px;
-                margin-bottom: 20px;
-
-                .product-price-new {
-                    font: 700 24px $bf;
-                    color: #151b26;
-                    margin-bottom: 5px;
-                    display: flex;
-                    align-items: center;
-                    
-                    .new-value {
-                        padding: 0px 10px;
-                    }
-                }
-
-                .product-price-old {
-                    font: 400 18px $bf;
-                    color: #646f79;
-                    display: flex;
-                    align-items: center;
-                    text-decoration: line-through;
-
-                    .old-value {
-                        padding: 0 10px;
-                    }
-                }
-
-                .product-price-insufficient {
-                    font: 400 18px/20px "Lato", arial, sans-serif;
-                    color: #646f79;
-                    
-                    .tooltip-block {
-                        margin: 0 0 0 3px;
-                    }
-                }
-
-                &:last-child {
-                    margin-bottom: 0;
-                }
-            }
-
-            .product-expire {
-                margin-bottom: 20px;
-
-                .expire-label {
-                    font: 500 13px $bf;
-                    color: #646f79;
-                }
-
-                .expire-value {
-                    font: 700 24px $bf;
-                    color: #282b39;
-                }
-
-                &:last-child {
-                    margin-bottom: 0;
-                }
-            }
-
-            .product-details-link {
-                font: 600 13px/20px $bf;
-                color: #083f49;
-                width: 100%;
-                cursor: pointer;
-                display: block;
-
-                .mdi {
-                    color: #3396a7;
-                    display: inline-block;
-                    font-size: 1.5em;
-                    line-height: 20px;
-                    vertical-align: bottom;
-                    position: relative;
-                    transform: translate(0px);
-                    transition: .4s;
-                }
-
-                &:hover {
-                    .mdi {
-                        transform: translate(5px);
-                    }
-                }
-            }
-            
-            .button {
-                padding-left: 100px;
-                padding-right: 100px;
-            }
-        }
-
-        .product-funds-list {
-            display: flex;
-            flex-direction: column;
-            padding-top: 20px;
-
-            .fund-item {
+            .product-properties {
                 display: flex;
                 flex-direction: row;
-                margin-bottom: 10px;
-                border: 1px solid $border_color;
-                border-radius: $border_radius;
-                overflow: hidden;
+                align-items: center;
+                padding: 0px 0px 20px;
+                margin: 0px 0px 20px;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
-                .fund-item-media {
-                    height: 48px;
-                    border-right: 1px solid $border_color;
-                    
-                    .fund-item-media-img {
-                        height: 100%;
-                    }
-                }
+                .product-property {
+                    min-width: 250px;
 
-                .fund-item-name {
-                    font: 700 14px/28px $bf;
-                    padding: 10px 20px;
-                    border-right: 1px solid $border_color;
-                    flex-grow: 1;
-                }
-
-                .fund-item-limit {
-                    padding: 12px 20px;
-                    display: flex;
-                    flex-direction: row;
-                    border-right: 1px solid $border_color;
-
-                    .fund-item-limit-label {
-                        color: #646F79;
-                        font: 700 12px/22px $bf;
-                        margin-right: 5px;
+                    .product-property-label {
+                        display: flex;
+                        font: 600 12px/16px $bf;
+                        color: #646f79;
+                        margin-bottom: 10px;
                     }
 
-                    .fund-item-limit-value {
-                        font: 700 14px/20px $bf;
-                        height: 22px;
-                        width: 22px;
-                        border-radius: 22px;
-                        border: 1px solid $border_color;
-                        text-align: center;
+                    .product-property-value {
+                        color: #282b39;
+                        font: 600 16px/18px $bf;
                     }
-                }
 
-                .fund-item-price {
-                    font: 700 22px/28px $bf;
-                    padding: 10px 20px;
-                }
-
-                .fund-item-apply {
-                    background-color: #F7F9FB;
-                    font: 700 13px/28px $bf;
-                    padding: 10px 20px;
+                    &.product-property-full {
+                        width: 100%;
+                        max-width: 100%;
+                    }
                 }
 
                 &:last-child {
-                    margin-bottom: 0px;
+                    border-bottom: none;
+                    margin: 0;
+                    padding: 0;
                 }
+            }
+        }
+    }
+
+    .product-funds-list {
+        display: flex;
+        flex-direction: column;
+        cursor: default;
+
+        .fund-item {
+            display: flex;
+            flex-direction: row;
+            border-bottom: 1px solid $border_color;
+            border-radius: $border_radius;
+            overflow: hidden;
+
+            .fund-item-section {
+                border-right: 1px solid $border_color;
+                padding: 15px 25px;
+                min-width: 175px;
+                display: flex;
+                flex-direction: column;
+
+                .fund-item-section-label {
+                    display: flex;
+                    font: 700 12px/20px $bf;
+                    color: #646F79;
+                    justify-content: flex-end;
+                }
+
+                .fund-item-section-value {
+                    display: flex;
+                    font: 700 22px/30px $bf;
+                    justify-content: flex-end;
+                }
+
+                &.fund-item-section-details {
+                    padding-left: 0;
+                    display: flex;
+                    flex-direction: row;
+                    flex-grow: 1;
+                    border-right: 1px solid $border_color;
+                    border-right: 0;
+
+                    .fund-item-media {
+                        width: 80px;
+                        padding: 0 15px;
+        
+                        .fund-item-media-img {
+                            width: 100%;
+                            display: block;
+                            border-radius: $border_radius;
+                        }
+                    }
+
+                    .fund-item-content {
+                        display: flex;
+                        flex-direction: column;
+
+                        .fund-item-title {
+                            font: 700 18px/25px $bf;
+                            color: #303030;
+                        }
+            
+                        .fund-item-subtitle {
+                            font: 400 14px/25px $bf;
+                            color: #303030;
+                        }
+                    }
+                }
+            
+                &:last-child {
+                    border-right: 0;
+                }
+            }
+
+            &:last-child {
+                border-bottom: 0;
             }
         }
     }
@@ -298,13 +237,11 @@
                 min-width: 100%;
                 max-width: 100%;
                 background: none;
-                border-radius: 0;
-                border-top-left-radius: inherit;
-                border-top-right-radius: inherit;
+                border-radius: $border_radius;
 
                 img {
                     display: block;
-                    border-radius: 0;
+                    border-radius: $border_radius;
                     border-top-left-radius: inherit;
                     border-top-right-radius: inherit;
                 }
@@ -312,14 +249,103 @@
 
             .product-details {
                 padding: 25px;
-                border-radius: 0;
+                border-radius: $border_radius;
                 border-bottom-left-radius: inherit;
                 border-bottom-right-radius: inherit;
 
-                .button {
-                    padding-left: 20px;
-                    padding-right: 20px;
-                    width: 100%;
+                .product-properties {
+                    flex-direction: column;
+
+                    .product-property {
+                        width: 100%;
+                        display: flex;
+                        flex-direction: row;
+                        margin-bottom: 5px;
+
+                        .product-property-label,
+                        .product-property-value {
+                            width: 50%;
+                            flex-direction: column;
+                            justify-content: center;
+                        }
+    
+                        .product-property-label {
+                            text-align: left;
+                            align-items: flex-start;
+                            padding-right: 10px;
+                        }
+    
+                        .product-property-value {
+                            text-align: left;
+                            align-items: flex-end;
+                            padding-left: 10px;
+                            font-size: 14px;
+                        }
+
+                        &.product-property-full {
+                            width: 100%;
+                            flex-direction: column;
+
+                            .product-property-label,
+                            .product-property-value {
+                                width: 100%;
+                                padding: 0;
+                            }
+                        }
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .product-funds-list {
+            .fund-item {
+                flex-direction: column;
+
+                .fund-item-section {
+                    padding: 15px;
+                    border: none;
+                    display: flex;
+                    flex-direction: row;
+                    border-bottom: 1px solid $border_color;
+
+                    .button {
+                        width: 100%;
+                    }
+
+                    .fund-item-section-label,
+                    .fund-item-section-value {
+                        width: 50%;
+                        flex-direction: column;
+                        justify-content: center;
+                    }
+
+                    .fund-item-section-label {
+                        text-align: left;
+                        align-items: flex-start;
+                    }
+
+                    .fund-item-section-value {
+                        text-align: right;
+                        align-items: flex-end;
+                        font-size: 13px;
+                    }
+
+                    &.fund-item-section-details {
+                        padding: 15px;
+
+                        .fund-item-media {
+                            padding-left: 0;
+                            width: 65px;
+                        }
+                    }
+
+                    &:last-child {
+                        border-bottom: 0;
+                    }
                 }
             }
         }

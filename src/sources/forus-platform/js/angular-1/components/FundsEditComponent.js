@@ -69,7 +69,7 @@ let FundsEditComponent = function(
 
         $ctrl.validators.unshift({
             id: null,
-            email: "None"
+            email: "Geen"
         });
 
         if (!$rootScope.appConfigs.features.organizations.funds.criteria) {
