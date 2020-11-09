@@ -1,4 +1,4 @@
-$bf: 'Open Sans', arial, sans-serif;
+$footer_base_font: 'Open Sans', arial, sans-serif;
 
 &.block-sticky-footer {
     bottom: 0px;
@@ -30,7 +30,7 @@ $bf: 'Open Sans', arial, sans-serif;
     }
 
     li {
-        font: 400 14px/1.5em $bf;
+        font: 400 14px/1.5em $footer_base_font;
         text-align: center;
         padding: 10px 20px;
         width: 100%;
@@ -38,7 +38,7 @@ $bf: 'Open Sans', arial, sans-serif;
         height: 100%;
 
         &.button {
-            font: 400 14px/1.5em $bf;
+            font: 400 14px/1.5em $footer_base_font;
         }
 
         &.active, &:focus {
@@ -59,7 +59,7 @@ $bf: 'Open Sans', arial, sans-serif;
     &.block-sticky-footer {
         ul {
             li { 
-                font: 400 12px/26px $bf;
+                font: 400 12px/26px $footer_base_font;
                 padding: 10px 5px;
             }
         }
