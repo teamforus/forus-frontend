@@ -6,6 +6,7 @@ let ModalPhotoUploaderComponent = function(
     let $ctrl = this;
 
     $ctrl.targetFile = false;
+    $ctrl.confirmed = false;
 
     $ctrl.$onInit = () => {
         $ctrl.mediaConfig = MediaService.configByType($ctrl.modal.scope.type);

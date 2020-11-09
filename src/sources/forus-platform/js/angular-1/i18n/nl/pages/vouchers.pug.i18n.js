@@ -1,6 +1,6 @@
 module.exports = {
     header: {
-        title: "Vouchers",
+        title: "Tegoeden",
     },
     labels: {
         amount: "Bedrag",
@@ -22,7 +22,7 @@ module.exports = {
     },
     buttons: {
         add_new: "Aanmaken",
-        upload_csv: "Upload CSV",
+        upload_csv: "Upload bulkbestand",
         export: "Export",
         clear_filter: "Wis filter"
     },

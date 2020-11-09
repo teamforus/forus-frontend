@@ -1,21 +1,18 @@
-.modal.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-employee-add.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.cancel()")
     .modal-window.modal-notification(ng-class="$ctrl.class")
-        .modal-close(ng-click="$ctrl.close()")
+        .modal-close(ng-click="$ctrl.cancel()")
             include ../../../resources/platform-general/assets/img/svg/close.svg
-        .modal-header 
-            | {{ "sign_up_provider.employee.labels.employee_add_header" | translate }}
-
-        .modal-body
-            .modal-section.text-center
-                p(
-                    translate="sign_up_provider.employee.labels.employee_add_message"
-                    translate-values='{email: $ctrl.employee.email}')
-
-        .modal-footer.text-center
-            button.button.button-primary(
-                ng-click="$ctrl.confirm()"
-                translate="sign_up_provider.employee.labels.accept")
-            button.button.button-default(
-                ng-click="$ctrl.cancel()"
-                translate="sign_up_provider.employee.labels.cancel")
+        .modal-body: .modal-section
+            .modal-title(translate="sign_up_provider.employee.labels.employee_add_header")
+            .modal-description(
+                translate="sign_up_provider.employee.labels.employee_add_message"
+                translate-values='{email: $ctrl.email}')
+        .modal-footer
+            .flex-row
+                .flex-col: .button.button-primary-outline(
+                    ng-click="$ctrl.cancel()"
+                    translate="sign_up_provider.employee.labels.cancel")
+                .flex-col: .button.button-primary(
+                    ng-click="$ctrl.confirm()"
+                    translate="sign_up_provider.employee.labels.accept")

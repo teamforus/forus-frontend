@@ -263,7 +263,14 @@ let ProviderSignUpComponent = function(
                 $ctrl.enableSaveEmployeeBtn = false;
                 $ctrl.enableAddEmployeeBtn = true;
             }, (res) => {
-                form.errors = res.data.errors;
+                if (res.status == '429') {
+                    form.errors = {
+                        email: new Array(res.data.message)
+                    };
+                } else {
+                    form.errors = res.data.errors;
+                }
+
                 form.unlock();
 
                 $ctrl.enableSaveEmployeeBtn = true;
@@ -350,7 +357,15 @@ let ProviderSignUpComponent = function(
         $ctrl.setStep($ctrl.STEP_SELECT_ORGANIZATION);
     };
 
-    $ctrl.saveEmployee = () => {
+    $ctrl.blurInput = () => {
+        if ("activeElement" in document) {
+            document.activeElement.blur();
+        }
+    }
+
+    $ctrl.saveEmployee = () => {     
+        $ctrl.blurInput();       
+
         ModalService.open('employeeAddConfirmation', {
             email: $ctrl.employeeForm.values.email,
             success: (data) => {
