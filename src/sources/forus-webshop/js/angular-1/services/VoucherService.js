@@ -90,7 +90,7 @@ let VoucherService = function(
                 amount: voucher.amount,
                 type: voucher.type,
                 returnable: voucher.returnable,
-                transactions: this.composeTransactions(voucher),
+                transactions: voucher.transactions ? this.composeTransactions(voucher) : [],
                 created_at_locale: voucher.created_at_locale,
                 expire_at_locale: voucher.expire_at_locale,
                 last_active_day_locale: voucher.last_active_day_locale,
