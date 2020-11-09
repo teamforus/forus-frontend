@@ -16,7 +16,8 @@ let ModalPhysicalCardTypeComponent = function(
         $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.voucher = $ctrl.modal.scope.voucher;
         $ctrl.onAttached = $ctrl.modal.scope.onAttached;
-
+        $ctrl.state = $ctrl.modal.scope.state || 'select_type';
+        
         $ctrl.sendVoucherEmail = () => {
             $ctrl.close();
             $ctrl.modal.scope.sendVoucherEmail();
@@ -32,7 +33,6 @@ let ModalPhysicalCardTypeComponent = function(
             $ctrl.modal.scope.printQrCode();
         };
 
-        $ctrl.state = 'select_type';
         $ctrl.physicalCardType = 'old';
 
         $ctrl.activateCodeForm = FormBuilderService.build({
