@@ -119,6 +119,7 @@ app.directive('scrollEnd', require('./directives/ScrollEndDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
 app.directive('fileUploader', require('./directives/controls/FileUploaderDirective'));
 app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
+app.directive('products', require('./directives/ProductsDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
