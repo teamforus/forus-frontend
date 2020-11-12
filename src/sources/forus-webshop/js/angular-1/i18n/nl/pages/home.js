@@ -123,7 +123,7 @@ module.exports = {
             faq_twelve: "Hoe kom ik in aanmerking voor het Kindpakket?",
             twelve: "Als u denkt recht te hebben op het Kindpakket, neem dan contact op met de gemeente via telefoonnummer: 14 0594. De gemeente bekijkt dan of u voldoet aan de voorwaarden.",
             faq_fourteen: "Ik zie aanbod op de webshop staan, hoe kan ik een product of dienst kopen?",
-            fourteen: "Log in op de webshop en klik op 'Aanbod'. Kies vervolgens het aanbod dat u wilt en klik op 'Reserveer'. Klik op het Kindpakket-tegoed om het aanbod te reserveren. Het bedrag van het aanbod wordt van uw Kindpakket-tegoed afgehaald en er wordt een nieuwe QR-code aangemaakt. De nieuwe QR-code kan alleen gebruikt worden voor het aanbod dat u heeft gekocht.",
+            fourteen: "Log in op de webshop en klik op 'Aanbod'. Kies vervolgens het aanbod dat u wilt en klik op 'Reserveer'. Het bedrag van het aanbod wordt van uw Kindpakket-tegoed afgehaald en er wordt een nieuwe QR-code aangemaakt. De nieuwe QR-code kan alleen gebruikt worden voor het aanbod dat u heeft gekocht.",
         },
         noordoostpolder: {
             faq_one: "Hoe kan ik het Meedoenpakket activeren?",
@@ -146,7 +146,7 @@ module.exports = {
             faq_thirteen: "Kan ik de voucher aan iemand anders geven?",
             thirteen: "Nee, het tegoed is strikt persoonlijk. U mag het tegoed niet aan iemand anders geven. Maakt iemand anders wel gebruik van uw tegoed, dan gaat dit van uw eigen bedrag af.",
             faq_fourteen: "Ik zie aanbiedingen op de webshop staan, hoe kan ik een aanbieding kopen?",
-            fourteen: "Log in op de webshop en klik op 'Aanbod'. Kies vervolgens het aanbod die u wilt en klik op 'Reserveer'. Kies vervolgens een Meedoenpakket-tegoed om het aanbod mee te kopen. Het bedrag van het aanbod wordt van uw Meedoenpakket tegoed afgehaald en er wordt een nieuwe QR-code aangemaakt. De nieuwe QR-code kan alleen gebruikt worden voor de aanbieding die u heeft gekocht.",
+            fourteen: "Log in op de webshop en klik op 'Aanbod'. Kies vervolgens het aanbod die u wilt en klik op 'Reserveer'. Het bedrag van het aanbod wordt van uw Meedoenpakket-tegoed afgehaald en er wordt een nieuwe QR-code aangemaakt. De nieuwe QR-code kan alleen gebruikt worden voor de aanbieding die u heeft gekocht.",
         },
         winterswijk: {
             title: "Veelgestelde vragen",
