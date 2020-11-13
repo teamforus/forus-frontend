@@ -901,7 +901,7 @@ module.exports = {
             mobile_number: "Vul uw mobiele telefoonnummer in",
             confirm_email: "Bevestig uw e-mailadres",
             confirm_email_description: "Bevestig voordat we verder gaan uw e-mail adres. Klik op de link in de e-mail die is verzonden naar",
-            terms: "Er wordt gekeken of u al aan de voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan",
+            terms: "",
         },
         buttons: {
             go_step_2: "Ga verder naar stap 2",
