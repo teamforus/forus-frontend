@@ -45,7 +45,6 @@ header.section.section-sign-up-choose
                 .sign_up-pane-header(translate="fund_request.sign_up.header.title_step_2")
 
                 .sign_up-pane-body(ng-if="!$ctrl.hasApp")
-                    .sign_up-pane-heading(translate="Vul uw e-mailadres in om verder te gaan")
 
                     form(ng-submit="$ctrl.authForm.submit()").form: .row
                         .form-group.col.col-lg-9
@@ -57,7 +56,7 @@ header.section.section-sign-up-choose
                             button(
                                 ng-class="{'button-disabled': !$ctrl.authForm.values.email}"
                                 type="submit").button.button-primary.button-fill {{ "popup_auth.buttons.submit" | translate }}
-
+                    .sign_up-pane-text(ng-if="$ctrl.appConfigs.flags.privacyPage") #[a.text-primary-light(ui-sref="privacy") Hoe zit het met mijn privacy?] 
                     .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="fund_request.sign_up.labels.has_app").hide-sm
 
                 .sign_up-pane-body(ng-if="$ctrl.hasApp")
