@@ -24,6 +24,7 @@ let ModalSubsidyProductEditComponent = function(
 
         $ctrl.form = FormBuilderService.build($ctrl.readOnly ? $ctrl.readValues : {
             limit_total: 1,
+            unlimited_stock: false,
             limit_per_identity: 1,
             amount: $ctrl.readOnly ? $ctrl.product.price / 2 : 0,
             gratis: false,
@@ -36,7 +37,7 @@ let ModalSubsidyProductEditComponent = function(
                 enable_products: [{
                     id: $ctrl.product.id,
                     amount: form.values.gratis ? $ctrl.product.price : form.values.amount,
-                    limit_total: form.values.limit_total,
+                    limit_total: form.values.unlimited_stock ? 99999 : form.values.limit_total,
                     limit_per_identity: form.values.limit_per_identity,
                 }],
             }).then((res) => {
