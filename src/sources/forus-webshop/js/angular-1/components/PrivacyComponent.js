@@ -23,7 +23,7 @@ let PrivacyComponent = function(
                 'contact_email': '',
                 'accessibility_link': '',
             },
-            'noordoostpolder': {
+            'groningen': {
                 'organization_name': 'Groningen',
                 'website': 'https://gemeente.groningen.nl/privacyverklaring',
             }

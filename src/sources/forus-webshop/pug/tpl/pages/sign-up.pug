@@ -56,7 +56,7 @@ header.section.section-sign-up-choose
                             button(
                                 ng-class="{'button-disabled': !$ctrl.authForm.values.email}"
                                 type="submit").button.button-primary.button-fill {{ "popup_auth.buttons.submit" | translate }}
-                    .sign_up-pane-text(ng-if="$ctrl.appConfigs.flags.privacyPage") #[a.text-primary-light(ui-sref="privacy") Ik heb gelezen hoe er om wordt gegaan met mijn gegevens] 
+                    .sign_up-pane-text(ng-if="$root.appConfigs.flags.privacyPage") #[input(type="checkbox")] Ik heb de #[a.text-primary-light.sign_up-pane-link(ui-sref="privacy") privacyverklaring] gelezen
                     .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="fund_request.sign_up.labels.has_app").hide-sm
 
                 .sign_up-pane-body(ng-if="$ctrl.hasApp")
