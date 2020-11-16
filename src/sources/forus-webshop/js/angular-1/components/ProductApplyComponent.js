@@ -34,7 +34,7 @@ let ProductApplyComponent = function(
         return ModalService.open('modalProductApply', {
             expire_at: expire_at,
             product: $ctrl.product,
-            org_name: $ctrl.org_name,
+            org_name: $ctrl.product.organization.name,
             confirm: () => {
                 return VoucherService.makeProductVoucher(
                     voucher.address,

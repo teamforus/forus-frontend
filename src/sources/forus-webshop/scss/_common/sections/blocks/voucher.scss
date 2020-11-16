@@ -42,7 +42,11 @@
                     margin-right: 25px;
                     text-align: center;
                     display: flex;
+                    color: #595959;
                     /*flex-direction: column;*/
+                    text-decoration: underline;
+                    text-decoration-color: #595959;
+
                     align-items: center;
                     flex-grow: 1;
 
@@ -56,7 +60,7 @@
                         border-radius: 40px;
                         line-height: 40px;
                         text-align: center;
-                        color: #7b8893;
+                        color: #595959; 
                         font-size: 20px;
                         background: transparent;
                         border: none;
@@ -98,7 +102,7 @@
                     }
 
                     .action-item-name {
-                        color: #7b8893;
+                        color: #595959;
                         font: 600 12px $bf;
                         transition: color .4s;
                         margin: 0 3px;
@@ -110,8 +114,8 @@
 
                     &:hover {
                         .action-item-icon {
-                            border-color: #70c567;
-                            background: #70c567;
+                            border-color: $bc;
+                            background: $bc;
                             color: #fff;
                             box-shadow: 2px 5px 35px rgba(0, 0, 0, .25);
                             
@@ -123,14 +127,15 @@
                         }
 
                         .action-item-name {
-                            color: #70c567;
+                            color:  $bc;
+                            text-decoration: $bc underline;
                         }
                     }
                 }
             }
 
             .card-label {
-                color: #646f79;
+                color: $tc;
                 font: 400 14px/16px $bf;
 
                 a {
@@ -162,8 +167,8 @@
             }
             
             .card-value {
-                font: 700 16px $bf;
-                color: #272525;
+                font: 700 14px/16px $bf;
+                color: $tc;
                 margin-top: 10px;
 
                 &.card-value-sm {

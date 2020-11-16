@@ -88,6 +88,7 @@ app.service('IdentityEmailsService', require('./services/IdentityEmailsService')
 app.service('NotificationsService', require('./services/NotificationsService'));
 app.service('PhysicalCardsService', require('./services/PhysicalCardsService'));
 app.service('PhysicalCardsRequestService', require('./services/PhysicalCardsRequestService'));
+app.service('HelperService', require('./services/HelperService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
