@@ -83,14 +83,13 @@ block content
                                         | {{ "block_products.labels.new" | translate }} {{ product.price | currency_format }}
                     
                     .block.block-subsidies(ng-if="$ctrl.fund_type == 'subsidies' && ($ctrl.products.data.length > 0 && $ctrl.display_type == 'grid')")
-                        .product-row(ng-repeat="products_row in $ctrl.product_rows")
-                            .product-item(ng-repeat="product in products_row"): a(ui-sref="products-show(product)").product-item-inner
-                                .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
-                                    img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
-                                    .product-price(ng-if="!product.no_price" ng-bind="product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis'")
-                                .product-details
-                                    .product-name(ng-bind="product.name")
-                                    .product-provider(ng-bind="product.organization.name")
+                        .product-item(ng-repeat="product in $ctrl.products.data"): a(ui-sref="products-show(product)").product-item-inner
+                            .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
+                                img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
+                                .product-price(ng-if="!product.no_price" ng-bind="product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis'")
+                            .product-details
+                                .product-name(ng-bind="product.name")
+                                .product-provider(ng-bind="product.organization.name")
 
                     .block.block-products-list(
                         ng-if="$ctrl.fund_type == 'budget' && $ctrl.products.data.length > 0 && $ctrl.display_type == 'list'" id="products_list")
