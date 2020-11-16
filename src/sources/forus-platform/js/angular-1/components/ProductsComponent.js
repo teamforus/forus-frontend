@@ -12,7 +12,8 @@ let ProductsComponent = function(
         values: {},
     };
 
-    $ctrl.maxProductCount = appConfigs.flags.maxProductCount ? appConfigs.flags.maxProductCount : null;
+    $ctrl.maxProductCount = parseInt(appConfigs.features.products_hard_limit);
+    $ctrl.maxProductSoftLimit = parseInt(appConfigs.features.products_soft_limit);
 
     $ctrl.onPageChange = async (query) => {
         return $q((resolve, reject) => {
@@ -38,13 +39,7 @@ let ProductsComponent = function(
     };
 
     $ctrl.addProduct = function() {
-        if ($ctrl.maxProductCount && $ctrl.products.length >= $ctrl.maxProductCount) {
-            ModalService.open('modalNotification', {
-                type: 'danger',
-                title: 'product_edit.errors.already_added',
-                icon: 'product-error'
-            });
-        } else {
+        if (!$ctrl.maxProductCount || $ctrl.products.meta.total < $ctrl.maxProductCount) {
             $state.go('products-create', {
                 organization_id: $stateParams.organization_id
             });

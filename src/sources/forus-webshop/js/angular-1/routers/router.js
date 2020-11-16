@@ -97,6 +97,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             component: "accessibilityComponent",
         });
     }
+    
+    if (appConfigs.flags && appConfigs.flags.privacyPage) {
+        $stateProvider.state({
+            name: "privacy",
+            url: "/privacy",
+            component: "privacyComponent",
+        });
+    }
 
     $stateProvider.state({
         name: "me-app",
@@ -173,6 +181,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                     has_products: 1,
                     per_page: 100,
                     page: page,
+                    fund_type: 'budget'
                 });
             }, 4)],
         }
@@ -235,7 +244,18 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             ) => repackResponse(ProductCategoryService.list({
                 parent_id: 'null',
                 used: 1,
-            }))]
+            }))],
+            organizations: ['OrganizationService', 'HelperService', (
+                OrganizationService, HelperService
+            ) => HelperService.recursiveLeacher((page) => {
+                return OrganizationService.list({
+                    is_employee: 0,
+                    has_products: 1,
+                    per_page: 100,
+                    page: page,
+                    fund_type: 'subsidies'
+                });
+            }, 4)],
         }
     });
 

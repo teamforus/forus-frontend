@@ -1,7 +1,7 @@
 .block {
     &.block-map_card {
-        border-radius: 5px;
-        box-shadow: 0 10px 25px rgba(#000, .2);
+        border-radius: $border_radius;
+        box-shadow: $base_shadow;
         background: #fff;
         margin-bottom: 50px;
 
@@ -11,7 +11,7 @@
             padding: 15px 25px;
 
             .map_card-title {
-                color: #282b39;
+                color:  #595959;
                 font: 700 22px $bf;
                 margin-bottom: 5px;
             }

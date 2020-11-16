@@ -3,10 +3,9 @@ section.section.section-product: .wrapper
 
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
-        a(ui-sref="products").breadcrumb-item Aanbod
+        a(ui-sref="products" ng-if="$ctrl.useBudget").breadcrumb-item Aanbod
+        a(ui-sref="actions" ng-if="$ctrl.useSubsidies").breadcrumb-item Acties
         .breadcrumb-item.active(ng-bind="$ctrl.product.name")
-
-    .section-title(ng-bind="$ctrl.product.name")
 
     .block.block-product
         .product-card
@@ -18,71 +17,99 @@ section.section.section-product: .wrapper
                     span(ng-bind="$ctrl.product.name")
                     span.label.label-success(ng-if="!$ctrl.product.deleted && !$ctrl.product.sold_out" i18n="product.status.active")
                     span.label.label-danger(ng-if="!$ctrl.product.deleted && $ctrl.product.sold_out" i18n="product.status.out_of_stock")
-                .product-categories(ng-bind="$ctrl.product.product_category.name")
+                .organization-name(ng-bind="$ctrl.product.organization.name")
+
+                .product-properties
+                    .product-property
+                        .product-property-label(i18n="product.labels.category")
+                        .product-property-value(ng-bind="$ctrl.product.product_category.name")
+                    .product-property(ng-if="$ctrl.product.expire_at")
+                        .product-property-label(i18n="product.labels.expire")
+                        .product-property-value {{ "product.labels.expire_prefix" | translate }} {{ $ctrl.product.expire_at_locale }}
                 
-                .product-funds
-                    .product-fund-label(i18n="product.labels.fund")
-                    .product-fund-list(ng-if="$ctrl.product.funds.length > 0" ng-bind="$ctrl.fundNames")
+                .product-properties
+                    .product-property.product-property-full
+                        .product-property-label(i18n="product.labels.description")
+                        .product-property-value: .block.block-markdown: div(ng-bind-html="$ctrl.product.description_html")
 
-                .product-price(ng-if="$ctrl.useBudget")
-                    .product-price-old(ng-if="$ctrl.product.old_price && !$ctrl.product.no_price")
-                        .old-label(i18n="block_products.labels.old")
-                        .old-value(ng-bind="$ctrl.product.old_price | currency_format")
-                    .product-price-new(ng-if="!$ctrl.product.no_price")
-                        .new-label(i18n="block_products.labels.new")
-                        .new-value(ng-bind="$ctrl.product.price | currency_format")
-                    .product-price-insufficient.tooltip-block(ng-show="$ctrl.isApplicable == false" ng-if="$root.auth_user")
-                        span {{ ($ctrl.lowAmountVouchers.length ? 'product.low_amount' : 'product.no_vouchers') | translate }}
+        .block.block-info-card(ng-if="$ctrl.product.funds.length > 0")
+            .block-header(i18n="product.headers.funds" ui-sref="vouchers")  
+            .block-products-content
+                .product-funds-list: .fund-item(ng-repeat="fund in $ctrl.product.funds")
+                    .fund-item-section.fund-item-section-details
+                        .fund-item-media: img.fund-item-media-img(ng-src="{{ fund.logo.sizes.thumbnail || '/assets/img/placeholders/fund-thumbnail.png' }}")
+                        .fund-item-content
+                            .fund-item-title(ng-bind="fund.name")
+                            .fund-item-subtitle(ng-bind="fund.organization.name")
+                    
+                    .fund-item-section.text-right(ng-if="fund.type == 'subsidies' && fund.meta.isApplicableSubsidy")
+                        .fund-item-section-label(i18n="product.labels.limit")
+                        .fund-item-section-value(ng-bind="fund.limit_available")
+                    
+                    //- reserve product using voucher
+                    .fund-item-section(ng-if="!fund.meta.isApplicableSubsidy && !$ctrl.product.no_price && $ctrl.useBudget && fund.meta.isApplicable && !$ctrl.product.deleted && !$ctrl.product.sold_out")
+                        .button.button-dark.button-flat(
+                            i18n="product.buttons.buy" 
+                            ng-click="$ctrl.applyProduct()")
 
-                .product-expire(ng-if="$ctrl.product.expire_at")
-                    .expire-label(i18n="voucher.labels.expire")
-                    .expire-value(ng-bind="$ctrl.product.expire_at_locale")
-                
-                .button.button-primary(
-                    ng-if="!$ctrl.product.no_price && $ctrl.useBudget && $ctrl.isApplicable && !$ctrl.product.deleted && !$ctrl.product.sold_out"
-                    ng-click="$ctrl.applyProduct()") RESERVEER
-                
-                .button.button-primary(
-                    ng-if="!$root.auth_user && !$ctrl.product.deleted && !$ctrl.product.sold_out" 
-                    ng-click="openAuthPopup()") 
-                        span(ng-if="$ctrl.useBudget") LOG IN OM TE RESERVEREN
-                        span(ng-if="$ctrl.useSubsidies && !$ctrl.useBudget") Login
+                    //- request fund
+                    .fund-item-section(ng-if="fund.type == 'subsidies' ? !fund.meta.isApplicableSubsidy : !fund.meta.isApplicable")
+                        .button.button-light.button-flat(
+                            translate="product.buttons.{{ $root.client_key }}.request" 
+                            translate-default="{{ 'product.buttons.request' | translate }}" 
+                            ng-click="$ctrl.requestFund(fund)")
 
-                .product-funds-list
-                    .fund-item(ng-repeat="fund in $ctrl.product.funds")
-                        .fund-item-media: img.fund-item-media-img(src="../assets/img/placeholders/fund-thumbnail.png")
-                        .fund-item-name(ng-bind="fund.name")
-                        .fund-item-limit(ng-if="fund.type == 'subsidies'")
-                            .fund-item-limit-label Aantal beschikbaar:
-                            .fund-item-limit-value(ng-bind="fund.limit_available")
-                        .fund-item-apply(
-                            ng-click="$ctrl.requestFund(fund)"
-                            ng-if="fund.type == 'subsidies' ? !fund.meta.isApplicableSubsidy : !fund.meta.isApplicable") Aanvragen
-                        .fund-item-price(
-                            ng-if="!$ctrl.product.no_price && (fund.type == 'subsidies' ? fund.meta.isApplicableSubsidy : fund.meta.isApplicable)"
-                            ng-bind="fund.price == 0 ? 'Gratis' : ((fund.type == 'subsidies' ? fund.price : $ctrl.product.price) | currency_format)")
+                    //- product price
+                    .fund-item-section.fund-item-price.text-right(ng-if="!$ctrl.product.no_price && (fund.type == 'subsidies' ? fund.meta.isApplicableSubsidy : fund.meta.isApplicable)")
+                        .fund-item-section-label(ng-if="fund.type == 'budget'") U betaald met tegoed:
+                        .fund-item-section-label(ng-if="fund.type == 'subsidies'") Wat u betaalt:
 
-        .block.block-info-card
-            .block-header(i18n="voucher.labels.shopdetail")
-            .info-office(ng-repeat="office in $ctrl.product.offices")
-                .info-office-photo(style="background-image: url('{{ office.photo.sizes.thumbnail || (office.organization.logo.sizes.thumbnail || './assets/img/placeholders/office-thumbnail.png') }}')")
-                    img(ng-src="{{ office.photo.sizes.thumbnail || (office.organization.logo.sizes.thumbnail || './assets/img/placeholders/office-thumbnail.png') }}", alt="")
-                .info-office-details
-                    .info-office-title(ng-bind="$ctrl.product.organization.name")
-                    .info-office-description
-                        div(ng-if="office.address" ng-bind="office.address")
-                        div(ng-if="$root.auth_user" ng-bind="office.phone || ' '")
-                    .sub-description(i18n="voucher.labels.offers")
+                        .fund-item-section-value(ng-if="$ctrl.product.no_price") Geen data
+                        .fund-item-section-value(ng-if="fund.price == 0") Gratis
+                        .fund-item-section-value(
+                            ng-if="!$ctrl.product.no_price && fund.price != 0"
+                            ng-bind="(fund.type == 'subsidies' ? fund.price : $ctrl.product.price) | currency_format")
 
-        .block.block-info-card
-            .block-header(i18n="voucher.labels.productdetail")
-            .block-content: .block.block-markdown
-                div(ng-bind-html="$ctrl.product.description_html")
-        
+                    .fund-item-section(ng-if="fund.meta.isApplicableSubsidy && !$ctrl.useBudget")
+                        .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund.id)") Open tegoed
+
+        .block.block-pane(ng-click="$ctrl.goToProvider($event, $ctrl.product.organization)" ng-class="{'last-child': $ctrl.product.organization.showOffices}")
+            .pane-head(i18n="product.headers.organization")  
+            .pane-body: .block.block-organizations: .organization-item
+                .organization-pane(ng-click="$ctrl.toggleOffices($event, $ctrl.product.organization)")
+                    .organization-logo(ng-click="$ctrl.goToProvider($event, $ctrl.product.organization)")
+                        img(ng-src="{{ $ctrl.product.organization.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png'  }}").organization-logo-img
+                    .organization-title
+                        .organization-title-value(ng-click="$ctrl.goToProvider($event, $ctrl.product.organization)" ng-bind="$ctrl.product.organization.name")
+                        .organization-title-count(ng-click="$ctrl.goToProvider($event, $ctrl.product.organization)" ng-bind="$ctrl.product.offices.length")
+                    .organization-chevron: .mdi(ng-class="'mdi-chevron-' + ($ctrl.product.organization.showOffices ? 'up' : 'right')")           
+      
+        .block.block-organizations(ng-if="$ctrl.product.organization.showOffices"): .organization-item
+            .organization-offices: .block.block-offices
+                a(ng-repeat="office in $ctrl.product.offices" ng-click="$ctrl.goToOffice(office)").office-item
+                    .office-item-map-icon: .mdi.mdi-map-marker
+                    .office-pane
+                        .office-pane-block
+                            .office-logo: img(
+                                ng-src="{{ office.organization.logo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}"
+                                ).office-logo-img
+                            .office-details
+                                .office-title(ng-bind="office.address")
+                                .office-labels
+                                    .label.label-default(ng-bind="$ctrl.product.organization.business_type.name || 'Geen organisatie type'")
+                                
+                                div(ng-if="office.phone || provider.phone || provider.email")
+                                    .office-info.office-info-inline(ng-if="office.phone || provider.phone")
+                                        .mdi.mdi-phone-outline
+                                        | {{ office.phone ? office.phone : provider.phone }}
+                                    
+                                    .office-info.office-info-inline(ng-if="provider.email")
+                                        .mdi.mdi-email-outline
+                                        | {{ provider.email }}
+
         .block.block-map_card
             .map_card-header
-                .map_card-title(i18n="product.labels.find")
-                .map_card-subtitle 
+                .map_card-title(i18n="product.headers.map")
 
             .map_card-iframe: google-map(
                 map-gesture-handling="'greedy'"

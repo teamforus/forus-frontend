@@ -7,7 +7,7 @@
         .product-item(ng-repeat="product in products.data"): a(ui-sref="products-show(product)").product-item-inner
             .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
                 img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
-                .product-price(ng-bind="product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis'")
+                .product-price(ng-if="!product.no_price" ng-bind="product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis'")
             .product-details
                 .product-provider(ng-bind="product.organization.name")
                 .product-name(ng-bind="product.name")

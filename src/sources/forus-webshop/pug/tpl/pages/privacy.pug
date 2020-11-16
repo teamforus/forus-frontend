@@ -1,0 +1,37 @@
+top-navbar
+
+section.section.section-details: .wrapper
+    .block.block-breadcrumbs
+        a(ui-sref="home").breadcrumb-item Home
+        .breadcrumb-item.active(i18n="Privacy")
+    .section-title.text-left(translate="Privacy")
+
+    .block.block-accessibility
+        .block-text
+           p.description Voor de Stadjerspas worden de volgende gegevens van u opgeslagen:
+                ul
+                    li #[b Uw e-mailadres]
+                    | Om uw account aan te maken en toegang te geven tot uw Stadjerspas tegoed.
+                    li #[b Uw burgerservicenummer (BSN)]
+                    | Om te kijken wie u bent en om dubbele toekenningen te voorkomen.
+                    li #[b Uw inkomensgegevens]
+                    | Om te kijken of u recht heeft op de Stadjerspas.
+                    li #[b Uw aantal kinderen]
+                    | Om te kijken of uw kind(eren) recht hebben op de Stadjerspas Jeugd.
+                    li #[b Uw Stadjerspas uitgaven]
+                    | Zodat u kunt zien wat u heeft gebruikt van de Stadjerspas. De aanbieders en gemeente zien ook wat er is gebruikt, maar ze zien niet dat u dit heeft gebruikt.
+        .block-text
+            .title Ontvang berichten over uw Stadjerspas
+            .description U ontvangt berichten over wat u heeft gebruikt van de Stadjerspas en de acties van aanbieders waar u uit kunt kiezen. U kunt dit na de aanvraag zelf uitzetten in de notificatie voorkeuren als u inlogt op de website.
+
+        .block-text
+            .title Gebruik van uw gegevens
+            .description De gegevens worden ook gebruikt indien u hulp nodig heeft bij het gebruik van het systeem. De gegevens worden vertrouwelijk verwerkt en niet voor andere doeleinden aan derden verstrekt.
+
+        .block-text
+            .title Inzicht in uw gegevens
+            .description In het systeem en in de bijbehorende mobiele app vindt u een overzicht van de gegevens die u heeft ingevuld. U heeft het recht om uw gegevens in te zien, aan te passen en te verwijderen. 
+ 
+        .block-text
+            .title Wilt u meer weten of heeft u vragen? 
+            .description Bekijk de #[a(href="{{ $ctrl.vars.website }}" target="_blank") algemene privacyverklaring] van de gemeente Groningen.

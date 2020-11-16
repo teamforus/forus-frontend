@@ -15,7 +15,7 @@ $formPadding: 14px 15px;
         margin-bottom: 4px;
         color: $tc;
         padding: 0;
-        color: #134478;
+        color: $tc;
 
         &.form-label-required {
             &:after {
@@ -30,17 +30,15 @@ $formPadding: 14px 15px;
     .form-control:not([type="radio"]):not([type="checkbox"]) {
         width: 100%;
         border: 1px solid transparent;
-        background-color: #ffffff;
+        background-color: #fbfbfb;
         padding: $formPadding;
-        /* height: 50px; */
-        color: rgba(#00122a, .9);
+        color: $tc;
         font: $formFont;
         line-height: 20px;
         transition: background-color .4s ease, border .4s ease;
-        border-radius: 6px;
+        border-radius: $border-radius;
         appearance: none;
-        background-color: #eaf0f6;
-        border: 1px solid #dfe4ec;
+        border: 1px solid $border_color;
 
         &[disabled] {
             background-color: #fbfbfa;
@@ -52,7 +50,7 @@ $formPadding: 14px 15px;
 
         &:focus {
             outline: none;
-            background-color: #fbfbfb;
+            background-color: #F8F8F8;
             border: 1px solid #bababa;
         }
 

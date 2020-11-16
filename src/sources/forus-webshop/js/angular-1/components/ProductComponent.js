@@ -14,6 +14,41 @@ let ProductComponent = function(
         return $state.go('home');
     }
 
+    $ctrl.goToOffice = (office) => {
+        $state.go('provider-office', {
+            provider_id: office.organization_id,
+            office_id: office.id
+        });
+    };
+
+    $ctrl.goToVoucher = (fundId) => {
+        $ctrl.gotoVouchers = $ctrl.vouchers.filter(function(voucher) {
+            return voucher.fund_id == fundId && voucher.type == 'regular';
+        });
+
+        console.log($ctrl.gotoVouchers)
+
+        $state.go('voucher', {
+           address: $ctrl.gotoVouchers[0].address
+        });
+    }
+
+    $ctrl.goToProvider = ($event, provider) => {
+        $event.preventDefault();
+        $event.stopPropagation();
+        console.log(provider);
+        $state.go('provider', {
+            provider_id: provider.id
+        });
+    };
+    
+    $ctrl.toggleOffices = ($event, provider) => {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        provider.showOffices = !provider.showOffices;
+    };
+
     $scope.openAuthPopup = function() {
         ModalService.open('modalAuth', {});
     };
@@ -58,12 +93,13 @@ let ProductComponent = function(
 
     $ctrl.$onInit = function() {
         let fundIds = $ctrl.product.funds.map(fund => fund.id);
-
+        
         $ctrl.subsidyFunds = $ctrl.product.funds.filter(fund => fund.type === 'subsidies');
         $ctrl.useSubsidies = $ctrl.subsidyFunds.length > 0
         $ctrl.useBudget = $ctrl.product.funds.filter(fund => fund.type === 'budget').length > 0
         $ctrl.fundNames = $ctrl.product.funds.map(fund => fund.name).join(', ');
         $ctrl.product.description_html = $sce.trustAsHtml($ctrl.product.description_html);
+        
         $ctrl.lowAmountVouchers = $ctrl.vouchers.filter(voucher => {
             return isValidProductVoucher(voucher, fundIds) &&
                 parseFloat($ctrl.product.price) >= parseFloat(voucher.amount) &&
@@ -76,7 +112,7 @@ let ProductComponent = function(
             fund.meta.applicableSubsidyVouchers = $ctrl.vouchers.filter(voucher => {
                 return isValidProductVoucher(voucher, [fund.id]) && voucher.fund.type == 'subsidies';
             });
-
+            
             fund.meta.applicableBudgetVouchers = $ctrl.vouchers.filter(voucher => {
                 return isValidProductVoucher(voucher, [fund.id]) &&
                     parseFloat($ctrl.product.price) <= parseFloat(voucher.amount) &&

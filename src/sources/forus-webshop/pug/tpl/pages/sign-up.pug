@@ -45,7 +45,6 @@ header.section.section-sign-up-choose
                 .sign_up-pane-header(translate="fund_request.sign_up.header.title_step_2")
 
                 .sign_up-pane-body(ng-if="!$ctrl.hasApp")
-                    .sign_up-pane-heading(translate="Vul uw e-mailadres in om verder te gaan")
 
                     form(ng-submit="$ctrl.authForm.submit()").form: .row
                         .form-group.col.col-lg-9
@@ -55,9 +54,9 @@ header.section.section-sign-up-choose
                         .form-group.col.col-lg-3
                             label.form-label.hide-sm &nbsp;
                             button(
-                                ng-class="{'button-disabled': !$ctrl.authForm.values.email}"
+                                ng-class="{'button-disabled': (!$ctrl.authForm.values.privacy && $root.appConfigs.flags.privacyPage)}"
                                 type="submit").button.button-primary.button-fill {{ "popup_auth.buttons.submit" | translate }}
-
+                        .sign_up-pane-text(for='privacy' ng-if="$root.appConfigs.flags.privacyPage") #[input(type="checkbox" ng-model="$ctrl.authForm.values.privacy" id='privacy')] Ik heb de #[a.text-primary-light.sign_up-pane-link(ui-sref="privacy") privacyverklaring] gelezen
                     .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="fund_request.sign_up.labels.has_app").hide-sm
 
                 .sign_up-pane-body(ng-if="$ctrl.hasApp")

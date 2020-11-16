@@ -27,7 +27,7 @@ let ProductsEditComponent = function(
             product_category_id: null
         };
 
-        $ctrl.maxProductCount = appConfigs.flags.maxProductCount ? appConfigs.flags.maxProductCount : null;
+        $ctrl.maxProductCount = parseInt(appConfigs.features.products_hard_limit);
 
         if ($ctrl.maxProductCount && !$ctrl.product && $ctrl.products.length >= $ctrl.maxProductCount) {
             ModalService.open('modalNotification', {
