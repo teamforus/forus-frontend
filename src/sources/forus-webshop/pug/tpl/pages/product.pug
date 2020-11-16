@@ -2,7 +2,7 @@ top-navbar
 section.section.section-product: .wrapper
 
     .block.block-breadcrumbs
-        a(ui-sref="home").breadcrumb-item Home {{ $ctrl.fund_type }}
+        a(ui-sref="home").breadcrumb-item Home
         a(ui-sref="products" ng-if="$ctrl.useBudget").breadcrumb-item Aanbod
         a(ui-sref="actions" ng-if="$ctrl.useSubsidies").breadcrumb-item Acties
         .breadcrumb-item.active(ng-bind="$ctrl.product.name")
