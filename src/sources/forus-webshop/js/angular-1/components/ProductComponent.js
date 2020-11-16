@@ -83,7 +83,6 @@ let ProductComponent = function(
         let fundIds = $ctrl.product.funds.map(fund => fund.id);
 
         $ctrl.subsidyFunds = $ctrl.product.funds.filter(fund => fund.type === 'subsidies');
-        console.log($ctrl.subsidyFunds)
         $ctrl.useSubsidies = $ctrl.subsidyFunds.length > 0
         $ctrl.useBudget = $ctrl.product.funds.filter(fund => fund.type === 'budget').length > 0
         $ctrl.fundNames = $ctrl.product.funds.map(fund => fund.name).join(', ');
