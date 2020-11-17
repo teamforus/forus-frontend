@@ -26,8 +26,6 @@ let ProductComponent = function(
             return voucher.fund_id == fundId && voucher.type == 'regular';
         });
 
-        console.log($ctrl.gotoVouchers)
-
         $state.go('voucher', {
            address: $ctrl.gotoVouchers[0].address
         });
