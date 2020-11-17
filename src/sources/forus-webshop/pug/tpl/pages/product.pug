@@ -74,7 +74,7 @@ section.section.section-product: .wrapper
                         .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund.id)") Open tegoed
 
         .block.block-pane(ng-click="$ctrl.goToProvider($event, $ctrl.product.organization)" ng-class="{'last-child': $ctrl.product.organization.showOffices}")
-            .pane-head(i18n="product.headers.organization")  
+            .pane-head(i18n="product.headers.provider")  
             .pane-body: .block.block-organizations: .organization-item
                 .organization-pane(ng-click="$ctrl.toggleOffices($event, $ctrl.product.organization)")
                     .organization-logo(ng-click="$ctrl.goToProvider($event, $ctrl.product.organization)")
