@@ -72,7 +72,7 @@ main(id="main")
                 .block-content
                     .block-title(i18n="home.map.title")
                     .block-description(i18n="home.map.subtitle")
-                    button(ui-sref="providers" i18n="buttons.show_map" id="show_map").button.button-primary.button-wide
+                    button(ui-sref="providers({show_map:true})" i18n="buttons.show_map" id="show_map").button.button-primary.button-wide
                     //- button(ng-click="$ctrl.showPopupOffices()" i18n="buttons.show_map").button.button-primary.button-wide
 
         //- section.section.section-steps#steps(ng-if="$ctrl.appConfigs.flags.homeSteps && !$ctrl.appConfigs.features.settings.has_more_info_url"): .wrapper
