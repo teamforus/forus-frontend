@@ -17,7 +17,7 @@ module.exports = {
         header: {
             main: "Aanvraag",
             title_step_1: "Welkom",
-            title_step_2: "Meld u aan",
+            title_step_2: "Aanmelden",
             title_fund_already_applied: "Application in progress"
         },
         subtitles: {
