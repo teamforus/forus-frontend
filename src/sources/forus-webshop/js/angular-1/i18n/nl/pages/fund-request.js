@@ -29,7 +29,6 @@ module.exports = {
         subtitles: {
             step_1: "Via dit online formulier kunt u zich aanmelden voor beschikbare fondsen. ",
             step_2: "Er wordt gekeken of u al aan voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan.",
-            log_digid: "Log in met DigiD om te controleren of u recht heeft.",
             fund_already_applied: "Er is al een aanvraag in behandeling",
         },
         labels: {
