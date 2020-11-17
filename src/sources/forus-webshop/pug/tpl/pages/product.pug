@@ -60,8 +60,8 @@ section.section.section-product: .wrapper
 
                     //- product price
                     .fund-item-section.fund-item-price.text-right(ng-if="!$ctrl.product.no_price && (fund.type == 'subsidies' ? fund.meta.isApplicableSubsidy : fund.meta.isApplicable)")
-                        .fund-item-section-label(ng-if="fund.type == 'budget'") U betaald met tegoed:
-                        .fund-item-section-label(ng-if="fund.type == 'subsidies'") Wat u betaald:
+                        .fund-item-section-label(ng-if="fund.type == 'budget'") U betaalt vanuit het tegoed:
+                        .fund-item-section-label(ng-if="fund.type == 'subsidies'") Wat u betaalt:
 
                         .fund-item-section-value(ng-if="$ctrl.product.no_price") Geen data
                         .fund-item-section-value(ng-if="fund.price == 0") Gratis
