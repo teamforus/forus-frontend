@@ -40,7 +40,7 @@ module.exports = {
     },
     notifications: {
         confirmation: "Het is gelukt!",
-        link: "Er is een link naar uw e-mailadres gestuurd. Klik op de link om verder te gaan.",
+        link: "Er is een e-mail verstuurd naar <b>{{email}}</b>. Klik op de link om u aan te melden.",
         invalid: "De activatiecode is ongeldig of al gebruikt.",
         voucher_email: "Uw voucher is verstuurd naar uw mail.",
     },
@@ -76,6 +76,7 @@ module.exports = {
         timelimit: "U wordt automatisch uitgelogd na 15 minuten inactiviteit.",
         warning: "Sluit dit venster en klik op 'Login' als u de activatiecode al eens heeft gebruikt.",
         join: "Aanmelden",
+        mail_sent: "Een e-mail is onderweg!",
         activate: "Stap 1 van 3: Webshop account aanmaken.",
         activate_code: "Stap 3 van 3: Activeer uw tegoed.",
         scancode: "Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent.",

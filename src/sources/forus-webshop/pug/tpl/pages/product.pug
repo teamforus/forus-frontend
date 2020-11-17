@@ -3,7 +3,8 @@ section.section.section-product: .wrapper
 
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
-        a(ui-sref="products").breadcrumb-item Aanbod
+        a(ui-sref="products" ng-if="$ctrl.useBudget").breadcrumb-item Aanbod
+        a(ui-sref="actions" ng-if="$ctrl.useSubsidies").breadcrumb-item Acties
         .breadcrumb-item.active(ng-bind="$ctrl.product.name")
 
     .block.block-product
@@ -32,7 +33,7 @@ section.section.section-product: .wrapper
                         .product-property-value: .block.block-markdown: div(ng-bind-html="$ctrl.product.description_html")
 
         .block.block-info-card(ng-if="$ctrl.product.funds.length > 0")
-            .block-header(i18n="product.headers.funds")  
+            .block-header(i18n="product.headers.funds" ui-sref="vouchers")  
             .block-products-content
                 .product-funds-list: .fund-item(ng-repeat="fund in $ctrl.product.funds")
                     .fund-item-section.fund-item-section-details
@@ -41,7 +42,7 @@ section.section.section-product: .wrapper
                             .fund-item-title(ng-bind="fund.name")
                             .fund-item-subtitle(ng-bind="fund.organization.name")
                     
-                    .fund-item-section.text-right(ng-if="fund.type == 'subsidies'")
+                    .fund-item-section.text-right(ng-if="fund.type == 'subsidies' && fund.meta.isApplicableSubsidy")
                         .fund-item-section-label(i18n="product.labels.limit")
                         .fund-item-section-value(ng-bind="fund.limit_available")
                     
@@ -68,6 +69,9 @@ section.section.section-product: .wrapper
                         .fund-item-section-value(
                             ng-if="!$ctrl.product.no_price && fund.price != 0"
                             ng-bind="(fund.type == 'subsidies' ? fund.price : $ctrl.product.price) | currency_format")
+
+                    .fund-item-section(ng-if="fund.meta.isApplicableSubsidy && !$ctrl.useBudget")
+                        .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund.id)") Open tegoed
 
         .block.block-pane(ng-click="$ctrl.goToProvider($event, $ctrl.product.organization)" ng-class="{'last-child': $ctrl.product.organization.showOffices}")
             .pane-head(i18n="product.headers.organization")  
