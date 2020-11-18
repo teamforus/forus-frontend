@@ -22,23 +22,14 @@ let ProductComponent = function(
     };
 
     $ctrl.goToVoucher = (fundId) => {
-        $ctrl.gotoVouchers = $ctrl.vouchers.filter(function(voucher) {
-            return voucher.fund_id == fundId && voucher.type == 'regular';
+        let fundVouchers = $ctrl.vouchers.filter((voucher) => {
+            voucher.fund_id == fundId && voucher.type == 'regular';
         });
 
         $state.go('voucher', {
-           address: $ctrl.gotoVouchers[0].address
+           address: fundVouchers[0].address
         });
     }
-
-    $ctrl.goToProvider = ($event, provider) => {
-        $event.preventDefault();
-        $event.stopPropagation();
-        console.log(provider);
-        $state.go('provider', {
-            provider_id: provider.id
-        });
-    };
     
     $ctrl.toggleOffices = ($event, provider) => {
         $event.preventDefault();
@@ -71,9 +62,7 @@ let ProductComponent = function(
                     fund_id: fund.id
                 });
             }
-        }, () => {
-            fetchingFund = false;
-        });
+        }, () => fetchingFund = false);
     };
 
     $ctrl.showPartnerModal = () => {
@@ -116,7 +105,6 @@ let ProductComponent = function(
                     parseFloat($ctrl.product.price) <= parseFloat(voucher.amount) &&
                     voucher.fund.type == 'budget';
             });
-
 
             fund.meta.isApplicable = fund.meta.applicableBudgetVouchers.length > 0;
             fund.meta.isApplicableSubsidy = fund.meta.applicableSubsidyVouchers.length > 0;
