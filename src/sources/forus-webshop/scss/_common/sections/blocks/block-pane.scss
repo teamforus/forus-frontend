@@ -6,7 +6,9 @@
 
     .pane-head,
     .pane-section {
+        display: flex;
         border-bottom: 1px solid $border_color;
+
         &:first-child {
             border-top-left-radius: $border_radius;
             border-top-right-radius: $border_radius;
