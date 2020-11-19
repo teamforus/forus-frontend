@@ -5,6 +5,8 @@ nav.navbar.navbar-inverse
 				span.icon-bar
 				span.icon-bar
 				span.icon-bar
+			.header-auth.show-xs(ng-if="$root.auth_user")
+				.auth-user-name(ng-bind="(auth_user.email | str_limit:20)")
 			a.navbar-brand(href="/#!/")
 				include ../../../../resources/platform-general/assets/img/svg/forus-logo.svg
 		#myNavbar.collapse.navbar-collapse
@@ -26,12 +28,23 @@ nav.navbar.navbar-inverse
 					a(ui-sref="current") Over ons
 				li
 					a(ui-sref="contact") Contact
-			ul.nav.navbar-nav.navbar-right
+				div.show-xs(ng-if="$root.auth_user")
+					hr
+					li
+						a(href="/sponsor") Sponsor
+					li
+						a(href="/provider") Aanbieder
+					li
+						a(href="/validator") Beoordelaar
+					li(ng-click="$root.signOut()" id="sign_out")
+						a(translate="topnavbar.buttons.logout")
+						
+			ul.nav.navbar-nav.navbar-right(ng-if="!$root.auth_user")
 				li
-					a.login_btn(ng-click="openAuthPopup()" ng-if="!$root.auth_user")
+					a.login_btn(ng-click="openAuthPopup()")
 						span.glyphicon.glyphicon-log-in
 						|  Inloggen
-			ul.nav.navbar-nav.navbar-right.auth-out(ng-if="$root.auth_user")
+			ul.nav.navbar-nav.navbar-right.auth-out.hidden-xs(ng-if="$root.auth_user")
 				.header-auth(ng-if="$root.auth_user")
 					.auth-user(ng-click="$ctrl.openUserMenu($event)")
 						.auth-user-details
@@ -42,7 +55,7 @@ nav.navbar.navbar-inverse
 
 						.auth-user-caret: em(ng-class="$root.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
 
-						nav.auth-user-menu.hide-sm(
+						nav.auth-user-menu(
 							ng-class="{active: $ctrl.userMenuOpened}"
 							ng-if="$ctrl.userMenuOpened"
 							click-outside="$ctrl.hideUserMenu()")

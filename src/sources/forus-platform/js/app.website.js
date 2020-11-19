@@ -18,8 +18,10 @@ $(window).on('load', function () {
 
 var previousScroll = 0,
     headerOrgOffset = $('.cf-wr').height();
-
-$('.navbar').height($('.navbar').height());
+    
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+  $('.navbar').height($('.navbar').height());
+}
 
 $(window).scroll(function () {
     var currentScroll = $(this).scrollTop();

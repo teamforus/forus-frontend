@@ -18,7 +18,9 @@
 .text-right { text-align: right; }
 .text-center { text-align: center; }
 .text-left { text-align: left; }
-
+.show-xs {
+	display: none !important;
+}
 
 .e-fb {
     justify-content: space-between;
@@ -140,7 +142,9 @@ input[type="checkbox"]:checked {
     .hidden-xs {
         display: none !important;
 	}
-
+	.show-xs {
+		display: block !important;
+	}
 	img {max-width: 100%;}
 }
 

@@ -227,7 +227,7 @@ html {
                                 }
                             }
                         }
-                        & > li {
+                        & > li, & > div > li {
                             & a {
                                 @media screen and (min-width: 992px) {
                                     padding: 16px 22px;
@@ -351,13 +351,27 @@ html {
 }
 @media (max-width: 991px) {
     .navbar-header {
-        float: none;
+        float: unset;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-content   : center;
+    }
+    .navbar-brand {
+        flex: 1;
+        display: flex;
+        justify-self: flex-end;
+    }
+    .header-auth {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .navbar-toggle {
+        justify-self: flex-start;
     }
     .navbar-left,.navbar-right {
         float: none !important;
-    }
-    .navbar-toggle {
-        display: block;
     }
     .navbar-collapse {
         border-top: 1px solid transparent;
@@ -374,10 +388,10 @@ html {
         float: none!important;
         margin-top: 7.5px;
     }
-    .navbar-nav>li {
+    .navbar-nav>li, .navbar-nav>div>li {
         float: none;
     }
-    .navbar-nav>li>a {
+    .navbar-nav>li>a, .navbar-nav>div>li>a {
         padding-top: 10px;
         padding-bottom: 10px;
     }
