@@ -91,7 +91,7 @@ $colorPrimaryLight: $color_primary_light;
             transition: 0.4s;
 
             &:hover {
-                color: #d91d46;
+                color: #305dfb;
                 background: #f6f8f9;
             }
         }
@@ -142,11 +142,10 @@ $colorPrimaryLight: $color_primary_light;
         .header-organization-switcher {
             width: 290px;
             background: #FFFFFF;
-            box-shadow: 0px 0px 5px rgba(25, 39, 52, 0.22);
+            border: 1px solid #ebedf0;
             border-radius: $borderRadius / 2;
             position: absolute;
             top: 30px;
-            transition: box-shadow .4s;
             overflow: hidden;
 
             .organization-preview {
@@ -156,11 +155,11 @@ $colorPrimaryLight: $color_primary_light;
 
                 &:hover {
                     .organization-name {
-                        color: #004195;
+                        color: #305dfb;
                     }
                     
                     .organization-switcher-arrow {
-                        border-top: 6px solid #004195;
+                        border-top: 6px solid #305dfb;
                     }
                 }
             }
@@ -234,7 +233,7 @@ $colorPrimaryLight: $color_primary_light;
                         background-color: #f1f4f7;
 
                         .organization-name {
-                            color: #004195;
+                            color: #305dfb;
                         }
                     }
                 }
@@ -255,7 +254,7 @@ $colorPrimaryLight: $color_primary_light;
 
                         &:hover {
                             background-color: #f1f4f7;
-                            color: #004195;
+                            color: #305dfb;
                         }
                     }
                 }
@@ -266,11 +265,11 @@ $colorPrimaryLight: $color_primary_light;
 
                 .organization-preview {
                     .organization-name {
-                        color: #004195;
+                        color: #305dfb;
                     }
 
                     .organization-switcher-arrow {
-                        border-top: 6px solid #004195;
+                        border-top: 6px solid #305dfb;
                         transform: translateY(-50%) rotate(180deg);
                     }
 
@@ -292,7 +291,7 @@ $colorPrimaryLight: $color_primary_light;
             .notifications-icon {
                 color: $tc;
                 background-color: #fff;
-                box-shadow: 0 5px 15px rgba($color: #000000, $alpha: 0.1);
+                border: 1px solid #ebedf0;
                 border-radius: 50px;
                 width: 36px;
                 height: 36px;
@@ -544,7 +543,7 @@ $colorPrimaryLight: $color_primary_light;
                     height: 50px;
                     border-radius: 50px;
                     background: #fff;
-                    box-shadow: 0 2px 9px rgba(0,0,0,0.1);
+                    border: 1px solid #ebedf0;
                 }
 
                 .auth-user-menu {
@@ -578,7 +577,7 @@ $colorPrimaryLight: $color_primary_light;
                         &:hover {
                             text-decoration: none;
                             background: #f6f8f9;
-                            color: #d91d46;
+                            color: #305dfb;
 
                             .mdi {
                                 color: $color_primary;
@@ -591,11 +590,6 @@ $colorPrimaryLight: $color_primary_light;
                         border-top: 1px solid #f3f4f5;
                     }
                 }
-            }
-        }
-        @media (max-width: 991px) {
-            .header-auth {
-                display: none;
             }
         }
     }
@@ -667,32 +661,15 @@ $colorPrimaryLight: $color_primary_light;
                 &.active,
                 &:focus,
                 &:hover {
-                    color: #d91d46;
+                    color: #305dfb;
                     text-decoration: none;
                 }
-
-                &:hover:not(.active) {
+                &:hover, &.active {
                     .sidebar-nav-item-icon {
                         img {
                             opacity: 0;
 
-                            &.hover {
-                                opacity: 1;
-                            }
-                        }
-                    }
-                }
-
-                &.active {
-                    .sidebar-nav-item-arrow {
-                        opacity: 1;
-                    }
-
-                    .sidebar-nav-item-icon {
-                        img {
-                            opacity: 0;
-
-                            &.active {
+                            &.hover {        
                                 opacity: 1;
                             }
                         }
@@ -802,7 +779,9 @@ $colorPrimaryLight: $color_primary_light;
         cursor: inherit;
         font: 500 18px/34px $bf;
         text-align: center;
-
+        &.text-left {
+            text-align: left;
+        }
         .card-collapse {
             float: right;
             font-size: 36px;
@@ -951,7 +930,7 @@ $colorPrimaryLight: $color_primary_light;
                 .card-section-actions-label {
                     font: 600 11px/18px $bf;
                     text-align: right;
-                    color: #134478;
+                    color: #305dfb;
                     margin: 0 0 5px;
                 }
 
@@ -1102,7 +1081,7 @@ $colorPrimaryLight: $color_primary_light;
             color: #282b39;
 
             .card-block-listing-label {
-                color: $color_primary;
+                color: #646f79;
                 font: 500 11px/20px $bf;
             }
         }
@@ -1134,7 +1113,7 @@ $colorPrimaryLight: $color_primary_light;
 
             .keyvalue-key {
                 float: left;
-                color: $color_primary;
+                color: #134478;
                 font: 500 13px/20px $bf;
                 width: 210px;
             }
@@ -1691,7 +1670,7 @@ $colorPrimaryLight: $color_primary_light;
 
             .card-block-implementation-desc {
                 font: 600 11px/13px $bf;
-                color: #134478;
+                color: #305dfb;
                 padding-top: 15px;
             }
 
@@ -4051,7 +4030,8 @@ $colorPrimaryLight: $color_primary_light;
                 display: block;
                 background: #fff;
                 border-radius: 5px;
-                box-shadow: 0 5px 10px rgba($color: #000000, $alpha: 0.1);
+                border: 1px solid #ebedf0;
+                box-sizing: border-box;
                 transform: translate(0, 0);
                 transition: 0.4s;
 
@@ -4089,16 +4069,23 @@ $colorPrimaryLight: $color_primary_light;
                     color: #282b39;
                 }
 
-                &.active, &:hover {
-                    background-color: #2166af;
+                &:hover {
+                    background: #dde3fb;
+                    border-color: #4c74ff;
 
                     .organization-name {
-                        color: #fff;
+                        color: #4c74ff;
                     }
                 }
 
                 &.active {
-                    background-color: #134478;
+                    background-color: #f8f4e7;
+                    cursor: default;
+                    border-color: #4f4217;
+
+                    .organization-name {
+                        color: #000;
+                    }
                 }
             }
         }
@@ -4246,7 +4233,7 @@ $colorPrimaryLight: $color_primary_light;
                     padding: 10px 0;
 
                     .chart-value_label {
-                        color: $color_primary;
+                        color: #000;
                     }
 
                     .chart-value_value {
@@ -4281,7 +4268,7 @@ $colorPrimaryLight: $color_primary_light;
                 }
 
                 .chart-value_label {
-                    color: $color_primary;
+                    color: #000;
                     font: 500 11px/18px $bf;
                 }
 
@@ -5805,7 +5792,7 @@ $colorPrimaryLight: $color_primary_light;
             cursor: default;
 
             .hero-icon {
-                background-color: #134478;
+                background-color: #305dfb;
                 width: 100px;
                 height: 100px;
                 border: 5px solid #fff;
@@ -5879,7 +5866,7 @@ $colorPrimaryLight: $color_primary_light;
         padding: 30px;
         width: 1200px;
         max-width: 100%;
-        background: #f7f9fc;
+        background: #fff;
         border-radius: $border_radius;
         min-height: 100px;
         overflow: hidden;
@@ -6125,7 +6112,7 @@ $colorPrimaryLight: $color_primary_light;
                     padding: 10px 0;
 
                     .voucher-type-icon {
-                        background: #134478;
+                        background: #305dfb;
                         text-align: center;
                         width: 96px;
                         height: 96px;

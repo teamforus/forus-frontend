@@ -3,7 +3,7 @@
     section.app.app-content
         .card(ng-if="!$ctrl.empty && $ctrl.empty !== null" class=(state=='closed'?'card-outline':''))
             .card-header: .row
-                .col.col-lg-6.col-xs-12: .card-title
+                .col.col-lg-6.col-xs-12: .card-title.text-left
                     span(i18n="transactions.header.title") 
                     span(ng-bind="$ctrl.transactions.meta.total").span-count
             
