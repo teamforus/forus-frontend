@@ -80,37 +80,38 @@ let VoucherComponent = function(
         });
     };
 
-    $ctrl.usePhysicalCard = (voucher, state) => {
-        if (state == 'select_type' || state == 'card_code') {
-            ModalService.open('modalPhysicalCardType', {
-                voucher: voucher,
-                state: state,
-                sendVoucherEmail: () => $ctrl.sendVoucherEmail(voucher),
-                openInMeModal: $ctrl.openInMeModal,
-                printQrCode: $ctrl.printQrCode,
-                physicalCardIsLinkable: () => $ctrl.physicalCardIsLinkable(),
-                onAttached: () => {
-                    VoucherService.get($ctrl.voucher.address).then(res => {
-                        $ctrl.voucher = res.data.data;
-                        $ctrl.$onInit();
-                    });
-                }
-            });
-        } else {
-            ModalService.open('modalPhysicalCardUnlink', {
-                voucher: voucher,
-                onClose: (requestNew) => {
-                    VoucherService.get($ctrl.voucher.address).then(res => {
-                        $ctrl.voucher = res.data.data;
-                        $ctrl.$onInit();
+    $ctrl.usePhysicalCard = (voucher, state, preffersPlasticCard = false) => {
+        ModalService.open('modalPhysicalCardType', {
+            voucher: voucher,
+            state: state,
+            preffersPlasticCard: preffersPlasticCard,
+            sendVoucherEmail: () => $ctrl.sendVoucherEmail(voucher),
+            openInMeModal: $ctrl.openInMeModal,
+            printQrCode: $ctrl.printQrCode,
+            physicalCardIsLinkable: () => $ctrl.physicalCardIsLinkable(),
+            onAttached: () => {
+                VoucherService.get($ctrl.voucher.address).then(res => {
+                    $ctrl.voucher = res.data.data;
+                    $ctrl.$onInit();
+                });
+            }
+        });
+    };
 
-                        if (requestNew) {
-                            $ctrl.usePhysicalCard($ctrl.voucher, 'select_type');
-                        }
-                    });
-                },
-            });
-        }
+    $ctrl.unlinkPhysicalCard = (voucher) => {
+        ModalService.open('modalPhysicalCardUnlink', {
+            voucher: voucher,
+            onClose: (requestNew) => {
+                VoucherService.get($ctrl.voucher.address).then(res => {
+                    $ctrl.voucher = res.data.data;
+                    $ctrl.$onInit();
+
+                    if (requestNew) {
+                        $ctrl.usePhysicalCard($ctrl.voucher, 'select_type', true);
+                    }
+                });
+            },
+        });
     };
 
     $ctrl.physicalCardIsLinkable = () => {

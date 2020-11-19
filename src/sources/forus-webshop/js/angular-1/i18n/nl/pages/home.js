@@ -111,7 +111,7 @@ module.exports = {
             faq_one: "Hoe kan ik een Potje aanvragen?",
             one: "Klik bovenaan op 'Start aanvraag'. Vul uw e-mailadres in en gebruik de login link in uw eigen vertrouwde e-mailbox. Vervolgens logt u in met uw eigen DigiD. Controleer of u voldoet aan de voorwaarde!",
         },
-        Westerkwartier: {
+        westerkwartier: {
             faq_one: "Hoe kan ik het Kindpakket activeren?",
             one: "Klik bovenaan op 'Start aanvraag'. Vul uw e-mailadres in en log in met DigiD. Uw account is aangemaakt en uw tegoed is geactiveerd!",
             faq_three: "Bij welke aanbieders kan ik het tegoed besteden?",
@@ -186,7 +186,6 @@ module.exports = {
                 "Voor extra financiële ondersteuning kunt u contact opnemen met het jeugdsportfonds voor de gemeente Berkelland en de gemeente Winterswijk. De voorwaarden vindt u op <a target='_blank' href='https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders/'>https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders</a><br/><br/>" +
                 "De stichting Jarige Job kan u ondersteunen op het vlak van kinderfeestjes. Kijkt u voor meer informatie op <a target='_blank' href='https://www.stichtingjarigejob.nl'>https://www.stichtingjarigejob.nl</a>"
         },
-
         oostgelre: {
             title: "Veelgestelde vragen",
             faq_one: "Hoe kan ik Kindregeling activeren?",
@@ -225,7 +224,6 @@ module.exports = {
                 "Voor extra financiële ondersteuning kunt u contact opnemen met het jeugdsportfonds voor de gemeente Berkelland en de gemeente Winterswijk. De voorwaarden vindt u op <a target='_blank' href='https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders/'>https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders</a><br/><br/>" +
                 "De stichting Jarige Job kan u ondersteunen op het vlak van kinderfeestjes. Kijkt u voor meer informatie op <a target='_blank' href='https://www.stichtingjarigejob.nl'>https://www.stichtingjarigejob.nl</a>"
         },
-
         berkelland: {
             title: "Veelgestelde vragen",
             faq_one: "Hoe kan ik Kindregeling activeren?",
@@ -264,7 +262,6 @@ module.exports = {
                 "Voor extra financiële ondersteuning kunt u contact opnemen met het jeugdsportfonds voor de gemeente Berkelland en de gemeente Winterswijk. De voorwaarden vindt u op <a target='_blank' href='https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders/'>https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders</a><br/><br/>" +
                 "De stichting Jarige Job kan u ondersteunen op het vlak van kinderfeestjes. Kijkt u voor meer informatie op <a target='_blank' href='https://www.stichtingjarigejob.nl'>https://www.stichtingjarigejob.nl</a>"
         },
-
     },
     guide: {
         title: "Hoe het werkt",
