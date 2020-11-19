@@ -48,24 +48,9 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                                 em.mdi.mdi-qrcode-scan
                                 //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.open_in_me")
                             .action-item-name Gebruik mijn QR-code
-                        //.action-item(ng-if="$ctrl.voucherCanUse" ng-click="$ctrl.sendVoucherEmail($ctrl.voucher)")
-                            .action-item-icon
-                                em.mdi.mdi-email-outline
-                                //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.mail")
-                            .action-item-name(i18n="voucher.voucher_card.footer.actions.mail")
-                        //.action-item(ng-if="$ctrl.voucherCanUse" ng-click="$ctrl.printQrCode()")
-                            .action-item-icon
-                                em.mdi.mdi-printer
-                                //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.print")
-                            .action-item-name(i18n="voucher.voucher_card.footer.actions.print")
-                        //.action-item.hide-action-lg(ng-if="$ctrl.voucherCard.product && $root.appConfigs.flags.shareProducts" ng-click="$ctrl.shareVoucher($ctrl.voucher)")
-                            .action-item-icon
-                                em.mdi.mdi-share-variant
-                                //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
-                            .action-item-name(i18n="voucher.voucher_card.footer.actions.share")
                         .action-item(
                             ng-if="$ctrl.voucher.physical_card" 
-                            ng-click="$ctrl.usePhysicalCard($ctrl.voucher)")
+                            ng-click="$ctrl.unlinkPhysicalCard($ctrl.voucher)")
                             .action-item-icon
                                 em.mdi.mdi-card-bulleted-outline
                                 //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")

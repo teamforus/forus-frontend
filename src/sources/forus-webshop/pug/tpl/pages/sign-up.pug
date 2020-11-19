@@ -27,7 +27,7 @@ header.section.section-sign-up-choose
         //- Welcome screen
         div(ng-if="$ctrl.state == 'welcome'")
             .sign_up-pane    
-                .sign_up-pane-header(translate="fund_request.sign_up.header.title_step_1")
+                .sign_up-pane-header(translate="fund_request.sign_up.header.title")
 
                 .sign_up-pane-body
                     .sign_up-pane-text.text-center(translate="fund_request.sign_up.subtitles.step_1")
@@ -42,10 +42,9 @@ header.section.section-sign-up-choose
         //- Fund request information
         div(ng-if="$ctrl.state == 'auth'")
             .sign_up-pane
-                .sign_up-pane-header(translate="fund_request.sign_up.header.title_step_2")
+                .sign_up-pane-header(translate="fund_request.sign_up.header.title")
 
                 .sign_up-pane-body(ng-if="!$ctrl.hasApp")
-
                     form(ng-submit="$ctrl.authForm.submit()").form: .row
                         .form-group.col.col-lg-9
                             label.form-label(i18n="popup_auth.input.mail")
@@ -56,7 +55,7 @@ header.section.section-sign-up-choose
                             button(
                                 ng-class="{'button-disabled': (!$ctrl.authForm.values.privacy && $root.appConfigs.flags.privacyPage)}"
                                 type="submit").button.button-primary.button-fill {{ "popup_auth.buttons.submit" | translate }}
-                        .sign_up-pane-text(for='privacy' ng-if="$root.appConfigs.flags.privacyPage") #[input(type="checkbox" ng-model="$ctrl.authForm.values.privacy" id='privacy')] Ik heb de #[a.text-primary-light.sign_up-pane-link(ui-sref="privacy") privacyverklaring] gelezen
+
                     .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="fund_request.sign_up.labels.has_app").hide-sm
 
                 .sign_up-pane-body(ng-if="$ctrl.hasApp")

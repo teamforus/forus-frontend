@@ -5,7 +5,7 @@
     border: 1px solid transparent;
     padding: 12px 25px;
     transition: color .4s, background .4s, box-shadow .4s, border .4s;
-    border-radius: $border-radius;
+    border-radius: 6px;
     display: inline-block;
     text-align: center;
     margin-right: 15px;
@@ -97,7 +97,6 @@
         background: $color_primary;
         border: 1px solid $color_primary;
         text-transform: $tf;
-        border-radius: $border_radius;
 
         &:hover {
             color: #fff;
@@ -215,7 +214,7 @@
     }
 
     &[disabled], &.disabled, &.button-disabled {
-        background: #eff2f4 !important;
+        background: #eff2f4;
         border-color: #eff2f4;
         color: #ccd0e0;
         box-shadow: none;

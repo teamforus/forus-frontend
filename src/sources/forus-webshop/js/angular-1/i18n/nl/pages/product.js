@@ -2,7 +2,7 @@ module.exports = {
     // PRODUCT = product.pug
     headers: {
         funds: "Tegoeden",
-        organization: "Organisatie",
+        provider: "Aanbieder",
         map: "Locaties op kaart"
     },
     labels: {
