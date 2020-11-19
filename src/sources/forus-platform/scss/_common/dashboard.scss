@@ -593,6 +593,11 @@ $colorPrimaryLight: $color_primary_light;
                 }
             }
         }
+        @media (max-width: 991px) {
+            .header-auth {
+                display: none;
+            }
+        }
     }
 
     &.app-container {
@@ -773,7 +778,8 @@ $colorPrimaryLight: $color_primary_light;
 .card {
     background: #ffffff;
     border-radius: 5px;
-    box-shadow: 0 2px 8px rgba(#000, 0.1);
+    border: 1px solid #ebedf0;
+    box-sizing: border-box;
     margin-bottom: 20px;
 
     .card-header,
@@ -794,6 +800,8 @@ $colorPrimaryLight: $color_primary_light;
         font: 500 16px/29px $bf;
         color: #282b39;
         cursor: inherit;
+        font: 500 18px/34px $bf;
+        text-align: center;
 
         .card-collapse {
             float: right;
@@ -975,7 +983,7 @@ $colorPrimaryLight: $color_primary_light;
         }
 
         &.card-section-primary {
-            background: #f6f9fc;
+            background: #FFF;
         }
 
         &.card-section-success {
@@ -4482,7 +4490,7 @@ $colorPrimaryLight: $color_primary_light;
                     flex-direction: column;
 
                     .form-group {
-                        background: #f6f9fc;
+                        background: #f9f9f9;
                         margin: 0 -20px;
                         padding: 0 15px 0;
 
@@ -5665,7 +5673,7 @@ $colorPrimaryLight: $color_primary_light;
     .modal-window {
         position: relative;
         z-index: 2;
-        background: #f6f9fc;
+        background: #f9f9f9;
         width: 1200px;
         max-width: 100%;
         border-radius: 6px;
@@ -5685,7 +5693,7 @@ $colorPrimaryLight: $color_primary_light;
             top: 20px;
             display: block;
             cursor: pointer;
-            color: #222;
+            color: #000;
             transition: color .4s;
             z-index: 1;
         }
@@ -6895,40 +6903,6 @@ $colorPrimaryLight: $color_primary_light;
         padding: 10px 65px;
         text-align: center;
         border-radius: 5px;
-
-        &.button-primary {
-            background: #305dfb;
-            border-color: #305dfb;
-            color: #fff;
-
-            &:hover {
-                background: #4c74ff;
-                border-color: #4c74ff;
-            }
-        }
-
-        &.button-text {
-            &.button-text-primary {
-                color: #305dfb;
-            }
-        }
-
-        &.button-default {
-            background: #282b39;
-            border-color: #282b39;
-            color: #fff;
-
-            &:hover {
-                background: #646f79;
-                border-color: #646f79;
-            }
-        }
-
-        &.button-text {
-            &:hover {
-                color: #305dfb;
-            }
-        }
     }
 
     .form {
