@@ -9,21 +9,9 @@ let BlockSubsidiesDirective = async function(
         fund_type: 'subsidies',
     };
 
-    $scope.updateRows = () => {
-        let product_rows = [];
-        let products = $scope.products.data.slice();
-
-        while (products.length > 0) {
-            product_rows.push(products.splice(-3));
-        }
-
-        $scope.product_rows = product_rows;
-    };
-
     $scope.onReset = async (query) => {
         ProductService.list(query).then((res => {
             $scope.products = res.data;
-            $scope.updateRows();
         }));
     };
 
@@ -31,7 +19,6 @@ let BlockSubsidiesDirective = async function(
         ProductService.list(query).then((res => {
             $scope.products.data = $scope.products.data.concat(res.data.data);
             $scope.products.meta = res.data.meta;
-            $scope.updateRows();
         }));
     };
 
@@ -46,14 +33,12 @@ let BlockSubsidiesDirective = async function(
             fund_type: 'subsidies',
         })).then((res) => {
             $scope.products = res.data;
-            $scope.updateRows();
         });
     } else {
         ProductService.list({
             fund_type: 'subsidies',
         }).then((res => {
             $scope.products = res.data.data;
-            $scope.updateRows();
 
             ProductCategoryService.list({
                 parent_id: 'null',
