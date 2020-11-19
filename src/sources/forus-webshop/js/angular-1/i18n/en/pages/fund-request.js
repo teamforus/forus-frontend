@@ -4,7 +4,7 @@ module.exports = {
         block_title: "{{ fundname }} aanvragen",
         pane: {
             header_title: "Overzicht",
-            text: "We hebben nog wat gegevens van u nodig. Doorloop de volgende stappen:",
+            text: "We hebben nog wat gegevens nodig. Doorloop de volgende stappen:",
             criterion_more: "'{{ name }}' moet meer dan {{ value }} zijn.",
             criterion_less: "'{{ name }}' moet minder dan {{ value }} zijn.",
             criterion_same: "'{{ name }}' moet {{ value }} zijn.",
@@ -17,7 +17,7 @@ module.exports = {
         header: {
             main: "Aanvraag",
             title_step_1: "Welkom",
-            title_step_2: "Meld u aan",
+            title_step_2: "Aanmelden",
             title_fund_already_applied: "Application in progress"
         },
         subtitles: {

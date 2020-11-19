@@ -164,6 +164,12 @@
                 }
             }
 
+            .block-markdown {
+                a {
+                    color: $sign_up_link_color;
+                }
+            }
+
             .sign_up-pane-heading {
                 font: 500 21px/27px $bf;   
                 margin: 0 0 15px;
@@ -476,12 +482,12 @@
                 .digid-button {
                     height: 54px;
                     padding: 8px 30px;
-                    border: none;
-                    border-radius: 5px;
+                    border: $sign_up_digid_btn_border;
+                    border-radius: $sign_up_digid_btn_border_radius;
                     cursor: pointer;
                     font: 600 14px/40px $bf;
-                    background-color: #E1E7FF;
-                    color: #4B71FF;
+                    background-color: $sign_up_digid_btn_bkg;
+                    color: $sign_up_digid_btn_text;
 
                     .digid-button-icon {
                         display: block;
@@ -517,12 +523,12 @@
                     font-weight: 500;
                     font-size: 16px;
                     line-height: 20px;
-                    color: $sign_up_accent_color;
+                    color: $sign_up_step_btns_color;
 
                     line-height: 30px;
 
                     .mdi {
-                        color: $sign_up_accent_color;    
+                        color: $sign_up_step_btns_color;    
                         width: 36px;
                         font-size: 34px;    
                     }

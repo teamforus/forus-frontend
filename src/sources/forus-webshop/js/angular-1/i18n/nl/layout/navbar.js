@@ -3,7 +3,7 @@ module.exports = {
         home: "Home",
         funds:"Activeren",
         products:"Aanbod",
-        subsidies:"Acties",
+        subsidies:"Aanbod",
         providers:"Aanbieders",
         explanation:"Uitleg",
         identity:"Profiel",
@@ -35,6 +35,7 @@ module.exports = {
         authorize:"Log in op de app",
         logout:"Uitloggen",
         products:"Aanbod",
+        subsidies:"Acties",
         funds: "Aanvragen",
         providers: "Aanbieders",
 

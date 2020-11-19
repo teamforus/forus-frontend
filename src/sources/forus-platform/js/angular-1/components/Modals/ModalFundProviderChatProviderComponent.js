@@ -83,6 +83,7 @@ let ModalFundProviderChatProviderComponent = function(
         $ctrl.organization_id = $ctrl.modal.scope.organization_id;
         $ctrl.product_id = $ctrl.modal.scope.product_id;
         $ctrl.chat_id = $ctrl.modal.scope.chat_id;
+        $ctrl.organization_name = $ctrl.modal.scope.sponsor_name;
         
         interval = $interval(() => $ctrl.loadMessages(false, 200), updateInterval);
 

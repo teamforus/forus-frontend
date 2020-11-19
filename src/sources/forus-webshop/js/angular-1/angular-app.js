@@ -37,6 +37,7 @@ app.component('recordCreateComponent', require('./components/RecordCreateCompone
 app.component('meComponent', require('./components/MeComponent'));
 app.component('emailPreferencesComponent', require('./components/EmailPreferencesComponent'));
 app.component('accessibilityComponent', require('./components/AccessibilityComponent'));
+app.component('privacyComponent', require('./components/PrivacyComponent'));
 app.component('errorComponent', require('./components/ErrorComponent'));
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
 app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
@@ -88,6 +89,7 @@ app.service('IdentityEmailsService', require('./services/IdentityEmailsService')
 app.service('NotificationsService', require('./services/NotificationsService'));
 app.service('PhysicalCardsService', require('./services/PhysicalCardsService'));
 app.service('PhysicalCardsRequestService', require('./services/PhysicalCardsRequestService'));
+app.service('HelperService', require('./services/HelperService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));

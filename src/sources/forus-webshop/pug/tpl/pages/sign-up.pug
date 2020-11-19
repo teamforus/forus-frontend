@@ -55,7 +55,7 @@ header.section.section-sign-up-choose
                         .form-group.col.col-lg-3
                             label.form-label.hide-sm &nbsp;
                             button(
-                                ng-class="{'button-disabled': !$ctrl.authForm.values.email}"
+                                ng-class="{'button-disabled': (!$ctrl.authForm.values.privacy && $root.appConfigs.flags.privacyPage)}"
                                 type="submit").button.button-primary.button-fill {{ "popup_auth.buttons.submit" | translate }}
 
                     .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="fund_request.sign_up.labels.has_app").hide-sm

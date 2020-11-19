@@ -27,7 +27,7 @@ let VoucherComponent = function(
         ModalService.open('modalNotification', {
             type: 'confirm',
             title: 'Annuleer reservering',
-            icon: 'voucher_apply',
+            icon: 'voucher-apply',
             description: 'voucher.delete_voucher.popup_form.description',
             confirmBtnText: 'voucher.delete_voucher.buttons.submit',
             cancelBtnText: 'voucher.delete_voucher.buttons.close',
@@ -54,8 +54,8 @@ let VoucherComponent = function(
     $ctrl.sendVoucherEmail = function(voucher) {
         return ModalService.open('modalNotification', {
             type: 'confirm',
-            title: "E-Mail voucher naar uzelf",
-            description: "U kunt uw voucher naar uzelf mailen. Laat de voucher, in de vorm van een QR-code, aan de aanbieder zien vanuit uw vertrouwde e-mailbox.",
+            title: "E-mail tegoed naar uzelf",
+            description: "U kunt uw tegoed naar uzelf mailen. Laat het tegoed, in de vorm van een QR-code, aan de aanbieder zien vanuit uw vertrouwde e-mailbox.",
             confirm: () => {
                 VoucherService.sendToEmail(voucher.address).then(res => {
                     ModalService.open('modalNotification', {
@@ -80,35 +80,38 @@ let VoucherComponent = function(
         });
     };
 
-    $ctrl.usePhysicalCard = (voucher) => {
-        if (!voucher.physical_card) {
-            ModalService.open('modalPhysicalCardType', {
-                voucher: voucher,
-                sendVoucherEmail: () => $ctrl.sendVoucherEmail(voucher),
-                openInMeModal: $ctrl.openInMeModal,
-                printQrCode: $ctrl.printQrCode,
-                onAttached: () => {
-                    VoucherService.get($ctrl.voucher.address).then(res => {
-                        $ctrl.voucher = res.data.data;
-                        $ctrl.$onInit();
-                    });
-                }
-            });
-        } else {
-            ModalService.open('modalPhysicalCardUnlink', {
-                voucher: voucher,
-                onClose: (requestNew) => {
-                    VoucherService.get($ctrl.voucher.address).then(res => {
-                        $ctrl.voucher = res.data.data;
-                        $ctrl.$onInit();
+    $ctrl.usePhysicalCard = (voucher, state, preffersPlasticCard = false) => {
+        ModalService.open('modalPhysicalCardType', {
+            voucher: voucher,
+            state: state,
+            preffersPlasticCard: preffersPlasticCard,
+            sendVoucherEmail: () => $ctrl.sendVoucherEmail(voucher),
+            openInMeModal: $ctrl.openInMeModal,
+            printQrCode: $ctrl.printQrCode,
+            physicalCardIsLinkable: () => $ctrl.physicalCardIsLinkable(),
+            onAttached: () => {
+                VoucherService.get($ctrl.voucher.address).then(res => {
+                    $ctrl.voucher = res.data.data;
+                    $ctrl.$onInit();
+                });
+            }
+        });
+    };
 
-                        if (requestNew) {
-                            $ctrl.usePhysicalCard($ctrl.voucher);
-                        }
-                    });
-                },
-            });
-        }
+    $ctrl.unlinkPhysicalCard = (voucher) => {
+        ModalService.open('modalPhysicalCardUnlink', {
+            voucher: voucher,
+            onClose: (requestNew) => {
+                VoucherService.get($ctrl.voucher.address).then(res => {
+                    $ctrl.voucher = res.data.data;
+                    $ctrl.$onInit();
+
+                    if (requestNew) {
+                        $ctrl.usePhysicalCard($ctrl.voucher, 'select_type', true);
+                    }
+                });
+            },
+        });
     };
 
     $ctrl.physicalCardIsLinkable = () => {
