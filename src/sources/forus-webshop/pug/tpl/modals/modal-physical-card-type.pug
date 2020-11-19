@@ -69,7 +69,7 @@
 
             .modal-section(ng-if="$ctrl.preffersPlasticCard")
                 .order-block
-                    .physical-card-description Vul uw adresgegevens in. De pas wordt via de post naar u verstuurd.
+                    .physical-card-description(translate="physical_card.modal_section.request_new_card.description")
                     .row: .col.col-sm-8.col-sm-offset-2: form.form
                         .form-group
                             label.form-label(translate="physical_card.modal_section.request_new_card.address")
@@ -131,5 +131,7 @@
         .modal-content: .modal-section
             .physical-card-result
                 .physical-card-media: include ../../../resources/_webshop-common/assets/img/icon-physical-cards/icon-physical-cards-success.svg
-                .physical-card-description(translate="physical_card.modal_section.request_card_success.description" translate-values="{ fundName: $ctrl.voucher.fund.name, address: $ctrl.requestPhysicalCardForm.values.address, house: $ctrl.requestPhysicalCardForm.values.house, house_addition: $ctrl.requestPhysicalCardForm.values.house_addition, postcode: $ctrl.requestPhysicalCardForm.values.postcode, city: $ctrl.requestPhysicalCardForm.values.city  }")
+                .physical-card-description(
+                    translate="physical_card.modal_section.request_card_success.description" 
+                    translate-values="$ctrl.requestPhysicalCardForm.values")
                 .text-center: button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="physical_card.buttons.close")

@@ -26,6 +26,7 @@ module.exports = {
             title: 'Bestel een pas',
             subtitle: 'Uw digitale pas:',
             preffer_plastic_card: 'Liever een plastic pas?',
+            description: 'Vul uw adresgegevens in. De pas wordt via de post naar u verstuurd.',
             order: 'Bestellen',
             postcode: 'Postcode',
             postcode_placeholder: 'Postcode',
