@@ -711,7 +711,7 @@ module.exports = {
             download_step_9_mobile: "Applicatie downloaden",
             
             title_step_10: "Test betaling",
-            subtitle_step_10: "Wanneer u bent geaccepteerd als aanbieder, kunt u betalingen ontvangen. Klanten kunnen u een plaatje (QR code) tonen (vergelijkbaar met toegangskaartjes en vliegtickets). De QR-code scant u met de Me-app die u zojuist heeft geïnstalleerd. Vervolgens kunt u de betaling verrichten. Scan de afbeelding hieronder om een test betaling te doen.",
+            subtitle_step_10: "Bijna klaar! Tot slot, oefen alvast hoe een betaling tussen u en een inwoner werkt. Scan onderstaande QR-code met de app en doe een test betaling.",
             title_step_11: "De test betaling is gelukt!",
             top_title_step_11: "De test betaling is gelukt!",
             subtitle_step_11: "Op dezelfde manier kunt u betalingen van klanten ontvangen. Met deze app scant u de QR-code van de klant.<br/><br/>" +
@@ -901,7 +901,7 @@ module.exports = {
             mobile_number: "Vul uw mobiele telefoonnummer in",
             confirm_email: "Bevestig uw e-mailadres",
             confirm_email_description: "Bevestig voordat we verder gaan uw e-mail adres. Klik op de link in de e-mail die is verzonden naar",
-            terms: "Er wordt gekeken of u al aan de voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan",
+            terms: "",
         },
         buttons: {
             go_step_2: "Ga verder naar stap 2",

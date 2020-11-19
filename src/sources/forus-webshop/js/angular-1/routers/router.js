@@ -97,6 +97,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             component: "accessibilityComponent",
         });
     }
+    
+    if (appConfigs.flags && appConfigs.flags.privacyPage) {
+        $stateProvider.state({
+            name: "privacy",
+            url: "/privacy",
+            component: "privacyComponent",
+        });
+    }
 
     $stateProvider.state({
         name: "me-app",
