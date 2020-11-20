@@ -6,7 +6,7 @@ let ScheduleControlDirective = function(
     let $dir = $scope.$dir = {};
     let timeCache = {};
 
-    let transformHours = (hours) => {
+    const transformHours = (hours) => {
         if (hours < 0) {
             hours = 0;
         } else if (hours > 23) {
@@ -16,7 +16,7 @@ let ScheduleControlDirective = function(
         return hours;
     }
 
-    let transformMinutes = (minutes) => {
+    const transformMinutes = (minutes) => {
         if (minutes < 0) {
             minutes = 0;
         } else if (minutes > 59) {
@@ -26,7 +26,7 @@ let ScheduleControlDirective = function(
         return minutes;
     }
 
-    let addLeadingZero = (value) => {
+    const addLeadingZero = (value) => {
         if (value.length == 0) {
             return '';
         }
@@ -34,7 +34,7 @@ let ScheduleControlDirective = function(
         return value.length > 1 ? value : '0' + value;
     };
 
-    let transformTime = (time) => {
+    const transformTime = (time) => {
         let time_arr = time.split(':');
 
         if (time_arr.length > 1) {
@@ -53,8 +53,8 @@ let ScheduleControlDirective = function(
     }
 
     $dir.syncHours = (index, key) => {
-        let schedule = $dir.scheduleDetails;
-        let time = schedule[index][key];
+        const schedule = $dir.scheduleDetails;
+        const time = schedule[index][key];
 
         schedule[index][key] = transformTime(time || '');
 
@@ -70,8 +70,8 @@ let ScheduleControlDirective = function(
     };
 
     $scope.syncTime = (index) => {
-        let time = $dir.scheduleDetails[index],
-            week_days = index <= 4;
+        const time = $dir.scheduleDetails[index];
+        const week_days = index <= 4;
 
         Object.keys($dir.weekDays).forEach((index) => {
             if (typeof $dir.scheduleDetails != 'undefined' &&
@@ -101,9 +101,9 @@ let ScheduleControlDirective = function(
     };
 
     $scope.syncWithFirstRecord = (week_days) => {
-        let activeWeekDays = $dir.scheduleDetails.slice(0, 5).filter(scheduleDetail => !scheduleDetail.is_closed);
-        let activeWeekEndDays = $dir.scheduleDetails.slice(5, 7).filter(scheduleDetail => !scheduleDetail.is_closed);
-        let days = (week_days ? activeWeekDays : activeWeekEndDays);
+        const activeWeekDays = $dir.scheduleDetails.slice(0, 5).filter(scheduleDetail => !scheduleDetail.is_closed);
+        const activeWeekEndDays = $dir.scheduleDetails.slice(5, 7).filter(scheduleDetail => !scheduleDetail.is_closed);
+        const days = (week_days ? activeWeekDays : activeWeekEndDays);
 
         if (days.length === 0) {
             return;
@@ -119,9 +119,7 @@ let ScheduleControlDirective = function(
     };
 
     $dir.toggleOpened = () => {
-        $timeout(() => {
-            $scope.syncModel();
-        }, 10);
+        $timeout(() => $scope.syncModel(), 10);
     };
 
     $scope.isDateModified = (date) => {
@@ -226,7 +224,7 @@ let ScheduleControlDirective = function(
                     return time.key == '' || (
                         $scope.parseTime(time.key) < $scope.parseTime(scheduleDetail.end_time));
                 });
-                
+
                 breakPair.to = breakPair.to.filter(time => {
                     return time.key == '' || (
                         $scope.parseTime(time.key) < $scope.parseTime(scheduleDetail.end_time));
@@ -292,12 +290,29 @@ let ScheduleControlDirective = function(
         return pair;
     };
 
+    $scope.$watch('errors', (n, o) => {
+        const errors = {};
+
+        if (n != o && typeof n == 'object') {
+            [...Array(7).keys()].forEach(week_day => {
+                errors[week_day] = Object.keys(n).filter(
+                    key => key.startsWith('schedule.' + week_day + '.')
+                ).map((key) => {
+                    return n[key];
+                });
+            });
+        }
+
+
+        $dir.errors = errors;
+    });
+
     $scope.init = () => {
         $dir.weekDays = Object.values(OfficeService.scheduleWeekDaysExplicit());
         $dir.schedule = $scope.ngModel;
         $dir.scheduleDetails = [];
 
-        let schedulesWithValue = $dir.schedule.filter($scope.hasAnyTimeValue);
+        const schedulesWithValue = $dir.schedule.filter($scope.hasAnyTimeValue);
 
         $dir.scheduleDetails = Object.keys($dir.weekDays).map(function(week_day) {
             return {
@@ -324,15 +339,15 @@ let ScheduleControlDirective = function(
             });
         }
 
-        let activeWeekDays = $dir.scheduleDetails.slice(0, 5).filter(scheduleDetail => !scheduleDetail.is_closed);
-        let activeWeekEndDays = $dir.scheduleDetails.slice(5, 6).filter(scheduleDetail => !scheduleDetail.is_closed);
+        const activeWeekDays = $dir.scheduleDetails.slice(0, 5).filter(scheduleDetail => !scheduleDetail.is_closed);
+        const activeWeekEndDays = $dir.scheduleDetails.slice(5, 6).filter(scheduleDetail => !scheduleDetail.is_closed);
 
         $dir.same_hours = activeWeekDays.filter(scheduleDetail => {
             return $scope.isSameSchedule(activeWeekDays[0], scheduleDetail);
         }).length === activeWeekDays.length;
 
         $dir.weekend_same_hours = activeWeekEndDays.filter(scheduleDetail => {
-            return $scope.isSameSchedule(activeWeekEndDays[5], scheduleDetail);
+            return $scope.isSameSchedule(activeWeekEndDays[0], scheduleDetail);
         }).length === activeWeekEndDays.length;
 
         if ($dir.same_hours && activeWeekDays.length > 0) {
@@ -350,23 +365,6 @@ let ScheduleControlDirective = function(
         $scope.buildTimeOptions();
         $scope.syncModel();
     };
-
-    $scope.$watch('errors', (n, o) => {
-        let errors = {};
-
-        if (n != o && typeof n == 'object') {
-            [...Array(7).keys()].forEach(week_day => {
-                errors[week_day] = Object.keys(n).filter(
-                    key => key.startsWith('schedule.' + week_day + '.')
-                ).map((key) => {
-                    return n[key];
-                });
-            });
-        }
-
-
-        $dir.errors = errors;
-    });
 
     $scope.init();
 };
