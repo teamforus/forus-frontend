@@ -29,6 +29,7 @@ let ProviderOfficeComponent = function(
     };
     
     $ctrl.$onInit = () => {
+        console.log($ctrl);
         $ctrl.weekDays = OfficeService.scheduleWeekFullDays();
         $ctrl.schedules = $ctrl.office.schedule.reduce((schedules, schedule) => {
             schedules[schedule.week_day] = schedule;
@@ -52,7 +53,9 @@ let ProviderOfficeComponent = function(
 module.exports = {
     bindings: {
         provider: '<',
-        office: '<'
+        office: '<',
+        products: '<',
+        subsidies: '<',
     },
     controller: [
         '$sce',

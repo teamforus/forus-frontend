@@ -62,6 +62,8 @@ let HomeComponent = function(
 module.exports = {
     bindings: {
         funds: '<',
+        products: '<',
+        subsidies: '<',
     },
     scope: {
         text: '=',
