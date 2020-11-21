@@ -1,0 +1,99 @@
+&.block-about-me-app {
+    display: flex;
+    margin-top: 84px;
+
+    .block-me-overview {
+        padding-right: 20px;
+        padding-top: 60px;
+
+        .block-title {
+            font: 600 54px/66px $bf;
+            color: #000000;
+        }
+    
+        .block-description {
+            font: 400 20px/30px $bf;
+            color: #000000;
+            margin-top: 8px;
+        }
+        
+        .block-download-apps {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 40px;
+            width: auto;
+    
+            a {
+                min-width: auto;
+                margin-right: 10px;
+    
+                img {
+                    width: 150px;
+                }
+            }
+        }
+    }
+        
+    .block-download-apps {
+        display: none;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 20px;
+        
+        a {
+            min-width: 200px;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+
+    .block-me-images {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    
+    @media screen and (max-width: 1200px) {
+        .block-me-overview {
+            .block-download-apps {
+                display: none;
+            }
+        }
+
+        .block-me-images {
+            margin-top: 20px;
+        }
+
+        .block-download-apps {
+            display: flex;
+        }
+    }
+    
+    @media screen and (max-width: 1000px) {
+        margin-top: 10px;
+    }
+    
+    @media screen and (max-width: 600px) {
+        .block-me-images {
+            .block-me-image {
+                width: 100%;
+                margin-top: 20px;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+
+        .block-download-apps {
+            a {
+                width: 80%;
+                max-width: 300px;
+                margin: 10px auto;
+            }
+        }
+    }
+}
