@@ -1,7 +1,9 @@
+const { OperationCanceledException } = require("typescript");
+
 let OfficeService = function(ApiRequest) {
     let uriPrefix = '/platform/organizations/';
 
-    return new(function() {
+    return new (function() {
         this.list = function(organization_id, query = {}) {
             return ApiRequest.get(
                 uriPrefix + organization_id + '/offices',
@@ -57,10 +59,10 @@ let OfficeService = function(ApiRequest) {
 
             schedule = schedule.filter(schedule_item => schedule_item).map(schedule_item => {
                 let _schedule_item = {};
-                
+
                 fields.forEach(field => {
                     if (schedule_item[field] !== undefined && schedule_item[field] !== '') {
-                        _schedule_item[field] = schedule_item[field]; 
+                        _schedule_item[field] = schedule_item[field];
                     }
                 });
 
@@ -81,7 +83,6 @@ let OfficeService = function(ApiRequest) {
             let weekDays = this.scheduleWeekDays();
 
             apiResource.schedule = apiResource.schedule || [];
-
             apiResource.schedule.forEach((schedule_item, week_day) => {
                 schedule[week_day] = {
                     week_day: schedule_item.week_day + '',
@@ -92,37 +93,34 @@ let OfficeService = function(ApiRequest) {
                 };
             });
 
+            let scheduleByDay = apiResource.schedule.reduce((scheduleData, schedule) => {
+                return { ...scheduleData, ...({ [schedule.week_day]: schedule }) };
+            }, {});
+
             for (let prop in weekDays) {
-                if (!schedule[prop]) {
-                    schedule[prop] = {
+                if (!scheduleByDay[prop]) {
+                    scheduleByDay[prop] = {
+                        'week_day': parseInt(prop, 10),
                         'start_time': '',
                         'end_time': '',
                         'break_start_time': '',
                         'break_end_time': '',
                     }
                 } else {
-                    if (!schedule[prop].start_time) {
-                        schedule[prop].start_time = '';
-                    }
+                    let item = scheduleByDay[prop.toString()];
 
-                    if (!schedule[prop].end_time) {
-                        schedule[prop].end_time = '';
-                    }
+                    item.start_time = item.start_time ? item.start_time : '';
+                    item.end_time = item.end_time ? item.end_time : '';
 
-                    if (!schedule[prop].break_start_time) {
-                        schedule[prop].break_start_time = '';
-                    }
-
-                    if (!schedule[prop].break_end_time) {
-                        schedule[prop].break_end_time = '';
-                    }
+                    item.break_start_time = item.break_start_time ? item.break_start_time : '';
+                    item.break_end_time = item.break_end_time ? item.break_end_time : '';
                 }
             }
 
             return {
-                'address': apiResource.address,
-                'phone': apiResource.phone,
-                'schedule': schedule,
+                address: apiResource.address,
+                phone: apiResource.phone,
+                schedule: Object.values(scheduleByDay),
             };
         };
 

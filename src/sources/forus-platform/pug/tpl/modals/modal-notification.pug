@@ -10,7 +10,7 @@
                     .modal-icon-rounded(ng-if="$ctrl.icon"): img(ng-src="{{ $ctrl.icon }}")
                     
                     p.title(translate="{{ $ctrl.title }}")
-                    p.description(ng-if="$ctrl.description && !$ctrl.descriptionIsArray" translate="{{ $ctrl.description }}")
+                    p.description(ng-if="$ctrl.description && !$ctrl.descriptionIsArray" translate="{{ $ctrl.description }}" translate-values='{email: $ctrl.email}')
                     p.description(
                         ng-if="$ctrl.description && $ctrl.descriptionIsArray" 
                         ng-repeat="description in $ctrl.description track by $index" 

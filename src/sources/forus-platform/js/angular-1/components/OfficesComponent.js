@@ -10,6 +10,13 @@ let OfficesComponent = function(
 
     $ctrl.$onInit = function() {
         $ctrl.emptyBlockLink = $state.href('offices-create', $stateParams);
+        $ctrl.offices = $ctrl.offices.map(office => ({
+            ...office, ...{
+                scheduleByDay: office.schedule.reduce((scheduleData, schedule) => {
+                    return { ...scheduleData, ...({ [schedule.week_day]: schedule }) };
+                }, {})
+            }
+        }));
     };
 
     $ctrl.delete = (office) => {
@@ -17,11 +24,9 @@ let OfficesComponent = function(
             type: 'confirm',
             title: 'offices.confirm_delete.title',
             description: 'offices.confirm_delete.description',
-            confirm: () => {
-                OfficeService.destroy(
-                    office.organization_id, office.id
-                ).then(() => $state.reload());
-            }
+            confirm: () => OfficeService.destroy(
+                office.organization_id, office.id
+            ).then(() => $state.reload()),
         });
     };
 };

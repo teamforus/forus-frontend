@@ -121,7 +121,9 @@ let ModalAuthComponent = function(
                 ModalService.open('modalNotification', {
                     type: 'action-result',
                     class: 'modal-description-pad modal-content',
-                    title: 'popup_auth.labels.join',
+                    email: form.values.email,
+                    icon: 'icon-sign_up-success',
+                    title: 'popup_auth.labels.mail_sent',
                     description: 'popup_auth.notifications.link',
                     confirmBtnText: 'popup_auth.buttons.confirm',
                 });
