@@ -121,14 +121,18 @@ let ModalAuthComponent = function(
                 ModalService.open('modalNotification', {
                     type: 'action-result',
                     class: 'modal-description-pad modal-content',
-                    title: 'popup_auth.labels.join',
+                    email: form.values.email,
+                    icon: 'icon-sign_up-success',
+                    title: 'popup_auth.labels.mail_sent',
                     description: 'popup_auth.notifications.link',
                     confirmBtnText: 'popup_auth.buttons.confirm',
                 });
 
             }, (res) => {
                 form.unlock();
-                form.errors = res.data.errors;
+                form.errors = res.data.errors ? res.data.errors : {
+                    email: [res.data.message]
+                };
             });
         }, true);
 

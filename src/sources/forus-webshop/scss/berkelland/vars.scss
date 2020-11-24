@@ -1,3 +1,5 @@
+@import '../general/vars.scss';
+
 /*==========  Style Sheet - Vars  ==========*/
 
 // navbar
@@ -27,7 +29,7 @@ $bg-values:          url("../img/splash-top-b.jpg") no-repeat 100% 0;
 $bf:                Arial,Verdana,'Sans Serif';
 
 // text color
-$tc:                #595959;
+$tc:                rgb(39, 37, 37);
 $tc-var:            #fff;
 
 // base color

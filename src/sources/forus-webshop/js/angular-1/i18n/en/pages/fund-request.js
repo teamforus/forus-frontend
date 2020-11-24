@@ -4,7 +4,7 @@ module.exports = {
         block_title: "{{ fundname }} aanvragen",
         pane: {
             header_title: "Overzicht",
-            text: "U staat op het punt om een {{ fundname }} aan te vragen. Om in aanmerking te komen, dient u aan de voorwaarden te voldoen:",
+            text: "We hebben nog wat gegevens nodig. Doorloop de volgende stappen:",
             criterion_more: "'{{ name }}' moet meer dan {{ value }} zijn.",
             criterion_less: "'{{ name }}' moet minder dan {{ value }} zijn.",
             criterion_same: "'{{ name }}' moet {{ value }} zijn.",
@@ -17,7 +17,7 @@ module.exports = {
         header: {
             main: "Aanvraag",
             title_step_1: "Welkom",
-            title_step_2: "Meld u aan",
+            title_step_2: "Aanmelden",
             title_fund_already_applied: "Application in progress"
         },
         subtitles: {
@@ -27,7 +27,7 @@ module.exports = {
         },
         labels: {
             has_app: "Ik wil inloggen met de me app >",
-            no_app: "< Ik wil inloggen met mijn emailadres",
+            no_app: "< Ik wil inloggen met mijn e-mailadres",
         },
         app: {
             title: "Heeft u de Me-app al?",

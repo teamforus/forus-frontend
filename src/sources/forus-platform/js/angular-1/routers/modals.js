@@ -55,14 +55,13 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalFundRequestRecordDeclineComponent'
     });
 
+    ModalRouteProvider.modal('fundRequestRecordsDecline', {
+        component: 'modalFundRequestRecordsDeclineComponent'
+    });
+
     ModalRouteProvider.modal('fundCriteriaDescriptionEdit', {
         component: 'modalFundCriteriaDescriptionEditComponent'
     });
-
-    ModalRouteProvider.modal('pdfPreview', {
-        component: 'modalPdfPreviewComponent'
-    });
-
 
     ModalRouteProvider.modal('pdfPreview', {
         component: 'modalPdfPreviewComponent'
@@ -118,5 +117,9 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
 
     ModalRouteProvider.modal('duplicatesPicker', {
         component: 'modalDuplicatesPickerComponent'
+    });
+
+    ModalRouteProvider.modal('fundAppendRequestRecord', {
+        component: 'modalFundAppendRequestRecordComponent'
     });
 }];

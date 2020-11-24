@@ -1,4 +1,7 @@
-let ModalFundTopUpComponent = function(FundService) {
+let ModalFundTopUpComponent = function(
+    FundService,
+    PushNotificationsService
+) {
     let $ctrl = this;
 
     $ctrl.$onInit = () => {
@@ -14,7 +17,7 @@ let ModalFundTopUpComponent = function(FundService) {
             $ctrl.close();
         });
     };
-    $ctrl.$onDestroy = function() {};
+    $ctrl.$onDestroy = function() { };
 
     $ctrl.copyToClipboard = (str) => {
         const el = document.createElement('textarea');
@@ -26,6 +29,7 @@ let ModalFundTopUpComponent = function(FundService) {
         el.select();
         document.execCommand('copy');
         document.body.removeChild(el);
+        PushNotificationsService.success("Copied to clipboard.");
     };
 };
 
@@ -36,6 +40,7 @@ module.exports = {
     },
     controller: [
         'FundService',
+        'PushNotificationsService',
         ModalFundTopUpComponent
     ],
     templateUrl: () => {

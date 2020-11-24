@@ -1,11 +1,12 @@
 &.block-pane {
-    box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+    box-shadow: $base_shadow;
     margin-bottom: 30px;
     border-radius: $border_radius;
     cursor: default;
 
     .pane-head,
     .pane-section {
+        display: flex;
         border-bottom: 1px solid $border_color;
 
         &:first-child {

@@ -16,7 +16,10 @@ let ModalPhysicalCardTypeComponent = function(
         $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.voucher = $ctrl.modal.scope.voucher;
         $ctrl.onAttached = $ctrl.modal.scope.onAttached;
-
+        $ctrl.state = $ctrl.modal.scope.state || 'select_type';
+        $ctrl.preffersPlasticCard = $ctrl.modal.scope.preffersPlasticCard || false;
+        $ctrl.physicalCardType = 'old';
+        
         $ctrl.sendVoucherEmail = () => {
             $ctrl.close();
             $ctrl.modal.scope.sendVoucherEmail();
@@ -31,9 +34,6 @@ let ModalPhysicalCardTypeComponent = function(
             $ctrl.close();
             $ctrl.modal.scope.printQrCode();
         };
-
-        $ctrl.state = 'select_type';
-        $ctrl.physicalCardType = 'old';
 
         $ctrl.activateCodeForm = FormBuilderService.build({
             code: '1001'
@@ -91,7 +91,6 @@ let ModalPhysicalCardTypeComponent = function(
     $ctrl.prefferPlasticCard = () => {
         PhysicalCardsRequestService.index($ctrl.modal.scope.voucher.address).then(res => {
             $ctrl.requestPhysicalCardForm.values = res.data.data[0] || {};
-            
             $ctrl.preffersPlasticCard = true;
 
             $timeout(() => $element.find('#physical_card_address').focus(), 250);

@@ -1,19 +1,21 @@
 &.block-physical-cards {
     display: flex;
-    background: #ececec;
+    background: #F8F8F8;
     padding: 32px;
     margin-bottom: 30px;
     position: relative;
-    border: 2px solid $color_primary;
     border-radius: $border_radius;
+    box-shadow: $base_shadow;
+    cursor: default;
 
     .block-card-logo {
         margin: 0 10px 0 0;
         
         img {
-            max-width: 130px;
-            transform: rotate(90deg);
+            display: block;
+            max-width: 230px;
             margin-left: -20px;
+            margin-bottom: -10px;
         }
     }
 
@@ -21,11 +23,12 @@
         display: flex;
         flex-direction: column;
         flex-grow: 1;
+        justify-content: center;
 
         .block-card-title {
             font: 600 22px/25px $bf;
             color: $tc;
-            margin: 0 0 10px;
+            margin: 0 0;
         }
 
         .block-card-description {
@@ -33,12 +36,17 @@
             color: $tc;
             margin: 0 0 10px;
         }
-
-        .block-card-actions {
-            display: block;
-        }
     }
 
+    .block-card-actions {
+        display: flex;
+        align-items: center;
+        
+        .button {
+            font-size: 14px;
+        }
+    }
+    
     .block-card-close {
         position: absolute;
         top: 20px;
@@ -46,7 +54,7 @@
         font-size: 20px;
     }
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: 1000px) {
         display: flex;
         flex-direction: column;
         text-align: center;
@@ -57,7 +65,8 @@
             img {
                 max-width: 200px;
                 transform: rotate(0deg);
-                margin-left: 0;
+                margin: 0 auto 0;
+                display: block;
             }
         }
 
@@ -71,6 +80,16 @@
             .block-card-description {
                 font: 600 11px/18px $bf;
                 margin: 0 0 20px;
+            }
+        }
+
+        .block-card-actions {
+            display: flex;
+            justify-content: center;
+
+            .button {
+                padding: 8px 14px;
+                font-size: 12px;
             }
         }
     }

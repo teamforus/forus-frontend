@@ -1,3 +1,5 @@
+@import '../general/vars.scss';
+
 /*==========  Style Sheet - Vars  ==========*/
 
 // navbar
@@ -20,7 +22,7 @@ $btn-start-btn:      #305dfb;
 $btn-start-border:   transparent;
 
 // header attributes
-$bg-values:          url("../img/splash-top-b.png") no-repeat 100% 0;
+$bg-values:          url("../img/splash-top-b.jpg") no-repeat 100% 0;
 
 // base font
 $bf:                'Helvetica', 'Open Sans', 'Arial', sans-serif;

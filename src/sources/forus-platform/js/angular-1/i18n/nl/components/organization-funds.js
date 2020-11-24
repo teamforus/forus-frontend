@@ -6,7 +6,7 @@ module.exports = {
             edit: "Instellingen",
             delete: "Verwijderen",
             top_up: "Budget toevoegen",
-            criteria: "Criteria",
+            criteria: "Voorwaarden",
             statistics: "Statistieken",
         },
         states: {

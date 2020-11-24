@@ -56,11 +56,12 @@ let VoucherService = function(
         };
 
         this.composeCardData = function(voucher) {
-            let thumbnail, title, subtitle;
+            let thumbnail, title, subtitle, description;
 
             if (voucher.type == 'regular') {
                 title = voucher.fund.name;
                 subtitle = voucher.fund.organization.name;
+                description = voucher.fund.description;
 
                 if (voucher.fund.logo) {
                     thumbnail = voucher.fund.logo.sizes.thumbnail;
@@ -72,6 +73,7 @@ let VoucherService = function(
             } else if (voucher.type == 'product') {
                 title = voucher.product.name;
                 subtitle = voucher.product.organization.name;
+                description = voucher.product.description_html;
 
                 if (voucher.product.photo) {
                     thumbnail = voucher.product.photo.sizes.thumbnail;
@@ -84,10 +86,11 @@ let VoucherService = function(
             return {
                 title: title,
                 subtitle: subtitle,
+                description: description,
                 amount: voucher.amount,
                 type: voucher.type,
                 returnable: voucher.returnable,
-                transactions: this.composeTransactions(voucher),
+                transactions: voucher.transactions ? this.composeTransactions(voucher) : [],
                 created_at_locale: voucher.created_at_locale,
                 expire_at_locale: voucher.expire_at_locale,
                 last_active_day_locale: voucher.last_active_day_locale,

@@ -1,15 +1,35 @@
 module.exports = {
     // PRODUCT = product.pug
+    headers: {
+        funds: "Tegoeden",
+        provider: "Aanbieder",
+        map: "Locaties op kaart"
+    },
     labels: {
         fund: "Aanvragen",
-        find: "U kunt ons hier vinden",      
+        limit: "Aantal keer dat u gebruik kan maken:",
+        find: "U kunt ons hier vinden",  
+        description: "Omschrijving:",
+        category: "Categorie:",
+        expire: "Geldigheid van aanbod:",
+        expire_prefix: "Geldig t/m"
     },
     status: {
         active: "Actief",
         out_of_stock: "Geen voorraad meer",
     },
     buttons: {
-        buy: "Koop",
+        buy: "Reserveren",
+        request: "Activeren",
+        nijmegen: {
+            request: "Aanvragen"
+        },
+        groningen: {
+            request: "Aanvragen"
+        },
+        potjeswijzer: {
+            request: "Aanvragen"
+        },
     },
     low_amount: "U heeft geen tegoed met voldoende saldo.",
     no_vouchers: "U heeft geen tegoed om dit aanbod mee te reserveren",

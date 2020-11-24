@@ -4,7 +4,6 @@ let ModalImagePreviewComponent = function() {
     $ctrl.$onInit = () => {
         $ctrl.imageSrc = $ctrl.modal.scope.imageSrc;
     };
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {

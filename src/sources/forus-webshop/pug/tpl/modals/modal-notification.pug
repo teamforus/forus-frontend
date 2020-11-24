@@ -7,8 +7,7 @@
                 .modal-icon(ng-if="$ctrl.icon")
                     img(ng-src="{{ $ctrl.icon }}")
                 .title(translate="{{ $ctrl.title }}")
-                
-                .description(ng-if="$ctrl.description && !$ctrl.descriptionIsArray" translate="{{ $ctrl.description }}")
+                .description(ng-if="$ctrl.description && !$ctrl.descriptionIsArray" translate="{{ $ctrl.description }}" translate-values='{email: $ctrl.email}')
                 .description(ng-if="$ctrl.description && $ctrl.descriptionIsArray")
                     div(ng-repeat="description in $ctrl.description  track by $index" translate="{{ description }}")
                 

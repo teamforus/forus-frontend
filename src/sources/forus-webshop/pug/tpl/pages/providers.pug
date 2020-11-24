@@ -10,7 +10,7 @@ block content
 
             .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
                 .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
-                .mobile-filters-title Zoek op categorieen en fondsen
+                .mobile-filters-title Zoek op categorieen en tegoeden
                 .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
 
             .block.block-breadcrumbs
@@ -37,12 +37,12 @@ block content
                                 placeholder="Selecteer organisatie type...")
 
                         .form-group
-                            label.form-label Budgetten
+                            label.form-label Tegoeden
                             select-control(
                                 autoclear="true"
                                 ng-model="$ctrl.form.values.fund" 
                                 options="$ctrl.funds"
-                                placeholder="Selecteer budget...")
+                                placeholder="Selecteer tegoed...")
                     
                     
                 .showcase-content

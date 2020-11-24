@@ -33,7 +33,7 @@ aside.app.app-sidebar
             '$root.activeOrganization | hasPerm:["manage_provider_funds"]',
             'funds')
         +nav_item(
-            "Aanbiedingen", "products", 'products', 
+            "Aanbod", "products", 'products', 
             '{organization_id: $root.activeOrganization.id}', 
             '($root.activeOrganization | hasPerm:["manage_products"]) && $root.appConfigs.features.organizations.products.list',
             'products')

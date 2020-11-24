@@ -4,7 +4,6 @@ let ProductsEditComponent = function(
     $stateParams,
     appConfigs,
     ProductService,
-    ProductCategoryService,
     FormBuilderService,
     MediaService,
     ModalService
@@ -16,14 +15,19 @@ let ProductsEditComponent = function(
     $ctrl.media;
     $ctrl.mediaErrors = [];
 
+    $ctrl.clearPrices = (no_price) => {
+        if (no_price) {
+            delete $ctrl.form.values.price;
+            delete $ctrl.form.values.old_price;
+        }
+    };
+
     $ctrl.$onInit = function() {
-        let values = $ctrl.product ? ProductService.apiResourceToForm(
-            $ctrl.product
-        ) : {
+        let values = $ctrl.product ? ProductService.apiResourceToForm($ctrl.product) : {
             product_category_id: null
         };
 
-        $ctrl.maxProductCount = appConfigs.flags.maxProductCount ? appConfigs.flags.maxProductCount : null;
+        $ctrl.maxProductCount = parseInt(appConfigs.features.products_hard_limit);
 
         if ($ctrl.maxProductCount && !$ctrl.product && $ctrl.products.length >= $ctrl.maxProductCount) {
             ModalService.open('modalNotification', {
@@ -38,21 +42,39 @@ let ProductsEditComponent = function(
             });
         }
 
-        $ctrl.saveProduct = function() {
-            if (!$ctrl.product && !alreadyConfirmed) {
-                ModalService.open('modalNotification', {
-                    type: 'confirm',
-                    title: 'product_edit.confirm_create.title',
-                    description: 'product_edit.confirm_create.description',
-                    icon: 'product-create',
-                    confirm: () => {
-                        alreadyConfirmed = true;
-                        $ctrl.form.submit();
-                    }
-                });
-            } else {
-                $ctrl.form.submit();
+        $ctrl.confirmPriceChange = (confirmCallback) => {
+            if (!$ctrl.product || 
+                parseFloat($ctrl.product.price) === parseFloat($ctrl.form.values.price) || 
+                $ctrl.product.funds.filter(fund => fund.type == 'subsidies').length === 0) {
+                return confirmCallback();
             }
+
+            ModalService.open('modalNotification', {
+                type: 'confirm',
+                title: 'product_edit.confirm_price_change.title',
+                description: 'product_edit.confirm_price_change.description',
+                icon: 'product-create',
+                confirm: () => confirmCallback()
+            });
+        };
+
+        $ctrl.saveProduct = function() {
+            $ctrl.confirmPriceChange(() => {
+                if (!$ctrl.product && !alreadyConfirmed) {
+                    ModalService.open('modalNotification', {
+                        type: 'confirm',
+                        title: 'product_edit.confirm_create.title',
+                        description: 'product_edit.confirm_create.description',
+                        icon: 'product-create',
+                        confirm: () => {
+                            alreadyConfirmed = true;
+                            $ctrl.form.submit();
+                        }
+                    });
+                } else {
+                    $ctrl.form.submit();
+                }
+            });
         };
 
         $ctrl.form = FormBuilderService.build(values, async (form) => {
@@ -138,7 +160,6 @@ module.exports = {
         '$stateParams',
         'appConfigs',
         'ProductService',
-        'ProductCategoryService',
         'FormBuilderService',
         'MediaService',
         'ModalService',

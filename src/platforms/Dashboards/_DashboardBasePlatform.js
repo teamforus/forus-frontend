@@ -21,6 +21,7 @@ platform.setLibs([
     "moment",
     "chart_js",
     "mdi",
+    "jszip",
     "nanoscroller",
     "papaparse",
     "progressbar_js",

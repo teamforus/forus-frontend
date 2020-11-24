@@ -20,15 +20,23 @@ let handleAuthTarget = ($state, target) => {
     }
 
     if (target[0] == 'fundRequest') {
-        return !!$state.go('fund-request', {
+        return target[1] ? !!$state.go('fund-request', {
             fund_id: target[1]
-        });
+        }) : !!$state.go('start', {});
     }
 
     if (target[0] == 'voucher') {
         return !!$state.go('voucher', {
             address: target[1]
         });
+    }
+
+    if (target[0] == 'requestClarification') {
+        return target[1] ? !!$state.go('fund-request-clarification', {
+            fund_id: target[1],
+            request_id: target[2],
+            clarification_id: target[3]
+        }) : !!$state.go('start', {});
     }
 
     return false;
@@ -67,11 +75,34 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
+    $stateProvider.state({
+        name: "start",
+        url: "/start",
+        component: "signUpComponent",
+        params: {
+            confirmed: null,
+            digid_error: null
+        },
+        resolve: {
+            funds: ['FundService', (
+                FundService
+            ) => repackResponse(FundService.list())],
+        }
+    });
+
     if (appConfigs.flags && appConfigs.flags.accessibilityPage) {
         $stateProvider.state({
             name: "accessibility",
             url: "/accessibility",
             component: "accessibilityComponent",
+        });
+    }
+    
+    if (appConfigs.flags && appConfigs.flags.privacyPage) {
+        $stateProvider.state({
+            name: "privacy",
+            url: "/privacy",
+            component: "privacyComponent",
         });
     }
 
@@ -141,7 +172,18 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             ) => repackResponse(ProductCategoryService.list({
                 parent_id: 'null',
                 used: 1,
-            }))]
+            }))],
+            organizations: ['OrganizationService', 'HelperService', (
+                OrganizationService, HelperService
+            ) => HelperService.recursiveLeacher((page) => {
+                return OrganizationService.list({
+                    is_employee: 0,
+                    has_products: 1,
+                    per_page: 100,
+                    page: page,
+                    fund_type: 'budget'
+                });
+            }, 4)],
         }
     });
 
@@ -202,7 +244,18 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             ) => repackResponse(ProductCategoryService.list({
                 parent_id: 'null',
                 used: 1,
-            }))]
+            }))],
+            organizations: ['OrganizationService', 'HelperService', (
+                OrganizationService, HelperService
+            ) => HelperService.recursiveLeacher((page) => {
+                return OrganizationService.list({
+                    is_employee: 0,
+                    has_products: 1,
+                    per_page: 100,
+                    page: page,
+                    fund_type: 'subsidies'
+                });
+            }, 4)],
         }
     });
 
@@ -483,9 +536,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 organization_id: $transition$.params().organization_id,
                 per_page: 10,
             }))],
-            recordTypes: ['RecordTypeService', (
-                RecordTypeService
-            ) => repackResponse(RecordTypeService.list())],
             records: ['AuthService', 'RecordService', (
                 AuthService, RecordService
             ) => AuthService.hasCredentials() ? repackResponse(
@@ -496,6 +546,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             ) => AuthService.hasCredentials() ? repackResponse(
                 VoucherService.list()
             ) : promiseResolve([])],
+            organizations: ['OrganizationService', (
+                OrganizationService
+            ) => repackResponse(OrganizationService.list({
+                implementation: 1,
+                is_employee: 0
+            }))],
         }
     });
 
@@ -524,6 +580,36 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
+    // Activate fund
+    $stateProvider.state({
+        name: "fund-activate",
+        url: "/funds/{fund_id}/activate?digid_success&digid_error",
+        component: "fundActivateComponent",
+        data: {
+            fund_id: null,
+            digid_success: false,
+            digid_error: false,
+        },
+        resolve: {
+            identity: ['AuthService', (
+                AuthService
+            ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
+            fund: ['$transition$', 'FundService', (
+                $transition$, FundService
+            ) => repackResponse(FundService.readById($transition$.params().fund_id))],
+            fundRequests: ['$transition$', 'FundRequestService', 'AuthService', (
+                $transition$, FundRequestService, AuthService
+            ) => AuthService.hasCredentials() ? repackPagination(
+                FundRequestService.index($transition$.params().fund_id)
+            ) : null],
+            vouchers: ['AuthService', 'VoucherService', (
+                AuthService, VoucherService
+            ) => AuthService.hasCredentials() ? repackResponse(
+                VoucherService.list()
+            ) : []],
+        }
+    });
+
     // Apply to fund by submitting fund request
     $stateProvider.state({
         name: "fund-request",
@@ -535,14 +621,32 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             digid_error: false,
         },
         resolve: {
+            identity: ['AuthService', (
+                AuthService
+            ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
             fund: ['$transition$', 'FundService', (
                 $transition$, FundService
             ) => repackResponse(FundService.readById(
                 $transition$.params().fund_id
             ))],
+            fundRequests: ['$transition$', 'FundRequestService', 'AuthService', (
+                $transition$, FundRequestService, AuthService
+            ) => AuthService.hasCredentials() ? repackPagination(
+                FundRequestService.index($transition$.params().fund_id)
+            ) : new Promise((resolve) => resolve(null))],
             recordTypes: ['RecordTypeService', (
                 RecordTypeService
             ) => repackResponse(RecordTypeService.list())],
+            vouchers: ['AuthService', 'VoucherService', (
+                AuthService, VoucherService
+            ) => AuthService.hasCredentials() ? repackResponse(
+                VoucherService.list()
+            ) : []],
+            records: ['AuthService', 'RecordService', (
+                AuthService, RecordService
+            ) => AuthService.hasCredentials() ? repackResponse(
+                RecordService.list()
+            ) : promiseResolve(null)],
         }
     });
 

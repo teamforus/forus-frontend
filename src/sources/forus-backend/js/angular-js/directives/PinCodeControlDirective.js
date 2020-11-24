@@ -97,7 +97,7 @@ let AuthPinCode = function(
                 $timeout(() => $scope.addCharCode(e.charCode || e.keyCode || 0, null, e), 0);
             }
 
-            if ((e.charCode || e.keyCode) === 8) {
+            if ($scope.isIe && ((e.charCode || e.keyCode) === 8)) {
                 return false;
             }
         });
@@ -205,6 +205,6 @@ module.exports = () => {
             '$timeout',
             AuthPinCode
         ],
-        template: require('../tpl/directives/pin_code-control.pug')()
+        template: require('../tpl/directives/pincode-control.pug')()
     };
 };

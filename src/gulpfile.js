@@ -478,10 +478,16 @@ let libsTask = (done) => {
             }
 
             fse.mkdirpSync(assestPath('/dist/bundle/js'));
-            fse.writeFileSync(assestPath('/dist/bundle/js/bundle.min.js'), bundle.js);
+            fse.writeFileSync(compose_dest_path(
+                assestPath('/dist/bundle/js/bundle.min.js'),
+                !platform.env_data.disable_timestamps ? assetsSuffix : ''
+            ), bundle.js);
 
             fse.mkdirpSync(assestPath('/dist/bundle/css'));
-            fse.writeFileSync(assestPath('/dist/bundle/css/bundle.min.css'), bundle.css);
+            fse.writeFileSync(compose_dest_path(
+                assestPath('/dist/bundle/css/bundle.min.css'), 
+                !platform.env_data.disable_timestamps ? assetsSuffix : ''
+            ), bundle.css);
 
             fse.mkdirpSync(assestPath('/dist/bundle/fonts'));
             bundle.fonts.forEach(font => {

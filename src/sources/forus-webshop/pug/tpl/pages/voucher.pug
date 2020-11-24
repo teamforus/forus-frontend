@@ -3,20 +3,9 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
     .block.block-breadcrumbs.hide-sm
         a(ui-sref="home").breadcrumb-item Home
         a(ui-sref="vouchers").breadcrumb-item Mijn tegoeden
-        .breadcrumb-item.active(ng-if="!$ctrl.voucherCard.product") Uw {{ $ctrl.voucherCard.title }} tegoed 
-        .breadcrumb-item.active(ng-if="$ctrl.voucherCard.product") Uw reservering
+        .breadcrumb-item.active(ng-if="!$ctrl.voucherCard.product") {{ $ctrl.voucherCard.title }}
+        .breadcrumb-item.active(ng-if="$ctrl.voucherCard.product") Reservering
 
-    .block.block-physical-cards(ng-if="$ctrl.showPhysicalCardsOption")
-        .block-card-logo: img(src="./assets/img/icon-physical-cards/icon-physical-cards-preview.svg")
-        .block-card-details 
-            .block-card-title(i18n="voucher.physical_card.title")
-            .block-card-description(i18n="voucher.physical_card.description")
-            .block-card-actions: .button.button-primary(
-                i18n="voucher.physical_card.buttons.reactivate" 
-                ng-click="$ctrl.usePhysicalCard($ctrl.voucher)") 
-        .block-card-close.mdi.mdi-close(ng-click="$ctrl.dismissPhysicalCard()")
-
-    .section-title.hide-sm(ng-if="!$ctrl.voucherCard.product && !$ctrl.showPhysicalCardsOption") Uw {{ $ctrl.voucherCard.title }} tegoed
     .section-title.hide-sm(ng-if="$ctrl.voucherCard.product") Uw reservering
 
     .block.block-voucher(ng-if="$ctrl.voucherCanUse")
@@ -54,33 +43,18 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                         .card-label Gebruikt op:
                         .card-value {{ transaction.created_at_locale }}
                     .card-actions
-                        .action-item(ng-click="$ctrl.openInMeModal()")
+                        .action-item(ng-click="$ctrl.usePhysicalCard($ctrl.voucher, 'select_type')")
                             .action-item-icon
-                                em.mdi.mdi-account-circle
+                                em.mdi.mdi-qrcode-scan
                                 //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.open_in_me")
-                            .action-item-name(i18n="voucher.voucher_card.footer.actions.open_in_me")
-                        .action-item(ng-if="$ctrl.voucherCanUse" ng-click="$ctrl.sendVoucherEmail($ctrl.voucher)")
-                            .action-item-icon
-                                em.mdi.mdi-email-outline
-                                //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.mail")
-                            .action-item-name(i18n="voucher.voucher_card.footer.actions.mail")
-                        .action-item(ng-if="$ctrl.voucherCanUse" ng-click="$ctrl.printQrCode()")
-                            .action-item-icon
-                                em.mdi.mdi-printer
-                                //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.print")
-                            .action-item-name(i18n="voucher.voucher_card.footer.actions.print")
-                        .action-item.hide-action-lg(ng-if="$ctrl.voucherCard.product && $root.appConfigs.flags.shareProducts" ng-click="$ctrl.shareVoucher($ctrl.voucher)")
-                            .action-item-icon
-                                em.mdi.mdi-share-variant
-                                //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
-                            .action-item-name(i18n="voucher.voucher_card.footer.actions.share")
+                            .action-item-name Gebruik mijn QR-code
                         .action-item(
-                            ng-if="$ctrl.isPhysicalCardLinkable" 
-                            ng-click="$ctrl.usePhysicalCard($ctrl.voucher)")
+                            ng-if="$ctrl.voucher.physical_card" 
+                            ng-click="$ctrl.unlinkPhysicalCard($ctrl.voucher)")
                             .action-item-icon
                                 em.mdi.mdi-card-bulleted-outline
                                 //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
-                            .action-item-name(i18n="voucher.voucher_card.footer.actions.physical_card_use")
+                            .action-item-name Ik ben mijn pas kwijt
 
             .card-qr_code.hide-sm
                 qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="voucher")
@@ -105,10 +79,10 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                 .card-label(i18n="voucher.voucher_card.labels.contact_sponsor" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
                 .card-value(ng-bind="$ctrl.voucherCard.fund.organization.name")
                 .card-value.card-value-sm
-                    | E-mailadres:
+                    | E-mailadres: 
                     strong(ng-bind="$ctrl.voucherCard.fund.organization.email")
                     br
-                    | Telefoonnummer:
+                    | Telefoonnummer: 
                     strong(ng-bind="$ctrl.voucherCard.fund.organization.phone")
 
         //- product voucher
@@ -122,11 +96,21 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                 .card-label {{ "voucher.voucher_card.labels.contact_provider" | translate }}
                 .card-value(ng-bind="$ctrl.voucherCard.product.organization.name")
                 .card-value.card-value-sm
-                    | E-mailadres:
+                    | E-mailadres: 
                     strong(ng-bind="$ctrl.voucherCard.product.organization.email")
                     br
-                    | Telefoonnummer:
+                    | Telefoonnummer: 
                     strong(ng-bind="$ctrl.voucherCard.product.organization.phone")
+                    
+    .block.block-physical-cards(ng-if="$ctrl.showPhysicalCardsOption")
+        .block-card-logo: img(src="./assets/img/icon-physical-cards/icon-physical-cards-preview-vertical.png")
+        .block-card-details 
+            .block-card-title(i18n="voucher.physical_card.title")
+            //-.block-card-description(i18n="voucher.physical_card.description")
+        .block-card-actions: .button.button-primary(
+            i18n="voucher.physical_card.buttons.reactivate" 
+            ng-click="$ctrl.usePhysicalCard($ctrl.voucher, 'card_code')") 
+        //-.block-card-close.mdi.mdi-close(ng-click="$ctrl.dismissPhysicalCard()")
 
     .block.block-transactions(ng-if="$ctrl.voucherCard.transactions.length > 0 && !$ctrl.voucherCard.product")
         .transactions-header: .transactions-title {{ "voucher.labels.transactions" | translate }}
@@ -134,10 +118,10 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
             .transactions-item(ng-repeat="transaction in $ctrl.voucherCard.transactions" class="transactions-item-out")
                 .transactions-item-icon: em.mdi.mdi-arrow-up
                 .transactions-item-details
+                    .transactions-item-counterpart(ng-if="transaction.type == 'product_voucher' || $ctrl.voucherCard.fund.type != 'budget'") 
+                        |  {{ transaction.product.name }}
                     .transactions-item-counterpart(ng-if="transaction.type == 'transaction'") 
                         | {{ transaction.organization.name }}
-                    .transactions-item-counterpart(ng-if="transaction.type == 'product_voucher'") 
-                        | {{ "Aanbieding:" | translate }} {{ transaction.product.name }}
                     .transactions-item-date {{ transaction.created_at_locale }}
                 .transactions-item-amount(ng-if="$ctrl.voucherCard.fund.type == 'budget'")
                     .transactions-item-value - {{ transaction.amount | currency_format }}
@@ -150,7 +134,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
         product-categories="$ctrl.productCategories"
         fund="$ctrl.voucherCard.fund")
         
-    .block.block-map_card(ng-if="$ctrl.voucherCanUse")
+    .block.block-map_card(ng-if="$ctrl.voucherCanUse && ($ctrl.voucherCard.offices.length || !$ctrl.voucherCard.product)")
         .map_card-header
             //- regular voucher
             .map_card-title(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.offices")
@@ -168,3 +152,8 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
         //- regular voucher
         .map_card-footer
             .map_card-subtitle(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.info")
+
+    .block.block-info-card(ng-if="$ctrl.voucherCard.product")
+        .block-header(i18n="voucher.labels.productdetail")
+        .block-content: .block.block-markdown
+            div(ng-bind-html="$ctrl.voucherCard.description")

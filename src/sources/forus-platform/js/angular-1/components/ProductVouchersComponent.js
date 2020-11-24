@@ -3,8 +3,10 @@ let ProductVouchersComponent = function(
     $stateParams,
     $timeout,
     DateService,
+    FileService,
     ModalService,
-    VoucherService
+    VoucherService,
+    PageLoadingBarService
 ) {
     let $ctrl = this;
 
@@ -19,18 +21,34 @@ let ProductVouchersComponent = function(
         name: 'Nee...'
     }];
 
+    $ctrl.sources = [{
+        value: 'all',
+        name: 'Alle'
+    }, {
+        value: 'user',
+        name: 'Gebruiker'
+    }, {
+        value: 'employee',
+        name: 'Medewerker'
+    }];
+
     $ctrl.filters = {
         show: false,
+        defaultValues: {
+            q: '',
+            granted: null,
+            amount_min: null,
+            amount_max: null,
+            from: null,
+            to: null,
+            type: 'product_voucher',
+            source: 'all',
+            sort_by: 'created_at',
+            sort_order: 'desc',
+        },
         values: {},
-        reset: function () {
-            this.values.q = '';
-            this.values.granted = null;
-            this.values.fund_id = $ctrl.fund.id;
-            this.values.amount_min = null;
-            this.values.amount_max = null;
-            this.values.from = null;
-            this.values.to = null;
-            this.values.type = 'product_voucher';
+        reset: function() {
+            this.values = {...this.defaultValues};
         }
     };
 
@@ -77,24 +95,149 @@ let ProductVouchersComponent = function(
         });
     };
 
-    $ctrl.onPageChange = (query) => {
+    $ctrl.getQueryParams = (query) => {
         let _query = JSON.parse(JSON.stringify(query));
 
-        _query = Object.assign(_query, {
-            'from': _query.from ? DateService._frontToBack(_query.from) : null,
-            'to': _query.to ? DateService._frontToBack(_query.to) : null,
-            'sort_by': 'created_at',
-            'sort_order': 'desc'
-        });
+        return {..._query, ...{
+            from: _query.from ? DateService._frontToBack(_query.from) : null,
+            to: _query.to ? DateService._frontToBack(_query.to) : null,
+            fund_id: $ctrl.fund.id,
+        }};
+    };
 
+    /* $ctrl.exportQRCodes = () => {
+        ModalService.open('voucherExportType', {
+            success: (data) => {
+                VoucherService.downloadQRCodes($ctrl.organization.id, {
+                    ...$ctrl.getQueryParams($ctrl.filters.values), ...{
+                        export_type: data.exportType
+                    }
+                }).then(res => {
+                    FileService.downloadFile(
+                        'vouchers_' + moment().format(
+                            'YYYY-MM-DD HH:mm:ss'
+                        ) + '.zip',
+                        res.data,
+                        res.headers('Content-Type') + ';charset=utf-8;'
+                    );
+                }, res => {
+                    res.data.text().then((data) => {
+                        data = JSON.parse(data);
+
+                        if (data.message) {
+                            PushNotificationsService.danger(data.message);
+                        }
+                    });
+                });
+            }
+        });
+    }; */
+
+
+    $ctrl.exportPdf = () => {
+        VoucherService.downloadQRCodes($ctrl.organization.id, {
+            ...$ctrl.getQueryParams($ctrl.filters.values), ...{
+                export_type: 'pdf'
+            }
+        }).then(res => {
+            FileService.downloadFile(
+                'vouchers_' + moment().format(
+                    'YYYY-MM-DD HH:mm:ss'
+                ) + '.zip',
+                res.data,
+                res.headers('Content-Type') + ';charset=utf-8;'
+            );
+        }, res => {
+            res.data.text().then((data) => {
+                data = JSON.parse(data);
+
+                if (data.message) {
+                    PushNotificationsService.danger(data.message);
+                }
+            });
+        });
+    };
+
+
+    $ctrl.exportImages = () => {
+        PageLoadingBarService.setProgress(0);
+        VoucherService.downloadQRCodesData($ctrl.organization.id, {
+            ...$ctrl.getQueryParams($ctrl.filters.values), ...{
+                export_type: 'png'
+            }
+        }).then(async res => {
+            let data = res.data;
+            let csvContent = data.rawCsv;
+            let csvName = 'qr_codes.csv';
+            let vouchersData = data.vouchersData;
+            let zip = new JSZip();
+            let img = zip.folder("images");
+            let promises = [];
+
+            PageLoadingBarService.setProgress(10);
+            console.info('- data loaded from the api.');
+
+            zip.file(csvName, csvContent);
+            PageLoadingBarService.setProgress(20);
+            vouchersData.forEach((voucherData, index) => {
+                promises.push(new Promise((resolve) => {
+                    console.info('- making qr file ' + (index + 1) + ' from ' + vouchersData.length + '.');
+                    document.imageConverter.makeQrImage(voucherData.value).then((data) => {
+                        resolve({
+                            ...voucherData,
+                            ...{ imageData: data.slice('data:image/png;base64,'.length) }
+                        });
+                    })
+                }));
+            });
+
+            Promise.all(promises).then((data) => {
+                console.info('- inserting images into .zip archive.');
+                
+                data.forEach((imgData) => {
+                    img.file(imgData.name + ".png", imgData.imageData, { base64: true });
+                });
+
+                PageLoadingBarService.setProgress(80);
+
+                console.info('- building .zip file.');
+                zip.generateAsync({ type: "blob" }).then(function(content) {
+                    PageLoadingBarService.setProgress(95);
+                    console.info('- downloading .zip file.');
+                    saveAs(content, 'vouchers_' + moment().format(
+                        'YYYY-MM-DD HH:mm:ss'
+                    ) + '.zip');
+                    PageLoadingBarService.setProgress(100);
+                });
+            }, console.error);
+        }, res => {
+            res.data.text().then((data) => {
+                data = JSON.parse(data);
+
+                if (data.message) {
+                    PushNotificationsService.danger(data.message);
+                }
+            });
+        });
+    };
+
+    $ctrl.exportQRCodes = () => {
+        ModalService.open('voucherExportType', {
+            success: (data) => {
+                if (data.exportType === 'pdf') {
+                    $ctrl.exportPdf();
+                } else {
+                    $ctrl.exportImages();
+                }
+            }
+        });
+    };
+
+    $ctrl.onPageChange = (query) => {
         VoucherService.index(
             $ctrl.organization.id,
-            Object.assign(_query, {
-                fund_id: $ctrl.fund.id,
-            })
-        ).then((res => {
-            $ctrl.vouchers = res.data;
-        }));
+            $ctrl.getQueryParams(query),
+        ).then((res => $ctrl.vouchers = res.data));
     };
 
     $ctrl.showTooltip = (e, target) => {
@@ -112,10 +255,9 @@ let ProductVouchersComponent = function(
     };
 
     $ctrl.init = () => {
-        $ctrl.fundClosed = $ctrl.fund.state == 'closed';
-
         $ctrl.resetFilters();
         $ctrl.onPageChange($ctrl.filters.values);
+        $ctrl.fundClosed = $ctrl.fund.state == 'closed';
     };
 
     $ctrl.onFundSelect = (fund) => {
@@ -153,8 +295,10 @@ module.exports = {
         '$stateParams',
         '$timeout',
         'DateService',
+        'FileService',
         'ModalService',
         'VoucherService',
+        'PageLoadingBarService',
         ProductVouchersComponent
     ],
     templateUrl: 'assets/tpl/pages/product-vouchers.html'
