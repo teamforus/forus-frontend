@@ -8,18 +8,19 @@ header.section.section-header(id="header")
             .header-description(
                 translate="home_provider.header.{{ $root.appConfigs.client_key }}.subtitle"
                 translate-default="{{'home_provider.header.default.subtitle' | translate }}")
+
 section.section.section-flow(id="flow"): .wrapper
     .section-title(
-    translate="home_provider.guide.{{ $root.appConfigs.client_key }}.title"
-    translate-default="{{'home_provider.guide.default.title' | translate }}")
+        translate="home_provider.guide.{{ $root.appConfigs.client_key }}.title"
+        translate-default="{{'home_provider.guide.default.title' | translate }}")
     .section-description(
-    translate="home_provider.guide.{{ $root.appConfigs.client_key }}.description"
-    translate-default="{{'home_provider.guide.default.description' | translate }}")
+        translate="home_provider.guide.{{ $root.appConfigs.client_key }}.description"
+        translate-default="{{'home_provider.guide.default.description' | translate }}")
     //- img(src="./assets/img/landing/forus-flow-provider.png").section-scheme
     .block.block-show-more: a(
-    href="../provider/#!/sign-up?back=true"
-    translate="home_provider.guide.{{ $root.appConfigs.client_key }}.button"
-    translate-default="{{'home_provider.guide.default.button' | translate }}").button.button-primary
+        ui-sref="sign-up({back:1})"
+        translate="home_provider.guide.{{ $root.appConfigs.client_key }}.button"
+        translate-default="{{'home_provider.guide.default.button' | translate }}").button.button-primary
 
 section.section.section-faq(id="faq"): .wrapper
     .section-title {{ "home_provider.faq.title" | i18n }}
