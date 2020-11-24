@@ -5,7 +5,7 @@ let FileUploaderDirective = function(
 ) {
     let input = false;
     let $dir = {};
-    let accept = ['.docx', '.doc', '.pdf', '.png', '.jpg', '.jpeg'];
+    let accept = ['.xlsx', '.xls', '.docx', '.doc', '.pdf', '.png', '.jpg', '.jpeg'];
     let $dropArea = $element.find('.uploader-droparea');
     let multiple = $scope.multiple ? $scope.multiple : true;
 
