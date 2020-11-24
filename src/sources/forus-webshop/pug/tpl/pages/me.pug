@@ -1,34 +1,29 @@
 top-navbar
 
 section.section.section-details: .wrapper
-    .block.block-about-me-app: .row
-        .col.col-lg-6.col-xs-12
-            .block-me-overview
-                .block-title Over de Me-app
-                .block-description
-                    |   De Me-app is een digitale portemonnee en kassa in één. Gemeenten gebruiken de Me-app voor het uitgeven van tegoeden. Met de app kunnen inwoners gemakkelijk hun tegoeden beheren. Aanbieders gebruiken de app om QR-codes te scannen.
+    .block.block-about-me_app
+        .me_app-overview
+            .block-title Over de Me-app
+            .block-description
+                | De Me-app is een digitale portemonnee en kassa in één. 
+                | Gemeenten gebruiken de Me-app voor het uitgeven van tegoeden. 
+                | Met de app kunnen inwoners gemakkelijk hun tegoeden beheren. 
+                | Aanbieders gebruiken de app om QR-codes te scannen.
 
-                .block-download-apps.hide-sm
-                    a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
-                        img(src="assets/img/dl_android.svg" class="dl_buttons")
-                    a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
-                        img(src="assets/img/dl_ios.svg" class="dl_buttons")
-
-        .col.col-lg-6.col-xs-12
-            .block-me-images
-                .block-me-image
-                    img(src="assets/img/app-android.png")
-                .block-me-image
-                    img(src="assets/img/app-ios.png")
-
-        .col.col-xs-12
-            .block-download-apps
+            .me_app-download-apps.hide-sm
                 a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
                     img(src="assets/img/dl_android.svg" class="dl_buttons")
                 a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
                     img(src="assets/img/dl_ios.svg" class="dl_buttons")
 
-            br
-            br               
+        .me_app-images
+            .me_app-image: img(src="assets/img/app-android.png")
+            .me_app-image: img(src="assets/img/app-ios.png")
 
-
+        .me_app-download
+            .me_app-download-apps
+                a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
+                    img(src="assets/img/dl_android.svg" class="dl_buttons")
+                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
+                    img(src="assets/img/dl_ios.svg" class="dl_buttons")
+    
