@@ -1,22 +1,14 @@
 section.section.section-products#products
     a.section-title(
-        translate="block_products.header.title"
-        ui-sref="products"
-        ng-if="products.data.length != 0 && sample")
-    .section-filters(ng-if="!sample && productCategories")
-        .row.form
-            .col.col-md-4: .form-group
-                select(
-                    ng-options="category.id as category.name for category in productCategories" 
-                    ng-model="filters.product_category_id").form-control.form-control-fancy
+        translate="{{ 'block_products.header.title_' + $dir.type }}"
+        ui-sref="{{ $dir.type == 'budget' ? 'products($dir.filters)' : 'actions($dir.filters)' }}"
+        ng-if="products.data.length != 0")
 
-            .col.col-md-8: .form-group
-                input(
-                    type="text" 
-                    ng-model="filters.q"
-                    placeholder="{{ 'block_products.input.placeholder' | translate }}").form-control.form-control-fancy
-    
-    products-list(ng-if="$dir.products" type="{{ $dir.type }}" display="{{ $dir.display }}" products="$dir.products")
+    products-list(
+        ng-if="$dir.products" 
+        type="{{ $dir.type }}" 
+        display="{{ $dir.display }}" 
+        products="$dir.products")
 
     empty-block(
         title= "{{ 'block_products.labels.title' | translate }}"
@@ -24,6 +16,6 @@ section.section.section-products#products
         hide-link="true" 
         ng-if="products.length == 0 && !sample")
 
-    .block.block-show-more(ng-if="$dir.showLoadMore")
-        a(ng-if="$dir.type == 'budget'" ui-sref="products($dir.filters)" translate="block_products.buttons.more").button.button-primary.button-wide
-        a(ng-if="$dir.type == 'subsidies'" ui-sref="actions($dir.filters)" translate="block_products.buttons.more").button.button-primary.button-wide
+    .block.block-show-more(ng-if="$dir.showLoadMore"): a.button.button-primary.button-wide(
+        ui-sref="{{ $dir.type == 'budget' ? 'products($dir.filters)' : 'actions($dir.filters)' }}" 
+        translate="block_products.buttons.more")

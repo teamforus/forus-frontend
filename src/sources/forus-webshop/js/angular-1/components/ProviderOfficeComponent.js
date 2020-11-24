@@ -29,7 +29,6 @@ let ProviderOfficeComponent = function(
     };
     
     $ctrl.$onInit = () => {
-        console.log($ctrl);
         $ctrl.weekDays = OfficeService.scheduleWeekFullDays();
         $ctrl.schedules = $ctrl.office.schedule.reduce((schedules, schedule) => {
             schedules[schedule.week_day] = schedule;
