@@ -48,7 +48,7 @@ module.exports = [
             };
         }
 
-        return new(function() {
+        return new (function() {
             this.hasCredentials = () => {
                 return !!CredentialsService.get();
             };
@@ -61,14 +61,16 @@ module.exports = [
                 subscriptions[action].push(callback);
             };
 
-            this.signOut = function() {
-                return new Promise((done) => {
+            this.signOut = function(deleteToken = true) {
+                return new Promise(async (done) => {
+                    if (deleteToken) {
+                        await IdentityService.deleteToken();    
+                    }
+
                     CredentialsService.set(null);
 
                     if (subscriptions.signIn && Array.isArray(subscriptions.signOut)) {
-                        subscriptions.signOut.forEach((callback) => {
-                            callback();
-                        });
+                        subscriptions.signOut.forEach((callback) => callback());
                     }
 
                     done();

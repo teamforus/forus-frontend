@@ -193,8 +193,8 @@ let BaseController = function (
         $rootScope.loadAuthUser();
     });
 
-    $rootScope.signOut = () => {
-        AuthService.signOut();
+    $rootScope.signOut = (deleteToken = true) => {
+        AuthService.signOut(deleteToken);
         $state.go('home');
         $rootScope.activeOrganization = null;
         $rootScope.auth_user = false;
