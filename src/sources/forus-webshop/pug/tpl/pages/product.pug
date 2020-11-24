@@ -3,7 +3,8 @@ section.section.section-product: .wrapper
 
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
-        a(ui-sref="products").breadcrumb-item Aanbod
+        a(ui-sref="products" ng-if="$ctrl.useBudget").breadcrumb-item Aanbod
+        a(ui-sref="actions" ng-if="$ctrl.useSubsidies").breadcrumb-item Acties
         .breadcrumb-item.active(ng-bind="$ctrl.product.name")
 
     .block.block-product
@@ -32,7 +33,7 @@ section.section.section-product: .wrapper
                         .product-property-value: .block.block-markdown: div(ng-bind-html="$ctrl.product.description_html")
 
         .block.block-info-card(ng-if="$ctrl.product.funds.length > 0")
-            .block-header(i18n="product.headers.funds")  
+            a(i18n="product.headers.funds" ui-sref="vouchers").block-header
             .block-products-content
                 .product-funds-list: .fund-item(ng-repeat="fund in $ctrl.product.funds")
                     .fund-item-section.fund-item-section-details
@@ -41,7 +42,7 @@ section.section.section-product: .wrapper
                             .fund-item-title(ng-bind="fund.name")
                             .fund-item-subtitle(ng-bind="fund.organization.name")
                     
-                    .fund-item-section.text-right(ng-if="fund.type == 'subsidies'")
+                    .fund-item-section.text-right(ng-if="fund.type == 'subsidies' && fund.meta.isApplicableSubsidy")
                         .fund-item-section-label(i18n="product.labels.limit")
                         .fund-item-section-value(ng-bind="fund.limit_available")
                     
@@ -60,8 +61,8 @@ section.section.section-product: .wrapper
 
                     //- product price
                     .fund-item-section.fund-item-price.text-right(ng-if="!$ctrl.product.no_price && (fund.type == 'subsidies' ? fund.meta.isApplicableSubsidy : fund.meta.isApplicable)")
-                        .fund-item-section-label(ng-if="fund.type == 'budget'") U betaald met tegoed:
-                        .fund-item-section-label(ng-if="fund.type == 'subsidies'") Wat u betaald:
+                        .fund-item-section-label(ng-if="fund.type == 'budget'") U betaalt vanuit het tegoed:
+                        .fund-item-section-label(ng-if="fund.type == 'subsidies'") Wat u betaalt:
 
                         .fund-item-section-value(ng-if="$ctrl.product.no_price") Geen data
                         .fund-item-section-value(ng-if="fund.price == 0") Gratis
@@ -69,16 +70,20 @@ section.section.section-product: .wrapper
                             ng-if="!$ctrl.product.no_price && fund.price != 0"
                             ng-bind="(fund.type == 'subsidies' ? fund.price : $ctrl.product.price) | currency_format")
 
-        .block.block-pane(ng-click="$ctrl.goToProvider($event, $ctrl.product.organization)" ng-class="{'last-child': $ctrl.product.organization.showOffices}")
-            .pane-head(i18n="product.headers.organization")  
+                    .fund-item-section(ng-if="fund.meta.isApplicableSubsidy && !$ctrl.useBudget")
+                        .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund.id)") Open tegoed
+
+        .block.block-pane(ng-class="{'last-child': $ctrl.product.organization.showOffices}")
+            a(ui-sref="provider({provider_id: $ctrl.product.organization.id})" i18n="product.headers.provider").pane-head
             .pane-body: .block.block-organizations: .organization-item
-                .organization-pane(ng-click="$ctrl.toggleOffices($event, $ctrl.product.organization)")
-                    .organization-logo(ng-click="$ctrl.goToProvider($event, $ctrl.product.organization)")
+                a(ui-sref="provider({provider_id: $ctrl.product.organization.id})" ).organization-pane
+                    .organization-logo
                         img(ng-src="{{ $ctrl.product.organization.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png'  }}").organization-logo-img
                     .organization-title
-                        .organization-title-value(ng-click="$ctrl.goToProvider($event, $ctrl.product.organization)" ng-bind="$ctrl.product.organization.name")
-                        .organization-title-count(ng-click="$ctrl.goToProvider($event, $ctrl.product.organization)" ng-bind="$ctrl.product.offices.length")
-                    .organization-chevron: .mdi(ng-class="'mdi-chevron-' + ($ctrl.product.organization.showOffices ? 'up' : 'right')")           
+                        .organization-title-value(ng-bind="$ctrl.product.organization.name")
+                        .organization-title-count(ng-bind="$ctrl.product.offices.length")
+                    .organization-chevron(ng-click="$ctrl.toggleOffices($event, $ctrl.product.organization)")
+                        .mdi(ng-class="'mdi-chevron-' + ($ctrl.product.organization.showOffices ? 'up' : 'right')")           
       
         .block.block-organizations(ng-if="$ctrl.product.organization.showOffices"): .organization-item
             .organization-offices: .block.block-offices

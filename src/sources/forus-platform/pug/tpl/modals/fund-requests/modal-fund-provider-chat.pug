@@ -13,7 +13,7 @@
                         .chat-message(
                             ng-repeat="message in messages" 
                             ng-class="'chat-message-' + (message.counterpart == 'system' ? 'system' : ($ctrl.panelType != message.counterpart ? 'in' : 'out'))")
-                            .chat-message-time(ng-bind="message.time")
+                            .chat-message-time {{ message.time }}{{ message.counterpart == 'system' ? ' - Systeembericht' : '' }}
                             .chat-message-text(ng-bind="message.message")
             
             .modal-section.modal-section-light.modal-section-sm

@@ -2,12 +2,12 @@
     &.block-voucher {
         position: relative;
         display: flex;
+        margin-bottom: 30px;
 
         .base-card {
             background-color: #fff;
             border-radius: $border_radius;
-            margin-bottom: 50px;
-            box-shadow: 0 10px 25px rgba(#000, .2);
+            box-shadow: $base_shadow;
             cursor: default;
             @include cf();
             position: relative;
@@ -32,23 +32,17 @@
             .card-actions {
                 display: flex;
                 flex: 1;
-                /*justify-content: flex-end;*/
-
-                &.card-actions-center {
-                    justify-content: center;
-                }
 
                 .action-item {
                     margin-right: 25px;
                     text-align: center;
                     display: flex;
-                    /*flex-direction: column;*/
+                    color: #595959;
+                    text-decoration: underline;
+                    text-decoration-color: #595959;
+
                     align-items: center;
                     flex-grow: 1;
-
-                    &.hide-action-lg {
-                        display: none;
-                    }
 
                     .action-item-icon {
                         width: 40px;
@@ -56,7 +50,7 @@
                         border-radius: 40px;
                         line-height: 40px;
                         text-align: center;
-                        color: #7b8893;
+                        color: #595959; 
                         font-size: 20px;
                         background: transparent;
                         border: none;
@@ -98,7 +92,7 @@
                     }
 
                     .action-item-name {
-                        color: #7b8893;
+                        color: #595959;
                         font: 600 12px $bf;
                         transition: color .4s;
                         margin: 0 3px;
@@ -110,8 +104,8 @@
 
                     &:hover {
                         .action-item-icon {
-                            border-color: #70c567;
-                            background: #70c567;
+                            border-color: $bc;
+                            background: $bc;
                             color: #fff;
                             box-shadow: 2px 5px 35px rgba(0, 0, 0, .25);
                             
@@ -123,14 +117,19 @@
                         }
 
                         .action-item-name {
-                            color: #70c567;
+                            color:  $bc;
+                            text-decoration: $bc underline;
                         }
                     }
+                }
+
+                &.card-actions-center {
+                    justify-content: center;
                 }
             }
 
             .card-label {
-                color: #646f79;
+                color: $tc;
                 font: 400 14px/16px $bf;
 
                 a {
@@ -162,8 +161,8 @@
             }
             
             .card-value {
-                font: 700 16px $bf;
-                color: #272525;
+                font: 700 14px/16px $bf;
+                color: $tc;
                 margin-top: 10px;
 
                 &.card-value-sm {
@@ -219,7 +218,6 @@
                         width: 100px;
                         display: block;
                         border-radius: 5px;
-                        // box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.06);
                     }
                 }
                 
@@ -341,6 +339,10 @@
                 }
             }
         }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 
     @media screen and (max-width: 1700px) {
@@ -422,7 +424,7 @@
 
                 .card-label {
                     font: 600 10px/16px $bf;
-                    margin: 0 0 10px;
+                    margin: 0 0 5px;
                     color: #646f79;
                     text-transform: uppercase;
 
@@ -435,7 +437,7 @@
                 .card-value {
                     color: #282b39;
                     font: 700 16px/24px $bf;
-                    margin: 0 0 10px;
+                    margin: 0 0 15px;
 
                     &.card-value-sm {
                         font: 400 12px $bf;
@@ -587,10 +589,7 @@
                         .card-section {
                             margin: 0;
                             width: auto;
-                            text-align: center;
-                            padding-right: 10px;
                             justify-content: center;
-                            justify-self: center;
                         }
 
                         .card-actions {
@@ -600,20 +599,22 @@
                             max-width: 100%;
 
                             .action-item {
-                                margin: 0 10px 10px 0 !important;
-                                float: right;
+                                margin: 0 0 10px;
                                 background: #f4f5f7;
                                 border-radius: 20px;
-                                padding: 0 10px 0 5px;
-
-                                &.hide-action-lg {
-                                    display: flex!important;
-                                }
+                                padding: 5px 0;
+                                text-align: center;
+                                display: flex;
+                                justify-content: center;
 
                                 .action-item-icon {
                                     width: 30px;
                                     height: 30px;
                                     line-height: 30px;
+                                }
+
+                                &:last-child {
+                                    margin-bottom: 0;
                                 }
                             }
                         }

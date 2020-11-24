@@ -9,7 +9,7 @@ module.exports = {
         block_title: "{{ fundname }} aanvragen",
         pane: {
             header_title: "Overzicht",
-            text: "We hebben nog wat gegevens van u nodig. Doorloop de volgende stappen:",
+            text: "We hebben nog wat gegevens nodig. Doorloop de volgende stappen:",
             criterion_more: "'{{ name }}' moet meer dan {{ value }} zijn.",
             criterion_less: "'{{ name }}' moet minder dan {{ value }} zijn.",
             criterion_same: "'{{ name }}' moet {{ value }} zijn.",
@@ -21,15 +21,13 @@ module.exports = {
         },
         header: {
             main: "{{ fundname }} aanvraag",
-            title_step_1: "Welkom",
-            title_step_2: "Meld u aan",
+            title: "Aanmelden",
             title_log_digid: "Log in met DigiD",
             title_fund_already_applied: "Aanvraag in behandeling"
         },
         subtitles: {
             step_1: "Via dit online formulier kunt u zich aanmelden voor beschikbare fondsen. ",
             step_2: "Er wordt gekeken of u al aan voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan.",
-            log_digid: "Log in met DigiD om te controleren of u recht heeft.",
             fund_already_applied: "Er is al een aanvraag in behandeling",
         },
         labels: {

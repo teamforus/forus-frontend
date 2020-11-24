@@ -709,9 +709,9 @@ else if (qdt_c.platform.env_data.client_key == 'groningen')
                     .footer-label Contactgegevens
                     //-img(src="./assets/img/logo-bw.png").footer-logo
                     .footer-schedule
-                        .schedule-value Zie alle contactgegevens
-                        .schedule-value Telefoon: 14 050 (verkort nummer)
+                        .schedule-value Telefoon: 14 050
                         .schedule-value (maandag t/m vrijdag 09:00 - 12:00 uur)
+                        .schedule-value: a(href="mailto:stadjerspas@groningen.nl") stadjerspas@groningen.nl
                     .footer-label(style="margin-top: 20px;") Hulp nodig?
                     .footer-schedule
                         .schedule-value Een medewerker van het WIJ-team helpt u graag verder.
@@ -726,8 +726,7 @@ else if (qdt_c.platform.env_data.client_key == 'groningen')
                 .col.col-md-4
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_sponsor }}" target="_self") Aanmelden als medewerker
-                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}" target="_self") Aanmelden als aanbieder
+                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}sign-up" target="_self") Aanmelden als aanbieder
                             
                 .col.col-md-4
                     .footer-label Download Me-app
