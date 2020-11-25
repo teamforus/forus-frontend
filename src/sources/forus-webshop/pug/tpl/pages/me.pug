@@ -1,48 +1,29 @@
 top-navbar
 
-    .header-body.header-body-sprite-fill
-        .header-sprite(
-        style="background-image: url('./assets/img/header-sprite-meapp.png')")
-        .header-content
-            .header-title(translate="meapp_index.header.title_{{ $root.appConfigs.client_key }}")
-            .header-description
-                | {{ "meapp_index.header.description" | translate }}
+section.section.section-details: .wrapper
+    .block.block-about-me_app
+        .me_app-overview
+            .block-title Over de Me-app
+            .block-description
+                | De Me-app is een digitale portemonnee en kassa in één. 
+                | Gemeenten gebruiken de Me-app voor het uitgeven van tegoeden. 
+                | Met de app kunnen inwoners gemakkelijk hun tegoeden beheren. 
+                | Aanbieders gebruiken de app om QR-codes te scannen.
 
-            //- usage example:
-            //- .header-title {{ 'test' | i18n:{foo:'bar'} }}
-            //- .header-title(i18n="test" i18n-vars="{foo:'bar'}")
+            .me_app-download-apps.hide-sm
+                a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
+                    img(src="assets/img/dl_android.svg" class="dl_buttons")
+                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
+                    img(src="assets/img/dl_ios.svg" class="dl_buttons")
 
-            .header-download-apps
-                a(href="https://play.google.com/store/apps/details?id=io.forus.me" aria-label="Dowload Me-app").app-item.app-item-android
-                    | {{ "meapp_index.download.android" | translate }}
-                    em.mdi.mdi-arrow-right
-                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" aria-label="Dowload Me-app").app-item.app-item-ios
-                    | {{ "meapp_index.download.ios" | translate }}
-                    em.mdi.mdi-arrow-right
+        .me_app-images
+            .me_app-image: img(src="assets/img/app-android.png")
+            .me_app-image: img(src="assets/img/app-ios.png")
 
-
-section.section.section-flow.responsive: .wrapper
-    .section-title {{ "meapp_index.functions.header.title" | translate }}
-    .scheme
-        img(src="./assets/img/me/forus-flow-meapp.png").scheme-img
-        .scheme-points-preset
-            .scheme-point
-                img(src="./assets/img/me/meapp-flow/screen-1.png").scheme-point-image
-                .scheme-point-text
-                    h4 {{ "meapp_index.functions.profile" | translate }}
-                    p {{ "meapp_index.functions.pin" | translate }}
-            .scheme-point
-                img(src="./assets/img/me/meapp-flow/screen-2.png").scheme-point-image
-                .scheme-point-text
-                    h4 {{ "meapp_index.functions.apply" | translate }}
-                    p {{ "meapp_index.functions.webshop" | translate }}
-            .scheme-point
-                img(src="./assets/img/me/meapp-flow/screen-3.png").scheme-point-image
-                .scheme-point-text
-                    h4 {{ "meapp_index.functions.vouchers" | translate }}
-                    p {{ "meapp_index.functions.criterion" | translate }}
-            .scheme-point
-                img(src="./assets/img/me/meapp-flow/screen-4.png").scheme-point-image
-                .scheme-point-text
-                    h4 {{ "meapp_index.functions.profileb" | translate }}
-                    p {{ "meapp_index.functions.app" | translate }}
+        .me_app-download
+            .me_app-download-apps
+                a(href="https://play.google.com/store/apps/details?id=io.forus.me" target="_blank")
+                    img(src="assets/img/dl_android.svg" class="dl_buttons")
+                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
+                    img(src="assets/img/dl_ios.svg" class="dl_buttons")
+    
