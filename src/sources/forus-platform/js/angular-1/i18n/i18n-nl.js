@@ -1417,6 +1417,12 @@ module.exports = {
         }
     },
 
+    modal_image_preview: {
+        header: {
+            title: "Afbeelding-voorbeeld"
+        }
+    },
+
     // SELECT MULTIPLE CATEGORIES = multi-select.pug
     multi_select: {
         title: "Categorieën",

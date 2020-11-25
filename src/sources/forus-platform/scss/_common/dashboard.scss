@@ -6472,6 +6472,18 @@ $colorPrimaryLight: $color_primary_light;
         }
     }
 
+    &.modal-image-preview {
+        .img-block {
+            display: flex;
+            margin: 40px auto;
+            justify-content: center;
+
+            img {
+                height: 100%;
+            }
+        }
+    }
+    
     &.modal-photo-upload {
         cursor: default;
 

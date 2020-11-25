@@ -178,6 +178,11 @@
                                     .attachment-size(ng-bind='file.size')
                                 .attachment-name(ng-bind='file.original_name')
                                 .attachment-date(ng-bind='record.created_at_locale')
+                                .attachment-preview(
+                                    title="Bekijk file"
+                                    ng-if="$ctrl.hasFilePreview(file)" 
+                                    ng-click="$ctrl.previewFile($event, file)")
+                                    .mdi.mdi-eye
                                 .attachment-preview( 
                                     title="Bekijk PDF-bestand"
                                     ng-if="file.ext == 'pdf'"
