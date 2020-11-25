@@ -22,15 +22,4 @@ section.section.section-product: .wrapper
             .voucher-overview:  button.button.button-primary(
                 ng-click="$ctrl.applyForProduct(voucher)"
                 ng-bind="'product_apply.buttons.use' | translate")
-            .voucher-overview
-                .voucher-overview-item
-                    .voucher-overview-label(ng-bind="'product_apply.labels.transactions' | translate")
-                    .voucher-overview-value(ng-bind="voucher.transactions.length")
-                .voucher-overview-item
-                    .voucher-overview-label {{ "product_apply.labels.last" | translate }}
-                    .voucher-overview-value(ng-if="voucher.transactions.length > 0")
-                        | -{{ voucher.transactions[0].amount | currency_format }}
-                        small {{ "product_apply.labels.subtract" | translate }}
-                    .voucher-overview-value(ng-if="voucher.transactions.length == 0")
-                        span.text-muted {{ "product_apply.labels.none" | translate }}
             .voucher-item-overlay(ng-click="$ctrl.applyForProduct(voucher)")

@@ -136,7 +136,9 @@ let VoucherComponent = function(
 
 module.exports = {
     bindings: {
-        voucher: '<'
+        voucher: '<',
+        products: '<',
+        subsidies: '<',
     },
     controller: [
         '$state',

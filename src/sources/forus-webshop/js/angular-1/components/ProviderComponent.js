@@ -21,7 +21,9 @@ let ProviderComponent = function(
 
 module.exports = {
     bindings: {
-        provider: '<'
+        provider: '<',
+        products: '<',
+        subsidies: '<',
     },
     controller: [
         '$state',

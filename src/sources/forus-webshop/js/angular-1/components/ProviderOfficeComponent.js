@@ -52,7 +52,9 @@ let ProviderOfficeComponent = function(
 module.exports = {
     bindings: {
         provider: '<',
-        office: '<'
+        office: '<',
+        products: '<',
+        subsidies: '<',
     },
     controller: [
         '$sce',
