@@ -71,7 +71,8 @@ let FundRequestComponent = function(
                 records: [{
                     fund_criterion_id: criteria.id,
                     record_type_key: criteria.record_type_key,
-                    value: criteria.input_value
+                    value: criteria.input_value,
+                    files: criteria.files
                 }]
             }).then(_res => {
                 let record = _res.data;
@@ -93,6 +94,7 @@ let FundRequestComponent = function(
                     value: res.data.errors['records.0.value'],
                     record_type_key: res.data.errors['records.0.record_type_key'],
                     fund_criterion_id: res.data.errors['records.0.fund_criterion_id'],
+                    files: res.data.errors['records.0.files'],
                 });
             });
         });
