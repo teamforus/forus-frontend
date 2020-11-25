@@ -348,15 +348,25 @@ let FundRequestsComponent = function(
         }), console.error);
     };
 
+    $ctrl.hasFilePreview = (file) => {
+        return ['pdf', 'png', 'jpeg', 'jpg'].includes(file.ext);
+    }
+
     $ctrl.previewFile = ($event, file) => {
         $event.originalEvent.preventDefault();
         $event.originalEvent.stopPropagation();
 
-        FileService.download(file).then(res => {
-            ModalService.open('pdfPreview', {
-                rawPdfFile: res.data
+        if (file.ext == 'pdf') {
+            FileService.download(file).then(res => {
+                ModalService.open('pdfPreview', {
+                    rawPdfFile: res.data
+                });
+            }, console.error);
+        } else if (['png', 'jpeg', 'jpg'].includes(file.ext)) {
+            ModalService.open('imagePreview', {
+                imageSrc: file.url
             });
-        }, console.error);
+        }
     };
 
     $ctrl.onPageChange = (query) => {

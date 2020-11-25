@@ -16,6 +16,6 @@ module.exports = {
         ModalPdfPreviewComponent
     ],
     templateUrl: () => {
-        return 'assets/tpl/modals/modal-pdf-preview.html';
+        return 'assets/tpl/modals/file-previews/modal-pdf-preview.html';
     }
 };
