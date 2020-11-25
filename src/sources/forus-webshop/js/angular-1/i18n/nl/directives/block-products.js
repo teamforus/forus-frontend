@@ -1,7 +1,7 @@
 module.exports = { 
         header: {
             title_budget: "Aanbod",
-            title_subsidies: "Aanbod",
+            title_subsidies: "Acties",
         },
         input : {
             placeholder: "Zoek naar producten of diensten",
