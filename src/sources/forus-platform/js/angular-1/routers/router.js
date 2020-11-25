@@ -1145,7 +1145,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "sign-up",
-        url: "/sign-up?fund_id&organization_id&tag",
+        url: "/sign-up?fund_id&organization_id&tag&back",
         component: appConfigs.panel_type + "SignUpComponent",
         params: {
             fund_id: {
@@ -1157,6 +1157,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 value: null,
             },
             organization_id: {
+                squash: true,
+                value: null
+            },
+            back: {
                 squash: true,
                 value: null
             },
