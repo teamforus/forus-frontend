@@ -18,7 +18,7 @@
             .header-content {
                 text-shadow: 1px 1px 4px #000000;
                 color: $tc-var;
-                .header-how-it-works {
+                .header-how-it-works, .block-markdown>p>a {
                     color: $tc-var;
                 }
             }

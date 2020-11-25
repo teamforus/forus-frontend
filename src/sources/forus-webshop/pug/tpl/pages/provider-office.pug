@@ -79,3 +79,6 @@ block content
                                             .office-info.office-info-inline(ng-if="provider.email")
                                                 .mdi.mdi-email-outline
                                                 | {{ provider.email }}
+
+            block-products(ng-if="$ctrl.products.data.length > 0" display="grid" type="budget" products="$ctrl.products.data" filters="{organization_id: $ctrl.provider.id}")
+            block-products(ng-if="$ctrl.subsidies.data.length > 0" display="grid" type="subsidies" products="$ctrl.subsidies.data" filters="{organization_id: $ctrl.provider.id}")

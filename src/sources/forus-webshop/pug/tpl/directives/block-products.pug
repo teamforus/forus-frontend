@@ -1,55 +1,21 @@
 section.section.section-products#products
     a.section-title(
-        translate="block_products.header.title"
-        ui-sref="products"
-        ng-if="products.data.length != 0 && sample")
-    .section-filters(ng-if="!sample && productCategories")
-        .row.form
-            .col.col-md-4: .form-group
-                select(
-                    ng-options="category.id as category.name for category in productCategories" 
-                    ng-model="filters.product_category_id").form-control.form-control-fancy
+        translate="{{ 'block_products.header.title_' + $dir.type }}"
+        ui-sref="{{ $dir.type == 'budget' ? 'products($dir.filters)' : 'actions($dir.filters)' }}"
+        ng-if="products.data.length != 0")
 
-            .col.col-md-8: .form-group
-                input(
-                    type="text" 
-                    ng-model="filters.q"
-                    placeholder="{{ 'block_products.input.placeholder' | translate }}").form-control.form-control-fancy
-    
-    .block.block-products(ng-if="products.data.length > 0")
-        .product-item(ng-repeat="product in products.data").discounted
-            a(ui-sref="products-show(product)").product-item-inner
-                .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
-                    img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
-                .product-details
-                    .product-organization
-                        span(ng-bind="product.organization.name")
-                    .product-name.truncated(ng-bind="product.name")
-                    .product-discount(ng-if="product.isDiscounted")
-                        | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}%
-                        br
-                        | {{ "block_products.labels.discount" | translate }}
-                    .product-discount(ng-if="!product.isDiscounted").hide-sm
-                        | &nbsp;
-                        br
-                        | &nbsp;
-                    .product-price
-                        small(ng-if="product.isDiscounted") {{ "block_products.labels.old" | translate }} {{ product.old_price | currency_format }}
-                        small(ng-if="!product.isDiscounted").hide-sm &nbsp;
-                        | {{ "block_products.labels.new" | translate }} {{ product.price | currency_format }}
+    products-list(
+        ng-if="$dir.products" 
+        type="{{ $dir.type }}" 
+        display="{{ $dir.display }}" 
+        products="$dir.products")
 
     empty-block(
         title= "{{ 'block_products.labels.title' | translate }}"
         description="{{ 'block_products.labels.subtitle' | translate }}"
         hide-link="true" 
-        ng-if="products.data.length == 0 && !sample")
+        ng-if="products.length == 0 && !sample")
 
-    paginator-loader(
-        ng-if="products.meta" 
-        meta="products.meta" 
-        filters="filters" 
-        filters-timeout-attr="['product_category_id']" 
-        on-load-more="onLoadMore(query)" 
-        on-reset="onReset(query)")
-
-    .block.block-show-more(ng-if="sample && products.data.length != 0" ): a(ui-sref="products" translate="block_products.buttons.more").button.button-primary.button-wide
+    .block.block-show-more(ng-if="$dir.showLoadMore"): a.button.button-primary.button-wide(
+        ui-sref="{{ $dir.type == 'budget' ? 'products($dir.filters)' : 'actions($dir.filters)' }}" 
+        translate="block_products.buttons.more")

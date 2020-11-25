@@ -73,6 +73,7 @@ let ProviderSignUpComponent = function(
     $ctrl.isAddingNewOffice = false;
 
     $ctrl.loggedWithApp = progressStorage.has('logged-with-app');
+    $ctrl.showBackBtn = $stateParams.back != null;
 
     $ctrl.calcSteps = () => {
         $ctrl.STEP_INFO_GENERAL = 1;

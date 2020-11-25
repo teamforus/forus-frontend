@@ -1,0 +1,111 @@
+&.block-about-me_app {
+    display: flex;
+    flex-direction: row;
+    padding-top: 60px;
+    margin-bottom: 30px;
+    cursor: default;
+
+    .me_app-overview {
+        padding-right: 50px;
+        padding-top: 60px;
+        flex-basis: 55%;
+
+        .block-title {
+            font: 600 54px/60px $bf;
+            color: #000000;
+            margin-bottom: 10px;
+        }
+    
+        .block-description {
+            font: 400 20px/30px $bf;
+            color: #000000;
+            margin-bottom: 30px;
+        }
+    }
+
+    .me_app-images {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: nowrap;
+        margin-bottom: 30px;
+        flex-basis: 45%;
+        pointer-events: none;
+
+        .me_app-image {
+            margin-right: 30px;
+
+            img {
+                display: block;
+                width: 100%;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+        
+    .me_app-download-apps {
+        display: flex;
+        justify-content: flex-start;
+        width: auto;
+
+        a {
+            display: block;
+            margin-right: 20px;
+
+            img {
+                display: block;
+                width: 150px;
+                max-width: 100%;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    .me_app-download {
+        display: none;
+
+        .me_app-download-apps {
+            width: 100%;
+        }
+    }
+    
+    @media screen and (max-width: 1000px) {
+        flex-direction: column;
+        padding-top: 30px;
+
+        .me_app-overview {
+            padding: 0 0;
+
+            .block-title {
+                font: 600 28px/36px $bf;
+            }
+        
+            .block-description {
+                font: 400 16px/24px $bf;
+            }
+        }
+
+        .me_app-images {
+            width: 100%;
+            margin-bottom: 20px;
+
+            .me_app-image {
+                margin-right: 15px;
+            }
+        }
+
+        .me_app-download-apps {
+            justify-content: center;
+        }
+
+        .me_app-download {
+            display: flex;
+        }
+    }
+}
