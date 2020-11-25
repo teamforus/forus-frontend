@@ -11,5 +11,10 @@ module.exports = {
             copy: "Kopieer",
             vouchers: "Tegoeden",
             records: "Eigenschappen",
+            funds: "Aanvragen",
+            notifications: "Notificaties",
+            notification_preferences: "Notificatievoorkeuren",
+            sessions: "Sessies",
+            email_settings: "E-mail instellingen"
         },
 }
