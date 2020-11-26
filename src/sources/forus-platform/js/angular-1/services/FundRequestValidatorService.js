@@ -56,10 +56,10 @@ let FundRequestValidatorService = function(ApiRequest) {
             );
         };
 
-        this.decline = function(organziation_id, request_id, employee_id) {
+        this.decline = function(organziation_id, request_id, note = '') {
             return ApiRequest.patch(
                 sprintf(uriPrefixAll + '/%s/decline', organziation_id, request_id), {
-                    employee_id: employee_id
+                    note: note
                 }
             );
         };
