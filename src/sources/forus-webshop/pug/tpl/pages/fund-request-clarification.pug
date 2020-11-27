@@ -16,6 +16,7 @@ section.section.section-product: .wrapper
                     .form-group.col.col-lg-12
                         .form-label(i18n="fund_request_clarification.labels.message")
                         ui-control-textarea(
+                            rows="5"
                             ng-model="$ctrl.form.values.answer"
                             data-placeholder="{{ fund_request_clarification.placeholder | translate }}")
                         .form-error(ng-repeat="error in $ctrl.form.errors.answer" ng-bind="error")
