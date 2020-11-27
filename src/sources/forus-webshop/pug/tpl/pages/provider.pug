@@ -1,6 +1,10 @@
 block content
     .header-splash: .splash.splash-c
     top-navbar
+
+    .block.block-breadcrumbs
+        a(ui-sref="providers").breadcrumb-item Back
+
     .block.block-provider
         .provider-map: .block.block-google-map: google-map(
             ng-if="$ctrl.mapOptions"
