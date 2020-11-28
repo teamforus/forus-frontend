@@ -734,14 +734,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             ) => repackResponse(FundService.readById(
                 $transition$.params().fund_id
             ))],
-            records: ['AuthService', 'RecordService', (
-                AuthService, RecordService
-            ) => AuthService.hasCredentials() ? repackResponse(
-                RecordService.list()
-            ) : promiseResolve(null)],
-            recordTypes: ['RecordTypeService', (
-                RecordTypeService
-            ) => repackResponse(RecordTypeService.list())],
             clarification: ['$transition$', 'FundRequestClarificationService', 'AuthService', (
                 $transition$, FundRequestClarificationService, AuthService
             ) => AuthService.hasCredentials() ? repackResponse(FundRequestClarificationService.read(
