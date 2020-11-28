@@ -1,23 +1,15 @@
 top-navbar
 
-header.section.section-sign-up-choose
-    .wrapper
-        .section-title(translate="signup_options.header.title")
-        .section-subtitle(translate="signup_options.header.subtitle") 
+section.section.section-details: .wrapper
+    .block.block-provider-sign_up
+        .sign_up-overview
+            h2.block-title Aanmelden als aanbieder
+            p.block-description
+                | Door het online formulier in te vullen meldt u uw organisatie aan als aanbieder.
+                | Het invullen duurt ongeveer 15 minuten.
+            p.block-description
+                | Lees de instructie in elke stap goed door.
+            
+            p.block-description: button(ng-click="$ctrl.goToSignUpPage('provider')").button.button-primary-outline Aanmelden
 
-        .block.block-sign-up-options
-            .block-sign-up-option(ng-click="$ctrl.goToSignUpPage('provider')")
-                .block-sign-up-option-title(translate="signup_options.labels.title_provider")
-                .block-sign-up-option-footer
-                    .block-sign-up-option-description(translate="signup_options.labels.description_provider")
-                    .button.button-default(translate="signup_options.buttons.start")
-            .block-sign-up-option(ng-click="$ctrl.goToSignUpPage('validator')")
-                .block-sign-up-option-title(translate="signup_options.labels.title_validator")
-                .block-sign-up-option-footer
-                    .block-sign-up-option-description(translate="signup_options.labels.description_validator")
-                    .button.button-default(translate="signup_options.buttons.start")
-            .block-sign-up-option(ng-click="$ctrl.goToSignUpPage('sponsor')")
-                .block-sign-up-option-title(translate="signup_options.labels.title_sponsor")
-                .block-sign-up-option-footer
-                    .block-sign-up-option-description(translate="signup_options.labels.description_sponsor")
-                    .button.button-default(translate="signup_options.buttons.start")
+        .sign_up-images: .sign_up-image: img(src="assets/img/provider-sign_up-preview.svg")

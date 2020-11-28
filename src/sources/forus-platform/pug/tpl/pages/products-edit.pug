@@ -53,6 +53,45 @@
                                         | Geen prijs 
                         tooltip(text="'Bijvoorbeeld als u een aanbieding wil doen zoals het geven van een korting. Voeg dit dan toe in de titel, omschrijving of afbeelding.'")
                         .form-error(ng-repeat="error in $ctrl.form.errors.price" ng-bind="error")
+                        .form-error(ng-repeat="error in $ctrl.form.errors.no_price" ng-bind="error")
+
+                    .form-group.form-group-inline(ng-if="$ctrl.form.values.no_price")
+                        label.form-label Weergave in webshop
+                        .form-offset: .row
+                            .col.col-lg-9.flex
+                                label.radio.radio-inline.flex-grow.flex
+                                    input(
+                                        type="radio"
+                                        name="no_price_type"
+                                        ng-click="$ctrl.changeNoPriceType('free')"
+                                        ng-checked="$ctrl.form.values.no_price_type == 'free'")
+                                    .radio-label 
+                                        .radio-circle
+                                        | Dit aanbod is gratis
+
+                                label.radio.radio-inline.flex-grow.flex
+                                    input(
+                                        type="radio"
+                                        name="no_price_type"
+                                        ng-click="$ctrl.changeNoPriceType('discount')"
+                                        ng-checked="$ctrl.form.values.no_price_type == 'discount'")
+                                    .radio-label 
+                                        .radio-circle
+                                        | Dit is een korting
+
+                            .col.col-lg-3: input.form-control(
+                                type="number"
+                                step=".01"
+                                max="100"
+                                min="0"
+                                ng-disabled="$ctrl.form.values.no_price_type != 'discount'"
+                                placeholder="%"
+                                id="no_price" 
+                                ng-change="$ctrl.clearPrices($ctrl.form.values.no_price)"
+                                ng-model="$ctrl.form.values.no_price_discount")
+
+                        .form-error(ng-repeat="error in $ctrl.form.errors.no_price_type" ng-bind="error")
+                        .form-error(ng-repeat="error in $ctrl.form.errors.no_price_discount" ng-bind="error")
                     
                     .form-group.form-group-inline
                         label.form-label(translate="product_edit.labels.old")

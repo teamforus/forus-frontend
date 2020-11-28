@@ -37,14 +37,9 @@ main(id="main")
                         
                 a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" ui-sref="me-app" target="_blank").header-how-it-works
 
-    .page.page-home
-        .wrapper.block-products: block-products(
-            ng-if="$ctrl.appConfigs.flags.homeProducts"
-            sample="true")
-        
-        .wrapper.block-products: block-subsidies(
-            ng-if="$ctrl.appConfigs.flags.homeProducts"
-            sample="true")
+    .page.page-home(ng-if="$ctrl.appConfigs.flags.homeProducts")
+        .wrapper(ng-if="$ctrl.products.data.length > 0"): block-products(products="$ctrl.products.data" type="budget" display="grid")
+        .wrapper(ng-if="$ctrl.subsidies.data.length > 0"): block-products(products="$ctrl.subsidies.data" type="subsidies" display="grid")
 
         section.section.section-map(ng-if="$ctrl.appConfigs.flags.homeMap" id="map_block"): .wrapper
             .block.block-map

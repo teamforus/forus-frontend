@@ -11,6 +11,7 @@ let ProductsEditComponent = function(
     let $ctrl = this;
     let mediaFile = false;
     let alreadyConfirmed = false;
+    let prevDiscount;
 
     $ctrl.media;
     $ctrl.mediaErrors = [];
@@ -22,9 +23,23 @@ let ProductsEditComponent = function(
         }
     };
 
+    $ctrl.changeNoPriceType = (type) => {
+        $ctrl.form.values.no_price_type = type;
+
+        if ($ctrl.form.values.no_price_type !== 'discount') {
+            prevDiscount = $ctrl.form.values.no_price_discount;
+            delete $ctrl.form.values.no_price_discount;
+        } else {
+            if (!$ctrl.form.values.no_price_discount && prevDiscount) {
+                $ctrl.form.values.no_price_discount = prevDiscount;
+            }
+        }
+    }
+
     $ctrl.$onInit = function() {
         let values = $ctrl.product ? ProductService.apiResourceToForm($ctrl.product) : {
-            product_category_id: null
+            product_category_id: null,
+            no_price_type: 'free',
         };
 
         $ctrl.maxProductCount = parseInt(appConfigs.features.products_hard_limit);
@@ -101,9 +116,16 @@ let ProductsEditComponent = function(
                 }
             }
 
-            if ($ctrl.product) {
-                let values = JSON.parse(JSON.stringify(form.values));
+            let values = JSON.parse(JSON.stringify(form.values));
 
+            if (!values.no_price) {
+                delete values.no_price_type;
+                delete values.no_price_discount;
+            } else if (values.no_price_type == 'free') {
+                values.no_price_discount = null;
+            }
+
+            if ($ctrl.product) {
                 values.total_amount = values.sold_amount + values.stock_amount;
 
                 promise = ProductService.update(
@@ -112,10 +134,7 @@ let ProductsEditComponent = function(
                     values
                 )
             } else {
-                promise = ProductService.store(
-                    $stateParams.organization_id,
-                    form.values
-                )
+                promise = ProductService.store($stateParams.organization_id, values)
             }
 
             promise.then((res) => {
