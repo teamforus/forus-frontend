@@ -193,7 +193,7 @@ let FundRequestsComponent = function(
                 }
 
                 $ctrl.reloadRequest(request);
-                showInfoModal('Aanvragen geweigerd.');
+                PushNotificationsService.success('Gelukt! Aanvraag is geweigerd');
             }
         });
     };
