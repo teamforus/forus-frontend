@@ -3,35 +3,41 @@ top-navbar
 section.section.section-details: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
-        .breadcrumb-item.active(i18n="Privacyverklaring")
-    .section-title.text-left(translate="Privacyverklaring")
+        .breadcrumb-item.active(i18n="Privacy")
+    .section-title.text-left(translate="Privacy")
 
     .block.block-accessibility
         .block-text
-           p.description Voor de Stadjerspas worden de volgende gegevens van je opgeslagen:
-                ul
-                    li #[b Je e-mailadres]
-                    | Om je account aan te maken en toegang te geven tot je Stadjerspas tegoed.
-                    li #[b Je burgerservicenummer (BSN)]
-                    | Om te kijken wie je bent en om dubbele toekenningen te voorkomen.
-                    li #[b Je inkomensgegevens]
-                    | Om te kijken of je recht hebt op de Stadjerspas.
-                    li #[b Je aantal kinderen]
-                    | Om te kijken of jouw kind(eren) recht hebben op de Stadjerspas Jeugd.
-                    li #[b Je Stadjerspas uitgaven]
-                    | Zodat je kunt zien wat je hebt gebruikt van de Stadjerspas. De aanbieders en gemeente zien ook wat er is gebruikt, maar ze zien niet dat je dit hebt gebruikt.
-        .block-text
-            .title Ontvang berichten over je Stadjerspas
-            .description Je ontvangt berichten over wat je hebt gebruikt van de Stadjerspas en de acties van aanbieders waar je uit kunt kiezen. Je kunt dit na de aanvraag zelf uitzetten in de notificatie voorkeuren als je inlogt op de website.
+           p.description Bij het aanvragen van de Stadjerspas worden de volgende gegevens opgeslagen.
 
         .block-text
-            .title Gebruik van je gegevens
-            .description De gegevens worden ook gebruikt indien je hulp nodig hebt bij het gebruik van het systeem. De gegevens worden vertrouwelijk verwerkt en niet voor andere doeleinden aan derden verstrekt.
+            .title E-mailadres
+            .description Deze is nodig om je account aan te maken en te zorgen dat je straks toegang hebt tot je account.
+        
+        .block-text
+            .title Burgerservicenummer (BSN)
+            .description Hiermee zoeken wij jouw gegevens op en hoef je niet steeds opnieuw je gegevens in te vullen.
 
         .block-text
-            .title Inzicht in je gegevens
-            .description In het systeem en in de bijbehorende mobiele app vind je een overzicht van de gegevens die je hebt ingevuld. Je hebt het recht om jouw gegevens in te zien, aan te passen en te verwijderen. 
- 
+            .title Inkomensgegevens
+            .description Hiermee kunnen wij zien of jij recht hebt op een Stadjerspas.
+
         .block-text
-            .title Wil je meer weten of heb je vragen? 
-            .description Bekijk de #[a(href="{{ $ctrl.vars.website }}" target="_blank") algemene privacyverklaring] van de gemeente Groningen.
+            .title Aantal kinderen
+            .description Thuiswonende kinderen tot 18 jaar worden automatisch bijgeschreven op je account.
+
+        .block-text
+            .title Stadjerspas uitgaven en tegoeden 
+            .description Hiermee kun je zelf zien wat je hebt gebruikt en hoeveel tegoed je nog over hebt. Ook de aanbieder en de gemeente Groningen zien wat er is verbruikt. Maar zij kunnen niet zien dat dit jouw uitgaven zijn.
+        
+        .block-text
+            .title Berichten ontvangen over uw Stadjerspas
+            .description Wij houden je graag op de hoogte van jouw gebruik. Zijn je tegoeden bijna op? Dan krijg je een bericht van ons. Altijd handig! Natuurlijk kun je dit zelf uitzetten als je deze berichten niet wilt.
+        
+        .block-text
+            .title Inzicht in jouw gegevens
+            .description Je hebt altijd het recht om je persoonlijke gegevens te bekijken, aan te passen en/of te verwijderen. Je kunt je persoonlijk gegevens die je hebt ingevuld terugvinden op je Stadjerspas account.
+        
+        .block-text 
+            .title Wil je meer weten of heb je vragen?
+            .description Bekijk de #[a(href="https://gemeente.groningen.nl/privacyverklaring" target="_blank") algemene privacyverklaring] van de gemeente Groningen. Voor vragen kun je bellen met de gemeente Groningen via tel: 14 050.
