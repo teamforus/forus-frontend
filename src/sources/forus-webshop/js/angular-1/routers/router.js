@@ -72,7 +72,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "sign-up",
-        url: "/sign-up",
+        url: "/aanbieder-aanmelden",
         component: "signUpSelectionComponent",
         params: {
             confirmed: null,
