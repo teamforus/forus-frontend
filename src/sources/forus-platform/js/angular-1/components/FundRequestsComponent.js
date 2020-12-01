@@ -170,10 +170,7 @@ let FundRequestsComponent = function(
     };
 
     $ctrl.requestApprove = (request) => {
-        FundRequestValidatorService.approve(
-            $ctrl.organization.id,
-            request.id
-        ).then(() => {
+        FundRequestValidatorService.approve($ctrl.organization.id, request.id).then(() => {
             $ctrl.reloadRequest(request);
         }, (res) => {
             showInfoModal(
@@ -196,7 +193,7 @@ let FundRequestsComponent = function(
                 }
 
                 $ctrl.reloadRequest(request);
-                showInfoModal('Aanvragen geweigerd.');
+                PushNotificationsService.success('Gelukt! Aanvraag is geweigerd');
             }
         });
     };

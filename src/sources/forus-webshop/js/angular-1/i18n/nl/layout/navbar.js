@@ -3,7 +3,7 @@ module.exports = {
         home: "Home",
         funds:"Activeren",
         products:"Aanbod",
-        subsidies:"Aanbod",
+        subsidies:"Acties",
         providers:"Aanbieders",
         explanation:"Uitleg",
         identity:"Profiel",

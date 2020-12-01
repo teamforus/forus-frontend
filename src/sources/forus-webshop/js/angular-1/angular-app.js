@@ -161,6 +161,7 @@ app.directive('printableEnabler', require('./directives/printables/PrintableEnab
 
 // Filters
 app.filter('currency_format', require('./filters/CurrencyFormatFilter'));
+app.filter('percentage_format', require('./filters/PercentageFormatFilter'));
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('i18n', require('./filters/I18nFilter'));

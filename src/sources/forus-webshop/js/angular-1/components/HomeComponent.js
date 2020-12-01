@@ -32,9 +32,7 @@ let HomeComponent = function(
     $ctrl.openActivateCodePopup = () => $state.go('start');
 
     if (AuthService.hasCredentials()) {
-        VoucherService.list().then(res => {
-            $ctrl.vouchers = res.data.data;
-        });
+        VoucherService.list().then(res => $ctrl.vouchers = res.data.data);
     } else {
         $ctrl.vouchers = [];
     }
