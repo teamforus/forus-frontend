@@ -59,7 +59,7 @@
 
             nav.navbar-item-wrapper(
                 ng-click="mobileMenu = false"
-                ng-if="$root.appConfigs.features.has_budget_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)" )
+                ng-if="$root.appConfigs.features.has_budget_funds && $root.appConfigs.features.products.list && ($root.appConfigs.flags.productsMenu || $root.auth_user)" )
                 a.navbar-item(
                     ui-sref="products" 
                     ui-sref-active="active"
@@ -68,7 +68,7 @@
             
             nav.navbar-item-wrapper(
                 ng-click="mobileMenu = false"
-                ng-if="$root.appConfigs.features.has_subsidy_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)" )
+                ng-if="$root.appConfigs.features.has_subsidy_funds && $root.appConfigs.features.products.list && ($root.appConfigs.flags.productsMenu || $root.auth_user)" )
                 a.navbar-item(
                     ui-sref="actions" 
                     ui-sref-active="active"

@@ -28,7 +28,7 @@ section.section.section-flow: .wrapper
     //- img(src="./assets/img/landing/forus-flow-provider.png").section-scheme
     .block.block-show-more 
         a(
-            href="../provider/#!/sign-up" 
+            ui-sref="sign-up({back:1})"
             translate="home_provider.guide.{{ $root.client_key }}.button" 
             translate-default="{{ 'home_provider.guide.default.button' | translate }}").button.button-primary
 

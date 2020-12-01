@@ -1,19 +1,9 @@
-let SignUpSelectionComponent = function(
-    appConfigs,
-) {
+let SignUpSelectionComponent = function(appConfigs) {
     let $ctrl = this;
 
     $ctrl.goToSignUpPage = (clientType) => {
-        let fronts = appConfigs.features.fronts;
-
-        document.location.href = {
-            'provider': fronts.url_provider,
-            'validator': fronts.url_validator,
-            'sponsor': fronts.url_sponsor,
-        } [clientType] + 'sign-up';
+        document.location.href = appConfigs.features.fronts['url_' + clientType] + 'sign-up';
     }
-
-    $ctrl.$onInit = function() {};
 };
 
 module.exports = {

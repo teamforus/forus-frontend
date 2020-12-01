@@ -12,7 +12,7 @@ block content
             .block.block-breadcrumbs
                 a(ui-sref="home").breadcrumb-item Home
                 .breadcrumb-item(ng-if="$ctrl.fund_type == 'budget'").active Aanbod
-                .breadcrumb-item(ng-if="$ctrl.fund_type == 'subsidies'").active Aanbod
+                .breadcrumb-item(ng-if="$ctrl.fund_type == 'subsidies'").active Acties
             
             .showcase-layout
                 .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
@@ -48,7 +48,7 @@ block content
                         .showcase-filters-title
                             div(ng-if="!$ctrl.showMap").pull-left
                                 .showcase-filters-title-count(ng-bind="$ctrl.products.meta.total")
-                                | Aanbod
+                                | {{ $ctrl.fund_type == 'budget' ? 'Aanbod' : 'Acties' }}
                             .block.block-label-tabs.pull-right
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: $ctrl.display_type == 'list'}"
@@ -61,76 +61,8 @@ block content
                                     em.mdi.mdi-view-grid-outline.icon-start
                                     | Foto's
                     
-                    .block.block-products(ng-if="$ctrl.fund_type == 'budget' && ($ctrl.products.data.length > 0 && $ctrl.display_type == 'grid')")
-                        .product-item(ng-repeat="product in $ctrl.products.data").discounted
-                            a(ui-sref="products-show(product)").product-item-inner
-                                .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
-                                    img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
-                                .product-details
-                                    .product-name.truncated(ng-bind="product.name")
-                                    .product-organization(ng-bind="product.organization.name")
-                                    .product-discount(ng-if="product.isDiscounted")
-                                        | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}% 
-                                        br
-                                        | {{ "block_products.labels.discount" | translate }}
-                                    .product-discount(ng-if="!product.isDiscounted").hide-sm
-                                        | &nbsp;
-                                        br
-                                        | &nbsp;
-                                    .product-price(ng-if="!product.no_price")
-                                        small(ng-if="product.isDiscounted") {{ "block_products.labels.old" | translate }} {{ product.old_price | currency_format }}
-                                        small(ng-if="!product.isDiscounted").hide-sm &nbsp;
-                                        | {{ "block_products.labels.new" | translate }} {{ product.price | currency_format }}
-                    
-                    .block.block-subsidies(ng-if="$ctrl.fund_type == 'subsidies' && ($ctrl.products.data.length > 0 && $ctrl.display_type == 'grid')")
-                        .product-item(ng-repeat="product in $ctrl.products.data"): a(ui-sref="products-show(product)").product-item-inner
-                            .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
-                                img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
-                                .product-price(ng-if="!product.no_price" ng-bind="product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis'")
-                            .product-details
-                                .product-name(ng-bind="product.name")
-                                .product-provider(ng-bind="product.organization.name")
-
-                    .block.block-products-list(
-                        ng-if="$ctrl.fund_type == 'budget' && $ctrl.products.data.length > 0 && $ctrl.display_type == 'list'" id="products_list")
-                        a.product-item(
-                            ng-repeat="product in $ctrl.products.data" 
-                            ng-class="{discounted:product.old_price}"
-                            ui-sref="products-show(product)")
-                            .product-photo: img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
-                            .product-content
-                                .product-details
-                                    .product-name(ng-bind="product.name")
-                                    .product-organization(ng-bind="product.organization.name")
-                                .product-actions
-                                    .product-discount.label.label-danger.label-sm(ng-if="product.old_price && product.price != product.old_price")
-                                        | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}%
-                                        | {{ "block_products.labels.discount" | translate }}
-                                    .label.label-default.label-sm(ng-if="product.old_price") 
-                                        | {{ "block_products.labels.old" | translate }} {{ product.old_price | currency_format }}
-                                    .product-price {{ "block_products.labels.new" | translate }} {{ product.price | currency_format }}
-                    
-
-                    .block.block-subsidies-list(
-                        ng-if="$ctrl.fund_type == 'subsidies' && ($ctrl.products.data.length > 0 && $ctrl.display_type == 'list')" id="products_list")
-                        a.product-item(
-                            ng-repeat="product in $ctrl.products.data"
-                            ui-sref="products-show(product)")
-                            .product-photo: img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
-                            .product-content
-                                .product-details
-                                    .product-name(ng-bind="product.name")
-                                    .product-provider(ng-bind="product.organization.name")
-                                .product-actions(ng-if="!product.no_price")
-                                    .product-price(
-                                        ng-if="product.price_min == product.price_max" 
-                                        ng-bind="product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis'")
-                                    
-                                    .product-price(ng-if="product.price_min != product.price_max")
-                                        | Van: {{ product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis' }}
-                                    
-                                    .product-price(ng-if="product.price_min != product.price_max")
-                                        | Voor: {{ product.price_max | currency_format }}
+                    div(ng-if="$ctrl.display_type == 'grid'" ): products-list(display="grid" type="{{ $ctrl.fund_type }}" products="$ctrl.products.data")
+                    div(ng-if="$ctrl.display_type == 'list'" ): products-list(display="list" type="{{ $ctrl.fund_type }}" products="$ctrl.products.data")
 
                     empty-block(
                         title= "{{ 'block_products.labels.title' | translate }}"

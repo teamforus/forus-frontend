@@ -16,13 +16,13 @@
                     text-align: center;
                     font: 700 40px/1.5em $bf;
                 }
-                .header-description {
+                .header-description, .block-markdown>p {
                     text-align: center;
                     p {
                         font: 400 18px/1.5em $bf;
                     }
                 }
-                .header-how-it-works {
+                .header-how-it-works, .block-markdown>p>a {
                     color: $tc-var;
                     font-style: normal;
                 }

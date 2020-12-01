@@ -239,7 +239,9 @@ section: .wrapper
                             data-placeholder="Uw {{ invalidCriteria.record_type_name }}")
                         .form-error(ng-repeat="error in invalidCriteria.errors.value" ng-bind="error")
                     
-                    .form-group.col.col-lg-12: file-uploader(ng-if="invalidCriteria.show_attachment" files="invalidCriteria.files")
+                    .form-group.col.col-lg-12
+                        file-uploader(ng-if="invalidCriteria.show_attachment" files="invalidCriteria.files")
+                        .form-error(ng-repeat="error in invalidCriteria.errors.file" ng-bind="error")
                 
                 .sign_up-pane-footer: .row
                     .col.col-lg-6.col-xs-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()")

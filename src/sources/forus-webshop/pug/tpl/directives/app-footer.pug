@@ -239,7 +239,7 @@ else if (qdt_c.platform.env_data.client_key == 'nijmegen')
                             a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank" aria-label="Dowload Me-app")
                                 img(src="./assets/img/icon-app/icon-app-ios.svg" style="height: 40px; width: 120px; margin-top: 10px;")
                     nav.footer-nav(style="margin-top:0; padding:0;")
-                        .footer-nav-item: a(href="https://forus.io/me" target="_blank") Wilt u meer informatie over de Me-app?
+                        .footer-nav-item: a(ui-sref="me-app" target="_blank") Wilt u meer informatie over de Me-app?
                 
         .block.block-copyrights: .wrapper
             .copyrights 
@@ -311,7 +311,7 @@ else if (qdt_c.platform.env_data.client_key == 'berkelland')
                             a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank" aria-label="Dowload Me-app")
                                 img(src="./assets/img/icon-app/icon-app-ios.svg")
                     nav.footer-nav(style="margin-top:0; padding:0;")
-                        .footer-nav-item: a(href="https://forus.io/me" target="_blank") Wilt u meer informatie over de Me-app?
+                        .footer-nav-item: a(ui-sref="me-app" target="_blank") Wilt u meer informatie over de Me-app?
                 
         .block.block-copyrights: .wrapper
             .copyrights 
@@ -384,7 +384,7 @@ else if (qdt_c.platform.env_data.client_key == 'winterswijk')
                             a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank" aria-label="Dowload Me-app")
                                 img(src="./assets/img/icon-app/icon-app-ios.svg")
                     nav.footer-nav(style="margin-top:0; padding:0;")
-                        .footer-nav-item: a(href="https://forus.io/me" target="_blank") Wilt u meer informatie over de Me-app?
+                        .footer-nav-item: a(ui-sref="me-app" target="_blank") Wilt u meer informatie over de Me-app?
                 
         .block.block-copyrights: .wrapper
             .copyrights 
@@ -457,7 +457,7 @@ else if (qdt_c.platform.env_data.client_key == 'oostgelre')
                             a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank" aria-label="Dowload Me-app")
                                 img(src="./assets/img/icon-app/icon-app-ios.svg")
                     nav.footer-nav(style="margin-top:0; padding:0;")
-                        .footer-nav-item: a(href="https://forus.io/me" target="_blank") Wilt u meer informatie over de Me-app?
+                        .footer-nav-item: a(ui-sref="me-app" target="_blank") Wilt u meer informatie over de Me-app?
                 
         .block.block-copyrights: .wrapper
             .copyrights 
@@ -604,7 +604,7 @@ else if (qdt_c.platform.env_data.client_key == 'kerstpakket')
                         .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_sponsor }}" target="_self") 
                         .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}" target="_self")
                     nav.footer-nav(style="margin-top:0; padding:0;")
-                        .footer-nav-item: a(href="https://forus.io/me" target="_blank")
+                        .footer-nav-item: a(ui-sref="me-app" target="_blank")
                 
         .block.block-copyrights: .wrapper
             .copyrights 
@@ -680,7 +680,7 @@ else if (qdt_c.platform.env_data.client_key == 'noordoostpolder')
                             a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank" aria-label="Dowload Me-app")
                                 img(src="./assets/img/icon-app/icon-app-ios.svg")
                     nav.footer-nav(style="margin-top:0; padding:0;")
-                        .footer-nav-item: a(href="https://forus.io/me" target="_blank") Wilt u meer informatie over de Me-app?	
+                        .footer-nav-item: a(ui-sref="me-app" target="_blank") Wilt u meer informatie over de Me-app?	
                 
                 .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
                     .footer-label Ontvang onze nieuwsbrief
@@ -715,7 +715,7 @@ else if (qdt_c.platform.env_data.client_key == 'groningen')
                     .footer-label(style="margin-top: 20px;") Hulp nodig?
                     .footer-schedule
                         .schedule-value Een medewerker van het WIJ-team helpt u graag verder.
-                        .schedule-value: a(href="https://stadjerspas.nl/pagina/bezoekadressen-en-openingstijden") Bezoekadressen en openingstijden
+                        .schedule-value: a(href="https://wij.groningen.nl/") Bezoekadressen en openingstijden
                 //-.col(ng-class="$root.appConfigs.features.newsletter?'col-md-3':'col-md-4'")
                     //img(src="./assets/img/forus-logo-bw.svg").footer-logo
                     .block.block-app_download: .footer-label Downloads
@@ -726,7 +726,7 @@ else if (qdt_c.platform.env_data.client_key == 'groningen')
                 .col.col-md-4
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}sign-up" target="_self") Aanmelden als aanbieder
+                        .footer-nav-item: a(ui-sref="sign-up" target="_self") Aanmelden als aanbieder
                             
                 .col.col-md-4
                     .footer-label Download Me-app
@@ -736,7 +736,7 @@ else if (qdt_c.platform.env_data.client_key == 'groningen')
                         a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank" aria-label="Download Me-app")
                         img(src="./assets/img/icon-app/app-store-badge.svg" alt="Apple App Store")                
                     nav.footer-nav(style="margin-top:0; padding:0;")
-                            .footer-nav-item: a(href="https://forus.io/me" target="_blank") Wilt u meer informatie over de Me-app?
+                            .footer-nav-item: a(ui-sref="me-app" target="_blank") Wilt u meer informatie over de Me-app?
                 
         .block.block-copyrights: .wrapper
             .copyrights 
@@ -795,7 +795,7 @@ else if (qdt_c.platform.env_data.client_key == 'potjeswijzer')
                 .col.col-md-4
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}sign-up" target="_self") Aanmelden als aanbieder
+                        .footer-nav-item: a(ui-sref="sign-up" target="_self") Aanmelden als aanbieder
                         .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_sponsor }}sign-up" target="_self") Aanmelden als sponsor
                         .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_validator }}sign-up" target="_self") Aanmelden als beoordelaar
                     .block.block-app_download(style="margin-top:15px;"): .footer-label(style="margin-bottom:0px;") Download Me-app
@@ -805,7 +805,7 @@ else if (qdt_c.platform.env_data.client_key == 'potjeswijzer')
                             a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank" aria-label="Dowload Me-app")
                                 img(src="./assets/img/icon-app/app-store-badge.svg")
                     nav.footer-nav(style="margin-top:0; padding:0;")
-                        .footer-nav-item: a(href="https://forus.io/me" target="_blank") Wilt u meer informatie over de Me-app?
+                        .footer-nav-item: a(ui-sref="me-app" target="_blank") Wilt u meer informatie over de Me-app?
                 
         .block.block-copyrights: .wrapper
             .copyrights 
@@ -847,7 +847,7 @@ else if (qdt_c.platform.env_data.client_key == 'geertruidenberg')
                 .col.col-md-4
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}sign-up" target="_self") Aanmelden als aanbieder
+                        .footer-nav-item: a(ui-sref="sign-up" target="_self") Aanmelden als aanbieder
                         .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_sponsor }}sign-up" target="_self") Aanmelden als sponsor
                 
                 .col.col-md-4
@@ -858,7 +858,7 @@ else if (qdt_c.platform.env_data.client_key == 'geertruidenberg')
                             a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" target="_blank")
                                 img(src="./assets/img/icon-app/app-store-badge.svg")
                     nav.footer-nav(style="margin-top:0; padding:0;")
-                        .footer-nav-item: a(href="https://forus.io/me" target="_blank") Wilt u meer informatie over de Me-app?
+                        .footer-nav-item: a(ui-sref="me-app" target="_blank") Wilt u meer informatie over de Me-app?
                 
         .block.block-copyrights
             .copyrights 

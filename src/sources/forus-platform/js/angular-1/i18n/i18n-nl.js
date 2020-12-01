@@ -858,7 +858,7 @@ module.exports = {
             main_header: "Aanmelden als sponsor",
             go_back: "Terug",
             title_step_1: "Welkom",
-            subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als sponsor. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
+            subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als sponsor. De volledige aanmeldprocedure duurt ongeveer 15 minuten. ",
             title_step_2: "Maak een account",
             title_step_3: "Vestiging kiezen",
             subtitle_step_3: "Kies een bestaande organisatie of voeg een nieuwe organisatie toe.",
@@ -1414,6 +1414,12 @@ module.exports = {
     modal_pdf_preview: {
         header: {
             title: "PDF-voorbeeld"
+        }
+    },
+
+    modal_image_preview: {
+        header: {
+            title: "Afbeelding-voorbeeld"
         }
     },
 

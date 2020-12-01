@@ -100,7 +100,6 @@ app.directive('implementation', require('./directives/ImplementationDirective'))
 app.directive('fundCriterion', require('./directives/FundCriterionDirective'));
 app.directive('profileMenu', require('./directives/ProfileMenuDirective'));
 app.directive('blockProducts', require('./directives/BlockProductsDirective'));
-app.directive('blockSubsidies', require('./directives/BlockSubsidiesDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
 app.directive('dashInputControl', require('./directives/DashInputControlDirective'));
@@ -120,6 +119,7 @@ app.directive('scrollEnd', require('./directives/ScrollEndDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
 app.directive('fileUploader', require('./directives/controls/FileUploaderDirective'));
 app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
+app.directive('productsList', require('./directives/ProductsListDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
@@ -161,6 +161,7 @@ app.directive('printableEnabler', require('./directives/printables/PrintableEnab
 
 // Filters
 app.filter('currency_format', require('./filters/CurrencyFormatFilter'));
+app.filter('percentage_format', require('./filters/PercentageFormatFilter'));
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('i18n', require('./filters/I18nFilter'));

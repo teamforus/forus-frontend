@@ -6220,7 +6220,7 @@ $colorPrimaryLight: $color_primary_light;
 
     &.modal-voucher-export-type {
         .modal-window {
-            width: 680px;
+            width: 840px;
 
             .modal-body {
                 .voucher-export-type {
@@ -6472,6 +6472,18 @@ $colorPrimaryLight: $color_primary_light;
         }
     }
 
+    &.modal-image-preview {
+        .img-block {
+            display: flex;
+            margin: 40px auto;
+            justify-content: center;
+
+            img {
+                height: 100%;
+            }
+        }
+    }
+    
     &.modal-photo-upload {
         cursor: default;
 
@@ -6585,6 +6597,11 @@ $colorPrimaryLight: $color_primary_light;
                                 text-align: center;
                                 color: #5e636b;
                                 font: 400 13px/20px $bf;
+
+                                a {
+                                    text-decoration: underline;
+                                    font: inherit;
+                                }
                             }
                         }
                     }

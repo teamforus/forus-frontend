@@ -3,6 +3,7 @@ let UIControlTextAreaDirective = function(
 ) {
     let $dir = {
         id: $scope.id || '',
+        rows: $scope.rows || '',
         name: $scope.name || '',
         placeholder: $scope.placeholder || '',
         onChange: () => $scope.ngChange(),
@@ -25,6 +26,7 @@ module.exports = () => {
     return {
         scope: {
             id: "@",
+            rows: '@',
             name: "@",
             placeholder: "@",
             ngModel: '=',
