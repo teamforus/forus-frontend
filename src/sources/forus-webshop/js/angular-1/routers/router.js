@@ -74,15 +74,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: "sign-up",
         url: "/aanbieder-aanmelden",
         component: "signUpSelectionComponent",
-        params: {
-            confirmed: null,
-            digid_error: null
-        },
-        resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())]
-        }
+    });
+
+    $stateProvider.state({
+        name: "sign-up-en",
+        url: "/sign-up",
+        controller: ['$state', ($state) => $state.go('sign-up')],
     });
 
     $stateProvider.state({
