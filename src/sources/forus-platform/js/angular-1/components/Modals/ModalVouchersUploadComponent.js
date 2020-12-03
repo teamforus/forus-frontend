@@ -158,7 +158,7 @@ let ModalVouchersUploadComponent = function(
                         row.email ? '' : '_no_email'
                     ), {
                     upload_date: moment().format('YYYY-MM-DD'),
-                    uploader_email: $rootScope.auth_user.primary_email,
+                    uploader_email: $rootScope.auth_user.email,
                     target_email: row.email || null,
                 }
                 );
