@@ -3,7 +3,7 @@
         | {{ "profile_menu.buttons.vouchers" | translate }}
         em.mdi.mdi-arrow-right
     
-    a(ui-sref="funds" ui-sref-active="active" ng-if="appConfigs.flags.fundsMenu").profile-menu-item.hide-sm
+    a(ui-sref="funds" ui-sref-active="active" ng-if="appConfigs.flags.fundsMenu").profile-menu-item
         span(translate="funds.buttons.{{ $root.appConfigs.client_key }}.start_request" translate-default="{{ 'funds.buttons.start_request' | translate }}")
         em.mdi.mdi-arrow-right
     
