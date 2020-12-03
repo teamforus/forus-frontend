@@ -92,6 +92,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: "dl",
+        url: "/dl",
+        component: "dlMeAppComponent"
+    });
+
+    $stateProvider.state({
         name: "restore-email",
         url: "/identity-restore?token",
         controller: [
