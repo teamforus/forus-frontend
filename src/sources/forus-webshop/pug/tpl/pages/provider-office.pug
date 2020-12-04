@@ -3,7 +3,9 @@ block content
     top-navbar
 
     .block.block-breadcrumbs
-        a(ui-sref="providers").breadcrumb-item Back
+        a(ui-sref="providers").breadcrumb-item Aanbieders
+        a(ui-sref="provider({provider_id: $ctrl.provider.id})").breadcrumb-item Aanbieder informatie
+        .breadcrumb-item.active(i18n="Vestigingen")
         
     .block.block-office
         .office-map: .block.block-google-map: google-map(
