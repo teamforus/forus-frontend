@@ -163,11 +163,11 @@
                         
                         td.text-right(ng-if="record.state == 'pending' && record.is_assigned")
                             .button-group.flex-end
-                                .button.button-primary.button-icon(ng-click='$ctrl.declineRecord(validatorRequest, record)')
+                                .button.button-primary.button-icon(ng-click='$ctrl.declineRecord(validatorRequest, record)' ng-show='$ctrl.singleRecordActions')
                                     em.mdi.mdi-close
                                 .button.button-primary-light.button-icon(ng-click='$ctrl.clarifyRecord(validatorRequest, record)')
                                     em.mdi.mdi-message-text
-                                .button.button-default.button-icon(ng-click='$ctrl.approveRecord(validatorRequest, record)')
+                                .button.button-default.button-icon(ng-click='$ctrl.approveRecord(validatorRequest, record)' ng-show="$ctrl.singleRecordActions")
                                     em.mdi.mdi-check
                     
                     tr.dim(ng-if='(record.shown) && ((record.files.length > 0) || (record.clarifications.length > 0))'): td(colspan='6')
