@@ -28,9 +28,7 @@
                         .form-offset
                             markdown(ng-model="$ctrl.form.values.description")
                             br
-                            span Product description character limited to 2500 characters  
-                            br
-                            span Currently used {{ $ctrl.form.values.description.length }} / 2500
+                            span Maximaal aantal karakters {{ $ctrl.form.values.description.length }} / 2500
 
                         tooltip(text="'Bijvoorbeeld: aantal lessen, abonnementsvorm, omschrijving cursus, einddatum activiteit, voorwaarden, bijzonderheden, etc.'")
                         .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
