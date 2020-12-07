@@ -28,7 +28,6 @@ let FundRequestsComponent = function(
     $ctrl.fundsById = {};
     $ctrl.validatorRequests = null;
     $ctrl.employee = false;
-    $ctrl.singleRecordActions = true
 
     $ctrl.shownUsers = {};
 
