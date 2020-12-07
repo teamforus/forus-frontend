@@ -22,6 +22,7 @@
             background-position: 50%;
             background-repeat: no-repeat;
             border-radius: $border_radius;
+            max-height: 300px;
 
             img {
                 width: 100%;
@@ -238,6 +239,7 @@
                 max-width: 100%;
                 background: none;
                 border-radius: $border_radius;
+                max-height: inherit;
 
                 img {
                     display: block;
