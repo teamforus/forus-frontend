@@ -82,7 +82,6 @@ let VoucherService = function(
                 }
             }
 
-
             return {
                 title: title,
                 subtitle: subtitle,
@@ -90,6 +89,8 @@ let VoucherService = function(
                 amount: voucher.amount,
                 type: voucher.type,
                 returnable: voucher.returnable,
+                used: voucher.used,
+                last_transaction_at_locale: voucher.last_transaction_at_locale,
                 transactions: voucher.transactions ? this.composeTransactions(voucher) : [],
                 created_at_locale: voucher.created_at_locale,
                 expire_at_locale: voucher.expire_at_locale,
