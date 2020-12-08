@@ -13,6 +13,8 @@ app.component('platformComponent', require('./components/website/PlatformCompone
 app.component('meComponent', require('./components/website/MeComponent'));
 app.component('contactComponent', require('./components/website/ContactComponent'));
 app.component('currentComponent', require('./components/website/CurrentComponent'));
+app.component('loginComponent', require('./components/website/LoginComponent'));
+app.component('registerComponent', require('./components/website/SignUpComponent'));
 app.component('signUpComponent', require('./components/landing/SignUpComponent'));
 
 // Services

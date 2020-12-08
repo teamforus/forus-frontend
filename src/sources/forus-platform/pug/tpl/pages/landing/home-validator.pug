@@ -1,94 +1,41 @@
-.header-splash: .splash
+.block.block-login
+    .block-login-content
+        .block-login-header
+            .block-login-header-title Login met e-mail
+            .block-login-header-description Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen
+        
+        .block-login-form  
+            .form.row: .col.col-lg-12.form-group
+                .form-label E-mailadres
+                .flex-row
+                    .flex-col.flex-grow
+                        input(type="email" placeholder="E-mail address").form-control
+                    .flex-col: button.button.button-primary Login
 
-header.section.section-header
-    landing-navbar
-    .wrapper
-        .header-body
-            .header-content
-                .header-title Meld u aan als winkelier of dienstverlener
-                .header-description Bereik meer klanten, maak meer winst en draag bij aan een maatschappelijk doel.
-                .header-title Digitale identiteit
-                .header-description Om uw organisatie toe te voegen dient u eerst een digitale indentiteit aan te maken
-                a(href="#").button.button-primary Nieuwe Identiteit Aanmaken
-            .header-sprite(
-                style="background-image: url('./assets/img/landing/header-sprite-validator.png')")
-            .block.block-cards
-                .card-item: .card-item-inner
-                    .card-icon: img(src="./assets/img/landing/icon-cards/icon-card-money.png")
-                    .card-content
-                        .card-title 
-                            | Create your fund 
-                            //- em.mdi.mdi-arrow-right
-                        .card-description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                .card-item: .card-item-inner
-                    .card-icon: img(src="./assets/img/landing/icon-cards/icon-card-wallet.png")
-                    .card-content
-                        .card-title 
-                            | Donate 
-                            //- em.mdi.mdi-arrow-right
-                        .card-description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+        .block-login-me-app
+            .auth-qr_code.hidden-xs
+                .qr_code-container
+                    .qr_code-description
+                        .auth-title Login met Me-app
+                        | Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app. 
+                        | #[br] #[br]
+                        | De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.
+                        | #[br] #[br]
 
-section.section.section-flow: .wrapper
-    .section-title Dogs have masters. Cats have staff.
-    .section-description A successful man is one who makes more money than his wife can spend. A successful woman is one who can find such a man.
-    img(src="./assets/img/landing/forus-flow-validator.png").section-scheme
-    .block.block-show-more: a(href="#").button.button-primary NIVEUWE AANMAKEN
+                        .qr_code-download-app
+                            a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").download-link
+                                img(src="./assets/img/landing/icon-app-ios.svg")
+                            a(href="https://play.google.com/store/apps/details?id=io.forus.me")
+                                img(src="./assets/img/landing/icon-app-android.svg").download-link
+                    //- .qr_code-block: qr-code(
+                    //-     ng-if="$ctrl.qrValue" 
+                    //-     qr-value="$ctrl.qrValue" 
+                    //-     qr-type="auth_token" qr-logo=src_prefix + "./assets/img/me-logo.png")
 
-section.section.section-faq: .wrapper
-    .section-title Veel gestelde vragen
-    .faq(collapse)
-        mixin faq_item(title, content, active)
-            .faq-item(class=active?'active':'' collapse-item)
-                .faq-item-header(collapse-header)
-                    | #{title}
-                    .faq-item-chevron-down.mdi.mdi-chevron-down
-                    .faq-item-chevron-up.mdi.mdi-chevron-up
-                .faq-item-content(collapse-content)=content
-
-        +faq_item(
-            "Ik weet niet hoe ik moet inloggen; hoe de activatiecode werkt.",
-            "In de brief staat uw activatiecode. Die code vult u in op de website onder de knop activatie-code. Daana u ontvangt u een e-mail met uw QR-code")
-
-        +faq_item(
-            "Ik ben mijn QR-code kwijt. Wat moet ik doen?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
-
-        +faq_item(
-            "Hoe kan ik zien hoe hoog mijn budget nog is?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
-
-        +faq_item(
-            "Kan ik iets wat ik gekocht heb ruilen/retour brengen?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
-
-        +faq_item(
-            "Moet ik mijn budget in 1x besteden?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
-
-        +faq_item(
-            "Kan ik iets kopen bij een andere winkelier die niet op de website staat?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
-
-        +faq_item(
-            "Ik heb nog een kind gekregen. Kom ik in aanmerking voor een hoger budget?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
-
-        +faq_item(
-            "Hoe kom ik in aanmerking voor het kindpakket?",
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti natus quibusdam non? Alias sed, voluptatum distinctio dolorum itaque natus vero fugiat. Odit sed quas blanditiis natus? Et quibusdam harum rem ut!")
-            
-//- section.section.section-blogs: .wrapper
-    .block.block-blogs
-        mixin blog_item(nth)
-            .blog-item: a(href="#").blog-item-inner
-                .blog-image: img(src="./assets/img/landing/blog-image-" + nth + ".jpg")
-                .blog-name The only thing worse than being blind is having sight but no vision.
-                .blog-read-more 
-                    | Read more 
-                    em.mdi.mdi-arrow-right
-        +blog_item(1)
-        +blog_item(2)
-        +blog_item(3)
-        .block.block-show-more: .wrapper: a(href="#").button.button-primary SHOW MORE
-
-//- landing-contact-form
+                    .qr_code-block
+                        button.button.button-primary Open QR
+       
+                
+    .block-login-footer
+        .block-login-footer-title Nog geen account?
+        .block-login-footer-button(ng-click="$ctrl.login()") Inschrijven

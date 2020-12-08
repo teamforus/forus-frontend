@@ -1,0 +1,31 @@
+.block.block-sign-up
+    .block-sign-up-header
+        .block-sign-up-title Inschrijven
+    .block-sign-up-options
+        .block-sign-up-option(
+            ng-click="$ctrl.selectType('provider')"
+            ng-class="{'active': $ctrl.selectedType == 'provider'}")
+
+            .block-sign-up-option-img
+                img.img-default(src="./assets/img/website/provider.png")
+                img.img-hover(src="./assets/img/website/provider-hover.png")
+            .block-sign-up-option-description Als aanbieder
+        .block-sign-up-option(
+            ng-click="$ctrl.selectType('validator')"
+            ng-class="{'active': $ctrl.selectedType == 'validator'}")
+
+            .block-sign-up-option-img
+                img.img-default(src="./assets/img/website/validator.png")
+                img.img-hover(src="./assets/img/website/validator-hover.png")
+            .block-sign-up-option-description Als beoordelaar
+        .block-sign-up-option(
+            ng-click="$ctrl.selectType('sponsor')"
+            ng-class="{'active': $ctrl.selectedType == 'sponsor'}")
+
+            .block-sign-up-option-img
+                img.img-default(src="./assets/img/website/sponsor.png")
+                img.img-hover(src="./assets/img/website/sponsor-hover.png")
+            .block-sign-up-option-description Als sponsor
+    .block-sign-up-footer
+        .block-sign-up-footer-title Nog geen account?
+        .block-sign-up-footer-button(ng-click="$ctrl.signUp()") Inschrijven

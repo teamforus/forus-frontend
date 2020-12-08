@@ -1,51 +1,41 @@
-landing-navbar
-header.section.section-header
-    .wrapper
-        .header-content
-            .header-title(translate="home_sponsor.header.{{ $root.appConfigs.client_key }}.title" translate-default="{{ 'home_sponsor.header.title' | translate }}")
-            .header-description(translate="home_sponsor.header.{{ $root.appConfigs.client_key }}.subtitle" translate-default="{{ 'home_sponsor.header.subtitle' | translate }}")
+.block.block-login
+    .block-login-content
+        .block-login-header
+            .block-login-header-title Login met e-mail
+            .block-login-header-description Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen
+        
+        .block-login-form  
+            .form.row: .col.col-lg-12.form-group
+                .form-label E-mailadres
+                .flex-row
+                    .flex-col.flex-grow
+                        input(type="email" placeholder="E-mail address").form-control
+                    .flex-col: button.button.button-primary Login
 
-section.section.section-faq(id="faq"): .wrapper
-    .section-title {{ "home_sponsor.faq.title" | i18n }}
-    .faq(collapse)
-        mixin faq_item(title, content, title_default, content_default, active)
-            .faq-item(class=active?'active':'' collapse-item)
-                .faq-item-header(collapse-header)
-                    span(translate=title i18n-vars="{ fund: $ctrl.funds[0].name }" translate-default=title_default)
-                    .faq-item-chevron-down.mdi.mdi-chevron-down
-                    .faq-item-chevron-up.mdi.mdi-chevron-up
-                .faq-item-content(collapse-conten, translate=content translate-default=content_default)
+        .block-login-me-app
+            .auth-qr_code.hidden-xs
+                .qr_code-container
+                    .qr_code-description
+                        .auth-title Login met Me-app
+                        | Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app. 
+                        | #[br] #[br]
+                        | De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.
+                        | #[br] #[br]
 
-        +faq_item(
-            'home_sponsor.faq.{{ $root.client_key }}.faq_one',
-            'home_sponsor.faq.{{ $root.client_key }}.one',
-            '{{ "home_sponsor.faq.faq_one" | translate }}',
-            '{{ "home_sponsor.faq.one" | translate }}')
+                        .qr_code-download-app
+                            a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").download-link
+                                img(src="./assets/img/landing/icon-app-ios.svg")
+                            a(href="https://play.google.com/store/apps/details?id=io.forus.me")
+                                img(src="./assets/img/landing/icon-app-android.svg").download-link
+                    //- .qr_code-block: qr-code(
+                    //-     ng-if="$ctrl.qrValue" 
+                    //-     qr-value="$ctrl.qrValue" 
+                    //-     qr-type="auth_token" qr-logo=src_prefix + "./assets/img/me-logo.png")
 
-        +faq_item(
-            'home_sponsor.faq.{{ $root.client_key }}.faq_two',
-            'home_sponsor.faq.{{ $root.client_key }}.two',
-            '{{ "home_sponsor.faq.faq_two" | translate }}',
-            '{{ "home_sponsor.faq.two" | translate }}')
-
-        +faq_item(
-            'home_sponsor.faq.{{ $root.client_key }}.faq_three',
-            'home_sponsor.faq.{{ $root.client_key }}.three',
-            '{{ "home_sponsor.faq.faq_three" | translate }}',
-            '{{ "home_sponsor.faq.three" | translate }}')
-
-//- section.section.section-blogs: .wrapper
-    .block.block-blogs
-        mixin blog_item(nth)
-            .blog-item: a(href="#").blog-item-inner
-                .blog-image: img(src="./assets/img/landing/blog-image-" + nth + ".jpg")
-                .blog-name The only thing worse than being blind is having sight but no vision.
-                .blog-read-more 
-                    | Read more 
-                    em.mdi.mdi-arrow-right
-        +blog_item(1)
-        +blog_item(2)
-        +blog_item(3)
-        .block.block-show-more: .wrapper: a(href="#").button.button-primary SHOW MORE
-
-//- landing-contact-form    
+                    .qr_code-block
+                        button.button.button-primary Open QR
+       
+                
+    .block-login-footer
+        .block-login-footer-title Nog geen account?
+        .block-login-footer-button(ng-click="$ctrl.login()") Inschrijven

@@ -43,7 +43,9 @@ let BaseController = function(
     };
 
     $scope.$ctrl = {
-        userMenuOpened: false
+        userMenuOpened: false,
+        showFooter: true,
+        showHeader: true
     };
 
     $scope.$ctrl.openUserMenu = (e) => {
@@ -119,6 +121,10 @@ let BaseController = function(
     $scope.$watch(function() {
         return $state.$current.name
     }, function(newVal, oldVal) {
+        if ($state.current.name == 'login' || $state.current.name == 'register') {
+            $scope.$ctrl.showFooter = $scope.$ctrl.showHeader = false;
+        }
+
         if ([
             'sign-up', 'sign-up-provider', 
             'sign-up-sponsor', 'sign-up-validator'

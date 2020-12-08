@@ -1,0 +1,131 @@
+.block-sign-up {
+    width: 754px;
+    margin: 30px auto;
+    border: 1px solid #E5E5E5;
+    border-radius: 6px;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-30%) translateX(-50%);
+
+    .block-sign-up-header {
+        height: 65px;
+        padding: 15px 0px;
+        border-bottom: 1px solid #E5E5E5;
+
+        .block-sign-up-title {
+            font: 500 20px/30px 'Montserrat';
+            text-align: center;
+        }
+    }
+
+    .block-sign-up-options {
+        height: 220px;
+        display: flex;
+        padding: 30px 10px;
+        justify-content: space-evenly;
+        border-bottom: 1px solid #E5E5E5;
+
+        .block-sign-up-option {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            width: 30%;
+            border: 1px solid #E5E5E5;
+            border-radius: 6px;
+            padding: 30px 20px;
+            text-align: center;
+
+            .block-sign-up-option-img {
+                img {
+                    margin: 0 auto;
+
+                    &.img-default {
+                        display: block;
+                    }
+    
+                    &.img-hover {
+                        display: none;
+                    }
+                }
+            }
+
+            .block-sign-up-option-description {
+                position: absolute;
+                bottom: 20px;
+                font: 500 17px/25px 'Montserrat';
+            }
+
+            &.active {
+                border: 1px solid #0C66FF;
+
+                .block-sign-up-option-img {
+                    img {
+                        &.img-default {
+                            display: none;
+                        }
+
+                        &.img-hover {
+                            display: block;
+                        }
+                    }
+                }
+
+                .block-sign-up-option-description {
+                    color: #0C66FF;
+                }
+            }
+
+            &:hover {
+                cursor: pointer;
+                border: 1px solid #0C66FF;
+                color: #0C66FF;
+
+                .block-sign-up-option-img {
+                    img {
+                        &.img-default {
+                            display: none;
+                        }
+        
+                        &.img-hover {
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .block-sign-up-footer {
+        height: 170px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .block-sign-up-footer-title {
+            font: 500 20px/21px 'Montserrat';
+            text-align: center;
+        }
+
+        .block-sign-up-footer-button {
+            width: 320px;
+            transform: translate(0, 0);
+            color: #0C66FF;
+            background: rgba(12, 102, 255, 0.1);
+            padding: 20px 65px;
+            margin: 20px auto 0px auto;
+            text-align: center;
+            background: #fff;
+            border: 1px solid #0C66FF;
+            border-radius: 8px;
+            font: 600 17px/21px 'Montserrat';
+
+            &:hover {
+                cursor: pointer;
+                background: rgba(12, 102, 255, 0.1);
+                border-color: #fff;
+            }
+        }
+    }
+}
