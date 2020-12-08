@@ -118,7 +118,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
             ng-click="$ctrl.usePhysicalCard($ctrl.voucher, 'card_code')") 
         //-.block-card-close.mdi.mdi-close(ng-click="$ctrl.dismissPhysicalCard()")
 
-    .block.block-transactions(ng-if="$ctrl.voucherCard.used && !$ctrl.voucherCard.product")
+    .block.block-transactions(ng-if="$ctrl.voucherCard.transactions.length > 0 && !$ctrl.voucherCard.product")
         .transactions-header: .transactions-title {{ "voucher.labels.transactions" | translate }}
         .transactions-body: .transactions-list
             .transactions-item(ng-repeat="transaction in $ctrl.voucherCard.transactions" class="transactions-item-out")
