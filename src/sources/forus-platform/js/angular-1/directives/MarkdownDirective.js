@@ -55,11 +55,12 @@ let MarkdownDirective = function($scope, $element, ModalService) {
             moveSelection = sel.end + arrayOfSelected.length * (
                 start.length + end.length
             );
-        } else if (type == 'custom-link' || type == 'image-link') {
+        } else if (type == 'custom-link' || type == 'image-link' || type == 'youtube') {
             ModalService.open('markdownCustomLink', {
                 pages: $scope.pages,
                 selection: sel.selected,
                 type: type,
+                hasDescription: type != 'youtube',
                 success: (data) => {
                     let url = data.url;
                     let text = sel.selected ? sel.selected : data.description;

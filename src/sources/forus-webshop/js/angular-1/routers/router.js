@@ -72,17 +72,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "sign-up",
-        url: "/sign-up",
+        url: "/aanbieder-aanmelden",
         component: "signUpSelectionComponent",
-        params: {
-            confirmed: null,
-            digid_error: null
-        },
-        resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())]
-        }
+    });
+
+    $stateProvider.state({
+        name: "sign-up-en",
+        url: "/sign-up",
+        controller: ['$state', ($state) => $state.go('sign-up')],
     });
 
     $stateProvider.state({
@@ -734,14 +731,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             ) => repackResponse(FundService.readById(
                 $transition$.params().fund_id
             ))],
-            records: ['AuthService', 'RecordService', (
-                AuthService, RecordService
-            ) => AuthService.hasCredentials() ? repackResponse(
-                RecordService.list()
-            ) : promiseResolve(null)],
-            recordTypes: ['RecordTypeService', (
-                RecordTypeService
-            ) => repackResponse(RecordTypeService.list())],
             clarification: ['$transition$', 'FundRequestClarificationService', 'AuthService', (
                 $transition$, FundRequestClarificationService, AuthService
             ) => AuthService.hasCredentials() ? repackResponse(FundRequestClarificationService.read(

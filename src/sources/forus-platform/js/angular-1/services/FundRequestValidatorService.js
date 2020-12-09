@@ -32,42 +32,42 @@ let FundRequestValidatorService = function(ApiRequest) {
             );
         };
 
-        this.assign = function(organziation_id, request_id, employee_id) {
+        this.assign = function(organziation_id, request_id) {
             return ApiRequest.patch(
-                sprintf(uriPrefixAll + '/%s/assign', organziation_id, request_id), {
-                    employee_id: employee_id
-                }
+                sprintf(uriPrefixAll + '/%s/assign', organziation_id, request_id)
             );
         };
 
-        this.resign = function(organziation_id, request_id, employee_id) {
+        this.resign = function(organziation_id, request_id) {
             return ApiRequest.patch(
-                sprintf(uriPrefixAll + '/%s/resign', organziation_id, request_id), {
-                    employee_id: employee_id
-                }
+                sprintf(uriPrefixAll + '/%s/resign', organziation_id, request_id)
             );
         };
 
-        this.approve = function(organziation_id, request_id, employee_id) {
-            return ApiRequest.patch(
-                sprintf(uriPrefixAll + '/%s/approve', organziation_id, request_id), {
-                    employee_id: employee_id
-                }
-            );
+        this.approve = function(organziation_id, request_id, note) {
+            return ApiRequest.patch(sprintf(
+                uriPrefixAll + '/%s/approve',
+                organziation_id,
+                request_id
+            ), {
+                note: note
+            });
         };
 
-        this.decline = function(organziation_id, request_id, employee_id) {
-            return ApiRequest.patch(
-                sprintf(uriPrefixAll + '/%s/decline', organziation_id, request_id), {
-                    employee_id: employee_id
-                }
-            );
+        this.decline = function(organziation_id, request_id, note = '') {
+            return ApiRequest.patch(sprintf(
+                uriPrefixAll + '/%s/decline',
+                organziation_id,
+                request_id
+            ), {
+                note: note
+            });
         };
 
         this.appendRecord = function(organziation_id, request_id, values = {}) {
             return ApiRequest.post(sprintf(
-                uriPrefixAll + '/%s/records', 
-                organziation_id, 
+                uriPrefixAll + '/%s/records',
+                organziation_id,
                 request_id
             ), values);
         };
@@ -93,20 +93,24 @@ let FundRequestValidatorService = function(ApiRequest) {
         };
 
         this.requestRecordClarification = function(organziation_id, request_id, record_id, question) {
-            return ApiRequest.post(
-                sprintf(uriPrefixAll + '/%s/clarifications', organziation_id, request_id), {
-                    fund_request_record_id: record_id,
-                    question: question
-                }
-            );
+            return ApiRequest.post(sprintf(
+                uriPrefixAll + '/%s/clarifications',
+                organziation_id,
+                request_id
+            ), {
+                fund_request_record_id: record_id,
+                question: question
+            });
         };
 
         this.recordClarifications = function(organziation_id, request_id, record_id) {
-            return ApiRequest.get(
-                sprintf(uriPrefixAll + '/%s/clarifications', organziation_id, request_id), {
-                    fund_request_record_id: record_id,
-                }
-            );
+            return ApiRequest.get(sprintf(
+                uriPrefixAll + '/%s/clarifications',
+                organziation_id,
+                request_id
+            ), {
+                fund_request_record_id: record_id,
+            });
         };
     };
 

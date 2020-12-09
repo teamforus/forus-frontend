@@ -726,7 +726,7 @@ else if (qdt_c.platform.env_data.client_key == 'groningen')
                 .col.col-md-4
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}sign-up" target="_self") Aanmelden als aanbieder
+                        .footer-nav-item: a(ui-sref="sign-up" target="_self") Aanmelden als aanbieder
                             
                 .col.col-md-4
                     .footer-label Download Me-app
@@ -795,7 +795,7 @@ else if (qdt_c.platform.env_data.client_key == 'potjeswijzer')
                 .col.col-md-4
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}sign-up" target="_self") Aanmelden als aanbieder
+                        .footer-nav-item: a(ui-sref="sign-up" target="_self") Aanmelden als aanbieder
                         .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_sponsor }}sign-up" target="_self") Aanmelden als sponsor
                         .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_validator }}sign-up" target="_self") Aanmelden als beoordelaar
                     .block.block-app_download(style="margin-top:15px;"): .footer-label(style="margin-bottom:0px;") Download Me-app
@@ -847,7 +847,7 @@ else if (qdt_c.platform.env_data.client_key == 'geertruidenberg')
                 .col.col-md-4
                     .footer-label Navigatie
                     nav.footer-nav
-                        .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_provider }}sign-up" target="_self") Aanmelden als aanbieder
+                        .footer-nav-item: a(ui-sref="sign-up" target="_self") Aanmelden als aanbieder
                         .footer-nav-item: a(href="{{ $root.appConfigs.features.fronts.url_sponsor }}sign-up" target="_self") Aanmelden als sponsor
                 
                 .col.col-md-4
@@ -873,5 +873,3 @@ else if (qdt_c.platform.env_data.client_key == 'geertruidenberg')
                 a(href="#")
 else
     div
-
-| {{qdt_c.platform.env_data.client_key}}

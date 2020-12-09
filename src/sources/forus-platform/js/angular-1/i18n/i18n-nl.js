@@ -499,7 +499,7 @@ module.exports = {
             website: "Website",
             business_type: "Organisatie type",
             optional: "Optioneel",
-            make_public: "Maak publiek",
+            make_public: "Toon openbaar op website",
             photo_description: 'De afbeelding dient vierkant te zijn met een afmeting van bijvoorbeeld 400x400px.<br/>Toegestaande  formaten: JPG, PNG',
             schedule: "Openingstijden",
             weekdays_same_hours: "Alle doordeweekse dagen hebben dezelfde tijden",
@@ -858,7 +858,7 @@ module.exports = {
             main_header: "Aanmelden als sponsor",
             go_back: "Terug",
             title_step_1: "Welkom",
-            subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als sponsor. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
+            subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als sponsor. De volledige aanmeldprocedure duurt ongeveer 15 minuten. ",
             title_step_2: "Maak een account",
             title_step_3: "Vestiging kiezen",
             subtitle_step_3: "Kies een bestaande organisatie of voeg een nieuwe organisatie toe.",
@@ -1216,8 +1216,8 @@ module.exports = {
         },
         buttons: {
             show: "Bekijk eigenschappen",
-            allaccept: "Alles valideren",
-            alldecline: "Alles weigeren",
+            allaccept: "Accepteren",
+            alldecline: "Weigeren",
             accept: "Valideren",
             decline: "Weigeren",
             export: "Exporteren",
@@ -1697,12 +1697,12 @@ module.exports = {
             },
             validations: {
                 new_validation_request: {
-                    title: 'Nieuw validatieverzoek',
-                    description: 'Ontvang een notificatie wanneer er een nieuw validatieverzoek is gedaan.'
+                    title: 'Nieuw aanvraag',
+                    description: 'Ontvang een notificatie wanneer er een nieuwe aanvraag is gedaan.'
                 },
                 you_added_as_validator: {
-                    title: 'Toegevoegd als validator',
-                    description: 'Ontvang een notificatie wanneer u als validator aan een fonds bent toegevoegd.'
+                    title: 'Toegevoegd als beoordelaar',
+                    description: 'Ontvang een notificatie wanneer u als beoordelaar aan een fonds bent toegevoegd.'
                 }
             },
             vouchers: {

@@ -4,7 +4,7 @@ let ProductService = function(ApiRequest) {
     let uriPrefix = '/platform/organizations/';
     let uriPublicPrefix = '/platform/products/';
 
-    return new(function() {
+    return new (function() {
         this.list = function(organization_id, query = {}) {
             return ApiRequest.get(
                 uriPrefix + organization_id + '/products', query
@@ -31,7 +31,7 @@ let ProductService = function(ApiRequest) {
 
         this.update = function(organization_id, id, values) {
             return ApiRequest.patch(
-                uriPrefix + organization_id + '/products/' + id, 
+                uriPrefix + organization_id + '/products/' + id,
                 this.apiFormToResource(values));
         };
 
@@ -71,16 +71,18 @@ let ProductService = function(ApiRequest) {
 
         this.apiResourceToForm = function(apiResource) {
             let values = {
-                'name': apiResource.name,
-                'description': apiResource.description,
-                'price': parseFloat(apiResource.price),
-                'old_price': parseFloat(apiResource.old_price),
-                'no_price': apiResource.no_price,
-                'total_amount': apiResource.total_amount,
-                'stock_amount': apiResource.stock_amount,
-                'sold_amount': apiResource.total_amount - apiResource.stock_amount,
-                'expire_at': moment(apiResource.expire_at).format('DD-MM-YYYY'),
-                'product_category_id': apiResource.product_category_id,
+                name: apiResource.name,
+                description: apiResource.description,
+                price: parseFloat(apiResource.price),
+                old_price: parseFloat(apiResource.old_price),
+                no_price: apiResource.no_price,
+                no_price_type: apiResource.no_price_type,
+                no_price_discount: parseFloat(apiResource.no_price_discount),
+                total_amount: apiResource.total_amount,
+                stock_amount: apiResource.stock_amount,
+                sold_amount: apiResource.total_amount - apiResource.stock_amount,
+                expire_at: moment(apiResource.expire_at).format('DD-MM-YYYY'),
+                product_category_id: apiResource.product_category_id,
             };
 
             if (apiResource.no_price) {

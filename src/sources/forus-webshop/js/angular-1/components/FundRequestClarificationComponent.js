@@ -35,6 +35,7 @@ let FundRequestClarificationComponent = function(
                 resolve(form);
             }, res => {
                 reject(form.errors = res.data.errors);
+                form.unlock();
             });
         });
     };
@@ -54,9 +55,7 @@ let FundRequestClarificationComponent = function(
                         files: form.values.files.map(file => file.uid),
                         answer: form.values.answer,
                     }
-                ).then(res => {
-                    $ctrl.state = 'done';
-                }, (res) => {
+                ).then(() => $ctrl.state = 'done', (res) => {
                     form.errors = res.data.errors;
                     form.unlock();
                 });
@@ -95,8 +94,6 @@ let FundRequestClarificationComponent = function(
 
 module.exports = {
     bindings: {
-        records: '<',
-        recordTypes: '<',
         clarification: '<',
         fund: '<',
     },
