@@ -1,10 +1,10 @@
 block content
     .header-splash: .splash.splash-c
     top-navbar
-
-    .block.block-breadcrumbs
-        a(ui-sref="providers").breadcrumb-item Aanbieders
-        .breadcrumb-item.active(i18n="Aanbieder informatie")
+    section.section: .wrapper
+        .block.block-breadcrumbs
+            a(ui-sref="providers").breadcrumb-item Aanbieders
+            .breadcrumb-item.active {{ $ctrl.provider.name }}
 
     .block.block-provider
         .provider-map: .block.block-google-map: google-map(
