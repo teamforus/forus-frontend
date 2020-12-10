@@ -12,7 +12,7 @@
         .product-action(ng-if="!product.no_price")
             .product-price {{ product.price | currency_format }}
         .product-action: .button-group
-            .button.button-defaul(ui-sref="products-show(product)")
+            .button.button-default(ui-sref="products-show(product)")
                 em.mdi.mdi-eye-outline.icon-start
                 | {{ "product_card.buttons.view" | translate }}
             
