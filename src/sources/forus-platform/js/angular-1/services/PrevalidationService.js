@@ -47,10 +47,6 @@ let PrevalidationService = function(ApiRequest) {
             return ApiRequest.get(uriPrefix + '/prevalidations/' + code);
         };
 
-        this.redeem = function(code) {
-            return ApiRequest.post(uriPrefix + '/prevalidations/' + code + '/redeem');
-        };
-
         this.transformFilters = function(filters) {
             let values = JSON.parse(JSON.stringify(filters));
 

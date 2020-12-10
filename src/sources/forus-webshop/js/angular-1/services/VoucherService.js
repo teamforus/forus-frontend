@@ -55,10 +55,6 @@ let VoucherService = function(
             )).sort((a, b) => b.timestamp - a.timestamp);
         };
 
-        this.redeem = function(code) {
-            return ApiRequest.post(apiPrefix + '/redeem', { code });
-        };
-
         this.composeCardData = function(voucher) {
             let thumbnail, title, subtitle, description;
 
