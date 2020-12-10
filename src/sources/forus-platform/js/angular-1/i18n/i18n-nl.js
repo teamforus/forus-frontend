@@ -499,7 +499,7 @@ module.exports = {
             website: "Website",
             business_type: "Organisatie type",
             optional: "Optioneel",
-            make_public: "Maak publiek",
+            make_public: "Toon openbaar op website",
             photo_description: 'De afbeelding dient vierkant te zijn met een afmeting van bijvoorbeeld 400x400px.<br/>Toegestaande  formaten: JPG, PNG',
             schedule: "Openingstijden",
             weekdays_same_hours: "Alle doordeweekse dagen hebben dezelfde tijden",
