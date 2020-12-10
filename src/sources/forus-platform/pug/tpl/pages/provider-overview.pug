@@ -9,7 +9,7 @@
                         .chart-value_value(ng-bind="$ctrl.productsTotal")
                         .chart-value_label  Producten of diensten  
                     .chart-action
-                        a(ng-if="$ctrl.products.meta.total < $ctrl.maxProductCount" ng-click="$ctrl.addProduct()" id="add_product").button.button-primary
+                        a(ng-if="$ctrl.productsTotal < $ctrl.maxProductCount" ng-click="$ctrl.addProduct()" id="add_product").button.button-primary
                             em.mdi.mdi-plus-circle.icon-start  
                             | Toevoegen
 
