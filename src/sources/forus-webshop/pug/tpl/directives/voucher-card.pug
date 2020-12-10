@@ -2,7 +2,7 @@
     .voucher-image(style="background-image: url('{{ voucherCard.thumbnail }}')")
     
     .voucher-details
-        .label(ng-class="{true: 'label-success', false: 'label-warning'}[voucherCard.transactions.length == 0]" ng-if="voucherCard.type == 'product' && !voucher.expired" ng-bind="voucherCard.transactions.length == 0 ? 'Ongebruikt' : 'Gebruikt'")
+        .label(ng-class="{true: 'label-success', false: 'label-warning'}[!voucherCard.used]" ng-if="voucherCard.type == 'product' && !voucher.expired" ng-bind="!voucherCard.used ? 'Ongebruikt' : 'Gebruikt'")
         .voucher-name(ng-bind="voucherCard.title")
         //-.voucher-read_more Uw tegoed is:
         .voucher-organization(ng-bind="voucherCard.subtitle")
@@ -10,7 +10,7 @@
         .voucher-status-label
             .label.label-danger(ng-if="voucher.expired" i18n="voucher.voucher_card.expired")
         .voucher-cancel-label: a(
-            ng-if="voucher.expired && voucherCard.transactions.length == 0 && voucherCard.type == 'product' && voucherCard.returnable"
+            ng-if="voucher.expired && !voucherCard.used && voucherCard.type == 'product' && voucherCard.returnable"
             ng-click="deleteVoucher($event, voucher)" 
             i18n="voucher.voucher_card.delete")
 
@@ -22,20 +22,16 @@
 
     //- product voucher
     .voucher-overview(ng-if="!voucher.expired && voucherCard.type == 'product'")
-
-        //-.voucher-overview-item
-            .voucher-overview-label(i18n="vouchers.labels.used")
-            .voucher-overview-value(ng-bind="voucherCard.transactions.length == 0 ? 'Nee' : 'Ja'")
         .voucher-overview-item
             .voucher-overview-label(i18n="vouchers.labels.generated")
             .voucher-overview-value(ng-bind="voucherCard.created_at_locale")
-        .voucher-overview-item(ng-if="voucherCard.transactions.length == 0")
+        .voucher-overview-item(ng-if="!voucherCard.used")
             .voucher-overview-label(i18n="vouchers.labels.expire")
             .voucher-overview-value(ng-bind="voucherCard.last_active_day_locale")
-        .voucher-overview-item(ng-if="voucherCard.transactions.length == 1")
+        .voucher-overview-item(ng-if="voucherCard.used")
             .voucher-overview-label Gebruikt op
-            .voucher-overview-value(ng-bind="voucherCard.transactions[0].created_at_locale")
-        .voucher-overview-item(ng-if="!voucher.transactions.length")
+            .voucher-overview-value(ng-bind="voucherCard.last_transaction_at_locale")
+        .voucher-overview-item(ng-if="!voucher.used")
             button.button(
                 ng-class="voucherCard.disabled ? 'button-gray' : 'button-primary'"
                 i18n="{{ voucher.expired ? 'vouchers.labels.show_transactions' : 'vouchers.labels.open_voucher' }}")
