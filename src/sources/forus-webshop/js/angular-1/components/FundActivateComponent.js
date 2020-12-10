@@ -75,6 +75,56 @@ let FundActivateComponent = function(
         form.lock();
         form.enabled = false;
 
+        FundService.redeem(code).then(res => {
+            if (res.data.voucher) {
+                $state.go('voucher', res.data.voucher);
+            } else if (res.data.prevalidation) {
+                $ctrl.getApplicableFunds().then((funds) => {
+                    if (funds.length > 0) {
+                        let vouchers = [];
+
+                        Promise.all(funds.map((fund) => (new Promise((resolve, reject) => {
+                            $ctrl.applyFund(fund).then((voucher) => {
+                                vouchers.push(voucher);
+                                resolve(voucher);
+                            }, reject);
+                        })))).then(() => {
+                            if (vouchers.length == 0) {
+                                $state.go('funds');
+                            } else if (vouchers.length == 1) {
+                                $state.go('voucher', vouchers[0]);
+                            } else {
+                                $state.go('vouchers');
+                            }
+                        });
+                    } else {
+                        $state.go('funds');
+                    }
+                });
+            }
+        }, (res) => {
+            if (res.status == 404) {
+                form.errors.code = [res.data.meta.message];
+            } else if (res.data.meta || res.status == 429) {
+                ModalService.open('modalNotification', {
+                    type: 'info',
+                    title: res.data.meta.title,
+                    description: res.data.meta.message.split("\n"),
+                });
+            } else {
+                ModalService.open('modalNotification', {
+                    type: 'info',
+                    title: 'Error',
+                    description: res.data.message.split("\n"),
+                });
+            }
+
+            $timeout(() => form.enabled = true, 1000);
+            form.unlock();
+        });
+    };
+
+    /* $ctrl.redeemCodePrevalidation = (form, code) => {
         PrevalidationService.redeem(code).then(() => {
             $ctrl.getApplicableFunds().then((funds) => {
                 if (funds.length > 0) {
@@ -115,7 +165,7 @@ let FundActivateComponent = function(
             }
         });
     };
-
+ */
     $ctrl.initPrevalidationsForm = () => {
         $ctrl.activateCodeForm = FormBuilderService.build({
             code: "",
@@ -219,7 +269,7 @@ let FundActivateComponent = function(
                             voucher => voucher.fund_id === fundsWithVouchers[0].id
                         )[0].address,
                     });
-                }  else {
+                } else {
                     // None of above
                     $state.go('funds');
                 }

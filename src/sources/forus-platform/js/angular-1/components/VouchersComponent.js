@@ -33,6 +33,17 @@ let VouchersComponent = function(
         name: 'Medewerker'
     }];
 
+    $ctrl.voucher_states = [{
+        value: null,
+        name: 'Alle'
+    }, {
+        value: 'pending',
+        name: 'Pending'
+    }, {
+        value: 'active',
+        name: 'Active'
+    }];
+
     $ctrl.filters = {
         show: false,
         defaultValues: {
@@ -42,6 +53,7 @@ let VouchersComponent = function(
             amount_max: null,
             from: null,
             to: null,
+            state: null,
             type: 'fund_voucher',
             source: 'all',
             sort_by: 'created_at',

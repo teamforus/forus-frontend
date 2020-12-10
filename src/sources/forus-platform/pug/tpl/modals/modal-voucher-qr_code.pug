@@ -51,7 +51,7 @@
                     ng-model="$ctrl.assignType").form-control
                 .form-error(ng-repeat="error in $ctrl.form.errors.assign_by_type" ng-bind="error")
             
-            .form-group
+            .form-group(ng-if="$ctrl.assignType.key === 'email' || $ctrl.assignType.key === 'bsn'")
                 //- Verstuur naar e-mail adres:
                 label.form-label(i18n="modals.modal_voucher_qr_code.labels.assign_to_identity")
                 input(
@@ -64,15 +64,23 @@
             | {{ 'modals.modal_voucher_qr_code.info_assign' | i18n }}
 
         .modal-footer.text-center
-            button.button.button-default(type="button" ng-click="$ctrl.goSending()" i18n="modals.modal_voucher_qr_code.buttons.cancel")
+            button.button.button-default(type="button" ng-click="$ctrl.voucherActive ? $ctrl.goSending() : $ctrl.close()" i18n="modals.modal_voucher_qr_code.buttons.cancel")
             button.button.button-primary(type="submit" i18n="modals.modal_voucher_create.buttons.submit")
     
     .modal-window(ng-show="$ctrl.success"): form(ng-submit="$ctrl.form.submit()")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
         .modal-body: .modal-section
-            .block.block-message(ng-if="$ctrl.assigning")
+            .block.block-message(ng-if="$ctrl.assigning && ($ctrl.assignType.key === 'email' || $ctrl.assignType.key === 'bsn')")
                 .message-title(i18n="modals.modal_voucher_qr_code.success.assigned_title")
                 .message-details(i18n="modals.modal_voucher_qr_code.success.assigned_details")
+            
+            .block.block-message(ng-if="$ctrl.assigning && ($ctrl.assignType.key === 'activate')")
+                .message-title(i18n="modals.modal_voucher_qr_code.success.activated_title")
+                .message-details(i18n="modals.modal_voucher_qr_code.success.activated_details")
+            
+            .block.block-message(ng-if="$ctrl.assigning && ($ctrl.assignType.key === 'activation_code')")
+                .message-title(i18n="modals.modal_voucher_qr_code.success.activation_code_title")
+                .message-details(i18n="modals.modal_voucher_qr_code.success.activation_code_details")
             
             .block.block-message(ng-if="!$ctrl.assigning")
                 .message-title(i18n="modals.modal_voucher_qr_code.success.sending_title")

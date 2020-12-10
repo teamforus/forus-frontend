@@ -32,6 +32,17 @@ let ProductVouchersComponent = function(
         name: 'Medewerker'
     }];
 
+    $ctrl.voucher_states = [{
+        value: null,
+        name: 'Alle'
+    }, {
+        value: 'pending',
+        name: 'Pending'
+    }, {
+        value: 'active',
+        name: 'Active'
+    }];
+
     $ctrl.filters = {
         show: false,
         defaultValues: {
@@ -41,6 +52,7 @@ let ProductVouchersComponent = function(
             amount_max: null,
             from: null,
             to: null,
+            state: null,
             type: 'product_voucher',
             source: 'all',
             sort_by: 'created_at',

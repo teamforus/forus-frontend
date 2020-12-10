@@ -76,7 +76,7 @@
         .modal-header(i18n="modals.modal_product_voucher_create.title")
         .modal-body
             .modal-section 
-                .form-group.form-group-inline.form-group-inline-sm
+                .form-group.form-group-inline.form-group-inline-md
                     label.form-label(i18n="modals.modal_voucher_create.labels.assign_by_type")
                     select(
                         ng-change="$ctrl.onAsignTypeChange($ctrl.assignType)"
@@ -84,12 +84,30 @@
                         ng-model="$ctrl.assignType").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.assign_by_type" ng-bind="error")
 
-                .form-group.form-group-inline.form-group-inline-sm(ng-if="$ctrl.assignType.key")
+                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.assignType.key")
                     label.form-label(ng-bind="$ctrl.assignType.label")
                     input(ng-model="$ctrl.form.values[$ctrl.assignType.key]" placeholder="{{ $ctrl.assignType.label }}").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors[$ctrl.assignType.key]" ng-bind="error")
 
-                .form-group.form-group-inline.form-group-inline-sm
+                .form-group.form-group-inline.form-group-inline-md(ng-if="!$ctrl.assignType.key || $ctrl.assignType.key === 'bsn'")
+                    .form-label &nbsp;
+                    .form-offset
+                        div(ng-if="!$ctrl.assignType.key" )
+                            label(for='make_activation_code').checkbox.checkbox-narrow
+                                input(type="checkbox" ng-model="$ctrl.form.values.make_activation_code" id='make_activation_code')
+                                .checkbox-label 
+                                    .checkbox-box: .mdi.mdi-check
+                                    | Generate an activation code
+                            .form-error(ng-repeat="error in $ctrl.form.errors.make_activation_code" ng-bind="error")
+                        div(ng-if="!$ctrl.assignType.key || $ctrl.assignType.key === 'bsn'")
+                            label(for='disable').checkbox.checkbox-narrow
+                                input(type="checkbox" ng-model="$ctrl.form.values.disable" id='disable')
+                                .checkbox-label 
+                                    .checkbox-box: .mdi.mdi-check
+                                    | Disabled before activation
+                            .form-error(ng-repeat="error in $ctrl.form.errors.active" ng-bind="error")
+
+                .form-group.form-group-inline.form-group-inline-md
                     label.form-label(i18n="modals.modal_product_voucher_create.labels.product")
                     select(
                         ng-options="product.id as product.name for product in $ctrl.products" 
@@ -98,16 +116,18 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.product_id" ng-bind="error")
                     .form-error(ng-if="$ctrl.products.length == 0" i18n="modals.modal_product_voucher_create.errors.need_providers")
                 
-                .form-group.form-group-inline.form-group-inline-sm
+                .form-group.form-group-inline.form-group-inline-md
                     label.form-label(i18n="modals.modal_voucher_create.labels.expire_at")
                     datepicker(
                         date-format="yyyy-MM-dd" 
                         datepicker-mobile="" 
+                        date-min-limit="{{ $ctrl.dateMinLimit + '' }}"
+                        date-max-limit="{{ $ctrl.fund.end_date }}"
                         date-week-start-day="1").form-control
                         input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="jjjj-MM-dd").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.expire_at" ng-bind="error")
                 
-                .form-group.form-group-inline.form-group-inline-sm
+                .form-group.form-group-inline.form-group-inline-md
                     label.form-label(i18n="modals.modal_voucher_create.labels.note")
                     textarea(
                         placeholder="{{ 'modals.modal_voucher_create.labels.note' | i18n }}"
@@ -115,7 +135,7 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
             
             .modal-section
-                .form-group.form-group-inline.form-group-inline-sm
+                .form-group.form-group-inline.form-group-inline-md
                     label.form-label
                     .form-offset
                         .block.block-info

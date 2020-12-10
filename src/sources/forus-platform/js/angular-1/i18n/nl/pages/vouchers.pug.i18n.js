@@ -3,6 +3,8 @@ module.exports = {
         title: "Tegoeden",
     },
     labels: {
+        state: "Status",
+        activation_code: "Code",
         amount: "Bedrag",
         identity_bsn: "Toegekend aan",
         source: "Aangemaakt door",

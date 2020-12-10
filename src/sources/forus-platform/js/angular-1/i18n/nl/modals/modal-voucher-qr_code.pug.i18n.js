@@ -15,6 +15,10 @@ module.exports = {
         sending_details: "Tegoed verstuurd",
         assigned_title: "Succes",
         assigned_details: "Tegoed toegekend",
+        activated_title: "Succes",
+        activated_details: "Voucher was activated",
+        activation_code_title: "Succes",
+        activation_code_details: "An activation code was generated",
     },
     buttons: {
         close: "Sluiten",
