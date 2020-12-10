@@ -128,6 +128,22 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             })]
         }
     });
+    
+    // Organization employees
+    $stateProvider.state({
+        name: "provider-overview",
+        url: "/organizations/{organization_id}/overview",
+        component: "providerOverviewComponent",
+        resolve: {
+            organization: organziationResolver(),
+            funds: ['$transition$', 'ProviderFundService', (
+                $transition$, ProviderFundService
+            ) => repackResponse(ProviderFundService.listFunds(
+                $transition$.params().organization_id
+            ))]
+        }
+    });
+
 
     /**
      * Organizations

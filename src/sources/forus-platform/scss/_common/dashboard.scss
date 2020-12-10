@@ -4248,6 +4248,7 @@ $colorPrimaryLight: $color_primary_light;
             }
         }
 
+
         .chart-control {
             margin: -10px 0;
             display: flex;
@@ -4280,6 +4281,11 @@ $colorPrimaryLight: $color_primary_light;
                 .chart-value_value_b {
                     color: #282b39;
                     font: 500 14px/22px $bf;
+                }
+                
+                &_provider-overview {
+                    padding: 25px 0 20px;
+                    min-height: unset;
                 }
             }
         }
