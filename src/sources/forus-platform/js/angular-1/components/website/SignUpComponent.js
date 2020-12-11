@@ -10,7 +10,7 @@ let SignUpComponent = function($state) {
     }
 
     $ctrl.signUp = () => {
-        document.location.href = '#!/register';
+        document.location.href = '#!/login';
     };
 };
 
