@@ -1,12 +1,12 @@
 block content
     .header-splash: .splash.splash-c
     top-navbar
-    section.section: .wrapper
-        .block.block-breadcrumbs
-            a(ui-sref="providers").breadcrumb-item Aanbieders
-            .breadcrumb-item.active {{ $ctrl.provider.name }}
 
     .block.block-provider
+        .provider-breadcrumbs
+            .wrapper: .block.block-breadcrumbs
+                a(ui-sref="providers").breadcrumb-item Aanbieders
+                .breadcrumb-item.active {{ $ctrl.provider.name }}
         .provider-map: .block.block-google-map: google-map(
             ng-if="$ctrl.mapOptions"
             map-pointers="$ctrl.provider.offices" 

@@ -1,13 +1,13 @@
 block content
     .header-splash: .splash.splash-c
     top-navbar
-    section.section: .wrapper
-        .block.block-breadcrumbs
-            a(ui-sref="providers").breadcrumb-item Aanbieders
-            a(ui-sref="provider({provider_id: $ctrl.provider.id})").breadcrumb-item {{ $ctrl.provider.name }}
-            .breadcrumb-item.active {{ $ctrl.office.address }}
-            
+
     .block.block-office
+        .office-breadcrumbs
+            .wrapper: .block.block-breadcrumbs
+                a(ui-sref="providers").breadcrumb-item Aanbieders
+                a(ui-sref="provider({provider_id: $ctrl.provider.id})").breadcrumb-item {{ $ctrl.provider.name }}
+                .breadcrumb-item.active {{ $ctrl.office.address }}
         .office-map: .block.block-google-map: google-map(
             map-pointers="[$ctrl.office]" 
             map-pointer-template="providers-office-view" 
