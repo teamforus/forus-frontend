@@ -2,9 +2,12 @@ let AuthDirective = function(
     $scope,
     $state,
     $timeout,
+    $rootScope,
+    appConfigs,
     PermissionsService,
     IdentityService,
     FormBuilderService,
+    CredentialsService,
     ModalService
 ) {
     let timeout;
@@ -104,9 +107,12 @@ module.exports = () => {
             '$scope',
             '$state',
             '$timeout',
+            '$rootScope',
+            'appConfigs',
             'PermissionsService',
             'IdentityService',
             'FormBuilderService',
+            'CredentialsService',
             'ModalService',
             AuthDirective
         ],

@@ -1,4 +1,6 @@
-let SignUpComponent = function($state) {
+let SignUpComponent = function(
+    $rootScope
+) {
     let $ctrl = this;
 
     $ctrl.selectedType = null;
@@ -6,7 +8,7 @@ let SignUpComponent = function($state) {
     $ctrl.selectType = (type) => {
         $ctrl.selectedType = $ctrl.selectedType == type ? null : type;
 
-        document.location.href = '/' + $ctrl.selectedType + '/sign-up';
+        document.location.href = $rootScope.appConfigs.frontends['url_' + $ctrl.selectedType] + 'sign-up';
     }
 
     $ctrl.signUp = () => {
@@ -16,7 +18,7 @@ let SignUpComponent = function($state) {
 
 module.exports = {
     controller: [
-        '$state',
+        '$rootScope',
         SignUpComponent
     ],
     templateUrl: 'assets/tpl/pages/website/sign-up.html'
