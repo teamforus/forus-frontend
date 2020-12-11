@@ -15,7 +15,12 @@ aside.app.app-sidebar
                 .sidebar-nav-item-arrow: .mdi.mdi-menu-right
                 +nav_item_icon(icon)
                 | #{name} 
-        
+        +nav_item(
+            "Overzicht", "provider-overview", 'provider-overview', 
+            '{organization_id: $root.activeOrganization.id}', 
+            '$root.activeOrganization | hasPerm:["manage_employees"]',
+            'provider-overview')
+
         +nav_item(
             "Vestigingen", "offices", 'offices', 
             '{organization_id: $root.activeOrganization.id}', 
