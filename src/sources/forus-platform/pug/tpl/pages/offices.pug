@@ -67,7 +67,7 @@
                             span.text-primary-light(ng-show="office.phone" ng-bind="office.phone")
                             span(ng-show="!office.phone" translate="offices.labels.none").text-muted
 
-            .card-section.card-section-primary
+            .card-section.card-section-primary(ng-if="office.schedule.length != 0")
                 .row
                     .col.col-xs-12: small(translate="offices.labels.hours")
                     .col.col-xs-12: div(
