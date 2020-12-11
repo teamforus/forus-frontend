@@ -35,7 +35,7 @@ let BaseController = function(
     });
     
     $scope.openAuthPopup = function () {
-        ModalService.open('modalAuth2', {});
+        $state.go('login');
     };
 
     $scope.openPinCodePopup = function () {

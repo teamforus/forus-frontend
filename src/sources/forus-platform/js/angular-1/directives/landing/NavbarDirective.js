@@ -1,5 +1,6 @@
 let LandingNavbarDirective = function(
     $scope,
+    $state,
     ModalService,
     ConfigService
 ) {
@@ -28,6 +29,7 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
+            '$state',
             'ModalService',
             'ConfigService',
             LandingNavbarDirective

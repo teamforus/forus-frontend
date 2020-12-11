@@ -1,24 +1,22 @@
-let LoginComponent = function() {
+let LoginComponent = function($state) {
     let $ctrl = this;
 
     $ctrl.selectedType = null;
 
     $ctrl.selectType = (type) => {
         $ctrl.selectedType = $ctrl.selectedType == type ? null : type;
+        
+        document.location.href = '/' + $ctrl.selectedType;
     }
 
     $ctrl.login = () => {
-        if (!$ctrl.selectedType) {
-            alert('Select a type');
-            return;
-        }
-        
-        document.location.href = '/' + $ctrl.selectedType;
+        document.location.href = '#!/register';
     };
 };
 
 module.exports = {
     controller: [
+        '$state',
         LoginComponent
     ],
     templateUrl: 'assets/tpl/pages/website/login.html'
