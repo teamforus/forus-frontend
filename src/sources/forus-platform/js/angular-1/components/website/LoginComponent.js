@@ -8,6 +8,11 @@ let LoginComponent = function() {
     }
 
     $ctrl.login = () => {
+        if (!$ctrl.selectedType) {
+            alert('Select a type');
+            return;
+        }
+        
         document.location.href = '/' + $ctrl.selectedType;
     };
 };

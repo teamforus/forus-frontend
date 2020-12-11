@@ -8,6 +8,11 @@ let SignUpComponent = function() {
     }
 
     $ctrl.signUp = () => {
+        if (!$ctrl.selectedType) {
+            alert('Select a type');
+            return;
+        }
+
         document.location.href = '/' + $ctrl.selectedType + '/sign-up';
     };
 };
