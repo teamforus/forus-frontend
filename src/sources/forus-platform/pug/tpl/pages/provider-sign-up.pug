@@ -88,20 +88,46 @@
                 .sign_up-pane-header.visible-sm.visible-xs(translate="sign_up_provider.header.title_step_3_mail_mobile" ng-if="!$ctrl.hasApp")
 
                 .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && $ctrl.hasApp && !$ctrl.sentSms"): .form
-                    .sign_up-pane-heading {{ 'sign_up_provider.labels.mobile_number' | translate }}
-                    phone-control(ng-model="phoneForm.values.phone" cant-delete-length="2").visible-md.visible-lg
-                    
-                    .form-group: input(type="text"
-                        ng-model="phoneForm.values.phone"
-                        placeholder="TELEFOONNUMMER").large.form-control.visible-sm.visible-xs
 
-                    .row: .col-lg-12.col-md-12.col-sm-12: button.button.button-primary-outline.col-xs-12(
-                        ng-class="{ 'button-disabled' : !$ctrl.phoneNumberFilled }" 
-                        ng-click="$ctrl.sendSms()"
-                        translate="sign_up_provider.download.download_link")
+                    .sign_up-pane-col
+                                
+                        .form-group
+                            .sign_up-pane-media: img(ng-src="./assets/img/sign_up_me.png").pull-left    
+                            div.device-switcher
+                                select(placeholder="amigo" ng-model="$ctrl.selectedOption").form-control.pull-right
+                                    option(value="") Selecteer je apparaat
+                                    option(value="apple") apple
+                                    option(value="android") android
+                                    option(value="ipad") ipad
+                                p {{$ctrl.selectedOption}}
+
+                    .sign_up-pane-col(ng-if="$ctrl.selectedOption == ''")
+                        .sign_up-pane-heading Of:
+
+                        .form-group
+                            .sign_up-pane-media: img(ng-src="./assets/img/sign_up_me.png").pull-left    
+                            .sign_up-pane-heading Ontvang de app
+
+                    .sign-up-pane-col(ng-if="$ctrl.selectedOption == 'apple' || $ctrl.selectedOption == 'android'")
+                        .sign-up-pane-heading Download uit app store
+                        a.sign_up-pane-media(ng-if="$ctrl.selectedOption == 'apple'" href="https://gemeente.groningen.nl/privacyverklaring" target="_blank"): img(ng-src="./assets/img/icon-app-ios.svg")
+                        a.sign_up-pane-media(ng-if="$ctrl.selectedOption == 'android'" href="https://gemeente.groningen.nl/privacyverklaring" target="_blank"): img(ng-src="./assets/img/icon-app-android.svg")
+
+                        .sign_up-pane-heading {{ 'sign_up_provider.labels.mobile_number' | translate }}
+                        phone-control(ng-model="phoneForm.values.phone" cant-delete-length="2").visible-md.visible-lg
                     
-                    .pincode-errors: .form-error(ng-repeat="error in phoneForm.errors.phone" ng-bind="error")
+                        .form-group: input(type="text"
+                            ng-model="phoneForm.values.phone"
+                            placeholder="TELEFOONNUMMER").large.form-control.visible-sm.visible-xs
+
+                        .row: .col-lg-12.col-md-12.col-sm-12: button.button.button-primary-outline.col-xs-12(
+                            ng-class="{ 'button-disabled' : !$ctrl.phoneNumberFilled }" 
+                            ng-click="$ctrl.sendSms()"
+                            translate="sign_up_provider.download.download_link")
+                        
+                        .pincode-errors: .form-error(ng-repeat="error in phoneForm.errors.phone" ng-bind="error")
                     
+                        
                     br
                     .sign_up-pane-text.sign_up-pane-text-sm 
                         | {{ "sign_up_provider.download.cannot_receive_sms" | translate }} 

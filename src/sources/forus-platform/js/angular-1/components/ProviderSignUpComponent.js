@@ -59,6 +59,7 @@ let ProviderSignUpComponent = function(
     $ctrl.signedIn = AuthService.hasCredentials();
     $ctrl.organization = null;
     $ctrl.hasApp = true;
+    $ctrl.selectedOption = "";
     $ctrl.authEmailSent = false;
     $ctrl.authEmailRestoreSent = false;
 
