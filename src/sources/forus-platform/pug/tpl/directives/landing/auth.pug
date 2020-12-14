@@ -11,7 +11,7 @@
                 .form-label E-mailadres
                 .flex-row
                     .flex-col.flex-grow
-                        input(type="email" placeholder="E-mail address" ng-model="form.values.email").form-control
+                        input(type="email" placeholder="bijv. info@info.nl" ng-model="form.values.email").form-control
                         .form-error(ng-repeat="error in form.errors.email" ng-bind="error")
                     
                     .flex-col: button.button.button-primary(ng-click="login()") Login

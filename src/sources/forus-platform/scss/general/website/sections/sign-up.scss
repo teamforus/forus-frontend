@@ -36,6 +36,7 @@
             border-radius: 6px;
             padding: 30px 20px;
             text-align: center;
+            transition: color 0.3s, border-color .3s, background 0.3s, box-shadow 0.3s;
 
             .block-sign-up-option-img {
                 img {
@@ -120,11 +121,11 @@
             border: 1px solid #0C66FF;
             border-radius: 8px;
             font: 600 17px/21px 'Montserrat';
+            transition: color 0.3s, border-color .3s, background 0.3s, box-shadow 0.3s;
 
             &:hover {
                 cursor: pointer;
                 background: rgba(12, 102, 255, 0.1);
-                border-color: #fff;
             }
         }
     }

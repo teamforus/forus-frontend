@@ -433,12 +433,12 @@ ui-view {
         color: #fff;
         background: $bc;
         border: 1px solid $borderColor;
-        box-shadow: 0 10px 25px rgba(#000, .15);
+        box-shadow: 0;
 
         &:hover {
             color: $bc;
             background: $bc-hover;
-            box-shadow: 0 10px 20px rgba(#000, .3);
+            box-shadow: 0;
             border: 1px solid $bc;
 
             img {
