@@ -88,7 +88,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: "sign-up",
         url: "/sign-up",
-        component: "signUpComponent"
+        component: "registerComponent"
     });
 
     $stateProvider.state({

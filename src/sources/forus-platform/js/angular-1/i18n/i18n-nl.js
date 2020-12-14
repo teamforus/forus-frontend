@@ -1216,8 +1216,8 @@ module.exports = {
         },
         buttons: {
             show: "Bekijk eigenschappen",
-            allaccept: "Alles valideren",
-            alldecline: "Alles weigeren",
+            allaccept: "Accepteren",
+            alldecline: "Weigeren",
             accept: "Valideren",
             decline: "Weigeren",
             export: "Exporteren",
@@ -1697,12 +1697,12 @@ module.exports = {
             },
             validations: {
                 new_validation_request: {
-                    title: 'Nieuw validatieverzoek',
-                    description: 'Ontvang een notificatie wanneer er een nieuw validatieverzoek is gedaan.'
+                    title: 'Nieuw aanvraag',
+                    description: 'Ontvang een notificatie wanneer er een nieuwe aanvraag is gedaan.'
                 },
                 you_added_as_validator: {
-                    title: 'Toegevoegd als validator',
-                    description: 'Ontvang een notificatie wanneer u als validator aan een fonds bent toegevoegd.'
+                    title: 'Toegevoegd als beoordelaar',
+                    description: 'Ontvang een notificatie wanneer u als beoordelaar aan een fonds bent toegevoegd.'
                 }
             },
             vouchers: {

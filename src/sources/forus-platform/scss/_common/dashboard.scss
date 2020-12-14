@@ -4277,6 +4277,19 @@ $colorPrimaryLight: $color_primary_light;
                     font: 500 14px/22px $bf;
                 }
             }
+                
+            &.chart-control-provider_overview {
+                padding: 5px 0;
+
+                .chart-label {
+                    margin-bottom: 0;
+                }
+
+                .chart-value {
+                    padding: 25px 0 25px;
+                    min-height: auto;
+                }
+            }
         }
 
         .chart-body {
@@ -5532,11 +5545,12 @@ $colorPrimaryLight: $color_primary_light;
                 border: 1px solid #0C66FF;
                 border-radius: 8px;
                 font: 600 16px/21px 'Montserrat';
-    
+                transition: color 0.3s, border-color .3s, background 0.3s, box-shadow 0.3s;
+                
                 &:hover {
                     cursor: pointer;
                     background: rgba(12, 102, 255, 0.1);
-                    border-color: #fff;
+                    border-color: #0C66FF;
                 }
             }
         }

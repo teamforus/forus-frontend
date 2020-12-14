@@ -53,6 +53,7 @@ app.component('implementationViewComponent', require('./components/Implementatio
 app.component('implementationCmsEditComponent', require('./components/ImplementationCmsEditComponent'));
 app.component('implementationEmailEditComponent', require('./components/ImplementationEmailEditComponent'));
 app.component('implementationDigidEditComponent', require('./components/ImplementationDigidEditComponent'));
+app.component('providerOverviewComponent', require('./components/ProviderOverviewComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));

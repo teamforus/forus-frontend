@@ -37,6 +37,9 @@ module.exports = [() => {
                     name: 'csv-validation',
                 }],
                 provider: [{
+                    permissions: ['manage_employees'],
+                    name: 'provider-overview',
+                }, {
                     permissions: ['manage_offices'],
                     name: 'offices',
                 }, {
