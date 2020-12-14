@@ -25,8 +25,8 @@
                         .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
                     .form-group.form-group-inline.tooltipped
                         label.form-label(translate="product_edit.labels.description")
-                        .form-offset: markdown(ng-model="$ctrl.form.values.description")
-
+                        .form-offset
+                            markdown(ng-model="$ctrl.form.values.description")
                         tooltip(text="'Bijvoorbeeld: aantal lessen, abonnementsvorm, omschrijving cursus, einddatum activiteit, voorwaarden, bijzonderheden, etc.'")
                         .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
             .card-section.card-section-primary

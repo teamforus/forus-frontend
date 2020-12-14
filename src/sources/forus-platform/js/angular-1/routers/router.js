@@ -119,12 +119,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "noPermissionComponent",
         resolve: {
             message: ['$filter', ($filter) => ({
-                title: $filter('translate')(
-                    'permissions.title'
-                ),
-                description: $filter('translate')(
-                    'permissions.description'
-                )
+                title: $filter('translate')('permissions.title'),
+                description: $filter('translate')('permissions.description')
             })]
         }
     });
@@ -142,6 +138,40 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $rootScope.autoSelectOrganization()
             }
         }]
+    });
+
+    // Provider overview
+    $stateProvider.state({
+        name: "provider-overview",
+        url: "/organizations/{organization_id}/overview",
+        component: "providerOverviewComponent",
+        resolve: {
+            organization: organziationResolver(),
+            funds: ['$transition$', 'ProviderFundService', (
+                $transition$, ProviderFundService
+            ) => repackResponse(ProviderFundService.listFunds(
+                $transition$.params().organization_id
+            ))],
+            employeesTotal: ['$q', '$transition$', 'OrganizationEmployeesService', (
+                $q, $transition$, OrganizationEmployeesService
+            ) => $q((resolve) => OrganizationEmployeesService.list(
+                $transition$.params().organization_id,
+                { per_page: 1 }
+            ).then(res => resolve(res.data.meta.total)))],
+            productsTotal: ['$q', '$transition$', 'ProductService', (
+                $q, $transition$, ProductService
+            ) => $q((resolve) => ProductService.list(
+                $transition$.params().organization_id,
+                { per_page: 1 }
+            ).then(res => resolve(res.data.meta.total)))],
+            transactionsTotal: ['$q', '$transition$', 'appConfigs', 'TransactionService', (
+                $q, $transition$, appConfigs, TransactionService
+            ) => $q((resolve) => TransactionService.list(
+                appConfigs.panel_type,
+                $transition$.params().organization_id,
+                { per_page: 1 }
+            ).then(res => resolve(res.data.meta.total_amount)))]
+        }
     });
 
     $stateProvider.state({

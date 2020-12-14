@@ -17,7 +17,10 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                     .card-photo: img(ng-src="{{ $ctrl.voucherCard.thumbnail }}").voucher-img
 
                     .card-section
-                        .label(ng-class="{true: 'label-success', false: 'label-warning'}[$ctrl.voucherCard.transactions.length == 0]" ng-if="$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.transactions.length == 0 ? 'Ongebruikt' : 'Gebruikt'")
+                        .label(
+                            ng-class="{true: 'label-success', false: 'label-warning'}[!$ctrl.voucherCard.used]" 
+                            ng-if="$ctrl.voucherCard.product" 
+                            ng-bind="!$ctrl.voucherCard.used ? 'Ongebruikt' : 'Gebruikt'")
                         .card-title(ng-bind="$ctrl.voucherCard.title")
                         a(ng-if="$ctrl.voucherCard.product" ui-sref="products-show($ctrl.voucherCard.product)").card-read_more
                             | Bekijk details
@@ -32,10 +35,13 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                         .card-qr_code-desc(ng-if="!$ctrl.voucherCard.product" i18n="voucher.voucher_card.qrcode.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
 
                 .card-footer
-                    .card-section(ng-if="!$ctrl.voucherCard.product || (!moment().isAfter(moment($ctrl.voucherCard.expire_at.date)) && $ctrl.voucherCard.transactions.length == 0)")
+                    .card-section(ng-if="!$ctrl.voucherCard.product || (!moment().isAfter(moment($ctrl.voucherCard.expire_at.date)) && !$ctrl.voucherCard.used)")
                         .row
                             .col.col-md-6.card-label(i18n="voucher.voucher_card.expire") 
-                            .col.col-md-6.card-label.text-right: a(ng-if="$ctrl.voucherCard.transactions.length == 0 && $ctrl.voucherCard.product && $ctrl.voucherCard.returnable" ng-click="$ctrl.deleteVoucher($ctrl.voucher)" i18n="voucher.voucher_card.delete")
+                            .col.col-md-6.card-label.text-right: a(
+                                ng-if="!$ctrl.voucherCard.used && $ctrl.voucherCard.product && $ctrl.voucherCard.returnable" 
+                                ng-click="$ctrl.deleteVoucher($ctrl.voucher)" 
+                                i18n="voucher.voucher_card.delete")
                         .card-value(ng-bind="$ctrl.voucherCard.last_active_day_locale")
                         .label.label-default(ng-if="moment().isAfter(moment($ctrl.voucherCard.expire_at.date))" i18n="voucher.voucher_card.expired" )
                         

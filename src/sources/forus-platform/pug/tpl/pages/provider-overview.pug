@@ -1,0 +1,44 @@
+.app.app-container
+    menu
+    section.app.app-content.provider-overview
+        .block.block-charts
+            .chart-row
+                .card(ng-if="$ctrl.organization | hasPerm:['manage_products']"): .card-section: .chart-control.chart-control-provider_overview
+                    .chart-label Aanbod
+                    .chart-value.chart-value
+                        .chart-value_value(ng-bind="$ctrl.productsTotal")
+                        .chart-value_label  Producten of diensten  
+                    .chart-action
+                        a(ui-sref="products-create($ctrl.routeData)" ng-if="$ctrl.productsTotal < $ctrl.maxProductCount" id="add_product").button.button-primary
+                            em.mdi.mdi-plus-circle.icon-start  
+                            | Toevoegen
+
+                .card(ng-if="$ctrl.organization | hasPerm:['manage_provider_funds']"): .card-section: .chart-control.chart-control-provider_overview
+                    .chart-label Fondsen
+                    .chart-value.chart-value
+                        .chart-value_value(ng-bind="$ctrl.funds.length")
+                        .chart-value_label Actieve fondsen
+                    .chart-action
+                        a(ng-click="$ctrl.applyFund()").button.button-primary
+                            em.mdi.mdi-plus-circle.icon-start  
+                            | Aanmelden
+
+                .card(ng-if="$ctrl.organization | hasPerm:['view_finances']"): .card-section: .chart-control.chart-control-provider_overview
+                    .chart-label Transacties
+                    .chart-value.chart-value
+                        .chart-value_value €{{ $ctrl.transactionsTotal }}
+                        .chart-value_label Totaal aan inkomsten
+                    .chart-action
+                        a(ui-sref="transactions($ctrl.routeData)").button.button-primary
+                            em.mdi.mdi-eye-outline.icon-start  
+                            | Bekijken
+
+                .card(ng-if="$ctrl.organization | hasPerm:['manage_employees']"): .card-section: .chart-control.chart-control-provider_overview
+                    .chart-label Medewerkers
+                    .chart-value.chart-value
+                        .chart-value_value(ng-bind="$ctrl.employeesTotal")
+                        .chart-value_label Aangesloten medewerkers
+                    .chart-action
+                        a(ui-sref="employees($ctrl.routeData)").button.button-primary
+                            em.mdi.mdi-eye-outline.icon-start  
+                            | Bekijken

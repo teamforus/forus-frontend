@@ -42,7 +42,7 @@ module.exports = {
         confirmation: "Het is gelukt!",
         link: "Er is een e-mail verstuurd naar <b>{{email}}</b>. Klik op de link om u aan te melden.",
         invalid: "De activatiecode is ongeldig of al gebruikt.",
-        voucher_email: "Uw voucher is verstuurd naar uw mail.",
+        voucher_email: "Uw tegoed is verstuurd naar uw mail.",
     },
     buttons: {
         qrcode: "Log in via de Me-app",
