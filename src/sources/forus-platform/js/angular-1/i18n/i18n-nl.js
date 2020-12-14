@@ -654,8 +654,8 @@ module.exports = {
     // EDIT PROVIDER IDENTITIES = provider-identity-edit.pug
     provider_identity_edit: {
         buttons: {
-            adjust: "Validator aanpassen",
-            add: "Validator toevoegen",
+            adjust: "Beoordelaar aanpassen",
+            add: "Beoordelaar toevoegen",
             cancel: "Annuleren",
             confirm: "Bevestigen",
         },
@@ -980,12 +980,12 @@ module.exports = {
     // SIGN UP FORM FOR VALIDATORS = validator-sign-up.pug
     sign_up_validator: {
         header: {
-            main_header: "Aanmelden als validator",
+            main_header: "Aanmelden als beoordelaar",
             go_back: "Terug",
             title_step_1: "Welkom",
-            subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als validator. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
+            subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als beoordelaar. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
             title_step_2: "Hoe werkt het?",
-            subtitle_step_2: "Als validator gaat u controleren of aanvragers aan de voorwaarden voldoen die worden gesteld door de sponsor. ",
+            subtitle_step_2: "Als beoordelaar gaat u controleren of aanvragers aan de voorwaarden voldoen die worden gesteld door de sponsor. ",
             title_step_3: "Maak een account",
             subtitle_step_3: "Vul uw e-mail adres in om verder te gaan",
             title_step_4: "Vestiging kiezen",
@@ -1029,7 +1029,7 @@ module.exports = {
             mobile_number: "Vul uw mobiele telefoonnummer in",
             confirm_email: "Bevestig uw e-mailadres",
             confirm_email_description: "Bevestig voordat we verder gaan uw e-mailadres. Klik op de link in de e-mail die is verzonden naar",
-            terms: "Er wordt gekeken of u al aan de voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan",
+            terms: "",
         },
         buttons: {
             go_step_2: "Ga verder naar stap 2",
