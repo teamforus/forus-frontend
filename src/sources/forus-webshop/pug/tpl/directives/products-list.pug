@@ -31,7 +31,7 @@
             .product-price(ng-if="!product.no_price && product.price_min != 0")
                 span(ng-if="!product.no_price" ng-bind="product.price_min | currency_format")
             .product-price(ng-if="!product.no_price && product.price_min == 0")
-                span Korting
+                span {{ product.price | currency_format }} korting
             .product-price(ng-if="product.no_price")
                     small.hide-sm &nbsp;
                     span(ng-if="product.no_price_type == 'free'") Gratis
@@ -77,7 +77,7 @@
                     ng-if="product.price_min == product.price_max && !product.no_price && product.price_min != 0"
                     ng-bind="product.price_min | currency_format")
                 .product-price(
-                    ng-if="!product.no_price && product.price_min == 0") Korting
+                    ng-if="!product.no_price && product.price_min == 0") {{ product.price | currency_format }} korting
                 .product-price(ng-if="product.no_price")
                     span(ng-if="product.no_price_type == 'free'") Gratis
                     span(ng-if="product.no_price_type == 'discount'") {{ product.no_price_discount | percentage_format }} korting
