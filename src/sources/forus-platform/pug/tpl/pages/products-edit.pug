@@ -32,12 +32,12 @@
             .card-section.card-section-primary
                 .row: .col.col.col-lg-9
                     .form-group.form-group-inline.tooltipped
-                        label.form-label(translate="product_edit.labels.new")
+                        label.form-label Bedrag
                         .form-offset: .row
                             .col.col-lg-9: input(
                                 ng-model="$ctrl.form.values.price" 
                                 type="number" 
-                                placeholder="Prijs" 
+                                placeholder="Bedrag in euro's" 
                                 step="0.01"
                                 ng-disabled="$ctrl.form.values.no_price").form-control
                             .col.col-lg-3
@@ -50,15 +50,15 @@
                                         ng-model="$ctrl.form.values.no_price")
                                     label(for="no_price").checkbox-label
                                         .checkbox-box: em.mdi.mdi-check
-                                        | Geen prijs 
-                        tooltip(text="'Bijvoorbeeld als u een aanbieding wil doen zoals het geven van een korting. Voeg dit dan toe in de titel, omschrijving of afbeelding.'")
+                                        | N.v.t.
+                        tooltip(text="'Het bedrag kan niet van toepassing zijn wanneer deze gratis is of als u een korting levert. Er volgt geen uitbetaling van uit de sponsor.'")
                         .form-error(ng-repeat="error in $ctrl.form.errors.price" ng-bind="error")
                         .form-error(ng-repeat="error in $ctrl.form.errors.no_price" ng-bind="error")
 
                     .form-group.form-group-inline(ng-if="$ctrl.form.values.no_price")
                         label.form-label Weergave in webshop
                         .form-offset: .row
-                            .col.col-lg-9.flex
+                            .col.col-lg-9.flex                         
                                 label.radio.radio-inline.flex-grow.flex
                                     input(
                                         type="radio"
@@ -68,7 +68,7 @@
                                     .radio-label 
                                         .radio-circle
                                         | Dit aanbod is gratis
-
+                            .col.col-lg-5.flex
                                 label.radio.radio-inline.flex-grow.flex
                                     input(
                                         type="radio"
@@ -78,7 +78,6 @@
                                     .radio-label 
                                         .radio-circle
                                         | Dit is een korting
-
                             .col.col-lg-3: input.form-control(
                                 type="number"
                                 step=".01"
@@ -90,18 +89,9 @@
                                 ng-change="$ctrl.clearPrices($ctrl.form.values.no_price)"
                                 ng-model="$ctrl.form.values.no_price_discount")
 
+
                         .form-error(ng-repeat="error in $ctrl.form.errors.no_price_type" ng-bind="error")
                         .form-error(ng-repeat="error in $ctrl.form.errors.no_price_discount" ng-bind="error")
-                    
-                    .form-group.form-group-inline
-                        label.form-label(translate="product_edit.labels.old")
-                        input(
-                            ng-model="$ctrl.form.values.old_price" 
-                            type="number" 
-                            placeholder="Oude prijs" 
-                            step="0.01"
-                            ng-disabled="$ctrl.form.values.no_price").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.old_price" ng-bind="error")
                     
                     .form-group.form-group-inline(ng-if="$ctrl.product")
                         label.form-label(translate="product_edit.labels.sold")
@@ -114,7 +104,7 @@
                             .col.col-lg-7: input(
                                 ng-model="$ctrl.form.values.total_amount" 
                                 type="number" 
-                                placeholder="Aantal aanbiedingen" 
+                                placeholder="Aantal in voorraad" 
                                 ng-disabled="!!$ctrl.product || $ctrl.form.values.unlimited_stock").form-control
                             .col.col-lg-5: .checkbox(ng-disabled="$ctrl.product && !$ctrl.product.unlimited_stock")
                                 input(type="checkbox" id="unlimited_stock" ng-model="$ctrl.form.values.unlimited_stock")

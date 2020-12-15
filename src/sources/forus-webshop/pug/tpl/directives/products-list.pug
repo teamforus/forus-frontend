@@ -28,7 +28,14 @@
     .product-item(ng-if="$dir.type == 'subsidies' && $dir.display == 'grid'" ng-repeat="product in $dir.products"): a(ui-sref="products-show(product)").product-item-inner
         .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
             img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
-            .product-price(ng-if="!product.no_price" ng-bind="product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis'")
+            .product-price(ng-if="!product.no_price && product.price_min != 0")
+                span(ng-if="!product.no_price" ng-bind="product.price_min | currency_format")
+            .product-price(ng-if="!product.no_price && product.price_min == 0")
+                span Korting
+            .product-price(ng-if="product.no_price")
+                    small.hide-sm &nbsp;
+                    span(ng-if="product.no_price_type == 'free'") Gratis
+                    span(ng-if="product.no_price_type == 'discount'") {{ product.no_price_discount | percentage_format }} korting
         .product-details
             .product-name(ng-bind="product.name")
             .product-provider(ng-bind="product.organization.name")
@@ -65,13 +72,12 @@
             .product-details
                 .product-name(ng-bind="product.name")
                 .product-provider(ng-bind="product.organization.name")
-            .product-actions(ng-if="!product.no_price")
+            .product-actions
                 .product-price(
-                    ng-if="product.price_min == product.price_max" 
-                    ng-bind="product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis'")
-                
-                .product-price(ng-if="product.price_min != product.price_max")
-                    | Van: {{ product.price_min > 0 ? (product.price_min | currency_format) : 'Gratis' }}
-                
-                .product-price(ng-if="product.price_min != product.price_max")
-                    | Voor: {{ product.price_max | currency_format }}
+                    ng-if="product.price_min == product.price_max && !product.no_price && product.price_min != 0"
+                    ng-bind="product.price_min | currency_format")
+                .product-price(
+                    ng-if="!product.no_price && product.price_min == 0") Korting
+                .product-price(ng-if="product.no_price")
+                    span(ng-if="product.no_price_type == 'free'") Gratis
+                    span(ng-if="product.no_price_type == 'discount'") {{ product.no_price_discount | percentage_format }} korting

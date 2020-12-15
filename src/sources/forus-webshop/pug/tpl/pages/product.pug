@@ -60,12 +60,12 @@ section.section.section-product: .wrapper
                             ng-click="$ctrl.requestFund(fund)")
 
                     //- product price
-                    .fund-item-section.fund-item-price.text-right(ng-if="!$ctrl.product.no_price && (fund.type == 'subsidies' ? fund.meta.isApplicableSubsidy : fund.meta.isApplicable)")
+                    .fund-item-section.fund-item-price.text-right(ng-if="fund.price != 0 && (fund.type == 'subsidies' ? fund.meta.isApplicableSubsidy : fund.meta.isApplicable)")
                         .fund-item-section-label(ng-if="fund.type == 'budget'") U betaalt vanuit het tegoed:
                         .fund-item-section-label(ng-if="fund.type == 'subsidies'") Wat u betaalt:
 
                         .fund-item-section-value(ng-if="$ctrl.product.no_price") Geen data
-                        .fund-item-section-value(ng-if="fund.price == 0") Gratis
+                        .fund-item-section-value(ng-if="$ctrl.product.no_price && $ctrl.productno_price_type == 'free'") Gratis
                         .fund-item-section-value(
                             ng-if="!$ctrl.product.no_price && fund.price != 0"
                             ng-bind="(fund.type == 'subsidies' ? fund.price : $ctrl.product.price) | currency_format")
