@@ -89,50 +89,92 @@
 
                 .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && $ctrl.hasApp && !$ctrl.sentSms"): .form
 
-                    .sign_up-pane-col
-                                
-                        .form-group
-                            .sign_up-pane-media: img(ng-src="./assets/img/sign_up_me.png").pull-left    
-                            div.device-switcher
-                                select(placeholder="amigo" ng-model="$ctrl.selectedOption").form-control.pull-right
-                                    option(value="") Selecteer je apparaat
-                                    option(value="apple") apple
-                                    option(value="android") android
-                                    option(value="ipad") ipad
-                                p {{$ctrl.selectedOption}}
+                    .sign_up-pane-col                                
+                        .row.sign_up-pane-align-center
+                            .col-md-3(ng-if="$ctrl.selectedOption == ''"): .sign_up-pane-media: img(ng-src="./assets/img/sign_up_me.png").pull-left    
+                            .col-md-7
+                                p Selecteer je apparaat
+                                div.device-switcher
+                                    select(placeholder="amigo" ng-model="$ctrl.selectedOption").form-control.pull-right
+                                        option(value="") Selecteer je apparaat
+                                        option(value="iphone") iPhone
+                                        option(value="android") Android
+                                        option(value="ipad") iPad
+                                        option(value="other") Anders
+                    br
 
                     .sign_up-pane-col(ng-if="$ctrl.selectedOption == ''")
-                        .sign_up-pane-heading Of:
+                        .sign_up-pane-text Of:
 
-                        .form-group
-                            .sign_up-pane-media: img(ng-src="./assets/img/sign_up_me.png").pull-left    
-                            .sign_up-pane-heading Ontvang de app
+                        .row.sign_up-pane-align-center
 
-                    .sign-up-pane-col(ng-if="$ctrl.selectedOption == 'apple' || $ctrl.selectedOption == 'android'")
-                        .sign-up-pane-heading Download uit app store
-                        a.sign_up-pane-media(ng-if="$ctrl.selectedOption == 'apple'" href="https://gemeente.groningen.nl/privacyverklaring" target="_blank"): img(ng-src="./assets/img/icon-app-ios.svg")
-                        a.sign_up-pane-media(ng-if="$ctrl.selectedOption == 'android'" href="https://gemeente.groningen.nl/privacyverklaring" target="_blank"): img(ng-src="./assets/img/icon-app-android.svg")
+                            
+                            .col-md-3: .sign_up-pane-media: img(ng-src="./assets/img/sign_up_me.png").pull-left    
+                            .col-md-8
+                                .sign_up-pane-text
+                                    | Typ #[b forus.io/dl] in uw mobiele browser (safari, chrome, etc) en 
+                                    .sign_up-pane-link.text-muted ga verder >
+                        
 
-                        .sign_up-pane-heading {{ 'sign_up_provider.labels.mobile_number' | translate }}
-                        phone-control(ng-model="phoneForm.values.phone" cant-delete-length="2").visible-md.visible-lg
-                    
-                        .form-group: input(type="text"
-                            ng-model="phoneForm.values.phone"
-                            placeholder="TELEFOONNUMMER").large.form-control.visible-sm.visible-xs
+                    .sign_up-pane-col(ng-if="$ctrl.selectedOption == 'iphone' || $ctrl.selectedOption == 'android'")
+                        .sign_up-pane-text Download uit app store
+                        .row.sign_up-pane-align-center
+                            .col-md-3(ng-if="$ctrl.selectedOption == 'iphone'")
+                                a.sign_up-pane-media(href="https://apps.apple.com/nl/app/me-forus/id1422610676?l=en#?platform=iphone" target="_blank").pull-left: img(ng-src="./assets/img/icon-app-ios.svg")  
+                            .col-md-3(ng-if="$ctrl.selectedOption == 'android'")
+                                a.sign_up-pane-media(href="https://play.google.com/store/apps/details?id=io.forus.me&hl=en&gl=US" target="_blank").pull-left: img(ng-src="./assets/img/icon-app-android.svg")
+                            .col-md-4: .sign_up-pane-link.text-muted Ga verder >
+                        //-.sign_up-pane-heading {{ 'sign_up_provider.labels.mobile_number' | translate }}
+                        .sign_up-pane-text Of stuur een downloadlink direct naar je telefoon
 
-                        .row: .col-lg-12.col-md-12.col-sm-12: button.button.button-primary-outline.col-xs-12(
-                            ng-class="{ 'button-disabled' : !$ctrl.phoneNumberFilled }" 
-                            ng-click="$ctrl.sendSms()"
-                            translate="sign_up_provider.download.download_link")
+                        label.form-label Mobiele telefoonnummer
+                        .row
+                            .col-md-7
+                                .form-group: input(type="text"
+                                    ng-model="phoneForm.values.phone"
+                                    placeholder="TELEFOONNUMMER").large.form-control
+
+                            .col-md-5: button.button.button-primary-outline.col-xs-12(
+                                ng-class="{ 'button-disabled' : !$ctrl.phoneNumberFilled }" 
+                                ng-click="$ctrl.sendSms()"
+                                translate="sign_up_provider.download.download_link")
+
                         
                         .pincode-errors: .form-error(ng-repeat="error in phoneForm.errors.phone" ng-bind="error")
+                    
+                    .sign-up-pane-col(ng-if="$ctrl.selectedOption == 'ipad'")
+                        .sign_up-pane-text Download uit app store
+                        .row.sign_up-pane-align-center
+                            .col-md-3
+                                a.sign_up-pane-media(href="https://apps.apple.com/nl/app/me-forus/id1422610676?l=en#?platform=ipad" target="_blank").pull-left: img(ng-src="./assets/img/icon-app-ios.svg")                         
+                            .col-md-4: .sign_up-pane-link.text-muted Ga verder >
+                        
+                        .sign_up-pane-text Of stuur een link naar een e-mailadres
+
+                        label.form-label E-mailadres
+                        .row
+                            .col-md-7: form-group 
+                                input(type="text"
+                                    ng-model="phoneForm.values.email"
+                                    placeholder="EMAILADRES").large.form-control
+                            
+                            .col-md-5: button.button.button-primary-outline.col-xs-12(
+                                ng-class="{ 'button-disabled' : !$ctrl.phoneNumberFilled }" 
+                                ng-click="$ctrlSendEmail()") send email     
+                                // to be implemented
+                    
+                    .sign_up-pane-col(ng-if="$ctrl.selectedOption == 'other'")
+                        .sign_up-pane-heading.form-error Onze app is niet beschikbaar voor alle apparaten
+                        .sign_up-pane-text 
+                            | Als u geen app ziet voor uw apparaat, kunt u kijken of u de app vinden via onze mobiele website. Typ forus.io/dl in uw mobiele browser (Safari, Chrome, etc)
+                            br
+                            br
+                            .sign_up-pane-link.text-muted Leer meer over welke apparaten ondersteunt worden > 
+                                          
                     
                         
                     br
                     .sign_up-pane-text.sign_up-pane-text-sm 
-                        | {{ "sign_up_provider.download.cannot_receive_sms" | translate }} 
-                        a(href="https://www.forus.io/DL" target="_blank") www.forus.io/DL
-                        br
                         | {{ "sign_up_provider.download.cannot_install_app" | translate }} 
                         .sign_up-pane-link.text-muted(ng-click="$ctrl.setHasAppProp(false)") Ga verder met uw e-mailadres >
 
