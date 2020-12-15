@@ -4282,6 +4282,19 @@ $colorPrimaryLight: $color_primary_light;
                     font: 500 14px/22px $bf;
                 }
             }
+                
+            &.chart-control-provider_overview {
+                padding: 5px 0;
+
+                .chart-label {
+                    margin-bottom: 0;
+                }
+
+                .chart-value {
+                    padding: 25px 0 25px;
+                    min-height: auto;
+                }
+            }
         }
 
         .chart-body {
