@@ -11,7 +11,7 @@ module.exports = {
         created_date: "Aangemaakt op",
         expire_date: "Geldig tot",
         fund: "Fonds",
-        granted: "Toegekend",
+        granted: "Toegewezen",
         used: "In gebruik",
         note: "Notitie",
         search: "Zoeken",

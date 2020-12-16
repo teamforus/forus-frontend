@@ -38,10 +38,10 @@ let VouchersComponent = function(
         name: 'Alle'
     }, {
         value: 'pending',
-        name: 'Pending'
+        name: 'Inactief'
     }, {
         value: 'active',
-        name: 'Active'
+        name: 'Actief'
     }];
 
     $ctrl.filters = {

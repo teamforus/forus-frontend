@@ -25,6 +25,6 @@ module.exports = {
         submit: "Bevestigen",
         print: "Print",
         send: "Verstuur",
-        assign: "Toekennen",
+        assign: "Toewijzen",
     }
 };

@@ -9,13 +9,13 @@ let ModalVoucherCreateComponent = function(
     $ctrl.activationCodeSubmitted = false;
     $ctrl.assignTypes = [{
         key: null,
-        label: 'Niet toekennen',
+        label: 'Activatiecode',
     }, {
         key: 'email',
         label: 'E-mailadres',
     }, {
         key: 'bsn',
-        label: 'BSN',
+        label: 'Burgerservicenummer',
     }];
 
     $ctrl.assignType = $ctrl.assignTypes[0];
@@ -70,7 +70,7 @@ let ModalVoucherCreateComponent = function(
         $ctrl.fund = $ctrl.modal.scope.fund || null;
         $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.onCreated = $ctrl.modal.scope.onCreated;
-        $ctrl.state = 'select_type';
+        $ctrl.state = 'voucher_form';
 
         $ctrl.form = FormBuilderService.build({
             fund_id: $ctrl.fund.id,

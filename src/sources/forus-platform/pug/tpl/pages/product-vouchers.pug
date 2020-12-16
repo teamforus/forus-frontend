@@ -156,7 +156,7 @@
                                         em(ng-if="voucher.state === 'pending'").mdi.mdi-bookmark
 
                                     .td-boolean.pull-right(ng-if="$ctrl.fundClosed && !voucher.is_granted && !voucher.expired"): em.mdi.mdi-close
-                                    .td-boolean.pull-right(ng-if="!voucher.is_granted && voucher.expired"): span.text-muted Verlopen
+                                    .td-boolean.pull-right(ng-if="voucher.expired"): span.text-muted Verlopen
 
                                     .button.button-text.button-icon.pull-right(ng-if="voucher.is_granted && !voucher.expired")
                                         .mdi.block.block-tooltip-details.block-tooltip-hover(

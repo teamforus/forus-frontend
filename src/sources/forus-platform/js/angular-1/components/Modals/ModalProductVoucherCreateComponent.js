@@ -10,13 +10,13 @@ let ModalProductVoucherCreateComponent = function(
     $ctrl.activationCodeSubmitted = false;
     $ctrl.assignTypes = [{
         key: null,
-        label: 'Niet toekennen',
+        label: 'Activatiecode',
     }, {
         key: 'email',
         label: 'E-mailadres',
     }, {
         key: 'bsn',
-        label: 'BSN',
+        label: 'Burgerservicenummer',
     }];
 
     $ctrl.assignType = $ctrl.assignTypes[0];
@@ -133,7 +133,7 @@ let ModalProductVoucherCreateComponent = function(
 
             if ($ctrl.products.length > 0) {
                 $ctrl.product = $ctrl.products[0];
-                $ctrl.state = 'select_type';
+                $ctrl.state = 'voucher_form';
             } else {
                 return $ctrl.state = 'no_products';
             }

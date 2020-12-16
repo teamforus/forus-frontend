@@ -145,12 +145,12 @@ let PrevalidatedTableDirective = async function(
         ModalService.open('modalNotification', {
             modalClass: 'modal-md',
             type: 'confirm',
-            title: 'Delete prevalidation?',
+            title: 'Wilt u dit gegeven verwijderen?',
             description:
-                'Are sure you want to delete this prevalidation? This action can\'t be undone, ' +
-                'but you can still create a new prevalidation.',
+                'Weet u zeker dat u dit gegeven wilt verwijderen? Deze actie kunt niet ongedaan maken, ' +
+                'u kunt echter wel een nieuw gegeven aanmaken.',
             confirm: () => PrevalidationService.destroy(prevalidation.uid).then(() => {
-                PushNotificationsService.success('Prevalidation removed!');
+                PushNotificationsService.success('Gegeven verwijderd');
                 $scope.init();
             }, (res) => {
                 PushNotificationsService.danger('Error!', res.data.message || null);

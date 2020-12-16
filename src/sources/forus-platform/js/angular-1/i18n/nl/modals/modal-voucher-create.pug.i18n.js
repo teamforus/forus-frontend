@@ -3,8 +3,8 @@ module.exports = {
     labels: {
         fund: 'Fonds',
         amount: 'Bedrag',
-        assign_by_type: 'Toekennen door:',
-        assign_by_type_or_activate: 'Toekennen of activeren:',
+        assign_by_type: 'Methode:',
+        assign_by_type_or_activate: 'Toewijzen of activeren:',
         note: 'Notitie',
         expire_at: 'Geldig tot',
     },
