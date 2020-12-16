@@ -89,24 +89,6 @@
                     input(ng-model="$ctrl.form.values[$ctrl.assignType.key]" placeholder="{{ $ctrl.assignType.label }}").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors[$ctrl.assignType.key]" ng-bind="error")
 
-                .form-group.form-group-inline.form-group-inline-md(ng-if="!$ctrl.assignType.key || $ctrl.assignType.key === 'bsn'")
-                    .form-label &nbsp;
-                    .form-offset
-                        div(ng-if="!$ctrl.assignType.key" )
-                            label(for='make_activation_code').checkbox.checkbox-narrow
-                                input(type="checkbox" ng-model="$ctrl.form.values.make_activation_code" id='make_activation_code')
-                                .checkbox-label 
-                                    .checkbox-box: .mdi.mdi-check
-                                    | Generate an activation code
-                            .form-error(ng-repeat="error in $ctrl.form.errors.make_activation_code" ng-bind="error")
-                        div(ng-if="!$ctrl.assignType.key || $ctrl.assignType.key === 'bsn'")
-                            label(for='disable').checkbox.checkbox-narrow
-                                input(type="checkbox" ng-model="$ctrl.form.values.disable" id='disable')
-                                .checkbox-label 
-                                    .checkbox-box: .mdi.mdi-check
-                                    | Disabled before activation
-                            .form-error(ng-repeat="error in $ctrl.form.errors.active" ng-bind="error")
-
                 .form-group.form-group-inline.form-group-inline-md
                     label.form-label(i18n="modals.modal_product_voucher_create.labels.product")
                     select(

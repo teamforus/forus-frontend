@@ -1,50 +1,54 @@
-.modal.modal-voucher_qr.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.success ? 'modal-sm' : '', $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-voucher_qr.modal-animated(
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.success ? 'modal-sm' : '', $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     
     .modal-window(ng-show="!$ctrl.assigning && !$ctrl.success"): form(ng-submit="$ctrl.form.submit()")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
         .modal-body: .modal-section
             .voucher_qr-block
-                .voucher_qr-title(i18n="modals.modal_voucher_qr_code.title")
+                .voucher_qr-title(translate="modals.modal_voucher_qr_code.title")
                 qr-code(qr-value="$ctrl.qrCodeValue" qr-type="voucher")
                 .voucher_qr-actions: .row
                     .col.col-lg-6: button(
                         type="button" 
                         ng-click="$ctrl.printQrCode()").button.button-default-dashed.button-fill 
                         em.mdi.mdi-printer.icon-start
-                        div(i18n="modals.modal_voucher_qr_code.buttons.print")
+                        div(translate="modals.modal_voucher_qr_code.buttons.print")
                     .col.col-lg-6
                         button(
                             type="button"
                             ng-click="$ctrl.goAssigning()").button.button-default-dashed.button-fill 
                             em.mdi.mdi-email.icon-start
-                            | {{ "modals.modal_voucher_qr_code.buttons.assign" | i18n }}
+                            | {{ "modals.modal_voucher_qr_code.buttons.assign" | translate }}
 
         .modal-body: .modal-section: .form
             .form-group
-                .row: .col.col-lg-12: label.form-label(i18n="modals.modal_voucher_qr_code.labels.sent_to_email")
+                .row: .col.col-lg-12: label.form-label(translate="modals.modal_voucher_qr_code.labels.sent_to_email")
                 .row
                     .col.col-lg-9
                         input(
                             type="email" 
-                            placeholder="{{ 'modals.modal_voucher_qr_code.placeholders.email' | i18n }}"
+                            placeholder="{{ 'modals.modal_voucher_qr_code.placeholders.email' | translate }}"
                             ng-model="$ctrl.form.values.email").form-control
 
                     .col.col-lg-3: button.button.button-primary.button-fill(
                         type="submit" 
-                        i18n="modals.modal_voucher_qr_code.buttons.send")
+                        translate="modals.modal_voucher_qr_code.buttons.send")
                 .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
         
         .modal-footer.text-center
-            button.button.button-default(type="button" ng-click="$ctrl.close()" i18n="modals.modal_voucher_qr_code.buttons.close")
+            button.button.button-default(
+                type="button" 
+                ng-click="$ctrl.close()" 
+                translate="modals.modal_voucher_qr_code.buttons.close")
 
     //- assign voucher to user
     .modal-window(ng-show="$ctrl.assigning && !$ctrl.success"): form(ng-submit="$ctrl.form.submit()")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-        .modal-header: .voucher_qr-title(i18n="modals.modal_voucher_qr_code.title_assign")
+        .modal-header: .voucher_qr-title(translate="modals.modal_voucher_qr_code.title_assign")
         .modal-body: .modal-section: .form
             .form-group
-                label.form-label(i18n="modals.modal_voucher_create.labels.assign_by_type")
+                label.form-label(translate="{{ 'modals.modal_voucher_create.labels.assign_by_type' + ($ctrl.voucherActive ? '' : '_or_activate') }}")
                 select(
                     ng-change="$ctrl.onAsignTypeChange($ctrl.assignType)"
                     ng-options="assignType as assignType.label for assignType in $ctrl.assignTypes"
@@ -53,7 +57,7 @@
             
             .form-group(ng-if="$ctrl.assignType.key === 'email' || $ctrl.assignType.key === 'bsn'")
                 //- Verstuur naar e-mail adres:
-                label.form-label(i18n="modals.modal_voucher_qr_code.labels.assign_to_identity")
+                label.form-label(translate="modals.modal_voucher_qr_code.labels.assign_to_identity")
                 input(
                     placeholder="{{ ('modals.modal_voucher_qr_code.placeholders.' + $ctrl.assignType.key) | translate }}"
                     ng-model="$ctrl.form.values[$ctrl.assignType.key]" ).form-control
@@ -61,30 +65,43 @@
         
         .modal-body: .modal-section: .form: .block.block-info
             em.mdi.mdi-information.block-info-icon
-            | {{ 'modals.modal_voucher_qr_code.info_assign' | i18n }}
+            translate(translate='modals.modal_voucher_qr_code.info_assign')
 
         .modal-footer.text-center
-            button.button.button-default(type="button" ng-click="$ctrl.voucherActive ? $ctrl.goSending() : $ctrl.close()" i18n="modals.modal_voucher_qr_code.buttons.cancel")
-            button.button.button-primary(type="submit" i18n="modals.modal_voucher_create.buttons.submit")
+            button.button.button-default(
+                type="button" 
+                ng-click="$ctrl.voucherActive ? $ctrl.goSending() : $ctrl.close()" 
+                translate="modals.modal_voucher_qr_code.buttons.cancel")
+            button.button.button-primary(
+                type="submit" 
+                ng-if="$ctrl.assignType.key === 'activate'"
+                translate="modals.modal_voucher_create.buttons.activate")
+            button.button.button-primary(
+                type="submit" 
+                ng-if="$ctrl.assignType.key !== 'activate'"
+                translate="modals.modal_voucher_create.buttons.submit")
     
     .modal-window(ng-show="$ctrl.success"): form(ng-submit="$ctrl.form.submit()")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
         .modal-body: .modal-section
             .block.block-message(ng-if="$ctrl.assigning && ($ctrl.assignType.key === 'email' || $ctrl.assignType.key === 'bsn')")
-                .message-title(i18n="modals.modal_voucher_qr_code.success.assigned_title")
-                .message-details(i18n="modals.modal_voucher_qr_code.success.assigned_details")
+                .message-title(translate="modals.modal_voucher_qr_code.success.assigned_title")
+                .message-details(translate="modals.modal_voucher_qr_code.success.assigned_details")
             
             .block.block-message(ng-if="$ctrl.assigning && ($ctrl.assignType.key === 'activate')")
-                .message-title(i18n="modals.modal_voucher_qr_code.success.activated_title")
-                .message-details(i18n="modals.modal_voucher_qr_code.success.activated_details")
+                .message-title(translate="modals.modal_voucher_qr_code.success.activated_title")
+                .message-details(translate="modals.modal_voucher_qr_code.success.activated_details")
             
             .block.block-message(ng-if="$ctrl.assigning && ($ctrl.assignType.key === 'activation_code')")
-                .message-title(i18n="modals.modal_voucher_qr_code.success.activation_code_title")
-                .message-details(i18n="modals.modal_voucher_qr_code.success.activation_code_details")
+                .message-title(translate="modals.modal_voucher_qr_code.success.activation_code_title")
+                .message-details(translate="modals.modal_voucher_qr_code.success.activation_code_details")
             
             .block.block-message(ng-if="!$ctrl.assigning")
-                .message-title(i18n="modals.modal_voucher_qr_code.success.sending_title")
-                .message-details(i18n="modals.modal_voucher_qr_code.success.sending_details")
+                .message-title(translate="modals.modal_voucher_qr_code.success.sending_title")
+                .message-details(translate="modals.modal_voucher_qr_code.success.sending_details")
 
         .modal-footer.text-center
-            button.button.button-primary(type="button" ng-click="$ctrl.close()" i18n="modals.modal_voucher_qr_code.buttons.close")
+            button.button.button-primary(
+                type="button" 
+                ng-click="$ctrl.close()" 
+                translate="modals.modal_voucher_qr_code.buttons.close")

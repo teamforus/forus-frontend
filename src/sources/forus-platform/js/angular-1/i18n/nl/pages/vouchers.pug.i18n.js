@@ -6,7 +6,7 @@ module.exports = {
         state: "Status",
         activation_code: "Code",
         amount: "Bedrag",
-        identity_bsn: "Toegekend aan",
+        assigned_to: "Methode",
         source: "Aangemaakt door",
         created_date: "Aangemaakt op",
         expire_date: "Geldig tot",

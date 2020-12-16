@@ -59,6 +59,7 @@ div
                     th(ng-repeat="headerKey in headers track by $index" ng-bind="typesByKey[headerKey]")
                     th.text-right(translate="prevalidated_table.status.active")
                     th.text-right(translate="prevalidated_table.labels.exported")
+                    th.text-right(translate="prevalidated_table.labels.actions")
                 tr(ng-repeat="row in rows")
                     td: .text-primary.text-strong(ng-bind="row.uid")
                     td(ng-repeat="record in row.records track by $index")
@@ -70,6 +71,11 @@ div
                     td.text-right: .tag.tag-sm(
                         ng-class="[!row.exported ? 'tag-default' : 'tag-success']"
                         ng-bind="!row.exported ? 'Nee' : 'Ja'")
+                    td.text-right
+                        .button.button-default.button-icon(ng-if="row.state === 'pending'" ng-click="deletePrevalidation(row)")
+                            em.icon-start.mdi.mdi-delete
+                        .text-muted(ng-if="row.state !== 'pending'") No actions
+
 
         .card-section(ng-show="prevalidations.meta.last_page > 1")
             paginator(meta="prevalidations.meta" filters="filters.values" count-buttons="5" on-page-change="onPageChange(query)")

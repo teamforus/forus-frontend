@@ -78,24 +78,17 @@ let ModalVoucherQrCodeComponent = function(
         $ctrl.assigning = !$ctrl.voucherActive;
         $ctrl.qrCodeValue = $ctrl.voucher.address;
 
-        if (!$ctrl.voucher.activation_code) {
-            $ctrl.assignTypes.push({
-                key: 'activation_code',
-                label: 'Create activation code',
-            });
+        if (!$ctrl.voucherActive && !$ctrl.voucher.activation_code) {
+            $ctrl.assignTypes.unshift({ key: 'activation_code', label: 'Create an activation code' });
         }
 
         if (!$ctrl.voucherActive) {
-            $ctrl.assignTypes.push({
-                key: 'activate',
-                label: 'Activate',
-            });
+            $ctrl.assignTypes.unshift({ key: 'activate', label: 'Activeren' });
         }
 
-        $ctrl.form = FormBuilderService.build({
-            email: '',
-            bsn: '',
-        }, (form) => {
+        $ctrl.assignType = $ctrl.assignTypes[0];
+
+        $ctrl.form = FormBuilderService.build({}, (form) => {
             form.lock();
 
             let promise = $ctrl.assigning ?

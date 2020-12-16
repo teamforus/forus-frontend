@@ -94,10 +94,11 @@ let ModalProductVoucherCreateComponent = function(
 
             VoucherService.store($ctrl.organization.id, {
                 ...form.values,
-                ...{
-                    activate: form.values.disable ? 0 : 1,
-                    make_activation_code: form.values.make_activation_code ? 1 : 0,
-                }
+                ...({
+                    email: { activate: 1, make_activation_code: 0 },
+                    bsn: { activate: 1, make_activation_code: 0 },
+                    null: { activate: 0, make_activation_code: 1 },
+                }[$ctrl.assignType.key])
             }).then(() => {
                 $ctrl.onCreated();
                 $ctrl.close();

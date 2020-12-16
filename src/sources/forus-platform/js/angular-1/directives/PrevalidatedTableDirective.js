@@ -2,7 +2,9 @@ let PrevalidatedTableDirective = async function(
     $scope,
     $timeout,
     FileService,
-    PrevalidationService
+    ModalService,
+    PrevalidationService,
+    PushNotificationsService
 ) {
     $scope.headers = [];
 
@@ -122,7 +124,7 @@ let PrevalidatedTableDirective = async function(
         });
     };
 
-    $scope.$watch('fund', (fund) => $scope.init(), true);
+    $scope.$watch('fund', () => $scope.init(), true);
 
     // Export to XLS file
     $scope.export = (filters = {}) => {
@@ -137,6 +139,24 @@ let PrevalidatedTableDirective = async function(
                 res.headers('Content-Type') + ';charset=utf-8;'
             );
         }));
+    };
+
+    $scope.deletePrevalidation = (prevalidation) => {
+        ModalService.open('modalNotification', {
+            modalClass: 'modal-md',
+            type: 'confirm',
+            title: 'Delete prevalidation?',
+            description:
+                'Are sure you want to delete this prevalidation? This action can\'t be undone, ' +
+                'but you can still create a new prevalidation.',
+            confirm: () => PrevalidationService.destroy(prevalidation.uid).then(() => {
+                PushNotificationsService.success('Prevalidation removed!');
+                $scope.init();
+            }, (res) => {
+                PushNotificationsService.danger('Error!', res.data.message || null);
+                console.error(res);
+            })
+        });
     };
 
     $scope.typesByKey = {};
@@ -157,7 +177,9 @@ module.exports = () => {
             '$scope',
             '$timeout',
             'FileService',
+            'ModalService',
             'PrevalidationService',
+            'PushNotificationsService',
             PrevalidatedTableDirective
         ],
         templateUrl: 'assets/tpl/directives/prevalidated-table.html'

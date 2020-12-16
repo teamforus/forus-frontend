@@ -15,20 +15,29 @@
                                 .user_email-option Ontvangt inlog e-mail
                                 .user_email-option Ontvangt notificaties
                         
-                            .button.button-default(ng-disabled="email.disabled" ng-if="!email.primary && email.verified" ng-click="$ctrl.makePrimary(email)")
+                            .button.button-default(
+                                ng-disabled="email.disabled" 
+                                ng-if="!email.primary && email.verified" 
+                                ng-click="$ctrl.makePrimary(email)")
                                 em.mdi.mdi-check-circle.icon-start
                                 | Instellen als hoofd e-mailadres 
 
-                            .button.button-default(ng-disabled="email.disabled" ng-if="!email.primary && !email.verified" ng-click="$ctrl.resendVerification(email)")
+                            .button.button-default(
+                                ng-disabled="email.disabled" 
+                                ng-if="!email.primary && !email.verified" 
+                                ng-click="$ctrl.resendVerification(email)")
                                 em.mdi.mdi-reload.icon-start
                                 | Bevestiging e-mail opnieuw versturen
                         
+                            .text-danger(ng-in="email.error" ng-bind="email.error")
                         .user_email-actions
                             label(ng-if="email.primary").label.label-success.label-round.label-lg.pull-left Hoofd e-mailadres
                             label(ng-if="!email.verified && !email.primary").label.label-default.label-round.label-lg.pull-left Niet bevestigd
 
-                            button(ng-disabled="email.disabled" ng-if="!email.primary" ng-click="$ctrl.deleteEmail(email)").button.button-default.button-icon: em.mdi.mdi-trash-can-outline
-        
+                            button(
+                                ng-disabled="email.disabled" 
+                                ng-if="!email.primary" 
+                                ng-click="$ctrl.deleteEmail(email)").button.button-default.button-icon: em.mdi.mdi-trash-can-outline
             
             .card-section.card-section-primary(ng-if="!$ctrl.form")
                 .button.button-primary(ng-click="$ctrl.createNewEmailForm()") 
@@ -41,7 +50,10 @@
                     .form-label E-mailadres
                     .flex-row
                         .flex-col.flex-grow
-                            input(type="email" placeholder="bijv. info@example.org" ng-model="$ctrl.form.values.email").form-control
+                            input(
+                                type="email" 
+                                placeholder="bijv. info@example.org" 
+                                ng-model="$ctrl.form.values.email").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
                         .flex-col: button(type="submit").button.button-primary Toevoegen
         

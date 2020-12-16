@@ -1450,6 +1450,7 @@ module.exports = {
             from: "Van",
             to: "Tot",
             filter: "Filter",
+            actions: "Actions",
         },
         status: {
             active: "Geactiveerd",

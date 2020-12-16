@@ -5,9 +5,9 @@ body {
 
 .wrapper {
     margin: auto;
-    width: 1366px;
+    width: 1500px;
     max-width: 100%;
-    padding: 0 40px 0;
+    padding: 0 30px 0;
     @include cf();
 
     .wrapper-sm {
@@ -64,6 +64,11 @@ img {
     font-size: .8em;
 }
 
+.text-md,
+.text-medium {
+    font-size: .9em;
+}
+
 .flex-grow {
     flex-grow: 100 !important;
 }
@@ -113,7 +118,7 @@ img {
 }
 
 .text-strong {
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .text-strong-half {
