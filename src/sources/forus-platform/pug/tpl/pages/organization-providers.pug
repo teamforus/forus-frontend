@@ -111,13 +111,16 @@
                     .provider-details
                         .provider-title(ng-bind="providerFund.organization.name")
                         //- budget fund: count products
-                        .provider-subtitle(ng-if="providerFund.fund.type == 'budget'" ng-bind="providerFund.products_count_all + ' aanbiedingen'")
+                        .provider-subtitle(ng-if="providerFund.fund.type == 'budget'")
+                            span {{ providerFund.products_count_all }} aanbiedingen
+                            span.provider-activity(ng-if="providerFund.last_activity") {{ providerFund.last_activity_from_now }}
                         //- subsidy fund: count products approved
                         .provider-subtitle(ng-if="providerFund.fund.type == 'subsidies'") 
                             | Actieve acties 
                             .tag.tag-sm(
                                 class=(products == 0 ? 'tag-danger' : 'tag-default')
                                 ng-bind="providerFund.products_count_approved + '/' + providerFund.products_count_available")
+                            span.provider-activity(ng-if="providerFund.last_activity") {{ providerFund.last_activity_from_now }}
 
                     .provider-actions.form
                         //- budget fund: allow budget vouchers
