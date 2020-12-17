@@ -102,6 +102,11 @@
                                     span(ng-if="critera.operator == '='") 
                                     span(ng-if="critera.operator == '<'") minder dan 
                                     | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }}.
+                
+                .card-block.card-block-listing(ng-if="validatorRequest.note")
+                    .card-block-listing-label Reason rejected
+                    .card-block-listing-value
+                        span(ng-bind="validatorRequest.note")
             
             .card-header(ng-hide='validatorRequest.collapsed')
                 .arrow-box.border.bg-dim: .arrow
