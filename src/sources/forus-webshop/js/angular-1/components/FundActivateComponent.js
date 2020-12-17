@@ -240,7 +240,7 @@ let FundActivateComponent = function(
     };
 
     $ctrl.getFundVouchers = (fund, vouchers) => {
-        return vouchers.filter(voucher => voucher.fund_id === fund.id);
+        return vouchers.filter(voucher => voucher.fund_id === fund.id && !voucher.expired);
     };
 
     $ctrl.getFirstFundVoucher = (fund, vouchers) => {
