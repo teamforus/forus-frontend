@@ -10,24 +10,33 @@ let ModalProductVoucherCreateComponent = function(
     $ctrl.activationCodeSubmitted = false;
     $ctrl.assignTypes = [{
         key: null,
-        label: 'Niet toekennen',
+        label: 'Activatiecode',
     }, {
         key: 'email',
         label: 'E-mailadres',
     }, {
         key: 'bsn',
-        label: 'BSN',
+        label: 'Burgerservicenummer',
     }];
 
     $ctrl.assignType = $ctrl.assignTypes[0];
+    $ctrl.dateMinLimit = new Date();
 
     $ctrl.onAsignTypeChange = (assignType) => {
-        if (assignType.key === 'bsn') {
+        if (assignType.key !== 'bsn') {
             delete $ctrl.form.values.bsn;
         }
 
         if (assignType.key !== 'email') {
             delete $ctrl.form.values.email;
+        }
+
+        if (assignType.key) {
+            delete $ctrl.form.values.activation_code;
+        }
+
+        if (assignType.key === 'bsn') {
+            delete $ctrl.form.values.active;
         }
     };
 
@@ -35,24 +44,24 @@ let ModalProductVoucherCreateComponent = function(
         let code = activation_code ? activation_code : '';
 
         if ($ctrl.activationCodeSubmitted) {
-            return false;   
+            return false;
         }
 
         $ctrl.activationCodeSubmitted = true;
-        code = code.substring(0, 4) + '-' +  code.substring(4);
+        code = code.substring(0, 4) + '-' + code.substring(4);
 
         // activation_code;
         VoucherService.storeValidate($ctrl.organization.id, {
             activation_code: code,
             fund_id: $ctrl.fund.id,
-        }).then(() => {}, res => {
+        }).then(() => { }, res => {
             if (res.data.errors.activation_code) {
                 $ctrl.state = 'activation_code_invalid';
             } else {
                 if ($ctrl.voucherType == 'activation_code') {
                     $ctrl.form.values.activation_code = code;
                 }
-                
+
                 $ctrl.state = 'voucher_form';
             }
         });
@@ -83,10 +92,14 @@ let ModalProductVoucherCreateComponent = function(
             form.lock();
             form.values.assign_by_type = $ctrl.assignType.key;
 
-            VoucherService.store(
-                $ctrl.organization.id,
-                form.values
-            ).then(res => {
+            VoucherService.store($ctrl.organization.id, {
+                ...form.values,
+                ...({
+                    email: { activate: 1, make_activation_code: 0 },
+                    bsn: { activate: 1, make_activation_code: 0 },
+                    null: { activate: 0, make_activation_code: 1 },
+                }[$ctrl.assignType.key])
+            }).then(() => {
                 $ctrl.onCreated();
                 $ctrl.close();
             }, res => {
@@ -120,7 +133,7 @@ let ModalProductVoucherCreateComponent = function(
 
             if ($ctrl.products.length > 0) {
                 $ctrl.product = $ctrl.products[0];
-                $ctrl.state = 'select_type';
+                $ctrl.state = 'voucher_form';
             } else {
                 return $ctrl.state = 'no_products';
             }
@@ -129,7 +142,7 @@ let ModalProductVoucherCreateComponent = function(
         });
     };
 
-    $ctrl.$onDestroy = function() {};
+    $ctrl.$onDestroy = function() { };
 };
 
 module.exports = {

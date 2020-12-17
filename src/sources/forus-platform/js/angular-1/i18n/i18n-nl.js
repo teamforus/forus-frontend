@@ -1441,7 +1441,7 @@ module.exports = {
     // PRE VALIDATED TABLE = prevalidated_table.pug
     prevalidated_table: {
         header: {
-            title: "Gegenereerde activatiecodes",
+            title: "Gegevens van aanvragers",
         },
         labels: {
             code: "Code",
@@ -1450,6 +1450,7 @@ module.exports = {
             from: "Van",
             to: "Tot",
             filter: "Filter",
+            actions: "Opties",
         },
         status: {
             active: "Geactiveerd",

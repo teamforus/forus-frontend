@@ -53,6 +53,12 @@
                                     select(
                                         ng-options="state.value as state.name for state in $ctrl.sources" 
                                         ng-model="$ctrl.filters.values.source").form-control
+
+                                .form-group
+                                    form-label-toggle(label="{{ 'vouchers.labels.state' | translate }}")
+                                    select(
+                                        ng-options="state.value as state.name for state in $ctrl.voucher_states" 
+                                        ng-model="$ctrl.filters.values.state").form-control
                                 
                                 .form-group
                                     form-label-toggle(label="{{ 'vouchers.labels.granted' | translate }}")
@@ -102,7 +108,7 @@
                     .table-wrapper
                         table.table
                             tr
-                                th(translate="vouchers.labels.identity_bsn")
+                                th(translate="vouchers.labels.assigned_to")
                                 th(translate="vouchers.labels.source")
                                 th(ng-if="$ctrl.fund.type == 'budget'" translate="vouchers.labels.amount")
                                 th(translate="vouchers.labels.note")
@@ -113,17 +119,26 @@
                                 th(translate="vouchers.labels.qr_code").nowrap.text-right
 
                             tr(ng-repeat="voucher in $ctrl.vouchers.data")
-                                td(ng-bind="((voucher.identity_bsn || voucher.relation_bsn) || (voucher.identity_email | str_limit:25)) || 'Niet toegekend'" title="{{ ((voucher.identity_bsn || voucher.relation_bsn) || voucher.identity_email ) || 'Niet toegekend' }}")
-                                td(ng-bind="'vouchers.labels.source_' + voucher.source | translate")
-                                td(ng-if="$ctrl.fund.type == 'budget'" ng-bind="voucher.amount | currency_format").nowrap
+                                td
+                                    strong(ng-bind="(voucher.identity_email | str_limit:25) || voucher.activation_code || 'Niet toegekend'").text-primary
+                                    span(ng-if="voucher.identity_bsn || voucher.relation_bsn").text-strong.text-md.text-muted-dark
+                                        br
+                                        | {{ 'BSN: ' + (voucher.identity_bsn || voucher.relation_bsn) }}
+                                td: strong(ng-bind="'vouchers.labels.source_' + voucher.source | translate").text-md.text-muted-dark
+                                td(
+                                    ng-if="$ctrl.fund.type == 'budget'" 
+                                    ng-bind="voucher.amount | currency_format").nowrap
                                 td: em.td-icon.mdi.mdi-information.block.block-tooltip-details.pull-left(
                                     ng-if="voucher.note"
                                     ng-click="$ctrl.showTooltip($event, voucher)"
                                     ng-class="{active: voucher.showTooltip}")
                                     .tooltip-content(ng-if="voucher.showTooltip" click-outside="$ctrl.hideTooltip($event, voucher)")
                                         .tooltip-text(ng-bind="(voucher.note || '-') | str_limit:128" title="{{ voucher.note }}")
-                                td(ng-bind="voucher.created_at_locale")
-                                td(ng-if="!$ctrl.fundClosed" ng-bind="voucher.expire_at_locale")
+                                td(ng-if="!$ctrl.fundClosed")
+                                    strong(ng-bind="voucher.created_at_locale.split(' - ')[0]").text-primary
+                                    br
+                                    strong(ng-bind="voucher.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
+                                td(ng-if="!$ctrl.fundClosed"): strong(ng-bind="voucher.expire_at_locale").text-strong.text-md.text-muted-dark
                                 //-td(ng-if="!$ctrl.fundClosed && voucher.is_granted"): .td-boolean
                                     em.mdi.mdi-check-circle
                                     | {{ "product_vouchers.labels.yes" | translate }}
@@ -132,24 +147,39 @@
                                     | {{ "product_vouchers.labels.no" | translate }}
                                 td(ng-if="!$ctrl.fundClosed && voucher.has_transactions"): .td-boolean
                                     em.mdi.mdi-check-circle
-                                    | {{ "product_vouchers.labels.yes" | translate }}
+                                    string(translate="product_vouchers.labels.yes").text-md.text-muted-dark
                                 td(ng-if="!$ctrl.fundClosed && !voucher.has_transactions"): .td-boolean
                                     em.mdi.mdi-close
-                                    | {{ "product_vouchers.labels.no" | translate }}
+                                    string(translate="product_vouchers.labels.no").text-md.text-muted-dark
                                 td
                                     button.button.button-primary.button-icon.pull-right(
-                                        ng-if="!$ctrl.fundClosed && !voucher.is_granted"
+                                        ng-if="!$ctrl.fundClosed && !voucher.is_granted && !voucher.expired"
                                         ng-click="$ctrl.showQrCode(voucher)")
-                                        em.mdi.mdi-qrcode 
+                                        em(ng-if="voucher.state === 'active'").mdi.mdi-qrcode 
+                                        em(ng-if="voucher.state === 'pending'").mdi.mdi-bookmark
 
-                                    .td-boolean.pull-right(ng-if="$ctrl.fundClosed && !voucher.is_granted")
-                                        em.mdi.mdi-close
+                                    .td-boolean.pull-right(ng-if="$ctrl.fundClosed && !voucher.is_granted && !voucher.expired"): em.mdi.mdi-close
+                                    .td-boolean.pull-right(ng-if="voucher.expired"): span.text-muted Verlopen
 
-                                    .button.button-text.button-icon.pull-right(ng-if="voucher.is_granted")
+                                    .button.button-text.button-icon.pull-right(ng-if="voucher.is_granted && !voucher.expired")
                                         .mdi.block.block-tooltip-details.block-tooltip-hover(
                                             ng-class="voucher.has_transactions ? 'mdi-check-all' : 'mdi-check'")
                                             .tooltip-content.tooltip-content-left.tooltip-content-fit
-                                                .tooltip-text(ng-bind="voucher.identity_email" title="{{ voucher.identity_email }}")
+                                                .tooltip-text
+                                                    span
+                                                        span.text-primary.text-sm.text-strong E-MAIL:
+                                                        br
+                                                        span(ng-bind="voucher.identity_email | str_limit:25").text-strong
+                                                    span(ng-if="voucher.identity_bsn || voucher.relation_bsn")
+                                                        br
+                                                        span.text-primary.text-sm.text-strong BSN:
+                                                        br
+                                                        span(ng-bind="voucher.identity_bsn").text-strong
+                                                    span(ng-if="voucher.activation_code")
+                                                        br
+                                                        span.text-primary.text-sm.text-strong CODE:
+                                                        br
+                                                        span(ng-bind="voucher.activation_code").text-strong
 
             .card-section(ng-if="$ctrl.vouchers" ng-show="$ctrl.vouchers.meta.last_page > 1")
                 paginator(meta="$ctrl.vouchers.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")

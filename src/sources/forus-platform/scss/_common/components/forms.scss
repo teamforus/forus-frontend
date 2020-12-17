@@ -289,17 +289,17 @@
 
             &.form-group-inline-md {
                 &>.form-label {
-                    width: 160px;
+                    width: 120px;
                 }
 
                 &>.form-offset,
                 &>.form-control {
-                    width: calc(100% - 160px);
+                    width: calc(100% - 120px);
                 }
 
                 &>.form-error {
-                    margin-left: 80px;
-                    width: calc(100% - 160px);
+                    margin-left: 120px;
+                    width: calc(100% - 120px);
                 }
             }
 

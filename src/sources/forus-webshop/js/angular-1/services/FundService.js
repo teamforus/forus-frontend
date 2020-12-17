@@ -4,7 +4,7 @@ let FundService = function(
 ) {
     let uriPrefix = '/platform/organizations/';
 
-    return new(function() {
+    return new (function() {
         this.list = function(organization_id, values = {}) {
             if (organization_id) {
                 return ApiRequest.get(
@@ -74,16 +74,16 @@ let FundService = function(
         this.approveProvider = function(organization_id, fund_id, id) {
             return ApiRequest.patch(
                 uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + id, {
-                    state: 'approved'
-                }
+                state: 'approved'
+            }
             );
         };
 
         this.declineProvider = function(organization_id, fund_id, id) {
             return ApiRequest.patch(
                 uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + id, {
-                    state: 'declined'
-                }
+                state: 'declined'
+            }
             );
         };
 
@@ -243,6 +243,10 @@ let FundService = function(
                     ].join(" ").trim(),
                 };
             });
+        };
+
+        this.redeem = function(code) {
+            return ApiRequest.post('/platform/funds/redeem', { code });
         };
     });
 };
