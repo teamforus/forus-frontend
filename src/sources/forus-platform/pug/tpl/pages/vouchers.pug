@@ -120,7 +120,7 @@
 
                             tr(ng-repeat="voucher in $ctrl.vouchers.data")
                                 td
-                                    strong(ng-bind="(voucher.identity_email | str_limit:25) || voucher.activation_code || 'Niet toegekend'").text-primary
+                                    strong(ng-bind="(voucher.identity_email | str_limit:25) || voucher.activation_code || 'Niet toegewezen'").text-primary
                                     span(ng-if="voucher.identity_bsn || voucher.relation_bsn").text-strong.text-md.text-muted-dark
                                         br
                                         | {{ 'BSN: ' + (voucher.identity_bsn || voucher.relation_bsn) }}

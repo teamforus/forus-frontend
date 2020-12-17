@@ -101,7 +101,7 @@ let SignUpComponent = function(
             let takenFundIds = vouchers.map(voucher => voucher.fund_id && !voucher.expired);
             let fundsNoVouchers = $ctrl.funds.filter(fund => takenFundIds.indexOf(fund.id) === -1);
             let fundsWithVouchers = $ctrl.funds.filter(fund => takenFundIds.indexOf(fund.id) !== -1);
- 
+
             if (appConfigs.flags.activateFirstFund && fundsNoVouchers.length > 1) {
                 $state.go('fund-activate', {
                     fund_id: fundsNoVouchers[0].id
