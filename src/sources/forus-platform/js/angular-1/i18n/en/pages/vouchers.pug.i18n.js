@@ -3,6 +3,8 @@ module.exports = {
         title: "Vouchers",
     },
     labels: {
+        state: "Status",
+        activation_code: "Code",
         amount: "Bedrag",
         created_date: "Aangemaakt op",
         expire_date: "Geldig tot",
