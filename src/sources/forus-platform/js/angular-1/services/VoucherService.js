@@ -49,6 +49,20 @@ module.exports = [
                 ].join(''), query);
             };
 
+            this.activate = (organization_id, voucher_id) => {
+                return ApiRequest.patch([
+                    '/platform/organizations/' + organization_id,
+                    '/sponsor/vouchers/' + voucher_id + '/activate',
+                ].join(''));
+            };
+
+            this.makeActivationCode = (organization_id, voucher_id) => {
+                return ApiRequest.patch([
+                    '/platform/organizations/' + organization_id,
+                    '/sponsor/vouchers/' + voucher_id + '/activation-code',
+                ].join(''));
+            };
+
             this.sendToEmail = (organization_id, voucher_id, email) => {
                 return ApiRequest.post([
                     '/platform/organizations/' + organization_id,
@@ -76,15 +90,15 @@ module.exports = [
             };
 
             this.sampleCSVBudgetVoucher = (expires_at = "2020-02-20") => {
-                let headers = ['amount', 'expires_at', 'note', 'email'];
-                let values = [10, expires_at, 'voorbeeld notitie', 'test@example.com'];
+                let headers = ['amount', 'expires_at', 'note', 'email', 'activate', 'make_activation_code'];
+                let values = [10, expires_at, 'voorbeeld notitie', 'test@example.com', 0, 0];
 
                 return Papa.unparse([headers, values]);
             };
 
             this.sampleCSVProuctVoucher = (product_id = null, expires_at = "2020-02-20") => {
-                let headers = ['product_id', 'expires_at', 'note', 'email'];
-                let values = [product_id, expires_at, 'voorbeeld notitie', 'test@example.com'];
+                let headers = ['product_id', 'expires_at', 'note', 'email', 'activate', 'make_activation_code'];
+                let values = [product_id, expires_at, 'voorbeeld notitie', 'test@example.com', 0, 0];
 
                 return Papa.unparse([headers, values]);
             };
