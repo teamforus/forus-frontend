@@ -3,7 +3,8 @@ module.exports = {
     labels: {
         fund: 'Fonds',
         amount: 'Bedrag',
-        assign_by_type: 'Toekennen door',
+        assign_by_type: 'Methode:',
+        assign_by_type_or_activate: 'Toewijzen of activeren:',
         note: 'Notitie',
         expire_at: 'Geldig tot',
     },
@@ -29,6 +30,7 @@ module.exports = {
     info: "Tegoed eenmaal aangemaakt kan niet verwijderd worden. Met een tegoed gemaakt via deze functie kan een gebruiker gebruik maken van een budget zonder account zolang niet toegekend.",
     buttons: {
         cancel: "Annuleren",
-        submit: "Aanmaken",
+        submit: "Bevestig",
+        activate: "Activeren",
     }
 };

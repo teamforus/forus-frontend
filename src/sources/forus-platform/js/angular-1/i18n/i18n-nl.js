@@ -499,7 +499,7 @@ module.exports = {
             website: "Website",
             business_type: "Organisatie type",
             optional: "Optioneel",
-            make_public: "Maak publiek",
+            make_public: "Toon openbaar op website",
             photo_description: 'De afbeelding dient vierkant te zijn met een afmeting van bijvoorbeeld 400x400px.<br/>Toegestaande  formaten: JPG, PNG',
             schedule: "Openingstijden",
             weekdays_same_hours: "Alle doordeweekse dagen hebben dezelfde tijden",
@@ -1216,8 +1216,8 @@ module.exports = {
         },
         buttons: {
             show: "Bekijk eigenschappen",
-            allaccept: "Alles valideren",
-            alldecline: "Alles weigeren",
+            allaccept: "Accepteren",
+            alldecline: "Weigeren",
             accept: "Valideren",
             decline: "Weigeren",
             export: "Exporteren",
@@ -1441,7 +1441,7 @@ module.exports = {
     // PRE VALIDATED TABLE = prevalidated_table.pug
     prevalidated_table: {
         header: {
-            title: "Gegenereerde activatiecodes",
+            title: "Gegevens van aanvragers",
         },
         labels: {
             code: "Code",
@@ -1450,6 +1450,7 @@ module.exports = {
             from: "Van",
             to: "Tot",
             filter: "Filter",
+            actions: "Opties",
         },
         status: {
             active: "Geactiveerd",
@@ -1697,12 +1698,12 @@ module.exports = {
             },
             validations: {
                 new_validation_request: {
-                    title: 'Nieuw validatieverzoek',
-                    description: 'Ontvang een notificatie wanneer er een nieuw validatieverzoek is gedaan.'
+                    title: 'Nieuw aanvraag',
+                    description: 'Ontvang een notificatie wanneer er een nieuwe aanvraag is gedaan.'
                 },
                 you_added_as_validator: {
-                    title: 'Toegevoegd als validator',
-                    description: 'Ontvang een notificatie wanneer u als validator aan een fonds bent toegevoegd.'
+                    title: 'Toegevoegd als beoordelaar',
+                    description: 'Ontvang een notificatie wanneer u als beoordelaar aan een fonds bent toegevoegd.'
                 }
             },
             vouchers: {

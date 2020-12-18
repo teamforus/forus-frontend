@@ -2,6 +2,20 @@
     width: 100%;
     margin: 0 0 30px;
 
+    .office-breadcrumbs {
+        background-color: #fff;
+        padding: 15px 0;
+        border-bottom: 1px solid #dbdcdb;
+        
+        .block-breadcrumbs {
+            margin: 0 0;
+
+            .breadcrumb-item {
+                font-size: 14px;
+            }
+        }
+    }
+
     .office-map {
         height: 420px;
         background: black;

@@ -47,8 +47,8 @@ let PrevalidationService = function(ApiRequest) {
             return ApiRequest.get(uriPrefix + '/prevalidations/' + code);
         };
 
-        this.redeem = function(code) {
-            return ApiRequest.post(uriPrefix + '/prevalidations/' + code + '/redeem');
+        this.destroy = function(code) {
+            return ApiRequest.delete(uriPrefix + '/prevalidations/' + code);
         };
 
         this.transformFilters = function(filters) {

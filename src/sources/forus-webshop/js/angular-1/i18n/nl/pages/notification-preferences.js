@@ -91,7 +91,7 @@ module.exports = {
         },
         voucher: {
             assigned: {
-                title: 'U nieuwe tegoed geactiveerd of toegekend.',
+                title: 'Nieuw tegoed geactiveerd of toegekend.',
                 description: 'Ontvang een push notificatie wanneer u een tegoed activeert of toegekend krijgt.'
             },
             transaction: {

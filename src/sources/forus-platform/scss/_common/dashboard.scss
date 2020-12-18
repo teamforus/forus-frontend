@@ -604,7 +604,7 @@ $colorPrimaryLight: $color_primary_light;
         width: 320px;
         min-height: 200px;
         float: left;
-        padding-right: 60px;
+        padding-right: 30px;
 
         .sidebar-nav {
             display: flex;
@@ -4280,6 +4280,19 @@ $colorPrimaryLight: $color_primary_light;
                 .chart-value_value_b {
                     color: #282b39;
                     font: 500 14px/22px $bf;
+                }
+            }
+                
+            &.chart-control-provider_overview {
+                padding: 5px 0;
+
+                .chart-label {
+                    margin-bottom: 0;
+                }
+
+                .chart-value {
+                    padding: 25px 0 25px;
+                    min-height: auto;
                 }
             }
         }

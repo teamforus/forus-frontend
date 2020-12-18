@@ -2,6 +2,20 @@
     width: 100%;
     margin: 0 0 30px;
 
+    .provider-breadcrumbs {
+        background-color: #fff;
+        padding: 15px 0;
+        border-bottom: 1px solid #dbdcdb;
+        
+        .block-breadcrumbs {
+            margin: 0 0;
+
+            .breadcrumb-item {
+                font-size: 14px;
+            }
+        }
+    }
+
     .provider-map {
         height: 420px;
         background: black;

@@ -236,6 +236,70 @@ let ModalVouchersUploadComponent = function(
             };
         };
 
+        $ctrl.confirmEmailSkip = (existingEmails, onConfirm) => {
+            let items = existingEmails.map(email => ({ value: email }));
+
+            if (items.length === 0) {
+                return onConfirm();
+            }
+
+            ModalService.open('duplicatesPicker', {
+                hero_title: "Dubbele e-mailadressen gedetecteerd.",
+                hero_subtitle: [
+                    `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra voucher wilt aanmaken?`,
+                    "Deze e-mailadressen bezitten al een voucher van dit fonds."
+                ],
+                button_none: "Alle vouchers overslaan",
+                button_all: "Alle vouchers aanmaken",
+                label_on: "Aanmaken voucher",
+                label_off: "Overslaan",
+                items: items,
+                onConfirm: (items) => {
+                    let allowedEmails = items.filter(item => item.model).map(item => item.value);
+
+                    $ctrl.csvParser.data = $ctrl.csvParser.data.filter(csvRow => {
+                        return existingEmails.indexOf(csvRow.email) === -1 ||
+                            allowedEmails.indexOf(csvRow.email) !== -1;
+                    });
+
+                    onConfirm();
+                },
+                onCancel: () => $ctrl.close(),
+            });
+        };
+
+        $ctrl.confirmBsnSkip = (existingBsn, onConfirm) => {
+            let items = existingBsn.map(bsn => ({ value: bsn }));
+
+            if (items.length === 0) {
+                return onConfirm();
+            }
+
+            ModalService.open('duplicatesPicker', {
+                hero_title: "Dubbele bsn gedetecteerd.",
+                hero_subtitle: [
+                    `Weet u zeker dat u voor ${items.length} bsn een extra voucher wilt aanmaken?`,
+                    "Deze bsn bezitten al een voucher van dit fonds."
+                ],
+                button_none: "Alle vouchers overslaan",
+                button_all: "Alle vouchers aanmaken",
+                label_on: "Aanmaken voucher",
+                label_off: "Overslaan",
+                items: items,
+                onConfirm: (items) => {
+                    let allowedBsn = items.filter(item => item.model).map(item => item.value);
+
+                    $ctrl.csvParser.data = $ctrl.csvParser.data.filter(csvRow => {
+                        return allowedBsn.indexOf(csvRow.bsn) === -1 ||
+                            allowedBsn.indexOf(csvRow.bsn) !== -1;
+                    });
+
+                    onConfirm();
+                },
+                onCancel: () => $ctrl.close(),
+            });
+        };
+
         $ctrl.csvParser.uploadToServer = function(e) {
             e && (e.preventDefault() & e.stopPropagation());
 
@@ -267,47 +331,34 @@ let ModalVouchersUploadComponent = function(
                 );
 
                 let emails = data.map(voucher => voucher.identity_email);
+                let bsns = [
+                    ...data.map(voucher => voucher.relation_bsn),
+                    ...data.map(voucher => voucher.identity_bsn)
+                ];
+
                 let existingEmails = $ctrl.csvParser.data.filter(csvRow => {
                     return emails.indexOf(csvRow.email) != -1;
                 }).map(csvRow => csvRow.email);
 
+                let existingBsn = $ctrl.csvParser.data.filter(csvRow => {
+                    return bsns.indexOf(csvRow.bsn) != -1;
+                }).map(csvRow => csvRow.bsn);
+
                 $ctrl.loading = false;
 
-                if (existingEmails.length === 0) {
-                    $ctrl.startUploading();
-                } else {
-                    let items = existingEmails.map(email => ({
-                        value: email,
-                    }));
-
-                    ModalService.open('duplicatesPicker', {
-                        hero_title: "Dubbele e-mailadressen gedetecteerd.",
-                        hero_subtitle: [
-                            `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra voucher wilt aanmaken?`,
-                            "Deze e-mailadressen bezitten al een voucher van dit fonds."
-                        ],
-                        button_none: "Alle vouchers overslaan",
-                        button_all: "Alle vouchers aanmaken",
-                        label_on: "Aanmaken voucher",
-                        label_off: "Overslaan",
-                        items: items,
-                        onConfirm: (items) => {
-                            let allowedEmails = items.filter(item => item.model).map(item => item.value);
-
-                            $ctrl.csvParser.data = $ctrl.csvParser.data.filter(csvRow => {
-                                return existingEmails.indexOf(csvRow.email) === -1 ||
-                                    allowedEmails.indexOf(csvRow.email) !== -1;
-                            });
-
-                            if ($ctrl.csvParser.data.length > 0) {
-                                $ctrl.startUploading();
-                            } else {
-                                $ctrl.close();
-                            }
-                        },
-                        onCancel: () => $ctrl.close(),
-                    });
+                if (existingEmails.length === 0 && existingBsn.length === 0) {
+                    return $ctrl.startUploading();
                 }
+
+                $ctrl.confirmEmailSkip(existingEmails, () => {
+                    $ctrl.confirmBsnSkip(existingBsn, () => {
+                        if ($ctrl.csvParser.data.length > 0) {
+                            return $ctrl.startUploading();
+                        }
+
+                        $ctrl.close();
+                    });
+                });
             }, () => $ctrl.loading = false);
         }
 
