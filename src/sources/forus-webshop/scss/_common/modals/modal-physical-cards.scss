@@ -31,6 +31,12 @@
             margin-bottom: 25px;
             color: #646f79;
 
+            .physical-card-order {
+                display: inline-block;
+                text-decoration: underline;
+                margin-left: 5px;
+            }
+
             & > .label {
                 font: inherit;
                 padding-left: 5px;

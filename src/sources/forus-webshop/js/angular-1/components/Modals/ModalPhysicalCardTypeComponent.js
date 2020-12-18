@@ -1,6 +1,7 @@
 let ModalPhysicalCardTypeComponent = function(
     $element,
     $timeout,
+    $q,
     FormBuilderService,
     PhysicalCardsService,
     PhysicalCardsRequestService,
@@ -19,6 +20,12 @@ let ModalPhysicalCardTypeComponent = function(
         $ctrl.state = $ctrl.modal.scope.state || 'select_type';
         $ctrl.preffersPlasticCard = $ctrl.modal.scope.preffersPlasticCard || false;
         $ctrl.physicalCardType = 'old';
+
+        if ($ctrl.state == 'card_code') {
+            $ctrl.getPhysicalCardRequests().then(res => {
+                $ctrl.hasPhysicalCardRequests = res && res.length ? true : false;
+            });
+        };
         
         $ctrl.sendVoucherEmail = () => {
             $ctrl.close();
@@ -88,12 +95,34 @@ let ModalPhysicalCardTypeComponent = function(
         }
     };
 
-    $ctrl.prefferPlasticCard = () => {
-        PhysicalCardsRequestService.index($ctrl.modal.scope.voucher.address).then(res => {
-            $ctrl.requestPhysicalCardForm.values = res.data.data[0] || {};
-            $ctrl.preffersPlasticCard = true;
+    $ctrl.getPhysicalCardRequests = () => {
+        return $q((resolve, reject) => {
+            PhysicalCardsRequestService.index($ctrl.modal.scope.voucher.address).then(res => {
+                resolve($ctrl.physicalCardRequests = res.data.data);
+            });
+        });
+    };
 
-            $timeout(() => $element.find('#physical_card_address').focus(), 250);
+    $ctrl.requestPhysicalCard = () => {
+        $ctrl.state = 'select_type';
+        $ctrl.prefferPlasticCard();
+    };
+
+    $ctrl.fillRequestPhysicalCardForm = (requests) => {
+        $ctrl.requestPhysicalCardForm.values = requests[0] || {};
+        $ctrl.preffersPlasticCard = true;
+
+        $timeout(() => $element.find('#physical_card_address').focus(), 250);
+    };
+
+    $ctrl.prefferPlasticCard = () => {
+        if ($ctrl.physicalCardRequests) {
+            $ctrl.fillRequestPhysicalCardForm($ctrl.physicalCardRequests);
+            return;
+        }
+
+        PhysicalCardsRequestService.index($ctrl.modal.scope.voucher.address).then(res => {
+            $ctrl.fillRequestPhysicalCardForm(res.data.data);
         });
     };
 
@@ -115,6 +144,7 @@ module.exports = {
     controller: [
         '$element',
         '$timeout',
+        '$q',
         'FormBuilderService',
         'PhysicalCardsService',
         'PhysicalCardsRequestService',
