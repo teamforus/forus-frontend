@@ -6,4 +6,4 @@
 
             .product-price
                 .product-price-new(ng-bind="productCard.price | currency_format")
-                .product-price-old(ng-bind="productCard.old_price | currency_format")
+                .product-price-old(ng-if="productCard.old_price" ng-bind="productCard.old_price | currency_format")
