@@ -59,7 +59,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: "hall-of-fame",
         url: "/hall-of-fame",
         component: "hallOfFameComponent"
-    });  
+    });
 
     $stateProvider.state({
         name: "me",
@@ -95,6 +95,18 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: "login",
         url: "/login",
         component: "loginComponent"
+    });
+
+    $stateProvider.state({
+        name: "dl",
+        url: "/DL",
+        component: "dlMeAppComponent"
+    });
+
+    $stateProvider.state({
+        name: "dl_lc",
+        url: "/dl",
+        controller: ['$state', ($state) => $state.go('dl')]
     });
 
     $stateProvider.state({

@@ -129,6 +129,10 @@ let BaseController = function(
         } else {
             $rootScope.viewLayout = 'landing';
         }
+
+        if ($state.current.name == 'dl') {
+            $scope.$ctrl.showFooter = $scope.$ctrl.showHeader = false;
+        }
     });
     $translate.use('nl');
     $rootScope.appConfigs = appConfigs;

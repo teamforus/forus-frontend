@@ -15,6 +15,7 @@ app.component('contactComponent', require('./components/website/ContactComponent
 app.component('currentComponent', require('./components/website/CurrentComponent'));
 app.component('loginComponent', require('./components/website/LoginComponent'));
 app.component('signUpComponent', require('./components/website/SignUpComponent'));
+app.component('dlMeAppComponent', require('./components/landing/DlMeAppComponent'));
 
 // Services
 app.service('CredentialsService', require('./services/CredentialsService'));
