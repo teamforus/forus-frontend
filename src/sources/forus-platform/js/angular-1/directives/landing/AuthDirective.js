@@ -30,7 +30,7 @@ let AuthDirective = function(
             });
         }, (res) => {
             form.unlock();
-            form.errors = res.data.errors;
+            form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
         });
     });
 
@@ -88,7 +88,7 @@ let AuthDirective = function(
         $scope.form.submit();
     }
 
-    $scope.$onInit = () => {};
+    $scope.$onInit = () => { };
 };
 
 module.exports = () => {
@@ -112,6 +112,6 @@ module.exports = () => {
             'ModalService',
             AuthDirective
         ],
-        templateUrl: 'assets/tpl/directives/landing/auth.html' 
+        templateUrl: 'assets/tpl/directives/landing/auth.html'
     };
 };
