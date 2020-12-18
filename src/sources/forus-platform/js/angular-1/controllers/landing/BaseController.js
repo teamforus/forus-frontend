@@ -43,7 +43,9 @@ let BaseController = function(
     };
 
     $scope.$ctrl = {
-        userMenuOpened: false
+        userMenuOpened: false,
+        showFooter: true,
+        showHeader: true
     };
 
     $scope.$ctrl.openUserMenu = (e) => {
@@ -126,6 +128,10 @@ let BaseController = function(
             $rootScope.viewLayout = 'signup';
         } else {
             $rootScope.viewLayout = 'landing';
+        }
+
+        if ($state.current.name == 'dl') {
+            $scope.$ctrl.showFooter = $scope.$ctrl.showHeader = false;
         }
     });
     $translate.use('nl');

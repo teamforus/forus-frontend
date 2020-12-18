@@ -2,8 +2,15 @@ doctype
 html(lang="en")
     include ../tpl/directives/website/head
     body(ng-cloak ng-controller="BaseController" modal-scroll-braker)
-        include ../tpl/directives/website/navbar
+        mixin include_header(include=true)
+            div(ng-if=`${include}`)
+                include ../tpl/directives/website/navbar
+        mixin include_footer(include=true)
+            div(ng-if=`${include}`)
+                include ../tpl/directives/website/footer
+
+        +include_header('$ctrl.showHeader')
         ui-view
-        include ../tpl/directives/website/footer
+        +include_footer('$ctrl.showFooter')
         include ../layout/includes/modalContact
         include ../layout/includes/website/scripts
