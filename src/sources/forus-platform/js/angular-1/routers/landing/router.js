@@ -88,19 +88,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: "sign-up",
         url: "/sign-up",
-        component: "registerComponent"
+        component: "signUpComponent"
     });
 
     $stateProvider.state({
         name: "login",
         url: "/login",
         component: "loginComponent"
-    });
-
-    $stateProvider.state({
-        name: "register",
-        url: "/register",
-        component: "registerComponent"
     });
 
     $stateProvider.state({

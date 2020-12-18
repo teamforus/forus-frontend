@@ -2,27 +2,20 @@
     .block-sign-up-header
         .block-sign-up-title Inschrijven
     .block-sign-up-options
-        .block-sign-up-option(
-            ng-click="$ctrl.selectType('provider')"
-            ng-class="{'active': $ctrl.selectedType == 'provider'}")
-
-            .block-sign-up-option-img
+        .block-sign-up-option: a(href="{{ $ctrl.appConfigs.frontends.url_provider + 'sign-up' }}").block-sign-up-option-inner
+            .block-sign-up-option-img: div
                 img.img-default(src="./assets/img/website/provider.svg")
                 img.img-hover(src="./assets/img/website/provider-hover.svg")
             .block-sign-up-option-description Als aanbieder
-        .block-sign-up-option(
-            ng-click="$ctrl.selectType('validator')"
-            ng-class="{'active': $ctrl.selectedType == 'validator'}")
 
-            .block-sign-up-option-img
+        .block-sign-up-option: a(href="{{ $ctrl.appConfigs.frontends.url_validator + 'sign-up'  }}").block-sign-up-option-inner
+            .block-sign-up-option-img: div
                 img.img-default(src="./assets/img/website/validator.svg")
                 img.img-hover(src="./assets/img/website/validator-hover.svg")
             .block-sign-up-option-description Als beoordelaar
-        .block-sign-up-option(
-            ng-click="$ctrl.selectType('sponsor')"
-            ng-class="{'active': $ctrl.selectedType == 'sponsor'}")
 
-            .block-sign-up-option-img
+        .block-sign-up-option: a(href="{{ $ctrl.appConfigs.frontends.url_sponsor + 'sign-up'  }}").block-sign-up-option-inner
+            .block-sign-up-option-img: div
                 img.img-default(src="./assets/img/website/sponsor.svg")
                 img.img-hover(src="./assets/img/website/sponsor-hover.svg")
             .block-sign-up-option-description Als sponsor

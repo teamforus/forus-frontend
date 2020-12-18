@@ -7,18 +7,17 @@
 'includes/shame',
 'includes/useless'; 
 
-@import 'layout/footer.scss',
-'layout/_header.scss',
-'layout/grid.scss',
-'layout/navigation.scss';
+@import 'layout/footer.scss';
+@import 'layout/_header.scss';
+@import 'layout/grid.scss';
+@import 'layout/navigation.scss';
 
-@import 'sections/contact_form.scss', 
-'sections/benefits.scss',
-'sections/usp.scss',
-'sections/how_do_we_work.scss',
-'sections/video_player.scss',
-'sections/sign-up.scss';
-
+@import 'sections/contact_form.scss';
+@import 'sections/benefits.scss';
+@import 'sections/usp.scss';
+@import 'sections/how_do_we_work.scss';
+@import 'sections/video_player.scss';
+@import 'sections/sign-up.scss';
 
 @import 'components/buttons.scss';
 @import 'components/tabs.scss';

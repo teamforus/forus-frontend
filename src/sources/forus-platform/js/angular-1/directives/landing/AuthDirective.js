@@ -88,10 +88,6 @@ let AuthDirective = function(
         $scope.form.submit();
     }
 
-    $scope.register = () => {
-        $state.go('sign-up');
-    }
-
     $scope.$onInit = () => {};
 };
 
