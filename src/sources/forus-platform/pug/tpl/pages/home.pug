@@ -1,8 +1,2 @@
-.wrapper(style="padding: 150px 0;")
-    .text-center
-        button(
-            ng-if="!$root.auth_user" 
-            ng-click="$ctrl.openAuthPopup()" translate="home.buttons.login").button.button-primary
-        button(
-            ng-if="$root.auth_user" 
-            ui-sref="csv-validation" translate="home.buttons.login").button.button-primary
+landing-auth
+modals-root
