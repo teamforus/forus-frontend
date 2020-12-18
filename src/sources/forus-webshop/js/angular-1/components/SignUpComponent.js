@@ -27,7 +27,7 @@ let SignUpComponent = function(
         }, function(form) {
             let resolveErrors = (res) => {
                 form.unlock();
-                form.errors = res.data.errors;
+                form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
             };
 
             IdentityService.validateEmail(form.values).then(res => {

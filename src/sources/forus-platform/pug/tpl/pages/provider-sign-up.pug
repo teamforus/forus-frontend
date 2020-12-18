@@ -18,7 +18,7 @@
 
     .block.block-sign_up: .block-wrapper        
         .sign_up-header
-            .sign_up-header-item.flex-grow: a.sign_up-header-item-back(ng-if="$ctrl.showBackBtn" ng-click="$ctrl.goToMain()")
+            .sign_up-header-item.flex-grow: a(ui-sref="home").sign_up-header-item-back
                 em.mdi.mdi-chevron-left
                 | Verlaat het formulier
 
