@@ -118,11 +118,6 @@ let ProductsEditComponent = function(
 
             let values = JSON.parse(JSON.stringify(form.values));
 
-            //- todo: remove old price from backend
-            if (values.price) {
-                values.old_price = values.price;
-            }
-
             if (!values.no_price) {
                 delete values.no_price_type;
                 delete values.no_price_discount;

@@ -92,7 +92,18 @@
 
                         .form-error(ng-repeat="error in $ctrl.form.errors.no_price_type" ng-bind="error")
                         .form-error(ng-repeat="error in $ctrl.form.errors.no_price_discount" ng-bind="error")
-                    
+
+                    //- Until decided to remove or transform old_price
+                    //- .form-group.form-group-inline
+                        label.form-label(translate="product_edit.labels.old")
+                        input(
+                            ng-model="$ctrl.form.values.old_price" 
+                            type="number" 
+                            placeholder="Oude prijs" 
+                            step="0.01"
+                            ng-disabled="$ctrl.form.values.no_price").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.old_price" ng-bind="error")
+
                     .form-group.form-group-inline(ng-if="$ctrl.product")
                         label.form-label(translate="product_edit.labels.sold")
                         input(ng-model="$ctrl.form.values.sold_amount" type="number" placeholder="Verkocht" disabled).form-control
