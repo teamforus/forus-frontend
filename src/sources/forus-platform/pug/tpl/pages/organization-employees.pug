@@ -2,12 +2,11 @@
     menu
     section.app.app-content
         .card
-            .card-header
-                .card-heading 
-                    translate(ng-bind="'Medewerkers (' + $ctrl.employees.meta.total + ')'")
-                    a(ng-click="$ctrl.createEmployee()" id="add_employee").link
-                        em.mdi.mdi-plus-circle
-                        translate(translate="organization_employees.buttons.add")
+            .card-header: .row
+                .col.col-xs-4: .card-title(ng-bind="'Medewerkers (' + $ctrl.employees.meta.total + ')'")
+                .col.col-xs-8: .pull-right: a(ng-click="$ctrl.createEmployee()" id="add_employee").button.button-primary.button-sm
+                    em.mdi.mdi-plus-circle.icon-start
+                    translate(translate="organization_employees.buttons.add")
 
             .card-section(ng-if="$ctrl.employees.data.length > 0"): .card-block.card-block-table: .table-wrapper: table.table
                 tr
