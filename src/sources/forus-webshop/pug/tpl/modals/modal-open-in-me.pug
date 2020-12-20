@@ -22,13 +22,14 @@
                     .download-icon: img(src="./assets/img/icon-app/icon-app-android.svg")
                 .download-button: a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" id="ios_button")
                     .download-icon: img(src="./assets/img/icon-app/icon-app-ios.svg")
+
     .modal-content(ng-if="$ctrl.sentSms"): .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
 
         .modal-title(translate="open_in_me.app_instruction.title")
         .modal-subtitle.hide-sm
             span(translate="open_in_me.app_instruction.description")
-            a(ui-sref="me-app" target="_blank"): u Me-app
+            a(ui-sref="me-app" target="_blank" class="text-primary"): u Me-app
 
         .app-instruction
             .step-item
