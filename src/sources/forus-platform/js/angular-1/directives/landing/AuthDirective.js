@@ -13,26 +13,18 @@ let AuthDirective = function(
     let timeout;
 
     $scope.qrValue = null;
+    $scope.emailSent = false;
 
     $scope.form = FormBuilderService.build({
         email: "",
     }, function(form) {
-        form.lock();
-        IdentityService.makeAuthEmailToken(form.values.email).then((res) => {
-            ModalService.open('modalNotification', {
-                type: 'action-result',
-                class: 'modal-description-pad modal-content',
-                email: form.values.email,
-                icon: 'icon-sign_up-success',
-                title: 'popup_auth.labels.mail_sent',
-                description: 'popup_auth.notifications.link',
-                confirmBtnText: 'popup_auth.buttons.confirm',
+        IdentityService.makeAuthEmailToken(form.values.email).then(
+            () => $scope.emailSent = true,
+            (res) => {
+                form.unlock();
+                form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
             });
-        }, (res) => {
-            form.unlock();
-            form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
-        });
-    });
+    }, true);
 
     $scope.checkAccessTokenStatus = (type, access_token) => {
         IdentityService.checkAccessToken(access_token).then((res) => {

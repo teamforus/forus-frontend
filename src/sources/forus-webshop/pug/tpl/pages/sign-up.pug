@@ -103,8 +103,8 @@ header.section.section-sign-up-choose
                     .sign_up-email_sent
                         .sign_up-email_sent-icon
                             img(src=src_prefix + "./assets/img/sign_up-email.svg").sign_up-email_sent-icon-img
-                        .sign_up-email_sent-title(i18n="popup_auth.labels.join")
-                        .sign_up-email_sent-text(i18n="popup_auth.notifications.link")
+                        .sign_up-email_sent-title(translate="popup_auth.labels.join")
+                        .sign_up-email_sent-text(translate="popup_auth.notifications.link" translate-values="{{ $ctrl.authForm.values }}")
             
             //- For existing users
             .sign_up-pane(ng-if="$ctrl.authEmailSent")
