@@ -5425,6 +5425,7 @@ $colorPrimaryLight: $color_primary_light;
         @include fill_parent();
         position: fixed;
         padding-bottom: 60px;
+        cursor: default;
 
         .block-login-window {
             display: block;
@@ -5545,6 +5546,37 @@ $colorPrimaryLight: $color_primary_light;
                         }
                     }
                 }
+            }
+
+            .block-login-email_sent {
+                text-align: center;
+
+                .block-login-email_sent-icon {
+                    margin: 0 auto 10px;
+
+                    .block-login-email_sent-icon-img {
+                        display: block;
+                        width: 300px;
+                        max-width: 100%;
+                        margin: auto;
+                    }
+                }
+
+                .block-login-email_sent-title {
+                    font: 500 28px/38px $bf;
+                    color: $color_primary;
+                    margin: 0 0 20px;
+                }
+
+                .block-login-email_sent-text {
+                    font: 500 18px/27px $bf;
+                    color: #454545;
+                    margin: 0 0 20px;
+                }
+            }
+
+            &:last-child {
+                border-bottom: none;
             }
         }
     

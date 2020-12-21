@@ -1527,7 +1527,7 @@ module.exports = {
         },
         notifications: {
             confirmation: "Het is gelukt!",
-            link: "Er is een e-mail verstuurd naar <b>{{email}}</b>. Klik op de link om u aan te melden.",
+            link: "Er is een e-mail verstuurd naar <strong class=\"text-primary\">{{email}}</strong>.<br/>Klik op de link om u aan te melden.",
             link_website: "Er is een e-mail naar uw inbox gestuurd. In de e-mail vindt u een link waarmee u kunt inloggen op deze website.",
             invalid: "De activatiecode is ongeldig of al gebruikt",
             voucher_email: "Het is gelukt, de e-mail is verstuurd",
