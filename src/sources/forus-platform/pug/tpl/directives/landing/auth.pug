@@ -1,7 +1,8 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
 .block.block-login: .block-login-window
-    .block-login-content
+    //- Auth form
+    .block-login-content(ng-if="!emailSent")
         .block-login-title Login met e-mail
         .block-login-description Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen
         
@@ -39,7 +40,15 @@
                     ng-if="qrValue" 
                     qr-value="qrValue" 
                     qr-type="auth_token" qr-logo=src_prefix + "./assets/img/me-logo.png")
-                
-    .block-login-footer
+
+    //- Footer
+    .block-login-footer(ng-if="!emailSent")
         .block-login-footer-title Nog geen account?
         a(ui-sref="sign-up").block-login-footer-button Inschrijven
+    
+    //- Email sent message
+    .block-login-content(ng-if="emailSent")
+        .block-login-email_sent
+            .block-login-email_sent-icon: img(src=src_prefix + "./assets/img/sign_up-email.svg").sign_up-email_sent-icon-img
+            .block-login-email_sent-title(translate="popup_auth.labels.join")
+            .block-login-email_sent-text(translate="popup_auth.notifications.link" translate-values="{{ form.values }}")
