@@ -17,8 +17,7 @@ let ModalPhysicalCardTypeComponent = function(
         $ctrl.voucher = $ctrl.modal.scope.voucher;
         $ctrl.onAttached = $ctrl.modal.scope.onAttached;
         $ctrl.state = $ctrl.modal.scope.state || 'select_type';
-        $ctrl.preffersPlasticCard = $ctrl.modal.scope.preffersPlasticCard || false;
-        $ctrl.physicalCardType = 'old';
+        $ctrl.preffersPlasticCard = true;
         
         $ctrl.sendVoucherEmail = () => {
             $ctrl.close();
@@ -84,7 +83,7 @@ let ModalPhysicalCardTypeComponent = function(
         if (type == 'old') {
             $ctrl.state = 'card_code';
         } else {
-            $ctrl.state = 'digital_pass';
+            $ctrl.preffersPlasticCard = true;
         }
     };
 

@@ -37,27 +37,29 @@
                     margin-right: 25px;
                     text-align: center;
                     display: flex;
-                    color: #595959;
-                    text-decoration: underline;
-                    text-decoration-color: #595959;
+                    color: $bc;
 
                     align-items: center;
                     flex-grow: 1;
 
+                    flex-direction: column;
+
                     .action-item-icon {
                         width: 40px;
                         height: 40px;
-                        border-radius: 40px;
                         line-height: 40px;
                         text-align: center;
-                        color: #595959; 
-                        font-size: 20px;
+                        border: 1px solid $color_primary;
                         background: transparent;
-                        border: none;
+
+                        text-transform: $tf;
+                        color: $color_primary; 
+
+                        font-size: 20px;
                         transition: .4s;
                         cursor: pointer;
-                        margin-bottom: 0;
                         position: relative;
+                        margin-bottom: 5px;
 
                         .action-item-tooltip {
                             opacity: 0;
@@ -68,7 +70,7 @@
                             border: 1px solid #dbdcdb;
                             padding: 4px 10px;
                             font: 600 13px/20px $bf;
-                            color: #646f79;
+                            color: $bc;
                             border-radius: 5px;
                             white-space: nowrap;
                             top: 100%;
@@ -92,7 +94,7 @@
                     }
 
                     .action-item-name {
-                        color: #595959;
+                        color: #000;
                         font: 600 12px $bf;
                         transition: color .4s;
                         margin: 0 3px;
@@ -104,10 +106,9 @@
 
                     &:hover {
                         .action-item-icon {
-                            border-color: $bc;
-                            background: $bc;
-                            color: #fff;
-                            box-shadow: 2px 5px 35px rgba(0, 0, 0, .25);
+                            background-color: $color_primary !important;
+                            border: $color_default_light;
+                            color: #FFF;
                             
                             .action-item-tooltip {
                                 opacity: 1;
@@ -117,8 +118,8 @@
                         }
 
                         .action-item-name {
-                            color:  $bc;
-                            text-decoration: $bc underline;
+                            color: $color_primary;
+                            text-decoration: $color_primary underline;
                         }
                     }
                 }
@@ -185,7 +186,7 @@
 
             .card-qr_code {
                 width: 200px;
-                padding: 25px 20px;
+                padding: 15px 15px;
                 background: #efefef;
                 text-align: center;
 
@@ -201,7 +202,7 @@
 
                 .card-qr_code-desc {
                     color: #272525;
-                    font: 500 14px $bf;
+                    font: 500 12px $bf;
                     margin: 0 -10px 10px -10px;
                 }
             }
@@ -232,6 +233,13 @@
                     font: 700 16px $bf;
                     margin: 0 0 5px;
                 }
+                
+                .card-subtitle {
+                    color: #272525;
+                    font: 500 14px $bf;
+                    margin: 0 0 5px;
+                }
+
 
                 .card-description {
                     font: 400 13px/18px $bf;
@@ -276,13 +284,13 @@
 
             .card-footer {
                 width: 100%;
+                height: 100%;
                 background: #fcfcfc;
                 padding: 20px 25px;
                 border-top: 1px solid $border_color;
                 position: relative;
                 display: flex;
                 flex-direction: column;
-                min-height: 130px;
             }
 
             &.base-card-sponsor {
@@ -295,11 +303,11 @@
 
                 .block-qr-code {
                     width: 100%;
-                    padding-bottom: 20px;
+                    padding-bottom: 10px;
             
                     .qr_code {
-                        width: 150px;
-                        height: 150px;
+                        width: 100px;
+                        height: 100px;
                         padding: 0px;
                         background: unset;
                         margin: auto;
@@ -344,7 +352,11 @@
             margin-bottom: 0;
         }
     }
-
+    &.block-info-card {
+        .block-header .card-read_more {
+            float: right;
+        }
+    }
     @media screen and (max-width: 1700px) {
         &.block-voucher {
             .base-card {
@@ -605,16 +617,27 @@
                                 padding: 5px 0;
                                 text-align: center;
                                 display: flex;
-                                justify-content: center;
-
+                                justify-content: flex-start;
+                                flex-direction: unset;
+                                width: 100%;
+                                
                                 .action-item-icon {
+                                    background-color: unset;
                                     width: 30px;
                                     height: 30px;
                                     line-height: 30px;
+                                    border-radius: 40px;
+                                    margin-right: 10px;
                                 }
 
                                 &:last-child {
                                     margin-bottom: 0;
+                                }
+                                &:hover {
+                                    .action-item-icon {
+                                        color: #FFF;
+                                        background-color: #000;
+                                    }
                                 }
                             }
                         }
@@ -638,6 +661,19 @@
                         flex-direction: column-reverse;
                     }
                 }
+            }
+        }
+        &.block-map_card {
+            .map_card-header .map_card-title {
+                font-size: 14px;
+            }
+        }
+        &.block-info-card {
+            .block-header {
+                font-size: 14px;
+            }
+            .card-read_more {
+                font-size: 12px;
             }
         }
     }
