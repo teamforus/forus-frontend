@@ -1,6 +1,9 @@
 .app.app-container
     menu
     section.app.app-content
+        .block.block-breadcrumbs
+            .breadcrumb-item(ui-sref="transactions({organization_id:$root.activeOrganization.id})" translate="page_state_titles.transactions")
+            .breadcrumb-item.active(translate="page_state_titles.transaction")
         .card
             .card-section
                 p
