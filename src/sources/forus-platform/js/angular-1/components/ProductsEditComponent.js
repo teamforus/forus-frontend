@@ -124,7 +124,6 @@ let ProductsEditComponent = function(
             } else if (values.no_price_type == 'free') {
                 values.no_price_discount = null;
             }
-
             if ($ctrl.product) {
                 values.total_amount = values.sold_amount + values.stock_amount;
 

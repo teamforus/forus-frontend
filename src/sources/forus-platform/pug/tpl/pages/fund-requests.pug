@@ -102,6 +102,11 @@
                                     span(ng-if="critera.operator == '='") 
                                     span(ng-if="critera.operator == '<'") minder dan 
                                     | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }}.
+                
+                .card-block.card-block-listing(ng-if="validatorRequest.note")
+                    .card-block-listing-label Reden van weigeren
+                    .card-block-listing-value
+                        span(ng-bind="validatorRequest.note")
             
             .card-header(ng-hide='validatorRequest.collapsed')
                 .arrow-box.border.bg-dim: .arrow
@@ -121,12 +126,12 @@
                         button.button.button-primary-light(ng-click='$ctrl.requestResign(validatorRequest)')
                             em.mdi.mdi-account-minus.icon-start
                             | Meld af
-                        button.button.button-default(ng-click='$ctrl.requestApprove(validatorRequest)')
-                            em.mdi.mdi-check-circle.icon-start
-                            | {{ "validation_requests.buttons.allaccept" | translate }}
-                        button.button.button-primary(ng-click='$ctrl.requestDecline(validatorRequest)')
+                        button.button.button-default(ng-click='$ctrl.requestDecline(validatorRequest)')
                             em.mdi.mdi-close.icon-start
                             | {{ "validation_requests.buttons.alldecline" | translate }}
+                        button.button.button-primary(ng-click='$ctrl.requestApprove(validatorRequest)')
+                            em.mdi.mdi-check-circle.icon-start
+                            | {{ "validation_requests.buttons.allaccept" | translate }}
         
             .card-section(ng-hide='validatorRequest.collapsed'): .card-block.card-block-table: .table-wrapper: table.table
                 thead: tr
@@ -163,11 +168,11 @@
                         
                         td.text-right(ng-if="record.state == 'pending' && record.is_assigned")
                             .button-group.flex-end
-                                .button.button-primary.button-icon(ng-click='$ctrl.declineRecord(validatorRequest, record)')
+                                .button.button-primary.button-icon(ng-click='$ctrl.declineRecord(validatorRequest, record)' ng-if='$root.appConfigs.flags.singleRecordValidation')
                                     em.mdi.mdi-close
                                 .button.button-primary-light.button-icon(ng-click='$ctrl.clarifyRecord(validatorRequest, record)')
                                     em.mdi.mdi-message-text
-                                .button.button-default.button-icon(ng-click='$ctrl.approveRecord(validatorRequest, record)')
+                                .button.button-default.button-icon(ng-click='$ctrl.approveRecord(validatorRequest, record)' ng-if='$root.appConfigs.flags.singleRecordValidation')
                                     em.mdi.mdi-check
                     
                     tr.dim(ng-if='(record.shown) && ((record.files.length > 0) || (record.clarifications.length > 0))'): td(colspan='6')

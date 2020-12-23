@@ -22,7 +22,7 @@ let ModalAuthComponent = function(
     $ctrl.restoreWithDigId = false;
 
     if (AuthService.hasCredentials()) {
-        IdentityService.identity().then(() => {}, $ctrl.close);
+        IdentityService.identity().then(() => { }, $ctrl.close);
     }
 
     $ctrl.showQrForm = function() {
@@ -74,7 +74,7 @@ let ModalAuthComponent = function(
 
                 authTarget = authTarget.join('-');
             }
-            
+
             IdentityService.makeAuthEmailToken(form.values.email, authTarget).then(() => {
                 $ctrl.screen = 'sign_in-email-sent';
                 $ctrl.close();
@@ -91,9 +91,7 @@ let ModalAuthComponent = function(
 
             }, (res) => {
                 form.unlock();
-                form.errors = res.data.errors ? res.data.errors : {
-                    email: [res.data.message]
-                };
+                form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
             });
         }, true);
     };

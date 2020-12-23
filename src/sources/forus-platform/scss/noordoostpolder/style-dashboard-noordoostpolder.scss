@@ -8,7 +8,7 @@
     flex-direction: column;
     height: 100%;
     margin: 0 auto;
-    @import './landing';
+    @import '../_common/landing';
 
     .section {
         background-color: #fff;

@@ -132,7 +132,9 @@ let FundsComponent = function(
 
     $ctrl.updateFundsMeta = () => {
         $ctrl.funds.data = $ctrl.funds.data.map(function(fund) {
-            fund.vouchers = $ctrl.vouchers.filter(voucher => voucher.fund_id == fund.id);
+            fund.vouchers = $ctrl.vouchers.filter(
+                voucher => voucher.fund_id == fund.id && !voucher.expired
+            );
             fund.isApplicable = fund.criteria.filter(criterion => !criterion.is_valid).length == 0;
             fund.alreadyReceived = fund.vouchers.length !== 0;
             fund.voucherStateName = 'vouchers';

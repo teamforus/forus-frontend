@@ -27,7 +27,7 @@ let SignUpComponent = function(
         }, function(form) {
             let resolveErrors = (res) => {
                 form.unlock();
-                form.errors = res.data.errors;
+                form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
             };
 
             IdentityService.validateEmail(form.values).then(res => {
@@ -98,7 +98,7 @@ let SignUpComponent = function(
             per_page: 1000,
         }).then((res) => {
             let vouchers = res.data.data;
-            let takenFundIds = vouchers.map(voucher => voucher.fund_id);
+            let takenFundIds = vouchers.map(voucher => voucher.fund_id && !voucher.expired);
             let fundsNoVouchers = $ctrl.funds.filter(fund => takenFundIds.indexOf(fund.id) === -1);
             let fundsWithVouchers = $ctrl.funds.filter(fund => takenFundIds.indexOf(fund.id) !== -1);
 

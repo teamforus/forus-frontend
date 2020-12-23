@@ -1,6 +1,6 @@
 module.exports = {
     title: "Geaccepteerd aanbod",
-    title_assign: "Toekennen aan account",
+    title_assign: "Toewijzen aan account",
     labels: {
         name: 'Naam',
         stock: 'Aanbod',
