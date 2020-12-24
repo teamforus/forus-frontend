@@ -18,6 +18,13 @@ module.exports = [
                 ].join(''), data);
             };
 
+            this.storeValidate = (organization_id, data) => {
+                return ApiRequest.post([
+                    '/platform/organizations/' + organization_id,
+                    '/sponsor/vouchers/validate'
+                ].join(''), data);
+            };
+
             this.storeCollection = function(organization_id, fund_id, vouchers) {
                 return ApiRequest.post([
                     '/platform/organizations/' + organization_id,

@@ -107,7 +107,7 @@ let FundActivateComponent = function(
                 });
             }
         }, (res) => {
-            if (res.status == 404) {
+            if ((res.status == 404 || res.status === 403) && res.data.meta) {
                 form.errors.code = [res.data.meta.message];
             } else if (res.data.meta || res.status == 429) {
                 ModalService.open('modalNotification', {
