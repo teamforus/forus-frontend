@@ -76,11 +76,7 @@ let AuthDirective = function(
         }, console.log);
     };
 
-    $scope.login = () => {
-        $scope.form.submit();
-    }
-
-    $scope.$onInit = () => { };
+    $scope.$watch(() => !!CredentialsService.get(), (value) => $scope.showForm = !value);
 };
 
 module.exports = () => {

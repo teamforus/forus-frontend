@@ -18,13 +18,6 @@ module.exports = [
                 ].join(''), data);
             };
 
-            this.storeValidate = (organization_id, data) => {
-                return ApiRequest.post([
-                    '/platform/organizations/' + organization_id,
-                    '/sponsor/vouchers/validate'
-                ].join(''), data);
-            };
-
             this.storeCollection = function(organization_id, fund_id, vouchers) {
                 return ApiRequest.post([
                     '/platform/organizations/' + organization_id,
@@ -90,14 +83,14 @@ module.exports = [
             };
 
             this.sampleCSVBudgetVoucher = (expires_at = "2020-02-20") => {
-                let headers = ['amount', 'expires_at', 'note', 'email', 'activate', 'make_activation_code'];
+                let headers = ['amount', 'expires_at', 'note', 'email', 'activate', 'activation_code'];
                 let values = [10, expires_at, 'voorbeeld notitie', 'test@example.com', 0, 0];
 
                 return Papa.unparse([headers, values]);
             };
 
             this.sampleCSVProuctVoucher = (product_id = null, expires_at = "2020-02-20") => {
-                let headers = ['product_id', 'expires_at', 'note', 'email', 'activate', 'make_activation_code'];
+                let headers = ['product_id', 'expires_at', 'note', 'email', 'activate', 'activation_code'];
                 let values = [product_id, expires_at, 'voorbeeld notitie', 'test@example.com', 0, 0];
 
                 return Papa.unparse([headers, values]);

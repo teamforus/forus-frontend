@@ -21,7 +21,7 @@ let ModalService = function(ModalRoute, $timeout) {
     };
 
     this.open = (key, scope = {}, configs = {}) => {
-        let _configs = Object.assign(defaultConfigs, configs);
+        let _configs = {...defaultConfigs, ...configs};
 
         if (!this.modalKeyExists(key)) {
             throw new Error(`Unknown modal key "${key}".`);

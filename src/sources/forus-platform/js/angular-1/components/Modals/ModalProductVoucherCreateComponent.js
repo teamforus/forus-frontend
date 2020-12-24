@@ -1,22 +1,25 @@
 let ModalProductVoucherCreateComponent = function(
     FormBuilderService,
     ProductService,
-    VoucherService
+    VoucherService,
+    ModalService
 ) {
     let $ctrl = this;
 
-    $ctrl.voucherType = null;
-    $ctrl.state = '';
+    $ctrl.voucherType = 'activation_code_uid';
     $ctrl.activationCodeSubmitted = false;
     $ctrl.assignTypes = [{
-        key: null,
+        key: 'activation_code_uid',
         label: 'Activatiecode',
+        inputLabel: 'Uid',
     }, {
         key: 'email',
         label: 'E-mailadres',
+        inputLabel: 'E-mailadres',
     }, {
         key: 'bsn',
         label: 'BSN',
+        inputLabel: 'BSN',
     }];
 
     $ctrl.assignType = $ctrl.assignTypes[0];
@@ -31,40 +34,9 @@ let ModalProductVoucherCreateComponent = function(
             delete $ctrl.form.values.email;
         }
 
-        if (assignType.key) {
-            delete $ctrl.form.values.activation_code;
+        if (assignType.key !== 'activation_code_uid') {
+            delete $ctrl.form.values.activation_code_uid;
         }
-
-        if (assignType.key === 'bsn') {
-            delete $ctrl.form.values.active;
-        }
-    };
-
-    $ctrl.submitActivationCode = (activation_code) => {
-        let code = activation_code ? activation_code : '';
-
-        if ($ctrl.activationCodeSubmitted) {
-            return false;
-        }
-
-        $ctrl.activationCodeSubmitted = true;
-        code = code.substring(0, 4) + '-' + code.substring(4);
-
-        // activation_code;
-        VoucherService.storeValidate($ctrl.organization.id, {
-            activation_code: code,
-            fund_id: $ctrl.fund.id,
-        }).then(() => { }, res => {
-            if (res.data.errors.activation_code) {
-                $ctrl.state = 'activation_code_invalid';
-            } else {
-                if ($ctrl.voucherType == 'activation_code') {
-                    $ctrl.form.values.activation_code = code;
-                }
-
-                $ctrl.state = 'voucher_form';
-            }
-        });
     };
 
     $ctrl.productChanged = (product_id) => {
@@ -73,14 +45,6 @@ let ModalProductVoucherCreateComponent = function(
         )[0] || null;
 
         $ctrl.form.values.product_id = product_id;
-    };
-
-    $ctrl.submitVoucherType = () => {
-        if ($ctrl.voucherType === 'activation_code') {
-            $ctrl.state = 'activation_code';
-        } else if ($ctrl.voucherType === 'giftcard') {
-            $ctrl.state = 'voucher_form';
-        }
     };
 
     $ctrl.initForm = () => {
@@ -95,9 +59,9 @@ let ModalProductVoucherCreateComponent = function(
             VoucherService.store($ctrl.organization.id, {
                 ...form.values,
                 ...({
-                    email: { activate: 1, make_activation_code: 0 },
-                    bsn: { activate: 1, make_activation_code: 0 },
-                    null: { activate: 0, make_activation_code: 1 },
+                    email: { activate: 1, activation_code: 0 },
+                    bsn: { activate: 1, activation_code: 0 },
+                    activation_code_uid: { activate: 0, activation_code: 1 },
                 }[$ctrl.assignType.key])
             }).then(() => {
                 $ctrl.onCreated();
@@ -114,6 +78,7 @@ let ModalProductVoucherCreateComponent = function(
     };
 
     $ctrl.$onInit = () => {
+        $ctrl.modal.loaded = false;
         $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.onCreated = $ctrl.modal.scope.onCreated;
         $ctrl.fund = $ctrl.modal.scope.fund || null;
@@ -131,12 +96,22 @@ let ModalProductVoucherCreateComponent = function(
                 }
             });
 
+            $ctrl.modal.setLoaded();
+
             if ($ctrl.products.length > 0) {
                 $ctrl.product = $ctrl.products[0];
-                $ctrl.state = 'voucher_form';
             } else {
-                return $ctrl.state = 'no_products';
+                $ctrl.close();
+
+            return ModalService.open('modalNotification', {
+                    type: 'info',
+                    title: 'modals.modal_product_voucher_create.errors.title.no_products',
+                    description: 'modals.modal_product_voucher_create.errors.no_products',
+                    closeBtnText: 'modals.modal_product_voucher_create.buttons.close',
+                });
             }
+
+            $ctrl.modal.loaded = true;
 
             $ctrl.initForm();
         });
@@ -154,6 +129,7 @@ module.exports = {
         'FormBuilderService',
         'ProductService',
         'VoucherService',
+        'ModalService',
         ModalProductVoucherCreateComponent
     ],
     templateUrl: () => {
