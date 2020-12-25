@@ -4,7 +4,6 @@ let OrganizationProvidersComponent = function(
     $stateParams,
     FundService,
     FileService,
-    DateService,
     OrganizationService,
     PushNotificationsService
 ) {
@@ -111,12 +110,6 @@ let OrganizationProvidersComponent = function(
                     data: $ctrl.transformProvidersList(res.data.data),
                 };
 
-                $ctrl.fundProviders.data.map(fundProvider => {
-                    fundProvider.last_activity_from_now = DateService._dateParseYmd(
-                        fundProvider.last_activity
-                    ).fromNow();
-                });
-
                 resolve($ctrl.fundProviders);
             }), reject);
         });
@@ -192,7 +185,6 @@ module.exports = {
         '$stateParams',
         'FundService',
         'FileService',
-        'DateService',
         'OrganizationService',
         'PushNotificationsService',
         OrganizationProvidersComponent
