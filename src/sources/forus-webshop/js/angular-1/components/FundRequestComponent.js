@@ -11,7 +11,6 @@ let FundRequestComponent = function(
     AuthService,
     FundRequestService,
     PushNotificationsService,
-    FileService,
     appConfigs
 ) {
     let $ctrl = this;
@@ -69,28 +68,19 @@ let FundRequestComponent = function(
 
             FundRequestService.storeValidate($ctrl.fund.id, {
                 records: [{
-                    fund_criterion_id: criteria.id,
                     record_type_key: criteria.record_type_key,
-                    value: criteria.input_value
+                    fund_criterion_id: criteria.id,
+                    value: criteria.input_value,
+                    files: criteria.files_uid,
                 }]
-            }).then(_res => {
-                let record = _res.data;
-
-                FileService.storeValidateAll(
-                    criteria.files,
-                    'fund_request_record_proof'
-                ).then(res => {
-                    $ctrl.recordsSubmitting = false;
-                    criteria.errors = {};
-                    resolve(record);
-                }, res => {
-                    $ctrl.recordsSubmitting = false;
-                    reject(criteria.errors = res.data.errors);
-                });
+            }).then(res => {
+                criteria.errors = {};
+                resolve(res.data);
             }, res => {
                 $ctrl.recordsSubmitting = false;
                 reject(criteria.errors = {
                     value: res.data.errors['records.0.value'],
+                    record: res.data.errors['records.0'],
                     record_type_key: res.data.errors['records.0.record_type_key'],
                     fund_criterion_id: res.data.errors['records.0.fund_criterion_id'],
                 });
@@ -98,58 +88,43 @@ let FundRequestComponent = function(
         });
     };
 
-    // Submit or Validate record criteria
-    $ctrl.uploadCriteriaFiles = (criteria) => {
-        return $q((resolve, reject) => {
-            $ctrl.recordsSubmitting = true;
+    $ctrl.onFileInfo = (invalidCriteria) => {
+        invalidCriteria.files_uid = invalidCriteria.files.filter(
+            (item) => item.uploaded && item.file_uid
+        ).map(file => file.file_uid);
 
-            FileService.storeAll(
-                criteria.files || [],
-                'fund_request_record_proof'
-            ).then(res => {
-                criteria.filesUploaded = res.map(file => file.data.data);
-                resolve(criteria);
-            }, res => {
-                reject(criteria.errors = res.data.errors);
-            });
-        });
+        invalidCriteria.isUploadingFiles = invalidCriteria.files.filter(
+            (item) => item.uploading
+        ).length > 0;
     };
 
     $ctrl.submitRequest = () => {
         if ($ctrl.submitInProgress) {
             return;
-        } else {
-            $ctrl.submitInProgress = true;
         }
 
-        $q.all($ctrl.invalidCriteria.map($ctrl.uploadCriteriaFiles)).then(criteria => {
-            let records = $ctrl.fund.auto_validation ? $ctrl.invalidCriteria.map(criterion => ({
-                value: criterion.value,
-                record_type_key: criterion.record_type_key,
-                fund_criterion_id: criterion.id,
-            })) : criteria.map(criterion => ({
+        $ctrl.submitInProgress = true;
+
+        FundRequestService.store($ctrl.fund.id, {
+            records: $ctrl.invalidCriteria.map(criterion => ({
                 value: criterion.input_value,
                 record_type_key: criterion.record_type_key,
                 fund_criterion_id: criterion.id,
-                files: criterion.filesUploaded.map(file => file.uid),
-            }));
-
-            FundRequestService.store($ctrl.fund.id, {
-                records: records
-            }).then(() => {
-                if ($ctrl.fund.auto_validation) {
-                    $ctrl.applyFund($ctrl.fund);
-                } else {
-                    $ctrl.step++;
-                    $ctrl.updateState();
-                }
-            }, (res) => {
+                files: criterion.files_uid,
+            }))
+        }).then(() => {
+            if ($ctrl.fund.auto_validation) {
+                $ctrl.applyFund($ctrl.fund);
+            } else {
                 $ctrl.step++;
                 $ctrl.updateState();
-                $ctrl.finishError = true;
-                $ctrl.errorReason = res.data.message;
-                $ctrl.submitInProgress = false;
-            });
+            }
+        }, (res) => {
+            $ctrl.step++;
+            $ctrl.updateState();
+            $ctrl.finishError = true;
+            $ctrl.errorReason = res.data.message;
+            $ctrl.submitInProgress = false;
         });
     };
 
@@ -171,15 +146,12 @@ let FundRequestComponent = function(
             criterion.isValid = false;
         });
 
-        $ctrl.invalidCriteria = JSON.parse(JSON.stringify(
-            invalidCriteria
-        )).map(criterion => {
-            criterion.files = [];
-            criterion.description_html = $sce.trustAsHtml(
-                criterion.description_html
-            );
-            return criterion;
-        });
+        $ctrl.invalidCriteria = JSON.parse(JSON.stringify(invalidCriteria)).map(criterion => ({
+            ...criterion, ...{
+                files: [],
+                description_html: $sce.trustAsHtml(criterion.description_html),
+            }
+        }));
 
         $ctrl.invalidCriteria = $ctrl.invalidCriteria.map(criterion => {
             let control_type = criterion.operator == '=' ? 'ui_control_checkbox' : {
@@ -406,7 +378,6 @@ module.exports = {
         'AuthService',
         'FundRequestService',
         'PushNotificationsService',
-        'FileService',
         'appConfigs',
         FundRequestComponent
     ],
