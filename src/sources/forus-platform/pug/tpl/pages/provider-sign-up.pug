@@ -91,8 +91,8 @@
 
                     .sign_up-pane-col                                
                         .row.sign_up-pane-align-center
-                            .col-md-3(ng-if="$ctrl.selectedOption == ''"): .sign_up-pane-media: img(ng-src="./assets/img/sign_up_me.png").pull-left    
-                            .col-md-7
+                            .col.col-md-3(ng-if="$ctrl.selectedOption == ''"): .sign_up-pane-media: img(ng-src="./assets/img/sign_up_me.png").pull-left    
+                            .col.col-md-7
                                 p Selecteer je apparaat
                                 div.device-switcher
                                     select(placeholder="amigo" ng-model="$ctrl.selectedOption").form-control
@@ -109,32 +109,32 @@
                         .row.sign_up-pane-align-center
 
                             
-                            .col-md-3: .sign_up-pane-media: img(ng-src="./assets/img/sign_up_me.png").pull-left    
-                            .col-md-8
+                            .col.col-md-4: .sign_up-pane-media: img(ng-src="./assets/img/forus-dl-link.png").pull-left    
+                            .col.col-md-8
                                 .sign_up-pane-text
                                     | Typ #[b forus.io/dl] in uw mobiele browser (safari, chrome, etc) en 
-                                    .sign_up-pane-link.text-muted ga verder >
+                                    .sign_up-pane-link.text-muted(ng-click="$ctrl.sentSms = true") ga verder >
                         
 
                     .sign_up-pane-col(ng-if="$ctrl.selectedOption == 'iphone' || $ctrl.selectedOption == 'android'")
                         .sign_up-pane-text Download uit app store
                         .row.sign_up-pane-align-center
-                            .col-md-3(ng-if="$ctrl.selectedOption == 'iphone'")
+                            .col.col-md-3(ng-if="$ctrl.selectedOption == 'iphone'")
                                 a.sign_up-pane-media(href="https://apps.apple.com/nl/app/me-forus/id1422610676?l=en#?platform=iphone" target="_blank").pull-left: img(ng-src="./assets/img/icon-app-ios.svg")  
-                            .col-md-3(ng-if="$ctrl.selectedOption == 'android'")
+                            .col.col-md-3(ng-if="$ctrl.selectedOption == 'android'")
                                 a.sign_up-pane-media(href="https://play.google.com/store/apps/details?id=io.forus.me&hl=en&gl=US" target="_blank").pull-left: img(ng-src="./assets/img/icon-app-android.svg")
-                            .col-md-4: .sign_up-pane-link.text-muted Ga verder >
+                            .col.col-md-4: .sign_up-pane-link.text-muted(ng-click="$ctrl.sentSms = true") Ga verder >
                         //-.sign_up-pane-heading {{ 'sign_up_provider.labels.mobile_number' | translate }}
                         .sign_up-pane-text Of stuur een downloadlink direct naar je telefoon
 
                         label.form-label Mobiele telefoonnummer
                         .row
-                            .col-md-7
+                            .col.col-md-7
                                 .form-group: input(type="text"
                                     ng-model="phoneForm.values.phone"
                                     placeholder="TELEFOONNUMMER").large.form-control
 
-                            .col-md-5: button.button.button-primary-outline.col-xs-12(
+                            .col.col-md-5: button.button.button-primary-outline.col-xs-12(
                                 ng-class="{ 'button-disabled' : !$ctrl.phoneNumberFilled }" 
                                 ng-click="$ctrl.sendSms()"
                                 translate="sign_up_provider.download.download_link")
@@ -147,7 +147,7 @@
                         .row.sign_up-pane-align-center
                             .col-md-3
                                 a.sign_up-pane-media(href="https://apps.apple.com/nl/app/me-forus/id1422610676?l=en#?platform=ipad" target="_blank").pull-left: img(ng-src="./assets/img/icon-app-ios.svg")                         
-                            .col-md-4: .sign_up-pane-link.text-muted Ga verder >
+                            .col-md-4: .sign_up-pane-link.text-muted(ng-click="$ctrl.sentSms = true") Ga verder >
                         
                         .sign_up-pane-text Of stuur een link naar een e-mailadres
 
@@ -178,7 +178,7 @@
                         | {{ "sign_up_provider.download.cannot_install_app" | translate }} 
                         .sign_up-pane-link.text-muted(ng-click="$ctrl.setHasAppProp(false)") Ga verder met uw e-mailadres >
 
-                .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent)  && $ctrl.sentSms") 
+                .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent)  && $ctrl.sentSms || true") 
                     .sign_up-pane-heading U heeft een SMS ontvangen op {{ phoneForm.values.phone | phone_number_format }}
                     
                     .sign_up-pane-auth
