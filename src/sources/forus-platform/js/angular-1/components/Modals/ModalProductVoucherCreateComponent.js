@@ -12,7 +12,7 @@ let ModalProductVoucherCreateComponent = function(
     $ctrl.assignTypes = [{
         key: 'activation_code_uid',
         label: 'Activatiecode',
-        inputLabel: 'Uid',
+        inputLabel: 'NR',
     }, {
         key: 'email',
         label: 'E-mailadres',
