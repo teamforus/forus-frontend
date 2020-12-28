@@ -35,7 +35,7 @@ let QrCodeDirective = function(
                 logoImage = img;
             }));
         }
-
+        // todo: make dotScale an overwriteable variable default is 0.8; voucher page is 1
         $q.all(promises).then(function() {
             AwesomeQR.create({
                 text: value,

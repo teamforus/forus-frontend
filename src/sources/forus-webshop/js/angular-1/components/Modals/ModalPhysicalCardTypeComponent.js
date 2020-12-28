@@ -11,6 +11,7 @@ let ModalPhysicalCardTypeComponent = function(
     $ctrl.state = '';
     $ctrl.preffersPlasticCard = false;
     
+    // todo: cleanup physicalcard type component
     $ctrl.$onInit = () => {
         $ctrl.fund = $ctrl.modal.scope.fund || null;
         $ctrl.organization = $ctrl.modal.scope.organization;
