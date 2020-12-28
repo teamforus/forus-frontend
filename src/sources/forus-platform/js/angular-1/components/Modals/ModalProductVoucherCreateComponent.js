@@ -1,22 +1,26 @@
 let ModalProductVoucherCreateComponent = function(
     FormBuilderService,
     ProductService,
-    VoucherService
+    VoucherService,
+    ModalService
 ) {
     let $ctrl = this;
 
-    $ctrl.voucherType = null;
-    $ctrl.state = '';
+    $ctrl.lastReplaceConfirmed = null;
+    $ctrl.voucherType = 'activation_code_uid';
     $ctrl.activationCodeSubmitted = false;
     $ctrl.assignTypes = [{
-        key: null,
+        key: 'activation_code_uid',
         label: 'Activatiecode',
+        inputLabel: 'NR',
     }, {
         key: 'email',
         label: 'E-mailadres',
+        inputLabel: 'E-mailadres',
     }, {
         key: 'bsn',
         label: 'BSN',
+        inputLabel: 'BSN',
     }];
 
     $ctrl.assignType = $ctrl.assignTypes[0];
@@ -31,40 +35,9 @@ let ModalProductVoucherCreateComponent = function(
             delete $ctrl.form.values.email;
         }
 
-        if (assignType.key) {
-            delete $ctrl.form.values.activation_code;
+        if (assignType.key !== 'activation_code_uid') {
+            delete $ctrl.form.values.activation_code_uid;
         }
-
-        if (assignType.key === 'bsn') {
-            delete $ctrl.form.values.active;
-        }
-    };
-
-    $ctrl.submitActivationCode = (activation_code) => {
-        let code = activation_code ? activation_code : '';
-
-        if ($ctrl.activationCodeSubmitted) {
-            return false;
-        }
-
-        $ctrl.activationCodeSubmitted = true;
-        code = code.substring(0, 4) + '-' + code.substring(4);
-
-        // activation_code;
-        VoucherService.storeValidate($ctrl.organization.id, {
-            activation_code: code,
-            fund_id: $ctrl.fund.id,
-        }).then(() => { }, res => {
-            if (res.data.errors.activation_code) {
-                $ctrl.state = 'activation_code_invalid';
-            } else {
-                if ($ctrl.voucherType == 'activation_code') {
-                    $ctrl.form.values.activation_code = code;
-                }
-
-                $ctrl.state = 'voucher_form';
-            }
-        });
     };
 
     $ctrl.productChanged = (product_id) => {
@@ -75,12 +48,38 @@ let ModalProductVoucherCreateComponent = function(
         $ctrl.form.values.product_id = product_id;
     };
 
-    $ctrl.submitVoucherType = () => {
-        if ($ctrl.voucherType === 'activation_code') {
-            $ctrl.state = 'activation_code';
-        } else if ($ctrl.voucherType === 'giftcard') {
-            $ctrl.state = 'voucher_form';
-        }
+    $ctrl.confirmEmailSkip = function(existingEmails, onConfirm = () => { }, onCancel = () => { }) {
+        let items = existingEmails.map(email => ({ value: email }));
+
+        ModalService.open('duplicatesPicker', {
+            hero_title: "Dubbele e-mailadressen gedetecteerd.",
+            hero_subtitle: [
+                `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra voucher wilt aanmaken?`,
+                "Deze e-mailadressen bezitten al een voucher van dit fonds."
+            ],
+            label_on: "Aanmaken voucher",
+            label_off: "Overslaan",
+            items: items,
+            onConfirm: onConfirm,
+            onCancel: onCancel,
+        });
+    };
+
+    $ctrl.confirmBsnSkip = function(existingBsn, onConfirm = () => { }, onCancel = () => { }) {
+        let items = existingBsn.map(bsn => ({ value: bsn }));
+
+        ModalService.open('duplicatesPicker', {
+            hero_title: "Dubbele bsn gedetecteerd.",
+            hero_subtitle: [
+                `Weet u zeker dat u voor ${items.length} bsn een extra voucher wilt aanmaken?`,
+                "Deze bsn bezitten al een voucher van dit fonds."
+            ],
+            label_on: "Aanmaken voucher",
+            label_off: "Overslaan",
+            items: items,
+            onConfirm: onConfirm,
+            onCancel: onCancel,
+        });
     };
 
     $ctrl.initForm = () => {
@@ -89,31 +88,89 @@ let ModalProductVoucherCreateComponent = function(
             product_id: $ctrl.product.id,
             fund_id: $ctrl.fund.id,
         }, (form) => {
-            form.lock();
-            form.values.assign_by_type = $ctrl.assignType.key;
-
-            VoucherService.store($ctrl.organization.id, {
+            VoucherService.storeValidate($ctrl.organization.id, {
                 ...form.values,
+                ...{ assign_by_type: $ctrl.assignType.key },
                 ...({
-                    email: { activate: 1, make_activation_code: 0 },
-                    bsn: { activate: 1, make_activation_code: 0 },
-                    null: { activate: 0, make_activation_code: 1 },
+                    email: { activate: 1, activation_code: 0 },
+                    bsn: { activate: 1, activation_code: 0 },
+                    activation_code_uid: { activate: 0, activation_code: 1 },
                 }[$ctrl.assignType.key])
             }).then(() => {
-                $ctrl.onCreated();
-                $ctrl.close();
+                if ($ctrl.assignType.key === 'email' && (form.values.email !== $ctrl.lastReplaceConfirmed)) {
+                    return VoucherService.index($ctrl.organization.id, {
+                        type: 'product_voucher',
+                        email: form.values.email,
+                        source: 'all',
+                    }).then((res) => {
+                        $ctrl.close();
+
+                        if (res.data.meta.total > 0) {
+                            return $ctrl.confirmEmailSkip([form.values.email], (emails) => {
+                                if (emails.filter(email => email.model).length > 0) {
+                                    $ctrl.lastReplaceConfirmed = form.values.email;
+                                    $ctrl.makRequest(form);
+                                }
+                            });
+                        }
+
+                        $ctrl.makRequest(form);
+                    });
+                }
+
+                if ($ctrl.assignType.key === 'bsn' && (form.values.bsn !== $ctrl.lastReplaceConfirmed)) {
+                    return VoucherService.index($ctrl.organization.id, {
+                        type: 'product_voucher',
+                        bsn: form.values.bsn,
+                        source: 'all',
+                    }).then((res) => {
+                        $ctrl.close();
+
+                        if (res.data.meta.total > 0) {
+                            return $ctrl.confirmBsnSkip([form.values.bsn], (bsns) => {
+                                if (bsns.filter(bsn => bsn.model).length > 0) {
+                                    $ctrl.lastReplaceConfirmed = form.values.bsn;
+                                    $ctrl.makRequest(form);
+                                }
+                            });
+                        }
+
+                        $ctrl.makRequest(form);
+                    });
+                }
+
+                $ctrl.makRequest(form);
             }, res => {
                 form.errors = res.data.errors;
                 form.unlock();
-
-                if (res.data.message && res.status !== 422) {
-                    alert(res.data.message);
-                }
             });
-        });
+        }, true);
     };
 
+    $ctrl.makRequest = (form) => {
+        VoucherService.store($ctrl.organization.id, {
+            ...form.values,
+            ...{ assign_by_type: $ctrl.assignType.key },
+            ...({
+                email: { activate: 1, activation_code: 0 },
+                bsn: { activate: 1, activation_code: 0 },
+                activation_code_uid: { activate: 0, activation_code: 1 },
+            }[$ctrl.assignType.key])
+        }).then(() => {
+            $ctrl.onCreated();
+            $ctrl.close();
+        }, res => {
+            form.errors = res.data.errors;
+            form.unlock();
+
+            if (res.data.message && res.status !== 422) {
+                alert(res.data.message);
+            }
+        });
+    }
+
     $ctrl.$onInit = () => {
+        $ctrl.modal.loaded = false;
         $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.onCreated = $ctrl.modal.scope.onCreated;
         $ctrl.fund = $ctrl.modal.scope.fund || null;
@@ -131,18 +188,26 @@ let ModalProductVoucherCreateComponent = function(
                 }
             });
 
+            $ctrl.modal.setLoaded();
+
             if ($ctrl.products.length > 0) {
                 $ctrl.product = $ctrl.products[0];
-                $ctrl.state = 'voucher_form';
             } else {
-                return $ctrl.state = 'no_products';
+                $ctrl.close();
+
+            return ModalService.open('modalNotification', {
+                    type: 'info',
+                    title: 'modals.modal_product_voucher_create.errors.title.no_products',
+                    description: 'modals.modal_product_voucher_create.errors.no_products',
+                    closeBtnText: 'modals.modal_product_voucher_create.buttons.close',
+                });
             }
+
+            $ctrl.modal.loaded = true;
 
             $ctrl.initForm();
         });
     };
-
-    $ctrl.$onDestroy = function() { };
 };
 
 module.exports = {
@@ -154,6 +219,7 @@ module.exports = {
         'FormBuilderService',
         'ProductService',
         'VoucherService',
+        'ModalService',
         ModalProductVoucherCreateComponent
     ],
     templateUrl: () => {

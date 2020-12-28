@@ -100,11 +100,10 @@ let VouchersComponent = function(
     $ctrl.uploadVouchersCsv = () => {
         ModalService.open('vouchersUpload', {
             fund: $ctrl.fund,
-            organization: $ctrl.organization,
             type: $ctrl.filters.values.type,
-            done: () => {
-                $state.reload();
-            }
+            organization: $ctrl.organization,
+            organizationFunds: $ctrl.funds,
+            done: () => $state.reload(),
         });
     };
 

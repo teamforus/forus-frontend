@@ -1,13 +1,13 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
-.block.block-login: .block-login-window
+.block.block-login(ng-show="!$rootScope.auth_user && showForm"): .block-login-window
     //- Auth form
     .block-login-content(ng-if="!emailSent")
         .block-login-title Login met e-mail
         .block-login-description Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen
         
         .block-login-form  
-            form(ng-submit="login()").form.row: .col.col-lg-12.form-group
+            form(ng-submit="form.submit()").form.row: .col.col-lg-12.form-group
                 .form-label E-mailadres
                 .flex-row
                     .flex-col.flex-grow

@@ -285,32 +285,29 @@
         }
     }
 
-    
-
     &.modal-animated {
-        .modal-backdrop,
-        .modal-content,
-        .modal-window {
+        &>.modal-backdrop, &>.modal-window, &>.modal-content {
             opacity: 1;
             transition: .25s ease-in;
         }
 
-        .modal-content,
-        .modal-window {
+        &>.modal-window, &>.modal-content {
+            opacity: 1;
             transform: scale(1, 1);
         }
 
         &.modal-loading {
-            .modal-backdrop,
-            .modal-content,
-            .modal-window {
+            &>.modal-backdrop, &>.modal-window, &>.modal-content {
                 opacity: 0;
                 transition: .25s ease-out;
             }
 
-            .modal-content,
-            .modal-window {
-                transform: scale(0, 0);
+            &>.modal-backdrop {
+                pointer-events: none;
+            }
+    
+            &>.modal-window, &>.modal-content {
+                transform: scale(1.5, 1.5);
             }
         }
     }

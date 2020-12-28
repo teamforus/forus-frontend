@@ -44,25 +44,38 @@
                             .file-size(ng-bind="$ctrl.csvParser.csvFile.size | file_size")
                             .file-remove.mdi.mdi-close(ng-click="$ctrl.reset()")
 
-                        //- budget voucher errors
+                        //- Budget voucher errors
                         .text-left(ng-if="!$ctrl.csvParser.isValid && $ctrl.type == 'fund_voucher'")
-                            .form-error(ng-if="!$ctrl.csvParser.csvIsValid")
-                                | Het veld 'amount' mist in het bestand.
-                            .form-error(ng-if="!$ctrl.csvParser.csvTypeValid")
-                                | Het veld `product_id` mist in het bestand.
-                            .form-error(ng-if="!$ctrl.csvParser.amountIsValid")
-                                | Het totaal aantal budget van het gewenste aantal vouchers overschrijd het gestorte bedrag op het fonds.
+                            //- No `amount` fields in the .csv file (required for budget vouchers)
+                            .form-error(ng-if="$ctrl.csvParser.errors.csvAmountMissing")
+                                | De kolom 'amount' mist in het bulkbestand.
+                            //- Has `product_id` fields in the .csv file (forbidden for budget vouchers)
+                            .form-error(ng-if="$ctrl.csvParser.errors.csvProductIdPresent")
+                                | De kolom `product_id` mag niet in het bestand zitten.
+                            //- Sum of amounts of vouchers from the .csv is greater than current fund budget (top-up)
+                            .form-error(ng-if="$ctrl.csvParser.errors.invalidAmountField")
+                                | Het totaal aantal budget van het gewenste aantal tegoeden overschrijd het gestorte bedrag op het fonds.
+                            //- Some `fund_id` from the .csv don't exist or don't belong to current active organization
+                            .form-error(ng-if="$ctrl.csvParser.errors.hasInvalidFundIds.length > 0")
+                                | De kolom `fund_id` in het bulkbestand bevat verkeerde fonds identificatienummers '{{ $ctrl.csvParser.errors.hasInvalidFundIdsList }}'. Deze nummers horen niet bij de door u geselecteerde organisatie.
                         
-                        //- product voucher errors
+                        //- Product voucher errors
                         .text-left(ng-if="!$ctrl.csvParser.isValid && $ctrl.type == 'product_voucher'")
-                            .form-error(ng-if="$ctrl.csvParser.csvHasMissingProductId")
-                                | Het veld `product_id` mist in het bestand.
-                            .form-error(ng-if="$ctrl.csvParser.hasAmountField")
-                                | Het veld `amount` mist in het bestand.
-                            .form-error(ng-if="$ctrl.csvParser.csvProductsInvalidUnknownIds.length > 0")
-                                | Following `product_id` from .csv '{{ $ctrl.csvParser.csvProductsInvalidUnknownIdsList }}' are invalid or are out of stock.
-                            .form-error(ng-if="$ctrl.csvParser.csvProductsInvalidStockIds.length > 0")
-                                | Following `product_id` from .csv '{{ $ctrl.csvParser.csvProductsInvalidStockIdsList }}' surpass available stock.
+                            //- No `product_id` fields in the .csv file (required for product_vouchers vouchers)
+                            .form-error(ng-if="$ctrl.csvParser.errors.csvHasMissingProductId")
+                                | De kolom `product_id` mist in het bestand.
+                            //- Has `amount` fields in the .csv file (forbidden for product vouchers)
+                            .form-error(ng-if="$ctrl.csvParser.errors.hasAmountField")
+                                | De kolom `amount` mag niet in het bestand zitten.
+                            //- Has unknown `product_id` in the .csv file (non existing products_id, not approved products or sold_out products)
+                            .form-error(ng-if="$ctrl.csvParser.errors.csvProductsInvalidUnknownIds.length > 0")
+                                | De kolom `product_id` in het bulkbestand bevat verkeerde product identificatienummers '{{ $ctrl.csvParser.errors.csvProductsInvalidUnknownIdsList }}'. De nummers van deze producten zijn incorrect of de producten zijn uitverkocht.
+                            //- The `product_id` is valid and approved, but not enough stock to make all requested vouchers 
+                            .form-error(ng-if="$ctrl.csvParser.errors.csvProductsInvalidStockIds.length > 0")
+                                | De kolom `product_id` in het bulkbestand bevat identificatienummers '{{ $ctrl.csvParser.errors.csvProductsInvalidStockIdsList }}' van aanbod dat uitverkocht is.
+                            //- Some `fund_id` from the .csv don't exist or don't belong to current active organization
+                            .form-error(ng-if="$ctrl.csvParser.errors.hasInvalidFundIds.length > 0")
+                                | De kolom `fund_id` in het bulkbestand bevat verkeerde fonds identificatienummers '{{ $ctrl.csvParser.errors.hasInvalidFundIdsList }}'. Deze nummers horen niet bij de door u geselecteerde organisatie.
 
                     .text-center(ng-show="$ctrl.csvParser.progress == 1 && $ctrl.csvParser.isValid")
                         button(

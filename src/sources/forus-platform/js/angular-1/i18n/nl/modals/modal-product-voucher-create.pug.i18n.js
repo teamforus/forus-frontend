@@ -11,6 +11,7 @@ module.exports = {
     buttons: {
         cancel: "Annuleren",
         submit: "Aanmaken",
+        close: "Sluit",
     },
     modal_section: {
         choose_title: "Selecteer op welke manier u een QR-code voor een aanbod wilt aanmaken.",
