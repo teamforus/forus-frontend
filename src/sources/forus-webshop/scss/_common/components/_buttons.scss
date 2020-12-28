@@ -4,7 +4,7 @@
     cursor: pointer;
     border: 1px solid transparent;
     padding: 12px 25px;
-    transition: color .4s, background .4s, box-shadow .4s, border .4s;
+    transition: color 0.4s, background 0.4s, box-shadow 0.4s, border 0.4s;
     border-radius: 6px;
     display: inline-block;
     text-align: center;
@@ -16,7 +16,7 @@
         margin-right: 10px;
         margin-left: -10px;
         float: left;
-        transition: .4s;
+        transition: 0.4s;
 
         &.icon-right {
             float: right;
@@ -27,7 +27,7 @@
 
     img {
         display: block;
-        transition: .4s;
+        transition: 0.4s;
         margin: 0 auto;
     }
 
@@ -46,21 +46,21 @@
             color: #fff;
             background: $color_default_light;
             border-color: $color_default_light;
-            box-shadow: 0 10px 20px rgba(#000, .2);
+            box-shadow: 0 10px 20px rgba(#000, 0.2);
 
             .mdi {
                 color: #fff;
             }
         }
     }
-    
-    &.button-two-spans{
+
+    &.button-two-spans {
         display: flex !important;
         padding: 7px !important;
         align-items: center !important;
 
         .icon-me {
-            mask: url('../img/icon-me.svg');
+            mask: url("../img/icon-me.svg");
             background: $color_default;
             transition: background-color 0.5s ease;
             display: inline-block;
@@ -78,20 +78,20 @@
             text-align: right;
             flex: 1;
         }
-        
+
         .second-line-button {
             display: none;
         }
 
         &:hover {
             .icon-me {
-                mask: url('../img/icon-me.svg');
+                mask: url("../img/icon-me.svg");
                 background: #157c68;
                 mask-size: cover;
             }
         }
     }
-    
+
     &.button-primary {
         color: #fff;
         background: $color_primary;
@@ -102,7 +102,7 @@
             color: #fff;
             background: $color_primary_light;
             background-color: $color_primary_light;
-            box-shadow: 0 10px 20px rgba(#000, .3);
+            box-shadow: 0 10px 20px rgba(#000, 0.3);
 
             img {
                 filter: brightness(5);
@@ -115,13 +115,13 @@
         color: #fff;
         background: #282b39;
         border: 1px solid #282b39;
-        box-shadow: 0 10px 25px rgba(#000, .15);
+        box-shadow: 0 10px 25px rgba(#000, 0.15);
 
         &:hover {
             color: #fff;
             background: #646f79;
             border-color: #646f79;
-            box-shadow: 0 10px 20px rgba(#000, .3);
+            box-shadow: 0 10px 20px rgba(#000, 0.3);
 
             img {
                 filter: brightness(5);
@@ -139,7 +139,7 @@
             color: #fff;
             background: #626161;
             border-color: #626161;
-            box-shadow: 0 10px 20px rgba(#000, .3);
+            box-shadow: 0 10px 20px rgba(#000, 0.3);
 
             img {
                 filter: brightness(5);
@@ -158,7 +158,8 @@
             border-color: #f0f2f4;
         }
 
-        &:focus, &:active {
+        &:focus,
+        &:active {
             outline: none;
             border-color: darken($color: rgba(158, 167, 182, 0.15), $amount: 100);
         }
@@ -184,6 +185,18 @@
         &.button-text-primary {
             color: #305dfb;
         }
+
+        &[disabled],
+        &.disabled,
+        &.button-disabled {
+            background: transparent;
+            border-color: transparent;
+            color: #cecece;
+
+            .mdi {
+                color: #cecece;
+            }
+        }
     }
 
     &.button-flat {
@@ -198,7 +211,7 @@
     &.button-wide {
         margin: 0 auto;
     }
-    
+
     &.button-fill {
         width: 100%;
     }
@@ -213,14 +226,16 @@
         margin-right: 0;
     }
 
-    &[disabled], &.disabled, &.button-disabled {
+    &[disabled],
+    &.disabled,
+    &.button-disabled {
         background: #eff2f4;
         border-color: #eff2f4;
         color: #ccd0e0;
         box-shadow: none;
         pointer-events: none;
         cursor: default;
-        
+
         &:hover {
             box-shadow: none;
         }
@@ -229,7 +244,7 @@
     &.button-icon {
         padding: 10px 15px;
 
-        &>.mdi {
+        & > .mdi {
             margin: 0 -5px;
         }
     }
@@ -252,13 +267,13 @@
 }
 
 .button-profile {
-    padding-left:0px !important;
+    padding-left: 0px !important;
 }
 
 @media screen and (max-width: 1000px) {
     .button {
         &.button-primary {
-            box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
         }
     }
 }
@@ -272,7 +287,7 @@
             margin-bottom: 0;
         }
     }
-    
+
     @media screen and (max-width: 1000px) {
         &.block-show-more {
             .button {

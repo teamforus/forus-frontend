@@ -121,9 +121,12 @@
                             tr(ng-repeat="voucher in $ctrl.vouchers.data")
                                 td
                                     strong(ng-bind="(voucher.identity_email | str_limit:25) || voucher.activation_code || 'Niet toegewezen'").text-primary
-                                    span(ng-if="voucher.identity_bsn || voucher.relation_bsn").text-strong.text-md.text-muted-dark
+                                    span(ng-if="voucher.identity_email && (voucher.identity_bsn || voucher.relation_bsn)").text-strong.text-md.text-muted-dark
                                         br
                                         | {{ 'BSN: ' + (voucher.identity_bsn || voucher.relation_bsn) }}
+                                    span(ng-if="!voucher.identity_email && voucher.activation_code").text-strong.text-md.text-muted-dark
+                                        br
+                                        | {{ 'NR: ' + (voucher.activation_code_uid || 'Nee') }}
                                 td: strong(ng-bind="'vouchers.labels.source_' + voucher.source | translate").text-md.text-muted-dark
                                 td(
                                     ng-if="$ctrl.fund.type == 'budget'" 
@@ -180,6 +183,11 @@
                                                         span.text-primary.text-sm.text-strong CODE:
                                                         br
                                                         span(ng-bind="voucher.activation_code").text-strong
+                                                    span(ng-if="voucher.activation_code")
+                                                        br
+                                                        span.text-primary.text-sm.text-strong UNIEK NUMMER:
+                                                        br
+                                                        span(ng-bind="voucher.activation_code_uid || 'Nee'").text-strong
 
             .card-section(ng-if="$ctrl.vouchers" ng-show="$ctrl.vouchers.meta.last_page > 1")
                 paginator(meta="$ctrl.vouchers.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")

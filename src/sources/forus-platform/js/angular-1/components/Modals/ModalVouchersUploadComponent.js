@@ -20,10 +20,6 @@ let ModalVouchersUploadComponent = function(
     $ctrl.progressStatus = "";
     $ctrl.productsIds = [];
 
-    $ctrl.csvParser = {
-        progress: 0
-    };
-
     let $translate = $filter('translate')
     let input;
     let dataChunkSize = 100;
@@ -49,6 +45,351 @@ let ModalVouchersUploadComponent = function(
 
         return chunks;
     }
+
+    let makeCsvParser = () => {
+        let csvParser = function() {
+            this.progress = 0;
+            this.errors = {};
+
+            this.selectFile = function(e) {
+                e && (e.preventDefault() & e.stopPropagation());
+
+                if (input && input.remove) {
+                    input.remove();
+                }
+
+                input = document.createElement('input');
+                input.setAttribute("type", "file");
+                input.setAttribute("accept", ".csv");
+                input.style.display = 'none';
+
+                input.addEventListener('change', (e) => this.uploadFile(e.target.files[0]));
+
+                $element[0].appendChild(input);
+
+                input.click();
+            };
+
+            this.defaultNote = function(row) {
+                return $translate('vouchers.csv.default_note' + (row.email ? '' : '_no_email'), {
+                    upload_date: moment().format('YYYY-MM-DD'),
+                    uploader_email: $rootScope.auth_user.email,
+                    target_email: row.email || null,
+                });
+            }
+
+            this.validateCsvData = function(data) {
+                this.errors.hasInvalidFundIds = data.filter(row => {
+                    return row.fund_id && $ctrl.availableFundsIds.indexOf(
+                        row.fund_id ? parseInt(row.fund_id) : null
+                    ) === -1
+                }).map(row => row.fund_id);
+
+                this.errors.hasInvalidFundIdsList = _.unique(this.errors.hasInvalidFundIds).join(', ');
+
+                if (this.errors.hasInvalidFundIds.length > 0) {
+                    return false;
+                }
+
+                if ($ctrl.type == 'fund_voucher') {
+                    return this.validateCsvDataBudget(data);
+                } else if ($ctrl.type == 'product_voucher') {
+                    return this.validateCsvDataProduct(data);
+                }
+
+                return false;
+            };
+
+            this.validateCsvDataBudget = function(data) {
+                const fundBudget = $ctrl.getFundBudget();
+                const csvTotalAmount = data.reduce((sum, row) => sum + parseFloat(row.amount || 0), 0);
+
+                this.errors.csvAmountMissing = data.filter(row => !row.amount).length > 0;
+                // csv total amount should be withing fund budget
+                this.errors.invalidAmountField = csvTotalAmount > fundBudget;
+                // fund vouchers csv shouldn't have product_id field
+                this.errors.csvProductIdPresent = data.filter(row => row.product_id != undefined).length > 0;
+
+                return !this.errors.invalidAmountField &&
+                    !this.errors.csvProductIdPresent &&
+                    !this.errors.csvAmountMissing;
+            }
+
+            this.validateCsvDataProduct = function(data) {
+                let validation = this.validateProductId(data);
+
+                this.errors.csvHasMissingProductId = validation.hasMissingProductId;
+                this.errors.csvProductsInvalidStockIds = validation.invalidStockIds;
+                this.errors.csvProductsInvalidUnknownIds = validation.invalidProductIds;
+
+                this.errors.csvProductsInvalidStockIdsList = _.unique(_.pluck(
+                    this.errors.csvProductsInvalidStockIds, 'product_id'
+                )).join(', ');
+
+                this.errors.csvProductsInvalidUnknownIdsList = _.unique(_.pluck(
+                    this.errors.csvProductsInvalidUnknownIds, 'product_id'
+                )).join(', ');
+
+                // product vouchers .csv should not have an `amount` field
+                this.errors.hasAmountField = data.filter(row => row.amount != undefined).length > 0;
+
+                return (!this.errors.hasAmountField && !this.errors.csvHasMissingProductId) && validation.isValid;
+            }
+
+            this.uploadFile = function(file) {
+                if (!file.name.endsWith('.csv')) {
+                    return;
+                }
+
+                new $q((resolve) => Papa.parse(file, { complete: resolve })).then((res) => {
+                    let body = res.data;
+                    let header = res.data.shift();
+
+                    let data = body.filter(row => {
+                        return row.filter(col => !_.isEmpty(col)).length > 0;
+                    }).map((val) => {
+                        let row = {};
+
+                        header.forEach((hVal, hKey) => {
+                            if (val[hKey] && val[hKey] != '') {
+                                row[hVal.trim()] = val[hKey].trim();
+                            }
+                        });
+
+                        row.note = row.note || this.defaultNote(row);
+
+                        return _.isEmpty(row) ? false : row;
+                    }).filter(row => !!row);
+
+                    this.isValid = this.validateCsvData(data);
+                    this.data = data;
+                    this.csvFile = file;
+                    this.progress = 1;
+                }, console.error);
+            };
+
+            this.validateProductId = function(data = []) {
+                let allProductIds = _.countBy(data, 'product_id')
+
+                let hasMissingProductId = data.filter(row => row.product_id === undefined).length > 0;
+                let invalidProductIds = data.filter(row => !$ctrl.productsByIds[row.product_id]);
+                let invalidStockIds = data.filter(row => $ctrl.productsByIds[row.product_id]).filter(row => {
+                    return !$ctrl.productsByIds[row.product_id].unlimited_stock && (
+                        $ctrl.productsByIds[row.product_id].stock_amount < allProductIds[row.product_id]
+                    );
+                });
+
+                return {
+                    isValid: !invalidProductIds.length && !invalidStockIds.length,
+                    hasMissingProductId: hasMissingProductId,
+                    invalidStockIds: invalidStockIds,
+                    invalidProductIds: invalidProductIds,
+                };
+            };
+
+            this.confirmEmailSkip = function(existingEmails, onConfirm) {
+                let items = existingEmails.map(email => ({ value: email }));
+
+                if (items.length === 0) {
+                    return onConfirm();
+                }
+
+                ModalService.open('duplicatesPicker', {
+                    hero_title: "Dubbele e-mailadressen gedetecteerd.",
+                    hero_subtitle: [
+                        `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra voucher wilt aanmaken?`,
+                        "Deze e-mailadressen bezitten al een voucher van dit fonds."
+                    ],
+                    button_none: "Alle vouchers overslaan",
+                    button_all: "Alle vouchers aanmaken",
+                    label_on: "Aanmaken voucher",
+                    label_off: "Overslaan",
+                    items: items,
+                    onConfirm: (items) => {
+                        let allowedEmails = items.filter(item => item.model).map(item => item.value);
+
+                        this.data = this.data.filter(csvRow => {
+                            return existingEmails.indexOf(csvRow.email) === -1 ||
+                                allowedEmails.indexOf(csvRow.email) !== -1;
+                        });
+
+                        onConfirm();
+                    },
+                    onCancel: () => $ctrl.close(),
+                });
+            };
+
+            this.confirmBsnSkip = function(existingBsn, onConfirm) {
+                let items = existingBsn.map(bsn => ({ value: bsn }));
+
+                if (items.length === 0) {
+                    return onConfirm();
+                }
+
+                ModalService.open('duplicatesPicker', {
+                    hero_title: "Dubbele bsn gedetecteerd.",
+                    hero_subtitle: [
+                        `Weet u zeker dat u voor ${items.length} bsn een extra voucher wilt aanmaken?`,
+                        "Deze bsn bezitten al een voucher van dit fonds."
+                    ],
+                    button_none: "Alle vouchers overslaan",
+                    button_all: "Alle vouchers aanmaken",
+                    label_on: "Aanmaken voucher",
+                    label_off: "Overslaan",
+                    items: items,
+                    onConfirm: (items) => {
+                        let allowedBsn = items.filter(item => item.model).map(item => item.value);
+
+                        this.data = this.data.filter(csvRow => {
+                            return allowedBsn.indexOf(csvRow.bsn) === -1 ||
+                                allowedBsn.indexOf(csvRow.bsn) !== -1;
+                        });
+
+                        onConfirm();
+                    },
+                    onCancel: () => $ctrl.close(),
+                });
+            };
+
+            this.uploadToServer = function(e) {
+                e && (e.preventDefault() & e.stopPropagation());
+
+                if (!this.isValid) {
+                    return false;
+                }
+
+                $ctrl.loading = true;
+
+                PushNotificationsService.success(
+                    'Loading...',
+                    'Loading existing vouchers to check for duplicates!',
+                    'download-outline'
+                );
+
+                HelperService.recursiveLeacher((page) => {
+                    return VoucherService.index($ctrl.organization.id, {
+                        fund_id: $ctrl.fund.id,
+                        type: $ctrl.type,
+                        per_page: 100,
+                        page: page,
+                        source: 'employee',
+                    });
+                }, 4).then(data => {
+                    PushNotificationsService.success(
+                        'Comparing...',
+                        'Vouchers loaded! Comparing with .csv...',
+                        'timer-sand'
+                    );
+
+                    let emails = data.map(voucher => voucher.identity_email);
+                    let bsns = [
+                        ...data.map(voucher => voucher.relation_bsn),
+                        ...data.map(voucher => voucher.identity_bsn)
+                    ];
+
+                    let existingEmails = this.data.filter(csvRow => {
+                        return emails.indexOf(csvRow.email) != -1;
+                    }).map(csvRow => csvRow.email);
+
+                    let existingBsn = this.data.filter(csvRow => {
+                        return bsns.indexOf(csvRow.bsn) != -1;
+                    }).map(csvRow => csvRow.bsn);
+
+                    $ctrl.loading = false;
+
+                    if (existingEmails.length === 0 && existingBsn.length === 0) {
+                        return this.startUploading();
+                    }
+
+                    this.confirmEmailSkip(existingEmails, () => {
+                        this.confirmBsnSkip(existingBsn, () => {
+                            if (this.data.length > 0) {
+                                return this.startUploading();
+                            }
+
+                            $ctrl.close();
+                        });
+                    });
+                }, () => $ctrl.loading = false);
+            }
+
+            this.startUploading = function() {
+                $q(async (resolve) => {
+                    let totalRows = this.data.length;
+                    let uploadedRows = 0;
+                    let data = JSON.parse(JSON.stringify(this.data)).map(row => {
+                        return { ...row, ...{ fund_id: row.fund_id || $ctrl.fund.id } };
+                    });
+
+                    let dataGrouped = _.groupBy(data, 'fund_id');
+                    this.progress = 2;
+
+                    setProgress(0);
+
+                    let funds = Object.keys(dataGrouped);
+
+                    for (let i = 0; i < funds.length; i++) {
+                        const fund_id = funds[i];
+
+                        dataGrouped[fund_id] = dataGrouped[fund_id].map((row) => {
+                            delete row.fund_id;
+                            return row;
+                        });
+
+                        await this.startUploadingData(fund_id, dataGrouped[fund_id], (chunkData) => {
+                            uploadedRows += chunkData.length;
+                            setProgress((uploadedRows / totalRows) * 100);
+
+                            if (uploadedRows === totalRows) {
+                                $timeout(() => {
+                                    setProgress(100);
+                                    this.progress = 3;
+                                    $rootScope.$broadcast('vouchers_csv:uploaded', true);
+                                }, 0);
+                                resolve();
+                            }
+                        });
+                    }
+                });
+            };
+
+            this.startUploadingData = function(fund_id, groupData, onChunk = () => { }) {
+                return new Promise((resolve) => {
+                    var submitData = chunk(groupData, dataChunkSize);
+                    var chunksCount = submitData.length;
+                    var currentChunkNth = 0;
+
+                    let uploadChunk = (data) => {
+                        $ctrl.changed = true;
+
+                        VoucherService.storeCollection($ctrl.organization.id, fund_id, data).then(() => {
+                            currentChunkNth++;
+                            onChunk(data);
+
+                            if (currentChunkNth == chunksCount) {
+                                resolve(true);
+                            } else if (currentChunkNth < chunksCount) {
+                                uploadChunk(submitData[currentChunkNth]);
+                            }
+                        }, (res) => {
+                            if (res.status == 422 && res.data.errors) {
+                                return PushNotificationsService.danger(
+                                    'Het is niet gelukt om het gekozen bestand te verwerken.',
+                                    Object.values(res.data.errors).reduce((msg, arr) => msg + arr.join(''), "")
+                                );
+                            }
+
+                            alert('Onbekende error.');
+                        });
+                    };
+
+                    uploadChunk(submitData[currentChunkNth]);
+                });
+            };
+        };
+
+        return new csvParser();
+    };
 
     $ctrl.getFundBudget = () => {
         return ($ctrl.fund.budget && (
@@ -77,339 +418,8 @@ let ModalVouchersUploadComponent = function(
         }
     };
 
-    $ctrl.init = (csvRequiredKeys = []) => {
-        $ctrl.csvParser = {
-            progress: 0
-        };
-
-        $ctrl.csvParser.selectFile = function(e) {
-            e && (e.preventDefault() & e.stopPropagation());
-
-            if (input && input.remove) {
-                input.remove();
-            }
-
-            input = document.createElement('input');
-            input.setAttribute("type", "file");
-            input.setAttribute("accept", ".csv");
-            input.style.display = 'none';
-
-            input.addEventListener('change', function(e) {
-                $ctrl.csvParser.uploadFile(this.files[0]);
-            });
-
-            $element[0].appendChild(input);
-
-            input.click();
-        };
-
-        $ctrl.csvParser.validateCsvData = (data) => {
-            $ctrl.csvParser.csvIsValid = $ctrl.csvParser.validateData(data);
-
-            if ($ctrl.type == 'fund_voucher') {
-                $ctrl.csvParser.amountIsValid = $ctrl.csvParser.validateAmount(data);
-
-                // fund vouchers csv shouldn't have product_id field
-                $ctrl.csvParser.csvTypeValid = data.filter(
-                    row => row.product_id != undefined
-                ).length === 0;
-
-                return $ctrl.csvParser.csvIsValid &&
-                    $ctrl.csvParser.amountIsValid &&
-                    $ctrl.csvParser.csvTypeValid;
-            } else if ($ctrl.type == 'product_voucher') {
-                let validation = $ctrl.csvParser.validateProductId(data);
-
-                $ctrl.csvParser.csvHasMissingProductId = validation.hasMissingProductId;
-                $ctrl.csvParser.csvProductIdValid = validation.isValid;
-                $ctrl.csvParser.csvProductsInvalidStockIds = validation.invalidStockIds;
-                $ctrl.csvParser.csvProductsInvalidUnknownIds = validation.invalidProductIds;
-
-                $ctrl.csvParser.csvProductsInvalidStockIdsList = _.unique(_.pluck(
-                    $ctrl.csvParser.csvProductsInvalidStockIds, 'product_id'
-                )).join(', ');
-
-                $ctrl.csvParser.csvProductsInvalidUnknownIdsList = _.unique(_.pluck(
-                    $ctrl.csvParser.csvProductsInvalidUnknownIds, 'product_id'
-                )).join(', ');
-
-                // fund vouchers csv shouldn't have amount field
-                $ctrl.csvParser.hasAmountField = data.filter(
-                    row => row.amount != undefined
-                ).length > 0;
-
-                return $ctrl.csvParser.csvIsValid &&
-                    !$ctrl.csvParser.hasAmountField &&
-                    !$ctrl.csvParser.csvHasMissingProductId &&
-                    $ctrl.csvParser.csvProductIdValid;
-            }
-
-            return false;
-        };
-
-        $ctrl.csvParser.uploadFile = (file) => {
-            if (!file.name.endsWith('.csv')) {
-                return;
-            }
-
-            let defaultNote = row => {
-                return $translate(
-                    'vouchers.csv.default_note' + (
-                        row.email ? '' : '_no_email'
-                    ), {
-                    upload_date: moment().format('YYYY-MM-DD'),
-                    uploader_email: $rootScope.auth_user.email,
-                    target_email: row.email || null,
-                }
-                );
-            };
-
-            new $q(function(resolve, reject) {
-                Papa.parse(file, {
-                    complete: resolve
-                });
-            }).then(function(results) {
-                let body = results.data;
-                let header = results.data.shift();
-                let data = body.filter(row => {
-                    return row.filter(col => !_.isEmpty(col)).length > 0;
-                }).map(function(val) {
-                    let row = {};
-
-                    header.forEach((hVal, hKey) => {
-                        if (val[hKey] && val[hKey] != '') {
-                            row[hVal] = val[hKey];
-                        }
-                    });
-
-                    if (!row.note) {
-                        row.note = defaultNote(row);
-                    }
-
-                    if (_.isEmpty(row)) {
-                        return false;
-                    }
-
-                    return row;
-                }).filter(row => !!row);
-
-                $ctrl.csvParser.isValid = $ctrl.csvParser.validateCsvData(data);
-                $ctrl.csvParser.data = data;
-                $ctrl.csvParser.csvFile = file;
-                $ctrl.csvParser.progress = 1;
-            }, console.error);
-        };
-
-        /**
-         * Validate csv data
-         */
-        $ctrl.csvParser.validateData = (data = []) => {
-            return data.filter(row => {
-                return csvRequiredKeys.filter(
-                    key => !Object.keys(row).includes(key)
-                ).length !== 0;
-            }).length === 0;
-        };
-
-        $ctrl.csvParser.validateAmount = (data = []) => {
-            return data.reduce(
-                (sum, row) => sum + parseFloat(row.amount || 0), 0
-            ) <= $ctrl.getFundBudget();
-        };
-
-        $ctrl.csvParser.validateProductId = (data = []) => {
-            let allProductIds = _.countBy(data, 'product_id')
-
-            let hasMissingProductId = data.filter(row => row.product_id === undefined).length > 0;
-            let invalidProductIds = data.filter(row => !$ctrl.productsByIds[row.product_id]);
-            let invalidStockIds = data.filter(row => $ctrl.productsByIds[row.product_id]).filter(row => {
-                return !$ctrl.productsByIds[row.product_id].unlimited_stock && (
-                    $ctrl.productsByIds[row.product_id].stock_amount < allProductIds[row.product_id]
-                );
-            });
-
-            return {
-                isValid: !invalidProductIds.length && !invalidStockIds.length,
-                hasMissingProductId: hasMissingProductId,
-                invalidStockIds: invalidStockIds,
-                invalidProductIds: invalidProductIds,
-            };
-        };
-
-        $ctrl.confirmEmailSkip = (existingEmails, onConfirm) => {
-            let items = existingEmails.map(email => ({ value: email }));
-
-            if (items.length === 0) {
-                return onConfirm();
-            }
-
-            ModalService.open('duplicatesPicker', {
-                hero_title: "Dubbele e-mailadressen gedetecteerd.",
-                hero_subtitle: [
-                    `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra voucher wilt aanmaken?`,
-                    "Deze e-mailadressen bezitten al een voucher van dit fonds."
-                ],
-                button_none: "Alle vouchers overslaan",
-                button_all: "Alle vouchers aanmaken",
-                label_on: "Aanmaken voucher",
-                label_off: "Overslaan",
-                items: items,
-                onConfirm: (items) => {
-                    let allowedEmails = items.filter(item => item.model).map(item => item.value);
-
-                    $ctrl.csvParser.data = $ctrl.csvParser.data.filter(csvRow => {
-                        return existingEmails.indexOf(csvRow.email) === -1 ||
-                            allowedEmails.indexOf(csvRow.email) !== -1;
-                    });
-
-                    onConfirm();
-                },
-                onCancel: () => $ctrl.close(),
-            });
-        };
-
-        $ctrl.confirmBsnSkip = (existingBsn, onConfirm) => {
-            let items = existingBsn.map(bsn => ({ value: bsn }));
-
-            if (items.length === 0) {
-                return onConfirm();
-            }
-
-            ModalService.open('duplicatesPicker', {
-                hero_title: "Dubbele bsn gedetecteerd.",
-                hero_subtitle: [
-                    `Weet u zeker dat u voor ${items.length} bsn een extra voucher wilt aanmaken?`,
-                    "Deze bsn bezitten al een voucher van dit fonds."
-                ],
-                button_none: "Alle vouchers overslaan",
-                button_all: "Alle vouchers aanmaken",
-                label_on: "Aanmaken voucher",
-                label_off: "Overslaan",
-                items: items,
-                onConfirm: (items) => {
-                    let allowedBsn = items.filter(item => item.model).map(item => item.value);
-
-                    $ctrl.csvParser.data = $ctrl.csvParser.data.filter(csvRow => {
-                        return allowedBsn.indexOf(csvRow.bsn) === -1 ||
-                            allowedBsn.indexOf(csvRow.bsn) !== -1;
-                    });
-
-                    onConfirm();
-                },
-                onCancel: () => $ctrl.close(),
-            });
-        };
-
-        $ctrl.csvParser.uploadToServer = function(e) {
-            e && (e.preventDefault() & e.stopPropagation());
-
-            if (!$ctrl.csvParser.isValid) {
-                return false;
-            }
-
-            $ctrl.loading = true;
-
-            PushNotificationsService.success(
-                'Loading...',
-                'Loading existing vouchers to check for duplicates!',
-                'download-outline'
-            );
-
-            HelperService.recursiveLeacher((page) => {
-                return VoucherService.index($ctrl.organization.id, {
-                    fund_id: $ctrl.fund.id,
-                    type: $ctrl.type,
-                    per_page: 100,
-                    page: page,
-                    source: 'employee',
-                });
-            }, 4).then(data => {
-                PushNotificationsService.success(
-                    'Comparing...',
-                    'Vouchers loaded! Comparing with .csv...',
-                    'timer-sand'
-                );
-
-                let emails = data.map(voucher => voucher.identity_email);
-                let bsns = [
-                    ...data.map(voucher => voucher.relation_bsn),
-                    ...data.map(voucher => voucher.identity_bsn)
-                ];
-
-                let existingEmails = $ctrl.csvParser.data.filter(csvRow => {
-                    return emails.indexOf(csvRow.email) != -1;
-                }).map(csvRow => csvRow.email);
-
-                let existingBsn = $ctrl.csvParser.data.filter(csvRow => {
-                    return bsns.indexOf(csvRow.bsn) != -1;
-                }).map(csvRow => csvRow.bsn);
-
-                $ctrl.loading = false;
-
-                if (existingEmails.length === 0 && existingBsn.length === 0) {
-                    return $ctrl.startUploading();
-                }
-
-                $ctrl.confirmEmailSkip(existingEmails, () => {
-                    $ctrl.confirmBsnSkip(existingBsn, () => {
-                        if ($ctrl.csvParser.data.length > 0) {
-                            return $ctrl.startUploading();
-                        }
-
-                        $ctrl.close();
-                    });
-                });
-            }, () => $ctrl.loading = false);
-        }
-
-        $ctrl.startUploading = () => {
-            $ctrl.csvParser.progress = 2;
-
-            var submitData = chunk(JSON.parse(JSON.stringify(
-                $ctrl.csvParser.data
-            )), dataChunkSize);
-
-            var chunksCount = submitData.length;
-            var currentChunkNth = 0;
-
-            setProgress(0);
-
-            let uploadChunk = function(data) {
-                $ctrl.changed = true;
-
-                VoucherService.storeCollection(
-                    $ctrl.organization.id,
-                    $ctrl.fund.id,
-                    data
-                ).then(function() {
-                    currentChunkNth++;
-                    setProgress((currentChunkNth / chunksCount) * 100);
-
-                    if (currentChunkNth == chunksCount) {
-                        $timeout(function() {
-                            setProgress(100);
-                            $ctrl.csvParser.progress = 3;
-
-                            $rootScope.$broadcast('vouchers_csv:uploaded', true);
-                        }, 0);
-                    } else {
-                        uploadChunk(submitData[currentChunkNth]);
-                    }
-                }, (res) => {
-                    if (res.status == 422 && res.data.errors) {
-                        return PushNotificationsService.danger('Het is niet gelukt om het gekozen bestand te verwerken.', Object.values(
-                            res.data.errors
-                        ).reduce((msg, arr) => {
-                            return msg + arr.join('');
-                        }, ""));
-                    }
-
-                    alert('Onbekende error.');
-                });
-            };
-
-            uploadChunk(submitData[currentChunkNth]);
-        };
+    $ctrl.init = () => {
+        $ctrl.csvParser = makeCsvParser();
 
         $element.unbind('dragleave').bind('dragleave', function(e) {
             e.preventDefault()
@@ -425,9 +435,7 @@ let ModalVouchersUploadComponent = function(
             e.preventDefault();
             $element.removeClass('on-dragover');
 
-            let file = e.originalEvent.dataTransfer.files[0];
-
-            $ctrl.csvParser.uploadFile(file);
+            $ctrl.csvParser.uploadFile(e.originalEvent.dataTransfer.files[0]);
         });
     };
 
@@ -435,6 +443,8 @@ let ModalVouchersUploadComponent = function(
         $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.fund = $ctrl.modal.scope.fund || null;
         $ctrl.type = $ctrl.modal.scope.type || 'fund_voucher';
+        $ctrl.availableFunds = $ctrl.modal.scope.organizationFunds;
+        $ctrl.availableFundsIds = $ctrl.availableFunds.map(fund => fund.id);
 
         if ($ctrl.type == 'product_voucher') {
             HelperService.recursiveLeacher((page) => {
@@ -451,18 +461,13 @@ let ModalVouchersUploadComponent = function(
                     return obj;
                 }, {});
 
-                $ctrl.init([
-                    'product_id'
-                ]);
+                $ctrl.init();
             });
         } else {
-            $ctrl.init([
-                'amount'
-            ]);
+            $ctrl.init();
         }
     };
 
-    $ctrl.$onDestroy = () => { };
     $ctrl.closeModal = () => {
         if ($ctrl.changed) {
             $ctrl.modal.scope.done();
