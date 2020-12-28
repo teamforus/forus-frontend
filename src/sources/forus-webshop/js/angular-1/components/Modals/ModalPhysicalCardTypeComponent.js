@@ -88,10 +88,15 @@ let ModalPhysicalCardTypeComponent = function(
         }
     };
 
+    $ctrl.requestPhysicalCard = () => {
+        $ctrl.prefferPlasticCard();
+    };
+
     $ctrl.prefferPlasticCard = () => {
         PhysicalCardsRequestService.index($ctrl.modal.scope.voucher.address).then(res => {
             $ctrl.requestPhysicalCardForm.values = res.data.data[0] || {};
             $ctrl.preffersPlasticCard = true;
+            $ctrl.state = 'select_type';
 
             $timeout(() => $element.find('#physical_card_address').focus(), 250);
         });
