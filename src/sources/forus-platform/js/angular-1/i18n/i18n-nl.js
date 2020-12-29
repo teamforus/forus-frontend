@@ -23,7 +23,7 @@ module.exports = {
         "funds-create": 'Fonds aanmaken',
         "funds-show": 'Beschikbare fondsen',
         "funds-edit": 'Fonds bewerken',
-        transactions: 'Overzicht transacties',
+        transactions: 'Transacties',
         transaction: 'Transactie details',
         products: 'Aanbod',
         "products-create": 'Aanbod toevoegen',
