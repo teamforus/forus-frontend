@@ -101,18 +101,28 @@ let ModalVouchersUploadComponent = function(
             };
 
             this.validateCsvDataBudget = function(data) {
-                const fundBudget = $ctrl.getFundBudget();
+                const fundBudget = $ctrl.fund.limit_sum_vouchers;
                 const csvTotalAmount = data.reduce((sum, row) => sum + parseFloat(row.amount || 0), 0);
 
                 this.errors.csvAmountMissing = data.filter(row => !row.amount).length > 0;
+
                 // csv total amount should be withing fund budget
                 this.errors.invalidAmountField = csvTotalAmount > fundBudget;
+
                 // fund vouchers csv shouldn't have product_id field
-                this.errors.csvProductIdPresent = data.filter(row => row.product_id != undefined).length > 0;
+                this.errors.csvProductIdPresent = data.filter(
+                    row => row.product_id != undefined
+                ).length > 0;
+
+                // some vouchers exceed the limit per voucher
+                this.errors.invalidPerVoucherAmount = data.filter(
+                    row => row.amount > $ctrl.fund.limit_per_voucher
+                ).length > 0;
 
                 return !this.errors.invalidAmountField &&
                     !this.errors.csvProductIdPresent &&
-                    !this.errors.csvAmountMissing;
+                    !this.errors.csvAmountMissing &&
+                    !this.errors.invalidPerVoucherAmount;
             }
 
             this.validateCsvDataProduct = function(data) {
@@ -389,12 +399,6 @@ let ModalVouchersUploadComponent = function(
         };
 
         return new csvParser();
-    };
-
-    $ctrl.getFundBudget = () => {
-        return ($ctrl.fund.budget && (
-            typeof $ctrl.fund.budget.left != 'undefined'
-        )) ? $ctrl.fund.budget.left : 1000000000;
     };
 
     $ctrl.reset = function() {

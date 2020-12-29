@@ -95,6 +95,7 @@ let ModalVoucherCreateComponent = function(
                     return VoucherService.index($ctrl.organization.id, {
                         type: 'fund_voucher',
                         email: form.values.email,
+                        fund_id: $ctrl.fund.id,
                         source: 'all',
                     }).then((res) => {
                         $ctrl.close();
@@ -116,6 +117,7 @@ let ModalVoucherCreateComponent = function(
                     return VoucherService.index($ctrl.organization.id, {
                         type: 'fund_voucher',
                         bsn: form.values.bsn,
+                        fund_id: $ctrl.fund.id,
                         source: 'all',
                     }).then((res) => {
                         $ctrl.close();
