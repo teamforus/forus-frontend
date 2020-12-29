@@ -48,53 +48,47 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                         .card-value {{ transaction.created_at_locale }}
 
                     .card-actions
-                        .action-item(ng-click="$ctrl.sendVoucherEmail()")
+                        .action-col: .action-item(ng-click="$ctrl.sendVoucherEmail($ctrl.voucher)")
                             .action-item-icon
                                 em.mdi.mdi-email-outline
                                 //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.open_in_me")
                             .action-item-name(translate="physical_card.modal_section.request_new_card.email_to_me")
-                        .action-item(ng-click="$ctrl.openInMeModal()")
+                        .action-col: .action-item(ng-click="$ctrl.openInMeModal()")
                             .action-item-icon
                                 em.mdi.mdi-account-circle
                                 //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
                             .action-item-name(translate="physical_card.modal_section.request_new_card.open_in_app")
-                        .action-item(
-                            ng-click="$ctrl.printQrCode()" 
-                            ng-if="!$root.appConfigs.flags.noPrintOption")
+                        .action-col(ng-if="!$root.appConfigs.flags.noPrintOption"): .action-item(
+                            ng-click="$ctrl.printQrCode()")
                             .action-item-icon
                                 em.mdi.mdi-printer
                                 //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
                             .action-item-name(translate="physical_card.modal_section.request_new_card.print_pass")
-                        .action-item(
-                            ng-click="$ctrl.usePhysicalCard($ctrl.voucher)"
-                            ng-if="!$ctrl.preffersPlasticCard && $ctrl.voucher.fund.allow_physical_cards && ($ctrl.voucher.type === 'regular') && !$ctrl.voucher.physical_card")
-                            .action-item-icon
-                                em.mdi.mdi-card-bulleted-outline
-                                //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
-                            .action-item-name(translate="physical_card.modal_section.type_selection.card_new.title")
-                        .action-item(
-                            ng-click="$ctrl.usePhysicalCard($ctrl.voucher, 'card_code')" 
-                            ng-if="$ctrl.showPhysicalCardsOption")
+                        .action-col(ng-if="!$ctrl.preffersPlasticCard && $ctrl.voucher.fund.allow_physical_cards && ($ctrl.voucher.type === 'regular') && !$ctrl.voucher.physical_card")
+                            .action-item(ng-click="$ctrl.usePhysicalCard($ctrl.voucher)")
+                                .action-item-icon
+                                    em.mdi.mdi-card-bulleted-outline
+                                    //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
+                                .action-item-name(translate="physical_card.modal_section.type_selection.card_new.title")
+                        .action-col(ng-if="$ctrl.showPhysicalCardsOption"): .action-item(
+                            ng-click="$ctrl.usePhysicalCard($ctrl.voucher, 'card_code')" )
                             .action-item-icon
                                 em.mdi.mdi-card-bulleted-outline
                                 //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
                             .action-item-name Activeer mijn pas                            
-                        .action-item(
-                            ng-if="$ctrl.voucher.physical_card" 
+                        .action-col(ng-if="$ctrl.voucher.physical_card"): .action-item(
                             ng-click="$ctrl.unlinkPhysicalCard($ctrl.voucher)")
                             .action-item-icon
                                 em.mdi.mdi-card-bulleted-outline
                                 //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
                             .action-item-name Ik ben mijn pas kwijt                      
-                        .action-item(
-                            ng-if="$ctrl.voucherCard.product && $root.appConfigs.flags.shareProducts" 
+                        .action-col(ng-if="$ctrl.voucherCard.product && $root.appConfigs.flags.shareProducts"): .action-item(
                             ng-click="$ctrl.shareVoucher($ctrl.voucher)")
                             .action-item-icon
                                 em.mdi.mdi-share-variant
                                 //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
                             .action-item-name Delen
-                        .action-item(
-                            ng-if="!$ctrl.voucherCard.used && $ctrl.voucherCard.product" 
+                        .action-col(ng-if="!$ctrl.voucherCard.used && $ctrl.voucherCard.product"): .action-item( 
                             ng-click="$ctrl.deleteVoucher($ctrl.voucher)")
                             .action-item-icon
                                 em.mdi.mdi-cancel
