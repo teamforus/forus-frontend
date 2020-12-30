@@ -4314,7 +4314,7 @@ $colorPrimaryLight: $color_primary_light;
             cursor: default;
 
             .chart-header-range {
-                flex: 2 0px;
+                flex-basis: 40%;
 
                 .chart-header-item {
                     color: rgba($color: #151b26, $alpha: 0.5);
@@ -4341,11 +4341,29 @@ $colorPrimaryLight: $color_primary_light;
                 text-align: center;
                 font: 500 13px/34px $bf;
                 color: #151b26;
+                flex-basis: 20%;
             }
 
             .chart-header-actions {
-                flex: 2 0px;
-                text-align: right;
+                flex-basis: 40%;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+
+                .flex-row {
+                    flex: 1;
+                    flex-direction: row;
+                    justify-content: flex-end;
+                    flex-wrap: nowrap;
+                }
+
+                .form-group {
+                    margin: 0 10px 0 0;
+                }
+
+                .form-control {
+                    max-width: 200px;
+                }
             }
         }
     }
