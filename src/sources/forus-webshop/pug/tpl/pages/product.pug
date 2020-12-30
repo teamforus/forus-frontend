@@ -49,12 +49,14 @@ section.section.section-product: .wrapper
                         .fund-item-section-value(ng-bind="fund.limit_available" ng-if="!$root.auth_user")
 
                     //- product price
-                    .fund-item-section.fund-item-price.text-right(ng-if="!$ctrl.product.no_price")
-                        .fund-item-section-label(ng-if="fund.type == 'budget' && fund.meta.isApplicable" i18n="product.labels.pay_from_voucher")
-                        .fund-item-section-label(ng-if="fund.type == 'subsidies' && fund.price != 0" i18n="product.labels.price")
-
-                        .fund-item-section-value(ng-if="$ctrl.product.no_price" i18n="product.status.no_data")
-                        .fund-item-section-value(ng-if="fund.price == 0" i18n="product.status.free")
+                    .fund-item-section.fund-item-price.text-right
+                        .fund-item-section-label(ng-if="fund.type == 'budget' && fund.meta.isApplicable && !$ctrl.product.no_price" i18n="product.labels.pay_from_voucher")
+                        .fund-item-section-label(ng-if="fund.type == 'subsidies' && !$ctrl.product.no_price" i18n="product.labels.price")
+                        .fund-item-section-label(ng-if="(fund.type == 'subsidies' && $ctrl.product.no_price) || (fund.type == 'budget' && (!fund.meta.isApplicable || $ctrl.product.no_price))") Prijs:
+                        .fund-item-section-value(ng-if="$ctrl.product.no_price")
+                            span(ng-if="$ctrl.product.no_price_type == 'free'") Gratis
+                            span(ng-if="$ctrl.product.no_price_type == 'discount'") {{ $ctrl.product.no_price_discount | percentage_format }} korting
+                        .fund-item-section-value(ng-if="!$ctrl.product.no_price && $ctrl.product.price_min == 0") {{ $ctrl.product.price | currency_format }} korting
                         .fund-item-section-value(
                             ng-if="!$ctrl.product.no_price && fund.price != 0"
                             ng-bind="(fund.type == 'subsidies' ? fund.price : $ctrl.product.price) | currency_format")
