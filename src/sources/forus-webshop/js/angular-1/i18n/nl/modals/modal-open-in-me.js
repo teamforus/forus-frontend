@@ -18,6 +18,8 @@ module.exports = {
             subtitle: 'Vul de 6 cijfers die in uw app verschijnen hieronder in'
         },
         app_instruction: {
+            title: 'Installeer de app',
+            description: 'Neem uw tegoeden mee in de ',
             step_1: 'Open <i>Me</i>',
             step_2: 'Ik heb al een profiel',
             step_3: 'Inloggen met Autorisatie code',
