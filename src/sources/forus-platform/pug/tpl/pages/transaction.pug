@@ -1,6 +1,9 @@
 .app.app-container
     menu
     section.app.app-content
+        .block.block-breadcrumbs(ng-if="$root.activeOrganization")
+            .breadcrumb-item(ui-sref="transactions({organization_id:$root.activeOrganization.id})" translate="page_state_titles.transactions")
+            .breadcrumb-item.active(ng-bind="'#' + $ctrl.transaction.id")
         .card
             .card-section
                 p
