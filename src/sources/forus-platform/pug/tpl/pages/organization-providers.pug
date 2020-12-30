@@ -120,7 +120,7 @@
                             .tag.tag-sm(
                                 class=(products == 0 ? 'tag-danger' : 'tag-default')
                                 ng-bind="providerFund.products_count_approved + '/' + providerFund.products_count_available")
-                            span.provider-activity(ng-if="providerFund.last_activity") {{ providerFund.last_activity_locale }}
+                            span.provider-activity(ng-if="providerFund.last_activity") Laatst actief: {{ providerFund.last_activity_locale }}
 
                     .provider-actions.form
                         //- budget fund: allow budget vouchers
