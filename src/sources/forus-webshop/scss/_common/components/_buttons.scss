@@ -229,7 +229,7 @@
     &[disabled],
     &.disabled,
     &.button-disabled {
-        background: #eff2f4;
+        background: #eff2f4 !important;
         border-color: #eff2f4;
         color: #ccd0e0;
         box-shadow: none;
