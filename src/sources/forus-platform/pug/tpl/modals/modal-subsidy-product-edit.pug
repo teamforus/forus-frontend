@@ -27,7 +27,7 @@
                         .subsidy-property-label Originele prijs 
                         .subsidy-property-value.subsidy-property-value-muted(ng-bind='$ctrl.product.old_price | currency_format')
                     
-                    .subsidy-property.subsidy-property-monetary(ng-if="!$ctrl.product.no_price")
+                    .subsidy-property.subsidy-property-monetary(ng-if="$ctrl.product.old_price && !$ctrl.product.no_price")
                         .subsidy-property-label Bijdrage vanuit aanbieder
                         .subsidy-property-value(ng-bind='($ctrl.product.old_price - $ctrl.product.price) | currency_format')
                     
