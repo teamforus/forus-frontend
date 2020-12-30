@@ -113,7 +113,7 @@
                         //- budget fund: count products
                         .provider-subtitle(ng-if="providerFund.fund.type == 'budget'")
                             span {{ providerFund.products_count_all }} aanbiedingen
-                            span.provider-activity(ng-if="providerFund.last_activity") {{ providerFund.last_activity_locale }}
+                            span.provider-activity(ng-if="providerFund.last_activity") Laatst actief: {{ providerFund.last_activity_locale }}
                         //- subsidy fund: count products approved
                         .provider-subtitle(ng-if="providerFund.fund.type == 'subsidies'") 
                             | Actieve acties 
