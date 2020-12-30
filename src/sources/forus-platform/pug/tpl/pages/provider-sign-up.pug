@@ -167,6 +167,14 @@
                         
                     .col.col-lg-6.text-right
 
+                .sign_up-pane-footer(ng-if="!$ctrl.sentSms"): .row
+                    .col.col-lg-6.text-left
+                        .button.button-text.button-text-padless(ng-click="$ctrl.back()")
+                            em.mdi.mdi-chevron-left.icon-lefts
+                            | {{ 'sign_up_provider.buttons.back' | translate }}
+                        
+                    .col.col-lg-6.text-right
+
         //- Select organization step
         div(ng-if="$ctrl.step == $ctrl.STEP_SELECT_ORGANIZATION")
             +progress()

@@ -3,65 +3,6 @@
         @media screen and (min-width: 1024px) {
             background-size: cover;
             background-position: center center;
-            padding: 0;
-
-            .header-content {
-                color: #FFF;
-                text-align: center;
-                max-width: 600px;
-                float:right;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                padding: 90px 0;
-
-                .header-title {
-                    text-align: center;
-                    font: 700 40px/1.5em #FFF;
-                    text-transform:capitalize;
-                }
-
-                .header-description {
-                    text-align: center;
-                    p {
-                        font: 400 18px/1.5em #FFF;
-                    }
-                }
-                
-                .header-how-it-works {
-                    margin-top: 25px;
-                    color: #FFF;
-                    font-style: normal;
-
-                    &:hover {
-                        color: #375667;
-                    }
-                }
-                .signup_cta {
-                    margin-top: 25px;
-                    color: #FFF;
-                    font-style: normal;
-                    font-family: $bf;
-                }
-            }
-        }
-    }
-
-    &.section-sign-up-choose {
-        margin: 77px 0;
-
-        .section-title {
-            margin: 0 0 17px;
-            font: 600 48px/55px $bf;
-            text-align: center;
-        }
-
-        .section-subtitle {
-            font: 500 20px/32px $bf;
-            text-align: center;
-            color: #000000;
-            margin-bottom: 77px;
         }
     }
 }

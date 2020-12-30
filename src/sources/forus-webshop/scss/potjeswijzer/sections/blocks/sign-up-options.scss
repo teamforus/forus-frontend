@@ -5,7 +5,7 @@
         justify-content: space-between;
 
         .block-sign-up-option {
-            background: url(../img/sign-up-option.png) no-repeat 50% 50%;
+            background: url(../img/sign-up-option.jpg) no-repeat 50% 50%;
             background-size: cover;
             height: 520px;
             width: 32%;
@@ -46,7 +46,7 @@
             &:hover {
                 // background-color: rgba(36, 119, 167, 0.7); 
                 margin-top: -15px;
-                background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), url('../img/sign-up-option.png');
+                background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), url('../img/sign-up-option.jpg');
 
                 .button {
                     background-color: #40C0F1;
