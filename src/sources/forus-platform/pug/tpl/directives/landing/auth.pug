@@ -6,15 +6,14 @@
         .block-login-title Login met e-mail
         .block-login-description Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen
         
-        .block-login-form  
-            form(ng-submit="form.submit()").form.row: .col.col-lg-12.form-group
+        .block-login-form
+            form(ng-submit="form.submit()").form
                 .form-label E-mailadres
-                .flex-row
-                    .flex-col.flex-grow
+                .block-login-control
+                    .flex.form-group
                         input(type="email" placeholder="bijv. info@info.nl" ng-model="form.values.email").form-control
                         .form-error(ng-repeat="error in form.errors.email" ng-bind="error")
-                    
-                    .flex-col: button.button.button-primary(type="submit") Login
+                    .flex: button.button.button-primary(type="submit") Login
 
         .block-login-me_app
             .qr_code-container
