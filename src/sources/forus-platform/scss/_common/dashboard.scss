@@ -5479,6 +5479,23 @@ $colorPrimaryLight: $color_primary_light;
                     font-weight: 400;
                     text-transform: uppercase;
                 }
+
+                .block-login-control {
+                    display: flex;
+                    flex-direction: row;
+
+                    .form-group {
+                        padding-right: 20px;
+                        flex-grow: 1;
+                        margin: 0 0;
+                        display: flex;
+                        flex-direction: column;
+                    }
+                        
+                    .button {
+                        align-self: flex-start;
+                    }
+                }
     
                 .form-control:not([type='radio']):not([type='checkbox']) {
                     font: 400 16px/20px $bf;
@@ -5546,6 +5563,7 @@ $colorPrimaryLight: $color_primary_light;
                             margin: 0 auto;
                             padding: 7.5px 15px;
                             box-shadow: none;
+                            align-self: center;
                         }
                     }
 
@@ -5654,19 +5672,16 @@ $colorPrimaryLight: $color_primary_light;
                 .block-login-form {
                     margin: 0;
 
-                    .flex-row {
+                    .block-login-control {
                         flex-direction: column;
 
-                        .flex-col {
-                            &:first-child {
-                                margin-bottom: 20px;
-                            }
+                        .flex {
+                            justify-content: center;
+                        }
 
-                            &:last-child {
-                                display: flex;
-                                flex-direction: row;
-                                justify-content: center;
-                            }
+                        .form-group {
+                            margin-bottom: 20px;
+                            padding-right: 0;
                         }
                     }
                 }
