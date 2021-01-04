@@ -76,8 +76,12 @@ let FundActivateComponent = function(
         form.enabled = false;
 
         FundService.redeem(code).then(res => {
-            if (res.data.voucher) {
-                $state.go('voucher', res.data.voucher);
+            if (res.data.vouchers.length > 0) {
+                if (res.data.vouchers.length === 1) {
+                    $state.go('voucher', res.data.vouchers[0]);
+                } else {
+                    $state.go('vouchers');
+                }
             } else if (res.data.prevalidation) {
                 $ctrl.getApplicableFunds().then((funds) => {
                     if (funds.length > 0) {
@@ -103,7 +107,7 @@ let FundActivateComponent = function(
                 });
             }
         }, (res) => {
-            if (res.status == 404) {
+            if ((res.status == 404 || res.status === 403) && res.data.meta) {
                 form.errors.code = [res.data.meta.message];
             } else if (res.data.meta || res.status == 429) {
                 ModalService.open('modalNotification', {

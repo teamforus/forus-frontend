@@ -1,16 +1,14 @@
 .product-item
     .product-media: img.product-media-img(ng-src="{{ product.photo.sizes.thumbnail || './assets/img/placeholders/product-thumbnail.png' }}")
     .product-details
-        .product-title
-            | {{ product.name }}
-            .label.label-round.label-lg.label-success(ng-if="!product.expired" translate="product_card.status.active")
+        .product-title: span(ng-bind="product.name").ellipsis
         .product-subtitle 
             | Resterend aanbod: 
             span(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
             span(ng-if="product.unlimited_stock" translate="product_edit.labels.unlimited")
     .product-actions
-        .product-action(ng-if="!product.no_price")
-            .product-price {{ product.price | currency_format }}
+        .product-action(ng-if="!product.no_price"): .product-price {{ product.price | currency_format }}
+        .product-action: .label.label-round.label-lg.label-success(ng-if="!product.expired" translate="product_card.status.active")
         .product-action: .button-group
             .button.button-defaul(ui-sref="products-show(product)")
                 em.mdi.mdi-eye-outline.icon-start
