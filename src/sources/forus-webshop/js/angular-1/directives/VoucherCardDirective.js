@@ -8,7 +8,7 @@ let VoucherCardDirective = function(
 
     $scope.voucherCard.disabled =
         ($scope.voucherCard.type == 'product' && $scope.voucher.used) ||
-        ($scope.voucher.expired && !$scope.voucher.used);
+        ($scope.voucherCard.type == 'product' && $scope.voucher.expired && !$scope.voucher.used);
 
     $scope.deleteVoucher = ($event, voucher) => {
         $event.preventDefault();
