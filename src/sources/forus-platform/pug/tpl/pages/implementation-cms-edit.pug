@@ -20,6 +20,15 @@
                     label(translate="implementation_edit.labels.header_description").form-label
                     .form-offset: markdown(ng-model="$ctrl.form.values.description" extended-options="true")
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
+
+            .card-section.card-section-primary
+                .row: .col.col-lg-9
+                    .form-group.form-group-inline.tooltipped
+                        label.form-label(translate="implementation_edit.labels.description_provider")
+                        .form-offset: markdown(ng-model="$ctrl.form.values.description_provider" extended-options="true")
+
+                        tooltip(text="'Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.'")
+                        .form-error(ng-repeat="error in $ctrl.form.errors.description_provider" ng-bind="error")
             
             .card-section.card-section-primary
                 .row: .col.col-lg-9

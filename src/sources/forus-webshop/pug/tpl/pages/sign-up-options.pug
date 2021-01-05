@@ -13,3 +13,7 @@ section.section.section-details: .wrapper
             p.block-description: button(ng-click="$ctrl.goToSignUpPage('provider')").button.button-primary-outline Aanmelden
 
         .sign_up-images: .sign_up-image: img(src="assets/img/provider-sign_up-preview.svg")
+
+    
+    .block.block-steps(ng-if="$ctrl.description_provider_html"): .wrapper
+        .block-steps-description: .block.block-markdown(ng-bind-html="$ctrl.description_provider_html")    
