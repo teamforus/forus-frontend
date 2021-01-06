@@ -62,7 +62,8 @@
 
         .product-actions {
             padding: 15px;
-            width: 270px;
+            width: 190px;
+            min-width: 190px;
             border-left: 1px solid $border_color;
             display: flex;
             flex-direction: column;

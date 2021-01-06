@@ -27,7 +27,7 @@
                         .subsidy-property-label Originele prijs 
                         .subsidy-property-value.subsidy-property-value-muted(ng-bind='$ctrl.product.old_price | currency_format')
                     
-                    .subsidy-property.subsidy-property-monetary(ng-if="!$ctrl.product.no_price")
+                    .subsidy-property.subsidy-property-monetary(ng-if="$ctrl.product.old_price && !$ctrl.product.no_price")
                         .subsidy-property-label Bijdrage vanuit aanbieder
                         .subsidy-property-value(ng-bind='($ctrl.product.old_price - $ctrl.product.price) | currency_format')
                     
@@ -58,7 +58,7 @@
                                 | Ongelimiteerd aantal acties mag gebruikt worden
                         .form-error
                     .form-group
-                        .form-label Hoevaak mag er per inwoner gebruik gemaakt worden van deze actie?
+                        .form-label Hoe vaak mag er per inwoner gebruik gemaakt worden van deze actie?
                         input(
                             ng-model="$ctrl.form.values.limit_per_identity" 
                             type="number" 

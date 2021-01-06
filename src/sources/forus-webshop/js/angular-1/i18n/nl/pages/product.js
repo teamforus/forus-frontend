@@ -17,7 +17,8 @@ module.exports = {
         category: "Categorie:",
         expire: "Geldigheid van aanbod:",
         pay_from_voucher: "U betaalt vanuit het tegoed:",
-        price: "Wat u betaalt:",
+        price: "Prijs:",
+        discount: "Korting:",
         expire_prefix: "Geldig t/m"
     },
     status: {

@@ -45,17 +45,23 @@ header.section.section-sign-up-choose
                 .sign_up-pane-header(translate="fund_request.sign_up.header.title")
 
                 .sign_up-pane-body(ng-if="!$ctrl.hasApp")
-                    form(ng-submit="$ctrl.authForm.submit()").form: .row
-                        .form-group.col.col-lg-9
-                            label.form-label(i18n="popup_auth.input.mail")
-                            ui-control-email(ng-model="$ctrl.authForm.values.email" data-placeholder="bijv. info@info.nl")
-                            .form-error(ng-repeat="error in $ctrl.authForm.errors.email" ng-bind="error")
-                        .form-group.col.col-lg-3
-                            label.form-label.hide-sm &nbsp;
-                            button(
-                                ng-class="{'button-disabled': (!$ctrl.authForm.values.privacy && $root.appConfigs.flags.privacyPage)}"
-                                type="submit").button.button-primary.button-fill {{ "popup_auth.buttons.submit" | translate }}
-                        .sign_up-pane-text(for='privacy' ng-if="$root.appConfigs.flags.privacyPage") #[input(type="checkbox" ng-model="$ctrl.authForm.values.privacy" id='privacy')] Ik heb de #[a.text-primary-light.sign_up-pane-link(ui-sref="privacy") privacyverklaring] gelezen
+                    form(ng-submit="$ctrl.authForm.submit()").form
+                        .row
+                            .form-group.col.col-lg-9
+                                label.form-label(i18n="popup_auth.input.mail")
+                                ui-control-email(ng-model="$ctrl.authForm.values.email" data-placeholder="bijv. info@info.nl")
+                                .form-error(ng-repeat="error in $ctrl.authForm.errors.email" ng-bind="error")
+                            .form-group.col.col-lg-3
+                                label.form-label.hide-sm &nbsp;
+                                button(
+                                    ng-class="{'button-disabled': (!$ctrl.authForm.values.privacy && $root.appConfigs.flags.privacyPage)}"
+                                    translate="popup_auth.buttons.submit"
+                                    type="submit").button.button-primary.button-fill
+                        .row(ng-if="$root.appConfigs.flags.privacyPage"): .col.col-lg-12
+                            br.hidden-lg
+                            label(for='privacy').sign_up-pane-text
+                                input(type="checkbox" ng-model="$ctrl.authForm.values.privacy" id='privacy')
+                                |  Ik heb de #[a.text-primary-light.sign_up-pane-link(ui-sref="privacy") privacyverklaring] gelezen
                         
                     .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="fund_request.sign_up.labels.has_app").hide-sm
 

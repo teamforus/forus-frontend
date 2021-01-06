@@ -8,7 +8,8 @@ let VoucherCardDirective = function(
 
     $scope.voucherCard.disabled =
         ($scope.voucherCard.type == 'product' && $scope.voucher.used) ||
-        ($scope.voucher.expired && !$scope.voucher.used);
+        ($scope.voucherCard.type == 'product' && $scope.voucher.expired && !$scope.voucher.used) ||
+        ($scope.voucherCard.type == 'regular' && $scope.voucher.expired && !$scope.voucher.last_transaction_at); // Regular voucher which has no transactions should be disabled; todo: should check with backend flags on to disable transactions on voucher list
 
     $scope.deleteVoucher = ($event, voucher) => {
         $event.preventDefault();
