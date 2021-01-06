@@ -4,6 +4,7 @@ let SignUpComponent = function(
     AuthService,
     IdentityService,
     FormBuilderService,
+    DigIdService,
     appConfigs
 ) {
     let $ctrl = this;
@@ -16,6 +17,7 @@ let SignUpComponent = function(
     $ctrl.authEmailSent = false;
     $ctrl.authEmailRestoreSent = false;
     $ctrl.hasApp = false;
+    $ctrl.digidAvailable = appConfigs.features.digid;
 
     // Initialize authorization form
     $ctrl.initAuthForm = () => {
@@ -58,6 +60,10 @@ let SignUpComponent = function(
         }
     };
 
+    $ctrl.setRestoreWithDigiD = () => {
+        $ctrl.setStep(3);
+    };
+
     // Request auth token for the qr-code
     $ctrl.requestAuthQrToken = () => {
         IdentityService.makeAuthToken().then((res) => {
@@ -65,6 +71,18 @@ let SignUpComponent = function(
             authTokenSubscriber.checkAccessTokenStatus(res.data.access_token, () => $ctrl.onSignedIn());
         }, console.error);
     };
+
+    $ctrl.startDigId = () => {
+        DigIdService.startAuthRestore().then((res) => {
+            document.location = res.data.redirect_url;
+        }, res => {
+            $ctrl.close();
+
+            $state.go('error', {
+                errorCode: res.headers('Error-Code')
+            });
+        });
+    }
 
     // Transform step number to human readable state
     $ctrl.step2state = (step) => {
@@ -75,11 +93,15 @@ let SignUpComponent = function(
         if (step == 1) {
             return 'auth';
         }
+        
 
         if (step == 2 && ($ctrl.authEmailSent || $ctrl.authEmailRestoreSent)) {
             return 'auth_email_sent';
         }
 
+        if (step == 3) {
+            return 'digid';
+        }
         return 'done';
     };
 
@@ -151,6 +173,7 @@ module.exports = {
         'AuthService',
         'IdentityService',
         'FormBuilderService',
+        'DigIdService',
         'appConfigs',
         SignUpComponent
     ],

@@ -248,6 +248,15 @@
             margin: 0 -5px;
         }
     }
+    &.modal-button-digid-icon {
+        background-color: #000;
+        background-image: url('../img/icon-digid.svg');
+        background-size: contain;
+        background-repeat: none;
+        background-position: 50% 50%;
+        border-color: #000;
+        cursor: default;
+    }
 }
 
 .first-line-button {

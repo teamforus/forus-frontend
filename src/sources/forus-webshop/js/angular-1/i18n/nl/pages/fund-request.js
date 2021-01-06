@@ -32,6 +32,7 @@ module.exports = {
         },
         labels: {
             has_app: "Ik wil inloggen met de Me-app >",
+            restore_with_digid: "Vergeten welk e-mailadres u heeft gebruikt? >",
             no_app: "Ik wil inloggen met mijn e-mailadres >",
         },
         app: {
@@ -42,6 +43,11 @@ module.exports = {
             description_bottom: [
                 'De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en tegoeden te beheren.',
             ].join("\n")
+        },
+        digid: {
+            title: "Vergeten welk e-mailadres u heeft gebruikt?",
+            description: "Herstel uw account door opnieuw in te loggen met DigiD",
+            button: "Login"
         },
         record_checkbox: {
             default: 'Ik verklaar aan de bovenstaande voorwaarden te voldoen',
