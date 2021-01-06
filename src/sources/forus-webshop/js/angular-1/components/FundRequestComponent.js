@@ -106,7 +106,11 @@ let FundRequestComponent = function(
         $ctrl.submitInProgress = true;
 
         FundRequestService.store($ctrl.fund.id, {
-            records: $ctrl.invalidCriteria.map(criterion => ({
+            records: $ctrl.fund.auto_validation ? $ctrl.invalidCriteria.map(criterion => ({
+                value: criterion.value,
+                record_type_key: criterion.record_type_key,
+                fund_criterion_id: criterion.id,
+            })) : criteria.map(criterion => ({
                 value: criterion.input_value,
                 record_type_key: criterion.record_type_key,
                 fund_criterion_id: criterion.id,
