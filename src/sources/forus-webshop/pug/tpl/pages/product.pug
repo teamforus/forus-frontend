@@ -57,10 +57,12 @@ section.section.section-product: .wrapper
                         .fund-item-section-label(
                             ng-if="($ctrl.product.price_type === 'discount_fixed' || $ctrl.product.price_type === 'discount_percentage')" 
                             translate="product.labels.discount")
-                        
+
                         //- subsidies price
                         div(ng-if="fund.type == 'subsidies'")
-                            .fund-item-section-value(ng-if="$ctrl.product.price_type === 'regular' && $ctrl.product.price_min == 0") Gratis
+                            .fund-item-section-value(
+                                ng-if="$ctrl.product.price_type === 'free' || $ctrl.product.price_type === 'regular' && $ctrl.product.price_min == 0"
+                                translate="product.status.free")
                             .fund-item-section-value(
                                 ng-if="$ctrl.product.price_type === 'regular' && $ctrl.product.price_min != 0" 
                                 ng-bind="$ctrl.product.price_min | currency_format")
@@ -70,14 +72,10 @@ section.section.section-product: .wrapper
                             .fund-item-section-value(
                                 ng-if="$ctrl.product.price_type === 'regular' || $ctrl.product.price_type === 'free'" 
                                 ng-bind="$ctrl.product.price_locale")
-
+                            
                         .fund-item-section-value(
-                            ng-if="$ctrl.product.price_type === 'discount_fixed'" 
-                            ng-bind="$ctrl.product.price_discount | currency_format")
-                        
-                        .fund-item-section-value(
-                            ng-if="$ctrl.product.price_type === 'discount_percentage'" 
-                            ng-bind="$ctrl.product.price_discount + '%'")
+                            ng-if="$ctrl.product.price_type === 'discount_fixed' || $ctrl.product.price_type === 'discount_percentage'" 
+                            ng-bind="$ctrl.product.price_discount_locale")
 
                     //- reserve product using voucher
                     .fund-item-section(ng-if="!fund.meta.isApplicableSubsidy && $ctrl.product.price_type === 'regular' && $ctrl.useBudget && fund.meta.isApplicable && !$ctrl.product.deleted && !$ctrl.product.sold_out")

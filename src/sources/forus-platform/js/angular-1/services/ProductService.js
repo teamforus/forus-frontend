@@ -62,11 +62,7 @@ let ProductService = function(ApiRequest) {
         };
 
         this.apiFormToResource = function(formData) {
-            let values = JSON.parse(JSON.stringify(formData));
-
-            values.expire_at = moment(values.expire_at, 'DD-MM-YYYY').format('YYYY-MM-DD');
-
-            return values;
+            return {...formData};
         };
 
         this.apiResourceToForm = function(apiResource) {
@@ -80,10 +76,10 @@ let ProductService = function(ApiRequest) {
                     apiResource.price_discount
                 ) : null,
 
+                expire_at: apiResource.expire_at,
                 total_amount: apiResource.total_amount,
                 stock_amount: apiResource.stock_amount,
                 sold_amount: apiResource.total_amount - apiResource.stock_amount,
-                expire_at: moment(apiResource.expire_at).format('DD-MM-YYYY'),
                 product_category_id: apiResource.product_category_id,
             };
 

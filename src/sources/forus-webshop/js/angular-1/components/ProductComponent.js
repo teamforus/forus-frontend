@@ -122,9 +122,11 @@ let ProductComponent = function(
             let voucher = $ctrl.applicableBudgetVouchers[0];
 
             let fund_expire_at = moment(voucher.fund.end_date);
-            let product_expire_at = moment($ctrl.product.expire_at);
+            let product_expire_at = $ctrl.product.expire_at ? moment($ctrl.product.expire_at) : false;
 
-            let expire_at = fund_expire_at.isAfter(product_expire_at) ? $ctrl.product.expire_at_locale : voucher.last_active_day_locale;
+            let expire_at = product_expire_at && fund_expire_at.isBefore(
+                product_expire_at
+            ) ? voucher.last_active_day_locale : $ctrl.product.expire_at_locale;
 
             return ModalService.open('modalProductApply', {
                 expire_at: expire_at,

@@ -20,7 +20,7 @@
                     .product-properties
                         .product-property
                             .product-property-label(translate="product_edit.labels.expire")
-                            .product-property-value(ng-bind="$ctrl.product.expire_at")
+                            .product-property-value(ng-bind="$ctrl.product.expire_at ? $ctrl.product.expire_at_locale : 'Onbeperkt'")
                         .product-property
                             .product-property-label(translate="product_edit.labels.sold")
                             .product-property-value(ng-bind="$ctrl.product.sold_amount")

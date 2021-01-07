@@ -1,3 +1,5 @@
+const { isNull } = require("underscore");
+
 let ProductsEditComponent = function(
     $timeout,
     $state,
@@ -14,6 +16,7 @@ let ProductsEditComponent = function(
 
     $ctrl.media;
     $ctrl.mediaErrors = [];
+    $ctrl.nonExpiring = false;
 
     $ctrl.$onInit = function() {
         let values = $ctrl.product ? ProductService.apiResourceToForm($ctrl.product) : {
@@ -21,7 +24,13 @@ let ProductsEditComponent = function(
             price_type: 'regular',
         };
 
+        $ctrl.nonExpiring = !values.expire_at;
         $ctrl.maxProductCount = parseInt(appConfigs.features.products_hard_limit);
+
+        values.expire_at = $ctrl.nonExpiring ? moment(
+            new Date()
+        ).add(1, 'day') : moment(values.expire_at, 'YYYY-MM-DD');
+        values.expire_at = values.expire_at.format('DD-MM-YYYY');
 
         if ($ctrl.maxProductCount && !$ctrl.product && $ctrl.products.length >= $ctrl.maxProductCount) {
             ModalService.open('modalNotification', {
@@ -113,29 +122,33 @@ let ProductsEditComponent = function(
                 }
             }
 
-            let values = JSON.parse(JSON.stringify(form.values));
+            let values = {
+                ...form.values, ...{
+                    expire_at: $ctrl.nonExpiring ? null : moment(
+                        form.values.expire_at,
+                        'DD-MM-YYYY'
+                    ).format('YYYY-MM-DD')
+                }
+            };;
 
             if (values.price_type !== 'regular') {
                 delete values.price;
             } else if (values.price_type !== 'regular' && values.price_type !== 'free') {
                 delete values.price_discount;
             }
-            if ($ctrl.product) {
-                values.total_amount = values.sold_amount + values.stock_amount;
 
-                promise = ProductService.update(
-                    $ctrl.product.organization_id,
-                    $ctrl.product.id,
-                    values
-                )
+            if ($ctrl.product) {
+                promise = ProductService.update($ctrl.product.organization_id, $ctrl.product.id, {
+                    ...values, ...{
+                        total_amount: values.sold_amount + values.stock_amount
+                    }
+                });
             } else {
-                promise = ProductService.store($stateParams.organization_id, values)
+                promise = ProductService.store($stateParams.organization_id, values);
             }
 
-            promise.then((res) => {
-                $state.go('products', {
-                    organization_id: $stateParams.organization_id
-                });
+            promise.then(() => {
+                $state.go('products', { organization_id: $stateParams.organization_id });
             }, (res) => {
                 $timeout(() => {
                     form.errors = res.data.errors;
