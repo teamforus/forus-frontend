@@ -29,10 +29,7 @@
                             .product-property-value(ng-if="!$ctrl.product.unlimited_stock" ng-bind="$ctrl.product.stock_amount")
                             .product-property-value(ng-if="$ctrl.product.unlimited_stock" translate="product_edit.labels.unlimited")
                 
-                .product-actions.form(ng-if="!$ctrl.product.no_price")
-                    .product-price
-                        | {{ $ctrl.product.price | currency_format }}
-                        .product-price-old(ng-if="$ctrl.product.old_price" ng-bind="$ctrl.product.old_price | currency_format")
+                .product-actions: .product-price(ng-bind="$ctrl.product.price_locale")
             
             .product-description
                 .description-header

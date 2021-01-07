@@ -40,12 +40,12 @@
             .subsidy-property-label {
                 color: #646F79;
                 font: 500 13px/22px $bf;
-                margin-right: 5px;
+                padding-right: 10px;
             }
 
             .subsidy-property-value {
                 color: #000;
-                font: 500 12px/20px $bf;
+                font: 500 13px/22px $bf;
 
                 &.subsidy-property-value-muted {
                     text-decoration: line-through;
@@ -55,14 +55,22 @@
 
             &.subsidy-property-monetary {
                 margin: 0 0 10px;
+                display: flex;
+                flex-direction: row;
 
                 .subsidy-property-label {
-                    color: #000,
+                    color: #000;
+                    display: flex;
+                    flex-basis: auto;
+                    flex-direction: row;
+                    justify-content: flex-end;
+                    flex-basis: 40%;
                 }
 
                 .subsidy-property-value {
                     color: #000;
                     font: 500 18px/20px $bf;
+                    display: flex;
 
                     &.subsidy-property-value-muted {
                         font-size: 16px;
