@@ -704,11 +704,15 @@ $colorPrimaryLight: $color_primary_light;
             }
 
             .sidebar-section-title {
-                display: flex;
-                margin: 25px 0;
-                font: 600 14px/17px $bf;
-                align-items: center;
+                font: 600 14px/20px $bf;
+                padding: 25px 0;
                 color: #000000;
+                cursor: default;
+
+                &:first-child {
+                    padding-top: 10px;
+                    padding: 10px 0 20px;
+                }
             }
         }
     }
@@ -756,6 +760,7 @@ $colorPrimaryLight: $color_primary_light;
     font: 500 18px/26px $bf;
     color: #282b39;
     margin-bottom: 10px;
+    cursor: default;
 
     .link {
         display: inline-block;
