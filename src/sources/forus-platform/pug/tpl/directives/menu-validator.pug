@@ -17,6 +17,8 @@ aside.app.app-sidebar
                 +nav_item_icon(icon)
                 | #{name} 
 
+        .sidebar-section-title Organisatie
+
         +nav_item(
             "Aanvragen", "clock", 'fund-requests', 
             '{organization_id: $root.activeOrganization.id}', 
@@ -41,7 +43,7 @@ aside.app.app-sidebar
             'true',
             'requesters')
 
-        .sidebar-nav-devider(ng-if="$root.activeOrganization")
+        .sidebar-section-title(ng-if="$root.activeOrganization") Persoonlijk
 
         +nav_item('E-mail instellingen', 'emails', 'identity-emails', null, '$root.appConfigs.sessions')
         +nav_item('Sessies', 'sessions', 'security-sessions', '{}', '$root.appConfigs.sessions')
