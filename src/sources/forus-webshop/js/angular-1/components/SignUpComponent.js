@@ -60,9 +60,14 @@ let SignUpComponent = function(
         }
     };
 
-    $ctrl.setRestoreWithDigiD = () => {
-        $ctrl.setStep(3);
-    };
+    $ctrl.startDigId = () => {
+        DigIdService.startAuthRestore().then(
+            (res) => document.location = res.data.redirect_url,
+            (res) => $state.go('error', { 
+                errorCode: res.headers('Error-Code')
+            }),
+        );
+    }
 
     // Request auth token for the qr-code
     $ctrl.requestAuthQrToken = () => {
@@ -71,18 +76,6 @@ let SignUpComponent = function(
             authTokenSubscriber.checkAccessTokenStatus(res.data.access_token, () => $ctrl.onSignedIn());
         }, console.error);
     };
-
-    $ctrl.startDigId = () => {
-        DigIdService.startAuthRestore().then((res) => {
-            document.location = res.data.redirect_url;
-        }, res => {
-            $ctrl.close();
-
-            $state.go('error', {
-                errorCode: res.headers('Error-Code')
-            });
-        });
-    }
 
     // Transform step number to human readable state
     $ctrl.step2state = (step) => {
@@ -93,7 +86,6 @@ let SignUpComponent = function(
         if (step == 1) {
             return 'auth';
         }
-        
 
         if (step == 2 && ($ctrl.authEmailSent || $ctrl.authEmailRestoreSent)) {
             return 'auth_email_sent';
@@ -102,6 +94,7 @@ let SignUpComponent = function(
         if (step == 3) {
             return 'digid';
         }
+
         return 'done';
     };
 
@@ -113,6 +106,7 @@ let SignUpComponent = function(
     $ctrl.nextStep = () => $ctrl.setStep($ctrl.step + 1);
     $ctrl.prevStep = () => $ctrl.setStep($ctrl.step - 1);
 
+    $ctrl.setRestoreWithDigiD = () => $ctrl.setStep(3);
     $ctrl.updateState = () => $ctrl.state = $ctrl.step2state($ctrl.step);
 
     $ctrl.onSignedIn = () => {
