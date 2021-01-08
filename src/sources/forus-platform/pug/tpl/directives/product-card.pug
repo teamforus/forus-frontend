@@ -7,7 +7,7 @@
             span(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
             span(ng-if="product.unlimited_stock" translate="product_edit.labels.unlimited")
     .product-actions
-        .product-action(ng-if="!product.no_price"): .product-price {{ product.price | currency_format }}
+        .product-action: .product-price(ng-bind="product.price_locale")
         .product-action: .label.label-round.label-lg.label-success(ng-if="!product.expired" translate="product_card.status.active")
         .product-action: .button-group
             .button.button-defaul(ui-sref="products-show(product)")

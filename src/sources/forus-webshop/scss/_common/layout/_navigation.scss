@@ -68,6 +68,7 @@
 
                     img {
                         height: $logo-height;
+                        flex-shrink: 0;
                     }
                 }
     

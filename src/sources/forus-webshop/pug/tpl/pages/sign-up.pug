@@ -24,20 +24,18 @@ header.section.section-sign-up-choose
                             i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")
                     span(translate="fund_request.sign_up.pane.fund_already_applied")    
 
-        //- Welcome screen
-        div(ng-if="$ctrl.state == 'welcome'")
-            .sign_up-pane    
-                .sign_up-pane-header(translate="fund_request.sign_up.header.title")
-
+        div(ng-if="$ctrl.state == 'digid'")
+            .sign_up-pane
+                .sign_up-pane-header(i18n="fund_request.sign_up.digid.title")                   
                 .sign_up-pane-body
-                    .sign_up-pane-text.text-center(translate="fund_request.sign_up.subtitles.step_1")
-                    .sign_up-pane-media: img(ng-src="./assets/img/fund-request-welcome.png") 
-
-                .sign_up-pane-footer: .row
-                    .col.col-lg-6.col-xs-6.text-left: .button.button-text.button-text-padless
-                    .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
-                        | {{ 'fund_request.sign_up.pane.footer.next' | translate }}
-                        em.mdi.mdi-chevron-right.icon-right 
+                    .sign_up-pane-auth
+                        .sign_up-pane-auth-content
+                            span(i18n="fund_request.sign_up.digid.description")
+                            br
+                            br
+                            .button.button-digid &nbsp;
+                            .button.button-primary(ng-click="$ctrl.startDigId()" i18n="fund_request.sign_up.digid.button")
+                    .sign_up-pane-link(ng-click="$ctrl.setStep(1)") < Ga terug 
 
         //- Fund request information
         div(ng-if="$ctrl.state == 'auth'")
@@ -62,8 +60,17 @@ header.section.section-sign-up-choose
                             label(for='privacy').sign_up-pane-text
                                 input(type="checkbox" ng-model="$ctrl.authForm.values.privacy" id='privacy')
                                 |  Ik heb de #[a.text-primary-light.sign_up-pane-link(ui-sref="privacy") privacyverklaring] gelezen
-                        
-                    .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="fund_request.sign_up.labels.has_app").hide-sm
+
+                    .sign_up-pane-link(
+                        ng-if="$ctrl.digidAvailable" 
+                        ng-click="$ctrl.setRestoreWithDigiD()" 
+                        translate="fund_request.sign_up.labels.restore_with_digid")
+
+                    br(ng-if="$ctrl.digidAvailable")
+
+                    .sign_up-pane-link(
+                        ng-click="$ctrl.setHasAppProp(true)" 
+                        translate="fund_request.sign_up.labels.has_app").hide-sm
 
                 .sign_up-pane-body(ng-if="$ctrl.hasApp")
                     .sign_up-pane-heading(translate='fund_request.sign_up.app.title')
@@ -88,8 +95,11 @@ header.section.section-sign-up-choose
                             .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(false)" translate="fund_request.sign_up.labels.no_app").show-sm
 
                             .sign_up-pane-auth-apps
-                                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
-                                a(href="https://play.google.com/store/apps/details?id=io.forus.me").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
+                                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").sign_up-pane-auth-app-item
+                                    img(src=src_prefix + "./assets/img/icon-app-ios.svg")
+
+                                a(href="https://play.google.com/store/apps/details?id=io.forus.me").sign_up-pane-auth-app-item
+                                    img(src=src_prefix + "./assets/img/icon-app-android.svg")
                         
                         .sign_up-pane-auth-qr_code.hide-sm
                             qr-code(
@@ -121,5 +131,7 @@ header.section.section-sign-up-choose
                             img(src=src_prefix + "./assets/img/sign_up-email.svg").sign_up-email_sent-icon-img
                         .sign_up-email_sent-title Bevestig dat u toegang heeft tot dit e-mailadres.
                         .sign_up-email_sent-text
-                            | U heeft een e-mail ontvangen op "#[span(ng-bind="$ctrl.authForm.values.email").text-primary]". Ga naar uw inbox en open de e-mail met het onderwerp "E-mail bevestigen" en klik in de e-mail op de blauwe knop.
-
+                            | U heeft een e-mail ontvangen op 
+                            span(ng-bind="$ctrl.authForm.values.email").text-primary
+                            | . Ga naar uw inbox en open de e-mail met het onderwerp "E-mail bevestigen" 
+                            | en klik in de e-mail op de blauwe knop.

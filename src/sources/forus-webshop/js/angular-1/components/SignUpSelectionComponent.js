@@ -1,9 +1,7 @@
 let SignUpSelectionComponent = function(appConfigs) {
-    let $ctrl = this;
+    const $ctrl = this;
 
-    $ctrl.goToSignUpPage = (clientType) => {
-        document.location.href = appConfigs.features.fronts['url_' + clientType] + 'sign-up';
-    }
+    $ctrl.$onInit = () => $ctrl.appConfigs = appConfigs;
 };
 
 module.exports = {
