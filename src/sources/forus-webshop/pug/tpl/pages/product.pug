@@ -84,7 +84,7 @@ section.section.section-product: .wrapper
                             ng-click="$ctrl.applyProduct()")
 
                     //- request fund
-                    .fund-item-section(ng-if="fund.type == 'subsidies' && $ctrl.signedIn ? !fund.meta.isApplicableSubsidy : !fund.meta.isApplicable")
+                    .fund-item-section(ng-if="(fund.type == 'subsidies' ? !fund.meta.isApplicableSubsidy : !fund.meta.isApplicable) && $ctrl.signedIn")
                         .button.button-light.button-flat(
                             translate="product.buttons.{{ $root.client_key }}.request" 
                             translate-default="{{ 'product.buttons.request' | translate }}" 
