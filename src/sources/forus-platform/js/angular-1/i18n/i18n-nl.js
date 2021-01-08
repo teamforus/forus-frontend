@@ -39,6 +39,12 @@ module.exports = {
         "validation-request": 'Validatie verzoek',
         "restore-email": 'Inloggen via e-mail',
     },
+    // MENU = menu-validator.pug, menu-provider.pug, menu-sponsor.pug
+    menu: {
+        organizational: 'Organisatie',
+        implementation: 'Webshop',
+        personal: 'Persoonlijk',
+    },
     // MODALS
     modals: {
         modal_voucher_create: require('./nl/modals/modal-voucher-create.pug.i18n'),
