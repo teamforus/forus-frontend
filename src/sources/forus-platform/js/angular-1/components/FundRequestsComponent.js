@@ -50,7 +50,7 @@ let FundRequestsComponent = function(
         values: {},
         defaultValues: {
             page: 1,
-            per_page: 1,
+            per_page: 25,
             q: '',
             state: $ctrl.states[0].key,
             employee_id: null,
