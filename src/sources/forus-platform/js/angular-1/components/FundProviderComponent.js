@@ -106,7 +106,11 @@ let FundProviderComponent = function(
     };
 
     $ctrl.transformProduct = (product) => {
+        let activeDeals = product.deals_history ? product.deals_history.filter(deal => deal.active) : [];
+
         product.allowed = $ctrl.fundProvider.products.indexOf(product.id) !== -1;
+        product.active_deal = activeDeals.length > 0 ? activeDeals[0] : null;
+
         return product;
     };
 

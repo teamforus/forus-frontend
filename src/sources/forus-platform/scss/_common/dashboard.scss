@@ -6591,12 +6591,6 @@ $colorPrimaryLight: $color_primary_light;
         .modal-window {
             .modal-section {
                 .table {
-                    .offer-old-price {
-                        margin-left: 10px;
-                        color: #a7a7a7;
-                        text-decoration: line-through;
-                    }
-
                     td {
                         &:last-child {
                             width: 150px;

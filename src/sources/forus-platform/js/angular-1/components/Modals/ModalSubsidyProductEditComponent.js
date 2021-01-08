@@ -6,6 +6,8 @@ let ModalSubsidyProductEditComponent = function(
     let $ctrl = this;
     let timeout = null
 
+    $ctrl.max = (a, b) => Math.max(a, b);
+
     $ctrl.amountChange = () => {
         $timeout.cancel(timeout);
 

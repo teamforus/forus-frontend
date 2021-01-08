@@ -44,12 +44,9 @@ let FundProviderProductComponent = function(
             fundProvider.fund.organization_id,
             fundProvider.fund.id,
             fundProvider.id, {
-            enable_products: product.allowed ? [{
-                id: product.id
-            }] : [],
+            enable_products: product.allowed ? [{ id: product.id }] : [],
             disable_products: !product.allowed ? [product.id] : [],
-        }
-        ).then((res) => {
+        }).then((res) => {
             PushNotificationsService.success('Opgeslagen!');
             $ctrl.fundProvider = res.data.data;
         }, console.error);
