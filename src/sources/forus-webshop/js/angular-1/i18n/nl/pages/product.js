@@ -3,7 +3,7 @@ module.exports = {
     headers: {
         home: "Home",
         products: "Aanbod",
-        subsidies: "Acties",
+        subsidies: "Aanbod",
         funds: "Tegoeden",
         provider: "Aanbieder",
         map: "Locaties op kaart"
