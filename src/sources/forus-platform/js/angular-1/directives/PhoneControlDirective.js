@@ -1,9 +1,7 @@
 let PhoneControlDirective = function(
     $scope,
     $timeout
-) {
-    $scope.activeInputIndex = 0;
-    
+) { 
     $scope.$watch('ngModel', function() {
         $scope.filler = new Array(
             10 - ($scope.ngModel ? ($scope.ngModel.toString().length) : 0)
