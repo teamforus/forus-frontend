@@ -77,12 +77,13 @@ section: .wrapper
                     .sign_up-pane-link(
                         ng-if="$ctrl.fund.allow_prevalidations"
                         ng-click="$ctrl.state = 'pincode_activate'") Ik heb een activatiecode
-                
+
                 .sign_up-pane-footer(ng-if="$ctrl.fundRequestAvailable"): .row
                     .col.col-lg-6.col-xs-6.text-left &nbsp;
-                    .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ui-sref="fund-request({fund_id: $ctrl.fund.id})")
-                        em.mdi.mdi-chevron-right.icon-right
-                        | Overslaan
+                    .col.col-lg-6.col-xs-6.text-right(ng-if="!$ctrl.appConfigs.fund_request_allways_bsn_confirmation")
+                        .button.button-text.button-text-padless(ui-sref="fund-request({fund_id: $ctrl.fund.id})")
+                            em.mdi.mdi-chevron-right.icon-right
+                            | Overslaan
 
         //- Prevalidation pincode
         div(ng-if="$ctrl.state == 'pincode_activate'")
@@ -110,6 +111,7 @@ section: .wrapper
                 
                 .sign_up-pane-footer(ng-if="$ctrl.fundRequestAvailable"): .row
                     .col.col-lg-6.col-xs-6.text-left &nbsp;
-                    .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ui-sref="fund-request({fund_id: $ctrl.fund.id})")
-                        em.mdi.mdi-chevron-right.icon-right
-                        | Overslaan
+                    .col.col-lg-6.col-xs-6.text-right(ng-if="!$ctrl.appConfigs.fund_request_allways_bsn_confirmation")
+                        .button.button-text.button-text-padless(ui-sref="fund-request({fund_id: $ctrl.fund.id})")
+                            em.mdi.mdi-chevron-right.icon-right
+                            | Overslaan
