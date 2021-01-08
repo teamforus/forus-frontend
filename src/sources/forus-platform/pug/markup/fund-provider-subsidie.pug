@@ -40,14 +40,14 @@ block content
             td=address
             td=phone
 
-    mixin products_row(id, name, price, old_price, allowed)
+    mixin products_row(id, name, price, oldPrice, allowed)
         tr
             td.td-narrow: img(src="./assets/img/placeholders/product-small.png").td-media
             td=name
             td #{id % 2 == 0 ? 'Ongelimiteerd' : id * 10}
             td
                 | #{price}
-                .text-muted.text-sm=old_price
+                .text-muted.text-sm=oldPrice
             td.td-narrow
                 .button-group.flex-end
                     if (!allowed)
