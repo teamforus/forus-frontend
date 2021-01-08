@@ -1,17 +1,7 @@
 let SignUpSelectionComponent = function(appConfigs) {
-    let $ctrl = this;
+    const $ctrl = this;
 
-    $ctrl.getDashboardAddress = (clientType) => {
-        return appConfigs.features.fronts['url_' + clientType];
-    };
-
-    $ctrl.goToDashboard = (clientType) => {
-        document.location.href = $ctrl.getDashboardAddress(clientType);
-    };
-
-    $ctrl.goToSignUpPage = (clientType) => {
-        document.location.href = $ctrl.getDashboardAddress(clientType) + 'sign-up';
-    };
+    $ctrl.$onInit = () => $ctrl.appConfigs = appConfigs;
 };
 
 module.exports = {
