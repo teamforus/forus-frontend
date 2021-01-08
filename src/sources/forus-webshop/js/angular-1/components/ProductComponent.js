@@ -3,6 +3,7 @@ let ProductComponent = function(
     $state,
     $sce,
     appConfigs,
+    AuthService,
     FundService,
     ModalService,
     VoucherService
@@ -79,6 +80,7 @@ let ProductComponent = function(
     $ctrl.$onInit = function() {
         let fundIds = $ctrl.product.funds.map(fund => fund.id);
 
+        $ctrl.signedIn = AuthService.hasCredentials();
         $ctrl.subsidyFunds = $ctrl.product.funds.filter(fund => fund.type === 'subsidies');
         $ctrl.useSubsidies = $ctrl.subsidyFunds.length > 0
         $ctrl.useBudget = $ctrl.product.funds.filter(fund => fund.type === 'budget').length > 0
@@ -163,6 +165,7 @@ module.exports = {
         '$state',
         '$sce',
         'appConfigs',
+        'AuthService',
         'FundService',
         'ModalService',
         'VoucherService',
