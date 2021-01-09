@@ -84,11 +84,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "start",
-        url: "/start",
+        url: "/start?email_confirm&email_address",
         component: "signUpComponent",
         params: {
             confirmed: null,
-            digid_error: null
+            digid_error: null,
+            email_confirm: null,
+            email_address: null
         },
         resolve: {
             funds: ['FundService', (
@@ -678,12 +680,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     // Apply to fund by submitting fund request
     $stateProvider.state({
         name: "fund-request",
-        url: "/fund/{fund_id}/request?digid_success&digid_error",
+        url: "/fund/{fund_id}/request?digid_success&digid_error&email_address&email_confirm",
         component: "fundRequestComponent",
         data: {
             fund_id: null,
             digid_success: false,
             digid_error: false,
+            email_confirm: false,
+            email_address: null
         },
         resolve: {
             identity: ['AuthService', (

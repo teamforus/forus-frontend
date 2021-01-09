@@ -1,5 +1,6 @@
 let SignUpComponent = function(
     $state,
+    $stateParams,
     VoucherService,
     AuthService,
     IdentityService,
@@ -133,7 +134,14 @@ let SignUpComponent = function(
             $ctrl.onSignedIn();
         } else {
             $ctrl.initAuthForm();
-            $ctrl.setStep(1);
+            
+            if (!$stateParams.email_confirm) {
+                $ctrl.setStep(1);
+            } else {
+                $ctrl.authForm.values.email = $stateParams.email_address;
+                $ctrl.authEmailSent = true;
+                $ctrl.setStep(2);
+            }
         }
     };
 
@@ -147,6 +155,7 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$stateParams',
         'VoucherService',
         'AuthService',
         'IdentityService',
