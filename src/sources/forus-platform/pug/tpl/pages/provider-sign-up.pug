@@ -145,7 +145,7 @@
                     .sign-up-pane-col(ng-if="$ctrl.selectedOption == 'ipad'")
                         .sign_up-pane-text Download uit app store
                         .row.sign_up-pane-align-center
-                            .col-md-3
+                            .col.col-md-3
                                 a.sign_up-pane-media(href="https://apps.apple.com/nl/app/me-forus/id1422610676?l=en#?platform=ipad" target="_blank").pull-left: img(ng-src="./assets/img/icon-app-ios.svg")                         
                             .col-md-4: .sign_up-pane-link.text-muted(ng-click="$ctrl.sentSms = true") Ga verder >
                         
@@ -153,12 +153,12 @@
 
                         label.form-label E-mailadres
                         .row
-                            .col-md-7: form-group 
+                            .col.col-md-7: form-group 
                                 input(type="text"
                                     ng-model="phoneForm.values.email"
                                     placeholder="EMAILADRES").large.form-control
                             
-                            .col-md-5: button.button.button-primary-outline.col-xs-12(
+                            .col.col-md-5: button.button.button-primary-outline.col-xs-12(
                                 ng-class="{ 'button-disabled' : !$ctrl.phoneNumberFilled }" 
                                 ng-click="$ctrlSendEmail()") send email     
                                 // to be implemented
@@ -178,7 +178,7 @@
                         | {{ "sign_up_provider.download.cannot_install_app" | translate }} 
                         .sign_up-pane-link.text-muted(ng-click="$ctrl.setHasAppProp(false)") Ga verder met uw e-mailadres >
 
-                .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent)  && $ctrl.sentSms || true") 
+                .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent)  && $ctrl.sentSms") 
                     .sign_up-pane-heading U heeft een SMS ontvangen op {{ phoneForm.values.phone | phone_number_format }}
                     
                     .sign_up-pane-auth
