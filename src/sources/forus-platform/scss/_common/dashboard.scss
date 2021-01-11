@@ -702,6 +702,18 @@ $colorPrimaryLight: $color_primary_light;
                 padding: 15px 0 0;
                 margin: 0 0 20px;
             }
+
+            .sidebar-section-title {
+                font: 600 14px/20px $bf;
+                padding: 25px 0;
+                color: #000000;
+                cursor: default;
+
+                &:first-child {
+                    padding-top: 10px;
+                    padding: 10px 0 20px;
+                }
+            }
         }
     }
 
@@ -748,6 +760,7 @@ $colorPrimaryLight: $color_primary_light;
     font: 500 18px/26px $bf;
     color: #282b39;
     margin-bottom: 10px;
+    cursor: default;
 
     .link {
         display: inline-block;
@@ -4869,15 +4882,16 @@ $colorPrimaryLight: $color_primary_light;
                     margin-bottom: 0;
                 }
             }
-    
-            .modal-button-digid-icon {
+
+            &.button-digid {
                 background-color: #000;
                 background-image: url('../img/icon-digid.svg');
-                background-size: contain;
-                background-repeat: none;
-                background-position: 50% 50%;
+                background-repeat: no-repeat;
+                background-position: center;
                 border-color: #000;
+                box-shadow: none;
                 cursor: default;
+                pointer-events: none;
             }
         }
     
@@ -6591,12 +6605,6 @@ $colorPrimaryLight: $color_primary_light;
         .modal-window {
             .modal-section {
                 .table {
-                    .offer-old-price {
-                        margin-left: 10px;
-                        color: #a7a7a7;
-                        text-decoration: line-through;
-                    }
-
                     td {
                         &:last-child {
                             width: 150px;

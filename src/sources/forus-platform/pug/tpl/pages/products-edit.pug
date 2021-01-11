@@ -17,6 +17,7 @@
                                     thumbnail="$ctrl.media.sizes.thumbnail"
                                     select-photo="$ctrl.selectPhoto(file)")
                                 .form-error(ng-repeat="error in $ctrl.mediaErrors" ng-bind="error")
+
             .card-section.card-section-primary
                 .row: .col.col-lg-9
                     .form-group.form-group-inline
@@ -29,85 +30,66 @@
                             markdown(ng-model="$ctrl.form.values.description")
                         tooltip(text="'Bijvoorbeeld: aantal lessen, abonnementsvorm, omschrijving cursus, einddatum activiteit, voorwaarden, bijzonderheden, etc.'")
                         .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
+
             .card-section.card-section-primary
                 .row: .col.col.col-lg-9
-                    .form-group.form-group-inline.tooltipped
+                    .form-group.form-group-inline
+                        label.form-label Aanbod type
+                        .form-offset: .block.block-label-tabs
+                            .label-tab-set
+                                .label-tab.label-tab-sm(
+                                    ng-click="$ctrl.form.values.price_type = 'regular'"
+                                    ng-class="{active: $ctrl.form.values.price_type === 'regular'}") Normaal
+
+                                .label-tab.label-tab-sm(
+                                    ng-click="$ctrl.form.values.price_type = 'discount_fixed'"
+                                    ng-class="{active: $ctrl.form.values.price_type === 'discount_fixed'}") Korting €
+
+                                .label-tab.label-tab-sm(
+                                    ng-click="$ctrl.form.values.price_type = 'discount_percentage'"
+                                    ng-class="{active: $ctrl.form.values.price_type === 'discount_percentage'}") Korting %
+
+                                .label-tab.label-tab-sm(
+                                    ng-click="$ctrl.form.values.price_type = 'free'"
+                                    ng-class="{active: $ctrl.form.values.price_type === 'free'}") Gratis
+
+                    //- Regular price
+                    .form-group.form-group-inline(ng-if="$ctrl.form.values.price_type === 'regular'")
                         label.form-label Bedrag
-                        .form-offset: .row
-                            .col.col-lg-9: input(
+                        .form-offset
+                            input(
                                 ng-model="$ctrl.form.values.price" 
                                 type="number" 
                                 placeholder="Bedrag in euro's" 
-                                step="0.01"
-                                ng-disabled="$ctrl.form.values.no_price").form-control
-                            .col.col-lg-3
-                                .checkbox(ng-disabled="$ctrl.product")
-                                    input(
-                                        ng-disabled="$ctrl.product"
-                                        type="checkbox" 
-                                        id="no_price" 
-                                        ng-change="$ctrl.clearPrices($ctrl.form.values.no_price)"
-                                        ng-model="$ctrl.form.values.no_price")
-                                    label(for="no_price").checkbox-label
-                                        .checkbox-box: em.mdi.mdi-check
-                                        | N.v.t.
-                        tooltip(text="'Het bedrag kan niet van toepassing zijn wanneer deze gratis is of als u een korting levert. Er volgt geen uitbetaling van uit de sponsor.'")
-                        .form-error(ng-repeat="error in $ctrl.form.errors.price" ng-bind="error")
-                        .form-error(ng-repeat="error in $ctrl.form.errors.no_price" ng-bind="error")
+                                step="0.01").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.price" ng-bind="error")
 
-                    .form-group.form-group-inline(ng-if="$ctrl.form.values.no_price")
-                        label.form-label Weergave in webshop
-                        .form-offset: .row
-                            .col.col-lg-9.flex                         
-                                label.radio.radio-inline.flex-grow.flex
-                                    input(
-                                        type="radio"
-                                        name="no_price_type"
-                                        ng-click="$ctrl.changeNoPriceType('free')"
-                                        ng-checked="$ctrl.form.values.no_price_type == 'free'")
-                                    .radio-label 
-                                        .radio-circle
-                                        | Dit aanbod is gratis
-                            .col.col-lg-5.flex
-                                label.radio.radio-inline.flex-grow.flex
-                                    input(
-                                        type="radio"
-                                        name="no_price_type"
-                                        ng-click="$ctrl.changeNoPriceType('discount')"
-                                        ng-checked="$ctrl.form.values.no_price_type == 'discount'")
-                                    .radio-label 
-                                        .radio-circle
-                                        | Dit is een korting
-                            .col.col-lg-3: input.form-control(
-                                type="number"
-                                step=".01"
-                                max="100"
-                                min="0"
-                                ng-disabled="$ctrl.form.values.no_price_type != 'discount'"
-                                placeholder="%"
-                                id="no_price" 
-                                ng-change="$ctrl.clearPrices($ctrl.form.values.no_price)"
-                                ng-model="$ctrl.form.values.no_price_discount")
+                    //- Discount percentage
+                    .form-group.form-group-inline(ng-if="$ctrl.form.values.price_type === 'discount_percentage'")
+                        label.form-label Kortingspercentage
+                        .form-offset
+                            input(
+                                ng-model="$ctrl.form.values.price_discount" 
+                                type="number" 
+                                placeholder="20%" 
+                                step="0.01").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.price_discount" ng-bind="error")
 
-
-                        .form-error(ng-repeat="error in $ctrl.form.errors.no_price_type" ng-bind="error")
-                        .form-error(ng-repeat="error in $ctrl.form.errors.no_price_discount" ng-bind="error")
-
-                    //- Until decided to remove or transform old_price
-                    //- .form-group.form-group-inline
-                        label.form-label(translate="product_edit.labels.old")
-                        input(
-                            ng-model="$ctrl.form.values.old_price" 
-                            type="number" 
-                            placeholder="Oude prijs" 
-                            step="0.01"
-                            ng-disabled="$ctrl.form.values.no_price").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.old_price" ng-bind="error")
+                    //- Discount fixed
+                    .form-group.form-group-inline(ng-if="$ctrl.form.values.price_type === 'discount_fixed'")
+                        label.form-label Korting
+                        .form-offset
+                            input(
+                                ng-model="$ctrl.form.values.price_discount" 
+                                type="number" 
+                                placeholder="€ 20" 
+                                step="0.01").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.price_discount" ng-bind="error")
 
                     .form-group.form-group-inline(ng-if="$ctrl.product")
                         label.form-label(translate="product_edit.labels.sold")
                         input(ng-model="$ctrl.form.values.sold_amount" type="number" placeholder="Verkocht" disabled).form-control
-                    
+
                     .form-group.form-group-inline.tooltipped
                         label.form-label(translate="product_edit.labels.total")
                         .form-offset(ng-if="$ctrl.product && $ctrl.product.unlimited_stock"): .form-value.text-muted(translate="product_edit.labels.stock_unlimited")
@@ -123,7 +105,7 @@
                                     .checkbox-box: em.mdi.mdi-check
                                     | {{ "product_edit.labels.stock_unlimited" | translate }}
                         .form-error(ng-repeat="error in $ctrl.form.errors.total_amount" ng-bind="error")
-                    
+
                     .form-group.form-group-inline(ng-if="$ctrl.product && !$ctrl.product.unlimited_stock")
                         label.form-label(i18n="product_edit.labels.stock_amount")
                         input(ng-model="$ctrl.form.values.stock_amount" type="number" placeholder="Stock").form-control
@@ -134,14 +116,24 @@
                 .row: .col.col-lg-9
                     .form-group.form-group-inline.tooltipped
                         label.form-label(translate="product_edit.labels.expire")
-                        datepicker(
-                            date-format="dd-MM-yyyy" 
-                            datepicker-mobile="" 
-                            date-week-start-day="1").form-control
-                            input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="dd-MM-jjjj").form-control
-                        tooltip(text="'De uiterlijke datum tot waneer uw aanbieding loopt. Aanbieding wordt na deze datum verwijderd uit de webshop en kan niet meer worden opgehaald.'")
-                        .form-error(ng-repeat="error in $ctrl.form.errors.expire_at" ng-bind="error")
+                        .form-offset: .row
+                            .col.col-lg-7
+                                datepicker(
+                                    ng-if="!$ctrl.nonExpiring"
+                                    date-format="dd-MM-yyyy" 
+                                    datepicker-mobile="" 
+                                    date-week-start-day="1").form-control
+                                    input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="dd-MM-jjjj").form-control
+                                input(value="{{ 'product_edit.labels.unlimited' | translate }}" disabled ng-if="$ctrl.nonExpiring").form-control
 
+                            .col.col-lg-5: .checkbox
+                                input(type="checkbox" id="non_expiring" ng-model="$ctrl.nonExpiring")
+                                label(for="non_expiring").checkbox-label
+                                    .checkbox-box: em.mdi.mdi-check
+                                    | {{ "product_edit.labels.unlimited" | translate }}
+
+                            tooltip(text="'De uiterlijke datum tot waneer uw aanbieding loopt. Aanbieding wordt na deze datum verwijderd uit de webshop en kan niet meer worden opgehaald.'")
+                        .form-error(ng-repeat="error in $ctrl.form.errors.expire_at" ng-bind="error")
             .card-section.card-section-primary
                 .row: product-categories-control(
                     ng-model="$ctrl.form.values.product_category_id"

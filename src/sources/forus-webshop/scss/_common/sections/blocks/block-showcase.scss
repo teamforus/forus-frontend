@@ -156,6 +156,7 @@
         .showcase-content {
             padding-left: 30px;
             flex-grow: 1;
+            max-width: calc(100% - 340px);
 
             .showcase-content-header {
                 position: relative;
@@ -274,6 +275,10 @@
                 min-width: 280px;
                 max-width: 280px;
             }
+
+            .showcase-content {
+                max-width: calc(100% - 280px);
+            }
         }
     }
 
@@ -385,6 +390,7 @@
 
             .showcase-content {
                 padding: 0 0 0;
+                max-width: 100%;
             }
         }
 
