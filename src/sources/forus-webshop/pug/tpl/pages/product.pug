@@ -42,6 +42,9 @@ section.section.section-product: .wrapper
                             .fund-item-title(ng-bind="fund.name")
                             .fund-item-subtitle(ng-bind="fund.organization.name")
                     
+                    .fund-item-section
+                        .fund-item-section-label {{ "product.labels.expire_prefix" | translate }} {{ fund.shownExpireDate }}
+                    
                     .fund-item-section.text-right(ng-if="fund.type == 'subsidies'")
                         .fund-item-section-label(translate="product.labels.limit" ng-if="$root.auth_user")
                         .fund-item-section-value(ng-bind="fund.limit_available" ng-if="$root.auth_user")
