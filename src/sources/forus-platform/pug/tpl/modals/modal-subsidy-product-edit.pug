@@ -116,7 +116,7 @@
                     .form
                         .form-group
                             .form-label Totaal aanbod
-                            .form-value-placeholder.form-value-placeholder-sm(ng-bind="$ctrl.form.values.limit_total")
+                            .form-value-placeholder.form-value-placeholder-sm(ng-bind="$ctrl.form.values.limit_total == 999999 ? 'Onbeperkt' : $ctrl.form.values.limit_total")
                         .form-group
                             .form-label Limiet per aanvrager
                             .form-value-placeholder.form-value-placeholder-sm(ng-bind="$ctrl.form.values.limit_per_identity")
