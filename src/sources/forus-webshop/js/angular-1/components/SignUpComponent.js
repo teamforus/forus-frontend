@@ -27,27 +27,33 @@ let SignUpComponent = function(
         $ctrl.authForm = FormBuilderService.build({
             email: '',
             target: target,
-        }, function(form) {
-            let resolveErrors = (res) => {
+        }, async (form) => {
+            let handleErrors = (res) => {
                 form.unlock();
                 form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
+                $ctrl.authForm.hidden = false;
             };
 
-            IdentityService.validateEmail(form.values).then(res => {
-                if (res.data.email.used) {
-                    IdentityService.makeAuthEmailToken(form.values.email, target).then(() => {
-                        $ctrl.authEmailRestoreSent = true;
-                        $ctrl.nextStep();
-                    }, resolveErrors);
-                } else {
-                    IdentityService.make(form.values).then(() => {
-                        $ctrl.authEmailSent = true;
-                        $ctrl.nextStep();
-                    }, resolveErrors);
-                }
+            const used = !$ctrl.authForm.hidden && await new Promise((resolve) => {
+                IdentityService.validateEmail(form.values).then(res => {
+                    resolve(res.data.email.used);
+                }, handleErrors);
+            });
 
-            }, resolveErrors);
+            if (used) {
+                IdentityService.makeAuthEmailToken(form.values.email, target).then(() => {
+                    $ctrl.authEmailRestoreSent = true;
+                    $ctrl.nextStep();
+                }, handleErrors);
+            } else {
+                IdentityService.make(form.values).then(() => {
+                    $ctrl.authEmailSent = true;
+                    $ctrl.nextStep();
+                }, handleErrors);
+            }
         }, true);
+
+        $ctrl.authForm.hidden = false;
     };
 
     // Show qr code or email input
@@ -150,13 +156,12 @@ let SignUpComponent = function(
             $ctrl.onSignedIn();
         } else {
             $ctrl.initAuthForm();
-            
-            if (!$stateParams.email_confirm) {
-                $ctrl.setStep(1);
-            } else {
-                $ctrl.authForm.values.email = $stateParams.email_address;
-                $ctrl.authEmailSent = true;
-                $ctrl.setStep(2);
+            $ctrl.setStep(1);
+
+            if ($ctrl.$transition$.params().email_address) {
+                $ctrl.authForm.values.email = $ctrl.$transition$.params().email_address;
+                $ctrl.authForm.hidden = true;
+                $ctrl.authForm.submit();
             }
         }
     };
@@ -167,7 +172,8 @@ let SignUpComponent = function(
 module.exports = {
     bindings: {
         funds: '<',
-        recordTypes: '<'
+        recordTypes: '<',
+        $transition$: '<',
     },
     controller: [
         '$state',

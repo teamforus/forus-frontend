@@ -6,7 +6,6 @@ let FundRequestComponent = function(
     $state,
     $timeout,
     $filter,
-    $stateParams,
     RecordService,
     FundService,
     AuthService,
@@ -331,10 +330,7 @@ let FundRequestComponent = function(
 
         // The user is not authenticated and have to go back to sign-up page
         if ((!$ctrl.signedIn || !$ctrl.identity) || ($ctrl.fund.auto_validation && !$ctrl.bsnIsKnown) || !$ctrl.canRequest) {
-            return $state.go('start', {
-                email_confirm: $stateParams.email_confirm,
-                email_address: $stateParams.email_address
-            });
+            return $state.go('start');
         }
 
         if (!$ctrl.fundRequestAvailable) {
@@ -385,7 +381,6 @@ module.exports = {
         '$state',
         '$timeout',
         '$filter',
-        '$stateParams',
         'RecordService',
         'FundService',
         'AuthService',

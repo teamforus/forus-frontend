@@ -2,14 +2,12 @@ let ModalAuthComponent = function(
     $state,
     $timeout,
     $rootScope,
-    $q,
     AuthService,
     IdentityService,
     FormBuilderService,
     CredentialsService,
     DigIdService,
     ModalService,
-    FundService,
     appConfigs
 ) {
     let $ctrl = this;
@@ -51,14 +49,6 @@ let ModalAuthComponent = function(
         });
     }
 
-    $ctrl.getFunds = () => {
-        return $q((resolve) => {
-            FundService.list(null, {
-                check_criteria: 1
-            }).then(res => resolve(res.data.data));
-        });
-    }
-
     $ctrl.$onInit = () => {
         $(document).bind('keydown', (e) => {
             $timeout(function() {
@@ -74,68 +64,40 @@ let ModalAuthComponent = function(
 
         $ctrl.signInEmailForm = FormBuilderService.build({
             email: ""
-        }, (form) => {
-            let authTarget = undefined;
-
-            if ($ctrl.modal.scope.has_redirect) {
-                authTarget = [$ctrl.modal.scope.target_name].concat(
-                    Object.values($ctrl.modal.scope.target_params)
-                );
-
-                authTarget = authTarget.join('-');
-            }
-
-            let resolveErrors = (res) => {
+        }, async (form) => {
+            const handleErrors = (res) => {
+                console.log(res);
                 form.unlock();
-                form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
+                form.errors = res.data.errors ? res.data.errors : {
+                    email: [res.data.message]
+                };
             };
 
-            IdentityService.validateEmail(form.values).then(res => {
-                if (!res.data.email.used) {
-                    $ctrl.getFunds().then(funds => {
-                        let fund_id = funds[0].id;
+            const used = await new Promise((resolve) => {
+                IdentityService.validateEmail(form.values).then(res => {
+                    resolve(res.data.email.used);
+                }, handleErrors);
+            });
 
-                        let authTarget = [
-                            'fundRequest',
-                            fund_id,
-                        ].join('-');
+            if (!used) {
+                $ctrl.close();
+                return $state.go('start', { email_address: form.values.email });
+            }
 
-                        IdentityService.make(Object.assign(form.values, {
-                            target: authTarget
-                        })).then(() => {
-                            $ctrl.authEmailSent = true;
-                            $ctrl.confirmationEmail = form.values.email;
+            IdentityService.makeAuthEmailToken(form.values.email).then(() => {
+                $ctrl.screen = 'sign_in-email-sent';
+                $ctrl.close();
 
-                            $ctrl.close();
-                            
-                            $state.go('fund-request', {
-                                fund_id: fund_id,
-                                email_address: form.values.email,
-                                email_confirm: true
-                            });
-                        }, resolveErrors);
-                    });
-                } else {
-                    IdentityService.makeAuthEmailToken(
-                        form.values.email,
-                        authTarget
-                    ).then(() => {
-                        $ctrl.screen = 'sign_in-email-sent';
-                        $ctrl.close();
-
-                        ModalService.open('modalNotification', {
-                            type: 'action-result',
-                            class: 'modal-description-pad',
-                            email: form.values.email,
-                            icon: "email_signup",
-                            title: 'popup_auth.labels.mail_sent',
-                            description: 'popup_auth.notifications.link',
-                            confirmBtnText: 'popup_auth.buttons.submit'
-                        });
-                    }, resolveErrors);
-                }
-
-            }, resolveErrors);
+                ModalService.open('modalNotification', {
+                    type: 'action-result',
+                    class: 'modal-description-pad',
+                    email: form.values.email,
+                    icon: "email_signup",
+                    title: 'popup_auth.labels.mail_sent',
+                    description: 'popup_auth.notifications.link',
+                    confirmBtnText: 'popup_auth.buttons.submit'
+                });
+            }, (res) => handleErrors);
         }, true);
     };
 
@@ -196,14 +158,12 @@ module.exports = {
         '$state',
         '$timeout',
         '$rootScope',
-        '$q',
         'AuthService',
         'IdentityService',
         'FormBuilderService',
         'CredentialsService',
         'DigIdService',
         'ModalService',
-        'FundService',
         'appConfigs',
         ModalAuthComponent
     ],
