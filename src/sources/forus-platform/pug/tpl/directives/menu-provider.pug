@@ -15,7 +15,15 @@ aside.app.app-sidebar
                 .sidebar-nav-item-arrow: .mdi.mdi-menu-right
                 +nav_item_icon(icon)
                 | #{name} 
-        
+
+        .sidebar-section-title(translate="menu.organizational")
+
+        +nav_item(
+            "Overzicht", "provider-overview", 'provider-overview', 
+            '{organization_id: $root.activeOrganization.id}', 
+            '$root.activeOrganization | hasPerm:["manage_employees"]',
+            'provider-overview')
+
         +nav_item(
             "Vestigingen", "offices", 'offices', 
             '{organization_id: $root.activeOrganization.id}', 
@@ -43,7 +51,7 @@ aside.app.app-sidebar
             '$root.activeOrganization | hasPerm:["manage_employees"]',
             'employees')
 
-        .sidebar-nav-devider(ng-if="$root.activeOrganization")
+        .sidebar-section-title(ng-if="$root.activeOrganization" translate="menu.personal")
 
         +nav_item('Email instellingen', 'emails', 'identity-emails', null, '$root.appConfigs.sessions')
         +nav_item('Sessies', 'sessions', 'security-sessions', '{}', '$root.appConfigs.sessions')

@@ -18,10 +18,6 @@ let PrevalidationService = function(
         this.read = function(code) {
             return ApiRequest.get(uriPrefix + '/prevalidations/' + code);
         };
-
-        this.redeem = function(code) {
-            return ApiRequest.post(uriPrefix + '/prevalidations/' + code + '/redeem');
-        };
     });
 };
 

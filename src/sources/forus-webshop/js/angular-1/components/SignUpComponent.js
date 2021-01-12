@@ -4,6 +4,7 @@ let SignUpComponent = function(
     AuthService,
     IdentityService,
     FormBuilderService,
+    DigIdService,
     appConfigs
 ) {
     let $ctrl = this;
@@ -16,6 +17,7 @@ let SignUpComponent = function(
     $ctrl.authEmailSent = false;
     $ctrl.authEmailRestoreSent = false;
     $ctrl.hasApp = false;
+    $ctrl.digidAvailable = appConfigs.features.digid;
 
     // Initialize authorization form
     $ctrl.initAuthForm = () => {
@@ -27,7 +29,7 @@ let SignUpComponent = function(
         }, function(form) {
             let resolveErrors = (res) => {
                 form.unlock();
-                form.errors = res.data.errors;
+                form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
             };
 
             IdentityService.validateEmail(form.values).then(res => {
@@ -58,6 +60,15 @@ let SignUpComponent = function(
         }
     };
 
+    $ctrl.startDigId = () => {
+        DigIdService.startAuthRestore().then(
+            (res) => document.location = res.data.redirect_url,
+            (res) => $state.go('error', { 
+                errorCode: res.headers('Error-Code')
+            }),
+        );
+    }
+
     // Request auth token for the qr-code
     $ctrl.requestAuthQrToken = () => {
         IdentityService.makeAuthToken().then((res) => {
@@ -80,6 +91,10 @@ let SignUpComponent = function(
             return 'auth_email_sent';
         }
 
+        if (step == 3) {
+            return 'digid';
+        }
+
         return 'done';
     };
 
@@ -91,6 +106,7 @@ let SignUpComponent = function(
     $ctrl.nextStep = () => $ctrl.setStep($ctrl.step + 1);
     $ctrl.prevStep = () => $ctrl.setStep($ctrl.step - 1);
 
+    $ctrl.setRestoreWithDigiD = () => $ctrl.setStep(3);
     $ctrl.updateState = () => $ctrl.state = $ctrl.step2state($ctrl.step);
 
     $ctrl.onSignedIn = () => {
@@ -98,7 +114,7 @@ let SignUpComponent = function(
             per_page: 1000,
         }).then((res) => {
             let vouchers = res.data.data;
-            let takenFundIds = vouchers.map(voucher => voucher.fund_id);
+            let takenFundIds = vouchers.map(voucher => voucher.fund_id && !voucher.expired);
             let fundsNoVouchers = $ctrl.funds.filter(fund => takenFundIds.indexOf(fund.id) === -1);
             let fundsWithVouchers = $ctrl.funds.filter(fund => takenFundIds.indexOf(fund.id) !== -1);
 
@@ -151,6 +167,7 @@ module.exports = {
         'AuthService',
         'IdentityService',
         'FormBuilderService',
+        'DigIdService',
         'appConfigs',
         SignUpComponent
     ],

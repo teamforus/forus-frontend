@@ -23,14 +23,23 @@ section.section.section-product: .wrapper
                     
                     .form-group.col.col-lg-12
                         .form-label(i18n="fund_request_clarification.labels.attachment")
-                        file-uploader(files="$ctrl.form.values.rawFiles")
+                        file-uploader(
+                            type="fund_request_clarification_proof"
+                            files="$ctrl.files"
+                            on-file-removed="$ctrl.onFileInfo(files)"
+                            on-file-resolved="$ctrl.onFileInfo(files)"
+                            on-file-batch-queued="$ctrl.onFileInfo(files)")
                         .form-error(ng-repeat="error in $ctrl.form.errors.files" ng-bind="error")
                     
                     .form-group.col.col-lg-12.text-center
-                        button(type="submit" i18n="fund_request_clarification.buttons.submit").button.button-primary
+                        br
+                        button(
+                            type="submit" 
+                            ng-disabled="$ctrl.isUploadingFiles"
+                            translate="fund_request_clarification.buttons.submit").button.button-primary
         //- Done
         div(ng-if="$ctrl.state == 'done'")
-            h2.block-title(i18n="fund_request_clarification.blocktitle" i18n-vars="{fundname: $ctrl.fund.name}")
+            h2.block-title(i18n="fund_request_clarification.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
             
             .sign_up-pane
                 .sign_up-pane-header(i18n="fund_request_clarification.done.title")

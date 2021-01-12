@@ -93,7 +93,9 @@ module.exports = (core) => {
             chat_id: chatId,
             support_id: "15870000001861118?orgId=20065804523",
             hide_voucher_generators: false,
-            flags: {},
+            flags: {
+                singleRecordValidation: true
+            },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
         });
@@ -762,6 +764,8 @@ module.exports = (core) => {
             flags: {},
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
+            ios_link: '/',
+            android_link: '/',
         });
 
         platform.editTask('js', (task) => {

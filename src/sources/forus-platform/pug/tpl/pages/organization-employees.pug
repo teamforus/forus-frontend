@@ -2,7 +2,11 @@
     menu
     section.app.app-content
         .card
-            .card-header: .card-title(ng-bind="'Medewerkers (' + $ctrl.employees.meta.total + ')'")
+            .card-header: .row
+                .col.col-xs-4: .card-title(ng-bind="'Medewerkers (' + $ctrl.employees.meta.total + ')'")
+                .col.col-xs-8: .pull-right: a(ng-click="$ctrl.createEmployee()" id="add_employee").button.button-primary.button-sm
+                    em.mdi.mdi-plus-circle.icon-start
+                    translate(translate="organization_employees.buttons.add")
 
             .card-section(ng-if="$ctrl.employees.data.length > 0"): .card-block.card-block-table: .table-wrapper: table.table
                 tr
@@ -29,8 +33,3 @@
             
             .card-section(ng-if="$ctrl.employees.meta" ng-show="$ctrl.employees.meta.last_page > 1")
                 paginator(meta="$ctrl.employees.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="onPageChange(query)")
-            
-            .card-section.text-center
-                button(ng-click="$ctrl.createEmployee()" id="add_employee").button.button-default
-                    em.mdi.mdi-plus-circle.icon-start 
-                    span(translate="organization_employees.buttons.add")

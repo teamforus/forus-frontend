@@ -23,7 +23,7 @@ module.exports = {
         "funds-create": 'Fonds aanmaken',
         "funds-show": 'Beschikbare fondsen',
         "funds-edit": 'Fonds bewerken',
-        transactions: 'Overzicht transacties',
+        transactions: 'Transacties',
         transaction: 'Transactie details',
         products: 'Aanbod',
         "products-create": 'Aanbod toevoegen',
@@ -38,6 +38,12 @@ module.exports = {
         "validation-requests": 'Validatie verzoeken',
         "validation-request": 'Validatie verzoek',
         "restore-email": 'Inloggen via e-mail',
+    },
+    // MENU = menu-validator.pug, menu-provider.pug, menu-sponsor.pug
+    menu: {
+        organizational: 'Organisatie',
+        implementation: 'Webshop',
+        personal: 'Persoonlijk',
     },
     // MODALS
     modals: {
@@ -499,7 +505,7 @@ module.exports = {
             website: "Website",
             business_type: "Organisatie type",
             optional: "Optioneel",
-            make_public: "Maak publiek",
+            make_public: "Toon openbaar op website",
             photo_description: 'De afbeelding dient vierkant te zijn met een afmeting van bijvoorbeeld 400x400px.<br/>Toegestaande  formaten: JPG, PNG',
             schedule: "Openingstijden",
             weekdays_same_hours: "Alle doordeweekse dagen hebben dezelfde tijden",
@@ -654,8 +660,8 @@ module.exports = {
     // EDIT PROVIDER IDENTITIES = provider-identity-edit.pug
     provider_identity_edit: {
         buttons: {
-            adjust: "Validator aanpassen",
-            add: "Validator toevoegen",
+            adjust: "Beoordelaar aanpassen",
+            add: "Beoordelaar toevoegen",
             cancel: "Annuleren",
             confirm: "Bevestigen",
         },
@@ -955,11 +961,10 @@ module.exports = {
         app: {
             title: "Heeft u de Me-app al?",
             description_top: [
-                "De Me-app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
+                "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
             ].join("\n"),
             description_bottom: [
-                "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
-                "De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
+                "De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en tegoeden te beheren"
             ].join("\n"),
             no_app: "Ik wil inloggen met mijn e-mailadres >"
         },
@@ -980,12 +985,12 @@ module.exports = {
     // SIGN UP FORM FOR VALIDATORS = validator-sign-up.pug
     sign_up_validator: {
         header: {
-            main_header: "Aanmelden als validator",
+            main_header: "Aanmelden als beoordelaar",
             go_back: "Terug",
             title_step_1: "Welkom",
-            subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als validator. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
+            subtitle_step_1: "Via dit online formulier kunt u uw organisatie aanmelden als beoordelaar. De volledige aanmeldprocedure duurt ongeveer 5 minuten. ",
             title_step_2: "Hoe werkt het?",
-            subtitle_step_2: "Als validator gaat u controleren of aanvragers aan de voorwaarden voldoen die worden gesteld door de sponsor. ",
+            subtitle_step_2: "Als beoordelaar gaat u controleren of aanvragers aan de voorwaarden voldoen die worden gesteld door de sponsor. ",
             title_step_3: "Maak een account",
             subtitle_step_3: "Vul uw e-mail adres in om verder te gaan",
             title_step_4: "Vestiging kiezen",
@@ -1029,7 +1034,7 @@ module.exports = {
             mobile_number: "Vul uw mobiele telefoonnummer in",
             confirm_email: "Bevestig uw e-mailadres",
             confirm_email_description: "Bevestig voordat we verder gaan uw e-mailadres. Klik op de link in de e-mail die is verzonden naar",
-            terms: "Er wordt gekeken of u al aan de voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan",
+            terms: "",
         },
         buttons: {
             go_step_2: "Ga verder naar stap 2",
@@ -1083,11 +1088,9 @@ module.exports = {
         app: {
             title: "Heeft u de Me-app al?",
             description_top: [
-                "De Me-app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
                 "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
             ].join("\n"),
             description_bottom: [
-                "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.", 
                 "De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
             ].join("\n"),
             no_app: "Ik wil inloggen met mijn e-mailadres >"    
@@ -1216,8 +1219,8 @@ module.exports = {
         },
         buttons: {
             show: "Bekijk eigenschappen",
-            allaccept: "Alles valideren",
-            alldecline: "Alles weigeren",
+            allaccept: "Accepteren",
+            alldecline: "Weigeren",
             accept: "Valideren",
             decline: "Weigeren",
             export: "Exporteren",
@@ -1441,7 +1444,7 @@ module.exports = {
     // PRE VALIDATED TABLE = prevalidated_table.pug
     prevalidated_table: {
         header: {
-            title: "Gegenereerde activatiecodes",
+            title: "Gegevens van aanvragers",
         },
         labels: {
             code: "Code",
@@ -1450,6 +1453,7 @@ module.exports = {
             from: "Van",
             to: "Tot",
             filter: "Filter",
+            actions: "Opties",
         },
         status: {
             active: "Geactiveerd",
@@ -1526,7 +1530,7 @@ module.exports = {
         },
         notifications: {
             confirmation: "Het is gelukt!",
-            link: "Er is een e-mail verstuurd naar <b>{{email}}</b>. Klik op de link om u aan te melden.",
+            link: "Er is een e-mail verstuurd naar <strong class=\"text-primary\">{{email}}</strong>.<br/>Klik op de link om u aan te melden.",
             link_website: "Er is een e-mail naar uw inbox gestuurd. In de e-mail vindt u een link waarmee u kunt inloggen op deze website.",
             invalid: "De activatiecode is ongeldig of al gebruikt",
             voucher_email: "Het is gelukt, de e-mail is verstuurd",
@@ -1697,12 +1701,12 @@ module.exports = {
             },
             validations: {
                 new_validation_request: {
-                    title: 'Nieuw validatieverzoek',
-                    description: 'Ontvang een notificatie wanneer er een nieuw validatieverzoek is gedaan.'
+                    title: 'Nieuw aanvraag',
+                    description: 'Ontvang een notificatie wanneer er een nieuwe aanvraag is gedaan.'
                 },
                 you_added_as_validator: {
-                    title: 'Toegevoegd als validator',
-                    description: 'Ontvang een notificatie wanneer u als validator aan een fonds bent toegevoegd.'
+                    title: 'Toegevoegd als beoordelaar',
+                    description: 'Ontvang een notificatie wanneer u als beoordelaar aan een fonds bent toegevoegd.'
                 }
             },
             vouchers: {

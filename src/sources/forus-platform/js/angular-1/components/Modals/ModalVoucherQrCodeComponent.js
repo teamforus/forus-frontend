@@ -5,7 +5,7 @@ let ModalVoucherQrCodeComponent = function(
 ) {
     let $ctrl = this;
 
-    $ctrl.assigning = false;
+    $ctrl.assigning = $ctrl.assigning || false;
     $ctrl.success = false;
 
     $ctrl.assignTypes = [{
@@ -19,7 +19,7 @@ let ModalVoucherQrCodeComponent = function(
     $ctrl.assignType = $ctrl.assignTypes[0];
 
     $ctrl.onAsignTypeChange = (assignType) => {
-        if (assignType.key === 'bsn') {
+        if (assignType.key !== 'bsn') {
             delete $ctrl.form.values.bsn;
         }
 
@@ -51,7 +51,13 @@ let ModalVoucherQrCodeComponent = function(
     };
 
     $ctrl.assignToIdentity = (query) => {
-        return VoucherService.assign($ctrl.organization.id, $ctrl.voucher.id, query);
+        if ($ctrl.assignType.key === 'email' || $ctrl.assignType.key === 'bsn') {
+            return VoucherService.assign($ctrl.organization.id, $ctrl.voucher.id, query);
+        } else if ($ctrl.assignType.key === 'activate') {
+            return VoucherService.activate($ctrl.organization.id, $ctrl.voucher.id);
+        } else if ($ctrl.assignType.key === 'activation_code') {
+            return VoucherService.makeActivationCode($ctrl.organization.id, $ctrl.voucher.id);
+        }
     };
 
     $ctrl.printQrCode = () => {
@@ -68,18 +74,25 @@ let ModalVoucherQrCodeComponent = function(
         $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.onSent = $ctrl.modal.scope.onSent;
         $ctrl.onAssigned = $ctrl.modal.scope.onAssigned;
-
+        $ctrl.voucherActive = $ctrl.voucher.state === 'active';
+        $ctrl.assigning = !$ctrl.voucherActive;
         $ctrl.qrCodeValue = $ctrl.voucher.address;
 
-        $ctrl.form = FormBuilderService.build({
-            email: '',
-            bsn: '',
-        }, (form) => {
+        if (!$ctrl.voucherActive && !$ctrl.voucher.activation_code) {
+            $ctrl.assignTypes.unshift({ key: 'activation_code', label: 'Create an activation code' });
+        }
+
+        if (!$ctrl.voucherActive) {
+            $ctrl.assignTypes.unshift({ key: 'activate', label: 'Activeren' });
+        }
+
+        $ctrl.assignType = $ctrl.assignTypes[0];
+
+        $ctrl.form = FormBuilderService.build({}, (form) => {
             form.lock();
 
-            let promise = $ctrl.assigning ? $ctrl.assignToIdentity(
-                form.values
-            ) : $ctrl.sendToEmail(form.values.email);
+            let promise = $ctrl.assigning ?
+                $ctrl.assignToIdentity(form.values) : $ctrl.sendToEmail(form.values.email);
 
             promise.then(res => {
                 $ctrl.onSent(res.data.data);

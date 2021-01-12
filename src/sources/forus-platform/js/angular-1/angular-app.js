@@ -53,6 +53,7 @@ app.component('implementationViewComponent', require('./components/Implementatio
 app.component('implementationCmsEditComponent', require('./components/ImplementationCmsEditComponent'));
 app.component('implementationEmailEditComponent', require('./components/ImplementationEmailEditComponent'));
 app.component('implementationDigidEditComponent', require('./components/ImplementationDigidEditComponent'));
+app.component('providerOverviewComponent', require('./components/ProviderOverviewComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -164,7 +165,7 @@ app.directive('barChart', require('./directives/BarChartDirective'));
 app.directive('collapse', require('./directives/CollpaseDirective'));
 app.directive('landingNavbar', require('./directives/landing/NavbarDirective'));
 app.directive('landingContactForm', require('./directives/landing/ContactFormDirective'));
-app.directive('landingAppFooter', require('./directives/landing/LandingAppFooterDirective'));
+app.directive('landingAuth', require('./directives/landing/AuthDirective'));
 app.directive('forusChat', require('./directives/ForusChatDirective'));
 app.directive('forusSupport', require('./directives/ForusSupportDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));

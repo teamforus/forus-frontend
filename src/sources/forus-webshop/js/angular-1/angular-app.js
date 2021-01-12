@@ -2,7 +2,10 @@ require('./modules/select-control/SelectControlModule');
 require('./modules/ui-controls/UIControlsModule');
 require('./modules/page-loading-bar/PageLoadingBarModule');
 
-let appConfigs = JSON.parse(JSON.stringify(env_data));
+let appConfigs = {...{
+    fund_request_allways_bsn_confirmation: true,
+}, ...env_data};
+
 let app = angular.module('forusApp', [
     'pascalprecht.translate', 'ui.router', 'ngCookies',
     'forus.selectControl', 'forus.uiControls', 'forus.pageLoadingBarModule',
@@ -15,7 +18,7 @@ app.controller('BaseController', require('./controllers/BaseController'));
 
 // Components
 app.component('homeComponent', require('./components/HomeComponent'));
-app.component('signUpComponent', require('./components/SignUpComponent'));
+app.component('signUpComponent', require('./components/SignUpComponent')); // todo: cleanup
 app.component('signUpSelectionComponent', require('./components/SignUpSelectionComponent'));
 app.component('fundsComponent', require('./components/FundsComponent'));
 app.component('vouchersComponent', require('./components/VouchersComponent'));
@@ -93,7 +96,7 @@ app.service('HelperService', require('./services/HelperService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
-app.directive('topNavbar', require('./directives/TopNavbarDirective'));
+app.directive('topNavbar', require('./directives/TopNavbarDirective')); // todo: cleanup
 app.directive('mobileFooter', require('./directives/MobileFooterDirective'));
 app.directive('webshops', require('./directives/WebshopsDirective'));
 app.directive('implementation', require('./directives/ImplementationDirective'));
@@ -135,7 +138,7 @@ app.directive('mapPointerProvidersOfficeView', require('./directives/map-pointer
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
 app.component('modalOfficesComponent', require('./components/Modals/ModalOfficesComponent'));
-app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
+app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent')); // todo: cleanup
 app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCodeComponent'));
 app.component('modalAuthCodeComponent', require('./components/Modals/ModalAuthCodeComponent'));
 app.component('modalShareVoucherComponent', require('./components/Modals/ModalShareVoucherComponent'));
@@ -169,6 +172,7 @@ app.filter('duration', require('./filters/DurationFilter'));
 app.filter('duration_last_time', require('./filters/DurationLastTimeFilter'));
 app.filter('lines_to_array', require('./filters/LinesToArrayFilter'));
 app.filter('capitalize', require('./filters/CapitalizeFilter'));
+app.filter('str_limit', require('./filters/StrLimitFilter'));
 
 // Config
 app.config(require('./routers/printables'));

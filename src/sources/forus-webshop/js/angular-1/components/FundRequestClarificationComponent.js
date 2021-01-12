@@ -1,11 +1,9 @@
 let FundRequestClarificationComponent = function(
-    $q,
     $state,
     $stateParams,
     AuthService,
     FormBuilderService,
     FundRequestClarificationService,
-    FileService,
     ModalService
 ) {
     let $ctrl = this;
@@ -22,43 +20,30 @@ let FundRequestClarificationComponent = function(
     $ctrl.errorReason = false;
     $ctrl.finishError = false;
 
-    // Submit or Validate record criteria
-    $ctrl.uploadFormFiles = (form) => {
-        return $q((resolve, reject) => {
-            $ctrl.recordsSubmitting = true;
+    $ctrl.onFileInfo = (files) => {
+        $ctrl.form.values.files = files.filter(
+            (item) => item.uploaded && item.file_uid
+        ).map(file => file.file_uid);
 
-            FileService.storeAll(
-                form.values.rawFiles || [],
-                'fund_request_clarification_proof'
-            ).then(res => {
-                form.values.files = res.map(file => file.data.data);
-                resolve(form);
-            }, res => {
-                reject(form.errors = res.data.errors);
-                form.unlock();
-            });
-        });
+        $ctrl.isUploadingFiles = files.filter(
+            (item) => item.uploading
+        ).length > 0;
     };
 
     // Initialize authorization form
     $ctrl.initForm = () => {
         $ctrl.form = FormBuilderService.build({
-            rawFiles: [],
             files: [],
             answer: ''
-        }, function(form) {
-            $ctrl.uploadFormFiles(form).then(res => {
-                FundRequestClarificationService.update(
-                    $stateParams.fund_id,
-                    $stateParams.request_id,
-                    $stateParams.clarification_id, {
-                        files: form.values.files.map(file => file.uid),
-                        answer: form.values.answer,
-                    }
-                ).then(() => $ctrl.state = 'done', (res) => {
-                    form.errors = res.data.errors;
-                    form.unlock();
-                });
+        }, (form) => {
+            FundRequestClarificationService.update(
+                $stateParams.fund_id,
+                $stateParams.request_id,
+                $stateParams.clarification_id,
+                form.values
+            ).then(() => $ctrl.state = 'done', (res) => {
+                form.errors = res.data.errors;
+                form.unlock();
             });
         }, true);
     };
@@ -73,12 +58,12 @@ let FundRequestClarificationComponent = function(
 
             $state.go('home').then(() => {
                 ModalService.open('identityProxyExpired', {
-                    has_redirect : true,
-                    target_name   : 'requestClarification',
-                    target_params : {
-                        fund_id          : params.fund_id,
-                        request_id       : params.request_id,
-                        clarification_id : params.clarification_id,
+                    has_redirect: true,
+                    target_name: 'requestClarification',
+                    target_params: {
+                        fund_id: params.fund_id,
+                        request_id: params.request_id,
+                        clarification_id: params.clarification_id,
                     }
                 });
             });
@@ -98,13 +83,11 @@ module.exports = {
         fund: '<',
     },
     controller: [
-        '$q',
         '$state',
         '$stateParams',
         'AuthService',
         'FormBuilderService',
         'FundRequestClarificationService',
-        'FileService',
         'ModalService',
         FundRequestClarificationComponent
     ],

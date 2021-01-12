@@ -48,17 +48,20 @@ let FundRequestsComponent = function(
     $ctrl.filters = {
         show: false,
         values: {},
+        defaultValues: {
+            page: 1,
+            per_page: 1,
+            q: '',
+            state: $ctrl.states[0].key,
+            employee_id: null,
+            from: '',
+            to: null,
+            sort_by: 'state',
+            sort_order: 'asc'
+        },
         reset: function() {
-            this.values.q = '';
-            this.values.state = $ctrl.states[0].key;
-            this.values.employee_id = null;
-            this.values.from = '';
-            this.values.to = null;
+            this.values = { ...this.values, ...this.defaultValues };
         }
-    };
-
-    $ctrl.resetFilters = () => {
-        $ctrl.filters.reset();
     };
 
     $ctrl.hideFilters = () => {
@@ -93,11 +96,8 @@ let FundRequestsComponent = function(
         let _query = JSON.parse(JSON.stringify($ctrl.filters.values));
 
         FundRequestValidatorService.indexAll($ctrl.organization.id, Object.assign(_query, {
-            per_page: 25,
             from: _query.from ? DateService._frontToBack(_query.from) : null,
             to: _query.to ? DateService._frontToBack(_query.to) : null,
-            sort_by: 'created_at',
-            sort_order: 'desc'
         })).then(function(res) {
             $ctrl.validatorRequests = $ctrl.updateSelfAssignedFlags(res.data);
         }, console.error);
@@ -118,8 +118,8 @@ let FundRequestsComponent = function(
         ModalService.open('modalNotification', {
             modalClass: 'modal-md',
             type: 'confirm',
-            title: 'Weet u zeker dat u deze eigenschap wil valideren?',
-            description: 'Een validatie kan niet ongedaan gemaakt worden. Kijk goed of u deze actie wilt verrichten.',
+            title: 'Weet u zeker dat u deze eigenschap wil goedkeuren?',
+            description: 'Een beoordeling kan niet ongedaan gemaakt worden. Kijk goed of u deze actie wilt verrichten.',
             confirm: (res) => {
                 FundRequestValidatorService.approveRecord(
                     $ctrl.organization.id,
@@ -128,7 +128,7 @@ let FundRequestsComponent = function(
                 ).then(() => {
                     $ctrl.reloadRequest(request);
                     showInfoModal('Eigenschap gevalideert');
-                }, res => showInfoModal('Fout: U kunt deze eigenschap op dit moment niet valideren', res.data.message));
+                }, res => showInfoModal('Fout: U kunt deze eigenschap op dit moment niet beoordelen.', res.data.message));
             }
         });
     };
@@ -303,7 +303,7 @@ let FundRequestsComponent = function(
             });
         }).then(() => {
             $ctrl.filters.reset();
-            
+
             OrganizationEmployeesService.list($ctrl.organization.id, {
                 per_page: 100,
                 role: 'validation',
@@ -367,7 +367,9 @@ let FundRequestsComponent = function(
     };
 
     $ctrl.onPageChange = (query) => {
-        reloadRequests(query);
+        if ($ctrl.filters.values.page !== query.page) {
+            reloadRequests(query);
+        }
     };
 };
 

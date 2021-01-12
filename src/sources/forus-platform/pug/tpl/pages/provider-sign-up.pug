@@ -18,12 +18,13 @@
 
     .block.block-sign_up: .block-wrapper        
         .sign_up-header
-            .sign_up-header-item.flex-grow: a.sign_up-header-item-back(ng-if="$ctrl.showBackBtn" ng-click="$ctrl.goToMain()")
+            .sign_up-header-item.flex-grow: a(ui-sref="home").sign_up-header-item-back
                 em.mdi.mdi-chevron-left
                 | Verlaat het formulier
 
-            .sign_up-header-item(ng-if="!$root.auth_user")
-                a.button.button-light(ng-click="$ctrl.openAuthPopup()") Inloggen
+            .sign_up-header-item
+                a.button.button-light(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthPopup()") Inloggen
+                a.button.button-light(ng-if="$root.auth_user" href="{{ $root.appConfigs.features.fronts.url_provider }}") Open beheeromgeving
 
         h2.block-title(translate="sign_up_provider.header.main_header")
 
@@ -39,7 +40,7 @@
                     .sign_up-pane-text
                         h5(translate="sign_up_provider.header.title_step_1_paragrah_1").sign_up-pane-heading
                         span(translate="sign_up_provider.header.subtitle_step_1_paragrah_1")
-                    .sign_up-pane-text
+                    .sign_up-pane-text(ng-if="!$root.auth_user")
                         h5(translate="sign_up_provider.header.title_step_1_paragrah_2").sign_up-pane-heading
                         a(ng-click="$ctrl.openAuthPopup()").sign_up-pane-link Klik hier
                         |  {{ "sign_up_provider.header.subtitle_step_1_paragrah_2" | translate}}                       
@@ -230,6 +231,14 @@
                 .sign_up-pane-footer(ng-if="$ctrl.sentSms"): .row
                     .col.col-lg-6.text-left
                         .button.button-text.button-text-padless(ng-click="$ctrl.sentSms = false")
+                            em.mdi.mdi-chevron-left.icon-lefts
+                            | {{ 'sign_up_provider.buttons.back' | translate }}
+                        
+                    .col.col-lg-6.text-right
+
+                .sign_up-pane-footer(ng-if="!$ctrl.sentSms"): .row
+                    .col.col-lg-6.text-left
+                        .button.button-text.button-text-padless(ng-click="$ctrl.back()")
                             em.mdi.mdi-chevron-left.icon-lefts
                             | {{ 'sign_up_provider.buttons.back' | translate }}
                         
