@@ -66,7 +66,6 @@ let ModalAuthComponent = function(
             email: ""
         }, async (form) => {
             const handleErrors = (res) => {
-                console.log(res);
                 form.unlock();
                 form.errors = res.data.errors ? res.data.errors : {
                     email: [res.data.message]
@@ -132,7 +131,6 @@ let ModalAuthComponent = function(
     $ctrl.requestAuthQrToken = () => {
         IdentityService.makeAuthToken().then((res) => {
             $ctrl.authToken = res.data.auth_token;
-
             $ctrl.qrValue = $ctrl.authToken;
 
             $ctrl.checkAccessTokenStatus('token', res.data.access_token);
