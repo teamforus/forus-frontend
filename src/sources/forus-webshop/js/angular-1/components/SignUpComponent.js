@@ -1,6 +1,5 @@
 let SignUpComponent = function(
     $state,
-    $stateParams,
     VoucherService,
     AuthService,
     IdentityService,
@@ -28,6 +27,10 @@ let SignUpComponent = function(
             email: '',
             target: target,
         }, async (form) => {
+            if (appConfigs.flags.privacyPage && !form.values.privacy) {
+                return form.unlock();
+            }
+
             let handleErrors = (res) => {
                 form.unlock();
                 form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
@@ -177,7 +180,6 @@ module.exports = {
     },
     controller: [
         '$state',
-        '$stateParams',
         'VoucherService',
         'AuthService',
         'IdentityService',
