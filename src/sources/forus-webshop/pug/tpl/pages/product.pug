@@ -43,30 +43,48 @@ section.section.section-product: .wrapper
                             .fund-item-subtitle(ng-bind="fund.organization.name")
                     
                     .fund-item-section.text-right(ng-if="fund.type == 'subsidies'")
-                        .fund-item-section-label(i18n="product.labels.limit" ng-if="$root.auth_user")
+                        .fund-item-section-label(translate="product.labels.limit" ng-if="$root.auth_user")
                         .fund-item-section-value(ng-bind="fund.limit_available" ng-if="$root.auth_user")
-                        .fund-item-section-label(i18n="product.labels.max_limit" ng-if="!$root.auth_user")
+                        .fund-item-section-label(translate="product.labels.max_limit" ng-if="!$root.auth_user")
                         .fund-item-section-value(ng-bind="fund.limit_available" ng-if="!$root.auth_user")
 
                     //- product price
-                    .fund-item-section.fund-item-price.text-right(ng-if="!$ctrl.product.no_price")
-                        .fund-item-section-label(ng-if="fund.type == 'budget' && fund.meta.isApplicable" i18n="product.labels.pay_from_voucher")
-                        .fund-item-section-label(ng-if="fund.type == 'subsidies' && fund.price != 0" i18n="product.labels.price")
+                    .fund-item-section.fund-item-price.text-right
+                        .fund-item-section-label(
+                            ng-if="$ctrl.product.price_type === 'free' || $ctrl.product.price_type === 'regular'" 
+                            translate="product.labels.price")
 
-                        .fund-item-section-value(ng-if="$ctrl.product.no_price" i18n="product.status.no_data")
-                        .fund-item-section-value(ng-if="fund.price == 0" i18n="product.status.free")
+                        .fund-item-section-label(
+                            ng-if="($ctrl.product.price_type === 'discount_fixed' || $ctrl.product.price_type === 'discount_percentage')" 
+                            translate="product.labels.discount")
+
+                        //- subsidies price
+                        div(ng-if="fund.type == 'subsidies'")
+                            .fund-item-section-value(
+                                ng-if="$ctrl.product.price_type === 'free' || $ctrl.product.price_type === 'regular' && $ctrl.product.price_min == 0"
+                                translate="product.status.free")
+                            .fund-item-section-value(
+                                ng-if="$ctrl.product.price_type === 'regular' && $ctrl.product.price_min != 0" 
+                                ng-bind="$ctrl.product.price_min | currency_format")
+                        
+                        //- budget price
+                        div(ng-if="fund.type == 'budget'")
+                            .fund-item-section-value(
+                                ng-if="$ctrl.product.price_type === 'regular' || $ctrl.product.price_type === 'free'" 
+                                ng-bind="$ctrl.product.price_locale")
+                            
                         .fund-item-section-value(
-                            ng-if="!$ctrl.product.no_price && fund.price != 0"
-                            ng-bind="(fund.type == 'subsidies' ? fund.price : $ctrl.product.price) | currency_format")
+                            ng-if="$ctrl.product.price_type === 'discount_fixed' || $ctrl.product.price_type === 'discount_percentage'" 
+                            ng-bind="$ctrl.product.price_discount_locale")
 
                     //- reserve product using voucher
-                    .fund-item-section(ng-if="!fund.meta.isApplicableSubsidy && !$ctrl.product.no_price && $ctrl.useBudget && fund.meta.isApplicable && !$ctrl.product.deleted && !$ctrl.product.sold_out")
+                    .fund-item-section(ng-if="!fund.meta.isApplicableSubsidy && $ctrl.product.price_type === 'regular' && $ctrl.useBudget && fund.meta.isApplicable && !$ctrl.product.deleted && !$ctrl.product.sold_out")
                         .button.button-dark.button-flat(
                             i18n="product.buttons.buy" 
                             ng-click="$ctrl.applyProduct()")
 
                     //- request fund
-                    .fund-item-section(ng-if="fund.type == 'subsidies' ? !fund.meta.isApplicableSubsidy : !fund.meta.isApplicable")
+                    .fund-item-section(ng-if="(fund.type == 'subsidies' ? !fund.meta.isApplicableSubsidy : !fund.meta.isApplicable) && $ctrl.signedIn")
                         .button.button-light.button-flat(
                             translate="product.buttons.{{ $root.client_key }}.request" 
                             translate-default="{{ 'product.buttons.request' | translate }}" 

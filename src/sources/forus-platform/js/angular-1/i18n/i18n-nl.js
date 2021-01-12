@@ -39,6 +39,12 @@ module.exports = {
         "validation-request": 'Validatie verzoek',
         "restore-email": 'Inloggen via e-mail',
     },
+    // MENU = menu-validator.pug, menu-provider.pug, menu-sponsor.pug
+    menu: {
+        organizational: 'Organisatie',
+        implementation: 'Webshop',
+        personal: 'Persoonlijk',
+    },
     // MODALS
     modals: {
         modal_voucher_create: require('./nl/modals/modal-voucher-create.pug.i18n'),
@@ -956,11 +962,10 @@ module.exports = {
         app: {
             title: "Heeft u de Me-app al?",
             description_top: [
-                "De Me-app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
+                "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
             ].join("\n"),
             description_bottom: [
-                "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
-                "De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
+                "De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en tegoeden te beheren"
             ].join("\n"),
             no_app: "Ik wil inloggen met mijn e-mailadres >"
         },
@@ -1084,11 +1089,9 @@ module.exports = {
         app: {
             title: "Heeft u de Me-app al?",
             description_top: [
-                "De Me-app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
                 "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
             ].join("\n"),
             description_bottom: [
-                "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.", 
                 "De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
             ].join("\n"),
             no_app: "Ik wil inloggen met mijn e-mailadres >"    

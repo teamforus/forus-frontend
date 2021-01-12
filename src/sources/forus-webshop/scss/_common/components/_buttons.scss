@@ -229,7 +229,7 @@
     &[disabled],
     &.disabled,
     &.button-disabled {
-        background: #eff2f4;
+        background: #eff2f4 !important;
         border-color: #eff2f4;
         color: #ccd0e0;
         box-shadow: none;
@@ -247,6 +247,17 @@
         & > .mdi {
             margin: 0 -5px;
         }
+    }
+
+    &.button-digid {
+        background-color: #000;
+        background-image: url('../img/icon-digid.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        border-color: #000;
+        box-shadow: none;
+        cursor: default;
+        pointer-events: none;
     }
 }
 

@@ -7,60 +7,31 @@
             .product-details
                 .product-name.truncated(ng-bind="product.name")
                 .product-organization(ng-bind="product.organization.name")
-                .product-discount(ng-if="product.isDiscounted")
-                    | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}% 
-                    br
-                    | {{ "block_products.labels.discount" | translate }}
-                .product-discount(ng-if="!product.isDiscounted").hide-sm
-                    | &nbsp;
-                    br
-                    | &nbsp;
-                .product-price(ng-if="!product.no_price")
-                    small(ng-if="product.isDiscounted") {{ "block_products.labels.old" | translate }} {{ product.old_price | currency_format }}
-                    small(ng-if="!product.isDiscounted").hide-sm &nbsp;
-                    | {{ "block_products.labels.new" | translate }} {{ product.price | currency_format }}
-                .product-price(ng-if="product.no_price")
-                    small.hide-sm &nbsp;
-                    span(ng-if="product.no_price_type == 'free'") Gratis
-                    span(ng-if="product.no_price_type == 'discount'") {{ product.no_price_discount | percentage_format }} korting
+                .product-price.text-right(ng-bind="product.price_locale")
 
     //- grid subsidies
-    .product-item(ng-if="$dir.type == 'subsidies' && $dir.display == 'grid'" ng-repeat="product in $dir.products"): a(ui-sref="products-show(product)").product-item-inner
-        .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
-            img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
-            .product-price(ng-if="!product.no_price && product.price_min != 0")
-                span(ng-if="!product.no_price" ng-bind="product.price_min | currency_format")
-            .product-price(ng-if="!product.no_price && product.price_min == 0")
-                span {{ product.price | currency_format }} korting
-            .product-price(ng-if="product.no_price")
-                    small.hide-sm &nbsp;
-                    span(ng-if="product.no_price_type == 'free'") Gratis
-                    span(ng-if="product.no_price_type == 'discount'") {{ product.no_price_discount | percentage_format }} korting
-        .product-details
-            .product-name(ng-bind="product.name")
-            .product-provider(ng-bind="product.organization.name")
+    .product-item(ng-if="$dir.type == 'subsidies' && $dir.display == 'grid'" ng-repeat="product in $dir.products")
+        a(ui-sref="products-show(product)").product-item-inner
+            .product-image(style="background-image: url('{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}')")
+                img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
+                .product-price(ng-if="product.price_type === 'regular' && product.price_min == 0") Gratis
+                .product-price(ng-if="product.price_type === 'regular' && product.price_min != 0" ng-bind="product.price_min | currency_format")
+                .product-price(ng-if="product.price_type !== 'regular'" ng-bind="product.price_locale")
+            .product-details
+                .product-name(ng-bind="product.name")
+                .product-provider(ng-bind="product.organization.name")
 
     //- list products
     a.product-item(
         ng-if="$dir.type == 'budget' && $dir.display == 'list'"
         ng-repeat="product in $dir.products" 
-        ng-class="{discounted:product.old_price}"
         ui-sref="products-show(product)")
         .product-photo: img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}")
         .product-content
             .product-details
                 .product-name(ng-bind="product.name")
                 .product-organization(ng-bind="product.organization.name")
-            .product-actions
-                .product-discount.label.label-danger.label-sm(ng-if="product.old_price && product.price != product.old_price")
-                    | {{ product.old_price == 0 ? 0 : (100 - (product.price / product.old_price) * 100) | to_fixed:0 }}%
-                    | {{ "block_products.labels.discount" | translate }}
-                .label.label-default.label-sm(ng-if="product.old_price") 
-                    | {{ "block_products.labels.old" | translate }} {{ product.old_price | currency_format }}
-                .product-price(ng-if="!product.no_price") {{ "block_products.labels.new" | translate }} {{ product.price | currency_format }}
-                .product-price(ng-if="product.no_price")
-                    span(ng-if="product.no_price_type == 'free'") Gratis
-                    span(ng-if="product.no_price_type == 'discount'") {{ product.no_price_discount | percentage_format }} korting
+            .product-actions: .product-price(ng-bind="product.price_locale")
 
     //- list subsidies
     a.product-item(
@@ -73,11 +44,6 @@
                 .product-name(ng-bind="product.name")
                 .product-provider(ng-bind="product.organization.name")
             .product-actions
-                .product-price(
-                    ng-if="product.price_min == product.price_max && !product.no_price && product.price_min != 0"
-                    ng-bind="product.price_min | currency_format")
-                .product-price(
-                    ng-if="!product.no_price && product.price_min == 0") {{ product.price | currency_format }} korting
-                .product-price(ng-if="product.no_price")
-                    span(ng-if="product.no_price_type == 'free'") Gratis
-                    span(ng-if="product.no_price_type == 'discount'") {{ product.no_price_discount | percentage_format }} korting
+                .product-price(ng-if="product.price_type === 'regular' && product.price_min == 0") Gratis
+                .product-price(ng-if="product.price_type === 'regular' && product.price_min != 0" ng-bind="product.price_min | currency_format")
+                .product-price(ng-if="product.price_type !== 'regular'" ng-bind="product.price_locale")

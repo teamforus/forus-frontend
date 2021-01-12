@@ -702,6 +702,18 @@ $colorPrimaryLight: $color_primary_light;
                 padding: 15px 0 0;
                 margin: 0 0 20px;
             }
+
+            .sidebar-section-title {
+                font: 600 14px/20px $bf;
+                padding: 25px 0;
+                color: #000000;
+                cursor: default;
+
+                &:first-child {
+                    padding-top: 10px;
+                    padding: 10px 0 20px;
+                }
+            }
         }
     }
 
@@ -748,6 +760,7 @@ $colorPrimaryLight: $color_primary_light;
     font: 500 18px/26px $bf;
     color: #282b39;
     margin-bottom: 10px;
+    cursor: default;
 
     .link {
         display: inline-block;
@@ -4314,7 +4327,7 @@ $colorPrimaryLight: $color_primary_light;
             cursor: default;
 
             .chart-header-range {
-                flex: 2 0px;
+                flex-basis: 40%;
 
                 .chart-header-item {
                     color: rgba($color: #151b26, $alpha: 0.5);
@@ -4341,11 +4354,29 @@ $colorPrimaryLight: $color_primary_light;
                 text-align: center;
                 font: 500 13px/34px $bf;
                 color: #151b26;
+                flex-basis: 20%;
             }
 
             .chart-header-actions {
-                flex: 2 0px;
-                text-align: right;
+                flex-basis: 40%;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+
+                .flex-row {
+                    flex: 1;
+                    flex-direction: row;
+                    justify-content: flex-end;
+                    flex-wrap: nowrap;
+                }
+
+                .form-group {
+                    margin: 0 10px 0 0;
+                }
+
+                .form-control {
+                    max-width: 200px;
+                }
             }
         }
     }
@@ -4851,15 +4882,16 @@ $colorPrimaryLight: $color_primary_light;
                     margin-bottom: 0;
                 }
             }
-    
-            .modal-button-digid-icon {
+
+            &.button-digid {
                 background-color: #000;
                 background-image: url('../img/icon-digid.svg');
-                background-size: contain;
-                background-repeat: none;
-                background-position: 50% 50%;
+                background-repeat: no-repeat;
+                background-position: center;
                 border-color: #000;
+                box-shadow: none;
                 cursor: default;
+                pointer-events: none;
             }
         }
     
@@ -5461,6 +5493,23 @@ $colorPrimaryLight: $color_primary_light;
                     font-weight: 400;
                     text-transform: uppercase;
                 }
+
+                .block-login-control {
+                    display: flex;
+                    flex-direction: row;
+
+                    .form-group {
+                        padding-right: 20px;
+                        flex-grow: 1;
+                        margin: 0 0;
+                        display: flex;
+                        flex-direction: column;
+                    }
+                        
+                    .button {
+                        align-self: flex-start;
+                    }
+                }
     
                 .form-control:not([type='radio']):not([type='checkbox']) {
                     font: 400 16px/20px $bf;
@@ -5528,6 +5577,7 @@ $colorPrimaryLight: $color_primary_light;
                             margin: 0 auto;
                             padding: 7.5px 15px;
                             box-shadow: none;
+                            align-self: center;
                         }
                     }
 
@@ -5636,19 +5686,16 @@ $colorPrimaryLight: $color_primary_light;
                 .block-login-form {
                     margin: 0;
 
-                    .flex-row {
+                    .block-login-control {
                         flex-direction: column;
 
-                        .flex-col {
-                            &:first-child {
-                                margin-bottom: 20px;
-                            }
+                        .flex {
+                            justify-content: center;
+                        }
 
-                            &:last-child {
-                                display: flex;
-                                flex-direction: row;
-                                justify-content: center;
-                            }
+                        .form-group {
+                            margin-bottom: 20px;
+                            padding-right: 0;
                         }
                     }
                 }
@@ -6558,12 +6605,6 @@ $colorPrimaryLight: $color_primary_light;
         .modal-window {
             .modal-section {
                 .table {
-                    .offer-old-price {
-                        margin-left: 10px;
-                        color: #a7a7a7;
-                        text-decoration: line-through;
-                    }
-
                     td {
                         &:last-child {
                             width: 150px;

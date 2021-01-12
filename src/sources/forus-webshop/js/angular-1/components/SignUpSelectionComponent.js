@@ -1,18 +1,13 @@
-let SignUpSelectionComponent = function($scope, $sce, appConfigs) {
-    let $ctrl = this;
-
-    $ctrl.goToSignUpPage = (clientType) => {
-        document.location.href = appConfigs.features.fronts['url_' + clientType] + 'sign-up';
-    }
+let SignUpSelectionComponent = function($scope, appConfigs, $sce) {
+    const $ctrl = this;
 
     $ctrl.$onInit = () => {
-        $scope.appConfigs = appConfigs;
-        $scope.$watch('appConfigs', (_appConfigs) => {
-            if (_appConfigs.features && _appConfigs.features.settings) {
-                $ctrl.appConfigs = _appConfigs;
+        $ctrl.appConfigs = appConfigs;
 
+        $scope.$watch(() => appConfigs, (configs) => {
+            if (configs && configs.features && configs.features.settings) {
                 $ctrl.description_providers_html = $sce.trustAsHtml(
-                    $ctrl.appConfigs.features.settings.description_providers_html
+                    configs.features.settings.description_providers_html
                 );
             }
         }, true);
@@ -23,8 +18,8 @@ module.exports = {
     bindings: {},
     controller: [
         '$scope',
-        '$sce',
         'appConfigs',
+        '$sce',
         SignUpSelectionComponent
     ],
     templateUrl: 'assets/tpl/pages/sign-up-options.html'
