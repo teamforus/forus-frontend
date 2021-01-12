@@ -31,10 +31,10 @@ let SignUpComponent = function(
             let handleErrors = (res) => {
                 form.unlock();
                 form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
-                $ctrl.authForm.hidden = false;
+                $ctrl.authForm.autofill = false;
             };
 
-            const used = !$ctrl.authForm.hidden && await new Promise((resolve) => {
+            const used = !$ctrl.authForm.autofill && await new Promise((resolve) => {
                 IdentityService.validateEmail(form.values).then(res => {
                     resolve(res.data.email.used);
                 }, handleErrors);
@@ -53,7 +53,7 @@ let SignUpComponent = function(
             }
         }, true);
 
-        $ctrl.authForm.hidden = false;
+        $ctrl.authForm.autofill = false;
     };
 
     // Show qr code or email input
@@ -160,7 +160,7 @@ let SignUpComponent = function(
 
             if ($ctrl.$transition$.params().email_address) {
                 $ctrl.authForm.values.email = $ctrl.$transition$.params().email_address;
-                $ctrl.authForm.hidden = true;
+                $ctrl.authForm.autofill = true;
                 $ctrl.authForm.submit();
             }
         }
