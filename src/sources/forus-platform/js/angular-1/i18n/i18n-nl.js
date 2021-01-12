@@ -346,7 +346,7 @@ module.exports = {
             header_title: "Header titel",
             header_description: "Header omschrijving",
             title: "Titel",
-            description_provider: "Aanbiederpagina content",
+            description_providers: "Aanbiederpagina content",
             description: "Uitlegpagina content",
             more_info: "Externe uitleg URL"
         },

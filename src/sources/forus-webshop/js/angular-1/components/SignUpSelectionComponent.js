@@ -11,8 +11,8 @@ let SignUpSelectionComponent = function($scope, $sce, appConfigs) {
             if (_appConfigs.features && _appConfigs.features.settings) {
                 $ctrl.appConfigs = _appConfigs;
 
-                $ctrl.description_provider_html = $sce.trustAsHtml(
-                    $ctrl.appConfigs.features.settings.description_provider_html
+                $ctrl.description_providers_html = $sce.trustAsHtml(
+                    $ctrl.appConfigs.features.settings.description_providers_html
                 );
             }
         }, true);
