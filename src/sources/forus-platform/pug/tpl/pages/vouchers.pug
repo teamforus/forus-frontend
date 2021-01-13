@@ -59,6 +59,12 @@
                                     select(
                                         ng-options="state.value as state.name for state in $ctrl.voucher_states" 
                                         ng-model="$ctrl.filters.values.state").form-control
+
+                                .form-group
+                                    form-label-toggle(label="{{ 'vouchers.labels.used' | translate }}")
+                                    select(
+                                        ng-options="state.value as state.name for state in $ctrl.in_use" 
+                                        ng-model="$ctrl.filters.values.in_use").form-control
                                 
                                 .form-group
                                     form-label-toggle(label="{{ 'vouchers.labels.granted' | translate }}")

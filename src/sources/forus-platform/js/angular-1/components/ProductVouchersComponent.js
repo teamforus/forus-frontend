@@ -43,6 +43,17 @@ let ProductVouchersComponent = function(
         name: 'Actief'
     }];
 
+    $ctrl.in_use = [{
+        value: null,
+        name: 'Selecteer...'
+    }, {
+        value: 1,
+        name: 'Ja'
+    }, {
+        value: 0,
+        name: 'Nee'
+    }];
+
     $ctrl.filters = {
         show: false,
         defaultValues: {
@@ -53,6 +64,7 @@ let ProductVouchersComponent = function(
             from: null,
             to: null,
             state: null,
+            in_use: null,
             type: 'product_voucher',
             source: 'all',
             sort_by: 'created_at',
