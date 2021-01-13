@@ -253,7 +253,7 @@ let FundRequestsComponent = function(
             fundRequest: fundRequest,
             organization: $ctrl.organization,
             onAppend: () => {
-                PushNotificationsService.success('Gelukt! New record attached and approved.');
+                PushNotificationsService.success('Gelukt! Eigenschap toegevoegd.');
                 reloadRequests($ctrl.filters.values);
             }
         });
