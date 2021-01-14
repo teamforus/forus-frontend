@@ -95,10 +95,10 @@ header.section.section-sign-up-choose
                             .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(false)" translate="fund_request.sign_up.labels.no_app").show-sm
 
                             .sign_up-pane-auth-apps
-                                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").sign_up-pane-auth-app-item
+                                a(href="{{ $root.appConfigs.ios_iphone_link }}").sign_up-pane-auth-app-item
                                     img(src=src_prefix + "./assets/img/icon-app-ios.svg")
 
-                                a(href="https://play.google.com/store/apps/details?id=io.forus.me").sign_up-pane-auth-app-item
+                                a(href="{{ $root.appConfigs.android_link }}").sign_up-pane-auth-app-item
                                     img(src=src_prefix + "./assets/img/icon-app-android.svg")
                         
                         .sign_up-pane-auth-qr_code.hide-sm
