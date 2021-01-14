@@ -353,7 +353,8 @@ module.exports = {
             header_description: "Header omschrijving",
             title: "Titel",
             description: "Uitlegpagina content",
-            more_info: "Externe uitleg URL"
+            more_info: "Externe uitleg URL",
+            privacy_page: "Privacy content"
         },
         buttons: {
             cancel: "Annuleren",
