@@ -20,7 +20,7 @@ app.component('dlMeAppComponent', require('./components/landing/DlMeAppComponent
 // Services
 app.service('CredentialsService', require('./services/CredentialsService'));
 app.service('ConfigService', require('./services/ConfigService'));
-app.service('SmsService', require('./services/SmsService'));
+app.service('ShareService', require('./services/ShareService'));
 app.service('AuthService', require('./services/AuthService'));
 app.service('RecordService', require('./services/RecordService'));
 app.service('OrganizationService', require('./services/OrganizationService'));

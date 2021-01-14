@@ -10,7 +10,7 @@ let DlMeAppComponent = function(appConfigs) {
     ];
 
     $ctrl.$onInit = () => {
-        $ctrl.iosLink = appConfigs.ios_link;
+        $ctrl.iosLink = appConfigs.ios_iphone_link;
         $ctrl.androidLink = appConfigs.android_link;
 
         $ctrl.isiOS = navigator.platform && iosPlatforms.indexOf(navigator.platform) !== -1;

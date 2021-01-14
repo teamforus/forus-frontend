@@ -94,6 +94,9 @@ let ProductComponent = function(
         });
 
         $ctrl.product.funds.forEach(fund => {
+            let product_expire_at = moment($ctrl.product.expire_at);
+            let fund_expire_at = moment(fund.end_at);
+
             fund.meta = {};
 
             fund.meta.applicableSubsidyVouchers = $ctrl.vouchers.filter(voucher => {
@@ -108,6 +111,9 @@ let ProductComponent = function(
 
             fund.meta.isApplicable = fund.meta.applicableBudgetVouchers.length > 0;
             fund.meta.isApplicableSubsidy = fund.meta.applicableSubsidyVouchers.length > 0;
+            
+            fund.shownExpireDate = !$ctrl.product.expire_at || product_expire_at.isAfter(fund_expire_at) ? 
+                fund.end_at_locale : $ctrl.product.expire_at_locale;
         })
 
         $ctrl.isApplicable = $ctrl.product.funds.filter(

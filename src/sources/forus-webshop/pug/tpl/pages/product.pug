@@ -23,9 +23,6 @@ section.section.section-product: .wrapper
                     .product-property
                         .product-property-label(i18n="product.labels.category")
                         .product-property-value(ng-bind="$ctrl.product.product_category.name")
-                    .product-property(ng-if="$ctrl.product.expire_at")
-                        .product-property-label(i18n="product.labels.expire")
-                        .product-property-value {{ "product.labels.expire_prefix" | translate }} {{ $ctrl.product.expire_at_locale }}
                 
                 .product-properties
                     .product-property.product-property-full
@@ -41,6 +38,11 @@ section.section.section-product: .wrapper
                         .fund-item-content
                             .fund-item-title(ng-bind="fund.name")
                             .fund-item-subtitle(ng-bind="fund.organization.name")
+                    
+                    .fund-item-section
+                        .fund-item-section-label(i18n="product.labels.expire")
+                        .fund-item-section-value.fund-item-section-value-sm 
+                            | {{ "product.labels.expire_prefix" | translate }} {{ fund.shownExpireDate }}
                     
                     .fund-item-section.text-right(ng-if="fund.type == 'subsidies'")
                         .fund-item-section-label(translate="product.labels.limit" ng-if="$root.auth_user")
@@ -59,19 +61,17 @@ section.section.section-product: .wrapper
                             translate="product.labels.discount")
 
                         //- subsidies price
-                        div(ng-if="fund.type == 'subsidies'")
-                            .fund-item-section-value(
-                                ng-if="$ctrl.product.price_type === 'free' || $ctrl.product.price_type === 'regular' && $ctrl.product.price_min == 0"
-                                translate="product.status.free")
-                            .fund-item-section-value(
-                                ng-if="$ctrl.product.price_type === 'regular' && $ctrl.product.price_min != 0" 
-                                ng-bind="$ctrl.product.price_min | currency_format")
+                        .fund-item-section-value(
+                            ng-if="fund.type == 'subsidies' && $ctrl.product.price_type === 'free' || $ctrl.product.price_type === 'regular' && $ctrl.product.price_min == 0"
+                            translate="product.status.free")
+                        .fund-item-section-value(
+                            ng-if="fund.type == 'subsidies' && $ctrl.product.price_type === 'regular' && $ctrl.product.price_min != 0" 
+                            ng-bind="$ctrl.product.price_min | currency_format")
                         
                         //- budget price
-                        div(ng-if="fund.type == 'budget'")
-                            .fund-item-section-value(
-                                ng-if="$ctrl.product.price_type === 'regular' || $ctrl.product.price_type === 'free'" 
-                                ng-bind="$ctrl.product.price_locale")
+                        .fund-item-section-value(
+                            ng-if="fund.type == 'budget' && $ctrl.product.price_type === 'regular' || $ctrl.product.price_type === 'free'" 
+                            ng-bind="$ctrl.product.price_locale")
                             
                         .fund-item-section-value(
                             ng-if="$ctrl.product.price_type === 'discount_fixed' || $ctrl.product.price_type === 'discount_percentage'" 
