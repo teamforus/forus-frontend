@@ -104,7 +104,7 @@
                         //- Not selected
                         .app_download-row(ng-if="!$ctrl.selectedOption"): h4.app_download-heading Of:
                         .app_download-row(ng-if="!$ctrl.selectedOption")
-                            .app_download-media: img(ng-src="./assets/img/forus-dl-link.png")
+                            .app_download-media: img(ng-src="./assets/img/forus-dl-link.jpg")
                             .app_download-content: p.app_download-text
                                 | Typ #[b forus.io/dl] in uw mobiele browser (safari, chrome, etc) en 
                                 span.app_download-link(ng-click="$ctrl.appDownloadSkip = true") ga verder >
@@ -165,7 +165,7 @@
                                         button.button.button-primary-outline(
                                             ng-disabled="!emailForm.values.email"
                                             type="submit"
-                                            ng-click="$ctrl.sendEmail()") send email
+                                            ng-click="$ctrl.sendEmail()") verstuur e-mail
                                 //- Form errors
                                 .app_download-form_group: .form-error(ng-repeat="error in emailForm.errors.email" ng-bind="error")
 
@@ -195,7 +195,7 @@
                             .sign_up-pane-text(translate="sign_up_provider.qr_code.description")
                             br
                             .sign_up-pane-text: small
-                                | {{ "sign_up_provider.download.no_link_received" | translate }} 
+                                | {{ "sign_up_provider.download.no_link_received_sms" | translate }} 
                                 a(href="https://www.forus.io/DL" target="_blank") www.forus.io/DL
 
                         .sign_up-pane-auth-qr_code.visible-md.visible-lg
@@ -207,14 +207,14 @@
 
                 //- Email sent message
                 .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && $ctrl.shareEmailSent") 
-                    .sign_up-pane-heading You have received an E-mail on {{ emailForm.values.email }}
+                    .sign_up-pane-heading Er is een e-mail verstuurd naar {{ emailForm.values.email }}
                     
                     .sign_up-pane-auth
                         .sign_up-pane-auth-content
                             .sign_up-pane-text(translate="sign_up_provider.qr_code.description")
                             br
                             .sign_up-pane-text: small
-                                | {{ "sign_up_provider.download.no_link_received" | translate }} 
+                                | {{ "sign_up_provider.download.no_link_received_email" | translate }} 
                                 a(href="https://www.forus.io/DL" target="_blank") www.forus.io/DL
 
                         .sign_up-pane-auth-qr_code.visible-md.visible-lg
