@@ -122,7 +122,7 @@ app.service('ModalService', require('./services/ModalService'));
 app.service('PrintableService', require('./services/PrintableService'));
 app.service('PermissionsService', require('./services/PermissionsService'));
 app.service('RoleService', require('./services/RoleService'));
-app.service('SmsService', require('./services/SmsService'));
+app.service('ShareService', require('./services/ShareService'));
 app.service('FileService', require('./services/FileService'));
 app.service('FundRequestValidatorService', require('./services/FundRequestValidatorService'));
 app.service('FundProviderInvitationsService', require('./services/FundProviderInvitationsService'));

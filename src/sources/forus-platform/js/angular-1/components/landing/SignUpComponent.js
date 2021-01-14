@@ -8,7 +8,7 @@ let SignUpComponent = function(
     IdentityService,
     CredentialsService,
     FormBuilderService,
-    SmsService
+    ShareService
 ) {
     let $ctrl = this;
     let $translate = $filter('translate');
@@ -105,7 +105,7 @@ let SignUpComponent = function(
         }, function(form) {
             waitingSms = true;
 
-            return SmsService.send({
+            return ShareService.sendSms({
                 phone: "+31" + form.values.phone.substr(1),
                 type: 'me_app_download_link'
             });
@@ -277,7 +277,7 @@ module.exports = {
         'IdentityService',
         'CredentialsService',
         'FormBuilderService',
-        'SmsService',
+        'ShareService',
         SignUpComponent
     ],
     templateUrl: 'assets/tpl/pages/landing/sign-up.html'

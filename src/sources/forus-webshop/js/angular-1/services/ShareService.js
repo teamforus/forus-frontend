@@ -1,4 +1,4 @@
-let SmsService = function(
+let ShareService = function(
     ApiRequest
 ) {
     return new(function() {
@@ -10,5 +10,5 @@ let SmsService = function(
 
 module.exports = [
     'ApiRequest',
-    SmsService
+    ShareService
 ];
