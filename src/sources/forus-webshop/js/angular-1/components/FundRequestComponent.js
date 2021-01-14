@@ -106,7 +106,11 @@ let FundRequestComponent = function(
         $ctrl.submitInProgress = true;
 
         FundRequestService.store($ctrl.fund.id, {
-            records: $ctrl.invalidCriteria.map(criterion => ({
+            records: $ctrl.fund.auto_validation ? $ctrl.invalidCriteria.map(criterion => ({
+                value: criterion.value,
+                record_type_key: criterion.record_type_key,
+                fund_criterion_id: criterion.id,
+            })) : $ctrl.invalidCriteria.map(criterion => ({
                 value: criterion.input_value,
                 record_type_key: criterion.record_type_key,
                 fund_criterion_id: criterion.id,
@@ -320,8 +324,12 @@ let FundRequestComponent = function(
         $ctrl.digidMandatory = $ctrl.appConfigs.features.digid_mandatory;
         $ctrl.fundRequestAvailable = $ctrl.fundRequestIsAvailable($ctrl.fund);
 
+        $ctrl.canRequest = $ctrl.appConfigs.fund_request_allways_bsn_confirmation ? (
+            ((new Date().getTime() - sessionStorage.getItem('__last_timestamp')) / 1000) < 120
+        ) : true;
+
         // The user is not authenticated and have to go back to sign-up page
-        if ((!$ctrl.signedIn || !$ctrl.identity) || ($ctrl.fund.auto_validation && !$ctrl.bsnIsKnown)) {
+        if ((!$ctrl.signedIn || !$ctrl.identity) || ($ctrl.fund.auto_validation && !$ctrl.bsnIsKnown) || !$ctrl.canRequest) {
             return $state.go('start');
         }
 

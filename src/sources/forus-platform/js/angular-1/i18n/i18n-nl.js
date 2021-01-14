@@ -39,6 +39,12 @@ module.exports = {
         "validation-request": 'Validatie verzoek',
         "restore-email": 'Inloggen via e-mail',
     },
+    // MENU = menu-validator.pug, menu-provider.pug, menu-sponsor.pug
+    menu: {
+        organizational: 'Organisatie',
+        implementation: 'Webshop',
+        personal: 'Persoonlijk',
+    },
     // MODALS
     modals: {
         modal_voucher_create: require('./nl/modals/modal-voucher-create.pug.i18n'),
@@ -685,7 +691,7 @@ module.exports = {
                 "<li>Mobiele telefoon of tablet met camera en internet</li>" +
                 "<li>Bedrijfsgegevens van uw organisatie (contactgegevens, KvK en IBAN nummer)</li>" +
                 "</ul>",
-            title_step_3: "Ontvang de download link naar de Me-app",
+            title_step_3: "Me-app downloaden",
             subtitle_step_3: "",
             title_step_3_mail: "Op een later moment de Me-app installeren",
             title_step_3_mail_mobile: "Maak een account aan",
@@ -780,7 +786,8 @@ module.exports = {
             title: "De app installeren",
             description: "De app is beschikbaar voor iOS en Android telefoons. Vul uw telefoonnummer in om een download link via SMS te ontvangen of ga op uw telefoon naar <a href='www.forus.io/DL' target='_blank'>www.forus.io/DL</a>",
             download_link: "Verstuur sms",
-            no_link_received: 'Geen SMS ontvangen? Controleer het ingevulde telefoonnummer of ga via uw telefoon naar',
+            no_link_received_email: 'Geen e-mailbericht ontvangen? Controleer het ingevulde e-mailadres of ga via uw telefoon naar',
+            no_link_received_sms: 'Geen SMS ontvangen? Controleer het ingevulde telefoonnummer of ga via uw telefoon naar',
             cannot_receive_sms: 'Kunt u geen SMS ontvangen? Ga op uw telefoon of tablet naar:',
             cannot_install_app: 'Op dit moment geen mogelijkheid om de app te installeren?'
         },
@@ -797,12 +804,12 @@ module.exports = {
         qr_code: {
             title: "Scan de QR-code om verder te gaan",
             description: [
-                '1. Open de link in de sms',
+                '1. Open de link',
                 '2. Installeer de app',
                 '3. Open de app en meld u aan',
                 '4. Druk op QR om de de scanner te openen',
                 '5. Scan de QR-code die rechts wordt weergegeven'
-            ].join('<br>')
+            ].join('<br>'),
         },
         app_instruction: {
             step_1: 'Open <i>Me</i>',
@@ -955,11 +962,10 @@ module.exports = {
         app: {
             title: "Heeft u de Me-app al?",
             description_top: [
-                "De Me-app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
+                "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
             ].join("\n"),
             description_bottom: [
-                "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
-                "De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
+                "De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en tegoeden te beheren"
             ].join("\n"),
             no_app: "Ik wil inloggen met mijn e-mailadres >"
         },
@@ -1083,11 +1089,9 @@ module.exports = {
         app: {
             title: "Heeft u de Me-app al?",
             description_top: [
-                "De Me-app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw budgetten te beheren.",
                 "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
             ].join("\n"),
             description_bottom: [
-                "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.", 
                 "De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
             ].join("\n"),
             no_app: "Ik wil inloggen met mijn e-mailadres >"    

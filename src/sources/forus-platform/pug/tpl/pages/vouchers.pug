@@ -59,6 +59,12 @@
                                     select(
                                         ng-options="state.value as state.name for state in $ctrl.voucher_states" 
                                         ng-model="$ctrl.filters.values.state").form-control
+
+                                .form-group
+                                    form-label-toggle(label="{{ 'vouchers.labels.used' | translate }}")
+                                    select(
+                                        ng-options="state.value as state.name for state in $ctrl.in_use" 
+                                        ng-model="$ctrl.filters.values.in_use").form-control
                                 
                                 .form-group
                                     form-label-toggle(label="{{ 'vouchers.labels.granted' | translate }}")
@@ -121,7 +127,7 @@
                             tr(ng-repeat="voucher in $ctrl.vouchers.data")
                                 td
                                     strong(ng-bind="(voucher.identity_email | str_limit:25) || voucher.activation_code || 'Niet toegewezen'").text-primary
-                                    span(ng-if="voucher.identity_email && (voucher.identity_bsn || voucher.relation_bsn)").text-strong.text-md.text-muted-dark
+                                    span(ng-if="voucher.identity_bsn || voucher.relation_bsn").text-strong.text-md.text-muted-dark
                                         br
                                         | {{ 'BSN: ' + (voucher.identity_bsn || voucher.relation_bsn) }}
                                     span(ng-if="!voucher.identity_email && voucher.activation_code").text-strong.text-md.text-muted-dark

@@ -101,6 +101,7 @@ let ModalProductVoucherCreateComponent = function(
                     return VoucherService.index($ctrl.organization.id, {
                         type: 'product_voucher',
                         email: form.values.email,
+                        fund_id: $ctrl.fund.id,
                         source: 'all',
                     }).then((res) => {
                         $ctrl.close();
@@ -122,6 +123,7 @@ let ModalProductVoucherCreateComponent = function(
                     return VoucherService.index($ctrl.organization.id, {
                         type: 'product_voucher',
                         bsn: form.values.bsn,
+                        fund_id: $ctrl.fund.id,
                         source: 'all',
                     }).then((res) => {
                         $ctrl.close();
@@ -177,14 +179,14 @@ let ModalProductVoucherCreateComponent = function(
 
         ProductService.listAll({
             fund_id: $ctrl.fund.id,
-            no_price: 0,
+            price_type: 'regular',
             show_all: 1,
         }).then((res) => {
             $ctrl.products = res.data.data.map(product => {
                 return {
                     id: product.id,
                     price: product.price,
-                    name: product.name + ' - €' + product.price + ' (' + product.organization.name + ')',
+                    name: product.name + ' ' + product.price_locale + ' (' + product.organization.name + ')',
                 }
             });
 

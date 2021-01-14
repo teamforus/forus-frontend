@@ -8,7 +8,6 @@ let FundActivateComponent = function(
     FundService,
     AuthService,
     PushNotificationsService,
-    PrevalidationService,
     FormBuilderService,
     DigIdService,
     ModalService,
@@ -168,6 +167,7 @@ let FundActivateComponent = function(
             // digid sign-in flow
             if ($stateParams.digid_success == 'signed_up' || $stateParams.digid_success == 'signed_in') {
                 PushNotificationsService.success('Succes! Ingelogd met DigiD.');
+                sessionStorage.setItem('__last_timestamp', new Date().getTime());
 
                 // user vouchers
                 let vouchers = $ctrl.vouchers;
@@ -357,7 +357,6 @@ module.exports = {
         'FundService',
         'AuthService',
         'PushNotificationsService',
-        'PrevalidationService',
         'FormBuilderService',
         'DigIdService',
         'ModalService',
