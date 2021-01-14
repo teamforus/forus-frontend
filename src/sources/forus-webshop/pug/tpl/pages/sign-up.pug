@@ -39,7 +39,7 @@ header.section.section-sign-up-choose
 
         //- Fund request information
         div(ng-if="$ctrl.state == 'auth'")
-            .sign_up-pane
+            .sign_up-pane(ng-show="!$ctrl.authForm.autofill")
                 .sign_up-pane-header(translate="fund_request.sign_up.header.title")
 
                 .sign_up-pane-body(ng-if="!$ctrl.hasApp")
