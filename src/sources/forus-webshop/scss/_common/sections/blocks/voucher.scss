@@ -45,7 +45,7 @@
                         display: inline-flex;
                         color: $bc;
                         align-items: center;
-    
+
                         .action-item-icon {
                             width: 40px;
                             height: 40px;
@@ -60,7 +60,7 @@
                             cursor: pointer;
                             position: relative;
                             margin-bottom: 7.5px;
-    
+
                             .action-item-tooltip {
                                 opacity: 0;
                                 user-select: none;
@@ -79,7 +79,7 @@
                                 transform: translate3d(-50%, 0, 0) scale3d(0, 0, 0);
                                 box-shadow: 2px 5px 35px rgba(0, 0, 0, 0.15);
                                 transition: 0.5s;
-    
+
                                 &:after {
                                     left: 50%;
                                     position: absolute;
@@ -92,37 +92,37 @@
                                 }
                             }
                         }
-    
+
                         .action-item-name {
                             color: #000;
                             font: 600 12px $bf;
                             transition: color 0.4s;
                             margin: 0 3px;
                         }
-    
+
                         &:last-child {
                             margin-right: 0;
                         }
-    
+
                         &:hover {
                             .action-item-icon {
                                 background-color: $color_primary;
                                 border: 1px solid $color_primary;
                                 color: #fff;
-    
+
                                 .action-item-tooltip {
                                     opacity: 1;
                                     visibility: visible;
                                     transform: translate3d(-50%, 0, 0) scale3d(1, 1, 1);
                                 }
                             }
-    
+
                             .action-item-name {
                                 color: $color_primary;
                             }
                         }
                     }
-    
+
                     &.card-actions-center {
                         justify-content: center;
                     }
@@ -318,16 +318,13 @@
                         }
                     }
                 }
+
                 .card-body {
                     .card-title {
                         font: 600 24px $bf;
                         color: #272525;
                         margin-bottom: 10px;
                     }
-                }
-
-                .card-footer {
-                    /*flex-direction: row;*/
                 }
             }
         }
@@ -348,12 +345,6 @@
 
         &:last-child {
             margin-bottom: 0;
-        }
-    }
-
-    &.block-info-card {
-        .block-header .card-read_more {
-            float: right;
         }
     }
 
@@ -622,7 +613,7 @@
                                     justify-content: flex-start;
                                     flex-direction: unset;
                                     width: 100%;
-    
+
                                     .action-item-icon {
                                         background-color: unset;
                                         width: 30px;
@@ -631,7 +622,7 @@
                                         border-radius: 40px;
                                         margin: 0 10px 0 0;
                                     }
-    
+
                                     &:hover {
                                         .action-item-icon {
                                             color: #fff;
@@ -639,7 +630,7 @@
                                         }
                                     }
                                 }
-    
+
                                 &:last-child {
                                     margin-bottom: 0;
                                 }
@@ -665,22 +656,6 @@
                         flex-direction: column-reverse;
                     }
                 }
-            }
-        }
-
-        &.block-map_card {
-            .map_card-header .map_card-title {
-                font-size: 14px;
-            }
-        }
-
-        &.block-info-card {
-            .block-header {
-                font-size: 14px;
-            }
-
-            .card-read_more {
-                font-size: 12px;
             }
         }
     }

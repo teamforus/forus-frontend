@@ -112,7 +112,7 @@ let ProductComponent = function(
             fund.meta.isApplicable = fund.meta.applicableBudgetVouchers.length > 0;
             fund.meta.isApplicableSubsidy = fund.meta.applicableSubsidyVouchers.length > 0;
             
-            fund.shownExpireDate = product_expire_at.isAfter(fund_expire_at) ? 
+            fund.shownExpireDate = !$ctrl.product.expire_at || product_expire_at.isAfter(fund_expire_at) ? 
                 fund.end_at_locale : $ctrl.product.expire_at_locale;
         })
 
