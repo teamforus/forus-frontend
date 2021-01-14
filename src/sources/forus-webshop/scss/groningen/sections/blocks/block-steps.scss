@@ -4,7 +4,8 @@ $bf: 'Verdana', arial, sans-serif;
     .block-steps-description {
         font: 400 16px/28px $bf;
         text-align: left;
-        width: unset;
+        max-width: 70%;
+        float: left;
 
         ul, ol {
 
@@ -15,6 +16,14 @@ $bf: 'Verdana', arial, sans-serif;
 
         p {
             font: 400 16px/28px $bf;
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    .block.block-steps {
+        .block-steps-description {
+            max-width: 100%;
         }
     }
 }
