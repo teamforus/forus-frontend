@@ -93,13 +93,13 @@
                         .app_download-row
                             .app_download-media: img(ng-src="./assets/img/sign_up_me.svg")
                             .app_download-content.form
-                                h4.app_download-heading Selecteer je apparaat
+                                h4.app_download-heading Selecteer uw apparaat
                                 select(placeholder="amigo" ng-model="$ctrl.selectedOption").form-control
-                                    option(value="") Selecteer je apparaat
+                                    option(value="") Selecteer uw apparaat
                                     option(value="iphone") iPhone
-                                    option(value="android") Android
+                                    option(value="android-phone") Android smartphone
+                                    option(value="android-tablet") Android tablet
                                     option(value="ipad") iPad
-                                    option(value="other") Anders
 
                         //- Not selected
                         .app_download-row(ng-if="!$ctrl.selectedOption"): h4.app_download-heading Of:
@@ -110,8 +110,9 @@
                                 span.app_download-link(ng-click="$ctrl.appDownloadSkip = true") ga verder >
 
                         //- Android or iPhone
-                        .app_download-row(ng-if="$ctrl.selectedOption == 'iphone' || $ctrl.selectedOption == 'android'"): .app_download-col
-                            .app_download-row: h4.app_download-heading Download uit app store
+                        .app_download-row(ng-if="$ctrl.selectedOption == 'iphone' || $ctrl.selectedOption == 'android-phone'"): .app_download-col
+                            .app_download-row(ng-if="$ctrl.selectedOption == 'iphone'"): h4.app_download-heading Download uit app store
+                            .app_download-row(ng-if="$ctrl.selectedOption == 'android-phone'"): h4.app_download-heading Download uit play store
                             .app_download-row
                                 a.app_download-store_icon(
                                     ng-if="$ctrl.selectedOption == 'iphone'"
@@ -119,14 +120,14 @@
                                     img(ng-src="./assets/img/icon-app-ios.svg")
 
                                 a.app_download-store_icon(
-                                    ng-if="$ctrl.selectedOption == 'android'"
+                                    ng-if="$ctrl.selectedOption == 'android-phone'"
                                     href="{{ $root.appConfigs.android_link }}" target="_blank")
                                     img(ng-src="./assets/img/icon-app-android.svg")  
 
                                 .app_download-col.flex-center
                                     span.app_download-link.text-muted(ng-click="$ctrl.appDownloadSkip = true") Ga verder >
 
-                            .app_download-row: h4.app_download-heading Of stuur een downloadlink direct naar je telefoon
+                            .app_download-row: h4.app_download-heading Of stuur een downloadlink direct naar uw telefoon
                             .app_download-row: .app_download-col
                                 label.form-label Mobiele telefoonnummer
                                 phone-control(ng-model="phoneForm.values.phone" cant-delete-length="2").visible-md.visible-lg
@@ -138,15 +139,19 @@
                                     ng-click="$ctrl.sendSms()"
                                     translate="sign_up_provider.download.download_link")
 
-                        //- iPad
-                        .app_download-row(ng-if="$ctrl.selectedOption == 'ipad'"): .app_download-col
-                            .app_download-row: h4.app_download-heading Download uit app store
+                        //- iPad or android tablet
+                        .app_download-row(ng-if="$ctrl.selectedOption == 'ipad' || $ctrl.selectedOption == 'android-tablet'"): .app_download-col
+                            .app_download-row(ng-if="$ctrl.selectedOption == 'ipad'"): h4.app_download-heading Download uit app store
+                            .app_download-row(ng-if="$ctrl.selectedOption == 'android-tablet'"): h4.app_download-heading Download uit play store
                             .app_download-row
                                 a.app_download-store_icon(
                                     ng-if="$ctrl.selectedOption == 'ipad'"
                                     href="{{ $root.appConfigs.ios_ipad_link }}" target="_blank")
                                     img(ng-src="./assets/img/icon-app-ios.svg")
-                                
+                                a.app_download-store_icon(
+                                    ng-if="$ctrl.selectedOption == 'android-tablet'"
+                                    href="{{ $root.appConfigs.android_link }}" target="_blank")
+                                    img(ng-src="./assets/img/icon-app-android.svg")  
                                 .app_download-col.flex-center
                                     span.app_download-link.text-muted(ng-click="$ctrl.appDownloadSkip = true") Ga verder >
                             
@@ -168,16 +173,6 @@
                                             ng-click="$ctrl.sendEmail()") verstuur e-mail
                                 //- Form errors
                                 .app_download-form_group: .form-error(ng-repeat="error in emailForm.errors.email" ng-bind="error")
-
-                        //- Other
-                        .sign_up-pane-col(ng-if="$ctrl.selectedOption == 'other'")
-                            .app_download-row: h4.app_download-heading.text-danger Onze app is niet beschikbaar voor alle apparaten
-                            p.app_download-text
-                                | Als u geen app ziet voor uw apparaat, kunt u kijken of u de app kunt vinden via onze mobiele website. 
-                                | Typ forus.io/dl in uw mobiele browser (Safari, Chrome, etc)
-                            p.app_download-text: a.sign_up-pane-link.text-muted(
-                                href="{{ $root.appConfigs.supported_devices_link }}" 
-                                _target="_blank") Leer meer over welke apparaten ondersteunt worden > 
 
                         //- Use email instead
                         .app_download-row
@@ -231,7 +226,7 @@
                     .sign_up-pane-auth
                         .sign_up-pane-auth-content
                             .sign_up-pane-text
-                                | 1. Installeer de Me app <br/>
+                                | 1. Installeer de Me-app <br/>
                                 | 2. Open de Me app en meld u aan <br/>
                                 | 3. Scan de QR-code aan de rechterkant met de QR scanner in de Me app <br/>
                             br
