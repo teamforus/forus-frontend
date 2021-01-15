@@ -1,8 +1,10 @@
 &.block-dashboard-switcher {
+    height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
-
+    align-items: flex-end;
+    
     .switcher-wrapper {
         position: relative;
         display: inline-flex;
