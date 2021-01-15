@@ -105,8 +105,14 @@ let BaseController = function(
             $rootScope.viewLayout = 'signup';
         }
     });
+    
+    let $i18n = $filter('i18n');
+    let implementationName = $i18n('implementation_name.' + appConfigs.client_key);
 
-    $rootScope.pageTitle = $filter('translate')('page_title');
+    $rootScope.pageTitle = $i18n('page_state_titles.home', {
+        implementation: implementationName
+    });
+    
     $rootScope.client_key = appConfigs.client_key;
 
     $window.onbeforeunload = function(event) {
