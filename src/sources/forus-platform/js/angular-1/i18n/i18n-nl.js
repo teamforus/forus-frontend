@@ -354,7 +354,7 @@ module.exports = {
             title: "Titel",
             description: "Uitlegpagina content",
             more_info: "Externe uitleg URL",
-            privacy_page: "Privacy content"
+            description_privacy: "Privacy content"
         },
         buttons: {
             cancel: "Annuleren",

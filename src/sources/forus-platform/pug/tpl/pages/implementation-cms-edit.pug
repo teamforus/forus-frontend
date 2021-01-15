@@ -42,9 +42,9 @@
             .card-section.card-section-primary
                 .row: .col.col-lg-9
                     .form-group.form-group-inline.tooltipped
-                        label.form-label(translate="implementation_edit.labels.privacy_page")
-                        .form-offset: markdown(ng-model="$ctrl.form.values.privacy_page" extended-options="true")
-                        .form-error(ng-repeat="error in $ctrl.form.errors.privacy_page" ng-bind="error")
+                        label.form-label(translate="implementation_edit.labels.description_privacy")
+                        .form-offset: markdown(ng-model="$ctrl.form.values.description_privacy" extended-options="true")
+                        .form-error(ng-repeat="error in $ctrl.form.errors.description_privacy" ng-bind="error")
 
             .card-section.card-section-primary: .text-center
                 button(type="button" ui-sref="implementation-view({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})" translate="funds_edit.buttons.cancel").button.button-default
