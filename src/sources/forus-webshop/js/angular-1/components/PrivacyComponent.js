@@ -11,8 +11,8 @@ let PrivacyComponent = function(
             if (_appConfigs.features && _appConfigs.features.settings) {
                 $ctrl.appConfigs = _appConfigs;
 
-                $ctrl.privacy_page_html = $sce.trustAsHtml(
-                    $ctrl.appConfigs.features.settings.privacy_page_html
+                $ctrl.description_privacy_html = $sce.trustAsHtml(
+                    $ctrl.appConfigs.features.settings.description_privacy_html
                 );
             }
         }, true);
