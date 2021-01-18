@@ -71,7 +71,7 @@ section.section.section-product: .wrapper
                         
                         //- budget price
                         .fund-item-section-value(
-                            ng-if="(fund.type == 'budget') && $ctrl.product.price_type === 'regular' || $ctrl.product.price_type === 'free'" 
+                            ng-if="fund.type == 'budget' && ($ctrl.product.price_type === 'regular' || $ctrl.product.price_type === 'free')" 
                             ng-bind="$ctrl.product.price_locale")
                             
                         .fund-item-section-value(
