@@ -27,7 +27,7 @@ let SignUpComponent = function(
             email: '',
             target: target,
         }, async (form) => {
-            if (appConfigs.flags.privacyPage && !form.values.privacy) {
+            if (!$ctrl.authForm.autofill && appConfigs.flags.privacyPage && !form.values.privacy) {
                 return form.unlock();
             }
 

@@ -27,7 +27,7 @@ let ProductApplyComponent = function(
 
     $ctrl.applyForProduct = (voucher) => {
         let fund_expire_at = moment(voucher.fund.end_date);
-        let product_expire_at = ctrl.product.expire_at ? moment($ctrl.product.expire_at) : false;
+        let product_expire_at = $ctrl.product.expire_at ? moment($ctrl.product.expire_at) : false;
 
         let expire_at = product_expire_at && fund_expire_at.isBefore(product_expire_at) ? voucher.last_active_day_locale : $ctrl.product.expire_at_locale;
 

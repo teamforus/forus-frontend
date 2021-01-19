@@ -50,7 +50,7 @@ let FundRequestsComponent = function(
         values: {},
         defaultValues: {
             page: 1,
-            per_page: 1,
+            per_page: 10,
             q: '',
             state: $ctrl.states[0].key,
             employee_id: null,
@@ -89,16 +89,14 @@ let FundRequestsComponent = function(
         }, console.error);
     };
 
-    let reloadRequests = (query = false) => {
-        if (query) {
-            $ctrl.filters.values = query;
-        }
-        let _query = JSON.parse(JSON.stringify($ctrl.filters.values));
-
-        FundRequestValidatorService.indexAll($ctrl.organization.id, Object.assign(_query, {
-            from: _query.from ? DateService._frontToBack(_query.from) : null,
-            to: _query.to ? DateService._frontToBack(_query.to) : null,
-        })).then(function(res) {
+    let reloadRequests = (query) => {
+        FundRequestValidatorService.indexAll($ctrl.organization.id, {
+            ...query,
+            ...{
+                from: query.from ? DateService._frontToBack(query.from) : null,
+                to: query.to ? DateService._frontToBack(query.to) : null,
+            }
+        }).then(function(res) {
             $ctrl.validatorRequests = $ctrl.updateSelfAssignedFlags(res.data);
         }, console.error);
     };
@@ -255,8 +253,8 @@ let FundRequestsComponent = function(
             fundRequest: fundRequest,
             organization: $ctrl.organization,
             onAppend: () => {
-                PushNotificationsService.success('Gelukt! New record attached and approved.');
-                reloadRequests();
+                PushNotificationsService.success('Gelukt! Eigenschap toegevoegd.');
+                reloadRequests($ctrl.filters.values);
             }
         });
     };
@@ -319,7 +317,7 @@ let FundRequestsComponent = function(
                 });
 
                 $ctrl.filters.values.employee_id = $ctrl.employees[0].id;
-                reloadRequests();
+                reloadRequests($ctrl.filters.values);
             });
         });
     };
@@ -367,9 +365,7 @@ let FundRequestsComponent = function(
     };
 
     $ctrl.onPageChange = (query) => {
-        if ($ctrl.filters.values.page !== query.page) {
-            reloadRequests(query);
-        }
+        reloadRequests(query);
     };
 };
 

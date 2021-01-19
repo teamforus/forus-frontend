@@ -74,14 +74,15 @@
             .product-provider {
                 font: 700 16px/24px $bf;
                 color: #626161;
+                @include ellipsis();
             }
         }
     }
 
     @media screen and (max-width: 1000px) {
         .product-item {
-            width: 50%;
-            max-width: 50%;
+            width: 100%;
+            max-width: 100%;
 
             .product-item-inner {
                 .product-details {

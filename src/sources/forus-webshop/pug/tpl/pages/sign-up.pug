@@ -62,11 +62,11 @@ header.section.section-sign-up-choose
                                 |  Ik heb de #[a.text-primary-light.sign_up-pane-link(ui-sref="privacy") privacyverklaring] gelezen
 
                     .sign_up-pane-link(
-                        ng-if="$ctrl.digidAvailable" 
+                        ng-if="$ctrl.digidAvailable && !$root.appConfigs.flags.disableDigidRestoreOption" 
                         ng-click="$ctrl.setRestoreWithDigiD()" 
                         translate="fund_request.sign_up.labels.restore_with_digid")
 
-                    br(ng-if="$ctrl.digidAvailable")
+                    br(ng-if="$ctrl.digidAvailable && !$root.appConfigs.flags.disableDigidRestoreOption")
 
                     .sign_up-pane-link(
                         ng-click="$ctrl.setHasAppProp(true)" 
