@@ -7,9 +7,9 @@
 
     &.section-footer {
         padding: 30px 0 0;
-        background-color: $fc;
+        background-color: $fbc;
         margin-top: 0;
-        color: $tc-var;
+        color: $fc;
     }
 
     @media screen and (max-width: 1000px) {
@@ -114,6 +114,13 @@
 
     &.block-footer {
         margin-bottom: 40px;
+
+        .block-app_download {
+            img {
+                height: 40px;
+                width: 135px;
+            }
+        }
 
         .footer-logo {
             width: 140px;

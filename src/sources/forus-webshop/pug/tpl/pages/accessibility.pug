@@ -9,8 +9,8 @@ section.section.section-details: .wrapper
     .block.block-accessibility
         .block-text
             p.description Gemeente {{ $ctrl.vars.organization_name }} streeft naar het toegankelijk maken van de eigen online informatie en dienstverlening, in overeenstemming met Tijdelijk besluit digitale toegankelijkheid overheid.
-            p.description Deze toegankelijkheidsverklaring is van toepassing op de inhoud van de website Meedoen-regeling {{ $ctrl.vars.organization_name }} die valt binnen de werkingssfeer van Tijdelijk besluit digitale toegankelijkheid overheid.
-            p.description De links waarop de inhoud van de website Meedoen-regeling {{ $ctrl.vars.organization_name }} te vinden is:
+            p.description Deze toegankelijkheidsverklaring is van toepassing op de inhoud van de website {{ $ctrl.vars.implementation_name}} {{ $ctrl.vars.organization_name }} die valt binnen de werkingssfeer van Tijdelijk besluit digitale toegankelijkheid overheid.
+            p.description De links waarop de inhoud van de website {{ $ctrl.vars.implementation_name}}  {{ $ctrl.vars.organization_name }} te vinden is:
                 ul
                     li het hoofddomein:
                     ul
@@ -31,7 +31,7 @@ section.section.section-details: .wrapper
 
         .block-text
             .title Opstelling van deze verklaring
-            .description Deze verklaring is opgesteld op 07-02-2020 met instemming van de verantwoordelijke bestuurder van Gemeente {{ $ctrl.vars.organization_name }}, #[span(translate="accessibility.{{ $root.client_key }}.employee")]
+            .description Deze verklaring is opgesteld op 07-02-2020 met instemming van de verantwoordelijke bestuurder van Gemeente {{ $ctrl.vars.organization_name }}
             .description De actualiteit, volledigheid en juistheid van deze verklaring zijn voor het laatst herzien op 01-01-2020.
 
         .block-text
@@ -39,7 +39,7 @@ section.section.section-details: .wrapper
             .description Loopt u tegen een toegankelijkheidsprobleem aan? Of heeft u een vraag of opmerking over toegankelijkheid?
             .description Neem dan contact op via 
                 a(href="mailto:{{ $ctrl.vars.contact_email }}") {{ $ctrl.vars.organization_name }} 
-                | of 14024
+                | of {{ $ctrl.vars.telephone_numer }}
 
         .block-text
             .title Wat kunt u van ons verwachten?
@@ -57,7 +57,7 @@ section.section.section-details: .wrapper
         .block-text
             .title Toelichting op de naleving status  
             .description In deze paragraaf wordt de claim dat gedeeltelijk aan de in Tijdelijk besluit digitale toegankelijkheid overheid gestelde eisen is voldaan nader onderbouwd.
-            .description De website Meedoen-regeling Nijmegen is onderzocht op toegankelijkheid en uit de rapportage blijkt volgens Gemeente Nijmegen dat aan alle onderstaande kenmerken is voldaan:
+            .description De website {{ $ctrl.vars.implementation_name }} {{ $ctrl.vars.organization_name }} is onderzocht op toegankelijkheid en uit de rapportage blijkt volgens Gemeente {{ $ctrl.vars.organization_name }} dat aan alle onderstaande kenmerken is voldaan:
             ol
                 li het onderzoek omvat alle inhoud die volgens Tijdelijk besluit digitale toegankelijkheid overheid toegankelijk moet worden gemaakt;
                 li het onderzoek is gebaseerd op meet- en onderzoeksgegevens die niet ouder zijn dan 12 maanden;

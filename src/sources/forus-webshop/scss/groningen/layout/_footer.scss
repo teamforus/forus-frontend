@@ -5,12 +5,12 @@
         
         a {
             font: 400 16px/1.5em $bf;
-            color: $tc-var;
+            color: $fc;
             text-decoration: underline;
 
             &:hover {
                 text-decoration: none;
-                color: $tc-var;
+                color: $fc;
             }
         }
               

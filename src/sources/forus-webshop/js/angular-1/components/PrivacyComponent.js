@@ -1,20 +1,28 @@
 let PrivacyComponent = function(
+    $scope,
+    $sce,
     appConfigs
 ) {
     let $ctrl = this;
 
     $ctrl.$onInit = () => {
-        $ctrl.vars = {
-            'groningen': {
-                'organization_name': 'Groningen',
-                'website': 'https://gemeente.groningen.nl/privacyverklaring',
+        $scope.appConfigs = appConfigs;
+        $scope.$watch('appConfigs', (_appConfigs) => {
+            if (_appConfigs.features && _appConfigs.features.settings) {
+                $ctrl.appConfigs = _appConfigs;
+
+                $ctrl.description_privacy_html = $sce.trustAsHtml(
+                    $ctrl.appConfigs.features.settings.description_privacy_html
+                );
             }
-        }[appConfigs.client_key];
+        }, true);
     };
 }
 
 module.exports = {
     controller: [
+        '$scope',
+        '$sce',
         'appConfigs',
         PrivacyComponent
     ],
