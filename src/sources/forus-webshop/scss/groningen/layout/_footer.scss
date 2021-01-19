@@ -3,6 +3,17 @@
     &.block-footer {
         padding: 20px 0;
         
+        a {
+            font: 400 16px/1.5em $bf;
+            color: $tc-var;
+            text-decoration: underline;
+
+            &:hover {
+                text-decoration: none;
+                color: $tc-var;
+            }
+        }
+              
         .footer-label {
             color: $tc-var;
             margin-bottom: 15px;
@@ -41,9 +52,7 @@
         }
 
         .footer-nav {
-
             .footer-nav-item {
-        
                 a {
                     font: 400 16px/1.5em $bf;
                     color: $tc-var;
