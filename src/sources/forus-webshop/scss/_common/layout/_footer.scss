@@ -80,7 +80,7 @@
             a {
                 float: left;
                 font: inherit;
-                color: $color_default;
+                color: $fc-link;
                 margin-right: 30px;
                 display: block;
                 transition: .4s;
@@ -90,7 +90,7 @@
                 }
 
                 &:hover {
-                    color: #2987fd;
+                    color: $fc-link-hover;
                 }
             }
         }
@@ -102,11 +102,11 @@
 
             a {
                 font: inherit;
-                color: $color_default;
+                color:$fc-link;
                 transition: .4s;
 
                 &:hover {
-                    color: #2987fd;
+                    color: $fc-link-hover;
                 }
             }
         }
@@ -144,12 +144,12 @@
                 margin-bottom: 10px;
 
                 a {
-                    color: $color_default;
+                    color:$fc-link;
                     font: 700 14px/24px $bf;
                     transition: color .4s;
 
                     &:hover {
-                        color: #2987fd;
+                        color: $fc-link-hover;
                     }
                 }
 
