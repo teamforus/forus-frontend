@@ -6,42 +6,4 @@ section.section.section-details: .wrapper
         .breadcrumb-item.active(i18n="Privacyverklaring")
     .section-title.text-left(translate="Privacyverklaring")
 
-    .block.block-accessibility
-        .block-text
-           p.description De volgende gegevens hebben wij nodig als je gebruik maakt van de Stadjerspas. Deze gegevens staan in je account en niet op het pasje zelf.
-
-        .block-text
-            .title E-mailadres
-            .description Deze is nodig om je account aan te maken en te zorgen dat je straks toegang hebt tot je account.
-                
-        .block-text
-            .title Burgerservicenummer (BSN)
-            .description Hiermee zoeken wij jouw gegevens op en hoef je niet steeds opnieuw je gegevens in te vullen.
-
-        .block-text
-            .title Naam, adres, woonplaats (NAW)
-            .description Om een pas naar je huis te sturen als je er een aanvraagt.
-
-        .block-text
-            .title Inkomensgegevens
-            .description Hiermee kunnen wij zien of jij recht hebt op een Stadjerspas.
-
-        .block-text
-            .title Aantal kinderen
-            .description Thuiswonende kinderen tot 18 jaar worden automatisch bijgeschreven op je account.
-
-        .block-text
-            .title Stadjerspas uitgaven en tegoeden 
-            .description Hiermee kun je zelf zien wat je hebt gebruikt en hoeveel tegoed je nog over hebt. Ook de aanbieder en de gemeente Groningen zien wat er is verbruikt. Maar zij kunnen niet zien dat dit jouw uitgaven zijn.
-        
-        .block-text
-            .title Berichten ontvangen over uw Stadjerspas
-            .description Wij houden je graag op de hoogte van jouw gebruik. Zijn je tegoeden bijna op? Dan krijg je een bericht van ons. Altijd handig! Natuurlijk kun je dit zelf uitzetten als je deze berichten niet wilt.
-        
-        .block-text
-            .title Inzicht in jouw gegevens
-            .description Je hebt altijd het recht om je persoonlijke gegevens te bekijken, aan te passen en/of te verwijderen. Je kunt je persoonlijk gegevens die je hebt ingevuld terugvinden op je Stadjerspas account.
-        
-        .block-text 
-            .title Wil je meer weten of heb je vragen?
-            .description Bekijk de #[a(href="https://gemeente.groningen.nl/privacyverklaring" target="_blank") algemene privacyverklaring] van de gemeente Groningen. Voor vragen kun je bellen met de gemeente Groningen via tel: 14 050.
+    .block.block-markdown(ng-bind-html="$ctrl.description_privacy_html")

@@ -51,6 +51,13 @@
             .card-section.card-section-primary
                 .row: .col.col-lg-9
                     .form-group.form-group-inline.tooltipped
+                        label.form-label(translate="implementation_edit.labels.description_privacy")
+                        .form-offset: markdown(ng-model="$ctrl.form.values.description_privacy" extended-options="true")
+                        .form-error(ng-repeat="error in $ctrl.form.errors.description_privacy" ng-bind="error")
+
+            .card-section.card-section-primary
+                .row: .col.col-lg-9
+                    .form-group.form-group-inline.tooltipped
                         label.form-label Contactgegevens
                         .form-offset: markdown(ng-model="$ctrl.form.values.description_contact_details" extended-options="true")
 
