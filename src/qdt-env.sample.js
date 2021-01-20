@@ -509,6 +509,7 @@ module.exports = (core) => {
             support_id: "15870000001861118?orgId=20065804523",
             log_out_time: autoLogOutTime,
             matomo_site_id: false,
+            provider_sign_up_filters: {},
             flags: {},
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
