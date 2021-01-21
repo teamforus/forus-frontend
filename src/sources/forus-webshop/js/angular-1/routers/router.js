@@ -88,7 +88,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         component: "signUpComponent",
         params: {
             confirmed: null,
-            digid_error: null
+            digid_error: null,
+            email_address: null,
         },
         resolve: {
             funds: ['FundService', (

@@ -11,7 +11,7 @@
                 .form-label E-mailadres
                 .block-login-control
                     .flex.form-group
-                        input(type="email" placeholder="bijv. info@info.nl" ng-model="form.values.email").form-control
+                        input(type="email" placeholder="bijv. info@info.nl" ng-model="form.values.email" autofocus).form-control
                         .form-error(ng-repeat="error in form.errors.email" ng-bind="error")
                     .flex: button.button.button-primary(type="submit") Login
 
@@ -25,9 +25,9 @@
                     | #[br] #[br]
 
                 .qr_code-download-app
-                    a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").download-link
+                    a(href="{{ $root.appConfigs.ios_iphone_link }}").download-link
                         img(src="./assets/img/landing/icon-app-ios.svg")
-                    a(href="https://play.google.com/store/apps/details?id=io.forus.me").download-link
+                    a(href="{{ $root.appConfigs.android_link }}").download-link
                         img(src="./assets/img/landing/icon-app-android.svg")
 
             .qr_code-block

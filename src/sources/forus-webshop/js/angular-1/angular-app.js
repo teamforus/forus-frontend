@@ -78,7 +78,7 @@ app.service('GoogleMapService', require('./services/GoogleMapService'));
 app.service('ConfigService', require('./services/ConfigService'));
 app.service('ModalService', require('./services/ModalService'));
 app.service('BrowserService', require('./services/BrowserService'));
-app.service('SmsService', require('./services/SmsService'));
+app.service('ShareService', require('./services/ShareService'));
 app.service('PrintableService', require('./services/PrintableService'));
 app.service('BusinessTypeService', require('./services/BusinessTypeService'));
 app.service('EmailPreferencesService', require('./services/EmailPreferencesService'));

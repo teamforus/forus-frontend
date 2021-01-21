@@ -24,7 +24,9 @@
 @import 'components/labels';
 @import 'components/flex-grid';
 
-@import '../../../forus-webshop/scss/_common/components/ui-controls';
+$borderRadius: $border_radius;
+$colorPrimary: $color_primary;
+$colorPrimaryLight: $color_primary_light;
 
 // blocks
 .block {
@@ -40,14 +42,22 @@
     @import 'blocks/block-breadcrumbs';
     @import 'blocks/block-provider-product';
     @import 'blocks/block-notifications';
+    @import '../../../forus-webshop/scss/_common/components/ui-controls';
     @import '../../../forus-webshop/scss/_common/sections/blocks/block-sign_up';
     @import 'blocks/block-fund_types';
     @import 'blocks/block-subsidy-editor';
+    @import 'blocks/block-dashboard-switcher';
+    @import 'blocks/block-app_download';
 }
 
-$borderRadius: $border_radius;
-$colorPrimary: $color_primary;
-$colorPrimaryLight: $color_primary_light;
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
 
 .hover-actions {
     position: relative;
@@ -122,6 +132,8 @@ $colorPrimaryLight: $color_primary_light;
 }
 
 .app {
+    flex: 1 0 auto;
+
     &.app-header {
         padding: 30px 0;
         position: relative;
@@ -596,6 +608,7 @@ $colorPrimaryLight: $color_primary_light;
     }
 
     &.app-container {
+        margin-bottom: 40px;
         @extend .wrapper;
         @include cf();
     }
@@ -721,6 +734,13 @@ $colorPrimaryLight: $color_primary_light;
         width: calc(100% - 320px);
         float: left;
         padding: 10px 0;
+    }
+
+    &.app-footer {
+        width: 100%;
+        text-align: center;
+        padding: 25px 0;
+        flex-shrink: 0;
     }
 
     @media screen and (max-width: 1300px) {

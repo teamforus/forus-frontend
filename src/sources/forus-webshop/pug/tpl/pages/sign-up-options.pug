@@ -11,11 +11,15 @@ section.section.section-details: .wrapper
                 | Lees de instructie in elke stap goed door.
             
             p.block-description
-                a(href="{{ $ctrl.appConfigs.features.fronts.url_provider + 'sign-up' }}").button.button-primary-outline Aanmelden
+                a(href="{{ $ctrl.signUpUrl + 'sign-up' + $ctrl.signUpUrlParams }}").button.button-primary-outline Aanmelden
 
             .block-notice
                 | Heeft u al een account? 
-                a(href="{{ $ctrl.appConfigs.features.fronts.url_provider }}") Log dan in
+                a(href="{{ $ctrl.signUpUrl }}") Log dan in
             
 
         .sign_up-images: .sign_up-image: img(src="assets/img/provider-sign_up-preview.svg")
+
+    
+    .block.block-steps(ng-if="$ctrl.description_providers_html"): .wrapper
+        .block-steps-description: .block.block-markdown(ng-bind-html="$ctrl.description_providers_html")    

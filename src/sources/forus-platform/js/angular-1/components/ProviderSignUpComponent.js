@@ -1,4 +1,4 @@
-let ProviderSignUpComponent = function(
+const ProviderSignUpComponent = function(
     $q,
     $state,
     $stateParams,
@@ -11,7 +11,7 @@ let ProviderSignUpComponent = function(
     FormBuilderService,
     OrganizationEmployeesService,
     MediaService,
-    SmsService,
+    ShareService,
     DemoTransactionService,
     ProviderFundService,
     AuthService,
@@ -59,6 +59,7 @@ let ProviderSignUpComponent = function(
     $ctrl.signedIn = AuthService.hasCredentials();
     $ctrl.organization = null;
     $ctrl.hasApp = true;
+    $ctrl.selectedOption = "";
     $ctrl.authEmailSent = false;
     $ctrl.authEmailRestoreSent = false;
 
@@ -66,7 +67,8 @@ let ProviderSignUpComponent = function(
     $ctrl.showLoginBlock = false;
     $ctrl.offices = [];
     $ctrl.employees = [];
-    $ctrl.sentSms = false;
+    $ctrl.shareSmsSent = false;
+    $ctrl.shareEmailSent = false;
     $ctrl.fundsAvailable = [];
 
     $ctrl.showAddOfficeBtn = true;
@@ -289,10 +291,15 @@ let ProviderSignUpComponent = function(
         $scope.phoneForm = FormBuilderService.build({
             phone: "06"
         }, function(form) {
-            return SmsService.send({
+            return ShareService.sendSms({
                 phone: "+31" + form.values.phone.substr(1),
-                type: 'me_app_download_link'
             });
+        }, true);
+
+        $scope.emailForm = FormBuilderService.build({
+            email: ""
+        }, function(form) {
+            return ShareService.sendEmail(form.values);
         }, true);
 
         $ctrl.businessType = $ctrl.businessTypes.filter(
@@ -566,20 +573,36 @@ let ProviderSignUpComponent = function(
         if (promise) {
             waitingSms = true;
 
-            promise.then((res) => {
-                $ctrl.sentSms = true;
+            promise.then(() => {
+                $ctrl.shareSmsSent = true;
                 waitingSms = false;
                 $scope.phoneForm.unlock();
             }, (res) => {
                 waitingSms = false;
                 $scope.phoneForm.unlock();
-                $scope.phoneForm.errors = res.data.errors;
+                $scope.phoneForm.errors = res.data.errors || { phone: [res.data.message] };
+            });
+        }
+    };
 
-                if (res.status == 429) {
-                    $scope.phoneForm.errors = {
-                        phone: [$filter('translate')('sign_up.sms.error.try_later')]
-                    };
-                }
+    $ctrl.sendEmail = () => {
+        if (waitingSms) {
+            return;
+        }
+
+        let promise = $scope.emailForm.submit();
+
+        if (promise) {
+            waitingSms = true;
+
+            promise.then(() => {
+                $ctrl.shareEmailSent = true;
+                waitingSms = false;
+                $scope.emailForm.unlock();
+            }, (res) => {
+                waitingSms = false;
+                $scope.emailForm.unlock();
+                $scope.emailForm.errors = res.data.errors || { email: [res.data.message] };
             });
         }
     };
@@ -617,6 +640,15 @@ let ProviderSignUpComponent = function(
         }
 
         loginQrBlock.hide();
+    };
+
+    $ctrl.resetShareForms = () => {
+        $ctrl.shareSmsSent = false;
+        $ctrl.shareEmailSent = false;
+        $ctrl.appDownloadSkip = false;
+
+        $scope.emailForm.values.email = '';
+        $scope.phoneForm.values.phone = '';
     };
 
     $ctrl.showLoginQrCode = function() {
@@ -684,7 +716,7 @@ module.exports = {
         'FormBuilderService',
         'OrganizationEmployeesService',
         'MediaService',
-        'SmsService',
+        'ShareService',
         'DemoTransactionService',
         'ProviderFundService',
         'AuthService',

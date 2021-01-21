@@ -26,27 +26,37 @@ let SignUpComponent = function(
         $ctrl.authForm = FormBuilderService.build({
             email: '',
             target: target,
-        }, function(form) {
-            let resolveErrors = (res) => {
+        }, async (form) => {
+            if (!$ctrl.authForm.autofill && appConfigs.flags.privacyPage && !form.values.privacy) {
+                return form.unlock();
+            }
+
+            let handleErrors = (res) => {
                 form.unlock();
                 form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
+                $ctrl.authForm.autofill = false;
             };
 
-            IdentityService.validateEmail(form.values).then(res => {
-                if (res.data.email.used) {
-                    IdentityService.makeAuthEmailToken(form.values.email, target).then(() => {
-                        $ctrl.authEmailRestoreSent = true;
-                        $ctrl.nextStep();
-                    }, resolveErrors);
-                } else {
-                    IdentityService.make(form.values).then(() => {
-                        $ctrl.authEmailSent = true;
-                        $ctrl.nextStep();
-                    }, resolveErrors);
-                }
+            const used = !$ctrl.authForm.autofill && await new Promise((resolve) => {
+                IdentityService.validateEmail(form.values).then(res => {
+                    resolve(res.data.email.used);
+                }, handleErrors);
+            });
 
-            }, resolveErrors);
+            if (used) {
+                IdentityService.makeAuthEmailToken(form.values.email, target).then(() => {
+                    $ctrl.authEmailRestoreSent = true;
+                    $ctrl.nextStep();
+                }, handleErrors);
+            } else {
+                IdentityService.make(form.values).then(() => {
+                    $ctrl.authEmailSent = true;
+                    $ctrl.nextStep();
+                }, handleErrors);
+            }
         }, true);
+
+        $ctrl.authForm.autofill = false;
     };
 
     // Show qr code or email input
@@ -150,6 +160,12 @@ let SignUpComponent = function(
         } else {
             $ctrl.initAuthForm();
             $ctrl.setStep(1);
+
+            if ($ctrl.$transition$.params().email_address) {
+                $ctrl.authForm.values.email = $ctrl.$transition$.params().email_address;
+                $ctrl.authForm.autofill = true;
+                $ctrl.authForm.submit();
+            }
         }
     };
 
@@ -159,7 +175,8 @@ let SignUpComponent = function(
 module.exports = {
     bindings: {
         funds: '<',
-        recordTypes: '<'
+        recordTypes: '<',
+        $transition$: '<',
     },
     controller: [
         '$state',
