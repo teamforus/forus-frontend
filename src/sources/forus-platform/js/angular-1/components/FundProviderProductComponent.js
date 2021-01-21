@@ -28,8 +28,11 @@ let FundProviderProductComponent = function(
 
     $ctrl.disableProductItem = function(fundProvider, product) {
         ModalService.open("dangerZone", {
-            title: "U verwijdert hiermee het aanbod permanent uit de webshop",
-            description: "U dient aanbieders en inwoners hierover te informeren.",
+            header: "Actie stoppen",
+            title: "De actie wordt van de website verwijderd.",
+            description: "Hierna kan er van deze actie geen gebruik meer worden gemaakt.\n" +
+                "De gebruikte tegoeden blijven bewaard." +
+                "Wanneer u de actie opnieuw start, worden de gebruikte tegoeden verrekend met het nieuwe ingestelde limiet.",
             cancelButton: "Annuleer",
             confirmButton: "Stop actie",
             onConfirm: () => {

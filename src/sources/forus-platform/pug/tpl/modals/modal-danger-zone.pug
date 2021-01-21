@@ -3,6 +3,9 @@
 .modal.modal-md
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window
+        .modal-close.mdi.mdi-close(ng-if="$ctrl.header")
+        .modal-header(ng-if="$ctrl.header" ng-bind="$ctrl.header")
+
         .modal-body: .modal-section
             .block.block-danger_zone
                 .danger_zone-title
