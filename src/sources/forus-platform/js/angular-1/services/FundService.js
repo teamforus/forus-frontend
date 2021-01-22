@@ -85,7 +85,7 @@ const FundService = function(ApiRequest) {
             ), query);
         };
 
-        this.getroviderProduct = function(organization_id, fund_id, provider_id, product_id, query = {}) {
+        this.getProviderProduct = function(organization_id, fund_id, provider_id, product_id, query = {}) {
             return ApiRequest.get(sprintf(
                 uriPrefix + '%s/funds/%s/providers/%s/products/%s',
                 organization_id,
