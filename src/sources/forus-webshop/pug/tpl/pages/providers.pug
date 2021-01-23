@@ -43,7 +43,11 @@ block content
                                 ng-model="$ctrl.form.values.fund" 
                                 options="$ctrl.funds"
                                 placeholder="Selecteer tegoed...")
-                    
+
+                    br    
+                    a.button.button-dark(href="{{ $root.appConfigs.features.fronts.url_provider }}" target="_self")
+                        img(ng-src="/assets/img/store-icon.png")
+                        span Aanmelden als aanbieder
                     
                 .showcase-content
                     .showcase-content-header
