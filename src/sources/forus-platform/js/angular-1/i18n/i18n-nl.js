@@ -354,7 +354,8 @@ module.exports = {
             title: "Titel",
             description_providers: "Aanbiederpagina content",
             description: "Uitlegpagina content",
-            more_info: "Externe uitleg URL"
+            more_info: "Externe uitleg URL",
+            communication: "Aanspreekvorm"
         },
         buttons: {
             cancel: "Annuleren",

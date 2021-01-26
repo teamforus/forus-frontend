@@ -7,9 +7,12 @@ let ImplementationCmsEditComponent = function(
     let $ctrl = this;
 
     $ctrl.$onInit = () => {
+        $ctrl.implementation.informal_communication =
+            $ctrl.implementation.informal_communication ? '1' : '0';
+
         $ctrl.form = FormBuilderService.build($ctrl.implementation, (form) => {
             ImplementationService.updateCMS(
-                $rootScope.activeOrganization.id, 
+                $rootScope.activeOrganization.id,
                 $ctrl.implementation.id,
                 form.values
             ).then(res => {
