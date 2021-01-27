@@ -46,10 +46,10 @@
                 padding: 20px;
                 width: 100%;
                 border-bottom: 1px solid $border_color;
-
                 background: #fff;
                 border-radius: $border_radius;
                 box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+                margin-bottom: 30px;
 
                 .showcase-aside-block-info {
                     font: 500 12px $bf;
@@ -150,17 +150,6 @@
 
                 &:last-child {
                     border-bottom: none;
-                }
-            }
-
-            .button {
-                display: flex;
-                font: 600 14px/24px $bf;
-                margin-right: 30px;
-
-                img {
-                    display: inline-block;
-                    margin: auto 8px;
                 }
             }
         }
