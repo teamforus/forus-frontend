@@ -1,4 +1,4 @@
-.block.block-dashboard-switcher(ng-if="$root.auth_user")
+.block.block-dashboard-switcher
     .switcher-wrapper: a(
         href="{{ $root.appConfigs.frontends.url_provider }}"
         ng-class="{'active': $root.appConfigs.panel_type == 'provider'}").switcher-item Aanbieder
