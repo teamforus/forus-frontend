@@ -27,18 +27,9 @@ let FundProviderProductComponent = function(
     };
 
     $ctrl.disableProductItem = function(fundProvider, product) {
-        ModalService.open("dangerZone", {
-            header: "Actie stoppen",
-            title: "De actie wordt van de website verwijderd.",
-            description: "Hierna kan er van deze actie geen gebruik meer worden gemaakt.\n" +
-                "De gebruikte tegoeden blijven bewaard." +
-                "Wanneer u de actie opnieuw start, worden de gebruikte tegoeden verrekend met het nieuwe ingestelde limiet.",
-            cancelButton: "Annuleer",
-            confirmButton: "Stop actie",
-            onConfirm: () => {
-                product.allowed = false;
-                $ctrl.updateAllowBudgetItem(fundProvider, product);
-            }
+        FundService.stopActionConfirmationModal(() => {
+            product.allowed = false;
+            $ctrl.updateAllowBudgetItem(fundProvider, product);
         });
     };
 
