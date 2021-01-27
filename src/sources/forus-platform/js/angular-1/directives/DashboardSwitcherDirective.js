@@ -1,10 +1,4 @@
-let DashboardSwitcherDirective = function($scope){
-    $scope.hideDashboardSwitcher = false;
-    
-    $scope.$watchCollection(() => [$scope.$root.viewLayout, $scope.$root.auth_user], ([viewLayout, auth_user]) => {
-        $scope.hideDashboardSwitcher = !auth_user || viewLayout == 'signup';
-    });
-};
+let DashboardSwitcherDirective = function() { };
 
 module.exports = () => {
     return {
@@ -12,9 +6,8 @@ module.exports = () => {
         replace: true,
 
         controller: [
-            '$scope',
             DashboardSwitcherDirective
         ],
-        templateUrl: 'assets/tpl/directives/dashboard-switcher.html' 
+        templateUrl: 'assets/tpl/directives/dashboard-switcher.html'
     };
 };
