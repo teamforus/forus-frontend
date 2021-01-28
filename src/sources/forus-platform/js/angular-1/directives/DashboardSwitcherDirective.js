@@ -1,4 +1,4 @@
-let DashboardSwitcherDirective = function(){};
+let DashboardSwitcherDirective = function() { };
 
 module.exports = () => {
     return {
@@ -6,9 +6,8 @@ module.exports = () => {
         replace: true,
 
         controller: [
-            'appConfigs',
             DashboardSwitcherDirective
         ],
-        templateUrl: 'assets/tpl/directives/dashboard-switcher.html' 
+        templateUrl: 'assets/tpl/directives/dashboard-switcher.html'
     };
 };

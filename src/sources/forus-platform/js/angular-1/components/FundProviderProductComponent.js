@@ -1,4 +1,5 @@
 let FundProviderProductComponent = function(
+    $stateParams,
     FundService,
     ModalService,
     FundProviderChatService,
@@ -21,21 +22,16 @@ let FundProviderProductComponent = function(
             onApproved: (fundProvider) => {
                 PushNotificationsService.success('Opgeslagen!');
                 $ctrl.fundProvider = fundProvider;
+                $ctrl.updateProviderProduct();
                 $ctrl.$onInit();
             }
         });
     };
 
     $ctrl.disableProductItem = function(fundProvider, product) {
-        ModalService.open("dangerZone", {
-            title: "U verwijdert hiermee het aanbod permanent uit de webshop",
-            description: "U dient aanbieders en inwoners hierover te informeren.",
-            cancelButton: "Annuleer",
-            confirmButton: "Stop actie",
-            onConfirm: () => {
-                product.allowed = false;
-                $ctrl.updateAllowBudgetItem(fundProvider, product);
-            }
+        FundService.stopActionConfirmationModal(() => {
+            product.allowed = false;
+            $ctrl.updateAllowBudgetItem(fundProvider, product);
         });
     };
 
@@ -49,6 +45,8 @@ let FundProviderProductComponent = function(
         }).then((res) => {
             PushNotificationsService.success('Opgeslagen!');
             $ctrl.fundProvider = res.data.data;
+            $ctrl.updateProviderProduct();
+            $ctrl.$onInit();
         }, console.error);
     };
 
@@ -94,6 +92,17 @@ let FundProviderProductComponent = function(
         });
     };
 
+    $ctrl.updateProviderProduct = () => {
+        FundService.getProviderProduct(
+            $stateParams.organization_id,
+            $stateParams.fund_id,
+            $stateParams.fund_provider_id,
+            $stateParams.product_id,
+        ).then((res) => {
+            $ctrl.product = res.data.data;
+        });
+    }
+
     $ctrl.$onInit = function() {
         $ctrl.fundProviderProductChat = $ctrl.fundProviderProductChats[0] || null;
         $ctrl.product.allowed = $ctrl.fundProvider.products.indexOf(
@@ -111,6 +120,7 @@ module.exports = {
         product: '<'
     },
     controller: [
+        '$stateParams',
         'FundService',
         'ModalService',
         'FundProviderChatService',

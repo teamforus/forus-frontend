@@ -28,7 +28,7 @@
                                     td(ng-bind="offer.allowed ? (offer.subsidy_amount | currency_format) : '-'")
                                     td(ng-bind="offer.allowed ? (offer.subsidy_user_amount | currency_format) : '-'")
                                     td(ng-bind="offer.allowed ? offer.subsidy_user_limit : '-'")
-                                    td(ng-bind="offer.allowed ? (offer.subsidy_limit_total == 999999 ? 'Onbeperkt' : offer.subsidy_limit_total) : '-'")
+                                    td(ng-bind="offer.allowed ? (offer.subsidy_limit_total_unlimited ? 'Onbeperkt' : offer.subsidy_limit_total) : '-'")
 
                                     td.text-right
                                         .tag(
