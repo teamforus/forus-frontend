@@ -283,6 +283,7 @@ let ModalVouchersUploadComponent = function(
                         per_page: 100,
                         page: page,
                         source: 'employee',
+                        expired: 0,
                     });
                 }, 4).then(data => {
                     PushNotificationsService.success(
