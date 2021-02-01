@@ -97,6 +97,7 @@ let ModalVoucherCreateComponent = function(
                         email: form.values.email,
                         fund_id: $ctrl.fund.id,
                         source: 'all',
+                        expired: 0,
                     }).then((res) => {
                         $ctrl.close();
 
